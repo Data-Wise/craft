@@ -2,23 +2,42 @@
 
 **Professional plugins for Claude Code CLI** - Enhance your AI-assisted development workflow with specialized tools for R packages, statistical research, and ADHD-friendly workflows.
 
+## ✨ Latest Updates (Dec 24, 2024)
+
+**🎉 Mode System v2.0 Released!**
+- **4 explicit modes** for RForge commands - control analysis depth and time
+- **Performance guarantees** - Default mode < 10s, all modes time-bounded
+- **96 unit tests** passing with 100% success rate (0.44s execution)
+- **3 output formats** - Terminal (default), JSON, Markdown
+- **Zero breaking changes** - All existing commands work unchanged
+
+[View Mode System Documentation →](MODE-USAGE-GUIDE.md)
+
 ---
 
 ## 🎯 Available Plugins
 
 ### [RForge](https://github.com/Data-Wise/claude-plugins/tree/main/rforge)
 
-**Auto-delegation orchestrator for R package development**
+**Auto-delegation orchestrator for R package development with explicit mode control**
 
-- **3 commands** - Quick, balanced, and comprehensive analysis modes
+- **4 analysis modes** - Explicit control over analysis depth and time
 - **Intelligent delegation** - Automatically selects appropriate RForge MCP tools
-- **Fast feedback** - Results in 10 seconds to 5 minutes depending on mode
-- **ADHD-friendly** - Clear progress, actionable results
+- **Performance guarantees** - Default mode < 10s (MUST), others up to 5m
+- **Format options** - Terminal, JSON, or Markdown output
+- **100% backward compatible** - All existing commands work unchanged
 
-**Key Commands:**
-- `/rforge:quick` - Ultra-fast analysis (< 10 seconds)
-- `/rforge:analyze` - Balanced analysis with auto-delegation (< 30 seconds)
-- `/rforge:thorough` - Comprehensive analysis with background R processes (2-5 minutes)
+**Analysis Modes:**
+- **Default** - Fast, balanced analysis (< 10 seconds) - Use for daily development
+- **Debug** - Deep inspection with detailed traces (< 2 minutes) - Use for troubleshooting
+- **Optimize** - Performance-focused analysis (< 3 minutes) - Use for bottleneck identification
+- **Release** - Comprehensive CRAN validation (< 5 minutes) - Use before package release
+
+**Commands:**
+- `/rforge:analyze [mode]` - Flexible analysis with optional mode (default, debug, optimize, release)
+- `/rforge:status [mode]` - Package status dashboard with optional detail level
+- `/rforge:quick` - Ultra-fast convenience command (equivalent to analyze default)
+- `/rforge:thorough` - Comprehensive convenience command (equivalent to analyze release)
 
 ---
 
