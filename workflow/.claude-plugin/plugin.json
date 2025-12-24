@@ -1,0 +1,25 @@
+{
+  "name": "workflow",
+  "version": "0.1.0",
+  "description": "ADHD-friendly workflow automation with auto-delegation, brainstorming, and design pattern assistance",
+  "author": "Data-Wise",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Data-Wise/claude-plugins.git",
+    "directory": "workflow"
+  },
+  "keywords": [
+    "workflow",
+    "adhd",
+    "brainstorm",
+    "devops",
+    "frontend",
+    "backend",
+    "design-patterns",
+    "auto-delegation"
+  ],
+  "engines": {
+    "claude-code": ">=0.1.0"
+  }
+}
