@@ -37,7 +37,6 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
           # Check required files
-          test -f rforge/PLUGIN.md || (echo "❌ Missing PLUGIN.md" && exit 1)
           test -f rforge/package.json || (echo "❌ Missing package.json" && exit 1)
           test -f rforge/.claude-plugin/plugin.json || (echo "❌ Missing plugin.json" && exit 1)
           test -f rforge/README.md || (echo "❌ Missing README.md" && exit 1)
