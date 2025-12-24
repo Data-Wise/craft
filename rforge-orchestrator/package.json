@@ -4,9 +4,6 @@
   "description": "Auto-delegation orchestrator for RForge MCP tools",
   "type": "module",
   "main": "index.js",
-  "bin": {
-    "rforge-orchestrator-plugin": "./scripts/install.sh"
-  },
   "files": [
     "commands/",
     "agents/",

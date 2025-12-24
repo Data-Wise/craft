@@ -4,9 +4,6 @@
   "description": "Statistical research workflows - literature, manuscripts, and 17 A-grade skills for Claude Code",
   "type": "module",
   "main": "index.js",
-  "bin": {
-    "statistical-research-plugin": "./scripts/install.sh"
-  },
   "files": [
     "commands/",
     "skills/",
@@ -38,12 +35,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Data-Wise/statistical-research-plugin.git"
+    "url": "https://github.com/Data-Wise/claude-plugins.git",
+    "directory": "statistical-research"
   },
   "bugs": {
-    "url": "https://github.com/Data-Wise/statistical-research-plugin/issues"
+    "url": "https://github.com/Data-Wise/claude-plugins/issues"
   },
-  "homepage": "https://github.com/Data-Wise/statistical-research-plugin#readme",
+  "homepage": "https://github.com/Data-Wise/claude-plugins/tree/main/statistical-research#readme",
   "engines": {
     "node": ">=18.0.0"
   }
