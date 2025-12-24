@@ -1,0 +1,45 @@
+# Pre-commit hooks for Claude Code plugins
+# Install: pip install pre-commit
+# Setup: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # JSON validation
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-json
+        files: \.(json)$
+      - id: check-yaml
+        files: \.(yml|yaml)$
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+
+  # Validate plugin structure
+  - repo: local
+    hooks:
+      - id: validate-plugins
+        name: Validate plugin structure
+        entry: python3 scripts/validate-all-plugins.py
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: check-frontmatter
+        name: Check command frontmatter
+        entry: bash -c 'find */commands -name "*.md" -type f -exec grep -L "^name:" {} + | grep . && exit 1 || exit 0'
+        language: system
+        files: commands/.*\.md$
+
+      - id: check-package-json
+        name: Validate package.json files
+        entry: bash -c 'for f in */package.json; do echo "Checking $f"; python3 -m json.tool "$f" > /dev/null || exit 1; done'
+        language: system
+        files: package\.json$
+
+      - id: check-plugin-json
+        name: Validate plugin.json files
+        entry: bash -c 'for f in */.claude-plugin/plugin.json; do echo "Checking $f"; python3 -m json.tool "$f" > /dev/null || exit 1; done'
+        language: system
+        files: \.claude-plugin/plugin\.json$

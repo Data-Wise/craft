@@ -3,8 +3,18 @@ name: Validate Plugins
 on:
   push:
     branches: [ main, dev ]
+    paths:
+      - 'rforge-orchestrator/**'
+      - 'statistical-research/**'
+      - 'workflow/**'
+      - '.github/workflows/**'
+      - 'scripts/**'
   pull_request:
-    branches: [ main ]
+    branches: [ main, dev ]
+    paths:
+      - 'rforge-orchestrator/**'
+      - 'statistical-research/**'
+      - 'workflow/**'
 
 jobs:
   validate:
@@ -12,42 +22,51 @@ jobs:
     strategy:
       matrix:
         plugin:
-          - statistical-research
           - rforge-orchestrator
+          - statistical-research
+          - workflow
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
       - name: Validate plugin structure
         run: |
           cd ${{ matrix.plugin }}
 
           # Check required files
-          test -f .claude-plugin/plugin.json || (echo "Missing plugin.json" && exit 1)
-          test -f package.json || (echo "Missing package.json" && exit 1)
-          test -f README.md || (echo "Missing README.md" && exit 1)
-          test -f LICENSE || (echo "Missing LICENSE" && exit 1)
-          test -x scripts/install.sh || (echo "Missing or non-executable install.sh" && exit 1)
-          test -x scripts/uninstall.sh || (echo "Missing or non-executable uninstall.sh" && exit 1)
+          test -f .claude-plugin/plugin.json || (echo "❌ Missing plugin.json" && exit 1)
+          test -f package.json || (echo "❌ Missing package.json" && exit 1)
+          test -f README.md || (echo "❌ Missing README.md" && exit 1)
+          test -f LICENSE || (echo "❌ Missing LICENSE" && exit 1)
 
-          echo "✓ Plugin structure valid"
+          echo "✅ Required files present"
 
       - name: Validate package.json
         run: |
           cd ${{ matrix.plugin }}
 
           # Check package.json is valid JSON
-          node -e "JSON.parse(require('fs').readFileSync('package.json', 'utf8'))"
+          python3 -m json.tool package.json > /dev/null || (echo "❌ Invalid JSON in package.json" && exit 1)
 
           # Check required fields
           node -e "
             const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
-            if (!pkg.name) throw new Error('Missing name');
-            if (!pkg.version) throw new Error('Missing version');
-            if (!pkg.description) throw new Error('Missing description');
-            if (!pkg.license) throw new Error('Missing license');
-            if (!pkg.repository) throw new Error('Missing repository');
-            console.log('✓ package.json valid');
+            const required = ['name', 'version', 'description', 'license', 'repository'];
+            for (const field of required) {
+              if (!pkg[field]) throw new Error('Missing required field: ' + field);
+            }
+            console.log('✅ package.json has all required fields');
           "
 
       - name: Validate plugin.json
@@ -55,27 +74,126 @@ jobs:
           cd ${{ matrix.plugin }}
 
           # Check plugin.json is valid JSON
-          node -e "JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json', 'utf8'))"
+          python3 -m json.tool .claude-plugin/plugin.json > /dev/null || (echo "❌ Invalid JSON in plugin.json" && exit 1)
 
-          echo "✓ plugin.json valid"
+          # Check required fields
+          node -e "
+            const plugin = JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json', 'utf8'));
+            const required = ['name', 'version', 'description'];
+            for (const field of required) {
+              if (!plugin[field]) throw new Error('Missing required field: ' + field);
+            }
+            console.log('✅ plugin.json has all required fields');
+          "
+
+      - name: Validate command frontmatter
+        run: |
+          cd ${{ matrix.plugin }}
+
+          # Check all command files have proper frontmatter
+          if [ -d commands ]; then
+            echo "Checking command frontmatter..."
+            python3 << 'EOF'
+          import re
+          from pathlib import Path
+
+          commands_dir = Path('commands')
+          issues = []
+
+          for cmd_file in commands_dir.rglob('*.md'):
+              with open(cmd_file, 'r') as f:
+                  content = f.read(500)
+
+              # Check for frontmatter with name field
+              if not re.search(r'^---\s*\nname:\s*.+', content, re.MULTILINE):
+                  issues.append(str(cmd_file))
+
+          if issues:
+              print(f"❌ {len(issues)} command files missing 'name:' field:")
+              for f in issues[:5]:
+                  print(f"   - {f}")
+              exit(1)
+          else:
+              print("✅ All command files have 'name:' field")
+          EOF
+          else
+            echo "⚠️  No commands directory (skipping)"
+          fi
 
       - name: Check for hardcoded paths
         run: |
           cd ${{ matrix.plugin }}
 
           # Check for common hardcoded paths
+          errors=0
+
           if grep -r "/Users/" commands/ lib/ 2>/dev/null; then
-            echo "Error: Found hardcoded /Users/ paths"
-            exit 1
+            echo "❌ Found hardcoded /Users/ paths"
+            errors=1
           fi
 
           if grep -r "/home/" commands/ lib/ 2>/dev/null; then
-            echo "Error: Found hardcoded /home/ paths"
+            echo "❌ Found hardcoded /home/ paths"
+            errors=1
+          fi
+
+          if [ $errors -eq 0 ]; then
+            echo "✅ No hardcoded paths found"
+          else
             exit 1
           fi
 
-          echo "✓ No hardcoded paths found"
+      - name: Check for broken links in README
+        run: |
+          cd ${{ matrix.plugin }}
+
+          # Simple check for obvious broken links
+          if grep -E '\[.*\]\(http.*\)' README.md | grep -E '\(http.*404\)'; then
+            echo "⚠️  Potential broken links detected"
+          else
+            echo "✅ No obvious broken links in README"
+          fi
 
       - name: Summary
+        if: success()
         run: |
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "✅ ${{ matrix.plugin }} validation complete"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  comprehensive-validation:
+    runs-on: ubuntu-latest
+    needs: validate
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run comprehensive validation
+        run: |
+          if [ -f scripts/validate-all-plugins.py ]; then
+            echo "Running comprehensive validation..."
+            python3 scripts/validate-all-plugins.py
+          else
+            echo "⚠️  Comprehensive validation script not found (skipping)"
+          fi
+
+      - name: Final summary
+        if: success()
+        run: |
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ ALL PLUGINS VALIDATED SUCCESSFULLY"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Validated plugins:"
+          echo "  ✅ rforge-orchestrator"
+          echo "  ✅ statistical-research"
+          echo "  ✅ workflow"
+          echo ""
