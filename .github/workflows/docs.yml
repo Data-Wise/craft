@@ -1,0 +1,107 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'rforge-orchestrator/commands/**'
+      - 'rforge-orchestrator/skills/**'
+      - 'statistical-research/commands/**'
+      - 'statistical-research/skills/**'
+      - 'workflow/commands/**'
+      - 'workflow/skills/**'
+      - 'scripts/generate-*.py'
+      - 'scripts/generate-docs.sh'
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write  # Required for gh-pages deployment
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper git info
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs mkdocs-material pyyaml
+          pip install pymdown-extensions
+
+      - name: Generate command reference
+        run: |
+          echo "Generating command reference..."
+          python3 scripts/generate-command-reference.py
+          echo "✅ Command reference generated"
+
+      - name: Generate architecture diagrams
+        run: |
+          echo "Generating architecture diagrams..."
+          python3 scripts/generate-architecture-diagrams.py
+          echo "✅ Architecture diagrams generated"
+
+      - name: Update MkDocs navigation
+        run: |
+          echo "Updating MkDocs navigation..."
+          python3 scripts/update-mkdocs-nav.py
+          echo "✅ MkDocs navigation updated"
+
+      - name: Verify documentation files
+        run: |
+          echo "Verifying generated documentation..."
+          test -f docs/COMMAND-REFERENCE.md || (echo "❌ Command reference not found" && exit 1)
+          test -d docs/diagrams || (echo "❌ Diagrams directory not found" && exit 1)
+          test -f mkdocs.yml || (echo "❌ mkdocs.yml not found" && exit 1)
+
+          # Count files
+          cmd_ref_lines=$(wc -l < docs/COMMAND-REFERENCE.md)
+          diagram_count=$(find docs/diagrams -name "*.md" | wc -l)
+
+          echo "✅ Documentation verified:"
+          echo "   - Command reference: $cmd_ref_lines lines"
+          echo "   - Diagrams: $diagram_count files"
+
+      - name: Build documentation with MkDocs
+        run: |
+          echo "Building documentation site..."
+          mkdocs build --strict
+          echo "✅ Documentation site built"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'docs: auto-deploy documentation'
+
+      - name: Summary
+        if: success()
+        run: |
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ Documentation deployed successfully!"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Documentation site: https://data-wise.github.io/claude-plugins/"
+          echo ""
+          echo "Updated:"
+          echo "  ✅ Command reference (17 commands)"
+          echo "  ✅ Architecture diagrams (8 diagrams)"
+          echo "  ✅ MkDocs navigation"
+          echo ""
