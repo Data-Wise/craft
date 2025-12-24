@@ -1,4 +1,5 @@
 ---
+name: rforge:quick
 description: Ultra-fast analysis using only quick tools (< 10 seconds)
 ---
 

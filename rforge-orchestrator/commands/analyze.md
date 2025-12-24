@@ -1,4 +1,5 @@
 ---
+name: rforge:analyze
 description: Quick R package analysis with auto-delegation to RForge MCP tools
 argument-hint: Optional context (e.g., "Update bootstrap algorithm")
 ---

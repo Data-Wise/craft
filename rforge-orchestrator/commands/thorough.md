@@ -1,4 +1,5 @@
 ---
+name: rforge:thorough
 description: Comprehensive analysis with background R processes (2-5 minutes)
 argument-hint: Optional context (e.g., "Prepare for CRAN release")
 ---
