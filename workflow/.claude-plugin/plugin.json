@@ -1,7 +1,7 @@
 {
   "name": "workflow",
-  "version": "0.1.0",
-  "description": "ADHD-friendly workflow automation with auto-delegation, brainstorming, and design pattern assistance",
+  "version": "2.0.0",
+  "description": "ADHD-friendly workflow automation with time budgets, auto-delegation, brainstorming, and design pattern assistance",
   "author": "Data-Wise",
   "license": "MIT",
   "repository": {
