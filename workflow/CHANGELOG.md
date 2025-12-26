@@ -7,6 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.0] - 2025-12-26
+
+### Added - Command Migration from User Commands
+
+Migrated 9 ADHD workflow commands from `~/.claude/commands/workflow/` into the plugin:
+
+#### New Commands (9 total)
+- **`/workflow:done`** - Session completion with context capture
+- **`/workflow:focus`** - Single-task mode with distraction blocking
+- **`/workflow:next`** - Decision support for what to work on next
+- **`/workflow:recap`** - Context restoration for returning to work
+- **`/workflow:refine`** - Prompt optimizer for better AI interactions
+- **`/workflow:stuck`** - Unblock helper with guided problem solving
+- **`/workflow:task-cancel`** - Cancel running background tasks
+- **`/workflow:task-output`** - View background task results
+- **`/workflow:task-status`** - Check background task progress
+
+#### Shell Automation Scripts (10 total)
+- `detect-changelog.sh` - Detect CHANGELOG update needs
+- `detect-claude-md.sh` - Detect CLAUDE.md update needs
+- `detect-divergence.sh` - Detect documentation divergence
+- `detect-orphaned.sh` - Detect orphaned documentation
+- `run-all-detectors.sh` - Run all detection scripts
+- `run-all-updaters.sh` - Run all update scripts
+- `test-phase2-integration.sh` - Test Phase 2 integration
+- `update-changelog.sh` - Auto-update CHANGELOG
+- `update-claude-md.sh` - Auto-update CLAUDE.md
+- `update-mkdocs-nav.sh` - Auto-update mkdocs.yml navigation
+
+#### Documentation
+- **`adhd-guide.md`** - Best practices for ADHD-friendly development
+
+### Changed
+- **Total commands:** 1 → 10 (brainstorm + 9 new workflow commands)
+- **Plugin installed via symlink** for easier development
+
+---
+
 ## [2.0.0] - 2024-12-24 🎉 COMPLETE IMPLEMENTATION
 
 **🎯 Major Achievement:** Full Test-Driven Development implementation with 100% test coverage

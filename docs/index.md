@@ -2,16 +2,16 @@
 
 **Professional plugins for Claude Code CLI** - Enhance your AI-assisted development workflow with specialized tools for R packages, statistical research, and ADHD-friendly workflows.
 
-## ✨ Latest Updates (Dec 24, 2024)
+## ✨ Latest Updates (Dec 26, 2025)
 
-**🎉 Mode System v2.0 Released!**
-- **4 explicit modes** for RForge commands - control analysis depth and time
-- **Performance guarantees** - Default mode < 10s, all modes time-bounded
-- **96 unit tests** passing with 100% success rate (0.44s execution)
-- **3 output formats** - Terminal (default), JSON, Markdown
-- **Zero breaking changes** - All existing commands work unchanged
+**🎉 Plugin Consolidation v2.1/1.1 Released!**
+- **39 total commands** - Consolidated from user commands into plugins
+- **Workflow v2.1.0** - 10 commands (added 9 ADHD workflow commands)
+- **RForge v1.1.0** - 15 commands (added rpkg-check, ecosystem-health)
+- **Statistical Research v1.1.0** - 14 commands (added method-scout)
+- **Symlink installation** - Plugins now symlinked for easier development
 
-[View Mode System Documentation →](MODE-USAGE-GUIDE.md)
+[View Command Reference →](COMMAND-REFERENCE.md)
 
 ---
 
@@ -45,7 +45,7 @@
 
 **Research workflow automation for statistical methods development**
 
-- **13 commands** - Literature search, manuscript writing, simulation design
+- **14 commands** - Literature search, manuscript writing, simulation design, method scouting
 - **17 A-grade skills** - Mathematical foundations, implementation, writing, research
 - **MCP integration** - Connects to arXiv, Zotero, R environment
 - **Publication-ready** - Methods papers, proofs, reviewer responses
@@ -54,7 +54,7 @@
 - **Literature** - arXiv search, DOI lookup, BibTeX management
 - **Manuscript** - Methods sections, results, reviewer responses, proofs
 - **Simulation** - Study design, analysis planning
-- **Research** - Literature gaps, hypothesis formulation, analysis plans
+- **Research** - Literature gaps, hypothesis formulation, analysis plans, method scouting
 
 ---
 
@@ -62,16 +62,15 @@
 
 **ADHD-friendly workflow automation with intelligent delegation**
 
-- **Enhanced brainstorming** - Smart context detection and mode selection
+- **10 commands** - Brainstorm, focus, next, done, recap, stuck, refine, task management
 - **Auto-delegation** - Automatically delegates to specialized agents
-- **Structured output** - Clear options, next steps, trade-offs
+- **Shell automation** - 10 scripts for documentation updates
 - **Design modes** - Technical, creative, user-focused, system-wide
 
-**Key Features:**
-- Context-aware brainstorming
-- Automatic agent delegation (backend, frontend, DevOps, etc.)
-- ADHD-friendly output formatting
-- Interactive decision support
+**Command Categories:**
+- **Core Workflow** - brainstorm, focus, next, done, recap
+- **Problem Solving** - stuck, refine
+- **Task Management** - task-status, task-output, task-cancel
 
 ---
 
@@ -79,7 +78,7 @@
 
 ### Quick Links
 
-- **[Command Reference](COMMAND-REFERENCE.md)** - Complete reference of all 17 commands
+- **[Command Reference](COMMAND-REFERENCE.md)** - Complete reference of all 39 commands
 - **[Architecture](diagrams/ECOSYSTEM.md)** - System architecture and diagrams
 - **[Development](https://github.com/Data-Wise/claude-plugins/tree/main/scripts)** - Scripts for plugin development
 
@@ -144,8 +143,8 @@
 | Metric | Count |
 |--------|-------|
 | **Plugins** | 3 |
-| **Commands** | 17 |
-| **Skills** | 17 (research only) |
+| **Commands** | 39 |
+| **Skills** | 20 (17 research + 3 workflow) |
 | **MCP Servers** | 2 |
 | **Architecture Diagrams** | 8 |
 | **Validation Time** | < 5 seconds |
