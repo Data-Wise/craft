@@ -1,7 +1,7 @@
 {
   "name": "statistical-research",
-  "version": "1.0.0",
-  "description": "Statistical research workflows - literature management, manuscript writing, and 17 A-grade research skills",
+  "version": "1.1.0",
+  "description": "Statistical research workflows - literature management, manuscript writing, method scouting, and 17 A-grade research skills",
   "author": "Data-Wise",
   "license": "MIT",
   "homepage": "https://github.com/Data-Wise/statistical-research-plugin",
@@ -40,7 +40,8 @@
     "research": {
       "lit-gap": "commands/research/lit-gap.md",
       "hypothesis": "commands/research/hypothesis.md",
-      "analysis-plan": "commands/research/analysis-plan.md"
+      "analysis-plan": "commands/research/analysis-plan.md",
+      "method-scout": "commands/research/method-scout.md"
     }
   },
   "skills": {

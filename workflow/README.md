@@ -1,12 +1,17 @@
 # Workflow Plugin for Claude Code
 
-**Version:** 2.0.0
+**Version:** 2.1.0
 **Author:** Data-Wise
 **License:** MIT
 
-> **ADHD-friendly workflow automation with auto-delegation, brainstorming, time budgets, and design pattern assistance**
+> **ADHD-friendly workflow automation: brainstorm, focus, next, done, recap, stuck, task management, and design patterns**
 
-**🎉 What's New in v2.0:**
+**🎉 What's New in v2.1:**
+- 📦 **10 workflow commands** - Complete ADHD workflow suite
+- 🛠️ **Shell scripts** - Automation helpers for documentation updates
+- 📚 **ADHD guide** - Best practices for ADHD-friendly development
+
+**What's in v2.0:**
 - ⏱️ Performance guarantees (quick <60s, default <5m, thorough <30m)
 - 📊 Multiple output formats (terminal, json, markdown)
 - 🎯 Explicit time budgets for all modes
@@ -27,6 +32,36 @@ The Workflow Plugin enhances your development workflow with:
 📊 **Result synthesis** - Combines multiple agent outputs into unified, actionable recommendations
 
 🧠 **ADHD-friendly** - Scannable output, quick wins, clear next steps, reduced decision paralysis
+
+---
+
+## Commands (10 total)
+
+### Core Workflow Commands
+
+| Command | Description |
+|---------|-------------|
+| `/brainstorm` | Smart ideation with auto-delegation |
+| `/focus` | Single-task mode with distraction blocking |
+| `/next` | Decision support for what to work on next |
+| `/done` | Session completion with context capture |
+| `/recap` | Context restoration for returning to work |
+| `/stuck` | Unblock helper with guided problem solving |
+| `/refine` | Prompt optimizer for better AI interactions |
+
+### Task Management Commands
+
+| Command | Description |
+|---------|-------------|
+| `/task-status` | Check background task progress |
+| `/task-output` | View background task results |
+| `/task-cancel` | Cancel running background task |
+
+### Documentation
+
+| Resource | Description |
+|----------|-------------|
+| `/workflow:docs:adhd-guide` | Best practices for ADHD-friendly development |
 
 ---
 
@@ -287,7 +322,25 @@ workflow/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin metadata
 ├── commands/
-│   └── brainstorm.md            # Enhanced /brainstorm command (v2.0)
+│   ├── brainstorm.md            # Smart ideation with delegation
+│   ├── done.md                  # Session completion & context capture
+│   ├── focus.md                 # Single-task mode
+│   ├── next.md                  # Decision support
+│   ├── recap.md                 # Context restoration
+│   ├── refine.md                # Prompt optimizer
+│   ├── stuck.md                 # Unblock helper
+│   ├── task-cancel.md           # Cancel background tasks
+│   ├── task-output.md           # View task results
+│   ├── task-status.md           # Check task progress
+│   └── docs/
+│       └── adhd-guide.md        # ADHD best practices
+├── lib/                         # 🆕 Shell automation scripts (v2.1)
+│   ├── detect-changelog.sh      # Detect CHANGELOG needs
+│   ├── detect-claude-md.sh      # Detect CLAUDE.md needs
+│   ├── update-changelog.sh      # Auto-update CHANGELOG
+│   ├── update-claude-md.sh      # Auto-update CLAUDE.md
+│   ├── update-mkdocs-nav.sh     # Auto-update mkdocs.yml
+│   └── run-all-updaters.sh      # Run all updaters
 ├── skills/
 │   └── design/
 │       ├── backend-designer.md  # Auto-activating backend skill

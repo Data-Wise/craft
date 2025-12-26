@@ -5,13 +5,13 @@
 A comprehensive Claude Code plugin for statistical research workflows. Pure plugin architecture (no MCP dependencies) with slash commands, research skills, and shell-based API wrappers for arXiv, Crossref, and BibTeX.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/Data-Wise/statistical-research-plugin)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/Data-Wise/statistical-research-plugin)
 
 ---
 
 ## Features
 
-### 📚 13 Slash Commands
+### 📚 14 Slash Commands
 
 **Literature Management (4 commands)**
 - `/research:arxiv` - Search arXiv for statistical papers
@@ -29,10 +29,11 @@ A comprehensive Claude Code plugin for statistical research workflows. Pure plug
 - `/research:simulation:design` - Design Monte Carlo studies
 - `/research:simulation:analysis` - Analyze simulation results
 
-**Research Planning (3 commands)**
+**Research Planning (4 commands)**
 - `/research:lit-gap` - Identify literature gaps
 - `/research:hypothesis` - Generate research hypotheses
 - `/research:analysis-plan` - Create statistical analysis plans
+- `/research:method-scout` - Scout statistical methods for a problem
 
 ### 🎯 17 A-Grade Skills
 
@@ -393,6 +394,33 @@ Create comprehensive statistical analysis plan.
 - Sensitivity analyses
 - Software/implementation details
 
+#### `/research:method-scout <problem>`
+
+Scout statistical methods for a research problem.
+
+**Arguments:**
+- `problem` (required): Research problem description
+
+**Activates:**
+- `cross-disciplinary-ideation` skill
+- `method-transfer-engine` skill
+- `mathematical-foundations` skill
+
+**Process:**
+1. Understand research question and data structure
+2. Search for methods across disciplines
+3. Identify candidate methods
+4. Evaluate assumptions and requirements
+5. Compare trade-offs (complexity, interpretability, power)
+6. Recommend best options with justification
+
+**Produces:**
+- Candidate methods with descriptions
+- Assumption requirements for each
+- Comparison table across criteria
+- Justified recommendation
+- Key references and software
+
 ---
 
 ## Skills Guide
@@ -440,7 +468,7 @@ statistical-research/
 │   ├── literature/           # 4 literature commands
 │   ├── manuscript/           # 4 manuscript commands
 │   ├── simulation/           # 2 simulation commands
-│   └── research/             # 3 research commands
+│   └── research/             # 4 research commands
 ├── skills/                    # 17 A-grade skills
 │   ├── mathematical/         # 4 mathematical skills
 │   ├── implementation/       # 5 implementation skills

@@ -1,7 +1,7 @@
 {
   "name": "@data-wise/statistical-research-plugin",
-  "version": "1.0.0",
-  "description": "Statistical research workflows - literature, manuscripts, and 17 A-grade skills for Claude Code",
+  "version": "1.1.0",
+  "description": "Statistical research workflows - literature, manuscripts, method scouting, and 17 A-grade skills for Claude Code",
   "type": "module",
   "main": "index.js",
   "files": [
