@@ -1,6 +1,36 @@
 # Craft Plugin Roadmap
 
-## Current Version: 1.5.0-dev
+## Current Version: 1.6.0-dev
+
+---
+
+## v1.5.0 - Distribution Commands ✅ RELEASED
+
+### Distribution Commands (All Complete)
+
+#### `/craft:dist:homebrew` - Homebrew Tap Management ✅
+- Detect project type (Python, Node, Go, Rust)
+- Generate formula file with dependencies
+- Calculate SHA256 for release tarballs
+- Update existing formula for new versions
+- Push to homebrew-tap repository
+
+#### `/craft:dist:curl-install` - Direct GitHub Installation ✅
+- Create `install.sh` for direct GitHub downloads
+- Support multiple installation methods (binary, source)
+- Include version detection and updates
+- Add to README installation section
+
+#### Skills Added ✅
+- `distribution-strategist` - Distribution channel recommendations
+- `homebrew-formula-expert` - Formula best practices
+
+**Stats:** 53 commands, 13 skills, 7 agents
+
+**Dogfooding:** Tested on aiterm v0.3.5
+- Generated and validated Homebrew formula
+- Created install.sh with smart auto-detection
+- Updated README with curl install instructions
 
 ---
 
@@ -68,45 +98,6 @@ Live validation tests completed on aiterm project:
 - [x] **Session persistence test** - Added `ait goodbye` via save/resume workflow
 
 **Results:** All tests passed, features shipped in aiterm v0.3.5
-
----
-
-## v1.5.0 - Distribution Commands (In Progress)
-
-### Distribution Commands
-
-#### `/craft:dist:homebrew` - Homebrew Tap Management
-Create and update Homebrew formula for projects:
-- Detect project type (Python, Node, Go, Rust)
-- Generate formula file with dependencies
-- Calculate SHA256 for release tarballs
-- Update existing formula for new versions
-- Push to homebrew-tap repository
-
-**Usage:**
-```bash
-/craft:dist:homebrew              # Create/update formula
-/craft:dist:homebrew --tap user/tap  # Specify tap
-/craft:dist:homebrew --version 1.2.3  # Specific version
-```
-
-#### `/craft:dist:curl-install` - Direct GitHub Installation
-Generate curl-based installation scripts:
-- Create `install.sh` for direct GitHub downloads
-- Support multiple installation methods (binary, source)
-- Include version detection and updates
-- Add to README installation section
-
-**Usage:**
-```bash
-/craft:dist:curl-install          # Generate install script
-/craft:dist:curl-install --binary # Binary-only install
-/craft:dist:curl-install --update-readme  # Add to README
-```
-
-### Skills to Add
-- `distribution-strategist` - Distribution channel recommendations
-- `homebrew-formula-expert` - Formula best practices
 
 ---
 
