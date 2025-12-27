@@ -101,7 +101,56 @@ Live validation tests completed on aiterm project:
 
 ---
 
-## v1.6.0 - Release Automation (Future)
+## v1.6.0 - Docs Workflow Commands 🚧 IN PROGRESS
+
+**Theme:** ADHD-friendly documentation workflows
+
+### New Workflow Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/craft:docs:update [full]` | Smart update all docs (or force full update) |
+| `/craft:docs:feature [name]` | Comprehensive update after adding a feature |
+| `/craft:docs:done [summary]` | End-of-session doc updates |
+| `/craft:docs:site [--deploy]` | Website-focused updates |
+
+### What `/craft:docs:update full` Updates
+
+- CLI Help epilogs (new/changed commands)
+- `docs/reference/commands.md`
+- `docs/REFCARD.md` + domain-specific refcards
+- `README.md` (features, badges)
+- `CLAUDE.md` (status, quick reference)
+- `mkdocs.yml` navigation
+- Guide docs (feature-specific)
+
+### What `/craft:docs:feature` Does
+
+After implementing a feature, ONE command updates:
+1. Detects new commands, modules, files from commits
+2. Updates CLI help epilogs
+3. Updates commands reference
+4. Updates/creates REFCARD entries
+5. Suggests tutorial if complex feature
+6. Updates README feature list
+7. Updates CLAUDE.md "Just Completed"
+8. Updates mkdocs navigation
+
+### Workflow Cheat Sheet
+
+```
+AFTER FEATURE:     /craft:docs:feature
+END OF SESSION:    /craft:docs:done
+BEFORE RELEASE:    /craft:docs:changelog → update full
+DEPLOY SITE:       /craft:docs:site --deploy
+QUICK UPDATE:      /craft:docs:update
+```
+
+**Principle:** Workflow commands CALL individual commands. Individual commands remain for granular control.
+
+---
+
+## v1.7.0 - Release Automation (Future)
 
 - `/craft:dist:pypi` - PyPI publishing workflow
 - `/craft:dist:npm` - npm publishing workflow
@@ -112,7 +161,7 @@ Live validation tests completed on aiterm project:
 
 ---
 
-## v1.7.0 - CI/CD Integration (Future)
+## v1.8.0 - CI/CD Integration (Future)
 
 - `/craft:ci:matrix` - Generate test matrix
 - `/craft:ci:workflow` - Create GitHub Actions workflows
