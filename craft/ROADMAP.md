@@ -59,13 +59,15 @@ code-1        ░░░░████████████░░░ 🟡
                          NOW ▲
 ```
 
-### Dogfooding Phase (Manual Testing)
+### Dogfooding Phase (Manual Testing) ✅ COMPLETE
 
-Live validation tests to run manually:
+Live validation tests completed on aiterm project:
 
-- [ ] **Live orchestrator test** - Run real multi-agent workflow with `/craft:orchestrate "add feature X" default`
-- [ ] **Stress test** - 4 parallel agents in `optimize` mode with complex task
-- [ ] **Session persistence test** - Start workflow, disconnect, resume with `continue`
+- [x] **Live orchestrator test** - Added `ait hello` command via `/craft:orchestrate` default mode
+- [x] **Stress test** - 4 parallel agents in `optimize` mode added `ait info` + enhanced `--version`
+- [x] **Session persistence test** - Added `ait goodbye` via save/resume workflow
+
+**Results:** All tests passed, features shipped in aiterm v0.3.5
 
 ---
 
