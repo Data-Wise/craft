@@ -1,6 +1,6 @@
 # Craft - Full Stack Developer Toolkit Plugin
 
-A comprehensive full-stack developer toolkit for Claude Code. Craft provides 54 commands, 7 specialized agents, 15 skills with mode support, smart orchestration, intelligent task routing, and **enhanced orchestrator v2.1 with mode-aware execution, context tracking, and timeline visualization**.
+A comprehensive full-stack developer toolkit for Claude Code. Craft provides 58 commands, 7 specialized agents, 15 skills with mode support, smart orchestration, intelligent task routing, and **enhanced orchestrator v2.1 with mode-aware execution, context tracking, and timeline visualization**.
 
 ## Installation
 
@@ -48,7 +48,7 @@ Commands support execution modes for different use cases:
 /craft:arch:analyze optimize    # Performance analysis
 ```
 
-## Commands (53 total)
+## Commands (58 total)
 
 ### Smart Commands (4) - ENHANCED
 | Command | Description |
@@ -109,11 +109,21 @@ Commands support execution modes for different use cases:
 | `/craft:plan:sprint` | Sprint planning |
 | `/craft:plan:roadmap` | Generate roadmaps |
 
-### Documentation Commands (7)
+### Documentation Commands (11)
+
+#### Workflow Commands (NEW in v1.6.0)
 | Command | Description |
 |---------|-------------|
-| `/craft:docs:generate` | Full documentation generation (NEW) |
-| `/craft:docs:api` | OpenAPI/Swagger documentation (NEW) |
+| `/craft:docs:update [full]` | Smart update all docs (or force full update) |
+| `/craft:docs:feature [name]` | Comprehensive update after adding a feature |
+| `/craft:docs:done [summary]` | End-of-session doc updates |
+| `/craft:docs:site [--deploy]` | Website-focused updates with optional deploy |
+
+#### Individual Commands
+| Command | Description |
+|---------|-------------|
+| `/craft:docs:generate` | Full documentation generation |
+| `/craft:docs:api` | OpenAPI/Swagger documentation |
 | `/craft:docs:sync` | Sync docs with code |
 | `/craft:docs:changelog` | Auto-update CHANGELOG |
 | `/craft:docs:claude-md` | Update CLAUDE.md |
@@ -202,13 +212,41 @@ Commands support execution modes for different use cases:
 # Routes to: arch:plan → code:test-gen → git:branch
 ```
 
+### Documentation Workflow (NEW in v1.6.0)
+```
+# After adding a feature
+/craft:docs:feature
+
+# End of session
+/craft:docs:done
+
+# Before release
+/craft:docs:changelog → /craft:docs:update full
+
+# Deploy website
+/craft:docs:site --deploy
+
+# Quick update anytime
+/craft:docs:update
+```
+
 ## Version
 
-- **Version:** 1.5.0
+- **Version:** 1.6.0-dev
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
 ## Changelog
+
+### [1.6.0-dev] - 2025-12-27
+#### Added
+- **Docs Workflow Commands** (4 new commands):
+  - `/craft:docs:update [full]` - Smart universal documentation updater
+  - `/craft:docs:feature [name]` - Comprehensive feature documentation
+  - `/craft:docs:done [summary]` - End-of-session doc updates
+  - `/craft:docs:site [--deploy]` - Website-focused updates with deploy
+- **Documentation Workflow Section** in README
+- Total: 58 commands, 15 skills, 7 agents
 
 ### [1.5.0] - 2025-12-27
 #### Added
@@ -218,7 +256,7 @@ Commands support execution modes for different use cases:
 - **Distribution Skills** (2 new skills):
   - `distribution-strategist` - Recommend optimal distribution channels
   - `homebrew-formula-expert` - Homebrew formula best practices
-- Total: 53 commands, 13 skills, 7 agents
+- Total: 54 commands, 15 skills, 7 agents
 
 ### [1.4.0] - 2025-12-27
 #### Enhanced
