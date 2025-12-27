@@ -28,7 +28,7 @@ You are an ADHD-friendly theme manager. Make quick visual changes to your docume
 
 ## When Invoked (No Args)
 
-Show current theme configuration:
+Show current theme and available presets:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -46,16 +46,28 @@ Show current theme configuration:
 │   Text:    Roboto                                           │
 │   Code:    Roboto Mono                                      │
 │                                                             │
-│ Features:                                                   │
-│   ✅ Dark mode toggle                                       │
-│   ✅ Code copy buttons                                      │
-│   ✅ Navigation tabs                                        │
-│   ✅ Search suggestions                                     │
+├─────────────────────────────────────────────────────────────┤
+│ 📋 AVAILABLE PRESETS                                        │
+├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ Quick changes:                                              │
-│   /craft:site:theme --primary "#COLOR"                      │
-│   /craft:site:theme --palette NAME                          │
-│   /craft:site:theme --preset NAME                           │
+│ Standard:                                                   │
+│   data-wise    Blue/orange Material (current)               │
+│   minimal      Clean gray, fast loading                     │
+│   open-source  GitHub-style blue/green                      │
+│   corporate    Professional navy                            │
+│                                                             │
+│ ADHD-Friendly:                                              │
+│   adhd-focus   Forest green, minimal distractions           │
+│   adhd-calm    Warm browns, cozy reading                    │
+│   adhd-dark    Dark-first, muted sage                       │
+│   adhd-light   Warm off-white, soft contrast                │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│ Quick commands:                                             │
+│   /craft:site:theme --preset adhd-focus   Switch preset     │
+│   /craft:site:theme --primary "#COLOR"    Change color      │
+│   /craft:site:theme --palette ocean       Apply palette     │
+│   /craft:site:theme --reset               Reset to defaults │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
