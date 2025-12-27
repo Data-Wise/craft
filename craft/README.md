@@ -1,6 +1,6 @@
 # Craft - Full Stack Developer Toolkit Plugin
 
-A comprehensive full-stack developer toolkit for Claude Code. Craft provides 50 commands, 6 specialized agents, 11 skills with mode support, smart orchestration, and intelligent task routing.
+A comprehensive full-stack developer toolkit for Claude Code. Craft provides 51 commands, 7 specialized agents, 11 skills with mode support, smart orchestration, intelligent task routing, and **enhanced orchestrator v2.1 with mode-aware execution, context tracking, and timeline visualization**.
 
 ## Installation
 
@@ -50,12 +50,23 @@ Commands support execution modes for different use cases:
 
 ## Commands (50 total)
 
-### Smart Commands (3) - NEW
+### Smart Commands (4) - ENHANCED
 | Command | Description |
 |---------|-------------|
 | `/craft:do <task>` | Universal command - routes to appropriate workflow |
+| `/craft:orchestrate <task> [mode]` | **ENHANCED v2.1** Launch orchestrator with mode-aware execution, context tracking, timeline view |
 | `/craft:check` | Pre-flight checks (commit/pr/release) |
 | `/craft:help` | Context-aware help and suggestions |
+
+#### Orchestrator Modes (NEW in v1.4.0)
+```bash
+/craft:orchestrate "add auth" optimize    # Fast parallel (4 agents)
+/craft:orchestrate "prep release" release # Thorough audit
+/craft:orchestrate status                 # Agent dashboard
+/craft:orchestrate timeline               # Execution timeline
+/craft:orchestrate budget                 # Context tracking
+/craft:orchestrate continue               # Resume session
+```
 
 ### Code Commands (12)
 | Command | Description | Modes |
@@ -151,16 +162,17 @@ Commands support execution modes for different use cases:
 | `architecture-decision-records` | Documentation | ADR generation (NEW) |
 | `openapi-spec-generation` | Documentation | OpenAPI specs (NEW) |
 
-## Agents (6)
+## Agents (7)
 
 | Agent | Purpose |
 |-------|---------|
 | `orchestrator` | Smart delegation to skills |
-| `docs-architect` | Long-form technical documentation (NEW) |
-| `tutorial-engineer` | Step-by-step tutorials (NEW) |
-| `api-documenter` | OpenAPI/Swagger documentation (NEW) |
-| `reference-builder` | Technical reference guides (NEW) |
-| `mermaid-expert` | Mermaid diagram generation (NEW) |
+| `orchestrator-v2` | **ENHANCED** Mode-aware execution, context tracking, timeline view |
+| `docs-architect` | Long-form technical documentation |
+| `tutorial-engineer` | Step-by-step tutorials |
+| `api-documenter` | OpenAPI/Swagger documentation |
+| `reference-builder` | Technical reference guides |
+| `mermaid-expert` | Mermaid diagram generation |
 
 ## Workflows
 
@@ -184,11 +196,22 @@ Commands support execution modes for different use cases:
 
 ## Version
 
-- **Version:** 1.3.0
+- **Version:** 1.4.0-dev
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
 ## Changelog
+
+### [1.4.0-dev] - 2025-12-27
+#### Enhanced
+- **Orchestrator v2.1** with major improvements:
+  - Mode-aware execution (default, debug, optimize, release)
+  - Improved context tracking with token estimation heuristics
+  - Timeline view for visual execution progress
+  - Per-agent context budgets (~15% each)
+  - Smart summarization for large agent responses
+  - New commands: `timeline`, `budget`, `mode`, `continue`
+- Total: 51 commands, 11 skills, 7 agents
 
 ### [1.3.0] - 2025-12-26
 #### Added

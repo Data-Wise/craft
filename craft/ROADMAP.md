@@ -4,9 +4,62 @@
 
 ---
 
-## v1.4.0 - Distribution Commands (Planned)
+## v1.4.0 - Orchestrator Enhancement + Distribution (In Progress)
 
-### New Commands
+### Orchestrator v2 Enhancements (Priority)
+
+#### Phase 1: Quick Wins (2-3 hours)
+
+**1. Real Context Tracking**
+- Improved heuristics for context usage estimation
+- Watch for Claude Code system warnings about context
+- Smarter compression triggers based on exchange count + content size
+- Per-agent context budget tracking
+
+**2. Mode Integration**
+- Orchestrator respects craft mode system
+- `default` mode: 2 agents, 70% compression threshold
+- `debug` mode: 1 agent (sequential), verbose output, 90% threshold
+- `optimize` mode: 4 agents max, aggressive 60% compression
+- `release` mode: 4 agents, full reports, 85% threshold
+
+**Usage:**
+```bash
+/craft:orchestrate "add auth" optimize    # Fast parallel
+/craft:orchestrate "prep release" release # Thorough
+```
+
+#### Phase 2: State Persistence (v1.4.0)
+
+**3. Session State File**
+- Persist orchestrator state to `.claude/orchestrator-session.json`
+- Enable session recovery after disconnects
+- Track completed work, active agents, decisions made
+
+**New Commands:**
+```bash
+/craft:orchestrate continue      # Resume from saved state
+/craft:orchestrate save          # Force state save
+/craft:orchestrate history       # Show past sessions
+```
+
+#### Phase 3: ADHD Enhancements (v1.4.0)
+
+**4. Timeline View**
+- Visual Gantt-style timeline of agent execution
+- ETA countdown with progress bars
+- Reduces anxiety about "what's happening"
+
+```
+TIME     0    1m    2m    3m    4m
+─────────┼─────┼─────┼─────┼─────┤
+arch-1   ██████░░░░░░░░░░░░░░░░░░ ✅
+code-1        ░░░░████████████░░░ 🟡
+─────────┼─────┼─────┼─────┼─────┤
+                         NOW ▲
+```
+
+### Distribution Commands
 
 #### `/craft:dist:homebrew` - Homebrew Tap Management
 Create and update Homebrew formula for projects:
@@ -37,15 +90,6 @@ Generate curl-based installation scripts:
 /craft:dist:curl-install --update-readme  # Add to README
 ```
 
-**Example output:**
-```bash
-# One-liner installation
-curl -fsSL https://raw.githubusercontent.com/user/repo/main/install.sh | bash
-
-# Or with version
-curl -fsSL https://github.com/user/repo/releases/download/v1.0.0/install.sh | bash
-```
-
 ### Skills to Add
 - `distribution-strategist` - Distribution channel recommendations
 - `homebrew-formula-expert` - Formula best practices
@@ -58,6 +102,8 @@ curl -fsSL https://github.com/user/repo/releases/download/v1.0.0/install.sh | ba
 - `/craft:dist:npm` - npm publishing workflow
 - `/craft:dist:cargo` - Cargo publishing workflow
 - `/craft:dist:release` - Multi-channel release orchestrator
+- Agent pool management (max parallel, priority queue, resource budgets)
+- Cost tracking per agent
 
 ---
 
@@ -76,6 +122,8 @@ curl -fsSL https://github.com/user/repo/releases/download/v1.0.0/install.sh | ba
 - Changelog-to-release-notes conversion
 - Installation verification tests
 - Cross-platform binary building
+- Agent result caching (reuse recent analysis)
+- Cross-session agent continuity
 
 ---
 
