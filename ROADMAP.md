@@ -150,7 +150,87 @@ QUICK UPDATE:      /craft:docs:update
 
 ---
 
-## v1.7.0 - Release Automation (Future)
+## v1.7.0 - Site Commands Redesign (Next)
+
+**Theme:** Complete documentation site management with design standards
+
+**Plan B (Focused):** 9 commands with essential design system
+
+### Command Structure
+
+| Command | Status | Purpose |
+|---------|--------|---------|
+| `/craft:site:create` | NEW | Full wizard (combines init + design) |
+| `/craft:site:update` | NEW | Update content from code + validate |
+| `/craft:site:status` | NEW | Dashboard and health check |
+| `/craft:site:add` | NEW | Add pages/sections with nav sync |
+| `/craft:site:theme` | NEW | Quick theme changes |
+| `/craft:site:build` | ENHANCE | Build static site |
+| `/craft:site:preview` | KEEP | Local preview server |
+| `/craft:site:check` | ENHANCE | Comprehensive validation |
+| `/craft:site:deploy` | ENHANCE | Multi-target deployment |
+
+### Design System
+
+**Design Presets:**
+| Preset | Description | Best For |
+|--------|-------------|----------|
+| `data-wise` | DT's standard (Material + custom) | All DT projects |
+| `minimal` | Clean, simple, fast | Small projects |
+| `open-source` | Community-friendly, badges | Public repos |
+| `corporate` | Professional, formal | Enterprise |
+
+**Config File:** `.craft/site-design.yaml`
+```yaml
+preset: "data-wise"
+branding:
+  name: "AITerm"
+  tagline: "AI Terminal Optimizer"
+colors:
+  primary: "#1a73e8"
+  accent: "#ff6b35"
+navigation:
+  style: "tabs"  # tabs, sidebar, hybrid
+```
+
+### Page Templates
+
+Standard pages with consistent structure:
+- **index.md** - Project overview with feature grid
+- **QUICK-START.md** - 30-second setup guide
+- **REFCARD.md** - Quick command reference
+- **guide-page.md** - Standard guide format
+
+### Navigation Standards
+
+- Max 5-6 top-level sections
+- Max 3 levels deep
+- Required pages: index, QUICK-START, REFCARD
+- Order: Home → Quick Start → Reference → Guides → Reference → API
+
+### Implementation Phases
+
+**Phase 1: Core Commands (2-3 hours)**
+- [ ] `/craft:site:create` - Full wizard
+- [ ] `/craft:site:update` - Content updater
+- [ ] `/craft:site:status` - Dashboard
+
+**Phase 2: Design System (2 hours)**
+- [ ] `/craft:site:theme` - Quick theme changes
+- [ ] Design presets (4 presets)
+- [ ] Page templates
+
+**Phase 3: Content Management (1.5 hours)**
+- [ ] `/craft:site:add` - Add pages with nav sync
+- [ ] Enhanced build/check/deploy
+
+**Total Effort:** ~5 hours
+
+**See:** `PROPOSAL-site-commands-2025-12-27.md` for full specifications
+
+---
+
+## v1.8.0 - Release Automation (Future)
 
 - `/craft:dist:pypi` - PyPI publishing workflow
 - `/craft:dist:npm` - npm publishing workflow
@@ -161,7 +241,7 @@ QUICK UPDATE:      /craft:docs:update
 
 ---
 
-## v1.8.0 - CI/CD Integration (Future)
+## v1.9.0 - CI/CD Integration (Future)
 
 - `/craft:ci:matrix` - Generate test matrix
 - `/craft:ci:workflow` - Create GitHub Actions workflows
@@ -171,6 +251,13 @@ QUICK UPDATE:      /craft:docs:update
 
 ## Ideas Backlog
 
+### Site Commands (Future Enhancements)
+- `/craft:site:migrate` - Framework migration (MkDocs ↔ Docusaurus)
+- Multi-target deployment (Netlify, Vercel, Cloudflare Pages)
+- Version selector for multi-version docs
+- Academic preset (citation-friendly)
+
+### Distribution
 - Monorepo support for distribution commands
 - Version bumping automation
 - Changelog-to-release-notes conversion
