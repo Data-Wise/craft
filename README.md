@@ -204,13 +204,13 @@ Commands support execution modes for different use cases:
 
 ## Version
 
-- **Version:** 1.5.0-dev
+- **Version:** 1.5.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
 ## Changelog
 
-### [1.5.0-dev] - 2025-12-27
+### [1.5.0] - 2025-12-27
 #### Added
 - **Distribution Commands** (2 new commands):
   - `/craft:dist:homebrew` - Generate/update Homebrew formulas
