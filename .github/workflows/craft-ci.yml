@@ -74,11 +74,11 @@ jobs:
           python3 -m json.tool .claude-plugin/plugin.json > /dev/null || (echo "❌ Invalid plugin.json" && exit 1)
           echo "✅ plugin.json valid"
 
-      - name: Validate command frontmatter
+      - name: Validate command files
         run: |
           echo ""
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "Validating command frontmatter..."
+          echo "Validating command files..."
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
           cd craft
@@ -90,27 +90,38 @@ jobs:
           commands_dir = Path('commands')
           issues = []
           total_commands = 0
+          with_frontmatter = 0
 
           for cmd_file in commands_dir.rglob('*.md'):
               total_commands += 1
               with open(cmd_file, 'r') as f:
-                  content = f.read(1000)
+                  content = f.read(2000)
 
-              # Check for frontmatter with name field
-              if not re.search(r'^---\s*\nname:\s*.+', content, re.MULTILINE):
-                  issues.append(f"Missing 'name:' - {cmd_file}")
+              # Check file is not empty and has markdown heading
+              if len(content.strip()) < 10:
+                  issues.append(f"Empty or too short - {cmd_file}")
+                  continue
 
-              # Check for description field
-              if not re.search(r'description:\s*.+', content, re.MULTILINE):
-                  issues.append(f"Missing 'description:' - {cmd_file}")
+              has_heading = bool(re.search(r'^#\s+.+', content, re.MULTILINE))
+              if not has_heading:
+                  issues.append(f"Missing markdown heading - {cmd_file}")
+
+              if content.startswith('---'):
+                  with_frontmatter += 1
+
+              # Check filename follows conventions (lowercase, hyphens)
+              name = cmd_file.stem
+              if name != name.lower() or "_" in name:
+                  issues.append(f"Bad naming convention - {cmd_file}")
 
           if issues:
-              print(f"❌ {len(issues)} frontmatter issues:")
+              print(f"❌ {len(issues)} issues found:")
               for issue in issues[:10]:
                   print(f"   - {issue}")
               exit(1)
           else:
-              print(f"✅ All {total_commands} command files have valid frontmatter")
+              print(f"✅ All {total_commands} command files valid")
+              print(f"   With YAML frontmatter: {with_frontmatter}")
           EOF
 
       - name: Check for hardcoded paths

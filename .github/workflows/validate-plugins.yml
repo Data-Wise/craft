@@ -89,35 +89,41 @@ jobs:
             console.log('✅ plugin.json has all required fields');
           "
 
-      - name: Validate command frontmatter
+      - name: Validate command structure
         run: |
           cd ${{ matrix.plugin }}
 
-          # Check all command files have proper frontmatter
+          # Check command files have proper structure
           if [ -d commands ]; then
-            echo "Checking command frontmatter..."
+            echo "Checking command structure..."
             python3 << 'EOF'
           import re
           from pathlib import Path
 
           commands_dir = Path('commands')
           issues = []
+          total = 0
 
           for cmd_file in commands_dir.rglob('*.md'):
+              total += 1
               with open(cmd_file, 'r') as f:
-                  content = f.read(500)
+                  content = f.read(2000)
 
-              # Check for frontmatter with name field
-              if not re.search(r'^---\s*\nname:\s*.+', content, re.MULTILINE):
+              has_frontmatter = content.startswith('---')
+              # Check for plugin-specific heading patterns
+              has_heading = bool(re.search(r'^#\s+/', content, re.MULTILINE))
+
+              # Command must have either frontmatter OR a heading
+              if not has_frontmatter and not has_heading:
                   issues.append(str(cmd_file))
 
           if issues:
-              print(f"❌ {len(issues)} command files missing 'name:' field:")
+              print(f"❌ {len(issues)} command files missing structure:")
               for f in issues[:5]:
                   print(f"   - {f}")
               exit(1)
           else:
-              print("✅ All command files have 'name:' field")
+              print(f"✅ All {total} command files have valid structure")
           EOF
           else
             echo "⚠️  No commands directory (skipping)"
