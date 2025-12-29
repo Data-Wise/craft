@@ -159,6 +159,73 @@ def detect_r_test_framework(path: Path) -> str:
     return "testthat"  # Default for R
 ```
 
+### Rust
+```python
+def detect_rust_test_framework(path: Path) -> str:
+    """Detect Rust test framework."""
+    cargo = path / "Cargo.toml"
+    if cargo.exists():
+        content = cargo.read_text()
+
+        # Check for test frameworks in dev-dependencies
+        if "rstest" in content:
+            return "rstest"
+        if "proptest" in content:
+            return "proptest"
+        if "quickcheck" in content:
+            return "quickcheck"
+        if "criterion" in content:
+            return "criterion"  # Benchmarking
+
+    # Check for test modules in src/
+    if (path / "src/lib.rs").exists():
+        content = (path / "src/lib.rs").read_text()
+        if "#[cfg(test)]" in content:
+            return "cargo-test"
+
+    # Check for tests/ directory
+    if (path / "tests").exists():
+        return "cargo-test"
+
+    return "cargo-test"  # Built-in Rust testing
+```
+
+### Go
+```python
+def detect_go_test_framework(path: Path) -> str:
+    """Detect Go test framework."""
+    # Check for test files
+    test_files = list(path.glob("*_test.go"))
+    if not test_files and (path / "pkg").exists():
+        test_files = list((path / "pkg").rglob("*_test.go"))
+
+    if test_files:
+        # Check first test file for framework hints
+        content = test_files[0].read_text()
+
+        if "github.com/stretchr/testify" in content:
+            return "testify"
+        if "github.com/onsi/ginkgo" in content:
+            return "ginkgo"
+        if "github.com/onsi/gomega" in content:
+            return "ginkgo"  # Gomega usually paired with Ginkgo
+        if "gocheck" in content or "gopkg.in/check" in content:
+            return "gocheck"
+        if "goconvey" in content:
+            return "goconvey"
+
+    # Check go.mod for test dependencies
+    gomod = path / "go.mod"
+    if gomod.exists():
+        content = gomod.read_text()
+        if "testify" in content:
+            return "testify"
+        if "ginkgo" in content:
+            return "ginkgo"
+
+    return "go-test"  # Built-in Go testing
+```
+
 ## CI Template Selection
 
 Based on detection, recommend appropriate CI template:

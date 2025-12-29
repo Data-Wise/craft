@@ -79,9 +79,9 @@ def detect_test_framework(path: Path, proj_type: str) -> str:
     elif proj_type == "r":
         return detect_r_test_framework(path)
     elif proj_type == "rust":
-        return "cargo test"
+        return detect_rust_test_framework(path)
     elif proj_type == "go":
-        return "go test"
+        return detect_go_test_framework(path)
     return "unknown"
 
 
@@ -140,6 +140,68 @@ def detect_r_test_framework(path: Path) -> str:
         return "testthat"
 
     return "testthat"
+
+
+def detect_rust_test_framework(path: Path) -> str:
+    """Detect Rust test framework."""
+    cargo = path / "Cargo.toml"
+    if cargo.exists():
+        content = cargo.read_text()
+
+        # Check for test frameworks in dev-dependencies
+        if "rstest" in content:
+            return "rstest"
+        if "proptest" in content:
+            return "proptest"
+        if "quickcheck" in content:
+            return "quickcheck"
+        if "criterion" in content:
+            return "criterion"
+
+    # Check for test modules in src/
+    if (path / "src/lib.rs").exists():
+        content = (path / "src/lib.rs").read_text()
+        if "#[cfg(test)]" in content:
+            return "cargo-test"
+
+    # Check for tests/ directory
+    if (path / "tests").exists():
+        return "cargo-test"
+
+    return "cargo-test"
+
+
+def detect_go_test_framework(path: Path) -> str:
+    """Detect Go test framework."""
+    # Check for test files
+    test_files = list(path.glob("*_test.go"))
+    if not test_files and (path / "pkg").exists():
+        test_files = list((path / "pkg").rglob("*_test.go"))
+
+    if test_files:
+        content = test_files[0].read_text()
+
+        if "github.com/stretchr/testify" in content:
+            return "testify"
+        if "github.com/onsi/ginkgo" in content:
+            return "ginkgo"
+        if "github.com/onsi/gomega" in content:
+            return "ginkgo"
+        if "gocheck" in content or "gopkg.in/check" in content:
+            return "gocheck"
+        if "goconvey" in content:
+            return "goconvey"
+
+    # Check go.mod for test dependencies
+    gomod = path / "go.mod"
+    if gomod.exists():
+        content = gomod.read_text()
+        if "testify" in content:
+            return "testify"
+        if "ginkgo" in content:
+            return "ginkgo"
+
+    return "go-test"
 
 
 def detect_python_versions(path: Path) -> list:
@@ -473,6 +535,99 @@ class TestTestFrameworkDetection(unittest.TestCase):
         result = detect_r_test_framework(self.path)
 
         self.assertEqual(result, "testthat")
+
+    def test_detect_mocha_from_package_json(self):
+        """Detect Mocha from package.json."""
+        (self.path / "package.json").write_text('{"devDependencies": {"mocha": "^10.0.0"}}')
+
+        result = detect_node_test_framework(self.path)
+
+        self.assertEqual(result, "mocha")
+
+    def test_detect_ava_from_package_json(self):
+        """Detect AVA from package.json."""
+        (self.path / "package.json").write_text('{"devDependencies": {"ava": "^5.0.0"}}')
+
+        result = detect_node_test_framework(self.path)
+
+        self.assertEqual(result, "ava")
+
+    def test_detect_cargo_test_default(self):
+        """Detect cargo-test as default for Rust."""
+        (self.path / "Cargo.toml").write_text('[package]\nname = "myproject"')
+
+        result = detect_rust_test_framework(self.path)
+
+        self.assertEqual(result, "cargo-test")
+
+    def test_detect_rstest_from_cargo(self):
+        """Detect rstest from Cargo.toml."""
+        (self.path / "Cargo.toml").write_text('[dev-dependencies]\nrstest = "0.18"')
+
+        result = detect_rust_test_framework(self.path)
+
+        self.assertEqual(result, "rstest")
+
+    def test_detect_proptest_from_cargo(self):
+        """Detect proptest from Cargo.toml."""
+        (self.path / "Cargo.toml").write_text('[dev-dependencies]\nproptest = "1.0"')
+
+        result = detect_rust_test_framework(self.path)
+
+        self.assertEqual(result, "proptest")
+
+    def test_detect_cargo_test_from_test_module(self):
+        """Detect cargo-test from #[cfg(test)] in lib.rs."""
+        (self.path / "Cargo.toml").write_text('[package]\nname = "myproject"')
+        (self.path / "src").mkdir()
+        (self.path / "src/lib.rs").write_text('pub fn add(a: i32, b: i32) -> i32 { a + b }\n\n#[cfg(test)]\nmod tests {}')
+
+        result = detect_rust_test_framework(self.path)
+
+        self.assertEqual(result, "cargo-test")
+
+    def test_detect_cargo_test_from_tests_dir(self):
+        """Detect cargo-test from tests/ directory."""
+        (self.path / "Cargo.toml").write_text('[package]\nname = "myproject"')
+        (self.path / "tests").mkdir()
+
+        result = detect_rust_test_framework(self.path)
+
+        self.assertEqual(result, "cargo-test")
+
+    def test_detect_go_test_default(self):
+        """Detect go-test as default for Go."""
+        (self.path / "go.mod").write_text('module myproject\n\ngo 1.21')
+
+        result = detect_go_test_framework(self.path)
+
+        self.assertEqual(result, "go-test")
+
+    def test_detect_testify_from_test_file(self):
+        """Detect testify from test file imports."""
+        (self.path / "go.mod").write_text('module myproject\n\ngo 1.21')
+        (self.path / "main_test.go").write_text('package main\n\nimport "github.com/stretchr/testify/assert"')
+
+        result = detect_go_test_framework(self.path)
+
+        self.assertEqual(result, "testify")
+
+    def test_detect_ginkgo_from_test_file(self):
+        """Detect Ginkgo from test file imports."""
+        (self.path / "go.mod").write_text('module myproject\n\ngo 1.21')
+        (self.path / "main_test.go").write_text('package main\n\nimport "github.com/onsi/ginkgo/v2"')
+
+        result = detect_go_test_framework(self.path)
+
+        self.assertEqual(result, "ginkgo")
+
+    def test_detect_testify_from_gomod(self):
+        """Detect testify from go.mod dependencies."""
+        (self.path / "go.mod").write_text('module myproject\n\ngo 1.21\n\nrequire github.com/stretchr/testify v1.8.0')
+
+        result = detect_go_test_framework(self.path)
+
+        self.assertEqual(result, "testify")
 
 
 class TestPythonVersionDetection(unittest.TestCase):
