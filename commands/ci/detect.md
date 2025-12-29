@@ -39,16 +39,26 @@ Analyze a project directory to detect its type, build tools, test framework, and
 Projects are detected in priority order (first match wins):
 
 1. **Claude Plugin** - `.claude-plugin/plugin.json`
-2. **R Package** - `DESCRIPTION` + `NAMESPACE`
-3. **R Quarto** - `_quarto.yml` + `*.qmd`
-4. **Python UV** - `pyproject.toml` + `uv.lock`
-5. **Python Poetry** - `pyproject.toml` + `poetry.lock`
-6. **Python Pip** - `pyproject.toml` or `setup.py`
-7. **Node PNPM** - `package.json` + `pnpm-lock.yaml`
-8. **Node Yarn** - `package.json` + `yarn.lock`
-9. **Node NPM** - `package.json` + `package-lock.json`
-10. **Rust** - `Cargo.toml`
-11. **Go** - `go.mod`
+2. **MCP Server** - `package.json` + `@modelcontextprotocol/sdk`
+3. **Tauri App** - `src-tauri/tauri.conf.json`
+4. **Swift Package** - `Package.swift`
+5. **Swift iOS/macOS** - `*.xcodeproj` or `*.xcworkspace`
+6. **R Package** - `DESCRIPTION` + `NAMESPACE`
+7. **R Quarto** - `_quarto.yml` + `*.qmd`
+8. **Python UV** - `pyproject.toml` + `uv.lock`
+9. **Python Poetry** - `pyproject.toml` + `poetry.lock`
+10. **Python Pip** - `pyproject.toml` or `setup.py`
+11. **Homebrew Tap** - `Formula/*.rb` or `Casks/*.rb`
+12. **ZSH Plugin** - `*.plugin.zsh` or `functions/*.zsh`
+13. **Emacs Package** - `*-pkg.el` or `Cask`
+14. **Node Bun** - `package.json` + `bun.lock`
+15. **Node PNPM** - `package.json` + `pnpm-lock.yaml`
+16. **Node Yarn** - `package.json` + `yarn.lock`
+17. **Node NPM** - `package.json` + `package-lock.json` (real projects only)
+18. **Rust** - `Cargo.toml`
+19. **Go** - `go.mod`
+
+> **Note:** Node.js detection requires a "real" project (has `main`, `bin`, `dependencies`, or `exports`). Projects with only `devDependencies` (ESLint, Prettier) are skipped to allow ZSH/Homebrew detection.
 
 ## Output Example
 
@@ -211,6 +221,17 @@ Works with:
 - `/craft:ci:validate` - Validate existing CI configuration
 - `/craft:check ci` - Quick CI pre-flight check
 - `/craft:do "setup ci"` - Let orchestrator handle CI setup
+
+## CI Templates
+
+For production-ready CI examples, see **[CI-TEMPLATES.md](../../docs/CI-TEMPLATES.md)** with templates from exemplary projects:
+
+| Template | Source Project | Key Features |
+|----------|----------------|--------------|
+| Python/uv | aiterm, nexus-cli | Multi-OS, Codecov |
+| Node/npm | atlas | Multi-Node matrix |
+| Tauri | scribe | Rust + Vitest |
+| MCP Server | statistical-research | Bun/Node tests |
 
 ## Related Skills
 
