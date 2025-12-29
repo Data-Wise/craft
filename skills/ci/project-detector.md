@@ -81,27 +81,75 @@ DETECTORS = [
     ("python", "poetry", ["pyproject.toml", "poetry.lock"], ["src/"]),
     ("python", "pip", ["pyproject.toml"], ["requirements.txt"]),
     ("python", "setuptools", ["setup.py"], ["setup.cfg"]),
-    # Priority 11-14: Node ecosystem
+    # Priority 11-14: Tooling projects (check BEFORE Node to catch hybrids)
+    ("homebrew", "tap", [], []),  # Special: glob for Formula/*.rb
+    ("zsh", "plugin", [], []),  # Special: glob for *.plugin.zsh
+    ("elisp", "package", [], []),  # Special: glob for *-pkg.el
+    # Priority 15-18: Node ecosystem (requires real Node project, not just tooling)
     ("node", "bun", ["package.json", "bun.lock"], []),
     ("node", "pnpm", ["package.json", "pnpm-lock.yaml"], []),
     ("node", "yarn", ["package.json", "yarn.lock"], []),
     ("node", "npm", ["package.json"], ["package-lock.json"]),
-    # Priority 15-18: Other compiled languages
+    # Priority 19-20: Other compiled languages
     ("rust", "cargo", ["Cargo.toml"], ["Cargo.lock"]),
     ("go", "mod", ["go.mod"], ["go.sum"]),
     ("java", "maven", ["pom.xml"], []),
     ("java", "gradle", ["build.gradle"], ["build.gradle.kts"]),
-    # Priority 19-22: Tooling/config projects
-    ("homebrew", "tap", [], []),  # Special: glob for Formula/*.rb
-    ("zsh", "plugin", [], []),  # Special: glob for *.plugin.zsh
-    ("elisp", "package", [], []),  # Special: glob for *-pkg.el
+    # Priority 21: Fallback
     ("shell", "script", [], []),  # Fallback for *.sh
 ]
+
+
+def is_real_node_project(path: Path) -> bool:
+    """Check if package.json indicates a real Node.js project vs just tooling.
+
+    A real Node.js project has at least one of:
+    - 'main' field (library entry point)
+    - 'bin' field (CLI commands)
+    - 'dependencies' (not just devDependencies)
+    - 'type': 'module' with actual source files
+
+    Projects with only devDependencies (ESLint, Prettier, etc.) are
+    just using Node tooling, not actual Node.js projects.
+    """
+    pkg = path / "package.json"
+    if not pkg.exists():
+        return False
+
+    import json
+    try:
+        data = json.loads(pkg.read_text())
+    except json.JSONDecodeError:
+        return False
+
+    # Has entry point = real Node project
+    if data.get("main"):
+        return True
+
+    # Has CLI commands = real Node project
+    if data.get("bin"):
+        return True
+
+    # Has real dependencies (not just devDependencies) = real Node project
+    if data.get("dependencies") and len(data["dependencies"]) > 0:
+        return True
+
+    # Has exports field = real Node project (modern ESM)
+    if data.get("exports"):
+        return True
+
+    # Only has devDependencies = just tooling, not a Node project
+    return False
+
 
 def detect_project(path: Path) -> Optional[ProjectInfo]:
     """Detect project type from directory contents."""
     for proj_type, variant, required, optional in DETECTORS:
         if all((path / f).exists() for f in required):
+            # Special handling for Node.js - skip if only tooling
+            if proj_type == "node" and not is_real_node_project(path):
+                continue  # Skip Node detection, try next detector
+
             return ProjectInfo(
                 type=proj_type,
                 variant=variant,

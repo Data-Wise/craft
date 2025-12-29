@@ -37,26 +37,114 @@ class ProjectInfo:
 
 
 DETECTORS = [
+    # Priority 1-5: Specialized/hybrid projects
     ("plugin", "claude", [".claude-plugin/plugin.json"], []),
+    # Priority 6-7: R ecosystem
     ("r", "package", ["DESCRIPTION", "NAMESPACE"], ["R/", "tests/"]),
     ("r", "quarto", ["_quarto.yml"], []),
+    # Priority 8-11: Python ecosystem
     ("python", "uv", ["pyproject.toml", "uv.lock"], ["src/"]),
     ("python", "poetry", ["pyproject.toml", "poetry.lock"], ["src/"]),
     ("python", "pip", ["pyproject.toml"], ["requirements.txt"]),
     ("python", "setuptools", ["setup.py"], ["setup.cfg"]),
+    # Priority 12-18: Node ecosystem (requires real Node project)
     ("node", "bun", ["package.json", "bun.lock"], []),
     ("node", "pnpm", ["package.json", "pnpm-lock.yaml"], []),
     ("node", "yarn", ["package.json", "yarn.lock"], []),
     ("node", "npm", ["package.json"], ["package-lock.json"]),
+    # Priority 19-20: Other compiled languages
     ("rust", "cargo", ["Cargo.toml"], ["Cargo.lock"]),
     ("go", "mod", ["go.mod"], ["go.sum"]),
+    # NOTE: homebrew, zsh, elisp use special detection functions, not in this list
 ]
+
+
+def is_real_node_project(path: Path) -> bool:
+    """Check if package.json indicates a real Node.js project vs just tooling.
+
+    A real Node.js project has at least one of:
+    - 'main' field (library entry point)
+    - 'bin' field (CLI commands)
+    - 'dependencies' (not just devDependencies)
+    - 'exports' field (modern ESM)
+
+    Projects with only devDependencies (ESLint, Prettier, etc.) are
+    just using Node tooling, not actual Node.js projects.
+    """
+    pkg = path / "package.json"
+    if not pkg.exists():
+        return False
+
+    try:
+        data = json.loads(pkg.read_text())
+    except json.JSONDecodeError:
+        return False
+
+    # Has entry point = real Node project
+    if data.get("main"):
+        return True
+
+    # Has CLI commands = real Node project
+    if data.get("bin"):
+        return True
+
+    # Has real dependencies (not just devDependencies) = real Node project
+    if data.get("dependencies") and len(data["dependencies"]) > 0:
+        return True
+
+    # Has exports field = real Node project (modern ESM)
+    if data.get("exports"):
+        return True
+
+    # Only has devDependencies = just tooling, not a Node project
+    return False
 
 
 def detect_project(path: Path) -> Optional[ProjectInfo]:
     """Detect project type from directory contents."""
+    # First check special project types that use dedicated detection functions
+    # These are checked BEFORE Node to properly handle hybrids
+
+    # Check for ZSH plugin (before Node, as ZSH plugins may have package.json for tooling)
+    if detect_zsh_plugin(path):
+        return ProjectInfo(
+            type="zsh", variant="plugin",
+            test_framework="shellcheck", build_tool="zsh",
+            ci_template="zsh-plugin",
+            python_versions=[], node_versions=[],
+            has_docs=any(detect_docs(path).values()),
+            has_ci=(path / ".github/workflows").exists(),
+        )
+
+    # Check for Homebrew tap
+    if detect_homebrew_tap(path):
+        return ProjectInfo(
+            type="homebrew", variant="tap",
+            test_framework="brew-audit", build_tool="homebrew",
+            ci_template="homebrew-tap",
+            python_versions=[], node_versions=[],
+            has_docs=any(detect_docs(path).values()),
+            has_ci=(path / ".github/workflows").exists(),
+        )
+
+    # Check for Elisp package
+    if detect_elisp_package(path):
+        return ProjectInfo(
+            type="elisp", variant="package",
+            test_framework="ert", build_tool="emacs",
+            ci_template="elisp-package",
+            python_versions=[], node_versions=[],
+            has_docs=any(detect_docs(path).values()),
+            has_ci=(path / ".github/workflows").exists(),
+        )
+
+    # Then check standard detectors
     for proj_type, variant, required, optional in DETECTORS:
         if all((path / f).exists() for f in required):
+            # Special handling for Node.js - skip if only tooling
+            if proj_type == "node" and not is_real_node_project(path):
+                continue  # Skip Node detection, try next detector
+
             return ProjectInfo(
                 type=proj_type,
                 variant=variant,
@@ -355,7 +443,11 @@ class TestProjectDetection(unittest.TestCase):
 
     def test_detect_node_npm_project(self):
         """Detect Node.js project with npm."""
-        (self.path / "package.json").write_text('{"name": "test"}')
+        # Must have real Node indicators (main/bin/dependencies)
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "test",
+            "main": "index.js"
+        }))
 
         result = detect_project(self.path)
 
@@ -365,7 +457,11 @@ class TestProjectDetection(unittest.TestCase):
 
     def test_detect_node_pnpm_project(self):
         """Detect Node.js project with pnpm."""
-        (self.path / "package.json").write_text('{"name": "test"}')
+        # Must have real Node indicators (main/bin/dependencies)
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "test",
+            "dependencies": {"express": "^4.0.0"}
+        }))
         (self.path / "pnpm-lock.yaml").write_text("# pnpm lockfile")
 
         result = detect_project(self.path)
@@ -376,7 +472,11 @@ class TestProjectDetection(unittest.TestCase):
 
     def test_detect_node_yarn_project(self):
         """Detect Node.js project with yarn."""
-        (self.path / "package.json").write_text('{"name": "test"}')
+        # Must have real Node indicators (main/bin/dependencies)
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "test",
+            "bin": {"test-cli": "./bin/cli.js"}
+        }))
         (self.path / "yarn.lock").write_text("# yarn lockfile")
 
         result = detect_project(self.path)
@@ -848,6 +948,10 @@ strict = true
         (self.path / "package.json").write_text(json.dumps({
             "name": "test",
             "version": "1.0.0",
+            "main": "dist/index.js",
+            "dependencies": {
+                "express": "^4.0.0"
+            },
             "devDependencies": {
                 "vitest": "^1.0.0",
                 "eslint": "^8.0.0"
@@ -1194,13 +1298,152 @@ class TestBunDetection(unittest.TestCase):
 
     def test_detect_bun_project(self):
         """Detect Bun project by bun.lock file."""
-        (self.path / "package.json").write_text('{"name": "test"}')
+        # Must have real Node indicators (main/bin/dependencies)
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "test",
+            "main": "index.js"
+        }))
         (self.path / "bun.lock").write_text('# bun lockfile')
 
         result = detect_project(self.path)
 
         self.assertEqual(result.type, "node")
         self.assertEqual(result.variant, "bun")
+
+
+class TestIsRealNodeProject(unittest.TestCase):
+    """Test is_real_node_project detection."""
+
+    def setUp(self):
+        self.temp_dir = tempfile.mkdtemp()
+        self.path = Path(self.temp_dir)
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+
+    def test_real_node_with_main(self):
+        """Package with 'main' is a real Node project."""
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "my-lib",
+            "main": "index.js"
+        }))
+
+        result = is_real_node_project(self.path)
+
+        self.assertTrue(result)
+
+    def test_real_node_with_bin(self):
+        """Package with 'bin' is a real Node project."""
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "my-cli",
+            "bin": {"mycli": "./bin/cli.js"}
+        }))
+
+        result = is_real_node_project(self.path)
+
+        self.assertTrue(result)
+
+    def test_real_node_with_dependencies(self):
+        """Package with 'dependencies' is a real Node project."""
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "my-app",
+            "dependencies": {"express": "^4.0.0"}
+        }))
+
+        result = is_real_node_project(self.path)
+
+        self.assertTrue(result)
+
+    def test_real_node_with_exports(self):
+        """Package with 'exports' is a real Node project."""
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "my-esm-lib",
+            "exports": {"./": "./src/index.js"}
+        }))
+
+        result = is_real_node_project(self.path)
+
+        self.assertTrue(result)
+
+    def test_not_real_node_only_devdeps(self):
+        """Package with only devDependencies is NOT a real Node project."""
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "my-project",
+            "devDependencies": {
+                "eslint": "^8.0.0",
+                "prettier": "^3.0.0"
+            }
+        }))
+
+        result = is_real_node_project(self.path)
+
+        self.assertFalse(result)
+
+    def test_not_real_node_empty_package(self):
+        """Empty package.json is NOT a real Node project."""
+        (self.path / "package.json").write_text('{"name": "test"}')
+
+        result = is_real_node_project(self.path)
+
+        self.assertFalse(result)
+
+
+class TestHybridProjectDetection(unittest.TestCase):
+    """Test detection of hybrid projects (e.g., ZSH plugin with Node tooling)."""
+
+    def setUp(self):
+        self.temp_dir = tempfile.mkdtemp()
+        self.path = Path(self.temp_dir)
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+
+    def test_zsh_plugin_with_node_tooling(self):
+        """ZSH plugin with package.json for tooling should detect as ZSH."""
+        # Create ZSH plugin marker
+        (self.path / "flow.plugin.zsh").write_text('# ZSH plugin')
+
+        # Create package.json with only devDependencies (tooling)
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "flow-cli",
+            "private": True,
+            "devDependencies": {
+                "eslint": "^9.0.0",
+                "prettier": "^3.0.0"
+            }
+        }))
+
+        result = detect_zsh_plugin(self.path)
+
+        self.assertTrue(result)
+
+    def test_real_node_project_not_zsh(self):
+        """Real Node project should detect as Node, not ZSH."""
+        # Create package.json with real Node indicators
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "my-cli",
+            "bin": {"mycli": "./bin/cli.js"},
+            "dependencies": {"commander": "^9.0.0"}
+        }))
+
+        result = is_real_node_project(self.path)
+
+        self.assertTrue(result)
+
+    def test_tooling_only_skips_node_detection(self):
+        """Package with only devDeps should skip Node detection."""
+        (self.path / "package.json").write_text(json.dumps({
+            "name": "my-shell-project",
+            "devDependencies": {"eslint": "^8.0.0"}
+        }))
+
+        # Should return None since no real project type matches
+        result = detect_project(self.path)
+
+        # With only tooling and no other markers, returns None
+        self.assertIsNone(result)
 
 
 if __name__ == "__main__":
