@@ -1,7 +1,7 @@
 ---
 name: brainstorm
 description: Enhanced brainstorming with smart detection, design modes, time budgets, and automatic agent delegation for deep analysis
-version: 2.1.4
+version: 2.1.5
 args:
   - name: mode
     description: "Brainstorm mode: feature|architecture|design|backend|frontend|devops|quick|thorough (optional, shows menu if omitted)"
@@ -37,10 +37,10 @@ ADHD-friendly brainstorming with smart mode detection, time budgets, and agent d
 ### Step 0: Parse Arguments
 
 ```
-Topic only?           → Show menus (Q1: Depth, Q2: Focus), then execute
+Topic provided?       → Show menus (Q1: Depth, Q2: Focus), then execute
 Topic + mode?         → Skip menus, execute with that mode
-No arguments?         → Ask "What to brainstorm?" first, then show menus
-Full args (depth+mode+topic)? → Execute directly
+Full args?            → Execute directly
+No arguments?         → Smart context detection (Step 0.5)
 ```
 
 **Examples:**
@@ -49,7 +49,109 @@ Full args (depth+mode+topic)? → Execute directly
 | `/brainstorm "auth system"` | Shows menus → executes |
 | `/brainstorm feature "auth"` | Skips menus → feature mode |
 | `/brainstorm quick feature "auth"` | Skips menus → quick + feature |
-| `/brainstorm` | Asks topic first → shows menus |
+| `/brainstorm` | Smart detect → maybe ask → menus → execute |
+
+### Step 0.5: Smart Context Detection (No Arguments)
+
+When no arguments provided, automatically detect topic from context:
+
+#### Detection Sources
+
+| Source | What to look for | Priority |
+|--------|------------------|----------|
+| **Conversation** | Topics discussed, problems mentioned, features planned | High |
+| **Git branch** | Branch name (e.g., `feature/oauth-login`) | Medium |
+| **Recent commits** | Commit messages from last 24h | Medium |
+| **Project .STATUS** | Current task, next steps | High |
+| **Open discussion** | Questions asked, decisions pending | High |
+
+#### Decision Logic
+
+```python
+topics = detect_topics_from_context()
+
+if len(topics) == 1:
+    # Clear single topic - use it directly
+    topic = topics[0]
+    → Proceed to Q1: Depth
+
+elif len(topics) >= 2 and len(topics) <= 4:
+    # Multiple topics - ask user to pick
+    → AskUserQuestion: "Which topic?"
+      options: [topic1, topic2, ..., "Other"]
+    → Proceed to Q1: Depth
+
+else:  # 0 topics or too many
+    # No clear context - ask free-form
+    → "What would you like to brainstorm?"
+    → Proceed to Q1: Depth
+```
+
+#### Context Detection AskUserQuestion
+
+When multiple topics detected:
+
+```
+AskUserQuestion:
+  question: "Which topic should we brainstorm?"
+  header: "Topic"
+  multiSelect: false
+  options:
+    - label: "[Topic from conversation]"
+      description: "Mentioned earlier in chat"
+    - label: "[Topic from git branch]"
+      description: "Current branch: feature/xyz"
+    - label: "[Topic from .STATUS]"
+      description: "Current project focus"
+```
+
+#### Example: Clear Context
+
+```
+[Earlier in conversation]
+User: "I need to add user notifications to the app"
+
+[Later]
+User: /brainstorm
+
+Claude: (detects single topic: "user notifications")
+  → Skips topic question
+  → Shows Q1: Depth
+  → Shows Q2: Focus
+  → Executes brainstorm for "user notifications"
+```
+
+#### Example: Multiple Topics
+
+```
+[Earlier in conversation]
+User: "Working on OAuth and also need to refactor the DB"
+
+[Later]
+User: /brainstorm
+
+Claude: [AskUserQuestion - Topic]
+  "Which topic should we brainstorm?"
+  ○ OAuth integration - Mentioned in conversation
+  ○ Database refactoring - Mentioned in conversation
+  ○ feature/auth-system - Current git branch
+
+User: Selects "OAuth integration"
+
+Claude: [Q1: Depth] → [Q2: Focus] → Execute
+```
+
+#### Example: No Context
+
+```
+[New conversation, no prior discussion]
+User: /brainstorm
+
+Claude: "What would you like to brainstorm?"
+User: "A new caching layer"
+
+Claude: [Q1: Depth] → [Q2: Focus] → Execute
+```
 
 ### Step 1: Interactive Menu (Topic Provided, No Mode)
 
@@ -440,11 +542,18 @@ User: /workflow:brainstorm feature notifications --format json
 flowchart TD
     Start["/brainstorm"] --> HasArgs{Arguments?}
 
-    HasArgs -->|None| AskTopic["Ask: What to brainstorm?"]
+    HasArgs -->|None| SmartDetect["🔍 Smart Context Detection"]
     HasArgs -->|Topic only| DepthQ["🔘 Q1: Depth?"]
     HasArgs -->|Topic + mode| Execute
     HasArgs -->|Full args| Execute
 
+    SmartDetect --> HowMany{Topics found?}
+    HowMany -->|1 topic| AutoTopic["Use detected topic"]
+    HowMany -->|2-4 topics| TopicQ["🔘 Q0: Which topic?"]
+    HowMany -->|0 or 5+| AskTopic["Ask: What to brainstorm?"]
+
+    AutoTopic --> DepthQ
+    TopicQ --> DepthQ
     AskTopic --> DepthQ
 
     DepthQ --> SelectDepth{User selects}

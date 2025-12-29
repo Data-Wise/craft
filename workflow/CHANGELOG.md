@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.5] - 2025-12-29
+
+### Added - Smart Context Detection
+
+When `/brainstorm` is invoked without arguments, automatically detect topic from context:
+
+#### Detection Sources
+| Source | Priority |
+|--------|----------|
+| Conversation topics | High |
+| Project .STATUS | High |
+| Git branch name | Medium |
+| Recent commits | Medium |
+
+#### Decision Logic
+- **1 topic found** → Use it automatically, skip to Q1: Depth
+- **2-4 topics found** → AskUserQuestion to pick one
+- **0 or 5+ topics** → Ask "What to brainstorm?" free-form
+
+This reduces friction for ADHD-friendly workflows - just type `/brainstorm` and go!
+
+---
+
 ## [2.1.4] - 2025-12-29
 
 ### Changed - Topic First, Then Menus
