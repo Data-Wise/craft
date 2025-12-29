@@ -648,6 +648,23 @@ jobs:
 3. Add secrets for coverage upload
 ```
 
+## CI Templates Reference
+
+For production-ready CI examples, see **[CI-TEMPLATES.md](../docs/CI-TEMPLATES.md)** with templates from:
+
+| Template Source | Project Type | Key Features |
+|-----------------|--------------|--------------|
+| aiterm | Python/uv | Multi-OS, multi-Python, Codecov |
+| atlas | Node/npm | Multi-Node, unit/integration/e2e |
+| nexus-cli | Python/uv | Quality gates, bandit security |
+| scribe | Tauri | Rust + Vitest, cross-platform |
+
+**Exemplary patterns from real projects:**
+- Python: `uv sync --all-extras`, `pytest --cov`
+- Node: `npm ci`, matrix 18/20/22
+- Tauri: Separate frontend/backend jobs, Swatinem cache
+- MCP: Simple Node tests, optional Bun support
+
 ## Integration
 
 Use with:
@@ -655,3 +672,8 @@ Use with:
 - `/craft:ci:generate` - Generate workflow from detection
 - `/craft:ci:validate` - Validate existing CI against project
 - `/craft:check ci` - Quick CI pre-flight check
+
+**After detection:**
+1. Review recommended template in CI-TEMPLATES.md
+2. Copy template, adjust matrix/coverage as needed
+3. Commit to `.github/workflows/test.yml`
