@@ -7,6 +7,82 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.2] - 2025-12-29
+
+### Changed - Tab-Completion Menu UX
+
+Redesigned `/workflow:brainstorm` with tab-completion menu spec:
+
+#### Tab-Completion Behavior
+- **Trigger:** `/brainstorm` + `Tab` shows sub-command menu
+- **Default at top:** `default (Recommended)` pre-selected
+- **Arrow navigation:** `↑↓` to move between options
+- **Append mode:** Selection appends to command line (not immediate execution)
+- **Multi-select:** Press `Tab` again to add depth + mode combinations
+
+#### Menu Layout
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ ── Depth ──────────────────────────────────────────────────────│
+│ ▸ default (Recommended)  (< 5 min)  → Comprehensive analysis    │
+│   quick                  (< 1 min)  → Fast ideation, no agents  │
+│   thorough               (< 30 min) → Deep analysis with agents │
+│ ── Content Mode ───────────────────────────────────────────────│
+│   feature                           → User stories, MVP scope   │
+│   architecture                      → System design, diagrams   │
+│   ...                                                           │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Format Spec
+- **Order:** Depth first (with headers), then Content Modes
+- **Item format:** `name (time) → description`
+- **Separators:** Visual headers between categories
+
+---
+
+## [2.1.1] - 2025-12-29
+
+### Changed - Menu-Based UX Redesign
+
+Updated `/workflow:brainstorm` with craft plugin's menu-based UX pattern:
+
+#### UI Improvements
+- **Two-step menu flow** - Mode selection → Depth selection (using AskUserQuestion)
+- **"What it does" column** - Succinct descriptions for each option
+- **"(Recommended)" suffix** - Clear default choices (Feature, Quick)
+- **Cancel via "Other"** - Type "cancel" to exit
+- **Quick tip footer** - Shows direct invocation to skip menus
+
+#### Menu Structure
+```
+Step 1: Mode Menu
+┌────────────────────────┬───────────────────────────────────────┐
+│ Option                 │ What it does                          │
+├────────────────────────┼───────────────────────────────────────┤
+│ Feature (Recommended)  │ User stories, MVP scope, acceptance   │
+│ Architecture           │ System design, scalability, diagrams  │
+│ Design                 │ UI/UX wireframes, accessibility       │
+│ Backend                │ API endpoints, database, auth         │
+│ Frontend               │ Component tree, state management      │
+│ DevOps                 │ CI/CD pipelines, deployment           │
+└────────────────────────┴───────────────────────────────────────┘
+
+Step 2: Depth Menu
+┌────────────────────────┬───────────────────────────────────────┐
+│ Quick (Recommended)    │ < 1 min, 5-7 ideas, no agents         │
+│ Default                │ < 5 min, comprehensive options        │
+│ Thorough               │ < 30 min, 2-4 agents for deep analysis│
+└────────────────────────┴───────────────────────────────────────┘
+```
+
+#### Backward Compatible
+- All v2.0/v2.1 direct invocations work unchanged
+- `quick`, `thorough` still work as mode arguments
+- `/workflow:brainstorm quick feature auth` skips menus entirely
+
+---
+
 ## [2.1.0] - 2025-12-26
 
 ### Added - Command Migration from User Commands
@@ -324,6 +400,9 @@ See `TODO.md` and `IDEAS.md` for complete roadmap
 
 | Version | Date | Major Changes |
 |---------|------|---------------|
+| **2.1.2** | 2025-12-29 | Tab-completion menu UX with append mode, multi-select |
+| **2.1.1** | 2025-12-29 | Menu-based UX redesign (craft pattern), "What it does" column |
+| **2.1.0** | 2025-12-26 | Command migration: 9 workflow commands from user commands |
 | **2.0.0** | 2024-12-24 | RForge mode system, time budgets, format handlers, planning docs |
 | **0.1.0** | 2024-12-23 | Initial release: 1 command, 3 skills, 1 agent, 60+ patterns |
 
