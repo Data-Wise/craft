@@ -1,10 +1,10 @@
 # Workflow Plugin - Reference Card
 
-> **Version:** 0.1.0 | **Last Updated:** 2025-12-23
+> **Version:** 2.1.6 | **Last Updated:** 2025-12-29
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  WORKFLOW PLUGIN REFERENCE                                         v0.1.0  │
+│  WORKFLOW PLUGIN REFERENCE                                         v2.1.6  │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  COMMANDS (1)                      │  AUTO-ACTIVATING SKILLS (3)           │
@@ -53,32 +53,54 @@
 │  • environment variables           │    ✓ ADHD-friendly format             │
 │                                    │                                       │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│  BRAINSTORM COMMAND USAGE                                                  │
+│  BRAINSTORM COMMAND - INTERACTIVE FLOW (v2.1.6)                            │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│  Command                           │  What Happens                         │
-│  ───────                           │  ────────────                         │
-│  /brainstorm                       │  Auto-detects mode from context       │
-│                                    │  Launches relevant agents (thorough)  │
+│                                                                             │
+│  /brainstorm (no args)             │  /brainstorm "topic"                  │
+│  ──────────────────────            │  ────────────────────                 │
+│  NEW SESSION:                      │  Shows interactive menus:             │
+│    Q-1: Resume previous session?   │    Q1: Depth? (default/quick/thorough)│
+│      ○ Resume: [last topic]        │    Q2: Focus? (auto/feature/arch/...)│
+│      ○ Resume: [2nd last]          │    → Executes with selections         │
+│      ○ Start fresh                 │                                       │
 │                                    │                                       │
-│  /brainstorm quick                 │  Fast ideation (5-7 ideas)            │
-│                                    │  No agent delegation                  │
-│                                    │  Saves to markdown                    │
-│                                    │  ~2 minutes                           │
+│  EXISTING SESSION:                 │  /brainstorm feature "auth"           │
+│    Smart context detection:        │  ─────────────────────────            │
+│    • 1 topic  → uses it            │  Skips menus, executes directly       │
+│    • 2-4 topics → asks which       │                                       │
+│    • 0/5+ topics → asks free-form  │  /brainstorm quick feature "auth"     │
+│    Then: Q1 → Q2 → Execute         │  ───────────────────────────────      │
+│                                    │  Full args: skips all menus           │
+│                                                                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  INTERACTIVE MENU QUESTIONS                                                │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  Q-1: Session Resume (new session) │  Q0: Topic (multiple detected)        │
+│  ────────────────────────────────  │  ────────────────────────────         │
+│  "Continue or start fresh?"        │  "Which topic to brainstorm?"         │
+│    ○ Resume: [topic] - [time]      │    ○ [Topic from conversation]        │
+│    ○ Resume: [topic 2] - [time]    │    ○ [Topic from git branch]          │
+│    ○ Start fresh                   │    ○ [Topic from .STATUS]             │
 │                                    │                                       │
-│  /brainstorm thorough "topic"      │  Deep analysis                        │
-│                                    │  Launches 2-4 agents (parallel)       │
-│                                    │  Synthesizes comprehensive plan       │
-│                                    │  ~3-5 minutes                         │
-│                                    │                                       │
-│  /brainstorm feature               │  User value, MVP scope                │
-│                                    │  Delegates: product-strategist        │
-│                                    │                                       │
-│  /brainstorm architecture          │  System design, scalability           │
-│                                    │  Delegates: backend + database        │
-│                                    │                                       │
-│  /brainstorm design                │  UI/UX, accessibility                 │
-│                                    │  Delegates: ux-ui-designer            │
-│                                    │                                       │
+│  Q1: Depth Selection               │  Q2: Focus Selection                  │
+│  ───────────────────               │  ──────────────────                   │
+│  "How deep should analysis be?"    │  "What's the focus area?"             │
+│    ○ default (< 5 min)             │    ○ auto-detect (Recommended)        │
+│    ○ quick (< 1 min, no agents)    │    ○ feature (user stories, MVP)      │
+│    ○ thorough (< 30 min, agents)   │    ○ architecture (system design)     │
+│                                    │    ○ backend (API, database)          │
+│                                    │  (frontend/design/devops via "Other") │
+│                                                                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  DEPTH × FOCUS MATRIX                                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  Depth      │ Time    │ Agents │ Best For                                  │
+│  ─────      │ ────    │ ────── │ ────────                                  │
+│  quick      │ < 1 min │ None   │ Fast decisions, familiar topics           │
+│  default    │ < 5 min │ Maybe  │ Daily brainstorming, balanced             │
+│  thorough   │ < 30min │ 2-4    │ Architecture decisions, new domains       │
+│                                                                             │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  OUTPUT FORMAT (ADHD-Friendly)                                             │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -191,12 +213,23 @@
 
 | What You Want | What To Do |
 |---------------|------------|
+| **Interactive flow** | `/brainstorm` → menus guide you |
+| **Resume previous session** | `/brainstorm` in new session → pick from list |
+| **Topic with menus** | `/brainstorm "auth system"` → Q1: Depth → Q2: Focus |
+| **Skip menus entirely** | `/brainstorm quick feature "auth"` |
 | **Quick feature ideas** | `/brainstorm quick feature [topic]` |
-| **Deep architecture analysis** | `/brainstorm thorough architecture [topic]` |
+| **Deep architecture** | `/brainstorm thorough architecture [topic]` |
 | **UI/UX design guidance** | Mention "UI design" → frontend-designer activates |
 | **API design help** | Mention "API" → backend-designer activates |
-| **Deployment advice** | Mention "deploy" → devops-helper activates |
-| **Auto-detect mode** | `/brainstorm` (analyzes conversation context) |
+
+### Flow Summary
+
+```
+/brainstorm                          → Smart detect → Q1 → Q2 → Execute
+/brainstorm "topic"                  → Q1: Depth → Q2: Focus → Execute
+/brainstorm feature "topic"          → Execute directly (mode provided)
+/brainstorm quick feature "topic"    → Execute directly (all args provided)
+```
 
 ---
 
