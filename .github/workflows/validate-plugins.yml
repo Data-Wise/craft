@@ -25,7 +25,7 @@ jobs:
       matrix:
         plugin:
           - craft
-          - rforge-orchestrator
+          - rforge
           - statistical-research
           - workflow
 
@@ -203,7 +203,7 @@ jobs:
           echo ""
           echo "Validated plugins:"
           echo "  ✅ craft"
-          echo "  ✅ rforge-orchestrator"
+          echo "  ✅ rforge"
           echo "  ✅ statistical-research"
           echo "  ✅ workflow"
           echo ""
