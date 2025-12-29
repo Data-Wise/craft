@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.4] - 2025-12-29
+
+### Changed - Topic First, Then Menus
+
+Updated flow so topic comes first, then menus refine depth and focus:
+
+```
+/brainstorm "auth system"  → Q1: Depth → Q2: Focus → Execute
+/brainstorm                → Asks topic first → Q1 → Q2 → Execute
+/brainstorm feature "auth" → Skips menus (mode provided)
+```
+
+---
+
 ## [2.1.3] - 2025-12-29
 
 ### Changed - AskUserQuestion Compliance

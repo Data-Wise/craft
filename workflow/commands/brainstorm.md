@@ -1,7 +1,7 @@
 ---
 name: brainstorm
 description: Enhanced brainstorming with smart detection, design modes, time budgets, and automatic agent delegation for deep analysis
-version: 2.1.3
+version: 2.1.4
 args:
   - name: mode
     description: "Brainstorm mode: feature|architecture|design|backend|frontend|devops|quick|thorough (optional, shows menu if omitted)"
@@ -36,16 +36,24 @@ ADHD-friendly brainstorming with smart mode detection, time budgets, and agent d
 
 ### Step 0: Parse Arguments
 
-Check if user provided a mode argument:
-
 ```
-Arguments provided? → Skip to Step 2 with that mode
-No arguments? → Show mode selection menu (Step 1)
+Topic only?           → Show menus (Q1: Depth, Q2: Focus), then execute
+Topic + mode?         → Skip menus, execute with that mode
+No arguments?         → Ask "What to brainstorm?" first, then show menus
+Full args (depth+mode+topic)? → Execute directly
 ```
 
-### Step 1: Interactive Menu (No Arguments)
+**Examples:**
+| Input | Behavior |
+|-------|----------|
+| `/brainstorm "auth system"` | Shows menus → executes |
+| `/brainstorm feature "auth"` | Skips menus → feature mode |
+| `/brainstorm quick feature "auth"` | Skips menus → quick + feature |
+| `/brainstorm` | Asks topic first → shows menus |
 
-When no arguments provided, use **two sequential AskUserQuestion calls** (max 4 options each).
+### Step 1: Interactive Menu (Topic Provided, No Mode)
+
+When topic is provided but no mode, show **two sequential AskUserQuestion calls** (max 4 options each).
 
 #### Question 1: Depth Selection
 
@@ -96,14 +104,13 @@ AskUserQuestion:
 #### Example Flow
 
 ```
-User: /brainstorm
+User: /brainstorm "new auth system"
 
 Claude: [AskUserQuestion - Depth]
   "How deep should the analysis be?"
   ○ default (Recommended) - < 5 min, comprehensive
   ○ quick - < 1 min, fast ideation
   ○ thorough - < 30 min, deep analysis
-  ○ Other
 
 User: Selects "quick"
 
@@ -113,11 +120,10 @@ Claude: [AskUserQuestion - Focus]
   ○ feature - User stories, MVP scope
   ○ architecture - System design, diagrams
   ○ backend - API, database, auth
-  ○ Other
 
 User: Selects "feature"
 
-Claude: Executes quick + feature brainstorm
+Claude: Executes quick + feature brainstorm for "new auth system"
 ```
 
 #### Direct Invocation (Skip Menus)
@@ -434,8 +440,12 @@ User: /workflow:brainstorm feature notifications --format json
 flowchart TD
     Start["/brainstorm"] --> HasArgs{Arguments?}
 
-    HasArgs -->|Yes| ParseArgs[Parse mode + topic]
-    HasArgs -->|No| DepthQ["🔘 Q1: Depth?<br/>(default/quick/thorough)"]
+    HasArgs -->|None| AskTopic["Ask: What to brainstorm?"]
+    HasArgs -->|Topic only| DepthQ["🔘 Q1: Depth?"]
+    HasArgs -->|Topic + mode| Execute
+    HasArgs -->|Full args| Execute
+
+    AskTopic --> DepthQ
 
     DepthQ --> SelectDepth{User selects}
     SelectDepth -->|default| DefaultDepth[default < 5 min]
