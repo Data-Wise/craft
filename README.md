@@ -3,7 +3,7 @@
 [![Craft CI](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml)
 
-A comprehensive full-stack developer toolkit for Claude Code. Craft provides **64 commands**, 7 specialized agents, **16 skills** with mode support, smart orchestration, intelligent task routing, **enhanced orchestrator v2.1**, **redesigned site commands with 8 ADHD-friendly design presets**, **Phase 0.5: Git worktree & Mermaid diagram support**, and **NEW: site:nav, site:audit, site:consolidate, docs:prompt for ADHD-friendly docs maintenance**.
+A comprehensive full-stack developer toolkit for Claude Code. Craft provides **65 commands**, 7 specialized agents, **17 skills** with mode support, smart orchestration, intelligent task routing, **enhanced orchestrator v2.1**, **redesigned site commands with 8 ADHD-friendly design presets**, **Phase 0.5: Git worktree & Mermaid diagram support**, **site:nav, site:audit, site:consolidate, docs:prompt for ADHD-friendly docs maintenance**, and **NEW: CI detection with smart project type detection**.
 
 ## Installation
 
@@ -51,7 +51,7 @@ Commands support execution modes for different use cases:
 /craft:arch:analyze optimize    # Performance analysis
 ```
 
-## Commands (64 total)
+## Commands (65 total)
 
 ### Smart Commands (4) - ENHANCED
 | Command | Description |
@@ -162,7 +162,12 @@ Commands support execution modes for different use cases:
 
 **Git Guides:** refcard, undo-guide, safety-rails, learning-guide
 
-### Distribution Commands (2) - NEW in v1.5.0
+### CI Commands (1) - NEW in v1.10.0
+| Command | Description |
+|---------|-------------|
+| `/craft:ci:detect` | **NEW** Smart detection of project type, build tools, and CI requirements |
+
+### Distribution Commands (2)
 | Command | Description |
 |---------|-------------|
 | `/craft:dist:homebrew` | Generate/update Homebrew formula |
@@ -173,7 +178,7 @@ Commands support execution modes for different use cases:
 |---------|-------------|
 | `/craft:hub` | Command discovery hub |
 
-## Skills (16)
+## Skills (17)
 
 | Skill | Category | Triggers |
 |-------|----------|----------|
@@ -189,7 +194,8 @@ Commands support execution modes for different use cases:
 | `changelog-automation` | Documentation | Changelog patterns |
 | `architecture-decision-records` | Documentation | ADR generation |
 | `openapi-spec-generation` | Documentation | OpenAPI specs |
-| `mermaid-linter` | Documentation | **NEW v1.8.0** Mermaid diagram validation |
+| `mermaid-linter` | Documentation | Mermaid diagram validation |
+| `project-detector` | CI | **NEW v1.10.0** Smart project type detection |
 | `distribution-strategist` | Distribution | Release channels |
 | `homebrew-formula-expert` | Distribution | Homebrew formulas |
 | `worktree-expert` | Git | Git worktree workflows |
@@ -268,11 +274,21 @@ Commands support execution modes for different use cases:
 
 ## Version
 
-- **Version:** 1.9.0
+- **Version:** 1.10.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
 ## Changelog
+
+### [1.10.0] - 2025-12-28
+#### Added
+- **CI Detection System**:
+  - `/craft:ci:detect` - Smart detection of project type, build tools, and CI requirements
+  - `project-detector` skill - Core detection logic for Python, Node, R, Rust, Go, and Claude plugins
+  - Detects test frameworks (pytest, jest, testthat, etc.)
+  - Identifies linting configs (ruff, eslint, lintr)
+  - Recommends appropriate CI templates
+- Total: 65 commands, 17 skills, 7 agents
 
 ### [1.9.0] - 2025-12-28
 #### Added

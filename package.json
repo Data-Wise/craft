@@ -1,7 +1,7 @@
 {
   "name": "@data-wise/claude-craft-plugin",
-  "version": "1.9.0",
-  "description": "Full-stack developer toolkit - 64 commands, 7 agents, 16 skills for code, git, site, docs, testing, architecture, and distribution",
+  "version": "1.10.0",
+  "description": "Full-stack developer toolkit - 65 commands, 7 agents, 17 skills for code, git, site, docs, testing, architecture, CI, and distribution",
   "main": "index.js",
   "scripts": {
     "test": "python3 tests/test_craft_plugin.py",
@@ -22,7 +22,9 @@
     "architecture",
     "homebrew",
     "distribution",
-    "orchestrator"
+    "orchestrator",
+    "ci",
+    "project-detection"
   ],
   "author": "Data-Wise",
   "license": "MIT"
