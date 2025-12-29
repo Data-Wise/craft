@@ -1,7 +1,7 @@
 ---
 name: brainstorm
 description: Enhanced brainstorming with smart detection, design modes, time budgets, and automatic agent delegation for deep analysis
-version: 2.1.2
+version: 2.1.3
 args:
   - name: mode
     description: "Brainstorm mode: feature|architecture|design|backend|frontend|devops|quick|thorough (optional, shows menu if omitted)"
@@ -43,71 +43,89 @@ Arguments provided? → Skip to Step 2 with that mode
 No arguments? → Show mode selection menu (Step 1)
 ```
 
-### Step 1: Tab-Completion Menu (No Arguments)
+### Step 1: Interactive Menu (No Arguments)
 
-When user types `/brainstorm` and presses `Tab`, show a sub-command menu:
+When no arguments provided, use **two sequential AskUserQuestion calls** (max 4 options each).
 
-```
-/brainstorm [Tab]
-
-┌─────────────────────────────────────────────────────────────────┐
-│ ── Depth ──────────────────────────────────────────────────────│
-│ ▸ default (Recommended)  (< 5 min)  → Comprehensive analysis    │
-│   quick                  (< 1 min)  → Fast ideation, no agents  │
-│   thorough               (< 30 min) → Deep analysis with agents │
-│ ── Content Mode ───────────────────────────────────────────────│
-│   feature                           → User stories, MVP scope   │
-│   architecture                      → System design, diagrams   │
-│   design                            → UI/UX wireframes, flows   │
-│   backend                           → API, database, auth       │
-│   frontend                          → Components, state mgmt    │
-│   devops                            → CI/CD, deployment         │
-├─────────────────────────────────────────────────────────────────┤
-│ ↑↓ Navigate  ⏎ Select (appends)  Tab Continue  Esc Cancel       │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-#### Menu Spec
-
-| Spec | Value |
-|------|-------|
-| **Trigger** | `/brainstorm` + `Tab` |
-| **Order** | Depth first (with headers), then Content Modes |
-| **Default** | `default (Recommended)` at top, pre-selected |
-| **Format** | `name (time) → description` |
-| **Selection** | Appends to command line |
-| **Multi-select** | Yes, press Tab again to add more options |
-
-#### Navigation
-
-| Key | Action |
-|-----|--------|
-| `↑` / `↓` | Navigate between options |
-| `Enter` | Select and append to command line |
-| `Tab` | Show menu again (for combining depth + mode) |
-| `Esc` | Close menu, keep current command |
-
-#### Example Workflow
+#### Question 1: Depth Selection
 
 ```
-/brainstorm [Tab]           → Shows menu, 'default' pre-selected
-  ↓ (arrow down)            → Highlight 'quick'
-  Enter                     → Command becomes: /brainstorm quick
-  [Tab]                     → Shows menu again (modes available)
-  ↓↓↓ (to 'feature')        → Highlight 'feature'
-  Enter                     → Command becomes: /brainstorm quick feature
-  Type " auth"              → Command becomes: /brainstorm quick feature auth
-  Enter                     → Executes brainstorm
+AskUserQuestion:
+  question: "How deep should the analysis be?"
+  header: "Depth"
+  multiSelect: false
+  options:
+    - label: "default (Recommended)"
+      description: "< 5 min, comprehensive with options"
+    - label: "quick"
+      description: "< 1 min, fast ideation, no agents"
+    - label: "thorough"
+      description: "< 30 min, 2-4 agents for deep analysis"
 ```
 
-#### Fallback (If Tab-Completion Unavailable)
-
-If tab-completion is not supported, use AskUserQuestion:
+#### Question 2: Focus Area Selection
 
 ```
-Question: "What type of brainstorming?"
-Header: "Mode"
-Options: [depth options, then content mode options]
+AskUserQuestion:
+  question: "What's the focus area?"
+  header: "Focus"
+  multiSelect: false
+  options:
+    - label: "auto-detect (Recommended)"
+      description: "Detect from project context"
+    - label: "feature"
+      description: "User stories, MVP scope"
+    - label: "architecture"
+      description: "System design, diagrams"
+    - label: "backend"
+      description: "API, database, auth"
+```
+
+**Note:** Users wanting `frontend`, `design`, or `devops` select "Other" and type the mode name.
+
+#### Menu Constraints
+
+| Constraint | Value |
+|------------|-------|
+| **Max options per question** | 4 (AskUserQuestion limit) |
+| **Max questions per call** | 4 |
+| **Order** | Depth first, then Focus |
+| **Default** | "(Recommended)" suffix on first option |
+| **Overflow** | "Other" allows typing any mode |
+
+#### Example Flow
+
+```
+User: /brainstorm
+
+Claude: [AskUserQuestion - Depth]
+  "How deep should the analysis be?"
+  ○ default (Recommended) - < 5 min, comprehensive
+  ○ quick - < 1 min, fast ideation
+  ○ thorough - < 30 min, deep analysis
+  ○ Other
+
+User: Selects "quick"
+
+Claude: [AskUserQuestion - Focus]
+  "What's the focus area?"
+  ○ auto-detect (Recommended) - Detect from context
+  ○ feature - User stories, MVP scope
+  ○ architecture - System design, diagrams
+  ○ backend - API, database, auth
+  ○ Other
+
+User: Selects "feature"
+
+Claude: Executes quick + feature brainstorm
+```
+
+#### Direct Invocation (Skip Menus)
+
+```bash
+/brainstorm quick feature auth     # Explicit: depth + focus + topic
+/brainstorm feature auth           # Focus + topic (default depth)
+/brainstorm "my topic"             # Topic only (auto-detect all)
 ```
 
 ---
@@ -414,36 +432,35 @@ User: /workflow:brainstorm feature notifications --format json
 
 ```mermaid
 flowchart TD
-    Start["/workflow:brainstorm"] --> HasArgs{Arguments?}
+    Start["/brainstorm"] --> HasArgs{Arguments?}
 
     HasArgs -->|Yes| ParseArgs[Parse mode + topic]
-    HasArgs -->|No| ModeMenu["🔘 Mode Menu (AskUserQuestion)"]
+    HasArgs -->|No| DepthQ["🔘 Q1: Depth?<br/>(default/quick/thorough)"]
 
-    ModeMenu --> SelectMode{User selects}
-    SelectMode -->|feature| Feature[Feature Mode]
-    SelectMode -->|architecture| Arch[Architecture Mode]
-    SelectMode -->|design| Design[Design Mode]
-    SelectMode -->|backend| Backend[Backend Mode]
-    SelectMode -->|frontend| Frontend[Frontend Mode]
-    SelectMode -->|devops| DevOps[DevOps Mode]
-    SelectMode -->|cancel| Cancel[Exit]
+    DepthQ --> SelectDepth{User selects}
+    SelectDepth -->|default| DefaultDepth[default < 5 min]
+    SelectDepth -->|quick| QuickDepth[quick < 1 min]
+    SelectDepth -->|thorough| ThoroughDepth[thorough < 30 min]
+    SelectDepth -->|Other| CustomDepth[Custom input]
 
-    Feature --> DepthMenu["🔘 Depth Menu"]
-    Arch --> DepthMenu
-    Design --> DepthMenu
-    Backend --> DepthMenu
-    Frontend --> DepthMenu
-    DevOps --> DepthMenu
+    DefaultDepth --> FocusQ["🔘 Q2: Focus?<br/>(auto/feature/arch/backend)"]
+    QuickDepth --> FocusQ
+    ThoroughDepth --> FocusQ
+    CustomDepth --> FocusQ
 
-    DepthMenu --> SelectDepth{User selects}
-    SelectDepth -->|quick| Quick["< 1 min, no agents"]
-    SelectDepth -->|default| Default["< 5 min, optional agents"]
-    SelectDepth -->|thorough| Thorough["< 30 min, 2-4 agents"]
+    FocusQ --> SelectFocus{User selects}
+    SelectFocus -->|auto-detect| AutoFocus[Detect from context]
+    SelectFocus -->|feature| FeatureFocus[Feature mode]
+    SelectFocus -->|architecture| ArchFocus[Architecture mode]
+    SelectFocus -->|backend| BackendFocus[Backend mode]
+    SelectFocus -->|Other| CustomFocus[frontend/design/devops]
 
     ParseArgs --> Execute
-    Quick --> Execute
-    Default --> Execute
-    Thorough --> Execute
+    AutoFocus --> Execute
+    FeatureFocus --> Execute
+    ArchFocus --> Execute
+    BackendFocus --> Execute
+    CustomFocus --> Execute
 
     Execute[Execute Brainstorm] --> Format{Output format?}
     Format -->|terminal| Terminal[Rich output]
@@ -456,18 +473,32 @@ flowchart TD
 
     Save --> Report["Report time + next steps"]
     Report --> End[Complete]
-    Cancel --> End
 ```
 
 ---
 
-## v2.1 Changes
+## Version History
 
-**New in v2.1:**
-- ✅ Interactive menu-based UX (matches craft plugin pattern)
-- ✅ Two-step mode selection (content mode + depth)
+### v2.1.3 (Current)
+
+**AskUserQuestion Compliance:**
+- ✅ Two-question flow (max 4 options each)
+- ✅ Q1: Depth (default/quick/thorough)
+- ✅ Q2: Focus (auto-detect/feature/architecture/backend)
+- ✅ "Other" option for overflow modes (frontend/design/devops)
+- ✅ Updated flowchart to match implementation
+
+### v2.1.2
+
+**Tab-Completion Menu Spec:**
+- Tab-completion dropdown design (aspirational)
+- Menu navigation spec
+
+### v2.1.0
+
+**Interactive Menu UX:**
+- ✅ Two-step mode selection (depth + focus)
 - ✅ Separated "depth" from "mode" for clarity
-- ✅ Cancel option via "Other"
 - ✅ Quick tip showing direct invocation
 - ✅ Related commands in footer
 
@@ -478,15 +509,13 @@ flowchart TD
 
 **Migration:**
 ```bash
-# v2.0 (still works)
-/workflow:brainstorm                    → Shows menu (v2.1 enhanced)
-/workflow:brainstorm quick              → Quick mode directly
-/workflow:brainstorm thorough           → Thorough mode directly
-/workflow:brainstorm feature auth       → Feature mode for auth
+# Direct invocation (skip menus)
+/brainstorm quick feature auth     # Explicit: depth + focus + topic
+/brainstorm feature auth           # Focus + topic (default depth)
+/brainstorm "my topic"             # Topic only (auto-detect all)
 
-# v2.1 (new)
-/workflow:brainstorm                    → Mode menu → Depth menu → Topic
-/workflow:brainstorm quick feature auth → Explicit depth + mode + topic
+# Interactive (shows menus)
+/brainstorm                        # Q1: Depth → Q2: Focus → Execute
 ```
 
 ---

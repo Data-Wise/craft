@@ -7,9 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.3] - 2025-12-29
+
+### Changed - AskUserQuestion Compliance
+
+Updated `/brainstorm` to use two-question flow respecting AskUserQuestion's 4-option limit:
+
+#### Two-Question Flow
+- **Q1 - Depth:** default (Recommended) / quick / thorough
+- **Q2 - Focus:** auto-detect (Recommended) / feature / architecture / backend
+- **Overflow:** "Other" option allows typing frontend/design/devops
+
+#### Constraints Documented
+| Constraint | Value |
+|------------|-------|
+| Max options per question | 4 |
+| Max questions per call | 4 |
+| Default indicator | "(Recommended)" suffix |
+
+#### Updated Flowchart
+- Reflects two-question sequential flow
+- Shows "Other" escape hatch for overflow modes
+
+---
+
 ## [2.1.2] - 2025-12-29
 
-### Changed - Tab-Completion Menu UX
+### Changed - Tab-Completion Menu UX (Aspirational)
 
 Redesigned `/workflow:brainstorm` with tab-completion menu spec:
 
