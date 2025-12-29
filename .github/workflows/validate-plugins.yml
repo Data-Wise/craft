@@ -4,6 +4,7 @@ on:
   push:
     branches: [ main, dev ]
     paths:
+      - 'craft/**'
       - 'rforge-orchestrator/**'
       - 'statistical-research/**'
       - 'workflow/**'
@@ -12,6 +13,7 @@ on:
   pull_request:
     branches: [ main, dev ]
     paths:
+      - 'craft/**'
       - 'rforge-orchestrator/**'
       - 'statistical-research/**'
       - 'workflow/**'
@@ -22,6 +24,7 @@ jobs:
     strategy:
       matrix:
         plugin:
+          - craft
           - rforge-orchestrator
           - statistical-research
           - workflow
@@ -193,6 +196,7 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo ""
           echo "Validated plugins:"
+          echo "  ✅ craft"
           echo "  ✅ rforge-orchestrator"
           echo "  ✅ statistical-research"
           echo "  ✅ workflow"

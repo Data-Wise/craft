@@ -1,0 +1,29 @@
+{
+  "name": "@data-wise/claude-craft-plugin",
+  "version": "1.9.0",
+  "description": "Full-stack developer toolkit - 64 commands, 7 agents, 16 skills for code, git, site, docs, testing, architecture, and distribution",
+  "main": "index.js",
+  "scripts": {
+    "test": "python3 tests/test_craft_plugin.py",
+    "test:all": "python3 -m pytest tests/ -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Data-Wise/claude-plugins.git",
+    "directory": "craft"
+  },
+  "keywords": [
+    "claude-code",
+    "craft",
+    "developer-toolkit",
+    "testing",
+    "git-worktree",
+    "documentation",
+    "architecture",
+    "homebrew",
+    "distribution",
+    "orchestrator"
+  ],
+  "author": "Data-Wise",
+  "license": "MIT"
+}
