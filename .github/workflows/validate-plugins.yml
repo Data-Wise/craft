@@ -110,8 +110,8 @@ jobs:
                   content = f.read(2000)
 
               has_frontmatter = content.startswith('---')
-              # Check for plugin-specific heading patterns
-              has_heading = bool(re.search(r'^#\s+/', content, re.MULTILINE))
+              # Check for any markdown heading
+              has_heading = bool(re.search(r'^#\s+.+', content, re.MULTILINE))
 
               # Command must have either frontmatter OR a heading
               if not has_frontmatter and not has_heading:
