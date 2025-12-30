@@ -205,7 +205,7 @@ If no matching spec exists and task is a feature:
 
 ```
 Note: No spec found for "user authentication"
-      Consider: /workflow:brainstorm --save-spec "user authentication"
+      Consider: /workflow:brainstorm save "user authentication"
       Proceeding with standard routing...
 ```
 
@@ -216,5 +216,6 @@ Note: No spec found for "user authentication"
 - Be specific for better routing
 - Use domain keywords (auth, api, ui, db)
 - Add mode hint if needed: "thoroughly test the api"
-- Create specs for complex features: `/workflow:brainstorm --save-spec "feature"`
+- Create specs for complex features: `/workflow:brainstorm save "feature"` (or `s` for short)
+- For detailed specs: `/brainstorm d f s "feature"` (deep + feat + save)
 - Review specs before implementation: `/spec:review [topic]`

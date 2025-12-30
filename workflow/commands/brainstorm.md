@@ -1,19 +1,22 @@
 ---
 name: brainstorm
 description: Enhanced brainstorming with smart detection, design modes, time budgets, agent delegation, and spec capture for implementation
-version: 2.2.0
+version: 2.3.0
 args:
-  - name: mode
-    description: "Brainstorm mode: feature|architecture|design|backend|frontend|devops|quick|thorough (optional, shows menu if omitted)"
+  - name: depth
+    description: "Analysis depth: q|quick|d|deep|m|max (default: balanced, shows menu if omitted)"
+    required: false
+  - name: focus
+    description: "Focus area: f|feat|a|arch|x|ux|b|api|u|ui|o|ops (optional, auto-detect if omitted)"
+    required: false
+  - name: action
+    description: "Action: s|save (capture as spec) - replaces --save-spec"
     required: false
   - name: topic
-    description: "Topic to brainstorm (optional, uses conversation context if omitted)"
+    description: "Topic to brainstorm (quoted string, uses conversation context if omitted)"
     required: false
   - name: format
     description: "Output format: terminal|json|markdown (default: terminal)"
-    required: false
-  - name: save-spec
-    description: "Capture brainstorm as formal spec (--save-spec or --save-spec=full|quick)"
     required: false
 ---
 
@@ -21,41 +24,141 @@ args:
 
 ADHD-friendly brainstorming with smart mode detection, time budgets, agent delegation, and **spec capture for implementation**.
 
-## Arguments
+## Arguments (v2.3.0 - Three-Layer System)
 
-| Argument | What it does |
-|----------|--------------|
-| (none) | Show interactive mode menu |
-| `feature` | User stories, MVP scope, acceptance criteria |
-| `architecture` | System design, scalability, component diagrams |
-| `design` | UI/UX wireframes, accessibility, user flows |
-| `backend` | API endpoints, database schema, auth patterns |
-| `frontend` | Component tree, state management, performance |
-| `devops` | CI/CD pipelines, deployment, infrastructure |
-| `quick` | < 1 min, 5-7 ideas, no agents |
-| `thorough` | < 30 min, 2-4 agents for deep analysis |
-| `--save-spec` | Capture brainstorm as formal spec after completion |
-| `--save-spec=full` | Full spec: user stories + technical + UI/UX |
-| `--save-spec=quick` | Quick spec: user stories + key requirements only |
+```
+/brainstorm [depth] [focus] [action] "topic"
+            ↑       ↑       ↑
+            │       │       └── s|save (capture as spec)
+            │       └────────── f|feat|a|arch|x|ux|b|api|u|ui|o|ops
+            └────────────────── q|quick|d|deep|m|max
+```
+
+### Depth Layer
+
+| Full | Short | Single | Time | Description |
+|------|-------|--------|------|-------------|
+| (default) | - | - | < 5 min | Balanced, 2 questions + "ask more?" |
+| quick | quick | q | < 1 min | Fast, 0 questions + "ask more?" |
+| deep | deep | d | < 10 min | Expert questions (8), no agents |
+| max | max | m | < 30 min | Expert questions + 2 agents |
+
+**Note:** `thorough` is deprecated alias for `max`
+
+### Focus Layer
+
+| Full | Short | Single | What it brainstorms |
+|------|-------|--------|---------------------|
+| (auto) | - | - | Auto-detect from context |
+| feature | feat | f | User stories, MVP scope, acceptance criteria |
+| architecture | arch | a | System design, scalability, component diagrams |
+| ux | ux | x | UI/UX wireframes, accessibility, user flows |
+| api | api | b | API endpoints, database schema, auth patterns |
+| ui | ui | u | Component tree, state management, performance |
+| ops | ops | o | CI/CD pipelines, deployment, infrastructure |
+
+**Synonyms:** `design` → `ux`, `backend` → `api`, `frontend` → `ui`, `devops` → `ops`
+
+### Action Layer
+
+| Full | Short | Single | What it does |
+|------|-------|--------|--------------|
+| (none) | - | - | Output BRAINSTORM.md only |
+| save | save | s | Output SPEC.md (replaces --save-spec) |
+
+**Synonym:** `spec` → `save`
+
+### Quick Examples
+
+```bash
+# Minimal
+/brainstorm "auth"              # Default everything
+
+# With focus
+/brainstorm feat "auth"         # Feature focus
+/brainstorm f "auth"            # Same (single letter)
+
+# With action
+/brainstorm save "auth"         # Save as spec
+/brainstorm s "auth"            # Same (single letter)
+
+# Combined
+/brainstorm feat save "auth"    # Feature + spec
+/brainstorm f s "auth"          # Same (ultra-short)
+
+# Full control
+/brainstorm deep feat save "auth"   # Deep + feature + spec
+/brainstorm d f s "auth"            # Power user mode
+
+# Maximum depth
+/brainstorm max arch save "auth"    # Max + architecture + spec
+/brainstorm m a s "auth"            # Same (ultra-short)
+```
+
+### Backward Compatibility
+
+| Old Syntax (v2.2.0) | New Syntax (v2.3.0) | Status |
+|---------------------|---------------------|--------|
+| `--save-spec` | `save` or `s` | Deprecated but works |
+| `--save-spec=full` | `save` (default is full) | Deprecated but works |
+| `--save-spec=quick` | `q save` | Deprecated but works |
+| `feature` | `feat` or `f` | Both work |
+| `architecture` | `arch` or `a` | Both work |
+| `thorough` | `max` or `m` | `thorough` deprecated |
 
 ## When Invoked
 
-### Step 0: Parse Arguments
+### Step 0: Parse Arguments (v2.3.0)
 
+**Parsing Rules:**
+1. Keywords can appear in any order before topic
+2. Last quoted string is always the topic
+3. Unquoted words are parsed using lookup tables
+
+**Argument Mapping Tables:**
+
+```python
+# Normalize shortcuts
+DEPTH_MAP = {
+    'q': 'quick', 'quick': 'quick',
+    'd': 'deep', 'deep': 'deep',
+    'm': 'max', 'max': 'max',
+    't': 'max', 'thorough': 'max'  # deprecated aliases
+}
+
+FOCUS_MAP = {
+    'f': 'feat', 'feat': 'feat', 'feature': 'feat',
+    'a': 'arch', 'arch': 'arch', 'architecture': 'arch',
+    'x': 'ux', 'ux': 'ux', 'design': 'ux',
+    'b': 'api', 'api': 'api', 'backend': 'api',
+    'u': 'ui', 'ui': 'ui', 'frontend': 'ui',
+    'o': 'ops', 'ops': 'ops', 'devops': 'ops'
+}
+
+ACTION_MAP = {
+    's': 'save', 'save': 'save', 'spec': 'save'
+}
 ```
-Topic provided?       → Show menus (Q1: Depth, Q2: Focus), then execute
-Topic + mode?         → Skip menus, execute with that mode
-Full args?            → Execute directly
+
+**Decision Logic:**
+```
+Topic provided?       → Show "Ask More?" then execute
+Depth + Topic?        → Skip menus, show "Ask More?" then execute
+Depth + Focus + Topic? → Skip menus, show "Ask More?" then execute
+Full args (+ action)? → Execute directly (action bypasses "capture?" prompt)
 No arguments?         → Smart context detection (Step 0.5)
 ```
 
-**Examples:**
-| Input | Behavior |
-|-------|----------|
-| `/brainstorm "auth system"` | Shows menus → executes |
-| `/brainstorm feature "auth"` | Skips menus → feature mode |
-| `/brainstorm quick feature "auth"` | Skips menus → quick + feature |
-| `/brainstorm` | Smart detect → maybe ask → menus → execute |
+**Examples (v2.3.0):**
+| Input | Depth | Focus | Action | Behavior |
+|-------|-------|-------|--------|----------|
+| `/brainstorm "auth"` | default | auto | none | "Ask More?" → execute |
+| `/brainstorm f "auth"` | default | feat | none | "Ask More?" → execute |
+| `/brainstorm d "auth"` | deep | auto | none | 8 questions → "Ask More?" → execute |
+| `/brainstorm d f "auth"` | deep | feat | none | 8 feat questions → "Ask More?" → execute |
+| `/brainstorm d f s "auth"` | deep | feat | save | 8 feat questions → "Ask More?" → SPEC.md |
+| `/brainstorm q f s "auth"` | quick | feat | save | "Ask More?" → SPEC.md |
+| `/brainstorm` | - | - | - | Smart detect → menus → execute |
 
 ### Step 0.5: Smart Context Detection (No Arguments)
 
@@ -275,11 +378,106 @@ Claude: Executes quick + feature brainstorm for "new auth system"
 
 ## ⏱️ Time Budget Guarantees
 
-| Depth | Time Budget | Delegation | Output |
-|-------|-------------|------------|--------|
-| **quick** | < 60s (MUST) | None | 5-7 ideas, quick wins |
-| **default** | < 300s (SHOULD) | Optional | Comprehensive with options |
-| **thorough** | < 1800s (MAX) | 2-4 agents | Deep analysis with synthesis |
+| Depth | Time Budget | Questions | Agents | Output |
+|-------|-------------|-----------|--------|--------|
+| **quick (q)** | < 60s | 0 + "ask more?" | None | 5-7 ideas, quick wins |
+| **default** | < 300s | 2 + "ask more?" | None | Comprehensive with options |
+| **deep (d)** | < 600s | 8 + "ask more?" | None | Expert-level analysis |
+| **max (m)** | < 1800s | 8 + agent Qs | 2 per focus | Deep analysis with synthesis |
+
+---
+
+### Step 1.5: "Ask More?" Feature (All Depths)
+
+After base questions complete for ANY depth, offer escape hatch to go deeper or proceed:
+
+#### For quick (0 questions)
+
+```
+Claude: ⚡ Ready to quick-brainstorm: [topic] ([focus] focus)
+
+AskUserQuestion:
+  question: "Dive straight in or gather context first?"
+  header: "Start"
+  multiSelect: false
+  options:
+    - label: "Go! - Start brainstorming (Recommended)"
+      description: "Generate ideas immediately"
+    - label: "Ask 2 questions first"
+      description: "Quick context gathering"
+    - label: "Switch to deep (8 questions)"
+      description: "Detailed requirements gathering"
+    - label: "Switch to max (8 + agents)"
+      description: "Comprehensive analysis with agents"
+```
+
+#### For default (2 questions)
+
+```
+Claude: Quick context gathered!
+
+[Shows summary of 2 answers]
+
+AskUserQuestion:
+  question: "Need more detail before brainstorming?"
+  header: "Continue"
+  multiSelect: false
+  options:
+    - label: "No - Start brainstorming (Recommended)"
+      description: "Proceed with current context"
+    - label: "Yes - 2 more questions"
+      description: "Gather a bit more context"
+    - label: "Yes - Switch to deep (8 questions)"
+      description: "Full requirements gathering"
+    - label: "Yes - Switch to max (8 + agents)"
+      description: "Comprehensive with agents"
+```
+
+#### For deep (8 questions)
+
+```
+Claude: Detailed requirements gathered!
+
+[Shows summary of 8 answers]
+
+AskUserQuestion:
+  question: "Ready to brainstorm or need more?"
+  header: "Continue"
+  multiSelect: false
+  options:
+    - label: "Ready - Start brainstorming (Recommended)"
+      description: "Proceed with detailed context"
+    - label: "Yes - 2 more questions"
+      description: "Clarify specific points"
+    - label: "Yes - Switch to max (add agents)"
+      description: "Add expert agent analysis"
+```
+
+#### For max (8 questions + agent analysis)
+
+```
+Claude: Comprehensive analysis complete!
+
+[Shows summary + agent findings]
+
+AskUserQuestion:
+  question: "Proceed with brainstorm?"
+  header: "Continue"
+  multiSelect: false
+  options:
+    - label: "Yes - Generate comprehensive plan (Recommended)"
+      description: "Synthesize all findings"
+    - label: "Wait - 2 more questions first"
+      description: "Clarify before generating"
+    - label: "Re-run agents with different focus"
+      description: "Try different agent perspectives"
+```
+
+**Design Rationale:**
+- **ADHD-friendly**: Always offer escape hatch, never feel trapped
+- **Progressive disclosure**: Easy path forward, but depth available if needed
+- **Consistent UX**: Same pattern at every depth level
+- **No dead ends**: Can always go deeper OR proceed
 
 ---
 
@@ -469,20 +667,22 @@ Show footer:
 
 ---
 
-### Step 5.5: Spec Capture (Optional)
+### Step 5.5: Spec Capture (v2.3.0)
 
-After showing results, offer to capture as formal spec for implementation.
+After showing results, capture as spec if `save` action was used, or prompt if certain focus modes.
 
 #### When to Trigger
 
 | Condition | Trigger |
 |-----------|---------|
-| `--save-spec` flag provided | Always capture |
-| Mode is `feature`, `architecture`, `backend` | Prompt to capture |
-| Mode is `quick` | Skip (too brief for spec) |
-| User selects "Yes" in prompt | Capture |
+| `save` action provided (`s`, `save`, `spec`) | Always capture (no prompt) |
+| Focus is `feat`, `arch`, `api` and no action | Prompt to capture |
+| Depth is `quick` and no action | Skip prompt (too brief) |
+| `--save-spec` flag (deprecated) | Always capture (backward compat) |
 
-#### Spec Capture Question
+**v2.3.0 Change:** When `save` action is explicit, skip the "capture?" prompt entirely.
+
+#### Spec Capture Question (Only When No Action)
 
 ```
 AskUserQuestion:
@@ -577,13 +777,13 @@ If user selects "No" or mode is `quick`:
 
 ---
 
-## Agent Delegation (Thorough Mode)
+## Agent Delegation (Max Mode)
 
-When depth is `thorough`, launch relevant agents in background:
+When depth is `max` (or deprecated `thorough`), launch relevant agents in background:
 
 ```python
-# When thorough mode is active
-if depth == "thorough":
+# When max mode is active
+if depth == "max":
     # Launch agents in background (non-blocking)
     backend_analysis = Task(
         subagent_type="backend-architect",
@@ -766,7 +966,39 @@ flowchart TD
 
 ## Version History
 
-### v2.2.0 (Current)
+### v2.3.0 (Current)
+
+**Three-Layer Argument System:**
+- ✅ New syntax: `/brainstorm [depth] [focus] [action] "topic"`
+- ✅ Depth layer: `q|quick`, `d|deep`, `m|max` (thorough deprecated)
+- ✅ Focus layer: `f|feat`, `a|arch`, `x|ux`, `b|api`, `u|ui`, `o|ops`
+- ✅ Action layer: `s|save` (replaces `--save-spec`)
+- ✅ Single-letter shortcuts: `/brainstorm d f s "auth"`
+
+**"Ask More?" Feature (All Depths):**
+- ✅ Escape hatch at every depth level
+- ✅ Can upgrade from quick → default → deep → max
+- ✅ Can add 2 more questions at any depth
+- ✅ ADHD-friendly: never feel trapped
+
+**Enhanced Parsing:**
+- ✅ Keywords can appear in any order
+- ✅ Mapping tables for all aliases and synonyms
+- ✅ Backward compatible with v2.2.0 syntax
+
+**Migration from v2.2.0:**
+```bash
+# Old syntax (still works)
+/brainstorm --save-spec "auth"
+/brainstorm feature "auth"
+
+# New syntax (recommended)
+/brainstorm save "auth"          # or: /brainstorm s "auth"
+/brainstorm feat "auth"          # or: /brainstorm f "auth"
+/brainstorm d f s "auth"         # deep + feat + save
+```
+
+### v2.2.0
 
 **Spec Capture Integration:**
 - ✅ Added `--save-spec` flag for automatic spec capture
