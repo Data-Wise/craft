@@ -1,207 +1,276 @@
-# /craft:docs:update - Universal Documentation Updater
+# /craft:docs:update - Smart Documentation Generator
 
-You are an ADHD-friendly documentation updater. Detect what needs updating and handle it with minimal cognitive load.
+You are an ADHD-friendly documentation generator. Detect what's needed, generate it all, validate, done.
 
 ## Purpose
 
-**The "one command" solution for keeping docs current:**
-- Smart mode (default): Detect what changed, update only what's needed
-- Full mode: Update ALL documentation types regardless of changes
+**The ONE command for documentation:**
+- Detects what changed in your code
+- Figures out what docs are needed (guide? refcard? demo?)
+- Generates everything automatically
+- Validates and fixes issues
+- Updates changelog if commits present
+
+## Philosophy
+
+> **"Just run it. It figures out what's needed, then does it."**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  /craft:docs:update                                         │
+│                                                             │
+│  1. sync (detect changes, classify docs needed)             │
+│  2. generate (guide, demo, refcard - as needed)             │
+│  3. check (validate + auto-fix)                             │
+│  4. changelog (if commits present)                          │
+│  5. summary                                                 │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## Usage
 
 ```bash
-/craft:docs:update              # Smart: detect what changed, update relevant
-/craft:docs:update full         # Update ALL doc types
-/craft:docs:update all          # Alias for full
-/craft:docs:update --preview    # Show what would be updated (dry run)
+# DEFAULT: Smart detection → Full execution of what's needed
+/craft:docs:update                    # Detect changes → generate all needed docs
+
+# FEATURE-SPECIFIC: Full cycle scoped to a feature
+/craft:docs:update "sessions"         # Document the "sessions" feature
+/craft:docs:update "auth system"      # Document the "auth system" feature
+
+# FORCE: Do everything regardless of detection
+/craft:docs:update --force            # Full cycle even if nothing changed
+
+# DRY-RUN: Preview what would happen
+/craft:docs:update --dry-run          # Show plan without executing
+
+# SKIP PHASES
+/craft:docs:update --no-check         # Skip validation phase
+/craft:docs:update --no-changelog     # Skip changelog update
 ```
 
 ## When Invoked
 
-### Step 1: Analyze Current State
+### Step 1: Smart Detection (sync)
 
 ```bash
-# Get recent changes
+# Analyze recent changes
 git diff --name-only HEAD~10
 git log --oneline -10
 
-# Check file timestamps
-find docs/ -name "*.md" -mtime +7
-
-# Detect project type
-ls pyproject.toml package.json DESCRIPTION 2>/dev/null
+# Classify what docs are needed
+# (uses scoring algorithm from doc-classifier)
 ```
-
-**Determine scope:**
-- If arg is `full` or `all` → Update everything
-- Otherwise → Smart detection mode
-
-### Step 2: Smart Detection (Default Mode)
-
-Analyze recent changes and map to affected docs:
-
-| Change Type | Files Changed | Docs to Update |
-|-------------|---------------|----------------|
-| New CLI command | `src/*/cli/*.py` | CLI help epilogs, commands.md, REFCARD |
-| Config change | `pyproject.toml`, `package.json` | installation.md, README |
-| New feature | Any `src/` | guides, README features, CLAUDE.md |
-| API change | `src/*/api/*` | api.md, OpenAPI spec |
-| Version bump | Config files | All version references |
-| New doc file | `docs/*.md` | mkdocs.yml navigation |
-
-### Step 3: Show Update Plan
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ /craft:docs:update                                          │
+│ Step 1/5: DETECTING CHANGES                                 │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ Analyzing recent changes...                                 │
+│ Analyzing 15 recent commits...                              │
 │                                                             │
 │ Detected:                                                   │
-│   • 2 new CLI commands (src/aiterm/cli/sessions.py)         │
-│   • 1 modified config (pyproject.toml version bump)         │
-│   • 3 new doc files (docs/guide/sessions.md, ...)           │
+│   • 5 new CLI commands (src/aiterm/cli/sessions.py)         │
+│   • 2 new hooks (session-register, session-cleanup)         │
+│   • 1 new module (src/aiterm/sessions/)                     │
 │                                                             │
-│ Will update:                                                │
-│   ✓ docs/reference/commands.md (new commands)               │
-│   ✓ docs/REFCARD.md (new commands)                          │
-│   ✓ README.md (feature list)                                │
-│   ✓ CLAUDE.md (version, status)                             │
-│   ✓ mkdocs.yml (new nav entries)                            │
-│   ○ CHANGELOG.md (skipped - use docs:changelog for release) │
+│ Classification:                                             │
+│   Guide needed:   ✓ (score: 8) - New module with commands   │
+│   Refcard needed: ✓ (score: 5) - 5 new commands             │
+│   Demo needed:    ✓ (score: 6) - User-facing CLI workflow   │
+│   Mermaid needed: ✓ (score: 7) - Hook-based event system    │
 │                                                             │
-│ Proceed? (y/n/select)                                       │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Step 4: Full Mode (When `full` or `all` Specified)
+### Step 2: Generate Documentation
+
+For each doc type that scored >= 3:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ /craft:docs:update full                                     │
+│ Step 2/5: GENERATING DOCS                                   │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ Full documentation update:                                  │
+│ ✓ Guide: docs/guide/sessions.md (275 lines)                 │
+│   - Overview, Quick Start, How It Works                     │
+│   - Commands (5), Configuration, Troubleshooting            │
 │                                                             │
-│ Phase 1: Code Analysis                                      │
-│   • Scanning CLI commands...                                │
-│   • Extracting docstrings...                                │
-│   • Reading current docs...                                 │
+│ ✓ Refcard: docs/reference/REFCARD-SESSIONS.md (85 lines)    │
+│   - Essential commands, Common workflows                    │
 │                                                             │
-│ Phase 2: Updates                                            │
-│   ✓ CLI Help epilogs (3 commands updated)                   │
-│   ✓ docs/reference/commands.md (+45 lines)                  │
-│   ✓ docs/REFCARD.md (+12 lines)                             │
-│   ✓ docs/reference/REFCARD-*.md (domain refcards)           │
-│   ✓ README.md (badges, feature list)                        │
-│   ✓ CLAUDE.md (version, quick reference)                    │
-│   ✓ mkdocs.yml (navigation updated)                         │
+│ ✓ Demo: docs/demos/sessions.tape (34 lines)                 │
+│   - VHS tape for GIF recording                              │
 │                                                             │
-│ Phase 3: Validation                                         │
-│   ✓ All links valid                                         │
-│   ✓ Code examples compile                                   │
+│ ✓ Mermaid: embedded in guide                                │
+│   - Hook workflow diagram                                   │
 │                                                             │
-│ ✅ 7 files updated, 0 errors                                │
+│ ✓ CLI epilogs: Updated 5 commands                           │
+│ ✓ commands.md: +45 lines                                    │
+│ ✓ REFCARD.md: +8 lines (sessions section)                   │
+│ ✓ README.md: Added to features list                         │
+│ ✓ CLAUDE.md: Updated "Just Completed"                       │
+│ ✓ mkdocs.yml: Added 2 nav entries                           │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Step 5: Execute Updates
-
-For each doc type to update:
-
-#### CLI Help Epilogs
-```python
-# Find CLI commands with missing/outdated epilogs
-# Update epilogs with usage examples
-```
-
-#### Commands Reference
-- Read current `docs/reference/commands.md`
-- Compare with actual CLI commands
-- Add missing commands, update changed ones
-
-#### REFCARD
-- Update `docs/REFCARD.md` quick reference
-- Update domain-specific `docs/reference/REFCARD-*.md`
-
-#### README
-- Update feature list
-- Update badges (version, tests, coverage)
-- Update installation instructions if changed
-
-#### CLAUDE.md
-- Update version references
-- Update "Quick Reference" section
-- Update "Project Status" section
-
-#### mkdocs.yml Navigation
-- Detect orphan doc files
-- Add missing nav entries
-- Validate structure
-
-## What Gets Updated (Matrix)
-
-| Doc Type | Smart Mode | Full Mode |
-|----------|------------|-----------|
-| CLI Help epilogs | If commands changed | Always |
-| docs/reference/commands.md | If commands changed | Always |
-| docs/REFCARD.md | If commands changed | Always |
-| docs/reference/REFCARD-*.md | If relevant area changed | Always |
-| README.md | If features/version changed | Always |
-| CLAUDE.md | Always (status tracking) | Always |
-| mkdocs.yml | If new doc files | Always |
-| CHANGELOG.md | Never (use docs:changelog) | Never |
-
-## Output Format
+### Step 3: Validate & Fix (check)
 
 ```
-✅ DOCUMENTATION UPDATE COMPLETE
-
-Mode: smart (detected 5 updates needed)
-
-Updated:
-  • docs/reference/commands.md (+23 lines)
-  • docs/REFCARD.md (+8 lines)
-  • README.md (badges, features)
-  • CLAUDE.md (version sync)
-  • mkdocs.yml (2 new nav entries)
-
-Skipped:
-  • CHANGELOG.md (use /craft:docs:changelog for releases)
-  • docs/api/ (no API changes detected)
-
-What's next?
-  → Validate: /craft:docs:validate
-  → Commit: git add -A && git commit -m "docs: update documentation"
-  → Deploy: /craft:site:deploy
+┌─────────────────────────────────────────────────────────────┐
+│ Step 3/5: CHECKING DOCS                                     │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ ✓ Fixed: 2 broken links (auto-fixed)                        │
+│ ✓ Fixed: 1 nav entry (auto-added)                           │
+│ ✓ All new docs validated                                    │
+│                                                             │
+│ No manual fixes needed.                                     │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## ADHD-Friendly Features
+### Step 4: Update Changelog (if commits)
 
-### 1. One Command Does It All
-No need to remember which specific command to run. Just `/craft:docs:update` and it figures out what's needed.
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 4/5: UPDATING CHANGELOG                                │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Found 15 commits since last changelog update.               │
+│                                                             │
+│ Added to CHANGELOG.md:                                      │
+│   ### Added                                                 │
+│   - Session coordination feature                            │
+│   - `ait sessions live/current/task/conflicts/history`      │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
 
-### 2. Clear Preview
-Always shows what will be updated before doing anything.
+### Step 5: Summary
 
-### 3. "What's Next" Hints
-Every output ends with suggested next steps.
+```
+┌─────────────────────────────────────────────────────────────┐
+│ ✅ DOCUMENTATION UPDATE COMPLETE                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Feature: Session Tracking                                   │
+│                                                             │
+│ Generated:                                                  │
+│   • docs/guide/sessions.md (NEW - 275 lines)                │
+│   • docs/reference/REFCARD-SESSIONS.md (NEW - 85 lines)     │
+│   • docs/demos/sessions.tape (NEW - VHS demo)               │
+│                                                             │
+│ Updated:                                                    │
+│   • docs/reference/commands.md (+45 lines)                  │
+│   • docs/REFCARD.md (+8 lines)                              │
+│   • README.md (features list)                               │
+│   • CLAUDE.md (status)                                      │
+│   • mkdocs.yml (navigation)                                 │
+│   • CHANGELOG.md (session coordination)                     │
+│                                                             │
+│ Validated:                                                  │
+│   • 3 issues auto-fixed                                     │
+│   • 0 manual fixes needed                                   │
+│                                                             │
+│ ─────────────────────────────────────────────────────────── │
+│                                                             │
+│ NEXT STEPS:                                                 │
+│                                                             │
+│ 1. Generate GIF (if demo created):                          │
+│    cd docs/demos && vhs sessions.tape                       │
+│                                                             │
+│ 2. Preview docs:                                            │
+│    mkdocs serve                                             │
+│                                                             │
+│ 3. Commit:                                                  │
+│    git add docs/ mkdocs.yml CLAUDE.md README.md CHANGELOG.md│
+│    git commit -m "docs: add session tracking documentation" │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
 
-### 4. Full Mode for Peace of Mind
-When unsure, `full` mode ensures everything is current.
+## Feature-Specific Mode
+
+When a feature name is provided, the cycle is scoped:
+
+```bash
+/craft:docs:update "auth"
+```
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ /craft:docs:update "auth"                                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Feature: Authentication                                     │
+│                                                             │
+│ Scope: Files matching "auth" in name/path                   │
+│   • src/auth/                                               │
+│   • src/**/auth*                                            │
+│   • tests/**/test_auth*                                     │
+│                                                             │
+│ Detected: 3 commands, 1 module, OAuth integration           │
+│                                                             │
+│ Generated:                                                  │
+│   • docs/guide/auth.md (NEW)                                │
+│   • docs/reference/REFCARD-AUTH.md (NEW)                    │
+│   • Updated 4 existing docs                                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Flags Reference
+
+| Flag | Effect |
+|------|--------|
+| (none) | Smart detection → generate needed → check → changelog |
+| `"feature"` | Scope to specific feature |
+| `--force` | Full cycle regardless of detection |
+| `--dry-run` | Preview plan without executing |
+| `--no-check` | Skip validation phase |
+| `--no-changelog` | Skip changelog update |
+| `--no-guide` | Skip guide generation |
+| `--no-demo` | Skip VHS demo generation |
+| `--verbose` | Detailed output |
+| `--json` | JSON output |
+
+## Scoring Algorithm
+
+Doc types are generated based on classification scores:
+
+| Factor | Guide | Refcard | Demo | Mermaid |
+|--------|-------|---------|------|---------|
+| New command (each) | +1 | +1 | +0.5 | +0 |
+| New module | +3 | +1 | +1 | +2 |
+| New hook | +2 | +1 | +1 | +3 |
+| Multi-step workflow | +2 | +0 | +3 | +2 |
+| Config changes | +0 | +2 | +0 | +0 |
+| Architecture change | +1 | +0 | +0 | +3 |
+| User-facing CLI | +1 | +1 | +2 | +0 |
+
+**Threshold:** Score >= 3 triggers generation
 
 ## Integration
 
-This is a **workflow command** that orchestrates individual commands:
+**Orchestrates these commands internally:**
+- `/craft:docs:sync` - Change detection and classification
+- `/craft:docs:guide` - Guide generation
+- `/craft:docs:demo` - VHS tape generation
+- `/craft:docs:mermaid` - Diagram generation
+- `/craft:docs:check` - Validation and auto-fix
+- `/craft:docs:changelog` - Changelog updates
+- `/craft:docs:claude-md` - CLAUDE.md updates
+- `/craft:docs:nav-update` - mkdocs navigation
 
-- Calls `/craft:docs:sync` for code-to-doc mapping
-- Calls `/craft:docs:claude-md` for CLAUDE.md updates
-- Calls `/craft:docs:nav-update` for mkdocs navigation
-- Calls `/craft:docs:validate` for final validation (in full mode)
+**Replaces:**
+- `/craft:docs:feature` - Use `update "feature-name"` instead
+- `/craft:docs:generate` - Use `update --force` instead
 
-**Related commands:**
-- `/craft:docs:feature` - After implementing a feature
-- `/craft:docs:done` - End of session updates
-- `/craft:docs:changelog` - For release changelogs
+## ADHD-Friendly Design
+
+1. **One command** - No multi-step process to remember
+2. **Smart defaults** - Detects what's needed automatically
+3. **Visual progress** - See each phase completing
+4. **Clear summary** - Know exactly what was done
+5. **Next steps** - Always shows what to do next
