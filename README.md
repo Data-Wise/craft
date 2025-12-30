@@ -3,7 +3,7 @@
 [![Craft CI](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml)
 
-A comprehensive full-stack developer toolkit for Claude Code. Craft provides **67 commands**, 7 specialized agents, **17 skills** with mode support, smart orchestration, intelligent task routing, **enhanced orchestrator v2.1**, **redesigned site commands with 8 ADHD-friendly design presets**, **Phase 0.5: Git worktree & Mermaid diagram support**, **site:nav, site:audit, site:consolidate, docs:prompt for ADHD-friendly docs maintenance**, and **NEW: Full CI toolkit with detect, generate, and validate commands**.
+A comprehensive full-stack developer toolkit for Claude Code. Craft provides **68 commands**, 7 specialized agents, **17 skills** with mode support, smart orchestration, intelligent task routing, **enhanced orchestrator v2.1**, **redesigned site commands with 8 ADHD-friendly design presets**, **Phase 0.5: Git worktree & Mermaid diagram support**, and **NEW: Smart docs consolidation (16→12 commands) with `update`, `sync`, `check` super commands**.
 
 ## Installation
 
@@ -51,7 +51,7 @@ Commands support execution modes for different use cases:
 /craft:arch:analyze optimize    # Performance analysis
 ```
 
-## Commands (67 total)
+## Commands (68 total)
 
 ### Smart Commands (4) - ENHANCED
 | Command | Description |
@@ -112,28 +112,40 @@ Commands support execution modes for different use cases:
 | `/craft:plan:sprint` | Sprint planning |
 | `/craft:plan:roadmap` | Generate roadmaps |
 
-### Documentation Commands (13)
+### Documentation Commands (12) - CONSOLIDATED in v1.11.0
 
-#### Workflow Commands (NEW in v1.6.0)
+#### Super Commands (3) - Smart defaults, do everything useful
 | Command | Description |
 |---------|-------------|
-| `/craft:docs:update [full]` | Smart update all docs (or force full update) |
-| `/craft:docs:feature [name]` | Comprehensive update after adding a feature |
-| `/craft:docs:done [summary]` | End-of-session doc updates |
-| `/craft:docs:site [--deploy]` | Website-focused updates with optional deploy |
+| `/craft:docs:update` | **Smart-Full**: Detect → Generate all needed → Check → Changelog |
+| `/craft:docs:sync` | **Detection**: Classify changes, report stale docs, recommend actions |
+| `/craft:docs:check` | **Validation**: Links + stale + nav + auto-fix (Version C: full-by-default) |
 
-#### Individual Commands
+```bash
+# Just run it - figures out what's needed
+/craft:docs:update                    # Smart detection → full execution
+/craft:docs:update "sessions"         # Feature-specific full cycle
+/craft:docs:sync                      # Quick: "3 stale, guide recommended"
+/craft:docs:check                     # Full check cycle, auto-fixes issues
+/craft:docs:check --report-only       # CI-safe mode (no modifications)
+```
+
+#### Specialized Commands (8)
 | Command | Description |
 |---------|-------------|
-| `/craft:docs:generate` | Full documentation generation |
 | `/craft:docs:api` | OpenAPI/Swagger documentation |
-| `/craft:docs:sync` | Sync docs with code |
 | `/craft:docs:changelog` | Auto-update CHANGELOG |
-| `/craft:docs:claude-md` | Update CLAUDE.md |
-| `/craft:docs:validate` | Validate links |
-| `/craft:docs:nav-update` | Update mkdocs.yml |
-| `/craft:docs:mermaid` | **NEW v1.8.0** Mermaid diagram templates (6 types) |
-| `/craft:docs:prompt` | **NEW v1.9.0** Generate reusable maintenance prompts |
+| `/craft:docs:site` | Website-focused updates with optional deploy |
+| `/craft:docs:mermaid` | Mermaid diagram templates (6 types) |
+| `/craft:docs:nav-update` | Update mkdocs.yml navigation |
+| `/craft:docs:prompt` | Generate reusable maintenance prompts |
+| `/craft:docs:demo` | **NEW** VHS tape generator for GIF demos |
+| `/craft:docs:guide` | **NEW** Feature guide + demo + refcard generator |
+
+#### Internal (1)
+| Command | Description |
+|---------|-------------|
+| `/craft:docs:claude-md` | Update CLAUDE.md (called by other commands) |
 
 ### Site Commands (12) - ENHANCED in v1.9.0
 | Command | Description |
@@ -234,22 +246,23 @@ Commands support execution modes for different use cases:
 # Routes to: arch:plan → code:test-gen → git:branch
 ```
 
-### Documentation Workflow (v1.6.0)
-```
-# After adding a feature
-/craft:docs:feature
+### Documentation Workflow (v1.11.0 - Consolidated)
+```bash
+# THE ONE COMMAND - detects what's needed, does it all
+/craft:docs:update                    # Smart detection → full execution
 
-# End of session
-/craft:docs:done
+# Feature-specific documentation
+/craft:docs:update "auth"             # Full cycle for auth feature
 
-# Before release
-/craft:docs:changelog → /craft:docs:update full
+# Check documentation health
+/craft:docs:check                     # Full: links + stale + nav + auto-fix
+/craft:docs:check --report-only       # CI mode (no changes)
+
+# Quick status check
+/craft:docs:sync                      # "3 stale, guide recommended (score: 7)"
 
 # Deploy website
 /craft:docs:site --deploy
-
-# Quick update anytime
-/craft:docs:update
 ```
 
 ### Site Workflow (NEW in v1.7.0)
@@ -276,11 +289,37 @@ Commands support execution modes for different use cases:
 
 ## Version
 
-- **Version:** 1.10.0
+- **Version:** 1.11.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
 ## Changelog
+
+### [1.11.0] - 2025-12-30
+#### Changed
+- **Documentation Commands Consolidation** (16→12 commands):
+  - **Super Commands (3)**: `update`, `sync`, `check` - smart defaults, do everything useful
+  - **Specialized Commands (8)**: `api`, `changelog`, `site`, `mermaid`, `nav-update`, `prompt`, `demo`, `guide`
+  - **Internal (1)**: `claude-md`
+- **`update`**: Smart-Full default - detect → generate all needed → check → changelog
+- **`sync`**: Merged `analyze` logic - detection + classification + stale report
+- **`check`**: Renamed from `validate`, Version C full-by-default (links + stale + nav + auto-fix)
+
+#### Added
+- `/craft:docs:demo` - VHS tape generator for GIF demos
+- `/craft:docs:guide` - Feature guide + demo + refcard generator
+
+#### Removed
+- `/craft:docs:validate` → renamed to `/craft:docs:check`
+- `/craft:docs:done` → merged into `sync` (default is quick)
+- `/craft:docs:generate` → merged into `update`
+- `/craft:docs:feature` → use `update "name"` instead
+- `/craft:docs:analyze` → merged into `sync`
+
+#### Philosophy
+> "Just run the command. It figures out what's needed, then does it."
+
+- Total: 68 commands, 17 skills, 7 agents
 
 ### [1.10.0] - 2025-12-28
 #### Added
