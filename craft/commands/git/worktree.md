@@ -2,7 +2,7 @@
 description: Git worktree management for parallel development workflows
 arguments:
   - name: action
-    description: Action to perform (setup|create|move|list|clean|install)
+    description: Action to perform (setup|create|move|list|clean|install|finish)
     required: true
   - name: branch
     description: Branch name (for create/move actions)
@@ -29,6 +29,7 @@ Manage git worktrees for working on multiple branches simultaneously without swi
 /craft:git:worktree list               # Show all worktrees
 /craft:git:worktree clean              # Remove merged worktrees
 /craft:git:worktree install            # Install deps in current worktree
+/craft:git:worktree finish             # Complete feature: tests → changelog → PR
 ```
 
 ## Actions
@@ -313,6 +314,169 @@ Install dependencies for the current worktree based on project type:
 | R | `DESCRIPTION` | Nothing (global library) |
 | R (renv) | `renv.lock` | `R -e "renv::restore()"` |
 
+### finish - Complete Feature Workflow
+
+**The AI-assisted workflow!** Runs tests, generates changelog, and creates a PR:
+
+```bash
+/craft:git:worktree finish
+```
+
+**Use case:** You've completed work on a feature in a worktree and want to:
+1. Verify tests pass
+2. Document the changes
+3. Create a PR for review
+
+**What it does:**
+
+#### Step 1: Run Tests (Auto-Detected)
+
+```bash
+# Detect project type and run appropriate tests
+if [ -f package.json ]; then
+    echo "🧪 Running: npm test"
+    npm test
+elif [ -f pyproject.toml ] || [ -f setup.py ]; then
+    echo "🧪 Running: pytest"
+    pytest -v
+elif [ -f DESCRIPTION ]; then
+    echo "🧪 Running: R CMD check"
+    R CMD check . --no-manual
+elif [ -f Cargo.toml ]; then
+    echo "🧪 Running: cargo test"
+    cargo test
+elif [ -f go.mod ]; then
+    echo "🧪 Running: go test"
+    go test ./...
+fi
+```
+
+#### Step 2: Generate Changelog Entry
+
+```bash
+# Get branch info
+branch=$(git branch --show-current)
+base_branch=$(git merge-base main HEAD)
+
+# Extract commits since branching
+commits=$(git log --oneline $base_branch..HEAD)
+
+# Determine change type from branch name
+if [[ "$branch" == feat/* ]]; then
+    section="### Added"
+elif [[ "$branch" == fix/* ]]; then
+    section="### Fixed"
+elif [[ "$branch" == docs/* ]]; then
+    section="### Documentation"
+else
+    section="### Changed"
+fi
+
+# Generate entry (Claude fills in the summary)
+echo "
+$section
+- **$branch**: [AI generates summary from commits]
+  - $(echo "$commits" | head -5)
+"
+```
+
+#### Step 3: Create PR
+
+```bash
+# Get target branch (usually dev or main)
+target="dev"
+if ! git rev-parse --verify dev &>/dev/null; then
+    target="main"
+fi
+
+# Create PR with AI-generated description
+gh pr create \
+    --base "$target" \
+    --title "[AI generates from branch name + commits]" \
+    --body "[AI generates from commit history + changes]"
+```
+
+**Output:**
+```
+╭─ Finish Feature ────────────────────────────────────╮
+│ Branch: feat/user-auth                              │
+│ Commits: 7 since branching from main                │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│ Step 1/3: Running Tests                             │
+│   📦 Detected: Python (pyproject.toml)              │
+│   🧪 Running: pytest -v                             │
+│   ✅ 47 tests passed                                │
+│                                                     │
+│ Step 2/3: Generating Changelog                      │
+│   📝 Branch type: feat/* → "Added" section          │
+│   📝 Entry generated:                               │
+│                                                     │
+│   ### Added                                         │
+│   - **User Authentication**: JWT-based auth system  │
+│     with login, logout, and session management.     │
+│     Includes password hashing and token refresh.    │
+│                                                     │
+│   ✏️  Review and edit CHANGELOG.md? [Y/n]           │
+│                                                     │
+│ Step 3/3: Creating PR                               │
+│   🎯 Target: dev                                    │
+│   📋 Title: feat: Add user authentication system    │
+│   📋 Body: (AI-generated from 7 commits)            │
+│                                                     │
+│   ✅ PR created: https://github.com/.../pull/42     │
+│                                                     │
+├─────────────────────────────────────────────────────┤
+│ DONE! Feature complete.                             │
+│                                                     │
+│ Next steps:                                         │
+│   - Review PR: gh pr view 42                        │
+│   - Clean worktree after merge:                     │
+│     /craft:git:worktree clean                       │
+╰─────────────────────────────────────────────────────╯
+```
+
+**Flags (optional):**
+```bash
+/craft:git:worktree finish --skip-tests    # Skip test step
+/craft:git:worktree finish --draft         # Create draft PR
+/craft:git:worktree finish --target main   # Target main instead of dev
+```
+
+**AI-Generated Content:**
+
+The `finish` action uses Claude to generate:
+
+1. **Changelog entry**: Summarizes commits into a clear, user-facing description
+2. **PR title**: Concise title following conventional commit style
+3. **PR body**: Structured description with:
+   - Summary of changes
+   - Key implementation details
+   - Testing notes
+   - Screenshots (if applicable)
+
+**Example PR Body Generated:**
+```markdown
+## Summary
+Adds JWT-based user authentication with login, logout, and session management.
+
+## Changes
+- Add `/auth/login` and `/auth/logout` endpoints
+- Implement JWT token generation and validation
+- Add password hashing with bcrypt
+- Create auth middleware for protected routes
+- Add token refresh mechanism
+
+## Testing
+- 47 unit tests added for auth module
+- Manual testing completed for login flow
+
+## Checklist
+- [x] Tests pass
+- [x] Changelog updated
+- [x] Documentation updated
+```
+
 ## Shell Aliases (Recommended)
 
 Add these to `~/.zshrc` for quick navigation:
@@ -370,7 +534,20 @@ Need to work on something else?
 - `/craft:check` - Now detects worktree context
 - `/craft:git:sync` - Works in worktrees too
 - `/craft:git:clean` - Cleans branches (not worktrees)
+- `/craft:git:feature` - Feature branch workflow (start/promote/release)
 
 **aiterm integration:**
 - `ait sessions` - Tracks sessions per worktree
 - `ait detect` - Identifies worktree context
+- `ait feature status` - Rich pipeline visualization
+
+**Workflow summary:**
+```
+/craft:git:worktree create feat/my-feature   # Start
+        ↓
+   [do your work]
+        ↓
+/craft:git:worktree finish                   # Complete: tests → changelog → PR
+        ↓
+/craft:git:worktree clean                    # Cleanup after merge
+```
