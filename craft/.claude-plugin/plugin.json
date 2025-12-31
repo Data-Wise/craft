@@ -1,7 +1,7 @@
 {
   "name": "craft",
   "version": "1.14.0",
-  "description": "Full-stack developer toolkit - 72 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, and distribution",
+  "description": "Full-stack developer toolkit - 73 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, and distribution",
   "author": {
     "name": "Data-Wise",
     "email": "dt@stat-wise.com"
