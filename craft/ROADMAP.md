@@ -280,13 +280,18 @@ Standard pages with consistent structure:
 - Created `skills/distribution/homebrew-setup-wizard.md` (implementation logic)
 - Added `update-resources` subcommand to `commands/dist/homebrew.md`
 
-### Phase 3: Advanced Features (Future)
+### Phase 3: Advanced Features ✅ STARTED
 
 | Task | Status | Description |
 |------|--------|-------------|
-| Multi-formula coordinator | 📋 PLANNED | Batch releases with dependency order |
+| Multi-formula coordinator | ✅ DONE | Batch releases with dependency order |
 | Homebrew Cask support | 📋 PLANNED | Desktop apps (DMG/PKG) |
 | Cross-platform packages | 📋 PLANNED | apt, chocolatey, scoop |
+
+**Phase 3 Progress:** Dec 31, 2025
+- Created `skills/distribution/homebrew-multi-formula.md` (batch releases, dependency ordering)
+- Added `release-batch` and `deps` subcommands to `/craft:dist:homebrew`
+- Dogfooded: flow-cli and nexus-cli now have homebrew-release workflows
 
 ### New Commands
 

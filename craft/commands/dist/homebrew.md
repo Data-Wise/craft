@@ -27,6 +27,8 @@ Complete Homebrew formula management with automated workflows.
 | `token` | Guide for setting up tap access token |
 | `setup` | Full setup wizard (formula + workflow + token) |
 | `update-resources` | Fix stale PyPI resource URLs |
+| `release-batch` | Coordinate multi-formula releases |
+| `deps` | Show formula dependency graph |
 
 ## Quick Start
 
