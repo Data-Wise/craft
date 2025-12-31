@@ -1,8 +1,8 @@
 # Craft Plugin Roadmap
 
-## Current Version: 1.8.0-dev
+## Current Version: 1.14.0
 
-**Next Priority:** v1.8.0 - Homebrew Automation 🎯
+**Released:** v1.14.0 - Homebrew Automation ✅
 
 ---
 
