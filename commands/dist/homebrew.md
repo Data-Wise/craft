@@ -1,10 +1,10 @@
 ---
-description: Generate or update Homebrew formula for your project
+description: Complete Homebrew automation - formulas, workflows, tokens, and validation
 arguments:
-  - name: action
-    description: Action to perform (create|update|validate)
+  - name: subcommand
+    description: "Subcommand: formula|workflow|validate|token|setup"
     required: false
-    default: create
+    default: formula
   - name: tap
     description: Homebrew tap repository (e.g., user/tap)
     required: false
@@ -13,25 +13,348 @@ arguments:
     required: false
 ---
 
-# /craft:dist:homebrew - Homebrew Formula Generator
+# /craft:dist:homebrew - Homebrew Automation Hub
 
-Create and maintain Homebrew formulas for your projects.
+Complete Homebrew formula management with automated workflows.
 
-## Usage
+## Subcommands
+
+| Command | Purpose |
+|---------|---------|
+| `formula` | Generate or update formula (default) |
+| `workflow` | Generate GitHub Actions release workflow |
+| `validate` | Run `brew audit` validation |
+| `token` | Guide for setting up tap access token |
+| `setup` | Full setup wizard (formula + workflow + token) |
+
+## Quick Start
 
 ```bash
-/craft:dist:homebrew                      # Auto-detect and create formula
-/craft:dist:homebrew update               # Update existing formula
-/craft:dist:homebrew validate             # Validate formula syntax
-/craft:dist:homebrew --tap user/tap       # Specify target tap
-/craft:dist:homebrew --version 1.2.3      # Use specific version
+# Generate formula for current project
+/craft:dist:homebrew
+
+# Full automated setup (recommended for new projects)
+/craft:dist:homebrew setup
+
+# Generate release workflow
+/craft:dist:homebrew workflow
+
+# Validate formula before release
+/craft:dist:homebrew validate
 ```
 
-## Auto-Detection
+---
+
+## /craft:dist:homebrew formula
+
+Generate or update a Homebrew formula.
+
+### Usage
+
+```bash
+/craft:dist:homebrew formula                    # Auto-detect and create
+/craft:dist:homebrew formula --tap user/tap     # Specify target tap
+/craft:dist:homebrew formula --version 1.2.3    # Use specific version
+```
+
+### Auto-Detection
 
 Detects project type and generates appropriate formula:
 
-### Python Projects (pyproject.toml)
+| Project Type | Detection | Formula Pattern |
+|--------------|-----------|-----------------|
+| Python | `pyproject.toml` | `Language::Python::Virtualenv` |
+| Node.js | `package.json` | npm install pattern |
+| Go | `go.mod` | go build pattern |
+| Rust | `Cargo.toml` | cargo install pattern |
+| Shell | `*.sh` scripts | bin.install pattern |
+
+### Example Output
+
+```
+✓ Detected: Python project (pyproject.toml)
+✓ Found version: 0.3.5 (from git tag)
+✓ Calculated SHA256: abc123...
+✓ Generated: Formula/myapp.rb
+
+Formula saved to: ./Formula/myapp.rb
+```
+
+---
+
+## /craft:dist:homebrew workflow
+
+Generate GitHub Actions workflow for automated Homebrew releases.
+
+### Usage
+
+```bash
+/craft:dist:homebrew workflow                   # Generate caller workflow
+/craft:dist:homebrew workflow --tap user/tap    # Specify tap repository
+```
+
+### Output Files
+
+Creates `.github/workflows/homebrew-release.yml`:
+
+```yaml
+name: Homebrew Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release'
+        required: true
+      auto_merge:
+        description: 'Auto-merge the PR'
+        type: boolean
+        default: true
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      sha256: ${{ steps.sha256.outputs.sha256 }}
+    steps:
+      - name: Get version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            VERSION="${VERSION#v}"
+          else
+            VERSION="${{ github.event.inputs.version }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Calculate SHA256
+        id: sha256
+        run: |
+          TARBALL_URL="https://github.com/${{ github.repository }}/archive/refs/tags/v${{ steps.version.outputs.version }}.tar.gz"
+          SHA256=$(curl -sL "$TARBALL_URL" | shasum -a 256 | cut -d' ' -f1)
+          echo "sha256=$SHA256" >> $GITHUB_OUTPUT
+
+  update-homebrew:
+    needs: prepare
+    uses: YOUR-ORG/homebrew-tap/.github/workflows/update-formula.yml@main
+    with:
+      formula_name: YOUR-FORMULA-NAME
+      version: ${{ needs.prepare.outputs.version }}
+      sha256: ${{ needs.prepare.outputs.sha256 }}
+      source_type: github
+      auto_merge: ${{ github.event.inputs.auto_merge == 'true' || github.event_name == 'release' }}
+    secrets:
+      tap_token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+```
+
+### Workflow Types
+
+| Source | When to Use |
+|--------|-------------|
+| GitHub | Projects with GitHub releases |
+| PyPI | Python packages published to PyPI |
+
+For PyPI source, use:
+```bash
+/craft:dist:homebrew workflow --source pypi
+```
+
+---
+
+## /craft:dist:homebrew validate
+
+Validate formula before release using `brew audit`.
+
+### Usage
+
+```bash
+/craft:dist:homebrew validate                   # Validate local formula
+/craft:dist:homebrew validate --strict          # Strict mode (extra checks)
+/craft:dist:homebrew validate --online          # Online checks (URL validation)
+```
+
+### Checks Performed
+
+| Check | Description |
+|-------|-------------|
+| Syntax | Ruby syntax validation |
+| `desc` | < 80 chars, no 'A/An' prefix |
+| `license` | Valid SPDX identifier |
+| `url` | Accessible (with --online) |
+| `sha256` | Matches URL content |
+| `test` | Test block present |
+| Dependencies | All deps available |
+
+### Example Output
+
+```
+Running: brew audit --strict --online Formula/myapp.rb
+
+✓ Formula syntax valid
+✓ Description format correct
+✓ License is valid SPDX identifier
+✓ URL accessible and matches SHA256
+✓ Test block present
+✓ All dependencies available
+
+Formula is ready for release!
+```
+
+### Common Fixes
+
+```ruby
+# Fix: Description too long or starts with article
+desc "AI terminal optimizer"  # Not "A terminal optimizer..."
+
+# Fix: Invalid license
+license "MIT"  # Use SPDX identifier
+
+# Fix: Missing test block
+test do
+  assert_match version.to_s, shell_output("#{bin}/myapp --version")
+end
+```
+
+---
+
+## /craft:dist:homebrew token
+
+Guide for setting up the Homebrew tap access token.
+
+### Usage
+
+```bash
+/craft:dist:homebrew token                      # Show token setup guide
+/craft:dist:homebrew token --check              # Check if token is configured
+/craft:dist:homebrew token --repos              # Show repos needing token
+```
+
+### Token Requirements
+
+Create a **Fine-Grained Personal Access Token**:
+
+| Setting | Value |
+|---------|-------|
+| **Name** | `homebrew-tap-updater` |
+| **Expiration** | 90 days (set rotation reminder) |
+| **Repository access** | Only select repositories |
+| **Selected repositories** | `YOUR-ORG/homebrew-tap` |
+| **Permissions** | |
+| - Contents | Read and write |
+| - Pull requests | Read and write |
+
+### Setup Steps
+
+1. **Create Token**
+   - Go to: https://github.com/settings/tokens?type=beta
+   - Click "Generate new token"
+   - Configure as above
+   - Copy the token immediately
+
+2. **Add to Repository**
+   ```bash
+   gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo YOUR-ORG/your-repo
+   # Paste token when prompted
+   ```
+
+3. **Verify**
+   ```bash
+   gh secret list --repo YOUR-ORG/your-repo
+   # Should show: HOMEBREW_TAP_GITHUB_TOKEN
+   ```
+
+### Token Rotation
+
+Set a calendar reminder for 80 days after creation:
+1. Create new token with same settings
+2. Update in all repos: `gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo ...`
+3. Delete old token from GitHub settings
+
+---
+
+## /craft:dist:homebrew setup
+
+Full guided setup for Homebrew automation.
+
+### Usage
+
+```bash
+/craft:dist:homebrew setup                      # Interactive wizard
+/craft:dist:homebrew setup --tap user/tap       # Specify tap
+```
+
+### Setup Flow
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║           HOMEBREW AUTOMATION SETUP WIZARD                     ║
+╠═══════════════════════════════════════════════════════════════╣
+║                                                               ║
+║  Step 1: Detect Project Type                                  ║
+║  ───────────────────────────────────────                      ║
+║  ✓ Detected: Python (pyproject.toml)                          ║
+║  ✓ Name: myapp                                                ║
+║  ✓ Version: 0.3.5                                             ║
+║                                                               ║
+║  Step 2: Generate Formula                                     ║
+║  ───────────────────────────────────────                      ║
+║  ✓ Created: Formula/myapp.rb                                  ║
+║  ✓ Validated: brew audit passed                               ║
+║                                                               ║
+║  Step 3: Generate Workflow                                    ║
+║  ───────────────────────────────────────                      ║
+║  ✓ Created: .github/workflows/homebrew-release.yml            ║
+║  ✓ Configured for: Data-Wise/homebrew-tap                     ║
+║                                                               ║
+║  Step 4: Token Check                                          ║
+║  ───────────────────────────────────────                      ║
+║  ⚠ HOMEBREW_TAP_GITHUB_TOKEN not found                        ║
+║                                                               ║
+║  Run: gh secret set HOMEBREW_TAP_GITHUB_TOKEN                 ║
+║  (See /craft:dist:homebrew token for guide)                   ║
+║                                                               ║
+║  Step 5: Commit Changes                                       ║
+║  ───────────────────────────────────────                      ║
+║  ✓ Staged: Formula/myapp.rb                                   ║
+║  ✓ Staged: .github/workflows/homebrew-release.yml             ║
+║                                                               ║
+║  Ready to commit? (y/n)                                       ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+### What It Does
+
+1. **Detects** project type and metadata
+2. **Generates** Homebrew formula
+3. **Validates** formula with `brew audit`
+4. **Creates** GitHub Actions workflow
+5. **Checks** if token is configured
+6. **Commits** all changes (with confirmation)
+
+### Post-Setup
+
+After setup completes:
+
+```bash
+# Create first release
+git tag -a v0.3.5 -m "Release v0.3.5"
+git push --tags
+
+# Or trigger manually
+gh workflow run homebrew-release.yml -f version=0.3.5
+```
+
+---
+
+## Formula Templates
+
+### Python (virtualenv)
+
 ```ruby
 class MyApp < Formula
   include Language::Python::Virtualenv
@@ -47,10 +370,15 @@ class MyApp < Formula
   def install
     virtualenv_install_with_resources
   end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/myapp --version")
+  end
 end
 ```
 
-### Node.js Projects (package.json)
+### Node.js
+
 ```ruby
 class MyApp < Formula
   desc "Description from package.json"
@@ -65,10 +393,15 @@ class MyApp < Formula
     system "npm", "install", *std_npm_args
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/myapp --version")
+  end
 end
 ```
 
-### Go Projects (go.mod)
+### Go
+
 ```ruby
 class MyApp < Formula
   desc "Description"
@@ -80,12 +413,17 @@ class MyApp < Formula
   depends_on "go" => :build
 
   def install
-    system "go", "build", *std_go_args(ldflags: "-s -w")
+    system "go", "build", *std_go_args(ldflags: "-s -w -X main.version=#{version}")
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/myapp --version")
   end
 end
 ```
 
-### Rust Projects (Cargo.toml)
+### Rust
+
 ```ruby
 class MyApp < Formula
   desc "Description from Cargo.toml"
@@ -99,90 +437,36 @@ class MyApp < Formula
   def install
     system "cargo", "install", *std_cargo_args
   end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/myapp --version")
+  end
 end
 ```
 
-## Workflow
-
-### 1. Create Formula
-```bash
-/craft:dist:homebrew
-
-## Output:
-✓ Detected: Python project (pyproject.toml)
-✓ Found version: 0.3.5 (from git tag)
-✓ Calculated SHA256: abc123...
-✓ Generated: Formula/myapp.rb
-
-Formula saved to: ./Formula/myapp.rb
-```
-
-### 2. Update Existing Formula
-```bash
-/craft:dist:homebrew update
-
-## Output:
-✓ Found existing formula: Formula/myapp.rb
-✓ Current version: 0.3.4
-✓ New version: 0.3.5 (from git tag)
-✓ Updated SHA256
-✓ Formula updated
-
-Changes:
-  - version: 0.3.4 → 0.3.5
-  - sha256: updated
-```
-
-### 3. Push to Tap
-```bash
-/craft:dist:homebrew --tap data-wise/tap
-
-## Output:
-✓ Generated formula
-✓ Cloned tap: data-wise/tap
-✓ Copied Formula/myapp.rb
-✓ Committed: "myapp: update to v0.3.5"
-✓ Pushed to origin
-
-Formula published to: https://github.com/data-wise/homebrew-tap
-```
-
-## Formula Components
-
-| Component | Source |
-|-----------|--------|
-| `desc` | pyproject.toml description, package.json, Cargo.toml |
-| `homepage` | Git remote URL or project URL |
-| `url` | GitHub release tarball |
-| `sha256` | Calculated from tarball |
-| `license` | Detected from LICENSE file or config |
-| `depends_on` | Auto-detected from project type |
-
-## Validation
-
-```bash
-/craft:dist:homebrew validate
-
-## Output:
-✓ Formula syntax valid
-✓ URL accessible
-✓ SHA256 matches
-✓ Dependencies available
-✓ Test block present
-
-Ready for submission!
-```
+---
 
 ## Integration
 
-Works with other craft commands:
-- `/craft:check --for release` - Validates before formula generation
-- `/craft:git:tag` - Creates version tag
-- `/craft:docs:changelog` - Updates changelog
+| Command | Use With |
+|---------|----------|
+| `/craft:check --for release` | Pre-release validation |
+| `/craft:git:tag` | Create version tag |
+| `/craft:docs:changelog` | Update changelog |
+| `/craft:ci:generate` | Full CI/CD setup |
+
+## Skills Used
+
+- `homebrew-formula-expert` - Formula syntax and patterns
+- `homebrew-workflow-expert` - GitHub Actions automation
+- `distribution-strategist` - Multi-channel distribution
+
+---
 
 ## Tips
 
-- Always run `/craft:check --for release` before generating
+- Always run `validate` before creating releases
 - Use semantic versioning for clean formulas
-- Include a `test` block for brew audit compliance
-- Keep dependencies minimal for faster installs
+- Set token rotation reminders (90-day expiry recommended)
+- Test locally: `brew install --build-from-source ./Formula/myapp.rb`
+- Auto-merge is safe for personal taps; disable for team taps

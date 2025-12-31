@@ -257,13 +257,17 @@ Standard pages with consistent structure:
 - Multi-source support (GitHub tarballs, PyPI packages)
 - Token management with fine-grained PAT
 
-### Phase 1: Quick Wins (This Week)
+### Phase 1: Quick Wins ✅ COMPLETE
 
 | Task | Status | Description |
 |------|--------|-------------|
-| `homebrew-workflow-expert` skill | 🚧 TODO | Generate release workflows for any repo |
-| Enhanced `/craft:dist:homebrew` | 🚧 TODO | Add subcommands: `formula`, `workflow`, `token`, `setup` |
-| Formula validation | 🚧 TODO | Run `brew audit` before release |
+| `homebrew-workflow-expert` skill | ✅ DONE | Generate release workflows for any repo |
+| Enhanced `/craft:dist:homebrew` | ✅ DONE | Add subcommands: `formula`, `workflow`, `token`, `setup` |
+| Formula validation | ✅ DONE | Run `brew audit` before release (via `validate` subcommand) |
+
+**Completed:** Dec 31, 2025
+- Created `skills/distribution/homebrew-workflow-expert.md` (260 lines)
+- Enhanced `commands/dist/homebrew.md` with 5 subcommands (473 lines)
 
 ### Phase 2: Setup Wizard (Next Week)
 
