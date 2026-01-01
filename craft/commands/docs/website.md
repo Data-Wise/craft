@@ -571,12 +571,12 @@ This project is optimized for ADHD users:
 
 ## 📚 Full Documentation
 
-Ready for more? Check out:
+Ready for more? Your site will include:
 
 - Full Getting Started Guide (comprehensive setup instructions)
-- [Reference Card](REFCARD.md)
-- [Interactive Tutorials](tutorials/index.md)
-- [Visual Workflows](workflows/index.md)
+- Quick Reference Card (command cheat sheet)
+- Interactive Tutorials (step-by-step learning)
+- Visual Workflows (diagram-based guides)
 ```
 
 **Generation Logic:**
