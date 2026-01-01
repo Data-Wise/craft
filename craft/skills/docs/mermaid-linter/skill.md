@@ -82,7 +82,51 @@ graph LR
     A["~/.git-worktrees/.../feature-mcp"] --> B
 ```
 
-### 5. Diagram Count Report
+### 5. Layout Direction Best Practices
+
+**Prefer vertical layouts (TD/TB) over horizontal (LR/RL) for complex diagrams:**
+
+| Layout | Best For | Avoid For |
+|--------|----------|-----------|
+| `flowchart TD` | Complex workflows, decision trees, multi-branch flows | - |
+| `flowchart LR` | Simple linear flows (< 5 nodes), system architecture | Complex workflows, parallel processes |
+
+**Why vertical layouts render better:**
+- Better spacing on mobile/narrow screens
+- Reduced text overlap in decision diamonds
+- Clearer visualization of parallel processes using subgraphs
+- More readable for ADHD-friendly documentation
+
+**Examples:**
+
+```mermaid
+%% BAD: Horizontal complex diagram
+flowchart LR
+    A --> B --> C --> D
+    B --> E
+    C --> F
+    D --> G
+    E --> G
+    F --> G
+```
+
+```mermaid
+%% GOOD: Vertical complex diagram
+flowchart TD
+    A --> B --> C --> D
+    B --> E
+    C --> F
+    D --> G
+    E --> G
+    F --> G
+```
+
+**When to use subgraphs (always with TD):**
+- Parallel worktree workflows
+- Multi-path decision flows
+- Feature development pipelines
+
+### 6. Diagram Count Report
 
 Report all mermaid diagrams found:
 - Total count per file
