@@ -43,8 +43,14 @@ git log --oneline -1 -- site/ 2>/dev/null || echo "Never deployed"
 cat .craft/site-design.yaml 2>/dev/null | grep "preset:"
 
 # Check Mermaid configuration (CRITICAL for diagram rendering)
-grep -q "custom_fences" mkdocs.yml && echo "✅ custom_fences" || echo "❌ custom_fences missing"
-grep -q "mermaid" mkdocs.yml && echo "✅ mermaid.js" || echo "⚠️ mermaid.js not in extra_javascript"
+# Per https://squidfunk.github.io/mkdocs-material/reference/diagrams/
+# Material for MkDocs handles Mermaid natively - CDN not needed!
+grep -q "custom_fences" mkdocs.yml && echo "✅ custom_fences (native integration)" || echo "❌ custom_fences missing"
+if grep -A3 "extra_javascript" mkdocs.yml 2>/dev/null | grep -q "mermaid"; then
+  echo "⚠️  mermaid CDN detected (unnecessary, may cause conflicts)"
+else
+  echo "✅ No mermaid CDN (correct - using native integration)"
+fi
 grep -rq "\.mermaid" docs/stylesheets/ 2>/dev/null && echo "✅ Mermaid CSS" || echo "⚠️ No Mermaid CSS"
 
 # Count Mermaid diagrams
@@ -79,8 +85,8 @@ grep -r "^\`\`\`mermaid" docs/ 2>/dev/null | wc -l
 │   ✅ External: 12/12 valid                                  │
 │                                                             │
 │ 📊 MERMAID DIAGRAMS                                         │
-│   ✅ custom_fences configured                               │
-│   ✅ mermaid.js CDN included                                │
+│   ✅ custom_fences (native integration)                     │
+│   ✅ No CDN (Material handles natively)                     │
 │   ✅ Mermaid CSS present                                    │
 │   ○ 15 diagrams found                                       │
 │                                                             │
@@ -125,7 +131,7 @@ Breakdown:
 | Check | Points | Criteria |
 |-------|--------|----------|
 | custom_fences | 5 | Must be configured for diagrams to render |
-| mermaid.js | 5 | CDN link in extra_javascript |
+| mermaid native | 5 | superfences custom_fences configured |
 | Mermaid CSS | 5 | Overflow/styling CSS present |
 | Missing any | -10 | Critical: diagrams show as code! |
 
@@ -178,7 +184,7 @@ Detailed validation report:
 │ MERMAID DIAGRAMS                                            │
 │   Configuration:                                            │
 │   ✅ pymdownx.superfences with custom_fences                │
-│   ✅ mermaid.js CDN in extra_javascript                     │
+│   ✅ Native Mermaid integration (no CDN needed)             │
 │   ✅ Mermaid CSS styles present                             │
 │   Diagrams:                                                 │
 │   ○ 15 mermaid blocks found                                 │

@@ -274,11 +274,34 @@ stateDiagram-v2
 
 ## Best Practices (Built Into Templates)
 
+### Use Markdown Strings (Not `<br/>` tags)
+
+Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), use markdown string syntax for multi-line text:
+
+**❌ Avoid:**
+```mermaid
+flowchart TD
+    A[Getting Started<br/>7 steps]    ❌ Manual line breaks
+```
+
+**✅ Recommended:**
+```mermaid
+flowchart TD
+    A["`**Getting Started**
+    7 steps · 10 minutes`"]           ✅ Auto-wraps, supports **bold**
+```
+
+**Benefits:**
+- Automatic text wrapping at node width
+- Supports **bold**, *italic*, `code` formatting
+- Better mobile responsiveness
+- More maintainable code
+
 ### Text Length Rules
 
 | Element | Max | Example |
 |---------|-----|---------|
-| Node labels | 15 chars | `"Auth Service"` |
+| Node labels (single line) | 15 chars | `"Auth Service"` |
 | Edge labels | 10 chars | `"creates"` |
 | Subgraph titles | 20 chars | `"Client Layer"` |
 
@@ -446,8 +469,8 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 
-extra_javascript:
-  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+# NO extra_javascript needed - Material handles Mermaid natively!
+# Per https://squidfunk.github.io/mkdocs-material/reference/diagrams/
 ```
 
 ---

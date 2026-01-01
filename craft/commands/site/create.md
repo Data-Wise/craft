@@ -316,6 +316,34 @@ nav:
     - Configuration: reference/configuration.md
 ```
 
+**⚡ Mermaid Integration (Native):**
+
+Per [Material for MkDocs documentation](https://squidfunk.github.io/mkdocs-material/reference/diagrams/), Mermaid is handled **natively** through the superfences extension.
+
+**No `extra_javascript` needed!** The configuration above is complete.
+
+**Why no CDN?**
+- Material for MkDocs integrates Mermaid natively
+- Adding a CDN manually causes double initialization
+- Can create version conflicts and theme styling issues
+- Native integration "works with instant loading" automatically
+
+**Only add `extra_javascript` if:**
+- You need custom Mermaid configuration (ELK layouts, etc.)
+- Using a non-Material theme
+
+**For custom config** (advanced users only):
+```yaml
+extra_javascript:
+  - javascripts/mermaid-config.js
+```
+
+```javascript
+// javascripts/mermaid-config.js
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
+```
+
 ### minimal
 
 ```yaml
@@ -604,6 +632,45 @@ project/
 │   → Push to GitHub to auto-deploy                           │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+## Mermaid Diagram Best Practices
+
+Per [official Mermaid documentation](https://mermaid.js.org/syntax/flowchart.html), follow these guidelines when adding diagrams to your site:
+
+### ✅ Use Markdown Strings (Not `<br/>` tags)
+
+**❌ Avoid:**
+```markdown
+```mermaid
+flowchart TD
+    A[Getting Started<br/>7 steps]    ❌ Manual line breaks
+```
+```
+
+**✅ Recommended:**
+```markdown
+```mermaid
+flowchart TD
+    A["`**Getting Started**
+    7 steps · 10 minutes`"]           ✅ Auto-wraps, supports **bold**
+```
+```
+
+**Benefits:**
+- Automatic text wrapping at node width
+- Supports **bold**, *italic*, `code` formatting
+- Better mobile responsiveness
+- More maintainable
+
+### Other Best Practices
+
+1. **Prefer `flowchart` over `graph`** - Clearer intent (both work identically)
+2. **Use vertical layouts (TD)** - Better mobile rendering than horizontal (LR)
+3. **Capitalize "end" keyword** - Use "End" or "END" to avoid breaking diagrams
+4. **Connect all nodes** - Orphaned nodes cause syntax errors
+5. **Keep it simple** - Avoid over-engineering diagrams
+
+**See also:** `/craft:docs:mermaid-linter` skill for validation
 
 ## Quick Mode (`--quick`)
 
