@@ -1,7 +1,7 @@
-status: Active Development - Documentation Complete
-progress: 50
-next: Continue with format handlers and MCP integration
-target: Production ready by 2025-01-31
+status: Active Development - Project Cleanup In Progress
+progress: 55
+next: Execute Phase 1 cleanup (archive sessions, clean artifacts, update .gitignore)
+target: Clean structure by 2026-01-08, Production ready by 2025-01-31
 
 # Phase 2 Status (Dec 24, 2024)
 
@@ -152,6 +152,69 @@ target: Production ready by 2025-01-31
 - Accessible from multiple entry points
 
 ---
+
+# Project Structure Cleanup (Jan 7, 2026 - Afternoon)
+
+## 🎯 Cleanup Goals
+
+**Problem Identified:**
+- 53 root markdown files (too cluttered)
+- 19 session/planning files in root
+- 11 MODE-SYSTEM-* files (development history)
+- 3 CI/CD documentation files
+- Build artifacts polluting git status
+
+**Target Structure:**
+- ~15 core root files (72% reduction)
+- All sessions archived by year/topic
+- Consolidated comprehensive docs
+- Self-contained plugin structure
+- Enhanced .gitignore to prevent future clutter
+
+## 📋 Cleanup Plan (3 Phases)
+
+### Phase 1: Quick Wins (30 min) - IN PROGRESS
+- [ ] Create archive directory structure
+- [ ] Archive session files to sessions/2024 and sessions/2025
+- [ ] Clean build artifacts (.DS_Store, .coverage, caches)
+- [ ] Update .gitignore with session file patterns
+- [ ] Commit: "chore: archive session files and clean build artifacts"
+
+**Impact:** 53 → 34 root files (36% reduction)
+
+### Phase 2: Documentation Consolidation (1 hour) - PLANNED
+- [ ] Consolidate MODE-SYSTEM-* files into docs/MODE-SYSTEM.md
+- [ ] Consolidate CI/CD files into docs/CICD.md
+- [ ] Archive originals to sessions/mode-system-development and sessions/cicd-development
+- [ ] Update mkdocs.yml navigation
+- [ ] Commit: "docs: consolidate MODE-SYSTEM and CICD documentation"
+
+**Impact:** 34 → 16 root files (50% additional reduction)
+
+### Phase 3: Plugin Organization (30 min) - PLANNED
+- [ ] Move CRAFT-PLUGIN-PROPOSAL.md to craft/docs/archive/
+- [ ] Move WORKFLOW-PLUGIN-COMPLETE.md to workflow/docs/archive/
+- [ ] Move other plugin-specific files to respective archives
+- [ ] Update plugin READMEs
+- [ ] Commit: "refactor: move plugin-specific docs to plugin directories"
+
+**Impact:** 16 → 13-15 root files (final target)
+
+## 📄 Brainstorm Document
+
+**File:** BRAINSTORM-project-structure-cleanup-2026-01-07.md
+**Analysis:** Deep brainstorm with 8 expert questions
+**Recommendations:** Comprehensive 3-phase cleanup plan
+
+## ⏱️ Time Estimates
+
+- Phase 1: 30 minutes (starting now)
+- Phase 2: 1 hour
+- Phase 3: 30 minutes
+- Verification: 15 minutes
+**Total:** ~2 hours 15 minutes
+
+---
 Last Updated: 2026-01-07
-Session: Documentation Enhancement Complete
-Next Session: Format Handlers & MCP Integration
+Session: Project Structure Cleanup - Phase 1
+Next Session: Phase 2 & 3 Cleanup, then Format Handlers & MCP Integration

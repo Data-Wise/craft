@@ -1,4 +1,47 @@
-# TODO - RForge Mode System
+# TODO - Project Tasks
+
+**Last Updated:** 2026-01-07
+**Current Focus:** Project Structure Cleanup (Phase 1)
+**Overall Progress:** 55% complete
+
+---
+
+## 🧹 IMMEDIATE: Project Structure Cleanup (Jan 7, 2026)
+
+**Priority:** URGENT
+**Time:** ~2.25 hours total
+**Status:** Phase 1 IN PROGRESS
+
+### Phase 1: Quick Wins (30 min) - IN PROGRESS ⚡
+- [ ] Create archive directory structure (sessions/, plugin archives)
+- [ ] Archive 19 session files to sessions/2024 and sessions/2025
+- [ ] Clean build artifacts (.DS_Store, .coverage, caches)
+- [ ] Update .gitignore with session file patterns
+- [ ] Commit: "chore: archive session files and clean build artifacts"
+
+**Impact:** 53 → 34 root files (36% reduction)
+
+### Phase 2: Documentation Consolidation (1 hour) - PLANNED
+- [ ] Consolidate MODE-SYSTEM-* files (11 files → 1 docs/MODE-SYSTEM.md)
+- [ ] Consolidate CI/CD files (7 files → 1 docs/CICD.md)
+- [ ] Archive originals to sessions/
+- [ ] Update mkdocs.yml navigation
+- [ ] Commit changes
+
+**Impact:** 34 → 16 root files (50% additional reduction)
+
+### Phase 3: Plugin Organization (30 min) - PLANNED
+- [ ] Move plugin-specific docs to plugin/docs/archive/
+- [ ] Update plugin READMEs
+- [ ] Commit changes
+
+**Impact:** 16 → 13-15 root files (final target)
+
+**Reference:** BRAINSTORM-project-structure-cleanup-2026-01-07.md
+
+---
+
+## 📊 RForge Mode System
 
 **Last Updated:** 2024-12-24
 **Current Phase:** Testing (Week 1)

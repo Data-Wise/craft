@@ -57,3 +57,20 @@ logs/
 
 # MkDocs build output (root level only)
 /site/
+
+# Session and planning files (archive to sessions/)
+*-COMPLETE.md
+SESSION-*.md
+BRAINSTORM-*.md
+PROPOSAL-*.md
+sessions/
+
+# Python test artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+.benchmarks/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
