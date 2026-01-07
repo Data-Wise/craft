@@ -11,13 +11,28 @@ Tests cover:
 """
 import pytest
 import json
+import sys
+from pathlib import Path
 from typing import Dict, Any
+
+# Add rforge/lib to path so we can import formatters
+rforge_lib = Path(__file__).parent.parent.parent / "rforge" / "lib"
+sys.path.insert(0, str(rforge_lib))
+
+from formatters import (
+    format_json,
+    format_terminal,
+    format_markdown,
+    get_formatter,
+    validate_json_output,
+    FORMATTERS
+)
 
 
 class FormatHandler:
-    """Handle output formatting for different formats."""
+    """Handle output formatting for different formats (test adapter)."""
 
-    VALID_FORMATS = ["terminal", "json", "markdown"]
+    VALID_FORMATS = list(FORMATTERS.keys())
 
     @classmethod
     def parse_format(cls, arguments: Dict[str, Any]) -> str:
@@ -39,53 +54,10 @@ class FormatHandler:
         return format_name.lower() in cls.VALID_FORMATS
 
     @classmethod
-    def format_output(cls, data: Dict[str, Any], format_type: str) -> str:
+    def format_output(cls, data: Dict[str, Any], format_type: str, mode: str = "default") -> str:
         """Format data according to format type."""
-        if format_type == "json":
-            return cls._format_json(data)
-        elif format_type == "markdown":
-            return cls._format_markdown(data)
-        else:  # terminal
-            return cls._format_terminal(data)
-
-    @classmethod
-    def _format_json(cls, data: Dict[str, Any]) -> str:
-        """Format as JSON."""
-        return json.dumps(data, indent=2)
-
-    @classmethod
-    def _format_markdown(cls, data: Dict[str, Any]) -> str:
-        """Format as Markdown."""
-        lines = [
-            f"# {data.get('title', 'Result')}",
-            "",
-            f"**Status:** {data.get('status', 'unknown')}",
-            ""
-        ]
-
-        if "data" in data:
-            lines.append("## Data")
-            lines.append("")
-            lines.append(f"```json")
-            lines.append(json.dumps(data["data"], indent=2))
-            lines.append("```")
-
-        return "\n".join(lines)
-
-    @classmethod
-    def _format_terminal(cls, data: Dict[str, Any]) -> str:
-        """Format for terminal with emojis and colors."""
-        status_emoji = "✅" if data.get("status") == "success" else "❌"
-        lines = [
-            f"{status_emoji} {data.get('title', 'Result')}",
-            ""
-        ]
-
-        if "data" in data and isinstance(data["data"], dict):
-            for key, value in data["data"].items():
-                lines.append(f"  • {key}: {value}")
-
-        return "\n".join(lines)
+        formatter = get_formatter(format_type)
+        return formatter(data, mode=mode)
 
 
 # --- Tests ---
@@ -168,20 +140,30 @@ class TestJSONFormatting:
     """Test JSON output formatting."""
 
     def test_json_format_basic_structure(self):
-        """Test JSON format produces valid JSON."""
+        """Test JSON format produces valid JSON with metadata."""
         data = {
             "title": "Test Result",
             "status": "success",
             "data": {"health": 87, "issues": 2}
         }
 
-        output = FormatHandler.format_output(data, "json")
+        output = FormatHandler.format_output(data, "json", mode="debug")
 
         # Should be valid JSON
         parsed = json.loads(output)
-        assert parsed["title"] == "Test Result"
-        assert parsed["status"] == "success"
-        assert parsed["data"]["health"] == 87
+
+        # Check structure includes metadata
+        assert "timestamp" in parsed
+        assert "mode" in parsed
+        assert "results" in parsed
+
+        # Check mode is correct
+        assert parsed["mode"] == "debug"
+
+        # Check results contain original data
+        assert parsed["results"]["title"] == "Test Result"
+        assert parsed["results"]["status"] == "success"
+        assert parsed["results"]["data"]["health"] == 87
 
     def test_json_format_indented(self):
         """Test JSON output is indented (human-readable)."""
@@ -207,8 +189,26 @@ class TestJSONFormatting:
         output = FormatHandler.format_output(data, "json")
         parsed = json.loads(output)
 
-        assert parsed["data"]["packages"]["medfit"]["health"] == 92
-        assert parsed["data"]["packages"]["probmed"]["health"] == 78
+        # Check nested data is preserved in results
+        assert parsed["results"]["data"]["packages"]["medfit"]["health"] == 92
+        assert parsed["results"]["data"]["packages"]["probmed"]["health"] == 78
+
+    def test_json_format_validates(self):
+        """Test JSON output validates as valid JSON."""
+        data = {"status": "pass", "tests": 15}
+        output = FormatHandler.format_output(data, "json")
+
+        # Should validate
+        assert validate_json_output(output) is True
+
+    def test_json_format_includes_timestamp(self):
+        """Test JSON includes timestamp."""
+        data = {"status": "pass"}
+        output = FormatHandler.format_output(data, "json")
+        parsed = json.loads(output)
+
+        assert "timestamp" in parsed
+        assert len(parsed["timestamp"]) > 0  # Non-empty timestamp
 
 
 @pytest.mark.unit
