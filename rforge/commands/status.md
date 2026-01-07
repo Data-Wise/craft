@@ -353,6 +353,57 @@ Based on mode and format parameter:
 - **Any + json**: Structured JSON for scripting
 - **Any + markdown**: Documentation-friendly markdown
 
+**Implementation:**
+
+```python
+# Import formatters from rforge/lib/formatters.py
+import sys
+from pathlib import Path
+rforge_lib = Path(__file__).parent.parent / "rforge" / "lib"
+sys.path.insert(0, str(rforge_lib))
+
+from formatters import format_output
+
+# Structure your status results
+data = {
+    "title": "Ecosystem Status Dashboard",
+    "status": "success",  # or "warning" if issues found
+    "data": {
+        "mode": mode,
+        "overall_health": 87,
+        "packages": {
+            "medfit": {"health": 92, "status": "healthy"},
+            "probmed": {"health": 78, "status": "warning", "issues": 2}
+        },
+        "critical_issues": 1,
+        "last_updated": "2 hours ago"
+    }
+}
+
+# Format based on user preference
+output = format_output(
+    data=data,
+    format_name=format,  # "terminal", "json", or "markdown"
+    mode=mode,
+    package_name=package if package else "ecosystem"  # optional metadata
+)
+
+# Display formatted output
+print(output)
+```
+
+**Data Structure Guidelines:**
+
+- **title**: Dashboard title (e.g., "Ecosystem Status", "Package Status: medfit")
+- **status**: "success" (healthy), "warning" (has issues), "error" (critical problems)
+- **data**: Dictionary with status information (flexible structure based on mode)
+
+**Format-Specific Behavior:**
+
+- **Terminal**: Adds emojis (✅ ❌ ⚠️ ℹ️), colors via Rich, tables and bullet lists
+- **JSON**: Wraps in metadata envelope with timestamp, mode, and package name
+- **Markdown**: Creates H1 title, bold status, structured sections with JSON code blocks
+
 ### Step 5: Verify Time Budget
 
 If approaching time budget:

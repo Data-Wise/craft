@@ -195,6 +195,57 @@ Use the {{format}} parameter (default: "terminal"):
 - **json**: Machine-readable JSON for scripting
 - **markdown**: Documentation-friendly markdown
 
+**Implementation:**
+
+```python
+# Import formatters from rforge/lib/formatters.py
+import sys
+from pathlib import Path
+rforge_lib = Path(__file__).parent.parent / "rforge" / "lib"
+sys.path.insert(0, str(rforge_lib))
+
+from formatters import format_output
+
+# Structure your analysis results
+data = {
+    "title": "R Package Analysis",
+    "status": "success",  # or "error", "warning"
+    "data": {
+        "mode": mode,
+        "packages_analyzed": 4,
+        "critical_issues": 2,
+        "health_score": 87,
+        "recommendations": [
+            "Update NEWS.md for medfit",
+            "Fix 3 test failures in probmed"
+        ]
+    }
+}
+
+# Format based on user preference
+output = format_output(
+    data=data,
+    format_name=format,  # "terminal", "json", or "markdown"
+    mode=mode,
+    package_name="mediationverse"  # optional metadata for JSON
+)
+
+# Display formatted output
+print(output)
+```
+
+**Data Structure Guidelines:**
+
+- **title**: Brief description of the analysis
+- **status**: "success", "error", "warning", or "info"
+- **data**: Dictionary with your analysis results (flexible structure)
+
+**Format-Specific Behavior:**
+
+- **Terminal**: Adds emojis (✅ ❌ ⚠️ ℹ️), colors via Rich, bullet lists
+- **JSON**: Wraps in metadata envelope with timestamp and mode
+- **Markdown**: Creates H1 title, bold status, JSON code block for data
+
 ### Step 5: Verify Time Budget
 
 If approaching time budget:
