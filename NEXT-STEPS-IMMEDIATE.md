@@ -1,644 +1,362 @@
 # Next Steps - Immediate Actions
 
-**Created:** 2024-12-24
-**Status:** Ready to Execute
-**Time Required:** 2-3 hours
+**Last Updated:** 2026-01-07
+**Status:** Project Structure Cleanup Complete ✅
+**Next Focus:** Format Handlers & MCP Integration
+**Time Required:** 4-6 hours
 
 ---
 
-## What You Have Now
+## ✅ What You Have Now
 
-After Day 1 implementation + DevOps planning, you have:
+After project structure cleanup (Jan 7, 2026):
 
-✅ **14 documentation files** (120KB total)
-✅ **2 command files updated** with mode system
-✅ **Complete testing strategy** (60+ test scenarios)
-✅ **CI/CD pipeline design** (14 automated jobs)
-✅ **Deployment plan** (zero-downtime, 4 phases)
-✅ **Monitoring framework** (15+ metrics, alerting)
+✅ **Clean repository structure** (75% file reduction)
+✅ **13 essential root files** (down from 53)
+✅ **Organized archives** (by year and topic)
+✅ **Self-contained plugins** (with dedicated archive directories)
+✅ **Enhanced .gitignore** (prevents future clutter)
+✅ **Comprehensive documentation** (consolidated MODE-SYSTEM.md and CICD.md)
+✅ **Working CI/CD** (all 3 workflows passing)
+✅ **Mode system foundation** (96 tests passing)
+✅ **Documentation site** (deployed to GitHub Pages)
 
-**Everything is documented and ready to implement!**
+**Everything is clean, organized, and ready for next phase!**
 
 ---
 
-## Quick Start: 3 Immediate Actions
+## 🎯 Current Status
 
-### Action 1: Test Current Implementation (15 minutes) ⚡
+### Project Structure Cleanup - ✅ COMPLETE
 
-**Right now, before writing any code:**
+**All 3 phases completed (Jan 7, 2026):**
+- Phase 1: 53 → 32 files (40% reduction) - c448bfc
+- Phase 2: 32 → 23 files (28% reduction) - dc4405f
+- Phase 3: 23 → 13 files (43% reduction) - b5223dd
+- Status updates committed - ef21d90
 
-```bash
-# 1. Restart Claude Code to load updated commands
-# Close and reopen Claude Code CLI
+**Archive Structure Created:**
+```
+sessions/
+├── 2024/                    # 18 development files from 2024
+├── 2025/                    # 10 development files from 2025
+├── cicd-development/        # 2 CI/CD development files
+└── mode-system-development/ # 8 MODE-SYSTEM-* files
 
-# 2. Verify plugin is loaded
-/plugin list
-# Should show: rforge@local-plugins
-
-# 3. Test basic command (should work as before)
-/rforge:analyze
-
-# 4. Test with mode (new feature - will delegate differently)
-/rforge:analyze debug
-
-# 5. Test status command
-/rforge:status
-
-# 6. Observe behavior
-# - Does it recognize the mode?
-# - Does it adjust analysis depth?
-# - Is it fast for default mode?
+craft/docs/archive/
+workflow/docs/archive/       # 4 workflow-specific files
+statistical-research/docs/archive/
+rforge/docs/archive/
 ```
 
-**What you're testing:**
-- Command parsing works
-- Mode parameter is recognized
-- Claude delegates with mode context
-- Backward compatibility maintained
+### Mode System - Awaiting Implementation
 
-**Expected Results:**
-- `/rforge:analyze` → Fast analysis (< 10s)
-- `/rforge:analyze debug` → Deeper analysis (may take longer)
-- `/rforge:status` → Quick dashboard
+**Foundation Complete:**
+- ✅ Commands updated with mode parameters
+- ✅ 96 unit tests (100% passing, 0.44s)
+- ✅ CI/CD automation (3 workflows)
+- ✅ Comprehensive documentation
 
----
-
-### Action 2: Create Test Structure (30 minutes) 🏗️
-
-**Set up testing infrastructure:**
-
-```bash
-cd /Users/dt/projects/dev-tools/claude-plugins
-
-# 1. Create test directory structure
-mkdir -p tests/{unit,integration,performance,e2e}
-mkdir -p tests/fixtures
-mkdir -p tests/mocks
-
-# 2. Create pytest configuration
-cat > pytest.ini <<'EOF'
-[pytest]
-testpaths = tests
-python_files = test_*.py
-python_classes = Test*
-python_functions = test_*
-addopts =
-    -v
-    --strict-markers
-    --cov=rforge
-    --cov-report=html
-    --cov-report=term
-    --benchmark-only
-markers =
-    unit: Unit tests
-    integration: Integration tests
-    performance: Performance benchmarks
-    e2e: End-to-end tests
-    slow: Tests that take > 1s
-EOF
-
-# 3. Create test requirements
-cat > tests/requirements-test.txt <<'EOF'
-pytest>=7.4.0
-pytest-cov>=4.1.0
-pytest-benchmark>=4.0.0
-pytest-asyncio>=0.21.0
-pytest-mock>=3.11.0
-pytest-timeout>=2.1.0
-EOF
-
-# 4. Install test dependencies
-pip install -r tests/requirements-test.txt
-
-# 5. Create first test file
-cat > tests/unit/test_command_parsing.py <<'EOF'
-"""Unit tests for command parsing and mode detection."""
-import pytest
-
-def test_analyze_default_mode():
-    """Test analyze command with no mode (default)."""
-    # Parse command: /rforge:analyze
-    mode = parse_mode_from_command("analyze")
-    assert mode == "default"
-    assert expected_time_budget(mode) < 10  # seconds
-
-def test_analyze_debug_mode():
-    """Test analyze command with debug mode."""
-    # Parse command: /rforge:analyze debug
-    mode = parse_mode_from_command("analyze debug")
-    assert mode == "debug"
-    assert expected_time_budget(mode) <= 120  # seconds
-
-def test_analyze_invalid_mode():
-    """Test analyze command with invalid mode."""
-    # Parse command: /rforge:analyze invalid
-    mode = parse_mode_from_command("analyze invalid")
-    assert mode == "default"  # Fallback to default
-
-# Helper functions (to be implemented)
-def parse_mode_from_command(command):
-    # TODO: Implement mode parsing logic
-    if "debug" in command:
-        return "debug"
-    elif "optimize" in command:
-        return "optimize"
-    elif "release" in command:
-        return "release"
-    return "default"
-
-def expected_time_budget(mode):
-    budgets = {
-        "default": 10,
-        "debug": 120,
-        "optimize": 180,
-        "release": 300
-    }
-    return budgets.get(mode, 10)
-EOF
-
-# 6. Run first test
-pytest tests/unit/test_command_parsing.py -v
-```
-
-**What this does:**
-- Creates proper test structure
-- Sets up pytest configuration
-- Installs testing dependencies
-- Creates first unit test
-- Validates test infrastructure works
+**Not Yet Implemented:**
+- ❌ Format handlers (json, markdown, terminal)
+- ❌ MCP server mode integration
+- ❌ Time budget enforcement
+- ❌ Real R package validation
 
 ---
 
-### Action 3: Set Up CI/CD (45 minutes) 🔄
+## 📋 Immediate Next Steps (Priority Order)
 
-**Create GitHub Actions workflow:**
+### Step 1: Format Handlers Implementation (3-4 hours) 🎨
 
-```bash
-cd /Users/dt/projects/dev-tools/claude-plugins
+**What:** Implement 3 output formatters for mode system
 
-# 1. Create GitHub Actions directory
-mkdir -p .github/workflows
+**Why:** Enable users to get analysis results in different formats:
+- Terminal: Rich colors/emojis for interactive use
+- JSON: Machine-readable for automation
+- Markdown: Documentation-ready for reports
 
-# 2. Create validation workflow
-cat > .github/workflows/validate.yml <<'EOF'
-name: Validate Plugin
+**Tasks:**
+1. **Terminal Formatter** (1.5 hours)
+   - Install Rich library: `pip install rich`
+   - Implement colored output with emojis
+   - Create tables for structured data
+   - Add progress indicators
+   - Test with real data
 
-on:
-  push:
-    branches: [ main, dev ]
-  pull_request:
-    branches: [ main ]
+2. **JSON Formatter** (30 min)
+   - Implement JSON serialization
+   - Include metadata (timestamp, mode, version)
+   - Validate output with `json.loads()`
+   - Test with all modes
 
-jobs:
-  validate-structure:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+3. **Markdown Formatter** (1 hour)
+   - Implement markdown generation
+   - Headers, lists, code blocks
+   - Ready for documentation paste
+   - Test rendering
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+4. **Integration & Testing** (1 hour)
+   - Update commands to use formatters
+   - Parse `--format` parameter
+   - Test mode + format combinations (12 total)
+   - Create example gallery in docs
 
-      - name: Validate plugin structure
-        run: |
-          python scripts/validate-all-plugins.py
+**Success Criteria:**
+- [ ] All 3 formatters implemented
+- [ ] 20+ format tests passing
+- [ ] Examples documented
+- [ ] CI/CD still passing
 
-      - name: Check command frontmatter
-        run: |
-          # Verify all commands have proper frontmatter
-          for cmd in rforge/commands/*.md; do
-            if ! head -n 3 "$cmd" | grep -q "^---$"; then
-              echo "ERROR: Missing frontmatter in $cmd"
-              exit 1
-            fi
-          done
-
-  test-commands:
-    runs-on: ubuntu-latest
-    needs: validate-structure
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install test dependencies
-        run: |
-          pip install -r tests/requirements-test.txt
-
-      - name: Run unit tests
-        run: |
-          pytest tests/unit -v --cov=rforge
-
-      - name: Check test coverage
-        run: |
-          pytest --cov=rforge --cov-report=term --cov-fail-under=80
-
-  build-docs:
-    runs-on: ubuntu-latest
-    needs: validate-structure
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install MkDocs
-        run: |
-          pip install mkdocs mkdocs-material
-
-      - name: Build documentation
-        run: |
-          mkdocs build --strict
-
-      - name: Check for broken links
-        run: |
-          # Simple link check (can enhance later)
-          find docs -name "*.md" -type f -exec grep -l "](http" {} \;
-EOF
-
-# 3. Create performance benchmark workflow
-cat > .github/workflows/benchmark.yml <<'EOF'
-name: Performance Benchmarks
-
-on:
-  push:
-    branches: [ main ]
-  schedule:
-    - cron: '0 0 * * 0'  # Weekly on Sunday
-
-jobs:
-  benchmark:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          pip install -r tests/requirements-test.txt
-
-      - name: Run performance benchmarks
-        run: |
-          pytest tests/performance -v --benchmark-only
-
-      - name: Store benchmark results
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          tool: 'pytest'
-          output-file-path: benchmark-results.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
-EOF
-
-# 4. Test workflows locally (optional - requires act)
-# act -l  # List jobs
-# act -n  # Dry run
-
-# 5. Commit workflows
-git add .github/workflows/
-git status
-```
-
-**What this does:**
-- Creates automated validation on every push
-- Sets up test execution in CI
-- Adds documentation build checks
-- Configures performance benchmarking
-- Ready to push to GitHub
+**Files to Create/Update:**
+- `rforge/lib/formatters.py` (new)
+- `tests/unit/test_format_handling.py` (update)
+- `docs/MODE-EXAMPLES.md` (new)
+- `rforge/commands/analyze.md` (update for format param)
+- `rforge/commands/status.md` (update for format param)
 
 ---
 
-## Next Steps by Priority
+### Step 2: MCP Server Mode Integration (2-3 hours) 🔌
 
-### Priority 1: Validation (Today - 1 hour) 🔥
+**What:** Add mode parameter to MCP server tools and implement mode-specific logic
 
-**Must do before moving forward:**
+**Why:** Enable actual time-budgeted analysis with performance guarantees
 
-1. **Test current commands** (15 min)
+**Tasks:**
+1. **Update MCP Tool Signatures** (30 min)
+   - Add `mode` parameter to `rforge_analyze`
+   - Add `mode` parameter to `rforge_status`
+   - Validate mode values
+   - Update tool documentation
+
+2. **Implement Mode-Specific Logic** (1.5-2 hours)
+   - **Default mode** (<10s): Quick R CMD check, fast dependency check
+   - **Debug mode** (<120s): Full R CMD check with traces, detailed errors
+   - **Optimize mode** (<180s): Profile code, identify bottlenecks
+   - **Release mode** (<300s): Full CRAN checks, all vignettes
+
+3. **Time Budget Enforcement** (30 min)
+   - Implement timeout mechanism
+   - Warning at 80% budget used
+   - Graceful timeout handling
+   - Report time used
+
+**Success Criteria:**
+- [ ] Mode parameter working in MCP tools
+- [ ] Time budgets enforced
+- [ ] Quality guarantees met per mode
+- [ ] Real package testing successful
+
+**Files to Update:**
+- MCP server tool definitions
+- RForge MCP server implementation
+- Integration tests
+
+---
+
+### Step 3: Validation & Documentation (1 hour) 📝
+
+**What:** Test everything works end-to-end, update docs
+
+**Tasks:**
+1. **End-to-End Testing** (30 min)
    ```bash
    /rforge:analyze
    /rforge:analyze debug
-   /rforge:status
+   /rforge:analyze --format json
+   /rforge:analyze debug --format markdown
+   /rforge:status optimize
    ```
 
-2. **Review documentation** (30 min)
-   - Read `MODE-SYSTEM-COMPLETE.md`
-   - Skim `MODE-USAGE-GUIDE.md`
-   - Check `DEVOPS-VALIDATION-SUMMARY.md`
+2. **Performance Benchmarking** (15 min)
+   - Test on real R packages
+   - Measure actual times vs targets
+   - Document any budget violations
 
-3. **Verify files are correct** (15 min)
-   ```bash
-   # Check all files exist
-   ls -lh MODE-SYSTEM-*.md
-   ls -lh docs/MODE-*.md
-   ls -lh rforge/commands/{analyze,status}.md
+3. **Documentation Updates** (15 min)
+   - Update MODE-USAGE-GUIDE.md with format examples
+   - Add real screenshots to MODE-EXAMPLES.md
+   - Update CLAUDE.md if needed
+   - Update KNOWLEDGE.md with learnings
 
-   # Verify command frontmatter
-   head -n 10 rforge/commands/analyze.md
-   head -n 10 rforge/commands/status.md
-   ```
-
----
-
-### Priority 2: Testing Infrastructure (Tomorrow - 2 hours) 🧪
-
-**Day 2 Morning:**
-
-1. **Create test structure** (30 min)
-   - Use Action 2 script above
-   - Run first test to validate setup
-
-2. **Write unit tests** (60 min)
-   - Command parsing tests
-   - Mode detection tests
-   - Format parameter tests
-   - Time budget validation tests
-
-3. **Set up CI/CD** (30 min)
-   - Use Action 3 script above
-   - Push to GitHub
-   - Verify workflows run
+**Success Criteria:**
+- [ ] All modes working with all formats
+- [ ] Time budgets met
+- [ ] Documentation complete
+- [ ] No critical bugs
 
 ---
 
-### Priority 3: Integration Testing (Day 3 - 3 hours) 🔗
+## 🚀 Quick Start Guide
 
-**Test with real MCP server:**
+### Option A: Format Handlers First (Recommended)
 
-1. **Mock MCP server** (60 min)
-   - Create test MCP server
-   - Implement mode parameter support
-   - Test time budget enforcement
-
-2. **Integration tests** (90 min)
-   - Plugin → MCP communication
-   - Mode parameter passing
-   - Format parameter handling
-   - Error handling
-
-3. **Performance benchmarks** (30 min)
-   - Measure default mode (must be < 10s)
-   - Measure debug mode (should be < 120s)
-   - Measure optimize mode (should be < 180s)
-   - Measure release mode (should be < 300s)
-
----
-
-## What NOT to Do
-
-### ❌ Don't Start Coding New Features
-
-**Why:** You have a solid foundation. Test it first!
-
-**Instead:**
-- Validate current implementation
-- Write tests for existing features
-- Ensure CI/CD works
-- **Then** add new features
-
-### ❌ Don't Deploy to Production Yet
-
-**Why:** Need testing and validation first
-
-**Deploy order:**
-1. Internal testing (you only)
-2. Canary deployment (limited users)
-3. Documentation site
-4. Public release
-
-### ❌ Don't Skip Testing
-
-**Why:** Performance guarantees are critical
-
-**Must test:**
-- Time budgets (< 10s for default)
-- Backward compatibility (zero breakage)
-- Quality guarantees (catches issues)
-- Format outputs (correct JSON/markdown)
-
----
-
-## Quick Wins (< 30 min each) ⚡
-
-**Pick one if you have limited time:**
-
-### Quick Win 1: Test Commands (15 min)
 ```bash
-# Just test basic functionality
-/rforge:analyze
-/rforge:analyze debug
-/rforge:status
-# Done! Document results
+cd ~/projects/dev-tools/claude-plugins
+
+# 1. Create formatter module
+mkdir -p rforge/lib
+touch rforge/lib/formatters.py
+
+# 2. Install dependencies
+pip install rich
+
+# 3. Implement formatters (see Step 1 above)
+
+# 4. Run tests
+pytest tests/unit/test_format_handling.py -v
+
+# 5. Commit when passing
+git add -A
+git commit -m "feat: implement format handlers (terminal, json, markdown)"
 ```
 
-### Quick Win 2: Create First Test (20 min)
-```bash
-# Use script from Action 2
-# Run pytest
-# Celebrate green tests! 🎉
-```
+### Option B: Full Mode System (If you have 6+ hours)
 
-### Quick Win 3: Set Up GitHub Actions (25 min)
 ```bash
-# Use script from Action 3
-# Push to GitHub
-# Watch CI run! 🚀
+# Do Option A first, then:
+
+# 1. Update MCP server
+# 2. Test mode integration
+# 3. Validate performance
+# 4. Update documentation
+# 5. Deploy to production
 ```
 
 ---
 
-## Decision Points
+## 📊 Progress Tracking
 
-### Should I test locally first?
+### Overall Project Status
 
-**YES** ✅
-- Test commands in Claude Code first
-- Verify behavior is expected
-- Document any issues
-- **Then** write automated tests
+```
+Project Structure Cleanup: 100% ✅
+├── Phase 1: Complete ✅
+├── Phase 2: Complete ✅
+└── Phase 3: Complete ✅
 
-### Should I update MCP server now?
+Mode System Implementation: 40% 🚧
+├── Foundation: Complete ✅
+├── Format Handlers: Not Started ❌
+├── MCP Integration: Not Started ❌
+└── Validation: Not Started ❌
+```
 
-**NOT YET** ⏸️
-- Test plugin commands first
-- Verify mode parameter is parsed
-- Write integration tests
-- **Then** update MCP server
+### What's Blocking What
 
-### Should I deploy to GitHub Pages?
-
-**AFTER TESTING** ⏸️
-- Validate documentation builds
-- Test locally with `mkdocs serve`
-- Review rendered docs
-- **Then** deploy via CI/CD
-
----
-
-## Timeline Suggestion
-
-### Today (2-3 hours)
-- ✅ Review documentation (30 min)
-- ✅ Test commands (15 min)
-- ✅ Create test structure (30 min)
-- ✅ Write first tests (45 min)
-- ✅ Set up CI/CD (45 min)
-
-### Tomorrow (Day 2 - 3 hours)
-- Unit tests complete
-- Integration tests started
-- CI/CD validated
-
-### Day 3 (3 hours)
-- Integration tests complete
-- Performance benchmarks
-- MCP server updates
-
-### Day 4 (3 hours)
-- End-to-end testing
-- Real-world validation
-- Performance tuning
-
-### Day 5 (2 hours)
-- Documentation finalization
-- Deployment preparation
-- Release notes
+```
+Nothing is blocked!
+├── Format handlers can start immediately
+├── MCP integration can start anytime (independent)
+└── Both can be developed in parallel if desired
+```
 
 ---
 
-## Success Criteria
+## 🎯 Success Criteria
 
 ### Minimum Viable (Must Have)
-- ✅ Commands work with and without modes
-- ✅ Default mode is fast (< 10s)
-- ✅ Backward compatibility maintained
-- ✅ Basic tests pass
-- ✅ CI/CD runs successfully
+- [ ] Format handlers implemented (terminal, json, markdown)
+- [ ] Format parameter working with commands
+- [ ] MCP mode parameter functional
+- [ ] Time budgets enforced
 
 ### Good (Should Have)
-- ✅ All 4 modes implemented
-- ✅ Format support complete
-- ✅ 80%+ test coverage
-- ✅ Performance benchmarks documented
-- ✅ Documentation deployed
+- [ ] All 12 mode+format combinations tested
+- [ ] Performance benchmarks documented
+- [ ] Example gallery created
+- [ ] Real package validation successful
 
 ### Excellent (Nice to Have)
-- ✅ 90%+ test coverage
-- ✅ Real-world validation complete
-- ✅ Monitoring in place
-- ✅ Performance optimizations applied
-- ✅ Video walkthrough recorded
+- [ ] 90%+ test coverage
+- [ ] Video walkthrough recorded
+- [ ] Monitoring dashboard created
+- [ ] User feedback collected
 
 ---
 
-## Getting Help
+## 💡 Key Reminders
 
-### If You're Stuck
-
-1. **Check documentation:**
-   - `MODE-SYSTEM-COMPLETE.md` - Overview
-   - `DEVOPS-VALIDATION-SUMMARY.md` - Status
-   - `MODE-SYSTEM-TESTING-STRATEGY.md` - Testing
-   - `EDGE-CASES-AND-GOTCHAS.md` - Troubleshooting
-
-2. **Run validation:**
-   ```bash
-   python scripts/validate-all-plugins.py
-   ```
-
-3. **Check CI/CD logs:**
-   - GitHub Actions tab
-   - Look for error messages
-
-4. **Test components individually:**
-   - Test plugin commands alone
-   - Test MCP tools alone
-   - Test integration separately
+1. **Test as you go** - Don't wait until end to test
+2. **Small commits** - Commit after each formatter works
+3. **CI/CD first** - Make sure tests pass before moving on
+4. **Document examples** - Real examples help users understand
+5. **Performance matters** - Default mode must stay < 10s
 
 ---
 
-## Resources
+## 📁 Essential Files to Reference
 
-### Documentation (14 files ready)
-- MODE-SYSTEM-DESIGN.md
-- MODE-SYSTEM-COMPLETE.md
-- MODE-SYSTEM-TESTING-STRATEGY.md
-- MODE-SYSTEM-DEPLOYMENT-PLAN.md
-- MODE-SYSTEM-MONITORING.md
-- MODE-SYSTEM-CICD-PIPELINE.md
-- DEVOPS-VALIDATION-SUMMARY.md
-- MODE-USAGE-GUIDE.md
-- MODE-QUICK-REFERENCE.md
-- COMMAND-CHEATSHEET.md
-- NEXT-WEEK-PLAN.md
-- PROJECT-ROADMAP.md
-- EDGE-CASES-AND-GOTCHAS.md
-- NEXT-STEPS-IMMEDIATE.md (this file)
+### Current Implementation
+- `rforge/commands/analyze.md` - Command with mode support
+- `tests/unit/test_*.py` - Existing tests (96 passing)
+- `.github/workflows/*.yml` - CI/CD workflows
 
-### Scripts Ready to Use
-- `scripts/validate-all-plugins.py`
-- `scripts/generate-docs.sh`
-- `tests/unit/test_command_parsing.py`
-- `.github/workflows/validate.yml`
-- `.github/workflows/benchmark.yml`
+### Consolidated Documentation
+- `docs/MODE-SYSTEM.md` - Complete mode system architecture
+- `docs/CICD.md` - CI/CD infrastructure guide
+- `CLAUDE.md` - Developer guide
+
+### Planning
+- `TODO.md` - Task list with detailed phases
+- `PROJECT-ROADMAP.md` - Long-term roadmap
+- `.STATUS` - Current status (updated)
 
 ---
 
-## Key Reminders
+## ⚡ Quick Wins (< 30 min each)
 
-1. **Test first, code later** - Validate current implementation before adding features
-2. **Small steps** - Don't try to do everything at once
-3. **CI/CD is your friend** - Automate testing to catch issues early
-4. **Performance matters** - Default mode must be < 10s (guaranteed)
-5. **Backward compatibility** - Zero breaking changes (non-negotiable)
-6. **Document as you go** - Update docs when you find issues
+### Quick Win 1: Terminal Formatter Prototype (25 min)
+```python
+# Create basic terminal formatter
+from rich.console import Console
+from rich.table import Table
 
----
-
-## Summary: Your 3-Step Quickstart
-
-### Step 1: Test (15 min)
-```bash
-/rforge:analyze
-/rforge:analyze debug
-/rforge:status
+def format_terminal(data):
+    console = Console()
+    table = Table(title="Analysis Results")
+    # Add columns and rows
+    console.print(table)
 ```
 
-### Step 2: Create Tests (30 min)
-```bash
-mkdir -p tests/unit
-# Copy test file from Action 2
-pytest tests/unit -v
+### Quick Win 2: JSON Formatter (20 min)
+```python
+import json
+from datetime import datetime
+
+def format_json(data):
+    output = {
+        "timestamp": datetime.now().isoformat(),
+        "mode": data.get("mode", "default"),
+        "results": data
+    }
+    return json.dumps(output, indent=2)
 ```
 
-### Step 3: Set Up CI (45 min)
-```bash
-mkdir -p .github/workflows
-# Copy workflows from Action 3
-git add .github/
-git commit -m "ci: add GitHub Actions workflows"
-git push
+### Quick Win 3: Update One Command (15 min)
+```markdown
+# In analyze.md, update <system> block
+# Add format parameter parsing
+# Use formatter based on user input
 ```
-
-**Total Time:** 90 minutes to have:
-- ✅ Tested functionality
-- ✅ Test infrastructure
-- ✅ Automated CI/CD
-
-**That's a solid foundation!** 🎉
 
 ---
 
-**Choose your next action and go for it!** 🚀
+## 🎉 What You've Accomplished
 
-**Recommended:** Start with Step 1 (Test) - it's the fastest way to validate everything works.
+**Project cleanup session (Jan 7, 2026):**
+- Reduced root files by 75% (53 → 13)
+- Created organized archive structure
+- Consolidated documentation (MODE-SYSTEM.md, CICD.md)
+- Enhanced .gitignore for future prevention
+- All changes committed and pushed (4 commits)
+- MkDocs build passing with zero warnings
+
+**This sets you up for smooth format handler implementation!**
+
+---
+
+**Ready to implement format handlers whenever you are!** 🚀
+
+**Recommended:** Start with Step 1 (Format Handlers) - it's self-contained and doesn't require MCP server changes.
