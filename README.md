@@ -8,7 +8,7 @@ A monorepo containing high-quality Claude Code plugins. Each plugin is independe
 [![Monorepo](https://img.shields.io/badge/repo-monorepo-blue.svg)](https://github.com/Data-Wise/claude-plugins)
 [![Documentation](https://img.shields.io/badge/docs-online-brightgreen.svg)](https://data-wise.github.io/claude-plugins/)
 
-📖 **[Complete Documentation](https://data-wise.github.io/claude-plugins/)** | 🚀 **[Quick Start](https://data-wise.github.io/claude-plugins/quick-start/)** | 📚 **[Command Reference](https://data-wise.github.io/claude-plugins/COMMAND-REFERENCE/)**
+📖 **[Complete Documentation](https://data-wise.github.io/claude-plugins/)** | 🚀 **[Quick Start](https://data-wise.github.io/claude-plugins/quick-start/)** | 📚 **[Command Reference](https://data-wise.github.io/claude-plugins/COMMAND-REFERENCE/)** | 🛠️ **[Developer Guide](CLAUDE.md)**
 
 ---
 
