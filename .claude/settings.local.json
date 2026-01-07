@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdocs build:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill -9)",
+      "Bash(gh run:*)"
+    ]
+  }
+}
