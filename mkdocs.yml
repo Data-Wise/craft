@@ -14,6 +14,7 @@ nav:
   - Command Cheatsheet: COMMAND-CHEATSHEET.md
   - Format Examples: FORMAT-EXAMPLES.md
   - MCP Integration Testing: MCP-INTEGRATION-TESTING.md
+  - Real-World Testing: REAL-WORLD-TESTING-RESULTS.md
   - Architecture: MODE-SYSTEM.md
 - CI/CD Guide: CICD.md
 - Command Reference: COMMAND-REFERENCE.md
