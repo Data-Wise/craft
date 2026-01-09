@@ -1,10 +1,10 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 74 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly workflows
-site_url: https://data-wise.github.io/claude-plugins/craft/
+site_description: Full-stack developer toolkit - 86 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly workflows
+site_url: https://data-wise.github.io/craft/
 
-repo_name: Data-Wise/claude-plugins
-repo_url: https://github.com/Data-Wise/claude-plugins
-edit_uri: edit/main/craft/docs/
+repo_name: Data-Wise/craft
+repo_url: https://github.com/Data-Wise/craft
+edit_uri: edit/main/docs/
 
 theme:
   name: material
