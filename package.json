@@ -31,5 +31,20 @@
     "spec-capture"
   ],
   "author": "Data-Wise",
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    ".claude-plugin/",
+    "commands/",
+    "skills/",
+    "agents/",
+    "scripts/",
+    "templates/",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    "install.sh"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
