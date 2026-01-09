@@ -1,9 +1,9 @@
 # Craft - Full Stack Developer Toolkit Plugin
 
-[![Craft CI](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml)
-[![Validate Plugins](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml)
-[![Version](https://img.shields.io/badge/version-1.17.0-blue.svg)](https://github.com/Data-Wise/claude-plugins/releases/tag/craft-v1.17.0)
-[![Documentation](https://img.shields.io/badge/docs-complete-green.svg)](https://data-wise.github.io/claude-plugins/craft/)
+[![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml)
+[![Validate Plugins](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml)
+[![Version](https://img.shields.io/badge/version-1.17.0-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v1.17.0)
+[![Documentation](https://img.shields.io/badge/docs-complete-green.svg)](https://data-wise.github.io/craft/)
 
 > **v1.17.0 - Workflow Integration** 🎉
 > **86 commands** (74 craft + 12 workflow) | **21 skills** | **8 agents** | **10 workflow GIFs**
@@ -15,7 +15,7 @@ A comprehensive production-ready toolkit for Claude Code featuring smart orchest
 
 ```bash
 # One-command installation
-curl -fsSL https://raw.githubusercontent.com/Data-Wise/claude-plugins/main/craft/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Data-Wise/craft/main/install.sh | bash
 ```
 
 **Then restart Claude Code to load the plugin.**
@@ -27,23 +27,23 @@ curl -fsSL https://raw.githubusercontent.com/Data-Wise/claude-plugins/main/craft
 claude plugin install craft@local-plugins
 
 # Manual installation
-git clone --depth 1 --filter=blob:none --sparse https://github.com/Data-Wise/claude-plugins.git
-cd claude-plugins && git sparse-checkout set craft
-cp -r craft ~/.claude/plugins/
+git clone --depth 1 --filter=blob:none --sparse https://github.com/Data-Wise/craft.git
+cd craft
+cp -r . ~/.claude/plugins/craft
 
 # Development (symlink)
-ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
+ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
 ```
 
 ## 📚 Documentation
 
-**Full documentation:** https://data-wise.github.io/claude-plugins/craft/
+**Full documentation:** https://data-wise.github.io/craft/
 
-- [Quick Start](https://data-wise.github.io/claude-plugins/craft/QUICK-START/) (30 seconds)
-- [ADHD Guide](https://data-wise.github.io/claude-plugins/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
-- [Visual Workflows](https://data-wise.github.io/claude-plugins/craft/workflows/) (10 GIF demonstrations)
-- [Command Reference](https://data-wise.github.io/claude-plugins/craft/REFCARD/) (all 74 commands)
-- [Skills & Agents](https://data-wise.github.io/claude-plugins/craft/guide/skills-agents/) (21 skills, 8 agents)
+- [Quick Start](https://data-wise.github.io/craft/QUICK-START/) (30 seconds)
+- [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
+- [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
+- [Command Reference](https://data-wise.github.io/craft/REFCARD/) (all 74 commands)
+- [Skills & Agents](https://data-wise.github.io/craft/guide/skills-agents/) (21 skills, 8 agents)
 
 ## Quick Start - Smart Commands
 

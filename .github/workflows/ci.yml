@@ -1,0 +1,130 @@
+name: Craft CI
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  validate:
+    name: Validate Plugin Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Check required files
+        run: |
+          test -f .claude-plugin/plugin.json || { echo "Missing plugin.json"; exit 1; }
+          test -f README.md || { echo "Missing README.md"; exit 1; }
+          test -x install.sh || { echo "Missing or non-executable install.sh"; exit 1; }
+          test -x scripts/uninstall.sh || { echo "Missing or non-executable uninstall.sh"; exit 1; }
+          echo "✅ All required files present"
+
+      - name: Validate plugin.json
+        run: |
+          # Check if jq is available
+          if ! command -v jq &> /dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y jq
+          fi
+
+          # Validate JSON syntax
+          jq empty .claude-plugin/plugin.json || { echo "❌ Invalid JSON in plugin.json"; exit 1; }
+
+          # Check plugin name
+          PLUGIN_NAME=$(jq -r '.name' .claude-plugin/plugin.json)
+          if [[ "$PLUGIN_NAME" != "craft" ]]; then
+            echo "❌ Plugin name should be 'craft', got: $PLUGIN_NAME"
+            exit 1
+          fi
+
+          # Check version exists
+          VERSION=$(jq -r '.version' .claude-plugin/plugin.json)
+          if [[ -z "$VERSION" || "$VERSION" == "null" ]]; then
+            echo "❌ Plugin version is missing"
+            exit 1
+          fi
+
+          echo "✅ plugin.json is valid (name: $PLUGIN_NAME, version: $VERSION)"
+
+      - name: Check directory structure
+        run: |
+          test -d commands || { echo "❌ Missing commands/ directory"; exit 1; }
+          test -d skills || { echo "❌ Missing skills/ directory"; exit 1; }
+          test -d agents || { echo "❌ Missing agents/ directory"; exit 1; }
+          test -d docs || { echo "❌ Missing docs/ directory"; exit 1; }
+          test -d scripts || { echo "❌ Missing scripts/ directory"; exit 1; }
+          test -d tests || { echo "❌ Missing tests/ directory"; exit 1; }
+          echo "✅ All required directories present"
+
+      - name: Validate command count
+        run: |
+          COMMAND_COUNT=$(find commands -name "*.md" -type f | wc -l | tr -d ' ')
+          if [ "$COMMAND_COUNT" -lt 86 ]; then
+            echo "❌ Expected at least 86 commands, found $COMMAND_COUNT"
+            exit 1
+          fi
+          echo "✅ Found $COMMAND_COUNT command files"
+
+      - name: Check skills
+        run: |
+          SKILL_COUNT=$(find skills -name "*.md" -type f | wc -l | tr -d ' ')
+          if [ "$SKILL_COUNT" -lt 21 ]; then
+            echo "❌ Expected at least 21 skills, found $SKILL_COUNT"
+            exit 1
+          fi
+          echo "✅ Found $SKILL_COUNT skill files"
+
+      - name: Check agents
+        run: |
+          test -f agents/orchestrator.md || { echo "❌ Missing orchestrator agent"; exit 1; }
+          test -f agents/orchestrator-v2.md || { echo "❌ Missing orchestrator-v2 agent"; exit 1; }
+          echo "✅ All agent files present"
+
+      - name: Check for hardcoded paths
+        run: |
+          HARDCODED_PATHS=0
+          if grep -r "/Users/" commands skills agents 2>/dev/null | grep -v "CLAUDE_PLUGIN_ROOT"; then
+            echo "❌ Found hardcoded /Users/ paths"
+            HARDCODED_PATHS=1
+          fi
+          if grep -r "/home/" commands skills agents 2>/dev/null | grep -v "CLAUDE_PLUGIN_ROOT"; then
+            echo "❌ Found hardcoded /home/ paths"
+            HARDCODED_PATHS=1
+          fi
+          if [ $HARDCODED_PATHS -eq 0 ]; then
+            echo "✅ No hardcoded paths found"
+          else
+            exit 1
+          fi
+
+      - name: Run test suite
+        run: |
+          python -m pytest tests/ -v --tb=short
+
+      - name: Summary
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ All CI checks passed!"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "📊 Summary:"
+          COMMAND_COUNT=$(find commands -name "*.md" -type f | wc -l | tr -d ' ')
+          SKILL_COUNT=$(find skills -name "*.md" -type f | wc -l | tr -d ' ')
+          echo "  - Commands: $COMMAND_COUNT"
+          echo "  - Skills: $SKILL_COUNT"
+          echo "  - Agents: 8+"
+          echo "  - Structure: Full-stack developer toolkit"

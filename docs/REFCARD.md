@@ -6,7 +6,7 @@
 ├─────────────────────────────────────────────────────────────┤
 │  Version: 1.15.0                                            │
 │  Commands: 74 | Agents: 8 | Skills: 21                      │
-│  Docs: https://data-wise.github.io/claude-plugins/craft/    │
+│  Docs: https://data-wise.github.io/craft/    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -168,5 +168,5 @@ Auto-triggered expertise:
 ## Links
 
 - **[Full Documentation](guide/getting-started.md)**
-- **[GitHub Issues](https://github.com/Data-Wise/claude-plugins/issues)**
-- **[ROADMAP](https://github.com/Data-Wise/claude-plugins/blob/main/craft/ROADMAP.md)**
+- **[GitHub Issues](https://github.com/Data-Wise/craft/issues)**
+- **[ROADMAP](https://github.com/Data-Wise/craft/blob/main/ROADMAP.md)**

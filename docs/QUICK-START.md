@@ -26,7 +26,7 @@ Get craft running in 30 seconds.
 
     ```bash
     # Create symlink to development location
-    ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
+    ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
     ```
 
 ## Verify Installation
