@@ -11,7 +11,26 @@
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
-## Quick Install
+## Installation
+
+Craft works in both Claude Code CLI and Claude Desktop app. No MCP server dependencies required.
+
+### Option 1: Homebrew (Recommended - macOS)
+
+```bash
+# Add the Data-Wise tap
+brew tap data-wise/tap
+
+# Install craft plugin
+brew install craft
+```
+
+The Homebrew formula automatically:
+- Installs the plugin to `~/.claude/plugins/craft`
+- Makes it available in Claude Code CLI and Claude Desktop
+- No additional configuration needed
+
+### Option 2: Quick Install (curl)
 
 ```bash
 # One-command installation
@@ -20,20 +39,90 @@ curl -fsSL https://raw.githubusercontent.com/Data-Wise/craft/main/install.sh | b
 
 **Then restart Claude Code to load the plugin.**
 
-### Alternative Installation Methods
+### Option 3: npm (When published)
 
 ```bash
-# From local marketplace (if available)
-claude plugin install craft@local-plugins
+# Install from npm (after publishing)
+npm install -g @data-wise/claude-craft-plugin
 
-# Manual installation
-git clone --depth 1 --filter=blob:none --sparse https://github.com/Data-Wise/craft.git
-cd craft
-cp -r . ~/.claude/plugins/craft
-
-# Development (symlink)
-ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
+# Plugin will auto-install to ~/.claude/plugins/craft
 ```
+
+### Option 4: Manual Installation (Local Development)
+
+**For Claude Code CLI and Claude Desktop:**
+
+```bash
+# Clone the repository
+git clone https://github.com/Data-Wise/craft.git
+cd craft
+
+# Install in development mode (symlink - changes reflected immediately)
+ln -s $(pwd) ~/.claude/plugins/craft
+
+# Or install in production mode (copy - stable)
+cp -r . ~/.claude/plugins/craft
+```
+
+**Installation locations:**
+- Plugin directory: `~/.claude/plugins/craft`
+- Commands: `~/.claude/plugins/craft/commands/`
+- Skills: `~/.claude/plugins/craft/skills/`
+- Agents: `~/.claude/plugins/craft/agents/`
+
+### Verify Installation
+
+```bash
+# Check plugin directory exists
+ls -la ~/.claude/plugins/craft
+
+# Verify plugin.json
+cat ~/.claude/plugins/craft/.claude-plugin/plugin.json
+
+# Test a command
+claude
+/craft:help
+```
+
+**Expected output:**
+```
+Craft v1.17.0 loaded
+86 commands available
+```
+
+### Using in Claude Code CLI
+
+After installation, commands are immediately available:
+
+```bash
+# Start Claude Code in any directory
+claude
+
+# Use craft commands
+/craft:do "add user authentication"
+/craft:check
+/craft:test:run
+```
+
+### Using in Claude Desktop App
+
+Craft automatically loads when you open Claude Desktop. Commands work the same way:
+
+1. Open Claude Desktop app
+2. Start a new conversation
+3. Use slash commands: `/craft:do`, `/brainstorm`, etc.
+
+### MCP Server Setup
+
+**Craft does NOT require any MCP server configuration.**
+
+Craft is a pure plugin that uses built-in Claude Code capabilities. No external servers needed.
+
+**Benefits:**
+- ✅ Instant startup (no server overhead)
+- ✅ Simple installation (no server config)
+- ✅ Works offline
+- ✅ Self-contained
 
 ## 📚 Documentation
 
