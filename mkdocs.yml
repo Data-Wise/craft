@@ -91,10 +91,15 @@ nav:
     - Presets: reference/presets.md
     - Accessibility: ACCESSIBILITY.md
   - Help:
-    - /craft:check: help/check.md
+    - /craft:hub: help/hub.md
     - /craft:do: help/do.md
+    - /craft:check: help/check.md
+    - /craft:orchestrate: help/orchestrate.md
     - /craft:git:worktree: help/git-worktree.md
     - /craft:docs:update: help/docs-update.md
+    - /craft:ci:generate: help/ci-generate.md
     - /workflow:brainstorm: help/brainstorm.md
   - Workflows:
+    - Pre-commit Workflow: workflows/pre-commit-workflow.md
     - Git Feature Workflow: workflows/git-feature-workflow.md
+    - Release Workflow: workflows/release-workflow.md
