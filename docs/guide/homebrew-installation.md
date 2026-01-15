@@ -239,12 +239,15 @@ rm -rf ~/.claude/plugins/cache/local-plugins/craft
 
 ## Other Homebrew Plugins
 
-The same pattern applies to other Data-Wise plugins:
+The same pattern applies to other Data-Wise plugins. All use Claude detection to avoid conflicts during installation.
 
-| Plugin | Install Command |
-|--------|-----------------|
-| **rforge** | `brew install data-wise/tap/rforge` |
-| **scholar** | `brew install data-wise/tap/scholar` |
+| Plugin | Install Command | Commands |
+|--------|-----------------|----------|
+| **craft** | `brew install data-wise/tap/craft` | 89 commands |
+| **rforge** | `brew install data-wise/tap/rforge` | 15 commands |
+| **scholar** | `brew install data-wise/tap/scholar` | 21 commands |
+
+All plugins will show "Claude Code is running - skipped auto-enable" if installed while Claude is running. Just run the enable command shown.
 
 Update all after Homebrew upgrade:
 ```bash
