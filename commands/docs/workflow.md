@@ -1,0 +1,258 @@
+# /craft:docs:workflow - Workflow Documentation Generator
+
+Generate task-focused workflow documentation for multi-step processes.
+
+## Purpose
+
+**Document how users accomplish real tasks:**
+- Analyzes code for multi-step processes
+- Detects hooks, events, and command chains
+- Uses `WORKFLOW-TEMPLATE.md` for consistent structure
+- Generates step-by-step instructions with alternatives
+
+## Usage
+
+```bash
+# Generate workflow for a topic
+/craft:docs:workflow "git"            # Git workflow documentation
+/craft:docs:workflow "documentation"  # Docs workflow
+/craft:docs:workflow "release"        # Release process workflow
+
+# From existing code patterns
+/craft:docs:workflow --detect         # Auto-detect workflows in codebase
+/craft:docs:workflow --from-commits   # Generate from recent commit patterns
+
+# Options
+/craft:docs:workflow "auth" --output docs/workflows/
+/craft:docs:workflow "auth" --format terminal
+/craft:docs:workflow "auth" --dry-run
+```
+
+## When Invoked
+
+### Step 1: Analyze Topic
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 1/4: ANALYZING TOPIC                                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Topic: "git"                                                │
+│                                                             │
+│ Detected patterns:                                          │
+│   • Branch workflow (dev → feature → PR)                    │
+│   • Worktree management                                     │
+│   • Commit conventions                                      │
+│   • Release process                                         │
+│                                                             │
+│ Related commands:                                           │
+│   • /craft:git:worktree                                     │
+│   • /craft:git:clean                                        │
+│   • /commit                                                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Step 2: Map Workflow Steps
+
+Identify the sequence of actions:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 2/4: MAPPING WORKFLOW                                  │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Workflow: Feature Development                               │
+│                                                             │
+│ Steps identified:                                           │
+│   1. Plan on dev branch                                     │
+│   2. Create worktree for isolation                          │
+│   3. Implement with atomic commits                          │
+│   4. Test and validate                                      │
+│   5. Create PR to dev                                       │
+│   6. Merge and cleanup                                      │
+│                                                             │
+│ Variations:                                                 │
+│   • Hotfix path (from main)                                 │
+│   • Quick fix path (no worktree)                            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Step 3: Generate Documentation
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 3/4: GENERATING WORKFLOW DOC                           │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Template: templates/docs/WORKFLOW-TEMPLATE.md               │
+│                                                             │
+│ Sections generated:                                         │
+│   ✓ When to Use (3 scenarios)                               │
+│   ✓ Prerequisites (checklist)                               │
+│   ✓ Basic Workflow (6 steps)                                │
+│   ✓ Variations (2 alternative paths)                        │
+│   ✓ Mermaid Diagram (flowchart)                             │
+│   ✓ Troubleshooting (5 common issues)                       │
+│   ✓ Quick Reference (command summary)                       │
+│                                                             │
+│ Output: docs/workflows/git-workflow.md (180 lines)          │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Step 4: Validate & Link
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 4/4: VALIDATING                                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ ✓ All commands verified                                     │
+│ ✓ Mermaid diagram valid                                     │
+│ ✓ Added to mkdocs.yml navigation                            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Output Structure
+
+Generated workflow follows this structure:
+
+```markdown
+# Git Feature Development Workflow
+
+> **Scenario:** Developing a new feature with proper isolation and PR workflow
+> **Time:** 15-30 minutes
+> **Difficulty:** 🔧 Medium
+
+---
+
+## When to Use This Workflow
+
+Use this workflow when you need to:
+
+- Add a new feature to the codebase
+- Work on isolated changes without affecting dev
+- Collaborate via pull requests
+
+---
+
+## Prerequisites
+
+- [x] Git configured with remote
+- [x] On `dev` branch and up to date
+
+**Quick check:**
+```bash
+git branch --show-current  # Should be: dev
+git status                 # Should be: clean
+```
+
+---
+
+## Basic Workflow
+
+```mermaid
+flowchart LR
+    A[Plan on dev] --> B[Create worktree]
+    B --> C[Implement]
+    C --> D[Test]
+    D --> E[PR to dev]
+    E --> F[Cleanup]
+```
+
+### Step 1: Plan on dev
+
+```bash
+git checkout dev
+git pull origin dev
+# Analyze requirements, wait for approval
+```
+
+### Step 2: Create Worktree
+
+```bash
+/craft:git:worktree feature/my-feature
+cd ~/.git-worktrees/project/my-feature
+```
+
+[... more steps ...]
+
+---
+
+## Variations
+
+### Hotfix (from main)
+
+```bash
+git checkout main
+/craft:git:worktree hotfix/fix-name
+# Fix, test, PR to main
+```
+
+---
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| Worktree conflict | `git worktree prune` |
+| Rebase fails | `git rebase --abort && git merge` |
+
+---
+
+## Quick Reference
+
+| Action | Command |
+|--------|---------|
+| Create worktree | `/craft:git:worktree feature/name` |
+| Clean branches | `/craft:git:clean` |
+| Create PR | `gh pr create --base dev` |
+```
+
+## Flags Reference
+
+| Flag | Effect |
+|------|--------|
+| (none) | Generate workflow to docs/workflows/ |
+| `--detect` | Auto-detect workflows in codebase |
+| `--from-commits` | Generate from recent commit patterns |
+| `--output PATH` | Custom output directory |
+| `--format terminal` | Preview in terminal only |
+| `--dry-run` | Show plan without generating |
+| `--no-diagram` | Skip Mermaid diagram |
+| `--no-nav` | Skip mkdocs.yml update |
+
+## Integration
+
+**Uses template:** `templates/docs/WORKFLOW-TEMPLATE.md`
+
+**Called by:**
+- `/craft:docs:update --with-workflow`
+- `/craft:docs:update` (when score >= 3 for workflow type)
+
+**Outputs to:**
+- `docs/workflows/[topic]-workflow.md` (default)
+- Custom path with `--output`
+
+## Workflow Detection
+
+When using `--detect`, analyzes:
+
+| Source | What it finds |
+|--------|---------------|
+| Command chains | Commands that call other commands |
+| Hook systems | Event-driven workflows |
+| Git patterns | Branch/merge strategies |
+| CI/CD files | Build and deploy workflows |
+| README sections | Documented processes |
+
+## ADHD-Friendly Design
+
+1. **Task-focused** - One real task per workflow
+2. **Visual diagrams** - Mermaid flowcharts for overview
+3. **Copy-paste ready** - Actual commands to run
+4. **Multiple paths** - Variations for different scenarios
+5. **Troubleshooting** - Common issues right there
