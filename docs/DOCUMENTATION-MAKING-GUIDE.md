@@ -972,6 +972,6 @@ When requesting documentation standardization work, use this prompt:
 **Status:** ✅ Complete - Based on successful Phase 3 (100% command standardization)
 
 **See Also:**
-- [Phase 3 Content Audit](../planning/PHASE-3-CONTENT-AUDIT.md) - Implementation example
-- [Template Directory](adhd/) - All available templates
-- [Project Conventions](README.md) - All project standards
+- [Commands Reference](commands.md) - All 86 commands documented
+- [Skills & Agents Guide](guide/skills-agents.md) - 21 skills, 8 agents
+- [Architecture Guide](architecture.md) - How Craft works internally
