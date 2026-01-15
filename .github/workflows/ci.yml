@@ -97,11 +97,12 @@ jobs:
       - name: Check for hardcoded paths
         run: |
           HARDCODED_PATHS=0
-          if grep -r "/Users/" commands skills agents 2>/dev/null | grep -v "CLAUDE_PLUGIN_ROOT"; then
+          # Exclude CLAUDE_PLUGIN_ROOT references and documentation examples (lines containing 'grep')
+          if grep -r "/Users/" commands skills agents 2>/dev/null | grep -v "CLAUDE_PLUGIN_ROOT" | grep -v "grep.*Users"; then
             echo "❌ Found hardcoded /Users/ paths"
             HARDCODED_PATHS=1
           fi
-          if grep -r "/home/" commands skills agents 2>/dev/null | grep -v "CLAUDE_PLUGIN_ROOT"; then
+          if grep -r "/home/" commands skills agents 2>/dev/null | grep -v "CLAUDE_PLUGIN_ROOT" | grep -v "grep.*home"; then
             echo "❌ Found hardcoded /home/ paths"
             HARDCODED_PATHS=1
           fi
