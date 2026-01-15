@@ -2380,25 +2380,34 @@
 </span></code></pre></div>
 <hr />
 <h2 id="other-homebrew-plugins">Other Homebrew Plugins<a class="headerlink" href="#other-homebrew-plugins" title="Permanent link">&para;</a></h2>
-<p>The same pattern applies to other Data-Wise plugins:</p>
+<p>The same pattern applies to other Data-Wise plugins. All use Claude detection to avoid conflicts during installation.</p>
 <table>
 <thead>
 <tr>
 <th>Plugin</th>
 <th>Install Command</th>
+<th>Commands</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><strong>craft</strong></td>
+<td><code>brew install data-wise/tap/craft</code></td>
+<td>89 commands</td>
+</tr>
+<tr>
 <td><strong>rforge</strong></td>
 <td><code>brew install data-wise/tap/rforge</code></td>
+<td>15 commands</td>
 </tr>
 <tr>
 <td><strong>scholar</strong></td>
 <td><code>brew install data-wise/tap/scholar</code></td>
+<td>21 commands</td>
 </tr>
 </tbody>
 </table>
+<p>All plugins will show "Claude Code is running - skipped auto-enable" if installed while Claude is running. Just run the enable command shown.</p>
 <p>Update all after Homebrew upgrade:
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>rforge@local-plugins
