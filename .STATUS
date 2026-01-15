@@ -3,13 +3,16 @@ version: 1.20.0-dev
 release_date: TBD
 milestone: Standardized Dry-Run Feature
 
-progress: 20%
+progress: 35%
 
-worktree:
-  branch: feature/dry-run-phase1
-  location: ../craft-feature-dry-run-phase1
-  created: 2026-01-15
-  purpose: Phase 1 implementation (6 P0 critical commands)
+phase_1_complete:
+  branch: feature/dry-run-phase1 (merged)
+  pr: "#6"
+  merged: 2026-01-15
+  commit: 1ad4113
+  commands: 4 (git:clean, git:worktree, git:branch, git:sync)
+  infrastructure: utils/dry_run_output.py, templates/dry-run-pattern.md
+  tests: 17 comprehensive tests (all passing)
 
 documentation_coverage:
   commands: 90/90 (100%)
@@ -18,30 +21,32 @@ documentation_coverage:
   CLAUDE.md: Optimized (107 lines)
 
 recent:
+  - ✅ Merged PR #6: Phase 1 dry-run infrastructure (4 commands, tests, utilities)
+  - ✅ Added 17 comprehensive tests for dry_run_output.py (all passing)
+  - ✅ Fixed all broken documentation links (30/30 tests passing)
+  - ✅ Created shared infrastructure: utils/dry_run_output.py (324 lines)
+  - ✅ Created developer template: templates/dry-run-pattern.md (306 lines)
+  - ✅ Updated 4 P0 git commands with dry-run support
   - Released v1.19.0 with /craft:git:init command
-  - Completed dry-run feature brainstorm (47 commands, 850 lines)
-  - Created formal specification (SPEC-dry-run-feature-2026-01-15.md)
-  - Designed interactive analysis plan (575 lines, 6-section template)
-  - Identified 47 commands needing dry-run (52% coverage target)
-  - Prioritized by risk: 6 P0 (critical), 24 P1 (high), 15 P2 (medium), 9 P3 (low)
-  - Updated documentation site for v1.19.0
+  - Completed dry-run feature brainstorm and formal specification
 
-next: Phase 1 - Implement dry-run for 6 P0 critical commands
-target: v1.20.0 with standardized dry-run across 47 commands
+next: Phase 2 - Add dry-run to 17 file generation commands
+target: v1.20.0 with standardized dry-run across 47 commands (52% coverage)
 
-phase_1_goals:
-  - git:clean, git:worktree, git:branch, git:sync, git:recap (5 git commands)
-  - dist:pypi (CRITICAL - prevent irreversible publishes)
-  - Create shared dry_run_output.py utility
-  - Template dry-run-pattern.md for developers
-  - Test suite for dry-run accuracy
-  - Effort: 12.5 hours (2-3 days)
+phase_2_goals:
+  - Documentation commands (5): docs:sync, docs:changelog, docs:claude-md, docs:validate, docs:nav-update
+  - Site management commands (6): site:build, site:deploy, site:check, site:frameworks, site:update
+  - CI/CD commands (3): ci:generate, ci:validate, ci:detect
+  - Smart routing commands (4): do, orchestrate, check, help
+  - Effort: 30 hours (1-2 weeks)
 
 badges:
   - In Development (v1.20.0-dev)
-  - Phase 1: Planning Complete
+  - Phase 1: Complete ✅ (4 commands)
+  - Phase 2: In Progress (17 commands)
+  - Infrastructure: Complete ✅
+  - Tests: 30/30 Passing ✅
   - Documentation Complete
-  - 100% Test Coverage (v1.19.0)
 
 install: See README.md
 docs: https://data-wise.github.io/craft/
