@@ -1,8 +1,8 @@
 # CLAUDE.md - Craft Plugin
 
-## Overview
+> **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. Never commit to `main` directly.
 
-Craft is a Claude Code plugin with **86 commands**, **21 skills**, and **8 agents** for smart orchestration, ADHD-friendly workflows, and multi-agent coordination.
+**86 commands** · **21 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 ## Git Workflow
 
@@ -105,3 +105,10 @@ craft/
 | Plugin not loading | Check `.claude-plugin/plugin.json` frontmatter |
 | Command not found | Verify file in `commands/` with valid frontmatter |
 | Agent not triggering | Check triggers list in agent frontmatter |
+
+## Links
+
+- [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
+- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 86 commands
+- [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
+- [GitHub Repository](https://github.com/Data-Wise/craft) — Source code and issues
