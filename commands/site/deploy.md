@@ -1,76 +1,175 @@
-# /site-deploy - Deploy to GitHub Pages
+---
+description: Deploy documentation site to GitHub Pages
+category: site
+arguments:
+  - name: dry-run
+    description: Preview deployment without pushing to GitHub Pages
+    required: false
+    default: false
+    alias: -n
+---
 
-You are a documentation deployment assistant. Deploy the documentation site to GitHub Pages.
+# /craft:site:deploy - Deploy to GitHub Pages
+
+Deploy documentation sites (Quarto, pkgdown, MkDocs) to GitHub Pages.
+
+## Usage
+
+```bash
+# Preview deployment
+/craft:site:deploy --dry-run
+/craft:site:deploy -n
+
+# Execute deployment
+/craft:site:deploy
+```
+
+## Dry-Run Mode
+
+Preview what will be deployed without actually pushing to GitHub Pages:
+
+```bash
+/craft:site:deploy --dry-run
+/craft:site:deploy -n
+```
+
+### Example Output: MkDocs
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Deploy to GitHub Pages                             │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Detection:                                                  │
+│   - Type: MkDocs                                              │
+│   - Config: mkdocs.yml                                        │
+│   - Site built: Yes (docs/ directory exists)                  │
+│                                                               │
+│ ✓ Deployment Plan:                                            │
+│   - Command: mkdocs gh-deploy                                 │
+│   - Target branch: gh-pages                                   │
+│   - Repository: https://github.com/Data-Wise/craft            │
+│   - Will push: ~450 files (~2.3 MB)                           │
+│                                                               │
+│ ✓ Pre-deployment Checks:                                      │
+│   - Git status: Clean                                         │
+│   - Remote exists: Yes                                        │
+│   - GitHub Pages: Enabled (deploy from gh-pages)              │
+│                                                               │
+│ ⚠ Warnings:                                                   │
+│   • This will update the live site immediately                 │
+│   • Changes may take 1-2 minutes to appear                    │
+│                                                               │
+│ 📊 Summary: Deploy MkDocs site to gh-pages branch              │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Example Output: Quarto
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Deploy to GitHub Pages                             │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Detection:                                                  │
+│   - Type: Quarto                                              │
+│   - Config: _quarto.yml                                       │
+│   - Output directory: _site/                                  │
+│                                                               │
+│ ✓ Deployment Plan:                                            │
+│   - Command: quarto publish gh-pages                          │
+│   - Target branch: gh-pages                                   │
+│   - Repository: https://github.com/user/project               │
+│                                                               │
+│ ⚠ Warnings:                                                   │
+│   • Site not built yet (will build before deployment)          │
+│   • GitHub Pages not configured - will prompt for setup       │
+│                                                               │
+│ 📊 Summary: Build and deploy Quarto site                       │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
 
 ## Context Detection
 
-Detect documentation type:
+Automatically detects documentation type:
 
-```
-Detection Rules:
-1. _quarto.yml exists → Quarto site
-2. _pkgdown.yml exists → pkgdown site
-3. mkdocs.yml exists → MkDocs site
-```
+| File | Type | Deploy Command |
+|------|------|----------------|
+| `mkdocs.yml` | MkDocs | `mkdocs gh-deploy` |
+| `_quarto.yml` | Quarto | `quarto publish gh-pages` |
+| `_pkgdown.yml` | pkgdown | Push `docs/` folder |
 
 ## Pre-deployment Checks
 
-1. Ensure site is built
-2. Check git status (uncommitted changes?)
-3. Verify remote repository exists
+1. **Site Built** - Verifies output directory exists
+2. **Git Status** - Checks for uncommitted changes
+3. **Remote Repository** - Ensures remote is configured
+4. **GitHub Pages** - Checks if Pages is enabled
 
-## For Quarto Sites
+## Deployment Process
 
-```bash
-# Build and deploy
-quarto publish gh-pages
-```
-
-Or push `docs/` directory if configured.
-
-## For pkgdown Sites
-
-```r
-# Build site
-pkgdown::build_site()
-
-# Deploy (option 1: push docs/)
-# Ensure GitHub Pages is set to deploy from docs/ folder
-
-# Deploy (option 2: use usethis)
-usethis::use_pkgdown_github_pages()
-```
-
-## For MkDocs Sites
+### For MkDocs Sites
 
 ```bash
 mkdocs gh-deploy
 ```
 
-This command:
-1. Builds the site
+**What it does:**
+1. Builds the site (`mkdocs build`)
 2. Creates/updates `gh-pages` branch
 3. Pushes to GitHub
 4. GitHub Pages serves from that branch
+
+### For Quarto Sites
+
+```bash
+quarto publish gh-pages
+```
+
+**What it does:**
+1. Renders the site
+2. Pushes to `gh-pages` branch
+3. Configures GitHub Pages if needed
+
+### For pkgdown Sites
+
+```r
+# Option 1: Push docs/ folder
+pkgdown::build_site()
+# Ensure GitHub Pages deploys from docs/ folder in Settings
+
+# Option 2: Use usethis (recommended)
+usethis::use_pkgdown_github_pages()
+```
 
 ## Output
 
 ```
 🚀 DEPLOYING TO GITHUB PAGES
 
-Type: [Quarto/pkgdown/MkDocs]
+Type: MkDocs
 Branch: gh-pages
-Repository: [repo URL]
+Repository: https://github.com/Data-Wise/craft
 
-Deployment started...
+Building site...
+✅ Site built
+
+Deploying to gh-pages...
+✅ Pushed to remote
 
 ✅ DEPLOYED SUCCESSFULLY
 
-Live site: https://[username].github.io/[repo]/
+Live site: https://data-wise.github.io/craft/
 
-Note: It may take a few minutes to update.
+Note: It may take 1-2 minutes to update.
 
-💡 Check deployment status: /github/ci-status
+💡 Check deployment status: /craft:code:ci-local
 ```
 
 ## GitHub Pages Setup
@@ -92,7 +191,25 @@ Or run: gh repo edit --enable-pages
 
 ## Troubleshooting
 
-Common issues:
-- 404 error: Wait a few minutes, or check base URL
-- Build failed: Check GitHub Actions logs
-- Permission denied: Check repository permissions
+**404 error after deployment:**
+- Wait 1-2 minutes for Pages to update
+- Check base URL in site config
+- Verify GitHub Pages is enabled
+
+**Build failed:**
+- Check GitHub Actions logs
+- Verify all dependencies are installed
+- Check for broken links or invalid syntax
+
+**Permission denied:**
+- Check repository permissions
+- Verify GitHub token has write access
+- Check if branch protection rules block gh-pages
+
+## See Also
+
+- `/craft:site:build` - Build site locally
+- `/craft:site:check` - Check site for issues
+- Template: `templates/dry-run-pattern.md`
+- Utility: `utils/dry_run_output.py`
+- Specification: `docs/specs/SPEC-dry-run-feature-2026-01-15.md`
