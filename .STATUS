@@ -1,9 +1,15 @@
-status: Development
+status: WIP
 version: 1.20.0-dev
 release_date: TBD
 milestone: Standardized Dry-Run Feature
 
-progress: 15%
+progress: 20%
+
+worktree:
+  branch: feature/dry-run-phase1
+  location: ../craft-feature-dry-run-phase1
+  created: 2026-01-15
+  purpose: Phase 1 implementation (6 P0 critical commands)
 
 documentation_coverage:
   commands: 90/90 (100%)
