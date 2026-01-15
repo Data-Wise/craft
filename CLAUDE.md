@@ -1,6 +1,6 @@
 # CLAUDE.md - Craft Plugin
 
-> **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. Never commit to `main` directly.
+> **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
 **89 commands** · **21 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
@@ -26,6 +26,7 @@ feature/* (worktrees) ← All implementation work
 
 ### Constraints
 
+- **CRITICAL**: Always start work from `dev` branch (`git checkout dev`)
 - **Never** commit directly to `main`
 - **Never** write feature code on `dev`
 - **Always** verify branch: `git branch --show-current`
