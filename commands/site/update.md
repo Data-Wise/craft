@@ -1,3 +1,26 @@
+---
+description: Update documentation site based on code changes
+category: site
+arguments:
+  - name: mode
+    description: Update mode (smart|full)
+    required: false
+    default: smart
+  - name: preview
+    description: Preview changes without writing (alias: --dry-run)
+    required: false
+    default: false
+  - name: validate
+    description: Validate links after update
+    required: false
+    default: false
+  - name: dry-run
+    description: Preview changes without writing (alias for --preview)
+    required: false
+    default: false
+    alias: -n
+---
+
 # /craft:site:update - Update Site Content from Code
 
 You are an ADHD-friendly documentation site updater. Detect what changed in the codebase and update the documentation site accordingly.
@@ -15,7 +38,12 @@ You are an ADHD-friendly documentation site updater. Detect what changed in the 
 ```bash
 /craft:site:update                  # Smart update (detect changes)
 /craft:site:update full             # Force full update
+
+# Preview changes without writing
 /craft:site:update --preview        # Dry run - show what would change
+/craft:site:update --dry-run        # Same as --preview (standardized)
+/craft:site:update -n               # Short form
+
 /craft:site:update --validate       # Update + validate links
 ```
 
@@ -210,3 +238,44 @@ Shows what would be updated without making changes:
 3. **Clear output** - Shows exactly what was updated
 4. **Next steps** - Always shows what to do next
 5. **Validation** - Catches broken links automatically
+
+## Dry-Run Mode
+
+Preview what documentation files will be updated without making changes:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Update Site Content                                │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Changes Detected:                                           │
+│   - src/cli/sessions.py (+3 commands)                         │
+│   - pyproject.toml (version: 0.3.6 → 0.3.7)                   │
+│   - docs last updated: 2 days ago                             │
+│                                                               │
+│ ✓ Files to Update:                                            │
+│   - docs/REFCARD.md (add 3 new commands)                      │
+│   - docs/reference/commands.md (command documentation)        │
+│   - docs/index.md (version badge)                             │
+│   - docs/installation.md (version references)                 │
+│                                                               │
+│ ⊘ No Changes:                                                 │
+│   - mkdocs.yml (navigation unchanged)                         │
+│                                                               │
+│ 📊 Summary: 4 files to update, 1 unchanged                     │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Standardized flags:**
+- `--dry-run` / `-n` - Modern standardized dry-run flag
+- `--preview` - Legacy flag (still supported, same behavior)
+
+## See Also
+
+- `/craft:site:build` - Build site locally
+- `/craft:site:deploy` - Deploy to GitHub Pages  
+- `/craft:site:check` - Validate documentation
+- Template: `templates/dry-run-pattern.md`

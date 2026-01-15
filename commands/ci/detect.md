@@ -8,6 +8,11 @@ arguments:
     description: Output format (terminal|json|markdown)
     required: false
     default: terminal
+  - name: dry-run
+    description: Preview what files will be analyzed without reading them
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:ci:detect - Project & CI Detection
@@ -20,7 +25,48 @@ Analyze a project directory to detect its type, build tools, test framework, and
 /craft:ci:detect              # Analyze current directory
 /craft:ci:detect ./my-project # Analyze specific directory
 /craft:ci:detect --json       # Output as JSON for automation
+
+# Preview detection plan
+/craft:ci:detect --dry-run
+/craft:ci:detect -n
 ```
+
+## Dry-Run Mode
+
+Preview what files will be analyzed for project detection:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Project Detection                                  │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Directory to Analyze:                                       │
+│   - Path: /Users/dt/projects/dev-tools/craft                  │
+│   - Files checked: 60+ detection patterns                     │
+│                                                               │
+│ ✓ Detection Categories:                                       │
+│   - Project type (19 patterns)                                │
+│   - Build tools (uv, poetry, npm, cargo, etc.)                │
+│   - Test frameworks (pytest, jest, cargo test, etc.)          │
+│   - Linting tools (ruff, eslint, clippy)                      │
+│   - Type checkers (mypy, typescript)                          │
+│   - Documentation (mkdocs, quarto, sphinx)                    │
+│   - Existing CI workflows                                     │
+│                                                               │
+│ ✓ Files to Check:                                             │
+│   - pyproject.toml, package.json, Cargo.toml, etc.            │
+│   - Lock files (uv.lock, package-lock.json, etc.)             │
+│   - Config files (mkdocs.yml, _quarto.yml, etc.)              │
+│   - CI files (.github/workflows/*.yml)                        │
+│                                                               │
+│ 📊 Summary: Read-only analysis of project structure            │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: This is a read-only command (no files modified), so dry-run mainly shows what will be checked.
 
 ## What Gets Detected
 
