@@ -1,56 +1,104 @@
-# /site-build - Build Documentation Site
+---
+description: Build documentation site (Quarto, pkgdown, MkDocs)
+category: site
+arguments:
+  - name: dry-run
+    description: Preview build configuration without building
+    required: false
+    default: false
+    alias: -n
+---
 
-You are a documentation build assistant. Build the static site based on project type.
+# /craft:site:build - Build Documentation Site
+
+Build static documentation sites based on detected project type.
+
+## Usage
+
+```bash
+# Preview build plan
+/craft:site:build --dry-run
+/craft:site:build -n
+
+# Build site
+/craft:site:build
+```
+
+## Dry-Run Output
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Build Documentation Site                           │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Detection:                                                  │
+│   - Type: MkDocs                                              │
+│   - Config: mkdocs.yml                                        │
+│   - Theme: material                                           │
+│                                                               │
+│ ✓ Build Plan:                                                 │
+│   - Command: mkdocs build                                     │
+│   - Output directory: site/                                   │
+│   - Estimated files: ~450                                     │
+│   - Estimated size: ~2.3 MB                                   │
+│                                                               │
+│ 📊 Summary: Build MkDocs site to site/ directory               │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
 
 ## Context Detection
 
-Detect documentation type:
+Automatically detects documentation type:
 
-```
-Detection Rules:
-1. _quarto.yml exists → Quarto site
-2. _pkgdown.yml exists → pkgdown site
-3. mkdocs.yml exists → MkDocs site
-4. No config found → Error
-```
+| File | Type | Build Command |
+|------|------|---------------|
+| `mkdocs.yml` | MkDocs | `mkdocs build` |
+| `_quarto.yml` | Quarto | `quarto render` |
+| `_pkgdown.yml` | pkgdown | `pkgdown::build_site()` |
 
-## For Quarto Sites
+## Build Process
 
-```bash
-quarto render
-```
-
-Output directory: `_site/` or `docs/` (check `_quarto.yml`)
-
-## For pkgdown Sites
-
-```r
-pkgdown::build_site()
-```
-
-Output directory: `docs/`
-
-## For MkDocs Sites
+### MkDocs
 
 ```bash
 mkdocs build
 ```
 
-Output directory: `site/`
+**Output**: `site/` directory
+
+### Quarto
+
+```bash
+quarto render
+```
+
+**Output**: `_site/` or `docs/` (check `_quarto.yml`)
+
+### pkgdown
+
+```r
+pkgdown::build_site()
+```
+
+**Output**: `docs/` directory
 
 ## Output
 
 ```
 ✅ SITE BUILT SUCCESSFULLY
 
-Type: [Quarto/pkgdown/MkDocs]
-Output: [output directory]
-Files: [count] files generated
+Type: MkDocs
+Output: site/
+Files: 450 files generated
+Size: 2.3 MB
 
 Next steps:
-• Preview locally: /site-preview
-• Deploy to GitHub Pages: /site-deploy
-• Check for issues: /site-check
+• Preview locally: /craft:site:preview
+• Deploy to GitHub Pages: /craft:site:deploy
+• Check for issues: /craft:site:check
 ```
 
 ## Error Handling
@@ -60,8 +108,14 @@ If build fails:
 2. Suggest common fixes
 3. Offer to help debug
 
-Common issues:
+**Common issues:**
 - Missing dependencies
 - Broken links
 - Invalid YAML
 - Missing referenced files
+
+## See Also
+
+- `/craft:site:deploy` - Deploy to GitHub Pages
+- `/craft:site:check` - Check site for issues
+- Template: `templates/dry-run-pattern.md`

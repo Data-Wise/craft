@@ -8,6 +8,11 @@ arguments:
   - name: output
     description: Output path (defaults to .github/workflows/ci.yml)
     required: false
+  - name: dry-run
+    description: Preview workflow generation without creating files
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:ci:generate - Generate CI Workflow
@@ -20,7 +25,61 @@ Generate a GitHub Actions workflow file based on project detection or specified 
 /craft:ci:generate              # Auto-detect and generate
 /craft:ci:generate python       # Force Python template
 /craft:ci:generate --output .github/workflows/test.yml
+
+# Preview without creating files
+/craft:ci:generate --dry-run
+/craft:ci:generate -n
+/craft:ci:generate python --dry-run
 ```
+
+## Dry-Run Mode
+
+Preview the CI workflow that would be generated without creating any files:
+
+```bash
+/craft:ci:generate --dry-run
+/craft:ci:generate -n
+```
+
+### Example Output
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Generate CI Workflow                               │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Project Detection:                                          │
+│   - Type: Python (uv)                                         │
+│   - Test framework: pytest                                    │
+│   - Linter: ruff                                              │
+│   - Type checker: mypy                                        │
+│   - Python versions: 3.10, 3.11, 3.12                         │
+│                                                               │
+│ ✓ File to Create:                                             │
+│   - .github/workflows/ci.yml (~85 lines)                      │
+│                                                               │
+│ ✓ Workflow Configuration:                                     │
+│   - Triggers: push (main, dev), pull_request (main)           │
+│   - Jobs: test (matrix: 3 Python versions)                   │
+│   - Steps: checkout, setup uv, install, lint, type-check, test│
+│   - Coverage: Upload to codecov (Python 3.12 only)           │
+│                                                               │
+│ ⚠ Warnings:                                                   │
+│   • No existing workflow file found                            │
+│   • Will create .github/workflows/ directory                  │
+│                                                               │
+│ 📊 Summary: 1 file to create (~85 lines YAML)                  │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Benefits:**
+- Preview detected project configuration before generating
+- Verify template selection is correct
+- Check workflow triggers and job configuration
+- See exact file path and estimated size
 
 ## Workflow
 
@@ -512,3 +571,11 @@ For more templates and best practices, see **[CI-TEMPLATES.md](../../docs/CI-TEM
 
 - `project-detector` - Core detection logic
 - `devops-helper` - CI/CD best practices
+
+## See Also
+
+- `/craft:ci:validate` - Validate existing CI workflows
+- `/craft:ci:detect` - Detect project configuration
+- Template: `templates/dry-run-pattern.md`
+- Utility: `utils/dry_run_output.py`
+- Specification: `docs/specs/SPEC-dry-run-feature-2026-01-15.md`

@@ -7,6 +7,11 @@ arguments:
   - name: branch
     description: Branch name (for create/move actions)
     required: false
+  - name: dry-run
+    description: Preview changes without executing (for setup/create/move/clean/finish actions)
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:git:worktree - Parallel Development with Git Worktrees
@@ -551,3 +556,84 @@ Need to work on something else?
         ↓
 /craft:git:worktree clean                    # Cleanup after merge
 ```
+
+## Dry-Run Mode
+
+Preview what each action will do without executing it:
+
+```bash
+# Preview worktree creation
+/craft:git:worktree create feature/my-feature --dry-run
+
+# Preview cleanup
+/craft:git:worktree clean -n
+
+# Preview setup
+/craft:git:worktree setup --dry-run
+
+# Preview finish workflow
+/craft:git:worktree finish -n
+```
+
+### Example Output: Create
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Create Worktree                                    │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Operations:                                                 │
+│   - Create worktree at ~/.git-worktrees/craft/feature-auth    │
+│   - Checkout branch: feature/auth                             │
+│   - Detect project type: Node.js                              │
+│   - Run npm install (auto-detected)                           │
+│                                                               │
+│ 📊 Summary: 1 worktree to create, auto-install enabled        │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Example Output: Clean
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Clean Worktrees                                    │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Worktrees to remove (2):                                    │
+│   - ~/.git-worktrees/craft/feature-old (merged to dev)        │
+│   - ~/.git-worktrees/craft/fix-bug (merged to main)           │
+│                                                               │
+│ ⊘ Skip (1):                                                   │
+│   - ~/.git-worktrees/craft/feature-wip (not merged)           │
+│                                                               │
+│ ⚠ Warnings:                                                   │
+│   • feature-wip is not merged to any branch                    │
+│                                                               │
+│ 📊 Summary: 2 worktrees to remove, 1 skipped                   │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Supported Actions
+
+| Action | Dry-Run Support | What It Shows |
+|--------|----------------|---------------|
+| `setup` | ✅ Yes | Directory creation, project detection |
+| `create` | ✅ Yes | Worktree path, branch, auto-install plan |
+| `move` | ✅ Yes | Source/target paths, branch operations |
+| `list` | ⊘ N/A | Read-only (no preview needed) |
+| `clean` | ✅ Yes | Worktrees to remove, merge status |
+| `install` | ⊘ N/A | Read-only analysis, safe to run |
+| `finish` | ✅ Yes | Test commands, changelog, PR details |
+
+## See Also
+
+- Template: `templates/dry-run-pattern.md`
+- Utility: `utils/dry_run_output.py`
+- Related: `/craft:git:clean` (branch cleanup)
+- Specification: `docs/specs/SPEC-dry-run-feature-2026-01-15.md`
