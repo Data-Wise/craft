@@ -27,7 +27,7 @@ That's it! The post-install script automatically:
 4. Syncs the plugin registry with `claude plugin update`
 
 !!! note "Installing while Claude Code is running"
-    If Claude Code is running during installation, auto-enable may be skipped (file lock timeout). The plugin will still work - just run `claude plugin install craft@local-plugins` after installation if needed.
+    If Claude Code is running during installation, auto-enable is skipped to avoid file conflicts. You'll see: "Claude Code is running - skipped auto-enable". Just run `claude plugin install craft@local-plugins` after installation.
 
 ---
 
@@ -113,11 +113,26 @@ brew info craft | head -1
 
 ## Troubleshooting
 
-### Installation Hangs (Pre-v1.18.0)
+### Auto-Enable Skipped
+
+**Symptom:** Message says "Claude Code is running - skipped auto-enable"
+
+**Cause:** The installer detected Claude Code has `settings.json` open and skipped modification to avoid conflicts.
+
+**Fix:**
+```bash
+claude plugin install craft@local-plugins
+```
+
+This is expected behavior when installing while Claude Code is running.
+
+---
+
+### Installation Hangs (Pre-v1.18.0 only)
 
 **Symptom:** `brew install` or `brew upgrade` hangs during post-install
 
-**Cause:** Claude Code holds read locks on `~/.claude/settings.json`, blocking the auto-enable step.
+**Cause:** Older formula versions attempted to modify `settings.json` without checking for Claude.
 
 **Fix (if stuck now):**
 ```bash
@@ -125,11 +140,11 @@ brew info craft | head -1
 ps aux | grep craft-install
 kill <PID>
 
-# Then manually sync
-claude plugin update craft@local-plugins
+# Then manually enable
+claude plugin install craft@local-plugins
 ```
 
-**Prevention:** Upgrade to v1.18.0+ which includes a 2-second timeout on file operations.
+**Prevention:** Upgrade to latest formula: `brew update && brew reinstall data-wise/tap/craft`
 
 ---
 
