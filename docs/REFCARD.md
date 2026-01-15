@@ -76,6 +76,7 @@
 
 | Command | Description |
 |---------|-------------|
+| `/craft:git:init` | **NEW** Initialize repository with craft workflow |
 | `/craft:git:worktree` | Parallel development with git worktrees |
 | `/craft:git:sync` | Smart git sync |
 | `/craft:git:clean` | Clean merged branches |
@@ -84,9 +85,11 @@
 
 **Quick examples:**
 ```bash
-/craft:git:worktree add feature-auth
-/craft:git:sync
-/craft:git:clean
+/craft:git:init                      # Interactive wizard
+/craft:git:init --dry-run            # Preview changes
+/craft:git:worktree add feature-auth # Create feature branch
+/craft:git:sync                      # Sync with remote
+/craft:git:clean                     # Clean merged branches
 ```
 
 ## Orchestrator (Enhanced v2.1)
