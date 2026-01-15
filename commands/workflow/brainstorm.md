@@ -1115,6 +1115,78 @@ flowchart TD
 
 ---
 
+### Step 6: Suggest Workflow Documentation (After Spec Capture)
+
+When a spec is successfully captured (either via `save` action or user selection), suggest creating workflow documentation:
+
+#### When to Trigger
+
+| Condition | Trigger |
+|-----------|---------|
+| Spec was just saved | Always suggest |
+| Focus was `feat`, `arch`, or `ops` | Suggest (multi-step processes) |
+| Depth was `deep` or `max` | Suggest (thorough analysis) |
+| Quick brainstorm, no spec | Skip suggestion |
+
+#### Workflow Doc Suggestion
+
+```
+AskUserQuestion:
+  question: "Create workflow documentation for implementing this feature?"
+  header: "Workflow"
+  multiSelect: false
+  options:
+    - label: "Yes - Create workflow docs (Recommended)"
+      description: "Step-by-step implementation guide"
+    - label: "No - Skip for now"
+      description: "Can run /craft:docs:workflow later"
+```
+
+#### If User Selects Yes
+
+```
+→ Show: /craft:docs:workflow "[spec-topic]" --from-spec
+```
+
+**Example Flow:**
+```
+User: /brainstorm d f s "authentication"
+       ↓
+[Deep brainstorm + spec capture]
+       ↓
+Claude: Spec saved to docs/specs/SPEC-authentication-2026-01-14.md
+
+AskUserQuestion: "Create workflow documentation for implementing this feature?"
+  ○ Yes - Create workflow docs (Recommended)
+  ○ No - Skip for now
+
+User: Selects "Yes"
+
+Claude: → /craft:docs:workflow "authentication" --from-spec
+
+[Generates docs/workflows/authentication-workflow.md]
+```
+
+#### Updated Footer (After Spec Capture)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 📋 SPEC CAPTURED                                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Spec: SPEC-auth-2026-01-14.md                               │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│ 🔗 Next steps:                                              │
+│    /spec:review auth           ← review & approve spec      │
+│    /craft:do "implement auth"  ← will use this spec         │
+│    /craft:docs:workflow "auth" ← create implementation guide│
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
 ## Integration
 
 **Part of workflow command family:**
@@ -1123,6 +1195,10 @@ flowchart TD
 - `/workflow:next` - Get next step
 - `/workflow:stuck` - Get unstuck help
 - `/workflow:done` - Complete session
+
+**Connected to documentation:**
+- `/craft:docs:workflow` - Create implementation workflow docs from spec
+- `/craft:docs:update` - May trigger if scoring detects workflow needs
 
 **Uses:**
 - AskUserQuestion for mode and depth selection

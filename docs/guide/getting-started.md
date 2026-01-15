@@ -15,16 +15,25 @@ Complete guide to using the craft plugin for Claude Code.
 !!! abstract "Progress: Step 1/5"
     Installing craft - choose your method
 
-### Method 1: Claude Code Plugin System
+### Method 1: Homebrew (Recommended)
+
+```bash
+brew tap data-wise/tap
+brew install craft
+```
+
+See [Homebrew Installation Guide](homebrew-installation.md) for details on updates and troubleshooting.
+
+### Method 2: Claude Code Plugin System
 
 ```bash
 claude plugin install craft@local-plugins
 ```
 
-### Method 2: Symlink
+### Method 3: Symlink (Development)
 
 ```bash
-ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
+ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
 ```
 
 ## Verify Installation

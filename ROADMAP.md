@@ -476,6 +476,11 @@ secrets:
 
 ## Ideas Backlog
 
+### Brainstorm-Workflow Integration (Future)
+- Add `/craft:do "docs"` routing to `/craft:docs:workflow` when spec exists
+- Add workflow suggestion to `/spec:review` approval output
+- Link to workflow from within generated spec footer
+
 ### Site Commands (Future Enhancements)
 - `/craft:site:migrate` - Framework migration (MkDocs ↔ Docusaurus)
 - Multi-target deployment (Netlify, Vercel, Cloudflare Pages)

@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 86 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly workflows
+site_description: Full-stack developer toolkit - 89 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly workflows
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -85,8 +85,22 @@ nav:
     - Planning: commands/plan.md
   - Guide:
     - Getting Started: guide/getting-started.md
+    - Homebrew Installation: guide/homebrew-installation.md
     - Skills & Agents: guide/skills-agents.md
     - Orchestrator: guide/orchestrator.md
     - Configuration: reference/configuration.md
     - Presets: reference/presets.md
     - Accessibility: ACCESSIBILITY.md
+  - Help:
+    - /craft:hub: help/hub.md
+    - /craft:do: help/do.md
+    - /craft:check: help/check.md
+    - /craft:orchestrate: help/orchestrate.md
+    - /craft:git:worktree: help/git-worktree.md
+    - /craft:docs:update: help/docs-update.md
+    - /craft:ci:generate: help/ci-generate.md
+    - /workflow:brainstorm: help/brainstorm.md
+  - Workflows:
+    - Pre-commit Workflow: workflows/pre-commit-workflow.md
+    - Git Feature Workflow: workflows/git-feature-workflow.md
+    - Release Workflow: workflows/release-workflow.md
