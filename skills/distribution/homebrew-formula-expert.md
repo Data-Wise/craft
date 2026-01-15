@@ -326,6 +326,100 @@ class {{ClassName}} < Formula
 end
 ```
 
+## Claude Code Plugin Formula
+
+For Claude Code plugins, use this special pattern with Claude detection:
+
+```ruby
+class MyPlugin < Formula
+  desc "My plugin - Claude Code plugin"
+  homepage "https://github.com/user/my-plugin"
+  url "https://github.com/user/my-plugin/archive/refs/tags/v1.0.0.tar.gz"
+  sha256 "..."
+  license "MIT"
+
+  depends_on "jq" => :optional
+
+  def install
+    libexec.install Dir["*", ".*"].reject { |f| %w[. .. .git].include?(f) }
+
+    (bin/"my-plugin-install").write <<~EOS
+      #!/bin/bash
+      PLUGIN_NAME="my-plugin"
+      TARGET_DIR="$HOME/.claude/plugins/$PLUGIN_NAME"
+      SOURCE_DIR="$(brew --prefix)/opt/my-plugin/libexec"
+
+      echo "Installing plugin to Claude Code..."
+      mkdir -p "$HOME/.claude/plugins" 2>/dev/null || true
+
+      if [ -L "$TARGET_DIR" ] || [ -d "$TARGET_DIR" ]; then
+          rm -rf "$TARGET_DIR" 2>/dev/null || true
+      fi
+      ln -sf "$SOURCE_DIR" "$TARGET_DIR"
+
+      # Claude detection - skip auto-enable if Claude is running
+      SETTINGS_FILE="$HOME/.claude/settings.json"
+      AUTO_ENABLED=false
+      CLAUDE_RUNNING=false
+
+      if command -v lsof &>/dev/null; then
+          if lsof "$SETTINGS_FILE" 2>/dev/null | grep -q "claude"; then
+              CLAUDE_RUNNING=true
+          fi
+      elif pgrep -x "claude" >/dev/null 2>&1; then
+          CLAUDE_RUNNING=true
+      fi
+
+      if [ "$CLAUDE_RUNNING" = false ] && command -v jq &>/dev/null && [ -f "$SETTINGS_FILE" ]; then
+          TEMP_FILE=$(mktemp)
+          if jq --arg plugin "${PLUGIN_NAME}@local-plugins" '.enabledPlugins[$plugin] = true' "$SETTINGS_FILE" > "$TEMP_FILE" 2>/dev/null; then
+              mv "$TEMP_FILE" "$SETTINGS_FILE" 2>/dev/null && AUTO_ENABLED=true
+          fi
+          [ -f "$TEMP_FILE" ] && rm -f "$TEMP_FILE" 2>/dev/null
+      fi
+
+      echo "✅ Plugin installed!"
+      if [ "$AUTO_ENABLED" = true ]; then
+          echo "Plugin auto-enabled."
+      elif [ "$CLAUDE_RUNNING" = true ]; then
+          echo "Claude running - skipped auto-enable."
+          echo "Run: claude plugin install ${PLUGIN_NAME}@local-plugins"
+      else
+          echo "Run: claude plugin install ${PLUGIN_NAME}@local-plugins"
+      fi
+    EOS
+
+    chmod "+x", bin/"my-plugin-install"
+  end
+
+  def post_install
+    system bin/"my-plugin-install"
+    system "claude", "plugin", "update", "my-plugin@local-plugins" if which("claude")
+  rescue
+    nil
+  end
+
+  test do
+    assert_predicate libexec/".claude-plugin/plugin.json", :exist?
+  end
+end
+```
+
+### Why Claude Detection?
+
+| Issue | Without Detection | With Detection |
+|-------|------------------|----------------|
+| Claude running | Hangs indefinitely | Skips instantly |
+| Install time | 2+ minutes | 2-3 seconds |
+| User experience | Confusing hang | Clear message |
+
+### Key Components
+
+1. **`lsof` check** - Detects if Claude has settings.json open
+2. **`pgrep` fallback** - Checks if claude process is running
+3. **Skip logic** - Bypasses settings.json modification if Claude running
+4. **Clear messaging** - Tells user exactly what to do
+
 ## Integration
 
 Use with:
