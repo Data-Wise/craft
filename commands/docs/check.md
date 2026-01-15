@@ -1,3 +1,18 @@
+---
+description: Documentation health check (links, staleness, navigation)
+category: docs
+arguments:
+  - name: fix
+    description: Auto-fix safe issues
+    required: false
+    default: false
+  - name: dry-run
+    description: Preview checks without fixing
+    required: false
+    default: false
+    alias: -n
+---
+
 # /craft:docs:check - Documentation Health Check
 
 You are a documentation health checker. Validate, fix, and report on documentation status.
@@ -256,3 +271,39 @@ Exit code: 1
 /craft:docs:check --report-only --verbose
 # → Detailed report, no changes
 ```
+
+## Dry-Run Mode
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Documentation Health Check                         │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Checks to Perform:                                          │
+│   1. Broken links (internal & external)                       │
+│   2. Stale documentation detection                            │
+│   3. Navigation consistency (mkdocs.yml)                      │
+│   4. Spelling and grammar                                     │
+│   5. Code block validation                                    │
+│                                                               │
+│ ✓ Files to Check:                                             │
+│   - docs/*.md (~45 files)                                     │
+│   - mkdocs.yml                                                │
+│   - README.md                                                 │
+│                                                               │
+│ ⚠ Auto-fix Available:                                         │
+│   • Use --fix to apply safe corrections                        │
+│                                                               │
+│ 📊 Summary: Read-only health check (5 validation types)        │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: This is a read-only check, so dry-run shows what will be validated.
+
+## See Also
+
+- `/craft:site:check` - Site validation
+- Template: `templates/dry-run-pattern.md`

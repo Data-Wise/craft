@@ -8,6 +8,11 @@ arguments:
     description: Auto-fix common issues
     required: false
     default: false
+  - name: dry-run
+    description: Preview validation checks without analyzing files
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:ci:validate - Validate CI Configuration
@@ -20,6 +25,41 @@ Check that your CI workflow matches your project configuration and follows best 
 /craft:ci:validate                        # Validate all workflows
 /craft:ci:validate .github/workflows/ci.yml  # Validate specific file
 /craft:ci:validate --fix                  # Auto-fix common issues
+
+# Preview validation plan
+/craft:ci:validate --dry-run
+/craft:ci:validate -n
+```
+
+## Dry-Run Mode
+
+Preview what validation checks will be performed:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Validate CI Configuration                          │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Workflows to Validate:                                      │
+│   - .github/workflows/ci.yml                                  │
+│   - .github/workflows/release.yml                             │
+│                                                               │
+│ ✓ Validation Checks (11 checks per workflow):                 │
+│   - Structure: Valid YAML, required keys, triggers            │
+│   - Project Alignment: versions, test commands, dependencies  │
+│   - Best Practices: caching, fail-fast, timeouts, pinned      │
+│                                                               │
+│ ✓ Project Detection:                                          │
+│   - Type: Python (uv)                                         │
+│   - Required Python: >=3.10                                   │
+│   - Test framework: pytest                                    │
+│   - Linter: ruff, Type checker: mypy                          │
+│                                                               │
+│ 📊 Summary: Validate 2 workflows with 11 checks each           │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
 ```
 
 ## Validation Checks
@@ -174,3 +214,11 @@ Works with:
 - `/craft:ci:generate` - Generate new workflow
 - `/craft:check ci` - Quick validation
 - `/craft:code:ci-local` - Run CI checks locally
+
+## See Also
+
+- `/craft:ci:generate` - Generate new CI workflow
+- `/craft:ci:detect` - Detect project configuration
+- `/craft:check` - Pre-flight validation
+- Template: `templates/dry-run-pattern.md`
+- Utility: `utils/dry_run_output.py`

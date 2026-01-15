@@ -1,3 +1,14 @@
+---
+description: Update mkdocs.yml navigation from directory structure
+category: docs
+arguments:
+  - name: dry-run
+    description: Preview changes without executing
+    required: false
+    default: false
+    alias: -n
+---
+
 # /craft:docs:nav-update - Update MkDocs Navigation
 
 You are a navigation maintenance assistant. Keep mkdocs.yml nav in sync with docs.
@@ -201,3 +212,35 @@ Works with:
 - `/craft:site:build` - Run before build
 - `/craft:docs:sync` - Part of sync workflow
 - `/craft:docs:validate` - Validate nav entries exist
+
+## Dry-Run Mode
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Update Navigation                                  │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Detection:                                                  │
+│   - Config: mkdocs.yml                                        │
+│   - Docs directory: docs/                                     │
+│   - Files found: 45 markdown files                            │
+│                                                               │
+│ ✓ Navigation Changes:                                         │
+│   - Add: docs/new-guide.md (missing from nav)                 │
+│   - Remove: docs/old-api.md (file doesn't exist)              │
+│   - Reorder: Move "Installation" before "Quick Start"        │
+│                                                               │
+│ ✓ File to Update:                                             │
+│   - mkdocs.yml (nav section)                                  │
+│                                                               │
+│ 📊 Summary: 3 navigation changes                               │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+## See Also
+
+- `/craft:site:check` - Validate documentation
+- Template: `templates/dry-run-pattern.md`
