@@ -1,3 +1,17 @@
+---
+description: Auto-update CHANGELOG.md based on git commits
+category: docs
+arguments:
+  - name: since
+    description: Starting version or commit (defaults to last tag)
+    required: false
+  - name: dry-run
+    description: Preview changelog updates without writing
+    required: false
+    default: false
+    alias: -n
+---
+
 # /craft:docs:changelog - Auto-Update Changelog
 
 You are a changelog automation assistant. Keep CHANGELOG.md current with releases.
@@ -189,3 +203,41 @@ Works with:
 - `/craft:code:release` - Run before release
 - `/craft:docs:sync` - Run after code sync
 - `/craft:git:sync` - Commit changelog updates
+
+## Dry-Run Mode
+
+Preview changelog updates without writing:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Update Changelog                                   │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Analysis:                                                   │
+│   - Last release: v0.3.6                                      │
+│   - Commits since: 15 commits                                 │
+│   - Version range: v0.3.6..HEAD                               │
+│                                                               │
+│ ✓ Changes to Add:                                             │
+│   ### Added (3)                                               │
+│   - New session management commands                           │
+│   - Configuration auto-detection                              │
+│   - Conflict detection                                        │
+│                                                               │
+│   ### Fixed (2)                                               │
+│   - Memory leak in long sessions                              │
+│   - Path handling on Windows                                  │
+│                                                               │
+│ ✓ Suggested Version: v0.3.7                                   │
+│                                                               │
+│ 📊 Summary: Add 5 changelog entries for v0.3.7                 │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+## See Also
+
+- `/craft:docs:sync` - Detect documentation needs
+- Template: `templates/dry-run-pattern.md`
