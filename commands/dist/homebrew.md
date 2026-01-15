@@ -566,6 +566,121 @@ Only wheel distributions available
 
 ---
 
+## Claude Code Plugin Formulas
+
+For Claude Code plugins distributed via Homebrew, use the special plugin pattern.
+
+### Plugin Formula Pattern
+
+```ruby
+class MyPlugin < Formula
+  desc "My plugin description - Claude Code plugin"
+  homepage "https://github.com/user/my-plugin"
+  url "https://github.com/user/my-plugin/archive/refs/tags/v1.0.0.tar.gz"
+  sha256 "..."
+  license "MIT"
+
+  depends_on "jq" => :optional
+
+  def install
+    libexec.install Dir["*", ".*"].reject { |f| %w[. .. .git].include?(f) }
+
+    (bin/"my-plugin-install").write <<~EOS
+      #!/bin/bash
+      PLUGIN_NAME="my-plugin"
+      TARGET_DIR="$HOME/.claude/plugins/$PLUGIN_NAME"
+      SOURCE_DIR="$(brew --prefix)/opt/my-plugin/libexec"
+
+      echo "Installing plugin to Claude Code..."
+      mkdir -p "$HOME/.claude/plugins" 2>/dev/null || true
+
+      # Create symlink
+      if [ -L "$TARGET_DIR" ] || [ -d "$TARGET_DIR" ]; then
+          rm -rf "$TARGET_DIR" 2>/dev/null || true
+      fi
+      ln -sf "$SOURCE_DIR" "$TARGET_DIR"
+
+      # Claude detection - skip auto-enable if Claude is running
+      SETTINGS_FILE="$HOME/.claude/settings.json"
+      AUTO_ENABLED=false
+      CLAUDE_RUNNING=false
+
+      if command -v lsof &>/dev/null; then
+          if lsof "$SETTINGS_FILE" 2>/dev/null | grep -q "claude"; then
+              CLAUDE_RUNNING=true
+          fi
+      elif pgrep -x "claude" >/dev/null 2>&1; then
+          CLAUDE_RUNNING=true
+      fi
+
+      if [ "$CLAUDE_RUNNING" = false ] && command -v jq &>/dev/null && [ -f "$SETTINGS_FILE" ]; then
+          TEMP_FILE=$(mktemp)
+          if jq --arg plugin "${PLUGIN_NAME}@local-plugins" '.enabledPlugins[$plugin] = true' "$SETTINGS_FILE" > "$TEMP_FILE" 2>/dev/null; then
+              mv "$TEMP_FILE" "$SETTINGS_FILE" 2>/dev/null && AUTO_ENABLED=true
+          fi
+          [ -f "$TEMP_FILE" ] && rm -f "$TEMP_FILE" 2>/dev/null
+      fi
+
+      echo "✅ Plugin installed successfully!"
+      if [ "$AUTO_ENABLED" = true ]; then
+          echo "Plugin auto-enabled in Claude Code."
+      elif [ "$CLAUDE_RUNNING" = true ]; then
+          echo "Claude Code is running - skipped auto-enable."
+          echo "Run: claude plugin install ${PLUGIN_NAME}@local-plugins"
+      else
+          echo "Run: claude plugin install ${PLUGIN_NAME}@local-plugins"
+      fi
+    EOS
+
+    chmod "+x", bin/"my-plugin-install"
+  end
+
+  def post_install
+    system bin/"my-plugin-install"
+    system "claude", "plugin", "update", "my-plugin@local-plugins" if which("claude")
+  rescue
+    nil
+  end
+
+  test do
+    assert_predicate libexec/".claude-plugin/plugin.json", :exist?
+  end
+end
+```
+
+### Key Features
+
+| Feature | Purpose |
+|---------|---------|
+| **Claude detection** | Uses `lsof` to check if Claude has settings.json open |
+| **Skip auto-enable** | Avoids file lock conflicts when Claude is running |
+| **Clear messaging** | Tells user exactly what to do if auto-enable skipped |
+| **Registry sync** | Runs `claude plugin update` in post_install |
+| **Fast install** | Completes in 2-3 seconds even with Claude running |
+
+### Existing Plugin Formulas
+
+| Formula | Plugin | Status |
+|---------|--------|--------|
+| `craft.rb` | 89 commands | ✅ Claude detection |
+| `rforge.rb` | 15 commands | ✅ Claude detection |
+| `scholar.rb` | 21 commands | ✅ Claude detection |
+
+### Testing Plugin Installation
+
+```bash
+# Reinstall and verify speed
+time brew reinstall data-wise/tap/craft
+
+# Check detection message
+/opt/homebrew/opt/craft/bin/craft-install
+
+# Verify plugin loaded
+claude plugin list | grep craft
+```
+
+---
+
 ## Tips
 
 - Always run `validate` before creating releases
@@ -573,3 +688,4 @@ Only wheel distributions available
 - Set token rotation reminders (90-day expiry recommended)
 - Test locally: `brew install --build-from-source ./Formula/myapp.rb`
 - Auto-merge is safe for personal taps; disable for team taps
+- For Claude Code plugins, always include Claude detection to avoid install hangs
