@@ -1,9 +1,9 @@
 # Craft Plugin Test Report
 
-**Generated:** 2026-01-14 23:29:09
+**Generated:** 2026-01-15 00:23:51
 **Total Tests:** 13
 **Passed:** 13/13 (100%)
-**Total Duration:** 56.3ms
+**Total Duration:** 60.7ms
 
 ## Summary
 
@@ -21,7 +21,7 @@
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| Plugin JSON Valid | ✅ Pass | 0.5ms | name=craft, version=1.18.0 |
+| Plugin JSON Valid | ✅ Pass | 0.4ms | name=craft, version=1.18.0 |
 | Directory Structure | ✅ Pass | 0.1ms | All 4 directories present |
 | README Exists | ✅ Pass | 0.0ms | README.md (23899 bytes) |
 
@@ -29,8 +29,8 @@
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| Command Count | ✅ Pass | 1.0ms | Found 89 commands |
-| Commands Valid | ✅ Pass | 14.0ms | All 89 commands are valid |
+| Command Count | ✅ Pass | 1.1ms | Found 89 commands |
+| Commands Valid | ✅ Pass | 14.3ms | All 89 commands are valid |
 | Command Categories | ✅ Pass | 0.1ms | Found categories: ['code', 'docs', 'git', 'site'] |
 | Hub Command | ✅ Pass | 0.0ms | hub.md exists (14517 chars) |
 
@@ -52,8 +52,8 @@
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| No Broken Links | ✅ Pass | 38.7ms | Checked 189 files, no broken links |
-| Consistent Naming | ✅ Pass | 1.0ms | All 89 command names follow conventions |
+| No Broken Links | ✅ Pass | 42.8ms | Checked 188 files, no broken links |
+| Consistent Naming | ✅ Pass | 1.1ms | All 89 command names follow conventions |
 
 ## Result
 

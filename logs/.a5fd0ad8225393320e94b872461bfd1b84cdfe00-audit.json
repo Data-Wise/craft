@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/dt/projects/dev-tools/craft/logs/.a5fd0ad8225393320e94b872461bfd1b84cdfe00-audit.json",
+    "files": [
+        {
+            "date": 1768449481678,
+            "name": "/Users/dt/projects/dev-tools/craft/logs/mcp-puppeteer-2026-01-14.log",
+            "hash": "4919c2e97ce1a74b46fa309df27e8c0492d44fea20b373be49d348f14cbbed07"
+        }
+    ],
+    "hashType": "sha256"
+}

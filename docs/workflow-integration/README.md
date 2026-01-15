@@ -106,16 +106,15 @@ If you were using the standalone `workflow` plugin:
 2. **No breaking changes** - All features preserved
 3. **Migration script available** - `craft/scripts/migrate-from-workflow.sh`
 
-See [craft v1.17.0 Release Notes](../../RELEASE-NOTES-v1.17.0.md) for full migration guide.
+The migration is automatic - no action required.
 
 ---
 
 ## Additional Resources
 
-- **craft Documentation:** https://data-wise.github.io/claude-plugins/craft/
-- **Main README:** [../../README.md](../../README.md)
-- **Release Notes:** [../../RELEASE-NOTES-v1.17.0.md](../../RELEASE-NOTES-v1.17.0.md)
-- **ADHD Guide:** [../../docs/ADHD-QUICK-START.md](../ADHD-QUICK-START.md)
+- **craft Documentation:** https://data-wise.github.io/craft/
+- **ADHD Guide:** [ADHD-QUICK-START](../ADHD-QUICK-START.md)
+- **GitHub Repository:** https://github.com/Data-Wise/craft
 
 ---
 
