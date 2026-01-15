@@ -43,6 +43,10 @@ git checkout dev
 Once approved, create a worktree for isolated development:
 
 ```bash
+# Using Craft command (recommended)
+/craft:git:worktree feature/<branch-name>
+
+# Or manually
 git worktree add ~/.git-worktrees/craft/<branch-name> -b feature/<branch-name> dev
 ```
 
