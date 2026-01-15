@@ -18,6 +18,9 @@ Generate task-focused workflow documentation for multi-step processes.
 /craft:docs:workflow "documentation"  # Docs workflow
 /craft:docs:workflow "release"        # Release process workflow
 
+# From brainstorm specs (NEW - recommended)
+/craft:docs:workflow "auth" --from-spec   # Uses docs/specs/SPEC-auth-*.md
+
 # From existing code patterns
 /craft:docs:workflow --detect         # Auto-detect workflows in codebase
 /craft:docs:workflow --from-commits   # Generate from recent commit patterns
@@ -26,6 +29,58 @@ Generate task-focused workflow documentation for multi-step processes.
 /craft:docs:workflow "auth" --output docs/workflows/
 /craft:docs:workflow "auth" --format terminal
 /craft:docs:workflow "auth" --dry-run
+```
+
+## Input Sources
+
+| Source | Flag | Description |
+|--------|------|-------------|
+| **Brainstorm Specs** | `--from-spec` | Uses `docs/specs/SPEC-[topic]-*.md` for requirements |
+| **Code Analysis** | (default) | Analyzes codebase for patterns |
+| **Auto-detect** | `--detect` | Finds workflows in code |
+| **Commit Patterns** | `--from-commits` | Extracts from git history |
+
+### From Brainstorm Specs (Recommended)
+
+When `--from-spec` is provided, the command:
+
+1. **Searches** for matching spec in `docs/specs/`:
+   ```bash
+   ls docs/specs/SPEC-*[topic]*.md
+   ```
+
+2. **Extracts** workflow information from spec sections:
+   | Spec Section | Workflow Section |
+   |--------------|------------------|
+   | User Stories | "When to Use" scenarios |
+   | Technical Requirements | Prerequisites |
+   | Architecture | Basic Workflow steps |
+   | Implementation Notes | Variations |
+   | Open Questions | Troubleshooting |
+
+3. **Generates** implementation workflow with spec references
+
+**Example:**
+```bash
+# After brainstorming
+/brainstorm d f s "authentication"
+→ Saves: docs/specs/SPEC-authentication-2026-01-14.md
+
+# Generate workflow from spec
+/craft:docs:workflow "authentication" --from-spec
+→ Reads: docs/specs/SPEC-authentication-2026-01-14.md
+→ Creates: docs/workflows/authentication-workflow.md
+```
+
+**Spec → Workflow Mapping:**
+```
+SPEC-auth-2026-01-14.md
+├── Overview → Workflow description
+├── User Stories → When to Use
+├── Acceptance Criteria → Success checklist
+├── Architecture → Step diagram
+├── API Design → Implementation steps
+└── Dependencies → Prerequisites
 ```
 
 ## When Invoked
@@ -217,6 +272,7 @@ git checkout main
 | Flag | Effect |
 |------|--------|
 | (none) | Generate workflow to docs/workflows/ |
+| `--from-spec` | Use brainstorm spec as input source (recommended) |
 | `--detect` | Auto-detect workflows in codebase |
 | `--from-commits` | Generate from recent commit patterns |
 | `--output PATH` | Custom output directory |
@@ -230,8 +286,12 @@ git checkout main
 **Uses template:** `templates/docs/WORKFLOW-TEMPLATE.md`
 
 **Called by:**
+- `/workflow:brainstorm` → Step 6 (after spec capture)
 - `/craft:docs:update --with-workflow`
 - `/craft:docs:update` (when score >= 3 for workflow type)
+
+**Input from:**
+- Brainstorm specs (`docs/specs/SPEC-*.md`) via `--from-spec` flag
 
 **Outputs to:**
 - `docs/workflows/[topic]-workflow.md` (default)

@@ -1,9 +1,9 @@
 # Craft Plugin Test Report
 
-**Generated:** 2025-12-28 19:03:09
+**Generated:** 2026-01-14 23:12:14
 **Total Tests:** 13
 **Passed:** 13/13 (100%)
-**Total Duration:** 31.9ms
+**Total Duration:** 60.3ms
 
 ## Summary
 
@@ -21,16 +21,16 @@
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| Plugin JSON Valid | ✅ Pass | 0.1ms | name=craft, version=1.9.0 |
+| Plugin JSON Valid | ✅ Pass | 0.5ms | name=craft, version=1.18.0 |
 | Directory Structure | ✅ Pass | 0.1ms | All 4 directories present |
-| README Exists | ✅ Pass | 0.0ms | README.md (14957 bytes) |
+| README Exists | ✅ Pass | 0.0ms | README.md (23899 bytes) |
 
 ### Commands
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| Command Count | ✅ Pass | 1.0ms | Found 69 commands |
-| Commands Valid | ✅ Pass | 13.6ms | All 69 commands are valid |
+| Command Count | ✅ Pass | 1.2ms | Found 89 commands |
+| Commands Valid | ✅ Pass | 13.4ms | All 89 commands are valid |
 | Command Categories | ✅ Pass | 0.1ms | Found categories: ['code', 'docs', 'git', 'site'] |
 | Hub Command | ✅ Pass | 0.0ms | hub.md exists (14517 chars) |
 
@@ -38,22 +38,22 @@
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| Skills Exist | ✅ Pass | 0.8ms | Found 16 skills: ['frontend-designer', 'backend-designer', 'devops-helper', 'mode-controller', 'distribution-strategist'] |
-| Design Skills | ✅ Pass | 0.1ms | All design skills present: ['backend-designer.md', 'frontend-designer.md', 'devops-helper.md'] |
+| Skills Exist | ✅ Pass | 0.7ms | Found 21 skills: ['frontend-designer', 'backend-designer', 'devops-helper', 'mode-controller', 'project-detector'] |
+| Design Skills | ✅ Pass | 0.0ms | All design skills present: ['backend-designer.md', 'frontend-designer.md', 'devops-helper.md'] |
 
 ### Agents
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| Agents Exist | ✅ Pass | 0.2ms | Found 7 agents: ['orchestrator', 'orchestrator-v2', 'reference-builder', 'docs-architect', 'api-documenter', 'tutorial-engineer', 'mermaid-expert'] |
+| Agents Exist | ✅ Pass | 0.1ms | Found 8 agents: ['orchestrator', 'orchestrator-v2', 'demo-engineer', 'reference-builder', 'docs-architect', 'api-documenter', 'tutorial-engineer', 'mermaid-expert'] |
 | Orchestrator Agent | ✅ Pass | 0.0ms | orchestrator.md exists (9911 chars) |
 
 ### Integration
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| No Broken Links | ✅ Pass | 15.1ms | Checked 109 files, no broken links |
-| Consistent Naming | ✅ Pass | 0.9ms | All 69 command names follow conventions |
+| No Broken Links | ✅ Pass | 43.1ms | Checked 188 files, no broken links |
+| Consistent Naming | ✅ Pass | 1.0ms | All 89 command names follow conventions |
 
 ## Result
 
