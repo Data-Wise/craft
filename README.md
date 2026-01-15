@@ -448,13 +448,14 @@ Commands support execution modes for different use cases:
 
 **For plugin development and contributions:**
 
-- 📖 **[Developer Guide (CLAUDE.md)](../CLAUDE.md)** - Comprehensive guide for working with this monorepo
+- 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
+- 📖 **[Commands Reference](docs/commands.md)** - All 86 commands documented
+- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 21 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards
-- Common tasks and troubleshooting
 
-See the root-level [CLAUDE.md](../CLAUDE.md) for detailed guidance on plugin development.
+See the [documentation site](https://data-wise.github.io/craft/) for comprehensive guides.
 
 ## Changelog
 

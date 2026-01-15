@@ -314,7 +314,7 @@ chmod 755 ~/brainstorms
 
 ### Learn More
 
-- **Full docs:** [README.md](../README.md)
+- **Full docs:** [Documentation](../index.md)
 - **Reference card:** [REFCARD.md](REFCARD.md)
 - **Documentation hub:** [docs/README.md](README.md)
 
