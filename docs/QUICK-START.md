@@ -5,8 +5,10 @@
 > **TL;DR** (30 seconds)
 > - **What:** Get craft plugin installed and verify it works
 > - **Why:** Start automating your development workflow immediately
-> - **How:** `claude plugin install craft@local-plugins` then run `/craft:hub`
+> - **How:** Clone to `~/.claude/plugins/craft` then run `/craft:hub`
 > - **Next:** Try `/craft:do "your first task"` to see AI routing in action
+
+**89 commands** · **21 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/)
 
 Get craft running in 30 seconds.
 
@@ -44,7 +46,7 @@ Expected output:
 │ /craft:hub - Command Discovery                              │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ 69 commands available across 9 categories                   │
+│ 89 commands available across 9 categories                   │
 │                                                             │
 │ [Command listing...]                                        │
 └─────────────────────────────────────────────────────────────┘
@@ -103,7 +105,7 @@ The AI routes your task to the best workflow automatically.
 !!! abstract "Progress: Step 4 of 4 - You're Done! 🎉"
     Choose your learning path
 
-- **[Commands Overview](commands/overview.md)** - Explore all 69 commands
+- **[Commands Overview](commands/overview.md)** - Explore all 89 commands
 - **[Skills & Agents](guide/skills-agents.md)** - Understand the AI system
 - **[Orchestrator](guide/orchestrator.md)** - Advanced mode-aware execution
 - **[Quick Reference](REFCARD.md)** - Command cheat sheet
