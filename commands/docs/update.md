@@ -235,33 +235,66 @@ When a feature name is provided, the cycle is scoped:
 | `--verbose` | Detailed output |
 | `--json` | JSON output |
 
+### Force Generation Flags
+
+Force specific doc types regardless of scoring:
+
+| Flag | Effect |
+|------|--------|
+| `--with-tutorial` | Force tutorial generation |
+| `--with-help` | Force help page generation |
+| `--with-workflow` | Force workflow doc generation |
+| `--with-quickstart` | Force quickstart generation |
+| `--all` | Generate all doc types |
+| `--threshold N` | Override scoring threshold (default: 3) |
+
+**Example:**
+```bash
+/craft:docs:update "auth" --with-tutorial    # Auth docs + forced tutorial
+/craft:docs:update --all                      # Generate everything
+/craft:docs:update --threshold 2              # Lower threshold for more docs
+```
+
 ## Scoring Algorithm
 
 Doc types are generated based on classification scores:
 
-| Factor | Guide | Refcard | Demo | Mermaid |
-|--------|-------|---------|------|---------|
-| New command (each) | +1 | +1 | +0.5 | +0 |
-| New module | +3 | +1 | +1 | +2 |
-| New hook | +2 | +1 | +1 | +3 |
-| Multi-step workflow | +2 | +0 | +3 | +2 |
-| Config changes | +0 | +2 | +0 | +0 |
-| Architecture change | +1 | +0 | +0 | +3 |
-| User-facing CLI | +1 | +1 | +2 | +0 |
+| Factor | Guide | Refcard | Demo | Mermaid | Tutorial | Help | Workflow |
+|--------|-------|---------|------|---------|----------|------|----------|
+| New command (each) | +1 | +1 | +0.5 | +0 | +1 | +2 | +0.5 |
+| New module | +3 | +1 | +1 | +2 | +2 | +1 | +1 |
+| New hook | +2 | +1 | +1 | +3 | +1 | +0 | +2 |
+| Multi-step workflow | +2 | +0 | +3 | +2 | +3 | +0 | +4 |
+| Config changes | +0 | +2 | +0 | +0 | +1 | +1 | +0 |
+| Architecture change | +1 | +0 | +0 | +3 | +0 | +0 | +1 |
+| User-facing CLI | +1 | +1 | +2 | +0 | +2 | +1 | +2 |
+| Complex setup | +0 | +0 | +0 | +0 | +3 | +2 | +0 |
 
-**Threshold:** Score >= 3 triggers generation
+**Thresholds:**
+- Guide, Refcard, Demo, Mermaid: Score >= 3
+- Tutorial, Help, Workflow: Score >= 2 (lower for better coverage)
 
 ## Integration
 
 **Orchestrates these commands internally:**
 - `/craft:docs:sync` - Change detection and classification
 - `/craft:docs:guide` - Guide generation
+- `/craft:docs:tutorial` - Tutorial generation
 - `/craft:docs:demo` - VHS tape generation
 - `/craft:docs:mermaid` - Diagram generation
 - `/craft:docs:check` - Validation and auto-fix
 - `/craft:docs:changelog` - Changelog updates
 - `/craft:docs:claude-md` - CLAUDE.md updates
 - `/craft:docs:nav-update` - mkdocs navigation
+
+**Uses templates from:** `templates/docs/`
+- `TUTORIAL-TEMPLATE.md` - Progressive learning structure
+- `WORKFLOW-TEMPLATE.md` - Multi-step process docs
+- `HELP-PAGE-TEMPLATE.md` - Command help pages
+- `QUICK-START-TEMPLATE.md` - 5-minute quickstart
+- `REFCARD-TEMPLATE.md` - Quick reference cards
+- `GETTING-STARTED-TEMPLATE.md` - First-time setup
+- `GIF-GUIDELINES.md` - Terminal recording standards
 
 **Replaces:**
 - `/craft:docs:feature` - Use `update "feature-name"` instead
