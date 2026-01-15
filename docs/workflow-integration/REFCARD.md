@@ -272,7 +272,7 @@ rm -rf temp
 
 ## Links
 
-- **Full docs:** [README.md](../README.md)
+- **Full docs:** [Documentation](../index.md)
 - **Quick start:** [QUICK-START.md](QUICK-START.md)
 - **Doc hub:** [docs/README.md](README.md)
 - **Repository:** https://github.com/Data-Wise/claude-plugins
