@@ -20,3 +20,10 @@ env/
 # OS
 .DS_Store
 Thumbs.db
+
+# Test reports
+tests/craft_test_report.md
+
+# MkDocs
+site/
+.cache/
