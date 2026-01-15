@@ -47,10 +47,53 @@ ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
 
 You should see all 89 commands listed.
 
+## Initialize a New Project (Optional)
+
+!!! tip "Starting from Scratch?"
+    Skip this section if you already have a git repository. This is for brand new projects.
+
+If you're starting a new project, use craft to set up the complete git workflow:
+
+```bash
+/craft:git:init
+```
+
+This interactive wizard will:
+
+- Initialize git repository
+- Create `main` + `dev` branch structure
+- Enable branch protection on `main`
+- Auto-detect and generate CI workflow
+- Create project tracking files (`.STATUS`, `CLAUDE.md`)
+- Add PR template
+- Create initial commit
+- Push to GitHub (if desired)
+
+**Quick setup:**
+
+```bash
+# Interactive wizard
+/craft:git:init
+
+# Preview what would happen
+/craft:git:init --dry-run
+
+# Skip prompts, use defaults
+/craft:git:init --yes --remote user/repo
+```
+
+After initialization, you'll have:
+- ✅ Protected `main` branch (PR + CI required)
+- ✅ `dev` branch ready for work
+- ✅ CI workflow configured
+- ✅ Project documentation
+
+See [/craft:git:init](../../commands/git/init.md) for full details.
+
 ## Your First Commands
 
 !!! abstract "Progress: Step 3/5"
-    Try these 4 essential commands
+    Try these essential commands
 
 ### 1. Universal Task Execution
 

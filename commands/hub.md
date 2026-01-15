@@ -22,7 +22,7 @@ Detection Rules (check in order):
 ┌─────────────────────────────────────────────────────────────────────────┐
 │ 🛠️ CRAFT - Full Stack Developer Toolkit v1.2.0                          │
 │ 📍 [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                      │
-│ 📊 46 Commands | 8 Skills | 1 Agent | 4 Modes                           │
+│ 📊 47 Commands | 8 Skills | 1 Agent | 4 Modes                           │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
@@ -57,9 +57,10 @@ Detection Rules (check in order):
 │   /craft:docs:validate             /craft:site:init                     │
 │   /craft:docs:nav-update           /craft:site:build                    │
 │                                    /craft:site:preview                  │
-│ 🔀 GIT (4+4 guides)                /craft:site:deploy                   │
-│   /craft:git:branch                /craft:site:check                    │
-│   /craft:git:sync                  /craft:site:frameworks               │
+│ 🔀 GIT (5+4 guides)                /craft:site:deploy                   │
+│   /craft:git:init                  /craft:site:check                    │
+│   /craft:git:branch                /craft:site:frameworks               │
+│   /craft:git:sync                                                       │
 │   /craft:git:clean                                                      │
 │   /craft:git:recap                                                      │
 │                                                                         │
@@ -76,6 +77,7 @@ Detection Rules (check in order):
 ```
 Intelligently routes your task to the right workflow:
 
+/craft:do initialize project    → git:init (interactive wizard)
 /craft:do add authentication    → arch:plan + code:test-gen + git:branch
 /craft:do fix login bug         → code:debug + test:run + test:debug
 /craft:do improve quality       → code:lint + test:coverage + code:refactor
@@ -218,9 +220,10 @@ Command                  │ R Package        │ Other (MkDocs)
 
 ### `/craft:hub git`
 ```
-🔀 GIT COMMANDS (4 commands + 4 guides)
+🔀 GIT COMMANDS (5 commands + 4 guides)
 ─────────────────────────────────────────────────────────────────────────
 Commands:
+  /craft:git:init       Initialize repo with craft workflow
   /craft:git:branch     Branch management (create, switch, delete)
   /craft:git:sync       Smart sync with remote (pull, rebase, push)
   /craft:git:clean      Clean up merged branches safely
@@ -286,7 +289,7 @@ Guides:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│ CRAFT QUICK REFERENCE - 46 COMMANDS                                    │
+│ CRAFT QUICK REFERENCE - 47 COMMANDS                                    │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   → AI routes to best workflow                     │
