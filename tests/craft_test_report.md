@@ -1,9 +1,9 @@
 # Craft Plugin Test Report
 
-**Generated:** 2026-01-14 23:12:14
+**Generated:** 2026-01-14 23:29:09
 **Total Tests:** 13
 **Passed:** 13/13 (100%)
-**Total Duration:** 60.3ms
+**Total Duration:** 56.3ms
 
 ## Summary
 
@@ -29,8 +29,8 @@
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| Command Count | ✅ Pass | 1.2ms | Found 89 commands |
-| Commands Valid | ✅ Pass | 13.4ms | All 89 commands are valid |
+| Command Count | ✅ Pass | 1.0ms | Found 89 commands |
+| Commands Valid | ✅ Pass | 14.0ms | All 89 commands are valid |
 | Command Categories | ✅ Pass | 0.1ms | Found categories: ['code', 'docs', 'git', 'site'] |
 | Hub Command | ✅ Pass | 0.0ms | hub.md exists (14517 chars) |
 
@@ -52,7 +52,7 @@
 
 | Test | Status | Duration | Details |
 |------|--------|----------|--------|
-| No Broken Links | ✅ Pass | 43.1ms | Checked 188 files, no broken links |
+| No Broken Links | ✅ Pass | 38.7ms | Checked 189 files, no broken links |
 | Consistent Naming | ✅ Pass | 1.0ms | All 89 command names follow conventions |
 
 ## Result

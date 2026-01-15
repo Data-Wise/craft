@@ -85,6 +85,7 @@ nav:
     - Planning: commands/plan.md
   - Guide:
     - Getting Started: guide/getting-started.md
+    - Homebrew Installation: guide/homebrew-installation.md
     - Skills & Agents: guide/skills-agents.md
     - Orchestrator: guide/orchestrator.md
     - Configuration: reference/configuration.md
