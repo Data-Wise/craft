@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/help/docs-update/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/architecture/git-init-flow/">
       
       
-        <link rel="prev" href="../git-worktree/">
+        <link rel="prev" href="../../commands/git-init-reference/">
       
       
-        <link rel="next" href="../ci-generate/">
+        <link rel="next" href="../../guide/git-init-tutorial/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>/craft:docs:update - Craft Plugin</title>
+        <title>Architecture Guide - Craft Plugin</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#craftdocsupdate" class="md-skip">
+        <a href="#craftgitinit-architecture-flow-diagrams" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              /craft:docs:update
+              Architecture Guide
             
           </span>
         </div>
@@ -379,13 +379,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../hub/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../help/hub/" class="md-tabs__link">
           
   
   
@@ -401,10 +399,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../commands/git-init-reference/" class="md-tabs__link">
           
   
@@ -1210,29 +1210,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
             
   
   
@@ -1250,7 +1245,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1268,7 +1263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../hub/" class="md-nav__link">
+      <a href="../../help/hub/" class="md-nav__link">
         
   
   
@@ -1296,7 +1291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../do/" class="md-nav__link">
+      <a href="../../help/do/" class="md-nav__link">
         
   
   
@@ -1324,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../check/" class="md-nav__link">
+      <a href="../../help/check/" class="md-nav__link">
         
   
   
@@ -1352,7 +1347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../orchestrate/" class="md-nav__link">
+      <a href="../../help/orchestrate/" class="md-nav__link">
         
   
   
@@ -1408,7 +1403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../git-worktree/" class="md-nav__link">
+      <a href="../../help/git-worktree/" class="md-nav__link">
         
   
   
@@ -1433,37 +1428,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:docs:update
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../help/docs-update/" class="md-nav__link">
         
   
   
@@ -1479,203 +1447,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#synopsis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Synopsis
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Description
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage-modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Usage Modes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage Modes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#default-mode-smart-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Default Mode (Smart Detection)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#feature-specific-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Feature-Specific Mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flags
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Flags">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Flags
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#force-generation-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Force Generation Flags
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scoring-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scoring Algorithm
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output Example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#orchestrated-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Orchestrated Commands
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#templates-used" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Templates Used
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adhd-friendly-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ADHD-Friendly Design
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1688,7 +1459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ci-generate/" class="md-nav__link">
+      <a href="../../help/ci-generate/" class="md-nav__link">
         
   
   
@@ -1716,7 +1487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../brainstorm/" class="md-nav__link">
+      <a href="../../help/brainstorm/" class="md-nav__link">
         
   
   
@@ -1748,24 +1519,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
             
   
   
@@ -1783,7 +1559,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1826,10 +1602,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../architecture/git-init-flow/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1845,6 +1648,164 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#command-execution-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Execution Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-patterns-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Patterns Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Patterns Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-1-main-dev-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 1: Main + Dev (Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-2-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 2: Simple
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-3-gitflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 3: GitFlow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Processing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Machine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-system-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File System Operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2081,10 +2042,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#synopsis" class="md-nav__link">
+  <a href="#command-execution-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Synopsis
+        Command Execution Flow
       
     </span>
   </a>
@@ -2092,33 +2053,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
+  <a href="#workflow-patterns-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Description
+        Workflow Patterns Architecture
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage-modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Usage Modes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage Modes">
+    <nav class="md-nav" aria-label="Workflow Patterns Architecture">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-mode-smart-detection" class="md-nav__link">
+  <a href="#pattern-1-main-dev-default" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Default Mode (Smart Detection)
+        Pattern 1: Main + Dev (Default)
       
     </span>
   </a>
@@ -2126,10 +2076,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#feature-specific-mode" class="md-nav__link">
+  <a href="#pattern-2-simple" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Feature-Specific Mode
+        Pattern 2: Simple
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-3-gitflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 3: GitFlow
       
     </span>
   </a>
@@ -2142,49 +2103,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#flags" class="md-nav__link">
+  <a href="#component-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Flags
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Flags">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Basic Flags
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#force-generation-flags" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Force Generation Flags
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scoring-algorithm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scoring Algorithm
+        Component Architecture
       
     </span>
   </a>
@@ -2192,10 +2114,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#output-example" class="md-nav__link">
+  <a href="#data-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Output Example
+        Data Flow
       
     </span>
   </a>
@@ -2203,10 +2125,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#orchestrated-commands" class="md-nav__link">
+  <a href="#error-handling-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Orchestrated Commands
+        Error Handling Flow
       
     </span>
   </a>
@@ -2214,10 +2136,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#templates-used" class="md-nav__link">
+  <a href="#template-processing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Templates Used
+        Template Processing
       
     </span>
   </a>
@@ -2225,10 +2147,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
+  <a href="#integration-points" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Troubleshooting
+        Integration Points
       
     </span>
   </a>
@@ -2236,10 +2158,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#adhd-friendly-design" class="md-nav__link">
+  <a href="#state-machine" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ADHD-Friendly Design
+        State Machine
       
     </span>
   </a>
@@ -2247,10 +2169,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#file-system-operations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See Also
+        File System Operations
       
     </span>
   </a>
@@ -2274,7 +2196,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/help/docs-update.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/architecture/git-init-flow.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2282,418 +2204,552 @@
   
 
 
-<h1 id="craftdocsupdate">/craft:docs:update<a class="headerlink" href="#craftdocsupdate" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p><strong>Smart documentation generator that detects what's needed and generates everything automatically.</strong></p>
-</blockquote>
+<h1 id="craftgitinit-architecture-flow-diagrams">/craft:git:init - Architecture &amp; Flow Diagrams<a class="headerlink" href="#craftgitinit-architecture-flow-diagrams" title="Permanent link">&para;</a></h1>
+<h2 id="command-execution-flow">Command Execution Flow<a class="headerlink" href="#command-execution-flow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    Start([User invokes /craft:git:init]) --&gt; ParseArgs[Parse Arguments]
+    ParseArgs --&gt; DryRun{Dry-run mode?}
+
+    DryRun --&gt;|Yes| Preview[Generate Preview]
+    Preview --&gt; ShowPreview[Display Dry-run Output]
+    ShowPreview --&gt; End([Exit])
+
+    DryRun --&gt;|No| CheckGit{.git exists?}
+
+    CheckGit --&gt;|Yes| AskAction[Ask: What to do?]
+    AskAction --&gt; ActionChoice{User Choice}
+    ActionChoice --&gt;|Add dev+protection| Step3
+    ActionChoice --&gt;|Fix/sync dev| SyncDev[Sync dev with main]
+    ActionChoice --&gt;|Re-init| ForceCheck{--force flag?}
+    ActionChoice --&gt;|Cancel| End
+
+    ForceCheck --&gt;|No| Error1[Error: Requires --force]
+    Error1 --&gt; End
+    ForceCheck --&gt;|Yes| RemoveGit[Remove .git]
+    RemoveGit --&gt; InitRepo
+
+    CheckGit --&gt;|No| InitRepo[Initialize Git Repository]
+
+    SyncDev --&gt; Step3
+    InitRepo --&gt; Step2[Step 2: Remote Setup]
+
+    Step2 --&gt; RemoteChoice{Remote option?}
+    RemoteChoice --&gt;|Local only| Step3[Step 3: Branch Structure]
+    RemoteChoice --&gt;|Connect existing| AddRemote[git remote add]
+    RemoteChoice --&gt;|Create new| CreateRepo[gh repo create]
+
+    AddRemote --&gt; Step3
+    CreateRepo --&gt; ConfigureRepo[Set visibility, description, topics]
+    ConfigureRepo --&gt; AddRemote
+
+    Step3 --&gt; WorkflowType{Workflow pattern}
+    WorkflowType --&gt;|main-dev| CreateMainDev[Create main + dev]
+    WorkflowType --&gt;|simple| CreateMain[Create main only]
+    WorkflowType --&gt;|gitflow| CreateGitFlow[Create main + develop]
+
+    CreateMainDev --&gt; Step4[Step 4: Branch Protection]
+    CreateMain --&gt; Step4
+    CreateGitFlow --&gt; Step4
+
+    Step4 --&gt; ProtectChoice{Enable protection?}
+    ProtectChoice --&gt;|Yes| SetProtection[Configure GitHub protection rules]
+    ProtectChoice --&gt;|No| Step5[Step 5: CI Workflow]
+
+    SetProtection --&gt; Step5
+
+    Step5 --&gt; CIChoice{Generate CI?}
+    CIChoice --&gt;|Yes| DetectType[Auto-detect project type]
+    CIChoice --&gt;|No| Step6[Step 6: Project Files]
+
+    DetectType --&gt; SelectTemplate[User selects CI template]
+    SelectTemplate --&gt; GenerateCI[Generate .github/workflows/ci.yml]
+    GenerateCI --&gt; Step6
+
+    Step6 --&gt; FilesChoice{Create files?}
+    FilesChoice --&gt;|Yes| CreateFiles[Create .STATUS, CLAUDE.md, PR template]
+    FilesChoice --&gt;|No| Step7[Step 7: Initial Commit]
+
+    CreateFiles --&gt; Step7
+
+    Step7 --&gt; CommitChoice{Create commit?}
+    CommitChoice --&gt;|Yes| StageFiles[git add -A]
+    CommitChoice --&gt;|No| Step8[Step 8: Push to Remote]
+
+    StageFiles --&gt; CreateCommit[git commit with conventional message]
+    CreateCommit --&gt; Step8
+
+    Step8 --&gt; PushChoice{Push to GitHub?}
+    PushChoice --&gt;|Yes| Push[git push origin main dev]
+    PushChoice --&gt;|No| Step9[Step 9: Validation]
+
+    Push --&gt; Step9
+
+    Step9 --&gt; ValidateChoice{Run /craft:check?}
+    ValidateChoice --&gt;|Yes| RunCheck[Execute /craft:check]
+    ValidateChoice --&gt;|No| Success
+
+    RunCheck --&gt; CheckResult{Validation pass?}
+    CheckResult --&gt;|Yes| Success[✓ Success Summary]
+    CheckResult --&gt;|No| Warning[⚠ Warnings Displayed]
+
+    Success --&gt; End
+    Warning --&gt; End
+
+    %% Error handling paths
+    InitRepo -.-&gt;|Error| Rollback1[Rollback: Remove .git]
+    CreateRepo -.-&gt;|Error| Rollback2[Rollback: Offer to delete repo]
+    SetProtection -.-&gt;|Error| Rollback3[Rollback: Disable protection]
+    GenerateCI -.-&gt;|Error| Rollback4[Rollback: Delete CI file]
+    CreateFiles -.-&gt;|Error| Rollback5[Rollback: Delete created files]
+    CreateCommit -.-&gt;|Error| Rollback6[Rollback: Reset HEAD]
+
+    Rollback1 --&gt; ErrorEnd([Exit with error])
+    Rollback2 --&gt; ErrorEnd
+    Rollback3 --&gt; ErrorEnd
+    Rollback4 --&gt; ErrorEnd
+    Rollback5 --&gt; ErrorEnd
+    Rollback6 --&gt; ErrorEnd
+
+    style Start fill:#e1f5e1
+    style End fill:#e1f5e1
+    style Success fill:#c8e6c9
+    style ErrorEnd fill:#ffcdd2
+    style Error1 fill:#ffcdd2
+    style Warning fill:#fff9c4</code></pre>
+<h2 id="workflow-patterns-architecture">Workflow Patterns Architecture<a class="headerlink" href="#workflow-patterns-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="pattern-1-main-dev-default">Pattern 1: Main + Dev (Default)<a class="headerlink" href="#pattern-1-main-dev-default" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>gitGraph
+    commit id: "Initial commit"
+    branch dev
+    checkout dev
+    commit id: "Setup dev branch"
+    branch feature/auth
+    checkout feature/auth
+    commit id: "Add login"
+    commit id: "Add signup"
+    checkout dev
+    merge feature/auth tag: "PR #1"
+    branch feature/api
+    checkout feature/api
+    commit id: "Add API endpoints"
+    checkout dev
+    merge feature/api tag: "PR #2"
+    checkout main
+    merge dev tag: "Release v1.0"</code></pre>
+<p><strong>Branch Flow:</strong>
+<pre class="mermaid"><code>graph LR
+    Feature[feature/*] --&gt;|PR| Dev[dev]
+    Dev --&gt;|PR| Main[main]
+    Main --&gt;|Deploy| Production[Production]
+
+    style Main fill:#ff6b6b
+    style Dev fill:#4ecdc4
+    style Feature fill:#95e1d3
+    style Production fill:#f38181</code></pre></p>
+<h3 id="pattern-2-simple">Pattern 2: Simple<a class="headerlink" href="#pattern-2-simple" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>gitGraph
+    commit id: "Initial commit"
+    commit id: "Add feature A"
+    commit id: "Add feature B"
+    commit id: "Fix bug"
+    commit id: "Release v1.0" tag: "v1.0"</code></pre>
+<p><strong>Branch Flow:</strong>
+<pre class="mermaid"><code>graph LR
+    Main[main] --&gt;|Direct commits| Main
+    Main --&gt;|Deploy| Production[Production]
+
+    style Main fill:#ff6b6b
+    style Production fill:#f38181</code></pre></p>
+<h3 id="pattern-3-gitflow">Pattern 3: GitFlow<a class="headerlink" href="#pattern-3-gitflow" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>gitGraph
+    commit id: "Initial"
+    branch develop
+    checkout develop
+    commit id: "Setup develop"
+    branch feature/user-auth
+    checkout feature/user-auth
+    commit id: "Add auth"
+    checkout develop
+    merge feature/user-auth
+    branch release/v1.0
+    checkout release/v1.0
+    commit id: "Bump version"
+    commit id: "Update docs"
+    checkout main
+    merge release/v1.0 tag: "v1.0"
+    checkout develop
+    merge release/v1.0
+    branch hotfix/critical-bug
+    checkout hotfix/critical-bug
+    commit id: "Fix bug"
+    checkout main
+    merge hotfix/critical-bug tag: "v1.0.1"
+    checkout develop
+    merge hotfix/critical-bug</code></pre>
+<p><strong>Branch Flow:</strong>
+<pre class="mermaid"><code>graph TB
+    Feature[feature/*] --&gt;|PR| Develop[develop]
+    Develop --&gt;|PR| Release[release/*]
+    Release --&gt;|PR| Main[main]
+    Main --&gt;|Tag| Version[v1.0.0]
+    Release --&gt;|Merge back| Develop
+    Main --&gt;|Hotfix| Hotfix[hotfix/*]
+    Hotfix --&gt;|PR| Main
+    Hotfix --&gt;|Merge back| Develop
+
+    style Main fill:#ff6b6b
+    style Develop fill:#4ecdc4
+    style Feature fill:#95e1d3
+    style Release fill:#ffd93d
+    style Hotfix fill:#ff8787</code></pre></p>
+<h2 id="component-architecture">Component Architecture<a class="headerlink" href="#component-architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TB
+    subgraph "User Interface"
+        CLI["/craft:git:init CLI"]
+        SmartRouter["/craft:do Smart Router"]
+    end
+
+    subgraph "Wizard Engine"
+        StepController[Step Controller]
+        AskQuestion[AskUserQuestion]
+        ProgressTracker[Progress Tracker]
+    end
+
+    subgraph "Core Operations"
+        GitOps[Git Operations]
+        GHOps[GitHub Operations]
+        FileOps[File Operations]
+        CIOps[CI Generation]
+    end
+
+    subgraph "Templates"
+        StatusTemplate[.STATUS Template]
+        ClaudeTemplate[CLAUDE.md Template]
+        PRTemplate[PR Template]
+        CITemplates[CI Templates]
+    end
+
+    subgraph "Validation"
+        DryRun[Dry-run Validator]
+        Check[/craft:check Integration]
+        Rollback[Rollback Engine]
+    end
+
+    CLI --&gt; StepController
+    SmartRouter --&gt; StepController
+    StepController --&gt; AskQuestion
+    StepController --&gt; ProgressTracker
+    StepController --&gt; GitOps
+    StepController --&gt; GHOps
+    StepController --&gt; FileOps
+    StepController --&gt; CIOps
+
+    GitOps --&gt; DryRun
+    GHOps --&gt; DryRun
+    FileOps --&gt; Templates
+    CIOps --&gt; CITemplates
+
+    GitOps -.-&gt;|Error| Rollback
+    GHOps -.-&gt;|Error| Rollback
+    FileOps -.-&gt;|Error| Rollback
+
+    StepController --&gt; Check
+
+    style CLI fill:#e3f2fd
+    style SmartRouter fill:#e3f2fd
+    style StepController fill:#fff3e0
+    style Rollback fill:#ffebee
+    style Check fill:#e8f5e9</code></pre>
+<h2 id="data-flow">Data Flow<a class="headerlink" href="#data-flow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant Wizard
+    participant Git
+    participant GitHub
+    participant Templates
+    participant CI
+
+    User-&gt;&gt;Wizard: /craft:git:init
+    Wizard-&gt;&gt;User: Check .git exists?
+
+    alt Repository exists
+        Wizard-&gt;&gt;User: Ask action (add dev/sync/reinit)
+        User-&gt;&gt;Wizard: Select action
+    else New repository
+        Wizard-&gt;&gt;Git: git init
+        Git--&gt;&gt;Wizard: Repository created
+    end
+
+    Wizard-&gt;&gt;User: Ask remote setup
+    User-&gt;&gt;Wizard: Create new GitHub repo
+
+    Wizard-&gt;&gt;GitHub: gh repo create
+    GitHub--&gt;&gt;Wizard: Repository URL
+    Wizard-&gt;&gt;Git: git remote add origin
+
+    Wizard-&gt;&gt;User: Select workflow pattern
+    User-&gt;&gt;Wizard: main-dev
+
+    Wizard-&gt;&gt;Git: Create main + dev branches
+    Git--&gt;&gt;Wizard: Branches created
+
+    Wizard-&gt;&gt;User: Enable branch protection?
+    User-&gt;&gt;Wizard: Yes
+
+    Wizard-&gt;&gt;GitHub: Configure protection rules
+    GitHub--&gt;&gt;Wizard: Protection enabled
+
+    Wizard-&gt;&gt;User: Generate CI workflow?
+    User-&gt;&gt;Wizard: Yes (auto-detect)
+
+    Wizard-&gt;&gt;CI: Detect project type
+    CI--&gt;&gt;Wizard: Python UV detected
+    Wizard-&gt;&gt;User: Confirm template?
+    User-&gt;&gt;Wizard: Confirmed
+
+    Wizard-&gt;&gt;CI: Generate workflow file
+    CI--&gt;&gt;Wizard: .github/workflows/ci.yml
+
+    Wizard-&gt;&gt;User: Create project files?
+    User-&gt;&gt;Wizard: Yes (all)
+
+    Wizard-&gt;&gt;Templates: Render templates
+    Templates--&gt;&gt;Wizard: .STATUS, CLAUDE.md, PR template
+
+    Wizard-&gt;&gt;User: Create initial commit?
+    User-&gt;&gt;Wizard: Yes
+
+    Wizard-&gt;&gt;Git: git add -A
+    Wizard-&gt;&gt;Git: git commit
+    Git--&gt;&gt;Wizard: Commit created
+
+    Wizard-&gt;&gt;User: Push to GitHub?
+    User-&gt;&gt;Wizard: Yes
+
+    Wizard-&gt;&gt;Git: git push origin main dev
+    Git-&gt;&gt;GitHub: Push branches
+    GitHub--&gt;&gt;Wizard: Push successful
+
+    Wizard-&gt;&gt;User: Run validation?
+    User-&gt;&gt;Wizard: Yes
+
+    Wizard-&gt;&gt;CI: Execute /craft:check
+    CI--&gt;&gt;Wizard: Validation results
+
+    Wizard-&gt;&gt;User: ✓ Setup complete!</code></pre>
+<h2 id="error-handling-flow">Error Handling Flow<a class="headerlink" href="#error-handling-flow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    Operation[Execute Operation] --&gt; Success{Success?}
+
+    Success --&gt;|Yes| RecordState[Record State]
+    RecordState --&gt; NextOp[Next Operation]
+
+    Success --&gt;|No| CaptureError[Capture Error Details]
+    CaptureError --&gt; DetermineRollback[Determine Rollback Steps]
+
+    DetermineRollback --&gt; RollbackType{Rollback Type}
+
+    RollbackType --&gt;|Git Init| RemoveGit[Remove .git directory]
+    RollbackType --&gt;|Branches| DeleteBranches[Delete created branches]
+    RollbackType --&gt;|Remote| RemoveRemote[Remove remote config]
+    RollbackType --&gt;|GitHub Repo| OfferDelete[Offer to delete repo]
+    RollbackType --&gt;|Protection| DisableProtection[Disable protection]
+    RollbackType --&gt;|Files| DeleteFiles[Delete created files]
+    RollbackType --&gt;|Commits| ResetHead[git reset HEAD~1]
+
+    RemoveGit --&gt; NotifyUser[Notify User]
+    DeleteBranches --&gt; NotifyUser
+    RemoveRemote --&gt; NotifyUser
+    OfferDelete --&gt; UserConfirm{User confirms?}
+    UserConfirm --&gt;|Yes| DeleteRepo[gh repo delete]
+    UserConfirm --&gt;|No| KeepRepo[Keep repository]
+    DeleteRepo --&gt; NotifyUser
+    KeepRepo --&gt; NotifyUser
+    DisableProtection --&gt; NotifyUser
+    DeleteFiles --&gt; NotifyUser
+    ResetHead --&gt; NotifyUser
+
+    NotifyUser --&gt; LogError[Log Error Details]
+    LogError --&gt; SuggestFix[Suggest Fix]
+    SuggestFix --&gt; Exit([Exit with error code])
+
+    style Operation fill:#e3f2fd
+    style Success fill:#fff3e0
+    style NotifyUser fill:#ffebee
+    style Exit fill:#ffcdd2</code></pre>
+<h2 id="template-processing">Template Processing<a class="headerlink" href="#template-processing" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Input"
+        Repo[Repository Info]
+        User[User Data]
+        Workflow[Workflow Type]
+    end
+
+    subgraph "Template Engine"
+        Load[Load Template]
+        Parse[Parse Placeholders]
+        Replace[Replace Variables]
+        Validate[Validate Output]
+    end
+
+    subgraph "Templates"
+        STATUS[STATUS-template.yaml]
+        CLAUDE[CLAUDE-template.md]
+        PR[pull_request_template.md]
+    end
+
+    subgraph "Output"
+        StatusFile[.STATUS]
+        ClaudeFile[CLAUDE.md]
+        PRFile[.github/pull_request_template.md]
+    end
+
+    Repo --&gt; Parse
+    User --&gt; Parse
+    Workflow --&gt; Parse
+
+    STATUS --&gt; Load
+    CLAUDE --&gt; Load
+    PR --&gt; Load
+
+    Load --&gt; Parse
+    Parse --&gt; Replace
+    Replace --&gt; Validate
+
+    Validate --&gt; StatusFile
+    Validate --&gt; ClaudeFile
+    Validate --&gt; PRFile
+
+    style Load fill:#e3f2fd
+    style Parse fill:#fff3e0
+    style Replace fill:#e8f5e9
+    style Validate fill:#fff9c4</code></pre>
+<h2 id="integration-points">Integration Points<a class="headerlink" href="#integration-points" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TB
+    subgraph "Command Entry"
+        DirectCall["/craft:git:init"]
+        SmartDo["/craft:do 'initialize project'"]
+        Hub["/craft:hub git"]
+    end
+
+    subgraph "Core Command"
+        GitInit["/craft:git:init Engine"]
+    end
+
+    subgraph "Related Commands"
+        Worktree["/craft:git:worktree"]
+        Branch["/craft:git:branch"]
+        Check["/craft:check"]
+        CIGen["/craft:ci:generate"]
+        Clean["/craft:git:clean"]
+    end
+
+    subgraph "External Tools"
+        Git[Git CLI]
+        GH[GitHub CLI]
+        Python[Python CI Detection]
+    end
+
+    DirectCall --&gt; GitInit
+    SmartDo --&gt; GitInit
+    Hub -.-&gt;|Discovery| DirectCall
+
+    GitInit --&gt;|Uses| Git
+    GitInit --&gt;|Uses| GH
+    GitInit --&gt;|Calls| CIGen
+    GitInit --&gt;|Calls| Check
+
+    GitInit -.-&gt;|Suggests| Worktree
+    GitInit -.-&gt;|Related| Branch
+    GitInit -.-&gt;|Related| Clean
+
+    CIGen --&gt; Python
+
+    style GitInit fill:#fff3e0
+    style DirectCall fill:#e3f2fd
+    style Check fill:#e8f5e9
+    style Git fill:#ffebee
+    style GH fill:#ffebee</code></pre>
+<h2 id="state-machine">State Machine<a class="headerlink" href="#state-machine" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Idle
+    Idle --&gt; CheckingRepo: Command invoked
+    CheckingRepo --&gt; InitializingNew: No .git found
+    CheckingRepo --&gt; UpdatingExisting: .git exists
+    CheckingRepo --&gt; Cancelled: User cancels
+
+    InitializingNew --&gt; SettingUpRemote
+    UpdatingExisting --&gt; SettingUpRemote
+
+    SettingUpRemote --&gt; CreatingBranches: Remote configured
+    SettingUpRemote --&gt; CreatingBranches: Local only
+
+    CreatingBranches --&gt; ConfiguringProtection
+    ConfiguringProtection --&gt; GeneratingCI
+    GeneratingCI --&gt; CreatingFiles
+    CreatingFiles --&gt; Committing
+    Committing --&gt; Pushing: Remote exists
+    Committing --&gt; Validating: Local only
+    Pushing --&gt; Validating
+    Validating --&gt; Success
+    Validating --&gt; SuccessWithWarnings: Warnings present
+
+    Success --&gt; [*]
+    SuccessWithWarnings --&gt; [*]
+    Cancelled --&gt; [*]
+
+    note right of CheckingRepo
+        Checks for .git directory
+        Asks user for action
+    end note
+
+    note right of SettingUpRemote
+        GitHub integration
+        Remote configuration
+    end note
+
+    note right of ConfiguringProtection
+        Branch protection rules
+        Requires GitHub admin
+    end note
+
+    note right of Validating
+        Runs /craft:check
+        Reports status
+    end note</code></pre>
+<h2 id="file-system-operations">File System Operations<a class="headerlink" href="#file-system-operations" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TB
+    Start[Start] --&gt; CheckCWD{Current dir writable?}
+
+    CheckCWD --&gt;|No| Error[Error: Permission denied]
+    CheckCWD --&gt;|Yes| CreateGit[Create .git/]
+
+    CreateGit --&gt; CreateBranches[Create branches]
+    CreateBranches --&gt; CreateGitHub[Create .github/]
+
+    CreateGitHub --&gt; CreateWorkflows[Create workflows/]
+    CreateWorkflows --&gt; GenerateCI[Generate ci.yml]
+
+    GenerateCI --&gt; CreateTemplates[Create templates directory]
+    CreateTemplates --&gt; RenderStatus[Render .STATUS]
+    RenderStatus --&gt; RenderClaude[Render CLAUDE.md]
+    RenderClaude --&gt; RenderPR[Render PR template]
+
+    RenderPR --&gt; Stage[git add -A]
+    Stage --&gt; Commit[git commit]
+    Commit --&gt; Success[✓ Files created]
+
+    Error --&gt; End[Exit]
+    Success --&gt; End
+
+    style Start fill:#e3f2fd
+    style Success fill:#e8f5e9
+    style Error fill:#ffebee
+    style End fill:#fff3e0</code></pre>
 <hr />
-<h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:docs:update<span class="w"> </span><span class="o">[</span>feature<span class="o">]</span><span class="w"> </span><span class="o">[</span>--flags<span class="o">]</span>
-</span></code></pre></div>
-<p><strong>Quick examples:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Smart detection → Full execution</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:docs:update<span class="w">                    </span><span class="c1"># Detect changes → generate all needed docs</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Feature-specific</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/craft:docs:update<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">             </span><span class="c1"># Document the &quot;auth&quot; feature</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Force specific doc types</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:docs:update<span class="w"> </span>--with-tutorial<span class="w">    </span><span class="c1"># Force tutorial generation</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>/craft:docs:update<span class="w"> </span>--all<span class="w">              </span><span class="c1"># Generate all doc types</span>
-</span></code></pre></div></p>
-<hr />
-<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
-<p>The ONE command for documentation. Detects what changed, figures out what docs are needed, generates everything automatically, and validates.</p>
-<p><strong>Philosophy:</strong></p>
-<blockquote>
-<p>"Just run it. It figures out what's needed, then does it."</p>
-</blockquote>
-<p><strong>What it does:</strong>
-1. <strong>sync</strong> - Detect changes, classify docs needed
-2. <strong>generate</strong> - Guide, demo, refcard (as needed)
-3. <strong>check</strong> - Validate + auto-fix
-4. <strong>changelog</strong> - If commits present
-5. <strong>summary</strong> - Report what was done</p>
-<hr />
-<h2 id="usage-modes">Usage Modes<a class="headerlink" href="#usage-modes" title="Permanent link">&para;</a></h2>
-<h3 id="default-mode-smart-detection">Default Mode (Smart Detection)<a class="headerlink" href="#default-mode-smart-detection" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:docs:update
-</span></code></pre></div>
-<p>Analyzes recent changes and generates appropriate documentation:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>┌─────────────────────────────────────────────────────────────┐
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│ Step 1/5: DETECTING CHANGES                                 │
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│                                                             │
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│ Analyzing 15 recent commits...                              │
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│                                                             │
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│ Detected:                                                   │
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   • 5 new CLI commands                                      │
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│   • 2 new hooks                                             │
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│   • 1 new module                                            │
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│                                                             │
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>│ Classification:                                             │
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>│   Guide needed:   ✓ (score: 8)                              │
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>│   Refcard needed: ✓ (score: 5)                              │
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>│   Demo needed:    ✓ (score: 6)                              │
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>│                                                             │
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>└─────────────────────────────────────────────────────────────┘
-</span></code></pre></div>
-<h3 id="feature-specific-mode">Feature-Specific Mode<a class="headerlink" href="#feature-specific-mode" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:docs:update<span class="w"> </span><span class="s2">&quot;auth&quot;</span>
-</span></code></pre></div>
-<p>Scopes documentation to files matching "auth":</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>┌─────────────────────────────────────────────────────────────┐
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>│ /craft:docs:update &quot;auth&quot;                                   │
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│                                                             │
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>│ Feature: Authentication                                     │
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│                                                             │
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│ Scope: Files matching &quot;auth&quot; in name/path                   │
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│   • src/auth/                                               │
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│   • src/**/auth*                                            │
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│   • tests/**/test_auth*                                     │
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>│                                                             │
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>│ Generated:                                                  │
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>│   • docs/guide/auth.md (NEW)                                │
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>│   • docs/reference/REFCARD-AUTH.md (NEW)                    │
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>│   • Updated 4 existing docs                                 │
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>│                                                             │
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>└─────────────────────────────────────────────────────────────┘
-</span></code></pre></div>
-<hr />
-<h2 id="flags">Flags<a class="headerlink" href="#flags" title="Permanent link">&para;</a></h2>
-<h3 id="basic-flags">Basic Flags<a class="headerlink" href="#basic-flags" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Flag</th>
-<th>Effect</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>(none)</td>
-<td>Smart detection → generate needed → check → changelog</td>
-</tr>
-<tr>
-<td><code>"feature"</code></td>
-<td>Scope to specific feature</td>
-</tr>
-<tr>
-<td><code>--force</code></td>
-<td>Full cycle regardless of detection</td>
-</tr>
-<tr>
-<td><code>--dry-run</code></td>
-<td>Preview plan without executing</td>
-</tr>
-<tr>
-<td><code>--no-check</code></td>
-<td>Skip validation phase</td>
-</tr>
-<tr>
-<td><code>--no-changelog</code></td>
-<td>Skip changelog update</td>
-</tr>
-<tr>
-<td><code>--verbose</code></td>
-<td>Detailed output</td>
-</tr>
-</tbody>
-</table>
-<h3 id="force-generation-flags">Force Generation Flags<a class="headerlink" href="#force-generation-flags" title="Permanent link">&para;</a></h3>
-<p>Force specific doc types regardless of scoring:</p>
-<table>
-<thead>
-<tr>
-<th>Flag</th>
-<th>Effect</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--with-tutorial</code></td>
-<td>Force tutorial generation</td>
-</tr>
-<tr>
-<td><code>--with-help</code></td>
-<td>Force help page generation</td>
-</tr>
-<tr>
-<td><code>--with-workflow</code></td>
-<td>Force workflow doc generation</td>
-</tr>
-<tr>
-<td><code>--with-quickstart</code></td>
-<td>Force quickstart generation</td>
-</tr>
-<tr>
-<td><code>--all</code></td>
-<td>Generate all doc types</td>
-</tr>
-<tr>
-<td><code>--threshold N</code></td>
-<td>Override scoring threshold (default: 3)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Example:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:docs:update<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w"> </span>--with-tutorial<span class="w">    </span><span class="c1"># Auth docs + forced tutorial</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:docs:update<span class="w"> </span>--all<span class="w">                      </span><span class="c1"># Generate everything</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/craft:docs:update<span class="w"> </span>--threshold<span class="w"> </span><span class="m">2</span><span class="w">              </span><span class="c1"># Lower threshold for more docs</span>
-</span></code></pre></div></p>
-<hr />
-<h2 id="scoring-algorithm">Scoring Algorithm<a class="headerlink" href="#scoring-algorithm" title="Permanent link">&para;</a></h2>
-<p>Doc types are generated based on classification scores:</p>
-<table>
-<thead>
-<tr>
-<th>Factor</th>
-<th>Guide</th>
-<th>Refcard</th>
-<th>Demo</th>
-<th>Tutorial</th>
-<th>Help</th>
-<th>Workflow</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>New command (each)</td>
-<td>+1</td>
-<td>+1</td>
-<td>+0.5</td>
-<td>+1</td>
-<td>+2</td>
-<td>+0.5</td>
-</tr>
-<tr>
-<td>New module</td>
-<td>+3</td>
-<td>+1</td>
-<td>+1</td>
-<td>+2</td>
-<td>+1</td>
-<td>+1</td>
-</tr>
-<tr>
-<td>New hook</td>
-<td>+2</td>
-<td>+1</td>
-<td>+1</td>
-<td>+1</td>
-<td>+0</td>
-<td>+2</td>
-</tr>
-<tr>
-<td>Multi-step workflow</td>
-<td>+2</td>
-<td>+0</td>
-<td>+3</td>
-<td>+3</td>
-<td>+0</td>
-<td>+4</td>
-</tr>
-<tr>
-<td>Config changes</td>
-<td>+0</td>
-<td>+2</td>
-<td>+0</td>
-<td>+1</td>
-<td>+1</td>
-<td>+0</td>
-</tr>
-<tr>
-<td>User-facing CLI</td>
-<td>+1</td>
-<td>+1</td>
-<td>+2</td>
-<td>+2</td>
-<td>+1</td>
-<td>+2</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Thresholds:</strong>
-- Guide, Refcard, Demo: Score &gt;= 3
-- Tutorial, Help, Workflow: Score &gt;= 2</p>
-<hr />
-<h2 id="output-example">Output Example<a class="headerlink" href="#output-example" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>┌─────────────────────────────────────────────────────────────┐
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>│ ✅ DOCUMENTATION UPDATE COMPLETE                            │
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│                                                             │
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│ Feature: Session Tracking                                   │
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│                                                             │
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>│ Generated:                                                  │
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>│   • docs/guide/sessions.md (NEW - 275 lines)                │
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>│   • docs/reference/REFCARD-SESSIONS.md (NEW - 85 lines)     │
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>│   • docs/demos/sessions.tape (NEW - VHS demo)               │
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>│                                                             │
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>│ Updated:                                                    │
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>│   • docs/reference/commands.md (+45 lines)                  │
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>│   • README.md (features list)                               │
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>│   • CLAUDE.md (status)                                      │
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>│   • mkdocs.yml (navigation)                                 │
-</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>│   • CHANGELOG.md (session coordination)                     │
-</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>│                                                             │
-</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>│ Validated:                                                  │
-</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>│   • 3 issues auto-fixed                                     │
-</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>│   • 0 manual fixes needed                                   │
-</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>│                                                             │
-</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>│ NEXT STEPS:                                                 │
-</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>│                                                             │
-</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>│ 1. Generate GIF (if demo created):                          │
-</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>│    cd docs/demos &amp;&amp; vhs sessions.tape                       │
-</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>│                                                             │
-</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>│ 2. Preview docs:                                            │
-</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>│    mkdocs serve                                             │
-</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>│                                                             │
-</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>│ 3. Commit:                                                  │
-</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>│    git commit -m &quot;docs: add session documentation&quot;          │
-</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>│                                                             │
-</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a>└─────────────────────────────────────────────────────────────┘
-</span></code></pre></div>
-<hr />
-<h2 id="orchestrated-commands">Orchestrated Commands<a class="headerlink" href="#orchestrated-commands" title="Permanent link">&para;</a></h2>
-<p>This command internally orchestrates:</p>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>/craft:docs:sync</code></td>
-<td>Change detection and classification</td>
-</tr>
-<tr>
-<td><code>/craft:docs:guide</code></td>
-<td>Guide generation</td>
-</tr>
-<tr>
-<td><code>/craft:docs:tutorial</code></td>
-<td>Tutorial generation</td>
-</tr>
-<tr>
-<td><code>/craft:docs:help</code></td>
-<td>Help page generation</td>
-</tr>
-<tr>
-<td><code>/craft:docs:workflow</code></td>
-<td>Workflow doc generation</td>
-</tr>
-<tr>
-<td><code>/craft:docs:demo</code></td>
-<td>VHS tape generation</td>
-</tr>
-<tr>
-<td><code>/craft:docs:mermaid</code></td>
-<td>Diagram generation</td>
-</tr>
-<tr>
-<td><code>/craft:docs:check</code></td>
-<td>Validation and auto-fix</td>
-</tr>
-<tr>
-<td><code>/craft:docs:changelog</code></td>
-<td>Changelog updates</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="templates-used">Templates Used<a class="headerlink" href="#templates-used" title="Permanent link">&para;</a></h2>
-<p>Located in <code>templates/docs/</code>:</p>
-<table>
-<thead>
-<tr>
-<th>Template</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>TUTORIAL-TEMPLATE.md</code></td>
-<td>Progressive learning structure</td>
-</tr>
-<tr>
-<td><code>WORKFLOW-TEMPLATE.md</code></td>
-<td>Multi-step process docs</td>
-</tr>
-<tr>
-<td><code>HELP-PAGE-TEMPLATE.md</code></td>
-<td>Command help pages</td>
-</tr>
-<tr>
-<td><code>QUICK-START-TEMPLATE.md</code></td>
-<td>5-minute quickstart</td>
-</tr>
-<tr>
-<td><code>REFCARD-TEMPLATE.md</code></td>
-<td>Quick reference cards</td>
-</tr>
-<tr>
-<td><code>GETTING-STARTED-TEMPLATE.md</code></td>
-<td>First-time setup</td>
-</tr>
-<tr>
-<td><code>GIF-GUIDELINES.md</code></td>
-<td>Terminal recording standards</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Issue</th>
-<th>Solution</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>"No changes detected"</td>
-<td>Use <code>--force</code> to generate anyway</td>
-</tr>
-<tr>
-<td>Wrong doc type generated</td>
-<td>Use <code>--with-*</code> flags to force specific types</td>
-</tr>
-<tr>
-<td>Threshold too high</td>
-<td>Use <code>--threshold 2</code> to lower</td>
-</tr>
-<tr>
-<td>Validation errors</td>
-<td>Run <code>/craft:docs:check</code> separately for details</td>
-</tr>
-<tr>
-<td>Demo not generated</td>
-<td>Check if VHS is installed</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="adhd-friendly-design">ADHD-Friendly Design<a class="headerlink" href="#adhd-friendly-design" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>One command</strong> - No multi-step process to remember</li>
-<li><strong>Smart defaults</strong> - Detects what's needed automatically</li>
-<li><strong>Visual progress</strong> - See each phase completing</li>
-<li><strong>Clear summary</strong> - Know exactly what was done</li>
-<li><strong>Next steps</strong> - Always shows what to do next</li>
-</ol>
-<hr />
-<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Individual commands:</strong> <code>/craft:docs:guide</code>, <code>/craft:docs:tutorial</code>, <code>/craft:docs:help</code></li>
-<li><strong>Validation:</strong> <code>/craft:docs:check</code> - Validate documentation</li>
-<li><strong>Pre-flight:</strong> <code>/craft:check</code> - Full project validation</li>
-<li><strong>Navigation:</strong> <code>/craft:docs:nav-update</code> - Update mkdocs.yml</li>
-</ul>
+<p><strong>Document Version:</strong> 1.0
+<strong>Generated:</strong> 2025-01-15
+<strong>Architecture:</strong> /craft:git:init command</p>
 
 
 
