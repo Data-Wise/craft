@@ -155,3 +155,112 @@ craft/
 - `commands/orchestrate.md` - Multi-agent coordination
 - `agents/orchestrator-v2.md` - Enhanced agent coordinator
 - `commands/workflow/brainstorm.md` - ADHD-friendly brainstorming
+
+## Execution Modes
+
+Commands support 4 execution modes for different use cases:
+
+| Mode | Time Budget | Use Case |
+|------|-------------|----------|
+| **default** | < 10s | Quick tasks, day-to-day operations |
+| **debug** | < 120s | Problem solving, verbose traces |
+| **optimize** | < 180s | Performance profiling, benchmarks |
+| **release** | < 300s | Pre-release validation, thorough checks |
+
+### Usage
+
+```bash
+/craft:code:lint              # default mode
+/craft:code:lint debug        # verbose output, fix suggestions
+/craft:code:lint optimize     # performance-focused rules
+/craft:code:lint release      # all rules + strict validation
+```
+
+### Mode Selection Logic
+
+```
+If user specifies mode → use that mode
+Else if error/bug context → debug mode
+Else if performance context → optimize mode
+Else if release/deploy context → release mode
+Else → default mode
+```
+
+## Agents
+
+8 specialized agents for different documentation and orchestration tasks:
+
+| Agent | Model | Purpose |
+|-------|-------|---------|
+| **orchestrator-v2** | - | Task decomposition, subagent coordination, context monitoring |
+| **orchestrator** | - | Basic workflow automation and delegation |
+| **docs-architect** | sonnet | Long-form technical documentation, architecture guides |
+| **api-documenter** | sonnet | OpenAPI specs, interactive API docs, SDK generation |
+| **tutorial-engineer** | sonnet | Step-by-step tutorials, onboarding guides |
+| **reference-builder** | haiku | Parameter listings, configuration references |
+| **mermaid-expert** | haiku | Flowcharts, sequence diagrams, ERDs |
+| **demo-engineer** | - | VHS tape files for terminal GIF demos |
+
+### When to Use Agents
+
+- **orchestrator-v2**: Complex multi-step tasks requiring parallel execution
+- **docs-architect**: Creating comprehensive system documentation
+- **api-documenter**: API documentation with OpenAPI 3.1
+- **tutorial-engineer**: User-facing tutorials and guides
+- **reference-builder**: Exhaustive technical references
+- **mermaid-expert**: Visual diagrams for documentation
+
+## Troubleshooting
+
+### Tests Failing
+
+```bash
+# Run full test suite
+python3 tests/test_craft_plugin.py
+
+# Check for broken links
+python3 tests/test_craft_plugin.py -k "broken_links"
+
+# Validate command/skill/agent counts
+./scripts/validate-counts.sh
+```
+
+### Worktree Issues
+
+```bash
+# List all worktrees
+git worktree list
+
+# Remove stale worktree
+git worktree remove ~/.git-worktrees/craft/<name> --force
+
+# Prune orphaned worktrees
+git worktree prune
+```
+
+### Branch Conflicts
+
+```bash
+# Sync with remote dev
+git fetch origin dev
+git rebase origin/dev
+
+# If rebase fails, abort and merge instead
+git rebase --abort
+git merge origin/dev
+```
+
+### Plugin Not Loading
+
+1. Check plugin manifest: `.claude-plugin/plugin.json`
+2. Verify command syntax in frontmatter
+3. Run validation: `/craft:check`
+
+### Common Fixes
+
+| Issue | Fix |
+|-------|-----|
+| Outdated counts in README | Run `./scripts/validate-counts.sh` |
+| Broken internal links | Check paths relative to `docs/` |
+| Command not found | Verify file is in `commands/` with valid frontmatter |
+| Agent not triggering | Check triggers list in agent frontmatter |
