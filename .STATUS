@@ -1,9 +1,9 @@
-status: Production Ready
-version: 1.19.0
-release_date: 2026-01-15
-milestone: Git Repository Initialization
+status: Development
+version: 1.20.0-dev
+release_date: TBD
+milestone: Standardized Dry-Run Feature
 
-progress: 100%
+progress: 15%
 
 documentation_coverage:
   commands: 90/90 (100%)
@@ -12,21 +12,30 @@ documentation_coverage:
   CLAUDE.md: Optimized (107 lines)
 
 recent:
-  - Added /craft:git:init command (9-step interactive wizard)
-  - 3 workflow patterns: main+dev, simple, GitFlow
-  - GitHub integration with branch protection
-  - CI auto-detection and generation
-  - Template system (.STATUS, CLAUDE.md, PR template)
-  - Comprehensive documentation (~2,000 lines, 11 diagrams)
-  - 48 tests with 100% coverage
+  - Released v1.19.0 with /craft:git:init command
+  - Completed dry-run feature brainstorm (47 commands, 850 lines)
+  - Created formal specification (SPEC-dry-run-feature-2026-01-15.md)
+  - Designed interactive analysis plan (575 lines, 6-section template)
+  - Identified 47 commands needing dry-run (52% coverage target)
+  - Prioritized by risk: 6 P0 (critical), 24 P1 (high), 15 P2 (medium), 9 P3 (low)
+  - Updated documentation site for v1.19.0
 
-next: Community feedback, dogfooding git:init
-target: Stable production use
+next: Phase 1 - Implement dry-run for 6 P0 critical commands
+target: v1.20.0 with standardized dry-run across 47 commands
+
+phase_1_goals:
+  - git:clean, git:worktree, git:branch, git:sync, git:recap (5 git commands)
+  - dist:pypi (CRITICAL - prevent irreversible publishes)
+  - Create shared dry_run_output.py utility
+  - Template dry-run-pattern.md for developers
+  - Test suite for dry-run accuracy
+  - Effort: 12.5 hours (2-3 days)
 
 badges:
-  - Production Ready
+  - In Development (v1.20.0-dev)
+  - Phase 1: Planning Complete
   - Documentation Complete
-  - 100% Coverage
+  - 100% Test Coverage (v1.19.0)
 
 install: See README.md
 docs: https://data-wise.github.io/craft/
