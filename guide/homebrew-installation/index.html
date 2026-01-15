@@ -1206,10 +1206,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#installation-hangs-pre-v1180" class="md-nav__link">
+  <a href="#auto-enable-skipped" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation Hangs (Pre-v1.18.0)
+        Auto-Enable Skipped
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-hangs-pre-v1180-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation Hangs (Pre-v1.18.0 only)
       
     </span>
   </a>
@@ -2037,10 +2048,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#installation-hangs-pre-v1180" class="md-nav__link">
+  <a href="#auto-enable-skipped" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation Hangs (Pre-v1.18.0)
+        Auto-Enable Skipped
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation-hangs-pre-v1180-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation Hangs (Pre-v1.18.0 only)
       
     </span>
   </a>
@@ -2189,7 +2211,7 @@
 4. Syncs the plugin registry with <code>claude plugin update</code></p>
 <div class="admonition note">
 <p class="admonition-title">Installing while Claude Code is running</p>
-<p>If Claude Code is running during installation, auto-enable may be skipped (file lock timeout). The plugin will still work - just run <code>claude plugin install craft@local-plugins</code> after installation if needed.</p>
+<p>If Claude Code is running during installation, auto-enable is skipped to avoid file conflicts. You'll see: "Claude Code is running - skipped auto-enable". Just run <code>claude plugin install craft@local-plugins</code> after installation.</p>
 </div>
 <hr />
 <h2 id="verify-installation">Verify Installation<a class="headerlink" href="#verify-installation" title="Permanent link">&para;</a></h2>
@@ -2261,56 +2283,64 @@
 </span></code></pre></div>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="installation-hangs-pre-v1180">Installation Hangs (Pre-v1.18.0)<a class="headerlink" href="#installation-hangs-pre-v1180" title="Permanent link">&para;</a></h3>
-<p><strong>Symptom:</strong> <code>brew install</code> or <code>brew upgrade</code> hangs during post-install</p>
-<p><strong>Cause:</strong> Claude Code holds read locks on <code>~/.claude/settings.json</code>, blocking the auto-enable step.</p>
-<p><strong>Fix (if stuck now):</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Find and kill the stuck process</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>craft-install
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">kill</span><span class="w"> </span>&lt;PID&gt;
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># Then manually sync</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
+<h3 id="auto-enable-skipped">Auto-Enable Skipped<a class="headerlink" href="#auto-enable-skipped" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom:</strong> Message says "Claude Code is running - skipped auto-enable"</p>
+<p><strong>Cause:</strong> The installer detected Claude Code has <code>settings.json</code> open and skipped modification to avoid conflicts.</p>
+<p><strong>Fix:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>install<span class="w"> </span>craft@local-plugins
 </span></code></pre></div></p>
-<p><strong>Prevention:</strong> Upgrade to v1.18.0+ which includes a 2-second timeout on file operations.</p>
+<p>This is expected behavior when installing while Claude Code is running.</p>
+<hr />
+<h3 id="installation-hangs-pre-v1180-only">Installation Hangs (Pre-v1.18.0 only)<a class="headerlink" href="#installation-hangs-pre-v1180-only" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom:</strong> <code>brew install</code> or <code>brew upgrade</code> hangs during post-install</p>
+<p><strong>Cause:</strong> Older formula versions attempted to modify <code>settings.json</code> without checking for Claude.</p>
+<p><strong>Fix (if stuck now):</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Find and kill the stuck process</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>craft-install
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nb">kill</span><span class="w"> </span>&lt;PID&gt;
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Then manually enable</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>claude<span class="w"> </span>plugin<span class="w"> </span>install<span class="w"> </span>craft@local-plugins
+</span></code></pre></div></p>
+<p><strong>Prevention:</strong> Upgrade to latest formula: <code>brew update &amp;&amp; brew reinstall data-wise/tap/craft</code></p>
 <hr />
 <h3 id="plugin-not-loading">Plugin Not Loading<a class="headerlink" href="#plugin-not-loading" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> <code>/craft:hub</code> not recognized after install</p>
 <p><strong>Fix:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Re-run install script</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>craft-install
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Or manually create symlink</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>ln<span class="w"> </span>-sf<span class="w"> </span>/opt/homebrew/opt/craft/libexec<span class="w"> </span>~/.claude/plugins/craft
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Update registry</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># Restart Claude Code</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Re-run install script</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>craft-install
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Or manually create symlink</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>ln<span class="w"> </span>-sf<span class="w"> </span>/opt/homebrew/opt/craft/libexec<span class="w"> </span>~/.claude/plugins/craft
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Update registry</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># Restart Claude Code</span>
 </span></code></pre></div></p>
 <h3 id="version-mismatch">Version Mismatch<a class="headerlink" href="#version-mismatch" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Registry shows old version after <code>brew upgrade</code></p>
 <p><strong>Fix:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
 </span></code></pre></div></p>
 <h3 id="symlink-permission-denied">Symlink Permission Denied<a class="headerlink" href="#symlink-permission-denied" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> <code>ln: failed to create symbolic link</code></p>
 <p><strong>Fix:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Remove existing directory/symlink</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/craft
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Create fresh symlink</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>ln<span class="w"> </span>-s<span class="w"> </span>/opt/homebrew/opt/craft/libexec<span class="w"> </span>~/.claude/plugins/craft
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Remove existing directory/symlink</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/craft
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Create fresh symlink</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>ln<span class="w"> </span>-s<span class="w"> </span>/opt/homebrew/opt/craft/libexec<span class="w"> </span>~/.claude/plugins/craft
 </span></code></pre></div></p>
 <h3 id="cache-cleanup">Cache Cleanup<a class="headerlink" href="#cache-cleanup" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Multiple old versions accumulating</p>
 <p><strong>Fix:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># List cached versions</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ls<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft/
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Remove old versions (keep current)</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft/1.16.0
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft/1.6.0-dev
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># List cached versions</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ls<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft/
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Remove old versions (keep current)</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft/1.16.0
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft/1.6.0-dev
 </span></code></pre></div></p>
 <hr />
 <h2 id="available-commands">Available Commands<a class="headerlink" href="#available-commands" title="Permanent link">&para;</a></h2>
@@ -2335,18 +2365,18 @@
 </table>
 <hr />
 <h2 id="uninstallation">Uninstallation<a class="headerlink" href="#uninstallation" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Remove via Homebrew</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>brew<span class="w"> </span>uninstall<span class="w"> </span>craft
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># The post-uninstall script automatically removes symlinks</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Remove via Homebrew</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>brew<span class="w"> </span>uninstall<span class="w"> </span>craft
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># The post-uninstall script automatically removes symlinks</span>
 </span></code></pre></div>
 <p>To manually clean up:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Remove symlinks</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>rm<span class="w"> </span>-f<span class="w"> </span>~/.claude/plugins/craft
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>rm<span class="w"> </span>-f<span class="w"> </span>~/.claude/local-marketplace/craft
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Clear cache</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Remove symlinks</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>rm<span class="w"> </span>-f<span class="w"> </span>~/.claude/plugins/craft
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>rm<span class="w"> </span>-f<span class="w"> </span>~/.claude/local-marketplace/craft
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># Clear cache</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft
 </span></code></pre></div>
 <hr />
 <h2 id="other-homebrew-plugins">Other Homebrew Plugins<a class="headerlink" href="#other-homebrew-plugins" title="Permanent link">&para;</a></h2>
@@ -2370,9 +2400,9 @@
 </tbody>
 </table>
 <p>Update all after Homebrew upgrade:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>rforge@local-plugins
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>scholar@local-plugins
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>rforge@local-plugins
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>scholar@local-plugins
 </span></code></pre></div></p>
 <hr />
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
