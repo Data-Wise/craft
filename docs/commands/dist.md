@@ -413,5 +413,5 @@ git push
 ## Learn More
 
 - [Architecture Commands](arch.md) - System design for distribution
-- [CI Commands](git.md#ci-commands) - Automated testing before release
+- [CI Commands](git.md#ci-commands-3) - Automated testing before release
 - [Visual Workflows](../workflows/index.md) - See distribution in action

@@ -217,4 +217,4 @@ All applicable commands support 4 execution modes:
 - **[Skills & Agents Guide](skills-agents.md)** - 17 skills, 7 agents
 - **[Architecture Guide](architecture.md)** - How Craft works
 - **[Orchestrator Guide](orchestrator.md)** - Multi-agent coordination
-- **[Mode Controller](../skills/modes/mode-controller.md)** - Mode system (quick/thorough/default)
+- **[Mode System](skills-agents.md#mode-aware-behavior)** - Mode system (default/debug/optimize/release)
