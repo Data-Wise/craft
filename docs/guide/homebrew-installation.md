@@ -23,7 +23,11 @@ brew install craft
 That's it! The post-install script automatically:
 1. Creates symlinks to `~/.claude/plugins/craft`
 2. Registers with the `local-plugins` marketplace
-3. Enables the plugin in Claude Code
+3. Enables the plugin in Claude Code settings
+4. Syncs the plugin registry with `claude plugin update`
+
+!!! note "Installing while Claude Code is running"
+    If Claude Code is running during installation, auto-enable may be skipped (file lock timeout). The plugin will still work - just run `claude plugin install craft@local-plugins` after installation if needed.
 
 ---
 
@@ -71,9 +75,20 @@ Claude Code discovers plugins through:
 
 ## Updating After Homebrew Upgrade
 
-When you run `brew upgrade craft`, Homebrew updates the files but Claude Code's cache is stale.
+When you run `brew upgrade craft`, Homebrew updates the files and the post-install hook automatically syncs the plugin registry.
 
-### Sync the Plugin
+### Automatic Sync (v1.18.0+)
+
+The formula's `post_install` hook runs:
+```bash
+claude plugin update craft@local-plugins
+```
+
+This happens automatically after each upgrade. Just restart Claude Code to load the new version.
+
+### Manual Sync (if needed)
+
+If automatic sync fails (Claude CLI not available, etc.):
 
 ```bash
 claude plugin update craft@local-plugins
@@ -97,6 +112,26 @@ brew info craft | head -1
 ---
 
 ## Troubleshooting
+
+### Installation Hangs (Pre-v1.18.0)
+
+**Symptom:** `brew install` or `brew upgrade` hangs during post-install
+
+**Cause:** Claude Code holds read locks on `~/.claude/settings.json`, blocking the auto-enable step.
+
+**Fix (if stuck now):**
+```bash
+# Find and kill the stuck process
+ps aux | grep craft-install
+kill <PID>
+
+# Then manually sync
+claude plugin update craft@local-plugins
+```
+
+**Prevention:** Upgrade to v1.18.0+ which includes a 2-second timeout on file operations.
+
+---
 
 ### Plugin Not Loading
 

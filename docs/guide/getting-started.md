@@ -3,7 +3,7 @@
 ⏱️ **10 minutes** • 🟡 Intermediate • ✓ Complete guide
 
 > **TL;DR** (30 seconds)
-> - **What:** Complete guide to installing and using craft's 69 commands, 17 skills, and 7 agents
+> - **What:** Complete guide to installing and using craft's 89 commands, 21 skills, and 8 agents
 > - **Why:** Master the full-stack toolkit to automate your entire development workflow
 > - **How:** Install plugin → verify with `/craft:hub` → start with `/craft:do "task"`
 > - **Next:** Read about [Skills & Agents](skills-agents.md) to understand AI automation
@@ -45,7 +45,7 @@ ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
 /craft:hub
 ```
 
-You should see all 69 commands listed.
+You should see all 89 commands listed.
 
 ## Your First Commands
 
@@ -107,9 +107,9 @@ Check for stale docs:
 
 Craft has three levels of automation:
 
-1. **Commands** (69 total) - Direct actions
-2. **Skills** (17 total) - Auto-triggered expertise
-3. **Agents** (7 specialized) - Long-running tasks
+1. **Commands** (89 total) - Direct actions
+2. **Skills** (21 total) - Auto-triggered expertise
+3. **Agents** (8 specialized) - Long-running tasks
 
 When you use `/craft:do`, the system determines which combination to use.
 
