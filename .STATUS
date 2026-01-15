@@ -1,23 +1,26 @@
 status: Production Ready
-version: 1.18.1
-release_date: 2026-01-14
-milestone: CLAUDE.md Optimization
+version: 1.19.0
+release_date: 2026-01-15
+milestone: Git Repository Initialization
 
 progress: 100%
 
 documentation_coverage:
-  commands: 86/86 (100%)
+  commands: 90/90 (100%)
   skills: 21/21 (100%)
   agents: 8/8 (100%)
   CLAUDE.md: Optimized (107 lines)
 
 recent:
-  - Fixed broken documentation links
-  - Added comprehensive CLAUDE.md
-  - Optimized CLAUDE.md (267 → 107 lines)
-  - Added TL;DR and external links
+  - Added /craft:git:init command (9-step interactive wizard)
+  - 3 workflow patterns: main+dev, simple, GitFlow
+  - GitHub integration with branch protection
+  - CI auto-detection and generation
+  - Template system (.STATUS, CLAUDE.md, PR template)
+  - Comprehensive documentation (~2,000 lines, 11 diagrams)
+  - 48 tests with 100% coverage
 
-next: Community feedback and feature requests
+next: Community feedback, dogfooding git:init
 target: Stable production use
 
 badges:

@@ -1,0 +1,18 @@
+status: Initial Setup
+version: 0.1.0-dev
+release_date: TBD
+milestone: Project Initialization
+
+progress: 0%
+
+recent:
+  - Repository initialized with craft workflow
+  - Main + dev branch structure created
+  - Branch protection enabled on main
+
+next: Begin feature development
+target: First release
+
+install: See README.md
+docs: https://github.com/{{USER}}/{{REPO}}
+repo: https://github.com/{{USER}}/{{REPO}}
