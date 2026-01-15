@@ -103,12 +103,30 @@ gh pr create --base main --head dev --title "Release vX.Y.Z"
 
 ## Quick Commands
 
+### Shell Commands
+
 | Task | Command |
 |------|---------|
 | Run tests | `python3 tests/test_craft_plugin.py` |
 | Validate counts | `./scripts/validate-counts.sh` |
 | Build docs | `mkdocs build` |
 | Serve docs | `mkdocs serve` |
+
+### Craft Commands
+
+| Task | Command |
+|------|---------|
+| Pre-flight check | `/craft:check` |
+| Run tests | `/craft:test:run` |
+| Code linting | `/craft:code:lint` |
+| Analyze architecture | `/craft:arch:analyze` |
+| Create worktree | `/craft:git:worktree <branch>` |
+| Clean merged branches | `/craft:git:clean` |
+| Generate CI workflow | `/craft:ci:generate` |
+| Validate CI config | `/craft:ci:validate` |
+| Smart routing | `/craft:do <task>` |
+| Brainstorm ideas | `/craft:workflow:brainstorm` |
+| Launch orchestrator | `/craft:orchestrate` |
 
 ## Project Structure
 
