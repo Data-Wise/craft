@@ -251,6 +251,4 @@ git push --tags
 ## See Also
 
 - **Help:** [/craft:git:worktree](../help/git-worktree.md)
-- **Help:** [/craft:git:clean](../help/git-clean.md)
 - **Help:** [/craft:check](../help/check.md)
-- **Workflow:** [Release Workflow](release-workflow.md)

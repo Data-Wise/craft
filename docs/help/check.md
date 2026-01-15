@@ -176,4 +176,4 @@ cd ~/.git-worktrees/craft/feature-x
 - **Detailed tests:** `/craft:test:run`
 - **Auto-fix issues:** `/craft:code:ci-fix`
 - **Full CI simulation:** `/craft:code:ci-local`
-- **Workflow:** [Pre-commit Workflow](../workflows/pre-commit.md)
+- **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md)

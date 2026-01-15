@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 86 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly workflows
+site_description: Full-stack developer toolkit - 89 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly workflows
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -90,3 +90,11 @@ nav:
     - Configuration: reference/configuration.md
     - Presets: reference/presets.md
     - Accessibility: ACCESSIBILITY.md
+  - Help:
+    - /craft:check: help/check.md
+    - /craft:do: help/do.md
+    - /craft:git:worktree: help/git-worktree.md
+    - /craft:docs:update: help/docs-update.md
+    - /workflow:brainstorm: help/brainstorm.md
+  - Workflows:
+    - Git Feature Workflow: workflows/git-feature-workflow.md
