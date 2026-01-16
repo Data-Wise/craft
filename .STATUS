@@ -36,10 +36,19 @@ recent:
   - ✅ Progress toward v1.20.0 target: 17/47 commands (36%)
   - ✅ Added .gitignore for Python cache and build artifacts
   - ✅ All 30 tests passing (13 plugin + 17 dry-run utility)
+  - ✅ Cleaned up auto-generated test reports from git tracking
   - Released v1.19.0 with /craft:git:init command
   - Completed dry-run feature brainstorm and formal specification
 
-next: Phase 3 - Add dry-run to remaining priority commands (30 commands)
+worktrees:
+  - main: /Users/dt/projects/dev-tools/craft (dev branch)
+  - feature: /Users/dt/projects/dev-tools/craft-feature-dry-run-phase1 (stale, ready to remove)
+  - note: Feature branch has pre-squash commits from PR #7, all work merged
+
+next:
+  - Clean up stale feature branch worktree and remote branch
+  - Phase 3 planning: Identify next 30 priority commands
+  - Phase 3 implementation: Add dry-run to smart routing and workflow commands
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage)
 
 phase_3_goals:
