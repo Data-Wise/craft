@@ -8,6 +8,11 @@ arguments:
   - name: for
     description: What to check for (commit|pr|release|deploy)
     required: false
+  - name: dry-run
+    description: Preview checks that will be performed without executing them
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:check - Universal Pre-flight
@@ -22,7 +27,105 @@ Run appropriate checks for your project type and context.
 /craft:check --for commit       # Pre-commit checks
 /craft:check --for pr           # Pre-PR checks
 /craft:check --for release      # Pre-release checks
+/craft:check --dry-run          # Preview checks
+/craft:check -n                 # Preview checks
 ```
+
+## Dry-Run Mode
+
+Preview which checks will be performed without actually executing them:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Pre-flight Validation                             │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Project Detection:                                          │
+│   - Type: Python CLI                                          │
+│   - Build tool: uv                                            │
+│   - Config: pyproject.toml                                    │
+│   - Worktree: No (main repo)                                  │
+│   - Git status: Clean working tree                            │
+│                                                               │
+│ ✓ Validation Plan (5 checks):                                 │
+│                                                               │
+│   1. Linting (ruff)                                           │
+│      Command: ruff check .                                    │
+│      Scope: All Python files (~450 files)                     │
+│      Estimated: ~3 seconds                                    │
+│                                                               │
+│   2. Type Checking (mypy)                                     │
+│      Command: mypy src/                                       │
+│      Scope: Source files only                                 │
+│      Estimated: ~8 seconds                                    │
+│                                                               │
+│   3. Testing (pytest)                                         │
+│      Command: pytest                                          │
+│      Scope: All tests (~135 tests)                            │
+│      Estimated: ~15 seconds                                   │
+│                                                               │
+│   4. Security Audit (pip-audit)                               │
+│      Command: uv pip list | pip-audit                         │
+│      Scope: All dependencies                                  │
+│      Estimated: ~5 seconds                                    │
+│                                                               │
+│   5. Git Status                                               │
+│      Command: git status --porcelain                          │
+│      Scope: Working tree                                      │
+│      Estimated: < 1 second                                    │
+│                                                               │
+│ ✓ Mode Configuration:                                         │
+│   - Mode: default (quick)                                     │
+│   - Context: General validation                               │
+│   - Fail fast: Yes                                            │
+│   - Exit on first error: Yes                                  │
+│                                                               │
+│ ⚠ Notes:                                                      │
+│   • Total estimated time: ~32 seconds                         │
+│   • Use 'thorough' mode for comprehensive checks (~3-5 min)   │
+│   • Use '--for commit' for pre-commit specific checks         │
+│                                                               │
+│ 📊 Summary: 5 checks, ~32 seconds execution time              │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Context-Specific Dry-Run
+
+```bash
+/craft:check --for pr --dry-run
+```
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Pre-PR Validation                                 │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Additional PR Checks:                                       │
+│   6. Coverage Analysis (pytest-cov)                           │
+│      Command: pytest --cov --cov-report=term                  │
+│      Threshold: 80% minimum                                   │
+│      Estimated: ~20 seconds                                   │
+│                                                               │
+│   7. Merge Conflict Detection                                 │
+│      Command: git merge-tree main HEAD                        │
+│      Estimated: ~2 seconds                                    │
+│                                                               │
+│   8. Branch Status                                            │
+│      Command: git rev-list --count origin/main..HEAD          │
+│      Check: Branch ahead/behind main                          │
+│      Estimated: ~1 second                                     │
+│                                                               │
+│ 📊 Summary: 8 total checks for PR readiness (~55 seconds)     │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: Dry-run shows the validation plan based on project type and context. Read-only analysis, no actual checks performed.
 
 ## Auto-Detection
 

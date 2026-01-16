@@ -3,10 +3,10 @@ version: 1.20.0-dev
 release_date: TBD
 milestone: Standardized Dry-Run Feature
 
-progress: 36%
+progress: 45%
 
 phase_1_complete:
-  branch: feature/dry-run-phase1 (merged)
+  branch: feature/dry-run-phase1 (merged to dev)
   pr: "#6"
   merged: 2026-01-15
   commit: 1ad4113
@@ -15,13 +15,23 @@ phase_1_complete:
   tests: 17 comprehensive tests (all passing)
 
 phase_2_complete:
-  branch: feature/dry-run-phase1 (merged)
+  branch: feature/dry-run-phase1 (merged to dev)
   pr: "#7"
   merged: 2026-01-15
   commit: 50ca01a
   commands: 9 (ci:detect, ci:validate, site:check, site:update, docs:sync, docs:changelog, docs:claude-md, docs:nav-update, docs:check)
   total_with_dryrun: 17 of 90 commands (19% coverage)
   target_progress: 17 of 47 target commands (36%)
+
+phase_3_in_progress:
+  branch: feature/dry-run-phase1 (active)
+  pr: "#8" (Phase 3 smart routing + P0)
+  status: In progress
+  increment_1: 3 commands (do, orchestrate, check) - smart routing ✅
+  increment_2: 2 commands (git:recap, dist:pypi) - P0 stragglers ✅
+  total_so_far: 21 commands (git:6, ci:3, site:4, docs:5, smart:3)
+  target_progress: 21 of 47 commands (45%)
+  remaining: 26 commands
 
 documentation_coverage:
   commands: 90/90 (100%)
@@ -30,46 +40,47 @@ documentation_coverage:
   CLAUDE.md: Optimized (107 lines)
 
 recent:
+  - ✅ Created PR #8: Phase 3 smart routing + P0 stragglers (5 commands)
+  - ✅ Phase 3 Inc 2: P0 stragglers (git:recap, dist:pypi)
+  - ✅ Phase 3 Inc 1: Smart routing commands (do, orchestrate, check)
+  - ✅ All Priority 0 commands: 100% complete (6/6)
   - ✅ Merged PR #7: Phase 2 complete (9 commands: CI, site, docs)
   - ✅ Merged PR #6: Phase 1 infrastructure (4 git commands, tests, utilities)
-  - ✅ 17 of 90 commands now support dry-run (19% coverage)
-  - ✅ Progress toward v1.20.0 target: 17/47 commands (36%)
-  - ✅ Added .gitignore for Python cache and build artifacts
+  - ✅ 21 of 90 commands now support dry-run (23% coverage)
+  - ✅ Progress toward v1.20.0 target: 21/47 commands (45%)
+  - ✅ All CRITICAL, HIGH, and P0 priority: 100% complete
   - ✅ All 30 tests passing (13 plugin + 17 dry-run utility)
-  - ✅ Cleaned up auto-generated test reports from git tracking
-  - Released v1.19.0 with /craft:git:init command
-  - Completed dry-run feature brainstorm and formal specification
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
-  - feature: /Users/dt/projects/dev-tools/craft-feature-dry-run-phase1 (active, keep for Phase 3)
-  - note: Feature branch will be reused for Phase 3 implementation
+  - feature: /Users/dt/projects/dev-tools/craft-feature-dry-run-phase1 (active, Phase 3 in progress)
 
 next:
-  - Rebase feature branch onto latest dev
-  - Phase 3 planning: Identify next 30 priority commands
-  - Phase 3 implementation: Add dry-run to smart routing and workflow commands
-  - Continue using feature/dry-run-phase1 until all dry-run work complete
+  - Phase 3 Inc 3+: Code/test commands (12 commands)
+  - Phase 3 Inc 4+: Architecture commands (7 commands)
+  - Phase 3 Inc 5+: Workflow commands (2 commands)
+  - Phase 3 Inc 6+: Remaining medium priority (5 commands)
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage)
 
-phase_3_goals:
-  - Smart routing commands (4): do, orchestrate, check, help
-  - Workflow commands: workflow:brainstorm, workflow:spec-review
-  - Code commands: code:lint, code:ci-local
-  - Architecture commands: arch:analyze
-  - Test commands: test:run
-  - Remaining high-priority commands (estimate: 30 commands total)
-  - Effort: 40 hours (2-3 weeks)
+remaining_work:
+  code_test: 12 commands (code:lint, test:run, test:cli-run, test:cli-gen, etc.)
+  architecture: 7 commands (arch:analyze, workflow:brainstorm, workflow:spec-review, etc.)
+  workflow: 2 commands
+  other_medium: 5 commands
+  total_remaining: 26 commands
 
 badges:
   - In Development (v1.20.0-dev)
-  - Phase 1: Complete ✅ (4 git commands)
-  - Phase 2: Complete ✅ (9 CI/site/docs commands)
-  - Phase 3: Planning (30 remaining commands)
-  - Coverage: 17/90 commands (19%), target 47/90 (52%)
+  - Phase 1: Complete ✅ (4 commands, merged via PR #6)
+  - Phase 2: Complete ✅ (9 commands, merged via PR #7)
+  - Phase 3: In Progress (5 commands, PR #8 open)
+  - Coverage: 21/90 total (23%), 21/47 target (45%)
+  - CRITICAL priority: 100% ✅
+  - HIGH priority: 100% ✅
+  - P0 priority: 100% ✅
+  - Smart routing: 100% ✅
   - Infrastructure: Complete ✅
   - Tests: 30/30 Passing ✅
-  - Documentation: Complete ✅
 
 install: See README.md
 docs: https://data-wise.github.io/craft/
