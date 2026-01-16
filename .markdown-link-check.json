@@ -1,0 +1,41 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://github\\.com/.*/pull/"
+    },
+    {
+      "pattern": "^https://github\\.com/.*/issues/"
+    },
+    {
+      "pattern": "^mailto:"
+    },
+    {
+      "pattern": "^#"
+    },
+    {
+      "pattern": "example\\.com"
+    },
+    {
+      "pattern": "localhost"
+    },
+    {
+      "pattern": "127\\.0\\.0\\.1"
+    },
+    {
+      "pattern": "test\\.com"
+    }
+  ],
+  "httpHeaders": [
+    {
+      "urls": ["https://github.com"],
+      "headers": {
+        "Accept": "text/html"
+      }
+    }
+  ],
+  "timeout": "20s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackRetryDelay": "2s",
+  "aliveStatusCodes": [200, 206, 299, 403]
+}
