@@ -1,7 +1,7 @@
-status: WIP
-version: 1.20.0-dev
-release_date: TBD
-milestone: Standardized Dry-Run Feature
+status: Released
+version: 1.20.0
+release_date: 2026-01-16
+milestone: Standardized Dry-Run Feature - Target Exceeded (57% vs 52%)
 
 progress: 57%
 
