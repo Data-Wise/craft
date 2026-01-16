@@ -36,6 +36,52 @@ Smart documentation generation, validation, and enhancement - 17 commands.
 /craft:docs:check --report-only       # CI-safe mode (no modifications)
 ```
 
+## Quality Automation
+
+### /craft:docs:lint
+
+**Markdown quality validation with auto-fix**
+
+```bash
+/craft:docs:lint                      # Quick quality check
+/craft:docs:lint --fix                # Auto-fix safe issues
+/craft:docs:lint release              # Comprehensive validation
+/craft:docs:lint --dry-run            # Preview checks
+```
+
+**Features:**
+- Critical error detection (MD032, MD040, MD009, MD011, MD042)
+- Automatic fixing of trailing spaces, hard tabs, blank lines
+- Smart code fence language detection (Python, JavaScript, Bash, etc.)
+- VS Code clickable output format
+
+**Exit codes:**
+- `0` = No errors or all auto-fixed
+- `1` = Manual fixes required
+- `2` = Configuration error
+
+### /craft:docs:check-links
+
+**Internal link validation with anchor checking**
+
+```bash
+/craft:docs:check-links               # Validate all internal links
+/craft:docs:check-links release       # Include anchor validation
+/craft:docs:check-links docs/guide/   # Check specific directory
+/craft:docs:check-links --dry-run     # Preview checks
+```
+
+**Features:**
+- Relative and absolute path validation
+- Anchor/header existence checking (release mode)
+- VS Code clickable error format
+- Ignores external URLs by default
+
+**Exit codes:**
+- `0` = All links valid
+- `1` = Broken links found
+- `2` = Invalid arguments
+
 ## NEW: ADHD-Friendly Website Enhancement
 
 ### /craft:docs:website
