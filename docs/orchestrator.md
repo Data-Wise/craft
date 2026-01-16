@@ -1,4 +1,8 @@
-# Craft Orchestrator v2 Guide
+# Craft Orchestrator Reference
+
+> 📚 **Reference Documentation** - Technical details and advanced usage.
+>
+> New to orchestrator? Start with the [**User Guide**](guide/orchestrator.md) for practical examples and quick start.
 
 The orchestrator coordinates multiple specialized agents to handle complex development tasks through intelligent delegation and parallel execution.
 
