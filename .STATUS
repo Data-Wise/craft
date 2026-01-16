@@ -44,6 +44,8 @@ documentation_coverage:
   CLAUDE.md: Optimized (107 lines)
 
 recent:
+  - 🎯 Planning: Documentation quality automation (markdown linting + link checking)
+  - ✅ Merged PR #10: v1.20.0 release to main (dry-run feature)
   - ✅ Merged PR #9: Phase 3 Inc 3 (5 commands: code/test) ⭐ TARGET EXCEEDED!
   - ✅ Merged PR #8: Phase 3 Inc 1-2 (5 commands: smart routing + P0)
   - ✅ 27 of 90 commands now support dry-run (30% coverage)
@@ -59,13 +61,18 @@ worktrees:
   - feature: /Users/dt/projects/dev-tools/craft-feature-dry-run-phase1 (active, Phase 3 complete)
 
 next:
-  - Optional Stretch Goals (20 remaining commands for higher coverage):
+  - Documentation Quality Automation (High Priority - This Week):
+    • Phase 1 (Mon-Tue): /craft:docs:check-links (internal link validation)
+    • Phase 2 (Wed-Thu): /craft:docs:lint (markdown linting with auto-fix)
+    • Phase 3 (Fri): Pre-commit hooks (auto-enable)
+    • Plan: ~/.claude/plans/purring-prancing-mango.md
+  - Optional Stretch Goals (20 remaining dry-run commands for higher coverage):
     • Architecture commands (7): arch:analyze, workflow:brainstorm, etc.
     • Code/test commands (7): test:cli-gen, test:watch, code:refactor, etc.
     • Workflow commands (2)
     • Other medium priority (4)
-  - Prepare v1.20.0 release (target exceeded!)
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage) - ✅ ACHIEVED (57%)
+next_target: Documentation quality automation (2 new commands + hook integration)
 
 remaining_work:
   code_test: 7 commands (test:cli-gen, test:watch, code:refactor, code:format, etc.)
