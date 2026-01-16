@@ -4,6 +4,11 @@ arguments:
   - name: task
     description: Natural language description of what you want to do
     required: true
+  - name: dry-run
+    description: Preview routing plan without executing commands
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:do - Universal Command
@@ -14,7 +19,55 @@ Intelligently analyze your task and execute the right craft commands.
 
 ```bash
 /craft:do <task description>
+/craft:do <task description> --dry-run    # Preview routing plan
+/craft:do <task description> -n           # Preview routing plan
 ```
+
+## Dry-Run Mode
+
+Preview which commands will be executed without actually running them:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Smart Routing Analysis                            │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Task Analysis:                                              │
+│   - Input: "add user authentication"                          │
+│   - Category: Feature Development                             │
+│   - Complexity: Medium                                        │
+│   - Spec check: No matching spec found                        │
+│                                                               │
+│ ✓ Routing Plan (4 commands):                                  │
+│   1. /craft:arch:plan                                         │
+│      Purpose: Design authentication architecture              │
+│      Estimated: ~5 minutes                                    │
+│                                                               │
+│   2. /craft:code:test-gen                                     │
+│      Purpose: Generate test stubs for auth module             │
+│      Estimated: ~3 minutes                                    │
+│                                                               │
+│   3. /craft:git:branch feature/user-auth                      │
+│      Purpose: Create isolated feature branch                  │
+│      Estimated: ~10 seconds                                   │
+│                                                               │
+│   4. /craft:docs:sync                                         │
+│      Purpose: Identify documentation needs                    │
+│      Estimated: ~30 seconds                                   │
+│                                                               │
+│ ⚠ Notes:                                                      │
+│   • Consider creating spec first: /craft:workflow:brainstorm  │
+│   • Commands will execute sequentially                        │
+│   • Total estimated time: ~9 minutes                          │
+│                                                               │
+│ 📊 Summary: 4 commands across 3 categories                    │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: Dry-run shows the routing plan and estimated execution flow. Individual commands may have their own dry-run modes for deeper inspection.
 
 ## How It Works
 
