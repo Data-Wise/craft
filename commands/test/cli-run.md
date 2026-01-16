@@ -8,6 +8,11 @@ arguments:
   - name: path
     description: Path to test suite
     required: false
+  - name: dry-run
+    description: Preview CLI test execution without running tests
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:test:cli-run - CLI Test Suite Runner
@@ -29,7 +34,68 @@ Run CLI test suites with appropriate mode:
 /craft:test:cli-run automated                # Run CI mode
 /craft:test:cli-run automated --verbose      # Verbose output
 /craft:test:cli-run --log test-results.log   # Log to file
+/craft:test:cli-run --dry-run                # Preview test plan
+/craft:test:cli-run automated -n             # Preview CI mode
 ```
+
+## Dry-Run Mode
+
+Preview CLI test execution plan:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: CLI Test Execution                                │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Test Suite Discovery:                                       │
+│   - Search paths: tests/, tests/cli/                          │
+│   - Patterns: *cli*.sh, *cli*.bats, *.tape                    │
+│   - Found: 2 test suites                                      │
+│                                                               │
+│ ✓ Test Suites:                                                │
+│                                                               │
+│   1. tests/cli/interactive-tests.sh                           │
+│      Type: Interactive (manual testing)                       │
+│      Tests: 8 scenarios                                       │
+│      Format: Bash script with assertions                      │
+│      Estimated: ~5 minutes (human-paced)                      │
+│                                                               │
+│   2. tests/cli/automated-tests.bats                           │
+│      Type: Automated (CI-ready)                               │
+│      Tests: 23 test cases                                     │
+│      Format: BATS (Bash Automated Testing System)             │
+│      Estimated: ~45 seconds                                   │
+│                                                               │
+│ ✓ Mode Selection: auto                                        │
+│   Strategy: Run automated first, skip interactive in CI       │
+│                                                               │
+│ ✓ Execution Plan:                                             │
+│   Phase 1: Automated Tests                                    │
+│      Command: bats tests/cli/automated-tests.bats             │
+│      Exit on failure: Yes                                     │
+│                                                               │
+│   Phase 2: Interactive Tests (skipped in non-TTY)             │
+│      Command: bash tests/cli/interactive-tests.sh             │
+│      Requires: Terminal with user input                       │
+│                                                               │
+│ ✓ Output Format:                                              │
+│   - TAP (Test Anything Protocol) from BATS                    │
+│   - Human-readable progress from interactive                  │
+│   - Exit code: 0 (all pass) or 1 (any fail)                  │
+│                                                               │
+│ ⚠ Notes:                                                      │
+│   • Interactive tests skipped in CI (no TTY)                  │
+│   • Use 'automated' mode to skip interactive tests            │
+│   • Use 'interactive' mode to run only interactive tests      │
+│                                                               │
+│ 📊 Summary: 2 suites, 31 tests total, ~45s automated          │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: Dry-run shows the CLI test execution plan without running actual tests. Use this to verify test discovery and understand which tests will run.
 
 ## Step-by-Step Process
 

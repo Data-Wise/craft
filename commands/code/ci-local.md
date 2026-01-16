@@ -1,12 +1,142 @@
-# Run CI Locally
+---
+description: Run CI checks locally before pushing (lint, test, coverage, security)
+category: code
+arguments:
+  - name: quick
+    description: Skip slow checks (coverage, security)
+    required: false
+    default: false
+  - name: fix
+    description: Auto-fix issues where possible
+    required: false
+    default: false
+  - name: verbose
+    description: Show detailed output
+    required: false
+    default: false
+  - name: only
+    description: Run specific check only (lint|test|coverage|security|types|docs)
+    required: false
+  - name: dry-run
+    description: Preview CI checks without executing them
+    required: false
+    default: false
+    alias: -n
+---
+
+# /craft:code:ci-local - Run CI Locally
 
 Run continuous integration checks locally before pushing.
 
 ## Usage
 
 ```bash
-/craft:code:ci-local [options]
+/craft:code:ci-local                    # Full CI suite
+/craft:code:ci-local --quick            # Skip slow checks
+/craft:code:ci-local --fix              # Auto-fix issues
+/craft:code:ci-local --only tests       # Run specific check
+/craft:code:ci-local --dry-run          # Preview checks
+/craft:code:ci-local --quick -n         # Preview quick mode
 ```
+
+## Dry-Run Mode
+
+Preview CI checks that will be performed:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Local CI Checks                                   │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ CI Configuration Detected:                                  │
+│   - Source: .github/workflows/ci.yml                          │
+│   - Jobs: lint, test, security                                │
+│   - Python versions: 3.10, 3.11, 3.12                         │
+│                                                               │
+│ ✓ Local CI Suite (6 checks):                                  │
+│                                                               │
+│   [1/6] Linting                                               │
+│       Command: /craft:code:lint --strict                      │
+│       Tool: ruff check .                                      │
+│       Threshold: 0 errors                                     │
+│       Estimated: ~3 seconds                                   │
+│                                                               │
+│   [2/6] Type Checking                                         │
+│       Command: mypy src/                                      │
+│       Config: pyproject.toml                                  │
+│       Threshold: 0 type errors                                │
+│       Estimated: ~45 seconds                                  │
+│                                                               │
+│   [3/6] Tests                                                 │
+│       Command: /craft:test:run                                │
+│       Tool: pytest                                            │
+│       Threshold: 100% pass (135 tests)                        │
+│       Estimated: ~15 seconds                                  │
+│                                                               │
+│   [4/6] Coverage                                              │
+│       Command: /craft:code:coverage                           │
+│       Tool: pytest --cov                                      │
+│       Threshold: 80% minimum                                  │
+│       Estimated: ~20 seconds                                  │
+│                                                               │
+│   [5/6] Security Audit                                        │
+│       Command: /craft:code:deps-audit                         │
+│       Tool: pip-audit                                         │
+│       Threshold: No critical vulnerabilities                  │
+│       Estimated: ~8 seconds                                   │
+│                                                               │
+│   [6/6] Documentation                                         │
+│       Command: /craft:docs:validate                           │
+│       Checks: Links, syntax, completeness                     │
+│       Threshold: 0 errors                                     │
+│       Estimated: ~5 seconds                                   │
+│                                                               │
+│ ✓ Execution Strategy:                                         │
+│   - Run sequentially (fail-fast enabled)                      │
+│   - Stop on first failure                                     │
+│   - Total estimated time: ~96 seconds                         │
+│                                                               │
+│ ⚠ Notes:                                                      │
+│   • Quick mode skips [4] Coverage and [5] Security (~28s)    │
+│   • Fix mode adds --fix flag to lint command                  │
+│   • Results match CI environment (GitHub Actions)             │
+│                                                               │
+│ 📊 Summary: 6 checks, ~96 seconds total                       │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Quick Mode Dry-Run
+
+```bash
+/craft:code:ci-local --quick --dry-run
+```
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Local CI Checks (Quick Mode)                      │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Quick Mode: Skipping slow checks                            │
+│   - Skipped: Coverage (~20s)                                  │
+│   - Skipped: Security (~8s)                                   │
+│                                                               │
+│ ✓ Checks to Run (4):                                          │
+│   [1/4] Linting (~3s)                                         │
+│   [2/4] Type Checking (~45s)                                  │
+│   [3/4] Tests (~15s)                                          │
+│   [4/4] Documentation (~5s)                                   │
+│                                                               │
+│ 📊 Total time: ~68 seconds (28s saved)                        │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: Dry-run shows the CI check plan without executing any commands. Use this to understand what will run before committing time to the full suite.
 
 ## What This Does
 

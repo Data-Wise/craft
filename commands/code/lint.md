@@ -8,6 +8,11 @@ arguments:
   - name: path
     description: File or directory to lint
     required: false
+  - name: dry-run
+    description: Preview linting commands without executing them
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:code:lint - Code Linting
@@ -31,7 +36,98 @@ Run code style and quality checks with configurable depth.
 /craft:code:lint optimize           # Performance rules
 /craft:code:lint release            # Full pre-release check
 /craft:code:lint debug src/         # Debug mode on specific path
+/craft:code:lint --dry-run          # Preview commands
+/craft:code:lint release -n         # Preview release mode
 ```
+
+## Dry-Run Mode
+
+Preview linting commands that will be executed:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Code Linting                                      │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Project Detection:                                          │
+│   - Type: Python                                              │
+│   - Linter: ruff (primary), flake8 (fallback)                │
+│   - Config: pyproject.toml                                    │
+│   - Scope: Current directory (.)                              │
+│                                                               │
+│ ✓ Mode: default (Quick check)                                 │
+│   Time budget: < 10 seconds                                   │
+│   Focus: Style violations (E, W, F rules)                     │
+│                                                               │
+│ ✓ Commands to Execute:                                        │
+│   1. ruff check . --select=E,W,F                              │
+│      Purpose: Check for errors, warnings, and flake8 rules    │
+│      Files: ~450 Python files                                 │
+│      Estimated: ~3 seconds                                    │
+│                                                               │
+│ ✓ Output Format:                                              │
+│   - Success: "✓ Lint passed (N files, 0 issues)"             │
+│   - Failures: List of violations with file:line:col          │
+│   - Exit code: 0 (success) or 1 (issues found)               │
+│                                                               │
+│ ⚠ Notes:                                                      │
+│   • Read-only operation (no auto-fix unless --fix flag)      │
+│   • Results cached by ruff for faster subsequent runs         │
+│   • Use 'debug' mode for fix suggestions                      │
+│                                                               │
+│ 📊 Summary: 1 linter, ~450 files, ~3 seconds                  │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Release Mode Dry-Run
+
+```bash
+/craft:code:lint release --dry-run
+```
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Code Linting (Release Mode)                       │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Mode: release (Comprehensive)                               │
+│   Time budget: < 300 seconds                                  │
+│   Focus: All rules + security + type checking                 │
+│                                                               │
+│ ✓ Commands to Execute (3 tools):                              │
+│                                                               │
+│   1. ruff check . --preview                                   │
+│      Purpose: All linting rules (450+ rules enabled)          │
+│      Estimated: ~5 seconds                                    │
+│                                                               │
+│   2. mypy .                                                   │
+│      Purpose: Static type checking                            │
+│      Config: pyproject.toml [tool.mypy]                       │
+│      Estimated: ~45 seconds                                   │
+│                                                               │
+│   3. bandit -r . -ll                                          │
+│      Purpose: Security vulnerability scanning                 │
+│      Level: Low and above                                     │
+│      Estimated: ~15 seconds                                   │
+│                                                               │
+│ ✓ Total Estimated Time: ~65 seconds                           │
+│                                                               │
+│ ⚠ Strict Mode:                                                │
+│   • Any tool failure causes overall failure                   │
+│   • Zero tolerance for type errors                            │
+│   • Security issues block release                             │
+│                                                               │
+│ 📊 Summary: 3 tools, comprehensive checks                      │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: Dry-run shows the linting strategy based on detected project type and selected mode. No files are analyzed or modified.
 
 ## Project Type Detection
 
