@@ -77,7 +77,7 @@ Claude Code discovers plugins through:
 
 When you run `brew upgrade craft`, Homebrew updates the files and the post-install hook automatically syncs the plugin registry.
 
-### Automatic Sync (v1.18.0+)
+### Automatic Sync (v1.20.0+)
 
 The formula's `post_install` hook runs:
 ```bash
