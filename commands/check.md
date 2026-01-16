@@ -211,7 +211,14 @@ Checks:
 if [ -d "docs/" ]; then
   # Check if any docs were modified
   if git diff --name-only | grep -q "^docs/"; then
-    echo "📚 Docs changed, running link validation..."
+    echo "📚 Docs changed, running validation..."
+
+    # Step 1: Markdown linting (fast, critical errors)
+    echo "  → Checking markdown quality..."
+    claude "/craft:docs:lint default"
+
+    # Step 2: Link validation (internal links)
+    echo "  → Checking links..."
     claude "/craft:docs:check-links default"
   else
     echo "📚 Docs unchanged, skipping validation"
@@ -220,10 +227,12 @@ fi
 ```
 
 **Integration:**
-- Automatically runs `/craft:docs:check-links` when docs are changed
-- Uses default mode for speed (< 3s)
-- Broken links cause pre-flight to fail
-- Prevents deploying documentation with broken references
+- Automatically runs 2 checks when docs are changed:
+  1. `/craft:docs:lint` - Markdown quality (critical errors)
+  2. `/craft:docs:check-links` - Internal link validation
+- Uses default mode for speed (< 6s total)
+- Critical errors cause pre-flight to fail
+- Prevents deploying broken documentation
 
 ## Check Modes
 
@@ -231,7 +240,7 @@ fi
 - Lint check (fast rules only)
 - Test run (fail-fast)
 - Git status
-- Docs links (if docs/ changed)
+- Docs quality (if docs/ changed: lint + links)
 - ~30 seconds
 
 ### Thorough Mode
@@ -239,7 +248,7 @@ fi
 - Complete test suite
 - Type checking
 - Security audit
-- Doc validation (links + anchors)
+- Doc validation (lint + links + anchors)
 - ~3-5 minutes
 
 ## Context-Specific Checks
@@ -326,8 +335,9 @@ fi
 ## Integration
 
 Works with:
-- `/craft:code:lint` - Detailed lint results
+- `/craft:code:lint` - Detailed code lint results
 - `/craft:test:run` - Detailed test results
+- `/craft:docs:lint` - Markdown quality validation
 - `/craft:docs:check-links` - Documentation link validation
 - `/craft:code:ci-fix` - Auto-fix issues
 - `/craft:code:ci-local` - Full CI simulation
