@@ -42,13 +42,14 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
-  - feature: /Users/dt/projects/dev-tools/craft-feature-dry-run-phase1 (stale, ready to remove)
-  - note: Feature branch has pre-squash commits from PR #7, all work merged
+  - feature: /Users/dt/projects/dev-tools/craft-feature-dry-run-phase1 (active, keep for Phase 3)
+  - note: Feature branch will be reused for Phase 3 implementation
 
 next:
-  - Clean up stale feature branch worktree and remote branch
+  - Rebase feature branch onto latest dev
   - Phase 3 planning: Identify next 30 priority commands
   - Phase 3 implementation: Add dry-run to smart routing and workflow commands
+  - Continue using feature/dry-run-phase1 until all dry-run work complete
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage)
 
 phase_3_goals:
