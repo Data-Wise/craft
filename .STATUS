@@ -91,7 +91,29 @@ session_2026_01_16:
     - "Open PRs: 1 → 0 (merged #11)"
     - "Milestone: Docs Quality → Planning v1.21.0"
 
+session_2026_01_15:
+  duration: ~45 minutes
+  accomplishments:
+    - "Deep brainstorm: /craft:hub v2.0 command discovery system (10 expert questions)"
+    - "Created comprehensive spec: SPEC-craft-hub-v2-2026-01-15.md (ready to build)"
+    - "Identified primary pain point: Poor discoverability (users can't find commands)"
+    - "Designed three-layer hub system with auto-detection + interactive tutorials"
+    - "Planned 4-phase implementation: Foundation → Metadata → Tutorials → Testing"
+  files:
+    - "BRAINSTORM-craft-hub-update-2026-01-15.md (12-minute deep analysis)"
+    - "docs/specs/SPEC-craft-hub-v2-2026-01-15.md (comprehensive implementation spec)"
+  insights:
+    - "89 actual commands (hub shows outdated 47 count)"
+    - "New users as target - need hierarchical discovery, not flat list"
+    - "Auto-detect from YAML frontmatter eliminates manual count maintenance"
+    - "Step-by-step tutorials more valuable than generic documentation"
+
 recent:
+  - 📊 Session 2026-01-15: Deep brainstorm + spec for /craft:hub v2.0 (discovery system)
+  - 📋 Created BRAINSTORM-craft-hub-update-2026-01-15.md (12 min, 10 questions)
+  - 📋 Created SPEC-craft-hub-v2-2026-01-15.md (ready for Phase 1 implementation)
+  - 🎯 Problem identified: Poor command discoverability (89 commands overwhelming users)
+  - 🎯 Solution: Three-layer hub (Main Menu → Category View → Command Detail + Tutorial)
   - 📝 Session 2026-01-16: Merged docs quality PR, planned v1.21.0 specs
   - ✅ Merged PR #11: Documentation quality automation (3 phases + CI)
   - 📋 Created 2 specs: SPEC-help-template-menu + SPEC-spec-integration (~50h effort)
@@ -99,26 +121,56 @@ recent:
   - 📚 Clarified Homebrew docs: auto-sync on upgrade, no manual steps
   - ✅ 92 commands total (was 90, +2 new docs commands)
   - ✅ 29 commands with dry-run (was 27, +2)
-  - 📋 Plan: ~/.claude/plans/purring-prancing-mango.md (interactive brainstorming complete)
-  - ✅ Merged PR #10: v1.20.0 release to main (dry-run feature)
-  - ✅ Merged PR #9: Phase 3 Inc 3 (5 commands: code/test) ⭐ TARGET EXCEEDED!
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
 
 next:
+  - 🎯 Priority 1: /craft:hub v2.0 - Command Discovery System (Phase 1: Foundation)
+    • Spike: Validate auto-detection with 5 commands
+    • Implement Phase 1 (auto-detection + hierarchical menu + tracking)
+    • Estimate: 1 week for Phase 1
+    • Branch: feature/hub-v2
   - Optional Stretch Goals (20 remaining dry-run commands for higher coverage):
     • Architecture commands (7): arch:analyze, workflow:brainstorm, etc.
     • Code/test commands (7): test:cli-gen, test:watch, code:refactor, etc.
     • Workflow commands (2)
     • Other medium priority (4)
-  - Future: v1.21.0 Help template system + Spec integration (gradual implementation)
+  - Future: v1.21.0 Help template system + Spec integration + Hub v2 (gradual implementation)
 
 planned_features:
   title: "Documentation & Spec Standardization (v1.21.0)"
   development_status: "Planned - Gradual Implementation"
   created: 2026-01-16
-  specs_total: 2
+  specs_total: 3
+
+  command_discovery_hub_v2:
+    spec: docs/specs/SPEC-craft-hub-v2-2026-01-15.md
+    status: draft
+    priority: High
+    target: v1.21.0 or later
+    effort: ~30 hours (4-5 weeks phased)
+    description: Hierarchical command discovery system with auto-detection & interactive tutorials
+    problem: "89 commands overwhelming users, poor discoverability, outdated manual counts"
+    target_user: New users (first-time, learning Craft)
+    key_insight: "Auto-detect from YAML frontmatter eliminates maintenance burden"
+    solution: "Three-layer hub (Main Menu → Category View → Command Detail + Tutorial)"
+    phases:
+      - "Phase 1: Foundation (auto-detection + hierarchical menu + search tracking)"
+      - "Phase 2: Metadata (enhance all 89 command frontmatter schemas)"
+      - "Phase 3: Learning (write tutorials for top 10 commands + template)"
+      - "Phase 4: Testing (user testing & refinement)"
+    quick_wins:
+      - "⚡ Auto-detection system (_discovery.py) - 1 hour"
+      - "⚡ Hierarchical main menu (Layer 1 + AskUserQuestion) - 2 hours"
+      - "⚡ Failed search tracking (_search_failures.jsonl) - 1 hour"
+    deliverables:
+      - Auto-detection engine (commands/_discovery.py)
+      - Command metadata cache (auto-generated JSON)
+      - Three-layer UI system (Main → Category → Detail)
+      - Step-by-step tutorial template
+      - 10-20 command tutorials
+      - Search analytics and feedback loop
 
   help_template_system:
     spec: docs/specs/SPEC-help-template-menu-2026-01-16.md
@@ -159,7 +211,7 @@ planned_features:
 
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage) - ✅ ACHIEVED (57%)
 next_target: Documentation quality automation - ✅ COMPLETE (3 phases + CI)
-future_target: v1.21.0 with help template system + spec integration
+future_target: v1.21.0 with /craft:hub v2.0 (discovery) + help template system + spec integration
 
 remaining_work:
   code_test: 7 commands (test:cli-gen, test:watch, code:refactor, code:format, etc.)
