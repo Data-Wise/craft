@@ -1,9 +1,10 @@
 status: WIP
 version: 1.20.0+dev
 release_date: 2026-01-16
-milestone: Documentation Quality Automation (markdown linting + link checking)
+milestone: Planning v1.21.0 (Documentation & Spec Standardization)
+last_session: 2026-01-16
 
-progress: 57%
+progress: 60%
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)
@@ -38,9 +39,11 @@ phase_3_complete:
   remaining_optional: 20 commands for stretch goals
 
 docs_quality_automation:
-  branch: feature/docs-quality (active)
+  branch: feature/docs-quality (merged to dev)
   pr: "#11"
-  status: Phase 1, 2, 3 Complete ✅
+  status: MERGED & COMPLETE ✅
+  merged: 2026-01-16
+  commits: 4 (1ef11e7, b1d75fd, 5d61460, df79e62)
   phase_1:
     command: /craft:docs:check-links
     features: Internal link validation, 4 modes, anchor checking
@@ -69,19 +72,36 @@ documentation_coverage:
   agents: 8/8 (100%)
   CLAUDE.md: Optimized (107 lines)
 
+session_2026_01_16:
+  duration: ~3-4 hours
+  accomplishments:
+    - "Brainstormed & created 2 v1.21.0 specs (help template + spec integration)"
+    - "Reviewed PR #11 (Documentation Quality) - 9.5/10 quality, production-ready"
+    - "Merged PR #11 to dev (4,609 additions, 2 new commands + CI)"
+    - "Cleaned up 2 merged worktrees (feature-dry-run-phase1, feature-docs-quality)"
+    - "Clarified Homebrew installation docs (auto-sync, no manual steps)"
+  commits:
+    - "2580864: docs: clarify Homebrew upgrade is automatic"
+    - "42ead4a: chore: clean up merged worktrees"
+    - "8088924: docs: add v1.21.0 specs for help template and spec integration"
+  state_change:
+    - "Commands: 90 → 92 (+2)"
+    - "Dry-run support: 27 → 29 (+2)"
+    - "Worktrees: 3 → 1 (cleaned up)"
+    - "Open PRs: 1 → 0 (merged #11)"
+    - "Milestone: Docs Quality → Planning v1.21.0"
+
 recent:
-  - 📝 Created 2 new specs (2026-01-16): Help template system + Spec integration
+  - 📝 Session 2026-01-16: Merged docs quality PR, planned v1.21.0 specs
   - ✅ Merged PR #11: Documentation quality automation (3 phases + CI)
-  - ✅ Docs Quality Phase 3 Complete: Pre-commit hooks in /craft:git:init
-  - ✅ Docs Quality Phase 2 Complete: /craft:docs:lint with auto-fix
-  - ✅ Docs Quality Phase 1 Complete: /craft:docs:check-links
+  - 📋 Created 2 specs: SPEC-help-template-menu + SPEC-spec-integration (~50h effort)
+  - 🧹 Cleaned up merged worktrees (feature-dry-run-phase1, feature-docs-quality)
+  - 📚 Clarified Homebrew docs: auto-sync on upgrade, no manual steps
   - ✅ 92 commands total (was 90, +2 new docs commands)
   - ✅ 29 commands with dry-run (was 27, +2)
   - 📋 Plan: ~/.claude/plans/purring-prancing-mango.md (interactive brainstorming complete)
   - ✅ Merged PR #10: v1.20.0 release to main (dry-run feature)
   - ✅ Merged PR #9: Phase 3 Inc 3 (5 commands: code/test) ⭐ TARGET EXCEEDED!
-  - ✅ 27 of 90 commands now support dry-run (30% coverage)
-  - ✅ Progress toward v1.20.0 target: 27/47 commands (57%) - EXCEEDED by 5%!
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
