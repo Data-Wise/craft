@@ -75,6 +75,7 @@ nav:
   - 📚 Reference Card: REFCARD.md
   - Commands:
     - Overview: commands/overview.md
+    - Complete Reference: commands.md
     - Smart Commands: commands/smart.md
     - Documentation: commands/docs.md
     - Site Management: commands/site.md
@@ -110,3 +111,16 @@ nav:
     - Pre-commit Workflow: workflows/pre-commit-workflow.md
     - Git Feature Workflow: workflows/git-feature-workflow.md
     - Release Workflow: workflows/release-workflow.md
+  - Workflow Integration:
+    - Overview: workflow-integration/README.md
+    - Quick Start: workflow-integration/QUICK-START.md
+    - Reference Card: workflow-integration/REFCARD.md
+    - Commands: workflow-integration/commands.md
+    - Skills & Agents: workflow-integration/skills-agents.md
+  - Architecture & Reference:
+    - Architecture Overview: architecture.md
+    - Orchestrator Reference: orchestrator.md
+    - Skills & Agents Reference: skills-agents.md
+  - CI/CD Resources:
+    - CI Detection Rollout: CI-DETECTION-ROLLOUT.md
+    - CI Templates: CI-TEMPLATES.md
