@@ -3,7 +3,7 @@ version: 1.20.0-dev
 release_date: TBD
 milestone: Standardized Dry-Run Feature
 
-progress: 40%
+progress: 45%
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)
@@ -25,12 +25,13 @@ phase_2_complete:
 
 phase_3_in_progress:
   branch: feature/dry-run-phase1 (active)
-  pr: "#6" (updated for Phase 3)
+  pr: "#8" (Phase 3 smart routing + P0)
   status: In progress
-  increment_1: 3 commands (do, orchestrate, check)
-  total_so_far: 19 commands (git:4, ci:3, site:4, docs:5, smart:3)
-  target_progress: 19 of 47 commands (40%)
-  remaining: 28 commands
+  increment_1: 3 commands (do, orchestrate, check) - smart routing ✅
+  increment_2: 2 commands (git:recap, dist:pypi) - P0 stragglers ✅
+  total_so_far: 21 commands (git:6, ci:3, site:4, docs:5, smart:3)
+  target_progress: 21 of 47 commands (45%)
+  remaining: 26 commands
 
 documentation_coverage:
   commands: 90/90 (100%)
@@ -39,13 +40,15 @@ documentation_coverage:
   CLAUDE.md: Optimized (107 lines)
 
 recent:
+  - ✅ Created PR #8: Phase 3 smart routing + P0 stragglers (5 commands)
+  - ✅ Phase 3 Inc 2: P0 stragglers (git:recap, dist:pypi)
   - ✅ Phase 3 Inc 1: Smart routing commands (do, orchestrate, check)
+  - ✅ All Priority 0 commands: 100% complete (6/6)
   - ✅ Merged PR #7: Phase 2 complete (9 commands: CI, site, docs)
   - ✅ Merged PR #6: Phase 1 infrastructure (4 git commands, tests, utilities)
-  - ✅ 19 of 90 commands now support dry-run (21% coverage)
-  - ✅ Progress toward v1.20.0 target: 19/47 commands (40%)
-  - ✅ All CRITICAL and HIGH priority: 100% complete
-  - ✅ Smart routing category: 100% complete
+  - ✅ 21 of 90 commands now support dry-run (23% coverage)
+  - ✅ Progress toward v1.20.0 target: 21/47 commands (45%)
+  - ✅ All CRITICAL, HIGH, and P0 priority: 100% complete
   - ✅ All 30 tests passing (13 plugin + 17 dry-run utility)
 
 worktrees:
@@ -53,25 +56,28 @@ worktrees:
   - feature: /Users/dt/projects/dev-tools/craft-feature-dry-run-phase1 (active, Phase 3 in progress)
 
 next:
-  - Phase 3 Inc 2: P0 stragglers (git:recap, dist:pypi)
   - Phase 3 Inc 3+: Code/test commands (12 commands)
   - Phase 3 Inc 4+: Architecture commands (7 commands)
+  - Phase 3 Inc 5+: Workflow commands (2 commands)
+  - Phase 3 Inc 6+: Remaining medium priority (5 commands)
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage)
 
 remaining_work:
-  priority_0: 2 commands (git:recap, dist:pypi)
-  code_test: 12 commands
-  architecture: 7 commands
-  total_remaining: 28 commands
+  code_test: 12 commands (code:lint, test:run, test:cli-run, test:cli-gen, etc.)
+  architecture: 7 commands (arch:analyze, workflow:brainstorm, workflow:spec-review, etc.)
+  workflow: 2 commands
+  other_medium: 5 commands
+  total_remaining: 26 commands
 
 badges:
   - In Development (v1.20.0-dev)
-  - Phase 1: Complete ✅ (4 commands, merged)
-  - Phase 2: Complete ✅ (9 commands, merged)
-  - Phase 3: In Progress (3 commands so far)
-  - Coverage: 19/90 total (21%), 19/47 target (40%)
+  - Phase 1: Complete ✅ (4 commands, merged via PR #6)
+  - Phase 2: Complete ✅ (9 commands, merged via PR #7)
+  - Phase 3: In Progress (5 commands, PR #8 open)
+  - Coverage: 21/90 total (23%), 21/47 target (45%)
   - CRITICAL priority: 100% ✅
   - HIGH priority: 100% ✅
+  - P0 priority: 100% ✅
   - Smart routing: 100% ✅
   - Infrastructure: Complete ✅
   - Tests: 30/30 Passing ✅
