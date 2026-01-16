@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://data-wise.github.io/craft/commands/">
       
       
+        <link rel="prev" href="overview/">
+      
+      
+        <link rel="next" href="smart/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Craft Commands Reference - Craft Plugin</title>
+        <title>Complete Reference - Craft Plugin</title>
       
     
     
@@ -110,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Craft Commands Reference
+              Complete Reference
             
           </span>
         </div>
@@ -335,10 +339,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="overview/" class="md-tabs__link">
           
   
@@ -424,6 +430,66 @@
   
   
   Workflows
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../workflow-integration/" class="md-tabs__link">
+          
+  
+  
+  Workflow Integration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../architecture/" class="md-tabs__link">
+          
+  
+  
+  Architecture & Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../CI-DETECTION-ROLLOUT/" class="md-tabs__link">
+          
+  
+  
+  CI/CD Resources
 
         </a>
       </li>
@@ -642,24 +708,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
   
@@ -677,7 +748,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -711,6 +782,575 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smart-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smart Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Smart Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftdo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:do 🔍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftorchestrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:orchestrate 🔍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:check 🔍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafthelp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:help
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-commands-arch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Commands (arch/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture Commands (arch/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftarchanalyze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:arch:analyze
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-commands-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD Commands (ci/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CI/CD Commands (ci/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftdetect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craftdetect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftgenerate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craftgenerate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftvalidate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craftvalidate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-quality-commands-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Quality Commands (code/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Quality Commands (code/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftcodelint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:lint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distribution-commands-dist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution Commands (dist/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distribution Commands (dist/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftdistcurl-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:dist:curl-install
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-commands-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Commands (docs/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation Commands (docs/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsmermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:mermaid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsapi-documenter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:api-documenter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocstutorial-engineer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:tutorial-engineer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsreference-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:reference-builder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-commands-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git Commands (git/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Git Commands (git/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftgitworktree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:worktree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftgitclean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:clean
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-commands-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Commands (test/)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Commands (test/)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crafttestrun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafttestcli-gen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:cli-gen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafttestcli-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:cli-run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mode-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode System
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#category-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dry-run-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dry-Run Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dry-Run Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-commands-66-100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git Commands (6/6) — 100% ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cicd-commands-33-100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD Commands (3/3) — 100% ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#site-commands-46-67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Site Commands (4/6) — 67%
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-commands-510-50" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Commands (5/10) — 50%
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-commands-312-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Commands (3/12) — 25%
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-commands-26-33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Commands (2/6) — 33%
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution-commands-14-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution Commands (1/4) — 25%
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smart-routing-33-100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smart Routing (3/3) — 100% ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1799,6 +2439,457 @@
     
   
     Release Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Integration
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Workflow Integration
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow-integration/QUICK-START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow-integration/REFCARD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference Card
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow-integration/commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow-integration/skills-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture & Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture & Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../orchestrator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrator Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills & Agents Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CI/CD Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Detection Rollout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CI-TEMPLATES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Templates
   
 
     
