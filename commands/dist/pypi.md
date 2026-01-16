@@ -2,12 +2,17 @@
 description: Complete PyPI automation - build, publish, and workflow generation
 arguments:
   - name: subcommand
-    description: "Subcommand: publish|workflow|validate|setup"
+    description: "Subcommand: publish|workflow|validate|setup|check"
     required: false
     default: publish
   - name: version
     description: Specific version to publish (default: from pyproject.toml)
     required: false
+  - name: dry-run
+    description: Preview actions without executing (build, publish, file creation)
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:dist:pypi - PyPI Automation Hub
@@ -38,7 +43,162 @@ Complete PyPI publishing automation with GitHub Actions workflows.
 
 # Pre-flight checks
 /craft:dist:pypi check
+
+# Preview any subcommand with --dry-run
+/craft:dist:pypi workflow --dry-run
+/craft:dist:pypi publish --dry-run
 ```
+
+## Dry-Run Mode
+
+Preview PyPI operations without executing them:
+
+### Workflow Generation Dry-Run
+
+```bash
+/craft:dist:pypi workflow --dry-run
+```
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: PyPI Workflow Generation                          │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Project Analysis:                                           │
+│   - Package: aiterm                                           │
+│   - Version: 0.6.1 (from pyproject.toml)                      │
+│   - Build tool: uv                                            │
+│   - License: MIT                                              │
+│                                                               │
+│ ✓ Files to Create:                                            │
+│   - .github/workflows/pypi-release.yml (~140 lines)           │
+│                                                               │
+│ ✓ Workflow Configuration:                                     │
+│   - Trigger: GitHub Release published                         │
+│   - Environment: pypi (for trusted publishing)                │
+│   - Permissions: id-token write                               │
+│   - Python version: 3.12                                      │
+│   - Build command: uv build                                   │
+│   - Publish action: pypa/gh-action-pypi-publish@release/v1    │
+│                                                               │
+│ ✓ Post-Creation Steps:                                        │
+│   1. Configure PyPI trusted publishing:                       │
+│      https://pypi.org/manage/account/publishing/              │
+│      - Project: aiterm                                        │
+│      - Owner: Data-Wise                                       │
+│      - Workflow: pypi-release.yml                             │
+│      - Environment: pypi                                      │
+│                                                               │
+│   2. Create GitHub release to trigger:                        │
+│      gh release create v0.6.1 --generate-notes                │
+│                                                               │
+│ ⚠ Notes:                                                      │
+│   • Trusted publishing requires PyPI configuration            │
+│   • Environment name must match workflow (pypi)               │
+│   • First release must be manual to establish publisher       │
+│                                                               │
+│ 📊 Summary: 1 workflow file, 2 setup steps                    │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Publish Dry-Run
+
+```bash
+/craft:dist:pypi publish --dry-run
+```
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: PyPI Package Publishing                           │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Pre-Flight Checks:                                          │
+│   1. Validate pyproject.toml metadata                         │
+│   2. Check version not already published                      │
+│   3. Verify clean git repository                              │
+│   4. Run tests (pytest)                                       │
+│   5. Test build (uv build --no-publish)                       │
+│                                                               │
+│ ✓ Build Operations:                                           │
+│   - Command: uv build                                         │
+│   - Output: dist/aiterm-0.6.1.tar.gz                          │
+│   - Output: dist/aiterm-0.6.1-py3-none-any.whl               │
+│   - Size estimate: ~45 KB (tarball), ~38 KB (wheel)          │
+│                                                               │
+│ ✓ Publish Operations:                                         │
+│   - Target: PyPI (https://pypi.org)                           │
+│   - Method: Trusted publishing (no token required)            │
+│   - Package: aiterm                                           │
+│   - Version: 0.6.1                                            │
+│                                                               │
+│ ✓ Post-Publish Actions:                                       │
+│   - Create git tag: v0.6.1                                    │
+│   - Push tag to origin                                        │
+│   - Verify package on PyPI: https://pypi.org/project/aiterm/  │
+│                                                               │
+│ ⚠ Critical Warnings:                                          │
+│   • Publishing to PyPI is IRREVERSIBLE                        │
+│   • Cannot delete or modify published versions                │
+│   • Version 0.6.1 will be permanently claimed                 │
+│   • Ensure all tests pass before publishing                   │
+│                                                               │
+│ 📊 Summary: 5 pre-flight checks, 2 build artifacts            │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Setup Dry-Run
+
+```bash
+/craft:dist:pypi setup --dry-run
+```
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: PyPI Full Setup Wizard                            │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Setup Workflow (4 phases):                                  │
+│                                                               │
+│   Phase 1: Package Validation                                 │
+│   - Check pyproject.toml structure                            │
+│   - Verify version and metadata                               │
+│   - Test build (uv build --no-publish)                        │
+│   - Validate dependencies                                     │
+│                                                               │
+│   Phase 2: Workflow Generation                                │
+│   - Create .github/workflows/pypi-release.yml                 │
+│   - Configure trusted publishing settings                     │
+│   - Set up environment: pypi                                  │
+│                                                               │
+│   Phase 3: PyPI Configuration Guide                           │
+│   - Display PyPI trusted publishing instructions              │
+│   - Show required settings and values                         │
+│   - Provide verification checklist                            │
+│                                                               │
+│   Phase 4: First Release (optional)                           │
+│   - Create git tag for current version                        │
+│   - Generate GitHub release                                   │
+│   - Trigger workflow for initial publish                      │
+│                                                               │
+│ ✓ Interactive Prompts:                                        │
+│   - Confirm package name and version                          │
+│   - Choose to include TestPyPI step                           │
+│   - Decide whether to create first release now                │
+│                                                               │
+│ 📊 Summary: 4 setup phases, 3 user prompts                    │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: Dry-run shows the complete setup/build/publish plan without creating files or publishing packages. Use this to understand what will happen before executing CRITICAL publishing operations.
 
 ---
 
