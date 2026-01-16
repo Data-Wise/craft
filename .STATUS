@@ -1,7 +1,7 @@
-status: Released
-version: 1.20.0
+status: WIP
+version: 1.20.0+dev
 release_date: 2026-01-16
-milestone: Standardized Dry-Run Feature - Target Exceeded (57% vs 52%)
+milestone: Documentation Quality Automation (markdown linting + link checking)
 
 progress: 57%
 
@@ -44,7 +44,9 @@ documentation_coverage:
   CLAUDE.md: Optimized (107 lines)
 
 recent:
-  - 🎯 Planning: Documentation quality automation (markdown linting + link checking)
+  - 🚧 WIP: Documentation quality automation in feature/docs-quality worktree
+  - 🎯 Phase 1 (Mon-Tue): /craft:docs:check-links (internal link validation)
+  - 📋 Plan: ~/.claude/plans/purring-prancing-mango.md (interactive brainstorming complete)
   - ✅ Merged PR #10: v1.20.0 release to main (dry-run feature)
   - ✅ Merged PR #9: Phase 3 Inc 3 (5 commands: code/test) ⭐ TARGET EXCEEDED!
   - ✅ Merged PR #8: Phase 3 Inc 1-2 (5 commands: smart routing + P0)
@@ -58,7 +60,8 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
-  - feature: /Users/dt/projects/dev-tools/craft-feature-dry-run-phase1 (active, Phase 3 complete)
+  - feature/dry-run-phase1: /Users/dt/projects/dev-tools/craft-feature-dry-run-phase1 (Phase 3 complete, can be cleaned)
+  - feature/docs-quality: ~/.git-worktrees/craft/feature-docs-quality (active, WIP - Phase 1)
 
 next:
   - Documentation Quality Automation (High Priority - This Week):
