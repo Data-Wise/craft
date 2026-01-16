@@ -6,7 +6,7 @@
 > - **What:** Install Craft via Homebrew for automatic updates
 > - **Why:** Homebrew manages versions and dependencies
 > - **How:** `brew install data-wise/tap/craft` → verify with `/craft:hub`
-> - **After upgrades:** Run `claude plugin update craft@local-plugins`
+> - **After upgrades:** Just `brew upgrade craft` and restart Claude Code (auto-syncs!)
 
 ---
 
@@ -41,7 +41,7 @@ brew info craft
 /craft:hub
 ```
 
-You should see all 89 commands listed.
+You should see all 92 commands listed.
 
 ---
 
@@ -75,38 +75,71 @@ Claude Code discovers plugins through:
 
 ## Updating After Homebrew Upgrade
 
-When you run `brew upgrade craft`, Homebrew updates the files and the post-install hook automatically syncs the plugin registry.
+### TL;DR - No Manual Steps Needed! ✅
 
-### Automatic Sync (v1.20.0+)
+```bash
+brew upgrade craft
+# Restart Claude Code
+```
 
-The formula's `post_install` hook runs:
+That's it! The post-install hook automatically syncs the plugin registry. **No manual `claude plugin update` needed.**
+
+---
+
+### What Happens Automatically
+
+When you run `brew upgrade craft`, the Homebrew formula's `post_install` hook automatically:
+
+1. ✅ Updates symlinks to new version
+2. ✅ Runs `claude plugin update craft@local-plugins`
+3. ✅ Syncs Claude Code's plugin registry
+
+**Result:** Next time you restart Claude Code, it loads the new version.
+
+---
+
+### When Manual Sync IS Needed (Rare)
+
+Manual sync is **only needed** if you see this warning during upgrade:
+
+```
+⚠️  Could not auto-sync plugin registry (Claude CLI not in PATH)
+    Run manually: claude plugin update craft@local-plugins
+```
+
+**Why this happens:**
+- Claude CLI not installed or not in PATH during upgrade
+- The `claude` command failed for some reason
+
+**Fix:**
 ```bash
 claude plugin update craft@local-plugins
 ```
 
-This happens automatically after each upgrade. Just restart Claude Code to load the new version.
+**99% of users won't see this** - automatic sync works if Claude Code is installed normally.
 
-### Manual Sync (if needed)
+---
 
-If automatic sync fails (Claude CLI not available, etc.):
+### How to Verify Update Worked
+
+After `brew upgrade craft` and restarting Claude Code:
 
 ```bash
-claude plugin update craft@local-plugins
+# Check what Claude Code loaded
+claude plugin list | grep craft
+
+# Should show: craft@local-plugins (v1.X.X)
 ```
 
-This command:
-1. Reads from the symlink (→ new Homebrew version)
-2. Copies files to Claude Code cache
-3. Updates the registry with new version
-
-### Verify Update
-
+Or check the registry directly:
 ```bash
-# Check registry version
 cat ~/.claude/plugins/installed_plugins.json | jq '.plugins["craft@local-plugins"][0].version'
+# Should match: brew info craft | grep "craft:"
+```
 
-# Should match Homebrew version
-brew info craft | head -1
+If versions don't match, run manual sync once:
+```bash
+claude plugin update craft@local-plugins
 ```
 
 ---
@@ -243,13 +276,21 @@ The same pattern applies to other Data-Wise plugins. All use Claude detection to
 
 | Plugin | Install Command | Commands |
 |--------|-----------------|----------|
-| **craft** | `brew install data-wise/tap/craft` | 89 commands |
+| **craft** | `brew install data-wise/tap/craft` | 92 commands |
 | **rforge** | `brew install data-wise/tap/rforge` | 15 commands |
 | **scholar** | `brew install data-wise/tap/scholar` | 21 commands |
 
 All plugins will show "Claude Code is running - skipped auto-enable" if installed while Claude is running. Just run the enable command shown.
 
-Update all after Homebrew upgrade:
+### Updating Multiple Plugins
+
+**Automatic (recommended):**
+```bash
+brew upgrade data-wise/tap/craft data-wise/tap/rforge data-wise/tap/scholar
+# Restart Claude Code - all plugins auto-sync!
+```
+
+**Manual sync (only if automatic fails):**
 ```bash
 claude plugin update craft@local-plugins
 claude plugin update rforge@local-plugins
