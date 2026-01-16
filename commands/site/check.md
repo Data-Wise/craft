@@ -64,10 +64,26 @@ Check documentation sites (MkDocs, Quarto, pkgdown) for common issues before dep
 
 ### 1. Link Validation
 
-Check for broken links:
+Check for broken links using `/craft:docs:check-links`:
 - **Internal links** - References to other docs
 - **External links** - URLs (if --strict mode)
 - **Anchor links** - #sections within pages
+
+**Implementation:**
+```bash
+# Run internal link validation first (fast)
+claude "/craft:docs:check-links default"
+
+# If release mode requested, include comprehensive checks
+claude "/craft:docs:check-links release"
+
+# Collect results and integrate into site check report
+```
+
+**Integration with site:check:**
+- Internal links checked via `/craft:docs:check-links`
+- Results merged into overall validation report
+- Broken links block deployment (exit code 1)
 
 ### 2. Spelling Check
 
@@ -154,6 +170,7 @@ SUMMARY: 4 passed, 2 warnings, 2 errors
 
 ## See Also
 
+- `/craft:docs:check-links` - Internal link validation (integrated)
 - `/craft:site:build` - Build site locally
 - `/craft:site:deploy` - Deploy to GitHub Pages
 - Template: `templates/dry-run-pattern.md`

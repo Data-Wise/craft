@@ -87,6 +87,7 @@ nav:
   - Guide:
     - Getting Started: guide/getting-started.md
     - Homebrew Installation: guide/homebrew-installation.md
+    - Documentation Quality: guide/documentation-quality.md
     - Skills & Agents: guide/skills-agents.md
     - Orchestrator: guide/orchestrator.md
     - Configuration: reference/configuration.md
@@ -100,8 +101,12 @@ nav:
     - /craft:git:init: commands/git-init-reference.md
     - /craft:git:worktree: help/git-worktree.md
     - /craft:docs:update: help/docs-update.md
+    - /craft:docs:lint: reference/documentation-quality.md
+    - /craft:docs:check-links: reference/documentation-quality.md
     - /craft:ci:generate: help/ci-generate.md
     - /workflow:brainstorm: help/brainstorm.md
+  - Development:
+    - Documentation Quality Development: guide/documentation-quality-development.md
   - Git Init:
     - Command Reference: commands/git-init-reference.md
     - Architecture Guide: architecture/git-init-flow.md
