@@ -569,6 +569,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#whats-new-in-v1200-dev" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's New in v1.20.0-dev
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#whats-new-in-v1190" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2018,6 +2029,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#whats-new-in-v1200-dev" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's New in v1.20.0-dev
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#whats-new-in-v1190" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2129,7 +2151,7 @@
 - <strong>How:</strong> Install via <code>claude plugin install craft@local-plugins</code>
 - <strong>Next:</strong> Run <code>/craft:do "your task"</code> and let AI route to the best workflow</p>
 <p>Full-stack developer toolkit for Claude Code - 90 commands (78 craft + 12 workflow), 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows</p>
-<p><strong>NEW in v1.19.0:</strong> <code>/craft:git:init</code> - Initialize repositories with craft workflow patterns (main+dev branches, templates, CI) - see <a href="commands/git-init-reference/">git:init reference</a></p>
+<p><strong>NEW in v1.20.0-dev:</strong> Standardized dry-run feature - 27 commands now support <code>--dry-run</code> preview mode. <strong>Target exceeded:</strong> 57% coverage vs 52% goal! See <a href="#whats-new-in-v1200-dev">what's new</a></p>
 </blockquote>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <div class="grid cards">
@@ -2175,9 +2197,25 @@
 <p class="admonition-title">Quick Win: Try It Now</p>
 <p>Run <code>/craft:hub</code> to see all 90 commands organized by category - takes 5 seconds and shows everything craft can do.</p>
 </div>
+<h2 id="whats-new-in-v1200-dev">What's New in v1.20.0-dev<a class="headerlink" href="#whats-new-in-v1200-dev" title="Permanent link">&para;</a></h2>
+<p><strong>Standardized Dry-Run Feature</strong> 🎉 TARGET EXCEEDED</p>
+<p>27 commands now support <code>--dry-run</code> / <code>-n</code> preview mode (57% of target commands):</p>
+<ul>
+<li><strong>Phase 1</strong> ✅: Git infrastructure (4 commands) - <code>git:clean</code>, <code>git:worktree</code>, <code>git:branch</code>, <code>git:sync</code></li>
+<li><strong>Phase 2</strong> ✅: CI/Site/Docs (9 commands) - <code>ci:detect</code>, <code>ci:validate</code>, <code>site:check</code>, <code>site:update</code>, <code>docs:sync</code>, and more</li>
+<li><strong>Phase 3</strong> ✅: Smart routing + Code/Test (10 commands) - <code>do</code>, <code>orchestrate</code>, <code>check</code>, <code>code:lint</code>, <code>test:run</code>, and more</li>
+<li><strong>Coverage</strong>: All CRITICAL, HIGH, P0, and Smart Routing priorities complete (100%)</li>
+<li><strong>Infrastructure</strong>: Shared utilities (<code>utils/dry_run_output.py</code>), templates, 30 passing tests</li>
+</ul>
+<p><strong>Preview before executing:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:git:clean<span class="w"> </span>--dry-run<span class="w">      </span><span class="c1"># Preview branch cleanup</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:code:lint<span class="w"> </span>release<span class="w"> </span>-n<span class="w">     </span><span class="c1"># Preview comprehensive linting</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># Preview smart routing plan</span>
+</span></code></pre></div></p>
+<p>See <a href="https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUMMARY.md">DRY-RUN-SUMMARY.md</a> for complete command list.</p>
 <h2 id="whats-new-in-v1190">What's New in v1.19.0<a class="headerlink" href="#whats-new-in-v1190" title="Permanent link">&para;</a></h2>
-<p><strong>Git Repository Initialization</strong> ⭐ NEW</p>
-<p>The new <code>/craft:git:init</code> command bootstraps repositories with craft workflow patterns:</p>
+<p><strong>Git Repository Initialization</strong> ⭐</p>
+<p>The <code>/craft:git:init</code> command bootstraps repositories with craft workflow patterns:</p>
 <ul>
 <li><strong>Interactive 9-step wizard</strong>: Repository check, remote setup, branch structure, protection, CI, files, commit, push, validation</li>
 <li><strong>3 workflow patterns</strong>: Main+Dev (collaborative), Simple (solo), GitFlow (complex releases)</li>
