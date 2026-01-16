@@ -2,7 +2,7 @@
 
 **Status:** draft
 **Created:** 2026-01-15
-**From Brainstorm:** [BRAINSTORM-dry-run-feature-2026-01-15.md](../../BRAINSTORM-dry-run-feature-2026-01-15.md)
+**From Brainstorm:** See BRAINSTORM-dry-run-feature-2026-01-15.md in project root
 **Owner:** TBD
 **Target Release:** v1.20.0
 

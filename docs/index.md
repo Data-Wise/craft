@@ -11,7 +11,7 @@
 
 > Full-stack developer toolkit for Claude Code - 90 commands (78 craft + 12 workflow), 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v1.19.0:** `/craft:git:init` - Initialize repositories with craft workflow patterns (main+dev branches, templates, CI) - see [git:init reference](commands/git-init-reference.md)
+> **NEW in v1.20.0-dev:** Standardized dry-run feature - 27 commands now support `--dry-run` preview mode. **Target exceeded:** 57% coverage vs 52% goal! See [what's new](#whats-new-in-v1200-dev)
 
 ## Features
 
@@ -64,11 +64,32 @@ The universal `/craft:do` command routes your task to the best workflow automati
 !!! success "Quick Win: Try It Now"
     Run `/craft:hub` to see all 90 commands organized by category - takes 5 seconds and shows everything craft can do.
 
+## What's New in v1.20.0-dev
+
+**Standardized Dry-Run Feature** 🎉 TARGET EXCEEDED
+
+27 commands now support `--dry-run` / `-n` preview mode (57% of target commands):
+
+- **Phase 1** ✅: Git infrastructure (4 commands) - `git:clean`, `git:worktree`, `git:branch`, `git:sync`
+- **Phase 2** ✅: CI/Site/Docs (9 commands) - `ci:detect`, `ci:validate`, `site:check`, `site:update`, `docs:sync`, and more
+- **Phase 3** ✅: Smart routing + Code/Test (10 commands) - `do`, `orchestrate`, `check`, `code:lint`, `test:run`, and more
+- **Coverage**: All CRITICAL, HIGH, P0, and Smart Routing priorities complete (100%)
+- **Infrastructure**: Shared utilities (`utils/dry_run_output.py`), templates, 30 passing tests
+
+**Preview before executing:**
+```bash
+/craft:git:clean --dry-run      # Preview branch cleanup
+/craft:code:lint release -n     # Preview comprehensive linting
+/craft:do "add auth" --dry-run  # Preview smart routing plan
+```
+
+See [DRY-RUN-SUMMARY.md](https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUMMARY.md) for complete command list.
+
 ## What's New in v1.19.0
 
-**Git Repository Initialization** ⭐ NEW
+**Git Repository Initialization** ⭐
 
-The new `/craft:git:init` command bootstraps repositories with craft workflow patterns:
+The `/craft:git:init` command bootstraps repositories with craft workflow patterns:
 
 - **Interactive 9-step wizard**: Repository check, remote setup, branch structure, protection, CI, files, commit, push, validation
 - **3 workflow patterns**: Main+Dev (collaborative), Simple (solo), GitFlow (complex releases)
