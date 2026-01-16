@@ -4,20 +4,20 @@
 [![Validate Plugins](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml)
 
 > **TL;DR** (30 seconds)
-> - **What:** Full-stack developer toolkit with 86 commands, 8 AI agents, and 21 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 90 commands, 8 AI agents, and 21 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code - 86 commands (74 craft + 12 workflow), 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code - 90 commands (78 craft + 12 workflow), 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v1.17.0:** Integrated workflow automation (brainstorming, task management, spec capture) - see [workflow-integration](workflow-integration/README.md)
+> **NEW in v1.20.0-dev:** Standardized dry-run feature - 27 commands now support `--dry-run` preview mode. **Target exceeded:** 57% coverage vs 52% goal! See [what's new](#whats-new-in-v1200-dev)
 
 ## Features
 
 <div class="grid cards" markdown>
 
-- :rocket: **86 Commands**
+- :rocket: **90 Commands**
 
     Smart commands, docs, site management, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
 
@@ -62,7 +62,43 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 86 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 90 commands organized by category - takes 5 seconds and shows everything craft can do.
+
+## What's New in v1.20.0-dev
+
+**Standardized Dry-Run Feature** 🎉 TARGET EXCEEDED
+
+27 commands now support `--dry-run` / `-n` preview mode (57% of target commands):
+
+- **Phase 1** ✅: Git infrastructure (4 commands) - `git:clean`, `git:worktree`, `git:branch`, `git:sync`
+- **Phase 2** ✅: CI/Site/Docs (9 commands) - `ci:detect`, `ci:validate`, `site:check`, `site:update`, `docs:sync`, and more
+- **Phase 3** ✅: Smart routing + Code/Test (10 commands) - `do`, `orchestrate`, `check`, `code:lint`, `test:run`, and more
+- **Coverage**: All CRITICAL, HIGH, P0, and Smart Routing priorities complete (100%)
+- **Infrastructure**: Shared utilities (`utils/dry_run_output.py`), templates, 30 passing tests
+
+**Preview before executing:**
+```bash
+/craft:git:clean --dry-run      # Preview branch cleanup
+/craft:code:lint release -n     # Preview comprehensive linting
+/craft:do "add auth" --dry-run  # Preview smart routing plan
+```
+
+See [DRY-RUN-SUMMARY.md](https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUMMARY.md) for complete command list.
+
+## What's New in v1.19.0
+
+**Git Repository Initialization** ⭐
+
+The `/craft:git:init` command bootstraps repositories with craft workflow patterns:
+
+- **Interactive 9-step wizard**: Repository check, remote setup, branch structure, protection, CI, files, commit, push, validation
+- **3 workflow patterns**: Main+Dev (collaborative), Simple (solo), GitFlow (complex releases)
+- **Template system**: .STATUS, CLAUDE.md, PR template with smart placeholder replacement
+- **GitHub integration**: Create repos, enable branch protection, generate CI workflows
+- **Rollback on error**: Transaction-based operations with automatic cleanup
+- **Dry-run mode**: Preview all changes before executing
+
+See the [git:init reference](commands/git-init-reference.md), [architecture guide](architecture/git-init-flow.md), and [tutorial](guide/git-init-tutorial.md).
 
 ## What's New in v1.17.0
 
@@ -162,12 +198,13 @@ New `/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 c
 | **Documentation** | 17 | Smart docs with update, sync, check, website, API, changelog, guides |
 | **Site** | 15 | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit |
 | **Code & Testing** | 17 | Linting, testing, debugging, refactoring, CI fixes, deps management |
-| **Git** | 5 | Branch management, worktrees, sync, recap, clean |
+| **Git** | 5 | **NEW:** Repository initialization, branch management, worktrees, sync, recap, clean |
 | **CI** | 3 | Detection, generation, validation |
 | **Architecture** | 4 | Analysis, diagrams, planning, reviews |
 | **Distribution** | 3 | Homebrew, PyPI, curl installers |
 | **Planning** | 3 | Feature planning, sprints, roadmaps |
-| **Total** | **74** | **Complete development workflow coverage** |
+| **Workflow** | 12 | Brainstorming, task management, spec capture, getting unstuck |
+| **Total** | **90** | **Complete development workflow coverage** |
 
 ## Links
 

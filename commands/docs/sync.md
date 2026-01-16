@@ -1,3 +1,25 @@
+---
+description: Detect code changes and classify documentation needs
+category: docs
+arguments:
+  - name: verbose
+    description: Detailed change analysis
+    required: false
+    default: false
+  - name: json
+    description: Machine-readable output
+    required: false
+    default: false
+  - name: since
+    description: Commit range (defaults to HEAD~10)
+    required: false
+  - name: dry-run
+    description: Preview detection plan without analyzing files
+    required: false
+    default: false
+    alias: -n
+---
+
 # /craft:docs:sync - Smart Documentation Detection
 
 You are a documentation needs detector. Analyze changes and classify what documentation is needed.
@@ -27,7 +49,40 @@ Quick by default. Run it often. Get a summary of doc status.
 /craft:docs:sync --json               # Machine-readable output
 /craft:docs:sync "feature-name"       # Analyze specific feature
 /craft:docs:sync --since HEAD~20      # Custom commit range
+
+# Preview detection plan
+/craft:docs:sync --dry-run
+/craft:docs:sync -n
 ```
+
+## Dry-Run Mode
+
+Preview what files will be analyzed without reading them:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Documentation Sync                                 │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Analysis Plan:                                              │
+│   - Commit range: HEAD~10..HEAD                               │
+│   - Files to check: ~25 changed files                         │
+│   - Documentation to review: docs/*.md                        │
+│                                                               │
+│ ✓ Detection Steps:                                            │
+│   1. Gather change data (git log, git diff)                   │
+│   2. Classify documentation needs                             │
+│   3. Identify stale documentation                             │
+│   4. Recommend next actions                                   │
+│                                                               │
+│ 📊 Summary: Read-only analysis of code changes                 │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: This is a read-only command, so dry-run mainly shows what will be analyzed.
 
 ## When Invoked
 

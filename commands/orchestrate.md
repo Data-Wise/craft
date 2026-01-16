@@ -9,6 +9,18 @@ triggers:
   - orchestrate
   - spawn agents
   - delegate tasks
+arguments:
+  - name: task
+    description: Task description
+    required: false
+  - name: mode
+    description: Execution mode (default|debug|optimize|release)
+    required: false
+  - name: dry-run
+    description: Preview orchestration plan without spawning agents
+    required: false
+    default: false
+    alias: -n
 ---
 
 # /craft:orchestrate — Launch Orchestrator Mode
@@ -18,12 +30,80 @@ triggers:
 ```bash
 /craft:orchestrate <task>              # Start with default mode
 /craft:orchestrate <task> <mode>       # Start with specific mode
+/craft:orchestrate <task> --dry-run    # Preview orchestration plan
+/craft:orchestrate <task> -n           # Preview orchestration plan
 /craft:orchestrate status              # Show agent dashboard
 /craft:orchestrate timeline            # Show execution timeline
 /craft:orchestrate compress            # Force chat compression
 /craft:orchestrate continue            # Resume previous session
 /craft:orchestrate abort               # Stop all agents
 ```
+
+## Dry-Run Mode
+
+Preview the orchestration plan without spawning any agents:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Orchestrator v2.1                                 │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Task Analysis:                                              │
+│   - Input: "add user authentication with OAuth"               │
+│   - Complexity: Complex                                       │
+│   - Mode: default (2 agents max)                              │
+│   - Estimated subtasks: 5                                     │
+│   - Delegation strategy: Hybrid (parallel + sequential)       │
+│                                                               │
+│ ✓ Orchestration Plan:                                         │
+│                                                               │
+│   Wave 1 (Parallel - 2 agents):                               │
+│   ├─ Agent: arch-1 (architecture)                             │
+│   │  Task: Design OAuth flow and security model               │
+│   │  Estimated: ~8 minutes                                    │
+│   │  Dependencies: None                                       │
+│   │                                                           │
+│   └─ Agent: doc-1 (documentation)                             │
+│      Task: Research OAuth 2.0 best practices                  │
+│      Estimated: ~5 minutes                                    │
+│      Dependencies: None                                       │
+│                                                               │
+│   Wave 2 (Sequential - awaits Wave 1):                        │
+│   ├─ Agent: code-1 (backend)                                  │
+│   │  Task: Implement auth endpoints                           │
+│   │  Estimated: ~15 minutes                                   │
+│   │  Dependencies: arch-1                                     │
+│   │                                                           │
+│   ├─ Agent: code-2 (frontend)                                 │
+│   │  Task: Create login/logout UI                            │
+│   │  Estimated: ~12 minutes                                   │
+│   │  Dependencies: arch-1                                     │
+│   │                                                           │
+│   └─ Agent: test-1 (testing)                                  │
+│      Task: Generate test suite                                │
+│      Estimated: ~10 minutes                                   │
+│      Dependencies: code-1, code-2                             │
+│                                                               │
+│ ✓ Resource Allocation:                                        │
+│   - Max concurrent agents: 2                                  │
+│   - Total agents required: 5                                  │
+│   - Estimated total time: ~35 minutes (with parallelization)  │
+│   - Sequential time: ~50 minutes                              │
+│   - Time saved: ~15 minutes (30%)                             │
+│                                                               │
+│ ⚠ Warnings:                                                   │
+│   • Context usage will be monitored (compression at 70%)      │
+│   • Progress dashboard updates every 30 seconds               │
+│   • Session state auto-saved at checkpoints                   │
+│                                                               │
+│ 📊 Summary: 5 agents, 2 waves, ~35 min execution              │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: Dry-run shows the orchestration strategy, agent allocation, and parallelization plan without spawning actual background agents or consuming context.
 
 ## Modes (NEW in v1.1.0)
 

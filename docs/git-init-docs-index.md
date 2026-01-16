@@ -228,7 +228,7 @@ docs/
 
 ### Craft Hub
 
-**File:** [commands/hub.md](commands/hub.md)
+**File:** [commands/hub.md](help/hub.md)
 
 **Updates:**
 - Added `/craft:git:init` to git commands list
@@ -236,7 +236,7 @@ docs/
 
 ### Test Documentation
 
-**File:** [tests/git_init_test_report.md](../tests/git_init_test_report.md)
+**File:** tests/git_init_test_report.md (in repository)
 
 **Contents:**
 - Comprehensive test results (48 passing tests)

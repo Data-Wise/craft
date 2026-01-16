@@ -1,3 +1,53 @@
+---
+description: Smart git synchronization with remote repositories
+category: git
+arguments:
+  - name: dry-run
+    description: Preview sync operations without executing
+    required: false
+    default: false
+    alias: -n
+---
+
+# /craft:git:sync - Smart Git Sync
+
+Safe, intelligent syncing with remote repositories.
+
+## Usage
+
+```bash
+# Preview sync operations
+/craft:git:sync --dry-run
+/craft:git:sync -n
+
+# Execute sync
+/craft:git:sync
+```
+
+## Dry-Run Output Example
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Git Sync                                           │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Sync plan:                                                  │
+│   - Current branch: feature/auth                              │
+│   - Behind remote: 3 commits                                  │
+│   - Ahead of remote: 2 commits                                │
+│   - Strategy: Pull with rebase, then push                     │
+│                                                               │
+│ ⚠ Warnings:                                                   │
+│   • Branch has diverged from remote                            │
+│   • Rebase may require conflict resolution                    │
+│                                                               │
+│ 📊 Summary: Pull 3 commits, push 2 commits                     │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
 # /sync - Smart Git Sync
 
 You are a git synchronization assistant. Help users safely sync with remote repositories.

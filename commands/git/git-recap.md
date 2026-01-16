@@ -1,3 +1,18 @@
+---
+description: Git activity summary - recent commits, branch status, and productivity insights
+category: git
+arguments:
+  - name: mode
+    description: Display mode (default|detailed|summary)
+    required: false
+    default: default
+  - name: dry-run
+    description: Preview git commands that will be executed without running them
+    required: false
+    default: false
+    alias: -n
+---
+
 # /git-recap - Git Activity Summary
 
 You are a git activity assistant. Provide quick overview of recent git activity.
@@ -9,6 +24,68 @@ Quick git status check complementing `/recap`:
 - Branch status
 - Unpushed commits
 - Open PRs
+
+## Dry-Run Mode
+
+Preview git commands that will be executed to gather activity data:
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Git Activity Summary                              │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Git Commands to Execute:                                    │
+│                                                               │
+│   1. Current Branch                                           │
+│      Command: git branch --show-current                       │
+│      Purpose: Identify active branch                          │
+│                                                               │
+│   2. Today's Commits                                          │
+│      Command: git log --oneline --since="midnight"            │
+│                --author="$(git config user.name)"             │
+│      Purpose: Show today's activity                           │
+│                                                               │
+│   3. Weekly Statistics                                        │
+│      Command: git log --oneline --since="1 week ago"          │
+│                --author="$(git config user.name)" | wc -l     │
+│      Purpose: Calculate weekly commit count                   │
+│                                                               │
+│   4. Unpushed Commits                                         │
+│      Command: git log @{u}.. --oneline                        │
+│      Purpose: Identify commits not yet pushed                 │
+│                                                               │
+│   5. Repository Status                                        │
+│      Command: git status --short --branch                     │
+│      Purpose: Check for uncommitted changes                   │
+│                                                               │
+│   6. Open Pull Requests (optional)                            │
+│      Command: gh pr list --author @me --state open            │
+│      Purpose: List your open PRs                              │
+│      Requires: gh CLI installed                               │
+│                                                               │
+│   7. Stashed Changes                                          │
+│      Command: git stash list                                  │
+│      Purpose: Show stashed work                               │
+│                                                               │
+│ ✓ Analysis Steps:                                             │
+│   - Parse commit messages for type (feat, fix, docs, etc.)    │
+│   - Calculate productivity metrics                            │
+│   - Identify warning conditions (dirty repo, diverged branch) │
+│   - Generate actionable suggestions                           │
+│                                                               │
+│ ⚠ Notes:                                                      │
+│   • All commands are read-only (no modifications)             │
+│   • Some commands may fail gracefully if not in git repo      │
+│   • gh CLI commands skipped if not installed                  │
+│                                                               │
+│ 📊 Summary: 7 git commands for activity analysis              │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: This is a read-only command, so dry-run shows what will be analyzed without modifying any git state.
 
 ## When invoked:
 

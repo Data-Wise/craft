@@ -1,0 +1,2815 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Full-stack developer toolkit - 90 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly workflows">
+      
+      
+      
+        <link rel="canonical" href="https://data-wise.github.io/craft/architecture/git-init-flow/">
+      
+      
+        <link rel="prev" href="../../commands/git-init-reference/">
+      
+      
+        <link rel="next" href="../../guide/git-init-tutorial/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Architecture Guide - Craft Plugin</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#craftgitinit-architecture-flow-diagrams" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Craft Plugin
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Data-Wise/craft" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Data-Wise/craft
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../QUICK-START/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🚀 Quick Start
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ADHD-QUICK-START/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🧠 ADHD Guide
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../workflows/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  📊 Visual Workflows
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../PLAYGROUND/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  🎮 Playground
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../REFCARD/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  📚 Reference Card
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../commands/overview/" class="md-tabs__link">
+          
+  
+  
+  Commands
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guide/getting-started/" class="md-tabs__link">
+          
+  
+  
+  Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../help/hub/" class="md-tabs__link">
+          
+  
+  
+  Help
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../commands/git-init-reference/" class="md-tabs__link">
+          
+  
+  
+  Git Init
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../workflows/pre-commit-workflow/" class="md-tabs__link">
+          
+  
+  
+  Workflows
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Craft Plugin
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Data-Wise/craft" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Data-Wise/craft
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QUICK-START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADHD-QUICK-START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🧠 ADHD Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📊 Visual Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PLAYGROUND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🎮 Playground
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REFCARD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 Reference Card
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commands
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Commands
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/smart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/site/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code & Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git & CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/arch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/dist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/homebrew-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/skills-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/orchestrator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/presets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ACCESSIBILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accessibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Help
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/hub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:hub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:do
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/orchestrate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:orchestrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git-init-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/git-worktree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:worktree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/docs-update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:docs:update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/ci-generate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:generate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/brainstorm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /workflow:brainstorm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git Init
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Git Init
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git-init-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#command-execution-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Execution Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-patterns-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Patterns Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Patterns Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-1-main-dev-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 1: Main + Dev (Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-2-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 2: Simple
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-3-gitflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 3: GitFlow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Processing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Machine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-system-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File System Operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/git-init-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git-init-docs-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Workflows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/pre-commit-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-commit Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/git-feature-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git Feature Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/release-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#command-execution-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Execution Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-patterns-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Patterns Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Patterns Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-1-main-dev-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 1: Main + Dev (Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-2-simple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 2: Simple
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-3-gitflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 3: GitFlow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling Flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Processing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Machine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-system-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File System Operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/architecture/git-init-flow.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="craftgitinit-architecture-flow-diagrams">/craft:git:init - Architecture &amp; Flow Diagrams<a class="headerlink" href="#craftgitinit-architecture-flow-diagrams" title="Permanent link">&para;</a></h1>
+<h2 id="command-execution-flow">Command Execution Flow<a class="headerlink" href="#command-execution-flow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    Start([User invokes /craft:git:init]) --&gt; ParseArgs[Parse Arguments]
+    ParseArgs --&gt; DryRun{Dry-run mode?}
+
+    DryRun --&gt;|Yes| Preview[Generate Preview]
+    Preview --&gt; ShowPreview[Display Dry-run Output]
+    ShowPreview --&gt; End([Exit])
+
+    DryRun --&gt;|No| CheckGit{.git exists?}
+
+    CheckGit --&gt;|Yes| AskAction[Ask: What to do?]
+    AskAction --&gt; ActionChoice{User Choice}
+    ActionChoice --&gt;|Add dev+protection| Step3
+    ActionChoice --&gt;|Fix/sync dev| SyncDev[Sync dev with main]
+    ActionChoice --&gt;|Re-init| ForceCheck{--force flag?}
+    ActionChoice --&gt;|Cancel| End
+
+    ForceCheck --&gt;|No| Error1[Error: Requires --force]
+    Error1 --&gt; End
+    ForceCheck --&gt;|Yes| RemoveGit[Remove .git]
+    RemoveGit --&gt; InitRepo
+
+    CheckGit --&gt;|No| InitRepo[Initialize Git Repository]
+
+    SyncDev --&gt; Step3
+    InitRepo --&gt; Step2[Step 2: Remote Setup]
+
+    Step2 --&gt; RemoteChoice{Remote option?}
+    RemoteChoice --&gt;|Local only| Step3[Step 3: Branch Structure]
+    RemoteChoice --&gt;|Connect existing| AddRemote[git remote add]
+    RemoteChoice --&gt;|Create new| CreateRepo[gh repo create]
+
+    AddRemote --&gt; Step3
+    CreateRepo --&gt; ConfigureRepo[Set visibility, description, topics]
+    ConfigureRepo --&gt; AddRemote
+
+    Step3 --&gt; WorkflowType{Workflow pattern}
+    WorkflowType --&gt;|main-dev| CreateMainDev[Create main + dev]
+    WorkflowType --&gt;|simple| CreateMain[Create main only]
+    WorkflowType --&gt;|gitflow| CreateGitFlow[Create main + develop]
+
+    CreateMainDev --&gt; Step4[Step 4: Branch Protection]
+    CreateMain --&gt; Step4
+    CreateGitFlow --&gt; Step4
+
+    Step4 --&gt; ProtectChoice{Enable protection?}
+    ProtectChoice --&gt;|Yes| SetProtection[Configure GitHub protection rules]
+    ProtectChoice --&gt;|No| Step5[Step 5: CI Workflow]
+
+    SetProtection --&gt; Step5
+
+    Step5 --&gt; CIChoice{Generate CI?}
+    CIChoice --&gt;|Yes| DetectType[Auto-detect project type]
+    CIChoice --&gt;|No| Step6[Step 6: Project Files]
+
+    DetectType --&gt; SelectTemplate[User selects CI template]
+    SelectTemplate --&gt; GenerateCI[Generate .github/workflows/ci.yml]
+    GenerateCI --&gt; Step6
+
+    Step6 --&gt; FilesChoice{Create files?}
+    FilesChoice --&gt;|Yes| CreateFiles[Create .STATUS, CLAUDE.md, PR template]
+    FilesChoice --&gt;|No| Step7[Step 7: Initial Commit]
+
+    CreateFiles --&gt; Step7
+
+    Step7 --&gt; CommitChoice{Create commit?}
+    CommitChoice --&gt;|Yes| StageFiles[git add -A]
+    CommitChoice --&gt;|No| Step8[Step 8: Push to Remote]
+
+    StageFiles --&gt; CreateCommit[git commit with conventional message]
+    CreateCommit --&gt; Step8
+
+    Step8 --&gt; PushChoice{Push to GitHub?}
+    PushChoice --&gt;|Yes| Push[git push origin main dev]
+    PushChoice --&gt;|No| Step9[Step 9: Validation]
+
+    Push --&gt; Step9
+
+    Step9 --&gt; ValidateChoice{Run /craft:check?}
+    ValidateChoice --&gt;|Yes| RunCheck[Execute /craft:check]
+    ValidateChoice --&gt;|No| Success
+
+    RunCheck --&gt; CheckResult{Validation pass?}
+    CheckResult --&gt;|Yes| Success[✓ Success Summary]
+    CheckResult --&gt;|No| Warning[⚠ Warnings Displayed]
+
+    Success --&gt; End
+    Warning --&gt; End
+
+    %% Error handling paths
+    InitRepo -.-&gt;|Error| Rollback1[Rollback: Remove .git]
+    CreateRepo -.-&gt;|Error| Rollback2[Rollback: Offer to delete repo]
+    SetProtection -.-&gt;|Error| Rollback3[Rollback: Disable protection]
+    GenerateCI -.-&gt;|Error| Rollback4[Rollback: Delete CI file]
+    CreateFiles -.-&gt;|Error| Rollback5[Rollback: Delete created files]
+    CreateCommit -.-&gt;|Error| Rollback6[Rollback: Reset HEAD]
+
+    Rollback1 --&gt; ErrorEnd([Exit with error])
+    Rollback2 --&gt; ErrorEnd
+    Rollback3 --&gt; ErrorEnd
+    Rollback4 --&gt; ErrorEnd
+    Rollback5 --&gt; ErrorEnd
+    Rollback6 --&gt; ErrorEnd
+
+    style Start fill:#e1f5e1
+    style End fill:#e1f5e1
+    style Success fill:#c8e6c9
+    style ErrorEnd fill:#ffcdd2
+    style Error1 fill:#ffcdd2
+    style Warning fill:#fff9c4</code></pre>
+<h2 id="workflow-patterns-architecture">Workflow Patterns Architecture<a class="headerlink" href="#workflow-patterns-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="pattern-1-main-dev-default">Pattern 1: Main + Dev (Default)<a class="headerlink" href="#pattern-1-main-dev-default" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>gitGraph
+    commit id: "Initial commit"
+    branch dev
+    checkout dev
+    commit id: "Setup dev branch"
+    branch feature/auth
+    checkout feature/auth
+    commit id: "Add login"
+    commit id: "Add signup"
+    checkout dev
+    merge feature/auth tag: "PR #1"
+    branch feature/api
+    checkout feature/api
+    commit id: "Add API endpoints"
+    checkout dev
+    merge feature/api tag: "PR #2"
+    checkout main
+    merge dev tag: "Release v1.0"</code></pre>
+<p><strong>Branch Flow:</strong>
+<pre class="mermaid"><code>graph LR
+    Feature[feature/*] --&gt;|PR| Dev[dev]
+    Dev --&gt;|PR| Main[main]
+    Main --&gt;|Deploy| Production[Production]
+
+    style Main fill:#ff6b6b
+    style Dev fill:#4ecdc4
+    style Feature fill:#95e1d3
+    style Production fill:#f38181</code></pre></p>
+<h3 id="pattern-2-simple">Pattern 2: Simple<a class="headerlink" href="#pattern-2-simple" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>gitGraph
+    commit id: "Initial commit"
+    commit id: "Add feature A"
+    commit id: "Add feature B"
+    commit id: "Fix bug"
+    commit id: "Release v1.0" tag: "v1.0"</code></pre>
+<p><strong>Branch Flow:</strong>
+<pre class="mermaid"><code>graph LR
+    Main[main] --&gt;|Direct commits| Main
+    Main --&gt;|Deploy| Production[Production]
+
+    style Main fill:#ff6b6b
+    style Production fill:#f38181</code></pre></p>
+<h3 id="pattern-3-gitflow">Pattern 3: GitFlow<a class="headerlink" href="#pattern-3-gitflow" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>gitGraph
+    commit id: "Initial"
+    branch develop
+    checkout develop
+    commit id: "Setup develop"
+    branch feature/user-auth
+    checkout feature/user-auth
+    commit id: "Add auth"
+    checkout develop
+    merge feature/user-auth
+    branch release/v1.0
+    checkout release/v1.0
+    commit id: "Bump version"
+    commit id: "Update docs"
+    checkout main
+    merge release/v1.0 tag: "v1.0"
+    checkout develop
+    merge release/v1.0
+    branch hotfix/critical-bug
+    checkout hotfix/critical-bug
+    commit id: "Fix bug"
+    checkout main
+    merge hotfix/critical-bug tag: "v1.0.1"
+    checkout develop
+    merge hotfix/critical-bug</code></pre>
+<p><strong>Branch Flow:</strong>
+<pre class="mermaid"><code>graph TB
+    Feature[feature/*] --&gt;|PR| Develop[develop]
+    Develop --&gt;|PR| Release[release/*]
+    Release --&gt;|PR| Main[main]
+    Main --&gt;|Tag| Version[v1.0.0]
+    Release --&gt;|Merge back| Develop
+    Main --&gt;|Hotfix| Hotfix[hotfix/*]
+    Hotfix --&gt;|PR| Main
+    Hotfix --&gt;|Merge back| Develop
+
+    style Main fill:#ff6b6b
+    style Develop fill:#4ecdc4
+    style Feature fill:#95e1d3
+    style Release fill:#ffd93d
+    style Hotfix fill:#ff8787</code></pre></p>
+<h2 id="component-architecture">Component Architecture<a class="headerlink" href="#component-architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TB
+    subgraph "User Interface"
+        CLI["/craft:git:init CLI"]
+        SmartRouter["/craft:do Smart Router"]
+    end
+
+    subgraph "Wizard Engine"
+        StepController[Step Controller]
+        AskQuestion[AskUserQuestion]
+        ProgressTracker[Progress Tracker]
+    end
+
+    subgraph "Core Operations"
+        GitOps[Git Operations]
+        GHOps[GitHub Operations]
+        FileOps[File Operations]
+        CIOps[CI Generation]
+    end
+
+    subgraph "Templates"
+        StatusTemplate[.STATUS Template]
+        ClaudeTemplate[CLAUDE.md Template]
+        PRTemplate[PR Template]
+        CITemplates[CI Templates]
+    end
+
+    subgraph "Validation"
+        DryRun[Dry-run Validator]
+        Check[/craft:check Integration]
+        Rollback[Rollback Engine]
+    end
+
+    CLI --&gt; StepController
+    SmartRouter --&gt; StepController
+    StepController --&gt; AskQuestion
+    StepController --&gt; ProgressTracker
+    StepController --&gt; GitOps
+    StepController --&gt; GHOps
+    StepController --&gt; FileOps
+    StepController --&gt; CIOps
+
+    GitOps --&gt; DryRun
+    GHOps --&gt; DryRun
+    FileOps --&gt; Templates
+    CIOps --&gt; CITemplates
+
+    GitOps -.-&gt;|Error| Rollback
+    GHOps -.-&gt;|Error| Rollback
+    FileOps -.-&gt;|Error| Rollback
+
+    StepController --&gt; Check
+
+    style CLI fill:#e3f2fd
+    style SmartRouter fill:#e3f2fd
+    style StepController fill:#fff3e0
+    style Rollback fill:#ffebee
+    style Check fill:#e8f5e9</code></pre>
+<h2 id="data-flow">Data Flow<a class="headerlink" href="#data-flow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant Wizard
+    participant Git
+    participant GitHub
+    participant Templates
+    participant CI
+
+    User-&gt;&gt;Wizard: /craft:git:init
+    Wizard-&gt;&gt;User: Check .git exists?
+
+    alt Repository exists
+        Wizard-&gt;&gt;User: Ask action (add dev/sync/reinit)
+        User-&gt;&gt;Wizard: Select action
+    else New repository
+        Wizard-&gt;&gt;Git: git init
+        Git--&gt;&gt;Wizard: Repository created
+    end
+
+    Wizard-&gt;&gt;User: Ask remote setup
+    User-&gt;&gt;Wizard: Create new GitHub repo
+
+    Wizard-&gt;&gt;GitHub: gh repo create
+    GitHub--&gt;&gt;Wizard: Repository URL
+    Wizard-&gt;&gt;Git: git remote add origin
+
+    Wizard-&gt;&gt;User: Select workflow pattern
+    User-&gt;&gt;Wizard: main-dev
+
+    Wizard-&gt;&gt;Git: Create main + dev branches
+    Git--&gt;&gt;Wizard: Branches created
+
+    Wizard-&gt;&gt;User: Enable branch protection?
+    User-&gt;&gt;Wizard: Yes
+
+    Wizard-&gt;&gt;GitHub: Configure protection rules
+    GitHub--&gt;&gt;Wizard: Protection enabled
+
+    Wizard-&gt;&gt;User: Generate CI workflow?
+    User-&gt;&gt;Wizard: Yes (auto-detect)
+
+    Wizard-&gt;&gt;CI: Detect project type
+    CI--&gt;&gt;Wizard: Python UV detected
+    Wizard-&gt;&gt;User: Confirm template?
+    User-&gt;&gt;Wizard: Confirmed
+
+    Wizard-&gt;&gt;CI: Generate workflow file
+    CI--&gt;&gt;Wizard: .github/workflows/ci.yml
+
+    Wizard-&gt;&gt;User: Create project files?
+    User-&gt;&gt;Wizard: Yes (all)
+
+    Wizard-&gt;&gt;Templates: Render templates
+    Templates--&gt;&gt;Wizard: .STATUS, CLAUDE.md, PR template
+
+    Wizard-&gt;&gt;User: Create initial commit?
+    User-&gt;&gt;Wizard: Yes
+
+    Wizard-&gt;&gt;Git: git add -A
+    Wizard-&gt;&gt;Git: git commit
+    Git--&gt;&gt;Wizard: Commit created
+
+    Wizard-&gt;&gt;User: Push to GitHub?
+    User-&gt;&gt;Wizard: Yes
+
+    Wizard-&gt;&gt;Git: git push origin main dev
+    Git-&gt;&gt;GitHub: Push branches
+    GitHub--&gt;&gt;Wizard: Push successful
+
+    Wizard-&gt;&gt;User: Run validation?
+    User-&gt;&gt;Wizard: Yes
+
+    Wizard-&gt;&gt;CI: Execute /craft:check
+    CI--&gt;&gt;Wizard: Validation results
+
+    Wizard-&gt;&gt;User: ✓ Setup complete!</code></pre>
+<h2 id="error-handling-flow">Error Handling Flow<a class="headerlink" href="#error-handling-flow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    Operation[Execute Operation] --&gt; Success{Success?}
+
+    Success --&gt;|Yes| RecordState[Record State]
+    RecordState --&gt; NextOp[Next Operation]
+
+    Success --&gt;|No| CaptureError[Capture Error Details]
+    CaptureError --&gt; DetermineRollback[Determine Rollback Steps]
+
+    DetermineRollback --&gt; RollbackType{Rollback Type}
+
+    RollbackType --&gt;|Git Init| RemoveGit[Remove .git directory]
+    RollbackType --&gt;|Branches| DeleteBranches[Delete created branches]
+    RollbackType --&gt;|Remote| RemoveRemote[Remove remote config]
+    RollbackType --&gt;|GitHub Repo| OfferDelete[Offer to delete repo]
+    RollbackType --&gt;|Protection| DisableProtection[Disable protection]
+    RollbackType --&gt;|Files| DeleteFiles[Delete created files]
+    RollbackType --&gt;|Commits| ResetHead[git reset HEAD~1]
+
+    RemoveGit --&gt; NotifyUser[Notify User]
+    DeleteBranches --&gt; NotifyUser
+    RemoveRemote --&gt; NotifyUser
+    OfferDelete --&gt; UserConfirm{User confirms?}
+    UserConfirm --&gt;|Yes| DeleteRepo[gh repo delete]
+    UserConfirm --&gt;|No| KeepRepo[Keep repository]
+    DeleteRepo --&gt; NotifyUser
+    KeepRepo --&gt; NotifyUser
+    DisableProtection --&gt; NotifyUser
+    DeleteFiles --&gt; NotifyUser
+    ResetHead --&gt; NotifyUser
+
+    NotifyUser --&gt; LogError[Log Error Details]
+    LogError --&gt; SuggestFix[Suggest Fix]
+    SuggestFix --&gt; Exit([Exit with error code])
+
+    style Operation fill:#e3f2fd
+    style Success fill:#fff3e0
+    style NotifyUser fill:#ffebee
+    style Exit fill:#ffcdd2</code></pre>
+<h2 id="template-processing">Template Processing<a class="headerlink" href="#template-processing" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Input"
+        Repo[Repository Info]
+        User[User Data]
+        Workflow[Workflow Type]
+    end
+
+    subgraph "Template Engine"
+        Load[Load Template]
+        Parse[Parse Placeholders]
+        Replace[Replace Variables]
+        Validate[Validate Output]
+    end
+
+    subgraph "Templates"
+        STATUS[STATUS-template.yaml]
+        CLAUDE[CLAUDE-template.md]
+        PR[pull_request_template.md]
+    end
+
+    subgraph "Output"
+        StatusFile[.STATUS]
+        ClaudeFile[CLAUDE.md]
+        PRFile[.github/pull_request_template.md]
+    end
+
+    Repo --&gt; Parse
+    User --&gt; Parse
+    Workflow --&gt; Parse
+
+    STATUS --&gt; Load
+    CLAUDE --&gt; Load
+    PR --&gt; Load
+
+    Load --&gt; Parse
+    Parse --&gt; Replace
+    Replace --&gt; Validate
+
+    Validate --&gt; StatusFile
+    Validate --&gt; ClaudeFile
+    Validate --&gt; PRFile
+
+    style Load fill:#e3f2fd
+    style Parse fill:#fff3e0
+    style Replace fill:#e8f5e9
+    style Validate fill:#fff9c4</code></pre>
+<h2 id="integration-points">Integration Points<a class="headerlink" href="#integration-points" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TB
+    subgraph "Command Entry"
+        DirectCall["/craft:git:init"]
+        SmartDo["/craft:do 'initialize project'"]
+        Hub["/craft:hub git"]
+    end
+
+    subgraph "Core Command"
+        GitInit["/craft:git:init Engine"]
+    end
+
+    subgraph "Related Commands"
+        Worktree["/craft:git:worktree"]
+        Branch["/craft:git:branch"]
+        Check["/craft:check"]
+        CIGen["/craft:ci:generate"]
+        Clean["/craft:git:clean"]
+    end
+
+    subgraph "External Tools"
+        Git[Git CLI]
+        GH[GitHub CLI]
+        Python[Python CI Detection]
+    end
+
+    DirectCall --&gt; GitInit
+    SmartDo --&gt; GitInit
+    Hub -.-&gt;|Discovery| DirectCall
+
+    GitInit --&gt;|Uses| Git
+    GitInit --&gt;|Uses| GH
+    GitInit --&gt;|Calls| CIGen
+    GitInit --&gt;|Calls| Check
+
+    GitInit -.-&gt;|Suggests| Worktree
+    GitInit -.-&gt;|Related| Branch
+    GitInit -.-&gt;|Related| Clean
+
+    CIGen --&gt; Python
+
+    style GitInit fill:#fff3e0
+    style DirectCall fill:#e3f2fd
+    style Check fill:#e8f5e9
+    style Git fill:#ffebee
+    style GH fill:#ffebee</code></pre>
+<h2 id="state-machine">State Machine<a class="headerlink" href="#state-machine" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Idle
+    Idle --&gt; CheckingRepo: Command invoked
+    CheckingRepo --&gt; InitializingNew: No .git found
+    CheckingRepo --&gt; UpdatingExisting: .git exists
+    CheckingRepo --&gt; Cancelled: User cancels
+
+    InitializingNew --&gt; SettingUpRemote
+    UpdatingExisting --&gt; SettingUpRemote
+
+    SettingUpRemote --&gt; CreatingBranches: Remote configured
+    SettingUpRemote --&gt; CreatingBranches: Local only
+
+    CreatingBranches --&gt; ConfiguringProtection
+    ConfiguringProtection --&gt; GeneratingCI
+    GeneratingCI --&gt; CreatingFiles
+    CreatingFiles --&gt; Committing
+    Committing --&gt; Pushing: Remote exists
+    Committing --&gt; Validating: Local only
+    Pushing --&gt; Validating
+    Validating --&gt; Success
+    Validating --&gt; SuccessWithWarnings: Warnings present
+
+    Success --&gt; [*]
+    SuccessWithWarnings --&gt; [*]
+    Cancelled --&gt; [*]
+
+    note right of CheckingRepo
+        Checks for .git directory
+        Asks user for action
+    end note
+
+    note right of SettingUpRemote
+        GitHub integration
+        Remote configuration
+    end note
+
+    note right of ConfiguringProtection
+        Branch protection rules
+        Requires GitHub admin
+    end note
+
+    note right of Validating
+        Runs /craft:check
+        Reports status
+    end note</code></pre>
+<h2 id="file-system-operations">File System Operations<a class="headerlink" href="#file-system-operations" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TB
+    Start[Start] --&gt; CheckCWD{Current dir writable?}
+
+    CheckCWD --&gt;|No| Error[Error: Permission denied]
+    CheckCWD --&gt;|Yes| CreateGit[Create .git/]
+
+    CreateGit --&gt; CreateBranches[Create branches]
+    CreateBranches --&gt; CreateGitHub[Create .github/]
+
+    CreateGitHub --&gt; CreateWorkflows[Create workflows/]
+    CreateWorkflows --&gt; GenerateCI[Generate ci.yml]
+
+    GenerateCI --&gt; CreateTemplates[Create templates directory]
+    CreateTemplates --&gt; RenderStatus[Render .STATUS]
+    RenderStatus --&gt; RenderClaude[Render CLAUDE.md]
+    RenderClaude --&gt; RenderPR[Render PR template]
+
+    RenderPR --&gt; Stage[git add -A]
+    Stage --&gt; Commit[git commit]
+    Commit --&gt; Success[✓ Files created]
+
+    Error --&gt; End[Exit]
+    Success --&gt; End
+
+    style Start fill:#e3f2fd
+    style Success fill:#e8f5e9
+    style Error fill:#ffebee
+    style End fill:#fff3e0</code></pre>
+<hr />
+<p><strong>Document Version:</strong> 1.0
+<strong>Generated:</strong> 2025-01-15
+<strong>Architecture:</strong> /craft:git:init command</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

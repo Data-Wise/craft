@@ -1,44 +1,56 @@
 # Craft Commands Reference
 
-Complete reference for all 67 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
+Complete reference for all 90 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
 
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
+**Dry-Run Support:** 27 of 90 commands support `--dry-run` / `-n` preview mode
 **13 Categories:** arch, ci, code, dist, docs, git, plan, site, test
 
 Use `/craft:hub` to discover all available commands interactively.
 
+!!! tip "Preview Before Executing"
+    27 commands now support dry-run mode. Add `--dry-run` or `-n` to preview actions before executing. See [Dry-Run Commands](#dry-run-commands) below.
+
 ## Smart Commands
 
-### /craft:do
+### /craft:do 🔍
 Universal command - AI routes to appropriate workflow.
 
 ```bash
 /craft:do "add user authentication"
 /craft:do "optimize database queries"
 /craft:do "prepare for release"
+/craft:do "add auth" --dry-run           # Preview routing plan
 ```
 
-### /craft:orchestrate
+**Dry-run:** Preview which commands will be executed and estimated time.
+
+### /craft:orchestrate 🔍
 Multi-agent orchestrator with mode-aware execution.
 
 ```bash
 /craft:orchestrate "add auth" optimize    # Fast parallel
 /craft:orchestrate "prep release" release # Thorough audit
 /craft:orchestrate status                 # Agent dashboard
+/craft:orchestrate "task" --dry-run       # Preview orchestration plan
 ```
 
 **Modes:** optimize (4 agents), release (comprehensive), debug (verbose)
+**Dry-run:** Preview agent allocation, parallelization waves, and execution time.
 
-###/craft:check
+### /craft:check 🔍
 Pre-flight validation for commits, PRs, and releases.
 
 ```bash
 /craft:check                  # Quick validation
 /craft:check --for commit     # Pre-commit checks
 /craft:check --for release    # Full release audit
+/craft:check --dry-run        # Preview validation plan
 ```
+
+**Dry-run:** Preview which checks will be performed without executing them.
 
 ### /craft:help
 Context-aware help and suggestions.
@@ -211,6 +223,62 @@ All applicable commands support 4 execution modes:
 - **Documentation (4):** mermaid, api-documenter, tutorial-engineer, reference-builder
 - **Git (2):** worktree, clean
 - **Test (3):** run, cli-gen, cli-run
+
+## Dry-Run Commands
+
+27 of 90 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+
+### Git Commands (6/6) — 100% ✅
+- `git:branch` - Preview branch operations
+- `git:clean` - Preview merged branch deletion (CRITICAL)
+- `git:init` - Preview repository initialization
+- `git:recap` - Preview git activity summary
+- `git:sync` - Preview sync operations
+- `git:worktree` - Preview worktree operations (HIGH)
+
+### CI/CD Commands (3/3) — 100% ✅
+- `ci:detect` - Preview project type detection
+- `ci:generate` - Preview workflow generation (CRITICAL)
+- `ci:validate` - Preview CI validation
+
+### Site Commands (4/6) — 67%
+- `site:build` - Preview site build
+- `site:check` - Preview validation checks
+- `site:deploy` - Preview GitHub Pages deployment (CRITICAL)
+- `site:update` - Preview site content updates
+
+### Documentation Commands (5/10) — 50%
+- `docs:changelog` - Preview changelog generation
+- `docs:check` - Preview health check
+- `docs:claude-md` - Preview CLAUDE.md generation
+- `docs:nav-update` - Preview navigation updates
+- `docs:sync` - Preview documentation sync
+
+### Code Commands (3/12) — 25%
+- `code:ci-local` - Preview local CI checks (6 checks)
+- `code:deps-audit` - Preview security vulnerability scanning
+- `code:lint` - Preview linting plan (mode-aware)
+
+### Test Commands (2/6) — 33%
+- `test:cli-run` - Preview CLI test execution
+- `test:run` - Preview test execution (mode-aware)
+
+### Distribution Commands (1/4) — 25%
+- `dist:pypi` - Preview PyPI publishing (CRITICAL - IRREVERSIBLE warnings)
+
+### Smart Routing (3/3) — 100% ✅
+- `check` - Preview validation plan
+- `do` - Preview routing plan
+- `orchestrate` - Preview orchestration plan
+
+**Example usage:**
+```bash
+/craft:git:clean --dry-run           # Preview branch cleanup
+/craft:code:lint release -n          # Preview comprehensive linting
+/craft:dist:pypi publish --dry-run   # Preview PyPI publish (CRITICAL)
+```
+
+See [DRY-RUN-SUMMARY.md](https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUMMARY.md) for complete details.
 
 ## See Also
 

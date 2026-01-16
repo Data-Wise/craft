@@ -88,7 +88,7 @@ After initialization, you'll have:
 - ✅ CI workflow configured
 - ✅ Project documentation
 
-See [/craft:git:init](../../commands/git/init.md) for full details.
+See [/craft:git:init](../commands/git-init-reference.md) for full details.
 
 ## Your First Commands
 

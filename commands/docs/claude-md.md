@@ -1,3 +1,14 @@
+---
+description: Create or update CLAUDE.md file from project analysis
+category: docs
+arguments:
+  - name: dry-run
+    description: Preview changes without executing
+    required: false
+    default: false
+    alias: -n
+---
+
 # /craft:docs:claude-md - Update CLAUDE.md
 
 You are a CLAUDE.md maintenance assistant. Keep project instructions current.
@@ -188,3 +199,37 @@ Works with:
 - `/craft:docs:sync` - Part of doc sync workflow
 - `/craft:code:release` - Update before release
 - `/workflow:done` - Update at session end
+
+## Dry-Run Mode
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Create/Update CLAUDE.md                            │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Project Analysis:                                           │
+│   - Type: Python (uv)                                         │
+│   - Commands: 15 detected                                     │
+│   - Key files: pyproject.toml, README.md                      │
+│                                                               │
+│ ✓ File Operation:                                             │
+│   - Target: CLAUDE.md                                         │
+│   - Action: Create (file doesn't exist)                       │
+│   - Estimated size: ~200 lines                                │
+│                                                               │
+│ ✓ Sections to Include:                                        │
+│   - Project overview                                          │
+│   - Quick commands                                            │
+│   - Key files and structure                                   │
+│   - Development workflow                                      │
+│                                                               │
+│ 📊 Summary: Create CLAUDE.md with project documentation        │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+## See Also
+
+- Template: `templates/dry-run-pattern.md`

@@ -467,6 +467,6 @@ gh auth login
 ---
 
 **See Also:**
-- [Git Workflow Guide](../docs/workflows/git-feature-workflow.md)
-- [Branch Protection](../docs/workflows/pre-commit-workflow.md)
-- [CI/CD Setup](ci/generate.md)
+- [Git Workflow Guide](../../docs/WORKFLOWS/git-feature-workflow.md)
+- [Branch Protection](../../docs/WORKFLOWS/pre-commit-workflow.md)
+- [CI/CD Setup](../../docs/help/ci-generate.md)

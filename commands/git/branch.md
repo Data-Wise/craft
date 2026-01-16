@@ -1,16 +1,107 @@
-# /branch - Branch Management
+---
+description: Interactive git branch management assistant
+category: git
+arguments:
+  - name: action
+    description: Action to perform (new|switch|delete|sync) or empty to show status
+    required: false
+  - name: name
+    description: Branch name (for new/switch/delete actions)
+    required: false
+  - name: dry-run
+    description: Preview branch operations without executing
+    required: false
+    default: false
+    alias: -n
+---
 
-You are a git branch management assistant. Help users create, switch, and manage branches easily.
+# /craft:git:branch - Branch Management
+
+Interactive assistant for creating, switching, and managing git branches safely.
 
 ## Usage
 
-- `/branch` - Show current branch and list all branches
-- `/branch new <name>` - Create new branch
-- `/branch switch <name>` - Switch to existing branch
-- `/branch delete <name>` - Delete branch safely
-- `/branch sync` - Sync current branch with remote
+```bash
+# Show branch overview
+/craft:git:branch
 
-## When invoked without arguments:
+# Preview branch creation
+/craft:git:branch new feature/my-feature --dry-run
+
+# Create new branch
+/craft:git:branch new feature/my-feature
+
+# Preview branch deletion
+/craft:git:branch delete old-branch -n
+
+# Delete branch safely
+/craft:git:branch delete old-branch
+
+# Switch branches
+/craft:git:branch switch main
+
+# Sync with remote
+/craft:git:branch sync
+```
+
+## Dry-Run Mode
+
+Preview branch operations before executing:
+
+```bash
+# Preview branch creation
+/craft:git:branch new feature/auth --dry-run
+/craft:git:branch new feature/auth -n
+
+# Preview branch deletion
+/craft:git:branch delete old-feature --dry-run
+/craft:git:branch delete old-feature -n
+```
+
+### Example Output: Create
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Create Branch                                      │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Operations:                                                 │
+│   - Create new branch: feature/auth                           │
+│   - Based on: main (current HEAD)                             │
+│   - Working directory: clean                                  │
+│   - Switch to new branch after creation                       │
+│                                                               │
+│ 📊 Summary: 1 branch to create from main                       │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Example Output: Delete
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Delete Branch                                      │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Branch to delete:                                           │
+│   - old-feature (merged to main)                              │
+│   - Last commit: 2 weeks ago                                  │
+│   - Safe to delete (fully merged)                             │
+│                                                               │
+│ ⚠ Warnings:                                                   │
+│   • This operation is irreversible                             │
+│   • Remote branch will also be deleted if exists              │
+│                                                               │
+│ 📊 Summary: 1 branch to delete (safe)                          │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+## Interactive Mode (No Arguments)
 
 ### Show Branch Overview
 
@@ -41,7 +132,9 @@ You are a git branch management assistant. Help users create, switch, and manage
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## /branch new <name>
+## Actions
+
+### new - Create New Branch
 
 **Create new branch from current state:**
 
@@ -86,7 +179,7 @@ feature-dashboard
 Ready to work! Run /next to see what to do.
 ```
 
-## /branch switch <name>
+### switch - Switch Branches
 
 **Switch to existing branch:**
 
@@ -128,7 +221,7 @@ Recent activity on this branch:
 Run /git-recap for full history.
 ```
 
-## /branch delete <name>
+### delete - Delete Branch Safely
 
 **Safe branch deletion:**
 
@@ -178,7 +271,7 @@ git branch -D <name>  # Force delete
 git push origin --delete <name>
 ```
 
-## /branch sync
+### sync - Sync with Remote
 
 **Sync current branch with remote:**
 
@@ -331,7 +424,7 @@ Examples:
 ### With /focus
 
 ```
-/branch new feature-dashboard
+/craft:git:branch new feature-dashboard
 /focus "build user dashboard"
 [work...]
 /commit
@@ -341,93 +434,17 @@ Examples:
 ### With /recap
 
 ```
-/recap                 # See project status
-/branch switch main    # Switch context
-/recap                 # See main status
+/recap                        # See project status
+/craft:git:branch switch main # Switch context
+/recap                        # See main status
 ```
 
 ### With /pr-create
 
 ```
-/branch new feature-x
+/craft:git:branch new feature-x
 [work...]
-/pr-create            # Creates PR for current branch
-```
-
-## Quick Actions
-
-After showing branch status, offer shortcuts:
-
-```
-Quick actions:
-  n <name> - Create branch
-  s <name> - Switch branch
-  d <name> - Delete branch
-  c - Cleanup stale branches
-  q - Quit
-```
-
-## Examples
-
-### Start New Feature
-
-```
-User: /branch new feature-dashboard
-
-AI:
-✅ Created: feature-dashboard
-📝 Updated .STATUS
-
-What are you working on in this branch?
-> Building user dashboard with widgets
-
-✅ Ready to work!
-Run /next to see tasks.
-```
-
-### Switch for Hot Fix
-
-```
-User: /branch switch main
-
-AI:
-⚠️ You have uncommitted changes
-
-Options:
-1. Commit now
-2. Stash changes
-3. Cancel
-
-> 1
-
-[/commit workflow triggers]
-
-✅ Switched to main
-Pull latest? (y/n)
-> y
-
-✅ Synced with origin/main
-Ready for hot fix!
-```
-
-### Cleanup Old Branches
-
-```
-User: /branch
-
-AI:
-🧹 Found 3 stale branches
-
-experiment-ui: 45 days old, not merged
-  Delete? (y/n/keep)
-> y
-
-temp-fix: 60 days old, merged
-  Delete? (y/n/keep)
-> y
-
-✅ Deleted 2 branches
-Saved disk space: ~15MB
+/pr-create                    # Creates PR for current branch
 ```
 
 ## Key Behaviors
@@ -437,3 +454,12 @@ Saved disk space: ~15MB
 3. **Helpful suggestions** - Suggest branch names
 4. **Cleanup prompts** - Identify stale branches
 5. **Merge-safe** - Check before deleting
+6. **Dry-run support** - Preview all operations
+
+## See Also
+
+- `/craft:git:clean` - Clean merged branches
+- `/craft:git:worktree` - Worktree management
+- Template: `templates/dry-run-pattern.md`
+- Utility: `utils/dry_run_output.py`
+- Specification: `docs/specs/SPEC-dry-run-feature-2026-01-15.md`
