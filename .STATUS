@@ -85,8 +85,6 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
-  - feature-dry-run-phase1: (merged to dev, can be cleaned)
-  - feature-docs-quality: (merged to dev, can be cleaned)
 
 next:
   - Optional Stretch Goals (20 remaining dry-run commands for higher coverage):
