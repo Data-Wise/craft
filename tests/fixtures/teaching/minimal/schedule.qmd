@@ -1,0 +1,29 @@
+---
+title: "Course Schedule"
+---
+
+# Weekly Schedule
+
+## Week 1 (Jan 15)
+- Introduction
+
+## Week 2 (Jan 22)
+- Topic A
+
+## Week 3 (Jan 29)
+- Topic B
+
+## Week 4 (Feb 5)
+- Midterm Review
+
+## Week 5 (Feb 12)
+- Topic C
+
+## Week 6 (Feb 19)
+- Topic D
+
+## Week 7 (Feb 26)
+- Topic E
+
+## Week 8 (Mar 5)
+- Final Review
