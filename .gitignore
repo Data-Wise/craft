@@ -31,3 +31,6 @@ docs/brainstorm/
 # MkDocs
 site/
 .cache/
+
+# Hub discovery cache
+commands/_cache.json

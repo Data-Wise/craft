@@ -4,6 +4,35 @@ You are a command discovery assistant for the craft plugin. Help users find the 
 
 ## When Invoked (`/craft:hub`)
 
+### Step 0: Load Command Data (Auto-Detection)
+
+**IMPORTANT**: Before displaying the hub, load command data from the discovery engine:
+
+```python
+import sys
+from pathlib import Path
+
+# Add commands directory to path
+plugin_dir = Path.cwd()
+sys.path.insert(0, str(plugin_dir))
+
+# Import discovery engine
+from commands._discovery import get_command_stats, load_cached_commands
+
+# Get current command statistics
+stats = get_command_stats()
+commands = load_cached_commands()
+
+# Available data:
+# - stats['total']: Total command count (e.g., 97)
+# - stats['categories']: Dict of category counts (e.g., {'code': 12, 'test': 7, ...})
+# - stats['with_modes']: Commands supporting modes
+# - stats['with_dry_run']: Commands with dry-run support
+# - commands: Full list of command objects with metadata
+```
+
+**Use this data** to populate the hub display below with accurate, auto-detected counts.
+
 ### Step 1: Detect Project Context
 
 ```
@@ -16,18 +45,32 @@ Detection Rules (check in order):
 6. Otherwise → Generic Project
 ```
 
-### Step 2: Display Hub
+### Step 2: Display Hub (Layer 1 - Main Menu)
+
+**Generate this display dynamically** using stats and commands data loaded in Step 0.
+
+Replace placeholders:
+- `[TOTAL]` → `stats['total']`
+- `[CODE_COUNT]` → `stats['categories'].get('code', 0)`
+- `[TEST_COUNT]` → `stats['categories'].get('test', 0)`
+- `[DOCS_COUNT]` → `stats['categories'].get('docs', 0)`
+- `[GIT_COUNT]` → `stats['categories'].get('git', 0)`
+- `[SITE_COUNT]` → `stats['categories'].get('site', 0)`
+- `[ARCH_COUNT]` → `stats['categories'].get('arch', 0)`
+- `[PLAN_COUNT]` → `stats['categories'].get('plan', 0)`
+
+Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 🛠️ CRAFT - Full Stack Developer Toolkit v1.2.0                          │
+│ 🛠️ CRAFT - Full Stack Developer Toolkit v1.22.0                         │
 │ 📍 [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                      │
-│ 📊 47 Commands | 8 Skills | 1 Agent | 4 Modes                           │
+│ 📊 [TOTAL] Commands | 21 Skills | 8 Agents | 4 Modes                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
 │    /craft:check         Pre-flight checks for commit/pr/release        │
-│    /craft:help          Context-aware help and suggestions             │
+│    /craft:smart-help    Context-aware help and suggestions             │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ 🎚️ MODES (default|debug|optimize|release):                             │
 │    default  < 10s   Quick analysis, minimal output                     │
@@ -36,28 +79,28 @@ Detection Rules (check in order):
 │    release  < 300s  Comprehensive checks, full audit                   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ 💻 CODE (12)                     🧪 TEST (4)                            │
+│ 💻 CODE ([CODE_COUNT])              🧪 TEST ([TEST_COUNT])             │
 │   /craft:code:debug                /craft:test:run [mode]               │
 │   /craft:code:demo                 /craft:test:watch                    │
 │   /craft:code:docs-check           /craft:test:coverage                 │
 │   /craft:code:refactor             /craft:test:debug                    │
 │   /craft:code:release                                                   │
-│   /craft:code:test-gen           🏗️ ARCH (4)                            │
+│   /craft:code:test-gen           🏗️ ARCH ([ARCH_COUNT])                 │
 │   /craft:code:lint [mode]          /craft:arch:analyze [mode]           │
 │   /craft:code:coverage             /craft:arch:plan                     │
 │   /craft:code:deps-check           /craft:arch:review                   │
 │   /craft:code:deps-audit           /craft:arch:diagram                  │
 │   /craft:code:ci-local                                                  │
-│   /craft:code:ci-fix             📋 PLAN (3)                            │
+│   /craft:code:ci-fix             📋 PLAN ([PLAN_COUNT])                 │
 │                                    /craft:plan:feature                  │
-│ 📄 DOCS (5)                        /craft:plan:sprint                   │
+│ 📄 DOCS ([DOCS_COUNT])             /craft:plan:sprint                   │
 │   /craft:docs:sync                 /craft:plan:roadmap                  │
 │   /craft:docs:changelog                                                 │
-│   /craft:docs:claude-md          📖 SITE (6)                            │
+│   /craft:docs:claude-md          📖 SITE ([SITE_COUNT])                 │
 │   /craft:docs:validate             /craft:site:init                     │
 │   /craft:docs:nav-update           /craft:site:build                    │
 │                                    /craft:site:preview                  │
-│ 🔀 GIT (5+4 guides)                /craft:site:deploy                   │
+│ 🔀 GIT ([GIT_COUNT]+4 guides)      /craft:site:deploy                   │
 │   /craft:git:init                  /craft:site:check                    │
 │   /craft:git:branch                /craft:site:frameworks               │
 │   /craft:git:sync                                                       │
@@ -70,6 +113,228 @@ Detection Rules (check in order):
 │    /craft:test:run debug  /craft:arch:analyze      /craft:git:sync     │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
+
+**How to generate:**
+1. Load stats and commands data (Step 0)
+2. Replace all `[PLACEHOLDER]` values with actual data from stats
+3. Display the completed hub menu
+4. Optionally list top commands per category (first 5-6 from each)
+
+**Category Navigation:**
+- User can say `/craft:hub <category>` to see all commands in that category (Layer 2)
+- User can say `/craft:hub <category>:<command>` for command details (Layer 3 - future)
+
+---
+
+## Layer 2: Category View
+
+When invoked with `/craft:hub <category>` (e.g., `/craft:hub code`):
+
+### Step 1: Parse Category Argument
+
+```python
+# Check if user provided a category argument
+import sys
+category_arg = None  # Extract from user input
+
+if category_arg:
+    # User wants to see specific category
+    from commands._discovery import get_category_info
+
+    category_info = get_category_info(category_arg)
+
+    if category_info['count'] == 0:
+        print(f"❌ Category '{category_arg}' not found or has no commands.")
+        print(f"💡 Try: /craft:hub to see all categories")
+    else:
+        # Display Layer 2: Category View
+        display_category_view(category_info)
+else:
+    # No category specified, show Layer 1 (Main Menu)
+    display_main_menu()
+```
+
+### Step 2: Display Category View
+
+**Generate this display using category_info data:**
+
+Replace placeholders:
+- `[CATEGORY]` → `category_info['name'].upper()`
+- `[ICON]` → `category_info['icon']`
+- `[COUNT]` → `category_info['count']`
+- `[COMMANDS]` → Loop through `category_info['subcategories']`
+
+Display template:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ [ICON] [CATEGORY] COMMANDS ([COUNT] total)                      │
+│ [Category Description]                                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ [SUBCATEGORY 1] ([count] commands)                              │
+│   1. /craft:[category]:[command1] [mode]   [description]       │
+│   2. /craft:[category]:[command2]          [description]       │
+│   ...                                                           │
+│                                                                 │
+│ [SUBCATEGORY 2] ([count] commands)                              │
+│   N. /craft:[category]:[commandN]          [description]       │
+│   ...                                                           │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│ 💡 Common Workflows:                                            │
+│   • [Workflow 1 name]: [steps]                                  │
+│   • [Workflow 2 name]: [steps]                                  │
+│                                                                 │
+│ 🔙 Back to hub: /craft:hub                                      │
+│ 📚 Learn more: /craft:hub [category]:[command]                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Implementation notes:**
+1. Group commands by subcategory using `category_info['subcategories']`
+2. For commands without subcategory, use 'general' group
+3. Show mode indicator `[mode]` for commands that support modes
+4. Keep descriptions under 40 characters
+5. Number commands sequentially across all subcategories
+
+**Example - CODE Category:**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ 💻 CODE COMMANDS (12 total)                                     │
+│ Code Quality & Development Tools                               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ 🔍 ANALYSIS (6 commands)                                        │
+│   1. /craft:code:lint [mode]        Code style & quality       │
+│   2. /craft:code:coverage [mode]    Test coverage analysis     │
+│   3. /craft:code:deps-check         Dependency health          │
+│   4. /craft:code:deps-audit         Security vulnerabilities   │
+│   5. /craft:code:ci-local           Run CI checks locally      │
+│   6. /craft:code:ci-fix             Fix CI failures            │
+│                                                                 │
+│ 🏗️ DEVELOPMENT (6 commands)                                     │
+│   7. /craft:code:debug              Systematic debugging       │
+│   8. /craft:code:demo               Create demonstrations      │
+│   9. /craft:code:test-gen           Generate test files        │
+│  10. /craft:code:refactor           Refactoring guidance       │
+│  11. /craft:code:release            Release workflow           │
+│  12. /craft:code:docs-check         Pre-flight doc check       │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│ 💡 Common Workflows:                                            │
+│   • Pre-commit: lint → test:run → ci-local                     │
+│   • Debug: debug → test:debug → coverage                       │
+│   • Release: deps-audit → test:run release → release           │
+│                                                                 │
+│ 🔙 Back to hub: /craft:hub                                      │
+│ 📚 Learn more: /craft:hub code:[command]                        │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Layer 3: Command Detail + Tutorial
+
+When invoked with `/craft:hub <category>:<command>` (e.g., `/craft:hub code:lint`):
+
+### Step 1: Parse Command Argument
+
+```python
+# Check if user provided command argument (category:command format)
+import sys
+command_arg = None  # Extract from user input (e.g., "code:lint")
+
+if command_arg and ':' in command_arg:
+    # User wants to see specific command detail
+    from commands._discovery import get_command_detail, generate_command_tutorial
+
+    command_info = get_command_detail(command_arg)
+
+    if not command_info:
+        print(f"❌ Command '{command_arg}' not found.")
+        print(f"💡 Try: /craft:hub to browse all commands")
+    else:
+        # Display Layer 3: Command Detail + Tutorial
+        tutorial = generate_command_tutorial(command_info)
+        print(tutorial)
+else:
+    # No command specified, show Layer 2 or Layer 1
+    # (logic for Layer 1/2 navigation)
+    pass
+```
+
+### Step 2: Display Command Detail
+
+The `generate_command_tutorial()` function creates a formatted display with:
+
+1. **Header** - Command name and short description
+2. **Description** - Detailed explanation of what the command does
+3. **Modes** - Execution modes with time budgets (if applicable)
+4. **Basic Usage** - Syntax examples with mode variations
+5. **Common Workflows** - Real-world usage patterns
+6. **Related Commands** - Similar/complementary commands for navigation
+7. **Navigation Footer** - Links back to category and hub
+
+**Example - CODE:LINT Command:**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ 📚 COMMAND: /craft:code:lint                                    │
+│ Code style and quality checks                                  │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ DESCRIPTION                                                     │
+│ ───────────                                                     │
+│ Runs project-specific linters (ruff, flake8, eslint, etc.)     │
+│ to check code style and quality. Supports 4 execution modes    │
+│ for different use cases.                                       │
+│                                                                 │
+│ MODES                                                           │
+│ ─────                                                           │
+│   default    (< 10s)      Quick checks, minimal output         │
+│   debug      (< 120s)     Verbose with fix suggestions         │
+│   optimize   (< 180s)     Performance focus, parallel execution│
+│   release    (< 300s)     Comprehensive with security audit    │
+│                                                                 │
+│ BASIC USAGE                                                     │
+│ ───────────                                                     │
+│   /craft:code:lint                 # Default mode              │
+│   /craft:code:lint debug           # Debug mode                │
+│   /craft:code:lint release         # Release mode              │
+│                                                                 │
+│ COMMON WORKFLOWS                                                │
+│ ────────────────                                                │
+│                                                                 │
+│ Pre-Commit:                                                     │
+│   1. /craft:code:lint                                           │
+│   2. /craft:test:run                                            │
+│   3. git commit                                                 │
+│                                                                 │
+│ Debug Workflow:                                                 │
+│   1. /craft:code:lint debug                                     │
+│   2. Fix issues based on suggestions                           │
+│   3. /craft:code:lint  (verify fixes)                           │
+│                                                                 │
+│ RELATED COMMANDS                                                │
+│ ────────────────                                                │
+│   /craft:test:run        Run tests                             │
+│   /craft:code:ci-local   Full CI checks                        │
+│   /craft:check           Universal validation                  │
+│                                                                 │
+│ 🔙 Back to CODE: /craft:hub code                                │
+│ 🏠 Back to Hub: /craft:hub                                      │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Implementation Notes:**
+1. Command detail is generated dynamically from frontmatter metadata
+2. Tutorial sections are auto-generated but can be enriched with custom tutorial files
+3. Related commands are looked up to show their descriptions
+4. Navigation links maintain the 3-layer hierarchy (Hub → Category → Command)
+
+---
 
 ## Smart Commands (NEW!)
 

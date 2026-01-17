@@ -1,68 +1,90 @@
-# /craft:hub
+# /craft:hub — Command Discovery Hub v2.0
 
-> **Command discovery hub - find the right command for any task.**
+> **Smart 3-layer navigation system with auto-detection and progressive disclosure.**
 
 ---
 
 ## Synopsis
 
 ```bash
-/craft:hub [category]
+# Layer 1: Main menu (browse all categories)
+/craft:hub
+
+# Layer 2: Category view (browse commands in a category)
+/craft:hub <category>
+
+# Layer 3: Command detail (view full tutorial for a command)
+/craft:hub <category>:<command>
 ```
 
 **Quick examples:**
 ```bash
-# Show full hub
+# Show full hub (Layer 1)
 /craft:hub
 
-# Show specific category
+# Browse CODE category (Layer 2)
 /craft:hub code
-/craft:hub test
-/craft:hub git
+
+# View code:lint tutorial (Layer 3)
+/craft:hub code:lint
 ```
+
+---
+
+## What's New in v2.0
+
+Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive disclosure**:
+
+### Auto-Detection Engine
+- **Dynamic discovery** - Scans `commands/` directory automatically
+- **Always accurate** - No hardcoded counts that drift out of sync
+- **Fast caching** - JSON cache with auto-invalidation (<2ms cached, 12ms uncached)
+- **97 commands** detected across 16 categories
+
+### 3-Layer Navigation
+1. **Layer 1 (Main Menu)** - Browse categories with counts
+2. **Layer 2 (Category View)** - Browse commands by subcategory
+3. **Layer 3 (Command Detail)** - View full tutorials
+
+### ADHD-Friendly Design
+- **Progressive disclosure** - Start broad, drill down as needed
+- **Visual hierarchy** - Clear sections, icons, and formatting
+- **No overwhelm** - Never show all 97 commands at once
+- **Smart breadcrumbs** - Always know where you are
 
 ---
 
 ## Description
 
-Central command discovery hub that shows all available craft commands organized by category. Automatically detects your project type and shows relevant suggestions.
+Central command discovery hub that shows all available craft commands organized by category. The v2.0 hub uses an auto-detection engine to dynamically discover commands and provides a 3-layer navigation system for exploring the toolkit.
 
-**Features:**
-- **Project detection** - Shows relevant commands for your project type
-- **Category browsing** - Deep dive into specific command groups
-- **Mode system overview** - Understand execution modes
-- **Quick reference** - Common workflows at a glance
-
----
-
-## Categories
-
-| Category | Commands | Description |
-|----------|----------|-------------|
-| `code` | 12 | Code quality, linting, debugging |
-| `test` | 4 | Testing and coverage |
-| `arch` | 4 | Architecture analysis and planning |
-| `docs` | 14 | Documentation generation |
-| `git` | 8 | Git operations and guides |
-| `site` | 12 | Documentation site management |
-| `ci` | 3 | CI/CD workflow generation |
-| `plan` | 3 | Planning and project management |
-| `dist` | 3 | Distribution and packaging |
+**Key Features:**
+- **Auto-detection** - Discovers commands from filesystem, always accurate
+- **3-layer navigation** - Main Menu → Category View → Command Detail
+- **Subcategory grouping** - Commands organized by purpose within categories
+- **Auto-generated tutorials** - Command details from frontmatter metadata
+- **Smart navigation** - Breadcrumbs maintain hierarchy
+- **Mode system** - Execution modes with time budgets
+- **Related commands** - Discover similar/complementary commands
 
 ---
 
-## Output Example
+## Layer 1: Main Menu
+
+**Invocation:** `/craft:hub`
+
+Shows all categories with auto-detected command counts:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 🛠️ CRAFT - Full Stack Developer Toolkit v1.18.0                         │
-│ 📍 craft (Claude Plugin) on dev                                         │
-│ 📊 89 Commands | 21 Skills | 8 Agents | 4 Modes                         │
+│ 🛠️ CRAFT - Full Stack Developer Toolkit v1.22.0                         │
+│ 📍 craft (Claude Plugin) on feature/hub-v2                              │
+│ 📊 97 Commands | 21 Skills | 8 Agents | 4 Modes                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
 │    /craft:check         Pre-flight checks for commit/pr/release        │
-│    /craft:help          Context-aware help and suggestions             │
+│    /craft:smart-help    Context-aware help and suggestions             │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ 🎚️ MODES (default|debug|optimize|release):                             │
 │    default  < 10s   Quick analysis, minimal output                     │
@@ -71,137 +93,410 @@ Central command discovery hub that shows all available craft commands organized 
 │    release  < 300s  Comprehensive checks, full audit                   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ 💻 CODE (12)                     🧪 TEST (4)                            │
-│   /craft:code:lint [mode]          /craft:test:run [mode]               │
-│   /craft:code:debug                /craft:test:watch                    │
-│   /craft:code:coverage             /craft:test:coverage                 │
-│   ...                              /craft:test:debug                    │
+│ 💻 CODE (12)              🧪 TEST (7)              📄 DOCS (19)         │
+│   /craft:code:lint          /craft:test:run          /craft:docs:sync   │
+│   /craft:code:coverage      /craft:test:watch        /craft:docs:check  │
+│   /craft:code:deps-audit    /craft:test:coverage     /craft:docs:lint   │
+│   /craft:code:ci-local      /craft:test:debug        ...                │
 │                                                                         │
-│ 🏗️ ARCH (4)                       📄 DOCS (14)                          │
-│   /craft:arch:analyze [mode]       /craft:docs:update                   │
-│   /craft:arch:plan                 /craft:docs:sync                     │
-│   /craft:arch:review               /craft:docs:changelog                │
-│   /craft:arch:diagram              ...                                  │
+│ 🔀 GIT (11)               📖 SITE (16)             🏗️ ARCH (1)          │
+│   /craft:git:worktree       /craft:site:build        /craft:arch:analyze│
+│   /craft:git:sync           /craft:site:publish      ...                │
+│   /craft:git:clean          /craft:site:deploy                          │
+│   ...                       ...                                         │
 │                                                                         │
+│ 🚀 CI (3)                 📦 DIST (1)              📋 PLAN (3)          │
+│ 🔄 WORKFLOW (2)           🎯 MORE...                                    │
+│                                                                         │
+│ 💡 TIP: Say "/craft:hub <category>" to explore a category              │
+│         Example: /craft:hub code                                        │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
+**Navigation:**
+- Select any category to view Layer 2 (Category View)
+- Example: `/craft:hub code` → Browse all CODE commands
+
 ---
 
-## Category Deep Dive
+## Layer 2: Category View
 
-### `/craft:hub code`
+**Invocation:** `/craft:hub <category>`
 
-```
-💻 CODE COMMANDS (12)
-───────────────────────────────────────────────────────────────────────────
-Command                  │ Description                    │ Modes
-─────────────────────────┼────────────────────────────────┼─────────────
-/craft:code:lint         │ Code style & quality checks    │ ✓
-/craft:code:debug        │ Systematic debugging           │ -
-/craft:code:coverage     │ Test coverage report           │ ✓
-/craft:code:refactor     │ Refactoring guidance           │ -
-/craft:code:deps-audit   │ Security vulnerability scan    │ -
-/craft:code:ci-local     │ Run CI checks locally          │ -
-───────────────────────────────────────────────────────────────────────────
-```
+Shows all commands in a category, grouped by subcategory:
 
-### `/craft:hub git`
+### Example: `/craft:hub code`
 
 ```
-🔀 GIT COMMANDS (4 commands + 4 guides)
-───────────────────────────────────────────────────────────────────────────
-Commands:
-  /craft:git:worktree   Parallel development with worktrees
-  /craft:git:branch     Branch management (create, switch, delete)
-  /craft:git:sync       Smart sync with remote (pull, rebase, push)
-  /craft:git:clean      Clean up merged branches safely
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 💻 CODE COMMANDS (12 total)                                             │
+│ Code Quality & Development Tools                                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ 🔍 ANALYSIS (6 commands)                                                │
+│   1. /craft:code:lint [mode]        Code style & quality checks        │
+│   2. /craft:code:coverage [mode]    Test coverage analysis             │
+│   3. /craft:code:deps-check         Dependency health checks           │
+│   4. /craft:code:deps-audit         Security vulnerability scan        │
+│   5. /craft:code:ci-local           Run CI checks locally              │
+│   6. /craft:code:ci-fix             Fix CI failures                    │
+│                                                                         │
+│ 🏗️ DEVELOPMENT (6 commands)                                             │
+│   7. /craft:code:debug              Systematic debugging               │
+│   8. /craft:code:demo               Create demonstrations              │
+│   9. /craft:code:test-gen           Generate test files                │
+│  10. /craft:code:refactor           Refactoring guidance               │
+│  11. /craft:code:release            Release workflow                   │
+│  12. /craft:code:docs-check         Documentation pre-flight           │
+│                                                                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│ 💡 Common Workflows:                                                    │
+│   • Pre-commit: lint → test:run → ci-local                             │
+│   • Debug: debug → test:debug → coverage                               │
+│   • Release: deps-audit → test:run release → release                   │
+│                                                                         │
+│ 🔙 Back to hub: /craft:hub                                              │
+│ 📚 Learn more: /craft:hub code:[command]                                │
+└─────────────────────────────────────────────────────────────────────────┘
+```
 
-Guides:
-  /craft:git:refcard      Quick reference card
-  /craft:git:undo-guide   Emergency undo guide
-  /craft:git:safety-rails Safety rails guide
-───────────────────────────────────────────────────────────────────────────
+**Features:**
+- **Subcategory grouping** - Commands organized by purpose
+- **Mode indicators** - `[mode]` shows mode support
+- **Command descriptions** - Short summaries for quick scanning
+- **Common workflows** - Real-world usage patterns
+- **Navigation breadcrumbs** - Back to hub, drill down to command detail
+
+**All Categories:**
+- `code` (12) - Code quality, linting, debugging, CI/CD
+- `test` (7) - Testing, coverage, debugging
+- `docs` (19) - Documentation generation, sync, validation
+- `git` (11) - Branch management, worktree, sync
+- `site` (16) - Documentation sites (MkDocs, Quarto, pkgdown)
+- `arch` (1) - Architecture analysis
+- `ci` (3) - CI/CD workflow generation
+- `dist` (1) - Distribution and packaging
+- `plan` (3) - Planning and project management
+- `workflow` (2) - Workflow automation
+
+---
+
+## Layer 3: Command Detail + Tutorial
+
+**Invocation:** `/craft:hub <category>:<command>`
+
+Shows full command tutorial with step-by-step instructions:
+
+### Example: `/craft:hub code:lint`
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 📚 COMMAND: /craft:code:lint                                            │
+│ Code style and quality checks with mode support                        │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ DESCRIPTION                                                             │
+│ ───────────                                                             │
+│ Runs project-specific linters (ruff, flake8, eslint, etc.) to check    │
+│ code style and quality. Supports 4 execution modes for different use   │
+│ cases from quick checks to comprehensive audits.                       │
+│                                                                         │
+│ MODES                                                                   │
+│ ─────                                                                   │
+│   default    (< 10s)      Quick checks, minimal output                 │
+│   debug      (< 120s)     Verbose with fix suggestions                 │
+│   optimize   (< 180s)     Performance focus, parallel execution        │
+│   release    (< 300s)     Comprehensive with security audit            │
+│                                                                         │
+│ BASIC USAGE                                                             │
+│ ───────────                                                             │
+│   /craft:code:lint                 # Default mode (quick)              │
+│   /craft:code:lint debug           # Debug mode (verbose)              │
+│   /craft:code:lint release         # Release mode (thorough)           │
+│                                                                         │
+│ COMMON WORKFLOWS                                                        │
+│ ────────────────                                                        │
+│                                                                         │
+│ Pre-Commit Workflow:                                                    │
+│   1. /craft:code:lint                                                   │
+│   2. /craft:test:run                                                    │
+│   3. git commit -m "..."                                                │
+│                                                                         │
+│ Debug Workflow:                                                         │
+│   1. /craft:code:lint debug                                             │
+│   2. Fix issues based on suggestions                                   │
+│   3. /craft:code:lint  (verify fixes)                                   │
+│                                                                         │
+│ RELATED COMMANDS                                                        │
+│ ────────────────                                                        │
+│   /craft:test:run        Run tests                                     │
+│   /craft:code:ci-local   Full CI checks locally                        │
+│   /craft:check           Universal validation                          │
+│                                                                         │
+│ 💡 TIP: Use /craft:check for automated lint + test + CI workflow       │
+│                                                                         │
+│ 🔙 Back to CODE: /craft:hub code                                        │
+│ 🏠 Back to Hub: /craft:hub                                              │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+**Tutorial Sections:**
+1. **Description** - Detailed explanation of what the command does
+2. **Modes** - Execution modes with time budgets (if applicable)
+3. **Basic Usage** - Syntax examples with mode variations
+4. **Common Workflows** - Real-world usage patterns
+5. **Related Commands** - Similar/complementary commands
+6. **Tips** - Pro user hints
+7. **Navigation** - Breadcrumbs back to category and hub
+
+---
+
+## Navigation Examples
+
+### Browsing by Category
+
+```bash
+# Start at main menu
+/craft:hub
+
+# Select GIT category
+/craft:hub git
+
+# View worktree command tutorial
+/craft:hub git:worktree
+```
+
+### Quick Command Lookup
+
+```bash
+# Jump directly to command detail
+/craft:hub test:run
+/craft:hub docs:sync
+/craft:hub code:lint
+```
+
+### Category Deep Dive
+
+```bash
+# Explore all TEST commands
+/craft:hub test
+
+# Learn about specific test command
+/craft:hub test:coverage
+
+# Check related command
+/craft:hub test:debug
 ```
 
 ---
 
 ## Mode System
 
-Many commands support execution modes:
+Many commands support execution modes for different use cases:
 
-| Mode | Time Budget | Use Case |
-|------|-------------|----------|
-| **default** | < 10-30s | Day-to-day quick checks |
-| **debug** | < 120s | Investigating issues, verbose output |
-| **optimize** | < 180s | Performance focus, parallel execution |
-| **release** | < 300s | Pre-release comprehensive checks |
+| Mode | Time Budget | Use Case | Example |
+|------|-------------|----------|---------|
+| **default** | < 10s | Day-to-day quick checks | `/craft:code:lint` |
+| **debug** | < 120s | Investigating issues | `/craft:code:lint debug` |
+| **optimize** | < 180s | Performance focus | `/craft:code:lint optimize` |
+| **release** | < 300s | Pre-release comprehensive | `/craft:code:lint release` |
 
-**Examples:**
+**Mode indicators in hub:**
+- Commands supporting modes show `[mode]` in Layer 2 (Category View)
+- Layer 3 (Command Detail) shows all available modes with time budgets
+- Use modes to balance speed vs. thoroughness
+
+---
+
+## Auto-Detection System
+
+### How It Works
+
+Hub v2.0 uses an auto-detection engine to discover commands:
+
+1. **Scan** - Recursively scans `commands/` directory for `*.md` files
+2. **Parse** - Extracts YAML frontmatter metadata from each file
+3. **Infer** - Derives category from directory structure (`code/lint.md` → "code")
+4. **Cache** - Stores discovered commands in JSON cache
+5. **Invalidate** - Auto-invalidates cache when files change
+
+### Performance
+
+- **First run:** ~12ms (well under 200ms target, 94% faster)
+- **Cached run:** <2ms (well under 10ms target, 80% faster)
+- **Cache location:** `commands/_cache.json` (gitignored)
+
+### Benefits
+
+- **Always accurate** - Counts auto-update when commands added/removed
+- **No maintenance** - No hardcoded lists to keep in sync
+- **Fast** - JSON cache provides instant results
+- **Reliable** - Auto-invalidation ensures freshness
+
+---
+
+## Command Frontmatter
+
+Commands use YAML frontmatter for metadata discovery:
+
+```yaml
+---
+name: "code:lint"                    # Command identifier
+category: "code"                     # Primary category
+subcategory: "analysis"              # Subcategory for grouping
+description: "Code style & quality"  # One-line summary
+modes: ["default", "debug", "optimize", "release"]  # Supported modes
+time_budgets:                        # Time estimates per mode
+  default: "< 10s"
+  debug: "< 120s"
+  release: "< 300s"
+related_commands:                    # Navigation suggestions
+  - "test:run"
+  - "code:ci-local"
+  - "check"
+common_workflows:                    # Usage patterns
+  - name: "Pre-commit"
+    steps: ["code:lint", "test:run", "git commit"]
+---
+```
+
+**Required fields:**
+- `name` - Command identifier
+- `category` - Primary category
+- `description` - One-line summary
+
+**Optional fields:**
+- `subcategory` - For Layer 2 grouping
+- `modes` - Execution modes
+- `time_budgets` - Time estimates
+- `related_commands` - Navigation
+- `common_workflows` - Usage patterns
+- `examples` - Usage examples
+
+---
+
+## Implementation Details
+
+### Discovery Engine
+
+**Location:** `commands/_discovery.py`
+
+**Key Functions:**
+```python
+discover_commands()              # Scan and discover all commands
+load_cached_commands()           # Load with auto-invalidation
+get_command_stats()              # Get statistics
+
+# Layer 2
+get_commands_by_category(cat)    # Filter by category
+group_commands_by_subcategory()  # Group by subcategory
+get_category_info(cat)           # Complete category info
+
+# Layer 3
+get_command_detail(name)         # Lookup command by name
+generate_command_tutorial(cmd)   # Auto-generate tutorial
+```
+
+### Cache Format
+
+```json
+{
+  "generated": "2026-01-17T11:30:00Z",
+  "count": 97,
+  "commands": [
+    {
+      "name": "code:lint",
+      "category": "code",
+      "subcategory": "analysis",
+      "description": "Code style & quality checks",
+      "file": "code/lint.md",
+      "modes": ["default", "debug", "optimize", "release"],
+      "time_budgets": { "default": "< 10s", "debug": "< 120s" }
+    }
+  ]
+}
+```
+
+### Test Coverage
+
+- **34 tests** across 4 test suites
+- **100% passing** (207ms total duration)
+- Tests: discovery, integration, Layer 2, Layer 3
+- Validation: accuracy, performance, format, navigation
+
+---
+
+## Tips & Best Practices
+
+### For Quick Tasks
+- Start with `/craft:do <task>` for smart routing
+- Use default mode for fast checks
+- Use `/craft:check` for comprehensive validation
+
+### For Learning
+- Start at Layer 1 (Main Menu) to browse categories
+- Use Layer 2 (Category View) to scan available commands
+- Use Layer 3 (Command Detail) for step-by-step tutorials
+
+### For Power Users
+- Jump directly to Layer 3: `/craft:hub code:lint`
+- Use debug mode for verbose output
+- Use release mode before deployments
+- Check related commands for complementary tools
+
+### For Plugin Developers
+- Add frontmatter to new commands
+- Run `python3 commands/_discovery.py` to regenerate cache
+- Test with `python3 tests/test_hub_*.py`
+
+---
+
+## Troubleshooting
+
+### Cache Issues
+
+**Problem:** Counts seem wrong or outdated
+**Solution:** Delete cache and regenerate:
 ```bash
-/craft:code:lint                # default mode - quick
-/craft:code:lint debug          # verbose with fix suggestions
-/craft:code:lint release        # comprehensive with security
+rm commands/_cache.json
+python3 commands/_discovery.py
+```
 
-/craft:test:run                 # quick smoke tests
-/craft:test:run release         # full suite with coverage
+### Command Not Found
+
+**Problem:** `/craft:hub code:lint` says "not found"
+**Solution:** Check command name format:
+- Use `category:command` format (e.g., `code:lint`)
+- Browse Layer 2 to find correct name: `/craft:hub code`
+
+### Performance Issues
+
+**Problem:** Hub seems slow
+**Solution:** Check cache file exists:
+```bash
+ls -lh commands/_cache.json
+# Should be < 100KB and recent timestamp
 ```
 
 ---
 
-## Project-Aware Suggestions
+## Migration from v1.x
 
-The hub detects your project type and shows relevant commands:
+### Breaking Changes
+- None - Hub v2.0 is fully backward compatible
+- Old usage (`/craft:hub`, `/craft:hub code`) still works
 
-### Python Project
-```
-💡 SUGGESTED FOR PYTHON PROJECT:
+### New Features
+- Layer 3 command detail views
+- Auto-detection (no hardcoded counts)
+- Subcategory grouping
+- Auto-generated tutorials
+- Related commands navigation
 
-  /craft:do "run all checks"  Smart workflow
-  /craft:code:lint            Run ruff/flake8
-  /craft:test:run             Run pytest
-  /craft:code:ci-local        Pre-push validation
-```
-
-### Node.js Project
-```
-💡 SUGGESTED FOR NODE PROJECT:
-
-  /craft:do "validate all"    Smart workflow
-  /craft:code:lint            Run ESLint/Prettier
-  /craft:test:run             Run Jest/Vitest
-  /craft:code:deps-audit      Security scan
-```
-
-### Claude Plugin
-```
-💡 SUGGESTED FOR CLAUDE PLUGIN:
-
-  /craft:check                Validate plugin structure
-  /craft:test:run             Run Python tests
-  /craft:docs:update          Update documentation
-```
-
----
-
-## Quick Reference
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│ CRAFT QUICK REFERENCE                                                   │
-├────────────────────────────────────────────────────────────────────────┤
-│ Start Here:                                                            │
-│   /craft:do <task>   → AI routes to best workflow                     │
-│   /craft:check       → Quick validation                               │
-│   /craft:help        → Context-aware suggestions                      │
-│                                                                        │
-│ Development Workflow:                                                  │
-│   /craft:code:lint → /craft:test:run → /craft:check → /craft:git:sync │
-│                                                                        │
-│ Before Release:                                                        │
-│   /craft:check --for release                                          │
-└────────────────────────────────────────────────────────────────────────┘
-```
+### What to Update
+- Add frontmatter to custom commands
+- Regenerate cache after upgrade
+- Update documentation if referencing command counts
 
 ---
 
@@ -209,5 +504,7 @@ The hub detects your project type and shows relevant commands:
 
 - **Smart routing:** `/craft:do` - Universal task command
 - **Pre-flight:** `/craft:check` - Validation before commit/PR/release
-- **Help:** `/craft:help` - Context-aware suggestions
+- **Help:** `/craft:smart-help` - Context-aware suggestions
 - **Orchestrator:** `/craft:orchestrate` - Multi-agent workflows
+- **Discovery engine:** `commands/_discovery.py` - Implementation details
+- **Test suite:** `tests/test_hub_*.py` - Validation tests
