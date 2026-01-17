@@ -4,23 +4,48 @@
 
 **Problem**: Current GIFs show simulated output in bash terminal, not actual Claude Code plugin output
 
-**Solution**: Verify commands → Update tapes → Regenerate → Optimize
+**Solution**: Use asciinema to record real sessions → Convert → Optimize
 
 ---
 
-## Quick Start
+## Quick Start (asciinema method - recommended)
 
 ```bash
-# 1. Verify commands work (do this first!)
-# See "Command Verification" section below
+# 1. Record real session
+asciinema rec docs/demos/teaching-workflow.cast
 
-# 2. Update VHS tapes with accurate output
+# In Claude Code, run your commands:
+# /craft:git:status
+# /craft:site:build
+# ... etc
+# Press Ctrl+D when done
+
+# 2. Convert to GIF
+agg --cols 100 --rows 30 --font-size 14 --fps 10 \
+    docs/demos/teaching-workflow.cast \
+    docs/demos/teaching-workflow.gif
+
+# 3. Optimize
+gifsicle -O3 --colors 128 --lossy=80 \
+    docs/demos/teaching-workflow.gif \
+    -o docs/demos/teaching-workflow.gif
+
+# 4. Review
+open docs/demos/teaching-workflow.gif
+```
+
+## Alternative: VHS Method
+
+If you need scripted/repeatable demos:
+
+```bash
+# 1. Update VHS tapes with accurate output
 # Edit .tape files in docs/demos/ and docs/gifs/
 
-# 3. Regenerate all GIFs
+# 2. Regenerate all GIFs
 ./scripts/regenerate-gifs.sh
 
-# 4. Review GIFs
+# 3. Review GIFs
 open docs/demos/*.gif docs/gifs/*.gif
 ```
 
@@ -85,11 +110,46 @@ open docs/demos/*.gif docs/gifs/*.gif
 
 ---
 
-## VHS Tape Update Workflow
+## Recording Workflow
+
+### Method 1: asciinema (Recommended)
+
+**For recording real Claude Code sessions:**
+
+```bash
+# 1. Start recording
+asciinema rec docs/demos/command-name.cast
+
+# 2. Run commands in Claude Code
+/craft:command1
+# Wait for output...
+/craft:command2
+# Wait for output...
+
+# 3. Stop recording
+# Press Ctrl+D or type 'exit'
+
+# 4. Preview
+asciinema play docs/demos/command-name.cast
+
+# 5. Convert to GIF
+agg --cols 100 --rows 30 --font-size 14 --fps 10 \
+    docs/demos/command-name.cast \
+    docs/demos/command-name.gif
+
+# 6. Optimize
+gifsicle -O3 --colors 128 --lossy=80 \
+    docs/demos/command-name.gif \
+    -o docs/demos/command-name.gif
+```
+
+### Method 2: VHS Tape Update (Alternative)
+
+**For scripted/repeatable demos:**
 
 **Example: Updating teaching-workflow.tape**
 
-### Before (Simulated):
+#### Before (Simulated):
 ```tape
 Type "$ /craft:site:build"
 Enter
@@ -97,7 +157,7 @@ Sleep 300ms
 Type "✓ Built successfully"
 ```
 
-### After (Accurate):
+#### After (Accurate):
 ```tape
 Type "$ /craft:site:build"
 Enter
