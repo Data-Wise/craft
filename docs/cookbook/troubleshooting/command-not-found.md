@@ -120,13 +120,13 @@ If this works, the plugin is installed correctly.
 
 This shows all available commands across all plugins.
 
-### Test Basic Command
+### Validate Plugin Functionality
 ```bash
 # In Claude Code conversation
 /craft:check
 ```
 
-If this works, Craft is fully functional.
+This command validates your project setup and plugin installation. If this works, Craft is fully functional. See [Check Command](../../commands/check.md) for details on what it validates.
 
 ## Still Having Issues?
 
