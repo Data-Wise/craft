@@ -139,6 +139,10 @@ See: `templates/docs/GIF-GUIDELINES.md` for full workflow.
 /craft:docs:demo --check --method asciinema    # Check asciinema-specific deps
 /craft:docs:demo --fix                         # Auto-install missing dependencies
 /craft:docs:demo --fix --method asciinema      # Install missing deps for specific method
+/craft:docs:demo --convert recording.cast      # Convert single .cast file to .gif
+/craft:docs:demo --convert file.cast out.gif   # Convert with custom output name
+/craft:docs:demo --batch                       # Convert all .cast files in docs/
+/craft:docs:demo --batch --force               # Overwrite existing GIF files
 ```
 
 ## Dependency Management
@@ -197,6 +201,38 @@ The `--fix` flag automatically installs missing dependencies with your consent.
 - vhs (scripted demos)
 - gifsicle (optimize GIF size)
 - fswatch (optional, for watch mode)
+
+### Batch Conversion
+
+Convert existing `.cast` recordings to optimized `.gif` files.
+
+**Convert single file:**
+```bash
+/craft:docs:demo --convert recording.cast              # Auto-generate recording.gif
+/craft:docs:demo --convert demo.cast output.gif        # Custom output name
+/craft:docs:demo --convert file.cast --force           # Overwrite existing
+```
+
+**Batch convert all files:**
+```bash
+/craft:docs:demo --batch                               # Convert all .cast in docs/
+/craft:docs:demo --batch --force                       # Overwrite existing GIFs
+/craft:docs:demo --batch --search-path custom/path     # Custom search directory
+/craft:docs:demo --batch --dry-run                     # Preview without converting
+```
+
+**Features:**
+- Automatically finds all `.cast` files in `docs/demos/` and `docs/gifs/`
+- Skips existing `.gif` files (unless `--force`)
+- Shows progress bar with ETA
+- Reports compression ratios and file sizes
+- Cross-platform (macOS/Linux)
+
+**Output format:**
+- Input: `recording.cast` (45 KB)
+- Processing with `agg` (font-size 16, monokai theme)
+- Optimizing with `gifsicle` (--optimize=3 --colors 256)
+- Output: `recording.gif` (235 KB, 5.2x compression)
 
 ## Recording Methods
 
@@ -313,6 +349,77 @@ if [ "${args_check_dependencies:-false}" = "true" ]; then
     fi
 fi
 ```
+
+### Implementation: Batch Conversion (--convert, --batch)
+
+#### Convert Single File (--convert)
+
+When `--convert` flag is provided:
+
+1. Source the conversion utility:
+   ```bash
+   source scripts/convert-cast.sh
+   ```
+
+2. Parse arguments:
+   ```bash
+   cast_file="$1"
+   output_gif="${2:-}"  # Optional custom output
+   force_flag="${args_force:-false}"
+   ```
+
+3. Validate and convert:
+   ```bash
+   if ! validate_cast_file "$cast_file"; then
+       echo "Error: Invalid .cast file"
+       exit 1
+   fi
+
+   convert_single "$cast_file" "$output_gif" "$force_flag"
+   exit $?
+   ```
+
+#### Batch Convert (--batch)
+
+When `--batch` flag is provided:
+
+1. Source the batch converter:
+   ```bash
+   source scripts/batch-convert.sh
+   ```
+
+2. Parse batch options:
+   ```bash
+   search_paths="${args_search_path:-docs/demos docs/gifs}"
+   force_flag="${args_force:-false}"
+   dry_run="${args_dry_run:-false}"
+   ```
+
+3. Find and filter files:
+   ```bash
+   cast_files=$(find_cast_files "$search_paths")
+   filtered_files=$(filter_existing "$cast_files" "$force_flag")
+   ```
+
+4. Process batch with progress:
+   ```bash
+   if [ "$dry_run" = "true" ]; then
+       echo "Dry run - would convert:"
+       echo "$filtered_files"
+       exit 0
+   fi
+
+   process_batch "$filtered_files"
+   show_summary
+   exit $?
+   ```
+
+#### Exit Codes (Conversion)
+
+- `0` - All conversions successful (or no files found)
+- `1` - Some conversions failed
+- `2` - All conversions failed or file exists without --force
+- `3` - Missing convert-cast.sh script
 
 ### Step 1: Determine Feature Commands
 
