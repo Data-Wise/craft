@@ -1,0 +1,223 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Craft Command Metadata Schema",
+  "description": "Schema for command metadata extracted by the auto-detection engine. Documented for reference only, not enforced.",
+  "type": "object",
+  "required": ["name", "category", "description", "file"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Command identifier in format 'category:command' or just 'command' for top-level commands",
+      "pattern": "^[a-z][a-z0-9:_-]*$",
+      "examples": ["code:lint", "test:run", "hub", "git:worktree"]
+    },
+    "category": {
+      "type": "string",
+      "description": "Primary category inferred from directory structure",
+      "examples": ["code", "test", "docs", "git", "site", "arch", "plan", "ci", "dist", "workflow", "orchestrate", "utils"]
+    },
+    "subcategory": {
+      "type": "string",
+      "description": "Optional subcategory for grouping related commands within a category",
+      "examples": ["analysis", "development", "cicd", "release"]
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line summary extracted from frontmatter, first heading, or first paragraph",
+      "maxLength": 80,
+      "examples": ["Code style and quality checks", "Run tests with mode support"]
+    },
+    "file": {
+      "type": "string",
+      "description": "Relative path from commands/ directory",
+      "examples": ["code/lint.md", "git/worktree.md", "hub.md"]
+    },
+    "modes": {
+      "type": "array",
+      "description": "Supported execution modes (if command supports mode system)",
+      "items": {
+        "type": "string",
+        "enum": ["default", "debug", "optimize", "release"]
+      },
+      "examples": [["default", "debug", "optimize", "release"]]
+    },
+    "arguments": {
+      "type": "array",
+      "description": "Command-line arguments extracted from frontmatter",
+      "items": {
+        "oneOf": [
+          {"type": "string"},
+          {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "required": {"type": "boolean"},
+              "default": {"type": ["string", "boolean", "number"]},
+              "alias": {"type": "string"}
+            }
+          }
+        ]
+      },
+      "examples": [
+        ["mode", "path", "dry-run"],
+        [
+          {
+            "name": "mode",
+            "description": "Execution mode",
+            "required": false,
+            "default": "default"
+          }
+        ]
+      ]
+    },
+    "tutorial": {
+      "type": "boolean",
+      "description": "Whether a tutorial is available for this command",
+      "default": false
+    },
+    "tutorial_level": {
+      "type": "string",
+      "description": "Difficulty level of the tutorial",
+      "enum": ["beginner", "intermediate", "advanced"],
+      "examples": ["beginner"]
+    },
+    "tutorial_file": {
+      "type": "string",
+      "description": "Path to tutorial markdown file",
+      "examples": ["commands/tutorials/code-lint.md"]
+    },
+    "related_commands": {
+      "type": "array",
+      "description": "Related commands for navigation and discovery",
+      "items": {"type": "string"},
+      "examples": [["test:run", "code:ci-local", "check"]]
+    },
+    "tags": {
+      "type": "array",
+      "description": "Searchable tags for command discovery",
+      "items": {"type": "string"},
+      "examples": [["quality", "style", "linting"]]
+    },
+    "project_types": {
+      "type": "array",
+      "description": "Applicable project types for context-aware suggestions",
+      "items": {
+        "type": "string",
+        "enum": ["python", "node", "r", "quarto", "mkdocs", "generic"]
+      },
+      "examples": [["python", "node"]]
+    },
+    "common_workflows": {
+      "type": "array",
+      "description": "Real-world usage patterns and workflows",
+      "items": {
+        "type": "object",
+        "required": ["name", "steps"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Workflow name",
+            "examples": ["Pre-commit", "Debug"]
+          },
+          "steps": {
+            "type": "array",
+            "description": "Ordered list of steps",
+            "items": {"type": "string"},
+            "examples": [["code:lint", "test:run", "git commit"]]
+          }
+        }
+      }
+    },
+    "time_budgets": {
+      "type": "object",
+      "description": "Estimated time for each mode",
+      "properties": {
+        "default": {
+          "type": "string",
+          "pattern": "^< [0-9]+s$",
+          "examples": ["< 10s"]
+        },
+        "debug": {
+          "type": "string",
+          "pattern": "^< [0-9]+s$",
+          "examples": ["< 120s"]
+        },
+        "optimize": {
+          "type": "string",
+          "pattern": "^< [0-9]+s$",
+          "examples": ["< 180s"]
+        },
+        "release": {
+          "type": "string",
+          "pattern": "^< [0-9]+s$",
+          "examples": ["< 300s"]
+        }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "description": "Usage examples with explanations",
+      "items": {
+        "type": "object",
+        "required": ["command", "description"],
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "Example command invocation",
+            "examples": ["/craft:code:lint debug"]
+          },
+          "description": {
+            "type": "string",
+            "description": "What the example does",
+            "examples": ["Verbose mode with fix suggestions"]
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "name": "code:lint",
+      "category": "code",
+      "subcategory": "analysis",
+      "description": "Code style and quality checks",
+      "file": "code/lint.md",
+      "modes": ["default", "debug", "optimize", "release"],
+      "arguments": [
+        {
+          "name": "mode",
+          "description": "Execution mode",
+          "required": false,
+          "default": "default"
+        },
+        {
+          "name": "dry-run",
+          "description": "Preview commands without executing",
+          "required": false,
+          "default": false,
+          "alias": "-n"
+        }
+      ],
+      "tutorial": true,
+      "tutorial_level": "beginner",
+      "related_commands": ["test:run", "code:ci-local", "check"],
+      "tags": ["quality", "style", "linting"],
+      "project_types": ["python", "node"]
+    },
+    {
+      "name": "hub",
+      "category": "hub",
+      "description": "Command discovery hub",
+      "file": "hub.md"
+    },
+    {
+      "name": "git:refcard",
+      "category": "git",
+      "description": "Git quick reference card",
+      "file": "git/docs/refcard.md",
+      "tags": ["documentation", "reference", "git"]
+    }
+  ],
+  "additionalProperties": false
+}

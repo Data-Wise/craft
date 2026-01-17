@@ -4,6 +4,35 @@ You are a command discovery assistant for the craft plugin. Help users find the 
 
 ## When Invoked (`/craft:hub`)
 
+### Step 0: Load Command Data (Auto-Detection)
+
+**IMPORTANT**: Before displaying the hub, load command data from the discovery engine:
+
+```python
+import sys
+from pathlib import Path
+
+# Add commands directory to path
+plugin_dir = Path.cwd()
+sys.path.insert(0, str(plugin_dir))
+
+# Import discovery engine
+from commands._discovery import get_command_stats, load_cached_commands
+
+# Get current command statistics
+stats = get_command_stats()
+commands = load_cached_commands()
+
+# Available data:
+# - stats['total']: Total command count (e.g., 97)
+# - stats['categories']: Dict of category counts (e.g., {'code': 12, 'test': 7, ...})
+# - stats['with_modes']: Commands supporting modes
+# - stats['with_dry_run']: Commands with dry-run support
+# - commands: Full list of command objects with metadata
+```
+
+**Use this data** to populate the hub display below with accurate, auto-detected counts.
+
 ### Step 1: Detect Project Context
 
 ```
@@ -16,18 +45,32 @@ Detection Rules (check in order):
 6. Otherwise → Generic Project
 ```
 
-### Step 2: Display Hub
+### Step 2: Display Hub (Layer 1 - Main Menu)
+
+**Generate this display dynamically** using stats and commands data loaded in Step 0.
+
+Replace placeholders:
+- `[TOTAL]` → `stats['total']`
+- `[CODE_COUNT]` → `stats['categories'].get('code', 0)`
+- `[TEST_COUNT]` → `stats['categories'].get('test', 0)`
+- `[DOCS_COUNT]` → `stats['categories'].get('docs', 0)`
+- `[GIT_COUNT]` → `stats['categories'].get('git', 0)`
+- `[SITE_COUNT]` → `stats['categories'].get('site', 0)`
+- `[ARCH_COUNT]` → `stats['categories'].get('arch', 0)`
+- `[PLAN_COUNT]` → `stats['categories'].get('plan', 0)`
+
+Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 🛠️ CRAFT - Full Stack Developer Toolkit v1.2.0                          │
+│ 🛠️ CRAFT - Full Stack Developer Toolkit v1.22.0                         │
 │ 📍 [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                      │
-│ 📊 47 Commands | 8 Skills | 1 Agent | 4 Modes                           │
+│ 📊 [TOTAL] Commands | 21 Skills | 8 Agents | 4 Modes                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
 │    /craft:check         Pre-flight checks for commit/pr/release        │
-│    /craft:help          Context-aware help and suggestions             │
+│    /craft:smart-help    Context-aware help and suggestions             │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ 🎚️ MODES (default|debug|optimize|release):                             │
 │    default  < 10s   Quick analysis, minimal output                     │
@@ -36,28 +79,28 @@ Detection Rules (check in order):
 │    release  < 300s  Comprehensive checks, full audit                   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ 💻 CODE (12)                     🧪 TEST (4)                            │
+│ 💻 CODE ([CODE_COUNT])              🧪 TEST ([TEST_COUNT])             │
 │   /craft:code:debug                /craft:test:run [mode]               │
 │   /craft:code:demo                 /craft:test:watch                    │
 │   /craft:code:docs-check           /craft:test:coverage                 │
 │   /craft:code:refactor             /craft:test:debug                    │
 │   /craft:code:release                                                   │
-│   /craft:code:test-gen           🏗️ ARCH (4)                            │
+│   /craft:code:test-gen           🏗️ ARCH ([ARCH_COUNT])                 │
 │   /craft:code:lint [mode]          /craft:arch:analyze [mode]           │
 │   /craft:code:coverage             /craft:arch:plan                     │
 │   /craft:code:deps-check           /craft:arch:review                   │
 │   /craft:code:deps-audit           /craft:arch:diagram                  │
 │   /craft:code:ci-local                                                  │
-│   /craft:code:ci-fix             📋 PLAN (3)                            │
+│   /craft:code:ci-fix             📋 PLAN ([PLAN_COUNT])                 │
 │                                    /craft:plan:feature                  │
-│ 📄 DOCS (5)                        /craft:plan:sprint                   │
+│ 📄 DOCS ([DOCS_COUNT])             /craft:plan:sprint                   │
 │   /craft:docs:sync                 /craft:plan:roadmap                  │
 │   /craft:docs:changelog                                                 │
-│   /craft:docs:claude-md          📖 SITE (6)                            │
+│   /craft:docs:claude-md          📖 SITE ([SITE_COUNT])                 │
 │   /craft:docs:validate             /craft:site:init                     │
 │   /craft:docs:nav-update           /craft:site:build                    │
 │                                    /craft:site:preview                  │
-│ 🔀 GIT (5+4 guides)                /craft:site:deploy                   │
+│ 🔀 GIT ([GIT_COUNT]+4 guides)      /craft:site:deploy                   │
 │   /craft:git:init                  /craft:site:check                    │
 │   /craft:git:branch                /craft:site:frameworks               │
 │   /craft:git:sync                                                       │
@@ -70,6 +113,16 @@ Detection Rules (check in order):
 │    /craft:test:run debug  /craft:arch:analyze      /craft:git:sync     │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
+
+**How to generate:**
+1. Load stats and commands data (Step 0)
+2. Replace all `[PLACEHOLDER]` values with actual data from stats
+3. Display the completed hub menu
+4. Optionally list top commands per category (first 5-6 from each)
+
+**Category Navigation:**
+- User can say `/craft:hub <category>` to see all commands in that category (Layer 2)
+- User can say `/craft:hub <category>:<command>` for command details (Layer 3 - future)
 
 ## Smart Commands (NEW!)
 
