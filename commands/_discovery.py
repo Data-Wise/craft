@@ -652,6 +652,145 @@ def get_category_info(category: str) -> dict:
     }
 
 
+def get_command_detail(command_name: str) -> dict | None:
+    """
+    Get detailed information about a specific command.
+
+    Args:
+        command_name: Full command name (e.g., 'code:lint', 'test:run')
+                     or just the command part (e.g., 'lint' in 'code' category)
+
+    Returns:
+        Command dictionary with all metadata, or None if not found
+    """
+    commands = load_cached_commands()
+
+    # Try exact match first
+    for cmd in commands:
+        if cmd['name'] == command_name:
+            return cmd
+
+    # Try partial match (category:command or just command)
+    if ':' not in command_name:
+        # User provided just command name, search all categories
+        matches = [cmd for cmd in commands if cmd['name'].endswith(f':{command_name}')]
+        if len(matches) == 1:
+            return matches[0]
+        elif len(matches) > 1:
+            # Multiple matches, return None (caller should disambiguate)
+            return None
+
+    return None
+
+
+def generate_command_tutorial(command: dict) -> str:
+    """
+    Generate tutorial text for a command.
+
+    Args:
+        command: Command dictionary from discovery
+
+    Returns:
+        Formatted tutorial string with step-by-step instructions
+    """
+    name = command['name']
+    description = command.get('description', 'No description available')
+    modes = command.get('modes', [])
+    time_budgets = command.get('time_budgets', {})
+    examples = command.get('examples', [])
+    common_workflows = command.get('common_workflows', [])
+    related_commands = command.get('related_commands', [])
+
+    # Build tutorial sections
+    sections = []
+
+    # Header
+    sections.append(f"┌{'─' * 65}┐")
+    sections.append(f"│ 📚 COMMAND: /craft:{name}".ljust(67) + "│")
+    sections.append(f"│ {description}".ljust(67) + "│")
+    sections.append(f"├{'─' * 65}┤")
+    sections.append("│".ljust(67) + "│")
+
+    # Description (from full content if available)
+    sections.append("│ DESCRIPTION".ljust(67) + "│")
+    sections.append("│ ───────────".ljust(67) + "│")
+    # Extract first paragraph from command file as detailed description
+    # For now, use the short description
+    sections.append(f"│ {description}".ljust(67) + "│")
+    sections.append("│".ljust(67) + "│")
+
+    # Modes (if available)
+    if modes:
+        sections.append("│ MODES".ljust(67) + "│")
+        sections.append("│ ─────".ljust(67) + "│")
+        for mode in modes:
+            time_budget = time_budgets.get(mode, "varies")
+            mode_desc = {
+                'default': 'Quick checks, minimal output',
+                'debug': 'Verbose with fix suggestions',
+                'optimize': 'Performance focus, parallel execution',
+                'release': 'Comprehensive with security audit'
+            }.get(mode, 'Standard execution')
+
+            line = f"│   {mode:<10s} ({time_budget:<10s}) {mode_desc}"
+            sections.append(line[:67].ljust(67) + "│")
+        sections.append("│".ljust(67) + "│")
+
+    # Basic usage
+    sections.append("│ BASIC USAGE".ljust(67) + "│")
+    sections.append("│ ───────────".ljust(67) + "│")
+
+    if examples:
+        for example in examples[:3]:  # Show max 3 examples
+            cmd = example.get('command', f'/craft:{name}')
+            desc = example.get('description', '')
+            line = f"│   {cmd:<30s} # {desc}"
+            sections.append(line[:67].ljust(67) + "│")
+    else:
+        # Generate default examples
+        sections.append(f"│   /craft:{name}".ljust(67) + "│")
+        if modes:
+            sections.append(f"│   /craft:{name} debug".ljust(67) + "│")
+            sections.append(f"│   /craft:{name} release".ljust(67) + "│")
+
+    sections.append("│".ljust(67) + "│")
+
+    # Common workflows
+    if common_workflows:
+        sections.append("│ COMMON WORKFLOWS".ljust(67) + "│")
+        sections.append("│ ────────────────".ljust(67) + "│")
+        sections.append("│".ljust(67) + "│")
+
+        for workflow in common_workflows[:3]:  # Show max 3 workflows
+            wf_name = workflow.get('name', 'Workflow')
+            wf_steps = workflow.get('steps', [])
+
+            sections.append(f"│ {wf_name}:".ljust(67) + "│")
+            for i, step in enumerate(wf_steps[:5], 1):  # Max 5 steps
+                sections.append(f"│   {i}. {step}".ljust(67) + "│")
+            sections.append("│".ljust(67) + "│")
+
+    # Related commands
+    if related_commands:
+        sections.append("│ RELATED COMMANDS".ljust(67) + "│")
+        sections.append("│ ────────────────".ljust(67) + "│")
+        for rel_cmd in related_commands[:5]:  # Show max 5 related
+            # Look up description
+            cmd_info = get_command_detail(rel_cmd)
+            cmd_desc = cmd_info.get('description', '') if cmd_info else ''
+            line = f"│   /craft:{rel_cmd:<20s} {cmd_desc}"
+            sections.append(line[:67].ljust(67) + "│")
+        sections.append("│".ljust(67) + "│")
+
+    # Navigation footer
+    category = command['category']
+    sections.append(f"│ 🔙 Back to {category.upper()}: /craft:hub {category}".ljust(67) + "│")
+    sections.append(f"│ 🏠 Back to Hub: /craft:hub".ljust(67) + "│")
+    sections.append(f"└{'─' * 65}┘")
+
+    return "\n".join(sections)
+
+
 if __name__ == '__main__':
     """
     CLI usage: python3 commands/_discovery.py

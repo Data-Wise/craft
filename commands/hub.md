@@ -235,6 +235,107 @@ Display template:
 
 ---
 
+## Layer 3: Command Detail + Tutorial
+
+When invoked with `/craft:hub <category>:<command>` (e.g., `/craft:hub code:lint`):
+
+### Step 1: Parse Command Argument
+
+```python
+# Check if user provided command argument (category:command format)
+import sys
+command_arg = None  # Extract from user input (e.g., "code:lint")
+
+if command_arg and ':' in command_arg:
+    # User wants to see specific command detail
+    from commands._discovery import get_command_detail, generate_command_tutorial
+
+    command_info = get_command_detail(command_arg)
+
+    if not command_info:
+        print(f"❌ Command '{command_arg}' not found.")
+        print(f"💡 Try: /craft:hub to browse all commands")
+    else:
+        # Display Layer 3: Command Detail + Tutorial
+        tutorial = generate_command_tutorial(command_info)
+        print(tutorial)
+else:
+    # No command specified, show Layer 2 or Layer 1
+    # (logic for Layer 1/2 navigation)
+    pass
+```
+
+### Step 2: Display Command Detail
+
+The `generate_command_tutorial()` function creates a formatted display with:
+
+1. **Header** - Command name and short description
+2. **Description** - Detailed explanation of what the command does
+3. **Modes** - Execution modes with time budgets (if applicable)
+4. **Basic Usage** - Syntax examples with mode variations
+5. **Common Workflows** - Real-world usage patterns
+6. **Related Commands** - Similar/complementary commands for navigation
+7. **Navigation Footer** - Links back to category and hub
+
+**Example - CODE:LINT Command:**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ 📚 COMMAND: /craft:code:lint                                    │
+│ Code style and quality checks                                  │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ DESCRIPTION                                                     │
+│ ───────────                                                     │
+│ Runs project-specific linters (ruff, flake8, eslint, etc.)     │
+│ to check code style and quality. Supports 4 execution modes    │
+│ for different use cases.                                       │
+│                                                                 │
+│ MODES                                                           │
+│ ─────                                                           │
+│   default    (< 10s)      Quick checks, minimal output         │
+│   debug      (< 120s)     Verbose with fix suggestions         │
+│   optimize   (< 180s)     Performance focus, parallel execution│
+│   release    (< 300s)     Comprehensive with security audit    │
+│                                                                 │
+│ BASIC USAGE                                                     │
+│ ───────────                                                     │
+│   /craft:code:lint                 # Default mode              │
+│   /craft:code:lint debug           # Debug mode                │
+│   /craft:code:lint release         # Release mode              │
+│                                                                 │
+│ COMMON WORKFLOWS                                                │
+│ ────────────────                                                │
+│                                                                 │
+│ Pre-Commit:                                                     │
+│   1. /craft:code:lint                                           │
+│   2. /craft:test:run                                            │
+│   3. git commit                                                 │
+│                                                                 │
+│ Debug Workflow:                                                 │
+│   1. /craft:code:lint debug                                     │
+│   2. Fix issues based on suggestions                           │
+│   3. /craft:code:lint  (verify fixes)                           │
+│                                                                 │
+│ RELATED COMMANDS                                                │
+│ ────────────────                                                │
+│   /craft:test:run        Run tests                             │
+│   /craft:code:ci-local   Full CI checks                        │
+│   /craft:check           Universal validation                  │
+│                                                                 │
+│ 🔙 Back to CODE: /craft:hub code                                │
+│ 🏠 Back to Hub: /craft:hub                                      │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Implementation Notes:**
+1. Command detail is generated dynamically from frontmatter metadata
+2. Tutorial sections are auto-generated but can be enriched with custom tutorial files
+3. Related commands are looked up to show their descriptions
+4. Navigation links maintain the 3-layer hierarchy (Hub → Category → Command)
+
+---
+
 ## Smart Commands (NEW!)
 
 ### `/craft:do <task>` - Universal Command
