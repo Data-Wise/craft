@@ -47,13 +47,33 @@ See: `templates/docs/GIF-GUIDELINES.md` for full workflow.
 ## Usage
 
 ```bash
-/craft:docs:demo "sessions"                    # Generate demo for feature
+/craft:docs:demo "sessions"                    # Generate VHS tape for feature (default)
+/craft:docs:demo "sessions" --method asciinema # Record real session with asciinema
 /craft:docs:demo "sessions" --template workflow # Use specific template
 /craft:docs:demo --list-templates              # Show available templates
 /craft:docs:demo --preview                     # Show tape without writing
 /craft:docs:demo "sessions" --watch            # Watch mode: auto-regenerate on changes
-/craft:docs:demo "sessions" --generate         # Generate tape AND run VHS immediately
+/craft:docs:demo "sessions" --generate         # Generate tape AND run VHS/asciinema immediately
 ```
+
+## Recording Methods
+
+| Method | Best For | Recording Type |
+|--------|----------|----------------|
+| **VHS** (default) | Bash CLI tools, repeatable demos | Scripted (Type commands) |
+| **asciinema** | Plugin commands, real sessions | Real recording |
+
+### When to Use Each Method
+
+**Use VHS for:**
+- Bash CLI tools that can run in any terminal
+- Scripted, repeatable demos
+- When you need exact control over timing
+
+**Use asciinema for:**
+- Claude Code plugin commands (e.g., `/craft:site:build`)
+- Real terminal sessions with actual output
+- When accuracy is more important than repeatability
 
 ## When Invoked
 
@@ -256,6 +276,172 @@ mkdir -p docs/demos
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## Asciinema Recording Workflow (--method asciinema)
+
+When `--method asciinema` is specified, the workflow changes to real terminal recording:
+
+### Step 1: Prepare Recording Script
+
+Create a recording guide (not executed, just instructions):
+
+```bash
+# Recording guide saved to: docs/demos/[feature-name]-recording-guide.md
+#
+# Commands to run:
+# 1. /craft:site:build
+# 2. /craft:site:progress
+# 3. /craft:site:publish --dry-run
+#
+# Total estimated time: ~45 seconds
+```
+
+### Step 2: Start Recording
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ /craft:docs:demo "sessions" --method asciinema               │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│ 🎙️  ASCIINEMA RECORDING MODE                                │
+│                                                              │
+│ Preparation:                                                 │
+│   ✓ Created recording guide                                  │
+│   ✓ Verified asciinema installed                             │
+│   ✓ Verified agg installed                                   │
+│                                                              │
+│ ──────────────────────────────────────────────────────────── │
+│                                                              │
+│ NEXT: Start recording manually                               │
+│                                                              │
+│ 1. Start recording:                                          │
+│    asciinema rec docs/demos/sessions.cast                    │
+│                                                              │
+│ 2. Run commands from guide:                                  │
+│    See: docs/demos/sessions-recording-guide.md               │
+│                                                              │
+│ 3. Stop recording:                                           │
+│    Press Ctrl+D or type 'exit'                               │
+│                                                              │
+│ 4. Preview recording:                                        │
+│    asciinema play docs/demos/sessions.cast                   │
+│                                                              │
+│ 5. Convert to GIF:                                           │
+│    agg --cols 100 --rows 30 --font-size 14 \                 │
+│        docs/demos/sessions.cast \                            │
+│        docs/demos/sessions.gif                               │
+│                                                              │
+│ 6. Optimize:                                                 │
+│    gifsicle -O3 --colors 128 --lossy=80 \                    │
+│        docs/demos/sessions.gif \                             │
+│        -o docs/demos/sessions.gif                            │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Step 3: Recording Guide Format
+
+```markdown
+# Recording Guide: [Feature Name]
+
+**Commands to run in this order:**
+
+1. `/craft:command1`
+   - Expected output: [brief description]
+   - Wait for: [what to look for]
+
+2. `/craft:command2 --arg`
+   - Expected output: [brief description]
+   - Wait for: [what to look for]
+
+3. `/craft:command3`
+   - Expected output: [brief description]
+   - Wait for: [what to look for]
+
+**Recording tips:**
+- Let each command complete fully before the next
+- Pause 2-3 seconds between commands
+- Total estimated time: ~45 seconds
+
+**After recording:**
+1. Preview: `asciinema play docs/demos/[name].cast`
+2. If mistakes, re-record from scratch
+3. Convert and optimize (see commands above)
+```
+
+### asciinema + agg Settings
+
+Default settings for Claude Code recordings:
+
+| Setting | Value | Purpose |
+|---------|-------|---------|
+| `--cols` | 100 | Terminal width |
+| `--rows` | 30 | Terminal height |
+| `--font-size` | 14 | Readable in docs |
+| `--theme` | dracula | Good contrast |
+| `--fps` | 10 | Frame rate (lower = smaller file) |
+| `--quality` | 100 | GIF quality (1-100) |
+
+### Installation Check
+
+When `--method asciinema` is used, verify tools are installed:
+
+```bash
+# Check for asciinema
+if ! command -v asciinema &> /dev/null; then
+  echo "❌ asciinema not installed"
+  echo "   Install: brew install asciinema"
+  exit 1
+fi
+
+# Check for agg
+if ! command -v agg &> /dev/null; then
+  echo "❌ agg not installed"
+  echo "   Install: cargo install --git https://github.com/asciinema/agg"
+  exit 1
+fi
+
+# Check for gifsicle
+if ! command -v gifsicle &> /dev/null; then
+  echo "❌ gifsicle not installed"
+  echo "   Install: brew install gifsicle"
+  exit 1
+fi
+```
+
+### Complete asciinema Workflow Example
+
+```bash
+# 1. Generate recording guide
+/craft:docs:demo "teaching-workflow" --method asciinema
+
+# 2. Start recording
+asciinema rec docs/demos/teaching-workflow.cast
+
+# In Claude Code, run:
+# /craft:git:status
+# /craft:site:build
+# /craft:site:progress
+# /craft:site:publish --dry-run
+# /craft:site:publish
+# Ctrl+D to stop
+
+# 3. Preview
+asciinema play docs/demos/teaching-workflow.cast
+
+# 4. Convert to GIF
+agg --cols 100 --rows 30 --font-size 14 --theme dracula --fps 10 \
+    docs/demos/teaching-workflow.cast \
+    docs/demos/teaching-workflow.gif
+
+# 5. Optimize
+gifsicle -O3 --colors 128 --lossy=80 \
+    docs/demos/teaching-workflow.gif \
+    -o docs/demos/teaching-workflow.gif
+
+# 6. Check size
+ls -lh docs/demos/teaching-workflow.gif
+```
+
 ## Template Reference
 
 ### Command Showcase Settings
@@ -440,6 +626,8 @@ Skip the manual steps - generate tape AND create GIF in one command:
 
 ## Requirements
 
+### VHS Method (default)
+
 ```bash
 # Install VHS
 brew install charmbracelet/tap/vhs
@@ -452,5 +640,28 @@ brew install fswatch
 
 # Verify
 vhs --version
+gifsicle --version
+```
+
+### asciinema Method (--method asciinema)
+
+```bash
+# Install asciinema (terminal recorder)
+brew install asciinema
+
+# Install agg (asciinema → GIF converter)
+cargo install --git https://github.com/asciinema/agg
+
+# Or download prebuilt binary
+curl -LO https://github.com/asciinema/agg/releases/latest/download/agg-$(uname -m)-apple-darwin
+chmod +x agg-$(uname -m)-apple-darwin
+mv agg-$(uname -m)-apple-darwin /usr/local/bin/agg
+
+# Install gifsicle for optimization
+brew install gifsicle
+
+# Verify
+asciinema --version
+agg --version
 gifsicle --version
 ```
