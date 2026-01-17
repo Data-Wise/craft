@@ -212,7 +212,7 @@ next:
     • Code/test commands (7): test:cli-gen, test:watch, code:refactor, etc.
     • Workflow commands (2)
     • Other medium priority (4)
-  - 🎯 Priority 2: Enhance /craft:site:check with broken link validation (v1.23.0)
+  - 🎯 Priority 2: Enhance /craft:docs:check and /craft:docs:update with broken link validation (v1.23.0)
     • Integrate markdown-link-check with .linkcheck-ignore patterns
     • Estimate: 2-3 hours (4 phases)
     • Context: PR #13 documented ~30 expected broken links
@@ -361,19 +361,19 @@ planned_features:
       - "Preserve all URLs with redirects"
       - "Variable nesting depth (2-4 levels based on complexity)"
 
-  site_check_broken_links:
+  docs_check_broken_links:
     status: planned
     priority: Medium
     target: v1.23.0 or later
     effort: ~2-3 hours
-    description: Enhance /craft:site:check with broken link validation
-    problem: "Site check doesn't validate internal links, leading to broken navigation and 404s"
+    description: Enhance /craft:docs:check and /craft:docs:update with broken link validation
+    problem: "Documentation commands don't validate internal links, leading to broken navigation and 404s"
     target_user: Documentation maintainers, site publishers
     key_insight: "Leverage existing .linkcheck-ignore pattern from PR #13 for known/expected broken links"
-    solution: "Integrate markdown-link-check into site:check command with ignore patterns"
+    solution: "Integrate markdown-link-check into docs:check and docs:update commands with ignore patterns"
     context: "PR #13 documented ~30 expected broken links in .linkcheck-ignore file"
     phases:
-      - "Phase 1: Add link validation to site:check (60 min)"
+      - "Phase 1: Add link validation to docs:check and docs:update (60 min)"
       - "Phase 2: Parse .linkcheck-ignore file for exceptions (30 min)"
       - "Phase 3: Add mode flags (quick/thorough) (30 min)"
       - "Phase 4: Testing and documentation (30 min)"
@@ -382,7 +382,8 @@ planned_features:
       - "⚡ Parse .linkcheck-ignore patterns - 20 min"
       - "⚡ Report broken vs expected broken links - 10 min"
     deliverables:
-      - "Enhanced /craft:site:check with --check-links flag"
+      - "Enhanced /craft:docs:check with --check-links flag"
+      - "Enhanced /craft:docs:update with automatic link validation"
       - ".linkcheck-ignore parser utility"
       - "Broken link report with categories (critical, expected, external)"
       - "Integration with CI/CD pre-commit hooks"
