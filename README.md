@@ -170,6 +170,36 @@ Commands support execution modes for different use cases:
 /craft:arch:analyze optimize    # Performance analysis
 ```
 
+## Teaching Mode (NEW in v1.18.0)
+
+Specialized workflows for teaching projects with automated validation, semester tracking, and safe publishing.
+
+**Key Features:**
+- Auto-detection via `.flow/teach-config.yml` configuration
+- Content validation (syllabus sections, schedule completeness, assignment files)
+- Preview-before-publish workflow (draft → production branches)
+- Semester progress tracking with automatic week calculation
+- ADHD-friendly dashboards and output
+
+**Quick Start:**
+1. Create `.flow/teach-config.yml` with course info and semester dates
+2. Run `/craft:site:validate` to check content completeness
+3. Publish with confidence using `/craft:site:publish`
+
+**Example workflow:**
+```bash
+# Check semester progress
+/craft:site:progress
+
+# Validate content before publishing
+/craft:site:validate
+
+# Publish draft → production (with preview)
+/craft:site:publish
+```
+
+**[Full Tutorial](https://data-wise.github.io/craft/tutorials/teaching-mode-setup/)** • **[Config Schema](https://data-wise.github.io/craft/teaching-config-schema/)**
+
 ## Commands (86 total)
 
 ### Workflow Commands (12) - NEW in v1.17.0
