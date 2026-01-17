@@ -72,39 +72,43 @@ Before recording, verify:
 
 **Remember:** GIFs are documentation. They must show real, working functionality.
 
-### Special Case: Plugin Commands
+### Plugin Commands: Use asciinema
 
 **For Craft plugin commands (e.g., `/craft:site:build`):**
 
-These commands only work within Claude Code's plugin system and **cannot** be executed in bash. For plugin command GIFs:
+These commands only work within Claude Code's plugin system. Use **asciinema** to record real execution:
 
-1. **Verify command exists** - Check the command file in `commands/`
-2. **Test command manually** - Invoke the command in a Claude Code session
-3. **Capture real output** - Screenshot or copy the actual output format
-4. **Create accurate simulation** - Use `Type` in VHS tape to replicate the exact output
-5. **Validate with user** - Confirm the simulated output matches real behavior
+1. **Start recording** - `asciinema rec docs/demos/command-name.cast`
+2. **Run plugin command** - Execute the actual command in Claude Code
+3. **Stop recording** - Press Ctrl+D
+4. **Convert to GIF** - Use `agg` to convert the recording
+5. **Optimize** - Run gifsicle for smaller file size
 
 ```bash
 # ✅ CORRECT workflow for plugin commands:
-# 1. Verify command exists
-ls commands/site/build.md
+# 1. Start recording
+asciinema rec docs/demos/site-build.cast
 
-# 2. Test in Claude Code session (manually)
-# Run: /craft:site:build
-# Capture output format and timing
+# 2. Run command in Claude Code
+/craft:site:build
+# Let it complete, then press Ctrl+D
 
-# 3. Create VHS tape with accurate simulation
-# Use Type to replicate the exact output seen
-Type "$ /craft:site:build"
-Sleep 300ms
-Type "✓ Built successfully"  # ← Must match real output
+# 3. Convert to GIF
+agg --cols 100 --rows 30 --font-size 14 \
+    docs/demos/site-build.cast \
+    docs/demos/site-build.gif
+
+# 4. Optimize
+gifsicle -O3 --colors 128 --lossy=80 \
+    docs/demos/site-build.gif \
+    -o docs/demos/site-build.gif
 
 # 4. Validate GIF matches actual command behavior
 ```
 
-**Key Difference:**
-- **Regular CLI tools** → MUST execute in bash first
-- **Plugin commands** → MUST test in Claude Code, then simulate accurately in VHS
+**Recording Method:**
+- **All commands** → Use asciinema to record real execution
+- **Alternative** → VHS for scripted/repeatable demos (`/craft:docs:demo --method vhs`)
 
 ---
 
@@ -255,13 +259,35 @@ export PS1="$ "  # Simple prompt
 
 ---
 
-## Optimization (REQUIRED)
+## Required Tools
+
+### Recording Tools
+
+**asciinema + agg (default):**
+```bash
+# Install asciinema (terminal recorder)
+brew install asciinema
+
+# Install agg (asciinema → GIF converter)
+cargo install --git https://github.com/asciinema/agg
+
+# Or download prebuilt binary
+curl -LO https://github.com/asciinema/agg/releases/latest/download/agg-$(uname -m)-apple-darwin
+chmod +x agg-$(uname -m)-apple-darwin
+mv agg-$(uname -m)-apple-darwin /usr/local/bin/agg
+```
+
+**VHS (alternative):**
+```bash
+# For scripted/repeatable demos
+brew install charmbracelet/tap/vhs
+```
+
+### Optimization Tool (REQUIRED)
 
 **⚠️ MANDATORY: All GIFs MUST be optimized before committing**
 
 Optimization reduces file size by 30-70% while maintaining quality, improving page load times and reducing bandwidth.
-
-### Recommended Tool: gifsicle
 
 Install gifsicle (required for GIF creation):
 ```bash
@@ -275,8 +301,15 @@ sudo apt install gifsicle
 ### Standard Optimization Workflow
 
 ```bash
-# STEP 1: Generate GIF (e.g., with VHS)
-vhs demo.tape
+# STEP 1: Generate GIF
+
+# Method A: asciinema (default - real recording)
+asciinema rec demo.cast             # Record session
+agg --cols 100 --rows 30 \          # Convert to GIF
+    demo.cast demo.gif
+
+# Method B: VHS (alternative - scripted demo)
+vhs demo.tape                       # Generate from tape file
 
 # STEP 2: Optimize (REQUIRED - choose one)
 
@@ -369,10 +402,12 @@ open demo.gif
 gifsicle -O3 --colors 256 --lossy=60 demo.gif -o demo.gif
 
 # 2. If still too large, reduce resolution instead
-# Re-record at 800px width instead of 1200px
+# asciinema: Use --cols 80 --rows 24 instead of 100x30
+# VHS: Reduce Width/Height in tape file
 
-# 3. If still too large, reduce FPS in VHS tape
-Set FPS 10  # Instead of 15
+# 3. If still too large, reduce FPS
+# asciinema: Use agg --fps 8 instead of --fps 10
+# VHS: Set FPS 10 instead of 15 in tape file
 ```
 
 **Acceptance Criteria:**
