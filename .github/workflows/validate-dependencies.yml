@@ -1,0 +1,100 @@
+name: Validate Demo Dependencies
+
+on:
+  push:
+    branches: [main, dev, 'feature/**']
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
+
+jobs:
+  validate-dependencies:
+    name: Check Demo Tool Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install jq (for JSON parsing)
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Check asciinema method dependencies
+        id: check-asciinema
+        run: |
+          # Run dependency check with JSON output
+          ./scripts/dependency-manager.sh display_status_json asciinema > deps-asciinema.json 2>&1 || true
+
+          # Extract status (default to "ok" if file empty or malformed)
+          if [ -f deps-asciinema.json ] && [ -s deps-asciinema.json ]; then
+            status=$(jq -r '.status // "unknown"' deps-asciinema.json 2>/dev/null || echo "unknown")
+          else
+            status="unknown"
+          fi
+          echo "status=$status" >> $GITHUB_OUTPUT
+
+          # Display results
+          if [ -f deps-asciinema.json ] && [ -s deps-asciinema.json ]; then
+            echo "### asciinema Dependencies"
+            cat deps-asciinema.json | jq '.' || cat deps-asciinema.json
+          else
+            echo "Warning: Could not generate asciinema dependency report"
+            status="issues"
+            echo "status=$status" >> $GITHUB_OUTPUT
+          fi
+
+          # Fail if issues detected
+          if [ "$status" = "issues" ]; then
+            echo "::error::Missing or broken dependencies for asciinema method"
+            if [ -f deps-asciinema.json ] && [ -s deps-asciinema.json ]; then
+              jq -r '.tools[] | select(.installed == false or .health == "broken") | "  - \(.name): installed=\(.installed), health=\(.health)"' deps-asciinema.json 2>/dev/null || true
+            fi
+            exit 1
+          fi
+
+      - name: Check VHS method dependencies
+        id: check-vhs
+        continue-on-error: true
+        run: |
+          # Run dependency check with JSON output
+          ./scripts/dependency-manager.sh display_status_json vhs > deps-vhs.json 2>&1 || true
+
+          # Extract status (default to "ok" if file empty or malformed)
+          if [ -f deps-vhs.json ] && [ -s deps-vhs.json ]; then
+            status=$(jq -r '.status // "unknown"' deps-vhs.json 2>/dev/null || echo "unknown")
+          else
+            status="unknown"
+          fi
+          echo "status=$status" >> $GITHUB_OUTPUT
+
+          # Display results
+          if [ -f deps-vhs.json ] && [ -s deps-vhs.json ]; then
+            echo "### VHS Dependencies"
+            cat deps-vhs.json | jq '.' || cat deps-vhs.json
+          else
+            echo "Warning: Could not generate VHS dependency report"
+          fi
+
+          # Don't fail on VHS - it's optional
+          if [ "$status" = "issues" ]; then
+            echo "::warning::Missing or broken dependencies for VHS method (optional)"
+          fi
+
+      - name: Upload dependency reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-reports
+          path: |
+            deps-*.json
+          retention-days: 30
+
+      - name: Dependency check summary
+        if: always()
+        run: |
+          echo "## Dependency Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### asciinema method: ${{ steps.check-asciinema.outputs.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "### VHS method: ${{ steps.check-vhs.outputs.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Report**: Dependency reports uploaded as artifacts" >> $GITHUB_STEP_SUMMARY
