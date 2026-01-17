@@ -157,6 +157,9 @@ nav:
     - Orchestrator Deep Dive: orchestrator.md
     - Architecture Overview: architecture.md
     - Documentation Quality: reference/documentation-quality.md
+    - GIF Recording & Documentation:
+      - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
+      - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
     - Specifications:
       - Broken Link Validation: specs/SPEC-broken-link-validation-2026-01-17.md
       - Hub v2.0 Discovery: specs/SPEC-craft-hub-v2-2026-01-15.md
