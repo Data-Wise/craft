@@ -254,9 +254,37 @@ recent:
   - ✅ 92 commands total (was 90, +2 new docs commands)
   - ✅ 29 commands with dry-run (was 27, +2)
 
+website_organization_phase2:
+  branch: feature/website-org-phase2
+  pr: "#16"
+  status: PENDING REVIEW (PR open to dev)
+  created: 2026-01-17
+  merge_target: dev
+  spec: docs/specs/SPEC-website-organization-standard-2026-01-17.md
+  phase: "Phase 2 - Post-Merge Refinements"
+  changes:
+    - "Fixed all help/ file path references to commands/ structure"
+    - "Replaced hardcoded paths with generic examples"
+    - "Enhanced visual workflow index with Mermaid diagrams"
+    - "Improved troubleshooting sections with time-based navigation"
+    - "Completed cookbook recipes (4 common + 1 troubleshooting)"
+    - "Created cookbook index for centralized navigation"
+  impact:
+    - "100% path accuracy (all help/ → commands/ references fixed)"
+    - "Enhanced visual navigation with Mermaid diagrams"
+    - "5 cookbook recipes for common workflows"
+  files_changed:
+    - "24 files modified"
+    - "948 insertions, 99 deletions"
+  pr_url: "https://github.com/Data-Wise/craft/pull/16"
+  next_steps:
+    - "Review and merge PR #16"
+    - "Clean up worktree after merge"
+    - "Update documentation site"
+
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
-  - feature/website-org-phase2: ~/.git-worktrees/craft/feature-website-org-phase2 (WIP - Phase 2)
+  - feature/website-org-phase2: ~/.git-worktrees/craft/feature-website-org-phase2 (PR #16 - awaiting review)
   - feature/hub-v2: ~/.git-worktrees/craft/feature-hub-v2 (WIP - Phase 1)
 
 worktrees_cleaned_today:
@@ -269,13 +297,14 @@ next:
     • Choose Your Path page created
     • 50% reduction achieved (14+ → 6 sections)
     • Broken links documented in .linkcheck-ignore
-  - 🎯 Website Organization (Phase 2 - Medium Effort, 2-4 hours)
-    • Create cookbook directory structure - 15 min
-    • Write 4 common recipes - 90 min
-    • Merge help/*.md into commands/* - 45 min
-    • Add visual workflow index - 30 min
-    • Test and commit - 15 min
-    • Branch: feature/website-org-phase1 (same branch)
+  - ✅ Website Organization (Phase 2) - COMPLETE, PENDING REVIEW ✅ (PR #16)
+    • Cookbook structure with 5 recipes - ✅
+    • Fixed all help/ → commands/ path references - ✅
+    • Enhanced visual workflow index with Mermaid diagrams - ✅
+    • Improved troubleshooting navigation - ✅
+    • Replaced hardcoded paths with generic examples - ✅
+    • Branch: feature/website-org-phase2
+    • PR: https://github.com/Data-Wise/craft/pull/16
   - 🎯 Priority 1: /craft:hub v2.0 - Command Discovery System (Phase 1: Foundation)
     • Spike: Validate auto-detection with 5 commands
     • Implement Phase 1 (auto-detection + hierarchical menu + tracking)
@@ -399,20 +428,22 @@ planned_features:
 
   website_organization:
     spec: docs/specs/SPEC-website-organization-standard-2026-01-17.md
-    status: in_progress (Phase 2)
+    status: complete (Phase 2, PR #16 pending review)
     priority: Medium
     target: v1.22.0 or later
     effort: ~2-4 hours (Phase 2 - Medium Effort)
     started: 2026-01-17
+    completed: 2026-01-17
     branch: feature/website-org-phase2
+    pr: "#16"
     description: Reorganize documentation site for better discoverability and reduced cognitive load
     problem: "14 top-level navigation sections overwhelming users, scattered commands, unclear hierarchy"
     target_user: All three audiences (beginners, daily users, advanced)
     key_insight: "Hybrid IA (task + feature) with progressive disclosure serves multiple audiences"
     solution: "Consolidate 14 → 7 sections, merge Help into Commands, add Cookbook + Choose Your Path"
     phases:
-      - "Phase 1: Quick Wins (consolidate sections, refine emojis, Choose Path page) - < 1h ✅ COMPLETE"
-      - "Phase 2: Medium Effort (create Cookbook, merge Help, visual workflow index) - 2-4h 🚧 IN PROGRESS"
+      - "Phase 1: Quick Wins (consolidate sections, refine emojis, Choose Path page) - < 1h ✅ COMPLETE (PR #13)"
+      - "Phase 2: Medium Effort (create Cookbook, merge Help, visual workflow index) - 2-4h ✅ COMPLETE (PR #16)"
       - "Phase 3: Future (search by use case, progressive disclosure, interactive playground)"
     quick_wins:
       - "⚡ Update mkdocs.yml (consolidate 14→7 sections) - 20 min"
