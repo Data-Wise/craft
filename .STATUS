@@ -135,10 +135,13 @@ website_organization_phase1:
     - "Optional: Deploy to test site for user feedback"
 
 session_2026_01_17:
-  duration: ~4-5 hours
+  duration: ~6-7 hours
   accomplishments:
     - "Reviewed PR #12 (Teaching Workflow System) - 9.5/10 quality, production-ready"
     - "Merged PR #12 to dev (12,241 additions, 44 files, 5 new commands)"
+    - "Implemented broken link validation with .linkcheck-ignore parser (v1.23.0)"
+    - "Reviewed PR #14 (Broken Link Validation) - 9.5/10 quality, production-ready"
+    - "Merged PR #14 to dev (1,966 additions, 21/21 tests passing)"
     - "Resolved merge conflicts in CLAUDE.md and .STATUS during rebase"
     - "Cleaned up feature/teaching-workflow worktree after merge"
     - "Updated .STATUS to reflect teaching workflow completion"
@@ -163,18 +166,23 @@ session_2026_01_17:
     - "1601ecf: Merge PR #13 - Website Organization Phase 1"
     - "9297092: chore: add planned feature for site:check broken link validation"
     - "ecd3b33: fix: correct command names for broken link validation task"
+    - "149127a: Merge PR #14 - Broken link validation with .linkcheck-ignore parser (v1.23.0)"
+    - "b9470f5: chore: create worktree for website-org-phase2"
+    - "6c23311: chore: create worktree for hub-v2 enhancement"
   state_change:
     - "Commands: 92 → 97 (+5)"
-    - "Utilities: +4 Python modules (teaching-specific)"
-    - "Tests: +139 (100% passing)"
-    - "Documentation: +8 teaching guides, -5 duplicates, +1 Choose Your Path"
-    - "Open PRs: 0 → 0 (merged #12, #13)"
-    - "CLAUDE.md: Updated to 138 lines, 97 commands, 4 specs"
-    - "Specs: 4 → 6 (+website organization standard, +broken link validation)"
+    - "Utilities: +5 Python modules (+4 teaching-specific, +1 linkcheck parser)"
+    - "Tests: +160 (139 teaching + 21 linkcheck, 100% passing)"
+    - "Documentation: +8 teaching guides, -5 duplicates, +1 Choose Your Path, +1 Implementation Summary"
+    - "Open PRs: 0 → 0 (merged #12, #13, #14)"
+    - "CLAUDE.md: Updated to 138 lines, 97 commands, 5 specs"
+    - "Specs: 4 → 5 (+website organization standard, +broken link validation)"
     - "GIF demos: +1 (teaching-workflow.gif, 533KB optimized)"
     - "Navigation: 14+ sections → 6 sections (50% reduction)"
     - "Broken links: Documented ~30 expected links in .linkcheck-ignore"
-    - "Worktrees cleaned: 2 (teaching-workflow, website-org-phase1)"
+    - "Broken links: 100% reduction in CI false positives (30 → 0)"
+    - "Worktrees cleaned: 3 (teaching-workflow, website-org-phase1, broken-link-validation)"
+    - "Worktrees active: 2 (website-org-phase2, hub-v2)"
 
 session_2026_01_16:
   duration: ~4-5 hours
@@ -218,18 +226,19 @@ session_2026_01_15:
     - "Step-by-step tutorials more valuable than generic documentation"
 
 recent:
-  - 📊 Session 2026-01-17: Teaching workflow + docs consolidation + website org plan
-  - ✅ Merged PR #12: Teaching Workflow System (12,241 additions, 44 files)
+  - 📊 Session 2026-01-17: Teaching workflow + broken link validation + website org + hub v2 planning
+  - ✅ Merged PR #12: Teaching Workflow System (12,241 additions, 44 files, 5 commands)
+  - ✅ Merged PR #14: Broken Link Validation (1,966 additions, 21 tests, .linkcheck-ignore parser)
   - 🎓 5 new commands: site:publish, site:progress, enhanced git:status & site:build
-  - 🧪 139 tests added (100% passing)
-  - 📚 8 documentation files (setup, migration, schema, tutorials)
+  - 🧪 160 tests added (139 teaching + 21 linkcheck, 100% passing)
+  - 📚 Documentation: 8 teaching guides + 1 implementation summary + consolidated duplicates
   - 🎥 Teaching workflow GIF demo (533KB, embedded in 4 key docs)
-  - 🧹 Consolidated docs: removed workflow-integration/ (5 files, 1,318 lines)
-  - 🧠 Deep brainstorm: Website organization (8 questions, hybrid IA)
-  - 📋 Created SPEC-website-organization-standard (598 lines, 14→7 sections)
-  - 🎯 Impact: 80% time reduction (15 min → 3 min), zero production bugs
-  - ✅ 97 commands total (was 92, +5)
-  - ✅ 5 specs total (was 4, +website organization)
+  - 🔗 Broken link validation: 100% CI false positive reduction (30 → 0)
+  - 🧹 Worktrees: 3 cleaned (teaching, website-org-phase1, broken-link), 2 active (website-org-phase2, hub-v2)
+  - 🧠 Deep brainstorms: Website organization + Hub v2.0 discovery system
+  - 📋 Specs created: Website organization standard + Broken link validation + Hub v2.0
+  - 🎯 Impact: Teaching (80% time reduction), Broken links (100% CI noise reduction)
+  - ✅ 97 commands total, 5 specs total, 160 tests total
   - 📊 Session 2026-01-15: Deep brainstorm + spec for /craft:hub v2.0 (discovery system)
   - 📋 Created BRAINSTORM-craft-hub-update-2026-01-15.md (12 min, 10 questions)
   - 📋 Created SPEC-craft-hub-v2-2026-01-15.md (ready for Phase 1 implementation)
@@ -247,12 +256,12 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
-  - feature/broken-link-validation: ~/.git-worktrees/craft/feature-broken-link-validation (active)
   - feature/website-org-phase2: ~/.git-worktrees/craft/feature-website-org-phase2 (WIP - Phase 2)
   - feature/hub-v2: ~/.git-worktrees/craft/feature-hub-v2 (WIP - Phase 1)
 
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
+  - feature/broken-link-validation: Removed after PR #14 merge (local branch deleted)
 
 next:
   - ✅ Website Organization (Phase 1) - COMPLETE & MERGED ✅ (PR #13)
@@ -431,11 +440,15 @@ planned_features:
       - "Variable nesting depth (2-4 levels based on complexity)"
 
   docs_check_broken_links:
-    status: in_progress
+    status: complete
     priority: Medium
     target: v1.23.0
-    effort: ~2-3 hours
+    effort: ~2.5 hours (actual)
     started: 2026-01-17
+    completed: 2026-01-17
+    branch: feature/broken-link-validation (merged to dev)
+    pr: "#14"
+    merge_commit: 149127a
     description: Enhance /craft:docs:check and /craft:docs:update with broken link validation
     problem: "Documentation commands don't validate internal links, leading to broken navigation and 404s"
     target_user: Documentation maintainers, site publishers
