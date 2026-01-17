@@ -1,67 +1,75 @@
-# VHS tape for teaching workflow demonstration
-# Generate GIF: vhs teaching-workflow.tape
+# Teaching Workflow Demo - Optimized
+# Generate: vhs teaching-workflow.tape
 
 Output docs/demos/teaching-workflow.gif
 
-Set FontSize 14
-Set Width 1200
-Set Height 700
-Set Padding 20
-Set Theme "Catppuccin Mocha"
+Set FontSize 12
+Set Width 900
+Set Height 500
+Set Padding 10
+Set Theme "Dracula"
 
+# Title
 Type "# Teaching Workflow Demo"
 Sleep 1s
 Enter
+Enter
 
-Type "# Step 1: Check teaching mode status"
-Sleep 500ms
+# Step 1
+Type "$ /craft:git:status"
 Enter
-Type "/craft:git:status"
-Sleep 500ms
+Sleep 300ms
+Type "Branch: dev (Preview) | Students see: Week 7 (main)"
 Enter
-Sleep 3s
+Type "✅ Safe to experiment"
+Sleep 1.5s
+Enter
+Enter
 
-Type ""
+# Step 2
+Type "$ /craft:site:build"
 Enter
-Type "# Step 2: Preview changes on dev branch"
-Sleep 500ms
+Sleep 300ms
+Type "Course: STAT 545 Fall 2024 | Week 8/15 (53%)"
 Enter
-Type "/craft:site:build"
-Sleep 500ms
+Type "✓ Built successfully"
+Sleep 1.5s
 Enter
-Sleep 4s
+Enter
 
-Type ""
+# Step 3
+Type "$ /craft:site:progress"
 Enter
-Type "# Step 3: Check semester progress"
-Sleep 500ms
+Sleep 300ms
+Type "████████░░░░░░░ 8/15 weeks (53%)"
 Enter
-Type "/craft:site:progress"
-Sleep 500ms
+Type "Weeks 1-7: ✅  Week 8: 🔄  Weeks 9-15: 📝"
+Sleep 1.5s
 Enter
-Sleep 4s
+Enter
 
-Type ""
+# Step 4
+Type "$ /craft:site:publish --dry-run"
 Enter
-Type "# Step 4: Validate before publishing"
-Sleep 500ms
+Sleep 300ms
+Type "✓ Schedule validated | ✓ Syllabus complete"
 Enter
-Type "/craft:site:publish --dry-run --validate-only"
-Sleep 500ms
+Type "✅ SAFE TO PUBLISH"
+Sleep 1.5s
 Enter
-Sleep 5s
+Enter
 
-Type ""
+# Step 5
+Type "$ /craft:site:publish"
 Enter
-Type "# Step 5: Publish to production (if validation passed)"
-Sleep 500ms
+Sleep 300ms
+Type "✓ Switch to main | ✓ Build | ✓ Deploy"
 Enter
-Type "/craft:site:publish"
-Sleep 500ms
+Type "🎉 Week 8 published!"
+Sleep 2s
 Enter
-Sleep 6s
+Enter
 
-Type ""
-Enter
-Type "# Done! Site published, auto-switched back to dev"
+# Done
+Type "⏱  3 min (was 15 min manually) | 🎯 80% faster"
 Sleep 2s
