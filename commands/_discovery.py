@@ -569,6 +569,89 @@ def get_command_stats() -> dict:
     }
 
 
+def get_commands_by_category(category: str) -> list[dict]:
+    """
+    Get all commands for a specific category.
+
+    Args:
+        category: Category name (e.g., 'code', 'test', 'docs')
+
+    Returns:
+        List of command dictionaries for that category
+    """
+    commands = load_cached_commands()
+    return [cmd for cmd in commands if cmd['category'] == category]
+
+
+def group_commands_by_subcategory(commands: list[dict]) -> dict:
+    """
+    Group commands by subcategory.
+
+    Args:
+        commands: List of command dictionaries
+
+    Returns:
+        Dictionary mapping subcategory -> list of commands
+        Commands without subcategory go into 'general' group
+    """
+    grouped = {}
+
+    for cmd in commands:
+        subcat = cmd.get('subcategory', 'general')
+        if subcat not in grouped:
+            grouped[subcat] = []
+        grouped[subcat].append(cmd)
+
+    return grouped
+
+
+def get_category_info(category: str) -> dict:
+    """
+    Get detailed information about a category.
+
+    Args:
+        category: Category name
+
+    Returns:
+        Dictionary with:
+        - name: Category name
+        - count: Number of commands
+        - commands: List of commands
+        - subcategories: Grouped commands by subcategory
+        - icon: Category emoji icon
+    """
+    commands = get_commands_by_category(category)
+    subcategories = group_commands_by_subcategory(commands)
+
+    # Category icons
+    icons = {
+        'code': '💻',
+        'test': '🧪',
+        'docs': '📄',
+        'git': '🔀',
+        'site': '📖',
+        'arch': '🏗️',
+        'plan': '📋',
+        'ci': '🚀',
+        'dist': '📦',
+        'workflow': '🔄',
+        'hub': '🛠️',
+        'check': '✅',
+        'do': '🎯',
+        'orchestrate': '🎯',
+        'smart-help': '💡',
+        'utils': '🔧'
+    }
+
+    return {
+        'name': category,
+        'count': len(commands),
+        'commands': commands,
+        'subcategories': subcategories,
+        'icon': icons.get(category, '📁')
+    }
+
+
 if __name__ == '__main__':
     """
     CLI usage: python3 commands/_discovery.py
