@@ -95,20 +95,32 @@ documentation_coverage:
   CLAUDE.md: Optimized (138 lines)
 
 session_2026_01_17:
-  duration: ~1 hour
+  duration: ~3 hours
   accomplishments:
     - "Reviewed PR #12 (Teaching Workflow System) - 9.5/10 quality, production-ready"
     - "Merged PR #12 to dev (12,241 additions, 44 files, 5 new commands)"
     - "Resolved merge conflicts in CLAUDE.md and .STATUS during rebase"
     - "Cleaned up feature/teaching-workflow worktree after merge"
     - "Updated .STATUS to reflect teaching workflow completion"
+    - "Generated comprehensive teaching documentation (8 files + GIF demo)"
+    - "Created optimized teaching workflow GIF demo (533KB, VHS + gifsicle)"
+    - "Embedded GIF in 4 key docs (README, guide, refcard, index)"
+    - "Consolidated duplicate documentation (removed workflow-integration/ folder)"
+    - "Deep brainstorm: Website organization (8 expert questions, hybrid IA)"
+    - "Created SPEC-website-organization-standard-2026-01-17.md (598 lines)"
+  commits:
+    - "39cd95d: docs: embed teaching workflow GIF in all key documentation"
+    - "458be73: docs: consolidate duplicate documentation (removed 5 files, 1,318 lines)"
+    - "b4a71d4: docs: create website organization standard (SPEC)"
   state_change:
     - "Commands: 92 → 97 (+5)"
     - "Utilities: +4 Python modules (teaching-specific)"
     - "Tests: +139 (100% passing)"
-    - "Documentation: +8 teaching guides"
+    - "Documentation: +8 teaching guides, -5 duplicates"
     - "Open PRs: 0 → 0 (merged #12)"
     - "CLAUDE.md: Updated to 138 lines, 97 commands, 4 specs"
+    - "Specs: 4 → 5 (+website organization standard)"
+    - "GIF demos: +1 (teaching-workflow.gif, 533KB optimized)"
 
 session_2026_01_16:
   duration: ~4-5 hours
@@ -152,13 +164,18 @@ session_2026_01_15:
     - "Step-by-step tutorials more valuable than generic documentation"
 
 recent:
-  - 📊 Session 2026-01-17: Merged teaching workflow system to dev
+  - 📊 Session 2026-01-17: Teaching workflow + docs consolidation + website org plan
   - ✅ Merged PR #12: Teaching Workflow System (12,241 additions, 44 files)
   - 🎓 5 new commands: site:publish, site:progress, enhanced git:status & site:build
   - 🧪 139 tests added (100% passing)
   - 📚 8 documentation files (setup, migration, schema, tutorials)
+  - 🎥 Teaching workflow GIF demo (533KB, embedded in 4 key docs)
+  - 🧹 Consolidated docs: removed workflow-integration/ (5 files, 1,318 lines)
+  - 🧠 Deep brainstorm: Website organization (8 questions, hybrid IA)
+  - 📋 Created SPEC-website-organization-standard (598 lines, 14→7 sections)
   - 🎯 Impact: 80% time reduction (15 min → 3 min), zero production bugs
   - ✅ 97 commands total (was 92, +5)
+  - ✅ 5 specs total (was 4, +website organization)
   - 📊 Session 2026-01-15: Deep brainstorm + spec for /craft:hub v2.0 (discovery system)
   - 📋 Created BRAINSTORM-craft-hub-update-2026-01-15.md (12 min, 10 questions)
   - 📋 Created SPEC-craft-hub-v2-2026-01-15.md (ready for Phase 1 implementation)
@@ -178,6 +195,12 @@ worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
 
 next:
+  - 🎯 Quick Win Option: Website Organization (Phase 1 - < 1 hour)
+    • Update mkdocs.yml (consolidate 14→7 sections) - 20 min
+    • Create Choose Your Path page - 15 min
+    • Test navigation - 10 min
+    • 50% reduction in top-level complexity
+    • Spec: docs/specs/SPEC-website-organization-standard-2026-01-17.md
   - 🎯 Priority 1: /craft:hub v2.0 - Command Discovery System (Phase 1: Foundation)
     • Spike: Validate auto-detection with 5 commands
     • Implement Phase 1 (auto-detection + hierarchical menu + tracking)
@@ -194,7 +217,7 @@ planned_features:
   title: "Documentation & Spec Standardization (v1.21.0)"
   development_status: "Planned - Gradual Implementation"
   created: 2026-01-16
-  specs_total: 4
+  specs_total: 5
 
   command_discovery_hub_v2:
     spec: docs/specs/SPEC-craft-hub-v2-2026-01-15.md
@@ -292,6 +315,46 @@ planned_features:
       - "Time to publish: 15 min → 3 min (80% reduction)"
       - "Production bugs: 2-3/semester → 0"
       - "User confidence: 9/10 feel safe publishing"
+
+  website_organization:
+    spec: docs/specs/SPEC-website-organization-standard-2026-01-17.md
+    status: draft
+    priority: Medium
+    target: v1.22.0 or later
+    effort: ~1 hour (Phase 1 - Quick Wins)
+    description: Reorganize documentation site for better discoverability and reduced cognitive load
+    problem: "14 top-level navigation sections overwhelming users, scattered commands, unclear hierarchy"
+    target_user: All three audiences (beginners, daily users, advanced)
+    key_insight: "Hybrid IA (task + feature) with progressive disclosure serves multiple audiences"
+    solution: "Consolidate 14 → 7 sections, merge Help into Commands, add Cookbook + Choose Your Path"
+    phases:
+      - "Phase 1: Quick Wins (consolidate sections, refine emojis, Choose Path page) - < 1h"
+      - "Phase 2: Medium Effort (create Cookbook, merge Help, visual workflow index) - 2-4h"
+      - "Phase 3: Future (search by use case, progressive disclosure, interactive playground)"
+    quick_wins:
+      - "⚡ Update mkdocs.yml (consolidate 14→7 sections) - 20 min"
+      - "⚡ Create Choose Your Path page (personalized journeys) - 15 min"
+      - "⚡ Refine emoji usage (5 strategic emojis only) - 5 min"
+      - "⚡ Test navigation and links - 10 min"
+    deliverables:
+      - "7-section navigation (vs 14, 50% reduction)"
+      - "Choose Your Path landing page (3 personalized journeys)"
+      - "Cookbook section (common recipes + advanced patterns)"
+      - "URL preservation with redirects (no broken links)"
+      - "Page metadata standard (title, description, level, time)"
+      - "Cookbook recipe template"
+    success_metrics:
+      - "Top-level sections: 14 → 7 (50% reduction)"
+      - "Clicks to command: 3-4 → 2-3 (25% faster)"
+      - "Time to first command: 2 min → 30 sec (75% faster)"
+      - "Mobile usability: Scrollable sidebar (< 2 screen heights)"
+    decisions:
+      - "Hybrid IA pattern (task + feature groupings)"
+      - "Teaching Mode stays standalone (equal priority)"
+      - "Playground nested under Getting Started (learning tool)"
+      - "Help merges into Commands (eliminates duplication)"
+      - "Preserve all URLs with redirects"
+      - "Variable nesting depth (2-4 levels based on complexity)"
 
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage) - ✅ ACHIEVED (57%)
 next_target: Documentation quality automation - ✅ COMPLETE (3 phases + CI)
