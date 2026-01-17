@@ -1,0 +1,103 @@
+---
+title: "STAT 545: Advanced Data Analysis"
+subtitle: "Spring 2026 Syllabus"
+---
+
+# Course Information
+
+**Instructor:** Dr. Jane Smith
+**Email:** jane.smith@university.edu
+**Office:** Statistics Building 305
+**Office Hours:** Tuesdays 2-4pm, Thursdays 10am-12pm
+
+**Teaching Assistants:**
+- Alice Johnson (alice.j@university.edu) - Mondays 1-3pm
+- Bob Chen (bob.c@university.edu) - Wednesdays 3-5pm
+
+## Course Description
+
+Advanced statistical methods for data analysis including regression, time series, and multivariate techniques.
+
+## Prerequisites
+
+- STAT 400 or equivalent
+- Linear algebra
+
+## Learning Outcomes
+
+By the end of this course, students will be able to:
+
+1. Apply advanced regression techniques
+2. Analyze time series data
+3. Implement multivariate methods
+
+## Textbook
+
+*Advanced Statistical Methods* (3rd edition)
+by Smith & Jones
+ISBN: 978-0-123456-78-9
+
+## Software
+
+- R (version 4.0+)
+- RStudio
+
+## Course Schedule
+
+**Class Times:**
+- Tuesday 10:00-11:15, Room 201
+- Thursday 10:00-11:15, Room 201
+
+**Semester Dates:**
+- Start: January 20, 2026
+- Spring Break: March 16-20, 2026
+- Reading Week: April 13-17, 2026
+- End: May 15, 2026
+
+## Grading
+
+| Component | Weight |
+|-----------|--------|
+| Homework (5 assignments) | 40% |
+| Midterm Exam | 25% |
+| Final Project | 30% |
+| Participation | 5% |
+
+**Grading Scale:**
+- A: 90-100
+- B: 80-89
+- C: 70-79
+- D: 60-69
+- F: 0-59
+
+## Assignments
+
+| Assignment | Assigned | Due |
+|------------|----------|-----|
+| HW 1: Linear Regression Review | Jan 23 | Feb 6 |
+| HW 2: Generalized Linear Models | Feb 13 | Feb 27 |
+| HW 3: Time Series Basics | Mar 6 | Mar 27 |
+| HW 4: Multivariate Methods | Apr 3 | Apr 24 |
+| HW 5: Advanced Topics | Apr 24 | May 8 |
+| Midterm Exam | | Mar 10 |
+| Final Project | | May 12 |
+
+## Policies
+
+### Attendance
+Regular attendance is expected.
+
+### Late Work
+10% penalty per day, maximum 3 days late.
+
+### Academic Integrity
+University academic integrity policy applies to all work.
+
+### Accommodations
+Students requiring accommodations should contact the instructor within the first week of class.
+
+## Resources
+
+- Course Canvas: https://canvas.university.edu/courses/12345
+- Piazza Discussion: https://piazza.com/class/stat545
+- Instructor Website: https://stats.university.edu/~jsmith

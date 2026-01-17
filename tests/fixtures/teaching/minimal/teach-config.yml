@@ -1,0 +1,14 @@
+---
+# Minimal Teaching Configuration (Required Fields Only)
+course:
+  code: "TEST 100"
+  title: "Minimal Test Course"
+  term: "Spring 2026"
+
+semester:
+  start_date: "2026-01-15"
+  end_date: "2026-05-15"
+
+instructor:
+  name: "Dr. Test"
+  email: "test@example.com"

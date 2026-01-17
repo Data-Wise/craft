@@ -1,0 +1,53 @@
+---
+title: "Summer Schedule"
+---
+
+# Weekly Topics
+
+## Week 1 (Jun 1-5)
+- Introduction to Statistics
+- Descriptive Statistics
+- Data Visualization
+- **Quiz 1: Jun 5**
+
+## Week 2 (Jun 8-12)
+- Probability Basics
+- Probability Distributions
+- Normal Distribution
+- **Quiz 2: Jun 8**
+- **Quiz 3: Jun 12**
+
+## Week 3 (Jun 15-19)
+- Sampling Distributions
+- Central Limit Theorem
+- Confidence Intervals
+- **Quiz 4: Jun 15**
+- **Quiz 5: Jun 19**
+
+## Week 4 (Jun 22-26)
+- Hypothesis Testing
+- t-tests
+- Type I/II Errors
+
+## Week 5 (Jun 29 - Jul 3)
+- **MIDTERM: Jun 29**
+- Chi-square Tests
+- ANOVA
+- **Quiz 6: Jul 3**
+
+## Week 6 (Jul 6-10)
+- Simple Linear Regression
+- Correlation
+- Regression Inference
+- **Quiz 7: Jul 10**
+
+## Week 7 (Jul 13-17)
+- Multiple Regression
+- Model Building
+- Regression Diagnostics
+- **Quiz 8: Jul 17**
+
+## Week 8 (Jul 20-24)
+- Advanced Topics
+- Final Review
+- **FINAL EXAM: Jul 22**

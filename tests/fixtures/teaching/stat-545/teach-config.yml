@@ -1,0 +1,125 @@
+---
+# Full Teaching Configuration (All Fields)
+course:
+  code: "STAT 545"
+  title: "Advanced Data Analysis"
+  term: "Spring 2026"
+  credits: 3
+  level: "graduate"
+
+semester:
+  start_date: "2026-01-20"
+  end_date: "2026-05-15"
+  breaks:
+    - name: "Spring Break"
+      start: "2026-03-16"
+      end: "2026-03-20"
+    - name: "Reading Week"
+      start: "2026-04-13"
+      end: "2026-04-17"
+
+instructor:
+  name: "Dr. Jane Smith"
+  email: "jane.smith@university.edu"
+  office: "Statistics Building 305"
+  office_hours: "Tuesdays 2-4pm, Thursdays 10am-12pm"
+  website: "https://stats.university.edu/~jsmith"
+
+teaching_assistants:
+  - name: "Alice Johnson"
+    email: "alice.j@university.edu"
+    office_hours: "Mondays 1-3pm"
+  - name: "Bob Chen"
+    email: "bob.c@university.edu"
+    office_hours: "Wednesdays 3-5pm"
+
+course_info:
+  description: |
+    Advanced statistical methods for data analysis including regression,
+    time series, and multivariate techniques.
+  prerequisites:
+    - "STAT 400 or equivalent"
+    - "Linear algebra"
+  learning_outcomes:
+    - "Apply advanced regression techniques"
+    - "Analyze time series data"
+    - "Implement multivariate methods"
+
+grading:
+  components:
+    - name: "Homework"
+      weight: 40
+      count: 5
+    - name: "Midterm Exam"
+      weight: 25
+      date: "2026-03-10"
+    - name: "Final Project"
+      weight: 30
+      due: "2026-05-12"
+    - name: "Participation"
+      weight: 5
+  scale:
+    A: [90, 100]
+    B: [80, 89]
+    C: [70, 79]
+    D: [60, 69]
+    F: [0, 59]
+
+policies:
+  attendance: "Regular attendance expected"
+  late_work: "10% penalty per day, max 3 days"
+  academic_integrity: "University policy applies"
+  accommodations: "Contact instructor within first week"
+
+schedule:
+  class_times:
+    - day: "Tuesday"
+      time: "10:00-11:15"
+      location: "Room 201"
+    - day: "Thursday"
+      time: "10:00-11:15"
+      location: "Room 201"
+  office_hours_location: "Statistics Building 305"
+
+resources:
+  textbook:
+    title: "Advanced Statistical Methods"
+    author: "Smith & Jones"
+    edition: "3rd"
+    isbn: "978-0-123456-78-9"
+  software:
+    - "R (version 4.0+)"
+    - "RStudio"
+  websites:
+    - name: "Course Canvas"
+      url: "https://canvas.university.edu/courses/12345"
+    - name: "Piazza Discussion"
+      url: "https://piazza.com/class/stat545"
+
+assignments:
+  homework:
+    - number: 1
+      title: "Linear Regression Review"
+      assigned: "2026-01-23"
+      due: "2026-02-06"
+      weight: 8
+    - number: 2
+      title: "Generalized Linear Models"
+      assigned: "2026-02-13"
+      due: "2026-02-27"
+      weight: 8
+    - number: 3
+      title: "Time Series Basics"
+      assigned: "2026-03-06"
+      due: "2026-03-27"
+      weight: 8
+    - number: 4
+      title: "Multivariate Methods"
+      assigned: "2026-04-03"
+      due: "2026-04-24"
+      weight: 8
+    - number: 5
+      title: "Advanced Topics"
+      assigned: "2026-04-24"
+      due: "2026-05-08"
+      weight: 8

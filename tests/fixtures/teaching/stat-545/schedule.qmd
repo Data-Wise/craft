@@ -1,0 +1,265 @@
+---
+title: "STAT 545 Course Schedule"
+subtitle: "Spring 2026"
+---
+
+# Weekly Schedule
+
+## Week 1 (Jan 20-22)
+**Topic:** Course Introduction & R Review
+
+**Tuesday:**
+- Course overview
+- Syllabus review
+- Setup R/RStudio
+
+**Thursday:**
+- R programming review
+- Data structures
+- dplyr basics
+
+**Readings:** Chapters 1-2
+
+---
+
+## Week 2 (Jan 27-29)
+**Topic:** Simple Linear Regression
+
+**Tuesday:**
+- Linear regression theory
+- Least squares estimation
+- Model assumptions
+
+**Thursday:**
+- Inference for regression
+- Prediction intervals
+- Lab: Regression in R
+
+**Readings:** Chapter 3
+**Assigned:** HW 1
+
+---
+
+## Week 3 (Feb 3-5)
+**Topic:** Multiple Regression
+
+**Tuesday:**
+- Multiple regression model
+- Matrix formulation
+- Geometric interpretation
+
+**Thursday:**
+- Inference for multiple regression
+- F-tests
+- Lab: Multiple regression
+
+**Readings:** Chapter 4
+
+---
+
+## Week 4 (Feb 10-12)
+**Topic:** Regression Diagnostics
+
+**Tuesday:**
+- Residual analysis
+- Influential observations
+- Cook's distance
+
+**Thursday:**
+- Model selection
+- AIC/BIC
+- Cross-validation
+
+**Readings:** Chapter 5
+**Due:** HW 1 (Feb 6)
+**Assigned:** HW 2
+
+---
+
+## Week 5 (Feb 17-19)
+**Topic:** Generalized Linear Models
+
+**Tuesday:**
+- Exponential family
+- Link functions
+- Maximum likelihood
+
+**Thursday:**
+- Logistic regression
+- Poisson regression
+- Lab: GLMs in R
+
+**Readings:** Chapter 6
+
+---
+
+## Week 6 (Feb 24-26)
+**Topic:** GLM Inference & Diagnostics
+
+**Tuesday:**
+- Wald tests
+- Likelihood ratio tests
+- Deviance
+
+**Thursday:**
+- Residual analysis for GLMs
+- Overdispersion
+- Lab: GLM diagnostics
+
+**Readings:** Chapter 7
+**Due:** HW 2 (Feb 27)
+
+---
+
+## Week 7 (Mar 3-5)
+**Topic:** Mixed Effects Models
+
+**Tuesday:**
+- Random effects
+- Variance components
+- BLUP
+
+**Thursday:**
+- Mixed model inference
+- Lab: lme4 package
+
+**Readings:** Chapter 8
+**Assigned:** HW 3
+
+---
+
+## Week 8 (Mar 10-12)
+**Topic:** Midterm Week
+
+**Tuesday:**
+**MIDTERM EXAM**
+
+**Thursday:**
+- Review midterm
+- Introduction to time series
+
+**Readings:** Chapter 9
+
+---
+
+## SPRING BREAK (Mar 16-20)
+No classes
+
+---
+
+## Week 9 (Mar 24-26)
+**Topic:** Time Series Basics
+
+**Tuesday:**
+- Stationarity
+- Autocorrelation
+- Partial autocorrelation
+
+**Thursday:**
+- AR models
+- MA models
+- Lab: Time series in R
+
+**Readings:** Chapter 10
+**Due:** HW 3 (Mar 27)
+
+---
+
+## Week 10 (Mar 31 - Apr 2)
+**Topic:** ARIMA Models
+
+**Tuesday:**
+- ARMA models
+- ARIMA models
+- Model identification
+
+**Thursday:**
+- Parameter estimation
+- Forecasting
+- Lab: forecast package
+
+**Readings:** Chapter 11
+**Assigned:** HW 4
+
+---
+
+## Week 11 (Apr 7-9)
+**Topic:** Spectral Analysis
+
+**Tuesday:**
+- Frequency domain
+- Periodogram
+- Spectral density
+
+**Thursday:**
+- Filtering
+- Applications
+- Lab: Spectral analysis
+
+**Readings:** Chapter 12
+
+---
+
+## READING WEEK (Apr 13-17)
+No classes - work on projects
+
+---
+
+## Week 12 (Apr 21-23)
+**Topic:** Multivariate Methods
+
+**Tuesday:**
+- Multivariate normal
+- Hotelling's T²
+- MANOVA
+
+**Thursday:**
+- Principal components
+- Lab: PCA in R
+
+**Readings:** Chapter 13
+**Due:** HW 4 (Apr 24)
+**Assigned:** HW 5
+
+---
+
+## Week 13 (Apr 28-30)
+**Topic:** Clustering & Classification
+
+**Tuesday:**
+- K-means clustering
+- Hierarchical clustering
+- Cluster validation
+
+**Thursday:**
+- Discriminant analysis
+- Lab: Classification methods
+
+**Readings:** Chapter 14
+
+---
+
+## Week 14 (May 5-7)
+**Topic:** Advanced Topics
+
+**Tuesday:**
+- Bootstrap methods
+- Permutation tests
+- Resampling techniques
+
+**Thursday:**
+- Course review
+- Project presentations
+
+**Readings:** Chapter 15
+**Due:** HW 5 (May 8)
+
+---
+
+## Week 15 (May 12-14)
+**Finals Week**
+
+**Tuesday:**
+**FINAL PROJECTS DUE (May 12)**
+
+Project presentations during final exam period.
