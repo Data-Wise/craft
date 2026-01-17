@@ -226,8 +226,106 @@ website_organization_phase2:
     - "PR #16 closed (duplicate of #15) - branch was recreated from old state"
     - "All Phase 2 work was completed via PR #15"
 
+claude_code_2_1_integration:
+  branch: feature/claude-code-2.1-integration (active)
+  status: WAVE 1-3 COMPLETE ✅
+  started: 2026-01-17
+  duration: ~18 hours total
+  target_version: v1.23.0
+  proposal: docs/brainstorm/PROPOSAL-craft-enhancements-2026-01-17.md
+
+  wave_1_quick_wins:
+    status: COMPLETE ✅
+    committed: 4b7f0cf
+    duration: ~1.5 hours
+    files: 8 (1 modified, 6 created, 1 summary)
+    lines_added: +1,465
+    components:
+      - Complexity scoring in /craft:do (+78 lines)
+      - Validation skills: test-coverage, broken-links, lint-check (+505 lines)
+      - Orchestration hooks: orchestrate-hooks.sh (+291 lines)
+    features:
+      - "0-10 complexity scoring with 5 factors"
+      - "Routing decision flow (commands/agents/orchestrator)"
+      - "Hot-reload validators (Python, JS, R, Go, Rust)"
+      - "Agent hooks (PreToolUse, PostToolUse, Stop)"
+      - "Mode-aware resource management"
+      - "Session state persistence (.craft/cache/)"
+
+  wave_2_medium_effort:
+    status: COMPLETE ✅
+    committed: 87cbb8a
+    duration: ~6 hours
+    files: 4 (3 modified, 1 summary)
+    lines_added: +473
+    components:
+      - Agent delegation in /craft:do (+250 lines)
+      - Validator discovery in /craft:check (+103 lines)
+      - Forked context for orchestrator-v2 (+127 lines)
+    features:
+      - "5 specialized agents with keyword routing"
+      - "Delegation workflow (fork → execute → return)"
+      - "Auto-discovery of validators with hot_reload: true"
+      - "Wave isolation (no main conversation pollution)"
+      - "Clean summaries returned to user"
+
+  wave_3_long_term:
+    status: COMPLETE ✅
+    committed: 843ea6d
+    duration: ~12 hours
+    files: 7 (2 modified, 5 created)
+    lines_added: +3,029
+    components:
+      - Agent resilience in orchestration (+250 lines)
+      - Community validator ecosystem (+1,154 lines)
+      - Session teleportation integration (+1,050 lines)
+    features:
+      - "5 error categories with recovery strategies"
+      - "Exponential backoff retry (2s-16s)"
+      - "Circuit breaker pattern (CLOSED/HALF-OPEN/OPEN)"
+      - "4-level escalation hierarchy"
+      - "Validator template generator (/craft:check:gen-validator)"
+      - "Best practices guide (715 lines)"
+      - "GitHub marketplace integration"
+      - "Cross-device session resume (/craft:orchestrate:resume)"
+      - "Session state schema (JSON v1.0.0)"
+      - "Claude Desktop cloud sync (encrypted)"
+
+  total_changes:
+    files_modified: 6
+    files_created: 13
+    lines_added: +4,967
+    breaking_changes: 0
+    version_updates:
+      - "orchestrator-v2: 2.1.0 → 2.3.0"
+
+  integration_synergy:
+    wave_1_foundation: "Complexity scoring, validation skills, agent hooks"
+    wave_2_intelligence: "Agent delegation, validator discovery, forked context"
+    wave_3_scale: "Agent resilience, validator ecosystem, session teleportation"
+    complete_pipeline: "Complexity → Delegation → Forked execution → Resilience → Teleportation → Custom validators"
+
+  impact:
+    for_users:
+      - "Smart task routing with complexity awareness"
+      - "Resilient agent execution with auto-recovery"
+      - "Cross-device session resume"
+      - "Community validators without restart"
+      - "Clean chat history (forked execution)"
+    for_developers:
+      - "9 resilience patterns (retry, timeout, circuit breaker, etc.)"
+      - "Validator template generator"
+      - "Best practices documentation (715 lines)"
+      - "Session state schema (JSON v1.0.0)"
+      - "GitHub marketplace integration"
+
+  commits:
+    - "4b7f0cf: feat: implement Wave 1 - Complexity scoring, validation skills, orchestration hooks"
+    - "87cbb8a: feat: implement Wave 2 - Agent delegation, validator discovery, forked context"
+    - "843ea6d: feat: implement Wave 3 - Agent resilience, validator ecosystem, session teleportation"
+
 session_2026_01_17:
-  duration: ~10-11 hours
+  duration: ~25-26 hours (includes Claude Code 2.1.0 integration and v1.23.1 release)
   accomplishments:
     - "Reviewed PR #12 (Teaching Workflow System) - 9.5/10 quality, production-ready"
     - "Merged PR #12 to dev (12,241 additions, 44 files, 5 new commands)"
@@ -274,6 +372,18 @@ session_2026_01_17:
     - "Created test documentation (3 files: plan, summary, quick reference)"
     - "Merged PR #17 to dev (9,149 additions, 26 files, zero-maintenance hub)"
     - "Verified Hub v2.0 tests passing (34/34, 100% coverage, ~207ms)"
+    - "Implemented Claude Code 2.1.0 integration - Wave 1 (Quick Wins, ~1.5h)"
+    - "Implemented Claude Code 2.1.0 integration - Wave 2 (Medium Effort, ~6h)"
+    - "Implemented Claude Code 2.1.0 integration - Wave 3 (Long-term, ~12h)"
+    - "Created complexity scoring system for /craft:do (0-10 scale)"
+    - "Created 3 hot-reload validators (test-coverage, broken-links, lint-check)"
+    - "Created orchestration hooks (PreToolUse, PostToolUse, Stop)"
+    - "Implemented agent delegation with 5 specialized agents"
+    - "Implemented validator discovery system (auto-detect hot_reload: true)"
+    - "Added forked context execution to orchestrator-v2"
+    - "Enhanced agent resilience with 9 recovery patterns"
+    - "Created community validator ecosystem (generator + best practices)"
+    - "Implemented session teleportation for cross-device resume"
   commits:
     - "39cd95d: docs: embed teaching workflow GIF in all key documentation"
     - "458be73: docs: consolidate duplicate documentation (removed 5 files, 1,318 lines)"
@@ -291,11 +401,18 @@ session_2026_01_17:
     - "458be73: docs: consolidate duplicate documentation"
     - "39cd95d: docs: embed teaching workflow GIF in all key documentation"
     - "059c497: docs: add optimized teaching workflow demo GIF"
+    - "4b7f0cf: feat: implement Wave 1 - Complexity scoring, validation skills, orchestration hooks"
+    - "87cbb8a: feat: implement Wave 2 - Agent delegation, validator discovery, forked context"
+    - "843ea6d: feat: implement Wave 3 - Agent resilience, validator ecosystem, session teleportation"
   state_change:
-    - "Commands: 92 → 97 (+5)"
+    - "Commands: 92 → 99 (+7, includes 2 new orchestrate subcommands)"
     - "Utilities: +5 Python modules (+4 teaching-specific, +1 linkcheck parser)"
     - "Tests: +160 (139 teaching + 21 linkcheck, 100% passing)"
     - "Documentation: +8 teaching guides, -5 duplicates, +1 Choose Your Path, +1 Implementation Summary, +2 GIF guides"
+    - "Validators: +3 hot-reload skills (test-coverage, broken-links, lint-check)"
+    - "Hooks: +1 orchestration hook script (orchestrate-hooks.sh)"
+    - "Agent version: orchestrator-v2 2.1.0 → 2.3.0"
+    - "Claude Code integration: +4,967 lines (19 files, 3 waves complete)"
     - "Open PRs: 0 → 0 (merged #12, #13, #14, #15)"
     - "CLAUDE.md: Updated to 138 lines, 97 commands, 6 specs"
     - "Specs: 4 → 6 (+website organization, +broken link validation, +demo dependency management)"
@@ -311,6 +428,7 @@ session_2026_01_17:
     - "Test planning: 47 additional tests designed (unit, e2e, dogfooding)"
     - "GIF recording: VHS → asciinema (default method change)"
     - "Todo list: 37 tasks created for dependency management (4 phases, ~36h total)"
+
 
 session_2026_01_16:
   duration: ~4-5 hours
@@ -354,6 +472,7 @@ session_2026_01_15:
     - "Step-by-step tutorials more valuable than generic documentation"
 
 recent:
+<<<<<<< HEAD
   - 🚀 Merged PR #17: Hub v2.0 - Smart Command Discovery (9,149 additions, 34 tests, zero-maintenance)
   - 🎯 Hub v2.0: 3-layer progressive disclosure (Main → Category → Detail + Tutorial)
   - ⚡ Hub v2.0: 94% faster (12ms uncached, <2ms cached vs 200ms/10ms targets)
@@ -361,6 +480,10 @@ recent:
   - 📚 Hub v2.0: 3,527 lines documentation (architecture, API reference, developer guide, testing)
   - 🧪 Test planning: 47 additional tests designed (unit edge cases, e2e workflows, dogfooding)
   - 📊 Session 2026-01-17: Teaching workflow + website org + broken links + asciinema + demo deps + Hub v2.0
+=======
+  - 📊 Session 2026-01-17: Teaching workflow + broken link validation + website org + Claude Code 2.1.0 integration
+  - ✅ Claude Code 2.1.0 Integration: Wave 1-3 complete (+4,967 lines, 19 files, 3 commits)
+>>>>>>> e949172 (chore: update .STATUS with Wave 1-3 completion)
   - ✅ Merged PR #12: Teaching Workflow System (12,241 additions, 44 files, 5 commands)
   - ✅ Merged PR #13: Website Organization Phase 1 (459 additions, 6-section navigation)
   - ✅ Merged PR #14: Broken Link Validation (1,966 additions, 21 tests, .linkcheck-ignore parser)
@@ -395,6 +518,7 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
+  - feature/claude-code-2.1-integration: ~/.git-worktrees/craft/feature-claude-code-2.1-integration (Wave 1-3 complete, ready for PR)
   - feature/hub-v2: ~/.git-worktrees/craft/feature-hub-v2 (WIP - Phase 1)
   - feature/demo-dependency-management: ~/.git-worktrees/craft/feature-demo-deps (NEW - Phase 1 ready)
   - feature/claude-code-2.1-integration: ~/.git-worktrees/craft/feature-claude-code-2.1-integration (NEW - ready to implement)
@@ -405,6 +529,12 @@ worktrees_cleaned_today:
   - feature/website-org-phase2: Removed after PR #15 merge (local + remote branch deleted, consolidation report saved)
 
 next:
+  - ✅ Claude Code 2.1.0 Integration - WAVE 1-3 COMPLETE ✅ (feature/claude-code-2.1-integration)
+    • Wave 1: Complexity scoring, validators, hooks (1.5h, +1,465 lines)
+    • Wave 2: Agent delegation, validator discovery, forked context (6h, +473 lines)
+    • Wave 3: Agent resilience, validator ecosystem, session teleportation (12h, +3,029 lines)
+    • Total: +4,967 lines, 19 files, orchestrator-v2 2.3.0
+    • Ready for PR to dev branch
   - ✅ Website Organization (Phase 1) - COMPLETE & MERGED ✅ (PR #13)
     • 6-section navigation structure
     • Choose Your Path page created
