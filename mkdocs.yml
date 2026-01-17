@@ -91,6 +91,8 @@ nav:
   # 2. GUIDES & TUTORIALS - Task-oriented learning
   - 📖 Guides & Tutorials:
     - Getting Started: guide/getting-started.md
+    - What's New:
+      - Claude Code 2.1.0 Enhancements: tutorials/TUTORIAL-claude-code-2.1-enhancements.md
     - Core Workflows:
       - Documentation Automation: guide/documentation-quality.md
       - Site Creation & Management: guide/getting-started.md
@@ -157,6 +159,8 @@ nav:
     - Orchestrator Deep Dive: orchestrator.md
     - Architecture Overview: architecture.md
     - Documentation Quality: reference/documentation-quality.md
+    - Enhancement Guides:
+      - Claude Code 2.1 Quick Reference: reference/REFCARD-claude-code-2.1-enhancements.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md

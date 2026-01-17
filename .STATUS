@@ -197,7 +197,7 @@ website_organization_phase2:
     - "All Phase 2 work was completed via PR #15"
 
 session_2026_01_17:
-  duration: ~7-8 hours
+  duration: ~10-11 hours
   accomplishments:
     - "Reviewed PR #12 (Teaching Workflow System) - 9.5/10 quality, production-ready"
     - "Merged PR #12 to dev (12,241 additions, 44 files, 5 new commands)"
@@ -224,6 +224,14 @@ session_2026_01_17:
     - "Addressed PR #15 review feedback (6 enhancements completed)"
     - "Merged PR #15 to dev (2,841 additions, 15 files, cookbook + enhanced workflows)"
     - "Cleaned up feature/website-org-phase2 worktree after merge"
+    - "Made asciinema default GIF recording method (replacing VHS)"
+    - "Updated all GIF documentation for asciinema + agg workflow"
+    - "Created GIF-REGENERATION-CHECKLIST.md for 11 GIFs"
+    - "Updated site navigation with GIF recording guides"
+    - "Deep brainstorm: Demo dependency management (10 expert questions + --batch insight)"
+    - "Created SPEC-demo-dependency-management-2026-01-17.md (comprehensive, 598 lines)"
+    - "Created feature/demo-dependency-management worktree with implementation plan"
+    - "Created 37-task todo list (4 phases: checking → installation → batch → advanced)"
   commits:
     - "39cd95d: docs: embed teaching workflow GIF in all key documentation"
     - "458be73: docs: consolidate duplicate documentation (removed 5 files, 1,318 lines)"
@@ -236,20 +244,27 @@ session_2026_01_17:
     - "149127a: Merge PR #14 - Broken link validation with .linkcheck-ignore parser (v1.23.0)"
     - "b9470f5: chore: create worktree for website-org-phase2"
     - "6c23311: chore: create worktree for hub-v2 enhancement"
+    - "fd02c2c: chore: update .STATUS with website organization plan"
+    - "b4a71d4: docs: create website organization standard (SPEC)"
+    - "458be73: docs: consolidate duplicate documentation"
+    - "39cd95d: docs: embed teaching workflow GIF in all key documentation"
+    - "059c497: docs: add optimized teaching workflow demo GIF"
   state_change:
     - "Commands: 92 → 97 (+5)"
     - "Utilities: +5 Python modules (+4 teaching-specific, +1 linkcheck parser)"
     - "Tests: +160 (139 teaching + 21 linkcheck, 100% passing)"
-    - "Documentation: +8 teaching guides, -5 duplicates, +1 Choose Your Path, +1 Implementation Summary"
-    - "Open PRs: 0 → 0 (merged #12, #13, #14)"
-    - "CLAUDE.md: Updated to 138 lines, 97 commands, 5 specs"
-    - "Specs: 4 → 5 (+website organization standard, +broken link validation)"
+    - "Documentation: +8 teaching guides, -5 duplicates, +1 Choose Your Path, +1 Implementation Summary, +2 GIF guides"
+    - "Open PRs: 0 → 0 (merged #12, #13, #14, #15)"
+    - "CLAUDE.md: Updated to 138 lines, 97 commands, 6 specs"
+    - "Specs: 4 → 6 (+website organization, +broken link validation, +demo dependency management)"
     - "GIF demos: +1 (teaching-workflow.gif, 533KB optimized)"
     - "Navigation: 14+ sections → 6 sections (50% reduction)"
     - "Broken links: Documented ~30 expected links in .linkcheck-ignore"
     - "Broken links: 100% reduction in CI false positives (30 → 0)"
-    - "Worktrees cleaned: 3 (teaching-workflow, website-org-phase1, broken-link-validation)"
-    - "Worktrees active: 2 (website-org-phase2, hub-v2)"
+    - "Worktrees cleaned: 3 (teaching-workflow, website-org-phase1, website-org-phase2)"
+    - "Worktrees active: 2 (hub-v2, demo-dependency-management)"
+    - "GIF recording: VHS → asciinema (default method change)"
+    - "Todo list: 37 tasks created for dependency management (4 phases, ~36h total)"
 
 session_2026_01_16:
   duration: ~4-5 hours
@@ -293,19 +308,24 @@ session_2026_01_15:
     - "Step-by-step tutorials more valuable than generic documentation"
 
 recent:
-  - 📊 Session 2026-01-17: Teaching workflow + broken link validation + website org + hub v2 planning
+  - 📊 Session 2026-01-17: Teaching workflow + website org + broken links + asciinema + demo deps planning
   - ✅ Merged PR #12: Teaching Workflow System (12,241 additions, 44 files, 5 commands)
+  - ✅ Merged PR #13: Website Organization Phase 1 (459 additions, 6-section navigation)
   - ✅ Merged PR #14: Broken Link Validation (1,966 additions, 21 tests, .linkcheck-ignore parser)
+  - ✅ Merged PR #15: Website Organization Phase 2 (2,841 additions, cookbook + visual workflows)
   - 🎓 5 new commands: site:publish, site:progress, enhanced git:status & site:build
   - 🧪 160 tests added (139 teaching + 21 linkcheck, 100% passing)
-  - 📚 Documentation: 8 teaching guides + 1 implementation summary + consolidated duplicates
+  - 📚 Documentation: +8 teaching guides, +2 GIF guides, +6 cookbook recipes, -5 duplicates
   - 🎥 Teaching workflow GIF demo (533KB, embedded in 4 key docs)
+  - 🎬 GIF recording: VHS → asciinema (default method change)
   - 🔗 Broken link validation: 100% CI false positive reduction (30 → 0)
-  - 🧹 Worktrees: 3 cleaned (teaching, website-org-phase1, broken-link), 2 active (website-org-phase2, hub-v2)
-  - 🧠 Deep brainstorms: Website organization + Hub v2.0 discovery system
-  - 📋 Specs created: Website organization standard + Broken link validation + Hub v2.0
-  - 🎯 Impact: Teaching (80% time reduction), Broken links (100% CI noise reduction)
-  - ✅ 97 commands total, 5 specs total, 160 tests total
+  - 🗺️ Website navigation: 14+ sections → 6 sections (50% reduction)
+  - 🧹 Worktrees: 3 cleaned (teaching, website-org-phase1/2, broken-link), 2 active (hub-v2, demo-deps)
+  - 🧠 Deep brainstorms: Website organization + Demo dependency management (10 questions)
+  - 📋 Specs created: 6 total (+website org, +broken links, +demo deps)
+  - 📝 Implementation plan: Demo deps (37 tasks, 4 phases, 36 hours)
+  - 🎯 Impact: Teaching (80% time reduction), Broken links (100% CI noise), Navigation (50% reduction)
+  - ✅ 97 commands total, 6 specs total, 160 tests total
   - 📊 Session 2026-01-15: Deep brainstorm + spec for /craft:hub v2.0 (discovery system)
   - 📋 Created BRAINSTORM-craft-hub-update-2026-01-15.md (12 min, 10 questions)
   - 📋 Created SPEC-craft-hub-v2-2026-01-15.md (ready for Phase 1 implementation)
@@ -324,6 +344,8 @@ recent:
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
   - feature/hub-v2: ~/.git-worktrees/craft/feature-hub-v2 (WIP - Phase 1)
+  - feature/demo-dependency-management: ~/.git-worktrees/craft/feature-demo-deps (NEW - Phase 1 ready)
+  - feature/claude-code-2.1-integration: ~/.git-worktrees/craft/feature-claude-code-2.1-integration (NEW - ready to implement)
 
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
@@ -342,7 +364,17 @@ next:
     • Merged help/*.md into commands/ structure
     • Time-based navigation (ADHD-friendly)
     • All help/ references fixed to commands/
-  - 🎯 Priority 1: /craft:hub v2.0 - Command Discovery System (Phase 1: Foundation)
+  - ✅ Broken Link Validation - COMPLETE & MERGED ✅ (PR #14)
+    • Integrated markdown-link-check with .linkcheck-ignore parser
+    • 100% CI false positive reduction (30 → 0)
+  - 🎯 Priority 1: Demo Dependency Management (v1.23.0-v1.26.0)
+    • Phase 1: Core dependency checking (6 hours)
+    • Phase 2: Auto-installation with consent (8 hours)
+    • Phase 3: Batch conversion (4 hours)
+    • Phase 4: Advanced features (6 hours)
+    • Worktree: ~/.git-worktrees/craft/feature-demo-deps
+    • Status: Spec complete, todo list ready (37 tasks)
+  - 🎯 Priority 2: /craft:hub v2.0 - Command Discovery System (Phase 1: Foundation)
     • Spike: Validate auto-detection with 5 commands
     • Implement Phase 1 (auto-detection + hierarchical menu + tracking)
     • Estimate: 1 week for Phase 1
@@ -352,10 +384,6 @@ next:
     • Code/test commands (7): test:cli-gen, test:watch, code:refactor, etc.
     • Workflow commands (2)
     • Other medium priority (4)
-  - 🎯 Priority 2: Enhance /craft:docs:check and /craft:docs:update with broken link validation (v1.23.0)
-    • Integrate markdown-link-check with .linkcheck-ignore patterns
-    • Estimate: 2-3 hours (4 phases)
-    • Context: PR #13 documented ~30 expected broken links
   - Future: v1.21.0 Help template system + Spec integration + Hub v2 (gradual implementation)
 
 planned_features:
@@ -546,6 +574,107 @@ planned_features:
       - "/craft:docs:check-links: Existing link checker (may consolidate)"
       - "/craft:site:build: Teaching mode site builder"
 
+  demo_dependency_management:
+    spec: docs/specs/SPEC-demo-dependency-management-2026-01-17.md
+    status: planned (Phase 1 ready)
+    priority: High
+    target: v1.23.0 → v1.26.0 (4 releases)
+    effort: ~36 hours (24h implementation + 8h testing + 4h docs)
+    started: 2026-01-17
+    branch: feature/demo-dependency-management
+    worktree: ~/.git-worktrees/craft/feature-demo-deps
+    description: Embed dependency checking, installation, and management into /craft:docs:demo command
+    problem: "Manual asciinema/agg/gifsicle installation creates friction when creating GIF demos"
+    target_user: All craft users creating documentation GIFs
+    key_insight: "Informed consent + graceful degradation + session caching eliminates setup friction"
+    solution: "Auto-check dependencies, prompt for installation, batch convert .cast files"
+    context: "Made asciinema default method (replacing VHS), need embedded dependency management"
+    phases:
+      - "Phase 1 (v1.23.0): Core dependency checking (--check flag) - 6 hours"
+      - "Phase 2 (v1.24.0): Auto-installation with consent (--fix flag) - 8 hours"
+      - "Phase 3 (v1.25.0): Batch conversion (--batch, --convert flags) - 4 hours"
+      - "Phase 4 (v1.26.0): Advanced features (health checks, JSON, CI) - 6 hours"
+    quick_wins:
+      - "⚡ Add dependencies frontmatter to demo.md - 1 hour"
+      - "⚡ Create dependency-manager.sh - 2 hours"
+      - "⚡ Implement --check flag with status table - 1.5 hours"
+    deliverables:
+      - "5 new flags (--check, --fix, --convert, --batch, --json)"
+      - "8 new scripts (dependency-manager, installers, health-check, etc.)"
+      - "3 test suites (checking, installation, batch conversion)"
+      - "Multi-strategy installation (brew → cargo → binary → manual)"
+      - "Session-level dependency caching"
+      - "Batch .cast → .gif conversion with progress tracking"
+      - "CI/CD integration workflow"
+      - "Dependency management guide"
+    success_metrics:
+      - "Zero-friction setup (automatic dependency installation)"
+      - "100% success rate for asciinema + agg installation"
+      - "Batch conversion: 11 GIFs regenerated in < 5 minutes"
+      - "Session cache: < 500ms for cached dependency checks"
+    design_decisions:
+      - "Informed consent: Always ask before installing (not silent)"
+      - "Graceful degradation: Missing asciinema → fall back to VHS"
+      - "Session caching: Check once per session, skip redundant validations"
+      - "Command frontmatter: All dependency metadata in YAML (no external config)"
+      - "Multi-strategy install: brew → cargo → binary → manual instructions"
+      - "Platform detection: macOS → brew, Linux → apt/pacman, fallback → cargo"
+    todo_list:
+      - "37 tasks across 4 phases + final tasks"
+      - "Phase 1: 7 tasks (dependency checking)"
+      - "Phase 2: 9 tasks (auto-installation)"
+      - "Phase 3: 7 tasks (batch conversion)"
+      - "Phase 4: 7 tasks (advanced features)"
+      - "Final: 3 tasks (changelog, tests, PR)"
+    implementation_plan:
+      - "Complete implementation plan: ~/.git-worktrees/craft/feature-demo-deps/IMPLEMENTATION-PLAN.md"
+      - "Quick reference: ~/.git-worktrees/craft/feature-demo-deps/README-WORKTREE.md"
+    related:
+      - "GIF-REGENERATION-CHECKLIST.md: 11 GIFs need regeneration with asciinema"
+      - "commands/docs/demo.md: Command to enhance with dependency management"
+      - "docs/GIF-RECORDING-WORKFLOW-2026.md: Updated workflow guide"
+
+  claude_code_2_1_integration:
+    spec: docs/brainstorm/PROPOSAL-craft-enhancements-2026-01-17.md
+    status: planned (worktree created)
+    priority: Medium
+    target: v1.23.0 → v1.25.0 (3 releases)
+    effort: ~22-31 hours (8-10h /craft:do, 6-9h /craft:check, 8-12h /craft:orchestrate)
+    started: 2026-01-17
+    branch: feature/claude-code-2.1-integration
+    worktree: ~/.git-worktrees/craft/feature-claude-code-2.1-integration
+    description: Leverage Claude Code 2.1.0 features (agent resilience, skills hot-reload, forked context, agent hooks)
+    problem: "Not utilizing new 2.1 capabilities like agent resilience, skills hot-reload, forked context"
+    target_user: Advanced craft users orchestrating complex multi-step tasks
+    key_insight: "Agent delegation + hot-reload + forked context transform craft:do from routing to orchestration"
+    solution: "Enhance 3 priority commands with 2.1 features"
+    phases:
+      - "Priority 1: /craft:do with Agent Delegation (v1.23.0) - 8-10h"
+      - "Priority 2: /craft:check with Hot-Reload (v1.24.0) - 6-9h"
+      - "Priority 3: /craft:orchestrate with Agent Hooks (v1.25.0) - 8-12h"
+    enhancements:
+      - "/craft:do: Complexity detection → agent delegation (feature-dev, backend-architect, bug-detective)"
+      - "/craft:check: Hot-reload validation skills from .claude-plugin/skills/validation/"
+      - "/craft:orchestrate: Agent hooks (PreToolUse, PostToolUse, Stop) for monitoring + resilience"
+    quick_wins:
+      - "⚡ Add complexity scoring to /craft:do - < 30 min"
+      - "⚡ Create orchestrate-hooks.sh - < 30 min"
+      - "⚡ Create 2-3 validation skills - < 30 min"
+    deliverables:
+      - "Enhanced /craft:do with complexity scoring + agent routing"
+      - "Validation skills in .claude-plugin/skills/validation/ (test-coverage, broken-links, etc.)"
+      - "Agent hooks in .claude-plugin/hooks/orchestrate-hooks.sh"
+      - "Forked context integration in orchestrator-v2"
+      - "Community validator ecosystem (user custom validators)"
+    success_metrics:
+      - "Complex task success rate: 60% → 90% (agent delegation)"
+      - "Orchestration recovery from failures: 40% → 85% (resilience)"
+      - "Custom validation adoption: 0 → 20+ community validators"
+      - "Time to add new validator: 30 min → 5 min (hot-reload)"
+    related:
+      - "Claude Code 2.1.0 Changelog (Jan 7, 2026)"
+      - "commands/do.md, commands/orchestrate.md, commands/check.md"
+
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage) - ✅ ACHIEVED (57%)
 next_target: Documentation quality automation - ✅ COMPLETE (3 phases + CI)
 future_target: v1.21.0 with /craft:hub v2.0 (discovery) + help template system + spec integration
@@ -556,6 +685,16 @@ remaining_work:
   workflow: 2 commands
   other_medium: 4 commands
   total_remaining: 20 commands
+
+technical_debt:
+  npm_vulnerabilities:
+    status: documented
+    priority: low
+    severity: 2 moderate vulnerabilities
+    discovered: 2026-01-17
+    location: feature/claude-code-2.1-integration worktree
+    note: "Can address later if needed (non-blocking)"
+    action: "Run npm audit fix when convenient"
 
 badges:
   - In Development (v1.20.0-dev)
