@@ -247,6 +247,7 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
+  - feature/broken-link-validation: ~/.git-worktrees/craft/feature-broken-link-validation (active)
 
 next:
   - ✅ Website Organization (Phase 1) - COMPLETE & MERGED ✅ (PR #13)
@@ -421,10 +422,11 @@ planned_features:
       - "Variable nesting depth (2-4 levels based on complexity)"
 
   docs_check_broken_links:
-    status: planned
+    status: in_progress
     priority: Medium
-    target: v1.23.0 or later
+    target: v1.23.0
     effort: ~2-3 hours
+    started: 2026-01-17
     description: Enhance /craft:docs:check and /craft:docs:update with broken link validation
     problem: "Documentation commands don't validate internal links, leading to broken navigation and 404s"
     target_user: Documentation maintainers, site publishers
