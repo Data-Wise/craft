@@ -89,10 +89,21 @@ craft/
 
 ## Active Development
 
+### Just Completed ✅
+
+**Broken Link Validation with .linkcheck-ignore (v1.23.0)** - Feature branch: `feature/broken-link-validation`
+- ✅ Parser utility: `utils/linkcheck_ignore_parser.py` (270 lines)
+- ✅ Command integration: `/craft:docs:check-links` (categorized output)
+- ✅ Testing: 21/21 tests passing (13 unit + 8 integration)
+- ✅ Documentation: Usage instructions, CI templates, implementation guide
+- ✅ Impact: 100% reduction in CI false positives (30 → 0)
+- 📍 Status: Ready for PR to `dev` → https://github.com/Data-Wise/craft/pull/new/feature/broken-link-validation
+
 ### Current Worktrees
 | Branch | Location | Status |
 |--------|----------|--------|
 | `dev` | `/Users/dt/projects/dev-tools/craft` | Main repo (integration) |
+| `feature/broken-link-validation` | `~/.git-worktrees/craft/feature-broken-link-validation` | ✅ Complete (v1.23.0) |
 | `feature/teaching-workflow` | `~/.git-worktrees/craft/feature-teaching-workflow` | WIP (v1.22.0, ~6-8h) |
 
 ### Planned Features (v1.21.0+)
@@ -115,6 +126,9 @@ See `docs/specs/` for detailed specifications.
 | `commands/orchestrate.md` | Multi-agent coordination |
 | `commands/workflow/brainstorm.md` | ADHD-friendly brainstorming |
 | `docs/specs/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec |
+| `docs/specs/SPEC-broken-link-validation-2026-01-17.md` | .linkcheck-ignore parser spec |
+| `.linkcheck-ignore` | Document expected broken links (test files, brainstorm refs) |
+| `utils/linkcheck_ignore_parser.py` | Parser for .linkcheck-ignore patterns |
 
 ## Troubleshooting
 
