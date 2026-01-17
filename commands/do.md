@@ -35,39 +35,69 @@ Preview which commands will be executed without actually running them:
 │ ✓ Task Analysis:                                              │
 │   - Input: "add user authentication"                          │
 │   - Category: Feature Development                             │
-│   - Complexity: Medium                                        │
+│   - Complexity: 4/10 (Medium)                                 │
 │   - Spec check: No matching spec found                        │
 │                                                               │
-│ ✓ Routing Plan (4 commands):                                  │
-│   1. /craft:arch:plan                                         │
-│      Purpose: Design authentication architecture              │
-│      Estimated: ~5 minutes                                    │
+│ ✓ Complexity Breakdown:                                       │
+│   - Multi-step task: +2 (design → implement → test)          │
+│   - Requires planning: +2 (auth architecture needed)          │
+│   Total score: 4 → Agent delegation                           │
 │                                                               │
-│   2. /craft:code:test-gen                                     │
-│      Purpose: Generate test stubs for auth module             │
-│      Estimated: ~3 minutes                                    │
+│ ✓ Routing Decision: feature-dev Agent                         │
+│   - Reason: Medium complexity (4/10), feature development     │
+│   - Context: Forked (isolated execution)                      │
+│   - Agent triggers: add, create, implement                    │
+│   - Max complexity: 7 (within agent's capability)             │
+│   - Estimated: ~15 minutes                                    │
 │                                                               │
-│   3. /craft:git:branch feature/user-auth                      │
-│      Purpose: Create isolated feature branch                  │
-│      Estimated: ~10 seconds                                   │
-│                                                               │
-│   4. /craft:docs:sync                                         │
-│      Purpose: Identify documentation needs                    │
-│      Estimated: ~30 seconds                                   │
+│ ✓ Alternative Routes:                                         │
+│   1. Command routing (if complexity < 4)                      │
+│      → /craft:arch:plan → /craft:code:test-gen               │
+│   2. Orchestration (if complexity > 7)                        │
+│      → /craft:orchestrate "add user authentication"          │
 │                                                               │
 │ ⚠ Notes:                                                      │
 │   • Consider creating spec first: /craft:workflow:brainstorm  │
-│   • Commands will execute sequentially                        │
-│   • Total estimated time: ~9 minutes                          │
+│   • Agent will execute in forked context (results synthesized)│
+│   • Permission may be requested for agent delegation          │
 │                                                               │
-│ 📊 Summary: 4 commands across 3 categories                    │
+│ 📊 Summary: Agent delegation to feature-dev (~15 min)         │
 │                                                               │
 ├───────────────────────────────────────────────────────────────┤
 │ Run without --dry-run to execute                              │
 └───────────────────────────────────────────────────────────────┘
 ```
 
-**Note**: Dry-run shows the routing plan and estimated execution flow. Individual commands may have their own dry-run modes for deeper inspection.
+### Simple Task Dry-Run (Complexity < 4)
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ 🔍 DRY RUN: Smart Routing Analysis                            │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ ✓ Task Analysis:                                              │
+│   - Input: "lint the code"                                    │
+│   - Category: Code Quality                                    │
+│   - Complexity: 0/10 (Simple)                                 │
+│                                                               │
+│ ✓ Complexity Breakdown:                                       │
+│   - Single-step task: 0 (no multi-step)                      │
+│   - No planning needed: 0                                     │
+│   Total score: 0 → Command routing                            │
+│                                                               │
+│ ✓ Routing Plan (1 command):                                   │
+│   1. /craft:code:lint default                                 │
+│      Purpose: Check code style and quality                    │
+│      Estimated: ~3 seconds                                    │
+│                                                               │
+│ 📊 Summary: 1 command, ~3 seconds                             │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Run without --dry-run to execute                              │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note**: Dry-run shows routing decision based on complexity score. Agent delegation triggers for medium (4-7) and complex (8-10) tasks.
 
 ## How It Works
 
@@ -160,6 +190,71 @@ Task Analysis:
   └── Contains "refactor/restructure/design"
       └── Architecture workflow
 ```
+
+## Complexity Analysis (NEW in v1.23.0)
+
+Before routing, `/craft:do` analyzes task complexity to determine execution strategy:
+
+### Complexity Scoring
+
+| Score | Task Type | Routing Decision | Example |
+|-------|-----------|------------------|---------|
+| 0-3 | **Simple** | Route to commands | "lint the code" |
+| 4-7 | **Medium** | Single agent delegation | "add OAuth login" |
+| 8-10 | **Complex** | orchestrator-v2 delegation | "prepare v2.0 release" |
+
+### Scoring Factors
+
+Each factor adds +2 to complexity score:
+
+- **Multi-step task** - Requires 3+ distinct operations
+  - Example: "add auth" → design + implement + test
+- **Cross-category task** - Spans multiple categories
+  - Example: "refactor and document API" → architecture + docs
+- **Requires planning** - Needs design/architecture phase
+  - Example: "redesign authentication system"
+- **Requires research** - Needs investigation/exploration
+  - Example: "investigate performance bottleneck"
+- **Multi-file changes** - Affects 5+ files
+  - Example: "refactor database layer"
+
+### Routing Decision Flow
+
+```
+Task Input
+    ↓
+Complexity Score (0-10)
+    ↓
+├─ Score 0-3: Simple → Route to commands (current behavior)
+├─ Score 4-7: Medium → Delegate to specialized agent
+│                      ├─ feature-dev (add/create/implement)
+│                      ├─ backend-architect (design/refactor)
+│                      ├─ bug-detective (fix/debug/error)
+│                      └─ code-quality-reviewer (quality/lint)
+└─ Score 8-10: Complex → Delegate to orchestrator-v2
+```
+
+### Agent Delegation (Enabled for Score ≥ 4)
+
+When complexity score ≥ 4, `/craft:do` delegates to specialized agents:
+
+| Agent | Triggers | Max Complexity | Use Case |
+|-------|----------|----------------|----------|
+| `feature-dev` | add, create, implement, build | 7 | New features |
+| `backend-architect` | design, architect, refactor | 8 | Architecture |
+| `bug-detective` | fix, debug, error, issue | 6 | Debugging |
+| `code-quality-reviewer` | quality, lint, improve | 5 | Code quality |
+| `orchestrator-v2` | (any) | 10 | Multi-step orchestration |
+
+### Example Complexity Scores
+
+| Task | Factors | Score | Decision |
+|------|---------|-------|----------|
+| "lint the code" | None | 0 | → /craft:code:lint |
+| "fix login bug" | Multi-step | 2 | → /craft:code:debug |
+| "add OAuth login" | Multi-step, Planning | 4 | → feature-dev agent |
+| "refactor DB layer" | Multi-step, Planning, Multi-file | 6 | → backend-architect agent |
+| "prepare v2.0 release" | Multi-step, Cross-category, Multi-file | 8 | → orchestrator-v2 agent |
 
 ## Output Format
 
