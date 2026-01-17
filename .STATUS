@@ -1,10 +1,10 @@
-status: WIP
-version: 1.22.0+dev
+status: Released
+version: 1.23.1
 release_date: 2026-01-17
-milestone: v1.22.0 - Teaching Workflow System (COMPLETE)
+milestone: v1.23.1 - Test Coverage & Build Cleanup (COMPLETE)
 last_session: 2026-01-17
 
-progress: 60%
+progress: 100%
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)
@@ -227,6 +227,13 @@ session_2026_01_17:
     - "Made asciinema default GIF recording method (replacing VHS)"
     - "Updated all GIF documentation for asciinema + agg workflow"
     - "Created GIF-REGENERATION-CHECKLIST.md for 11 GIFs"
+    - "Created PR #19 (Release: Merge dev to main v1.23.1+) - 85 commits"
+    - "Reviewed PR #19 - APPROVED (92% test pass, clean build, production-ready)"
+    - "Resolved merge conflicts with main branch (v1.20.0 reconciliation)"
+    - "Merged PR #19 to main (253 files, +30,857/-151,299 lines)"
+    - "Tagged v1.23.1 release with comprehensive notes"
+    - "Created GitHub release v1.23.1 (Test Coverage & Build Cleanup)"
+    - "Updated .STATUS to Released status (v1.23.1, 100% complete)"
     - "Updated site navigation with GIF recording guides"
     - "Deep brainstorm: Demo dependency management (10 expert questions + --batch insight)"
     - "Created SPEC-demo-dependency-management-2026-01-17.md (comprehensive, 598 lines)"
