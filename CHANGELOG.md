@@ -9,6 +9,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### Documentation Navigation & Organization
+
+**Impact:** Enhanced discoverability, reduced broken link warnings, better content organization
+
+Comprehensive documentation navigation improvements including spec file organization, command reference standardization, and working document archival.
+
+- **Navigation Enhancements:**
+  - Added Specifications section to Reference & Architecture (6 spec files)
+  - Added Help & Examples section to Commands & Reference (8 command files)
+  - Added Troubleshooting section to Cookbook (1 troubleshooting guide)
+  - Organized specs by version and priority
+  - Improved progressive disclosure of command documentation
+
+- **Link Standardization:**
+  - Updated 13 command references in teaching docs to use category page anchors
+  - Pattern: `commands/site/publish.md` → `commands/site.md#publish`
+  - Files updated: TEACHING-DOCS-INDEX.md, teaching-migration.md
+  - Consistent with website organization standard (SPEC-website-organization-standard-2026-01-17)
+
+- **Working Document Management:**
+  - Archived PRESET-GALLERY.md (superseded by reference/presets.md)
+  - Retained ORCHESTRATOR-ENHANCEMENTS.md and PHASE2-CONSOLIDATION.md as historical context
+  - Documented orphaned files in .linkcheck-ignore
+
+- **Documentation Health:**
+  - Build validation: 31 warnings (all expected and documented)
+  - Navigation completeness: All active docs included
+  - Broken link tracking: All expected broken links cataloged in .linkcheck-ignore
+
+**Files Changed:**
+- `mkdocs.yml` - Navigation structure updates
+- `docs/TEACHING-DOCS-INDEX.md` - Command reference links standardized
+- `docs/teaching-migration.md` - Command reference links standardized
+- `docs/.archive/PRESET-GALLERY.md` - Archived (superseded)
+
+**Success Metrics:**
+- ✅ 6 spec files added to navigation
+- ✅ 9 command/cookbook files added to navigation
+- ✅ 13 teaching doc links standardized
+- ✅ Build passes with --strict mode
+- ✅ All warnings expected and documented
+
 #### Test Coverage Improvements
 
 **Impact:** 75% → 84% coverage (+9%), production code at 91%
