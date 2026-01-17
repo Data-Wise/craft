@@ -244,6 +244,80 @@ jobs:
 
 ---
 
+## Documentation Link Validation
+
+**Reference:** craft (this project)
+
+```yaml
+name: Documentation Quality
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code CLI
+        run: |
+          # Install Claude Code (adjust based on installation method)
+          curl -fsSL https://claude.com/install.sh | sh
+
+      - name: Check Documentation Links
+        run: |
+          # Checks all documentation links
+          # - Critical broken links (not in .linkcheck-ignore) → Exit 1
+          # - Expected broken links (in .linkcheck-ignore) → Exit 0 (warning)
+          claude "/craft:docs:check-links"
+
+      - name: Comment PR with results (optional)
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Documentation link check failed. Run `/craft:docs:check-links` locally to see details.'
+            })
+```
+
+**Features:**
+- ✅ Validates internal markdown links
+- ✅ Respects `.linkcheck-ignore` patterns
+- ✅ Only fails on critical broken links
+- ✅ Expected broken links shown as warnings
+- ✅ Fast (< 10s for typical projects)
+
+**Setup:**
+1. Create `.linkcheck-ignore` in project root (optional but recommended)
+2. Add workflow file to `.github/workflows/docs-quality.yml`
+3. Expected broken links won't block CI
+
+**Example .linkcheck-ignore:**
+```markdown
+# Known Broken Links
+
+### Test Files
+File: `docs/test-violations.md`
+- Purpose: Test data for validation
+
+### Brainstorm References (Gitignored)
+Files with broken links:
+- `docs/specs/*.md`
+
+Targets: `docs/brainstorm/*.md`
+- Reason: Brainstorm files not published
+```
+
+---
+
 ## PyPI Publishing
 
 **Reference:** aiterm

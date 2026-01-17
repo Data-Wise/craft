@@ -64,6 +64,18 @@ Validate internal links in documentation files to prevent broken references.
 
 ## When Invoked
 
+### Step 0: Load Ignore Rules (NEW)
+
+```python
+# Import and parse .linkcheck-ignore file
+from utils.linkcheck_ignore_parser import parse_linkcheck_ignore
+
+# Load ignore rules (returns empty IgnoreRules if file doesn't exist)
+ignore_rules = parse_linkcheck_ignore(".linkcheck-ignore")
+
+print(f"Loaded {len(ignore_rules.patterns)} ignore patterns from {len(ignore_rules.get_categories())} categories")
+```
+
 ### Step 1: Detect Scope
 
 ```bash
@@ -99,7 +111,25 @@ grep -oP '\[([^\]]+)\]\[([^\]]+)\]' file.md
 grep -oP '^\[([^\]]+)\]:\s*(.+)$' file.md
 ```
 
-### Step 3: Validate Links (Mode-Specific)
+### Step 3: Validate Links and Categorize (Mode-Specific)
+
+For each broken link found, check if it should be ignored:
+
+```python
+# For each broken link discovered
+broken_link = {"file": "docs/index.md", "line": 34, "target": "/docs/config.md"}
+
+# Check against ignore rules
+should_ignore, category = ignore_rules.should_ignore(
+    broken_link["file"],
+    broken_link["target"]
+)
+
+if should_ignore:
+    expected_broken_links.append({**broken_link, "category": category})
+else:
+    critical_broken_links.append(broken_link)
+```
 
 #### Default Mode: Internal Links Only
 
@@ -219,7 +249,7 @@ Summary:
   Consistency: 1 warning
 ```
 
-### Step 4: Output Format
+### Step 4: Output Format with Categorization (NEW)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -227,28 +257,44 @@ Summary:
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ ✓ Checked: 45 internal links in 54 files                    │
+│ ✓ Loaded: 5 ignore patterns from 5 categories               │
 │                                                             │
-│ ✗ Broken Links (3):                                         │
+│ ✗ Critical Broken Links (2):                                │
 │   1. docs/index.md:34                                       │
 │      [Configuration](/docs/config.md)                       │
 │      → File not found                                       │
 │                                                             │
-│   2. docs/guide/setup.md:15                                 │
-│      [missing.md](missing.md)                               │
-│      → File not found                                       │
-│                                                             │
-│   3. README.md:67                                           │
+│   2. README.md:67                                           │
 │      [Guide](docs/guide/nonexistent.md)                     │
 │      → File not found                                       │
 │                                                             │
+│ ⚠ Expected Broken Links (3):                                │
+│   1. docs/test-violations.md:12                             │
+│      [nonexistent.md](nonexistent.md)                       │
+│      → Expected (Test Violation Files)                      │
+│                                                             │
+│   2. docs/specs/SPEC-teaching-workflow.md:45                │
+│      [brainstorm](../brainstorm/BRAINSTORM-teaching.md)     │
+│      → Expected (Brainstorm References)                     │
+│                                                             │
+│   3. docs/TEACHING-DOCS-INDEX.md:23                         │
+│      [README](../README.md)                                 │
+│      → Expected (README References)                         │
+│                                                             │
 │ ─────────────────────────────────────────────────────────── │
 │                                                             │
-│ Exit code: 1 (broken links found)                           │
+│ Exit code: 1 (2 critical broken links)                      │
 │                                                             │
-│ Fix these before deployment to prevent 404 errors.          │
+│ Fix critical links before deployment.                       │
+│ Expected links documented in .linkcheck-ignore              │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+**Exit Code Logic (UPDATED):**
+- `0`: No critical broken links (expected links OK)
+- `1`: Critical broken links found (must fix)
+- `2`: Validation error
 
 **VS Code Integration (file:line:col format):**
 ```
@@ -425,13 +471,18 @@ validate_anchor() {
 └───────────────────────────────────────────────────────────────┘
 ```
 
-## Exit Codes
+## Exit Codes (UPDATED)
 
 | Code | Meaning | Action |
 |------|---------|--------|
-| 0 | All links valid | ✓ Safe to deploy |
-| 1 | Broken links found | ✗ Fix before deployment |
+| 0 | All links valid OR only expected broken links | ✓ Safe to deploy |
+| 1 | Critical broken links found | ✗ Fix before deployment |
 | 2 | Validation error | ✗ Check command syntax |
+
+**Behavior with .linkcheck-ignore:**
+- Expected broken links (documented in .linkcheck-ignore) → Exit 0
+- Critical broken links (not in .linkcheck-ignore) → Exit 1
+- Missing .linkcheck-ignore → All broken links treated as critical
 
 ## Integration
 
@@ -534,9 +585,110 @@ pwd  # Ensure you're in repo root
 /craft:docs:check-links debug release
 ```
 
+## .linkcheck-ignore Support (NEW)
+
+### Overview
+
+Ignore expected broken links by creating a `.linkcheck-ignore` file in your project root. This allows you to:
+
+1. **Document known issues**: Track expected broken links (test files, brainstorm references, etc.)
+2. **Reduce CI noise**: Only fail on critical broken links, not expected ones
+3. **Organize by category**: Group ignore patterns by reason (test files, external refs, etc.)
+
+### Format
+
+```markdown
+# Known Broken Links
+
+### 1. Category Name
+File: `path/to/file.md`
+Target: `path/to/target.md`
+- Purpose: Why this link is intentionally broken
+
+### 2. Multiple Files
+Files with broken links:
+- `docs/specs/*.md`
+- `docs/other.md`
+
+Targets: `docs/brainstorm/*.md` (gitignored)
+```
+
+### Pattern Types
+
+| Pattern | Example | Matches |
+|---------|---------|---------|
+| **Exact** | `File: docs/test.md` | Exact file path only |
+| **Glob** | `Files: docs/specs/*.md` | All files matching pattern |
+| **Multiple** | List with `- file.md` | Each listed file |
+| **Any target** | No `Target:` line | All broken links in file |
+| **Specific target** | `Target: ../README.md` | Only links to that target |
+| **Glob target** | `Targets: docs/brainstorm/*.md` | Links matching pattern |
+
+### Example
+
+```markdown
+# Known Broken Links
+
+### Test Files (Intentional)
+File: `docs/test-violations.md`
+- Purpose: Test data for validation
+- All broken links in this file are expected
+
+### Brainstorm References (Gitignored)
+Files with broken links:
+- `docs/specs/SPEC-feature-a.md`
+- `docs/specs/SPEC-feature-b.md`
+
+Targets: `docs/brainstorm/*.md` (gitignored)
+- Brainstorm files not published to website
+- Fix: Reference GitHub URLs or remove links
+
+### External References
+File: `docs/index.md`
+Target: `../README.md`
+- Reason: README not published to docs site
+```
+
+### Behavior
+
+When `.linkcheck-ignore` exists:
+- **Critical links**: Broken links NOT in ignore file → Exit code 1
+- **Expected links**: Broken links in ignore file → Exit code 0 (warning shown)
+- **All valid**: No broken links → Exit code 0
+
+When `.linkcheck-ignore` is missing:
+- All broken links treated as critical → Exit code 1
+
+### CI Integration
+
+```yaml
+# .github/workflows/docs-quality.yml
+- name: Check Documentation Links
+  run: |
+    claude "/craft:docs:check-links"
+    # Only fails on critical broken links
+    # Expected links (in .linkcheck-ignore) don't block CI
+```
+
+### Creating .linkcheck-ignore
+
+1. Run link check: `/craft:docs:check-links`
+2. Review broken links output
+3. Create `.linkcheck-ignore` in project root
+4. Add categories and patterns for expected broken links
+5. Re-run to verify: `/craft:docs:check-links`
+
+### Path Normalization
+
+The parser automatically normalizes paths:
+- `docs/brainstorm/*.md` matches `../brainstorm/file.md`
+- Both absolute and relative paths work
+- Case-sensitive matching (respects filesystem)
+
 ## See Also
 
 - `/craft:docs:lint` - Markdown style and quality checks
 - `/craft:docs:check` - Full documentation health check
 - `/craft:site:check` - Site validation (includes external links)
 - Template: `templates/dry-run-pattern.md`
+- `.linkcheck-ignore` - Ignore pattern file (create in project root)
