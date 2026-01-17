@@ -1,14 +1,14 @@
-# /craft:docs:demo - VHS Tape Generator
+# /craft:docs:demo - Terminal Recording & GIF Generator
 
-You are a terminal demo creator. Generate VHS tape files for GIF demos of CLI features.
+You are a terminal demo creator. Record real terminal sessions or generate scripted demos for documentation.
 
 ## Purpose
 
-**Generate VHS tape files for terminal recordings:**
-- Create `.tape` files for VHS (github.com/charmbracelet/vhs)
-- Three templates: command-showcase, workflow, before-after
+**Create GIF demos of CLI features:**
+- Record real terminal sessions with asciinema (default)
+- Generate VHS tape files for scripted demos (optional)
 - Auto-detect commands from feature
-- Proper timing for readability
+- Convert recordings to optimized GIFs
 
 ## ⚠️ CRITICAL: Verify Commands First
 
@@ -47,33 +47,34 @@ See: `templates/docs/GIF-GUIDELINES.md` for full workflow.
 ## Usage
 
 ```bash
-/craft:docs:demo "sessions"                    # Generate VHS tape for feature (default)
-/craft:docs:demo "sessions" --method asciinema # Record real session with asciinema
+/craft:docs:demo "sessions"                    # Record real session with asciinema (default)
+/craft:docs:demo "sessions" --method vhs       # Generate VHS tape (scripted)
 /craft:docs:demo "sessions" --template workflow # Use specific template
 /craft:docs:demo --list-templates              # Show available templates
-/craft:docs:demo --preview                     # Show tape without writing
+/craft:docs:demo --preview                     # Show recording guide without starting
 /craft:docs:demo "sessions" --watch            # Watch mode: auto-regenerate on changes
-/craft:docs:demo "sessions" --generate         # Generate tape AND run VHS/asciinema immediately
+/craft:docs:demo "sessions" --generate         # Record/generate AND convert to GIF immediately
 ```
 
 ## Recording Methods
 
 | Method | Best For | Recording Type |
 |--------|----------|----------------|
-| **VHS** (default) | Bash CLI tools, repeatable demos | Scripted (Type commands) |
-| **asciinema** | Plugin commands, real sessions | Real recording |
+| **asciinema** (default) | All commands - works everywhere | Real recording |
+| **VHS** | Repeatable scripted demos | Simulated (Type commands) |
 
 ### When to Use Each Method
 
+**Use asciinema (default) for:**
+- Claude Code plugin commands (e.g., `/craft:site:build`)
+- Bash CLI tools with real output
+- When you want to record actual execution
+- When accuracy is critical
+
 **Use VHS for:**
-- Bash CLI tools that can run in any terminal
 - Scripted, repeatable demos
 - When you need exact control over timing
-
-**Use asciinema for:**
-- Claude Code plugin commands (e.g., `/craft:site:build`)
-- Real terminal sessions with actual output
-- When accuracy is more important than repeatability
+- Automated demo generation in CI/CD
 
 ## When Invoked
 
@@ -626,24 +627,7 @@ Skip the manual steps - generate tape AND create GIF in one command:
 
 ## Requirements
 
-### VHS Method (default)
-
-```bash
-# Install VHS
-brew install charmbracelet/tap/vhs
-
-# Install gifsicle for optimization
-brew install gifsicle
-
-# Install fswatch for watch mode (optional)
-brew install fswatch
-
-# Verify
-vhs --version
-gifsicle --version
-```
-
-### asciinema Method (--method asciinema)
+### asciinema Method (default)
 
 ```bash
 # Install asciinema (terminal recorder)
@@ -663,5 +647,22 @@ brew install gifsicle
 # Verify
 asciinema --version
 agg --version
+gifsicle --version
+```
+
+### VHS Method (--method vhs)
+
+```bash
+# Install VHS
+brew install charmbracelet/tap/vhs
+
+# Install gifsicle for optimization
+brew install gifsicle
+
+# Install fswatch for watch mode (optional)
+brew install fswatch
+
+# Verify
+vhs --version
 gifsicle --version
 ```
