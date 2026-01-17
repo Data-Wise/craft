@@ -41,7 +41,7 @@ Preview what files will be analyzed for project detection:
 ├───────────────────────────────────────────────────────────────┤
 │                                                               │
 │ ✓ Directory to Analyze:                                       │
-│   - Path: /Users/dt/projects/dev-tools/craft                  │
+│   - Path: /path/to/your/project                               │
 │   - Files checked: 60+ detection patterns                     │
 │                                                               │
 │ ✓ Detection Categories:                                       │
