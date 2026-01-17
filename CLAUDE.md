@@ -2,7 +2,7 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**92 commands** · **21 skills** · **8 agents** · **4 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**97 commands** · **21 skills** · **8 agents** · **4 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 ## Git Workflow
 
@@ -40,6 +40,7 @@ feature/* (worktrees) ← All implementation work
 | Build docs | `mkdocs build` | - |
 | Lint code | - | `/craft:code:lint` |
 | Architecture | - | `/craft:arch:analyze` |
+| Git status | `git status` | `/craft:git:status` |
 | Worktree | `git worktree add ...` | `/craft:git:worktree <branch>` |
 | Clean branches | - | `/craft:git:clean` |
 | CI workflow | - | `/craft:ci:generate` |
