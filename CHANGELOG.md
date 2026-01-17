@@ -5,6 +5,45 @@ All notable changes to the Craft plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - v1.23.1
+
+### Added
+
+#### Test Coverage Improvements
+
+**Impact:** 75% → 84% coverage (+9%), production code at 91%
+
+Comprehensive test suite targeting coverage gaps in utility modules, achieving 90%+ production code coverage through systematic gap analysis.
+
+- **New Test Suite:**
+  - `tests/test_coverage_gaps.py` (514 lines, 17 comprehensive tests)
+  - Coverage improvements:
+    - `detect_teaching_mode.py`: 65% → 75% (+10%)
+    - `linkcheck_ignore_parser.py`: 71% → 87% (+16%)
+    - `dry_run_output.py`: 86% (maintained)
+  - Total tests: 353 → 370 (+17 tests)
+
+- **Test Coverage:**
+  - YAML import fallback scenarios
+  - Error handling branches (permission errors, missing files)
+  - Path normalization logic
+  - Main execution blocks
+  - Cross-module integration tests
+
+- **Documentation:**
+  - `TEST-COVERAGE-REPORT.md` - Detailed coverage analysis
+  - Before/after comparisons
+  - Remaining gaps analysis
+  - Recommendations for .coveragerc configuration
+  - Test execution commands
+
+**Success Metrics:**
+- ✅ Overall coverage: 75% → 84% (+9%)
+- ✅ Production code coverage: ~91% (excluding demo blocks)
+- ✅ Coverage gaps reduced: 74 lines → 46 lines (-38%)
+- ✅ Modules at 85%+: 1/3 → 2/3 (67% improvement)
+- ✅ 17 new comprehensive tests
+
 ## [Unreleased] - v1.23.0
 
 ### Added

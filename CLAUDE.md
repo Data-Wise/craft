@@ -91,20 +91,31 @@ craft/
 
 ### Just Completed ✅
 
-**Broken Link Validation with .linkcheck-ignore (v1.23.0)** - Feature branch: `feature/broken-link-validation`
+**Test Coverage Improvements (v1.23.1)** - Comprehensive coverage gap analysis
+- ✅ New test suite: `tests/test_coverage_gaps.py` (17 comprehensive tests)
+- ✅ Coverage improvements: 75% → 84% overall (+9%)
+  - `detect_teaching_mode.py`: 65% → 75% (+10%)
+  - `linkcheck_ignore_parser.py`: 71% → 87% (+16%)
+  - `dry_run_output.py`: 86% (maintained)
+- ✅ Production code coverage: ~91% (excluding demo blocks)
+- ✅ Total tests: 353 → 370 (+17 tests)
+- ✅ Documentation: `TEST-COVERAGE-REPORT.md` with detailed analysis
+- 📍 Status: Merged to `dev`
+
+**Broken Link Validation with .linkcheck-ignore (v1.23.0)** - MERGED ✅
 - ✅ Parser utility: `utils/linkcheck_ignore_parser.py` (270 lines)
 - ✅ Command integration: `/craft:docs:check-links` (categorized output)
 - ✅ Testing: 21/21 tests passing (13 unit + 8 integration)
 - ✅ Documentation: Usage instructions, CI templates, implementation guide
 - ✅ Impact: 100% reduction in CI false positives (30 → 0)
-- 📍 Status: Ready for PR to `dev` → https://github.com/Data-Wise/craft/pull/new/feature/broken-link-validation
+- 📍 Status: Merged to `dev` (PR #14)
 
 ### Current Worktrees
 | Branch | Location | Status |
 |--------|----------|--------|
 | `dev` | `/Users/dt/projects/dev-tools/craft` | Main repo (integration) |
-| `feature/broken-link-validation` | `~/.git-worktrees/craft/feature-broken-link-validation` | ✅ Complete (v1.23.0) |
-| `feature/teaching-workflow` | `~/.git-worktrees/craft/feature-teaching-workflow` | WIP (v1.22.0, ~6-8h) |
+| `feature/website-org-phase2` | `~/.git-worktrees/craft/feature-website-org-phase2` | WIP (Phase 2) |
+| `feature/hub-v2` | `~/.git-worktrees/craft/feature-hub-v2` | WIP (Phase 1) |
 
 ### Planned Features (v1.21.0+)
 | Spec | Priority | Effort | Target |
@@ -129,6 +140,8 @@ See `docs/specs/` for detailed specifications.
 | `docs/specs/SPEC-broken-link-validation-2026-01-17.md` | .linkcheck-ignore parser spec |
 | `.linkcheck-ignore` | Document expected broken links (test files, brainstorm refs) |
 | `utils/linkcheck_ignore_parser.py` | Parser for .linkcheck-ignore patterns |
+| `tests/test_coverage_gaps.py` | Comprehensive coverage tests (17 tests, 75% → 84%) |
+| `TEST-COVERAGE-REPORT.md` | Detailed coverage analysis and recommendations |
 
 ## Troubleshooting
 
