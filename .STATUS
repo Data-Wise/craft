@@ -192,7 +192,8 @@ recent:
   - ✅ 29 commands with dry-run (was 27, +2)
 
 worktrees:
-  - main: /Users/dt/projects/dev-tools/craft (dev branch)
+  - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
+  - feature/website-org-phase1: ~/.git-worktrees/craft/feature-website-org-phase1 (active)
 
 next:
   - 🎯 Quick Win Option: Website Organization (Phase 1 - < 1 hour)
@@ -211,13 +212,17 @@ next:
     • Code/test commands (7): test:cli-gen, test:watch, code:refactor, etc.
     • Workflow commands (2)
     • Other medium priority (4)
+  - 🎯 Priority 2: Enhance /craft:site:check with broken link validation (v1.23.0)
+    • Integrate markdown-link-check with .linkcheck-ignore patterns
+    • Estimate: 2-3 hours (4 phases)
+    • Context: PR #13 documented ~30 expected broken links
   - Future: v1.21.0 Help template system + Spec integration + Hub v2 (gradual implementation)
 
 planned_features:
   title: "Documentation & Spec Standardization (v1.21.0)"
   development_status: "Planned - Gradual Implementation"
   created: 2026-01-16
-  specs_total: 5
+  specs_total: 6
 
   command_discovery_hub_v2:
     spec: docs/specs/SPEC-craft-hub-v2-2026-01-15.md
@@ -355,6 +360,41 @@ planned_features:
       - "Help merges into Commands (eliminates duplication)"
       - "Preserve all URLs with redirects"
       - "Variable nesting depth (2-4 levels based on complexity)"
+
+  site_check_broken_links:
+    status: planned
+    priority: Medium
+    target: v1.23.0 or later
+    effort: ~2-3 hours
+    description: Enhance /craft:site:check with broken link validation
+    problem: "Site check doesn't validate internal links, leading to broken navigation and 404s"
+    target_user: Documentation maintainers, site publishers
+    key_insight: "Leverage existing .linkcheck-ignore pattern from PR #13 for known/expected broken links"
+    solution: "Integrate markdown-link-check into site:check command with ignore patterns"
+    context: "PR #13 documented ~30 expected broken links in .linkcheck-ignore file"
+    phases:
+      - "Phase 1: Add link validation to site:check (60 min)"
+      - "Phase 2: Parse .linkcheck-ignore file for exceptions (30 min)"
+      - "Phase 3: Add mode flags (quick/thorough) (30 min)"
+      - "Phase 4: Testing and documentation (30 min)"
+    quick_wins:
+      - "⚡ Validate all markdown links in docs/ - 30 min"
+      - "⚡ Parse .linkcheck-ignore patterns - 20 min"
+      - "⚡ Report broken vs expected broken links - 10 min"
+    deliverables:
+      - "Enhanced /craft:site:check with --check-links flag"
+      - ".linkcheck-ignore parser utility"
+      - "Broken link report with categories (critical, expected, external)"
+      - "Integration with CI/CD pre-commit hooks"
+      - "Documentation for .linkcheck-ignore format"
+    success_metrics:
+      - "Catch broken links before deployment (0 broken links in production)"
+      - "Reduce link maintenance time (manual checking → automated)"
+      - "Clear distinction between critical and expected broken links"
+    related:
+      - "PR #13: Created .linkcheck-ignore with ~30 documented links"
+      - "/craft:docs:check-links: Existing link checker (may consolidate)"
+      - "/craft:site:build: Teaching mode site builder"
 
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage) - ✅ ACHIEVED (57%)
 next_target: Documentation quality automation - ✅ COMPLETE (3 phases + CI)
