@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 90 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly workflows
+site_description: Full-stack developer toolkit - 97 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -108,6 +108,13 @@ nav:
     - /craft:site:publish: reference/REFCARD-TEACHING.md
     - /craft:site:progress: reference/REFCARD-TEACHING.md
     - /workflow:brainstorm: help/brainstorm.md
+  - Teaching Mode:
+    - Documentation Index: TEACHING-DOCS-INDEX.md
+    - Setup Tutorial: tutorials/teaching-mode-setup.md
+    - Complete Guide: guide/teaching-workflow.md
+    - Quick Reference: reference/REFCARD-TEACHING.md
+    - Config Schema: teaching-config-schema.md
+    - Migration Guide: teaching-migration.md
   - Development:
     - Documentation Quality Development: guide/documentation-quality-development.md
   - Git Init:
