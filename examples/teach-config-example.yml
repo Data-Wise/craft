@@ -1,0 +1,67 @@
+# Example Teaching Configuration
+# Copy to .flow/teach-config.yml in your teaching project
+
+# ============================================================================
+# Course Information (Required)
+# ============================================================================
+course:
+  number: "STAT 545"            # Course code/number
+  title: "Regression Analysis"  # Full course title
+  semester: "Spring"             # Spring, Fall, Winter, or Summer
+  year: 2026                     # Four-digit year (2000-2100)
+
+# ============================================================================
+# Semester Dates (Required)
+# ============================================================================
+dates:
+  start: "2026-01-19"  # First day of semester (YYYY-MM-DD)
+  end: "2026-05-08"    # Last day of semester (YYYY-MM-DD)
+
+  # Break periods (optional) - skipped when calculating current week
+  breaks:
+    - name: "Spring Break"
+      start: "2026-03-16"
+      end: "2026-03-20"
+
+    - name: "Reading Week"
+      start: "2026-04-13"
+      end: "2026-04-14"
+
+# ============================================================================
+# Instructor Information (Optional)
+# ============================================================================
+instructor:
+  name: "Dr. Jane Smith"
+  email: "jsmith@university.edu"
+  office_hours: "Tuesday/Thursday 2-3pm, Zoom link on Canvas"
+
+# ============================================================================
+# Deployment Configuration (Optional)
+# ============================================================================
+deployment:
+  production_branch: "production"  # Branch for published content (default: "production")
+  draft_branch: "draft"            # Branch for draft content (default: "draft")
+  gh_pages_url: "https://jsmith.github.io/stat-545"  # Optional
+
+# ============================================================================
+# Progress Tracking (Optional)
+# ============================================================================
+progress:
+  # Options:
+  #   - "auto": Calculate based on dates and breaks (recommended)
+  #   - 1-52: Manual override for specific week number
+  current_week: auto
+
+# ============================================================================
+# Validation Rules (Optional)
+# ============================================================================
+validation:
+  # Sections that must exist in syllabus
+  required_sections:
+    - grading
+    - policies
+    - objectives
+    - schedule
+
+  # Strict mode: true = errors block publishing, false = warnings only
+  strict_mode: true
