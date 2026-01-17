@@ -10,6 +10,40 @@ You are a terminal demo creator. Generate VHS tape files for GIF demos of CLI fe
 - Auto-detect commands from feature
 - Proper timing for readability
 
+## ⚠️ CRITICAL: Verify Commands First
+
+**Before generating demo tapes, you MUST:**
+
+1. **Test commands in Claude Code** - Run actual commands using Bash tool
+2. **Capture real output** - Record exactly what appears
+3. **Verify no errors** - Ensure commands execute correctly
+4. **Note timing** - Observe how long output takes to appear
+5. **THEN generate tape** - Use verified commands in VHS tape
+
+```bash
+# ❌ WRONG: Generate demo without testing
+/craft:docs:demo "feature" --generate
+
+# ✅ CORRECT: Test commands first
+# 1. Run commands in Claude Code
+ait command1
+ait command2
+ait command3
+
+# 2. Verify output format and timing
+# 3. Note any prerequisites needed
+# 4. Generate tape with verified commands
+/craft:docs:demo "feature" --generate
+```
+
+**Why this matters:**
+- GIFs must show **real, working** commands
+- Output must match **actual** format
+- Timing must be **realistic** (not guessed)
+- Prerequisites must be **documented**
+
+See: `templates/docs/GIF-GUIDELINES.md` for full workflow.
+
 ## Usage
 
 ```bash

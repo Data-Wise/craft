@@ -20,6 +20,60 @@
 
 ---
 
+## ⚠️ CRITICAL: Verify in Claude Code First
+
+**Before generating ANY GIF, you MUST:**
+
+1. **Run commands in Claude Code** - Execute actual commands using Bash tool
+2. **Capture real output** - Record the exact output that appears
+3. **Check for errors** - Verify commands work without issues
+4. **Validate format** - Ensure output matches expected format
+5. **THEN generate GIF** - Use verified commands and output
+
+### Why This Matters
+
+| Problem | Example | Solution |
+|---------|---------|----------|
+| **Broken commands** | GIF shows command that doesn't exist | Run in Claude Code first → catch error |
+| **Wrong output** | GIF shows outdated format | Capture real output → use in tape |
+| **Missing setup** | Command fails due to prerequisites | Test first → document setup needed |
+| **Timing issues** | Output appears slower/faster than GIF | Time real execution → adjust Sleep values |
+
+### Workflow: Verify → Record → Generate
+
+```bash
+# ❌ WRONG: Generate GIF without testing
+/craft:docs:demo "sessions" --generate    # May show broken commands!
+
+# ✅ CORRECT: Test in Claude Code first
+# Step 1: Verify commands work
+ait sessions live                          # Test command
+ait sessions current                       # Test command
+ait sessions conflicts                     # Test command
+
+# Step 2: Capture actual output and timing
+# - Note how long output takes to appear
+# - Record exact text format
+# - Check for any errors
+
+# Step 3: Generate GIF with verified commands
+/craft:docs:demo "sessions" --generate     # Now using verified commands
+```
+
+### Testing Checklist
+
+Before recording, verify:
+
+- [ ] All commands execute without errors in Claude Code
+- [ ] Output format matches what GIF will show
+- [ ] Timing is realistic (not too fast/slow)
+- [ ] All prerequisites are met (files exist, setup done)
+- [ ] Commands work in the environment shown in GIF
+
+**Remember:** GIFs are documentation. They must show real, working functionality.
+
+---
+
 ## Technical Standards
 
 ### File Specifications

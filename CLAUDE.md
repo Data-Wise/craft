@@ -156,6 +156,7 @@ See `docs/specs/` for detailed specifications.
 | Plugin not loading | Check `.claude-plugin/plugin.json` frontmatter |
 | Command not found | Verify file in `commands/` with valid frontmatter |
 | Agent not triggering | Check triggers list in agent frontmatter |
+| GIF showing broken commands | **CRITICAL:** Always test commands in Claude Code FIRST using Bash tool, capture real output, verify no errors, THEN generate GIF. See `templates/docs/GIF-GUIDELINES.md` |
 
 ## Links
 
