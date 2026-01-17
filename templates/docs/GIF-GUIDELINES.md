@@ -72,6 +72,40 @@ Before recording, verify:
 
 **Remember:** GIFs are documentation. They must show real, working functionality.
 
+### Special Case: Plugin Commands
+
+**For Craft plugin commands (e.g., `/craft:site:build`):**
+
+These commands only work within Claude Code's plugin system and **cannot** be executed in bash. For plugin command GIFs:
+
+1. **Verify command exists** - Check the command file in `commands/`
+2. **Test command manually** - Invoke the command in a Claude Code session
+3. **Capture real output** - Screenshot or copy the actual output format
+4. **Create accurate simulation** - Use `Type` in VHS tape to replicate the exact output
+5. **Validate with user** - Confirm the simulated output matches real behavior
+
+```bash
+# ✅ CORRECT workflow for plugin commands:
+# 1. Verify command exists
+ls commands/site/build.md
+
+# 2. Test in Claude Code session (manually)
+# Run: /craft:site:build
+# Capture output format and timing
+
+# 3. Create VHS tape with accurate simulation
+# Use Type to replicate the exact output seen
+Type "$ /craft:site:build"
+Sleep 300ms
+Type "✓ Built successfully"  # ← Must match real output
+
+# 4. Validate GIF matches actual command behavior
+```
+
+**Key Difference:**
+- **Regular CLI tools** → MUST execute in bash first
+- **Plugin commands** → MUST test in Claude Code, then simulate accurately in VHS
+
 ---
 
 ## Technical Standards
