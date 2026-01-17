@@ -24,6 +24,9 @@ Thumbs.db
 # Test reports
 tests/craft_test_report.md
 
+# Brainstorm documents (working drafts)
+docs/brainstorm/
+
 # MkDocs
 site/
 .cache/

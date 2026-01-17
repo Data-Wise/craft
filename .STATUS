@@ -73,13 +73,16 @@ documentation_coverage:
   CLAUDE.md: Optimized (107 lines)
 
 session_2026_01_16:
-  duration: ~3-4 hours
+  duration: ~4-5 hours
   accomplishments:
     - "Brainstormed & created 2 v1.21.0 specs (help template + spec integration)"
     - "Reviewed PR #11 (Documentation Quality) - 9.5/10 quality, production-ready"
     - "Merged PR #11 to dev (4,609 additions, 2 new commands + CI)"
     - "Cleaned up 2 merged worktrees (feature-dry-run-phase1, feature-docs-quality)"
     - "Clarified Homebrew installation docs (auto-sync, no manual steps)"
+    - "Deep brainstorm: Teaching workflow enhancement (8 expert questions)"
+    - "Created comprehensive spec: SPEC-teaching-workflow-2026-01-16.md"
+    - "Organized brainstorm docs → docs/brainstorm/ (gitignored)"
   commits:
     - "2580864: docs: clarify Homebrew upgrade is automatic"
     - "42ead4a: chore: clean up merged worktrees"
@@ -90,6 +93,8 @@ session_2026_01_16:
     - "Worktrees: 3 → 1 (cleaned up)"
     - "Open PRs: 1 → 0 (merged #11)"
     - "Milestone: Docs Quality → Planning v1.21.0"
+    - "Specs: 3 → 4 (+teaching workflow)"
+    - "Brainstorms: Organized into docs/brainstorm/ (5 files, gitignored)"
 
 session_2026_01_15:
   duration: ~45 minutes
@@ -114,10 +119,12 @@ recent:
   - 📋 Created SPEC-craft-hub-v2-2026-01-15.md (ready for Phase 1 implementation)
   - 🎯 Problem identified: Poor command discoverability (89 commands overwhelming users)
   - 🎯 Solution: Three-layer hub (Main Menu → Category View → Command Detail + Tutorial)
-  - 📝 Session 2026-01-16: Merged docs quality PR, planned v1.21.0 specs
+  - 📝 Session 2026-01-16: Merged docs quality PR, planned v1.21.0 specs + teaching workflow
   - ✅ Merged PR #11: Documentation quality automation (3 phases + CI)
-  - 📋 Created 2 specs: SPEC-help-template-menu + SPEC-spec-integration (~50h effort)
+  - 📋 Created 3 specs: SPEC-help-template-menu + SPEC-spec-integration + SPEC-teaching-workflow
+  - 🎓 Teaching workflow spec: Preview-before-publish for safe course site deployment (~6-8h)
   - 🧹 Cleaned up merged worktrees (feature-dry-run-phase1, feature-docs-quality)
+  - 📚 Organized brainstorm docs → docs/brainstorm/ (gitignored)
   - 📚 Clarified Homebrew docs: auto-sync on upgrade, no manual steps
   - ✅ 92 commands total (was 90, +2 new docs commands)
   - ✅ 29 commands with dry-run (was 27, +2)
@@ -142,7 +149,7 @@ planned_features:
   title: "Documentation & Spec Standardization (v1.21.0)"
   development_status: "Planned - Gradual Implementation"
   created: 2026-01-16
-  specs_total: 3
+  specs_total: 4
 
   command_discovery_hub_v2:
     spec: docs/specs/SPEC-craft-hub-v2-2026-01-15.md
@@ -208,6 +215,38 @@ planned_features:
       - Pre-commit hook validation
       - Website Specifications section
       - Smart spec search in /craft:do
+
+  teaching_workflow:
+    spec: docs/specs/SPEC-teaching-workflow-2026-01-16.md
+    status: draft
+    priority: High
+    target: v1.22.0
+    effort: ~6-8 hours (4 phases)
+    description: Teaching-aware workflows for safe course site deployment
+    problem: "Manual git branch switching, no preview-before-publish, no validation"
+    target_user: Solo instructor managing course website
+    key_insight: "Preview changes before publishing eliminates deployment anxiety"
+    solution: "Smart detection + validation + preview-before-publish workflow"
+    phases:
+      - "Phase 1: Foundation (detection + validation) - 60 min"
+      - "Phase 2: Publishing (preview-before-publish workflow) - 90 min"
+      - "Phase 3: Progress (semester tracking dashboard) - 120 min"
+      - "Phase 4: Integration (teaching-aware commands) - 60 min"
+    quick_wins:
+      - "⚡ Teaching mode detection (20 min)"
+      - "⚡ Branch status display (15 min)"
+      - "⚡ Validation checklist (25 min)"
+    deliverables:
+      - Teaching mode detection utility (utils/detect_teaching_mode.py)
+      - Content validation suite (utils/teaching_validation.py)
+      - Enhanced /craft:site:publish (preview workflow)
+      - Semester progress dashboard (/craft:site:progress)
+      - Config file schema (.flow/teach-config.yml)
+      - Teaching-aware site:build, git:status
+    success_metrics:
+      - "Time to publish: 15 min → 3 min (80% reduction)"
+      - "Production bugs: 2-3/semester → 0"
+      - "User confidence: 9/10 feel safe publishing"
 
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage) - ✅ ACHIEVED (57%)
 next_target: Documentation quality automation - ✅ COMPLETE (3 phases + CI)
