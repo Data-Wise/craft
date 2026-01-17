@@ -2,6 +2,10 @@
 
 Complete documentation for Craft's teaching mode feature.
 
+![Teaching Workflow Demo](demos/teaching-workflow.gif)
+
+*Preview → Validate → Publish: Safe course site deployment in 3 minutes (was 15 minutes manually)*
+
 ## Quick Start
 
 **New to teaching mode?** Start here:

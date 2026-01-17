@@ -2,6 +2,8 @@
 
 > **Preview → Validate → Publish** - Safe course site deployment
 
+![Teaching Workflow Demo](../demos/teaching-workflow.gif)
+
 ## Essential Commands
 
 ```bash

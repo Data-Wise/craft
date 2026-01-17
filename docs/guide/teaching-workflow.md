@@ -14,6 +14,10 @@ Teaching mode enables:
 - **Semester progress tracking** - Visual dashboard of course completion
 - **Safe deployments** - Prevent publishing broken or incomplete content
 
+![Teaching Workflow Demo](../demos/teaching-workflow.gif)
+
+*Demo: Complete teaching workflow from status check to publish (3 minutes vs 15 minutes manually)*
+
 ## Quick Start
 
 ### 1. Enable Teaching Mode

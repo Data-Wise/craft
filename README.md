@@ -181,6 +181,8 @@ Specialized workflows for teaching projects with automated validation, semester 
 - Semester progress tracking with automatic week calculation
 - ADHD-friendly dashboards and output
 
+![Teaching Workflow Demo](docs/demos/teaching-workflow.gif)
+
 **Quick Start:**
 1. Create `.flow/teach-config.yml` with course info and semester dates
 2. Run `/craft:site:validate` to check content completeness
