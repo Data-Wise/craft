@@ -163,7 +163,7 @@ Summary:
 docs/index.md:34 (BROKEN):
   Link: [Configuration](/docs/config.md)
   Target: /docs/config.md
-  Resolved: /Users/dt/projects/craft/docs/config.md
+  Resolved: /path/to/project/docs/config.md
   Error: File does not exist
 
   Context (lines 32-36):
@@ -180,7 +180,7 @@ docs/index.md:34 (BROKEN):
 docs/guide/setup.md:15 (BROKEN):
   Link: [missing.md](missing.md)
   Target: missing.md
-  Resolved: /Users/dt/projects/craft/docs/guide/missing.md
+  Resolved: /path/to/project/docs/guide/missing.md
   Error: File does not exist
 
   Context (lines 13-17):
