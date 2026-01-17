@@ -36,20 +36,37 @@
 /craft:docs:update                    # Full smart cycle
 /craft:docs:website --phase 1         # Quick wins: TL;DR, mermaid fixes
 /craft:docs:check --report-only       # CI-safe mode
+/craft:docs:check-links               # Validate links (supports .linkcheck-ignore)
 ```
+
+**NEW in v1.23.0: .linkcheck-ignore Support**
+- Document expected broken links (test files, brainstorm refs)
+- CI passes with expected links (exit code 0)
+- Only fails on critical broken links (exit code 1)
+- Create `.linkcheck-ignore` in project root with patterns
 
 ## Site Commands (15 commands)
 
 | Command | Description |
 |---------|-------------|
 | `/craft:site:create` | Full site wizard with 8 ADHD-friendly presets |
+| `/craft:site:build` | Build site (teaching-aware) |
+| `/craft:site:publish` | **NEW** Preview → Validate → Deploy (teaching mode) |
+| `/craft:site:progress` | **NEW** Semester progress dashboard (teaching mode) |
 | `/craft:site:nav` | Navigation reorganization (max 7 sections) |
 | `/craft:site:audit` | Content inventory & audit |
 | `/craft:site:consolidate` | Merge duplicate/overlapping docs |
 | `/craft:site:status` | Dashboard and health check |
 | `/craft:site:deploy` | Deploy to GitHub Pages |
 
-**Quick examples:**
+**Teaching Mode Quick Start:**
+```bash
+/craft:site:build              # Preview changes
+/craft:site:progress           # Check semester status
+/craft:site:publish            # Validate & deploy to production
+```
+
+**Standard Quick Examples:**
 ```bash
 /craft:site:create --preset data-wise --quick
 /craft:site:status

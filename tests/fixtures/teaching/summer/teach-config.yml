@@ -1,0 +1,59 @@
+---
+# Summer Session Configuration (Edge Case: Compressed Schedule)
+course:
+  code: "STAT 200"
+  title: "Statistical Methods (Summer)"
+  term: "Summer 2026"
+  credits: 3
+
+semester:
+  start_date: "2026-06-01"
+  end_date: "2026-07-24"
+  # No breaks in summer session
+
+instructor:
+  name: "Dr. Summer Lee"
+  email: "summer.lee@university.edu"
+
+course_info:
+  description: "Accelerated introduction to statistical methods"
+
+grading:
+  components:
+    - name: "Weekly Quizzes"
+      weight: 40
+      count: 8
+    - name: "Midterm"
+      weight: 30
+      date: "2026-06-29"
+    - name: "Final"
+      weight: 30
+      date: "2026-07-22"
+
+schedule:
+  class_times:
+    - day: "Monday"
+      time: "9:00-11:50"
+      location: "Room 101"
+    - day: "Wednesday"
+      time: "9:00-11:50"
+      location: "Room 101"
+
+assignments:
+  quizzes:
+    - number: 1
+      date: "2026-06-05"
+    - number: 2
+      date: "2026-06-08"
+    - number: 3
+      date: "2026-06-12"
+    - number: 4
+      date: "2026-06-15"
+    - number: 5
+      date: "2026-06-19"
+    - number: 6
+      date: "2026-07-03"
+    - number: 7
+      date: "2026-07-10"
+    - number: 8
+      date: "2026-07-17"

@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 90 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly workflows
+site_description: Full-stack developer toolkit - 97 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -40,6 +40,18 @@ extra_css:
 
 plugins:
   - search
+  # TODO: Add mkdocs-redirects plugin (requires: pip install mkdocs-redirects)
+  # - redirects:
+  #     redirect_maps:
+  #       # Help → Commands merger (Phase 2)
+  #       'help/hub.md': 'commands/overview.md'
+  #       'help/do.md': 'commands/smart.md'
+  #       'help/check.md': 'commands/smart.md'
+  #       'help/orchestrate.md': 'commands/smart.md'
+  #       'help/git-worktree.md': 'commands/git.md'
+  #       'help/docs-update.md': 'commands/docs.md'
+  #       'help/ci-generate.md': 'commands/git.md'
+  #       'help/brainstorm.md': 'commands/plan.md'
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -67,46 +79,104 @@ markdown_extensions:
   - md_in_html
 
 nav:
-  - Home: index.md
-  - 🚀 Quick Start: QUICK-START.md
-  - 🧠 ADHD Guide: ADHD-QUICK-START.md
-  - 📊 Visual Workflows: workflows/index.md
-  - 🎮 Playground: PLAYGROUND.md
-  - 📚 Reference Card: REFCARD.md
-  - Commands:
-    - Overview: commands/overview.md
-    - Smart Commands: commands/smart.md
-    - Documentation: commands/docs.md
-    - Site Management: commands/site.md
-    - Code & Testing: commands/code.md
-    - Git & CI: commands/git.md
-    - Architecture: commands/arch.md
-    - Distribution: commands/dist.md
-    - Planning: commands/plan.md
-  - Guide:
+  # 1. GETTING STARTED - Entry point for all users
+  - 🚀 Getting Started:
+    - Home: index.md
+    - Quick Start: QUICK-START.md
+    - ADHD Guide: ADHD-QUICK-START.md
+    - Choose Your Path: getting-started/choose-path.md
+    - Visual Workflows: workflows/index.md
+    - Playground: PLAYGROUND.md
+
+  # 2. GUIDES & TUTORIALS - Task-oriented learning
+  - 📖 Guides & Tutorials:
     - Getting Started: guide/getting-started.md
-    - Homebrew Installation: guide/homebrew-installation.md
-    - Skills & Agents: guide/skills-agents.md
-    - Orchestrator: guide/orchestrator.md
+    - What's New:
+      - Claude Code 2.1.0 Enhancements: tutorials/TUTORIAL-claude-code-2.1-enhancements.md
+    - Core Workflows:
+      - Documentation Automation: guide/documentation-quality.md
+      - Site Creation & Management: guide/getting-started.md
+      - Release Workflow: workflows/release-workflow.md
+      - Development Workflow: workflows/git-feature-workflow.md
+      - Pre-commit Workflow: workflows/pre-commit-workflow.md
+    - Teaching Mode:
+      - Overview & Quick Start: TEACHING-DOCS-INDEX.md
+      - Setup Tutorial: tutorials/teaching-mode-setup.md
+      - Complete Guide: guide/teaching-workflow.md
+      - Quick Reference: reference/REFCARD-TEACHING.md
+      - Config Schema: teaching-config-schema.md
+      - Migration Guide: teaching-migration.md
+    - Specialized Features:
+      - Git Repository Init:
+        - Command Reference: commands/git-init-reference.md
+        - Tutorial: guide/git-init-tutorial.md
+        - Architecture: architecture/git-init-flow.md
+        - Documentation Index: git-init-docs-index.md
+      - Orchestration & Agents: guide/orchestrator.md
+      - Homebrew Distribution: guide/homebrew-installation.md
+      - Skills & Agents: guide/skills-agents.md
+      - Accessibility: ACCESSIBILITY.md
+
+  # 3. COMMANDS & REFERENCE - Command documentation
+  - ⚙️ Commands & Reference:
+    - Command Overview: commands/overview.md
+    - By Category:
+      - Smart Commands: commands/smart.md
+      - Documentation: commands/docs.md
+      - Site Management: commands/site.md
+      - Code & Testing: commands/code.md
+      - Git & CI: commands/git.md
+      - Architecture: commands/arch.md
+      - Distribution: commands/dist.md
+      - Planning: commands/plan.md
+    - Complete A-Z Reference: commands.md
+    - Help & Examples:
+      - /craft:check: commands/check.md
+      - /craft:do: commands/do.md
+      - /craft:hub: commands/hub.md
+      - /craft:orchestrate: commands/orchestrate.md
+      - /craft:ci:generate: commands/ci/generate.md
+      - /craft:docs:update: commands/docs/update.md
+      - /craft:git:worktree: commands/git/worktree.md
+      - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
+
+  # 4. COOKBOOK & EXAMPLES - Use case driven recipes
+  - 📚 Cookbook & Examples:
+    - Cookbook Home: cookbook/index.md
+    - Common Recipes:
+      - Set Up New Project: cookbook/common/setup-new-project.md
+      - Deploy Course Website: cookbook/common/deploy-course-website.md
+      - Automate Release Workflow: cookbook/common/automate-release-workflow.md
+      - Check Code Quality Before Commit: cookbook/common/check-code-quality-before-commit.md
+    - Troubleshooting:
+      - Command Not Found: cookbook/troubleshooting/command-not-found.md
+
+  # 5. REFERENCE & ARCHITECTURE - Technical deep-dive
+  - Reference & Architecture:
     - Configuration: reference/configuration.md
-    - Presets: reference/presets.md
-    - Accessibility: ACCESSIBILITY.md
-  - Help:
-    - /craft:hub: help/hub.md
-    - /craft:do: help/do.md
-    - /craft:check: help/check.md
-    - /craft:orchestrate: help/orchestrate.md
-    - /craft:git:init: commands/git-init-reference.md
-    - /craft:git:worktree: help/git-worktree.md
-    - /craft:docs:update: help/docs-update.md
-    - /craft:ci:generate: help/ci-generate.md
-    - /workflow:brainstorm: help/brainstorm.md
-  - Git Init:
-    - Command Reference: commands/git-init-reference.md
-    - Architecture Guide: architecture/git-init-flow.md
-    - Tutorial: guide/git-init-tutorial.md
-    - Documentation Index: git-init-docs-index.md
-  - Workflows:
-    - Pre-commit Workflow: workflows/pre-commit-workflow.md
-    - Git Feature Workflow: workflows/git-feature-workflow.md
-    - Release Workflow: workflows/release-workflow.md
+    - Design Presets: reference/presets.md
+    - Skills & Agents Reference: skills-agents.md
+    - Orchestrator Deep Dive: orchestrator.md
+    - Architecture Overview: architecture.md
+    - Documentation Quality: reference/documentation-quality.md
+    - Enhancement Guides:
+      - Claude Code 2.1 Quick Reference: reference/REFCARD-claude-code-2.1-enhancements.md
+    - GIF Recording & Documentation:
+      - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
+      - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
+    - Specifications:
+      - Broken Link Validation: specs/SPEC-broken-link-validation-2026-01-17.md
+      - Hub v2.0 Discovery: specs/SPEC-craft-hub-v2-2026-01-15.md
+      - Dry-Run Feature: specs/SPEC-dry-run-feature-2026-01-15.md
+      - Teaching Workflow: specs/SPEC-teaching-workflow-2026-01-16.md
+      - Website Organization: specs/SPEC-website-organization-standard-2026-01-17.md
+      - Help Template System: specs/SPEC-help-template-menu-2026-01-16.md
+
+  # 6. FOR CONTRIBUTORS - Development resources
+  - For Contributors:
+    - Documentation Quality Development: guide/documentation-quality-development.md
+    - CI/CD Templates: CI-TEMPLATES.md
+    - CI Detection Rollout: CI-DETECTION-ROLLOUT.md
+
+  # 7. QUICK REFERENCE CARD - Printable reference
+  - 📋 Quick Reference Card: REFCARD.md

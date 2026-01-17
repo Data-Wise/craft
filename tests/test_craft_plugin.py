@@ -399,7 +399,13 @@ def test_orchestrator_agent() -> TestResult:
 
 
 def test_no_broken_links() -> TestResult:
-    """Test for broken internal links in markdown files."""
+    """Test for broken internal links in markdown files.
+
+    NOTE: docs/test-violations.md is intentionally excluded from this test.
+    That file contains broken links used to test the .linkcheck-ignore parser
+    and link validation system. See .linkcheck-ignore for the list of expected
+    broken links.
+    """
     import time
     start = time.time()
 
@@ -411,7 +417,8 @@ def test_no_broken_links() -> TestResult:
     code_block_pattern = re.compile(r'```[\s\S]*?```', re.MULTILINE)
 
     for md_file in all_md:
-        if "node_modules" in str(md_file) or "tests" in str(md_file):
+        # Skip test files, node_modules, and test-violations.md (intentional broken links)
+        if "node_modules" in str(md_file) or "tests" in str(md_file) or "test-violations" in str(md_file):
             continue
 
         try:

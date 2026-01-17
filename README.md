@@ -170,6 +170,38 @@ Commands support execution modes for different use cases:
 /craft:arch:analyze optimize    # Performance analysis
 ```
 
+## Teaching Mode (NEW in v1.18.0)
+
+Specialized workflows for teaching projects with automated validation, semester tracking, and safe publishing.
+
+**Key Features:**
+- Auto-detection via `.flow/teach-config.yml` configuration
+- Content validation (syllabus sections, schedule completeness, assignment files)
+- Preview-before-publish workflow (draft → production branches)
+- Semester progress tracking with automatic week calculation
+- ADHD-friendly dashboards and output
+
+![Teaching Workflow Demo](docs/demos/teaching-workflow.gif)
+
+**Quick Start:**
+1. Create `.flow/teach-config.yml` with course info and semester dates
+2. Run `/craft:site:validate` to check content completeness
+3. Publish with confidence using `/craft:site:publish`
+
+**Example workflow:**
+```bash
+# Check semester progress
+/craft:site:progress
+
+# Validate content before publishing
+/craft:site:validate
+
+# Publish draft → production (with preview)
+/craft:site:publish
+```
+
+**[Full Tutorial](https://data-wise.github.io/craft/tutorials/teaching-mode-setup/)** • **[Config Schema](https://data-wise.github.io/craft/teaching-config-schema/)**
+
 ## Commands (86 total)
 
 ### Workflow Commands (12) - NEW in v1.17.0
@@ -290,7 +322,7 @@ Commands support execution modes for different use cases:
 | `/craft:docs:mermaid` | Mermaid diagram templates (6 types) |
 | `/craft:docs:nav-update` | Update mkdocs.yml navigation |
 | `/craft:docs:prompt` | Generate reusable maintenance prompts |
-| `/craft:docs:demo` | **NEW** VHS tape generator for GIF demos |
+| `/craft:docs:demo` | Terminal recorder for GIF demos (asciinema/VHS) |
 | `/craft:docs:guide` | **NEW** Feature guide + demo + refcard generator |
 
 #### Internal (1)
@@ -470,7 +502,7 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - **`check`**: Renamed from `validate`, Version C full-by-default (links + stale + nav + auto-fix)
 
 #### Added
-- `/craft:docs:demo` - VHS tape generator for GIF demos
+- `/craft:docs:demo` - Terminal recorder for GIF demos (asciinema default, VHS optional)
 - `/craft:docs:guide` - Feature guide + demo + refcard generator
 
 #### Removed

@@ -62,21 +62,24 @@ cat mkdocs.yml | grep -A 100 "nav:"
 
 ### Step 2: Run Full Check Cycle
 
-**Phase 1: Link Validation**
+**Phase 1: Link Validation (with .linkcheck-ignore support)**
 ```
 🔗 CHECKING LINKS...
 
 Internal links:
   ✓ docs/index.md → docs/guide/overview.md
   ✓ docs/guide/overview.md → docs/reference/api.md
-  ✗ docs/guide/setup.md → docs/config.md (not found)
+  ✗ docs/guide/setup.md → docs/config.md (not found) [CRITICAL]
+  ⚠ docs/test-violations.md → nonexistent.md (expected - Test Files)
 
 External links:
   ✓ README.md → https://github.com/user/repo
   ⚠ README.md → https://old-domain.com/docs (404)
 
-Summary: 45 internal (1 broken), 12 external (1 broken)
+Summary: 45 internal (1 critical, 1 expected), 12 external (1 broken)
 ```
+
+**Note**: Critical broken links cause exit code 1. Expected broken links (documented in `.linkcheck-ignore`) are shown as warnings but don't block CI. See `/craft:docs:check-links` for details on `.linkcheck-ignore` format.
 
 **Phase 2: Stale Detection**
 ```

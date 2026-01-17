@@ -211,12 +211,12 @@ When ready to release:
 ```bash
 # Create release PR
 git checkout dev
-gh pr create --base main --head dev --title "Release v1.18.0"
+gh pr create --base main --head dev --title "Release v1.20.0"
 
 # After merge, tag the release
 git checkout main
 git pull
-git tag v1.18.0
+git tag v1.20.0
 git push --tags
 ```
 
@@ -250,5 +250,5 @@ git push --tags
 
 ## See Also
 
-- **Help:** [/craft:git:worktree](../help/git-worktree.md)
-- **Help:** [/craft:check](../help/check.md)
+- **Help:** [/craft:git:worktree](../commands/git/worktree.md)
+- **Help:** [/craft:check](../commands/check.md)

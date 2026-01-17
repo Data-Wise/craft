@@ -1,0 +1,71 @@
+name: Documentation Quality
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**/*.md'
+      - 'README.md'
+      - 'CLAUDE.md'
+      - 'CHANGELOG.md'
+      - '.github/workflows/docs-quality.yml'
+  push:
+    branches: [main, dev]
+    paths:
+      - 'docs/**/*.md'
+      - 'README.md'
+      - 'CLAUDE.md'
+      - 'CHANGELOG.md'
+
+jobs:
+  markdown-lint:
+    name: Markdown Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --save-dev markdownlint-cli2
+
+      - name: Run markdown linting
+        run: npx markdownlint-cli2 "docs/**/*.md" "README.md" "CLAUDE.md" --config .markdownlint.json
+        continue-on-error: true
+
+  link-check:
+    name: Link Validation (Lychee)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Restore lychee cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee
+          restore-keys: cache-lychee-
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --verbose --no-progress --cache --max-cache-age 1d --exclude-all-private --timeout 20 --max-retries 3 'docs/**/*.md' 'README.md' 'CLAUDE.md'
+          fail: false
+          format: markdown
+          output: lychee-output.md
+
+  summary:
+    name: Summary
+    runs-on: ubuntu-latest
+    needs: [markdown-lint, link-check]
+    if: always()
+    steps:
+      - name: Report status
+        run: |
+          echo "Markdown lint: ${{ needs.markdown-lint.result }}"
+          echo "Link check: ${{ needs.link-check.result }}"

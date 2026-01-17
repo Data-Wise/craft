@@ -1,0 +1,30 @@
+---
+title: "STAT 200: Statistical Methods"
+subtitle: "Summer 2026"
+---
+
+# Course Information
+
+**Instructor:** Dr. Summer Lee
+**Email:** summer.lee@university.edu
+
+## Course Description
+
+Accelerated introduction to statistical methods covering descriptive statistics,
+probability, hypothesis testing, and regression in 8 weeks.
+
+## Schedule
+
+**Class Times:** Monday/Wednesday 9:00-11:50, Room 101
+**Dates:** June 1 - July 24, 2026
+
+## Grading
+
+- Weekly Quizzes (8): 40%
+- Midterm Exam (June 29): 30%
+- Final Exam (July 22): 30%
+
+## Note
+
+This is an accelerated summer course covering the same material as the regular
+semester version in half the time. Expect significant daily work outside of class.

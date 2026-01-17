@@ -8,6 +8,10 @@
 > - **How:** `/craft:orchestrate "task" [mode]` where mode = default/debug/optimize/release
 > - **Next:** Try `/craft:orchestrate "add auth" debug` for verbose execution tracking
 
+> 🎓 **User Guide** - Practical examples and quick start.
+>
+> Looking for technical details? See the [**Orchestrator Reference**](../orchestrator.md) for implementation details and advanced features.
+
 ## Overview
 
 The orchestrator coordinates multiple agents and tools for complex, multi-step tasks.

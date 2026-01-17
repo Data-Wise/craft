@@ -20,6 +20,98 @@
 
 ---
 
+## ⚠️ CRITICAL: Verify in Claude Code First
+
+**Before generating ANY GIF, you MUST:**
+
+1. **Run commands in Claude Code** - Execute actual commands using Bash tool
+2. **Capture real output** - Record the exact output that appears
+3. **Check for errors** - Verify commands work without issues
+4. **Validate format** - Ensure output matches expected format
+5. **THEN generate GIF** - Use verified commands and output
+
+### Why This Matters
+
+| Problem | Example | Solution |
+|---------|---------|----------|
+| **Broken commands** | GIF shows command that doesn't exist | Run in Claude Code first → catch error |
+| **Wrong output** | GIF shows outdated format | Capture real output → use in tape |
+| **Missing setup** | Command fails due to prerequisites | Test first → document setup needed |
+| **Timing issues** | Output appears slower/faster than GIF | Time real execution → adjust Sleep values |
+
+### Workflow: Verify → Record → Generate
+
+```bash
+# ❌ WRONG: Generate GIF without testing
+/craft:docs:demo "sessions" --generate    # May show broken commands!
+
+# ✅ CORRECT: Test in Claude Code first
+# Step 1: Verify commands work
+ait sessions live                          # Test command
+ait sessions current                       # Test command
+ait sessions conflicts                     # Test command
+
+# Step 2: Capture actual output and timing
+# - Note how long output takes to appear
+# - Record exact text format
+# - Check for any errors
+
+# Step 3: Generate GIF with verified commands
+/craft:docs:demo "sessions" --generate     # Now using verified commands
+```
+
+### Testing Checklist
+
+Before recording, verify:
+
+- [ ] All commands execute without errors in Claude Code
+- [ ] Output format matches what GIF will show
+- [ ] Timing is realistic (not too fast/slow)
+- [ ] All prerequisites are met (files exist, setup done)
+- [ ] Commands work in the environment shown in GIF
+
+**Remember:** GIFs are documentation. They must show real, working functionality.
+
+### Plugin Commands: Use asciinema
+
+**For Craft plugin commands (e.g., `/craft:site:build`):**
+
+These commands only work within Claude Code's plugin system. Use **asciinema** to record real execution:
+
+1. **Start recording** - `asciinema rec docs/demos/command-name.cast`
+2. **Run plugin command** - Execute the actual command in Claude Code
+3. **Stop recording** - Press Ctrl+D
+4. **Convert to GIF** - Use `agg` to convert the recording
+5. **Optimize** - Run gifsicle for smaller file size
+
+```bash
+# ✅ CORRECT workflow for plugin commands:
+# 1. Start recording
+asciinema rec docs/demos/site-build.cast
+
+# 2. Run command in Claude Code
+/craft:site:build
+# Let it complete, then press Ctrl+D
+
+# 3. Convert to GIF
+agg --cols 100 --rows 30 --font-size 14 \
+    docs/demos/site-build.cast \
+    docs/demos/site-build.gif
+
+# 4. Optimize
+gifsicle -O3 --colors 128 --lossy=80 \
+    docs/demos/site-build.gif \
+    -o docs/demos/site-build.gif
+
+# 4. Validate GIF matches actual command behavior
+```
+
+**Recording Method:**
+- **All commands** → Use asciinema to record real execution
+- **Alternative** → VHS for scripted/repeatable demos (`/craft:docs:demo --method vhs`)
+
+---
+
 ## Technical Standards
 
 ### File Specifications
@@ -167,24 +259,91 @@ export PS1="$ "  # Simple prompt
 
 ---
 
-## Optimization
+## Required Tools
 
-### Using gifsicle
+### Recording Tools
+
+**asciinema + agg (default):**
+```bash
+# Install asciinema (terminal recorder)
+brew install asciinema
+
+# Install agg (asciinema → GIF converter)
+cargo install --git https://github.com/asciinema/agg
+
+# Or download prebuilt binary
+curl -LO https://github.com/asciinema/agg/releases/latest/download/agg-$(uname -m)-apple-darwin
+chmod +x agg-$(uname -m)-apple-darwin
+mv agg-$(uname -m)-apple-darwin /usr/local/bin/agg
+```
+
+**VHS (alternative):**
+```bash
+# For scripted/repeatable demos
+brew install charmbracelet/tap/vhs
+```
+
+### Optimization Tool (REQUIRED)
+
+**⚠️ MANDATORY: All GIFs MUST be optimized before committing**
+
+Optimization reduces file size by 30-70% while maintaining quality, improving page load times and reducing bandwidth.
+
+Install gifsicle (required for GIF creation):
+```bash
+# macOS
+brew install gifsicle
+
+# Linux
+sudo apt install gifsicle
+```
+
+### Standard Optimization Workflow
 
 ```bash
-# Basic optimization (reduces file size)
-gifsicle -O3 input.gif -o output.gif
+# STEP 1: Generate GIF
 
-# Optimize with color reduction
-gifsicle -O3 --colors 128 input.gif -o output.gif
+# Method A: asciinema (default - real recording)
+asciinema rec demo.cast             # Record session
+agg --cols 100 --rows 30 \          # Convert to GIF
+    demo.cast demo.gif
 
-# Lossy optimization (smaller but slightly degraded)
-gifsicle -O3 --lossy=80 --colors 128 input.gif -o output.gif
+# Method B: VHS (alternative - scripted demo)
+vhs demo.tape                       # Generate from tape file
 
-# Batch optimize all GIFs
-for gif in docs/assets/gifs/**/*.gif; do
-    gifsicle -O3 --colors 128 "$gif" -o "${gif%.gif}-optimized.gif"
+# STEP 2: Optimize (REQUIRED - choose one)
+
+# Option A: Recommended (balanced quality/size)
+gifsicle -O3 --colors 128 --lossy=80 demo.gif -o demo.gif
+
+# Option B: Maximum compression (for large GIFs)
+gifsicle -O3 --colors 64 --lossy=100 demo.gif -o demo.gif
+
+# Option C: High quality (for detailed UIs)
+gifsicle -O3 --colors 256 demo.gif -o demo.gif
+
+# STEP 3: Verify readability (see Readability Check below)
+open demo.gif  # Check text is readable, timing is natural
+```
+
+### Batch Optimization
+
+```bash
+# Optimize all GIFs in directory (RECOMMENDED)
+for gif in docs/demos/*.gif docs/gifs/*.gif; do
+    gifsicle -O3 --colors 128 --lossy=80 "$gif" -o "$gif"
+    echo "Optimized: $gif ($(ls -lh "$gif" | awk '{print $5}'))"
 done
+```
+
+### Before/After Size Check
+
+```bash
+# Check sizes before optimization
+ls -lh docs/demos/*.gif docs/gifs/*.gif | awk '{print $9, $5}'
+
+# After optimization, verify all GIFs ≤ 2MB
+ls -lh docs/demos/*.gif docs/gifs/*.gif | awk '{if ($5 ~ /M/) { size=$5; gsub(/M/, "", size); if (size+0 > 2.0) print "❌ TOO LARGE:", $9, $5; else print "✅ OK:", $9, $5 } else print "✅ OK:", $9, $5}'
 ```
 
 ### Using ffmpeg
@@ -207,6 +366,56 @@ ffmpeg -i input.mov -vf \
 | 5MB | < 2MB | Color reduction (256 → 128) |
 | 3MB | < 1MB | FPS reduction (30 → 10) |
 | 2MB | < 500KB | Lossy optimization |
+
+### Readability Check (REQUIRED)
+
+**After optimization, ALWAYS verify:**
+
+```bash
+# 1. Open GIF in viewer
+open demo.gif
+
+# 2. Check readability (ALL must be YES)
+# ✓ Can you read all text at normal viewing size?
+# ✓ Are command prompts clearly visible?
+# ✓ Is output legible without zooming?
+# ✓ Do colors have sufficient contrast?
+# ✓ Is timing natural (not too fast/slow)?
+# ✓ Does the loop feel smooth?
+```
+
+**Readability Issues:**
+
+| Problem | Cause | Fix |
+|---------|-------|-----|
+| **Text too blurry** | Too much lossy compression | Reduce `--lossy` value (80 → 60) |
+| **Colors washed out** | Too few colors | Increase `--colors` (128 → 256) |
+| **Text hard to read** | Font too small in recording | Re-record with larger font (14pt → 16pt) |
+| **Timing too fast** | Sleep values too short | Increase Sleep in VHS tape (1s → 2s) |
+| **File too large** | Not optimized | Run gifsicle with --lossy=80 |
+
+**Quality-Size Trade-offs:**
+
+```bash
+# If text becomes unreadable after optimization:
+# 1. Try less aggressive compression
+gifsicle -O3 --colors 256 --lossy=60 demo.gif -o demo.gif
+
+# 2. If still too large, reduce resolution instead
+# asciinema: Use --cols 80 --rows 24 instead of 100x30
+# VHS: Reduce Width/Height in tape file
+
+# 3. If still too large, reduce FPS
+# asciinema: Use agg --fps 8 instead of --fps 10
+# VHS: Set FPS 10 instead of 15 in tape file
+```
+
+**Acceptance Criteria:**
+- ✅ File size ≤ 2MB
+- ✅ All text readable without zooming
+- ✅ Command prompts clearly visible
+- ✅ Natural timing (not rushed)
+- ✅ Smooth playback
 
 ---
 
@@ -337,31 +546,43 @@ The GIF demonstrates:
 
 Before adding GIF to documentation:
 
-**Technical:**
-- [ ] File size ≤ 2MB
-- [ ] Resolution 800-1200px width
-- [ ] FPS 10-15 (not 30+)
-- [ ] Colors ≤ 128 palette
-- [ ] Loops infinitely
-- [ ] No audio track
+**Verification (REQUIRED FIRST):**
+- [ ] **Commands tested in Claude Code** (or bash for CLI tools)
+- [ ] **Real output captured** (screenshots/copy-paste)
+- [ ] **No errors** during testing
+- [ ] **Timing observed** (how long output takes to appear)
+
+**Technical (REQUIRED):**
+- [ ] **Optimized with gifsicle** (`-O3 --colors 128 --lossy=80`)
+- [ ] **File size ≤ 2MB** (check with `ls -lh`)
+- [ ] **Resolution 800-1200px width**
+- [ ] **FPS 10-15** (not 30+)
+- [ ] **Loops infinitely**
+- [ ] **No audio track**
+
+**Readability (REQUIRED):**
+- [ ] **All text readable** without zooming at normal viewing size
+- [ ] **Command prompts clearly visible** ($ or > visible)
+- [ ] **Output legible** (14-16pt font minimum in recording)
+- [ ] **Colors have sufficient contrast** (Solarized/Dracula themes work well)
+- [ ] **Timing natural** (not too fast to read, not too slow)
+- [ ] **Smooth playback** (no jarring jumps)
 
 **Content:**
 - [ ] Shows complete workflow
 - [ ] No sensitive information visible
-- [ ] Output is readable
-- [ ] Timing feels natural
 - [ ] Demonstrates one clear concept
+- [ ] Matches actual command behavior
 
 **Accessibility:**
 - [ ] Alt text provided
 - [ ] Caption written
 - [ ] Text explanation in docs
 - [ ] High contrast terminal
-- [ ] Readable font size
 
 **Naming & Organization:**
-- [ ] Follows naming convention
-- [ ] Stored in correct directory
+- [ ] Follows naming convention (`<feature>-<action>-<variant>.gif`)
+- [ ] Stored in correct directory (`docs/demos/` or `docs/gifs/`)
 - [ ] Referenced correctly in docs
 - [ ] Markdown image syntax correct
 

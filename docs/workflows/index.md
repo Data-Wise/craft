@@ -10,6 +10,43 @@
 
 Visual guides to craft's most common workflows - see how commands, skills, and agents work together.
 
+---
+
+## Workflow Selector
+
+Not sure where to start? This decision tree shows you the right workflow for your task.
+
+```mermaid
+graph TD
+    Start["🎯 What do you need to do?"] --> Goal{Choose Your Goal}
+
+    Goal -->|"📚 Update docs"| Docs["Documentation Workflow"]
+    Goal -->|"🌐 Create docs site"| Site["Site Creation Workflow"]
+    Goal -->|"📦 Release version"| Release["Release Workflow"]
+    Goal -->|"✨ Build feature"| Dev["Development Workflow"]
+    Goal -->|"🤖 Route a task"| Route["AI Routing Workflow"]
+
+    Docs --> DocsCmd["🔧 /craft:docs:update"]
+    Site --> SiteCmd["🔧 /craft:site:create --quick"]
+    Release --> RelCmd["🔧 /craft:check --for release"]
+    Dev --> DevCmd["🔧 /craft:git:worktree add name"]
+    Route --> RouteCmd["🔧 /craft:do 'task description'"]
+
+    DocsCmd --> DocsTime["⏱️ &lt; 30 seconds"]
+    SiteCmd --> SiteTime["⏱️ &lt; 5 minutes"]
+    RelCmd --> RelTime["⏱️ &lt; 2 minutes"]
+    DevCmd --> DevTime["⏱️ Varies"]
+    RouteCmd --> RouteTime["⏱️ Varies"]
+
+    style Start fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style Goal fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style Docs fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style Site fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style Release fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style Dev fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style Route fill:#ede7f6,stroke:#512da8,stroke-width:2px
+```
+
 !!! tip "Pro Tip: Start with Documentation"
     New to craft? The Documentation Workflow is the easiest starting point - just run `/craft:docs:update` and watch it detect and fix everything automatically.
 
@@ -21,35 +58,41 @@ Visual guides to craft's most common workflows - see how commands, skills, and a
 
 ```mermaid
 flowchart TD
-    START([Code Changes]) --> UPDATE["/craft:docs:update"]
+    START([📝 Code Changes]) --> UPDATE["/craft:docs:update"]
 
-    UPDATE --> DETECT{Detect Changes}
+    UPDATE --> DETECT{🔍 Detect Changes}
     DETECT -->|CLI changes| CLI["Update CLI help epilogs"]
     DETECT -->|New features| FEAT["Generate feature guides"]
     DETECT -->|API changes| API["Update API reference"]
 
-    CLI --> REFCARD["Update REFCARD.md"]
+    CLI --> REFCARD["Rebuild REFCARD.md"]
     FEAT --> REFCARD
     API --> REFCARD
 
     REFCARD --> CHECK["/craft:docs:check"]
-    CHECK --> LINKS{Validate Links}
+    CHECK --> LINKS{🔗 Validate Links}
     LINKS -->|Broken| FIX["Auto-fix links"]
     LINKS -->|Valid| NAV["Check navigation"]
     FIX --> NAV
 
-    NAV --> CHANGELOG["/craft:docs:changelog"]
+    NAV --> DECISION{Ready?}
+    DECISION -->|Manual fixes| MANUAL["Edit files manually"]
+    MANUAL --> CHECK
+    DECISION -->|Looks good| CHANGELOG["/craft:docs:changelog"]
+
     CHANGELOG --> DEPLOY["/craft:site:deploy"]
-    DEPLOY --> DONE([Docs Live])
+    DEPLOY --> DONE(["✅ Docs Live"])
 
     click UPDATE "../commands/docs#craftdocsupdate" "Click to see full documentation"
     click CHECK "../commands/docs#craftdocscheck" "Click to see validation options"
     click CHANGELOG "../commands/docs#craftdocschangelog" "Click to see changelog generation"
     click DEPLOY "../commands/site#craftcreatecraftsitedeploy" "Click to see deployment options"
 
-    style UPDATE fill:#e3f2fd
-    style CHECK fill:#fff3e0
-    style DEPLOY fill:#e8f5e9
+    style START fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style UPDATE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style CHECK fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style DEPLOY fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
 ```
 
 **Key Commands:**
@@ -71,42 +114,42 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    START([Need Docs Site]) --> CREATE["/craft:site:create"]
+    START(["🌐 Need Docs Site"]) --> CREATE["/craft:site:create"]
 
-    CREATE --> DETECT["Detect project type"]
-    DETECT --> WIZARD{Interactive Wizard}
+    CREATE --> DETECT["🔍 Detect<br/>project type"]
+    DETECT --> WIZARD{⚙️ Interactive<br/>Wizard}
 
-    WIZARD -->|Preset| PRESET["Choose from 8 presets"]
-    WIZARD -->|Branding| BRAND["Set name & tagline"]
-    WIZARD -->|Nav| NAV["Pick nav structure"]
+    WIZARD -->|Preset| PRESET["Choose from<br/>8 presets"]
+    WIZARD -->|Branding| BRAND["Set name<br/>& tagline"]
+    WIZARD -->|Nav| NAV["Pick nav<br/>structure"]
 
-    PRESET --> GEN["Generate files"]
+    PRESET --> GEN["📝 Generate<br/>config files"]
     BRAND --> GEN
     NAV --> GEN
 
-    GEN --> FILES["mkdocs.yml
-docs/index.md
-docs/QUICK-START.md
-.github/workflows/docs.yml"]
+    GEN --> FILES["✅ Creates:<br/>mkdocs.yml<br/>docs/index.md<br/>CI workflow"]
 
     FILES --> BUILD["/craft:site:build"]
     BUILD --> PREVIEW["/craft:site:preview"]
-    PREVIEW --> REVIEW{Looks good?}
+    PREVIEW --> REVIEW{👀 Looks<br/>good?}
 
-    REVIEW -->|No| THEME["/craft:site:theme"]
+    REVIEW -->|❌ No| THEME["/craft:site:theme"]
     THEME --> BUILD
-    REVIEW -->|Yes| DEPLOY["/craft:site:deploy"]
+    REVIEW -->|✅ Yes| DEPLOY["/craft:site:deploy"]
 
-    DEPLOY --> DONE([Site Live])
+    DEPLOY --> DONE(["🎉 Site Live"])
 
     click CREATE "../commands/site#craftcreate" "Click to see site creation wizard"
     click THEME "../commands/site#craftcreatecraftsitetheme" "Click to see theme options"
     click DEPLOY "../commands/site#craftcreatecraftsitedeploy" "Click to see deployment options"
     click PRESET "../reference/presets" "Click to see all 8 presets"
 
-    style CREATE fill:#e3f2fd
-    style WIZARD fill:#fff3e0
-    style DEPLOY fill:#e8f5e9
+    style START fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style CREATE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style WIZARD fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style FILES fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style DEPLOY fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
 ```
 
 **8 ADHD-Friendly Presets:**
@@ -128,43 +171,46 @@ docs/QUICK-START.md
 
 ## Release Workflow
 
-**From pre-release checks to published release.**
+**From pre-release checks to published release with safety gates.**
 
 ```mermaid
 flowchart TD
-    START([Ready to Release]) --> CHECK["/craft:check --for release"]
+    START(["📦 Ready to Release"]) --> CHECK["/craft:check<br/>--for release"]
 
-    CHECK --> AUDIT{Full Audit}
+    CHECK --> AUDIT{🔍 Full Audit}
     AUDIT -->|Tests| TESTS["Run test suite"]
-    AUDIT -->|Lint| LINT["Code quality checks"]
-    AUDIT -->|Docs| DOCS["Docs validation"]
-    AUDIT -->|Git| GIT["Git status clean"]
+    AUDIT -->|Quality| LINT["Code style checks"]
+    AUDIT -->|Docs| DOCS["Validate all docs"]
+    AUDIT -->|Git| GIT["Verify clean<br/>git status"]
 
-    TESTS --> RESULTS{All Pass?}
+    TESTS --> RESULTS{✅ All Pass?}
     LINT --> RESULTS
     DOCS --> RESULTS
     GIT --> RESULTS
 
-    RESULTS -->|No| FIX["Fix issues"]
+    RESULTS -->|❌ No| FIX["Fix issues"]
     FIX --> CHECK
 
-    RESULTS -->|Yes| CHANGELOG["/craft:docs:changelog"]
-    CHANGELOG --> VERSION["Update version"]
+    RESULTS -->|✅ Yes| CHANGELOG["/craft:docs:changelog"]
+    CHANGELOG --> VERSION["Update version<br/>in config"]
     VERSION --> TAG["Create git tag"]
     TAG --> PUSH["Push to remote"]
 
-    PUSH --> GHRELEASE["GitHub Release triggers"]
-    GHRELEASE --> PYPI["PyPI publish"]
-    GHRELEASE --> BREW["Homebrew formula update"]
-    GHRELEASE --> PAGES["GitHub Pages deploy"]
+    PUSH --> GHRELEASE["🚀 GitHub Release<br/>Auto-triggers"]
+    GHRELEASE --> PYPI["PyPI publish<br/>via OIDC"]
+    GHRELEASE --> BREW["Homebrew<br/>formula update"]
+    GHRELEASE --> PAGES["GitHub Pages<br/>deploy"]
 
-    PYPI --> DONE([Released])
+    PYPI --> DONE(["✨ Released"])
     BREW --> DONE
     PAGES --> DONE
 
-    style CHECK fill:#e3f2fd
-    style RESULTS fill:#fff3e0
-    style DONE fill:#e8f5e9
+    style START fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style CHECK fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style AUDIT fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style RESULTS fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style GHRELEASE fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
 ```
 
 **Automation:**
@@ -186,39 +232,40 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    START([New Feature]) --> WORKTREE["/craft:git:worktree add feature-name"]
+    START(["✨ New Feature"]) --> WORKTREE["/craft:git:worktree<br/>add feature-name"]
 
-    WORKTREE --> CLONE["Create worktree
-~/.git-wt/project/feature-name"]
-    CLONE --> SWITCH["Switch terminal
-to worktree"]
+    WORKTREE --> CLONE["Create isolated<br/>worktree at<br/>~/.git-wt/project/"]
+    CLONE --> SWITCH["Switch terminal<br/>context"]
 
-    SWITCH --> DEV{Development}
-    DEV -->|Write code| CODE["Implement feature"]
-    DEV -->|Run tests| TEST["/craft:test:run debug"]
-    DEV -->|Lint| LINT["/craft:code:lint optimize"]
+    SWITCH --> LOOP{💻 Development Loop}
+    LOOP -->|Write code| CODE["Implement feature"]
+    LOOP -->|Run tests| TEST["/craft:test:run debug"]
+    LOOP -->|Check quality| LINT["/craft:code:lint optimize"]
 
     CODE --> CHECK["/craft:check"]
     TEST --> CHECK
     LINT --> CHECK
 
-    CHECK --> VALID{Passes?}
-    VALID -->|No| DEV
+    CHECK --> VALID{✅ All Pass?}
+    VALID -->|No| LOOP
     VALID -->|Yes| DOCS["/craft:docs:update"]
 
-    DOCS --> COMMIT["Git commit + push"]
-    COMMIT --> PR["Create PR via gh"]
-    PR --> REVIEW{Code Review}
+    DOCS --> COMMIT["git commit + push"]
+    COMMIT --> PR["Create PR<br/>via gh cli"]
+    PR --> REVIEW{👥 Code Review}
 
-    REVIEW -->|Changes| DEV
-    REVIEW -->|Approved| MERGE["Merge PR"]
+    REVIEW -->|Changes requested| LOOP
+    REVIEW -->|Approved| MERGE["Merge PR<br/>to dev"]
 
     MERGE --> CLEANUP["/craft:git:worktree remove"]
-    CLEANUP --> DONE([Feature Complete])
+    CLEANUP --> DONE(["🎉 Feature Complete"])
 
-    style WORKTREE fill:#e3f2fd
-    style CHECK fill:#fff3e0
-    style DONE fill:#e8f5e9
+    style START fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style WORKTREE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style LOOP fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style CHECK fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style MERGE fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
 ```
 
 **Worktree Benefits:**
@@ -236,37 +283,37 @@ to worktree"]
 
 ## AI Routing Workflow
 
-**How /craft:do routes tasks to the right tools.**
+**How /craft:do intelligently routes tasks to the right tools.**
 
 ```mermaid
 flowchart TD
-    START(["/craft:do 'add auth'"]) --> ANALYZE["task-analyzer skill"]
+    START(["🤖 /craft:do<br/>'add auth'"]) --> ANALYZE["task-analyzer<br/>skill"]
 
-    ANALYZE --> CLASSIFY{Task Type?}
+    ANALYZE --> CLASSIFY{🎯 Classify<br/>Task Type}
 
-    CLASSIFY -->|Backend work| BACKEND["backend-designer skill"]
-    CLASSIFY -->|Testing needed| TEST["test-strategist skill"]
-    CLASSIFY -->|Docs work| DOCS["Docs commands"]
-    CLASSIFY -->|Complex| ORCHESTRATE["Orchestrator"]
+    CLASSIFY -->|🔧 Backend| BACKEND["backend-designer<br/>skill"]
+    CLASSIFY -->|✅ Testing| TEST["test-strategist<br/>skill"]
+    CLASSIFY -->|📚 Docs| DOCS["Docs commands"]
+    CLASSIFY -->|🏗️ Complex| ORCHESTRATE["Orchestrator<br/>v2"]
 
-    BACKEND --> ROUTE1{Choose Tool}
-    ROUTE1 -->|Simple| CMD1["Direct command"]
-    ROUTE1 -->|Complex| AGENT1["backend-architect agent"]
+    BACKEND --> ROUTE1{Choose<br/>Tool}
+    ROUTE1 -->|Simple| CMD1["Direct<br/>command"]
+    ROUTE1 -->|Complex| AGENT1["backend-architect<br/>agent"]
 
-    TEST --> ROUTE2{Choose Tool}
+    TEST --> ROUTE2{Choose<br/>Tool}
     ROUTE2 -->|Unit tests| CMD2["/craft:test:run"]
-    ROUTE2 -->|Strategy| AGENT2["test-strategist skill"]
+    ROUTE2 -->|Strategy| AGENT2["test-strategist<br/>skill"]
 
-    DOCS --> ROUTE3{Choose Tool}
+    DOCS --> ROUTE3{Choose<br/>Tool}
     ROUTE3 -->|Update| CMD3["/craft:docs:update"]
     ROUTE3 -->|Site| CMD4["/craft:site:create"]
 
-    ORCHESTRATE --> PARALLEL["Run in parallel"]
+    ORCHESTRATE --> PARALLEL["⚡ Run in<br/>parallel"]
     PARALLEL --> SUB1["Backend agent"]
     PARALLEL --> SUB2["Test agent"]
     PARALLEL --> SUB3["Docs agent"]
 
-    CMD1 --> DONE([Task Complete])
+    CMD1 --> DONE(["✨ Task Complete"])
     AGENT1 --> DONE
     CMD2 --> DONE
     AGENT2 --> DONE
@@ -281,10 +328,11 @@ flowchart TD
     click CMD3 "../commands/docs#craftdocsupdate" "Click to see docs automation"
     click CMD4 "../commands/site#craftcreate" "Click to see site creation"
 
-    style ANALYZE fill:#e3f2fd
-    style CLASSIFY fill:#fff3e0
-    style ORCHESTRATE fill:#ffe0b2
-    style DONE fill:#e8f5e9
+    style START fill:#ede7f6,stroke:#512da8,stroke-width:2px
+    style ANALYZE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style CLASSIFY fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style ORCHESTRATE fill:#ffe0b2,stroke:#e65100,stroke-width:2px
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
 ```
 
 **Three Layers:**
@@ -311,6 +359,49 @@ flowchart TD
 - `release` (<300s) - Thorough validation, full reports
 
 **ADHD-Friendly:** One command handles routing, you don't need to remember which tool to use.
+
+---
+
+## Workflow Comparison Overview
+
+High-level comparison of all five workflows - choose based on your task type.
+
+```mermaid
+graph LR
+    subgraph docs["📚 Documentation Workflow"]
+        d1["Code Changes<br/>↓<br/>Detect & Fix<br/>↓<br/>Deploy"]
+    end
+
+    subgraph site["🌐 Site Workflow"]
+        s1["Create Site<br/>↓<br/>Configure<br/>↓<br/>Build & Deploy"]
+    end
+
+    subgraph release["📦 Release Workflow"]
+        r1["Pre-flight Checks<br/>↓<br/>Tag Version<br/>↓<br/>Publish"]
+    end
+
+    subgraph dev["✨ Development Workflow"]
+        dv1["Feature Branch<br/>↓<br/>Write & Test<br/>↓<br/>PR & Merge"]
+    end
+
+    subgraph route["🤖 AI Routing"]
+        rt1["Describe Task<br/>↓<br/>Auto-Route<br/>↓<br/>Execute"]
+    end
+
+    style docs fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style site fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style release fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style dev fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style route fill:#ede7f6,stroke:#512da8,stroke-width:2px
+```
+
+| Workflow | Best For | Start Command | Time | Complexity |
+|----------|----------|---------------|------|------------|
+| **Documentation** | Auto-sync docs | `/craft:docs:update` | < 30s | Simple |
+| **Site Creation** | New docs site | `/craft:site:create --quick` | < 5m | Simple |
+| **Release** | Publishing | `/craft:check --for release` | < 2m | Medium |
+| **Development** | New features | `/craft:git:worktree add name` | Varies | Medium |
+| **AI Routing** | Complex tasks | `/craft:do "description"` | Varies | Complex |
 
 ---
 

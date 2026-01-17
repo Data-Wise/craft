@@ -167,7 +167,7 @@ Checks:
   ├── mypy .                    (type checking)
   ├── pytest                    (tests)
   ├── pip-audit                 (security)
-  └── docs validation           (if docs/ exists)
+  └── /craft:docs:check-links   (if docs/ exists and changed)
 ```
 
 ### JavaScript/TypeScript Projects
@@ -178,7 +178,7 @@ Checks:
   ├── tsc --noEmit              (types)
   ├── npm test                  (tests)
   ├── npm audit                 (security)
-  └── docs validation           (if docs/ exists)
+  └── /craft:docs:check-links   (if docs/ exists and changed)
 ```
 
 ### R Packages
@@ -202,12 +202,45 @@ Checks:
   └── go mod verify             (dependencies)
 ```
 
+## Documentation Checks
+
+**Conditional checking** - Runs only when needed:
+
+```bash
+# Check if docs/ directory exists
+if [ -d "docs/" ]; then
+  # Check if any docs were modified
+  if git diff --name-only | grep -q "^docs/"; then
+    echo "📚 Docs changed, running validation..."
+
+    # Step 1: Markdown linting (fast, critical errors)
+    echo "  → Checking markdown quality..."
+    claude "/craft:docs:lint default"
+
+    # Step 2: Link validation (internal links)
+    echo "  → Checking links..."
+    claude "/craft:docs:check-links default"
+  else
+    echo "📚 Docs unchanged, skipping validation"
+  fi
+fi
+```
+
+**Integration:**
+- Automatically runs 2 checks when docs are changed:
+  1. `/craft:docs:lint` - Markdown quality (critical errors)
+  2. `/craft:docs:check-links` - Internal link validation
+- Uses default mode for speed (< 6s total)
+- Critical errors cause pre-flight to fail
+- Prevents deploying broken documentation
+
 ## Check Modes
 
 ### Default Mode (Quick)
 - Lint check (fast rules only)
 - Test run (fail-fast)
 - Git status
+- Docs quality (if docs/ changed: lint + links)
 - ~30 seconds
 
 ### Thorough Mode
@@ -215,7 +248,7 @@ Checks:
 - Complete test suite
 - Type checking
 - Security audit
-- Doc validation
+- Doc validation (lint + links + anchors)
 - ~3-5 minutes
 
 ## Context-Specific Checks
@@ -302,7 +335,9 @@ Checks:
 ## Integration
 
 Works with:
-- `/craft:code:lint` - Detailed lint results
+- `/craft:code:lint` - Detailed code lint results
 - `/craft:test:run` - Detailed test results
+- `/craft:docs:lint` - Markdown quality validation
+- `/craft:docs:check-links` - Documentation link validation
 - `/craft:code:ci-fix` - Auto-fix issues
 - `/craft:code:ci-local` - Full CI simulation

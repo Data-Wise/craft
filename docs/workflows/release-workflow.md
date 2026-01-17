@@ -16,7 +16,7 @@ Use this workflow when you need to:
 - Deploy documentation updates
 
 **Example scenarios:**
-- "Ready to release v1.18.0"
+- "Ready to release v1.20.0"
 - "Need to publish the latest fixes"
 - "Time for a major version bump"
 
@@ -140,10 +140,10 @@ git pull origin dev
 
 # Create release PR
 gh pr create --base main --head dev \
-  --title "Release v1.18.0" \
+  --title "Release v1.20.0" \
   --body "$(cat <<'EOF'
 ## Summary
-Release v1.18.0 with documentation improvements.
+Release v1.20.0 with documentation improvements.
 
 ## Changes
 - Add help pages for key commands
@@ -172,7 +172,7 @@ git checkout main
 git pull origin main
 
 # Create and push tag
-git tag v1.18.0
+git tag v1.20.0
 git push --tags
 ```
 
@@ -195,8 +195,8 @@ npm publish
 
 #### GitHub Release
 ```bash
-gh release create v1.18.0 \
-  --title "v1.18.0" \
+gh release create v1.20.0 \
+  --title "v1.20.0" \
   --notes-file CHANGELOG.md \
   --latest
 ```
@@ -239,12 +239,12 @@ For testing before full release:
 
 ```bash
 # Tag with pre-release identifier
-git tag v1.18.0-beta.1
+git tag v1.20.0-beta.1
 git push --tags
 
 # Create pre-release on GitHub
-gh release create v1.18.0-beta.1 \
-  --title "v1.18.0 Beta 1" \
+gh release create v1.20.0-beta.1 \
+  --title "v1.20.0 Beta 1" \
   --prerelease
 ```
 
@@ -292,15 +292,15 @@ jobs:
 | Pre-release check | `/craft:check --for release` |
 | Update changelog | `/craft:docs:changelog` |
 | Create release PR | `gh pr create --base main --head dev` |
-| Create tag | `git tag v1.18.0 && git push --tags` |
-| Create release | `gh release create v1.18.0` |
+| Create tag | `git tag v1.20.0 && git push --tags` |
+| Create release | `gh release create v1.20.0` |
 | Deploy docs | `/craft:site:deploy` |
 
 ---
 
 ## See Also
 
-- **Help:** [/craft:check](../help/check.md)
-- **Help:** [/craft:docs:update](../help/docs-update.md)
+- **Help:** [/craft:check](../commands/check.md)
+- **Help:** [/craft:docs:update](../commands/docs/update.md)
 - **Workflow:** [Git Feature Workflow](git-feature-workflow.md)
 - **Workflow:** [Pre-commit Workflow](pre-commit-workflow.md)

@@ -660,7 +660,7 @@ gh auth status
 
 - [Git Workflow Guide](../workflows/git-feature-workflow.md)
 - [Branch Protection Guide](../workflows/pre-commit-workflow.md)
-- [CI/CD Setup](../help/ci-generate.md)
+- [CI/CD Setup](../commands/ci/generate.md)
 - [Getting Started Guide](../guide/getting-started.md)
 
 ---

@@ -1,0 +1,135 @@
+site_name: Craft Plugin
+site_description: Full-stack developer toolkit - 97 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces
+site_url: https://data-wise.github.io/craft/
+
+repo_name: Data-Wise/craft
+repo_url: https://github.com/Data-Wise/craft
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - admonition
+  - pymdownx.details
+  - tables
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+
+nav:
+  - Home: index.md
+  - 🚀 Quick Start: QUICK-START.md
+  - 🧠 ADHD Guide: ADHD-QUICK-START.md
+  - 📊 Visual Workflows: workflows/index.md
+  - 🎮 Playground: PLAYGROUND.md
+  - 📚 Reference Card: REFCARD.md
+  - Commands:
+    - Overview: commands/overview.md
+    - Complete Reference: commands.md
+    - Smart Commands: commands/smart.md
+    - Documentation: commands/docs.md
+    - Site Management: commands/site.md
+    - Code & Testing: commands/code.md
+    - Git & CI: commands/git.md
+    - Architecture: commands/arch.md
+    - Distribution: commands/dist.md
+    - Planning: commands/plan.md
+  - Guide:
+    - Getting Started: guide/getting-started.md
+    - Homebrew Installation: guide/homebrew-installation.md
+    - Documentation Quality: guide/documentation-quality.md
+    - Teaching Workflow: guide/teaching-workflow.md
+    - Skills & Agents: guide/skills-agents.md
+    - Orchestrator: guide/orchestrator.md
+    - Configuration: reference/configuration.md
+    - Presets: reference/presets.md
+    - Accessibility: ACCESSIBILITY.md
+  - Help:
+    - /craft:hub: help/hub.md
+    - /craft:do: help/do.md
+    - /craft:check: help/check.md
+    - /craft:orchestrate: help/orchestrate.md
+    - /craft:git:init: commands/git-init-reference.md
+    - /craft:git:worktree: help/git-worktree.md
+    - /craft:docs:update: help/docs-update.md
+    - /craft:docs:lint: reference/documentation-quality.md
+    - /craft:docs:check-links: reference/documentation-quality.md
+    - /craft:ci:generate: help/ci-generate.md
+    - /craft:site:publish: reference/REFCARD-TEACHING.md
+    - /craft:site:progress: reference/REFCARD-TEACHING.md
+    - /workflow:brainstorm: help/brainstorm.md
+  - Teaching Mode:
+    - Documentation Index: TEACHING-DOCS-INDEX.md
+    - Setup Tutorial: tutorials/teaching-mode-setup.md
+    - Complete Guide: guide/teaching-workflow.md
+    - Quick Reference: reference/REFCARD-TEACHING.md
+    - Config Schema: teaching-config-schema.md
+    - Migration Guide: teaching-migration.md
+  - Development:
+    - Documentation Quality Development: guide/documentation-quality-development.md
+  - Git Init:
+    - Command Reference: commands/git-init-reference.md
+    - Architecture Guide: architecture/git-init-flow.md
+    - Tutorial: guide/git-init-tutorial.md
+    - Documentation Index: git-init-docs-index.md
+  - Workflows:
+    - Pre-commit Workflow: workflows/pre-commit-workflow.md
+    - Git Feature Workflow: workflows/git-feature-workflow.md
+    - Release Workflow: workflows/release-workflow.md
+  - Architecture & Reference:
+    - Architecture Overview: architecture.md
+    - Orchestrator Reference: orchestrator.md
+    - Skills & Agents Reference: skills-agents.md
+  - CI/CD Resources:
+    - CI Detection Rollout: CI-DETECTION-ROLLOUT.md
+    - CI Templates: CI-TEMPLATES.md

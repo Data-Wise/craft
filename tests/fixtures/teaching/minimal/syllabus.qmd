@@ -1,0 +1,20 @@
+---
+title: "TEST 100: Minimal Test Course"
+---
+
+# Course Overview
+
+This is a minimal test course.
+
+## Instructor
+
+Dr. Test
+Email: test@example.com
+
+## Course Description
+
+A simple course for testing purposes.
+
+## Grading
+
+- Participation: 100%
