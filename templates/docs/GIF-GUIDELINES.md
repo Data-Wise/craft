@@ -255,24 +255,62 @@ export PS1="$ "  # Simple prompt
 
 ---
 
-## Optimization
+## Optimization (REQUIRED)
 
-### Using gifsicle
+**⚠️ MANDATORY: All GIFs MUST be optimized before committing**
+
+Optimization reduces file size by 30-70% while maintaining quality, improving page load times and reducing bandwidth.
+
+### Recommended Tool: gifsicle
+
+Install gifsicle (required for GIF creation):
+```bash
+# macOS
+brew install gifsicle
+
+# Linux
+sudo apt install gifsicle
+```
+
+### Standard Optimization Workflow
 
 ```bash
-# Basic optimization (reduces file size)
-gifsicle -O3 input.gif -o output.gif
+# STEP 1: Generate GIF (e.g., with VHS)
+vhs demo.tape
 
-# Optimize with color reduction
-gifsicle -O3 --colors 128 input.gif -o output.gif
+# STEP 2: Optimize (REQUIRED - choose one)
 
-# Lossy optimization (smaller but slightly degraded)
-gifsicle -O3 --lossy=80 --colors 128 input.gif -o output.gif
+# Option A: Recommended (balanced quality/size)
+gifsicle -O3 --colors 128 --lossy=80 demo.gif -o demo.gif
 
-# Batch optimize all GIFs
-for gif in docs/assets/gifs/**/*.gif; do
-    gifsicle -O3 --colors 128 "$gif" -o "${gif%.gif}-optimized.gif"
+# Option B: Maximum compression (for large GIFs)
+gifsicle -O3 --colors 64 --lossy=100 demo.gif -o demo.gif
+
+# Option C: High quality (for detailed UIs)
+gifsicle -O3 --colors 256 demo.gif -o demo.gif
+
+# STEP 3: Verify readability (see Readability Check below)
+open demo.gif  # Check text is readable, timing is natural
+```
+
+### Batch Optimization
+
+```bash
+# Optimize all GIFs in directory (RECOMMENDED)
+for gif in docs/demos/*.gif docs/gifs/*.gif; do
+    gifsicle -O3 --colors 128 --lossy=80 "$gif" -o "$gif"
+    echo "Optimized: $gif ($(ls -lh "$gif" | awk '{print $5}'))"
 done
+```
+
+### Before/After Size Check
+
+```bash
+# Check sizes before optimization
+ls -lh docs/demos/*.gif docs/gifs/*.gif | awk '{print $9, $5}'
+
+# After optimization, verify all GIFs ≤ 2MB
+ls -lh docs/demos/*.gif docs/gifs/*.gif | awk '{if ($5 ~ /M/) { size=$5; gsub(/M/, "", size); if (size+0 > 2.0) print "❌ TOO LARGE:", $9, $5; else print "✅ OK:", $9, $5 } else print "✅ OK:", $9, $5}'
 ```
 
 ### Using ffmpeg
@@ -295,6 +333,54 @@ ffmpeg -i input.mov -vf \
 | 5MB | < 2MB | Color reduction (256 → 128) |
 | 3MB | < 1MB | FPS reduction (30 → 10) |
 | 2MB | < 500KB | Lossy optimization |
+
+### Readability Check (REQUIRED)
+
+**After optimization, ALWAYS verify:**
+
+```bash
+# 1. Open GIF in viewer
+open demo.gif
+
+# 2. Check readability (ALL must be YES)
+# ✓ Can you read all text at normal viewing size?
+# ✓ Are command prompts clearly visible?
+# ✓ Is output legible without zooming?
+# ✓ Do colors have sufficient contrast?
+# ✓ Is timing natural (not too fast/slow)?
+# ✓ Does the loop feel smooth?
+```
+
+**Readability Issues:**
+
+| Problem | Cause | Fix |
+|---------|-------|-----|
+| **Text too blurry** | Too much lossy compression | Reduce `--lossy` value (80 → 60) |
+| **Colors washed out** | Too few colors | Increase `--colors` (128 → 256) |
+| **Text hard to read** | Font too small in recording | Re-record with larger font (14pt → 16pt) |
+| **Timing too fast** | Sleep values too short | Increase Sleep in VHS tape (1s → 2s) |
+| **File too large** | Not optimized | Run gifsicle with --lossy=80 |
+
+**Quality-Size Trade-offs:**
+
+```bash
+# If text becomes unreadable after optimization:
+# 1. Try less aggressive compression
+gifsicle -O3 --colors 256 --lossy=60 demo.gif -o demo.gif
+
+# 2. If still too large, reduce resolution instead
+# Re-record at 800px width instead of 1200px
+
+# 3. If still too large, reduce FPS in VHS tape
+Set FPS 10  # Instead of 15
+```
+
+**Acceptance Criteria:**
+- ✅ File size ≤ 2MB
+- ✅ All text readable without zooming
+- ✅ Command prompts clearly visible
+- ✅ Natural timing (not rushed)
+- ✅ Smooth playback
 
 ---
 
@@ -425,31 +511,43 @@ The GIF demonstrates:
 
 Before adding GIF to documentation:
 
-**Technical:**
-- [ ] File size ≤ 2MB
-- [ ] Resolution 800-1200px width
-- [ ] FPS 10-15 (not 30+)
-- [ ] Colors ≤ 128 palette
-- [ ] Loops infinitely
-- [ ] No audio track
+**Verification (REQUIRED FIRST):**
+- [ ] **Commands tested in Claude Code** (or bash for CLI tools)
+- [ ] **Real output captured** (screenshots/copy-paste)
+- [ ] **No errors** during testing
+- [ ] **Timing observed** (how long output takes to appear)
+
+**Technical (REQUIRED):**
+- [ ] **Optimized with gifsicle** (`-O3 --colors 128 --lossy=80`)
+- [ ] **File size ≤ 2MB** (check with `ls -lh`)
+- [ ] **Resolution 800-1200px width**
+- [ ] **FPS 10-15** (not 30+)
+- [ ] **Loops infinitely**
+- [ ] **No audio track**
+
+**Readability (REQUIRED):**
+- [ ] **All text readable** without zooming at normal viewing size
+- [ ] **Command prompts clearly visible** ($ or > visible)
+- [ ] **Output legible** (14-16pt font minimum in recording)
+- [ ] **Colors have sufficient contrast** (Solarized/Dracula themes work well)
+- [ ] **Timing natural** (not too fast to read, not too slow)
+- [ ] **Smooth playback** (no jarring jumps)
 
 **Content:**
 - [ ] Shows complete workflow
 - [ ] No sensitive information visible
-- [ ] Output is readable
-- [ ] Timing feels natural
 - [ ] Demonstrates one clear concept
+- [ ] Matches actual command behavior
 
 **Accessibility:**
 - [ ] Alt text provided
 - [ ] Caption written
 - [ ] Text explanation in docs
 - [ ] High contrast terminal
-- [ ] Readable font size
 
 **Naming & Organization:**
-- [ ] Follows naming convention
-- [ ] Stored in correct directory
+- [ ] Follows naming convention (`<feature>-<action>-<variant>.gif`)
+- [ ] Stored in correct directory (`docs/demos/` or `docs/gifs/`)
 - [ ] Referenced correctly in docs
 - [ ] Markdown image syntax correct
 
