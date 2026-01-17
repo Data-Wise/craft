@@ -128,6 +128,15 @@ nav:
       - Distribution: commands/dist.md
       - Planning: commands/plan.md
     - Complete A-Z Reference: commands.md
+    - Help & Examples:
+      - /craft:check: commands/check.md
+      - /craft:do: commands/do.md
+      - /craft:hub: commands/hub.md
+      - /craft:orchestrate: commands/orchestrate.md
+      - /craft:ci:generate: commands/ci/generate.md
+      - /craft:docs:update: commands/docs/update.md
+      - /craft:git:worktree: commands/git/worktree.md
+      - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
 
   # 4. COOKBOOK & EXAMPLES - Use case driven recipes
   - 📚 Cookbook & Examples:
@@ -137,6 +146,8 @@ nav:
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
       - Check Code Quality Before Commit: cookbook/common/check-code-quality-before-commit.md
+    - Troubleshooting:
+      - Command Not Found: cookbook/troubleshooting/command-not-found.md
 
   # 5. REFERENCE & ARCHITECTURE - Technical deep-dive
   - Reference & Architecture:
