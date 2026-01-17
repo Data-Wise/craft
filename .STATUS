@@ -248,6 +248,7 @@ recent:
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
   - feature/broken-link-validation: ~/.git-worktrees/craft/feature-broken-link-validation (active)
+  - feature/website-org-phase2: ~/.git-worktrees/craft/feature-website-org-phase2 (WIP - Phase 2)
 
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
@@ -386,18 +387,20 @@ planned_features:
 
   website_organization:
     spec: docs/specs/SPEC-website-organization-standard-2026-01-17.md
-    status: draft
+    status: in_progress (Phase 2)
     priority: Medium
     target: v1.22.0 or later
-    effort: ~1 hour (Phase 1 - Quick Wins)
+    effort: ~2-4 hours (Phase 2 - Medium Effort)
+    started: 2026-01-17
+    branch: feature/website-org-phase2
     description: Reorganize documentation site for better discoverability and reduced cognitive load
     problem: "14 top-level navigation sections overwhelming users, scattered commands, unclear hierarchy"
     target_user: All three audiences (beginners, daily users, advanced)
     key_insight: "Hybrid IA (task + feature) with progressive disclosure serves multiple audiences"
     solution: "Consolidate 14 → 7 sections, merge Help into Commands, add Cookbook + Choose Your Path"
     phases:
-      - "Phase 1: Quick Wins (consolidate sections, refine emojis, Choose Path page) - < 1h"
-      - "Phase 2: Medium Effort (create Cookbook, merge Help, visual workflow index) - 2-4h"
+      - "Phase 1: Quick Wins (consolidate sections, refine emojis, Choose Path page) - < 1h ✅ COMPLETE"
+      - "Phase 2: Medium Effort (create Cookbook, merge Help, visual workflow index) - 2-4h 🚧 IN PROGRESS"
       - "Phase 3: Future (search by use case, progressive disclosure, interactive playground)"
     quick_wins:
       - "⚡ Update mkdocs.yml (consolidate 14→7 sections) - 20 min"
