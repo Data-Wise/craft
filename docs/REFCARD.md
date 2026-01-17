@@ -43,13 +43,23 @@
 | Command | Description |
 |---------|-------------|
 | `/craft:site:create` | Full site wizard with 8 ADHD-friendly presets |
+| `/craft:site:build` | Build site (teaching-aware) |
+| `/craft:site:publish` | **NEW** Preview → Validate → Deploy (teaching mode) |
+| `/craft:site:progress` | **NEW** Semester progress dashboard (teaching mode) |
 | `/craft:site:nav` | Navigation reorganization (max 7 sections) |
 | `/craft:site:audit` | Content inventory & audit |
 | `/craft:site:consolidate` | Merge duplicate/overlapping docs |
 | `/craft:site:status` | Dashboard and health check |
 | `/craft:site:deploy` | Deploy to GitHub Pages |
 
-**Quick examples:**
+**Teaching Mode Quick Start:**
+```bash
+/craft:site:build              # Preview changes
+/craft:site:progress           # Check semester status
+/craft:site:publish            # Validate & deploy to production
+```
+
+**Standard Quick Examples:**
 ```bash
 /craft:site:create --preset data-wise --quick
 /craft:site:status

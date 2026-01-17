@@ -88,6 +88,7 @@ nav:
     - Getting Started: guide/getting-started.md
     - Homebrew Installation: guide/homebrew-installation.md
     - Documentation Quality: guide/documentation-quality.md
+    - Teaching Workflow: guide/teaching-workflow.md
     - Skills & Agents: guide/skills-agents.md
     - Orchestrator: guide/orchestrator.md
     - Configuration: reference/configuration.md
@@ -104,6 +105,8 @@ nav:
     - /craft:docs:lint: reference/documentation-quality.md
     - /craft:docs:check-links: reference/documentation-quality.md
     - /craft:ci:generate: help/ci-generate.md
+    - /craft:site:publish: reference/REFCARD-TEACHING.md
+    - /craft:site:progress: reference/REFCARD-TEACHING.md
     - /workflow:brainstorm: help/brainstorm.md
   - Development:
     - Documentation Quality Development: guide/documentation-quality-development.md
