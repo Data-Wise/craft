@@ -318,6 +318,59 @@ check_all_dependencies() {
 # Output:
 #   Formatted ASCII table with dependency status
 #
+#
+# Display dependency status as JSON for machine-readable output
+#
+# Args:
+#   $1 - method (for metadata)
+#   $2 - status_json (JSON array from check_dependencies)
+#
+# Output:
+#   Pretty-printed JSON with overall status, method, and tools array
+#
+display_status_json() {
+    local method="$1"
+    local status_json="$2"
+
+    # Count issues for overall status
+    local missing_count
+    local broken_count
+
+    missing_count=$(echo "$status_json" | jq '[.[] | select(.installed == false and .required == true)] | length' 2>/dev/null || echo "0")
+    broken_count=$(echo "$status_json" | jq '[.[] | select(.health == "broken" and .required == true)] | length' 2>/dev/null || echo "0")
+
+    # Determine overall status
+    local overall_status="ok"
+    if [ "$missing_count" -gt 0 ] || [ "$broken_count" -gt 0 ]; then
+        overall_status="issues"
+    fi
+
+    # Build output JSON using jq
+    echo "$status_json" | jq \
+        --arg status "$overall_status" \
+        --arg method "$method" \
+        'map({
+            name: .name,
+            installed: .installed,
+            version: .version,
+            health: .health
+        }) | {
+            status: ($status),
+            method: ($method),
+            tools: .
+        }'
+}
+
+#
+# Display status table for dependencies
+#
+# Args:
+#   $1 - method (for title)
+#   $2 - status_json (JSON array from check_dependencies)
+#
+# Output:
+#   Formatted ASCII table with dependency status
+#
 display_status_table() {
     local method="$1"
     local status_json="$2"
@@ -472,19 +525,33 @@ if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
             fi
             ;;
 
+        display_status_json)
+            method="${arg1:-asciinema}"
+            # Check dependencies and output JSON
+            if status_json=$(check_dependencies "$method"); then
+                display_status_json "$method" "$status_json"
+                exit 0
+            else
+                display_status_json "$method" "$status_json"
+                exit 1
+            fi
+            ;;
+
         *)
-            echo "Usage: $0 {parse_frontmatter|check_dependencies|check_all_dependencies|display_status_table} [method]"
+            echo "Usage: $0 {parse_frontmatter|check_dependencies|check_all_dependencies|display_status_table|display_status_json} [method]"
             echo ""
             echo "Commands:"
             echo "  parse_frontmatter          - Extract dependencies from demo.md"
             echo "  check_dependencies METHOD  - Check deps for method (asciinema|vhs|all)"
             echo "  check_all_dependencies     - Check all deps"
             echo "  display_status_table METHOD - Check and display formatted table"
+            echo "  display_status_json METHOD  - Check and output JSON status"
             echo ""
             echo "Examples:"
             echo "  $0 parse_frontmatter"
             echo "  $0 check_dependencies asciinema"
             echo "  $0 display_status_table asciinema"
+            echo "  $0 display_status_json asciinema"
             exit 1
             ;;
     esac

@@ -154,6 +154,7 @@ The demo command includes built-in dependency checking for all required tools.
 ```bash
 /craft:docs:demo --check                     # Check all dependencies
 /craft:docs:demo --check --method asciinema  # Check for specific method
+/craft:docs:demo --check --json              # Get JSON output for CI/CD
 ```
 
 Shows a status table with:
@@ -162,6 +163,37 @@ Shows a status table with:
 - Installed version
 - Health check result
 - Install command if missing
+
+#### JSON Output
+
+Get machine-readable dependency status for CI/CD pipelines:
+
+```bash
+/craft:docs:demo --check --json
+/craft:docs:demo --check --method asciinema --json
+/craft:docs:demo --check --method vhs --json
+```
+
+**Output format:**
+```json
+{
+  "status": "ok",
+  "method": "asciinema",
+  "tools": [
+    {"name": "asciinema", "installed": true, "version": "2.3.0", "health": "ok"},
+    {"name": "agg", "installed": true, "version": "1.4.3", "health": "ok"},
+    {"name": "gifsicle", "installed": true, "version": "1.96", "health": "ok"}
+  ]
+}
+```
+
+**Status values:**
+- `ok` - All required tools installed and healthy
+- `issues` - Missing or broken tools detected
+
+**Exit codes:**
+- `0` - All required dependencies OK
+- `1` - Missing required dependencies or health check failed
 
 ### Auto-Installation
 
@@ -265,9 +297,10 @@ When `--check` flag is provided:
    source scripts/dependency-manager.sh
    ```
 
-2. Determine method:
+2. Determine method and output format:
    ```bash
    method="${args_method:-asciinema}"  # Default to asciinema
+   json_mode="${args_json:-false}"     # JSON output if --json flag present
    ```
 
 3. Check dependencies and capture status:
@@ -276,9 +309,15 @@ When `--check` flag is provided:
    exit_code=$?
    ```
 
-4. Display status table:
+4. Display status based on output mode:
    ```bash
-   display_status_table "$method" "$status_json"
+   if [ "$json_mode" = "true" ]; then
+       # Machine-readable JSON output
+       display_status_json "$method" "$status_json"
+   else
+       # Human-readable table format
+       display_status_table "$method" "$status_json"
+   fi
    exit $exit_code
    ```
 
@@ -286,6 +325,17 @@ When `--check` flag is provided:
 
 - `0` - All required dependencies OK
 - `1` - Missing required dependencies or health check failed
+
+#### JSON Output Details
+
+The `display_status_json` function:
+1. Analyzes the status JSON from `check_dependencies`
+2. Counts missing and broken required tools
+3. Sets overall status to "ok" if all OK, "issues" if any problems
+4. Outputs formatted JSON with:
+   - `status` - Overall status ("ok" or "issues")
+   - `method` - The method checked (asciinema, vhs, all)
+   - `tools` - Array of tool objects with name, installed, version, health
 
 ### Implementation: Auto-Installation (--fix)
 
