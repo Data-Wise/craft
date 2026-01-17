@@ -71,10 +71,10 @@ Complete documentation for Craft's teaching mode feature.
 
 | Command | Description | Link |
 |---------|-------------|------|
-| `/craft:site:publish` | Publish draft → production with preview | [Documentation](../commands/site/publish.md) |
-| `/craft:site:progress` | Semester progress dashboard | [Documentation](../commands/site/progress.md) |
-| `/craft:site:validate` | Content validation (syllabus, schedule) | [Documentation](../commands/site/validate.md) |
-| `/craft:site:build` | Build site with teaching mode support | [Documentation](../commands/site/build.md) |
+| `/craft:site:publish` | Publish draft → production with preview | [Documentation](commands/site.md#publish) |
+| `/craft:site:progress` | Semester progress dashboard | [Documentation](commands/site.md#progress) |
+| `/craft:site:validate` | Content validation (syllabus, schedule) | [Documentation](commands/site.md#validate) |
+| `/craft:site:build` | Build site with teaching mode support | [Documentation](commands/site.md#build) |
 
 ## Documentation by Use Case
 
@@ -160,11 +160,11 @@ validation:
    - Fix missing sections or incomplete content
 
 3. **Publish failures**
-   - See: [Publish Command - Error Handling](../commands/site/publish.md#error-handling)
+   - See: [Publish Command - Error Handling](commands/site.md#publish)
    - Review merge conflicts, network errors
 
 4. **Progress calculation wrong**
-   - See: [Progress Command - Troubleshooting](../commands/site/progress.md#troubleshooting)
+   - See: [Progress Command - Troubleshooting](commands/site.md#progress)
    - Verify dates and breaks in config
 
 5. **Migration issues**
@@ -292,11 +292,11 @@ validation:
 - [Command Reference](REFCARD.md) - All 86+ commands
 
 **Site commands:**
-- [Site Create](../commands/site/create.md) - Documentation site wizard
-- [Site Deploy](../commands/site/deploy.md) - Direct GitHub Pages deployment
-- [Site Check](../commands/site/check.md) - Health validation
+- [Site Create](commands/site.md#create) - Documentation site wizard
+- [Site Deploy](commands/site.md#deploy) - Direct GitHub Pages deployment
+- [Site Check](commands/site.md#check) - Health validation
 
 **Git workflows:**
-- [Git Worktree](../commands/git/worktree.md) - Parallel development
-- [Git Branch](../commands/git/branch.md) - Branch management
-- [Git Sync](../commands/git/sync.md) - Smart synchronization
+- [Git Worktree](commands/git.md#worktree) - Parallel development
+- [Git Branch](commands/git.md#branch) - Branch management
+- [Git Sync](commands/git.md#sync) - Smart synchronization

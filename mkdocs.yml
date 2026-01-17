@@ -157,6 +157,13 @@ nav:
     - Orchestrator Deep Dive: orchestrator.md
     - Architecture Overview: architecture.md
     - Documentation Quality: reference/documentation-quality.md
+    - Specifications:
+      - Broken Link Validation: specs/SPEC-broken-link-validation-2026-01-17.md
+      - Hub v2.0 Discovery: specs/SPEC-craft-hub-v2-2026-01-15.md
+      - Dry-Run Feature: specs/SPEC-dry-run-feature-2026-01-15.md
+      - Teaching Workflow: specs/SPEC-teaching-workflow-2026-01-16.md
+      - Website Organization: specs/SPEC-website-organization-standard-2026-01-17.md
+      - Help Template System: specs/SPEC-help-template-menu-2026-01-16.md
 
   # 6. FOR CONTRIBUTORS - Development resources
   - For Contributors:
