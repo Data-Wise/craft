@@ -135,7 +135,49 @@ See: `templates/docs/GIF-GUIDELINES.md` for full workflow.
 /craft:docs:demo --preview                     # Show recording guide without starting
 /craft:docs:demo "sessions" --watch            # Watch mode: auto-regenerate on changes
 /craft:docs:demo "sessions" --generate         # Record/generate AND convert to GIF immediately
+/craft:docs:demo --check                       # Validate all dependencies
+/craft:docs:demo --check --method asciinema    # Check asciinema-specific deps
+/craft:docs:demo --fix                         # Auto-install missing dependencies (Phase 2)
 ```
+
+## Dependency Management
+
+The demo command includes built-in dependency checking for all required tools.
+
+### Check Dependencies
+
+```bash
+/craft:docs:demo --check                     # Check all dependencies
+/craft:docs:demo --check --method asciinema  # Check for specific method
+```
+
+Shows a status table with:
+- Tool name and purpose
+- Installation status (✅ OK, ❌ MISSING, ⚠️  OPTIONAL)
+- Installed version
+- Health check result
+- Install command if missing
+
+### Auto-Installation (Phase 2)
+
+```bash
+/craft:docs:demo --fix                       # Install missing dependencies
+```
+
+**Note:** --fix flag coming in Phase 2 (v1.24.0)
+
+### Required Tools by Method
+
+**asciinema method:**
+- asciinema (record sessions)
+- agg (convert .cast to .gif)
+- gifsicle (optimize GIF size)
+- fswatch (optional, for watch mode)
+
+**vhs method:**
+- vhs (scripted demos)
+- gifsicle (optimize GIF size)
+- fswatch (optional, for watch mode)
 
 ## Recording Methods
 
@@ -158,6 +200,55 @@ See: `templates/docs/GIF-GUIDELINES.md` for full workflow.
 - Automated demo generation in CI/CD
 
 ## When Invoked
+
+### Implementation: Dependency Checking
+
+When `--check` flag is provided:
+
+1. Source the dependency manager:
+   ```bash
+   source scripts/dependency-manager.sh
+   ```
+
+2. Determine method:
+   ```bash
+   method="${args_method:-asciinema}"  # Default to asciinema
+   ```
+
+3. Check dependencies and capture status:
+   ```bash
+   status_json=$(check_dependencies "$method")
+   exit_code=$?
+   ```
+
+4. Display status table:
+   ```bash
+   display_status_table "$method" "$status_json"
+   exit $exit_code
+   ```
+
+#### Exit Codes
+
+- `0` - All required dependencies OK
+- `1` - Missing required dependencies or health check failed
+
+#### Integration with Normal Workflow
+
+Before recording or generating demos, optionally validate dependencies:
+
+```bash
+# Early validation (optional in normal workflow)
+if [ "${args_check_dependencies:-false}" = "true" ]; then
+    source scripts/dependency-manager.sh
+    method="${args_method:-asciinema}"
+
+    if ! check_dependencies "$method" > /dev/null 2>&1; then
+        echo "⚠️  Missing dependencies. Run: /craft:docs:demo --check"
+        echo "   Or install with: /craft:docs:demo --fix"
+        exit 1
+    fi
+fi
+```
 
 ### Step 1: Determine Feature Commands
 
