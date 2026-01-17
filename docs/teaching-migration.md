@@ -663,10 +663,10 @@ After successful migration:
 
 ## Resources
 
-- **[Teaching Mode Setup Tutorial](teaching-mode-setup.md)** - First-time setup guide
+- **[Teaching Mode Setup Tutorial](tutorials/teaching-mode-setup.md)** - First-time setup guide
 - **[Config Schema](teaching-config-schema.md)** - Complete YAML reference
-- **[Command Reference: `/craft:site:publish`](../commands/site/publish.md)** - Publishing workflow
-- **[Command Reference: `/craft:site:validate`](../commands/site/validate.md)** - Content validation
+- **[Command Reference: `/craft:site:publish`](../commands/site/publish.md)** - Publishing workflow with validation
+- **[Command Reference: `/craft:site:progress`](../commands/site/progress.md)** - Progress dashboard
 - **[GitHub Issues](https://github.com/Data-Wise/craft/issues)** - Report problems or suggest features
 
 ## Get Help
