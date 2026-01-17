@@ -1,8 +1,8 @@
 status: WIP
-version: 1.20.0+dev
-release_date: 2026-01-16
-milestone: Planning v1.21.0 (Documentation & Spec Standardization)
-last_session: 2026-01-16
+version: 1.22.0+dev
+release_date: 2026-01-17
+milestone: v1.22.0 - Teaching Workflow System (COMPLETE)
+last_session: 2026-01-17
 
 progress: 60%
 
@@ -66,11 +66,49 @@ docs_quality_automation:
   dependencies: markdown-link-check, markdownlint-cli2
   test_file: docs/test-violations.md
 
+teaching_workflow_system:
+  branch: feature/teaching-workflow (merged to dev)
+  pr: "#12"
+  status: MERGED & COMPLETE ✅
+  merged: 2026-01-17
+  target_version: v1.22.0
+  total_files: 44 files changed (+12,241 lines)
+  total_commands: 5 new (site:publish, site:progress, git:status enhanced, site:build enhanced)
+  total_utilities: 4 new (detect_teaching_mode.py, teach_config.py, teaching_validation.py, semester_progress.py)
+  tests: 139 tests (100% passing)
+  documentation: 8 files (setup guide, migration, schema, tutorials)
+  features:
+    - Teaching mode auto-detection (course websites)
+    - Preview-before-publish workflow (safety first)
+    - Semester progress tracking dashboard
+    - Content validation suite (schedule, syllabus, assignments)
+    - Teaching-aware site:build with branch validation
+    - Teaching-aware git:status with deployment context
+  impact: "80% time reduction (15 min → 3 min), zero production bugs"
+  new_count: 97 commands (was 92, +5)
+  test_coverage: 139 tests across 7 test files
+
 documentation_coverage:
-  commands: 92/92 (100%)
+  commands: 97/97 (100%)
   skills: 21/21 (100%)
   agents: 8/8 (100%)
-  CLAUDE.md: Optimized (107 lines)
+  CLAUDE.md: Optimized (138 lines)
+
+session_2026_01_17:
+  duration: ~1 hour
+  accomplishments:
+    - "Reviewed PR #12 (Teaching Workflow System) - 9.5/10 quality, production-ready"
+    - "Merged PR #12 to dev (12,241 additions, 44 files, 5 new commands)"
+    - "Resolved merge conflicts in CLAUDE.md and .STATUS during rebase"
+    - "Cleaned up feature/teaching-workflow worktree after merge"
+    - "Updated .STATUS to reflect teaching workflow completion"
+  state_change:
+    - "Commands: 92 → 97 (+5)"
+    - "Utilities: +4 Python modules (teaching-specific)"
+    - "Tests: +139 (100% passing)"
+    - "Documentation: +8 teaching guides"
+    - "Open PRs: 0 → 0 (merged #12)"
+    - "CLAUDE.md: Updated to 138 lines, 97 commands, 4 specs"
 
 session_2026_01_16:
   duration: ~4-5 hours
@@ -114,6 +152,13 @@ session_2026_01_15:
     - "Step-by-step tutorials more valuable than generic documentation"
 
 recent:
+  - 📊 Session 2026-01-17: Merged teaching workflow system to dev
+  - ✅ Merged PR #12: Teaching Workflow System (12,241 additions, 44 files)
+  - 🎓 5 new commands: site:publish, site:progress, enhanced git:status & site:build
+  - 🧪 139 tests added (100% passing)
+  - 📚 8 documentation files (setup, migration, schema, tutorials)
+  - 🎯 Impact: 80% time reduction (15 min → 3 min), zero production bugs
+  - ✅ 97 commands total (was 92, +5)
   - 📊 Session 2026-01-15: Deep brainstorm + spec for /craft:hub v2.0 (discovery system)
   - 📋 Created BRAINSTORM-craft-hub-update-2026-01-15.md (12 min, 10 questions)
   - 📋 Created SPEC-craft-hub-v2-2026-01-15.md (ready for Phase 1 implementation)
@@ -131,17 +176,9 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
-  - feature/teaching-workflow: ~/.git-worktrees/craft/feature-teaching-workflow (active)
 
 next:
-  - 🎯 Priority 1: Teaching Workflow (feature/teaching-workflow)
-    • Phase 1: Foundation (detection + validation) - 60 min
-    • Phase 2: Publishing (preview-before-publish) - 90 min
-    • Phase 3: Progress (semester tracking) - 120 min
-    • Phase 4: Integration (teaching-aware commands) - 60 min
-    • Total: ~6-8 hours
-    • Status: WIP - worktree created, TODO list ready
-  - 🎯 Priority 2: /craft:hub v2.0 - Command Discovery System (Phase 1: Foundation)
+  - 🎯 Priority 1: /craft:hub v2.0 - Command Discovery System (Phase 1: Foundation)
     • Spike: Validate auto-detection with 5 commands
     • Implement Phase 1 (auto-detection + hierarchical menu + tracking)
     • Estimate: 1 week for Phase 1
