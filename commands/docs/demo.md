@@ -1,3 +1,84 @@
+---
+description: Terminal Recording & GIF Generator with dependency management
+dependencies:
+  asciinema:
+    required: true
+    purpose: "Record real terminal sessions"
+    methods: ["asciinema"]
+    install:
+      brew: "asciinema"
+      apt: "asciinema"
+      yum: "asciinema"
+    version:
+      min: "2.0.0"
+      check_cmd: "asciinema --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "asciinema --help"
+      expect_exit: 0
+
+  agg:
+    required: true
+    purpose: "Convert .cast to .gif"
+    methods: ["asciinema"]
+    install:
+      cargo: "agg"
+      cargo_git: "https://github.com/asciinema/agg"
+      binary:
+        url: "https://github.com/asciinema/agg/releases/latest/download/agg-{{arch}}-apple-darwin"
+        arch_map:
+          x86_64: "x86_64"
+          arm64: "aarch64"
+        target: "/usr/local/bin/agg"
+    version:
+      min: "1.4.0"
+      check_cmd: "agg --version 2>&1 | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "agg --help"
+      expect_exit: 0
+
+  gifsicle:
+    required: true
+    purpose: "Optimize GIF file size"
+    methods: ["asciinema", "vhs"]
+    install:
+      brew: "gifsicle"
+      apt: "gifsicle"
+      yum: "gifsicle"
+    version:
+      min: "1.90"
+      check_cmd: "gifsicle --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "gifsicle --help"
+      expect_exit: 0
+
+  vhs:
+    required: false
+    purpose: "Generate scripted demos (alternative to asciinema)"
+    methods: ["vhs"]
+    install:
+      brew: "charmbracelet/tap/vhs"
+    version:
+      min: "0.7.0"
+      check_cmd: "vhs --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "vhs --help"
+      expect_exit: 0
+
+  fswatch:
+    required: false
+    purpose: "Watch mode for iterative development"
+    methods: ["asciinema", "vhs"]
+    install:
+      brew: "fswatch"
+      apt: "fswatch"
+    version:
+      min: "1.14.0"
+      check_cmd: "fswatch --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "fswatch --help"
+      expect_exit: 0
+---
+
 # /craft:docs:demo - Terminal Recording & GIF Generator
 
 You are a terminal demo creator. Record real terminal sessions or generate scripted demos for documentation.
