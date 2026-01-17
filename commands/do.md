@@ -102,10 +102,102 @@ Preview which commands will be executed without actually running them:
 ## How It Works
 
 1. **Check Spec** - Look for existing spec matching task (NEW in v1.1.0)
-2. **Analyze** - Parse task description for intent
-3. **Route** - Select appropriate craft commands
-4. **Execute** - Run commands in optimal order
-5. **Report** - Summarize what was done
+2. **Analyze** - Parse task description for intent and category
+3. **Score Complexity** - Calculate 0-10 score based on 5 factors (NEW in v1.23.0)
+4. **Route Decision** - Choose execution strategy:
+   - **Score 0-3**: Route to craft commands (traditional)
+   - **Score 4-7**: Delegate to specialized agent (NEW)
+   - **Score 8-10**: Delegate to orchestrator-v2 (NEW)
+5. **Execute** - Run commands or invoke agent with forked context
+6. **Synthesize** - Gather results and report to user
+7. **Report** - Summarize what was done
+
+## Agent Delegation Workflow (NEW in v1.23.0)
+
+When complexity score ≥ 4, `/craft:do` delegates to specialized agents:
+
+### Step 1: Complexity Analysis
+
+```
+User: /craft:do "add OAuth login to the app"
+
+Claude analyzes:
+- Multi-step task: +2 (design → implement → test)
+- Requires planning: +2 (auth architecture)
+- Total score: 4/10 (Medium)
+→ Decision: Delegate to feature-dev agent
+```
+
+### Step 2: Agent Selection
+
+Based on task keywords and complexity:
+
+```
+Keywords: "add", "OAuth", "login"
+Category: Feature Development
+Score: 4/10
+→ Selected agent: feature-dev (max complexity: 7)
+```
+
+### Step 3: Forked Context Execution
+
+```
+Main Context (your conversation)
+    ↓
+    Spawn feature-dev agent in forked context
+    ↓
+    Agent works independently:
+    - Designs OAuth flow
+    - Creates implementation plan
+    - Generates test stubs
+    - Identifies dependencies
+    ↓
+    Results synthesized back to main context
+```
+
+### Step 4: Result Synthesis
+
+```
+Claude receives agent results and presents:
+✓ Architecture designed (OAuth 2.0 + PKCE)
+✓ Implementation plan created (4 phases)
+✓ Test stubs generated (12 test cases)
+✓ Dependencies identified (oauth2 SDK, JWT library)
+
+Ready to implement? (y/n)
+```
+
+## Agent Delegation Rules
+
+### When to Delegate
+
+| Condition | Action | Reason |
+|-----------|--------|--------|
+| Score < 4 | Route to commands | Simple, fast execution |
+| Score 4-7 | Delegate to agent | Medium complexity, needs expertise |
+| Score 8-10 | Delegate to orchestrator | Complex, multi-agent coordination |
+| User says "no agents" | Force command routing | Explicit user preference |
+
+### Forked Context Benefits
+
+- **Isolation**: Agent failures don't corrupt main conversation
+- **Parallelization**: Multiple agents can run simultaneously
+- **Resource Control**: Each agent has own context budget
+- **Clean Results**: Only final synthesis appears in main conversation
+
+### Fallback Strategy
+
+If agent delegation fails or is denied:
+
+```
+1. Attempt agent delegation
+   ↓ (if permission denied or agent fails)
+2. Fall back to command routing
+   ↓
+3. Execute traditional command sequence
+   ↓
+4. Report with note: "Completed without agent delegation"
+```
 
 ## Examples
 
@@ -356,6 +448,156 @@ Note: No spec found for "user authentication"
       Consider: /workflow:brainstorm save "user authentication"
       Proceeding with standard routing...
 ```
+
+---
+
+## Implementation (NEW in v1.23.0)
+
+When `/craft:do` is invoked, follow these steps:
+
+### Step 1: Analyze Task and Calculate Complexity
+
+```
+1. Parse task description for keywords and intent
+2. Calculate complexity score (0-10):
+
+   score = 0
+   if multi-step task (3+ operations):           score += 2
+   if cross-category (spans multiple domains):   score += 2
+   if requires planning (design/architecture):   score += 2
+   if requires research (investigation):          score += 2
+   if multi-file changes (5+ files):             score += 2
+
+3. Determine category:
+   - Feature (add/create/implement/build)
+   - Bug (fix/debug/error/issue)
+   - Quality (lint/quality/improve)
+   - Documentation (document/update docs/readme)
+   - Architecture (design/refactor/restructure)
+   - Release (release/deploy/publish)
+```
+
+### Step 2: Select Execution Strategy
+
+```
+if score < 4:
+    # Simple task - use traditional command routing
+    route_to_commands(task)
+
+elif score >= 4 and score <= 7:
+    # Medium complexity - delegate to specialized agent
+    agent = select_agent(task, score)
+    delegate_to_agent(agent, task)
+
+else:  # score >= 8
+    # Complex task - delegate to orchestrator
+    delegate_to_agent("orchestrator-v2", task)
+```
+
+### Step 3: Agent Selection Logic
+
+```python
+def select_agent(task, score):
+    # Check keywords for agent triggers
+    keywords = task.lower()
+
+    if score > 7:
+        return "orchestrator-v2"  # Complex, multi-step
+
+    if any(word in keywords for word in ["add", "create", "implement", "build"]):
+        if score <= 7:
+            return "feature-dev"  # Feature development
+
+    if any(word in keywords for word in ["design", "architect", "refactor"]):
+        if score <= 8:
+            return "backend-architect"  # Architecture
+
+    if any(word in keywords for word in ["fix", "debug", "error", "issue"]):
+        if score <= 6:
+            return "bug-detective"  # Debugging
+
+    if any(word in keywords for word in ["quality", "lint", "improve", "clean"]):
+        if score <= 5:
+            return "code-quality-reviewer"  # Code quality
+
+    # Default fallback for medium complexity
+    if score >= 4:
+        return "feature-dev"  # General purpose
+
+    return None  # Route to commands
+```
+
+### Step 4: Agent Delegation (Score ≥ 4)
+
+Use the `Task` tool to delegate to the selected agent:
+
+```
+# Example: Delegate to feature-dev agent
+Task(
+    subagent_type="feature-dev",
+    description="Implement OAuth login feature",
+    prompt=f"""
+    Task: {user_task}
+    Complexity: {score}/10 ({complexity_level})
+
+    Please:
+    1. Design the architecture
+    2. Create implementation plan
+    3. Generate test stubs
+    4. Identify dependencies
+
+    Provide a structured response with:
+    - Architecture overview
+    - Implementation phases
+    - Test coverage plan
+    - Dependencies and tools needed
+    """,
+    model="sonnet"  # Use appropriate model for complexity
+)
+```
+
+### Step 5: Result Synthesis
+
+```
+1. Receive agent results (automatically synthesized from forked context)
+2. Present results to user in structured format:
+
+   ✓ Architecture designed
+   ✓ Implementation plan created
+   ✓ Test stubs generated
+   ✓ Dependencies identified
+
+3. Ask user if they want to proceed with implementation
+4. If yes, execute next steps
+5. If no, save plan for later
+```
+
+### Step 6: Fallback to Command Routing
+
+If agent delegation is not available or fails:
+
+```
+1. Log: "Agent delegation unavailable, using command routing"
+2. Route to traditional craft commands based on category:
+
+   if category == "feature":
+       execute(["/craft:arch:plan", "/craft:code:test-gen", "/craft:git:branch"])
+   elif category == "bug":
+       execute(["/craft:code:debug", "/craft:test:run"])
+   elif category == "quality":
+       execute(["/craft:code:lint", "/craft:test:coverage"])
+   # ... etc
+
+3. Execute commands sequentially
+4. Report results
+```
+
+### Implementation Notes
+
+- **Forked Context**: All agent delegations use `context: fork` for isolation
+- **Error Handling**: If agent fails, fall back to command routing
+- **User Preference**: If user says "no agents", skip delegation
+- **Dry-Run Mode**: Show delegation plan without executing
 
 ---
 
