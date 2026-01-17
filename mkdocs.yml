@@ -40,6 +40,18 @@ extra_css:
 
 plugins:
   - search
+  # TODO: Add mkdocs-redirects plugin (requires: pip install mkdocs-redirects)
+  # - redirects:
+  #     redirect_maps:
+  #       # Help → Commands merger (Phase 2)
+  #       'help/hub.md': 'commands/overview.md'
+  #       'help/do.md': 'commands/smart.md'
+  #       'help/check.md': 'commands/smart.md'
+  #       'help/orchestrate.md': 'commands/smart.md'
+  #       'help/git-worktree.md': 'commands/git.md'
+  #       'help/docs-update.md': 'commands/docs.md'
+  #       'help/ci-generate.md': 'commands/git.md'
+  #       'help/brainstorm.md': 'commands/plan.md'
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -103,7 +115,7 @@ nav:
       - Skills & Agents: guide/skills-agents.md
       - Accessibility: ACCESSIBILITY.md
 
-  # 3. COMMANDS & REFERENCE - Command documentation with help content merged
+  # 3. COMMANDS & REFERENCE - Command documentation
   - ⚙️ Commands & Reference:
     - Command Overview: commands/overview.md
     - By Category:
@@ -116,19 +128,15 @@ nav:
       - Distribution: commands/dist.md
       - Planning: commands/plan.md
     - Complete A-Z Reference: commands.md
-    - Help & Examples:
-      - /craft:hub: help/hub.md
-      - /craft:do: help/do.md
-      - /craft:check: help/check.md
-      - /craft:orchestrate: help/orchestrate.md
-      - /craft:git:worktree: help/git-worktree.md
-      - /craft:docs:update: help/docs-update.md
-      - /craft:ci:generate: help/ci-generate.md
-      - /workflow:brainstorm: help/brainstorm.md
 
-  # 4. COOKBOOK & EXAMPLES - Use case driven (Phase 2 - coming soon)
-  # - 📚 Cookbook & Examples:
-  #   - Coming Soon (Phase 2)
+  # 4. COOKBOOK & EXAMPLES - Use case driven recipes
+  - 📚 Cookbook & Examples:
+    - Cookbook Home: cookbook/index.md
+    - Common Recipes:
+      - Set Up New Project: cookbook/common/setup-new-project.md
+      - Deploy Course Website: cookbook/common/deploy-course-website.md
+      - Automate Release Workflow: cookbook/common/automate-release-workflow.md
+      - Check Code Quality Before Commit: cookbook/common/check-code-quality-before-commit.md
 
   # 5. REFERENCE & ARCHITECTURE - Technical deep-dive
   - Reference & Architecture:

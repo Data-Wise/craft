@@ -1,0 +1,77 @@
+# Known Broken Links - Documentation Only
+
+## Purpose
+This file documents known broken links in the documentation that are:
+1. Expected/intentional (test files, brainstorm references)
+2. External references outside the docs/ directory
+3. Planned for future implementation
+
+## Categories
+
+### 1. Test Violation Files (Intentional)
+File: `docs/test-violations.md`
+- Purpose: Test data for `craft:docs:check-links` and `craft:docs:lint`
+- Contains intentionally broken links to verify linting works
+- Should NOT be fixed
+
+### 2. Brainstorm References (Gitignored)
+Files with broken links:
+- `docs/specs/SPEC-craft-hub-v2-2026-01-15.md`
+- `docs/specs/SPEC-teaching-workflow-2026-01-16.md`
+
+Targets: `docs/brainstorm/*.md` (gitignored, not published to website)
+- Brainstorm files are working documents, not published
+- Links are for local development reference only
+- Fix: Update specs to reference GitHub blob URLs or remove references
+
+### 3. README References (Outside Docs)
+Files with broken links:
+- `docs/TEACHING-DOCS-INDEX.md`
+
+Target: `../README.md` (repository root, not in docs/)
+- README.md is not published to documentation site
+- Fix: Copy relevant content to docs/ or link to GitHub
+
+### 4. Individual Command Pages (Not Implemented)
+Files with broken links:
+- `docs/TEACHING-DOCS-INDEX.md`
+- `docs/teaching-migration.md`
+
+Targets:
+- `../commands/site/publish.md`
+- `../commands/site/progress.md`
+- `../commands/site/validate.md`
+- `../commands/site/build.md`
+- `../commands/site/create.md`
+- `../commands/site/deploy.md`
+- `../commands/site/check.md`
+- `../commands/git/worktree.md`
+- `../commands/git/branch.md`
+- `../commands/git/sync.md`
+
+Reason: Commands are documented in category files (e.g., `commands/site.md`, `commands/git.md`), not individual pages
+Fix: Update links to point to category pages with anchors (e.g., `commands/site.md#publish`)
+
+### 5. Manual Testing Checklist (Outside Docs)
+File: `docs/guide/teaching-workflow.md`
+Target: `../../tests/MANUAL-TESTING-CHECKLIST.md`
+
+Reason: Test files are not published to documentation site
+Fix: Remove reference or copy checklist to docs/
+
+## Build Status
+- **Build command**: `mkdocs build --strict` will show these warnings
+- **Expected**: ~30 warnings from categories above
+- **Action required**: Fix categories #3, #4, #5 in future PRs
+- **No action needed**: Categories #1, #2 (intentional)
+
+## Next Steps (Phase 2+)
+1. Update teaching docs to use category page anchors
+2. Copy README teaching section to docs/ or use GitHub links
+3. Consider removing brainstorm references from specs (or use GitHub URLs)
+4. Decide: Keep test-violations.md or move to tests/
+
+---
+Created: 2026-01-17
+Last updated: 2026-01-17
+Related: PR #13 (Website Organization Phase 1)
