@@ -191,6 +191,7 @@ website_organization_phase2:
     - "Removed worktree: ~/.git-worktrees/craft/feature-website-org-phase2"
     - "Deleted local branch: feature/website-org-phase2"
     - "Deleted remote branch: origin/feature/website-org-phase2"
+    - "Consolidation report saved: docs/PHASE2-CONSOLIDATION.md (647 lines)"
 
 session_2026_01_17:
   duration: ~7-8 hours
@@ -324,7 +325,7 @@ worktrees:
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
   - feature/broken-link-validation: Removed after PR #14 merge (local branch deleted)
-  - feature/website-org-phase2: Removed after PR #15 merge (local + remote branch deleted)
+  - feature/website-org-phase2: Removed after PR #15 merge (local + remote branch deleted, consolidation report saved)
 
 next:
   - ✅ Website Organization (Phase 1) - COMPLETE & MERGED ✅ (PR #13)
