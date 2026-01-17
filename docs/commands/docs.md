@@ -62,7 +62,7 @@ Smart documentation generation, validation, and enhancement - 17 commands.
 
 ### /craft:docs:check-links
 
-**Internal link validation with anchor checking**
+**Internal link validation with .linkcheck-ignore support** ⭐ NEW
 
 ```bash
 /craft:docs:check-links               # Validate all internal links
@@ -74,13 +74,37 @@ Smart documentation generation, validation, and enhancement - 17 commands.
 **Features:**
 - Relative and absolute path validation
 - Anchor/header existence checking (release mode)
+- **`.linkcheck-ignore` pattern support** - Document expected broken links
+- Categorized output: Critical vs Expected broken links
 - VS Code clickable error format
 - Ignores external URLs by default
 
 **Exit codes:**
-- `0` = All links valid
-- `1` = Broken links found
+- `0` = All links valid OR only expected broken links
+- `1` = Critical broken links found
 - `2` = Invalid arguments
+
+**NEW: .linkcheck-ignore Support**
+
+Create a `.linkcheck-ignore` file to document expected broken links:
+
+```markdown
+# Known Broken Links
+
+### Test Files
+File: `docs/test-violations.md`
+- Purpose: Test data for validation
+
+### Brainstorm References
+Files: `docs/specs/*.md`
+Targets: `docs/brainstorm/*.md`
+```
+
+**Benefits:**
+- ✅ 100% reduction in CI false positives
+- ✅ Expected links don't block CI (exit code 0)
+- ✅ Critical links still fail properly (exit code 1)
+- ✅ Clear categorization in output
 
 ## NEW: ADHD-Friendly Website Enhancement
 

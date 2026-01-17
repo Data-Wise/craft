@@ -36,7 +36,14 @@
 /craft:docs:update                    # Full smart cycle
 /craft:docs:website --phase 1         # Quick wins: TL;DR, mermaid fixes
 /craft:docs:check --report-only       # CI-safe mode
+/craft:docs:check-links               # Validate links (supports .linkcheck-ignore)
 ```
+
+**NEW in v1.23.0: .linkcheck-ignore Support**
+- Document expected broken links (test files, brainstorm refs)
+- CI passes with expected links (exit code 0)
+- Only fails on critical broken links (exit code 1)
+- Create `.linkcheck-ignore` in project root with patterns
 
 ## Site Commands (15 commands)
 

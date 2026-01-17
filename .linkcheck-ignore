@@ -6,6 +6,34 @@ This file documents known broken links in the documentation that are:
 2. External references outside the docs/ directory
 3. Planned for future implementation
 
+## Usage
+
+This file is parsed by `/craft:docs:check-links` to distinguish between:
+- **Critical broken links** (not in this file) → Exit code 1, blocks CI
+- **Expected broken links** (documented here) → Exit code 0, shown as warnings
+
+### Format
+
+```markdown
+### Category Name
+File: `path/to/file.md`
+Target: `path/to/target.md`
+- Purpose: Why this link is expected to be broken
+
+### Multiple Files/Targets
+Files with broken links:
+- `path/to/file1.md`
+- `path/to/file2.md`
+
+Targets: `target/pattern/*.md`
+```
+
+### Pattern Support
+- **Exact paths**: `File: docs/test.md` matches exactly
+- **Glob patterns**: `Files: docs/specs/*.md` matches all spec files
+- **Any target**: Omit `Target:` line to ignore all broken links in file
+- **Path normalization**: `docs/path` and `../path` are equivalent
+
 ## Categories
 
 ### 1. Test Violation Files (Intentional)

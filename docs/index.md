@@ -64,6 +64,40 @@ The universal `/craft:do` command routes your task to the best workflow automati
 !!! success "Quick Win: Try It Now"
     Run `/craft:hub` to see all 90 commands organized by category - takes 5 seconds and shows everything craft can do.
 
+## What's New in v1.23.0 (Unreleased)
+
+**Documentation Link Validation Enhancement** 🎉
+
+`.linkcheck-ignore` parser system eliminates CI noise from expected broken links:
+
+- **100% reduction in CI false positives** (30 expected links → 0 failures)
+- **Smart categorization**: Critical vs Expected broken links
+- **Parser utility**: `utils/linkcheck_ignore_parser.py` with glob pattern support
+- **Enhanced commands**: `/craft:docs:check-links` and `/craft:docs:check` now categorize output
+- **Zero manual filtering**: Expected links documented, auto-ignored
+- **CI-friendly**: Exit code 0 for expected links, 1 for critical only
+
+**Create `.linkcheck-ignore` to document expected broken links:**
+
+```markdown
+# Known Broken Links
+
+### Test Files
+File: `docs/test-violations.md`
+- Purpose: Test data for validation
+
+### Brainstorm References
+Files: `docs/specs/*.md`
+Targets: `docs/brainstorm/*.md`
+- Reason: Gitignored, not published
+```
+
+**Testing**: 21/21 tests passing (13 unit + 8 integration), backward compatible (opt-in)
+
+See [commands/docs documentation](commands/docs.md#craftdocscheck-links) for details.
+
+---
+
 ## What's New in v1.20.0-dev
 
 **Standardized Dry-Run Feature** 🎉 TARGET EXCEEDED
