@@ -112,7 +112,7 @@ Integrated 12 ADHD-friendly workflow commands from the standalone workflow plugi
 - **Background Tasks**: `/task-status`, `/task-output`, `/task-cancel` for monitoring
 - **Documentation**: `/adhd-guide` for workflow best practices
 
-All workflow commands work identically to the standalone plugin. See [workflow-integration](workflow-integration/README.md) for details.
+All workflow commands work identically to the standalone plugin.
 
 **Migration**: Users of the standalone `workflow` plugin can migrate seamlessly with `scripts/migrate-from-workflow.sh`
 

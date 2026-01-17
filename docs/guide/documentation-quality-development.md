@@ -9,6 +9,10 @@
 
 Developer guide for extending and customizing Craft's documentation quality automation system.
 
+!!! info "Related Documentation"
+    - **[User Guide](documentation-quality.md)** - Step-by-step tutorial for using quality commands
+    - **[API Reference](../reference/documentation-quality.md)** - Technical details and command syntax
+
 ## What You'll Learn
 
 By the end of this guide, you'll know how to:
