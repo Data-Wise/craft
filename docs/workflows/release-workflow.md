@@ -300,7 +300,7 @@ jobs:
 
 ## See Also
 
-- **Help:** [/craft:check](../help/check.md)
-- **Help:** [/craft:docs:update](../help/docs-update.md)
+- **Help:** [/craft:check](../commands/check.md)
+- **Help:** [/craft:docs:update](../commands/docs/update.md)
 - **Workflow:** [Git Feature Workflow](git-feature-workflow.md)
 - **Workflow:** [Pre-commit Workflow](pre-commit-workflow.md)

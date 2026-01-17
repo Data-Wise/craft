@@ -108,6 +108,6 @@ Try the **[Quick Start](../QUICK-START.md)** (30 seconds) to get a feel for Craf
 ## 📚 Additional Resources
 
 - **[Complete Guides](../guide/getting-started.md)** - In-depth tutorials for all features
-- **[Help & Examples](../help/hub.md)** - Command-specific help and examples
+- **[Command Hub](../commands/hub.md)** - Command-specific help and examples
 - **[Configuration](../reference/configuration.md)** - Customize Craft for your workflow
 - **[Accessibility](../ACCESSIBILITY.md)** - ADHD-friendly features and design principles

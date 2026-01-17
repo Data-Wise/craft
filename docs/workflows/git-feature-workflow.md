@@ -250,5 +250,5 @@ git push --tags
 
 ## See Also
 
-- **Help:** [/craft:git:worktree](../help/git-worktree.md)
-- **Help:** [/craft:check](../help/check.md)
+- **Help:** [/craft:git:worktree](../commands/git/worktree.md)
+- **Help:** [/craft:check](../commands/check.md)
