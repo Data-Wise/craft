@@ -354,6 +354,45 @@ version: 1.0.0
 - ✅ **Mode-aware** - Behavior adapts to context
 - ✅ **Multi-language** - Works across tech stacks
 
+### Community Validator Ecosystem (NEW in v1.23.0)
+
+**Generate custom validators**:
+```bash
+/craft:check:gen-validator security-audit --languages "python,javascript"
+```
+
+**Discover community validators**:
+- [GitHub Validator Marketplace](https://github.com/topics/craft-plugin-validator)
+- Search by language: `craft-plugin-validator+python`
+- 100+ community validators available
+
+**Install validators**:
+```bash
+# Direct download
+curl -o .claude-plugin/skills/validation/security-audit.md \
+  https://raw.githubusercontent.com/user/repo/main/validator.md
+
+# Test validator
+CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
+
+# Auto-detected by /craft:check
+/craft:check  # Runs all discovered validators
+```
+
+**Validator registry** (community-maintained):
+| Validator | Languages | Purpose |
+|-----------|-----------|---------|
+| security-audit | Python, JS | Vulnerability scanning |
+| performance-check | Python, JS | Performance profiling |
+| accessibility | Web | Accessibility validation |
+| license-check | All | License compliance |
+| dependency-audit | Python, JS, Go | Dependency vulnerabilities |
+
+**Resources**:
+- [Validator Generator](/craft:check:gen-validator)
+- [Best Practices Guide](../docs/VALIDATOR-BEST-PRACTICES.md)
+- [Example Validators](https://github.com/topics/craft-plugin-validator)
+
 ## Context-Specific Checks
 
 ### Pre-Commit (`--for commit`)
