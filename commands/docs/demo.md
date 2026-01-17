@@ -137,7 +137,8 @@ See: `templates/docs/GIF-GUIDELINES.md` for full workflow.
 /craft:docs:demo "sessions" --generate         # Record/generate AND convert to GIF immediately
 /craft:docs:demo --check                       # Validate all dependencies
 /craft:docs:demo --check --method asciinema    # Check asciinema-specific deps
-/craft:docs:demo --fix                         # Auto-install missing dependencies (Phase 2)
+/craft:docs:demo --fix                         # Auto-install missing dependencies
+/craft:docs:demo --fix --method asciinema      # Install missing deps for specific method
 ```
 
 ## Dependency Management
@@ -158,13 +159,31 @@ Shows a status table with:
 - Health check result
 - Install command if missing
 
-### Auto-Installation (Phase 2)
+### Auto-Installation
+
+The `--fix` flag automatically installs missing dependencies with your consent.
 
 ```bash
-/craft:docs:demo --fix                       # Install missing dependencies
+/craft:docs:demo --fix                       # Install all missing dependencies
+/craft:docs:demo --fix --method asciinema    # Install for asciinema method only
 ```
 
-**Note:** --fix flag coming in Phase 2 (v1.24.0)
+**How it works:**
+1. Checks for missing dependencies
+2. Prompts for consent before each installation
+3. Tries multiple installation methods (brew → cargo → binary)
+4. Verifies installation success
+5. Shows summary of installed/skipped/failed tools
+
+**Installation Strategies:**
+- **Homebrew** (~30 seconds) - macOS package manager
+- **Cargo** (~2-5 minutes) - Rust compilation
+- **Binary** (~10 seconds) - Direct download from GitHub
+
+**User Consent:**
+- You approve each tool individually
+- Choose 'Y' to install, 'N' to skip, 'S' to skip all
+- Installation requires sudo for system paths
 
 ### Required Tools by Method
 
@@ -231,6 +250,51 @@ When `--check` flag is provided:
 
 - `0` - All required dependencies OK
 - `1` - Missing required dependencies or health check failed
+
+### Implementation: Auto-Installation (--fix)
+
+When `--fix` flag is provided:
+
+1. Source the installation utilities:
+   ```bash
+   source scripts/dependency-installer.sh
+   source scripts/consent-prompt.sh
+   ```
+
+2. Determine method and check dependencies:
+   ```bash
+   method="${args_method:-asciinema}"
+   status=$(check_dependencies "$method")
+   ```
+
+3. Get list of missing tools:
+   ```bash
+   missing_tools=$(parse_missing_tools "$status")
+   ```
+
+4. For each missing tool:
+   ```bash
+   for tool in $missing_tools; do
+       tool_spec=$(get_tool_spec "$tool")
+       install_tool "$tool" "$tool_spec"
+   done
+   ```
+
+5. Display installation summary:
+   ```bash
+   show_installation_summary "$installed" "$skipped" "$failed"
+   ```
+
+6. Re-check dependencies and display final status:
+   ```bash
+   display_status_table "$method"
+   ```
+
+#### Exit Codes (--fix mode)
+
+- `0` - All required dependencies installed or already OK
+- `1` - Some required dependencies still missing after installation
+- `2` - User skipped all installations
 
 #### Integration with Normal Workflow
 
