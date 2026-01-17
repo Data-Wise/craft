@@ -131,9 +131,17 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
+  - feature/teaching-workflow: ~/.git-worktrees/craft/feature-teaching-workflow (WIP - ready to start)
 
 next:
-  - 🎯 Priority 1: /craft:hub v2.0 - Command Discovery System (Phase 1: Foundation)
+  - 🎯 Priority 1: Teaching Workflow (feature/teaching-workflow)
+    • Phase 1: Foundation (detection + validation) - 60 min
+    • Phase 2: Publishing (preview-before-publish) - 90 min
+    • Phase 3: Progress (semester tracking) - 120 min
+    • Phase 4: Integration (teaching-aware commands) - 60 min
+    • Total: ~6-8 hours
+    • Status: WIP - worktree created, TODO list ready
+  - 🎯 Priority 2: /craft:hub v2.0 - Command Discovery System (Phase 1: Foundation)
     • Spike: Validate auto-detection with 5 commands
     • Implement Phase 1 (auto-detection + hierarchical menu + tracking)
     • Estimate: 1 week for Phase 1
