@@ -2,7 +2,7 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**89 commands** · **21 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**92 commands** · **21 skills** · **8 agents** · **4 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 ## Git Workflow
 
@@ -76,22 +76,44 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 ```
 craft/
 ├── .claude-plugin/     # Plugin manifest
-├── commands/           # 86 commands (arch, ci, code, docs, git, site, test, workflow)
+├── commands/           # 92 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
 ├── tests/              # Python test suite
-└── docs/               # MkDocs documentation
+├── docs/
+│   ├── specs/          # Implementation specs (4 total)
+│   └── brainstorm/     # Working drafts (gitignored)
+└── .STATUS             # Current milestone and progress
 ```
+
+## Active Development
+
+### Current Worktrees
+| Branch | Location | Status |
+|--------|----------|--------|
+| `dev` | `/Users/dt/projects/dev-tools/craft` | Main repo (integration) |
+| `feature/teaching-workflow` | `~/.git-worktrees/craft/feature-teaching-workflow` | WIP (v1.22.0, ~6-8h) |
+
+### Planned Features (v1.21.0+)
+| Spec | Priority | Effort | Target |
+|------|----------|--------|--------|
+| **Teaching Workflow** | High | 6-8h | v1.22.0 |
+| Hub v2.0 (Discovery) | High | 30h | v1.21.0+ |
+| Help Template System | High | 30h | v1.21.0 |
+| Spec Integration | High | 20h | v1.21.0 |
+
+See `docs/specs/` for detailed specifications.
 
 ## Key Files
 
 | File | Purpose |
 |------|---------|
+| `.STATUS` | Current milestone, progress, next steps |
 | `commands/do.md` | Universal smart routing |
 | `commands/check.md` | Pre-flight validation |
 | `commands/orchestrate.md` | Multi-agent coordination |
-| `agents/orchestrator-v2.md` | Enhanced agent coordinator |
 | `commands/workflow/brainstorm.md` | ADHD-friendly brainstorming |
+| `docs/specs/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec |
 
 ## Troubleshooting
 
@@ -110,6 +132,7 @@ craft/
 ## Links
 
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
-- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 86 commands
+- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 92 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
+- [Specifications](docs/specs/) — Implementation specs (4 total)
 - [GitHub Repository](https://github.com/Data-Wise/craft) — Source code and issues
