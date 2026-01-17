@@ -249,6 +249,9 @@ worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
   - feature/broken-link-validation: ~/.git-worktrees/craft/feature-broken-link-validation (active)
 
+worktrees_cleaned_today:
+  - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
+
 next:
   - ✅ Website Organization (Phase 1) - COMPLETE & MERGED ✅ (PR #13)
     • 6-section navigation structure
