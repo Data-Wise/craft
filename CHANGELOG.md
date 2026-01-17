@@ -7,6 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - v1.23.1
 
+### Changed
+
+#### GIF Recording Method: asciinema as Default
+
+**Impact:** Improved accuracy and quality of workflow GIF demonstrations
+
+Changed the default GIF recording method from VHS (scripted simulations) to asciinema (real terminal recordings) for better accuracy when documenting Claude Code plugin commands.
+
+- **Recording Method Changes:**
+  - asciinema now default for all GIF demos (works for bash AND plugin commands)
+  - VHS available as alternative via `--method vhs` flag
+  - Real terminal recordings replace simulated output
+  - Higher quality GIF conversion via agg + gifski
+
+- **Command Updates:**
+  - `/craft:docs:demo` - Added `--method` flag (asciinema default, vhs optional)
+  - Updated usage examples and workflows
+  - Complete asciinema workflow documentation
+  - Installation instructions for asciinema + agg + gifsicle
+
+- **Documentation Updates:**
+  - `templates/docs/GIF-GUIDELINES.md` - asciinema as standard method
+  - `docs/GIF-RECORDING-WORKFLOW-2026.md` - Complete asciinema workflow
+  - `docs/GIF-REGENERATION-GUIDE.md` - Updated regeneration process
+  - `commands/docs/demo.md` - New --method flag documentation
+
+- **Tooling:**
+  - `scripts/regenerate-gifs.sh` - Automated GIF regeneration
+  - `scripts/capture-craft-output.sh` - Command output capture framework
+
+**Files Changed:**
+- `commands/docs/demo.md` - Added asciinema method support
+- `templates/docs/GIF-GUIDELINES.md` - Updated to asciinema standard
+- `docs/GIF-RECORDING-WORKFLOW-2026.md` - New workflow guide
+- `docs/GIF-REGENERATION-GUIDE.md` - Updated regeneration process
+- `scripts/regenerate-gifs.sh` - New automation script
+- `scripts/capture-craft-output.sh` - New capture framework
+- `README.md` - Updated command descriptions
+
+**Rationale:** asciinema records REAL output for all command types, while VHS requires manual simulation. This ensures GIFs show actual Claude Code plugin behavior instead of approximations.
+
+**Migration:** Existing VHS tapes remain functional. Use asciinema for new GIFs or when accuracy is critical.
+
 ### Added
 
 #### Documentation Navigation & Organization

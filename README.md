@@ -322,7 +322,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:docs:mermaid` | Mermaid diagram templates (6 types) |
 | `/craft:docs:nav-update` | Update mkdocs.yml navigation |
 | `/craft:docs:prompt` | Generate reusable maintenance prompts |
-| `/craft:docs:demo` | **NEW** VHS tape generator for GIF demos |
+| `/craft:docs:demo` | Terminal recorder for GIF demos (asciinema/VHS) |
 | `/craft:docs:guide` | **NEW** Feature guide + demo + refcard generator |
 
 #### Internal (1)
@@ -502,7 +502,7 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - **`check`**: Renamed from `validate`, Version C full-by-default (links + stale + nav + auto-fix)
 
 #### Added
-- `/craft:docs:demo` - VHS tape generator for GIF demos
+- `/craft:docs:demo` - Terminal recorder for GIF demos (asciinema default, VHS optional)
 - `/craft:docs:guide` - Feature guide + demo + refcard generator
 
 #### Removed
