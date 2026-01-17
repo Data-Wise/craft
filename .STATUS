@@ -131,7 +131,7 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch)
-  - feature/teaching-workflow: ~/.git-worktrees/craft/feature-teaching-workflow (WIP - ready to start)
+  - feature/teaching-workflow: ~/.git-worktrees/craft/feature-teaching-workflow (active)
 
 next:
   - 🎯 Priority 1: Teaching Workflow (feature/teaching-workflow)
