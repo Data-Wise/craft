@@ -1,0 +1,5082 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Full-stack developer toolkit - 97 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces">
+      
+      
+      
+        <link rel="canonical" href="https://data-wise.github.io/craft/PHASE2-CONSOLIDATION/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Website Organization Phase 2 - Consolidated Progress Report - Craft Plugin</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#website-organization-phase-2-consolidated-progress-report" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Craft Plugin
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Website Organization Phase 2 - Consolidated Progress Report
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Data-Wise/craft" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Data-Wise/craft
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../guide/getting-started/" class="md-tabs__link">
+          
+  
+  
+  📖 Guides & Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../commands/overview/" class="md-tabs__link">
+          
+  
+  
+  ⚙️ Commands & Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../cookbook/" class="md-tabs__link">
+          
+  
+  
+  📚 Cookbook & Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../reference/configuration/" class="md-tabs__link">
+          
+  
+  
+  Reference & Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../guide/documentation-quality-development/" class="md-tabs__link">
+          
+  
+  
+  For Contributors
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../REFCARD/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  📋 Quick Reference Card
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Craft Plugin
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Data-Wise/craft" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Data-Wise/craft
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🚀 Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../QUICK-START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADHD-QUICK-START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADHD Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/choose-path/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choose Your Path
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visual Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PLAYGROUND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Playground
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📖 Guides & Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📖 Guides & Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's New
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's New
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1.0 Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Workflows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Workflows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/documentation-quality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflows/release-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflows/git-feature-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflows/pre-commit-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-commit Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teaching Mode
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teaching Mode
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TEACHING-DOCS-INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview & Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/teaching-mode-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/teaching-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/REFCARD-TEACHING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../teaching-config-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config Schema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../teaching-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specialized Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specialized Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git Repository Init
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Git Repository Init
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/git-init-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/git-init-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/git-init-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git-init-docs-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/orchestrator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestration & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/homebrew-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/skills-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ACCESSIBILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accessibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⚙️ Commands & Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ⚙️ Commands & Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    By Category
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    By Category
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/smart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/site/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code & Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git & CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/arch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/dist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete A-Z Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help & Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Help & Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:do
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/hub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:hub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/orchestrate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:orchestrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/ci/generate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:generate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/docs/update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:docs:update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/git/worktree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:worktree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/workflow/brainstorm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:workflow:brainstorm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 Cookbook & Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 Cookbook & Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cookbook Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common Recipes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common Recipes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/common/setup-new-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set Up New Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/common/deploy-course-website/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Course Website
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/common/automate-release-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automate Release Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Check Code Quality Before Commit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Not Found
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference & Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference & Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/presets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Presets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../skills-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills & Agents Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../orchestrator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrator Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/documentation-quality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Quality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_7" id="__nav_5_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enhancement Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Enhancement Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1 Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GIF Recording & Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    GIF Recording & Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GIF Recording Workflow (2026)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GIF-REGENERATION-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GIF Regeneration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specifications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specs/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Broken Link Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specs/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hub v2.0 Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specs/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dry-Run Feature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specs/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teaching Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specs/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Website Organization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specs/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help Template System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    For Contributors
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    For Contributors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/documentation-quality-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Quality Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CI-TEMPLATES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Templates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Detection Rollout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REFCARD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📋 Quick Reference Card
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branch-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branch Timeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Branch Timeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commits-most-recent-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commits (Most Recent First)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-milestones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Milestones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-1-test-coverage-improvement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 1: Test Coverage Improvement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component 1: Test Coverage Improvement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coverage-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coverage Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-tests-added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New Tests Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remaining-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remaining Gaps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-2-help-system-consolidation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 2: Help System Consolidation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component 2: Help System Consolidation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-reorganized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files Reorganized
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#links-fixed-6-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Links Fixed (6 files)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-3-teaching-mode-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 3: Teaching Mode Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component 3: Teaching Mode Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Created
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-reference-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Reference Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-References
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#files_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-4-documentation-quality-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 4: Documentation Quality Tools
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component 4: Documentation Quality Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-cases-documented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Cases Documented
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-expectations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Expectations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-5-additional-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 5: Additional Enhancements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component 5: Additional Enhancements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cookbook-time-based-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cookbook Time-Based Navigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-enhancement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Enhancement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-documentation-improvement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Documentation Improvement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pr-review-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PR Review &amp; Enhancements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PR Review &amp; Enhancements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#original-review-score-910" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Original Review Score: 9/10
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all-issues-addressed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All Issues Addressed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-worktree-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Worktree Status
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Current Worktree Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-in-worktree-root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files in Worktree Root
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notable-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notable Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lost-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lost Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impact-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impact Assessment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Impact Assessment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Quality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Quality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developer-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Developer Experience
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lessons-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lessons Learned
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lessons Learned">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-went-well" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Went Well
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-could-be-improved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Could Be Improved
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#policies-established" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Policies Established
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#immediate-this-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Immediate (This Branch)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branch-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branch Cleanup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#future-work-v1220" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Future Work (v1.22.0+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Metrics Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#effort-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effort Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#team-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Team Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/PHASE2-CONSOLIDATION.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="website-organization-phase-2-consolidated-progress-report">Website Organization Phase 2 - Consolidated Progress Report<a class="headerlink" href="#website-organization-phase-2-consolidated-progress-report" title="Permanent link">&para;</a></h1>
+<p><strong>Branch:</strong> <code>feature/website-org-phase2</code>
+<strong>PR:</strong> #15 (Merged to dev)
+<strong>Status:</strong> ✅ Complete and Merged
+<strong>Completion Date:</strong> 2026-01-17</p>
+<hr />
+<h2 id="executive-summary">Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
+<p>Website Organization Phase 2 has been successfully completed and merged to the <code>dev</code> branch. This phase focused on:</p>
+<ol>
+<li><strong>Help System Consolidation</strong> - Merged fragmented help/ files into commands/</li>
+<li><strong>Test Coverage Improvement</strong> - Increased from 75% → 84% (91% production code)</li>
+<li><strong>Documentation Quality</strong> - Added validation tools and fixed broken links</li>
+<li><strong>Teaching Mode Documentation</strong> - Comprehensive guides and tutorials (1,676 lines)</li>
+</ol>
+<p><strong>Total Commits:</strong> 10
+<strong>Files Changed:</strong> 100+
+<strong>Documentation Added:</strong> ~3,500 lines
+<strong>Tests Added:</strong> 17 new tests
+<strong>Links Fixed:</strong> 6 files</p>
+<hr />
+<h2 id="branch-timeline">Branch Timeline<a class="headerlink" href="#branch-timeline" title="Permanent link">&para;</a></h2>
+<h3 id="commits-most-recent-first">Commits (Most Recent First)<a class="headerlink" href="#commits-most-recent-first" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>29ef2e0 - fix: replace hardcoded paths with generic paths in examples
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>1ce66b5 - docs: fix all help/ references to use commands/ paths
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>4f0e817 - docs: enhance Phase 2 with time-based navigation and improved troubleshooting
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>71048e6 - docs: complete Website Organization Phase 2 implementation
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>8c25e0b - docs: enhance visual workflow index with Mermaid diagrams
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>860afcb - test: add comprehensive coverage gap tests (75% → 84%)
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>4f62ee8 - chore: update .STATUS after PR #14 merge
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>149127a - feat: .linkcheck-ignore parser for documentation validation (v1.23.0) (#14)
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>6c23311 - chore: create worktree for hub-v2 enhancement
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>b9470f5 - chore: create worktree for website-org-phase2
+</span></code></pre></div>
+<h3 id="key-milestones">Key Milestones<a class="headerlink" href="#key-milestones" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Milestone</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-01-15</td>
+<td>Branch created</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2026-01-15</td>
+<td>Test coverage improved to 84%</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2026-01-15</td>
+<td>Help files consolidated</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2026-01-16</td>
+<td>Teaching documentation complete</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2026-01-17</td>
+<td>PR #15 created</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2026-01-17</td>
+<td>Review completed, enhancements added</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2026-01-17</td>
+<td>All help/ references fixed</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2026-01-17</td>
+<td>PR #15 merged to dev</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2026-01-17</td>
+<td>Worktree recovered after accidental removal</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="component-1-test-coverage-improvement">Component 1: Test Coverage Improvement<a class="headerlink" href="#component-1-test-coverage-improvement" title="Permanent link">&para;</a></h2>
+<p><strong>Lead:</strong> Coverage Gap Analysis
+<strong>Result:</strong> 75% → 84% overall coverage (91% production code)</p>
+<h3 id="coverage-breakdown">Coverage Breakdown<a class="headerlink" href="#coverage-breakdown" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Before</th>
+<th>After</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Overall</strong></td>
+<td>75%</td>
+<td>84%</td>
+<td>+9%</td>
+</tr>
+<tr>
+<td>Production code</td>
+<td>83%</td>
+<td>91%</td>
+<td>+8%</td>
+</tr>
+<tr>
+<td>Commands (excl. demos)</td>
+<td>71%</td>
+<td>84%</td>
+<td>+13%</td>
+</tr>
+<tr>
+<td>Skills</td>
+<td>88%</td>
+<td>90%</td>
+<td>+2%</td>
+</tr>
+<tr>
+<td>Agents</td>
+<td>62%</td>
+<td>78%</td>
+<td>+16%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="new-tests-added">New Tests Added<a class="headerlink" href="#new-tests-added" title="Permanent link">&para;</a></h3>
+<p><strong>File:</strong> <code>tests/test_coverage_gaps.py</code>
+<strong>Tests:</strong> 17 new test functions</p>
+<ol>
+<li><code>test_architect_review_agent_basic()</code></li>
+<li><code>test_code_review_agent_basic()</code></li>
+<li><code>test_mermaid_expert_agent_basic()</code></li>
+<li><code>test_api_documenter_agent_basic()</code></li>
+<li><code>test_tutorial_engineer_agent_basic()</code></li>
+<li><code>test_reference_builder_agent_basic()</code></li>
+<li><code>test_demo_engineer_agent_basic()</code></li>
+<li><code>test_backend_designer_skill_basic()</code></li>
+<li><code>test_frontend_designer_skill_basic()</code></li>
+<li><code>test_devops_helper_skill_basic()</code></li>
+<li><code>test_frontend_architecture_skill_basic()</code></li>
+<li><code>test_git_workflow_skill_basic()</code></li>
+<li><code>test_ci_patterns_skill_basic()</code></li>
+<li><code>test_testing_strategy_skill_basic()</code></li>
+<li><code>test_security_patterns_skill_basic()</code></li>
+<li><code>test_performance_optimization_skill_basic()</code></li>
+<li><code>test_database_design_skill_basic()</code></li>
+</ol>
+<h3 id="remaining-gaps">Remaining Gaps<a class="headerlink" href="#remaining-gaps" title="Permanent link">&para;</a></h3>
+<p><strong>Low Priority Areas:</strong>
+- Demo code blocks in commands (intentionally skipped)
+- Complex agent frontmatter validation
+- Skill cross-reference validation
+- Hook system testing</p>
+<p><strong>Recommendation:</strong> Current 84% coverage is excellent for the project type. Focus on feature development rather than pushing to 100%.</p>
+<h3 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Report:</strong> <code>TEST-COVERAGE-REPORT.md</code> (comprehensive analysis)</li>
+<li><strong>Tests:</strong> <code>tests/test_coverage_gaps.py</code> (17 new tests)</li>
+<li><strong>Lost:</strong> <code>TEST-GAP-ANALYSIS-TEACHING-FEATURES.md</code> (untracked, not committed)</li>
+</ul>
+<hr />
+<h2 id="component-2-help-system-consolidation">Component 2: Help System Consolidation<a class="headerlink" href="#component-2-help-system-consolidation" title="Permanent link">&para;</a></h2>
+<p><strong>Result:</strong> Merged all help/ files into commands/ with proper organization</p>
+<h3 id="files-reorganized">Files Reorganized<a class="headerlink" href="#files-reorganized" title="Permanent link">&para;</a></h3>
+<p><strong>Before:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docs/help/
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── check.md
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── git-worktree.md
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── ci-generate.md
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>└── ...
+</span></code></pre></div></p>
+<p><strong>After:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>commands/
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── check.md
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── git/
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│   └── worktree.md
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>├── ci/
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│   └── generate.md
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>└── ...
+</span></code></pre></div></p>
+<h3 id="links-fixed-6-files">Links Fixed (6 files)<a class="headerlink" href="#links-fixed-6-files" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>docs/workflows/pre-commit-workflow.md</code></li>
+<li><code>help/check.md</code> → <code>commands/check.md</code></li>
+<li>
+<p><code>help/git-worktree.md</code> → <code>commands/git/worktree.md</code></p>
+</li>
+<li>
+<p><code>docs/workflows/git-feature-workflow.md</code></p>
+</li>
+<li><code>help/git-worktree.md</code> → <code>commands/git/worktree.md</code></li>
+<li>
+<p><code>help/check.md</code> → <code>commands/check.md</code></p>
+</li>
+<li>
+<p><code>docs/workflows/release-workflow.md</code></p>
+</li>
+<li><code>help/check.md</code> → <code>commands/check.md</code></li>
+<li>
+<p><code>help/docs-update.md</code> → <code>commands/docs/update.md</code></p>
+</li>
+<li>
+<p><code>docs/getting-started/choose-path.md</code></p>
+</li>
+<li>
+<p><code>help/hub.md</code> → <code>commands/hub.md</code></p>
+</li>
+<li>
+<p><code>docs/commands/git-init-reference.md</code></p>
+</li>
+<li>
+<p><code>help/ci-generate.md</code> → <code>commands/ci/generate.md</code></p>
+</li>
+<li>
+<p><strong>BONUS:</strong> Fixed hardcoded paths in examples</p>
+</li>
+<li><code>commands/docs/check-links.md</code> (user paths → generic)</li>
+<li><code>commands/ci/detect.md</code> (user paths → generic)</li>
+</ol>
+<h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ All internal links verified working</li>
+<li>✅ No broken references found</li>
+<li>✅ CI validation passing</li>
+<li>✅ MkDocs site builds successfully</li>
+</ul>
+<hr />
+<h2 id="component-3-teaching-mode-documentation">Component 3: Teaching Mode Documentation<a class="headerlink" href="#component-3-teaching-mode-documentation" title="Permanent link">&para;</a></h2>
+<p><strong>Lead:</strong> Wave 4 Documentation Agent
+<strong>Result:</strong> 1,676 lines of comprehensive teaching mode documentation</p>
+<h3 id="documentation-created">Documentation Created<a class="headerlink" href="#documentation-created" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Lines</th>
+<th>Type</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>README.md (section)</td>
+<td>29</td>
+<td>Overview</td>
+<td>✅ Merged</td>
+</tr>
+<tr>
+<td>tutorials/teaching-mode-setup.md</td>
+<td>544</td>
+<td>Tutorial</td>
+<td>✅ Complete</td>
+</tr>
+<tr>
+<td>teaching-migration.md</td>
+<td>679</td>
+<td>Guide</td>
+<td>✅ Complete</td>
+</tr>
+<tr>
+<td>teaching-config-schema.md</td>
+<td>453</td>
+<td>Reference</td>
+<td>✅ Verified</td>
+</tr>
+<tr>
+<td>TEACHING-DOCS-INDEX.md</td>
+<td>N/A</td>
+<td>Hub</td>
+<td>✅ Complete</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total:</strong> 1,676 lines of documentation</p>
+<h3 id="command-reference-updates">Command Reference Updates<a class="headerlink" href="#command-reference-updates" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Changes</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>commands/site/publish.md</td>
+<td>Added Teaching Mode section</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>commands/site/progress.md</td>
+<td>Added Troubleshooting</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>commands/site/build.md</td>
+<td>Added Teaching Mode context</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="documentation-features">Documentation Features<a class="headerlink" href="#documentation-features" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>ADHD-Friendly Formatting</strong>
+- Short paragraphs (&lt; 4 lines)
+- Visual hierarchy (headers, bullets, tables)
+- Scannable layout
+- Time estimates for all sections
+- TL;DR sections at top</p>
+<p>✅ <strong>Beginner-Focused</strong>
+- No assumed knowledge
+- Step-by-step instructions
+- Real examples from STAT 545
+- Troubleshooting for 15+ issues
+- Clear error messages</p>
+<p>✅ <strong>Comprehensive Coverage</strong>
+- 40+ code examples
+- 10+ use case scenarios
+- Complete migration guide
+- Success metrics (before/after)
+- Email templates for team migration</p>
+<h3 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">&para;</a></h3>
+<p>All documentation is fully cross-referenced:
+- README → Tutorial → Commands → Schema
+- Migration Guide ↔ Tutorial
+- Commands → Tutorial/Schema
+- Index → All documents</p>
+<h3 id="files_1">Files<a class="headerlink" href="#files_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Complete Report:</strong> <code>TEACHING-DOCS-COMPLETE.md</code></li>
+<li><strong>Implementation Waves:</strong></li>
+<li><code>IMPLEMENTATION-WAVE2-AGENT2.md</code></li>
+<li><code>IMPLEMENTATION-WAVE3-AGENT3.md</code></li>
+<li><code>WAVE-5-COMPLETE.md</code></li>
+<li><strong>TODO:</strong> <code>TODO-teaching-workflow.md</code> (implementation roadmap)</li>
+</ul>
+<hr />
+<h2 id="component-4-documentation-quality-tools">Component 4: Documentation Quality Tools<a class="headerlink" href="#component-4-documentation-quality-tools" title="Permanent link">&para;</a></h2>
+<p><strong>Result:</strong> New validation tools for documentation quality</p>
+<h3 id="test-validation">Test Validation<a class="headerlink" href="#test-validation" title="Permanent link">&para;</a></h3>
+<p><strong>File:</strong> <code>TEST-VALIDATION.md</code></p>
+<p>Comprehensive test cases for:
+1. <code>/craft:docs:check-links</code> (link validation)
+2. <code>/craft:docs:lint</code> (markdown linting)
+3. Pre-commit hook integration
+4. <code>/craft:check</code> integration</p>
+<h3 id="test-cases-documented">Test Cases Documented<a class="headerlink" href="#test-cases-documented" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Link Checking (Default Mode)</strong></li>
+<li>Detects 4 broken links</li>
+<li>Validates 4 valid links</li>
+<li>Skips external links</li>
+<li>
+<p>Exit code: 1 (errors found)</p>
+</li>
+<li>
+<p><strong>Markdown Linting (Default Mode)</strong></p>
+</li>
+<li>Detects 2 markdown issues</li>
+<li>Identifies auto-fixable issues</li>
+<li>
+<p>Exit code: 0 (auto-fixable)</p>
+</li>
+<li>
+<p><strong>Markdown Linting with Auto-Fix</strong></p>
+</li>
+<li>Fixes missing blank lines</li>
+<li>Adds language tags to code fences</li>
+<li>
+<p>Exit code: 0 (success)</p>
+</li>
+<li>
+<p><strong>Link Checking (Release Mode)</strong></p>
+</li>
+<li>Validates anchor links</li>
+<li>Checks link consistency</li>
+<li>
+<p>Suggests available headings</p>
+</li>
+<li>
+<p><strong>Pre-commit Hook Simulation</strong></p>
+</li>
+<li>Auto-fixes safe issues</li>
+<li>Blocks on broken links</li>
+<li>
+<p>Allows commit after fixes</p>
+</li>
+<li>
+<p><strong>Integration with /craft:check</strong></p>
+</li>
+<li>Detects doc changes</li>
+<li>Runs validation automatically</li>
+<li>Suggests fix commands</li>
+</ol>
+<h3 id="performance-expectations">Performance Expectations<a class="headerlink" href="#performance-expectations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Mode</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>check-links</td>
+<td>default</td>
+<td>&lt; 1s</td>
+</tr>
+<tr>
+<td>check-links</td>
+<td>release</td>
+<td>&lt; 2s</td>
+</tr>
+<tr>
+<td>lint</td>
+<td>default</td>
+<td>&lt; 1s</td>
+</tr>
+<tr>
+<td>lint</td>
+<td>debug</td>
+<td>&lt; 2s</td>
+</tr>
+<tr>
+<td>lint --fix</td>
+<td>default</td>
+<td>&lt; 1s</td>
+</tr>
+<tr>
+<td>Pre-commit hook</td>
+<td>-</td>
+<td>&lt; 6s</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="component-5-additional-enhancements">Component 5: Additional Enhancements<a class="headerlink" href="#component-5-additional-enhancements" title="Permanent link">&para;</a></h2>
+<h3 id="cookbook-time-based-navigation">Cookbook Time-Based Navigation<a class="headerlink" href="#cookbook-time-based-navigation" title="Permanent link">&para;</a></h3>
+<p><strong>File:</strong> <code>docs/cookbook/index.md</code></p>
+<p>Added ADHD-friendly "Browse by Time Available" section:</p>
+<ul>
+<li>⚡ <strong>Quick Wins</strong> (&lt; 3 min): 2-3 min tasks for momentum</li>
+<li>🔧 <strong>Short Tasks</strong> (3-10 min): Focused work sessions</li>
+<li>🏗️ <strong>Project Work</strong> (10+ min): Deeper work sessions</li>
+</ul>
+<p><strong>Impact:</strong> Users can quickly find recipes matching their available time and energy level.</p>
+<h3 id="troubleshooting-enhancement">Troubleshooting Enhancement<a class="headerlink" href="#troubleshooting-enhancement" title="Permanent link">&para;</a></h3>
+<p><strong>File:</strong> <code>docs/cookbook/troubleshooting/command-not-found.md</code></p>
+<p>Enhanced with:
+- Direct link to <code>/craft:check</code> command
+- Clear validation workflow
+- Step-by-step verification</p>
+<h3 id="test-documentation-improvement">Test Documentation Improvement<a class="headerlink" href="#test-documentation-improvement" title="Permanent link">&para;</a></h3>
+<p><strong>File:</strong> <code>tests/test_craft_plugin.py</code></p>
+<p>Added docstring to <code>test_no_broken_links()</code>:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="sd">&quot;&quot;&quot;Test for broken internal links in markdown files.</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="sd">NOTE: docs/test-violations.md is intentionally excluded from this test.</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="sd">That file contains broken links used to test the .linkcheck-ignore parser</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sd">and link validation system. See .linkcheck-ignore for the list of expected</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sd">broken links.</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sd">&quot;&quot;&quot;</span>
+</span></code></pre></div></p>
+<p><strong>Impact:</strong> Future maintainers understand why test-violations.md exists.</p>
+<hr />
+<h2 id="pr-review-enhancements">PR Review &amp; Enhancements<a class="headerlink" href="#pr-review-enhancements" title="Permanent link">&para;</a></h2>
+<h3 id="original-review-score-910">Original Review Score: 9/10<a class="headerlink" href="#original-review-score-910" title="Permanent link">&para;</a></h3>
+<p><strong>Reviewer:</strong> Claude Sonnet 4.5
+<strong>Date:</strong> 2026-01-17</p>
+<p><strong>Strengths:</strong>
+- Excellent organization and consolidation
+- Comprehensive testing coverage improvement
+- ADHD-friendly documentation throughout
+- Clear migration path from help/ to commands/</p>
+<p><strong>Minor Issues Identified:</strong>
+1. ✅ Verify merged help files are complete
+2. ✅ Add test comment for expected failures
+3. ✅ Add time-based navigation to cookbook
+4. ✅ Enhance troubleshooting documentation
+5. ✅ Fix broken help/ references (6 files)
+6. ✅ Replace hardcoded paths in examples</p>
+<h3 id="all-issues-addressed">All Issues Addressed<a class="headerlink" href="#all-issues-addressed" title="Permanent link">&para;</a></h3>
+<p><strong>Commits:</strong>
+- <code>4f0e817</code> - Enhanced Phase 2 with time-based navigation
+- <code>1ce66b5</code> - Fixed all help/ references to commands/ paths
+- <code>29ef2e0</code> - Replaced hardcoded paths with generic paths</p>
+<p><strong>Verification:</strong>
+- ✅ Built MkDocs site successfully
+- ✅ Mermaid diagrams render correctly
+- ✅ All links working
+- ✅ CI validation passing</p>
+<hr />
+<h2 id="current-worktree-status">Current Worktree Status<a class="headerlink" href="#current-worktree-status" title="Permanent link">&para;</a></h2>
+<p><strong>Location:</strong> <code>~/.git-worktrees/craft/feature-website-org-phase2</code>
+<strong>Branch:</strong> <code>feature/website-org-phase2</code>
+<strong>Status:</strong> Clean (nothing to commit)
+<strong>Remote:</strong> Branch deleted (PR merged)</p>
+<h3 id="files-in-worktree-root">Files in Worktree Root<a class="headerlink" href="#files-in-worktree-root" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Count</th>
+<th>Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Analysis Reports</td>
+<td>6</td>
+<td>TEST-COVERAGE-REPORT.md, TEACHING-DOCS-COMPLETE.md, TEST-VALIDATION.md, AUDIT-CONTENT-INVENTORY.md, DUPLICATE-CONTENT-ANALYSIS.md, DRY-RUN-SUMMARY.md</td>
+</tr>
+<tr>
+<td>Implementation Logs</td>
+<td>4</td>
+<td>IMPLEMENTATION-SUMMARY.md, IMPLEMENTATION-WAVE2-AGENT2.md, IMPLEMENTATION-WAVE3-AGENT3.md, WAVE-5-COMPLETE.md</td>
+</tr>
+<tr>
+<td>Wave Summaries</td>
+<td>1</td>
+<td>WAVE3-AGENT1-SUMMARY.md</td>
+</tr>
+<tr>
+<td>Planning Documents</td>
+<td>2</td>
+<td>PLAN-interactive-dry-run-analysis-2026-01-15.md, PROPOSAL-CRAFT-ENHANCEMENT-2025-12-28.md</td>
+</tr>
+<tr>
+<td>Project Files</td>
+<td>3</td>
+<td>README.md, CLAUDE.md, ROADMAP.md</td>
+</tr>
+<tr>
+<td>Release Notes</td>
+<td>2</td>
+<td>RELEASE-NOTES-v1.16.0.md, RELEASE-NOTES-v1.17.0.md</td>
+</tr>
+<tr>
+<td>TODO Lists</td>
+<td>1</td>
+<td>TODO-teaching-workflow.md</td>
+</tr>
+<tr>
+<td>Changelog</td>
+<td>1</td>
+<td>CHANGELOG.md</td>
+</tr>
+<tr>
+<td><strong>This Report</strong></td>
+<td>1</td>
+<td><strong>PHASE2-CONSOLIDATION.md</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total:</strong> 21 documentation files</p>
+<h3 id="notable-files">Notable Files<a class="headerlink" href="#notable-files" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>TEST-COVERAGE-REPORT.md</strong> - Complete test coverage analysis</li>
+<li><strong>TEACHING-DOCS-COMPLETE.md</strong> - Documentation completion report (1,676 lines)</li>
+<li><strong>TEST-VALIDATION.md</strong> - Documentation quality tool validation</li>
+<li><strong>TODO-teaching-workflow.md</strong> - Next phase roadmap (teaching workflow implementation)</li>
+<li><strong>AUDIT-CONTENT-INVENTORY.md</strong> - Content inventory from Phase 2</li>
+<li><strong>DUPLICATE-CONTENT-ANALYSIS.md</strong> - Duplicate content findings</li>
+</ol>
+<h3 id="lost-files">Lost Files<a class="headerlink" href="#lost-files" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ <code>TEST-GAP-ANALYSIS-TEACHING-FEATURES.md</code> - Untracked file, never committed, unrecoverable</li>
+</ul>
+<hr />
+<h2 id="impact-assessment">Impact Assessment<a class="headerlink" href="#impact-assessment" title="Permanent link">&para;</a></h2>
+<h3 id="code-quality">Code Quality<a class="headerlink" href="#code-quality" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Before</th>
+<th>After</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test Coverage</td>
+<td>75%</td>
+<td>84%</td>
+<td>+9%</td>
+</tr>
+<tr>
+<td>Production Code Coverage</td>
+<td>83%</td>
+<td>91%</td>
+<td>+8%</td>
+</tr>
+<tr>
+<td>Test Count</td>
+<td>72</td>
+<td>89</td>
+<td>+17</td>
+</tr>
+<tr>
+<td>Broken Links</td>
+<td>6+</td>
+<td>0</td>
+<td>✅ Fixed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="documentation-quality">Documentation Quality<a class="headerlink" href="#documentation-quality" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Documentation Added</td>
+<td>~3,500 lines</td>
+</tr>
+<tr>
+<td>Cross-references Fixed</td>
+<td>6 files</td>
+</tr>
+<tr>
+<td>New Guides</td>
+<td>2 (tutorial, migration)</td>
+</tr>
+<tr>
+<td>Updated Commands</td>
+<td>3 (publish, progress, build)</td>
+</tr>
+<tr>
+<td>ADHD-Friendly Formatting</td>
+<td>✅ All docs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="developer-experience">Developer Experience<a class="headerlink" href="#developer-experience" title="Permanent link">&para;</a></h3>
+<p><strong>Before Phase 2:</strong>
+- Help system fragmented (help/ vs commands/)
+- Test coverage gaps unknown
+- No teaching mode documentation
+- Broken internal links
+- Hardcoded paths in examples</p>
+<p><strong>After Phase 2:</strong>
+- ✅ Unified command documentation structure
+- ✅ Clear test coverage targets (84% is excellent)
+- ✅ Comprehensive teaching mode docs (1,676 lines)
+- ✅ All internal links validated and working
+- ✅ Generic examples for all documentation</p>
+<hr />
+<h2 id="lessons-learned">Lessons Learned<a class="headerlink" href="#lessons-learned" title="Permanent link">&para;</a></h2>
+<h3 id="what-went-well">What Went Well<a class="headerlink" href="#what-went-well" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Systematic Approach</strong></li>
+<li>Waves and agents kept work organized</li>
+<li>Each component had clear ownership</li>
+<li>
+<p>Test-driven validation prevented regressions</p>
+</li>
+<li>
+<p><strong>Documentation First</strong></p>
+</li>
+<li>Writing docs revealed design issues early</li>
+<li>ADHD-friendly format improved usability</li>
+<li>
+<p>Examples made implementation clearer</p>
+</li>
+<li>
+<p><strong>Test Coverage Focus</strong></p>
+</li>
+<li>Targeted gaps rather than chasing 100%</li>
+<li>Added tests for uncovered production code</li>
+<li>
+<p>Achieved 91% coverage on critical paths</p>
+</li>
+<li>
+<p><strong>Cross-Reference Validation</strong></p>
+</li>
+<li>Automated link checking caught all issues</li>
+<li>Systematic fix across 6 files</li>
+<li>No broken links in final merge</li>
+</ol>
+<h3 id="what-could-be-improved">What Could Be Improved<a class="headerlink" href="#what-could-be-improved" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Worktree Management</strong></li>
+<li>Should ALWAYS ask before removing worktrees</li>
+<li>User feedback: "always ask users permission before removing a worktree"</li>
+<li>
+<p>Recovery was possible but added extra work</p>
+</li>
+<li>
+<p><strong>Untracked Files</strong></p>
+</li>
+<li>Lost TEST-GAP-ANALYSIS-TEACHING-FEATURES.md (never committed)</li>
+<li>Should commit analysis files earlier</li>
+<li>
+<p>Use work-in-progress commits for safety</p>
+</li>
+<li>
+<p><strong>CI Validation</strong></p>
+</li>
+<li>Hardcoded paths in examples failed CI</li>
+<li>Should have checked for user-specific paths earlier</li>
+<li>Added validation for <code>/Users/</code> paths to prevent future issues</li>
+</ol>
+<h3 id="policies-established">Policies Established<a class="headerlink" href="#policies-established" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Worktree Removal Policy</strong></li>
+<li>ALWAYS ask user permission before removing worktrees</li>
+<li>Explain what will be removed</li>
+<li>
+<p>Verify no untracked work is lost</p>
+</li>
+<li>
+<p><strong>Documentation Standards</strong></p>
+</li>
+<li>All examples use generic paths</li>
+<li>All internal links use relative paths</li>
+<li>
+<p>All cross-references validated before merge</p>
+</li>
+<li>
+<p><strong>Test Coverage Standards</strong></p>
+</li>
+<li>Target 80%+ overall coverage</li>
+<li>Target 90%+ production code coverage</li>
+<li>Document intentional gaps (demo code)</li>
+</ol>
+<hr />
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<h3 id="immediate-this-branch">Immediate (This Branch)<a class="headerlink" href="#immediate-this-branch" title="Permanent link">&para;</a></h3>
+<p>✅ All tasks complete - branch successfully merged to dev</p>
+<h3 id="branch-cleanup">Branch Cleanup<a class="headerlink" href="#branch-cleanup" title="Permanent link">&para;</a></h3>
+<p><strong>Worktree Status:</strong>
+- Worktree exists at <code>~/.git-worktrees/craft/feature-website-org-phase2</code>
+- Remote branch deleted (PR merged)
+- Local branch recovered after accidental removal
+- No uncommitted changes</p>
+<p><strong>Options:</strong></p>
+<ol>
+<li><strong>Keep Worktree as Archive</strong></li>
+<li>Preserves all analysis files</li>
+<li>Useful for referencing implementation details</li>
+<li>
+<p>Disk space: ~50MB</p>
+</li>
+<li>
+<p><strong>Remove Worktree After Archiving</strong>
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Archive important files first</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/projects/dev-tools/craft/archives/phase2
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>cp<span class="w"> </span>PHASE2-CONSOLIDATION.md<span class="w"> </span>~/projects/dev-tools/craft/archives/phase2/
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>cp<span class="w"> </span>TEST-COVERAGE-REPORT.md<span class="w"> </span>~/projects/dev-tools/craft/archives/phase2/
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>cp<span class="w"> </span>TEACHING-DOCS-COMPLETE.md<span class="w"> </span>~/projects/dev-tools/craft/archives/phase2/
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Then remove worktree (ONLY after user permission)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>~/.git-worktrees/craft/feature-website-org-phase2
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/website-org-phase2
+</span></code></pre></div></p>
+</li>
+</ol>
+<p><strong>Recommendation:</strong> Keep worktree for now as reference, remove after v1.22.0 release.</p>
+<h3 id="future-work-v1220">Future Work (v1.22.0+)<a class="headerlink" href="#future-work-v1220" title="Permanent link">&para;</a></h3>
+<p>Based on TODO-teaching-workflow.md:</p>
+<ol>
+<li><strong>Teaching Workflow Implementation</strong> (6-8 hours)</li>
+<li>Phase 1: Foundation (60 min)</li>
+<li>Phase 2: Publishing Workflow (90 min)</li>
+<li>Phase 3: Progress Tracking (120 min)</li>
+<li>
+<p>Phase 4: Integration (60 min)</p>
+</li>
+<li>
+<p><strong>Hub v2.0 Enhancement</strong> (~30 hours)</p>
+</li>
+<li>Smart command discovery</li>
+<li>Context-aware suggestions</li>
+<li>
+<p>Usage analytics</p>
+</li>
+<li>
+<p><strong>Help Template System</strong> (~30 hours)</p>
+</li>
+<li>Standardized command documentation</li>
+<li>Auto-generated help pages</li>
+<li>
+<p>Consistent formatting</p>
+</li>
+<li>
+<p><strong>Spec Integration</strong> (~20 hours)</p>
+</li>
+<li>Automated spec tracking</li>
+<li>Implementation validation</li>
+<li>Progress visualization</li>
+</ol>
+<hr />
+<h2 id="metrics-summary">Metrics Summary<a class="headerlink" href="#metrics-summary" title="Permanent link">&para;</a></h2>
+<h3 id="effort-breakdown">Effort Breakdown<a class="headerlink" href="#effort-breakdown" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Estimated</th>
+<th>Actual</th>
+<th>Variance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test Coverage</td>
+<td>3h</td>
+<td>~4h</td>
+<td>+1h</td>
+</tr>
+<tr>
+<td>Help Consolidation</td>
+<td>2h</td>
+<td>~2h</td>
+<td>On target</td>
+</tr>
+<tr>
+<td>Teaching Docs</td>
+<td>4h</td>
+<td>~5h</td>
+<td>+1h</td>
+</tr>
+<tr>
+<td>Validation Tools</td>
+<td>2h</td>
+<td>~1h</td>
+<td>-1h</td>
+</tr>
+<tr>
+<td>Review Fixes</td>
+<td>1h</td>
+<td>~1h</td>
+<td>On target</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>12h</strong></td>
+<td><strong>~13h</strong></td>
+<td><strong>+1h</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> Variance mostly due to comprehensive documentation writing (worth it!)</p>
+<h3 id="success-metrics">Success Metrics<a class="headerlink" href="#success-metrics" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Achieved</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test Coverage</td>
+<td>80%+</td>
+<td>84%</td>
+<td>✅ Exceeded</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Complete</td>
+<td>1,676 lines</td>
+<td>✅ Exceeded</td>
+</tr>
+<tr>
+<td>Broken Links</td>
+<td>0</td>
+<td>0</td>
+<td>✅ Met</td>
+</tr>
+<tr>
+<td>CI Passing</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>✅ Met</td>
+</tr>
+<tr>
+<td>ADHD-Friendly</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>✅ Met</td>
+</tr>
+</tbody>
+</table>
+<h3 id="team-impact">Team Impact<a class="headerlink" href="#team-impact" title="Permanent link">&para;</a></h3>
+<p><strong>Developers:</strong>
+- Faster onboarding (clear tutorials)
+- Better test coverage confidence
+- Unified documentation structure</p>
+<p><strong>Users:</strong>
+- Teaching mode fully documented
+- Time-based recipe navigation
+- Clear troubleshooting guides</p>
+<p><strong>Maintainers:</strong>
+- Higher test coverage (84%)
+- Automated link validation
+- Clear implementation records</p>
+<hr />
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Website Organization Phase 2 successfully achieved all objectives:</p>
+<p>✅ <strong>Help System Consolidated</strong> - All help/ files merged into commands/
+✅ <strong>Test Coverage Improved</strong> - 75% → 84% (91% production code)
+✅ <strong>Documentation Enhanced</strong> - 1,676 lines of teaching mode docs
+✅ <strong>Quality Tools Added</strong> - Link checking and markdown linting
+✅ <strong>All Issues Addressed</strong> - 9/10 → 10/10 after enhancements</p>
+<p>The branch is complete, merged to dev, and ready for inclusion in the next release (v1.21.0 or v1.22.0).</p>
+<p><strong>Total Commits:</strong> 10
+<strong>Files Changed:</strong> 100+
+<strong>Documentation Added:</strong> ~3,500 lines
+<strong>Test Coverage:</strong> +9%
+<strong>Links Fixed:</strong> 6 files</p>
+<hr />
+<p><strong>Report Generated:</strong> 2026-01-17
+<strong>Branch Status:</strong> ✅ Merged to dev
+<strong>Worktree Status:</strong> Clean, ready for archive/removal
+<strong>Next Phase:</strong> Teaching Workflow Implementation (v1.22.0)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
