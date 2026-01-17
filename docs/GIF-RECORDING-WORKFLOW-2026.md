@@ -1,16 +1,19 @@
 # GIF Recording Workflow 2026
 
-**Modern tools for capturing Claude Code CLI sessions**
+**Standard tools for capturing Claude Code CLI sessions**
 
 ---
 
-## Recommended Approach: asciinema + agg
+## Default Method: asciinema + agg
 
-**Why this is better than VHS for Craft commands:**
+**Why this is the standard for Craft commands:**
 - Records REAL Claude Code output (not simulated)
+- Works for both bash commands AND plugin commands
 - Captures actual formatting, colors, timing
 - Easy to re-record if output changes
 - High-quality GIF conversion with gifski
+
+**Alternative:** VHS for scripted/repeatable demos (`/craft:docs:demo --method vhs`)
 
 ---
 
