@@ -2,12 +2,12 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml)
-[![Version](https://img.shields.io/badge/version-1.17.0-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v1.17.0)
+[![Version](https://img.shields.io/badge/version-1.23.1-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v1.23.1)
 [![Documentation](https://img.shields.io/badge/docs-complete-green.svg)](https://data-wise.github.io/craft/)
 
-> **v1.17.0 - Workflow Integration** 🎉
-> **86 commands** (74 craft + 12 workflow) | **21 skills** | **8 agents** | **10 workflow GIFs**
-> Complete workflow automation integrated: brainstorming, task management, spec capture
+> **v1.23.1 - Hub v2.0** 🚀
+> **97 commands** | **21 skills** | **8 agents** | **Zero-maintenance discovery**
+> Smart command discovery with auto-detection (94% faster), 3-layer navigation, 98% test coverage
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
