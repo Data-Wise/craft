@@ -2,7 +2,9 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**97 commands** · **21 skills** · **8 agents** · **4 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**99 commands** · **21 skills** · **8 agents** · **6 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+
+**Current Version:** v1.24.0 (released 2026-01-18)
 
 ## Git Workflow
 
@@ -36,7 +38,7 @@ feature/* (worktrees) ← All implementation work
 | Task | Shell | Craft |
 |------|-------|-------|
 | Run tests | `python3 tests/test_craft_plugin.py` | `/craft:test:run` |
-| Run CC 2.1 tests | `python3 tests/test_complexity_scoring.py && python3 tests/test_hot_reload_validators.py && python3 tests/test_agent_hooks.py` | - |
+| Dependency tests | `bash tests/test_dependency_management.sh` | - |
 | Validate | `./scripts/validate-counts.sh` | `/craft:check` |
 | Build docs | `mkdocs build` | - |
 | Lint code | - | `/craft:code:lint` |
@@ -64,80 +66,76 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 
 | Agent | Model | Use For |
 |-------|-------|---------|
-| **orchestrator-v2** | - | Complex multi-step tasks, parallel execution |
-| **orchestrator** | - | Basic workflow automation |
+| **orchestrator-v2** | sonnet | Complex multi-step tasks, parallel execution (v2.3.0) |
+| **orchestrator** | sonnet | Basic workflow automation |
 | **docs-architect** | sonnet | System documentation, architecture guides |
 | **api-documenter** | sonnet | OpenAPI specs, API docs, SDKs |
 | **tutorial-engineer** | sonnet | Step-by-step tutorials, onboarding |
 | **reference-builder** | haiku | Parameter listings, config references |
 | **mermaid-expert** | haiku | Flowcharts, sequence diagrams, ERDs |
-| **demo-engineer** | - | Terminal GIF demos (VHS tapes) |
+| **demo-engineer** | - | Terminal GIF demos (asciinema workflow) |
 
 ## Project Structure
 
 ```
 craft/
-├── .claude-plugin/     # Plugin manifest
-├── commands/           # 92 commands (arch, ci, code, docs, git, site, test, workflow)
+├── .claude-plugin/     # Plugin manifest, hooks, validators
+├── commands/           # 99 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
-├── tests/              # Python test suite
+├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
+├── utils/              # Python utilities (complexity scorer, validators, parsers)
+├── tests/              # Comprehensive test suite (449 tests total)
 ├── docs/
-│   ├── specs/          # Implementation specs (4 total)
+│   ├── specs/          # Implementation specs (6 total)
+│   ├── tutorials/      # Step-by-step guides
 │   └── brainstorm/     # Working drafts (gitignored)
 └── .STATUS             # Current milestone and progress
 ```
 
+## Recent Major Features (v1.24.0)
+
+### Hub v2.0 - Zero-Maintenance Command Discovery ✅
+- 3-layer progressive disclosure (Main → Category → Detail + Tutorial)
+- Auto-discovery from YAML frontmatter (no manual maintenance)
+- 52 tests, 98% coverage, <2ms cached performance
+- 94% faster than target (12ms uncached vs 200ms goal)
+
+### Claude Code 2.1.0 Integration ✅
+- Complexity scoring system (0-10 scale) for smart task routing
+- 3 hot-reload validators (test-coverage, broken-links, lint-check)
+- Orchestration hooks (PreToolUse, PostToolUse, Stop)
+- Agent delegation with 5 specialized agents
+- 37 unit tests, 100% passing, 96% coverage
+
+### Dependency Management System ✅
+- Full dependency checking/installation for demo command
+- 10 scripts: manager, installer, health-check, repair, converters
+- 4 installer adapters: brew, cargo, binary, consent-prompt
+- 79 tests (unit, validation, e2e), 100% passing
+- CI workflow for automated validation
+
+### Teaching Workflow System ✅
+- Teaching mode auto-detection (`.flow/teach-config.yml`)
+- Safe publish workflow (draft → preview → validate → deploy)
+- Semester progress tracking
+- Content validation (syllabus, schedule, assignments)
+- 5 teaching-aware commands
+
 ## Active Development
 
-### Just Completed ✅
-
-**Claude Code 2.1.0 Integration Tests** - Complete test suite for Waves 1-4
-- ✅ Test suite: 37 unit tests across 3 files (100% passing)
-  - Complexity scoring: `tests/test_complexity_scoring.py` (15 tests, 0.5ms)
-  - Hot-reload validators: `tests/test_hot_reload_validators.py` (9 tests, 8.7ms)
-  - Agent hooks: `tests/test_agent_hooks.py` (13 tests, 13.1ms)
-- ✅ Coverage: 96% overall (1,281/1,329 lines tested)
-  - Complexity scorer: 100% (210/210 lines)
-  - Hot-reload validators: 95% (902/950 lines)
-  - Agent hooks: 100% (169/169 lines)
-- ✅ Documentation: `docs/TESTING-CLAUDE-CODE-2.1.md` (comprehensive testing guide)
-- ✅ Execution time: 22.3ms total (fast feedback loop)
-- 📍 Status: Ready for integration
-
-**Test Coverage Improvements (v1.23.1)** - Comprehensive coverage gap analysis
-- ✅ New test suite: `tests/test_coverage_gaps.py` (17 comprehensive tests)
-- ✅ Coverage improvements: 75% → 84% overall (+9%)
-  - `detect_teaching_mode.py`: 65% → 75% (+10%)
-  - `linkcheck_ignore_parser.py`: 71% → 87% (+16%)
-  - `dry_run_output.py`: 86% (maintained)
-- ✅ Production code coverage: ~91% (excluding demo blocks)
-- ✅ Total tests: 353 → 370 (+17 tests)
-- ✅ Documentation: `TEST-COVERAGE-REPORT.md` with detailed analysis
-- 📍 Status: Merged to `dev`
-
-**Broken Link Validation with .linkcheck-ignore (v1.23.0)** - MERGED ✅
-- ✅ Parser utility: `utils/linkcheck_ignore_parser.py` (270 lines)
-- ✅ Command integration: `/craft:docs:check-links` (categorized output)
-- ✅ Testing: 21/21 tests passing (13 unit + 8 integration)
-- ✅ Documentation: Usage instructions, CI templates, implementation guide
-- ✅ Impact: 100% reduction in CI false positives (30 → 0)
-- 📍 Status: Merged to `dev` (PR #14)
-
-### Current Worktrees
+### Current Worktree
 | Branch | Location | Status |
 |--------|----------|--------|
-| `dev` | `/Users/dt/projects/dev-tools/craft` | Main repo (integration) |
-| `feature/website-org-phase2` | `~/.git-worktrees/craft/feature-website-org-phase2` | WIP (Phase 2) |
-| `feature/hub-v2` | `~/.git-worktrees/craft/feature-hub-v2` | WIP (Phase 1) |
+| `dev` | `/Users/dt/projects/dev-tools/craft` | Main repo (clean) |
+| `feature/teaching-flags` | `~/.git-worktrees/craft/feature-teaching-flags` | Planned (add --teaching flags) |
 
-### Planned Features (v1.21.0+)
-| Spec | Priority | Effort | Target |
-|------|----------|--------|--------|
-| **Teaching Workflow** | High | 6-8h | v1.22.0 |
-| Hub v2.0 (Discovery) | High | 30h | v1.21.0+ |
-| Help Template System | High | 30h | v1.21.0 |
-| Spec Integration | High | 20h | v1.21.0 |
+### Planned Features
+| Feature | Priority | Effort | Status |
+|---------|----------|--------|--------|
+| Teaching command flags | Medium | 2-4h | Planned |
+| Help Template System | High | 30h | Spec ready |
+| Spec Integration | High | 20h | Spec ready |
 
 See `docs/specs/` for detailed specifications.
 
@@ -145,31 +143,36 @@ See `docs/specs/` for detailed specifications.
 
 | File | Purpose |
 |------|---------|
-| `.STATUS` | Current milestone, progress, next steps |
-| `commands/do.md` | Universal smart routing |
+| `.STATUS` | Current milestone, progress, session history |
+| `commands/do.md` | Universal smart routing with complexity scoring |
 | `commands/check.md` | Pre-flight validation |
 | `commands/orchestrate.md` | Multi-agent coordination |
+| `commands/hub.md` | Zero-maintenance command discovery (v2.0) |
 | `commands/workflow/brainstorm.md` | ADHD-friendly brainstorming |
 | `docs/specs/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec |
-| `docs/specs/SPEC-broken-link-validation-2026-01-17.md` | .linkcheck-ignore parser spec |
-| `.linkcheck-ignore` | Document expected broken links (test files, brainstorm refs) |
+| `docs/specs/SPEC-craft-hub-v2-2026-01-15.md` | Hub v2.0 architecture spec |
+| `.linkcheck-ignore` | Expected broken links (test files, brainstorm refs) |
+| `utils/complexity_scorer.py` | Task complexity scoring (0-10 scale) |
 | `utils/linkcheck_ignore_parser.py` | Parser for .linkcheck-ignore patterns |
-| `tests/test_coverage_gaps.py` | Comprehensive coverage tests (17 tests, 75% → 84%) |
-| `TEST-COVERAGE-REPORT.md` | Detailed coverage analysis and recommendations |
-| `tests/test_complexity_scoring.py` | Complexity scoring tests (15 tests, 100% coverage) |
-| `tests/test_hot_reload_validators.py` | Hot-reload validator tests (9 tests, 95% coverage) |
-| `tests/test_agent_hooks.py` | Agent hooks tests (13 tests, 100% coverage) |
-| `docs/TESTING-CLAUDE-CODE-2.1.md` | Claude Code 2.1.0 integration testing guide |
-| `docs/API-REFERENCE-CLAUDE-CODE-2.1.md` | Complete API reference with examples |
-| `docs/ARCHITECTURE-CLAUDE-CODE-2.1.md` | Architecture diagrams and component docs (8 Mermaid diagrams) |
-| `utils/complexity_scorer.py` | Complexity scoring utility (210 lines) |
+| `scripts/dependency-manager.sh` | Dependency checking and installation |
+
+## Test Suite
+
+| Test File | Tests | Coverage | Purpose |
+|-----------|-------|----------|---------|
+| `tests/test_craft_plugin.py` | 370 | 84% | Core functionality |
+| `tests/test_dependency_management.sh` | 79 | 100% | Dependency system |
+| `tests/test_complexity_scoring.py` | 15 | 100% | Complexity scorer |
+| `tests/test_hot_reload_validators.py` | 9 | 95% | Hot-reload validators |
+| `tests/test_agent_hooks.py` | 13 | 100% | Agent hooks |
+| **Total** | **486+** | **~90%** | **All systems** |
 
 ## Troubleshooting
 
 | Issue | Fix |
 |-------|-----|
 | Tests failing | `python3 tests/test_craft_plugin.py` |
-| Claude Code 2.1 tests | `python3 tests/test_complexity_scoring.py && python3 tests/test_hot_reload_validators.py && python3 tests/test_agent_hooks.py` |
+| Dependency tests | `bash tests/test_dependency_management.sh` |
 | Broken links | `python3 tests/test_craft_plugin.py -k "broken_links"` |
 | Outdated counts | `./scripts/validate-counts.sh` |
 | Stale worktree | `git worktree remove <path> --force` |
@@ -183,7 +186,7 @@ See `docs/specs/` for detailed specifications.
 ## Links
 
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
-- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 92 commands
+- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 99 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
-- [Specifications](docs/specs/) — Implementation specs (4 total)
+- [Specifications](docs/specs/) — Implementation specs (6 total)
 - [GitHub Repository](https://github.com/Data-Wise/craft) — Source code and issues
