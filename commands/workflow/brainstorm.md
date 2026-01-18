@@ -1,7 +1,7 @@
 ---
 name: brainstorm
 description: Enhanced brainstorming with smart detection, design modes, time budgets, agent delegation, and spec capture for implementation
-version: 2.3.1
+version: 2.4.0
 args:
   - name: depth
     description: "Analysis depth: q|quick|d|deep|m|max (default: balanced, shows menu if omitted)"
@@ -18,30 +18,43 @@ args:
   - name: format
     description: "Output format: terminal|json|markdown (default: terminal)"
     required: false
+  - name: categories
+    description: "Question categories: req,users,scope,tech,timeline,risks,existing,success (comma-separated, use 'all' for default)"
+    required: false
 ---
 
 # /workflow:brainstorm - Enhanced Brainstorm
 
 ADHD-friendly brainstorming with smart mode detection, time budgets, agent delegation, and **spec capture for implementation**.
 
-## Arguments (v2.3.0 - Three-Layer System)
+## Arguments (v2.4.0 - Question Control)
 
 ```
-/brainstorm [depth] [focus] [action] "topic"
-            ↑       ↑       ↑
-            │       │       └── s|save (capture as spec)
-            │       └────────── f|feat|a|arch|x|ux|b|api|u|ui|o|ops
-            └────────────────── q|quick|d|deep|m|max
+/brainstorm [depth:count] [focus] [action] [-C|--categories "cat1,cat2"] "topic"
+                  ↑              ↑       ↑              ↑
+                  │              │       │              └── req,users,scope,tech,timeline,risks,existing,success
+                  │              │       └────────────────── s|save (capture as spec)
+                  │              └─────────────────────────── f|feat|a|arch|x|ux|b|api|u|ui|o|ops
+                  └────────────────────────────────────────── q|quick|d|deep|m|max (with optional :N for count)
 ```
 
-### Depth Layer
+### Depth Layer (v2.4.0 - Colon Notation)
 
-| Full | Short | Single | Time | Description |
-|------|-------|--------|------|-------------|
-| (default) | - | - | < 5 min | Balanced, 2 questions + "ask more?" |
-| quick | quick | q | < 1 min | Fast, 0 questions + "ask more?" |
-| deep | deep | d | < 10 min | Expert questions (8), no agents |
-| max | max | m | < 30 min | Expert questions + 2 agents |
+| Full | Short | Count | Time | Description |
+|------|-------|-------|------|-------------|
+| (default) | - | 2 | < 5 min | Balanced, 2 questions + "ask more?" |
+| quick | q | 0 | < 1 min | Fast, 0 questions + "ask more?" |
+| quick:N | q:N | N | < 1 min | Quick with N questions |
+| deep | d | 8 | < 10 min | Expert questions (8), no agents |
+| deep:N | d:N | N | < 10 min | Deep with N questions |
+| max | m | 8 | < 30 min | Expert questions + 2 agents |
+| max:N | m:N | N | < 30 min | Max with N questions |
+
+**Examples:**
+- `/brainstorm d:5 "auth"` → Deep mode with exactly 5 questions
+- `/brainstorm m:12 "api"` → Max mode with 12 questions
+- `/brainstorm q:0 "quick"` → Quick with 0 questions (go straight to brainstorming)
+- `/brainstorm d:20 "complex"` → Deep with 20 questions (unlimited mode)
 
 **Note:** `thorough` is deprecated alias for `max`
 
@@ -68,7 +81,35 @@ ADHD-friendly brainstorming with smart mode detection, time budgets, agent deleg
 
 **Synonym:** `spec` → `save`
 
-### Quick Examples
+### Categories Layer (v2.4.0)
+
+Filter which question categories to ask. Defaults to focus-appropriate categories if omitted.
+
+| Flag | Short | Description |
+|------|-------|-------------|
+| --categories | -C | Comma-separated category list |
+
+**Category Shortcuts:**
+
+| Short | Full | Description |
+|-------|------|-------------|
+| req | requirements | Key requirements, constraints |
+| usr | users | Primary users, problems solved |
+| scp | scope | In/out of scope, MVP |
+| tech | technical | Tech stack, integrations |
+| time | timeline | Deadlines, milestones |
+| risk | risks | Potential risks, edge cases |
+| exist | existing | Reusable code, dependencies |
+| ok | success | Success metrics, acceptance criteria |
+| all | all | All 8 categories |
+
+**Examples:**
+- `/brainstorm d:5 "auth" -C req,tech` → Deep with 5 questions from requirements + technical
+- `/brainstorm m:10 f "api" --categories req,usr,tech,exist` → Max with 10 questions from 4 categories
+- `/brainstorm d:4 "caching" -C tech,risk` → Deep with 4 questions from technical + risks
+- `/brainstorm d:8 "feature" -C all` → Deep with 8 questions from all categories
+
+### Quick Examples (v2.4.0)
 
 ```bash
 # Minimal
@@ -93,11 +134,26 @@ ADHD-friendly brainstorming with smart mode detection, time budgets, agent deleg
 # Maximum depth
 /brainstorm max arch save "auth"    # Max + architecture + spec
 /brainstorm m a s "auth"            # Same (ultra-short)
+
+# v2.4.0 - Colon notation for custom question counts
+/brainstorm d:5 "auth"              # Deep with exactly 5 questions
+/brainstorm m:12 "api"              # Max with 12 questions
+/brainstorm q:0 "quick"             # Quick with 0 questions (straight to brainstorming)
+/brainstorm d:20 "complex"          # Deep with 20 questions
+
+# v2.4.0 - Categories flag to filter question types
+/brainstorm d:5 "auth" -C req,tech  # 5 questions from requirements + technical
+/brainstorm m:10 f "api" --categories req,usr,tech,exist
+/brainstorm d:4 "caching" -C tech,risk
+/brainstorm d:8 "feature" -C all    # All 8 categories
+
+# Power user - full control
+/brainstorm d:15 f s -C req,tech,success "auth"   # 15 questions, feature, spec, filtered categories
 ```
 
 ### Backward Compatibility
 
-| Old Syntax (v2.2.0) | New Syntax (v2.3.0) | Status |
+| Old Syntax (v2.2.0) | New Syntax (v2.4.0) | Status |
 |---------------------|---------------------|--------|
 | `--save-spec` | `save` or `s` | Deprecated but works |
 | `--save-spec=full` | `save` (default is full) | Deprecated but works |
@@ -105,10 +161,17 @@ ADHD-friendly brainstorming with smart mode detection, time budgets, agent deleg
 | `feature` | `feat` or `f` | Both work |
 | `architecture` | `arch` or `a` | Both work |
 | `thorough` | `max` or `m` | `thorough` deprecated |
+| `d` (8 questions) | `d` or `d:8` | Both work |
+| `m` (8 questions) | `m` or `m:8` | Both work |
+
+**v2.4.0 Changes:**
+- Colon notation `d:5`, `m:12` adds custom question counts
+- Categories flag `-C req,tech` filters question types
+- Existing syntax remains fully supported
 
 ## When Invoked
 
-### Step 0: Parse Arguments (v2.3.0)
+### Step 0: Parse Arguments (v2.4.0)
 
 **Parsing Rules:**
 1. Keywords can appear in any order before topic
@@ -138,10 +201,87 @@ FOCUS_MAP = {
 ACTION_MAP = {
     's': 'save', 'save': 'save', 'spec': 'save'
 }
+
+CATEGORY_MAP = {
+    'req': 'requirements', 'requirements': 'requirements',
+    'usr': 'users', 'users': 'users',
+    'scp': 'scope', 'scope': 'scope',
+    'tech': 'technical', 'technical': 'technical',
+    'time': 'timeline', 'timeline': 'timeline',
+    'risk': 'risks', 'risks': 'risks',
+    'exist': 'existing', 'existing': 'existing',
+    'ok': 'success', 'success': 'success',
+    'all': 'all'
+}
+
+def parse_depth_with_count(arg):
+    """Parse depth:count notation (v2.4.0).
+
+    Examples:
+        'd:5' → ('deep', 5)
+        'm:12' → ('max', 12)
+        'q:0' → ('quick', 0)
+        'd' → ('deep', None)  # Use default
+
+    Returns:
+        tuple: (depth_mode, question_count) or (depth_mode, None)
+    """
+    if ':' not in arg:
+        return (DEPTH_MAP.get(arg, arg), None)
+
+    parts = arg.split(':', 1)
+    depth_str = parts[0]
+    count_str = parts[1]
+
+    depth = DEPTH_MAP.get(depth_str, depth_str)
+
+    try:
+        count = int(count_str)
+        if count < 0:
+            raise ValueError("Negative count")
+        return (depth, count)
+    except ValueError:
+        return (depth, 'invalid')
+
+def get_default_question_count(depth):
+    """Get default question count for depth."""
+    defaults = {
+        'quick': 0,
+        'default': 2,
+        'deep': 8,
+        'max': 8
+    }
+    return defaults.get(depth, 2)
+
+def parse_categories(args):
+    """Parse --categories or -C flag.
+
+    Examples:
+        --categories req,tech,success
+        -C req,usr,scp
+        --categories all
+
+    Returns:
+        list: Category names or None (all categories)
+    """
+    for i, arg in enumerate(args):
+        if arg in ['--categories', '-C']:
+            if i + 1 < len(args):
+                cat_str = args[i + 1]
+                if cat_str == 'all':
+                    return None
+
+                cats = [c.strip() for c in cat_str.split(',')]
+                return [CATEGORY_MAP.get(c, c) for c in cats]
+
+    return None
+```
 ```
 
 **Decision Logic:**
 ```
+Colon notation?      → d:5, m:12, q:3 for custom question counts
+Categories flag?     → --categories req,tech,success or -C req,tech
 Topic provided?       → Show "Ask More?" then execute
 Depth + Topic?        → Skip menus, show "Ask More?" then execute
 Depth + Focus + Topic? → Skip menus, show "Ask More?" then execute
@@ -149,14 +289,13 @@ Full args (+ action)? → Execute directly (action bypasses "capture?" prompt)
 No arguments?         → Smart context detection (Step 0.5)
 ```
 
-**Examples (v2.3.0):**
-| Input | Depth | Focus | Action | Behavior |
-|-------|-------|-------|--------|----------|
-| `/brainstorm "auth"` | default | auto | none | "Ask More?" → execute |
-| `/brainstorm f "auth"` | default | feat | none | "Ask More?" → execute |
-| `/brainstorm d "auth"` | deep | auto | none | 8 questions → "Ask More?" → execute |
-| `/brainstorm d f "auth"` | deep | feat | none | 8 feat questions → "Ask More?" → execute |
-| `/brainstorm d f s "auth"` | deep | feat | save | 8 feat questions → "Ask More?" → SPEC.md |
+**Examples (v2.4.0):**
+| Input | Depth | Count | Categories | Behavior |
+|-------|-------|-------|------------|----------|
+| `/brainstorm "auth"` | default | 2 | all | "Ask More?" → execute |
+| `/brainstorm d:5 "auth"` | deep | 5 | all | 5 questions → "Ask More?" → execute |
+| `/brainstorm d:5 -C req,tech "auth"` | deep | 5 | req,tech | 5 questions from selected → execute |
+| `/brainstorm m:12 f s "auth"` | max | 12 | auto | 12 questions → SPEC.md |
 | `/brainstorm q f s "auth"` | quick | feat | save | "Ask More?" → SPEC.md |
 | `/brainstorm` | - | - | - | Smart detect → menus → execute |
 
@@ -381,9 +520,119 @@ Claude: Executes quick + feature brainstorm for "new auth system"
 | Depth | Time Budget | Questions | Agents | Output |
 |-------|-------------|-----------|--------|--------|
 | **quick (q)** | < 60s | 0 + "ask more?" | None | 5-7 ideas, quick wins |
+| **quick:N (q:N)** | < 60s | N + milestones | None | N questions with continuation prompts |
 | **default** | < 300s | 2 + "ask more?" | None | Comprehensive with options |
 | **deep (d)** | < 600s | 8 + "ask more?" | None | Expert-level analysis |
+| **deep:N (d:N)** | < 600s | N + milestones | None | N questions with continuation prompts |
 | **max (m)** | < 1800s | 8 + agent Qs | 2 per focus | Deep analysis with synthesis |
+| **max:N (m:N)** | < 1800s | N + agent Qs + milestones | 2 per focus | N questions with agents and prompts |
+
+**Milestone Behavior:**
+- Questions asked in batches of 8
+- Continuation prompt after each batch
+- User can: proceed, add 4, add 8, or go unlimited
+- "Keep going" mode prompts every 4 questions
+
+---
+
+## 📋 Question Bank (v2.4.0)
+
+Comprehensive 8-category question bank with 2 questions per category for context gathering.
+
+### Question Categories
+
+| Category | Focus | Questions |
+|----------|-------|-----------|
+| **requirements** | Key requirements, constraints | 2 |
+| **users** | Primary users, problems solved | 2 |
+| **scope** | In/out of scope, MVP | 2 |
+| **technical** | Tech stack, integrations | 2 |
+| **timeline** | Deadlines, milestones | 2 |
+| **risks** | Potential risks, edge cases | 2 |
+| **existing** | Reusable code, dependencies | 2 |
+| **success** | Success metrics, acceptance criteria | 2 |
+
+### Questions by Category
+
+#### requirements
+- **Q1:** "What are the key requirements for this feature?"
+  - Performance-critical, User-facing functionality, Internal tooling, Data processing
+- **Q2:** "Are there any hard constraints we must work within?"
+  - Technology stack, Performance targets, Security requirements, Budget limits
+
+#### users
+- **Q3:** "Who is the primary user for this feature?"
+  - End users, Developers, Administrators, Automated systems
+- **Q4:** "What problem does this solve for them?"
+  - Saves time, Improves accuracy, Enables new capability, Simplifies workflow
+
+#### scope
+- **Q5:** "What's definitely in scope for the first iteration?"
+  - Core functionality, Basic error handling, Essential UI/UX, Documentation
+- **Q6:** "What's explicitly out of scope (nice-to-have later)?"
+  - Advanced features, Polish and refinement, Integrations, Scalability
+
+#### technical
+- **Q7:** "Are there technical constraints or preferences?"
+  - Use existing stack, New technology needed, Architectural patterns, No strong preferences
+- **Q8:** "What existing systems does this need to integrate with?"
+  - Database, Authentication, APIs or services, None (standalone)
+
+#### timeline
+- **Q9:** "Are there any deadlines or milestones?"
+  - ASAP (urgent), Specific date, Flexible timeline, Unknown
+- **Q10:** "Is there a target date for first working version?"
+  - Within a week, 1-2 weeks, 3-4 weeks, Flexible
+
+#### risks
+- **Q11:** "What could go wrong? What are the biggest risks?"
+  - Technical complexity, Integration issues, Performance concerns, Unknown unknowns
+- **Q12:** "Are there edge cases we should plan for upfront?"
+  - Empty/invalid input, Concurrent access, Failure scenarios, None identified
+
+#### existing
+- **Q13:** "What existing code or systems can we leverage?"
+  - Similar features, Libraries or frameworks, Infrastructure, Start from scratch
+- **Q14:** "What dependencies does this have?"
+  - Other features, External services, Data availability, None (self-contained)
+
+#### success
+- **Q15:** "How will we know this is successful?"
+  - User feedback, Metrics, Tests pass, Requirements met
+- **Q16:** "What are the acceptance criteria?"
+  - Feature works as described, Tests validate behavior, Documentation exists, Performance acceptable
+
+### Default Categories by Focus
+
+| Focus | Default Categories |
+|-------|-------------------|
+| `feat` | requirements, users, scope, success |
+| `arch` | technical, risks, existing, scope |
+| `api` | technical, requirements, success |
+| `ux` | users, scope, success |
+| `ops` | technical, risks, timeline |
+| `auto` | requirements, users, technical, success |
+
+### Custom Categories
+
+Use `--categories` or `-C` flag to specify which categories to include:
+
+```bash
+/brainstorm d:5 "auth" -C req,tech,success
+/brainstorm m:10 f "api" --categories req,usr,tech,exist
+/brainstorm d:4 "caching" -C tech,risk
+```
+
+Category shortcuts:
+- `req` → requirements
+- `usr` → users
+- `scp` → scope
+- `tech` → technical
+- `time` → timeline
+- `risk` → risks
+- `exist` → existing
+- `ok` → success
+- `all` → all categories
 
 ---
 
@@ -478,6 +727,125 @@ AskUserQuestion:
 - **Progressive disclosure**: Easy path forward, but depth available if needed
 - **Consistent UX**: Same pattern at every depth level
 - **No dead ends**: Can always go deeper OR proceed
+
+#### Unlimited Questions + Milestone Prompts (v2.4.0)
+
+When using colon notation with counts > 8 (e.g., `d:12`, `d:20`, `m:15`), questions are asked in batches with milestone prompts:
+
+```python
+def ask_questions_with_milestones(selected_questions, total_count):
+    """Ask questions with milestone prompts every 8 questions.
+
+    Args:
+        selected_questions: List of questions to ask
+        total_count: Total questions requested (or None for unlimited)
+
+    Flow:
+        - Ask questions in batches of 8
+        - After each batch: continuation prompt
+        - User can: proceed, add more, or keep going
+    """
+    answers = []
+    asked = 0
+    milestone = 8
+
+    while asked < len(selected_questions):
+        batch_end = min(asked + milestone, len(selected_questions))
+        batch = selected_questions[asked:batch_end]
+
+        for q in batch:
+            answer = AskUserQuestion([q])
+            answers.append(answer)
+            asked += 1
+
+        if total_count is not None and asked >= total_count:
+            break
+
+        if asked < len(selected_questions):
+            continue_choice = ask_continuation_prompt(asked, total_count)
+
+            if continue_choice == 'done':
+                break
+            elif continue_choice == 'add_4':
+                continue
+            elif continue_choice == 'add_8':
+                continue
+            elif continue_choice == 'keep_going':
+                total_count = None
+                continue
+
+    return answers
+
+def ask_continuation_prompt(questions_asked, total_count):
+    """Show continuation prompt at milestone."""
+    remaining = None
+    if total_count:
+        remaining = total_count - questions_asked
+
+    summary = f"You've answered {questions_asked} questions. Good context so far!"
+
+    options = [
+        {"label": "Done - Start brainstorming (Recommended)", "description": "Proceed with current context"},
+        {"label": "4 more questions", "description": "Add a few more details"},
+        {"label": "8 more questions", "description": "Thorough exploration"},
+        {"label": "Keep going until I say stop", "description": "I'll tell you when I'm done"}
+    ]
+
+    if remaining and remaining <= 4:
+        options[1]["label"] = f"{remaining} more questions (finish)"
+        options[2] = None
+
+    result = AskUserQuestion({
+        "question": "Continue gathering context or start brainstorming?",
+        "header": "Continue",
+        "multiSelect": False,
+        "options": [o for o in options if o]
+    })
+
+    if "Done" in result:
+        return 'done'
+    elif "4 more" in result:
+        return 'add_4'
+    elif "8 more" in result or "finish" in result:
+        return 'add_8'
+    else:
+        return 'keep_going'
+```
+
+**Milestone Prompt Examples:**
+
+After 8 questions (d:12 mode):
+```
+You've answered 8 questions. Good context so far!
+
+Continue gathering context or start brainstorming?
+○ Done - Start brainstorming (Recommended)
+○ 4 more questions
+○ 8 more questions
+○ Keep going until I say stop
+```
+
+After 16 questions (unlimited mode):
+```
+You've answered 16 questions. Comprehensive context!
+
+Continue gathering context or start brainstorming?
+○ Done - Start brainstorming (Recommended)
+○ 4 more questions
+○ Keep going until I say stop
+```
+
+**Key Behaviors:**
+- **Prompts appear every 8 questions** in batch mode
+- **Prompts every 4 questions** in "keep going" (unlimited) mode
+- **Customizable additions**: Users can add 4, 8, or continue unlimited
+- **Seamless integration**: Works with any initial count (d:5, d:12, d:20)
+
+**Examples:**
+- `/brainstorm d:12 "auth"` → 8 questions → milestone prompt → 4 more → proceed
+- `/brainstorm d:20 "api"` → 8 → milestone → 8 → milestone → 4 → proceed
+- `/brainstorm d:5 "quick"` → 5 questions → no milestone (under threshold)
+- `/brainstorm m:15 "complex" -C req,tech` → 8 req → milestone → 7 tech → proceed
 
 ---
 
@@ -920,6 +1288,53 @@ User: /workflow:brainstorm feature notifications --format json
 → Saves to BRAINSTORM-notifications-2024-12-24.json
 ```
 
+### Example 5: Colon Notation (v2.4.0)
+
+```
+User: /workflow:brainstorm d:5 "auth system"
+
+→ Deep mode with exactly 5 questions
+→ Asks 5 questions from question bank
+→ Shows "Ask More?" prompt
+→ Proceeds to brainstorm
+```
+
+### Example 6: Categories Flag (v2.4.0)
+
+```
+User: /workflow:brainstorm d:5 "auth" -C req,tech
+
+→ Deep mode with 5 questions from requirements + technical
+→ Skips users, scope, timeline, risks, existing, success categories
+→ More focused context gathering
+```
+
+### Example 7: Unlimited Questions with Milestones (v2.4.0)
+
+```
+User: /workflow:brainstorm d:20 "microservices"
+
+→ Asks first 8 questions
+→ Milestone prompt: "You've answered 8 questions. Continue?"
+→ User selects "8 more questions"
+→ Asks next 8 questions
+→ Milestone prompt: "You've answered 16 questions. Continue?"
+→ User selects "Done - Start brainstorming"
+→ Proceeds to brainstorm with 16 questions of context
+```
+
+### Example 8: Power User (v2.4.0)
+
+```
+User: /workflow:brainstorm d:15 f s -C req,tech,success "payment api"
+
+→ Deep mode with 15 questions
+→ Feature focus with spec capture
+→ Categories: requirements, technical, success only
+→ Milestone prompts every 8 questions
+→ Generates comprehensive plan with spec
+```
+
 ---
 
 ## Mode Selection Flowchart
@@ -1005,28 +1420,76 @@ flowchart TD
     Report --> End[Complete]
 ```
 
+### v2.4.0 Flow Additions
+
+**Colon Notation Flow:**
+```
+ColonArgs["d:5, m:12, q:3"] --> ParseDepthCount["parse_depth_with_count()"]
+ParseDepthCount --> Depth["deep (5 questions)"]
+ParseDepthCount --> Max["max (12 questions)"]
+```
+
+**Categories Flag Flow:**
+```
+CategoriesFlag["-C req,tech"] --> ParseCategories["parse_categories()"]
+ParseCategories --> FilterBank["Filter question bank"]
+FilterBank --> SelectedQuestions["Selected questions"]
+```
+
+**Milestone Prompt Flow:**
+```
+BatchQuestions["Ask 8 questions"] --> MilestoneQ["🔘 Continue?"]
+MilestoneQ --> UserChoice{User selects}
+UserChoice -->|Done| Execute
+UserChoice -->|4 more| BatchQuestions
+UserChoice -->|8 more| BatchQuestions
+UserChoice -->|Keep going| FrequentPrompts["Prompt every 4"]
+FrequentPrompts --> BatchQuestions
+```
+
 ---
 
 ## Version History
 
-### v2.3.1 (Current)
+### v2.4.0 (Current)
 
-**Comprehensive Spec Generation Fix:**
-- ✅ Fixed: Generated specs now include ALL template sections
-- ✅ Added explicit section mapping table in Generate Spec step
-- ✅ Non-applicable sections marked as "N/A - [reason]" (never omitted)
-- ✅ Updated Spec Capture Output to show all sections
-- ✅ Added section status legend (✓/⚠/N/A)
+**Question Control (Phase 1) - MVP:**
+- ✅ Colon notation: `d:5`, `m:12`, `q:3` for custom question counts
+- ✅ Categories flag: `--categories` or `-C` to filter question types
+- ✅ Unlimited questions with milestone prompts every 8 questions
+- ✅ Comprehensive 8-category question bank (16 questions total)
 
-**Sections Now Always Included:**
-- Overview, User Stories (primary + secondary)
-- Architecture (with Mermaid diagram)
-- API Design (table), Data Models, Dependencies
-- UI/UX Specifications (User Flow, Wireframes, Accessibility)
-- Open Questions, Review Checklist
-- Implementation Notes, History
+**New Question Categories:**
+- requirements: Key requirements, constraints
+- users: Primary users, problems solved
+- scope: In/out of scope, MVP
+- technical: Tech stack, integrations
+- timeline: Deadlines, milestones
+- risks: Potential risks, edge cases
+- existing: Reusable code, dependencies
+- success: Success metrics, acceptance criteria
 
-### v2.3.0
+**Colon Notation Examples:**
+```bash
+/brainstorm d:5 "auth"              # Deep with exactly 5 questions
+/brainstorm m:12 "api"              # Max with 12 questions
+/brainstorm q:0 "quick"             # Quick with 0 questions (straight to brainstorming)
+/brainstorm d:20 "complex"          # Deep with 20 questions (milestone prompts)
+```
+
+**Categories Flag Examples:**
+```bash
+/brainstorm d:5 "auth" -C req,tech              # 5 questions from requirements + technical
+/brainstorm m:10 f "api" --categories req,usr,tech,exist
+/brainstorm d:4 "caching" -C tech,risk
+```
+
+**Backward Compatible:**
+- All existing syntax still works
+- `d` = `d:8` (deep with default 8 questions)
+- `m` = `m:8` (max with default 8 questions)
+
+### v2.3.1
 
 **Three-Layer Argument System:**
 - ✅ New syntax: `/brainstorm [depth] [focus] [action] "topic"`

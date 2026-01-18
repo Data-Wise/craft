@@ -4,8 +4,8 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 1.24.0                                            │
-│  Commands: 97 | Agents: 8 | Skills: 21                      │
+│  Version: 2.4.0                                             │
+│  Commands: 100 | Agents: 8 | Skills: 21                     │
 │  Documentation: 95% complete | Diagrams: 17 Mermaid         │
 │  Docs: https://data-wise.github.io/craft/                   │
 └─────────────────────────────────────────────────────────────┘
@@ -126,6 +126,41 @@
 - Chat compression
 - ADHD-optimized status tracking
 
+## Workflow Commands (Enhanced v2.4.0)
+
+```bash
+# v2.4.0 - Question Control with colon notation
+/brainstorm d:5 "auth"              # Deep with exactly 5 questions
+/brainstorm m:12 "api"              # Max with 12 questions
+/brainstorm q:0 "quick"             # Quick with 0 questions (straight to brainstorming)
+/brainstorm d:20 "complex"          # Deep with 20 questions (unlimited mode)
+
+# v2.4.0 - Categories flag to filter question types
+/brainstorm d:5 "auth" -C req,tech              # 5 questions from requirements + technical
+/brainstorm m:10 f "api" --categories req,usr,tech,exist
+/brainstorm d:4 "caching" -C tech,risk
+/brainstorm d:8 "feature" -C all                # All 8 categories
+
+# Power user - full control
+/brainstorm d:15 f s -C req,tech,success "auth"   # 15 questions, feature, spec, filtered categories
+```
+
+**Question Bank (v2.4.0):** 8 categories × 2 questions = 16 total
+- requirements, users, scope, technical, timeline, risks, existing, success
+
+**Milestone Prompts:**
+- Questions asked in batches of 8
+- Continuation options: Done, +4, +8, Keep going
+- "Keep going" mode prompts every 4 questions
+
+**Other Workflow Commands:**
+```bash
+/workflow:focus        # Start focused work session
+/workflow:next         # Get next step
+/workflow:stuck        # Get unstuck help
+/workflow:done         # Complete session
+```
+
 ## Skills (21 total)
 
 Auto-triggered expertise:
@@ -192,9 +227,9 @@ New comprehensive guides (Phase 3 documentation):
 
 | Guide | Diagrams | Content |
 |-------|----------|---------|
+| **[Version History](VERSION-HISTORY.md)** | - | Complete timeline v1.0.0 → v2.4.0 with feature evolution |
 | **[Claude Code 2.1 Integration](guide/claude-code-2.1-integration.md)** | 9 Mermaid | Hot-reload validators, complexity scoring, orchestration hooks, agent delegation (610 lines) |
 | **[Complexity Scoring Algorithm](guide/complexity-scoring-algorithm.md)** | 8 Mermaid | Technical documentation of 0-10 scoring system, decision trees, examples (571 lines) |
-| **[Version History](VERSION-HISTORY.md)** | - | Complete timeline v1.0.0 → v1.24.0 with feature evolution (428 lines) |
 
 **Total:** 17 Mermaid diagrams across all guides
 
