@@ -153,7 +153,14 @@ try:
         print('(binary download - see docs)')
     else:
         print('(see documentation)')
-except:
+except json.JSONDecodeError as e:
+    print(f'ERROR: Invalid JSON in install spec: {e}', file=sys.stderr)
+    print('(unknown)')
+except KeyError as e:
+    print(f'ERROR: Missing key in install spec: {e}', file=sys.stderr)
+    print('(unknown)')
+except Exception as e:
+    print(f'ERROR: Failed to parse install spec: {e}', file=sys.stderr)
     print('(unknown)')
 " 2>/dev/null || echo "(unknown)")
 

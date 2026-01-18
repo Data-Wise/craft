@@ -77,6 +77,33 @@ dependencies:
     health:
       check_cmd: "fswatch --help"
       expect_exit: 0
+
+  python3:
+    required: true
+    purpose: "Parse YAML frontmatter in dependency-manager.sh"
+    methods: ["asciinema", "vhs"]
+    install:
+      brew: "python3"
+      apt: "python3"
+      yum: "python3"
+    version:
+      min: "3.7.0"
+      check_cmd: "python3 --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "python3 --version"
+      expect_exit: 0
+
+  pyyaml:
+    required: true
+    purpose: "Parse YAML frontmatter (Python library)"
+    methods: ["asciinema", "vhs"]
+    install_cmd: "pip3 install pyyaml"
+    version:
+      min: "5.1"
+      check_cmd: "python3 -c 'import yaml; print(yaml.__version__)' 2>/dev/null"
+    health:
+      check_cmd: "python3 -c 'import yaml' 2>/dev/null"
+      expect_exit: 0
 ---
 
 # /craft:docs:demo - Terminal Recording & GIF Generator

@@ -75,20 +75,39 @@ prompt_user_consent() {
     echo "└─────────────────────────────────────────────────────────────┘"
     echo ""
 
-    # Get user input
-    read -p "Your choice [Y/n/s]: " choice
-    case "$choice" in
-        Y|y|"")
-            return 0  # Yes, install
-            ;;
-        S|s)
-            SKIP_ALL=true
-            return 2  # Skip all mode activated
-            ;;
-        *)
-            return 1  # No, skip this tool
-            ;;
-    esac
+    # Get user input with validation
+    local choice
+    local max_attempts=3
+    local attempt=0
+
+    while [ $attempt -lt $max_attempts ]; do
+        read -p "Your choice [Y/n/s]: " choice
+
+        # Validate input (only allow alphanumeric single character)
+        if [[ ! "$choice" =~ ^[YyNnSs]?$ ]]; then
+            echo -e "${RED}Invalid input. Please enter 'Y', 'n', or 's' (or press Enter for Yes)${NC}"
+            ((attempt++))
+            continue
+        fi
+
+        # Valid input - process choice
+        case "$choice" in
+            Y|y|"")
+                return 0  # Yes, install
+                ;;
+            S|s)
+                SKIP_ALL=true
+                return 2  # Skip all mode activated
+                ;;
+            N|n)
+                return 1  # No, skip this tool
+                ;;
+        esac
+    done
+
+    # Max attempts exceeded - default to skip
+    echo -e "${YELLOW}Maximum attempts exceeded. Skipping this tool.${NC}"
+    return 1
 }
 
 ################################################################################

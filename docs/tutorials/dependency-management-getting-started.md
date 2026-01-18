@@ -212,6 +212,91 @@ Summary: All required tools ready ✨
 
 ---
 
+## Step 5.5: Migrating from VHS (Optional)
+
+**If you were using VHS before**, here's how to migrate to the asciinema workflow:
+
+### Why Migrate?
+
+The asciinema method offers several advantages:
+- ✅ **Real terminal capture** (actual TTY, not scripted)
+- ✅ **Smaller file sizes** (text-based .cast files)
+- ✅ **Faster conversion** (agg is optimized for .cast → .gif)
+- ✅ **Better accuracy** (no timing/rendering issues)
+- ✅ **Easier editing** (.cast files are JSON, VHS tapes are scripts)
+
+### Migration Steps
+
+**1. Verify asciinema method is ready:**
+```bash
+/craft:docs:demo --check
+# Should show all asciinema tools installed
+```
+
+**2. Re-record your demos using asciinema:**
+```bash
+# Instead of writing a VHS tape file:
+# vhs my-demo.tape
+
+# Use asciinema for real terminal capture:
+asciinema rec my-demo.cast
+# <perform your demo commands>
+# <press Ctrl+D when done>
+```
+
+**3. Convert with the new workflow:**
+```bash
+# Old VHS workflow:
+# vhs my-demo.tape   # Generates my-demo.gif
+
+# New asciinema workflow:
+/craft:docs:demo --convert my-demo.cast
+# Generates my-demo.gif using agg + gifsicle
+```
+
+### Key Differences
+
+| Feature | VHS (Old) | asciinema (New) |
+|---------|-----------|-----------------|
+| Input | Scripted .tape files | Real terminal .cast files |
+| Recording | Write commands in file | Record live session |
+| Timing | Predefined in script | Actual command timing |
+| Editing | Edit .tape script | Edit JSON .cast file |
+| Output | Direct to .gif | .cast → .gif conversion |
+| File size | Larger (~500KB-2MB) | Smaller (~50KB-200KB) |
+
+### Handling Existing VHS Files
+
+**Keep VHS as fallback:**
+```bash
+# VHS is still available via --method flag
+/craft:docs:demo --method vhs my-old-tape.tape
+
+# Or if you prefer VHS for specific demos:
+vhs my-scripted-demo.tape
+```
+
+**Gradual migration:**
+- Keep existing VHS demos if they work well
+- Use asciinema for new demos going forward
+- Re-record critical demos when you have time
+
+### Troubleshooting Migration
+
+**Issue: "I prefer scripted demos for consistency"**
+- Solution: Use `asciinema cat` to replay .cast files consistently
+- Or: Keep VHS for scripted demos, use asciinema for real demos
+
+**Issue: "My .cast files are too long"**
+- Solution: Use `asciinema play --speed 2` to preview at 2x speed
+- Or: Edit .cast JSON to adjust timing (see [asciinema docs](https://asciinema.org/))
+
+**Issue: "I want the old VHS styling"**
+- Solution: agg supports custom themes via `--theme` flag
+- Or: Use gifsicle to adjust colors/palette
+
+---
+
 ## Step 6: Create Your First Recording
 
 Now let's record a simple terminal session.
