@@ -350,6 +350,46 @@ The orchestrator tracks context usage with heuristics:
 - Claude system warning about context
 - User says "getting long"
 
+## Orchestrating Brainstorm Sessions (v2.4.0)
+
+The orchestrator can coordinate complex brainstorming workflows using `/brainstorm` with question control:
+
+### Example: Orchestrate Feature Planning
+
+```bash
+/craft:orchestrate "plan new authentication feature with full context gathering"
+```
+
+The orchestrator will:
+1. Launch `/brainstorm d:8 "authentication" -C req,users,scope,success` for context
+2. Spawn `backend-architect` agent to design auth flow
+3. Spawn `frontend-specialist` agent for login UI design
+4. Coordinate test strategy with `test-strategist`
+5. Synthesize all findings into comprehensive plan
+
+### Brainstorm + Orchestration Patterns
+
+```bash
+# Pattern 1: Quick context then implement
+/craft:orchestrate "add payment integration"
+# → Brainstorm q:2 → backend-architect → code implementation
+
+# Pattern 2: Deep context with multiple agents
+/craft:orchestrate "design microservices architecture" optimize
+# → Brainstorm d:8 -C tech,risk,existing → arch-1, arch-2 in parallel
+
+# Pattern 3: Feature with full lifecycle
+/craft:orchestrate "implement user management" release
+# → Brainstorm d:10 -C req,tech,success → arch + code + test + docs agents
+```
+
+### Benefits of Brainstorm Integration
+
+1. **Structured Context** - Question bank ensures comprehensive requirements
+2. **Focused Agents** - Agents receive filtered context based on categories
+3. **Milestone Progress** - Unlimited questions with prompts for complex features
+4. **Spec Capture** - Brainstorm → orchestrator → SPEC.md automatically
+
 ## Integration
 
 Works with all craft commands:
@@ -357,9 +397,38 @@ Works with all craft commands:
 - Routes to `/craft:code:*` for implementation
 - Routes to `/craft:test:*` for testing
 - Routes to `/craft:docs:*` for documentation
+- Routes to `/brainstorm` (v2.4.0) for context gathering
+
+## Performance Tips
+
+### Optimize Agent Selection
+
+| Scenario | Recommended Mode | Agents |
+|----------|------------------|--------|
+| Simple feature | `default` | 2 max |
+| Complex system | `optimize` | 4 parallel |
+| Debugging issue | `debug` | 1 sequential |
+| Pre-release | `release` | 4 + full audit |
+
+### Reduce Context Usage
+
+1. **Use focused categories**: `/brainstorm d:5 -C req,tech`
+2. **Limit question count**: `d:5` instead of `d:20`
+3. **Compress early**: Run `compress` at 60% context
+4. **Archive completed**: Let auto-save handle checkpoints
+
+### Troubleshooting Performance
+
+| Symptom | Solution |
+|---------|----------|
+| Agents timeout | Use `debug` mode (sequential) |
+| Context high | Run `compress` immediately |
+| Slow parallel | Reduce to `default` mode |
+| Lost progress | Run `continue` to resume |
 
 ## See Also
 
 - `/craft:do` — Simpler task routing (no monitoring)
 - `/craft:check` — Pre-flight validation
 - `/craft:hub` — Discover all commands
+- `/brainstorm` — Context gathering (v2.4.0)

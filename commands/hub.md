@@ -515,7 +515,7 @@ Command                  │ R Package        │ Other (MkDocs)
 ### `/craft:hub git`
 ```
 🔀 GIT COMMANDS (5 commands + 4 guides)
-─────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────
 Commands:
   /craft:git:init       Initialize repo with craft workflow
   /craft:git:branch     Branch management (create, switch, delete)
@@ -528,7 +528,37 @@ Guides:
   /craft:git:undo-guide Emergency undo guide
   /craft:git:safety-rails Safety rails guide
   /craft:git:learning-guide Learning guide
-─────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────
+```
+
+### `/craft:hub workflow` (NEW v2.4.0)
+```
+🔄 WORKFLOW COMMANDS (4) - ADHD-Friendly Workflow Management
+────────────────────────────────────────────────────────────────────────
+Command                           │ Description
+──────────────────────────────────┼────────────────────────────────────
+/brainstorm [depth:count] "topic" │ Brainstorm with custom question counts
+/brainstorm d:5 "auth"            │ Deep mode with exactly 5 questions
+/brainstorm m:12 "api"            │ Max mode with 12 questions
+/brainstorm q:0 "quick"           │ Quick with 0 questions
+/brainstorm d:5 "auth" -C req,tech │ Filter to requirements + technical
+/brainstorm d:20 "complex"        │ Unlimited mode with milestone prompts
+/workflow:focus                   │ Start focused work session
+/workflow:next                    │ Get next step
+/workflow:stuck                   │ Get unstuck help
+/workflow:done                    │ Complete session
+
+**v2.4.0 Brainstorm Features:**
+- Colon notation: d:5, m:12, q:3 for custom question counts
+- Categories flag: -C req,tech,success to filter question types
+- 8 categories: requirements, users, scope, technical, timeline, risks, existing, success
+- Milestone prompts every 8 questions for unlimited exploration
+
+**Quick Examples:**
+/brainstorm d:5 "auth" -C req,tech     # 5 questions, filtered categories
+/brainstorm m:10 f s "api"              # Max mode, feature, spec capture
+/brainstorm d:20 "complex" -C all      # Unlimited with all categories
+────────────────────────────────────────────────────────────────────────
 ```
 
 ## Skills (8 Auto-Activated)
@@ -610,11 +640,47 @@ Guides:
 │                                                                        │
 │ Daily:                                                                 │
 │   /craft:git:recap → /craft:check → /craft:git:sync                   │
+│                                                                        │
+│ **Orchestrate Complex Tasks:**                                         │
+│   /craft:orchestrate "add auth" optimize  → Parallel agent execution  │
+│   /craft:orchestrate "debug issue" debug  → Sequential troubleshooting│
+│   /craft:orchestrate "prep release" release → Comprehensive audit     │
+│   /craft:orchestrate status               → Agent dashboard           │
+│   /craft:orchestrate timeline             → Execution timeline        │
+│   /craft:orchestrate continue             → Resume previous session   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Agents
+## Agents (8 Specialized)
 
-| Agent | Purpose |
-|-------|---------|
-| `orchestrator` | Smart delegation to skills based on task context |
+| Agent | Specialty | Triggers |
+|-------|-----------|----------|
+| `orchestrator-v2` | Complex multi-step tasks with parallel execution | `/craft:orchestrate` |
+| `backend-architect` | Scalable APIs, microservices, database design | Architecture tasks |
+| `frontend-specialist` | React, Vue, component architecture | UI/UX discussions |
+| `devops-engineer` | CI/CD, Docker, Kubernetes, deployment | Ops tasks |
+| `test-strategist` | Test strategy, coverage, flaky tests | Testing needs |
+| `docs-architect` | Technical documentation, architecture guides | Docs requests |
+| `api-documenter` | OpenAPI specs, developer portals | API documentation |
+| `mermaid-expert` | Flowcharts, diagrams, visualizations | Diagram requests |
+
+### Orchestrator v2.1 (NEW)
+
+The orchestrator coordinates multiple agents for complex tasks:
+
+```bash
+/craft:orchestrate "implement feature X"       # Start with default mode
+/craft:orchestrate "complex task" optimize     # Parallel execution (4 agents)
+/craft:orchestrate "debug issue" debug         # Sequential troubleshooting
+/craft:orchestrate "prep release" release      # Comprehensive audit
+/craft:orchestrate status                      # Check agent progress
+/craft:orchestrate timeline                    # View execution timeline
+/craft:orchestrate continue                    # Resume previous session
+```
+
+**Key Features:**
+- Mode-aware execution (default/debug/optimize/release)
+- Up to 4 parallel agents in optimize/release modes
+- Chat compression for long sessions
+- Session persistence and resumption
+- ADHD-friendly progress tracking

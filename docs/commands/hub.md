@@ -197,7 +197,122 @@ Shows all commands in a category, grouped by subcategory:
 - `ci` (3) - CI/CD workflow generation
 - `dist` (1) - Distribution and packaging
 - `plan` (3) - Planning and project management
-- `workflow` (2) - Workflow automation
+- `workflow` (4) - Workflow automation, brainstorming (v2.4.0)
+
+---
+
+## Layer 2: WORKFLOW Category (NEW v2.4.0)
+
+**Invocation:** `/craft:hub workflow`
+
+The WORKFLOW category contains commands for ADHD-friendly workflow management and brainstorming:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 🔄 WORKFLOW COMMANDS (4)                                                │
+│ ADHD-Friendly Workflow Management & Brainstorming                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ 🧠 BRAINSTORMING (3 commands)                                           │
+│   1. /brainstorm [depth:count] "topic"  Brainstorm with question control│
+│   2. /brainstorm d:5 "auth"             Deep mode with 5 questions      │
+│   3. /brainstorm m:12 "api"             Max mode with 12 questions      │
+│                                                                         │
+│ 🎯 WORKFLOW MANAGEMENT (1 command)                                      │
+│   4. /workflow:focus                     Start focused work session     │
+│                                                                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│ 💡 v2.4.0 Brainstorm Features:                                         │
+│   • Colon notation: d:5, m:12, q:3 for custom question counts          │
+│   • Categories flag: -C req,tech,success to filter question types      │
+│   • 8 categories: requirements, users, scope, technical, timeline,     │
+│     risks, existing, success (16 questions total)                       │
+│   • Milestone prompts every 8 questions for unlimited exploration       │
+│                                                                         │
+│ 💡 Common Workflows:                                                    │
+│   • Quick context: brainstorm q "topic"                                │
+│   • Deep analysis: brainstorm d:8 "topic"                              │
+│   • Focused categories: brainstorm d:5 "topic" -C req,tech             │
+│   • Unlimited: brainstorm d:20 "topic"                                 │
+│                                                                         │
+│ 🔙 Back to hub: /craft:hub                                              │
+│ 📚 Learn more: /craft:hub workflow:brainstorm                           │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Example: `/craft:hub workflow`
+
+```
+🔄 WORKFLOW COMMANDS (4)
+🧠 BRAINSTORMING (3 commands):
+  1. /brainstorm d:5 "auth"           Deep with 5 questions
+  2. /brainstorm m:12 "api"           Max with 12 questions
+  3. /brainstorm q:0 "quick"          Quick with 0 questions
+
+🎯 WORKFLOW MANAGEMENT (1 command):
+  4. /workflow:focus                  Start focused work session
+
+💡 Common:
+  /brainstorm d:5 "auth" -C req,tech  # Filtered categories
+  /brainstorm d:20 "complex"          # Unlimited with milestones
+```
+
+---
+
+## Layer 3: Command Detail + Tutorial
+
+**Invocation:** `/craft:hub <category>:<command>`
+
+Shows detailed documentation for a specific command:
+
+### Example: `/craft:hub workflow:brainstorm`
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 📚 COMMAND: /brainstorm                                                 │
+│ ADHD-friendly brainstorming with question control (v2.4.0)             │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ SYNTAX                                                                 │
+│ ──────                                                                 │
+│   /brainstorm [depth:count] [focus] [action] [-C|--categories] "topic"│
+│                                                                         │
+│ ARGUMENTS                                                              │
+│ ──────────                                                             │
+│   depth:count  Question count (q:0, d:5, m:12, etc.)                   │
+│   focus       feat|arch|api|ux|ops (default: auto-detect)              │
+│   action      save|s (capture as spec)                                 │
+│   -C categories  req,users,scope,technical,timeline,risks,existing,success│
+│   topic       What to brainstorm (quoted string)                       │
+│                                                                         │
+│ MODES                                                                 │
+│ ─────                                                                 │
+│   default  2 questions + "ask more?"                                   │
+│   quick    0 questions + "ask more?"                                   │
+│   deep     8 questions + "ask more?"                                   │
+│   max      8 questions + agents + "ask more?"                          │
+│   custom   d:5, m:12, etc. (v2.4.0)                                    │
+│                                                                         │
+│ EXAMPLES                                                               │
+│ ─────────                                                              │
+│   /brainstorm "auth"                           Default mode            │
+│   /brainstorm d:5 "auth"                       Deep with 5 questions   │
+│   /brainstorm m:12 "api"                       Max with 12 questions   │
+│   /brainstorm q:0 "quick"                      Quick with 0 questions  │
+│   /brainstorm d:5 "auth" -C req,tech           Filtered categories     │
+│   /brainstorm d:20 "complex"                   Unlimited with milestones│
+│   /brainstorm d:5 f s "auth"                   Deep + feature + spec   │
+│                                                                         │
+│ QUESTIONS BANK (v2.4.0)                                                │
+│ ────────────────                                                       │
+│   8 categories × 2 questions = 16 total                                │
+│   requirements, users, scope, technical, timeline, risks, existing,    │
+│   success                                                               │
+│                                                                         │
+│ 🔙 Back to WORKFLOW: /craft:hub workflow                               │
+│ 🏠 Back to Hub: /craft:hub                                             │
+└─────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
