@@ -162,6 +162,9 @@ nav:
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
       - Dependency Management:
         - Documentation Index: DEPENDENCY-MANAGEMENT.md
+        - Tutorials:
+          - Tutorial Overview: tutorials/index.md
+          - Getting Started: tutorials/dependency-management-getting-started.md
         - API Reference: API-REFERENCE.md
         - Architecture Diagrams: DEPENDENCY-ARCHITECTURE.md
         - Developer Guide: DEVELOPER-GUIDE.md
