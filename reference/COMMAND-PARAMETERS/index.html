@@ -1,0 +1,8933 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Full-stack developer toolkit - 97 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces">
+      
+      
+      
+        <link rel="canonical" href="https://data-wise.github.io/craft/reference/COMMAND-PARAMETERS/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Craft Command Parameters Reference - Craft Plugin</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#craft-command-parameters-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Craft Plugin
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Craft Command Parameters Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Data-Wise/craft" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Data-Wise/craft
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guide/getting-started/" class="md-tabs__link">
+          
+  
+  
+  📖 Guides & Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../commands/overview/" class="md-tabs__link">
+          
+  
+  
+  ⚙️ Commands & Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cookbook/" class="md-tabs__link">
+          
+  
+  
+  📚 Cookbook & Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../configuration/" class="md-tabs__link">
+          
+  
+  
+  Reference & Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guide/documentation-quality-development/" class="md-tabs__link">
+          
+  
+  
+  For Contributors
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../REFCARD/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  📋 Quick Reference Card
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Craft Plugin
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Data-Wise/craft" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Data-Wise/craft
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🚀 Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QUICK-START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADHD-QUICK-START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADHD Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/choose-path/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choose Your Path
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visual Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PLAYGROUND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Playground
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📖 Guides & Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📖 Guides & Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's New
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's New
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1.0 Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/claude-code-2.1-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1 Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/complexity-scoring-algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complexity Scoring Algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Workflows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Workflows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/documentation-quality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/release-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/git-feature-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/pre-commit-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-commit Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teaching Mode
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teaching Mode
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TEACHING-DOCS-INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview & Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/teaching-mode-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/teaching-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REFCARD-TEACHING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teaching-config-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config Schema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teaching-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specialized Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specialized Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git Repository Init
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Git Repository Init
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git-init-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/git-init-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/git-init-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git-init-docs-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/orchestrator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestration & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/homebrew-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/skills-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ACCESSIBILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accessibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⚙️ Commands & Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ⚙️ Commands & Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    By Category
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    By Category
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/smart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/site/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code & Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git & CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/arch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/dist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete A-Z Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help & Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Help & Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:do
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/hub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:hub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/orchestrate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:orchestrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/ci/generate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:generate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/docs/update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:docs:update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git/worktree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:worktree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/workflow/brainstorm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:workflow:brainstorm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 Cookbook & Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 Cookbook & Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cookbook Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common Recipes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common Recipes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set Up New Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/deploy-course-website/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Course Website
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/automate-release-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automate Release Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Check Code Quality Before Commit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Not Found
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference & Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference & Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../presets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Presets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../skills-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills & Agents Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../orchestrator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrator Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation-quality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Quality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VERSION-HISTORY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enhancement Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Enhancement Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1 Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GIF Recording & Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    GIF Recording & Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GIF Recording Workflow (2026)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GIF Regeneration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9_3" id="__nav_5_9_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependency Management
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_9_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dependency Management
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_9_3_2" id="__nav_5_9_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_9_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_9_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/dependency-management-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API-REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Diagrams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DEVELOPER-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specifications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Broken Link Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hub v2.0 Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dry-Run Feature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teaching Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Website Organization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help Template System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    For Contributors
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    For Contributors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/documentation-quality-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Quality Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CI-TEMPLATES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Templates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Detection Rollout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REFCARD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📋 Quick Reference Card
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-parameter-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Parameter Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Parameter Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Root Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Root Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftdo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:do
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafthub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftorchestrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:orchestrate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsmart-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:smart-help
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdiscovery-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:discovery-usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftarchanalyze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:arch:analyze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftarchdiagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:arch:diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftarchplan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:arch:plan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftarchreview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:arch:review
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftcodelint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:lint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcoderefactor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:refactor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcodetest-gen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:test-gen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcodedebug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:debug
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcodedemo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcodecoverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcodedeps-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:deps-check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcodedeps-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:deps-audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcodeci-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:ci-local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcodeci-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:ci-fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcodedocs-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:docs-check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftcoderelease" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:code:release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI/CD Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CI/CD Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftgenerate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craftgenerate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdetect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craftdetect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftvalidate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craftvalidate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Check Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftcheckgen-validator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:check:gen-validator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distribution-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distribution Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftdistpypi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:dist:pypi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdisthomebrew" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:dist:homebrew
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdistcurl-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:dist:curl-install
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:api
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocschangelog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:changelog
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocscheck-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:check-links
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocscheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsclaude-md" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:claude-md
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsdemo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:demo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsguide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:guide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocshelp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:help
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocslint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:lint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsmermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:mermaid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsnav-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:nav-update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsprompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:prompt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsquickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:quickstart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocssite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:site
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocssync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocstutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:tutorial
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsupdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsworkflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocswebsite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:website
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Git Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftgitinit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:init
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftgitstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftgitsync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftgitbranch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:branch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftgitworktree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:worktree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftgitclean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:clean
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftgitgit-recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:git-recap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plan-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plan Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plan Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftplanfeature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:plan:feature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftplansprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:plan:sprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftplanroadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:plan:roadmap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#site-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Site Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Site Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftsiteinit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:init
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsitebuild" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsitepreview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:preview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsitedeploy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:deploy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsitepublish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:publish
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsiteadd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:add
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsitecheck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsiteupdate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsitestatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsiteprogress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsiteaudit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsiteconsolidate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:consolidate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsitenav" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:nav
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsitetheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:theme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftsitecreate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:site:create
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crafttestrun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:run
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafttestgenerate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:generate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafttestcoverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafttestdebug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:debug
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafttestwatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:watch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafttestcli-gen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:cli-gen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crafttestcli-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:test:cli-run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowbrainstorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:brainstorm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowfocus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:focus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflownext" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:next
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowstuck" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:stuck
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowdone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:done
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowrecap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:recap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowrefine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:refine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowspec-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:spec-review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowadhd-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:adhd-guide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowtask-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:task-status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowtask-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:task-output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftworkflowtask-cancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:workflow:task-cancel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utility-commands-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Commands Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility Commands Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftutilsreadme-teach-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:utils:readme-teach-config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftutilsreadme-semester-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:utils:readme-semester-progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameter-validation-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Validation Rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameter Validation Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numeric Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enum-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enum Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boolean-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command-Specific
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/reference/COMMAND-PARAMETERS.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="craft-command-parameters-reference">Craft Command Parameters Reference<a class="headerlink" href="#craft-command-parameters-reference" title="Permanent link">&para;</a></h1>
+<p>Comprehensive parameter reference for all 97 Craft commands.</p>
+<p><strong>Version</strong>: v1.24.0 | <strong>Last Updated</strong>: 2026-01-17</p>
+<hr />
+<h2 id="quick-parameter-guide">Quick Parameter Guide<a class="headerlink" href="#quick-parameter-guide" title="Permanent link">&para;</a></h2>
+<h3 id="parameter-types">Parameter Types<a class="headerlink" href="#parameter-types" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string</code></td>
+<td><code>"auth"</code>, <code>src/file.ts</code></td>
+<td>Text value</td>
+</tr>
+<tr>
+<td><code>enum</code></td>
+<td><code>default</code> | <code>debug</code> | <code>optimize</code></td>
+<td>One of specific options</td>
+</tr>
+<tr>
+<td><code>number</code></td>
+<td><code>8000</code>, <code>60</code></td>
+<td>Numeric value</td>
+</tr>
+<tr>
+<td><code>boolean</code></td>
+<td><code>true</code> / <code>false</code></td>
+<td>True or false</td>
+</tr>
+<tr>
+<td><code>array</code></td>
+<td><code>["a.ts", "b.ts"]</code></td>
+<td>List of values</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-parameters">Common Parameters<a class="headerlink" href="#common-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Used In</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mode</code></td>
+<td>enum</td>
+<td>Most commands</td>
+<td>Execution mode: <code>default</code>, <code>debug</code>, <code>optimize</code>, <code>release</code></td>
+</tr>
+<tr>
+<td><code>--dry-run</code> / <code>-n</code></td>
+<td>boolean</td>
+<td>Mutation commands</td>
+<td>Preview changes without executing</td>
+</tr>
+<tr>
+<td><code>--fix</code></td>
+<td>boolean</td>
+<td>Validation commands</td>
+<td>Auto-fix detected issues</td>
+</tr>
+<tr>
+<td><code>--verbose</code> / <code>-v</code></td>
+<td>boolean</td>
+<td>Most commands</td>
+<td>Show detailed output</td>
+</tr>
+<tr>
+<td><code>--output</code></td>
+<td>string</td>
+<td>Doc generation</td>
+<td>Save output to file</td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td>string</td>
+<td>File operations</td>
+<td>Target file or directory</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="root-commands-parameters">Root Commands Parameters<a class="headerlink" href="#root-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftdo">/craft:do<a class="headerlink" href="#craftdo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Task description (natural language)</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>enum</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td><code>default</code>, <code>debug</code>, <code>optimize</code>, <code>release</code></td>
+</tr>
+<tr>
+<td>complexity</td>
+<td>enum</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Override: <code>simple</code>, <code>moderate</code>, <code>complex</code></td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview routing without executing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Environment Variables</strong>:
+- <code>CRAFT_MODE</code> - Default execution mode
+- <code>CRAFT_COMPLEXITY_OVERRIDE</code> - Override complexity scoring</p>
+<hr />
+<h3 id="craftcheck">/craft:check<a class="headerlink" href="#craftcheck" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scope</td>
+<td>enum</td>
+<td>No</td>
+<td><code>all</code></td>
+<td>-</td>
+<td><code>all</code>, <code>code</code>, <code>tests</code>, <code>git</code>, <code>docs</code></td>
+</tr>
+<tr>
+<td>mode</td>
+<td>enum</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td>Execution mode</td>
+</tr>
+<tr>
+<td>fix</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--auto-fix</code></td>
+<td>Auto-fix fixable issues</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview fixes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Output Scopes</strong>:
+- <code>code</code> - Linting, style, complexity
+- <code>tests</code> - Test coverage, failures
+- <code>git</code> - Branch status, commits
+- <code>docs</code> - Broken links, completeness
+- <code>all</code> - Everything (default)</p>
+<hr />
+<h3 id="crafthub">/craft:hub<a class="headerlink" href="#crafthub" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Search commands by keyword</td>
+</tr>
+<tr>
+<td>category</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Filter by category</td>
+</tr>
+<tr>
+<td>verbose</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-v</code></td>
+<td>Show full help text</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Categories</strong>:
+- <code>arch</code> - Architecture commands
+- <code>code</code> - Code development
+- <code>docs</code> - Documentation
+- <code>git</code> - Git workflows
+- <code>test</code> - Testing
+- <code>site</code> - Site generation
+- <code>workflow</code> - Productivity workflows</p>
+<hr />
+<h3 id="craftorchestrate">/craft:orchestrate<a class="headerlink" href="#craftorchestrate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Task description</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>enum</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td>Execution mode</td>
+</tr>
+<tr>
+<td>agents</td>
+<td>number</td>
+<td>No</td>
+<td>2</td>
+<td><code>--agent-count</code></td>
+<td>Number of parallel agents</td>
+</tr>
+<tr>
+<td>background</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>-bg</code></td>
+<td>Run agents in background</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Modes Impact on Agents</strong>:
+- <code>default</code> - 2 agents max
+- <code>debug</code> - 1 agent (sequential)
+- <code>optimize</code> - 4 agents max
+- <code>release</code> - 4 agents max</p>
+<hr />
+<h3 id="craftsmart-help">/craft:smart-help<a class="headerlink" href="#craftsmart-help" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>command</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Command to help with</td>
+</tr>
+<tr>
+<td>examples</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-e</code></td>
+<td>Show usage examples</td>
+</tr>
+<tr>
+<td>related</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--show-related</code></td>
+<td>Show related commands</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdiscovery-usage">/craft:discovery-usage<a class="headerlink" href="#craftdiscovery-usage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>format</td>
+<td>enum</td>
+<td>No</td>
+<td><code>markdown</code></td>
+<td>-</td>
+<td><code>markdown</code>, <code>json</code>, <code>html</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="architecture-commands-parameters">Architecture Commands Parameters<a class="headerlink" href="#architecture-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftarchanalyze">/craft:arch:analyze<a class="headerlink" href="#craftarchanalyze" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>No</td>
+<td><code>.</code></td>
+<td>-</td>
+<td>Directory to analyze</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>enum</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td>Execution mode</td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>stdout</td>
+<td><code>--save-to</code></td>
+<td>Save output to file</td>
+</tr>
+<tr>
+<td>depth</td>
+<td>number</td>
+<td>No</td>
+<td>3</td>
+<td>-</td>
+<td>Analysis depth (1-5)</td>
+</tr>
+<tr>
+<td>metrics</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td>-</td>
+<td>Include metrics</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftarchdiagram">/craft:arch:diagram<a class="headerlink" href="#craftarchdiagram" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>enum</td>
+<td>No</td>
+<td><code>system</code></td>
+<td>-</td>
+<td><code>system</code>, <code>dataflow</code>, <code>class</code>, <code>sequence</code></td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>stdout</td>
+<td><code>--save-to</code></td>
+<td>Save diagram</td>
+</tr>
+<tr>
+<td>format</td>
+<td>enum</td>
+<td>No</td>
+<td><code>mermaid</code></td>
+<td>-</td>
+<td><code>mermaid</code>, <code>svg</code>, <code>png</code></td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Diagram title</td>
+</tr>
+<tr>
+<td>detailed</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-d</code></td>
+<td>Include detailed info</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftarchplan">/craft:arch:plan<a class="headerlink" href="#craftarchplan" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scope</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>What to plan</td>
+</tr>
+<tr>
+<td>timeline</td>
+<td>enum</td>
+<td>No</td>
+<td><code>flexible</code></td>
+<td>-</td>
+<td><code>urgent</code>, <code>normal</code>, <code>flexible</code></td>
+</tr>
+<tr>
+<td>estimate</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td>-</td>
+<td>Include estimates</td>
+</tr>
+<tr>
+<td>risks</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td>-</td>
+<td>Include risk analysis</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftarchreview">/craft:arch:review<a class="headerlink" href="#craftarchreview" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>No</td>
+<td><code>.</code></td>
+<td>-</td>
+<td>File/directory to review</td>
+</tr>
+<tr>
+<td>detailed</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-d</code></td>
+<td>Detailed analysis</td>
+</tr>
+<tr>
+<td>focus</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Focus area</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="code-commands-parameters">Code Commands Parameters<a class="headerlink" href="#code-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftcodelint">/craft:code:lint<a class="headerlink" href="#craftcodelint" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mode</td>
+<td>enum</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td><code>default</code>, <code>debug</code>, <code>optimize</code>, <code>release</code></td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>No</td>
+<td><code>.</code></td>
+<td>-</td>
+<td>File or directory</td>
+</tr>
+<tr>
+<td>fix</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--auto-fix</code></td>
+<td>Auto-fix issues</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview fixes</td>
+</tr>
+<tr>
+<td>rules</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Specific rules to check</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mode Behaviors</strong>:
+- <code>default</code> - Quick style check (&lt; 10s)
+- <code>debug</code> - All rules + suggestions (&lt; 120s)
+- <code>optimize</code> - Performance focus (&lt; 180s)
+- <code>release</code> - Comprehensive + strict (&lt; 300s)</p>
+<hr />
+<h3 id="craftcoderefactor">/craft:code:refactor<a class="headerlink" href="#craftcoderefactor" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Refactoring pattern</td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>No</td>
+<td><code>.</code></td>
+<td>-</td>
+<td>Target directory</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview changes</td>
+</tr>
+<tr>
+<td>no-test</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Skip test running</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common Patterns</strong>:
+- <code>rename &lt;old&gt; to &lt;new&gt;</code> - Rename identifier
+- <code>extract method &lt;name&gt;</code> - Extract method
+- <code>inline variable &lt;name&gt;</code> - Inline variable
+- <code>move to &lt;location&gt;</code> - Move code</p>
+<hr />
+<h3 id="craftcodetest-gen">/craft:code:test-gen<a class="headerlink" href="#craftcodetest-gen" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>enum</td>
+<td>No</td>
+<td><code>unit</code></td>
+<td>-</td>
+<td><code>unit</code>, <code>integration</code>, <code>e2e</code></td>
+</tr>
+<tr>
+<td>source</td>
+<td>string</td>
+<td>No</td>
+<td><code>.</code></td>
+<td>-</td>
+<td>Source file/dir</td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Output directory</td>
+</tr>
+<tr>
+<td>template</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Test template</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftcodedebug">/craft:code:debug<a class="headerlink" href="#craftcodedebug" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>command</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Command to debug</td>
+</tr>
+<tr>
+<td>verbose</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-v</code></td>
+<td>Verbose traces</td>
+</tr>
+<tr>
+<td>breakpoint</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Breakpoint location</td>
+</tr>
+<tr>
+<td>port</td>
+<td>number</td>
+<td>No</td>
+<td>9229</td>
+<td>-</td>
+<td>Debug server port</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftcodedemo">/craft:code:demo<a class="headerlink" href="#craftcodedemo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>script</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Demo script file</td>
+</tr>
+<tr>
+<td>format</td>
+<td>enum</td>
+<td>No</td>
+<td><code>gif</code></td>
+<td>-</td>
+<td><code>gif</code>, <code>asciinema</code>, <code>svg</code></td>
+</tr>
+<tr>
+<td>speed</td>
+<td>number</td>
+<td>No</td>
+<td>1.0</td>
+<td>-</td>
+<td>Playback speed (0.5-2.0)</td>
+</tr>
+<tr>
+<td>width</td>
+<td>number</td>
+<td>No</td>
+<td>80</td>
+<td>-</td>
+<td>Terminal width</td>
+</tr>
+<tr>
+<td>height</td>
+<td>number</td>
+<td>No</td>
+<td>24</td>
+<td>-</td>
+<td>Terminal height</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftcodecoverage">/craft:code:coverage<a class="headerlink" href="#craftcodecoverage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mode</td>
+<td>enum</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td>Execution mode</td>
+</tr>
+<tr>
+<td>threshold</td>
+<td>number</td>
+<td>No</td>
+<td>80</td>
+<td>-</td>
+<td>Minimum % required</td>
+</tr>
+<tr>
+<td>report</td>
+<td>enum</td>
+<td>No</td>
+<td>stdout</td>
+<td><code>--save-to</code></td>
+<td><code>text</code>, <code>html</code>, <code>json</code>, <code>xml</code></td>
+</tr>
+<tr>
+<td>exclude</td>
+<td>array</td>
+<td>No</td>
+<td><code>[node_modules]</code></td>
+<td>-</td>
+<td>Exclude patterns</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftcodedeps-check">/craft:code:deps-check<a class="headerlink" href="#craftcodedeps-check" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fix</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--auto-fix</code></td>
+<td>Auto-update</td>
+</tr>
+<tr>
+<td>security</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Security only</td>
+</tr>
+<tr>
+<td>major</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Check major versions</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftcodedeps-audit">/craft:code:deps-audit<a class="headerlink" href="#craftcodedeps-audit" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>licenses</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--check-licenses</code></td>
+<td>Include licenses</td>
+</tr>
+<tr>
+<td>tree</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--show-tree</code></td>
+<td>Show dependency tree</td>
+</tr>
+<tr>
+<td>json</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--json</code></td>
+<td>JSON output</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftcodeci-local">/craft:code:ci-local<a class="headerlink" href="#craftcodeci-local" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+<tr>
+<td>verbose</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-v</code></td>
+<td>Verbose output</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftcodeci-fix">/craft:code:ci-fix<a class="headerlink" href="#craftcodeci-fix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>issue</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Specific issue</td>
+</tr>
+<tr>
+<td>apply</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Auto-apply</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftcodedocs-check">/craft:code:docs-check<a class="headerlink" href="#craftcodedocs-check" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strict</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Enforce all</td>
+</tr>
+<tr>
+<td>fix</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--auto-fix</code></td>
+<td>Auto-add</td>
+</tr>
+<tr>
+<td>language</td>
+<td>string</td>
+<td>No</td>
+<td><code>en</code></td>
+<td>-</td>
+<td>Documentation language</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftcoderelease">/craft:code:release<a class="headerlink" href="#craftcoderelease" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td>-</td>
+<td>Version to release</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+<tr>
+<td>skip-tests</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Skip tests</td>
+</tr>
+<tr>
+<td>skip-changelog</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Skip changelog</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="cicd-commands-parameters">CI/CD Commands Parameters<a class="headerlink" href="#cicd-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftgenerate">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />generate<a class="headerlink" href="#craftgenerate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>platform</td>
+<td>enum</td>
+<td>No</td>
+<td><code>github</code></td>
+<td>-</td>
+<td><code>github</code>, <code>gitlab</code>, <code>circle</code>, <code>travis</code></td>
+</tr>
+<tr>
+<td>template</td>
+<td>string</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td>Workflow template</td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Output path</td>
+</tr>
+<tr>
+<td>nodejs</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Node.js workflow</td>
+</tr>
+<tr>
+<td>python</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Python workflow</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdetect">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />detect<a class="headerlink" href="#craftdetect" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>recommended</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-r</code></td>
+<td>Show recommendation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftvalidate">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />validate<a class="headerlink" href="#craftvalidate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>file</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td>-</td>
+<td>Workflow file</td>
+</tr>
+<tr>
+<td>strict</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Strict validation</td>
+</tr>
+<tr>
+<td>fix</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--auto-fix</code></td>
+<td>Auto-fix</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="check-commands-parameters">Check Commands Parameters<a class="headerlink" href="#check-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftcheckgen-validator">/craft:check:gen-validator<a class="headerlink" href="#craftcheckgen-validator" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>enum</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td><code>lint</code>, <code>test</code>, <code>link</code>, <code>custom</code></td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Save validator</td>
+</tr>
+<tr>
+<td>hooks</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td>-</td>
+<td>Install git hook</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="distribution-commands-parameters">Distribution Commands Parameters<a class="headerlink" href="#distribution-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftdistpypi">/craft:dist:pypi<a class="headerlink" href="#craftdistpypi" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>No</td>
+<td>from manifest</td>
+<td>-</td>
+<td>Version to publish</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+<tr>
+<td>test</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--testpypi</code></td>
+<td>Use TestPyPI</td>
+</tr>
+<tr>
+<td>token</td>
+<td>string</td>
+<td>No</td>
+<td>env var</td>
+<td><code>--token</code></td>
+<td>PyPI token</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdisthomebrew">/craft:dist:homebrew<a class="headerlink" href="#craftdisthomebrew" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>No</td>
+<td>latest tag</td>
+<td>-</td>
+<td>Version to use</td>
+</tr>
+<tr>
+<td>tap</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td>-</td>
+<td>Homebrew tap</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td>-</td>
+<td>Download URL</td>
+</tr>
+<tr>
+<td>sha</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td>-</td>
+<td>SHA256 hash</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdistcurl-install">/craft:dist:curl-install<a class="headerlink" href="#craftdistcurl-install" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td><code>install.sh</code></td>
+<td><code>--save-to</code></td>
+<td>Output file</td>
+</tr>
+<tr>
+<td>hosting</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td>-</td>
+<td>Where script hosted</td>
+</tr>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>No</td>
+<td>latest</td>
+<td>-</td>
+<td>Version to install</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="documentation-commands-parameters">Documentation Commands Parameters<a class="headerlink" href="#documentation-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftdocsapi">/craft:docs:api<a class="headerlink" href="#craftdocsapi" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>format</td>
+<td>enum</td>
+<td>No</td>
+<td><code>openapi</code></td>
+<td>-</td>
+<td><code>openapi</code>, <code>swagger</code>, <code>markdown</code></td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Output file</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td>-</td>
+<td>API title</td>
+</tr>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>No</td>
+<td>from manifest</td>
+<td>-</td>
+<td>API version</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocschangelog">/craft:docs:changelog<a class="headerlink" href="#craftdocschangelog" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>from</td>
+<td>string</td>
+<td>No</td>
+<td>last tag</td>
+<td>-</td>
+<td>From commit/tag</td>
+</tr>
+<tr>
+<td>to</td>
+<td>string</td>
+<td>No</td>
+<td>HEAD</td>
+<td>-</td>
+<td>To commit/tag</td>
+</tr>
+<tr>
+<td>format</td>
+<td>enum</td>
+<td>No</td>
+<td><code>markdown</code></td>
+<td>-</td>
+<td><code>markdown</code>, <code>html</code>, <code>json</code></td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>stdout</td>
+<td><code>--save-to</code></td>
+<td>Output file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocscheck-links">/craft:docs:check-links<a class="headerlink" href="#craftdocscheck-links" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>external</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--check-external</code></td>
+<td>Check external URLs</td>
+</tr>
+<tr>
+<td>fix</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--auto-fix</code></td>
+<td>Auto-fix</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>number</td>
+<td>No</td>
+<td>5000</td>
+<td>-</td>
+<td>URL timeout (ms)</td>
+</tr>
+<tr>
+<td>report</td>
+<td>enum</td>
+<td>No</td>
+<td>stdout</td>
+<td><code>--save-to</code></td>
+<td>Report format</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocscheck">/craft:docs:check<a class="headerlink" href="#craftdocscheck" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strict</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Strict requirements</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocsclaude-md">/craft:docs:claude-md<a class="headerlink" href="#craftdocsclaude-md" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sync</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--auto-sync</code></td>
+<td>Sync instructions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocsdemo">/craft:docs:demo<a class="headerlink" href="#craftdocsdemo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>enum</td>
+<td>No</td>
+<td><code>command</code></td>
+<td>-</td>
+<td><code>command</code>, <code>feature</code>, <code>workflow</code></td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Output file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocsguide">/craft:docs:guide<a class="headerlink" href="#craftdocsguide" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topic</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Guide topic</td>
+</tr>
+<tr>
+<td>level</td>
+<td>enum</td>
+<td>No</td>
+<td><code>beginner</code></td>
+<td>-</td>
+<td><code>beginner</code>, <code>intermediate</code>, <code>advanced</code></td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Output file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocshelp">/craft:docs:help<a class="headerlink" href="#craftdocshelp" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>include-examples</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--no-examples</code></td>
+<td>Include examples</td>
+</tr>
+<tr>
+<td>format</td>
+<td>enum</td>
+<td>No</td>
+<td>markdown</td>
+<td>-</td>
+<td><code>markdown</code>, <code>text</code>, <code>html</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocslint">/craft:docs:lint<a class="headerlink" href="#craftdocslint" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fix</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--auto-fix</code></td>
+<td>Auto-fix</td>
+</tr>
+<tr>
+<td>rules</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Specific rules</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocsmermaid">/craft:docs:mermaid<a class="headerlink" href="#craftdocsmermaid" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>enum</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td><code>flowchart</code>, <code>sequence</code>, <code>erd</code>, <code>gantt</code>, <code>class</code></td>
+</tr>
+<tr>
+<td>interactive</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-i</code></td>
+<td>Interactive</td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Output file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocsnav-update">/craft:docs:nav-update<a class="headerlink" href="#craftdocsnav-update" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auto</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--manual</code></td>
+<td>Auto-detect</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocsprompt">/craft:docs:prompt<a class="headerlink" href="#craftdocsprompt" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Documentation task</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocsquickstart">/craft:docs:quickstart<a class="headerlink" href="#craftdocsquickstart" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topic</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Quick-start topic</td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Output file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocssite">/craft:docs:site<a class="headerlink" href="#craftdocssite" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td>enum</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td><code>build</code>, <code>deploy</code>, <code>preview</code>, <code>serve</code></td>
+</tr>
+<tr>
+<td>port</td>
+<td>number</td>
+<td>No</td>
+<td>8000</td>
+<td>-</td>
+<td>Server port</td>
+</tr>
+<tr>
+<td>production</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Production build</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocssync">/craft:docs:sync<a class="headerlink" href="#craftdocssync" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fix</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--auto-fix</code></td>
+<td>Auto-fix</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocstutorial">/craft:docs:tutorial<a class="headerlink" href="#craftdocstutorial" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topic</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Tutorial topic</td>
+</tr>
+<tr>
+<td>interactive</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-i</code></td>
+<td>Interactive</td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Output file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocsupdate">/craft:docs:update<a class="headerlink" href="#craftdocsupdate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>all</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-a</code></td>
+<td>Update all</td>
+</tr>
+<tr>
+<td>field</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Specific field</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocsworkflow">/craft:docs:workflow<a class="headerlink" href="#craftdocsworkflow" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>workflow</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Workflow name</td>
+</tr>
+<tr>
+<td>output</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td><code>--save-to</code></td>
+<td>Output file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftdocswebsite">/craft:docs:website<a class="headerlink" href="#craftdocswebsite" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td>enum</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td><code>init</code>, <code>add</code>, <code>remove</code>, <code>restructure</code></td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Section name</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="git-commands-parameters">Git Commands Parameters<a class="headerlink" href="#git-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftgitinit">/craft:git:init<a class="headerlink" href="#craftgitinit" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>template</td>
+<td>enum</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td><code>default</code>, <code>monorepo</code>, <code>minimal</code></td>
+</tr>
+<tr>
+<td>hooks</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--no-hooks</code></td>
+<td>Install hooks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftgitstatus">/craft:git:status<a class="headerlink" href="#craftgitstatus" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>detailed</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-d</code></td>
+<td>Detailed info</td>
+</tr>
+<tr>
+<td>suggest</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--no-suggest</code></td>
+<td>Show suggestions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftgitsync">/craft:git:sync<a class="headerlink" href="#craftgitsync" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>force</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--dangerous-force</code></td>
+<td>Force sync</td>
+</tr>
+<tr>
+<td>rebase</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--merge</code></td>
+<td>Rebase vs merge</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftgitbranch">/craft:git:branch<a class="headerlink" href="#craftgitbranch" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td>enum</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td><code>create</code>, <code>list</code>, <code>delete</code>, <code>rename</code></td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Branch name</td>
+</tr>
+<tr>
+<td>type</td>
+<td>enum</td>
+<td>No</td>
+<td><code>feature</code></td>
+<td>-</td>
+<td><code>feature</code>, <code>hotfix</code>, <code>release</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftgitworktree">/craft:git:worktree<a class="headerlink" href="#craftgitworktree" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td>enum</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td><code>setup</code>, <code>create</code>, <code>move</code>, <code>list</code>, <code>clean</code>, <code>install</code>, <code>finish</code></td>
+</tr>
+<tr>
+<td>branch</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Branch name</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftgitclean">/craft:git:clean<a class="headerlink" href="#craftgitclean" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+<tr>
+<td>remote</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--clean-remote</code></td>
+<td>Clean remote</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftgitgit-recap">/craft:git:git-recap<a class="headerlink" href="#craftgitgit-recap" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topic</td>
+<td>enum</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td><code>basics</code>, <code>branching</code>, <code>merging</code>, <code>rebasing</code></td>
+</tr>
+<tr>
+<td>interactive</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--no-interactive</code></td>
+<td>Interactive</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="plan-commands-parameters">Plan Commands Parameters<a class="headerlink" href="#plan-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftplanfeature">/craft:plan:feature<a class="headerlink" href="#craftplanfeature" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>feature</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Feature name</td>
+</tr>
+<tr>
+<td>timeline</td>
+<td>enum</td>
+<td>No</td>
+<td><code>flexible</code></td>
+<td>-</td>
+<td><code>urgent</code>, <code>normal</code>, <code>flexible</code></td>
+</tr>
+<tr>
+<td>scope</td>
+<td>enum</td>
+<td>No</td>
+<td><code>medium</code></td>
+<td>-</td>
+<td><code>small</code>, <code>medium</code>, <code>large</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftplansprint">/craft:plan:sprint<a class="headerlink" href="#craftplansprint" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>duration</td>
+<td>string</td>
+<td>No</td>
+<td><code>1w</code></td>
+<td>-</td>
+<td>Sprint duration</td>
+</tr>
+<tr>
+<td>capacity</td>
+<td>number</td>
+<td>No</td>
+<td>40</td>
+<td>-</td>
+<td>Team capacity (hours)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftplanroadmap">/craft:plan:roadmap<a class="headerlink" href="#craftplanroadmap" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>horizon</td>
+<td>enum</td>
+<td>No</td>
+<td><code>1y</code></td>
+<td>-</td>
+<td><code>6m</code>, <code>1y</code>, <code>2y</code></td>
+</tr>
+<tr>
+<td>format</td>
+<td>enum</td>
+<td>No</td>
+<td><code>timeline</code></td>
+<td>-</td>
+<td><code>timeline</code>, <code>kanban</code>, <code>swimlanes</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="site-commands-parameters">Site Commands Parameters<a class="headerlink" href="#site-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftsiteinit">/craft:site:init<a class="headerlink" href="#craftsiteinit" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>template</td>
+<td>enum</td>
+<td>No</td>
+<td><code>mkdocs</code></td>
+<td>-</td>
+<td><code>mkdocs</code>, <code>hugo</code>, <code>jekyll</code>, <code>vuepress</code></td>
+</tr>
+<tr>
+<td>theme</td>
+<td>string</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td>Theme name</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsitebuild">/craft:site:build<a class="headerlink" href="#craftsitebuild" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>production</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--prod</code></td>
+<td>Production build</td>
+</tr>
+<tr>
+<td>minify</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--compress</code></td>
+<td>Minify assets</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsitepreview">/craft:site:preview<a class="headerlink" href="#craftsitepreview" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>port</td>
+<td>number</td>
+<td>No</td>
+<td>8000</td>
+<td><code>-p</code></td>
+<td>Server port</td>
+</tr>
+<tr>
+<td>watch</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--no-watch</code></td>
+<td>Watch files</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsitedeploy">/craft:site:deploy<a class="headerlink" href="#craftsitedeploy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>platform</td>
+<td>enum</td>
+<td>No</td>
+<td><code>github-pages</code></td>
+<td>-</td>
+<td><code>github-pages</code>, <code>netlify</code>, <code>vercel</code>, <code>s3</code></td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsitepublish">/craft:site:publish<a class="headerlink" href="#craftsitepublish" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>skip-build</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Skip build</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsiteadd">/craft:site:add<a class="headerlink" href="#craftsiteadd" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Page path</td>
+</tr>
+<tr>
+<td>template</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Template name</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsitecheck">/craft:site:check<a class="headerlink" href="#craftsitecheck" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strict</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Strict validation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsiteupdate">/craft:site:update<a class="headerlink" href="#craftsiteupdate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsitestatus">/craft:site:status<a class="headerlink" href="#craftsitestatus" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>details</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-d</code></td>
+<td>Detailed info</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsiteprogress">/craft:site:progress<a class="headerlink" href="#craftsiteprogress" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>breakdown</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--by-section</code></td>
+<td>Show breakdown</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsiteaudit">/craft:site:audit<a class="headerlink" href="#craftsiteaudit" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>external</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>--check-external</code></td>
+<td>Check external</td>
+</tr>
+<tr>
+<td>performance</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--no-perf</code></td>
+<td>Performance metrics</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsiteconsolidate">/craft:site:consolidate<a class="headerlink" href="#craftsiteconsolidate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsitenav">/craft:site:nav<a class="headerlink" href="#craftsitenav" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>auto</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--manual</code></td>
+<td>Auto-generate</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsitetheme">/craft:site:theme<a class="headerlink" href="#craftsitetheme" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>theme</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Theme name</td>
+</tr>
+<tr>
+<td>custom</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td>-</td>
+<td>Use custom theme</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftsitecreate">/craft:site:create<a class="headerlink" href="#craftsitecreate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Site name</td>
+</tr>
+<tr>
+<td>template</td>
+<td>string</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td>Template name</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="test-commands-parameters">Test Commands Parameters<a class="headerlink" href="#test-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="crafttestrun">/craft:test:run<a class="headerlink" href="#crafttestrun" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mode</td>
+<td>enum</td>
+<td>No</td>
+<td><code>default</code></td>
+<td>-</td>
+<td><code>default</code>, <code>debug</code>, <code>optimize</code>, <code>release</code></td>
+</tr>
+<tr>
+<td>path</td>
+<td>string</td>
+<td>No</td>
+<td><code>.</code></td>
+<td>-</td>
+<td>Test file/dir</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td><code>--match</code></td>
+<td>Filter pattern</td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-n</code></td>
+<td>Preview</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="crafttestgenerate">/craft:test:generate<a class="headerlink" href="#crafttestgenerate" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source</td>
+<td>string</td>
+<td>No</td>
+<td><code>.</code></td>
+<td>-</td>
+<td>Source file</td>
+</tr>
+<tr>
+<td>type</td>
+<td>enum</td>
+<td>No</td>
+<td><code>unit</code></td>
+<td>-</td>
+<td><code>unit</code>, <code>integration</code>, <code>e2e</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="crafttestcoverage">/craft:test:coverage<a class="headerlink" href="#crafttestcoverage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>threshold</td>
+<td>number</td>
+<td>No</td>
+<td>80</td>
+<td>-</td>
+<td>Minimum %</td>
+</tr>
+<tr>
+<td>report</td>
+<td>enum</td>
+<td>No</td>
+<td><code>text</code></td>
+<td>-</td>
+<td><code>text</code>, <code>html</code>, <code>json</code>, <code>xml</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="crafttestdebug">/craft:test:debug<a class="headerlink" href="#crafttestdebug" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Test name</td>
+</tr>
+<tr>
+<td>breakpoint</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-b</code></td>
+<td>Enable breakpoint</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="crafttestwatch">/craft:test:watch<a class="headerlink" href="#crafttestwatch" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>filter</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Filter pattern</td>
+</tr>
+<tr>
+<td>coverage</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-c</code></td>
+<td>Show coverage</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="crafttestcli-gen">/craft:test:cli-gen<a class="headerlink" href="#crafttestcli-gen" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>command</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Command to test</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="crafttestcli-run">/craft:test:cli-run<a class="headerlink" href="#crafttestcli-run" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>verbose</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-v</code></td>
+<td>Verbose</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="workflow-commands-parameters">Workflow Commands Parameters<a class="headerlink" href="#workflow-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftworkflowbrainstorm">/craft:workflow:brainstorm<a class="headerlink" href="#craftworkflowbrainstorm" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topic</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Topic to brainstorm</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>number</td>
+<td>No</td>
+<td>20</td>
+<td><code>--time</code></td>
+<td>Duration (minutes)</td>
+</tr>
+<tr>
+<td>save</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--no-save</code></td>
+<td>Save to file</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowfocus">/craft:workflow:focus<a class="headerlink" href="#craftworkflowfocus" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>duration</td>
+<td>number</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Duration (minutes)</td>
+</tr>
+<tr>
+<td>task</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Task name</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflownext">/craft:workflow:next<a class="headerlink" href="#craftworkflownext" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>context</td>
+<td>string</td>
+<td>No</td>
+<td>auto</td>
+<td>-</td>
+<td>Current context</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowstuck">/craft:workflow:stuck<a class="headerlink" href="#craftworkflowstuck" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>problem</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Problem description</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowdone">/craft:workflow:done<a class="headerlink" href="#craftworkflowdone" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Completion message</td>
+</tr>
+<tr>
+<td>commit</td>
+<td>boolean</td>
+<td>No</td>
+<td>true</td>
+<td><code>--no-commit</code></td>
+<td>Commit</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowrecap">/craft:workflow:recap<a class="headerlink" href="#craftworkflowrecap" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>detail</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-d</code></td>
+<td>Detailed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowrefine">/craft:workflow:refine<a class="headerlink" href="#craftworkflowrefine" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Task to refine</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowspec-review">/craft:workflow:spec-review<a class="headerlink" href="#craftworkflowspec-review" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spec</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Spec file</td>
+</tr>
+<tr>
+<td>detailed</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-d</code></td>
+<td>Detailed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowadhd-guide">/craft:workflow:adhd-guide<a class="headerlink" href="#craftworkflowadhd-guide" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>topic</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Specific topic</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowtask-status">/craft:workflow:task-status<a class="headerlink" href="#craftworkflowtask-status" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>format</td>
+<td>enum</td>
+<td>No</td>
+<td><code>summary</code></td>
+<td>-</td>
+<td><code>summary</code>, <code>detailed</code>, <code>json</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowtask-output">/craft:workflow:task-output<a class="headerlink" href="#craftworkflowtask-output" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task</td>
+<td>string</td>
+<td>No</td>
+<td>-</td>
+<td>-</td>
+<td>Task ID</td>
+</tr>
+<tr>
+<td>tail</td>
+<td>number</td>
+<td>No</td>
+<td>50</td>
+<td>-</td>
+<td>Last N lines</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftworkflowtask-cancel">/craft:workflow:task-cancel<a class="headerlink" href="#craftworkflowtask-cancel" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>task</td>
+<td>string</td>
+<td>Yes</td>
+<td>-</td>
+<td>-</td>
+<td>Task ID</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="utility-commands-parameters">Utility Commands Parameters<a class="headerlink" href="#utility-commands-parameters" title="Permanent link">&para;</a></h2>
+<h3 id="craftutilsreadme-teach-config">/craft:utils:readme-teach-config<a class="headerlink" href="#craftutilsreadme-teach-config" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>examples</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-e</code></td>
+<td>Show examples</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="craftutilsreadme-semester-progress">/craft:utils:readme-semester-progress<a class="headerlink" href="#craftutilsreadme-semester-progress" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Aliases</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>template</td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><code>-t</code></td>
+<td>Show template</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="parameter-validation-rules">Parameter Validation Rules<a class="headerlink" href="#parameter-validation-rules" title="Permanent link">&para;</a></h2>
+<h3 id="string-parameters">String Parameters<a class="headerlink" href="#string-parameters" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Minimum length: 1 character</li>
+<li>Maximum length: 1000 characters (unless noted)</li>
+<li>Special characters: Generally allowed, be quoted if containing spaces</li>
+</ul>
+<h3 id="numeric-parameters">Numeric Parameters<a class="headerlink" href="#numeric-parameters" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Port numbers: 1024-65535 (privileged: 1-1023 not recommended)</li>
+<li>Percentages: 0-100</li>
+<li>Timeouts: milliseconds, 0 for infinite</li>
+<li>Durations: minutes, seconds, hours (parse intelligently)</li>
+</ul>
+<h3 id="enum-parameters">Enum Parameters<a class="headerlink" href="#enum-parameters" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Case-insensitive in most commands</li>
+<li>Whitespace trimmed automatically</li>
+<li>Invalid values show available options</li>
+</ul>
+<h3 id="path-parameters">Path Parameters<a class="headerlink" href="#path-parameters" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Absolute paths accepted</li>
+<li>Relative paths (<code>.</code>, <code>..</code> supported)</li>
+<li>Glob patterns in some commands (<code>*.ts</code>, <code>src/**/*.js</code>)</li>
+<li>Tilde expansion (<code>~</code> → home directory)</li>
+</ul>
+<h3 id="boolean-parameters">Boolean Parameters<a class="headerlink" href="#boolean-parameters" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Accepts: <code>true</code>, <code>false</code>, <code>1</code>, <code>0</code>, <code>yes</code>, <code>no</code></li>
+<li>Long form: <code>--flag-name</code></li>
+<li>Short form: <code>-n</code> or <code>-f</code></li>
+<li>Negation: <code>--no-flag-name</code></li>
+</ul>
+<hr />
+<h2 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h2>
+<h3 id="global">Global<a class="headerlink" href="#global" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CRAFT_MODE</code></td>
+<td>Default execution mode</td>
+<td><code>export CRAFT_MODE=optimize</code></td>
+</tr>
+<tr>
+<td><code>CRAFT_HOME</code></td>
+<td>Craft config directory</td>
+<td><code>~/.craft</code></td>
+</tr>
+<tr>
+<td><code>CRAFT_QUIET</code></td>
+<td>Suppress output</td>
+<td><code>export CRAFT_QUIET=1</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="command-specific">Command-Specific<a class="headerlink" href="#command-specific" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Variable</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:code:release</code></td>
+<td><code>CRAFT_RELEASE_TOKEN</code></td>
+<td>Release token</td>
+</tr>
+<tr>
+<td><code>/craft:dist:pypi</code></td>
+<td><code>PYPI_TOKEN</code></td>
+<td>PyPI authentication</td>
+</tr>
+<tr>
+<td><code>/craft:site:deploy</code></td>
+<td><code>NETLIFY_TOKEN</code></td>
+<td>Netlify deployment</td>
+</tr>
+<tr>
+<td><code>/craft:git:*</code></td>
+<td><code>GIT_AUTHOR_NAME</code></td>
+<td>Git author</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Last Updated</strong>: January 17, 2026 | <strong>Version</strong>: v1.24.0</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
