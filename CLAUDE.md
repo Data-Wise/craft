@@ -37,7 +37,8 @@ feature/* (worktrees) ← All implementation work
 
 | Task | Shell | Craft |
 |------|-------|-------|
-| Run tests | `python3 tests/test_craft_plugin.py` | `/craft:test:run` |
+| Run unit tests | `python3 tests/test_craft_plugin.py` | `/craft:test:run` |
+| Integration tests | `python3 tests/test_integration_*.py` | - |
 | Dependency tests | `bash tests/test_dependency_management.sh` | - |
 | Validate | `./scripts/validate-counts.sh` | `/craft:check` |
 | Build docs | `mkdocs build` | - |
@@ -85,7 +86,7 @@ craft/
 ├── agents/             # 8 agents
 ├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (complexity scorer, validators, parsers)
-├── tests/              # Comprehensive test suite (449 tests total)
+├── tests/              # Comprehensive test suite (516+ tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (6 total)
 │   ├── tutorials/      # Step-by-step guides
@@ -160,19 +161,26 @@ See `docs/specs/` for detailed specifications.
 
 | Test File | Tests | Coverage | Purpose |
 |-----------|-------|----------|---------|
+| **Unit & Feature Tests** |
 | `tests/test_craft_plugin.py` | 370 | 84% | Core functionality |
-| `tests/test_dependency_management.sh` | 79 | 100% | Dependency system |
 | `tests/test_complexity_scoring.py` | 15 | 100% | Complexity scorer |
 | `tests/test_hot_reload_validators.py` | 9 | 95% | Hot-reload validators |
 | `tests/test_agent_hooks.py` | 13 | 100% | Agent hooks |
-| **Total** | **486+** | **~90%** | **All systems** |
+| **Integration Tests** |
+| `tests/test_integration_dependency_system.py` | 9 | 100% | Dependency workflow |
+| `tests/test_integration_orchestrator_workflows.py` | 13 | 100% | Task routing & scoring |
+| `tests/test_integration_teaching_workflow.py` | 8 | 100% | Teaching mode (3 skipped) |
+| **System Tests** |
+| `tests/test_dependency_management.sh` | 79 | 100% | Dependency system |
+| **Total** | **516+** | **~90%** | **All systems** |
 
 ## Troubleshooting
 
 | Issue | Fix |
 |-------|-----|
-| Tests failing | `python3 tests/test_craft_plugin.py` |
-| Dependency tests | `bash tests/test_dependency_management.sh` |
+| Unit tests failing | `python3 tests/test_craft_plugin.py` |
+| Integration tests failing | `python3 tests/test_integration_<name>.py` |
+| Dependency tests failing | `bash tests/test_dependency_management.sh` |
 | Broken links | `python3 tests/test_craft_plugin.py -k "broken_links"` |
 | Outdated counts | `./scripts/validate-counts.sh` |
 | Stale worktree | `git worktree remove <path> --force` |
@@ -181,7 +189,7 @@ See `docs/specs/` for detailed specifications.
 | Plugin not loading | Check `.claude-plugin/plugin.json` frontmatter |
 | Command not found | Verify file in `commands/` with valid frontmatter |
 | Agent not triggering | Check triggers list in agent frontmatter |
-| GIF showing broken commands | **CRITICAL:** Always test commands in Claude Code FIRST using Bash tool, capture real output, verify no errors, THEN generate GIF. See `templates/docs/GIF-GUIDELINES.md` |
+| GIF showing broken commands | **CRITICAL:** Test commands FIRST with Bash tool, verify output, THEN generate GIF |
 
 ## Links
 
