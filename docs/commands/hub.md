@@ -1,6 +1,6 @@
 # /craft:hub — Command Discovery Hub v2.0
 
-> **Smart 3-layer navigation system with auto-detection and progressive disclosure.**
+> **Smart 3-layer navigation system with auto-detection and progressive disclosure.** v2.4.0 adds workflow commands with brainstorm question control.
 
 ---
 
@@ -27,11 +27,31 @@
 
 # View code:lint tutorial (Layer 3)
 /craft:hub code:lint
+
+# v2.4.0 Brainstorm with colon notation
+/brainstorm d:5 "auth" -C req,tech
 ```
 
 ---
 
-## What's New in v2.0
+## What's New in v2.4.0
+
+### Brainstorm Question Control
+- **Colon notation** - `d:5`, `m:12`, `q:3` for custom question counts
+- **Categories flag** - Filter questions by type (`-C req,tech,success`)
+- **8-category question bank** - 16 questions total
+- **Milestone prompts** - Every 8 questions for unlimited exploration
+
+```bash
+# Examples
+/brainstorm d:5 "auth"              # Deep with exactly 5 questions
+/brainstorm m:12 "api"              # Max with 12 questions
+/brainstorm q:0 "quick"             # Quick with 0 questions
+/brainstorm d:5 "auth" -C req,tech  # Filter to requirements + technical
+/brainstorm d:20 "complex"          # Unlimited with milestones
+```
+
+### Hub v2.0 Core Features
 
 Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive disclosure**:
 
@@ -39,7 +59,7 @@ Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive dis
 - **Dynamic discovery** - Scans `commands/` directory automatically
 - **Always accurate** - No hardcoded counts that drift out of sync
 - **Fast caching** - JSON cache with auto-invalidation (<2ms cached, 12ms uncached)
-- **97 commands** detected across 16 categories
+- **100 commands** detected across 17 categories (v2.4.0)
 
 ### 3-Layer Navigation
 1. **Layer 1 (Main Menu)** - Browse categories with counts
@@ -49,7 +69,7 @@ Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive dis
 ### ADHD-Friendly Design
 - **Progressive disclosure** - Start broad, drill down as needed
 - **Visual hierarchy** - Clear sections, icons, and formatting
-- **No overwhelm** - Never show all 97 commands at once
+- **No overwhelm** - Never show all 100 commands at once
 - **Smart breadcrumbs** - Always know where you are
 
 ---
@@ -77,9 +97,9 @@ Shows all categories with auto-detected command counts:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 🛠️ CRAFT - Full Stack Developer Toolkit v1.22.0                         │
-│ 📍 craft (Claude Plugin) on feature/hub-v2                              │
-│ 📊 97 Commands | 21 Skills | 8 Agents | 4 Modes                         │
+│ 🛠️ CRAFT - Full Stack Developer Toolkit v2.4.0                          │
+│ 📍 craft (Claude Plugin) on feature/brainstorm-question-control         │
+│ 📊 100 Commands | 21 Skills | 8 Agents | 4 Modes                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │

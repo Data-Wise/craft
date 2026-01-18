@@ -82,12 +82,12 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 ```
 craft/
 ├── .claude-plugin/     # Plugin manifest, hooks, validators
-├── commands/           # 99 commands (arch, ci, code, docs, git, site, test, workflow)
+├── commands/           # 100 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
 ├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (complexity scorer, validators, parsers)
-├── tests/              # Comprehensive test suite (516+ tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (581+ tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (6 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
@@ -96,7 +96,7 @@ craft/
 └── .STATUS             # Current milestone and progress
 ```
 
-## Recent Major Features (v1.24.0)
+## Recent Major Features (v2.4.0)
 
 ### Hub v2.0 - Zero-Maintenance Command Discovery ✅
 - 3-layer progressive disclosure (Main → Category → Detail + Tutorial)
