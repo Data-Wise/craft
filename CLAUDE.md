@@ -124,6 +124,45 @@ craft/
 - Content validation (syllabus, schedule, assignments)
 - 5 teaching-aware commands
 
+## Integration Features (v1.24.0)
+
+The v1.24.0 release includes 27 integration tests validating three critical systems:
+
+### Integration Test Categories
+
+| Category | Tests | Purpose | Guide |
+|----------|-------|---------|-------|
+| **Dependency System** | 9 | Tool detection, installation, repair | [Dependency Management Advanced](docs/guide/dependency-management-advanced.md) |
+| **Orchestrator Workflows** | 13 | Complexity scoring, routing, agent coordination | [Claude Code 2.1.0 Guide](docs/guide/claude-code-2.1-guide.md) |
+| **Teaching Workflow** | 8 | Course detection, validation, publishing | [Teaching Workflow Guide](docs/guide/teaching-workflow.md) |
+| **Total** | **27** | **End-to-end system validation** | [Integration Testing Guide](docs/guide/integration-testing.md) |
+
+### Running Integration Tests
+
+```bash
+# Run all integration tests
+python3 tests/test_integration_*.py
+
+# Run specific category
+python3 tests/test_integration_dependency_system.py
+python3 tests/test_integration_orchestrator_workflows.py
+python3 tests/test_integration_teaching_workflow.py
+```
+
+### Key Integration Features
+
+1. **Dependency System** - Automatic tool detection (4 methods), health validation, intelligent installation
+2. **Complexity Scoring** - 7-factor algorithm (0-10 scale) for smart task routing
+3. **Agent Hooks** - Lifecycle integration points (PreToolUse, PostToolUse, Stop)
+4. **Hot-Reload Validators** - Automatic validation on file changes (test-coverage, broken-links, lint-check)
+5. **Session State** - Persistent session management with teleportation support
+
+### Integration Guides
+
+- **[Integration Testing Guide](docs/guide/integration-testing.md)** - Understand test structure and categories
+- **[Dependency Management Advanced](docs/guide/dependency-management-advanced.md)** - Deep dive into dependency system architecture and workflows
+- **[Claude Code 2.1.0 Guide](docs/guide/claude-code-2.1-guide.md)** - Complexity scoring, validators, hooks, and session management
+
 ## Active Development
 
 ### Current Worktree
