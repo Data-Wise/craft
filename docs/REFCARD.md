@@ -4,9 +4,10 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 1.15.0                                            │
-│  Commands: 74 | Agents: 8 | Skills: 21                      │
-│  Docs: https://data-wise.github.io/craft/    │
+│  Version: 1.24.0                                            │
+│  Commands: 97 | Agents: 8 | Skills: 21                      │
+│  Documentation: 95% complete | Diagrams: 17 Mermaid         │
+│  Docs: https://data-wise.github.io/craft/                   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -185,8 +186,20 @@ Auto-triggered expertise:
 | Skill not triggering | Check skill definitions in plugin |
 | Build fails | Run `/craft:check` for diagnostics |
 
+## Technical Deep Dives
+
+New comprehensive guides (Phase 3 documentation):
+
+| Guide | Diagrams | Content |
+|-------|----------|---------|
+| **[Claude Code 2.1 Integration](guide/claude-code-2.1-integration.md)** | 9 Mermaid | Hot-reload validators, complexity scoring, orchestration hooks, agent delegation (610 lines) |
+| **[Complexity Scoring Algorithm](guide/complexity-scoring-algorithm.md)** | 8 Mermaid | Technical documentation of 0-10 scoring system, decision trees, examples (571 lines) |
+| **[Version History](VERSION-HISTORY.md)** | - | Complete timeline v1.0.0 → v1.24.0 with feature evolution (428 lines) |
+
+**Total:** 17 Mermaid diagrams across all guides
+
 ## Links
 
-- **[Full Documentation](guide/getting-started.md)**
+- **[Full Documentation](guide/getting-started.md)** (95% complete)
 - **[GitHub Issues](https://github.com/Data-Wise/craft/issues)**
 - **[ROADMAP](https://github.com/Data-Wise/craft/blob/main/ROADMAP.md)**

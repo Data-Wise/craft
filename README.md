@@ -3,7 +3,7 @@
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml)
 [![Version](https://img.shields.io/badge/version-1.24.0-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v1.24.0)
-[![Documentation](https://img.shields.io/badge/docs-complete-green.svg)](https://data-wise.github.io/craft/)
+[![Documentation](https://img.shields.io/badge/docs-95%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **v1.24.0 - Hub v2.0** 🚀
 > **97 commands** | **21 skills** | **8 agents** | **Zero-maintenance discovery**
@@ -126,13 +126,16 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 
 ## 📚 Documentation
 
-**Full documentation:** https://data-wise.github.io/craft/
+**Full documentation:** https://data-wise.github.io/craft/ (95% complete)
 
 - [Quick Start](https://data-wise.github.io/craft/QUICK-START/) (30 seconds)
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
-- [Command Reference](https://data-wise.github.io/craft/REFCARD/) (all 74 commands)
+- [Command Reference](https://data-wise.github.io/craft/REFCARD/) (all 97 commands)
 - [Skills & Agents](https://data-wise.github.io/craft/guide/skills-agents/) (21 skills, 8 agents)
+- [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
+- [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
+- [Version History](https://data-wise.github.io/craft/VERSION-HISTORY/) (v1.0.0 → v1.24.0 timeline)
 - [Dependency Management](https://data-wise.github.io/craft/DEPENDENCY-MANAGEMENT/) (API, Architecture, Developer Guide)
 
 ## Quick Start - Smart Commands

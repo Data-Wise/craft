@@ -2,6 +2,7 @@
 
 [![Craft CI](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml)
+[![Documentation](https://img.shields.io/badge/docs-95%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **TL;DR** (30 seconds)
 > - **What:** Full-stack developer toolkit with 97 commands, 8 AI agents, and 21 auto-triggered skills
@@ -39,7 +40,7 @@
 
 - :books: **Documentation Excellence**
 
-    Smart doc generation, consolidation (16→13 commands), TL;DR boxes, time estimates, mermaid validation
+    95% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation (16→13 commands), TL;DR boxes, time estimates, mermaid validation
 
 </div>
 

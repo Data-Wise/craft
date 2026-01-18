@@ -93,6 +93,8 @@ nav:
     - Getting Started: guide/getting-started.md
     - What's New:
       - Claude Code 2.1.0 Enhancements: tutorials/TUTORIAL-claude-code-2.1-enhancements.md
+      - Claude Code 2.1 Integration: guide/claude-code-2.1-integration.md
+      - Complexity Scoring Algorithm: guide/complexity-scoring-algorithm.md
       - Testing Guide: TESTING-CLAUDE-CODE-2.1.md
       - API Reference: API-REFERENCE-CLAUDE-CODE-2.1.md
       - Architecture: ARCHITECTURE-CLAUDE-CODE-2.1.md
@@ -162,6 +164,7 @@ nav:
     - Orchestrator Deep Dive: orchestrator.md
     - Architecture Overview: architecture.md
     - Documentation Quality: reference/documentation-quality.md
+    - Version History: VERSION-HISTORY.md
     - Enhancement Guides:
       - Claude Code 2.1 Quick Reference: reference/REFCARD-claude-code-2.1-enhancements.md
     - GIF Recording & Documentation:
