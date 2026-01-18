@@ -2,9 +2,10 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**99 commands** · **21 skills** · **8 agents** · **6 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**99 commands** · **21 skills** · **8 agents** · **6 specs** · **4 gap analysis docs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v1.24.0 (released 2026-01-18)
+**Documentation Status:** 60% complete (3 critical gaps identified - see DOCS-GAP-ANALYSIS-COMPLETE.md)
 
 ## Git Workflow
 
@@ -191,10 +192,34 @@ See `docs/specs/` for detailed specifications.
 | Agent not triggering | Check triggers list in agent frontmatter |
 | GIF showing broken commands | **CRITICAL:** Test commands FIRST with Bash tool, verify output, THEN generate GIF |
 
+## Documentation Gap Analysis (2026-01-18)
+
+**Status:** Comprehensive analysis complete - Ready for Phase 1 implementation
+
+**Key Findings:**
+- 60% documentation complete (3 features under-documented)
+- 3 critical gaps identified (4-5 hours to close)
+- Worktree ready: `~/.git-worktrees/craft/feature/docs-gap-analysis`
+
+**Critical Gaps:**
+1. Integration Testing Guide (30 min) - 27 tests, no user docs
+2. Dependency Management Guide (1.5h) - 16K LOC, incomplete guide
+3. Claude Code 2.1.0 Integration Guide (1.5h) - 6K LOC, missing user docs
+
+**Documentation Resources:**
+- **DOCS-GAP-ANALYSIS-COMPLETE.md** — Gateway document (start here)
+- **docs/GAP-ANALYSIS-2026-01-18.md** — Full 1,200+ line analysis
+- **docs/README-DOCS-GAP-ANALYSIS.md** — Implementation guide with templates
+- **docs/SESSION-SUMMARY-2026-01-18-DOCS-ANALYSIS.md** — Session overview
+- **.STATUS** — Session details (session_2026_01_18_docs_gap_analysis)
+
+**Next Steps:** Create critical guides in Phase 1 (4-5 hours total)
+
 ## Links
 
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
 - [Commands Reference](https://data-wise.github.io/craft/commands/) — All 99 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
 - [Specifications](docs/specs/) — Implementation specs (6 total)
+- [Gap Analysis](DOCS-GAP-ANALYSIS-COMPLETE.md) — Documentation gap analysis (2026-01-18)
 - [GitHub Repository](https://github.com/Data-Wise/craft) — Source code and issues
