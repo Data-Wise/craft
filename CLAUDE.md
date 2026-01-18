@@ -160,6 +160,8 @@ See `docs/specs/` for detailed specifications.
 | `tests/test_hot_reload_validators.py` | Hot-reload validator tests (9 tests, 95% coverage) |
 | `tests/test_agent_hooks.py` | Agent hooks tests (13 tests, 100% coverage) |
 | `docs/TESTING-CLAUDE-CODE-2.1.md` | Claude Code 2.1.0 integration testing guide |
+| `docs/API-REFERENCE-CLAUDE-CODE-2.1.md` | Complete API reference with examples |
+| `docs/ARCHITECTURE-CLAUDE-CODE-2.1.md` | Architecture diagrams and component docs (8 Mermaid diagrams) |
 | `utils/complexity_scorer.py` | Complexity scoring utility (210 lines) |
 
 ## Troubleshooting

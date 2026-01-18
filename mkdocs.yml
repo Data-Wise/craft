@@ -93,6 +93,9 @@ nav:
     - Getting Started: guide/getting-started.md
     - What's New:
       - Claude Code 2.1.0 Enhancements: tutorials/TUTORIAL-claude-code-2.1-enhancements.md
+      - Testing Guide: TESTING-CLAUDE-CODE-2.1.md
+      - API Reference: API-REFERENCE-CLAUDE-CODE-2.1.md
+      - Architecture: ARCHITECTURE-CLAUDE-CODE-2.1.md
     - Core Workflows:
       - Documentation Automation: guide/documentation-quality.md
       - Site Creation & Management: guide/getting-started.md
