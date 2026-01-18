@@ -215,7 +215,7 @@ CATEGORY_MAP = {
 }
 
 def parse_depth_with_count(arg):
-    """Parse depth:count notation (v2.4.0).
+    """Parse depth:count notation (v2.4.0) with validation.
 
     Examples:
         'd:5' → ('deep', 5)
@@ -225,6 +225,10 @@ def parse_depth_with_count(arg):
 
     Returns:
         tuple: (depth_mode, question_count) or (depth_mode, None)
+
+    Validation:
+        - Warns on counts > 50 (high question counts)
+        - Prompts user to confirm continuation
     """
     if ':' not in arg:
         return (DEPTH_MAP.get(arg, arg), None)
@@ -239,6 +243,35 @@ def parse_depth_with_count(arg):
         count = int(count_str)
         if count < 0:
             raise ValueError("Negative count")
+
+        # Warn on high question counts
+        if count > 50:
+            print(f"⚠️  High question count: {count} questions")
+            print(f"   This may take 30-60 minutes to complete")
+            print(f"💡 Suggestion: Use milestone mode (8 questions at a time)")
+            print(f"   Try: {depth_str}:8 for first batch, then continue as needed")
+
+            # Prompt to confirm
+            from tools import AskUserQuestion
+            response = AskUserQuestion({
+                "question": f"Continue with {count} questions?",
+                "header": "Confirm",
+                "multiSelect": false,
+                "options": [
+                    {
+                        "label": f"Yes, ask all {count} questions",
+                        "description": "I have time for a comprehensive session"
+                    },
+                    {
+                        "label": "No, use milestone mode instead (Recommended)",
+                        "description": "Start with 8, continue as needed"
+                    }
+                ]
+            })
+
+            if "No" in response:
+                count = 8  # Default to milestone mode
+
         return (depth, count)
     except ValueError:
         return (depth, 'invalid')
@@ -254,7 +287,7 @@ def get_default_question_count(depth):
     return defaults.get(depth, 2)
 
 def parse_categories(args):
-    """Parse --categories or -C flag.
+    """Parse --categories or -C flag with validation.
 
     Examples:
         --categories req,tech,success
@@ -263,6 +296,10 @@ def parse_categories(args):
 
     Returns:
         list: Category names or None (all categories)
+
+    Validation:
+        - Warns on unknown categories
+        - Shows valid shortcuts if invalid found
     """
     for i, arg in enumerate(args):
         if arg in ['--categories', '-C']:
@@ -272,6 +309,17 @@ def parse_categories(args):
                     return None
 
                 cats = [c.strip() for c in cat_str.split(',')]
+
+                # Validate categories and warn on unknown
+                valid_categories = set(CATEGORY_MAP.keys())
+                unknown = [c for c in cats if c not in valid_categories]
+
+                if unknown:
+                    print(f"⚠️  Unknown categories: {', '.join(unknown)}")
+                    print(f"✓  Valid shortcuts: req, usr, scp, tech, time, risk, exist, ok, all")
+                    print(f"   Continuing with valid categories only...")
+                    cats = [c for c in cats if c in valid_categories]
+
                 return [CATEGORY_MAP.get(c, c) for c in cats]
 
     return None
@@ -532,6 +580,74 @@ Claude: Executes quick + feature brainstorm for "new auth system"
 - Continuation prompt after each batch
 - User can: proceed, add 4, add 8, or go unlimited
 - "Keep going" mode prompts every 4 questions
+
+**Milestone Flow Diagram:**
+
+```mermaid
+graph TD
+    A[Start: d:20<br/>User requests 20 questions] --> B{Asked 8<br/>questions?}
+    B -->|Yes| C[Show Summary<br/>Milestone Prompt]
+    B -->|No| D[Continue asking<br/>questions 1-8]
+    D --> B
+
+    C --> E{User choice?}
+    E -->|Proceed| F[Generate<br/>brainstorm output]
+    E -->|Add 4 more| G[Ask questions<br/>9-12]
+    E -->|Add 8 more| H[Ask questions<br/>9-16]
+    E -->|Go unlimited| I[Enter unlimited mode<br/>prompt every 4]
+
+    G --> J{Reached 12?}
+    J -->|Yes| C
+    J -->|No| G
+
+    H --> K{Reached 16?}
+    K -->|Yes| C
+    K -->|No| H
+
+    I --> L{Asked 4<br/>more?}
+    L -->|Yes| M[Prompt:<br/>Continue?]
+    L -->|No| N[Keep asking]
+    N --> L
+
+    M -->|Yes| I
+    M -->|No| F
+
+    style A fill:#e1f5ff
+    style F fill:#d4f1d4
+    style C fill:#fff4e6
+    style I fill:#ffe6f0
+```
+
+**Example Session Flow:**
+
+```bash
+# User: /brainstorm d:20 "auth system"
+Claude: [Asks questions 1-8]
+
+# After question 8
+Claude: ✓ Milestone reached: 8/20 questions complete
+
+        [Summary of answers so far]
+
+        Continue with remaining 12 questions?
+        □ Proceed to brainstorming (Recommended)
+        □ Ask 4 more questions (9-12)
+        □ Ask 8 more questions (9-16)
+        □ Go unlimited (prompt every 4)
+
+# User selects "Ask 8 more"
+Claude: [Asks questions 9-16]
+
+# After question 16
+Claude: ✓ Milestone reached: 16/20 questions complete
+
+        Continue with remaining 4 questions?
+        □ Proceed to brainstorming (Recommended)
+        □ Complete all 20 questions
+
+# User selects "Complete all 20"
+Claude: [Asks questions 17-20, then generates brainstorm]
+```
 
 ---
 
