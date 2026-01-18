@@ -508,6 +508,201 @@ semester:
   weeks: 15                  # Total weeks
 ```
 
+## Configuration Reference
+
+### Complete teach-config.yml Schema
+
+For detailed configuration options, see [`docs/teaching-config-schema.md`](../teaching-config-schema.md).
+
+**Key sections:**
+
+| Section | Required | Purpose |
+|---------|----------|---------|
+| `teaching.enabled` | Yes | Enable/disable teaching mode |
+| `teaching.branches` | Yes | Preview and production branch names |
+| `teaching.semester` | Yes | Semester dates, name, weeks |
+| `teaching.content` | Yes | Path to schedule and syllabus files |
+| `teaching.validation` | No | Validation strictness options |
+| `teaching.publishing` | No | Auto-update and backup options |
+| `teaching.progress` | No | Dashboard display options |
+
+### Quick Config Validation
+
+```bash
+# Validate teach-config.yml syntax
+/craft:git:status
+
+# This command will:
+# - Check if file exists
+# - Validate YAML syntax
+# - Verify required fields
+# - Show any configuration errors
+```
+
+## Common Failure Scenarios
+
+### Scenario 1: Accidental Main Branch Modification
+
+**What happens:**
+- You edit files while on `main` branch
+- Publish publishes immediately (no preview)
+- Students see incomplete/broken content
+
+**Prevention:**
+```bash
+# Always check your branch first
+git branch --show-current
+# Should show: dev
+
+# Use teaching-aware status
+/craft:git:status
+# Will show: ✅ Safe to experiment (if on preview branch)
+```
+
+**Recovery:**
+```bash
+# 1. Revert changes on main
+git checkout main
+git reset --hard HEAD~1
+
+# 2. Move changes to dev
+git checkout dev
+# Re-apply changes here
+
+# 3. Preview and publish properly
+/craft:site:publish
+```
+
+### Scenario 2: Semester Dates Misalignment
+
+**What happens:**
+- Current week shows incorrectly in progress dashboard
+- Assignment due dates appear out of order
+- Validation rejects valid dates as "out of range"
+
+**Debug steps:**
+```bash
+# Check config dates
+cat .flow/teach-config.yml | grep -A 5 "semester:"
+
+# Check what the system thinks
+/craft:site:progress
+
+# Calculate week number manually
+# Today: Jan 17, 2026
+# Semester start: Jan 13, 2025
+# Week = floor((today - start) / 7) + 1
+```
+
+**Fix:**
+```yaml
+semester:
+  start_date: "2025-01-13"  # Must be first day of Week 1
+  end_date: "2025-05-09"    # Must be last day of final week
+  weeks: 15                  # Should match actual count
+```
+
+### Scenario 3: Assignment Due Date Validation Error
+
+**Error message:**
+```
+✗ Assignment due date (2025-12-20) is after semester end (2025-05-09)
+```
+
+**Common causes:**
+1. Copy-pasted due date with wrong year
+2. Date format confusion (MM-DD vs DD-MM)
+3. Semester dates don't match actual schedule
+
+**Fix:**
+```bash
+# Check assignment file
+grep -r "due.*date" assignments/
+
+# Verify it's within semester
+# semester.start_date → semester.end_date
+
+# Update assignment due date to valid range
+```
+
+### Scenario 4: Build Fails Silently
+
+**Symptom:**
+- `/craft:site:build` returns success
+- But preview doesn't update
+- Old content still visible in browser
+
+**Diagnosis:**
+```bash
+# 1. Check build output
+/craft:site:build --verbose
+
+# 2. Clear cache
+rm -rf site/
+rm -rf .mkdocs_cache/
+
+# 3. Rebuild
+/craft:site:build
+
+# 4. Check browser cache
+# Hard refresh: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Linux)
+```
+
+### Scenario 5: Config File Not Found
+
+**Error:**
+```
+❌ Teaching mode enabled but .flow/teach-config.yml not found
+```
+
+**Solutions:**
+```bash
+# Create the directory
+mkdir -p .flow
+
+# Create minimal config
+cat > .flow/teach-config.yml << 'EOF'
+teaching:
+  enabled: true
+  branches:
+    preview: dev
+    production: main
+  semester:
+    name: "Spring 2025"
+    start_date: "2025-01-13"
+    end_date: "2025-05-09"
+    weeks: 15
+  content:
+    schedule: "schedule.qmd"
+    syllabus: "syllabus.qmd"
+EOF
+
+# Verify
+/craft:git:status
+```
+
+## Debug Commands
+
+```bash
+# View full config
+cat .flow/teach-config.yml
+
+# Validate YAML syntax
+python3 -m yaml .flow/teach-config.yml
+
+# Check detection
+/craft:git:status --verbose
+
+# Dry-run publish (see what would happen)
+/craft:site:publish --dry-run --validate-only
+
+# Build with verbose output
+/craft:site:build --verbose
+
+# Check git branch (teaching-aware)
+/craft:git:status
+```
+
 ## Migration Guide
 
 ### From Manual Git Workflow

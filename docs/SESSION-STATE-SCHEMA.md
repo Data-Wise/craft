@@ -531,4 +531,3 @@ All session files must include:
 
 - [Session Teleportation Command](../commands/orchestrate/resume.md)
 - [Orchestrator v2 Agent](../agents/orchestrator-v2.md)
-- [Teleportation Guide](SESSION-TELEPORTATION.md)
