@@ -238,6 +238,48 @@ Works with all craft commands:
 - Routes to `/craft:code:*` for implementation
 - Routes to `/craft:test:*` for testing
 - Routes to `/craft:docs:*` for documentation
+- Routes to `/brainstorm` (v2.4.0) for context gathering
+
+---
+
+## Orchestrating Brainstorm Sessions (v2.4.0 NEW)
+
+The orchestrator coordinates complex workflows that include context gathering with `/brainstorm`:
+
+### Example
+
+```bash
+/craft:orchestrate "plan new authentication feature"
+```
+
+Flow:
+1. Brainstorm d:8 with categories for comprehensive context
+2. Spawn backend-architect agent for design
+3. Spawn frontend specialist for UI
+4. Coordinate test strategy
+5. Synthesize into implementation plan
+
+### Brainstorm + Orchestration Patterns
+
+```bash
+# Quick context then implement
+/craft:orchestrate "add payment" default
+# → Brainstorm q:2 → backend implementation
+
+# Deep context with parallel agents
+/craft:orchestrate "design microservices" optimize
+# → Brainstorm d:8 -C tech,risk → 4 agents in parallel
+
+# Full lifecycle (v2.4.0)
+/craft:orchestrate "implement feature" release
+# → Brainstorm d:10 -C req,tech,success → arch + code + test + docs
+```
+
+### Benefits
+- **Structured context** - Question bank ensures comprehensive requirements
+- **Focused agents** - Agents receive filtered context
+- **Milestone progress** - Unlimited questions with prompts
+- **Spec capture** - Brainstorm → orchestrator → SPEC.md
 
 ---
 
@@ -250,6 +292,25 @@ Works with all craft commands:
 | Need to stop | Run `abort` to save state and stop |
 | Lost progress | Run `continue` to resume |
 | Wrong mode | Run `mode <name>` to switch |
+| Too many parallel | Switch to `default` mode (2 agents max) |
+
+### Performance Optimization
+
+| Symptom | Solution |
+|---------|----------|
+| Slow parallel execution | Use `default` mode instead of `optimize` |
+| High context usage | Run `compress` early (at ~60%) |
+| Agents timeout | Use `debug` mode (sequential) |
+| Lost session | Run `continue` to restore from checkpoint |
+
+### Recommended Modes by Scenario
+
+| Scenario | Mode | Agents | Best For |
+|----------|------|--------|----------|
+| Simple feature | `default` | 2 max | Quick tasks |
+| Complex system | `optimize` | 4 parallel | Speed |
+| Debugging | `debug` | 1 sequential | Troubleshooting |
+| Pre-release | `release` | 4 + audit | Comprehensive |
 
 ---
 
@@ -258,3 +319,4 @@ Works with all craft commands:
 - **Simple routing:** `/craft:do` - Simpler task routing (no monitoring)
 - **Pre-flight:** `/craft:check` - Validation before actions
 - **Discovery:** `/craft:hub` - Find all commands
+- **Brainstorm:** `/brainstorm` - Context gathering (v2.4.0)

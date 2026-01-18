@@ -87,6 +87,15 @@ Target: `../../tests/MANUAL-TESTING-CHECKLIST.md`
 Reason: Test files are not published to documentation site
 Fix: Remove reference or copy checklist to docs/
 
+### 6. Command Documentation Examples
+Files with broken links:
+- `commands/docs/check-links.md` (contains intentional example broken links)
+- `docs/git-init-docs-index.md` (reference to help/hub.md as example)
+
+Targets: `../other.md`, `file.md`, `help/hub.md`
+Reason: These are intentional example links shown in documentation to illustrate what broken links look like
+Fix: Not needed - examples are correct as-is
+
 ## Build Status
 - **Build command**: `mkdocs build --strict` will show these warnings
 - **Expected**: ~30 warnings from categories above

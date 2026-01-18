@@ -20,18 +20,55 @@ asciinema rec docs/demos/teaching-workflow.cast
 # ... etc
 # Press Ctrl+D when done
 
-# 2. Convert to GIF
-agg --cols 100 --rows 30 --font-size 14 --fps 10 \
-    docs/demos/teaching-workflow.cast \
-    docs/demos/teaching-workflow.gif
+# 2. Convert to GIF (single file)
+/craft:docs:demo --convert docs/demos/teaching-workflow.cast
 
-# 3. Optimize
-gifsicle -O3 --colors 128 --lossy=80 \
-    docs/demos/teaching-workflow.gif \
-    -o docs/demos/teaching-workflow.gif
+# OR: Batch convert all .cast files
+/craft:docs:demo --batch
 
-# 4. Review
+# 3. Review
 open docs/demos/teaching-workflow.gif
+```
+
+## Batch Conversion (New in v1.25.0)
+
+**Convert all `.cast` files at once:**
+
+```bash
+# Dry run - preview what would be converted
+/craft:docs:demo --batch --dry-run
+
+# Convert all new .cast files (skip existing GIFs)
+/craft:docs:demo --batch
+
+# Force overwrite all GIFs
+/craft:docs:demo --batch --force
+
+# Custom search path
+/craft:docs:demo --batch --search-path custom/demos
+```
+
+**What batch conversion does:**
+- Finds all `.cast` files in `docs/demos/` and `docs/gifs/`
+- Skips existing `.gif` files (unless `--force`)
+- Shows progress bar with ETA
+- Uses optimized settings: `agg` (font-size 16, monokai) + `gifsicle` (optimize=3, 256 colors)
+- Reports compression ratios and total size savings
+
+**Progress output:**
+```
+Processing .cast files...
+[████████████░░░░░░░] 8/11 (73%)
+
+Current: docs/demos/install-demo.cast
+Status: Converting... (3.2s elapsed)
+ETA: 2m 35s
+
+Summary (so far):
+  Completed: 8/11
+  Failed: 0
+  Total size: 2.3 MB → 890 KB (61% reduction)
+  Avg time: 3.1s per file
 ```
 
 ## Alternative: VHS Method

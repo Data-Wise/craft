@@ -1,5 +1,7 @@
 # /craft:hub - Command Discovery Hub
 
+> **v2.4.0 Update**: Added brainstorm question control with colon notation (`d:5`, `m:12`, `q:3`) and categories flag (`-C req,tech,success`).
+
 You are a command discovery assistant for the craft plugin. Help users find the right command.
 
 ## When Invoked (`/craft:hub`)
@@ -24,7 +26,7 @@ stats = get_command_stats()
 commands = load_cached_commands()
 
 # Available data:
-# - stats['total']: Total command count (e.g., 97)
+# - stats['total']: Total command count (e.g., 100)
 # - stats['categories']: Dict of category counts (e.g., {'code': 12, 'test': 7, ...})
 # - stats['with_modes']: Commands supporting modes
 # - stats['with_dry_run']: Commands with dry-run support
@@ -63,7 +65,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 🛠️ CRAFT - Full Stack Developer Toolkit v1.22.0                         │
+│ 🛠️ CRAFT - Full Stack Developer Toolkit v2.4.0                          │
 │ 📍 [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                      │
 │ 📊 [TOTAL] Commands | 21 Skills | 8 Agents | 4 Modes                    │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -96,21 +98,23 @@ Display template:
 │ 📄 DOCS ([DOCS_COUNT])             /craft:plan:sprint                   │
 │   /craft:docs:sync                 /craft:plan:roadmap                  │
 │   /craft:docs:changelog                                                 │
-│   /craft:docs:claude-md          📖 SITE ([SITE_COUNT])                 │
-│   /craft:docs:validate             /craft:site:init                     │
-│   /craft:docs:nav-update           /craft:site:build                    │
-│                                    /craft:site:preview                  │
-│ 🔀 GIT ([GIT_COUNT]+4 guides)      /craft:site:deploy                   │
-│   /craft:git:init                  /craft:site:check                    │
-│   /craft:git:branch                /craft:site:frameworks               │
-│   /craft:git:sync                                                       │
+│   /craft:docs:claude-md          🔄 WORKFLOW ([WORKFLOW_COUNT])         │
+│   /craft:docs:validate             /brainstorm [depth:count] "topic"    │
+│   /craft:docs:nav-update           /brainstorm d:5 "auth" -C req,tech   │
+│                                    /brainstorm m:12 "api" --categories  │
+│ 🔀 GIT ([GIT_COUNT]+4 guides)      /workflow:focus                      │
+│   /craft:git:init                  /workflow:next                       │
+│   /craft:git:branch                /workflow:stuck                      │
+│   /craft:git:sync                  /workflow:done                       │
 │   /craft:git:clean                                                      │
 │   /craft:git:recap                                                      │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ 🎯 Quick Actions:                                                       │
-│    /craft:do "fix bug"    /craft:check --for pr    /craft:help testing │
-│    /craft:test:run debug  /craft:arch:analyze      /craft:git:sync     │
+│    /craft:do "fix bug"          /craft:check --for pr                   │
+│    /brainstorm d:5 "auth"       /craft:help testing                     │
+│    /craft:test:run debug        /craft:arch:analyze                     │
+│    /craft:git:sync                                                       │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -447,10 +451,35 @@ Command                  │ Description                    │ Modes
 📋 PLAN COMMANDS (3) - Planning & Project Management
 ─────────────────────────────────────────────────────────────────────────
 Command                  │ Description
-─────────────────────────┼────────────────────────────────────────────
+────────────────────────┼────────────────────────────────────────────
 /craft:plan:feature      │ Plan features with tasks and estimates
 /craft:plan:sprint       │ Sprint planning with capacity
 /craft:plan:roadmap      │ Generate project roadmaps
+─────────────────────────────────────────────────────────────────────────
+```
+
+### `/craft:hub workflow` (NEW v2.4.0)
+```
+🔄 WORKFLOW COMMANDS (4) - ADHD-Friendly Workflow Management
+─────────────────────────────────────────────────────────────────────────
+Command                           │ Description
+──────────────────────────────────┼────────────────────────────────────
+/brainstorm [depth:count] "topic" │ Brainstorm with custom question counts
+/brainstorm d:5 "auth"            │ Deep mode with exactly 5 questions
+/brainstorm m:12 "api"            │ Max mode with 12 questions
+/brainstorm q:0 "quick"           │ Quick with 0 questions (straight to brainstorming)
+/brainstorm d:5 "auth" -C req,tech │ Filter to requirements + technical categories
+/brainstorm d:20 "complex"        │ Unlimited mode with milestone prompts
+/workflow:focus                   │ Start focused work session
+/workflow:next                    │ Get next step
+/workflow:stuck                   │ Get unstuck help
+/workflow:done                    │ Complete session
+
+**v2.4.0 Brainstorm Features:**
+- Colon notation: d:5, m:12, q:3 for custom question counts
+- Categories flag: -C req,tech,success to filter question types
+- 8 categories: requirements, users, scope, technical, timeline, risks, existing, success
+- Milestone prompts every 8 questions for unlimited exploration
 ─────────────────────────────────────────────────────────────────────────
 ```
 
@@ -486,7 +515,7 @@ Command                  │ R Package        │ Other (MkDocs)
 ### `/craft:hub git`
 ```
 🔀 GIT COMMANDS (5 commands + 4 guides)
-─────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────
 Commands:
   /craft:git:init       Initialize repo with craft workflow
   /craft:git:branch     Branch management (create, switch, delete)
@@ -499,7 +528,37 @@ Guides:
   /craft:git:undo-guide Emergency undo guide
   /craft:git:safety-rails Safety rails guide
   /craft:git:learning-guide Learning guide
-─────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────
+```
+
+### `/craft:hub workflow` (NEW v2.4.0)
+```
+🔄 WORKFLOW COMMANDS (4) - ADHD-Friendly Workflow Management
+────────────────────────────────────────────────────────────────────────
+Command                           │ Description
+──────────────────────────────────┼────────────────────────────────────
+/brainstorm [depth:count] "topic" │ Brainstorm with custom question counts
+/brainstorm d:5 "auth"            │ Deep mode with exactly 5 questions
+/brainstorm m:12 "api"            │ Max mode with 12 questions
+/brainstorm q:0 "quick"           │ Quick with 0 questions
+/brainstorm d:5 "auth" -C req,tech │ Filter to requirements + technical
+/brainstorm d:20 "complex"        │ Unlimited mode with milestone prompts
+/workflow:focus                   │ Start focused work session
+/workflow:next                    │ Get next step
+/workflow:stuck                   │ Get unstuck help
+/workflow:done                    │ Complete session
+
+**v2.4.0 Brainstorm Features:**
+- Colon notation: d:5, m:12, q:3 for custom question counts
+- Categories flag: -C req,tech,success to filter question types
+- 8 categories: requirements, users, scope, technical, timeline, risks, existing, success
+- Milestone prompts every 8 questions for unlimited exploration
+
+**Quick Examples:**
+/brainstorm d:5 "auth" -C req,tech     # 5 questions, filtered categories
+/brainstorm m:10 f s "api"              # Max mode, feature, spec capture
+/brainstorm d:20 "complex" -C all      # Unlimited with all categories
+────────────────────────────────────────────────────────────────────────
 ```
 
 ## Skills (8 Auto-Activated)
@@ -550,16 +609,22 @@ Guides:
   /craft:code:release         npm publish workflow
 ```
 
-## Quick Reference
+## Quick Reference (v2.4.0)
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│ CRAFT QUICK REFERENCE - 47 COMMANDS                                    │
+│ CRAFT QUICK REFERENCE - 100 COMMANDS v2.4.0                           │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   → AI routes to best workflow                     │
 │   /craft:check       → Quick validation                               │
 │   /craft:help        → Context-aware suggestions                      │
+│                                                                        │
+│ v2.4.0 Brainstorm Question Control:                                    │
+│   /brainstorm d:5 "auth"           → Deep mode with 5 questions       │
+│   /brainstorm m:12 "api"           → Max mode with 12 questions       │
+│   /brainstorm d:5 "auth" -C req,tech → Filter to specific categories  │
+│   /brainstorm d:20 "complex"       → Unlimited with milestone prompts │
 │                                                                        │
 │ Development Workflow:                                                  │
 │   /craft:code:lint [mode] → /craft:test:run [mode] →                  │
@@ -575,11 +640,47 @@ Guides:
 │                                                                        │
 │ Daily:                                                                 │
 │   /craft:git:recap → /craft:check → /craft:git:sync                   │
+│                                                                        │
+│ **Orchestrate Complex Tasks:**                                         │
+│   /craft:orchestrate "add auth" optimize  → Parallel agent execution  │
+│   /craft:orchestrate "debug issue" debug  → Sequential troubleshooting│
+│   /craft:orchestrate "prep release" release → Comprehensive audit     │
+│   /craft:orchestrate status               → Agent dashboard           │
+│   /craft:orchestrate timeline             → Execution timeline        │
+│   /craft:orchestrate continue             → Resume previous session   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Agents
+## Agents (8 Specialized)
 
-| Agent | Purpose |
-|-------|---------|
-| `orchestrator` | Smart delegation to skills based on task context |
+| Agent | Specialty | Triggers |
+|-------|-----------|----------|
+| `orchestrator-v2` | Complex multi-step tasks with parallel execution | `/craft:orchestrate` |
+| `backend-architect` | Scalable APIs, microservices, database design | Architecture tasks |
+| `frontend-specialist` | React, Vue, component architecture | UI/UX discussions |
+| `devops-engineer` | CI/CD, Docker, Kubernetes, deployment | Ops tasks |
+| `test-strategist` | Test strategy, coverage, flaky tests | Testing needs |
+| `docs-architect` | Technical documentation, architecture guides | Docs requests |
+| `api-documenter` | OpenAPI specs, developer portals | API documentation |
+| `mermaid-expert` | Flowcharts, diagrams, visualizations | Diagram requests |
+
+### Orchestrator v2.1 (NEW)
+
+The orchestrator coordinates multiple agents for complex tasks:
+
+```bash
+/craft:orchestrate "implement feature X"       # Start with default mode
+/craft:orchestrate "complex task" optimize     # Parallel execution (4 agents)
+/craft:orchestrate "debug issue" debug         # Sequential troubleshooting
+/craft:orchestrate "prep release" release      # Comprehensive audit
+/craft:orchestrate status                      # Check agent progress
+/craft:orchestrate timeline                    # View execution timeline
+/craft:orchestrate continue                    # Resume previous session
+```
+
+**Key Features:**
+- Mode-aware execution (default/debug/optimize/release)
+- Up to 4 parallel agents in optimize/release modes
+- Chat compression for long sessions
+- Session persistence and resumption
+- ADHD-friendly progress tracking

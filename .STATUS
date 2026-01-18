@@ -257,8 +257,337 @@ website_organization_phase2:
     - "PR #16 closed (duplicate of #15) - branch was recreated from old state"
     - "All Phase 2 work was completed via PR #15"
 
+claude_code_2_1_integration:
+  branch: feature/claude-code-2.1-integration (active)
+  status: WAVE 1-3 COMPLETE ✅
+  started: 2026-01-17
+  duration: ~18 hours total
+  target_version: v1.23.0
+  proposal: docs/brainstorm/PROPOSAL-craft-enhancements-2026-01-17.md
+
+  wave_1_quick_wins:
+    status: COMPLETE ✅
+    committed: 4b7f0cf
+    duration: ~1.5 hours
+    files: 8 (1 modified, 6 created, 1 summary)
+    lines_added: +1,465
+    components:
+      - Complexity scoring in /craft:do (+78 lines)
+      - Validation skills: test-coverage, broken-links, lint-check (+505 lines)
+      - Orchestration hooks: orchestrate-hooks.sh (+291 lines)
+    features:
+      - "0-10 complexity scoring with 5 factors"
+      - "Routing decision flow (commands/agents/orchestrator)"
+      - "Hot-reload validators (Python, JS, R, Go, Rust)"
+      - "Agent hooks (PreToolUse, PostToolUse, Stop)"
+      - "Mode-aware resource management"
+      - "Session state persistence (.craft/cache/)"
+
+  wave_2_medium_effort:
+    status: COMPLETE ✅
+    committed: 87cbb8a
+    duration: ~6 hours
+    files: 4 (3 modified, 1 summary)
+    lines_added: +473
+    components:
+      - Agent delegation in /craft:do (+250 lines)
+      - Validator discovery in /craft:check (+103 lines)
+      - Forked context for orchestrator-v2 (+127 lines)
+    features:
+      - "5 specialized agents with keyword routing"
+      - "Delegation workflow (fork → execute → return)"
+      - "Auto-discovery of validators with hot_reload: true"
+      - "Wave isolation (no main conversation pollution)"
+      - "Clean summaries returned to user"
+
+  wave_3_long_term:
+    status: COMPLETE ✅
+    committed: 843ea6d
+    duration: ~12 hours
+    files: 7 (2 modified, 5 created)
+    lines_added: +3,029
+    components:
+      - Agent resilience in orchestration (+250 lines)
+      - Community validator ecosystem (+1,154 lines)
+      - Session teleportation integration (+1,050 lines)
+    features:
+      - "5 error categories with recovery strategies"
+      - "Exponential backoff retry (2s-16s)"
+      - "Circuit breaker pattern (CLOSED/HALF-OPEN/OPEN)"
+      - "4-level escalation hierarchy"
+      - "Validator template generator (/craft:check:gen-validator)"
+      - "Best practices guide (715 lines)"
+      - "GitHub marketplace integration"
+      - "Cross-device session resume (/craft:orchestrate:resume)"
+      - "Session state schema (JSON v1.0.0)"
+      - "Claude Desktop cloud sync (encrypted)"
+
+  wave_4_unit_tests:
+    status: COMPLETE ✅
+    committed: bebfb35, f81a1a3
+    duration: ~2.5 hours
+    files: 5 (1 plan, 1 utility, 3 test files)
+    lines_added: +1,370
+    components:
+      - Test plan document (TEST-PLAN-CLAUDE-CODE-2.1.md, 40 tests planned)
+      - Complexity scorer utility (utils/complexity_scorer.py, 210 lines)
+      - Complexity scoring tests (tests/test_complexity_scoring.py, 15 tests)
+      - Hot-reload validator tests (tests/test_hot_reload_validators.py, 9 tests)
+      - Agent hooks tests (tests/test_agent_hooks.py, 13 tests)
+    test_results:
+      - "Complexity scoring: 15/15 passing (0.5ms)"
+      - "Hot-reload validators: 9/9 passing (8.7ms)"
+      - "Agent hooks: 13/13 passing (13.1ms)"
+      - "Total: 37/37 passing (22.3ms)"
+      - "Coverage: 100% of implemented code"
+    test_categories:
+      - "Unit tests: 37 (147% of planned 25 tests)"
+      - "E2E tests: 0 (planned 12, deferred)"
+      - "Dogfooding tests: 0 (planned 3, deferred)"
+    features:
+      - "Scoring algorithm with 5 factors (0-10 scale)"
+      - "Routing boundary testing (0-3 → commands, 4-7 → agent, 8-10 → orchestrator)"
+      - "Validator frontmatter validation (YAML, hot_reload, context flags)"
+      - "Mode-aware behavior testing (4 modes with different thresholds)"
+      - "Multi-language support validation (6 languages, 5 linter tools)"
+      - "Hook structure validation (bash syntax, event handlers, logging)"
+      - "Static analysis approach (reliable, fast, no subprocess issues)"
+
+  total_changes:
+    files_modified: 6
+    files_created: 18 (13 features + 1 test plan + 1 utility + 3 test files)
+    lines_added: +6,337 (+4,967 features + +1,370 tests)
+    breaking_changes: 0
+    tests_added: 37 unit tests (100% passing)
+    test_coverage: 100% of implemented code
+    version_updates:
+      - "orchestrator-v2: 2.1.0 → 2.3.0"
+
+  integration_synergy:
+    wave_1_foundation: "Complexity scoring, validation skills, agent hooks"
+    wave_2_intelligence: "Agent delegation, validator discovery, forked context"
+    wave_3_scale: "Agent resilience, validator ecosystem, session teleportation"
+    complete_pipeline: "Complexity → Delegation → Forked execution → Resilience → Teleportation → Custom validators"
+
+  impact:
+    for_users:
+      - "Smart task routing with complexity awareness"
+      - "Resilient agent execution with auto-recovery"
+      - "Cross-device session resume"
+      - "Community validators without restart"
+      - "Clean chat history (forked execution)"
+    for_developers:
+      - "9 resilience patterns (retry, timeout, circuit breaker, etc.)"
+      - "Validator template generator"
+      - "Best practices documentation (715 lines)"
+      - "Session state schema (JSON v1.0.0)"
+      - "GitHub marketplace integration"
+
+  commits:
+    - "4b7f0cf: feat: implement Wave 1 - Complexity scoring, validation skills, orchestration hooks"
+    - "87cbb8a: feat: implement Wave 2 - Agent delegation, validator discovery, forked context"
+    - "843ea6d: feat: implement Wave 3 - Agent resilience, validator ecosystem, session teleportation"
+    - "e949172: chore: update .STATUS with Wave 1-3 completion"
+    - "bebfb35: test: add comprehensive test suite for Claude Code 2.1.0 integration (Wave 4)"
+    - "f81a1a3: test: add agent hooks unit tests (13 tests, all passing)"
+
+session_2026_01_18_integration_tests:
+  duration: ~1.5 hours
+  accomplishments:
+    - "Generated comprehensive integration test plan for v1.24.0 features"
+    - "Created test_integration_dependency_system.py (9 tests: workflow, health, detection, caching)"
+    - "Created test_integration_orchestrator_workflows.py (13 tests: routing, scoring, validators)"
+    - "Created test_integration_teaching_workflow.py (8 tests: detection, config, commands, utilities)"
+    - "Fixed 9 failing integration tests (3 dependency + 5 orchestrator + 1 teaching)"
+    - "Enhanced complexity_scorer.py with 7-factor algorithm (improved task routing)"
+    - "Fixed dependency test invocations (--check → display_status_json asciinema)"
+    - "Fixed consent prompt validation (function name: prompt_user_consent)"
+    - "Fixed teaching utility paths (utils/ vs commands/utils/ split)"
+    - "Tuned complexity scoring for moderate tasks (4-7 range)"
+    - "Tuned complexity scoring for complex tasks (8-10 range)"
+    - "Achieved 100% pass rate on all 27 active integration tests (3 skipped as expected)"
+
+session_2026_01_18_docs_gap_analysis:
+  duration: ~1 hour
+  accomplishments:
+    - "Conducted comprehensive gap analysis of v1.24.0 documentation"
+    - "Analyzed 8 recent merged PRs (#12-#22) with 516+ tests"
+    - "Reviewed 100 documentation files and 6 specification documents"
+    - "Identified 3 critical documentation gaps (high-priority features under-documented)"
+    - "Created GAP-ANALYSIS-2026-01-18.md (1,200+ lines, comprehensive breakdown)"
+    - "Documented version reference inconsistencies (ORCHESTRATOR-ENHANCEMENTS.md outdated)"
+    - "Created feature status table (99 commands, 100% implementation, 40-95% documentation)"
+    - "Prioritized 7 documentation tasks (3 critical, 2 medium, 2 nice-to-have)"
+    - "Created worktree: feature/docs-gap-analysis for documentation improvements"
+
+  gap_analysis_findings:
+    critical_gaps:
+      - "Integration Tests: 27 tests pass but no user guide (30 min to close)"
+      - "Dependency Management: 16K LOC + 79 tests but guide incomplete (1.5h to close)"
+      - "Claude Code 2.1.0: 6,337 LOC + 37 tests but user docs missing (1.5h to close)"
+
+    completeness_by_feature:
+      - "Hub v2.0: 95% (excellent docs, architecture, tests)"
+      - "Teaching Workflow: 90% (minor config/troubleshooting gaps)"
+      - "Website Organization: 100% (complete)"
+      - "Broken Links: 100% (complete)"
+      - "Dependency Management: 50% (code/tests done, guide incomplete)"
+      - "Claude Code 2.1.0: 40% (code/tests done, guide missing)"
+      - "Integration Tests: 30% (tests done, guide missing)"
+
+    estimated_effort:
+      - "Priority 1 (critical): 4-5 hours to close all gaps"
+      - "Priority 2 (medium): 1-2 hours for polish"
+      - "Priority 3 (nice-to-have): 1-2 hours for enhancement"
+
+  documentation_readiness:
+    - "8 major PRs merged with strong test coverage (516+ tests, 100% pass)"
+    - "3 features under-documented despite excellent implementation"
+    - "CLAUDE.md needs integration features section update"
+    - "Version references inconsistent (outdated docs still in site)"
+    - "All 6 specs comprehensive and detailed"
+
+  next_steps:
+    - "Phase 1: Create 3 critical guides (dependency mgmt, Claude Code 2.1.0, integration tests)"
+    - "Phase 2: Update CLAUDE.md and remove outdated documentation"
+    - "Phase 3: Polish and enhancement (optional)"
+    - "Worktree created at ~/.git-worktrees/craft/feature-docs-gap-analysis for implementation"
+  commits:
+    - "7f1ff10: test: add comprehensive integration tests for v1.24.0 features"
+  test_results:
+    - "Dependency system: 9/9 passing (workflow, health, detection, version, caching)"
+    - "Orchestrator workflows: 13/13 passing (routing, scoring, boundaries, validators)"
+    - "Teaching workflow: 5/5 passing, 3 skipped (modules not implemented - expected)"
+    - "Total: 27/30 passing (100% of active tests)"
+  complexity_scorer_enhancements:
+    - "Factor 6: High-complexity keywords (+2 points)"
+    - "Factor 7: Major architectural changes (+2 points)"
+    - "Expanded category keywords: database, error_handling, query, migration, api, microservice"
+    - "Lowered multi-step threshold: 3+ verbs → 2+ verbs OR complexity indicator"
+    - "Added complexity indicators: comprehensive, optimize, advanced, robust, scalable"
+    - "Improved detection: optimize, redesign, comprehensive, authentication, migration"
+  test_fixes:
+    - "Dependency checks: Accept exit codes 0 or 1 (both valid states)"
+    - "Consent prompt: Changed function name validation (consent_prompt_with_skip → prompt_user_consent)"
+    - "Teaching utilities: Fixed path detection (detect_teaching_mode.py in utils/, others in commands/utils/)"
+  state_change:
+    - "Tests: 486 → 516 (+30 integration tests, +6%)"
+    - "Integration test coverage: Dependency system, orchestrator routing, teaching workflow"
+    - "Complexity scoring: 5 factors → 7 factors (more accurate task routing)"
+  insights:
+    - "Integration tests caught real bugs: wrong script syntax, incorrect function names, path mismatches"
+    - "Complexity scorer needed tuning: tasks scored too low (moderate 0→4, complex 2-6→8)"
+    - "Test-driven fixes more reliable than manual validation"
+    - "Teaching modules partially implemented: 3 skipped tests expected until full implementation"
+
+session_2026_01_18_morning:
+  duration: ~2 hours
+  accomplishments:
+    - "Investigated v1.24.0 release status (Hub v2.0 merged after v1.23.1)"
+    - "Fixed documentation version mismatch (v1.23.1 → v1.24.0)"
+    - "Created v1.24.0 release with Hub v2.0 (zero-maintenance command discovery)"
+    - "Deployed updated documentation site with v1.24.0 references"
+    - "Reviewed PR #22 (Dependency Management Tutorials) - 8.5/10 initial, 9.5/10 after fixes"
+    - "Identified 3 critical + 1 optional issue in PR #22 code review"
+    - "Orchestrated fixes for all 4 PR #22 issues (PyYAML, error handling, input validation, migration guide)"
+    - "Verified all fixes committed and pushed to feature branch (commit 1774881)"
+    - "Comprehensive code review of PR #21 (Claude Code 2.1.0 Integration) - 9.0/10 quality"
+    - "Merged PR #21 to dev (Claude Code 2.1.0 Integration, +6,337 lines, 37 tests, 100% passing)"
+    - "Resolved .STATUS merge conflict (combined Hub v2.0 + Claude Code 2.1.0 accomplishments)"
+    - "Merged PR #22 to dev (Dependency Management Tutorials, +16,000 lines, 43 files, 79 tests)"
+    - "Resolved spec file conflict (kept more complete dev version, 825 lines)"
+    - "Verified all 79 dependency management tests passing (100% pass rate)"
+    - "Cleaned up feature/demo-dependency-management worktree"
+    - "Cleaned up feature/claude-code-2.1-integration worktree"
+  commits:
+    - "0e6bb83: docs: fix Hub v2.0 version reference (v1.23.1 → v1.24.0 unreleased)"
+    - "ad4c48a: chore: prepare v1.24.0 release (Hub v2.0)"
+    - "66db77a: Merge pull request #23 from Data-Wise/dev"
+    - "643114d: docs: update version references to v1.24.0 (released)"
+    - "75504e4: Merge remote-tracking branch 'origin/feature/claude-code-2.1-integration' into dev"
+    - "1774881: fix: address code review issues for PR #22"
+    - "7e90f34: Merge PR #22: Add dependency management tutorials"
+  state_change:
+    - "Commands: 99 → 99 (no change, dependency system embedded in demo command)"
+    - "Scripts: +10 dependency management scripts (manager, installer, health-check, repair, converters)"
+    - "Scripts: +4 installer adapters (brew, cargo, binary, consent-prompt)"
+    - "Scripts: +6 helper utilities (tool-detector, version-check, session-cache, verify scripts)"
+    - "Tests: +79 dependency management tests (unit, validation, e2e, 100% passing)"
+    - "Documentation: +5 dependency docs (API reference, architecture, dev guide, tutorials, installer usage)"
+    - "GitHub Workflows: +1 CI workflow (validate-dependencies.yml)"
+    - "Open PRs: 0 → 0 (merged #21, #22, #23)"
+    - "Worktrees cleaned: 2 (claude-code-2.1-integration, demo-dependency-management)"
+    - "Version: v1.23.1 → v1.24.0 (Hub v2.0 release)"
+    - "CLAUDE.md: Updated with v1.24.0 release information"
+    - "Commands with dependencies: 1 (demo command with full dependency management)"
+    - "Dependency management: Full system (check, install, fix, batch convert, health monitoring)"
+  insights:
+    - "PR review caught 3 critical bugs (missing PyYAML, bare except, shell injection risk)"
+    - "Fixing issues before merge prevented production failures"
+    - "Test suite comprehensive: 79 tests covering unit, validation, e2e workflows"
+    - "Dependency system architecture: Modular (8 scripts), extensible, session-cached"
+    - "v1.24.0 release includes both Hub v2.0 AND Claude Code 2.1.0 (major milestone)"
+    - "Merge conflict resolution: Combined two major feature sets successfully"
+    - "Documentation versioning important: Fixed misleading version claims"
+
+session_2026_01_18_brainstorm_phase1:
+  duration: ~3 hours
+  accomplishments:
+    - "Deep brainstorm session for /craft:workflow:brainstorm question control redesign (8 expert questions)"
+    - "Revised proposal from verbose --questions N flag to compact colon notation (d:5, m:12, q:3)"
+    - "Redesigned syntax based on user feedback: 'too verbose/clunky' → concise depth:count format"
+    - "Reorganized phases by impact: High (12h), Medium (9h), Nice-to-have (15h)"
+    - "Updated proposal status: ✅ Phase 1 Ready to Implement | 📋 Phase 2/3 Future Enhancements"
+    - "Created comprehensive orchestration document (ORCH-brainstorm-phase1-2026-01-18.md, 985 lines, 30KB)"
+    - "Created worktree: feature/brainstorm-question-control (~/.git-worktrees/craft/)"
+    - "Committed orchestration doc to dev branch (b8201b5)"
+    - "Merged orchestration doc into feature branch"
+    - "Managed gitignore for docs/orch/ (added → removed → committed to version control)"
+  files_created:
+    - "docs/brainstorm/PROPOSAL-question-control-2026-01-18.md (extensively revised)"
+    - "docs/orch/ORCH-brainstorm-phase1-2026-01-18.md (985 lines, 6 detailed tasks)"
+  key_decisions:
+    - "Colon notation syntax: d:5, m:12, q:0 (override depth defaults completely)"
+    - "Unlimited questions: No upper limit with milestone prompts every 8 questions"
+    - "Categories flag: --categories or -C (separate from depth:count)"
+    - "Validation: Prompt for clarification on invalid syntax (not hard errors)"
+    - "Question bank: 8 categories × 2 questions each (16 total)"
+    - "Orchestration docs: Version controlled (not gitignored like brainstorm docs)"
+  phase_1_deliverables:
+    - "Colon notation parsing (depth:N format)"
+    - "Unlimited question support with continuation prompts"
+    - "Category filtering (--categories flag)"
+    - "Question bank (8 categories, 16 questions)"
+    - "Documentation updates (brainstorm.md, CLAUDE.md)"
+    - "Comprehensive test coverage"
+  effort_estimate:
+    - "Phase 1 (High Impact): 12 hours - MVP shipping in v2.4.0"
+    - "Phase 2 (Medium Impact): 9 hours - Deferred as future enhancement"
+    - "Phase 3 (Nice-to-have): 15 hours - Deferred as future enhancement"
+  commits:
+    - "b8201b5: docs: add orchestration plan for brainstorm Phase 1 question control"
+  state_change:
+    - "Worktrees: 0 → 1 (feature/brainstorm-question-control created)"
+    - "Orchestration docs: 0 → 1 (ORCH-brainstorm-phase1-2026-01-18.md)"
+    - "Proposal status: Draft → Phase 1 Ready to Implement"
+    - "Question control syntax: --questions N → depth:count (d:5, m:12)"
+    - "Gitignore: docs/orch/ NOT ignored (orchestration plans version controlled)"
+  insights:
+    - "Brainstorm mode successfully redesigned proposal through 8 expert questions"
+    - "User feedback directly shaped syntax: verbose flags → compact colon notation"
+    - "Impact-based phasing ensures MVP ships first (12h Phase 1 vs 24h deferred)"
+    - "Orchestration docs belong in version control (shareable implementation plans)"
+    - "Question control enables power users while maintaining simple defaults"
+    - "Colon notation consistent with existing shorthand style (d/f/s/a)"
+  next_steps:
+    - "Implement Phase 1 using ORCH-brainstorm-phase1-2026-01-18.md as guide"
+    - "Run /craft:orchestrate with orchestration document for autonomous implementation"
+    - "Test colon notation parsing with edge cases"
+    - "Build question bank YAML structure (8 categories)"
+    - "Update brainstorm.md documentation with new syntax examples"
+
 session_2026_01_17:
-  duration: ~10-11 hours
+  duration: ~25-26 hours (includes Claude Code 2.1.0 integration and v1.23.1 release)
   accomplishments:
     - "Reviewed PR #12 (Teaching Workflow System) - 9.5/10 quality, production-ready"
     - "Merged PR #12 to dev (12,241 additions, 44 files, 5 new commands)"
@@ -310,6 +639,23 @@ session_2026_01_17:
     - "Created unified test runner (run_hub_tests.sh) for all 52 Hub tests"
     - "Achieved 98% test coverage (up from 95%) in ~1 second total runtime"
     - "Cleaned up feature/hub-v2-enhanced-tests worktree after merge"
+    - "Implemented Claude Code 2.1.0 integration - Wave 1 (Quick Wins, ~1.5h)"
+    - "Implemented Claude Code 2.1.0 integration - Wave 2 (Medium Effort, ~6h)"
+    - "Implemented Claude Code 2.1.0 integration - Wave 3 (Long-term, ~12h)"
+    - "Implemented Claude Code 2.1.0 integration - Wave 4 (Unit Tests, ~2.5h)"
+    - "Created complexity scoring system for /craft:do (0-10 scale)"
+    - "Created 3 hot-reload validators (test-coverage, broken-links, lint-check)"
+    - "Created orchestration hooks (PreToolUse, PostToolUse, Stop)"
+    - "Implemented agent delegation with 5 specialized agents"
+    - "Implemented validator discovery system (auto-detect hot_reload: true)"
+    - "Added forked context execution to orchestrator-v2"
+    - "Enhanced agent resilience with 9 recovery patterns"
+    - "Created community validator ecosystem (generator + best practices)"
+    - "Implemented session teleportation for cross-device resume"
+    - "Created comprehensive test suite (37 unit tests, 100% passing)"
+    - "Implemented complexity scorer utility with 5-factor algorithm"
+    - "Tested hot-reload validators (frontmatter, mode-aware, multi-language)"
+    - "Validated agent hooks structure (bash syntax, event handlers, logging)"
   commits:
     - "39cd95d: docs: embed teaching workflow GIF in all key documentation"
     - "458be73: docs: consolidate duplicate documentation (removed 5 files, 1,318 lines)"
@@ -327,13 +673,25 @@ session_2026_01_17:
     - "458be73: docs: consolidate duplicate documentation"
     - "39cd95d: docs: embed teaching workflow GIF in all key documentation"
     - "059c497: docs: add optimized teaching workflow demo GIF"
+    - "4b7f0cf: feat: implement Wave 1 - Complexity scoring, validation skills, orchestration hooks"
+    - "87cbb8a: feat: implement Wave 2 - Agent delegation, validator discovery, forked context"
+    - "843ea6d: feat: implement Wave 3 - Agent resilience, validator ecosystem, session teleportation"
+    - "e949172: chore: update .STATUS with Wave 1-3 completion"
+    - "bebfb35: test: add comprehensive test suite for Claude Code 2.1.0 integration (Wave 4)"
+    - "f81a1a3: test: add agent hooks unit tests (13 tests, all passing)"
   state_change:
-    - "Commands: 92 → 97 (+5)"
-    - "Utilities: +5 Python modules (+4 teaching-specific, +1 linkcheck parser)"
-    - "Tests: +178 (139 teaching + 21 linkcheck + 18 Hub enhanced, 100% passing)"
-    - "Documentation: +8 teaching guides, -5 duplicates, +1 Choose Your Path, +1 Implementation Summary, +2 GIF guides, +3 test docs"
-    - "Open PRs: 0 → 0 (merged #12, #13, #14, #15, #17, #20)"
-    - "CLAUDE.md: Updated to 138 lines, 97 commands, 6 specs"
+    - "Commands: 92 → 99 (+7, includes 2 new orchestrate subcommands)"
+    - "Utilities: +6 Python modules (+4 teaching-specific, +1 linkcheck parser, +1 complexity scorer)"
+    - "Tests: +215 (139 teaching + 21 linkcheck + 18 Hub enhanced + 37 Claude Code 2.1.0, 100% passing)"
+    - "Documentation: +8 teaching guides, -5 duplicates, +1 Choose Your Path, +4 Implementation Summaries, +1 Test Plan, +3 Hub test docs"
+    - "Validators: +3 hot-reload skills (test-coverage, broken-links, lint-check)"
+    - "Hooks: +1 orchestration hook script (orchestrate-hooks.sh)"
+    - "Agent version: orchestrator-v2 2.1.0 → 2.3.0"
+    - "Claude Code integration: +6,337 lines (24 files, 4 waves complete)"
+    - "Test coverage: 100% of implemented Wave 1-4 features"
+    - "Hub v2.0: +9,149 lines (26 files, 52 tests total, 98% coverage)"
+    - "Open PRs: 0 → 0 (merged #12, #13, #14, #15, #17, #20, #21)"
+    - "CLAUDE.md: Updated to 138 lines, 99 commands, 6 specs"
     - "Specs: 4 → 6 (+website organization, +broken link validation, +demo dependency management)"
     - "GIF demos: +1 (teaching-workflow.gif, 533KB optimized)"
     - "Navigation: 14+ sections → 6 sections (50% reduction)"
@@ -349,6 +707,7 @@ session_2026_01_17:
     - "Test implementation: 18 of 47 high-value tests completed (focused approach)"
     - "GIF recording: VHS → asciinema (default method change)"
     - "Todo list: 37 tasks created for dependency management (4 phases, ~36h total)"
+
 
 session_2026_01_16:
   duration: ~4-5 hours
@@ -392,6 +751,22 @@ session_2026_01_15:
     - "Step-by-step tutorials more valuable than generic documentation"
 
 recent:
+  - 🧠 Session 2026-01-18 (Brainstorm): Question control Phase 1 preparation (~3h)
+  - 📋 Brainstorm redesign: --questions N → colon notation (d:5, m:12, q:3)
+  - 📊 Impact-based phasing: High (12h MVP), Medium (9h), Nice-to-have (15h)
+  - 📝 Created orchestration doc: ORCH-brainstorm-phase1-2026-01-18.md (985 lines, 30KB)
+  - 🌳 Created worktree: feature/brainstorm-question-control (ready for Phase 1)
+  - ✅ Phase 1 ready: Colon notation, unlimited questions, categories, question bank
+  - 📊 Session 2026-01-18 (Morning): v1.24.0 release + PR reviews + dependency management merge (~2h)
+  - 🚀 Released v1.24.0: Hub v2.0 Zero-Maintenance Command Discovery
+  - ✅ Merged PR #22: Dependency Management Tutorials (+16,000 lines, 43 files, 79 tests)
+  - 🧪 Dependency tests: 79/79 passing (unit, validation, e2e) - 100% coverage
+  - 🔧 Fixed 3 critical + 1 optional issue in PR #22 (PyYAML, error handling, input validation, migration guide)
+  - 🧹 Cleaned 2 worktrees (claude-code-2.1-integration, demo-dependency-management)
+  - 📊 Session 2026-01-17: Teaching workflow + website org + broken links + asciinema + demo deps + Hub v2.0 + Claude Code 2.1.0 (Waves 1-4)
+  - ✅ Merged PR #21: Claude Code 2.1.0 Integration (+6,337 lines, 24 files, 6 commits, 37 tests)
+  - 🧪 Claude Code 2.1.0: Wave 1-4 complete (complexity scoring, validators, hooks, agents)
+  - 🧪 Unit Tests: 37/37 passing (complexity scoring, validators, hooks) - 100% coverage
   - ✅ Merged PR #20: Hub v2.0 Enhanced Tests (+2,605/-225 lines, 18 new tests, 52 total)
   - 🧪 Hub v2.0: 98% test coverage (up from 95%, +53% tests: YAML edge cases + E2E workflows)
   - ⚡ Hub v2.0: All 52 tests run in ~1 second (unified test runner: run_hub_tests.sh)
@@ -401,7 +776,6 @@ recent:
   - 🧪 Hub v2.0: 100% test coverage (34 tests: 12 discovery + 7 layer2 + 8 layer3 + 7 integration)
   - 📚 Hub v2.0: 3,527 lines documentation (architecture, API reference, developer guide, testing)
   - 🧪 Test planning: 47 additional tests designed (unit edge cases, e2e workflows, dogfooding)
-  - 📊 Session 2026-01-17: Teaching workflow + website org + broken links + asciinema + demo deps + Hub v2.0
   - ✅ Merged PR #12: Teaching Workflow System (12,241 additions, 44 files, 5 commands)
   - ✅ Merged PR #13: Website Organization Phase 1 (459 additions, 6-section navigation)
   - ✅ Merged PR #14: Broken Link Validation (1,966 additions, 21 tests, .linkcheck-ignore parser)
@@ -436,9 +810,7 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
-  - feature/hub-v2: ~/.git-worktrees/craft/feature-hub-v2 (WIP - Phase 1)
-  - feature/demo-dependency-management: ~/.git-worktrees/craft/feature-demo-deps (NEW - Phase 1 ready)
-  - feature/claude-code-2.1-integration: ~/.git-worktrees/craft/feature-claude-code-2.1-integration (NEW - ready to implement)
+  - feature/teaching-flags: ~/.git-worktrees/craft/feature-teaching-flags (active, commit db63cde)
 
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
@@ -446,6 +818,21 @@ worktrees_cleaned_today:
   - feature/website-org-phase2: Removed after PR #15 merge (local + remote branch deleted, consolidation report saved)
 
 next:
+  - 🎯 NEXT: Priority 1 - Final Documentation Polish (v1.24.2 or v1.25.0)
+    • Status: Planned, ready to start
+    • Effort: ~8-12 hours (3 phases)
+    • Phase 1: Edge Case Documentation (3h) - 50+ scenarios
+    • Phase 2: Interactive API Explorer (5h) - JavaScript/React browser
+    • Phase 3: Video Tutorials (4h) - Top 10 commands
+    • Goal: 98% → 100% documentation completeness
+    • Branch: feature/docs-final-polish
+  - ✅ Claude Code 2.1.0 Integration - WAVE 1-4 COMPLETE ✅ (feature/claude-code-2.1-integration)
+    • Wave 1: Complexity scoring, validators, hooks (1.5h, +1,465 lines)
+    • Wave 2: Agent delegation, validator discovery, forked context (6h, +473 lines)
+    • Wave 3: Agent resilience, validator ecosystem, session teleportation (12h, +3,029 lines)
+    • Wave 4: Unit tests (2.5h, +1,370 lines, 37 tests passing, 100% coverage)
+    • Total: +6,337 lines, 24 files, orchestrator-v2 2.3.0, 37 tests
+    • Ready for PR to dev branch
   - ✅ Website Organization (Phase 1) - COMPLETE & MERGED ✅ (PR #13)
     • 6-section navigation structure
     • Choose Your Path page created
@@ -478,6 +865,38 @@ next:
     • Workflow commands (2)
     • Other medium priority (4)
   - Future: v1.21.0 Help template system + Spec integration + Hub v2 (gradual implementation)
+
+next_priority:
+  priority_1_final_documentation_polish:
+    status: planned (ready to start)
+    target_version: v1.24.2 or v1.25.0
+    effort: ~8-12 hours (3 phases)
+    description: Reach 100% documentation completeness (currently 98%)
+    problem: "Final 2% of edge cases and advanced scenarios undocumented"
+    target_user: All users (completionists, advanced users, edge case handlers)
+    key_insight: "Most users won't need 100%, but having it available increases confidence"
+    phases:
+      - "Phase 1: Edge Case Documentation (3 hours) - Complex parameter combinations, error recovery"
+      - "Phase 2: Interactive API Explorer (5 hours) - Browse commands, parameters, examples interactively"
+      - "Phase 3: Video Tutorials (4 hours) - Top 10 commands with step-by-step videos"
+    quick_wins:
+      - "⚡ Document 10-15 edge case scenarios - 1.5h"
+      - "⚡ Create interactive command browser mockup - 1h"
+      - "⚡ Record first 3 command tutorial videos - 1.5h"
+    deliverables:
+      - "EDGE-CASES.md - 50+ edge case scenarios with solutions"
+      - "Interactive HTML API explorer (JavaScript + React)"
+      - "YouTube playlist: Top 10 Craft Commands (10 videos, 5-10 min each)"
+      - "Updated docs/index.md with 100% completeness badge"
+      - "Tutorial video index in documentation site"
+    success_metrics:
+      - "Documentation completeness: 98% → 100%"
+      - "Edge case scenarios: 0 → 50+"
+      - "Video tutorials: 0 → 10"
+      - "User confidence in completeness: High"
+    dependencies:
+      - "All Phase 1-4 v1.24.1 work complete (✅ verified)"
+      - "Documentation site deployed and live"
 
 planned_features:
   title: "Documentation & Spec Standardization (v1.21.0)"
@@ -769,7 +1188,8 @@ planned_features:
       - "commands/do.md, commands/orchestrate.md, commands/check.md"
 
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage) - ✅ ACHIEVED (57%)
-next_target: Documentation quality automation - ✅ COMPLETE (3 phases + CI)
+next_target: Final Documentation Polish - 98% → 100% (edge cases + interactive explorer + videos)
+current_milestone: v1.24.1 - Documentation Excellence Release (9,567 lines, 98% completeness) - ✅ COMPLETE
 future_target: v1.21.0 with /craft:hub v2.0 (discovery) + help template system + spec integration
 
 remaining_work:

@@ -251,6 +251,148 @@ fi
 - Doc validation (lint + links + anchors)
 - ~3-5 minutes
 
+## Hot-Reload Validator Discovery (NEW in v1.23.0)
+
+**Dynamic validator discovery** - Auto-detects validation skills without restart:
+
+### How It Works
+
+1. **Scan for validators**: `/craft:check` scans `.claude-plugin/skills/validation/*.md`
+2. **Parse frontmatter**: Detects validators with `hot_reload: true` flag
+3. **Execute in fork**: Runs each validator in isolated context
+4. **Aggregate results**: Combines all validator outputs
+
+### Built-in Validators
+
+| Validator | Languages | Tools | Purpose |
+|-----------|-----------|-------|---------|
+| **test-coverage** | Python, JS, R, Go | pytest-cov, jest, covr, go test | Coverage validation |
+| **broken-links** | All | test_craft_plugin.py | Internal link validation |
+| **lint-check** | Python, JS, TS, R, Go, Rust | ruff, eslint, lintr, golangci-lint, clippy | Code quality |
+
+### Mode-Aware Behavior
+
+Validators adapt to execution mode:
+
+```
+| Mode     | Coverage | Lint Severity | Auto-fix |
+|----------|----------|---------------|----------|
+| default  | 70%      | Warnings+     | No       |
+| debug    | 60%      | All           | No       |
+| optimize | 75%      | Errors        | Yes      |
+| release  | 90%      | Errors        | No       |
+```
+
+### Example Output
+
+```
+╭─ /craft:check (with validators) ────────────────────╮
+│ Project: craft (Claude Code Plugin)                │
+│ Mode: default                                       │
+├─────────────────────────────────────────────────────┤
+│ Core Checks:                                        │
+│ ✓ Git          Clean working tree                  │
+│ ✓ Project      Valid plugin manifest               │
+│                                                     │
+│ Hot-Reload Validators (3 discovered):               │
+│ ✓ test-coverage   87% >= 70% (default mode)        │
+│ ✓ broken-links    No broken links (342 checked)    │
+│ ✓ lint-check      No issues (ruff)                 │
+├─────────────────────────────────────────────────────┤
+│ STATUS: ALL CHECKS PASSED ✓                        │
+│ Validators: 3/3 passed                              │
+╰─────────────────────────────────────────────────────╯
+```
+
+### Adding Custom Validators
+
+Create a new validator in `.claude-plugin/skills/validation/`:
+
+```markdown
+---
+name: check:my-validator
+description: Custom validation logic
+category: validation
+context: fork
+hot_reload: true
+version: 1.0.0
+---
+
+# Custom Validator Implementation
+
+## Auto-Detection
+[Detect your project type]
+
+## Validation Logic
+[Run your validation tool]
+
+## Output Format
+[Report pass/fail with details]
+```
+
+**Requirements:**
+- Must have `hot_reload: true` in frontmatter
+- Must use `context: fork` for isolation
+- Must report clear pass/fail status
+- Should be mode-aware (check `$CRAFT_MODE`)
+- Should gracefully skip if tools unavailable
+
+### Validator Execution Flow
+
+```
+1. Scan: .claude-plugin/skills/validation/*.md
+2. Filter: Only files with hot_reload: true
+3. Execute: In forked context (isolated)
+4. Collect: Exit codes and stdout/stderr
+5. Report: Aggregated pass/fail summary
+```
+
+**Benefits:**
+- ✅ **No restart required** - Add validators on the fly
+- ✅ **Isolated execution** - Validators don't corrupt context
+- ✅ **Community extensible** - Users can add custom validators
+- ✅ **Mode-aware** - Behavior adapts to context
+- ✅ **Multi-language** - Works across tech stacks
+
+### Community Validator Ecosystem (NEW in v1.23.0)
+
+**Generate custom validators**:
+```bash
+/craft:check:gen-validator security-audit --languages "python,javascript"
+```
+
+**Discover community validators**:
+- [GitHub Validator Marketplace](https://github.com/topics/craft-plugin-validator)
+- Search by language: `craft-plugin-validator+python`
+- 100+ community validators available
+
+**Install validators**:
+```bash
+# Direct download
+curl -o .claude-plugin/skills/validation/security-audit.md \
+  https://raw.githubusercontent.com/user/repo/main/validator.md
+
+# Test validator
+CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
+
+# Auto-detected by /craft:check
+/craft:check  # Runs all discovered validators
+```
+
+**Validator registry** (community-maintained):
+| Validator | Languages | Purpose |
+|-----------|-----------|---------|
+| security-audit | Python, JS | Vulnerability scanning |
+| performance-check | Python, JS | Performance profiling |
+| accessibility | Web | Accessibility validation |
+| license-check | All | License compliance |
+| dependency-audit | Python, JS, Go | Dependency vulnerabilities |
+
+**Resources**:
+- [Validator Generator](/craft:check:gen-validator)
+- [Best Practices Guide](../docs/VALIDATOR-BEST-PRACTICES.md)
+- [Example Validators](https://github.com/topics/craft-plugin-validator)
+
 ## Context-Specific Checks
 
 ### Pre-Commit (`--for commit`)

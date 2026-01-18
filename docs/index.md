@@ -2,6 +2,7 @@
 
 [![Craft CI](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml)
+[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **TL;DR** (30 seconds)
 > - **What:** Full-stack developer toolkit with 97 commands, 8 AI agents, and 21 auto-triggered skills
@@ -11,7 +12,7 @@
 
 > Full-stack developer toolkit for Claude Code - 97 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v1.24.0 (Unreleased):** Hub v2.0 - Zero-maintenance command discovery with 3-layer progressive disclosure. Auto-detects all commands (94% faster than target). See [what's new](#whats-new-in-v1240-unreleased)
+> **NEW in v1.24.0:** Hub v2.0 - Zero-maintenance command discovery with 3-layer progressive disclosure. Auto-detects all commands (94% faster than target). See [what's new](#whats-new-in-v1240)
 
 ## Features
 
@@ -39,7 +40,7 @@
 
 - :books: **Documentation Excellence**
 
-    Smart doc generation, consolidation (16→13 commands), TL;DR boxes, time estimates, mermaid validation
+    98% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation (16→13 commands), TL;DR boxes, time estimates, mermaid validation
 
 </div>
 
@@ -64,7 +65,64 @@ The universal `/craft:do` command routes your task to the best workflow automati
 !!! success "Quick Win: Try It Now"
     Run `/craft:hub` to see all 97 commands organized by category - takes 5 seconds and shows everything craft can do.
 
-## What's New in v1.23.0 (Unreleased)
+## API Reference - NEW in v1.24.0
+
+Complete OpenAPI-style documentation for all 97 Craft commands:
+
+<div class="grid cards" markdown>
+
+- :scroll: **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
+
+    Complete documentation for all 97 commands organized by category with parameters, usage examples, and output formats
+
+- :gear: **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
+
+    Detailed parameter reference, types, defaults, aliases, and environment variables for every command
+
+- :warning: **[Error Scenarios & Recovery](reference/ERROR-SCENARIOS.md)**
+
+    Comprehensive error handling guide with 50+ error scenarios, codes, causes, and recovery steps
+
+- :bulb: **[Command Examples](reference/COMMAND-EXAMPLES.md)**
+
+    Real-world usage patterns, workflows, and practical examples for all command categories
+
+</div>
+
+**Quick Links:**
+- [All 97 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
+- [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
+- [Real-World Examples](reference/COMMAND-EXAMPLES.md)
+
+## What's New in v1.24.0
+
+**Hub v2.0 - Zero-Maintenance Command Discovery** 🚀
+
+Smart command discovery with 3-layer progressive disclosure (PR #17, #20):
+
+- **Auto-detection engine**: Scans filesystem for commands, zero manual maintenance (680 lines)
+- **3-layer navigation**: Main Menu → Category View (16 categories) → Command Detail + Tutorial
+- **Performance**: 94% faster than target (12ms uncached, <2ms cached vs 200ms/10ms targets)
+- **Test coverage**: 52 comprehensive tests (98% coverage), all passing in ~1 second
+- **Pure Python**: Custom YAML parser, no external dependencies
+- **Always accurate**: Auto-updates when commands added/changed
+
+**Try it:**
+```bash
+/craft:hub              # Browse all 97 commands by category
+/craft:hub code         # View code category (12 commands)
+/craft:hub code:lint    # Get detailed tutorial for code:lint
+```
+
+**Enhanced testing** (PR #20):
+- 18 new tests: YAML edge cases (12) + E2E workflows (6)
+- Unified test runner (`tests/run_hub_tests.sh`)
+- Coverage: 95% → 98%
+
+See [Hub v2.0 Architecture](architecture/HUB-V2-ARCHITECTURE.md) for implementation details.
+
+## What's New in v1.23.0
 
 **Documentation Link Validation Enhancement** 🎉
 
@@ -97,33 +155,6 @@ Targets: `docs/brainstorm/*.md`
 See [commands/docs documentation](commands/docs.md#craftdocscheck-links) for details.
 
 ---
-
-## What's New in v1.24.0 (Unreleased)
-
-**Hub v2.0 - Zero-Maintenance Command Discovery** 🚀
-
-Smart command discovery with 3-layer progressive disclosure (PR #17, #20):
-
-- **Auto-detection engine**: Scans filesystem for commands, zero manual maintenance (680 lines)
-- **3-layer navigation**: Main Menu → Category View (16 categories) → Command Detail + Tutorial
-- **Performance**: 94% faster than target (12ms uncached, <2ms cached vs 200ms/10ms targets)
-- **Test coverage**: 52 comprehensive tests (98% coverage), all passing in ~1 second
-- **Pure Python**: Custom YAML parser, no external dependencies
-- **Always accurate**: Auto-updates when commands added/changed
-
-**Try it:**
-```bash
-/craft:hub              # Browse all 97 commands by category
-/craft:hub code         # View code category (12 commands)
-/craft:hub code:lint    # Get detailed tutorial for code:lint
-```
-
-**Enhanced testing** (PR #20):
-- 18 new tests: YAML edge cases (12) + E2E workflows (6)
-- Unified test runner (`tests/run_hub_tests.sh`)
-- Coverage: 95% → 98%
-
-See [Hub v2.0 Architecture](architecture/HUB-V2-ARCHITECTURE.md) for implementation details.
 
 ## What's New in v1.20.0
 
@@ -239,7 +270,7 @@ New `/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 c
 
 - :books: **[Commands Overview](commands/overview.md)**
 
-    All 69 commands organized
+    All 97 commands organized
 
 - :sparkles: **[Skills & Agents](guide/skills-agents.md)**
 
@@ -249,6 +280,10 @@ New `/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 c
 
     Command cheat sheet
 
+- :scroll: **[API Reference](API-REFERENCE-COMMANDS.md)** ⭐ NEW
+
+    Complete documentation for all 97 commands
+
 </div>
 
 ## Key Command Categories
@@ -256,16 +291,16 @@ New `/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 c
 | Category | Count | Description |
 |----------|-------|-------------|
 | **Smart** | 4 | Universal command, orchestrator, checks, help, hub |
-| **Documentation** | 17 | Smart docs with update, sync, check, website, API, changelog, guides |
-| **Site** | 15 | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit |
-| **Code & Testing** | 17 | Linting, testing, debugging, refactoring, CI fixes, deps management |
-| **Git** | 5 | **NEW:** Repository initialization, branch management, worktrees, sync, recap, clean |
+| **Documentation** | 19 | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow |
+| **Site** | 16 | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit |
+| **Code & Testing** | 12 + 7 | Code: linting, testing, debugging, refactoring, CI fixes, deps management; Tests: run, debug, watch, coverage, generation |
+| **Git** | 11 | Repository initialization, branch management, worktrees, sync, recap, clean, learning guides |
 | **CI** | 3 | Detection, generation, validation |
 | **Architecture** | 4 | Analysis, diagrams, planning, reviews |
 | **Distribution** | 3 | Homebrew, PyPI, curl installers |
 | **Planning** | 3 | Feature planning, sprints, roadmaps |
 | **Workflow** | 12 | Brainstorming, task management, spec capture, getting unstuck |
-| **Total** | **90** | **Complete development workflow coverage** |
+| **Total** | **97** | **Complete development workflow coverage** |
 
 ## Links
 

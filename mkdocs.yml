@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 97 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces
+site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.4.0 adds brainstorm question control with colon notation and categories.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -93,6 +93,11 @@ nav:
     - Getting Started: guide/getting-started.md
     - What's New:
       - Claude Code 2.1.0 Enhancements: tutorials/TUTORIAL-claude-code-2.1-enhancements.md
+      - Claude Code 2.1 Integration: guide/claude-code-2.1-integration.md
+      - Complexity Scoring Algorithm: guide/complexity-scoring-algorithm.md
+      - Testing Guide: TESTING-CLAUDE-CODE-2.1.md
+      - API Reference: API-REFERENCE-CLAUDE-CODE-2.1.md
+      - Architecture: ARCHITECTURE-CLAUDE-CODE-2.1.md
     - Core Workflows:
       - Documentation Automation: guide/documentation-quality.md
       - Site Creation & Management: guide/getting-started.md
@@ -159,11 +164,20 @@ nav:
     - Orchestrator Deep Dive: orchestrator.md
     - Architecture Overview: architecture.md
     - Documentation Quality: reference/documentation-quality.md
+    - Version History: VERSION-HISTORY.md
     - Enhancement Guides:
       - Claude Code 2.1 Quick Reference: reference/REFCARD-claude-code-2.1-enhancements.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
+      - Dependency Management:
+        - Documentation Index: DEPENDENCY-MANAGEMENT.md
+        - Tutorials:
+          - Tutorial Overview: tutorials/index.md
+          - Getting Started: tutorials/dependency-management-getting-started.md
+        - API Reference: API-REFERENCE.md
+        - Architecture Diagrams: DEPENDENCY-ARCHITECTURE.md
+        - Developer Guide: DEVELOPER-GUIDE.md
     - Specifications:
       - Broken Link Validation: specs/SPEC-broken-link-validation-2026-01-17.md
       - Hub v2.0 Discovery: specs/SPEC-craft-hub-v2-2026-01-15.md
