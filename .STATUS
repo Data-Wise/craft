@@ -659,9 +659,7 @@ recent:
 
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
-  - All feature worktrees cleaned up (v1.24.0 release complete)
-  - feature/demo-dependency-management: ~/.git-worktrees/craft/feature-demo-deps (NEW - Phase 1 ready)
-  - feature/claude-code-2.1-integration: ~/.git-worktrees/craft/feature-claude-code-2.1-integration (NEW - ready to implement)
+  - feature/teaching-flags: ~/.git-worktrees/craft/feature-teaching-flags (active, commit db63cde)
 
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
