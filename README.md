@@ -2,10 +2,10 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml)
-[![Version](https://img.shields.io/badge/version-1.23.1-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v1.23.1)
+[![Version](https://img.shields.io/badge/version-1.24.0-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v1.24.0)
 [![Documentation](https://img.shields.io/badge/docs-complete-green.svg)](https://data-wise.github.io/craft/)
 
-> **v1.23.1 - Hub v2.0** 🚀
+> **v1.24.0 - Hub v2.0** 🚀
 > **97 commands** | **21 skills** | **8 agents** | **Zero-maintenance discovery**
 > Smart command discovery with auto-detection (94% faster), 3-layer navigation, 98% test coverage
 
