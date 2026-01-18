@@ -133,6 +133,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 - [Command Reference](https://data-wise.github.io/craft/REFCARD/) (all 74 commands)
 - [Skills & Agents](https://data-wise.github.io/craft/guide/skills-agents/) (21 skills, 8 agents)
+- [Dependency Management](https://data-wise.github.io/craft/DEPENDENCY-MANAGEMENT/) (API, Architecture, Developer Guide)
 
 ## Quick Start - Smart Commands
 
