@@ -4,20 +4,20 @@
 [![Validate Plugins](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml)
 
 > **TL;DR** (30 seconds)
-> - **What:** Full-stack developer toolkit with 90 commands, 8 AI agents, and 21 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 97 commands, 8 AI agents, and 21 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code - 90 commands (78 craft + 12 workflow), 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code - 97 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v1.20.0-dev:** Standardized dry-run feature - 27 commands now support `--dry-run` preview mode. **Target exceeded:** 57% coverage vs 52% goal! See [what's new](#whats-new-in-v1200-dev)
+> **NEW in v1.23.1:** Hub v2.0 - Zero-maintenance command discovery with 3-layer progressive disclosure. Auto-detects all commands (94% faster than target). See [what's new](#whats-new-in-v1231)
 
 ## Features
 
 <div class="grid cards" markdown>
 
-- :rocket: **90 Commands**
+- :rocket: **97 Commands**
 
     Smart commands, docs, site management, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
 
@@ -62,7 +62,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 90 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 97 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## What's New in v1.23.0 (Unreleased)
 
@@ -98,7 +98,34 @@ See [commands/docs documentation](commands/docs.md#craftdocscheck-links) for det
 
 ---
 
-## What's New in v1.20.0-dev
+## What's New in v1.23.1
+
+**Hub v2.0 - Zero-Maintenance Command Discovery** 🚀
+
+Smart command discovery with 3-layer progressive disclosure (PR #17, #20):
+
+- **Auto-detection engine**: Scans filesystem for commands, zero manual maintenance (680 lines)
+- **3-layer navigation**: Main Menu → Category View (16 categories) → Command Detail + Tutorial
+- **Performance**: 94% faster than target (12ms uncached, <2ms cached vs 200ms/10ms targets)
+- **Test coverage**: 52 comprehensive tests (98% coverage), all passing in ~1 second
+- **Pure Python**: Custom YAML parser, no external dependencies
+- **Always accurate**: Auto-updates when commands added/changed
+
+**Try it:**
+```bash
+/craft:hub              # Browse all 97 commands by category
+/craft:hub code         # View code category (12 commands)
+/craft:hub code:lint    # Get detailed tutorial for code:lint
+```
+
+**Enhanced testing** (PR #20):
+- 18 new tests: YAML edge cases (12) + E2E workflows (6)
+- Unified test runner (`tests/run_hub_tests.sh`)
+- Coverage: 95% → 98%
+
+See [Hub v2.0 Architecture](architecture/HUB-V2-ARCHITECTURE.md) for implementation details.
+
+## What's New in v1.20.0
 
 **Standardized Dry-Run Feature** 🎉 TARGET EXCEEDED
 
