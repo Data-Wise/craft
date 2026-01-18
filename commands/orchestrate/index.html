@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 97 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.4.0 adds brainstorm question control with colon notation and categories.">
       
       
       
@@ -2452,6 +2452,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#orchestrating-brainstorm-sessions-v240-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrating Brainstorm Sessions (v2.4.0 NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Orchestrating Brainstorm Sessions (v2.4.0 NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brainstorm-orchestration-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brainstorm + Orchestration Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2459,6 +2509,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-modes-by-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Modes by Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4257,6 +4335,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#orchestrating-brainstorm-sessions-v240-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrating Brainstorm Sessions (v2.4.0 NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Orchestrating Brainstorm Sessions (v2.4.0 NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brainstorm-orchestration-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brainstorm + Orchestration Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benefits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4264,6 +4392,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-modes-by-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Modes by Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4584,7 +4740,40 @@
 - Routes to <code>/craft:arch:*</code> for design tasks
 - Routes to <code>/craft:code:*</code> for implementation
 - Routes to <code>/craft:test:*</code> for testing
-- Routes to <code>/craft:docs:*</code> for documentation</p>
+- Routes to <code>/craft:docs:*</code> for documentation
+- Routes to <code>/brainstorm</code> (v2.4.0) for context gathering</p>
+<hr />
+<h2 id="orchestrating-brainstorm-sessions-v240-new">Orchestrating Brainstorm Sessions (v2.4.0 NEW)<a class="headerlink" href="#orchestrating-brainstorm-sessions-v240-new" title="Permanent link">&para;</a></h2>
+<p>The orchestrator coordinates complex workflows that include context gathering with <code>/brainstorm</code>:</p>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;plan new authentication feature&quot;</span>
+</span></code></pre></div>
+<p>Flow:
+1. Brainstorm d:8 with categories for comprehensive context
+2. Spawn backend-architect agent for design
+3. Spawn frontend specialist for UI
+4. Coordinate test strategy
+5. Synthesize into implementation plan</p>
+<h3 id="brainstorm-orchestration-patterns">Brainstorm + Orchestration Patterns<a class="headerlink" href="#brainstorm-orchestration-patterns" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Quick context then implement</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add payment&quot;</span><span class="w"> </span>default
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># → Brainstorm q:2 → backend implementation</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Deep context with parallel agents</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design microservices&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># → Brainstorm d:8 -C tech,risk → 4 agents in parallel</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="c1"># Full lifecycle (v2.4.0)</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement feature&quot;</span><span class="w"> </span>release
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="c1"># → Brainstorm d:10 -C req,tech,success → arch + code + test + docs</span>
+</span></code></pre></div>
+<h3 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Structured context</strong> - Question bank ensures comprehensive requirements</li>
+<li><strong>Focused agents</strong> - Agents receive filtered context</li>
+<li><strong>Milestone progress</strong> - Unlimited questions with prompts</li>
+<li><strong>Spec capture</strong> - Brainstorm → orchestrator → SPEC.md</li>
+</ul>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
@@ -4615,6 +4804,74 @@
 <td>Wrong mode</td>
 <td>Run <code>mode &lt;name&gt;</code> to switch</td>
 </tr>
+<tr>
+<td>Too many parallel</td>
+<td>Switch to <code>default</code> mode (2 agents max)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Slow parallel execution</td>
+<td>Use <code>default</code> mode instead of <code>optimize</code></td>
+</tr>
+<tr>
+<td>High context usage</td>
+<td>Run <code>compress</code> early (at ~60%)</td>
+</tr>
+<tr>
+<td>Agents timeout</td>
+<td>Use <code>debug</code> mode (sequential)</td>
+</tr>
+<tr>
+<td>Lost session</td>
+<td>Run <code>continue</code> to restore from checkpoint</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recommended-modes-by-scenario">Recommended Modes by Scenario<a class="headerlink" href="#recommended-modes-by-scenario" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Mode</th>
+<th>Agents</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple feature</td>
+<td><code>default</code></td>
+<td>2 max</td>
+<td>Quick tasks</td>
+</tr>
+<tr>
+<td>Complex system</td>
+<td><code>optimize</code></td>
+<td>4 parallel</td>
+<td>Speed</td>
+</tr>
+<tr>
+<td>Debugging</td>
+<td><code>debug</code></td>
+<td>1 sequential</td>
+<td>Troubleshooting</td>
+</tr>
+<tr>
+<td>Pre-release</td>
+<td><code>release</code></td>
+<td>4 + audit</td>
+<td>Comprehensive</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -4623,6 +4880,7 @@
 <li><strong>Simple routing:</strong> <code>/craft:do</code> - Simpler task routing (no monitoring)</li>
 <li><strong>Pre-flight:</strong> <code>/craft:check</code> - Validation before actions</li>
 <li><strong>Discovery:</strong> <code>/craft:hub</code> - Find all commands</li>
+<li><strong>Brainstorm:</strong> <code>/brainstorm</code> - Context gathering (v2.4.0)</li>
 </ul>
 
 

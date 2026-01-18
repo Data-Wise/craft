@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 97 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.4.0 adds brainstorm question control with colon notation and categories.">
       
       
       
@@ -3960,6 +3960,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#workflow-commands-enhanced-v240" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Commands (Enhanced v2.4.0)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#skills-21-total" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4154,6 +4165,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#workflow-commands-enhanced-v240" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Commands (Enhanced v2.4.0)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#skills-21-total" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4276,8 +4298,8 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  CRAFT PLUGIN QUICK REFERENCE                               │
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 1.24.0                                            │
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 97 | Agents: 8 | Skills: 21                      │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.4.0                                             │
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 100 | Agents: 8 | Skills: 21                     │
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Documentation: 95% complete | Diagrams: 17 Mermaid         │
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  Docs: https://data-wise.github.io/craft/                   │
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>└─────────────────────────────────────────────────────────────┘
@@ -4506,6 +4528,34 @@
 - Subagent monitoring
 - Chat compression
 - ADHD-optimized status tracking</p>
+<h2 id="workflow-commands-enhanced-v240">Workflow Commands (Enhanced v2.4.0)<a class="headerlink" href="#workflow-commands-enhanced-v240" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># v2.4.0 - Question Control with colon notation</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">              </span><span class="c1"># Deep with exactly 5 questions</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span><span class="s2">&quot;api&quot;</span><span class="w">              </span><span class="c1"># Max with 12 questions</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">&quot;quick&quot;</span><span class="w">             </span><span class="c1"># Quick with 0 questions (straight to brainstorming)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>/brainstorm<span class="w"> </span>d:20<span class="w"> </span><span class="s2">&quot;complex&quot;</span><span class="w">          </span><span class="c1"># Deep with 20 questions (unlimited mode)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># v2.4.0 - Categories flag to filter question types</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w"> </span>-C<span class="w"> </span>req,tech<span class="w">              </span><span class="c1"># 5 questions from requirements + technical</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;api&quot;</span><span class="w"> </span>--categories<span class="w"> </span>req,usr,tech,exist
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>/brainstorm<span class="w"> </span>d:4<span class="w"> </span><span class="s2">&quot;caching&quot;</span><span class="w"> </span>-C<span class="w"> </span>tech,risk
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span><span class="s2">&quot;feature&quot;</span><span class="w"> </span>-C<span class="w"> </span>all<span class="w">                </span><span class="c1"># All 8 categories</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="c1"># Power user - full control</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">   </span><span class="c1"># 15 questions, feature, spec, filtered categories</span>
+</span></code></pre></div>
+<p><strong>Question Bank (v2.4.0):</strong> 8 categories × 2 questions = 16 total
+- requirements, users, scope, technical, timeline, risks, existing, success</p>
+<p><strong>Milestone Prompts:</strong>
+- Questions asked in batches of 8
+- Continuation options: Done, +4, +8, Keep going
+- "Keep going" mode prompts every 4 questions</p>
+<p><strong>Other Workflow Commands:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/workflow:focus<span class="w">        </span><span class="c1"># Start focused work session</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/workflow:next<span class="w">         </span><span class="c1"># Get next step</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>/workflow:stuck<span class="w">        </span><span class="c1"># Get unstuck help</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>/workflow:done<span class="w">         </span><span class="c1"># Complete session</span>
+</span></code></pre></div></p>
 <h2 id="skills-21-total">Skills (21 total)<a class="headerlink" href="#skills-21-total" title="Permanent link">&para;</a></h2>
 <p>Auto-triggered expertise:</p>
 <table>
@@ -4704,6 +4754,11 @@
 </thead>
 <tbody>
 <tr>
+<td><strong><a href="../VERSION-HISTORY/">Version History</a></strong></td>
+<td>-</td>
+<td>Complete timeline v1.0.0 → v2.4.0 with feature evolution</td>
+</tr>
+<tr>
 <td><strong><a href="../guide/claude-code-2.1-integration/">Claude Code 2.1 Integration</a></strong></td>
 <td>9 Mermaid</td>
 <td>Hot-reload validators, complexity scoring, orchestration hooks, agent delegation (610 lines)</td>
@@ -4712,11 +4767,6 @@
 <td><strong><a href="../guide/complexity-scoring-algorithm/">Complexity Scoring Algorithm</a></strong></td>
 <td>8 Mermaid</td>
 <td>Technical documentation of 0-10 scoring system, decision trees, examples (571 lines)</td>
-</tr>
-<tr>
-<td><strong><a href="../VERSION-HISTORY/">Version History</a></strong></td>
-<td>-</td>
-<td>Complete timeline v1.0.0 → v1.24.0 with feature evolution (428 lines)</td>
 </tr>
 </tbody>
 </table>

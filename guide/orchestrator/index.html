@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 97 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.4.0 adds brainstorm question control with colon notation and categories.">
       
       
       
@@ -1737,6 +1737,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#brainstorm-integration-v240-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brainstorm Integration (v2.4.0 NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Brainstorm Integration (v2.4.0 NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-brainstorm-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Brainstorm Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#monitoring" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1794,6 +1822,45 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tips
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#choose-the-right-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose the Right Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduce-context-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reduce Context Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4186,6 +4253,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#brainstorm-integration-v240-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brainstorm Integration (v2.4.0 NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Brainstorm Integration (v2.4.0 NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-brainstorm-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Brainstorm Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#monitoring" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4247,6 +4342,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#performance-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tips
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#choose-the-right-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose the Right Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduce-context-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reduce Context Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#adhd-optimized-features" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4302,7 +4436,7 @@
 - <strong>How:</strong> <code>/craft:orchestrate "task" [mode]</code> where mode = default/debug/optimize/release
 - <strong>Next:</strong> Try <code>/craft:orchestrate "add auth" debug</code> for verbose execution tracking</p>
 <p>🎓 <strong>User Guide</strong> - Practical examples and quick start.</p>
-<p>Looking for technical details? See the <a href="../../orchestrator/"><strong>Orchestrator Reference</strong></a> for implementation details and advanced features.</p>
+<p>Looking for technical details? See the <a href="../../commands/orchestrate/"><strong>Orchestrator Reference</strong></a> for implementation details and advanced features.</p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The orchestrator coordinates multiple agents and tools for complex, multi-step tasks.</p>
@@ -4315,7 +4449,9 @@
 - Subagent delegation and monitoring
 - Chat compression for long sessions
 - ADHD-optimized status tracking
-- Timeline view of execution</p>
+- Timeline view of execution
+- Session persistence and resumption (v2.4.0)
+- Brainstorm integration for context gathering (v2.4.0)</p>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span>
 </span></code></pre></div>
@@ -4351,9 +4487,32 @@
 - Documentation validation
 - Security checks
 - Build verification</p>
+<h2 id="brainstorm-integration-v240-new">Brainstorm Integration (v2.4.0 NEW)<a class="headerlink" href="#brainstorm-integration-v240-new" title="Permanent link">&para;</a></h2>
+<p>Orchestrate complex features with structured context gathering:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;plan new feature&quot;</span>
+</span></code></pre></div>
+<p>Flow:
+1. <code>/brainstorm d:8</code> gathers context (requirements, users, scope, technical)
+2. Spawns backend-architect agent
+3. Spawns frontend specialist
+4. Coordinates test strategy
+5. Synthesizes into implementation plan</p>
+<h3 id="custom-brainstorm-context">Custom Brainstorm Context<a class="headerlink" href="#custom-brainstorm-context" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Focused categories for technical features</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design API&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># → Brainstorm d:8 -C tech,requirements</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># User-focused for UX features</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design dashboard&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># → Brainstorm d:8 -C users,scope,success</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Risk-aware for critical systems</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>release
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="c1"># → Brainstorm d:10 -C req,tech,risk,success</span>
+</span></code></pre></div>
 <h2 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">&para;</a></h2>
 <h3 id="status-dashboard">Status Dashboard<a class="headerlink" href="#status-dashboard" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:orchestrate<span class="w"> </span>status
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orchestrate<span class="w"> </span>status
 </span></code></pre></div>
 <p>Shows:
 - Active agents
@@ -4361,18 +4520,58 @@
 - Pending work
 - Resource usage</p>
 <h3 id="timeline-view">Timeline View<a class="headerlink" href="#timeline-view" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:orchestrate<span class="w"> </span>timeline
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orchestrate<span class="w"> </span>timeline
 </span></code></pre></div>
 <p>Visual timeline of execution steps.</p>
 <h3 id="budget-tracking">Budget Tracking<a class="headerlink" href="#budget-tracking" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orchestrate<span class="w"> </span>budget
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:orchestrate<span class="w"> </span>budget
 </span></code></pre></div>
 <p>Context usage and remaining capacity.</p>
 <h2 id="resuming-sessions">Resuming Sessions<a class="headerlink" href="#resuming-sessions" title="Permanent link">&para;</a></h2>
 <p>If interrupted, resume with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span>
 </span></code></pre></div>
 <p>The orchestrator maintains state and continues from where it left off.</p>
+<h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
+<h3 id="choose-the-right-mode">Choose the Right Mode<a class="headerlink" href="#choose-the-right-mode" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Mode</th>
+<th>Agents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple feature</td>
+<td><code>default</code></td>
+<td>2 max</td>
+</tr>
+<tr>
+<td>Complex system</td>
+<td><code>optimize</code></td>
+<td>4 parallel</td>
+</tr>
+<tr>
+<td>Debugging</td>
+<td><code>debug</code></td>
+<td>1 sequential</td>
+</tr>
+<tr>
+<td>Pre-release</td>
+<td><code>release</code></td>
+<td>4 + audit</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reduce-context-usage">Reduce Context Usage<a class="headerlink" href="#reduce-context-usage" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Use focused categories</strong>: <code>/brainstorm d:5 -C req,tech</code></li>
+<li><strong>Limit question count</strong>: <code>d:5</code> instead of <code>d:20</code></li>
+<li><strong>Compress early</strong>: Run <code>compress</code> at 60% context</li>
+<li><strong>Archive completed</strong>: Let auto-save handle checkpoints</li>
+</ol>
 <h2 id="adhd-optimized-features">ADHD-Optimized Features<a class="headerlink" href="#adhd-optimized-features" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Clear status indicators</strong> - Always know what's happening</li>
@@ -4380,11 +4579,13 @@
 <li><strong>Time estimates</strong> - Know how long tasks will take</li>
 <li><strong>Session state</strong> - Resume interrupted work easily</li>
 <li><strong>Compressed chat</strong> - Reduces cognitive load in long sessions</li>
+<li><strong>Visual timeline</strong> - See execution progress at a glance</li>
 </ul>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../skills-agents/">Skills &amp; Agents</a> - Understanding the system</li>
 <li><a href="../getting-started/">Getting Started</a> - Basic usage</li>
+<li><a href="../../commands/workflow/brainstorm/">Brainstorm Command</a> - Context gathering (v2.4.0)</li>
 </ul>
 
 
