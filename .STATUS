@@ -756,6 +756,14 @@ worktrees_cleaned_today:
   - feature/website-org-phase2: Removed after PR #15 merge (local + remote branch deleted, consolidation report saved)
 
 next:
+  - 🎯 NEXT: Priority 1 - Final Documentation Polish (v1.24.2 or v1.25.0)
+    • Status: Planned, ready to start
+    • Effort: ~8-12 hours (3 phases)
+    • Phase 1: Edge Case Documentation (3h) - 50+ scenarios
+    • Phase 2: Interactive API Explorer (5h) - JavaScript/React browser
+    • Phase 3: Video Tutorials (4h) - Top 10 commands
+    • Goal: 98% → 100% documentation completeness
+    • Branch: feature/docs-final-polish
   - ✅ Claude Code 2.1.0 Integration - WAVE 1-4 COMPLETE ✅ (feature/claude-code-2.1-integration)
     • Wave 1: Complexity scoring, validators, hooks (1.5h, +1,465 lines)
     • Wave 2: Agent delegation, validator discovery, forked context (6h, +473 lines)
@@ -795,6 +803,38 @@ next:
     • Workflow commands (2)
     • Other medium priority (4)
   - Future: v1.21.0 Help template system + Spec integration + Hub v2 (gradual implementation)
+
+next_priority:
+  priority_1_final_documentation_polish:
+    status: planned (ready to start)
+    target_version: v1.24.2 or v1.25.0
+    effort: ~8-12 hours (3 phases)
+    description: Reach 100% documentation completeness (currently 98%)
+    problem: "Final 2% of edge cases and advanced scenarios undocumented"
+    target_user: All users (completionists, advanced users, edge case handlers)
+    key_insight: "Most users won't need 100%, but having it available increases confidence"
+    phases:
+      - "Phase 1: Edge Case Documentation (3 hours) - Complex parameter combinations, error recovery"
+      - "Phase 2: Interactive API Explorer (5 hours) - Browse commands, parameters, examples interactively"
+      - "Phase 3: Video Tutorials (4 hours) - Top 10 commands with step-by-step videos"
+    quick_wins:
+      - "⚡ Document 10-15 edge case scenarios - 1.5h"
+      - "⚡ Create interactive command browser mockup - 1h"
+      - "⚡ Record first 3 command tutorial videos - 1.5h"
+    deliverables:
+      - "EDGE-CASES.md - 50+ edge case scenarios with solutions"
+      - "Interactive HTML API explorer (JavaScript + React)"
+      - "YouTube playlist: Top 10 Craft Commands (10 videos, 5-10 min each)"
+      - "Updated docs/index.md with 100% completeness badge"
+      - "Tutorial video index in documentation site"
+    success_metrics:
+      - "Documentation completeness: 98% → 100%"
+      - "Edge case scenarios: 0 → 50+"
+      - "Video tutorials: 0 → 10"
+      - "User confidence in completeness: High"
+    dependencies:
+      - "All Phase 1-4 v1.24.1 work complete (✅ verified)"
+      - "Documentation site deployed and live"
 
 planned_features:
   title: "Documentation & Spec Standardization (v1.21.0)"
@@ -1086,7 +1126,8 @@ planned_features:
       - "commands/do.md, commands/orchestrate.md, commands/check.md"
 
 target: v1.20.0 with 47 commands supporting dry-run (52% coverage) - ✅ ACHIEVED (57%)
-next_target: Documentation quality automation - ✅ COMPLETE (3 phases + CI)
+next_target: Final Documentation Polish - 98% → 100% (edge cases + interactive explorer + videos)
+current_milestone: v1.24.1 - Documentation Excellence Release (9,567 lines, 98% completeness) - ✅ COMPLETE
 future_target: v1.21.0 with /craft:hub v2.0 (discovery) + help template system + spec integration
 
 remaining_work:
