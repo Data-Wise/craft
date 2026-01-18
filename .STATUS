@@ -1,8 +1,8 @@
 status: Released
-version: 1.23.1
-release_date: 2026-01-17
-milestone: v1.23.1 - Test Coverage & Build Cleanup (COMPLETE)
-last_session: 2026-01-17
+version: 1.24.0
+release_date: 2026-01-18
+milestone: v1.24.0 - Hub v2.0: Zero-Maintenance Command Discovery (COMPLETE)
+last_session: 2026-01-18
 
 progress: 100%
 
