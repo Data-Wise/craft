@@ -1,3 +1,111 @@
+---
+description: Terminal Recording & GIF Generator with dependency management
+dependencies:
+  asciinema:
+    required: true
+    purpose: "Record real terminal sessions"
+    methods: ["asciinema"]
+    install:
+      brew: "asciinema"
+      apt: "asciinema"
+      yum: "asciinema"
+    version:
+      min: "2.0.0"
+      check_cmd: "asciinema --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "asciinema --help"
+      expect_exit: 0
+
+  agg:
+    required: true
+    purpose: "Convert .cast to .gif"
+    methods: ["asciinema"]
+    install:
+      cargo: "agg"
+      cargo_git: "https://github.com/asciinema/agg"
+      binary:
+        url: "https://github.com/asciinema/agg/releases/latest/download/agg-{{arch}}-apple-darwin"
+        arch_map:
+          x86_64: "x86_64"
+          arm64: "aarch64"
+        target: "/usr/local/bin/agg"
+    version:
+      min: "1.4.0"
+      check_cmd: "agg --version 2>&1 | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "agg --help"
+      expect_exit: 0
+
+  gifsicle:
+    required: true
+    purpose: "Optimize GIF file size"
+    methods: ["asciinema", "vhs"]
+    install:
+      brew: "gifsicle"
+      apt: "gifsicle"
+      yum: "gifsicle"
+    version:
+      min: "1.90"
+      check_cmd: "gifsicle --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "gifsicle --help"
+      expect_exit: 0
+
+  vhs:
+    required: false
+    purpose: "Generate scripted demos (alternative to asciinema)"
+    methods: ["vhs"]
+    install:
+      brew: "charmbracelet/tap/vhs"
+    version:
+      min: "0.7.0"
+      check_cmd: "vhs --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "vhs --help"
+      expect_exit: 0
+
+  fswatch:
+    required: false
+    purpose: "Watch mode for iterative development"
+    methods: ["asciinema", "vhs"]
+    install:
+      brew: "fswatch"
+      apt: "fswatch"
+    version:
+      min: "1.14.0"
+      check_cmd: "fswatch --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "fswatch --help"
+      expect_exit: 0
+
+  python3:
+    required: true
+    purpose: "Parse YAML frontmatter in dependency-manager.sh"
+    methods: ["asciinema", "vhs"]
+    install:
+      brew: "python3"
+      apt: "python3"
+      yum: "python3"
+    version:
+      min: "3.7.0"
+      check_cmd: "python3 --version | grep -oE '[0-9.]+' | head -1"
+    health:
+      check_cmd: "python3 --version"
+      expect_exit: 0
+
+  pyyaml:
+    required: true
+    purpose: "Parse YAML frontmatter (Python library)"
+    methods: ["asciinema", "vhs"]
+    install_cmd: "pip3 install pyyaml"
+    version:
+      min: "5.1"
+      check_cmd: "python3 -c 'import yaml; print(yaml.__version__)' 2>/dev/null"
+    health:
+      check_cmd: "python3 -c 'import yaml' 2>/dev/null"
+      expect_exit: 0
+---
+
 # /craft:docs:demo - Terminal Recording & GIF Generator
 
 You are a terminal demo creator. Record real terminal sessions or generate scripted demos for documentation.
@@ -54,7 +162,136 @@ See: `templates/docs/GIF-GUIDELINES.md` for full workflow.
 /craft:docs:demo --preview                     # Show recording guide without starting
 /craft:docs:demo "sessions" --watch            # Watch mode: auto-regenerate on changes
 /craft:docs:demo "sessions" --generate         # Record/generate AND convert to GIF immediately
+/craft:docs:demo --check                       # Validate all dependencies
+/craft:docs:demo --check --method asciinema    # Check asciinema-specific deps
+/craft:docs:demo --fix                         # Auto-install missing dependencies
+/craft:docs:demo --fix --method asciinema      # Install missing deps for specific method
+/craft:docs:demo --convert recording.cast      # Convert single .cast file to .gif
+/craft:docs:demo --convert file.cast out.gif   # Convert with custom output name
+/craft:docs:demo --batch                       # Convert all .cast files in docs/
+/craft:docs:demo --batch --force               # Overwrite existing GIF files
 ```
+
+## Dependency Management
+
+The demo command includes built-in dependency checking for all required tools.
+
+### Check Dependencies
+
+```bash
+/craft:docs:demo --check                     # Check all dependencies
+/craft:docs:demo --check --method asciinema  # Check for specific method
+/craft:docs:demo --check --json              # Get JSON output for CI/CD
+```
+
+Shows a status table with:
+- Tool name and purpose
+- Installation status (✅ OK, ❌ MISSING, ⚠️  OPTIONAL)
+- Installed version
+- Health check result
+- Install command if missing
+
+#### JSON Output
+
+Get machine-readable dependency status for CI/CD pipelines:
+
+```bash
+/craft:docs:demo --check --json
+/craft:docs:demo --check --method asciinema --json
+/craft:docs:demo --check --method vhs --json
+```
+
+**Output format:**
+```json
+{
+  "status": "ok",
+  "method": "asciinema",
+  "tools": [
+    {"name": "asciinema", "installed": true, "version": "2.3.0", "health": "ok"},
+    {"name": "agg", "installed": true, "version": "1.4.3", "health": "ok"},
+    {"name": "gifsicle", "installed": true, "version": "1.96", "health": "ok"}
+  ]
+}
+```
+
+**Status values:**
+- `ok` - All required tools installed and healthy
+- `issues` - Missing or broken tools detected
+
+**Exit codes:**
+- `0` - All required dependencies OK
+- `1` - Missing required dependencies or health check failed
+
+### Auto-Installation
+
+The `--fix` flag automatically installs missing dependencies with your consent.
+
+```bash
+/craft:docs:demo --fix                       # Install all missing dependencies
+/craft:docs:demo --fix --method asciinema    # Install for asciinema method only
+```
+
+**How it works:**
+1. Checks for missing dependencies
+2. Prompts for consent before each installation
+3. Tries multiple installation methods (brew → cargo → binary)
+4. Verifies installation success
+5. Shows summary of installed/skipped/failed tools
+
+**Installation Strategies:**
+- **Homebrew** (~30 seconds) - macOS package manager
+- **Cargo** (~2-5 minutes) - Rust compilation
+- **Binary** (~10 seconds) - Direct download from GitHub
+
+**User Consent:**
+- You approve each tool individually
+- Choose 'Y' to install, 'N' to skip, 'S' to skip all
+- Installation requires sudo for system paths
+
+### Required Tools by Method
+
+**asciinema method:**
+- asciinema (record sessions)
+- agg (convert .cast to .gif)
+- gifsicle (optimize GIF size)
+- fswatch (optional, for watch mode)
+
+**vhs method:**
+- vhs (scripted demos)
+- gifsicle (optimize GIF size)
+- fswatch (optional, for watch mode)
+
+### Batch Conversion
+
+Convert existing `.cast` recordings to optimized `.gif` files.
+
+**Convert single file:**
+```bash
+/craft:docs:demo --convert recording.cast              # Auto-generate recording.gif
+/craft:docs:demo --convert demo.cast output.gif        # Custom output name
+/craft:docs:demo --convert file.cast --force           # Overwrite existing
+```
+
+**Batch convert all files:**
+```bash
+/craft:docs:demo --batch                               # Convert all .cast in docs/
+/craft:docs:demo --batch --force                       # Overwrite existing GIFs
+/craft:docs:demo --batch --search-path custom/path     # Custom search directory
+/craft:docs:demo --batch --dry-run                     # Preview without converting
+```
+
+**Features:**
+- Automatically finds all `.cast` files in `docs/demos/` and `docs/gifs/`
+- Skips existing `.gif` files (unless `--force`)
+- Shows progress bar with ETA
+- Reports compression ratios and file sizes
+- Cross-platform (macOS/Linux)
+
+**Output format:**
+- Input: `recording.cast` (45 KB)
+- Processing with `agg` (font-size 16, monokai theme)
+- Optimizing with `gifsicle` (--optimize=3 --colors 256)
+- Output: `recording.gif` (235 KB, 5.2x compression)
 
 ## Recording Methods
 
@@ -77,6 +314,189 @@ See: `templates/docs/GIF-GUIDELINES.md` for full workflow.
 - Automated demo generation in CI/CD
 
 ## When Invoked
+
+### Implementation: Dependency Checking
+
+When `--check` flag is provided:
+
+1. Source the dependency manager:
+   ```bash
+   source scripts/dependency-manager.sh
+   ```
+
+2. Determine method and output format:
+   ```bash
+   method="${args_method:-asciinema}"  # Default to asciinema
+   json_mode="${args_json:-false}"     # JSON output if --json flag present
+   ```
+
+3. Check dependencies and capture status:
+   ```bash
+   status_json=$(check_dependencies "$method")
+   exit_code=$?
+   ```
+
+4. Display status based on output mode:
+   ```bash
+   if [ "$json_mode" = "true" ]; then
+       # Machine-readable JSON output
+       display_status_json "$method" "$status_json"
+   else
+       # Human-readable table format
+       display_status_table "$method" "$status_json"
+   fi
+   exit $exit_code
+   ```
+
+#### Exit Codes
+
+- `0` - All required dependencies OK
+- `1` - Missing required dependencies or health check failed
+
+#### JSON Output Details
+
+The `display_status_json` function:
+1. Analyzes the status JSON from `check_dependencies`
+2. Counts missing and broken required tools
+3. Sets overall status to "ok" if all OK, "issues" if any problems
+4. Outputs formatted JSON with:
+   - `status` - Overall status ("ok" or "issues")
+   - `method` - The method checked (asciinema, vhs, all)
+   - `tools` - Array of tool objects with name, installed, version, health
+
+### Implementation: Auto-Installation (--fix)
+
+When `--fix` flag is provided:
+
+1. Source the installation utilities:
+   ```bash
+   source scripts/dependency-installer.sh
+   source scripts/consent-prompt.sh
+   ```
+
+2. Determine method and check dependencies:
+   ```bash
+   method="${args_method:-asciinema}"
+   status=$(check_dependencies "$method")
+   ```
+
+3. Get list of missing tools:
+   ```bash
+   missing_tools=$(parse_missing_tools "$status")
+   ```
+
+4. For each missing tool:
+   ```bash
+   for tool in $missing_tools; do
+       tool_spec=$(get_tool_spec "$tool")
+       install_tool "$tool" "$tool_spec"
+   done
+   ```
+
+5. Display installation summary:
+   ```bash
+   show_installation_summary "$installed" "$skipped" "$failed"
+   ```
+
+6. Re-check dependencies and display final status:
+   ```bash
+   display_status_table "$method"
+   ```
+
+#### Exit Codes (--fix mode)
+
+- `0` - All required dependencies installed or already OK
+- `1` - Some required dependencies still missing after installation
+- `2` - User skipped all installations
+
+#### Integration with Normal Workflow
+
+Before recording or generating demos, optionally validate dependencies:
+
+```bash
+# Early validation (optional in normal workflow)
+if [ "${args_check_dependencies:-false}" = "true" ]; then
+    source scripts/dependency-manager.sh
+    method="${args_method:-asciinema}"
+
+    if ! check_dependencies "$method" > /dev/null 2>&1; then
+        echo "⚠️  Missing dependencies. Run: /craft:docs:demo --check"
+        echo "   Or install with: /craft:docs:demo --fix"
+        exit 1
+    fi
+fi
+```
+
+### Implementation: Batch Conversion (--convert, --batch)
+
+#### Convert Single File (--convert)
+
+When `--convert` flag is provided:
+
+1. Source the conversion utility:
+   ```bash
+   source scripts/convert-cast.sh
+   ```
+
+2. Parse arguments:
+   ```bash
+   cast_file="$1"
+   output_gif="${2:-}"  # Optional custom output
+   force_flag="${args_force:-false}"
+   ```
+
+3. Validate and convert:
+   ```bash
+   if ! validate_cast_file "$cast_file"; then
+       echo "Error: Invalid .cast file"
+       exit 1
+   fi
+
+   convert_single "$cast_file" "$output_gif" "$force_flag"
+   exit $?
+   ```
+
+#### Batch Convert (--batch)
+
+When `--batch` flag is provided:
+
+1. Source the batch converter:
+   ```bash
+   source scripts/batch-convert.sh
+   ```
+
+2. Parse batch options:
+   ```bash
+   search_paths="${args_search_path:-docs/demos docs/gifs}"
+   force_flag="${args_force:-false}"
+   dry_run="${args_dry_run:-false}"
+   ```
+
+3. Find and filter files:
+   ```bash
+   cast_files=$(find_cast_files "$search_paths")
+   filtered_files=$(filter_existing "$cast_files" "$force_flag")
+   ```
+
+4. Process batch with progress:
+   ```bash
+   if [ "$dry_run" = "true" ]; then
+       echo "Dry run - would convert:"
+       echo "$filtered_files"
+       exit 0
+   fi
+
+   process_batch "$filtered_files"
+   show_summary
+   exit $?
+   ```
+
+#### Exit Codes (Conversion)
+
+- `0` - All conversions successful (or no files found)
+- `1` - Some conversions failed
+- `2` - All conversions failed or file exists without --force
+- `3` - Missing convert-cast.sh script
 
 ### Step 1: Determine Feature Commands
 
