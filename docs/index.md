@@ -11,7 +11,7 @@
 
 > Full-stack developer toolkit for Claude Code - 97 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v1.23.1:** Hub v2.0 - Zero-maintenance command discovery with 3-layer progressive disclosure. Auto-detects all commands (94% faster than target). See [what's new](#whats-new-in-v1231)
+> **NEW in v1.24.0 (Unreleased):** Hub v2.0 - Zero-maintenance command discovery with 3-layer progressive disclosure. Auto-detects all commands (94% faster than target). See [what's new](#whats-new-in-v1240-unreleased)
 
 ## Features
 
@@ -98,7 +98,7 @@ See [commands/docs documentation](commands/docs.md#craftdocscheck-links) for det
 
 ---
 
-## What's New in v1.23.1
+## What's New in v1.24.0 (Unreleased)
 
 **Hub v2.0 - Zero-Maintenance Command Discovery** 🚀
 
