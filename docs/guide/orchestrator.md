@@ -10,7 +10,7 @@
 
 > 🎓 **User Guide** - Practical examples and quick start.
 >
-> Looking for technical details? See the [**Orchestrator Reference**](../orchestrator.md) for implementation details and advanced features.
+> Looking for technical details? See the [**Orchestrator Reference**](../commands/orchestrate.md) for implementation details and advanced features.
 
 ## Overview
 
@@ -25,6 +25,8 @@ The orchestrator coordinates multiple agents and tools for complex, multi-step t
 - Chat compression for long sessions
 - ADHD-optimized status tracking
 - Timeline view of execution
+- Session persistence and resumption (v2.4.0)
+- Brainstorm integration for context gathering (v2.4.0)
 
 ## Basic Usage
 
@@ -84,6 +86,37 @@ Comprehensive audit for releases:
 - Security checks
 - Build verification
 
+## Brainstorm Integration (v2.4.0 NEW)
+
+Orchestrate complex features with structured context gathering:
+
+```bash
+/craft:orchestrate "plan new feature"
+```
+
+Flow:
+1. `/brainstorm d:8` gathers context (requirements, users, scope, technical)
+2. Spawns backend-architect agent
+3. Spawns frontend specialist
+4. Coordinates test strategy
+5. Synthesizes into implementation plan
+
+### Custom Brainstorm Context
+
+```bash
+# Focused categories for technical features
+/craft:orchestrate "design API" optimize
+# → Brainstorm d:8 -C tech,requirements
+
+# User-focused for UX features
+/craft:orchestrate "design dashboard" optimize
+# → Brainstorm d:8 -C users,scope,success
+
+# Risk-aware for critical systems
+/craft:orchestrate "implement auth" release
+# → Brainstorm d:10 -C req,tech,risk,success
+```
+
 ## Monitoring
 
 ### Status Dashboard
@@ -124,6 +157,24 @@ If interrupted, resume with:
 
 The orchestrator maintains state and continues from where it left off.
 
+## Performance Tips
+
+### Choose the Right Mode
+
+| Scenario | Mode | Agents |
+|----------|------|--------|
+| Simple feature | `default` | 2 max |
+| Complex system | `optimize` | 4 parallel |
+| Debugging | `debug` | 1 sequential |
+| Pre-release | `release` | 4 + audit |
+
+### Reduce Context Usage
+
+1. **Use focused categories**: `/brainstorm d:5 -C req,tech`
+2. **Limit question count**: `d:5` instead of `d:20`
+3. **Compress early**: Run `compress` at 60% context
+4. **Archive completed**: Let auto-save handle checkpoints
+
 ## ADHD-Optimized Features
 
 - **Clear status indicators** - Always know what's happening
@@ -131,8 +182,10 @@ The orchestrator maintains state and continues from where it left off.
 - **Time estimates** - Know how long tasks will take
 - **Session state** - Resume interrupted work easily
 - **Compressed chat** - Reduces cognitive load in long sessions
+- **Visual timeline** - See execution progress at a glance
 
 ## Next Steps
 
 - [Skills & Agents](skills-agents.md) - Understanding the system
 - [Getting Started](getting-started.md) - Basic usage
+- [Brainstorm Command](../commands/workflow/brainstorm.md) - Context gathering (v2.4.0)

@@ -1,6 +1,6 @@
 # /craft:hub — Command Discovery Hub v2.0
 
-> **Smart 3-layer navigation system with auto-detection and progressive disclosure.**
+> **Smart 3-layer navigation system with auto-detection and progressive disclosure.** v2.4.0 adds workflow commands with brainstorm question control.
 
 ---
 
@@ -27,11 +27,31 @@
 
 # View code:lint tutorial (Layer 3)
 /craft:hub code:lint
+
+# v2.4.0 Brainstorm with colon notation
+/brainstorm d:5 "auth" -C req,tech
 ```
 
 ---
 
-## What's New in v2.0
+## What's New in v2.4.0
+
+### Brainstorm Question Control
+- **Colon notation** - `d:5`, `m:12`, `q:3` for custom question counts
+- **Categories flag** - Filter questions by type (`-C req,tech,success`)
+- **8-category question bank** - 16 questions total
+- **Milestone prompts** - Every 8 questions for unlimited exploration
+
+```bash
+# Examples
+/brainstorm d:5 "auth"              # Deep with exactly 5 questions
+/brainstorm m:12 "api"              # Max with 12 questions
+/brainstorm q:0 "quick"             # Quick with 0 questions
+/brainstorm d:5 "auth" -C req,tech  # Filter to requirements + technical
+/brainstorm d:20 "complex"          # Unlimited with milestones
+```
+
+### Hub v2.0 Core Features
 
 Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive disclosure**:
 
@@ -39,7 +59,7 @@ Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive dis
 - **Dynamic discovery** - Scans `commands/` directory automatically
 - **Always accurate** - No hardcoded counts that drift out of sync
 - **Fast caching** - JSON cache with auto-invalidation (<2ms cached, 12ms uncached)
-- **97 commands** detected across 16 categories
+- **100 commands** detected across 17 categories (v2.4.0)
 
 ### 3-Layer Navigation
 1. **Layer 1 (Main Menu)** - Browse categories with counts
@@ -49,7 +69,7 @@ Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive dis
 ### ADHD-Friendly Design
 - **Progressive disclosure** - Start broad, drill down as needed
 - **Visual hierarchy** - Clear sections, icons, and formatting
-- **No overwhelm** - Never show all 97 commands at once
+- **No overwhelm** - Never show all 100 commands at once
 - **Smart breadcrumbs** - Always know where you are
 
 ---
@@ -77,9 +97,9 @@ Shows all categories with auto-detected command counts:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 🛠️ CRAFT - Full Stack Developer Toolkit v1.22.0                         │
-│ 📍 craft (Claude Plugin) on feature/hub-v2                              │
-│ 📊 97 Commands | 21 Skills | 8 Agents | 4 Modes                         │
+│ 🛠️ CRAFT - Full Stack Developer Toolkit v2.4.0                          │
+│ 📍 craft (Claude Plugin) on feature/brainstorm-question-control         │
+│ 📊 100 Commands | 21 Skills | 8 Agents | 4 Modes                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
@@ -177,7 +197,122 @@ Shows all commands in a category, grouped by subcategory:
 - `ci` (3) - CI/CD workflow generation
 - `dist` (1) - Distribution and packaging
 - `plan` (3) - Planning and project management
-- `workflow` (2) - Workflow automation
+- `workflow` (4) - Workflow automation, brainstorming (v2.4.0)
+
+---
+
+## Layer 2: WORKFLOW Category (NEW v2.4.0)
+
+**Invocation:** `/craft:hub workflow`
+
+The WORKFLOW category contains commands for ADHD-friendly workflow management and brainstorming:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 🔄 WORKFLOW COMMANDS (4)                                                │
+│ ADHD-Friendly Workflow Management & Brainstorming                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ 🧠 BRAINSTORMING (3 commands)                                           │
+│   1. /brainstorm [depth:count] "topic"  Brainstorm with question control│
+│   2. /brainstorm d:5 "auth"             Deep mode with 5 questions      │
+│   3. /brainstorm m:12 "api"             Max mode with 12 questions      │
+│                                                                         │
+│ 🎯 WORKFLOW MANAGEMENT (1 command)                                      │
+│   4. /workflow:focus                     Start focused work session     │
+│                                                                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│ 💡 v2.4.0 Brainstorm Features:                                         │
+│   • Colon notation: d:5, m:12, q:3 for custom question counts          │
+│   • Categories flag: -C req,tech,success to filter question types      │
+│   • 8 categories: requirements, users, scope, technical, timeline,     │
+│     risks, existing, success (16 questions total)                       │
+│   • Milestone prompts every 8 questions for unlimited exploration       │
+│                                                                         │
+│ 💡 Common Workflows:                                                    │
+│   • Quick context: brainstorm q "topic"                                │
+│   • Deep analysis: brainstorm d:8 "topic"                              │
+│   • Focused categories: brainstorm d:5 "topic" -C req,tech             │
+│   • Unlimited: brainstorm d:20 "topic"                                 │
+│                                                                         │
+│ 🔙 Back to hub: /craft:hub                                              │
+│ 📚 Learn more: /craft:hub workflow:brainstorm                           │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Example: `/craft:hub workflow`
+
+```
+🔄 WORKFLOW COMMANDS (4)
+🧠 BRAINSTORMING (3 commands):
+  1. /brainstorm d:5 "auth"           Deep with 5 questions
+  2. /brainstorm m:12 "api"           Max with 12 questions
+  3. /brainstorm q:0 "quick"          Quick with 0 questions
+
+🎯 WORKFLOW MANAGEMENT (1 command):
+  4. /workflow:focus                  Start focused work session
+
+💡 Common:
+  /brainstorm d:5 "auth" -C req,tech  # Filtered categories
+  /brainstorm d:20 "complex"          # Unlimited with milestones
+```
+
+---
+
+## Layer 3: Command Detail + Tutorial
+
+**Invocation:** `/craft:hub <category>:<command>`
+
+Shows detailed documentation for a specific command:
+
+### Example: `/craft:hub workflow:brainstorm`
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 📚 COMMAND: /brainstorm                                                 │
+│ ADHD-friendly brainstorming with question control (v2.4.0)             │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ SYNTAX                                                                 │
+│ ──────                                                                 │
+│   /brainstorm [depth:count] [focus] [action] [-C|--categories] "topic"│
+│                                                                         │
+│ ARGUMENTS                                                              │
+│ ──────────                                                             │
+│   depth:count  Question count (q:0, d:5, m:12, etc.)                   │
+│   focus       feat|arch|api|ux|ops (default: auto-detect)              │
+│   action      save|s (capture as spec)                                 │
+│   -C categories  req,users,scope,technical,timeline,risks,existing,success│
+│   topic       What to brainstorm (quoted string)                       │
+│                                                                         │
+│ MODES                                                                 │
+│ ─────                                                                 │
+│   default  2 questions + "ask more?"                                   │
+│   quick    0 questions + "ask more?"                                   │
+│   deep     8 questions + "ask more?"                                   │
+│   max      8 questions + agents + "ask more?"                          │
+│   custom   d:5, m:12, etc. (v2.4.0)                                    │
+│                                                                         │
+│ EXAMPLES                                                               │
+│ ─────────                                                              │
+│   /brainstorm "auth"                           Default mode            │
+│   /brainstorm d:5 "auth"                       Deep with 5 questions   │
+│   /brainstorm m:12 "api"                       Max with 12 questions   │
+│   /brainstorm q:0 "quick"                      Quick with 0 questions  │
+│   /brainstorm d:5 "auth" -C req,tech           Filtered categories     │
+│   /brainstorm d:20 "complex"                   Unlimited with milestones│
+│   /brainstorm d:5 f s "auth"                   Deep + feature + spec   │
+│                                                                         │
+│ QUESTIONS BANK (v2.4.0)                                                │
+│ ────────────────                                                       │
+│   8 categories × 2 questions = 16 total                                │
+│   requirements, users, scope, technical, timeline, risks, existing,    │
+│   success                                                               │
+│                                                                         │
+│ 🔙 Back to WORKFLOW: /craft:hub workflow                               │
+│ 🏠 Back to Hub: /craft:hub                                             │
+└─────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 

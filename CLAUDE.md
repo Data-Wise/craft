@@ -50,7 +50,7 @@ feature/* (worktrees) ← All implementation work
 | Clean branches | - | `/craft:git:clean` |
 | CI workflow | - | `/craft:ci:generate` |
 | Smart routing | - | `/craft:do <task>` |
-| Brainstorm | - | `/craft:workflow:brainstorm` |
+| Brainstorm | - | `/craft:workflow:brainstorm` | v2.4.0 - Question control, colon notation, categories |
 | Orchestrate | - | `/craft:orchestrate` |
 
 ## Execution Modes
@@ -82,12 +82,12 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 ```
 craft/
 ├── .claude-plugin/     # Plugin manifest, hooks, validators
-├── commands/           # 99 commands (arch, ci, code, docs, git, site, test, workflow)
+├── commands/           # 100 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
 ├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (complexity scorer, validators, parsers)
-├── tests/              # Comprehensive test suite (516+ tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (581+ tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (6 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
@@ -96,7 +96,7 @@ craft/
 └── .STATUS             # Current milestone and progress
 ```
 
-## Recent Major Features (v1.24.0)
+## Recent Major Features (v2.4.0)
 
 ### Hub v2.0 - Zero-Maintenance Command Discovery ✅
 - 3-layer progressive disclosure (Main → Category → Detail + Tutorial)
@@ -160,10 +160,11 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Feature Status Matrix
 
-### Implementation & Documentation Completeness (v1.24.0)
+### Implementation & Documentation Completeness (v2.4.0)
 
 | Feature | Commands | Implementation | Documentation | Status |
 |---------|----------|---|---|---|
+| **Brainstorm Question Control (v2.4.0)** | 1 | 100% | 95% | Complete ✅ |
 | **Hub v2.0** | 1 | 100% | 95% | Complete ✅ |
 | **Claude Code 2.1.0** | 3 | 100% | 90% | Complete ✅ |
 | **Dependency Management** | 1 | 100% | 85% | Complete ✅ |
@@ -174,7 +175,7 @@ python3 tests/test_integration_teaching_workflow.py
 | **Testing Commands** | 10 | 100% | 80% | Complete ✅ |
 | **Architecture Commands** | 12 | 100% | 75% | Complete ✅ |
 | **Remaining Commands** | 51 | 100% | 40% | Baseline ✅ |
-| **TOTAL** | **99** | **100%** | **95%** | v1.24.0 ✅ |
+| **TOTAL** | **100** | **100%** | **95%** | v2.4.0 ✅ |
 
 **Legend:**
 - 100% Implementation: All planned features completed
@@ -187,10 +188,10 @@ python3 tests/test_integration_teaching_workflow.py
 
 | Guide | Content | Location |
 |-------|---------|----------|
+| **Version History** | Evolution from v1.0.0 → v2.4.0, feature timeline | `docs/VERSION-HISTORY.md` |
 | **Complexity Scoring** | 7-factor algorithm, routing zones, examples | `docs/guide/complexity-scoring-algorithm.md` |
 | **Claude Code 2.1** | Integration overview, agent delegation, session teleportation | `docs/guide/claude-code-2.1-integration.md` |
 | **Teaching Workflow** | Preview-before-publish, semester tracking, validation | `docs/guide/teaching-workflow.md` |
-| **Version History** | Evolution from v1.0.0 → v1.24.0, feature timeline | `docs/VERSION-HISTORY.md` |
 | **Dependency Management** | Checking, installation, batch conversion workflow | Tutorial docs (in development) |
 | **Integration Testing** | Test patterns, validation, debugging | Tutorial docs (in development) |
 
@@ -200,12 +201,17 @@ python3 tests/test_integration_teaching_workflow.py
 | Branch | Location | Status |
 |--------|----------|--------|
 | `dev` | `/Users/dt/projects/dev-tools/craft` | Main repo (clean) |
-| `feature/teaching-flags` | `~/.git-worktrees/craft/feature-teaching-flags` | Planned (add --teaching flags) |
+| `feature/brainstorm-question-control` | `~/.git-worktrees/craft/feature-brainstorm-question-control` | **Implementing v2.4.0** |
 
-### Planned Features
+### Completed Features (v2.4.0)
 | Feature | Priority | Effort | Status |
 |---------|----------|--------|--------|
-| Teaching command flags | Medium | 2-4h | Planned |
+| Brainstorm Question Control (Phase 1) | High | 12h | ✅ Complete |
+| Colon notation (d:5, m:12, q:3) | Critical | 3h | ✅ Complete |
+| Categories flag (--categories, -C) | Critical | 1h | ✅ Complete |
+| Question bank (8 categories × 2 questions) | Critical | 2h | ✅ Complete |
+| Unlimited questions + milestones | Critical | 3h | ✅ Complete |
+| Unit tests (53) + Integration tests (24) | High | 2h | ✅ Complete |
 | Help Template System | High | 30h | Spec ready |
 | Spec Integration | High | 20h | Spec ready |
 
@@ -220,16 +226,19 @@ See `docs/specs/` for detailed specifications.
 | `commands/check.md` | Pre-flight validation |
 | `commands/orchestrate.md` | Multi-agent coordination |
 | `commands/hub.md` | Zero-maintenance command discovery (v2.0) |
-| `commands/workflow/brainstorm.md` | ADHD-friendly brainstorming |
+| `commands/workflow/brainstorm.md` | ADHD-friendly brainstorming (v2.4.0 - Question control) |
 | `docs/VERSION-HISTORY.md` | Complete version evolution (NEW) |
 | `docs/guide/complexity-scoring-algorithm.md` | Complexity algorithm guide (NEW) |
 | `docs/guide/claude-code-2.1-integration.md` | Claude Code 2.1 integration guide (NEW) |
+| `docs/orch/ORCH-brainstorm-phase1-2026-01-18.md` | Phase 1 implementation plan |
 | `docs/specs/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec |
 | `docs/specs/SPEC-craft-hub-v2-2026-01-15.md` | Hub v2.0 architecture spec |
 | `.linkcheck-ignore` | Expected broken links (test files, brainstorm refs) |
 | `utils/complexity_scorer.py` | Task complexity scoring (0-10 scale) |
 | `utils/linkcheck_ignore_parser.py` | Parser for .linkcheck-ignore patterns |
 | `scripts/dependency-manager.sh` | Dependency checking and installation |
+| `tests/test_brainstorm_phase1.py` | Phase 1 unit tests (53 tests) |
+| `tests/test_integration_brainstorm_phase1.py` | Phase 1 integration tests (24 tests) |
 
 ## Test Suite
 
@@ -237,16 +246,18 @@ See `docs/specs/` for detailed specifications.
 |-----------|-------|----------|---------|
 | **Unit & Feature Tests** |
 | `tests/test_craft_plugin.py` | 370 | 84% | Core functionality |
+| `tests/test_brainstorm_phase1.py` | 53 | 100% | Question control (v2.4.0) |
 | `tests/test_complexity_scoring.py` | 15 | 100% | Complexity scorer |
 | `tests/test_hot_reload_validators.py` | 9 | 95% | Hot-reload validators |
 | `tests/test_agent_hooks.py` | 13 | 100% | Agent hooks |
 | **Integration Tests** |
+| `tests/test_integration_brainstorm_phase1.py` | 24 | 100% | Question control integration |
 | `tests/test_integration_dependency_system.py` | 9 | 100% | Dependency workflow |
 | `tests/test_integration_orchestrator_workflows.py` | 13 | 100% | Task routing & scoring |
 | `tests/test_integration_teaching_workflow.py` | 8 | 100% | Teaching mode (3 skipped) |
 | **System Tests** |
 | `tests/test_dependency_management.sh` | 79 | 100% | Dependency system |
-| **Total** | **516+** | **~90%** | **All systems** |
+| **Total** | **581+** | **~90%** | **All systems** |
 
 ## Troubleshooting
 

@@ -2,13 +2,37 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v1.24.0 (2026-01-18)
-**Total Releases:** 25 versions | **Development Time:** 2+ years
-**Community:** 100+ commands documented, 516+ tests, 90%+ coverage
+**Latest Release:** v2.4.0 (2026-01-18)
+**Total Releases:** 26 versions | **Development Time:** 2+ years
+**Community:** 100+ commands documented, 581+ tests, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.4.0 (2026-01-18) - Brainstorm Question Control (Phase 1)
+
+**Status:** Released ✅
+
+**Highlights:**
+- Phase 1 MVP: Question Control for brainstorming
+- Colon notation: `d:5`, `m:12`, `q:3` for custom question counts
+- Categories flag: `--categories` or `-C` to filter question types
+- 8-category question bank (16 questions total)
+- Unlimited questions with milestone prompts every 8 questions
+- 53 unit tests, 24 integration tests, 100% coverage
+
+**Stats:**
+- Commands: 100 (100% implementation)
+- Tests: 581+ (90%+ coverage)
+- Question categories: 8 (requirements, users, scope, technical, timeline, risks, existing, success)
+
+**Key Files:**
+- commands/workflow/brainstorm.md (v2.4.0)
+- tests/test_brainstorm_phase1.py (53 tests)
+- tests/test_integration_brainstorm_phase1.py (24 tests)
+
+---
 
 ### v1.24.0 (2026-01-18) - Hub v2.0: Zero-Maintenance Command Discovery
 
