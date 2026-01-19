@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.4.0 adds brainstorm question control with colon notation and categories.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.1 enhances --orch flag with interactive prompts, error handling, and comprehensive troubleshooting.">
       
       
       
@@ -1615,6 +1615,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../guide/orch-flag-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.5.0) --orch Flag Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../guide/homebrew-installation/" class="md-nav__link">
         
   
@@ -3027,6 +3055,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v251-2026-01-19-user-experience-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.5.1 (2026-01-19) - User Experience Enhancements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v250-2026-01-19-orch-flag-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.5.0 (2026-01-19) - --orch Flag Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v240-2026-01-18-brainstorm-question-control-phase-1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4334,6 +4384,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v251-2026-01-19-user-experience-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.5.1 (2026-01-19) - User Experience Enhancements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v250-2026-01-19-orch-flag-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.5.0 (2026-01-19) - --orch Flag Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v240-2026-01-18-brainstorm-question-control-phase-1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4737,11 +4809,75 @@
 <blockquote>
 <p><strong>Evolution of Craft</strong>: From command automation tool to intelligent orchestration platform</p>
 </blockquote>
-<p><strong>Latest Release:</strong> v2.4.0 (2026-01-18)
-<strong>Total Releases:</strong> 26 versions | <strong>Development Time:</strong> 2+ years
-<strong>Community:</strong> 100+ commands documented, 581+ tests, 90%+ coverage</p>
+<p><strong>Latest Release:</strong> v2.5.1 (2026-01-19)
+<strong>Total Releases:</strong> 28 versions | <strong>Development Time:</strong> 2+ years
+<strong>Community:</strong> 100+ commands documented, 615+ tests, 90%+ coverage</p>
 <hr />
 <h2 id="release-timeline">Release Timeline<a class="headerlink" href="#release-timeline" title="Permanent link">&para;</a></h2>
+<h3 id="v251-2026-01-19-user-experience-enhancements">v2.5.1 (2026-01-19) - User Experience Enhancements<a class="headerlink" href="#v251-2026-01-19-user-experience-enhancements" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Released ✅</p>
+<p><strong>Highlights:</strong>
+- <strong>Interactive Mode Prompt</strong>: Enhanced <code>prompt_user_for_mode()</code> with fallback behavior
+- <strong>Error Handling</strong>: Graceful orchestrator spawn failures with actionable suggestions
+- <strong>Mode Recommendations</strong>: Smart mode selection based on complexity scores (0-10 scale)
+- <strong>Manual Testing</strong>: Comprehensive 10-scenario testing checklist
+- <strong>Troubleshooting</strong>: 6 detailed troubleshooting scenarios with solutions</p>
+<p><strong>Gap Coverage:</strong>
+Addresses 4 of 12 gaps identified in v2.5.0 gap analysis:
+- ✅ Gap #1 (HIGH): Interactive mode prompt stub implementation
+- ✅ Gap #4 (MED): Error handling for orchestrator spawn failures
+- ✅ Gap #10 (LOW): Manual testing checklist for interactive features
+- ✅ Gap #5 (MED): User guidance for prompt failures</p>
+<p><strong>Stats:</strong>
+- Enhanced file: <code>utils/orch_flag_handler.py</code> (complete rewrite with error handling)
+- New tests: 15 tests (6 prompt + 5 error + 4 recommendation)
+- Total tests: 51 (18 existing + 15 new + 18 integration)
+- New checklist: <code>TESTING-CHECKLIST.md</code> (10 manual test scenarios)
+- Documentation updates: troubleshooting section + VERSION-HISTORY + CLAUDE.md</p>
+<p><strong>Key Files:</strong>
+- <code>utils/orch_flag_handler.py</code> - Enhanced with error handling and recommendations
+- <code>tests/test_orch_flag_handler.py</code> - Added 15 new tests (51 total)
+- <code>TESTING-CHECKLIST.md</code> - 10-scenario manual testing guide
+- <code>docs/guide/orch-flag-usage.md</code> - Added comprehensive troubleshooting
+- <code>CLAUDE.md</code> - Added orch guide reference</p>
+<p><strong>Implementation:</strong>
+- <code>prompt_user_for_mode()</code>: Documents expected Claude Code behavior with fallback
+- <code>spawn_orchestrator()</code>: Returns bool for error handling, try/except wrapper
+- <code>handle_orchestrator_failure()</code>: User-friendly error messages with 4 suggestions
+- <code>recommend_orchestration_mode()</code>: Complexity-based recommendations (0-3→default, 4-7→optimize, 8-10→release)
+- Test coverage: 100% for new functions, maintains 95%+ overall</p>
+<p><strong>Deferred to v2.6.0:</strong>
+- 8 remaining gaps (all low priority)
+- Website documentation sync
+- Integration with /craft:hub for mode recommendations
+- Performance metrics for mode selection</p>
+<hr />
+<h3 id="v250-2026-01-19-orch-flag-integration">v2.5.0 (2026-01-19) - --orch Flag Integration<a class="headerlink" href="#v250-2026-01-19-orch-flag-integration" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Released ✅</p>
+<p><strong>Highlights:</strong>
+- <strong>--orch Flag</strong>: Explicit orchestration mode for 5 commands
+  - <code>/craft:do</code>, <code>/craft:workflow:brainstorm</code>, <code>/craft:check</code>
+  - <code>/craft:docs:sync</code>, <code>/craft:ci:generate</code>
+- <strong>Mode Selection</strong>: Interactive prompts when mode not specified
+- <strong>Dry-Run Support</strong>: Preview orchestration without spawning agents
+- <strong>4 Orchestration Modes</strong>: default, debug, optimize, release</p>
+<p><strong>Stats:</strong>
+- New file: utils/orch_flag_handler.py (core handler)
+- New tests: 36 tests (15 unit + 21 integration), 95% coverage
+- Updated: 5 command files with --orch flag support
+- Documentation: User guide + updates to CLAUDE.md and VERSION-HISTORY.md</p>
+<p><strong>Key Files:</strong>
+- utils/orch_flag_handler.py (core orchestration logic)
+- tests/test_orch_flag_handler.py (15 unit tests)
+- tests/test_integration_orch_flag.py (21 integration tests)
+- docs/guide/orch-flag-usage.md (user guide)
+- commands/do.md, brainstorm.md, check.md, docs/sync.md, ci/generate.md</p>
+<p><strong>Implementation:</strong>
+- Core handler: <code>utils/orch_flag_handler.py</code>
+- 58 tests (unit + integration), 95% coverage
+- Backward compatible (opt-in flag)
+- No breaking changes to existing commands</p>
+<hr />
 <h3 id="v240-2026-01-18-brainstorm-question-control-phase-1">v2.4.0 (2026-01-18) - Brainstorm Question Control (Phase 1)<a class="headerlink" href="#v240-2026-01-18-brainstorm-question-control-phase-1" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
 <p><strong>Highlights:</strong>

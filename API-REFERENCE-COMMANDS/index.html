@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.4.0 adds brainstorm question control with colon notation and categories.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.1 enhances --orch flag with interactive prompts, error handling, and comprehensive troubleshooting.">
       
       
       
@@ -1589,6 +1589,34 @@
     
   
     Orchestration & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/orch-flag-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.5.0) --orch Flag Quick Start
   
 
     
@@ -8108,7 +8136,7 @@
 <p>Root-level commands that provide universal functionality.</p>
 <h3 id="craftdo">/craft:do<a class="headerlink" href="#craftdo" title="Permanent link">&para;</a></h3>
 <p><strong>Category</strong>: Smart Routing | <strong>Complexity</strong>: Medium | <strong>Time</strong>: &lt; 30s
-<strong>Description</strong>: Intelligent command routing with complexity scoring and task decomposition</p>
+<strong>Description</strong>: Intelligent command routing with complexity scoring and task decomposition. <strong>NEW (v2.5.0)</strong>: Use <code>--orch</code> flag for quick orchestration.</p>
 <h4 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -8156,6 +8184,20 @@
 <td>false</td>
 <td>Alias for <code>--dry-run</code></td>
 </tr>
+<tr>
+<td><code>orch</code></td>
+<td>boolean</td>
+<td>No</td>
+<td>false</td>
+<td><strong>NEW (v2.5.0)</strong> Enable orchestration mode</td>
+</tr>
+<tr>
+<td><code>orch-mode</code></td>
+<td>enum</td>
+<td>No</td>
+<td><code>default</code></td>
+<td><strong>NEW (v2.5.0)</strong> Orchestration mode: <code>default</code>, <code>debug</code>, <code>optimize</code>, <code>release</code></td>
+</tr>
 </tbody>
 </table>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h4>
@@ -8170,6 +8212,11 @@
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Override complexity</span>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>/craft:do<span class="w"> </span><span class="s2">&quot;quick formatting fix&quot;</span><span class="w"> </span>simple
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># NEW (v2.5.0) - Quick orchestration with --orch flag</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>/craft:do<span class="w"> </span><span class="s2">&quot;debug issue&quot;</span><span class="w"> </span>--orch<span class="o">=</span>debug<span class="w"> </span>--dry-run
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>/craft:do<span class="w"> </span><span class="s2">&quot;prepare release&quot;</span><span class="w"> </span>--orch<span class="o">=</span>release
 </span></code></pre></div>
 <h4 id="output-format">Output Format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h4>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
@@ -8355,7 +8402,8 @@
 <hr />
 <h3 id="craftorchestrate">/craft:orchestrate<a class="headerlink" href="#craftorchestrate" title="Permanent link">&para;</a></h3>
 <p><strong>Category</strong>: Coordination | <strong>Complexity</strong>: Complex | <strong>Time</strong>: Variable
-<strong>Description</strong>: Multi-agent task orchestration with background execution</p>
+<strong>Description</strong>: Multi-agent task orchestration with background execution
+<strong>Tip (v2.5.0)</strong>: For quick orchestration, use the <code>--orch</code> flag on supported commands: <code>/craft:do "task" --orch=optimize</code></p>
 <h4 id="arguments_3">Arguments<a class="headerlink" href="#arguments_3" title="Permanent link">&para;</a></h4>
 <table>
 <thead>

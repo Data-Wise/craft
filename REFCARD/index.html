@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.4.0 adds brainstorm question control with colon notation and categories.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.1 enhances --orch flag with interactive prompts, error handling, and comprehensive troubleshooting.">
       
       
       
@@ -1593,6 +1593,34 @@
     
   
     Orchestration & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/orch-flag-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.5.0) --orch Flag Quick Start
   
 
     
@@ -3949,10 +3977,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#orchestrator-enhanced-v21" class="md-nav__link">
+  <a href="#orchestrator-enhanced-v21-v250" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Orchestrator (Enhanced v2.1)
+        Orchestrator (Enhanced v2.1, v2.5.0)
       
     </span>
   </a>
@@ -4154,10 +4182,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#orchestrator-enhanced-v21" class="md-nav__link">
+  <a href="#orchestrator-enhanced-v21-v250" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Orchestrator (Enhanced v2.1)
+        Orchestrator (Enhanced v2.1, v2.5.0)
       
     </span>
   </a>
@@ -4516,18 +4544,26 @@
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>/craft:git:sync<span class="w">                      </span><span class="c1"># Sync with remote</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:git:clean<span class="w">                     </span><span class="c1"># Clean merged branches</span>
 </span></code></pre></div></p>
-<h2 id="orchestrator-enhanced-v21">Orchestrator (Enhanced v2.1)<a class="headerlink" href="#orchestrator-enhanced-v21" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>optimize<span class="w">    </span><span class="c1"># Fast parallel (4 agents)</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;prep release&quot;</span><span class="w"> </span>release<span class="w"> </span><span class="c1"># Thorough audit</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/craft:orchestrate<span class="w"> </span>status<span class="w">                 </span><span class="c1"># Agent dashboard</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/craft:orchestrate<span class="w"> </span>timeline<span class="w">               </span><span class="c1"># Execution timeline</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span><span class="w">               </span><span class="c1"># Resume session</span>
+<h2 id="orchestrator-enhanced-v21-v250">Orchestrator (Enhanced v2.1, v2.5.0)<a class="headerlink" href="#orchestrator-enhanced-v21-v250" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Traditional method</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>optimize<span class="w">    </span><span class="c1"># Fast parallel (4 agents)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;prep release&quot;</span><span class="w"> </span>release<span class="w"> </span><span class="c1"># Thorough audit</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/craft:orchestrate<span class="w"> </span>status<span class="w">                 </span><span class="c1"># Agent dashboard</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/craft:orchestrate<span class="w"> </span>timeline<span class="w">               </span><span class="c1"># Execution timeline</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span><span class="w">               </span><span class="c1"># Resume session</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1"># NEW (v2.5.0) - Quick orchestration with --orch flag</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">      </span><span class="c1"># Quick orchestration</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>/craft:check<span class="w"> </span>--orch<span class="o">=</span>release<span class="w">               </span><span class="c1"># Orchestrated validation</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>/craft:docs:sync<span class="w"> </span>--orch<span class="o">=</span>default<span class="w">           </span><span class="c1"># Orchestrated docs sync</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>/craft:ci:generate<span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">        </span><span class="c1"># Orchestrated CI generation</span>
 </span></code></pre></div>
 <p><strong>Features:</strong>
-- Mode-aware execution
+- Mode-aware execution (default/debug/optimize/release)
 - Subagent monitoring
 - Chat compression
-- ADHD-optimized status tracking</p>
+- ADHD-optimized status tracking
+- <strong>NEW (v2.5.0)</strong> - --orch flag for quick orchestration</p>
 <h2 id="workflow-commands-enhanced-v240">Workflow Commands (Enhanced v2.4.0)<a class="headerlink" href="#workflow-commands-enhanced-v240" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># v2.4.0 - Question Control with colon notation</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">              </span><span class="c1"># Deep with exactly 5 questions</span>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.4.0 adds brainstorm question control with colon notation and categories.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.1 enhances --orch flag with interactive prompts, error handling, and comprehensive troubleshooting.">
       
       
       
@@ -553,6 +553,17 @@
     <span class="md-ellipsis">
       
         API Reference - NEW in v1.24.0
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-new-in-v251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's New in v2.5.1
       
     </span>
   </a>
@@ -1788,6 +1799,34 @@
     
   
     Orchestration & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guide/orch-flag-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.5.0) --orch Flag Quick Start
   
 
     
@@ -4109,6 +4148,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#whats-new-in-v251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's New in v2.5.1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#whats-new-in-v1240" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4253,14 +4303,14 @@
 - <strong>Why:</strong> Automate documentation, testing, git workflows, and site creation with one command
 - <strong>How:</strong> Install via <code>claude plugin install craft@local-plugins</code>
 - <strong>Next:</strong> Run <code>/craft:do "your task"</code> and let AI route to the best workflow</p>
-<p>Full-stack developer toolkit for Claude Code - 97 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows</p>
-<p><strong>NEW in v1.24.0:</strong> Hub v2.0 - Zero-maintenance command discovery with 3-layer progressive disclosure. Auto-detects all commands (94% faster than target). See <a href="#whats-new-in-v1240">what's new</a></p>
+<p>Full-stack developer toolkit for Claude Code - 100 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows</p>
+<p><strong>NEW in v2.5.1:</strong> Enhanced --orch flag with interactive mode prompts, graceful error handling, and mode recommendations based on complexity. See <a href="#whats-new-in-v251">what's new</a></p>
 </blockquote>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <div class="grid cards">
 <ul>
 <li>
-<p><img alt="🚀" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f680.svg" title=":rocket:" /> <strong>97 Commands</strong></p>
+<p><img alt="🚀" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f680.svg" title=":rocket:" /> <strong>100 Commands</strong></p>
 <p>Smart commands, docs, site management, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit</p>
 </li>
 <li>
@@ -4327,6 +4377,26 @@
 - <a href="reference/COMMAND-PARAMETERS/">Parameters Quick Reference</a>
 - <a href="reference/ERROR-SCENARIOS/">Error Recovery Guide</a>
 - <a href="reference/COMMAND-EXAMPLES/">Real-World Examples</a></p>
+<h2 id="whats-new-in-v251">What's New in v2.5.1<a class="headerlink" href="#whats-new-in-v251" title="Permanent link">&para;</a></h2>
+<p><strong>User Experience Enhancements for --orch Flag</strong> 🎯</p>
+<p>Enhanced orchestration with better prompts, error handling, and guidance (PR #28):</p>
+<ul>
+<li><strong>Interactive mode prompt</strong>: Smart prompt with fallback behavior for test/script contexts</li>
+<li><strong>Graceful error handling</strong>: <code>spawn_orchestrator()</code> returns bool for proper error flow</li>
+<li><strong>User-friendly failures</strong>: <code>handle_orchestrator_failure()</code> with 4 actionable suggestions</li>
+<li><strong>Mode recommendations</strong>: <code>recommend_orchestration_mode()</code> based on complexity (0-10 scale)</li>
+<li><strong>Comprehensive troubleshooting</strong>: 6 detailed scenarios in user guide</li>
+<li><strong>Test coverage</strong>: 15 new tests (33 total), all passing, 100% coverage for new functions</li>
+</ul>
+<p><strong>Gap coverage:</strong> Addresses 4 of 12 gaps from v2.5.0 (1 high, 2 medium, 1 low priority)</p>
+<p><strong>Try it:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--orch<span class="w">           </span><span class="c1"># Interactive mode prompt</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">  </span><span class="c1"># Explicit mode (no prompt)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--orch<span class="w"> </span>--dry-run<span class="w"> </span><span class="c1"># Preview orchestration</span>
+</span></code></pre></div></p>
+<p><strong>Documentation:</strong>
+- <a href="guide/orch-flag-usage/">--orch Flag Usage Guide</a> - Complete guide with troubleshooting
+- <a href="VERSION-HISTORY/">Version History</a> - Full v2.5.1 changelog</p>
 <h2 id="whats-new-in-v1240">What's New in v1.24.0<a class="headerlink" href="#whats-new-in-v1240" title="Permanent link">&para;</a></h2>
 <p><strong>Hub v2.0 - Zero-Maintenance Command Discovery</strong> 🚀</p>
 <p>Smart command discovery with 3-layer progressive disclosure (PR #17, #20):</p>
@@ -4339,9 +4409,9 @@
 <li><strong>Always accurate</strong>: Auto-updates when commands added/changed</li>
 </ul>
 <p><strong>Try it:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:hub<span class="w">              </span><span class="c1"># Browse all 97 commands by category</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:hub<span class="w"> </span>code<span class="w">         </span><span class="c1"># View code category (12 commands)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:hub<span class="w"> </span>code:lint<span class="w">    </span><span class="c1"># Get detailed tutorial for code:lint</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:hub<span class="w">              </span><span class="c1"># Browse all 97 commands by category</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:hub<span class="w"> </span>code<span class="w">         </span><span class="c1"># View code category (12 commands)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/craft:hub<span class="w"> </span>code:lint<span class="w">    </span><span class="c1"># Get detailed tutorial for code:lint</span>
 </span></code></pre></div></p>
 <p><strong>Enhanced testing</strong> (PR #20):
 - 18 new tests: YAML edge cases (12) + E2E workflows (6)
@@ -4360,16 +4430,16 @@
 <li><strong>CI-friendly</strong>: Exit code 0 for expected links, 1 for critical only</li>
 </ul>
 <p><strong>Create <code>.linkcheck-ignore</code> to document expected broken links:</strong></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gh"># Known Broken Links</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gu">### Test Files</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>File: <span class="sb">`docs/test-violations.md`</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">-</span><span class="w"> </span>Purpose: Test data for validation
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="gu">### Brainstorm References</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>Files: <span class="sb">`docs/specs/*.md`</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>Targets: <span class="sb">`docs/brainstorm/*.md`</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="k">-</span><span class="w"> </span>Reason: Gitignored, not published
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gh"># Known Broken Links</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="gu">### Test Files</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>File: <span class="sb">`docs/test-violations.md`</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">-</span><span class="w"> </span>Purpose: Test data for validation
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="gu">### Brainstorm References</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>Files: <span class="sb">`docs/specs/*.md`</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>Targets: <span class="sb">`docs/brainstorm/*.md`</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">-</span><span class="w"> </span>Reason: Gitignored, not published
 </span></code></pre></div>
 <p><strong>Testing</strong>: 21/21 tests passing (13 unit + 8 integration), backward compatible (opt-in)</p>
 <p>See <a href="commands/docs/#craftdocscheck-links">commands/docs documentation</a> for details.</p>
@@ -4385,9 +4455,9 @@
 <li><strong>Infrastructure</strong>: Shared utilities (<code>utils/dry_run_output.py</code>), templates, 30 passing tests</li>
 </ul>
 <p><strong>Preview before executing:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:git:clean<span class="w"> </span>--dry-run<span class="w">      </span><span class="c1"># Preview branch cleanup</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:code:lint<span class="w"> </span>release<span class="w"> </span>-n<span class="w">     </span><span class="c1"># Preview comprehensive linting</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># Preview smart routing plan</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:git:clean<span class="w"> </span>--dry-run<span class="w">      </span><span class="c1"># Preview branch cleanup</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:code:lint<span class="w"> </span>release<span class="w"> </span>-n<span class="w">     </span><span class="c1"># Preview comprehensive linting</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># Preview smart routing plan</span>
 </span></code></pre></div></p>
 <p>See <a href="https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUMMARY.md">DRY-RUN-SUMMARY.md</a> for complete command list.</p>
 <h2 id="whats-new-in-v1190">What's New in v1.19.0<a class="headerlink" href="#whats-new-in-v1190" title="Permanent link">&para;</a></h2>

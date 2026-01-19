@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.4.0 adds brainstorm question control with colon notation and categories.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.1 enhances --orch flag with interactive prompts, error handling, and comprehensive troubleshooting.">
       
       
       
@@ -16,7 +16,7 @@
         <link rel="prev" href="../../git-init-docs-index/">
       
       
-        <link rel="next" href="../homebrew-installation/">
+        <link rel="next" href="../orch-flag-usage/">
       
       
         
@@ -1673,6 +1673,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Basic Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traditional-method-v240-and-earlier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traditional Method (v2.4.0 and earlier)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-v250-quick-orchestration-with-orch-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NEW (v2.5.0): Quick Orchestration with --orch Flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orchestration-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preview-mode-dry-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preview Mode (Dry-Run)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1890,6 +1951,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../orch-flag-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.5.0) --orch Flag Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4189,6 +4278,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Basic Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traditional-method-v240-and-earlier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Traditional Method (v2.4.0 and earlier)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-v250-quick-orchestration-with-orch-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NEW (v2.5.0): Quick Orchestration with --orch Flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orchestration-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preview-mode-dry-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preview Mode (Dry-Run)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -4434,9 +4584,11 @@
 - <strong>What:</strong> Advanced task orchestrator coordinating multiple agents with 4 execution modes (10s, 2min, 3min, 5min)
 - <strong>Why:</strong> Handle complex multi-step tasks with proper delegation, monitoring, and ADHD-friendly tracking
 - <strong>How:</strong> <code>/craft:orchestrate "task" [mode]</code> where mode = default/debug/optimize/release
+- <strong>NEW (v2.5.0):</strong> Use <code>--orch</code> flag on supported commands for quick orchestration: <code>/craft:do "task" --orch=optimize</code>
 - <strong>Next:</strong> Try <code>/craft:orchestrate "add auth" debug</code> for verbose execution tracking</p>
 <p>🎓 <strong>User Guide</strong> - Practical examples and quick start.</p>
 <p>Looking for technical details? See the <a href="../../commands/orchestrate/"><strong>Orchestrator Reference</strong></a> for implementation details and advanced features.</p>
+<p><strong>NEW (v2.5.0):</strong> For quick orchestration without a separate command, see the <a href="../orch-flag-usage/"><strong>--orch Flag Guide</strong></a> for streamlined usage patterns.</p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The orchestrator coordinates multiple agents and tools for complex, multi-step tasks.</p>
@@ -4453,8 +4605,85 @@
 - Session persistence and resumption (v2.4.0)
 - Brainstorm integration for context gathering (v2.4.0)</p>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
+<h3 id="traditional-method-v240-and-earlier">Traditional Method (v2.4.0 and earlier)<a class="headerlink" href="#traditional-method-v240-and-earlier" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span>
 </span></code></pre></div>
+<h3 id="new-v250-quick-orchestration-with-orch-flag">NEW (v2.5.0): Quick Orchestration with --orch Flag<a class="headerlink" href="#new-v250-quick-orchestration-with-orch-flag" title="Permanent link">&para;</a></h3>
+<p>The <code>--orch</code> flag enables orchestration directly from supported commands:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+</span></code></pre></div>
+<p><strong>Supported Commands:</strong>
+| Command | Usage |
+|---------|-------|
+| <code>/craft:do</code> | <code>/craft:do "task" --orch=[mode]</code> |
+| <code>/craft:workflow:brainstorm</code> | <code>/brainstorm "topic" --orch=[mode]</code> |
+| <code>/craft:check</code> | <code>/craft:check --orch=[mode]</code> |
+| <code>/craft:docs:sync</code> | <code>/craft:docs:sync --orch=[mode]</code> |
+| <code>/craft:ci:generate</code> | <code>/craft:ci:generate --orch=[mode]</code> |</p>
+<p><strong>Benefits:</strong>
+- No need to remember separate <code>/craft:orchestrate</code> command
+- Integrates seamlessly with existing workflows
+- Preserves command-specific context and arguments</p>
+<h3 id="orchestration-modes">Orchestration Modes<a class="headerlink" href="#orchestration-modes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Max Agents</th>
+<th>Compression</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default</code></td>
+<td>2</td>
+<td>70%</td>
+<td>Quick tasks</td>
+</tr>
+<tr>
+<td><code>debug</code></td>
+<td>1</td>
+<td>90%</td>
+<td>Detailed troubleshooting</td>
+</tr>
+<tr>
+<td><code>optimize</code></td>
+<td>4</td>
+<td>60%</td>
+<td>Fast parallel execution</td>
+</tr>
+<tr>
+<td><code>release</code></td>
+<td>4</td>
+<td>85%</td>
+<td>Pre-release validation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mode-examples">Mode Examples<a class="headerlink" href="#mode-examples" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Quick orchestration (default mode)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add validation&quot;</span><span class="w"> </span>--orch
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Verbose debugging</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:do<span class="w"> </span><span class="s2">&quot;fix the bug&quot;</span><span class="w"> </span>--orch<span class="o">=</span>debug
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Parallel execution (fastest)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Pre-release validation</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>/craft:do<span class="w"> </span><span class="s2">&quot;prepare release&quot;</span><span class="w"> </span>--orch<span class="o">=</span>release
+</span></code></pre></div>
+<h3 id="preview-mode-dry-run">Preview Mode (Dry-Run)<a class="headerlink" href="#preview-mode-dry-run" title="Permanent link">&para;</a></h3>
+<p>Preview orchestration without execution:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;refactor auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>release<span class="w"> </span>--dry-run
+</span></code></pre></div>
+<p>This shows:
+- Task description
+- Selected mode
+- Max agents
+- Compression ratio
+- What would be executed</p>
 <p>The orchestrator will:
 1. Analyze the task
 2. Create an execution plan
@@ -4464,15 +4693,15 @@
 <h2 id="modes">Modes<a class="headerlink" href="#modes" title="Permanent link">&para;</a></h2>
 <h3 id="default-mode-10s">Default Mode (&lt;10s)<a class="headerlink" href="#default-mode-10s" title="Permanent link">&para;</a></h3>
 <p>Quick orchestration for simple tasks:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add validation&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add validation&quot;</span>
 </span></code></pre></div>
 <h3 id="debug-mode-120s">Debug Mode (&lt;120s)<a class="headerlink" href="#debug-mode-120s" title="Permanent link">&para;</a></h3>
 <p>Verbose output with detailed logging:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;fix the bug&quot;</span><span class="w"> </span>debug
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;fix the bug&quot;</span><span class="w"> </span>debug
 </span></code></pre></div>
 <h3 id="optimize-mode-180s">Optimize Mode (&lt;180s)<a class="headerlink" href="#optimize-mode-180s" title="Permanent link">&para;</a></h3>
 <p>Parallel execution for speed:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>optimize
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>optimize
 </span></code></pre></div>
 <p><strong>Benefits:</strong>
 - Runs up to 4 agents in parallel
@@ -4480,7 +4709,7 @@
 - Resource-efficient</p>
 <h3 id="release-mode-300s">Release Mode (&lt;300s)<a class="headerlink" href="#release-mode-300s" title="Permanent link">&para;</a></h3>
 <p>Comprehensive audit for releases:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;prep for v2.0 release&quot;</span><span class="w"> </span>release
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;prep for v2.0 release&quot;</span><span class="w"> </span>release
 </span></code></pre></div>
 <p><strong>Includes:</strong>
 - Full test suite
@@ -4489,7 +4718,7 @@
 - Build verification</p>
 <h2 id="brainstorm-integration-v240-new">Brainstorm Integration (v2.4.0 NEW)<a class="headerlink" href="#brainstorm-integration-v240-new" title="Permanent link">&para;</a></h2>
 <p>Orchestrate complex features with structured context gathering:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;plan new feature&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;plan new feature&quot;</span>
 </span></code></pre></div>
 <p>Flow:
 1. <code>/brainstorm d:8</code> gathers context (requirements, users, scope, technical)
@@ -4498,21 +4727,21 @@
 4. Coordinates test strategy
 5. Synthesizes into implementation plan</p>
 <h3 id="custom-brainstorm-context">Custom Brainstorm Context<a class="headerlink" href="#custom-brainstorm-context" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Focused categories for technical features</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design API&quot;</span><span class="w"> </span>optimize
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1"># → Brainstorm d:8 -C tech,requirements</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># User-focused for UX features</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design dashboard&quot;</span><span class="w"> </span>optimize
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># → Brainstorm d:8 -C users,scope,success</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Risk-aware for critical systems</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>release
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="c1"># → Brainstorm d:10 -C req,tech,risk,success</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Focused categories for technical features</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design API&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># → Brainstorm d:8 -C tech,requirements</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># User-focused for UX features</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design dashboard&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># → Brainstorm d:8 -C users,scope,success</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1"># Risk-aware for critical systems</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>release
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="c1"># → Brainstorm d:10 -C req,tech,risk,success</span>
 </span></code></pre></div>
 <h2 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">&para;</a></h2>
 <h3 id="status-dashboard">Status Dashboard<a class="headerlink" href="#status-dashboard" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orchestrate<span class="w"> </span>status
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate<span class="w"> </span>status
 </span></code></pre></div>
 <p>Shows:
 - Active agents
@@ -4520,16 +4749,16 @@
 - Pending work
 - Resource usage</p>
 <h3 id="timeline-view">Timeline View<a class="headerlink" href="#timeline-view" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orchestrate<span class="w"> </span>timeline
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:orchestrate<span class="w"> </span>timeline
 </span></code></pre></div>
 <p>Visual timeline of execution steps.</p>
 <h3 id="budget-tracking">Budget Tracking<a class="headerlink" href="#budget-tracking" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:orchestrate<span class="w"> </span>budget
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:orchestrate<span class="w"> </span>budget
 </span></code></pre></div>
 <p>Context usage and remaining capacity.</p>
 <h2 id="resuming-sessions">Resuming Sessions<a class="headerlink" href="#resuming-sessions" title="Permanent link">&para;</a></h2>
 <p>If interrupted, resume with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span>
 </span></code></pre></div>
 <p>The orchestrator maintains state and continues from where it left off.</p>
 <h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
@@ -4586,6 +4815,7 @@
 <li><a href="../skills-agents/">Skills &amp; Agents</a> - Understanding the system</li>
 <li><a href="../getting-started/">Getting Started</a> - Basic usage</li>
 <li><a href="../../commands/workflow/brainstorm/">Brainstorm Command</a> - Context gathering (v2.4.0)</li>
+<li><a href="../orch-flag-usage/"><strong>NEW</strong> --orch Flag Guide</a> - Quick orchestration (v2.5.0)</li>
 </ul>
 
 
