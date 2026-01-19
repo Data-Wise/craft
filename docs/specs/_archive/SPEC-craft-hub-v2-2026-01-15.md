@@ -1,7 +1,9 @@
 # SPEC: /craft:hub v2.0 - Hierarchical Command Discovery System
 
-**Status:** draft
+**Status:** done
 **Created:** 2026-01-15
+**Completed:** 2026-01-18 (v1.24.0)
+**Implementation:** PR #17, #20
 **From Brainstorm:** [BRAINSTORM-craft-hub-update-2026-01-15.md](../../BRAINSTORM-craft-hub-update-2026-01-15.md)
 
 ---
