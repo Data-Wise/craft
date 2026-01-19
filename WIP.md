@@ -8,7 +8,7 @@
 ## 📋 Quick Status
 
 | Item | Status |
-|------|--------|
+| --- | --- |
 | **Spec** | ✅ Complete (`docs/specs/SPEC-orch-flag-integration-2026-01-19.md`) |
 | **Implementation Plan** | ✅ Complete (`IMPLEMENTATION.md`) |
 | **Worktree** | ✅ Created (`~/.git-worktrees/craft/feature-orch-flag-integration`) |
@@ -35,7 +35,7 @@ git branch --show-current  # Should show: feature/orch-flag-integration
 ## 📚 Key Files
 
 | File | Purpose | Location |
-|------|---------|----------|
+| --- | --- | --- |
 | **Spec** | Complete feature specification | `docs/specs/SPEC-orch-flag-integration-2026-01-19.md` |
 | **Implementation Plan** | Step-by-step guide | `IMPLEMENTATION.md` (in worktree root) |
 | **WIP Tracker** | This file | `WIP.md` (in worktree root) |
@@ -43,6 +43,7 @@ git branch --show-current  # Should show: feature/orch-flag-integration
 ## 🔄 Implementation Workflow
 
 ### Phase 1: Core Infrastructure (2-3 hours)
+
 - [ ] Create `utils/orch_flag_handler.py`
 - [ ] Implement `handle_orch_flag()`
 - [ ] Implement `prompt_user_for_mode()`
@@ -53,6 +54,7 @@ git branch --show-current  # Should show: feature/orch-flag-integration
 - [ ] Verify all tests passing
 
 ### Phase 2: Command Updates (3-4 hours)
+
 - [ ] Update `/craft:do` (frontmatter + implementation + examples)
 - [ ] Update `/craft:workflow:brainstorm` (with category integration)
 - [ ] Update `/craft:check`
@@ -60,6 +62,7 @@ git branch --show-current  # Should show: feature/orch-flag-integration
 - [ ] Update `/craft:ci:generate`
 
 ### Phase 3: Testing (2-3 hours)
+
 - [ ] Create `tests/test_integration_orch_flag.py`
 - [ ] Test all flag combinations
 - [ ] Test error handling
@@ -67,6 +70,7 @@ git branch --show-current  # Should show: feature/orch-flag-integration
 - [ ] Verify coverage ≥ 95%
 
 ### Phase 4: Documentation (1-2 hours)
+
 - [ ] Create `docs/guide/orch-flag-usage.md`
 - [ ] Update CLAUDE.md with --orch info
 - [ ] Update VERSION-HISTORY.md with v2.5.0

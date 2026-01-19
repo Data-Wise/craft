@@ -160,7 +160,7 @@ def spawn_orchestrator(task: str, mode: str, extra_args: str = "") -> None:
     print("\n   Executing: /craft:orchestrate '{task}' {mode} {extra_args}\n")
 ```
 
-2. **Update `utils/complexity_scorer.py`** (UPDATE)
+1. **Update `utils/complexity_scorer.py`** (UPDATE)
    - Add function to map complexity score → orchestration mode
    - Add orchestrator mode recommendations
 
@@ -257,6 +257,7 @@ pytest tests/test_orch_flag_handler.py -v
 **Changes**:
 
 1. Add to YAML frontmatter:
+
 ```yaml
 arguments:
   - name: task
@@ -278,7 +279,8 @@ arguments:
     default: null
 ```
 
-2. Update implementation section:
+1. Update implementation section:
+
 ```markdown
 ## Implementation (UPDATED for v2.5.0)
 
@@ -309,10 +311,15 @@ if orch_flag:
 ```
 
 ### Step 1: Analyze Task and Calculate Complexity
+
 [...existing content...]
+
+```python
+# Existing implementation continues here
 ```
 
-3. Add examples section:
+1. Add examples section:
+
 ```markdown
 ## Examples with --orch Flag (NEW in v2.5.0)
 
@@ -325,6 +332,7 @@ Spawning orchestrator...
 ```
 
 ### Mode Selection Prompt
+
 ```bash
 /craft:do "add payment" --orch
 
@@ -339,6 +347,7 @@ Available modes:
 ```
 
 ### Preview Orchestration
+
 ```bash
 /craft:do "refactor auth" --orch=release --dry-run
 
@@ -350,7 +359,6 @@ Available modes:
 │ ✓ Max Agents: 4                                               │
 │ ✓ Compression: 85%                                            │
 └───────────────────────────────────────────────────────────────┘
-```
 ```
 
 #### Command 2: `/craft:workflow:brainstorm`
@@ -376,6 +384,7 @@ if orch_flag:
 #### Commands 3-5: `/craft:check`, `/craft:docs:sync`, `/craft:ci:generate`
 
 **Similar pattern for each**:
+
 1. Add YAML frontmatter arguments
 2. Add --orch check at start of implementation
 3. Add examples section
@@ -480,12 +489,12 @@ pytest tests/test_integration_orch_flag.py -v
 
 #### Test Coverage Goals
 
-| Component | Target Coverage | Tests |
-|-----------|----------------|-------|
-| `orch_flag_handler.py` | 95%+ | 15+ tests |
-| Command integrations | 90%+ | 25+ tests |
-| Flag combinations | 100% | 10+ tests |
-| Error handling | 100% | 8+ tests |
+| Component                | Target Coverage | Tests       |
+|--------------------------|-----------------|-------------|
+| `orch_flag_handler.py`   | 95%+            | 15+ tests   |
+| Command integrations     | 90%+            | 25+ tests   |
+| Flag combinations        | 100%            | 10+ tests   |
+| Error handling           | 100%            | 8+ tests    |
 
 **Checkpoint**: Phase 3 complete when coverage targets met ✅
 
