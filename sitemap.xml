@@ -361,10 +361,6 @@
          <lastmod>2026-01-19</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/craft/specs/SPEC-craft-hub-v2-2026-01-15/</loc>
-         <lastmod>2026-01-19</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/craft/specs/SPEC-demo-dependency-management-2026-01-17/</loc>
          <lastmod>2026-01-19</lastmod>
     </url>
@@ -402,6 +398,10 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/specs/SPEC-website-organization-standard-2026-01-17/</loc>
+         <lastmod>2026-01-19</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/specs/_archive/SPEC-craft-hub-v2-2026-01-15/</loc>
          <lastmod>2026-01-19</lastmod>
     </url>
     <url>
