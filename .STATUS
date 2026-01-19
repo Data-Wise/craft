@@ -1,10 +1,10 @@
-status: Released
-version: 2.4.0
-release_date: 2026-01-18
-milestone: v2.4.0 - Brainstorm Question Control (Phase 1 COMPLETE)
-last_session: 2026-01-18
+status: In Development
+version: 2.5.0-dev
+release_date: TBD
+milestone: v2.5.0 - --orch Flag Integration (Phase 1-4 PLANNED)
+last_session: 2026-01-19
 
-progress: 100%
+progress: 0%
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)
@@ -864,9 +864,100 @@ recent:
   - ✅ 92 commands total (was 90, +2 new docs commands)
   - ✅ 29 commands with dry-run (was 27, +2)
 
+orch_flag_integration:
+  branch: feature/orch-flag-integration (active)
+  status: WIP - Spec created, implementation ready
+  started: 2026-01-19
+  target_version: v2.5.0
+  effort: ~8-12 hours (4 phases)
+  worktree: ~/.git-worktrees/craft/feature-orch-flag-integration
+  spec: docs/specs/SPEC-orch-flag-integration-2026-01-19.md
+  implementation: IMPLEMENTATION.md (in worktree)
+
+  description: Add --orch flag to 5 key commands for explicit orchestration mode
+
+  commands_to_enhance:
+    - /craft:do (universal router)
+    - /craft:workflow:brainstorm (ADHD-friendly brainstorming)
+    - /craft:check (pre-flight validation)
+    - /craft:docs:sync (documentation sync)
+    - /craft:ci:generate (CI workflow generation)
+
+  features:
+    - Colon notation: --orch=<mode> (default|debug|optimize|release)
+    - Mode prompt: Interactive selection when mode not specified
+    - Dry-run support: --orch --dry-run for preview
+    - Category integration: --orch -C req,tech for brainstorm
+
+  phases:
+    phase_1_infrastructure:
+      status: planned
+      effort: 2-3 hours
+      deliverables:
+        - utils/orch_flag_handler.py (core logic)
+        - Mode validation and prompting
+        - Orchestrator spawning
+        - Dry-run preview
+
+    phase_2_command_updates:
+      status: planned
+      effort: 3-4 hours
+      deliverables:
+        - Update 5 command YAML frontmatter
+        - Integrate --orch check in implementations
+        - Add examples and documentation
+
+    phase_3_testing:
+      status: planned
+      effort: 2-3 hours
+      deliverables:
+        - Unit tests for orch_flag_handler.py (15+ tests)
+        - Integration tests for commands (25+ tests)
+        - Flag combination tests (10+ tests)
+        - Error handling tests (8+ tests)
+      target_coverage: 95%+
+
+    phase_4_documentation:
+      status: planned
+      effort: 1-2 hours
+      deliverables:
+        - docs/guide/orch-flag-usage.md (user guide)
+        - Update CLAUDE.md with --orch info
+        - Update VERSION-HISTORY.md with v2.5.0
+        - Update all 5 command docs
+
+  acceptance_criteria:
+    - AC1: /craft:do "task" --orch prompts for mode ✅
+    - AC2: /craft:do "task" --orch=optimize spawns orchestrator ✅
+    - AC3: /craft:do "task" --orch=invalid shows error ✅
+    - AC4: /craft:do "task" --orch --dry-run shows preview ✅
+    - AC5: /brainstorm "task" --orch -C req,tech orchestrates ✅
+    - AC6: All 5 commands support --orch flag ✅
+    - AC7: --orch overrides complexity routing ✅
+    - AC8: Backward compatible (opt-in flag) ✅
+    - AC9: Error messages clear and actionable ✅
+    - AC10: Documentation updated for all commands ✅
+    - AC11: Tests cover all flag combinations ✅
+    - AC12: Mode prompt < 1 second response ✅
+
+  success_metrics:
+    - Adoption: 30%+ of /craft:do uses --orch within 2 weeks
+    - Bug reports: < 3 related to flag parsing
+    - Performance: Mode prompt < 1 second
+    - Coverage: 95%+ for core handler
+
+  commits:
+    - TBD (implementation in progress)
+
+  next_steps:
+    - Navigate to worktree: cd ~/.git-worktrees/craft/feature-orch-flag-integration
+    - Start Phase 1: Create utils/orch_flag_handler.py
+    - Run tests frequently: pytest tests/test_orch_flag_handler.py -v
+    - Commit atomic changes with conventional commits
+
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
-  - feature/teaching-flags: ~/.git-worktrees/craft/feature-teaching-flags (active, commit db63cde)
+  - feature/orch-flag-integration: ~/.git-worktrees/craft/feature-orch-flag-integration (active, WIP)
 
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
