@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.0 adds --orch flag for quick orchestration across 5 key commands.
+site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.1 enhances --orch flag with interactive prompts, error handling, and comprehensive troubleshooting.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
