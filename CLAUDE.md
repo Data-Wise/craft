@@ -234,6 +234,7 @@ See `docs/specs/` for detailed specifications.
 | `commands/orchestrate.md` | Multi-agent coordination |
 | `commands/hub.md` | Zero-maintenance command discovery (v2.0) |
 | `commands/workflow/brainstorm.md` | ADHD-friendly brainstorming (v2.4.0 - Question control) |
+| `docs/guide/orch-flag-usage.md` | --orch flag usage guide (v2.5.0, improved v2.5.1) |
 | `docs/VERSION-HISTORY.md` | Complete version evolution (NEW) |
 | `docs/guide/complexity-scoring-algorithm.md` | Complexity algorithm guide (NEW) |
 | `docs/guide/claude-code-2.1-integration.md` | Claude Code 2.1 integration guide (NEW) |
