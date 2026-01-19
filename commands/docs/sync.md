@@ -18,6 +18,14 @@ arguments:
     required: false
     default: false
     alias: -n
+  - name: orch
+    description: Enable orchestration mode (NEW in v2.5.0)
+    required: false
+    default: false
+  - name: orch-mode
+    description: "Orchestration mode: default|debug|optimize|release (NEW in v2.5.0)"
+    required: false
+    default: null
 ---
 
 # /craft:docs:sync - Smart Documentation Detection
@@ -83,6 +91,48 @@ Preview what files will be analyzed without reading them:
 ```
 
 **Note**: This is a read-only command, so dry-run mainly shows what will be analyzed.
+
+## Orchestration Mode (NEW in v2.5.0)
+
+Use `--orch` flag for orchestrated documentation updates:
+
+```bash
+/craft:docs:sync --orch                 # Orchestrated documentation workflow
+/craft:docs:sync --orch=optimize        # Fast parallel doc updates
+/craft:docs:sync --orch=release --dry-run   # Preview orchestrated workflow
+```
+
+### Orchestration Flow
+
+```python
+from utils.orch_flag_handler import handle_orch_flag, show_orchestration_preview, spawn_orchestrator
+
+orch_flag = args.orch
+mode_flag = args.orch_mode
+dry_run = args.dry_run
+
+if orch_flag:
+    should_orchestrate, mode = handle_orch_flag(
+        "documentation sync and update workflow",
+        orch_flag,
+        mode_flag
+    )
+
+    if dry_run:
+        show_orchestration_preview(
+            "documentation sync with changes from recent commits",
+            mode
+        )
+        return
+
+    spawn_orchestrator(
+        "analyze code changes and update all affected documentation",
+        mode
+    )
+    return
+
+# Otherwise, continue with normal sync flow...
+```
 
 ## When Invoked
 
@@ -329,3 +379,32 @@ find docs/ -name "*.md" -mtime +30
 3. **Clear recommendations** - What to do next
 4. **Verbose when needed** - Details on demand
 5. **JSON for automation** - Script-friendly output
+
+## Orchestration Examples (v2.5.0)
+
+```
+User: /craft:docs:sync --orch=optimize
+
+→ ORCHESTRATOR v2.1 — OPTIMIZE MODE
+Spawning orchestrator...
+   Task: analyze code changes and update all affected documentation
+   Mode: optimize
+
+Executing: /craft:orchestrate 'analyze code changes and update all affected documentation' optimize
+```
+
+```
+User: /craft:docs:sync --orch=release --dry-run
+
++---------------------------------------------------------------------+
+| DRY RUN: Orchestration Preview                                      |
++---------------------------------------------------------------------+
+| Task: documentation sync with changes from recent commits           |
+| Mode: release                                                       |
+| Max Agents: 4                                                       |
+| Compression: 85%                                                    |
++---------------------------------------------------------------------+
+| This would spawn the orchestrator with the above settings.          |
+| Remove --dry-run to execute.                                        |
++---------------------------------------------------------------------+
+```

@@ -52,6 +52,7 @@ feature/* (worktrees) ← All implementation work
 | Smart routing | - | `/craft:do <task>` |
 | Brainstorm | - | `/craft:workflow:brainstorm` | v2.4.0 - Question control, colon notation, categories |
 | Orchestrate | - | `/craft:orchestrate` |
+| Orchestrate task | - | `/craft:do "task" --orch=<mode>` | v2.5.0 - --orch flag for quick orchestration |
 
 ## Execution Modes
 
@@ -124,6 +125,12 @@ craft/
 - Semester progress tracking
 - Content validation (syllabus, schedule, assignments)
 - 5 teaching-aware commands
+
+### --orch Flag Integration (v2.5.0) ✅
+- Explicit orchestration mode for 5 key commands
+- Mode selection with interactive prompts
+- Dry-run preview support
+- 36 tests (15 unit + 21 integration), 95% coverage
 
 ## Integration Features (v1.24.0)
 

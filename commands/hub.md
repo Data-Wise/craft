@@ -1,5 +1,7 @@
 # /craft:hub - Command Discovery Hub
 
+> **v2.5.0 Update**: Added `--orch` flag for quick orchestration across 5 key commands: `/craft:do`, `/craft:workflow:brainstorm`, `/craft:check`, `/craft:docs:sync`, `/craft:ci:generate`.
+> 
 > **v2.4.0 Update**: Added brainstorm question control with colon notation (`d:5`, `m:12`, `q:3`) and categories flag (`-C req,tech,success`).
 
 You are a command discovery assistant for the craft plugin. Help users find the right command.
@@ -65,9 +67,9 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 🛠️ CRAFT - Full Stack Developer Toolkit v2.4.0                          │
-│ 📍 [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                      │
-│ 📊 [TOTAL] Commands | 21 Skills | 8 Agents | 4 Modes                    │
+│  CRAFT - Full Stack Developer Toolkit v2.5.0                           │
+│  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
+│  [TOTAL] Commands | 21 Skills | 8 Agents | 4 Modes                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
@@ -110,11 +112,12 @@ Display template:
 │   /craft:git:recap                                                      │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
-│ 🎯 Quick Actions:                                                       │
-│    /craft:do "fix bug"          /craft:check --for pr                   │
-│    /brainstorm d:5 "auth"       /craft:help testing                     │
-│    /craft:test:run debug        /craft:arch:analyze                     │
-│    /craft:git:sync                                                       │
+│  Quick Actions:                                                          │
+│    /craft:do "fix bug"          /craft:check --for pr                    │
+│    /craft:do "add auth" --orch=optimize  NEW (v2.5.0) Quick orchestration│
+│    /brainstorm d:5 "auth"       /craft:help testing                      │
+│    /craft:test:run debug        /craft:arch:analyze                      │
+│    /craft:git:sync                                                        │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -340,27 +343,41 @@ The `generate_command_tutorial()` function creates a formatted display with:
 
 ---
 
-## Smart Commands (NEW!)
+## Smart Commands (v2.5.0 Enhanced)
 
-### `/craft:do <task>` - Universal Command
+### `/craft:do <task>` - Universal Command with --orch (NEW v2.5.0)
 ```
 Intelligently routes your task to the right workflow:
 
-/craft:do initialize project    → git:init (interactive wizard)
-/craft:do add authentication    → arch:plan + code:test-gen + git:branch
-/craft:do fix login bug         → code:debug + test:run + test:debug
-/craft:do improve quality       → code:lint + test:coverage + code:refactor
-/craft:do prepare release       → deps-audit + test:run release + code:release
+# Traditional routing (complexity-based)
+ /craft:do initialize project    → git:init (interactive wizard)
+ /craft:do add authentication    → arch:plan + code:test-gen + git:branch
+ /craft:do fix login bug         → code:debug + test:run + test:debug
+ /craft:do improve quality       → code:lint + test:coverage + code:refactor
+ /craft:do prepare release       → deps-audit + test:run release + code:release
+
+# NEW (v2.5.0) - Quick orchestration with --orch flag
+/craft:do "add feature X" --orch           # Orchestrate with mode prompt
+/craft:do "implement auth" --orch=optimize # Fast parallel orchestration
+/craft:do "debug issue" --orch=debug       # Sequential troubleshooting
+/craft:do "prep release" --orch=release    # Comprehensive audit
+/craft:do "task" --orch --dry-run          # Preview orchestration plan
 ```
 
-### `/craft:check` - Universal Pre-flight
+### `/craft:check` - Universal Pre-flight (v2.5.0 Enhanced)
 ```
 Auto-detects project type and runs appropriate checks:
 
+# Traditional validation
 /craft:check                   Quick validation (lint + tests + types)
 /craft:check --for commit      Pre-commit checks
 /craft:check --for pr          Pre-PR validation (+ coverage + conflicts)
 /craft:check --for release     Full release audit (+ security + docs)
+
+# NEW (v2.5.0) - Orchestrated validation
+/craft:check --orch            Orchestrated checks with mode prompt
+/craft:check --orch=optimize   Fast parallel validation
+/craft:check --orch=release    Comprehensive pre-release audit
 ```
 
 ### `/craft:help` - Context-Aware Help
@@ -458,10 +475,10 @@ Command                  │ Description
 ─────────────────────────────────────────────────────────────────────────
 ```
 
-### `/craft:hub workflow` (NEW v2.4.0)
+### `/craft:hub workflow` (v2.5.0 Enhanced)
 ```
-🔄 WORKFLOW COMMANDS (4) - ADHD-Friendly Workflow Management
-─────────────────────────────────────────────────────────────────────────
+ WORKFLOW COMMANDS (4) - ADHD-Friendly Workflow Management
+────────────────────────────────────────────────────────────────────────
 Command                           │ Description
 ──────────────────────────────────┼────────────────────────────────────
 /brainstorm [depth:count] "topic" │ Brainstorm with custom question counts
@@ -470,17 +487,28 @@ Command                           │ Description
 /brainstorm q:0 "quick"           │ Quick with 0 questions (straight to brainstorming)
 /brainstorm d:5 "auth" -C req,tech │ Filter to requirements + technical categories
 /brainstorm d:20 "complex"        │ Unlimited mode with milestone prompts
+
+# NEW (v2.5.0) - Orchestrated Brainstorming
+/brainstorm "auth system" --orch           │ Orchestrated with mode prompt
+/brainstorm "API design" --orch=optimize   │ Fast parallel context gathering
+/brainstorm "complex feature" --orch=release │ Comprehensive analysis
+
 /workflow:focus                   │ Start focused work session
 /workflow:next                    │ Get next step
 /workflow:stuck                   │ Get unstuck help
 /workflow:done                    │ Complete session
+
+**v2.5.0 Brainstorm Orchestration:**
+- --orch flag for orchestrated brainstorming with multiple agents
+- Combines question-based context gathering with agent analysis
+- Optimized for comprehensive feature planning
 
 **v2.4.0 Brainstorm Features:**
 - Colon notation: d:5, m:12, q:3 for custom question counts
 - Categories flag: -C req,tech,success to filter question types
 - 8 categories: requirements, users, scope, technical, timeline, risks, existing, success
 - Milestone prompts every 8 questions for unlimited exploration
-─────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────
 ```
 
 ### `/craft:hub docs`
@@ -609,16 +637,23 @@ Command                           │ Description
   /craft:code:release         npm publish workflow
 ```
 
-## Quick Reference (v2.4.0)
+## Quick Reference (v2.5.0)
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│ CRAFT QUICK REFERENCE - 100 COMMANDS v2.4.0                           │
+│ CRAFT QUICK REFERENCE - 100 COMMANDS v2.5.0                           │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   → AI routes to best workflow                     │
 │   /craft:check       → Quick validation                               │
 │   /craft:help        → Context-aware suggestions                      │
+│                                                                        │
+│ v2.5.0 Quick Orchestration (--orch flag):                             │
+│   /craft:do "add auth" --orch=optimize  → Quick parallel orchestration│
+│   /craft:check --orch=release           → Orchestrated validation     │
+│   /brainstorm "API" --orch              → Orchestrated brainstorming  │
+│   /craft:docs:sync --orch               → Orchestrated docs sync      │
+│   /craft:ci:generate --orch=optimize    → Orchestrated CI generation  │
 │                                                                        │
 │ v2.4.0 Brainstorm Question Control:                                    │
 │   /brainstorm d:5 "auth"           → Deep mode with 5 questions       │
@@ -641,13 +676,18 @@ Command                           │ Description
 │ Daily:                                                                 │
 │   /craft:git:recap → /craft:check → /craft:git:sync                   │
 │                                                                        │
-│ **Orchestrate Complex Tasks:**                                         │
+│ Orchestrate Complex Tasks (Traditional):                               │
 │   /craft:orchestrate "add auth" optimize  → Parallel agent execution  │
 │   /craft:orchestrate "debug issue" debug  → Sequential troubleshooting│
 │   /craft:orchestrate "prep release" release → Comprehensive audit     │
 │   /craft:orchestrate status               → Agent dashboard           │
 │   /craft:orchestrate timeline             → Execution timeline        │
 │   /craft:orchestrate continue             → Resume previous session   │
+│                                                                        │
+│ NEW (v2.5.0) Quick Orchestration with --orch Flag:                     │
+│   /craft:do "add feature" --orch=optimize  → Same as orchestrate      │
+│   /craft:do "fix bug" --orch=debug         → Sequential troubleshooting│
+│   /craft:check --orch=release             → Comprehensive validation  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -664,10 +704,11 @@ Command                           │ Description
 | `api-documenter` | OpenAPI specs, developer portals | API documentation |
 | `mermaid-expert` | Flowcharts, diagrams, visualizations | Diagram requests |
 
-### Orchestrator v2.1 (NEW)
+### Orchestrator v2.1 (v2.5.0 Enhanced)
 
 The orchestrator coordinates multiple agents for complex tasks:
 
+**Traditional Method:**
 ```bash
 /craft:orchestrate "implement feature X"       # Start with default mode
 /craft:orchestrate "complex task" optimize     # Parallel execution (4 agents)
@@ -678,9 +719,25 @@ The orchestrator coordinates multiple agents for complex tasks:
 /craft:orchestrate continue                    # Resume previous session
 ```
 
+**NEW (v2.5.0) Quick Orchestration with --orch Flag:**
+```bash
+# Quick orchestration from any supported command
+/craft:do "implement feature X" --orch         # Same as orchestrate (default mode)
+/craft:do "complex task" --orch=optimize       # Same as orchestrate optimize
+/craft:do "debug issue" --orch=debug           # Same as orchestrate debug
+/craft:do "prep release" --orch=release        # Same as orchestrate release
+
+# Works with other commands too
+/craft:check --orch=optimize                   # Orchestrated validation
+/craft:brainstorm "API design" --orch          # Orchestrated brainstorming
+/craft:docs:sync --orch                        # Orchestrated docs sync
+/craft:ci:generate --orch=release              # Orchestrated CI generation
+```
+
 **Key Features:**
 - Mode-aware execution (default/debug/optimize/release)
 - Up to 4 parallel agents in optimize/release modes
 - Chat compression for long sessions
 - Session persistence and resumption
 - ADHD-friendly progress tracking
+- **NEW (v2.5.0)** --orch flag for quick orchestration

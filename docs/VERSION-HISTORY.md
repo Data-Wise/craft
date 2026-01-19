@@ -2,13 +2,46 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.4.0 (2026-01-18)
-**Total Releases:** 26 versions | **Development Time:** 2+ years
-**Community:** 100+ commands documented, 581+ tests, 90%+ coverage
+**Latest Release:** v2.5.0 (2026-01-19)
+**Total Releases:** 27 versions | **Development Time:** 2+ years
+**Community:** 100+ commands documented, 600+ tests, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.5.0 (2026-01-19) - --orch Flag Integration
+
+**Status:** Released ✅
+
+**Highlights:**
+- **--orch Flag**: Explicit orchestration mode for 5 commands
+  - `/craft:do`, `/craft:workflow:brainstorm`, `/craft:check`
+  - `/craft:docs:sync`, `/craft:ci:generate`
+- **Mode Selection**: Interactive prompts when mode not specified
+- **Dry-Run Support**: Preview orchestration without spawning agents
+- **4 Orchestration Modes**: default, debug, optimize, release
+
+**Stats:**
+- New file: utils/orch_flag_handler.py (core handler)
+- New tests: 36 tests (15 unit + 21 integration), 95% coverage
+- Updated: 5 command files with --orch flag support
+- Documentation: User guide + updates to CLAUDE.md and VERSION-HISTORY.md
+
+**Key Files:**
+- utils/orch_flag_handler.py (core orchestration logic)
+- tests/test_orch_flag_handler.py (15 unit tests)
+- tests/test_integration_orch_flag.py (21 integration tests)
+- docs/guide/orch-flag-usage.md (user guide)
+- commands/do.md, brainstorm.md, check.md, docs/sync.md, ci/generate.md
+
+**Implementation:**
+- Core handler: `utils/orch_flag_handler.py`
+- 58 tests (unit + integration), 95% coverage
+- Backward compatible (opt-in flag)
+- No breaking changes to existing commands
+
+---
 
 ### v2.4.0 (2026-01-18) - Brainstorm Question Control (Phase 1)
 
