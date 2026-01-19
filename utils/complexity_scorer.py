@@ -35,29 +35,55 @@ def calculate_complexity_score(task: str) -> int:
     # Factor 1: Multi-step task (+2)
     # Look for multiple verbs or explicit multi-step indicators
     multi_step_indicators = [
-        r'\band\b',  # "lint and test"
-        r',',  # "lint, test, build"
-        r'\bthen\b',  # "build then deploy"
-        r'\bafter\b',  # "test after build"
-        r'\bwith\b.*\band\b',  # "with tests and docs"
+        r"\band\b",  # "lint and test"
+        r",",  # "lint, test, build"
+        r"\bthen\b",  # "build then deploy"
+        r"\bafter\b",  # "test after build"
+        r"\bwith\b.*\band\b",  # "with tests and docs"
     ]
 
     # Count action verbs
     action_verbs = [
-        'add', 'create', 'implement', 'build', 'design', 'refactor',
-        'test', 'validate', 'check', 'lint', 'format', 'fix',
-        'update', 'modify', 'deploy', 'configure', 'setup', 'optimize'
+        "add",
+        "create",
+        "implement",
+        "build",
+        "design",
+        "refactor",
+        "test",
+        "validate",
+        "check",
+        "lint",
+        "format",
+        "fix",
+        "update",
+        "modify",
+        "deploy",
+        "configure",
+        "setup",
+        "optimize",
     ]
 
     # Count complexity indicators that suggest non-trivial work
     complexity_indicators = [
-        'comprehensive', 'complete', 'full', 'entire', 'all',
-        'advanced', 'robust', 'scalable', 'production-ready'
+        "comprehensive",
+        "complete",
+        "full",
+        "entire",
+        "all",
+        "advanced",
+        "robust",
+        "scalable",
+        "production-ready",
     ]
 
     verb_count = sum(1 for verb in action_verbs if verb in task_lower)
-    has_multi_step_indicator = any(re.search(pattern, task_lower) for pattern in multi_step_indicators)
-    has_complexity_indicator = any(indicator in task_lower for indicator in complexity_indicators)
+    has_multi_step_indicator = any(
+        re.search(pattern, task_lower) for pattern in multi_step_indicators
+    )
+    has_complexity_indicator = any(
+        indicator in task_lower for indicator in complexity_indicators
+    )
 
     # Lower threshold: 2+ verbs OR multi-step indicator OR complexity indicator
     if verb_count >= 2 or has_multi_step_indicator or has_complexity_indicator:
@@ -66,14 +92,32 @@ def calculate_complexity_score(task: str) -> int:
     # Factor 2: Cross-category task (+2)
     # Check for mentions of different categories
     categories = {
-        'code': ['code', 'implement', 'refactor', 'fix', 'bug', 'feature', 'function', 'class', 'module'],
-        'test': ['test', 'coverage', 'validate', 'testing'],
-        'docs': ['doc', 'documentation', 'readme', 'comment'],
-        'ci': ['ci', 'pipeline', 'workflow', 'deploy', 'build', 'deployment'],
-        'architecture': ['design', 'architecture', 'pattern', 'structure', 'system', 'microservice', 'api'],
-        'security': ['auth', 'oauth', 'security', 'token', 'session'],
-        'database': ['database', 'migration', 'schema', 'query', 'queries', 'db'],
-        'error_handling': ['error', 'exception', 'handling', 'validation']
+        "code": [
+            "code",
+            "implement",
+            "refactor",
+            "fix",
+            "bug",
+            "feature",
+            "function",
+            "class",
+            "module",
+        ],
+        "test": ["test", "coverage", "validate", "testing"],
+        "docs": ["doc", "documentation", "readme", "comment"],
+        "ci": ["ci", "pipeline", "workflow", "deploy", "build", "deployment"],
+        "architecture": [
+            "design",
+            "architecture",
+            "pattern",
+            "structure",
+            "system",
+            "microservice",
+            "api",
+        ],
+        "security": ["auth", "oauth", "security", "token", "session"],
+        "database": ["database", "migration", "schema", "query", "queries", "db"],
+        "error_handling": ["error", "exception", "handling", "validation"],
     }
 
     matched_categories = set()
@@ -91,10 +135,23 @@ def calculate_complexity_score(task: str) -> int:
     # Factor 3: Requires planning (+2)
     # Look for architectural/design keywords or tasks that inherently need planning
     planning_keywords = [
-        'design', 'architecture', 'plan', 'strategy', 'approach',
-        'pattern', 'structure', 'system', 'framework', 'flow',
-        'optimize', 'performance', 'scalability', 'microservice',
-        'migration', 'redesign', 'restructure'
+        "design",
+        "architecture",
+        "plan",
+        "strategy",
+        "approach",
+        "pattern",
+        "structure",
+        "system",
+        "framework",
+        "flow",
+        "optimize",
+        "performance",
+        "scalability",
+        "microservice",
+        "migration",
+        "redesign",
+        "restructure",
     ]
 
     if any(keyword in task_lower for keyword in planning_keywords):
@@ -103,8 +160,16 @@ def calculate_complexity_score(task: str) -> int:
     # Factor 4: Requires research (+2)
     # Look for investigation/exploration keywords
     research_keywords = [
-        'research', 'investigate', 'explore', 'analyze', 'study',
-        'compare', 'evaluate', 'review', 'understand', 'how to'
+        "research",
+        "investigate",
+        "explore",
+        "analyze",
+        "study",
+        "compare",
+        "evaluate",
+        "review",
+        "understand",
+        "how to",
     ]
 
     if any(keyword in task_lower for keyword in research_keywords):
@@ -113,22 +178,39 @@ def calculate_complexity_score(task: str) -> int:
     # Factor 5: Multi-file changes (+2)
     # Look for keywords indicating broad impact
     multi_file_indicators = [
-        'system', 'module', 'package', 'library', 'entire',
-        'all', 'multiple', 'across', 'throughout', 'ecosystem',
-        'microservice', 'pipeline'
+        "system",
+        "module",
+        "package",
+        "library",
+        "entire",
+        "all",
+        "multiple",
+        "across",
+        "throughout",
+        "ecosystem",
+        "microservice",
+        "pipeline",
     ]
 
     # Also check for mentions of multiple specific files/components
-    component_mentions = len(re.findall(r'\b\w+\.(py|js|ts|md|yml|json)\b', task))
+    component_mentions = len(re.findall(r"\b\w+\.(py|js|ts|md|yml|json)\b", task))
 
-    if component_mentions >= 5 or any(indicator in task_lower for indicator in multi_file_indicators):
+    if component_mentions >= 5 or any(
+        indicator in task_lower for indicator in multi_file_indicators
+    ):
         score += 2
 
     # Factor 6: Inherently complex keywords (+2)
     # Some keywords indicate moderate-to-high complexity by themselves
     high_complexity_keywords = [
-        'comprehensive', 'optimize', 'redesign', 'microservice',
-        'authentication', 'migration', 'scalable', 'performance'
+        "comprehensive",
+        "optimize",
+        "redesign",
+        "microservice",
+        "authentication",
+        "migration",
+        "scalable",
+        "performance",
     ]
 
     if any(keyword in task_lower for keyword in high_complexity_keywords):
@@ -137,10 +219,10 @@ def calculate_complexity_score(task: str) -> int:
     # Factor 7: Major architectural changes (+2)
     # Detect combinations that indicate system-wide architectural overhaul
     architectural_change_patterns = [
-        ('redesign', 'architecture'),
-        ('redesign', 'system'),
-        ('refactor', 'architecture'),
-        ('migrate', 'architecture'),
+        ("redesign", "architecture"),
+        ("redesign", "system"),
+        ("refactor", "architecture"),
+        ("migrate", "architecture"),
     ]
 
     for keyword1, keyword2 in architectural_change_patterns:
@@ -183,95 +265,32 @@ def explain_score(task: str) -> Dict[str, any]:
     score = calculate_complexity_score(task)
     routing = get_routing_decision(score)
 
-    # Re-calculate to get explanations
-    task_lower = task.lower()
-    factors = []
-
-    # Check each factor
-    action_verbs = ['add', 'create', 'implement', 'build', 'design', 'refactor',
-                   'test', 'validate', 'check', 'lint', 'format', 'fix',
-                   'update', 'modify', 'deploy', 'configure', 'setup', 'optimize']
-
-    complexity_indicators = [
-        'comprehensive', 'complete', 'full', 'entire', 'all',
-        'advanced', 'robust', 'scalable', 'production-ready'
-    ]
-
-    verb_count = sum(1 for verb in action_verbs if verb in task_lower)
-    has_complexity_indicator = any(indicator in task_lower for indicator in complexity_indicators)
-
-    if verb_count >= 2 or any(pattern in task_lower for pattern in ['and', ',', 'then']) or has_complexity_indicator:
-        factors.append("Multi-step task (+2)")
-
-    categories = {
-        'code': ['code', 'implement', 'refactor', 'fix', 'bug', 'feature', 'function', 'class', 'module'],
-        'test': ['test', 'coverage', 'validate', 'testing'],
-        'docs': ['doc', 'documentation', 'readme', 'comment'],
-        'ci': ['ci', 'pipeline', 'workflow', 'deploy', 'build', 'deployment'],
-        'architecture': ['design', 'architecture', 'pattern', 'structure', 'system', 'microservice', 'api'],
-        'security': ['auth', 'oauth', 'security', 'token', 'session'],
-        'database': ['database', 'migration', 'schema', 'query', 'queries', 'db'],
-        'error_handling': ['error', 'exception', 'handling', 'validation']
-    }
-
-    matched_categories = set()
-    for category, keywords in categories.items():
-        if any(keyword in task_lower for keyword in keywords):
-            matched_categories.add(category)
-
-    if len(matched_categories) >= 2:
-        factors.append(f"Cross-category task ({', '.join(matched_categories)}) (+2)")
-
-    if len(matched_categories) >= 4:
-        factors.append(f"Comprehensive task ({len(matched_categories)} categories) (+2)")
-
-    planning_keywords = ['design', 'architecture', 'plan', 'strategy', 'approach',
-                        'pattern', 'structure', 'system', 'framework', 'flow',
-                        'optimize', 'performance', 'scalability', 'microservice',
-                        'migration', 'redesign', 'restructure']
-    if any(keyword in task_lower for keyword in planning_keywords):
-        factors.append("Requires planning (+2)")
-
-    research_keywords = ['research', 'investigate', 'explore', 'analyze', 'study',
-                        'compare', 'evaluate', 'review', 'understand', 'how to']
-    if any(keyword in task_lower for keyword in research_keywords):
-        factors.append("Requires research (+2)")
-
-    multi_file_indicators = ['system', 'module', 'package', 'library', 'entire',
-                            'all', 'multiple', 'across', 'throughout', 'ecosystem',
-                            'microservice', 'pipeline']
-    component_mentions = len(re.findall(r'\b\w+\.(py|js|ts|md|yml|json)\b', task))
-
-    if component_mentions >= 5 or any(indicator in task_lower for indicator in multi_file_indicators):
-        factors.append("Multi-file changes (+2)")
-
-    high_complexity_keywords = [
-        'comprehensive', 'optimize', 'redesign', 'microservice',
-        'authentication', 'migration', 'scalable', 'performance'
-    ]
-    if any(keyword in task_lower for keyword in high_complexity_keywords):
-        factors.append("High-complexity task (+2)")
-
-    architectural_change_patterns = [
-        ('redesign', 'architecture'),
-        ('redesign', 'system'),
-        ('refactor', 'architecture'),
-        ('migrate', 'architecture'),
-    ]
-
-    for keyword1, keyword2 in architectural_change_patterns:
-        if keyword1 in task_lower and keyword2 in task_lower:
-            factors.append("Major architectural change (+2)")
-            break
-
     return {
         "task": task,
         "score": score,
         "routing": routing,
-        "factors": factors,
-        "explanation": f"Score {score}/10 → Route to {routing}" +
-                      (f" ({', '.join(factors)})" if factors else " (no complexity factors)")
+        "explanation": f"Score {score}/10 → Route to {routing}",
     }
+
+
+def recommend_orchestration_mode(complexity_score: int) -> str:
+    """
+    Recommend orchestration mode based on complexity score.
+
+    Args:
+        complexity_score: Task complexity (0-10)
+
+    Returns:
+        Recommended mode name: "default", "debug", "optimize", or "release"
+    """
+    if complexity_score <= 3:
+        return "default"
+    elif complexity_score <= 5:
+        return "default"
+    elif complexity_score <= 7:
+        return "optimize"
+    else:
+        return "release"
 
 
 if __name__ == "__main__":
@@ -295,9 +314,9 @@ if __name__ == "__main__":
         print(f"\nTask: {task}")
         print(f"Score: {result['score']}/10")
         print(f"Routing: {result['routing']}")
-        if result['factors']:
+        if result["factors"]:
             print(f"Factors:")
-            for factor in result['factors']:
+            for factor in result["factors"]:
                 print(f"  - {factor}")
         else:
             print("Factors: None (simple task)")

@@ -110,21 +110,29 @@
 /craft:git:clean                     # Clean merged branches
 ```
 
-## Orchestrator (Enhanced v2.1)
+## Orchestrator (Enhanced v2.1, v2.5.0)
 
 ```bash
+# Traditional method
 /craft:orchestrate "add auth" optimize    # Fast parallel (4 agents)
 /craft:orchestrate "prep release" release # Thorough audit
 /craft:orchestrate status                 # Agent dashboard
 /craft:orchestrate timeline               # Execution timeline
 /craft:orchestrate continue               # Resume session
+
+# NEW (v2.5.0) - Quick orchestration with --orch flag
+/craft:do "add auth" --orch=optimize      # Quick orchestration
+/craft:check --orch=release               # Orchestrated validation
+/craft:docs:sync --orch=default           # Orchestrated docs sync
+/craft:ci:generate --orch=optimize        # Orchestrated CI generation
 ```
 
 **Features:**
-- Mode-aware execution
+- Mode-aware execution (default/debug/optimize/release)
 - Subagent monitoring
 - Chat compression
 - ADHD-optimized status tracking
+- **NEW (v2.5.0)** - --orch flag for quick orchestration
 
 ## Workflow Commands (Enhanced v2.4.0)
 

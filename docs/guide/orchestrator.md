@@ -6,11 +6,14 @@
 > - **What:** Advanced task orchestrator coordinating multiple agents with 4 execution modes (10s, 2min, 3min, 5min)
 > - **Why:** Handle complex multi-step tasks with proper delegation, monitoring, and ADHD-friendly tracking
 > - **How:** `/craft:orchestrate "task" [mode]` where mode = default/debug/optimize/release
+> - **NEW (v2.5.0):** Use `--orch` flag on supported commands for quick orchestration: `/craft:do "task" --orch=optimize`
 > - **Next:** Try `/craft:orchestrate "add auth" debug` for verbose execution tracking
 
 > 🎓 **User Guide** - Practical examples and quick start.
 >
 > Looking for technical details? See the [**Orchestrator Reference**](../commands/orchestrate.md) for implementation details and advanced features.
+>
+> **NEW (v2.5.0):** For quick orchestration without a separate command, see the [**--orch Flag Guide**](orch-flag-usage.md) for streamlined usage patterns.
 
 ## Overview
 
@@ -30,9 +33,73 @@ The orchestrator coordinates multiple agents and tools for complex, multi-step t
 
 ## Basic Usage
 
+### Traditional Method (v2.4.0 and earlier)
+
 ```bash
 /craft:orchestrate "implement user authentication"
 ```
+
+### NEW (v2.5.0): Quick Orchestration with --orch Flag
+
+The `--orch` flag enables orchestration directly from supported commands:
+
+```bash
+/craft:do "implement user authentication" --orch=optimize
+```
+
+**Supported Commands:**
+| Command | Usage |
+|---------|-------|
+| `/craft:do` | `/craft:do "task" --orch=[mode]` |
+| `/craft:workflow:brainstorm` | `/brainstorm "topic" --orch=[mode]` |
+| `/craft:check` | `/craft:check --orch=[mode]` |
+| `/craft:docs:sync` | `/craft:docs:sync --orch=[mode]` |
+| `/craft:ci:generate` | `/craft:ci:generate --orch=[mode]` |
+
+**Benefits:**
+- No need to remember separate `/craft:orchestrate` command
+- Integrates seamlessly with existing workflows
+- Preserves command-specific context and arguments
+
+### Orchestration Modes
+
+| Mode | Max Agents | Compression | Use Case |
+|------|------------|-------------|----------|
+| `default` | 2 | 70% | Quick tasks |
+| `debug` | 1 | 90% | Detailed troubleshooting |
+| `optimize` | 4 | 60% | Fast parallel execution |
+| `release` | 4 | 85% | Pre-release validation |
+
+### Mode Examples
+
+```bash
+# Quick orchestration (default mode)
+/craft:do "add validation" --orch
+
+# Verbose debugging
+/craft:do "fix the bug" --orch=debug
+
+# Parallel execution (fastest)
+/craft:do "implement auth" --orch=optimize
+
+# Pre-release validation
+/craft:do "prepare release" --orch=release
+```
+
+### Preview Mode (Dry-Run)
+
+Preview orchestration without execution:
+
+```bash
+/craft:do "refactor auth" --orch=release --dry-run
+```
+
+This shows:
+- Task description
+- Selected mode
+- Max agents
+- Compression ratio
+- What would be executed
 
 The orchestrator will:
 1. Analyze the task
@@ -189,3 +256,4 @@ The orchestrator maintains state and continues from where it left off.
 - [Skills & Agents](skills-agents.md) - Understanding the system
 - [Getting Started](getting-started.md) - Basic usage
 - [Brainstorm Command](../commands/workflow/brainstorm.md) - Context gathering (v2.4.0)
+- [**NEW** --orch Flag Guide](orch-flag-usage.md) - Quick orchestration (v2.5.0)

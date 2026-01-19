@@ -21,6 +21,12 @@ args:
   - name: categories
     description: "Question categories: req,users,scope,tech,timeline,risks,existing,success (comma-separated, use 'all' for default)"
     required: false
+  - name: orch
+    description: "Enable orchestration mode (NEW in v2.5.0)"
+    required: false
+  - name: orch-mode
+    description: "Orchestration mode: default|debug|optimize|release (NEW in v2.5.0)"
+    required: false
 ---
 
 # /workflow:brainstorm - Enhanced Brainstorm
@@ -346,6 +352,38 @@ No arguments?         → Smart context detection (Step 0.5)
 | `/brainstorm m:12 f s "auth"` | max | 12 | auto | 12 questions → SPEC.md |
 | `/brainstorm q f s "auth"` | quick | feat | save | "Ask More?" → SPEC.md |
 | `/brainstorm` | - | - | - | Smart detect → menus → execute |
+
+### Step 0: Check for --orch Flag (NEW in v2.5.0)
+
+```python
+from utils.orch_flag_handler import handle_orch_flag, show_orchestration_preview, spawn_orchestrator
+
+orch_flag = args.orch
+mode_flag = args.orch_mode
+topic = args.topic or detected_topic
+
+if orch_flag:
+    should_orchestrate, mode = handle_orch_flag(
+        f"brainstorm '{topic}' with comprehensive analysis",
+        orch_flag,
+        mode_flag
+    )
+
+    if args.dry_run:
+        categories_str = ",".join(args.categories) if args.categories else "all"
+        show_orchestration_preview(
+            f"brainstorm '{topic}' focusing on categories: {categories_str}",
+            mode
+        )
+        return
+
+    categories_str = ",".join(args.categories) if args.categories else "all"
+    orchestrator_task = f"brainstorm '{topic}' focusing on categories: {categories_str}"
+    spawn_orchestrator(orchestrator_task, mode)
+    return
+
+# Otherwise, continue with normal brainstorm flow...
+```
 
 ### Step 0.5: Smart Context Detection (No Arguments)
 
@@ -1449,6 +1487,44 @@ User: /workflow:brainstorm d:15 f s -C req,tech,success "payment api"
 → Categories: requirements, technical, success only
 → Milestone prompts every 8 questions
 → Generates comprehensive plan with spec
+```
+
+### Example 9: Orchestration Mode (v2.5.0)
+
+```
+User: /workflow:brainstorm "authentication system" --orch=optimize
+
+→ Orchestrator spawns with optimize mode
+→ Parallel agent analysis for comprehensive coverage
+```
+
+### Example 10: Orchestration with Dry-Run (v2.5.0)
+
+```
+User: /workflow:brainstorm "payment api" --orch=release --dry-run
+
++---------------------------------------------------------------------+
+| DRY RUN: Orchestration Preview                                      |
++---------------------------------------------------------------------+
+| Task: brainstorm 'payment api' focusing on categories: all         |
+| Mode: release                                                       |
+| Max Agents: 4                                                       |
+| Compression: 85%                                                    |
++---------------------------------------------------------------------+
+| This would spawn the orchestrator with the above settings.          |
+| Remove --dry-run to execute.                                        |
++---------------------------------------------------------------------+
+```
+
+### Example 11: Orchestration with Categories (v2.5.0)
+
+```
+User: /workflow:brainstorm d:5 "auth" -C req,tech --orch=optimize
+
+→ Orchestrator spawned with:
+→ - Deep mode with 5 questions
+→ - Categories: requirements + technical only
+→ - Optimize mode for parallel agent execution
 ```
 
 ---
