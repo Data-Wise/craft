@@ -13,6 +13,14 @@ arguments:
     required: false
     default: false
     alias: -n
+  - name: orch
+    description: Enable orchestration mode (NEW in v2.5.0)
+    required: false
+    default: false
+  - name: orch-mode
+    description: "Orchestration mode: default|debug|optimize|release (NEW in v2.5.0)"
+    required: false
+    default: null
 ---
 
 # /craft:check - Universal Pre-flight
@@ -126,6 +134,48 @@ Preview which checks will be performed without actually executing them:
 ```
 
 **Note**: Dry-run shows the validation plan based on project type and context. Read-only analysis, no actual checks performed.
+
+## Orchestration Mode (NEW in v2.5.0)
+
+Use `--orch` flag to run checks via orchestrator for complex validation scenarios:
+
+```bash
+/craft:check --orch                 # Orchestrated validation with mode prompt
+/craft:check --orch=optimize        # Fast parallel check execution
+/craft:check --orch=release --dry-run   # Preview orchestrated validation
+```
+
+### Orchestration Flow
+
+```python
+from utils.orch_flag_handler import handle_orch_flag, show_orchestration_preview, spawn_orchestrator
+
+orch_flag = args.orch
+mode_flag = args.orch_mode
+dry_run = args.dry_run
+
+if orch_flag:
+    should_orchestrate, mode = handle_orch_flag(
+        "comprehensive project validation",
+        orch_flag,
+        mode_flag
+    )
+
+    if dry_run:
+        show_orchestration_preview(
+            f"validation workflow with {args.mode} mode",
+            mode
+        )
+        return
+
+    spawn_orchestrator(
+        f"run comprehensive checks for {args.for or 'general'} context",
+        mode
+    )
+    return
+
+# Otherwise, continue with normal check flow...
+```
 
 ## Auto-Detection
 
@@ -302,6 +352,48 @@ Validators adapt to execution mode:
 │ STATUS: ALL CHECKS PASSED ✓                        │
 │ Validators: 3/3 passed                              │
 ╰─────────────────────────────────────────────────────╯
+```
+
+### Orchestration Examples (v2.5.0)
+
+```
+User: /craft:check --orch=optimize
+
+→ ORCHESTRATOR v2.1 — OPTIMIZE MODE
+Spawning orchestrator...
+   Task: run comprehensive checks for general context
+   Mode: optimize
+
+Executing: /craft:orchestrate 'run comprehensive checks for general context' optimize
+```
+
+```
+User: /craft:check --orch=release --dry-run
+
++---------------------------------------------------------------------+
+| DRY RUN: Orchestration Preview                                      |
++---------------------------------------------------------------------+
+| Task: validation workflow with default mode                         |
+| Mode: release                                                       |
+| Max Agents: 4                                                       |
+| Compression: 85%                                                    |
++---------------------------------------------------------------------+
+| This would spawn the orchestrator with the above settings.          |
+| Remove --dry-run to execute.                                        |
++---------------------------------------------------------------------+
+```
+
+```
+User: /craft:check --for pr --orch
+
+→ Orchestration Mode Selection
+Available modes:
+  default   - Quick tasks (2 agents max, 70% compression)
+  debug     - Sequential troubleshooting (1 agent, 90% compression)
+  optimize  - Fast parallel work (4 agents, 60% compression)
+  release   - Pre-release audit (4 agents, 85% compression)
+
+[AskUserQuestion prompt appears]
 ```
 
 ### Adding Custom Validators

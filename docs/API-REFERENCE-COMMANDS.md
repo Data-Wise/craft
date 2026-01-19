@@ -33,7 +33,7 @@ Root-level commands that provide universal functionality.
 ### /craft:do
 
 **Category**: Smart Routing | **Complexity**: Medium | **Time**: < 30s
-**Description**: Intelligent command routing with complexity scoring and task decomposition
+**Description**: Intelligent command routing with complexity scoring and task decomposition. **NEW (v2.5.0)**: Use `--orch` flag for quick orchestration.
 
 #### Arguments
 
@@ -44,6 +44,8 @@ Root-level commands that provide universal functionality.
 | `complexity` | enum | No | - | Override complexity: `simple`, `moderate`, `complex` |
 | `dry-run` | boolean | No | false | Preview routing decision without executing |
 | `-n` | boolean | No | false | Alias for `--dry-run` |
+| `orch` | boolean | No | false | **NEW (v2.5.0)** Enable orchestration mode |
+| `orch-mode` | enum | No | `default` | **NEW (v2.5.0)** Orchestration mode: `default`, `debug`, `optimize`, `release` |
 
 #### Examples
 
@@ -59,6 +61,11 @@ Root-level commands that provide universal functionality.
 
 # Override complexity
 /craft:do "quick formatting fix" simple
+
+# NEW (v2.5.0) - Quick orchestration with --orch flag
+/craft:do "implement auth" --orch=optimize
+/craft:do "debug issue" --orch=debug --dry-run
+/craft:do "prepare release" --orch=release
 ```
 
 #### Output Format
@@ -181,6 +188,7 @@ MAIN MENU
 
 **Category**: Coordination | **Complexity**: Complex | **Time**: Variable
 **Description**: Multi-agent task orchestration with background execution
+**Tip (v2.5.0)**: For quick orchestration, use the `--orch` flag on supported commands: `/craft:do "task" --orch=optimize`
 
 #### Arguments
 

@@ -9,6 +9,14 @@ arguments:
     required: false
     default: false
     alias: -n
+  - name: orch
+    description: Enable orchestration mode
+    required: false
+    default: false
+  - name: orch-mode
+    description: Orchestration mode (default|debug|optimize|release)
+    required: false
+    default: null
 ---
 
 # /craft:do - Universal Command
@@ -253,6 +261,61 @@ If agent delegation fails or is denied:
 # 5. /craft:code:release - Release workflow
 ```
 
+## Examples with --orch Flag (NEW in v2.5.0)
+
+### Quick Orchestration
+```bash
+/craft:do "add user authentication" --orch=optimize
+
+# ORCHESTRATOR v2.1 — OPTIMIZE MODE
+Spawning orchestrator...
+   Task: add user authentication
+   Mode: optimize
+
+Executing: /craft:orchestrate 'add user authentication' optimize
+```
+
+### Mode Selection Prompt
+```bash
+/craft:do "add payment" --orch
+
+ Orchestration Mode Selection
+==================================================
+
+Available modes:
+  default   - Quick tasks (2 agents max, 70% compression)
+  debug     - Sequential troubleshooting (1 agent, 90% compression)
+  optimize  - Fast parallel work (4 agents, 60% compression)
+  release   - Pre-release audit (4 agents, 85% compression)
+
+[AskUserQuestion prompt appears]
+```
+
+### Preview Orchestration
+```bash
+/craft:do "refactor auth" --orch=release --dry-run
+
++---------------------------------------------------------------------+
+| DRY RUN: Orchestration Preview                                      |
++---------------------------------------------------------------------+
+| Task: refactor auth                                                 |
+| Mode: release                                                       |
+| Max Agents: 4                                                       |
+| Compression: 85%                                                    |
++---------------------------------------------------------------------+
+| This would spawn the orchestrator with the above settings.          |
+| Remove --dry-run to execute.                                        |
++---------------------------------------------------------------------+
+```
+
+### Orchestrate Complex Task
+```bash
+/craft:do "redesign database layer with migrations and tests" --orch=release
+
+# Complex task automatically suggests orchestration
+# Score: 6 → orchestrator-v2 with release mode for thorough validation
+```
+
 ## Task Categories
 
 | Category | Keywords | Commands Used |
@@ -451,9 +514,32 @@ Note: No spec found for "user authentication"
 
 ---
 
-## Implementation (NEW in v1.23.0)
+## Implementation (NEW in v1.23.0, UPDATED in v2.5.0)
 
 When `/craft:do` is invoked, follow these steps:
+
+### Step 0: Check for --orch Flag (NEW in v2.5.0)
+
+```python
+from utils.orch_flag_handler import handle_orch_flag, show_orchestration_preview, spawn_orchestrator
+
+task = args.task
+orch_flag = args.orch
+mode_flag = args.orch_mode
+dry_run = args.dry_run
+
+if orch_flag:
+    should_orchestrate, mode = handle_orch_flag(task, orch_flag, mode_flag)
+
+    if dry_run:
+        show_orchestration_preview(task, mode)
+        return
+
+    spawn_orchestrator(task, mode)
+    return
+
+# Otherwise, continue with complexity-based routing...
+```
 
 ### Step 1: Analyze Task and Calculate Complexity
 

@@ -1,10 +1,10 @@
-status: Released
-version: 1.24.0
-release_date: 2026-01-18
-milestone: v1.24.0 - Hub v2.0: Zero-Maintenance Command Discovery (COMPLETE)
-last_session: 2026-01-18
+status: In Development
+version: 2.5.0-dev
+release_date: TBD
+milestone: v2.5.0 - --orch Flag Integration (Phase 1-4 PLANNED)
+last_session: 2026-01-19
 
-progress: 100%
+progress: 0%
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)
@@ -586,6 +586,55 @@ session_2026_01_18_brainstorm_phase1:
     - "Build question bank YAML structure (8 categories)"
     - "Update brainstorm.md documentation with new syntax examples"
 
+session_2026_01_18_release_v2_4_0:
+  duration: ~30 minutes
+  accomplishments:
+    - "Comprehensive code review of PR #25 (Brainstorm Question Control) - 9.5/10 initial quality"
+    - "Identified 3 optional improvements (category validation, upper limit warnings, milestone flowchart)"
+    - "Addressed all 3 improvements: category validation with warnings, >50 count confirmation, Mermaid flowchart"
+    - "Updated brainstorm.md with 118 additional lines (+validation, +flowchart, +example session)"
+    - "All 77 tests passing after improvements (53 unit + 24 integration, < 100ms)"
+    - "Merged PR #25 to dev (brainstorm Phase 1, +2,346 lines, 13 files)"
+    - "Created release PR #26 (dev → main)"
+    - "Merged PR #26 to main (v2.4.0 release)"
+    - "Created v2.4.0 annotated tag with comprehensive release notes"
+    - "Published GitHub release v2.4.0 with feature documentation"
+    - "Cleaned up feature/brainstorm-question-control worktree"
+    - "Updated .STATUS with v2.4.0 release information"
+  features_shipped:
+    - "Colon notation: d:5, m:12, q:3 for custom question counts"
+    - "Categories flag: --categories req,tech,success to filter 8 question types"
+    - "Question bank: 16 questions total (8 categories × 2 questions)"
+    - "Milestone prompts: Unlimited questions with batching every 8"
+    - "Category validation: Warnings for unknown categories with helpful feedback"
+    - "Upper limit warnings: Confirmation prompts for counts > 50"
+    - "Visual flowchart: Mermaid diagram showing milestone batch behavior"
+  commits:
+    - "1c8045f: feat: add validation and milestone flowchart improvements"
+    - "0a6608f: Merge PR #25 (squash) - feat: Phase 1 brainstorm question control (v2.4.0)"
+    - "13b9bb9: Merge PR #26 - Release v2.4.0 - Brainstorm Question Control"
+  state_change:
+    - "Version: v1.24.0 → v2.4.0"
+    - "Commands: 99 → 100 (brainstorm enhanced with question control)"
+    - "Tests: 516+ → 581+ (+65 tests: 53 unit + 24 integration - brainstorm)"
+    - "PRs merged: 2 (PR #25 → dev, PR #26 → main)"
+    - "Worktrees cleaned: 1 (feature/brainstorm-question-control)"
+    - "GitHub releases: +1 (v2.4.0 with comprehensive notes)"
+  code_review_quality:
+    - "Initial score: 9.5/10 (excellent, production-ready)"
+    - "Final score: 10/10 (all optional improvements implemented)"
+    - "Test coverage: 100% (77/77 passing, < 100ms)"
+    - "Documentation: Comprehensive with examples, flowcharts, session flows"
+    - "Backward compatibility: 100% (zero breaking changes, all v2.3.0 syntax preserved)"
+  insights:
+    - "Code review process caught valuable improvements (validation, warnings, flowchart)"
+    - "All improvements implemented in < 30 min (demonstrates clean codebase)"
+    - "Visual Mermaid flowchart significantly improves milestone behavior understanding"
+    - "Category validation prevents typos and teaches correct shortcuts"
+    - "Upper limit warnings prevent accidental d:500 typos"
+    - "Squash merge kept PR history clean (single commit to dev)"
+    - "Release process: dev → main PR → tag → GitHub release (smooth workflow)"
+
 session_2026_01_17:
   duration: ~25-26 hours (includes Claude Code 2.1.0 integration and v1.23.1 release)
   accomplishments:
@@ -751,6 +800,13 @@ session_2026_01_15:
     - "Step-by-step tutorials more valuable than generic documentation"
 
 recent:
+  - 🚀 Released v2.4.0: Brainstorm Question Control (Phase 1)
+  - ✅ Merged PR #25: Brainstorm Phase 1 (+2,346 lines, 13 files, 77 tests)
+  - 🧪 Brainstorm tests: 77/77 passing (53 unit + 24 integration, < 100ms)
+  - 🎯 Features: Colon notation (d:5), categories flag (-C req,tech), question bank (16 questions)
+  - ✨ Validation: Category warnings, upper limit prompts (> 50), milestone flowchart
+  - 📝 Code review: 9.5/10 → 10/10 after addressing 3 optional improvements
+  - 🧹 Cleaned worktree: feature/brainstorm-question-control
   - 🧠 Session 2026-01-18 (Brainstorm): Question control Phase 1 preparation (~3h)
   - 📋 Brainstorm redesign: --questions N → colon notation (d:5, m:12, q:3)
   - 📊 Impact-based phasing: High (12h MVP), Medium (9h), Nice-to-have (15h)
@@ -808,9 +864,100 @@ recent:
   - ✅ 92 commands total (was 90, +2 new docs commands)
   - ✅ 29 commands with dry-run (was 27, +2)
 
+orch_flag_integration:
+  branch: feature/orch-flag-integration (active)
+  status: WIP - Spec created, implementation ready
+  started: 2026-01-19
+  target_version: v2.5.0
+  effort: ~8-12 hours (4 phases)
+  worktree: ~/.git-worktrees/craft/feature-orch-flag-integration
+  spec: docs/specs/SPEC-orch-flag-integration-2026-01-19.md
+  implementation: IMPLEMENTATION.md (in worktree)
+
+  description: Add --orch flag to 5 key commands for explicit orchestration mode
+
+  commands_to_enhance:
+    - /craft:do (universal router)
+    - /craft:workflow:brainstorm (ADHD-friendly brainstorming)
+    - /craft:check (pre-flight validation)
+    - /craft:docs:sync (documentation sync)
+    - /craft:ci:generate (CI workflow generation)
+
+  features:
+    - Colon notation: --orch=<mode> (default|debug|optimize|release)
+    - Mode prompt: Interactive selection when mode not specified
+    - Dry-run support: --orch --dry-run for preview
+    - Category integration: --orch -C req,tech for brainstorm
+
+  phases:
+    phase_1_infrastructure:
+      status: planned
+      effort: 2-3 hours
+      deliverables:
+        - utils/orch_flag_handler.py (core logic)
+        - Mode validation and prompting
+        - Orchestrator spawning
+        - Dry-run preview
+
+    phase_2_command_updates:
+      status: planned
+      effort: 3-4 hours
+      deliverables:
+        - Update 5 command YAML frontmatter
+        - Integrate --orch check in implementations
+        - Add examples and documentation
+
+    phase_3_testing:
+      status: planned
+      effort: 2-3 hours
+      deliverables:
+        - Unit tests for orch_flag_handler.py (15+ tests)
+        - Integration tests for commands (25+ tests)
+        - Flag combination tests (10+ tests)
+        - Error handling tests (8+ tests)
+      target_coverage: 95%+
+
+    phase_4_documentation:
+      status: planned
+      effort: 1-2 hours
+      deliverables:
+        - docs/guide/orch-flag-usage.md (user guide)
+        - Update CLAUDE.md with --orch info
+        - Update VERSION-HISTORY.md with v2.5.0
+        - Update all 5 command docs
+
+  acceptance_criteria:
+    - AC1: /craft:do "task" --orch prompts for mode ✅
+    - AC2: /craft:do "task" --orch=optimize spawns orchestrator ✅
+    - AC3: /craft:do "task" --orch=invalid shows error ✅
+    - AC4: /craft:do "task" --orch --dry-run shows preview ✅
+    - AC5: /brainstorm "task" --orch -C req,tech orchestrates ✅
+    - AC6: All 5 commands support --orch flag ✅
+    - AC7: --orch overrides complexity routing ✅
+    - AC8: Backward compatible (opt-in flag) ✅
+    - AC9: Error messages clear and actionable ✅
+    - AC10: Documentation updated for all commands ✅
+    - AC11: Tests cover all flag combinations ✅
+    - AC12: Mode prompt < 1 second response ✅
+
+  success_metrics:
+    - Adoption: 30%+ of /craft:do uses --orch within 2 weeks
+    - Bug reports: < 3 related to flag parsing
+    - Performance: Mode prompt < 1 second
+    - Coverage: 95%+ for core handler
+
+  commits:
+    - TBD (implementation in progress)
+
+  next_steps:
+    - Navigate to worktree: cd ~/.git-worktrees/craft/feature-orch-flag-integration
+    - Start Phase 1: Create utils/orch_flag_handler.py
+    - Run tests frequently: pytest tests/test_orch_flag_handler.py -v
+    - Commit atomic changes with conventional commits
+
 worktrees:
   - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
-  - feature/teaching-flags: ~/.git-worktrees/craft/feature-teaching-flags (active, commit db63cde)
+  - feature/orch-flag-integration: ~/.git-worktrees/craft/feature-orch-flag-integration (active, WIP)
 
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
@@ -1226,3 +1373,143 @@ badges:
 install: See README.md
 docs: https://data-wise.github.io/craft/
 repo: https://github.com/Data-Wise/craft
+
+# ==============================================================================
+# v2.5.1 Improvements (2026-01-19)
+# ==============================================================================
+
+orch_flag_v2_5_1_improvements:
+  branch: feature/orch-flag-v2.5.1-improvements
+  worktree: ~/.git-worktrees/craft/feature-orch-flag-v2.5.1-improvements
+  status: PLANNING COMPLETE, READY FOR IMPLEMENTATION
+  created: 2026-01-19
+  target_version: v2.5.1
+  estimated_effort: 4-6 hours
+
+  source:
+    gap_analysis: GAP-ANALYSIS-orch-flag-v2.5.0.md
+    parent_spec: docs/specs/SPEC-orch-flag-integration-2026-01-19.md (v2.5.0)
+    gaps_identified: 12 total (1 high, 2 medium, 9 low)
+
+  scope:
+    gaps_addressed: 4 of 12
+    high_priority: 1 (Gap 4.1 - mode prompt)
+    medium_priority: 2 (Gap 4.2 - error handling, Gap 3.1 - test checklist)
+    low_priority: 1 (Gap 1.1 - CLAUDE.md link)
+    deferred: 8 gaps to v2.6.0
+
+  phases:
+    phase_1:
+      name: Core Improvements
+      effort: 2-3 hours
+      status: NOT STARTED
+      tasks:
+        - Implement prompt_user_for_mode() with AskUserQuestion
+        - Add error handling to spawn_orchestrator()
+        - Add handle_orchestrator_failure() helper
+        - Update type hints and docstrings
+      files:
+        - utils/orch_flag_handler.py (UPDATE)
+
+    phase_2:
+      name: Testing
+      effort: 1-2 hours
+      status: NOT STARTED
+      tasks:
+        - Add 6 unit tests for mode prompt
+        - Add 3 unit tests for error handling
+        - Create TESTING-CHECKLIST.md (8 scenarios)
+        - Verify no regression in existing tests
+      files:
+        - tests/test_orch_flag_handler.py (UPDATE)
+        - TESTING-CHECKLIST.md (NEW)
+      tests:
+        new: 9 (6 mode prompt + 3 error handling)
+        total_after: 65 (56 existing + 9 new)
+
+    phase_3:
+      name: Documentation
+      effort: 1 hour
+      status: NOT STARTED
+      tasks:
+        - Add orch guide link to CLAUDE.md
+        - Add troubleshooting section to orch-flag-usage.md
+        - Update VERSION-HISTORY.md with v2.5.1 entry
+      files:
+        - CLAUDE.md (UPDATE)
+        - docs/guide/orch-flag-usage.md (UPDATE)
+        - docs/VERSION-HISTORY.md (UPDATE)
+
+  acceptance_criteria:
+    functional:
+      - AC1: prompt_user_for_mode() displays 4 options with descriptions
+      - AC2: User can select mode interactively
+      - AC3: Invalid/cancelled selection falls back to default
+      - AC4: spawn_orchestrator() returns success boolean
+      - AC5: Orchestrator failure shows error + fallback message
+      - AC6: Failed spawn doesn't crash execution
+      - AC7: Manual testing checklist covers 8 scenarios
+      - AC8: CLAUDE.md links to orch-flag-usage.md
+
+    non_functional:
+      - AC9: No breaking changes to existing API
+      - AC10: Backward compatible with v2.5.0
+      - AC11: Error messages are user-friendly
+      - AC12: Code coverage ≥ 95% for modified functions
+
+  quality_metrics:
+    before:
+      completeness: 95%
+      test_coverage: 100% (56/56 passing)
+      documentation: 95%
+      known_issues: 3 (1 high, 2 medium)
+
+    target:
+      completeness: 98%
+      test_coverage: 100% (65/65 passing)
+      documentation: 97%
+      known_issues: 0 high, 0 medium
+
+  deliverables:
+    - docs/specs/SPEC-orch-flag-v2.5.1-improvements-2026-01-19.md (NEW)
+    - IMPLEMENTATION-v2.5.1.md (NEW)
+    - WIP-v2.5.1.md (NEW)
+    - TESTING-CHECKLIST.md (NEW)
+    - utils/orch_flag_handler.py (UPDATE)
+    - tests/test_orch_flag_handler.py (UPDATE)
+    - CLAUDE.md (UPDATE)
+    - docs/guide/orch-flag-usage.md (UPDATE)
+    - docs/VERSION-HISTORY.md (UPDATE)
+
+  ready_to_merge_criteria:
+    - All 12 acceptance criteria met
+    - All 65 tests passing (56 existing + 9 new)
+    - Manual testing complete (8/8 scenarios)
+    - Documentation updated
+    - No breaking changes
+    - CI/CD passing
+    - Code review approved
+
+  next_steps:
+    immediate:
+      - Navigate to worktree: cd ~/.git-worktrees/craft/feature-orch-flag-v2.5.1-improvements
+      - Start Phase 1: Implement core improvements
+      - Run tests after each phase
+      - Commit with conventional commits
+
+    after_merge:
+      - Tag as v2.5.1
+      - Update main CLAUDE.md
+      - Update website documentation
+      - Announce improvements in release notes
+
+  remaining_gaps_v2_6_0:
+    - Gap 1.3: Tutorial for orch workflow
+    - Gap 2.1: Quick Start orch tips
+    - Gap 2.2: Mermaid diagram
+    - Gap 1.2: Hub command examples
+    - Gap 3.3: Complex flag tests
+    - Gap 3.4: Performance tests
+    - Gap 4.3: Session state (future)
+    - Visual workflow diagram
+

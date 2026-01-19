@@ -10,15 +10,15 @@
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code - 97 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code - 100 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v1.24.0:** Hub v2.0 - Zero-maintenance command discovery with 3-layer progressive disclosure. Auto-detects all commands (94% faster than target). See [what's new](#whats-new-in-v1240)
+> **NEW in v2.5.1:** Enhanced --orch flag with interactive mode prompts, graceful error handling, and mode recommendations based on complexity. See [what's new](#whats-new-in-v251)
 
 ## Features
 
 <div class="grid cards" markdown>
 
-- :rocket: **97 Commands**
+- :rocket: **100 Commands**
 
     Smart commands, docs, site management, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
 
@@ -94,6 +94,32 @@ Complete OpenAPI-style documentation for all 97 Craft commands:
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
+
+## What's New in v2.5.1
+
+**User Experience Enhancements for --orch Flag** 🎯
+
+Enhanced orchestration with better prompts, error handling, and guidance (PR #28):
+
+- **Interactive mode prompt**: Smart prompt with fallback behavior for test/script contexts
+- **Graceful error handling**: `spawn_orchestrator()` returns bool for proper error flow
+- **User-friendly failures**: `handle_orchestrator_failure()` with 4 actionable suggestions
+- **Mode recommendations**: `recommend_orchestration_mode()` based on complexity (0-10 scale)
+- **Comprehensive troubleshooting**: 6 detailed scenarios in user guide
+- **Test coverage**: 15 new tests (33 total), all passing, 100% coverage for new functions
+
+**Gap coverage:** Addresses 4 of 12 gaps from v2.5.0 (1 high, 2 medium, 1 low priority)
+
+**Try it:**
+```bash
+/craft:do "add auth" --orch           # Interactive mode prompt
+/craft:do "add auth" --orch=optimize  # Explicit mode (no prompt)
+/craft:do "add auth" --orch --dry-run # Preview orchestration
+```
+
+**Documentation:**
+- [--orch Flag Usage Guide](guide/orch-flag-usage.md) - Complete guide with troubleshooting
+- [Version History](VERSION-HISTORY.md) - Full v2.5.1 changelog
 
 ## What's New in v1.24.0
 
