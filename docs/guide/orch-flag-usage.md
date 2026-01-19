@@ -115,6 +115,134 @@ The orchestrator is automatically triggered for high-complexity tasks (score 8-1
 - Lower-complexity tasks that would benefit from orchestration
 - Situations where you want orchestration regardless of complexity score
 
+---
+
+## Troubleshooting
+
+### Mode Prompt Not Appearing
+
+**Issue:** Running `--orch` without mode doesn't show interactive prompt
+
+**Causes:**
+1. Not running in Claude Code CLI context
+2. Running in test/automated script environment
+3. Tool access restricted or unavailable
+
+**Solutions:**
+- ✅ Use explicit mode: `--orch=optimize`
+- ✅ Verify Claude Code version (requires 2.1.0+)
+- ✅ Check that AskUserQuestion tool is available
+- ✅ Try in fresh Claude Code session
+
+**Fallback Behavior:**
+If prompt fails, automatically defaults to "default" mode with notification.
+
+---
+
+### Orchestrator Spawn Failures
+
+**Issue:** Error message "⚠️  Orchestrator Spawn Failed"
+
+**Causes:**
+1. Orchestrator agent not available or disabled
+2. Permission denied for agent delegation
+3. Resource constraints (context limit reached)
+4. Network/service interruption
+
+**Solutions:**
+- ✅ Check agent status: `/craft:hub` → agents section
+- ✅ Try smaller task or lower complexity mode (debug/default)
+- ✅ Use explicit commands instead: `/craft:check`, `/craft:code:lint`
+- ✅ Restart Claude Code session to reset context
+
+**Automatic Fallback (v2.5.1+):**
+The system automatically falls back to command routing when orchestrator spawn fails, ensuring task completion even when orchestration is unavailable.
+
+**Example fallback flow:**
+```
+User runs: /craft:do "add auth" --orch=optimize
+System tries: Spawn orchestrator
+Fails: Orchestrator unavailable
+Fallback: Routes to /craft:arch:plan + /craft:code:test-gen
+Result: Task completes via commands instead
+```
+
+---
+
+### Invalid Mode Errors
+
+**Issue:** "Invalid mode: 'xyz'. Valid modes: ..."
+
+**Cause:** Typo or unsupported mode specified
+
+**Solution:** Use one of the 4 valid modes:
+- `--orch=default` (2 agents, moderate parallelization)
+- `--orch=debug` (1 agent, sequential troubleshooting)
+- `--orch=optimize` (4 agents, fast parallel work)
+- `--orch=release` (4 agents, thorough validation)
+
+---
+
+### Dry-Run Not Showing Expected Output
+
+**Issue:** `--dry-run` output missing or incomplete
+
+**Causes:**
+1. Dry-run flag not parsed correctly
+2. Other flags conflicting
+3. Output buffering issues
+
+**Solutions:**
+- ✅ Try: `--dry-run` or `-n` (short form)
+- ✅ Place `--dry-run` at end of command
+- ✅ Check for typos in flags
+- ✅ Example: `/craft:do "task" --orch=optimize --dry-run`
+
+---
+
+### Mode Selection Timeout
+
+**Issue:** Prompt waits indefinitely for user selection
+
+**Cause:** Interactive prompt waiting for input in automated environment
+
+**Solution:**
+- ✅ Always use explicit mode in scripts/automation: `--orch=default`
+- ✅ Don't use bare `--orch` in non-interactive contexts
+- ✅ Set default mode in calling script
+
+**Best Practice for Scripts:**
+```bash
+# ❌ Don't: Interactive prompt in script
+/craft:do "build project" --orch
+
+# ✅ Do: Explicit mode in script
+/craft:do "build project" --orch=optimize
+```
+
+---
+
+### Getting Help
+
+If you encounter issues not covered here:
+
+1. **Check documentation:**
+   - Main guide: This file
+   - Command docs: `commands/do.md`, `commands/workflow/brainstorm.md`
+   - Integration guide: `docs/guide/claude-code-2.1-integration.md`
+
+2. **Verify setup:**
+   - Run: `/craft:check` to validate environment
+   - Run: `/craft:hub` to see available commands/agents
+
+3. **Report issues:**
+   - Include command used
+   - Include error message
+   - Include Claude Code version
+   - Include mode (if applicable)
+
+---
+
 ## Examples
 
 ### Feature Development
