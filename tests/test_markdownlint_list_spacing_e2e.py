@@ -172,14 +172,14 @@ class TestPrecommitHookIntegration:
 
     def test_hook_file_exists(self):
         """Pre-commit hook should exist in main repo."""
-        main_repo = Path(__file__).parent.parent.parent / ".." / ".." / "craft"
+        main_repo = Path(__file__).parent.parent
         hook_path = main_repo / ".git" / "hooks" / "pre-commit"
 
         assert hook_path.exists(), "Pre-commit hook not found: {0}".format(hook_path)
 
     def test_hook_executable(self):
         """Pre-commit hook should be executable."""
-        main_repo = Path(__file__).parent.parent.parent / ".." / ".." / "craft"
+        main_repo = Path(__file__).parent.parent
         hook_path = main_repo / ".git" / "hooks" / "pre-commit"
 
         # Check if file has execute permission
@@ -191,15 +191,15 @@ class TestPrecommitHookIntegration:
 
     def test_hook_has_shebang(self):
         """Pre-commit hook should have bash shebang."""
-        main_repo = Path(__file__).parent.parent.parent / ".." / ".." / "craft"
+        main_repo = Path(__file__).parent.parent
         hook_path = main_repo / ".git" / "hooks" / "pre-commit"
 
         content = hook_path.read_text()
-        assert content.startswith("#!/bin/bash"), "Hook should start with #!/bin/bash"
+        assert content.startswith("#!/usr/bin/env bash"), "Hook should start with #!/usr/bin/env bash"
 
     def test_hook_checks_markdownlint(self):
         """Hook should check markdownlint."""
-        main_repo = Path(__file__).parent.parent.parent / ".." / ".." / "craft"
+        main_repo = Path(__file__).parent.parent
         hook_path = main_repo / ".git" / "hooks" / "pre-commit"
 
         content = hook_path.read_text()
@@ -207,7 +207,7 @@ class TestPrecommitHookIntegration:
 
     def test_hook_checks_staged_files(self):
         """Hook should check only staged markdown files."""
-        main_repo = Path(__file__).parent.parent.parent / ".." / ".." / "craft"
+        main_repo = Path(__file__).parent.parent
         hook_path = main_repo / ".git" / "hooks" / "pre-commit"
 
         content = hook_path.read_text()
@@ -216,7 +216,7 @@ class TestPrecommitHookIntegration:
 
     def test_hook_offers_autofix(self):
         """Hook should offer auto-fix option."""
-        main_repo = Path(__file__).parent.parent.parent / ".." / ".." / "craft"
+        main_repo = Path(__file__).parent.parent
         hook_path = main_repo / ".git" / "hooks" / "pre-commit"
 
         content = hook_path.read_text()
