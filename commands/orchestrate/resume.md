@@ -36,6 +36,7 @@ Resume orchestration sessions across devices using Claude Desktop's session tele
 ## What is Session Teleportation?
 
 **Session teleportation** allows you to:
+
 - Continue orchestration work on different devices
 - Resume interrupted sessions after system restart
 - Share orchestration state across team members
@@ -80,7 +81,7 @@ Sessions are stored in `.craft/cache/orchestration-sessions/`:
   "created_at": "2026-01-17T14:30:00Z",
   "updated_at": "2026-01-17T14:45:00Z",
   "device": "MacBook Pro",
-  "project": "/Users/dt/projects/my-app",
+  "project": "/path/to/my-app",
   "goal": "Add authentication system",
   "mode": "default",
   "status": "in_progress",
@@ -326,6 +327,7 @@ In `.claude/settings.local.json` or project `.craft/config.json`:
 ### Storage Backends
 
 **1. Claude Desktop (Default)**
+
 ```json
 {
   "storage": "claude-desktop",
@@ -337,6 +339,7 @@ In `.claude/settings.local.json` or project `.craft/config.json`:
 ```
 
 **2. Local Storage**
+
 ```json
 {
   "storage": "local",
@@ -347,6 +350,7 @@ In `.claude/settings.local.json` or project `.craft/config.json`:
 ```
 
 **3. AWS S3**
+
 ```json
 {
   "storage": "s3",
