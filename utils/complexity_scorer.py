@@ -260,8 +260,64 @@ def explain_score(task: str) -> Dict[str, any]:
         task: Task description string
 
     Returns:
-        Dictionary with score, routing, and explanation
+        Dictionary with score, routing, explanation, and factors list
     """
+    task_lower = task.lower()
+    factors = []
+
+    # Check multi-step
+    multi_step_indicators = [r"\band\b", r",", r"\bthen\b", r"\bafter\b", r"\bwith\b.*\band\b"]
+    action_verbs = ["add", "create", "implement", "build", "design", "refactor", "test", "validate", "check", "lint", "format", "fix", "update", "modify", "deploy", "configure", "setup", "optimize"]
+    complexity_indicators = ["comprehensive", "complete", "full", "entire", "all", "advanced", "robust", "scalable", "production-ready"]
+
+    verb_count = sum(1 for verb in action_verbs if verb in task_lower)
+    has_multi_step_indicator = any(re.search(pattern, task_lower) for pattern in multi_step_indicators)
+    has_complexity_indicator = any(indicator in task_lower for indicator in complexity_indicators)
+
+    if verb_count >= 2 or has_multi_step_indicator or has_complexity_indicator:
+        factors.append("Multi-step task (+2)")
+
+    # Check cross-category
+    categories = {
+        "code": ["code", "implement", "refactor", "fix", "bug", "feature", "function", "class", "module"],
+        "test": ["test", "coverage", "validate", "testing"],
+        "docs": ["doc", "documentation", "readme", "comment"],
+        "ci": ["ci", "pipeline", "workflow", "deploy", "build", "deployment"],
+        "architecture": ["design", "architecture", "pattern", "structure", "system", "microservice", "api"],
+        "security": ["auth", "oauth", "security", "token", "session"],
+        "database": ["database", "migration", "schema", "query", "queries", "db"],
+        "error_handling": ["error", "exception", "handling", "validation"],
+    }
+
+    matched_categories = set()
+    for category, keywords in categories.items():
+        if any(keyword in task_lower for keyword in keywords):
+            matched_categories.add(category)
+
+    if len(matched_categories) >= 2:
+        factors.append(f"Cross-category task: {', '.join(matched_categories)} (+2)")
+    if len(matched_categories) >= 4:
+        factors.append("Very comprehensive (4+ categories) (+2)")
+
+    # Check planning
+    planning_keywords = ["design", "architecture", "plan", "strategy", "structure", "pattern", "microservice", "system design", "api design", "refactor"]
+    if any(keyword in task_lower for keyword in planning_keywords):
+        factors.append("Requires planning (+2)")
+
+    # Check research
+    research_keywords = ["research", "investigate", "explore", "analyze", "find", "discover", "understand", "learn", "study", "benchmark"]
+    if any(keyword in task_lower for keyword in research_keywords):
+        factors.append("Requires research (+2)")
+
+    # Check multi-file
+    multi_file_indicators = ["multiple files", "across files", "all files", "entire codebase", "whole project", "refactor"]
+    large_scope_keywords = ["entire", "whole", "all", "complete", "comprehensive", "system", "module"]
+
+    if any(indicator in task_lower for indicator in multi_file_indicators):
+        factors.append("Multi-file changes (+2)")
+    elif any(keyword in task_lower for keyword in large_scope_keywords) and len(matched_categories) >= 2:
+        factors.append("Multi-file changes (inferred from scope) (+2)")
+
     score = calculate_complexity_score(task)
     routing = get_routing_decision(score)
 
@@ -270,6 +326,7 @@ def explain_score(task: str) -> Dict[str, any]:
         "score": score,
         "routing": routing,
         "explanation": f"Score {score}/10 → Route to {routing}",
+        "factors": factors,
     }
 
 

@@ -1,10 +1,10 @@
 status: Released
-version: 2.5.1
-release_date: 2026-01-19
-milestone: v2.5.1 - User Experience Enhancements ✅ COMPLETE
-last_session: 2026-01-19
+version: 2.6.0
+release_date: 2026-01-20
+milestone: v2.6.0 - Documentation Quality Improvements ✅ COMPLETE
+last_session: 2026-01-20
 
-progress: 100% (v2.5.1 released to main)
+progress: 100% (v2.6.0 released to main)
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)

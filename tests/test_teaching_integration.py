@@ -29,8 +29,8 @@ from typing import List, Optional, Dict, Any
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from commands.utils.teach_config import load_teach_config, validate_config
-from commands.utils.teaching_validation import validate_teaching_project
-from commands.utils.semester_progress import calculate_semester_progress
+from commands.utils.teaching_validation import validate_teaching_content
+from commands.utils.semester_progress import calculate_current_week as _calculate_current_week
 from utils.detect_teaching_mode import detect_teaching_mode
 
 
@@ -54,6 +54,25 @@ def log(msg: str) -> None:
 def get_fixture_path(name: str) -> Path:
     """Get path to a test fixture."""
     return Path(__file__).parent / "fixtures" / "teaching" / name
+
+
+def calculate_semester_progress(cwd: str) -> Optional[Dict[str, any]]:
+    """
+    Wrapper for calculate_current_week that loads config first.
+
+    Args:
+        cwd: Path to teaching project
+
+    Returns:
+        Progress dictionary or None if config not found
+    """
+    try:
+        config = load_teach_config(cwd)
+        if not config:
+            return None
+        return _calculate_current_week(config)
+    except Exception:
+        return None
 
 
 # ─── End-to-End Workflow Tests ───────────────────────────────────────────────
@@ -644,7 +663,7 @@ def test_benchmark_validation() -> TestResult:
         fixture = get_fixture_path("stat-545")
 
         # Run full validation
-        results = validate_teaching_project(str(fixture))
+        results = validate_teaching_content(str(fixture))
 
         duration = (time.time() - start) * 1000
 
