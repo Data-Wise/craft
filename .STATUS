@@ -1,10 +1,10 @@
-status: In Development
-version: 2.6.0-dev
-release_date: TBD
-milestone: v2.6.0 - Documentation Quality Improvements
-last_session: 2026-01-19
+status: Released
+version: 2.6.0
+release_date: 2026-01-20
+milestone: v2.6.0 - Documentation Quality Improvements ✅ COMPLETE
+last_session: 2026-01-20
 
-progress: 80% (markdownlint list spacing implementation)
+progress: 100% (v2.6.0 released to main)
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)
