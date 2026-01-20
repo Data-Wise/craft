@@ -27,6 +27,7 @@ Detect and fix markdown formatting errors with embedded rules and auto-fix capab
 ## Purpose
 
 **Error detection focus, not style enforcement:**
+
 - List formatting (blank lines before lists) - CRITICAL
 - Code fence formatting (missing language tags)
 - Link formatting consistency
@@ -78,7 +79,16 @@ Detect and fix markdown formatting errors with embedded rules and auto-fix capab
 ```javascript
 const criticalRules = {
   // List formatting - CRITICAL (breaks rendering)
-  "MD032": true,  // Blank lines around lists
+  "MD030": {          // Spaces after list marker
+    "ul_single": 1,   // Unordered: exactly 1 space
+    "ol_single": 1,   // Ordered: exactly 1 space
+    "ul_multi": 1,    // Multi-paragraph: 1 space
+    "ol_multi": 1     // Multi-ordered: 1 space
+  },
+  "MD032": true,      // Blank lines around lists
+  "MD004": {          // Consistent list marker style
+    "style": "dash"   // Use '-' not '*' or '+'
+  },
 
   // Code fence formatting
   "MD040": true,  // Code fence language tag required
@@ -320,6 +330,8 @@ Your choice (1-3, or 'a' to abort): _
 | Trailing spaces | MD009 | Remove spaces at line end |
 | Hard tabs | MD010 | Convert to spaces |
 | Blank lines around lists | MD032 | Add blank line before/after |
+| **List spacing** | **MD030** | **Normalize to 1 space after marker** |
+| **Inconsistent marker** | **MD004** | **Change to '-' consistently** |
 | Code fence language | MD040 | Detect & add language tag |
 | Multiple blank lines | MD012 | Reduce to single blank line |
 
@@ -331,6 +343,36 @@ Your choice (1-3, or 'a' to abort): _
 | Inconsistent fence style | MD048 | Choose ``` or ~~~ |
 | Link style mixed | N/A | Choose inline or reference |
 | Emphasis style | MD049/MD050 | Choose * or _ |
+
+## List Spacing Enforcement (v2.5.1)
+
+**What it catches:**
+
+- Extra spaces after list markers: `-  Item` → `- Item`
+- Inconsistent markers: `* Item` → `- Item`
+- Missing blank lines before/after lists
+
+**Why it matters:**
+
+- Consistent rendering across GitHub, MkDocs, VS Code
+- Portable documentation (works everywhere)
+- Follows markdown best practices
+
+**Auto-fix examples:**
+
+\`\`\`markdown
+<!-- Before -->
+Some text
+
+- Item with 2 spaces
+- Different marker
+
+<!-- After -->
+Some text
+
+- Item with 1 space
+- Consistent marker
+\`\`\`
 
 ## Language Detection (MD040 Auto-Fix)
 
@@ -397,6 +439,7 @@ detect_language() {
 ```
 
 **VS Code Integration (file:line:col format):**
+
 ```
 docs/test-violations.md:21:1: MD032 - Missing blank line before list (auto-fixable)
 docs/test-violations.md:26:1: MD040 - Code fence missing language tag (auto-fixable)
@@ -505,10 +548,12 @@ docs/guide/setup.md:45:30: MD009 - Trailing spaces (auto-fixable)
 ## Integration
 
 **Called by:**
+
 - `/craft:check` - Pre-flight validation
 - Pre-commit hooks - Prevent broken markdown
 
 **Works with:**
+
 - `/craft:docs:check-links` - Link validation
 - `/craft:site:check` - Site validation
 - `/craft:ci:validate` - CI pipeline validation
@@ -558,6 +603,7 @@ docs/guide/setup.md:45:30: MD009 - Trailing spaces (auto-fixable)
 | 50 | release | ~13s (+ quality checks) |
 
 **Optimization Tips:**
+
 - Use `optimize` mode for large doc sets (100+ files)
 - Use specific paths for quick checks: `/craft:docs:lint docs/guide/`
 - Default mode focuses on critical errors only

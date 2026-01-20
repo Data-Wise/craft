@@ -2,10 +2,10 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**99 commands** · **21 skills** · **8 agents** · **6 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**99 commands** · **21 skills** · **8 agents** · **7 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v1.24.0 (released 2026-01-18)
-**Documentation Status:** 95% complete (Phase 3 enhancements complete)
+**Current Version:** v2.5.1 (in development)
+**Documentation Status:** 96% complete (Phase 4: Markdownlint list spacing)
 
 ## Git Workflow
 
@@ -131,6 +131,15 @@ craft/
 - Mode selection with interactive prompts
 - Dry-run preview support
 - 36 tests (15 unit + 21 integration), 95% coverage
+
+### Markdownlint List Spacing Enforcement (v2.5.1) ✅
+- MD030: Enforce 1 space after list markers (`- Item`, not `-  Item`)
+- MD004: Enforce dash style consistently (all `-`, no `*` or `+`)
+- MD032: Explicit blank lines around lists (already enabled)
+- Auto-fix capability with `/craft:docs:lint --fix`
+- Pre-commit hook to prevent new violations
+- 78 comprehensive tests (21 unit + 42 validation + 15 e2e), 100% passing
+- Baseline report: 99% compliant (3 MD030 violations, 0 MD004, 2112 MD032)
 
 ## Integration Features (v1.24.0)
 

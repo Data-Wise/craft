@@ -1,10 +1,10 @@
 status: In Development
-version: 2.5.0-dev
+version: 2.6.0-dev
 release_date: TBD
-milestone: v2.5.0 - --orch Flag Integration (Phase 1-4 PLANNED)
+milestone: v2.6.0 - Documentation Quality Improvements
 last_session: 2026-01-19
 
-progress: 0%
+progress: 80% (markdownlint list spacing implementation)
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)
@@ -955,9 +955,96 @@ orch_flag_integration:
     - Run tests frequently: pytest tests/test_orch_flag_handler.py -v
     - Commit atomic changes with conventional commits
 
+markdownlint_list_spacing:
+  branch: feature/markdownlint-list-spacing (active)
+  status: WIP - Planning complete, ready to implement
+  started: 2026-01-19
+  last_session: 2026-01-19 (planning session)
+  target_version: v2.6.0 or v2.7.0
+  effort: ~60-90 minutes (Phase 1)
+  worktree: ~/.git-worktrees/craft/feature-markdownlint-list-spacing
+  spec: docs/specs/SPEC-markdownlint-list-spacing-2026-01-19.md
+  implementation: IMPLEMENTATION-MARKDOWNLINT-LIST-SPACING.md (in worktree)
+  brainstorm: docs/brainstorm/BRAINSTORM-markdownlint-list-spacing-2026-01-19.md
+
+  description: Enforce MD030 (spaces after list markers) and MD004 (consistent marker style) for portable documentation
+
+  session_history:
+    planning_session_2026_01_19:
+      duration: ~2-3 hours
+      accomplishments:
+        - Created comprehensive spec (SPEC-markdownlint-list-spacing-2026-01-19.md)
+        - Interactive brainstorm with 8 user preference questions
+        - Created worktree from dev branch (correct workflow)
+        - Generated detailed 5-step implementation plan (60 min estimate)
+        - Documented Git workflow rules in ~/.claude/CLAUDE.md
+        - Updated .STATUS with branch info and preferences
+      files_created:
+        - docs/specs/SPEC-markdownlint-list-spacing-2026-01-19.md (13KB)
+        - docs/brainstorm/BRAINSTORM-markdownlint-list-spacing-2026-01-19.md (13KB)
+        - IMPLEMENTATION-MARKDOWNLINT-LIST-SPACING.md (in worktree, 14KB)
+      git_workflow_learned:
+        - Main repo stays on main branch (never switch to dev)
+        - Create worktree branching FROM dev
+        - Feature branches for all implementation work
+        - Documented in ~/.claude/CLAUDE.md for future sessions
+
+  user_preferences:
+    strictness: Strict (always enforce single space)
+    nesting: Same rules for all levels
+    list_types: Same rules for ordered/unordered
+    fix_flow: Auto-fix all (fast, no prompts)
+    markers: Enforce project-wide dash style
+    integration: Seamless (just works in /craft:docs:lint)
+    migration: Gradual (fix files as edited)
+    performance: Balanced approach
+
+  phases:
+    phase_1_config_and_testing:
+      status: planned (ready to implement)
+      effort: 60 minutes
+      steps:
+        - "Step 1: Update .markdownlint.json (5 min)"
+        - "Step 2: Generate baseline report (10 min)"
+        - "Step 3: Test on sample files (15 min)"
+        - "Step 4: Pre-commit hook (15 min)"
+        - "Step 5: Update documentation (15 min)"
+
+  configuration_changes:
+    file: .markdownlint.json
+    rules_to_add:
+      - MD030: {ul_single: 1, ol_single: 1, ul_multi: 1, ol_multi: 1}
+      - MD004: {style: "dash"}
+      - MD032: true (make explicit)
+
+  expected_impact:
+    - Consistent list formatting across 100+ markdown files
+    - Portable documentation (works in GitHub, MkDocs, VS Code)
+    - Auto-fix capability (no manual cleanup)
+    - Gradual migration path
+
+  deliverables:
+    - Updated .markdownlint.json configuration
+    - Baseline violation report (docs/LINT-BASELINE-2026-01-19.txt)
+    - Test file with sample violations
+    - Pre-commit hook (.git/hooks/pre-commit)
+    - Updated command documentation (commands/docs/lint.md)
+
+  commits:
+    - TBD (implementation not started yet - planning session only)
+
+  next_steps:
+    - Navigate to worktree: cd ~/.git-worktrees/craft/feature-markdownlint-list-spacing
+    - Read implementation plan: cat IMPLEMENTATION-MARKDOWNLINT-LIST-SPACING.md
+    - Start with Step 1: Update .markdownlint.json
+    - Run tests frequently to verify behavior
+    - Commit atomic changes with conventional commits
+
 worktrees:
-  - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
+  - main: /Users/dt/projects/dev-tools/craft (main branch, clean)
   - feature/orch-flag-integration: ~/.git-worktrees/craft/feature-orch-flag-integration (active, WIP)
+  - feature/markdownlint-list-spacing: ~/.git-worktrees/craft/feature-markdownlint-list-spacing (active, ready to implement)
+  - feature/docs-gap-analysis: ~/.git-worktrees/craft/feature-docs-gap-analysis (active)
 
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
@@ -1379,12 +1466,14 @@ repo: https://github.com/Data-Wise/craft
 # ==============================================================================
 
 orch_flag_v2_5_1_improvements:
-  branch: feature/orch-flag-v2.5.1-improvements
-  worktree: ~/.git-worktrees/craft/feature-orch-flag-v2.5.1-improvements
-  status: PLANNING COMPLETE, READY FOR IMPLEMENTATION
+  branch: feature/orch-flag-v2.5.1-improvements (merged and deleted)
+  worktree: ~/.git-worktrees/craft/feature-orch-flag-v2.5.1-improvements (removed)
+  status: COMPLETE ✅ - RELEASED TO MAIN
   created: 2026-01-19
+  completed: 2026-01-19
   target_version: v2.5.1
   estimated_effort: 4-6 hours
+  actual_effort: ~4 hours
 
   source:
     gap_analysis: GAP-ANALYSIS-orch-flag-v2.5.0.md
@@ -1402,43 +1491,52 @@ orch_flag_v2_5_1_improvements:
     phase_1:
       name: Core Improvements
       effort: 2-3 hours
-      status: NOT STARTED
+      status: COMPLETE ✅
+      commit: 7b8f6a4
       tasks:
-        - Implement prompt_user_for_mode() with AskUserQuestion
-        - Add error handling to spawn_orchestrator()
-        - Add handle_orchestrator_failure() helper
-        - Update type hints and docstrings
+        - ✅ Implemented prompt_user_for_mode() with fallback behavior
+        - ✅ Added error handling to spawn_orchestrator() (returns bool)
+        - ✅ Added handle_orchestrator_failure() helper
+        - ✅ Added recommend_orchestration_mode() function
+        - ✅ Updated type hints and docstrings
       files:
-        - utils/orch_flag_handler.py (UPDATE)
+        - utils/orch_flag_handler.py (304 lines, complete rewrite)
 
     phase_2:
       name: Testing
       effort: 1-2 hours
-      status: NOT STARTED
+      status: COMPLETE ✅
+      commit: 33569f2
       tasks:
-        - Add 6 unit tests for mode prompt
-        - Add 3 unit tests for error handling
-        - Create TESTING-CHECKLIST.md (8 scenarios)
-        - Verify no regression in existing tests
+        - ✅ Added 6 tests for mode prompt behavior
+        - ✅ Added 5 tests for error handling
+        - ✅ Added 4 tests for mode recommendations
+        - ✅ Created TESTING-CHECKLIST.md (10 scenarios)
+        - ✅ Verified no regression (all 33/33 tests passing)
       files:
-        - tests/test_orch_flag_handler.py (UPDATE)
-        - TESTING-CHECKLIST.md (NEW)
+        - tests/test_orch_flag_handler.py (15 new tests added)
+        - TESTING-CHECKLIST.md (321 lines, 10 test scenarios)
       tests:
-        new: 9 (6 mode prompt + 3 error handling)
-        total_after: 65 (56 existing + 9 new)
+        new: 15 (6 prompt + 5 error + 4 recommendations)
+        total: 33 (18 existing + 15 new), all passing
+        coverage: 100% for new functions
 
     phase_3:
       name: Documentation
       effort: 1 hour
-      status: NOT STARTED
+      status: COMPLETE ✅
+      commit: c1315d6
       tasks:
-        - Add orch guide link to CLAUDE.md
-        - Add troubleshooting section to orch-flag-usage.md
-        - Update VERSION-HISTORY.md with v2.5.1 entry
+        - ✅ Added orch guide link to CLAUDE.md Key Files table
+        - ✅ Added comprehensive troubleshooting section (6 scenarios)
+        - ✅ Updated VERSION-HISTORY.md with v2.5.1 entry
+        - ✅ Updated site content (mkdocs.yml, docs/index.md)
       files:
-        - CLAUDE.md (UPDATE)
-        - docs/guide/orch-flag-usage.md (UPDATE)
-        - docs/VERSION-HISTORY.md (UPDATE)
+        - CLAUDE.md (added orch guide reference)
+        - docs/guide/orch-flag-usage.md (+128 lines troubleshooting)
+        - docs/VERSION-HISTORY.md (v2.5.1 entry with gap coverage)
+        - mkdocs.yml (site_description updated)
+        - docs/index.md ("What's New in v2.5.1" section)
 
   acceptance_criteria:
     functional:
@@ -1490,18 +1588,39 @@ orch_flag_v2_5_1_improvements:
     - CI/CD passing
     - Code review approved
 
-  next_steps:
-    immediate:
-      - Navigate to worktree: cd ~/.git-worktrees/craft/feature-orch-flag-v2.5.1-improvements
-      - Start Phase 1: Implement core improvements
-      - Run tests after each phase
-      - Commit with conventional commits
+  completion_summary:
+    prs:
+      - "#28: feature/orch-flag-v2.5.1-improvements → dev"
+      - "#29: dev → main (v2.5.1 release)"
+    commits:
+      - "7b8f6a4: feat: implement interactive mode prompt and error handling"
+      - "33569f2: test: add 15 new tests and manual checklist"
+      - "c1315d6: docs: update documentation with troubleshooting"
+      - "2161802: chore: mark v2.5.1 implementation complete"
+      - "0e8d88c: docs: add v2.5.0 gap analysis and integration spec"
+      - "b31cd69: docs: update site content for v2.5.1 release"
+      - "0925001: MERGE PR #29 (v2.5.1 to main)"
+    release_stats:
+      version: v2.5.1
+      release_date: 2026-01-19
+      files_changed: 29
+      lines_added: 5820
+      lines_removed: 166
+      tests: 71 total (33 handler + 21 integration + 17 E2E)
+      gap_coverage: 4 of 12 addressed (1 high, 2 medium, 1 low)
+      documentation: 95% complete
+    cleanup:
+      - "Archived SPEC-craft-hub-v2-2026-01-15.md (v1.24.0 complete)"
+      - "Removed worktree: feature/orch-flag-v2.5.1-improvements"
+      - "Deleted branches: 5 merged branches cleaned"
+      - "Updated main: dev merged to main (PR #29)"
 
-    after_merge:
-      - Tag as v2.5.1
-      - Update main CLAUDE.md
-      - Update website documentation
-      - Announce improvements in release notes
+  next_actions:
+    v2_6_0:
+      - Address remaining 8 low-priority gaps
+      - Add website documentation sync
+      - Create visual workflow diagram
+      - Add performance metrics for mode selection
 
   remaining_gaps_v2_6_0:
     - Gap 1.3: Tutorial for orch workflow

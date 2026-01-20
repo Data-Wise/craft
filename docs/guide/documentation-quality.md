@@ -120,6 +120,8 @@ Many markdown quality issues can be fixed automatically:
 - ✅ Multiple blank lines reduced
 - ✅ Code fence language tags added (with smart detection)
 - ✅ Indentation normalized
+- ✅ **List spacing normalized to 1 space after markers** (MD030)
+- ✅ **List markers changed to dash consistently** (MD004)
 
 **Example output:**
 
@@ -229,6 +231,62 @@ Check the [documentation]() for more info
 ```markdown
 Check the [documentation](./reference.md) for more info
 ```
+
+#### MD030: List Marker Spacing
+
+**Error:**
+
+```
+docs/guide/tutorial.md:45:1: MD030 - Spaces after list markers
+```
+
+**Fix:** Use exactly 1 space after list markers:
+
+**Before:**
+
+```markdown
+-  Item with 2 spaces
+1.  Ordered with 2 spaces
+```
+
+**After:**
+
+```markdown
+- Item with 1 space
+1. Ordered with 1 space
+```
+
+**Auto-fix:** Run `/craft:docs:lint --fix` to automatically normalize spacing.
+
+---
+
+#### MD004: Consistent List Markers
+
+**Error:**
+
+```
+docs/guide/tutorial.md:67:1: MD004 - Unordered list style
+```
+
+**Fix:** Use `-` (dash) consistently, not `*` (asterisk) or `+` (plus):
+
+**Before:**
+
+```markdown
+* Item with asterisk
++ Item with plus
+- Item with dash
+```
+
+**After:**
+
+```markdown
+- Item with dash
+- Item with dash
+- Item with dash
+```
+
+**Auto-fix:** Run `/craft:docs:lint --fix` to automatically change markers to `-`.
 
 ---
 
