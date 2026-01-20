@@ -955,9 +955,96 @@ orch_flag_integration:
     - Run tests frequently: pytest tests/test_orch_flag_handler.py -v
     - Commit atomic changes with conventional commits
 
+markdownlint_list_spacing:
+  branch: feature/markdownlint-list-spacing (active)
+  status: WIP - Planning complete, ready to implement
+  started: 2026-01-19
+  last_session: 2026-01-19 (planning session)
+  target_version: v2.6.0 or v2.7.0
+  effort: ~60-90 minutes (Phase 1)
+  worktree: ~/.git-worktrees/craft/feature-markdownlint-list-spacing
+  spec: docs/specs/SPEC-markdownlint-list-spacing-2026-01-19.md
+  implementation: IMPLEMENTATION-MARKDOWNLINT-LIST-SPACING.md (in worktree)
+  brainstorm: docs/brainstorm/BRAINSTORM-markdownlint-list-spacing-2026-01-19.md
+
+  description: Enforce MD030 (spaces after list markers) and MD004 (consistent marker style) for portable documentation
+
+  session_history:
+    planning_session_2026_01_19:
+      duration: ~2-3 hours
+      accomplishments:
+        - Created comprehensive spec (SPEC-markdownlint-list-spacing-2026-01-19.md)
+        - Interactive brainstorm with 8 user preference questions
+        - Created worktree from dev branch (correct workflow)
+        - Generated detailed 5-step implementation plan (60 min estimate)
+        - Documented Git workflow rules in ~/.claude/CLAUDE.md
+        - Updated .STATUS with branch info and preferences
+      files_created:
+        - docs/specs/SPEC-markdownlint-list-spacing-2026-01-19.md (13KB)
+        - docs/brainstorm/BRAINSTORM-markdownlint-list-spacing-2026-01-19.md (13KB)
+        - IMPLEMENTATION-MARKDOWNLINT-LIST-SPACING.md (in worktree, 14KB)
+      git_workflow_learned:
+        - Main repo stays on main branch (never switch to dev)
+        - Create worktree branching FROM dev
+        - Feature branches for all implementation work
+        - Documented in ~/.claude/CLAUDE.md for future sessions
+
+  user_preferences:
+    strictness: Strict (always enforce single space)
+    nesting: Same rules for all levels
+    list_types: Same rules for ordered/unordered
+    fix_flow: Auto-fix all (fast, no prompts)
+    markers: Enforce project-wide dash style
+    integration: Seamless (just works in /craft:docs:lint)
+    migration: Gradual (fix files as edited)
+    performance: Balanced approach
+
+  phases:
+    phase_1_config_and_testing:
+      status: planned (ready to implement)
+      effort: 60 minutes
+      steps:
+        - "Step 1: Update .markdownlint.json (5 min)"
+        - "Step 2: Generate baseline report (10 min)"
+        - "Step 3: Test on sample files (15 min)"
+        - "Step 4: Pre-commit hook (15 min)"
+        - "Step 5: Update documentation (15 min)"
+
+  configuration_changes:
+    file: .markdownlint.json
+    rules_to_add:
+      - MD030: {ul_single: 1, ol_single: 1, ul_multi: 1, ol_multi: 1}
+      - MD004: {style: "dash"}
+      - MD032: true (make explicit)
+
+  expected_impact:
+    - Consistent list formatting across 100+ markdown files
+    - Portable documentation (works in GitHub, MkDocs, VS Code)
+    - Auto-fix capability (no manual cleanup)
+    - Gradual migration path
+
+  deliverables:
+    - Updated .markdownlint.json configuration
+    - Baseline violation report (docs/LINT-BASELINE-2026-01-19.txt)
+    - Test file with sample violations
+    - Pre-commit hook (.git/hooks/pre-commit)
+    - Updated command documentation (commands/docs/lint.md)
+
+  commits:
+    - TBD (implementation not started yet - planning session only)
+
+  next_steps:
+    - Navigate to worktree: cd ~/.git-worktrees/craft/feature-markdownlint-list-spacing
+    - Read implementation plan: cat IMPLEMENTATION-MARKDOWNLINT-LIST-SPACING.md
+    - Start with Step 1: Update .markdownlint.json
+    - Run tests frequently to verify behavior
+    - Commit atomic changes with conventional commits
+
 worktrees:
-  - main: /Users/dt/projects/dev-tools/craft (dev branch, clean)
+  - main: /Users/dt/projects/dev-tools/craft (main branch, clean)
   - feature/orch-flag-integration: ~/.git-worktrees/craft/feature-orch-flag-integration (active, WIP)
+  - feature/markdownlint-list-spacing: ~/.git-worktrees/craft/feature-markdownlint-list-spacing (active, ready to implement)
+  - feature/docs-gap-analysis: ~/.git-worktrees/craft/feature-docs-gap-analysis (active)
 
 worktrees_cleaned_today:
   - feature/website-org-phase1: Removed after PR #13 merge (local + remote branch deleted)
