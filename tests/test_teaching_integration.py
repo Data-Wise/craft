@@ -29,8 +29,8 @@ from typing import List, Optional, Dict, Any
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from commands.utils.teach_config import load_teach_config, validate_config
-from commands.utils.teaching_validation import validate_teaching_project
-from commands.utils.semester_progress import calculate_semester_progress
+from commands.utils.teaching_validation import validate_teaching_content
+from commands.utils.semester_progress import calculate_current_week
 from utils.detect_teaching_mode import detect_teaching_mode
 
 
@@ -644,7 +644,7 @@ def test_benchmark_validation() -> TestResult:
         fixture = get_fixture_path("stat-545")
 
         # Run full validation
-        results = validate_teaching_project(str(fixture))
+        results = validate_teaching_content(str(fixture))
 
         duration = (time.time() - start) * 1000
 
