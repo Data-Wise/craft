@@ -6,15 +6,16 @@ Thank you for your interest in contributing to Craft! This document provides gui
 
 1. Fork the repository
 2. Create a feature branch from `dev`
-3. Make your changes
-4. Ensure tests pass
-5. Submit a pull request to `dev`
+3. Install development hooks: `./scripts/install-hooks.sh`
+4. Make your changes
+5. Ensure tests pass
+6. Submit a pull request to `dev`
 
 ## Development Workflow
 
 ### Branch Structure
 
-```
+```text
 main (production, protected)
   ↑ PR only
 dev (integration hub)
@@ -23,6 +24,7 @@ feature/* (implementation work)
 ```
 
 **Important Rules:**
+
 - Never commit directly to `main`
 - Always start feature branches from `dev`
 - Use worktrees for isolated development
@@ -41,13 +43,34 @@ git worktree add ~/.git-worktrees/craft/feature-<name> -b feature/<name> dev
 cd ~/.git-worktrees/craft/feature-<name>
 ```
 
+### Development Setup
+
+After creating your worktree, install Git hooks to ensure code quality:
+
+```bash
+# One-time setup in your worktree
+./scripts/install-hooks.sh
+```
+
+This installs:
+
+- **Pre-commit hook**: Automatically checks markdown list spacing (MD030, MD004, MD032)
+- Offers interactive auto-fix when violations are found
+- Prevents commits with formatting issues
+
+**Bypass hook (not recommended):**
+
+```bash
+git commit --no-verify
+```
+
 ## Code Standards
 
 ### Conventional Commits
 
 Use conventional commit format:
 
-```
+```text
 <type>: <description>
 
 <optional detailed description>
@@ -56,6 +79,7 @@ Use conventional commit format:
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `refactor`: Code refactoring
@@ -65,7 +89,8 @@ Use conventional commit format:
 - `style`: Code style changes (no logic changes)
 
 **Examples:**
-```
+
+```text
 feat: add markdownlint list spacing enforcement
 fix: resolve pre-commit hook race condition
 docs: update API reference for v2.0
@@ -80,29 +105,37 @@ refactor: simplify command parsing logic
 All markdown documentation must pass `/craft:docs:lint` checks:
 
 **Required Rules (auto-fixable):**
+
 - **MD030**: List spacing - exactly 1 space after markers
+
   ```markdown
   ✅ Correct: - Item with 1 space
   ❌ Wrong:  - Item with 2 spaces
   ```
+
 - **MD004**: List marker style - use `-` (dash) consistently
+
   ```markdown
   ✅ Correct: - Dash marker
   ❌ Wrong: * Asterisk marker
   ❌ Wrong: + Plus marker
   ```
+
 - **MD032**: Blank lines around lists
+
   ```markdown
   ✅ Correct: Text before list
 
   - List item
   ```
+
   ```markdown
   ❌ Wrong: Text before list
   - List item
   ```
 
 **Auto-fixing issues:**
+
 ```bash
 # Fix all auto-fixable issues
 /craft:docs:lint --fix
@@ -112,6 +145,7 @@ All markdown documentation must pass `/craft:docs:lint` checks:
 ```
 
 **Checking your documentation:**
+
 ```bash
 # Check for markdown quality issues
 /craft:docs:lint
@@ -121,6 +155,7 @@ All markdown documentation must pass `/craft:docs:lint` checks:
 ```
 
 **Pre-commit validation:**
+
 - Pre-commit hooks automatically check staged `.md` files
 - Hooks offer interactive auto-fix prompt
 - Block commits with MD030/MD004/MD032 violations
@@ -142,6 +177,7 @@ arguments:
 ```
 
 **Required sections:**
+
 - Description (one-line in frontmatter)
 - Purpose (what the command does)
 - Usage examples
@@ -176,6 +212,7 @@ python3 -m pytest tests/test_craft_plugin.py::test_command_exists
 ### Adding Tests
 
 Test file naming convention:
+
 - `test_<feature>.py` for unit tests
 - `test_integration_<feature>.py` for integration tests
 - `test_e2e_<feature>.py` for end-to-end tests
@@ -219,7 +256,7 @@ Brief description of what this PR does and why.
 
 ## Documentation Structure
 
-```
+```text
 craft/
 ├── commands/          # Command documentation (Markdown)
 │   └── docs/
@@ -235,6 +272,7 @@ craft/
 ### Writing Guides
 
 Guides in `docs/guide/` should:
+
 - Start with TL;DR summary
 - Include time estimate
 - Have clear step-by-step instructions
@@ -242,6 +280,7 @@ Guides in `docs/guide/` should:
 - Include troubleshooting section
 
 **Example guide structure:**
+
 ```markdown
 # Feature Name Guide
 
@@ -278,6 +317,9 @@ Description...
 
 **Symptom:** What happens
 **Solution:** How to fix it
+
+```text
+(placeholder for troubleshooting examples)
 ```
 
 ## Development Tools
@@ -296,6 +338,7 @@ Description...
 ### Git Hooks
 
 Pre-commit hooks are stored in `.git/hooks/`:
+
 - Pre-commit hook validates markdown quality
 - Hooks are not tracked in git (they're local)
 - Use `.gitignore` for hook-related files
