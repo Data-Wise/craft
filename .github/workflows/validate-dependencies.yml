@@ -3,8 +3,18 @@ name: Validate Demo Dependencies
 on:
   push:
     branches: [main, dev, 'feature/**']
+    paths:
+      - 'commands/code/demo.md'
+      - 'scripts/demo-*'
+      - 'scripts/dependency-manager.sh'
+      - '.github/workflows/validate-dependencies.yml'
   pull_request:
     branches: [main, dev]
+    paths:
+      - 'commands/code/demo.md'
+      - 'scripts/demo-*'
+      - 'scripts/dependency-manager.sh'
+      - '.github/workflows/validate-dependencies.yml'
   workflow_dispatch:
 
 jobs:
