@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.1 enhances --orch flag with interactive prompts, error handling, and comprehensive troubleshooting.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.7.0 introduces interactive documentation update system with 9-category detection, category-level prompts, and production-ready error handling.">
       
       
       
@@ -999,6 +999,34 @@
     
   
     Documentation Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Interactive Docs Update
   
 
     
@@ -3075,6 +3103,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Docs Update Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3686,6 +3742,34 @@
     
   
     Help Template System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Interactive Docs Update
   
 
     
@@ -4326,11 +4410,12 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  CRAFT PLUGIN QUICK REFERENCE                               │
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.4.0                                             │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.7.0                                             │
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 100 | Agents: 8 | Skills: 21                     │
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Documentation: 95% complete | Diagrams: 17 Mermaid         │
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Documentation: 98% complete | Diagrams: 17 Mermaid         │
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  Docs: https://data-wise.github.io/craft/                   │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>└─────────────────────────────────────────────────────────────┘
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  NEW: Interactive docs:update with 9-category detection     │
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>└─────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permanent link">&para;</a></h2>
 <table>
@@ -4370,7 +4455,15 @@
 <tbody>
 <tr>
 <td><code>/craft:docs:update</code></td>
-<td>Smart-Full: Detect → Generate → Check → Changelog</td>
+<td><strong>NEW v2.7.0</strong> Interactive: 9 categories, prompts, auto-fix</td>
+</tr>
+<tr>
+<td><code>/craft:docs:update --interactive</code></td>
+<td>Category-level prompts for precise control</td>
+</tr>
+<tr>
+<td><code>/craft:docs:update --category=NAME</code></td>
+<td>Update only specific category</td>
 </tr>
 <tr>
 <td><code>/craft:docs:sync</code></td>
@@ -4382,7 +4475,7 @@
 </tr>
 <tr>
 <td><code>/craft:docs:website</code></td>
-<td><strong>NEW</strong> ADHD-friendly enhancement with scoring</td>
+<td>ADHD-friendly enhancement with scoring</td>
 </tr>
 <tr>
 <td><code>/craft:docs:guide</code></td>
@@ -4398,17 +4491,22 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Quick examples:</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:docs:update<span class="w">                    </span><span class="c1"># Full smart cycle</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">1</span><span class="w">         </span><span class="c1"># Quick wins: TL;DR, mermaid fixes</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>/craft:docs:check<span class="w"> </span>--report-only<span class="w">       </span><span class="c1"># CI-safe mode</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>/craft:docs:check-links<span class="w">               </span><span class="c1"># Validate links (supports .linkcheck-ignore)</span>
-</span></code></pre></div></p>
-<p><strong>NEW in v1.23.0: .linkcheck-ignore Support</strong>
-- Document expected broken links (test files, brainstorm refs)
-- CI passes with expected links (exit code 0)
-- Only fails on critical broken links (exit code 1)
-- Create <code>.linkcheck-ignore</code> in project root with patterns</p>
+<p><strong>Quick examples:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w">          </span><span class="c1"># Interactive mode (9 categories)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs<span class="w"> </span><span class="c1"># Update only version refs</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run<span class="w"> </span><span class="c1"># Preview without changes</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>/craft:docs:check<span class="w"> </span>--report-only<span class="w">           </span><span class="c1"># CI-safe mode</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/craft:docs:check-links<span class="w">                   </span><span class="c1"># Validate links</span>
+</span></code></pre></div>
+<p><strong>NEW in v2.7.0: Interactive Documentation Update</strong></p>
+<ul>
+<li>9-category detection (version refs, command counts, broken links, etc.)</li>
+<li>Category-level prompts for precise control</li>
+<li>1,331 real issues detected in craft project</li>
+<li>Production-ready error handling (29/29 tests passing)</li>
+<li>Dry-run preview mode</li>
+<li><a href="../tutorials/interactive-docs-update-tutorial/">Tutorial</a> | <a href="../reference/REFCARD-DOCS-UPDATE/">Reference</a></li>
+</ul>
 <h2 id="site-commands-15-commands">Site Commands (15 commands)<a class="headerlink" href="#site-commands-15-commands" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4456,15 +4554,15 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Teaching Mode Quick Start:</strong>
+<p><strong>Teaching Mode Quick Start:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:site:build<span class="w">              </span><span class="c1"># Preview changes</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:site:progress<span class="w">           </span><span class="c1"># Check semester status</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:site:publish<span class="w">            </span><span class="c1"># Validate &amp; deploy to production</span>
-</span></code></pre></div></p>
-<p><strong>Standard Quick Examples:</strong>
+</span></code></pre></div>
+<p><strong>Standard Quick Examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:site:create<span class="w"> </span>--preset<span class="w"> </span>data-wise<span class="w"> </span>--quick
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:site:status
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="code-testing-17-commands">Code &amp; Testing (17 commands)<a class="headerlink" href="#code-testing-17-commands" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4498,10 +4596,10 @@
 </tbody>
 </table>
 <p><strong>Modes:</strong> <code>default</code> (&lt;10s) | <code>debug</code> (&lt;120s) | <code>optimize</code> (&lt;180s) | <code>release</code> (&lt;300s)</p>
-<p><strong>Quick examples:</strong>
+<p><strong>Quick examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:code:lint<span class="w"> </span>optimize<span class="w">       </span><span class="c1"># Parallel, fast</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:test:run<span class="w"> </span>debug<span class="w">           </span><span class="c1"># Verbose with suggestions</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="git-commands-5-commands">Git Commands (5 commands)<a class="headerlink" href="#git-commands-5-commands" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4537,13 +4635,13 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Quick examples:</strong>
+<p><strong>Quick examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:git:init<span class="w">                      </span><span class="c1"># Interactive wizard</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:git:init<span class="w"> </span>--dry-run<span class="w">            </span><span class="c1"># Preview changes</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:git:worktree<span class="w"> </span>add<span class="w"> </span>feature-auth<span class="w"> </span><span class="c1"># Create feature branch</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>/craft:git:sync<span class="w">                      </span><span class="c1"># Sync with remote</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:git:clean<span class="w">                     </span><span class="c1"># Clean merged branches</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="orchestrator-enhanced-v21-v250">Orchestrator (Enhanced v2.1, v2.5.0)<a class="headerlink" href="#orchestrator-enhanced-v21-v250" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Traditional method</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>optimize<span class="w">    </span><span class="c1"># Fast parallel (4 agents)</span>
@@ -4558,12 +4656,14 @@
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>/craft:docs:sync<span class="w"> </span>--orch<span class="o">=</span>default<span class="w">           </span><span class="c1"># Orchestrated docs sync</span>
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>/craft:ci:generate<span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">        </span><span class="c1"># Orchestrated CI generation</span>
 </span></code></pre></div>
-<p><strong>Features:</strong>
-- Mode-aware execution (default/debug/optimize/release)
-- Subagent monitoring
-- Chat compression
-- ADHD-optimized status tracking
-- <strong>NEW (v2.5.0)</strong> - --orch flag for quick orchestration</p>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Mode-aware execution (default/debug/optimize/release)</li>
+<li>Subagent monitoring</li>
+<li>Chat compression</li>
+<li>ADHD-optimized status tracking</li>
+<li><strong>NEW (v2.5.0)</strong> - --orch flag for quick orchestration</li>
+</ul>
 <h2 id="workflow-commands-enhanced-v240">Workflow Commands (Enhanced v2.4.0)<a class="headerlink" href="#workflow-commands-enhanced-v240" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># v2.4.0 - Question Control with colon notation</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">              </span><span class="c1"># Deep with exactly 5 questions</span>
@@ -4580,18 +4680,22 @@
 </span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="c1"># Power user - full control</span>
 </span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">   </span><span class="c1"># 15 questions, feature, spec, filtered categories</span>
 </span></code></pre></div>
-<p><strong>Question Bank (v2.4.0):</strong> 8 categories × 2 questions = 16 total
-- requirements, users, scope, technical, timeline, risks, existing, success</p>
-<p><strong>Milestone Prompts:</strong>
-- Questions asked in batches of 8
-- Continuation options: Done, +4, +8, Keep going
-- "Keep going" mode prompts every 4 questions</p>
-<p><strong>Other Workflow Commands:</strong>
+<p><strong>Question Bank (v2.4.0):</strong> 8 categories × 2 questions = 16 total</p>
+<ul>
+<li>requirements, users, scope, technical, timeline, risks, existing, success</li>
+</ul>
+<p><strong>Milestone Prompts:</strong></p>
+<ul>
+<li>Questions asked in batches of 8</li>
+<li>Continuation options: Done, +4, +8, Keep going</li>
+<li>"Keep going" mode prompts every 4 questions</li>
+</ul>
+<p><strong>Other Workflow Commands:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/workflow:focus<span class="w">        </span><span class="c1"># Start focused work session</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/workflow:next<span class="w">         </span><span class="c1"># Get next step</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>/workflow:stuck<span class="w">        </span><span class="c1"># Get unstuck help</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>/workflow:done<span class="w">         </span><span class="c1"># Complete session</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="skills-21-total">Skills (21 total)<a class="headerlink" href="#skills-21-total" title="Permanent link">&para;</a></h2>
 <p>Auto-triggered expertise:</p>
 <table>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.1 enhances --orch flag with interactive prompts, error handling, and comprehensive troubleshooting.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.7.0 introduces interactive documentation update system with 9-category detection, category-level prompts, and production-ready error handling.">
       
       
       
@@ -1001,6 +1001,34 @@
     
   
     Documentation Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Interactive Docs Update
   
 
     
@@ -3398,6 +3426,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Docs Update Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4022,6 +4078,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Interactive Docs Update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4525,19 +4609,41 @@
 
 <h1 id="documentation-commands">Documentation Commands<a class="headerlink" href="#documentation-commands" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> 17 smart documentation commands from generation to ADHD-friendly enhancement
-- <strong>Why:</strong> Automate docs updates, validation, and website optimization with one command
-- <strong>How:</strong> Use <code>/craft:docs:update</code> for full smart cycle or <code>/craft:docs:website</code> for ADHD enhancements
-- <strong>Next:</strong> Try <code>/craft:docs:sync</code> to check for stale docs in under 10 seconds</p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> 17 smart documentation commands from generation to ADHD-friendly enhancement</li>
+<li><strong>Why:</strong> Automate docs updates, validation, and website optimization with one command</li>
+<li><strong>How:</strong> Use <code>/craft:docs:update --interactive</code> for category-level prompts (NEW v2.7.0)</li>
+<li><strong>Next:</strong> Try <code>/craft:docs:update --interactive --dry-run</code> to preview what would change</li>
+</ul>
 </blockquote>
 <p>Smart documentation generation, validation, and enhancement - 17 commands.</p>
 <h2 id="super-commands">Super Commands<a class="headerlink" href="#super-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftdocsupdate">/craft:docs:update<a class="headerlink" href="#craftdocsupdate" title="Permanent link">&para;</a></h3>
-<p><strong>Smart-Full cycle:</strong> Detect → Generate all needed → Check → Changelog</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:docs:update<span class="w">                    </span><span class="c1"># Smart detection → full execution</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:docs:update<span class="w"> </span><span class="s2">&quot;sessions&quot;</span><span class="w">         </span><span class="c1"># Feature-specific full cycle</span>
+<p><strong>Smart-Full cycle with Interactive Mode (v2.7.0):</strong> 9-category detection with category-level prompts</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w">              </span><span class="c1"># Category-level prompts (9 categories)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs<span class="w">    </span><span class="c1"># Update only version references</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview without applying changes</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:docs:update<span class="w"> </span>--auto-yes<span class="w">                 </span><span class="c1"># Batch mode (no prompts)</span>
 </span></code></pre></div>
+<p><strong>9 Detection Categories:</strong></p>
+<ol>
+<li>Version references (545 found in craft)</li>
+<li>Command counts (289 found)</li>
+<li>Broken links</li>
+<li>Stale examples</li>
+<li>Missing help files (60 found)</li>
+<li>Outdated status markers</li>
+<li>Inconsistent terminology</li>
+<li>Missing cross-references (366 found)</li>
+<li>Outdated diagrams</li>
+</ol>
+<p><strong>Comprehensive Documentation:</strong></p>
+<ul>
+<li><a href="../../tutorials/interactive-docs-update-tutorial/">Interactive Tutorial</a> - Step-by-step guide (10-15 min)</li>
+<li><a href="../../reference/REFCARD-DOCS-UPDATE/">Quick Reference Card</a> - All flags and options</li>
+<li><a href="../../examples/docs-update-interactive-example/">Real-World Example</a> - Full workflow walkthrough</li>
+</ul>
 <h3 id="craftdocssync">/craft:docs:sync<a class="headerlink" href="#craftdocssync" title="Permanent link">&para;</a></h3>
 <p><strong>Detection only:</strong> Classify changes, report stale docs, recommend actions</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:docs:sync<span class="w">                      </span><span class="c1"># Quick: &quot;3 stale, guide recommended&quot;</span>
@@ -4555,15 +4661,19 @@
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/craft:docs:lint<span class="w"> </span>release<span class="w">              </span><span class="c1"># Comprehensive validation</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>/craft:docs:lint<span class="w"> </span>--dry-run<span class="w">            </span><span class="c1"># Preview checks</span>
 </span></code></pre></div>
-<p><strong>Features:</strong>
-- Critical error detection (MD032, MD040, MD009, MD011, MD042)
-- Automatic fixing of trailing spaces, hard tabs, blank lines
-- Smart code fence language detection (Python, JavaScript, Bash, etc.)
-- VS Code clickable output format</p>
-<p><strong>Exit codes:</strong>
-- <code>0</code> = No errors or all auto-fixed
-- <code>1</code> = Manual fixes required
-- <code>2</code> = Configuration error</p>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Critical error detection (MD032, MD040, MD009, MD011, MD042)</li>
+<li>Automatic fixing of trailing spaces, hard tabs, blank lines</li>
+<li>Smart code fence language detection (Python, JavaScript, Bash, etc.)</li>
+<li>VS Code clickable output format</li>
+</ul>
+<p><strong>Exit codes:</strong></p>
+<ul>
+<li><code>0</code> = No errors or all auto-fixed</li>
+<li><code>1</code> = Manual fixes required</li>
+<li><code>2</code> = Configuration error</li>
+</ul>
 <h3 id="craftdocscheck-links">/craft:docs:check-links<a class="headerlink" href="#craftdocscheck-links" title="Permanent link">&para;</a></h3>
 <p><strong>Internal link validation with .linkcheck-ignore support</strong> ⭐ NEW</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:docs:check-links<span class="w">               </span><span class="c1"># Validate all internal links</span>
@@ -4571,17 +4681,21 @@
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/craft:docs:check-links<span class="w"> </span>docs/guide/<span class="w">   </span><span class="c1"># Check specific directory</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>/craft:docs:check-links<span class="w"> </span>--dry-run<span class="w">     </span><span class="c1"># Preview checks</span>
 </span></code></pre></div>
-<p><strong>Features:</strong>
-- Relative and absolute path validation
-- Anchor/header existence checking (release mode)
-- <strong><code>.linkcheck-ignore</code> pattern support</strong> - Document expected broken links
-- Categorized output: Critical vs Expected broken links
-- VS Code clickable error format
-- Ignores external URLs by default</p>
-<p><strong>Exit codes:</strong>
-- <code>0</code> = All links valid OR only expected broken links
-- <code>1</code> = Critical broken links found
-- <code>2</code> = Invalid arguments</p>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Relative and absolute path validation</li>
+<li>Anchor/header existence checking (release mode)</li>
+<li><strong><code>.linkcheck-ignore</code> pattern support</strong> - Document expected broken links</li>
+<li>Categorized output: Critical vs Expected broken links</li>
+<li>VS Code clickable error format</li>
+<li>Ignores external URLs by default</li>
+</ul>
+<p><strong>Exit codes:</strong></p>
+<ul>
+<li><code>0</code> = All links valid OR only expected broken links</li>
+<li><code>1</code> = Critical broken links found</li>
+<li><code>2</code> = Invalid arguments</li>
+</ul>
 <p><strong>NEW: .linkcheck-ignore Support</strong></p>
 <p>Create a <code>.linkcheck-ignore</code> file to document expected broken links:</p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gh"># Known Broken Links</span>
@@ -4594,35 +4708,41 @@
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Files: <span class="sb">`docs/specs/*.md`</span>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>Targets: <span class="sb">`docs/brainstorm/*.md`</span>
 </span></code></pre></div>
-<p><strong>Benefits:</strong>
-- ✅ 100% reduction in CI false positives
-- ✅ Expected links don't block CI (exit code 0)
-- ✅ Critical links still fail properly (exit code 1)
-- ✅ Clear categorization in output</p>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>✅ 100% reduction in CI false positives</li>
+<li>✅ Expected links don't block CI (exit code 0)</li>
+<li>✅ Critical links still fail properly (exit code 1)</li>
+<li>✅ Clear categorization in output</li>
+</ul>
 <h2 id="new-adhd-friendly-website-enhancement">NEW: ADHD-Friendly Website Enhancement<a class="headerlink" href="#new-adhd-friendly-website-enhancement" title="Permanent link">&para;</a></h2>
 <h3 id="craftdocswebsite">/craft:docs:website<a class="headerlink" href="#craftdocswebsite" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose:</strong> One command to make any documentation site ADHD-friendly.</p>
-<p><strong>Features:</strong>
-- ADHD scoring algorithm (0-100) across 5 categories
-- 3-phase enhancement: Quick Wins, Structure, Polish
-- Mermaid syntax error detection and fixing
-- TL;DR box generation
-- Time estimate addition
-- ADHD Quick Start page creation</p>
-<p><strong>Usage:</strong>
+<p><strong>Features:</strong></p>
+<ul>
+<li>ADHD scoring algorithm (0-100) across 5 categories</li>
+<li>3-phase enhancement: Quick Wins, Structure, Polish</li>
+<li>Mermaid syntax error detection and fixing</li>
+<li>TL;DR box generation</li>
+<li>Time estimate addition</li>
+<li>ADHD Quick Start page creation</li>
+</ul>
+<p><strong>Usage:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:docs:website<span class="w">                   </span><span class="c1"># Full enhancement (all 3 phases)</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:docs:website<span class="w"> </span>--analyze<span class="w">         </span><span class="c1"># Show ADHD score only</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">1</span><span class="w">         </span><span class="c1"># Quick wins: TL;DR, mermaid fixes</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">2</span><span class="w">         </span><span class="c1"># Structure: Visual workflows</span>
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">3</span><span class="w">         </span><span class="c1"># Polish: Mobile responsive</span>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>/craft:docs:website<span class="w"> </span>--dry-run<span class="w">         </span><span class="c1"># Preview changes without writing</span>
-</span></code></pre></div></p>
-<p><strong>ADHD Scoring Categories:</strong>
-- Visual Hierarchy (25%): TL;DR boxes, emojis, heading structure
-- Time Estimates (20%): Tutorial duration info
-- Workflow Diagrams (20%): Mermaid diagrams without errors
-- Mobile Responsive (15%): Overflow fixes, touch targets
-- Content Density (20%): Paragraph length, callout boxes</p>
+</span></code></pre></div>
+<p><strong>ADHD Scoring Categories:</strong></p>
+<ul>
+<li>Visual Hierarchy (25%): TL;DR boxes, emojis, heading structure</li>
+<li>Time Estimates (20%): Tutorial duration info</li>
+<li>Workflow Diagrams (20%): Mermaid diagrams without errors</li>
+<li>Mobile Responsive (15%): Overflow fixes, touch targets</li>
+<li>Content Density (20%): Paragraph length, callout boxes</li>
+</ul>
 <h2 id="specialized-commands">Specialized Commands<a class="headerlink" href="#specialized-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftdocsguide">/craft:docs:guide<a class="headerlink" href="#craftdocsguide" title="Permanent link">&para;</a></h3>
 <p>Feature guide + demo + refcard generator</p>

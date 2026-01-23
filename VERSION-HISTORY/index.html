@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.5.1 enhances --orch flag with interactive prompts, error handling, and comprehensive troubleshooting.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.7.0 introduces interactive documentation update system with 9-category detection, category-level prompts, and production-ready error handling.">
       
       
       
@@ -1001,6 +1001,34 @@
     
   
     Documentation Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Interactive Docs Update
   
 
     
@@ -3055,6 +3083,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v270-2026-01-23-interactive-documentation-update-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.7.0 (2026-01-23) - Interactive Documentation Update System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v251-2026-01-19-user-experience-enhancements" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3525,6 +3564,34 @@
     
   
     Claude Code 2.1 Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Docs Update Reference
   
 
     
@@ -4162,6 +4229,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Interactive Docs Update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4382,6 +4477,17 @@
   
     <nav class="md-nav" aria-label="Release Timeline">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v270-2026-01-23-interactive-documentation-update-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.7.0 (2026-01-23) - Interactive Documentation Update System
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#v251-2026-01-19-user-experience-enhancements" class="md-nav__link">
@@ -4809,290 +4915,448 @@
 <blockquote>
 <p><strong>Evolution of Craft</strong>: From command automation tool to intelligent orchestration platform</p>
 </blockquote>
-<p><strong>Latest Release:</strong> v2.5.1 (2026-01-19)
-<strong>Total Releases:</strong> 28 versions | <strong>Development Time:</strong> 2+ years
-<strong>Community:</strong> 100+ commands documented, 615+ tests, 90%+ coverage</p>
+<p><strong>Latest Release:</strong> v2.7.0 (2026-01-23)
+<strong>Total Releases:</strong> 29 versions | <strong>Development Time:</strong> 2+ years
+<strong>Community:</strong> 100+ commands documented, 706+ tests, 90%+ coverage</p>
 <hr />
 <h2 id="release-timeline">Release Timeline<a class="headerlink" href="#release-timeline" title="Permanent link">&para;</a></h2>
+<h3 id="v270-2026-01-23-interactive-documentation-update-system">v2.7.0 (2026-01-23) - Interactive Documentation Update System<a class="headerlink" href="#v270-2026-01-23-interactive-documentation-update-system" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Released ✅</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li><strong>Interactive Documentation Update</strong>: 9-category detection with category-level prompts</li>
+<li><strong>Smart Detection Engine</strong>: 1,331 documentation issues found across craft project</li>
+<li><strong>Production-Ready Error Handling</strong>: 22 tests for edge cases (corrupted files, unicode, binary data)</li>
+<li><strong>Comprehensive Testing</strong>: 29 tests total (7 integration + 22 error handling), 100% passing</li>
+<li><strong>User Control</strong>: Dry-run preview, category-specific updates, batch mode</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>New utilities: <code>docs_detector.py</code> (690 lines), <code>help_file_validator.py</code> (457 lines)</li>
+<li>New tests: 29 total (7 integration + 22 error handling), 100% pass rate</li>
+<li>Documentation: Tutorial (484 lines), reference card (244 lines), examples (254 lines)</li>
+<li>Real impact: 1,331 documentation problems detected (545 version refs, 289 command counts, 366 cross-refs)</li>
+</ul>
+<p><strong>9 Detection Categories:</strong></p>
+<ol>
+<li>Version references (545 found in craft)</li>
+<li>Command counts (289 found)</li>
+<li>Broken links</li>
+<li>Stale examples</li>
+<li>Missing help files (60 found)</li>
+<li>Outdated status markers</li>
+<li>Inconsistent terminology</li>
+<li>Missing cross-references (366 found)</li>
+<li>Outdated diagrams</li>
+</ol>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li><strong>Interactive Mode</strong>: Category-level approval with AskUserQuestion integration</li>
+<li><strong>Dry-Run Preview</strong>: <code>--dry-run</code> flag to preview changes without applying</li>
+<li><strong>Category-Specific</strong>: <code>--category=NAME</code> to update only specific categories</li>
+<li><strong>Batch Mode</strong>: <code>--auto-yes</code> for automated updates without prompts</li>
+<li><strong>Error Resilience</strong>: Handles corrupted files, unicode errors, binary data gracefully</li>
+</ul>
+<p><strong>Key Files:</strong></p>
+<ul>
+<li><code>utils/docs_detector.py</code> - 9-category detection system (690 lines)</li>
+<li><code>utils/help_file_validator.py</code> - 8-type help validation (457 lines)</li>
+<li><code>tests/test_docs_utilities.py</code> - Integration tests (7 tests, 100% passing)</li>
+<li><code>tests/test_docs_utilities_error_handling.py</code> - Error handling tests (22 tests, 100% passing)</li>
+<li><code>docs/tutorials/interactive-docs-update-tutorial.md</code> - Step-by-step guide (484 lines)</li>
+<li><code>docs/reference/REFCARD-DOCS-UPDATE.md</code> - Quick reference (244 lines)</li>
+<li><code>docs/examples/docs-update-interactive-example.md</code> - Real-world walkthrough (254 lines)</li>
+<li><code>docs/specs/SPEC-docs-update-interactive-2026-01-22.md</code> - Implementation spec</li>
+</ul>
+<p><strong>Usage Examples:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w">              </span><span class="c1"># Category-level prompts (9 categories)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs<span class="w">    </span><span class="c1"># Update only version references</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview without applying changes</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:docs:update<span class="w"> </span>--auto-yes<span class="w">                 </span><span class="c1"># Batch mode (no prompts)</span>
+</span></code></pre></div>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Detection system with 9 specialized validators</li>
+<li>Graceful error handling for edge cases</li>
+<li>Production-ready with comprehensive test coverage</li>
+<li>Backward compatible with existing workflows</li>
+<li>No breaking changes to existing commands</li>
+</ul>
+<p><strong>PR:</strong> #32
+<strong>Merge Commit:</strong> 0080e3d
+<strong>Files Changed:</strong> 11 (+3,917/-179 lines)</p>
+<hr />
 <h3 id="v251-2026-01-19-user-experience-enhancements">v2.5.1 (2026-01-19) - User Experience Enhancements<a class="headerlink" href="#v251-2026-01-19-user-experience-enhancements" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- <strong>Interactive Mode Prompt</strong>: Enhanced <code>prompt_user_for_mode()</code> with fallback behavior
-- <strong>Error Handling</strong>: Graceful orchestrator spawn failures with actionable suggestions
-- <strong>Mode Recommendations</strong>: Smart mode selection based on complexity scores (0-10 scale)
-- <strong>Manual Testing</strong>: Comprehensive 10-scenario testing checklist
-- <strong>Troubleshooting</strong>: 6 detailed troubleshooting scenarios with solutions</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li><strong>Interactive Mode Prompt</strong>: Enhanced <code>prompt_user_for_mode()</code> with fallback behavior</li>
+<li><strong>Error Handling</strong>: Graceful orchestrator spawn failures with actionable suggestions</li>
+<li><strong>Mode Recommendations</strong>: Smart mode selection based on complexity scores (0-10 scale)</li>
+<li><strong>Manual Testing</strong>: Comprehensive 10-scenario testing checklist</li>
+<li><strong>Troubleshooting</strong>: 6 detailed troubleshooting scenarios with solutions</li>
+</ul>
 <p><strong>Gap Coverage:</strong>
-Addresses 4 of 12 gaps identified in v2.5.0 gap analysis:
-- ✅ Gap #1 (HIGH): Interactive mode prompt stub implementation
-- ✅ Gap #4 (MED): Error handling for orchestrator spawn failures
-- ✅ Gap #10 (LOW): Manual testing checklist for interactive features
-- ✅ Gap #5 (MED): User guidance for prompt failures</p>
-<p><strong>Stats:</strong>
-- Enhanced file: <code>utils/orch_flag_handler.py</code> (complete rewrite with error handling)
-- New tests: 15 tests (6 prompt + 5 error + 4 recommendation)
-- Total tests: 51 (18 existing + 15 new + 18 integration)
-- New checklist: <code>TESTING-CHECKLIST.md</code> (10 manual test scenarios)
-- Documentation updates: troubleshooting section + VERSION-HISTORY + CLAUDE.md</p>
-<p><strong>Key Files:</strong>
-- <code>utils/orch_flag_handler.py</code> - Enhanced with error handling and recommendations
-- <code>tests/test_orch_flag_handler.py</code> - Added 15 new tests (51 total)
-- <code>TESTING-CHECKLIST.md</code> - 10-scenario manual testing guide
-- <code>docs/guide/orch-flag-usage.md</code> - Added comprehensive troubleshooting
-- <code>CLAUDE.md</code> - Added orch guide reference</p>
-<p><strong>Implementation:</strong>
-- <code>prompt_user_for_mode()</code>: Documents expected Claude Code behavior with fallback
-- <code>spawn_orchestrator()</code>: Returns bool for error handling, try/except wrapper
-- <code>handle_orchestrator_failure()</code>: User-friendly error messages with 4 suggestions
-- <code>recommend_orchestration_mode()</code>: Complexity-based recommendations (0-3→default, 4-7→optimize, 8-10→release)
-- Test coverage: 100% for new functions, maintains 95%+ overall</p>
-<p><strong>Deferred to v2.6.0:</strong>
-- 8 remaining gaps (all low priority)
-- Website documentation sync
-- Integration with /craft:hub for mode recommendations
-- Performance metrics for mode selection</p>
+Addresses 4 of 12 gaps identified in v2.5.0 gap analysis:</p>
+<ul>
+<li>✅ Gap #1 (HIGH): Interactive mode prompt stub implementation</li>
+<li>✅ Gap #4 (MED): Error handling for orchestrator spawn failures</li>
+<li>✅ Gap #10 (LOW): Manual testing checklist for interactive features</li>
+<li>✅ Gap #5 (MED): User guidance for prompt failures</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>Enhanced file: <code>utils/orch_flag_handler.py</code> (complete rewrite with error handling)</li>
+<li>New tests: 15 tests (6 prompt + 5 error + 4 recommendation)</li>
+<li>Total tests: 51 (18 existing + 15 new + 18 integration)</li>
+<li>New checklist: <code>TESTING-CHECKLIST.md</code> (10 manual test scenarios)</li>
+<li>Documentation updates: troubleshooting section + VERSION-HISTORY + CLAUDE.md</li>
+</ul>
+<p><strong>Key Files:</strong></p>
+<ul>
+<li><code>utils/orch_flag_handler.py</code> - Enhanced with error handling and recommendations</li>
+<li><code>tests/test_orch_flag_handler.py</code> - Added 15 new tests (51 total)</li>
+<li><code>TESTING-CHECKLIST.md</code> - 10-scenario manual testing guide</li>
+<li><code>docs/guide/orch-flag-usage.md</code> - Added comprehensive troubleshooting</li>
+<li><code>CLAUDE.md</code> - Added orch guide reference</li>
+</ul>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li><code>prompt_user_for_mode()</code>: Documents expected Claude Code behavior with fallback</li>
+<li><code>spawn_orchestrator()</code>: Returns bool for error handling, try/except wrapper</li>
+<li><code>handle_orchestrator_failure()</code>: User-friendly error messages with 4 suggestions</li>
+<li><code>recommend_orchestration_mode()</code>: Complexity-based recommendations (0-3→default, 4-7→optimize, 8-10→release)</li>
+<li>Test coverage: 100% for new functions, maintains 95%+ overall</li>
+</ul>
+<p><strong>Deferred to v2.6.0:</strong></p>
+<ul>
+<li>8 remaining gaps (all low priority)</li>
+<li>Website documentation sync</li>
+<li>Integration with /craft:hub for mode recommendations</li>
+<li>Performance metrics for mode selection</li>
+</ul>
 <hr />
 <h3 id="v250-2026-01-19-orch-flag-integration">v2.5.0 (2026-01-19) - --orch Flag Integration<a class="headerlink" href="#v250-2026-01-19-orch-flag-integration" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- <strong>--orch Flag</strong>: Explicit orchestration mode for 5 commands
-  - <code>/craft:do</code>, <code>/craft:workflow:brainstorm</code>, <code>/craft:check</code>
-  - <code>/craft:docs:sync</code>, <code>/craft:ci:generate</code>
-- <strong>Mode Selection</strong>: Interactive prompts when mode not specified
-- <strong>Dry-Run Support</strong>: Preview orchestration without spawning agents
-- <strong>4 Orchestration Modes</strong>: default, debug, optimize, release</p>
-<p><strong>Stats:</strong>
-- New file: utils/orch_flag_handler.py (core handler)
-- New tests: 36 tests (15 unit + 21 integration), 95% coverage
-- Updated: 5 command files with --orch flag support
-- Documentation: User guide + updates to CLAUDE.md and VERSION-HISTORY.md</p>
-<p><strong>Key Files:</strong>
-- utils/orch_flag_handler.py (core orchestration logic)
-- tests/test_orch_flag_handler.py (15 unit tests)
-- tests/test_integration_orch_flag.py (21 integration tests)
-- docs/guide/orch-flag-usage.md (user guide)
-- commands/do.md, brainstorm.md, check.md, docs/sync.md, ci/generate.md</p>
-<p><strong>Implementation:</strong>
-- Core handler: <code>utils/orch_flag_handler.py</code>
-- 58 tests (unit + integration), 95% coverage
-- Backward compatible (opt-in flag)
-- No breaking changes to existing commands</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li><strong>--orch Flag</strong>: Explicit orchestration mode for 5 commands</li>
+<li><code>/craft:do</code>, <code>/craft:workflow:brainstorm</code>, <code>/craft:check</code></li>
+<li><code>/craft:docs:sync</code>, <code>/craft:ci:generate</code></li>
+<li><strong>Mode Selection</strong>: Interactive prompts when mode not specified</li>
+<li><strong>Dry-Run Support</strong>: Preview orchestration without spawning agents</li>
+<li><strong>4 Orchestration Modes</strong>: default, debug, optimize, release</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>New file: utils/orch_flag_handler.py (core handler)</li>
+<li>New tests: 36 tests (15 unit + 21 integration), 95% coverage</li>
+<li>Updated: 5 command files with --orch flag support</li>
+<li>Documentation: User guide + updates to CLAUDE.md and VERSION-HISTORY.md</li>
+</ul>
+<p><strong>Key Files:</strong></p>
+<ul>
+<li>utils/orch_flag_handler.py (core orchestration logic)</li>
+<li>tests/test_orch_flag_handler.py (15 unit tests)</li>
+<li>tests/test_integration_orch_flag.py (21 integration tests)</li>
+<li>docs/guide/orch-flag-usage.md (user guide)</li>
+<li>commands/do.md, brainstorm.md, check.md, docs/sync.md, ci/generate.md</li>
+</ul>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Core handler: <code>utils/orch_flag_handler.py</code></li>
+<li>58 tests (unit + integration), 95% coverage</li>
+<li>Backward compatible (opt-in flag)</li>
+<li>No breaking changes to existing commands</li>
+</ul>
 <hr />
 <h3 id="v240-2026-01-18-brainstorm-question-control-phase-1">v2.4.0 (2026-01-18) - Brainstorm Question Control (Phase 1)<a class="headerlink" href="#v240-2026-01-18-brainstorm-question-control-phase-1" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- Phase 1 MVP: Question Control for brainstorming
-- Colon notation: <code>d:5</code>, <code>m:12</code>, <code>q:3</code> for custom question counts
-- Categories flag: <code>--categories</code> or <code>-C</code> to filter question types
-- 8-category question bank (16 questions total)
-- Unlimited questions with milestone prompts every 8 questions
-- 53 unit tests, 24 integration tests, 100% coverage</p>
-<p><strong>Stats:</strong>
-- Commands: 100 (100% implementation)
-- Tests: 581+ (90%+ coverage)
-- Question categories: 8 (requirements, users, scope, technical, timeline, risks, existing, success)</p>
-<p><strong>Key Files:</strong>
-- commands/workflow/brainstorm.md (v2.4.0)
-- tests/test_brainstorm_phase1.py (53 tests)
-- tests/test_integration_brainstorm_phase1.py (24 tests)</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Phase 1 MVP: Question Control for brainstorming</li>
+<li>Colon notation: <code>d:5</code>, <code>m:12</code>, <code>q:3</code> for custom question counts</li>
+<li>Categories flag: <code>--categories</code> or <code>-C</code> to filter question types</li>
+<li>8-category question bank (16 questions total)</li>
+<li>Unlimited questions with milestone prompts every 8 questions</li>
+<li>53 unit tests, 24 integration tests, 100% coverage</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>Commands: 100 (100% implementation)</li>
+<li>Tests: 581+ (90%+ coverage)</li>
+<li>Question categories: 8 (requirements, users, scope, technical, timeline, risks, existing, success)</li>
+</ul>
+<p><strong>Key Files:</strong></p>
+<ul>
+<li>commands/workflow/brainstorm.md (v2.4.0)</li>
+<li>tests/test_brainstorm_phase1.py (53 tests)</li>
+<li>tests/test_integration_brainstorm_phase1.py (24 tests)</li>
+</ul>
 <hr />
 <h3 id="v1240-2026-01-18-hub-v20-zero-maintenance-command-discovery">v1.24.0 (2026-01-18) - Hub v2.0: Zero-Maintenance Command Discovery<a class="headerlink" href="#v1240-2026-01-18-hub-v20-zero-maintenance-command-discovery" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- Hub v2.0 Zero-Maintenance Command Discovery system
-- 3-layer progressive disclosure (Main → Category → Detail + Tutorial)
-- Auto-detection from YAML frontmatter (eliminates manual maintenance)
-- 52 tests (98% coverage), &lt;2ms cached performance, 94% faster than target
-- Dependency Management System (79 tests, 100% passing)
-- Claude Code 2.1.0 Integration support
-- Integration tests for 27 workflows (100% passing)</p>
-<p><strong>Stats:</strong>
-- Commands: 99 (100% implementation)
-- Documentation: 87% complete (3 gaps identified)
-- Tests: 516+ (90%+ coverage)
-- Hub v2.0 performance: 12ms uncached (vs 200ms target)</p>
-<p><strong>Key Files:</strong>
-- commands/<em>discovery.py (680 lines)
-- tests/test_hub</em>*.py (52 tests)
-- docs/GAP-ANALYSIS-2026-01-18.md (comprehensive)</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Hub v2.0 Zero-Maintenance Command Discovery system</li>
+<li>3-layer progressive disclosure (Main → Category → Detail + Tutorial)</li>
+<li>Auto-detection from YAML frontmatter (eliminates manual maintenance)</li>
+<li>52 tests (98% coverage), &lt;2ms cached performance, 94% faster than target</li>
+<li>Dependency Management System (79 tests, 100% passing)</li>
+<li>Claude Code 2.1.0 Integration support</li>
+<li>Integration tests for 27 workflows (100% passing)</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>Commands: 99 (100% implementation)</li>
+<li>Documentation: 87% complete (3 gaps identified)</li>
+<li>Tests: 516+ (90%+ coverage)</li>
+<li>Hub v2.0 performance: 12ms uncached (vs 200ms target)</li>
+</ul>
+<p><strong>Key Files:</strong></p>
+<ul>
+<li>commands/_discovery.py (680 lines)</li>
+<li>tests/test_hub_*.py (52 tests)</li>
+<li>docs/GAP-ANALYSIS-2026-01-18.md (comprehensive)</li>
+</ul>
 <hr />
 <h3 id="v1231-2026-01-17-test-coverage-build-cleanup">v1.23.1 (2026-01-17) - Test Coverage &amp; Build Cleanup<a class="headerlink" href="#v1231-2026-01-17-test-coverage-build-cleanup" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- Test Coverage &amp; Build Cleanup merge from dev to main
-- 253 files changed, +30,857/-151,299 lines
-- 92% test pass rate
-- Website organization Phase 1 &amp; 2 merged
-- Broken link validation integration
-- Teaching workflow system complete
-- asciinema default GIF recording method</p>
-<p><strong>Stats:</strong>
-- Commands: 97 (up from 92)
-- New validators: 3 (test-coverage, broken-links, lint-check)
-- Tests added: 160 (139 teaching + 21 linkcheck)
-- Navigation reduced: 14+ → 6 sections (50% reduction)</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Test Coverage &amp; Build Cleanup merge from dev to main</li>
+<li>253 files changed, +30,857/-151,299 lines</li>
+<li>92% test pass rate</li>
+<li>Website organization Phase 1 &amp; 2 merged</li>
+<li>Broken link validation integration</li>
+<li>Teaching workflow system complete</li>
+<li>asciinema default GIF recording method</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>Commands: 97 (up from 92)</li>
+<li>New validators: 3 (test-coverage, broken-links, lint-check)</li>
+<li>Tests added: 160 (139 teaching + 21 linkcheck)</li>
+<li>Navigation reduced: 14+ → 6 sections (50% reduction)</li>
+</ul>
 <hr />
 <h3 id="v1230-2026-01-17-documentation-quality-automation">v1.23.0 (2026-01-17) - Documentation Quality Automation<a class="headerlink" href="#v1230-2026-01-17-documentation-quality-automation" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- /craft:docs:check-links with internal link validation
-- /craft:docs:lint with markdown linting + auto-fix
-- Broken link validation system with .linkcheck-ignore parser
-- CI pre-commit hooks for document validation
-- 21 comprehensive link validation tests</p>
-<p><strong>New Commands:</strong>
-- /craft:docs:check-links (4 modes: quick, thorough, interactive, ci)
-- /craft:docs:lint (markdown formatting, embedded rules)</p>
-<p><strong>Files Changed:</strong>
-- 21 files, +4,609 lines
-- Dependencies: markdown-link-check, markdownlint-cli2
-- Test coverage: 100% of new code</p>
-<p><strong>Impact:</strong>
-- Prevents broken links in production
-- Auto-fixes 90% of formatting issues
-- Eliminates manual documentation validation</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>/craft:docs:check-links with internal link validation</li>
+<li>/craft:docs:lint with markdown linting + auto-fix</li>
+<li>Broken link validation system with .linkcheck-ignore parser</li>
+<li>CI pre-commit hooks for document validation</li>
+<li>21 comprehensive link validation tests</li>
+</ul>
+<p><strong>New Commands:</strong></p>
+<ul>
+<li>/craft:docs:check-links (4 modes: quick, thorough, interactive, ci)</li>
+<li>/craft:docs:lint (markdown formatting, embedded rules)</li>
+</ul>
+<p><strong>Files Changed:</strong></p>
+<ul>
+<li>21 files, +4,609 lines</li>
+<li>Dependencies: markdown-link-check, markdownlint-cli2</li>
+<li>Test coverage: 100% of new code</li>
+</ul>
+<p><strong>Impact:</strong></p>
+<ul>
+<li>Prevents broken links in production</li>
+<li>Auto-fixes 90% of formatting issues</li>
+<li>Eliminates manual documentation validation</li>
+</ul>
 <hr />
 <h3 id="v1220-2026-01-17-teaching-workflow-system">v1.22.0 (2026-01-17) - Teaching Workflow System<a class="headerlink" href="#v1220-2026-01-17-teaching-workflow-system" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- Teaching mode auto-detection (.flow/teach-config.yml)
-- Preview-before-publish safe deployment workflow
-- Semester progress tracking dashboard
-- Content validation (syllabus, schedule, assignments)
-- 5 new teaching-aware commands
-- 139 teaching-specific tests</p>
-<p><strong>New Commands:</strong>
-- /craft:site:publish (preview + validation workflow)
-- /craft:site:progress (semester tracking)
-- Enhanced: /craft:git:status, /craft:site:build</p>
-<p><strong>New Utilities:</strong>
-- detect_teaching_mode.py
-- teaching_validation.py
-- teach_config.py
-- semester_progress.py</p>
-<p><strong>Impact:</strong>
-- 80% time reduction: 15 min → 3 min
-- Zero production bugs from deployments
-- Safe preview-before-publish workflow</p>
-<p><strong>Stats:</strong>
-- 44 files changed, +12,241 lines
-- 139 tests (100% passing)
-- 8 documentation guides</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Teaching mode auto-detection (.flow/teach-config.yml)</li>
+<li>Preview-before-publish safe deployment workflow</li>
+<li>Semester progress tracking dashboard</li>
+<li>Content validation (syllabus, schedule, assignments)</li>
+<li>5 new teaching-aware commands</li>
+<li>139 teaching-specific tests</li>
+</ul>
+<p><strong>New Commands:</strong></p>
+<ul>
+<li>/craft:site:publish (preview + validation workflow)</li>
+<li>/craft:site:progress (semester tracking)</li>
+<li>Enhanced: /craft:git:status, /craft:site:build</li>
+</ul>
+<p><strong>New Utilities:</strong></p>
+<ul>
+<li>detect_teaching_mode.py</li>
+<li>teaching_validation.py</li>
+<li>teach_config.py</li>
+<li>semester_progress.py</li>
+</ul>
+<p><strong>Impact:</strong></p>
+<ul>
+<li>80% time reduction: 15 min → 3 min</li>
+<li>Zero production bugs from deployments</li>
+<li>Safe preview-before-publish workflow</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>44 files changed, +12,241 lines</li>
+<li>139 tests (100% passing)</li>
+<li>8 documentation guides</li>
+</ul>
 <hr />
 <h3 id="v1210-2026-01-17-hub-v20-smart-discovery-foundation">v1.21.0 (2026-01-17) - Hub v2.0 Smart Discovery (Foundation)<a class="headerlink" href="#v1210-2026-01-17-hub-v20-smart-discovery-foundation" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- Zero-maintenance command discovery engine
-- Auto-detection from YAML frontmatter
-- 3-layer progressive disclosure UI
-- JSON caching with auto-invalidation
-- Auto-generated tutorials
-- 16 categories, 97 commands, always accurate</p>
-<p><strong>Implementation:</strong>
-- Discovery engine: commands/_discovery.py (680 lines)
-- Cache system: timestamp-based invalidation
-- YAML parser: pure Python, no dependencies</p>
-<p><strong>Performance:</strong>
-- Uncached: 12ms (target: &lt;200ms) - 94% faster
-- Cached: &lt;2ms (target: &lt;10ms) - 80% faster
-- Scales to 500+ commands with no degradation</p>
-<p><strong>Test Coverage:</strong>
-- 34 comprehensive tests (100% coverage)
-- 12 discovery tests
-- 7 layer 2 tests (category view)
-- 8 layer 3 tests (command detail)
-- 7 integration tests</p>
-<p><strong>Enhanced:</strong>
-- 18 additional YAML edge case tests (v1.21.1)
-- E2E workflow tests (6 tests)
-- Total: 52 tests, 98% coverage</p>
-<p><strong>Stats:</strong>
-- 26 files changed, +9,149 lines
-- 3,527 lines documentation
-- 4 Mermaid diagrams
-- 15 API functions documented</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Zero-maintenance command discovery engine</li>
+<li>Auto-detection from YAML frontmatter</li>
+<li>3-layer progressive disclosure UI</li>
+<li>JSON caching with auto-invalidation</li>
+<li>Auto-generated tutorials</li>
+<li>16 categories, 97 commands, always accurate</li>
+</ul>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Discovery engine: commands/_discovery.py (680 lines)</li>
+<li>Cache system: timestamp-based invalidation</li>
+<li>YAML parser: pure Python, no dependencies</li>
+</ul>
+<p><strong>Performance:</strong></p>
+<ul>
+<li>Uncached: 12ms (target: &lt;200ms) - 94% faster</li>
+<li>Cached: &lt;2ms (target: &lt;10ms) - 80% faster</li>
+<li>Scales to 500+ commands with no degradation</li>
+</ul>
+<p><strong>Test Coverage:</strong></p>
+<ul>
+<li>34 comprehensive tests (100% coverage)</li>
+<li>12 discovery tests</li>
+<li>7 layer 2 tests (category view)</li>
+<li>8 layer 3 tests (command detail)</li>
+<li>7 integration tests</li>
+</ul>
+<p><strong>Enhanced:</strong></p>
+<ul>
+<li>18 additional YAML edge case tests (v1.21.1)</li>
+<li>E2E workflow tests (6 tests)</li>
+<li>Total: 52 tests, 98% coverage</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>26 files changed, +9,149 lines</li>
+<li>3,527 lines documentation</li>
+<li>4 Mermaid diagrams</li>
+<li>15 API functions documented</li>
+</ul>
 <hr />
 <h3 id="v1200-2026-01-15-phase-3-dry-run-completion">v1.20.0 (2026-01-15) - Phase 3 Dry-Run Completion<a class="headerlink" href="#v1200-2026-01-15-phase-3-dry-run-completion" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
 <p><strong>Target Exceeded:</strong> 57% vs 52% target (Target: +5%)</p>
-<p><strong>Phases:</strong>
-- Phase 1: /craft:git:clean, /craft:git:worktree, /craft:git:branch, /craft:git:sync (4 commands)
-- Phase 2: CI detection, validation, docs quality (9 commands)
-- Phase 3: Smart routing, task detection, code/test utilities (10 commands)</p>
-<p><strong>New Features:</strong>
-- Complexity scoring system (0-10 scale)
-- Task router with agent delegation
-- Hot-reload validators
-- Orchestration hooks</p>
-<p><strong>Stats:</strong>
-- 27 of 47 target commands (57%)
-- 17 of 90 total commands (19% dry-run coverage)
-- All P0 commands: 100% complete
-- All P1 commands: 100% complete</p>
+<p><strong>Phases:</strong></p>
+<ul>
+<li>Phase 1: /craft:git:clean, /craft:git:worktree, /craft:git:branch, /craft:git:sync (4 commands)</li>
+<li>Phase 2: CI detection, validation, docs quality (9 commands)</li>
+<li>Phase 3: Smart routing, task detection, code/test utilities (10 commands)</li>
+</ul>
+<p><strong>New Features:</strong></p>
+<ul>
+<li>Complexity scoring system (0-10 scale)</li>
+<li>Task router with agent delegation</li>
+<li>Hot-reload validators</li>
+<li>Orchestration hooks</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>27 of 47 target commands (57%)</li>
+<li>17 of 90 total commands (19% dry-run coverage)</li>
+<li>All P0 commands: 100% complete</li>
+<li>All P1 commands: 100% complete</li>
+</ul>
 <hr />
 <h3 id="v1190-2025-12-27-phase-2-dry-run-implementation">v1.19.0 (2025-12-27) - Phase 2 Dry-Run Implementation<a class="headerlink" href="#v1190-2025-12-27-phase-2-dry-run-implementation" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- 9 new dry-run capable commands
-- CI detection &amp; validation system
-- Documentation quality automation
-- Site building &amp; updating
-- Navigation updates</p>
-<p><strong>Commands Added:</strong>
-- /craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />detect
-- /craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />validate
-- /craft:docs:sync
-- /craft:docs:changelog
-- /craft:docs:check
-- /craft:docs:update
-- /craft:site:check
-- /craft:site:update
-- /craft:docs:claude-md</p>
-<p><strong>Impact:</strong>
-- Full documentation workflow support
-- CI/CD integration readiness
-- Site building automation</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>9 new dry-run capable commands</li>
+<li>CI detection &amp; validation system</li>
+<li>Documentation quality automation</li>
+<li>Site building &amp; updating</li>
+<li>Navigation updates</li>
+</ul>
+<p><strong>Commands Added:</strong></p>
+<ul>
+<li>/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />detect</li>
+<li>/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />validate</li>
+<li>/craft:docs:sync</li>
+<li>/craft:docs:changelog</li>
+<li>/craft:docs:check</li>
+<li>/craft:docs:update</li>
+<li>/craft:site:check</li>
+<li>/craft:site:update</li>
+<li>/craft:docs:claude-md</li>
+</ul>
+<p><strong>Impact:</strong></p>
+<ul>
+<li>Full documentation workflow support</li>
+<li>CI/CD integration readiness</li>
+<li>Site building automation</li>
+</ul>
 <hr />
 <h3 id="v1180-2025-12-20-phase-1-dry-run-implementation">v1.18.0 (2025-12-20) - Phase 1 Dry-Run Implementation<a class="headerlink" href="#v1180-2025-12-20-phase-1-dry-run-implementation" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- 4 new dry-run capable commands
-- Git workflow utilities
-- Worktree management
-- Branch cleanup &amp; syncing</p>
-<p><strong>Commands Added:</strong>
-- /craft:git:clean
-- /craft:git:worktree
-- /craft:git:branch
-- /craft:git:sync</p>
-<p><strong>Infrastructure:</strong>
-- utils/dry_run_output.py (dry-run output rendering)
-- templates/dry-run-pattern.md (reusable template)
-- 17 comprehensive tests</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>4 new dry-run capable commands</li>
+<li>Git workflow utilities</li>
+<li>Worktree management</li>
+<li>Branch cleanup &amp; syncing</li>
+</ul>
+<p><strong>Commands Added:</strong></p>
+<ul>
+<li>/craft:git:clean</li>
+<li>/craft:git:worktree</li>
+<li>/craft:git:branch</li>
+<li>/craft:git:sync</li>
+</ul>
+<p><strong>Infrastructure:</strong></p>
+<ul>
+<li>utils/dry_run_output.py (dry-run output rendering)</li>
+<li>templates/dry-run-pattern.md (reusable template)</li>
+<li>17 comprehensive tests</li>
+</ul>
 <hr />
 <h3 id="v1170-2025-12-15-smart-routing-foundation">v1.17.0 (2025-12-15) - Smart Routing Foundation<a class="headerlink" href="#v1170-2025-12-15-smart-routing-foundation" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- /craft:do smart routing command
-- Complexity scoring system
-- Task type detection
-- Agent delegation framework
-- Command vs agent vs orchestrator routing</p>
-<p><strong>Features:</strong>
-- 0-10 complexity scale
-- 5 classification factors
-- 5 specialized agents
-- Mode-aware routing</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>/craft:do smart routing command</li>
+<li>Complexity scoring system</li>
+<li>Task type detection</li>
+<li>Agent delegation framework</li>
+<li>Command vs agent vs orchestrator routing</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+<li>0-10 complexity scale</li>
+<li>5 classification factors</li>
+<li>5 specialized agents</li>
+<li>Mode-aware routing</li>
+</ul>
 <hr />
 <h3 id="v1160-2025-12-10-orchestrator-v2-enhancement">v1.16.0 (2025-12-10) - Orchestrator v2 Enhancement<a class="headerlink" href="#v1160-2025-12-10-orchestrator-v2-enhancement" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
-<p><strong>Highlights:</strong>
-- Orchestrator v2 improved
-- Multi-agent coordination
-- Context management
-- Agent monitoring</p>
-<p><strong>Versions:</strong>
-- orchestrator-v2: 2.0 → 2.1 → 2.3.0</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li>Orchestrator v2 improved</li>
+<li>Multi-agent coordination</li>
+<li>Context management</li>
+<li>Agent monitoring</li>
+</ul>
+<p><strong>Versions:</strong></p>
+<ul>
+<li>orchestrator-v2: 2.0 → 2.1 → 2.3.0</li>
+</ul>
 <hr />
 <h3 id="v1150-v110-2025-06-01-2025-09-15">v1.15.0 - v1.1.0 (2025-06-01 - 2025-09-15)<a class="headerlink" href="#v1150-v110-2025-06-01-2025-09-15" title="Permanent link">&para;</a></h3>
 <p><strong>Foundation Releases:</strong></p>
@@ -5391,8 +5655,8 @@ Addresses 4 of 12 gaps identified in v2.5.0 gap analysis:
 <hr />
 <h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>GitHub:</strong> https://github.com/Data-Wise/craft</li>
-<li><strong>Documentation:</strong> https://data-wise.github.io/craft/</li>
+<li><strong>GitHub:</strong> <a href="https://github.com/Data-Wise/craft">https://github.com/Data-Wise/craft</a></li>
+<li><strong>Documentation:</strong> <a href="https://data-wise.github.io/craft/">https://data-wise.github.io/craft/</a></li>
 <li><strong>Specifications:</strong> docs/specs/ (6 total)</li>
 <li><strong>Test Suite:</strong> tests/ (516+ tests)</li>
 <li><strong>Status Tracking:</strong> .STATUS (detailed history)</li>
