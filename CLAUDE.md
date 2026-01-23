@@ -2,14 +2,14 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**99 commands** · **21 skills** · **8 agents** · **7 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**100 commands** · **21 skills** · **8 agents** · **14 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.5.1 (in development)
-**Documentation Status:** 96% complete (Phase 4: Markdownlint list spacing)
+**Current Version:** v2.6.0 (released 2026-01-20)
+**Documentation Status:** 96% complete (v2.7.0 planning phase)
 
 ## Git Workflow
 
-```
+```text
 main (protected) ← PR only, never direct commits
   ↑
 dev (integration) ← Plan here, branch from here
@@ -50,9 +50,9 @@ feature/* (worktrees) ← All implementation work
 | Clean branches | - | `/craft:git:clean` |
 | CI workflow | - | `/craft:ci:generate` |
 | Smart routing | - | `/craft:do <task>` |
-| Brainstorm | - | `/craft:workflow:brainstorm` | v2.4.0 - Question control, colon notation, categories |
+| Brainstorm | - | `/craft:workflow:brainstorm` |
 | Orchestrate | - | `/craft:orchestrate` |
-| Orchestrate task | - | `/craft:do "task" --orch=<mode>` | v2.5.0 - --orch flag for quick orchestration |
+| Orchestrate task | - | `/craft:do "task" --orch=<mode>` |
 
 ## Execution Modes
 
@@ -80,7 +80,7 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 
 ## Project Structure
 
-```
+```text
 craft/
 ├── .claude-plugin/     # Plugin manifest, hooks, validators
 ├── commands/           # 100 commands (arch, ci, code, docs, git, site, test, workflow)
@@ -90,56 +90,68 @@ craft/
 ├── utils/              # Python utilities (complexity scorer, validators, parsers)
 ├── tests/              # Comprehensive test suite (581+ tests, 90%+ coverage)
 ├── docs/
-│   ├── specs/          # Implementation specs (6 total)
+│   ├── specs/          # Implementation specs (14 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
 │   ├── tutorials/      # Step-by-step guides
 │   └── brainstorm/     # Working drafts (gitignored)
 └── .STATUS             # Current milestone and progress
 ```
 
-## Recent Major Features (v2.4.0)
+## Recent Major Features
 
-### Hub v2.0 - Zero-Maintenance Command Discovery ✅
+### v2.6.0 - Documentation Quality Improvements (Released 2026-01-20) ✅
+
+- Fixed all failing tests → 706/706 passing (100% pass rate)
+- Expanded markdownlint pre-commit hook (3 → 24 rules)
+  - Lists: MD004, MD005, MD007, MD029, MD030, MD031, MD032
+  - Headings: MD003, MD022, MD023, MD036
+  - Code: MD040, MD046, MD048
+  - Links/Images: MD042, MD045, MD052, MD056
+  - Whitespace: MD009, MD010, MD012
+  - Inline: MD034, MD049, MD050
+- Created comprehensive release notes (RELEASE-v2.6.0.md)
+- CI/CD fixes: Added PyYAML dependency, removed hardcoded paths
+- Merged PR #30 (markdownlint feature) + 6 follow-up fixes
+
+### v2.5.0-v2.5.1 - Orchestration & List Spacing ✅
+
+- **--orch Flag Integration (v2.5.0)**: Explicit orchestration mode for 5 key commands
+- **Markdownlint List Spacing (v2.5.1)**: MD030/MD004/MD032 enforcement with pre-commit hook
+- 36 tests (15 unit + 21 integration), 95% coverage
+- 78 comprehensive tests (21 unit + 42 validation + 15 e2e), 100% passing
+
+### v2.4.0 - Command Discovery & ADHD Features ✅
+
+#### Hub v2.0 - Zero-Maintenance Command Discovery ✅
+
 - 3-layer progressive disclosure (Main → Category → Detail + Tutorial)
 - Auto-discovery from YAML frontmatter (no manual maintenance)
 - 52 tests, 98% coverage, <2ms cached performance
 - 94% faster than target (12ms uncached vs 200ms goal)
 
-### Claude Code 2.1.0 Integration ✅
+#### Claude Code 2.1.0 Integration ✅
+
 - Complexity scoring system (0-10 scale) for smart task routing
 - 3 hot-reload validators (test-coverage, broken-links, lint-check)
 - Orchestration hooks (PreToolUse, PostToolUse, Stop)
 - Agent delegation with 5 specialized agents
 - 37 unit tests, 100% passing, 96% coverage
 
-### Dependency Management System ✅
+#### Dependency Management System ✅
+
 - Full dependency checking/installation for demo command
 - 10 scripts: manager, installer, health-check, repair, converters
 - 4 installer adapters: brew, cargo, binary, consent-prompt
 - 79 tests (unit, validation, e2e), 100% passing
 - CI workflow for automated validation
 
-### Teaching Workflow System ✅
+#### Teaching Workflow System ✅
+
 - Teaching mode auto-detection (`.flow/teach-config.yml`)
 - Safe publish workflow (draft → preview → validate → deploy)
 - Semester progress tracking
 - Content validation (syllabus, schedule, assignments)
 - 5 teaching-aware commands
-
-### --orch Flag Integration (v2.5.0) ✅
-- Explicit orchestration mode for 5 key commands
-- Mode selection with interactive prompts
-- Dry-run preview support
-- 36 tests (15 unit + 21 integration), 95% coverage
-
-### Markdownlint List Spacing Enforcement (v2.5.1) ✅
-- MD030: Enforce 1 space after list markers (`- Item`, not `-  Item`)
-- MD004: Enforce dash style consistently (all `-`, no `*` or `+`)
-- MD032: Explicit blank lines around lists (already enabled)
-- Auto-fix capability with `/craft:docs:lint --fix`
-- Pre-commit hook to prevent new violations
-- 78 comprehensive tests (21 unit + 42 validation + 15 e2e), 100% passing
-- Baseline report: 99% compliant (3 MD030 violations, 0 MD004, 2112 MD032)
 
 ## Integration Features (v1.24.0)
 
@@ -176,7 +188,7 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Feature Status Matrix
 
-### Implementation & Documentation Completeness (v2.4.0)
+### Implementation & Documentation Completeness (v2.6.0)
 
 | Feature | Commands | Implementation | Documentation | Status |
 |---------|----------|---|---|---|
@@ -191,9 +203,10 @@ python3 tests/test_integration_teaching_workflow.py
 | **Testing Commands** | 10 | 100% | 80% | Complete ✅ |
 | **Architecture Commands** | 12 | 100% | 75% | Complete ✅ |
 | **Remaining Commands** | 51 | 100% | 40% | Baseline ✅ |
-| **TOTAL** | **100** | **100%** | **95%** | v2.4.0 ✅ |
+| **TOTAL** | **100** | **100%** | **95%** | v2.6.0 ✅ |
 
 **Legend:**
+
 - 100% Implementation: All planned features completed
 - 90-100% Docs: Comprehensive guides with examples
 - 80-89% Docs: Good documentation, minor gaps
@@ -213,25 +226,38 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Active Development
 
-### Current Worktree
+### Current Worktree (v2.7.0 Planning)
+
 | Branch | Location | Status |
 |--------|----------|--------|
 | `dev` | `/Users/dt/projects/dev-tools/craft` | Main repo (clean) |
-| `feature/brainstorm-question-control` | `~/.git-worktrees/craft/feature-brainstorm-question-control` | **Implementing v2.4.0** |
+| `feature/docs-update-interactive` | `~/.git-worktrees/craft/feature-docs-update-interactive` | **WIP: Phase 1 Starting** |
 
-### Completed Features (v2.4.0)
+### v2.7.0 - Interactive Documentation & Enhanced Linting (Planning)
+
 | Feature | Priority | Effort | Status |
 |---------|----------|--------|--------|
-| Brainstorm Question Control (Phase 1) | High | 12h | ✅ Complete |
-| Colon notation (d:5, m:12, q:3) | Critical | 3h | ✅ Complete |
-| Categories flag (--categories, -C) | Critical | 1h | ✅ Complete |
-| Question bank (8 categories × 2 questions) | Critical | 2h | ✅ Complete |
-| Unlimited questions + milestones | Critical | 3h | ✅ Complete |
-| Unit tests (53) + Integration tests (24) | High | 2h | ✅ Complete |
-| Help Template System | High | 30h | Spec ready |
-| Spec Integration | High | 20h | Spec ready |
+| Interactive docs:update specs | Critical | 4h | ✅ Complete (1,634 lines) |
+| docs:sync merge specs | Critical | 2h | ✅ Complete (947 lines) |
+| Markdownlint expansion (24 rules) | Critical | 1h | ✅ Complete |
+| Worktree setup | High | 30m | ✅ Complete |
+| Phase 1: Core workflow | High | 8-10h | ⏳ Starting |
+| Phase 2: GIF integration | Medium | 6-8h | 📝 Planned |
+| Phase 3: Lint & tutorial | Medium | 8-10h | 📝 Planned |
+| Phase 4: Help files | High | 10-12h | 📝 Planned |
 
-See `docs/specs/` for detailed specifications.
+**Specs:** `docs/specs/SPEC-docs-update-interactive-2026-01-22.md`, `docs/specs/SPEC-docs-sync-update-integration-2026-01-22.md`
+
+### Completed Features (v2.6.0)
+
+| Feature | Priority | Effort | Status |
+|---------|----------|--------|--------|
+| Test fixes (706/706 passing) | Critical | 4h | ✅ Complete |
+| Markdownlint expansion (3 → 24 rules) | High | 2h | ✅ Complete |
+| Release notes | High | 1h | ✅ Complete |
+| CI/CD fixes | Medium | 1h | ✅ Complete |
+
+See `docs/specs/` for detailed specifications (14 total).
 
 ## Key Files
 
@@ -261,18 +287,18 @@ See `docs/specs/` for detailed specifications.
 
 | Test File | Tests | Coverage | Purpose |
 |-----------|-------|----------|---------|
-| **Unit & Feature Tests** |
+| **Unit & Feature Tests** | | | |
 | `tests/test_craft_plugin.py` | 370 | 84% | Core functionality |
 | `tests/test_brainstorm_phase1.py` | 53 | 100% | Question control (v2.4.0) |
 | `tests/test_complexity_scoring.py` | 15 | 100% | Complexity scorer |
 | `tests/test_hot_reload_validators.py` | 9 | 95% | Hot-reload validators |
 | `tests/test_agent_hooks.py` | 13 | 100% | Agent hooks |
-| **Integration Tests** |
+| **Integration Tests** | | | |
 | `tests/test_integration_brainstorm_phase1.py` | 24 | 100% | Question control integration |
 | `tests/test_integration_dependency_system.py` | 9 | 100% | Dependency workflow |
 | `tests/test_integration_orchestrator_workflows.py` | 13 | 100% | Task routing & scoring |
 | `tests/test_integration_teaching_workflow.py` | 8 | 100% | Teaching mode (3 skipped) |
-| **System Tests** |
+| **System Tests** | | | |
 | `tests/test_dependency_management.sh` | 79 | 100% | Dependency system |
 | **Total** | **581+** | **~90%** | **All systems** |
 
@@ -298,18 +324,21 @@ See `docs/specs/` for detailed specifications.
 **Status:** Completed (87% → 95% target)
 
 **New Documentation:**
+
 - VERSION-HISTORY.md - Complete version evolution from v1.0.0 → v1.24.0
 - Complexity Scoring Algorithm Guide - 7-factor system with visual decision flows
 - Claude Code 2.1.0 Integration Guide - Smart routing, agents, validators, session teleportation
 - Feature Status Matrix - Implementation and documentation completeness by feature
 
 **Deliverables:**
+
 - 3 new guide documents (1,609 lines)
 - 17 Mermaid diagrams (task routing, complexity scoring, agent delegation, orchestration)
-- Feature completeness matrix showing 99 commands with 95% documentation
+- Feature completeness matrix showing 100 commands with 95% documentation
 - Version history timeline with 24+ releases documented
 
 **Success Criteria Met:**
+
 - ✅ VERSION-HISTORY.md created with comprehensive timeline
 - ✅ Mermaid visualizations for complexity scoring and orchestration (17 diagrams)
 - ✅ Feature status matrix in CLAUDE.md showing documentation completeness
@@ -320,9 +349,9 @@ See `docs/specs/` for detailed specifications.
 ## Links
 
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
-- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 99 commands
+- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 100 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
-- [Specifications](docs/specs/) — Implementation specs (6 total)
+- [Specifications](docs/specs/) — Implementation specs (14 total)
 - [Version History](docs/VERSION-HISTORY.md) — Complete release timeline (NEW)
 - [Complexity Scoring](docs/guide/complexity-scoring-algorithm.md) — Algorithm & routing (NEW)
 - [Claude Code 2.1](docs/guide/claude-code-2.1-integration.md) — Integration guide (NEW)
