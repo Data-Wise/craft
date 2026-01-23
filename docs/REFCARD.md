@@ -4,10 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.4.0                                             │
+│  Version: 2.7.0                                             │
 │  Commands: 100 | Agents: 8 | Skills: 21                     │
-│  Documentation: 95% complete | Diagrams: 17 Mermaid         │
+│  Documentation: 98% complete | Diagrams: 17 Mermaid         │
 │  Docs: https://data-wise.github.io/craft/                   │
+│  NEW: Interactive docs:update with 9-category detection     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -24,27 +25,34 @@
 
 | Command | Description |
 |---------|-------------|
-| `/craft:docs:update` | Smart-Full: Detect → Generate → Check → Changelog |
+| `/craft:docs:update` | **NEW v2.7.0** Interactive: 9 categories, prompts, auto-fix |
+| `/craft:docs:update --interactive` | Category-level prompts for precise control |
+| `/craft:docs:update --category=NAME` | Update only specific category |
 | `/craft:docs:sync` | Detection: Classify changes, report stale docs |
 | `/craft:docs:check` | Validation: Links + stale + nav + auto-fix |
-| `/craft:docs:website` | **NEW** ADHD-friendly enhancement with scoring |
+| `/craft:docs:website` | ADHD-friendly enhancement with scoring |
 | `/craft:docs:guide` | Feature guide + demo + refcard generator |
 | `/craft:docs:demo` | VHS tape generator for GIF demos |
 | `/craft:docs:mermaid` | Mermaid diagram templates (6 types) |
 
 **Quick examples:**
+
 ```bash
-/craft:docs:update                    # Full smart cycle
-/craft:docs:website --phase 1         # Quick wins: TL;DR, mermaid fixes
-/craft:docs:check --report-only       # CI-safe mode
-/craft:docs:check-links               # Validate links (supports .linkcheck-ignore)
+/craft:docs:update --interactive          # Interactive mode (9 categories)
+/craft:docs:update --category=version_refs # Update only version refs
+/craft:docs:update --interactive --dry-run # Preview without changes
+/craft:docs:check --report-only           # CI-safe mode
+/craft:docs:check-links                   # Validate links
 ```
 
-**NEW in v1.23.0: .linkcheck-ignore Support**
-- Document expected broken links (test files, brainstorm refs)
-- CI passes with expected links (exit code 0)
-- Only fails on critical broken links (exit code 1)
-- Create `.linkcheck-ignore` in project root with patterns
+**NEW in v2.7.0: Interactive Documentation Update**
+
+- 9-category detection (version refs, command counts, broken links, etc.)
+- Category-level prompts for precise control
+- 1,331 real issues detected in craft project
+- Production-ready error handling (29/29 tests passing)
+- Dry-run preview mode
+- [Tutorial](tutorials/interactive-docs-update-tutorial.md) | [Reference](reference/REFCARD-DOCS-UPDATE.md)
 
 ## Site Commands (15 commands)
 
@@ -61,6 +69,7 @@
 | `/craft:site:deploy` | Deploy to GitHub Pages |
 
 **Teaching Mode Quick Start:**
+
 ```bash
 /craft:site:build              # Preview changes
 /craft:site:progress           # Check semester status
@@ -68,6 +77,7 @@
 ```
 
 **Standard Quick Examples:**
+
 ```bash
 /craft:site:create --preset data-wise --quick
 /craft:site:status
@@ -85,6 +95,7 @@
 **Modes:** `default` (<10s) | `debug` (<120s) | `optimize` (<180s) | `release` (<300s)
 
 **Quick examples:**
+
 ```bash
 /craft:code:lint optimize       # Parallel, fast
 /craft:test:run debug           # Verbose with suggestions
@@ -102,6 +113,7 @@
 | `/craft:git:branch` | Branch management |
 
 **Quick examples:**
+
 ```bash
 /craft:git:init                      # Interactive wizard
 /craft:git:init --dry-run            # Preview changes
@@ -128,6 +140,7 @@
 ```
 
 **Features:**
+
 - Mode-aware execution (default/debug/optimize/release)
 - Subagent monitoring
 - Chat compression
@@ -154,14 +167,17 @@
 ```
 
 **Question Bank (v2.4.0):** 8 categories × 2 questions = 16 total
+
 - requirements, users, scope, technical, timeline, risks, existing, success
 
 **Milestone Prompts:**
+
 - Questions asked in batches of 8
 - Continuation options: Done, +4, +8, Keep going
 - "Keep going" mode prompts every 4 questions
 
 **Other Workflow Commands:**
+
 ```bash
 /workflow:focus        # Start focused work session
 /workflow:next         # Get next step

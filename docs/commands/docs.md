@@ -1,10 +1,11 @@
 # Documentation Commands
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** 17 smart documentation commands from generation to ADHD-friendly enhancement
 > - **Why:** Automate docs updates, validation, and website optimization with one command
-> - **How:** Use `/craft:docs:update` for full smart cycle or `/craft:docs:website` for ADHD enhancements
-> - **Next:** Try `/craft:docs:sync` to check for stale docs in under 10 seconds
+> - **How:** Use `/craft:docs:update --interactive` for category-level prompts (NEW v2.7.0)
+> - **Next:** Try `/craft:docs:update --interactive --dry-run` to preview what would change
 
 Smart documentation generation, validation, and enhancement - 17 commands.
 
@@ -12,12 +13,32 @@ Smart documentation generation, validation, and enhancement - 17 commands.
 
 ### /craft:docs:update
 
-**Smart-Full cycle:** Detect → Generate all needed → Check → Changelog
+**Smart-Full cycle with Interactive Mode (v2.7.0):** 9-category detection with category-level prompts
 
 ```bash
-/craft:docs:update                    # Smart detection → full execution
-/craft:docs:update "sessions"         # Feature-specific full cycle
+/craft:docs:update --interactive              # Category-level prompts (9 categories)
+/craft:docs:update --category=version_refs    # Update only version references
+/craft:docs:update --interactive --dry-run    # Preview without applying changes
+/craft:docs:update --auto-yes                 # Batch mode (no prompts)
 ```
+
+**9 Detection Categories:**
+
+1. Version references (545 found in craft)
+2. Command counts (289 found)
+3. Broken links
+4. Stale examples
+5. Missing help files (60 found)
+6. Outdated status markers
+7. Inconsistent terminology
+8. Missing cross-references (366 found)
+9. Outdated diagrams
+
+**Comprehensive Documentation:**
+
+- [Interactive Tutorial](../tutorials/interactive-docs-update-tutorial.md) - Step-by-step guide (10-15 min)
+- [Quick Reference Card](../reference/REFCARD-DOCS-UPDATE.md) - All flags and options
+- [Real-World Example](../examples/docs-update-interactive-example.md) - Full workflow walkthrough
 
 ### /craft:docs:sync
 
@@ -50,12 +71,14 @@ Smart documentation generation, validation, and enhancement - 17 commands.
 ```
 
 **Features:**
+
 - Critical error detection (MD032, MD040, MD009, MD011, MD042)
 - Automatic fixing of trailing spaces, hard tabs, blank lines
 - Smart code fence language detection (Python, JavaScript, Bash, etc.)
 - VS Code clickable output format
 
 **Exit codes:**
+
 - `0` = No errors or all auto-fixed
 - `1` = Manual fixes required
 - `2` = Configuration error
@@ -72,6 +95,7 @@ Smart documentation generation, validation, and enhancement - 17 commands.
 ```
 
 **Features:**
+
 - Relative and absolute path validation
 - Anchor/header existence checking (release mode)
 - **`.linkcheck-ignore` pattern support** - Document expected broken links
@@ -80,6 +104,7 @@ Smart documentation generation, validation, and enhancement - 17 commands.
 - Ignores external URLs by default
 
 **Exit codes:**
+
 - `0` = All links valid OR only expected broken links
 - `1` = Critical broken links found
 - `2` = Invalid arguments
@@ -101,6 +126,7 @@ Targets: `docs/brainstorm/*.md`
 ```
 
 **Benefits:**
+
 - ✅ 100% reduction in CI false positives
 - ✅ Expected links don't block CI (exit code 0)
 - ✅ Critical links still fail properly (exit code 1)
@@ -113,6 +139,7 @@ Targets: `docs/brainstorm/*.md`
 **Purpose:** One command to make any documentation site ADHD-friendly.
 
 **Features:**
+
 - ADHD scoring algorithm (0-100) across 5 categories
 - 3-phase enhancement: Quick Wins, Structure, Polish
 - Mermaid syntax error detection and fixing
@@ -121,6 +148,7 @@ Targets: `docs/brainstorm/*.md`
 - ADHD Quick Start page creation
 
 **Usage:**
+
 ```bash
 /craft:docs:website                   # Full enhancement (all 3 phases)
 /craft:docs:website --analyze         # Show ADHD score only
@@ -131,6 +159,7 @@ Targets: `docs/brainstorm/*.md`
 ```
 
 **ADHD Scoring Categories:**
+
 - Visual Hierarchy (25%): TL;DR boxes, emojis, heading structure
 - Time Estimates (20%): Tutorial duration info
 - Workflow Diagrams (20%): Mermaid diagrams without errors

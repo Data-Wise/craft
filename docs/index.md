@@ -5,6 +5,7 @@
 [![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Full-stack developer toolkit with 97 commands, 8 AI agents, and 21 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
@@ -12,7 +13,7 @@
 
 > Full-stack developer toolkit for Claude Code - 100 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v2.5.1:** Enhanced --orch flag with interactive mode prompts, graceful error handling, and mode recommendations based on complexity. See [what's new](#whats-new-in-v251)
+> **NEW in v2.7.0:** Interactive documentation update system with 9-category detection, category-level prompts, and production-ready error handling. See [what's new](#whats-new-in-v270)
 
 ## Features
 
@@ -90,36 +91,61 @@ Complete OpenAPI-style documentation for all 97 Craft commands:
 </div>
 
 **Quick Links:**
+
 - [All 97 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
 
-## What's New in v2.5.1
+## What's New in v2.7.0
 
-**User Experience Enhancements for --orch Flag** 🎯
+**Interactive Documentation Update System** 🎯
 
-Enhanced orchestration with better prompts, error handling, and guidance (PR #28):
+Smart documentation maintenance with 9-category detection and interactive prompts (PR #32):
 
-- **Interactive mode prompt**: Smart prompt with fallback behavior for test/script contexts
-- **Graceful error handling**: `spawn_orchestrator()` returns bool for proper error flow
-- **User-friendly failures**: `handle_orchestrator_failure()` with 4 actionable suggestions
-- **Mode recommendations**: `recommend_orchestration_mode()` based on complexity (0-10 scale)
-- **Comprehensive troubleshooting**: 6 detailed scenarios in user guide
-- **Test coverage**: 15 new tests (33 total), all passing, 100% coverage for new functions
+- **9-category detection**: Version refs, command counts, broken links, stale examples, missing help, outdated status, inconsistent terminology, missing cross-references, outdated diagrams
+- **Interactive prompts**: Category-level approval with AskUserQuestion integration
+- **Real issues found**: 1,331 documentation problems detected across the project
+- **Production-ready error handling**: 22 tests for corrupted files, unicode, edge cases
+- **Comprehensive testing**: 29/29 tests passing (7 integration + 22 error handling)
+- **Dry-run preview**: See what would change before applying updates
+- **Category-specific mode**: Update only specific categories with `--category=NAME`
 
-**Gap coverage:** Addresses 4 of 12 gaps from v2.5.0 (1 high, 2 medium, 1 low priority)
+**Key Utilities:**
+
+- `utils/docs_detector.py` (690 lines) - 9-category detection system
+- `utils/help_file_validator.py` (457 lines) - 8-type help validation
+- Production-ready error handling (handles binary files, unicode, corrupted data)
 
 **Try it:**
+
 ```bash
-/craft:do "add auth" --orch           # Interactive mode prompt
-/craft:do "add auth" --orch=optimize  # Explicit mode (no prompt)
-/craft:do "add auth" --orch --dry-run # Preview orchestration
+/craft:docs:update --interactive              # Category-level prompts
+/craft:docs:update --interactive --dry-run    # Preview without changes
+/craft:docs:update --category=version_refs    # Update only version references
+/craft:docs:update --auto-yes                 # Batch mode (no prompts)
 ```
 
 **Documentation:**
-- [--orch Flag Usage Guide](guide/orch-flag-usage.md) - Complete guide with troubleshooting
-- [Version History](VERSION-HISTORY.md) - Full v2.5.1 changelog
+
+- [Interactive Docs Update Tutorial](tutorials/interactive-docs-update-tutorial.md) - Step-by-step guide
+- [Docs Update Reference Card](reference/REFCARD-DOCS-UPDATE.md) - Quick reference
+- [Interactive Example](examples/docs-update-interactive-example.md) - Real-world walkthrough
+
+## What's New in v2.5.1
+
+**User Experience Enhancements for --orch Flag**
+
+Enhanced orchestration with better prompts, error handling, and guidance (PR #28):
+
+- **Interactive mode prompt**: Smart prompt with fallback behavior
+- **Graceful error handling**: Proper error flow and recovery
+- **Mode recommendations**: Based on complexity (0-10 scale)
+- **Test coverage**: 15 new tests, 100% coverage
+
+**Try it:** `/craft:do "task" --orch` for interactive mode selection
+
+**Documentation:** [--orch Flag Usage Guide](guide/orch-flag-usage.md)
 
 ## What's New in v1.24.0
 
@@ -135,6 +161,7 @@ Smart command discovery with 3-layer progressive disclosure (PR #17, #20):
 - **Always accurate**: Auto-updates when commands added/changed
 
 **Try it:**
+
 ```bash
 /craft:hub              # Browse all 97 commands by category
 /craft:hub code         # View code category (12 commands)
@@ -142,6 +169,7 @@ Smart command discovery with 3-layer progressive disclosure (PR #17, #20):
 ```
 
 **Enhanced testing** (PR #20):
+
 - 18 new tests: YAML edge cases (12) + E2E workflows (6)
 - Unified test runner (`tests/run_hub_tests.sh`)
 - Coverage: 95% → 98%
@@ -195,6 +223,7 @@ See [commands/docs documentation](commands/docs.md#craftdocscheck-links) for det
 - **Infrastructure**: Shared utilities (`utils/dry_run_output.py`), templates, 30 passing tests
 
 **Preview before executing:**
+
 ```bash
 /craft:git:clean --dry-run      # Preview branch cleanup
 /craft:code:lint release -n     # Preview comprehensive linting
