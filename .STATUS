@@ -1,33 +1,37 @@
-status: Released
+status: Planning
 version: 2.6.0
 release_date: 2026-01-20
-milestone: v2.6.0 - Documentation Quality Improvements ✅ COMPLETE
-last_session: 2026-01-20T07:30:00Z
+milestone: v2.7.0 Planning - Interactive Documentation & Enhanced Linting
+last_session: 2026-01-22T20:47:00Z
 
-progress: 100% (v2.6.0 released to main)
+progress: 5% (specs created, planning phase)
 
-✅ Just Completed (Session 2026-01-20):
-- Released v2.6.0 to main (PR #31 merged successfully)
-- Fixed all failing tests → 706/706 passing (100% pass rate)
-  • Complexity scoring: Added factors list to explain_score()
-  • Teaching integration: Added wrapper function for API compatibility
-- CI/CD fixes:
-  • Added PyYAML dependency to CI workflow
-  • Removed hardcoded paths from orchestrate/resume.md
-  • Fixed markdown violations in release notes
-- Created comprehensive release notes (RELEASE-v2.6.0.md)
-- Version bumped to 2.6.0 in plugin.json and .STATUS
-- Merged PR #30 (markdownlint feature) + 6 follow-up fixes
+✅ Just Completed (Session 2026-01-22):
+- Created comprehensive documentation workflow specs (3,466 lines):
+  • SPEC-docs-update-interactive (1,634 lines) - Interactive category-level prompts
+  • SPEC-docs-sync-update-integration (947 lines) - Merge sync into update
+  • BRAINSTORM summaries with decision rationale (861 lines)
+  • 12 expert questions gathered requirements
+  • Comprehensive help file validation system (8 issue types)
+  • CLI --help output validation
+- Expanded markdownlint pre-commit hook:
+  • 3 rules → 24 rules (lists, headings, code, links, whitespace, inline)
+  • Added MD003, MD005, MD007, MD009, MD010, MD012, MD022, MD023, MD029, MD031
+  • Added MD034, MD036, MD040, MD042, MD045, MD046, MD048, MD049, MD050, MD052, MD056
+  • Interactive auto-fix with blocking behavior
+  • Tested with 9 violation types
+- Pushed 2 commits to origin/dev (ba15287, ac427b1)
 
-🔄 Current Work: Clean - All changes merged to main
+🔄 Current Work: Specs committed to dev, ready for implementation
 
 🎯 Next Action:
-A) Create GitHub release v2.6.0 with changelog ⚡ (RECOMMENDED)
-   Command: gh release create v2.6.0 --title "v2.6.0 - Documentation Quality Improvements" --notes-file RELEASE-v2.6.0.md
-B) Update documentation site (if applicable)
-C) Start planning v2.7.0 features
+A) Create feature branch for interactive docs:update ⚡ (RECOMMENDED)
+   Command: /craft:git:worktree feature/docs-update-interactive
+B) Implement Phase 1: Core workflow (category detection + prompts)
+C) Create feature branch for docs:sync merge
+   Command: /craft:git:worktree feature/docs-sync-merge
 
-🔴 Blockers: None - Clean release!
+🔴 Blockers: None - Specs ready for implementation
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)
@@ -413,6 +417,66 @@ claude_code_2_1_integration:
     - "e949172: chore: update .STATUS with Wave 1-3 completion"
     - "bebfb35: test: add comprehensive test suite for Claude Code 2.1.0 integration (Wave 4)"
     - "f81a1a3: test: add agent hooks unit tests (13 tests, all passing)"
+
+session_2026_01_22_docs_workflow_specs:
+  duration: ~2 hours
+  accomplishments:
+    - "Created comprehensive documentation workflow specifications (3,466 lines)"
+    - "Generated SPEC-docs-update-interactive.md (1,634 lines, 63KB)"
+    - "Generated SPEC-docs-sync-update-integration.md (947 lines, 31KB)"
+    - "Created BRAINSTORM summaries documenting decision rationale (861 lines)"
+    - "Conducted 12 expert questions for requirements gathering"
+    - "Designed comprehensive help file validation system (8 issue types)"
+    - "Added CLI --help output validation and consistency checking"
+    - "Expanded markdownlint pre-commit hook from 3 to 24 rules"
+    - "Added 21 new markdown quality rules (headings, code, links, whitespace, inline)"
+    - "Tested hook with 9 violation types (MD034, MD040, MD030, MD045, MD042, MD012, MD022, MD010, MD046)"
+    - "Pushed 2 commits to origin/dev (ba15287, ac427b1)"
+
+  specs_created:
+    interactive_docs_update:
+      file: docs/specs/SPEC-docs-update-interactive-2026-01-22.md
+      size: 1634 lines (63KB)
+      features:
+        - "Interactive category-level prompts with user approval"
+        - "GIF regeneration workflow with command diff detection"
+        - "Comprehensive help file validation (ALL commands + subcommands)"
+        - "CLI --help output validation"
+        - "Auto-trigger lint and tutorial workflows"
+        - "9 update categories with prioritization"
+        - "14 new API functions for help validation"
+
+    docs_sync_merge:
+      file: docs/specs/SPEC-docs-sync-update-integration-2026-01-22.md
+      size: 947 lines (31KB)
+      features:
+        - "Merge /craft:docs:sync detection into /craft:docs:update"
+        - "Auto-detection as Step 1 (replaces manual sync)"
+        - "Prioritized prompts by classification scores"
+        - "/craft:docs:sync becomes deprecated alias"
+        - "Backward compatibility maintained"
+        - "Single command workflow (detect → prompt → apply)"
+
+  markdownlint_expansion:
+    file: scripts/hooks/pre-commit-markdownlint.sh
+    rules_added: 21 (from 3 to 24 total)
+    categories:
+      lists: "MD004, MD005, MD007, MD029, MD030, MD031, MD032"
+      headings: "MD003, MD022, MD023, MD036"
+      code: "MD040, MD046, MD048"
+      links_images: "MD042, MD045, MD052, MD056"
+      whitespace: "MD009, MD010, MD012"
+      inline: "MD034, MD049, MD050"
+
+  commits:
+    - "ba15287: docs: add interactive docs:update and docs:sync merge specs"
+    - "ac427b1: feat(hooks): expand markdownlint pre-commit to 24 rules"
+
+  next_steps:
+    - "Create feature branch: feature/docs-update-interactive"
+    - "Implement Phase 1: Core workflow (category detection + prompts)"
+    - "Create feature branch: feature/docs-sync-merge"
+    - "Test help file validation with all 101+ commands"
 
 session_2026_01_18_integration_tests:
   duration: ~1.5 hours
