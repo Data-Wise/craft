@@ -34,3 +34,4 @@ site/
 
 # Hub discovery cache
 commands/_cache.json
+node_modules/

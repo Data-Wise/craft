@@ -1,10 +1,47 @@
-status: Released
-version: 2.6.0
-release_date: 2026-01-20
-milestone: v2.6.0 - Documentation Quality Improvements ✅ COMPLETE
-last_session: 2026-01-20
+status: Active Development
+version: 2.7.0
+release_date: TBD
+milestone: v2.7.0 Complete - Interactive Documentation & Enhanced Linting
+last_session: 2026-01-23T04:55:00Z
 
-progress: 100% (v2.6.0 released to main)
+progress: 100% (v2.7.0 COMPLETE - MERGED TO DEV ✅)
+
+✅ Just Completed (Session 2026-01-23 - PR #32 Merge):
+- Merged PR #32 to dev: Interactive Documentation Update System ✅
+  • Merge commit: 0080e3d
+  • Merged at: 2026-01-23T04:54:54Z
+  • Files changed: 11 files (+3,917/-179)
+  • New files: 7 (utilities, tests, docs)
+  • Test coverage: 29/29 tests passing (100%)
+- All 4 phases successfully integrated into dev:
+  • Phase 1: Foundation utilities (docs_detector.py, help_file_validator.py)
+  • Phase 2: Command integration (enhanced commands/docs/update.md)
+  • Phase 3: End-to-end testing (7 integration + 22 error handling tests)
+  • Phase 4: Documentation (tutorial + reference + examples)
+- Error handling improvements:
+  • Added _safe_read_file() helper with exception handling
+  • Fixed empty YAML frontmatter detection
+  • Production-ready robustness (handles corrupted files, unicode, edge cases)
+- Cleanup:
+  • Removed feature/docs-update-interactive worktree
+  • Deleted merged feature branch (local + remote)
+  • All tests verified passing on dev (29/29)
+
+✅ Previously Completed (Session 2026-01-22):
+- Created comprehensive documentation workflow specs (3,466 lines)
+- Expanded markdownlint pre-commit hook (3 → 24 rules)
+- Implemented interactive documentation update system (all 4 phases)
+
+🔄 Current Work: v2.7.0 merged to dev, ready for release
+
+🎯 Next Action:
+A) Create release PR: dev → main for v2.7.0 ⚡ (RECOMMENDED)
+   Command: gh pr create --base main --head dev --title "Release: v2.7.0"
+B) Apply documentation fixes to craft project
+   Command: /craft:docs:update --interactive
+C) Start next feature development
+
+🔴 Blockers: None - v2.7.0 complete and merged ✅
 
 phase_1_complete:
   branch: feature/dry-run-phase1 (merged to dev)
@@ -390,6 +427,66 @@ claude_code_2_1_integration:
     - "e949172: chore: update .STATUS with Wave 1-3 completion"
     - "bebfb35: test: add comprehensive test suite for Claude Code 2.1.0 integration (Wave 4)"
     - "f81a1a3: test: add agent hooks unit tests (13 tests, all passing)"
+
+session_2026_01_22_docs_workflow_specs:
+  duration: ~2 hours
+  accomplishments:
+    - "Created comprehensive documentation workflow specifications (3,466 lines)"
+    - "Generated SPEC-docs-update-interactive.md (1,634 lines, 63KB)"
+    - "Generated SPEC-docs-sync-update-integration.md (947 lines, 31KB)"
+    - "Created BRAINSTORM summaries documenting decision rationale (861 lines)"
+    - "Conducted 12 expert questions for requirements gathering"
+    - "Designed comprehensive help file validation system (8 issue types)"
+    - "Added CLI --help output validation and consistency checking"
+    - "Expanded markdownlint pre-commit hook from 3 to 24 rules"
+    - "Added 21 new markdown quality rules (headings, code, links, whitespace, inline)"
+    - "Tested hook with 9 violation types (MD034, MD040, MD030, MD045, MD042, MD012, MD022, MD010, MD046)"
+    - "Pushed 2 commits to origin/dev (ba15287, ac427b1)"
+
+  specs_created:
+    interactive_docs_update:
+      file: docs/specs/SPEC-docs-update-interactive-2026-01-22.md
+      size: 1634 lines (63KB)
+      features:
+        - "Interactive category-level prompts with user approval"
+        - "GIF regeneration workflow with command diff detection"
+        - "Comprehensive help file validation (ALL commands + subcommands)"
+        - "CLI --help output validation"
+        - "Auto-trigger lint and tutorial workflows"
+        - "9 update categories with prioritization"
+        - "14 new API functions for help validation"
+
+    docs_sync_merge:
+      file: docs/specs/SPEC-docs-sync-update-integration-2026-01-22.md
+      size: 947 lines (31KB)
+      features:
+        - "Merge /craft:docs:sync detection into /craft:docs:update"
+        - "Auto-detection as Step 1 (replaces manual sync)"
+        - "Prioritized prompts by classification scores"
+        - "/craft:docs:sync becomes deprecated alias"
+        - "Backward compatibility maintained"
+        - "Single command workflow (detect → prompt → apply)"
+
+  markdownlint_expansion:
+    file: scripts/hooks/pre-commit-markdownlint.sh
+    rules_added: 21 (from 3 to 24 total)
+    categories:
+      lists: "MD004, MD005, MD007, MD029, MD030, MD031, MD032"
+      headings: "MD003, MD022, MD023, MD036"
+      code: "MD040, MD046, MD048"
+      links_images: "MD042, MD045, MD052, MD056"
+      whitespace: "MD009, MD010, MD012"
+      inline: "MD034, MD049, MD050"
+
+  commits:
+    - "ba15287: docs: add interactive docs:update and docs:sync merge specs"
+    - "ac427b1: feat(hooks): expand markdownlint pre-commit to 24 rules"
+
+  next_steps:
+    - "Create feature branch: feature/docs-update-interactive"
+    - "Implement Phase 1: Core workflow (category detection + prompts)"
+    - "Create feature branch: feature/docs-sync-merge"
+    - "Test help file validation with all 101+ commands"
 
 session_2026_01_18_integration_tests:
   duration: ~1.5 hours
