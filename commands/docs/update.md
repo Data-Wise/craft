@@ -1,3 +1,56 @@
+---
+name: docs:update
+description: Smart documentation generator with interactive category-level updates
+category: docs
+tags: [documentation, interactive, automation, validation]
+version: 2.6.0
+features:
+  - Interactive mode with category-level prompts
+  - 9-category detection system (version refs, counts, links, etc.)
+  - 8-type help file validation
+  - Dry-run preview mode
+  - Category-specific updates
+  - Auto-yes mode for batch operations
+flags:
+  - name: --interactive
+    short: -i
+    description: Category-level prompts for each update type
+    type: boolean
+  - name: --category
+    short: -C
+    description: Update only specific category (version_refs, command_counts, etc.)
+    type: string
+  - name: --auto-yes
+    description: Non-interactive mode, auto-approve all updates
+    type: boolean
+  - name: --dry-run
+    description: Preview what would be updated without applying changes
+    type: boolean
+  - name: --force
+    description: Full cycle regardless of detection
+    type: boolean
+  - name: --no-check
+    description: Skip validation phase
+    type: boolean
+  - name: --no-changelog
+    description: Skip changelog update
+    type: boolean
+examples:
+  - command: /craft:docs:update --interactive
+    description: Interactive mode with category-level prompts
+  - command: /craft:docs:update --interactive --dry-run
+    description: Preview interactive workflow without changes
+  - command: /craft:docs:update --category=version_refs
+    description: Update only version references
+  - command: /craft:docs:update --auto-yes
+    description: Apply all updates without prompts
+see_also:
+  - /craft:docs:sync
+  - /craft:docs:check
+  - /craft:docs:lint
+  - /craft:check
+---
+
 # /craft:docs:update - Smart Documentation Generator
 
 You are an ADHD-friendly documentation generator. Detect what's needed, generate it all, validate, done.
