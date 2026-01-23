@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
 #
-# Pre-commit hook for markdownlint list spacing enforcement
+# Pre-commit hook for comprehensive markdownlint enforcement
 #
-# Checks staged markdown files for MD030, MD004, and MD032 violations.
+# Checks staged markdown files for 24 markdown quality rules.
 # Offers interactive auto-fix if violations found.
+#
+# Rules enforced:
+#   Lists: MD004, MD005, MD007, MD029, MD030, MD031, MD032
+#   Headings: MD003, MD022, MD023, MD036
+#   Code: MD040, MD046, MD048
+#   Links/Images: MD042, MD045, MD052, MD056
+#   Whitespace: MD009, MD010, MD012
+#   Inline: MD034, MD049, MD050
 #
 # Installation:
 #   ./scripts/install-hooks.sh
@@ -23,6 +31,9 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+# Markdown rules to check (24 rules)
+MD_RULES="MD003|MD004|MD005|MD007|MD009|MD010|MD012|MD022|MD023|MD029|MD030|MD031|MD032|MD034|MD036|MD040|MD042|MD045|MD046|MD048|MD049|MD050|MD052|MD056"
+
 # Get staged markdown files
 STAGED_MD_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' || true)
 
@@ -31,17 +42,24 @@ if [ -z "$STAGED_MD_FILES" ]; then
   exit 0
 fi
 
-echo -e "${BLUE}🔍${NC} Checking markdown list spacing..."
+echo -e "${BLUE}🔍${NC} Checking markdown quality (24 rules)..."
 
 # Run markdownlint on staged files
-if npx -y markdownlint-cli2 $STAGED_MD_FILES 2>&1 | grep -E "(MD030|MD004|MD032)"; then
+VIOLATIONS=$(npx -y markdownlint-cli2 $STAGED_MD_FILES 2>&1 || true)
+
+if echo "$VIOLATIONS" | grep -E "($MD_RULES)"; then
   echo ""
-  echo -e "${RED}❌${NC} Markdown list spacing violations found"
+  echo -e "${RED}❌${NC} Markdown quality violations found"
   echo ""
-  echo "Violations detected:"
-  echo "  • MD030: Extra spaces after list markers"
-  echo "  • MD004: Inconsistent list marker style"
-  echo "  • MD032: Missing blank lines around lists"
+  echo "Common violations:"
+  echo "  Lists: MD004 (marker style), MD030 (spaces), MD032 (blank lines)"
+  echo "  Headings: MD003 (style), MD022 (blank lines), MD036 (no emphasis)"
+  echo "  Code: MD040 (language required), MD046/MD048 (consistent style)"
+  echo "  Links: MD042 (empty links), MD045 (alt text), MD052 (references)"
+  echo "  Whitespace: MD009 (trailing), MD010 (tabs), MD012 (multiple blanks)"
+  echo "  Inline: MD034 (bare URLs), MD049/MD050 (emphasis style)"
+  echo ""
+  echo "See full list: npx markdownlint-cli2 --help | grep MD0"
   echo ""
 
   # Offer auto-fix
@@ -72,6 +90,6 @@ if npx -y markdownlint-cli2 $STAGED_MD_FILES 2>&1 | grep -E "(MD030|MD004|MD032)
     exit 1
   fi
 else
-  echo -e "${GREEN}✓${NC} All markdown files pass list spacing checks"
+  echo -e "${GREEN}✓${NC} All markdown files pass quality checks (24 rules)"
   exit 0
 fi
