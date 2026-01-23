@@ -1,7 +1,9 @@
 # SPEC: Interactive Documentation Update Workflow
 
-**Status:** draft
+**Status:** done ✅
 **Created:** 2026-01-22
+**Completed:** 2026-01-23
+**Implementation:** PR #32 (merged to dev), v2.7.0 release
 **From Brainstorm:** deep feature analysis
 **Related:** `/craft:docs:update`, `/craft:docs:demo`, `/craft:docs:lint`, `/craft:tutorial-engineer`
 
