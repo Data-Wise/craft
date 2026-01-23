@@ -126,8 +126,16 @@ class HelpFileValidator:
 
     def _parse_command_file(self, cmd_file: Path) -> CommandHelp:
         """Parse command file and extract help information"""
-        with open(cmd_file, encoding='utf-8') as f:
-            content = f.read()
+        try:
+            with open(cmd_file, encoding='utf-8') as f:
+                content = f.read()
+        except (UnicodeDecodeError, OSError, PermissionError):
+            # Skip binary/corrupted files - return empty CommandHelp
+            return CommandHelp(
+                file_path=cmd_file,
+                has_frontmatter=False,
+                command_name=None
+            )
 
         # Extract command name from file path or content
         command_name = self._extract_command_name(content, cmd_file)
@@ -157,9 +165,11 @@ class HelpFileValidator:
 
             frontmatter = yaml.safe_load(parts[1])
             if not frontmatter:
+                # Empty frontmatter (---\n---) is treated as incomplete, not missing
                 return CommandHelp(
                     file_path=cmd_file,
-                    has_frontmatter=False,
+                    has_frontmatter=True,  # Markers exist, content is empty
+                    frontmatter={},
                     command_name=command_name,
                     category=expected_category
                 )

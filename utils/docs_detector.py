@@ -49,6 +49,23 @@ class DocsDetector:
         self.docs_dir = self.project_root / "docs"
         self.commands_dir = self.project_root / "commands"
 
+    def _safe_read_file(self, file_path: Path) -> Optional[str]:
+        """
+        Safely read file content, handling encoding errors and other I/O issues.
+
+        Args:
+            file_path: Path to file to read
+
+        Returns:
+            File content as string, or None if file cannot be read
+        """
+        try:
+            with open(file_path, encoding='utf-8') as f:
+                return f.read()
+        except (UnicodeDecodeError, OSError, PermissionError):
+            # Skip binary/corrupted files or files we can't read
+            return None
+
     def detect_all(self, current_version: str = None) -> Dict[str, DetectionResult]:
         """
         Run all 9 detection checks
@@ -131,8 +148,9 @@ class DocsDetector:
             if not file_path.exists():
                 continue
 
-            with open(file_path, encoding='utf-8') as f:
-                content = f.read()
+            content = self._safe_read_file(file_path)
+            if content is None:
+                continue
 
             # Find all version references
             for match in version_pattern.finditer(content):
@@ -196,8 +214,9 @@ class DocsDetector:
             if not file_path.exists():
                 continue
 
-            with open(file_path, encoding='utf-8') as f:
-                content = f.read()
+            content = self._safe_read_file(file_path)
+            if content is None:
+                continue
 
             for pattern, element_type, actual_count in count_patterns:
                 for match in re.finditer(pattern, content, re.IGNORECASE):
@@ -286,8 +305,9 @@ class DocsDetector:
             if not file_path.exists():
                 continue
 
-            with open(file_path, encoding='utf-8') as f:
-                content = f.read()
+            content = self._safe_read_file(file_path)
+            if content is None:
+                continue
 
             # Check if file contains code blocks
             in_code_block = False
@@ -337,8 +357,9 @@ class DocsDetector:
 
         if self.commands_dir.exists():
             for cmd_file in self.commands_dir.rglob("*.md"):
-                with open(cmd_file, encoding='utf-8') as f:
-                    content = f.read()
+                content = self._safe_read_file(cmd_file)
+                if content is None:
+                    continue
 
                 # Check for YAML frontmatter
                 if not content.startswith('---'):
@@ -400,8 +421,13 @@ class DocsDetector:
             if not file_path.exists():
                 continue
 
-            with open(file_path, encoding='utf-8') as f:
-                content = f.read()
+            content = self._safe_read_file(file_path)
+
+
+            if content is None:
+
+
+                continue
 
             for pattern, status_type in status_patterns:
                 for match in re.finditer(pattern, content):
@@ -448,8 +474,13 @@ class DocsDetector:
             if not file_path.exists():
                 continue
 
-            with open(file_path, encoding='utf-8') as f:
-                content = f.read()
+            content = self._safe_read_file(file_path)
+
+
+            if content is None:
+
+
+                continue
 
             # Check for mixed capitalization of "craft"
             lowercase_craft = len(re.findall(r'\bcraft\b', content))
@@ -490,8 +521,11 @@ class DocsDetector:
         # Check each command file for cross-references
         if self.commands_dir.exists():
             for cmd_file in self.commands_dir.rglob("*.md"):
-                with open(cmd_file, encoding='utf-8') as f:
-                    content = f.read()
+                content = self._safe_read_file(cmd_file)
+
+                if content is None:
+
+                    continue
 
                 cmd_name = self._extract_command_name(cmd_file)
                 if not cmd_name:
@@ -541,8 +575,13 @@ class DocsDetector:
             if not file_path.exists():
                 continue
 
-            with open(file_path, encoding='utf-8') as f:
-                content = f.read()
+            content = self._safe_read_file(file_path)
+
+
+            if content is None:
+
+
+                continue
 
             # Find Mermaid diagram blocks
             in_mermaid = False
