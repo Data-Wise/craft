@@ -1,95 +1,207 @@
-# 🚧 Work In Progress: --orch Flag Integration
+# 🚧 WIP: Interactive Documentation Update System
 
-**Status**: Planning Complete, Ready for Implementation
-**Branch**: `feature/orch-flag-integration`
-**Target Version**: v2.5.0
-**Created**: 2026-01-19
+**Status:** Work In Progress - Phase 1 Starting
+**Branch:** `feature/docs-update-interactive`
+**Target Version:** v2.7.0
+**Created:** 2026-01-22
 
 ## 📋 Quick Status
 
 | Item | Status |
-| --- | --- |
-| **Spec** | ✅ Complete (`docs/specs/SPEC-orch-flag-integration-2026-01-19.md`) |
-| **Implementation Plan** | ✅ Complete (`IMPLEMENTATION.md`) |
-| **Worktree** | ✅ Created (`~/.git-worktrees/craft/feature-orch-flag-integration`) |
-| **Branch** | ✅ Created (`feature/orch-flag-integration` from `dev`) |
-| **.STATUS** | ✅ Updated with plan and branch info |
-| **Phase 1: Infrastructure** | ⏳ Not Started |
-| **Phase 2: Commands** | ⏳ Not Started |
-| **Phase 3: Testing** | ⏳ Not Started |
-| **Phase 4: Documentation** | ⏳ Not Started |
+|------|--------|
+| **Spec** | ✅ Complete (docs/specs/SPEC-docs-update-interactive-2026-01-22.md, 1,634 lines) |
+| **Brainstorm** | ✅ Complete (BRAINSTORM-docs-update-interactive-2026-01-22.md, 502 lines) |
+| **Worktree** | ✅ Created (~/.git-worktrees/craft/feature-docs-update-interactive) |
+| **Branch** | ✅ Created (feature/docs-update-interactive from dev) |
+| **.STATUS** | ✅ Updated with implementation plan |
+| **Phase 1: Core Workflow** | ⏳ Not Started |
+| **Phase 2: GIF Integration** | ⏳ Not Started |
+| **Phase 3: Lint & Tutorial** | ⏳ Not Started |
+| **Phase 4: Help Files** | ⏳ Not Started |
 
 ## 🎯 Next Action
 
 ```bash
 # Navigate to worktree
-cd ~/.git-worktrees/craft/feature-orch-flag-integration
+cd ~/.git-worktrees/craft/feature-docs-update-interactive
 
 # Verify branch
-git branch --show-current  # Should show: feature/orch-flag-integration
+git branch --show-current  # Should show: feature/docs-update-interactive
 
 # Start Phase 1
-# Create utils/orch_flag_handler.py (see IMPLEMENTATION.md)
+# Create utils/docs_detector.py (category detection logic)
 ```
 
 ## 📚 Key Files
 
 | File | Purpose | Location |
-| --- | --- | --- |
-| **Spec** | Complete feature specification | `docs/specs/SPEC-orch-flag-integration-2026-01-19.md` |
-| **Implementation Plan** | Step-by-step guide | `IMPLEMENTATION.md` (in worktree root) |
-| **WIP Tracker** | This file | `WIP.md` (in worktree root) |
+|------|---------|----------|
+| **Spec** | Complete feature specification | docs/specs/SPEC-docs-update-interactive-2026-01-22.md |
+| **Brainstorm** | Design decisions & requirements | BRAINSTORM-docs-update-interactive-2026-01-22.md |
+| **WIP Tracker** | This file | WIP.md (in worktree root) |
 
-## 🔄 Implementation Workflow
+## 🔄 Implementation Phases
 
-### Phase 1: Core Infrastructure (2-3 hours)
+### Phase 1: Core Workflow (Week 1, 8-10 hours)
 
-- [ ] Create `utils/orch_flag_handler.py`
-- [ ] Implement `handle_orch_flag()`
-- [ ] Implement `prompt_user_for_mode()`
-- [ ] Implement `show_orchestration_preview()`
-- [ ] Implement `spawn_orchestrator()`
-- [ ] Update `utils/complexity_scorer.py` with mode mapping
-- [ ] Write unit tests (`tests/test_orch_flag_handler.py`)
-- [ ] Verify all tests passing
+**Goal:** Category detection + interactive prompts
 
-### Phase 2: Command Updates (3-4 hours)
+- [ ] Create `utils/docs_detector.py` - Detection logic
+- [ ] Implement category scanning functions:
+  - [ ] `scan_version_refs()` - Find v2.6.0 references
+  - [ ] `scan_command_counts()` - Count commands in docs
+  - [ ] `scan_broken_links()` - Detect internal link issues
+- [ ] Create `UpdateCategory` and `Change` data models
+- [ ] Add interactive prompts with `AskUserQuestion`
+- [ ] Implement `apply_category_updates()` function
+- [ ] Create basic summary output
+- [ ] Write unit tests (`tests/test_docs_detector.py`)
+- [ ] Test with 2-3 categories before scaling
 
-- [ ] Update `/craft:do` (frontmatter + implementation + examples)
-- [ ] Update `/craft:workflow:brainstorm` (with category integration)
-- [ ] Update `/craft:check`
-- [ ] Update `/craft:docs:sync`
-- [ ] Update `/craft:ci:generate`
+**Deliverables:**
 
-### Phase 3: Testing (2-3 hours)
+- Detection working for 3 categories
+- Interactive prompts functional
+- Updates can be applied
+- 90%+ test coverage
 
-- [ ] Create `tests/test_integration_orch_flag.py`
-- [ ] Test all flag combinations
-- [ ] Test error handling
-- [ ] Test mode prompt interaction
-- [ ] Verify coverage ≥ 95%
+### Phase 2: GIF Integration (Week 2, 6-8 hours)
 
-### Phase 4: Documentation (1-2 hours)
+**Goal:** Detect outdated GIFs and regenerate
 
-- [ ] Create `docs/guide/orch-flag-usage.md`
-- [ ] Update CLAUDE.md with --orch info
-- [ ] Update VERSION-HISTORY.md with v2.5.0
-- [ ] Update all 5 command docs with examples
+- [ ] Create `utils/gif_detector.py`
+- [ ] Implement `detect_outdated_gifs()` - Compare commands in docs vs GIF metadata
+- [ ] Create `generate_command_diff()` - Show OLD vs NEW command
+- [ ] Integrate with `/craft:docs:demo` command
+- [ ] Add `GIFUpdate` data model
+- [ ] Handle recording errors gracefully
+- [ ] Write tests (`tests/test_gif_detector.py`)
+
+### Phase 3: Lint & Tutorial (Week 3, 8-10 hours)
+
+**Goal:** Auto-trigger related workflows
+
+- [ ] Auto-trigger `/craft:docs:lint` after updates
+- [ ] Parse lint violations by file
+- [ ] Add per-file lint prompts (fix vs skip)
+- [ ] Implement `detect_tutorial_needs()` - Find gaps
+- [ ] Add per-feature tutorial prompts
+- [ ] Invoke `/tutorial-engineer` agent
+- [ ] Create `TutorialTask` data model
+- [ ] Write tests (`tests/test_workflow_integration.py`)
+
+### Phase 4: Help Files (Week 4, 10-12 hours)
+
+**Goal:** Comprehensive help file validation
+
+- [ ] Create `utils/help_file_validator.py`
+- [ ] Implement `scan_all_commands()` - Recursive search (commands/**/*.md)
+- [ ] Implement `validate_yaml_structure()` - Required fields
+- [ ] Implement `validate_yaml_arguments()` - Arguments array
+- [ ] Implement `extract_flags_from_code()` - Code analysis
+- [ ] Implement `compare_yaml_vs_code()` - Find missing/extra flags
+- [ ] Implement `get_help_output()` - Execute --help
+- [ ] Implement `parse_help_output()` - Parse CLI output
+- [ ] Implement `validate_help_consistency()` - YAML vs --help
+- [ ] Implement `suggest_yaml_frontmatter()` - Generate from template
+- [ ] Implement `create_help_file()` - Create from HELP-PAGE-TEMPLATE.md
+- [ ] Implement `validate_against_template()` - Template compliance
+- [ ] Implement `group_help_issues_by_type()` - Batch prompts
+- [ ] Create `HelpFileUpdate` and `HelpMismatch` data models
+- [ ] Write comprehensive tests (`tests/test_help_validator.py`)
+- [ ] Test with all 101+ commands
+
+## 📊 Data Models
+
+```python
+@dataclass
+class UpdateCategory:
+    name: str                    # "Version References"
+    changes: List[Change]        # List of changes in this category
+    count: int                   # Number of changes
+    priority: int                # For sorting (higher = more important)
+
+@dataclass
+class Change:
+    file_path: str              # Path to file
+    old_value: str              # Current value
+    new_value: str              # Proposed value
+    line_number: Optional[int]  # Line in file
+
+@dataclass
+class GIFUpdate:
+    gif_path: str               # Path to GIF file
+    old_command: str            # Original command
+    new_command: str            # Updated command
+    last_updated: datetime      # When GIF was last generated
+
+@dataclass
+class TutorialTask:
+    feature_name: str           # Feature needing tutorial
+    command: str                # Related command
+    reason: str                 # Why tutorial is needed
+
+@dataclass
+class HelpFileUpdate:
+    command_path: str           # e.g., commands/do.md
+    command_name: str           # e.g., /craft:do
+    issue_type: str             # missing_file, incomplete_yaml, etc.
+    current_yaml: Dict          # Current YAML frontmatter
+    suggested_yaml: Dict        # Suggested updates
+    help_output: Optional[str]  # Output from --help
+    help_mismatches: List[HelpMismatch]
+
+@dataclass
+class HelpMismatch:
+    field: str                  # e.g., "description"
+    yaml_value: str             # Value from YAML
+    help_value: str             # Value from --help
+    severity: str               # missing, mismatch, extra
+```
+
+## 🧪 Testing Strategy
+
+**Unit Tests:**
+
+- Category detection (version refs, counts, links)
+- Interactive prompt flow
+- Update application
+- Help file validation (8 issue types)
+- GIF detection
+- Lint integration
+
+**Integration Tests:**
+
+- Full workflow (detect → prompt → apply → lint → tutorial)
+- Help validation with real commands
+- GIF regeneration
+- Error handling
+
+**Target Coverage:** 90%+
 
 ## ✅ Validation Checklist
 
-Before marking as complete:
+Before marking Phase 1 complete:
 
+- [ ] Category detection works for 3 categories
+- [ ] Interactive prompts appear correctly
+- [ ] User can approve/decline each category
+- [ ] Updates apply successfully
+- [ ] Summary shows what was changed
+- [ ] Unit tests pass (90%+ coverage)
+- [ ] No breaking changes to existing update command
+
+Before marking complete (all phases):
+
+- [ ] All 9 categories work
+- [ ] GIF regeneration tested
+- [ ] Lint workflow triggers correctly
+- [ ] Tutorial detection works
+- [ ] Help validation works for 101+ commands
 - [ ] All unit tests pass
 - [ ] All integration tests pass
-- [ ] Coverage ≥ 95% for core handler
-- [ ] Coverage ≥ 90% for command integrations
-- [ ] Dry-run mode works for all commands
-- [ ] Mode prompt appears correctly
-- [ ] Invalid modes show clear errors
-- [ ] `--orch` works with `--dry-run`
-- [ ] `--orch` works with other flags (e.g., `-C`)
-- [ ] Documentation builds without errors
+- [ ] Documentation complete
+- [ ] PR created to `dev` branch
 
 ## 🚀 Ready to Merge Criteria
 
@@ -98,27 +210,31 @@ Before marking as complete:
 3. ✅ CI/CD passing
 4. ✅ Code review approved
 5. ✅ No breaking changes
-6. ✅ All acceptance criteria met
+6. ✅ All 4 phases complete
+7. ✅ 90%+ test coverage
 
 ## 📝 Commit Convention
 
 Use conventional commits:
 
 ```bash
-feat: add orchestration flag handler
-test: add unit tests for orch flag
-docs: update command docs with --orch examples
-fix: handle invalid mode gracefully
+feat: add docs detector for category scanning
+feat: add interactive prompts for update categories
+feat: implement GIF regeneration workflow
+feat: add help file validation system
+test: add unit tests for docs detector
+docs: update command docs with interactive mode
+fix: handle missing help files gracefully
 ```
 
 ## 🆘 Need Help?
 
-- Read: `IMPLEMENTATION.md` (detailed step-by-step guide)
-- Read: `docs/specs/SPEC-orch-flag-integration-2026-01-19.md` (full specification)
+- Read: docs/specs/SPEC-docs-update-interactive-2026-01-22.md (full specification)
+- Read: BRAINSTORM-docs-update-interactive-2026-01-22.md (design decisions)
 - Run: `/craft:check` before committing
-- Ask: Questions in PR or during implementation
+- Reference: Existing `/craft:docs:update` command for patterns
 
 ---
 
-**Created**: 2026-01-19
-**Last Updated**: 2026-01-19
+**Created:** 2026-01-22
+**Last Updated:** 2026-01-22
