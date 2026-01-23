@@ -1,6 +1,6 @@
 {
   "name": "craft",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "Full-stack developer toolkit with integrated workflow automation - 100 commands (88 craft + 12 workflow), 8 agents, 21 skills with standardized dry-run preview mode (29 with --dry-run support). Code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, planning, and ADHD-friendly features including brainstorming, task management, and spec capture",
   "author": {
     "name": "Data-Wise",
