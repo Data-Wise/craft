@@ -4,9 +4,18 @@ release_date: 2026-01-25
 milestone: v2.8.0 - Markdown Linting Execution Layer
 last_session: 2026-01-25T13:45:00Z
 
-progress: 100% (v2.8.0 IMPLEMENTATION COMPLETE - MERGED TO DEV)
+progress: 100% (v2.8.0 RELEASED ✅ - MERGED TO MAIN)
 
-✅ Just Completed (Session 2026-01-25 - Markdown Linting Execution Layer):
+✅ Just Completed (Session 2026-01-25 - v2.8.0 Release to Production):
+- v2.8.0 Released to Main ✅
+  • PR #35 created: dev → main (Release v2.8.0)
+  • PR #35 merged to main (merge commit: e4a132d)
+  • Merged at: 2026-01-25T20:38:21Z
+  • Release is now live on main branch
+  • GitHub release published: https://github.com/Data-Wise/craft/releases/tag/v2.8.0
+  • Git tag v2.8.0 pushed to remote
+  • Total changes: 122 files (+5454/-398 lines)
+
 - v2.8.0 Implementation Complete ✅
   • Created scripts/docs-lint.sh: Execution layer for markdown linting
   • Auto-detects markdownlint-cli2 globally or falls back to npx
@@ -14,14 +23,15 @@ progress: 100% (v2.8.0 IMPLEMENTATION COMPLETE - MERGED TO DEV)
   • Updated commands/docs/lint.md with trigger and feature status
   • Created comprehensive release notes (RELEASE-v2.8.0.md)
   • Updated version: 2.7.0 → 2.8.0 in plugin.json
-  • Updated CHANGELOG.md with v2.8.0 section
   • All 706+ tests passing (100%)
-- PR #34 Created and Merged ✅
+
+- PR #34 Created and Merged to Dev ✅
   • Branch: feature/docs-lint-execute
   • Commits: 1 implementation + 1 CLAUDE.md update
   • Merged to dev (commit: aaa1914)
   • Worktree cleaned up
-- Documentation Updated ✅
+
+- Documentation Completed ✅
   • RELEASE-v2.8.0.md created (comprehensive release notes)
   • CLAUDE.md updated with v2.8.0 progress
   • Feature status table added (MVP vs planned)
