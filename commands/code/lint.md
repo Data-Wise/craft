@@ -44,7 +44,7 @@ Run code style and quality checks with configurable depth.
 
 Preview linting commands that will be executed:
 
-```
+```text
 ┌───────────────────────────────────────────────────────────────┐
 │ 🔍 DRY RUN: Code Linting                                      │
 ├───────────────────────────────────────────────────────────────┤
@@ -88,7 +88,7 @@ Preview linting commands that will be executed:
 /craft:code:lint release --dry-run
 ```
 
-```
+```text
 ┌───────────────────────────────────────────────────────────────┐
 │ 🔍 DRY RUN: Code Linting (Release Mode)                       │
 ├───────────────────────────────────────────────────────────────┤
@@ -142,6 +142,7 @@ Preview linting commands that will be executed:
 ## Mode Behaviors
 
 ### Default Mode (< 10s)
+
 ```bash
 # Python: ruff check . --select=E,W,F
 # JavaScript: eslint . --quiet
@@ -149,18 +150,21 @@ Preview linting commands that will be executed:
 ```
 
 **Output:**
-```
+
+```text
 ✓ Lint passed (12 files, 0 issues)
 ```
 
 ### Debug Mode (< 120s)
+
 ```bash
 # Python: ruff check . --show-fixes --show-source
 # JavaScript: eslint . --format=stylish
 ```
 
 **Output:**
-```
+
+```text
 ╭─ Lint Results (Debug Mode) ─────────────────────────╮
 │ Files: 12 | Rules: 45 active                        │
 ├─────────────────────────────────────────────────────┤
@@ -174,13 +178,15 @@ Preview linting commands that will be executed:
 ```
 
 ### Optimize Mode (< 180s)
+
 ```bash
 # Python: ruff check . --select=PERF,C4,SIM
 # Focus on performance anti-patterns
 ```
 
 **Output:**
-```
+
+```text
 ╭─ Performance Lint (Optimize Mode) ──────────────────╮
 │ Performance Issues: 3                               │
 ├─────────────────────────────────────────────────────┤
@@ -192,6 +198,7 @@ Preview linting commands that will be executed:
 ```
 
 ### Release Mode (< 300s)
+
 ```bash
 # Python: ruff check . && mypy . && bandit -r .
 # JavaScript: eslint . && tsc --noEmit
@@ -199,7 +206,8 @@ Preview linting commands that will be executed:
 ```
 
 **Output:**
-```
+
+```text
 ╭─ Release Lint Check ────────────────────────────────╮
 │ Status: ✓ READY FOR RELEASE                        │
 ├─────────────────────────────────────────────────────┤
@@ -218,9 +226,81 @@ Preview linting commands that will be executed:
 - `--strict` - Treat warnings as errors
 - `--files <pattern>` - Only lint matching files
 
+## Markdown File Handling
+
+When the target path contains `.md` files, `/craft:code:lint` automatically delegates markdown linting to `/craft:docs:lint`.
+
+### How It Works
+
+```bash
+# 1. Detect file types in path
+CODE_FILES=$(find "$path" -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.r" -o -name "*.go" 2>/dev/null)
+MD_FILES=$(find "$path" -name "*.md" 2>/dev/null)
+
+# 2. Run code linting on non-markdown files
+if [ -n "$CODE_FILES" ]; then
+  run_code_linter "$CODE_FILES"
+fi
+
+# 3. Delegate markdown files to /craft:docs:lint
+if [ -n "$MD_FILES" ]; then
+  echo "Delegating ${#MD_FILES[@]} markdown files to /craft:docs:lint..."
+  /craft:docs:lint "$mode" "$path"
+fi
+
+# 4. Combine exit codes
+EXIT_CODE=$((CODE_EXIT || MD_EXIT))
+```
+
+### Unified Output
+
+```text
+╭─ /craft:code:lint ──────────────────────────────────────────╮
+│                                                             │
+│ Code Files (12):                                            │
+│ ✓ ruff check: 0 issues                                      │
+│                                                             │
+│ Markdown Files (8):                                         │
+│ ✓ markdownlint: 0 issues                                    │
+│                                                             │
+│ STATUS: ALL CHECKS PASSED ✓                                 │
+╰─────────────────────────────────────────────────────────────╯
+```
+
+### Example with Issues
+
+```text
+╭─ /craft:code:lint ──────────────────────────────────────────╮
+│                                                             │
+│ Code Files (12):                                            │
+│ ✓ ruff check: 0 issues                                      │
+│                                                             │
+│ Markdown Files (8):                                         │
+│ ✗ markdownlint: 3 issues                                    │
+│   - docs/guide.md:21 [MD032] Missing blank line             │
+│   - docs/api.md:45 [MD040] Missing language tag             │
+│   - README.md:8 [MD034] Bare URL                            │
+│                                                             │
+│ Run /craft:docs:lint --fix to auto-fix markdown issues      │
+│                                                             │
+│ STATUS: ISSUES FOUND ✗                                      │
+╰─────────────────────────────────────────────────────────────╯
+```
+
+### Behavior by Mode
+
+| Mode | Code Linting | Markdown Linting |
+|------|--------------|------------------|
+| **default** | Quick style check | Critical errors only |
+| **debug** | All rules + suggestions | + Context + suggestions |
+| **optimize** | Performance rules | Parallel processing |
+| **release** | Comprehensive + types | + All rules + strict |
+
 ## Integration
 
 Works with:
+
 - `/craft:code:ci-local` - Pre-commit checks
 - `/craft:code:ci-fix` - Auto-fix lint issues
 - `/craft:code:release` - Release validation
+- `/craft:docs:lint` - Markdown-specific linting (delegated)

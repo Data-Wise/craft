@@ -44,6 +44,7 @@ feature/* (worktrees) ← All implementation work
 | Validate | `./scripts/validate-counts.sh` | `/craft:check` |
 | Build docs | `mkdocs build` | - |
 | Lint code | - | `/craft:code:lint` |
+| Lint markdown | `npx markdownlint-cli2 "**/*.md"` | `/craft:docs:lint` |
 | Architecture | - | `/craft:arch:analyze` |
 | Git status | `git status` | `/craft:git:status` |
 | Worktree | `git worktree add ...` | `/craft:git:worktree <branch>` |
@@ -239,12 +240,25 @@ python3 tests/test_integration_teaching_workflow.py
 |---------|----------|--------|--------|
 | Interactive docs:update specs | Critical | 4h | ✅ Complete (1,634 lines) |
 | docs:sync merge specs | Critical | 2h | ✅ Complete (947 lines) |
-| Markdownlint expansion (24 rules) | Critical | 1h | ✅ Complete |
+| Markdownlint expansion (24 → 30 rules) | Critical | 1h | ✅ Complete |
+| **Full markdown linting system** | Critical | 2h | ✅ Complete |
 | Worktree setup | High | 30m | ✅ Complete |
 | Phase 1: Core workflow | High | 8-10h | ⏳ Starting |
 | Phase 2: GIF integration | Medium | 6-8h | 📝 Planned |
 | Phase 3: Lint & tutorial | Medium | 8-10h | 📝 Planned |
 | Phase 4: Help files | High | 10-12h | 📝 Planned |
+
+**Full Markdown Linting System (v2.7.0):**
+
+- `.markdownlint.json` expanded to 30 rules (6 categories)
+- `/craft:docs:lint` enhanced with:
+  - Global install detection + npx fallback
+  - Styled output (raw with `--verbose`)
+  - Preview-before-fix workflow
+  - Interactive prompts for MD040 (language) and MD001 (headings)
+- `/craft:code:lint` now delegates `.md` files to `/craft:docs:lint`
+- `/craft:site:check` runs lint before build validation
+- `.pre-commit-config.yaml` for automated lint on commit
 
 **Specs:** `docs/specs/SPEC-docs-update-interactive-2026-01-22.md`, `docs/specs/SPEC-docs-sync-update-integration-2026-01-22.md`
 

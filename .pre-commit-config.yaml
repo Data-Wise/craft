@@ -1,0 +1,48 @@
+# Pre-commit hooks for craft plugin
+# Install: pip install pre-commit && pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # Markdown linting with auto-fix
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.14.0
+    hooks:
+      - id: markdownlint-cli2
+        args:
+          - --config
+          - .markdownlint.json
+          - --fix
+        files: \.md$
+        # Exclude generated files and test fixtures
+        exclude: |
+          (?x)^(
+            docs/brainstorm/.*|
+            tests/fixtures/.*
+          )$
+
+  # YAML validation
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+        args: [--unsafe]  # Allow custom tags
+      - id: end-of-file-fixer
+        files: \.(md|yaml|yml|json)$
+      - id: trailing-whitespace
+        files: \.(md|yaml|yml|json)$
+        args: [--markdown-linebreak-ext=md]
+
+  # JSON validation
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-json
+        files: \.json$
+
+# CI configuration
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit hooks
+  autofix_prs: true
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
