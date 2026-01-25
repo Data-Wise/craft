@@ -957,7 +957,7 @@ Summary:
 
 - [BRAINSTORM-teaching-workflow-2026-01-16.md](../brainstorm/BRAINSTORM-teaching-workflow-2026-01-16.md) - Original brainstorm session
 - [Craft CLAUDE.md](../../CLAUDE.md) - Project overview and workflow
-- [Craft Hub v2.0 Spec](./SPEC-craft-hub-v2-2026-01-15.md) - Related discovery system
+- [Craft Hub v2.0 Spec](./_archive/SPEC-craft-hub-v2-2026-01-15.md) - Related discovery system
 
 ---
 

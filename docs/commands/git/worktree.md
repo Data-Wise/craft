@@ -288,4 +288,4 @@ alias craft-wt='cd ~/.git-worktrees/craft'
 
 - **Pre-flight check:** `/craft:check` - Validates before commit/PR
 - **Branch cleanup:** `/craft:git:clean` - Clean merged branches
-- **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md)
+- **Workflow:** [Git Feature Workflow](../../workflows/git-feature-workflow.md)

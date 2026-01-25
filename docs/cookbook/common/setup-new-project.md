@@ -6,8 +6,8 @@ level: "beginner"
 time_estimate: "5 minutes"
 related:
   - ../../guide/getting-started.md
-  - ../../commands/git/init.md
-  - ../../commands/check.md
+  - ../../../commands/git/init.md
+  - ../../../commands/check.md
 ---
 
 # Recipe: Set Up New Project
@@ -89,6 +89,6 @@ All settings are stored in `.claude/settings.local.json` and can be customized l
 ## Related
 
 - [Getting Started Guide](../../guide/getting-started.md) — Comprehensive setup walkthrough
-- [Git Worktree Command](../../commands/git/worktree.md) — Feature branch isolation
-- [Check Command](../../commands/check.md) — Pre-flight validation
+- [Git Worktree Command](../../../commands/git/worktree.md) — Feature branch isolation
+- [Check Command](../../../commands/check.md) — Pre-flight validation
 - [Configuration Reference](../../reference/configuration.md) — Customize settings

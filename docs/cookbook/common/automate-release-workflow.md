@@ -5,9 +5,9 @@ category: "cookbook"
 level: "intermediate"
 time_estimate: "10 minutes"
 related:
-  - ../../commands/ci/generate.md
-  - ../../commands/ci/validate.md
-  - ../../commands/code/ci-local.md
+  - ../../../commands/ci/generate.md
+  - ../../../commands/ci/validate.md
+  - ../../../commands/code/ci-local.md
 ---
 
 # Recipe: Automate Release Workflow
@@ -139,8 +139,8 @@ The workflow runs on:
 
 ## Related
 
-- [CI Generate Command](../../commands/ci/generate.md) — Full command reference
-- [CI Validate Command](../../commands/ci/validate.md) — Best practices checker
-- [CI Local Command](../../commands/code/ci-local.md) — Run checks locally
-- [CI Detect Command](../../commands/ci/detect.md) — Project analysis
+- [CI Generate Command](../../../commands/ci/generate.md) — Full command reference
+- [CI Validate Command](../../../commands/ci/validate.md) — Best practices checker
+- [CI Local Command](../../../commands/code/ci-local.md) — Run checks locally
+- [CI Detect Command](../../../commands/ci/detect.md) — Project analysis
 - [GitHub Actions Documentation](https://docs.github.com/en/actions) — Official GitHub docs

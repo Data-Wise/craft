@@ -652,7 +652,7 @@ time python3 commands/_discovery.py  # Should be < 15ms
 
 ### Related Documentation
 
-- [Hub v2.0 User Guide](../help/hub.md)
+- [Hub v2.0 User Guide](../../commands/hub.md)
 - [Hub v2.0 Testing Guide](../../tests/HUB-V2-TESTING-GUIDE.md)
 - [Hub v2.0 Testing Summary](../../tests/TESTING-SUMMARY.md)
 - [CHANGELOG.md](../../CHANGELOG.md#unreleased---hub-v20)

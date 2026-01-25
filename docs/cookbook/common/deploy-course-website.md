@@ -5,9 +5,9 @@ category: "cookbook"
 level: "beginner"
 time_estimate: "3 minutes"
 related:
-  - ../../commands/site/deploy.md
-  - ../../commands/site/build.md
-  - ../../commands/site/check.md
+  - ../../../commands/site/deploy.md
+  - ../../../commands/site/build.md
+  - ../../../commands/site/check.md
 ---
 
 # Recipe: Deploy Course Website
@@ -111,7 +111,7 @@ I want to safely publish course website updates to GitHub Pages without breaking
 
 ## Related
 
-- [Site Deploy Command](../../commands/site/deploy.md) — Full command reference
-- [Site Build Command](../../commands/site/build.md) — Local preview workflow
-- [Site Check Command](../../commands/site/check.md) — Validation details
+- [Site Deploy Command](../../../commands/site/deploy.md) — Full command reference
+- [Site Build Command](../../../commands/site/build.md) — Local preview workflow
+- [Site Check Command](../../../commands/site/check.md) — Validation details
 - [Teaching Workflow Guide](../../guide/teaching-workflow.md) — Complete teaching mode features

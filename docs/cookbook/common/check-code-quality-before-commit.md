@@ -5,9 +5,9 @@ category: "cookbook"
 level: "beginner"
 time_estimate: "2 minutes"
 related:
-  - ../../commands/check.md
-  - ../../commands/code/lint.md
-  - ../../commands/test/run.md
+  - ../../../commands/check.md
+  - ../../../commands/code/lint.md
+  - ../../../commands/test/run.md
 ---
 
 # Recipe: Check Code Quality Before Commit
@@ -124,8 +124,8 @@ The command is smart about what to run and fails fast if critical issues are fou
 
 ## Related
 
-- [Check Command Reference](../../commands/check.md) — Full documentation
-- [Lint Command](../../commands/code/lint.md) — Code style checks only
-- [Test Run Command](../../commands/test/run.md) — Test execution only
-- [CI Local Command](../../commands/code/ci-local.md) — Run full CI checks locally
+- [Check Command Reference](../../../commands/check.md) — Full documentation
+- [Lint Command](../../../commands/code/lint.md) — Code style checks only
+- [Test Run Command](../../../commands/test/run.md) — Test execution only
+- [CI Local Command](../../../commands/code/ci-local.md) — Run full CI checks locally
 - [Automate Release Workflow](automate-release-workflow.md) — Set up CI automation

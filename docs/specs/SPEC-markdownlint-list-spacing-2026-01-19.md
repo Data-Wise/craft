@@ -589,5 +589,5 @@ sequenceDiagram
 - [markdownlint Rule MD030](https://github.com/DavidAnson/markdownlint/blob/main/doc/md030.md)
 - [markdownlint Rule MD032](https://github.com/DavidAnson/markdownlint/blob/main/doc/md032.md)
 - [markdownlint Rule MD004](https://github.com/DavidAnson/markdownlint/blob/main/doc/md004.md)
-- [Craft `/craft:docs:lint` command](commands/docs/lint.md)
-- [Existing `.markdownlint.json` config](.markdownlint.json)
+- [Craft `/craft:docs:lint` command](../../commands/docs/lint.md)
+- [Existing `.markdownlint.json` config](../../.markdownlint.json)

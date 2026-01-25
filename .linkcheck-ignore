@@ -42,14 +42,19 @@ File: `docs/test-violations.md`
 - Contains intentionally broken links to verify linting works
 - Should NOT be fixed
 
-### 2. Brainstorm References (Gitignored)
+### 2. Brainstorm Files (Gitignored)
 Files with broken links:
 - `docs/specs/SPEC-craft-hub-v2-2026-01-15.md`
 - `docs/specs/SPEC-teaching-workflow-2026-01-16.md`
+- `docs/specs/_archive/SPEC-craft-hub-v2-2026-01-15.md`
+- `docs/brainstorm/*.md` (all brainstorm files - gitignored, not published)
 
-Targets: `docs/brainstorm/*.md` (gitignored, not published to website)
-- Brainstorm files are working documents, not published
-- Links are for local development reference only
+Targets:
+- `docs/brainstorm/*.md`
+- `../../BRAINSTORM-craft-hub-update-2026-01-15.md`
+- `.markdownlint.json`
+- `../../.markdownlint.json`
+- Reason: Brainstorm files are working documents, not published
 - Fix: Update specs to reference GitHub blob URLs or remove references
 
 ### 3. README References (Outside Docs)
@@ -91,16 +96,44 @@ Fix: Remove reference or copy checklist to docs/
 Files with broken links:
 - `commands/docs/check-links.md` (contains intentional example broken links)
 - `docs/git-init-docs-index.md` (reference to help/hub.md as example)
+- `docs/archive/TEST-VALIDATION.md` (test output examples)
+- `docs/reference/documentation-quality.md` (link pattern examples)
 
-Targets: `../other.md`, `file.md`, `help/hub.md`
-Reason: These are intentional example links shown in documentation to illustrate what broken links look like
-Fix: Not needed - examples are correct as-is
+Targets:
+- `../other.md`
+- `../file.md`
+- `file.md`
+- `file.md#heading`
+- `file.md#section`
+- `/docs/file.md`
+- `help/hub.md`
+- `index.md`
+- `index.md#overview`
+- `./other-file.md`
+- `../parent-file.md`
+- `./file.md#section`
+- `url`
+- `../missing-file.md`
+- Reason: These are intentional example links shown in documentation to illustrate what broken links look like
+- Fix: Not needed - examples are correct as-is
+
+### 7. Planned Documentation (Not Yet Created)
+Files with broken links:
+- `commands/orchestrate/resume.md`
+- `commands/git/init.md`
+
+Targets:
+- `../docs/SESSION-STATE-SCHEMA.md`
+- `../docs/SESSION-TELEPORTATION.md`
+- `../../docs/help/ci-generate.md`
+- Reason: These reference planned documentation that will be created in future releases
+- Fix: Create the referenced documentation files
 
 ## Build Status
 - **Build command**: `mkdocs build --strict` will show these warnings
 - **Expected**: ~30 warnings from categories above
-- **Action required**: Fix categories #3, #4, #5 in future PRs
-- **No action needed**: Categories #1, #2 (intentional)
+- **Action required**: Fix categories #3, #4, #5, #7 in future PRs
+- **No action needed**: Categories #1, #2, #6 (intentional)
 
 ## Next Steps (Phase 2+)
 1. Update teaching docs to use category page anchors

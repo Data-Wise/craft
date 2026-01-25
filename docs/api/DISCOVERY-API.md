@@ -944,7 +944,7 @@ Statistics:
 ## See Also
 
 - [Architecture Documentation](../architecture/HUB-V2-ARCHITECTURE.md)
-- [User Guide](../help/hub.md)
+- [User Guide](../../commands/hub.md)
 - [Testing Guide](../../tests/HUB-V2-TESTING-GUIDE.md)
 - [Command Frontmatter Schema](../../commands/_schema.json)
 

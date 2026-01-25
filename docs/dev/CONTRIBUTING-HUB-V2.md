@@ -37,7 +37,7 @@ Hub v2.0 is a zero-maintenance command discovery system for the Craft plugin. Th
 - Read the [Architecture Documentation](../architecture/HUB-V2-ARCHITECTURE.md)
 - Review the [API Reference](../api/DISCOVERY-API.md)
 - Run the test suite to ensure everything works
-- Familiarize yourself with the [User Guide](../help/hub.md)
+- Familiarize yourself with the [User Guide](../../commands/hub.md)
 
 ---
 
@@ -738,7 +738,7 @@ python3 tests/test_hub_discovery.py
 
 - [Architecture Documentation](../architecture/HUB-V2-ARCHITECTURE.md)
 - [API Reference](../api/DISCOVERY-API.md)
-- [User Guide](../help/hub.md)
+- [User Guide](../../commands/hub.md)
 - [Testing Guide](../../tests/HUB-V2-TESTING-GUIDE.md)
 - [Testing Summary](../../tests/TESTING-SUMMARY.md)
 

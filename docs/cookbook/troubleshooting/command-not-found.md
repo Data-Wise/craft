@@ -82,14 +82,14 @@ craft check          # Missing prefix
 - `/craft:do-check` → `/craft:do check` (hyphen vs space)
 - `/craft:git-init` → `/craft:git:init` (hyphen vs colon)
 
-**Solution:** Use tab completion or check [Commands Reference](../../commands/index.md) for exact command names
+**Solution:** Use tab completion or check [Commands Reference](../../../commands/hub.md) for exact command names
 
 ### 5. Command Doesn't Exist
 
 **Issue:** Trying to use a command that hasn't been created yet
 
 **Solution:**
-1. Check the [Commands Index](../../commands/index.md) for available commands
+1. Check the [Commands Index](../../../commands/hub.md) for available commands
 2. Use `/craft:do <task>` for smart routing (it will suggest correct commands)
 3. Check if you need to update to a newer version of Craft
 
@@ -172,5 +172,5 @@ If the issue persists:
 
 - [Getting Started Guide](../../guide/getting-started.md) — Complete setup instructions
 - [ADHD Quick Start](../../ADHD-QUICK-START.md) — 30-second quick start
-- [Commands Index](../../commands/index.md) — Full command reference
+- [Commands Index](../../../commands/hub.md) — Full command reference
 - [Do Command](../../commands/do.md) — Smart routing for finding commands
