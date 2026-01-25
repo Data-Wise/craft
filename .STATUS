@@ -1,12 +1,33 @@
 status: Released
-version: 2.7.0
-release_date: 2026-01-23
-milestone: v2.7.0 Released - Interactive Documentation & Enhanced Linting
-last_session: 2026-01-23T05:25:00Z
+version: 2.8.0
+release_date: 2026-01-25
+milestone: v2.8.0 - Markdown Linting Execution Layer
+last_session: 2026-01-25T13:45:00Z
 
-progress: 100% (v2.7.0 RELEASED ✅ - MERGED TO MAIN)
+progress: 100% (v2.8.0 IMPLEMENTATION COMPLETE - MERGED TO DEV)
 
-✅ Just Completed (Session 2026-01-23 - Release Workflow):
+✅ Just Completed (Session 2026-01-25 - Markdown Linting Execution Layer):
+- v2.8.0 Implementation Complete ✅
+  • Created scripts/docs-lint.sh: Execution layer for markdown linting
+  • Auto-detects markdownlint-cli2 globally or falls back to npx
+  • Supports --fix flag for auto-fixing issues
+  • Updated commands/docs/lint.md with trigger and feature status
+  • Created comprehensive release notes (RELEASE-v2.8.0.md)
+  • Updated version: 2.7.0 → 2.8.0 in plugin.json
+  • Updated CHANGELOG.md with v2.8.0 section
+  • All 706+ tests passing (100%)
+- PR #34 Created and Merged ✅
+  • Branch: feature/docs-lint-execute
+  • Commits: 1 implementation + 1 CLAUDE.md update
+  • Merged to dev (commit: aaa1914)
+  • Worktree cleaned up
+- Documentation Updated ✅
+  • RELEASE-v2.8.0.md created (comprehensive release notes)
+  • CLAUDE.md updated with v2.8.0 progress
+  • Feature status table added (MVP vs planned)
+  • Clear roadmap for v2.9.0+
+
+✅ Earlier Completed (Session 2026-01-23 - Release Workflow):
 - v2.7.0 Release Process Complete ✅
   • Version bump: 2.6.0 → 2.7.0 (commit: 657a7cb)
   • Updated plugin.json and VERSION-HISTORY.md
