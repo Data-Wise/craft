@@ -3,10 +3,13 @@
   "default": true,
 
   "_comment_disabled": "=== DISABLED RULES (Craft-specific needs) ===",
+  "MD001": false,
   "MD013": false,
+  "MD040": false,
   "MD041": false,
   "MD049": false,
   "MD050": false,
+  "_note_md001_md040": "Disabled as warnings - /craft:docs:lint can detect and offer to fix",
 
   "_comment_list": "=== LIST FORMATTING (Critical) ===",
   "MD004": {
@@ -38,7 +41,6 @@
   "MD036": false,
 
   "_comment_code": "=== CODE BLOCKS ===",
-  "MD040": false,
   "MD046": {
     "style": "fenced"
   },
