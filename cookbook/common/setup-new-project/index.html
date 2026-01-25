@@ -3884,7 +3884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4213,27 +4213,25 @@
 <p>I want to add Craft to my new project with recommended settings and git workflow patterns.</p>
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p><strong>Navigate to your project</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/your/project
+<li><strong>Navigate to your project</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/your/project
 </span></code></pre></div>
-   Why: Craft needs to be run from your project root</p>
-</li>
-<li>
-<p><strong>Initialize Craft</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:git:init
+<p>Why: Craft needs to be run from your project root</p>
+<ol>
+<li><strong>Initialize Craft</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:git:init
 </span></code></pre></div>
-   Why: Sets up recommended git workflow patterns, creates <code>.claude/</code> directory, and configures project-specific settings</p>
-</li>
-<li>
-<p><strong>Verify setup</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:check
+<p>Why: Sets up recommended git workflow patterns, creates <code>.claude/</code> directory, and configures project-specific settings</p>
+<ol>
+<li><strong>Verify setup</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:check
 </span></code></pre></div>
-   Why: Runs pre-flight validation to ensure everything is configured correctly</p>
-</li>
-<li>
-<p><strong>Review generated files</strong></p>
-</li>
+<p>Why: Runs pre-flight validation to ensure everything is configured correctly</p>
+<ol>
+<li><strong>Review generated files</strong></li>
 <li><code>.claude/settings.local.json</code> — Project-specific Craft configuration</li>
 <li><code>.gitignore</code> updates — Craft temporary files excluded</li>
 <li>Git hooks (optional) — Pre-commit validation</li>
@@ -4253,22 +4251,20 @@
 <p>All settings are stored in <code>.claude/settings.local.json</code> and can be customized later.</p>
 <h2 id="variations">Variations<a class="headerlink" href="#variations" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p><strong>Skip interactive prompts:</strong> Use defaults without confirmation
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:git:init<span class="w"> </span>--yes
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Custom project type:</strong> Override auto-detection
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:git:init<span class="w"> </span>--type<span class="w"> </span>python
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Skip git hooks:</strong> Initialize without pre-commit hooks
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:git:init<span class="w"> </span>--no-hooks
-</span></code></pre></div></p>
-</li>
+<li><strong>Skip interactive prompts:</strong> Use defaults without confirmation</li>
 </ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:git:init<span class="w"> </span>--yes
+</span></code></pre></div>
+<ul>
+<li><strong>Custom project type:</strong> Override auto-detection</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:git:init<span class="w"> </span>--type<span class="w"> </span>python
+</span></code></pre></div>
+<ul>
+<li><strong>Skip git hooks:</strong> Initialize without pre-commit hooks</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:git:init<span class="w"> </span>--no-hooks
+</span></code></pre></div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4299,8 +4295,8 @@
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../../../guide/getting-started/">Getting Started Guide</a> — Comprehensive setup walkthrough</li>
-<li><a href="../../../commands/git/worktree/">Git Worktree Command</a> — Feature branch isolation</li>
-<li><a href="../../../commands/check/">Check Command</a> — Pre-flight validation</li>
+<li><a href="../../../commands/git/worktree.md">Git Worktree Command</a> — Feature branch isolation</li>
+<li><a href="../../../commands/check.md">Check Command</a> — Pre-flight validation</li>
 <li><a href="../../../reference/configuration/">Configuration Reference</a> — Customize settings</li>
 </ul>
 

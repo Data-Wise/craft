@@ -4112,7 +4112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4664,12 +4664,14 @@
 <h1 id="orchestrator-mode">Orchestrator Mode<a class="headerlink" href="#orchestrator-mode" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>8 minutes</strong> • 🔴 Advanced • ✓ Power user features</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> Advanced task orchestrator coordinating multiple agents with 4 execution modes (10s, 2min, 3min, 5min)
-- <strong>Why:</strong> Handle complex multi-step tasks with proper delegation, monitoring, and ADHD-friendly tracking
-- <strong>How:</strong> <code>/craft:orchestrate "task" [mode]</code> where mode = default/debug/optimize/release
-- <strong>NEW (v2.5.0):</strong> Use <code>--orch</code> flag on supported commands for quick orchestration: <code>/craft:do "task" --orch=optimize</code>
-- <strong>Next:</strong> Try <code>/craft:orchestrate "add auth" debug</code> for verbose execution tracking</p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> Advanced task orchestrator coordinating multiple agents with 4 execution modes (10s, 2min, 3min, 5min)</li>
+<li><strong>Why:</strong> Handle complex multi-step tasks with proper delegation, monitoring, and ADHD-friendly tracking</li>
+<li><strong>How:</strong> <code>/craft:orchestrate "task" [mode]</code> where mode = default/debug/optimize/release</li>
+<li><strong>NEW (v2.5.0):</strong> Use <code>--orch</code> flag on supported commands for quick orchestration: <code>/craft:do "task" --orch=optimize</code></li>
+<li><strong>Next:</strong> Try <code>/craft:orchestrate "add auth" debug</code> for verbose execution tracking</li>
+</ul>
 <p>🎓 <strong>User Guide</strong> - Practical examples and quick start.</p>
 <p>Looking for technical details? See the <a href="../../commands/orchestrate/"><strong>Orchestrator Reference</strong></a> for implementation details and advanced features.</p>
 <p><strong>NEW (v2.5.0):</strong> For quick orchestration without a separate command, see the <a href="../orch-flag-usage/"><strong>--orch Flag Guide</strong></a> for streamlined usage patterns.</p>
@@ -4680,14 +4682,16 @@
 <p class="admonition-title">Advanced Feature</p>
 <p>The orchestrator is powerful but complex. Start with simple commands like <code>/craft:do</code> and <code>/craft:check</code> first. Come back here when you need parallel agent execution.</p>
 </div>
-<p><strong>Key Features:</strong>
-- Mode-aware execution (default/debug/optimize/release)
-- Subagent delegation and monitoring
-- Chat compression for long sessions
-- ADHD-optimized status tracking
-- Timeline view of execution
-- Session persistence and resumption (v2.4.0)
-- Brainstorm integration for context gathering (v2.4.0)</p>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li>Mode-aware execution (default/debug/optimize/release)</li>
+<li>Subagent delegation and monitoring</li>
+<li>Chat compression for long sessions</li>
+<li>ADHD-optimized status tracking</li>
+<li>Timeline view of execution</li>
+<li>Session persistence and resumption (v2.4.0)</li>
+<li>Brainstorm integration for context gathering (v2.4.0)</li>
+</ul>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <h3 id="traditional-method-v240-and-earlier">Traditional Method (v2.4.0 and earlier)<a class="headerlink" href="#traditional-method-v240-and-earlier" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span>
@@ -4696,18 +4700,43 @@
 <p>The <code>--orch</code> flag enables orchestration directly from supported commands:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
 </span></code></pre></div>
-<p><strong>Supported Commands:</strong>
-| Command | Usage |
-|---------|-------|
-| <code>/craft:do</code> | <code>/craft:do "task" --orch=[mode]</code> |
-| <code>/craft:workflow:brainstorm</code> | <code>/brainstorm "topic" --orch=[mode]</code> |
-| <code>/craft:check</code> | <code>/craft:check --orch=[mode]</code> |
-| <code>/craft:docs:sync</code> | <code>/craft:docs:sync --orch=[mode]</code> |
-| <code>/craft:ci:generate</code> | <code>/craft:ci:generate --orch=[mode]</code> |</p>
-<p><strong>Benefits:</strong>
-- No need to remember separate <code>/craft:orchestrate</code> command
-- Integrates seamlessly with existing workflows
-- Preserves command-specific context and arguments</p>
+<p><strong>Supported Commands:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:do</code></td>
+<td><code>/craft:do "task" --orch=[mode]</code></td>
+</tr>
+<tr>
+<td><code>/craft:workflow:brainstorm</code></td>
+<td><code>/brainstorm "topic" --orch=[mode]</code></td>
+</tr>
+<tr>
+<td><code>/craft:check</code></td>
+<td><code>/craft:check --orch=[mode]</code></td>
+</tr>
+<tr>
+<td><code>/craft:docs:sync</code></td>
+<td><code>/craft:docs:sync --orch=[mode]</code></td>
+</tr>
+<tr>
+<td><code>/craft:ci:generate</code></td>
+<td><code>/craft:ci:generate --orch=[mode]</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>No need to remember separate <code>/craft:orchestrate</code> command</li>
+<li>Integrates seamlessly with existing workflows</li>
+<li>Preserves command-specific context and arguments</li>
+</ul>
 <h3 id="orchestration-modes">Orchestration Modes<a class="headerlink" href="#orchestration-modes" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4762,18 +4791,22 @@
 <p>Preview orchestration without execution:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;refactor auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>release<span class="w"> </span>--dry-run
 </span></code></pre></div>
-<p>This shows:
-- Task description
-- Selected mode
-- Max agents
-- Compression ratio
-- What would be executed</p>
-<p>The orchestrator will:
-1. Analyze the task
-2. Create an execution plan
-3. Delegate to appropriate agents/commands
-4. Monitor progress
-5. Report results</p>
+<p>This shows:</p>
+<ul>
+<li>Task description</li>
+<li>Selected mode</li>
+<li>Max agents</li>
+<li>Compression ratio</li>
+<li>What would be executed</li>
+</ul>
+<p>The orchestrator will:</p>
+<ol>
+<li>Analyze the task</li>
+<li>Create an execution plan</li>
+<li>Delegate to appropriate agents/commands</li>
+<li>Monitor progress</li>
+<li>Report results</li>
+</ol>
 <h2 id="modes">Modes<a class="headerlink" href="#modes" title="Permanent link">&para;</a></h2>
 <h3 id="default-mode-10s">Default Mode (&lt;10s)<a class="headerlink" href="#default-mode-10s" title="Permanent link">&para;</a></h3>
 <p>Quick orchestration for simple tasks:</p>
@@ -4787,29 +4820,35 @@
 <p>Parallel execution for speed:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>optimize
 </span></code></pre></div>
-<p><strong>Benefits:</strong>
-- Runs up to 4 agents in parallel
-- Faster completion
-- Resource-efficient</p>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Runs up to 4 agents in parallel</li>
+<li>Faster completion</li>
+<li>Resource-efficient</li>
+</ul>
 <h3 id="release-mode-300s">Release Mode (&lt;300s)<a class="headerlink" href="#release-mode-300s" title="Permanent link">&para;</a></h3>
 <p>Comprehensive audit for releases:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;prep for v2.0 release&quot;</span><span class="w"> </span>release
 </span></code></pre></div>
-<p><strong>Includes:</strong>
-- Full test suite
-- Documentation validation
-- Security checks
-- Build verification</p>
+<p><strong>Includes:</strong></p>
+<ul>
+<li>Full test suite</li>
+<li>Documentation validation</li>
+<li>Security checks</li>
+<li>Build verification</li>
+</ul>
 <h2 id="brainstorm-integration-v240-new">Brainstorm Integration (v2.4.0 NEW)<a class="headerlink" href="#brainstorm-integration-v240-new" title="Permanent link">&para;</a></h2>
 <p>Orchestrate complex features with structured context gathering:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;plan new feature&quot;</span>
 </span></code></pre></div>
-<p>Flow:
-1. <code>/brainstorm d:8</code> gathers context (requirements, users, scope, technical)
-2. Spawns backend-architect agent
-3. Spawns frontend specialist
-4. Coordinates test strategy
-5. Synthesizes into implementation plan</p>
+<p>Flow:</p>
+<ol>
+<li><code>/brainstorm d:8</code> gathers context (requirements, users, scope, technical)</li>
+<li>Spawns backend-architect agent</li>
+<li>Spawns frontend specialist</li>
+<li>Coordinates test strategy</li>
+<li>Synthesizes into implementation plan</li>
+</ol>
 <h3 id="custom-brainstorm-context">Custom Brainstorm Context<a class="headerlink" href="#custom-brainstorm-context" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Focused categories for technical features</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design API&quot;</span><span class="w"> </span>optimize
@@ -4827,11 +4866,13 @@
 <h3 id="status-dashboard">Status Dashboard<a class="headerlink" href="#status-dashboard" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate<span class="w"> </span>status
 </span></code></pre></div>
-<p>Shows:
-- Active agents
-- Completed tasks
-- Pending work
-- Resource usage</p>
+<p>Shows:</p>
+<ul>
+<li>Active agents</li>
+<li>Completed tasks</li>
+<li>Pending work</li>
+<li>Resource usage</li>
+</ul>
 <h3 id="timeline-view">Timeline View<a class="headerlink" href="#timeline-view" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:orchestrate<span class="w"> </span>timeline
 </span></code></pre></div>

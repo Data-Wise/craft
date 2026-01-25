@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4332,7 +4332,7 @@
   <a href="#for-this-analysis" class="md-nav__link">
     <span class="md-ellipsis">
       
-        For this analysis:
+        For this analysis
       
     </span>
   </a>
@@ -4343,7 +4343,7 @@
   <a href="#for-phase-1-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        For Phase 1 implementation:
+        For Phase 1 implementation
       
     </span>
   </a>
@@ -4354,7 +4354,7 @@
   <a href="#for-phase-2-completion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        For Phase 2 completion:
+        For Phase 2 completion
       
     </span>
   </a>
@@ -4477,11 +4477,13 @@
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>⚠️  Integration Tests:      30% complete (tests done, guide missing)
 </span></code></pre></div>
 <h3 id="3-prioritized-documentation-tasks">3. Prioritized Documentation Tasks<a class="headerlink" href="#3-prioritized-documentation-tasks" title="Permanent link">&para;</a></h3>
-<p><strong>Phase 1 (Critical) - 4-5 hours:</strong>
-1. Integration Testing Guide (30 min) - Document 27 new integration tests
-2. Dependency Management Guide (1.5h) - Document 16K LOC + 79 tests
-3. Claude Code 2.1.0 Guide (1.5h) - Explain smart routing + validators
-4. Update CLAUDE.md (20 min) - Add integration features section</p>
+<p><strong>Phase 1 (Critical) - 4-5 hours:</strong></p>
+<ol>
+<li>Integration Testing Guide (30 min) - Document 27 new integration tests</li>
+<li>Dependency Management Guide (1.5h) - Document 16K LOC + 79 tests</li>
+<li>Claude Code 2.1.0 Guide (1.5h) - Explain smart routing + validators</li>
+<li>Update CLAUDE.md (20 min) - Add integration features section</li>
+</ol>
 <p><strong>Phase 2 (Polish) - 1-2 hours:</strong>
 5. Teaching Workflow Troubleshooting (20 min)
 6. Document Cleanup (20 min) - Archive outdated docs, verify versions
@@ -4500,36 +4502,46 @@
 <h2 id="key-findings">Key Findings<a class="headerlink" href="#key-findings" title="Permanent link">&para;</a></h2>
 <h3 id="critical-gaps-identified">Critical Gaps Identified<a class="headerlink" href="#critical-gaps-identified" title="Permanent link">&para;</a></h3>
 <h4 id="1-integration-tests-30-min-to-close">1. Integration Tests (30 min to close)<a class="headerlink" href="#1-integration-tests-30-min-to-close" title="Permanent link">&para;</a></h4>
-<p><strong>Status:</strong> Tests exist (27 total, 100% passing) but no user documentation
-- <code>test_integration_dependency_system.py</code> (9 tests)
-- <code>test_integration_orchestrator_workflows.py</code> (13 tests)
-- <code>test_integration_teaching_workflow.py</code> (8 tests, 3 skipped)</p>
+<p><strong>Status:</strong> Tests exist (27 total, 100% passing) but no user documentation</p>
+<ul>
+<li><code>test_integration_dependency_system.py</code> (9 tests)</li>
+<li><code>test_integration_orchestrator_workflows.py</code> (13 tests)</li>
+<li><code>test_integration_teaching_workflow.py</code> (8 tests, 3 skipped)</li>
+</ul>
 <p><strong>Missing:</strong> User guide explaining test structure, how to run, troubleshooting</p>
 <h4 id="2-dependency-management-15-hours-to-close">2. Dependency Management (1.5 hours to close)<a class="headerlink" href="#2-dependency-management-15-hours-to-close" title="Permanent link">&para;</a></h4>
-<p><strong>Status:</strong> Feature is comprehensive (16K LOC, 79 tests) but guide is fragmented
-- 8 new scripts added
-- 4 installer adapters
-- 6 utilities
-- Complete test coverage</p>
-<p><strong>Missing:</strong>
-- Architecture diagram
-- Workflow guide (--check → --fix → --batch)
-- Script reference documentation
-- Session caching mechanics
-- CI/CD integration details</p>
+<p><strong>Status:</strong> Feature is comprehensive (16K LOC, 79 tests) but guide is fragmented</p>
+<ul>
+<li>8 new scripts added</li>
+<li>4 installer adapters</li>
+<li>6 utilities</li>
+<li>Complete test coverage</li>
+</ul>
+<p><strong>Missing:</strong></p>
+<ul>
+<li>Architecture diagram</li>
+<li>Workflow guide (--check → --fix → --batch)</li>
+<li>Script reference documentation</li>
+<li>Session caching mechanics</li>
+<li>CI/CD integration details</li>
+</ul>
 <h4 id="3-claude-code-210-integration-15-hours-to-close">3. Claude Code 2.1.0 Integration (1.5 hours to close)<a class="headerlink" href="#3-claude-code-210-integration-15-hours-to-close" title="Permanent link">&para;</a></h4>
-<p><strong>Status:</strong> Implementation complete (6,337 LOC, 37 tests) but user-facing docs minimal
-- Complexity scoring system (7 factors)
-- 3 hot-reload validators
-- Agent delegation workflow
-- Session teleportation
-- 9 resilience patterns</p>
-<p><strong>Missing:</strong>
-- Complexity scoring explanation
-- Agent routing decision tree
-- Hot-reload validator creation guide
-- Session state management docs
-- Validator ecosystem documentation</p>
+<p><strong>Status:</strong> Implementation complete (6,337 LOC, 37 tests) but user-facing docs minimal</p>
+<ul>
+<li>Complexity scoring system (7 factors)</li>
+<li>3 hot-reload validators</li>
+<li>Agent delegation workflow</li>
+<li>Session teleportation</li>
+<li>9 resilience patterns</li>
+</ul>
+<p><strong>Missing:</strong></p>
+<ul>
+<li>Complexity scoring explanation</li>
+<li>Agent routing decision tree</li>
+<li>Hot-reload validator creation guide</li>
+<li>Session state management docs</li>
+<li>Validator ecosystem documentation</li>
+</ul>
 <h3 id="version-reference-issues">Version Reference Issues<a class="headerlink" href="#version-reference-issues" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>docs/ORCHESTRATOR-ENHANCEMENTS.md</code> references v1.3.0-v1.5.0 (outdated, current is v1.24.0)</li>
@@ -4537,13 +4549,15 @@
 <li>Brainstorm documents contain spec versions that need clarification</li>
 </ul>
 <h3 id="documentation-completeness">Documentation Completeness<a class="headerlink" href="#documentation-completeness" title="Permanent link">&para;</a></h3>
-<p><strong>By Type:</strong>
-- Implementation: 100% (code is solid, 516+ tests passing)
-- Specifications: 100% (6 specs are comprehensive)
-- Architecture Guides: 85% (some newer features lack architecture docs)
-- User Guides: 60% (3 features under-documented)
-- Troubleshooting: 70% (some missing troubleshooting sections)
-- Configuration Reference: 50% (config options scattered)</p>
+<p><strong>By Type:</strong></p>
+<ul>
+<li>Implementation: 100% (code is solid, 516+ tests passing)</li>
+<li>Specifications: 100% (6 specs are comprehensive)</li>
+<li>Architecture Guides: 85% (some newer features lack architecture docs)</li>
+<li>User Guides: 60% (3 features under-documented)</li>
+<li>Troubleshooting: 70% (some missing troubleshooting sections)</li>
+<li>Configuration Reference: 50% (config options scattered)</li>
+</ul>
 <hr />
 <h2 id="worktree-setup">Worktree Setup<a class="headerlink" href="#worktree-setup" title="Permanent link">&para;</a></h2>
 <h3 id="created-worktree">Created Worktree<a class="headerlink" href="#created-worktree" title="Permanent link">&para;</a></h3>
@@ -4660,7 +4674,7 @@
 </ul>
 <hr />
 <h2 id="success-metrics">Success Metrics<a class="headerlink" href="#success-metrics" title="Permanent link">&para;</a></h2>
-<h3 id="for-this-analysis">For this analysis:<a class="headerlink" href="#for-this-analysis" title="Permanent link">&para;</a></h3>
+<h3 id="for-this-analysis">For this analysis<a class="headerlink" href="#for-this-analysis" title="Permanent link">&para;</a></h3>
 <ul>
 <li>✅ Identified all major documentation gaps</li>
 <li>✅ Quantified effort to close gaps (4-5 hours)</li>
@@ -4668,7 +4682,7 @@
 <li>✅ Built worktree for focused development</li>
 <li>✅ Documented findings for team</li>
 </ul>
-<h3 id="for-phase-1-implementation">For Phase 1 implementation:<a class="headerlink" href="#for-phase-1-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="for-phase-1-implementation">For Phase 1 implementation<a class="headerlink" href="#for-phase-1-implementation" title="Permanent link">&para;</a></h3>
 <ul>
 <li>[ ] 3 critical guides created</li>
 <li>[ ] CLAUDE.md updated</li>
@@ -4676,7 +4690,7 @@
 <li>[ ] Documentation site reflects v1.24.0</li>
 <li>[ ] No broken references in docs</li>
 </ul>
-<h3 id="for-phase-2-completion">For Phase 2 completion:<a class="headerlink" href="#for-phase-2-completion" title="Permanent link">&para;</a></h3>
+<h3 id="for-phase-2-completion">For Phase 2 completion<a class="headerlink" href="#for-phase-2-completion" title="Permanent link">&para;</a></h3>
 <ul>
 <li>[ ] All gaps closed</li>
 <li>[ ] All tests documented</li>

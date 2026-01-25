@@ -4144,7 +4144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4733,7 +4733,7 @@
 <h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/brainstorm<span class="w"> </span><span class="o">[</span>depth:count<span class="o">]</span><span class="w"> </span><span class="o">[</span>focus<span class="o">]</span><span class="w"> </span><span class="o">[</span>action<span class="o">]</span><span class="w"> </span><span class="o">[</span>-C<span class="p">|</span>--categories<span class="w"> </span><span class="s2">&quot;cat1,cat2&quot;</span><span class="o">]</span><span class="w"> </span><span class="s2">&quot;topic&quot;</span>
 </span></code></pre></div>
-<p><strong>Quick examples (v2.4.0):</strong>
+<p><strong>Quick examples (v2.4.0):</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Minimal</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/brainstorm<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">              </span><span class="c1"># Default everything</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -4748,21 +4748,25 @@
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Power user - full control</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">   </span><span class="c1"># 15 questions, feature, spec, filtered categories</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
 <p>Enhanced brainstorming with smart mode detection, time budgets, agent delegation, and spec capture for implementation. Designed to be ADHD-friendly with escape hatches at every step.</p>
-<p><strong>v2.4.0 Features:</strong>
-- <strong>Colon notation</strong> - <code>d:5</code>, <code>m:12</code>, <code>q:3</code> for custom question counts
-- <strong>Categories flag</strong> - Filter questions by type (<code>-C req,tech,success</code>)
-- <strong>Unlimited questions</strong> - Milestone prompts every 8 questions
-- <strong>8-category question bank</strong> - 16 questions total</p>
-<p><strong>Features:</strong>
-- <strong>Smart detection</strong> - Auto-detects topic from context
-- <strong>Time budgets</strong> - Guaranteed completion times
-- <strong>Three-layer arguments</strong> - Depth + Focus + Action
-- <strong>Spec capture</strong> - Save brainstorms as implementation specs
-- <strong>Question control</strong> - Custom counts and categories (v2.4.0)</p>
+<p><strong>v2.4.0 Features:</strong></p>
+<ul>
+<li><strong>Colon notation</strong> - <code>d:5</code>, <code>m:12</code>, <code>q:3</code> for custom question counts</li>
+<li><strong>Categories flag</strong> - Filter questions by type (<code>-C req,tech,success</code>)</li>
+<li><strong>Unlimited questions</strong> - Milestone prompts every 8 questions</li>
+<li><strong>8-category question bank</strong> - 16 questions total</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+<li><strong>Smart detection</strong> - Auto-detects topic from context</li>
+<li><strong>Time budgets</strong> - Guaranteed completion times</li>
+<li><strong>Three-layer arguments</strong> - Depth + Focus + Action</li>
+<li><strong>Spec capture</strong> - Save brainstorms as implementation specs</li>
+<li><strong>Question control</strong> - Custom counts and categories (v2.4.0)</li>
+</ul>
 <hr />
 <h2 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h2>
 <h3 id="depth-layer-v240-colon-notation">Depth Layer (v2.4.0 - Colon Notation)<a class="headerlink" href="#depth-layer-v240-colon-notation" title="Permanent link">&para;</a></h3>
@@ -5047,11 +5051,13 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Milestone Behavior:</strong>
-- Questions asked in batches of 8
-- Continuation prompt after each batch
-- User can: proceed, add 4, add 8, or go unlimited
-- "Keep going" mode prompts every 4 questions</p>
+<p><strong>Milestone Behavior:</strong></p>
+<ul>
+<li>Questions asked in batches of 8</li>
+<li>Continuation prompt after each batch</li>
+<li>User can: proceed, add 4, add 8, or go unlimited</li>
+<li>"Keep going" mode prompts every 4 questions</li>
+</ul>
 <hr />
 <h2 id="examples-v240">Examples (v2.4.0)<a class="headerlink" href="#examples-v240" title="Permanent link">&para;</a></h2>
 <h3 id="quick-brainstorm">Quick Brainstorm<a class="headerlink" href="#quick-brainstorm" title="Permanent link">&para;</a></h3>
@@ -5253,17 +5259,19 @@
 <hr />
 <h2 id="spec-capture">Spec Capture<a class="headerlink" href="#spec-capture" title="Permanent link">&para;</a></h2>
 <p>When using <code>save</code> action, generates comprehensive spec:</p>
-<p><strong>Sections included:</strong>
-- Overview, User Stories (primary + secondary)
-- Technical Requirements (architecture, API, data models)
-- UI/UX Specifications (flows, wireframes, accessibility)
-- Open Questions, Review Checklist
-- Implementation Notes, History</p>
-<p><strong>Integration with <code>/craft:do</code>:</strong>
+<p><strong>Sections included:</strong></p>
+<ul>
+<li>Overview, User Stories (primary + secondary)</li>
+<li>Technical Requirements (architecture, API, data models)</li>
+<li>UI/UX Specifications (flows, wireframes, accessibility)</li>
+<li>Open Questions, Review Checklist</li>
+<li>Implementation Notes, History</li>
+</ul>
+<p><strong>Integration with <code>/craft:do</code>:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># After brainstorm with spec</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># → Automatically finds and uses SPEC-user-auth-*.md</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="agent-delegation-max-mode">Agent Delegation (Max Mode)<a class="headerlink" href="#agent-delegation-max-mode" title="Permanent link">&para;</a></h2>
 <p>When depth is <code>max</code>, launches relevant agents:</p>
@@ -5303,7 +5311,7 @@
 </table>
 <hr />
 <h2 id="output-format">Output Format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h2>
-<p><strong>Terminal (default):</strong>
+<p><strong>Terminal (default):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>│ 🧠 BRAINSTORM: [Topic]                                      │
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>│ Mode: [mode] │ Depth: [depth] │ Duration: [time]            │
@@ -5322,7 +5330,7 @@
 </span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>│   → [Clear recommendation with reasoning]                   │
 </span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>│                                                             │
 </span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>└─────────────────────────────────────────────────────────────┘
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>JSON:</strong> <code>--format json</code>
 <strong>Markdown:</strong> <code>--format markdown</code></p>
 <hr />

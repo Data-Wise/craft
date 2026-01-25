@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4381,13 +4381,15 @@
 <hr />
 <h2 id="executive-summary">Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
 <p>The craft project has executed <strong>8 major PRs</strong> in the last 4 days with comprehensive testing (516+ tests, 100% pass rate) but documentation has several <strong>alignment gaps</strong> and <strong>completeness issues</strong>.</p>
-<p><strong>Key Findings:</strong>
-- ✅ <strong>Feature implementation strong</strong>: 99 commands, 6 comprehensive specs, excellent test coverage
-- ⚠️ <strong>Documentation alignment gaps</strong>: Version references inconsistent, some merged features under-documented
-- ⚠️ <strong>Integration test docs missing</strong>: 27 integration tests lack user-facing documentation
-- ⚠️ <strong>Feature status mixed</strong>: Some features documented in specs but not in guides
-- ✅ <strong>Specs comprehensive</strong>: All 6 specs are well-written and detailed
-- ⚠️ <strong>CLAUDE.md needs updates</strong>: Last updated v1.24.0 but missing recent integration test docs</p>
+<p><strong>Key Findings:</strong></p>
+<ul>
+<li>✅ <strong>Feature implementation strong</strong>: 99 commands, 6 comprehensive specs, excellent test coverage</li>
+<li>⚠️ <strong>Documentation alignment gaps</strong>: Version references inconsistent, some merged features under-documented</li>
+<li>⚠️ <strong>Integration test docs missing</strong>: 27 integration tests lack user-facing documentation</li>
+<li>⚠️ <strong>Feature status mixed</strong>: Some features documented in specs but not in guides</li>
+<li>✅ <strong>Specs comprehensive</strong>: All 6 specs are well-written and detailed</li>
+<li>⚠️ <strong>CLAUDE.md needs updates</strong>: Last updated v1.24.0 but missing recent integration test docs</li>
+</ul>
 <hr />
 <h2 id="recent-major-merges-last-4-days">Recent Major Merges (Last 4 Days)<a class="headerlink" href="#recent-major-merges-last-4-days" title="Permanent link">&para;</a></h2>
 <h3 id="merged-prs-overview">Merged PRs Overview<a class="headerlink" href="#merged-prs-overview" title="Permanent link">&para;</a></h3>
@@ -4483,34 +4485,42 @@
 <h2 id="documentation-gap-analysis">Documentation Gap Analysis<a class="headerlink" href="#documentation-gap-analysis" title="Permanent link">&para;</a></h2>
 <h3 id="1-integration-tests-documentation-critical-gap">1. <strong>Integration Tests Documentation</strong> ⚠️ Critical Gap<a class="headerlink" href="#1-integration-tests-documentation-critical-gap" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> 27 integration tests added (session_2026_01_18) but minimal user documentation.</p>
-<p><strong>Tests Created:</strong>
-- <code>tests/test_integration_dependency_system.py</code> (9 tests)
-- <code>tests/test_integration_orchestrator_workflows.py</code> (13 tests)
-- <code>tests/test_integration_teaching_workflow.py</code> (8 tests, 3 skipped)</p>
-<p><strong>Current State:</strong>
-- ✅ Tests exist and pass (27/30 active)
-- ✅ Test code is well-written
-- ❌ No user guide explaining what these tests validate
-- ❌ CLAUDE.md mentions tests but lacks details
-- ❌ No "integration testing" section in documentation site</p>
+<p><strong>Tests Created:</strong></p>
+<ul>
+<li><code>tests/test_integration_dependency_system.py</code> (9 tests)</li>
+<li><code>tests/test_integration_orchestrator_workflows.py</code> (13 tests)</li>
+<li><code>tests/test_integration_teaching_workflow.py</code> (8 tests, 3 skipped)</li>
+</ul>
+<p><strong>Current State:</strong></p>
+<ul>
+<li>✅ Tests exist and pass (27/30 active)</li>
+<li>✅ Test code is well-written</li>
+<li>❌ No user guide explaining what these tests validate</li>
+<li>❌ CLAUDE.md mentions tests but lacks details</li>
+<li>❌ No "integration testing" section in documentation site</li>
+</ul>
 <p><strong>Gap Size:</strong> Medium-High
 <strong>Recommendation:</strong> Create <code>docs/guide/integration-testing.md</code> (30 min)</p>
 <hr />
 <h3 id="2-dependency-management-feature-documentation-high-gap">2. <strong>Dependency Management Feature Documentation</strong> ⚠️ High Gap<a class="headerlink" href="#2-dependency-management-feature-documentation-high-gap" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> PR #22 merged (+16K lines, 79 tests) but documentation is fragmented.</p>
-<p><strong>What Exists:</strong>
-- ✅ Site navigation updated (<code>docs/guide/dependency-management.md</code>)
-- ✅ Getting-started tutorial (<code>docs/guide/</code>)
-- ✅ API reference + architecture in PR
-- ✅ 79 comprehensive tests</p>
-<p><strong>What's Missing:</strong>
-- ❌ No comprehensive user guide in main site
-- ❌ Workflow documentation ("when to use --check, --fix, --batch")
-- ❌ Troubleshooting guide for common issues
-- ❌ Dependency script reference (8 new scripts, 4 adapters, 6 utilities - undocumented)
-- ❌ Session caching behavior not explained
-- ❌ CI/CD integration guide incomplete</p>
-<p><strong>Script/Utility Documentation Gaps:</strong>
+<p><strong>What Exists:</strong></p>
+<ul>
+<li>✅ Site navigation updated (<code>docs/guide/dependency-management.md</code>)</li>
+<li>✅ Getting-started tutorial (<code>docs/guide/</code>)</li>
+<li>✅ API reference + architecture in PR</li>
+<li>✅ 79 comprehensive tests</li>
+</ul>
+<p><strong>What's Missing:</strong></p>
+<ul>
+<li>❌ No comprehensive user guide in main site</li>
+<li>❌ Workflow documentation ("when to use --check, --fix, --batch")</li>
+<li>❌ Troubleshooting guide for common issues</li>
+<li>❌ Dependency script reference (8 new scripts, 4 adapters, 6 utilities - undocumented)</li>
+<li>❌ Session caching behavior not explained</li>
+<li>❌ CI/CD integration guide incomplete</li>
+</ul>
+<p><strong>Script/Utility Documentation Gaps:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Scripts added (need documentation):
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>- dependency-manager.sh (main orchestrator)
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>- installer-brew.sh, installer-cargo.sh, installer-binary.sh, installer-consent.sh
@@ -4520,94 +4530,116 @@
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Utilities added (need reference):
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>- utils/dependency_manager.py (if added)
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>- Configuration options (frontmatter in demo.md)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Gap Size:</strong> High
-<strong>Recommendation:</strong> Create comprehensive guide (1-2 hours) covering:
-- Architecture overview + diagram
-- Workflow guide (check → fix → convert → batch)
-- All 8 scripts with examples
-- All 4 installers and fallback behavior
-- Session caching mechanics
-- CI/CD integration</p>
+<strong>Recommendation:</strong> Create comprehensive guide (1-2 hours) covering:</p>
+<ul>
+<li>Architecture overview + diagram</li>
+<li>Workflow guide (check → fix → convert → batch)</li>
+<li>All 8 scripts with examples</li>
+<li>All 4 installers and fallback behavior</li>
+<li>Session caching mechanics</li>
+<li>CI/CD integration</li>
+</ul>
 <hr />
 <h3 id="3-claude-code-210-integration-documentation-medium-gap">3. <strong>Claude Code 2.1.0 Integration Documentation</strong> ⚠️ Medium Gap<a class="headerlink" href="#3-claude-code-210-integration-documentation-medium-gap" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> PR #21 merged (+6,337 lines, 37 tests) but user-facing docs are minimal.</p>
-<p><strong>What Exists:</strong>
-- ✅ 37 unit tests (complexity scoring, validators, hooks)
-- ✅ PR includes some docs (feature branches)
-- ✅ Complexity scorer utility created</p>
-<p><strong>What's Missing:</strong>
-- ❌ User guide: "When does /craft:do delegate to agents?"
-- ❌ Complexity scoring explanation (what are the 7 factors?)
-- ❌ Hot-reload validators guide (how to create custom validators)
-- ❌ Agent hooks documentation (how orchestration hooks work)
-- ❌ Session teleportation guide (cross-device resume)
-- ❌ Validator ecosystem docs (community validators, best practices)</p>
-<p><strong>Components Added (need docs):</strong>
-- Complexity scoring system (utils/complexity_scorer.py)
-- 3 hot-reload validators (test-coverage, broken-links, lint-check)
-- Orchestration hooks (orchestrate-hooks.sh)
-- Agent resilience patterns (9 recovery strategies)
-- Session state schema (JSON v1.0.0)</p>
+<p><strong>What Exists:</strong></p>
+<ul>
+<li>✅ 37 unit tests (complexity scoring, validators, hooks)</li>
+<li>✅ PR includes some docs (feature branches)</li>
+<li>✅ Complexity scorer utility created</li>
+</ul>
+<p><strong>What's Missing:</strong></p>
+<ul>
+<li>❌ User guide: "When does /craft:do delegate to agents?"</li>
+<li>❌ Complexity scoring explanation (what are the 7 factors?)</li>
+<li>❌ Hot-reload validators guide (how to create custom validators)</li>
+<li>❌ Agent hooks documentation (how orchestration hooks work)</li>
+<li>❌ Session teleportation guide (cross-device resume)</li>
+<li>❌ Validator ecosystem docs (community validators, best practices)</li>
+</ul>
+<p><strong>Components Added (need docs):</strong></p>
+<ul>
+<li>Complexity scoring system (utils/complexity_scorer.py)</li>
+<li>3 hot-reload validators (test-coverage, broken-links, lint-check)</li>
+<li>Orchestration hooks (orchestrate-hooks.sh)</li>
+<li>Agent resilience patterns (9 recovery strategies)</li>
+<li>Session state schema (JSON v1.0.0)</li>
+</ul>
 <p><strong>Gap Size:</strong> High
-<strong>Recommendation:</strong> Create guide (1.5-2 hours) covering:
-- Complexity scoring algorithm + 7 factors
-- Routing decision tree (command → agent → orchestrator)
-- Hot-reload validator lifecycle
-- Creating custom validators (template + examples)
-- Agent hooks + resilience patterns
-- Session state + teleportation</p>
+<strong>Recommendation:</strong> Create guide (1.5-2 hours) covering:</p>
+<ul>
+<li>Complexity scoring algorithm + 7 factors</li>
+<li>Routing decision tree (command → agent → orchestrator)</li>
+<li>Hot-reload validator lifecycle</li>
+<li>Creating custom validators (template + examples)</li>
+<li>Agent hooks + resilience patterns</li>
+<li>Session state + teleportation</li>
+</ul>
 <hr />
 <h3 id="4-hub-v20-documentation-alignment-minor-gap">4. <strong>Hub v2.0 Documentation Alignment</strong> ✅ Minor Gap<a class="headerlink" href="#4-hub-v20-documentation-alignment-minor-gap" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Generally well-documented, but minor gaps.</p>
-<p><strong>What Exists:</strong>
-- ✅ 3,527 lines of comprehensive documentation
-- ✅ 4 Mermaid diagrams
-- ✅ 52 tests with 98% coverage
-- ✅ API reference, architecture guide, testing guide</p>
-<p><strong>What's Missing:</strong>
-- ⚠️ Performance details (12ms uncached, &lt;2ms cached) mentioned but not prominently featured
-- ⚠️ Auto-detection system explained in code but not in user guide
-- ⚠️ Tutorial generation process documented only in code</p>
+<p><strong>What Exists:</strong></p>
+<ul>
+<li>✅ 3,527 lines of comprehensive documentation</li>
+<li>✅ 4 Mermaid diagrams</li>
+<li>✅ 52 tests with 98% coverage</li>
+<li>✅ API reference, architecture guide, testing guide</li>
+</ul>
+<p><strong>What's Missing:</strong></p>
+<ul>
+<li>⚠️ Performance details (12ms uncached, &lt;2ms cached) mentioned but not prominently featured</li>
+<li>⚠️ Auto-detection system explained in code but not in user guide</li>
+<li>⚠️ Tutorial generation process documented only in code</li>
+</ul>
 <p><strong>Gap Size:</strong> Minimal
 <strong>Recommendation:</strong> Small enhancement (30 min) - emphasize performance + auto-detection in user guide</p>
 <hr />
 <h3 id="5-teaching-workflow-documentation-strong-minor-gaps">5. <strong>Teaching Workflow Documentation</strong> ✅ Strong, Minor Gaps<a class="headerlink" href="#5-teaching-workflow-documentation-strong-minor-gaps" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Well-documented (8 guides, GIF demo) but some operational details missing.</p>
-<p><strong>What Exists:</strong>
-- ✅ 8 comprehensive guides
-- ✅ GIF demo embedded in 4 key docs
-- ✅ 139 tests (100% passing)
-- ✅ Setup, migration, schema documentation</p>
-<p><strong>What's Missing:</strong>
-- ⚠️ Troubleshooting: "What if detection fails?"
-- ⚠️ Config schema reference (<code>.flow/teach-config.yml</code> fields)
-- ⚠️ Command flag reference (which commands support --teaching?)
-- ⚠️ 3 skipped tests in integration tests (modules not implemented)</p>
+<p><strong>What Exists:</strong></p>
+<ul>
+<li>✅ 8 comprehensive guides</li>
+<li>✅ GIF demo embedded in 4 key docs</li>
+<li>✅ 139 tests (100% passing)</li>
+<li>✅ Setup, migration, schema documentation</li>
+</ul>
+<p><strong>What's Missing:</strong></p>
+<ul>
+<li>⚠️ Troubleshooting: "What if detection fails?"</li>
+<li>⚠️ Config schema reference (<code>.flow/teach-config.yml</code> fields)</li>
+<li>⚠️ Command flag reference (which commands support --teaching?)</li>
+<li>⚠️ 3 skipped tests in integration tests (modules not implemented)</li>
+</ul>
 <p><strong>Gap Size:</strong> Small
 <strong>Recommendation:</strong> Add troubleshooting section + config reference (30 min)</p>
 <hr />
 <h3 id="6-website-organization-documentation-complete">6. <strong>Website Organization Documentation</strong> ✅ Complete<a class="headerlink" href="#6-website-organization-documentation-complete" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Excellent documentation for both phases.</p>
-<p><strong>Coverage:</strong>
-- ✅ Phase 1 complete with spec + implementation summary
-- ✅ Phase 2 complete with spec + consolidation report (647 lines)
-- ✅ Visual workflows with 6 Mermaid diagrams
-- ✅ Cookbook with 6 recipes</p>
+<p><strong>Coverage:</strong></p>
+<ul>
+<li>✅ Phase 1 complete with spec + implementation summary</li>
+<li>✅ Phase 2 complete with spec + consolidation report (647 lines)</li>
+<li>✅ Visual workflows with 6 Mermaid diagrams</li>
+<li>✅ Cookbook with 6 recipes</li>
+</ul>
 <p><strong>No significant gaps identified.</strong></p>
 <hr />
 <h3 id="7-broken-link-validation-documentation-complete">7. <strong>Broken Link Validation Documentation</strong> ✅ Complete<a class="headerlink" href="#7-broken-link-validation-documentation-complete" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Well-documented feature.</p>
-<p><strong>Coverage:</strong>
-- ✅ Implementation spec (SPEC-broken-link-validation-2026-01-17.md)
-- ✅ 21 tests (100% passing)
-- ✅ <code>.linkcheck-ignore</code> parser documented
-- ✅ Integration with CI/CD documented</p>
+<p><strong>Coverage:</strong></p>
+<ul>
+<li>✅ Implementation spec (SPEC-broken-link-validation-2026-01-17.md)</li>
+<li>✅ 21 tests (100% passing)</li>
+<li>✅ <code>.linkcheck-ignore</code> parser documented</li>
+<li>✅ Integration with CI/CD documented</li>
+</ul>
 <p><strong>No significant gaps identified.</strong></p>
 <hr />
 <h2 id="version-reference-consistency-issues">Version Reference Consistency Issues<a class="headerlink" href="#version-reference-consistency-issues" title="Permanent link">&para;</a></h2>
 <h3 id="finding-inconsistent-version-claims-across-documentation">Finding: Inconsistent version claims across documentation<a class="headerlink" href="#finding-inconsistent-version-claims-across-documentation" title="Permanent link">&para;</a></h3>
-<p><strong>Affected Files:</strong>
+<p><strong>Affected Files:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docs/ORCHESTRATOR-ENHANCEMENTS.md
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  - References v1.3.0, v1.4.0, v1.5.0+ (outdated, current is v1.24.0)
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  - Status: Deprecated planning document?
@@ -4623,11 +4655,13 @@
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>README.md (main)
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  - ✅ Should verify version references
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  - Status: Likely current
-</span></code></pre></div></p>
-<p><strong>Recommendation:</strong>
-1. Archive or remove ORCHESTRATOR-ENHANCEMENTS.md (outdated)
-2. Verify README.md reflects v1.24.0
-3. Consider creating version history document</p>
+</span></code></pre></div>
+<p><strong>Recommendation:</strong></p>
+<ol>
+<li>Archive or remove ORCHESTRATOR-ENHANCEMENTS.md (outdated)</li>
+<li>Verify README.md reflects v1.24.0</li>
+<li>Consider creating version history document</li>
+</ol>
 <hr />
 <h2 id="feature-status-gaps">Feature Status Gaps<a class="headerlink" href="#feature-status-gaps" title="Permanent link">&para;</a></h2>
 <h3 id="features-implemented-but-under-documented-in-guides">Features implemented but under-documented in guides<a class="headerlink" href="#features-implemented-but-under-documented-in-guides" title="Permanent link">&para;</a></h3>
@@ -4703,24 +4737,30 @@
 </table>
 <hr />
 <h2 id="claudemd-status-update-recommendation">CLAUDE.md Status Update Recommendation<a class="headerlink" href="#claudemd-status-update-recommendation" title="Permanent link">&para;</a></h2>
-<p><strong>Current:</strong> 138 lines, covers:
-- ✅ Git workflow
-- ✅ 99 commands summary
-- ✅ Execution modes
-- ✅ 8 agents
-- ✅ Project structure
-- ✅ Test suite overview
-- ✅ Troubleshooting</p>
-<p><strong>Missing:</strong>
-- ⚠️ Integration tests summary (27 tests, 3 categories)
-- ⚠️ Dependency management system (briefly mentioned)
-- ⚠️ Complexity scoring (0-10 algorithm)
-- ⚠️ Hot-reload validators concept
-- ⚠️ Session state/teleportation</p>
-<p><strong>Recommendation:</strong> Add "Integration Features" section (10-15 lines) describing:
-- Integration test structure (3 categories: dependency, orchestrator, teaching)
-- Dependency management system overview
-- Complexity scoring for smart routing</p>
+<p><strong>Current:</strong> 138 lines, covers:</p>
+<ul>
+<li>✅ Git workflow</li>
+<li>✅ 99 commands summary</li>
+<li>✅ Execution modes</li>
+<li>✅ 8 agents</li>
+<li>✅ Project structure</li>
+<li>✅ Test suite overview</li>
+<li>✅ Troubleshooting</li>
+</ul>
+<p><strong>Missing:</strong></p>
+<ul>
+<li>⚠️ Integration tests summary (27 tests, 3 categories)</li>
+<li>⚠️ Dependency management system (briefly mentioned)</li>
+<li>⚠️ Complexity scoring (0-10 algorithm)</li>
+<li>⚠️ Hot-reload validators concept</li>
+<li>⚠️ Session state/teleportation</li>
+</ul>
+<p><strong>Recommendation:</strong> Add "Integration Features" section (10-15 lines) describing:</p>
+<ul>
+<li>Integration test structure (3 categories: dependency, orchestrator, teaching)</li>
+<li>Dependency management system overview</li>
+<li>Complexity scoring for smart routing</li>
+</ul>
 <hr />
 <h2 id="critical-documentation-priorities">Critical Documentation Priorities<a class="headerlink" href="#critical-documentation-priorities" title="Permanent link">&para;</a></h2>
 <h3 id="priority-1-must-complete-high-impact">Priority 1: Must Complete (High impact)<a class="headerlink" href="#priority-1-must-complete-high-impact" title="Permanent link">&para;</a></h3>
@@ -4911,11 +4951,13 @@
 <li><strong>Claude Code 2.1.0</strong> - Smart features need explanation (1.5h)</li>
 </ol>
 <p><strong>Estimated total time to close all gaps:</strong> 4-5 hours</p>
-<p><strong>Impact of closing gaps:</strong>
-- Users can effectively use new features
-- Developers can understand test structure
-- Documentation stays synchronized with code
-- Project readiness for v1.25.0+ planning</p>
+<p><strong>Impact of closing gaps:</strong></p>
+<ul>
+<li>Users can effectively use new features</li>
+<li>Developers can understand test structure</li>
+<li>Documentation stays synchronized with code</li>
+<li>Project readiness for v1.25.0+ planning</li>
+</ul>
 <hr />
 <p><strong>Generated by:</strong> Claude Code Documentation Analysis
 <strong>Date:</strong> 2026-01-18

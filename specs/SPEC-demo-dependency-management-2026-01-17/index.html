@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4566,45 +4566,53 @@
 <p><strong>As a</strong> craft plugin user
 <strong>I want</strong> dependency management embedded in the demo command
 <strong>So that</strong> I can create GIF demos without manually installing asciinema, agg, and gifsicle</p>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ Running <code>/craft:docs:demo "feature"</code> checks dependencies automatically
-- ✅ Missing tools trigger informed consent prompt before installation
-- ✅ Installation failures fall back to alternative methods gracefully
-- ✅ <code>--check</code> flag shows comprehensive dependency status
-- ✅ <code>--fix</code> flag repairs broken or outdated installations
-- ✅ <code>--convert</code> flag batch-converts <code>.cast</code> files to <code>.gif</code>
-- ✅ <code>--batch</code> flag processes multiple recordings in one command
-- ✅ Session-level caching avoids redundant dependency checks
-- ✅ All dependency metadata lives in command frontmatter (YAML)</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ Running <code>/craft:docs:demo "feature"</code> checks dependencies automatically</li>
+<li>✅ Missing tools trigger informed consent prompt before installation</li>
+<li>✅ Installation failures fall back to alternative methods gracefully</li>
+<li>✅ <code>--check</code> flag shows comprehensive dependency status</li>
+<li>✅ <code>--fix</code> flag repairs broken or outdated installations</li>
+<li>✅ <code>--convert</code> flag batch-converts <code>.cast</code> files to <code>.gif</code></li>
+<li>✅ <code>--batch</code> flag processes multiple recordings in one command</li>
+<li>✅ Session-level caching avoids redundant dependency checks</li>
+<li>✅ All dependency metadata lives in command frontmatter (YAML)</li>
+</ul>
 <hr />
 <h2 id="secondary-user-stories">Secondary User Stories<a class="headerlink" href="#secondary-user-stories" title="Permanent link">&para;</a></h2>
 <h3 id="story-2-power-user-batch-conversion">Story 2: Power User - Batch Conversion<a class="headerlink" href="#story-2-power-user-batch-conversion" title="Permanent link">&para;</a></h3>
 <p><strong>As a</strong> developer regenerating multiple GIFs
 <strong>I want</strong> to convert all <code>.cast</code> recordings to GIFs in one command
 <strong>So that</strong> I don't manually run <code>agg</code> + <code>gifsicle</code> for 11+ files</p>
-<p><strong>Acceptance:</strong>
-- <code>--batch</code> flag processes all <code>.cast</code> files in <code>docs/demos/</code> and <code>docs/gifs/</code>
-- Shows progress indicator (1/11, 2/11, etc.)
-- Skips files where <code>.gif</code> already exists (unless <code>--force</code>)
-- Reports size savings after optimization</p>
+<p><strong>Acceptance:</strong></p>
+<ul>
+<li><code>--batch</code> flag processes all <code>.cast</code> files in <code>docs/demos/</code> and <code>docs/gifs/</code></li>
+<li>Shows progress indicator (1/11, 2/11, etc.)</li>
+<li>Skips files where <code>.gif</code> already exists (unless <code>--force</code>)</li>
+<li>Reports size savings after optimization</li>
+</ul>
 <h3 id="story-3-system-administrator-pre-flight-checks">Story 3: System Administrator - Pre-flight Checks<a class="headerlink" href="#story-3-system-administrator-pre-flight-checks" title="Permanent link">&para;</a></h3>
 <p><strong>As a</strong> CI/CD pipeline maintainer
 <strong>I want</strong> to validate all craft dependencies before running workflows
 <strong>So that</strong> builds don't fail mid-execution due to missing tools</p>
-<p><strong>Acceptance:</strong>
-- <code>--check</code> exits with code 0 if all dependencies satisfied
-- <code>--check</code> exits with code 1 if any dependency missing/broken
-- <code>--check --json</code> outputs machine-readable status
-- Works in both interactive and non-interactive environments</p>
+<p><strong>Acceptance:</strong></p>
+<ul>
+<li><code>--check</code> exits with code 0 if all dependencies satisfied</li>
+<li><code>--check</code> exits with code 1 if any dependency missing/broken</li>
+<li><code>--check --json</code> outputs machine-readable status</li>
+<li>Works in both interactive and non-interactive environments</li>
+</ul>
 <h3 id="story-4-new-user-guided-setup">Story 4: New User - Guided Setup<a class="headerlink" href="#story-4-new-user-guided-setup" title="Permanent link">&para;</a></h3>
 <p><strong>As a</strong> first-time craft user
 <strong>I want</strong> clear guidance when dependencies are missing
 <strong>So that</strong> I know exactly what to install and how</p>
-<p><strong>Acceptance:</strong>
-- Dependency errors show table of missing tools
-- Each missing tool has copy-paste installation command
-- Links to tool documentation for troubleshooting
-- Suggests <code>--fix</code> as quick resolution path</p>
+<p><strong>Acceptance:</strong></p>
+<ul>
+<li>Dependency errors show table of missing tools</li>
+<li>Each missing tool has copy-paste installation command</li>
+<li>Links to tool documentation for troubleshooting</li>
+<li>Suggests <code>--fix</code> as quick resolution path</li>
+</ul>
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <h3 id="component-diagram">Component Diagram<a class="headerlink" href="#component-diagram" title="Permanent link">&para;</a></h3>
@@ -4944,21 +4952,25 @@
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="p">};</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">}</span>
 </span></code></pre></div>
-<p><strong>Cache Invalidation:</strong>
-- Never persists across sessions
-- Cleared on any <code>--fix</code> operation
-- Cleared on explicit <code>--check</code> with <code>--no-cache</code> flag
-- Automatically cleared if older than session start time</p>
+<p><strong>Cache Invalidation:</strong></p>
+<ul>
+<li>Never persists across sessions</li>
+<li>Cleared on any <code>--fix</code> operation</li>
+<li>Cleared on explicit <code>--check</code> with <code>--no-cache</code> flag</li>
+<li>Automatically cleared if older than session start time</li>
+</ul>
 <h3 id="dependency-metadata-command-frontmatter">Dependency Metadata (Command Frontmatter)<a class="headerlink" href="#dependency-metadata-command-frontmatter" title="Permanent link">&para;</a></h3>
 <p>See API Design section for YAML structure.</p>
-<p><strong>Key Fields:</strong>
-- <code>required</code> - Boolean, blocks execution if missing
-- <code>methods</code> - Array of methods that need this tool
-- <code>install</code> - Object with package manager → package name mappings
-- <code>version.min</code> - Minimum version requirement
-- <code>version.check</code> - Shell command to extract version
-- <code>health_check</code> - Command to validate tool works
-- <code>docs</code> - URL for troubleshooting</p>
+<p><strong>Key Fields:</strong></p>
+<ul>
+<li><code>required</code> - Boolean, blocks execution if missing</li>
+<li><code>methods</code> - Array of methods that need this tool</li>
+<li><code>install</code> - Object with package manager → package name mappings</li>
+<li><code>version.min</code> - Minimum version requirement</li>
+<li><code>version.check</code> - Shell command to extract version</li>
+<li><code>health_check</code> - Command to validate tool works</li>
+<li><code>docs</code> - URL for troubleshooting</li>
+</ul>
 <hr />
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
 <h3 id="runtime-dependencies-craft-itself">Runtime Dependencies (craft itself)<a class="headerlink" href="#runtime-dependencies-craft-itself" title="Permanent link">&para;</a></h3>
@@ -5046,12 +5058,14 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Detection Logic:</strong>
-1. Check <code>uname -s</code> for platform (Darwin, Linux, etc.)
-2. On macOS: Default to <code>brew</code>
-3. On Linux: Check for <code>apt-get</code>, <code>pacman</code>, then default to <code>cargo</code>
-4. Store detected package manager in session cache
-5. Allow override via <code>.craft/settings.local.json</code> → <code>packageManager: "brew"</code></p>
+<p><strong>Detection Logic:</strong></p>
+<ol>
+<li>Check <code>uname -s</code> for platform (Darwin, Linux, etc.)</li>
+<li>On macOS: Default to <code>brew</code></li>
+<li>On Linux: Check for <code>apt-get</code>, <code>pacman</code>, then default to <code>cargo</code></li>
+<li>Store detected package manager in session cache</li>
+<li>Allow override via <code>.craft/settings.local.json</code> → <code>packageManager: "brew"</code></li>
+</ol>
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow-first-time-recording-with-missing-dependencies">User Flow: First-Time Recording with Missing Dependencies<a class="headerlink" href="#user-flow-first-time-recording-with-missing-dependencies" title="Permanent link">&para;</a></h3>
@@ -5206,36 +5220,44 @@
 <h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
 <h3 id="q1-should-batch-also-handle-tape-files">Q1: Should <code>--batch</code> also handle <code>.tape</code> files?<a class="headerlink" href="#q1-should-batch-also-handle-tape-files" title="Permanent link">&para;</a></h3>
 <p><strong>Context:</strong> Currently spec says <code>--convert</code> and <code>--batch</code> only process <code>.cast</code> files. VHS <code>.tape</code> files could also be batch-processed.</p>
-<p><strong>Options:</strong>
-1. <strong><code>.cast</code> only</strong> (current spec) - Keep it simple, <code>.tape</code> → <code>.gif</code> via <code>vhs [file].tape</code> is already easy
-2. <strong>Auto-detect both</strong> - Process <code>.cast</code> and <code>.tape</code> files in batch mode
-3. <strong>Separate flag</strong> - <code>--batch-tape</code> for VHS tapes, <code>--batch</code> for asciinema</p>
+<p><strong>Options:</strong></p>
+<ol>
+<li><strong><code>.cast</code> only</strong> (current spec) - Keep it simple, <code>.tape</code> → <code>.gif</code> via <code>vhs [file].tape</code> is already easy</li>
+<li><strong>Auto-detect both</strong> - Process <code>.cast</code> and <code>.tape</code> files in batch mode</li>
+<li><strong>Separate flag</strong> - <code>--batch-tape</code> for VHS tapes, <code>--batch</code> for asciinema</li>
+</ol>
 <p><strong>Recommendation:</strong> Option 1 (<code>.cast</code> only). Rationale: VHS tapes are scripted, rarely regenerated in bulk. asciinema recordings are real sessions that need batch regeneration after tool updates.</p>
 <p><strong>Resolution:</strong> Pending user feedback</p>
 <hr />
 <h3 id="q2-how-aggressive-should-version-validation-be">Q2: How aggressive should version validation be?<a class="headerlink" href="#q2-how-aggressive-should-version-validation-be" title="Permanent link">&para;</a></h3>
 <p><strong>Context:</strong> Some tools (like <code>agg</code>) don't have stable version numbering. Strict version checks may break unnecessarily.</p>
-<p><strong>Options:</strong>
-1. <strong>Strict</strong> - Require exact minimum version, fail if below
-2. <strong>Warn</strong> - Check version, warn if below minimum but continue
-3. <strong>Best-effort</strong> - Try to parse version, skip check if unparseable
-4. <strong>Configurable</strong> - Let users set strictness in <code>.craft/settings.local.json</code></p>
+<p><strong>Options:</strong></p>
+<ol>
+<li><strong>Strict</strong> - Require exact minimum version, fail if below</li>
+<li><strong>Warn</strong> - Check version, warn if below minimum but continue</li>
+<li><strong>Best-effort</strong> - Try to parse version, skip check if unparseable</li>
+<li><strong>Configurable</strong> - Let users set strictness in <code>.craft/settings.local.json</code></li>
+</ol>
 <p><strong>Current Spec:</strong> Option 3 (best-effort) with warnings</p>
-<p><strong>Trade-offs:</strong>
-- Strict: Maximum safety, possible false negatives
-- Warn: Good balance, user decides to upgrade
-- Best-effort: Maximum compatibility, possible runtime errors
-- Configurable: Most flexible, more complex implementation</p>
+<p><strong>Trade-offs:</strong></p>
+<ul>
+<li>Strict: Maximum safety, possible false negatives</li>
+<li>Warn: Good balance, user decides to upgrade</li>
+<li>Best-effort: Maximum compatibility, possible runtime errors</li>
+<li>Configurable: Most flexible, more complex implementation</li>
+</ul>
 <p><strong>Recommendation:</strong> Option 2 (warn). Show version mismatch but continue unless tool actually fails health check.</p>
 <p><strong>Resolution:</strong> Pending implementation testing</p>
 <hr />
 <h3 id="q3-should-craft-manage-dependency-updates-automatically">Q3: Should craft manage dependency updates automatically?<a class="headerlink" href="#q3-should-craft-manage-dependency-updates-automatically" title="Permanent link">&para;</a></h3>
 <p><strong>Context:</strong> Tools like <code>agg</code> and <code>vhs</code> release frequently. Should craft auto-update them?</p>
-<p><strong>Options:</strong>
-1. <strong>Never auto-update</strong> (current spec) - User controls all updates
-2. <strong>Notify on outdated</strong> - Show message "agg 1.2.0 available (you have 1.0.0)"
-3. <strong>Prompt to update</strong> - Ask user if they want to update during <code>--check</code>
-4. <strong>Auto-update on <code>--fix</code></strong> - <code>--fix</code> includes updating outdated tools</p>
+<p><strong>Options:</strong></p>
+<ol>
+<li><strong>Never auto-update</strong> (current spec) - User controls all updates</li>
+<li><strong>Notify on outdated</strong> - Show message "agg 1.2.0 available (you have 1.0.0)"</li>
+<li><strong>Prompt to update</strong> - Ask user if they want to update during <code>--check</code></li>
+<li><strong>Auto-update on <code>--fix</code></strong> - <code>--fix</code> includes updating outdated tools</li>
+</ol>
 <p><strong>Current Spec:</strong> Option 4 (auto-update on <code>--fix</code>) + Option 2 (notify during regular checks)</p>
 <p><strong>Recommendation:</strong> Keep current spec. <code>--fix</code> should fix everything including outdated versions, but regular command invocations should not auto-update.</p>
 <p><strong>Resolution:</strong> Pending user feedback</p>
@@ -5260,53 +5282,69 @@
 <hr />
 <h2 id="implementation-notes">Implementation Notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
 <h3 id="phase-1-core-dependency-checking-v1230">Phase 1: Core Dependency Checking (v1.23.0)<a class="headerlink" href="#phase-1-core-dependency-checking-v1230" title="Permanent link">&para;</a></h3>
-<p><strong>Scope:</strong>
-- Add <code>dependencies</code> section to command frontmatter
-- Implement <code>DependencyChecker</code> with tool detection
-- Add session-level caching
-- Implement <code>--check</code> flag with ASCII table output
-- Graceful degradation (asciinema → VHS fallback)</p>
+<p><strong>Scope:</strong></p>
+<ul>
+<li>Add <code>dependencies</code> section to command frontmatter</li>
+<li>Implement <code>DependencyChecker</code> with tool detection</li>
+<li>Add session-level caching</li>
+<li>Implement <code>--check</code> flag with ASCII table output</li>
+<li>Graceful degradation (asciinema → VHS fallback)</li>
+</ul>
 <p><strong>Duration:</strong> ~6 hours</p>
-<p><strong>Files to modify:</strong>
-- <code>commands/docs/demo.md</code> - Add frontmatter, update When Invoked
-- <code>scripts/dependency-manager.sh</code> - New helper script
-- <code>tests/test_dependency_checking.py</code> - New test suite</p>
+<p><strong>Files to modify:</strong></p>
+<ul>
+<li><code>commands/docs/demo.md</code> - Add frontmatter, update When Invoked</li>
+<li><code>scripts/dependency-manager.sh</code> - New helper script</li>
+<li><code>tests/test_dependency_checking.py</code> - New test suite</li>
+</ul>
 <h3 id="phase-2-auto-installation-v1240">Phase 2: Auto-Installation (v1.24.0)<a class="headerlink" href="#phase-2-auto-installation-v1240" title="Permanent link">&para;</a></h3>
-<p><strong>Scope:</strong>
-- Implement <code>DependencyInstaller</code> with brew/cargo/binary strategies
-- Add informed consent prompts
-- Implement <code>--fix</code> flag
-- Retry with fallback methods on failure
-- Installation logging</p>
+<p><strong>Scope:</strong></p>
+<ul>
+<li>Implement <code>DependencyInstaller</code> with brew/cargo/binary strategies</li>
+<li>Add informed consent prompts</li>
+<li>Implement <code>--fix</code> flag</li>
+<li>Retry with fallback methods on failure</li>
+<li>Installation logging</li>
+</ul>
 <p><strong>Duration:</strong> ~8 hours</p>
-<p><strong>Files to modify:</strong>
-- <code>scripts/dependency-installer.sh</code> - New installer script
-- <code>commands/docs/demo.md</code> - Add installation workflow
-- <code>tests/test_dependency_installation.py</code> - Test suite</p>
+<p><strong>Files to modify:</strong></p>
+<ul>
+<li><code>scripts/dependency-installer.sh</code> - New installer script</li>
+<li><code>commands/docs/demo.md</code> - Add installation workflow</li>
+<li><code>tests/test_dependency_installation.py</code> - Test suite</li>
+</ul>
 <h3 id="phase-3-batch-conversion-v1250">Phase 3: Batch Conversion (v1.25.0)<a class="headerlink" href="#phase-3-batch-conversion-v1250" title="Permanent link">&para;</a></h3>
-<p><strong>Scope:</strong>
-- Implement <code>--convert</code> flag for single file conversion
-- Implement <code>--batch</code> flag for bulk processing
-- Progress indicators
-- Size reporting
-- <code>--force</code> flag for overwrite</p>
+<p><strong>Scope:</strong></p>
+<ul>
+<li>Implement <code>--convert</code> flag for single file conversion</li>
+<li>Implement <code>--batch</code> flag for bulk processing</li>
+<li>Progress indicators</li>
+<li>Size reporting</li>
+<li><code>--force</code> flag for overwrite</li>
+</ul>
 <p><strong>Duration:</strong> ~4 hours</p>
-<p><strong>Files to modify:</strong>
-- <code>commands/docs/demo.md</code> - Add batch conversion logic
-- <code>scripts/batch-convert.sh</code> - New batch processor
-- <code>docs/GIF-REGENERATION-CHECKLIST.md</code> - Add batch mode instructions</p>
+<p><strong>Files to modify:</strong></p>
+<ul>
+<li><code>commands/docs/demo.md</code> - Add batch conversion logic</li>
+<li><code>scripts/batch-convert.sh</code> - New batch processor</li>
+<li><code>docs/GIF-REGENERATION-CHECKLIST.md</code> - Add batch mode instructions</li>
+</ul>
 <h3 id="phase-4-advanced-features-v1260">Phase 4: Advanced Features (v1.26.0)<a class="headerlink" href="#phase-4-advanced-features-v1260" title="Permanent link">&para;</a></h3>
-<p><strong>Scope:</strong>
-- Health check validation
-- Version checking with warnings
-- Repair functionality (reinstall broken tools)
-- JSON output (<code>--check --json</code>)
-- CI/CD integration guide</p>
+<p><strong>Scope:</strong></p>
+<ul>
+<li>Health check validation</li>
+<li>Version checking with warnings</li>
+<li>Repair functionality (reinstall broken tools)</li>
+<li>JSON output (<code>--check --json</code>)</li>
+<li>CI/CD integration guide</li>
+</ul>
 <p><strong>Duration:</strong> ~6 hours</p>
-<p><strong>Files to modify:</strong>
-- <code>scripts/health-check.sh</code> - New health checker
-- <code>.github/workflows/validate-dependencies.yml</code> - CI integration
-- <code>docs/reference/dependency-management.md</code> - New guide</p>
+<p><strong>Files to modify:</strong></p>
+<ul>
+<li><code>scripts/health-check.sh</code> - New health checker</li>
+<li><code>.github/workflows/validate-dependencies.yml</code> - CI integration</li>
+<li><code>docs/reference/dependency-management.md</code> - New guide</li>
+</ul>
 <h3 id="total-estimated-effort">Total Estimated Effort<a class="headerlink" href="#total-estimated-effort" title="Permanent link">&para;</a></h3>
 <p><strong>Implementation:</strong> ~24 hours (3 working days)
 <strong>Testing:</strong> ~8 hours

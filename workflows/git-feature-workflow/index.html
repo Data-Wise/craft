@@ -4006,7 +4006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4464,10 +4464,12 @@
 <li>Collaborate via pull requests</li>
 <li>Work on multiple features simultaneously</li>
 </ul>
-<p><strong>Example scenarios:</strong>
-- "I need to add user authentication"
-- "Working on feature X while fixing bug Y"
-- "Starting a new increment of work"</p>
+<p><strong>Example scenarios:</strong></p>
+<ul>
+<li>"I need to add user authentication"</li>
+<li>"Working on feature X while fixing bug Y"</li>
+<li>"Starting a new increment of work"</li>
+</ul>
 <hr />
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before starting, ensure you have:</p>
@@ -4476,11 +4478,11 @@
 <li>[x] On <code>dev</code> branch and up to date</li>
 <li>[x] Worktree folder created (<code>/craft:git:worktree setup</code>)</li>
 </ul>
-<p><strong>Quick check:</strong>
+<p><strong>Quick check:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="w">  </span><span class="c1"># Should be: dev</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>status<span class="w">                 </span><span class="c1"># Should be: clean</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git<span class="w"> </span>fetch<span class="w"> </span>origin<span class="w"> </span>dev<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>HEAD..origin/dev<span class="w"> </span>--oneline<span class="w">  </span><span class="c1"># Should be empty</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="basic-workflow">Basic Workflow<a class="headerlink" href="#basic-workflow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
@@ -4512,7 +4514,7 @@
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Navigate to worktree</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/my-feature
 </span></code></pre></div>
-<p><strong>Output:</strong>
+<p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>╭─ Worktree Created ─────────────────────────────────────╮
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│ Branch: feature/my-feature                             │
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│ Location: ~/.git-worktrees/craft/my-feature            │
@@ -4520,7 +4522,7 @@
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├────────────────────────────────────────────────────────┤
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│ Next: cd ~/.git-worktrees/craft/my-feature             │
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>╰────────────────────────────────────────────────────────╯
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-3-implement-with-atomic-commits">Step 3: Implement with Atomic Commits<a class="headerlink" href="#step-3-implement-with-atomic-commits" title="Permanent link">&para;</a></h3>
 <p>Write code with small, focused commits.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Use Conventional Commits</span>
@@ -4529,15 +4531,41 @@
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;test: add auth tests&quot;</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: add auth documentation&quot;</span>
 </span></code></pre></div>
-<p><strong>Commit types:</strong>
-| Prefix | Use for |
-|--------|---------|
-| <code>feat:</code> | New features |
-| <code>fix:</code> | Bug fixes |
-| <code>refactor:</code> | Code changes that don't add features or fix bugs |
-| <code>test:</code> | Adding or updating tests |
-| <code>docs:</code> | Documentation only |
-| <code>chore:</code> | Maintenance tasks |</p>
+<p><strong>Commit types:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feat:</code></td>
+<td>New features</td>
+</tr>
+<tr>
+<td><code>fix:</code></td>
+<td>Bug fixes</td>
+</tr>
+<tr>
+<td><code>refactor:</code></td>
+<td>Code changes that don't add features or fix bugs</td>
+</tr>
+<tr>
+<td><code>test:</code></td>
+<td>Adding or updating tests</td>
+</tr>
+<tr>
+<td><code>docs:</code></td>
+<td>Documentation only</td>
+</tr>
+<tr>
+<td><code>chore:</code></td>
+<td>Maintenance tasks</td>
+</tr>
+</tbody>
+</table>
 <h3 id="step-4-test-validate">Step 4: Test &amp; Validate<a class="headerlink" href="#step-4-test-validate" title="Permanent link">&para;</a></h3>
 <p>Run checks before creating PR.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Run pre-flight check</span>

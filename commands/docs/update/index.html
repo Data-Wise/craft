@@ -3995,7 +3995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4435,7 +4435,7 @@
 <h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:docs:update<span class="w"> </span><span class="o">[</span>feature<span class="o">]</span><span class="w"> </span><span class="o">[</span>--flags<span class="o">]</span>
 </span></code></pre></div>
-<p><strong>Quick examples:</strong>
+<p><strong>Quick examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Smart detection → Full execution</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:docs:update<span class="w">                    </span><span class="c1"># Detect changes → generate all needed docs</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -4445,7 +4445,7 @@
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Force specific doc types</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:docs:update<span class="w"> </span>--with-tutorial<span class="w">    </span><span class="c1"># Force tutorial generation</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>/craft:docs:update<span class="w"> </span>--all<span class="w">              </span><span class="c1"># Generate all doc types</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
 <p>The ONE command for documentation. Detects what changed, figures out what docs are needed, generates everything automatically, and validates.</p>
@@ -4453,12 +4453,14 @@
 <blockquote>
 <p>"Just run it. It figures out what's needed, then does it."</p>
 </blockquote>
-<p><strong>What it does:</strong>
-1. <strong>sync</strong> - Detect changes, classify docs needed
-2. <strong>generate</strong> - Guide, demo, refcard (as needed)
-3. <strong>check</strong> - Validate + auto-fix
-4. <strong>changelog</strong> - If commits present
-5. <strong>summary</strong> - Report what was done</p>
+<p><strong>What it does:</strong></p>
+<ol>
+<li><strong>sync</strong> - Detect changes, classify docs needed</li>
+<li><strong>generate</strong> - Guide, demo, refcard (as needed)</li>
+<li><strong>check</strong> - Validate + auto-fix</li>
+<li><strong>changelog</strong> - If commits present</li>
+<li><strong>summary</strong> - Report what was done</li>
+</ol>
 <hr />
 <h2 id="usage-modes">Usage Modes<a class="headerlink" href="#usage-modes" title="Permanent link">&para;</a></h2>
 <h3 id="default-mode-smart-detection">Default Mode (Smart Detection)<a class="headerlink" href="#default-mode-smart-detection" title="Permanent link">&para;</a></h3>
@@ -4582,11 +4584,11 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Example:</strong>
+<p><strong>Example:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:docs:update<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w"> </span>--with-tutorial<span class="w">    </span><span class="c1"># Auth docs + forced tutorial</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:docs:update<span class="w"> </span>--all<span class="w">                      </span><span class="c1"># Generate everything</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/craft:docs:update<span class="w"> </span>--threshold<span class="w"> </span><span class="m">2</span><span class="w">              </span><span class="c1"># Lower threshold for more docs</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="scoring-algorithm">Scoring Algorithm<a class="headerlink" href="#scoring-algorithm" title="Permanent link">&para;</a></h2>
 <p>Doc types are generated based on classification scores:</p>
@@ -4659,9 +4661,11 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Thresholds:</strong>
-- Guide, Refcard, Demo: Score &gt;= 3
-- Tutorial, Help, Workflow: Score &gt;= 2</p>
+<p><strong>Thresholds:</strong></p>
+<ul>
+<li>Guide, Refcard, Demo: Score &gt;= 3</li>
+<li>Tutorial, Help, Workflow: Score &gt;= 2</li>
+</ul>
 <hr />
 <h2 id="output-example">Output Example<a class="headerlink" href="#output-example" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>┌─────────────────────────────────────────────────────────────┐

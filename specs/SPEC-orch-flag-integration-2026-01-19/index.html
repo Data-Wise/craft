@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4549,30 +4549,30 @@
 ✅ Compatible with category filters for brainstorm (<code>-C req,tech</code>)
 ✅ Overrides complexity-based routing in <code>/craft:do</code></p>
 <h3 id="user-stories">User Stories<a class="headerlink" href="#user-stories" title="Permanent link">&para;</a></h3>
-<p><strong>Story 1</strong>: Quick Orchestration
+<p><strong>Story 1</strong>: Quick Orchestration</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>As a developer
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>I want to quickly orchestrate a task without separate command
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>So that I can save keystrokes and mental overhead
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Example:
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/craft:do &quot;add auth&quot; --orch=optimize
-</span></code></pre></div></p>
-<p><strong>Story 2</strong>: Preview Orchestration
+</span></code></pre></div>
+<p><strong>Story 2</strong>: Preview Orchestration</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>As a developer
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>I want to preview what orchestration will do
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>So that I can decide if it&#39;s worth the context cost
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Example:
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>/craft:do &quot;add auth&quot; --orch=optimize --dry-run
-</span></code></pre></div></p>
-<p><strong>Story 3</strong>: Brainstorm with Orchestration
+</span></code></pre></div>
+<p><strong>Story 3</strong>: Brainstorm with Orchestration</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>As a developer with ADHD
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>I want to orchestrate brainstorm sessions
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>So that multiple agents gather context in parallel
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Example:
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>/craft:workflow:brainstorm &quot;payment system&quot; --orch -C req,tech,risk
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="technical-requirements">Technical Requirements<a class="headerlink" href="#technical-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="1-command-yaml-frontmatter-updates">1. Command YAML Frontmatter Updates<a class="headerlink" href="#1-command-yaml-frontmatter-updates" title="Permanent link">&para;</a></h3>
 <p>Add <code>--orch</code> argument to each command's frontmatter:</p>
@@ -4734,38 +4734,50 @@
 ✅ <strong>AC12</strong>: Performance: Mode prompt &lt; 1 second response time</p>
 <h2 id="implementation-plan">Implementation Plan<a class="headerlink" href="#implementation-plan" title="Permanent link">&para;</a></h2>
 <h3 id="phase-1-core-infrastructure-2-3-hours">Phase 1: Core Infrastructure (2-3 hours)<a class="headerlink" href="#phase-1-core-infrastructure-2-3-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Deliverables</strong>:
-- [ ] Create <code>utils/orch_flag_handler.py</code> with core logic
-- [ ] Add mode prompt using <code>AskUserQuestion</code>
-- [ ] Add orchestrator spawning logic
-- [ ] Add dry-run preview logic</p>
-<p><strong>Files</strong>:
-- <code>utils/orch_flag_handler.py</code> (NEW)
-- <code>utils/complexity_scorer.py</code> (UPDATE: add orchestrator mode mapping)</p>
+<p><strong>Deliverables</strong>:</p>
+<ul>
+<li>[ ] Create <code>utils/orch_flag_handler.py</code> with core logic</li>
+<li>[ ] Add mode prompt using <code>AskUserQuestion</code></li>
+<li>[ ] Add orchestrator spawning logic</li>
+<li>[ ] Add dry-run preview logic</li>
+</ul>
+<p><strong>Files</strong>:</p>
+<ul>
+<li><code>utils/orch_flag_handler.py</code> (NEW)</li>
+<li><code>utils/complexity_scorer.py</code> (UPDATE: add orchestrator mode mapping)</li>
+</ul>
 <h3 id="phase-2-command-updates-3-4-hours">Phase 2: Command Updates (3-4 hours)<a class="headerlink" href="#phase-2-command-updates-3-4-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Deliverables</strong>:
-- [ ] Update <code>/craft:do</code> YAML frontmatter + implementation
-- [ ] Update <code>/craft:workflow:brainstorm</code> YAML frontmatter + implementation
-- [ ] Update <code>/craft:check</code> YAML frontmatter + implementation
-- [ ] Update <code>/craft:docs:sync</code> YAML frontmatter + implementation
-- [ ] Update <code>/craft:ci:generate</code> YAML frontmatter + implementation</p>
-<p><strong>Files</strong>:
-- <code>commands/do.md</code> (UPDATE)
-- <code>commands/workflow/brainstorm.md</code> (UPDATE)
-- <code>commands/check.md</code> (UPDATE)
-- <code>commands/docs/sync.md</code> (UPDATE)
-- <code>commands/ci/generate.md</code> (UPDATE)</p>
+<p><strong>Deliverables</strong>:</p>
+<ul>
+<li>[ ] Update <code>/craft:do</code> YAML frontmatter + implementation</li>
+<li>[ ] Update <code>/craft:workflow:brainstorm</code> YAML frontmatter + implementation</li>
+<li>[ ] Update <code>/craft:check</code> YAML frontmatter + implementation</li>
+<li>[ ] Update <code>/craft:docs:sync</code> YAML frontmatter + implementation</li>
+<li>[ ] Update <code>/craft:ci:generate</code> YAML frontmatter + implementation</li>
+</ul>
+<p><strong>Files</strong>:</p>
+<ul>
+<li><code>commands/do.md</code> (UPDATE)</li>
+<li><code>commands/workflow/brainstorm.md</code> (UPDATE)</li>
+<li><code>commands/check.md</code> (UPDATE)</li>
+<li><code>commands/docs/sync.md</code> (UPDATE)</li>
+<li><code>commands/ci/generate.md</code> (UPDATE)</li>
+</ul>
 <h3 id="phase-3-testing-2-3-hours">Phase 3: Testing (2-3 hours)<a class="headerlink" href="#phase-3-testing-2-3-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Deliverables</strong>:
-- [ ] Unit tests for <code>orch_flag_handler.py</code>
-- [ ] Integration tests for each command
-- [ ] Test flag combinations (--orch + --dry-run, --orch + -C)
-- [ ] Test error handling (invalid modes)
-- [ ] Test mode prompt interaction</p>
-<p><strong>Files</strong>:
-- <code>tests/test_orch_flag_handler.py</code> (NEW)
-- <code>tests/test_integration_orch_flag.py</code> (NEW)</p>
-<p><strong>Test Cases</strong>:
+<p><strong>Deliverables</strong>:</p>
+<ul>
+<li>[ ] Unit tests for <code>orch_flag_handler.py</code></li>
+<li>[ ] Integration tests for each command</li>
+<li>[ ] Test flag combinations (--orch + --dry-run, --orch + -C)</li>
+<li>[ ] Test error handling (invalid modes)</li>
+<li>[ ] Test mode prompt interaction</li>
+</ul>
+<p><strong>Files</strong>:</p>
+<ul>
+<li><code>tests/test_orch_flag_handler.py</code> (NEW)</li>
+<li><code>tests/test_integration_orch_flag.py</code> (NEW)</li>
+</ul>
+<p><strong>Test Cases</strong>:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_orch_flag_with_mode</span><span class="p">():</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Test --orch=optimize spawns orchestrator&quot;&quot;&quot;</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">craft_do</span><span class="p">(</span><span class="s2">&quot;add auth&quot;</span><span class="p">,</span> <span class="n">orch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;optimize&quot;</span><span class="p">)</span>
@@ -4794,18 +4806,22 @@
 </span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>    <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">orchestrator_spawned</span>
 </span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>    <span class="k">assert</span> <span class="s2">&quot;req&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">categories</span>
 </span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>    <span class="k">assert</span> <span class="s2">&quot;tech&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">categories</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="phase-4-documentation-1-2-hours">Phase 4: Documentation (1-2 hours)<a class="headerlink" href="#phase-4-documentation-1-2-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Deliverables</strong>:
-- [ ] Update command documentation with <code>--orch</code> examples
-- [ ] Add guide: "Using --orch Flag for Quick Orchestration"
-- [ ] Update CLAUDE.md with --orch flag info
-- [ ] Update VERSION-HISTORY.md with v2.5.0 entry</p>
-<p><strong>Files</strong>:
-- <code>docs/guide/orch-flag-usage.md</code> (NEW)
-- <code>CLAUDE.md</code> (UPDATE)
-- <code>docs/VERSION-HISTORY.md</code> (UPDATE)
-- All 5 command files (UPDATE with examples)</p>
+<p><strong>Deliverables</strong>:</p>
+<ul>
+<li>[ ] Update command documentation with <code>--orch</code> examples</li>
+<li>[ ] Add guide: "Using --orch Flag for Quick Orchestration"</li>
+<li>[ ] Update CLAUDE.md with --orch flag info</li>
+<li>[ ] Update VERSION-HISTORY.md with v2.5.0 entry</li>
+</ul>
+<p><strong>Files</strong>:</p>
+<ul>
+<li><code>docs/guide/orch-flag-usage.md</code> (NEW)</li>
+<li><code>CLAUDE.md</code> (UPDATE)</li>
+<li><code>docs/VERSION-HISTORY.md</code> (UPDATE)</li>
+<li>All 5 command files (UPDATE with examples)</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-1-quick-orchestration">Example 1: Quick Orchestration<a class="headerlink" href="#example-1-quick-orchestration" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize

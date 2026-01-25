@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4310,7 +4310,7 @@
   <a href="#when-a-guide-is-complete" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When a guide is complete:
+        When a guide is complete
       
     </span>
   </a>
@@ -4321,7 +4321,7 @@
   <a href="#final-validation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Final validation:
+        Final validation
       
     </span>
   </a>
@@ -4465,13 +4465,15 @@
 <h3 id="phase-1-critical-documentation-3-4-hours">Phase 1: Critical Documentation (3-4 hours)<a class="headerlink" href="#phase-1-critical-documentation-3-4-hours" title="Permanent link">&para;</a></h3>
 <h4 id="1-integration-testing-guide-30-min">1. Integration Testing Guide (30 min)<a class="headerlink" href="#1-integration-testing-guide-30-min" title="Permanent link">&para;</a></h4>
 <p><strong>File:</strong> <code>docs/guide/integration-testing.md</code></p>
-<p><strong>Content needed:</strong>
-- Overview of 3 test categories (dependency, orchestrator, teaching)
-- How to run tests locally
-- Test structure and organization
-- Linking to test files
-- Debugging failing tests</p>
-<p><strong>Starting point:</strong>
+<p><strong>Content needed:</strong></p>
+<ul>
+<li>Overview of 3 test categories (dependency, orchestrator, teaching)</li>
+<li>How to run tests locally</li>
+<li>Test structure and organization</li>
+<li>Linking to test files</li>
+<li>Debugging failing tests</li>
+</ul>
+<p><strong>Starting point:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># View test files</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ls<span class="w"> </span>tests/test_integration_*.py
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
@@ -4479,44 +4481,50 @@
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>cat<span class="w"> </span>tests/test_integration_dependency_system.py<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-50
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>cat<span class="w"> </span>tests/test_integration_orchestrator_workflows.py<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-50
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>cat<span class="w"> </span>tests/test_integration_teaching_workflow.py<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-50
-</span></code></pre></div></p>
-<p><strong>Commands that help:</strong>
+</span></code></pre></div>
+<p><strong>Commands that help:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python3<span class="w"> </span>tests/test_integration_dependency_system.py
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>python3<span class="w"> </span>tests/test_integration_orchestrator_workflows.py
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>python3<span class="w"> </span>tests/test_integration_teaching_workflow.py
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="2-dependency-management-advanced-guide-15-hours">2. Dependency Management Advanced Guide (1.5 hours)<a class="headerlink" href="#2-dependency-management-advanced-guide-15-hours" title="Permanent link">&para;</a></h4>
 <p><strong>File:</strong> <code>docs/guide/dependency-management-advanced.md</code></p>
-<p><strong>Content needed:</strong>
-- Architecture overview + diagram
-- Workflow guide (--check → --fix → --batch → --convert)
-- Script reference (8 scripts, 4 adapters, 6 utilities)
-- Session caching mechanics
-- CI/CD integration
-- Troubleshooting common issues</p>
-<p><strong>Starting point:</strong>
+<p><strong>Content needed:</strong></p>
+<ul>
+<li>Architecture overview + diagram</li>
+<li>Workflow guide (--check → --fix → --batch → --convert)</li>
+<li>Script reference (8 scripts, 4 adapters, 6 utilities)</li>
+<li>Session caching mechanics</li>
+<li>CI/CD integration</li>
+<li>Troubleshooting common issues</li>
+</ul>
+<p><strong>Starting point:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Review dependency-related code</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ls<span class="w"> </span>scripts/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;dependency|installer|health|version|repair&quot;</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>ls<span class="w"> </span>utils/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>depend
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Check what was added in PR #22</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>feature/demo-dependency-management<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
-</span></code></pre></div></p>
-<p><strong>Key scripts to document:</strong>
-- <code>scripts/dependency-manager.sh</code> (main orchestrator)
-- <code>scripts/installer-*.sh</code> (brew, cargo, binary, consent)
-- <code>scripts/health-check.sh</code>, <code>version-check.sh</code>, <code>repair-tools.sh</code>
-- Utilities for caching, detection, verification</p>
+</span></code></pre></div>
+<p><strong>Key scripts to document:</strong></p>
+<ul>
+<li><code>scripts/dependency-manager.sh</code> (main orchestrator)</li>
+<li><code>scripts/installer-*.sh</code> (brew, cargo, binary, consent)</li>
+<li><code>scripts/health-check.sh</code>, <code>version-check.sh</code>, <code>repair-tools.sh</code></li>
+<li>Utilities for caching, detection, verification</li>
+</ul>
 <h4 id="3-claude-code-210-integration-guide-15-hours">3. Claude Code 2.1.0 Integration Guide (1.5 hours)<a class="headerlink" href="#3-claude-code-210-integration-guide-15-hours" title="Permanent link">&para;</a></h4>
 <p><strong>File:</strong> <code>docs/guide/claude-code-2.1-integration.md</code></p>
-<p><strong>Content needed:</strong>
-- Complexity scoring algorithm (7 factors)
-- Agent delegation workflow (when/why/how)
-- Hot-reload validators (creation + lifecycle)
-- Agent resilience patterns (9 recovery strategies)
-- Session state and teleportation
-- Validator ecosystem and best practices</p>
-<p><strong>Starting point:</strong>
+<p><strong>Content needed:</strong></p>
+<ul>
+<li>Complexity scoring algorithm (7 factors)</li>
+<li>Agent delegation workflow (when/why/how)</li>
+<li>Hot-reload validators (creation + lifecycle)</li>
+<li>Agent resilience patterns (9 recovery strategies)</li>
+<li>Session state and teleportation</li>
+<li>Validator ecosystem and best practices</li>
+</ul>
+<p><strong>Starting point:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Review implementation</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>cat<span class="w"> </span>utils/complexity_scorer.py
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>cat<span class="w"> </span>commands/do.md<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="s2">&quot;complexity&quot;</span>
@@ -4524,77 +4532,83 @@
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># Check Wave documentation</span>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>feature/claude-code-2.1-integration<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-10
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>git<span class="w"> </span>show<span class="w"> </span>bebfb35<span class="w"> </span>--stat<span class="w">  </span><span class="c1"># Wave 4 test additions</span>
-</span></code></pre></div></p>
-<p><strong>Key concepts to explain:</strong>
-- Complexity scoring (0-10 scale, 7 factors)
-- Routing boundary (3-4 → commands, 5-7 → agent, 8-10 → orchestrator)
-- Hot-reload validators discovery
-- Forked context execution
-- Session state persistence (JSON v1.0.0)</p>
+</span></code></pre></div>
+<p><strong>Key concepts to explain:</strong></p>
+<ul>
+<li>Complexity scoring (0-10 scale, 7 factors)</li>
+<li>Routing boundary (3-4 → commands, 5-7 → agent, 8-10 → orchestrator)</li>
+<li>Hot-reload validators discovery</li>
+<li>Forked context execution</li>
+<li>Session state persistence (JSON v1.0.0)</li>
+</ul>
 <h3 id="phase-2-polish-cleanup-1-2-hours">Phase 2: Polish &amp; Cleanup (1-2 hours)<a class="headerlink" href="#phase-2-polish-cleanup-1-2-hours" title="Permanent link">&para;</a></h3>
 <h4 id="4-update-claudemd-20-min">4. Update CLAUDE.md (20 min)<a class="headerlink" href="#4-update-claudemd-20-min" title="Permanent link">&para;</a></h4>
 <p><strong>Current:</strong> 138 lines, missing integration features
 <strong>Target:</strong> Add "Integration Features" section</p>
-<p><strong>Add section covering:</strong>
-- Integration test structure (3 categories)
-- Dependency management system
-- Complexity scoring and routing
-- Hot-reload validators
-- Session teleportation</p>
+<p><strong>Add section covering:</strong></p>
+<ul>
+<li>Integration test structure (3 categories)</li>
+<li>Dependency management system</li>
+<li>Complexity scoring and routing</li>
+<li>Hot-reload validators</li>
+<li>Session teleportation</li>
+</ul>
 <h4 id="5-teaching-workflow-enhancements-20-min">5. Teaching Workflow Enhancements (20 min)<a class="headerlink" href="#5-teaching-workflow-enhancements-20-min" title="Permanent link">&para;</a></h4>
 <p><strong>File:</strong> <code>docs/guide/teaching-workflow.md</code></p>
-<p><strong>Add sections:</strong>
-- Troubleshooting (detection failures, config issues)
-- Config reference (.flow/teach-config.yml fields)
-- Command flag reference</p>
+<p><strong>Add sections:</strong></p>
+<ul>
+<li>Troubleshooting (detection failures, config issues)</li>
+<li>Config reference (.flow/teach-config.yml fields)</li>
+<li>Command flag reference</li>
+</ul>
 <h4 id="6-document-cleanup-20-min">6. Document Cleanup (20 min)<a class="headerlink" href="#6-document-cleanup-20-min" title="Permanent link">&para;</a></h4>
-<p><strong>Tasks:</strong>
-- Archive <code>docs/ORCHESTRATOR-ENHANCEMENTS.md</code> (outdated v1.3.0 references)
-- Verify version references in README.md (should be v1.24.0)
-- Check site navigation for stale links</p>
+<p><strong>Tasks:</strong></p>
+<ul>
+<li>Archive <code>docs/ORCHESTRATOR-ENHANCEMENTS.md</code> (outdated v1.3.0 references)</li>
+<li>Verify version references in README.md (should be v1.24.0)</li>
+<li>Check site navigation for stale links</li>
+</ul>
 <hr />
 <h2 id="how-to-implement">How to Implement<a class="headerlink" href="#how-to-implement" title="Permanent link">&para;</a></h2>
 <h3 id="step-by-step-workflow">Step-by-Step Workflow<a class="headerlink" href="#step-by-step-workflow" title="Permanent link">&para;</a></h3>
 <ol>
-<li>
-<p><strong>Plan the guide</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Read related code/specs</span>
+<li><strong>Plan the guide</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Read related code/specs</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># Create outline in notes</span>
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Create the markdown file</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>touch<span class="w"> </span>docs/guide/<span class="o">[</span>guide-name<span class="o">]</span>.md
+</span></code></pre></div>
+<ol>
+<li><strong>Create the markdown file</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>touch<span class="w"> </span>docs/guide/<span class="o">[</span>guide-name<span class="o">]</span>.md
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># Add structure from template</span>
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Write content</strong></p>
-</li>
+</span></code></pre></div>
+<ol>
+<li><strong>Write content</strong></li>
 <li>Use examples from actual code</li>
 <li>Link to related guides</li>
 <li>
 <p>Include code snippets</p>
 </li>
 <li>
-<p><strong>Add to site navigation</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Edit mkdocs.yml</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1"># Add guide to appropriate section</span>
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Test links</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:docs:check-links
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Commit and push</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/guide/<span class="o">[</span>guide-name<span class="o">]</span>.md<span class="w"> </span>mkdocs.yml
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: add [guide-name] documentation&quot;</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/docs-gap-analysis
-</span></code></pre></div></p>
+<p><strong>Add to site navigation</strong></p>
 </li>
 </ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Edit mkdocs.yml</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1"># Add guide to appropriate section</span>
+</span></code></pre></div>
+<ol>
+<li><strong>Test links</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:docs:check-links
+</span></code></pre></div>
+<ol>
+<li><strong>Commit and push</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>git<span class="w"> </span>add<span class="w"> </span>docs/guide/<span class="o">[</span>guide-name<span class="o">]</span>.md<span class="w"> </span>mkdocs.yml
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: add [guide-name] documentation&quot;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/docs-gap-analysis
+</span></code></pre></div>
 <h3 id="template-for-new-guides">Template for New Guides<a class="headerlink" href="#template-for-new-guides" title="Permanent link">&para;</a></h3>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gh"># [Feature Name] Guide</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
@@ -4647,7 +4661,7 @@
 </span></code></pre></div>
 <hr />
 <h2 id="success-criteria">Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
-<h3 id="when-a-guide-is-complete">When a guide is complete:<a class="headerlink" href="#when-a-guide-is-complete" title="Permanent link">&para;</a></h3>
+<h3 id="when-a-guide-is-complete">When a guide is complete<a class="headerlink" href="#when-a-guide-is-complete" title="Permanent link">&para;</a></h3>
 <ul>
 <li>✅ All code examples work</li>
 <li>✅ All links are valid (tested with <code>/craft:docs:check-links</code>)</li>
@@ -4656,7 +4670,7 @@
 <li>✅ Covers beginner + advanced use cases</li>
 <li>✅ Includes troubleshooting section</li>
 </ul>
-<h3 id="final-validation">Final validation:<a class="headerlink" href="#final-validation" title="Permanent link">&para;</a></h3>
+<h3 id="final-validation">Final validation<a class="headerlink" href="#final-validation" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Build docs locally</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>mkdocs<span class="w"> </span>serve
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
@@ -4671,29 +4685,31 @@
 </span></code></pre></div>
 <hr />
 <h2 id="timeline-estimate">Timeline Estimate<a class="headerlink" href="#timeline-estimate" title="Permanent link">&para;</a></h2>
-<p><strong>Phase 1 (Critical) - 4-5 hours:</strong>
-- Integration testing guide: 30 min
-- Dependency management guide: 1.5 hours
-- Claude Code 2.1.0 guide: 1.5 hours
-- CLAUDE.md update: 20 min
-- <strong>Total:</strong> ~3.5-4 hours active work</p>
-<p><strong>Phase 2 (Polish) - 1-2 hours:</strong>
-- Teaching workflow troubleshooting: 20 min
-- Document cleanup: 20 min
-- Testing and validation: 20 min
-- <strong>Total:</strong> ~1 hour active work</p>
+<p><strong>Phase 1 (Critical) - 4-5 hours:</strong></p>
+<ul>
+<li>Integration testing guide: 30 min</li>
+<li>Dependency management guide: 1.5 hours</li>
+<li>Claude Code 2.1.0 guide: 1.5 hours</li>
+<li>CLAUDE.md update: 20 min</li>
+<li><strong>Total:</strong> ~3.5-4 hours active work</li>
+</ul>
+<p><strong>Phase 2 (Polish) - 1-2 hours:</strong></p>
+<ul>
+<li>Teaching workflow troubleshooting: 20 min</li>
+<li>Document cleanup: 20 min</li>
+<li>Testing and validation: 20 min</li>
+<li><strong>Total:</strong> ~1 hour active work</li>
+</ul>
 <p><strong>Overall:</strong> 4-5 hours to close all gaps</p>
 <hr />
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p><strong>Read the analysis</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>less<span class="w"> </span>docs/GAP-ANALYSIS-2026-01-18.md
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Pick a guide to start with</strong> (recommended order):</p>
-</li>
+<li><strong>Read the analysis</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>less<span class="w"> </span>docs/GAP-ANALYSIS-2026-01-18.md
+</span></code></pre></div>
+<ol>
+<li><strong>Pick a guide to start with</strong> (recommended order):</li>
 <li>Integration testing (quickest win)</li>
 <li>Dependency management (highest impact)</li>
 <li>

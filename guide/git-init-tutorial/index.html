@@ -1789,7 +1789,7 @@
   <a href="#success" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✅ Success!
+        ✅ Success
       
     </span>
   </a>
@@ -4507,7 +4507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4935,7 +4935,7 @@
   <a href="#success" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✅ Success!
+        ✅ Success
       
     </span>
   </a>
@@ -5452,19 +5452,23 @@
 <h1 id="tutorial-initialize-your-project-with-craftgitinit">Tutorial: Initialize Your Project with /craft:git:init<a class="headerlink" href="#tutorial-initialize-your-project-with-craftgitinit" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>15 minutes</strong> • 🟢 Beginner Friendly • ✓ Step-by-step</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> Interactive wizard to set up git repository with best practices
-- <strong>Why:</strong> Automates branch structure, protection, CI, and project files
-- <strong>How:</strong> Run <code>/craft:git:init</code> and answer prompts
-- <strong>Next:</strong> Start developing on feature branches with <code>/craft:git:worktree</code></p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> Interactive wizard to set up git repository with best practices</li>
+<li><strong>Why:</strong> Automates branch structure, protection, CI, and project files</li>
+<li><strong>How:</strong> Run <code>/craft:git:init</code> and answer prompts</li>
+<li><strong>Next:</strong> Start developing on feature branches with <code>/craft:git:worktree</code></li>
+</ul>
 </blockquote>
 <h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
-<p>By the end of this tutorial, you'll know how to:
-- ✅ Initialize a git repository with craft workflow
-- ✅ Set up GitHub integration and branch protection
-- ✅ Generate CI workflows automatically
-- ✅ Create project tracking files
-- ✅ Choose the right workflow pattern for your project</p>
+<p>By the end of this tutorial, you'll know how to:</p>
+<ul>
+<li>✅ Initialize a git repository with craft workflow</li>
+<li>✅ Set up GitHub integration and branch protection</li>
+<li>✅ Generate CI workflows automatically</li>
+<li>✅ Create project tracking files</li>
+<li>✅ Choose the right workflow pattern for your project</li>
+</ul>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <h3 id="required">Required<a class="headerlink" href="#required" title="Permanent link">&para;</a></h3>
 <ul>
@@ -5534,17 +5538,17 @@
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  ○ Public
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  ● Private (Recommended for new projects)  ← Select this
 </span></code></pre></div>
-<p><strong>Enter description:</strong>
+<p><strong>Enter description:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Description: My awesome new project
-</span></code></pre></div></p>
-<p><strong>Select topics</strong> (optional):
+</span></code></pre></div>
+<p><strong>Select topics</strong> (optional):</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Question: &quot;Add repository topics?&quot; (multi-select)
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Options:
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  □ python
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  □ typescript
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  □ cli-tool
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  □ [space to select, enter to continue]
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-15-choose-workflow-pattern">Step 1.5: Choose Workflow Pattern<a class="headerlink" href="#step-15-choose-workflow-pattern" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Workflow: main + dev
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  ✓ Creating main branch...
@@ -5558,19 +5562,19 @@
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  ● Yes (Recommended) - Requires PR + CI  ← Select this
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  ○ No - Allow direct commits
 </span></code></pre></div>
-<p><strong>Result:</strong>
+<p><strong>Result:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>  ✓ Branch protection enabled on main
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  - Require pull requests before merge
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  - Require status checks to pass
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  - Block force pushes
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-17-generate-ci-workflow">Step 1.7: Generate CI Workflow<a class="headerlink" href="#step-17-generate-ci-workflow" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Question: &quot;Generate CI workflow?&quot;
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Options:
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  ● Yes (Recommended) - Auto-detect project type  ← Select this
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  ○ Skip - Add CI manually later
 </span></code></pre></div>
-<p><strong>Auto-detection:</strong>
+<p><strong>Auto-detection:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>🔍 Detecting project type...
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>   No project files found yet
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -5579,7 +5583,7 @@
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  ○ Python (UV/Poetry/Pip)
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>  ○ Node.js
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>  ● Generic (shell commands)  ← Select for new project
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-18-create-project-files">Step 1.8: Create Project Files<a class="headerlink" href="#step-18-create-project-files" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Question: &quot;Create project tracking files?&quot; (multi-select)
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Options:
@@ -5588,42 +5592,42 @@
 </span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>  ☑ .github/pull_request_template.md
 </span></code></pre></div>
 <p><strong>Select all</strong> (recommended)</p>
-<p><strong>Result:</strong>
+<p><strong>Result:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>  ✓ Created .STATUS
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>  ✓ Created CLAUDE.md
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>  ✓ Created .github/pull_request_template.md
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-19-initial-commit">Step 1.9: Initial Commit<a class="headerlink" href="#step-19-initial-commit" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Question: &quot;Create initial commit?&quot;
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Options:
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  ● Yes - Commit setup files  ← Select this
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  ○ No - Leave staged
 </span></code></pre></div>
-<p><strong>Commit created:</strong>
+<p><strong>Commit created:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[main abc1234] chore: initialize repository with craft workflow
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a> 4 files changed, 127 insertions(+)
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a> create mode 100644 .STATUS
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a> create mode 100644 CLAUDE.md
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a> create mode 100644 .github/pull_request_template.md
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a> create mode 100644 .github/workflows/ci.yml
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-110-push-to-github">Step 1.10: Push to GitHub<a class="headerlink" href="#step-110-push-to-github" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Question: &quot;Push to GitHub?&quot;
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Options:
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>  ● Yes - Push main + dev branches  ← Select this
 </span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>  ○ No - Keep local only
 </span></code></pre></div>
-<p><strong>Pushing:</strong>
+<p><strong>Pushing:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>  ✓ Pushed main to origin
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  ✓ Pushed dev to origin
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-111-validation">Step 1.11: Validation<a class="headerlink" href="#step-111-validation" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Question: &quot;Run /craft:check to validate setup?&quot;
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Options:
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  ● Yes (Recommended)  ← Select this
 </span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  ○ Skip
 </span></code></pre></div>
-<p><strong>Validation results:</strong>
+<p><strong>Validation results:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Running /craft:check...
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>✓ Git structure valid
@@ -5632,8 +5636,8 @@
 </span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>✓ Project files present
 </span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
 </span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>All checks passed!
-</span></code></pre></div></p>
-<h3 id="success">✅ Success!<a class="headerlink" href="#success" title="Permanent link">&para;</a></h3>
+</span></code></pre></div>
+<h3 id="success">✅ Success<a class="headerlink" href="#success" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>┌─────────────────────────────────────────────────┐
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>│ ✓ Repository initialized successfully!         │
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>├─────────────────────────────────────────────────┤
@@ -5667,13 +5671,13 @@
 <h3 id="step-23-run-wizard">Step 2.3: Run Wizard<a class="headerlink" href="#step-23-run-wizard" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>/craft:git:init
 </span></code></pre></div>
-<p><strong>Detection:</strong>
+<p><strong>Detection:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>🔍 Checking for existing repository...
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>   No .git found - initializing new repository
 </span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
 </span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>🔍 Detecting project type...
 </span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>   Found: pyproject.toml → Python project
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-24-follow-wizard">Step 2.4: Follow Wizard<a class="headerlink" href="#step-24-follow-wizard" title="Permanent link">&para;</a></h3>
 <p>Same flow as Section 1, but with auto-detected project type:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Question: &quot;Which CI template?&quot;
@@ -5716,10 +5720,10 @@
 <h3 id="step-32-run-wizard">Step 3.2: Run Wizard<a class="headerlink" href="#step-32-run-wizard" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>/craft:git:init
 </span></code></pre></div>
-<p><strong>Detection:</strong>
+<p><strong>Detection:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>🔍 Checking for existing repository...
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>   .git found - existing repository detected
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-33-choose-action">Step 3.3: Choose Action<a class="headerlink" href="#step-33-choose-action" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>Question: &quot;Git repo exists. What would you like to do?&quot;
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>Options:
@@ -5791,35 +5795,39 @@
 <p>For experienced users who want defaults:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>/craft:git:init<span class="w"> </span>--yes<span class="w"> </span>--remote<span class="w"> </span>myuser/myrepo
 </span></code></pre></div>
-<p>This:
-- ✅ Uses all default choices
-- ✅ Skips interactive prompts
-- ✅ Creates GitHub repository
-- ✅ Enables branch protection
-- ✅ Generates CI workflow
-- ✅ Creates all project files
-- ✅ Commits and pushes</p>
+<p>This:</p>
+<ul>
+<li>✅ Uses all default choices</li>
+<li>✅ Skips interactive prompts</li>
+<li>✅ Creates GitHub repository</li>
+<li>✅ Enables branch protection</li>
+<li>✅ Generates CI workflow</li>
+<li>✅ Creates all project files</li>
+<li>✅ Commits and pushes</li>
+</ul>
 <p><strong>Duration:</strong> ~30 seconds</p>
 <h3 id="local-only-setup">Local-Only Setup<a class="headerlink" href="#local-only-setup" title="Permanent link">&para;</a></h3>
 <p>No GitHub integration:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>/craft:git:init
 </span></code></pre></div>
-<p><strong>When prompted for remote:</strong>
+<p><strong>When prompted for remote:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>Select: &quot;Local only (no remote)&quot;
-</span></code></pre></div></p>
-<p><strong>Result:</strong>
-- Git repository initialized
-- Local branches created
-- No branch protection (local only)
-- Project files created
-- No push step</p>
+</span></code></pre></div>
+<p><strong>Result:</strong></p>
+<ul>
+<li>Git repository initialized</li>
+<li>Local branches created</li>
+<li>No branch protection (local only)</li>
+<li>Project files created</li>
+<li>No push step</li>
+</ul>
 <h3 id="add-to-existing-repo">Add to Existing Repo<a class="headerlink" href="#add-to-existing-repo" title="Permanent link">&para;</a></h3>
 <p>Already have git, want craft workflow:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>/craft:git:init
 </span></code></pre></div>
-<p><strong>When prompted:</strong>
+<p><strong>When prompted:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>Select: &quot;Add dev branch + branch protection&quot;
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="after-initialization">After Initialization<a class="headerlink" href="#after-initialization" title="Permanent link">&para;</a></h2>
 <h3 id="verify-setup">Verify Setup<a class="headerlink" href="#verify-setup" title="Permanent link">&para;</a></h3>
@@ -5863,7 +5871,7 @@
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="problem-gh-command-not-found">Problem: "gh command not found"<a class="headerlink" href="#problem-gh-command-not-found" title="Permanent link">&para;</a></h3>
-<p><strong>Solution:</strong>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># macOS</span>
 </span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>brew<span class="w"> </span>install<span class="w"> </span>gh
 </span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>
@@ -5872,16 +5880,18 @@
 </span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>
 </span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="c1"># Verify</span>
 </span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>gh<span class="w"> </span>--version
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="problem-permission-denied-when-enabling-branch-protection">Problem: "Permission denied when enabling branch protection"<a class="headerlink" href="#problem-permission-denied-when-enabling-branch-protection" title="Permanent link">&para;</a></h3>
 <p><strong>Cause:</strong> You don't have admin access to the repository</p>
-<p><strong>Solutions:</strong>
-1. Ask repository owner to grant you admin access
-2. Skip branch protection during setup
-3. Enable manually later with admin account</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Ask repository owner to grant you admin access</li>
+<li>Skip branch protection during setup</li>
+<li>Enable manually later with admin account</li>
+</ol>
 <h3 id="problem-failed-to-push-to-origin">Problem: "Failed to push to origin"<a class="headerlink" href="#problem-failed-to-push-to-origin" title="Permanent link">&para;</a></h3>
 <p><strong>Cause:</strong> Remote doesn't exist or authentication failed</p>
-<p><strong>Solution:</strong>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># Check remote exists</span>
 </span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>gh<span class="w"> </span>repo<span class="w"> </span>view<span class="w"> </span>user/repo
 </span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
@@ -5891,16 +5901,18 @@
 </span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="c1"># Re-authenticate if needed</span>
 </span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a>gh<span class="w"> </span>auth<span class="w"> </span><span class="nb">logout</span>
 </span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>gh<span class="w"> </span>auth<span class="w"> </span>login
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="problem-project-type-not-detected">Problem: "Project type not detected"<a class="headerlink" href="#problem-project-type-not-detected" title="Permanent link">&para;</a></h3>
 <p><strong>Cause:</strong> No recognizable project files yet</p>
-<p><strong>Solution:</strong>
-1. Select "Generic" CI template during setup
-2. Create project files first (package.json, pyproject.toml, etc.)
-3. Run <code>/craft:ci:generate</code> later to regenerate CI</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Select "Generic" CI template during setup</li>
+<li>Create project files first (package.json, pyproject.toml, etc.)</li>
+<li>Run <code>/craft:ci:generate</code> later to regenerate CI</li>
+</ol>
 <h3 id="problem-cannot-create-commit-dirty-working-tree">Problem: "Cannot create commit - dirty working tree"<a class="headerlink" href="#problem-cannot-create-commit-dirty-working-tree" title="Permanent link">&para;</a></h3>
 <p><strong>Cause:</strong> Uncommitted changes exist</p>
-<p><strong>Solution:</strong>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1"># Option 1: Stash changes</span>
 </span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>git<span class="w"> </span>stash
 </span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>/craft:git:init
@@ -5910,7 +5922,7 @@
 </span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>git<span class="w"> </span>add<span class="w"> </span>-A
 </span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;WIP: changes before craft init&quot;</span>
 </span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>/craft:git:init
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="tips-best-practices">Tips &amp; Best Practices<a class="headerlink" href="#tips-best-practices" title="Permanent link">&para;</a></h2>
 <h3 id="do">✅ DO<a class="headerlink" href="#do" title="Permanent link">&para;</a></h3>

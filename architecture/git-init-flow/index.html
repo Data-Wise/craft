@@ -3958,7 +3958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4483,7 +4483,7 @@
     merge feature/api tag: "PR #2"
     checkout main
     merge dev tag: "Release v1.0"</code></pre>
-<p><strong>Branch Flow:</strong>
+<p><strong>Branch Flow:</strong></p>
 <pre class="mermaid"><code>graph LR
     Feature[feature/*] --&gt;|PR| Dev[dev]
     Dev --&gt;|PR| Main[main]
@@ -4492,7 +4492,7 @@
     style Main fill:#ff6b6b
     style Dev fill:#4ecdc4
     style Feature fill:#95e1d3
-    style Production fill:#f38181</code></pre></p>
+    style Production fill:#f38181</code></pre>
 <h3 id="pattern-2-simple">Pattern 2: Simple<a class="headerlink" href="#pattern-2-simple" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>gitGraph
     commit id: "Initial commit"
@@ -4500,13 +4500,13 @@
     commit id: "Add feature B"
     commit id: "Fix bug"
     commit id: "Release v1.0" tag: "v1.0"</code></pre>
-<p><strong>Branch Flow:</strong>
+<p><strong>Branch Flow:</strong></p>
 <pre class="mermaid"><code>graph LR
     Main[main] --&gt;|Direct commits| Main
     Main --&gt;|Deploy| Production[Production]
 
     style Main fill:#ff6b6b
-    style Production fill:#f38181</code></pre></p>
+    style Production fill:#f38181</code></pre>
 <h3 id="pattern-3-gitflow">Pattern 3: GitFlow<a class="headerlink" href="#pattern-3-gitflow" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>gitGraph
     commit id: "Initial"
@@ -4533,7 +4533,7 @@
     merge hotfix/critical-bug tag: "v1.0.1"
     checkout develop
     merge hotfix/critical-bug</code></pre>
-<p><strong>Branch Flow:</strong>
+<p><strong>Branch Flow:</strong></p>
 <pre class="mermaid"><code>graph TB
     Feature[feature/*] --&gt;|PR| Develop[develop]
     Develop --&gt;|PR| Release[release/*]
@@ -4548,7 +4548,7 @@
     style Develop fill:#4ecdc4
     style Feature fill:#95e1d3
     style Release fill:#ffd93d
-    style Hotfix fill:#ff8787</code></pre></p>
+    style Hotfix fill:#ff8787</code></pre>
 <h2 id="component-architecture">Component Architecture<a class="headerlink" href="#component-architecture" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>graph TB
     subgraph "User Interface"

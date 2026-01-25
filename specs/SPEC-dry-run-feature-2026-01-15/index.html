@@ -4173,7 +4173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4799,12 +4799,14 @@
 <p><strong>As a</strong> craft plugin user
 <strong>I want</strong> to preview command effects before execution
 <strong>So that</strong> I can confidently use automation without fear of irreversible mistakes</p>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ 47 commands support <code>--dry-run</code> flag with <code>-n</code> alias
-- ✅ All dry-run outputs follow consistent format (bordered box, high-level summary)
-- ✅ Best-effort preview shows warnings for uncertain operations
-- ✅ No actual changes are made during dry-run mode
-- ✅ Users can execute after dry-run by re-running without flag</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ 47 commands support <code>--dry-run</code> flag with <code>-n</code> alias</li>
+<li>✅ All dry-run outputs follow consistent format (bordered box, high-level summary)</li>
+<li>✅ Best-effort preview shows warnings for uncertain operations</li>
+<li>✅ No actual changes are made during dry-run mode</li>
+<li>✅ Users can execute after dry-run by re-running without flag</li>
+</ul>
 <hr />
 <h2 id="secondary-user-stories">Secondary User Stories<a class="headerlink" href="#secondary-user-stories" title="Permanent link">&para;</a></h2>
 <h3 id="user-story-2-learning-discovery">User Story 2: Learning &amp; Discovery<a class="headerlink" href="#user-story-2-learning-discovery" title="Permanent link">&para;</a></h3>
@@ -4894,7 +4896,7 @@
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nn">---</span>
 </span></code></pre></div>
 <h3 id="dry-run-output-api">Dry-Run Output API<a class="headerlink" href="#dry-run-output-api" title="Permanent link">&para;</a></h3>
-<p><strong>Function Signature:</strong>
+<p><strong>Function Signature:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">render_dry_run_preview</span><span class="p">(</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">command_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">actions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -4915,8 +4917,8 @@
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="sd">    Returns:</span>
 </span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="sd">        Formatted dry-run output string with bordered box</span>
 </span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span></code></pre></div></p>
-<p><strong>Output Template:</strong>
+</span></code></pre></div>
+<p><strong>Output Template:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│ 🔍 DRY RUN: {command_name}                                  │
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├─────────────────────────────────────────────────────────────┤
@@ -4936,7 +4938,7 @@
 </span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>├─────────────────────────────────────────────────────────────┤
 </span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>│ Run without --dry-run to execute                            │
 </span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>└─────────────────────────────────────────────────────────────┘
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="data-models">Data Models<a class="headerlink" href="#data-models" title="Permanent link">&para;</a></h2>
 <h3 id="operationplan">OperationPlan<a class="headerlink" href="#operationplan" title="Permanent link">&para;</a></h3>
@@ -5015,13 +5017,17 @@
 </span></code></pre></div>
 <hr />
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<p><strong>Required:</strong>
-- No new external dependencies
-- Python 3.8+ (already required)
-- Existing craft command infrastructure</p>
-<p><strong>Optional (Future):</strong>
-- Colorama (for colored output) - Future enhancement
-- Rich (for interactive dry-run) - Future enhancement</p>
+<p><strong>Required:</strong></p>
+<ul>
+<li>No new external dependencies</li>
+<li>Python 3.8+ (already required)</li>
+<li>Existing craft command infrastructure</li>
+</ul>
+<p><strong>Optional (Future):</strong></p>
+<ul>
+<li>Colorama (for colored output) - Future enhancement</li>
+<li>Rich (for interactive dry-run) - Future enhancement</li>
+</ul>
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow">User Flow<a class="headerlink" href="#user-flow" title="Permanent link">&para;</a></h3>
@@ -5044,7 +5050,7 @@
     User-&gt;&gt;CLI: /craft:git:clean (execute)
     CLI-&gt;&gt;Command: Execute normally</code></pre>
 <h3 id="wireframes-ascii">Wireframes (ASCII)<a class="headerlink" href="#wireframes-ascii" title="Permanent link">&para;</a></h3>
-<p><strong>Main Dry-Run Output:</strong>
+<p><strong>Main Dry-Run Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>│ 🔍 DRY RUN: Clean Merged Branches                           │  ← Title
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>├─────────────────────────────────────────────────────────────┤  ← Separator
@@ -5060,8 +5066,8 @@
 </span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>├─────────────────────────────────────────────────────────────┤
 </span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>│ Run without --dry-run to execute                            │  ← Call to action
 </span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>└─────────────────────────────────────────────────────────────┘
-</span></code></pre></div></p>
-<p><strong>With Multiple Categories:</strong>
+</span></code></pre></div>
+<p><strong>With Multiple Categories:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│ 🔍 DRY RUN: Generate CI Workflow                            │
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├─────────────────────────────────────────────────────────────┤
@@ -5081,7 +5087,7 @@
 </span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>├─────────────────────────────────────────────────────────────┤
 </span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>│ Run: /craft:ci:generate (without --dry-run)                 │
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>└─────────────────────────────────────────────────────────────┘
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="accessibility-checklist">Accessibility Checklist<a class="headerlink" href="#accessibility-checklist" title="Permanent link">&para;</a></h3>
 <ul>
 <li>✅ <strong>Screen readers:</strong> Plain text output, no ASCII art except borders</li>
@@ -5131,50 +5137,66 @@
 <hr />
 <h2 id="implementation-notes">Implementation Notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
 <h3 id="phase-1-critical-safety-week-1-20h">Phase 1: Critical Safety (Week 1 - 20h)<a class="headerlink" href="#phase-1-critical-safety-week-1-20h" title="Permanent link">&para;</a></h3>
-<p><strong>Priority 0 Commands (8 commands):</strong>
-1. <code>/craft:git:clean</code> - Delete branches (CRITICAL)
-2. <code>/craft:git:worktree</code> - Worktree operations (HIGH)
-3. <code>/craft:git:branch</code> - Branch operations (HIGH)
-4. <code>/craft:git:sync</code> - Sync with remote
-5. <code>/craft:git:recap</code> - Activity summary
-6. <code>/craft:dist:pypi</code> - PyPI publish (CRITICAL)</p>
-<p><strong>Deliverables:</strong>
-- Shared <code>dry_run_output.py</code> utility
-- Template <code>dry-run-pattern.md</code>
-- 6 command implementations
-- Test suite (basic)
-- Updated documentation</p>
-<p><strong>Success Criteria:</strong>
-- All P0 commands have dry-run
-- Consistent output format
-- No false positives/negatives in preview
-- User documentation complete</p>
+<p><strong>Priority 0 Commands (8 commands):</strong></p>
+<ol>
+<li><code>/craft:git:clean</code> - Delete branches (CRITICAL)</li>
+<li><code>/craft:git:worktree</code> - Worktree operations (HIGH)</li>
+<li><code>/craft:git:branch</code> - Branch operations (HIGH)</li>
+<li><code>/craft:git:sync</code> - Sync with remote</li>
+<li><code>/craft:git:recap</code> - Activity summary</li>
+<li><code>/craft:dist:pypi</code> - PyPI publish (CRITICAL)</li>
+</ol>
+<p><strong>Deliverables:</strong></p>
+<ul>
+<li>Shared <code>dry_run_output.py</code> utility</li>
+<li>Template <code>dry-run-pattern.md</code></li>
+<li>6 command implementations</li>
+<li>Test suite (basic)</li>
+<li>Updated documentation</li>
+</ul>
+<p><strong>Success Criteria:</strong></p>
+<ul>
+<li>All P0 commands have dry-run</li>
+<li>Consistent output format</li>
+<li>No false positives/negatives in preview</li>
+<li>User documentation complete</li>
+</ul>
 <hr />
 <h3 id="phase-2-high-impact-additions-week-2-30h">Phase 2: High-Impact Additions (Week 2 - 30h)<a class="headerlink" href="#phase-2-high-impact-additions-week-2-30h" title="Permanent link">&para;</a></h3>
-<p><strong>File Generation (17 commands):</strong>
-- Documentation commands (5)
-- Site management (5)
-- CI/CD (3)</p>
-<p><strong>Smart Routing (4 commands):</strong>
-- <code>/craft:do</code> - Show delegation plan
-- <code>/craft:orchestrate</code> - Show agent plan
-- <code>/craft:check</code> - Preview validation
-- <code>/craft:help</code> - N/A (read-only)</p>
-<p><strong>Success Criteria:</strong>
-- 27 total commands with dry-run
-- Consistent pattern across all
-- User confidence measured (survey)
-- Documentation updated</p>
+<p><strong>File Generation (17 commands):</strong></p>
+<ul>
+<li>Documentation commands (5)</li>
+<li>Site management (5)</li>
+<li>CI/CD (3)</li>
+</ul>
+<p><strong>Smart Routing (4 commands):</strong></p>
+<ul>
+<li><code>/craft:do</code> - Show delegation plan</li>
+<li><code>/craft:orchestrate</code> - Show agent plan</li>
+<li><code>/craft:check</code> - Preview validation</li>
+<li><code>/craft:help</code> - N/A (read-only)</li>
+</ul>
+<p><strong>Success Criteria:</strong></p>
+<ul>
+<li>27 total commands with dry-run</li>
+<li>Consistent pattern across all</li>
+<li>User confidence measured (survey)</li>
+<li>Documentation updated</li>
+</ul>
 <hr />
 <h3 id="phase-3-long-tail-future-40h">Phase 3: Long Tail (Future - 40h)<a class="headerlink" href="#phase-3-long-tail-future-40h" title="Permanent link">&para;</a></h3>
-<p><strong>Remaining Commands:</strong>
-- Code &amp; test (12)
-- Architecture &amp; planning (7)</p>
-<p><strong>Advanced Features:</strong>
-- Dry-run testing framework
-- Usage analytics
-- Interactive dry-run
-- Diff view</p>
+<p><strong>Remaining Commands:</strong></p>
+<ul>
+<li>Code &amp; test (12)</li>
+<li>Architecture &amp; planning (7)</li>
+</ul>
+<p><strong>Advanced Features:</strong></p>
+<ul>
+<li>Dry-run testing framework</li>
+<li>Usage analytics</li>
+<li>Interactive dry-run</li>
+<li>Diff view</li>
+</ul>
 <hr />
 <h2 id="history">History<a class="headerlink" href="#history" title="Permanent link">&para;</a></h2>
 <table>
@@ -5195,12 +5217,14 @@
 </table>
 <hr />
 <p><strong>Status:</strong> ⏳ Awaiting review and approval</p>
-<p><strong>Next Steps:</strong>
-1. Review this spec with team
-2. Approve or request changes
-3. Create implementation tasks
-4. Assign ownership
-5. Begin Phase 1 (Week 1)</p>
+<p><strong>Next Steps:</strong></p>
+<ol>
+<li>Review this spec with team</li>
+<li>Approve or request changes</li>
+<li>Create implementation tasks</li>
+<li>Assign ownership</li>
+<li>Begin Phase 1 (Week 1)</li>
+</ol>
 
 
 

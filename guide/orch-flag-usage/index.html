@@ -1836,7 +1836,7 @@
   <a href="#use-orch-when" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Use --orch When:
+        Use --orch When
       
     </span>
   </a>
@@ -4223,7 +4223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4580,7 +4580,7 @@
   <a href="#use-orch-when" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Use --orch When:
+        Use --orch When
       
     </span>
   </a>
@@ -5015,7 +5015,7 @@
 <li><strong>release</strong>: Pre-release audit with 4 agents and 85% compression. Comprehensive validation before releases.</li>
 </ul>
 <h2 id="when-to-use-orch">When to Use --orch<a class="headerlink" href="#when-to-use-orch" title="Permanent link">&para;</a></h2>
-<h3 id="use-orch-when">Use --orch When:<a class="headerlink" href="#use-orch-when" title="Permanent link">&para;</a></h3>
+<h3 id="use-orch-when">Use --orch When<a class="headerlink" href="#use-orch-when" title="Permanent link">&para;</a></h3>
 <ol>
 <li><strong>Complex multi-step tasks</strong> that require coordination across multiple agents</li>
 <li><strong>Cross-category work</strong> spanning code, docs, and CI</li>
@@ -5034,75 +5034,91 @@
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="mode-prompt-not-appearing">Mode Prompt Not Appearing<a class="headerlink" href="#mode-prompt-not-appearing" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Running <code>--orch</code> without mode doesn't show interactive prompt</p>
-<p><strong>Causes:</strong>
-1. Not running in Claude Code CLI context
-2. Running in test/automated script environment
-3. Tool access restricted or unavailable</p>
-<p><strong>Solutions:</strong>
-- ✅ Use explicit mode: <code>--orch=optimize</code>
-- ✅ Verify Claude Code version (requires 2.1.0+)
-- ✅ Check that AskUserQuestion tool is available
-- ✅ Try in fresh Claude Code session</p>
+<p><strong>Causes:</strong></p>
+<ol>
+<li>Not running in Claude Code CLI context</li>
+<li>Running in test/automated script environment</li>
+<li>Tool access restricted or unavailable</li>
+</ol>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>✅ Use explicit mode: <code>--orch=optimize</code></li>
+<li>✅ Verify Claude Code version (requires 2.1.0+)</li>
+<li>✅ Check that AskUserQuestion tool is available</li>
+<li>✅ Try in fresh Claude Code session</li>
+</ul>
 <p><strong>Fallback Behavior:</strong>
 If prompt fails, automatically defaults to "default" mode with notification.</p>
 <hr />
 <h3 id="orchestrator-spawn-failures">Orchestrator Spawn Failures<a class="headerlink" href="#orchestrator-spawn-failures" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Error message "⚠️  Orchestrator Spawn Failed"</p>
-<p><strong>Causes:</strong>
-1. Orchestrator agent not available or disabled
-2. Permission denied for agent delegation
-3. Resource constraints (context limit reached)
-4. Network/service interruption</p>
-<p><strong>Solutions:</strong>
-- ✅ Check agent status: <code>/craft:hub</code> → agents section
-- ✅ Try smaller task or lower complexity mode (debug/default)
-- ✅ Use explicit commands instead: <code>/craft:check</code>, <code>/craft:code:lint</code>
-- ✅ Restart Claude Code session to reset context</p>
+<p><strong>Causes:</strong></p>
+<ol>
+<li>Orchestrator agent not available or disabled</li>
+<li>Permission denied for agent delegation</li>
+<li>Resource constraints (context limit reached)</li>
+<li>Network/service interruption</li>
+</ol>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>✅ Check agent status: <code>/craft:hub</code> → agents section</li>
+<li>✅ Try smaller task or lower complexity mode (debug/default)</li>
+<li>✅ Use explicit commands instead: <code>/craft:check</code>, <code>/craft:code:lint</code></li>
+<li>✅ Restart Claude Code session to reset context</li>
+</ul>
 <p><strong>Automatic Fallback (v2.5.1+):</strong>
 The system automatically falls back to command routing when orchestrator spawn fails, ensuring task completion even when orchestration is unavailable.</p>
-<p><strong>Example fallback flow:</strong>
+<p><strong>Example fallback flow:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>User runs: /craft:do &quot;add auth&quot; --orch=optimize
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>System tries: Spawn orchestrator
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Fails: Orchestrator unavailable
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Fallback: Routes to /craft:arch:plan + /craft:code:test-gen
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Result: Task completes via commands instead
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="invalid-mode-errors">Invalid Mode Errors<a class="headerlink" href="#invalid-mode-errors" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> "Invalid mode: 'xyz'. Valid modes: ..."</p>
 <p><strong>Cause:</strong> Typo or unsupported mode specified</p>
-<p><strong>Solution:</strong> Use one of the 4 valid modes:
-- <code>--orch=default</code> (2 agents, moderate parallelization)
-- <code>--orch=debug</code> (1 agent, sequential troubleshooting)
-- <code>--orch=optimize</code> (4 agents, fast parallel work)
-- <code>--orch=release</code> (4 agents, thorough validation)</p>
+<p><strong>Solution:</strong> Use one of the 4 valid modes:</p>
+<ul>
+<li><code>--orch=default</code> (2 agents, moderate parallelization)</li>
+<li><code>--orch=debug</code> (1 agent, sequential troubleshooting)</li>
+<li><code>--orch=optimize</code> (4 agents, fast parallel work)</li>
+<li><code>--orch=release</code> (4 agents, thorough validation)</li>
+</ul>
 <hr />
 <h3 id="dry-run-not-showing-expected-output">Dry-Run Not Showing Expected Output<a class="headerlink" href="#dry-run-not-showing-expected-output" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> <code>--dry-run</code> output missing or incomplete</p>
-<p><strong>Causes:</strong>
-1. Dry-run flag not parsed correctly
-2. Other flags conflicting
-3. Output buffering issues</p>
-<p><strong>Solutions:</strong>
-- ✅ Try: <code>--dry-run</code> or <code>-n</code> (short form)
-- ✅ Place <code>--dry-run</code> at end of command
-- ✅ Check for typos in flags
-- ✅ Example: <code>/craft:do "task" --orch=optimize --dry-run</code></p>
+<p><strong>Causes:</strong></p>
+<ol>
+<li>Dry-run flag not parsed correctly</li>
+<li>Other flags conflicting</li>
+<li>Output buffering issues</li>
+</ol>
+<p><strong>Solutions:</strong></p>
+<ul>
+<li>✅ Try: <code>--dry-run</code> or <code>-n</code> (short form)</li>
+<li>✅ Place <code>--dry-run</code> at end of command</li>
+<li>✅ Check for typos in flags</li>
+<li>✅ Example: <code>/craft:do "task" --orch=optimize --dry-run</code></li>
+</ul>
 <hr />
 <h3 id="mode-selection-timeout">Mode Selection Timeout<a class="headerlink" href="#mode-selection-timeout" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Prompt waits indefinitely for user selection</p>
 <p><strong>Cause:</strong> Interactive prompt waiting for input in automated environment</p>
-<p><strong>Solution:</strong>
-- ✅ Always use explicit mode in scripts/automation: <code>--orch=default</code>
-- ✅ Don't use bare <code>--orch</code> in non-interactive contexts
-- ✅ Set default mode in calling script</p>
-<p><strong>Best Practice for Scripts:</strong>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>✅ Always use explicit mode in scripts/automation: <code>--orch=default</code></li>
+<li>✅ Don't use bare <code>--orch</code> in non-interactive contexts</li>
+<li>✅ Set default mode in calling script</li>
+</ul>
+<p><strong>Best Practice for Scripts:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># ❌ Don&#39;t: Interactive prompt in script</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;build project&quot;</span><span class="w"> </span>--orch
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># ✅ Do: Explicit mode in script</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:do<span class="w"> </span><span class="s2">&quot;build project&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h3>
 <p>If you encounter issues not covered here:</p>
@@ -5155,10 +5171,10 @@ The system automatically falls back to command routing when orchestrator spawn f
 </span></code></pre></div>
 <h2 id="troubleshooting_1">Troubleshooting<a class="headerlink" href="#troubleshooting_1" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
-<p><strong>"Invalid mode" error</strong>
+<p><strong>"Invalid mode" error</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Error: Invalid mode: &#39;fast&#39;. Valid modes: default, debug, optimize, release
 </span></code></pre></div>
-Make sure to use one of the valid mode names.</p>
+<p>Make sure to use one of the valid mode names.</p>
 <p><strong>Orchestrator not spawning</strong>
 Ensure <code>--orch</code> flag is present and the command supports orchestration.</p>
 <p><strong>Mode prompt not appearing</strong>
@@ -5218,10 +5234,12 @@ If you specify <code>--orch</code> without a mode, the mode selection prompt sho
 <li>Try <code>--orch=debug</code> for complex debugging scenarios</li>
 <li>Use <code>--orch=release</code> before major releases</li>
 </ol>
-<p>For more information, see:
-- <a href="../complexity-scoring-algorithm/">Complexity Scoring Algorithm</a>
-- <a href="../../commands/orchestrate/">Orchestrator Command</a>
-- <a href="../../VERSION-HISTORY/">Version History</a></p>
+<p>For more information, see:</p>
+<ul>
+<li><a href="../complexity-scoring-algorithm/">Complexity Scoring Algorithm</a></li>
+<li><a href="../../commands/orchestrate/">Orchestrator Command</a></li>
+<li><a href="../../VERSION-HISTORY/">Version History</a></li>
+</ul>
 
 
 

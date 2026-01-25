@@ -4234,7 +4234,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4908,11 +4908,13 @@
 <h1 id="teaching-mode-setup">Teaching Mode Setup<a class="headerlink" href="#teaching-mode-setup" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>25 minutes</strong> • 🟢 Beginner • ✓ Complete first-time setup</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> Set up Craft's teaching workflows for your course
-- <strong>Why:</strong> Automated validation, safe publishing, progress tracking
-- <strong>How:</strong> Create config file → Test detection → Validate → Publish
-- <strong>Next:</strong> Use <code>/craft:site:progress</code> weekly, <code>/craft:site:publish</code> for releases</p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> Set up Craft's teaching workflows for your course</li>
+<li><strong>Why:</strong> Automated validation, safe publishing, progress tracking</li>
+<li><strong>How:</strong> Create config file → Test detection → Validate → Publish</li>
+<li><strong>Next:</strong> Use <code>/craft:site:progress</code> weekly, <code>/craft:site:publish</code> for releases</li>
+</ul>
 </blockquote>
 <p>Teaching Mode transforms Craft into a comprehensive teaching workflow automation tool. This tutorial walks you through first-time setup for a Quarto-based course website.</p>
 <div class="admonition tip">
@@ -5012,17 +5014,19 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># In Claude Code</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:site:status
 </span></code></pre></div>
-<p><strong>Expected output:</strong>
+<p><strong>Expected output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>✓ Teaching mode detected
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>✓ Configuration valid
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>✓ Semester: Spring 2026 (16 weeks)
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>✓ Current week: 1 (auto-calculated)
-</span></code></pre></div></p>
-<p><strong>If you see errors</strong>, check:
-- Date format is <code>YYYY-MM-DD</code>
-- Dates are in logical order (start &lt; end)
-- Breaks fall within semester dates
-- All required fields present</p>
+</span></code></pre></div>
+<p><strong>If you see errors</strong>, check:</p>
+<ul>
+<li>Date format is <code>YYYY-MM-DD</code></li>
+<li>Dates are in logical order (start &lt; end)</li>
+<li>Breaks fall within semester dates</li>
+<li>All required fields present</li>
+</ul>
 <h2 id="step-2-test-detection-2-min">Step 2: Test Detection (2 min)<a class="headerlink" href="#step-2-test-detection-2-min" title="Permanent link">&para;</a></h2>
 <p>Verify that Craft recognizes your project as a teaching project.</p>
 <h3 id="21-check-status">2.1 Check Status<a class="headerlink" href="#21-check-status" title="Permanent link">&para;</a></h3>
@@ -5098,16 +5102,22 @@
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>============================================================
 </span></code></pre></div>
 <h3 id="33-fix-validation-errors">3.3 Fix Validation Errors<a class="headerlink" href="#33-fix-validation-errors" title="Permanent link">&para;</a></h3>
-<p><strong>Missing syllabus sections:</strong>
-- Add headings in your <code>syllabus/index.qmd</code> or <code>syllabus.qmd</code>
-- Required sections (default): grading, policies, objectives, schedule
-- Can customize in <code>validation.required_sections</code></p>
-<p><strong>Incomplete schedule:</strong>
-- Check your <code>schedule.qmd</code> for missing weeks
-- Validation expects content for each week (lectures, readings, or assignments)</p>
-<p><strong>Missing assignment files:</strong>
-- Validation checks that assignments referenced in schedule exist
-- Add missing files or update references</p>
+<p><strong>Missing syllabus sections:</strong></p>
+<ul>
+<li>Add headings in your <code>syllabus/index.qmd</code> or <code>syllabus.qmd</code></li>
+<li>Required sections (default): grading, policies, objectives, schedule</li>
+<li>Can customize in <code>validation.required_sections</code></li>
+</ul>
+<p><strong>Incomplete schedule:</strong></p>
+<ul>
+<li>Check your <code>schedule.qmd</code> for missing weeks</li>
+<li>Validation expects content for each week (lectures, readings, or assignments)</li>
+</ul>
+<p><strong>Missing assignment files:</strong></p>
+<ul>
+<li>Validation checks that assignments referenced in schedule exist</li>
+<li>Add missing files or update references</li>
+</ul>
 <div class="admonition tip">
 <p class="admonition-title">Pro Tip: Use Warnings</p>
 <p>Warnings don't block publishing - they're helpful reminders. Errors MUST be fixed (unless you use <code>--skip-validation</code>).</p>
@@ -5145,10 +5155,12 @@
 </span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>│ Summary: 8 files, +335 lines, -14 lines    │
 </span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>└─────────────────────────────────────────────┘
 </span></code></pre></div>
-<p><strong>File categories:</strong>
-- <strong>CRITICAL</strong>: syllabus<em>, schedule</em>, assignments/
-- <strong>CONTENT</strong>: lectures/, readings/, resources/
-- <strong>OTHER</strong>: All other files</p>
+<p><strong>File categories:</strong></p>
+<ul>
+<li><strong>CRITICAL</strong>: syllabus<em>, schedule</em>, assignments/</li>
+<li><strong>CONTENT</strong>: lectures/, readings/, resources/</li>
+<li><strong>OTHER</strong>: All other files</li>
+</ul>
 <h3 id="44-confirm-publish">4.4 Confirm Publish<a class="headerlink" href="#44-confirm-publish" title="Permanent link">&para;</a></h3>
 <p>You'll be prompted with 3 options:</p>
 <ol>
@@ -5187,10 +5199,12 @@
 <p>Wait 1-2 minutes, then visit your GitHub Pages URL:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>https://yourname.github.io/stat-440/
 </span></code></pre></div>
-<p><strong>Check:</strong>
-- Syllabus displays correctly
-- Schedule shows all weeks
-- Assignments are linked properly</p>
+<p><strong>Check:</strong></p>
+<ul>
+<li>Syllabus displays correctly</li>
+<li>Schedule shows all weeks</li>
+<li>Assignments are linked properly</li>
+</ul>
 <div class="admonition success">
 <p class="admonition-title">Congratulations!</p>
 <p>You've successfully published your first teaching site with Craft's safety workflow!</p>
@@ -5219,11 +5233,13 @@
 </span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>│                                                         │
 </span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>└─────────────────────────────────────────────────────────┘
 </span></code></pre></div>
-<p><strong>Key information:</strong>
-- Current week (auto-calculated from dates and breaks)
-- Visual progress bar
-- Upcoming break countdown
-- Date range for current week</p>
+<p><strong>Key information:</strong></p>
+<ul>
+<li>Current week (auto-calculated from dates and breaks)</li>
+<li>Visual progress bar</li>
+<li>Upcoming break countdown</li>
+<li>Date range for current week</li>
+</ul>
 <h3 id="52-weekly-check-in">5.2 Weekly Check-In<a class="headerlink" href="#52-weekly-check-in" title="Permanent link">&para;</a></h3>
 <p>Run <code>/craft:site:progress</code> at the start of each week to:</p>
 <ul>
@@ -5277,64 +5293,78 @@
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="teaching-mode-not-detected">Teaching Mode Not Detected<a class="headerlink" href="#teaching-mode-not-detected" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> <code>/craft:site:status</code> doesn't show teaching mode</p>
-<p><strong>Solution:</strong>
-1. Check file location: <code>.flow/teach-config.yml</code> in project root
-2. Verify YAML syntax with validator
-3. Ensure file is readable (<code>ls -la .flow/</code>)</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check file location: <code>.flow/teach-config.yml</code> in project root</li>
+<li>Verify YAML syntax with validator</li>
+<li>Ensure file is readable (<code>ls -la .flow/</code>)</li>
+</ol>
 <h3 id="validation-errors-block-publishing">Validation Errors Block Publishing<a class="headerlink" href="#validation-errors-block-publishing" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Errors prevent <code>/craft:site:publish</code> from proceeding</p>
-<p><strong>Solution:</strong>
-1. Read error messages carefully
-2. Fix missing sections or incomplete content
-3. Run <code>/craft:site:validate</code> to verify fixes
-4. <strong>Emergency bypass</strong> (not recommended): <code>--skip-validation</code></p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Read error messages carefully</li>
+<li>Fix missing sections or incomplete content</li>
+<li>Run <code>/craft:site:validate</code> to verify fixes</li>
+<li><strong>Emergency bypass</strong> (not recommended): <code>--skip-validation</code></li>
+</ol>
 <h3 id="merge-conflicts-during-publish">Merge Conflicts During Publish<a class="headerlink" href="#merge-conflicts-during-publish" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> "Cannot fast-forward" error</p>
-<p><strong>Solution:</strong>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Production branch has diverged from draft</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>production
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>git<span class="w"> </span>merge<span class="w"> </span>draft
 </span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># Resolve conflicts</span>
 </span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>git<span class="w"> </span>commit
 </span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>/craft:site:publish<span class="w">  </span><span class="c1"># Try again</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="progress-inaccurate">Progress Inaccurate<a class="headerlink" href="#progress-inaccurate" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Current week calculation is wrong</p>
-<p><strong>Solution:</strong>
-1. Verify <code>dates.start</code> and <code>dates.end</code> in config
-2. Check break dates are correct
-3. Ensure breaks don't overlap
-4. Use <code>--week</code> flag for manual override</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Verify <code>dates.start</code> and <code>dates.end</code> in config</li>
+<li>Check break dates are correct</li>
+<li>Ensure breaks don't overlap</li>
+<li>Use <code>--week</code> flag for manual override</li>
+</ol>
 <h3 id="deployment-not-live-after-5-minutes">Deployment Not Live After 5 Minutes<a class="headerlink" href="#deployment-not-live-after-5-minutes" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> GitHub Pages not updating</p>
-<p><strong>Solution:</strong>
-1. Check GitHub Actions: <code>gh run list --limit 5</code>
-2. Verify branch in Settings → Pages (should be "production")
-3. Check build logs for errors
-4. Wait up to 10 minutes for first deployment</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check GitHub Actions: <code>gh run list --limit 5</code></li>
+<li>Verify branch in Settings → Pages (should be "production")</li>
+<li>Check build logs for errors</li>
+<li>Wait up to 10 minutes for first deployment</li>
+</ol>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <p>Now that teaching mode is set up:</p>
-<p><strong>Weekly tasks:</strong>
-- [ ] Run <code>/craft:site:progress</code> each Monday
-- [ ] Update content on <code>draft</code> branch
-- [ ] Validate with <code>/craft:site:validate</code>
-- [ ] Publish with <code>/craft:site:publish</code></p>
-<p><strong>Semester tasks:</strong>
-- [ ] Add assignment files before due dates
-- [ ] Update syllabus when policies change
-- [ ] Keep schedule current (adjust for snow days, etc.)</p>
-<p><strong>Advanced features:</strong>
-- [ ] Explore <code>--json</code> output for scripting
-- [ ] Set up CI/CD to auto-validate on push
-- [ ] Create custom validation rules
-- [ ] Integrate with LMS (future enhancement)</p>
+<p><strong>Weekly tasks:</strong></p>
+<ul>
+<li>[ ] Run <code>/craft:site:progress</code> each Monday</li>
+<li>[ ] Update content on <code>draft</code> branch</li>
+<li>[ ] Validate with <code>/craft:site:validate</code></li>
+<li>[ ] Publish with <code>/craft:site:publish</code></li>
+</ul>
+<p><strong>Semester tasks:</strong></p>
+<ul>
+<li>[ ] Add assignment files before due dates</li>
+<li>[ ] Update syllabus when policies change</li>
+<li>[ ] Keep schedule current (adjust for snow days, etc.)</li>
+</ul>
+<p><strong>Advanced features:</strong></p>
+<ul>
+<li>[ ] Explore <code>--json</code> output for scripting</li>
+<li>[ ] Set up CI/CD to auto-validate on push</li>
+<li>[ ] Create custom validation rules</li>
+<li>[ ] Integrate with LMS (future enhancement)</li>
+</ul>
 <h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="../../teaching-config-schema/">Config Schema Reference</a></strong> - Complete YAML specification</li>
 <li><strong><a href="../../teaching-migration/">Migration Guide</a></strong> - From manual to Craft workflows</li>
-<li><strong><a href="../commands/site/publish.md">Command Reference: <code>/craft:site:publish</code></a></strong> - Full command documentation</li>
-<li><strong><a href="../commands/site/progress.md">Command Reference: <code>/craft:site:progress</code></a></strong> - Progress dashboard</li>
-<li><strong><a href="../commands/site/validate.md">Command Reference: <code>/craft:site:validate</code></a></strong> - Content validation</li>
+<li><strong><a href="../../commands/site/publish.md">Command Reference: <code>/craft:site:publish</code></a></strong> - Full command documentation</li>
+<li><strong><a href="../../commands/site/progress.md">Command Reference: <code>/craft:site:progress</code></a></strong> - Progress dashboard</li>
+<li><strong><a href="../../commands/site/check.md">Command Reference: <code>/craft:site:validate</code></a></strong> - Content validation (via site:check)</li>
 </ul>
 <h2 id="help-and-support">Help and Support<a class="headerlink" href="#help-and-support" title="Permanent link">&para;</a></h2>
 <p><strong>Questions or issues?</strong></p>

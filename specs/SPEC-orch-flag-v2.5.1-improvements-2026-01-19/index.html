@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4430,26 +4430,30 @@
 <p>Address gaps identified in v2.5.0 --orch flag integration to improve user experience, error handling, and documentation completeness. This is a targeted improvement release focusing on the 3 highest-priority gaps from the gap analysis.</p>
 <hr />
 <h2 id="background">Background<a class="headerlink" href="#background" title="Permanent link">&para;</a></h2>
-<p>The v2.5.0 release successfully shipped the --orch flag feature with:
-- ✅ 56 tests (100% passing)
-- ✅ 5 commands integrated
-- ✅ Comprehensive user guide
-- ✅ Website documentation</p>
-<p><strong>Gap Analysis</strong> (GAP-ANALYSIS-orch-flag-v2.5.0.md) identified 12 gaps:
-- 1 High priority (mode prompt stub)
-- 2 Medium priority (error handling, testing checklist)
-- 9 Low priority (documentation enhancements, future features)</p>
+<p>The v2.5.0 release successfully shipped the --orch flag feature with:</p>
+<ul>
+<li>✅ 56 tests (100% passing)</li>
+<li>✅ 5 commands integrated</li>
+<li>✅ Comprehensive user guide</li>
+<li>✅ Website documentation</li>
+</ul>
+<p><strong>Gap Analysis</strong> (GAP-ANALYSIS-orch-flag-v2.5.0.md) identified 12 gaps:</p>
+<ul>
+<li>1 High priority (mode prompt stub)</li>
+<li>2 Medium priority (error handling, testing checklist)</li>
+<li>9 Low priority (documentation enhancements, future features)</li>
+</ul>
 <p>This spec addresses the <strong>top 3 gaps</strong> to bring v2.5.0 → v2.5.1 quality.</p>
 <hr />
 <h2 id="user-requirements">User Requirements<a class="headerlink" href="#user-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="gap-41-interactive-mode-prompt-high-priority">Gap 4.1: Interactive Mode Prompt (HIGH PRIORITY)<a class="headerlink" href="#gap-41-interactive-mode-prompt-high-priority" title="Permanent link">&para;</a></h3>
-<p><strong>Current Behavior:</strong>
+<p><strong>Current Behavior:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">prompt_user_for_mode</span><span class="p">():</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Prompt user to select orchestration mode&quot;&quot;&quot;</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="c1"># TODO: Implement using AskUserQuestion tool</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="k">return</span> <span class="s2">&quot;default&quot;</span>  <span class="c1"># Stub</span>
-</span></code></pre></div></p>
-<p><strong>Expected Behavior:</strong>
+</span></code></pre></div>
+<p><strong>Expected Behavior:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--orch
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Shows interactive prompt:</span>
@@ -4462,22 +4466,24 @@
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>User<span class="w"> </span>selects:<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>optimize<span class="o">)</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="c1"># Proceeds with optimize mode</span>
-</span></code></pre></div></p>
-<p><strong>Requirements:</strong>
-- Use <code>AskUserQuestion</code> tool for mode selection
-- Display all 4 modes with descriptions
-- Handle user cancellation gracefully
-- Validate selection is valid mode
-- Return selected mode as string</p>
+</span></code></pre></div>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Use <code>AskUserQuestion</code> tool for mode selection</li>
+<li>Display all 4 modes with descriptions</li>
+<li>Handle user cancellation gracefully</li>
+<li>Validate selection is valid mode</li>
+<li>Return selected mode as string</li>
+</ul>
 <hr />
 <h3 id="gap-42-error-handling-for-orchestrator-spawn-medium-priority">Gap 4.2: Error Handling for Orchestrator Spawn (MEDIUM PRIORITY)<a class="headerlink" href="#gap-42-error-handling-for-orchestrator-spawn-medium-priority" title="Permanent link">&para;</a></h3>
-<p><strong>Current Behavior:</strong>
+<p><strong>Current Behavior:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">spawn_orchestrator</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Spawn orchestrator with specified mode&quot;&quot;&quot;</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">Skill</span><span class="p">(</span><span class="n">skill</span><span class="o">=</span><span class="s2">&quot;craft:orchestrate&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="c1"># No error handling if skill fails</span>
-</span></code></pre></div></p>
-<p><strong>Expected Behavior:</strong>
+</span></code></pre></div>
+<p><strong>Expected Behavior:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">spawn_orchestrator</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Spawn orchestrator with specified mode&quot;&quot;&quot;</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="k">try</span><span class="p">:</span>
@@ -4487,38 +4493,42 @@
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️  Orchestrator spawn failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;💡 Falling back to command routing...&quot;</span><span class="p">)</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="k">return</span> <span class="kc">False</span>
-</span></code></pre></div></p>
-<p><strong>Requirements:</strong>
-- Wrap orchestrator spawn in try/except
-- Log error message if spawn fails
-- Return success boolean
-- Provide fallback strategy guidance
-- Don't break execution on failure</p>
+</span></code></pre></div>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Wrap orchestrator spawn in try/except</li>
+<li>Log error message if spawn fails</li>
+<li>Return success boolean</li>
+<li>Provide fallback strategy guidance</li>
+<li>Don't break execution on failure</li>
+</ul>
 <hr />
 <h3 id="gap-31-manual-testing-checklist-medium-priority">Gap 3.1: Manual Testing Checklist (MEDIUM PRIORITY)<a class="headerlink" href="#gap-31-manual-testing-checklist-medium-priority" title="Permanent link">&para;</a></h3>
 <p><strong>Current:</strong> No documented manual testing procedure for user interactions</p>
-<p><strong>Expected:</strong> Comprehensive checklist in IMPLEMENTATION.md covering:
-- Mode prompt interaction
-- Cancellation behavior
-- Invalid selections
-- Orchestrator spawn failures
-- Flag combinations</p>
+<p><strong>Expected:</strong> Comprehensive checklist in IMPLEMENTATION.md covering:</p>
+<ul>
+<li>Mode prompt interaction</li>
+<li>Cancellation behavior</li>
+<li>Invalid selections</li>
+<li>Orchestrator spawn failures</li>
+<li>Flag combinations</li>
+</ul>
 <p><strong>Format:</strong> Step-by-step checklist with expected outcomes</p>
 <hr />
 <h3 id="gap-11-claudemd-cross-reference-low-priority">Gap 1.1: CLAUDE.md Cross-Reference (LOW PRIORITY)<a class="headerlink" href="#gap-11-claudemd-cross-reference-low-priority" title="Permanent link">&para;</a></h3>
 <p><strong>Current:</strong> CLAUDE.md mentions orchestration but doesn't link to orch-flag-usage.md</p>
-<p><strong>Expected:</strong> Direct link in Key Files section:
+<p><strong>Expected:</strong> Direct link in Key Files section:</p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gu">## Key Files</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>| File | Purpose |
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>|------|---------|
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>| <span class="sb">`docs/guide/orch-flag-usage.md`</span> | --orch flag usage guide (v2.5.0) |
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="technical-requirements">Technical Requirements<a class="headerlink" href="#technical-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="1-implement-prompt_user_for_mode">1. Implement <code>prompt_user_for_mode()</code><a class="headerlink" href="#1-implement-prompt_user_for_mode" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>utils/orch_flag_handler.py</code></p>
-<p><strong>Implementation:</strong>
+<p><strong>Implementation:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">prompt_user_for_mode</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="sd">    Prompt user to select orchestration mode interactively.</span>
@@ -4572,8 +4582,8 @@
 </span><span id="__span-5-51"><a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️  Mode selection failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span><span id="__span-5-52"><a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;💡 Defaulting to &#39;default&#39; mode&quot;</span><span class="p">)</span>
 </span><span id="__span-5-53"><a id="__codelineno-5-53" name="__codelineno-5-53" href="#__codelineno-5-53"></a>        <span class="k">return</span> <span class="s2">&quot;default&quot;</span>
-</span></code></pre></div></p>
-<p><strong>Tests:</strong>
+</span></code></pre></div>
+<p><strong>Tests:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># tests/test_orch_flag_handler.py</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_prompt_user_for_mode_returns_valid_mode</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
@@ -4600,11 +4610,11 @@
 </span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>
 </span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>    <span class="n">mode</span> <span class="o">=</span> <span class="n">prompt_user_for_mode</span><span class="p">()</span>
 </span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>    <span class="k">assert</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span>  <span class="c1"># Falls back to default on invalid</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="2-add-error-handling-to-spawn_orchestrator">2. Add Error Handling to <code>spawn_orchestrator()</code><a class="headerlink" href="#2-add-error-handling-to-spawn_orchestrator" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>utils/orch_flag_handler.py</code></p>
-<p><strong>Implementation:</strong>
+<p><strong>Implementation:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">spawn_orchestrator</span><span class="p">(</span><span class="n">task</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extra_args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="sd">    Spawn orchestrator with specified mode.</span>
@@ -4634,8 +4644,8 @@
 </span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠️  Orchestrator spawn failed: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;💡 Suggestion: Try using explicit commands or check orchestrator status&quot;</span><span class="p">)</span>
 </span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>        <span class="k">return</span> <span class="kc">False</span>
-</span></code></pre></div></p>
-<p><strong>Updated Callers:</strong>
+</span></code></pre></div>
+<p><strong>Updated Callers:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># In commands that use spawn_orchestrator</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">should_orch</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">handle_orch_flag</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">orch_flag</span><span class="p">,</span> <span class="n">mode_flag</span><span class="p">)</span>
@@ -4650,8 +4660,8 @@
 </span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>        <span class="c1"># Fallback to command routing</span>
 </span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;📋 Falling back to command routing...&quot;</span><span class="p">)</span>
 </span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>        <span class="c1"># Continue with existing command logic</span>
-</span></code></pre></div></p>
-<p><strong>Tests:</strong>
+</span></code></pre></div>
+<p><strong>Tests:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># tests/test_orch_flag_handler.py</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_spawn_orchestrator_returns_true_on_success</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
@@ -4681,11 +4691,11 @@
 </span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>
 </span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>    <span class="n">call_args</span> <span class="o">=</span> <span class="n">mock_skill</span><span class="o">.</span><span class="n">call_args</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;args&quot;</span><span class="p">]</span>
 </span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>    <span class="k">assert</span> <span class="s2">&quot;test task optimize --dry-run&quot;</span> <span class="o">==</span> <span class="n">call_args</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="3-create-manual-testing-checklist">3. Create Manual Testing Checklist<a class="headerlink" href="#3-create-manual-testing-checklist" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>~/.git-worktrees/craft/feature-orch-flag-v2.5.1-improvements/TESTING-CHECKLIST.md</code></p>
-<p><strong>Content:</strong>
+<p><strong>Content:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="gh"># Manual Testing Checklist: --orch Flag</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="gu">## Prerequisites</span>
@@ -4744,11 +4754,11 @@
 </span><span id="__span-10-56"><a id="__codelineno-10-56" name="__codelineno-10-56" href="#__codelineno-10-56"></a><span class="k">- [ ]</span> No unexpected errors or crashes
 </span><span id="__span-10-57"><a id="__codelineno-10-57" name="__codelineno-10-57" href="#__codelineno-10-57"></a><span class="k">- [ ]</span> Fallbacks work gracefully
 </span><span id="__span-10-58"><a id="__codelineno-10-58" name="__codelineno-10-58" href="#__codelineno-10-58"></a><span class="k">- [ ]</span> User experience is smooth and intuitive
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="4-update-claudemd">4. Update CLAUDE.md<a class="headerlink" href="#4-update-claudemd" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>CLAUDE.md</code></p>
-<p><strong>Changes:</strong>
+<p><strong>Changes:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gu">## Key Files</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>| File | Purpose |
@@ -4761,7 +4771,7 @@
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>| <span class="sb">`commands/workflow/brainstorm.md`</span> | ADHD-friendly brainstorming (v2.4.0 - Question control) |
 </span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>| <span class="sb">`docs/guide/orch-flag-usage.md`</span> | --orch flag usage guide (v2.5.0) | &lt;-- ADD THIS
 </span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>| <span class="sb">`docs/VERSION-HISTORY.md`</span> | Complete version evolution (NEW) |
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="acceptance-criteria">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
 <h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
@@ -4781,31 +4791,43 @@
 <hr />
 <h2 id="implementation-plan">Implementation Plan<a class="headerlink" href="#implementation-plan" title="Permanent link">&para;</a></h2>
 <h3 id="phase-1-core-improvements-2-3-hours">Phase 1: Core Improvements (2-3 hours)<a class="headerlink" href="#phase-1-core-improvements-2-3-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Deliverables:</strong>
-- [ ] Implement <code>prompt_user_for_mode()</code> with <code>AskUserQuestion</code>
-- [ ] Add error handling to <code>spawn_orchestrator()</code>
-- [ ] Update function signatures and return types
-- [ ] Add type hints</p>
-<p><strong>Files:</strong>
-- <code>utils/orch_flag_handler.py</code> (UPDATE)</p>
+<p><strong>Deliverables:</strong></p>
+<ul>
+<li>[ ] Implement <code>prompt_user_for_mode()</code> with <code>AskUserQuestion</code></li>
+<li>[ ] Add error handling to <code>spawn_orchestrator()</code></li>
+<li>[ ] Update function signatures and return types</li>
+<li>[ ] Add type hints</li>
+</ul>
+<p><strong>Files:</strong></p>
+<ul>
+<li><code>utils/orch_flag_handler.py</code> (UPDATE)</li>
+</ul>
 <h3 id="phase-2-testing-1-2-hours">Phase 2: Testing (1-2 hours)<a class="headerlink" href="#phase-2-testing-1-2-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Deliverables:</strong>
-- [ ] Add 6 new unit tests for prompt function
-- [ ] Add 3 new unit tests for error handling
-- [ ] Create manual testing checklist
-- [ ] Run all existing tests (ensure no regression)</p>
-<p><strong>Files:</strong>
-- <code>tests/test_orch_flag_handler.py</code> (UPDATE)
-- <code>TESTING-CHECKLIST.md</code> (NEW)</p>
+<p><strong>Deliverables:</strong></p>
+<ul>
+<li>[ ] Add 6 new unit tests for prompt function</li>
+<li>[ ] Add 3 new unit tests for error handling</li>
+<li>[ ] Create manual testing checklist</li>
+<li>[ ] Run all existing tests (ensure no regression)</li>
+</ul>
+<p><strong>Files:</strong></p>
+<ul>
+<li><code>tests/test_orch_flag_handler.py</code> (UPDATE)</li>
+<li><code>TESTING-CHECKLIST.md</code> (NEW)</li>
+</ul>
 <h3 id="phase-3-documentation-1-hour">Phase 3: Documentation (1 hour)<a class="headerlink" href="#phase-3-documentation-1-hour" title="Permanent link">&para;</a></h3>
-<p><strong>Deliverables:</strong>
-- [ ] Update CLAUDE.md with orch guide link
-- [ ] Update orch-flag-usage.md with troubleshooting section
-- [ ] Update VERSION-HISTORY.md with v2.5.1 entry</p>
-<p><strong>Files:</strong>
-- <code>CLAUDE.md</code> (UPDATE)
-- <code>docs/guide/orch-flag-usage.md</code> (UPDATE)
-- <code>docs/VERSION-HISTORY.md</code> (UPDATE)</p>
+<p><strong>Deliverables:</strong></p>
+<ul>
+<li>[ ] Update CLAUDE.md with orch guide link</li>
+<li>[ ] Update orch-flag-usage.md with troubleshooting section</li>
+<li>[ ] Update VERSION-HISTORY.md with v2.5.1 entry</li>
+</ul>
+<p><strong>Files:</strong></p>
+<ul>
+<li><code>CLAUDE.md</code> (UPDATE)</li>
+<li><code>docs/guide/orch-flag-usage.md</code> (UPDATE)</li>
+<li><code>docs/VERSION-HISTORY.md</code> (UPDATE)</li>
+</ul>
 <hr />
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
 <h3 id="internal-dependencies">Internal Dependencies<a class="headerlink" href="#internal-dependencies" title="Permanent link">&para;</a></h3>
@@ -4851,17 +4873,21 @@
 <hr />
 <h2 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h2>
 <h3 id="unit-tests-9-new-tests">Unit Tests (9 new tests)<a class="headerlink" href="#unit-tests-9-new-tests" title="Permanent link">&para;</a></h3>
-<p><strong>Mode Prompt Tests (6):</strong>
-- test_prompt_user_for_mode_returns_valid_mode
-- test_prompt_user_for_mode_handles_cancellation
-- test_prompt_user_for_mode_handles_invalid_selection
-- test_prompt_user_for_mode_all_modes
-- test_prompt_user_for_mode_extracts_mode_correctly
-- test_prompt_user_for_mode_tool_unavailable</p>
-<p><strong>Error Handling Tests (3):</strong>
-- test_spawn_orchestrator_returns_true_on_success
-- test_spawn_orchestrator_returns_false_on_failure
-- test_spawn_orchestrator_includes_extra_args</p>
+<p><strong>Mode Prompt Tests (6):</strong></p>
+<ul>
+<li>test_prompt_user_for_mode_returns_valid_mode</li>
+<li>test_prompt_user_for_mode_handles_cancellation</li>
+<li>test_prompt_user_for_mode_handles_invalid_selection</li>
+<li>test_prompt_user_for_mode_all_modes</li>
+<li>test_prompt_user_for_mode_extracts_mode_correctly</li>
+<li>test_prompt_user_for_mode_tool_unavailable</li>
+</ul>
+<p><strong>Error Handling Tests (3):</strong></p>
+<ul>
+<li>test_spawn_orchestrator_returns_true_on_success</li>
+<li>test_spawn_orchestrator_returns_false_on_failure</li>
+<li>test_spawn_orchestrator_includes_extra_args</li>
+</ul>
 <h3 id="manual-testing-8-scenarios">Manual Testing (8 scenarios)<a class="headerlink" href="#manual-testing-8-scenarios" title="Permanent link">&para;</a></h3>
 <p>See TESTING-CHECKLIST.md for complete manual test plan.</p>
 <hr />

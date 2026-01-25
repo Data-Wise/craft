@@ -3862,7 +3862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4165,57 +4165,65 @@
 <p>Universal AI-powered commands for intelligent task routing.</p>
 <h2 id="craftdo">/craft:do<a class="headerlink" href="#craftdo" title="Permanent link">&para;</a></h2>
 <p><strong>Purpose:</strong> Universal command that routes tasks to the best workflow automatically.</p>
-<p><strong>Usage:</strong>
+<p><strong>Usage:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;optimize database queries&quot;</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;create API documentation&quot;</span>
-</span></code></pre></div></p>
-<p>The AI analyzes your request and:
-1. Determines the best approach
-2. Selects appropriate tools/commands
-3. Executes the workflow
-4. Reports results</p>
+</span></code></pre></div>
+<p>The AI analyzes your request and:</p>
+<ol>
+<li>Determines the best approach</li>
+<li>Selects appropriate tools/commands</li>
+<li>Executes the workflow</li>
+<li>Reports results</li>
+</ol>
 <h2 id="craftorchestrate">/craft:orchestrate<a class="headerlink" href="#craftorchestrate" title="Permanent link">&para;</a></h2>
 <p><strong>Purpose:</strong> Enhanced orchestrator v2.1 with mode-aware execution and subagent monitoring.</p>
-<p><strong>Usage:</strong>
+<p><strong>Usage:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>optimize<span class="w">    </span><span class="c1"># Fast parallel</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;prep release&quot;</span><span class="w"> </span>release<span class="w">       </span><span class="c1"># Thorough audit</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>/craft:orchestrate<span class="w"> </span>status<span class="w">                       </span><span class="c1"># Agent dashboard</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>/craft:orchestrate<span class="w"> </span>timeline<span class="w">                     </span><span class="c1"># Execution timeline</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span><span class="w">                     </span><span class="c1"># Resume session</span>
-</span></code></pre></div></p>
-<p><strong>Features:</strong>
-- Mode-aware execution (default/debug/optimize/release)
-- Subagent delegation and monitoring
-- Chat compression for long sessions
-- ADHD-optimized status tracking
-- Timeline view of execution</p>
+</span></code></pre></div>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Mode-aware execution (default/debug/optimize/release)</li>
+<li>Subagent delegation and monitoring</li>
+<li>Chat compression for long sessions</li>
+<li>ADHD-optimized status tracking</li>
+<li>Timeline view of execution</li>
+</ul>
 <h2 id="craftcheck">/craft:check<a class="headerlink" href="#craftcheck" title="Permanent link">&para;</a></h2>
 <p><strong>Purpose:</strong> Pre-flight checks before commits, PRs, or releases.</p>
-<p><strong>Usage:</strong>
+<p><strong>Usage:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:check<span class="w">                    </span><span class="c1"># Quick validation</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>commit<span class="w">       </span><span class="c1"># Pre-commit checks</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>pr<span class="w">           </span><span class="c1"># Pre-PR validation</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>release<span class="w">      </span><span class="c1"># Full release audit</span>
-</span></code></pre></div></p>
-<p><strong>Checks:</strong>
-- Code linting
-- Test execution
-- Documentation validation
-- Build verification
-- Dependency updates</p>
+</span></code></pre></div>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Code linting</li>
+<li>Test execution</li>
+<li>Documentation validation</li>
+<li>Build verification</li>
+<li>Dependency updates</li>
+</ul>
 <h2 id="crafthelp">/craft:help<a class="headerlink" href="#crafthelp" title="Permanent link">&para;</a></h2>
 <p><strong>Purpose:</strong> Context-aware help and suggestions for your project.</p>
-<p><strong>Usage:</strong>
+<p><strong>Usage:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:help<span class="w">                     </span><span class="c1"># General suggestions</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:help<span class="w"> </span>testing<span class="w">             </span><span class="c1"># Deep dive into testing</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/craft:help<span class="w"> </span>documentation<span class="w">       </span><span class="c1"># Docs-specific help</span>
-</span></code></pre></div></p>
-<p><strong>Features:</strong>
-- Analyzes your project structure
-- Suggests relevant commands
-- Provides context-specific guidance
-- Links to documentation</p>
+</span></code></pre></div>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Analyzes your project structure</li>
+<li>Suggests relevant commands</li>
+<li>Provides context-specific guidance</li>
+<li>Links to documentation</li>
+</ul>
 
 
 

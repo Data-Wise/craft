@@ -4584,7 +4584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5663,52 +5663,62 @@ Solo instructors currently manage course sites through manual git branch switchi
 <p><strong>As a solo instructor managing a course website,</strong>
 <strong>I want to</strong> preview my draft changes and validate content before publishing to production,
 <strong>So that</strong> I can deploy course materials confidently without breaking the student-facing site.</p>
-<p><strong>Acceptance Criteria:</strong>
-1. ✅ Teaching mode is automatically detected from project structure and configuration
-2. ✅ Running <code>/craft:site:publish</code> shows a diff of changes before deploying
-3. ✅ Validation checks (content completeness, broken links, assignment files) run before publish
-4. ✅ Publishing requires explicit confirmation after previewing changes
-5. ✅ Merge to production uses fast-forward only (clean git history)
-6. ✅ If deployment fails, automatic rollback to previous production state
-7. ✅ Entire workflow completes in &lt; 5 minutes</p>
-<p><strong>Success Metrics:</strong>
-- Time to publish: 15 min → 3 min (80% reduction)
-- Production bugs: 2-3 per semester → 0
-- User confidence: 9/10 "feel safe publishing"</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ol>
+<li>✅ Teaching mode is automatically detected from project structure and configuration</li>
+<li>✅ Running <code>/craft:site:publish</code> shows a diff of changes before deploying</li>
+<li>✅ Validation checks (content completeness, broken links, assignment files) run before publish</li>
+<li>✅ Publishing requires explicit confirmation after previewing changes</li>
+<li>✅ Merge to production uses fast-forward only (clean git history)</li>
+<li>✅ If deployment fails, automatic rollback to previous production state</li>
+<li>✅ Entire workflow completes in &lt; 5 minutes</li>
+</ol>
+<p><strong>Success Metrics:</strong></p>
+<ul>
+<li>Time to publish: 15 min → 3 min (80% reduction)</li>
+<li>Production bugs: 2-3 per semester → 0</li>
+<li>User confidence: 9/10 "feel safe publishing"</li>
+</ul>
 <hr />
 <h2 id="secondary-user-stories">Secondary User Stories<a class="headerlink" href="#secondary-user-stories" title="Permanent link">&para;</a></h2>
 <h3 id="us-2-semester-progress-tracking">US-2: Semester Progress Tracking<a class="headerlink" href="#us-2-semester-progress-tracking" title="Permanent link">&para;</a></h3>
 <p><strong>As an instructor,</strong>
 <strong>I want to</strong> see my current week and semester progress at a glance,
 <strong>So that</strong> I know what content is due and can stay on schedule.</p>
-<p><strong>Acceptance Criteria:</strong>
-- Auto-calculate current week from semester start/end dates
-- Account for scheduled breaks (Spring Break, holidays)
-- Show upcoming milestones (assignments due, exams)
-- Support manual week override for edge cases
-- Display progress in ADHD-friendly visual format</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Auto-calculate current week from semester start/end dates</li>
+<li>Account for scheduled breaks (Spring Break, holidays)</li>
+<li>Show upcoming milestones (assignments due, exams)</li>
+<li>Support manual week override for edge cases</li>
+<li>Display progress in ADHD-friendly visual format</li>
+</ul>
 <hr />
 <h3 id="us-3-content-validation">US-3: Content Validation<a class="headerlink" href="#us-3-content-validation" title="Permanent link">&para;</a></h3>
 <p><strong>As an instructor preparing course materials,</strong>
 <strong>I want to</strong> validate my syllabus, schedule, and assignments for completeness,
 <strong>So that</strong> I catch errors before students see them.</p>
-<p><strong>Acceptance Criteria:</strong>
-- Check syllabus has required sections (grading, policies, objectives)
-- Verify schedule covers all weeks
-- Confirm assignment files exist for schedule references
-- Detect broken internal links
-- Report warnings vs errors (allow publish with warnings)</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>Check syllabus has required sections (grading, policies, objectives)</li>
+<li>Verify schedule covers all weeks</li>
+<li>Confirm assignment files exist for schedule references</li>
+<li>Detect broken internal links</li>
+<li>Report warnings vs errors (allow publish with warnings)</li>
+</ul>
 <hr />
 <h3 id="us-4-teaching-aware-commands">US-4: Teaching-Aware Commands<a class="headerlink" href="#us-4-teaching-aware-commands" title="Permanent link">&para;</a></h3>
 <p><strong>As an instructor using Craft for course sites,</strong>
 <strong>I want</strong> existing Craft commands to understand teaching context,
 <strong>So that</strong> I get relevant information without extra flags.</p>
-<p><strong>Acceptance Criteria:</strong>
-- <code>/craft:site:build</code> detects teaching mode automatically
-- <code>/craft:site:check</code> runs teaching-specific validation
-- <code>/craft:git:status</code> shows draft vs production diff
-- Commands display semester progress when relevant
-- Teaching context shown in ADHD-friendly format</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li><code>/craft:site:build</code> detects teaching mode automatically</li>
+<li><code>/craft:site:check</code> runs teaching-specific validation</li>
+<li><code>/craft:git:status</code> shows draft vs production diff</li>
+<li>Commands display semester progress when relevant</li>
+<li>Teaching context shown in ADHD-friendly format</li>
+</ul>
 <hr />
 <h2 id="technical-requirements">Technical Requirements<a class="headerlink" href="#technical-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
@@ -5731,11 +5741,13 @@ Solo instructors currently manage course sites through manual git branch switchi
     Validate --&gt; Execute[Execute command with teaching context]
 
     TeachingOff --&gt; NormalExec[Execute command normally]</code></pre>
-<p><strong>Detection Priority:</strong>
-1. <code>.flow/teach-config.yml</code> exists → Teaching ON
-2. <code>_quarto.yml</code> has <code>teaching: true</code> field → Teaching ON
-3. Project has <code>syllabus/</code> and <code>schedule.qmd</code> → Teaching ON
-4. Otherwise → Teaching OFF</p>
+<p><strong>Detection Priority:</strong></p>
+<ol>
+<li><code>.flow/teach-config.yml</code> exists → Teaching ON</li>
+<li><code>_quarto.yml</code> has <code>teaching: true</code> field → Teaching ON</li>
+<li>Project has <code>syllabus/</code> and <code>schedule.qmd</code> → Teaching ON</li>
+<li>Otherwise → Teaching OFF</li>
+</ol>
 <hr />
 <h4 id="publish-workflow">Publish Workflow<a class="headerlink" href="#publish-workflow" title="Permanent link">&para;</a></h4>
 <pre class="mermaid"><code>flowchart TD
@@ -5793,7 +5805,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="sd">        (False, None)</span>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="sd">    &quot;&quot;&quot;</span>
 </span></code></pre></div>
-<p><strong>Detection Logic:</strong>
+<p><strong>Detection Logic:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Priority 1: Explicit config</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;.flow&quot;</span><span class="p">,</span> <span class="s2">&quot;teach-config.yml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;teach-config.yml&quot;</span>
@@ -5807,7 +5819,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;project structure&quot;</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="config-file-api">Config File API<a class="headerlink" href="#config-file-api" title="Permanent link">&para;</a></h4>
 <p><strong>File:</strong> <code>.flow/teach-config.yml</code></p>
@@ -5873,7 +5885,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="sd">      5. Teaching metadata complete (course info, dates)</span>
 </span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="sd">    &quot;&quot;&quot;</span>
 </span></code></pre></div>
-<p><strong>Example Output:</strong>
+<p><strong>Example Output:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">ValidationResult</span><span class="p">(</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">valid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">errors</span><span class="o">=</span><span class="p">[],</span>
@@ -5886,7 +5898,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 </span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="s2">&quot;metadata_complete&quot;</span><span class="p">:</span> <span class="kc">True</span>
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="p">}</span>
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="p">)</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="data-models">Data Models<a class="headerlink" href="#data-models" title="Permanent link">&para;</a></h3>
 <h4 id="teachingcontext">TeachingContext<a class="headerlink" href="#teachingcontext" title="Permanent link">&para;</a></h4>
@@ -5962,8 +5974,10 @@ Solo instructors currently manage course sites through manual git branch switchi
 </tbody>
 </table>
 <p><strong>New Dependencies:</strong> None (all already in Craft)</p>
-<p><strong>Optional:</strong>
-- <code>beautifulsoup4</code> - HTML parsing for link checking (if not using existing checker)</p>
+<p><strong>Optional:</strong></p>
+<ul>
+<li><code>beautifulsoup4</code> - HTML parsing for link checking (if not using existing checker)</li>
+</ul>
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow-publishing-to-production">User Flow: Publishing to Production<a class="headerlink" href="#user-flow-publishing-to-production" title="Permanent link">&para;</a></h3>
@@ -6141,41 +6155,51 @@ Solo instructors currently manage course sites through manual git branch switchi
 <h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
 <h3 id="q1-lms-integration-priority">Q1: LMS Integration Priority?<a class="headerlink" href="#q1-lms-integration-priority" title="Permanent link">&para;</a></h3>
 <p><strong>Question:</strong> Should Craft integrate with Canvas/Moodle APIs for assignment sync?</p>
-<p><strong>Options:</strong>
-- <strong>A)</strong> Yes - auto-sync assignments, grades, announcements
-- <strong>B)</strong> No - focus on static site workflow only
-- <strong>C)</strong> Later - phase 5+ feature</p>
+<p><strong>Options:</strong></p>
+<ul>
+<li><strong>A)</strong> Yes - auto-sync assignments, grades, announcements</li>
+<li><strong>B)</strong> No - focus on static site workflow only</li>
+<li><strong>C)</strong> Later - phase 5+ feature</li>
+</ul>
 <p><strong>Recommendation:</strong> <strong>C - Later.</strong> LMS integration is valuable but complex. Focus on core publish workflow first.</p>
 <p><strong>Decision:</strong> Deferred to v1.23.0+</p>
 <hr />
 <h3 id="q2-multi-instructor-support">Q2: Multi-Instructor Support?<a class="headerlink" href="#q2-multi-instructor-support" title="Permanent link">&para;</a></h3>
 <p><strong>Question:</strong> Should teaching mode support multiple instructors/TAs?</p>
-<p><strong>Implications:</strong>
-- Permissions for who can publish
-- Review workflow before production
-- Role-based access</p>
-<p><strong>Options:</strong>
-- <strong>A)</strong> Solo instructor only (current scope)
-- <strong>B)</strong> Add multi-instructor in phase 5
-- <strong>C)</strong> Design for multi-instructor from start</p>
+<p><strong>Implications:</strong></p>
+<ul>
+<li>Permissions for who can publish</li>
+<li>Review workflow before production</li>
+<li>Role-based access</li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul>
+<li><strong>A)</strong> Solo instructor only (current scope)</li>
+<li><strong>B)</strong> Add multi-instructor in phase 5</li>
+<li><strong>C)</strong> Design for multi-instructor from start</li>
+</ul>
 <p><strong>Recommendation:</strong> <strong>A initially, B for future.</strong> Solo instructor covers 80% of use cases. Add multi-instructor when validated.</p>
 <p><strong>Decision:</strong> Solo instructor for v1.22.0, revisit for v1.23.0</p>
 <hr />
 <h3 id="q3-assignment-template-library">Q3: Assignment Template Library?<a class="headerlink" href="#q3-assignment-template-library" title="Permanent link">&para;</a></h3>
 <p><strong>Question:</strong> Should Craft include pre-made assignment templates?</p>
-<p><strong>Options:</strong>
-- <strong>A)</strong> Yes - include 5-10 common templates (quiz, problem set, project, exam)
-- <strong>B)</strong> No - instructor creates own templates
-- <strong>C)</strong> Plugin system - users share templates</p>
+<p><strong>Options:</strong></p>
+<ul>
+<li><strong>A)</strong> Yes - include 5-10 common templates (quiz, problem set, project, exam)</li>
+<li><strong>B)</strong> No - instructor creates own templates</li>
+<li><strong>C)</strong> Plugin system - users share templates</li>
+</ul>
 <p><strong>Recommendation:</strong> <strong>A for common patterns.</strong> Include basic templates, allow customization.</p>
 <p><strong>Decision:</strong> Include 3 starter templates in Phase 5 (<code>/craft:teach:assign</code>)</p>
 <hr />
 <h3 id="q4-deployment-platform-assumptions">Q4: Deployment Platform Assumptions?<a class="headerlink" href="#q4-deployment-platform-assumptions" title="Permanent link">&para;</a></h3>
 <p><strong>Question:</strong> Assume GitHub Pages or support multiple platforms?</p>
-<p><strong>Current Scope:</strong>
-- GitHub Pages (Quarto native support)
-- Netlify (popular alternative)
-- Vercel, GitLab Pages, AWS S3</p>
+<p><strong>Current Scope:</strong></p>
+<ul>
+<li>GitHub Pages (Quarto native support)</li>
+<li>Netlify (popular alternative)</li>
+<li>Vercel, GitLab Pages, AWS S3</li>
+</ul>
 <p><strong>Recommendation:</strong> <strong>Start with GitHub Pages</strong>, abstract deployment interface for future platforms.</p>
 <p><strong>Decision:</strong> GitHub Pages for v1.22.0, abstract interface for v1.23.0</p>
 <hr />
@@ -6231,13 +6255,17 @@ Solo instructors currently manage course sites through manual git branch switchi
 <h2 id="implementation-notes">Implementation Notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
 <h3 id="phase-1-foundation-week-1">Phase 1: Foundation (Week 1)<a class="headerlink" href="#phase-1-foundation-week-1" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Basic teaching mode detection + validation</p>
-<p><strong>Tasks:</strong>
-1. Create <code>commands/utils/detect_teaching_mode.py</code>
-   - Implement detection logic (config → metadata → structure)
-   - Write unit tests
-   - Integrate into <code>/craft:site:check</code></p>
+<p><strong>Tasks:</strong></p>
 <ol>
-<li>Create <code>commands/utils/teaching_validation.py</code></li>
+<li>Create <code>commands/utils/detect_teaching_mode.py</code></li>
+<li>Implement detection logic (config → metadata → structure)</li>
+<li>Write unit tests</li>
+<li>
+<p>Integrate into <code>/craft:site:check</code></p>
+</li>
+<li>
+<p>Create <code>commands/utils/teaching_validation.py</code></p>
+</li>
 <li>Syllabus completeness check</li>
 <li>Schedule coverage check</li>
 <li>Assignment file verification</li>
@@ -6253,24 +6281,30 @@ Solo instructors currently manage course sites through manual git branch switchi
 <li>Return exit code (0 = pass, 1 = errors, 2 = warnings)</li>
 </ol>
 <p><strong>Estimated Time:</strong> ~60 min (3 quick wins)</p>
-<p><strong>Deliverables:</strong>
-- <code>utils/detect_teaching_mode.py</code> (100 lines)
-- <code>utils/teaching_validation.py</code> (200 lines)
-- <code>/craft:site:validate</code> command (50 lines)
-- 15+ unit tests</p>
+<p><strong>Deliverables:</strong></p>
+<ul>
+<li><code>utils/detect_teaching_mode.py</code> (100 lines)</li>
+<li><code>utils/teaching_validation.py</code> (200 lines)</li>
+<li><code>/craft:site:validate</code> command (50 lines)</li>
+<li>15+ unit tests</li>
+</ul>
 <hr />
 <h3 id="phase-2-publishing-workflow-week-2">Phase 2: Publishing Workflow (Week 2)<a class="headerlink" href="#phase-2-publishing-workflow-week-2" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Safe preview-before-publish deployment</p>
-<p><strong>Tasks:</strong>
-1. Enhance <code>/craft:site:publish</code> with teaching mode
-   - Auto-detect teaching mode
-   - Run validation before publish
-   - Show diff preview with critical highlights
-   - Prompt for confirmation (AskUserQuestion)
-   - Execute merge with backup
-   - Rollback on failure</p>
+<p><strong>Tasks:</strong></p>
 <ol>
-<li>Git operations utility</li>
+<li>Enhance <code>/craft:site:publish</code> with teaching mode</li>
+<li>Auto-detect teaching mode</li>
+<li>Run validation before publish</li>
+<li>Show diff preview with critical highlights</li>
+<li>Prompt for confirmation (AskUserQuestion)</li>
+<li>Execute merge with backup</li>
+<li>
+<p>Rollback on failure</p>
+</li>
+<li>
+<p>Git operations utility</p>
+</li>
 <li><code>git diff production..draft</code> parser</li>
 <li>Fast-forward merge with conflict detection</li>
 <li>Branch backup mechanism</li>
@@ -6286,20 +6320,26 @@ Solo instructors currently manage course sites through manual git branch switchi
 <li>Test rollback scenario</li>
 </ol>
 <p><strong>Estimated Time:</strong> ~90 min</p>
-<p><strong>Deliverables:</strong>
-- Enhanced <code>/craft:site:publish</code> (150 lines)
-- <code>utils/git_teaching.py</code> (100 lines)
-- 10+ integration tests</p>
+<p><strong>Deliverables:</strong></p>
+<ul>
+<li>Enhanced <code>/craft:site:publish</code> (150 lines)</li>
+<li><code>utils/git_teaching.py</code> (100 lines)</li>
+<li>10+ integration tests</li>
+</ul>
 <hr />
 <h3 id="phase-3-progress-tracking-week-3">Phase 3: Progress Tracking (Week 3)<a class="headerlink" href="#phase-3-progress-tracking-week-3" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Semester progress visibility</p>
-<p><strong>Tasks:</strong>
-1. Config file schema
-   - Document <code>.flow/teach-config.yml</code> structure
-   - Create schema validator
-   - Write example configs</p>
+<p><strong>Tasks:</strong></p>
 <ol>
-<li>Week calculation logic</li>
+<li>Config file schema</li>
+<li>Document <code>.flow/teach-config.yml</code> structure</li>
+<li>Create schema validator</li>
+<li>
+<p>Write example configs</p>
+</li>
+<li>
+<p>Week calculation logic</p>
+</li>
 <li>Parse start/end dates</li>
 <li>Account for breaks</li>
 <li>Support manual override</li>
@@ -6315,22 +6355,28 @@ Solo instructors currently manage course sites through manual git branch switchi
 <li>Format in ADHD-friendly layout</li>
 </ol>
 <p><strong>Estimated Time:</strong> ~120 min</p>
-<p><strong>Deliverables:</strong>
-- <code>.flow/teach-config.yml</code> schema doc
-- <code>utils/semester_progress.py</code> (150 lines)
-- <code>/craft:site:progress</code> command (100 lines)
-- 8+ unit tests</p>
+<p><strong>Deliverables:</strong></p>
+<ul>
+<li><code>.flow/teach-config.yml</code> schema doc</li>
+<li><code>utils/semester_progress.py</code> (150 lines)</li>
+<li><code>/craft:site:progress</code> command (100 lines)</li>
+<li>8+ unit tests</li>
+</ul>
 <hr />
 <h3 id="phase-4-integration-week-4">Phase 4: Integration (Week 4)<a class="headerlink" href="#phase-4-integration-week-4" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Teaching-aware existing commands</p>
-<p><strong>Tasks:</strong>
-1. Enhance <code>/craft:site:build</code>
-   - Auto-detect teaching mode
-   - Show semester progress before build
-   - Run validation checks
-   - Suggest next steps after build</p>
+<p><strong>Tasks:</strong></p>
 <ol>
-<li>Enhance <code>/craft:git:status</code></li>
+<li>Enhance <code>/craft:site:build</code></li>
+<li>Auto-detect teaching mode</li>
+<li>Show semester progress before build</li>
+<li>Run validation checks</li>
+<li>
+<p>Suggest next steps after build</p>
+</li>
+<li>
+<p>Enhance <code>/craft:git:status</code></p>
+</li>
 <li>Show draft vs production diff summary</li>
 <li>
 <p>Highlight files critical for teaching (syllabus, schedule)</p>
@@ -6344,19 +6390,23 @@ Solo instructors currently manage course sites through manual git branch switchi
 <li>Migration guide</li>
 </ol>
 <p><strong>Estimated Time:</strong> ~60 min</p>
-<p><strong>Deliverables:</strong>
-- Enhanced <code>/craft:site:build</code> (50 lines added)
-- Enhanced <code>/craft:git:status</code> (30 lines added)
-- Documentation (4 pages)</p>
+<p><strong>Deliverables:</strong></p>
+<ul>
+<li>Enhanced <code>/craft:site:build</code> (50 lines added)</li>
+<li>Enhanced <code>/craft:git:status</code> (30 lines added)</li>
+<li>Documentation (4 pages)</li>
+</ul>
 <hr />
 <h3 id="phase-5-advanced-features-future">Phase 5: Advanced Features (Future)<a class="headerlink" href="#phase-5-advanced-features-future" title="Permanent link">&para;</a></h3>
 <p><strong>Scope:</strong> Deferred to v1.23.0+</p>
-<p><strong>Commands:</strong>
-- <code>/craft:teach:init</code> - Initialize teaching project
-- <code>/craft:teach:assign &lt;n&gt;</code> - Create assignment from template
-- <code>/craft:teach:week &lt;n&gt;</code> - Set current week manually
-- <code>/craft:teach:schedule</code> - Generate schedule from template
-- <code>/craft:teach:sync</code> - LMS integration (Canvas, Moodle)</p>
+<p><strong>Commands:</strong></p>
+<ul>
+<li><code>/craft:teach:init</code> - Initialize teaching project</li>
+<li><code>/craft:teach:assign &lt;n&gt;</code> - Create assignment from template</li>
+<li><code>/craft:teach:week &lt;n&gt;</code> - Set current week manually</li>
+<li><code>/craft:teach:schedule</code> - Generate schedule from template</li>
+<li><code>/craft:teach:sync</code> - LMS integration (Canvas, Moodle)</li>
+</ul>
 <p><strong>Estimated Time:</strong> ~15-20 hours (gradual implementation)</p>
 <hr />
 <h3 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h3>
@@ -6377,12 +6427,14 @@ Solo instructors currently manage course sites through manual git branch switchi
 <li>Multi-command integration (build → validate → publish)</li>
 <li>Error handling (network failures, git conflicts, validation errors)</li>
 </ul>
-<p><strong>Test Scenarios:</strong>
-1. Happy path (all checks pass, clean merge)
-2. Validation warnings (publish anyway)
-3. Validation errors (abort publish)
-4. Git conflict (manual resolution required)
-5. Deployment failure (rollback triggered)</p>
+<p><strong>Test Scenarios:</strong></p>
+<ol>
+<li>Happy path (all checks pass, clean merge)</li>
+<li>Validation warnings (publish anyway)</li>
+<li>Validation errors (abort publish)</li>
+<li>Git conflict (manual resolution required)</li>
+<li>Deployment failure (rollback triggered)</li>
+</ol>
 <hr />
 <h4 id="manual-testing">Manual Testing<a class="headerlink" href="#manual-testing" title="Permanent link">&para;</a></h4>
 <ul>
@@ -6392,10 +6444,12 @@ Solo instructors currently manage course sites through manual git branch switchi
 <li>Validate ADHD-friendly output rendering</li>
 <li>Cross-platform testing (macOS, Linux)</li>
 </ul>
-<p><strong>Test Courses:</strong>
-- STAT 545 (Quarto site, typical structure)
-- Minimal course (only syllabus + schedule)
-- Complex course (100+ pages, 20+ assignments)</p>
+<p><strong>Test Courses:</strong></p>
+<ul>
+<li>STAT 545 (Quarto site, typical structure)</li>
+<li>Minimal course (only syllabus + schedule)</li>
+<li>Complex course (100+ pages, 20+ assignments)</li>
+</ul>
 <hr />
 <h3 id="performance-benchmarks">Performance Benchmarks<a class="headerlink" href="#performance-benchmarks" title="Permanent link">&para;</a></h3>
 <table>
@@ -6429,10 +6483,12 @@ Solo instructors currently manage course sites through manual git branch switchi
 </tr>
 </tbody>
 </table>
-<p><strong>Optimization Opportunities:</strong>
-- Cache validation results (invalidate on file changes)
-- Parallel link checking (concurrent requests)
-- Git operations via libgit2 (faster than CLI)</p>
+<p><strong>Optimization Opportunities:</strong></p>
+<ul>
+<li>Cache validation results (invalidate on file changes)</li>
+<li>Parallel link checking (concurrent requests)</li>
+<li>Git operations via libgit2 (faster than CLI)</li>
+</ul>
 <hr />
 <h3 id="rollout-plan">Rollout Plan<a class="headerlink" href="#rollout-plan" title="Permanent link">&para;</a></h3>
 <h4 id="week-1-internal-testing">Week 1: Internal Testing<a class="headerlink" href="#week-1-internal-testing" title="Permanent link">&para;</a></h4>
@@ -6507,12 +6563,12 @@ Solo instructors currently manage course sites through manual git branch switchi
 <ul>
 <li><a href="../brainstorm/BRAINSTORM-teaching-workflow-2026-01-16.md">BRAINSTORM-teaching-workflow-2026-01-16.md</a> - Original brainstorm session</li>
 <li><a href="../../CLAUDE.md">Craft CLAUDE.md</a> - Project overview and workflow</li>
-<li><a href="./SPEC-craft-hub-v2-2026-01-15.md">Craft Hub v2.0 Spec</a> - Related discovery system</li>
+<li><a href="../_archive/SPEC-craft-hub-v2-2026-01-15/">Craft Hub v2.0 Spec</a> - Related discovery system</li>
 </ul>
 <hr />
 <h2 id="appendix-example-project">Appendix: Example Project<a class="headerlink" href="#appendix-example-project" title="Permanent link">&para;</a></h2>
 <h3 id="stat-545-spring-2026">STAT 545 (Spring 2026)<a class="headerlink" href="#stat-545-spring-2026" title="Permanent link">&para;</a></h3>
-<p><strong>Project Structure:</strong>
+<p><strong>Project Structure:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>stat-545/
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>├── .flow/
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>│   └── teach-config.yml        ← Teaching metadata
@@ -6529,13 +6585,13 @@ Solo instructors currently manage course sites through manual git branch switchi
 </span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>│   ├── assignment-2.qmd
 </span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>│   └── ...
 </span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>└── README.md
-</span></code></pre></div></p>
-<p><strong>Branch Setup:</strong>
+</span></code></pre></div>
+<p><strong>Branch Setup:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>production  ← Students see this (https://data-wise.github.io/stat-545)
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>draft       ← Staged content (preview before publish)
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>dev         ← Active development
-</span></code></pre></div></p>
-<p><strong>Sample teach-config.yml:</strong>
+</span></code></pre></div>
+<p><strong>Sample teach-config.yml:</strong></p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">course</span><span class="p">:</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STAT</span><span class="nv"> </span><span class="s">545&quot;</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Regression</span><span class="nv"> </span><span class="s">Analysis&quot;</span>
@@ -6571,7 +6627,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 </span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">schedule</span>
 </span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a><span class="w">  </span><span class="nt">check_assignment_files</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a><span class="w">  </span><span class="nt">check_broken_links</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <p><strong>End of Specification</strong></p>
 

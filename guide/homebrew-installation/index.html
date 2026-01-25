@@ -4084,7 +4084,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4608,11 +4608,13 @@
 <h1 id="homebrew-installation-guide">Homebrew Installation Guide<a class="headerlink" href="#homebrew-installation-guide" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>5 minutes</strong> • 🟢 Beginner • ✓ Complete setup</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> Install Craft via Homebrew for automatic updates
-- <strong>Why:</strong> Homebrew manages versions and dependencies
-- <strong>How:</strong> <code>brew install data-wise/tap/craft</code> → verify with <code>/craft:hub</code>
-- <strong>After upgrades:</strong> Just <code>brew upgrade craft</code> and restart Claude Code (auto-syncs!)</p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> Install Craft via Homebrew for automatic updates</li>
+<li><strong>Why:</strong> Homebrew manages versions and dependencies</li>
+<li><strong>How:</strong> <code>brew install data-wise/tap/craft</code> → verify with <code>/craft:hub</code></li>
+<li><strong>After upgrades:</strong> Just <code>brew upgrade craft</code> and restart Claude Code (auto-syncs!)</li>
+</ul>
 </blockquote>
 <hr />
 <h2 id="quick-install">Quick Install<a class="headerlink" href="#quick-install" title="Permanent link">&para;</a></h2>
@@ -4622,11 +4624,13 @@
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Install Craft</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>brew<span class="w"> </span>install<span class="w"> </span>craft
 </span></code></pre></div>
-<p>That's it! The post-install script automatically:
-1. Creates symlinks to <code>~/.claude/plugins/craft</code>
-2. Registers with the <code>local-plugins</code> marketplace
-3. Enables the plugin in Claude Code settings
-4. Syncs the plugin registry with <code>claude plugin update</code></p>
+<p>That's it! The post-install script automatically:</p>
+<ol>
+<li>Creates symlinks to <code>~/.claude/plugins/craft</code></li>
+<li>Registers with the <code>local-plugins</code> marketplace</li>
+<li>Enables the plugin in Claude Code settings</li>
+<li>Syncs the plugin registry with <code>claude plugin update</code></li>
+</ol>
 <div class="admonition note">
 <p class="admonition-title">Installing while Claude Code is running</p>
 <p>If Claude Code is running during installation, auto-enable is skipped to avoid file conflicts. You'll see: "Claude Code is running - skipped auto-enable". Just run <code>claude plugin install craft@local-plugins</code> after installation.</p>
@@ -4698,12 +4702,14 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>⚠️  Could not auto-sync plugin registry (Claude CLI not in PATH)
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    Run manually: claude plugin update craft@local-plugins
 </span></code></pre></div>
-<p><strong>Why this happens:</strong>
-- Claude CLI not installed or not in PATH during upgrade
-- The <code>claude</code> command failed for some reason</p>
-<p><strong>Fix:</strong>
+<p><strong>Why this happens:</strong></p>
+<ul>
+<li>Claude CLI not installed or not in PATH during upgrade</li>
+<li>The <code>claude</code> command failed for some reason</li>
+</ul>
+<p><strong>Fix:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>99% of users won't see this</strong> - automatic sync works if Claude Code is installed normally.</p>
 <hr />
 <h3 id="how-to-verify-update-worked">How to Verify Update Worked<a class="headerlink" href="#how-to-verify-update-worked" title="Permanent link">&para;</a></h3>
@@ -4713,39 +4719,39 @@
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Should show: craft@local-plugins (v1.X.X)</span>
 </span></code></pre></div>
-<p>Or check the registry directly:
+<p>Or check the registry directly:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cat<span class="w"> </span>~/.claude/plugins/installed_plugins.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.plugins[&quot;craft@local-plugins&quot;][0].version&#39;</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># Should match: brew info craft | grep &quot;craft:&quot;</span>
-</span></code></pre></div></p>
-<p>If versions don't match, run manual sync once:
+</span></code></pre></div>
+<p>If versions don't match, run manual sync once:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="auto-enable-skipped">Auto-Enable Skipped<a class="headerlink" href="#auto-enable-skipped" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Message says "Claude Code is running - skipped auto-enable"</p>
 <p><strong>Cause:</strong> The installer detected Claude Code has <code>settings.json</code> open and skipped modification to avoid conflicts.</p>
-<p><strong>Fix:</strong>
+<p><strong>Fix:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>install<span class="w"> </span>craft@local-plugins
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p>This is expected behavior when installing while Claude Code is running.</p>
 <hr />
 <h3 id="installation-hangs-pre-v1180-only">Installation Hangs (Pre-v1.18.0 only)<a class="headerlink" href="#installation-hangs-pre-v1180-only" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> <code>brew install</code> or <code>brew upgrade</code> hangs during post-install</p>
 <p><strong>Cause:</strong> Older formula versions attempted to modify <code>settings.json</code> without checking for Claude.</p>
-<p><strong>Fix (if stuck now):</strong>
+<p><strong>Fix (if stuck now):</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Find and kill the stuck process</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>craft-install
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nb">kill</span><span class="w"> </span>&lt;PID&gt;
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># Then manually enable</span>
 </span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>claude<span class="w"> </span>plugin<span class="w"> </span>install<span class="w"> </span>craft@local-plugins
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Prevention:</strong> Upgrade to latest formula: <code>brew update &amp;&amp; brew reinstall data-wise/tap/craft</code></p>
 <hr />
 <h3 id="plugin-not-loading">Plugin Not Loading<a class="headerlink" href="#plugin-not-loading" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> <code>/craft:hub</code> not recognized after install</p>
-<p><strong>Fix:</strong>
+<p><strong>Fix:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Re-run install script</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>craft-install
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -4756,31 +4762,31 @@
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># Restart Claude Code</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="version-mismatch">Version Mismatch<a class="headerlink" href="#version-mismatch" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Registry shows old version after <code>brew upgrade</code></p>
-<p><strong>Fix:</strong>
+<p><strong>Fix:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="symlink-permission-denied">Symlink Permission Denied<a class="headerlink" href="#symlink-permission-denied" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> <code>ln: failed to create symbolic link</code></p>
-<p><strong>Fix:</strong>
+<p><strong>Fix:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Remove existing directory/symlink</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/craft
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Create fresh symlink</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>ln<span class="w"> </span>-s<span class="w"> </span>/opt/homebrew/opt/craft/libexec<span class="w"> </span>~/.claude/plugins/craft
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="cache-cleanup">Cache Cleanup<a class="headerlink" href="#cache-cleanup" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Multiple old versions accumulating</p>
-<p><strong>Fix:</strong>
+<p><strong>Fix:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># List cached versions</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>ls<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft/
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Remove old versions (keep current)</span>
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft/1.16.0
 </span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft/1.6.0-dev
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="available-commands">Available Commands<a class="headerlink" href="#available-commands" title="Permanent link">&para;</a></h2>
 <p>After installation, these Homebrew-provided commands are available:</p>
@@ -4848,15 +4854,15 @@
 </table>
 <p>All plugins will show "Claude Code is running - skipped auto-enable" if installed while Claude is running. Just run the enable command shown.</p>
 <h3 id="updating-multiple-plugins">Updating Multiple Plugins<a class="headerlink" href="#updating-multiple-plugins" title="Permanent link">&para;</a></h3>
-<p><strong>Automatic (recommended):</strong>
+<p><strong>Automatic (recommended):</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>brew<span class="w"> </span>upgrade<span class="w"> </span>data-wise/tap/craft<span class="w"> </span>data-wise/tap/rforge<span class="w"> </span>data-wise/tap/scholar
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="c1"># Restart Claude Code - all plugins auto-sync!</span>
-</span></code></pre></div></p>
-<p><strong>Manual sync (only if automatic fails):</strong>
+</span></code></pre></div>
+<p><strong>Manual sync (only if automatic fails):</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>rforge@local-plugins
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>scholar@local-plugins
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>

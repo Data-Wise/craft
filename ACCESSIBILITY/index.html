@@ -4291,7 +4291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5022,11 +5022,13 @@
 <h1 id="accessibility-features">Accessibility Features<a class="headerlink" href="#accessibility-features" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>3 minutes</strong> • 🟢 Reference • ✓ WCAG AA Compliant</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> craft documentation meets WCAG AA accessibility standards for all users
-- <strong>Why:</strong> Everyone deserves equal access to documentation, including users with disabilities
-- <strong>How:</strong> Keyboard navigation, screen reader support, high contrast, reduced motion
-- <strong>Next:</strong> Report accessibility issues on <a href="https://github.com/Data-Wise/claude-plugins/issues">GitHub</a></p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> craft documentation meets WCAG AA accessibility standards for all users</li>
+<li><strong>Why:</strong> Everyone deserves equal access to documentation, including users with disabilities</li>
+<li><strong>How:</strong> Keyboard navigation, screen reader support, high contrast, reduced motion</li>
+<li><strong>Next:</strong> Report accessibility issues on <a href="https://github.com/Data-Wise/claude-plugins/issues">GitHub</a></li>
+</ul>
 </blockquote>
 <p>This page documents the accessibility features built into craft's documentation.</p>
 <hr />
@@ -5134,18 +5136,20 @@
 </tbody>
 </table>
 <h3 id="focus-indicators">Focus Indicators<a class="headerlink" href="#focus-indicators" title="Permanent link">&para;</a></h3>
-<p>All focusable elements have visible focus outlines:
-- <strong>Color:</strong> Accent color (#ff6b35)
-- <strong>Thickness:</strong> 2px
-- <strong>Offset:</strong> 2px from element
-- <strong>Visibility:</strong> High contrast on all backgrounds</p>
-<p><strong>CSS Implementation:</strong>
+<p>All focusable elements have visible focus outlines:</p>
+<ul>
+<li><strong>Color:</strong> Accent color (#ff6b35)</li>
+<li><strong>Thickness:</strong> 2px</li>
+<li><strong>Offset:</strong> 2px from element</li>
+<li><strong>Visibility:</strong> High contrast on all backgrounds</li>
+</ul>
+<p><strong>CSS Implementation:</strong></p>
 <div class="language-css highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">a</span><span class="p">:</span><span class="nd">focus</span><span class="o">,</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">button</span><span class="p">:</span><span class="nd">focus</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="k">outline</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--md-accent-fg-color</span><span class="p">);</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="k">outline-offset</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="p">;</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="screen-reader-support">Screen Reader Support<a class="headerlink" href="#screen-reader-support" title="Permanent link">&para;</a></h2>
 <h3 id="semantic-html">Semantic HTML<a class="headerlink" href="#semantic-html" title="Permanent link">&para;</a></h3>
@@ -5156,16 +5160,20 @@
 <li>Table headers with <code>&lt;th&gt;</code> and <code>scope</code></li>
 </ul>
 <h3 id="aria-labels">ARIA Labels<a class="headerlink" href="#aria-labels" title="Permanent link">&para;</a></h3>
-<p>Material for MkDocs provides built-in ARIA support:
-- Navigation menus have <code>role="navigation"</code>
-- Search has <code>role="search"</code>
-- Code blocks have <code>aria-label</code>
-- Expandable sections have <code>aria-expanded</code></p>
+<p>Material for MkDocs provides built-in ARIA support:</p>
+<ul>
+<li>Navigation menus have <code>role="navigation"</code></li>
+<li>Search has <code>role="search"</code></li>
+<li>Code blocks have <code>aria-label</code></li>
+<li>Expandable sections have <code>aria-expanded</code></li>
+</ul>
 <h3 id="skip-links">Skip Links<a class="headerlink" href="#skip-links" title="Permanent link">&para;</a></h3>
-<p>Users can skip repetitive navigation:
-- Material theme provides automatic skip link
-- Appears on first <code>Tab</code> press
-- Jumps directly to main content</p>
+<p>Users can skip repetitive navigation:</p>
+<ul>
+<li>Material theme provides automatic skip link</li>
+<li>Appears on first <code>Tab</code> press</li>
+<li>Jumps directly to main content</li>
+</ul>
 <hr />
 <h2 id="visual-accessibility">Visual Accessibility<a class="headerlink" href="#visual-accessibility" title="Permanent link">&para;</a></h2>
 <h3 id="color-contrast">Color Contrast<a class="headerlink" href="#color-contrast" title="Permanent link">&para;</a></h3>
@@ -5225,11 +5233,13 @@
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="color-independence">Color Independence<a class="headerlink" href="#color-independence" title="Permanent link">&para;</a></h3>
-<p>Information is never conveyed by color alone:
-- Links have underlines
-- Callout boxes have icons
-- Code syntax uses shapes and patterns
-- Status indicators use text labels</p>
+<p>Information is never conveyed by color alone:</p>
+<ul>
+<li>Links have underlines</li>
+<li>Callout boxes have icons</li>
+<li>Code syntax uses shapes and patterns</li>
+<li>Status indicators use text labels</li>
+</ul>
 <hr />
 <h2 id="motion-and-animation">Motion and Animation<a class="headerlink" href="#motion-and-animation" title="Permanent link">&para;</a></h2>
 <h3 id="reduced-motion-support">Reduced Motion Support<a class="headerlink" href="#reduced-motion-support" title="Permanent link">&para;</a></h3>
@@ -5242,27 +5252,33 @@
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
 </span></code></pre></div>
-<p><strong>What This Does:</strong>
-- Disables smooth scrolling
-- Removes animated transitions
-- Stops auto-playing content
-- Reduces cognitive load</p>
+<p><strong>What This Does:</strong></p>
+<ul>
+<li>Disables smooth scrolling</li>
+<li>Removes animated transitions</li>
+<li>Stops auto-playing content</li>
+<li>Reduces cognitive load</li>
+</ul>
 <hr />
 <h2 id="mobile-and-touch-accessibility">Mobile and Touch Accessibility<a class="headerlink" href="#mobile-and-touch-accessibility" title="Permanent link">&para;</a></h2>
 <h3 id="touch-target-size">Touch Target Size<a class="headerlink" href="#touch-target-size" title="Permanent link">&para;</a></h3>
-<p>All interactive elements meet <strong>AAA standards</strong> (44×44px minimum):
-- Navigation links: 48×44px
-- Buttons: 48×36px
-- Card links: Full card area
-- Mermaid diagram nodes: Clickable area extended</p>
+<p>All interactive elements meet <strong>AAA standards</strong> (44×44px minimum):</p>
+<ul>
+<li>Navigation links: 48×44px</li>
+<li>Buttons: 48×36px</li>
+<li>Card links: Full card area</li>
+<li>Mermaid diagram nodes: Clickable area extended</li>
+</ul>
 <h3 id="responsive-design">Responsive Design<a class="headerlink" href="#responsive-design" title="Permanent link">&para;</a></h3>
-<p>Documentation adapts to all screen sizes:
-- <strong>Desktop:</strong> Full navigation sidebar
-- <strong>Tablet:</strong> Collapsible navigation
-- <strong>Mobile:</strong> Hamburger menu, single column layout
-- <strong>Zoom:</strong> Supports up to 200% zoom without horizontal scroll</p>
+<p>Documentation adapts to all screen sizes:</p>
+<ul>
+<li><strong>Desktop:</strong> Full navigation sidebar</li>
+<li><strong>Tablet:</strong> Collapsible navigation</li>
+<li><strong>Mobile:</strong> Hamburger menu, single column layout</li>
+<li><strong>Zoom:</strong> Supports up to 200% zoom without horizontal scroll</li>
+</ul>
 <h3 id="mermaid-diagrams">Mermaid Diagrams<a class="headerlink" href="#mermaid-diagrams" title="Permanent link">&para;</a></h3>
-<p>Diagrams are fully responsive:
+<p>Diagrams are fully responsive:</p>
 <div class="language-css highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">.</span><span class="nc">mermaid</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="k">overflow-x</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="k">overflow-y</span><span class="p">:</span><span class="w"> </span><span class="kc">hidden</span><span class="p">;</span>
@@ -5273,11 +5289,13 @@
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<p><strong>Mobile Enhancements:</strong>
-- Font size reduces at breakpoints
-- Horizontal scroll for wide diagrams
-- No content cutoff</p>
+</span></code></pre></div>
+<p><strong>Mobile Enhancements:</strong></p>
+<ul>
+<li>Font size reduces at breakpoints</li>
+<li>Horizontal scroll for wide diagrams</li>
+<li>No content cutoff</li>
+</ul>
 <hr />
 <h2 id="content-readability">Content Readability<a class="headerlink" href="#content-readability" title="Permanent link">&para;</a></h2>
 <h3 id="clear-language">Clear Language<a class="headerlink" href="#clear-language" title="Permanent link">&para;</a></h3>
@@ -5307,31 +5325,39 @@
 <hr />
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
 <h3 id="automated-testing">Automated Testing<a class="headerlink" href="#automated-testing" title="Permanent link">&para;</a></h3>
-<p>Documentation is tested with:
-- <strong>axe DevTools</strong> - No violations
-- <strong>WAVE</strong> - No errors
-- <strong>Lighthouse</strong> - 100 accessibility score
-- <strong>mkdocs build --strict</strong> - No warnings</p>
+<p>Documentation is tested with:</p>
+<ul>
+<li><strong>axe DevTools</strong> - No violations</li>
+<li><strong>WAVE</strong> - No errors</li>
+<li><strong>Lighthouse</strong> - 100 accessibility score</li>
+<li><strong>mkdocs build --strict</strong> - No warnings</li>
+</ul>
 <h3 id="manual-testing">Manual Testing<a class="headerlink" href="#manual-testing" title="Permanent link">&para;</a></h3>
-<p>Verified with:
-- <strong>Keyboard only</strong> navigation
-- <strong>NVDA</strong> screen reader (Windows)
-- <strong>JAWS</strong> screen reader (Windows)
-- <strong>VoiceOver</strong> screen reader (macOS)
-- <strong>High contrast mode</strong> (Windows)
-- <strong>200% zoom</strong> (all browsers)
-- <strong>Mobile devices</strong> (iOS, Android)</p>
+<p>Verified with:</p>
+<ul>
+<li><strong>Keyboard only</strong> navigation</li>
+<li><strong>NVDA</strong> screen reader (Windows)</li>
+<li><strong>JAWS</strong> screen reader (Windows)</li>
+<li><strong>VoiceOver</strong> screen reader (macOS)</li>
+<li><strong>High contrast mode</strong> (Windows)</li>
+<li><strong>200% zoom</strong> (all browsers)</li>
+<li><strong>Mobile devices</strong> (iOS, Android)</li>
+</ul>
 <hr />
 <h2 id="known-limitations">Known Limitations<a class="headerlink" href="#known-limitations" title="Permanent link">&para;</a></h2>
 <h3 id="mermaid-diagrams_1">Mermaid Diagrams<a class="headerlink" href="#mermaid-diagrams_1" title="Permanent link">&para;</a></h3>
-<p>While mermaid diagrams are visually accessible:
-- <strong>Screen readers:</strong> Cannot read diagram content
-- <strong>Workaround:</strong> Each diagram has descriptive text above/below
-- <strong>Example:</strong> "Documentation Workflow - From code changes to deployed docs in one command"</p>
+<p>While mermaid diagrams are visually accessible:</p>
+<ul>
+<li><strong>Screen readers:</strong> Cannot read diagram content</li>
+<li><strong>Workaround:</strong> Each diagram has descriptive text above/below</li>
+<li><strong>Example:</strong> "Documentation Workflow - From code changes to deployed docs in one command"</li>
+</ul>
 <h3 id="third-party-content">Third-Party Content<a class="headerlink" href="#third-party-content" title="Permanent link">&para;</a></h3>
-<p>Some third-party embeds may have accessibility issues:
-- GitHub badges (images with alt text)
-- External links (icons indicate external)</p>
+<p>Some third-party embeds may have accessibility issues:</p>
+<ul>
+<li>GitHub badges (images with alt text)</li>
+<li>External links (icons indicate external)</li>
+</ul>
 <hr />
 <h2 id="reporting-issues">Reporting Issues<a class="headerlink" href="#reporting-issues" title="Permanent link">&para;</a></h2>
 <p>Found an accessibility issue? We want to know!</p>

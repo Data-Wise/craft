@@ -4206,7 +4206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4923,18 +4923,22 @@
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Score 4-7  → Medium    → Delegate to one specialist
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Score 8-10 → Complex   → Coordinate multiple specialists
 </span></code></pre></div>
-<p><strong>What makes a task complex?</strong>
-- Multiple steps (e.g., "add user authentication with OAuth")
-- Requires planning (e.g., "refactor the database layer")
-- Involves many files (e.g., "prepare for release")</p>
+<p><strong>What makes a task complex?</strong></p>
+<ul>
+<li>Multiple steps (e.g., "add user authentication with OAuth")</li>
+<li>Requires planning (e.g., "refactor the database layer")</li>
+<li>Involves many files (e.g., "prepare for release")</li>
+</ul>
 <h3 id="forked-context-your-safety-net">Forked Context: Your Safety Net<a class="headerlink" href="#forked-context-your-safety-net" title="Permanent link">&para;</a></h3>
 <p>Here's the coolest part: when an agent works on something complex, it gets its own "workspace" (we call it a <strong>forked context</strong>).</p>
 <p><strong>Think of it like this:</strong>
 Imagine you're cooking in the kitchen and your friend offers to help by making a salad in a separate prep area. If they accidentally spill something, it doesn't mess up your main cooking area. That's what forked context does—agents work in isolation, so if something goes wrong, your main conversation stays clean.</p>
-<p><strong>Benefits:</strong>
-- Agent failures don't break your whole session
-- You can have multiple agents working in parallel
-- Results come back to you cleanly organized</p>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Agent failures don't break your whole session</li>
+<li>You can have multiple agents working in parallel</li>
+<li>Results come back to you cleanly organized</li>
+</ul>
 <h3 id="real-example">Real Example<a class="headerlink" href="#real-example" title="Permanent link">&para;</a></h3>
 <p><strong>Your request:</strong>
 <code>/craft:do "add OAuth authentication for user login"</code></p>
@@ -4955,11 +4959,13 @@ Imagine you're cooking in the kitchen and your friend offers to help by making a
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│ testing. A specialist will do it better.    │
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>└─────────────────────────────────────────────┘
 </span></code></pre></div>
-<p>The <code>feature-dev</code> agent then:
-1. Plans the OAuth integration
-2. Writes the code
-3. Adds tests
-4. Brings back a complete solution</p>
+<p>The <code>feature-dev</code> agent then:</p>
+<ol>
+<li>Plans the OAuth integration</li>
+<li>Writes the code</li>
+<li>Adds tests</li>
+<li>Brings back a complete solution</li>
+</ol>
 <p>You didn't have to break down the task yourself—the system recognized the complexity and got you the right help.</p>
 <h3 id="before-vs-after-comparison">Before vs. After Comparison<a class="headerlink" href="#before-vs-after-comparison" title="Permanent link">&para;</a></h3>
 <table>
@@ -5005,13 +5011,13 @@ If you skipped one agent (maybe you denied permission), the whole workflow would
 <p><strong>The new solution:</strong>
 Agents are now resilient. If one fails or you skip it, the others keep going and work with what they have.</p>
 <h3 id="how-resilience-works">How Resilience Works<a class="headerlink" href="#how-resilience-works" title="Permanent link">&para;</a></h3>
-<p><strong>Before (Brittle):</strong>
+<p><strong>Before (Brittle):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Wave 1: [Agent A] [Agent B]
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>         ↓ denied    ↓ success
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>         STOP!
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Wave 2: BLOCKED (can&#39;t continue)
-</span></code></pre></div></p>
-<p><strong>After (Resilient):</strong>
+</span></code></pre></div>
+<p><strong>After (Resilient):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Wave 1: [Agent A]       [Agent B]
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>         ↓ denied        ↓ success
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>         ↓ noted         ↓
@@ -5019,27 +5025,33 @@ Agents are now resilient. If one fails or you skip it, the others keep going and
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>         ↓
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>         &quot;I used the available results. Agent A was skipped,
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>          so I&#39;m using general best practices instead.&quot;
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="real-example_1">Real Example<a class="headerlink" href="#real-example_1" title="Permanent link">&para;</a></h3>
 <p>You run:
 <code>/craft:orchestrate "prepare v2.0 release"</code></p>
 <p>The orchestrator plans three waves:</p>
-<p><strong>Wave 1 (Parallel):</strong>
-- <strong>Architecture Agent</strong> → Design system changes
-- <strong>Documentation Agent</strong> → Update docs</p>
-<p><strong>Wave 2 (Sequential):</strong>
-- <strong>Backend Agent</strong> → Implement changes (depends on architecture)
-- <strong>Testing Agent</strong> → Write tests (depends on backend)</p>
+<p><strong>Wave 1 (Parallel):</strong></p>
+<ul>
+<li><strong>Architecture Agent</strong> → Design system changes</li>
+<li><strong>Documentation Agent</strong> → Update docs</li>
+</ul>
+<p><strong>Wave 2 (Sequential):</strong></p>
+<ul>
+<li><strong>Backend Agent</strong> → Implement changes (depends on architecture)</li>
+<li><strong>Testing Agent</strong> → Write tests (depends on backend)</li>
+</ul>
 <p><strong>What happens if you skip the Architecture Agent?</strong></p>
 <p><strong>Old behavior:</strong>
 ❌ Everything stops. You have to start over.</p>
 <p><strong>New behavior:</strong>
-✅ The workflow continues:
-1. Documentation Agent completes successfully
-2. Backend Agent notes: "Architecture input unavailable, using fallback approach"
-3. Backend Agent implements using best practices
-4. Testing Agent proceeds with backend's work
-5. Final report mentions what was skipped</p>
+✅ The workflow continues:</p>
+<ol>
+<li>Documentation Agent completes successfully</li>
+<li>Backend Agent notes: "Architecture input unavailable, using fallback approach"</li>
+<li>Backend Agent implements using best practices</li>
+<li>Testing Agent proceeds with backend's work</li>
+<li>Final report mentions what was skipped</li>
+</ol>
 <h3 id="agent-hooks-behind-the-scenes-helpers">Agent Hooks: Behind-the-Scenes Helpers<a class="headerlink" href="#agent-hooks-behind-the-scenes-helpers" title="Permanent link">&para;</a></h3>
 <p>This resilience is powered by <strong>agent hooks</strong>—little checkpoints that monitor what's happening:</p>
 <ul>
@@ -5079,20 +5091,24 @@ If you wanted to add a new validation (like "check for API keys in code"), you'd
 <p><strong>The new solution:</strong>
 Just drop a new validation file in the right folder. <code>/craft:check</code> automatically finds and runs it. No restart needed.</p>
 <h3 id="how-hot-reload-works">How Hot-Reload Works<a class="headerlink" href="#how-hot-reload-works" title="Permanent link">&para;</a></h3>
-<p><strong>Validation skills</strong> are small, modular checks stored as markdown files. Each one has:
-- A name (e.g., <code>check:test-coverage</code>)
-- A description
-- Code to run the check
-- A special flag: <code>hot_reload: true</code></p>
-<p>When you run <code>/craft:check</code>, it:
-1. Scans for all validation skills (in multiple locations)
-2. Loads any new ones automatically
-3. Runs them in isolated "forked contexts" (remember the kitchen prep analogy?)
-4. Reports all results</p>
+<p><strong>Validation skills</strong> are small, modular checks stored as markdown files. Each one has:</p>
+<ul>
+<li>A name (e.g., <code>check:test-coverage</code>)</li>
+<li>A description</li>
+<li>Code to run the check</li>
+<li>A special flag: <code>hot_reload: true</code></li>
+</ul>
+<p>When you run <code>/craft:check</code>, it:</p>
+<ol>
+<li>Scans for all validation skills (in multiple locations)</li>
+<li>Loads any new ones automatically</li>
+<li>Runs them in isolated "forked contexts" (remember the kitchen prep analogy?)</li>
+<li>Reports all results</li>
+</ol>
 <h3 id="creating-your-own-validator">Creating Your Own Validator<a class="headerlink" href="#creating-your-own-validator" title="Permanent link">&para;</a></h3>
 <p>Let's say you want to ensure your CHANGELOG is always updated. Here's how simple it is:</p>
 <p><strong>Create file:</strong> <code>~/.craft/validators/changelog-updated.md</code></p>
-<p><div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>---
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>---
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>name: check:changelog-updated
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>description: Ensure CHANGELOG.md was updated in this release
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>category: validation
@@ -5132,7 +5148,7 @@ Just drop a new validation file in the right folder. <code>/craft:check</code> a
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
 </span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>When you run `/craft:check release`:
 </span></code></pre></div>
-┌─────────────────────────────────────────────────┐
+<p>┌─────────────────────────────────────────────────┐
 │ 🔍 /craft:check release                         │
 ├─────────────────────────────────────────────────┤
 │                                                 │
@@ -5158,7 +5174,7 @@ Just drop a new validation file in the right folder. <code>/craft:check</code> a
 │ Total time: 16.7s                               │
 │                                                 │
 │ 💡 Add your own: ~/.craft/validators/           │
-└─────────────────────────────────────────────────┘
+└─────────────────────────────────────────────────┘</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Notice the **[NEW]** tags? Those validators were added without any code changes or restarts.
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>---
@@ -5258,8 +5274,8 @@ Just drop a new validation file in the right folder. <code>/craft:check</code> a
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>3. Next `/craft:check` run:
 </span></code></pre></div>
-🔧 Custom Validators:
-  ✓ no-console-log (0.4s) - No console.log [NEW]
+<p>🔧 Custom Validators:
+  ✓ no-console-log (0.4s) - No console.log [NEW]</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>**Your experience:**
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>You wanted a new check. You created a file. It works immediately.
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
@@ -5327,7 +5343,7 @@ Just drop a new validation file in the right folder. <code>/craft:check</code> a
 </span><span id="__span-9-65"><a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a>  exit 1
 </span><span id="__span-9-66"><a id="__codelineno-9-66" name="__codelineno-9-66" href="#__codelineno-9-66"></a>fi
 </span></code></pre></div>
-```</p>
+<p>```</p>
 <p><strong>Then run:</strong>
 <code>/craft:check</code></p>
 <p><strong>What to watch for:</strong>

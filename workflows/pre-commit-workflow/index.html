@@ -4045,7 +4045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4542,10 +4542,12 @@
 <li>Want to catch issues before CI runs</li>
 <li>Are preparing code for review</li>
 </ul>
-<p><strong>Example scenarios:</strong>
-- "Ready to commit my changes"
-- "Want to make sure everything works before pushing"
-- "Need to validate before creating a PR"</p>
+<p><strong>Example scenarios:</strong></p>
+<ul>
+<li>"Ready to commit my changes"</li>
+<li>"Want to make sure everything works before pushing"</li>
+<li>"Need to validate before creating a PR"</li>
+</ul>
 <hr />
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before starting, ensure you have:</p>
@@ -4554,10 +4556,10 @@
 <li>[x] On a feature branch (not main/dev)</li>
 <li>[x] Tests exist for the project</li>
 </ul>
-<p><strong>Quick check:</strong>
+<p><strong>Quick check:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>status
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>branch<span class="w"> </span>--show-current
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="basic-workflow">Basic Workflow<a class="headerlink" href="#basic-workflow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
@@ -4578,11 +4580,13 @@
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Or with craft</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:git:recap
 </span></code></pre></div>
-<p><strong>Look for:</strong>
-- Unintended file changes
-- Debug code or console.log statements
-- Sensitive data (API keys, passwords)
-- Large files that shouldn't be committed</p>
+<p><strong>Look for:</strong></p>
+<ul>
+<li>Unintended file changes</li>
+<li>Debug code or console.log statements</li>
+<li>Sensitive data (API keys, passwords)</li>
+<li>Large files that shouldn't be committed</li>
+</ul>
 <h3 id="step-2-run-pre-commit-checks">Step 2: Run Pre-commit Checks<a class="headerlink" href="#step-2-run-pre-commit-checks" title="Permanent link">&para;</a></h3>
 <p>Use craft to validate everything.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Quick validation</span>
@@ -4591,14 +4595,34 @@
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Or for more thorough check</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>commit
 </span></code></pre></div>
-<p><strong>What it checks:</strong>
-| Check | Description |
-|-------|-------------|
-| Lint | Code style and quality |
-| Tests | Run test suite |
-| Types | Type checking (if applicable) |
-| Git status | Working tree status |</p>
-<p><strong>Expected output:</strong>
+<p><strong>What it checks:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lint</td>
+<td>Code style and quality</td>
+</tr>
+<tr>
+<td>Tests</td>
+<td>Run test suite</td>
+</tr>
+<tr>
+<td>Types</td>
+<td>Type checking (if applicable)</td>
+</tr>
+<tr>
+<td>Git status</td>
+<td>Working tree status</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Expected output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>╭─ /craft:check ───────────────────────────────────────╮
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│ Project: craft (Claude Plugin)                       │
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│ Time: 12.4s                                          │
@@ -4609,7 +4633,7 @@
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>├──────────────────────────────────────────────────────┤
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│ STATUS: ALL CHECKS PASSED ✓                          │
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>╰──────────────────────────────────────────────────────╯
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-3-commit-changes">Step 3: Commit Changes<a class="headerlink" href="#step-3-commit-changes" title="Permanent link">&para;</a></h3>
 <p>If checks pass, commit with a descriptive message.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Stage changes</span>
@@ -4621,15 +4645,41 @@
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Commit with conventional commit message</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add user authentication&quot;</span>
 </span></code></pre></div>
-<p><strong>Conventional Commits:</strong>
-| Prefix | Use for |
-|--------|---------|
-| <code>feat:</code> | New features |
-| <code>fix:</code> | Bug fixes |
-| <code>docs:</code> | Documentation only |
-| <code>refactor:</code> | Code changes that don't add features or fix bugs |
-| <code>test:</code> | Adding or updating tests |
-| <code>chore:</code> | Maintenance tasks |</p>
+<p><strong>Conventional Commits:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feat:</code></td>
+<td>New features</td>
+</tr>
+<tr>
+<td><code>fix:</code></td>
+<td>Bug fixes</td>
+</tr>
+<tr>
+<td><code>docs:</code></td>
+<td>Documentation only</td>
+</tr>
+<tr>
+<td><code>refactor:</code></td>
+<td>Code changes that don't add features or fix bugs</td>
+</tr>
+<tr>
+<td><code>test:</code></td>
+<td>Adding or updating tests</td>
+</tr>
+<tr>
+<td><code>chore:</code></td>
+<td>Maintenance tasks</td>
+</tr>
+</tbody>
+</table>
 <h3 id="step-4-fix-issues-if-needed">Step 4: Fix Issues (if needed)<a class="headerlink" href="#step-4-fix-issues-if-needed" title="Permanent link">&para;</a></h3>
 <p>If checks fail, fix the issues and re-run.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Auto-fix lint issues</span>

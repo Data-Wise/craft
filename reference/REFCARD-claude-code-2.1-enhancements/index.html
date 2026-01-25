@@ -4234,7 +4234,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4997,17 +4997,17 @@
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;refactor codebase&quot;</span><span class="w"> </span>optimize
 </span></code></pre></div>
 <h3 id="how-it-works-before-vs-after">How It Works (Before vs After)<a class="headerlink" href="#how-it-works-before-vs-after" title="Permanent link">&para;</a></h3>
-<p><strong>Before (Brittle):</strong>
+<p><strong>Before (Brittle):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Wave 1: [Agent A] [Agent B]
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>         ↓ denied    ↓ success
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Wave 2: ❌ BLOCKED
-</span></code></pre></div></p>
-<p><strong>After (Resilient):</strong>
+</span></code></pre></div>
+<p><strong>After (Resilient):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Wave 1: [Agent A] [Agent B]
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>         ↓ denied    ↓ success
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>         ↓ noted
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Wave 2: ✓ CONTINUES (uses Agent B results + fallback)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="execution-modes">Execution Modes<a class="headerlink" href="#execution-modes" title="Permanent link">&para;</a></h3>
 <table>
 <thead>

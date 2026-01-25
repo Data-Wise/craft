@@ -4161,7 +4161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4762,11 +4762,13 @@
 <h1 id="planning-commands">Planning Commands<a class="headerlink" href="#planning-commands" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>15 minutes</strong> • 🟡 Intermediate • ✓ Project planning and roadmaps</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> 3 commands for feature planning, sprint organization, and roadmap creation
-- <strong>Why:</strong> Break down features into tasks, organize team capacity, and visualize long-term project direction
-- <strong>How:</strong> Use <code>/craft:plan:feature</code> to plan individual features, <code>/craft:plan:sprint</code> for iteration planning, <code>/craft:plan:roadmap</code> for timeline visualization
-- <strong>Next:</strong> Try <code>/craft:plan:feature "your feature description"</code> to see a structured plan</p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> 3 commands for feature planning, sprint organization, and roadmap creation</li>
+<li><strong>Why:</strong> Break down features into tasks, organize team capacity, and visualize long-term project direction</li>
+<li><strong>How:</strong> Use <code>/craft:plan:feature</code> to plan individual features, <code>/craft:plan:sprint</code> for iteration planning, <code>/craft:plan:roadmap</code> for timeline visualization</li>
+<li><strong>Next:</strong> Try <code>/craft:plan:feature "your feature description"</code> to see a structured plan</li>
+</ul>
 </blockquote>
 <p>Craft's planning commands help you organize work, estimate effort, identify dependencies, and communicate project direction with AI-powered task breakdown and timeline visualization.</p>
 <hr />
@@ -4983,14 +4985,14 @@
 </span><span id="__span-4-67"><a id="__codelineno-4-67" name="__codelineno-4-67" href="#__codelineno-4-67"></a>Effort Level: 🔧 Medium
 </span></code></pre></div>
 <h3 id="export-formats">Export Formats<a class="headerlink" href="#export-formats" title="Permanent link">&para;</a></h3>
-<p><strong>GitHub Format:</strong>
+<p><strong>GitHub Format:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;search&quot;</span><span class="w"> </span>--format<span class="w"> </span>github<span class="w"> </span>--output<span class="w"> </span>search-plan.md
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># Creates GitHub issue template with task list</span>
-</span></code></pre></div></p>
-<p><strong>Jira Format:</strong>
+</span></code></pre></div>
+<p><strong>Jira Format:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;search&quot;</span><span class="w"> </span>--format<span class="w"> </span>jira
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># Creates epic/story structure for Jira import</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="craftplansprint-sprint-planning"><code>/craft:plan:sprint</code> - Sprint Planning<a class="headerlink" href="#craftplansprint-sprint-planning" title="Permanent link">&para;</a></h2>
 <p>Plan team capacity, prioritize backlog items, and create sprint goals with dependencies mapped.</p>
@@ -5121,7 +5123,7 @@
 <h3 id="1-week-sprint-example">1-Week Sprint Example<a class="headerlink" href="#1-week-sprint-example" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:plan:sprint<span class="w"> </span>--duration<span class="w"> </span><span class="m">7</span><span class="w"> </span>--capacity<span class="w"> </span><span class="m">40</span>
 </span></code></pre></div>
-<p><strong>Output:</strong>
+<p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Sprint Plan: Sprint 26 (Dec 9-15)
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -5140,7 +5142,7 @@
 </span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>(40 hours total - 100% capacity)
 </span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
 </span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>Metrics: 6 items, high focus, low risk
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="craftplanroadmap-roadmap-creation"><code>/craft:plan:roadmap</code> - Roadmap Creation<a class="headerlink" href="#craftplanroadmap-roadmap-creation" title="Permanent link">&para;</a></h2>
 <p>Generate project roadmaps with milestones, phases, timelines, and feature grouping.</p>
@@ -5346,12 +5348,14 @@
 <h3 id="html-format-with-styling">HTML Format with Styling<a class="headerlink" href="#html-format-with-styling" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/craft:plan:roadmap<span class="w"> </span>--horizon<span class="w"> </span><span class="m">6</span><span class="w"> </span>--format<span class="w"> </span>html<span class="w"> </span>--output<span class="w"> </span>roadmap.html
 </span></code></pre></div>
-<p>Creates interactive HTML roadmap with:
-- Collapsible sections
-- Progress bars
-- Dependency visualization
-- Hover-over details
-- Print-friendly styling</p>
+<p>Creates interactive HTML roadmap with:</p>
+<ul>
+<li>Collapsible sections</li>
+<li>Progress bars</li>
+<li>Dependency visualization</li>
+<li>Hover-over details</li>
+<li>Print-friendly styling</li>
+</ul>
 <hr />
 <h2 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-1-plan-and-deliver-a-feature">Workflow 1: Plan and Deliver a Feature<a class="headerlink" href="#workflow-1-plan-and-deliver-a-feature" title="Permanent link">&para;</a></h3>

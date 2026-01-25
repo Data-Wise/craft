@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4858,38 +4858,46 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Caching Strategy:</strong>
-- Cache file: <code>commands/_cache.json</code>
-- Invalidation: Compare cache timestamp vs. newest file mtime
-- Regeneration: Full scan if any file is newer than cache
-- Format: <code>{generated: timestamp, count: int, commands: array}</code></p>
-<p><strong>Error Handling:</strong>
-- Missing cache → Full scan
-- Corrupt cache → Full scan
-- Invalid YAML → Skip file, log warning
-- Missing required fields → Skip file, log warning</p>
+<p><strong>Caching Strategy:</strong></p>
+<ul>
+<li>Cache file: <code>commands/_cache.json</code></li>
+<li>Invalidation: Compare cache timestamp vs. newest file mtime</li>
+<li>Regeneration: Full scan if any file is newer than cache</li>
+<li>Format: <code>{generated: timestamp, count: int, commands: array}</code></li>
+</ul>
+<p><strong>Error Handling:</strong></p>
+<ul>
+<li>Missing cache → Full scan</li>
+<li>Corrupt cache → Full scan</li>
+<li>Invalid YAML → Skip file, log warning</li>
+<li>Missing required fields → Skip file, log warning</li>
+</ul>
 <h3 id="2-yaml-parser">2. YAML Parser<a class="headerlink" href="#2-yaml-parser" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Extract structured metadata from markdown frontmatter</p>
-<p><strong>Implementation:</strong>
+<p><strong>Implementation:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">parse_yaml_frontmatter</span><span class="p">(</span><span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sd">    Manual YAML parser for command frontmatter.</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sd">    Supports: strings, arrays, nested objects, multi-line values</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span></code></pre></div></p>
-<p><strong>Supported YAML Features:</strong>
-- Simple key-value pairs: <code>name: value</code>
-- Arrays: <code>- item1\n- item2</code>
-- Nested objects: <code>modes:\n  default: 10</code>
-- Multi-line strings (indented)
-- Comments (ignored)</p>
-<p><strong>Limitations:</strong>
-- No complex YAML features (anchors, tags, merge keys)
-- No external YAML library dependencies
-- Designed for command frontmatter only</p>
+</span></code></pre></div>
+<p><strong>Supported YAML Features:</strong></p>
+<ul>
+<li>Simple key-value pairs: <code>name: value</code></li>
+<li>Arrays: <code>- item1\n- item2</code></li>
+<li>Nested objects: <code>modes:\n  default: 10</code></li>
+<li>Multi-line strings (indented)</li>
+<li>Comments (ignored)</li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>No complex YAML features (anchors, tags, merge keys)</li>
+<li>No external YAML library dependencies</li>
+<li>Designed for command frontmatter only</li>
+</ul>
 <h3 id="3-cache-system">3. Cache System<a class="headerlink" href="#3-cache-system" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Optimize repeated discovery operations</p>
-<p><strong>Cache Structure:</strong>
+<p><strong>Cache Structure:</strong></p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;generated&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-17T10:30:00&quot;</span><span class="p">,</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">97</span><span class="p">,</span>
@@ -4905,21 +4913,25 @@
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="p">]</span>
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<p><strong>Invalidation Strategy:</strong>
-1. Check if <code>_cache.json</code> exists
-2. Get cache file mtime
-3. Scan <code>commands/</code> for newest file mtime
-4. If any file newer than cache → regenerate
-5. Otherwise use cached data</p>
-<p><strong>Benefits:</strong>
-- 94% performance improvement (12ms → &lt;2ms)
-- No manual cache clearing needed
-- Always up-to-date with file changes
-- Graceful fallback to full scan</p>
+</span></code></pre></div>
+<p><strong>Invalidation Strategy:</strong></p>
+<ol>
+<li>Check if <code>_cache.json</code> exists</li>
+<li>Get cache file mtime</li>
+<li>Scan <code>commands/</code> for newest file mtime</li>
+<li>If any file newer than cache → regenerate</li>
+<li>Otherwise use cached data</li>
+</ol>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>94% performance improvement (12ms → &lt;2ms)</li>
+<li>No manual cache clearing needed</li>
+<li>Always up-to-date with file changes</li>
+<li>Graceful fallback to full scan</li>
+</ul>
 <h3 id="4-category-icons-metadata">4. Category Icons &amp; Metadata<a class="headerlink" href="#4-category-icons-metadata" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Visual categorization with emoji icons</p>
-<p><strong>Icon Mapping:</strong>
+<p><strong>Icon Mapping:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">CATEGORY_ICONS</span> <span class="o">=</span> <span class="p">{</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="s1">&#39;💻&#39;</span><span class="p">,</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="s1">&#39;test&#39;</span><span class="p">:</span> <span class="s1">&#39;🧪&#39;</span><span class="p">,</span>
@@ -4933,27 +4945,33 @@
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="s1">&#39;workflow&#39;</span><span class="p">:</span> <span class="s1">&#39;⚡&#39;</span><span class="p">,</span>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="s1">&#39;smart&#39;</span><span class="p">:</span> <span class="s1">&#39;🎯&#39;</span>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<p><strong>Category Information:</strong>
-- Icon: Emoji for visual identification
-- Name: Display name (title case)
-- Description: One-line explanation
-- Count: Auto-detected command count</p>
+</span></code></pre></div>
+<p><strong>Category Information:</strong></p>
+<ul>
+<li>Icon: Emoji for visual identification</li>
+<li>Name: Display name (title case)</li>
+<li>Description: One-line explanation</li>
+<li>Count: Auto-detected command count</li>
+</ul>
 <h3 id="5-tutorial-generator">5. Tutorial Generator<a class="headerlink" href="#5-tutorial-generator" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Auto-generate formatted command tutorials</p>
-<p><strong>Generated Sections:</strong>
-1. <strong>Header</strong>: Command name, category breadcrumb
-2. <strong>Description</strong>: From frontmatter
-3. <strong>Modes</strong> (if applicable): Time budgets, mode explanations
-4. <strong>Basic Usage</strong>: Example invocations with modes
-5. <strong>Common Workflows</strong> (if defined): Step-by-step procedures
-6. <strong>Related Commands</strong> (if defined): Cross-references
-7. <strong>Navigation</strong>: Breadcrumb links back to category/hub</p>
-<p><strong>Format:</strong>
-- Box-drawing characters for borders
-- 65-character width (consistent with dry-run utilities)
-- Markdown formatting for readability
-- Conditional sections (only show if data exists)</p>
+<p><strong>Generated Sections:</strong></p>
+<ol>
+<li><strong>Header</strong>: Command name, category breadcrumb</li>
+<li><strong>Description</strong>: From frontmatter</li>
+<li><strong>Modes</strong> (if applicable): Time budgets, mode explanations</li>
+<li><strong>Basic Usage</strong>: Example invocations with modes</li>
+<li><strong>Common Workflows</strong> (if defined): Step-by-step procedures</li>
+<li><strong>Related Commands</strong> (if defined): Cross-references</li>
+<li><strong>Navigation</strong>: Breadcrumb links back to category/hub</li>
+</ol>
+<p><strong>Format:</strong></p>
+<ul>
+<li>Box-drawing characters for borders</li>
+<li>65-character width (consistent with dry-run utilities)</li>
+<li>Markdown formatting for readability</li>
+<li>Conditional sections (only show if data exists)</li>
+</ul>
 <hr />
 <h2 id="data-flow">Data Flow<a class="headerlink" href="#data-flow" title="Permanent link">&para;</a></h2>
 <h3 id="command-discovery-flow">Command Discovery Flow<a class="headerlink" href="#command-discovery-flow" title="Permanent link">&para;</a></h3>
@@ -5095,14 +5113,18 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Bottlenecks:</strong>
-- File I/O during uncached scan (linear with file count)
-- YAML parsing (linear with file count)
-- JSON serialization (linear with data size)</p>
-<p><strong>Mitigation Strategies:</strong>
-- Caching eliminates most performance concerns
-- Sub-10ms cached performance scales indefinitely
-- File system scan parallelization possible if needed</p>
+<p><strong>Bottlenecks:</strong></p>
+<ul>
+<li>File I/O during uncached scan (linear with file count)</li>
+<li>YAML parsing (linear with file count)</li>
+<li>JSON serialization (linear with data size)</li>
+</ul>
+<p><strong>Mitigation Strategies:</strong></p>
+<ul>
+<li>Caching eliminates most performance concerns</li>
+<li>Sub-10ms cached performance scales indefinitely</li>
+<li>File system scan parallelization possible if needed</li>
+</ul>
 <hr />
 <h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
 <h3 id="input-validation">Input Validation<a class="headerlink" href="#input-validation" title="Permanent link">&para;</a></h3>
@@ -5139,19 +5161,27 @@
 <h3 id="horizontal-scaling">Horizontal Scaling<a class="headerlink" href="#horizontal-scaling" title="Permanent link">&para;</a></h3>
 <p>Not applicable - single-user CLI tool with local file system access.</p>
 <h3 id="vertical-scaling">Vertical Scaling<a class="headerlink" href="#vertical-scaling" title="Permanent link">&para;</a></h3>
-<p><strong>Current Performance:</strong>
-- 97 commands: 12ms uncached, &lt;2ms cached
-- Linear scaling expected: O(n) for scan, O(1) for cached</p>
-<p><strong>Projected Performance (200 commands):</strong>
-- Uncached: ~25ms (acceptable)
-- Cached: &lt;3ms (negligible increase)</p>
-<p><strong>Projected Performance (500 commands):</strong>
-- Uncached: ~60ms (still well under 200ms target)
-- Cached: &lt;5ms (still excellent)</p>
+<p><strong>Current Performance:</strong></p>
+<ul>
+<li>97 commands: 12ms uncached, &lt;2ms cached</li>
+<li>Linear scaling expected: O(n) for scan, O(1) for cached</li>
+</ul>
+<p><strong>Projected Performance (200 commands):</strong></p>
+<ul>
+<li>Uncached: ~25ms (acceptable)</li>
+<li>Cached: &lt;3ms (negligible increase)</li>
+</ul>
+<p><strong>Projected Performance (500 commands):</strong></p>
+<ul>
+<li>Uncached: ~60ms (still well under 200ms target)</li>
+<li>Cached: &lt;5ms (still excellent)</li>
+</ul>
 <h3 id="command-growth-strategy">Command Growth Strategy<a class="headerlink" href="#command-growth-strategy" title="Permanent link">&para;</a></h3>
-<p><strong>Current Categories:</strong>
-- code (12), test (7), docs (19), git (11), site (16), arch (1), ci (3), dist (1), plan (3), workflow (2)
-- Total: 16 categories, 97 commands</p>
+<p><strong>Current Categories:</strong></p>
+<ul>
+<li>code (12), test (7), docs (19), git (11), site (16), arch (1), ci (3), dist (1), plan (3), workflow (2)</li>
+<li>Total: 16 categories, 97 commands</li>
+</ul>
 <p><strong>Growth Scenarios:</strong></p>
 <table>
 <thead>
@@ -5194,17 +5224,21 @@
 <h2 id="migration-deployment">Migration &amp; Deployment<a class="headerlink" href="#migration-deployment" title="Permanent link">&para;</a></h2>
 <h3 id="migration-from-hub-v1x">Migration from Hub v1.x<a class="headerlink" href="#migration-from-hub-v1x" title="Permanent link">&para;</a></h3>
 <p><strong>Breaking Changes:</strong> None - fully backward compatible</p>
-<p><strong>New Features Available:</strong>
-1. Auto-detected command counts (no hardcoded lists)
-2. Layer 2 category views with subcategories
-3. Layer 3 command detail tutorials
-4. Related commands discovery
-5. Common workflows display</p>
-<p><strong>Migration Steps:</strong>
-1. Merge <code>feature/hub-v2</code> to <code>dev</code>
-2. No configuration changes needed
-3. No user action required
-4. Cache auto-generates on first use</p>
+<p><strong>New Features Available:</strong></p>
+<ol>
+<li>Auto-detected command counts (no hardcoded lists)</li>
+<li>Layer 2 category views with subcategories</li>
+<li>Layer 3 command detail tutorials</li>
+<li>Related commands discovery</li>
+<li>Common workflows display</li>
+</ol>
+<p><strong>Migration Steps:</strong></p>
+<ol>
+<li>Merge <code>feature/hub-v2</code> to <code>dev</code></li>
+<li>No configuration changes needed</li>
+<li>No user action required</li>
+<li>Cache auto-generates on first use</li>
+</ol>
 <h3 id="deployment-checklist">Deployment Checklist<a class="headerlink" href="#deployment-checklist" title="Permanent link">&para;</a></h3>
 <ul>
 <li>[x] All 34 tests passing</li>
@@ -5228,16 +5262,20 @@
 <hr />
 <h2 id="monitoring-observability">Monitoring &amp; Observability<a class="headerlink" href="#monitoring-observability" title="Permanent link">&para;</a></h2>
 <h3 id="performance-monitoring">Performance Monitoring<a class="headerlink" href="#performance-monitoring" title="Permanent link">&para;</a></h3>
-<p><strong>Metrics to Track:</strong>
-- Discovery time (cached vs uncached)
-- Cache hit rate
-- Cache size growth over time
-- Number of commands/categories over time</p>
-<p><strong>Logging Points:</strong>
-- Cache regeneration events
-- Invalid YAML warnings
-- Missing required fields warnings
-- File scan duration</p>
+<p><strong>Metrics to Track:</strong></p>
+<ul>
+<li>Discovery time (cached vs uncached)</li>
+<li>Cache hit rate</li>
+<li>Cache size growth over time</li>
+<li>Number of commands/categories over time</li>
+</ul>
+<p><strong>Logging Points:</strong></p>
+<ul>
+<li>Cache regeneration events</li>
+<li>Invalid YAML warnings</li>
+<li>Missing required fields warnings</li>
+<li>File scan duration</li>
+</ul>
 <h3 id="health-checks">Health Checks<a class="headerlink" href="#health-checks" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># 1. Verify discovery engine</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>python3<span class="w"> </span>commands/_discovery.py
@@ -5357,7 +5395,7 @@
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <h3 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../help/hub.md">Hub v2.0 User Guide</a></li>
+<li><a href="../../commands/hub.md">Hub v2.0 User Guide</a></li>
 <li><a href="../../tests/HUB-V2-TESTING-GUIDE.md">Hub v2.0 Testing Guide</a></li>
 <li><a href="../../tests/TESTING-SUMMARY.md">Hub v2.0 Testing Summary</a></li>
 <li><a href="../../CHANGELOG.md#unreleased---hub-v20">CHANGELOG.md</a></li>

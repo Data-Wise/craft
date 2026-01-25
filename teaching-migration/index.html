@@ -4128,7 +4128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4696,11 +4696,13 @@
 <h1 id="migrating-to-craft-teaching-workflows">Migrating to Craft Teaching Workflows<a class="headerlink" href="#migrating-to-craft-teaching-workflows" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>15 minutes</strong> • 🟡 Intermediate • ✓ From manual to automated workflows</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> Migrate from manual teaching site deployment to Craft automation
-- <strong>Why:</strong> Eliminate errors, save time, gain confidence in publishing
-- <strong>How:</strong> Add config file → Test workflows → Retire old scripts
-- <strong>Benefit:</strong> 5-step safety workflow replaces fragile shell scripts</p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> Migrate from manual teaching site deployment to Craft automation</li>
+<li><strong>Why:</strong> Eliminate errors, save time, gain confidence in publishing</li>
+<li><strong>How:</strong> Add config file → Test workflows → Retire old scripts</li>
+<li><strong>Benefit:</strong> 5-step safety workflow replaces fragile shell scripts</li>
+</ul>
 </blockquote>
 <p>This guide helps you transition from manual teaching site workflows to Craft's automated teaching mode.</p>
 <h2 id="before-and-after">Before and After<a class="headerlink" href="#before-and-after" title="Permanent link">&para;</a></h2>
@@ -4726,32 +4728,38 @@
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="c1"># 7. Realize you forgot to validate syllabus</span>
 </span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="c1"># Too late - it&#39;s already published!</span>
 </span></code></pre></div>
-<p><strong>Problems with manual workflow:</strong>
-- No pre-publish validation (catch errors AFTER students see them)
-- No preview of changes (surprises after deployment)
-- Manual branch management (easy to mess up)
-- No rollback on failure (broken site = panic)
-- No verification (did it actually deploy?)
-- Cognitive load (remember all steps, every time)</p>
+<p><strong>Problems with manual workflow:</strong></p>
+<ul>
+<li>No pre-publish validation (catch errors AFTER students see them)</li>
+<li>No preview of changes (surprises after deployment)</li>
+<li>Manual branch management (easy to mess up)</li>
+<li>No rollback on failure (broken site = panic)</li>
+<li>No verification (did it actually deploy?)</li>
+<li>Cognitive load (remember all steps, every time)</li>
+</ul>
 <h3 id="new-craft-workflow">New Craft Workflow<a class="headerlink" href="#new-craft-workflow" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># One command does everything</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:site:publish
 </span></code></pre></div>
-<p><strong>What happens automatically:</strong>
-1. ✓ Validates content (syllabus, schedule, assignments)
-2. ✓ Shows preview with categorized changes
-3. ✓ Asks for confirmation
-4. ✓ Creates backup branch
-5. ✓ Safe merge with rollback on failure
-6. ✓ Verifies deployment
-7. ✓ Returns to original branch</p>
-<p><strong>Benefits:</strong>
-- Errors caught BEFORE publishing
-- Preview changes before students see them
-- Automatic branch management
-- Automatic rollback on failure
-- Deployment verification
-- Zero cognitive load (just run the command)</p>
+<p><strong>What happens automatically:</strong></p>
+<ol>
+<li>✓ Validates content (syllabus, schedule, assignments)</li>
+<li>✓ Shows preview with categorized changes</li>
+<li>✓ Asks for confirmation</li>
+<li>✓ Creates backup branch</li>
+<li>✓ Safe merge with rollback on failure</li>
+<li>✓ Verifies deployment</li>
+<li>✓ Returns to original branch</li>
+</ol>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Errors caught BEFORE publishing</li>
+<li>Preview changes before students see them</li>
+<li>Automatic branch management</li>
+<li>Automatic rollback on failure</li>
+<li>Deployment verification</li>
+<li>Zero cognitive load (just run the command)</li>
+</ul>
 <h2 id="migration-steps">Migration Steps<a class="headerlink" href="#migration-steps" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-add-configuration-file-5-min">Step 1: Add Configuration File (5 min)<a class="headerlink" href="#step-1-add-configuration-file-5-min" title="Permanent link">&para;</a></h3>
 <p>Create <code>.flow/teach-config.yml</code> with your course details:</p>
@@ -4787,47 +4795,55 @@
 </span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="nt">progress</span><span class="p">:</span>
 </span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">  </span><span class="nt">current_week</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auto</span>
 </span></code></pre></div>
-<p><strong>Customize:</strong>
-- Course number and title
-- Semester dates (start, end, breaks)
-- GitHub Pages URL
-- Required syllabus sections</p>
-<p><strong>Test configuration:</strong>
+<p><strong>Customize:</strong></p>
+<ul>
+<li>Course number and title</li>
+<li>Semester dates (start, end, breaks)</li>
+<li>GitHub Pages URL</li>
+<li>Required syllabus sections</li>
+</ul>
+<p><strong>Test configuration:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:site:status
-</span></code></pre></div></p>
-<p><strong>Expected output:</strong>
+</span></code></pre></div>
+<p><strong>Expected output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>✓ Teaching mode detected
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>✓ Configuration valid
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-2-test-validation-3-min">Step 2: Test Validation (3 min)<a class="headerlink" href="#step-2-test-validation-3-min" title="Permanent link">&para;</a></h3>
 <p>Before using the publish workflow, test content validation:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:site:validate
 </span></code></pre></div>
-<p><strong>First run will likely show errors:</strong>
+<p><strong>First run will likely show errors:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>🚫 ERRORS (must fix before publishing):
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  1. Syllabus missing required sections: policies
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  2. Schedule has incomplete weeks: Week 2, 4
-</span></code></pre></div></p>
-<p><strong>Fix these errors:</strong>
-- Add missing syllabus sections
-- Complete schedule for all weeks
-- Fix any broken assignment references</p>
-<p><strong>Validate again until clean:</strong>
+</span></code></pre></div>
+<p><strong>Fix these errors:</strong></p>
+<ul>
+<li>Add missing syllabus sections</li>
+<li>Complete schedule for all weeks</li>
+<li>Fix any broken assignment references</li>
+</ul>
+<p><strong>Validate again until clean:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>✅ ALL CHECKS PASSED
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Status: Ready to publish ✅
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-3-test-progress-tracking-1-min">Step 3: Test Progress Tracking (1 min)<a class="headerlink" href="#step-3-test-progress-tracking-1-min" title="Permanent link">&para;</a></h3>
 <p>Verify semester progress calculation:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:site:progress
 </span></code></pre></div>
-<p><strong>Check output:</strong>
-- Current week matches calendar
-- Progress bar is accurate
-- Break countdown is correct</p>
-<p><strong>If week is wrong:</strong>
-- Verify <code>dates.start</code> in config
-- Check break dates
-- Use <code>--week</code> for manual override</p>
+<p><strong>Check output:</strong></p>
+<ul>
+<li>Current week matches calendar</li>
+<li>Progress bar is accurate</li>
+<li>Break countdown is correct</li>
+</ul>
+<p><strong>If week is wrong:</strong></p>
+<ul>
+<li>Verify <code>dates.start</code> in config</li>
+<li>Check break dates</li>
+<li>Use <code>--week</code> for manual override</li>
+</ul>
 <h3 id="step-4-first-craft-publish-5-min">Step 4: First Craft Publish (5 min)<a class="headerlink" href="#step-4-first-craft-publish-5-min" title="Permanent link">&para;</a></h3>
 <p>Run your first automated publish:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Make sure you&#39;re on draft branch</span>
@@ -4836,23 +4852,27 @@
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Run publish workflow</span>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>/craft:site:publish
 </span></code></pre></div>
-<p><strong>What to expect:</strong>
-1. Validation runs automatically
-2. Preview shows categorized changes
-3. Confirmation prompt (3 options)
-4. Safe merge and push
-5. Deployment verification</p>
-<p><strong>Review the preview carefully:</strong>
+<p><strong>What to expect:</strong></p>
+<ol>
+<li>Validation runs automatically</li>
+<li>Preview shows categorized changes</li>
+<li>Confirmation prompt (3 options)</li>
+<li>Safe merge and push</li>
+<li>Deployment verification</li>
+</ol>
+<p><strong>Review the preview carefully:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>CRITICAL CHANGES:
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>⚠️  syllabus/index.qmd      +15  -3
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>CONTENT CHANGES:
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>✓  lectures/week-01.qmd     +120 -0
-</span></code></pre></div></p>
-<p><strong>Confirm publish:</strong>
-- Choose "Yes - Merge and deploy (Recommended)"
-- Monitor output for errors
-- Verify live site after deployment</p>
+</span></code></pre></div>
+<p><strong>Confirm publish:</strong></p>
+<ul>
+<li>Choose "Yes - Merge and deploy (Recommended)"</li>
+<li>Monitor output for errors</li>
+<li>Verify live site after deployment</li>
+</ul>
 <h3 id="step-5-retire-old-scripts-1-min">Step 5: Retire Old Scripts (1 min)<a class="headerlink" href="#step-5-retire-old-scripts-1-min" title="Permanent link">&para;</a></h3>
 <p>Once Craft workflows are working, retire your old deployment scripts:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Archive old scripts</span>
@@ -4864,13 +4884,13 @@
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Update team documentation</span>
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># Replace manual steps with /craft:site:publish</span>
 </span></code></pre></div>
-<p><strong>Update <code>.gitignore</code> (optional):</strong>
+<p><strong>Update <code>.gitignore</code> (optional):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a># Old deployment scripts (archived)
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>archive/
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="common-migration-patterns">Common Migration Patterns<a class="headerlink" href="#common-migration-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="pattern-1-weekly-content-updates">Pattern 1: Weekly Content Updates<a class="headerlink" href="#pattern-1-weekly-content-updates" title="Permanent link">&para;</a></h3>
-<p><strong>Old workflow:</strong>
+<p><strong>Old workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Edit content (draft branch)</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>vim<span class="w"> </span>lectures/week-05.qmd
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
@@ -4889,8 +4909,8 @@
 </span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>
 </span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="c1"># Wait and manually check</span>
 </span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="c1"># Open browser, reload, verify</span>
-</span></code></pre></div></p>
-<p><strong>New workflow:</strong>
+</span></code></pre></div>
+<p><strong>New workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Edit content (draft branch)</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>vim<span class="w"> </span>lectures/week-05.qmd
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
@@ -4900,9 +4920,9 @@
 </span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
 </span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="c1"># Publish with safety checks</span>
 </span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>/craft:site:publish
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="pattern-2-assignment-releases">Pattern 2: Assignment Releases<a class="headerlink" href="#pattern-2-assignment-releases" title="Permanent link">&para;</a></h3>
-<p><strong>Old workflow:</strong>
+<p><strong>Old workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Add assignment file</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>vim<span class="w"> </span>assignments/hw-05.qmd
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
@@ -4922,8 +4942,8 @@
 </span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="c1"># Realize later you forgot to link it</span>
 </span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="c1"># Students can&#39;t find assignment</span>
 </span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="c1"># Emergency fix required</span>
-</span></code></pre></div></p>
-<p><strong>New workflow:</strong>
+</span></code></pre></div>
+<p><strong>New workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Add assignment file</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>vim<span class="w"> </span>assignments/hw-05.qmd
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
@@ -4942,9 +4962,9 @@
 </span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>/craft:site:publish
 </span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="c1"># Preview shows assignment in CRITICAL CHANGES</span>
 </span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="c1"># Verify before students see it</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="pattern-3-schedule-changes">Pattern 3: Schedule Changes<a class="headerlink" href="#pattern-3-schedule-changes" title="Permanent link">&para;</a></h3>
-<p><strong>Old workflow:</strong>
+<p><strong>Old workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Change due dates (high risk!)</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>vim<span class="w"> </span>schedule.qmd
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># Move HW 3 from Week 5 to Week 6</span>
@@ -4959,8 +4979,8 @@
 </span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="c1"># Students confused (no notification)</span>
 </span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="c1"># Canvas still shows old date</span>
 </span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="c1"># Email apology required</span>
-</span></code></pre></div></p>
-<p><strong>New workflow:</strong>
+</span></code></pre></div>
+<p><strong>New workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Change due dates</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>vim<span class="w"> </span>schedule.qmd
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
@@ -4975,9 +4995,9 @@
 </span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>
 </span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="c1"># After publish, update Canvas manually</span>
 </span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="c1"># Send announcement to students</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="pattern-4-semester-progress-check">Pattern 4: Semester Progress Check<a class="headerlink" href="#pattern-4-semester-progress-check" title="Permanent link">&para;</a></h3>
-<p><strong>Old workflow:</strong>
+<p><strong>Old workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Mentally calculate: &quot;What week is it?&quot;</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="c1"># Check calendar, count weeks manually</span>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="c1"># Account for spring break... or did I?</span>
@@ -4987,8 +5007,8 @@
 </span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>vim<span class="w"> </span>syllabus.qmd
 </span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="c1"># Change &quot;Current week: 7&quot; to &quot;Current week: 8&quot;</span>
 </span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c1"># Commit, publish, hope it&#39;s right</span>
-</span></code></pre></div></p>
-<p><strong>New workflow:</strong>
+</span></code></pre></div>
+<p><strong>New workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># One command shows everything</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>/craft:site:progress
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
@@ -4998,7 +5018,7 @@
 </span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>
 </span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="c1"># No manual updates needed</span>
 </span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="c1"># Auto-calculated, always accurate</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="what-to-do-with-old-scripts">What to Do with Old Scripts<a class="headerlink" href="#what-to-do-with-old-scripts" title="Permanent link">&para;</a></h2>
 <h3 id="review-and-archive">Review and Archive<a class="headerlink" href="#review-and-archive" title="Permanent link">&para;</a></h3>
 <p>Before deleting old scripts, review them for:</p>
@@ -5022,15 +5042,15 @@
 <li>Pre/post-deploy actions</li>
 <li>May need custom integration</li>
 </ol>
-<p><strong>Archive, don't delete:</strong>
+<p><strong>Archive, don't delete:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>docs/archive/old-workflows/
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>mv<span class="w"> </span>*.sh<span class="w"> </span>docs/archive/old-workflows/
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>git<span class="w"> </span>add<span class="w"> </span>docs/archive/
 </span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Archive old deployment scripts&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="update-team-documentation">Update Team Documentation<a class="headerlink" href="#update-team-documentation" title="Permanent link">&para;</a></h3>
 <p>Update your teaching team's workflow documentation:</p>
-<p><strong>Before:</strong>
+<p><strong>Before:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="gu">## Publishing to Production</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="k">1.</span> Switch to production branch: <span class="sb">`git checkout production`</span>
@@ -5039,41 +5059,49 @@
 </span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="k">4.</span> Push: <span class="sb">`git push origin production`</span>
 </span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="k">5.</span> Wait 5 minutes
 </span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="k">6.</span> Manually verify site is live
-</span></code></pre></div></p>
-<p><strong>After:</strong>
+</span></code></pre></div>
+<p><strong>After:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="gu">## Publishing to Production</span>
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
 </span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>Run the publish command:
 </span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>```bash
 </span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>/craft:site:publish
-</span></code></pre></div></p>
-<p>The command will:
-- Validate content automatically
-- Show preview of changes
-- Ask for confirmation
-- Deploy with rollback on failure
-- Verify site is live
+</span></code></pre></div>
+<p>The command will:</p>
+<ul>
+<li>Validate content automatically</li>
+<li>Show preview of changes</li>
+<li>Ask for confirmation</li>
+<li>Deploy with rollback on failure</li>
+<li>Verify site is live</li>
+</ul>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>### Notify Your Team
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
 </span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>**Email template:**
 </span></code></pre></div>
-Subject: New Teaching Site Workflow - Craft Automation</p>
+<p>Subject: New Teaching Site Workflow - Craft Automation</p>
 <p>We've migrated to Craft for automated teaching site deployment.</p>
-<p>What changed:
-- Old: Manual branch switching, merge, push (error-prone)
-- New: One command with validation and preview</p>
-<p>New workflow:
-1. Edit content on draft branch
-2. Run: /craft:site:publish
-3. Review preview and confirm</p>
-<p>Benefits:
-- Catches errors BEFORE students see them
-- Preview changes before publishing
-- Automatic rollback on failure
-- No more manual branch management</p>
+<p>What changed:</p>
+<ul>
+<li>Old: Manual branch switching, merge, push (error-prone)</li>
+<li>New: One command with validation and preview</li>
+</ul>
+<p>New workflow:</p>
+<ol>
+<li>Edit content on draft branch</li>
+<li>Run: /craft:site:publish</li>
+<li>Review preview and confirm</li>
+</ol>
+<p>Benefits:</p>
+<ul>
+<li>Catches errors BEFORE students see them</li>
+<li>Preview changes before publishing</li>
+<li>Automatic rollback on failure</li>
+<li>No more manual branch management</li>
+</ul>
 <p>Documentation:
-https://data-wise.github.io/craft/tutorials/teaching-mode-setup/</p>
-<p>Questions? Reply to this email.
+<a href="https://data-wise.github.io/craft/tutorials/teaching-mode-setup/">https://data-wise.github.io/craft/tutorials/teaching-mode-setup/</a></p>
+<p>Questions? Reply to this email.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>## Troubleshooting Migration Issues
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
 </span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>### Existing Content Fails Validation
@@ -5090,17 +5118,19 @@ https://data-wise.github.io/craft/tutorials/teaching-mode-setup/</p>
 </span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>
 </span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a># Edit config to relax rules temporarily
 </span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>vim .flow/teach-config.yml
-</span></code></pre></div></p>
+</span></code></pre></div>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nt">validation</span><span class="p">:</span>
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span><span class="nt">required_sections</span><span class="p">:</span>
 </span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grading</span><span class="w">  </span><span class="c1"># Only require grading for now</span>
 </span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">  </span><span class="nt">strict_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">  </span><span class="c1"># Warnings only</span>
 </span></code></pre></div>
-<p><strong>Gradually tighten rules:</strong>
-- Start with relaxed validation
-- Fix content over time
-- Add sections to <code>required_sections</code>
-- Enable <code>strict_mode</code> when ready</p>
+<p><strong>Gradually tighten rules:</strong></p>
+<ul>
+<li>Start with relaxed validation</li>
+<li>Fix content over time</li>
+<li>Add sections to <code>required_sections</code></li>
+<li>Enable <code>strict_mode</code> when ready</li>
+</ul>
 <h3 id="branch-names-dont-match">Branch Names Don't Match<a class="headerlink" href="#branch-names-dont-match" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> You use <code>main</code> and <code>dev</code> instead of <code>production</code> and <code>draft</code></p>
 <p><strong>Solution:</strong> Update config to match your branches</p>
@@ -5110,7 +5140,7 @@ https://data-wise.github.io/craft/tutorials/teaching-mode-setup/</p>
 </span></code></pre></div>
 <h3 id="merge-conflicts-during-migration">Merge Conflicts During Migration<a class="headerlink" href="#merge-conflicts-during-migration" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> Production and draft have diverged significantly</p>
-<p><strong>Solution:</strong>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Option 1: Force sync (if production is outdated)</span>
 </span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>production
 </span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>draft
@@ -5122,17 +5152,19 @@ https://data-wise.github.io/craft/tutorials/teaching-mode-setup/</p>
 </span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="c1"># Resolve conflicts</span>
 </span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>git<span class="w"> </span>commit
 </span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a><span class="c1"># Then use Craft for future publishes</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="github-pages-not-deploying">GitHub Pages Not Deploying<a class="headerlink" href="#github-pages-not-deploying" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> Site doesn't update after publish</p>
-<p><strong>Solution:</strong>
-1. Check GitHub Actions: <code>gh run list --limit 5</code>
-2. Verify branch in Settings → Pages
-3. Check <code>gh_pages_url</code> in config matches actual URL
-4. Wait up to 10 minutes for first deploy</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check GitHub Actions: <code>gh run list --limit 5</code></li>
+<li>Verify branch in Settings → Pages</li>
+<li>Check <code>gh_pages_url</code> in config matches actual URL</li>
+<li>Wait up to 10 minutes for first deploy</li>
+</ol>
 <h3 id="team-members-dont-have-craft">Team Members Don't Have Craft<a class="headerlink" href="#team-members-dont-have-craft" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> Only you have Craft installed</p>
-<p><strong>Solution:</strong>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Share installation instructions</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="c1"># Homebrew (recommended)</span>
 </span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>brew<span class="w"> </span>tap<span class="w"> </span>data-wise/tap
@@ -5140,20 +5172,20 @@ https://data-wise.github.io/craft/tutorials/teaching-mode-setup/</p>
 </span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>
 </span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="c1"># Or curl</span>
 </span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/Data-Wise/craft/main/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
-</span></code></pre></div></p>
-<p><strong>Document in team README:</strong>
+</span></code></pre></div>
+<p><strong>Document in team README:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="gu">## Setup</span>
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
 </span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>Install Craft:
 </span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>```bash
 </span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>brew install craft
-</span></code></pre></div></p>
-<p>Then use teaching workflows:
+</span></code></pre></div>
+<p>Then use teaching workflows:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>/craft:site:publish
 </span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>/craft:site:progress
 </span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>/craft:site:validate
 </span></code></pre></div>
-```</p>
+<p>```</p>
 <h2 id="migration-checklist">Migration Checklist<a class="headerlink" href="#migration-checklist" title="Permanent link">&para;</a></h2>
 <p>Use this checklist to track migration progress:</p>
 <p><strong>Pre-migration:</strong>

@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4576,11 +4576,13 @@
 <h1 id="dependency-management-advanced-guide">Dependency Management Advanced Guide<a class="headerlink" href="#dependency-management-advanced-guide" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>20 minutes</strong> • 🟠 Intermediate • ✓ Complete guide</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> Craft's dependency system automatically detects, validates, and installs tools needed for commands
-- <strong>Why:</strong> Ensure demos and commands work reliably without manual setup
-- <strong>How:</strong> System checks dependencies, shows status, and installs missing tools
-- <strong>Next:</strong> Read about <a href="../integration-testing/">Integration Testing</a> or <a href="../orchestrator/">Orchestrator</a></p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> Craft's dependency system automatically detects, validates, and installs tools needed for commands</li>
+<li><strong>Why:</strong> Ensure demos and commands work reliably without manual setup</li>
+<li><strong>How:</strong> System checks dependencies, shows status, and installs missing tools</li>
+<li><strong>Next:</strong> Read about <a href="../integration-testing/">Integration Testing</a> or <a href="../orchestrator/">Orchestrator</a></li>
+</ul>
 </blockquote>
 <p>The dependency management system ensures that tools required by commands (like <code>asciinema</code> for the demo command) are installed and working correctly.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
@@ -4670,40 +4672,40 @@
 </span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w">      </span><span class="nt">expect_exit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 </span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="nn">---</span>
 </span></code></pre></div>
-<p><strong>Fields Explained:</strong>
-- <code>required</code> - Boolean. If true, command fails without this tool
-- <code>purpose</code> - Description of what the tool does
-- <code>methods</code> - Array of demo methods that use this tool (asciinema, vhs)
-- <code>install</code> - Platform-specific install commands (brew, apt, cargo, etc.)
-- <code>version.min</code> - Minimum required version
-- <code>version.check_cmd</code> - Command that outputs the tool's version
-- <code>health.check_cmd</code> - Command to verify tool works
-- <code>health.expect_exit</code> - Expected exit code (usually 0)</p>
+<p><strong>Fields Explained:</strong></p>
+<ul>
+<li><code>required</code> - Boolean. If true, command fails without this tool</li>
+<li><code>purpose</code> - Description of what the tool does</li>
+<li><code>methods</code> - Array of demo methods that use this tool (asciinema, vhs)</li>
+<li><code>install</code> - Platform-specific install commands (brew, apt, cargo, etc.)</li>
+<li><code>version.min</code> - Minimum required version</li>
+<li><code>version.check_cmd</code> - Command that outputs the tool's version</li>
+<li><code>health.check_cmd</code> - Command to verify tool works</li>
+<li><code>health.expect_exit</code> - Expected exit code (usually 0)</li>
+</ul>
 <h3 id="2-tool-detection-tool-detectorsh">2. Tool Detection (tool-detector.sh)<a class="headerlink" href="#2-tool-detection-tool-detectorsh" title="Permanent link">&para;</a></h3>
 <p>Detects whether tools are installed using 4 methods:</p>
 <p><strong>Detection Methods (in order):</strong></p>
 <ol>
-<li>
-<p><strong>PATH Search</strong> - Look for executable in PATH
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>which<span class="w"> </span>asciinema
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Homebrew</strong> - Check Homebrew installation
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>brew<span class="w"> </span>list<span class="w"> </span>asciinema
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>NPM</strong> - Check global npm packages
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>npm<span class="w"> </span>list<span class="w"> </span>-g<span class="w"> </span>asciinema
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Cargo</strong> - Check Rust toolchain
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cargo<span class="w"> </span>install<span class="w"> </span>--list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>asciinema
-</span></code></pre></div></p>
-</li>
+<li><strong>PATH Search</strong> - Look for executable in PATH</li>
 </ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>which<span class="w"> </span>asciinema
+</span></code></pre></div>
+<ol>
+<li><strong>Homebrew</strong> - Check Homebrew installation</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>brew<span class="w"> </span>list<span class="w"> </span>asciinema
+</span></code></pre></div>
+<ol>
+<li><strong>NPM</strong> - Check global npm packages</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>npm<span class="w"> </span>list<span class="w"> </span>-g<span class="w"> </span>asciinema
+</span></code></pre></div>
+<ol>
+<li><strong>Cargo</strong> - Check Rust toolchain</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cargo<span class="w"> </span>install<span class="w"> </span>--list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>asciinema
+</span></code></pre></div>
 <p><strong>Output:</strong> JSON detection result</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="p">,</span>
@@ -4717,16 +4719,20 @@
 </span></code></pre></div>
 <h3 id="3-session-caching-session-cachesh">3. Session Caching (session-cache.sh)<a class="headerlink" href="#3-session-caching-session-cachesh" title="Permanent link">&para;</a></h3>
 <p>Caches detection results for performance:</p>
-<p><strong>Cache Behavior:</strong>
-- <strong>Location:</strong> <code>/tmp/craft-deps-{SESSION_ID}/</code>
-- <strong>TTL:</strong> 60 seconds
-- <strong>Scope:</strong> Session-specific (no cross-session pollution)
-- <strong>Format:</strong> JSON files per tool</p>
-<p><strong>Benefits:</strong>
-- First check: ~500ms (5 tools)
-- Cached check: ~50ms (90% faster)
-- Automatic cleanup after 60s</p>
-<p><strong>Example:</strong>
+<p><strong>Cache Behavior:</strong></p>
+<ul>
+<li><strong>Location:</strong> <code>/tmp/craft-deps-{SESSION_ID}/</code></li>
+<li><strong>TTL:</strong> 60 seconds</li>
+<li><strong>Scope:</strong> Session-specific (no cross-session pollution)</li>
+<li><strong>Format:</strong> JSON files per tool</li>
+</ul>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>First check: ~500ms (5 tools)</li>
+<li>Cached check: ~50ms (90% faster)</li>
+<li>Automatic cleanup after 60s</li>
+</ul>
+<p><strong>Example:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># First check - detects and caches</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:docs:demo<span class="w"> </span>--check<span class="w">    </span><span class="c1"># ~500ms</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
@@ -4735,21 +4741,23 @@
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># After 60s - cache expires, re-detects</span>
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>/craft:docs:demo<span class="w"> </span>--check<span class="w">    </span><span class="c1"># ~500ms</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="4-version-management-version-checksh">4. Version Management (version-check.sh)<a class="headerlink" href="#4-version-management-version-checksh" title="Permanent link">&para;</a></h3>
 <p>Validates tool versions using semantic versioning:</p>
-<p><strong>Supported Formats:</strong>
-- <code>2.3.0</code> - Semantic versioning (major.minor.patch)
-- <code>2.3</code> - Short version (auto-pad to X.Y.0)
-- <code>2</code> - Major only (auto-pad to X.0.0)</p>
-<p><strong>Comparison Logic:</strong>
+<p><strong>Supported Formats:</strong></p>
+<ul>
+<li><code>2.3.0</code> - Semantic versioning (major.minor.patch)</li>
+<li><code>2.3</code> - Short version (auto-pad to X.Y.0)</li>
+<li><code>2</code> - Major only (auto-pad to X.0.0)</li>
+</ul>
+<p><strong>Comparison Logic:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Requires: 2.0.0
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Installed: 2.3.0
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Result: OK (2.3.0 &gt;= 2.0.0)
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>Installed: 1.9.0
 </span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>Result: BROKEN (1.9.0 &lt; 2.0.0) - needs upgrade
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="5-health-checks-health-checksh">5. Health Checks (health-check.sh)<a class="headerlink" href="#5-health-checks-health-checksh" title="Permanent link">&para;</a></h3>
 <p>Verifies installed tools actually work:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Test command</span>
@@ -4765,14 +4773,16 @@
 <h2 id="workflows">Workflows<a class="headerlink" href="#workflows" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-1-check-dependencies">Workflow 1: Check Dependencies<a class="headerlink" href="#workflow-1-check-dependencies" title="Permanent link">&para;</a></h3>
 <p><strong>Command:</strong> <code>/craft:docs:demo --check</code></p>
-<p><strong>Steps:</strong>
-1. Parse <code>demo.md</code> frontmatter → Tool specs
-2. For each tool:
-   - Check cache (60s TTL)
-   - If cache miss → Run detection (4 methods)
-   - Store result in cache
-3. Display results in formatted table</p>
-<p><strong>Output Example:</strong>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Parse <code>demo.md</code> frontmatter → Tool specs</li>
+<li>For each tool:</li>
+<li>Check cache (60s TTL)</li>
+<li>If cache miss → Run detection (4 methods)</li>
+<li>Store result in cache</li>
+<li>Display results in formatted table</li>
+</ol>
+<p><strong>Output Example:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>│ 🔍 DEPENDENCY STATUS: asciinema method                      │
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>├─────────────────────────────────────────────────────────────┤
@@ -4785,22 +4795,26 @@
 </span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
 </span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>Summary: 1 missing, 0 broken
 </span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>Run: /craft:docs:demo --fix
-</span></code></pre></div></p>
-<p><strong>Exit Codes:</strong>
-- <code>0</code> - All required tools OK
-- <code>1</code> - Missing or broken required tools</p>
+</span></code></pre></div>
+<p><strong>Exit Codes:</strong></p>
+<ul>
+<li><code>0</code> - All required tools OK</li>
+<li><code>1</code> - Missing or broken required tools</li>
+</ul>
 <h3 id="workflow-2-install-missing-dependencies">Workflow 2: Install Missing Dependencies<a class="headerlink" href="#workflow-2-install-missing-dependencies" title="Permanent link">&para;</a></h3>
 <p><strong>Command:</strong> <code>/craft:docs:demo --fix</code></p>
-<p><strong>Steps:</strong>
-1. Check dependencies (same as Workflow 1)
-2. Identify missing/broken tools
-3. For each missing tool:
-   - Try install methods in priority order: brew → cargo → binary
-   - First success → use that method
-   - First failure → try next method
-4. Verify installation with health check
-5. Report results</p>
-<p><strong>Install Priority:</strong>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Check dependencies (same as Workflow 1)</li>
+<li>Identify missing/broken tools</li>
+<li>For each missing tool:</li>
+<li>Try install methods in priority order: brew → cargo → binary</li>
+<li>First success → use that method</li>
+<li>First failure → try next method</li>
+<li>Verify installation with health check</li>
+<li>Report results</li>
+</ol>
+<p><strong>Install Priority:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>1. Homebrew (macOS primary)
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>   └─ brew install asciinema
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
@@ -4812,8 +4826,8 @@
 </span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
 </span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>4. User Consent Prompt (last resort)
 </span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>   └─ Ask user permission for other methods
-</span></code></pre></div></p>
-<p><strong>Output Example:</strong>
+</span></code></pre></div>
+<p><strong>Output Example:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Installing missing dependencies...
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>agg (required for asciinema method):
@@ -4825,17 +4839,19 @@
 </span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>  Skipped (optional tool)
 </span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
 </span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>Installation complete!
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="workflow-3-repair-broken-dependencies">Workflow 3: Repair Broken Dependencies<a class="headerlink" href="#workflow-3-repair-broken-dependencies" title="Permanent link">&para;</a></h3>
 <p><strong>Command:</strong> <code>/craft:docs:demo --repair</code> (or automatic with --fix)</p>
-<p><strong>Steps:</strong>
-1. Detect broken tools (health check failed)
-2. For each broken tool:
-   - Determine install method (from detection)
-   - Uninstall current version (if safe)
-   - Reinstall latest compatible version
-   - Verify with health check</p>
-<p><strong>Example - Broken Installation:</strong>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Detect broken tools (health check failed)</li>
+<li>For each broken tool:</li>
+<li>Determine install method (from detection)</li>
+<li>Uninstall current version (if safe)</li>
+<li>Reinstall latest compatible version</li>
+<li>Verify with health check</li>
+</ol>
+<p><strong>Example - Broken Installation:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>gifsicle health check FAILED
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  Current version: 1.88
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>  Required minimum: 1.90
@@ -4846,15 +4862,17 @@
 </span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>  3. Verify: gifsicle --version
 </span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
 </span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>Result: ✅ gifsicle 1.96 now healthy
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="workflow-4-batch-installation">Workflow 4: Batch Installation<a class="headerlink" href="#workflow-4-batch-installation" title="Permanent link">&para;</a></h3>
-<p>For commands with many dependencies, batch mode:
-1. Collect all missing tools
-2. Show installation plan
-3. Install all tools sequentially
-4. Report summary
-5. Optionally run integration tests</p>
-<p><strong>Example:</strong>
+<p>For commands with many dependencies, batch mode:</p>
+<ol>
+<li>Collect all missing tools</li>
+<li>Show installation plan</li>
+<li>Install all tools sequentially</li>
+<li>Report summary</li>
+<li>Optionally run integration tests</li>
+</ol>
+<p><strong>Example:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Check 5 tools</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>asciinema<span class="w">   </span>✅<span class="w"> </span>OK
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>agg<span class="w">         </span>❌<span class="w"> </span>MISSING
@@ -4868,7 +4886,7 @@
 </span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">  </span>ffmpeg<span class="w">    </span>✅<span class="w"> </span><span class="o">(</span>via<span class="w"> </span>brew<span class="o">)</span>
 </span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>
 </span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>Result:<span class="w"> </span><span class="m">2</span>/2<span class="w"> </span>installed<span class="w"> </span>successfully
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="scripts-reference">Scripts Reference<a class="headerlink" href="#scripts-reference" title="Permanent link">&para;</a></h2>
 <h3 id="dependency-managersh-476-lines">dependency-manager.sh (476 lines)<a class="headerlink" href="#dependency-managersh-476-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Main orchestrator for checking and detecting tools.</strong></p>
@@ -4909,7 +4927,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Usage:</strong>
+<p><strong>Usage:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Check dependencies for asciinema method</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>bash<span class="w"> </span>scripts/dependency-manager.sh<span class="w"> </span>check_dependencies<span class="w"> </span>asciinema
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
@@ -4918,11 +4936,13 @@
 </span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
 </span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="c1"># Get install command for a tool</span>
 </span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>bash<span class="w"> </span>scripts/dependency-manager.sh<span class="w"> </span>get_install_command<span class="w"> </span>agg<span class="w"> </span><span class="s1">&#39;{&quot;brew&quot;:&quot;agg&quot;,&quot;cargo&quot;:&quot;agg&quot;}&#39;</span>
-</span></code></pre></div></p>
-<p><strong>Output Formats:</strong>
-- <strong>JSON:</strong> For programmatic use
-- <strong>Table:</strong> For human readability
-- <strong>Exit codes:</strong> 0 (OK), 1 (missing/broken)</p>
+</span></code></pre></div>
+<p><strong>Output Formats:</strong></p>
+<ul>
+<li><strong>JSON:</strong> For programmatic use</li>
+<li><strong>Table:</strong> For human readability</li>
+<li><strong>Exit codes:</strong> 0 (OK), 1 (missing/broken)</li>
+</ul>
 <h3 id="dependency-installersh-476-lines">dependency-installer.sh (476 lines)<a class="headerlink" href="#dependency-installersh-476-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Orchestrator for installing and repairing tools.</strong></p>
 <p><strong>Key Functions:</strong></p>
@@ -4960,7 +4980,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Usage:</strong>
+<p><strong>Usage:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Install missing tools</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>bash<span class="w"> </span>scripts/dependency-installer.sh<span class="w"> </span>install_missing_tools
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
@@ -4969,7 +4989,7 @@
 </span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
 </span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Dry-run to preview what would happen</span>
 </span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>bash<span class="w"> </span>scripts/dependency-installer.sh<span class="w"> </span>--dry-run<span class="w"> </span>install_missing_tools
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="tool-detectorsh-297-lines">tool-detector.sh (297 lines)<a class="headerlink" href="#tool-detectorsh-297-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Low-level tool detection using 4 methods.</strong></p>
 <p><strong>Key Functions:</strong></p>
@@ -4999,14 +5019,14 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Usage:</strong>
+<p><strong>Usage:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Detect if bash is installed</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>bash<span class="w"> </span>scripts/tool-detector.sh<span class="w"> </span>bash
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># Import functions and use directly</span>
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="nb">source</span><span class="w"> </span>scripts/tool-detector.sh
 </span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>detect_tool<span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="w"> </span><span class="s1">&#39;{&quot;min&quot;:&quot;2.0.0&quot;}&#39;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="session-cachesh-211-lines">session-cache.sh (211 lines)<a class="headerlink" href="#session-cachesh-211-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Session-scoped caching layer for performance.</strong></p>
 <p><strong>Key Functions:</strong></p>
@@ -5040,16 +5060,18 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Cache Structure:</strong>
+<p><strong>Cache Structure:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/tmp/craft-deps-SESSION_ID/
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>├── asciinema.json     # {&quot;installed&quot;: true, &quot;version&quot;: &quot;2.3.0&quot;, ...}
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>├── agg.json            # {&quot;installed&quot;: false, ...}
 </span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>└── gifsicle.json
-</span></code></pre></div></p>
-<p><strong>Cache Expiration:</strong>
-- Manual: <code>clear_cache asciinema</code>
-- Automatic: 60 seconds TTL
-- Cleanup: <code>cleanup_cache</code> removes entire directory</p>
+</span></code></pre></div>
+<p><strong>Cache Expiration:</strong></p>
+<ul>
+<li>Manual: <code>clear_cache asciinema</code></li>
+<li>Automatic: 60 seconds TTL</li>
+<li>Cleanup: <code>cleanup_cache</code> removes entire directory</li>
+</ul>
 <h3 id="version-checksh-365-lines">version-check.sh (365 lines)<a class="headerlink" href="#version-checksh-365-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Semantic version comparison and validation.</strong></p>
 <p><strong>Key Functions:</strong></p>
@@ -5075,12 +5097,12 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Supported Formats:</strong>
+<p><strong>Supported Formats:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>2.3.0    → [major=2, minor=3, patch=0]
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>2.3      → [major=2, minor=3, patch=0] (auto-pad)
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>2        → [major=2, minor=0, patch=0] (auto-pad)
 </span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>v2.3.0   → [major=2, minor=3, patch=0] (strip &#39;v&#39;)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="health-checksh-287-lines">health-check.sh (287 lines)<a class="headerlink" href="#health-checksh-287-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Tool validation and health assessment.</strong></p>
 <p><strong>Key Functions:</strong></p>
@@ -5106,7 +5128,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Health Check Output:</strong>
+<p><strong>Health Check Output:</strong></p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">{</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="p">,</span>
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span><span class="nt">&quot;health&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
@@ -5114,7 +5136,7 @@
 </span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asciinema 2.3.0\nRecord and share your terminal session...&quot;</span><span class="p">,</span>
 </span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-18T14:30:00Z&quot;</span>
 </span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="p">}</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="repair-toolssh-485-lines">repair-tools.sh (485 lines)<a class="headerlink" href="#repair-toolssh-485-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Advanced repair and recovery for broken dependencies.</strong></p>
 <p><strong>Key Functions:</strong></p>
@@ -5148,61 +5170,65 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Repair Strategies:</strong>
-1. <strong>Update</strong> - Upgrade to latest version
-2. <strong>Reinstall</strong> - Remove and reinstall
-3. <strong>Downgrade</strong> - Go to previous stable version
-4. <strong>Alternative</strong> - Use different tool with same purpose
-5. <strong>Manual</strong> - Ask user to fix manually</p>
+<p><strong>Repair Strategies:</strong></p>
+<ol>
+<li><strong>Update</strong> - Upgrade to latest version</li>
+<li><strong>Reinstall</strong> - Remove and reinstall</li>
+<li><strong>Downgrade</strong> - Go to previous stable version</li>
+<li><strong>Alternative</strong> - Use different tool with same purpose</li>
+<li><strong>Manual</strong> - Ask user to fix manually</li>
+</ol>
 <h2 id="installers">Installers<a class="headerlink" href="#installers" title="Permanent link">&para;</a></h2>
 <h3 id="brew-installersh-156-lines">brew-installer.sh (156 lines)<a class="headerlink" href="#brew-installersh-156-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Homebrew package installation.</strong></p>
-<p><strong>Functions:</strong>
+<p><strong>Functions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>check_brew_available<span class="o">()</span><span class="w">      </span><span class="c1"># Check if brew is installed</span>
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>brew_search_package<span class="w"> </span>PKG<span class="w">     </span><span class="c1"># Verify package exists</span>
 </span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>brew_install_package<span class="w"> </span>TOOL<span class="w"> </span>PKG<span class="w">  </span><span class="c1"># Install package</span>
 </span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>get_brew_status<span class="w">            </span><span class="c1"># Status JSON</span>
-</span></code></pre></div></p>
-<p><strong>Output:</strong>
+</span></code></pre></div>
+<p><strong>Output:</strong></p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">{</span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Successfully installed agg via brew&quot;</span><span class="p">}</span>
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="p">{</span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Package not found in Homebrew&quot;</span><span class="p">}</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="cargo-installersh-234-lines">cargo-installer.sh (234 lines)<a class="headerlink" href="#cargo-installersh-234-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Rust package installation via Cargo.</strong></p>
-<p><strong>Functions:</strong>
+<p><strong>Functions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>check_cargo_available<span class="o">()</span><span class="w">        </span><span class="c1"># Check if cargo installed</span>
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>cargo_search_package<span class="w"> </span>PKG<span class="w">       </span><span class="c1"># Verify package exists</span>
 </span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>cargo_install_package<span class="w"> </span>TOOL<span class="w"> </span>PKG<span class="w"> </span><span class="c1"># Install package</span>
 </span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>get_cargo_status<span class="w">               </span><span class="c1"># Status JSON</span>
-</span></code></pre></div></p>
-<p><strong>Output:</strong>
+</span></code></pre></div>
+<p><strong>Output:</strong></p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="p">{</span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Successfully installed agg v1.7.0&quot;</span><span class="p">}</span>
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="p">{</span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Package not found in crates.io&quot;</span><span class="p">}</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="binary-installersh-312-lines">binary-installer.sh (312 lines)<a class="headerlink" href="#binary-installersh-312-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Direct binary download and installation.</strong></p>
-<p><strong>Functions:</strong>
+<p><strong>Functions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>get_download_url<span class="w"> </span>TOOL<span class="w"> </span>VERSION<span class="w">           </span><span class="c1"># Construct download URL</span>
 </span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>download_binary<span class="w"> </span>TOOL<span class="w"> </span>URL<span class="w"> </span>DESTINATION<span class="w">    </span><span class="c1"># Download and verify</span>
 </span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>install_binary_from_archive<span class="w"> </span>TOOL<span class="w"> </span>PATH<span class="w">   </span><span class="c1"># Extract and install</span>
 </span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>get_binary_status<span class="w">                       </span><span class="c1"># Status JSON</span>
-</span></code></pre></div></p>
-<p><strong>Supported Formats:</strong>
-- <code>.tar.gz</code> - Gzip archive
-- <code>.zip</code> - Zip archive
-- Single binary files</p>
+</span></code></pre></div>
+<p><strong>Supported Formats:</strong></p>
+<ul>
+<li><code>.tar.gz</code> - Gzip archive</li>
+<li><code>.zip</code> - Zip archive</li>
+<li>Single binary files</li>
+</ul>
 <h3 id="consent-promptsh-98-lines">consent-prompt.sh (98 lines)<a class="headerlink" href="#consent-promptsh-98-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Interactive user approval for sensitive operations.</strong></p>
-<p><strong>Functions:</strong>
+<p><strong>Functions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>prompt_user_consent<span class="w"> </span>TOOL<span class="w"> </span>MESSAGE<span class="w">        </span><span class="c1"># Ask user permission</span>
 </span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>format_consent_prompt<span class="w"> </span>TOOL<span class="w"> </span>REASON<span class="w">       </span><span class="c1"># Format prompt text</span>
 </span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>parse_user_response<span class="w"> </span>RESPONSE<span class="w">            </span><span class="c1"># Validate user input</span>
-</span></code></pre></div></p>
-<p><strong>Example:</strong>
+</span></code></pre></div>
+<p><strong>Example:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>agg needs to be installed. Install now? [y/N]
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>&gt; y
 </span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>✅ Installing agg via cargo...
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
 <h3 id="graceful-degradation">Graceful Degradation<a class="headerlink" href="#graceful-degradation" title="Permanent link">&para;</a></h3>
 <p>The system gracefully handles common errors:</p>
@@ -5241,7 +5267,7 @@
 </tbody>
 </table>
 <h3 id="retry-logic">Retry Logic<a class="headerlink" href="#retry-logic" title="Permanent link">&para;</a></h3>
-<p>Installation retries with exponential backoff:
+<p>Installation retries with exponential backoff:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>Attempt 1: brew install agg
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>  └─ Failed
 </span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
@@ -5252,19 +5278,19 @@
 </span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>
 </span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>Try next method: cargo install agg
 </span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>  └─ Success!
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="logging">Logging<a class="headerlink" href="#logging" title="Permanent link">&para;</a></h3>
-<p>All operations logged to:
+<p>All operations logged to:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>/tmp/craft-install-SESSION_ID.log
-</span></code></pre></div></p>
-<p><strong>Log Format:</strong>
+</span></code></pre></div>
+<p><strong>Log Format:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>2026-01-18 14:30:00 [INFO] Starting dependency check
 </span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>2026-01-18 14:30:00 [DEBUG] Checking asciinema...
 </span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>2026-01-18 14:30:01 [DEBUG] Found via PATH: /usr/local/bin/asciinema
 </span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>2026-01-18 14:30:01 [DEBUG] Version 2.3.0 &gt;= 2.0.0: OK
 </span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>2026-01-18 14:30:01 [DEBUG] Health check: OK
 </span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>2026-01-18 14:30:02 [INFO] Dependency check complete: 1 OK, 0 missing, 0 broken
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="performance-characteristics">Performance Characteristics<a class="headerlink" href="#performance-characteristics" title="Permanent link">&para;</a></h2>
 <h3 id="benchmark-results">Benchmark Results<a class="headerlink" href="#benchmark-results" title="Permanent link">&para;</a></h3>
 <table>
@@ -5341,44 +5367,58 @@
 </span></code></pre></div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="issue-tool-shows-as-missing-but-is-actually-installed">Issue: Tool shows as "MISSING" but is actually installed<a class="headerlink" href="#issue-tool-shows-as-missing-but-is-actually-installed" title="Permanent link">&para;</a></h3>
-<p><strong>Diagnosis:</strong>
-1. Check if tool is in PATH: <code>which toolname</code>
-2. Check if tool is in homebrew: <code>brew list toolname</code>
-3. Check if tool is in cargo: <code>cargo install --list | grep toolname</code></p>
-<p><strong>Solution:</strong>
-- Add to PATH: <code>export PATH="/path/to/tool:$PATH"</code>
-- Reinstall via correct method
-- Clear cache: <code>rm -rf /tmp/craft-deps-*</code></p>
+<p><strong>Diagnosis:</strong></p>
+<ol>
+<li>Check if tool is in PATH: <code>which toolname</code></li>
+<li>Check if tool is in homebrew: <code>brew list toolname</code></li>
+<li>Check if tool is in cargo: <code>cargo install --list | grep toolname</code></li>
+</ol>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Add to PATH: <code>export PATH="/path/to/tool:$PATH"</code></li>
+<li>Reinstall via correct method</li>
+<li>Clear cache: <code>rm -rf /tmp/craft-deps-*</code></li>
+</ul>
 <h3 id="issue-version-validation-fails">Issue: Version validation fails<a class="headerlink" href="#issue-version-validation-fails" title="Permanent link">&para;</a></h3>
-<p><strong>Diagnosis:</strong>
-1. Check actual version: <code>toolname --version</code>
-2. Verify minimum required version in tool spec
-3. Check version extraction command in health check</p>
-<p><strong>Solution:</strong>
+<p><strong>Diagnosis:</strong></p>
+<ol>
+<li>Check actual version: <code>toolname --version</code></li>
+<li>Verify minimum required version in tool spec</li>
+<li>Check version extraction command in health check</li>
+</ol>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Test version extraction</span>
 </span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>asciinema<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oE<span class="w"> </span><span class="s1">&#39;[0-9.]+&#39;</span>
 </span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
 </span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="c1"># Update version extraction command in demo.md</span>
 </span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>check_cmd:<span class="w"> </span><span class="s2">&quot;asciinema --version | grep -oE &#39;[0-9.]+&#39; | head -1&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="issue-installation-fails-with-installer-not-available">Issue: Installation fails with "installer not available"<a class="headerlink" href="#issue-installation-fails-with-installer-not-available" title="Permanent link">&para;</a></h3>
-<p><strong>Diagnosis:</strong>
-- Homebrew not installed on macOS
-- Cargo not installed for Rust tools
-- Internet connection required for downloads</p>
-<p><strong>Solution:</strong>
-1. Install Homebrew: <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code>
-2. Install Rust: <code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code>
-3. Check internet connection</p>
+<p><strong>Diagnosis:</strong></p>
+<ul>
+<li>Homebrew not installed on macOS</li>
+<li>Cargo not installed for Rust tools</li>
+<li>Internet connection required for downloads</li>
+</ul>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Install Homebrew: <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></li>
+<li>Install Rust: <code>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh</code></li>
+<li>Check internet connection</li>
+</ol>
 <h3 id="issue-health-check-fails-after-installation">Issue: Health check fails after installation<a class="headerlink" href="#issue-health-check-fails-after-installation" title="Permanent link">&para;</a></h3>
-<p><strong>Diagnosis:</strong>
-- Tool installed but not in PATH
-- Tool has unusual health check requirements
-- Tool requires additional configuration</p>
-<p><strong>Solution:</strong>
-1. Check if installed: <code>which toolname</code>
-2. Verify health check command: <code>toolname --help</code>
-3. Modify health check in tool spec if needed</p>
+<p><strong>Diagnosis:</strong></p>
+<ul>
+<li>Tool installed but not in PATH</li>
+<li>Tool has unusual health check requirements</li>
+<li>Tool requires additional configuration</li>
+</ul>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check if installed: <code>which toolname</code></li>
+<li>Verify health check command: <code>toolname --help</code></li>
+<li>Modify health check in tool spec if needed</li>
+</ol>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Run check:</strong> <code>/craft:docs:demo --check</code></li>

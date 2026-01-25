@@ -4469,7 +4469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5462,29 +5462,37 @@
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  ↑
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>feature/* (worktrees) ← All implementation work
 </span></code></pre></div>
-<p><strong>Characteristics:</strong>
-- Main branch is protected (requires PR + CI)
-- Dev branch for integration and planning
-- Feature branches for isolated development
-- Clear separation between production and development</p>
-<p><strong>Branch Protection Settings:</strong>
-- ✅ Require pull requests before merge
-- ✅ Require status checks (CI must pass)
-- ✅ Block force pushes
-- ✅ Allow admin bypass (emergency fixes)</p>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li>Main branch is protected (requires PR + CI)</li>
+<li>Dev branch for integration and planning</li>
+<li>Feature branches for isolated development</li>
+<li>Clear separation between production and development</li>
+</ul>
+<p><strong>Branch Protection Settings:</strong></p>
+<ul>
+<li>✅ Require pull requests before merge</li>
+<li>✅ Require status checks (CI must pass)</li>
+<li>✅ Block force pushes</li>
+<li>✅ Allow admin bypass (emergency fixes)</li>
+</ul>
 <h3 id="pattern-2-simple">Pattern 2: Simple<a class="headerlink" href="#pattern-2-simple" title="Permanent link">&para;</a></h3>
 <p><strong>Best For:</strong> Personal projects, experiments, quick prototypes</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>main ← Direct commits allowed
 </span></code></pre></div>
-<p><strong>Characteristics:</strong>
-- Single main branch
-- Direct commits permitted
-- Optional branch protection
-- Minimal overhead</p>
-<p><strong>Branch Protection Settings:</strong>
-- ⚠️ Optional (user decides)
-- Can enable PR requirements later
-- Suitable for solo development</p>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li>Single main branch</li>
+<li>Direct commits permitted</li>
+<li>Optional branch protection</li>
+<li>Minimal overhead</li>
+</ul>
+<p><strong>Branch Protection Settings:</strong></p>
+<ul>
+<li>⚠️ Optional (user decides)</li>
+<li>Can enable PR requirements later</li>
+<li>Suitable for solo development</li>
+</ul>
 <h3 id="pattern-3-gitflow">Pattern 3: GitFlow<a class="headerlink" href="#pattern-3-gitflow" title="Permanent link">&para;</a></h3>
 <p><strong>Best For:</strong> Complex release management, versioned software</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>main (protected) ← Production releases
@@ -5495,15 +5503,19 @@
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  ↑
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>feature/* ← Feature development
 </span></code></pre></div>
-<p><strong>Characteristics:</strong>
-- Dedicated release branches
-- Strict version management
-- Multiple protected branches (main + develop)
-- Release candidate workflow</p>
-<p><strong>Branch Protection Settings:</strong>
-- ✅ Main and develop protected
-- ✅ Release branches follow naming convention
-- ✅ Hotfix workflow supported</p>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li>Dedicated release branches</li>
+<li>Strict version management</li>
+<li>Multiple protected branches (main + develop)</li>
+<li>Release candidate workflow</li>
+</ul>
+<p><strong>Branch Protection Settings:</strong></p>
+<ul>
+<li>✅ Main and develop protected</li>
+<li>✅ Release branches follow naming convention</li>
+<li>✅ Hotfix workflow supported</li>
+</ul>
 <h2 id="interactive-wizard-flow">Interactive Wizard Flow<a class="headerlink" href="#interactive-wizard-flow" title="Permanent link">&para;</a></h2>
 <p>The command guides you through 9 steps:</p>
 <h3 id="step-1-repository-check">Step 1: Repository Check<a class="headerlink" href="#step-1-repository-check" title="Permanent link">&para;</a></h3>
@@ -5515,9 +5527,11 @@
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  ○ Full re-init (requires --force)
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  ○ Cancel
 </span></code></pre></div>
-<p><strong>If <code>.git</code> does not exist:</strong>
-- Automatically initializes new repository
-- Proceeds to Step 2</p>
+<p><strong>If <code>.git</code> does not exist:</strong></p>
+<ul>
+<li>Automatically initializes new repository</li>
+<li>Proceeds to Step 2</li>
+</ul>
 <h3 id="step-2-remote-setup">Step 2: Remote Setup<a class="headerlink" href="#step-2-remote-setup" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Question: &quot;Where should the repository live?&quot;
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Options:
@@ -5547,21 +5561,25 @@
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  ✓ Creating dev branch...
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  ✓ Setting dev as default for new work...
 </span></code></pre></div>
-<p><strong>Workflow-specific branches:</strong>
-- Main+Dev: <code>main</code>, <code>dev</code>
-- Simple: <code>main</code>
-- GitFlow: <code>main</code>, <code>develop</code></p>
+<p><strong>Workflow-specific branches:</strong></p>
+<ul>
+<li>Main+Dev: <code>main</code>, <code>dev</code></li>
+<li>Simple: <code>main</code></li>
+<li>GitFlow: <code>main</code>, <code>develop</code></li>
+</ul>
 <h3 id="step-4-branch-protection">Step 4: Branch Protection<a class="headerlink" href="#step-4-branch-protection" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Question: &quot;Enable branch protection on main?&quot;
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Options:
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  ○ Yes (Recommended) - Requires PR + CI
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  ○ No - Allow direct commits
 </span></code></pre></div>
-<p><strong>If enabled, configures:</strong>
-- Require pull requests before merge
-- Require status checks to pass
-- Block force pushes
-- Allow admin bypass for emergencies</p>
+<p><strong>If enabled, configures:</strong></p>
+<ul>
+<li>Require pull requests before merge</li>
+<li>Require status checks to pass</li>
+<li>Block force pushes</li>
+<li>Allow admin bypass for emergencies</li>
+</ul>
 <h3 id="step-5-ci-workflow">Step 5: CI Workflow<a class="headerlink" href="#step-5-ci-workflow" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Question: &quot;Generate CI workflow?&quot;
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>Options:
@@ -5586,17 +5604,19 @@
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  □ CLAUDE.md (craft-style)
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>  □ .github/pull_request_template.md
 </span></code></pre></div>
-<p><strong>Template files created:</strong>
-- <code>.STATUS</code> - Project status YAML
-- <code>CLAUDE.md</code> - Workflow documentation
-- <code>.github/pull_request_template.md</code> - PR template</p>
+<p><strong>Template files created:</strong></p>
+<ul>
+<li><code>.STATUS</code> - Project status YAML</li>
+<li><code>CLAUDE.md</code> - Workflow documentation</li>
+<li><code>.github/pull_request_template.md</code> - PR template</li>
+</ul>
 <h3 id="step-7-initial-commit">Step 7: Initial Commit<a class="headerlink" href="#step-7-initial-commit" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Question: &quot;Create initial commit?&quot;
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Options:
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  ○ Yes - Commit setup files
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  ○ No - Leave staged
 </span></code></pre></div>
-<p><strong>If yes, creates commit:</strong>
+<p><strong>If yes, creates commit:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>chore: initialize repository with craft workflow
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>- Set up main + dev branch structure
@@ -5605,7 +5625,7 @@
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>- Add project tracking (.STATUS, CLAUDE.md)
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
 </span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>Co-Authored-By: Claude Sonnet 4.5 &lt;noreply@anthropic.com&gt;
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-8-push-to-remote">Step 8: Push to Remote<a class="headerlink" href="#step-8-push-to-remote" title="Permanent link">&para;</a></h3>
 <p><strong>If remote configured:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Question: &quot;Push to GitHub?&quot;
@@ -5619,11 +5639,13 @@
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  ○ Yes (Recommended)
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>  ○ Skip
 </span></code></pre></div>
-<p><strong>Validates:</strong>
-- Git structure
-- Branch protection configuration
-- CI workflow syntax
-- Project files exist and are valid</p>
+<p><strong>Validates:</strong></p>
+<ul>
+<li>Git structure</li>
+<li>Branch protection configuration</li>
+<li>CI workflow syntax</li>
+<li>Project files exist and are valid</li>
+</ul>
 <h2 id="template-files">Template Files<a class="headerlink" href="#template-files" title="Permanent link">&para;</a></h2>
 <h3 id="status-template">.STATUS Template<a class="headerlink" href="#status-template" title="Permanent link">&para;</a></h3>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Initial Setup</span>
@@ -5645,30 +5667,38 @@
 </span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a><span class="nt">docs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/{{USER}}/{{REPO}}</span>
 </span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/{{USER}}/{{REPO}}</span>
 </span></code></pre></div>
-<p><strong>Placeholders:</strong>
-- <code>{{USER}}</code> - GitHub username
-- <code>{{REPO}}</code> - Repository name</p>
+<p><strong>Placeholders:</strong></p>
+<ul>
+<li><code>{{USER}}</code> - GitHub username</li>
+<li><code>{{REPO}}</code> - Repository name</li>
+</ul>
 <h3 id="claudemd-template">CLAUDE.md Template<a class="headerlink" href="#claudemd-template" title="Permanent link">&para;</a></h3>
-<p><strong>Sections included:</strong>
-- TL;DR with key workflow rules
-- Git workflow diagram
-- Workflow steps table
-- Constraints (never commit to main)
-- Quick commands table
-- Project structure
-- Troubleshooting guide</p>
-<p><strong>Placeholders:</strong>
-- <code>{{PROJECT_NAME}}</code> - Project display name
-- <code>{{USER}}</code> - GitHub username
-- <code>{{REPO}}</code> - Repository name</p>
+<p><strong>Sections included:</strong></p>
+<ul>
+<li>TL;DR with key workflow rules</li>
+<li>Git workflow diagram</li>
+<li>Workflow steps table</li>
+<li>Constraints (never commit to main)</li>
+<li>Quick commands table</li>
+<li>Project structure</li>
+<li>Troubleshooting guide</li>
+</ul>
+<p><strong>Placeholders:</strong></p>
+<ul>
+<li><code>{{PROJECT_NAME}}</code> - Project display name</li>
+<li><code>{{USER}}</code> - GitHub username</li>
+<li><code>{{REPO}}</code> - Repository name</li>
+</ul>
 <h3 id="pr-template">PR Template<a class="headerlink" href="#pr-template" title="Permanent link">&para;</a></h3>
-<p><strong>Sections included:</strong>
-- Summary with change list
-- Test plan checklist
-- Breaking changes section
-- Documentation checklist
-- General checklist (style, review, tests)
-- Screenshots placeholder</p>
+<p><strong>Sections included:</strong></p>
+<ul>
+<li>Summary with change list</li>
+<li>Test plan checklist</li>
+<li>Breaking changes section</li>
+<li>Documentation checklist</li>
+<li>General checklist (style, review, tests)</li>
+<li>Screenshots placeholder</li>
+</ul>
 <h2 id="dry-run-mode">Dry-Run Mode<a class="headerlink" href="#dry-run-mode" title="Permanent link">&para;</a></h2>
 <p>Preview all changes without executing:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>/craft:git:init<span class="w"> </span>--dry-run
@@ -5759,42 +5789,46 @@
 </table>
 <h3 id="common-errors">Common Errors<a class="headerlink" href="#common-errors" title="Permanent link">&para;</a></h3>
 <h4 id="gh-cli-not-found">gh CLI not found<a class="headerlink" href="#gh-cli-not-found" title="Permanent link">&para;</a></h4>
-<p><strong>Error:</strong>
+<p><strong>Error:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Error: gh command not found
-</span></code></pre></div></p>
-<p><strong>Solution:</strong>
+</span></code></pre></div>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># macOS</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>brew<span class="w"> </span>install<span class="w"> </span>gh
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># Authenticate</span>
 </span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>gh<span class="w"> </span>auth<span class="w"> </span>login
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="branch-protection-fails">Branch protection fails<a class="headerlink" href="#branch-protection-fails" title="Permanent link">&para;</a></h4>
-<p><strong>Error:</strong>
+<p><strong>Error:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Error: Failed to enable branch protection
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>Permission denied
-</span></code></pre></div></p>
-<p><strong>Solutions:</strong>
-1. Verify you have admin access to the repository
-2. Check if repository exists on GitHub
-3. Ensure CI workflow name matches protection rules
-4. Use <code>--skip-protect</code> flag to skip protection setup</p>
+</span></code></pre></div>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Verify you have admin access to the repository</li>
+<li>Check if repository exists on GitHub</li>
+<li>Ensure CI workflow name matches protection rules</li>
+<li>Use <code>--skip-protect</code> flag to skip protection setup</li>
+</ol>
 <h4 id="ci-workflow-generation-skipped">CI workflow generation skipped<a class="headerlink" href="#ci-workflow-generation-skipped" title="Permanent link">&para;</a></h4>
 <p><strong>Reason:</strong> Project type not detected</p>
-<p><strong>Solutions:</strong>
-1. Run manually: <code>/craft:ci:generate</code>
-2. Check for detectable project files:
-   - <code>pyproject.toml</code> (Python)
-   - <code>package.json</code> (Node.js)
-   - <code>Cargo.toml</code> (Rust)
-   - <code>go.mod</code> (Go)
-3. Specify template explicitly: <code>/craft:ci:generate python</code></p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Run manually: <code>/craft:ci:generate</code></li>
+<li>Check for detectable project files:</li>
+<li><code>pyproject.toml</code> (Python)</li>
+<li><code>package.json</code> (Node.js)</li>
+<li><code>Cargo.toml</code> (Rust)</li>
+<li><code>go.mod</code> (Go)</li>
+<li>Specify template explicitly: <code>/craft:ci:generate python</code></li>
+</ol>
 <h4 id="initial-commit-fails">Initial commit fails<a class="headerlink" href="#initial-commit-fails" title="Permanent link">&para;</a></h4>
-<p><strong>Error:</strong>
+<p><strong>Error:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Error: Cannot create commit
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>Uncommitted changes exist
-</span></code></pre></div></p>
-<p><strong>Solution:</strong>
+</span></code></pre></div>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Check status</span>
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>git<span class="w"> </span>status
 </span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
@@ -5803,7 +5837,7 @@
 </span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>
 </span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1"># Re-run command</span>
 </span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>/craft:git:init
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="integration">Integration<a class="headerlink" href="#integration" title="Permanent link">&para;</a></h2>
 <h3 id="smart-routing-via-craftdo">Smart Routing via /craft:do<a class="headerlink" href="#smart-routing-via-craftdo" title="Permanent link">&para;</a></h3>
 <p>The command is accessible through <code>/craft:do</code> with these phrases:</p>
@@ -5837,10 +5871,10 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Example:</strong>
+<p><strong>Example:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;initialize project with GitHub&quot;</span>
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="c1"># → Triggers /craft:git:init wizard</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="related-commands">Related Commands<a class="headerlink" href="#related-commands" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5932,24 +5966,22 @@
 </table>
 <h3 id="after-initialization">After Initialization<a class="headerlink" href="#after-initialization" title="Permanent link">&para;</a></h3>
 <ol>
-<li>
-<p><strong>Switch to dev branch:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Create first feature branch:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>/craft:git:worktree<span class="w"> </span>feature/initial-setup
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Validate setup:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>/craft:check
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Start development:</strong></p>
-</li>
+<li><strong>Switch to dev branch:</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
+</span></code></pre></div>
+<ol>
+<li><strong>Create first feature branch:</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>/craft:git:worktree<span class="w"> </span>feature/initial-setup
+</span></code></pre></div>
+<ol>
+<li><strong>Validate setup:</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>/craft:check
+</span></code></pre></div>
+<ol>
+<li><strong>Start development:</strong></li>
 <li>Work on feature branches</li>
 <li>Create PRs to dev</li>
 <li>Merge dev to main for releases</li>
@@ -5965,34 +5997,38 @@
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="issue-repository-already-exists">Issue: "Repository already exists"<a class="headerlink" href="#issue-repository-already-exists" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Error when creating GitHub repository</p>
-<p><strong>Solutions:</strong>
-1. Use "Connect to existing GitHub repo" option instead
-2. Choose different repository name
-3. Delete existing repository first (if intended)</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Use "Connect to existing GitHub repo" option instead</li>
+<li>Choose different repository name</li>
+<li>Delete existing repository first (if intended)</li>
+</ol>
 <h3 id="issue-dev-branch-conflicts-with-main">Issue: "Dev branch conflicts with main"<a class="headerlink" href="#issue-dev-branch-conflicts-with-main" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Cannot sync dev with main</p>
-<p><strong>Solution:</strong>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Reset dev to match main</span>
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
 </span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>main
 </span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>git<span class="w"> </span>push<span class="w"> </span>--force<span class="w"> </span>origin<span class="w"> </span>dev
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="issue-branch-protection-not-working">Issue: "Branch protection not working"<a class="headerlink" href="#issue-branch-protection-not-working" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Can still commit directly to main</p>
-<p><strong>Checks:</strong>
-1. Verify on GitHub: Settings → Branches → Branch protection rules
-2. Check CI workflow exists: <code>.github/workflows/ci.yml</code>
-3. Ensure you're not an admin (admins bypass by default)</p>
+<p><strong>Checks:</strong></p>
+<ol>
+<li>Verify on GitHub: Settings → Branches → Branch protection rules</li>
+<li>Check CI workflow exists: <code>.github/workflows/ci.yml</code></li>
+<li>Ensure you're not an admin (admins bypass by default)</li>
+</ol>
 <h3 id="issue-gh-auth-issues">Issue: "gh auth issues"<a class="headerlink" href="#issue-gh-auth-issues" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Cannot create repository or enable protection</p>
-<p><strong>Solution:</strong>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Re-authenticate with GitHub</span>
 </span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>gh<span class="w"> </span>auth<span class="w"> </span><span class="nb">logout</span>
 </span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>gh<span class="w"> </span>auth<span class="w"> </span>login
 </span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>
 </span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="c1"># Check authentication status</span>
 </span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>gh<span class="w"> </span>auth<span class="w"> </span>status
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="exit-codes">Exit Codes<a class="headerlink" href="#exit-codes" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

@@ -4234,7 +4234,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4913,42 +4913,52 @@
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>This specification defines the standard for organizing the Craft documentation website to serve three distinct user audiences (beginners, daily users, advanced) while maintaining clarity, discoverability, and ADHD-friendly navigation patterns.</p>
-<p><strong>Design Principles:</strong>
-1. <strong>Progressive disclosure</strong> - Show what's needed, hide complexity until required
-2. <strong>Task-oriented</strong> - Organize by what users want to accomplish
-3. <strong>Scannable</strong> - Visual hierarchy with strategic emoji use
-4. <strong>Consistent</strong> - Predictable patterns across sections
-5. <strong>Accessible</strong> - Mobile-friendly, reduced cognitive load</p>
+<p><strong>Design Principles:</strong></p>
+<ol>
+<li><strong>Progressive disclosure</strong> - Show what's needed, hide complexity until required</li>
+<li><strong>Task-oriented</strong> - Organize by what users want to accomplish</li>
+<li><strong>Scannable</strong> - Visual hierarchy with strategic emoji use</li>
+<li><strong>Consistent</strong> - Predictable patterns across sections</li>
+<li><strong>Accessible</strong> - Mobile-friendly, reduced cognitive load</li>
+</ol>
 <hr />
 <h2 id="primary-user-story">Primary User Story<a class="headerlink" href="#primary-user-story" title="Permanent link">&para;</a></h2>
 <p><strong>As a Craft user</strong>, I want to quickly find documentation relevant to my needs without being overwhelmed by navigation complexity, so I can accomplish my task efficiently.</p>
-<p><strong>Acceptance Criteria:</strong>
-- New users find Quick Start in &lt; 5 seconds
-- Daily users locate specific commands in ≤ 2 clicks
-- Advanced users access architecture docs without navigating through beginner content
-- Mobile users can scroll sidebar comfortably (&lt; 2 screen heights)
-- Zero broken links after any reorganization</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>New users find Quick Start in &lt; 5 seconds</li>
+<li>Daily users locate specific commands in ≤ 2 clicks</li>
+<li>Advanced users access architecture docs without navigating through beginner content</li>
+<li>Mobile users can scroll sidebar comfortably (&lt; 2 screen heights)</li>
+<li>Zero broken links after any reorganization</li>
+</ul>
 <hr />
 <h2 id="secondary-user-stories">Secondary User Stories<a class="headerlink" href="#secondary-user-stories" title="Permanent link">&para;</a></h2>
 <h3 id="beginner-user-story">Beginner User Story<a class="headerlink" href="#beginner-user-story" title="Permanent link">&para;</a></h3>
 <p><strong>As a new Craft user</strong>, I want a clear entry point that guides me to my first successful command, so I can understand what Craft does without reading extensive documentation.</p>
-<p><strong>Journey:</strong>
-1. Land on site → See "Getting Started" section
-2. Click Quick Start → 30-second tutorial
-3. Run first command → Success!
-4. Optional: Choose learning path (visual, ADHD, deep-dive)</p>
+<p><strong>Journey:</strong></p>
+<ol>
+<li>Land on site → See "Getting Started" section</li>
+<li>Click Quick Start → 30-second tutorial</li>
+<li>Run first command → Success!</li>
+<li>Optional: Choose learning path (visual, ADHD, deep-dive)</li>
+</ol>
 <h3 id="daily-user-story">Daily User Story<a class="headerlink" href="#daily-user-story" title="Permanent link">&para;</a></h3>
 <p><strong>As a daily Craft user</strong>, I want command references and recipes organized by task, so I can quickly look up syntax or find solutions to common problems.</p>
-<p><strong>Journey:</strong>
-1. Know what I want → Check Cookbook first
-2. Need command syntax → Commands &amp; Reference
-3. Troubleshooting → Search or check relevant guide</p>
+<p><strong>Journey:</strong></p>
+<ol>
+<li>Know what I want → Check Cookbook first</li>
+<li>Need command syntax → Commands &amp; Reference</li>
+<li>Troubleshooting → Search or check relevant guide</li>
+</ol>
 <h3 id="advanced-user-story">Advanced User Story<a class="headerlink" href="#advanced-user-story" title="Permanent link">&para;</a></h3>
 <p><strong>As an advanced Craft user or contributor</strong>, I want clear separation between user guides and technical architecture, so I can deep-dive into implementation details or contribute improvements.</p>
-<p><strong>Journey:</strong>
-1. Need architecture → Reference &amp; Architecture section
-2. Want to contribute → For Contributors section
-3. Extend functionality → Skills &amp; Agents reference</p>
+<p><strong>Journey:</strong></p>
+<ol>
+<li>Need architecture → Reference &amp; Architecture section</li>
+<li>Want to contribute → For Contributors section</li>
+<li>Extend functionality → Skills &amp; Agents reference</li>
+</ol>
 <hr />
 <h2 id="technical-requirements">Technical Requirements<a class="headerlink" href="#technical-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
@@ -5023,13 +5033,15 @@
 </span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a><span class="w">  </span><span class="c1"># 7. QUICK REFERENCE CARD (Printable)</span>
 </span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">📋 Quick Reference Card</span>
 </span></code></pre></div>
-<p><strong>Rationale:</strong>
-- <strong>7 sections</strong> vs 14 (50% reduction)
-- <strong>Emoji refinement</strong> - Strategic use for key sections only
-- <strong>Merged Help</strong> - Eliminates duplication with Commands
-- <strong>Playground nested</strong> - Under Getting Started as learning tool
-- <strong>Task-oriented</strong> - Guides organized by workflow, not feature
-- <strong>Progressive</strong> - Entry point (Getting Started) → Learning (Guides) → Reference → Advanced</p>
+<p><strong>Rationale:</strong></p>
+<ul>
+<li><strong>7 sections</strong> vs 14 (50% reduction)</li>
+<li><strong>Emoji refinement</strong> - Strategic use for key sections only</li>
+<li><strong>Merged Help</strong> - Eliminates duplication with Commands</li>
+<li><strong>Playground nested</strong> - Under Getting Started as learning tool</li>
+<li><strong>Task-oriented</strong> - Guides organized by workflow, not feature</li>
+<li><strong>Progressive</strong> - Entry point (Getting Started) → Learning (Guides) → Reference → Advanced</li>
+</ul>
 <h4 id="nesting-depth-rules">Nesting Depth Rules<a class="headerlink" href="#nesting-depth-rules" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -5074,15 +5086,19 @@
 </table>
 <p><strong>Variable nesting:</strong> Complex sections (Guides, Commands) can go deeper; simple sections (Getting Started, Cookbook) stay shallow.</p>
 <h4 id="emoji-usage-standard">Emoji Usage Standard<a class="headerlink" href="#emoji-usage-standard" title="Permanent link">&para;</a></h4>
-<p><strong>Approved emojis (5):</strong>
-- 🚀 Getting Started (energy, movement, launch) - includes Playground
-- 📖 Guides &amp; Tutorials (learning, books)
-- ⚙️ Commands &amp; Reference (technical, settings)
-- 📚 Cookbook &amp; Examples (collection, library)
-- 📋 Quick Reference Card (checklist, document)</p>
-<p><strong>No emojis:</strong>
-- 🔧 Reference &amp; Architecture (professional tone)
-- 🛠️ For Contributors (serious, technical)</p>
+<p><strong>Approved emojis (5):</strong></p>
+<ul>
+<li>🚀 Getting Started (energy, movement, launch) - includes Playground</li>
+<li>📖 Guides &amp; Tutorials (learning, books)</li>
+<li>⚙️ Commands &amp; Reference (technical, settings)</li>
+<li>📚 Cookbook &amp; Examples (collection, library)</li>
+<li>📋 Quick Reference Card (checklist, document)</li>
+</ul>
+<p><strong>No emojis:</strong></p>
+<ul>
+<li>🔧 Reference &amp; Architecture (professional tone)</li>
+<li>🛠️ For Contributors (serious, technical)</li>
+</ul>
 <p><strong>Rationale:</strong> Emojis for user-facing sections; professional tone for technical sections. Playground nested under Getting Started, so no separate emoji needed.</p>
 <h3 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h3>
 <p>N/A - This is documentation organization, not code API.</p>
@@ -5100,7 +5116,7 @@
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path/to/another-page.md</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nn">---</span>
 </span></code></pre></div>
-<p><strong>Example:</strong>
+<p><strong>Example:</strong></p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nn">---</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Quick</span><span class="nv"> </span><span class="s">Start&quot;</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Run</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">Craft</span><span class="nv"> </span><span class="s">command</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">30</span><span class="nv"> </span><span class="s">seconds&quot;</span>
@@ -5111,7 +5127,7 @@
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ADHD-QUICK-START.md</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guide/getting-started.md</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nn">---</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="cookbook-recipe-template">Cookbook Recipe Template<a class="headerlink" href="#cookbook-recipe-template" title="Permanent link">&para;</a></h4>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gh"># Recipe: [Action Verb + Object]</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
@@ -5131,31 +5147,32 @@
 </span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="sb">   ```bash</span>
 </span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">   </span><span class="nb">command</span><span class="w"> </span>here
 </span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="sb">   ```</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>   Why: [Brief explanation]
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="k">2.</span> <span class="gs">**Next step**</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>   ...
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="gu">## Explanation</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>[How the solution works, what&#39;s happening behind the scenes]
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="gu">## Variations</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Variation 1:**</span> [When to use, how it differs]
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Variation 2:**</span> [Alternative approach]
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="gu">## Troubleshooting</span>
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>| Issue | Solution |
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>|-------|----------|
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>| [Common error] | [How to fix] |
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a><span class="gu">## Related</span>
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>
-</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a><span class="k">-</span><span class="w"> </span>[<span class="nt">Related Guide</span>](<span class="na">../guide/relevant-guide.md</span>)
-</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="k">-</span><span class="w"> </span>[<span class="nt">Related Command</span>](<span class="na">../commands/relevant-command.md</span>)
-</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="k">-</span><span class="w"> </span>[<span class="nt">Related Recipe</span>](<span class="na">another-recipe.md</span>)
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>   Why: [Brief explanation]
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="k">2.</span> <span class="gs">**Next step**</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>   ...
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="gu">## Explanation</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>[How the solution works, what&#39;s happening behind the scenes]
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="gu">## Variations</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Variation 1:**</span> [When to use, how it differs]
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Variation 2:**</span> [Alternative approach]
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a><span class="gu">## Troubleshooting</span>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>| Issue | Solution |
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>|-------|----------|
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>| [Common error] | [How to fix] |
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a><span class="gu">## Related</span>
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a><span class="k">-</span><span class="w"> </span>[<span class="nt">Related Guide</span>](<span class="na">../guide/relevant-guide.md</span>)
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="k">-</span><span class="w"> </span>[<span class="nt">Related Command</span>](<span class="na">../commands/relevant-command.md</span>)
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a><span class="k">-</span><span class="w"> </span>[<span class="nt">Related Recipe</span>](<span class="na">another-recipe.md</span>)
 </span></code></pre></div>
 <h3 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h3>
 <p><strong>MkDocs plugins required:</strong></p>
@@ -5169,11 +5186,11 @@
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">awesome-pages</span><span class="p">:</span><span class="w">               </span><span class="c1"># Optional: Enhanced navigation</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">      </span><span class="nt">collapse_single_pages</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span></code></pre></div>
-<p><strong>Python dependencies:</strong>
+<p><strong>Python dependencies:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mkdocs&gt;=1.5.0
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>mkdocs-material&gt;=9.5.0
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>mkdocs-redirects&gt;=1.2.0
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="url-preservation-strategy">URL Preservation Strategy<a class="headerlink" href="#url-preservation-strategy" title="Permanent link">&para;</a></h3>
 <p><strong>Required redirects (Phase 1):</strong></p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">plugins</span><span class="p">:</span>
@@ -5195,10 +5212,12 @@
 </span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">        </span><span class="s">&#39;guide/git-init-tutorial.md&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;guides/git-init/tutorial.md&#39;</span>
 </span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">        </span><span class="s">&#39;architecture/git-init-flow.md&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;guides/git-init/architecture.md&#39;</span>
 </span></code></pre></div>
-<p><strong>No breaks policy:</strong>
-- All guide pages preserved
-- All command reference pages preserved
-- Top-level entry points (index, QUICK-START, REFCARD)</p>
+<p><strong>No breaks policy:</strong></p>
+<ul>
+<li>All guide pages preserved</li>
+<li>All command reference pages preserved</li>
+<li>Top-level entry points (index, QUICK-START, REFCARD)</li>
+</ul>
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow-new-user-journey">User Flow: New User Journey<a class="headerlink" href="#user-flow-new-user-journey" title="Permanent link">&para;</a></h3>
@@ -5358,91 +5377,117 @@
 <h2 id="implementation-notes">Implementation Notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
 <h3 id="phase-1-quick-wins-1-hour">Phase 1: Quick Wins (&lt; 1 hour)<a class="headerlink" href="#phase-1-quick-wins-1-hour" title="Permanent link">&para;</a></h3>
 <p><strong>Priority:</strong> High (blocking Phase 2)</p>
-<p><strong>Steps:</strong>
-1. Back up current mkdocs.yml
-2. Update navigation structure (20 min)
-3. Create Choose Your Path page (15 min)
-4. Test all links (10 min)
-5. Commit and deploy (5 min)</p>
-<p><strong>Files modified:</strong>
-- <code>mkdocs.yml</code> (navigation section)
-- <code>docs/getting-started/choose-path.md</code> (new)</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Back up current mkdocs.yml</li>
+<li>Update navigation structure (20 min)</li>
+<li>Create Choose Your Path page (15 min)</li>
+<li>Test all links (10 min)</li>
+<li>Commit and deploy (5 min)</li>
+</ol>
+<p><strong>Files modified:</strong></p>
+<ul>
+<li><code>mkdocs.yml</code> (navigation section)</li>
+<li><code>docs/getting-started/choose-path.md</code> (new)</li>
+</ul>
 <p><strong>Breaking changes:</strong> None (redirects preserve URLs)</p>
 <h3 id="phase-2-medium-effort-2-4-hours">Phase 2: Medium Effort (2-4 hours)<a class="headerlink" href="#phase-2-medium-effort-2-4-hours" title="Permanent link">&para;</a></h3>
 <p><strong>Priority:</strong> Medium (can defer)</p>
-<p><strong>Steps:</strong>
-1. Create cookbook directory structure (15 min)
-2. Write 4 common recipes (90 min)
-3. Merge help/<em>.md into commands/</em> (45 min)
-4. Add visual workflow index (30 min)
-5. Test and commit (15 min)</p>
-<p><strong>Files modified:</strong>
-- <code>docs/cookbook/</code> (new directory)
-- <code>docs/commands/</code> (merged help content)
-- <code>docs/workflows/index.md</code> (enhanced)
-- <code>mkdocs.yml</code> (cookbook navigation, redirects)</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Create cookbook directory structure (15 min)</li>
+<li>Write 4 common recipes (90 min)</li>
+<li>Merge help/<em>.md into commands/</em> (45 min)</li>
+<li>Add visual workflow index (30 min)</li>
+<li>Test and commit (15 min)</li>
+</ol>
+<p><strong>Files modified:</strong></p>
+<ul>
+<li><code>docs/cookbook/</code> (new directory)</li>
+<li><code>docs/commands/</code> (merged help content)</li>
+<li><code>docs/workflows/index.md</code> (enhanced)</li>
+<li><code>mkdocs.yml</code> (cookbook navigation, redirects)</li>
+</ul>
 <p><strong>Breaking changes:</strong> Help section URLs (redirects added)</p>
 <h3 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h3>
 <p><strong>Unit tests:</strong> N/A (documentation)</p>
-<p><strong>Integration tests:</strong>
-1. Link checker - all internal links resolve
-2. Redirect verification - old URLs redirect correctly
-3. Mobile rendering - sidebar scrollable
-4. Search indexing - all pages indexed</p>
-<p><strong>Manual tests:</strong>
-1. User journey walkthroughs (new, daily, advanced)
-2. Cross-browser testing (Chrome, Firefox, Safari)
-3. Mobile device testing (iOS, Android)
-4. Accessibility audit (WAVE, axe)</p>
+<p><strong>Integration tests:</strong></p>
+<ol>
+<li>Link checker - all internal links resolve</li>
+<li>Redirect verification - old URLs redirect correctly</li>
+<li>Mobile rendering - sidebar scrollable</li>
+<li>Search indexing - all pages indexed</li>
+</ol>
+<p><strong>Manual tests:</strong></p>
+<ol>
+<li>User journey walkthroughs (new, daily, advanced)</li>
+<li>Cross-browser testing (Chrome, Firefox, Safari)</li>
+<li>Mobile device testing (iOS, Android)</li>
+<li>Accessibility audit (WAVE, axe)</li>
+</ol>
 <h3 id="rollback-plan">Rollback Plan<a class="headerlink" href="#rollback-plan" title="Permanent link">&para;</a></h3>
-<p><strong>If Phase 1 fails:</strong>
-1. Revert mkdocs.yml from backup
-2. Delete new files
-3. Redeploy previous version
-4. Estimated rollback time: 5 minutes</p>
-<p><strong>If Phase 2 fails:</strong>
-1. Keep Phase 1 changes (stable)
-2. Remove cookbook directory
-3. Restore help/*.md files
-4. Revert command mergers
-5. Estimated rollback time: 15 minutes</p>
+<p><strong>If Phase 1 fails:</strong></p>
+<ol>
+<li>Revert mkdocs.yml from backup</li>
+<li>Delete new files</li>
+<li>Redeploy previous version</li>
+<li>Estimated rollback time: 5 minutes</li>
+</ol>
+<p><strong>If Phase 2 fails:</strong></p>
+<ol>
+<li>Keep Phase 1 changes (stable)</li>
+<li>Remove cookbook directory</li>
+<li>Restore help/*.md files</li>
+<li>Revert command mergers</li>
+<li>Estimated rollback time: 15 minutes</li>
+</ol>
 <hr />
 <h2 id="history">History<a class="headerlink" href="#history" title="Permanent link">&para;</a></h2>
 <h3 id="2026-01-17-initial-draft">2026-01-17 - Initial Draft<a class="headerlink" href="#2026-01-17-initial-draft" title="Permanent link">&para;</a></h3>
 <p><strong>Author:</strong> DT + Claude Sonnet 4.5
-<strong>Changes:</strong>
-- Created from brainstorm session (8 deep questions)
-- Defined 8-section navigation structure
-- Established emoji usage standard
-- Created cookbook recipe template
-- Documented URL preservation strategy
-- Added user journey wireframes</p>
-<p><strong>Decisions:</strong>
-- Hybrid IA pattern (task + feature)
-- Teaching Mode stays standalone
-- Help merges into Commands
-- Playground nests under Getting Started (learning tool)
-- Quick wins first approach
-- Preserve all URLs with redirects</p>
+<strong>Changes:</strong></p>
+<ul>
+<li>Created from brainstorm session (8 deep questions)</li>
+<li>Defined 8-section navigation structure</li>
+<li>Established emoji usage standard</li>
+<li>Created cookbook recipe template</li>
+<li>Documented URL preservation strategy</li>
+<li>Added user journey wireframes</li>
+</ul>
+<p><strong>Decisions:</strong></p>
+<ul>
+<li>Hybrid IA pattern (task + feature)</li>
+<li>Teaching Mode stays standalone</li>
+<li>Help merges into Commands</li>
+<li>Playground nests under Getting Started (learning tool)</li>
+<li>Quick wins first approach</li>
+<li>Preserve all URLs with redirects</li>
+</ul>
 <p><strong>Status:</strong> Draft → Ready for review</p>
 <h3 id="2026-01-17-playground-nesting-decision">2026-01-17 - Playground Nesting Decision<a class="headerlink" href="#2026-01-17-playground-nesting-decision" title="Permanent link">&para;</a></h3>
 <p><strong>Author:</strong> DT
-<strong>Changes:</strong>
-- Moved Playground from top-level (section #7) to nested under Getting Started
-- Updated section count: 8 → 7 (50% reduction vs 14 original)
-- Removed 🎯 emoji (Playground inherits 🚀 from Getting Started)
-- Updated nesting depth table for Getting Started (5 pages)</p>
-<p><strong>Rationale:</strong>
-- Playground is a learning/tutorial tool, not a standalone feature
-- Better contextual placement for beginners
-- Cleaner top-level navigation</p>
+<strong>Changes:</strong></p>
+<ul>
+<li>Moved Playground from top-level (section #7) to nested under Getting Started</li>
+<li>Updated section count: 8 → 7 (50% reduction vs 14 original)</li>
+<li>Removed 🎯 emoji (Playground inherits 🚀 from Getting Started)</li>
+<li>Updated nesting depth table for Getting Started (5 pages)</li>
+</ul>
+<p><strong>Rationale:</strong></p>
+<ul>
+<li>Playground is a learning/tutorial tool, not a standalone feature</li>
+<li>Better contextual placement for beginners</li>
+<li>Cleaner top-level navigation</li>
+</ul>
 <h3 id="next-review-tbd">Next Review: TBD<a class="headerlink" href="#next-review-tbd" title="Permanent link">&para;</a></h3>
 <p><strong>Reviewers:</strong> Documentation team, UX lead
-<strong>Focus areas:</strong>
-- Navigation structure approval
-- Choose Your Path content
-- Cookbook recipe priorities
-- Emoji refinement feedback</p>
+<strong>Focus areas:</strong></p>
+<ul>
+<li>Navigation structure approval</li>
+<li>Choose Your Path content</li>
+<li>Cookbook recipe priorities</li>
+<li>Emoji refinement feedback</li>
+</ul>
 <hr />
 <h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
 <ul>

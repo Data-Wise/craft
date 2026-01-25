@@ -3403,7 +3403,7 @@
   <a href="#before-simulated" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Before (Simulated):
+        Before (Simulated)
       
     </span>
   </a>
@@ -3414,7 +3414,7 @@
   <a href="#after-accurate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        After (Accurate):
+        After (Accurate)
       
     </span>
   </a>
@@ -4112,7 +4112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4453,7 +4453,7 @@
   <a href="#before-simulated" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Before (Simulated):
+        Before (Simulated)
       
     </span>
   </a>
@@ -4464,7 +4464,7 @@
   <a href="#after-accurate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        After (Accurate):
+        After (Accurate)
       
     </span>
   </a>
@@ -4699,13 +4699,15 @@
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># Custom search path</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>/craft:docs:demo<span class="w"> </span>--batch<span class="w"> </span>--search-path<span class="w"> </span>custom/demos
 </span></code></pre></div>
-<p><strong>What batch conversion does:</strong>
-- Finds all <code>.cast</code> files in <code>docs/demos/</code> and <code>docs/gifs/</code>
-- Skips existing <code>.gif</code> files (unless <code>--force</code>)
-- Shows progress bar with ETA
-- Uses optimized settings: <code>agg</code> (font-size 16, monokai) + <code>gifsicle</code> (optimize=3, 256 colors)
-- Reports compression ratios and total size savings</p>
-<p><strong>Progress output:</strong>
+<p><strong>What batch conversion does:</strong></p>
+<ul>
+<li>Finds all <code>.cast</code> files in <code>docs/demos/</code> and <code>docs/gifs/</code></li>
+<li>Skips existing <code>.gif</code> files (unless <code>--force</code>)</li>
+<li>Shows progress bar with ETA</li>
+<li>Uses optimized settings: <code>agg</code> (font-size 16, monokai) + <code>gifsicle</code> (optimize=3, 256 colors)</li>
+<li>Reports compression ratios and total size savings</li>
+</ul>
+<p><strong>Progress output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Processing .cast files...
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[████████████░░░░░░░] 8/11 (73%)
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
@@ -4718,7 +4720,7 @@
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  Failed: 0
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  Total size: 2.3 MB → 890 KB (61% reduction)
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  Avg time: 3.1s per file
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="alternative-vhs-method">Alternative: VHS Method<a class="headerlink" href="#alternative-vhs-method" title="Permanent link">&para;</a></h2>
 <p>If you need scripted/repeatable demos:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 1. Update VHS tapes with accurate output</span>
@@ -4734,28 +4736,34 @@
 <h2 id="command-verification-do-this-first">Command Verification (DO THIS FIRST!)<a class="headerlink" href="#command-verification-do-this-first" title="Permanent link">&para;</a></h2>
 <p><strong>Before regenerating GIFs, test each <code>/craft</code> command in Claude Code to capture real output.</strong></p>
 <h3 id="gif-1-teaching-workflow-docsdemosteaching-workflowtape">GIF 1: Teaching Workflow (<code>docs/demos/teaching-workflow.tape</code>)<a class="headerlink" href="#gif-1-teaching-workflow-docsdemosteaching-workflowtape" title="Permanent link">&para;</a></h3>
-<p><strong>Commands to test:</strong>
+<p><strong>Commands to test:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:git:status
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:site:build
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/craft:site:progress
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>/craft:site:publish<span class="w"> </span>--dry-run
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>/craft:site:publish
-</span></code></pre></div></p>
-<p><strong>What to capture:</strong>
-- Exact output format (boxes, icons, text)
-- Timing (how long each command takes)
-- Color scheme
-- Progress indicators</p>
-<p><strong>How to test:</strong>
-1. Open Claude Code in terminal
-2. Navigate to a teaching project (with <code>.flow/teach-config.yml</code>)
-3. Run each command above
-4. Screenshot or copy-paste the output
-5. Note the format and timing</p>
-<p><strong>Update tape with real output:</strong>
-- Replace simulated <code>Type</code> commands with accurate output
-- Match the exact format you saw
-- Adjust <code>Sleep</code> values to match real timing</p>
+</span></code></pre></div>
+<p><strong>What to capture:</strong></p>
+<ul>
+<li>Exact output format (boxes, icons, text)</li>
+<li>Timing (how long each command takes)</li>
+<li>Color scheme</li>
+<li>Progress indicators</li>
+</ul>
+<p><strong>How to test:</strong></p>
+<ol>
+<li>Open Claude Code in terminal</li>
+<li>Navigate to a teaching project (with <code>.flow/teach-config.yml</code>)</li>
+<li>Run each command above</li>
+<li>Screenshot or copy-paste the output</li>
+<li>Note the format and timing</li>
+</ol>
+<p><strong>Update tape with real output:</strong></p>
+<ul>
+<li>Replace simulated <code>Type</code> commands with accurate output</li>
+<li>Match the exact format you saw</li>
+<li>Adjust <code>Sleep</code> values to match real timing</li>
+</ul>
 <hr />
 <h3 id="gif-2-11-workflow-demos-docsgifsworkflow-tape">GIF 2-11: Workflow Demos (<code>docs/gifs/workflow-*.tape</code>)<a class="headerlink" href="#gif-2-11-workflow-demos-docsgifsworkflow-tape" title="Permanent link">&para;</a></h3>
 <table>
@@ -4819,12 +4827,14 @@
 </tr>
 </tbody>
 </table>
-<p><strong>For each command:</strong>
-1. Run in Claude Code (not bash!)
-2. Capture the exact output
-3. Note any interactive elements
-4. Time how long it takes
-5. Update the corresponding <code>.tape</code> file</p>
+<p><strong>For each command:</strong></p>
+<ol>
+<li>Run in Claude Code (not bash!)</li>
+<li>Capture the exact output</li>
+<li>Note any interactive elements</li>
+<li>Time how long it takes</li>
+<li>Update the corresponding <code>.tape</code> file</li>
+</ol>
 <hr />
 <h2 id="recording-workflow">Recording Workflow<a class="headerlink" href="#recording-workflow" title="Permanent link">&para;</a></h2>
 <h3 id="method-1-asciinema-recommended">Method 1: asciinema (Recommended)<a class="headerlink" href="#method-1-asciinema-recommended" title="Permanent link">&para;</a></h3>
@@ -4857,13 +4867,13 @@
 <h3 id="method-2-vhs-tape-update-alternative">Method 2: VHS Tape Update (Alternative)<a class="headerlink" href="#method-2-vhs-tape-update-alternative" title="Permanent link">&para;</a></h3>
 <p><strong>For scripted/repeatable demos:</strong></p>
 <p><strong>Example: Updating teaching-workflow.tape</strong></p>
-<h4 id="before-simulated">Before (Simulated):<a class="headerlink" href="#before-simulated" title="Permanent link">&para;</a></h4>
+<h4 id="before-simulated">Before (Simulated)<a class="headerlink" href="#before-simulated" title="Permanent link">&para;</a></h4>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Type &quot;$ /craft:site:build&quot;
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Enter
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Sleep 300ms
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Type &quot;✓ Built successfully&quot;
 </span></code></pre></div>
-<h4 id="after-accurate">After (Accurate):<a class="headerlink" href="#after-accurate" title="Permanent link">&para;</a></h4>
+<h4 id="after-accurate">After (Accurate)<a class="headerlink" href="#after-accurate" title="Permanent link">&para;</a></h4>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Type &quot;$ /craft:site:build&quot;
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Enter
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Sleep 500ms
@@ -4886,21 +4896,25 @@
 </span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>Type &quot;└─────────────────────────────────────────┘&quot;
 </span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>Sleep 2s
 </span></code></pre></div>
-<p><strong>Key differences:</strong>
-- Shows actual box formatting
-- Includes course info
-- Shows file count and size
-- Realistic timing (500ms + 2s)</p>
+<p><strong>Key differences:</strong></p>
+<ul>
+<li>Shows actual box formatting</li>
+<li>Includes course info</li>
+<li>Shows file count and size</li>
+<li>Realistic timing (500ms + 2s)</li>
+</ul>
 <hr />
 <h2 id="regeneration-script">Regeneration Script<a class="headerlink" href="#regeneration-script" title="Permanent link">&para;</a></h2>
 <p><strong>Location</strong>: <code>scripts/regenerate-gifs.sh</code></p>
-<p><strong>What it does:</strong>
-1. Backs up existing GIFs
-2. Runs VHS on each <code>.tape</code> file
-3. Optimizes with gifsicle (<code>-O3 --colors 128 --lossy=80</code>)
-4. Verifies size is ≤ 2MB
-5. Reports results</p>
-<p><strong>Usage:</strong>
+<p><strong>What it does:</strong></p>
+<ol>
+<li>Backs up existing GIFs</li>
+<li>Runs VHS on each <code>.tape</code> file</li>
+<li>Optimizes with gifsicle (<code>-O3 --colors 128 --lossy=80</code>)</li>
+<li>Verifies size is ≤ 2MB</li>
+<li>Reports results</li>
+</ol>
+<p><strong>Usage:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Regenerate all GIFs</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>./scripts/regenerate-gifs.sh
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
@@ -4922,7 +4936,7 @@
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="c1">#    Generated: 890K</span>
 </span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="c1">#    Optimized: 533K</span>
 </span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="c1">#    ✅ Size OK: 0.52 MB</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="manual-regeneration-single-gif">Manual Regeneration (Single GIF)<a class="headerlink" href="#manual-regeneration-single-gif" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Generate GIF from tape</span>
@@ -4938,20 +4952,26 @@
 <hr />
 <h2 id="quality-checks">Quality Checks<a class="headerlink" href="#quality-checks" title="Permanent link">&para;</a></h2>
 <p>After regenerating, verify:</p>
-<p><strong>Technical:</strong>
-- [ ] All GIFs under 2MB
-- [ ] Optimized with gifsicle
-- [ ] Smooth playback</p>
-<p><strong>Accuracy:</strong>
-- [ ] Output matches real <code>/craft</code> command behavior
-- [ ] Formatting is correct (boxes, icons, spacing)
-- [ ] Timing feels natural
-- [ ] No simulated/fake output</p>
-<p><strong>Readability:</strong>
-- [ ] Text is legible
-- [ ] Command prompts visible
-- [ ] Colors have good contrast
-- [ ] Not too fast to read</p>
+<p><strong>Technical:</strong></p>
+<ul>
+<li>[ ] All GIFs under 2MB</li>
+<li>[ ] Optimized with gifsicle</li>
+<li>[ ] Smooth playback</li>
+</ul>
+<p><strong>Accuracy:</strong></p>
+<ul>
+<li>[ ] Output matches real <code>/craft</code> command behavior</li>
+<li>[ ] Formatting is correct (boxes, icons, spacing)</li>
+<li>[ ] Timing feels natural</li>
+<li>[ ] No simulated/fake output</li>
+</ul>
+<p><strong>Readability:</strong></p>
+<ul>
+<li>[ ] Text is legible</li>
+<li>[ ] Command prompts visible</li>
+<li>[ ] Colors have good contrast</li>
+<li>[ ] Not too fast to read</li>
+</ul>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="gif-is-too-large-2mb">GIF is too large (&gt; 2MB)<a class="headerlink" href="#gif-is-too-large-2mb" title="Permanent link">&para;</a></h3>

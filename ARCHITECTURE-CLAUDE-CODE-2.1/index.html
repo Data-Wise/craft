@@ -4280,7 +4280,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5092,10 +5092,12 @@
     style Score fill:#bbdefb
     style Route fill:#fff9c4</code></pre>
 <p><strong>Implementation</strong>: <code>utils/complexity_scorer.py</code></p>
-<p><strong>Key Functions</strong>:
-- <code>calculate_complexity_score(task)</code> - Returns 0-10 score
-- <code>get_routing_decision(score)</code> - Maps score to strategy
-- <code>explain_score(task)</code> - Detailed breakdown</p>
+<p><strong>Key Functions</strong>:</p>
+<ul>
+<li><code>calculate_complexity_score(task)</code> - Returns 0-10 score</li>
+<li><code>get_routing_decision(score)</code> - Maps score to strategy</li>
+<li><code>explain_score(task)</code> - Detailed breakdown</li>
+</ul>
 <hr />
 <h4 id="2-hot-reload-validation-system">2. Hot-Reload Validation System<a class="headerlink" href="#2-hot-reload-validation-system" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Auto-discover and execute validators without restart</p>
@@ -5130,11 +5132,13 @@
 
     style Filter fill:#c8e6c9
     style Fork fill:#ffe0b2</code></pre>
-<p><strong>Features</strong>:
-- <strong>Auto-discovery</strong>: Scans <code>validation/</code> directory
-- <strong>YAML parsing</strong>: Extracts <code>hot_reload</code> flag
-- <strong>Forked execution</strong>: Isolated context per validator
-- <strong>Mode-aware</strong>: Different thresholds per execution mode</p>
+<p><strong>Features</strong>:</p>
+<ul>
+<li><strong>Auto-discovery</strong>: Scans <code>validation/</code> directory</li>
+<li><strong>YAML parsing</strong>: Extracts <code>hot_reload</code> flag</li>
+<li><strong>Forked execution</strong>: Isolated context per validator</li>
+<li><strong>Mode-aware</strong>: Different thresholds per execution mode</li>
+</ul>
 <hr />
 <h4 id="3-orchestration-hooks">3. Orchestration Hooks<a class="headerlink" href="#3-orchestration-hooks" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Lifecycle management for agent orchestration</p>
@@ -5160,16 +5164,18 @@
     Orchestrator-&gt;&gt;Hook: Stop event
     Hook-&gt;&gt;Cache: Save session state
     Hook-&gt;&gt;Logs: Archive old logs</code></pre>
-<p><strong>Events</strong>:
-- <strong>PreToolUse</strong>: Resource limit checking
-- <strong>PostToolUse</strong>: Status tracking, duration logging
-- <strong>Stop</strong>: Session state persistence, log archival</p>
-<p><strong>Mode-Aware Limits</strong>:
+<p><strong>Events</strong>:</p>
+<ul>
+<li><strong>PreToolUse</strong>: Resource limit checking</li>
+<li><strong>PostToolUse</strong>: Status tracking, duration logging</li>
+<li><strong>Stop</strong>: Session state persistence, log archival</li>
+</ul>
+<p><strong>Mode-Aware Limits</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>debug:<span class="w">    </span><span class="nv">MAX_AGENTS</span><span class="o">=</span><span class="m">1</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>default:<span class="w">  </span><span class="nv">MAX_AGENTS</span><span class="o">=</span><span class="m">2</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>optimize:<span class="w"> </span><span class="nv">MAX_AGENTS</span><span class="o">=</span><span class="m">4</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>release:<span class="w">  </span><span class="nv">MAX_AGENTS</span><span class="o">=</span><span class="m">4</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="wave-2-intelligence-layer">Wave 2: Intelligence Layer<a class="headerlink" href="#wave-2-intelligence-layer" title="Permanent link">&para;</a></h3>
 <h4 id="4-smart-routing-system">4. Smart Routing System<a class="headerlink" href="#4-smart-routing-system" title="Permanent link">&para;</a></h4>
@@ -5255,11 +5261,13 @@
 
     style F1 fill:#c8e6c9
     style R1 fill:#bbdefb</code></pre>
-<p><strong>Discovery Criteria</strong>:
-1. Location: <code>.claude-plugin/skills/validation/*.md</code>
-2. Frontmatter: <code>hot_reload: true</code>
-3. Context: <code>context: fork</code>
-4. Category: <code>category: validation</code></p>
+<p><strong>Discovery Criteria</strong>:</p>
+<ol>
+<li>Location: <code>.claude-plugin/skills/validation/*.md</code></li>
+<li>Frontmatter: <code>hot_reload: true</code></li>
+<li>Context: <code>context: fork</code></li>
+<li>Category: <code>category: validation</code></li>
+</ol>
 <hr />
 <h3 id="wave-3-scale-layer">Wave 3: Scale Layer<a class="headerlink" href="#wave-3-scale-layer" title="Permanent link">&para;</a></h3>
 <h4 id="6-agent-resilience-patterns">6. Agent Resilience Patterns<a class="headerlink" href="#6-agent-resilience-patterns" title="Permanent link">&para;</a></h4>
@@ -5292,12 +5300,14 @@
         Circuit Breaker
         Prevents cascading failures
     end note</code></pre>
-<p><strong>Recovery Strategies</strong>:
-1. <strong>Retry with Backoff</strong>: Exponential delay (2s, 4s, 8s, 16s)
-2. <strong>Circuit Breaker</strong>: CLOSED → HALF_OPEN → OPEN states
-3. <strong>Graceful Degradation</strong>: Fall back to simpler strategy
-4. <strong>Timeout Protection</strong>: Max execution time per mode
-5. <strong>Error Categorization</strong>: 5 types (transient, permanent, etc.)</p>
+<p><strong>Recovery Strategies</strong>:</p>
+<ol>
+<li><strong>Retry with Backoff</strong>: Exponential delay (2s, 4s, 8s, 16s)</li>
+<li><strong>Circuit Breaker</strong>: CLOSED → HALF_OPEN → OPEN states</li>
+<li><strong>Graceful Degradation</strong>: Fall back to simpler strategy</li>
+<li><strong>Timeout Protection</strong>: Max execution time per mode</li>
+<li><strong>Error Categorization</strong>: 5 types (transient, permanent, etc.)</li>
+</ol>
 <hr />
 <h4 id="7-validator-ecosystem">7. Validator Ecosystem<a class="headerlink" href="#7-validator-ecosystem" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Community-contributed validators marketplace</p>
@@ -5340,12 +5350,14 @@
 
     style M2 fill:#e1bee7
     style C2 fill:#c8e6c9</code></pre>
-<p><strong>Features</strong>:
-- <code>/craft:check:gen-validator</code> - Template generator
-- Best practices guide (715 lines)
-- GitHub marketplace integration
-- Semantic versioning
-- Hot-reload support</p>
+<p><strong>Features</strong>:</p>
+<ul>
+<li><code>/craft:check:gen-validator</code> - Template generator</li>
+<li>Best practices guide (715 lines)</li>
+<li>GitHub marketplace integration</li>
+<li>Semantic versioning</li>
+<li>Hot-reload support</li>
+</ul>
 <hr />
 <h4 id="8-session-teleportation">8. Session Teleportation<a class="headerlink" href="#8-session-teleportation" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Resume orchestration sessions across devices</p>
@@ -5367,7 +5379,7 @@
     CloudSync--&gt;&gt;Device2: Decrypted state
     Device2-&gt;&gt;Device2: Restore context
     Device2-&gt;&gt;Device2: Continue execution</code></pre>
-<p><strong>Session State Schema</strong> (JSON v1.0.0):
+<p><strong>Session State Schema</strong> (JSON v1.0.0):</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ISO-8601&quot;</span><span class="p">,</span>
@@ -5381,7 +5393,7 @@
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="p">]</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">}</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="data-flow-architecture">Data Flow Architecture<a class="headerlink" href="#data-flow-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="task-routing-flow">Task Routing Flow<a class="headerlink" href="#task-routing-flow" title="Permanent link">&para;</a></h3>
@@ -5491,32 +5503,44 @@
 <hr />
 <h2 id="integration-points">Integration Points<a class="headerlink" href="#integration-points" title="Permanent link">&para;</a></h2>
 <h3 id="1-command-layer-integration">1. Command Layer Integration<a class="headerlink" href="#1-command-layer-integration" title="Permanent link">&para;</a></h3>
-<p><strong>Entry Points</strong>:
-- <code>/craft:do &lt;task&gt;</code> - Invokes complexity scorer
-- <code>/craft:check</code> - Invokes validator discovery</p>
-<p><strong>Dependencies</strong>:
-- <code>utils/complexity_scorer.py</code>
-- <code>.claude-plugin/skills/validation/*.md</code></p>
+<p><strong>Entry Points</strong>:</p>
+<ul>
+<li><code>/craft:do &lt;task&gt;</code> - Invokes complexity scorer</li>
+<li><code>/craft:check</code> - Invokes validator discovery</li>
+</ul>
+<p><strong>Dependencies</strong>:</p>
+<ul>
+<li><code>utils/complexity_scorer.py</code></li>
+<li><code>.claude-plugin/skills/validation/*.md</code></li>
+</ul>
 <hr />
 <h3 id="2-agent-layer-integration">2. Agent Layer Integration<a class="headerlink" href="#2-agent-layer-integration" title="Permanent link">&para;</a></h3>
-<p><strong>Agents Enhanced</strong>:
-- <code>orchestrator-v2</code> - Version 2.1.0 → 2.3.0
-  - Forked context execution
-  - Resilience patterns
-  - Session teleportation</p>
-<p><strong>Hook Integration</strong>:
-- PreToolUse: Resource limit checking
-- PostToolUse: Status updates, logging
-- Stop: Session state persistence</p>
+<p><strong>Agents Enhanced</strong>:</p>
+<ul>
+<li><code>orchestrator-v2</code> - Version 2.1.0 → 2.3.0</li>
+<li>Forked context execution</li>
+<li>Resilience patterns</li>
+<li>Session teleportation</li>
+</ul>
+<p><strong>Hook Integration</strong>:</p>
+<ul>
+<li>PreToolUse: Resource limit checking</li>
+<li>PostToolUse: Status updates, logging</li>
+<li>Stop: Session state persistence</li>
+</ul>
 <hr />
 <h3 id="3-infrastructure-integration">3. Infrastructure Integration<a class="headerlink" href="#3-infrastructure-integration" title="Permanent link">&para;</a></h3>
-<p><strong>Directories Created</strong>:
-- <code>.craft/cache/</code> - Agent status, session state
-- <code>.craft/logs/</code> - Timestamped orchestration logs</p>
-<p><strong>State Management</strong>:
-- Session state: JSON schema v1.0.0
-- Agent status: File-based tracking
-- Log archival: Keep last 10 sessions</p>
+<p><strong>Directories Created</strong>:</p>
+<ul>
+<li><code>.craft/cache/</code> - Agent status, session state</li>
+<li><code>.craft/logs/</code> - Timestamped orchestration logs</li>
+</ul>
+<p><strong>State Management</strong>:</p>
+<ul>
+<li>Session state: JSON schema v1.0.0</li>
+<li>Agent status: File-based tracking</li>
+<li>Log archival: Keep last 10 sessions</li>
+</ul>
 <hr />
 <h2 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">&para;</a></h2>
 <h3 id="execution-times">Execution Times<a class="headerlink" href="#execution-times" title="Permanent link">&para;</a></h3>
@@ -5611,19 +5635,25 @@
 <hr />
 <h2 id="scalability">Scalability<a class="headerlink" href="#scalability" title="Permanent link">&para;</a></h2>
 <h3 id="horizontal-scaling">Horizontal Scaling<a class="headerlink" href="#horizontal-scaling" title="Permanent link">&para;</a></h3>
-<p><strong>Multi-agent Coordination</strong>:
-- Parallel execution (mode-dependent limits)
-- Independent forked contexts
-- No shared state between agents</p>
-<p><strong>Validator Ecosystem</strong>:
-- Unlimited validators (discovery-based)
-- Community contributions
-- No central registry dependency</p>
+<p><strong>Multi-agent Coordination</strong>:</p>
+<ul>
+<li>Parallel execution (mode-dependent limits)</li>
+<li>Independent forked contexts</li>
+<li>No shared state between agents</li>
+</ul>
+<p><strong>Validator Ecosystem</strong>:</p>
+<ul>
+<li>Unlimited validators (discovery-based)</li>
+<li>Community contributions</li>
+<li>No central registry dependency</li>
+</ul>
 <h3 id="vertical-scaling">Vertical Scaling<a class="headerlink" href="#vertical-scaling" title="Permanent link">&para;</a></h3>
-<p><strong>Performance Optimization</strong>:
-- Complexity scoring: O(n) where n = task length
-- Validator discovery: O(m) where m = validator count
-- Hook execution: O(1) constant time</p>
+<p><strong>Performance Optimization</strong>:</p>
+<ul>
+<li>Complexity scoring: O(n) where n = task length</li>
+<li>Validator discovery: O(m) where m = validator count</li>
+<li>Hook execution: O(1) constant time</li>
+</ul>
 <hr />
 <h2 id="future-enhancements">Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permanent link">&para;</a></h2>
 <h3 id="planned-features">Planned Features<a class="headerlink" href="#planned-features" title="Permanent link">&para;</a></h3>

@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4142,6 +4142,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="4. Migration Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-detection-week-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Detection (Week 1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-configuration-week-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Configuration (Week 1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-gradual-fix-ongoing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Gradual Fix (Ongoing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-enforcement-week-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: Enforcement (Week 4)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -4152,6 +4202,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="5. Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strategy-balanced-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy: Balanced Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -4448,22 +4515,26 @@
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>Enhance Craft's <code>/craft:docs:lint</code> command to strictly enforce MD030 (spaces after list markers) and MD032 (blank lines around lists) for consistent, portable documentation. This specification addresses list spacing violations that break rendering in various markdown processors.</p>
-<p><strong>Key Benefits:</strong>
-- Consistent list formatting across 100+ command/skill/agent files
-- Portable documentation (works in GitHub, MkDocs, VS Code)
-- Auto-fix capability prevents manual cleanup
-- Gradual migration path for existing violations</p>
+<p><strong>Key Benefits:</strong></p>
+<ul>
+<li>Consistent list formatting across 100+ command/skill/agent files</li>
+<li>Portable documentation (works in GitHub, MkDocs, VS Code)</li>
+<li>Auto-fix capability prevents manual cleanup</li>
+<li>Gradual migration path for existing violations</li>
+</ul>
 <hr />
 <h2 id="primary-user-story">Primary User Story<a class="headerlink" href="#primary-user-story" title="Permanent link">&para;</a></h2>
 <p><strong>As a</strong> Craft plugin developer
 <strong>I want</strong> automatic enforcement of list spacing rules
 <strong>So that</strong> all documentation renders consistently across platforms without manual formatting</p>
-<p><strong>Acceptance Criteria:</strong>
-1. ✅ <code>/craft:docs:lint</code> automatically checks MD030 and MD032
-2. ✅ <code>--fix</code> flag auto-corrects spacing violations
-3. ✅ Project-wide marker style enforced (either <code>-</code> or <code>*</code> consistently)
-4. ✅ Existing files fixed gradually (as edited, not bulk)
-5. ✅ Performance &lt; 10s for 100+ files (balanced mode)</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ol>
+<li>✅ <code>/craft:docs:lint</code> automatically checks MD030 and MD032</li>
+<li>✅ <code>--fix</code> flag auto-corrects spacing violations</li>
+<li>✅ Project-wide marker style enforced (either <code>-</code> or <code>*</code> consistently)</li>
+<li>✅ Existing files fixed gradually (as edited, not bulk)</li>
+<li>✅ Performance &lt; 10s for 100+ files (balanced mode)</li>
+</ol>
 <hr />
 <h2 id="secondary-user-stories">Secondary User Stories<a class="headerlink" href="#secondary-user-stories" title="Permanent link">&para;</a></h2>
 <h3 id="story-2-migration-path">Story 2: Migration Path<a class="headerlink" href="#story-2-migration-path" title="Permanent link">&para;</a></h3>
@@ -4552,19 +4623,23 @@
 </span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">  </span><span class="nt">&quot;MD032&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">        </span><span class="c1">// Already enabled, but make explicit for clarity</span>
 </span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="p">}</span>
 </span></code></pre></div>
-<p><strong>Why MD030 Needs Explicit Config:</strong>
-- Default behavior varies between markdownlint versions
-- Explicit config ensures consistent enforcement
-- <code>ul_single: 1</code> enforces exactly 1 space after <code>-</code> or <code>*</code>
-- <code>ol_single: 1</code> enforces exactly 1 space after <code>1.</code> or <code>10.</code></p>
-<p><strong>Why MD004:</strong>
-- Craft docs currently mix <code>-</code> and <code>*</code> markers
-- <code>"style": "dash"</code> enforces <code>-</code> consistently
-- Makes docs more portable (some parsers prefer <code>-</code>)</p>
+<p><strong>Why MD030 Needs Explicit Config:</strong></p>
+<ul>
+<li>Default behavior varies between markdownlint versions</li>
+<li>Explicit config ensures consistent enforcement</li>
+<li><code>ul_single: 1</code> enforces exactly 1 space after <code>-</code> or <code>*</code></li>
+<li><code>ol_single: 1</code> enforces exactly 1 space after <code>1.</code> or <code>10.</code></li>
+</ul>
+<p><strong>Why MD004:</strong></p>
+<ul>
+<li>Craft docs currently mix <code>-</code> and <code>*</code> markers</li>
+<li><code>"style": "dash"</code> enforces <code>-</code> consistently</li>
+<li>Makes docs more portable (some parsers prefer <code>-</code>)</li>
+</ul>
 <h3 id="2-command-integration">2. Command Integration<a class="headerlink" href="#2-command-integration" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>commands/docs/lint.md</code></p>
 <p><strong>Add to Critical Rules section (line 78-94):</strong></p>
-<p><div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gu">### Critical Rules (Always Enabled)</span>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gu">### Critical Rules (Always Enabled)</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>```javascript
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>const criticalRules = {
@@ -4605,12 +4680,12 @@
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>| **Inconsistent marker** | **MD004** | **Change to &#39;-&#39; consistently** |
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>| Code fence language | MD040 | Detect &amp; add language tag |
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>| Multiple blank lines | MD012 | Reduce to single blank line |
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="3-error-message-improvements">3. Error Message Improvements<a class="headerlink" href="#3-error-message-improvements" title="Permanent link">&para;</a></h3>
-<p><strong>Current error output (generic):</strong>
+<p><strong>Current error output (generic):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>docs/test.md:21:1: MD030 - Spaces after list markers
-</span></code></pre></div></p>
-<p><strong>Proposed error output (specific):</strong>
+</span></code></pre></div>
+<p><strong>Proposed error output (specific):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docs/test.md:21:1: MD030 - List spacing violation
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  Found:    -  Item with 2 spaces
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  Expected: - Item with 1 space
@@ -4624,31 +4699,41 @@
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>  Fix:
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    21: - Item 1 (correct: 1 space)
 </span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    22: - Item 2
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="4-migration-strategy">4. Migration Strategy<a class="headerlink" href="#4-migration-strategy" title="Permanent link">&para;</a></h3>
-<p><strong>Phase 1: Detection (Week 1)</strong>
-- Run <code>/craft:docs:lint</code> without <code>--fix</code>
-- Generate violation report
-- Identify files with most violations</p>
-<p><strong>Phase 2: Configuration (Week 1)</strong>
-- Update <code>.markdownlint.json</code> with new rules
-- Test on sample files
-- Verify auto-fix behavior</p>
-<p><strong>Phase 3: Gradual Fix (Ongoing)</strong>
-- Fix files as they're edited (not bulk)
-- Pre-commit hook prevents new violations
-- Monthly report tracks progress</p>
-<p><strong>Phase 4: Enforcement (Week 4)</strong>
-- Enable strict mode in CI/CD
-- Block PRs with violations
-- All docs compliant</p>
+<h4 id="phase-1-detection-week-1">Phase 1: Detection (Week 1)<a class="headerlink" href="#phase-1-detection-week-1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Run <code>/craft:docs:lint</code> without <code>--fix</code></li>
+<li>Generate violation report</li>
+<li>Identify files with most violations</li>
+</ul>
+<h4 id="phase-2-configuration-week-1">Phase 2: Configuration (Week 1)<a class="headerlink" href="#phase-2-configuration-week-1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Update <code>.markdownlint.json</code> with new rules</li>
+<li>Test on sample files</li>
+<li>Verify auto-fix behavior</li>
+</ul>
+<h4 id="phase-3-gradual-fix-ongoing">Phase 3: Gradual Fix (Ongoing)<a class="headerlink" href="#phase-3-gradual-fix-ongoing" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Fix files as they're edited (not bulk)</li>
+<li>Pre-commit hook prevents new violations</li>
+<li>Monthly report tracks progress</li>
+</ul>
+<h4 id="phase-4-enforcement-week-4">Phase 4: Enforcement (Week 4)<a class="headerlink" href="#phase-4-enforcement-week-4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Enable strict mode in CI/CD</li>
+<li>Block PRs with violations</li>
+<li>All docs compliant</li>
+</ul>
 <h3 id="5-performance-optimization">5. Performance Optimization<a class="headerlink" href="#5-performance-optimization" title="Permanent link">&para;</a></h3>
 <p><strong>Target:</strong> &lt; 10s for 100+ markdown files</p>
-<p><strong>Strategy: Balanced Approach</strong>
-- Fast path: Cache results for unchanged files (80% hit rate)
-- Smart detection: Skip files with no lists (20% skip rate)
-- Parallel processing: Batch files in groups of 10
-- Incremental linting: Only changed files in Git worktree</p>
+<h4 id="strategy-balanced-approach">Strategy: Balanced Approach<a class="headerlink" href="#strategy-balanced-approach" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Fast path: Cache results for unchanged files (80% hit rate)</li>
+<li>Smart detection: Skip files with no lists (20% skip rate)</li>
+<li>Parallel processing: Batch files in groups of 10</li>
+<li>Incremental linting: Only changed files in Git worktree</li>
+</ul>
 <p><strong>Implementation:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># commands/docs/lint.md Step 2 enhancement</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
@@ -4815,17 +4900,15 @@
 <li>
 <p><strong>What if a file intentionally uses multiple spaces for alignment?</strong></p>
 </li>
-<li>
-<p><strong>Proposed solution:</strong> Use inline disable comments
-   <div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>&lt;!-- markdownlint-disable MD030 --&gt;
+<li><strong>Proposed solution:</strong> Use inline disable comments</li>
+</ol>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>&lt;!-- markdownlint-disable MD030 --&gt;
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">-</span><span class="w"> </span>Item 1   aligned intentionally
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">-</span><span class="w"> </span>Item 2   aligned intentionally
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>&lt;!-- markdownlint-enable MD030 --&gt;
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Should nested lists follow different spacing rules?</strong></p>
-</li>
+</span></code></pre></div>
+<ol>
+<li><strong>Should nested lists follow different spacing rules?</strong></li>
 <li><strong>Answer (from user input):</strong> Same rules for all levels</li>
 <li>
 <p><strong>Action:</strong> <code>ul_single: 1</code> applies to all nesting levels</p>
@@ -4862,8 +4945,10 @@
 <p>Keep existing relaxed rules</p>
 </li>
 <li>
-<p><strong>Test on sample files:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Create test file with violations</span>
+<p><strong>Test on sample files:</strong></p>
+</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Create test file with violations</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;## Test\n-  Item with 2 spaces\n* Different marker&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>test.md
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Run linter</span>
@@ -4878,11 +4963,9 @@
 </span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="c1"># Verify fixed</span>
 </span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>cat<span class="w"> </span>test.md
 </span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="c1"># Expected: &quot;- Item with 1 space\n- Different marker&quot;</span>
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Update command documentation:</strong></p>
-</li>
+</span></code></pre></div>
+<ol>
+<li><strong>Update command documentation:</strong></li>
 <li>Add MD030 and MD004 to critical rules section</li>
 <li>Update auto-fix table</li>
 <li>Add examples of violations and fixes</li>
@@ -4911,47 +4994,43 @@
 </ol>
 <h3 id="phase-3-migration-execution-ongoing">Phase 3: Migration Execution (Ongoing)<a class="headerlink" href="#phase-3-migration-execution-ongoing" title="Permanent link">&para;</a></h3>
 <ol>
-<li>
-<p><strong>Generate baseline report:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:docs:lint<span class="w"> </span>&gt;<span class="w"> </span>docs/LINT-BASELINE-2026-01-19.txt
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Fix high-priority files first:</strong></p>
-</li>
+<li><strong>Generate baseline report:</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:docs:lint<span class="w"> </span>&gt;<span class="w"> </span>docs/LINT-BASELINE-2026-01-19.txt
+</span></code></pre></div>
+<ol>
+<li><strong>Fix high-priority files first:</strong></li>
 <li>CLAUDE.md (project overview)</li>
 <li>README.md (entry point)</li>
 <li>
 <p>commands/do.md (most-used command)</p>
 </li>
 <li>
-<p><strong>Set up pre-commit hook:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># .git/hooks/pre-commit</span>
+<p><strong>Set up pre-commit hook:</strong></p>
+</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># .git/hooks/pre-commit</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1">#!/bin/bash</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>npx<span class="w"> </span>markdownlint-cli2<span class="w"> </span>--config<span class="w"> </span>.markdownlint.json<span class="w"> </span><span class="k">$(</span>git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w"> </span>--name-only<span class="w"> </span>--diff-filter<span class="o">=</span>ACM<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;.md$&#39;</span><span class="k">)</span>
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Monthly progress tracking:</strong></p>
-</li>
+</span></code></pre></div>
+<ol>
+<li><strong>Monthly progress tracking:</strong></li>
 <li>Run full lint report</li>
 <li>Track violations over time</li>
 <li>Celebrate milestones (90% compliant, 100% compliant)</li>
 </ol>
 <h3 id="phase-4-cicd-integration-1-hour">Phase 4: CI/CD Integration (1 hour)<a class="headerlink" href="#phase-4-cicd-integration-1-hour" title="Permanent link">&para;</a></h3>
 <ol>
-<li>
-<p><strong>Update <code>.github/workflows/docs-quality.yml</code>:</strong>
-   <div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run markdown linting</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx markdownlint-cli2 --config .markdownlint.json &quot;docs/**/*.md&quot; &quot;*.md&quot;</span>
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Add status badge to README:</strong>
-   <div class="language-markdown highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>![<span class="nt">Docs Quality</span>](<span class="na">https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg</span>)
-</span></code></pre></div></p>
-</li>
+<li><strong>Update <code>.github/workflows/docs-quality.yml</code>:</strong></li>
 </ol>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run markdown linting</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npx markdownlint-cli2 --config .markdownlint.json &quot;docs/**/*.md&quot; &quot;*.md&quot;</span>
+</span></code></pre></div>
+<ol>
+<li><strong>Add status badge to README:</strong></li>
+</ol>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>![<span class="nt">Docs Quality</span>](<span class="na">https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg</span>)
+</span></code></pre></div>
 <hr />
 <h2 id="history">History<a class="headerlink" href="#history" title="Permanent link">&para;</a></h2>
 <table>
@@ -5001,8 +5080,8 @@
 <li><a href="https://github.com/DavidAnson/markdownlint/blob/main/doc/md030.md">markdownlint Rule MD030</a></li>
 <li><a href="https://github.com/DavidAnson/markdownlint/blob/main/doc/md032.md">markdownlint Rule MD032</a></li>
 <li><a href="https://github.com/DavidAnson/markdownlint/blob/main/doc/md004.md">markdownlint Rule MD004</a></li>
-<li><a href="commands/docs/lint.md">Craft <code>/craft:docs:lint</code> command</a></li>
-<li><a href=".markdownlint.json">Existing <code>.markdownlint.json</code> config</a></li>
+<li><a href="../../commands/docs/lint.md">Craft <code>/craft:docs:lint</code> command</a></li>
+<li><a href="../../.markdownlint.json">Existing <code>.markdownlint.json</code> config</a></li>
 </ul>
 
 

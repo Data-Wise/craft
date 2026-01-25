@@ -4377,7 +4377,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5215,20 +5215,20 @@
 <h2 id="core-scripts">Core Scripts<a class="headerlink" href="#core-scripts" title="Permanent link">&para;</a></h2>
 <h3 id="dependency-managersh">dependency-manager.sh<a class="headerlink" href="#dependency-managersh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Main orchestrator for dependency checking and management</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Source for function access</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">source</span><span class="w"> </span>scripts/dependency-manager.sh
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Direct execution</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>./scripts/dependency-manager.sh<span class="w"> </span>&lt;command&gt;<span class="w"> </span><span class="o">[</span>method<span class="o">]</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Commands</strong>:</p>
 <h4 id="parse_frontmatter"><code>parse_frontmatter</code><a class="headerlink" href="#parse_frontmatter" title="Permanent link">&para;</a></h4>
 <p>Extracts dependency metadata from YAML frontmatter.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>parse_frontmatter<span class="o">()</span><span class="w"> </span>-&gt;<span class="w"> </span>JSON
-</span></code></pre></div></p>
-<p><strong>Returns</strong>:
+</span></code></pre></div>
+<p><strong>Returns</strong>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;asciinema&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
@@ -5238,22 +5238,24 @@
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;health&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">source</span><span class="w"> </span>scripts/dependency-manager.sh
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">metadata</span><span class="o">=</span><span class="k">$(</span>parse_frontmatter<span class="k">)</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$metadata</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.asciinema.required&#39;</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Output: true</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="check_dependencies"><code>check_dependencies</code><a class="headerlink" href="#check_dependencies" title="Permanent link">&para;</a></h4>
 <p>Checks installation status, health, and versions for a method.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>check_dependencies<span class="w"> </span>&lt;method&gt;<span class="w"> </span>-&gt;<span class="w"> </span>JSON
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>method</code> (string): Method name (<code>asciinema</code> or <code>vhs</code>)</p>
-<p><strong>Returns</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>method</code> (string): Method name (<code>asciinema</code> or <code>vhs</code>)</li>
+</ul>
+<p><strong>Returns</strong>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">[</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="p">{</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="p">,</span>
@@ -5265,20 +5267,22 @@
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="nt">&quot;install_cmd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;brew install asciinema&quot;</span>
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p">]</span>
-</span></code></pre></div></p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./scripts/dependency-manager.sh<span class="w"> </span>check_dependencies<span class="w"> </span>asciinema
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="display_status_table"><code>display_status_table</code><a class="headerlink" href="#display_status_table" title="Permanent link">&para;</a></h4>
 <p>Displays dependencies as formatted table.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>display_status_table<span class="w"> </span>&lt;method&gt;<span class="w"> </span>&lt;status_json&gt;
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>method</code> (string): Method name
-- <code>status_json</code> (string): JSON from <code>check_dependencies</code></p>
-<p><strong>Output</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>method</code> (string): Method name</li>
+<li><code>status_json</code> (string): JSON from <code>check_dependencies</code></li>
+</ul>
+<p><strong>Output</strong>:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>╔════════════════════════════════════════════════════╗
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>║  DEPENDENCY STATUS - asciinema method              ║
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>╚════════════════════════════════════════════════════╝
@@ -5288,182 +5292,212 @@
 </span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>asciinema    ✅        2.3.0      ok        yes
 </span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>agg          ❌        -          n/a       yes
 </span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>gifsicle     ✅        1.96       ok        yes
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="display_status_json"><code>display_status_json</code><a class="headerlink" href="#display_status_json" title="Permanent link">&para;</a></h4>
 <p>Outputs dependency status as JSON for CI/CD.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>display_status_json<span class="w"> </span>&lt;method&gt;<span class="w"> </span><span class="o">[</span>status_json<span class="o">]</span><span class="w"> </span>-&gt;<span class="w"> </span>JSON
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>method</code> (string): Method name
-- <code>status_json</code> (string, optional): Pre-computed status</p>
-<p><strong>Returns</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>method</code> (string): Method name</li>
+<li><code>status_json</code> (string, optional): Pre-computed status</li>
+</ul>
+<p><strong>Returns</strong>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="p">,</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-17T16:00:00Z&quot;</span><span class="p">,</span>
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="nt">&quot;tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span>
 </span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<p><strong>Status Values</strong>:
-- <code>ok</code>: All required tools installed and healthy
-- <code>issues</code>: Missing or broken tools
-- <code>unknown</code>: Could not determine status</p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Status Values</strong>:</p>
+<ul>
+<li><code>ok</code>: All required tools installed and healthy</li>
+<li><code>issues</code>: Missing or broken tools</li>
+<li><code>unknown</code>: Could not determine status</li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>./scripts/dependency-manager.sh<span class="w"> </span>display_status_json<span class="w"> </span>asciinema<span class="w"> </span>&gt;<span class="w"> </span>status.json
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="tool-detectorsh">tool-detector.sh<a class="headerlink" href="#tool-detectorsh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Detect installed tools and their paths</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">source</span><span class="w"> </span>scripts/tool-detector.sh
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Functions</strong>:</p>
 <h4 id="detect_tool"><code>detect_tool</code><a class="headerlink" href="#detect_tool" title="Permanent link">&para;</a></h4>
 <p>Detects if a tool is installed and returns its path.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>detect_tool<span class="w"> </span>&lt;tool_name&gt;<span class="w"> </span>&lt;search_cmd&gt;<span class="w"> </span>-&gt;<span class="w"> </span>string
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>tool_name</code> (string): Name of the tool
-- <code>search_cmd</code> (string): Command to locate tool (e.g., <code>which asciinema</code>)</p>
-<p><strong>Returns</strong>:
-- Tool path if found (e.g., <code>/usr/local/bin/asciinema</code>)
-- Empty string if not found</p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>tool_name</code> (string): Name of the tool</li>
+<li><code>search_cmd</code> (string): Command to locate tool (e.g., <code>which asciinema</code>)</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li>Tool path if found (e.g., <code>/usr/local/bin/asciinema</code>)</li>
+<li>Empty string if not found</li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">source</span><span class="w"> </span>scripts/tool-detector.sh
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nv">path</span><span class="o">=</span><span class="k">$(</span>detect_tool<span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="w"> </span><span class="s2">&quot;which asciinema&quot;</span><span class="k">)</span>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$path</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Found at: </span><span class="nv">$path</span><span class="s2">&quot;</span>
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="k">fi</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="session-cachesh">session-cache.sh<a class="headerlink" href="#session-cachesh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Performance caching for dependency checks</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">source</span><span class="w"> </span>scripts/session-cache.sh
-</span></code></pre></div></p>
-<p><strong>Configuration</strong>:
-- Cache TTL: 60 seconds
-- Cache location: <code>$TMPDIR/.craft-demo-cache-$$</code></p>
+</span></code></pre></div>
+<p><strong>Configuration</strong>:</p>
+<ul>
+<li>Cache TTL: 60 seconds</li>
+<li>Cache location: <code>$TMPDIR/.craft-demo-cache-$$</code></li>
+</ul>
 <p><strong>Functions</strong>:</p>
 <h4 id="init_cache"><code>init_cache</code><a class="headerlink" href="#init_cache" title="Permanent link">&para;</a></h4>
 <p>Initializes cache for current session.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>init_cache<span class="o">()</span>
-</span></code></pre></div></p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">source</span><span class="w"> </span>scripts/session-cache.sh
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>init_cache
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="get_cached_status"><code>get_cached_status</code><a class="headerlink" href="#get_cached_status" title="Permanent link">&para;</a></h4>
 <p>Retrieves cached dependency status if valid.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>get_cached_status<span class="w"> </span>&lt;method&gt;<span class="w"> </span>-&gt;<span class="w"> </span>JSON<span class="w"> </span><span class="p">|</span><span class="w"> </span>empty
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>method</code> (string): Method name</p>
-<p><strong>Returns</strong>:
-- Cached JSON if valid and not expired
-- Empty string if cache miss or expired</p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>method</code> (string): Method name</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li>Cached JSON if valid and not expired</li>
+<li>Empty string if cache miss or expired</li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">source</span><span class="w"> </span>scripts/session-cache.sh
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nv">cached</span><span class="o">=</span><span class="k">$(</span>get_cached_status<span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="k">)</span>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$cached</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Cache hit!&quot;</span>
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="k">fi</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="store_cache"><code>store_cache</code><a class="headerlink" href="#store_cache" title="Permanent link">&para;</a></h4>
 <p>Stores dependency status in cache.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>store_cache<span class="w"> </span>&lt;method&gt;<span class="w"> </span>&lt;status_json&gt;
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>method</code> (string): Method name
-- <code>status_json</code> (string): Status to cache</p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>method</code> (string): Method name</li>
+<li><code>status_json</code> (string): Status to cache</li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nb">source</span><span class="w"> </span>scripts/session-cache.sh
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>store_cache<span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$status_json</span><span class="s2">&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="installation-scripts">Installation Scripts<a class="headerlink" href="#installation-scripts" title="Permanent link">&para;</a></h2>
 <h3 id="dependency-installersh">dependency-installer.sh<a class="headerlink" href="#dependency-installersh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Multi-strategy installation framework</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">source</span><span class="w"> </span>scripts/dependency-installer.sh
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Functions</strong>:</p>
 <h4 id="install_tool"><code>install_tool</code><a class="headerlink" href="#install_tool" title="Permanent link">&para;</a></h4>
 <p>Attempts to install a tool using available strategies.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>install_tool<span class="w"> </span>&lt;tool_name&gt;<span class="w"> </span>&lt;install_spec&gt;<span class="w"> </span>-&gt;<span class="w"> </span>exit_code
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>tool_name</code> (string): Name of tool to install
-- <code>install_spec</code> (JSON): Installation specification from frontmatter</p>
-<p><strong>Installation Strategies</strong> (tried in order):
-1. <strong>Homebrew</strong> (<code>brew install</code>)
-2. <strong>Cargo</strong> (<code>cargo install</code>)
-3. <strong>Binary download</strong> (GitHub releases)
-4. <strong>APT</strong> (<code>apt install</code>) - Linux only
-5. <strong>YUM</strong> (<code>yum install</code>) - Linux only</p>
-<p><strong>Exit Codes</strong>:
-- <code>0</code>: Installation successful
-- <code>1</code>: Installation failed (all strategies exhausted)</p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>tool_name</code> (string): Name of tool to install</li>
+<li><code>install_spec</code> (JSON): Installation specification from frontmatter</li>
+</ul>
+<p><strong>Installation Strategies</strong> (tried in order):</p>
+<ol>
+<li><strong>Homebrew</strong> (<code>brew install</code>)</li>
+<li><strong>Cargo</strong> (<code>cargo install</code>)</li>
+<li><strong>Binary download</strong> (GitHub releases)</li>
+<li><strong>APT</strong> (<code>apt install</code>) - Linux only</li>
+<li><strong>YUM</strong> (<code>yum install</code>) - Linux only</li>
+</ol>
+<p><strong>Exit Codes</strong>:</p>
+<ul>
+<li><code>0</code>: Installation successful</li>
+<li><code>1</code>: Installation failed (all strategies exhausted)</li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">source</span><span class="w"> </span>scripts/dependency-installer.sh
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="nv">install_spec</span><span class="o">=</span><span class="s1">&#39;{&quot;brew&quot;:&quot;asciinema&quot;,&quot;apt&quot;:&quot;asciinema&quot;}&#39;</span>
 </span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>install_tool<span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$install_spec</span><span class="s2">&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="consent-promptsh">consent-prompt.sh<a class="headerlink" href="#consent-promptsh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Interactive consent for installations</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">source</span><span class="w"> </span>scripts/consent-prompt.sh
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Functions</strong>:</p>
 <h4 id="prompt_consent"><code>prompt_consent</code><a class="headerlink" href="#prompt_consent" title="Permanent link">&para;</a></h4>
 <p>Prompts user for installation consent.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>prompt_consent<span class="w"> </span>&lt;tool_name&gt;<span class="w"> </span>&lt;install_cmd&gt;<span class="w"> </span>-&gt;<span class="w"> </span>boolean
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>tool_name</code> (string): Name of tool
-- <code>install_cmd</code> (string): Command that will be executed</p>
-<p><strong>Returns</strong>:
-- <code>0</code>: User consented (yes)
-- <code>1</code>: User declined (no)</p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>tool_name</code> (string): Name of tool</li>
+<li><code>install_cmd</code> (string): Command that will be executed</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>0</code>: User consented (yes)</li>
+<li><code>1</code>: User declined (no)</li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nb">source</span><span class="w"> </span>scripts/consent-prompt.sh
 </span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="k">if</span><span class="w"> </span>prompt_consent<span class="w"> </span><span class="s2">&quot;agg&quot;</span><span class="w"> </span><span class="s2">&quot;cargo install agg&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 </span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Installing agg...&quot;</span>
 </span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="k">fi</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="conversion-scripts">Conversion Scripts<a class="headerlink" href="#conversion-scripts" title="Permanent link">&para;</a></h2>
 <h3 id="convert-castsh">convert-cast.sh<a class="headerlink" href="#convert-castsh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Convert single .cast file to .gif</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>./scripts/convert-cast.sh<span class="w"> </span>&lt;input.cast&gt;<span class="w"> </span><span class="o">[</span>output.gif<span class="o">]</span>
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>input.cast</code> (required): Path to .cast file
-- <code>output.gif</code> (optional): Output path (default: same name as input)</p>
-<p><strong>Process</strong>:
-1. Validate .cast file exists and is readable
-2. Convert using <code>agg</code> with optimized settings
-3. Optimize with <code>gifsicle -O3 --colors 256</code>
-4. Report file size and conversion time</p>
-<p><strong>agg Settings</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>input.cast</code> (required): Path to .cast file</li>
+<li><code>output.gif</code> (optional): Output path (default: same name as input)</li>
+</ul>
+<p><strong>Process</strong>:</p>
+<ol>
+<li>Validate .cast file exists and is readable</li>
+<li>Convert using <code>agg</code> with optimized settings</li>
+<li>Optimize with <code>gifsicle -O3 --colors 256</code></li>
+<li>Report file size and conversion time</li>
+</ol>
+<p><strong>agg Settings</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>agg<span class="w"> </span>--font-size<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">    </span>--line-height<span class="w"> </span><span class="m">1</span>.4<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">    </span>--theme<span class="w"> </span>monokai<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span>input.cast<span class="w"> </span>output.gif
-</span></code></pre></div></p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Basic usage</span>
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>./scripts/convert-cast.sh<span class="w"> </span>demo.cast
 </span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
@@ -5474,27 +5508,33 @@
 </span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="k">if</span><span class="w"> </span>./scripts/convert-cast.sh<span class="w"> </span>demo.cast<span class="p">;</span><span class="w"> </span><span class="k">then</span>
 </span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Conversion successful&quot;</span>
 </span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="k">fi</span>
-</span></code></pre></div></p>
-<p><strong>Exit Codes</strong>:
-- <code>0</code>: Conversion successful
-- <code>1</code>: File not found or conversion failed</p>
+</span></code></pre></div>
+<p><strong>Exit Codes</strong>:</p>
+<ul>
+<li><code>0</code>: Conversion successful</li>
+<li><code>1</code>: File not found or conversion failed</li>
+</ul>
 <hr />
 <h3 id="batch-convertsh">batch-convert.sh<a class="headerlink" href="#batch-convertsh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Bulk conversion of .cast files</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>./scripts/batch-convert.sh<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
-</span></code></pre></div></p>
-<p><strong>Options</strong>:
-- <code>--search-path &lt;path&gt;</code>: Directory to search (default: <code>docs/</code>)
-- <code>--dry-run</code>: Preview without converting
-- <code>--force</code>: Overwrite existing GIFs
-- <code>--method &lt;method&gt;</code>: Conversion method (default: <code>asciinema</code>)</p>
-<p><strong>Process</strong>:
-1. Find all .cast files in search path(s)
-2. Filter out files with existing .gif (unless <code>--force</code>)
-3. Convert each file with progress tracking
-4. Display summary statistics</p>
-<p><strong>Output</strong>:
+</span></code></pre></div>
+<p><strong>Options</strong>:</p>
+<ul>
+<li><code>--search-path &lt;path&gt;</code>: Directory to search (default: <code>docs/</code>)</li>
+<li><code>--dry-run</code>: Preview without converting</li>
+<li><code>--force</code>: Overwrite existing GIFs</li>
+<li><code>--method &lt;method&gt;</code>: Conversion method (default: <code>asciinema</code>)</li>
+</ul>
+<p><strong>Process</strong>:</p>
+<ol>
+<li>Find all .cast files in search path(s)</li>
+<li>Filter out files with existing .gif (unless <code>--force</code>)</li>
+<li>Convert each file with progress tracking</li>
+<li>Display summary statistics</li>
+</ol>
+<p><strong>Output</strong>:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>Found 5 .cast files
 </span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>Converting: demo1.cast → demo1.gif... ✓ (2.3s, 145KB)
 </span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>Converting: demo2.cast → demo2.gif... ✓ (1.8s, 98KB)
@@ -5502,8 +5542,8 @@
 </span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>Summary: 5/5 converted, 0 failed
 </span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>Total time: 12.4s
 </span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>Total size: 567KB
-</span></code></pre></div></p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Dry run</span>
 </span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>./scripts/batch-convert.sh<span class="w"> </span>--dry-run
 </span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>
@@ -5515,151 +5555,175 @@
 </span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>
 </span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="c1"># Force overwrite</span>
 </span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a>./scripts/batch-convert.sh<span class="w"> </span>--force
-</span></code></pre></div></p>
-<p><strong>Exit Codes</strong>:
-- <code>0</code>: All conversions successful
-- <code>1</code>: One or more conversions failed
-- <code>2</code>: File exists (use <code>--force</code> to overwrite)</p>
+</span></code></pre></div>
+<p><strong>Exit Codes</strong>:</p>
+<ul>
+<li><code>0</code>: All conversions successful</li>
+<li><code>1</code>: One or more conversions failed</li>
+<li><code>2</code>: File exists (use <code>--force</code> to overwrite)</li>
+</ul>
 <hr />
 <h2 id="advanced-features">Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">&para;</a></h2>
 <h3 id="health-checksh">health-check.sh<a class="headerlink" href="#health-checksh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Validate tool health and functionality</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="nb">source</span><span class="w"> </span>scripts/health-check.sh
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Functions</strong>:</p>
 <h4 id="run_health_check"><code>run_health_check</code><a class="headerlink" href="#run_health_check" title="Permanent link">&para;</a></h4>
 <p>Executes health check command and validates exit code.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>run_health_check<span class="w"> </span>&lt;tool_name&gt;<span class="w"> </span>&lt;check_cmd&gt;<span class="w"> </span>&lt;expected_exit&gt;<span class="w"> </span>-&gt;<span class="w"> </span>JSON
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>tool_name</code> (string): Name of tool
-- <code>check_cmd</code> (string): Command to execute
-- <code>expected_exit</code> (integer): Expected exit code (usually 0)</p>
-<p><strong>Returns</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>tool_name</code> (string): Name of tool</li>
+<li><code>check_cmd</code> (string): Command to execute</li>
+<li><code>expected_exit</code> (integer): Expected exit code (usually 0)</li>
+</ul>
+<p><strong>Returns</strong>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="p">{</span>
 </span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="w">  </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="p">,</span>
 </span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="w">  </span><span class="nt">&quot;health&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span>
 </span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">  </span><span class="nt">&quot;exit_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
 </span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Health check passed&quot;</span>
 </span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<p><strong>Health States</strong>:
-- <code>ok</code>: Tool responds correctly
-- <code>broken</code>: Tool installed but fails health check
-- <code>n/a</code>: Tool not installed</p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Health States</strong>:</p>
+<ul>
+<li><code>ok</code>: Tool responds correctly</li>
+<li><code>broken</code>: Tool installed but fails health check</li>
+<li><code>n/a</code>: Tool not installed</li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="nb">source</span><span class="w"> </span>scripts/health-check.sh
 </span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nv">result</span><span class="o">=</span><span class="k">$(</span>run_health_check<span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="w"> </span><span class="s2">&quot;asciinema --help&quot;</span><span class="w"> </span><span class="m">0</span><span class="k">)</span>
 </span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$result</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.health&#39;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="validate_all_health"><code>validate_all_health</code><a class="headerlink" href="#validate_all_health" title="Permanent link">&para;</a></h4>
 <p>Validates health for all tools in a method.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>validate_all_health<span class="w"> </span>&lt;method&gt;<span class="w"> </span>-&gt;<span class="w"> </span>JSON
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>method</code> (string): Method name</p>
-<p><strong>Returns</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>method</code> (string): Method name</li>
+</ul>
+<p><strong>Returns</strong>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="p">{</span>
 </span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">  </span><span class="nt">&quot;asciinema&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;health&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;exit_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">},</span>
 </span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="w">  </span><span class="nt">&quot;agg&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;health&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;exit_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">},</span>
 </span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="w">  </span><span class="nt">&quot;gifsicle&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;health&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;exit_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span>
 </span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="p">}</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="version-checksh">version-check.sh<a class="headerlink" href="#version-checksh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Semantic version comparison and validation</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="nb">source</span><span class="w"> </span>scripts/version-check.sh
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Functions</strong>:</p>
 <h4 id="extract_version"><code>extract_version</code><a class="headerlink" href="#extract_version" title="Permanent link">&para;</a></h4>
 <p>Extracts version number from tool output.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>extract_version<span class="w"> </span>&lt;tool_name&gt;<span class="w"> </span>&lt;version_cmd&gt;<span class="w"> </span>-&gt;<span class="w"> </span>string
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>tool_name</code> (string): Name of tool
-- <code>version_cmd</code> (string): Command to get version</p>
-<p><strong>Returns</strong>:
-- Version string (e.g., <code>2.3.0</code>)
-- <code>null</code> if not found</p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>tool_name</code> (string): Name of tool</li>
+<li><code>version_cmd</code> (string): Command to get version</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li>Version string (e.g., <code>2.3.0</code>)</li>
+<li><code>null</code> if not found</li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="nb">source</span><span class="w"> </span>scripts/version-check.sh
 </span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="nv">version</span><span class="o">=</span><span class="k">$(</span>extract_version<span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="w"> </span><span class="s2">&quot;asciinema --version&quot;</span><span class="k">)</span>
 </span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$version</span><span class="s2">&quot;</span><span class="w">  </span><span class="c1"># Output: 2.3.0</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="parse_version"><code>parse_version</code><a class="headerlink" href="#parse_version" title="Permanent link">&para;</a></h4>
 <p>Parses version string into major.minor.patch components.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>parse_version<span class="w"> </span>&lt;version_string&gt;<span class="w"> </span>-&gt;<span class="w"> </span>array
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>version_string</code> (string): Version like <code>1.2.3</code></p>
-<p><strong>Returns</strong>:
-- Space-separated string: <code>major minor patch</code></p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>version_string</code> (string): Version like <code>1.2.3</code></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li>Space-separated string: <code>major minor patch</code></li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nb">source</span><span class="w"> </span>scripts/version-check.sh
 </span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="nb">read</span><span class="w"> </span>major<span class="w"> </span>minor<span class="w"> </span>patch<span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="k">$(</span>parse_version<span class="w"> </span><span class="s2">&quot;2.3.0&quot;</span><span class="k">)</span>
 </span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Major: </span><span class="nv">$major</span><span class="s2">, Minor: </span><span class="nv">$minor</span><span class="s2">, Patch: </span><span class="nv">$patch</span><span class="s2">&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="compare_versions"><code>compare_versions</code><a class="headerlink" href="#compare_versions" title="Permanent link">&para;</a></h4>
 <p>Compares two semantic versions.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>compare_versions<span class="w"> </span>&lt;version1&gt;<span class="w"> </span>&lt;version2&gt;<span class="w"> </span>-&gt;<span class="w"> </span>integer
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>version1</code> (string): First version
-- <code>version2</code> (string): Second version</p>
-<p><strong>Returns</strong>:
-- <code>-1</code>: version1 &lt; version2
-- <code>0</code>: version1 = version2
-- <code>1</code>: version1 &gt; version2</p>
-<p><strong>Example</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>version1</code> (string): First version</li>
+<li><code>version2</code> (string): Second version</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>-1</code>: version1 &lt; version2</li>
+<li><code>0</code>: version1 = version2</li>
+<li><code>1</code>: version1 &gt; version2</li>
+</ul>
+<p><strong>Example</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="nb">source</span><span class="w"> </span>scripts/version-check.sh
 </span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="nv">result</span><span class="o">=</span><span class="k">$(</span>compare_versions<span class="w"> </span><span class="s2">&quot;1.2.3&quot;</span><span class="w"> </span><span class="s2">&quot;1.2.5&quot;</span><span class="k">)</span>
 </span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$result</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;-1&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 </span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Upgrade needed&quot;</span>
 </span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="k">fi</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="check_version_requirement"><code>check_version_requirement</code><a class="headerlink" href="#check_version_requirement" title="Permanent link">&para;</a></h4>
 <p>Validates version meets minimum requirement.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>check_version_requirement<span class="w"> </span>&lt;tool&gt;<span class="w"> </span>&lt;current&gt;<span class="w"> </span>&lt;min&gt;<span class="w"> </span>-&gt;<span class="w"> </span>JSON
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>tool</code> (string): Tool name
-- <code>current</code> (string): Current version
-- <code>min</code> (string): Minimum required version</p>
-<p><strong>Returns</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>tool</code> (string): Tool name</li>
+<li><code>current</code> (string): Current version</li>
+<li><code>min</code> (string): Minimum required version</li>
+</ul>
+<p><strong>Returns</strong>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="p">{</span>
 </span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="w">  </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asciinema&quot;</span><span class="p">,</span>
 </span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="w">  </span><span class="nt">&quot;current&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.3.0&quot;</span><span class="p">,</span>
 </span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="w">  </span><span class="nt">&quot;required&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.0&quot;</span><span class="p">,</span>
 </span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="w">  </span><span class="nt">&quot;satisfied&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 </span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="p">}</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="repair-toolssh">repair-tools.sh<a class="headerlink" href="#repair-toolssh" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Automated tool repair and reinstallation</p>
-<p><strong>Usage</strong>:
+<p><strong>Usage</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nb">source</span><span class="w"> </span>scripts/repair-tools.sh
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Functions</strong>:</p>
 <h4 id="detect_repair_candidates"><code>detect_repair_candidates</code><a class="headerlink" href="#detect_repair_candidates" title="Permanent link">&para;</a></h4>
 <p>Identifies tools that need repair.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>detect_repair_candidates<span class="w"> </span>&lt;method&gt;<span class="w"> </span>-&gt;<span class="w"> </span>JSON
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>method</code> (string): Method name</p>
-<p><strong>Returns</strong>:
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>method</code> (string): Method name</li>
+</ul>
+<p><strong>Returns</strong>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="p">{</span>
 </span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="w">  </span><span class="nt">&quot;candidates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 </span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="w">    </span><span class="p">{</span>
@@ -5676,28 +5740,36 @@
 </span><span id="__span-51-14"><a id="__codelineno-51-14" name="__codelineno-51-14" href="#__codelineno-51-14"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-51-15"><a id="__codelineno-51-15" name="__codelineno-51-15" href="#__codelineno-51-15"></a><span class="w">  </span><span class="p">]</span>
 </span><span id="__span-51-16"><a id="__codelineno-51-16" name="__codelineno-51-16" href="#__codelineno-51-16"></a><span class="p">}</span>
-</span></code></pre></div></p>
-<p><strong>Issue Types</strong>:
-- <code>not_installed</code>: Tool missing
-- <code>broken</code>: Health check fails
-- <code>outdated</code>: Version below minimum</p>
+</span></code></pre></div>
+<p><strong>Issue Types</strong>:</p>
+<ul>
+<li><code>not_installed</code>: Tool missing</li>
+<li><code>broken</code>: Health check fails</li>
+<li><code>outdated</code>: Version below minimum</li>
+</ul>
 <hr />
 <h4 id="repair_tool"><code>repair_tool</code><a class="headerlink" href="#repair_tool" title="Permanent link">&para;</a></h4>
 <p>Attempts to repair a single tool.</p>
-<p><strong>Signature</strong>:
+<p><strong>Signature</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>repair_tool<span class="w"> </span>&lt;tool_name&gt;<span class="w"> </span>&lt;method&gt;<span class="w"> </span>-&gt;<span class="w"> </span>exit_code
-</span></code></pre></div></p>
-<p><strong>Parameters</strong>:
-- <code>tool_name</code> (string): Tool to repair
-- <code>method</code> (string): Method name</p>
-<p><strong>Process</strong>:
-1. Detect issue type
-2. Uninstall if needed
-3. Reinstall using dependency-installer
-4. Validate installation</p>
-<p><strong>Exit Codes</strong>:
-- <code>0</code>: Repair successful
-- <code>1</code>: Repair failed</p>
+</span></code></pre></div>
+<p><strong>Parameters</strong>:</p>
+<ul>
+<li><code>tool_name</code> (string): Tool to repair</li>
+<li><code>method</code> (string): Method name</li>
+</ul>
+<p><strong>Process</strong>:</p>
+<ol>
+<li>Detect issue type</li>
+<li>Uninstall if needed</li>
+<li>Reinstall using dependency-installer</li>
+<li>Validate installation</li>
+</ol>
+<p><strong>Exit Codes</strong>:</p>
+<ul>
+<li><code>0</code>: Repair successful</li>
+<li><code>1</code>: Repair failed</li>
+</ul>
 <hr />
 <h2 id="data-formats">Data Formats<a class="headerlink" href="#data-formats" title="Permanent link">&para;</a></h2>
 <h3 id="dependency-metadata-yaml">Dependency Metadata (YAML)<a class="headerlink" href="#dependency-metadata-yaml" title="Permanent link">&para;</a></h3>
@@ -5822,10 +5894,12 @@
 </span><span id="__span-56-10"><a id="__codelineno-56-10" name="__codelineno-56-10" href="#__codelineno-56-10"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$result</span><span class="s2">&quot;</span>
 </span><span id="__span-56-11"><a id="__codelineno-56-11" name="__codelineno-56-11" href="#__codelineno-56-11"></a><span class="o">}</span>
 </span></code></pre></div>
-<p><strong>Error Propagation</strong>:
-- Functions return non-zero on error
-- Main scripts exit with appropriate code
-- JSON responses include error details</p>
+<p><strong>Error Propagation</strong>:</p>
+<ul>
+<li>Functions return non-zero on error</li>
+<li>Main scripts exit with appropriate code</li>
+<li>JSON responses include error details</li>
+</ul>
 <hr />
 <h2 id="integration-examples">Integration Examples<a class="headerlink" href="#integration-examples" title="Permanent link">&para;</a></h2>
 <h3 id="cicd-integration">CI/CD Integration<a class="headerlink" href="#cicd-integration" title="Permanent link">&para;</a></h3>

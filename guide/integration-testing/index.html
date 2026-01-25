@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4232,11 +4232,13 @@
 <h1 id="integration-testing-guide">Integration Testing Guide<a class="headerlink" href="#integration-testing-guide" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>15 minutes</strong> • 🟢 Beginner • ✓ Complete guide</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> Craft includes 27 integration tests across 3 categories (dependency system, orchestrator workflows, teaching workflow)
-- <strong>Why:</strong> Ensure new features work end-to-end with all dependencies
-- <strong>How:</strong> Run <code>python3 tests/test_integration_*.py</code> to test each category
-- <strong>Next:</strong> Read about <a href="../dependency-management-advanced/">Dependency Management</a> or <a href="../claude-code-2.1-guide/">Claude Code 2.1.0 Integration</a></p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> Craft includes 27 integration tests across 3 categories (dependency system, orchestrator workflows, teaching workflow)</li>
+<li><strong>Why:</strong> Ensure new features work end-to-end with all dependencies</li>
+<li><strong>How:</strong> Run <code>python3 tests/test_integration_*.py</code> to test each category</li>
+<li><strong>Next:</strong> Read about <a href="../dependency-management-advanced/">Dependency Management</a> or <a href="../claude-code-2.1-guide/">Claude Code 2.1.0 Integration</a></li>
+</ul>
 </blockquote>
 <p>Craft has comprehensive integration tests that validate the entire system end-to-end. This guide explains what they test and how to run them.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
@@ -4255,26 +4257,30 @@
 <h3 id="category-1-dependency-management-system-9-tests">Category 1: Dependency Management System (9 tests)<a class="headerlink" href="#category-1-dependency-management-system-9-tests" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>tests/test_integration_dependency_system.py</code></p>
 <p><strong>Purpose:</strong> Validates the complete dependency detection and installation workflow.</p>
-<p><strong>What It Tests:</strong>
-- ✅ Full dependency check workflow (<code>/craft:docs:demo --check</code>)
-- ✅ Health check validation of installed tools
-- ✅ Tool detection across multiple methods (PATH, homebrew, npm, cargo)
-- ✅ Version comparison logic for upgrade decisions
-- ✅ Installer fallback chains (homebrew → cargo → binary)
-- ✅ Session caching system for performance
-- ✅ Dependency conflict detection
-- ✅ Batch installation across multiple tools
-- ✅ Repair workflow for broken dependencies</p>
-<p><strong>Components Tested:</strong>
-- <code>commands/docs/demo.md</code> - Dependency declarations in demo command
-- <code>scripts/dependency-manager.sh</code> - Main orchestration script
-- <code>scripts/tool-detector.sh</code> - Multi-method tool detection
-- <code>scripts/health-check.sh</code> - Installation validation
-- <code>scripts/installers/</code> - Platform-specific installers (brew, cargo, binary, consent)</p>
-<p><strong>Run It:</strong>
+<p><strong>What It Tests:</strong></p>
+<ul>
+<li>✅ Full dependency check workflow (<code>/craft:docs:demo --check</code>)</li>
+<li>✅ Health check validation of installed tools</li>
+<li>✅ Tool detection across multiple methods (PATH, homebrew, npm, cargo)</li>
+<li>✅ Version comparison logic for upgrade decisions</li>
+<li>✅ Installer fallback chains (homebrew → cargo → binary)</li>
+<li>✅ Session caching system for performance</li>
+<li>✅ Dependency conflict detection</li>
+<li>✅ Batch installation across multiple tools</li>
+<li>✅ Repair workflow for broken dependencies</li>
+</ul>
+<p><strong>Components Tested:</strong></p>
+<ul>
+<li><code>commands/docs/demo.md</code> - Dependency declarations in demo command</li>
+<li><code>scripts/dependency-manager.sh</code> - Main orchestration script</li>
+<li><code>scripts/tool-detector.sh</code> - Multi-method tool detection</li>
+<li><code>scripts/health-check.sh</code> - Installation validation</li>
+<li><code>scripts/installers/</code> - Platform-specific installers (brew, cargo, binary, consent)</li>
+</ul>
+<p><strong>Run It:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>tests/test_integration_dependency_system.py
-</span></code></pre></div></p>
-<p><strong>Expected Output:</strong>
+</span></code></pre></div>
+<p><strong>Expected Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>test_01_full_check_workflow ... ok
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>test_02_health_check_integration ... ok
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>test_03_tool_detector_all_methods ... ok
@@ -4286,35 +4292,39 @@
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>test_09_repair_workflow ... ok
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>Ran 9 tests in ~2-5 seconds
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="category-2-orchestrator-workflows-13-tests">Category 2: Orchestrator Workflows (13 tests)<a class="headerlink" href="#category-2-orchestrator-workflows-13-tests" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>tests/test_integration_orchestrator_workflows.py</code></p>
 <p><strong>Purpose:</strong> Validates the smart task routing system with complexity scoring and agent delegation.</p>
-<p><strong>What It Tests:</strong>
-- ✅ Simple tasks (score 0-3) route to direct commands
-- ✅ Moderate tasks (score 4-7) route to single agents
-- ✅ Complex tasks (score 8-10) route to orchestrator with multi-agent coordination
-- ✅ Complexity scoring algorithm with 7 factors
-- ✅ Hot-reload validators (test-coverage, broken-links, lint-check)
-- ✅ Validator ecosystem integration
-- ✅ Orchestration hooks (PreToolUse, PostToolUse, Stop)
-- ✅ Agent resilience with 9 recovery strategies
-- ✅ Session state schema (JSON v1.0.0)
-- ✅ Session teleportation (cross-device resume)
-- ✅ Task decomposition for complex work
-- ✅ Parallel agent execution
-- ✅ Agent coordination and result aggregation</p>
-<p><strong>Components Tested:</strong>
-- <code>utils/complexity_scorer.py</code> - Task complexity calculation (0-10 scale)
-- <code>commands/do.md</code> - Universal task routing
-- <code>commands/orchestrate.md</code> - Multi-agent coordination
-- <code>.claude-plugin/skills/validation/</code> - Validator ecosystem
-- <code>.claude-plugin/hooks/orchestrate-hooks.sh</code> - Orchestration lifecycle
-- <code>agents/orchestrator-v2.md</code> - v2.3.0 agent with improved coordination</p>
-<p><strong>Run It:</strong>
+<p><strong>What It Tests:</strong></p>
+<ul>
+<li>✅ Simple tasks (score 0-3) route to direct commands</li>
+<li>✅ Moderate tasks (score 4-7) route to single agents</li>
+<li>✅ Complex tasks (score 8-10) route to orchestrator with multi-agent coordination</li>
+<li>✅ Complexity scoring algorithm with 7 factors</li>
+<li>✅ Hot-reload validators (test-coverage, broken-links, lint-check)</li>
+<li>✅ Validator ecosystem integration</li>
+<li>✅ Orchestration hooks (PreToolUse, PostToolUse, Stop)</li>
+<li>✅ Agent resilience with 9 recovery strategies</li>
+<li>✅ Session state schema (JSON v1.0.0)</li>
+<li>✅ Session teleportation (cross-device resume)</li>
+<li>✅ Task decomposition for complex work</li>
+<li>✅ Parallel agent execution</li>
+<li>✅ Agent coordination and result aggregation</li>
+</ul>
+<p><strong>Components Tested:</strong></p>
+<ul>
+<li><code>utils/complexity_scorer.py</code> - Task complexity calculation (0-10 scale)</li>
+<li><code>commands/do.md</code> - Universal task routing</li>
+<li><code>commands/orchestrate.md</code> - Multi-agent coordination</li>
+<li><code>.claude-plugin/skills/validation/</code> - Validator ecosystem</li>
+<li><code>.claude-plugin/hooks/orchestrate-hooks.sh</code> - Orchestration lifecycle</li>
+<li><code>agents/orchestrator-v2.md</code> - v2.3.0 agent with improved coordination</li>
+</ul>
+<p><strong>Run It:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python3<span class="w"> </span>tests/test_integration_orchestrator_workflows.py
-</span></code></pre></div></p>
-<p><strong>Expected Output:</strong>
+</span></code></pre></div>
+<p><strong>Expected Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>test_01_simple_task_routes_to_command ... ok
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>test_02_moderate_task_routes_to_agent ... ok
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>test_03_complex_task_routes_to_orchestrator ... ok
@@ -4330,32 +4340,36 @@
 </span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>test_13_agent_coordination ... ok
 </span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
 </span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>Ran 13 tests in ~3-8 seconds
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="category-3-teaching-workflow-8-tests-3-skipped">Category 3: Teaching Workflow (8 tests, 3 skipped)<a class="headerlink" href="#category-3-teaching-workflow-8-tests-3-skipped" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>tests/test_integration_teaching_workflow.py</code></p>
 <p><strong>Purpose:</strong> Validates the end-to-end teaching workflow including detection, validation, and publish cycle.</p>
-<p><strong>What It Tests:</strong>
-- ✅ Teaching mode detection (<code>.flow/teach-config.yml</code> presence)
-- ✅ Configuration parsing and validation
-- ✅ Semester progress calculation
-- ✅ Weekly schedule alignment
-- ✅ Content validation (syllabus, assignments, schedule)
-- ✅ Publish safety checks (draft → preview → validate → deploy)
-- ✅ GitHub Pages integration
-- ⏳ Course content sync (skipped - modules not yet implemented)
-- ⏳ Grade export workflow (skipped - modules not yet implemented)
-- ⏳ Student notification system (skipped - modules not yet implemented)</p>
-<p><strong>Components Tested:</strong>
-- <code>commands/utils/detect_teaching_mode.py</code> - Teaching detection
-- <code>commands/utils/teach_config.py</code> - Config parsing
-- <code>commands/utils/teaching_validation.py</code> - Content validation
-- <code>commands/site/build.md</code> - Build workflow
-- <code>commands/site/publish.md</code> - Publish workflow
-- <code>commands/site/progress.md</code> - Progress tracking</p>
-<p><strong>Run It:</strong>
+<p><strong>What It Tests:</strong></p>
+<ul>
+<li>✅ Teaching mode detection (<code>.flow/teach-config.yml</code> presence)</li>
+<li>✅ Configuration parsing and validation</li>
+<li>✅ Semester progress calculation</li>
+<li>✅ Weekly schedule alignment</li>
+<li>✅ Content validation (syllabus, assignments, schedule)</li>
+<li>✅ Publish safety checks (draft → preview → validate → deploy)</li>
+<li>✅ GitHub Pages integration</li>
+<li>⏳ Course content sync (skipped - modules not yet implemented)</li>
+<li>⏳ Grade export workflow (skipped - modules not yet implemented)</li>
+<li>⏳ Student notification system (skipped - modules not yet implemented)</li>
+</ul>
+<p><strong>Components Tested:</strong></p>
+<ul>
+<li><code>commands/utils/detect_teaching_mode.py</code> - Teaching detection</li>
+<li><code>commands/utils/teach_config.py</code> - Config parsing</li>
+<li><code>commands/utils/teaching_validation.py</code> - Content validation</li>
+<li><code>commands/site/build.md</code> - Build workflow</li>
+<li><code>commands/site/publish.md</code> - Publish workflow</li>
+<li><code>commands/site/progress.md</code> - Progress tracking</li>
+</ul>
+<p><strong>Run It:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3<span class="w"> </span>tests/test_integration_teaching_workflow.py
-</span></code></pre></div></p>
-<p><strong>Expected Output:</strong>
+</span></code></pre></div>
+<p><strong>Expected Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>test_01_detection_with_config ... ok
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>test_02_config_parsing ... ok
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>test_03_progress_calculation ... ok
@@ -4368,7 +4382,7 @@
 </span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>test_10_student_notifications ... skipped (modules not implemented)
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>Ran 8 tests in ~2-4 seconds (5 executed, 3 skipped)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="running-integration-tests">Running Integration Tests<a class="headerlink" href="#running-integration-tests" title="Permanent link">&para;</a></h2>
 <h3 id="run-everything">Run Everything<a class="headerlink" href="#run-everything" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Run all tests (all categories)</span>

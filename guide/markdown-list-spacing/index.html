@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4587,17 +4587,19 @@
 
 <h1 id="markdown-list-spacing-best-practices">Markdown List Spacing Best Practices<a class="headerlink" href="#markdown-list-spacing-best-practices" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>TL;DR</strong> (5 minutes)
-- Use <code>-</code> (dash) for all unordered list markers
-- Use exactly 1 space after markers (<code>- Item</code>, not <code>-  Item</code>)
-- Add blank line before and after lists
-- Goal: Consistent rendering everywhere</p>
+<p><strong>TL;DR</strong> (5 minutes)</p>
+<ul>
+<li>Use <code>-</code> (dash) for all unordered list markers</li>
+<li>Use exactly 1 space after markers (<code>- Item</code>, not <code>-  Item</code>)</li>
+<li>Add blank line before and after lists</li>
+<li>Goal: Consistent rendering everywhere</li>
+</ul>
 </blockquote>
 <p>Complete guide for maintaining list formatting standards across Craft documentation.</p>
 <div class="admonition info">
 <p class="admonition-title">Related Documentation</p>
 <ul>
-<li><strong><a href="../commands/docs/lint.md">Command Reference</a></strong> - <code>/craft:docs:lint</code> command details</li>
+<li><strong><a href="../../commands/docs/lint.md">Command Reference</a></strong> - <code>/craft:docs:lint</code> command details</li>
 <li><strong><a href="../documentation-quality/">Quality Guide</a></strong> - Complete markdown quality workflow</li>
 </ul>
 </div>
@@ -4620,37 +4622,41 @@
 <p><strong>GitHub:</strong> <code>-</code> Item with 2 spaces<code>(renders literally)
 **MkDocs:**</code>- Item with 2 spaces<code>(may look wrong)
 **VS Code:**</code>- Item with 2 spaces` (may break preview)</p>
-<p><strong>Correct:</strong>
+<p><strong>Correct:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">-</span><span class="w"> </span>Item with 1 space
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>All renderers:</strong> <code>- Item with 1 space</code> (consistent!)</p>
 <h3 id="portable-documentation">Portable Documentation<a class="headerlink" href="#portable-documentation" title="Permanent link">&para;</a></h3>
-<p>When your markdown works everywhere, you avoid:
-- Broken rendering in different platforms
-- Inconsistent spacing in generated docs
-- Confusion about "correct" format
-- Rendering surprises in PR previews</p>
+<p>When your markdown works everywhere, you avoid:</p>
+<ul>
+<li>Broken rendering in different platforms</li>
+<li>Inconsistent spacing in generated docs</li>
+<li>Confusion about "correct" format</li>
+<li>Rendering surprises in PR previews</li>
+</ul>
 <h3 id="auto-fix-capability">Auto-fix Capability<a class="headerlink" href="#auto-fix-capability" title="Permanent link">&para;</a></h3>
-<p>With consistent rules, you can:
-- Fix issues automatically: <code>/craft:docs:lint --fix</code>
-- Prevent new violations with pre-commit hooks
-- Focus on content, not formatting
-- Save time on manual cleanup</p>
+<p>With consistent rules, you can:</p>
+<ul>
+<li>Fix issues automatically: <code>/craft:docs:lint --fix</code></li>
+<li>Prevent new violations with pre-commit hooks</li>
+<li>Focus on content, not formatting</li>
+<li>Save time on manual cleanup</li>
+</ul>
 <hr />
 <h2 id="the-three-list-rules">The Three List Rules<a class="headerlink" href="#the-three-list-rules" title="Permanent link">&para;</a></h2>
 <h3 id="rule-1-md030-list-marker-spacing">Rule 1: MD030 - List Marker Spacing<a class="headerlink" href="#rule-1-md030-list-marker-spacing" title="Permanent link">&para;</a></h3>
 <p><strong>Requirement:</strong> Exactly 1 space after list markers.</p>
-<p><strong>Unordered lists:</strong>
+<p><strong>Unordered lists:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>✅ Correct: - Item with 1 space
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>❌ Wrong:  - Item with 2 spaces
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>❌ Wrong: -Item with 0 spaces
-</span></code></pre></div></p>
-<p><strong>Ordered lists:</strong>
+</span></code></pre></div>
+<p><strong>Ordered lists:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>✅ Correct: 1. Item with 1 space
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>❌ Wrong: 1.  Item with 2 spaces
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>❌ Wrong: 1.Item with 0 spaces
-</span></code></pre></div></p>
-<p><strong>Nested lists:</strong>
+</span></code></pre></div>
+<p><strong>Nested lists:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>✅ Correct:
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">-</span><span class="w"> </span>Parent item
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Child item with 1 space
@@ -4660,29 +4666,31 @@
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">-</span><span class="w"> </span>Parent item
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span> Child with 2 spaces
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Another child
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="rule-2-md004-consistent-list-markers">Rule 2: MD004 - Consistent List Markers<a class="headerlink" href="#rule-2-md004-consistent-list-markers" title="Permanent link">&para;</a></h3>
 <p><strong>Requirement:</strong> Use <code>-</code> (dash) for all unordered list markers.</p>
-<p><strong>Never mix:</strong>
+<p><strong>Never mix:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>❌ Wrong:
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">-</span><span class="w"> </span>First item
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">*</span><span class="w"> </span>Second item
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>+ Third item
-</span></code></pre></div></p>
-<p><strong>Always consistent:</strong>
+</span></code></pre></div>
+<p><strong>Always consistent:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>✅ Correct:
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">-</span><span class="w"> </span>First item
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">-</span><span class="w"> </span>Second item
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">-</span><span class="w"> </span>Third item
-</span></code></pre></div></p>
-<p><strong>Why dash?</strong>
-- Most common convention
-- Renders consistently
-- Easy to type
-- Widely adopted standard</p>
+</span></code></pre></div>
+<p><strong>Why dash?</strong></p>
+<ul>
+<li>Most common convention</li>
+<li>Renders consistently</li>
+<li>Easy to type</li>
+<li>Widely adopted standard</li>
+</ul>
 <h3 id="rule-3-md032-blank-lines-around-lists">Rule 3: MD032 - Blank Lines Around Lists<a class="headerlink" href="#rule-3-md032-blank-lines-around-lists" title="Permanent link">&para;</a></h3>
 <p><strong>Requirement:</strong> Blank line before and after lists.</p>
-<p><strong>Missing blank line before:</strong>
+<p><strong>Missing blank line before:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>❌ Wrong:
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="gu">## Section Title</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">-</span><span class="w"> </span>First item
@@ -4693,8 +4701,8 @@
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="k">-</span><span class="w"> </span>First item
 </span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="k">-</span><span class="w"> </span>Second item
-</span></code></pre></div></p>
-<p><strong>Missing blank line after:</strong>
+</span></code></pre></div>
+<p><strong>Missing blank line after:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>❌ Wrong:
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">-</span><span class="w"> </span>First item
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">-</span><span class="w"> </span>Second item
@@ -4705,45 +4713,45 @@
 </span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="k">-</span><span class="w"> </span>Second item
 </span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
 </span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="gu">## Next Section</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
 <h3 id="mistake-1-extra-spaces-after-markers">Mistake 1: Extra Spaces After Markers<a class="headerlink" href="#mistake-1-extra-spaces-after-markers" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> List items have uneven spacing or look misaligned.</p>
-<p><strong>Example:</strong>
+<p><strong>Example:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">-</span><span class="w"> </span> First item
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">-</span><span class="w"> </span>Second item
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">-</span><span class="w"> </span>Third item
-</span></code></pre></div></p>
-<p><strong>Fix:</strong> Use exactly 1 space.
+</span></code></pre></div>
+<p><strong>Fix:</strong> Use exactly 1 space.</p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">-</span><span class="w"> </span>First item
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">-</span><span class="w"> </span>Second item
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">-</span><span class="w"> </span>Third item
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="mistake-2-mixed-list-markers">Mistake 2: Mixed List Markers<a class="headerlink" href="#mistake-2-mixed-list-markers" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Inconsistent list markers throughout document.</p>
-<p><strong>Example:</strong>
+<p><strong>Example:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gu">## Features</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">-</span><span class="w"> </span>Feature 1
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">*</span><span class="w"> </span>Feature 2
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">-</span><span class="w"> </span>Feature 3
-</span></code></pre></div></p>
-<p><strong>Fix:</strong> Use <code>-</code> everywhere.
+</span></code></pre></div>
+<p><strong>Fix:</strong> Use <code>-</code> everywhere.</p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gu">## Features</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">-</span><span class="w"> </span>Feature 1
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">-</span><span class="w"> </span>Feature 2
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="k">-</span><span class="w"> </span>Feature 3
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="mistake-3-missing-blank-lines">Mistake 3: Missing Blank Lines<a class="headerlink" href="#mistake-3-missing-blank-lines" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Lists merge with surrounding text, poor readability.</p>
-<p><strong>Example:</strong>
+<p><strong>Example:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gu">## Getting Started</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>First, install the package:
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">-</span><span class="w"> </span>Download from npm
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="k">-</span><span class="w"> </span>Extract archive
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>Then run the setup script.
-</span></code></pre></div></p>
-<p><strong>Fix:</strong> Add blank lines.
+</span></code></pre></div>
+<p><strong>Fix:</strong> Add blank lines.</p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="gu">## Getting Started</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>First, install the package:
@@ -4752,17 +4760,17 @@
 </span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="k">-</span><span class="w"> </span>Extract archive
 </span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
 </span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>Then run the setup script.
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="mistake-4-ignoring-code-blocks">Mistake 4: Ignoring Code Blocks<a class="headerlink" href="#mistake-4-ignoring-code-blocks" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Lists inside code blocks flagged as violations.</p>
-<p><strong>Example:</strong>
+<p><strong>Example:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="gu">## Installation</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>```bash
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="gh"># Code blocks with lists are OK</span>
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="k">-</span><span class="w"> </span> This is not a markdown list
 </span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="k">*</span><span class="w"> </span> This is a code block
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Fix:</strong> Nothing! Code blocks are exempt from list rules.</p>
 <hr />
 <h2 id="fixing-violations">Fixing Violations<a class="headerlink" href="#fixing-violations" title="Permanent link">&para;</a></h2>
@@ -4770,41 +4778,41 @@
 <p>Run the auto-fix command:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/craft:docs:lint<span class="w"> </span>--fix
 </span></code></pre></div>
-<p><strong>What it does:</strong>
-- Normalizes spacing to 1 space
-- Changes all markers to <code>-</code>
-- Adds missing blank lines
-- Preserves content (only fixes formatting)</p>
-<p><strong>Preview first:</strong>
+<p><strong>What it does:</strong></p>
+<ul>
+<li>Normalizes spacing to 1 space</li>
+<li>Changes all markers to <code>-</code></li>
+<li>Adds missing blank lines</li>
+<li>Preserves content (only fixes formatting)</li>
+</ul>
+<p><strong>Preview first:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/craft:docs:lint<span class="w"> </span>--fix<span class="w"> </span>--dry-run
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="manual-fixes">Manual Fixes<a class="headerlink" href="#manual-fixes" title="Permanent link">&para;</a></h3>
 <p><strong>If auto-fix doesn't work or you prefer manual editing:</strong></p>
 <ol>
-<li>
-<p><strong>Find violations:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>/craft:docs:lint
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Locate each issue:</strong>
-   <div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>docs/guide/tutorial.md:45:1: MD030 - Spaces after list markers
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Fix manually:</strong></p>
-</li>
+<li><strong>Find violations:</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>/craft:docs:lint
+</span></code></pre></div>
+<ol>
+<li><strong>Locate each issue:</strong></li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>docs/guide/tutorial.md:45:1: MD030 - Spaces after list markers
+</span></code></pre></div>
+<ol>
+<li><strong>Fix manually:</strong></li>
 <li>Remove extra spaces after markers</li>
 <li>Change <code>*</code> or <code>+</code> to <code>-</code></li>
 <li>
 <p>Add blank lines before/after lists</p>
 </li>
 <li>
-<p><strong>Verify fix:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:docs:lint<span class="w"> </span>docs/guide/tutorial.md
-</span></code></pre></div></p>
+<p><strong>Verify fix:</strong></p>
 </li>
 </ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:docs:lint<span class="w"> </span>docs/guide/tutorial.md
+</span></code></pre></div>
 <hr />
 <h2 id="prevention">Prevention<a class="headerlink" href="#prevention" title="Permanent link">&para;</a></h2>
 <h3 id="pre-commit-hooks">Pre-commit Hooks<a class="headerlink" href="#pre-commit-hooks" title="Permanent link">&para;</a></h3>
@@ -4812,12 +4820,14 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Already installed in main repo</span>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="c1"># Hooks run automatically on: git commit</span>
 </span></code></pre></div>
-<p><strong>What hooks do:</strong>
-- Check staged <code>.md</code> files for violations
-- Offer interactive auto-fix (<code>y/n</code>)
-- Block commits with unfixed issues
-- Skip if no markdown files staged</p>
-<p><strong>Pre-commit workflow:</strong>
+<p><strong>What hooks do:</strong></p>
+<ul>
+<li>Check staged <code>.md</code> files for violations</li>
+<li>Offer interactive auto-fix (<code>y/n</code>)</li>
+<li>Block commits with unfixed issues</li>
+<li>Skip if no markdown files staged</li>
+</ul>
+<p><strong>Pre-commit workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Stage markdown files</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>git<span class="w"> </span>add<span class="w"> </span>docs/guide/tutorial.md
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
@@ -4829,7 +4839,7 @@
 </span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="c1"># If violations found:</span>
 </span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>❌<span class="w"> </span>Markdown<span class="w"> </span>linting<span class="w"> </span>failed!
 </span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>Would<span class="w"> </span>you<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>auto-fix<span class="w"> </span>these<span class="w"> </span>issues?<span class="w"> </span><span class="o">(</span>y/n<span class="o">)</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="habit-formation">Habit Formation<a class="headerlink" href="#habit-formation" title="Permanent link">&para;</a></h3>
 <p><strong>Develop these habits:</strong></p>
 <ol>
@@ -4880,10 +4890,12 @@
 </span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>
 </span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="gs">**That&#39;s it!**</span>
 </span></code></pre></div>
-<p><strong>Why good:</strong>
-- Blank line before list
-- 1 space after numbers
-- Blank line after list</p>
+<p><strong>Why good:</strong></p>
+<ul>
+<li>Blank line before list</li>
+<li>1 space after numbers</li>
+<li>Blank line after list</li>
+</ul>
 <h4 id="nested-list">Nested List<a class="headerlink" href="#nested-list" title="Permanent link">&para;</a></h4>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="gu">## Features</span>
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
@@ -4897,10 +4909,12 @@
 </span><span id="__span-26-10"><a id="__codelineno-26-10" name="__codelineno-26-10" href="#__codelineno-26-10"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Custom plugins
 </span><span id="__span-26-11"><a id="__codelineno-26-11" name="__codelineno-26-11" href="#__codelineno-26-11"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Enterprise support
 </span></code></pre></div>
-<p><strong>Why good:</strong>
-- Consistent <code>-</code> markers
-- Proper indentation (2 spaces)
-- 1 space after markers at all levels</p>
+<p><strong>Why good:</strong></p>
+<ul>
+<li>Consistent <code>-</code> markers</li>
+<li>Proper indentation (2 spaces)</li>
+<li>1 space after markers at all levels</li>
+</ul>
 <h4 id="mixed-lists">Mixed Lists<a class="headerlink" href="#mixed-lists" title="Permanent link">&para;</a></h4>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="gu">## Installation</span>
 </span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>
@@ -4917,10 +4931,12 @@
 </span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>
 </span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a><span class="gs">**Note:**</span> Follow the README for additional details.
 </span></code></pre></div>
-<p><strong>Why good:</strong>
-- Blank lines between sections
-- Consistent ordered list format
-- Clear separation of list types</p>
+<p><strong>Why good:</strong></p>
+<ul>
+<li>Blank lines between sections</li>
+<li>Consistent ordered list format</li>
+<li>Clear separation of list types</li>
+</ul>
 <h3 id="bad-examples">Bad Examples<a class="headerlink" href="#bad-examples" title="Permanent link">&para;</a></h3>
 <h4 id="inconsistent-markers">Inconsistent Markers<a class="headerlink" href="#inconsistent-markers" title="Permanent link">&para;</a></h4>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="gu">## Features</span>
@@ -4954,18 +4970,20 @@
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="issue-auto-fix-not-working">Issue: Auto-fix not working<a class="headerlink" href="#issue-auto-fix-not-working" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> <code>/craft:docs:lint --fix</code> doesn't fix violations.</p>
-<p><strong>Possible causes:</strong>
-1. <strong>File not saved</strong> - Save before running
-2. <strong>Wrong file format</strong> - Check it's <code>.md</code>, not <code>.md.txt</code>
-3. <strong>Permission issues</strong> - Check file is writable</p>
-<p><strong>Solution:</strong>
+<p><strong>Possible causes:</strong></p>
+<ol>
+<li><strong>File not saved</strong> - Save before running</li>
+<li><strong>Wrong file format</strong> - Check it's <code>.md</code>, not <code>.md.txt</code></li>
+<li><strong>Permission issues</strong> - Check file is writable</li>
+</ol>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Save file</span>
 </span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="c1"># Verify it&#39;s markdown</span>
 </span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>ls<span class="w"> </span>-la<span class="w"> </span>docs/guide/tutorial.md
 </span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>
 </span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="c1"># Run auto-fix with verbose output</span>
 </span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>/craft:docs:lint<span class="w"> </span>--fix<span class="w"> </span>docs/guide/tutorial.md
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="issue-too-many-violations">Issue: Too many violations<a class="headerlink" href="#issue-too-many-violations" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> <code>/craft:docs:lint</code> shows hundreds of violations.</p>
 <p><strong>Solution:</strong> Fix gradually, not all at once.</p>
@@ -4981,7 +4999,7 @@
 <h3 id="issue-false-positives">Issue: False positives<a class="headerlink" href="#issue-false-positives" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> Code blocks flagged as list violations.</p>
 <p><strong>Solution:</strong> Nothing to fix! Code blocks are exempt.</p>
-<p><strong>Example:</strong>
+<p><strong>Example:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>```bash
 </span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="gh"># This is fine</span>
 </span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="k">-</span><span class="w"> </span>ls -la
@@ -5000,7 +5018,7 @@
 </span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a>  on the next line with indentation
 </span><span id="__span-34-12"><a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a>- Second item with
 </span><span id="__span-34-13"><a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a>  multiple lines
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Key:</strong> Indent continuation lines with 2+ spaces, but still 1 space after marker.</p>
 <h3 id="code-in-lists">Code in Lists<a class="headerlink" href="#code-in-lists" title="Permanent link">&para;</a></h3>
 <p>Code within list items:</p>
@@ -5020,7 +5038,7 @@
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <h3 id="command-documentation">Command Documentation<a class="headerlink" href="#command-documentation" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong><a href="../commands/docs/lint.md"><code>/craft:docs:lint</code></a></strong> - Markdown quality command</li>
+<li><strong><a href="../../commands/docs/lint.md"><code>/craft:docs:lint</code></a></strong> - Markdown quality command</li>
 <li><strong><a href="../../commands/check/"><code>/craft:check</code></a></strong> - Pre-flight validation</li>
 </ul>
 <h3 id="guides">Guides<a class="headerlink" href="#guides" title="Permanent link">&para;</a></h3>
@@ -5064,7 +5082,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Common Patterns:</strong>
+<p><strong>Common Patterns:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Check all markdown</span>
 </span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>/craft:docs:lint
 </span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>
@@ -5076,25 +5094,31 @@
 </span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>
 </span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a><span class="c1"># Preview changes</span>
 </span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a>/craft:docs:lint<span class="w"> </span>--fix<span class="w"> </span>--dry-run
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p><strong>Key takeaways:</strong>
-1. Always use <code>-</code> for list markers
-2. Always use exactly 1 space after markers
-3. Always add blank lines around lists
-4. Use <code>/craft:docs:lint --fix</code> to automate fixes
-5. Pre-commit hooks prevent new violations</p>
-<p><strong>Benefits:</strong>
-- ✅ Consistent rendering everywhere
-- ✅ Portable documentation
-- ✅ Auto-fix capability
-- ✅ Pre-commit prevention
-- ✅ Focus on content, not formatting</p>
-<p><strong>Next steps:</strong>
-- Review <a href="../documentation-quality/">Documentation Quality Guide</a> for complete workflow
-- Check <a href="../commands/docs/lint.md">Command Reference</a> for all linting options
-- See <a href="../../specs/SPEC-markdownlint-list-spacing-2026-01-19/">Spec</a> for technical details</p>
+<p><strong>Key takeaways:</strong></p>
+<ol>
+<li>Always use <code>-</code> for list markers</li>
+<li>Always use exactly 1 space after markers</li>
+<li>Always add blank lines around lists</li>
+<li>Use <code>/craft:docs:lint --fix</code> to automate fixes</li>
+<li>Pre-commit hooks prevent new violations</li>
+</ol>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>✅ Consistent rendering everywhere</li>
+<li>✅ Portable documentation</li>
+<li>✅ Auto-fix capability</li>
+<li>✅ Pre-commit prevention</li>
+<li>✅ Focus on content, not formatting</li>
+</ul>
+<p><strong>Next steps:</strong></p>
+<ul>
+<li>Review <a href="../documentation-quality/">Documentation Quality Guide</a> for complete workflow</li>
+<li>Check <a href="../../commands/docs/lint.md">Command Reference</a> for all linting options</li>
+<li>See <a href="../../specs/SPEC-markdownlint-list-spacing-2026-01-19/">Spec</a> for technical details</li>
+</ul>
 
 
 

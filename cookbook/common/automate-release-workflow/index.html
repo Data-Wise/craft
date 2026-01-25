@@ -3884,7 +3884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4213,108 +4213,116 @@
 <p>I want to automate testing and validation before deployment so broken code never reaches production.</p>
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p><strong>Detect project setup</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:ci:detect
+<li><strong>Detect project setup</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:ci:detect
 </span></code></pre></div>
-   Why: Analyzes your project to identify build tools, test frameworks, and CI requirements</p>
-</li>
-<li>
-<p><strong>Generate CI workflow</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:ci:generate
+<p>Why: Analyzes your project to identify build tools, test frameworks, and CI requirements</p>
+<ol>
+<li><strong>Generate CI workflow</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:ci:generate
 </span></code></pre></div>
-   Why: Creates a GitHub Actions workflow tailored to your project type</p>
-</li>
-<li>
-<p><strong>Review generated workflow</strong></p>
-</li>
+<p>Why: Creates a GitHub Actions workflow tailored to your project type</p>
+<ol>
+<li><strong>Review generated workflow</strong></li>
 <li>Open <code>.github/workflows/ci.yml</code></li>
 <li>Verify jobs match your requirements</li>
 <li>
 <p>Customize triggers if needed (branches, pull requests)</p>
 </li>
 <li>
-<p><strong>Test locally before committing</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:code:ci-local
-</span></code></pre></div>
-   Why: Runs the same checks that will run in CI, catching issues before pushing</p>
+<p><strong>Test locally before committing</strong></p>
 </li>
-<li>
-<p><strong>Commit and push</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>add<span class="w"> </span>.github/workflows/ci.yml
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:code:ci-local
+</span></code></pre></div>
+<p>Why: Runs the same checks that will run in CI, catching issues before pushing</p>
+<ol>
+<li><strong>Commit and push</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>add<span class="w"> </span>.github/workflows/ci.yml
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;ci: add GitHub Actions workflow&quot;</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>git<span class="w"> </span>push
 </span></code></pre></div>
-   Why: Activates the CI workflow on your repository</p>
-</li>
-<li>
-<p><strong>Verify CI runs</strong></p>
-</li>
+<p>Why: Activates the CI workflow on your repository</p>
+<ol>
+<li><strong>Verify CI runs</strong></li>
 <li>Create a pull request or push to main</li>
 <li>Check Actions tab on GitHub</li>
 <li>Verify all checks pass</li>
 </ol>
 <h2 id="explanation">Explanation<a class="headerlink" href="#explanation" title="Permanent link">&para;</a></h2>
 <p><code>/craft:ci:generate</code> creates a customized GitHub Actions workflow based on your project:</p>
-<p><strong>For Node.js projects:</strong>
-- <code>npm install</code> dependencies
-- <code>npm test</code> runs tests
-- <code>npm run lint</code> checks code quality
-- Matrix testing across Node versions (14, 16, 18)</p>
-<p><strong>For Python projects:</strong>
-- <code>pip install</code> dependencies
-- <code>pytest</code> runs tests
-- <code>flake8</code>/<code>black</code> checks code style
-- Matrix testing across Python versions (3.8, 3.9, 3.10)</p>
-<p><strong>For R packages:</strong>
-- <code>R CMD check</code> validates package
-- <code>R CMD build</code> builds tarball
-- <code>covr::codecov()</code> reports coverage
-- Matrix testing across R versions</p>
-<p><strong>For Quarto projects:</strong>
-- <code>quarto check</code> validates syntax
-- <code>quarto render</code> builds site
-- Link validation
-- Deploy to GitHub Pages (optional)</p>
-<p><strong>Common features across all project types:</strong>
-- Dependency caching for faster builds
-- Parallel job execution
-- Pull request checks
-- Branch protection support
-- Status badges for README</p>
-<p>The workflow runs on:
-- Every push to <code>main</code> or <code>dev</code> branches
-- Every pull request
-- Manual workflow dispatch</p>
+<p><strong>For Node.js projects:</strong></p>
+<ul>
+<li><code>npm install</code> dependencies</li>
+<li><code>npm test</code> runs tests</li>
+<li><code>npm run lint</code> checks code quality</li>
+<li>Matrix testing across Node versions (14, 16, 18)</li>
+</ul>
+<p><strong>For Python projects:</strong></p>
+<ul>
+<li><code>pip install</code> dependencies</li>
+<li><code>pytest</code> runs tests</li>
+<li><code>flake8</code>/<code>black</code> checks code style</li>
+<li>Matrix testing across Python versions (3.8, 3.9, 3.10)</li>
+</ul>
+<p><strong>For R packages:</strong></p>
+<ul>
+<li><code>R CMD check</code> validates package</li>
+<li><code>R CMD build</code> builds tarball</li>
+<li><code>covr::codecov()</code> reports coverage</li>
+<li>Matrix testing across R versions</li>
+</ul>
+<p><strong>For Quarto projects:</strong></p>
+<ul>
+<li><code>quarto check</code> validates syntax</li>
+<li><code>quarto render</code> builds site</li>
+<li>Link validation</li>
+<li>Deploy to GitHub Pages (optional)</li>
+</ul>
+<p><strong>Common features across all project types:</strong></p>
+<ul>
+<li>Dependency caching for faster builds</li>
+<li>Parallel job execution</li>
+<li>Pull request checks</li>
+<li>Branch protection support</li>
+<li>Status badges for README</li>
+</ul>
+<p>The workflow runs on:</p>
+<ul>
+<li>Every push to <code>main</code> or <code>dev</code> branches</li>
+<li>Every pull request</li>
+<li>Manual workflow dispatch</li>
+</ul>
 <h2 id="variations">Variations<a class="headerlink" href="#variations" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p><strong>Run checks locally without generating workflow:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:code:ci-local
+<li><strong>Run checks locally without generating workflow:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:code:ci-local
 </span></code></pre></div>
-  Use during development to catch issues early</p>
-</li>
-<li>
-<p><strong>Validate existing workflow:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:ci:validate
+<p>Use during development to catch issues early</p>
+<ul>
+<li><strong>Validate existing workflow:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:ci:validate
 </span></code></pre></div>
-  Use to check if your current CI workflow follows best practices</p>
-</li>
-<li>
-<p><strong>Generate with custom triggers:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:ci:generate<span class="w"> </span>--on<span class="w"> </span>push,pull_request,schedule
+<p>Use to check if your current CI workflow follows best practices</p>
+<ul>
+<li><strong>Generate with custom triggers:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:ci:generate<span class="w"> </span>--on<span class="w"> </span>push,pull_request,schedule
 </span></code></pre></div>
-  Add scheduled runs (e.g., nightly builds)</p>
-</li>
-<li>
-<p><strong>Multi-language projects:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:ci:detect
+<p>Add scheduled runs (e.g., nightly builds)</p>
+<ul>
+<li><strong>Multi-language projects:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:ci:detect
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># Review detected languages</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>/craft:ci:generate<span class="w"> </span>--lang<span class="w"> </span>python,node
 </span></code></pre></div>
-  Creates workflow for multiple languages</p>
-</li>
-</ul>
+<p>Creates workflow for multiple languages</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4352,10 +4360,10 @@
 </table>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../../../commands/ci/generate/">CI Generate Command</a> — Full command reference</li>
-<li><a href="../../commands/ci/validate.md">CI Validate Command</a> — Best practices checker</li>
-<li><a href="../../commands/code/ci-local.md">CI Local Command</a> — Run checks locally</li>
-<li><a href="../../commands/ci/detect.md">CI Detect Command</a> — Project analysis</li>
+<li><a href="../../../commands/ci/generate.md">CI Generate Command</a> — Full command reference</li>
+<li><a href="../../../commands/ci/validate.md">CI Validate Command</a> — Best practices checker</li>
+<li><a href="../../../commands/code/ci-local.md">CI Local Command</a> — Run checks locally</li>
+<li><a href="../../../commands/ci/detect.md">CI Detect Command</a> — Project analysis</li>
 <li><a href="https://docs.github.com/en/actions">GitHub Actions Documentation</a> — Official GitHub docs</li>
 </ul>
 

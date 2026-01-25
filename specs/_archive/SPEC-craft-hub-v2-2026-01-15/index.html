@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4590,42 +4590,50 @@
 <p><strong>As a</strong> new Craft user
 <strong>I want</strong> to easily discover and learn commands through guided navigation
 <strong>So that</strong> I can accomplish tasks without memorizing 89 commands or asking for help</p>
-<p><strong>Acceptance Criteria:</strong>
-1. ✅ I can find any command in ≤ 3 clicks from hub entry
-2. ✅ Command counts are always accurate (no manual updates)
-3. ✅ Each command shows description, modes, and tutorial link
-4. ✅ Failed searches are tracked for continuous improvement
-5. ✅ Tutorials teach me how to use commands step-by-step</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ol>
+<li>✅ I can find any command in ≤ 3 clicks from hub entry</li>
+<li>✅ Command counts are always accurate (no manual updates)</li>
+<li>✅ Each command shows description, modes, and tutorial link</li>
+<li>✅ Failed searches are tracked for continuous improvement</li>
+<li>✅ Tutorials teach me how to use commands step-by-step</li>
+</ol>
 <hr />
 <h2 id="secondary-user-stories">Secondary User Stories<a class="headerlink" href="#secondary-user-stories" title="Permanent link">&para;</a></h2>
 <h3 id="us-2-power-user-quick-navigation">US-2: Power User Quick Navigation<a class="headerlink" href="#us-2-power-user-quick-navigation" title="Permanent link">&para;</a></h3>
 <p><strong>As a</strong> power user
 <strong>I want</strong> to jump directly to categories or search commands
 <strong>So that</strong> I can find commands quickly without extra navigation</p>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ Can invoke <code>/craft:hub &lt;category&gt;</code> to skip main menu
-- ✅ Can search with <code>/craft:hub search &lt;query&gt;</code>
-- ✅ Hub remembers my frequent commands (future)</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ Can invoke <code>/craft:hub &lt;category&gt;</code> to skip main menu</li>
+<li>✅ Can search with <code>/craft:hub search &lt;query&gt;</code></li>
+<li>✅ Hub remembers my frequent commands (future)</li>
+</ul>
 <hr />
 <h3 id="us-3-maintainer-auto-updates">US-3: Maintainer Auto-Updates<a class="headerlink" href="#us-3-maintainer-auto-updates" title="Permanent link">&para;</a></h3>
 <p><strong>As a</strong> Craft maintainer
 <strong>I want</strong> command counts and metadata auto-detected from files
 <strong>So that</strong> I don't manually update hub when commands change</p>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ Hub scans <code>commands/</code> directory on invocation
-- ✅ Parses YAML frontmatter for metadata
-- ✅ Displays accurate counts without hardcoded numbers
-- ✅ Caches results for performance</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ Hub scans <code>commands/</code> directory on invocation</li>
+<li>✅ Parses YAML frontmatter for metadata</li>
+<li>✅ Displays accurate counts without hardcoded numbers</li>
+<li>✅ Caches results for performance</li>
+</ul>
 <hr />
 <h3 id="us-4-tutorial-author-contributions">US-4: Tutorial Author Contributions<a class="headerlink" href="#us-4-tutorial-author-contributions" title="Permanent link">&para;</a></h3>
 <p><strong>As a</strong> tutorial author
 <strong>I want</strong> a standard template for writing command tutorials
 <strong>So that</strong> I can create consistent, helpful learning content</p>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ Tutorial template exists with sections (What, Steps, Workflows, Related)
-- ✅ Tutorials are markdown files in <code>commands/tutorials/</code>
-- ✅ Hub auto-detects tutorials linked in command frontmatter
-- ✅ Tutorial format is beginner-friendly (step-by-step text)</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ Tutorial template exists with sections (What, Steps, Workflows, Related)</li>
+<li>✅ Tutorials are markdown files in <code>commands/tutorials/</code></li>
+<li>✅ Hub auto-detects tutorials linked in command frontmatter</li>
+<li>✅ Tutorial format is beginner-friendly (step-by-step text)</li>
+</ul>
 <hr />
 <h2 id="technical-requirements">Technical Requirements<a class="headerlink" href="#technical-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
@@ -4652,13 +4660,15 @@
 <h3 id="auto-detection-system">Auto-Detection System<a class="headerlink" href="#auto-detection-system" title="Permanent link">&para;</a></h3>
 <h4 id="component-command-discovery-engine">Component: Command Discovery Engine<a class="headerlink" href="#component-command-discovery-engine" title="Permanent link">&para;</a></h4>
 <p><strong>File:</strong> <code>commands/_discovery.py</code></p>
-<p><strong>Responsibilities:</strong>
-1. Scan <code>commands/</code> directory recursively for <code>*.md</code> files
-2. Parse YAML frontmatter from each file
-3. Extract metadata: name, category, description, modes, tutorial
-4. Cache results in <code>commands/_cache.json</code>
-5. Rebuild cache when command files change</p>
-<p><strong>Pseudocode:</strong>
+<p><strong>Responsibilities:</strong></p>
+<ol>
+<li>Scan <code>commands/</code> directory recursively for <code>*.md</code> files</li>
+<li>Parse YAML frontmatter from each file</li>
+<li>Extract metadata: name, category, description, modes, tutorial</li>
+<li>Cache results in <code>commands/_cache.json</code></li>
+<li>Rebuild cache when command files change</li>
+</ol>
+<p><strong>Pseudocode:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">discover_commands</span><span class="p">():</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Auto-detect all commands from filesystem.&quot;&quot;&quot;</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">commands</span> <span class="o">=</span> <span class="p">[]</span>
@@ -4731,23 +4741,25 @@
 </span><span id="__span-1-70"><a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a>    <span class="n">commands</span> <span class="o">=</span> <span class="n">discover_commands</span><span class="p">()</span>
 </span><span id="__span-1-71"><a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a>    <span class="n">cache_commands</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
 </span><span id="__span-1-72"><a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a>    <span class="k">return</span> <span class="n">commands</span>
-</span></code></pre></div></p>
-<p><strong>Performance:</strong>
-- First run: ~200ms (scan + parse + cache)
-- Subsequent runs: ~10ms (load from cache)
-- Auto-invalidates when command files change</p>
+</span></code></pre></div>
+<p><strong>Performance:</strong></p>
+<ul>
+<li>First run: ~200ms (scan + parse + cache)</li>
+<li>Subsequent runs: ~10ms (load from cache)</li>
+<li>Auto-invalidates when command files change</li>
+</ul>
 <hr />
 <h3 id="command-metadata-schema">Command Metadata Schema<a class="headerlink" href="#command-metadata-schema" title="Permanent link">&para;</a></h3>
 <h4 id="enhanced-frontmatter">Enhanced Frontmatter<a class="headerlink" href="#enhanced-frontmatter" title="Permanent link">&para;</a></h4>
 <p><strong>File:</strong> <code>commands/_schema.json</code> (documentation only, not enforced)</p>
-<p><strong>Required Fields:</strong>
+<p><strong>Required Fields:</strong></p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nn">---</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;code:lint&quot;</span><span class="w">                    </span><span class="c1"># Command identifier</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;code&quot;</span><span class="w">                     </span><span class="c1"># Primary category</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Code</span><span class="nv"> </span><span class="s">style</span><span class="nv"> </span><span class="s">&amp;</span><span class="nv"> </span><span class="s">quality&quot;</span><span class="w">  </span><span class="c1"># One-line summary (&lt; 60 chars)</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nn">---</span>
-</span></code></pre></div></p>
-<p><strong>Optional Fields:</strong>
+</span></code></pre></div>
+<p><strong>Optional Fields:</strong></p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nn">---</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">subcategory</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;analysis&quot;</span><span class="w">              </span><span class="c1"># Subcategory for grouping</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">modes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;default&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;debug&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;release&quot;</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># Supported execution modes</span>
@@ -4775,17 +4787,19 @@
 </span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/craft:code:lint</span><span class="nv"> </span><span class="s">debug&quot;</span>
 </span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Verbose</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">fix</span><span class="nv"> </span><span class="s">suggestions&quot;</span>
 </span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="nn">---</span>
-</span></code></pre></div></p>
-<p><strong>Migration Plan:</strong>
-- Phase 1: Add required fields to all 89 commands
-- Phase 2: Add tutorials to top 10 commands
-- Phase 3: Add workflows to top 20 commands
-- Phase 4: Complete all optional fields</p>
+</span></code></pre></div>
+<p><strong>Migration Plan:</strong></p>
+<ul>
+<li>Phase 1: Add required fields to all 89 commands</li>
+<li>Phase 2: Add tutorials to top 10 commands</li>
+<li>Phase 3: Add workflows to top 20 commands</li>
+<li>Phase 4: Complete all optional fields</li>
+</ul>
 <hr />
 <h3 id="ui-design">UI Design<a class="headerlink" href="#ui-design" title="Permanent link">&para;</a></h3>
 <h4 id="layer-1-main-menu">Layer 1: Main Menu<a class="headerlink" href="#layer-1-main-menu" title="Permanent link">&para;</a></h4>
 <p><strong>Invocation:</strong> <code>/craft:hub</code></p>
-<p><strong>Display:</strong>
+<p><strong>Display:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>┌─────────────────────────────────────────────────────────────────┐
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│ 🛠️ CRAFT COMMAND HUB - Choose a Category                        │
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>│ 89 Commands | 21 Skills | 8 Agents                              │
@@ -4807,8 +4821,8 @@
 </span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>│    /craft:hub tutorial                                         │
 </span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>│                                                                 │
 </span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>└─────────────────────────────────────────────────────────────────┘
-</span></code></pre></div></p>
-<p><strong>AskUserQuestion:</strong>
+</span></code></pre></div>
+<p><strong>AskUserQuestion:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">AskUserQuestion</span><span class="p">:</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  <span class="n">question</span><span class="p">:</span> <span class="s2">&quot;Which category would you like to explore?&quot;</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  <span class="n">header</span><span class="p">:</span> <span class="s2">&quot;Category&quot;</span>
@@ -4822,15 +4836,17 @@
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>      <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Branch, sync, worktree, clean, recap&quot;</span>
 </span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="o">-</span> <span class="n">label</span><span class="p">:</span> <span class="s2">&quot;📄 DOCS (10 commands)&quot;</span>
 </span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>      <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Sync, changelog, validation, tutorials&quot;</span>
-</span></code></pre></div></p>
-<p><strong>Interaction Flow:</strong>
-1. Show main menu (auto-detected counts)
-2. User selects category (via AskUserQuestion)
-3. Navigate to Layer 2 (category view)</p>
+</span></code></pre></div>
+<p><strong>Interaction Flow:</strong></p>
+<ol>
+<li>Show main menu (auto-detected counts)</li>
+<li>User selects category (via AskUserQuestion)</li>
+<li>Navigate to Layer 2 (category view)</li>
+</ol>
 <hr />
 <h4 id="layer-2-category-view">Layer 2: Category View<a class="headerlink" href="#layer-2-category-view" title="Permanent link">&para;</a></h4>
 <p><strong>Invocation:</strong> <code>/craft:hub &lt;category&gt;</code> (e.g., <code>/craft:hub code</code>)</p>
-<p><strong>Display:</strong>
+<p><strong>Display:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>┌─────────────────────────────────────────────────────────────────┐
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>│ 💻 CODE COMMANDS (11 total)                                     │
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>│ Code Quality &amp; Development Tools                               │
@@ -4864,8 +4880,8 @@
 </span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>│ 📚 View tutorials: /craft:hub code:tutorial                     │
 </span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>│ 🔙 Back to hub: /craft:hub                                      │
 </span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>└─────────────────────────────────────────────────────────────────┘
-</span></code></pre></div></p>
-<p><strong>AskUserQuestion:</strong>
+</span></code></pre></div>
+<p><strong>AskUserQuestion:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">AskUserQuestion</span><span class="p">:</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  <span class="n">question</span><span class="p">:</span> <span class="s2">&quot;Select a command to learn more (or choose an option below)&quot;</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  <span class="n">header</span><span class="p">:</span> <span class="s2">&quot;Command&quot;</span>
@@ -4879,15 +4895,17 @@
 </span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>      <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Check dependency health&quot;</span>
 </span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="o">-</span> <span class="n">label</span><span class="p">:</span> <span class="s2">&quot;📚 View all CODE tutorials&quot;</span>
 </span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>      <span class="n">description</span><span class="p">:</span> <span class="s2">&quot;Interactive learning for all CODE commands&quot;</span>
-</span></code></pre></div></p>
-<p><strong>Interaction Flow:</strong>
-1. Show category commands (grouped by subcategory)
-2. User selects command number (via AskUserQuestion)
-3. Navigate to Layer 3 (command detail)</p>
+</span></code></pre></div>
+<p><strong>Interaction Flow:</strong></p>
+<ol>
+<li>Show category commands (grouped by subcategory)</li>
+<li>User selects command number (via AskUserQuestion)</li>
+<li>Navigate to Layer 3 (command detail)</li>
+</ol>
 <hr />
 <h4 id="layer-3-command-detail-tutorial">Layer 3: Command Detail + Tutorial<a class="headerlink" href="#layer-3-command-detail-tutorial" title="Permanent link">&para;</a></h4>
 <p><strong>Invocation:</strong> <code>/craft:hub &lt;category&gt;:&lt;command&gt;</code> (e.g., <code>/craft:hub code:lint</code>)</p>
-<p><strong>Display:</strong>
+<p><strong>Display:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>┌─────────────────────────────────────────────────────────────────┐
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│ 📚 COMMAND: /craft:code:lint                                    │
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>│ Code style &amp; quality checks                                    │
@@ -4961,24 +4979,26 @@
 </span><span id="__span-8-71"><a id="__codelineno-8-71" name="__codelineno-8-71" href="#__codelineno-8-71"></a>│ 🔙 Back to CODE: /craft:hub code                                │
 </span><span id="__span-8-72"><a id="__codelineno-8-72" name="__codelineno-8-72" href="#__codelineno-8-72"></a>│ 🏠 Back to Hub: /craft:hub                                      │
 </span><span id="__span-8-73"><a id="__codelineno-8-73" name="__codelineno-8-73" href="#__codelineno-8-73"></a>└─────────────────────────────────────────────────────────────────┘
-</span></code></pre></div></p>
-<p><strong>Tutorial Template Structure:</strong>
-1. <strong>Description</strong> (1-2 sentences, what it does)
-2. <strong>Modes</strong> (table of execution modes with time budgets)
-3. <strong>Basic Usage</strong> (syntax examples)
-4. <strong>Tutorial</strong> (3-5 step-by-step instructions with real examples)
-5. <strong>Common Workflows</strong> (real-world usage patterns)
-6. <strong>Related Commands</strong> (navigation to similar/complementary commands)
-7. <strong>Tips</strong> (pro user hints)</p>
+</span></code></pre></div>
+<p><strong>Tutorial Template Structure:</strong></p>
+<ol>
+<li><strong>Description</strong> (1-2 sentences, what it does)</li>
+<li><strong>Modes</strong> (table of execution modes with time budgets)</li>
+<li><strong>Basic Usage</strong> (syntax examples)</li>
+<li><strong>Tutorial</strong> (3-5 step-by-step instructions with real examples)</li>
+<li><strong>Common Workflows</strong> (real-world usage patterns)</li>
+<li><strong>Related Commands</strong> (navigation to similar/complementary commands)</li>
+<li><strong>Tips</strong> (pro user hints)</li>
+</ol>
 <hr />
 <h3 id="failed-search-tracking">Failed Search Tracking<a class="headerlink" href="#failed-search-tracking" title="Permanent link">&para;</a></h3>
 <h4 id="component-search-analytics-engine">Component: Search Analytics Engine<a class="headerlink" href="#component-search-analytics-engine" title="Permanent link">&para;</a></h4>
 <p><strong>File:</strong> <code>commands/_search_failures.jsonl</code></p>
-<p><strong>Format:</strong>
+<p><strong>Format:</strong></p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-15T14:30:00Z&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deploy website&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mkdocs project&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;project_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mkdocs&quot;</span><span class="p">}</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="p">{</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-15T14:35:00Z&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;run ci&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python package&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;project_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">}</span>
-</span></code></pre></div></p>
-<p><strong>Usage:</strong>
+</span></code></pre></div>
+<p><strong>Usage:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">track_failed_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Log when user searches but finds nothing.&quot;&quot;&quot;</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;commands/_search_failures.jsonl&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -4996,8 +5016,8 @@
 </span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  - Browse by category: /craft:hub&quot;</span><span class="p">)</span>
 </span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  - Smart command: /craft:do&quot;</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
 </span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  - Get help: /craft:smart-help&quot;</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
-</span></code></pre></div></p>
-<p><strong>Analytics:</strong>
+</span></code></pre></div>
+<p><strong>Analytics:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Monthly review of failed searches</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>$<span class="w"> </span>python3<span class="w"> </span>commands/_analytics.py<span class="w"> </span>report<span class="w"> </span>--month<span class="w"> </span><span class="m">2026</span>-01
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -5011,7 +5031,7 @@
 </span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span>-<span class="w"> </span>Add<span class="w"> </span><span class="s2">&quot;deploy&quot;</span><span class="w"> </span>as<span class="w"> </span>synonym<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s2">&quot;site:deploy&quot;</span>
 </span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">  </span>-<span class="w"> </span>Promote<span class="w"> </span>CI<span class="w"> </span>commands<span class="w"> </span>to<span class="w"> </span>main<span class="w"> </span>menu
 </span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">  </span>-<span class="w"> </span>Create<span class="w"> </span>troubleshooting<span class="w"> </span>tutorials<span class="w"> </span><span class="k">for</span><span class="w"> </span>top<span class="w"> </span><span class="m">5</span><span class="w"> </span>queries
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="data-models">Data Models<a class="headerlink" href="#data-models" title="Permanent link">&para;</a></h2>
 <h3 id="command-metadata-json-schema">Command Metadata (JSON Schema)<a class="headerlink" href="#command-metadata-json-schema" title="Permanent link">&para;</a></h3>
@@ -5155,9 +5175,11 @@
 <hr />
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
 <h3 id="external-libraries-none-required">External Libraries (None Required)<a class="headerlink" href="#external-libraries-none-required" title="Permanent link">&para;</a></h3>
-<p>All functionality can be implemented with:
-- <strong>Python Standard Library:</strong> <code>os</code>, <code>glob</code>, <code>json</code>, <code>yaml</code> (frontmatter parsing)
-- <strong>Existing Craft Tools:</strong> <code>AskUserQuestion</code>, file I/O tools</p>
+<p>All functionality can be implemented with:</p>
+<ul>
+<li><strong>Python Standard Library:</strong> <code>os</code>, <code>glob</code>, <code>json</code>, <code>yaml</code> (frontmatter parsing)</li>
+<li><strong>Existing Craft Tools:</strong> <code>AskUserQuestion</code>, file I/O tools</li>
+</ul>
 <h3 id="new-internal-components">New Internal Components<a class="headerlink" href="#new-internal-components" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5300,51 +5322,57 @@
 <hr />
 <h2 id="implementation-notes">Implementation Notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
 <h3 id="phase-1-foundation-week-1">Phase 1: Foundation (Week 1)<a class="headerlink" href="#phase-1-foundation-week-1" title="Permanent link">&para;</a></h3>
-<p><strong>Files to Create:</strong>
+<p><strong>Files to Create:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>commands/
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>├── _discovery.py          # Auto-detection engine
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>├── _cache.json            # Generated metadata (gitignored)
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>├── _search_failures.jsonl # Failed search log (gitignored)
 </span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>├── _analytics.py          # Analytics tools
 </span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>└── _schema.json           # Metadata schema docs
-</span></code></pre></div></p>
-<p><strong>Files to Update:</strong>
+</span></code></pre></div>
+<p><strong>Files to Update:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>commands/hub.md            # Main hub command (Layer 1 + 2 + 3)
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>.gitignore                 # Ignore cache and log files
-</span></code></pre></div></p>
-<p><strong>Approach:</strong>
-1. Implement <code>_discovery.py</code> first (core auto-detection)
-2. Test with 10 commands to validate parsing
-3. Update <code>hub.md</code> to use auto-detected data
-4. Add failed search tracking to search fallback
-5. Verify counts are accurate (89 commands)</p>
+</span></code></pre></div>
+<p><strong>Approach:</strong></p>
+<ol>
+<li>Implement <code>_discovery.py</code> first (core auto-detection)</li>
+<li>Test with 10 commands to validate parsing</li>
+<li>Update <code>hub.md</code> to use auto-detected data</li>
+<li>Add failed search tracking to search fallback</li>
+<li>Verify counts are accurate (89 commands)</li>
+</ol>
 <hr />
 <h3 id="phase-2-metadata-enhancement-week-2">Phase 2: Metadata Enhancement (Week 2)<a class="headerlink" href="#phase-2-metadata-enhancement-week-2" title="Permanent link">&para;</a></h3>
-<p><strong>Tasks:</strong>
-1. Create <code>_schema.json</code> with full metadata schema
-2. Update all 89 command files with enhanced frontmatter:
-   - Required: <code>name</code>, <code>category</code>, <code>description</code>
-   - Optional: <code>modes</code>, <code>tutorial</code>, <code>related_commands</code>, <code>tags</code>
-3. Create category groupings (subcategories)
-4. Add common workflows to top 20 commands</p>
-<p><strong>Migration Script:</strong>
+<p><strong>Tasks:</strong></p>
+<ol>
+<li>Create <code>_schema.json</code> with full metadata schema</li>
+<li>Update all 89 command files with enhanced frontmatter:</li>
+<li>Required: <code>name</code>, <code>category</code>, <code>description</code></li>
+<li>Optional: <code>modes</code>, <code>tutorial</code>, <code>related_commands</code>, <code>tags</code></li>
+<li>Create category groupings (subcategories)</li>
+<li>Add common workflows to top 20 commands</li>
+</ol>
+<p><strong>Migration Script:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Bulk add required frontmatter to all commands</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>python3<span class="w"> </span>scripts/migrate-frontmatter.py<span class="w"> </span>--add-required
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># Validate all frontmatter</span>
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>python3<span class="w"> </span>scripts/validate-frontmatter.py
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="phase-3-tutorials-week-3-4">Phase 3: Tutorials (Week 3-4)<a class="headerlink" href="#phase-3-tutorials-week-3-4" title="Permanent link">&para;</a></h3>
-<p><strong>Tasks:</strong>
-1. Create tutorial template: <code>commands/tutorials/_TEMPLATE.md</code>
-2. Write tutorials for top 10 commands:
-   - <code>code:lint</code>, <code>test:run</code>, <code>git:worktree</code>, <code>site:deploy</code>
-   - <code>check</code>, <code>do</code>, <code>arch:analyze</code>, <code>code:ci-local</code>
-   - <code>docs:changelog</code>, <code>git:sync</code>
-3. Link tutorials in command frontmatter
-4. Add tutorial navigation to Layer 3</p>
-<p><strong>Tutorial Template:</strong>
+<p><strong>Tasks:</strong></p>
+<ol>
+<li>Create tutorial template: <code>commands/tutorials/_TEMPLATE.md</code></li>
+<li>Write tutorials for top 10 commands:</li>
+<li><code>code:lint</code>, <code>test:run</code>, <code>git:worktree</code>, <code>site:deploy</code></li>
+<li><code>check</code>, <code>do</code>, <code>arch:analyze</code>, <code>code:ci-local</code></li>
+<li><code>docs:changelog</code>, <code>git:sync</code></li>
+<li>Link tutorials in command frontmatter</li>
+<li>Add tutorial navigation to Layer 3</li>
+</ol>
+<p><strong>Tutorial Template:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="gh"># Tutorial: /craft:&lt;command&gt;</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="gu">## What It Does</span>
@@ -5356,11 +5384,11 @@
 </span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>```bash
 </span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>$ /craft:&lt;command&gt;
 </span></code></pre></div>
-[Explanation of what happens and when to use]</p>
+<p>[Explanation of what happens and when to use]</p>
 <h3 id="step-2-scenario-name">Step 2: [Scenario Name]<a class="headerlink" href="#step-2-scenario-name" title="Permanent link">&para;</a></h3>
-<p><div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>$<span class="w"> </span>/craft:&lt;command&gt;<span class="w"> </span>&lt;mode&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/craft:&lt;command&gt;<span class="w"> </span>&lt;mode&gt;
 </span></code></pre></div>
-[Explanation of what happens and when to use]</p>
+<p>[Explanation of what happens and when to use]</p>
 <h2 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-1-name">Workflow 1: [Name]<a class="headerlink" href="#workflow-1-name" title="Permanent link">&para;</a></h3>
 <ol>
@@ -5373,8 +5401,8 @@
 <li>[Command] - [Why related]</li>
 </ul>
 <h2 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h2>
-<p>💡 [Pro user hint]
-```</p>
+<p>💡 [Pro user hint]</p>
+<p>```</p>
 <hr />
 <h3 id="phase-4-testing-refinement-week-5">Phase 4: Testing &amp; Refinement (Week 5)<a class="headerlink" href="#phase-4-testing-refinement-week-5" title="Permanent link">&para;</a></h3>
 <p><strong>User Testing:</strong>

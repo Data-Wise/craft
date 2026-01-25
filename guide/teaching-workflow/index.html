@@ -4451,7 +4451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5447,11 +5447,13 @@
     H --&gt; I[Build Production]
     I --&gt; J[Deploy to GitHub Pages]
     J --&gt; K[Auto-switch back to dev]</code></pre>
-<p><strong>Key Safety Features:</strong>
-1. <strong>Always preview first</strong> - See changes before publish
-2. <strong>Validation checkpoint</strong> - Blocks bad content
-3. <strong>Auto-branch management</strong> - Handles git switching
-4. <strong>Rollback safety</strong> - Returns to dev after publish</p>
+<p><strong>Key Safety Features:</strong></p>
+<ol>
+<li><strong>Always preview first</strong> - See changes before publish</li>
+<li><strong>Validation checkpoint</strong> - Blocks bad content</li>
+<li><strong>Auto-branch management</strong> - Handles git switching</li>
+<li><strong>Rollback safety</strong> - Returns to dev after publish</li>
+</ol>
 <h3 id="content-validation">Content Validation<a class="headerlink" href="#content-validation" title="Permanent link">&para;</a></h3>
 <p>Before publishing, the system checks:</p>
 <h4 id="schedule-validation">Schedule Validation<a class="headerlink" href="#schedule-validation" title="Permanent link">&para;</a></h4>
@@ -5495,12 +5497,14 @@
 <h3 id="semester-progress-tracking">Semester Progress Tracking<a class="headerlink" href="#semester-progress-tracking" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:site:progress
 </span></code></pre></div>
-<p>Shows:
-- Current week in semester
-- Weeks completed vs remaining
-- Content status per week
-- Upcoming deadlines
-- Overall completion percentage</p>
+<p>Shows:</p>
+<ul>
+<li>Current week in semester</li>
+<li>Weeks completed vs remaining</li>
+<li>Content status per week</li>
+<li>Upcoming deadlines</li>
+<li>Overall completion percentage</li>
+</ul>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>╭─ Semester Progress: Fall 2024 ──────────────────────────╮
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>│                                                         │
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>│ Week 8 of 15 (53% complete)                             │
@@ -5629,13 +5633,15 @@
 </span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="c1"># 5. Publish to production</span>
 </span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>/craft:site:publish
 </span></code></pre></div>
-<p><strong>What happens:</strong>
-1. Validates schedule has Week 8 complete
-2. Checks syllabus references Week 8
-3. Switches to <code>main</code> branch
-4. Builds production site
-5. Deploys to GitHub Pages
-6. Switches back to <code>dev</code></p>
+<p><strong>What happens:</strong></p>
+<ol>
+<li>Validates schedule has Week 8 complete</li>
+<li>Checks syllabus references Week 8</li>
+<li>Switches to <code>main</code> branch</li>
+<li>Builds production site</li>
+<li>Deploys to GitHub Pages</li>
+<li>Switches back to <code>dev</code></li>
+</ol>
 <h3 id="mid-semester-review">Mid-Semester Review<a class="headerlink" href="#mid-semester-review" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Check overall progress</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>/craft:site:progress
@@ -5669,17 +5675,17 @@
 </span></code></pre></div>
 <h2 id="teaching-aware-commands">Teaching-Aware Commands<a class="headerlink" href="#teaching-aware-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftsitebuild"><code>/craft:site:build</code><a class="headerlink" href="#craftsitebuild" title="Permanent link">&para;</a></h3>
-<p><strong>Standard mode:</strong>
+<p><strong>Standard mode:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/craft:site:build
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1"># Builds MkDocs site</span>
-</span></code></pre></div></p>
-<p><strong>Teaching mode:</strong>
+</span></code></pre></div>
+<p><strong>Teaching mode:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/craft:site:build
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="c1"># - Detects current branch (dev/main)</span>
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># - Shows teaching context</span>
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># - Validates if on production branch</span>
 </span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># - Builds with semester metadata</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Output difference:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>╭─ Build Site (Teaching Mode) ────────────────────────────╮
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>│                                                         │
@@ -5698,9 +5704,11 @@
 </span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>╰─────────────────────────────────────────────────────────╯
 </span></code></pre></div>
 <h3 id="craftgitstatus"><code>/craft:git:status</code><a class="headerlink" href="#craftgitstatus" title="Permanent link">&para;</a></h3>
-<p><strong>Standard mode:</strong>
-- Shows git branch, changes, remote status</p>
-<p><strong>Teaching mode:</strong>
+<p><strong>Standard mode:</strong></p>
+<ul>
+<li>Shows git branch, changes, remote status</li>
+</ul>
+<p><strong>Teaching mode:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>╭─ Git Status (Teaching Mode) ────────────────────────────╮
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>│                                                         │
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>│ Branch: dev (Preview) ← You are here                    │
@@ -5720,17 +5728,17 @@
 </span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>│ Next: /craft:site:build (preview changes)               │
 </span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>│                                                         │
 </span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a>╰─────────────────────────────────────────────────────────╯
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="validation-failing">Validation Failing<a class="headerlink" href="#validation-failing" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> <code>/craft:site:publish</code> fails validation</p>
 <p><strong>Solutions:</strong></p>
 <ol>
-<li>
-<p><strong>Check what's wrong:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:site:publish<span class="w"> </span>--dry-run<span class="w"> </span>--validate-only
-</span></code></pre></div></p>
-</li>
+<li><strong>Check what's wrong:</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:site:publish<span class="w"> </span>--dry-run<span class="w"> </span>--validate-only
+</span></code></pre></div>
+<ol>
 <li>
 <p><strong>Common issues:</strong></p>
 </li>
@@ -5743,14 +5751,14 @@
 <p><strong>Malformed YAML</strong>: Validate teach-config.yml syntax</p>
 </li>
 <li>
-<p><strong>Skip validation (emergency only):</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/craft:site:publish<span class="w"> </span>--skip-validation
-</span></code></pre></div></p>
+<p><strong>Skip validation (emergency only):</strong></p>
 </li>
 </ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/craft:site:publish<span class="w"> </span>--skip-validation
+</span></code></pre></div>
 <h3 id="branch-confusion">Branch Confusion<a class="headerlink" href="#branch-confusion" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> Not sure which branch you're on</p>
-<p><strong>Solution:</strong>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Teaching-aware status</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>/craft:git:status
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
@@ -5758,31 +5766,29 @@
 </span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="c1"># - Current branch (dev/main)</span>
 </span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="c1"># - What students see (main content)</span>
 </span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="c1"># - What you&#39;re editing (current branch)</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="deployment-not-updating">Deployment Not Updating<a class="headerlink" href="#deployment-not-updating" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> Published but site not updating</p>
 <p><strong>Checks:</strong></p>
 <ol>
-<li>
-<p><strong>Verify production build:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+<li><strong>Verify production build:</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>/craft:site:build
 </span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
-</span></code></pre></div></p>
-</li>
-<li>
-<p><strong>Check GitHub Pages:</strong></p>
-</li>
+</span></code></pre></div>
+<ol>
+<li><strong>Check GitHub Pages:</strong></li>
 <li>Repo → Settings → Pages</li>
 <li>
 <p>Verify source: <code>gh-pages</code> branch or <code>main</code> branch + <code>/docs</code></p>
 </li>
 <li>
-<p><strong>Force rebuild:</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>/craft:site:publish<span class="w"> </span>--force-rebuild
-</span></code></pre></div></p>
+<p><strong>Force rebuild:</strong></p>
 </li>
 </ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>/craft:site:publish<span class="w"> </span>--force-rebuild
+</span></code></pre></div>
 <h3 id="week-numbers-off">Week Numbers Off<a class="headerlink" href="#week-numbers-off" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> Progress shows wrong week</p>
 <p><strong>Fix:</strong></p>
@@ -5853,11 +5859,13 @@
 </span></code></pre></div>
 <h2 id="common-failure-scenarios">Common Failure Scenarios<a class="headerlink" href="#common-failure-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="scenario-1-accidental-main-branch-modification">Scenario 1: Accidental Main Branch Modification<a class="headerlink" href="#scenario-1-accidental-main-branch-modification" title="Permanent link">&para;</a></h3>
-<p><strong>What happens:</strong>
-- You edit files while on <code>main</code> branch
-- Publish publishes immediately (no preview)
-- Students see incomplete/broken content</p>
-<p><strong>Prevention:</strong>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>You edit files while on <code>main</code> branch</li>
+<li>Publish publishes immediately (no preview)</li>
+<li>Students see incomplete/broken content</li>
+</ul>
+<p><strong>Prevention:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Always check your branch first</span>
 </span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>git<span class="w"> </span>branch<span class="w"> </span>--show-current
 </span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="c1"># Should show: dev</span>
@@ -5865,8 +5873,8 @@
 </span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="c1"># Use teaching-aware status</span>
 </span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>/craft:git:status
 </span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="c1"># Will show: ✅ Safe to experiment (if on preview branch)</span>
-</span></code></pre></div></p>
-<p><strong>Recovery:</strong>
+</span></code></pre></div>
+<p><strong>Recovery:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># 1. Revert changes on main</span>
 </span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
 </span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD~1
@@ -5877,13 +5885,15 @@
 </span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>
 </span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a><span class="c1"># 3. Preview and publish properly</span>
 </span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>/craft:site:publish
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="scenario-2-semester-dates-misalignment">Scenario 2: Semester Dates Misalignment<a class="headerlink" href="#scenario-2-semester-dates-misalignment" title="Permanent link">&para;</a></h3>
-<p><strong>What happens:</strong>
-- Current week shows incorrectly in progress dashboard
-- Assignment due dates appear out of order
-- Validation rejects valid dates as "out of range"</p>
-<p><strong>Debug steps:</strong>
+<p><strong>What happens:</strong></p>
+<ul>
+<li>Current week shows incorrectly in progress dashboard</li>
+<li>Assignment due dates appear out of order</li>
+<li>Validation rejects valid dates as "out of range"</li>
+</ul>
+<p><strong>Debug steps:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Check config dates</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>cat<span class="w"> </span>.flow/teach-config.yml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;semester:&quot;</span>
 </span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>
@@ -5894,22 +5904,24 @@
 </span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="c1"># Today: Jan 17, 2026</span>
 </span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="c1"># Semester start: Jan 13, 2025</span>
 </span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="c1"># Week = floor((today - start) / 7) + 1</span>
-</span></code></pre></div></p>
-<p><strong>Fix:</strong>
+</span></code></pre></div>
+<p><strong>Fix:</strong></p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nt">semester</span><span class="p">:</span>
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">  </span><span class="nt">start_date</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2025-01-13&quot;</span><span class="w">  </span><span class="c1"># Must be first day of Week 1</span>
 </span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">  </span><span class="nt">end_date</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2025-05-09&quot;</span><span class="w">    </span><span class="c1"># Must be last day of final week</span>
 </span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">  </span><span class="nt">weeks</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15</span><span class="w">                  </span><span class="c1"># Should match actual count</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="scenario-3-assignment-due-date-validation-error">Scenario 3: Assignment Due Date Validation Error<a class="headerlink" href="#scenario-3-assignment-due-date-validation-error" title="Permanent link">&para;</a></h3>
-<p><strong>Error message:</strong>
+<p><strong>Error message:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>✗ Assignment due date (2025-12-20) is after semester end (2025-05-09)
-</span></code></pre></div></p>
-<p><strong>Common causes:</strong>
-1. Copy-pasted due date with wrong year
-2. Date format confusion (MM-DD vs DD-MM)
-3. Semester dates don't match actual schedule</p>
-<p><strong>Fix:</strong>
+</span></code></pre></div>
+<p><strong>Common causes:</strong></p>
+<ol>
+<li>Copy-pasted due date with wrong year</li>
+<li>Date format confusion (MM-DD vs DD-MM)</li>
+<li>Semester dates don't match actual schedule</li>
+</ol>
+<p><strong>Fix:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># Check assignment file</span>
 </span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>grep<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;due.*date&quot;</span><span class="w"> </span>assignments/
 </span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
@@ -5917,13 +5929,15 @@
 </span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="c1"># semester.start_date → semester.end_date</span>
 </span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>
 </span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="c1"># Update assignment due date to valid range</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="scenario-4-build-fails-silently">Scenario 4: Build Fails Silently<a class="headerlink" href="#scenario-4-build-fails-silently" title="Permanent link">&para;</a></h3>
-<p><strong>Symptom:</strong>
-- <code>/craft:site:build</code> returns success
-- But preview doesn't update
-- Old content still visible in browser</p>
-<p><strong>Diagnosis:</strong>
+<p><strong>Symptom:</strong></p>
+<ul>
+<li><code>/craft:site:build</code> returns success</li>
+<li>But preview doesn't update</li>
+<li>Old content still visible in browser</li>
+</ul>
+<p><strong>Diagnosis:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># 1. Check build output</span>
 </span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>/craft:site:build<span class="w"> </span>--verbose
 </span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>
@@ -5936,12 +5950,12 @@
 </span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>
 </span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="c1"># 4. Check browser cache</span>
 </span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a><span class="c1"># Hard refresh: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Linux)</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="scenario-5-config-file-not-found">Scenario 5: Config File Not Found<a class="headerlink" href="#scenario-5-config-file-not-found" title="Permanent link">&para;</a></h3>
-<p><strong>Error:</strong>
+<p><strong>Error:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>❌ Teaching mode enabled but .flow/teach-config.yml not found
-</span></code></pre></div></p>
-<p><strong>Solutions:</strong>
+</span></code></pre></div>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Create the directory</span>
 </span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>.flow
 </span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
@@ -5964,7 +5978,7 @@
 </span><span id="__span-35-20"><a id="__codelineno-35-20" name="__codelineno-35-20" href="#__codelineno-35-20"></a>
 </span><span id="__span-35-21"><a id="__codelineno-35-21" name="__codelineno-35-21" href="#__codelineno-35-21"></a><span class="c1"># Verify</span>
 </span><span id="__span-35-22"><a id="__codelineno-35-22" name="__codelineno-35-22" href="#__codelineno-35-22"></a>/craft:git:status
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="debug-commands">Debug Commands<a class="headerlink" href="#debug-commands" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># View full config</span>
 </span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>cat<span class="w"> </span>.flow/teach-config.yml
@@ -5986,23 +6000,25 @@
 </span></code></pre></div>
 <h2 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h2>
 <h3 id="from-manual-git-workflow">From Manual Git Workflow<a class="headerlink" href="#from-manual-git-workflow" title="Permanent link">&para;</a></h3>
-<p><strong>Before:</strong>
+<p><strong>Before:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Manual process</span>
 </span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
 </span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>mkdocs<span class="w"> </span>build
 </span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>mkdocs<span class="w"> </span>gh-deploy
 </span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
-</span></code></pre></div></p>
-<p><strong>After:</strong>
+</span></code></pre></div>
+<p><strong>After:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># One command</span>
 </span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>/craft:site:publish
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p>See <a href="../../teaching-migration/"><code>docs/teaching-migration.md</code></a> for complete migration guide.</p>
 <h3 id="from-other-systems">From Other Systems<a class="headerlink" href="#from-other-systems" title="Permanent link">&para;</a></h3>
-<p>If you're coming from:
-- <strong>Jekyll</strong>: Quarto is similar, adapt frontmatter
-- <strong>Hugo</strong>: Content structure maps 1:1
-- <strong>Wordpress</strong>: Export to markdown first</p>
+<p>If you're coming from:</p>
+<ul>
+<li><strong>Jekyll</strong>: Quarto is similar, adapt frontmatter</li>
+<li><strong>Hugo</strong>: Content structure maps 1:1</li>
+<li><strong>Wordpress</strong>: Export to markdown first</li>
+</ul>
 <p>Teaching mode works with any static site generator that uses git branches.</p>
 <h2 id="advanced-features">Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">&para;</a></h2>
 <h3 id="custom-validation-rules">Custom Validation Rules<a class="headerlink" href="#custom-validation-rules" title="Permanent link">&para;</a></h3>
@@ -6059,11 +6075,13 @@
 <li><a href="../../tests/MANUAL-TESTING-CHECKLIST.md">Manual Testing Checklist</a> - QA procedures</li>
 </ul>
 <h2 id="impact">Impact<a class="headerlink" href="#impact" title="Permanent link">&para;</a></h2>
-<p><strong>Measured improvements:</strong>
-- ⏱️ <strong>80% time reduction</strong>: 15 min → 3 min per publish
-- 🐛 <strong>Zero production bugs</strong>: Content validation catches issues
-- 🎯 <strong>100% confidence</strong>: Preview-before-publish eliminates anxiety
-- 📊 <strong>Better planning</strong>: Semester progress shows what's ahead</p>
+<p><strong>Measured improvements:</strong></p>
+<ul>
+<li>⏱️ <strong>80% time reduction</strong>: 15 min → 3 min per publish</li>
+<li>🐛 <strong>Zero production bugs</strong>: Content validation catches issues</li>
+<li>🎯 <strong>100% confidence</strong>: Preview-before-publish eliminates anxiety</li>
+<li>📊 <strong>Better planning</strong>: Semester progress shows what's ahead</li>
+</ul>
 <p>Teaching mode transforms course management from error-prone and stressful to automated and reliable.</p>
 
 

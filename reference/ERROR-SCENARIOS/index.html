@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5042,7 +5042,7 @@
   <a href="#escalate-if" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Escalate if:
+        Escalate if
       
     </span>
   </a>
@@ -5053,7 +5053,7 @@
   <a href="#how-to-report" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to Report:
+        How to Report
       
     </span>
   </a>
@@ -5164,10 +5164,10 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Error: Task description cannot be empty
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Usage: /craft:do &quot;task description&quot;
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Provide a non-empty task description</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add user authentication system&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Prevention</strong>: Always include a meaningful task description</p>
 <hr />
 <h4 id="error-invalid-execution-mode">Error: Invalid Execution Mode<a class="headerlink" href="#error-invalid-execution-mode" title="Permanent link">&para;</a></h4>
@@ -5175,30 +5175,30 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Error: Invalid mode: &quot;fast&quot;
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Valid modes: default, debug, optimize, release
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Use valid mode</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;refactor code&quot;</span><span class="w"> </span>optimize
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Or omit mode for default</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>/craft:do<span class="w"> </span><span class="s2">&quot;refactor code&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-invalid-complexity-override">Error: Invalid Complexity Override<a class="headerlink" href="#error-invalid-complexity-override" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1002</code> | <strong>Severity</strong>: Warning | <strong>Frequency</strong>: Rare</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Error: Invalid complexity: &quot;tiny&quot;
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Valid values: simple, moderate, complex
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Use valid complexity</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;small task&quot;</span><span class="w"> </span>simple
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-complexity-scoring-timeout">Error: Complexity Scoring Timeout<a class="headerlink" href="#error-complexity-scoring-timeout" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1200</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Rare</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Error: Complexity scoring timed out after 5s
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Task may be too complex to analyze
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Option 1: Override complexity manually</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;complex task&quot;</span><span class="w"> </span>complex
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
@@ -5209,7 +5209,7 @@
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="c1"># Option 3: Wait and retry</span>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>sleep<span class="w"> </span><span class="m">10</span>
 </span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>/craft:do<span class="w"> </span><span class="s2">&quot;complex task&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="craftcheck">/craft:check<a class="headerlink" href="#craftcheck" title="Permanent link">&para;</a></h3>
 <h4 id="error-no-checks-configured">Error: No Checks Configured<a class="headerlink" href="#error-no-checks-configured" title="Permanent link">&para;</a></h4>
@@ -5217,14 +5217,14 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Error: No check configurations found
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Ensure .craft/config.yml exists
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Initialize Craft config</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:git:init
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Or manually create config</span>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>.craft
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;version: 1&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>.craft/config.yml
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-check-validation-failed">Error: Check Validation Failed<a class="headerlink" href="#error-check-validation-failed" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1400</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Common</p>
@@ -5237,7 +5237,7 @@
 </span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>Run /craft:check --fix to auto-fix issues
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Option 1: Auto-fix all issues</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:check<span class="w"> </span>--fix
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -5247,13 +5247,13 @@
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># Option 3: Preview before fixing</span>
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>/craft:check<span class="w"> </span>--dry-run<span class="w"> </span>--fix
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-insufficient-permissions">Error: Insufficient Permissions<a class="headerlink" href="#error-insufficient-permissions" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1700</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Rare</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Error: Permission denied writing to .git/hooks
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Option 1: Run with sudo (not recommended)</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>sudo<span class="w"> </span>/craft:check
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
@@ -5262,7 +5262,7 @@
 </span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># Option 3: Skip problematic check</span>
 </span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>/craft:check<span class="w"> </span>code<span class="w"> </span>tests
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="crafthub">/craft:hub<a class="headerlink" href="#crafthub" title="Permanent link">&para;</a></h3>
 <h4 id="error-hub-index-corrupt">Error: Hub Index Corrupt<a class="headerlink" href="#error-hub-index-corrupt" title="Permanent link">&para;</a></h4>
@@ -5270,9 +5270,11 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Error: Hub index is corrupt or missing
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Rebuilding index...
 </span></code></pre></div>
-<p><strong>Recovery</strong> (automatic):
-- Hub automatically rebuilds the index
-- If still fails:</p>
+<p><strong>Recovery</strong> (automatic):</p>
+<ul>
+<li>Hub automatically rebuilds the index</li>
+<li>If still fails:</li>
+</ul>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Force rebuild</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>.craft/cache
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>/craft:hub
@@ -5283,10 +5285,10 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Error: Search query contains invalid characters
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Use alphanumeric, hyphens, and underscores
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Quote the query or remove special chars</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>/craft:hub<span class="w"> </span><span class="s2">&quot;user authentication&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="craftorchestrate">/craft:orchestrate<a class="headerlink" href="#craftorchestrate" title="Permanent link">&para;</a></h3>
 <h4 id="error-orchestrator-not-available">Error: Orchestrator Not Available<a class="headerlink" href="#error-orchestrator-not-available" title="Permanent link">&para;</a></h4>
@@ -5294,7 +5296,7 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Error: Orchestrator agent not available
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>No agents running or all busy
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Option 1: Wait for agents to free</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>sleep<span class="w"> </span><span class="m">30</span>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>optimize
@@ -5304,14 +5306,14 @@
 </span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
 </span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="c1"># Option 3: Check agent status</span>
 </span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>/craft:orchestrate<span class="w"> </span>status
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-task-decomposition-failed">Error: Task Decomposition Failed<a class="headerlink" href="#error-task-decomposition-failed" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1002</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Rare</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Error: Failed to decompose task into subtasks
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Task description may be too vague
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Option 1: Provide more specific task</span>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;Add OAuth 2.0 authentication with PKCE&quot;</span>
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
@@ -5322,7 +5324,7 @@
 </span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>
 </span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="c1"># Option 3: Use manual planning</span>
 </span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;authentication system&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-agent-task-failure">Error: Agent Task Failure<a class="headerlink" href="#error-agent-task-failure" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1200</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Common</p>
@@ -5337,7 +5339,7 @@
 </span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>
 </span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>Run: /craft:code:deps-check --fix
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Option 1: Install missing dependencies</span>
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>/craft:code:deps-check<span class="w"> </span>--fix
 </span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
@@ -5347,7 +5349,7 @@
 </span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># Option 3: Manually fix and retry</span>
 </span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>npm<span class="w"> </span>install<span class="w"> </span>bcrypt
 </span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>optimize
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="code-commands-error-scenarios">Code Commands Error Scenarios<a class="headerlink" href="#code-commands-error-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="craftcodelint">/craft:code:lint<a class="headerlink" href="#craftcodelint" title="Permanent link">&para;</a></h3>
@@ -5358,7 +5360,7 @@
 </span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
 </span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>Create .eslintrc or equivalent
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Option 1: Initialize with default linter</span>
 </span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>npm<span class="w"> </span>init<span class="w"> </span>-y
 </span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>npm<span class="w"> </span>install<span class="w"> </span>--save-dev<span class="w"> </span>eslint
@@ -5369,7 +5371,7 @@
 </span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>
 </span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="c1"># Option 3: Use dry-run to see available linters</span>
 </span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>/craft:code:lint<span class="w"> </span>--dry-run
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-linter-parse-error">Error: Linter Parse Error<a class="headerlink" href="#error-linter-parse-error" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1100</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Rare</p>
@@ -5378,14 +5380,14 @@
 </span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
 </span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>File: src/main.ts (line 42, col 15)
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Fix the syntax error manually</span>
 </span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="c1"># Then retry</span>
 </span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>/craft:code:lint<span class="w"> </span>src/main.ts
 </span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>
 </span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="c1"># Or skip problematic files</span>
 </span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>/craft:code:lint<span class="w"> </span>--exclude<span class="w"> </span><span class="s2">&quot;src/main.ts&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-fix-failed">Error: Fix Failed<a class="headerlink" href="#error-fix-failed" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1200</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Rare</p>
@@ -5394,14 +5396,14 @@
 </span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
 </span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>Unfixable issues in: src/auth.ts (line 56)
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># View the specific issues</span>
 </span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>/craft:code:lint<span class="w"> </span>src/auth.ts
 </span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>
 </span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1"># Fix manually</span>
 </span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="c1"># Then verify</span>
 </span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>/craft:code:lint<span class="w"> </span>src/auth.ts
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="craftcoderefactor">/craft:code:refactor<a class="headerlink" href="#craftcoderefactor" title="Permanent link">&para;</a></h3>
 <h4 id="error-invalid-refactoring-pattern">Error: Invalid Refactoring Pattern<a class="headerlink" href="#error-invalid-refactoring-pattern" title="Permanent link">&para;</a></h4>
@@ -5412,10 +5414,10 @@
 </span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>  - extract method &lt;name&gt;
 </span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>  - inline variable &lt;name&gt;
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Use valid pattern</span>
 </span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>/craft:code:refactor<span class="w"> </span><span class="s2">&quot;rename getCwd to getCurrentWorkingDirectory&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-refactoring-would-break-code">Error: Refactoring Would Break Code<a class="headerlink" href="#error-refactoring-would-break-code" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1200</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Common</p>
@@ -5424,7 +5426,7 @@
 </span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
 </span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>Run: /craft:test:run to see failures
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Option 1: Fix tests first, then refactor</span>
 </span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>/craft:test:debug
 </span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="c1"># Fix the failing tests manually</span>
@@ -5435,14 +5437,14 @@
 </span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>
 </span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="c1"># Option 3: Abort and try different approach</span>
 </span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>git<span class="w"> </span>checkout<span class="w"> </span>--<span class="w"> </span>.
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="craftcodetest-gen">/craft:code:test-gen<a class="headerlink" href="#craftcodetest-gen" title="Permanent link">&para;</a></h3>
 <h4 id="error-no-testable-functions-found">Error: No Testable Functions Found<a class="headerlink" href="#error-no-testable-functions-found" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1100</code> | <strong>Severity</strong>: Warning | <strong>Frequency</strong>: Rare</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>Error: No exported functions found in src/index.ts
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Option 1: Specify different source file</span>
 </span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>/craft:code:test-gen<span class="w"> </span>--source<span class="w"> </span>src/auth.ts
 </span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
@@ -5452,14 +5454,14 @@
 </span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>
 </span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="c1"># Option 3: Use manual template</span>
 </span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>cp<span class="w"> </span>tests/templates/unit-test.template<span class="w"> </span>tests/unit-auth.test.ts
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="craftcodedemo">/craft:code:demo<a class="headerlink" href="#craftcodedemo" title="Permanent link">&para;</a></h3>
 <h4 id="error-demo-script-not-found">Error: Demo Script Not Found<a class="headerlink" href="#error-demo-script-not-found" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1100</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Common</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>Error: Demo script not found: scripts/demo-auth.sh
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Option 1: Create the script</span>
 </span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>scripts
 </span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>scripts/demo-auth.sh<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
@@ -5472,7 +5474,7 @@
 </span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>
 </span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a><span class="c1"># Option 3: List available scripts</span>
 </span><span id="__span-37-12"><a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a>find<span class="w"> </span>scripts<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.sh&quot;</span><span class="w"> </span>-type<span class="w"> </span>f
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-recording-failed">Error: Recording Failed<a class="headerlink" href="#error-recording-failed" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1200</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Common</p>
@@ -5483,13 +5485,13 @@
 </span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>  apt-get install asciinema (Linux)
 </span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>  pip install asciinema (Python)
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># Install missing tool</span>
 </span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>brew<span class="w"> </span>install<span class="w"> </span>asciinema
 </span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>
 </span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="c1"># Retry recording</span>
 </span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>/craft:code:demo<span class="w"> </span>scripts/demo.sh
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="craftcodecoverage">/craft:code:coverage<a class="headerlink" href="#craftcodecoverage" title="Permanent link">&para;</a></h3>
 <h4 id="error-coverage-threshold-not-met">Error: Coverage Threshold Not Met<a class="headerlink" href="#error-coverage-threshold-not-met" title="Permanent link">&para;</a></h4>
@@ -5503,7 +5505,7 @@
 </span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>  - src/utils/helpers.ts (14 lines)
 </span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>  - src/auth/oauth.ts (8 lines)
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Option 1: Add missing tests</span>
 </span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>/craft:code:test-gen<span class="w"> </span>unit<span class="w"> </span>src/utils/helpers.ts
 </span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>
@@ -5512,7 +5514,7 @@
 </span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>
 </span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="c1"># Option 3: Skip coverage check</span>
 </span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>/craft:check<span class="w"> </span>--scope<span class="w"> </span>code<span class="w"> </span>tests
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="git-commands-error-scenarios">Git Commands Error Scenarios<a class="headerlink" href="#git-commands-error-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="craftgitsync">/craft:git:sync<a class="headerlink" href="#craftgitsync" title="Permanent link">&para;</a></h3>
@@ -5526,7 +5528,7 @@
 </span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>
 </span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>Resolve manually or use: git mergetool
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># Option 1: Use visual merge tool</span>
 </span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>git<span class="w"> </span>mergetool
 </span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
@@ -5538,7 +5540,7 @@
 </span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>git<span class="w"> </span>checkout<span class="w"> </span>--ours<span class="w"> </span>.
 </span><span id="__span-43-10"><a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a>git<span class="w"> </span>add<span class="w"> </span>.
 </span><span id="__span-43-11"><a id="__codelineno-43-11" name="__codelineno-43-11" href="#__codelineno-43-11"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;merge: keep our version&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-diverged-branch">Error: Diverged Branch<a class="headerlink" href="#error-diverged-branch" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1300</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Common</p>
@@ -5548,7 +5550,7 @@
 </span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>
 </span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>Sync would lose history
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="c1"># Option 1: Rebase onto remote</span>
 </span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>/craft:git:sync<span class="w"> </span>--rebase
 </span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>
@@ -5558,7 +5560,7 @@
 </span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="c1"># Option 3: Force local (DANGEROUS)</span>
 </span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a>/craft:git:sync<span class="w"> </span>--force
 </span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a><span class="c1"># Only use if you&#39;re sure!</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="craftgitworktree">/craft:git:worktree<a class="headerlink" href="#craftgitworktree" title="Permanent link">&para;</a></h3>
 <h4 id="error-worktree-already-exists">Error: Worktree Already Exists<a class="headerlink" href="#error-worktree-already-exists" title="Permanent link">&para;</a></h4>
@@ -5568,7 +5570,7 @@
 </span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>
 </span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>Use /craft:git:worktree list to see all
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1"># Option 1: Move to existing worktree</span>
 </span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="nb">cd</span><span class="w"> </span>/path/to/.git-worktrees/feature-auth
 </span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>
@@ -5577,13 +5579,13 @@
 </span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a>
 </span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="c1"># Option 3: Create with different name</span>
 </span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/auth-v2
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-branch-not-found">Error: Branch Not Found<a class="headerlink" href="#error-branch-not-found" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1300</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Common</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>Error: Branch &#39;feature/nonexistent&#39; not found
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="c1"># Option 1: Create new branch</span>
 </span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/auth
 </span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>
@@ -5592,7 +5594,7 @@
 </span><span id="__span-49-6"><a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>
 </span><span id="__span-49-7"><a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a><span class="c1"># Option 3: Checkout existing branch</span>
 </span><span id="__span-49-8"><a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>/craft:git:branch<span class="w"> </span>checkout<span class="w"> </span>feature/auth
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="documentation-commands-error-scenarios">Documentation Commands Error Scenarios<a class="headerlink" href="#documentation-commands-error-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="craftdocscheck-links">/craft:docs:check-links<a class="headerlink" href="#craftdocscheck-links" title="Permanent link">&para;</a></h3>
@@ -5606,7 +5608,7 @@
 </span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>
 </span><span id="__span-50-7"><a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>Fix with: /craft:docs:check-links --fix
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="c1"># Option 1: Auto-fix broken links</span>
 </span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>/craft:docs:check-links<span class="w"> </span>--fix
 </span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>
@@ -5616,7 +5618,7 @@
 </span><span id="__span-51-7"><a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a><span class="c1"># Option 3: Exclude problematic links</span>
 </span><span id="__span-51-8"><a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;https://deprecated.example.com&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.linkcheck-ignore
 </span><span id="__span-51-9"><a id="__codelineno-51-9" name="__codelineno-51-9" href="#__codelineno-51-9"></a>/craft:docs:check-links
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-external-links-timeout">Error: External Links Timeout<a class="headerlink" href="#error-external-links-timeout" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1500</code> | <strong>Severity</strong>: Warning | <strong>Frequency</strong>: Common</p>
@@ -5625,7 +5627,7 @@
 </span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>URL: https://slow-api.example.com
 </span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>Timeout: 5000ms
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="c1"># Option 1: Increase timeout</span>
 </span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>/craft:docs:check-links<span class="w"> </span>--timeout<span class="w"> </span><span class="m">10000</span>
 </span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>
@@ -5634,21 +5636,21 @@
 </span><span id="__span-53-6"><a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>
 </span><span id="__span-53-7"><a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a><span class="c1"># Option 3: Check manually</span>
 </span><span id="__span-53-8"><a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>curl<span class="w"> </span>-I<span class="w"> </span>https://slow-api.example.com
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="craftdocsapi">/craft:docs:api<a class="headerlink" href="#craftdocsapi" title="Permanent link">&para;</a></h3>
 <h4 id="error-no-exports-found">Error: No Exports Found<a class="headerlink" href="#error-no-exports-found" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1100</code> | <strong>Severity</strong>: Warning | <strong>Frequency</strong>: Rare</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>Warning: No exported functions/classes found
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="c1"># Option 1: Add exports to source code</span>
 </span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="c1"># Edit src/index.ts to export functions</span>
 </span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="nb">export</span><span class="w"> </span><span class="k">function</span><span class="w"> </span>myFunction<span class="o">()</span><span class="w"> </span><span class="o">{}</span>
 </span><span id="__span-55-4"><a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a>
 </span><span id="__span-55-5"><a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a><span class="c1"># Option 2: Use manual API documentation</span>
 </span><span id="__span-55-6"><a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a>/craft:docs:tutorial<span class="w"> </span><span class="s2">&quot;Write API documentation manually&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="test-commands-error-scenarios">Test Commands Error Scenarios<a class="headerlink" href="#test-commands-error-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="crafttestrun">/craft:test:run<a class="headerlink" href="#crafttestrun" title="Permanent link">&para;</a></h3>
@@ -5665,7 +5667,7 @@
 </span><span id="__span-56-9"><a id="__codelineno-56-9" name="__codelineno-56-9" href="#__codelineno-56-9"></a>
 </span><span id="__span-56-10"><a id="__codelineno-56-10" name="__codelineno-56-10" href="#__codelineno-56-10"></a>Run: /craft:test:debug to debug
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="c1"># Option 1: Debug specific test</span>
 </span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>/craft:test:debug<span class="w"> </span><span class="s2">&quot;Should authenticate user&quot;</span>
 </span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>
@@ -5674,13 +5676,13 @@
 </span><span id="__span-57-6"><a id="__codelineno-57-6" name="__codelineno-57-6" href="#__codelineno-57-6"></a>
 </span><span id="__span-57-7"><a id="__codelineno-57-7" name="__codelineno-57-7" href="#__codelineno-57-7"></a><span class="c1"># Option 3: Run with detailed output</span>
 </span><span id="__span-57-8"><a id="__codelineno-57-8" name="__codelineno-57-8" href="#__codelineno-57-8"></a>/craft:test:run<span class="w"> </span>debug<span class="w"> </span>--verbose
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-test-file-not-found">Error: Test File Not Found<a class="headerlink" href="#error-test-file-not-found" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1100</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Common</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>Error: Test file not found: tests/auth.test.ts
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="c1"># Option 1: Generate test file</span>
 </span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>/craft:code:test-gen<span class="w"> </span>unit<span class="w"> </span>src/auth.ts
 </span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a>
@@ -5689,7 +5691,7 @@
 </span><span id="__span-59-6"><a id="__codelineno-59-6" name="__codelineno-59-6" href="#__codelineno-59-6"></a>
 </span><span id="__span-59-7"><a id="__codelineno-59-7" name="__codelineno-59-7" href="#__codelineno-59-7"></a><span class="c1"># Option 3: List test files</span>
 </span><span id="__span-59-8"><a id="__codelineno-59-8" name="__codelineno-59-8" href="#__codelineno-59-8"></a>find<span class="w"> </span>tests<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.test.*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.spec.*&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-test-dependency-missing">Error: Test Dependency Missing<a class="headerlink" href="#error-test-dependency-missing" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1601</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Common</p>
@@ -5698,7 +5700,7 @@
 </span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a>Install with:
 </span><span id="__span-60-4"><a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a>  npm install --save-dev jest
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="c1"># Option 1: Auto-install</span>
 </span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>/craft:code:deps-check<span class="w"> </span>--fix
 </span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a>
@@ -5707,7 +5709,7 @@
 </span><span id="__span-61-6"><a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a>
 </span><span id="__span-61-7"><a id="__codelineno-61-7" name="__codelineno-61-7" href="#__codelineno-61-7"></a><span class="c1"># Option 3: Skip tests temporarily</span>
 </span><span id="__span-61-8"><a id="__codelineno-61-8" name="__codelineno-61-8" href="#__codelineno-61-8"></a>/craft:code:ci-local<span class="w"> </span>--skip-tests
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="crafttestwatch">/craft:test:watch<a class="headerlink" href="#crafttestwatch" title="Permanent link">&para;</a></h3>
 <h4 id="error-watch-mode-crashed">Error: Watch Mode Crashed<a class="headerlink" href="#error-watch-mode-crashed" title="Permanent link">&para;</a></h4>
@@ -5716,7 +5718,7 @@
 </span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>
 </span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>Last error: ENOSPC: no space left on device
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="c1"># Option 1: Free up disk space</span>
 </span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>df<span class="w"> </span>-h
 </span><span id="__span-63-3"><a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a><span class="c1"># Delete unnecessary files</span>
@@ -5726,7 +5728,7 @@
 </span><span id="__span-63-7"><a id="__codelineno-63-7" name="__codelineno-63-7" href="#__codelineno-63-7"></a>
 </span><span id="__span-63-8"><a id="__codelineno-63-8" name="__codelineno-63-8" href="#__codelineno-63-8"></a><span class="c1"># Option 3: Run tests without watch</span>
 </span><span id="__span-63-9"><a id="__codelineno-63-9" name="__codelineno-63-9" href="#__codelineno-63-9"></a>/craft:test:run
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="build-site-commands-error-scenarios">Build &amp; Site Commands Error Scenarios<a class="headerlink" href="#build-site-commands-error-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="craftsitebuild">/craft:site:build<a class="headerlink" href="#craftsitebuild" title="Permanent link">&para;</a></h3>
@@ -5739,7 +5741,7 @@
 </span><span id="__span-64-5"><a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a>
 </span><span id="__span-64-6"><a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a>Fix the markdown and retry
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="c1"># Option 1: Fix markdown syntax</span>
 </span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a><span class="c1"># Edit docs/guides/index.md</span>
 </span><span id="__span-65-3"><a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a>
@@ -5748,7 +5750,7 @@
 </span><span id="__span-65-6"><a id="__codelineno-65-6" name="__codelineno-65-6" href="#__codelineno-65-6"></a>
 </span><span id="__span-65-7"><a id="__codelineno-65-7" name="__codelineno-65-7" href="#__codelineno-65-7"></a><span class="c1"># Option 3: Use dry-run to get details</span>
 </span><span id="__span-65-8"><a id="__codelineno-65-8" name="__codelineno-65-8" href="#__codelineno-65-8"></a>/craft:site:build<span class="w"> </span>--dry-run
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-theme-not-found">Error: Theme Not Found<a class="headerlink" href="#error-theme-not-found" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1100</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Rare</p>
@@ -5759,7 +5761,7 @@
 </span><span id="__span-66-5"><a id="__codelineno-66-5" name="__codelineno-66-5" href="#__codelineno-66-5"></a>  - readthedocs
 </span><span id="__span-66-6"><a id="__codelineno-66-6" name="__codelineno-66-6" href="#__codelineno-66-6"></a>  - mkdocs
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="c1"># Option 1: Use available theme</span>
 </span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>/craft:site:init<span class="w"> </span>mkdocs
 </span><span id="__span-67-3"><a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a>
@@ -5768,7 +5770,7 @@
 </span><span id="__span-67-6"><a id="__codelineno-67-6" name="__codelineno-67-6" href="#__codelineno-67-6"></a>
 </span><span id="__span-67-7"><a id="__codelineno-67-7" name="__codelineno-67-7" href="#__codelineno-67-7"></a><span class="c1"># Option 3: Use default theme</span>
 </span><span id="__span-67-8"><a id="__codelineno-67-8" name="__codelineno-67-8" href="#__codelineno-67-8"></a>/craft:site:init
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="craftsitedeploy">/craft:site:deploy<a class="headerlink" href="#craftsitedeploy" title="Permanent link">&para;</a></h3>
 <h4 id="error-authentication-failed">Error: Authentication Failed<a class="headerlink" href="#error-authentication-failed" title="Permanent link">&para;</a></h4>
@@ -5780,7 +5782,7 @@
 </span><span id="__span-68-5"><a id="__codelineno-68-5" name="__codelineno-68-5" href="#__codelineno-68-5"></a>
 </span><span id="__span-68-6"><a id="__codelineno-68-6" name="__codelineno-68-6" href="#__codelineno-68-6"></a>Set NETLIFY_TOKEN environment variable
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="c1"># Option 1: Set authentication token</span>
 </span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NETLIFY_TOKEN</span><span class="o">=</span><span class="s2">&quot;your-token-here&quot;</span>
 </span><span id="__span-69-3"><a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a>/craft:site:deploy<span class="w"> </span>netlify
@@ -5790,7 +5792,7 @@
 </span><span id="__span-69-7"><a id="__codelineno-69-7" name="__codelineno-69-7" href="#__codelineno-69-7"></a>
 </span><span id="__span-69-8"><a id="__codelineno-69-8" name="__codelineno-69-8" href="#__codelineno-69-8"></a><span class="c1"># Option 3: Create new token</span>
 </span><span id="__span-69-9"><a id="__codelineno-69-9" name="__codelineno-69-9" href="#__codelineno-69-9"></a><span class="c1"># Go to platform&#39;s settings and generate new token</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-build-artifact-too-large">Error: Build Artifact Too Large<a class="headerlink" href="#error-build-artifact-too-large" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1400</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Rare</p>
@@ -5801,7 +5803,7 @@
 </span><span id="__span-70-5"><a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a>  - Remove large assets
 </span><span id="__span-70-6"><a id="__codelineno-70-6" name="__codelineno-70-6" href="#__codelineno-70-6"></a>  - Use CDN for images
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="c1"># Option 1: Minify production build</span>
 </span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>/craft:site:build<span class="w"> </span>--production<span class="w"> </span>--minify
 </span><span id="__span-71-3"><a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>
@@ -5810,7 +5812,7 @@
 </span><span id="__span-71-6"><a id="__codelineno-71-6" name="__codelineno-71-6" href="#__codelineno-71-6"></a>
 </span><span id="__span-71-7"><a id="__codelineno-71-7" name="__codelineno-71-7" href="#__codelineno-71-7"></a><span class="c1"># Option 3: Split into subdomains</span>
 </span><span id="__span-71-8"><a id="__codelineno-71-8" name="__codelineno-71-8" href="#__codelineno-71-8"></a><span class="c1"># Create separate sites for different sections</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="network-external-service-errors">Network &amp; External Service Errors<a class="headerlink" href="#network-external-service-errors" title="Permanent link">&para;</a></h2>
 <h3 id="common-network-errors">Common Network Errors<a class="headerlink" href="#common-network-errors" title="Permanent link">&para;</a></h3>
@@ -5823,7 +5825,7 @@
 </span><span id="__span-72-5"><a id="__codelineno-72-5" name="__codelineno-72-5" href="#__codelineno-72-5"></a>  2. Network firewall
 </span><span id="__span-72-6"><a id="__codelineno-72-6" name="__codelineno-72-6" href="#__codelineno-72-6"></a>  3. DNS resolution
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="c1"># Option 1: Check network</span>
 </span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>ping<span class="w"> </span><span class="m">8</span>.8.8.8
 </span><span id="__span-73-3"><a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a>nslookup<span class="w"> </span>registry.npmjs.org
@@ -5834,7 +5836,7 @@
 </span><span id="__span-73-8"><a id="__codelineno-73-8" name="__codelineno-73-8" href="#__codelineno-73-8"></a><span class="c1"># Option 3: Retry later</span>
 </span><span id="__span-73-9"><a id="__codelineno-73-9" name="__codelineno-73-9" href="#__codelineno-73-9"></a>sleep<span class="w"> </span><span class="m">30</span>
 </span><span id="__span-73-10"><a id="__codelineno-73-10" name="__codelineno-73-10" href="#__codelineno-73-10"></a>/craft:code:deps-check
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h4 id="error-dns-resolution-failed">Error: DNS Resolution Failed<a class="headerlink" href="#error-dns-resolution-failed" title="Permanent link">&para;</a></h4>
 <p><strong>Code</strong>: <code>1500</code> | <strong>Severity</strong>: Error | <strong>Frequency</strong>: Rare</p>
@@ -5842,7 +5844,7 @@
 </span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>
 </span><span id="__span-74-3"><a id="__codelineno-74-3" name="__codelineno-74-3" href="#__codelineno-74-3"></a>Check your DNS settings or ISP connection
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a><span class="c1"># Option 1: Use alternate DNS</span>
 </span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;nameserver 8.8.8.8&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/resolv.conf
 </span><span id="__span-75-3"><a id="__codelineno-75-3" name="__codelineno-75-3" href="#__codelineno-75-3"></a>
@@ -5850,7 +5852,7 @@
 </span><span id="__span-75-5"><a id="__codelineno-75-5" name="__codelineno-75-5" href="#__codelineno-75-5"></a>nslookup<span class="w"> </span>api.github.com
 </span><span id="__span-75-6"><a id="__codelineno-75-6" name="__codelineno-75-6" href="#__codelineno-75-6"></a>
 </span><span id="__span-75-7"><a id="__codelineno-75-7" name="__codelineno-75-7" href="#__codelineno-75-7"></a><span class="c1"># Option 3: Use VPN if blocked</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="configuration-setup-errors">Configuration &amp; Setup Errors<a class="headerlink" href="#configuration-setup-errors" title="Permanent link">&para;</a></h2>
 <h3 id="common-configuration-errors">Common Configuration Errors<a class="headerlink" href="#common-configuration-errors" title="Permanent link">&para;</a></h3>
@@ -5861,7 +5863,7 @@
 </span><span id="__span-76-3"><a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a>Line 12: Invalid YAML syntax
 </span><span id="__span-76-4"><a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a>  Expected mapping, got scalar
 </span></code></pre></div>
-<p><strong>Recovery</strong>:
+<p><strong>Recovery</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a><span class="c1"># Option 1: Fix YAML syntax</span>
 </span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a><span class="c1"># Edit .craft/config.yml</span>
 </span><span id="__span-77-3"><a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a><span class="c1"># Use YAML validator: https://www.yamllint.com/</span>
@@ -5872,7 +5874,7 @@
 </span><span id="__span-77-8"><a id="__codelineno-77-8" name="__codelineno-77-8" href="#__codelineno-77-8"></a>
 </span><span id="__span-77-9"><a id="__codelineno-77-9" name="__codelineno-77-9" href="#__codelineno-77-9"></a><span class="c1"># Option 3: Show correct syntax</span>
 </span><span id="__span-77-10"><a id="__codelineno-77-10" name="__codelineno-77-10" href="#__codelineno-77-10"></a>/craft:smart-help
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="common-patterns-for-error-recovery">Common Patterns for Error Recovery<a class="headerlink" href="#common-patterns-for-error-recovery" title="Permanent link">&para;</a></h2>
 <h3 id="pattern-1-insufficient-permissions">Pattern 1: Insufficient Permissions<a class="headerlink" href="#pattern-1-insufficient-permissions" title="Permanent link">&para;</a></h3>
@@ -5955,14 +5957,14 @@
 </span></code></pre></div>
 <hr />
 <h2 id="when-to-escalate">When to Escalate<a class="headerlink" href="#when-to-escalate" title="Permanent link">&para;</a></h2>
-<h3 id="escalate-if">Escalate if:<a class="headerlink" href="#escalate-if" title="Permanent link">&para;</a></h3>
+<h3 id="escalate-if">Escalate if<a class="headerlink" href="#escalate-if" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Error persists after following recovery steps</li>
 <li>Error is not in this guide</li>
 <li>Multiple unrelated commands failing</li>
 <li>System appears corrupted</li>
 </ol>
-<h3 id="how-to-report">How to Report:<a class="headerlink" href="#how-to-report" title="Permanent link">&para;</a></h3>
+<h3 id="how-to-report">How to Report<a class="headerlink" href="#how-to-report" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a><span class="c1"># Gather diagnostics</span>
 </span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a>/craft:check<span class="w"> </span>--verbose
 </span><span id="__span-86-3"><a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a>/craft:code:coverage<span class="w"> </span>--report<span class="w"> </span>json

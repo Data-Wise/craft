@@ -4369,7 +4369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5191,14 +5191,16 @@
 <p>The <code>/craft:docs:demo</code> command includes a comprehensive dependency management system
 that automatically detects, validates, and installs required tools for terminal
 GIF generation using either asciinema or VHS workflows.</p>
-<p><strong>Key Features:</strong>
-- Auto-detection of installed tools
-- Health validation and version checking
-- Automated installation with user consent
-- Batch conversion capabilities
-- CI/CD integration with JSON output
-- Tool repair functionality
-- Session-based caching for performance</p>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li>Auto-detection of installed tools</li>
+<li>Health validation and version checking</li>
+<li>Automated installation with user consent</li>
+<li>Batch conversion capabilities</li>
+<li>CI/CD integration with JSON output</li>
+<li>Tool repair functionality</li>
+<li>Session-based caching for performance</li>
+</ul>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Check all dependencies</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:docs:demo<span class="w"> </span>--check
@@ -5296,12 +5298,14 @@ GIF generation using either asciinema or VHS workflows.</p>
 <p>Two methods are supported for creating terminal GIFs:</p>
 <h3 id="asciinema-recommended">asciinema (Recommended)<a class="headerlink" href="#asciinema-recommended" title="Permanent link">&para;</a></h3>
 <p><strong>Best for:</strong> Real terminal recordings, authentic output, recording-based workflows</p>
-<p><strong>Tools required:</strong>
-- <code>asciinema</code> (required) - Record terminal sessions
-- <code>agg</code> (required) - Convert .cast to .gif
-- <code>gifsicle</code> (required) - Optimize GIF size
-- <code>fswatch</code> (optional) - Watch mode for live updates</p>
-<p><strong>Workflow:</strong>
+<p><strong>Tools required:</strong></p>
+<ul>
+<li><code>asciinema</code> (required) - Record terminal sessions</li>
+<li><code>agg</code> (required) - Convert .cast to .gif</li>
+<li><code>gifsicle</code> (required) - Optimize GIF size</li>
+<li><code>fswatch</code> (optional) - Watch mode for live updates</li>
+</ul>
+<p><strong>Workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># 1. Record session</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>asciinema<span class="w"> </span>rec<span class="w"> </span>demo.cast
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -5310,19 +5314,23 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># 3. Batch convert all recordings</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:docs:demo<span class="w"> </span>--batch
-</span></code></pre></div></p>
-<p><strong>Benefits:</strong>
-- Records actual terminal output
-- Perfect for showing real commands and results
-- Captures timing and pauses naturally
-- Easy to edit .cast file if needed</p>
+</span></code></pre></div>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Records actual terminal output</li>
+<li>Perfect for showing real commands and results</li>
+<li>Captures timing and pauses naturally</li>
+<li>Easy to edit .cast file if needed</li>
+</ul>
 <h3 id="vhs">VHS<a class="headerlink" href="#vhs" title="Permanent link">&para;</a></h3>
 <p><strong>Best for:</strong> Scripted/repeatable demos, consistent output, automated testing</p>
-<p><strong>Tools required:</strong>
-- <code>vhs</code> (required) - Generate scripted demos
-- <code>gifsicle</code> (required) - Optimize GIF size
-- <code>ffmpeg</code> (optional) - Video processing</p>
-<p><strong>Workflow:</strong>
+<p><strong>Tools required:</strong></p>
+<ul>
+<li><code>vhs</code> (required) - Generate scripted demos</li>
+<li><code>gifsicle</code> (required) - Optimize GIF size</li>
+<li><code>ffmpeg</code> (optional) - Video processing</li>
+</ul>
+<p><strong>Workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 1. Create VHS tape script</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>demo.tape<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="s">Output demo.gif</span>
@@ -5337,12 +5345,14 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># 3. Optimize</span>
 </span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>gifsicle<span class="w"> </span>-O3<span class="w"> </span>demo.gif<span class="w"> </span>-o<span class="w"> </span>demo.gif
-</span></code></pre></div></p>
-<p><strong>Benefits:</strong>
-- Repeatable and scriptable
-- Consistent timing and output
-- Good for automated demos
-- Can be version controlled</p>
+</span></code></pre></div>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Repeatable and scriptable</li>
+<li>Consistent timing and output</li>
+<li>Good for automated demos</li>
+<li>Can be version controlled</li>
+</ul>
 <h2 id="tool-requirements">Tool Requirements<a class="headerlink" href="#tool-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="installation-methods">Installation Methods<a class="headerlink" href="#installation-methods" title="Permanent link">&para;</a></h3>
 <p>The dependency manager supports multiple installation strategies with fallback:</p>
@@ -5444,17 +5454,21 @@ GIF generation using either asciinema or VHS workflows.</p>
 <h3 id="github-actions-workflow">GitHub Actions Workflow<a class="headerlink" href="#github-actions-workflow" title="Permanent link">&para;</a></h3>
 <p>The project includes a pre-configured GitHub Actions workflow for dependency validation:</p>
 <p><strong>Location:</strong> <code>.github/workflows/validate-dependencies.yml</code></p>
-<p><strong>Triggers:</strong>
-- Push to main, dev, or feature/* branches
-- Pull requests to main or dev
-- Manual workflow dispatch</p>
-<p><strong>What it does:</strong>
-1. Checks out code
-2. Installs jq for JSON parsing
-3. Validates asciinema method dependencies
-4. Validates VHS method dependencies (optional)
-5. Uploads JSON reports as artifacts
-6. Reports status in job summary</p>
+<p><strong>Triggers:</strong></p>
+<ul>
+<li>Push to main, dev, or feature/* branches</li>
+<li>Pull requests to main or dev</li>
+<li>Manual workflow dispatch</li>
+</ul>
+<p><strong>What it does:</strong></p>
+<ol>
+<li>Checks out code</li>
+<li>Installs jq for JSON parsing</li>
+<li>Validates asciinema method dependencies</li>
+<li>Validates VHS method dependencies (optional)</li>
+<li>Uploads JSON reports as artifacts</li>
+<li>Reports status in job summary</li>
+</ol>
 <p><strong>Example workflow run:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>✅ asciinema method: ok
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>⚠️  VHS method: issues
@@ -5491,20 +5505,26 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">  </span><span class="p">]</span>
 </span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="p">}</span>
 </span></code></pre></div>
-<p><strong>Status values:</strong>
-- <code>ok</code> - All required tools installed and healthy
-- <code>issues</code> - Missing or broken tools detected
-- <code>unknown</code> - Could not determine status</p>
-<p><strong>Health values:</strong>
-- <code>ok</code> - Tool installed and working
-- <code>broken</code> - Tool installed but health check failed
-- <code>outdated</code> - Tool installed but version is outdated
-- <code>n/a</code> - Tool not installed</p>
-<p><strong>Exit codes:</strong>
-- <code>0</code> - All dependencies OK
-- <code>1</code> - Missing required dependencies or health check failed
-- <code>2</code> - File exists (batch conversion, use --force)
-- <code>3</code> - Missing required scripts</p>
+<p><strong>Status values:</strong></p>
+<ul>
+<li><code>ok</code> - All required tools installed and healthy</li>
+<li><code>issues</code> - Missing or broken tools detected</li>
+<li><code>unknown</code> - Could not determine status</li>
+</ul>
+<p><strong>Health values:</strong></p>
+<ul>
+<li><code>ok</code> - Tool installed and working</li>
+<li><code>broken</code> - Tool installed but health check failed</li>
+<li><code>outdated</code> - Tool installed but version is outdated</li>
+<li><code>n/a</code> - Tool not installed</li>
+</ul>
+<p><strong>Exit codes:</strong></p>
+<ul>
+<li><code>0</code> - All dependencies OK</li>
+<li><code>1</code> - Missing required dependencies or health check failed</li>
+<li><code>2</code> - File exists (batch conversion, use --force)</li>
+<li><code>3</code> - Missing required scripts</li>
+</ul>
 <h3 id="using-json-output-in-scripts">Using JSON Output in Scripts<a class="headerlink" href="#using-json-output-in-scripts" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Check and parse JSON output</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:docs:demo<span class="w"> </span>--check<span class="w"> </span>--json<span class="w"> </span>&gt;<span class="w"> </span>deps.json
@@ -5524,7 +5544,7 @@ GIF generation using either asciinema or VHS workflows.</p>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
 <h4 id="1-tool-not-detected-installed-but-shows-missing">1. Tool Not Detected (Installed but Shows Missing)<a class="headerlink" href="#1-tool-not-detected-installed-but-shows-missing" title="Permanent link">&para;</a></h4>
 <p><strong>Symptom:</strong> Tool is installed but <code>--check</code> reports it as missing</p>
-<p><strong>Solutions:</strong>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Verify tool is in PATH</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>which<span class="w"> </span>asciinema
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
@@ -5536,10 +5556,10 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
 </span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># Verify installation location</span>
 </span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>brew<span class="w"> </span>list<span class="w"> </span>asciinema<span class="w">  </span><span class="c1"># for brew-installed tools</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="2-health-check-failing">2. Health Check Failing<a class="headerlink" href="#2-health-check-failing" title="Permanent link">&para;</a></h4>
 <p><strong>Symptom:</strong> Tool installed but health check reports "broken"</p>
-<p><strong>Solutions:</strong>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Test tool manually</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>asciinema<span class="w"> </span>--version
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
@@ -5552,10 +5572,10 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="c1"># Reinstall from scratch</span>
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>brew<span class="w"> </span>uninstall<span class="w"> </span>asciinema
 </span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>/craft:docs:demo<span class="w"> </span>--fix<span class="w"> </span>--method<span class="w"> </span>asciinema
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="3-version-mismatch-warnings">3. Version Mismatch Warnings<a class="headerlink" href="#3-version-mismatch-warnings" title="Permanent link">&para;</a></h4>
 <p><strong>Symptom:</strong> Tool installed but version is outdated or unsupported</p>
-<p><strong>Solutions:</strong>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Check version requirements</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>./scripts/version-check.sh<span class="w"> </span>check<span class="w"> </span>asciinema
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
@@ -5568,10 +5588,10 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="c1"># Force installation of specific version</span>
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>brew<span class="w"> </span>uninstall<span class="w"> </span>asciinema
 </span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>brew<span class="w"> </span>install<span class="w"> </span>asciinema@2.3.0
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="4-permission-denied-during-installation">4. Permission Denied During Installation<a class="headerlink" href="#4-permission-denied-during-installation" title="Permanent link">&para;</a></h4>
 <p><strong>Symptom:</strong> <code>--fix</code> fails with permission errors</p>
-<p><strong>Solutions:</strong>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Use sudo for system-wide installation</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>sudo<span class="w"> </span>/craft:docs:demo<span class="w"> </span>--fix
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -5581,10 +5601,10 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Check /usr/local/bin permissions</span>
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>ls<span class="w"> </span>-ld<span class="w"> </span>/usr/local/bin
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>sudo<span class="w"> </span>chown<span class="w"> </span><span class="k">$(</span>whoami<span class="k">)</span>:admin<span class="w"> </span>/usr/local/bin
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="5-conversion-fails-file-not-found">5. Conversion Fails (File Not Found)<a class="headerlink" href="#5-conversion-fails-file-not-found" title="Permanent link">&para;</a></h4>
 <p><strong>Symptom:</strong> <code>--convert</code> fails because .cast file not found</p>
-<p><strong>Solutions:</strong>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Verify .cast file exists</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>demo.cast
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
@@ -5596,10 +5616,10 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
 </span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="c1"># Re-record if file is corrupt</span>
 </span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>asciinema<span class="w"> </span>rec<span class="w"> </span>demo.cast
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="6-gif-optimization-issues">6. GIF Optimization Issues<a class="headerlink" href="#6-gif-optimization-issues" title="Permanent link">&para;</a></h4>
 <p><strong>Symptom:</strong> GIF is too large or has quality issues</p>
-<p><strong>Solutions:</strong>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Check GIF file</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>file<span class="w"> </span>output.gif
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>du<span class="w"> </span>-h<span class="w"> </span>output.gif
@@ -5612,7 +5632,7 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
 </span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="c1"># Manual optimization options</span>
 </span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>gifsicle<span class="w"> </span>-O2<span class="w"> </span>--colors<span class="w"> </span><span class="m">256</span><span class="w"> </span>output.gif<span class="w"> </span>-o<span class="w"> </span>output.gif
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="debugging-tools">Debugging Tools<a class="headerlink" href="#debugging-tools" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Enable debug mode</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nv">DEBUG</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>/craft:docs:demo<span class="w"> </span>--check
@@ -5810,15 +5830,19 @@ GIF generation using either asciinema or VHS workflows.</p>
 </tbody>
 </table>
 <h3 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">&para;</a></h3>
-<p><strong>Session Caching:</strong>
-- Dependency checks cached per shell session (5-minute TTL)
-- Reduces repeated checks during rapid-fire commands
-- Cache invalidated on /craft:docs:demo --check with --force
-- Cache stored in <code>$TMPDIR/.craft-demo-cache-*</code></p>
-<p><strong>Parallel Operations:</strong>
-- Multiple tools checked concurrently where possible
-- Batch conversions processed in parallel
-- Installation from multiple sources in parallel</p>
+<p><strong>Session Caching:</strong></p>
+<ul>
+<li>Dependency checks cached per shell session (5-minute TTL)</li>
+<li>Reduces repeated checks during rapid-fire commands</li>
+<li>Cache invalidated on /craft:docs:demo --check with --force</li>
+<li>Cache stored in <code>$TMPDIR/.craft-demo-cache-*</code></li>
+</ul>
+<p><strong>Parallel Operations:</strong></p>
+<ul>
+<li>Multiple tools checked concurrently where possible</li>
+<li>Batch conversions processed in parallel</li>
+<li>Installation from multiple sources in parallel</li>
+</ul>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-1-check-all-dependencies">Example 1: Check All Dependencies<a class="headerlink" href="#example-1-check-all-dependencies" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>$<span class="w"> </span>/craft:docs:demo<span class="w"> </span>--check
@@ -5884,45 +5908,53 @@ GIF generation using either asciinema or VHS workflows.</p>
 <h2 id="additional-documentation">Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permanent link">&para;</a></h2>
 <p>For more detailed information, see:</p>
 <h3 id="api-reference">📘 <a href="../API-REFERENCE/">API Reference</a><a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h3>
-<p>Complete function signatures, parameters, return values, and code examples for all scripts:
-- <code>dependency-manager.sh</code> - Main orchestrator with 4 commands
-- <code>tool-detector.sh</code> - Tool detection logic
-- <code>session-cache.sh</code> - Performance caching (60s TTL)
-- <code>dependency-installer.sh</code> - Multi-strategy installation
-- <code>consent-prompt.sh</code> - User consent interface
-- <code>convert-cast.sh</code> - Single file conversion
-- <code>batch-convert.sh</code> - Batch processor
-- <code>health-check.sh</code> - Health validation
-- <code>version-check.sh</code> - Semantic versioning
-- <code>repair-tools.sh</code> - Automated repair</p>
+<p>Complete function signatures, parameters, return values, and code examples for all scripts:</p>
+<ul>
+<li><code>dependency-manager.sh</code> - Main orchestrator with 4 commands</li>
+<li><code>tool-detector.sh</code> - Tool detection logic</li>
+<li><code>session-cache.sh</code> - Performance caching (60s TTL)</li>
+<li><code>dependency-installer.sh</code> - Multi-strategy installation</li>
+<li><code>consent-prompt.sh</code> - User consent interface</li>
+<li><code>convert-cast.sh</code> - Single file conversion</li>
+<li><code>batch-convert.sh</code> - Batch processor</li>
+<li><code>health-check.sh</code> - Health validation</li>
+<li><code>version-check.sh</code> - Semantic versioning</li>
+<li><code>repair-tools.sh</code> - Automated repair</li>
+</ul>
 <p><strong>Includes</strong>: JSON schemas, exit codes, integration examples</p>
 <h3 id="architecture-diagrams">🏗️ <a href="../DEPENDENCY-ARCHITECTURE/">Architecture Diagrams</a><a class="headerlink" href="#architecture-diagrams" title="Permanent link">&para;</a></h3>
-<p>Visual architecture with 13 Mermaid diagrams:
-- <strong>System Overview</strong>: 4 phases + storage architecture
-- <strong>Component Diagrams</strong>: Detection, Installation, Conversion, Repair
-- <strong>Sequence Diagrams</strong>: Check, Install, Convert, Repair workflows
-- <strong>Data Flow</strong>: Dependency check and installation flows
-- <strong>Decision Trees</strong>: Status determination, strategy selection
-- <strong>Integration</strong>: CI/CD and command routing
-- <strong>Performance</strong>: Caching strategy, parallel processing</p>
+<p>Visual architecture with 13 Mermaid diagrams:</p>
+<ul>
+<li><strong>System Overview</strong>: 4 phases + storage architecture</li>
+<li><strong>Component Diagrams</strong>: Detection, Installation, Conversion, Repair</li>
+<li><strong>Sequence Diagrams</strong>: Check, Install, Convert, Repair workflows</li>
+<li><strong>Data Flow</strong>: Dependency check and installation flows</li>
+<li><strong>Decision Trees</strong>: Status determination, strategy selection</li>
+<li><strong>Integration</strong>: CI/CD and command routing</li>
+<li><strong>Performance</strong>: Caching strategy, parallel processing</li>
+</ul>
 <p><strong>Includes</strong>: Color-coded components, clear data flow visualization</p>
 <h3 id="developer-guide">👨‍💻 <a href="../DEVELOPER-GUIDE/">Developer Guide</a><a class="headerlink" href="#developer-guide" title="Permanent link">&para;</a></h3>
-<p>Complete guide for contributors and maintainers:
-- <strong>Getting Started</strong>: Setup, directory structure, quick start
-- <strong>Code Structure</strong>: Patterns, naming conventions, error handling
-- <strong>Adding Features</strong>: Step-by-step guides for new tools, strategies, checks
-- <strong>Testing</strong>: Unit, validation, and E2E test patterns
-- <strong>Best Practices</strong>: DOs, DON'Ts, common pitfalls
-- <strong>Common Tasks</strong>: Debugging, profiling, documentation updates
-- <strong>Code Review</strong>: 11-point checklist
-- <strong>Release Process</strong>: Version bumps, tagging, deployment</p>
+<p>Complete guide for contributors and maintainers:</p>
+<ul>
+<li><strong>Getting Started</strong>: Setup, directory structure, quick start</li>
+<li><strong>Code Structure</strong>: Patterns, naming conventions, error handling</li>
+<li><strong>Adding Features</strong>: Step-by-step guides for new tools, strategies, checks</li>
+<li><strong>Testing</strong>: Unit, validation, and E2E test patterns</li>
+<li><strong>Best Practices</strong>: DOs, DON'Ts, common pitfalls</li>
+<li><strong>Common Tasks</strong>: Debugging, profiling, documentation updates</li>
+<li><strong>Code Review</strong>: 11-point checklist</li>
+<li><strong>Release Process</strong>: Version bumps, tagging, deployment</li>
+</ul>
 <p><strong>Includes</strong>: 50+ code examples, test templates, troubleshooting guides</p>
 <h3 id="test-suite">🧪 <a href="../tests/test_dependency_management.sh">Test Suite</a><a class="headerlink" href="#test-suite" title="Permanent link">&para;</a></h3>
-<p>Comprehensive test coverage (100% passing):
-- <strong>Unit Tests</strong>: 50/50 passing - Script existence, functions, syntax
-- <strong>Validation Tests</strong>: 12/12 passing - JSON output, sourcing, flags
-- <strong>E2E Tests</strong>: 17/17 passing - Full workflows, integration, documentation</p>
-<p>Run tests:
+<p>Comprehensive test coverage (100% passing):</p>
+<ul>
+<li><strong>Unit Tests</strong>: 50/50 passing - Script existence, functions, syntax</li>
+<li><strong>Validation Tests</strong>: 12/12 passing - JSON output, sourcing, flags</li>
+<li><strong>E2E Tests</strong>: 17/17 passing - Full workflows, integration, documentation</li>
+</ul>
+<p>Run tests:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># All tests</span>
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>./tests/test_dependency_management.sh<span class="w"> </span>all
 </span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
@@ -5930,7 +5962,7 @@ GIF generation using either asciinema or VHS workflows.</p>
 </span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>./tests/test_dependency_management.sh<span class="w"> </span>unit
 </span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>./tests/test_dependency_management.sh<span class="w"> </span>validation
 </span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>./tests/test_dependency_management.sh<span class="w"> </span>e2e
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <p><strong>Last Updated</strong>: 2026-01-17
 <strong>Version</strong>: 1.26.0 (Phase 4 Complete)

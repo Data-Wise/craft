@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4405,7 +4405,7 @@
 <h3 id="option-c-mode-integration-quick-win">Option C: Mode Integration (Quick Win)<a class="headerlink" href="#option-c-mode-integration-quick-win" title="Permanent link">&para;</a></h3>
 <p><strong>Effort:</strong> ⚡ 1 hour</p>
 <p>Integrate with craft's mode system:</p>
-<p><div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gu">## Orchestrator Modes</span>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gu">## Orchestrator Modes</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>| Mode | Behavior |
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>|------|----------|
@@ -4440,9 +4440,9 @@
 </span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>  resource_budget:
 </span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    context_per_agent: 15%  # Max context each agent can consume
 </span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>    time_per_agent: 5m      # Timeout
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="queue-visualization">Queue Visualization<a class="headerlink" href="#queue-visualization" title="Permanent link">&para;</a></h2>
-<p><div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>RUNNING (2/4):
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>RUNNING (2/4):
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  [code-1] ████████░░ 80% - Implementing auth
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  [test-1] ██░░░░░░░░ 20% - Setting up tests
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
@@ -4465,7 +4465,7 @@
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>```markdown
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>## Timeline View (enabled with `timeline` command)
 </span></code></pre></div>
-TIME     0    1m    2m    3m    4m    5m
+<p>TIME     0    1m    2m    3m    4m    5m
 ─────────┼─────┼─────┼─────┼─────┼─────┤
 arch-1   ██████░░░░░░░░░░░░░░░░░░░░░░░ ✅ 1m
 code-1        ░░░░░░████████████████░░░ 🟡 3m
@@ -4473,26 +4473,56 @@ test-1        ░░░░░░░░░░░░████████░░
 doc-1         ░░░░░░████░░░░░░░░░░░░░░░ ✅ 1m
 ─────────┼─────┼─────┼─────┼─────┼─────┤
                               NOW ▲
-                              ETA: ~2m remaining
+                              ETA: ~2m remaining</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Pros:</strong> Clear progress visualization, reduces anxiety
 <strong>Cons:</strong> Terminal rendering complexity</p>
 <hr />
 <h3 id="option-f-cost-tracking-low-priority">Option F: Cost Tracking (Low Priority)<a class="headerlink" href="#option-f-cost-tracking-low-priority" title="Permanent link">&para;</a></h3>
 <p><strong>Effort:</strong> ⚡ 1 hour</p>
 <p>Track estimated costs per agent:</p>
-<p><div class="language-markdown highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gu">## Cost Tracking</span>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gu">## Cost Tracking</span>
 </span></code></pre></div>
-| Agent | Tokens In | Tokens Out | Est. Cost |
-|-------|-----------|------------|-----------|
-| arch-1 | 2,500 | 1,200 | $0.02 |
-| code-1 | 8,000 | 4,500 | $0.08 |
-| test-1 | 3,000 | 2,000 | $0.03 |
-| TOTAL | 13,500 | 7,700 | $0.13 |</p>
-<p>Budget: $1.00 | Spent: $0.13 | Remaining: $0.87
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Tokens In</th>
+<th>Tokens Out</th>
+<th>Est. Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arch-1</td>
+<td>2,500</td>
+<td>1,200</td>
+<td>$0.02</td>
+</tr>
+<tr>
+<td>code-1</td>
+<td>8,000</td>
+<td>4,500</td>
+<td>$0.08</td>
+</tr>
+<tr>
+<td>test-1</td>
+<td>3,000</td>
+<td>2,000</td>
+<td>$0.03</td>
+</tr>
+<tr>
+<td>TOTAL</td>
+<td>13,500</td>
+<td>7,700</td>
+<td>$0.13</td>
+</tr>
+</tbody>
+</table>
+<p>Budget: $1.00 | Spent: $0.13 | Remaining: $0.87</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Pros:</strong> Budget awareness, useful for API users
 <strong>Cons:</strong> Estimates only (no real API data)</p>
 <hr />

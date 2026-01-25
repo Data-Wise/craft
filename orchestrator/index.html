@@ -4116,7 +4116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4678,12 +4678,14 @@
 </blockquote>
 <p>The orchestrator coordinates multiple specialized agents to handle complex development tasks through intelligent delegation and parallel execution.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Orchestrator v2 provides:
-- <strong>Mode-aware execution</strong> - Adapts based on urgency and complexity
-- <strong>Subagent monitoring</strong> - Real-time progress tracking
-- <strong>Context tracking</strong> - Token budget management
-- <strong>Timeline view</strong> - Execution visualization
-- <strong>Result synthesis</strong> - Unified, actionable output</p>
+<p>Orchestrator v2 provides:</p>
+<ul>
+<li><strong>Mode-aware execution</strong> - Adapts based on urgency and complexity</li>
+<li><strong>Subagent monitoring</strong> - Real-time progress tracking</li>
+<li><strong>Context tracking</strong> - Token budget management</li>
+<li><strong>Timeline view</strong> - Execution visualization</li>
+<li><strong>Result synthesis</strong> - Unified, actionable output</li>
+</ul>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Let orchestrator choose mode</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add authentication&quot;</span>
@@ -4704,23 +4706,27 @@
 <strong>Use case:</strong> Feature development, quick iterations</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement user profiles&quot;</span><span class="w"> </span>optimize
 </span></code></pre></div>
-<p><strong>Workflow:</strong>
-1. Launches 3-4 agents simultaneously
-2. Monitors progress in real-time
-3. Synthesizes results as agents complete
-4. Provides actionable recommendations</p>
+<p><strong>Workflow:</strong></p>
+<ol>
+<li>Launches 3-4 agents simultaneously</li>
+<li>Monitors progress in real-time</li>
+<li>Synthesizes results as agents complete</li>
+<li>Provides actionable recommendations</li>
+</ol>
 <h3 id="release-mode-comprehensive">Release Mode (Comprehensive)<a class="headerlink" href="#release-mode-comprehensive" title="Permanent link">&para;</a></h3>
 <p><strong>Time:</strong> &lt;300s
 <strong>Agents:</strong> 4+ comprehensive checks
 <strong>Use case:</strong> Production preparation, quality audit</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;prepare for production&quot;</span><span class="w"> </span>release
 </span></code></pre></div>
-<p><strong>Workflow:</strong>
-1. Security audit (security-specialist)
-2. Performance check (performance-engineer)
-3. Test suite (testing-specialist)
-4. Deployment readiness (devops-engineer)
-5. Code quality (code-quality-reviewer)</p>
+<p><strong>Workflow:</strong></p>
+<ol>
+<li>Security audit (security-specialist)</li>
+<li>Performance check (performance-engineer)</li>
+<li>Test suite (testing-specialist)</li>
+<li>Deployment readiness (devops-engineer)</li>
+<li>Code quality (code-quality-reviewer)</li>
+</ol>
 <h3 id="debug-mode-verbose">Debug Mode (Verbose)<a class="headerlink" href="#debug-mode-verbose" title="Permanent link">&para;</a></h3>
 <p><strong>Time:</strong> &lt;120s
 <strong>Agents:</strong> 2-3 with detailed logging
@@ -4729,18 +4735,18 @@
 </span></code></pre></div>
 <h2 id="agent-coordination">Agent Coordination<a class="headerlink" href="#agent-coordination" title="Permanent link">&para;</a></h2>
 <h3 id="parallel-execution">Parallel Execution<a class="headerlink" href="#parallel-execution" title="Permanent link">&para;</a></h3>
-<p><strong>Sequential (Old):</strong>
+<p><strong>Sequential (Old):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Agent 1: ████████ (60s)
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Agent 2:         ████████ (60s)
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Agent 3:                 ████████ (60s)
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Total:   ████████████████████████ (180s)
-</span></code></pre></div></p>
-<p><strong>Parallel (Orchestrator v2):</strong>
+</span></code></pre></div>
+<p><strong>Parallel (Orchestrator v2):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Agent 1: ████████ (60s)
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Agent 2: ████████ (60s)
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Agent 3: ████████ (60s)
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Total:   ████████ (~60s)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Performance gain:</strong> 3× faster</p>
 <h3 id="agent-communication">Agent Communication<a class="headerlink" href="#agent-communication" title="Permanent link">&para;</a></h3>
 <p>Agents can share context and coordinate:</p>
@@ -4756,7 +4762,7 @@
 <h3 id="status-dashboard">Status Dashboard<a class="headerlink" href="#status-dashboard" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orchestrate<span class="w"> </span>status
 </span></code></pre></div>
-<p><strong>Output:</strong>
+<p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>╭──────────────────────────────────────────╮
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│ 📊 Orchestrator Status                   │
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├──────────────────────────────────────────┤
@@ -4771,23 +4777,27 @@
 </span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>│ Est. completion: 30s                     │
 </span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>│                                          │
 </span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>╰──────────────────────────────────────────╯
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="timeline-view">Timeline View<a class="headerlink" href="#timeline-view" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:orchestrate<span class="w"> </span>timeline
 </span></code></pre></div>
-<p><strong>Visualizes:</strong>
-- Agent start/end times
-- Parallel execution periods
-- Idle time (if any)
-- Total execution time</p>
+<p><strong>Visualizes:</strong></p>
+<ul>
+<li>Agent start/end times</li>
+<li>Parallel execution periods</li>
+<li>Idle time (if any)</li>
+<li>Total execution time</li>
+</ul>
 <h3 id="context-budget">Context Budget<a class="headerlink" href="#context-budget" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate<span class="w"> </span>budget
 </span></code></pre></div>
-<p><strong>Tracks:</strong>
-- Tokens used per agent
-- Total token consumption
-- Budget remaining
-- Cost estimate</p>
+<p><strong>Tracks:</strong></p>
+<ul>
+<li>Tokens used per agent</li>
+<li>Total token consumption</li>
+<li>Budget remaining</li>
+<li>Cost estimate</li>
+</ul>
 <h2 id="result-synthesis">Result Synthesis<a class="headerlink" href="#result-synthesis" title="Permanent link">&para;</a></h2>
 <p>After agents complete, orchestrator synthesizes results:</p>
 <h3 id="synthesis-process">Synthesis Process<a class="headerlink" href="#synthesis-process" title="Permanent link">&para;</a></h3>
@@ -4825,12 +4835,14 @@
 </span></code></pre></div>
 <h2 id="advanced-features">Advanced Features<a class="headerlink" href="#advanced-features" title="Permanent link">&para;</a></h2>
 <h3 id="dynamic-agent-selection">Dynamic Agent Selection<a class="headerlink" href="#dynamic-agent-selection" title="Permanent link">&para;</a></h3>
-<p>Orchestrator intelligently selects agents based on:
-- Task pattern
-- Mode
-- Project context
-- Previous results</p>
-<p><strong>Example:</strong>
+<p>Orchestrator intelligently selects agents based on:</p>
+<ul>
+<li>Task pattern</li>
+<li>Mode</li>
+<li>Project context</li>
+<li>Previous results</li>
+</ul>
+<p><strong>Example:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Task: &quot;add authentication&quot;
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Pattern: FEATURE_IMPLEMENTATION + SECURITY
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>Mode: optimize
@@ -4839,7 +4851,7 @@
 </span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>→ backend-architect (API design)
 </span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>→ security-specialist (OAuth2/JWT)
 </span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>→ testing-specialist (test strategy)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
 <p>If an agent fails, orchestrator continues gracefully:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Agent 1: ✅ Success
@@ -4851,22 +4863,28 @@
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>→ Still provides actionable output
 </span></code></pre></div>
 <h3 id="resource-management">Resource Management<a class="headerlink" href="#resource-management" title="Permanent link">&para;</a></h3>
-<p>Orchestrator manages:
-- <strong>Token budget:</strong> Prevents context overflow
-- <strong>Time budget:</strong> Respects mode time limits
-- <strong>Agent limits:</strong> Max 4-6 agents simultaneously
-- <strong>Memory:</strong> Efficient result storage</p>
+<p>Orchestrator manages:</p>
+<ul>
+<li><strong>Token budget:</strong> Prevents context overflow</li>
+<li><strong>Time budget:</strong> Respects mode time limits</li>
+<li><strong>Agent limits:</strong> Max 4-6 agents simultaneously</li>
+<li><strong>Memory:</strong> Efficient result storage</li>
+</ul>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <h3 id="when-to-use-orchestrator">When to Use Orchestrator<a class="headerlink" href="#when-to-use-orchestrator" title="Permanent link">&para;</a></h3>
-<p><strong>Good use cases:</strong>
-- Complex multi-faceted tasks
-- Production readiness checks
-- Comprehensive code reviews
-- Architecture decisions</p>
-<p><strong>Not ideal for:</strong>
-- Simple single-command tasks
-- Quick status checks
-- Narrow focused operations</p>
+<p><strong>Good use cases:</strong></p>
+<ul>
+<li>Complex multi-faceted tasks</li>
+<li>Production readiness checks</li>
+<li>Comprehensive code reviews</li>
+<li>Architecture decisions</li>
+</ul>
+<p><strong>Not ideal for:</strong></p>
+<ul>
+<li>Simple single-command tasks</li>
+<li>Quick status checks</li>
+<li>Narrow focused operations</li>
+</ul>
 <h3 id="mode-selection">Mode Selection<a class="headerlink" href="#mode-selection" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Daily work:</strong> Use <code>optimize</code> mode</li>

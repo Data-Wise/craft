@@ -3884,7 +3884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4213,15 +4213,13 @@
 <p>I want to check code quality, run tests, and validate my changes before committing to avoid pushing broken code.</p>
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p><strong>Quick validation (recommended)</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:check
+<li><strong>Quick validation (recommended)</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:check
 </span></code></pre></div>
-   Why: Runs all pre-flight checks (lint, test, validation) appropriate for your project type</p>
-</li>
-<li>
-<p><strong>Review results</strong></p>
-</li>
+<p>Why: Runs all pre-flight checks (lint, test, validation) appropriate for your project type</p>
+<ol>
+<li><strong>Review results</strong></li>
 <li>Green checkmarks = all good</li>
 <li>Yellow warnings = should fix but not blocking</li>
 <li>
@@ -4235,73 +4233,81 @@
 <p>Re-run <code>/craft:check</code> to verify fixes</p>
 </li>
 <li>
-<p><strong>Commit with confidence</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add new feature&quot;</span>
-</span></code></pre></div>
-   Why: Your code has passed all quality checks</p>
+<p><strong>Commit with confidence</strong></p>
 </li>
 </ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add new feature&quot;</span>
+</span></code></pre></div>
+<p>Why: Your code has passed all quality checks</p>
 <h2 id="explanation">Explanation<a class="headerlink" href="#explanation" title="Permanent link">&para;</a></h2>
 <p><code>/craft:check</code> is a universal pre-flight validator that runs appropriate checks based on your project type:</p>
-<p><strong>For all projects:</strong>
-- Git status check (clean working directory, on correct branch)
-- File count validation (no massive unintended changes)
-- Documentation links validation</p>
-<p><strong>For Node.js projects:</strong>
-- <code>npm run lint</code> or <code>eslint</code> checks code style
-- <code>npm test</code> runs unit tests
-- <code>package.json</code> validation
-- Dependency audit for security issues</p>
-<p><strong>For Python projects:</strong>
-- <code>flake8</code> or <code>black</code> checks code formatting
-- <code>pytest</code> runs tests
-- <code>mypy</code> type checking (if configured)
-- <code>bandit</code> security scan</p>
-<p><strong>For R packages:</strong>
-- <code>R CMD check</code> validates package structure
-- <code>lintr</code> checks code style
-- Test coverage check
-- Documentation completeness</p>
-<p><strong>For Quarto/Markdown projects:</strong>
-- Link validation (no broken internal links)
-- Image reference checks
-- YAML frontmatter validation
-- Spell checking (if configured)</p>
+<p><strong>For all projects:</strong></p>
+<ul>
+<li>Git status check (clean working directory, on correct branch)</li>
+<li>File count validation (no massive unintended changes)</li>
+<li>Documentation links validation</li>
+</ul>
+<p><strong>For Node.js projects:</strong></p>
+<ul>
+<li><code>npm run lint</code> or <code>eslint</code> checks code style</li>
+<li><code>npm test</code> runs unit tests</li>
+<li><code>package.json</code> validation</li>
+<li>Dependency audit for security issues</li>
+</ul>
+<p><strong>For Python projects:</strong></p>
+<ul>
+<li><code>flake8</code> or <code>black</code> checks code formatting</li>
+<li><code>pytest</code> runs tests</li>
+<li><code>mypy</code> type checking (if configured)</li>
+<li><code>bandit</code> security scan</li>
+</ul>
+<p><strong>For R packages:</strong></p>
+<ul>
+<li><code>R CMD check</code> validates package structure</li>
+<li><code>lintr</code> checks code style</li>
+<li>Test coverage check</li>
+<li>Documentation completeness</li>
+</ul>
+<p><strong>For Quarto/Markdown projects:</strong></p>
+<ul>
+<li>Link validation (no broken internal links)</li>
+<li>Image reference checks</li>
+<li>YAML frontmatter validation</li>
+<li>Spell checking (if configured)</li>
+</ul>
 <p>The command is smart about what to run and fails fast if critical issues are found.</p>
 <h2 id="variations">Variations<a class="headerlink" href="#variations" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p><strong>Run only lint checks:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:code:lint
-</span></code></pre></div>
-  Use when you only want to check code style without running tests</p>
-</li>
-<li>
-<p><strong>Run only tests:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:test:run
-</span></code></pre></div>
-  Use when you want to run tests without linting</p>
-</li>
-<li>
-<p><strong>Verbose output for debugging:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:check<span class="w"> </span>debug
-</span></code></pre></div>
-  Shows detailed information about what's being checked</p>
-</li>
-<li>
-<p><strong>Optimize mode for faster checks:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:check<span class="w"> </span>optimize
-</span></code></pre></div>
-  Skips slow checks, focuses on critical validations</p>
-</li>
-<li>
-<p><strong>Release mode for thorough validation:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:check<span class="w"> </span>release
-</span></code></pre></div>
-  Runs all possible checks, including slow ones (use before releases)</p>
-</li>
+<li><strong>Run only lint checks:</strong></li>
 </ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:code:lint
+</span></code></pre></div>
+<p>Use when you only want to check code style without running tests</p>
+<ul>
+<li><strong>Run only tests:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:test:run
+</span></code></pre></div>
+<p>Use when you want to run tests without linting</p>
+<ul>
+<li><strong>Verbose output for debugging:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:check<span class="w"> </span>debug
+</span></code></pre></div>
+<p>Shows detailed information about what's being checked</p>
+<ul>
+<li><strong>Optimize mode for faster checks:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:check<span class="w"> </span>optimize
+</span></code></pre></div>
+<p>Skips slow checks, focuses on critical validations</p>
+<ul>
+<li><strong>Release mode for thorough validation:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:check<span class="w"> </span>release
+</span></code></pre></div>
+<p>Runs all possible checks, including slow ones (use before releases)</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4339,10 +4345,10 @@
 </table>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../../../commands/check/">Check Command Reference</a> — Full documentation</li>
-<li><a href="../../commands/code/lint.md">Lint Command</a> — Code style checks only</li>
-<li><a href="../../commands/test/run.md">Test Run Command</a> — Test execution only</li>
-<li><a href="../../commands/code/ci-local.md">CI Local Command</a> — Run full CI checks locally</li>
+<li><a href="../../../commands/check.md">Check Command Reference</a> — Full documentation</li>
+<li><a href="../../../commands/code/lint.md">Lint Command</a> — Code style checks only</li>
+<li><a href="../../../commands/test/run.md">Test Run Command</a> — Test execution only</li>
+<li><a href="../../../commands/code/ci-local.md">CI Local Command</a> — Run full CI checks locally</li>
 <li><a href="../automate-release-workflow/">Automate Release Workflow</a> — Set up CI automation</li>
 </ul>
 

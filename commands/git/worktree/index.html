@@ -4017,7 +4017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4479,7 +4479,7 @@
 <h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:git:worktree<span class="w"> </span>&lt;action&gt;<span class="w"> </span><span class="o">[</span>branch<span class="o">]</span>
 </span></code></pre></div>
-<p><strong>Quick examples:</strong>
+<p><strong>Quick examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># First-time setup</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:git:worktree<span class="w"> </span>setup
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -4491,15 +4491,17 @@
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># Complete feature workflow</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>/craft:git:worktree<span class="w"> </span>finish
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
 <p>Manage git worktrees to work on multiple branches simultaneously without switching. Each branch gets its own folder, eliminating stash juggling and context switching.</p>
-<p><strong>Why worktrees?</strong>
-- <strong>No branch switching</strong> - Each branch has its own folder
-- <strong>Parallel development</strong> - Work on feature + hotfix at same time
-- <strong>Claude Code friendly</strong> - Each terminal/session stays on its branch
-- <strong>No stash juggling</strong> - Uncommitted work stays put</p>
+<p><strong>Why worktrees?</strong></p>
+<ul>
+<li><strong>No branch switching</strong> - Each branch has its own folder</li>
+<li><strong>Parallel development</strong> - Work on feature + hotfix at same time</li>
+<li><strong>Claude Code friendly</strong> - Each terminal/session stays on its branch</li>
+<li><strong>No stash juggling</strong> - Uncommitted work stays put</li>
+</ul>
 <hr />
 <h2 id="actions">Actions<a class="headerlink" href="#actions" title="Permanent link">&para;</a></h2>
 <table>
@@ -4643,11 +4645,11 @@
 </span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>│     /craft:git:worktree clean                       │
 </span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>╰─────────────────────────────────────────────────────╯
 </span></code></pre></div>
-<p><strong>Flags:</strong>
+<p><strong>Flags:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:git:worktree<span class="w"> </span>finish<span class="w"> </span>--skip-tests<span class="w">    </span><span class="c1"># Skip test step</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>/craft:git:worktree<span class="w"> </span>finish<span class="w"> </span>--draft<span class="w">         </span><span class="c1"># Create draft PR</span>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>/craft:git:worktree<span class="w"> </span>finish<span class="w"> </span>--target<span class="w"> </span>main<span class="w">   </span><span class="c1"># Target main instead of dev</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="dependency-installation">Dependency Installation<a class="headerlink" href="#dependency-installation" title="Permanent link">&para;</a></h2>
 <p>Auto-detects project type and installs dependencies:</p>
@@ -4819,7 +4821,7 @@
 <ul>
 <li><strong>Pre-flight check:</strong> <code>/craft:check</code> - Validates before commit/PR</li>
 <li><strong>Branch cleanup:</strong> <code>/craft:git:clean</code> - Clean merged branches</li>
-<li><strong>Workflow:</strong> <a href="../workflows/git-feature-workflow.md">Git Feature Workflow</a></li>
+<li><strong>Workflow:</strong> <a href="../../../workflows/git-feature-workflow/">Git Feature Workflow</a></li>
 </ul>
 
 

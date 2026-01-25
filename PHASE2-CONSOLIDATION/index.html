@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4806,11 +4806,13 @@
 <li><code>test_database_design_skill_basic()</code></li>
 </ol>
 <h3 id="remaining-gaps">Remaining Gaps<a class="headerlink" href="#remaining-gaps" title="Permanent link">&para;</a></h3>
-<p><strong>Low Priority Areas:</strong>
-- Demo code blocks in commands (intentionally skipped)
-- Complex agent frontmatter validation
-- Skill cross-reference validation
-- Hook system testing</p>
+<p><strong>Low Priority Areas:</strong></p>
+<ul>
+<li>Demo code blocks in commands (intentionally skipped)</li>
+<li>Complex agent frontmatter validation</li>
+<li>Skill cross-reference validation</li>
+<li>Hook system testing</li>
+</ul>
 <p><strong>Recommendation:</strong> Current 84% coverage is excellent for the project type. Focus on feature development rather than pushing to 100%.</p>
 <h3 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h3>
 <ul>
@@ -4822,14 +4824,14 @@
 <h2 id="component-2-help-system-consolidation">Component 2: Help System Consolidation<a class="headerlink" href="#component-2-help-system-consolidation" title="Permanent link">&para;</a></h2>
 <p><strong>Result:</strong> Merged all help/ files into commands/ with proper organization</p>
 <h3 id="files-reorganized">Files Reorganized<a class="headerlink" href="#files-reorganized" title="Permanent link">&para;</a></h3>
-<p><strong>Before:</strong>
+<p><strong>Before:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docs/help/
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── check.md
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── git-worktree.md
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── ci-generate.md
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>└── ...
-</span></code></pre></div></p>
-<p><strong>After:</strong>
+</span></code></pre></div>
+<p><strong>After:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>commands/
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── check.md
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── git/
@@ -4837,7 +4839,7 @@
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>├── ci/
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│   └── generate.md
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>└── ...
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="links-fixed-6-files">Links Fixed (6 files)<a class="headerlink" href="#links-fixed-6-files" title="Permanent link">&para;</a></h3>
 <ol>
 <li><code>docs/workflows/pre-commit-workflow.md</code></li>
@@ -4960,30 +4962,38 @@
 </tbody>
 </table>
 <h3 id="documentation-features">Documentation Features<a class="headerlink" href="#documentation-features" title="Permanent link">&para;</a></h3>
-<p>✅ <strong>ADHD-Friendly Formatting</strong>
-- Short paragraphs (&lt; 4 lines)
-- Visual hierarchy (headers, bullets, tables)
-- Scannable layout
-- Time estimates for all sections
-- TL;DR sections at top</p>
-<p>✅ <strong>Beginner-Focused</strong>
-- No assumed knowledge
-- Step-by-step instructions
-- Real examples from STAT 545
-- Troubleshooting for 15+ issues
-- Clear error messages</p>
-<p>✅ <strong>Comprehensive Coverage</strong>
-- 40+ code examples
-- 10+ use case scenarios
-- Complete migration guide
-- Success metrics (before/after)
-- Email templates for team migration</p>
+<p>✅ <strong>ADHD-Friendly Formatting</strong></p>
+<ul>
+<li>Short paragraphs (&lt; 4 lines)</li>
+<li>Visual hierarchy (headers, bullets, tables)</li>
+<li>Scannable layout</li>
+<li>Time estimates for all sections</li>
+<li>TL;DR sections at top</li>
+</ul>
+<p>✅ <strong>Beginner-Focused</strong></p>
+<ul>
+<li>No assumed knowledge</li>
+<li>Step-by-step instructions</li>
+<li>Real examples from STAT 545</li>
+<li>Troubleshooting for 15+ issues</li>
+<li>Clear error messages</li>
+</ul>
+<p>✅ <strong>Comprehensive Coverage</strong></p>
+<ul>
+<li>40+ code examples</li>
+<li>10+ use case scenarios</li>
+<li>Complete migration guide</li>
+<li>Success metrics (before/after)</li>
+<li>Email templates for team migration</li>
+</ul>
 <h3 id="cross-references">Cross-References<a class="headerlink" href="#cross-references" title="Permanent link">&para;</a></h3>
-<p>All documentation is fully cross-referenced:
-- README → Tutorial → Commands → Schema
-- Migration Guide ↔ Tutorial
-- Commands → Tutorial/Schema
-- Index → All documents</p>
+<p>All documentation is fully cross-referenced:</p>
+<ul>
+<li>README → Tutorial → Commands → Schema</li>
+<li>Migration Guide ↔ Tutorial</li>
+<li>Commands → Tutorial/Schema</li>
+<li>Index → All documents</li>
+</ul>
 <h3 id="files_1">Files<a class="headerlink" href="#files_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Complete Report:</strong> <code>TEACHING-DOCS-COMPLETE.md</code></li>
@@ -4998,11 +5008,13 @@
 <p><strong>Result:</strong> New validation tools for documentation quality</p>
 <h3 id="test-validation">Test Validation<a class="headerlink" href="#test-validation" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>TEST-VALIDATION.md</code></p>
-<p>Comprehensive test cases for:
-1. <code>/craft:docs:check-links</code> (link validation)
-2. <code>/craft:docs:lint</code> (markdown linting)
-3. Pre-commit hook integration
-4. <code>/craft:check</code> integration</p>
+<p>Comprehensive test cases for:</p>
+<ol>
+<li><code>/craft:docs:check-links</code> (link validation)</li>
+<li><code>/craft:docs:lint</code> (markdown linting)</li>
+<li>Pre-commit hook integration</li>
+<li><code>/craft:check</code> integration</li>
+</ol>
 <h3 id="test-cases-documented">Test Cases Documented<a class="headerlink" href="#test-cases-documented" title="Permanent link">&para;</a></h3>
 <ol>
 <li><strong>Link Checking (Default Mode)</strong></li>
@@ -5106,13 +5118,15 @@
 <p><strong>Impact:</strong> Users can quickly find recipes matching their available time and energy level.</p>
 <h3 id="troubleshooting-enhancement">Troubleshooting Enhancement<a class="headerlink" href="#troubleshooting-enhancement" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>docs/cookbook/troubleshooting/command-not-found.md</code></p>
-<p>Enhanced with:
-- Direct link to <code>/craft:check</code> command
-- Clear validation workflow
-- Step-by-step verification</p>
+<p>Enhanced with:</p>
+<ul>
+<li>Direct link to <code>/craft:check</code> command</li>
+<li>Clear validation workflow</li>
+<li>Step-by-step verification</li>
+</ul>
 <h3 id="test-documentation-improvement">Test Documentation Improvement<a class="headerlink" href="#test-documentation-improvement" title="Permanent link">&para;</a></h3>
 <p><strong>File:</strong> <code>tests/test_craft_plugin.py</code></p>
-<p>Added docstring to <code>test_no_broken_links()</code>:
+<p>Added docstring to <code>test_no_broken_links()</code>:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="sd">&quot;&quot;&quot;Test for broken internal links in markdown files.</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="sd">NOTE: docs/test-violations.md is intentionally excluded from this test.</span>
@@ -5120,35 +5134,43 @@
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sd">and link validation system. See .linkcheck-ignore for the list of expected</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sd">broken links.</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sd">&quot;&quot;&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Impact:</strong> Future maintainers understand why test-violations.md exists.</p>
 <hr />
 <h2 id="pr-review-enhancements">PR Review &amp; Enhancements<a class="headerlink" href="#pr-review-enhancements" title="Permanent link">&para;</a></h2>
 <h3 id="original-review-score-910">Original Review Score: 9/10<a class="headerlink" href="#original-review-score-910" title="Permanent link">&para;</a></h3>
 <p><strong>Reviewer:</strong> Claude Sonnet 4.5
 <strong>Date:</strong> 2026-01-17</p>
-<p><strong>Strengths:</strong>
-- Excellent organization and consolidation
-- Comprehensive testing coverage improvement
-- ADHD-friendly documentation throughout
-- Clear migration path from help/ to commands/</p>
-<p><strong>Minor Issues Identified:</strong>
-1. ✅ Verify merged help files are complete
-2. ✅ Add test comment for expected failures
-3. ✅ Add time-based navigation to cookbook
-4. ✅ Enhance troubleshooting documentation
-5. ✅ Fix broken help/ references (6 files)
-6. ✅ Replace hardcoded paths in examples</p>
+<p><strong>Strengths:</strong></p>
+<ul>
+<li>Excellent organization and consolidation</li>
+<li>Comprehensive testing coverage improvement</li>
+<li>ADHD-friendly documentation throughout</li>
+<li>Clear migration path from help/ to commands/</li>
+</ul>
+<p><strong>Minor Issues Identified:</strong></p>
+<ol>
+<li>✅ Verify merged help files are complete</li>
+<li>✅ Add test comment for expected failures</li>
+<li>✅ Add time-based navigation to cookbook</li>
+<li>✅ Enhance troubleshooting documentation</li>
+<li>✅ Fix broken help/ references (6 files)</li>
+<li>✅ Replace hardcoded paths in examples</li>
+</ol>
 <h3 id="all-issues-addressed">All Issues Addressed<a class="headerlink" href="#all-issues-addressed" title="Permanent link">&para;</a></h3>
-<p><strong>Commits:</strong>
-- <code>4f0e817</code> - Enhanced Phase 2 with time-based navigation
-- <code>1ce66b5</code> - Fixed all help/ references to commands/ paths
-- <code>29ef2e0</code> - Replaced hardcoded paths with generic paths</p>
-<p><strong>Verification:</strong>
-- ✅ Built MkDocs site successfully
-- ✅ Mermaid diagrams render correctly
-- ✅ All links working
-- ✅ CI validation passing</p>
+<p><strong>Commits:</strong></p>
+<ul>
+<li><code>4f0e817</code> - Enhanced Phase 2 with time-based navigation</li>
+<li><code>1ce66b5</code> - Fixed all help/ references to commands/ paths</li>
+<li><code>29ef2e0</code> - Replaced hardcoded paths with generic paths</li>
+</ul>
+<p><strong>Verification:</strong></p>
+<ul>
+<li>✅ Built MkDocs site successfully</li>
+<li>✅ Mermaid diagrams render correctly</li>
+<li>✅ All links working</li>
+<li>✅ CI validation passing</li>
+</ul>
 <hr />
 <h2 id="current-worktree-status">Current Worktree Status<a class="headerlink" href="#current-worktree-status" title="Permanent link">&para;</a></h2>
 <p><strong>Location:</strong> <code>~/.git-worktrees/craft/feature-website-org-phase2</code>
@@ -5297,18 +5319,22 @@
 </tbody>
 </table>
 <h3 id="developer-experience">Developer Experience<a class="headerlink" href="#developer-experience" title="Permanent link">&para;</a></h3>
-<p><strong>Before Phase 2:</strong>
-- Help system fragmented (help/ vs commands/)
-- Test coverage gaps unknown
-- No teaching mode documentation
-- Broken internal links
-- Hardcoded paths in examples</p>
-<p><strong>After Phase 2:</strong>
-- ✅ Unified command documentation structure
-- ✅ Clear test coverage targets (84% is excellent)
-- ✅ Comprehensive teaching mode docs (1,676 lines)
-- ✅ All internal links validated and working
-- ✅ Generic examples for all documentation</p>
+<p><strong>Before Phase 2:</strong></p>
+<ul>
+<li>Help system fragmented (help/ vs commands/)</li>
+<li>Test coverage gaps unknown</li>
+<li>No teaching mode documentation</li>
+<li>Broken internal links</li>
+<li>Hardcoded paths in examples</li>
+</ul>
+<p><strong>After Phase 2:</strong></p>
+<ul>
+<li>✅ Unified command documentation structure</li>
+<li>✅ Clear test coverage targets (84% is excellent)</li>
+<li>✅ Comprehensive teaching mode docs (1,676 lines)</li>
+<li>✅ All internal links validated and working</li>
+<li>✅ Generic examples for all documentation</li>
+</ul>
 <hr />
 <h2 id="lessons-learned">Lessons Learned<a class="headerlink" href="#lessons-learned" title="Permanent link">&para;</a></h2>
 <h3 id="what-went-well">What Went Well<a class="headerlink" href="#what-went-well" title="Permanent link">&para;</a></h3>
@@ -5393,11 +5419,13 @@
 <h3 id="immediate-this-branch">Immediate (This Branch)<a class="headerlink" href="#immediate-this-branch" title="Permanent link">&para;</a></h3>
 <p>✅ All tasks complete - branch successfully merged to dev</p>
 <h3 id="branch-cleanup">Branch Cleanup<a class="headerlink" href="#branch-cleanup" title="Permanent link">&para;</a></h3>
-<p><strong>Worktree Status:</strong>
-- Worktree exists at <code>~/.git-worktrees/craft/feature-website-org-phase2</code>
-- Remote branch deleted (PR merged)
-- Local branch recovered after accidental removal
-- No uncommitted changes</p>
+<p><strong>Worktree Status:</strong></p>
+<ul>
+<li>Worktree exists at <code>~/.git-worktrees/craft/feature-website-org-phase2</code></li>
+<li>Remote branch deleted (PR merged)</li>
+<li>Local branch recovered after accidental removal</li>
+<li>No uncommitted changes</li>
+</ul>
 <p><strong>Options:</strong></p>
 <ol>
 <li><strong>Keep Worktree as Archive</strong></li>
@@ -5407,8 +5435,10 @@
 <p>Disk space: ~50MB</p>
 </li>
 <li>
-<p><strong>Remove Worktree After Archiving</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Archive important files first</span>
+<p><strong>Remove Worktree After Archiving</strong></p>
+</li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Archive important files first</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/projects/dev-tools/craft/archives/phase2
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>cp<span class="w"> </span>PHASE2-CONSOLIDATION.md<span class="w"> </span>~/projects/dev-tools/craft/archives/phase2/
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>cp<span class="w"> </span>TEST-COVERAGE-REPORT.md<span class="w"> </span>~/projects/dev-tools/craft/archives/phase2/
@@ -5417,9 +5447,7 @@
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Then remove worktree (ONLY after user permission)</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>~/.git-worktrees/craft/feature-website-org-phase2
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/website-org-phase2
-</span></code></pre></div></p>
-</li>
-</ol>
+</span></code></pre></div>
 <p><strong>Recommendation:</strong> Keep worktree for now as reference, remove after v1.22.0 release.</p>
 <h3 id="future-work-v1220">Future Work (v1.22.0+)<a class="headerlink" href="#future-work-v1220" title="Permanent link">&para;</a></h3>
 <p>Based on TODO-teaching-workflow.md:</p>
@@ -5550,18 +5578,24 @@
 </tbody>
 </table>
 <h3 id="team-impact">Team Impact<a class="headerlink" href="#team-impact" title="Permanent link">&para;</a></h3>
-<p><strong>Developers:</strong>
-- Faster onboarding (clear tutorials)
-- Better test coverage confidence
-- Unified documentation structure</p>
-<p><strong>Users:</strong>
-- Teaching mode fully documented
-- Time-based recipe navigation
-- Clear troubleshooting guides</p>
-<p><strong>Maintainers:</strong>
-- Higher test coverage (84%)
-- Automated link validation
-- Clear implementation records</p>
+<p><strong>Developers:</strong></p>
+<ul>
+<li>Faster onboarding (clear tutorials)</li>
+<li>Better test coverage confidence</li>
+<li>Unified documentation structure</li>
+</ul>
+<p><strong>Users:</strong></p>
+<ul>
+<li>Teaching mode fully documented</li>
+<li>Time-based recipe navigation</li>
+<li>Clear troubleshooting guides</li>
+</ul>
+<p><strong>Maintainers:</strong></p>
+<ul>
+<li>Higher test coverage (84%)</li>
+<li>Automated link validation</li>
+<li>Clear implementation records</li>
+</ul>
 <hr />
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>Website Organization Phase 2 successfully achieved all objectives:</p>

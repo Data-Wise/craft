@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4213,10 +4213,12 @@
 <p>Visit the <a href="/docs/index.md">main documentation</a> for getting started.</p>
 <h2 id="test-case-3-markdown-linting-issues">Test Case 3: Markdown Linting Issues<a class="headerlink" href="#test-case-3-markdown-linting-issues" title="Permanent link">&para;</a></h2>
 <h3 id="missing-blank-line-before-list">Missing Blank Line Before List<a class="headerlink" href="#missing-blank-line-before-list" title="Permanent link">&para;</a></h3>
-<p>Some text without blank line before list:
-- Item 1
-- Item 2
-- Item 3</p>
+<p>Some text without blank line before list:</p>
+<ul>
+<li>Item 1</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul>
 <h3 id="code-fence-without-language-tag">Code Fence Without Language Tag<a class="headerlink" href="#code-fence-without-language-tag" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>This code fence has no language tag
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>def example():
@@ -4228,41 +4230,55 @@
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">pass</span>
 </span></code></pre></div>
 <h2 id="test-case-4-mixed-link-styles">Test Case 4: Mixed Link Styles<a class="headerlink" href="#test-case-4-mixed-link-styles" title="Permanent link">&para;</a></h2>
-<p>Some files use relative paths:
-- <a href="guide/quickstart.md">Guide</a>
-- <a href="../docs/tutorial.md">Tutorial</a></p>
-<p>Others use absolute paths:
-- <a href="/docs/commands/index.md">Commands</a>
-- <a href="/docs/reference/api.md">Reference</a></p>
+<p>Some files use relative paths:</p>
+<ul>
+<li><a href="guide/quickstart.md">Guide</a></li>
+<li><a href="../docs/tutorial.md">Tutorial</a></li>
+</ul>
+<p>Others use absolute paths:</p>
+<ul>
+<li><a href="/docs/commands/index.md">Commands</a></li>
+<li><a href="/docs/reference/api.md">Reference</a></li>
+</ul>
 <h2 id="test-case-5-external-links-skipped-in-mvp">Test Case 5: External Links (Skipped in MVP)<a class="headerlink" href="#test-case-5-external-links-skipped-in-mvp" title="Permanent link">&para;</a></h2>
-<p>These should be skipped in internal link checking:
-- <a href="https://github.com/Data-Wise/craft">GitHub</a>
-- <a href="https://data-wise.github.io/craft/">Documentation Site</a>
-- <a href="mailto:example@example.com">Contact</a></p>
+<p>These should be skipped in internal link checking:</p>
+<ul>
+<li><a href="https://github.com/Data-Wise/craft">GitHub</a></li>
+<li><a href="https://data-wise.github.io/craft/">Documentation Site</a></li>
+<li><a href="mailto:example@example.com">Contact</a></li>
+</ul>
 <h2 id="test-case-6-anchor-links-release-mode-only">Test Case 6: Anchor Links (Release Mode Only)<a class="headerlink" href="#test-case-6-anchor-links-release-mode-only" title="Permanent link">&para;</a></h2>
-<p>Links with anchors should work in release mode:
-- <a href="#test-case-1-broken-internal-links">Test Case 1</a>
-- <a href="#test-case-2-valid-internal-links">Test Case 2</a>
-- <a href="#this-heading-does-not-exist">Nonexistent Heading</a></p>
-<p>Cross-file anchor links:
-- <a href="index.md#overview">Index intro</a>
-- <a href="commands/index.md#available-commands">Commands intro</a></p>
+<p>Links with anchors should work in release mode:</p>
+<ul>
+<li><a href="#test-case-1-broken-internal-links">Test Case 1</a></li>
+<li><a href="#test-case-2-valid-internal-links">Test Case 2</a></li>
+<li><a href="#this-heading-does-not-exist">Nonexistent Heading</a></li>
+</ul>
+<p>Cross-file anchor links:</p>
+<ul>
+<li><a href="index.md#overview">Index intro</a></li>
+<li><a href="commands/index.md#available-commands">Commands intro</a></li>
+</ul>
 <h2 id="expected-results">Expected Results<a class="headerlink" href="#expected-results" title="Permanent link">&para;</a></h2>
 <p>When running <code>/craft:docs:check-links</code>:</p>
-<p><strong>Default Mode:</strong>
-- Should find 4 broken internal links:
-  1. nonexistent.md (relative)
-  2. ../missing-directory/file.md (relative)
-  3. /docs/missing-config.md (absolute)
-  4. /docs/reference/nonexistent-api.md (absolute)
-- Should validate 4 valid internal links
-- Should skip external links (https://, mailto:)
-- Should skip anchors (default mode doesn't check them)</p>
-<p><strong>Release Mode:</strong>
-- Should find the same 4 broken internal links
-- Should validate anchor links within same file
-- Should check cross-file anchor links
-- Should detect "this-heading-does-not-exist" as broken anchor</p>
+<p><strong>Default Mode:</strong></p>
+<ul>
+<li>Should find 4 broken internal links:</li>
+<li>nonexistent.md (relative)</li>
+<li>../missing-directory/file.md (relative)</li>
+<li>/docs/missing-config.md (absolute)</li>
+<li>/docs/reference/nonexistent-api.md (absolute)</li>
+<li>Should validate 4 valid internal links</li>
+<li>Should skip external links (https://, mailto:)</li>
+<li>Should skip anchors (default mode doesn't check them)</li>
+</ul>
+<p><strong>Release Mode:</strong></p>
+<ul>
+<li>Should find the same 4 broken internal links</li>
+<li>Should validate anchor links within same file</li>
+<li>Should check cross-file anchor links</li>
+<li>Should detect "this-heading-does-not-exist" as broken anchor</li>
+</ul>
 <h2 id="cleanup-instructions">Cleanup Instructions<a class="headerlink" href="#cleanup-instructions" title="Permanent link">&para;</a></h2>
 <p>After testing, remove this file:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>reset<span class="w"> </span>HEAD<span class="w"> </span>docs/test-violations.md

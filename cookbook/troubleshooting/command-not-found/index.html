@@ -4023,7 +4023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4496,52 +4496,60 @@
 <h2 id="common-causes-solutions">Common Causes &amp; Solutions<a class="headerlink" href="#common-causes-solutions" title="Permanent link">&para;</a></h2>
 <h3 id="1-wrong-command-format">1. Wrong Command Format<a class="headerlink" href="#1-wrong-command-format" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Using shell syntax instead of Claude Code slash command syntax</p>
-<p><strong>Wrong:</strong>
+<p><strong>Wrong:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>craft:check<span class="w">          </span><span class="c1"># Shell format (won&#39;t work)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:check<span class="w">         </span><span class="c1"># Missing colon separator</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>craft<span class="w"> </span>check<span class="w">          </span><span class="c1"># Missing prefix</span>
-</span></code></pre></div></p>
-<p><strong>Correct:</strong>
+</span></code></pre></div>
+<p><strong>Correct:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:check<span class="w">         </span><span class="c1"># Claude Code slash command format</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:do<span class="w"> </span>check<span class="w">      </span><span class="c1"># Smart routing alternative</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Why:</strong> Craft commands are Claude Code slash commands, not shell commands. They must start with <code>/craft:</code> when invoked in Claude Code.</p>
 <h3 id="2-running-in-wrong-environment">2. Running in Wrong Environment<a class="headerlink" href="#2-running-in-wrong-environment" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Trying to run Craft commands in a terminal instead of Claude Code</p>
-<p><strong>Solution:</strong> Craft commands only work inside Claude Code conversations:
-1. Open Claude Code application
-2. Navigate to your project directory
-3. Start a conversation
-4. Run <code>/craft:check</code> or other commands</p>
+<p><strong>Solution:</strong> Craft commands only work inside Claude Code conversations:</p>
+<ol>
+<li>Open Claude Code application</li>
+<li>Navigate to your project directory</li>
+<li>Start a conversation</li>
+<li>Run <code>/craft:check</code> or other commands</li>
+</ol>
 <p><strong>Why:</strong> Craft is a Claude Code plugin that extends Claude's capabilities. It doesn't install shell commands.</p>
 <h3 id="3-plugin-not-loaded">3. Plugin Not Loaded<a class="headerlink" href="#3-plugin-not-loaded" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Craft plugin hasn't been loaded in the current session</p>
-<p><strong>Solution:</strong>
-1. Check if plugin is installed: Look for <code>.claude-plugin/</code> directory in your Craft repository
-2. Restart Claude Code application
-3. Verify plugin location: <code>~/.claude/</code> or project-specific location
-4. Check plugin settings in <code>~/.claude/settings.json</code></p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check if plugin is installed: Look for <code>.claude-plugin/</code> directory in your Craft repository</li>
+<li>Restart Claude Code application</li>
+<li>Verify plugin location: <code>~/.claude/</code> or project-specific location</li>
+<li>Check plugin settings in <code>~/.claude/settings.json</code></li>
+</ol>
 <p><strong>Why:</strong> Claude Code loads plugins at startup from configured locations.</p>
 <h3 id="4-typo-in-command-name">4. Typo in Command Name<a class="headerlink" href="#4-typo-in-command-name" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Misspelling the command name</p>
-<p><strong>Common typos:</strong>
-- <code>/craft:checks</code> → <code>/craft:check</code> (extra 's')
-- <code>/craft:do-check</code> → <code>/craft:do check</code> (hyphen vs space)
-- <code>/craft:git-init</code> → <code>/craft:git:init</code> (hyphen vs colon)</p>
-<p><strong>Solution:</strong> Use tab completion or check <a href="../../commands/index.md">Commands Reference</a> for exact command names</p>
+<p><strong>Common typos:</strong></p>
+<ul>
+<li><code>/craft:checks</code> → <code>/craft:check</code> (extra 's')</li>
+<li><code>/craft:do-check</code> → <code>/craft:do check</code> (hyphen vs space)</li>
+<li><code>/craft:git-init</code> → <code>/craft:git:init</code> (hyphen vs colon)</li>
+</ul>
+<p><strong>Solution:</strong> Use tab completion or check <a href="../../../commands/hub.md">Commands Reference</a> for exact command names</p>
 <h3 id="5-command-doesnt-exist">5. Command Doesn't Exist<a class="headerlink" href="#5-command-doesnt-exist" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Trying to use a command that hasn't been created yet</p>
-<p><strong>Solution:</strong>
-1. Check the <a href="../../commands/index.md">Commands Index</a> for available commands
-2. Use <code>/craft:do &lt;task&gt;</code> for smart routing (it will suggest correct commands)
-3. Check if you need to update to a newer version of Craft</p>
-<p><strong>Example:</strong>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check the <a href="../../../commands/hub.md">Commands Index</a> for available commands</li>
+<li>Use <code>/craft:do &lt;task&gt;</code> for smart routing (it will suggest correct commands)</li>
+<li>Check if you need to update to a newer version of Craft</li>
+</ol>
+<p><strong>Example:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Instead of guessing command names</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:validate-links<span class="w">  </span><span class="c1"># Might not exist</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Use smart routing</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>/craft:do<span class="w"> </span>validate<span class="w"> </span>links<span class="w">  </span><span class="c1"># Routes to correct command</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="verification-steps">Verification Steps<a class="headerlink" href="#verification-steps" title="Permanent link">&para;</a></h2>
 <h3 id="check-plugin-installation">Check Plugin Installation<a class="headerlink" href="#check-plugin-installation" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># In Claude Code conversation</span>
@@ -4616,7 +4624,7 @@
 <ul>
 <li><a href="../../../guide/getting-started/">Getting Started Guide</a> — Complete setup instructions</li>
 <li><a href="../../../ADHD-QUICK-START/">ADHD Quick Start</a> — 30-second quick start</li>
-<li><a href="../../commands/index.md">Commands Index</a> — Full command reference</li>
+<li><a href="../../../commands/hub.md">Commands Index</a> — Full command reference</li>
 <li><a href="../../../commands/do/">Do Command</a> — Smart routing for finding commands</li>
 </ul>
 

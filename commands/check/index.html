@@ -4012,7 +4012,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4469,7 +4469,7 @@
 <h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:check<span class="w"> </span><span class="o">[</span>mode<span class="o">]</span><span class="w"> </span><span class="o">[</span>--for<span class="w"> </span>TARGET<span class="o">]</span>
 </span></code></pre></div>
-<p><strong>Quick examples:</strong>
+<p><strong>Quick examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Most common - quick validation</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:check
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -4478,20 +4478,24 @@
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Pre-PR validation</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>pr
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
 <p>Runs appropriate checks for your project type and context. Auto-detects Python, Node.js, R, Go, and Rust projects, then executes the right linting, testing, and validation tools.</p>
-<p><strong>Use cases:</strong>
-- Quick sanity check before committing
-- Full validation before creating a PR
-- Pre-release verification
-- CI simulation locally</p>
-<p><strong>What it does:</strong>
-- Detects project type from marker files (package.json, pyproject.toml, etc.)
-- Detects if running in a git worktree
-- Runs appropriate lint, test, and security checks
-- Reports status with clear pass/fail indicators</p>
+<p><strong>Use cases:</strong></p>
+<ul>
+<li>Quick sanity check before committing</li>
+<li>Full validation before creating a PR</li>
+<li>Pre-release verification</li>
+<li>CI simulation locally</li>
+</ul>
+<p><strong>What it does:</strong></p>
+<ul>
+<li>Detects project type from marker files (package.json, pyproject.toml, etc.)</li>
+<li>Detects if running in a git worktree</li>
+<li>Runs appropriate lint, test, and security checks</li>
+<li>Reports status with clear pass/fail indicators</li>
+</ul>
 <hr />
 <h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>

@@ -4023,7 +4023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4487,12 +4487,14 @@
 <p><strong>Standard tools for capturing Claude Code CLI sessions</strong></p>
 <hr />
 <h2 id="default-method-asciinema-agg">Default Method: asciinema + agg<a class="headerlink" href="#default-method-asciinema-agg" title="Permanent link">&para;</a></h2>
-<p><strong>Why this is the standard for Craft commands:</strong>
-- Records REAL Claude Code output (not simulated)
-- Works for both bash commands AND plugin commands
-- Captures actual formatting, colors, timing
-- Easy to re-record if output changes
-- High-quality GIF conversion with gifski</p>
+<p><strong>Why this is the standard for Craft commands:</strong></p>
+<ul>
+<li>Records REAL Claude Code output (not simulated)</li>
+<li>Works for both bash commands AND plugin commands</li>
+<li>Captures actual formatting, colors, timing</li>
+<li>Easy to re-record if output changes</li>
+<li>High-quality GIF conversion with gifski</li>
+</ul>
 <p><strong>Alternative:</strong> VHS for scripted/repeatable demos (<code>/craft:docs:demo --method vhs</code>)</p>
 <hr />
 <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
@@ -4695,9 +4697,11 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Recommendation:</strong>
-- Use <strong>asciinema + agg</strong> for Craft plugin commands (need real output)
-- Use <strong>VHS</strong> for pure CLI tools (can script Type commands)</p>
+<p><strong>Recommendation:</strong></p>
+<ul>
+<li>Use <strong>asciinema + agg</strong> for Craft plugin commands (need real output)</li>
+<li>Use <strong>VHS</strong> for pure CLI tools (can script Type commands)</li>
+</ul>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="gif-is-too-large">GIF is too large<a class="headerlink" href="#gif-is-too-large" title="Permanent link">&para;</a></h3>

@@ -4331,7 +4331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5434,19 +5434,23 @@
 <hr />
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <h3 id="bash-scripting">Bash Scripting<a class="headerlink" href="#bash-scripting" title="Permanent link">&para;</a></h3>
-<p><strong>DO</strong>:
-- ✅ Use <code>set -uo pipefail</code> for strict mode
-- ✅ Quote all variables: <code>"$var"</code> not <code>$var</code>
-- ✅ Use <code>local</code> for function variables
-- ✅ Check exit codes explicitly
-- ✅ Provide meaningful error messages
-- ✅ Use <code>readonly</code> for constants</p>
-<p><strong>DON'T</strong>:
-- ❌ Use <code>set -e</code> in test scripts (prevents error collection)
-- ❌ Parse <code>ls</code> output (use globs or <code>find</code>)
-- ❌ Use <code>eval</code> without validation
-- ❌ Ignore error return values
-- ❌ Use global variables without <code>readonly</code></p>
+<p><strong>DO</strong>:</p>
+<ul>
+<li>✅ Use <code>set -uo pipefail</code> for strict mode</li>
+<li>✅ Quote all variables: <code>"$var"</code> not <code>$var</code></li>
+<li>✅ Use <code>local</code> for function variables</li>
+<li>✅ Check exit codes explicitly</li>
+<li>✅ Provide meaningful error messages</li>
+<li>✅ Use <code>readonly</code> for constants</li>
+</ul>
+<p><strong>DON'T</strong>:</p>
+<ul>
+<li>❌ Use <code>set -e</code> in test scripts (prevents error collection)</li>
+<li>❌ Parse <code>ls</code> output (use globs or <code>find</code>)</li>
+<li>❌ Use <code>eval</code> without validation</li>
+<li>❌ Ignore error return values</li>
+<li>❌ Use global variables without <code>readonly</code></li>
+</ul>
 <h3 id="error-messages">Error Messages<a class="headerlink" href="#error-messages" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Good: Actionable error message</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ERROR: File not found: </span><span class="nv">$file_path</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>

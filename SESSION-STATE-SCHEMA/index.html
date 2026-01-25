@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4447,11 +4447,13 @@
 <strong>Purpose</strong>: Define the canonical session state format for orchestration teleportation</p>
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>This document defines the JSON schema for orchestration session state, enabling:
-- Cross-device session resume
-- Session teleportation via Claude Desktop
-- Session archival and recovery
-- Team collaboration on orchestration</p>
+<p>This document defines the JSON schema for orchestration session state, enabling:</p>
+<ul>
+<li>Cross-device session resume</li>
+<li>Session teleportation via Claude Desktop</li>
+<li>Session archival and recovery</li>
+<li>Team collaboration on orchestration</li>
+</ul>
 <hr />
 <h2 id="root-schema">Root Schema<a class="headerlink" href="#root-schema" title="Permanent link">&para;</a></h2>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
@@ -4577,20 +4579,24 @@
 </span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="p">}</span>
 </span></code></pre></div>
-<p><strong>Agent Status Values</strong>:
-- <code>pending</code>: Not yet started
-- <code>running</code>: Currently executing
-- <code>completed</code>: Finished successfully
-- <code>error</code>: Failed with error
-- <code>timeout</code>: Exceeded time limit</p>
-<p><strong>Agent Type Values</strong>:
-- <code>feature-dev</code>
-- <code>backend-architect</code>
-- <code>bug-detective</code>
-- <code>code-quality-reviewer</code>
-- <code>test-specialist</code>
-- <code>doc-writer</code>
-- Custom agent types</p>
+<p><strong>Agent Status Values</strong>:</p>
+<ul>
+<li><code>pending</code>: Not yet started</li>
+<li><code>running</code>: Currently executing</li>
+<li><code>completed</code>: Finished successfully</li>
+<li><code>error</code>: Failed with error</li>
+<li><code>timeout</code>: Exceeded time limit</li>
+</ul>
+<p><strong>Agent Type Values</strong>:</p>
+<ul>
+<li><code>feature-dev</code></li>
+<li><code>backend-architect</code></li>
+<li><code>bug-detective</code></li>
+<li><code>code-quality-reviewer</code></li>
+<li><code>test-specialist</code></li>
+<li><code>doc-writer</code></li>
+<li>Custom agent types</li>
+</ul>
 <p><strong>Example</strong>:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arch-1&quot;</span><span class="p">,</span>
@@ -4617,26 +4623,26 @@
 <ul>
 <li><strong>Type</strong>: array of strings</li>
 <li><strong>Purpose</strong>: List of completed tasks (human-readable)</li>
-<li><strong>Example</strong>:
+<li><strong>Example</strong>:</li>
+</ul>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">[</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="s2">&quot;Architecture design (OAuth 2.0 with PKCE)&quot;</span><span class="p">,</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="s2">&quot;Code stubs created (src/auth/oauth.ts)&quot;</span><span class="p">,</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="s2">&quot;Unit tests scaffolded (tests/auth.test.ts)&quot;</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">]</span>
-</span></code></pre></div></li>
-</ul>
+</span></code></pre></div>
 <h4 id="pending_tasks-required"><code>pending_tasks</code> (required)<a class="headerlink" href="#pending_tasks-required" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Type</strong>: array of strings</li>
 <li><strong>Purpose</strong>: List of remaining tasks</li>
-<li><strong>Example</strong>:
+<li><strong>Example</strong>:</li>
+</ul>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">[</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="s2">&quot;Complete code-1 implementation (60% → 100%)&quot;</span><span class="p">,</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="s2">&quot;Add unit tests (test-1)&quot;</span><span class="p">,</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="s2">&quot;Update documentation (doc-1)&quot;</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">]</span>
-</span></code></pre></div></li>
-</ul>
+</span></code></pre></div>
 <h4 id="decisions_made-required"><code>decisions_made</code> (required)<a class="headerlink" href="#decisions_made-required" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Type</strong>: array of Decision objects</li>
@@ -4912,15 +4918,17 @@
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>jsonschema<span class="w"> </span>-i<span class="w"> </span>session.json<span class="w"> </span>schema/session-state-v1.json
 </span></code></pre></div>
 <h3 id="required-field-check">Required Field Check<a class="headerlink" href="#required-field-check" title="Permanent link">&para;</a></h3>
-<p>All session files must include:
-- ✅ <code>schema_version</code>
-- ✅ <code>session_id</code>
-- ✅ <code>created_at</code>, <code>updated_at</code>
-- ✅ <code>device</code>, <code>project</code>, <code>goal</code>
-- ✅ <code>mode</code>, <code>status</code>, <code>progress</code>
-- ✅ <code>agents[]</code>, <code>completed_work[]</code>, <code>pending_tasks[]</code>
-- ✅ <code>files_modified[]</code>, <code>context_usage{}</code>
-- ✅ <code>teleportation{}</code></p>
+<p>All session files must include:</p>
+<ul>
+<li>✅ <code>schema_version</code></li>
+<li>✅ <code>session_id</code></li>
+<li>✅ <code>created_at</code>, <code>updated_at</code></li>
+<li>✅ <code>device</code>, <code>project</code>, <code>goal</code></li>
+<li>✅ <code>mode</code>, <code>status</code>, <code>progress</code></li>
+<li>✅ <code>agents[]</code>, <code>completed_work[]</code>, <code>pending_tasks[]</code></li>
+<li>✅ <code>files_modified[]</code>, <code>context_usage{}</code></li>
+<li>✅ <code>teleportation{}</code></li>
+</ul>
 <hr />
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>

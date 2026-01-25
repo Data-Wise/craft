@@ -4067,7 +4067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4580,7 +4580,7 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orchestrate<span class="w"> </span>&lt;task&gt;<span class="w"> </span><span class="o">[</span>mode<span class="o">]</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:orchestrate<span class="w"> </span>&lt;command&gt;
 </span></code></pre></div>
-<p><strong>Quick examples:</strong>
+<p><strong>Quick examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Start orchestrated workflow</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -4591,17 +4591,19 @@
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:orchestrate<span class="w"> </span>status
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>/craft:orchestrate<span class="w"> </span>timeline
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>/craft:orchestrate<span class="w"> </span>abort
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
 <p>Activates Orchestrator v2.1 mode which decomposes complex tasks into subtasks, spawns background subagents to work in parallel, monitors progress, and manages context compression.</p>
-<p><strong>What it does:</strong>
-1. <strong>Analyzes</strong> your task and decomposes into subtasks
-2. <strong>Spawns</strong> background subagents to work in parallel
-3. <strong>Monitors</strong> progress with visual status dashboard
-4. <strong>Tracks</strong> context usage with token estimation
-5. <strong>Compresses</strong> chat when approaching limits
-6. <strong>Reports</strong> results with ADHD-friendly formatting</p>
+<p><strong>What it does:</strong></p>
+<ol>
+<li><strong>Analyzes</strong> your task and decomposes into subtasks</li>
+<li><strong>Spawns</strong> background subagents to work in parallel</li>
+<li><strong>Monitors</strong> progress with visual status dashboard</li>
+<li><strong>Tracks</strong> context usage with token estimation</li>
+<li><strong>Compresses</strong> chat when approaching limits</li>
+<li><strong>Reports</strong> results with ADHD-friendly formatting</li>
+</ol>
 <hr />
 <h2 id="modes">Modes<a class="headerlink" href="#modes" title="Permanent link">&para;</a></h2>
 <table>
@@ -4640,11 +4642,11 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Examples:</strong>
+<p><strong>Examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>optimize<span class="w">    </span><span class="c1"># Fast parallel</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;prep release&quot;</span><span class="w"> </span>release<span class="w"> </span><span class="c1"># Thorough audit</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;debug login&quot;</span><span class="w"> </span>debug<span class="w">    </span><span class="c1"># Sequential verbose</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="control-commands">Control Commands<a class="headerlink" href="#control-commands" title="Permanent link">&para;</a></h2>
 <p>During orchestration, use these commands:</p>
@@ -4791,10 +4793,10 @@
 </span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Fix<span class="w"> </span>parsing<span class="w"> </span>bug<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">complete</span><span class="w"> </span><span class="p">|</span>
 </span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Refactor<span class="w"> </span>CLI<span class="w"> </span><span class="p">|</span><span class="w"> </span>abandoned<span class="w"> </span><span class="p">|</span>
 </span></code></pre></div>
-<p><strong>State file locations:</strong>
+<p><strong>State file locations:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>.claude/orchestrator-session.json     # Current session
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>.claude/orchestrator-history/         # Archived sessions
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="context-monitoring">Context Monitoring<a class="headerlink" href="#context-monitoring" title="Permanent link">&para;</a></h2>
 <p>The orchestrator tracks context usage:</p>
@@ -4824,11 +4826,13 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Automatic triggers:</strong>
-- Exchange count &gt; 20
-- Large agent response (&gt; 3000 tokens)
-- Claude system warning about context
-- User says "getting long"</p>
+<p><strong>Automatic triggers:</strong></p>
+<ul>
+<li>Exchange count &gt; 20</li>
+<li>Large agent response (&gt; 3000 tokens)</li>
+<li>Claude system warning about context</li>
+<li>User says "getting long"</li>
+</ul>
 <hr />
 <h2 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">&para;</a></h2>
 <p>When context gets high, compression archives completed work:</p>
@@ -4848,24 +4852,28 @@
 </span></code></pre></div>
 <hr />
 <h2 id="integration">Integration<a class="headerlink" href="#integration" title="Permanent link">&para;</a></h2>
-<p>Works with all craft commands:
-- Routes to <code>/craft:arch:*</code> for design tasks
-- Routes to <code>/craft:code:*</code> for implementation
-- Routes to <code>/craft:test:*</code> for testing
-- Routes to <code>/craft:docs:*</code> for documentation
-- Routes to <code>/brainstorm</code> (v2.4.0) for context gathering</p>
+<p>Works with all craft commands:</p>
+<ul>
+<li>Routes to <code>/craft:arch:*</code> for design tasks</li>
+<li>Routes to <code>/craft:code:*</code> for implementation</li>
+<li>Routes to <code>/craft:test:*</code> for testing</li>
+<li>Routes to <code>/craft:docs:*</code> for documentation</li>
+<li>Routes to <code>/brainstorm</code> (v2.4.0) for context gathering</li>
+</ul>
 <hr />
 <h2 id="orchestrating-brainstorm-sessions-v240-new">Orchestrating Brainstorm Sessions (v2.4.0 NEW)<a class="headerlink" href="#orchestrating-brainstorm-sessions-v240-new" title="Permanent link">&para;</a></h2>
 <p>The orchestrator coordinates complex workflows that include context gathering with <code>/brainstorm</code>:</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;plan new authentication feature&quot;</span>
 </span></code></pre></div>
-<p>Flow:
-1. Brainstorm d:8 with categories for comprehensive context
-2. Spawn backend-architect agent for design
-3. Spawn frontend specialist for UI
-4. Coordinate test strategy
-5. Synthesize into implementation plan</p>
+<p>Flow:</p>
+<ol>
+<li>Brainstorm d:8 with categories for comprehensive context</li>
+<li>Spawn backend-architect agent for design</li>
+<li>Spawn frontend specialist for UI</li>
+<li>Coordinate test strategy</li>
+<li>Synthesize into implementation plan</li>
+</ol>
 <h3 id="brainstorm-orchestration-patterns">Brainstorm + Orchestration Patterns<a class="headerlink" href="#brainstorm-orchestration-patterns" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Quick context then implement</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add payment&quot;</span><span class="w"> </span>default

@@ -3884,7 +3884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4213,27 +4213,25 @@
 <p>I want to safely publish course website updates to GitHub Pages without breaking existing content.</p>
 <h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p><strong>Preview changes locally</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:site:build
+<li><strong>Preview changes locally</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:site:build
 </span></code></pre></div>
-   Why: Builds the site locally so you can review changes before publishing</p>
-</li>
-<li>
-<p><strong>Check for issues</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:site:check
+<p>Why: Builds the site locally so you can review changes before publishing</p>
+<ol>
+<li><strong>Check for issues</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:site:check
 </span></code></pre></div>
-   Why: Validates links, images, and common issues that could break the site</p>
-</li>
-<li>
-<p><strong>Deploy to GitHub Pages</strong>
-   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:site:deploy
+<p>Why: Validates links, images, and common issues that could break the site</p>
+<ol>
+<li><strong>Deploy to GitHub Pages</strong></li>
+</ol>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:site:deploy
 </span></code></pre></div>
-   Why: Publishes to <code>gh-pages</code> branch with automatic backup and rollback support</p>
-</li>
-<li>
-<p><strong>Verify deployment</strong></p>
-</li>
+<p>Why: Publishes to <code>gh-pages</code> branch with automatic backup and rollback support</p>
+<ol>
+<li><strong>Verify deployment</strong></li>
 <li>Check the deployment URL (shown in output)</li>
 <li>Verify all pages load correctly</li>
 <li>Test navigation and links</li>
@@ -4278,31 +4276,29 @@
 </ol>
 <h2 id="variations">Variations<a class="headerlink" href="#variations" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p><strong>Preview without deploying:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:site:build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>/craft:site:check
-</span></code></pre></div>
-  Use when you want to review changes but not publish yet</p>
-</li>
-<li>
-<p><strong>Deploy with custom message:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:site:deploy<span class="w"> </span><span class="s2">&quot;Update Week 3 materials&quot;</span>
-</span></code></pre></div>
-  Adds a descriptive commit message to <code>gh-pages</code> branch</p>
-</li>
-<li>
-<p><strong>Skip validation (not recommended):</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:site:deploy<span class="w"> </span>--skip-checks
-</span></code></pre></div>
-  Use only if you're confident the site is valid and need to deploy urgently</p>
-</li>
-<li>
-<p><strong>Deploy to custom branch:</strong>
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:site:deploy<span class="w"> </span>--branch<span class="w"> </span>docs
-</span></code></pre></div>
-  Use if your GitHub Pages serves from a branch other than <code>gh-pages</code></p>
-</li>
+<li><strong>Preview without deploying:</strong></li>
 </ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:site:build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>/craft:site:check
+</span></code></pre></div>
+<p>Use when you want to review changes but not publish yet</p>
+<ul>
+<li><strong>Deploy with custom message:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:site:deploy<span class="w"> </span><span class="s2">&quot;Update Week 3 materials&quot;</span>
+</span></code></pre></div>
+<p>Adds a descriptive commit message to <code>gh-pages</code> branch</p>
+<ul>
+<li><strong>Skip validation (not recommended):</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:site:deploy<span class="w"> </span>--skip-checks
+</span></code></pre></div>
+<p>Use only if you're confident the site is valid and need to deploy urgently</p>
+<ul>
+<li><strong>Deploy to custom branch:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:site:deploy<span class="w"> </span>--branch<span class="w"> </span>docs
+</span></code></pre></div>
+<p>Use if your GitHub Pages serves from a branch other than <code>gh-pages</code></p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4340,9 +4336,9 @@
 </table>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../../commands/site/deploy.md">Site Deploy Command</a> — Full command reference</li>
-<li><a href="../../commands/site/build.md">Site Build Command</a> — Local preview workflow</li>
-<li><a href="../../commands/site/check.md">Site Check Command</a> — Validation details</li>
+<li><a href="../../../commands/site/deploy.md">Site Deploy Command</a> — Full command reference</li>
+<li><a href="../../../commands/site/build.md">Site Build Command</a> — Local preview workflow</li>
+<li><a href="../../../commands/site/check.md">Site Check Command</a> — Validation details</li>
 <li><a href="../../../guide/teaching-workflow/">Teaching Workflow Guide</a> — Complete teaching mode features</li>
 </ul>
 

@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4694,11 +4694,13 @@
 <h1 id="claude-code-210-integration-guide">Claude Code 2.1.0 Integration Guide<a class="headerlink" href="#claude-code-210-integration-guide" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>25 minutes</strong> • 🟠 Advanced • ✓ Complete guide</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> Claude Code 2.1.0 adds intelligent task routing with complexity scoring and hot-reload validators
-- <strong>Why:</strong> Automatically choose between commands, agents, and orchestration based on task difficulty
-- <strong>How:</strong> Use <code>/craft:do "task"</code> and the system scores (0-10) and routes intelligently
-- <strong>Next:</strong> Read about <a href="../dependency-management-advanced/">Dependency Management</a> or <a href="../integration-testing/">Integration Tests</a></p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> Claude Code 2.1.0 adds intelligent task routing with complexity scoring and hot-reload validators</li>
+<li><strong>Why:</strong> Automatically choose between commands, agents, and orchestration based on task difficulty</li>
+<li><strong>How:</strong> Use <code>/craft:do "task"</code> and the system scores (0-10) and routes intelligently</li>
+<li><strong>Next:</strong> Read about <a href="../dependency-management-advanced/">Dependency Management</a> or <a href="../integration-testing/">Integration Tests</a></li>
+</ul>
 </blockquote>
 <p>Claude Code 2.1.0 introduced smart task routing that automatically delegates work based on task complexity. This guide explains how it works and how to use it effectively.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
@@ -4716,14 +4718,18 @@
 </div>
 <h2 id="system-overview">System Overview<a class="headerlink" href="#system-overview" title="Permanent link">&para;</a></h2>
 <h3 id="the-problem-it-solves">The Problem It Solves<a class="headerlink" href="#the-problem-it-solves" title="Permanent link">&para;</a></h3>
-<p>Before v2.1.0:
-- User had to choose: use specific command, or orchestrator, or single agent
-- No automatic decision based on task complexity
-- "lint code" and "redesign architecture" treated the same way</p>
-<p>After v2.1.0:
-- System analyzes task automatically
-- Routes to optimal handler (command → agent → orchestrator)
-- Simple tasks stay fast, complex tasks get full coordination</p>
+<p>Before v2.1.0:</p>
+<ul>
+<li>User had to choose: use specific command, or orchestrator, or single agent</li>
+<li>No automatic decision based on task complexity</li>
+<li>"lint code" and "redesign architecture" treated the same way</li>
+</ul>
+<p>After v2.1.0:</p>
+<ul>
+<li>System analyzes task automatically</li>
+<li>Routes to optimal handler (command → agent → orchestrator)</li>
+<li>Simple tasks stay fast, complex tasks get full coordination</li>
+</ul>
 <h3 id="how-it-works-three-levels">How It Works: Three Levels<a class="headerlink" href="#how-it-works-three-levels" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>User Task
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    ↓
@@ -4908,15 +4914,19 @@
 </span></code></pre></div>
 <h2 id="hot-reload-validators">Hot-Reload Validators<a class="headerlink" href="#hot-reload-validators" title="Permanent link">&para;</a></h2>
 <h3 id="what-they-do">What They Do<a class="headerlink" href="#what-they-do" title="Permanent link">&para;</a></h3>
-<p>Validators are checks that run automatically after tool execution. They validate:
-- ✅ Test coverage (via <code>test-coverage</code> validator)
-- ✅ Broken links (via <code>broken-links</code> validator)
-- ✅ Code quality (via <code>lint-check</code> validator)</p>
-<p>If validation fails, the orchestrator can:
-1. Show results to user
-2. Auto-fix if possible
-3. Request user intervention
-4. Rerun with fixes</p>
+<p>Validators are checks that run automatically after tool execution. They validate:</p>
+<ul>
+<li>✅ Test coverage (via <code>test-coverage</code> validator)</li>
+<li>✅ Broken links (via <code>broken-links</code> validator)</li>
+<li>✅ Code quality (via <code>lint-check</code> validator)</li>
+</ul>
+<p>If validation fails, the orchestrator can:</p>
+<ol>
+<li>Show results to user</li>
+<li>Auto-fix if possible</li>
+<li>Request user intervention</li>
+<li>Rerun with fixes</li>
+</ol>
 <h3 id="validator-lifecycle">Validator Lifecycle<a class="headerlink" href="#validator-lifecycle" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>1. Tool Execution
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>   ↓
@@ -4973,10 +4983,12 @@
 </span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">      </span><span class="nt">strict</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="nn">---</span>
 </span></code></pre></div>
-<p><strong>Validator Options:</strong>
-- <code>test-coverage:minimum</code> - Minimum coverage percentage
-- <code>broken-links:ignore_external</code> - Ignore external URLs
-- <code>lint-check:strict</code> - Fail on warnings</p>
+<p><strong>Validator Options:</strong></p>
+<ul>
+<li><code>test-coverage:minimum</code> - Minimum coverage percentage</li>
+<li><code>broken-links:ignore_external</code> - Ignore external URLs</li>
+<li><code>lint-check:strict</code> - Fail on warnings</li>
+</ul>
 <h4 id="creating-custom-validators">Creating Custom Validators<a class="headerlink" href="#creating-custom-validators" title="Permanent link">&para;</a></h4>
 <p>Create <code>.claude-plugin/skills/validation/my-validator.md</code>:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nn">---</span>
@@ -5001,26 +5013,30 @@
 <h4 id="test-coverage-validator">test-coverage Validator<a class="headerlink" href="#test-coverage-validator" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose:</strong> Ensure new code has test coverage</p>
 <p><strong>Triggers after:</strong> Code changes, test additions</p>
-<p><strong>Checks:</strong>
-- Run tests on modified files
-- Measure coverage percentage
-- Compare against minimum (default: 80%)
-- Suggest tests if coverage low</p>
-<p><strong>Output:</strong>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Run tests on modified files</li>
+<li>Measure coverage percentage</li>
+<li>Compare against minimum (default: 80%)</li>
+<li>Suggest tests if coverage low</li>
+</ul>
+<p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Coverage Analysis:
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  Total: 87%
 </span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  New code: 92%
 </span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  Status: ✅ OK (&gt;= 80%)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="broken-links-validator">broken-links Validator<a class="headerlink" href="#broken-links-validator" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose:</strong> Find dead links in documentation</p>
 <p><strong>Triggers after:</strong> Markdown file changes</p>
-<p><strong>Checks:</strong>
-- Parse all markdown files
-- Extract links (internal and external)
-- Verify links work
-- Report broken links</p>
-<p><strong>Output:</strong>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Parse all markdown files</li>
+<li>Extract links (internal and external)</li>
+<li>Verify links work</li>
+<li>Report broken links</li>
+</ul>
+<p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Link Validation:
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>  Total checked: 45
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>  Working: 43
@@ -5028,19 +5044,21 @@
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
 </span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>  ❌ docs/guide/nonexistent.md
 </span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>  ❌ https://invalid-url-123.example.com
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h4 id="lint-check-validator">lint-check Validator<a class="headerlink" href="#lint-check-validator" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose:</strong> Ensure code quality</p>
 <p><strong>Triggers after:</strong> Code file changes</p>
-<p><strong>Checks:</strong>
-- Run linter on changed files
-- Check exit code (0 = pass)
-- Report violations</p>
-<p><strong>Output:</strong>
+<p><strong>Checks:</strong></p>
+<ul>
+<li>Run linter on changed files</li>
+<li>Check exit code (0 = pass)</li>
+<li>Report violations</li>
+</ul>
+<p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Lint Check:
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>  Files checked: 8
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>  Status: ✅ OK (0 errors, 0 warnings)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="hot-reload-system">Hot-Reload System<a class="headerlink" href="#hot-reload-system" title="Permanent link">&para;</a></h2>
 <h3 id="what-it-does">What It Does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h3>
 <p>The hot-reload system monitors file changes during execution:</p>
@@ -5401,42 +5419,46 @@
 </span></code></pre></div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="issue-simple-task-routes-to-orchestrator">Issue: Simple Task Routes to Orchestrator<a class="headerlink" href="#issue-simple-task-routes-to-orchestrator" title="Permanent link">&para;</a></h3>
-<p><strong>Diagnosis:</strong>
+<p><strong>Diagnosis:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;fix typo&quot;</span><span class="w"> </span>--show-score
 </span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="c1"># Output: Score: 8 (unexpected!)</span>
-</span></code></pre></div></p>
-<p><strong>Possible Causes:</strong>
-- Task description has architectural keywords
-- Multiple categories detected incorrectly
-- Complexity keywords trigger scoring</p>
-<p><strong>Solution:</strong>
+</span></code></pre></div>
+<p><strong>Possible Causes:</strong></p>
+<ul>
+<li>Task description has architectural keywords</li>
+<li>Multiple categories detected incorrectly</li>
+<li>Complexity keywords trigger scoring</li>
+</ul>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># Be more specific</span>
 </span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;fix typo in README.md&quot;</span><span class="w"> </span>--routing<span class="w"> </span>commands
 </span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>
 </span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="c1"># Or use direct command</span>
 </span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>/craft:docs:sync<span class="w">  </span><span class="c1"># Simpler approach</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="issue-complex-task-routes-to-agent-only">Issue: Complex Task Routes to Agent Only<a class="headerlink" href="#issue-complex-task-routes-to-agent-only" title="Permanent link">&para;</a></h3>
-<p><strong>Diagnosis:</strong>
+<p><strong>Diagnosis:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add OAuth, database schema, tests&quot;</span><span class="w"> </span>--show-score
 </span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="c1"># Output: Score: 6 (should be 8+)</span>
-</span></code></pre></div></p>
-<p><strong>Possible Causes:</strong>
-- Keywords not recognized
-- Categories not matched correctly</p>
-<p><strong>Solution:</strong>
+</span></code></pre></div>
+<p><strong>Possible Causes:</strong></p>
+<ul>
+<li>Keywords not recognized</li>
+<li>Categories not matched correctly</li>
+</ul>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Add architectural language</span>
 </span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement OAuth authentication system with database schema design and comprehensive test coverage&quot;</span>
 </span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>
 </span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="c1"># Check scoring again</span>
 </span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="c1"># Should now route to orchestrator</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="issue-validator-fails-blocking-work">Issue: Validator Fails, Blocking Work<a class="headerlink" href="#issue-validator-fails-blocking-work" title="Permanent link">&para;</a></h3>
-<p><strong>Diagnosis:</strong>
+<p><strong>Diagnosis:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>Test coverage: 65% (minimum: 80%)
 </span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>Cannot proceed.
-</span></code></pre></div></p>
-<p><strong>Solution:</strong>
+</span></code></pre></div>
+<p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># Option 1: Add tests</span>
 </span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add tests to reach 80% coverage&quot;</span>
 </span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>
@@ -5445,7 +5467,7 @@
 </span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>
 </span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="c1"># Option 3: Lower threshold temporarily</span>
 </span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add feature&quot;</span><span class="w"> </span>--validators<span class="w"> </span>test-coverage:minimum<span class="o">=</span><span class="m">60</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Try routing:</strong> Use <code>/craft:do "task"</code> instead of specific commands</li>

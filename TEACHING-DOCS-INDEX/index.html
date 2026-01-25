@@ -4067,7 +4067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4619,12 +4619,14 @@
 </tr>
 </tbody>
 </table>
-<p><strong>What you'll learn:</strong>
-- Create <code>.flow/teach-config.yml</code> configuration
-- Enable teaching mode auto-detection
-- Run content validation
-- Execute first publish workflow
-- Track semester progress</p>
+<p><strong>What you'll learn:</strong></p>
+<ul>
+<li>Create <code>.flow/teach-config.yml</code> configuration</li>
+<li>Enable teaching mode auto-detection</li>
+<li>Run content validation</li>
+<li>Execute first publish workflow</li>
+<li>Track semester progress</li>
+</ul>
 <h3 id="reference-guides">Reference Guides<a class="headerlink" href="#reference-guides" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4644,13 +4646,15 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Complete reference for:</strong>
-- Course information (number, title, semester, year)
-- Semester dates (start, end, breaks)
-- Instructor information (name, email, office hours)
-- Deployment configuration (branches, GitHub Pages)
-- Progress tracking (current week, auto-calculation)
-- Validation rules (required sections, strict mode)</p>
+<p><strong>Complete reference for:</strong></p>
+<ul>
+<li>Course information (number, title, semester, year)</li>
+<li>Semester dates (start, end, breaks)</li>
+<li>Instructor information (name, email, office hours)</li>
+<li>Deployment configuration (branches, GitHub Pages)</li>
+<li>Progress tracking (current week, auto-calculation)</li>
+<li>Validation rules (required sections, strict mode)</li>
+</ul>
 <h3 id="migration-guides">Migration Guides<a class="headerlink" href="#migration-guides" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4670,12 +4674,14 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Covers:</strong>
-- Before/after workflow comparison
-- Step-by-step migration process
-- Common migration patterns
-- Troubleshooting migration issues
-- Team migration checklist</p>
+<p><strong>Covers:</strong></p>
+<ul>
+<li>Before/after workflow comparison</li>
+<li>Step-by-step migration process</li>
+<li>Common migration patterns</li>
+<li>Troubleshooting migration issues</li>
+<li>Team migration checklist</li>
+</ul>
 <h3 id="command-reference">Command Reference<a class="headerlink" href="#command-reference" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4710,11 +4716,13 @@
 </table>
 <h2 id="documentation-by-use-case">Documentation by Use Case<a class="headerlink" href="#documentation-by-use-case" title="Permanent link">&para;</a></h2>
 <h3 id="im-setting-up-for-the-first-time">I'm Setting Up for the First Time<a class="headerlink" href="#im-setting-up-for-the-first-time" title="Permanent link">&para;</a></h3>
-<p><strong>Start here:</strong>
-1. Read <a href="../README.md#teaching-mode-new-in-v1180">README Teaching Mode section</a> (2 min)
-2. Follow <a href="../tutorials/teaching-mode-setup/">Teaching Mode Setup Tutorial</a> (25 min)
-3. Bookmark <a href="../teaching-config-schema/">Config Schema</a> for reference</p>
-<p><strong>Key commands:</strong>
+<p><strong>Start here:</strong></p>
+<ol>
+<li>Read <a href="../README.md#teaching-mode-new-in-v1180">README Teaching Mode section</a> (2 min)</li>
+<li>Follow <a href="../tutorials/teaching-mode-setup/">Teaching Mode Setup Tutorial</a> (25 min)</li>
+<li>Bookmark <a href="../teaching-config-schema/">Config Schema</a> for reference</li>
+</ol>
+<p><strong>Key commands:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Setup</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:site:status<span class="w">      </span><span class="c1"># Verify detection</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -4723,25 +4731,31 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Publish</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>/craft:site:publish<span class="w">     </span><span class="c1"># Deploy to production</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="im-migrating-from-manual-workflows">I'm Migrating from Manual Workflows<a class="headerlink" href="#im-migrating-from-manual-workflows" title="Permanent link">&para;</a></h3>
-<p><strong>Start here:</strong>
-1. Review <a href="../teaching-migration/">Migration Guide</a> (15 min)
-2. Create config file following <a href="../teaching-config-schema/">Config Schema</a>
-3. Test workflows before retiring old scripts</p>
-<p><strong>Migration checklist:</strong>
-- [ ] Create <code>.flow/teach-config.yml</code>
-- [ ] Test detection with <code>/craft:site:status</code>
-- [ ] Run validation and fix errors
-- [ ] Test publish workflow on draft
-- [ ] Archive old deployment scripts
-- [ ] Update team documentation</p>
+<p><strong>Start here:</strong></p>
+<ol>
+<li>Review <a href="../teaching-migration/">Migration Guide</a> (15 min)</li>
+<li>Create config file following <a href="../teaching-config-schema/">Config Schema</a></li>
+<li>Test workflows before retiring old scripts</li>
+</ol>
+<p><strong>Migration checklist:</strong></p>
+<ul>
+<li>[ ] Create <code>.flow/teach-config.yml</code></li>
+<li>[ ] Test detection with <code>/craft:site:status</code></li>
+<li>[ ] Run validation and fix errors</li>
+<li>[ ] Test publish workflow on draft</li>
+<li>[ ] Archive old deployment scripts</li>
+<li>[ ] Update team documentation</li>
+</ul>
 <h3 id="i-need-to-configure-something">I Need to Configure Something<a class="headerlink" href="#i-need-to-configure-something" title="Permanent link">&para;</a></h3>
-<p><strong>Reference guides:</strong>
-- <a href="../teaching-config-schema/">Config Schema</a> - All YAML fields and options
-- <a href="../teaching-config-schema/#validation-rules">Validation Rules</a> - Required sections, strict mode
-- <a href="../teaching-config-schema/#deployment-configuration">Deployment Config</a> - Branches, GitHub Pages</p>
-<p><strong>Common configurations:</strong>
+<p><strong>Reference guides:</strong></p>
+<ul>
+<li><a href="../teaching-config-schema/">Config Schema</a> - All YAML fields and options</li>
+<li><a href="../teaching-config-schema/#validation-rules">Validation Rules</a> - Required sections, strict mode</li>
+<li><a href="../teaching-config-schema/#deployment-configuration">Deployment Config</a> - Branches, GitHub Pages</li>
+</ul>
+<p><strong>Common configurations:</strong></p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Basic configuration</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">course</span><span class="p">:</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;STAT</span><span class="nv"> </span><span class="s">440&quot;</span>
@@ -4766,7 +4780,7 @@
 </span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grading</span>
 </span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">policies</span>
 </span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">  </span><span class="nt">strict_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="im-having-a-problem">I'm Having a Problem<a class="headerlink" href="#im-having-a-problem" title="Permanent link">&para;</a></h3>
 <p><strong>Troubleshooting resources:</strong></p>
 <ol>
@@ -4804,27 +4818,35 @@
 </ol>
 <h3 id="i-want-to-understand-how-it-works">I Want to Understand How It Works<a class="headerlink" href="#i-want-to-understand-how-it-works" title="Permanent link">&para;</a></h3>
 <p><strong>Architecture and implementation:</strong></p>
-<p><strong>Teaching mode detection:</strong>
-- Checks for <code>.flow/teach-config.yml</code> in project root
-- Validates YAML schema
-- Activates specialized workflows</p>
-<p><strong>Validation system:</strong>
-- Parses syllabus for required sections
-- Checks schedule completeness (all weeks have content)
-- Verifies assignment files exist
-- Reports errors (block publish) vs warnings (recommend fix)</p>
-<p><strong>Publish workflow:</strong>
-1. Pre-publish validation
-2. Categorized diff preview (critical, content, other)
-3. User confirmation (yes, preview diff, cancel)
-4. Backup branch creation
-5. Fast-forward merge with rollback
-6. Deployment verification</p>
-<p><strong>Progress tracking:</strong>
-- Auto-calculates current week from semester dates
-- Accounts for break periods
-- Manual override with <code>--week</code> flag
-- JSON output for scripting</p>
+<p><strong>Teaching mode detection:</strong></p>
+<ul>
+<li>Checks for <code>.flow/teach-config.yml</code> in project root</li>
+<li>Validates YAML schema</li>
+<li>Activates specialized workflows</li>
+</ul>
+<p><strong>Validation system:</strong></p>
+<ul>
+<li>Parses syllabus for required sections</li>
+<li>Checks schedule completeness (all weeks have content)</li>
+<li>Verifies assignment files exist</li>
+<li>Reports errors (block publish) vs warnings (recommend fix)</li>
+</ul>
+<p><strong>Publish workflow:</strong></p>
+<ol>
+<li>Pre-publish validation</li>
+<li>Categorized diff preview (critical, content, other)</li>
+<li>User confirmation (yes, preview diff, cancel)</li>
+<li>Backup branch creation</li>
+<li>Fast-forward merge with rollback</li>
+<li>Deployment verification</li>
+</ol>
+<p><strong>Progress tracking:</strong></p>
+<ul>
+<li>Auto-calculates current week from semester dates</li>
+<li>Accounts for break periods</li>
+<li>Manual override with <code>--week</code> flag</li>
+<li>JSON output for scripting</li>
+</ul>
 <h2 id="cross-reference-matrix">Cross-Reference Matrix<a class="headerlink" href="#cross-reference-matrix" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4950,25 +4972,33 @@
 <li>[ ] Semester rollover automation</li>
 </ul>
 <h2 id="feedback">Feedback<a class="headerlink" href="#feedback" title="Permanent link">&para;</a></h2>
-<p><strong>Help improve these docs:</strong>
-- <a href="https://github.com/Data-Wise/craft/issues">Open an issue</a> with suggestions
-- Share what worked well
-- Report confusing sections
-- Suggest additional examples</p>
+<p><strong>Help improve these docs:</strong></p>
+<ul>
+<li><a href="https://github.com/Data-Wise/craft/issues">Open an issue</a> with suggestions</li>
+<li>Share what worked well</li>
+<li>Report confusing sections</li>
+<li>Suggest additional examples</li>
+</ul>
 <h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
-<p><strong>General Craft documentation:</strong>
-- <a href="../README.md">Craft README</a> - Full feature list
-- <a href="../QUICK-START/">Quick Start</a> - General Craft usage
-- <a href="../ADHD-QUICK-START/">ADHD Guide</a> - Neurodivergent-friendly workflows
-- <a href="../REFCARD/">Command Reference</a> - All 86+ commands</p>
-<p><strong>Site commands:</strong>
-- <a href="../commands/site/#create">Site Create</a> - Documentation site wizard
-- <a href="../commands/site/#deploy">Site Deploy</a> - Direct GitHub Pages deployment
-- <a href="../commands/site/#check">Site Check</a> - Health validation</p>
-<p><strong>Git workflows:</strong>
-- <a href="../commands/git/#worktree">Git Worktree</a> - Parallel development
-- <a href="../commands/git/#branch">Git Branch</a> - Branch management
-- <a href="../commands/git/#sync">Git Sync</a> - Smart synchronization</p>
+<p><strong>General Craft documentation:</strong></p>
+<ul>
+<li><a href="../README.md">Craft README</a> - Full feature list</li>
+<li><a href="../QUICK-START/">Quick Start</a> - General Craft usage</li>
+<li><a href="../ADHD-QUICK-START/">ADHD Guide</a> - Neurodivergent-friendly workflows</li>
+<li><a href="../REFCARD/">Command Reference</a> - All 86+ commands</li>
+</ul>
+<p><strong>Site commands:</strong></p>
+<ul>
+<li><a href="../commands/site/#create">Site Create</a> - Documentation site wizard</li>
+<li><a href="../commands/site/#deploy">Site Deploy</a> - Direct GitHub Pages deployment</li>
+<li><a href="../commands/site/#check">Site Check</a> - Health validation</li>
+</ul>
+<p><strong>Git workflows:</strong></p>
+<ul>
+<li><a href="../commands/git/#worktree">Git Worktree</a> - Parallel development</li>
+<li><a href="../commands/git/#branch">Git Branch</a> - Branch management</li>
+<li><a href="../commands/git/#sync">Git Sync</a> - Smart synchronization</li>
+</ul>
 
 
 

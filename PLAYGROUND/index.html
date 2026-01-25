@@ -3965,7 +3965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4372,11 +4372,13 @@
 <h1 id="command-playground">Command Playground<a class="headerlink" href="#command-playground" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>15 minutes</strong> • 🟢 Beginner • ✓ Interactive learning</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> Interactive examples showing exactly what happens when you run craft commands
-- <strong>Why:</strong> Learn by seeing real command outputs and understanding the workflow
-- <strong>How:</strong> Follow along with each example, run the commands yourself, compare outputs
-- <strong>Next:</strong> Graduate to <a href="../workflows/">Visual Workflows</a> to see how commands connect</p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> Interactive examples showing exactly what happens when you run craft commands</li>
+<li><strong>Why:</strong> Learn by seeing real command outputs and understanding the workflow</li>
+<li><strong>How:</strong> Follow along with each example, run the commands yourself, compare outputs</li>
+<li><strong>Next:</strong> Graduate to <a href="../workflows/">Visual Workflows</a> to see how commands connect</li>
+</ul>
 </blockquote>
 <p>Try these commands yourself and see the magic happen!</p>
 <div class="admonition tip">
@@ -4386,10 +4388,10 @@
 <hr />
 <h2 id="scenario-1-your-first-craft-command">Scenario 1: Your First craft Command<a class="headerlink" href="#scenario-1-your-first-craft-command" title="Permanent link">&para;</a></h2>
 <p><strong>Goal:</strong> See all available commands</p>
-<p><strong>Command:</strong>
+<p><strong>Command:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:hub
-</span></code></pre></div></p>
-<p><strong>What Happens:</strong>
+</span></code></pre></div>
+<p><strong>What Happens:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│ /craft:hub - Command Discovery                              │
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├─────────────────────────────────────────────────────────────┤
@@ -4410,17 +4412,19 @@
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│                                                             │
 </span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│ [... more categories ...]                                   │
 </span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>└─────────────────────────────────────────────────────────────┘
-</span></code></pre></div></p>
-<p><strong>Why This Matters:</strong>
-- You can always run <code>/craft:hub</code> to see what's available
-- Commands are organized by category for easy discovery
-- Each command has a one-line description</p>
+</span></code></pre></div>
+<p><strong>Why This Matters:</strong></p>
+<ul>
+<li>You can always run <code>/craft:hub</code> to see what's available</li>
+<li>Commands are organized by category for easy discovery</li>
+<li>Each command has a one-line description</li>
+</ul>
 <hr />
 <h2 id="scenario-2-let-ai-route-your-task">Scenario 2: Let AI Route Your Task<a class="headerlink" href="#scenario-2-let-ai-route-your-task" title="Permanent link">&para;</a></h2>
 <p><strong>Goal:</strong> Add form validation to your project</p>
-<p><strong>Command:</strong>
+<p><strong>Command:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add form validation&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>What Happens (Behind the Scenes):</strong></p>
 <ol>
 <li><strong>Task Analysis</strong> - task-analyzer skill examines your request</li>
@@ -4428,7 +4432,7 @@
 <li><strong>Skill Selection</strong> - Activates backend-designer or frontend-designer skill</li>
 <li><strong>Command Routing</strong> - Routes to appropriate command or agent</li>
 </ol>
-<p><strong>Terminal Output:</strong>
+<p><strong>Terminal Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>🎯 Analyzing task: &quot;add form validation&quot;
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>📊 Detected context:
@@ -4449,18 +4453,20 @@
 </span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>✅ Complete! Added validation to:
 </span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>   - schemas/user.py
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>   - tests/test_validation.py
-</span></code></pre></div></p>
-<p><strong>What You Learn:</strong>
-- One command handles the entire workflow
-- AI selects the right tools automatically
-- You don't need to remember which command to use</p>
+</span></code></pre></div>
+<p><strong>What You Learn:</strong></p>
+<ul>
+<li>One command handles the entire workflow</li>
+<li>AI selects the right tools automatically</li>
+<li>You don't need to remember which command to use</li>
+</ul>
 <hr />
 <h2 id="scenario-3-pre-flight-checks">Scenario 3: Pre-Flight Checks<a class="headerlink" href="#scenario-3-pre-flight-checks" title="Permanent link">&para;</a></h2>
 <p><strong>Goal:</strong> Make sure everything is good before committing</p>
-<p><strong>Command:</strong>
+<p><strong>Command:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:check
-</span></code></pre></div></p>
-<p><strong>What Happens:</strong>
+</span></code></pre></div>
+<p><strong>What Happens:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>🔍 Running pre-flight checks...
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>✅ Tests: All passing (47 tests in 2.3s)
@@ -4472,8 +4478,8 @@
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>🎉 All checks passed! Safe to commit.
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>💡 Pro Tip: Run /craft:check --for release for full release audit
-</span></code></pre></div></p>
-<p><strong>If Something Fails:</strong>
+</span></code></pre></div>
+<p><strong>If Something Fails:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>🔍 Running pre-flight checks...
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>✅ Tests: All passing (47 tests in 2.3s)
@@ -4486,22 +4492,24 @@
 </span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>✅ Fixed 3 lint issues
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>🎉 All checks passed after auto-fix!
-</span></code></pre></div></p>
-<p><strong>What You Learn:</strong>
-- Pre-flight checks catch issues early
-- Many issues auto-fix automatically
-- Prevents broken commits</p>
+</span></code></pre></div>
+<p><strong>What You Learn:</strong></p>
+<ul>
+<li>Pre-flight checks catch issues early</li>
+<li>Many issues auto-fix automatically</li>
+<li>Prevents broken commits</li>
+</ul>
 <hr />
 <h2 id="scenario-4-create-a-documentation-site">Scenario 4: Create a Documentation Site<a class="headerlink" href="#scenario-4-create-a-documentation-site" title="Permanent link">&para;</a></h2>
 <p><strong>Goal:</strong> Create an ADHD-friendly docs site in under 5 minutes</p>
-<p><strong>Commands:</strong>
+<p><strong>Commands:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Option 1: Interactive wizard</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:site:create
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Option 2: Quick mode (no prompts)</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>/craft:site:create<span class="w"> </span>--preset<span class="w"> </span>adhd-focus<span class="w"> </span>--quick
-</span></code></pre></div></p>
-<p><strong>What Happens (Quick Mode):</strong>
+</span></code></pre></div>
+<p><strong>What Happens (Quick Mode):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>🚀 Creating documentation site...
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>📊 Detected:
@@ -4531,18 +4539,20 @@
 </span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>  • Preview: mkdocs serve (or /craft:site:preview)
 </span><span id="__span-8-28"><a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>  • Edit content: docs/index.md
 </span><span id="__span-8-29"><a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>  • Deploy: git push (auto-deploys via GitHub Actions)
-</span></code></pre></div></p>
-<p><strong>What You Learn:</strong>
-- Site creation is fully automated
-- 8 ADHD-friendly presets available
-- Auto-deployment included</p>
+</span></code></pre></div>
+<p><strong>What You Learn:</strong></p>
+<ul>
+<li>Site creation is fully automated</li>
+<li>8 ADHD-friendly presets available</li>
+<li>Auto-deployment included</li>
+</ul>
 <hr />
 <h2 id="scenario-5-update-all-documentation">Scenario 5: Update All Documentation<a class="headerlink" href="#scenario-5-update-all-documentation" title="Permanent link">&para;</a></h2>
 <p><strong>Goal:</strong> Update docs after adding a new feature</p>
-<p><strong>Command:</strong>
+<p><strong>Command:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:docs:update
-</span></code></pre></div></p>
-<p><strong>What Happens:</strong>
+</span></code></pre></div>
+<p><strong>What Happens:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>🔍 Detecting changes...
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>📊 Found changes:
@@ -4581,18 +4591,20 @@
 </span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a>  - docs/REFCARD.md
 </span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>
 </span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>💡 Next: Run /craft:docs:check to validate everything
-</span></code></pre></div></p>
-<p><strong>What You Learn:</strong>
-- Smart detection avoids unnecessary updates
-- Multiple docs updated in one command
-- Validation runs automatically</p>
+</span></code></pre></div>
+<p><strong>What You Learn:</strong></p>
+<ul>
+<li>Smart detection avoids unnecessary updates</li>
+<li>Multiple docs updated in one command</li>
+<li>Validation runs automatically</li>
+</ul>
 <hr />
 <h2 id="scenario-6-release-workflow">Scenario 6: Release Workflow<a class="headerlink" href="#scenario-6-release-workflow" title="Permanent link">&para;</a></h2>
 <p><strong>Goal:</strong> Run a full release audit before publishing</p>
-<p><strong>Command:</strong>
+<p><strong>Command:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>release
-</span></code></pre></div></p>
-<p><strong>What Happens:</strong>
+</span></code></pre></div>
+<p><strong>What Happens:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>🔍 Running FULL RELEASE AUDIT...
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>1. ⏱️  Testing...
@@ -4632,11 +4644,13 @@
 </span><span id="__span-12-37"><a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a>  • Create git tag: git tag v1.2.0
 </span><span id="__span-12-38"><a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>  • Push tag: git push origin v1.2.0
 </span><span id="__span-12-39"><a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>  • Create release: gh release create v1.2.0
-</span></code></pre></div></p>
-<p><strong>What You Learn:</strong>
-- Release checks are comprehensive
-- Multiple validation gates
-- Clear next steps provided</p>
+</span></code></pre></div>
+<p><strong>What You Learn:</strong></p>
+<ul>
+<li>Release checks are comprehensive</li>
+<li>Multiple validation gates</li>
+<li>Clear next steps provided</li>
+</ul>
 <hr />
 <h2 id="try-it-yourself">Try It Yourself<a class="headerlink" href="#try-it-yourself" title="Permanent link">&para;</a></h2>
 <p>Now that you've seen how commands work, try these challenges:</p>

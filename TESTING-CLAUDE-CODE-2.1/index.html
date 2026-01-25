@@ -4213,7 +4213,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4910,13 +4910,15 @@
 </span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="c1"># Results: 15 passed, 0 failed (0.5ms total)</span>
 </span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="c1"># ================================================================================</span>
 </span></code></pre></div>
-<p><strong>What's Tested</strong>:
-- Scoring algorithm with 5 factors (multi-step, cross-category, planning, research, multi-file)
-- Routing decisions (0-3 → commands, 4-7 → agent, 8-10 → orchestrator)
-- Boundary conditions (scores 3, 4, 7, 8)
-- Individual factor detection
-- Edge cases (empty task, score capping at 10)
-- Explain function output format</p>
+<p><strong>What's Tested</strong>:</p>
+<ul>
+<li>Scoring algorithm with 5 factors (multi-step, cross-category, planning, research, multi-file)</li>
+<li>Routing decisions (0-3 → commands, 4-7 → agent, 8-10 → orchestrator)</li>
+<li>Boundary conditions (scores 3, 4, 7, 8)</li>
+<li>Individual factor detection</li>
+<li>Edge cases (empty task, score capping at 10)</li>
+<li>Explain function output format</li>
+</ul>
 <h3 id="2-hot-reload-validator-tests">2. Hot-Reload Validator Tests<a class="headerlink" href="#2-hot-reload-validator-tests" title="Permanent link">&para;</a></h3>
 <p><strong>File</strong>: <code>tests/test_hot_reload_validators.py</code>
 <strong>Tests</strong>: 9 unit tests
@@ -4942,13 +4944,15 @@
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="c1"># Results: 9 passed, 0 failed (8.7ms total)</span>
 </span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="c1"># ================================================================================</span>
 </span></code></pre></div>
-<p><strong>What's Tested</strong>:
-- YAML frontmatter validation (required fields, semantic versioning)
-- Hot-reload flags (<code>hot_reload: true</code>, <code>context: fork</code>)
-- Mode-aware behavior (4 modes with different thresholds)
-- Multi-language support (Python, JS, TypeScript, R, Go, Rust)
-- Category assignment (validation)
-- Integration with existing test suite</p>
+<p><strong>What's Tested</strong>:</p>
+<ul>
+<li>YAML frontmatter validation (required fields, semantic versioning)</li>
+<li>Hot-reload flags (<code>hot_reload: true</code>, <code>context: fork</code>)</li>
+<li>Mode-aware behavior (4 modes with different thresholds)</li>
+<li>Multi-language support (Python, JS, TypeScript, R, Go, Rust)</li>
+<li>Category assignment (validation)</li>
+<li>Integration with existing test suite</li>
+</ul>
 <h3 id="3-agent-hooks-tests">3. Agent Hooks Tests<a class="headerlink" href="#3-agent-hooks-tests" title="Permanent link">&para;</a></h3>
 <p><strong>File</strong>: <code>tests/test_agent_hooks.py</code>
 <strong>Tests</strong>: 13 unit tests
@@ -4978,18 +4982,20 @@
 </span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="c1"># Results: 13 passed, 0 failed (13.1ms total)</span>
 </span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="c1"># ================================================================================</span>
 </span></code></pre></div>
-<p><strong>What's Tested</strong>:
-- Script existence and executability
-- Bash syntax validation (<code>bash -n</code>)
-- Shebang verification (<code>#!/bin/bash</code>)
-- Event handler detection (PreToolUse, PostToolUse, Stop)
-- Mode-aware resource limits (debug: 1, default: 2, optimize/release: 4)
-- Directory creation (<code>.craft/logs</code>, <code>.craft/cache</code>)
-- Logging functionality (timestamps, log files)
-- Error handling (<code>set -e</code>, graceful unknown events)
-- Status cache management (agent status files)
-- Session state persistence (JSON session files)
-- Log archival logic (prevent bloat)</p>
+<p><strong>What's Tested</strong>:</p>
+<ul>
+<li>Script existence and executability</li>
+<li>Bash syntax validation (<code>bash -n</code>)</li>
+<li>Shebang verification (<code>#!/bin/bash</code>)</li>
+<li>Event handler detection (PreToolUse, PostToolUse, Stop)</li>
+<li>Mode-aware resource limits (debug: 1, default: 2, optimize/release: 4)</li>
+<li>Directory creation (<code>.craft/logs</code>, <code>.craft/cache</code>)</li>
+<li>Logging functionality (timestamps, log files)</li>
+<li>Error handling (<code>set -e</code>, graceful unknown events)</li>
+<li>Status cache management (agent status files)</li>
+<li>Session state persistence (JSON session files)</li>
+<li>Log archival logic (prevent bloat)</li>
+</ul>
 <hr />
 <h2 id="running-all-tests">Running All Tests<a class="headerlink" href="#running-all-tests" title="Permanent link">&para;</a></h2>
 <h3 id="quick-test">Quick Test<a class="headerlink" href="#quick-test" title="Permanent link">&para;</a></h3>
@@ -5029,35 +5035,41 @@
 <hr />
 <h2 id="test-categories">Test Categories<a class="headerlink" href="#test-categories" title="Permanent link">&para;</a></h2>
 <h3 id="unit-tests-37-tests">Unit Tests (37 tests)<a class="headerlink" href="#unit-tests-37-tests" title="Permanent link">&para;</a></h3>
-<p><strong>Complexity Scoring</strong> (15 tests):
-- Simple task scoring (1-2)
-- Multi-step task scoring (4-6)
-- Complex architecture scoring (8-10)
-- Boundary routing (3 → commands, 4 → agent, 8 → orchestrator)
-- Factor detection (multi-step, cross-category, planning, research, multi-file)
-- Edge cases (empty task, score capping)
-- Explain function output</p>
-<p><strong>Hot-Reload Validators</strong> (9 tests):
-- Validator file existence
-- Frontmatter validation (YAML, required fields)
-- Hot-reload flag verification (<code>hot_reload: true</code>)
-- Fork context verification (<code>context: fork</code>)
-- Mode-aware behavior (debug: 60%, default: 70%, optimize: 75%, release: 90%)
-- Multi-language support (6 languages, 5 linter tools)
-- Category validation (validation category)
-- Version format (semantic versioning)
-- Integration with existing tests</p>
-<p><strong>Agent Hooks</strong> (13 tests):
-- Script structure (existence, executability, shebang)
-- Bash syntax validation
-- Event handlers (PreToolUse, PostToolUse, Stop)
-- Mode-aware limits (debug: 1, default: 2, optimize/release: 4)
-- Directory creation (<code>.craft/logs</code>, <code>.craft/cache</code>)
-- Logging (timestamps, log files, log rotation)
-- Error handling (graceful failure, unknown events)
-- Status cache (agent status files, completion tracking)
-- Session state (JSON persistence, agent tracking)
-- Log archival (prevent bloat, keep last 10 sessions)</p>
+<p><strong>Complexity Scoring</strong> (15 tests):</p>
+<ul>
+<li>Simple task scoring (1-2)</li>
+<li>Multi-step task scoring (4-6)</li>
+<li>Complex architecture scoring (8-10)</li>
+<li>Boundary routing (3 → commands, 4 → agent, 8 → orchestrator)</li>
+<li>Factor detection (multi-step, cross-category, planning, research, multi-file)</li>
+<li>Edge cases (empty task, score capping)</li>
+<li>Explain function output</li>
+</ul>
+<p><strong>Hot-Reload Validators</strong> (9 tests):</p>
+<ul>
+<li>Validator file existence</li>
+<li>Frontmatter validation (YAML, required fields)</li>
+<li>Hot-reload flag verification (<code>hot_reload: true</code>)</li>
+<li>Fork context verification (<code>context: fork</code>)</li>
+<li>Mode-aware behavior (debug: 60%, default: 70%, optimize: 75%, release: 90%)</li>
+<li>Multi-language support (6 languages, 5 linter tools)</li>
+<li>Category validation (validation category)</li>
+<li>Version format (semantic versioning)</li>
+<li>Integration with existing tests</li>
+</ul>
+<p><strong>Agent Hooks</strong> (13 tests):</p>
+<ul>
+<li>Script structure (existence, executability, shebang)</li>
+<li>Bash syntax validation</li>
+<li>Event handlers (PreToolUse, PostToolUse, Stop)</li>
+<li>Mode-aware limits (debug: 1, default: 2, optimize/release: 4)</li>
+<li>Directory creation (<code>.craft/logs</code>, <code>.craft/cache</code>)</li>
+<li>Logging (timestamps, log files, log rotation)</li>
+<li>Error handling (graceful failure, unknown events)</li>
+<li>Status cache (agent status files, completion tracking)</li>
+<li>Session state (JSON persistence, agent tracking)</li>
+<li>Log archival (prevent bloat, keep last 10 sessions)</li>
+</ul>
 <h3 id="e2e-tests-planned-not-implemented">E2E Tests (Planned, not implemented)<a class="headerlink" href="#e2e-tests-planned-not-implemented" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>/craft:do</code> command routing integration</li>
@@ -5098,15 +5110,17 @@
 </span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="c1">#  Cross-category task (architecture, security, test, code) (+2),</span>
 </span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="c1">#  Comprehensive task (4 categories) (+2), Requires planning (+2))&quot;</span>
 </span></code></pre></div>
-<p><strong>Features</strong>:
-- 5-factor scoring algorithm (0-10 scale)
-- Routing decision mapping (commands/agent/orchestrator)
-- Detailed score explanation with factors
-- Command-line test mode</p>
-<p><strong>Run utility tests</strong>:
+<p><strong>Features</strong>:</p>
+<ul>
+<li>5-factor scoring algorithm (0-10 scale)</li>
+<li>Routing decision mapping (commands/agent/orchestrator)</li>
+<li>Detailed score explanation with factors</li>
+<li>Command-line test mode</li>
+</ul>
+<p><strong>Run utility tests</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Test the utility with sample tasks</span>
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python3<span class="w"> </span>utils/complexity_scorer.py
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="coverage-report">Coverage Report<a class="headerlink" href="#coverage-report" title="Permanent link">&para;</a></h2>
 <h3 id="overall-coverage">Overall Coverage<a class="headerlink" href="#overall-coverage" title="Permanent link">&para;</a></h3>
@@ -5147,41 +5161,51 @@
 </tbody>
 </table>
 <h3 id="detailed-coverage">Detailed Coverage<a class="headerlink" href="#detailed-coverage" title="Permanent link">&para;</a></h3>
-<p><strong>Complexity Scorer</strong> (100%):
-- ✅ All 5 scoring factors tested
-- ✅ All routing decisions tested
-- ✅ Boundary conditions tested
-- ✅ Edge cases tested
-- ✅ Explain function tested</p>
-<p><strong>Hot-Reload Validators</strong> (95%):
-- ✅ Frontmatter structure tested
-- ✅ Hot-reload flags tested
-- ✅ Mode-aware thresholds tested
-- ✅ Multi-language support tested
-- ⚠️ Runtime execution not tested (deferred to E2E)</p>
-<p><strong>Agent Hooks</strong> (100%):
-- ✅ Script structure validated
-- ✅ Bash syntax checked
-- ✅ All event handlers verified
-- ✅ Mode-aware limits verified
-- ✅ Logging logic verified
-- ✅ Session state logic verified</p>
+<p><strong>Complexity Scorer</strong> (100%):</p>
+<ul>
+<li>✅ All 5 scoring factors tested</li>
+<li>✅ All routing decisions tested</li>
+<li>✅ Boundary conditions tested</li>
+<li>✅ Edge cases tested</li>
+<li>✅ Explain function tested</li>
+</ul>
+<p><strong>Hot-Reload Validators</strong> (95%):</p>
+<ul>
+<li>✅ Frontmatter structure tested</li>
+<li>✅ Hot-reload flags tested</li>
+<li>✅ Mode-aware thresholds tested</li>
+<li>✅ Multi-language support tested</li>
+<li>⚠️ Runtime execution not tested (deferred to E2E)</li>
+</ul>
+<p><strong>Agent Hooks</strong> (100%):</p>
+<ul>
+<li>✅ Script structure validated</li>
+<li>✅ Bash syntax checked</li>
+<li>✅ All event handlers verified</li>
+<li>✅ Mode-aware limits verified</li>
+<li>✅ Logging logic verified</li>
+<li>✅ Session state logic verified</li>
+</ul>
 <hr />
 <h2 id="test-approach">Test Approach<a class="headerlink" href="#test-approach" title="Permanent link">&para;</a></h2>
 <h3 id="static-analysis">Static Analysis<a class="headerlink" href="#static-analysis" title="Permanent link">&para;</a></h3>
 <p>The test suite uses <strong>static analysis</strong> rather than subprocess execution:</p>
-<p><strong>Benefits</strong>:
-- ✅ More reliable in test environments
-- ✅ No subprocess/environment issues
-- ✅ Fast execution (&lt; 25ms total)
-- ✅ Validates all critical logic
-- ✅ No external dependencies</p>
-<p><strong>Techniques</strong>:
-- Content parsing (YAML frontmatter, bash scripts)
-- Syntax validation (<code>bash -n</code> for shell scripts)
-- Pattern matching (regex for logic detection)
-- Structure validation (file existence, permissions)</p>
-<p><strong>Example</strong> (Agent Hooks):
+<p><strong>Benefits</strong>:</p>
+<ul>
+<li>✅ More reliable in test environments</li>
+<li>✅ No subprocess/environment issues</li>
+<li>✅ Fast execution (&lt; 25ms total)</li>
+<li>✅ Validates all critical logic</li>
+<li>✅ No external dependencies</li>
+</ul>
+<p><strong>Techniques</strong>:</p>
+<ul>
+<li>Content parsing (YAML frontmatter, bash scripts)</li>
+<li>Syntax validation (<code>bash -n</code> for shell scripts)</li>
+<li>Pattern matching (regex for logic detection)</li>
+<li>Structure validation (file existence, permissions)</li>
+</ul>
+<p><strong>Example</strong> (Agent Hooks):</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_hook_handles_pretooluse_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Hook should have PreToolUse event handler.&quot;&quot;&quot;</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_hook_content</span><span class="p">()</span>
@@ -5192,12 +5216,14 @@
 </span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="c1"># Should check resource limits</span>
 </span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="k">assert</span> <span class="s1">&#39;ACTIVE_AGENTS&#39;</span> <span class="ow">in</span> <span class="n">content</span><span class="p">,</span> \
 </span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>        <span class="s2">&quot;PreToolUse handler should check active agents&quot;</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="execution-testing">Execution Testing<a class="headerlink" href="#execution-testing" title="Permanent link">&para;</a></h3>
-<p>Full execution testing is deferred to E2E tests:
-- ✅ Unit tests: Structure, syntax, logic (DONE)
-- 🔜 E2E tests: Runtime behavior, integration
-- 🔜 Dogfooding: Real-world workflows</p>
+<p>Full execution testing is deferred to E2E tests:</p>
+<ul>
+<li>✅ Unit tests: Structure, syntax, logic (DONE)</li>
+<li>🔜 E2E tests: Runtime behavior, integration</li>
+<li>🔜 Dogfooding: Real-world workflows</li>
+</ul>
 <hr />
 <h2 id="continuous-integration">Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permanent link">&para;</a></h2>
 <h3 id="pre-commit-tests">Pre-Commit Tests<a class="headerlink" href="#pre-commit-tests" title="Permanent link">&para;</a></h3>
@@ -5241,7 +5267,7 @@
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="test-failures">Test Failures<a class="headerlink" href="#test-failures" title="Permanent link">&para;</a></h3>
-<p><strong>Complexity Scoring Tests Fail</strong>:
+<p><strong>Complexity Scoring Tests Fail</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Check utility exists</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>utils/complexity_scorer.py
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -5250,15 +5276,15 @@
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Check for syntax errors</span>
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>python3<span class="w"> </span>-m<span class="w"> </span>py_compile<span class="w"> </span>utils/complexity_scorer.py
-</span></code></pre></div></p>
-<p><strong>Hot-Reload Validator Tests Fail</strong>:
+</span></code></pre></div>
+<p><strong>Hot-Reload Validator Tests Fail</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Check validators exist</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>.claude-plugin/skills/validation/
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Verify YAML frontmatter</span>
 </span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>head<span class="w"> </span>-20<span class="w"> </span>.claude-plugin/skills/validation/test-coverage.md
-</span></code></pre></div></p>
-<p><strong>Agent Hooks Tests Fail</strong>:
+</span></code></pre></div>
+<p><strong>Agent Hooks Tests Fail</strong>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Check hook script exists</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>.claude-plugin/hooks/orchestrate-hooks.sh
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
@@ -5267,7 +5293,7 @@
 </span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># Check bash syntax</span>
 </span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>bash<span class="w"> </span>-n<span class="w"> </span>.claude-plugin/hooks/orchestrate-hooks.sh
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="missing-dependencies">Missing Dependencies<a class="headerlink" href="#missing-dependencies" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Install PyYAML for validator tests</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>pip<span class="w"> </span>install<span class="w"> </span>pyyaml
@@ -5279,15 +5305,19 @@
 <hr />
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <h3 id="planned-tests-not-yet-implemented">Planned Tests (Not Yet Implemented)<a class="headerlink" href="#planned-tests-not-yet-implemented" title="Permanent link">&para;</a></h3>
-<p><strong>E2E Tests</strong> (12 planned):
-1. <code>/craft:do</code> command routing integration (3 tests)
-2. <code>/craft:check</code> validator discovery integration (3 tests)
-3. Orchestrator resilience patterns (3 tests)
-4. Session teleportation workflows (3 tests)</p>
-<p><strong>Dogfooding Tests</strong> (3 planned):
-1. Real-world feature addition workflow
-2. Pre-commit validation workflow
-3. Complex multi-step orchestration</p>
+<p><strong>E2E Tests</strong> (12 planned):</p>
+<ol>
+<li><code>/craft:do</code> command routing integration (3 tests)</li>
+<li><code>/craft:check</code> validator discovery integration (3 tests)</li>
+<li>Orchestrator resilience patterns (3 tests)</li>
+<li>Session teleportation workflows (3 tests)</li>
+</ol>
+<p><strong>Dogfooding Tests</strong> (3 planned):</p>
+<ol>
+<li>Real-world feature addition workflow</li>
+<li>Pre-commit validation workflow</li>
+<li>Complex multi-step orchestration</li>
+</ol>
 <h3 id="future-enhancements">Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Code coverage reporting</strong>: Add coverage.py integration</li>
@@ -5303,12 +5333,14 @@
 ✅ <strong>100% coverage</strong> of implemented features
 ✅ <strong>96% overall coverage</strong> of Wave 1-4 code
 ✅ <strong>Static analysis approach</strong> (reliable, no subprocess issues)</p>
-<p>The Claude Code 2.1.0 integration has comprehensive test coverage ensuring:
-- Complexity scoring accuracy
-- Validator structure correctness
-- Agent hook logic reliability
-- Fast feedback loop (&lt; 25ms)
-- No breaking changes introduced</p>
+<p>The Claude Code 2.1.0 integration has comprehensive test coverage ensuring:</p>
+<ul>
+<li>Complexity scoring accuracy</li>
+<li>Validator structure correctness</li>
+<li>Agent hook logic reliability</li>
+<li>Fast feedback loop (&lt; 25ms)</li>
+<li>No breaking changes introduced</li>
+</ul>
 <p><strong>All features are production-ready with full test coverage!</strong> 🎉</p>
 
 

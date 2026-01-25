@@ -4056,7 +4056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4564,10 +4564,12 @@
 <li>Create GitHub releases with changelogs</li>
 <li>Deploy documentation updates</li>
 </ul>
-<p><strong>Example scenarios:</strong>
-- "Ready to release v1.20.0"
-- "Need to publish the latest fixes"
-- "Time for a major version bump"</p>
+<p><strong>Example scenarios:</strong></p>
+<ul>
+<li>"Ready to release v1.20.0"</li>
+<li>"Need to publish the latest fixes"</li>
+<li>"Time for a major version bump"</li>
+</ul>
 <hr />
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Before starting, ensure you have:</p>
@@ -4578,9 +4580,9 @@
 <li>[x] Documentation up to date</li>
 <li>[x] No uncommitted changes</li>
 </ul>
-<p><strong>Quick check:</strong>
+<p><strong>Quick check:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>release
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="basic-workflow">Basic Workflow<a class="headerlink" href="#basic-workflow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
@@ -4593,16 +4595,42 @@
 <p>Run comprehensive checks before releasing.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>release
 </span></code></pre></div>
-<p><strong>What it checks:</strong>
-| Check | Description |
-|-------|-------------|
-| Tests | Full test suite with coverage |
-| Lint | All rules, security checks |
-| Types | Full type checking |
-| Security | Vulnerability audit |
-| Docs | Link validation |
-| Changelog | Recent entries |</p>
-<p><strong>Expected output:</strong>
+<p><strong>What it checks:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tests</td>
+<td>Full test suite with coverage</td>
+</tr>
+<tr>
+<td>Lint</td>
+<td>All rules, security checks</td>
+</tr>
+<tr>
+<td>Types</td>
+<td>Full type checking</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Vulnerability audit</td>
+</tr>
+<tr>
+<td>Docs</td>
+<td>Link validation</td>
+</tr>
+<tr>
+<td>Changelog</td>
+<td>Recent entries</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Expected output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>╭─ /craft:check --for release ─────────────────────────╮
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│ Project: craft (Claude Plugin)                       │
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│ Time: 2m 34s                                         │
@@ -4615,7 +4643,7 @@
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>├──────────────────────────────────────────────────────┤
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│ STATUS: READY FOR RELEASE ✓                          │
 </span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>╰──────────────────────────────────────────────────────╯
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-2-version-bump">Step 2: Version Bump<a class="headerlink" href="#step-2-version-bump" title="Permanent link">&para;</a></h3>
 <p>Update version numbers in all relevant files.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Check current version</span>
@@ -4627,16 +4655,18 @@
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># - package.json (if Node)</span>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># - DESCRIPTION (if R)</span>
 </span></code></pre></div>
-<p><strong>Version format:</strong> Follow <a href="https://semver.org/">Semantic Versioning</a>
-- <code>MAJOR.MINOR.PATCH</code>
-- <code>1.18.0</code> → <code>1.18.1</code> (patch/bugfix)
-- <code>1.18.0</code> → <code>1.19.0</code> (minor/feature)
-- <code>1.18.0</code> → <code>2.0.0</code> (major/breaking)</p>
+<p><strong>Version format:</strong> Follow <a href="https://semver.org/">Semantic Versioning</a></p>
+<ul>
+<li><code>MAJOR.MINOR.PATCH</code></li>
+<li><code>1.18.0</code> → <code>1.18.1</code> (patch/bugfix)</li>
+<li><code>1.18.0</code> → <code>1.19.0</code> (minor/feature)</li>
+<li><code>1.18.0</code> → <code>2.0.0</code> (major/breaking)</li>
+</ul>
 <h3 id="step-3-update-changelog">Step 3: Update Changelog<a class="headerlink" href="#step-3-update-changelog" title="Permanent link">&para;</a></h3>
 <p>Add release notes to CHANGELOG.md.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:docs:changelog
 </span></code></pre></div>
-<p><strong>Changelog format:</strong>
+<p><strong>Changelog format:</strong></p>
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gu">## [1.18.0] - 2026-01-14</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="gu">### Added</span>
@@ -4649,7 +4679,7 @@
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
 </span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="gu">### Fixed</span>
 </span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="k">-</span><span class="w"> </span>Broken links in workflow documentation
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="step-4-create-release-pr">Step 4: Create Release PR<a class="headerlink" href="#step-4-create-release-pr" title="Permanent link">&para;</a></h3>
 <p>Merge dev branch to main via pull request.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Ensure dev is up to date</span>

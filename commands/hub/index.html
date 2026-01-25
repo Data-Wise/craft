@@ -4379,7 +4379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -5210,7 +5210,7 @@
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Layer 3: Command detail (view full tutorial for a command)</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>/craft:hub<span class="w"> </span>&lt;category&gt;:&lt;command&gt;
 </span></code></pre></div>
-<p><strong>Quick examples:</strong>
+<p><strong>Quick examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Show full hub (Layer 1)</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:hub
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -5222,7 +5222,7 @@
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># v2.4.0 Brainstorm with colon notation</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w"> </span>-C<span class="w"> </span>req,tech
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="whats-new-in-v240">What's New in v2.4.0<a class="headerlink" href="#whats-new-in-v240" title="Permanent link">&para;</a></h2>
 <h3 id="brainstorm-question-control">Brainstorm Question Control<a class="headerlink" href="#brainstorm-question-control" title="Permanent link">&para;</a></h3>
@@ -5264,14 +5264,16 @@
 <hr />
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
 <p>Central command discovery hub that shows all available craft commands organized by category. The v2.0 hub uses an auto-detection engine to dynamically discover commands and provides a 3-layer navigation system for exploring the toolkit.</p>
-<p><strong>Key Features:</strong>
-- <strong>Auto-detection</strong> - Discovers commands from filesystem, always accurate
-- <strong>3-layer navigation</strong> - Main Menu → Category View → Command Detail
-- <strong>Subcategory grouping</strong> - Commands organized by purpose within categories
-- <strong>Auto-generated tutorials</strong> - Command details from frontmatter metadata
-- <strong>Smart navigation</strong> - Breadcrumbs maintain hierarchy
-- <strong>Mode system</strong> - Execution modes with time budgets
-- <strong>Related commands</strong> - Discover similar/complementary commands</p>
+<p><strong>Key Features:</strong></p>
+<ul>
+<li><strong>Auto-detection</strong> - Discovers commands from filesystem, always accurate</li>
+<li><strong>3-layer navigation</strong> - Main Menu → Category View → Command Detail</li>
+<li><strong>Subcategory grouping</strong> - Commands organized by purpose within categories</li>
+<li><strong>Auto-generated tutorials</strong> - Command details from frontmatter metadata</li>
+<li><strong>Smart navigation</strong> - Breadcrumbs maintain hierarchy</li>
+<li><strong>Mode system</strong> - Execution modes with time budgets</li>
+<li><strong>Related commands</strong> - Discover similar/complementary commands</li>
+</ul>
 <hr />
 <h2 id="layer-1-main-menu">Layer 1: Main Menu<a class="headerlink" href="#layer-1-main-menu" title="Permanent link">&para;</a></h2>
 <p><strong>Invocation:</strong> <code>/craft:hub</code></p>
@@ -5312,9 +5314,11 @@
 </span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>│         Example: /craft:hub code                                        │
 </span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>└─────────────────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
-<p><strong>Navigation:</strong>
-- Select any category to view Layer 2 (Category View)
-- Example: <code>/craft:hub code</code> → Browse all CODE commands</p>
+<p><strong>Navigation:</strong></p>
+<ul>
+<li>Select any category to view Layer 2 (Category View)</li>
+<li>Example: <code>/craft:hub code</code> → Browse all CODE commands</li>
+</ul>
 <hr />
 <h2 id="layer-2-category-view">Layer 2: Category View<a class="headerlink" href="#layer-2-category-view" title="Permanent link">&para;</a></h2>
 <p><strong>Invocation:</strong> <code>/craft:hub &lt;category&gt;</code></p>
@@ -5351,23 +5355,27 @@
 </span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>│ 📚 Learn more: /craft:hub code:[command]                                │
 </span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>└─────────────────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
-<p><strong>Features:</strong>
-- <strong>Subcategory grouping</strong> - Commands organized by purpose
-- <strong>Mode indicators</strong> - <code>[mode]</code> shows mode support
-- <strong>Command descriptions</strong> - Short summaries for quick scanning
-- <strong>Common workflows</strong> - Real-world usage patterns
-- <strong>Navigation breadcrumbs</strong> - Back to hub, drill down to command detail</p>
-<p><strong>All Categories:</strong>
-- <code>code</code> (12) - Code quality, linting, debugging, CI/CD
-- <code>test</code> (7) - Testing, coverage, debugging
-- <code>docs</code> (19) - Documentation generation, sync, validation
-- <code>git</code> (11) - Branch management, worktree, sync
-- <code>site</code> (16) - Documentation sites (MkDocs, Quarto, pkgdown)
-- <code>arch</code> (1) - Architecture analysis
-- <code>ci</code> (3) - CI/CD workflow generation
-- <code>dist</code> (1) - Distribution and packaging
-- <code>plan</code> (3) - Planning and project management
-- <code>workflow</code> (4) - Workflow automation, brainstorming (v2.4.0)</p>
+<p><strong>Features:</strong></p>
+<ul>
+<li><strong>Subcategory grouping</strong> - Commands organized by purpose</li>
+<li><strong>Mode indicators</strong> - <code>[mode]</code> shows mode support</li>
+<li><strong>Command descriptions</strong> - Short summaries for quick scanning</li>
+<li><strong>Common workflows</strong> - Real-world usage patterns</li>
+<li><strong>Navigation breadcrumbs</strong> - Back to hub, drill down to command detail</li>
+</ul>
+<p><strong>All Categories:</strong></p>
+<ul>
+<li><code>code</code> (12) - Code quality, linting, debugging, CI/CD</li>
+<li><code>test</code> (7) - Testing, coverage, debugging</li>
+<li><code>docs</code> (19) - Documentation generation, sync, validation</li>
+<li><code>git</code> (11) - Branch management, worktree, sync</li>
+<li><code>site</code> (16) - Documentation sites (MkDocs, Quarto, pkgdown)</li>
+<li><code>arch</code> (1) - Architecture analysis</li>
+<li><code>ci</code> (3) - CI/CD workflow generation</li>
+<li><code>dist</code> (1) - Distribution and packaging</li>
+<li><code>plan</code> (3) - Planning and project management</li>
+<li><code>workflow</code> (4) - Workflow automation, brainstorming (v2.4.0)</li>
+</ul>
 <hr />
 <h2 id="layer-2-workflow-category-new-v240">Layer 2: WORKFLOW Category (NEW v2.4.0)<a class="headerlink" href="#layer-2-workflow-category-new-v240" title="Permanent link">&para;</a></h2>
 <p><strong>Invocation:</strong> <code>/craft:hub workflow</code></p>
@@ -5521,14 +5529,16 @@
 </span><span id="__span-8-47"><a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a>│ 🏠 Back to Hub: /craft:hub                                              │
 </span><span id="__span-8-48"><a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a>└─────────────────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
-<p><strong>Tutorial Sections:</strong>
-1. <strong>Description</strong> - Detailed explanation of what the command does
-2. <strong>Modes</strong> - Execution modes with time budgets (if applicable)
-3. <strong>Basic Usage</strong> - Syntax examples with mode variations
-4. <strong>Common Workflows</strong> - Real-world usage patterns
-5. <strong>Related Commands</strong> - Similar/complementary commands
-6. <strong>Tips</strong> - Pro user hints
-7. <strong>Navigation</strong> - Breadcrumbs back to category and hub</p>
+<p><strong>Tutorial Sections:</strong></p>
+<ol>
+<li><strong>Description</strong> - Detailed explanation of what the command does</li>
+<li><strong>Modes</strong> - Execution modes with time budgets (if applicable)</li>
+<li><strong>Basic Usage</strong> - Syntax examples with mode variations</li>
+<li><strong>Common Workflows</strong> - Real-world usage patterns</li>
+<li><strong>Related Commands</strong> - Similar/complementary commands</li>
+<li><strong>Tips</strong> - Pro user hints</li>
+<li><strong>Navigation</strong> - Breadcrumbs back to category and hub</li>
+</ol>
 <hr />
 <h2 id="navigation-examples">Navigation Examples<a class="headerlink" href="#navigation-examples" title="Permanent link">&para;</a></h2>
 <h3 id="browsing-by-category">Browsing by Category<a class="headerlink" href="#browsing-by-category" title="Permanent link">&para;</a></h3>
@@ -5596,10 +5606,12 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Mode indicators in hub:</strong>
-- Commands supporting modes show <code>[mode]</code> in Layer 2 (Category View)
-- Layer 3 (Command Detail) shows all available modes with time budgets
-- Use modes to balance speed vs. thoroughness</p>
+<p><strong>Mode indicators in hub:</strong></p>
+<ul>
+<li>Commands supporting modes show <code>[mode]</code> in Layer 2 (Category View)</li>
+<li>Layer 3 (Command Detail) shows all available modes with time budgets</li>
+<li>Use modes to balance speed vs. thoroughness</li>
+</ul>
 <hr />
 <h2 id="auto-detection-system">Auto-Detection System<a class="headerlink" href="#auto-detection-system" title="Permanent link">&para;</a></h2>
 <h3 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h3>
@@ -5646,22 +5658,26 @@
 </span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;code:lint&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;test:run&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;git</span><span class="nv"> </span><span class="s">commit&quot;</span><span class="p p-Indicator">]</span>
 </span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="nn">---</span>
 </span></code></pre></div>
-<p><strong>Required fields:</strong>
-- <code>name</code> - Command identifier
-- <code>category</code> - Primary category
-- <code>description</code> - One-line summary</p>
-<p><strong>Optional fields:</strong>
-- <code>subcategory</code> - For Layer 2 grouping
-- <code>modes</code> - Execution modes
-- <code>time_budgets</code> - Time estimates
-- <code>related_commands</code> - Navigation
-- <code>common_workflows</code> - Usage patterns
-- <code>examples</code> - Usage examples</p>
+<p><strong>Required fields:</strong></p>
+<ul>
+<li><code>name</code> - Command identifier</li>
+<li><code>category</code> - Primary category</li>
+<li><code>description</code> - One-line summary</li>
+</ul>
+<p><strong>Optional fields:</strong></p>
+<ul>
+<li><code>subcategory</code> - For Layer 2 grouping</li>
+<li><code>modes</code> - Execution modes</li>
+<li><code>time_budgets</code> - Time estimates</li>
+<li><code>related_commands</code> - Navigation</li>
+<li><code>common_workflows</code> - Usage patterns</li>
+<li><code>examples</code> - Usage examples</li>
+</ul>
 <hr />
 <h2 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h2>
 <h3 id="discovery-engine">Discovery Engine<a class="headerlink" href="#discovery-engine" title="Permanent link">&para;</a></h3>
 <p><strong>Location:</strong> <code>commands/_discovery.py</code></p>
-<p><strong>Key Functions:</strong>
+<p><strong>Key Functions:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">discover_commands</span><span class="p">()</span>              <span class="c1"># Scan and discover all commands</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">load_cached_commands</span><span class="p">()</span>           <span class="c1"># Load with auto-invalidation</span>
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">get_command_stats</span><span class="p">()</span>              <span class="c1"># Get statistics</span>
@@ -5674,7 +5690,7 @@
 </span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="c1"># Layer 3</span>
 </span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="n">get_command_detail</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>         <span class="c1"># Lookup command by name</span>
 </span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="n">generate_command_tutorial</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>   <span class="c1"># Auto-generate tutorial</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="cache-format">Cache Format<a class="headerlink" href="#cache-format" title="Permanent link">&para;</a></h3>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">&quot;generated&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-17T11:30:00Z&quot;</span><span class="p">,</span>
@@ -5730,21 +5746,23 @@
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="cache-issues">Cache Issues<a class="headerlink" href="#cache-issues" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> Counts seem wrong or outdated
-<strong>Solution:</strong> Delete cache and regenerate:
+<strong>Solution:</strong> Delete cache and regenerate:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>rm<span class="w"> </span>commands/_cache.json
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>python3<span class="w"> </span>commands/_discovery.py
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="command-not-found">Command Not Found<a class="headerlink" href="#command-not-found" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> <code>/craft:hub code:lint</code> says "not found"
-<strong>Solution:</strong> Check command name format:
-- Use <code>category:command</code> format (e.g., <code>code:lint</code>)
-- Browse Layer 2 to find correct name: <code>/craft:hub code</code></p>
+<strong>Solution:</strong> Check command name format:</p>
+<ul>
+<li>Use <code>category:command</code> format (e.g., <code>code:lint</code>)</li>
+<li>Browse Layer 2 to find correct name: <code>/craft:hub code</code></li>
+</ul>
 <h3 id="performance-issues">Performance Issues<a class="headerlink" href="#performance-issues" title="Permanent link">&para;</a></h3>
 <p><strong>Problem:</strong> Hub seems slow
-<strong>Solution:</strong> Check cache file exists:
+<strong>Solution:</strong> Check cache file exists:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ls<span class="w"> </span>-lh<span class="w"> </span>commands/_cache.json
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1"># Should be &lt; 100KB and recent timestamp</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="migration-from-v1x">Migration from v1.x<a class="headerlink" href="#migration-from-v1x" title="Permanent link">&para;</a></h2>
 <h3 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">&para;</a></h3>

@@ -4200,7 +4200,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4840,11 +4840,13 @@
 <h1 id="distribution-commands">Distribution Commands<a class="headerlink" href="#distribution-commands" title="Permanent link">&para;</a></h1>
 <p>⏱️ <strong>10 minutes</strong> • 🟡 Intermediate • ✓ Multi-platform packaging</p>
 <blockquote>
-<p><strong>TL;DR</strong> (30 seconds)
-- <strong>What:</strong> 3 commands for packaging and distributing your project (Homebrew, PyPI, curl installer)
-- <strong>Why:</strong> Automate release workflows and make your project easy to install across platforms
-- <strong>How:</strong> Use <code>/craft:dist:homebrew setup</code> for macOS, <code>/craft:dist:pypi</code> for Python packages
-- <strong>Next:</strong> Try <code>/craft:dist:homebrew setup</code> to create automated Homebrew releases</p>
+<p><strong>TL;DR</strong> (30 seconds)</p>
+<ul>
+<li><strong>What:</strong> 3 commands for packaging and distributing your project (Homebrew, PyPI, curl installer)</li>
+<li><strong>Why:</strong> Automate release workflows and make your project easy to install across platforms</li>
+<li><strong>How:</strong> Use <code>/craft:dist:homebrew setup</code> for macOS, <code>/craft:dist:pypi</code> for Python packages</li>
+<li><strong>Next:</strong> Try <code>/craft:dist:homebrew setup</code> to create automated Homebrew releases</li>
+</ul>
 </blockquote>
 <p>Craft's distribution commands automate packaging and distribution across Homebrew, PyPI, and curl installers.</p>
 <hr />
@@ -4929,7 +4931,7 @@
 <h3 id="example-full-setup">Example: Full Setup<a class="headerlink" href="#example-full-setup" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:dist:homebrew<span class="w"> </span>setup
 </span></code></pre></div>
-<p><strong>Output:</strong>
+<p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>╔═══════════════════════════════════════════════════════════╗
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>║       HOMEBREW AUTOMATION SETUP WIZARD                     ║
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>╠═══════════════════════════════════════════════════════════╣
@@ -4945,7 +4947,7 @@
 </span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>║  Run: gh secret set HOMEBREW_TAP_GITHUB_TOKEN            ║
 </span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>║                                                           ║
 </span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>╚═══════════════════════════════════════════════════════════╝
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="supported-project-types">Supported Project Types<a class="headerlink" href="#supported-project-types" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4995,7 +4997,7 @@
 <p>PyPI occasionally changes URLs for packages. Fix automatically:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:dist:homebrew<span class="w"> </span>update-resources<span class="w"> </span>aiterm
 </span></code></pre></div>
-<p><strong>Output:</strong>
+<p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Checking 5 resources...
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  ✓ click: 8.0.0 → 8.1.7 (URL updated)
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  ✓ rich: 13.0.0 → 13.7.0 (URL updated)
@@ -5003,7 +5005,7 @@
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>Updated 2 resources in Formula/aiterm.rb
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>Running brew audit... ✓ passed
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="craftdistpypi-pypi-publishing"><code>/craft:dist:pypi</code> - PyPI Publishing<a class="headerlink" href="#craftdistpypi-pypi-publishing" title="Permanent link">&para;</a></h2>
 <p>Publish Python packages to PyPI with automated workflows and trusted publishing.</p>
@@ -5056,7 +5058,7 @@
 <p><strong>Setup:</strong></p>
 <ol>
 <li><strong>Add pending publisher on PyPI:</strong></li>
-<li>Go to: https://pypi.org/manage/account/publishing/</li>
+<li>Go to: <a href="https://pypi.org/manage/account/publishing/">https://pypi.org/manage/account/publishing/</a></li>
 <li>Project: <code>your-package</code></li>
 <li>Owner: <code>your-org</code></li>
 <li>Repository: <code>your-repo</code></li>
@@ -5104,13 +5106,15 @@
 <h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:dist:pypi<span class="w"> </span>validate
 </span></code></pre></div>
-<p><strong>Checks:</strong>
-- <code>pyproject.toml</code> completeness
-- Version format (SemVer)
-- README presence
-- License file
-- Classifiers validity
-- Build configuration</p>
+<p><strong>Checks:</strong></p>
+<ul>
+<li><code>pyproject.toml</code> completeness</li>
+<li>Version format (SemVer)</li>
+<li>README presence</li>
+<li>License file</li>
+<li>Classifiers validity</li>
+<li>Build configuration</li>
+</ul>
 <hr />
 <h2 id="craftdistcurl-install-universal-installer"><code>/craft:dist:curl-install</code> - Universal Installer<a class="headerlink" href="#craftdistcurl-install-universal-installer" title="Permanent link">&para;</a></h2>
 <p>Create a curl-based installer script for easy one-line installation.</p>

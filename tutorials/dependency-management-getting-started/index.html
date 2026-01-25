@@ -4154,7 +4154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4748,12 +4748,14 @@
 <p>Learn how to use the <code>/craft:docs:demo</code> dependency management system to check, install, and manage tools for terminal GIF generation.</p>
 <hr />
 <h2 id="tutorial-overview">Tutorial Overview<a class="headerlink" href="#tutorial-overview" title="Permanent link">&para;</a></h2>
-<p>By the end of this tutorial, you will be able to:
-- ✅ Check which tools are installed
-- ✅ Understand dependency status
-- ✅ Install missing tools automatically
-- ✅ Convert .cast files to optimized GIFs
-- ✅ Troubleshoot common issues</p>
+<p>By the end of this tutorial, you will be able to:</p>
+<ul>
+<li>✅ Check which tools are installed</li>
+<li>✅ Understand dependency status</li>
+<li>✅ Install missing tools automatically</li>
+<li>✅ Convert .cast files to optimized GIFs</li>
+<li>✅ Troubleshoot common issues</li>
+</ul>
 <hr />
 <h2 id="learning-path">Learning Path<a class="headerlink" href="#learning-path" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
@@ -4771,28 +4773,32 @@
 <hr />
 <h2 id="step-1-verify-the-system-exists">Step 1: Verify the System Exists<a class="headerlink" href="#step-1-verify-the-system-exists" title="Permanent link">&para;</a></h2>
 <p>Before starting, let's verify the dependency management system is available.</p>
-<p><strong>What you'll do:</strong>
+<p><strong>What you'll do:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Check that the demo command exists</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>commands/docs/demo.md
-</span></code></pre></div></p>
-<p><strong>Expected output:</strong>
+</span></code></pre></div>
+<p><strong>Expected output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-rw-r--r-- 1 user staff 15234 Jan 17 demo.md
-</span></code></pre></div></p>
-<p><strong>What this means:</strong>
-- The <code>/craft:docs:demo</code> command is installed
-- The dependency management system is ready to use</p>
+</span></code></pre></div>
+<p><strong>What this means:</strong></p>
+<ul>
+<li>The <code>/craft:docs:demo</code> command is installed</li>
+<li>The dependency management system is ready to use</li>
+</ul>
 <hr />
 <h2 id="step-2-check-your-current-dependencies">Step 2: Check Your Current Dependencies<a class="headerlink" href="#step-2-check-your-current-dependencies" title="Permanent link">&para;</a></h2>
 <p>Let's see what tools you already have installed.</p>
-<p><strong>Command:</strong>
+<p><strong>Command:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:docs:demo<span class="w"> </span>--check
-</span></code></pre></div></p>
-<p><strong>What happens:</strong>
-1. Reads tool specifications from YAML frontmatter
-2. Detects which tools are installed
-3. Checks tool health and versions
-4. Displays a formatted status table</p>
-<p><strong>Example output:</strong>
+</span></code></pre></div>
+<p><strong>What happens:</strong></p>
+<ol>
+<li>Reads tool specifications from YAML frontmatter</li>
+<li>Detects which tools are installed</li>
+<li>Checks tool health and versions</li>
+<li>Displays a formatted status table</li>
+</ol>
+<p><strong>Example output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>╔════════════════════════════════════════════════════╗
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>║  DEPENDENCY STATUS - asciinema method              ║
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>╚════════════════════════════════════════════════════╝
@@ -4805,52 +4811,64 @@
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>fswatch      ⚠️        -          n/a       no
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Summary: 2/3 required tools ready
-</span></code></pre></div></p>
-<p><strong>Understanding the status:</strong>
-- ✅ <strong>Green checkmark</strong>: Tool installed and working
-- ❌ <strong>Red X</strong>: Required tool missing
-- ⚠️  <strong>Warning</strong>: Optional tool missing (not critical)</p>
+</span></code></pre></div>
+<p><strong>Understanding the status:</strong></p>
+<ul>
+<li>✅ <strong>Green checkmark</strong>: Tool installed and working</li>
+<li>❌ <strong>Red X</strong>: Required tool missing</li>
+<li>⚠️  <strong>Warning</strong>: Optional tool missing (not critical)</li>
+</ul>
 <hr />
 <h2 id="step-3-understand-the-methods">Step 3: Understand the Methods<a class="headerlink" href="#step-3-understand-the-methods" title="Permanent link">&para;</a></h2>
 <p>The system supports two methods for creating GIFs:</p>
 <h3 id="method-1-asciinema-recommended">Method 1: asciinema (Recommended)<a class="headerlink" href="#method-1-asciinema-recommended" title="Permanent link">&para;</a></h3>
 <p><strong>Best for:</strong> Real terminal recordings, authentic output</p>
-<p><strong>Required tools:</strong>
-- <code>asciinema</code> - Record terminal sessions
-- <code>agg</code> - Convert .cast to .gif
-- <code>gifsicle</code> - Optimize GIF size</p>
-<p><strong>Optional:</strong>
-- <code>fswatch</code> - Watch mode for live updates</p>
-<p><strong>Check this method:</strong>
+<p><strong>Required tools:</strong></p>
+<ul>
+<li><code>asciinema</code> - Record terminal sessions</li>
+<li><code>agg</code> - Convert .cast to .gif</li>
+<li><code>gifsicle</code> - Optimize GIF size</li>
+</ul>
+<p><strong>Optional:</strong></p>
+<ul>
+<li><code>fswatch</code> - Watch mode for live updates</li>
+</ul>
+<p><strong>Check this method:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:docs:demo<span class="w"> </span>--check<span class="w"> </span>--method<span class="w"> </span>asciinema
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="method-2-vhs">Method 2: VHS<a class="headerlink" href="#method-2-vhs" title="Permanent link">&para;</a></h3>
 <p><strong>Best for:</strong> Scripted demos, repeatable workflows</p>
-<p><strong>Required tools:</strong>
-- <code>vhs</code> - Generate scripted demos
-- <code>gifsicle</code> - Optimize GIF size</p>
-<p><strong>Optional:</strong>
-- <code>ffmpeg</code> - Video processing</p>
-<p><strong>Check this method:</strong>
+<p><strong>Required tools:</strong></p>
+<ul>
+<li><code>vhs</code> - Generate scripted demos</li>
+<li><code>gifsicle</code> - Optimize GIF size</li>
+</ul>
+<p><strong>Optional:</strong></p>
+<ul>
+<li><code>ffmpeg</code> - Video processing</li>
+</ul>
+<p><strong>Check this method:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:docs:demo<span class="w"> </span>--check<span class="w"> </span>--method<span class="w"> </span>vhs
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>💡 Tip</strong>: Most users start with asciinema for real recordings.</p>
 <hr />
 <h2 id="step-4-install-missing-dependencies">Step 4: Install Missing Dependencies<a class="headerlink" href="#step-4-install-missing-dependencies" title="Permanent link">&para;</a></h2>
 <p>If you have missing tools, the system can install them automatically.</p>
-<p><strong>Command:</strong>
+<p><strong>Command:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:docs:demo<span class="w"> </span>--fix
-</span></code></pre></div></p>
-<p><strong>What happens:</strong>
-1. Detects which tools are missing
-2. Asks for your consent to install each tool
-3. Tries multiple installation methods:
-   - Homebrew (macOS)
-   - Cargo (Rust)
-   - Binary download
-   - APT/YUM (Linux)
-4. Verifies each installation succeeded</p>
-<p><strong>Example interaction:</strong>
+</span></code></pre></div>
+<p><strong>What happens:</strong></p>
+<ol>
+<li>Detects which tools are missing</li>
+<li>Asks for your consent to install each tool</li>
+<li>Tries multiple installation methods:</li>
+<li>Homebrew (macOS)</li>
+<li>Cargo (Rust)</li>
+<li>Binary download</li>
+<li>APT/YUM (Linux)</li>
+<li>Verifies each installation succeeded</li>
+</ol>
+<p><strong>Example interaction:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Missing dependencies detected:
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  - agg (required for asciinema method)
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
@@ -4864,19 +4882,21 @@
 </span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>✓ Health check passed
 </span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
 </span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>All dependencies installed!
-</span></code></pre></div></p>
-<p><strong>Installation safety:</strong>
-- ✅ Always asks for consent
-- ✅ Tries multiple methods
-- ✅ Verifies after install
-- ✅ Reports any failures</p>
+</span></code></pre></div>
+<p><strong>Installation safety:</strong></p>
+<ul>
+<li>✅ Always asks for consent</li>
+<li>✅ Tries multiple methods</li>
+<li>✅ Verifies after install</li>
+<li>✅ Reports any failures</li>
+</ul>
 <hr />
 <h2 id="step-5-verify-installation-success">Step 5: Verify Installation Success<a class="headerlink" href="#step-5-verify-installation-success" title="Permanent link">&para;</a></h2>
 <p>After installation, check that everything is working.</p>
-<p><strong>Command:</strong>
+<p><strong>Command:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:docs:demo<span class="w"> </span>--check
-</span></code></pre></div></p>
-<p><strong>Expected output (all green):</strong>
+</span></code></pre></div>
+<p><strong>Expected output (all green):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>╔════════════════════════════════════════════════════╗
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>║  DEPENDENCY STATUS - asciinema method              ║
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>╚════════════════════════════════════════════════════╝
@@ -4888,26 +4908,30 @@
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>gifsicle     ✅        1.96       ok        yes
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>Summary: All required tools ready ✨
-</span></code></pre></div></p>
-<p><strong>If you still see issues:</strong>
-- See <a href="#step-9-troubleshooting">Step 9: Troubleshooting</a>
-- Check <a href="../../DEPENDENCY-MANAGEMENT/#troubleshooting">DEPENDENCY-MANAGEMENT.md</a></p>
+</span></code></pre></div>
+<p><strong>If you still see issues:</strong></p>
+<ul>
+<li>See <a href="#step-9-troubleshooting">Step 9: Troubleshooting</a></li>
+<li>Check <a href="../../DEPENDENCY-MANAGEMENT/#troubleshooting">DEPENDENCY-MANAGEMENT.md</a></li>
+</ul>
 <hr />
 <h2 id="step-55-migrating-from-vhs-optional">Step 5.5: Migrating from VHS (Optional)<a class="headerlink" href="#step-55-migrating-from-vhs-optional" title="Permanent link">&para;</a></h2>
 <p><strong>If you were using VHS before</strong>, here's how to migrate to the asciinema workflow:</p>
 <h3 id="why-migrate">Why Migrate?<a class="headerlink" href="#why-migrate" title="Permanent link">&para;</a></h3>
-<p>The asciinema method offers several advantages:
-- ✅ <strong>Real terminal capture</strong> (actual TTY, not scripted)
-- ✅ <strong>Smaller file sizes</strong> (text-based .cast files)
-- ✅ <strong>Faster conversion</strong> (agg is optimized for .cast → .gif)
-- ✅ <strong>Better accuracy</strong> (no timing/rendering issues)
-- ✅ <strong>Easier editing</strong> (.cast files are JSON, VHS tapes are scripts)</p>
+<p>The asciinema method offers several advantages:</p>
+<ul>
+<li>✅ <strong>Real terminal capture</strong> (actual TTY, not scripted)</li>
+<li>✅ <strong>Smaller file sizes</strong> (text-based .cast files)</li>
+<li>✅ <strong>Faster conversion</strong> (agg is optimized for .cast → .gif)</li>
+<li>✅ <strong>Better accuracy</strong> (no timing/rendering issues)</li>
+<li>✅ <strong>Easier editing</strong> (.cast files are JSON, VHS tapes are scripts)</li>
+</ul>
 <h3 id="migration-steps">Migration Steps<a class="headerlink" href="#migration-steps" title="Permanent link">&para;</a></h3>
-<p><strong>1. Verify asciinema method is ready:</strong>
+<p><strong>1. Verify asciinema method is ready:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:docs:demo<span class="w"> </span>--check
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1"># Should show all asciinema tools installed</span>
-</span></code></pre></div></p>
-<p><strong>2. Re-record your demos using asciinema:</strong>
+</span></code></pre></div>
+<p><strong>2. Re-record your demos using asciinema:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Instead of writing a VHS tape file:</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1"># vhs my-demo.tape</span>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
@@ -4915,15 +4939,15 @@
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>asciinema<span class="w"> </span>rec<span class="w"> </span>my-demo.cast
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># &lt;perform your demo commands&gt;</span>
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># &lt;press Ctrl+D when done&gt;</span>
-</span></code></pre></div></p>
-<p><strong>3. Convert with the new workflow:</strong>
+</span></code></pre></div>
+<p><strong>3. Convert with the new workflow:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Old VHS workflow:</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># vhs my-demo.tape   # Generates my-demo.gif</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># New asciinema workflow:</span>
 </span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>/craft:docs:demo<span class="w"> </span>--convert<span class="w"> </span>my-demo.cast
 </span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># Generates my-demo.gif using agg + gifsicle</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="key-differences">Key Differences<a class="headerlink" href="#key-differences" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -4967,31 +4991,39 @@
 </tbody>
 </table>
 <h3 id="handling-existing-vhs-files">Handling Existing VHS Files<a class="headerlink" href="#handling-existing-vhs-files" title="Permanent link">&para;</a></h3>
-<p><strong>Keep VHS as fallback:</strong>
+<p><strong>Keep VHS as fallback:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># VHS is still available via --method flag</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>/craft:docs:demo<span class="w"> </span>--method<span class="w"> </span>vhs<span class="w"> </span>my-old-tape.tape
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Or if you prefer VHS for specific demos:</span>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>vhs<span class="w"> </span>my-scripted-demo.tape
-</span></code></pre></div></p>
-<p><strong>Gradual migration:</strong>
-- Keep existing VHS demos if they work well
-- Use asciinema for new demos going forward
-- Re-record critical demos when you have time</p>
+</span></code></pre></div>
+<p><strong>Gradual migration:</strong></p>
+<ul>
+<li>Keep existing VHS demos if they work well</li>
+<li>Use asciinema for new demos going forward</li>
+<li>Re-record critical demos when you have time</li>
+</ul>
 <h3 id="troubleshooting-migration">Troubleshooting Migration<a class="headerlink" href="#troubleshooting-migration" title="Permanent link">&para;</a></h3>
-<p><strong>Issue: "I prefer scripted demos for consistency"</strong>
-- Solution: Use <code>asciinema cat</code> to replay .cast files consistently
-- Or: Keep VHS for scripted demos, use asciinema for real demos</p>
-<p><strong>Issue: "My .cast files are too long"</strong>
-- Solution: Use <code>asciinema play --speed 2</code> to preview at 2x speed
-- Or: Edit .cast JSON to adjust timing (see <a href="https://asciinema.org/">asciinema docs</a>)</p>
-<p><strong>Issue: "I want the old VHS styling"</strong>
-- Solution: agg supports custom themes via <code>--theme</code> flag
-- Or: Use gifsicle to adjust colors/palette</p>
+<p><strong>Issue: "I prefer scripted demos for consistency"</strong></p>
+<ul>
+<li>Solution: Use <code>asciinema cat</code> to replay .cast files consistently</li>
+<li>Or: Keep VHS for scripted demos, use asciinema for real demos</li>
+</ul>
+<p><strong>Issue: "My .cast files are too long"</strong></p>
+<ul>
+<li>Solution: Use <code>asciinema play --speed 2</code> to preview at 2x speed</li>
+<li>Or: Edit .cast JSON to adjust timing (see <a href="https://asciinema.org/">asciinema docs</a>)</li>
+</ul>
+<p><strong>Issue: "I want the old VHS styling"</strong></p>
+<ul>
+<li>Solution: agg supports custom themes via <code>--theme</code> flag</li>
+<li>Or: Use gifsicle to adjust colors/palette</li>
+</ul>
 <hr />
 <h2 id="step-6-create-your-first-recording">Step 6: Create Your First Recording<a class="headerlink" href="#step-6-create-your-first-recording" title="Permanent link">&para;</a></h2>
 <p>Now let's record a simple terminal session.</p>
-<p><strong>Record a demo:</strong>
+<p><strong>Record a demo:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Record a session (press Ctrl+D when done)</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>asciinema<span class="w"> </span>rec<span class="w"> </span>my-first-demo.cast
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
@@ -5002,8 +5034,8 @@
 </span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
 </span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="c1"># Exit the recording</span>
 </span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>&lt;Ctrl+D&gt;
-</span></code></pre></div></p>
-<p><strong>What you'll see:</strong>
+</span></code></pre></div>
+<p><strong>What you'll see:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>asciinema: recording started, press &lt;Ctrl-D&gt; or type &quot;exit&quot; to finish
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>$ echo &quot;Hello, World!&quot;
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Hello, World!
@@ -5013,55 +5045,61 @@
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>/Users/you/project
 </span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>$ &lt;Ctrl+D&gt;
 </span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>asciinema: recording finished
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Output</strong>: <code>my-first-demo.cast</code> file created</p>
 <hr />
 <h2 id="step-7-convert-recording-to-gif">Step 7: Convert Recording to GIF<a class="headerlink" href="#step-7-convert-recording-to-gif" title="Permanent link">&para;</a></h2>
 <p>Convert your .cast recording to an optimized GIF.</p>
-<p><strong>Command:</strong>
+<p><strong>Command:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/craft:docs:demo<span class="w"> </span>--convert<span class="w"> </span>my-first-demo.cast
-</span></code></pre></div></p>
-<p><strong>What happens:</strong>
-1. Validates the .cast file
-2. Converts using <code>agg</code> (with optimized settings)
-3. Optimizes with <code>gifsicle</code>
-4. Reports statistics</p>
-<p><strong>Expected output:</strong>
+</span></code></pre></div>
+<p><strong>What happens:</strong></p>
+<ol>
+<li>Validates the .cast file</li>
+<li>Converts using <code>agg</code> (with optimized settings)</li>
+<li>Optimizes with <code>gifsicle</code></li>
+<li>Reports statistics</li>
+</ol>
+<p><strong>Expected output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Converting: my-first-demo.cast → my-first-demo.gif
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>✓ Conversion successful
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>  Duration: 2.3s
 </span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>  Size: 145KB
 </span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>  Output: my-first-demo.gif
-</span></code></pre></div></p>
-<p><strong>Conversion settings:</strong>
-- Font size: 16
-- Line height: 1.4
-- Theme: monokai
-- Optimization: Level 3 (maximum)
-- Colors: 256</p>
-<p><strong>View your GIF:</strong>
+</span></code></pre></div>
+<p><strong>Conversion settings:</strong></p>
+<ul>
+<li>Font size: 16</li>
+<li>Line height: 1.4</li>
+<li>Theme: monokai</li>
+<li>Optimization: Level 3 (maximum)</li>
+<li>Colors: 256</li>
+</ul>
+<p><strong>View your GIF:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>open<span class="w"> </span>my-first-demo.gif
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="step-8-batch-convert-multiple-files">Step 8: Batch Convert Multiple Files<a class="headerlink" href="#step-8-batch-convert-multiple-files" title="Permanent link">&para;</a></h2>
 <p>If you have many .cast files, convert them all at once.</p>
-<p><strong>Scenario</strong>: You have multiple recordings
+<p><strong>Scenario</strong>: You have multiple recordings</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Create demo recordings</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>docs/
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span>demo1.cast
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">  </span>demo2.cast
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">  </span>demo3.cast
-</span></code></pre></div></p>
-<p><strong>Batch conversion:</strong>
+</span></code></pre></div>
+<p><strong>Batch conversion:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:docs:demo<span class="w"> </span>--batch
-</span></code></pre></div></p>
-<p><strong>What happens:</strong>
-1. Finds all .cast files in search path (default: <code>docs/</code>)
-2. Filters out files with existing .gif (unless <code>--force</code>)
-3. Converts each file with progress tracking
-4. Displays summary</p>
-<p><strong>Example output:</strong>
+</span></code></pre></div>
+<p><strong>What happens:</strong></p>
+<ol>
+<li>Finds all .cast files in search path (default: <code>docs/</code>)</li>
+<li>Filters out files with existing .gif (unless <code>--force</code>)</li>
+<li>Converts each file with progress tracking</li>
+<li>Displays summary</li>
+</ol>
+<p><strong>Example output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Found 3 .cast files
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>Converting batch...
@@ -5074,8 +5112,8 @@
 </span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>Summary: 3/3 converted successfully
 </span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>Total time: 15.4s
 </span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>Total size: 430KB
-</span></code></pre></div></p>
-<p><strong>Batch options:</strong>
+</span></code></pre></div>
+<p><strong>Batch options:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Search different directory</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>/craft:docs:demo<span class="w"> </span>--batch<span class="w"> </span>--search-path<span class="w"> </span>examples/
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
@@ -5084,15 +5122,15 @@
 </span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>
 </span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="c1"># Preview without converting</span>
 </span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>/craft:docs:demo<span class="w"> </span>--batch<span class="w"> </span>--dry-run
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="step-9-troubleshooting">Step 9: Troubleshooting<a class="headerlink" href="#step-9-troubleshooting" title="Permanent link">&para;</a></h2>
 <p>Common issues and solutions.</p>
 <h3 id="issue-1-tool-not-detected-installed-but-shows-missing">Issue 1: Tool Not Detected (Installed but Shows Missing)<a class="headerlink" href="#issue-1-tool-not-detected-installed-but-shows-missing" title="Permanent link">&para;</a></h3>
-<p><strong>Symptom:</strong>
+<p><strong>Symptom:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>agg          ❌        -          n/a       yes
-</span></code></pre></div></p>
-<p><strong>Solutions:</strong>
+</span></code></pre></div>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Verify tool is in PATH</span>
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>which<span class="w"> </span>agg
 </span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
@@ -5101,39 +5139,39 @@
 </span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
 </span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="c1"># Check PATH</span>
 </span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="issue-2-installation-failed">Issue 2: Installation Failed<a class="headerlink" href="#issue-2-installation-failed" title="Permanent link">&para;</a></h3>
-<p><strong>Symptom:</strong>
+<p><strong>Symptom:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Installing agg via cargo... ✗ Failed
-</span></code></pre></div></p>
-<p><strong>Solutions:</strong>
+</span></code></pre></div>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Try manual installation</span>
 </span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>cargo<span class="w"> </span>install<span class="w"> </span>agg
 </span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
 </span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Or download binary</span>
 </span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>curl<span class="w"> </span>-L<span class="w"> </span>https://github.com/asciinema/agg/releases/latest/download/agg-x86_64-apple-darwin<span class="w"> </span>-o<span class="w"> </span>/usr/local/bin/agg
 </span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>chmod<span class="w"> </span>+x<span class="w"> </span>/usr/local/bin/agg
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="issue-3-health-check-failing">Issue 3: Health Check Failing<a class="headerlink" href="#issue-3-health-check-failing" title="Permanent link">&para;</a></h3>
-<p><strong>Symptom:</strong>
+<p><strong>Symptom:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>asciinema    ⚠️        2.3.0      broken    yes
-</span></code></pre></div></p>
-<p><strong>Solutions:</strong>
+</span></code></pre></div>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Test tool manually</span>
 </span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>asciinema<span class="w"> </span>--version
 </span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
 </span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="c1"># Reinstall</span>
 </span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>brew<span class="w"> </span>uninstall<span class="w"> </span>asciinema
 </span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>/craft:docs:demo<span class="w"> </span>--fix
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h3 id="issue-4-gif-too-large">Issue 4: GIF Too Large<a class="headerlink" href="#issue-4-gif-too-large" title="Permanent link">&para;</a></h3>
-<p><strong>Symptom:</strong>
+<p><strong>Symptom:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>✓ demo.cast → demo.gif (5.2s, 2.4MB)
-</span></code></pre></div></p>
-<p><strong>Solutions:</strong>
+</span></code></pre></div>
+<p><strong>Solutions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Further optimize</span>
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>gifsicle<span class="w"> </span>-O3<span class="w"> </span>--colors<span class="w"> </span><span class="m">128</span><span class="w"> </span>demo.gif<span class="w"> </span>-o<span class="w"> </span>demo-small.gif
 </span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
@@ -5142,17 +5180,19 @@
 </span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>
 </span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="c1"># Use lower color count</span>
 </span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>gifsicle<span class="w"> </span>-O2<span class="w"> </span>--colors<span class="w"> </span><span class="m">64</span><span class="w"> </span>demo.gif<span class="w"> </span>-o<span class="w"> </span>demo-minimal.gif
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="step-10-next-steps">Step 10: Next Steps<a class="headerlink" href="#step-10-next-steps" title="Permanent link">&para;</a></h2>
 <p>Congratulations! You've completed the getting started tutorial. 🎉</p>
-<p><strong>What you've learned:</strong>
-- ✅ Check dependency status
-- ✅ Install missing tools
-- ✅ Record terminal sessions
-- ✅ Convert .cast to .gif
-- ✅ Batch process recordings
-- ✅ Troubleshoot common issues</p>
+<p><strong>What you've learned:</strong></p>
+<ul>
+<li>✅ Check dependency status</li>
+<li>✅ Install missing tools</li>
+<li>✅ Record terminal sessions</li>
+<li>✅ Convert .cast to .gif</li>
+<li>✅ Batch process recordings</li>
+<li>✅ Troubleshoot common issues</li>
+</ul>
 <p><strong>Continue learning:</strong></p>
 <h3 id="intermediate-topics">Intermediate Topics<a class="headerlink" href="#intermediate-topics" title="Permanent link">&para;</a></h3>
 <ul>
@@ -5161,21 +5201,23 @@
 <li><strong>VHS scripting</strong>: Create repeatable scripted demos</li>
 <li><strong>Watch mode</strong>: Iterative development with live updates</li>
 </ul>
-<p><strong>Resources:</strong>
-- <a href="../../DEPENDENCY-MANAGEMENT/">User Guide</a> - Complete reference
-- <a href="../../API-REFERENCE/">API Reference</a> - Function documentation
-- <a href="../../DEPENDENCY-ARCHITECTURE/">Architecture</a> - System design
-- <a href="../../DEVELOPER-GUIDE/">Developer Guide</a> - Contributing</p>
+<p><strong>Resources:</strong></p>
+<ul>
+<li><a href="../../DEPENDENCY-MANAGEMENT/">User Guide</a> - Complete reference</li>
+<li><a href="../../API-REFERENCE/">API Reference</a> - Function documentation</li>
+<li><a href="../../DEPENDENCY-ARCHITECTURE/">Architecture</a> - System design</li>
+<li><a href="../../DEVELOPER-GUIDE/">Developer Guide</a> - Contributing</li>
+</ul>
 <h3 id="try-these-commands">Try These Commands<a class="headerlink" href="#try-these-commands" title="Permanent link">&para;</a></h3>
-<p><strong>Get JSON output for scripting:</strong>
+<p><strong>Get JSON output for scripting:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>/craft:docs:demo<span class="w"> </span>--check<span class="w"> </span>--json
-</span></code></pre></div></p>
-<p><strong>Check specific tool versions:</strong>
+</span></code></pre></div>
+<p><strong>Check specific tool versions:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>./scripts/version-check.sh<span class="w"> </span>validate<span class="w"> </span>asciinema
-</span></code></pre></div></p>
-<p><strong>Detect repair candidates:</strong>
+</span></code></pre></div>
+<p><strong>Detect repair candidates:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>./scripts/repair-tools.sh<span class="w"> </span>detect<span class="w"> </span>asciinema
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
 <table>

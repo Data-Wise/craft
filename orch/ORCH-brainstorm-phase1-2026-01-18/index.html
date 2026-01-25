@@ -3758,7 +3758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4237,11 +4237,13 @@
 <strong>Status:</strong> Ready to Execute</p>
 <hr />
 <h2 id="executive-summary">Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
-<p>Implement Phase 1 (MVP) of the brainstorm question control feature, enabling users to:
-- Specify custom question counts via colon notation (<code>d:5</code>, <code>m:12</code>)
-- Filter questions by categories (<code>--categories req,tech,success</code>)
-- Ask unlimited questions with milestone prompts
-- Use a comprehensive 8-category question bank</p>
+<p>Implement Phase 1 (MVP) of the brainstorm question control feature, enabling users to:</p>
+<ul>
+<li>Specify custom question counts via colon notation (<code>d:5</code>, <code>m:12</code>)</li>
+<li>Filter questions by categories (<code>--categories req,tech,success</code>)</li>
+<li>Ask unlimited questions with milestone prompts</li>
+<li>Use a comprehensive 8-category question bank</li>
+</ul>
 <p><strong>Success Criteria:</strong> Users can control brainstorming depth and focus without Phase 2/3 features.</p>
 <hr />
 <h2 id="phase-1-deliverables">Phase 1 Deliverables<a class="headerlink" href="#phase-1-deliverables" title="Permanent link">&para;</a></h2>
@@ -4366,18 +4368,22 @@
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Enter</span><span class="nv"> </span><span class="s">number&quot;</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Specify</span><span class="nv"> </span><span class="s">exact</span><span class="nv"> </span><span class="s">count&quot;</span>
 </span></code></pre></div>
-<p><strong>Test Cases:</strong>
-- <code>d:5</code> → deep with 5 questions
-- <code>m:12</code> → max with 12 questions
-- <code>q:0</code> → quick with 0 questions
-- <code>d:abc</code> → validation prompt
-- <code>d:-5</code> → validation prompt
-- <code>:5</code> alone → error (depth required)</p>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ All colon notation formats parse correctly
-- ✅ Invalid syntax triggers interactive prompt
-- ✅ Standalone <code>:N</code> shows error
-- ✅ Counts override depth defaults</p>
+<p><strong>Test Cases:</strong></p>
+<ul>
+<li><code>d:5</code> → deep with 5 questions</li>
+<li><code>m:12</code> → max with 12 questions</li>
+<li><code>q:0</code> → quick with 0 questions</li>
+<li><code>d:abc</code> → validation prompt</li>
+<li><code>d:-5</code> → validation prompt</li>
+<li><code>:5</code> alone → error (depth required)</li>
+</ul>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ All colon notation formats parse correctly</li>
+<li>✅ Invalid syntax triggers interactive prompt</li>
+<li>✅ Standalone <code>:N</code> shows error</li>
+<li>✅ Counts override depth defaults</li>
+</ul>
 <hr />
 <h3 id="task-2-question-bank-implementation-2-hours">Task 2: Question Bank Implementation [2 hours]<a class="headerlink" href="#task-2-question-bank-implementation-2-hours" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Create 8-category question bank with 2 questions each</p>
@@ -4619,11 +4625,13 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ All 8 categories implemented
-- ✅ 2 questions per category (16 total)
-- ✅ Questions use AskUserQuestion format
-- ✅ Sensible defaults per focus mode</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ All 8 categories implemented</li>
+<li>✅ 2 questions per category (16 total)</li>
+<li>✅ Questions use AskUserQuestion format</li>
+<li>✅ Sensible defaults per focus mode</li>
+</ul>
 <hr />
 <h3 id="task-3-categories-flag-implementation-1-hour">Task 3: Categories Flag Implementation [1 hour]<a class="headerlink" href="#task-3-categories-flag-implementation-1-hour" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Add <code>--categories</code> flag to filter question types</p>
@@ -4730,12 +4738,14 @@
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;api&quot;</span><span class="w"> </span>--categories<span class="w"> </span>req,usr,tech,exist
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/brainstorm<span class="w"> </span>d:4<span class="w"> </span><span class="s2">&quot;caching&quot;</span><span class="w"> </span>-C<span class="w"> </span>tech,risk
 </span></code></pre></div>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ <code>--categories</code> and <code>-C</code> both work
-- ✅ Comma-separated list parsing
-- ✅ Shorthand expansion (req → requirements)
-- ✅ <code>all</code> selects all categories
-- ✅ Prioritization when count &lt; available</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ <code>--categories</code> and <code>-C</code> both work</li>
+<li>✅ Comma-separated list parsing</li>
+<li>✅ Shorthand expansion (req → requirements)</li>
+<li>✅ <code>all</code> selects all categories</li>
+<li>✅ Prioritization when count &lt; available</li>
+</ul>
 <hr />
 <h3 id="task-4-unlimited-questions-milestone-prompts-3-hours">Task 4: Unlimited Questions + Milestone Prompts [3 hours]<a class="headerlink" href="#task-4-unlimited-questions-milestone-prompts-3-hours" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Support unlimited question counts with continuation prompts every 8 questions</p>
@@ -4849,7 +4859,7 @@
 </span><span id="__span-5-106"><a id="__codelineno-5-106" name="__codelineno-5-106" href="#__codelineno-5-106"></a>        <span class="k">return</span> <span class="s1">&#39;keep_going&#39;</span>
 </span></code></pre></div>
 <p><strong>Milestone Prompt Examples:</strong></p>
-<p>After 8 questions:
+<p>After 8 questions:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>You&#39;ve answered 8 questions. Good context so far!
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Continue gathering context or start brainstorming?
@@ -4857,20 +4867,22 @@
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>○ 4 more questions
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>○ 8 more questions
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>○ Keep going until I say stop
-</span></code></pre></div></p>
-<p>After 16 questions (unlimited mode):
+</span></code></pre></div>
+<p>After 16 questions (unlimited mode):</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>You&#39;ve answered 16 questions. Comprehensive context!
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Continue gathering context or start brainstorming?
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>○ Done - Start brainstorming (Recommended)
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>○ 4 more questions
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>○ Keep going until I say stop
-</span></code></pre></div></p>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ Prompts appear every 8 questions
-- ✅ User can add 4, 8, or unlimited
-- ✅ "Keep going" mode asks after every 4
-- ✅ Works with any initial count (d:5, d:12, d:20)</p>
+</span></code></pre></div>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ Prompts appear every 8 questions</li>
+<li>✅ User can add 4, 8, or unlimited</li>
+<li>✅ "Keep going" mode asks after every 4</li>
+<li>✅ Works with any initial count (d:5, d:12, d:20)</li>
+</ul>
 <hr />
 <h3 id="task-5-documentation-updates-1-hour">Task 5: Documentation Updates [1 hour]<a class="headerlink" href="#task-5-documentation-updates-1-hour" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Update brainstorm.md and CLAUDE.md with Phase 1 features</p>
@@ -4911,10 +4923,12 @@
 </span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="gh"># Max mode with focused questions</span>
 </span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>/brainstorm m:20 f s &quot;payment system&quot; -C req,tech,risk
 </span></code></pre></div>
-<p><strong>Backward Compatible:</strong>
-- All existing syntax still works
-- <code>d</code> = <code>d:8</code> (deep with default 8 questions)
-- <code>m</code> = <code>m:8</code> (max with default 8 questions)
+<p><strong>Backward Compatible:</strong></p>
+<ul>
+<li>All existing syntax still works</li>
+<li><code>d</code> = <code>d:8</code> (deep with default 8 questions)</li>
+<li><code>m</code> = <code>m:8</code> (max with default 8 questions)</li>
+</ul>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>**Acceptance Criteria:**
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>- ✅ brainstorm.md updated with syntax
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>- ✅ Examples show Phase 1 features
@@ -5063,7 +5077,7 @@
 </span><span id="__span-9-146"><a id="__codelineno-9-146" name="__codelineno-9-146" href="#__codelineno-9-146"></a>        &quot;&quot;&quot;Should stop exactly at requested count.&quot;&quot;&quot;
 </span><span id="__span-9-147"><a id="__codelineno-9-147" name="__codelineno-9-147" href="#__codelineno-9-147"></a>        questions = ask_questions_with_milestones(range(20), 12)
 </span><span id="__span-9-148"><a id="__codelineno-9-148" name="__codelineno-9-148" href="#__codelineno-9-148"></a>        assert len(questions) == 12
-</span></code></pre></div></p>
+</span></code></pre></div>
 <p><strong>Integration Test Coverage:</strong></p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">TestBrainstormPhase1Integration</span><span class="p">:</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;End-to-end tests for Phase 1 features.&quot;&quot;&quot;</span>
@@ -5091,11 +5105,13 @@
 </span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;validation_prompted&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
 </span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>        <span class="k">assert</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;recovered&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
 </span></code></pre></div>
-<p><strong>Acceptance Criteria:</strong>
-- ✅ All unit tests pass (100% coverage)
-- ✅ Integration tests validate end-to-end
-- ✅ Edge cases handled (invalid syntax, etc.)
-- ✅ Tests run in &lt; 5 seconds</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<ul>
+<li>✅ All unit tests pass (100% coverage)</li>
+<li>✅ Integration tests validate end-to-end</li>
+<li>✅ Edge cases handled (invalid syntax, etc.)</li>
+<li>✅ Tests run in &lt; 5 seconds</li>
+</ul>
 <hr />
 <h2 id="execution-order">Execution Order<a class="headerlink" href="#execution-order" title="Permanent link">&para;</a></h2>
 <p><strong>Recommended sequence:</strong></p>
@@ -5107,13 +5123,15 @@
 <li><strong>Task 5 fifth</strong> (Documentation) - After implementation</li>
 <li><strong>Task 6 last</strong> (Tests) - Validate everything</li>
 </ol>
-<p><strong>Why this order?</strong>
-- Question bank is the foundation
-- Categories flag is simple and useful for testing
-- Colon notation can use real question bank for testing
-- Unlimited questions builds on everything else
-- Documentation after implementation is complete
-- Tests validate the entire system</p>
+<p><strong>Why this order?</strong></p>
+<ul>
+<li>Question bank is the foundation</li>
+<li>Categories flag is simple and useful for testing</li>
+<li>Colon notation can use real question bank for testing</li>
+<li>Unlimited questions builds on everything else</li>
+<li>Documentation after implementation is complete</li>
+<li>Tests validate the entire system</li>
+</ul>
 <hr />
 <h2 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h2>
 <h3 id="manual-testing-checklist">Manual Testing Checklist<a class="headerlink" href="#manual-testing-checklist" title="Permanent link">&para;</a></h3>
@@ -5175,10 +5193,12 @@
 <li><strong>Feature flag</strong> - Add <code>ENABLE_PHASE1=false</code> env var</li>
 <li><strong>Hotfix</strong> - Create <code>hotfix/revert-phase1</code> branch</li>
 </ol>
-<p><strong>Critical bugs that require rollback:</strong>
-- Breaks existing brainstorm functionality
-- Causes data loss or corruption
-- Performance regression &gt; 2x slower</p>
+<p><strong>Critical bugs that require rollback:</strong></p>
+<ul>
+<li>Breaks existing brainstorm functionality</li>
+<li>Causes data loss or corruption</li>
+<li>Performance regression &gt; 2x slower</li>
+</ul>
 <hr />
 <h2 id="post-implementation">Post-Implementation<a class="headerlink" href="#post-implementation" title="Permanent link">&para;</a></h2>
 <h3 id="merge-checklist">Merge Checklist<a class="headerlink" href="#merge-checklist" title="Permanent link">&para;</a></h3>
@@ -5202,17 +5222,21 @@
 </ol>
 <hr />
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
-<p><strong>IMPORTANT:</strong>
-- This is MVP - Phase 2/3 are deferred
-- Focus on core functionality, not polish
-- Ship and gather feedback before Phase 2/3
-- Keep implementation simple and testable</p>
-<p><strong>Known Limitations (Phase 1):</strong>
-- No question style choice (always one-at-a-time)
-- No saved preferences
-- No custom questions
-- No project templates
-- No session memory</p>
+<p><strong>IMPORTANT:</strong></p>
+<ul>
+<li>This is MVP - Phase 2/3 are deferred</li>
+<li>Focus on core functionality, not polish</li>
+<li>Ship and gather feedback before Phase 2/3</li>
+<li>Keep implementation simple and testable</li>
+</ul>
+<p><strong>Known Limitations (Phase 1):</strong></p>
+<ul>
+<li>No question style choice (always one-at-a-time)</li>
+<li>No saved preferences</li>
+<li>No custom questions</li>
+<li>No project templates</li>
+<li>No session memory</li>
+</ul>
 <p><strong>These are intentional</strong> - Phase 2/3 features only if users request them.</p>
 
 

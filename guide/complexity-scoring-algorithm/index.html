@@ -1046,6 +1046,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#score-010-route-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score: 0/10 → Route: Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example-2-moderate-task-score-4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1057,10 +1068,32 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#score-610-route-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score: 6/10 → Route: Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example-3-complex-task-score-9" class="md-nav__link">
     <span class="md-ellipsis">
       
         Example 3: Complex Task (Score: 9)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#score-1010-capped-route-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score: 10/10 (capped) → Route: Orchestrator
       
     </span>
   </a>
@@ -4173,7 +4206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4560,6 +4593,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#score-010-route-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score: 0/10 → Route: Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example-2-moderate-task-score-4" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4571,10 +4615,32 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#score-610-route-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score: 6/10 → Route: Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example-3-complex-task-score-9" class="md-nav__link">
     <span class="md-ellipsis">
       
         Example 3: Complex Task (Score: 9)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#score-1010-capped-route-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Score: 10/10 (capped) → Route: Orchestrator
       
     </span>
   </a>
@@ -4828,95 +4894,125 @@
 <p>Each factor adds <strong>+2 points</strong> (max 10, factors are independent):</p>
 <h3 id="factor-1-multi-step-task-2-points">Factor 1: Multi-Step Task (+2 points)<a class="headerlink" href="#factor-1-multi-step-task-2-points" title="Permanent link">&para;</a></h3>
 <p><strong>Detects:</strong> Tasks requiring multiple distinct operations</p>
-<p><strong>Indicators:</strong>
-- 2+ action verbs: "lint <strong>and</strong> test"
-- Explicit sequencing: "build, <strong>then</strong> deploy"
-- Multi-part description: "lint<strong>,</strong> test<strong>,</strong> build"</p>
-<p><strong>Examples:</strong>
-- "format code" → 0 points
-- "format code and test" → +2 points
-- "format code, test, build" → +2 points</p>
+<p><strong>Indicators:</strong></p>
+<ul>
+<li>2+ action verbs: "lint <strong>and</strong> test"</li>
+<li>Explicit sequencing: "build, <strong>then</strong> deploy"</li>
+<li>Multi-part description: "lint<strong>,</strong> test<strong>,</strong> build"</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"format code" → 0 points</li>
+<li>"format code and test" → +2 points</li>
+<li>"format code, test, build" → +2 points</li>
+</ul>
 <h3 id="factor-2-cross-category-task-2-points">Factor 2: Cross-Category Task (+2 points)<a class="headerlink" href="#factor-2-cross-category-task-2-points" title="Permanent link">&para;</a></h3>
 <p><strong>Detects:</strong> Tasks spanning multiple work areas</p>
-<p><strong>Categories Recognized:</strong>
-- Code (implement, refactor, fix, feature)
-- Testing (test, coverage, validate)
-- Documentation (doc, readme, comment)
-- CI/CD (pipeline, workflow, deploy)
-- Architecture (design, system, pattern)
-- Security (auth, oauth, token)
-- Database (migration, schema, query)
-- Error Handling (exception, validation)</p>
-<p><strong>Examples:</strong>
-- "add feature" → 0 points (1 category)
-- "add feature with tests" → +2 points (code + testing)
-- "add feature, tests, and docs" → +4 points (3 categories)</p>
+<p><strong>Categories Recognized:</strong></p>
+<ul>
+<li>Code (implement, refactor, fix, feature)</li>
+<li>Testing (test, coverage, validate)</li>
+<li>Documentation (doc, readme, comment)</li>
+<li>CI/CD (pipeline, workflow, deploy)</li>
+<li>Architecture (design, system, pattern)</li>
+<li>Security (auth, oauth, token)</li>
+<li>Database (migration, schema, query)</li>
+<li>Error Handling (exception, validation)</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"add feature" → 0 points (1 category)</li>
+<li>"add feature with tests" → +2 points (code + testing)</li>
+<li>"add feature, tests, and docs" → +4 points (3 categories)</li>
+</ul>
 <p><strong>Bonus:</strong> Tasks spanning 4+ categories get additional +2 points</p>
 <h3 id="factor-3-requires-planning-2-points">Factor 3: Requires Planning (+2 points)<a class="headerlink" href="#factor-3-requires-planning-2-points" title="Permanent link">&para;</a></h3>
 <p><strong>Detects:</strong> Tasks needing architecture or design phase</p>
-<p><strong>Keywords:</strong>
-- Design, architecture, strategy, flow
-- Pattern, structure, framework
-- Optimize, performance, scalability
-- Migration, redesign, restructure</p>
-<p><strong>Examples:</strong>
-- "add button" → 0 points
-- "design authentication system" → +2 points
-- "refactor architecture" → +2 points</p>
+<p><strong>Keywords:</strong></p>
+<ul>
+<li>Design, architecture, strategy, flow</li>
+<li>Pattern, structure, framework</li>
+<li>Optimize, performance, scalability</li>
+<li>Migration, redesign, restructure</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"add button" → 0 points</li>
+<li>"design authentication system" → +2 points</li>
+<li>"refactor architecture" → +2 points</li>
+</ul>
 <h3 id="factor-4-requires-research-2-points">Factor 4: Requires Research (+2 points)<a class="headerlink" href="#factor-4-requires-research-2-points" title="Permanent link">&para;</a></h3>
 <p><strong>Detects:</strong> Tasks needing investigation or exploration</p>
-<p><strong>Keywords:</strong>
-- Research, investigate, explore
-- Analyze, study, review, understand
-- How to, compare, evaluate</p>
-<p><strong>Examples:</strong>
-- "fix typo" → 0 points
-- "investigate performance issue" → +2 points
-- "research best practices" → +2 points</p>
+<p><strong>Keywords:</strong></p>
+<ul>
+<li>Research, investigate, explore</li>
+<li>Analyze, study, review, understand</li>
+<li>How to, compare, evaluate</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"fix typo" → 0 points</li>
+<li>"investigate performance issue" → +2 points</li>
+<li>"research best practices" → +2 points</li>
+</ul>
 <h3 id="factor-5-multi-file-changes-2-points">Factor 5: Multi-File Changes (+2 points)<a class="headerlink" href="#factor-5-multi-file-changes-2-points" title="Permanent link">&para;</a></h3>
 <p><strong>Detects:</strong> Broad-impact changes across many files</p>
-<p><strong>Indicators:</strong>
-- Mentions of 5+ specific files: <code>foo.py</code>, <code>bar.js</code>, etc.
-- Scope keywords: system, module, package, entire, all
-- Cross-cutting: multiple, across, throughout, ecosystem</p>
-<p><strong>Examples:</strong>
-- "fix typo in one file" → 0 points
-- "refactor multiple modules" → +2 points
-- "update entire system" → +2 points</p>
+<p><strong>Indicators:</strong></p>
+<ul>
+<li>Mentions of 5+ specific files: <code>foo.py</code>, <code>bar.js</code>, etc.</li>
+<li>Scope keywords: system, module, package, entire, all</li>
+<li>Cross-cutting: multiple, across, throughout, ecosystem</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"fix typo in one file" → 0 points</li>
+<li>"refactor multiple modules" → +2 points</li>
+<li>"update entire system" → +2 points</li>
+</ul>
 <h3 id="factor-6-inherently-complex-keywords-2-points">Factor 6: Inherently Complex Keywords (+2 points)<a class="headerlink" href="#factor-6-inherently-complex-keywords-2-points" title="Permanent link">&para;</a></h3>
 <p><strong>Detects:</strong> Tasks with recognized complexity keywords</p>
-<p><strong>Keywords:</strong>
-- Comprehensive, optimize, redesign
-- Microservice, authentication, migration
-- Scalable, performance, robust</p>
-<p><strong>Examples:</strong>
-- "add field" → 0 points
-- "optimize performance" → +2 points
-- "comprehensive refactoring" → +2 points</p>
+<p><strong>Keywords:</strong></p>
+<ul>
+<li>Comprehensive, optimize, redesign</li>
+<li>Microservice, authentication, migration</li>
+<li>Scalable, performance, robust</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"add field" → 0 points</li>
+<li>"optimize performance" → +2 points</li>
+<li>"comprehensive refactoring" → +2 points</li>
+</ul>
 <h3 id="factor-7-major-architectural-changes-2-points">Factor 7: Major Architectural Changes (+2 points)<a class="headerlink" href="#factor-7-major-architectural-changes-2-points" title="Permanent link">&para;</a></h3>
 <p><strong>Detects:</strong> System-wide architectural overhauls</p>
-<p><strong>Patterns Recognized:</strong>
-- "redesign" + "architecture"
-- "redesign" + "system"
-- "refactor" + "architecture"
-- "migrate" + "architecture"</p>
-<p><strong>Examples:</strong>
-- "fix bug" → 0 points
-- "redesign architecture" → +2 points
-- "migrate to microservices architecture" → +2 points</p>
+<p><strong>Patterns Recognized:</strong></p>
+<ul>
+<li>"redesign" + "architecture"</li>
+<li>"redesign" + "system"</li>
+<li>"refactor" + "architecture"</li>
+<li>"migrate" + "architecture"</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"fix bug" → 0 points</li>
+<li>"redesign architecture" → +2 points</li>
+<li>"migrate to microservices architecture" → +2 points</li>
+</ul>
 <hr />
 <h2 id="scoring-examples">Scoring Examples<a class="headerlink" href="#scoring-examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-1-simple-task-score-0">Example 1: Simple Task (Score: 0)<a class="headerlink" href="#example-1-simple-task-score-0" title="Permanent link">&para;</a></h3>
 <p><strong>Task:</strong> "Fix typo in README"</p>
-<p><strong>Analysis:</strong>
-- 1 verb (fix) → No multi-step
-- 1 category (docs) → No cross-category
-- No planning keywords → No planning
-- No research keywords → No research
-- 0 files → No multi-file
-- No complex keywords → No complexity
-- No architectural pattern → No architecture</p>
-<p><strong>Score: 0/10 → Route: Commands</strong></p>
+<p><strong>Analysis:</strong></p>
+<ul>
+<li>1 verb (fix) → No multi-step</li>
+<li>1 category (docs) → No cross-category</li>
+<li>No planning keywords → No planning</li>
+<li>No research keywords → No research</li>
+<li>0 files → No multi-file</li>
+<li>No complex keywords → No complexity</li>
+<li>No architectural pattern → No architecture</li>
+</ul>
+<h3 id="score-010-route-commands">Score: 0/10 → Route: Commands<a class="headerlink" href="#score-010-route-commands" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph LR
     A["Fix typo in README"] --&gt;|Factor 1| B["Multi-step? No"]
     A --&gt;|Factor 2| C["Cross-cat? No"]
@@ -4941,15 +5037,17 @@
     style J fill:#c8e6c9</code></pre>
 <h3 id="example-2-moderate-task-score-4">Example 2: Moderate Task (Score: 4)<a class="headerlink" href="#example-2-moderate-task-score-4" title="Permanent link">&para;</a></h3>
 <p><strong>Task:</strong> "Add feature with comprehensive tests and documentation"</p>
-<p><strong>Analysis:</strong>
-- 3 verbs (add, tests, documentation) → +2 multi-step
-- 3 categories (code, testing, docs) → +2 cross-category
-- No explicit planning → 0
-- No research → 0
-- No multi-file → 0
-- "comprehensive" keyword → +2 complexity
-- No architectural pattern → 0</p>
-<p><strong>Score: 6/10 → Route: Agent</strong></p>
+<p><strong>Analysis:</strong></p>
+<ul>
+<li>3 verbs (add, tests, documentation) → +2 multi-step</li>
+<li>3 categories (code, testing, docs) → +2 cross-category</li>
+<li>No explicit planning → 0</li>
+<li>No research → 0</li>
+<li>No multi-file → 0</li>
+<li>"comprehensive" keyword → +2 complexity</li>
+<li>No architectural pattern → 0</li>
+</ul>
+<h3 id="score-610-route-agent">Score: 6/10 → Route: Agent<a class="headerlink" href="#score-610-route-agent" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph LR
     A["Add feature with comprehensive tests and documentation"] --&gt;|Factor 1| B["✓ Multi-step: +2"]
     A --&gt;|Factor 2| C["✓ 3 categories: +2"]
@@ -4973,15 +5071,17 @@
     style J fill:#b3e5fc</code></pre>
 <h3 id="example-3-complex-task-score-9">Example 3: Complex Task (Score: 9)<a class="headerlink" href="#example-3-complex-task-score-9" title="Permanent link">&para;</a></h3>
 <p><strong>Task:</strong> "Design and implement comprehensive authentication system with OAuth2, PKCE, session management, error handling, extensive tests, and full documentation"</p>
-<p><strong>Analysis:</strong>
-- 4+ verbs (design, implement, tests, docs) → +2 multi-step
-- 5 categories (code, auth, error-handling, testing, docs) → +4 (2 for cross-cat, +2 bonus)
-- "design" keyword → +2 planning
-- No explicit research → 0
-- Comprehensive scope → +2 multi-file
-- "comprehensive" + "implementation" → +2 complexity
-- "design" + "system" pattern → +2 architecture</p>
-<p><strong>Score: 10/10 (capped) → Route: Orchestrator</strong></p>
+<p><strong>Analysis:</strong></p>
+<ul>
+<li>4+ verbs (design, implement, tests, docs) → +2 multi-step</li>
+<li>5 categories (code, auth, error-handling, testing, docs) → +4 (2 for cross-cat, +2 bonus)</li>
+<li>"design" keyword → +2 planning</li>
+<li>No explicit research → 0</li>
+<li>Comprehensive scope → +2 multi-file</li>
+<li>"comprehensive" + "implementation" → +2 complexity</li>
+<li>"design" + "system" pattern → +2 architecture</li>
+</ul>
+<h3 id="score-1010-capped-route-orchestrator">Score: 10/10 (capped) → Route: Orchestrator<a class="headerlink" href="#score-1010-capped-route-orchestrator" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph LR
     A["Design comprehensive auth system with OAuth2, sessions,&lt;br/&gt;error handling, tests, and documentation"]
 
@@ -5015,17 +5115,21 @@
 <h2 id="routing-zones-explained">Routing Zones Explained<a class="headerlink" href="#routing-zones-explained" title="Permanent link">&para;</a></h2>
 <h3 id="zone-1-commands-0-3-points">Zone 1: Commands (0-3 points)<a class="headerlink" href="#zone-1-commands-0-3-points" title="Permanent link">&para;</a></h3>
 <p><strong>When to Use:</strong> Simple, single-purpose tasks</p>
-<p><strong>Characteristics:</strong>
-- Single operation (no "and" or "then")
-- One work category (code OR test OR docs, not multiple)
-- No planning/research needed
-- Affects single file or small scope</p>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li>Single operation (no "and" or "then")</li>
+<li>One work category (code OR test OR docs, not multiple)</li>
+<li>No planning/research needed</li>
+<li>Affects single file or small scope</li>
+</ul>
 <p><strong>Route To:</strong> Specific CLI commands</p>
-<p><strong>Examples:</strong>
-- "lint code"
-- "run tests"
-- "format documentation"
-- "fix typo"</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"lint code"</li>
+<li>"run tests"</li>
+<li>"format documentation"</li>
+<li>"fix typo"</li>
+</ul>
 <p><strong>Time:</strong> &lt; 30 seconds</p>
 <pre class="mermaid"><code>graph TD
     A["0-3 Points"] --&gt; B["Simple Task"]
@@ -5044,17 +5148,21 @@
     style G fill:#f1f8e9</code></pre>
 <h3 id="zone-2-agent-4-7-points">Zone 2: Agent (4-7 points)<a class="headerlink" href="#zone-2-agent-4-7-points" title="Permanent link">&para;</a></h3>
 <p><strong>When to Use:</strong> Moderate tasks with multiple components</p>
-<p><strong>Characteristics:</strong>
-- Multi-step operation (design + build, or test + docs)
-- 2-3 work categories
-- Some planning or research involved
-- Moderate scope (5-20 files affected)</p>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li>Multi-step operation (design + build, or test + docs)</li>
+<li>2-3 work categories</li>
+<li>Some planning or research involved</li>
+<li>Moderate scope (5-20 files affected)</li>
+</ul>
 <p><strong>Route To:</strong> Specialized agent (feature-developer, bug-detective, docs-architect, etc.)</p>
-<p><strong>Examples:</strong>
-- "add feature with tests"
-- "refactor module and update docs"
-- "investigate and fix bug with tests"
-- "design API and create client SDK"</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"add feature with tests"</li>
+<li>"refactor module and update docs"</li>
+<li>"investigate and fix bug with tests"</li>
+<li>"design API and create client SDK"</li>
+</ul>
 <p><strong>Time:</strong> 5-30 minutes
 <strong>Reasoning:</strong> Single agent can handle multiple aspects better than individual commands, but not complex enough for full orchestration</p>
 <pre class="mermaid"><code>graph TD
@@ -5074,16 +5182,20 @@
     style G fill:#b2dfdb</code></pre>
 <h3 id="zone-3-orchestrator-8-10-points">Zone 3: Orchestrator (8-10 points)<a class="headerlink" href="#zone-3-orchestrator-8-10-points" title="Permanent link">&para;</a></h3>
 <p><strong>When to Use:</strong> Complex, multi-phase tasks</p>
-<p><strong>Characteristics:</strong>
-- 4+ operations (design, implement, test, document, deploy)
-- 4+ work categories
-- Major planning or architectural work
-- Large scope (20+ files, multiple systems)</p>
+<p><strong>Characteristics:</strong></p>
+<ul>
+<li>4+ operations (design, implement, test, document, deploy)</li>
+<li>4+ work categories</li>
+<li>Major planning or architectural work</li>
+<li>Large scope (20+ files, multiple systems)</li>
+</ul>
 <p><strong>Route To:</strong> Orchestrator v2 (multi-agent coordination)</p>
-<p><strong>Examples:</strong>
-- "Design and implement comprehensive authentication system with OAuth2, sessions, tests, and docs"
-- "Redesign system architecture with microservices, API, CI/CD, and full test coverage"
-- "Add new feature across entire ecosystem with tests, docs, and deployment"</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>"Design and implement comprehensive authentication system with OAuth2, sessions, tests, and docs"</li>
+<li>"Redesign system architecture with microservices, API, CI/CD, and full test coverage"</li>
+<li>"Add new feature across entire ecosystem with tests, docs, and deployment"</li>
+</ul>
 <p><strong>Time:</strong> 30 minutes - several hours
 <strong>Reasoning:</strong> Requires parallel multi-agent coordination with tight integration</p>
 <pre class="mermaid"><code>graph TD
@@ -5163,27 +5275,31 @@
 <p>The complexity scorer is integrated into <code>/craft:do</code> to automate routing:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add authentication with OAuth2, sessions, and comprehensive tests&quot;</span>
 </span></code></pre></div>
-<p><strong>Process:</strong>
-1. Parse task description
-2. Calculate 7-factor score
-3. Determine routing zone (0-3, 4-7, or 8-10)
-4. Execute via chosen route (command, agent, or orchestrator)</p>
-<p><strong>Output Example:</strong>
+<p><strong>Process:</strong></p>
+<ol>
+<li>Parse task description</li>
+<li>Calculate 7-factor score</li>
+<li>Determine routing zone (0-3, 4-7, or 8-10)</li>
+<li>Execute via chosen route (command, agent, or orchestrator)</li>
+</ol>
+<p><strong>Output Example:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Task: &quot;add authentication with OAuth2, sessions, and comprehensive tests&quot;
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Score: 8/10
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Factors: Multi-step (+2), Cross-category code/security/testing (+4), Planning (+2)
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Routing: Orchestrator v2 (multi-agent coordination)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="testing-the-algorithm">Testing the Algorithm<a class="headerlink" href="#testing-the-algorithm" title="Permanent link">&para;</a></h2>
 <h3 id="run-complexity-scorer-tests">Run Complexity Scorer Tests<a class="headerlink" href="#run-complexity-scorer-tests" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python3<span class="w"> </span>tests/test_complexity_scoring.py
 </span></code></pre></div>
-<p><strong>Test Coverage:</strong>
-- 15 unit tests
-- 100% coverage of scoring factors
-- Boundary testing (0, 3, 7, 10 points)
-- Real-world examples</p>
+<p><strong>Test Coverage:</strong></p>
+<ul>
+<li>15 unit tests</li>
+<li>100% coverage of scoring factors</li>
+<li>Boundary testing (0, 3, 7, 10 points)</li>
+<li>Real-world examples</li>
+</ul>
 <h3 id="manual-testing">Manual Testing<a class="headerlink" href="#manual-testing" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python3<span class="w"> </span>utils/complexity_scorer.py
 </span></code></pre></div>
@@ -5202,11 +5318,13 @@
 <p><strong>v1.20.0:</strong> Initial 5-factor algorithm
 <strong>v1.23.0:</strong> Enhanced with complexity keywords factor
 <strong>v1.24.0:</strong> Added major architectural changes factor (7 total)</p>
-<p><strong>Tuning Strategy:</strong>
-- Adjust keyword lists based on user feedback
-- Monitor false positives (task routed too high)
-- Monitor false negatives (task routed too low)
-- Test against real craft usage patterns</p>
+<p><strong>Tuning Strategy:</strong></p>
+<ul>
+<li>Adjust keyword lists based on user feedback</li>
+<li>Monitor false positives (task routed too high)</li>
+<li>Monitor false negatives (task routed too low)</li>
+<li>Test against real craft usage patterns</li>
+</ul>
 <hr />
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ol>
@@ -5224,7 +5342,7 @@
 <li>Task complexity detection</li>
 </ul>
 <hr />
-<p><em>Last Updated: 2026-01-18</em></p>
+<p>Last Updated: 2026-01-18</p>
 
 
 

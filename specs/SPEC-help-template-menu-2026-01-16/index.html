@@ -16,7 +16,7 @@
         <link rel="prev" href="../SPEC-website-organization-standard-2026-01-17/">
       
       
-        <link rel="next" href="../SPEC-docs-update-interactive-2026-01-22/">
+        <link rel="next" href="../../guide/documentation-quality-development/">
       
       
         
@@ -4184,7 +4184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-update-interactive-2026-01-22.md" class="md-nav__link">
         
   
   
@@ -4817,11 +4817,13 @@
 <hr />
 <h2 id="solution-overview">Solution Overview<a class="headerlink" href="#solution-overview" title="Permanent link">&para;</a></h2>
 <p>Create a standardized markdown template for help files and reorganize the website menu with a flat category structure. Focus on progressive disclosure (TL;DR → Tabs → Reference) and search-first discovery.</p>
-<p><strong>Key Principles:</strong>
-- ADHD-friendly design (TL;DR always at top, tabs hide complexity)
-- Pure markdown (no dependencies, no tooling)
-- Phased rollout (not big bang - validate early, adjust if needed)
-- Search-first discovery (prominent search, keywords in frontmatter)</p>
+<p><strong>Key Principles:</strong></p>
+<ul>
+<li>ADHD-friendly design (TL;DR always at top, tabs hide complexity)</li>
+<li>Pure markdown (no dependencies, no tooling)</li>
+<li>Phased rollout (not big bang - validate early, adjust if needed)</li>
+<li>Search-first discovery (prominent search, keywords in frontmatter)</li>
+</ul>
 <hr />
 <h2 id="scope">Scope<a class="headerlink" href="#scope" title="Permanent link">&para;</a></h2>
 <h3 id="in-scope">In Scope<a class="headerlink" href="#in-scope" title="Permanent link">&para;</a></h3>
@@ -4844,20 +4846,22 @@
 <hr />
 <h2 id="design">Design<a class="headerlink" href="#design" title="Permanent link">&para;</a></h2>
 <h3 id="template-structure">Template Structure<a class="headerlink" href="#template-structure" title="Permanent link">&para;</a></h3>
-<p><strong>Required Sections (always include):</strong>
-1. <strong>TL;DR</strong> - 30-second answer (What, Why, How, Next)
-2. <strong>Quick Reference</strong> - Copy-paste code snippet
-3. <strong>Overview</strong> - 2-3 paragraphs context
-4. <strong>Usage Tabs</strong> - Progressive disclosure (Basic → Options → Advanced)
-5. <strong>Examples</strong> - 2+ real-world scenarios
-6. <strong>See Also</strong> - 3-5 curated links</p>
+<p><strong>Required Sections (always include):</strong></p>
+<ol>
+<li><strong>TL;DR</strong> - 30-second answer (What, Why, How, Next)</li>
+<li><strong>Quick Reference</strong> - Copy-paste code snippet</li>
+<li><strong>Overview</strong> - 2-3 paragraphs context</li>
+<li><strong>Usage Tabs</strong> - Progressive disclosure (Basic → Options → Advanced)</li>
+<li><strong>Examples</strong> - 2+ real-world scenarios</li>
+<li><strong>See Also</strong> - 3-5 curated links</li>
+</ol>
 <p><strong>Optional Sections (if applicable):</strong>
 7. <strong>Options Table</strong> - Flag reference
 8. <strong>Modes</strong> - Execution mode explanation
 9. <strong>Troubleshooting</strong> - Common errors &amp; fixes
 10. <strong>Reference</strong> - Technical metadata</p>
 <h3 id="menu-structure">Menu Structure<a class="headerlink" href="#menu-structure" title="Permanent link">&para;</a></h3>
-<p><strong>Before:</strong>
+<p><strong>Before:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Help:
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  - /craft:hub
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  - /craft:do
@@ -4866,8 +4870,8 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  - /craft:git:init
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  - /craft:git:worktree
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  ...
-</span></code></pre></div></p>
-<p><strong>After:</strong>
+</span></code></pre></div>
+<p><strong>After:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Help:
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  - Overview (homepage)
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  - Popular Commands (top 20-30)
@@ -4879,36 +4883,46 @@
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  - CI &amp; Distribution (category page)
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  - Architecture (category page)
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  - Workflow &amp; Planning (category page)
-</span></code></pre></div></p>
+</span></code></pre></div>
 <hr />
 <h2 id="implementation-phases">Implementation Phases<a class="headerlink" href="#implementation-phases" title="Permanent link">&para;</a></h2>
 <h3 id="phase-0-foundation-week-1-4-6-hours">Phase 0: Foundation (Week 1 - 4-6 hours)<a class="headerlink" href="#phase-0-foundation-week-1-4-6-hours" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Validate template with 3 pilots</p>
-<p><strong>Files to Create:</strong>
-- <code>docs/templates/HELP-TEMPLATE.md</code> (200 lines)
-- <code>docs/help/index.md</code> (150 lines)
-- <code>docs/help/smart/index.md</code> (80 lines)
-- <code>docs/help/smart/do.md</code> (migrate from existing)
-- <code>docs/help/smart/check.md</code> (migrate from existing)
-- <code>docs/help/smart/orchestrate.md</code> (migrate from existing)</p>
-<p><strong>Files to Modify:</strong>
-- <code>mkdocs.yml</code> - Add Help section with categories
-- <code>docs/CONTRIBUTING.md</code> - Add "Create help file" to checklist</p>
-<p><strong>Success Criteria:</strong>
-- [ ] Template covers all sections
-- [ ] 3 pilot commands follow template
-- [ ] Help homepage renders correctly
-- [ ] Site builds without errors</p>
+<p><strong>Files to Create:</strong></p>
+<ul>
+<li><code>docs/templates/HELP-TEMPLATE.md</code> (200 lines)</li>
+<li><code>docs/help/index.md</code> (150 lines)</li>
+<li><code>docs/help/smart/index.md</code> (80 lines)</li>
+<li><code>docs/help/smart/do.md</code> (migrate from existing)</li>
+<li><code>docs/help/smart/check.md</code> (migrate from existing)</li>
+<li><code>docs/help/smart/orchestrate.md</code> (migrate from existing)</li>
+</ul>
+<p><strong>Files to Modify:</strong></p>
+<ul>
+<li><code>mkdocs.yml</code> - Add Help section with categories</li>
+<li><code>docs/CONTRIBUTING.md</code> - Add "Create help file" to checklist</li>
+</ul>
+<p><strong>Success Criteria:</strong></p>
+<ul>
+<li>[ ] Template covers all sections</li>
+<li>[ ] 3 pilot commands follow template</li>
+<li>[ ] Help homepage renders correctly</li>
+<li>[ ] Site builds without errors</li>
+</ul>
 <hr />
 <h3 id="phase-1-git-category-week-2-6-8-hours">Phase 1: Git Category (Week 2 - 6-8 hours)<a class="headerlink" href="#phase-1-git-category-week-2-6-8-hours" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Complete second category to validate landing page pattern</p>
-<p><strong>Files to Create:</strong>
-- <code>docs/help/git/index.md</code>
-- 6 git command help files (init, worktree, clean, sync, branch, recap)</p>
-<p><strong>Success Criteria:</strong>
-- [ ] All 6 git commands documented
-- [ ] Landing page shows workflows
-- [ ] Cross-links work</p>
+<p><strong>Files to Create:</strong></p>
+<ul>
+<li><code>docs/help/git/index.md</code></li>
+<li>6 git command help files (init, worktree, clean, sync, branch, recap)</li>
+</ul>
+<p><strong>Success Criteria:</strong></p>
+<ul>
+<li>[ ] All 6 git commands documented</li>
+<li>[ ] Landing page shows workflows</li>
+<li>[ ] Cross-links work</li>
+</ul>
 <hr />
 <h3 id="phase-2-docs-site-categories-week-3-6-8-hours">Phase 2: Docs + Site Categories (Week 3 - 6-8 hours)<a class="headerlink" href="#phase-2-docs-site-categories-week-3-6-8-hours" title="Permanent link">&para;</a></h3>
 <p><strong>Files:</strong> 11 help files (7 docs + 4 site)</p>
@@ -4924,10 +4938,12 @@
 <hr />
 <h3 id="phase-6-pre-commit-hook-week-7-2-3-hours">Phase 6: Pre-commit Hook (Week 7 - 2-3 hours)<a class="headerlink" href="#phase-6-pre-commit-hook-week-7-2-3-hours" title="Permanent link">&para;</a></h3>
 <p><strong>Goal:</strong> Automated validation for new commands</p>
-<p><strong>Integration:</strong>
-- Add to <code>/craft:git:init</code> command
-- Append to existing pre-commit hook
-- Prompt if help file missing</p>
+<p><strong>Integration:</strong></p>
+<ul>
+<li>Add to <code>/craft:git:init</code> command</li>
+<li>Append to existing pre-commit hook</li>
+<li>Prompt if help file missing</li>
+</ul>
 <hr />
 <h2 id="files-createdmodified">Files Created/Modified<a class="headerlink" href="#files-createdmodified" title="Permanent link">&para;</a></h2>
 <h3 id="new-files-phase-0">New Files (Phase 0)<a class="headerlink" href="#new-files-phase-0" title="Permanent link">&para;</a></h3>
@@ -5083,10 +5099,12 @@
 <hr />
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
 <p><strong>None</strong> - Pure markdown implementation</p>
-<p><strong>Prerequisites:</strong>
-- MkDocs Material theme (already configured)
-- Tab extension (already enabled)
-- Search plugin (already enabled)</p>
+<p><strong>Prerequisites:</strong></p>
+<ul>
+<li>MkDocs Material theme (already configured)</li>
+<li>Tab extension (already enabled)</li>
+<li>Search plugin (already enabled)</li>
+</ul>
 <hr />
 <h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
 <ol>
