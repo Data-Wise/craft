@@ -11,6 +11,7 @@ Step-by-step interactive tutorials for learning the dependency management system
 **Tutorial**: [Getting Started with Dependency Management](dependency-management-getting-started.md)
 
 **What you'll learn:**
+
 - Check which tools are installed
 - Understand dependency status
 - Install missing tools automatically
@@ -96,6 +97,7 @@ flowchart TD
 ## Quick Start Guide
 
 **New to the system?**
+
 1. Start with [Getting Started](dependency-management-getting-started.md)
 2. Follow all 10 steps (~10 minutes)
 3. Complete the hands-on exercises
@@ -103,6 +105,7 @@ flowchart TD
 
 **Specific goal?**
 Jump to the relevant section:
+
 - **Installation issues** → [Step 4](dependency-management-getting-started.md#step-4-install-missing-dependencies)
 - **Converting recordings** → [Step 7](dependency-management-getting-started.md#step-7-convert-recording-to-gif)
 - **Batch processing** → [Step 8](dependency-management-getting-started.md#step-8-batch-convert-multiple-files)
@@ -113,12 +116,14 @@ Jump to the relevant section:
 ## Additional Resources
 
 ### Documentation
+
 - [User Guide](../DEPENDENCY-MANAGEMENT.md) - Complete reference
 - [API Reference](../API-REFERENCE.md) - Function documentation
 - [Architecture](../DEPENDENCY-ARCHITECTURE.md) - System design with diagrams
 - [Developer Guide](../DEVELOPER-GUIDE.md) - Contributing guide
 
 ### External Tools
+
 - [asciinema](https://asciinema.org/) - Terminal recording
 - [agg](https://github.com/asciinema/agg) - Cast to GIF converter
 - [gifsicle](https://www.lcdf.org/gifsicle/) - GIF optimizer
@@ -142,15 +147,18 @@ Jump to the relevant section:
 Help us improve these tutorials:
 
 **Found an issue?**
+
 - Report on [GitHub Issues](https://github.com/Data-Wise/craft/issues)
 - Tag with `documentation` and `tutorial`
 
 **Have suggestions?**
+
 - Open a discussion on GitHub
 - Submit a PR with improvements
 - Share your experience
 
 **Tutorial requests?**
+
 - Request new tutorial topics
 - Vote on planned tutorials
 - Contribute your own

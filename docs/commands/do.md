@@ -11,6 +11,7 @@
 ```
 
 **Quick examples:**
+
 ```bash
 # Feature development
 /craft:do add user authentication
@@ -32,6 +33,7 @@
 Analyzes your natural language task description and automatically routes to the right craft commands. No need to remember which commands to use - just describe what you want to do.
 
 **Use cases:**
+
 - Feature development workflows
 - Bug fixing pipelines
 - Code quality improvements
@@ -39,6 +41,7 @@ Analyzes your natural language task description and automatically routes to the 
 - Release preparation
 
 **How it works:**
+
 1. **Check Spec** - Look for existing spec matching task
 2. **Analyze** - Parse task description for intent
 3. **Route** - Select appropriate craft commands
@@ -95,6 +98,7 @@ Task Analysis:
 ```
 
 **Output:**
+
 ```
 ╭─ /craft:do "add user authentication" ───────────────╮
 │ Task Type: Feature Development                      │

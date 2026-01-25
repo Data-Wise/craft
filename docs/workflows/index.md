@@ -3,6 +3,7 @@
 ⏱️ **5 minutes** • 🟢 Beginner • ✓ See the big picture
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** 5 visual workflow diagrams showing how craft commands work together
 > - **Why:** Understand the complete flow from start to finish for common tasks
 > - **How:** Click any diagram to see the step-by-step process
@@ -96,6 +97,7 @@ flowchart TD
 ```
 
 **Key Commands:**
+
 - `/craft:docs:update` - Smart detection → full execution
 - `/craft:docs:check` - Validation with auto-fixes
 - `/craft:docs:changelog` - Generate changelog from commits
@@ -153,6 +155,7 @@ flowchart LR
 ```
 
 **8 ADHD-Friendly Presets:**
+
 - `adhd-focus` - Calm forest green
 - `adhd-calm` - Warm earth tones
 - `adhd-dark` - Dark-first mode
@@ -214,6 +217,7 @@ flowchart TD
 ```
 
 **Automation:**
+
 - GitHub Actions triggers PyPI publish (trusted publisher)
 - Homebrew formula updates via PR
 - Docs deploy to GitHub Pages
@@ -269,12 +273,14 @@ flowchart TD
 ```
 
 **Worktree Benefits:**
+
 - Work on multiple features in parallel
 - Keep main branch clean
 - Instant context switching
 - No stashing required
 
 **Commands:**
+
 - `/craft:git:worktree add` - Create feature worktree
 - `/craft:git:worktree list` - See all worktrees
 - `/craft:git:worktree remove` - Clean up after merge
@@ -353,6 +359,7 @@ flowchart TD
    - `api-documenter` - OpenAPI spec generation
 
 **Mode System:**
+
 - `default` (<10s) - Quick tasks, 2 agents max
 - `debug` (<120s) - Verbose output, 1 agent (sequential)
 - `optimize` (<180s) - 4 agents max, parallel execution

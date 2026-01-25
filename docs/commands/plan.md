@@ -3,6 +3,7 @@
 ⏱️ **15 minutes** • 🟡 Intermediate • ✓ Project planning and roadmaps
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** 3 commands for feature planning, sprint organization, and roadmap creation
 > - **Why:** Break down features into tasks, organize team capacity, and visualize long-term project direction
 > - **How:** Use `/craft:plan:feature` to plan individual features, `/craft:plan:sprint` for iteration planning, `/craft:plan:roadmap` for timeline visualization
@@ -195,12 +196,14 @@ Effort Level: 🔧 Medium
 ### Export Formats
 
 **GitHub Format:**
+
 ```bash
 /craft:plan:feature "search" --format github --output search-plan.md
 # Creates GitHub issue template with task list
 ```
 
 **Jira Format:**
+
 ```bash
 /craft:plan:feature "search" --format jira
 # Creates epic/story structure for Jira import
@@ -319,6 +322,7 @@ Next Sprint (Sprint 26):
 ```
 
 **Output:**
+
 ```
 Sprint Plan: Sprint 26 (Dec 9-15)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -535,6 +539,7 @@ timeline
 ```
 
 Creates interactive HTML roadmap with:
+
 - Collapsible sections
 - Progress bars
 - Dependency visualization

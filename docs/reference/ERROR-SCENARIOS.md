@@ -28,6 +28,7 @@ Complete error handling and recovery guide for Craft commands.
 ### /craft:do
 
 #### Error: Empty Task Description
+
 **Code**: `1000` | **Severity**: Warning | **Frequency**: Common
 
 ```
@@ -36,6 +37,7 @@ Usage: /craft:do "task description"
 ```
 
 **Recovery**:
+
 ```bash
 # Provide a non-empty task description
 /craft:do "add user authentication system"
@@ -46,6 +48,7 @@ Usage: /craft:do "task description"
 ---
 
 #### Error: Invalid Execution Mode
+
 **Code**: `1001` | **Severity**: Warning | **Frequency**: Common
 
 ```
@@ -54,6 +57,7 @@ Valid modes: default, debug, optimize, release
 ```
 
 **Recovery**:
+
 ```bash
 # Use valid mode
 /craft:do "refactor code" optimize
@@ -65,6 +69,7 @@ Valid modes: default, debug, optimize, release
 ---
 
 #### Error: Invalid Complexity Override
+
 **Code**: `1002` | **Severity**: Warning | **Frequency**: Rare
 
 ```
@@ -73,6 +78,7 @@ Valid values: simple, moderate, complex
 ```
 
 **Recovery**:
+
 ```bash
 # Use valid complexity
 /craft:do "small task" simple
@@ -81,6 +87,7 @@ Valid values: simple, moderate, complex
 ---
 
 #### Error: Complexity Scoring Timeout
+
 **Code**: `1200` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -89,6 +96,7 @@ Task may be too complex to analyze
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Override complexity manually
 /craft:do "complex task" complex
@@ -107,6 +115,7 @@ sleep 10
 ### /craft:check
 
 #### Error: No Checks Configured
+
 **Code**: `1601` | **Severity**: Warning | **Frequency**: Rare
 
 ```
@@ -115,6 +124,7 @@ Ensure .craft/config.yml exists
 ```
 
 **Recovery**:
+
 ```bash
 # Initialize Craft config
 /craft:git:init
@@ -127,6 +137,7 @@ echo "version: 1" > .craft/config.yml
 ---
 
 #### Error: Check Validation Failed
+
 **Code**: `1400` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -141,6 +152,7 @@ Run /craft:check --fix to auto-fix issues
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Auto-fix all issues
 /craft:check --fix
@@ -156,6 +168,7 @@ Run /craft:check --fix to auto-fix issues
 ---
 
 #### Error: Insufficient Permissions
+
 **Code**: `1700` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -163,6 +176,7 @@ Error: Permission denied writing to .git/hooks
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Run with sudo (not recommended)
 sudo /craft:check
@@ -179,6 +193,7 @@ chmod u+w .git/hooks
 ### /craft:hub
 
 #### Error: Hub Index Corrupt
+
 **Code**: `1100` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -187,6 +202,7 @@ Rebuilding index...
 ```
 
 **Recovery** (automatic):
+
 - Hub automatically rebuilds the index
 - If still fails:
 
@@ -199,6 +215,7 @@ rm -rf .craft/cache
 ---
 
 #### Error: Invalid Search Query
+
 **Code**: `1001` | **Severity**: Warning | **Frequency**: Rare
 
 ```
@@ -207,6 +224,7 @@ Use alphanumeric, hyphens, and underscores
 ```
 
 **Recovery**:
+
 ```bash
 # Quote the query or remove special chars
 /craft:hub "user authentication"
@@ -217,6 +235,7 @@ Use alphanumeric, hyphens, and underscores
 ### /craft:orchestrate
 
 #### Error: Orchestrator Not Available
+
 **Code**: `1701` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -225,6 +244,7 @@ No agents running or all busy
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Wait for agents to free
 sleep 30
@@ -240,6 +260,7 @@ sleep 30
 ---
 
 #### Error: Task Decomposition Failed
+
 **Code**: `1002` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -248,6 +269,7 @@ Task description may be too vague
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Provide more specific task
 /craft:orchestrate "Add OAuth 2.0 authentication with PKCE"
@@ -264,6 +286,7 @@ Task description may be too vague
 ---
 
 #### Error: Agent Task Failure
+
 **Code**: `1200` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -280,6 +303,7 @@ Run: /craft:code:deps-check --fix
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Install missing dependencies
 /craft:code:deps-check --fix
@@ -299,6 +323,7 @@ npm install bcrypt
 ### /craft:code:lint
 
 #### Error: No Linter Configured
+
 **Code**: `1601` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -309,6 +334,7 @@ Create .eslintrc or equivalent
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Initialize with default linter
 npm init -y
@@ -325,6 +351,7 @@ npx eslint --init
 ---
 
 #### Error: Linter Parse Error
+
 **Code**: `1100` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -335,6 +362,7 @@ File: src/main.ts (line 42, col 15)
 ```
 
 **Recovery**:
+
 ```bash
 # Fix the syntax error manually
 # Then retry
@@ -347,6 +375,7 @@ File: src/main.ts (line 42, col 15)
 ---
 
 #### Error: Fix Failed
+
 **Code**: `1200` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -357,6 +386,7 @@ Unfixable issues in: src/auth.ts (line 56)
 ```
 
 **Recovery**:
+
 ```bash
 # View the specific issues
 /craft:code:lint src/auth.ts
@@ -371,6 +401,7 @@ Unfixable issues in: src/auth.ts (line 56)
 ### /craft:code:refactor
 
 #### Error: Invalid Refactoring Pattern
+
 **Code**: `1001` | **Severity**: Warning | **Frequency**: Common
 
 ```
@@ -382,6 +413,7 @@ Supported patterns:
 ```
 
 **Recovery**:
+
 ```bash
 # Use valid pattern
 /craft:code:refactor "rename getCwd to getCurrentWorkingDirectory"
@@ -390,6 +422,7 @@ Supported patterns:
 ---
 
 #### Error: Refactoring Would Break Code
+
 **Code**: `1200` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -400,6 +433,7 @@ Run: /craft:test:run to see failures
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Fix tests first, then refactor
 /craft:test:debug
@@ -418,6 +452,7 @@ git checkout -- .
 ### /craft:code:test-gen
 
 #### Error: No Testable Functions Found
+
 **Code**: `1100` | **Severity**: Warning | **Frequency**: Rare
 
 ```
@@ -425,6 +460,7 @@ Error: No exported functions found in src/index.ts
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Specify different source file
 /craft:code:test-gen --source src/auth.ts
@@ -442,6 +478,7 @@ cp tests/templates/unit-test.template tests/unit-auth.test.ts
 ### /craft:code:demo
 
 #### Error: Demo Script Not Found
+
 **Code**: `1100` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -449,6 +486,7 @@ Error: Demo script not found: scripts/demo-auth.sh
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Create the script
 mkdir -p scripts
@@ -467,6 +505,7 @@ find scripts -name "*.sh" -type f
 ---
 
 #### Error: Recording Failed
+
 **Code**: `1200` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -479,6 +518,7 @@ Install with:
 ```
 
 **Recovery**:
+
 ```bash
 # Install missing tool
 brew install asciinema
@@ -492,6 +532,7 @@ brew install asciinema
 ### /craft:code:coverage
 
 #### Error: Coverage Threshold Not Met
+
 **Code**: `1400` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -506,6 +547,7 @@ Uncovered:
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Add missing tests
 /craft:code:test-gen unit src/utils/helpers.ts
@@ -524,6 +566,7 @@ Uncovered:
 ### /craft:git:sync
 
 #### Error: Merge Conflict
+
 **Code**: `1300` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -537,6 +580,7 @@ Resolve manually or use: git mergetool
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Use visual merge tool
 git mergetool
@@ -554,6 +598,7 @@ git commit -m "merge: keep our version"
 ---
 
 #### Error: Diverged Branch
+
 **Code**: `1300` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -565,6 +610,7 @@ Sync would lose history
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Rebase onto remote
 /craft:git:sync --rebase
@@ -582,6 +628,7 @@ Sync would lose history
 ### /craft:git:worktree
 
 #### Error: Worktree Already Exists
+
 **Code**: `1300` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -592,6 +639,7 @@ Use /craft:git:worktree list to see all
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Move to existing worktree
 cd /path/to/.git-worktrees/feature-auth
@@ -606,6 +654,7 @@ cd /path/to/.git-worktrees/feature-auth
 ---
 
 #### Error: Branch Not Found
+
 **Code**: `1300` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -613,6 +662,7 @@ Error: Branch 'feature/nonexistent' not found
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Create new branch
 /craft:git:worktree create feature/auth
@@ -631,6 +681,7 @@ Error: Branch 'feature/nonexistent' not found
 ### /craft:docs:check-links
 
 #### Error: Broken Link Found
+
 **Code**: `1500` | **Severity**: Warning | **Frequency**: Common
 
 ```
@@ -644,6 +695,7 @@ Fix with: /craft:docs:check-links --fix
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Auto-fix broken links
 /craft:docs:check-links --fix
@@ -659,6 +711,7 @@ echo "https://deprecated.example.com" >> .linkcheck-ignore
 ---
 
 #### Error: External Links Timeout
+
 **Code**: `1500` | **Severity**: Warning | **Frequency**: Common
 
 ```
@@ -669,6 +722,7 @@ Timeout: 5000ms
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Increase timeout
 /craft:docs:check-links --timeout 10000
@@ -685,6 +739,7 @@ curl -I https://slow-api.example.com
 ### /craft:docs:api
 
 #### Error: No Exports Found
+
 **Code**: `1100` | **Severity**: Warning | **Frequency**: Rare
 
 ```
@@ -692,6 +747,7 @@ Warning: No exported functions/classes found
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Add exports to source code
 # Edit src/index.ts to export functions
@@ -708,6 +764,7 @@ export function myFunction() {}
 ### /craft:test:run
 
 #### Error: Tests Failed
+
 **Code**: `1400` | **Severity**: Error | **Frequency**: Very Common
 
 ```
@@ -724,6 +781,7 @@ Run: /craft:test:debug to debug
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Debug specific test
 /craft:test:debug "Should authenticate user"
@@ -738,6 +796,7 @@ Run: /craft:test:debug to debug
 ---
 
 #### Error: Test File Not Found
+
 **Code**: `1100` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -745,6 +804,7 @@ Error: Test file not found: tests/auth.test.ts
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Generate test file
 /craft:code:test-gen unit src/auth.ts
@@ -759,6 +819,7 @@ find tests -name "*.test.*" -o -name "*.spec.*"
 ---
 
 #### Error: Test Dependency Missing
+
 **Code**: `1601` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -769,6 +830,7 @@ Install with:
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Auto-install
 /craft:code:deps-check --fix
@@ -785,6 +847,7 @@ npm install --save-dev jest
 ### /craft:test:watch
 
 #### Error: Watch Mode Crashed
+
 **Code**: `1200` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -794,6 +857,7 @@ Last error: ENOSPC: no space left on device
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Free up disk space
 df -h
@@ -813,6 +877,7 @@ echo 65536 | sudo tee /proc/sys/fs/inotify/max_user_watches
 ### /craft:site:build
 
 #### Error: Build Failed
+
 **Code**: `1400` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -825,6 +890,7 @@ Fix the markdown and retry
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Fix markdown syntax
 # Edit docs/guides/index.md
@@ -839,6 +905,7 @@ Fix the markdown and retry
 ---
 
 #### Error: Theme Not Found
+
 **Code**: `1100` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -851,6 +918,7 @@ Available themes:
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Use available theme
 /craft:site:init mkdocs
@@ -867,6 +935,7 @@ pip install mkdocs-material
 ### /craft:site:deploy
 
 #### Error: Authentication Failed
+
 **Code**: `1700` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -879,6 +948,7 @@ Set NETLIFY_TOKEN environment variable
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Set authentication token
 export NETLIFY_TOKEN="your-token-here"
@@ -894,6 +964,7 @@ export NETLIFY_TOKEN="your-token-here"
 ---
 
 #### Error: Build Artifact Too Large
+
 **Code**: `1400` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -906,6 +977,7 @@ Reduce size with:
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Minify production build
 /craft:site:build --production --minify
@@ -924,6 +996,7 @@ Reduce size with:
 ### Common Network Errors
 
 #### Error: Connection Timeout
+
 **Code**: `1500` | **Severity**: Error | **Frequency**: Common
 
 ```
@@ -936,6 +1009,7 @@ Check:
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Check network
 ping 8.8.8.8
@@ -952,6 +1026,7 @@ sleep 30
 ---
 
 #### Error: DNS Resolution Failed
+
 **Code**: `1500` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -961,6 +1036,7 @@ Check your DNS settings or ISP connection
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Use alternate DNS
 echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
@@ -978,6 +1054,7 @@ nslookup api.github.com
 ### Common Configuration Errors
 
 #### Error: Configuration File Invalid
+
 **Code**: `1601` | **Severity**: Error | **Frequency**: Rare
 
 ```
@@ -988,6 +1065,7 @@ Line 12: Invalid YAML syntax
 ```
 
 **Recovery**:
+
 ```bash
 # Option 1: Fix YAML syntax
 # Edit .craft/config.yml
@@ -1006,6 +1084,7 @@ rm .craft/config.yml
 ## Common Patterns for Error Recovery
 
 ### Pattern 1: Insufficient Permissions
+
 ```bash
 # Check permissions
 ls -la file.txt
@@ -1020,6 +1099,7 @@ sudo command
 ---
 
 ### Pattern 2: Missing Dependency
+
 ```bash
 # Check what's missing
 /craft:code:deps-check
@@ -1034,6 +1114,7 @@ npm install missing-package
 ---
 
 ### Pattern 3: Configuration Issue
+
 ```bash
 # Check config
 /craft:check
@@ -1049,6 +1130,7 @@ rm -rf .craft
 ---
 
 ### Pattern 4: Retry with Backoff
+
 ```bash
 # Try again
 /craft:command
@@ -1066,6 +1148,7 @@ sleep 10
 ## Debugging Tips
 
 ### Enable Debug Output
+
 ```bash
 # Verbose output
 /craft:command debug
@@ -1077,6 +1160,7 @@ CRAFT_DEBUG=1 /craft:command
 ---
 
 ### Check Logs
+
 ```bash
 # Show recent logs
 tail -f ~/.craft/logs/craft.log
@@ -1088,6 +1172,7 @@ grep "code:lint" ~/.craft/logs/craft.log
 ---
 
 ### Validate Configuration
+
 ```bash
 # Check configuration
 /craft:check --scope docs
@@ -1099,6 +1184,7 @@ grep "code:lint" ~/.craft/logs/craft.log
 ---
 
 ### Test Isolated
+
 ```bash
 # Use dry-run
 /craft:command --dry-run
@@ -1111,14 +1197,15 @@ grep "code:lint" ~/.craft/logs/craft.log
 
 ## When to Escalate
 
-### Escalate if:
+### Escalate if
 
 1. Error persists after following recovery steps
 2. Error is not in this guide
 3. Multiple unrelated commands failing
 4. System appears corrupted
 
-### How to Report:
+### How to Report
+
 ```bash
 # Gather diagnostics
 /craft:check --verbose

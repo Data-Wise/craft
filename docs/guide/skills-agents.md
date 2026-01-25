@@ -3,6 +3,7 @@
 ⏱️ **6 minutes** • 🟡 Intermediate • ✓ Understanding AI automation
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** 21 auto-triggered skills + 8 specialized agents for backend, docs, testing, and architecture
 > - **Why:** AI automatically selects the right expertise for your task without manual intervention
 > - **How:** Skills trigger on context (e.g., "API" → backend-designer), agents handle long-running tasks
@@ -56,48 +57,56 @@ Agents are long-running AI assistants for complex tasks.
 
 ### Backend Development
 
-**backend-architect**
+#### backend-architect
+
 - Scalable API design
 - Microservices architecture
 - REST/GraphQL/gRPC patterns
 
 ### Documentation
 
-**docs-architect**
+#### docs-architect
+
 - Comprehensive technical documentation
 - Long-form technical manuals
 - Architecture guides
 
-**api-documenter**
+#### api-documenter
+
 - OpenAPI 3.1 documentation
 - SDK generation
 - Developer portal creation
 
-**tutorial-engineer**
+#### tutorial-engineer
+
 - Step-by-step tutorials
 - Progressive learning experiences
 - Hands-on examples
 
-**reference-builder**
+#### reference-builder
+
 - API references
 - Configuration guides
 - Searchable documentation
 
 ### Visualization
 
-**mermaid-expert**
+#### mermaid-expert
+
 - Flowcharts, sequence diagrams
 - ERDs, architecture diagrams
 - All Mermaid diagram types
 
-**demo-engineer**
+#### demo-engineer
+
 - VHS tape file generation
 - Terminal recording scripts
 - GIF demonstration creation
 
 ### Orchestration
 
-**orchestrator-v2**
+#### orchestrator-v2
+
 - Multi-agent task decomposition
 - Parallel execution with monitoring
 - Context compression and session management

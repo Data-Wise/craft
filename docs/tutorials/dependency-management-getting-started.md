@@ -11,6 +11,7 @@ Learn how to use the `/craft:docs:demo` dependency management system to check, i
 ## Tutorial Overview
 
 By the end of this tutorial, you will be able to:
+
 - ✅ Check which tools are installed
 - ✅ Understand dependency status
 - ✅ Install missing tools automatically
@@ -43,17 +44,20 @@ flowchart LR
 Before starting, let's verify the dependency management system is available.
 
 **What you'll do:**
+
 ```bash
 # Check that the demo command exists
 ls -la commands/docs/demo.md
 ```
 
 **Expected output:**
+
 ```
 -rw-r--r-- 1 user staff 15234 Jan 17 demo.md
 ```
 
 **What this means:**
+
 - The `/craft:docs:demo` command is installed
 - The dependency management system is ready to use
 
@@ -64,17 +68,20 @@ ls -la commands/docs/demo.md
 Let's see what tools you already have installed.
 
 **Command:**
+
 ```bash
 /craft:docs:demo --check
 ```
 
 **What happens:**
+
 1. Reads tool specifications from YAML frontmatter
 2. Detects which tools are installed
 3. Checks tool health and versions
 4. Displays a formatted status table
 
 **Example output:**
+
 ```
 ╔════════════════════════════════════════════════════╗
 ║  DEPENDENCY STATUS - asciinema method              ║
@@ -91,6 +98,7 @@ Summary: 2/3 required tools ready
 ```
 
 **Understanding the status:**
+
 - ✅ **Green checkmark**: Tool installed and working
 - ❌ **Red X**: Required tool missing
 - ⚠️  **Warning**: Optional tool missing (not critical)
@@ -106,14 +114,17 @@ The system supports two methods for creating GIFs:
 **Best for:** Real terminal recordings, authentic output
 
 **Required tools:**
+
 - `asciinema` - Record terminal sessions
 - `agg` - Convert .cast to .gif
 - `gifsicle` - Optimize GIF size
 
 **Optional:**
+
 - `fswatch` - Watch mode for live updates
 
 **Check this method:**
+
 ```bash
 /craft:docs:demo --check --method asciinema
 ```
@@ -123,13 +134,16 @@ The system supports two methods for creating GIFs:
 **Best for:** Scripted demos, repeatable workflows
 
 **Required tools:**
+
 - `vhs` - Generate scripted demos
 - `gifsicle` - Optimize GIF size
 
 **Optional:**
+
 - `ffmpeg` - Video processing
 
 **Check this method:**
+
 ```bash
 /craft:docs:demo --check --method vhs
 ```
@@ -143,11 +157,13 @@ The system supports two methods for creating GIFs:
 If you have missing tools, the system can install them automatically.
 
 **Command:**
+
 ```bash
 /craft:docs:demo --fix
 ```
 
 **What happens:**
+
 1. Detects which tools are missing
 2. Asks for your consent to install each tool
 3. Tries multiple installation methods:
@@ -158,6 +174,7 @@ If you have missing tools, the system can install them automatically.
 4. Verifies each installation succeeded
 
 **Example interaction:**
+
 ```
 Missing dependencies detected:
   - agg (required for asciinema method)
@@ -175,6 +192,7 @@ All dependencies installed!
 ```
 
 **Installation safety:**
+
 - ✅ Always asks for consent
 - ✅ Tries multiple methods
 - ✅ Verifies after install
@@ -187,11 +205,13 @@ All dependencies installed!
 After installation, check that everything is working.
 
 **Command:**
+
 ```bash
 /craft:docs:demo --check
 ```
 
 **Expected output (all green):**
+
 ```
 ╔════════════════════════════════════════════════════╗
 ║  DEPENDENCY STATUS - asciinema method              ║
@@ -207,6 +227,7 @@ Summary: All required tools ready ✨
 ```
 
 **If you still see issues:**
+
 - See [Step 9: Troubleshooting](#step-9-troubleshooting)
 - Check [DEPENDENCY-MANAGEMENT.md](../DEPENDENCY-MANAGEMENT.md#troubleshooting)
 
@@ -219,6 +240,7 @@ Summary: All required tools ready ✨
 ### Why Migrate?
 
 The asciinema method offers several advantages:
+
 - ✅ **Real terminal capture** (actual TTY, not scripted)
 - ✅ **Smaller file sizes** (text-based .cast files)
 - ✅ **Faster conversion** (agg is optimized for .cast → .gif)
@@ -228,12 +250,14 @@ The asciinema method offers several advantages:
 ### Migration Steps
 
 **1. Verify asciinema method is ready:**
+
 ```bash
 /craft:docs:demo --check
 # Should show all asciinema tools installed
 ```
 
 **2. Re-record your demos using asciinema:**
+
 ```bash
 # Instead of writing a VHS tape file:
 # vhs my-demo.tape
@@ -245,6 +269,7 @@ asciinema rec my-demo.cast
 ```
 
 **3. Convert with the new workflow:**
+
 ```bash
 # Old VHS workflow:
 # vhs my-demo.tape   # Generates my-demo.gif
@@ -268,6 +293,7 @@ asciinema rec my-demo.cast
 ### Handling Existing VHS Files
 
 **Keep VHS as fallback:**
+
 ```bash
 # VHS is still available via --method flag
 /craft:docs:demo --method vhs my-old-tape.tape
@@ -277,6 +303,7 @@ vhs my-scripted-demo.tape
 ```
 
 **Gradual migration:**
+
 - Keep existing VHS demos if they work well
 - Use asciinema for new demos going forward
 - Re-record critical demos when you have time
@@ -284,14 +311,17 @@ vhs my-scripted-demo.tape
 ### Troubleshooting Migration
 
 **Issue: "I prefer scripted demos for consistency"**
+
 - Solution: Use `asciinema cat` to replay .cast files consistently
 - Or: Keep VHS for scripted demos, use asciinema for real demos
 
 **Issue: "My .cast files are too long"**
+
 - Solution: Use `asciinema play --speed 2` to preview at 2x speed
 - Or: Edit .cast JSON to adjust timing (see [asciinema docs](https://asciinema.org/))
 
 **Issue: "I want the old VHS styling"**
+
 - Solution: agg supports custom themes via `--theme` flag
 - Or: Use gifsicle to adjust colors/palette
 
@@ -302,6 +332,7 @@ vhs my-scripted-demo.tape
 Now let's record a simple terminal session.
 
 **Record a demo:**
+
 ```bash
 # Record a session (press Ctrl+D when done)
 asciinema rec my-first-demo.cast
@@ -316,6 +347,7 @@ pwd
 ```
 
 **What you'll see:**
+
 ```
 asciinema: recording started, press <Ctrl-D> or type "exit" to finish
 $ echo "Hello, World!"
@@ -337,17 +369,20 @@ asciinema: recording finished
 Convert your .cast recording to an optimized GIF.
 
 **Command:**
+
 ```bash
 /craft:docs:demo --convert my-first-demo.cast
 ```
 
 **What happens:**
+
 1. Validates the .cast file
 2. Converts using `agg` (with optimized settings)
 3. Optimizes with `gifsicle`
 4. Reports statistics
 
 **Expected output:**
+
 ```
 Converting: my-first-demo.cast → my-first-demo.gif
 
@@ -358,6 +393,7 @@ Converting: my-first-demo.cast → my-first-demo.gif
 ```
 
 **Conversion settings:**
+
 - Font size: 16
 - Line height: 1.4
 - Theme: monokai
@@ -365,6 +401,7 @@ Converting: my-first-demo.cast → my-first-demo.gif
 - Colors: 256
 
 **View your GIF:**
+
 ```bash
 open my-first-demo.gif
 ```
@@ -376,6 +413,7 @@ open my-first-demo.gif
 If you have many .cast files, convert them all at once.
 
 **Scenario**: You have multiple recordings
+
 ```bash
 # Create demo recordings
 docs/
@@ -385,17 +423,20 @@ docs/
 ```
 
 **Batch conversion:**
+
 ```bash
 /craft:docs:demo --batch
 ```
 
 **What happens:**
+
 1. Finds all .cast files in search path (default: `docs/`)
 2. Filters out files with existing .gif (unless `--force`)
 3. Converts each file with progress tracking
 4. Displays summary
 
 **Example output:**
+
 ```
 Found 3 .cast files
 
@@ -412,6 +453,7 @@ Total size: 430KB
 ```
 
 **Batch options:**
+
 ```bash
 # Search different directory
 /craft:docs:demo --batch --search-path examples/
@@ -432,11 +474,13 @@ Common issues and solutions.
 ### Issue 1: Tool Not Detected (Installed but Shows Missing)
 
 **Symptom:**
+
 ```
 agg          ❌        -          n/a       yes
 ```
 
 **Solutions:**
+
 ```bash
 # Verify tool is in PATH
 which agg
@@ -453,11 +497,13 @@ echo $PATH
 ### Issue 2: Installation Failed
 
 **Symptom:**
+
 ```
 Installing agg via cargo... ✗ Failed
 ```
 
 **Solutions:**
+
 ```bash
 # Try manual installation
 cargo install agg
@@ -472,11 +518,13 @@ chmod +x /usr/local/bin/agg
 ### Issue 3: Health Check Failing
 
 **Symptom:**
+
 ```
 asciinema    ⚠️        2.3.0      broken    yes
 ```
 
 **Solutions:**
+
 ```bash
 # Test tool manually
 asciinema --version
@@ -491,11 +539,13 @@ brew uninstall asciinema
 ### Issue 4: GIF Too Large
 
 **Symptom:**
+
 ```
 ✓ demo.cast → demo.gif (5.2s, 2.4MB)
 ```
 
 **Solutions:**
+
 ```bash
 # Further optimize
 gifsicle -O3 --colors 128 demo.gif -o demo-small.gif
@@ -514,6 +564,7 @@ gifsicle -O2 --colors 64 demo.gif -o demo-minimal.gif
 Congratulations! You've completed the getting started tutorial. 🎉
 
 **What you've learned:**
+
 - ✅ Check dependency status
 - ✅ Install missing tools
 - ✅ Record terminal sessions
@@ -524,12 +575,14 @@ Congratulations! You've completed the getting started tutorial. 🎉
 **Continue learning:**
 
 ### Intermediate Topics
+
 - **Advanced conversion**: Custom agg settings, themes, optimization
 - **CI/CD integration**: Automate dependency checks in GitHub Actions
 - **VHS scripting**: Create repeatable scripted demos
 - **Watch mode**: Iterative development with live updates
 
 **Resources:**
+
 - [User Guide](../DEPENDENCY-MANAGEMENT.md) - Complete reference
 - [API Reference](../API-REFERENCE.md) - Function documentation
 - [Architecture](../DEPENDENCY-ARCHITECTURE.md) - System design
@@ -538,16 +591,19 @@ Congratulations! You've completed the getting started tutorial. 🎉
 ### Try These Commands
 
 **Get JSON output for scripting:**
+
 ```bash
 /craft:docs:demo --check --json
 ```
 
 **Check specific tool versions:**
+
 ```bash
 ./scripts/version-check.sh validate asciinema
 ```
 
 **Detect repair candidates:**
+
 ```bash
 ./scripts/repair-tools.sh detect asciinema
 ```

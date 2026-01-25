@@ -125,7 +125,7 @@ Root-level commands that provide universal functionality.
 
 #### Output Format
 
-```
+```text
 ✅ CODE QUALITY
   ✓ No linting errors
   ⚠ 2 style warnings
@@ -169,7 +169,7 @@ Root-level commands that provide universal functionality.
 
 #### Output Format
 
-```
+```text
 MAIN MENU
 ├─ Code (12 commands)
 │  ├─ /craft:code:lint
@@ -210,7 +210,7 @@ MAIN MENU
 
 #### Output Format
 
-```
+```text
 ORCHESTRATOR v2.1 - MODE: OPTIMIZE
 
 Spawning agents:
@@ -415,7 +415,7 @@ Development workflow and code manipulation tools.
 
 #### Output
 
-```
+```text
 🔍 CODE LINTING
 
   Style Issues: 3
@@ -2513,7 +2513,7 @@ Commands support multiple output formats:
 2. **Learn Commands**: Use `/craft:hub` for interactive discovery
 3. **Deep Dives**: Check individual command documentation in `commands/` directory
 4. **Examples**: See `cookbook/` for real-world usage patterns
-5. **Troubleshooting**: Check [Troubleshooting Guide](./troubleshooting.md)
+5. **Troubleshooting**: See individual command documentation for troubleshooting tips
 
 ---
 

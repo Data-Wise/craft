@@ -110,6 +110,7 @@ flowchart LR
 **Implementation**: `utils/complexity_scorer.py`
 
 **Key Functions**:
+
 - `calculate_complexity_score(task)` - Returns 0-10 score
 - `get_routing_decision(score)` - Maps score to strategy
 - `explain_score(task)` - Detailed breakdown
@@ -155,6 +156,7 @@ graph TB
 ```
 
 **Features**:
+
 - **Auto-discovery**: Scans `validation/` directory
 - **YAML parsing**: Extracts `hot_reload` flag
 - **Forked execution**: Isolated context per validator
@@ -192,11 +194,13 @@ sequenceDiagram
 ```
 
 **Events**:
+
 - **PreToolUse**: Resource limit checking
 - **PostToolUse**: Status tracking, duration logging
 - **Stop**: Session state persistence, log archival
 
 **Mode-Aware Limits**:
+
 ```bash
 debug:    MAX_AGENTS=1
 default:  MAX_AGENTS=2
@@ -284,6 +288,7 @@ graph LR
 ```
 
 **Discovery Criteria**:
+
 1. Location: `.claude-plugin/skills/validation/*.md`
 2. Frontmatter: `hot_reload: true`
 3. Context: `context: fork`
@@ -329,6 +334,7 @@ stateDiagram-v2
 ```
 
 **Recovery Strategies**:
+
 1. **Retry with Backoff**: Exponential delay (2s, 4s, 8s, 16s)
 2. **Circuit Breaker**: CLOSED → HALF_OPEN → OPEN states
 3. **Graceful Degradation**: Fall back to simpler strategy
@@ -384,6 +390,7 @@ graph TB
 ```
 
 **Features**:
+
 - `/craft:check:gen-validator` - Template generator
 - Best practices guide (715 lines)
 - GitHub marketplace integration
@@ -418,6 +425,7 @@ sequenceDiagram
 ```
 
 **Session State Schema** (JSON v1.0.0):
+
 ```json
 {
   "session_id": "uuid",
@@ -567,10 +575,12 @@ craft/
 ### 1. Command Layer Integration
 
 **Entry Points**:
+
 - `/craft:do <task>` - Invokes complexity scorer
 - `/craft:check` - Invokes validator discovery
 
 **Dependencies**:
+
 - `utils/complexity_scorer.py`
 - `.claude-plugin/skills/validation/*.md`
 
@@ -579,12 +589,14 @@ craft/
 ### 2. Agent Layer Integration
 
 **Agents Enhanced**:
+
 - `orchestrator-v2` - Version 2.1.0 → 2.3.0
   - Forked context execution
   - Resilience patterns
   - Session teleportation
 
 **Hook Integration**:
+
 - PreToolUse: Resource limit checking
 - PostToolUse: Status updates, logging
 - Stop: Session state persistence
@@ -594,10 +606,12 @@ craft/
 ### 3. Infrastructure Integration
 
 **Directories Created**:
+
 - `.craft/cache/` - Agent status, session state
 - `.craft/logs/` - Timestamped orchestration logs
 
 **State Management**:
+
 - Session state: JSON schema v1.0.0
 - Agent status: File-based tracking
 - Log archival: Keep last 10 sessions
@@ -653,11 +667,13 @@ craft/
 ### Horizontal Scaling
 
 **Multi-agent Coordination**:
+
 - Parallel execution (mode-dependent limits)
 - Independent forked contexts
 - No shared state between agents
 
 **Validator Ecosystem**:
+
 - Unlimited validators (discovery-based)
 - Community contributions
 - No central registry dependency
@@ -665,6 +681,7 @@ craft/
 ### Vertical Scaling
 
 **Performance Optimization**:
+
 - Complexity scoring: O(n) where n = task length
 - Validator discovery: O(m) where m = validator count
 - Hook execution: O(1) constant time

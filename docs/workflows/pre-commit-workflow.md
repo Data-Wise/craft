@@ -16,6 +16,7 @@ Use this workflow when you:
 - Are preparing code for review
 
 **Example scenarios:**
+
 - "Ready to commit my changes"
 - "Want to make sure everything works before pushing"
 - "Need to validate before creating a PR"
@@ -31,6 +32,7 @@ Before starting, ensure you have:
 - [x] Tests exist for the project
 
 **Quick check:**
+
 ```bash
 git status
 git branch --show-current
@@ -66,6 +68,7 @@ git diff
 ```
 
 **Look for:**
+
 - Unintended file changes
 - Debug code or console.log statements
 - Sensitive data (API keys, passwords)
@@ -84,6 +87,7 @@ Use craft to validate everything.
 ```
 
 **What it checks:**
+
 | Check | Description |
 |-------|-------------|
 | Lint | Code style and quality |
@@ -92,6 +96,7 @@ Use craft to validate everything.
 | Git status | Working tree status |
 
 **Expected output:**
+
 ```
 ╭─ /craft:check ───────────────────────────────────────╮
 │ Project: craft (Claude Plugin)                       │
@@ -121,6 +126,7 @@ git commit -m "feat: add user authentication"
 ```
 
 **Conventional Commits:**
+
 | Prefix | Use for |
 |--------|---------|
 | `feat:` | New features |

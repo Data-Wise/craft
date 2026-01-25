@@ -11,6 +11,7 @@
 ```
 
 **Quick examples (v2.4.0):**
+
 ```bash
 # Minimal
 /brainstorm "auth"              # Default everything
@@ -35,12 +36,14 @@
 Enhanced brainstorming with smart mode detection, time budgets, agent delegation, and spec capture for implementation. Designed to be ADHD-friendly with escape hatches at every step.
 
 **v2.4.0 Features:**
+
 - **Colon notation** - `d:5`, `m:12`, `q:3` for custom question counts
 - **Categories flag** - Filter questions by type (`-C req,tech,success`)
 - **Unlimited questions** - Milestone prompts every 8 questions
 - **8-category question bank** - 16 questions total
 
 **Features:**
+
 - **Smart detection** - Auto-detects topic from context
 - **Time budgets** - Guaranteed completion times
 - **Three-layer arguments** - Depth + Focus + Action
@@ -119,6 +122,7 @@ Filter which question categories to ask. Defaults to focus-appropriate categorie
 | **max:N (m:N)** | < 1800s | N + agent Qs + milestones | 2 per focus | N questions with agents and prompts |
 
 **Milestone Behavior:**
+
 - Questions asked in batches of 8
 - Continuation prompt after each batch
 - User can: proceed, add 4, add 8, or go unlimited
@@ -288,6 +292,7 @@ When no topic provided, auto-detects from:
 When using `save` action, generates comprehensive spec:
 
 **Sections included:**
+
 - Overview, User Stories (primary + secondary)
 - Technical Requirements (architecture, API, data models)
 - UI/UX Specifications (flows, wireframes, accessibility)
@@ -295,6 +300,7 @@ When using `save` action, generates comprehensive spec:
 - Implementation Notes, History
 
 **Integration with `/craft:do`:**
+
 ```bash
 # After brainstorm with spec
 /craft:do "implement user authentication"
@@ -321,6 +327,7 @@ When depth is `max`, launches relevant agents:
 ## Output Format
 
 **Terminal (default):**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ 🧠 BRAINSTORM: [Topic]                                      │

@@ -4,7 +4,7 @@ Complete documentation for the git repository initialization command.
 
 ## 📚 Documentation Structure
 
-```
+```text
 docs/
 ├── commands/
 │   └── git-init-reference.md      # Complete command reference
@@ -21,6 +21,7 @@ docs/
 ### For New Users
 
 **Read first:** [Step-by-Step Tutorial](guide/git-init-tutorial.md)
+
 - 15-minute beginner-friendly guide
 - Multiple starting points (new project, existing code, existing repo)
 - Common workflows and troubleshooting
@@ -28,6 +29,7 @@ docs/
 ### For Experienced Users
 
 **Read first:** [Command Reference](commands/git-init-reference.md)
+
 - Complete argument documentation
 - All workflow patterns
 - Error handling and best practices
@@ -35,6 +37,7 @@ docs/
 ### For Technical Deep-Dive
 
 **Read first:** [Architecture & Flows](architecture/git-init-flow.md)
+
 - Command execution flow diagrams
 - Workflow pattern architecture
 - Component relationships
@@ -47,6 +50,7 @@ docs/
 **You want to:** Initialize a repository with craft workflow
 
 **Read:**
+
 1. [Tutorial - Section 1: Brand New Project](guide/git-init-tutorial.md#section-1-brand-new-project)
 2. [Command Reference - Usage Examples](commands/git-init-reference.md#usage-examples)
 3. [Tutorial - After Initialization](guide/git-init-tutorial.md#after-initialization)
@@ -58,6 +62,7 @@ docs/
 **You want to:** Understand workflow patterns and choose the right one
 
 **Read:**
+
 1. [Command Reference - Workflow Patterns](commands/git-init-reference.md#workflow-patterns)
 2. [Architecture - Workflow Patterns Architecture](architecture/git-init-flow.md#workflow-patterns-architecture)
 3. [Command Reference - Best Practices](commands/git-init-reference.md#best-practices)
@@ -69,6 +74,7 @@ docs/
 **You want to:** Understand CI integration and automation
 
 **Read:**
+
 1. [Command Reference - Integration](commands/git-init-reference.md#integration)
 2. [Architecture - Component Architecture](architecture/git-init-flow.md#component-architecture)
 3. [Tutorial - Quick Setup (Non-Interactive)](guide/git-init-tutorial.md#quick-setup-non-interactive)
@@ -80,6 +86,7 @@ docs/
 **You want to:** Understand implementation architecture
 
 **Read:**
+
 1. [Architecture - Command Execution Flow](architecture/git-init-flow.md#command-execution-flow)
 2. [Architecture - Component Architecture](architecture/git-init-flow.md#component-architecture)
 3. [Architecture - Error Handling Flow](architecture/git-init-flow.md#error-handling-flow)
@@ -93,6 +100,7 @@ docs/
 **Goal:** Set up git repository from scratch
 
 **Documents:**
+
 1. [Tutorial - Section 1](guide/git-init-tutorial.md#section-1-brand-new-project) - Step-by-step walkthrough
 2. [Command Reference - Quick Start](commands/git-init-reference.md#quick-start) - Command examples
 
@@ -103,6 +111,7 @@ docs/
 **Goal:** Add dev branch and branch protection to existing repository
 
 **Documents:**
+
 1. [Tutorial - Section 3](guide/git-init-tutorial.md#section-3-existing-repository) - Existing repo guide
 2. [Command Reference - Existing Repo](commands/git-init-reference.md#step-1-repository-check) - Wizard flow
 
@@ -113,6 +122,7 @@ docs/
 **Goal:** Decide between main+dev, simple, or GitFlow
 
 **Documents:**
+
 1. [Command Reference - Workflow Patterns](commands/git-init-reference.md#workflow-patterns) - Detailed comparison
 2. [Architecture - Workflow Patterns](architecture/git-init-flow.md#workflow-patterns-architecture) - Visual diagrams
 3. [Command Reference - When to Use](commands/git-init-reference.md#when-to-use-each-workflow) - Decision guide
@@ -124,6 +134,7 @@ docs/
 **Goal:** Configure GitHub branch protection rules
 
 **Documents:**
+
 1. [Command Reference - Step 4](commands/git-init-reference.md#step-4-branch-protection) - Protection settings
 2. [Command Reference - Branch Protection Benefits](commands/git-init-reference.md#branch-protection-benefits) - Why protect
 
@@ -134,6 +145,7 @@ docs/
 **Goal:** Auto-detect project and create CI configuration
 
 **Documents:**
+
 1. [Command Reference - Step 5](commands/git-init-reference.md#step-5-ci-workflow) - CI generation
 2. [Tutorial - Section 1.7](guide/git-init-tutorial.md#step-17-generate-ci-workflow) - Interactive example
 
@@ -144,6 +156,7 @@ docs/
 **Goal:** See what will happen without executing
 
 **Documents:**
+
 1. [Tutorial - Section 4](guide/git-init-tutorial.md#section-4-dry-run-preview) - Dry-run walkthrough
 2. [Command Reference - Dry-Run Mode](commands/git-init-reference.md#dry-run-mode) - Output format
 
@@ -154,6 +167,7 @@ docs/
 **Goal:** Fix common problems
 
 **Documents:**
+
 1. [Tutorial - Troubleshooting](guide/git-init-tutorial.md#troubleshooting) - Common problems
 2. [Command Reference - Error Handling](commands/git-init-reference.md#error-handling) - Rollback strategy
 3. [Command Reference - Troubleshooting](commands/git-init-reference.md#troubleshooting) - Specific issues
@@ -165,6 +179,7 @@ docs/
 ### Command Reference (commands/git-init-reference.md)
 
 ✅ **Complete coverage:**
+
 - Command signature and arguments
 - Usage examples (basic and advanced)
 - All 3 workflow patterns detailed
@@ -184,6 +199,7 @@ docs/
 ### Architecture Documentation (architecture/git-init-flow.md)
 
 ✅ **Complete coverage:**
+
 - Command execution flowchart
 - Workflow patterns architecture (3 diagrams)
 - Component architecture
@@ -200,6 +216,7 @@ docs/
 ### Tutorial (guide/git-init-tutorial.md)
 
 ✅ **Complete coverage:**
+
 - Prerequisites and setup
 - 4 different starting scenarios:
   - Brand new project
@@ -222,15 +239,17 @@ docs/
 **File:** [docs/guide/getting-started.md](guide/getting-started.md)
 
 **Updated sections:**
+
 - Added "Initialize a New Project (Optional)" section
 - Documented `/craft:git:init` wizard
 - Quick setup examples
 
 ### Craft Hub
 
-**File:** [commands/hub.md](help/hub.md)
+**File:** [commands/hub.md](../commands/hub.md)
 
 **Updates:**
+
 - Added `/craft:git:init` to git commands list
 - Updated counts: GIT 4 → 5 commands
 
@@ -239,6 +258,7 @@ docs/
 **File:** tests/git_init_test_report.md (in repository)
 
 **Contents:**
+
 - Comprehensive test results (48 passing tests)
 - Implementation quality analysis
 - Files created/modified summary
@@ -329,6 +349,7 @@ For teams adopting craft workflow:
 Use this checklist to verify you've read the relevant documentation:
 
 ### For First-Time Users
+
 - [ ] Read tutorial TL;DR
 - [ ] Choose your starting scenario
 - [ ] Follow step-by-step wizard guide
@@ -336,6 +357,7 @@ Use this checklist to verify you've read the relevant documentation:
 - [ ] Review after-initialization steps
 
 ### For Experienced Users
+
 - [ ] Review command arguments
 - [ ] Understand all workflow patterns
 - [ ] Know error handling behavior
@@ -343,6 +365,7 @@ Use this checklist to verify you've read the relevant documentation:
 - [ ] Aware of best practices
 
 ### For Team Leads
+
 - [ ] Evaluated workflow patterns
 - [ ] Understood branch protection
 - [ ] Reviewed CI integration
@@ -350,6 +373,7 @@ Use this checklist to verify you've read the relevant documentation:
 - [ ] Prepared customizations
 
 ### For Contributors
+
 - [ ] Studied architecture diagrams
 - [ ] Understood component relationships
 - [ ] Reviewed error handling

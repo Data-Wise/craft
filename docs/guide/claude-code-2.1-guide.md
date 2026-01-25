@@ -3,6 +3,7 @@
 ⏱️ **25 minutes** • 🟠 Advanced • ✓ Complete guide
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Claude Code 2.1.0 adds intelligent task routing with complexity scoring and hot-reload validators
 > - **Why:** Automatically choose between commands, agents, and orchestration based on task difficulty
 > - **How:** Use `/craft:do "task"` and the system scores (0-10) and routes intelligently
@@ -29,11 +30,13 @@ Claude Code 2.1.0 introduced smart task routing that automatically delegates wor
 ### The Problem It Solves
 
 Before v2.1.0:
+
 - User had to choose: use specific command, or orchestrator, or single agent
 - No automatic decision based on task complexity
 - "lint code" and "redesign architecture" treated the same way
 
 After v2.1.0:
+
 - System analyzes task automatically
 - Routes to optimal handler (command → agent → orchestrator)
 - Simple tasks stay fast, complex tasks get full coordination
@@ -217,11 +220,13 @@ Score complexity (0-10)
 ### What They Do
 
 Validators are checks that run automatically after tool execution. They validate:
+
 - ✅ Test coverage (via `test-coverage` validator)
 - ✅ Broken links (via `broken-links` validator)
 - ✅ Code quality (via `lint-check` validator)
 
 If validation fails, the orchestrator can:
+
 1. Show results to user
 2. Auto-fix if possible
 3. Request user intervention
@@ -295,6 +300,7 @@ validators:
 ```
 
 **Validator Options:**
+
 - `test-coverage:minimum` - Minimum coverage percentage
 - `broken-links:ignore_external` - Ignore external URLs
 - `lint-check:strict` - Fail on warnings
@@ -335,12 +341,14 @@ validators:
 **Triggers after:** Code changes, test additions
 
 **Checks:**
+
 - Run tests on modified files
 - Measure coverage percentage
 - Compare against minimum (default: 80%)
 - Suggest tests if coverage low
 
 **Output:**
+
 ```
 Coverage Analysis:
   Total: 87%
@@ -355,12 +363,14 @@ Coverage Analysis:
 **Triggers after:** Markdown file changes
 
 **Checks:**
+
 - Parse all markdown files
 - Extract links (internal and external)
 - Verify links work
 - Report broken links
 
 **Output:**
+
 ```
 Link Validation:
   Total checked: 45
@@ -378,11 +388,13 @@ Link Validation:
 **Triggers after:** Code file changes
 
 **Checks:**
+
 - Run linter on changed files
 - Check exit code (0 = pass)
 - Report violations
 
 **Output:**
+
 ```
 Lint Check:
   Files checked: 8
@@ -756,17 +768,20 @@ Orchestrator: 2s baseline
 ### Issue: Simple Task Routes to Orchestrator
 
 **Diagnosis:**
+
 ```bash
 /craft:do "fix typo" --show-score
 # Output: Score: 8 (unexpected!)
 ```
 
 **Possible Causes:**
+
 - Task description has architectural keywords
 - Multiple categories detected incorrectly
 - Complexity keywords trigger scoring
 
 **Solution:**
+
 ```bash
 # Be more specific
 /craft:do "fix typo in README.md" --routing commands
@@ -778,16 +793,19 @@ Orchestrator: 2s baseline
 ### Issue: Complex Task Routes to Agent Only
 
 **Diagnosis:**
+
 ```bash
 /craft:do "add OAuth, database schema, tests" --show-score
 # Output: Score: 6 (should be 8+)
 ```
 
 **Possible Causes:**
+
 - Keywords not recognized
 - Categories not matched correctly
 
 **Solution:**
+
 ```bash
 # Add architectural language
 /craft:do "implement OAuth authentication system with database schema design and comprehensive test coverage"
@@ -799,12 +817,14 @@ Orchestrator: 2s baseline
 ### Issue: Validator Fails, Blocking Work
 
 **Diagnosis:**
+
 ```
 Test coverage: 65% (minimum: 80%)
 Cannot proceed.
 ```
 
 **Solution:**
+
 ```bash
 # Option 1: Add tests
 /craft:do "add tests to reach 80% coverage"

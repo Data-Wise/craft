@@ -3,6 +3,7 @@
 **Total GIFs to regenerate:** 11
 
 ## Prerequisites
+
 - [x] gifsicle installed ✅
 - [ ] asciinema installed (run: `brew install asciinema`)
 - [ ] agg installed (run: `cargo install --git https://github.com/asciinema/agg`)
@@ -12,6 +13,7 @@
 ## 1. Teaching Workflow (docs/demos/teaching-workflow.gif)
 
 **Commands:**
+
 ```
 /craft:git:status
 /craft:site:build
@@ -21,6 +23,7 @@
 ```
 
 **Recording:**
+
 ```bash
 asciinema rec docs/demos/teaching-workflow.cast
 # Run commands above
@@ -40,6 +43,7 @@ gifsicle -O3 --colors 128 --lossy=80 \
 **Command:** `/craft:docs:update`
 
 **Recording:**
+
 ```bash
 asciinema rec docs/gifs/workflow-01.cast
 # Run: /craft:docs:update
@@ -113,6 +117,7 @@ gifsicle -O3 --colors 128 --lossy=80 \
 For each GIF:
 
 1. **Record:**
+
    ```bash
    asciinema rec docs/gifs/workflow-XX.cast
    ```
@@ -124,11 +129,13 @@ For each GIF:
    Press Ctrl+D
 
 4. **Preview:**
+
    ```bash
    asciinema play docs/gifs/workflow-XX.cast
    ```
 
 5. **Convert:**
+
    ```bash
    agg --cols 100 --rows 30 --font-size 14 --fps 10 \
        docs/gifs/workflow-XX.cast \
@@ -136,6 +143,7 @@ For each GIF:
    ```
 
 6. **Optimize:**
+
    ```bash
    gifsicle -O3 --colors 128 --lossy=80 \
        docs/gifs/workflow-XX-new.gif \
@@ -143,6 +151,7 @@ For each GIF:
    ```
 
 7. **Verify size:**
+
    ```bash
    ls -lh docs/gifs/workflow-XX-<name>.gif
    # Should be < 2MB
@@ -151,4 +160,3 @@ For each GIF:
 ---
 
 **Progress:** 0/11 completed
-

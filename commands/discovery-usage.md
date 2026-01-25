@@ -27,10 +27,12 @@ Load commands from cache if fresh, else regenerate.
 **Returns:** List of command metadata dictionaries
 
 **Performance:**
+
 - Cached: ~2ms
 - First run: ~12ms
 
 **Example:**
+
 ```python
 commands = load_cached_commands()
 for cmd in commands:
@@ -44,6 +46,7 @@ Force regeneration of command metadata (ignores cache).
 **Returns:** List of command metadata dictionaries
 
 **Example:**
+
 ```python
 from commands._discovery import discover_commands
 
@@ -56,6 +59,7 @@ commands = discover_commands()
 Get summary statistics about commands.
 
 **Returns:** Dictionary with:
+
 - `total`: Total command count
 - `categories`: Dict of category → count
 - `with_modes`: Count of commands with mode support
@@ -63,6 +67,7 @@ Get summary statistics about commands.
 - `generated`: ISO timestamp of cache generation
 
 **Example:**
+
 ```python
 stats = get_command_stats()
 print(f"Found {stats['total']} commands across {len(stats['categories'])} categories")
@@ -73,6 +78,7 @@ print(f"Found {stats['total']} commands across {len(stats['categories'])} catego
 Save commands to cache file.
 
 **Args:**
+
 - `commands`: List of command metadata
 
 **Side effects:** Writes `commands/_cache.json`
@@ -128,10 +134,12 @@ lint_cmd = next((c for c in commands if c['name'] == 'code:lint'), None)
 ## Cache Invalidation
 
 The cache auto-invalidates when:
+
 - `_cache.json` doesn't exist
 - Any `.md` file in `commands/` is newer than cache file
 
 **Manual regeneration:**
+
 ```python
 from commands._discovery import discover_commands, cache_commands
 
@@ -148,7 +156,8 @@ python3 commands/_discovery.py
 ```
 
 **Output:**
-```
+
+```text
 Discovering commands...
 
 Found 97 commands
@@ -239,6 +248,7 @@ python3 commands/_discovery.py
 ### Commands not detected
 
 Check that files:
+
 - Are in `commands/` directory
 - Have `.md` extension
 - Don't start with `_` (reserved for internal files)
@@ -246,6 +256,7 @@ Check that files:
 ### Incorrect categories
 
 Categories are inferred from file paths:
+
 - `commands/code/lint.md` → category: "code"
 - `commands/hub.md` → category: "hub"
 - `commands/git/docs/refcard.md` → category: "git"
@@ -253,6 +264,7 @@ Categories are inferred from file paths:
 ### Missing metadata
 
 If frontmatter is missing:
+
 - `name`: Auto-generated from filepath
 - `category`: Auto-inferred from directory
 - `description`: Extracted from heading or first paragraph
@@ -268,5 +280,5 @@ If frontmatter is missing:
 
 ## See Also
 
-- [SPEC-craft-hub-v2-2026-01-15.md](../docs/specs/SPEC-craft-hub-v2-2026-01-15.md) - Full Hub v2.0 specification
+- [SPEC-craft-hub-v2-2026-01-15.md](../docs/specs/_archive/SPEC-craft-hub-v2-2026-01-15.md) - Full Hub v2.0 specification
 - [_schema.json](_schema.json) - Complete metadata schema

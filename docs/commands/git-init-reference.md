@@ -74,12 +74,14 @@ feature/* (worktrees) ← All implementation work
 ```
 
 **Characteristics:**
+
 - Main branch is protected (requires PR + CI)
 - Dev branch for integration and planning
 - Feature branches for isolated development
 - Clear separation between production and development
 
 **Branch Protection Settings:**
+
 - ✅ Require pull requests before merge
 - ✅ Require status checks (CI must pass)
 - ✅ Block force pushes
@@ -94,12 +96,14 @@ main ← Direct commits allowed
 ```
 
 **Characteristics:**
+
 - Single main branch
 - Direct commits permitted
 - Optional branch protection
 - Minimal overhead
 
 **Branch Protection Settings:**
+
 - ⚠️ Optional (user decides)
 - Can enable PR requirements later
 - Suitable for solo development
@@ -119,12 +123,14 @@ feature/* ← Feature development
 ```
 
 **Characteristics:**
+
 - Dedicated release branches
 - Strict version management
 - Multiple protected branches (main + develop)
 - Release candidate workflow
 
 **Branch Protection Settings:**
+
 - ✅ Main and develop protected
 - ✅ Release branches follow naming convention
 - ✅ Hotfix workflow supported
@@ -147,6 +153,7 @@ Options:
 ```
 
 **If `.git` does not exist:**
+
 - Automatically initializes new repository
 - Proceeds to Step 2
 
@@ -189,6 +196,7 @@ Status: Creating branch structure...
 ```
 
 **Workflow-specific branches:**
+
 - Main+Dev: `main`, `dev`
 - Simple: `main`
 - GitFlow: `main`, `develop`
@@ -203,6 +211,7 @@ Options:
 ```
 
 **If enabled, configures:**
+
 - Require pull requests before merge
 - Require status checks to pass
 - Block force pushes
@@ -243,6 +252,7 @@ Options:
 ```
 
 **Template files created:**
+
 - `.STATUS` - Project status YAML
 - `CLAUDE.md` - Workflow documentation
 - `.github/pull_request_template.md` - PR template
@@ -257,6 +267,7 @@ Options:
 ```
 
 **If yes, creates commit:**
+
 ```
 chore: initialize repository with craft workflow
 
@@ -289,6 +300,7 @@ Options:
 ```
 
 **Validates:**
+
 - Git structure
 - Branch protection configuration
 - CI workflow syntax
@@ -320,12 +332,14 @@ repo: https://github.com/{{USER}}/{{REPO}}
 ```
 
 **Placeholders:**
+
 - `{{USER}}` - GitHub username
 - `{{REPO}}` - Repository name
 
 ### CLAUDE.md Template
 
 **Sections included:**
+
 - TL;DR with key workflow rules
 - Git workflow diagram
 - Workflow steps table
@@ -335,6 +349,7 @@ repo: https://github.com/{{USER}}/{{REPO}}
 - Troubleshooting guide
 
 **Placeholders:**
+
 - `{{PROJECT_NAME}}` - Project display name
 - `{{USER}}` - GitHub username
 - `{{REPO}}` - Repository name
@@ -342,6 +357,7 @@ repo: https://github.com/{{USER}}/{{REPO}}
 ### PR Template
 
 **Sections included:**
+
 - Summary with change list
 - Test plan checklist
 - Breaking changes section
@@ -424,11 +440,13 @@ If any step fails, the command automatically rolls back completed steps:
 #### gh CLI not found
 
 **Error:**
+
 ```
 Error: gh command not found
 ```
 
 **Solution:**
+
 ```bash
 # macOS
 brew install gh
@@ -440,12 +458,14 @@ gh auth login
 #### Branch protection fails
 
 **Error:**
+
 ```
 Error: Failed to enable branch protection
 Permission denied
 ```
 
 **Solutions:**
+
 1. Verify you have admin access to the repository
 2. Check if repository exists on GitHub
 3. Ensure CI workflow name matches protection rules
@@ -456,6 +476,7 @@ Permission denied
 **Reason:** Project type not detected
 
 **Solutions:**
+
 1. Run manually: `/craft:ci:generate`
 2. Check for detectable project files:
    - `pyproject.toml` (Python)
@@ -467,12 +488,14 @@ Permission denied
 #### Initial commit fails
 
 **Error:**
+
 ```
 Error: Cannot create commit
 Uncommitted changes exist
 ```
 
 **Solution:**
+
 ```bash
 # Check status
 git status
@@ -499,6 +522,7 @@ The command is accessible through `/craft:do` with these phrases:
 | "new project setup" | Runs `/craft:git:init` |
 
 **Example:**
+
 ```bash
 /craft:do "initialize project with GitHub"
 # → Triggers /craft:git:init wizard
@@ -544,16 +568,19 @@ The command is accessible through `/craft:do` with these phrases:
 ### After Initialization
 
 1. **Switch to dev branch:**
+
    ```bash
    git checkout dev
    ```
 
 2. **Create first feature branch:**
+
    ```bash
    /craft:git:worktree feature/initial-setup
    ```
 
 3. **Validate setup:**
+
    ```bash
    /craft:check
    ```
@@ -578,6 +605,7 @@ The command is accessible through `/craft:do` with these phrases:
 **Symptom:** Error when creating GitHub repository
 
 **Solutions:**
+
 1. Use "Connect to existing GitHub repo" option instead
 2. Choose different repository name
 3. Delete existing repository first (if intended)
@@ -587,6 +615,7 @@ The command is accessible through `/craft:do` with these phrases:
 **Symptom:** Cannot sync dev with main
 
 **Solution:**
+
 ```bash
 # Reset dev to match main
 git checkout dev
@@ -599,6 +628,7 @@ git push --force origin dev
 **Symptom:** Can still commit directly to main
 
 **Checks:**
+
 1. Verify on GitHub: Settings → Branches → Branch protection rules
 2. Check CI workflow exists: `.github/workflows/ci.yml`
 3. Ensure you're not an admin (admins bypass by default)
@@ -608,6 +638,7 @@ git push --force origin dev
 **Symptom:** Cannot create repository or enable protection
 
 **Solution:**
+
 ```bash
 # Re-authenticate with GitHub
 gh auth logout

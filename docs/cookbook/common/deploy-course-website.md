@@ -5,9 +5,9 @@ category: "cookbook"
 level: "beginner"
 time_estimate: "3 minutes"
 related:
-  - ../../commands/site/deploy.md
-  - ../../commands/site/build.md
-  - ../../commands/site/check.md
+  - ../../../commands/site/deploy.md
+  - ../../../commands/site/build.md
+  - ../../../commands/site/check.md
 ---
 
 # Recipe: Deploy Course Website
@@ -23,21 +23,27 @@ I want to safely publish course website updates to GitHub Pages without breaking
 ## Solution
 
 1. **Preview changes locally**
+
    ```bash
    /craft:site:build
    ```
+
    Why: Builds the site locally so you can review changes before publishing
 
 2. **Check for issues**
+
    ```bash
    /craft:site:check
    ```
+
    Why: Validates links, images, and common issues that could break the site
 
 3. **Deploy to GitHub Pages**
+
    ```bash
    /craft:site:deploy
    ```
+
    Why: Publishes to `gh-pages` branch with automatic backup and rollback support
 
 4. **Verify deployment**
@@ -75,27 +81,35 @@ I want to safely publish course website updates to GitHub Pages without breaking
 ## Variations
 
 - **Preview without deploying:**
+
   ```bash
   /craft:site:build && /craft:site:check
   ```
+
   Use when you want to review changes but not publish yet
 
 - **Deploy with custom message:**
+
   ```bash
   /craft:site:deploy "Update Week 3 materials"
   ```
+
   Adds a descriptive commit message to `gh-pages` branch
 
 - **Skip validation (not recommended):**
+
   ```bash
   /craft:site:deploy --skip-checks
   ```
+
   Use only if you're confident the site is valid and need to deploy urgently
 
 - **Deploy to custom branch:**
+
   ```bash
   /craft:site:deploy --branch docs
   ```
+
   Use if your GitHub Pages serves from a branch other than `gh-pages`
 
 ## Troubleshooting
@@ -111,7 +125,7 @@ I want to safely publish course website updates to GitHub Pages without breaking
 
 ## Related
 
-- [Site Deploy Command](../../commands/site/deploy.md) — Full command reference
-- [Site Build Command](../../commands/site/build.md) — Local preview workflow
-- [Site Check Command](../../commands/site/check.md) — Validation details
+- [Site Deploy Command](../../../commands/site/deploy.md) — Full command reference
+- [Site Build Command](../../../commands/site/build.md) — Local preview workflow
+- [Site Check Command](../../../commands/site/check.md) — Validation details
 - [Teaching Workflow Guide](../../guide/teaching-workflow.md) — Complete teaching mode features

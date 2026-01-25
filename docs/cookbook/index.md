@@ -43,18 +43,21 @@ Recipes are categorized by difficulty level (Beginner, Intermediate, Advanced) a
 Got limited time? Find recipes that fit your schedule:
 
 ### ⚡ Quick Wins (< 3 minutes)
+
 Perfect for between meetings or when you need a quick confidence boost.
 
 - **2 min:** [Check Code Quality Before Commit](common/check-code-quality-before-commit.md)
 - **3 min:** [Deploy Course Website](common/deploy-course-website.md)
 
 ### 🔧 Short Tasks (3-10 minutes)
+
 Great for focused work sessions or getting familiar with Craft.
 
 - **5 min:** [Set Up New Project](common/setup-new-project.md)
 - **10 min:** [Automate Release Workflow](common/automate-release-workflow.md)
 
 ### 🏗️ Project Work (10+ minutes)
+
 For deeper work when you have dedicated time.
 
 - Coming soon: More advanced recipes
@@ -72,7 +75,7 @@ Having issues? Check the troubleshooting section:
 
 - **Quick questions?** Try the [ADHD Quick Start](../ADHD-QUICK-START.md)
 - **Comprehensive guide?** See [Getting Started](../guide/getting-started.md)
-- **Command reference?** Browse [Commands](../commands/index.md)
+- **Command reference?** Browse [Commands](../../commands/hub.md)
 - **Smart routing?** Use [`/craft:do`](../commands/do.md) to let Craft figure out what you need
 
 ## Contributing Recipes
@@ -84,4 +87,4 @@ Have a useful workflow? We'd love to add it to the cookbook!
 3. Include time estimates and difficulty level
 4. Link to relevant commands and guides
 
-See [Contributing](../CONTRIBUTING.md) for details.
+See [Contributing](../../CONTRIBUTING.md) for details.

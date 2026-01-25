@@ -22,7 +22,7 @@ Practical examples and real-world usage patterns for all Craft commands.
 
 ## Quick Reference by Use Case
 
-### I want to...
+### I want to
 
 | Goal | Command | Notes |
 |------|---------|-------|
@@ -58,6 +58,7 @@ Practical examples and real-world usage patterns for all Craft commands.
 ```
 
 **Output Example**:
+
 ```
 TASK ANALYSIS
 
@@ -97,6 +98,7 @@ Routing to: orchestrator-v2 with 3 parallel agents
 ```
 
 **Output Example**:
+
 ```
 PRE-FLIGHT VALIDATION
 
@@ -141,6 +143,7 @@ SUMMARY: ✓ Ready to commit (2 warnings)
 ```
 
 **Output Example**:
+
 ```
 CRAFT COMMAND HUB
 
@@ -180,6 +183,7 @@ q to quit
 ```
 
 **Output Example**:
+
 ```
 ORCHESTRATOR v2.1 - OPTIMIZE MODE
 
@@ -225,6 +229,7 @@ Run: /craft:orchestrate task-123 status --live
 ```
 
 **Output Example**:
+
 ```
 ARCHITECTURE ANALYSIS
 
@@ -272,6 +277,7 @@ Complexity Score: 6.5/10 (moderate)
 ```
 
 **Output Example** (Mermaid):
+
 ```mermaid
 graph TB
     Client[Client App]
@@ -303,6 +309,7 @@ graph TB
 ```
 
 **Output Example**:
+
 ```
 ARCHITECTURAL PLAN
 
@@ -372,6 +379,7 @@ MITIGATIONS
 ```
 
 **Output Example**:
+
 ```
 CODE LINTING
 
@@ -415,6 +423,7 @@ Fix with: /craft:code:lint --fix
 ```
 
 **Output Example**:
+
 ```
 GENERATING TEST STUBS
 
@@ -472,6 +481,7 @@ Next: Edit tests/unit/auth.test.ts and implement test bodies
 ```
 
 **Output Example**:
+
 ```
 TEST COVERAGE REPORT
 
@@ -514,6 +524,7 @@ Uncovered lines:
 ```
 
 **Output Example**:
+
 ```
 REFACTORING: Rename getCwd to getCurrentWorkingDirectory
 
@@ -554,6 +565,7 @@ Or review with: /craft:code:refactor "..." --dry-run
 ```
 
 **Output Example**:
+
 ```
 RELEASE WORKFLOW
 
@@ -622,6 +634,7 @@ Proceed? (yes/no)
 ```
 
 **Workflow Example**:
+
 ```bash
 # Start new feature in separate checkout
 /craft:git:worktree create feature/auth
@@ -700,6 +713,7 @@ cd /original/craft
 ```
 
 **Output Example** (OpenAPI 3.1):
+
 ```yaml
 openapi: 3.1.0
 info:
@@ -748,6 +762,7 @@ paths:
 ```
 
 **Output Example**:
+
 ```markdown
 # Changelog
 
@@ -836,6 +851,7 @@ paths:
 ```
 
 **Output Example**:
+
 ```
 TEST EXECUTION
 
@@ -1038,6 +1054,7 @@ alias cw='cd ~/.git-worktrees/craft'
 ```
 
 Usage:
+
 ```bash
 cc          # Run /craft:check
 ct release  # Run /craft:test:run release
@@ -1050,6 +1067,7 @@ cs          # Run /craft:git:status
 ## Performance Tips
 
 ### Quick Validation (< 30s)
+
 ```bash
 /craft:check                    # < 30s
 /craft:code:lint                # < 10s
@@ -1057,6 +1075,7 @@ cs          # Run /craft:git:status
 ```
 
 ### Normal Development (1-5 min)
+
 ```bash
 /craft:test:run                 # ~2 min
 /craft:code:coverage            # ~1 min
@@ -1064,6 +1083,7 @@ cs          # Run /craft:git:status
 ```
 
 ### Full Pre-Release (5-30 min)
+
 ```bash
 /craft:test:run release         # ~5 min
 /craft:code:lint release        # ~3 min

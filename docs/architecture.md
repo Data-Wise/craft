@@ -38,6 +38,7 @@ The `/craft:do` command uses AI to route tasks to appropriate workflows:
 ### 2. Orchestrator v2
 
 Enhanced multi-agent orchestration with:
+
 - **Mode-aware execution** - Adapts behavior based on mode
 - **Context tracking** - Monitors token usage and budget
 - **Timeline view** - Visualizes agent execution
@@ -112,6 +113,7 @@ tests/
 ```
 
 **Run tests:**
+
 ```bash
 cd craft
 pytest tests/

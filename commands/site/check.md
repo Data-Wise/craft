@@ -26,7 +26,7 @@ Check documentation sites (MkDocs, Quarto, pkgdown) for common issues before dep
 
 ## Dry-Run Output
 
-```
+```text
 ┌───────────────────────────────────────────────────────────────┐
 │ 🔍 DRY RUN: Validate Documentation                             │
 ├───────────────────────────────────────────────────────────────┤
@@ -37,6 +37,10 @@ Check documentation sites (MkDocs, Quarto, pkgdown) for common issues before dep
 │   - Site directory: docs/                                     │
 │                                                               │
 │ ✓ Validation Checks:                                          │
+│   0. Pre-Build Lint (NEW)                                     │
+│      - Markdown formatting via /craft:docs:lint               │
+│      - Blocks deployment if issues found                      │
+│                                                               │
 │   1. Link Validation                                          │
 │      - Internal links (~450 files to check)                   │
 │      - External links (if --strict)                           │
@@ -51,7 +55,7 @@ Check documentation sites (MkDocs, Quarto, pkgdown) for common issues before dep
 │      - Command: mkdocs build --strict                         │
 │      - Check for errors and warnings                          │
 │                                                               │
-│ 📊 Summary: 3 validation checks on ~450 files                  │
+│ 📊 Summary: 4 validation checks on ~450 files                  │
 │                                                               │
 ├───────────────────────────────────────────────────────────────┤
 │ Run without --dry-run to execute                              │
@@ -62,14 +66,54 @@ Check documentation sites (MkDocs, Quarto, pkgdown) for common issues before dep
 
 ## Checks Performed
 
+### 0. Pre-Build Lint (NEW in v2.7.0)
+
+Before running any build validation, lint all markdown files:
+
+```bash
+# Run markdown linting first
+/craft:docs:lint "$path"
+
+# If errors found:
+#   - Report lint issues
+#   - Suggest: /craft:docs:lint --fix
+#   - Exit code 1 (block deployment)
+```
+
+**Why Lint First:**
+
+- Catches formatting issues before build
+- Missing code fence languages cause rendering problems
+- Inconsistent list formatting breaks rendered output
+- Saves time by failing fast
+
+**Output:**
+
+```text
+╭─ /craft:site:check ─────────────────────────────────────────╮
+│                                                             │
+│ Phase 0: Pre-Build Lint                                     │
+│ ✗ 3 markdown issues found                                   │
+│   - docs/guide.md:21 [MD032] Missing blank line             │
+│   - docs/api.md:45 [MD040] Missing language tag             │
+│   - README.md:8 [MD034] Bare URL                            │
+│                                                             │
+│ Fix with: /craft:docs:lint --fix                            │
+│                                                             │
+│ BLOCKING: Lint issues must be fixed before deployment       │
+╰─────────────────────────────────────────────────────────────╯
+```
+
 ### 1. Link Validation
 
 Check for broken links using `/craft:docs:check-links`:
+
 - **Internal links** - References to other docs
 - **External links** - URLs (if --strict mode)
 - **Anchor links** - #sections within pages
 
 **Implementation:**
+
 ```bash
 # Run internal link validation first (fast)
 claude "/craft:docs:check-links default"
@@ -81,6 +125,7 @@ claude "/craft:docs:check-links release"
 ```
 
 **Integration with site:check:**
+
 - Internal links checked via `/craft:docs:check-links`
 - Results merged into overall validation report
 - Broken links block deployment (exit code 1)
@@ -128,7 +173,7 @@ quarto render --strict
 
 ## Output Example
 
-```
+```text
 📋 DOCUMENTATION VALIDATION REPORT
 
 Site Type: MkDocs

@@ -3,6 +3,7 @@
 ⏱️ **15 minutes** • 🟡 Intermediate • ✓ From manual to automated workflows
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Migrate from manual teaching site deployment to Craft automation
 > - **Why:** Eliminate errors, save time, gain confidence in publishing
 > - **How:** Add config file → Test workflows → Retire old scripts
@@ -38,6 +39,7 @@ git push origin production
 ```
 
 **Problems with manual workflow:**
+
 - No pre-publish validation (catch errors AFTER students see them)
 - No preview of changes (surprises after deployment)
 - Manual branch management (easy to mess up)
@@ -53,6 +55,7 @@ git push origin production
 ```
 
 **What happens automatically:**
+
 1. ✓ Validates content (syllabus, schedule, assignments)
 2. ✓ Shows preview with categorized changes
 3. ✓ Asks for confirmation
@@ -62,6 +65,7 @@ git push origin production
 7. ✓ Returns to original branch
 
 **Benefits:**
+
 - Errors caught BEFORE publishing
 - Preview changes before students see them
 - Automatic branch management
@@ -110,17 +114,20 @@ progress:
 ```
 
 **Customize:**
+
 - Course number and title
 - Semester dates (start, end, breaks)
 - GitHub Pages URL
 - Required syllabus sections
 
 **Test configuration:**
+
 ```bash
 /craft:site:status
 ```
 
 **Expected output:**
+
 ```
 ✓ Teaching mode detected
 ✓ Configuration valid
@@ -135,6 +142,7 @@ Before using the publish workflow, test content validation:
 ```
 
 **First run will likely show errors:**
+
 ```
 🚫 ERRORS (must fix before publishing):
   1. Syllabus missing required sections: policies
@@ -142,11 +150,13 @@ Before using the publish workflow, test content validation:
 ```
 
 **Fix these errors:**
+
 - Add missing syllabus sections
 - Complete schedule for all weeks
 - Fix any broken assignment references
 
 **Validate again until clean:**
+
 ```
 ✅ ALL CHECKS PASSED
 Status: Ready to publish ✅
@@ -161,11 +171,13 @@ Verify semester progress calculation:
 ```
 
 **Check output:**
+
 - Current week matches calendar
 - Progress bar is accurate
 - Break countdown is correct
 
 **If week is wrong:**
+
 - Verify `dates.start` in config
 - Check break dates
 - Use `--week` for manual override
@@ -183,6 +195,7 @@ git checkout draft
 ```
 
 **What to expect:**
+
 1. Validation runs automatically
 2. Preview shows categorized changes
 3. Confirmation prompt (3 options)
@@ -190,6 +203,7 @@ git checkout draft
 5. Deployment verification
 
 **Review the preview carefully:**
+
 ```
 CRITICAL CHANGES:
 ⚠️  syllabus/index.qmd      +15  -3
@@ -199,6 +213,7 @@ CONTENT CHANGES:
 ```
 
 **Confirm publish:**
+
 - Choose "Yes - Merge and deploy (Recommended)"
 - Monitor output for errors
 - Verify live site after deployment
@@ -219,6 +234,7 @@ mv validate-syllabus.sh archive/
 ```
 
 **Update `.gitignore` (optional):**
+
 ```
 # Old deployment scripts (archived)
 archive/
@@ -229,6 +245,7 @@ archive/
 ### Pattern 1: Weekly Content Updates
 
 **Old workflow:**
+
 ```bash
 # Edit content (draft branch)
 vim lectures/week-05.qmd
@@ -251,6 +268,7 @@ git push origin production
 ```
 
 **New workflow:**
+
 ```bash
 # Edit content (draft branch)
 vim lectures/week-05.qmd
@@ -266,6 +284,7 @@ git commit -m "Add week 5 lecture"
 ### Pattern 2: Assignment Releases
 
 **Old workflow:**
+
 ```bash
 # Add assignment file
 vim assignments/hw-05.qmd
@@ -289,6 +308,7 @@ git push origin production
 ```
 
 **New workflow:**
+
 ```bash
 # Add assignment file
 vim assignments/hw-05.qmd
@@ -313,6 +333,7 @@ git commit -m "Add HW 5"
 ### Pattern 3: Schedule Changes
 
 **Old workflow:**
+
 ```bash
 # Change due dates (high risk!)
 vim schedule.qmd
@@ -331,6 +352,7 @@ git push origin production
 ```
 
 **New workflow:**
+
 ```bash
 # Change due dates
 vim schedule.qmd
@@ -351,6 +373,7 @@ git commit -m "Move HW 3 due date"
 ### Pattern 4: Semester Progress Check
 
 **Old workflow:**
+
 ```bash
 # Mentally calculate: "What week is it?"
 # Check calendar, count weeks manually
@@ -364,6 +387,7 @@ vim syllabus.qmd
 ```
 
 **New workflow:**
+
 ```bash
 # One command shows everything
 /craft:site:progress
@@ -396,6 +420,7 @@ Before deleting old scripts, review them for:
    - May need custom integration
 
 **Archive, don't delete:**
+
 ```bash
 mkdir -p docs/archive/old-workflows/
 mv *.sh docs/archive/old-workflows/
@@ -408,6 +433,7 @@ git commit -m "Archive old deployment scripts"
 Update your teaching team's workflow documentation:
 
 **Before:**
+
 ```markdown
 ## Publishing to Production
 
@@ -420,6 +446,7 @@ Update your teaching team's workflow documentation:
 ```
 
 **After:**
+
 ```markdown
 ## Publishing to Production
 
@@ -429,40 +456,47 @@ Run the publish command:
 ```
 
 The command will:
+
 - Validate content automatically
 - Show preview of changes
 - Ask for confirmation
 - Deploy with rollback on failure
 - Verify site is live
+
 ```
 
 ### Notify Your Team
 
 **Email template:**
 ```
+
 Subject: New Teaching Site Workflow - Craft Automation
 
 We've migrated to Craft for automated teaching site deployment.
 
 What changed:
+
 - Old: Manual branch switching, merge, push (error-prone)
 - New: One command with validation and preview
 
 New workflow:
+
 1. Edit content on draft branch
 2. Run: /craft:site:publish
 3. Review preview and confirm
 
 Benefits:
+
 - Catches errors BEFORE students see them
 - Preview changes before publishing
 - Automatic rollback on failure
 - No more manual branch management
 
 Documentation:
-https://data-wise.github.io/craft/tutorials/teaching-mode-setup/
+<https://data-wise.github.io/craft/tutorials/teaching-mode-setup/>
 
 Questions? Reply to this email.
+
 ```
 
 ## Troubleshooting Migration Issues
@@ -491,6 +525,7 @@ validation:
 ```
 
 **Gradually tighten rules:**
+
 - Start with relaxed validation
 - Fix content over time
 - Add sections to `required_sections`
@@ -513,6 +548,7 @@ deployment:
 **Problem:** Production and draft have diverged significantly
 
 **Solution:**
+
 ```bash
 # Option 1: Force sync (if production is outdated)
 git checkout production
@@ -532,6 +568,7 @@ git commit
 **Problem:** Site doesn't update after publish
 
 **Solution:**
+
 1. Check GitHub Actions: `gh run list --limit 5`
 2. Verify branch in Settings → Pages
 3. Check `gh_pages_url` in config matches actual URL
@@ -542,6 +579,7 @@ git commit
 **Problem:** Only you have Craft installed
 
 **Solution:**
+
 ```bash
 # Share installation instructions
 # Homebrew (recommended)
@@ -553,6 +591,7 @@ curl -fsSL https://raw.githubusercontent.com/Data-Wise/craft/main/install.sh | b
 ```
 
 **Document in team README:**
+
 ```markdown
 ## Setup
 
@@ -562,11 +601,13 @@ brew install craft
 ```
 
 Then use teaching workflows:
+
 ```bash
 /craft:site:publish
 /craft:site:progress
 /craft:site:validate
 ```
+
 ```
 
 ## Migration Checklist

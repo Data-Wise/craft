@@ -8,31 +8,37 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 ### 17 Built-in Skills
 
-**Backend Development (3)**
+#### Backend Development (3)
+
 - `api-architect` - REST/GraphQL API design, authentication, data modeling
 - `database-architect` - Schema design, query optimization, indexing
 - `backend-patterns` - Clean architecture, microservices, event-driven systems
 
-**Frontend Development (2)**
+#### Frontend Development (2)
+
 - `frontend-architect` - Component design, state management, performance
 - `ux-designer` - User experience, accessibility, responsive design
 
-**DevOps & Infrastructure (3)**
+#### DevOps & Infrastructure (3)
+
 - `devops-engineer` - CI/CD, Docker, Kubernetes, cloud infrastructure
 - `performance-engineer` - Profiling, optimization, load testing
 - `security-specialist` - OWASP, authentication, secure coding
 
-**Code Quality (3)**
+#### Code Quality (3)
+
 - `code-reviewer` - Code review, best practices, clean code
 - `testing-specialist` - Test strategy, TDD/BDD, coverage
 - `refactoring-expert` - Code smells, design patterns, technical debt
 
-**Documentation & Communication (3)**
+#### Documentation & Communication (3)
+
 - `documentation-writer` - API docs, README, architecture docs
 - `technical-writer` - Clear communication, tutorials, guides
 - `api-documenter` - OpenAPI, interactive docs, SDK generation
 
-**Leadership & Strategy (3)**
+#### Leadership & Strategy (3)
+
 - `tech-lead` - Architecture decisions, technical strategy, team coordination
 - `product-strategist` - Feature prioritization, roadmapping, user research
 - `agile-coach` - Sprint planning, retrospectives, team dynamics
@@ -41,7 +47,8 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 Skills trigger automatically based on keywords:
 
-**Example:**
+#### Example
+
 ```
 User: "How should I design the authentication API?"
 → Activates: api-architect, security-specialist
@@ -55,15 +62,18 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 ### 7 Specialized Agents
 
 #### backend-architect
+
 **Purpose:** Server-side design, API architecture, database design
 
-**Use cases:**
+#### Use cases
+
 - Designing RESTful or GraphQL APIs
 - Database schema optimization
 - Authentication/authorization systems
 - Scalable backend architecture
 
-**Invoke:**
+#### Invoke
+
 ```bash
 # Via orchestrator
 /craft:orchestrate "design authentication API" optimize
@@ -73,85 +83,103 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 ```
 
 #### performance-engineer
+
 **Purpose:** Application performance optimization
 
-**Use cases:**
+#### Use cases
+
 - Identifying bottlenecks
 - Load testing strategies
 - Caching implementation
 - Query optimization
 
-**Invoke:**
+#### Invoke
+
 ```bash
 /craft:orchestrate "optimize database queries" optimize
 ```
 
 #### testing-specialist
+
 **Purpose:** Comprehensive testing strategies
 
-**Use cases:**
+#### Use cases
+
 - Test strategy development
 - Unit/integration/e2e testing
 - Test coverage improvement
 - TDD/BDD implementation
 
-**Invoke:**
+#### Invoke
+
 ```bash
 /craft:orchestrate "improve test coverage" release
 ```
 
 #### security-specialist
+
 **Purpose:** Security audits and secure coding
 
-**Use cases:**
+#### Use cases
+
 - OWASP vulnerability assessment
 - Authentication/authorization review
 - Secure coding practices
 - Security audit preparation
 
-**Invoke:**
+#### Invoke
+
 ```bash
 /craft:orchestrate "security audit" release
 ```
 
 #### devops-engineer
+
 **Purpose:** CI/CD and deployment automation
 
-**Use cases:**
+#### Use cases
+
 - Pipeline setup and optimization
 - Docker/Kubernetes configuration
 - Cloud infrastructure (AWS/GCP/Azure)
 - Deployment strategies
 
-**Invoke:**
+#### Invoke
+
 ```bash
 /craft:orchestrate "setup CI/CD pipeline" optimize
 ```
 
 #### tech-lead
+
 **Purpose:** Technical leadership and coordination
 
-**Use cases:**
+#### Use cases
+
 - Architectural decisions
 - Technical strategy
 - Team coordination
 - Technical debt management
 
-**Invoke:**
+#### Invoke
+
 ```bash
 /craft:orchestrate "plan technical roadmap" release
 ```
 
 #### code-quality-reviewer
+
 **Purpose:** Code quality standards and best practices
 
-**Use cases:**
+#### Use cases
+
 - Code review automation
 - Refactoring guidance
 - Design pattern application
 - Clean code principles
 
-**Invoke:**
+#### Invoke
+
 ```bash
 /craft:orchestrate "code review" debug
 ```
@@ -162,7 +190,8 @@ The orchestrator intelligently selects and coordinates agents based on task requ
 
 ### Multi-Agent Coordination
 
-**Example workflow:**
+#### Example workflow
+
 ```
 User: "Prepare application for production release"
 
@@ -213,7 +242,8 @@ Agents adapt their behavior based on mode:
 | **optimize** | Parallel execution, focus on performance |
 | **release** | Comprehensive audit, production-ready checks |
 
-**Example:**
+#### Example
+
 ```bash
 # Quick check
 /craft:orchestrate "check code quality"
@@ -232,12 +262,14 @@ Agents adapt their behavior based on mode:
 
 ### When to Use Skills vs Agents
 
-**Use Skills (automatic):**
+#### Use Skills (automatic)
+
 - Conversational guidance
 - Just-in-time expertise
 - No explicit invocation needed
 
-**Use Agents (explicit):**
+#### Use Agents (explicit)
+
 - Complex multi-step tasks
 - Background processing
 - Coordinated multi-agent workflows
@@ -245,7 +277,8 @@ Agents adapt their behavior based on mode:
 
 ### Combining Skills and Agents
 
-**Optimal workflow:**
+#### Optimal workflow
+
 1. Start conversation (skills activate automatically)
 2. Get general guidance from skills
 3. When ready to implement, invoke agents via orchestrator

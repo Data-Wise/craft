@@ -41,6 +41,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 **So that** I can deploy course materials confidently without breaking the student-facing site.
 
 **Acceptance Criteria:**
+
 1. ✅ Teaching mode is automatically detected from project structure and configuration
 2. ✅ Running `/craft:site:publish` shows a diff of changes before deploying
 3. ✅ Validation checks (content completeness, broken links, assignment files) run before publish
@@ -50,6 +51,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 7. ✅ Entire workflow completes in < 5 minutes
 
 **Success Metrics:**
+
 - Time to publish: 15 min → 3 min (80% reduction)
 - Production bugs: 2-3 per semester → 0
 - User confidence: 9/10 "feel safe publishing"
@@ -65,6 +67,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 **So that** I know what content is due and can stay on schedule.
 
 **Acceptance Criteria:**
+
 - Auto-calculate current week from semester start/end dates
 - Account for scheduled breaks (Spring Break, holidays)
 - Show upcoming milestones (assignments due, exams)
@@ -80,6 +83,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 **So that** I catch errors before students see them.
 
 **Acceptance Criteria:**
+
 - Check syllabus has required sections (grading, policies, objectives)
 - Verify schedule covers all weeks
 - Confirm assignment files exist for schedule references
@@ -95,6 +99,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 **So that** I get relevant information without extra flags.
 
 **Acceptance Criteria:**
+
 - `/craft:site:build` detects teaching mode automatically
 - `/craft:site:check` runs teaching-specific validation
 - `/craft:git:status` shows draft vs production diff
@@ -131,6 +136,7 @@ flowchart TD
 ```
 
 **Detection Priority:**
+
 1. `.flow/teach-config.yml` exists → Teaching ON
 2. `_quarto.yml` has `teaching: true` field → Teaching ON
 3. Project has `syllabus/` and `schedule.qmd` → Teaching ON
@@ -205,6 +211,7 @@ def detect_teaching_mode(cwd: str = None) -> tuple[bool, str | None]:
 ```
 
 **Detection Logic:**
+
 ```python
 # Priority 1: Explicit config
 if Path(cwd, ".flow", "teach-config.yml").exists():
@@ -297,6 +304,7 @@ def validate_teaching_content(config: dict) -> ValidationResult:
 ```
 
 **Example Output:**
+
 ```python
 ValidationResult(
     valid=True,
@@ -376,6 +384,7 @@ class ValidationResult:
 **New Dependencies:** None (all already in Craft)
 
 **Optional:**
+
 - `beautifulsoup4` - HTML parsing for link checking (if not using existing checker)
 
 ---
@@ -576,9 +585,11 @@ Summary:
 ## Open Questions
 
 ### Q1: LMS Integration Priority?
+
 **Question:** Should Craft integrate with Canvas/Moodle APIs for assignment sync?
 
 **Options:**
+
 - **A)** Yes - auto-sync assignments, grades, announcements
 - **B)** No - focus on static site workflow only
 - **C)** Later - phase 5+ feature
@@ -590,14 +601,17 @@ Summary:
 ---
 
 ### Q2: Multi-Instructor Support?
+
 **Question:** Should teaching mode support multiple instructors/TAs?
 
 **Implications:**
+
 - Permissions for who can publish
 - Review workflow before production
 - Role-based access
 
 **Options:**
+
 - **A)** Solo instructor only (current scope)
 - **B)** Add multi-instructor in phase 5
 - **C)** Design for multi-instructor from start
@@ -609,9 +623,11 @@ Summary:
 ---
 
 ### Q3: Assignment Template Library?
+
 **Question:** Should Craft include pre-made assignment templates?
 
 **Options:**
+
 - **A)** Yes - include 5-10 common templates (quiz, problem set, project, exam)
 - **B)** No - instructor creates own templates
 - **C)** Plugin system - users share templates
@@ -623,9 +639,11 @@ Summary:
 ---
 
 ### Q4: Deployment Platform Assumptions?
+
 **Question:** Assume GitHub Pages or support multiple platforms?
 
 **Current Scope:**
+
 - GitHub Pages (Quarto native support)
 - Netlify (popular alternative)
 - Vercel, GitLab Pages, AWS S3
@@ -639,6 +657,7 @@ Summary:
 ## Review Checklist
 
 ### Code Quality
+
 - [ ] All functions have type hints
 - [ ] Comprehensive docstrings (Google style)
 - [ ] Unit tests for detection logic (≥90% coverage)
@@ -647,6 +666,7 @@ Summary:
 - [ ] Logging for debugging (use `logging` module)
 
 ### User Experience
+
 - [ ] All outputs ADHD-friendly (short paragraphs, visual structure)
 - [ ] Clear error messages with actionable suggestions
 - [ ] Confirmation prompts before destructive actions
@@ -654,6 +674,7 @@ Summary:
 - [ ] Success messages include next steps
 
 ### Documentation
+
 - [ ] README section on teaching mode
 - [ ] Command reference updated (`/craft:site:publish --help`)
 - [ ] Config file schema documented
@@ -661,6 +682,7 @@ Summary:
 - [ ] Migration guide from manual workflow
 
 ### Security & Safety
+
 - [ ] Validation before publish (prevent broken deployments)
 - [ ] Fast-forward only merges (no force push)
 - [ ] Automatic backup before publish
@@ -668,12 +690,14 @@ Summary:
 - [ ] No secrets in teach-config.yml (use env vars for API keys)
 
 ### Performance
+
 - [ ] Detection runs in < 100ms (no network calls)
 - [ ] Validation completes in < 5s for typical course site
 - [ ] Diff preview loads instantly (cached git operations)
 - [ ] Publish workflow < 5 min total (including GitHub Actions)
 
 ### Compatibility
+
 - [ ] Works with Quarto 1.3+ (latest stable)
 - [ ] Git 2.30+ (fast-forward merge support)
 - [ ] Python 3.9+ (type hints, dataclasses)
@@ -684,9 +708,11 @@ Summary:
 ## Implementation Notes
 
 ### Phase 1: Foundation (Week 1)
+
 **Goal:** Basic teaching mode detection + validation
 
 **Tasks:**
+
 1. Create `commands/utils/detect_teaching_mode.py`
    - Implement detection logic (config → metadata → structure)
    - Write unit tests
@@ -707,6 +733,7 @@ Summary:
 **Estimated Time:** ~60 min (3 quick wins)
 
 **Deliverables:**
+
 - `utils/detect_teaching_mode.py` (100 lines)
 - `utils/teaching_validation.py` (200 lines)
 - `/craft:site:validate` command (50 lines)
@@ -715,9 +742,11 @@ Summary:
 ---
 
 ### Phase 2: Publishing Workflow (Week 2)
+
 **Goal:** Safe preview-before-publish deployment
 
 **Tasks:**
+
 1. Enhance `/craft:site:publish` with teaching mode
    - Auto-detect teaching mode
    - Run validation before publish
@@ -741,6 +770,7 @@ Summary:
 **Estimated Time:** ~90 min
 
 **Deliverables:**
+
 - Enhanced `/craft:site:publish` (150 lines)
 - `utils/git_teaching.py` (100 lines)
 - 10+ integration tests
@@ -748,9 +778,11 @@ Summary:
 ---
 
 ### Phase 3: Progress Tracking (Week 3)
+
 **Goal:** Semester progress visibility
 
 **Tasks:**
+
 1. Config file schema
    - Document `.flow/teach-config.yml` structure
    - Create schema validator
@@ -771,6 +803,7 @@ Summary:
 **Estimated Time:** ~120 min
 
 **Deliverables:**
+
 - `.flow/teach-config.yml` schema doc
 - `utils/semester_progress.py` (150 lines)
 - `/craft:site:progress` command (100 lines)
@@ -779,9 +812,11 @@ Summary:
 ---
 
 ### Phase 4: Integration (Week 4)
+
 **Goal:** Teaching-aware existing commands
 
 **Tasks:**
+
 1. Enhance `/craft:site:build`
    - Auto-detect teaching mode
    - Show semester progress before build
@@ -801,6 +836,7 @@ Summary:
 **Estimated Time:** ~60 min
 
 **Deliverables:**
+
 - Enhanced `/craft:site:build` (50 lines added)
 - Enhanced `/craft:git:status` (30 lines added)
 - Documentation (4 pages)
@@ -808,9 +844,11 @@ Summary:
 ---
 
 ### Phase 5: Advanced Features (Future)
+
 **Scope:** Deferred to v1.23.0+
 
 **Commands:**
+
 - `/craft:teach:init` - Initialize teaching project
 - `/craft:teach:assign <n>` - Create assignment from template
 - `/craft:teach:week <n>` - Set current week manually
@@ -824,6 +862,7 @@ Summary:
 ### Testing Strategy
 
 #### Unit Tests
+
 - Detection logic (all 3 strategies)
 - Config file parsing (valid + invalid YAML)
 - Validation checks (each check independently)
@@ -835,12 +874,14 @@ Summary:
 ---
 
 #### Integration Tests
+
 - End-to-end publish workflow (validation → preview → merge → deploy)
 - Git operations (merge, conflict, rollback)
 - Multi-command integration (build → validate → publish)
 - Error handling (network failures, git conflicts, validation errors)
 
 **Test Scenarios:**
+
 1. Happy path (all checks pass, clean merge)
 2. Validation warnings (publish anyway)
 3. Validation errors (abort publish)
@@ -850,6 +891,7 @@ Summary:
 ---
 
 #### Manual Testing
+
 - Test with real course project (STAT 545)
 - Verify detection on different project structures
 - Test with various config file variations
@@ -857,6 +899,7 @@ Summary:
 - Cross-platform testing (macOS, Linux)
 
 **Test Courses:**
+
 - STAT 545 (Quarto site, typical structure)
 - Minimal course (only syllabus + schedule)
 - Complex course (100+ pages, 20+ assignments)
@@ -873,6 +916,7 @@ Summary:
 | Complete publish workflow | < 5 min | TBD |
 
 **Optimization Opportunities:**
+
 - Cache validation results (invalidate on file changes)
 - Parallel link checking (concurrent requests)
 - Git operations via libgit2 (faster than CLI)
@@ -882,6 +926,7 @@ Summary:
 ### Rollout Plan
 
 #### Week 1: Internal Testing
+
 - Implement Phase 1 (foundation)
 - Test with DT's STAT 545 course
 - Gather feedback on detection accuracy
@@ -892,6 +937,7 @@ Summary:
 ---
 
 #### Week 2: Preview Workflow
+
 - Implement Phase 2 (publishing)
 - Test publish workflow on draft branch (no production deploy)
 - Verify rollback mechanism
@@ -902,6 +948,7 @@ Summary:
 ---
 
 #### Week 3: Progress Tracking
+
 - Implement Phase 3 (semester progress)
 - Validate week calculation against manual tracking
 - Test with different semester calendars (15-week, 16-week, summer)
@@ -912,6 +959,7 @@ Summary:
 ---
 
 #### Week 4: Full Integration
+
 - Implement Phase 4 (command integration)
 - Full end-to-end testing
 - Documentation complete
@@ -922,6 +970,7 @@ Summary:
 ---
 
 #### Week 5+: Real Course Deployment
+
 - Deploy to production for STAT 545 (Spring 2026)
 - Monitor for issues
 - Gather instructor feedback
@@ -934,18 +983,21 @@ Summary:
 ## History
 
 ### 2026-01-16 - Initial Spec
+
 - Created from brainstorm session
 - Defined 4 user stories (primary + 3 secondary)
 - Scoped to Phases 1-4 (~6-8 hours)
 - Deferred Phase 5 to v1.23.0
 
 ### 2026-01-16 - Architecture Finalized
+
 - Teaching mode detection strategy (3 methods)
 - Publish workflow diagram
 - Config file schema
 - Validation API
 
 ### 2026-01-16 - Ready for Implementation
+
 - All sections complete
 - User stories validated
 - Technical requirements defined
@@ -957,7 +1009,7 @@ Summary:
 
 - [BRAINSTORM-teaching-workflow-2026-01-16.md](../brainstorm/BRAINSTORM-teaching-workflow-2026-01-16.md) - Original brainstorm session
 - [Craft CLAUDE.md](../../CLAUDE.md) - Project overview and workflow
-- [Craft Hub v2.0 Spec](./SPEC-craft-hub-v2-2026-01-15.md) - Related discovery system
+- [Craft Hub v2.0 Spec](./_archive/SPEC-craft-hub-v2-2026-01-15.md) - Related discovery system
 
 ---
 
@@ -966,6 +1018,7 @@ Summary:
 ### STAT 545 (Spring 2026)
 
 **Project Structure:**
+
 ```
 stat-545/
 ├── .flow/
@@ -986,6 +1039,7 @@ stat-545/
 ```
 
 **Branch Setup:**
+
 ```
 production  ← Students see this (https://data-wise.github.io/stat-545)
 draft       ← Staged content (preview before publish)
@@ -993,6 +1047,7 @@ dev         ← Active development
 ```
 
 **Sample teach-config.yml:**
+
 ```yaml
 course:
   number: "STAT 545"

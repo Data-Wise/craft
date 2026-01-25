@@ -1,4 +1,5 @@
 # Documentation Gap Analysis - v1.24.0
+
 **Generated:** 2026-01-18
 **Current Version:** v1.24.0 (Hub v2.0 Release)
 **Analysis Scope:** Recent merges (PRs #12-#22) and v1.24.0 release
@@ -10,6 +11,7 @@
 The craft project has executed **8 major PRs** in the last 4 days with comprehensive testing (516+ tests, 100% pass rate) but documentation has several **alignment gaps** and **completeness issues**.
 
 **Key Findings:**
+
 - ✅ **Feature implementation strong**: 99 commands, 6 comprehensive specs, excellent test coverage
 - ⚠️ **Documentation alignment gaps**: Version references inconsistent, some merged features under-documented
 - ⚠️ **Integration test docs missing**: 27 integration tests lack user-facing documentation
@@ -45,11 +47,13 @@ The craft project has executed **8 major PRs** in the last 4 days with comprehen
 **Issue:** 27 integration tests added (session_2026_01_18) but minimal user documentation.
 
 **Tests Created:**
+
 - `tests/test_integration_dependency_system.py` (9 tests)
 - `tests/test_integration_orchestrator_workflows.py` (13 tests)
 - `tests/test_integration_teaching_workflow.py` (8 tests, 3 skipped)
 
 **Current State:**
+
 - ✅ Tests exist and pass (27/30 active)
 - ✅ Test code is well-written
 - ❌ No user guide explaining what these tests validate
@@ -66,12 +70,14 @@ The craft project has executed **8 major PRs** in the last 4 days with comprehen
 **Issue:** PR #22 merged (+16K lines, 79 tests) but documentation is fragmented.
 
 **What Exists:**
+
 - ✅ Site navigation updated (`docs/guide/dependency-management.md`)
 - ✅ Getting-started tutorial (`docs/guide/`)
 - ✅ API reference + architecture in PR
 - ✅ 79 comprehensive tests
 
 **What's Missing:**
+
 - ❌ No comprehensive user guide in main site
 - ❌ Workflow documentation ("when to use --check, --fix, --batch")
 - ❌ Troubleshooting guide for common issues
@@ -80,6 +86,7 @@ The craft project has executed **8 major PRs** in the last 4 days with comprehen
 - ❌ CI/CD integration guide incomplete
 
 **Script/Utility Documentation Gaps:**
+
 ```
 Scripts added (need documentation):
 - dependency-manager.sh (main orchestrator)
@@ -94,6 +101,7 @@ Utilities added (need reference):
 
 **Gap Size:** High
 **Recommendation:** Create comprehensive guide (1-2 hours) covering:
+
 - Architecture overview + diagram
 - Workflow guide (check → fix → convert → batch)
 - All 8 scripts with examples
@@ -108,11 +116,13 @@ Utilities added (need reference):
 **Issue:** PR #21 merged (+6,337 lines, 37 tests) but user-facing docs are minimal.
 
 **What Exists:**
+
 - ✅ 37 unit tests (complexity scoring, validators, hooks)
 - ✅ PR includes some docs (feature branches)
 - ✅ Complexity scorer utility created
 
 **What's Missing:**
+
 - ❌ User guide: "When does /craft:do delegate to agents?"
 - ❌ Complexity scoring explanation (what are the 7 factors?)
 - ❌ Hot-reload validators guide (how to create custom validators)
@@ -121,6 +131,7 @@ Utilities added (need reference):
 - ❌ Validator ecosystem docs (community validators, best practices)
 
 **Components Added (need docs):**
+
 - Complexity scoring system (utils/complexity_scorer.py)
 - 3 hot-reload validators (test-coverage, broken-links, lint-check)
 - Orchestration hooks (orchestrate-hooks.sh)
@@ -129,6 +140,7 @@ Utilities added (need reference):
 
 **Gap Size:** High
 **Recommendation:** Create guide (1.5-2 hours) covering:
+
 - Complexity scoring algorithm + 7 factors
 - Routing decision tree (command → agent → orchestrator)
 - Hot-reload validator lifecycle
@@ -143,12 +155,14 @@ Utilities added (need reference):
 **Status:** Generally well-documented, but minor gaps.
 
 **What Exists:**
+
 - ✅ 3,527 lines of comprehensive documentation
 - ✅ 4 Mermaid diagrams
 - ✅ 52 tests with 98% coverage
 - ✅ API reference, architecture guide, testing guide
 
 **What's Missing:**
+
 - ⚠️ Performance details (12ms uncached, <2ms cached) mentioned but not prominently featured
 - ⚠️ Auto-detection system explained in code but not in user guide
 - ⚠️ Tutorial generation process documented only in code
@@ -163,12 +177,14 @@ Utilities added (need reference):
 **Status:** Well-documented (8 guides, GIF demo) but some operational details missing.
 
 **What Exists:**
+
 - ✅ 8 comprehensive guides
 - ✅ GIF demo embedded in 4 key docs
 - ✅ 139 tests (100% passing)
 - ✅ Setup, migration, schema documentation
 
 **What's Missing:**
+
 - ⚠️ Troubleshooting: "What if detection fails?"
 - ⚠️ Config schema reference (`.flow/teach-config.yml` fields)
 - ⚠️ Command flag reference (which commands support --teaching?)
@@ -184,6 +200,7 @@ Utilities added (need reference):
 **Status:** Excellent documentation for both phases.
 
 **Coverage:**
+
 - ✅ Phase 1 complete with spec + implementation summary
 - ✅ Phase 2 complete with spec + consolidation report (647 lines)
 - ✅ Visual workflows with 6 Mermaid diagrams
@@ -198,6 +215,7 @@ Utilities added (need reference):
 **Status:** Well-documented feature.
 
 **Coverage:**
+
 - ✅ Implementation spec (SPEC-broken-link-validation-2026-01-17.md)
 - ✅ 21 tests (100% passing)
 - ✅ `.linkcheck-ignore` parser documented
@@ -212,6 +230,7 @@ Utilities added (need reference):
 ### Finding: Inconsistent version claims across documentation
 
 **Affected Files:**
+
 ```
 docs/ORCHESTRATOR-ENHANCEMENTS.md
   - References v1.3.0, v1.4.0, v1.5.0+ (outdated, current is v1.24.0)
@@ -231,6 +250,7 @@ README.md (main)
 ```
 
 **Recommendation:**
+
 1. Archive or remove ORCHESTRATOR-ENHANCEMENTS.md (outdated)
 2. Verify README.md reflects v1.24.0
 3. Consider creating version history document
@@ -256,6 +276,7 @@ README.md (main)
 ## CLAUDE.md Status Update Recommendation
 
 **Current:** 138 lines, covers:
+
 - ✅ Git workflow
 - ✅ 99 commands summary
 - ✅ Execution modes
@@ -265,6 +286,7 @@ README.md (main)
 - ✅ Troubleshooting
 
 **Missing:**
+
 - ⚠️ Integration tests summary (27 tests, 3 categories)
 - ⚠️ Dependency management system (briefly mentioned)
 - ⚠️ Complexity scoring (0-10 algorithm)
@@ -272,6 +294,7 @@ README.md (main)
 - ⚠️ Session state/teleportation
 
 **Recommendation:** Add "Integration Features" section (10-15 lines) describing:
+
 - Integration test structure (3 categories: dependency, orchestrator, teaching)
 - Dependency management system overview
 - Complexity scoring for smart routing
@@ -281,6 +304,7 @@ README.md (main)
 ## Critical Documentation Priorities
 
 ### Priority 1: Must Complete (High impact)
+
 1. **Integration Testing Guide** (30 min)
    - Explain 3 test categories
    - Show how to run tests
@@ -302,6 +326,7 @@ README.md (main)
    - Impact: Users understand smart routing and advanced features
 
 ### Priority 2: Should Complete (Medium impact)
+
 4. **Update CLAUDE.md** (20-30 min)
    - Add integration features section
    - Reference new guides
@@ -318,6 +343,7 @@ README.md (main)
    - Impact: Documentation clarity
 
 ### Priority 3: Nice to Have (Low impact)
+
 7. **Version history document** (1 hour)
    - Timeline of v1.20-v1.24
    - What changed each release
@@ -328,6 +354,7 @@ README.md (main)
 ## Documentation Quality Metrics
 
 ### Coverage Analysis
+
 ```
 Features Implemented:     99 commands
 Features Documented:      99 (100%)
@@ -339,6 +366,7 @@ Test Coverage:           516+ tests (100% pass)
 ```
 
 ### Completeness by Feature
+
 ```
 Hub v2.0:                95% (spec + guide + tests + architecture)
 Teaching Workflow:       90% (guide missing some config details)
@@ -354,18 +382,21 @@ Integration Tests:       30% (tests complete, guide missing)
 ## Recommended Next Steps
 
 ### Phase 1: Critical Documentation (3-4 hours)
+
 1. Create `docs/guide/integration-testing.md` (30 min)
 2. Create `docs/guide/dependency-management-advanced.md` (1.5 hours)
 3. Create `docs/guide/claude-code-2.1-guide.md` (1.5 hours)
 4. Update CLAUDE.md with integration features (20 min)
 
 ### Phase 2: Polish & Cleanup (1-2 hours)
+
 5. Add teaching workflow troubleshooting (20 min)
 6. Add teaching config reference (20 min)
 7. Archive outdated documents (20 min)
 8. Verify version references across docs (20 min)
 
 ### Phase 3: Enhancement (Optional, 1-2 hours)
+
 9. Create version history document (1 hour)
 10. Add complexity scoring visualization
 11. Create troubleshooting matrix
@@ -400,6 +431,7 @@ The craft v1.24.0 release demonstrates **excellent implementation quality** (516
 **Estimated total time to close all gaps:** 4-5 hours
 
 **Impact of closing gaps:**
+
 - Users can effectively use new features
 - Developers can understand test structure
 - Documentation stays synchronized with code

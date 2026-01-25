@@ -25,6 +25,7 @@ Add standardized `--dry-run` / `-n` flag to 47 high-impact craft commands (52% o
 **So that** I can confidently use automation without fear of irreversible mistakes
 
 **Acceptance Criteria:**
+
 - ✅ 47 commands support `--dry-run` flag with `-n` alias
 - ✅ All dry-run outputs follow consistent format (bordered box, high-level summary)
 - ✅ Best-effort preview shows warnings for uncertain operations
@@ -36,16 +37,19 @@ Add standardized `--dry-run` / `-n` flag to 47 high-impact craft commands (52% o
 ## Secondary User Stories
 
 ### User Story 2: Learning & Discovery
+
 **As a** new craft user
 **I want** to see what commands will do before running them
 **So that** I can learn craft capabilities through exploration
 
 ### User Story 3: Debugging
+
 **As a** developer troubleshooting command behavior
 **I want** to see the execution plan without side effects
 **So that** I can understand why commands fail or behave unexpectedly
 
 ### User Story 4: Safety Net
+
 **As a** craft user working with production code
 **I want** to prevent accidental destructive operations
 **So that** I can use powerful automation safely
@@ -143,6 +147,7 @@ arguments:
 ### Dry-Run Output API
 
 **Function Signature:**
+
 ```python
 def render_dry_run_preview(
     command_name: str,
@@ -167,6 +172,7 @@ def render_dry_run_preview(
 ```
 
 **Output Template:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ 🔍 DRY RUN: {command_name}                                  │
@@ -284,11 +290,13 @@ class Severity(Enum):
 ## Dependencies
 
 **Required:**
+
 - No new external dependencies
 - Python 3.8+ (already required)
 - Existing craft command infrastructure
 
 **Optional (Future):**
+
 - Colorama (for colored output) - Future enhancement
 - Rich (for interactive dry-run) - Future enhancement
 
@@ -322,6 +330,7 @@ sequenceDiagram
 ### Wireframes (ASCII)
 
 **Main Dry-Run Output:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ 🔍 DRY RUN: Clean Merged Branches                           │  ← Title
@@ -341,6 +350,7 @@ sequenceDiagram
 ```
 
 **With Multiple Categories:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ 🔍 DRY RUN: Generate CI Workflow                            │
@@ -412,6 +422,7 @@ sequenceDiagram
 ### Phase 1: Critical Safety (Week 1 - 20h)
 
 **Priority 0 Commands (8 commands):**
+
 1. `/craft:git:clean` - Delete branches (CRITICAL)
 2. `/craft:git:worktree` - Worktree operations (HIGH)
 3. `/craft:git:branch` - Branch operations (HIGH)
@@ -420,6 +431,7 @@ sequenceDiagram
 6. `/craft:dist:pypi` - PyPI publish (CRITICAL)
 
 **Deliverables:**
+
 - Shared `dry_run_output.py` utility
 - Template `dry-run-pattern.md`
 - 6 command implementations
@@ -427,6 +439,7 @@ sequenceDiagram
 - Updated documentation
 
 **Success Criteria:**
+
 - All P0 commands have dry-run
 - Consistent output format
 - No false positives/negatives in preview
@@ -437,17 +450,20 @@ sequenceDiagram
 ### Phase 2: High-Impact Additions (Week 2 - 30h)
 
 **File Generation (17 commands):**
+
 - Documentation commands (5)
 - Site management (5)
 - CI/CD (3)
 
 **Smart Routing (4 commands):**
+
 - `/craft:do` - Show delegation plan
 - `/craft:orchestrate` - Show agent plan
 - `/craft:check` - Preview validation
 - `/craft:help` - N/A (read-only)
 
 **Success Criteria:**
+
 - 27 total commands with dry-run
 - Consistent pattern across all
 - User confidence measured (survey)
@@ -458,10 +474,12 @@ sequenceDiagram
 ### Phase 3: Long Tail (Future - 40h)
 
 **Remaining Commands:**
+
 - Code & test (12)
 - Architecture & planning (7)
 
 **Advanced Features:**
+
 - Dry-run testing framework
 - Usage analytics
 - Interactive dry-run
@@ -480,6 +498,7 @@ sequenceDiagram
 **Status:** ⏳ Awaiting review and approval
 
 **Next Steps:**
+
 1. Review this spec with team
 2. Approve or request changes
 3. Create implementation tasks

@@ -9,6 +9,7 @@
 ## Overview
 
 This document defines the JSON schema for orchestration session state, enabling:
+
 - Cross-device session resume
 - Session teleportation via Claude Desktop
 - Session archival and recovery
@@ -49,57 +50,67 @@ This document defines the JSON schema for orchestration session state, enabling:
 ### Core Fields
 
 #### `session_id` (required)
+
 - **Type**: string (UUID v4)
 - **Format**: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
 - **Purpose**: Unique identifier for the session
 - **Example**: `"abc12345-def6-7890-ghij-klmnopqrstuv"`
 
 #### `schema_version` (required)
+
 - **Type**: string (semantic version)
 - **Format**: `MAJOR.MINOR.PATCH`
 - **Purpose**: Schema version for backward compatibility
 - **Example**: `"1.0.0"`
 
 #### `created_at` (required)
+
 - **Type**: string (ISO 8601 datetime)
 - **Format**: `YYYY-MM-DDTHH:mm:ss.sssZ`
 - **Purpose**: Session creation timestamp (UTC)
 - **Example**: `"2026-01-17T14:30:00.000Z"`
 
 #### `updated_at` (required)
+
 - **Type**: string (ISO 8601 datetime)
 - **Format**: `YYYY-MM-DDTHH:mm:ss.sssZ`
 - **Purpose**: Last modification timestamp (UTC)
 - **Example**: `"2026-01-17T14:45:23.142Z"`
 
 #### `device` (required)
+
 - **Type**: string
 - **Purpose**: Device name where session was created/last modified
 - **Example**: `"MacBook Pro"`, `"iMac"`, `"GitHub Codespace"`
 
 #### `project` (required)
+
 - **Type**: string (absolute path)
 - **Purpose**: Project directory absolute path
 - **Example**: `"/Users/dt/projects/my-app"`
 
 #### `goal` (required)
+
 - **Type**: string (1-3 sentences)
 - **Purpose**: High-level task description
 - **Example**: `"Add OAuth 2.0 authentication system with PKCE flow"`
 
 #### `mode` (required)
+
 - **Type**: enum
 - **Values**: `debug`, `default`, `optimize`, `release`
 - **Purpose**: Execution mode
 - **Example**: `"default"`
 
 #### `status` (required)
+
 - **Type**: enum
 - **Values**: `in_progress`, `paused`, `completed`, `error`, `aborted`
 - **Purpose**: Current session state
 - **Example**: `"in_progress"`
 
 #### `progress` (required)
+
 - **Type**: float (0.0-1.0)
 - **Purpose**: Overall completion percentage
 - **Example**: `0.65` (65% complete)
@@ -109,6 +120,7 @@ This document defines the JSON schema for orchestration session state, enabling:
 ### Agent State
 
 #### `agents` (required)
+
 - **Type**: array of Agent objects
 - **Purpose**: Track all agents spawned in session
 
@@ -141,6 +153,7 @@ This document defines the JSON schema for orchestration session state, enabling:
 ```
 
 **Agent Status Values**:
+
 - `pending`: Not yet started
 - `running`: Currently executing
 - `completed`: Finished successfully
@@ -148,6 +161,7 @@ This document defines the JSON schema for orchestration session state, enabling:
 - `timeout`: Exceeded time limit
 
 **Agent Type Values**:
+
 - `feature-dev`
 - `backend-architect`
 - `bug-detective`
@@ -184,9 +198,11 @@ This document defines the JSON schema for orchestration session state, enabling:
 ### Work Tracking
 
 #### `completed_work` (required)
+
 - **Type**: array of strings
 - **Purpose**: List of completed tasks (human-readable)
 - **Example**:
+
 ```json
 [
   "Architecture design (OAuth 2.0 with PKCE)",
@@ -196,9 +212,11 @@ This document defines the JSON schema for orchestration session state, enabling:
 ```
 
 #### `pending_tasks` (required)
+
 - **Type**: array of strings
 - **Purpose**: List of remaining tasks
 - **Example**:
+
 ```json
 [
   "Complete code-1 implementation (60% → 100%)",
@@ -208,6 +226,7 @@ This document defines the JSON schema for orchestration session state, enabling:
 ```
 
 #### `decisions_made` (required)
+
 - **Type**: array of Decision objects
 - **Purpose**: Track user decisions during orchestration
 
@@ -240,6 +259,7 @@ This document defines the JSON schema for orchestration session state, enabling:
 ### File Tracking
 
 #### `files_modified` (required)
+
 - **Type**: array of FileModification objects
 - **Purpose**: Track all file changes
 
@@ -278,6 +298,7 @@ This document defines the JSON schema for orchestration session state, enabling:
 ### Context Management
 
 #### `context_usage` (required)
+
 - **Type**: object
 - **Purpose**: Track context consumption
 
@@ -314,6 +335,7 @@ This document defines the JSON schema for orchestration session state, enabling:
 ### Teleportation Metadata
 
 #### `teleportation` (required)
+
 - **Type**: object
 - **Purpose**: Session teleportation metadata
 
@@ -352,6 +374,7 @@ This document defines the JSON schema for orchestration session state, enabling:
 ### Additional Metadata
 
 #### `metadata` (optional)
+
 - **Type**: object
 - **Purpose**: Custom metadata
 
@@ -516,6 +539,7 @@ jsonschema -i session.json schema/session-state-v1.json
 ### Required Field Check
 
 All session files must include:
+
 - ✅ `schema_version`
 - ✅ `session_id`
 - ✅ `created_at`, `updated_at`

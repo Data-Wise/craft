@@ -72,6 +72,7 @@ Score 8-10 → Complex   → Coordinate multiple specialists
 ```
 
 **What makes a task complex?**
+
 - Multiple steps (e.g., "add user authentication with OAuth")
 - Requires planning (e.g., "refactor the database layer")
 - Involves many files (e.g., "prepare for release")
@@ -84,6 +85,7 @@ Here's the coolest part: when an agent works on something complex, it gets its o
 Imagine you're cooking in the kitchen and your friend offers to help by making a salad in a separate prep area. If they accidentally spill something, it doesn't mess up your main cooking area. That's what forked context does—agents work in isolation, so if something goes wrong, your main conversation stays clean.
 
 **Benefits:**
+
 - Agent failures don't break your whole session
 - You can have multiple agents working in parallel
 - Results come back to you cleanly organized
@@ -114,6 +116,7 @@ Imagine you're cooking in the kitchen and your friend offers to help by making a
 ```
 
 The `feature-dev` agent then:
+
 1. Plans the OAuth integration
 2. Writes the code
 3. Adds tests
@@ -152,6 +155,7 @@ Agents are now resilient. If one fails or you skip it, the others keep going and
 ### How Resilience Works
 
 **Before (Brittle):**
+
 ```
 Wave 1: [Agent A] [Agent B]
          ↓ denied    ↓ success
@@ -160,6 +164,7 @@ Wave 2: BLOCKED (can't continue)
 ```
 
 **After (Resilient):**
+
 ```
 Wave 1: [Agent A]       [Agent B]
          ↓ denied        ↓ success
@@ -178,10 +183,12 @@ You run:
 The orchestrator plans three waves:
 
 **Wave 1 (Parallel):**
+
 - **Architecture Agent** → Design system changes
 - **Documentation Agent** → Update docs
 
 **Wave 2 (Sequential):**
+
 - **Backend Agent** → Implement changes (depends on architecture)
 - **Testing Agent** → Write tests (depends on backend)
 
@@ -192,6 +199,7 @@ The orchestrator plans three waves:
 
 **New behavior:**
 ✅ The workflow continues:
+
 1. Documentation Agent completes successfully
 2. Backend Agent notes: "Architecture input unavailable, using fallback approach"
 3. Backend Agent implements using best practices
@@ -253,12 +261,14 @@ Just drop a new validation file in the right folder. `/craft:check` automaticall
 ### How Hot-Reload Works
 
 **Validation skills** are small, modular checks stored as markdown files. Each one has:
+
 - A name (e.g., `check:test-coverage`)
 - A description
 - Code to run the check
 - A special flag: `hot_reload: true`
 
 When you run `/craft:check`, it:
+
 1. Scans for all validation skills (in multiple locations)
 2. Loads any new ones automatically
 3. Runs them in isolated "forked contexts" (remember the kitchen prep analogy?)
@@ -297,6 +307,7 @@ else
   exit 1
 fi
 ```
+
 ```
 
 **That's it!** Next time you run `/craft:check`, this validator automatically runs—no restart required.
@@ -314,6 +325,7 @@ The system looks in three places (in order):
 When you run `/craft:check release`:
 
 ```
+
 ┌─────────────────────────────────────────────────┐
 │ 🔍 /craft:check release                         │
 ├─────────────────────────────────────────────────┤
@@ -341,6 +353,7 @@ When you run `/craft:check release`:
 │                                                 │
 │ 💡 Add your own: ~/.craft/validators/           │
 └─────────────────────────────────────────────────┘
+
 ```
 
 Notice the **[NEW]** tags? Those validators were added without any code changes or restarts.
@@ -438,6 +451,7 @@ else
   exit 0
 fi
 ```
+
 ```
 
 2. That's it! No restart needed.
@@ -445,8 +459,10 @@ fi
 3. Next `/craft:check` run:
 
 ```
+
 🔧 Custom Validators:
   ✓ no-console-log (0.4s) - No console.log [NEW]
+
 ```
 
 **Your experience:**
@@ -516,6 +532,7 @@ else
   exit 1
 fi
 ```
+
 ```
 
 **Then run:**

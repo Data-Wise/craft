@@ -16,6 +16,7 @@ Use this workflow when you need to:
 - Deploy documentation updates
 
 **Example scenarios:**
+
 - "Ready to release v1.20.0"
 - "Need to publish the latest fixes"
 - "Time for a major version bump"
@@ -33,6 +34,7 @@ Before starting, ensure you have:
 - [x] No uncommitted changes
 
 **Quick check:**
+
 ```bash
 /craft:check --for release
 ```
@@ -59,6 +61,7 @@ Run comprehensive checks before releasing.
 ```
 
 **What it checks:**
+
 | Check | Description |
 |-------|-------------|
 | Tests | Full test suite with coverage |
@@ -69,6 +72,7 @@ Run comprehensive checks before releasing.
 | Changelog | Recent entries |
 
 **Expected output:**
+
 ```
 ╭─ /craft:check --for release ─────────────────────────╮
 │ Project: craft (Claude Plugin)                       │
@@ -100,6 +104,7 @@ cat .claude-plugin/plugin.json | grep version
 ```
 
 **Version format:** Follow [Semantic Versioning](https://semver.org/)
+
 - `MAJOR.MINOR.PATCH`
 - `1.18.0` → `1.18.1` (patch/bugfix)
 - `1.18.0` → `1.19.0` (minor/feature)
@@ -114,6 +119,7 @@ Add release notes to CHANGELOG.md.
 ```
 
 **Changelog format:**
+
 ```markdown
 ## [1.18.0] - 2026-01-14
 
@@ -181,6 +187,7 @@ git push --tags
 Publish to relevant registries.
 
 #### PyPI (Python)
+
 ```bash
 # Automatic via GitHub Actions if configured
 # Or manual:
@@ -189,11 +196,13 @@ uv publish
 ```
 
 #### npm (Node.js)
+
 ```bash
 npm publish
 ```
 
 #### GitHub Release
+
 ```bash
 gh release create v1.20.0 \
   --title "v1.20.0" \
@@ -202,6 +211,7 @@ gh release create v1.20.0 \
 ```
 
 #### Documentation Site
+
 ```bash
 /craft:site:deploy
 # or

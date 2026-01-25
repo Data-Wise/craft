@@ -3,6 +3,7 @@
 ⏱️ **20 minutes** • 🟠 Intermediate • ✓ Complete guide
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Craft's dependency system automatically detects, validates, and installs tools needed for commands
 > - **Why:** Ensure demos and commands work reliably without manual setup
 > - **How:** System checks dependencies, shows status, and installs missing tools
@@ -112,6 +113,7 @@ dependencies:
 ```
 
 **Fields Explained:**
+
 - `required` - Boolean. If true, command fails without this tool
 - `purpose` - Description of what the tool does
 - `methods` - Array of demo methods that use this tool (asciinema, vhs)
@@ -128,21 +130,25 @@ Detects whether tools are installed using 4 methods:
 **Detection Methods (in order):**
 
 1. **PATH Search** - Look for executable in PATH
+
    ```bash
    which asciinema
    ```
 
 2. **Homebrew** - Check Homebrew installation
+
    ```bash
    brew list asciinema
    ```
 
 3. **NPM** - Check global npm packages
+
    ```bash
    npm list -g asciinema
    ```
 
 4. **Cargo** - Check Rust toolchain
+
    ```bash
    cargo install --list | grep asciinema
    ```
@@ -166,17 +172,20 @@ Detects whether tools are installed using 4 methods:
 Caches detection results for performance:
 
 **Cache Behavior:**
+
 - **Location:** `/tmp/craft-deps-{SESSION_ID}/`
 - **TTL:** 60 seconds
 - **Scope:** Session-specific (no cross-session pollution)
 - **Format:** JSON files per tool
 
 **Benefits:**
+
 - First check: ~500ms (5 tools)
 - Cached check: ~50ms (90% faster)
 - Automatic cleanup after 60s
 
 **Example:**
+
 ```bash
 # First check - detects and caches
 /craft:docs:demo --check    # ~500ms
@@ -193,11 +202,13 @@ Caches detection results for performance:
 Validates tool versions using semantic versioning:
 
 **Supported Formats:**
+
 - `2.3.0` - Semantic versioning (major.minor.patch)
 - `2.3` - Short version (auto-pad to X.Y.0)
 - `2` - Major only (auto-pad to X.0.0)
 
 **Comparison Logic:**
+
 ```
 Requires: 2.0.0
 Installed: 2.3.0
@@ -230,6 +241,7 @@ BROKEN if unexpected exit code
 **Command:** `/craft:docs:demo --check`
 
 **Steps:**
+
 1. Parse `demo.md` frontmatter → Tool specs
 2. For each tool:
    - Check cache (60s TTL)
@@ -238,6 +250,7 @@ BROKEN if unexpected exit code
 3. Display results in formatted table
 
 **Output Example:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ 🔍 DEPENDENCY STATUS: asciinema method                      │
@@ -254,6 +267,7 @@ Run: /craft:docs:demo --fix
 ```
 
 **Exit Codes:**
+
 - `0` - All required tools OK
 - `1` - Missing or broken required tools
 
@@ -262,6 +276,7 @@ Run: /craft:docs:demo --fix
 **Command:** `/craft:docs:demo --fix`
 
 **Steps:**
+
 1. Check dependencies (same as Workflow 1)
 2. Identify missing/broken tools
 3. For each missing tool:
@@ -272,6 +287,7 @@ Run: /craft:docs:demo --fix
 5. Report results
 
 **Install Priority:**
+
 ```
 1. Homebrew (macOS primary)
    └─ brew install asciinema
@@ -287,6 +303,7 @@ Run: /craft:docs:demo --fix
 ```
 
 **Output Example:**
+
 ```
 Installing missing dependencies...
 
@@ -306,6 +323,7 @@ Installation complete!
 **Command:** `/craft:docs:demo --repair` (or automatic with --fix)
 
 **Steps:**
+
 1. Detect broken tools (health check failed)
 2. For each broken tool:
    - Determine install method (from detection)
@@ -314,6 +332,7 @@ Installation complete!
    - Verify with health check
 
 **Example - Broken Installation:**
+
 ```
 gifsicle health check FAILED
   Current version: 1.88
@@ -330,6 +349,7 @@ Result: ✅ gifsicle 1.96 now healthy
 ### Workflow 4: Batch Installation
 
 For commands with many dependencies, batch mode:
+
 1. Collect all missing tools
 2. Show installation plan
 3. Install all tools sequentially
@@ -337,6 +357,7 @@ For commands with many dependencies, batch mode:
 5. Optionally run integration tests
 
 **Example:**
+
 ```bash
 # Check 5 tools
 asciinema   ✅ OK
@@ -370,6 +391,7 @@ Result: 2/2 installed successfully
 | `get_install_command TOOL SPEC` | Get platform-specific install cmd | Returns brew/cargo/apt command |
 
 **Usage:**
+
 ```bash
 # Check dependencies for asciinema method
 bash scripts/dependency-manager.sh check_dependencies asciinema
@@ -382,6 +404,7 @@ bash scripts/dependency-manager.sh get_install_command agg '{"brew":"agg","cargo
 ```
 
 **Output Formats:**
+
 - **JSON:** For programmatic use
 - **Table:** For human readability
 - **Exit codes:** 0 (OK), 1 (missing/broken)
@@ -402,6 +425,7 @@ bash scripts/dependency-manager.sh get_install_command agg '{"brew":"agg","cargo
 | `prompt_user_consent TOOL` | Ask user permission to install |
 
 **Usage:**
+
 ```bash
 # Install missing tools
 bash scripts/dependency-installer.sh install_missing_tools
@@ -427,6 +451,7 @@ bash scripts/dependency-installer.sh --dry-run install_missing_tools
 | `run_health_check CMD EXPECT_EXIT` | Verify tool works |
 
 **Usage:**
+
 ```bash
 # Detect if bash is installed
 bash scripts/tool-detector.sh bash
@@ -451,6 +476,7 @@ detect_tool "asciinema" '{"min":"2.0.0"}'
 | `cleanup_cache` | Remove entire cache directory |
 
 **Cache Structure:**
+
 ```
 /tmp/craft-deps-SESSION_ID/
 ├── asciinema.json     # {"installed": true, "version": "2.3.0", ...}
@@ -459,6 +485,7 @@ detect_tool "asciinema" '{"min":"2.0.0"}'
 ```
 
 **Cache Expiration:**
+
 - Manual: `clear_cache asciinema`
 - Automatic: 60 seconds TTL
 - Cleanup: `cleanup_cache` removes entire directory
@@ -476,6 +503,7 @@ detect_tool "asciinema" '{"min":"2.0.0"}'
 | `validate_version_format VERSION` | Check format is valid |
 
 **Supported Formats:**
+
 ```
 2.3.0    → [major=2, minor=3, patch=0]
 2.3      → [major=2, minor=3, patch=0] (auto-pad)
@@ -496,6 +524,7 @@ v2.3.0   → [major=2, minor=3, patch=0] (strip 'v')
 | `suggest_fixes TOOL ERROR` | Recommend fixes |
 
 **Health Check Output:**
+
 ```json
 {
   "name": "asciinema",
@@ -521,6 +550,7 @@ v2.3.0   → [major=2, minor=3, patch=0] (strip 'v')
 | `repair_via_alternative TOOL` | Try alternative tool |
 
 **Repair Strategies:**
+
 1. **Update** - Upgrade to latest version
 2. **Reinstall** - Remove and reinstall
 3. **Downgrade** - Go to previous stable version
@@ -534,6 +564,7 @@ v2.3.0   → [major=2, minor=3, patch=0] (strip 'v')
 **Homebrew package installation.**
 
 **Functions:**
+
 ```bash
 check_brew_available()      # Check if brew is installed
 brew_search_package PKG     # Verify package exists
@@ -542,6 +573,7 @@ get_brew_status            # Status JSON
 ```
 
 **Output:**
+
 ```json
 {"success": true, "message": "Successfully installed agg via brew"}
 {"success": false, "error": "Package not found in Homebrew"}
@@ -552,6 +584,7 @@ get_brew_status            # Status JSON
 **Rust package installation via Cargo.**
 
 **Functions:**
+
 ```bash
 check_cargo_available()        # Check if cargo installed
 cargo_search_package PKG       # Verify package exists
@@ -560,6 +593,7 @@ get_cargo_status               # Status JSON
 ```
 
 **Output:**
+
 ```json
 {"success": true, "message": "Successfully installed agg v1.7.0"}
 {"success": false, "error": "Package not found in crates.io"}
@@ -570,6 +604,7 @@ get_cargo_status               # Status JSON
 **Direct binary download and installation.**
 
 **Functions:**
+
 ```bash
 get_download_url TOOL VERSION           # Construct download URL
 download_binary TOOL URL DESTINATION    # Download and verify
@@ -578,6 +613,7 @@ get_binary_status                       # Status JSON
 ```
 
 **Supported Formats:**
+
 - `.tar.gz` - Gzip archive
 - `.zip` - Zip archive
 - Single binary files
@@ -587,6 +623,7 @@ get_binary_status                       # Status JSON
 **Interactive user approval for sensitive operations.**
 
 **Functions:**
+
 ```bash
 prompt_user_consent TOOL MESSAGE        # Ask user permission
 format_consent_prompt TOOL REASON       # Format prompt text
@@ -594,6 +631,7 @@ parse_user_response RESPONSE            # Validate user input
 ```
 
 **Example:**
+
 ```
 agg needs to be installed. Install now? [y/N]
 > y
@@ -618,6 +656,7 @@ The system gracefully handles common errors:
 ### Retry Logic
 
 Installation retries with exponential backoff:
+
 ```
 Attempt 1: brew install agg
   └─ Failed
@@ -634,11 +673,13 @@ Try next method: cargo install agg
 ### Logging
 
 All operations logged to:
+
 ```
 /tmp/craft-install-SESSION_ID.log
 ```
 
 **Log Format:**
+
 ```
 2026-01-18 14:30:00 [INFO] Starting dependency check
 2026-01-18 14:30:00 [DEBUG] Checking asciinema...
@@ -702,11 +743,13 @@ check-dependencies:
 ### Issue: Tool shows as "MISSING" but is actually installed
 
 **Diagnosis:**
+
 1. Check if tool is in PATH: `which toolname`
 2. Check if tool is in homebrew: `brew list toolname`
 3. Check if tool is in cargo: `cargo install --list | grep toolname`
 
 **Solution:**
+
 - Add to PATH: `export PATH="/path/to/tool:$PATH"`
 - Reinstall via correct method
 - Clear cache: `rm -rf /tmp/craft-deps-*`
@@ -714,11 +757,13 @@ check-dependencies:
 ### Issue: Version validation fails
 
 **Diagnosis:**
+
 1. Check actual version: `toolname --version`
 2. Verify minimum required version in tool spec
 3. Check version extraction command in health check
 
 **Solution:**
+
 ```bash
 # Test version extraction
 asciinema --version | grep -oE '[0-9.]+'
@@ -730,11 +775,13 @@ check_cmd: "asciinema --version | grep -oE '[0-9.]+' | head -1"
 ### Issue: Installation fails with "installer not available"
 
 **Diagnosis:**
+
 - Homebrew not installed on macOS
 - Cargo not installed for Rust tools
 - Internet connection required for downloads
 
 **Solution:**
+
 1. Install Homebrew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 2. Install Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 3. Check internet connection
@@ -742,11 +789,13 @@ check_cmd: "asciinema --version | grep -oE '[0-9.]+' | head -1"
 ### Issue: Health check fails after installation
 
 **Diagnosis:**
+
 - Tool installed but not in PATH
 - Tool has unusual health check requirements
 - Tool requires additional configuration
 
 **Solution:**
+
 1. Check if installed: `which toolname`
 2. Verify health check command: `toolname --help`
 3. Modify health check in tool spec if needed

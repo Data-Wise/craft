@@ -32,6 +32,7 @@ Integrate spec standards deeply into craft commands with a five-part solution:
 5. **Smart Routing** - /craft:do searches specs by keyword for implementation guidance
 
 **Key Principles:**
+
 - Consistency: All specs use same template structure
 - Validation: Content validation (not just format checking)
 - Integration: Specs drive implementation (not just documentation)
@@ -68,6 +69,7 @@ Integrate spec standards deeply into craft commands with a five-part solution:
 Template v1.0.0 lives in `commands/workflow/brainstorm.md` with these sections:
 
 **Required Sections:**
+
 1. Problem Statement (20+ words)
 2. Solution Overview (20+ words)
 3. Scope (In/Out with 1+ item each)
@@ -81,6 +83,7 @@ Template v1.0.0 lives in `commands/workflow/brainstorm.md` with these sections:
 11. Next Steps
 
 **Frontmatter:**
+
 ```yaml
 ---
 version: 1.0.0
@@ -101,6 +104,7 @@ from_brainstorm: BRAINSTORM-*.md
 | All others | Can be "N/A - [reason]" |
 
 **Validation Triggers:**
+
 - On commit (pre-commit hook) - blocks invalid specs
 - In `/craft:check` - reports spec issues
 - In `/craft:site:check` - validates before deployment
@@ -124,6 +128,7 @@ flowchart LR
 ### Website Structure
 
 **Navigation Addition:**
+
 ```yaml
 - Specifications:
   - Overview: specs/index.md
@@ -145,17 +150,20 @@ flowchart LR
 **Goal:** Embed template and validate specs on commit
 
 **Tasks:**
+
 1. Add spec template v1.0.0 to `commands/workflow/brainstorm.md`
 2. Create `tests/validate_specs.py` module
 3. Update `capture_spec()` function to use embedded template
 4. Add spec validation to `.git/hooks/pre-commit`
 
 **Deliverables:**
+
 - Embedded template with all required sections
 - Working validator (CLI + importable)
 - Pre-commit hook blocks invalid specs
 
 **Success Criteria:**
+
 - [ ] `/craft:workflow:brainstorm d f s "test"` generates valid spec
 - [ ] `python3 tests/validate_specs.py` validates existing specs
 - [ ] Pre-commit hook catches missing sections
@@ -167,17 +175,20 @@ flowchart LR
 **Goal:** Connect specs to implementation workflow
 
 **Tasks:**
+
 1. Add `find_relevant_spec()` to `/craft:do`
 2. Integrate spec search into smart routing
 3. Add `check_specs()` to `/craft:check`
 4. Add spec validation to `/craft:site:check`
 
 **Deliverables:**
+
 - Spec search by keyword (similarity matching)
 - Check command validates specs
 - Site check validates before deployment
 
 **Success Criteria:**
+
 - [ ] `/craft:do "implement X"` finds spec for X
 - [ ] `/craft:check` shows spec validation results
 - [ ] `/craft:site:check` blocks on invalid specs
@@ -189,6 +200,7 @@ flowchart LR
 **Goal:** Publish specs to documentation site
 
 **Tasks:**
+
 1. Add Specifications section to `mkdocs.yml`
 2. Create `docs/specs/index.md` (spec index)
 3. Create category pages (features.md, architecture.md, api.md)
@@ -196,12 +208,14 @@ flowchart LR
 5. Update help template to link to specs
 
 **Deliverables:**
+
 - Specifications section live on site
 - Spec index with category filtering
 - Help pages link to specs
 - Auto-generate help from specs
 
 **Success Criteria:**
+
 - [ ] Specs section appears in site navigation
 - [ ] Spec index lists all specs by category
 - [ ] Help pages have "View Specification" links
@@ -214,17 +228,20 @@ flowchart LR
 **Goal:** Track template versions and enable evolution
 
 **Tasks:**
+
 1. Create `docs/specs/TEMPLATE-VERSIONS.md`
 2. Document v1.0.0 sections and validation rules
 3. Add migration strategy for future versions
 4. Update validator to check template version
 
 **Deliverables:**
+
 - Template version history documented
 - Migration strategy defined
 - Validator checks spec version
 
 **Success Criteria:**
+
 - [ ] TEMPLATE-VERSIONS.md exists
 - [ ] Validator warns on outdated specs
 - [ ] Backward compatibility policy documented
@@ -315,11 +332,13 @@ flowchart LR
 **None** - Pure Python/bash implementation
 
 **Prerequisites:**
+
 - Python 3.x (for validator)
 - Bash (for pre-commit hook)
 - MkDocs Material theme (already configured)
 
 **Tool Requirements:**
+
 - `re` module (standard library)
 - `pathlib` module (standard library)
 - No external dependencies

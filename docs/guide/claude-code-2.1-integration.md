@@ -95,6 +95,7 @@ Time: < 30 sec
 ```
 
 **Analysis:**
+
 ```mermaid
 graph LR
     A["Fix typo"] -->|Multi-step?| B["No"]
@@ -129,6 +130,7 @@ Time: 5-30 min
 ```
 
 **Analysis:**
+
 ```mermaid
 graph LR
     A["Add feature with<br/>comprehensive tests<br/>and documentation"]
@@ -164,6 +166,7 @@ Time: 30 min - several hours
 ```
 
 **Analysis:**
+
 ```mermaid
 graph LR
     A["Design & implement<br/>comprehensive auth<br/>with OAuth2, sessions,<br/>errors, tests, docs"]

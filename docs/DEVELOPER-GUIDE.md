@@ -410,6 +410,7 @@ assert_json_valid <json_string> <test_name>
 ### Bash Scripting
 
 **DO**:
+
 - ✅ Use `set -uo pipefail` for strict mode
 - ✅ Quote all variables: `"$var"` not `$var`
 - ✅ Use `local` for function variables
@@ -418,6 +419,7 @@ assert_json_valid <json_string> <test_name>
 - ✅ Use `readonly` for constants
 
 **DON'T**:
+
 - ❌ Use `set -e` in test scripts (prevents error collection)
 - ❌ Parse `ls` output (use globs or `find`)
 - ❌ Use `eval` without validation

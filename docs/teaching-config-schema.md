@@ -3,6 +3,7 @@
 ⏱️ **5 minutes** • 🟢 Beginner • ✓ Complete reference
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** YAML schema for teaching project configuration
 > - **Why:** Enables automated course workflows, week tracking, and deployment
 > - **Where:** `.flow/teach-config.yml` in your teaching project root
@@ -38,6 +39,7 @@ Basic course metadata displayed across teaching workflows.
 | `course.year` | integer | ✓ | Four-digit year | `2026` |
 
 **Example:**
+
 ```yaml
 course:
   number: "STAT 545"
@@ -67,6 +69,7 @@ Each break in `dates.breaks` includes:
 | `end` | date | ✓ | Last day of break | `2026-03-20` |
 
 **Example:**
+
 ```yaml
 dates:
   start: "2026-01-19"
@@ -91,6 +94,7 @@ Optional instructor contact details for syllabus generation and student communic
 | `instructor.office_hours` | string | - | Office hours description | `"Tu/Th 2-3pm, Zoom"` |
 
 **Example:**
+
 ```yaml
 instructor:
   name: "Dr. Jane Smith"
@@ -109,6 +113,7 @@ Controls how your course site is built and published.
 | `deployment.gh_pages_url` | string | - | GitHub Pages URL | - |
 
 **Example:**
+
 ```yaml
 deployment:
   production_branch: "production"
@@ -146,6 +151,7 @@ Track which week of the semester you're currently in.
   - Review weeks
 
 **Example:**
+
 ```yaml
 progress:
   current_week: auto  # Let Craft calculate based on dates
@@ -178,6 +184,7 @@ Optional validation settings for quality control.
 | `false` | ⚠️ Warn | ⚠️ Warn | ⚠️ Warn | Allow publish |
 
 **Example:**
+
 ```yaml
 validation:
   required_sections:
@@ -290,6 +297,7 @@ progress:
 ```
 
 **Timeline:**
+
 - Weeks 1-8: Jan 12 - Mar 6
 - Spring Break: Mar 9-13 (skipped)
 - Weeks 9-16: Mar 16 - May 1
@@ -400,6 +408,7 @@ Use `/craft:teach:config` to validate your configuration:
 - ✓ Week calculation works correctly
 
 **Example output:**
+
 ```
 ✓ Configuration valid
 ✓ Semester: Spring 2026 (16 weeks)

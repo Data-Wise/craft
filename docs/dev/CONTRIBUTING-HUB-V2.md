@@ -37,7 +37,7 @@ Hub v2.0 is a zero-maintenance command discovery system for the Craft plugin. Th
 - Read the [Architecture Documentation](../architecture/HUB-V2-ARCHITECTURE.md)
 - Review the [API Reference](../api/DISCOVERY-API.md)
 - Run the test suite to ensure everything works
-- Familiarize yourself with the [User Guide](../help/hub.md)
+- Familiarize yourself with the [User Guide](../../commands/hub.md)
 
 ---
 
@@ -355,6 +355,7 @@ print(f"Cached load: {elapsed:.2f}ms")
 **Common optimizations:**
 
 1. **Reduce file I/O**:
+
    ```python
    # Bad: Multiple file reads
    for filepath in files:
@@ -369,12 +370,14 @@ print(f"Cached load: {elapsed:.2f}ms")
    ```
 
 2. **Optimize JSON serialization**:
+
    ```python
    # Use compact JSON format
    json.dump(cache, f, separators=(',', ':'))
    ```
 
 3. **Early termination**:
+
    ```python
    # Stop scanning if cache is valid
    if cache_is_valid():
@@ -533,6 +536,7 @@ if not os.path.exists(filepath):
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation only
@@ -738,7 +742,7 @@ python3 tests/test_hub_discovery.py
 
 - [Architecture Documentation](../architecture/HUB-V2-ARCHITECTURE.md)
 - [API Reference](../api/DISCOVERY-API.md)
-- [User Guide](../help/hub.md)
+- [User Guide](../../commands/hub.md)
 - [Testing Guide](../../tests/HUB-V2-TESTING-GUIDE.md)
 - [Testing Summary](../../tests/TESTING-SUMMARY.md)
 

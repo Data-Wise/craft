@@ -3,6 +3,7 @@
 ⏱️ **5 minutes** • 🟢 Beginner • ✓ Complete setup
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Install Craft via Homebrew for automatic updates
 > - **Why:** Homebrew manages versions and dependencies
 > - **How:** `brew install data-wise/tap/craft` → verify with `/craft:hub`
@@ -21,6 +22,7 @@ brew install craft
 ```
 
 That's it! The post-install script automatically:
+
 1. Creates symlinks to `~/.claude/plugins/craft`
 2. Registers with the `local-plugins` marketplace
 3. Enables the plugin in Claude Code settings
@@ -108,10 +110,12 @@ Manual sync is **only needed** if you see this warning during upgrade:
 ```
 
 **Why this happens:**
+
 - Claude CLI not installed or not in PATH during upgrade
 - The `claude` command failed for some reason
 
 **Fix:**
+
 ```bash
 claude plugin update craft@local-plugins
 ```
@@ -132,12 +136,14 @@ claude plugin list | grep craft
 ```
 
 Or check the registry directly:
+
 ```bash
 cat ~/.claude/plugins/installed_plugins.json | jq '.plugins["craft@local-plugins"][0].version'
 # Should match: brew info craft | grep "craft:"
 ```
 
 If versions don't match, run manual sync once:
+
 ```bash
 claude plugin update craft@local-plugins
 ```
@@ -153,6 +159,7 @@ claude plugin update craft@local-plugins
 **Cause:** The installer detected Claude Code has `settings.json` open and skipped modification to avoid conflicts.
 
 **Fix:**
+
 ```bash
 claude plugin install craft@local-plugins
 ```
@@ -168,6 +175,7 @@ This is expected behavior when installing while Claude Code is running.
 **Cause:** Older formula versions attempted to modify `settings.json` without checking for Claude.
 
 **Fix (if stuck now):**
+
 ```bash
 # Find and kill the stuck process
 ps aux | grep craft-install
@@ -186,6 +194,7 @@ claude plugin install craft@local-plugins
 **Symptom:** `/craft:hub` not recognized after install
 
 **Fix:**
+
 ```bash
 # Re-run install script
 craft-install
@@ -204,6 +213,7 @@ claude plugin update craft@local-plugins
 **Symptom:** Registry shows old version after `brew upgrade`
 
 **Fix:**
+
 ```bash
 claude plugin update craft@local-plugins
 ```
@@ -213,6 +223,7 @@ claude plugin update craft@local-plugins
 **Symptom:** `ln: failed to create symbolic link`
 
 **Fix:**
+
 ```bash
 # Remove existing directory/symlink
 rm -rf ~/.claude/plugins/craft
@@ -226,6 +237,7 @@ ln -s /opt/homebrew/opt/craft/libexec ~/.claude/plugins/craft
 **Symptom:** Multiple old versions accumulating
 
 **Fix:**
+
 ```bash
 # List cached versions
 ls ~/.claude/plugins/cache/local-plugins/craft/
@@ -285,12 +297,14 @@ All plugins will show "Claude Code is running - skipped auto-enable" if installe
 ### Updating Multiple Plugins
 
 **Automatic (recommended):**
+
 ```bash
 brew upgrade data-wise/tap/craft data-wise/tap/rforge data-wise/tap/scholar
 # Restart Claude Code - all plugins auto-sync!
 ```
 
 **Manual sync (only if automatic fails):**
+
 ```bash
 claude plugin update craft@local-plugins
 claude plugin update rforge@local-plugins

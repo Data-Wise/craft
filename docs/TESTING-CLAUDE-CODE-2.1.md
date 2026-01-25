@@ -56,6 +56,7 @@ python3 tests/test_complexity_scoring.py
 ```
 
 **What's Tested**:
+
 - Scoring algorithm with 5 factors (multi-step, cross-category, planning, research, multi-file)
 - Routing decisions (0-3 → commands, 4-7 → agent, 8-10 → orchestrator)
 - Boundary conditions (scores 3, 4, 7, 8)
@@ -93,6 +94,7 @@ python3 tests/test_hot_reload_validators.py
 ```
 
 **What's Tested**:
+
 - YAML frontmatter validation (required fields, semantic versioning)
 - Hot-reload flags (`hot_reload: true`, `context: fork`)
 - Mode-aware behavior (4 modes with different thresholds)
@@ -134,6 +136,7 @@ python3 tests/test_agent_hooks.py
 ```
 
 **What's Tested**:
+
 - Script existence and executability
 - Bash syntax validation (`bash -n`)
 - Shebang verification (`#!/bin/bash`)
@@ -203,6 +206,7 @@ pytest tests/test_complexity_scoring.py \
 ### Unit Tests (37 tests)
 
 **Complexity Scoring** (15 tests):
+
 - Simple task scoring (1-2)
 - Multi-step task scoring (4-6)
 - Complex architecture scoring (8-10)
@@ -212,6 +216,7 @@ pytest tests/test_complexity_scoring.py \
 - Explain function output
 
 **Hot-Reload Validators** (9 tests):
+
 - Validator file existence
 - Frontmatter validation (YAML, required fields)
 - Hot-reload flag verification (`hot_reload: true`)
@@ -223,6 +228,7 @@ pytest tests/test_complexity_scoring.py \
 - Integration with existing tests
 
 **Agent Hooks** (13 tests):
+
 - Script structure (existence, executability, shebang)
 - Bash syntax validation
 - Event handlers (PreToolUse, PostToolUse, Stop)
@@ -281,12 +287,14 @@ print(result["explanation"])
 ```
 
 **Features**:
+
 - 5-factor scoring algorithm (0-10 scale)
 - Routing decision mapping (commands/agent/orchestrator)
 - Detailed score explanation with factors
 - Command-line test mode
 
 **Run utility tests**:
+
 ```bash
 # Test the utility with sample tasks
 python3 utils/complexity_scorer.py
@@ -308,6 +316,7 @@ python3 utils/complexity_scorer.py
 ### Detailed Coverage
 
 **Complexity Scorer** (100%):
+
 - ✅ All 5 scoring factors tested
 - ✅ All routing decisions tested
 - ✅ Boundary conditions tested
@@ -315,6 +324,7 @@ python3 utils/complexity_scorer.py
 - ✅ Explain function tested
 
 **Hot-Reload Validators** (95%):
+
 - ✅ Frontmatter structure tested
 - ✅ Hot-reload flags tested
 - ✅ Mode-aware thresholds tested
@@ -322,6 +332,7 @@ python3 utils/complexity_scorer.py
 - ⚠️ Runtime execution not tested (deferred to E2E)
 
 **Agent Hooks** (100%):
+
 - ✅ Script structure validated
 - ✅ Bash syntax checked
 - ✅ All event handlers verified
@@ -338,6 +349,7 @@ python3 utils/complexity_scorer.py
 The test suite uses **static analysis** rather than subprocess execution:
 
 **Benefits**:
+
 - ✅ More reliable in test environments
 - ✅ No subprocess/environment issues
 - ✅ Fast execution (< 25ms total)
@@ -345,12 +357,14 @@ The test suite uses **static analysis** rather than subprocess execution:
 - ✅ No external dependencies
 
 **Techniques**:
+
 - Content parsing (YAML frontmatter, bash scripts)
 - Syntax validation (`bash -n` for shell scripts)
 - Pattern matching (regex for logic detection)
 - Structure validation (file existence, permissions)
 
 **Example** (Agent Hooks):
+
 ```python
 def test_hook_handles_pretooluse_event(self):
     """Hook should have PreToolUse event handler."""
@@ -367,6 +381,7 @@ def test_hook_handles_pretooluse_event(self):
 ### Execution Testing
 
 Full execution testing is deferred to E2E tests:
+
 - ✅ Unit tests: Structure, syntax, logic (DONE)
 - 🔜 E2E tests: Runtime behavior, integration
 - 🔜 Dogfooding: Real-world workflows
@@ -428,6 +443,7 @@ jobs:
 ### Test Failures
 
 **Complexity Scoring Tests Fail**:
+
 ```bash
 # Check utility exists
 ls -la utils/complexity_scorer.py
@@ -440,6 +456,7 @@ python3 -m py_compile utils/complexity_scorer.py
 ```
 
 **Hot-Reload Validator Tests Fail**:
+
 ```bash
 # Check validators exist
 ls -la .claude-plugin/skills/validation/
@@ -449,6 +466,7 @@ head -20 .claude-plugin/skills/validation/test-coverage.md
 ```
 
 **Agent Hooks Tests Fail**:
+
 ```bash
 # Check hook script exists
 ls -la .claude-plugin/hooks/orchestrate-hooks.sh
@@ -478,12 +496,14 @@ sudo apt-get install python3-yaml  # Ubuntu
 ### Planned Tests (Not Yet Implemented)
 
 **E2E Tests** (12 planned):
+
 1. `/craft:do` command routing integration (3 tests)
 2. `/craft:check` validator discovery integration (3 tests)
 3. Orchestrator resilience patterns (3 tests)
 4. Session teleportation workflows (3 tests)
 
 **Dogfooding Tests** (3 planned):
+
 1. Real-world feature addition workflow
 2. Pre-commit validation workflow
 3. Complex multi-step orchestration
@@ -507,6 +527,7 @@ sudo apt-get install python3-yaml  # Ubuntu
 ✅ **Static analysis approach** (reliable, no subprocess issues)
 
 The Claude Code 2.1.0 integration has comprehensive test coverage ensuring:
+
 - Complexity scoring accuracy
 - Validator structure correctness
 - Agent hook logic reliability

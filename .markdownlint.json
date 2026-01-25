@@ -1,7 +1,69 @@
 {
   "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json",
   "default": true,
+
+  "_comment_disabled": "=== DISABLED RULES (Craft-specific needs) ===",
+  "MD001": false,
   "MD013": false,
+  "MD040": false,
+  "MD041": false,
+  "MD049": false,
+  "MD050": false,
+  "_note_md001_md040": "Disabled as warnings - /craft:docs:lint can detect and offer to fix",
+
+  "_comment_list": "=== LIST FORMATTING (Critical) ===",
+  "MD004": {
+    "style": "dash"
+  },
+  "MD005": true,
+  "MD007": {
+    "indent": 2
+  },
+  "MD029": false,
+  "MD030": {
+    "ul_single": 1,
+    "ol_single": 1,
+    "ul_multi": 1,
+    "ol_multi": 1
+  },
+  "MD031": true,
+  "MD032": true,
+
+  "_comment_headings": "=== HEADINGS ===",
+  "MD003": {
+    "style": "atx"
+  },
+  "MD022": true,
+  "MD023": true,
+  "MD024": {
+    "siblings_only": true
+  },
+  "MD036": false,
+
+  "_comment_code": "=== CODE BLOCKS ===",
+  "MD046": {
+    "style": "fenced"
+  },
+  "MD048": {
+    "style": "backtick"
+  },
+
+  "_comment_links": "=== LINKS/IMAGES ===",
+  "MD011": true,
+  "MD042": true,
+  "MD045": true,
+  "MD052": true,
+  "MD056": true,
+
+  "_comment_whitespace": "=== WHITESPACE ===",
+  "MD009": true,
+  "MD010": true,
+  "MD012": true,
+
+  "_comment_inline": "=== INLINE ===",
+  "MD034": true,
+
+  "_comment_html": "=== HTML (Craft-specific) ===",
   "MD033": {
     "allowed_elements": [
       "antml:*",
@@ -13,21 +75,5 @@
       "antml:invoke",
       "antml:parameter"
     ]
-  },
-  "MD024": {
-    "siblings_only": true
-  },
-  "MD041": false,
-  "MD049": false,
-  "MD050": false,
-  "MD030": {
-    "ul_single": 1,
-    "ol_single": 1,
-    "ul_multi": 1,
-    "ol_multi": 1
-  },
-  "MD004": {
-    "style": "dash"
-  },
-  "MD032": true
+  }
 }

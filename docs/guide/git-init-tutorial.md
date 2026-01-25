@@ -3,6 +3,7 @@
 ⏱️ **15 minutes** • 🟢 Beginner Friendly • ✓ Step-by-step
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Interactive wizard to set up git repository with best practices
 > - **Why:** Automates branch structure, protection, CI, and project files
 > - **How:** Run `/craft:git:init` and answer prompts
@@ -11,6 +12,7 @@
 ## What You'll Learn
 
 By the end of this tutorial, you'll know how to:
+
 - ✅ Initialize a git repository with craft workflow
 - ✅ Set up GitHub integration and branch protection
 - ✅ Generate CI workflows automatically
@@ -90,11 +92,13 @@ Options:
 ```
 
 **Enter description:**
+
 ```
 Description: My awesome new project
 ```
 
 **Select topics** (optional):
+
 ```
 Question: "Add repository topics?" (multi-select)
 Options:
@@ -125,6 +129,7 @@ Options:
 ```
 
 **Result:**
+
 ```
   ✓ Branch protection enabled on main
   - Require pull requests before merge
@@ -142,6 +147,7 @@ Options:
 ```
 
 **Auto-detection:**
+
 ```
 🔍 Detecting project type...
    No project files found yet
@@ -166,6 +172,7 @@ Options:
 **Select all** (recommended)
 
 **Result:**
+
 ```
   ✓ Created .STATUS
   ✓ Created CLAUDE.md
@@ -182,6 +189,7 @@ Options:
 ```
 
 **Commit created:**
+
 ```
 [main abc1234] chore: initialize repository with craft workflow
  4 files changed, 127 insertions(+)
@@ -201,6 +209,7 @@ Options:
 ```
 
 **Pushing:**
+
 ```
   ✓ Pushed main to origin
   ✓ Pushed dev to origin
@@ -216,6 +225,7 @@ Options:
 ```
 
 **Validation results:**
+
 ```
 Running /craft:check...
 
@@ -227,7 +237,7 @@ Running /craft:check...
 All checks passed!
 ```
 
-### ✅ Success!
+### ✅ Success
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -278,6 +288,7 @@ ls -la | grep .git
 ```
 
 **Detection:**
+
 ```
 🔍 Checking for existing repository...
    No .git found - initializing new repository
@@ -346,6 +357,7 @@ git branch | grep dev
 ```
 
 **Detection:**
+
 ```
 🔍 Checking for existing repository...
    .git found - existing repository detected
@@ -446,6 +458,7 @@ For experienced users who want defaults:
 ```
 
 This:
+
 - ✅ Uses all default choices
 - ✅ Skips interactive prompts
 - ✅ Creates GitHub repository
@@ -465,11 +478,13 @@ No GitHub integration:
 ```
 
 **When prompted for remote:**
+
 ```
 Select: "Local only (no remote)"
 ```
 
 **Result:**
+
 - Git repository initialized
 - Local branches created
 - No branch protection (local only)
@@ -485,6 +500,7 @@ Already have git, want craft workflow:
 ```
 
 **When prompted:**
+
 ```
 Select: "Add dev branch + branch protection"
 ```
@@ -547,6 +563,7 @@ next: Implement core features  # was: Begin feature development
 ### Problem: "gh command not found"
 
 **Solution:**
+
 ```bash
 # macOS
 brew install gh
@@ -563,6 +580,7 @@ gh --version
 **Cause:** You don't have admin access to the repository
 
 **Solutions:**
+
 1. Ask repository owner to grant you admin access
 2. Skip branch protection during setup
 3. Enable manually later with admin account
@@ -572,6 +590,7 @@ gh --version
 **Cause:** Remote doesn't exist or authentication failed
 
 **Solution:**
+
 ```bash
 # Check remote exists
 gh repo view user/repo
@@ -589,6 +608,7 @@ gh auth login
 **Cause:** No recognizable project files yet
 
 **Solution:**
+
 1. Select "Generic" CI template during setup
 2. Create project files first (package.json, pyproject.toml, etc.)
 3. Run `/craft:ci:generate` later to regenerate CI
@@ -598,6 +618,7 @@ gh auth login
 **Cause:** Uncommitted changes exist
 
 **Solution:**
+
 ```bash
 # Option 1: Stash changes
 git stash

@@ -26,6 +26,7 @@
 The Discovery Engine provides auto-detection and caching for Craft commands. It scans the `commands/` directory recursively, parses YAML frontmatter from markdown files, and maintains a JSON cache for performance.
 
 **Key Features:**
+
 - Automatic command discovery from file system
 - YAML frontmatter parsing (no external dependencies)
 - JSON caching with auto-invalidation
@@ -38,28 +39,34 @@ The Discovery Engine provides auto-detection and caching for Craft commands. It 
 ## Module Constants
 
 ### `COMMANDS_DIR`
+
 ```python
 COMMANDS_DIR: str
 ```
+
 **Description:** Absolute path to the `commands/` directory (same directory as the discovery module).
 
 **Value:** Automatically set to `os.path.dirname(os.path.abspath(__file__))`
 
 **Usage:**
+
 ```python
 from commands._discovery import COMMANDS_DIR
 print(f"Commands directory: {COMMANDS_DIR}")
 ```
 
 ### `CACHE_FILE`
+
 ```python
 CACHE_FILE: str
 ```
+
 **Description:** Absolute path to the cache file `commands/_cache.json`.
 
 **Value:** `os.path.join(COMMANDS_DIR, "_cache.json")`
 
 **Usage:**
+
 ```python
 from commands._discovery import CACHE_FILE
 if os.path.exists(CACHE_FILE):
@@ -79,13 +86,16 @@ def discover_commands() -> list[dict]:
 **Description:** Auto-detect all commands from the file system by scanning `commands/**/*.md` recursively and parsing YAML frontmatter.
 
 **Returns:**
+
 - `list[dict]`: List of command metadata dictionaries
 
 **Performance:**
+
 - Uncached: ~12ms for 97 commands
 - Linear scaling: O(n) with file count
 
 **Example:**
+
 ```python
 from commands._discovery import discover_commands
 
@@ -95,10 +105,12 @@ print(f"Found {len(commands)} commands")
 ```
 
 **Scanned Metadata:**
+
 - Required: `name`, `category`, `description`
 - Optional: `subcategory`, `modes`, `arguments`, `tutorial`, `related_commands`, `tags`, `project_types`
 
 **Error Handling:**
+
 - Skips files starting with `_` (internal files)
 - Logs warnings for parse failures but continues processing
 - Infers missing metadata from file path and content
@@ -114,19 +126,23 @@ def load_cached_commands() -> list[dict]:
 **Description:** Load commands from cache if fresh, otherwise regenerate. Cache is considered stale if any `.md` file is newer than `_cache.json`.
 
 **Returns:**
+
 - `list[dict]`: List of command metadata dictionaries
 
 **Performance:**
+
 - Cached: <2ms (94% faster than target)
 - Uncached: ~12ms (full scan + cache write)
 
 **Cache Invalidation:**
+
 1. Check if `_cache.json` exists
 2. Compare cache mtime vs. newest `.md` file mtime
 3. Regenerate if any file is newer
 4. Gracefully fallback to full scan on corruption
 
 **Example:**
+
 ```python
 from commands._discovery import load_cached_commands
 
@@ -135,6 +151,7 @@ commands = load_cached_commands()
 ```
 
 **Error Handling:**
+
 - Missing cache → Full scan
 - Corrupt cache → Full scan with warning
 - JSON parse error → Full scan
@@ -150,11 +167,13 @@ def cache_commands(commands: list[dict]) -> None:
 **Description:** Save commands to `_cache.json` for performance optimization.
 
 **Parameters:**
+
 - `commands` (list[dict]): List of command metadata dictionaries
 
 **Returns:** None
 
 **Cache Structure:**
+
 ```json
 {
   "generated": "2026-01-17T10:30:00",
@@ -170,6 +189,7 @@ def cache_commands(commands: list[dict]) -> None:
 ```
 
 **Example:**
+
 ```python
 from commands._discovery import discover_commands, cache_commands
 
@@ -191,12 +211,15 @@ def parse_yaml_frontmatter(content: str) -> dict:
 **Description:** Extract YAML frontmatter from markdown file content. Manual parser without external dependencies.
 
 **Parameters:**
+
 - `content` (str): Full markdown file content
 
 **Returns:**
+
 - `dict`: Dictionary of frontmatter fields (empty dict if no frontmatter)
 
 **Supported YAML Features:**
+
 - Simple key-value pairs: `name: value`
 - Arrays: `- item1\n- item2`
 - Nested objects: `modes:\n  default: 10`
@@ -204,10 +227,12 @@ def parse_yaml_frontmatter(content: str) -> dict:
 - Comments (ignored)
 
 **Limitations:**
+
 - No complex YAML features (anchors, tags, merge keys)
 - Designed specifically for command frontmatter
 
 **Example:**
+
 ```python
 from commands._discovery import parse_yaml_frontmatter
 
@@ -227,6 +252,7 @@ print(metadata['modes']) # Output: ['default', 'debug']
 ```
 
 **Frontmatter Format:**
+
 ```yaml
 ---
 name: command:name
@@ -253,12 +279,15 @@ def extract_first_heading(content: str) -> Optional[str]:
 **Description:** Extract the first markdown heading (# or ##) from content, skipping frontmatter.
 
 **Parameters:**
+
 - `content` (str): Markdown content
 
 **Returns:**
+
 - `Optional[str]`: First heading text (without #) or None
 
 **Example:**
+
 ```python
 from commands._discovery import extract_first_heading
 
@@ -275,10 +304,11 @@ print(heading)  # Output: Fast quality checks
 ```
 
 **Processing:**
+
 1. Skip YAML frontmatter
 2. Find first `#` or `##` heading
 3. Strip heading markers
-4. Remove command prefix (e.g., `/craft:code:lint - `)
+4. Remove command prefix (e.g., `/craft:code:lint -`)
 
 ---
 
@@ -291,12 +321,15 @@ def extract_first_paragraph(content: str) -> Optional[str]:
 **Description:** Extract the first paragraph after frontmatter and headings.
 
 **Parameters:**
+
 - `content` (str): Markdown content
 
 **Returns:**
+
 - `Optional[str]`: First paragraph text (truncated to ~60 chars) or None
 
 **Example:**
+
 ```python
 from commands._discovery import extract_first_paragraph
 
@@ -327,12 +360,15 @@ def infer_category(filepath: str) -> str:
 **Description:** Extract category from file path structure.
 
 **Parameters:**
+
 - `filepath` (str): Relative path from `commands/` directory
 
 **Returns:**
+
 - `str`: Category name
 
 **Examples:**
+
 - `code/lint.md` → `"code"`
 - `git/worktree.md` → `"git"`
 - `hub.md` → `"hub"` (top-level)
@@ -340,6 +376,7 @@ def infer_category(filepath: str) -> str:
 - Files starting with `_` → `"internal"` (skipped)
 
 **Usage:**
+
 ```python
 from commands._discovery import infer_category
 
@@ -358,19 +395,23 @@ def infer_command_name(filepath: str, category: str) -> str:
 **Description:** Infer command name from filepath and category.
 
 **Parameters:**
+
 - `filepath` (str): Relative path from `commands/` directory
 - `category` (str): Inferred category
 
 **Returns:**
+
 - `str`: Command name (format: `category:command` or just `command` for top-level)
 
 **Examples:**
+
 - `code/lint.md`, `code` → `"code:lint"`
 - `git/worktree.md`, `git` → `"git:worktree"`
 - `hub.md`, `hub` → `"hub"`
 - `git/docs/refcard.md`, `git` → `"git:refcard"` (skips "docs" in path)
 
 **Usage:**
+
 ```python
 from commands._discovery import infer_command_name, infer_category
 
@@ -442,9 +483,11 @@ def get_command_stats() -> dict:
 **Description:** Get summary statistics about commands from cache.
 
 **Returns:**
+
 - `dict`: Statistics dictionary
 
 **Return Structure:**
+
 ```python
 {
     "total": 97,
@@ -456,6 +499,7 @@ def get_command_stats() -> dict:
 ```
 
 **Example:**
+
 ```python
 from commands._discovery import get_command_stats
 
@@ -475,12 +519,15 @@ def get_commands_by_category(category: str) -> list[dict]:
 **Description:** Filter commands by category.
 
 **Parameters:**
+
 - `category` (str): Category name (e.g., 'code', 'test', 'docs')
 
 **Returns:**
+
 - `list[dict]`: List of command dictionaries for that category
 
 **Example:**
+
 ```python
 from commands._discovery import get_commands_by_category
 
@@ -502,12 +549,15 @@ def group_commands_by_subcategory(commands: list[dict]) -> dict:
 **Description:** Group commands by subcategory field.
 
 **Parameters:**
+
 - `commands` (list[dict]): List of command dictionaries
 
 **Returns:**
+
 - `dict`: Dictionary mapping `subcategory -> list[dict]`
 
 **Example:**
+
 ```python
 from commands._discovery import get_commands_by_category, group_commands_by_subcategory
 
@@ -520,6 +570,7 @@ for subcat, cmds in grouped.items():
 ```
 
 **Output:**
+
 ```
 Subcategories:
   analysis: 3 commands
@@ -538,12 +589,15 @@ def get_category_info(category: str) -> dict:
 **Description:** Get detailed information about a category.
 
 **Parameters:**
+
 - `category` (str): Category name
 
 **Returns:**
+
 - `dict`: Category information
 
 **Return Structure:**
+
 ```python
 {
     'name': 'code',
@@ -558,6 +612,7 @@ def get_category_info(category: str) -> dict:
 ```
 
 **Example:**
+
 ```python
 from commands._discovery import get_category_info
 
@@ -579,17 +634,21 @@ def get_command_detail(command_name: str) -> dict | None:
 **Description:** Get detailed information about a specific command.
 
 **Parameters:**
+
 - `command_name` (str): Full command name (e.g., 'code:lint') or just command part (e.g., 'lint')
 
 **Returns:**
+
 - `dict | None`: Command dictionary or None if not found
 
 **Matching Strategy:**
+
 1. Try exact match: `code:lint`
 2. Try partial match: `lint` → find unique match ending with `:lint`
 3. Return None if multiple partial matches (ambiguous)
 
 **Example:**
+
 ```python
 from commands._discovery import get_command_detail
 
@@ -615,12 +674,15 @@ def generate_command_tutorial(command: dict) -> str:
 **Description:** Generate formatted tutorial text for a command.
 
 **Parameters:**
+
 - `command` (dict): Command dictionary from discovery
 
 **Returns:**
+
 - `str`: Formatted tutorial string with box-drawing borders
 
 **Generated Sections:**
+
 1. **Header**: Command name, description
 2. **Description**: Full description
 3. **Modes** (if applicable): Time budgets, mode explanations
@@ -630,11 +692,13 @@ def generate_command_tutorial(command: dict) -> str:
 7. **Navigation**: Breadcrumb links
 
 **Format:**
+
 - Box-drawing characters: `┌─┐│└┘`
 - 65-character width
 - Left-aligned with padding
 
 **Example:**
+
 ```python
 from commands._discovery import get_command_detail, generate_command_tutorial
 
@@ -645,6 +709,7 @@ if cmd:
 ```
 
 **Output:**
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │ 📚 COMMAND: /craft:code:lint                                    │
@@ -905,6 +970,7 @@ python3 commands/_discovery.py
 ```
 
 **Output:**
+
 ```
 Discovering commands...
 
@@ -944,7 +1010,7 @@ Statistics:
 ## See Also
 
 - [Architecture Documentation](../architecture/HUB-V2-ARCHITECTURE.md)
-- [User Guide](../help/hub.md)
+- [User Guide](../../commands/hub.md)
 - [Testing Guide](../../tests/HUB-V2-TESTING-GUIDE.md)
 - [Command Frontmatter Schema](../../commands/_schema.json)
 

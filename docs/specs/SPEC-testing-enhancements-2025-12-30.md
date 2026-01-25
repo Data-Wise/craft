@@ -40,6 +40,7 @@ Add `plugin` mode to existing cli-gen command:
 ```
 
 **Generates:**
+
 ```
 tests/
 ├── plugin/
@@ -51,6 +52,7 @@ tests/
 ```
 
 **Test Categories:**
+
 | Category | What It Tests |
 |----------|---------------|
 | Commands | Each command executes without error |
@@ -68,6 +70,7 @@ Add `--plugin` flag to unified test runner:
 ```
 
 **Behavior:**
+
 - Auto-detects plugin structure from `.claude-plugin/`
 - Runs tests in order: structure → commands → skills
 - Reports plugin-specific metrics
@@ -83,6 +86,7 @@ Add consistent `--verbose` flag:
 ```
 
 **Verbose Output:**
+
 - Show each test as it runs
 - Display timing per test
 - Show full error messages (not truncated)

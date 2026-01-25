@@ -132,6 +132,7 @@ Quick visual reference for all 8 design presets available in `/craft:site:create
 ## ADHD-Friendly Presets
 
 All ADHD presets include:
+
 - Reduced animations (0.1s max)
 - Larger click targets
 - Narrower content width (750-850px)

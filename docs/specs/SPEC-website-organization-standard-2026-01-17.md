@@ -12,6 +12,7 @@
 This specification defines the standard for organizing the Craft documentation website to serve three distinct user audiences (beginners, daily users, advanced) while maintaining clarity, discoverability, and ADHD-friendly navigation patterns.
 
 **Design Principles:**
+
 1. **Progressive disclosure** - Show what's needed, hide complexity until required
 2. **Task-oriented** - Organize by what users want to accomplish
 3. **Scannable** - Visual hierarchy with strategic emoji use
@@ -25,6 +26,7 @@ This specification defines the standard for organizing the Craft documentation w
 **As a Craft user**, I want to quickly find documentation relevant to my needs without being overwhelmed by navigation complexity, so I can accomplish my task efficiently.
 
 **Acceptance Criteria:**
+
 - New users find Quick Start in < 5 seconds
 - Daily users locate specific commands in ≤ 2 clicks
 - Advanced users access architecture docs without navigating through beginner content
@@ -40,6 +42,7 @@ This specification defines the standard for organizing the Craft documentation w
 **As a new Craft user**, I want a clear entry point that guides me to my first successful command, so I can understand what Craft does without reading extensive documentation.
 
 **Journey:**
+
 1. Land on site → See "Getting Started" section
 2. Click Quick Start → 30-second tutorial
 3. Run first command → Success!
@@ -50,6 +53,7 @@ This specification defines the standard for organizing the Craft documentation w
 **As a daily Craft user**, I want command references and recipes organized by task, so I can quickly look up syntax or find solutions to common problems.
 
 **Journey:**
+
 1. Know what I want → Check Cookbook first
 2. Need command syntax → Commands & Reference
 3. Troubleshooting → Search or check relevant guide
@@ -59,6 +63,7 @@ This specification defines the standard for organizing the Craft documentation w
 **As an advanced Craft user or contributor**, I want clear separation between user guides and technical architecture, so I can deep-dive into implementation details or contribute improvements.
 
 **Journey:**
+
 1. Need architecture → Reference & Architecture section
 2. Want to contribute → For Contributors section
 3. Extend functionality → Skills & Agents reference
@@ -144,6 +149,7 @@ nav:
 ```
 
 **Rationale:**
+
 - **7 sections** vs 14 (50% reduction)
 - **Emoji refinement** - Strategic use for key sections only
 - **Merged Help** - Eliminates duplication with Commands
@@ -167,6 +173,7 @@ nav:
 #### Emoji Usage Standard
 
 **Approved emojis (5):**
+
 - 🚀 Getting Started (energy, movement, launch) - includes Playground
 - 📖 Guides & Tutorials (learning, books)
 - ⚙️ Commands & Reference (technical, settings)
@@ -174,6 +181,7 @@ nav:
 - 📋 Quick Reference Card (checklist, document)
 
 **No emojis:**
+
 - 🔧 Reference & Architecture (professional tone)
 - 🛠️ For Contributors (serious, technical)
 
@@ -203,6 +211,7 @@ related:
 ```
 
 **Example:**
+
 ```yaml
 ---
 title: "Quick Start"
@@ -237,6 +246,7 @@ related:
    ```bash
    command here
    ```
+
    Why: [Brief explanation]
 
 2. **Next step**
@@ -262,6 +272,7 @@ related:
 - [Related Guide](../guide/relevant-guide.md)
 - [Related Command](../commands/relevant-command.md)
 - [Related Recipe](another-recipe.md)
+
 ```
 
 ### Dependencies
@@ -281,6 +292,7 @@ plugins:
 ```
 
 **Python dependencies:**
+
 ```
 mkdocs>=1.5.0
 mkdocs-material>=9.5.0
@@ -313,6 +325,7 @@ plugins:
 ```
 
 **No breaks policy:**
+
 - All guide pages preserved
 - All command reference pages preserved
 - Top-level entry points (index, QUICK-START, REFCARD)
@@ -473,6 +486,7 @@ graph TD
 **Priority:** High (blocking Phase 2)
 
 **Steps:**
+
 1. Back up current mkdocs.yml
 2. Update navigation structure (20 min)
 3. Create Choose Your Path page (15 min)
@@ -480,6 +494,7 @@ graph TD
 5. Commit and deploy (5 min)
 
 **Files modified:**
+
 - `mkdocs.yml` (navigation section)
 - `docs/getting-started/choose-path.md` (new)
 
@@ -490,6 +505,7 @@ graph TD
 **Priority:** Medium (can defer)
 
 **Steps:**
+
 1. Create cookbook directory structure (15 min)
 2. Write 4 common recipes (90 min)
 3. Merge help/*.md into commands/* (45 min)
@@ -497,6 +513,7 @@ graph TD
 5. Test and commit (15 min)
 
 **Files modified:**
+
 - `docs/cookbook/` (new directory)
 - `docs/commands/` (merged help content)
 - `docs/workflows/index.md` (enhanced)
@@ -509,12 +526,14 @@ graph TD
 **Unit tests:** N/A (documentation)
 
 **Integration tests:**
+
 1. Link checker - all internal links resolve
 2. Redirect verification - old URLs redirect correctly
 3. Mobile rendering - sidebar scrollable
 4. Search indexing - all pages indexed
 
 **Manual tests:**
+
 1. User journey walkthroughs (new, daily, advanced)
 2. Cross-browser testing (Chrome, Firefox, Safari)
 3. Mobile device testing (iOS, Android)
@@ -523,12 +542,14 @@ graph TD
 ### Rollback Plan
 
 **If Phase 1 fails:**
+
 1. Revert mkdocs.yml from backup
 2. Delete new files
 3. Redeploy previous version
 4. Estimated rollback time: 5 minutes
 
 **If Phase 2 fails:**
+
 1. Keep Phase 1 changes (stable)
 2. Remove cookbook directory
 3. Restore help/*.md files
@@ -543,6 +564,7 @@ graph TD
 
 **Author:** DT + Claude Sonnet 4.5
 **Changes:**
+
 - Created from brainstorm session (8 deep questions)
 - Defined 8-section navigation structure
 - Established emoji usage standard
@@ -551,6 +573,7 @@ graph TD
 - Added user journey wireframes
 
 **Decisions:**
+
 - Hybrid IA pattern (task + feature)
 - Teaching Mode stays standalone
 - Help merges into Commands
@@ -564,12 +587,14 @@ graph TD
 
 **Author:** DT
 **Changes:**
+
 - Moved Playground from top-level (section #7) to nested under Getting Started
 - Updated section count: 8 → 7 (50% reduction vs 14 original)
 - Removed 🎯 emoji (Playground inherits 🚀 from Getting Started)
 - Updated nesting depth table for Getting Started (5 pages)
 
 **Rationale:**
+
 - Playground is a learning/tutorial tool, not a standalone feature
 - Better contextual placement for beginners
 - Cleaner top-level navigation
@@ -578,6 +603,7 @@ graph TD
 
 **Reviewers:** Documentation team, UX lead
 **Focus areas:**
+
 - Navigation structure approval
 - Choose Your Path content
 - Cookbook recipe priorities

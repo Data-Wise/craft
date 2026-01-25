@@ -10,12 +10,14 @@
 ## Quick Start
 
 ### Navigate to Worktree
+
 ```bash
 cd ~/.git-worktrees/craft/feature-docs-gap-analysis
 git branch --show-current  # Should show: feature/docs-gap-analysis
 ```
 
 ### Read the Analysis
+
 ```bash
 less docs/GAP-ANALYSIS-2026-01-18.md
 # Or open in editor:
@@ -53,9 +55,11 @@ Integration Tests:      ███░░░░░░░░░░░░░░░�
 ### Phase 1: Critical Documentation (3-4 hours)
 
 #### 1. Integration Testing Guide (30 min)
+
 **File:** `docs/guide/integration-testing.md`
 
 **Content needed:**
+
 - Overview of 3 test categories (dependency, orchestrator, teaching)
 - How to run tests locally
 - Test structure and organization
@@ -63,6 +67,7 @@ Integration Tests:      ███░░░░░░░░░░░░░░░�
 - Debugging failing tests
 
 **Starting point:**
+
 ```bash
 # View test files
 ls tests/test_integration_*.py
@@ -74,6 +79,7 @@ cat tests/test_integration_teaching_workflow.py | head -50
 ```
 
 **Commands that help:**
+
 ```bash
 python3 tests/test_integration_dependency_system.py
 python3 tests/test_integration_orchestrator_workflows.py
@@ -81,9 +87,11 @@ python3 tests/test_integration_teaching_workflow.py
 ```
 
 #### 2. Dependency Management Advanced Guide (1.5 hours)
+
 **File:** `docs/guide/dependency-management-advanced.md`
 
 **Content needed:**
+
 - Architecture overview + diagram
 - Workflow guide (--check → --fix → --batch → --convert)
 - Script reference (8 scripts, 4 adapters, 6 utilities)
@@ -92,6 +100,7 @@ python3 tests/test_integration_teaching_workflow.py
 - Troubleshooting common issues
 
 **Starting point:**
+
 ```bash
 # Review dependency-related code
 ls scripts/ | grep -E "dependency|installer|health|version|repair"
@@ -102,15 +111,18 @@ git log --oneline feature/demo-dependency-management | head -20
 ```
 
 **Key scripts to document:**
+
 - `scripts/dependency-manager.sh` (main orchestrator)
 - `scripts/installer-*.sh` (brew, cargo, binary, consent)
 - `scripts/health-check.sh`, `version-check.sh`, `repair-tools.sh`
 - Utilities for caching, detection, verification
 
 #### 3. Claude Code 2.1.0 Integration Guide (1.5 hours)
+
 **File:** `docs/guide/claude-code-2.1-integration.md`
 
 **Content needed:**
+
 - Complexity scoring algorithm (7 factors)
 - Agent delegation workflow (when/why/how)
 - Hot-reload validators (creation + lifecycle)
@@ -119,6 +131,7 @@ git log --oneline feature/demo-dependency-management | head -20
 - Validator ecosystem and best practices
 
 **Starting point:**
+
 ```bash
 # Review implementation
 cat utils/complexity_scorer.py
@@ -130,6 +143,7 @@ git show bebfb35 --stat  # Wave 4 test additions
 ```
 
 **Key concepts to explain:**
+
 - Complexity scoring (0-10 scale, 7 factors)
 - Routing boundary (3-4 → commands, 5-7 → agent, 8-10 → orchestrator)
 - Hot-reload validators discovery
@@ -139,10 +153,12 @@ git show bebfb35 --stat  # Wave 4 test additions
 ### Phase 2: Polish & Cleanup (1-2 hours)
 
 #### 4. Update CLAUDE.md (20 min)
+
 **Current:** 138 lines, missing integration features
 **Target:** Add "Integration Features" section
 
 **Add section covering:**
+
 - Integration test structure (3 categories)
 - Dependency management system
 - Complexity scoring and routing
@@ -150,15 +166,19 @@ git show bebfb35 --stat  # Wave 4 test additions
 - Session teleportation
 
 #### 5. Teaching Workflow Enhancements (20 min)
+
 **File:** `docs/guide/teaching-workflow.md`
 
 **Add sections:**
+
 - Troubleshooting (detection failures, config issues)
 - Config reference (.flow/teach-config.yml fields)
 - Command flag reference
 
 #### 6. Document Cleanup (20 min)
+
 **Tasks:**
+
 - Archive `docs/ORCHESTRATOR-ENHANCEMENTS.md` (outdated v1.3.0 references)
 - Verify version references in README.md (should be v1.24.0)
 - Check site navigation for stale links
@@ -170,12 +190,14 @@ git show bebfb35 --stat  # Wave 4 test additions
 ### Step-by-Step Workflow
 
 1. **Plan the guide**
+
    ```bash
    # Read related code/specs
    # Create outline in notes
    ```
 
 2. **Create the markdown file**
+
    ```bash
    touch docs/guide/[guide-name].md
    # Add structure from template
@@ -187,17 +209,20 @@ git show bebfb35 --stat  # Wave 4 test additions
    - Include code snippets
 
 4. **Add to site navigation**
+
    ```bash
    # Edit mkdocs.yml
    # Add guide to appropriate section
    ```
 
 5. **Test links**
+
    ```bash
    /craft:docs:check-links
    ```
 
 6. **Commit and push**
+
    ```bash
    git add docs/guide/[guide-name].md mkdocs.yml
    git commit -m "docs: add [guide-name] documentation"
@@ -240,22 +265,26 @@ git show bebfb35 --stat  # Wave 4 test additions
 ## Useful Commands
 
 ### View Test Structure
+
 ```bash
 ls -la tests/test_integration_*.py
 wc -l tests/test_integration_*.py
 ```
 
 ### Check Dependency Files
+
 ```bash
 find . -name "dependency*" -o -name "*installer*" | head -20
 ```
 
 ### View Recent Changes
+
 ```bash
 git log --name-only feature/demo-dependency-management | grep -E "\.py|\.sh" | head -30
 ```
 
 ### Test Locally
+
 ```bash
 # Run integration tests
 python3 tests/test_integration_dependency_system.py -v
@@ -264,6 +293,7 @@ python3 tests/test_integration_teaching_workflow.py -v
 ```
 
 ### Check Documentation Coverage
+
 ```bash
 /craft:docs:check
 /craft:docs:check-links
@@ -273,7 +303,8 @@ python3 tests/test_integration_teaching_workflow.py -v
 
 ## Success Criteria
 
-### When a guide is complete:
+### When a guide is complete
+
 - ✅ All code examples work
 - ✅ All links are valid (tested with `/craft:docs:check-links`)
 - ✅ Guide appears in site navigation
@@ -281,7 +312,8 @@ python3 tests/test_integration_teaching_workflow.py -v
 - ✅ Covers beginner + advanced use cases
 - ✅ Includes troubleshooting section
 
-### Final validation:
+### Final validation
+
 ```bash
 # Build docs locally
 mkdocs serve
@@ -301,6 +333,7 @@ grep -r "[guide-name]" docs/ | grep -v "GAP-ANALYSIS"
 ## Timeline Estimate
 
 **Phase 1 (Critical) - 4-5 hours:**
+
 - Integration testing guide: 30 min
 - Dependency management guide: 1.5 hours
 - Claude Code 2.1.0 guide: 1.5 hours
@@ -308,6 +341,7 @@ grep -r "[guide-name]" docs/ | grep -v "GAP-ANALYSIS"
 - **Total:** ~3.5-4 hours active work
 
 **Phase 2 (Polish) - 1-2 hours:**
+
 - Teaching workflow troubleshooting: 20 min
 - Document cleanup: 20 min
 - Testing and validation: 20 min
@@ -320,6 +354,7 @@ grep -r "[guide-name]" docs/ | grep -v "GAP-ANALYSIS"
 ## Next Steps
 
 1. **Read the analysis**
+
    ```bash
    less docs/GAP-ANALYSIS-2026-01-18.md
    ```

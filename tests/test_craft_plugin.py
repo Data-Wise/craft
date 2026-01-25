@@ -10,10 +10,14 @@ Run with: python tests/test_craft_plugin.py
 import json
 import os
 import re
+import sys
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
+
+# Add utils directory to path for linkcheck_ignore_parser
+sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
 
 
 @dataclass
@@ -405,14 +409,25 @@ def test_no_broken_links() -> TestResult:
     That file contains broken links used to test the .linkcheck-ignore parser
     and link validation system. See .linkcheck-ignore for the list of expected
     broken links.
+
+    Uses .linkcheck-ignore file to filter out documented/expected broken links.
     """
     import time
     start = time.time()
 
     plugin_dir = Path(__file__).parent.parent
+
+    # Load ignore rules from .linkcheck-ignore
+    try:
+        from linkcheck_ignore_parser import parse_linkcheck_ignore
+        ignore_rules = parse_linkcheck_ignore(str(plugin_dir / ".linkcheck-ignore"))
+    except ImportError:
+        ignore_rules = None
+
     all_md = list(plugin_dir.rglob("*.md"))
 
     broken = []
+    ignored = []
     link_pattern = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
     code_block_pattern = re.compile(r'```[\s\S]*?```', re.MULTILINE)
 
@@ -441,7 +456,15 @@ def test_no_broken_links() -> TestResult:
                 # Check relative links
                 link_path = md_file.parent / link.split("#")[0]
                 if not link_path.exists() and not link.startswith("/"):
-                    relative = md_file.relative_to(plugin_dir)
+                    relative = str(md_file.relative_to(plugin_dir))
+
+                    # Check if this link should be ignored (documented in .linkcheck-ignore)
+                    if ignore_rules:
+                        should_ignore, category = ignore_rules.should_ignore(relative, link)
+                        if should_ignore:
+                            ignored.append(f"{relative}: {link} ({category})")
+                            continue
+
                     broken.append(f"{relative}: {link}")
 
         except Exception:
@@ -456,9 +479,10 @@ def test_no_broken_links() -> TestResult:
             "integration"
         )
 
+    ignored_msg = f", {len(ignored)} ignored" if ignored else ""
     return TestResult(
         "No Broken Links", True, duration,
-        f"Checked {len(all_md)} files, no broken links", "integration"
+        f"Checked {len(all_md)} files, no broken links{ignored_msg}", "integration"
     )
 
 

@@ -44,6 +44,7 @@ feature/* (worktrees) ← All implementation work
 | Validate | `./scripts/validate-counts.sh` | `/craft:check` |
 | Build docs | `mkdocs build` | - |
 | Lint code | - | `/craft:code:lint` |
+| Lint markdown | `npx markdownlint-cli2 "**/*.md"` | `/craft:docs:lint` |
 | Architecture | - | `/craft:arch:analyze` |
 | Git status | `git status` | `/craft:git:status` |
 | Worktree | `git worktree add ...` | `/craft:git:worktree <branch>` |
@@ -226,27 +227,53 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Active Development
 
-### Current Worktree (v2.7.0 Planning)
+### Current Worktrees (v2.8.0)
 
 | Branch | Location | Status |
 |--------|----------|--------|
 | `dev` | `/Users/dt/projects/dev-tools/craft` | Main repo (clean) |
-| `feature/docs-update-interactive` | `~/.git-worktrees/craft/feature-docs-update-interactive` | **WIP: Phase 1 Starting** |
+| `feature/docs-lint-execute` | `~/.git-worktrees/craft/feature-docs-lint-execute` | **PR #34: Execution layer** |
+| `feature/docs-update-interactive` | `~/.git-worktrees/craft/feature-docs-update-interactive` | **Planned: Phase 1** |
 
-### v2.7.0 - Interactive Documentation & Enhanced Linting (Planning)
+### v2.8.0 - Markdown Linting Execution Layer (In Progress)
+
+**Status:** Execution layer implemented (PR #34), awaiting merge
 
 | Feature | Priority | Effort | Status |
 |---------|----------|--------|--------|
+| **Execution layer** | Critical | 40m | ✅ Complete (PR #34) |
+| Basic linting command | Critical | 5m | ✅ Complete |
+| Auto-fix support | High | 10m | ✅ Complete |
+| Pre-commit hook | High | 15m | ✅ Complete |
 | Interactive docs:update specs | Critical | 4h | ✅ Complete (1,634 lines) |
 | docs:sync merge specs | Critical | 2h | ✅ Complete (947 lines) |
-| Markdownlint expansion (24 rules) | Critical | 1h | ✅ Complete |
-| Worktree setup | High | 30m | ✅ Complete |
-| Phase 1: Core workflow | High | 8-10h | ⏳ Starting |
-| Phase 2: GIF integration | Medium | 6-8h | 📝 Planned |
-| Phase 3: Lint & tutorial | Medium | 8-10h | 📝 Planned |
-| Phase 4: Help files | High | 10-12h | 📝 Planned |
+| Phase 1: Core workflow | High | 8-10h | 📝 Planned |
+| Phase 2: Enhanced modes | Medium | 6-8h | 📝 Planned |
+| Phase 3: Language detection | Medium | 4-6h | 📝 Planned |
+| Phase 4: Styled output | High | 2-4h | 📝 Planned |
 
-**Specs:** `docs/specs/SPEC-docs-update-interactive-2026-01-22.md`, `docs/specs/SPEC-docs-sync-update-integration-2026-01-22.md`
+**v2.8.0 Execution Layer (MVP):**
+
+- `scripts/docs-lint.sh`: Execution layer for markdown linting
+  - Detects `markdownlint-cli2` globally or falls back to `npx`
+  - Supports `--fix` flag for auto-fixing issues
+  - Supports target path specification
+- `/craft:docs:lint` command wired to execution script
+  - Basic linting: Check all markdown files
+  - Auto-fix: Apply safe fixes with `--fix` flag
+  - Specific paths: `/craft:docs:lint docs/guide/`
+- `.markdownlint.json`: 30 rules configured (v2.6.0)
+- Pre-commit hook: Auto-fix on staged markdown
+- Feature status table: Clarifies MVP vs planned features
+
+**Future (v2.9.0+):**
+
+- Styled output boxes
+- Execution modes (debug, optimize, release)
+- Interactive prompts (MD001, MD040 language detection)
+- Rule expansion (30 → 42 rules)
+
+**Specs & PR:** PR #34 (feature/docs-lint-execute)
 
 ### Completed Features (v2.6.0)
 

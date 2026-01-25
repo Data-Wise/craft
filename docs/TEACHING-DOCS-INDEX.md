@@ -34,6 +34,7 @@ Complete documentation for Craft's teaching mode feature.
 | [Teaching Mode Setup](tutorials/teaching-mode-setup.md) | 25 min | Beginner | First-time setup and configuration |
 
 **What you'll learn:**
+
 - Create `.flow/teach-config.yml` configuration
 - Enable teaching mode auto-detection
 - Run content validation
@@ -47,6 +48,7 @@ Complete documentation for Craft's teaching mode feature.
 | [Teaching Config Schema](teaching-config-schema.md) | 5 min | Beginner | Complete YAML specification |
 
 **Complete reference for:**
+
 - Course information (number, title, semester, year)
 - Semester dates (start, end, breaks)
 - Instructor information (name, email, office hours)
@@ -61,6 +63,7 @@ Complete documentation for Craft's teaching mode feature.
 | [Teaching Migration](teaching-migration.md) | 15 min | Intermediate | Transition from manual to automated workflows |
 
 **Covers:**
+
 - Before/after workflow comparison
 - Step-by-step migration process
 - Common migration patterns
@@ -81,11 +84,13 @@ Complete documentation for Craft's teaching mode feature.
 ### I'm Setting Up for the First Time
 
 **Start here:**
+
 1. Read [README Teaching Mode section](../README.md#teaching-mode-new-in-v1180) (2 min)
 2. Follow [Teaching Mode Setup Tutorial](tutorials/teaching-mode-setup.md) (25 min)
 3. Bookmark [Config Schema](teaching-config-schema.md) for reference
 
 **Key commands:**
+
 ```bash
 # Setup
 /craft:site:status      # Verify detection
@@ -100,11 +105,13 @@ Complete documentation for Craft's teaching mode feature.
 ### I'm Migrating from Manual Workflows
 
 **Start here:**
+
 1. Review [Migration Guide](teaching-migration.md) (15 min)
 2. Create config file following [Config Schema](teaching-config-schema.md)
 3. Test workflows before retiring old scripts
 
 **Migration checklist:**
+
 - [ ] Create `.flow/teach-config.yml`
 - [ ] Test detection with `/craft:site:status`
 - [ ] Run validation and fix errors
@@ -115,11 +122,13 @@ Complete documentation for Craft's teaching mode feature.
 ### I Need to Configure Something
 
 **Reference guides:**
+
 - [Config Schema](teaching-config-schema.md) - All YAML fields and options
 - [Validation Rules](teaching-config-schema.md#validation-rules) - Required sections, strict mode
 - [Deployment Config](teaching-config-schema.md#deployment-configuration) - Branches, GitHub Pages
 
 **Common configurations:**
+
 ```yaml
 # Basic configuration
 course:
@@ -176,17 +185,20 @@ validation:
 **Architecture and implementation:**
 
 **Teaching mode detection:**
+
 - Checks for `.flow/teach-config.yml` in project root
 - Validates YAML schema
 - Activates specialized workflows
 
 **Validation system:**
+
 - Parses syllabus for required sections
 - Checks schedule completeness (all weeks have content)
 - Verifies assignment files exist
 - Reports errors (block publish) vs warnings (recommend fix)
 
 **Publish workflow:**
+
 1. Pre-publish validation
 2. Categorized diff preview (critical, content, other)
 3. User confirmation (yes, preview diff, cancel)
@@ -195,6 +207,7 @@ validation:
 6. Deployment verification
 
 **Progress tracking:**
+
 - Auto-calculates current week from semester dates
 - Accounts for break periods
 - Manual override with `--week` flag
@@ -278,6 +291,7 @@ validation:
 ## Feedback
 
 **Help improve these docs:**
+
 - [Open an issue](https://github.com/Data-Wise/craft/issues) with suggestions
 - Share what worked well
 - Report confusing sections
@@ -286,17 +300,20 @@ validation:
 ## Related Documentation
 
 **General Craft documentation:**
+
 - [Craft README](../README.md) - Full feature list
 - [Quick Start](QUICK-START.md) - General Craft usage
 - [ADHD Guide](ADHD-QUICK-START.md) - Neurodivergent-friendly workflows
 - [Command Reference](REFCARD.md) - All 86+ commands
 
 **Site commands:**
+
 - [Site Create](commands/site.md#create) - Documentation site wizard
 - [Site Deploy](commands/site.md#deploy) - Direct GitHub Pages deployment
 - [Site Check](commands/site.md#check) - Health validation
 
 **Git workflows:**
+
 - [Git Worktree](commands/git.md#worktree) - Parallel development
 - [Git Branch](commands/git.md#branch) - Branch management
 - [Git Sync](commands/git.md#sync) - Smart synchronization

@@ -16,6 +16,7 @@ Use this workflow when you need to:
 - Work on multiple features simultaneously
 
 **Example scenarios:**
+
 - "I need to add user authentication"
 - "Working on feature X while fixing bug Y"
 - "Starting a new increment of work"
@@ -31,6 +32,7 @@ Before starting, ensure you have:
 - [x] Worktree folder created (`/craft:git:worktree setup`)
 
 **Quick check:**
+
 ```bash
 git branch --show-current  # Should be: dev
 git status                 # Should be: clean
@@ -83,6 +85,7 @@ cd ~/.git-worktrees/craft/my-feature
 ```
 
 **Output:**
+
 ```
 ╭─ Worktree Created ─────────────────────────────────────╮
 │ Branch: feature/my-feature                             │
@@ -106,6 +109,7 @@ git commit -m "docs: add auth documentation"
 ```
 
 **Commit types:**
+
 | Prefix | Use for |
 |--------|---------|
 | `feat:` | New features |

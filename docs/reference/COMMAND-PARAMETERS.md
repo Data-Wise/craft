@@ -43,6 +43,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 | dry-run | boolean | No | false | `-n` | Preview routing without executing |
 
 **Environment Variables**:
+
 - `CRAFT_MODE` - Default execution mode
 - `CRAFT_COMPLEXITY_OVERRIDE` - Override complexity scoring
 
@@ -58,6 +59,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 | dry-run | boolean | No | false | `-n` | Preview fixes |
 
 **Output Scopes**:
+
 - `code` - Linting, style, complexity
 - `tests` - Test coverage, failures
 - `git` - Branch status, commits
@@ -75,6 +77,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 | verbose | boolean | No | false | `-v` | Show full help text |
 
 **Categories**:
+
 - `arch` - Architecture commands
 - `code` - Code development
 - `docs` - Documentation
@@ -95,6 +98,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 | background | boolean | No | true | `-bg` | Run agents in background |
 
 **Modes Impact on Agents**:
+
 - `default` - 2 agents max
 - `debug` - 1 agent (sequential)
 - `optimize` - 4 agents max
@@ -180,6 +184,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 | rules | string | No | - | - | Specific rules to check |
 
 **Mode Behaviors**:
+
 - `default` - Quick style check (< 10s)
 - `debug` - All rules + suggestions (< 120s)
 - `optimize` - Performance focus (< 180s)
@@ -197,6 +202,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 | no-test | boolean | No | false | - | Skip test running |
 
 **Common Patterns**:
+
 - `rename <old> to <new>` - Rename identifier
 - `extract method <name>` - Extract method
 - `inline variable <name>` - Inline variable

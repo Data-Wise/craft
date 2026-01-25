@@ -9,6 +9,7 @@
 ## Current State Assessment
 
 ### orchestrator-v2.md Strengths
+
 | Feature | Status | Notes |
 |---------|--------|-------|
 | Task analysis & decomposition | ✅ | Visual breakdown table |
@@ -20,6 +21,7 @@
 | Craft command routing | ✅ | Maps to /craft:* commands |
 
 ### Gaps Identified
+
 | Gap | Impact | Complexity |
 |-----|--------|------------|
 | Simulated context % (not real) | Medium | Low |
@@ -33,6 +35,7 @@
 ## Enhancement Options
 
 ### Option A: Real Context Tracking (Quick Win)
+
 **Effort:** ⚡ 1-2 hours
 
 Add real context awareness using Claude Code signals:
@@ -60,6 +63,7 @@ Claude Code provides context signals in system messages:
 ---
 
 ### Option B: State Persistence (Recommended)
+
 **Effort:** 🔧 2-4 hours
 
 Add persistent session state for recovery:
@@ -104,6 +108,7 @@ Location: `.claude/orchestrator-session.json`
 ```
 
 ### New Commands
+
 ```bash
 /craft:orchestrate continue      # Resume from saved state
 /craft:orchestrate save          # Force state save
@@ -116,6 +121,7 @@ Location: `.claude/orchestrator-session.json`
 ---
 
 ### Option C: Mode Integration (Quick Win)
+
 **Effort:** ⚡ 1 hour
 
 Integrate with craft's mode system:
@@ -135,6 +141,7 @@ Integrate with craft's mode system:
 /craft:orchestrate "add auth" optimize    # Fast parallel execution
 /craft:orchestrate "prep release" release # Thorough multi-agent
 ```
+
 ```
 
 **Pros:** Leverages existing mode system
@@ -161,6 +168,7 @@ pool:
 ```
 
 ## Queue Visualization
+
 ```
 RUNNING (2/4):
   [code-1] ████████░░ 80% - Implementing auth
@@ -172,6 +180,7 @@ QUEUED (2):
 
 BUDGET: 45% context used | 3 agents remaining
 ```
+
 ```
 
 **Pros:** Better resource management, predictable execution
@@ -188,6 +197,7 @@ Visual timeline of agent execution:
 ## Timeline View (enabled with `timeline` command)
 
 ```
+
 TIME     0    1m    2m    3m    4m    5m
 ─────────┼─────┼─────┼─────┼─────┼─────┤
 arch-1   ██████░░░░░░░░░░░░░░░░░░░░░░░ ✅ 1m
@@ -197,6 +207,7 @@ doc-1         ░░░░░░████░░░░░░░░░░░░
 ─────────┼─────┼─────┼─────┼─────┼─────┤
                               NOW ▲
                               ETA: ~2m remaining
+
 ```
 ```
 
@@ -206,6 +217,7 @@ doc-1         ░░░░░░████░░░░░░░░░░░░
 ---
 
 ### Option F: Cost Tracking (Low Priority)
+
 **Effort:** ⚡ 1 hour
 
 Track estimated costs per agent:
@@ -214,6 +226,7 @@ Track estimated costs per agent:
 ## Cost Tracking
 
 ```
+
 | Agent | Tokens In | Tokens Out | Est. Cost |
 |-------|-----------|------------|-----------|
 | arch-1 | 2,500 | 1,200 | $0.02 |
@@ -222,6 +235,7 @@ Track estimated costs per agent:
 | TOTAL | 13,500 | 7,700 | $0.13 |
 
 Budget: $1.00 | Spent: $0.13 | Remaining: $0.87
+
 ```
 ```
 

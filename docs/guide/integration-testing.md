@@ -3,6 +3,7 @@
 ⏱️ **15 minutes** • 🟢 Beginner • ✓ Complete guide
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Craft includes 27 integration tests across 3 categories (dependency system, orchestrator workflows, teaching workflow)
 > - **Why:** Ensure new features work end-to-end with all dependencies
 > - **How:** Run `python3 tests/test_integration_*.py` to test each category
@@ -32,6 +33,7 @@ Craft has comprehensive integration tests that validate the entire system end-to
 **Purpose:** Validates the complete dependency detection and installation workflow.
 
 **What It Tests:**
+
 - ✅ Full dependency check workflow (`/craft:docs:demo --check`)
 - ✅ Health check validation of installed tools
 - ✅ Tool detection across multiple methods (PATH, homebrew, npm, cargo)
@@ -43,6 +45,7 @@ Craft has comprehensive integration tests that validate the entire system end-to
 - ✅ Repair workflow for broken dependencies
 
 **Components Tested:**
+
 - `commands/docs/demo.md` - Dependency declarations in demo command
 - `scripts/dependency-manager.sh` - Main orchestration script
 - `scripts/tool-detector.sh` - Multi-method tool detection
@@ -50,11 +53,13 @@ Craft has comprehensive integration tests that validate the entire system end-to
 - `scripts/installers/` - Platform-specific installers (brew, cargo, binary, consent)
 
 **Run It:**
+
 ```bash
 python3 tests/test_integration_dependency_system.py
 ```
 
 **Expected Output:**
+
 ```
 test_01_full_check_workflow ... ok
 test_02_health_check_integration ... ok
@@ -76,6 +81,7 @@ Ran 9 tests in ~2-5 seconds
 **Purpose:** Validates the smart task routing system with complexity scoring and agent delegation.
 
 **What It Tests:**
+
 - ✅ Simple tasks (score 0-3) route to direct commands
 - ✅ Moderate tasks (score 4-7) route to single agents
 - ✅ Complex tasks (score 8-10) route to orchestrator with multi-agent coordination
@@ -91,6 +97,7 @@ Ran 9 tests in ~2-5 seconds
 - ✅ Agent coordination and result aggregation
 
 **Components Tested:**
+
 - `utils/complexity_scorer.py` - Task complexity calculation (0-10 scale)
 - `commands/do.md` - Universal task routing
 - `commands/orchestrate.md` - Multi-agent coordination
@@ -99,11 +106,13 @@ Ran 9 tests in ~2-5 seconds
 - `agents/orchestrator-v2.md` - v2.3.0 agent with improved coordination
 
 **Run It:**
+
 ```bash
 python3 tests/test_integration_orchestrator_workflows.py
 ```
 
 **Expected Output:**
+
 ```
 test_01_simple_task_routes_to_command ... ok
 test_02_moderate_task_routes_to_agent ... ok
@@ -129,6 +138,7 @@ Ran 13 tests in ~3-8 seconds
 **Purpose:** Validates the end-to-end teaching workflow including detection, validation, and publish cycle.
 
 **What It Tests:**
+
 - ✅ Teaching mode detection (`.flow/teach-config.yml` presence)
 - ✅ Configuration parsing and validation
 - ✅ Semester progress calculation
@@ -141,6 +151,7 @@ Ran 13 tests in ~3-8 seconds
 - ⏳ Student notification system (skipped - modules not yet implemented)
 
 **Components Tested:**
+
 - `commands/utils/detect_teaching_mode.py` - Teaching detection
 - `commands/utils/teach_config.py` - Config parsing
 - `commands/utils/teaching_validation.py` - Content validation
@@ -149,11 +160,13 @@ Ran 13 tests in ~3-8 seconds
 - `commands/site/progress.md` - Progress tracking
 
 **Run It:**
+
 ```bash
 python3 tests/test_integration_teaching_workflow.py
 ```
 
 **Expected Output:**
+
 ```
 test_01_detection_with_config ... ok
 test_02_config_parsing ... ok
@@ -172,6 +185,7 @@ Ran 8 tests in ~2-4 seconds (5 executed, 3 skipped)
 ## Running Integration Tests
 
 ### Run Everything
+
 ```bash
 # Run all tests (all categories)
 cd /path/to/craft
@@ -184,6 +198,7 @@ done
 ```
 
 ### Run Specific Category
+
 ```bash
 # Dependency system tests only
 python3 tests/test_integration_dependency_system.py
@@ -196,6 +211,7 @@ python3 tests/test_integration_teaching_workflow.py
 ```
 
 ### With Verbose Output
+
 ```bash
 python3 tests/test_integration_dependency_system.py -v
 ```

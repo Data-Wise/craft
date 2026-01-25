@@ -62,11 +62,13 @@ Each factor adds **+2 points** (max 10, factors are independent):
 **Detects:** Tasks requiring multiple distinct operations
 
 **Indicators:**
+
 - 2+ action verbs: "lint **and** test"
 - Explicit sequencing: "build, **then** deploy"
 - Multi-part description: "lint**,** test**,** build"
 
 **Examples:**
+
 - "format code" → 0 points
 - "format code and test" → +2 points
 - "format code, test, build" → +2 points
@@ -76,6 +78,7 @@ Each factor adds **+2 points** (max 10, factors are independent):
 **Detects:** Tasks spanning multiple work areas
 
 **Categories Recognized:**
+
 - Code (implement, refactor, fix, feature)
 - Testing (test, coverage, validate)
 - Documentation (doc, readme, comment)
@@ -86,6 +89,7 @@ Each factor adds **+2 points** (max 10, factors are independent):
 - Error Handling (exception, validation)
 
 **Examples:**
+
 - "add feature" → 0 points (1 category)
 - "add feature with tests" → +2 points (code + testing)
 - "add feature, tests, and docs" → +4 points (3 categories)
@@ -97,12 +101,14 @@ Each factor adds **+2 points** (max 10, factors are independent):
 **Detects:** Tasks needing architecture or design phase
 
 **Keywords:**
+
 - Design, architecture, strategy, flow
 - Pattern, structure, framework
 - Optimize, performance, scalability
 - Migration, redesign, restructure
 
 **Examples:**
+
 - "add button" → 0 points
 - "design authentication system" → +2 points
 - "refactor architecture" → +2 points
@@ -112,11 +118,13 @@ Each factor adds **+2 points** (max 10, factors are independent):
 **Detects:** Tasks needing investigation or exploration
 
 **Keywords:**
+
 - Research, investigate, explore
 - Analyze, study, review, understand
 - How to, compare, evaluate
 
 **Examples:**
+
 - "fix typo" → 0 points
 - "investigate performance issue" → +2 points
 - "research best practices" → +2 points
@@ -126,11 +134,13 @@ Each factor adds **+2 points** (max 10, factors are independent):
 **Detects:** Broad-impact changes across many files
 
 **Indicators:**
+
 - Mentions of 5+ specific files: `foo.py`, `bar.js`, etc.
 - Scope keywords: system, module, package, entire, all
 - Cross-cutting: multiple, across, throughout, ecosystem
 
 **Examples:**
+
 - "fix typo in one file" → 0 points
 - "refactor multiple modules" → +2 points
 - "update entire system" → +2 points
@@ -140,11 +150,13 @@ Each factor adds **+2 points** (max 10, factors are independent):
 **Detects:** Tasks with recognized complexity keywords
 
 **Keywords:**
+
 - Comprehensive, optimize, redesign
 - Microservice, authentication, migration
 - Scalable, performance, robust
 
 **Examples:**
+
 - "add field" → 0 points
 - "optimize performance" → +2 points
 - "comprehensive refactoring" → +2 points
@@ -154,12 +166,14 @@ Each factor adds **+2 points** (max 10, factors are independent):
 **Detects:** System-wide architectural overhauls
 
 **Patterns Recognized:**
+
 - "redesign" + "architecture"
 - "redesign" + "system"
 - "refactor" + "architecture"
 - "migrate" + "architecture"
 
 **Examples:**
+
 - "fix bug" → 0 points
 - "redesign architecture" → +2 points
 - "migrate to microservices architecture" → +2 points
@@ -173,6 +187,7 @@ Each factor adds **+2 points** (max 10, factors are independent):
 **Task:** "Fix typo in README"
 
 **Analysis:**
+
 - 1 verb (fix) → No multi-step
 - 1 category (docs) → No cross-category
 - No planning keywords → No planning
@@ -181,7 +196,7 @@ Each factor adds **+2 points** (max 10, factors are independent):
 - No complex keywords → No complexity
 - No architectural pattern → No architecture
 
-**Score: 0/10 → Route: Commands**
+### Score: 0/10 → Route: Commands
 
 ```mermaid
 graph LR
@@ -213,6 +228,7 @@ graph LR
 **Task:** "Add feature with comprehensive tests and documentation"
 
 **Analysis:**
+
 - 3 verbs (add, tests, documentation) → +2 multi-step
 - 3 categories (code, testing, docs) → +2 cross-category
 - No explicit planning → 0
@@ -221,7 +237,7 @@ graph LR
 - "comprehensive" keyword → +2 complexity
 - No architectural pattern → 0
 
-**Score: 6/10 → Route: Agent**
+### Score: 6/10 → Route: Agent
 
 ```mermaid
 graph LR
@@ -252,6 +268,7 @@ graph LR
 **Task:** "Design and implement comprehensive authentication system with OAuth2, PKCE, session management, error handling, extensive tests, and full documentation"
 
 **Analysis:**
+
 - 4+ verbs (design, implement, tests, docs) → +2 multi-step
 - 5 categories (code, auth, error-handling, testing, docs) → +4 (2 for cross-cat, +2 bonus)
 - "design" keyword → +2 planning
@@ -260,7 +277,7 @@ graph LR
 - "comprehensive" + "implementation" → +2 complexity
 - "design" + "system" pattern → +2 architecture
 
-**Score: 10/10 (capped) → Route: Orchestrator**
+### Score: 10/10 (capped) → Route: Orchestrator
 
 ```mermaid
 graph LR
@@ -303,6 +320,7 @@ graph LR
 **When to Use:** Simple, single-purpose tasks
 
 **Characteristics:**
+
 - Single operation (no "and" or "then")
 - One work category (code OR test OR docs, not multiple)
 - No planning/research needed
@@ -311,6 +329,7 @@ graph LR
 **Route To:** Specific CLI commands
 
 **Examples:**
+
 - "lint code"
 - "run tests"
 - "format documentation"
@@ -341,6 +360,7 @@ graph TD
 **When to Use:** Moderate tasks with multiple components
 
 **Characteristics:**
+
 - Multi-step operation (design + build, or test + docs)
 - 2-3 work categories
 - Some planning or research involved
@@ -349,6 +369,7 @@ graph TD
 **Route To:** Specialized agent (feature-developer, bug-detective, docs-architect, etc.)
 
 **Examples:**
+
 - "add feature with tests"
 - "refactor module and update docs"
 - "investigate and fix bug with tests"
@@ -380,6 +401,7 @@ graph TD
 **When to Use:** Complex, multi-phase tasks
 
 **Characteristics:**
+
 - 4+ operations (design, implement, test, document, deploy)
 - 4+ work categories
 - Major planning or architectural work
@@ -388,6 +410,7 @@ graph TD
 **Route To:** Orchestrator v2 (multi-agent coordination)
 
 **Examples:**
+
 - "Design and implement comprehensive authentication system with OAuth2, sessions, tests, and docs"
 - "Redesign system architecture with microservices, API, CI/CD, and full test coverage"
 - "Add new feature across entire ecosystem with tests, docs, and deployment"
@@ -487,12 +510,14 @@ The complexity scorer is integrated into `/craft:do` to automate routing:
 ```
 
 **Process:**
+
 1. Parse task description
 2. Calculate 7-factor score
 3. Determine routing zone (0-3, 4-7, or 8-10)
 4. Execute via chosen route (command, agent, or orchestrator)
 
 **Output Example:**
+
 ```
 Task: "add authentication with OAuth2, sessions, and comprehensive tests"
 Score: 8/10
@@ -511,6 +536,7 @@ python3 tests/test_complexity_scoring.py
 ```
 
 **Test Coverage:**
+
 - 15 unit tests
 - 100% coverage of scoring factors
 - Boundary testing (0, 3, 7, 10 points)
@@ -543,6 +569,7 @@ python3 utils/complexity_scorer.py
 **v1.24.0:** Added major architectural changes factor (7 total)
 
 **Tuning Strategy:**
+
 - Adjust keyword lists based on user feedback
 - Monitor false positives (task routed too high)
 - Monitor false negatives (task routed too low)
@@ -568,4 +595,4 @@ python3 utils/complexity_scorer.py
 
 ---
 
-*Last Updated: 2026-01-18*
+Last Updated: 2026-01-18

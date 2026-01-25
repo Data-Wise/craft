@@ -32,6 +32,7 @@ Complete reference for all scripts, functions, and interfaces in the dependency 
 **Purpose**: Main orchestrator for dependency checking and management
 
 **Usage**:
+
 ```bash
 # Source for function access
 source scripts/dependency-manager.sh
@@ -43,14 +44,17 @@ source scripts/dependency-manager.sh
 **Commands**:
 
 #### `parse_frontmatter`
+
 Extracts dependency metadata from YAML frontmatter.
 
 **Signature**:
+
 ```bash
 parse_frontmatter() -> JSON
 ```
 
 **Returns**:
+
 ```json
 {
   "asciinema": {
@@ -64,6 +68,7 @@ parse_frontmatter() -> JSON
 ```
 
 **Example**:
+
 ```bash
 source scripts/dependency-manager.sh
 metadata=$(parse_frontmatter)
@@ -74,17 +79,21 @@ echo "$metadata" | jq '.asciinema.required'
 ---
 
 #### `check_dependencies`
+
 Checks installation status, health, and versions for a method.
 
 **Signature**:
+
 ```bash
 check_dependencies <method> -> JSON
 ```
 
 **Parameters**:
+
 - `method` (string): Method name (`asciinema` or `vhs`)
 
 **Returns**:
+
 ```json
 [
   {
@@ -100,6 +109,7 @@ check_dependencies <method> -> JSON
 ```
 
 **Example**:
+
 ```bash
 ./scripts/dependency-manager.sh check_dependencies asciinema
 ```
@@ -107,18 +117,22 @@ check_dependencies <method> -> JSON
 ---
 
 #### `display_status_table`
+
 Displays dependencies as formatted table.
 
 **Signature**:
+
 ```bash
 display_status_table <method> <status_json>
 ```
 
 **Parameters**:
+
 - `method` (string): Method name
 - `status_json` (string): JSON from `check_dependencies`
 
 **Output**:
+
 ```
 ╔════════════════════════════════════════════════════╗
 ║  DEPENDENCY STATUS - asciinema method              ║
@@ -134,18 +148,22 @@ gifsicle     ✅        1.96       ok        yes
 ---
 
 #### `display_status_json`
+
 Outputs dependency status as JSON for CI/CD.
 
 **Signature**:
+
 ```bash
 display_status_json <method> [status_json] -> JSON
 ```
 
 **Parameters**:
+
 - `method` (string): Method name
 - `status_json` (string, optional): Pre-computed status
 
 **Returns**:
+
 ```json
 {
   "status": "ok",
@@ -156,11 +174,13 @@ display_status_json <method> [status_json] -> JSON
 ```
 
 **Status Values**:
+
 - `ok`: All required tools installed and healthy
 - `issues`: Missing or broken tools
 - `unknown`: Could not determine status
 
 **Example**:
+
 ```bash
 ./scripts/dependency-manager.sh display_status_json asciinema > status.json
 ```
@@ -172,6 +192,7 @@ display_status_json <method> [status_json] -> JSON
 **Purpose**: Detect installed tools and their paths
 
 **Usage**:
+
 ```bash
 source scripts/tool-detector.sh
 ```
@@ -179,22 +200,27 @@ source scripts/tool-detector.sh
 **Functions**:
 
 #### `detect_tool`
+
 Detects if a tool is installed and returns its path.
 
 **Signature**:
+
 ```bash
 detect_tool <tool_name> <search_cmd> -> string
 ```
 
 **Parameters**:
+
 - `tool_name` (string): Name of the tool
 - `search_cmd` (string): Command to locate tool (e.g., `which asciinema`)
 
 **Returns**:
+
 - Tool path if found (e.g., `/usr/local/bin/asciinema`)
 - Empty string if not found
 
 **Example**:
+
 ```bash
 source scripts/tool-detector.sh
 path=$(detect_tool "asciinema" "which asciinema")
@@ -210,25 +236,30 @@ fi
 **Purpose**: Performance caching for dependency checks
 
 **Usage**:
+
 ```bash
 source scripts/session-cache.sh
 ```
 
 **Configuration**:
+
 - Cache TTL: 60 seconds
 - Cache location: `$TMPDIR/.craft-demo-cache-$$`
 
 **Functions**:
 
 #### `init_cache`
+
 Initializes cache for current session.
 
 **Signature**:
+
 ```bash
 init_cache()
 ```
 
 **Example**:
+
 ```bash
 source scripts/session-cache.sh
 init_cache
@@ -237,21 +268,26 @@ init_cache
 ---
 
 #### `get_cached_status`
+
 Retrieves cached dependency status if valid.
 
 **Signature**:
+
 ```bash
 get_cached_status <method> -> JSON | empty
 ```
 
 **Parameters**:
+
 - `method` (string): Method name
 
 **Returns**:
+
 - Cached JSON if valid and not expired
 - Empty string if cache miss or expired
 
 **Example**:
+
 ```bash
 source scripts/session-cache.sh
 cached=$(get_cached_status "asciinema")
@@ -263,18 +299,22 @@ fi
 ---
 
 #### `store_cache`
+
 Stores dependency status in cache.
 
 **Signature**:
+
 ```bash
 store_cache <method> <status_json>
 ```
 
 **Parameters**:
+
 - `method` (string): Method name
 - `status_json` (string): Status to cache
 
 **Example**:
+
 ```bash
 source scripts/session-cache.sh
 store_cache "asciinema" "$status_json"
@@ -289,6 +329,7 @@ store_cache "asciinema" "$status_json"
 **Purpose**: Multi-strategy installation framework
 
 **Usage**:
+
 ```bash
 source scripts/dependency-installer.sh
 ```
@@ -296,18 +337,22 @@ source scripts/dependency-installer.sh
 **Functions**:
 
 #### `install_tool`
+
 Attempts to install a tool using available strategies.
 
 **Signature**:
+
 ```bash
 install_tool <tool_name> <install_spec> -> exit_code
 ```
 
 **Parameters**:
+
 - `tool_name` (string): Name of tool to install
 - `install_spec` (JSON): Installation specification from frontmatter
 
 **Installation Strategies** (tried in order):
+
 1. **Homebrew** (`brew install`)
 2. **Cargo** (`cargo install`)
 3. **Binary download** (GitHub releases)
@@ -315,10 +360,12 @@ install_tool <tool_name> <install_spec> -> exit_code
 5. **YUM** (`yum install`) - Linux only
 
 **Exit Codes**:
+
 - `0`: Installation successful
 - `1`: Installation failed (all strategies exhausted)
 
 **Example**:
+
 ```bash
 source scripts/dependency-installer.sh
 install_spec='{"brew":"asciinema","apt":"asciinema"}'
@@ -332,6 +379,7 @@ install_tool "asciinema" "$install_spec"
 **Purpose**: Interactive consent for installations
 
 **Usage**:
+
 ```bash
 source scripts/consent-prompt.sh
 ```
@@ -339,22 +387,27 @@ source scripts/consent-prompt.sh
 **Functions**:
 
 #### `prompt_consent`
+
 Prompts user for installation consent.
 
 **Signature**:
+
 ```bash
 prompt_consent <tool_name> <install_cmd> -> boolean
 ```
 
 **Parameters**:
+
 - `tool_name` (string): Name of tool
 - `install_cmd` (string): Command that will be executed
 
 **Returns**:
+
 - `0`: User consented (yes)
 - `1`: User declined (no)
 
 **Example**:
+
 ```bash
 source scripts/consent-prompt.sh
 if prompt_consent "agg" "cargo install agg"; then
@@ -371,21 +424,25 @@ fi
 **Purpose**: Convert single .cast file to .gif
 
 **Usage**:
+
 ```bash
 ./scripts/convert-cast.sh <input.cast> [output.gif]
 ```
 
 **Parameters**:
+
 - `input.cast` (required): Path to .cast file
 - `output.gif` (optional): Output path (default: same name as input)
 
 **Process**:
+
 1. Validate .cast file exists and is readable
 2. Convert using `agg` with optimized settings
 3. Optimize with `gifsicle -O3 --colors 256`
 4. Report file size and conversion time
 
 **agg Settings**:
+
 ```bash
 agg --font-size 16 \
     --line-height 1.4 \
@@ -394,6 +451,7 @@ agg --font-size 16 \
 ```
 
 **Example**:
+
 ```bash
 # Basic usage
 ./scripts/convert-cast.sh demo.cast
@@ -408,6 +466,7 @@ fi
 ```
 
 **Exit Codes**:
+
 - `0`: Conversion successful
 - `1`: File not found or conversion failed
 
@@ -418,23 +477,27 @@ fi
 **Purpose**: Bulk conversion of .cast files
 
 **Usage**:
+
 ```bash
 ./scripts/batch-convert.sh [options]
 ```
 
 **Options**:
+
 - `--search-path <path>`: Directory to search (default: `docs/`)
 - `--dry-run`: Preview without converting
 - `--force`: Overwrite existing GIFs
 - `--method <method>`: Conversion method (default: `asciinema`)
 
 **Process**:
+
 1. Find all .cast files in search path(s)
 2. Filter out files with existing .gif (unless `--force`)
 3. Convert each file with progress tracking
 4. Display summary statistics
 
 **Output**:
+
 ```
 Found 5 .cast files
 Converting: demo1.cast → demo1.gif... ✓ (2.3s, 145KB)
@@ -446,6 +509,7 @@ Total size: 567KB
 ```
 
 **Example**:
+
 ```bash
 # Dry run
 ./scripts/batch-convert.sh --dry-run
@@ -461,6 +525,7 @@ Total size: 567KB
 ```
 
 **Exit Codes**:
+
 - `0`: All conversions successful
 - `1`: One or more conversions failed
 - `2`: File exists (use `--force` to overwrite)
@@ -474,6 +539,7 @@ Total size: 567KB
 **Purpose**: Validate tool health and functionality
 
 **Usage**:
+
 ```bash
 source scripts/health-check.sh
 ```
@@ -481,19 +547,23 @@ source scripts/health-check.sh
 **Functions**:
 
 #### `run_health_check`
+
 Executes health check command and validates exit code.
 
 **Signature**:
+
 ```bash
 run_health_check <tool_name> <check_cmd> <expected_exit> -> JSON
 ```
 
 **Parameters**:
+
 - `tool_name` (string): Name of tool
 - `check_cmd` (string): Command to execute
 - `expected_exit` (integer): Expected exit code (usually 0)
 
 **Returns**:
+
 ```json
 {
   "tool": "asciinema",
@@ -504,11 +574,13 @@ run_health_check <tool_name> <check_cmd> <expected_exit> -> JSON
 ```
 
 **Health States**:
+
 - `ok`: Tool responds correctly
 - `broken`: Tool installed but fails health check
 - `n/a`: Tool not installed
 
 **Example**:
+
 ```bash
 source scripts/health-check.sh
 result=$(run_health_check "asciinema" "asciinema --help" 0)
@@ -518,17 +590,21 @@ echo "$result" | jq '.health'
 ---
 
 #### `validate_all_health`
+
 Validates health for all tools in a method.
 
 **Signature**:
+
 ```bash
 validate_all_health <method> -> JSON
 ```
 
 **Parameters**:
+
 - `method` (string): Method name
 
 **Returns**:
+
 ```json
 {
   "asciinema": {"health": "ok", "exit_code": 0},
@@ -544,6 +620,7 @@ validate_all_health <method> -> JSON
 **Purpose**: Semantic version comparison and validation
 
 **Usage**:
+
 ```bash
 source scripts/version-check.sh
 ```
@@ -551,22 +628,27 @@ source scripts/version-check.sh
 **Functions**:
 
 #### `extract_version`
+
 Extracts version number from tool output.
 
 **Signature**:
+
 ```bash
 extract_version <tool_name> <version_cmd> -> string
 ```
 
 **Parameters**:
+
 - `tool_name` (string): Name of tool
 - `version_cmd` (string): Command to get version
 
 **Returns**:
+
 - Version string (e.g., `2.3.0`)
 - `null` if not found
 
 **Example**:
+
 ```bash
 source scripts/version-check.sh
 version=$(extract_version "asciinema" "asciinema --version")
@@ -576,20 +658,25 @@ echo "$version"  # Output: 2.3.0
 ---
 
 #### `parse_version`
+
 Parses version string into major.minor.patch components.
 
 **Signature**:
+
 ```bash
 parse_version <version_string> -> array
 ```
 
 **Parameters**:
+
 - `version_string` (string): Version like `1.2.3`
 
 **Returns**:
+
 - Space-separated string: `major minor patch`
 
 **Example**:
+
 ```bash
 source scripts/version-check.sh
 read major minor patch <<< $(parse_version "2.3.0")
@@ -599,23 +686,28 @@ echo "Major: $major, Minor: $minor, Patch: $patch"
 ---
 
 #### `compare_versions`
+
 Compares two semantic versions.
 
 **Signature**:
+
 ```bash
 compare_versions <version1> <version2> -> integer
 ```
 
 **Parameters**:
+
 - `version1` (string): First version
 - `version2` (string): Second version
 
 **Returns**:
+
 - `-1`: version1 < version2
 - `0`: version1 = version2
 - `1`: version1 > version2
 
 **Example**:
+
 ```bash
 source scripts/version-check.sh
 result=$(compare_versions "1.2.3" "1.2.5")
@@ -627,19 +719,23 @@ fi
 ---
 
 #### `check_version_requirement`
+
 Validates version meets minimum requirement.
 
 **Signature**:
+
 ```bash
 check_version_requirement <tool> <current> <min> -> JSON
 ```
 
 **Parameters**:
+
 - `tool` (string): Tool name
 - `current` (string): Current version
 - `min` (string): Minimum required version
 
 **Returns**:
+
 ```json
 {
   "tool": "asciinema",
@@ -656,6 +752,7 @@ check_version_requirement <tool> <current> <min> -> JSON
 **Purpose**: Automated tool repair and reinstallation
 
 **Usage**:
+
 ```bash
 source scripts/repair-tools.sh
 ```
@@ -663,17 +760,21 @@ source scripts/repair-tools.sh
 **Functions**:
 
 #### `detect_repair_candidates`
+
 Identifies tools that need repair.
 
 **Signature**:
+
 ```bash
 detect_repair_candidates <method> -> JSON
 ```
 
 **Parameters**:
+
 - `method` (string): Method name
 
 **Returns**:
+
 ```json
 {
   "candidates": [
@@ -694,6 +795,7 @@ detect_repair_candidates <method> -> JSON
 ```
 
 **Issue Types**:
+
 - `not_installed`: Tool missing
 - `broken`: Health check fails
 - `outdated`: Version below minimum
@@ -701,24 +803,29 @@ detect_repair_candidates <method> -> JSON
 ---
 
 #### `repair_tool`
+
 Attempts to repair a single tool.
 
 **Signature**:
+
 ```bash
 repair_tool <tool_name> <method> -> exit_code
 ```
 
 **Parameters**:
+
 - `tool_name` (string): Tool to repair
 - `method` (string): Method name
 
 **Process**:
+
 1. Detect issue type
 2. Uninstall if needed
 3. Reinstall using dependency-installer
 4. Validate installation
 
 **Exit Codes**:
+
 - `0`: Repair successful
 - `1`: Repair failed
 
@@ -820,6 +927,7 @@ function_name() {
 ```
 
 **Error Propagation**:
+
 - Functions return non-zero on error
 - Main scripts exit with appropriate code
 - JSON responses include error details

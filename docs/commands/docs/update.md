@@ -11,6 +11,7 @@
 ```
 
 **Quick examples:**
+
 ```bash
 # Smart detection → Full execution
 /craft:docs:update                    # Detect changes → generate all needed docs
@@ -33,6 +34,7 @@ The ONE command for documentation. Detects what changed, figures out what docs a
 > "Just run it. It figures out what's needed, then does it."
 
 **What it does:**
+
 1. **sync** - Detect changes, classify docs needed
 2. **generate** - Guide, demo, refcard (as needed)
 3. **check** - Validate + auto-fix
@@ -129,6 +131,7 @@ Force specific doc types regardless of scoring:
 | `--threshold N` | Override scoring threshold (default: 3) |
 
 **Example:**
+
 ```bash
 /craft:docs:update "auth" --with-tutorial    # Auth docs + forced tutorial
 /craft:docs:update --all                      # Generate everything
@@ -151,6 +154,7 @@ Doc types are generated based on classification scores:
 | User-facing CLI | +1 | +1 | +2 | +2 | +1 | +2 |
 
 **Thresholds:**
+
 - Guide, Refcard, Demo: Score >= 3
 - Tutorial, Help, Workflow: Score >= 2
 

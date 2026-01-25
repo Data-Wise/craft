@@ -141,6 +141,7 @@ gitGraph
 ```
 
 **Branch Flow:**
+
 ```mermaid
 graph LR
     Feature[feature/*] -->|PR| Dev[dev]
@@ -165,6 +166,7 @@ gitGraph
 ```
 
 **Branch Flow:**
+
 ```mermaid
 graph LR
     Main[main] -->|Direct commits| Main
@@ -205,6 +207,7 @@ gitGraph
 ```
 
 **Branch Flow:**
+
 ```mermaid
 graph TB
     Feature[feature/*] -->|PR| Develop[develop]

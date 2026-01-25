@@ -3,6 +3,7 @@
 ⏱️ **8 minutes** • 🔴 Advanced • ✓ Power user features
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Advanced task orchestrator coordinating multiple agents with 4 execution modes (10s, 2min, 3min, 5min)
 > - **Why:** Handle complex multi-step tasks with proper delegation, monitoring, and ADHD-friendly tracking
 > - **How:** `/craft:orchestrate "task" [mode]` where mode = default/debug/optimize/release
@@ -23,6 +24,7 @@ The orchestrator coordinates multiple agents and tools for complex, multi-step t
     The orchestrator is powerful but complex. Start with simple commands like `/craft:do` and `/craft:check` first. Come back here when you need parallel agent execution.
 
 **Key Features:**
+
 - Mode-aware execution (default/debug/optimize/release)
 - Subagent delegation and monitoring
 - Chat compression for long sessions
@@ -48,6 +50,7 @@ The `--orch` flag enables orchestration directly from supported commands:
 ```
 
 **Supported Commands:**
+
 | Command | Usage |
 |---------|-------|
 | `/craft:do` | `/craft:do "task" --orch=[mode]` |
@@ -57,6 +60,7 @@ The `--orch` flag enables orchestration directly from supported commands:
 | `/craft:ci:generate` | `/craft:ci:generate --orch=[mode]` |
 
 **Benefits:**
+
 - No need to remember separate `/craft:orchestrate` command
 - Integrates seamlessly with existing workflows
 - Preserves command-specific context and arguments
@@ -95,6 +99,7 @@ Preview orchestration without execution:
 ```
 
 This shows:
+
 - Task description
 - Selected mode
 - Max agents
@@ -102,6 +107,7 @@ This shows:
 - What would be executed
 
 The orchestrator will:
+
 1. Analyze the task
 2. Create an execution plan
 3. Delegate to appropriate agents/commands
@@ -135,6 +141,7 @@ Parallel execution for speed:
 ```
 
 **Benefits:**
+
 - Runs up to 4 agents in parallel
 - Faster completion
 - Resource-efficient
@@ -148,6 +155,7 @@ Comprehensive audit for releases:
 ```
 
 **Includes:**
+
 - Full test suite
 - Documentation validation
 - Security checks
@@ -162,6 +170,7 @@ Orchestrate complex features with structured context gathering:
 ```
 
 Flow:
+
 1. `/brainstorm d:8` gathers context (requirements, users, scope, technical)
 2. Spawns backend-architect agent
 3. Spawns frontend specialist
@@ -193,6 +202,7 @@ Flow:
 ```
 
 Shows:
+
 - Active agents
 - Completed tasks
 - Pending work

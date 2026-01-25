@@ -35,6 +35,7 @@ craft:check: command not found
 **Issue:** Using shell syntax instead of Claude Code slash command syntax
 
 **Wrong:**
+
 ```bash
 craft:check          # Shell format (won't work)
 /craft:check         # Missing colon separator
@@ -42,6 +43,7 @@ craft check          # Missing prefix
 ```
 
 **Correct:**
+
 ```bash
 /craft:check         # Claude Code slash command format
 /craft:do check      # Smart routing alternative
@@ -54,6 +56,7 @@ craft check          # Missing prefix
 **Issue:** Trying to run Craft commands in a terminal instead of Claude Code
 
 **Solution:** Craft commands only work inside Claude Code conversations:
+
 1. Open Claude Code application
 2. Navigate to your project directory
 3. Start a conversation
@@ -66,6 +69,7 @@ craft check          # Missing prefix
 **Issue:** Craft plugin hasn't been loaded in the current session
 
 **Solution:**
+
 1. Check if plugin is installed: Look for `.claude-plugin/` directory in your Craft repository
 2. Restart Claude Code application
 3. Verify plugin location: `~/.claude/` or project-specific location
@@ -78,22 +82,25 @@ craft check          # Missing prefix
 **Issue:** Misspelling the command name
 
 **Common typos:**
+
 - `/craft:checks` → `/craft:check` (extra 's')
 - `/craft:do-check` → `/craft:do check` (hyphen vs space)
 - `/craft:git-init` → `/craft:git:init` (hyphen vs colon)
 
-**Solution:** Use tab completion or check [Commands Reference](../../commands/index.md) for exact command names
+**Solution:** Use tab completion or check [Commands Reference](../../../commands/hub.md) for exact command names
 
 ### 5. Command Doesn't Exist
 
 **Issue:** Trying to use a command that hasn't been created yet
 
 **Solution:**
-1. Check the [Commands Index](../../commands/index.md) for available commands
+
+1. Check the [Commands Index](../../../commands/hub.md) for available commands
 2. Use `/craft:do <task>` for smart routing (it will suggest correct commands)
 3. Check if you need to update to a newer version of Craft
 
 **Example:**
+
 ```bash
 # Instead of guessing command names
 /craft:validate-links  # Might not exist
@@ -105,6 +112,7 @@ craft check          # Missing prefix
 ## Verification Steps
 
 ### Check Plugin Installation
+
 ```bash
 # In Claude Code conversation
 /craft:help
@@ -113,6 +121,7 @@ craft check          # Missing prefix
 If this works, the plugin is installed correctly.
 
 ### Check Available Commands
+
 ```bash
 # In Claude Code conversation
 /hub
@@ -121,6 +130,7 @@ If this works, the plugin is installed correctly.
 This shows all available commands across all plugins.
 
 ### Validate Plugin Functionality
+
 ```bash
 # In Claude Code conversation
 /craft:check
@@ -172,5 +182,5 @@ If the issue persists:
 
 - [Getting Started Guide](../../guide/getting-started.md) — Complete setup instructions
 - [ADHD Quick Start](../../ADHD-QUICK-START.md) — 30-second quick start
-- [Commands Index](../../commands/index.md) — Full command reference
+- [Commands Index](../../../commands/hub.md) — Full command reference
 - [Do Command](../../commands/do.md) — Smart routing for finding commands

@@ -3,6 +3,7 @@
 ⏱️ **5 minutes** • 🟡 Intermediate • ✓ System design and analysis
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** 4 commands for analyzing, planning, reviewing, and diagramming software architecture
 > - **Why:** Understand your codebase structure, identify patterns, and plan improvements with AI assistance
 > - **How:** Use `/craft:arch:analyze` for analysis, `/craft:arch:diagram` for visual diagrams

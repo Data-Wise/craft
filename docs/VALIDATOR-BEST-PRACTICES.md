@@ -25,6 +25,7 @@ This guide provides best practices for creating custom validators for the Craft 
 ### What is a Validator?
 
 A validator is a **self-contained validation script** that:
+
 - Runs in forked context (isolated from main conversation)
 - Checks code quality, security, performance, or other metrics
 - Reports pass/fail status with clear output
@@ -561,6 +562,7 @@ See `examples/` directory for sample projects.
 ## Contributing
 
 Pull requests welcome! Please ensure:
+
 - [ ] Validator passes CI tests
 - [ ] Documentation is up-to-date
 - [ ] Example projects included
@@ -568,6 +570,7 @@ Pull requests welcome! Please ensure:
 ## License
 
 MIT
+
 ```
 
 ### GitHub Topics
@@ -638,6 +641,7 @@ else
     exit 1
 fi
 ```
+
 ```
 
 ### Example 2: Performance Check
@@ -699,6 +703,7 @@ else
     exit 1
 fi
 ```
+
 ```
 
 ---

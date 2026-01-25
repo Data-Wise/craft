@@ -219,12 +219,14 @@ erDiagram
 | `generate_command_tutorial()` | Create formatted tutorial | O(1) per command |
 
 **Caching Strategy:**
+
 - Cache file: `commands/_cache.json`
 - Invalidation: Compare cache timestamp vs. newest file mtime
 - Regeneration: Full scan if any file is newer than cache
 - Format: `{generated: timestamp, count: int, commands: array}`
 
 **Error Handling:**
+
 - Missing cache → Full scan
 - Corrupt cache → Full scan
 - Invalid YAML → Skip file, log warning
@@ -235,6 +237,7 @@ erDiagram
 **Purpose**: Extract structured metadata from markdown frontmatter
 
 **Implementation:**
+
 ```python
 def parse_yaml_frontmatter(content: str) -> dict:
     """
@@ -244,6 +247,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
 ```
 
 **Supported YAML Features:**
+
 - Simple key-value pairs: `name: value`
 - Arrays: `- item1\n- item2`
 - Nested objects: `modes:\n  default: 10`
@@ -251,6 +255,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
 - Comments (ignored)
 
 **Limitations:**
+
 - No complex YAML features (anchors, tags, merge keys)
 - No external YAML library dependencies
 - Designed for command frontmatter only
@@ -260,6 +265,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
 **Purpose**: Optimize repeated discovery operations
 
 **Cache Structure:**
+
 ```json
 {
   "generated": "2026-01-17T10:30:00",
@@ -279,6 +285,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
 ```
 
 **Invalidation Strategy:**
+
 1. Check if `_cache.json` exists
 2. Get cache file mtime
 3. Scan `commands/` for newest file mtime
@@ -286,6 +293,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
 5. Otherwise use cached data
 
 **Benefits:**
+
 - 94% performance improvement (12ms → <2ms)
 - No manual cache clearing needed
 - Always up-to-date with file changes
@@ -296,6 +304,7 @@ def parse_yaml_frontmatter(content: str) -> dict:
 **Purpose**: Visual categorization with emoji icons
 
 **Icon Mapping:**
+
 ```python
 CATEGORY_ICONS = {
     'code': '💻',
@@ -313,6 +322,7 @@ CATEGORY_ICONS = {
 ```
 
 **Category Information:**
+
 - Icon: Emoji for visual identification
 - Name: Display name (title case)
 - Description: One-line explanation
@@ -323,6 +333,7 @@ CATEGORY_ICONS = {
 **Purpose**: Auto-generate formatted command tutorials
 
 **Generated Sections:**
+
 1. **Header**: Command name, category breadcrumb
 2. **Description**: From frontmatter
 3. **Modes** (if applicable): Time budgets, mode explanations
@@ -332,6 +343,7 @@ CATEGORY_ICONS = {
 7. **Navigation**: Breadcrumb links back to category/hub
 
 **Format:**
+
 - Box-drawing characters for borders
 - 65-character width (consistent with dry-run utilities)
 - Markdown formatting for readability
@@ -422,11 +434,13 @@ Else:
 | **Scan Time** | 12ms | 25ms (200 cmds) | ~100ms (1000 cmds) |
 
 **Bottlenecks:**
+
 - File I/O during uncached scan (linear with file count)
 - YAML parsing (linear with file count)
 - JSON serialization (linear with data size)
 
 **Mitigation Strategies:**
+
 - Caching eliminates most performance concerns
 - Sub-10ms cached performance scales indefinitely
 - File system scan parallelization possible if needed
@@ -478,20 +492,24 @@ Not applicable - single-user CLI tool with local file system access.
 ### Vertical Scaling
 
 **Current Performance:**
+
 - 97 commands: 12ms uncached, <2ms cached
 - Linear scaling expected: O(n) for scan, O(1) for cached
 
 **Projected Performance (200 commands):**
+
 - Uncached: ~25ms (acceptable)
 - Cached: <3ms (negligible increase)
 
 **Projected Performance (500 commands):**
+
 - Uncached: ~60ms (still well under 200ms target)
 - Cached: <5ms (still excellent)
 
 ### Command Growth Strategy
 
 **Current Categories:**
+
 - code (12), test (7), docs (19), git (11), site (16), arch (1), ci (3), dist (1), plan (3), workflow (2)
 - Total: 16 categories, 97 commands
 
@@ -515,6 +533,7 @@ All scenarios remain well within performance targets.
 **Breaking Changes:** None - fully backward compatible
 
 **New Features Available:**
+
 1. Auto-detected command counts (no hardcoded lists)
 2. Layer 2 category views with subcategories
 3. Layer 3 command detail tutorials
@@ -522,6 +541,7 @@ All scenarios remain well within performance targets.
 5. Common workflows display
 
 **Migration Steps:**
+
 1. Merge `feature/hub-v2` to `dev`
 2. No configuration changes needed
 3. No user action required
@@ -555,12 +575,14 @@ If issues discovered after merge:
 ### Performance Monitoring
 
 **Metrics to Track:**
+
 - Discovery time (cached vs uncached)
 - Cache hit rate
 - Cache size growth over time
 - Number of commands/categories over time
 
 **Logging Points:**
+
 - Cache regeneration events
 - Invalid YAML warnings
 - Missing required fields warnings
@@ -652,7 +674,7 @@ time python3 commands/_discovery.py  # Should be < 15ms
 
 ### Related Documentation
 
-- [Hub v2.0 User Guide](../help/hub.md)
+- [Hub v2.0 User Guide](../../commands/hub.md)
 - [Hub v2.0 Testing Guide](../../tests/HUB-V2-TESTING-GUIDE.md)
 - [Hub v2.0 Testing Summary](../../tests/TESTING-SUMMARY.md)
 - [CHANGELOG.md](../../CHANGELOG.md#unreleased---hub-v20)
