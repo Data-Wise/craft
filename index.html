@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.7.0 introduces interactive documentation update system with 9-category detection, category-level prompts, and production-ready error handling.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.8.0 introduces markdown linting execution layer with auto-fix support and clear roadmap for future enhancements.">
       
       
       
@@ -553,6 +553,17 @@
     <span class="md-ellipsis">
       
         API Reference - NEW in v1.24.0
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-new-in-v280" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's New in v2.8.0
       
     </span>
   </a>
@@ -4243,6 +4254,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#whats-new-in-v280" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's New in v2.8.0
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#whats-new-in-v270" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4412,7 +4434,7 @@
 <li><strong>Next:</strong> Run <code>/craft:do "your task"</code> and let AI route to the best workflow</li>
 </ul>
 <p>Full-stack developer toolkit for Claude Code - 100 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows</p>
-<p><strong>NEW in v2.7.0:</strong> Interactive documentation update system with 9-category detection, category-level prompts, and production-ready error handling. See <a href="#whats-new-in-v270">what's new</a></p>
+<p><strong>NEW in v2.8.0:</strong> Markdown linting execution layer for <code>/craft:docs:lint</code> with auto-fix support. See <a href="#whats-new-in-v280">what's new</a></p>
 </blockquote>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <div class="grid cards">
@@ -4487,6 +4509,37 @@
 <li><a href="reference/ERROR-SCENARIOS/">Error Recovery Guide</a></li>
 <li><a href="reference/COMMAND-EXAMPLES/">Real-World Examples</a></li>
 </ul>
+<h2 id="whats-new-in-v280">What's New in v2.8.0<a class="headerlink" href="#whats-new-in-v280" title="Permanent link">&para;</a></h2>
+<p><strong>Markdown Linting Execution Layer</strong> ✨</p>
+<p>Implementation of the execution layer for <code>/craft:docs:lint</code> (PR #34):</p>
+<ul>
+<li><strong><code>scripts/docs-lint.sh</code></strong>: Bash execution script for markdown linting</li>
+<li>Auto-detects <code>markdownlint-cli2</code> globally or falls back to <code>npx</code></li>
+<li>Supports <code>--fix</code> flag for auto-fixing issues</li>
+<li>
+<p>Supports target path specification</p>
+</li>
+<li>
+<p><strong>MVP Features (v2.8.0)</strong>:</p>
+</li>
+<li>Basic linting: Check markdown files against 30+ rules</li>
+<li>Auto-fix: Apply safe fixes with <code>--fix</code> flag</li>
+<li>Path targeting: Check specific files or directories</li>
+<li>
+<p>Pre-commit integration: Works with existing hooks</p>
+</li>
+<li>
+<p><strong>Clear Roadmap</strong>: Feature status table distinguishes MVP (v2.8.0) from planned (v2.9.0+)</p>
+</li>
+<li>Planned: Styled output boxes, execution modes (debug/optimize/release), language detection, interactive prompts, rule expansion (30 → 42)</li>
+</ul>
+<p><strong>Try it:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:docs:lint<span class="w">                  </span><span class="c1"># Check all markdown</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:docs:lint<span class="w"> </span>--fix<span class="w">            </span><span class="c1"># Auto-fix issues</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:docs:lint<span class="w"> </span>docs/guide/<span class="w">      </span><span class="c1"># Check specific path</span>
+</span></code></pre></div>
+<p><strong>Testing</strong>: All 706+ tests passing (100%), pre-commit hook validated</p>
+<p><strong>Documentation</strong>: <a href="../RELEASE-v2.8.0.md">RELEASE-v2.8.0.md</a> for comprehensive details</p>
 <h2 id="whats-new-in-v270">What's New in v2.7.0<a class="headerlink" href="#whats-new-in-v270" title="Permanent link">&para;</a></h2>
 <p><strong>Interactive Documentation Update System</strong> 🎯</p>
 <p>Smart documentation maintenance with 9-category detection and interactive prompts (PR #32):</p>
@@ -4506,10 +4559,10 @@
 <li>Production-ready error handling (handles binary files, unicode, corrupted data)</li>
 </ul>
 <p><strong>Try it:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w">              </span><span class="c1"># Category-level prompts</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview without changes</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs<span class="w">    </span><span class="c1"># Update only version references</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>/craft:docs:update<span class="w"> </span>--auto-yes<span class="w">                 </span><span class="c1"># Batch mode (no prompts)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w">              </span><span class="c1"># Category-level prompts</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview without changes</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs<span class="w">    </span><span class="c1"># Update only version references</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>/craft:docs:update<span class="w"> </span>--auto-yes<span class="w">                 </span><span class="c1"># Batch mode (no prompts)</span>
 </span></code></pre></div>
 <p><strong>Documentation:</strong></p>
 <ul>
@@ -4540,9 +4593,9 @@
 <li><strong>Always accurate</strong>: Auto-updates when commands added/changed</li>
 </ul>
 <p><strong>Try it:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:hub<span class="w">              </span><span class="c1"># Browse all 97 commands by category</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:hub<span class="w"> </span>code<span class="w">         </span><span class="c1"># View code category (12 commands)</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/craft:hub<span class="w"> </span>code:lint<span class="w">    </span><span class="c1"># Get detailed tutorial for code:lint</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:hub<span class="w">              </span><span class="c1"># Browse all 97 commands by category</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:hub<span class="w"> </span>code<span class="w">         </span><span class="c1"># View code category (12 commands)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/craft:hub<span class="w"> </span>code:lint<span class="w">    </span><span class="c1"># Get detailed tutorial for code:lint</span>
 </span></code></pre></div>
 <p><strong>Enhanced testing</strong> (PR #20):</p>
 <ul>
@@ -4563,16 +4616,16 @@
 <li><strong>CI-friendly</strong>: Exit code 0 for expected links, 1 for critical only</li>
 </ul>
 <p><strong>Create <code>.linkcheck-ignore</code> to document expected broken links:</strong></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gh"># Known Broken Links</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="gu">### Test Files</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>File: <span class="sb">`docs/test-violations.md`</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">-</span><span class="w"> </span>Purpose: Test data for validation
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="gu">### Brainstorm References</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>Files: <span class="sb">`docs/specs/*.md`</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>Targets: <span class="sb">`docs/brainstorm/*.md`</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="k">-</span><span class="w"> </span>Reason: Gitignored, not published
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gh"># Known Broken Links</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="gu">### Test Files</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>File: <span class="sb">`docs/test-violations.md`</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">-</span><span class="w"> </span>Purpose: Test data for validation
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="gu">### Brainstorm References</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Files: <span class="sb">`docs/specs/*.md`</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>Targets: <span class="sb">`docs/brainstorm/*.md`</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">-</span><span class="w"> </span>Reason: Gitignored, not published
 </span></code></pre></div>
 <p><strong>Testing</strong>: 21/21 tests passing (13 unit + 8 integration), backward compatible (opt-in)</p>
 <p>See <a href="commands/docs/#craftdocscheck-links">commands/docs documentation</a> for details.</p>
@@ -4588,9 +4641,9 @@
 <li><strong>Infrastructure</strong>: Shared utilities (<code>utils/dry_run_output.py</code>), templates, 30 passing tests</li>
 </ul>
 <p><strong>Preview before executing:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:git:clean<span class="w"> </span>--dry-run<span class="w">      </span><span class="c1"># Preview branch cleanup</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:code:lint<span class="w"> </span>release<span class="w"> </span>-n<span class="w">     </span><span class="c1"># Preview comprehensive linting</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># Preview smart routing plan</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:git:clean<span class="w"> </span>--dry-run<span class="w">      </span><span class="c1"># Preview branch cleanup</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:code:lint<span class="w"> </span>release<span class="w"> </span>-n<span class="w">     </span><span class="c1"># Preview comprehensive linting</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># Preview smart routing plan</span>
 </span></code></pre></div>
 <p>See <a href="https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUMMARY.md">DRY-RUN-SUMMARY.md</a> for complete command list.</p>
 <h2 id="whats-new-in-v1190">What's New in v1.19.0<a class="headerlink" href="#whats-new-in-v1190" title="Permanent link">&para;</a></h2>

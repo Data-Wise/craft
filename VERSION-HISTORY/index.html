@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.7.0 introduces interactive documentation update system with 9-category detection, category-level prompts, and production-ready error handling.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.8.0 introduces markdown linting execution layer with auto-fix support and clear roadmap for future enhancements.">
       
       
       
@@ -3083,6 +3083,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v280-2026-01-25-markdown-linting-execution-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.8.0 (2026-01-25) - Markdown Linting Execution Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v270-2026-01-23-interactive-documentation-update-system" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4479,6 +4490,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v280-2026-01-25-markdown-linting-execution-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.8.0 (2026-01-25) - Markdown Linting Execution Layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v270-2026-01-23-interactive-documentation-update-system" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4915,11 +4937,77 @@
 <blockquote>
 <p><strong>Evolution of Craft</strong>: From command automation tool to intelligent orchestration platform</p>
 </blockquote>
-<p><strong>Latest Release:</strong> v2.7.0 (2026-01-23)
-<strong>Total Releases:</strong> 29 versions | <strong>Development Time:</strong> 2+ years
+<p><strong>Latest Release:</strong> v2.8.0 (2026-01-25)
+<strong>Total Releases:</strong> 30 versions | <strong>Development Time:</strong> 2+ years
 <strong>Community:</strong> 100+ commands documented, 706+ tests, 90%+ coverage</p>
 <hr />
 <h2 id="release-timeline">Release Timeline<a class="headerlink" href="#release-timeline" title="Permanent link">&para;</a></h2>
+<h3 id="v280-2026-01-25-markdown-linting-execution-layer">v2.8.0 (2026-01-25) - Markdown Linting Execution Layer<a class="headerlink" href="#v280-2026-01-25-markdown-linting-execution-layer" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Released ✅</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li><strong>Markdown Linting Execution Layer</strong>: Bash script (<code>scripts/docs-lint.sh</code>) for markdown quality checks</li>
+<li><strong>Auto-Detect Tool Installation</strong>: Global <code>markdownlint-cli2</code> or fallback to <code>npx</code></li>
+<li><strong>MVP Features</strong>: Basic linting (30+ rules), auto-fix (<code>--fix</code>), path targeting, pre-commit integration</li>
+<li><strong>Clear Roadmap</strong>: Feature status table distinguishes v2.8.0 MVP from v2.9.0+ planned features</li>
+<li><strong>Production Ready</strong>: All 706+ tests passing (100%), pre-commit hook validated</li>
+</ul>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>New execution script: <code>scripts/docs-lint.sh</code> (74 lines)</li>
+<li>Updated command: <code>commands/docs/lint.md</code> (execution layer documentation)</li>
+<li>Configuration: <code>.markdownlint.json</code> (30 rules enabled)</li>
+<li>Tests: 706+ tests all passing (100% pass rate)</li>
+<li>Implementation time: 40 minutes MVP</li>
+</ul>
+<p><strong>MVP Features (v2.8.0):</strong></p>
+<ul>
+<li>Basic linting: Check markdown against 30+ configured rules</li>
+<li>Auto-fix: Apply safe fixes with <code>--fix</code> flag</li>
+<li>Path targeting: Check specific files or directories</li>
+<li>Tool detection: Global install detection or npx fallback</li>
+<li>Pre-commit integration: Works with existing git hooks</li>
+</ul>
+<p><strong>Planned for v2.9.0+:</strong></p>
+<ul>
+<li>Styled output boxes (formatted with colors)</li>
+<li>Execution modes (debug, optimize, release)</li>
+<li>Interactive prompts (MD001, MD040 language detection)</li>
+<li>Language detection for code fences</li>
+<li>Rule expansion (30 → 42 rules)</li>
+</ul>
+<p><strong>Key Files:</strong></p>
+<ul>
+<li><code>scripts/docs-lint.sh</code> - Markdown linting execution script (74 lines)</li>
+<li><code>commands/docs/lint.md</code> - Command documentation with trigger and feature status</li>
+<li><code>RELEASE-v2.8.0.md</code> - Comprehensive release notes</li>
+<li><code>.markdownlint.json</code> - 30 configured markdown rules</li>
+<li><code>.pre-commit-config.yaml</code> - Pre-commit hook integration</li>
+</ul>
+<p><strong>Usage Examples:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Basic linting</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:docs:lint
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Auto-fix issues</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>/craft:docs:lint<span class="w"> </span>--fix
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Check specific path</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>/craft:docs:lint<span class="w"> </span>docs/guide/
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>/craft:docs:lint<span class="w"> </span>README.md
+</span></code></pre></div>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Execution layer bridges configuration and command documentation gap</li>
+<li>Auto-detection of tool installation (global or npx)</li>
+<li>Support for auto-fix workflow with confirmation</li>
+<li>Full pre-commit hook integration</li>
+<li>Backward compatible with existing workflows</li>
+</ul>
+<p><strong>PR:</strong> #34
+<strong>Merge Commits:</strong> aaa1914 (dev) + e4a132d (main)
+<strong>Release Tag:</strong> v2.8.0
+<strong>Files Changed:</strong> 3 (+132 lines)</p>
+<hr />
 <h3 id="v270-2026-01-23-interactive-documentation-update-system">v2.7.0 (2026-01-23) - Interactive Documentation Update System<a class="headerlink" href="#v270-2026-01-23-interactive-documentation-update-system" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
 <p><strong>Highlights:</strong></p>
@@ -4969,10 +5057,10 @@
 <li><code>docs/specs/SPEC-docs-update-interactive-2026-01-22.md</code> - Implementation spec</li>
 </ul>
 <p><strong>Usage Examples:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w">              </span><span class="c1"># Category-level prompts (9 categories)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs<span class="w">    </span><span class="c1"># Update only version references</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview without applying changes</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:docs:update<span class="w"> </span>--auto-yes<span class="w">                 </span><span class="c1"># Batch mode (no prompts)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w">              </span><span class="c1"># Category-level prompts (9 categories)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs<span class="w">    </span><span class="c1"># Update only version references</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview without applying changes</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>/craft:docs:update<span class="w"> </span>--auto-yes<span class="w">                 </span><span class="c1"># Batch mode (no prompts)</span>
 </span></code></pre></div>
 <p><strong>Implementation:</strong></p>
 <ul>
