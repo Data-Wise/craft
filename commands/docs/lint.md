@@ -1,27 +1,17 @@
 ---
 description: Markdown quality and error detection with auto-fix
 category: docs
+trigger: bash "${CRAFT_PLUGIN_ROOT}/scripts/docs-lint.sh"
 arguments:
-  - name: mode
-    description: Execution mode (default|debug|optimize|release)
-    required: false
-    default: default
   - name: path
-    description: Specific file or directory to lint
+    description: Specific file or directory to lint (default: .)
     required: false
+    default: .
   - name: fix
-    description: Auto-fix safe issues (shows preview first)
+    description: Auto-fix safe issues (--fix flag)
     required: false
     default: false
-  - name: verbose
-    description: Raw markdownlint output (no styled boxes)
-    required: false
-    default: false
-  - name: dry-run
-    description: Preview checks without executing them
-    required: false
-    default: false
-    alias: -n
+    alias: --fix
 ---
 
 # /craft:docs:lint - Markdown Quality Checks
@@ -37,9 +27,45 @@ Detect and fix markdown formatting errors with embedded rules and auto-fix capab
 - Link formatting consistency
 - Structural issues that break rendering
 
+## Execution
+
+**v2.8.0:** The command now executes via `scripts/docs-lint.sh`, which delegates to `markdownlint-cli2`.
+
+```bash
+# Basic check
+bash scripts/docs-lint.sh
+
+# Auto-fix with confirmation
+bash scripts/docs-lint.sh --fix
+
+# Check specific path
+bash scripts/docs-lint.sh docs/guide/
+```
+
+**Tool Detection:**
+
+- Global install: `markdownlint-cli2` (fast)
+- Fallback: `npx markdownlint-cli2` (auto-downloads, slower first run)
+
+**Installation:** `npm install -g markdownlint-cli2`
+
 ## Philosophy
 
 > **"Auto-fix what's safe, prompt for what matters."**
+
+## Feature Status (v2.8.0 MVP)
+
+| Feature | Status | Details |
+|---------|--------|---------|
+| Basic linting | ✅ v2.8.0 | Check markdown against 30+ rules |
+| Auto-fix (--fix) | ✅ v2.8.0 | Apply fixes for safe issues |
+| Config (.markdownlint.json) | ✅ v2.8.0 | 30 rules already configured |
+| Pre-commit hook | ✅ v2.8.0 | Auto-fix on staged markdown |
+| Modes (debug/optimize/release) | 📝 v2.9.0 | Planned with enhanced output |
+| Styled output boxes | 📝 v2.9.0 | Planned for better readability |
+| Interactive prompts | 📝 v2.9.0 | Planned for complex issues |
+| Language detection (MD040) | 📝 v2.9.0 | Planned for code fences |
+| Rule expansion (30 → 42) | 📝 v2.9.0 | Planned additional rules |
 
 ## Tool Installation
 
@@ -65,29 +91,32 @@ npx markdownlint-cli2 "**/*.md" --config .markdownlint.json
 
 ## Usage
 
+**Current (v2.8.0 - MVP):**
+
 ```bash
-# DEFAULT: Detect errors (no auto-fix)
+# Check markdown files
 /craft:docs:lint
 
-# AUTO-FIX: Preview changes, then apply with confirmation
+# Check with auto-fix
 /craft:docs:lint --fix
 
-# VERBOSE: Raw markdownlint output (no styled boxes)
+# Check specific path
+/craft:docs:lint docs/guide/
+```
+
+**Future (planned for v2.9.0+):**
+
+```bash
+# Advanced modes: debug, optimize, release
+/craft:docs:lint debug          # Verbose with context
+/craft:docs:lint optimize       # Parallel processing
+/craft:docs:lint release --fix  # Comprehensive + auto-fix
+
+# Raw output
 /craft:docs:lint --verbose
 
-# MODES: Different thoroughness levels
-/craft:docs:lint default        # Quick error check (< 10s)
-/craft:docs:lint debug          # Verbose with context (< 120s)
-/craft:docs:lint optimize       # Parallel checking (< 180s)
-/craft:docs:lint release --fix  # Comprehensive + auto-fix (< 300s)
-
-# SPECIFIC PATH
-/craft:docs:lint docs/guide/    # Check specific directory
-/craft:docs:lint README.md      # Check specific file
-
-# DRY-RUN: Preview what will be checked
+# Dry-run preview
 /craft:docs:lint --dry-run
-/craft:docs:lint release -n
 ```
 
 ## Modes
