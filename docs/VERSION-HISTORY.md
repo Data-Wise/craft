@@ -2,13 +2,86 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.7.0 (2026-01-23)
-**Total Releases:** 29 versions | **Development Time:** 2+ years
+**Latest Release:** v2.8.0 (2026-01-25)
+**Total Releases:** 30 versions | **Development Time:** 2+ years
 **Community:** 100+ commands documented, 706+ tests, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.8.0 (2026-01-25) - Markdown Linting Execution Layer
+
+**Status:** Released ✅
+
+**Highlights:**
+
+- **Markdown Linting Execution Layer**: Bash script (`scripts/docs-lint.sh`) for markdown quality checks
+- **Auto-Detect Tool Installation**: Global `markdownlint-cli2` or fallback to `npx`
+- **MVP Features**: Basic linting (30+ rules), auto-fix (`--fix`), path targeting, pre-commit integration
+- **Clear Roadmap**: Feature status table distinguishes v2.8.0 MVP from v2.9.0+ planned features
+- **Production Ready**: All 706+ tests passing (100%), pre-commit hook validated
+
+**Stats:**
+
+- New execution script: `scripts/docs-lint.sh` (74 lines)
+- Updated command: `commands/docs/lint.md` (execution layer documentation)
+- Configuration: `.markdownlint.json` (30 rules enabled)
+- Tests: 706+ tests all passing (100% pass rate)
+- Implementation time: 40 minutes MVP
+
+**MVP Features (v2.8.0):**
+
+- Basic linting: Check markdown against 30+ configured rules
+- Auto-fix: Apply safe fixes with `--fix` flag
+- Path targeting: Check specific files or directories
+- Tool detection: Global install detection or npx fallback
+- Pre-commit integration: Works with existing git hooks
+
+**Planned for v2.9.0+:**
+
+- Styled output boxes (formatted with colors)
+- Execution modes (debug, optimize, release)
+- Interactive prompts (MD001, MD040 language detection)
+- Language detection for code fences
+- Rule expansion (30 → 42 rules)
+
+**Key Files:**
+
+- `scripts/docs-lint.sh` - Markdown linting execution script (74 lines)
+- `commands/docs/lint.md` - Command documentation with trigger and feature status
+- `RELEASE-v2.8.0.md` - Comprehensive release notes
+- `.markdownlint.json` - 30 configured markdown rules
+- `.pre-commit-config.yaml` - Pre-commit hook integration
+
+**Usage Examples:**
+
+```bash
+# Basic linting
+/craft:docs:lint
+
+# Auto-fix issues
+/craft:docs:lint --fix
+
+# Check specific path
+/craft:docs:lint docs/guide/
+/craft:docs:lint README.md
+```
+
+**Implementation:**
+
+- Execution layer bridges configuration and command documentation gap
+- Auto-detection of tool installation (global or npx)
+- Support for auto-fix workflow with confirmation
+- Full pre-commit hook integration
+- Backward compatible with existing workflows
+
+**PR:** #34
+**Merge Commits:** aaa1914 (dev) + e4a132d (main)
+**Release Tag:** v2.8.0
+**Files Changed:** 3 (+132 lines)
+
+---
 
 ### v2.7.0 (2026-01-23) - Interactive Documentation Update System
 

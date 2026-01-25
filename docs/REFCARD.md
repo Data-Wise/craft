@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.7.0                                             │
+│  Version: 2.8.0                                             │
 │  Commands: 100 | Agents: 8 | Skills: 21                     │
 │  Documentation: 98% complete | Diagrams: 17 Mermaid         │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  NEW: Interactive docs:update with 9-category detection     │
+│  NEW: Markdown linting execution layer with auto-fix        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -25,7 +25,8 @@
 
 | Command | Description |
 |---------|-------------|
-| `/craft:docs:update` | **NEW v2.7.0** Interactive: 9 categories, prompts, auto-fix |
+| `/craft:docs:lint` | **NEW v2.8.0** Markdown linting with auto-fix support |
+| `/craft:docs:update` | **v2.7.0** Interactive: 9 categories, prompts, auto-fix |
 | `/craft:docs:update --interactive` | Category-level prompts for precise control |
 | `/craft:docs:update --category=NAME` | Update only specific category |
 | `/craft:docs:sync` | Detection: Classify changes, report stale docs |
@@ -44,6 +45,16 @@
 /craft:docs:check --report-only           # CI-safe mode
 /craft:docs:check-links                   # Validate links
 ```
+
+**NEW in v2.8.0: Markdown Linting Execution Layer**
+
+- Auto-detect `markdownlint-cli2` globally or use `npx` fallback
+- Check markdown: `/craft:docs:lint` (30+ rules configured)
+- Auto-fix: `/craft:docs:lint --fix` (apply safe fixes)
+- Path targeting: `/craft:docs:lint docs/guide/` (check specific directories)
+- Pre-commit integration: Auto-fix on staged markdown
+- All 706+ tests passing (100%)
+- [Release Notes](../RELEASE-v2.8.0.md) | [Full Docs](../commands/docs/lint.md)
 
 **NEW in v2.7.0: Interactive Documentation Update**
 

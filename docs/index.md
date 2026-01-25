@@ -13,7 +13,7 @@
 
 > Full-stack developer toolkit for Claude Code - 100 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v2.7.0:** Interactive documentation update system with 9-category detection, category-level prompts, and production-ready error handling. See [what's new](#whats-new-in-v270)
+> **NEW in v2.8.0:** Markdown linting execution layer for `/craft:docs:lint` with auto-fix support. See [what's new](#whats-new-in-v280)
 
 ## Features
 
@@ -96,6 +96,38 @@ Complete OpenAPI-style documentation for all 97 Craft commands:
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
+
+## What's New in v2.8.0
+
+**Markdown Linting Execution Layer** ✨
+
+Implementation of the execution layer for `/craft:docs:lint` (PR #34):
+
+- **`scripts/docs-lint.sh`**: Bash execution script for markdown linting
+  - Auto-detects `markdownlint-cli2` globally or falls back to `npx`
+  - Supports `--fix` flag for auto-fixing issues
+  - Supports target path specification
+
+- **MVP Features (v2.8.0)**:
+  - Basic linting: Check markdown files against 30+ rules
+  - Auto-fix: Apply safe fixes with `--fix` flag
+  - Path targeting: Check specific files or directories
+  - Pre-commit integration: Works with existing hooks
+
+- **Clear Roadmap**: Feature status table distinguishes MVP (v2.8.0) from planned (v2.9.0+)
+  - Planned: Styled output boxes, execution modes (debug/optimize/release), language detection, interactive prompts, rule expansion (30 → 42)
+
+**Try it:**
+
+```bash
+/craft:docs:lint                  # Check all markdown
+/craft:docs:lint --fix            # Auto-fix issues
+/craft:docs:lint docs/guide/      # Check specific path
+```
+
+**Testing**: All 706+ tests passing (100%), pre-commit hook validated
+
+**Documentation**: [RELEASE-v2.8.0.md](../RELEASE-v2.8.0.md) for comprehensive details
 
 ## What's New in v2.7.0
 

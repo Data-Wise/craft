@@ -19,6 +19,7 @@
   "MD007": {
     "indent": 2
   },
+  "MD028": false,
   "MD029": false,
   "MD030": {
     "ul_single": 1,
@@ -73,7 +74,8 @@
       "response",
       "antml:function_calls",
       "antml:invoke",
-      "antml:parameter"
+      "antml:parameter",
+      "div"
     ]
   }
 }
