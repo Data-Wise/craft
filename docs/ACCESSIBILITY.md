@@ -3,6 +3,7 @@
 ⏱️ **3 minutes** • 🟢 Reference • ✓ WCAG AA Compliant
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** craft documentation meets WCAG AA accessibility standards for all users
 > - **Why:** Everyone deserves equal access to documentation, including users with disabilities
 > - **How:** Keyboard navigation, screen reader support, high contrast, reduced motion
@@ -51,12 +52,14 @@ All interactive elements are accessible via keyboard.
 ### Focus Indicators
 
 All focusable elements have visible focus outlines:
+
 - **Color:** Accent color (#ff6b35)
 - **Thickness:** 2px
 - **Offset:** 2px from element
 - **Visibility:** High contrast on all backgrounds
 
 **CSS Implementation:**
+
 ```css
 a:focus,
 button:focus {
@@ -79,6 +82,7 @@ button:focus {
 ### ARIA Labels
 
 Material for MkDocs provides built-in ARIA support:
+
 - Navigation menus have `role="navigation"`
 - Search has `role="search"`
 - Code blocks have `aria-label`
@@ -87,6 +91,7 @@ Material for MkDocs provides built-in ARIA support:
 ### Skip Links
 
 Users can skip repetitive navigation:
+
 - Material theme provides automatic skip link
 - Appears on first `Tab` press
 - Jumps directly to main content
@@ -126,6 +131,7 @@ Automatically adjusts for users with `prefers-contrast: high`:
 ### Color Independence
 
 Information is never conveyed by color alone:
+
 - Links have underlines
 - Callout boxes have icons
 - Code syntax uses shapes and patterns
@@ -150,6 +156,7 @@ Respects `prefers-reduced-motion` for users with vestibular disorders or ADHD:
 ```
 
 **What This Does:**
+
 - Disables smooth scrolling
 - Removes animated transitions
 - Stops auto-playing content
@@ -162,6 +169,7 @@ Respects `prefers-reduced-motion` for users with vestibular disorders or ADHD:
 ### Touch Target Size
 
 All interactive elements meet **AAA standards** (44×44px minimum):
+
 - Navigation links: 48×44px
 - Buttons: 48×36px
 - Card links: Full card area
@@ -170,6 +178,7 @@ All interactive elements meet **AAA standards** (44×44px minimum):
 ### Responsive Design
 
 Documentation adapts to all screen sizes:
+
 - **Desktop:** Full navigation sidebar
 - **Tablet:** Collapsible navigation
 - **Mobile:** Hamburger menu, single column layout
@@ -178,6 +187,7 @@ Documentation adapts to all screen sizes:
 ### Mermaid Diagrams
 
 Diagrams are fully responsive:
+
 ```css
 .mermaid {
   overflow-x: auto;
@@ -192,6 +202,7 @@ Diagrams are fully responsive:
 ```
 
 **Mobile Enhancements:**
+
 - Font size reduces at breakpoints
 - Horizontal scroll for wide diagrams
 - No content cutoff
@@ -236,6 +247,7 @@ H1: Page Title
 ### Automated Testing
 
 Documentation is tested with:
+
 - **axe DevTools** - No violations
 - **WAVE** - No errors
 - **Lighthouse** - 100 accessibility score
@@ -244,6 +256,7 @@ Documentation is tested with:
 ### Manual Testing
 
 Verified with:
+
 - **Keyboard only** navigation
 - **NVDA** screen reader (Windows)
 - **JAWS** screen reader (Windows)
@@ -259,6 +272,7 @@ Verified with:
 ### Mermaid Diagrams
 
 While mermaid diagrams are visually accessible:
+
 - **Screen readers:** Cannot read diagram content
 - **Workaround:** Each diagram has descriptive text above/below
 - **Example:** "Documentation Workflow - From code changes to deployed docs in one command"
@@ -266,6 +280,7 @@ While mermaid diagrams are visually accessible:
 ### Third-Party Content
 
 Some third-party embeds may have accessibility issues:
+
 - GitHub badges (images with alt text)
 - External links (icons indicate external)
 

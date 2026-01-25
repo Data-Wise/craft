@@ -23,6 +23,7 @@ Transform `/craft:hub` from a flat command list (89 commands overwhelming users)
 **So that** I can accomplish tasks without memorizing 89 commands or asking for help
 
 **Acceptance Criteria:**
+
 1. ✅ I can find any command in ≤ 3 clicks from hub entry
 2. ✅ Command counts are always accurate (no manual updates)
 3. ✅ Each command shows description, modes, and tutorial link
@@ -34,11 +35,13 @@ Transform `/craft:hub` from a flat command list (89 commands overwhelming users)
 ## Secondary User Stories
 
 ### US-2: Power User Quick Navigation
+
 **As a** power user
 **I want** to jump directly to categories or search commands
 **So that** I can find commands quickly without extra navigation
 
 **Acceptance Criteria:**
+
 - ✅ Can invoke `/craft:hub <category>` to skip main menu
 - ✅ Can search with `/craft:hub search <query>`
 - ✅ Hub remembers my frequent commands (future)
@@ -46,11 +49,13 @@ Transform `/craft:hub` from a flat command list (89 commands overwhelming users)
 ---
 
 ### US-3: Maintainer Auto-Updates
+
 **As a** Craft maintainer
 **I want** command counts and metadata auto-detected from files
 **So that** I don't manually update hub when commands change
 
 **Acceptance Criteria:**
+
 - ✅ Hub scans `commands/` directory on invocation
 - ✅ Parses YAML frontmatter for metadata
 - ✅ Displays accurate counts without hardcoded numbers
@@ -59,11 +64,13 @@ Transform `/craft:hub` from a flat command list (89 commands overwhelming users)
 ---
 
 ### US-4: Tutorial Author Contributions
+
 **As a** tutorial author
 **I want** a standard template for writing command tutorials
 **So that** I can create consistent, helpful learning content
 
 **Acceptance Criteria:**
+
 - ✅ Tutorial template exists with sections (What, Steps, Workflows, Related)
 - ✅ Tutorials are markdown files in `commands/tutorials/`
 - ✅ Hub auto-detects tutorials linked in command frontmatter
@@ -106,6 +113,7 @@ Layer 3: Command Detail + Tutorial
 **File:** `commands/_discovery.py`
 
 **Responsibilities:**
+
 1. Scan `commands/` directory recursively for `*.md` files
 2. Parse YAML frontmatter from each file
 3. Extract metadata: name, category, description, modes, tutorial
@@ -113,6 +121,7 @@ Layer 3: Command Detail + Tutorial
 5. Rebuild cache when command files change
 
 **Pseudocode:**
+
 ```python
 def discover_commands():
     """Auto-detect all commands from filesystem."""
@@ -189,6 +198,7 @@ def load_cached_commands():
 ```
 
 **Performance:**
+
 - First run: ~200ms (scan + parse + cache)
 - Subsequent runs: ~10ms (load from cache)
 - Auto-invalidates when command files change
@@ -202,6 +212,7 @@ def load_cached_commands():
 **File:** `commands/_schema.json` (documentation only, not enforced)
 
 **Required Fields:**
+
 ```yaml
 ---
 name: "code:lint"                    # Command identifier
@@ -211,6 +222,7 @@ description: "Code style & quality"  # One-line summary (< 60 chars)
 ```
 
 **Optional Fields:**
+
 ```yaml
 ---
 subcategory: "analysis"              # Subcategory for grouping
@@ -242,6 +254,7 @@ examples:                            # Usage examples
 ```
 
 **Migration Plan:**
+
 - Phase 1: Add required fields to all 89 commands
 - Phase 2: Add tutorials to top 10 commands
 - Phase 3: Add workflows to top 20 commands
@@ -256,6 +269,7 @@ examples:                            # Usage examples
 **Invocation:** `/craft:hub`
 
 **Display:**
+
 ```markdown
 ┌─────────────────────────────────────────────────────────────────┐
 │ 🛠️ CRAFT COMMAND HUB - Choose a Category                        │
@@ -281,6 +295,7 @@ examples:                            # Usage examples
 ```
 
 **AskUserQuestion:**
+
 ```python
 AskUserQuestion:
   question: "Which category would you like to explore?"
@@ -298,6 +313,7 @@ AskUserQuestion:
 ```
 
 **Interaction Flow:**
+
 1. Show main menu (auto-detected counts)
 2. User selects category (via AskUserQuestion)
 3. Navigate to Layer 2 (category view)
@@ -309,6 +325,7 @@ AskUserQuestion:
 **Invocation:** `/craft:hub <category>` (e.g., `/craft:hub code`)
 
 **Display:**
+
 ```markdown
 ┌─────────────────────────────────────────────────────────────────┐
 │ 💻 CODE COMMANDS (11 total)                                     │
@@ -346,6 +363,7 @@ AskUserQuestion:
 ```
 
 **AskUserQuestion:**
+
 ```python
 AskUserQuestion:
   question: "Select a command to learn more (or choose an option below)"
@@ -363,6 +381,7 @@ AskUserQuestion:
 ```
 
 **Interaction Flow:**
+
 1. Show category commands (grouped by subcategory)
 2. User selects command number (via AskUserQuestion)
 3. Navigate to Layer 3 (command detail)
@@ -374,6 +393,7 @@ AskUserQuestion:
 **Invocation:** `/craft:hub <category>:<command>` (e.g., `/craft:hub code:lint`)
 
 **Display:**
+
 ```markdown
 ┌─────────────────────────────────────────────────────────────────┐
 │ 📚 COMMAND: /craft:code:lint                                    │
@@ -451,6 +471,7 @@ AskUserQuestion:
 ```
 
 **Tutorial Template Structure:**
+
 1. **Description** (1-2 sentences, what it does)
 2. **Modes** (table of execution modes with time budgets)
 3. **Basic Usage** (syntax examples)
@@ -468,12 +489,14 @@ AskUserQuestion:
 **File:** `commands/_search_failures.jsonl`
 
 **Format:**
+
 ```json
 {"timestamp": "2026-01-15T14:30:00Z", "query": "deploy website", "context": "mkdocs project", "project_type": "mkdocs"}
 {"timestamp": "2026-01-15T14:35:00Z", "query": "run ci", "context": "python package", "project_type": "python"}
 ```
 
 **Usage:**
+
 ```python
 def track_failed_search(query, context):
     """Log when user searches but finds nothing."""
@@ -495,6 +518,7 @@ def track_failed_search(query, context):
 ```
 
 **Analytics:**
+
 ```bash
 # Monthly review of failed searches
 $ python3 commands/_analytics.py report --month 2026-01
@@ -667,6 +691,7 @@ Suggested Improvements:
 ### External Libraries (None Required)
 
 All functionality can be implemented with:
+
 - **Python Standard Library:** `os`, `glob`, `json`, `yaml` (frontmatter parsing)
 - **Existing Craft Tools:** `AskUserQuestion`, file I/O tools
 
@@ -797,6 +822,7 @@ Before implementing, verify:
 ### Phase 1: Foundation (Week 1)
 
 **Files to Create:**
+
 ```
 commands/
 ├── _discovery.py          # Auto-detection engine
@@ -807,12 +833,14 @@ commands/
 ```
 
 **Files to Update:**
+
 ```
 commands/hub.md            # Main hub command (Layer 1 + 2 + 3)
 .gitignore                 # Ignore cache and log files
 ```
 
 **Approach:**
+
 1. Implement `_discovery.py` first (core auto-detection)
 2. Test with 10 commands to validate parsing
 3. Update `hub.md` to use auto-detected data
@@ -824,6 +852,7 @@ commands/hub.md            # Main hub command (Layer 1 + 2 + 3)
 ### Phase 2: Metadata Enhancement (Week 2)
 
 **Tasks:**
+
 1. Create `_schema.json` with full metadata schema
 2. Update all 89 command files with enhanced frontmatter:
    - Required: `name`, `category`, `description`
@@ -832,6 +861,7 @@ commands/hub.md            # Main hub command (Layer 1 + 2 + 3)
 4. Add common workflows to top 20 commands
 
 **Migration Script:**
+
 ```bash
 # Bulk add required frontmatter to all commands
 python3 scripts/migrate-frontmatter.py --add-required
@@ -845,6 +875,7 @@ python3 scripts/validate-frontmatter.py
 ### Phase 3: Tutorials (Week 3-4)
 
 **Tasks:**
+
 1. Create tutorial template: `commands/tutorials/_TEMPLATE.md`
 2. Write tutorials for top 10 commands:
    - `code:lint`, `test:run`, `git:worktree`, `site:deploy`
@@ -854,6 +885,7 @@ python3 scripts/validate-frontmatter.py
 4. Add tutorial navigation to Layer 3
 
 **Tutorial Template:**
+
 ```markdown
 # Tutorial: /craft:<command>
 
@@ -866,26 +898,33 @@ python3 scripts/validate-frontmatter.py
 ```bash
 $ /craft:<command>
 ```
+
 [Explanation of what happens and when to use]
 
 ### Step 2: [Scenario Name]
+
 ```bash
-$ /craft:<command> <mode>
+/craft:<command> <mode>
 ```
+
 [Explanation of what happens and when to use]
 
 ## Common Workflows
 
 ### Workflow 1: [Name]
+
 1. Step
 2. Step
 3. Step
 
 ## Related Commands
+
 - [Command] - [Why related]
 
 ## Tips
+
 💡 [Pro user hint]
+
 ```
 
 ---

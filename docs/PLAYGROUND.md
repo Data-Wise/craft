@@ -3,6 +3,7 @@
 ⏱️ **15 minutes** • 🟢 Beginner • ✓ Interactive learning
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Interactive examples showing exactly what happens when you run craft commands
 > - **Why:** Learn by seeing real command outputs and understanding the workflow
 > - **How:** Follow along with each example, run the commands yourself, compare outputs
@@ -20,11 +21,13 @@ Try these commands yourself and see the magic happen!
 **Goal:** See all available commands
 
 **Command:**
+
 ```bash
 /craft:hub
 ```
 
 **What Happens:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ /craft:hub - Command Discovery                              │
@@ -49,6 +52,7 @@ Try these commands yourself and see the magic happen!
 ```
 
 **Why This Matters:**
+
 - You can always run `/craft:hub` to see what's available
 - Commands are organized by category for easy discovery
 - Each command has a one-line description
@@ -60,6 +64,7 @@ Try these commands yourself and see the magic happen!
 **Goal:** Add form validation to your project
 
 **Command:**
+
 ```bash
 /craft:do "add form validation"
 ```
@@ -72,6 +77,7 @@ Try these commands yourself and see the magic happen!
 4. **Command Routing** - Routes to appropriate command or agent
 
 **Terminal Output:**
+
 ```
 🎯 Analyzing task: "add form validation"
 
@@ -96,6 +102,7 @@ Try these commands yourself and see the magic happen!
 ```
 
 **What You Learn:**
+
 - One command handles the entire workflow
 - AI selects the right tools automatically
 - You don't need to remember which command to use
@@ -107,11 +114,13 @@ Try these commands yourself and see the magic happen!
 **Goal:** Make sure everything is good before committing
 
 **Command:**
+
 ```bash
 /craft:check
 ```
 
 **What Happens:**
+
 ```
 🔍 Running pre-flight checks...
 
@@ -127,6 +136,7 @@ Try these commands yourself and see the magic happen!
 ```
 
 **If Something Fails:**
+
 ```
 🔍 Running pre-flight checks...
 
@@ -143,6 +153,7 @@ Try these commands yourself and see the magic happen!
 ```
 
 **What You Learn:**
+
 - Pre-flight checks catch issues early
 - Many issues auto-fix automatically
 - Prevents broken commits
@@ -154,6 +165,7 @@ Try these commands yourself and see the magic happen!
 **Goal:** Create an ADHD-friendly docs site in under 5 minutes
 
 **Commands:**
+
 ```bash
 # Option 1: Interactive wizard
 /craft:site:create
@@ -163,6 +175,7 @@ Try these commands yourself and see the magic happen!
 ```
 
 **What Happens (Quick Mode):**
+
 ```
 🚀 Creating documentation site...
 
@@ -196,6 +209,7 @@ Next steps:
 ```
 
 **What You Learn:**
+
 - Site creation is fully automated
 - 8 ADHD-friendly presets available
 - Auto-deployment included
@@ -207,11 +221,13 @@ Next steps:
 **Goal:** Update docs after adding a new feature
 
 **Command:**
+
 ```bash
 /craft:docs:update
 ```
 
 **What Happens:**
+
 ```
 🔍 Detecting changes...
 
@@ -254,6 +270,7 @@ Changed files:
 ```
 
 **What You Learn:**
+
 - Smart detection avoids unnecessary updates
 - Multiple docs updated in one command
 - Validation runs automatically
@@ -265,11 +282,13 @@ Changed files:
 **Goal:** Run a full release audit before publishing
 
 **Command:**
+
 ```bash
 /craft:check --for release
 ```
 
 **What Happens:**
+
 ```
 🔍 Running FULL RELEASE AUDIT...
 
@@ -313,6 +332,7 @@ Next steps:
 ```
 
 **What You Learn:**
+
 - Release checks are comprehensive
 - Multiple validation gates
 - Clear next steps provided
@@ -343,6 +363,7 @@ Now that you've seen how commands work, try these challenges:
 ## Common Patterns
 
 ### Before Every Commit
+
 ```bash
 /craft:check                  # Quick validation
 # Fix any issues that appear
@@ -351,12 +372,14 @@ git commit -m "message"
 ```
 
 ### After Adding a Feature
+
 ```bash
 /craft:docs:update            # Update all docs
 /craft:check                  # Validate everything
 ```
 
 ### Before a Release
+
 ```bash
 /craft:check --for release    # Full audit
 /craft:docs:changelog         # Generate changelog
@@ -364,6 +387,7 @@ git commit -m "message"
 ```
 
 ### When Stuck
+
 ```bash
 /craft:help                   # Context-aware suggestions
 /craft:do "what you want"     # Let AI figure it out

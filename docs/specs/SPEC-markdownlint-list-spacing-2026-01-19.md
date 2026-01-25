@@ -12,6 +12,7 @@
 Enhance Craft's `/craft:docs:lint` command to strictly enforce MD030 (spaces after list markers) and MD032 (blank lines around lists) for consistent, portable documentation. This specification addresses list spacing violations that break rendering in various markdown processors.
 
 **Key Benefits:**
+
 - Consistent list formatting across 100+ command/skill/agent files
 - Portable documentation (works in GitHub, MkDocs, VS Code)
 - Auto-fix capability prevents manual cleanup
@@ -26,6 +27,7 @@ Enhance Craft's `/craft:docs:lint` command to strictly enforce MD030 (spaces aft
 **So that** all documentation renders consistently across platforms without manual formatting
 
 **Acceptance Criteria:**
+
 1. ✅ `/craft:docs:lint` automatically checks MD030 and MD032
 2. ✅ `--fix` flag auto-corrects spacing violations
 3. ✅ Project-wide marker style enforced (either `-` or `*` consistently)
@@ -37,11 +39,13 @@ Enhance Craft's `/craft:docs:lint` command to strictly enforce MD030 (spaces aft
 ## Secondary User Stories
 
 ### Story 2: Migration Path
+
 **As a** documentation maintainer
 **I want** gradual migration without breaking existing docs
 **So that** violations are fixed incrementally without disruption
 
 ### Story 3: Developer Experience
+
 **As a** command author
 **I want** clear error messages with auto-fix suggestions
 **So that** I can quickly fix spacing issues without learning rules
@@ -143,12 +147,14 @@ graph TD
 ```
 
 **Why MD030 Needs Explicit Config:**
+
 - Default behavior varies between markdownlint versions
 - Explicit config ensures consistent enforcement
 - `ul_single: 1` enforces exactly 1 space after `-` or `*`
 - `ol_single: 1` enforces exactly 1 space after `1.` or `10.`
 
 **Why MD004:**
+
 - Craft docs currently mix `-` and `*` markers
 - `"style": "dash"` enforces `-` consistently
 - Makes docs more portable (some parsers prefer `-`)
@@ -189,6 +195,7 @@ const criticalRules = {
   "MD010": true,      // No hard tabs
 };
 ```
+
 ```
 
 **Update Auto-Fix Rules table (line 313-325):**
@@ -208,11 +215,13 @@ const criticalRules = {
 ### 3. Error Message Improvements
 
 **Current error output (generic):**
+
 ```
 docs/test.md:21:1: MD030 - Spaces after list markers
 ```
 
 **Proposed error output (specific):**
+
 ```
 docs/test.md:21:1: MD030 - List spacing violation
   Found:    -  Item with 2 spaces
@@ -231,22 +240,26 @@ docs/test.md:21:1: MD030 - List spacing violation
 
 ### 4. Migration Strategy
 
-**Phase 1: Detection (Week 1)**
+#### Phase 1: Detection (Week 1)
+
 - Run `/craft:docs:lint` without `--fix`
 - Generate violation report
 - Identify files with most violations
 
-**Phase 2: Configuration (Week 1)**
+#### Phase 2: Configuration (Week 1)
+
 - Update `.markdownlint.json` with new rules
 - Test on sample files
 - Verify auto-fix behavior
 
-**Phase 3: Gradual Fix (Ongoing)**
+#### Phase 3: Gradual Fix (Ongoing)
+
 - Fix files as they're edited (not bulk)
 - Pre-commit hook prevents new violations
 - Monthly report tracks progress
 
-**Phase 4: Enforcement (Week 4)**
+#### Phase 4: Enforcement (Week 4)
+
 - Enable strict mode in CI/CD
 - Block PRs with violations
 - All docs compliant
@@ -255,7 +268,8 @@ docs/test.md:21:1: MD030 - List spacing violation
 
 **Target:** < 10s for 100+ markdown files
 
-**Strategy: Balanced Approach**
+#### Strategy: Balanced Approach
+
 - Fast path: Cache results for unchanged files (80% hit rate)
 - Smart detection: Skip files with no lists (20% skip rate)
 - Parallel processing: Batch files in groups of 10
@@ -293,13 +307,16 @@ N/A - No data model changes
 ## Dependencies
 
 ### Existing Dependencies
+
 - ✅ `markdownlint-cli2@^0.14.0` (already in package.json)
 - ✅ `.markdownlint.json` (already exists)
 
 ### New Dependencies
+
 - None (uses existing tooling)
 
 ### Dev Dependencies
+
 ```json
 {
   "devDependencies": {
@@ -450,6 +467,7 @@ sequenceDiagram
 
 2. **What if a file intentionally uses multiple spaces for alignment?**
    - **Proposed solution:** Use inline disable comments
+
    ```markdown
    <!-- markdownlint-disable MD030 -->
    - Item 1   aligned intentionally
@@ -493,6 +511,7 @@ sequenceDiagram
    - Keep existing relaxed rules
 
 2. **Test on sample files:**
+
    ```bash
    # Create test file with violations
    echo "## Test\n-  Item with 2 spaces\n* Different marker" > test.md
@@ -535,6 +554,7 @@ sequenceDiagram
 ### Phase 3: Migration Execution (Ongoing)
 
 1. **Generate baseline report:**
+
    ```bash
    /craft:docs:lint > docs/LINT-BASELINE-2026-01-19.txt
    ```
@@ -545,6 +565,7 @@ sequenceDiagram
    - commands/do.md (most-used command)
 
 3. **Set up pre-commit hook:**
+
    ```bash
    # .git/hooks/pre-commit
    #!/bin/bash
@@ -559,12 +580,14 @@ sequenceDiagram
 ### Phase 4: CI/CD Integration (1 hour)
 
 1. **Update `.github/workflows/docs-quality.yml`:**
+
    ```yaml
    - name: Run markdown linting
      run: npx markdownlint-cli2 --config .markdownlint.json "docs/**/*.md" "*.md"
    ```
 
 2. **Add status badge to README:**
+
    ```markdown
    ![Docs Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg)
    ```

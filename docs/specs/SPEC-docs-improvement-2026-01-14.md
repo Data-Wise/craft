@@ -33,11 +33,13 @@ Enhance Craft's documentation system to reliably generate docs for new features,
 ## Secondary User Stories
 
 ### Story 2: Force Generation
+
 **As a** developer
 **I want** to force specific doc types to be generated
 **So that** I can create docs even when auto-detection doesn't trigger
 
 ### Story 3: Template Access
+
 **As a** developer
 **I want** access to ADHD-friendly doc templates
 **So that** I can create consistent, scannable documentation
@@ -225,19 +227,23 @@ flowchart LR
 ## Implementation Notes
 
 ### Phase 1: Quick Wins (30 min)
+
 1. Import 7 templates from `~/projects/dev-tools/flow-cli/docs/conventions/adhd/`
 2. Add `--with-tutorial`, `--with-help`, `--with-workflow` flags to update.md
 
 ### Phase 2: New Commands (2-3 hours)
+
 1. Create `/craft:docs:help.md`
 2. Create `/craft:docs:workflow.md`
 3. Create `/craft:docs:quickstart.md`
 
 ### Phase 3: Scoring Enhancement (1 hour)
+
 1. Update `skills/docs/doc-classifier.md` with new types
 2. Add new types to `/craft:docs:update.md` orchestrator
 
 ### Phase 4: Testing (30 min)
+
 1. Add tests for new commands
 2. Validate scoring thresholds
 

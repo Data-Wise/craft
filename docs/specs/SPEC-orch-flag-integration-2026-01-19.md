@@ -13,6 +13,7 @@ Add `--orch` flag to selected Craft commands to enable explicit orchestration mo
 ## User Requirements
 
 ### Commands to Enhance
+
 1. `/craft:do` - Universal router
 2. `/craft:workflow:brainstorm` - ADHD-friendly brainstorming
 3. `/craft:check` - Pre-flight validation
@@ -22,6 +23,7 @@ Add `--orch` flag to selected Craft commands to enable explicit orchestration mo
 ### Behavior Specification
 
 #### Flag Syntax
+
 ```bash
 # No mode specified → prompt user
 /craft:do "add auth" --orch
@@ -36,11 +38,13 @@ Add `--orch` flag to selected Craft commands to enable explicit orchestration mo
 ```
 
 #### Mode Selection
+
 - **Explicit mode**: `--orch=<mode>` (default|debug|optimize|release)
 - **No mode**: Prompt user interactively to select mode
 - **Invalid mode**: Error with valid options
 
 #### Integration Requirements
+
 ✅ Compatible with `--dry-run` flag (preview orchestration plan)
 ✅ Compatible with mode flags (`--orch debug` or `--orch=debug`)
 ✅ Compatible with category filters for brainstorm (`-C req,tech`)
@@ -49,6 +53,7 @@ Add `--orch` flag to selected Craft commands to enable explicit orchestration mo
 ### User Stories
 
 **Story 1**: Quick Orchestration
+
 ```
 As a developer
 I want to quickly orchestrate a task without separate command
@@ -59,6 +64,7 @@ Example:
 ```
 
 **Story 2**: Preview Orchestration
+
 ```
 As a developer
 I want to preview what orchestration will do
@@ -69,6 +75,7 @@ Example:
 ```
 
 **Story 3**: Brainstorm with Orchestration
+
 ```
 As a developer with ADHD
 I want to orchestrate brainstorm sessions
@@ -172,6 +179,7 @@ def spawn_orchestrator(task, mode):
 ### 3. Integration with Existing Flags
 
 #### /craft:do Integration
+
 ```python
 # In /craft:do command implementation
 task = args.task
@@ -196,6 +204,7 @@ route_by_complexity(task, complexity_score)
 ```
 
 #### /craft:workflow:brainstorm Integration
+
 ```python
 # In /craft:workflow:brainstorm command implementation
 task = args.task
@@ -265,18 +274,21 @@ def show_orchestration_preview(task, mode):
 ### Phase 1: Core Infrastructure (2-3 hours)
 
 **Deliverables**:
+
 - [ ] Create `utils/orch_flag_handler.py` with core logic
 - [ ] Add mode prompt using `AskUserQuestion`
 - [ ] Add orchestrator spawning logic
 - [ ] Add dry-run preview logic
 
 **Files**:
+
 - `utils/orch_flag_handler.py` (NEW)
 - `utils/complexity_scorer.py` (UPDATE: add orchestrator mode mapping)
 
 ### Phase 2: Command Updates (3-4 hours)
 
 **Deliverables**:
+
 - [ ] Update `/craft:do` YAML frontmatter + implementation
 - [ ] Update `/craft:workflow:brainstorm` YAML frontmatter + implementation
 - [ ] Update `/craft:check` YAML frontmatter + implementation
@@ -284,6 +296,7 @@ def show_orchestration_preview(task, mode):
 - [ ] Update `/craft:ci:generate` YAML frontmatter + implementation
 
 **Files**:
+
 - `commands/do.md` (UPDATE)
 - `commands/workflow/brainstorm.md` (UPDATE)
 - `commands/check.md` (UPDATE)
@@ -293,6 +306,7 @@ def show_orchestration_preview(task, mode):
 ### Phase 3: Testing (2-3 hours)
 
 **Deliverables**:
+
 - [ ] Unit tests for `orch_flag_handler.py`
 - [ ] Integration tests for each command
 - [ ] Test flag combinations (--orch + --dry-run, --orch + -C)
@@ -300,10 +314,12 @@ def show_orchestration_preview(task, mode):
 - [ ] Test mode prompt interaction
 
 **Files**:
+
 - `tests/test_orch_flag_handler.py` (NEW)
 - `tests/test_integration_orch_flag.py` (NEW)
 
 **Test Cases**:
+
 ```python
 def test_orch_flag_with_mode():
     """Test --orch=optimize spawns orchestrator"""
@@ -338,12 +354,14 @@ def test_brainstorm_orch_with_categories():
 ### Phase 4: Documentation (1-2 hours)
 
 **Deliverables**:
+
 - [ ] Update command documentation with `--orch` examples
 - [ ] Add guide: "Using --orch Flag for Quick Orchestration"
 - [ ] Update CLAUDE.md with --orch flag info
 - [ ] Update VERSION-HISTORY.md with v2.5.0 entry
 
 **Files**:
+
 - `docs/guide/orch-flag-usage.md` (NEW)
 - `CLAUDE.md` (UPDATE)
 - `docs/VERSION-HISTORY.md` (UPDATE)
@@ -352,6 +370,7 @@ def test_brainstorm_orch_with_categories():
 ## Examples
 
 ### Example 1: Quick Orchestration
+
 ```bash
 /craft:do "add user authentication" --orch=optimize
 
@@ -366,6 +385,7 @@ Wave 1: Spawning arch-1, doc-1 in parallel...
 ```
 
 ### Example 2: Mode Prompt
+
 ```bash
 /craft:do "add payment integration" --orch
 
@@ -384,6 +404,7 @@ Spawning orchestrator in optimize mode...
 ```
 
 ### Example 3: Dry-Run Preview
+
 ```bash
 /craft:do "refactor authentication" --orch=release --dry-run
 
@@ -408,6 +429,7 @@ Spawning orchestrator in optimize mode...
 ```
 
 ### Example 4: Brainstorm with Orchestration
+
 ```bash
 /craft:workflow:brainstorm "payment processing system" --orch=optimize -C req,tech,risk
 
@@ -426,11 +448,13 @@ Synthesizing results into comprehensive spec...
 ## Dependencies
 
 ### Internal Dependencies
+
 - `utils/complexity_scorer.py` - For complexity calculation
 - `commands/orchestrate.md` - Orchestrator command
 - `.claude-plugin/plugin.json` - Plugin manifest
 
 ### External Dependencies
+
 - AskUserQuestion tool (Claude Code 2.1.0+)
 - Skill tool (for spawning orchestrator)
 
@@ -453,14 +477,17 @@ Synthesizing results into comprehensive spec...
 ## Rollout Plan
 
 ### Week 1: Development
+
 - Complete Phase 1-2 (infrastructure + command updates)
 - Internal testing
 
 ### Week 2: Testing & Documentation
+
 - Complete Phase 3-4 (tests + docs)
 - Update CLAUDE.md and VERSION-HISTORY.md
 
 ### Week 3: Release
+
 - Merge to `dev` branch
 - PR to `main` with v2.5.0 tag
 - Announce in release notes

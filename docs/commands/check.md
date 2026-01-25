@@ -11,6 +11,7 @@
 ```
 
 **Quick examples:**
+
 ```bash
 # Most common - quick validation
 /craft:check
@@ -29,12 +30,14 @@
 Runs appropriate checks for your project type and context. Auto-detects Python, Node.js, R, Go, and Rust projects, then executes the right linting, testing, and validation tools.
 
 **Use cases:**
+
 - Quick sanity check before committing
 - Full validation before creating a PR
 - Pre-release verification
 - CI simulation locally
 
 **What it does:**
+
 - Detects project type from marker files (package.json, pyproject.toml, etc.)
 - Detects if running in a git worktree
 - Runs appropriate lint, test, and security checks

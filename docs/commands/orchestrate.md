@@ -12,6 +12,7 @@
 ```
 
 **Quick examples:**
+
 ```bash
 # Start orchestrated workflow
 /craft:orchestrate "add user authentication"
@@ -32,6 +33,7 @@
 Activates Orchestrator v2.1 mode which decomposes complex tasks into subtasks, spawns background subagents to work in parallel, monitors progress, and manages context compression.
 
 **What it does:**
+
 1. **Analyzes** your task and decomposes into subtasks
 2. **Spawns** background subagents to work in parallel
 3. **Monitors** progress with visual status dashboard
@@ -51,6 +53,7 @@ Activates Orchestrator v2.1 mode which decomposes complex tasks into subtasks, s
 | `release` | 4 | 85% | Pre-release audit |
 
 **Examples:**
+
 ```bash
 /craft:orchestrate "add auth" optimize    # Fast parallel
 /craft:orchestrate "prep release" release # Thorough audit
@@ -183,6 +186,7 @@ Sessions persist across disconnects:
 ```
 
 **State file locations:**
+
 ```
 .claude/orchestrator-session.json     # Current session
 .claude/orchestrator-history/         # Archived sessions
@@ -202,6 +206,7 @@ The orchestrator tracks context usage:
 | > 85% | 🔴 Auto-compress triggered |
 
 **Automatic triggers:**
+
 - Exchange count > 20
 - Large agent response (> 3000 tokens)
 - Claude system warning about context
@@ -234,6 +239,7 @@ When context gets high, compression archives completed work:
 ## Integration
 
 Works with all craft commands:
+
 - Routes to `/craft:arch:*` for design tasks
 - Routes to `/craft:code:*` for implementation
 - Routes to `/craft:test:*` for testing
@@ -253,6 +259,7 @@ The orchestrator coordinates complex workflows that include context gathering wi
 ```
 
 Flow:
+
 1. Brainstorm d:8 with categories for comprehensive context
 2. Spawn backend-architect agent for design
 3. Spawn frontend specialist for UI
@@ -276,6 +283,7 @@ Flow:
 ```
 
 ### Benefits
+
 - **Structured context** - Question bank ensures comprehensive requirements
 - **Focused agents** - Agents receive filtered context
 - **Milestone progress** - Unlimited questions with prompts

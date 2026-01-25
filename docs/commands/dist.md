@@ -3,6 +3,7 @@
 ⏱️ **10 minutes** • 🟡 Intermediate • ✓ Multi-platform packaging
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** 3 commands for packaging and distributing your project (Homebrew, PyPI, curl installer)
 > - **Why:** Automate release workflows and make your project easy to install across platforms
 > - **How:** Use `/craft:dist:homebrew setup` for macOS, `/craft:dist:pypi` for Python packages
@@ -60,6 +61,7 @@ Complete Homebrew formula management with automated GitHub Actions workflows.
 ```
 
 **Output:**
+
 ```
 ╔═══════════════════════════════════════════════════════════╗
 ║       HOMEBREW AUTOMATION SETUP WIZARD                     ║
@@ -106,6 +108,7 @@ PyPI occasionally changes URLs for packages. Fix automatically:
 ```
 
 **Output:**
+
 ```
 Checking 5 resources...
   ✓ click: 8.0.0 → 8.1.7 (URL updated)
@@ -155,7 +158,7 @@ Uses OpenID Connect (OIDC) for secure, token-free publishing:
 **Setup:**
 
 1. **Add pending publisher on PyPI:**
-   - Go to: https://pypi.org/manage/account/publishing/
+   - Go to: <https://pypi.org/manage/account/publishing/>
    - Project: `your-package`
    - Owner: `your-org`
    - Repository: `your-repo`
@@ -211,6 +214,7 @@ jobs:
 ```
 
 **Checks:**
+
 - `pyproject.toml` completeness
 - Version format (SemVer)
 - README presence

@@ -37,6 +37,7 @@ Scheduled testing of `/craft:ci:detect` on all active dev-tools projects.
 ## Detection Validation Checklist
 
 For each project, verify:
+
 - [ ] Project type detected correctly
 - [ ] Build tool/package manager identified
 - [ ] Test framework found (if applicable)

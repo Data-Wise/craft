@@ -18,12 +18,14 @@ Address gaps identified in v2.5.0 --orch flag integration to improve user experi
 ## Background
 
 The v2.5.0 release successfully shipped the --orch flag feature with:
+
 - ✅ 56 tests (100% passing)
 - ✅ 5 commands integrated
 - ✅ Comprehensive user guide
 - ✅ Website documentation
 
 **Gap Analysis** (GAP-ANALYSIS-orch-flag-v2.5.0.md) identified 12 gaps:
+
 - 1 High priority (mode prompt stub)
 - 2 Medium priority (error handling, testing checklist)
 - 9 Low priority (documentation enhancements, future features)
@@ -37,6 +39,7 @@ This spec addresses the **top 3 gaps** to bring v2.5.0 → v2.5.1 quality.
 ### Gap 4.1: Interactive Mode Prompt (HIGH PRIORITY)
 
 **Current Behavior:**
+
 ```python
 def prompt_user_for_mode():
     """Prompt user to select orchestration mode"""
@@ -45,6 +48,7 @@ def prompt_user_for_mode():
 ```
 
 **Expected Behavior:**
+
 ```bash
 /craft:do "add auth" --orch
 
@@ -61,6 +65,7 @@ User selects: 3 (optimize)
 ```
 
 **Requirements:**
+
 - Use `AskUserQuestion` tool for mode selection
 - Display all 4 modes with descriptions
 - Handle user cancellation gracefully
@@ -72,6 +77,7 @@ User selects: 3 (optimize)
 ### Gap 4.2: Error Handling for Orchestrator Spawn (MEDIUM PRIORITY)
 
 **Current Behavior:**
+
 ```python
 def spawn_orchestrator(task, mode):
     """Spawn orchestrator with specified mode"""
@@ -80,6 +86,7 @@ def spawn_orchestrator(task, mode):
 ```
 
 **Expected Behavior:**
+
 ```python
 def spawn_orchestrator(task, mode):
     """Spawn orchestrator with specified mode"""
@@ -93,6 +100,7 @@ def spawn_orchestrator(task, mode):
 ```
 
 **Requirements:**
+
 - Wrap orchestrator spawn in try/except
 - Log error message if spawn fails
 - Return success boolean
@@ -106,6 +114,7 @@ def spawn_orchestrator(task, mode):
 **Current:** No documented manual testing procedure for user interactions
 
 **Expected:** Comprehensive checklist in IMPLEMENTATION.md covering:
+
 - Mode prompt interaction
 - Cancellation behavior
 - Invalid selections
@@ -121,6 +130,7 @@ def spawn_orchestrator(task, mode):
 **Current:** CLAUDE.md mentions orchestration but doesn't link to orch-flag-usage.md
 
 **Expected:** Direct link in Key Files section:
+
 ```markdown
 ## Key Files
 
@@ -138,6 +148,7 @@ def spawn_orchestrator(task, mode):
 **File:** `utils/orch_flag_handler.py`
 
 **Implementation:**
+
 ```python
 def prompt_user_for_mode() -> str:
     """
@@ -195,6 +206,7 @@ def prompt_user_for_mode() -> str:
 ```
 
 **Tests:**
+
 ```python
 # tests/test_orch_flag_handler.py
 
@@ -231,6 +243,7 @@ def test_prompt_user_for_mode_handles_invalid_selection(monkeypatch):
 **File:** `utils/orch_flag_handler.py`
 
 **Implementation:**
+
 ```python
 def spawn_orchestrator(task: str, mode: str, extra_args: str = "") -> bool:
     """
@@ -264,6 +277,7 @@ def spawn_orchestrator(task: str, mode: str, extra_args: str = "") -> bool:
 ```
 
 **Updated Callers:**
+
 ```python
 # In commands that use spawn_orchestrator
 
@@ -282,6 +296,7 @@ if should_orch:
 ```
 
 **Tests:**
+
 ```python
 # tests/test_orch_flag_handler.py
 
@@ -321,6 +336,7 @@ def test_spawn_orchestrator_includes_extra_args(monkeypatch):
 **File:** `~/.git-worktrees/craft/feature-orch-flag-v2.5.1-improvements/TESTING-CHECKLIST.md`
 
 **Content:**
+
 ```markdown
 # Manual Testing Checklist: --orch Flag
 
@@ -389,6 +405,7 @@ def test_spawn_orchestrator_includes_extra_args(monkeypatch):
 **File:** `CLAUDE.md`
 
 **Changes:**
+
 ```markdown
 ## Key Files
 
@@ -433,34 +450,40 @@ def test_spawn_orchestrator_includes_extra_args(monkeypatch):
 ### Phase 1: Core Improvements (2-3 hours)
 
 **Deliverables:**
+
 - [ ] Implement `prompt_user_for_mode()` with `AskUserQuestion`
 - [ ] Add error handling to `spawn_orchestrator()`
 - [ ] Update function signatures and return types
 - [ ] Add type hints
 
 **Files:**
+
 - `utils/orch_flag_handler.py` (UPDATE)
 
 ### Phase 2: Testing (1-2 hours)
 
 **Deliverables:**
+
 - [ ] Add 6 new unit tests for prompt function
 - [ ] Add 3 new unit tests for error handling
 - [ ] Create manual testing checklist
 - [ ] Run all existing tests (ensure no regression)
 
 **Files:**
+
 - `tests/test_orch_flag_handler.py` (UPDATE)
 - `TESTING-CHECKLIST.md` (NEW)
 
 ### Phase 3: Documentation (1 hour)
 
 **Deliverables:**
+
 - [ ] Update CLAUDE.md with orch guide link
 - [ ] Update orch-flag-usage.md with troubleshooting section
 - [ ] Update VERSION-HISTORY.md with v2.5.1 entry
 
 **Files:**
+
 - `CLAUDE.md` (UPDATE)
 - `docs/guide/orch-flag-usage.md` (UPDATE)
 - `docs/VERSION-HISTORY.md` (UPDATE)
@@ -470,11 +493,13 @@ def test_spawn_orchestrator_includes_extra_args(monkeypatch):
 ## Dependencies
 
 ### Internal Dependencies
+
 - `utils/orch_flag_handler.py` - Core handler (exists)
 - `AskUserQuestion` tool - Claude Code 2.1.0+ (available)
 - `Skill` tool - For orchestrator spawn (available)
 
 ### External Dependencies
+
 None
 
 ---
@@ -494,6 +519,7 @@ None
 ### Unit Tests (9 new tests)
 
 **Mode Prompt Tests (6):**
+
 - test_prompt_user_for_mode_returns_valid_mode
 - test_prompt_user_for_mode_handles_cancellation
 - test_prompt_user_for_mode_handles_invalid_selection
@@ -502,11 +528,13 @@ None
 - test_prompt_user_for_mode_tool_unavailable
 
 **Error Handling Tests (3):**
+
 - test_spawn_orchestrator_returns_true_on_success
 - test_spawn_orchestrator_returns_false_on_failure
 - test_spawn_orchestrator_includes_extra_args
 
 ### Manual Testing (8 scenarios)
+
 See TESTING-CHECKLIST.md for complete manual test plan.
 
 ---
@@ -523,10 +551,12 @@ See TESTING-CHECKLIST.md for complete manual test plan.
 ## Rollout Plan
 
 ### Week 1: Development + Testing
+
 - Complete Phase 1-2 (implementation + unit tests)
 - Internal testing with TESTING-CHECKLIST.md
 
 ### Week 2: Documentation + Release
+
 - Complete Phase 3 (documentation updates)
 - Merge to `dev` branch
 - Create v2.5.1 release

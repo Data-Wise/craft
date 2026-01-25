@@ -21,6 +21,7 @@ that automatically detects, validates, and installs required tools for terminal
 GIF generation using either asciinema or VHS workflows.
 
 **Key Features:**
+
 - Auto-detection of installed tools
 - Health validation and version checking
 - Automated installation with user consent
@@ -77,12 +78,14 @@ Two methods are supported for creating terminal GIFs:
 **Best for:** Real terminal recordings, authentic output, recording-based workflows
 
 **Tools required:**
+
 - `asciinema` (required) - Record terminal sessions
 - `agg` (required) - Convert .cast to .gif
 - `gifsicle` (required) - Optimize GIF size
 - `fswatch` (optional) - Watch mode for live updates
 
 **Workflow:**
+
 ```bash
 # 1. Record session
 asciinema rec demo.cast
@@ -95,6 +98,7 @@ asciinema rec demo.cast
 ```
 
 **Benefits:**
+
 - Records actual terminal output
 - Perfect for showing real commands and results
 - Captures timing and pauses naturally
@@ -105,11 +109,13 @@ asciinema rec demo.cast
 **Best for:** Scripted/repeatable demos, consistent output, automated testing
 
 **Tools required:**
+
 - `vhs` (required) - Generate scripted demos
 - `gifsicle` (required) - Optimize GIF size
 - `ffmpeg` (optional) - Video processing
 
 **Workflow:**
+
 ```bash
 # 1. Create VHS tape script
 cat > demo.tape <<EOF
@@ -128,6 +134,7 @@ gifsicle -O3 demo.gif -o demo.gif
 ```
 
 **Benefits:**
+
 - Repeatable and scriptable
 - Consistent timing and output
 - Good for automated demos
@@ -178,11 +185,13 @@ The project includes a pre-configured GitHub Actions workflow for dependency val
 **Location:** `.github/workflows/validate-dependencies.yml`
 
 **Triggers:**
+
 - Push to main, dev, or feature/* branches
 - Pull requests to main or dev
 - Manual workflow dispatch
 
 **What it does:**
+
 1. Checks out code
 2. Installs jq for JSON parsing
 3. Validates asciinema method dependencies
@@ -238,17 +247,20 @@ When using `--check --json`, the output follows this structure:
 ```
 
 **Status values:**
+
 - `ok` - All required tools installed and healthy
 - `issues` - Missing or broken tools detected
 - `unknown` - Could not determine status
 
 **Health values:**
+
 - `ok` - Tool installed and working
 - `broken` - Tool installed but health check failed
 - `outdated` - Tool installed but version is outdated
 - `n/a` - Tool not installed
 
 **Exit codes:**
+
 - `0` - All dependencies OK
 - `1` - Missing required dependencies or health check failed
 - `2` - File exists (batch conversion, use --force)
@@ -281,6 +293,7 @@ echo "asciinema version: $version"
 **Symptom:** Tool is installed but `--check` reports it as missing
 
 **Solutions:**
+
 ```bash
 # Verify tool is in PATH
 which asciinema
@@ -300,6 +313,7 @@ brew list asciinema  # for brew-installed tools
 **Symptom:** Tool installed but health check reports "broken"
 
 **Solutions:**
+
 ```bash
 # Test tool manually
 asciinema --version
@@ -320,6 +334,7 @@ brew uninstall asciinema
 **Symptom:** Tool installed but version is outdated or unsupported
 
 **Solutions:**
+
 ```bash
 # Check version requirements
 ./scripts/version-check.sh check asciinema
@@ -340,6 +355,7 @@ brew install asciinema@2.3.0
 **Symptom:** `--fix` fails with permission errors
 
 **Solutions:**
+
 ```bash
 # Use sudo for system-wide installation
 sudo /craft:docs:demo --fix
@@ -357,6 +373,7 @@ sudo chown $(whoami):admin /usr/local/bin
 **Symptom:** `--convert` fails because .cast file not found
 
 **Solutions:**
+
 ```bash
 # Verify .cast file exists
 ls -la demo.cast
@@ -376,6 +393,7 @@ asciinema rec demo.cast
 **Symptom:** GIF is too large or has quality issues
 
 **Solutions:**
+
 ```bash
 # Check GIF file
 file output.gif
@@ -528,12 +546,14 @@ vhs method:
 ### Performance Optimization
 
 **Session Caching:**
+
 - Dependency checks cached per shell session (5-minute TTL)
 - Reduces repeated checks during rapid-fire commands
 - Cache invalidated on /craft:docs:demo --check with --force
 - Cache stored in `$TMPDIR/.craft-demo-cache-*`
 
 **Parallel Operations:**
+
 - Multiple tools checked concurrently where possible
 - Batch conversions processed in parallel
 - Installation from multiple sources in parallel
@@ -619,7 +639,9 @@ Run with: /craft:docs:demo --batch
 For more detailed information, see:
 
 ### 📘 [API Reference](API-REFERENCE.md)
+
 Complete function signatures, parameters, return values, and code examples for all scripts:
+
 - `dependency-manager.sh` - Main orchestrator with 4 commands
 - `tool-detector.sh` - Tool detection logic
 - `session-cache.sh` - Performance caching (60s TTL)
@@ -634,7 +656,9 @@ Complete function signatures, parameters, return values, and code examples for a
 **Includes**: JSON schemas, exit codes, integration examples
 
 ### 🏗️ [Architecture Diagrams](DEPENDENCY-ARCHITECTURE.md)
+
 Visual architecture with 13 Mermaid diagrams:
+
 - **System Overview**: 4 phases + storage architecture
 - **Component Diagrams**: Detection, Installation, Conversion, Repair
 - **Sequence Diagrams**: Check, Install, Convert, Repair workflows
@@ -646,7 +670,9 @@ Visual architecture with 13 Mermaid diagrams:
 **Includes**: Color-coded components, clear data flow visualization
 
 ### 👨‍💻 [Developer Guide](DEVELOPER-GUIDE.md)
+
 Complete guide for contributors and maintainers:
+
 - **Getting Started**: Setup, directory structure, quick start
 - **Code Structure**: Patterns, naming conventions, error handling
 - **Adding Features**: Step-by-step guides for new tools, strategies, checks
@@ -659,12 +685,15 @@ Complete guide for contributors and maintainers:
 **Includes**: 50+ code examples, test templates, troubleshooting guides
 
 ### 🧪 [Test Suite](../tests/test_dependency_management.sh)
+
 Comprehensive test coverage (100% passing):
+
 - **Unit Tests**: 50/50 passing - Script existence, functions, syntax
 - **Validation Tests**: 12/12 passing - JSON output, sourcing, flags
 - **E2E Tests**: 17/17 passing - Full workflows, integration, documentation
 
 Run tests:
+
 ```bash
 # All tests
 ./tests/test_dependency_management.sh all

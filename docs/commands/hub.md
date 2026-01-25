@@ -18,6 +18,7 @@
 ```
 
 **Quick examples:**
+
 ```bash
 # Show full hub (Layer 1)
 /craft:hub
@@ -37,6 +38,7 @@
 ## What's New in v2.4.0
 
 ### Brainstorm Question Control
+
 - **Colon notation** - `d:5`, `m:12`, `q:3` for custom question counts
 - **Categories flag** - Filter questions by type (`-C req,tech,success`)
 - **8-category question bank** - 16 questions total
@@ -56,17 +58,20 @@
 Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive disclosure**:
 
 ### Auto-Detection Engine
+
 - **Dynamic discovery** - Scans `commands/` directory automatically
 - **Always accurate** - No hardcoded counts that drift out of sync
 - **Fast caching** - JSON cache with auto-invalidation (<2ms cached, 12ms uncached)
 - **100 commands** detected across 17 categories (v2.4.0)
 
 ### 3-Layer Navigation
+
 1. **Layer 1 (Main Menu)** - Browse categories with counts
 2. **Layer 2 (Category View)** - Browse commands by subcategory
 3. **Layer 3 (Command Detail)** - View full tutorials
 
 ### ADHD-Friendly Design
+
 - **Progressive disclosure** - Start broad, drill down as needed
 - **Visual hierarchy** - Clear sections, icons, and formatting
 - **No overwhelm** - Never show all 100 commands at once
@@ -79,6 +84,7 @@ Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive dis
 Central command discovery hub that shows all available craft commands organized by category. The v2.0 hub uses an auto-detection engine to dynamically discover commands and provides a 3-layer navigation system for exploring the toolkit.
 
 **Key Features:**
+
 - **Auto-detection** - Discovers commands from filesystem, always accurate
 - **3-layer navigation** - Main Menu → Category View → Command Detail
 - **Subcategory grouping** - Commands organized by purpose within categories
@@ -134,6 +140,7 @@ Shows all categories with auto-detected command counts:
 ```
 
 **Navigation:**
+
 - Select any category to view Layer 2 (Category View)
 - Example: `/craft:hub code` → Browse all CODE commands
 
@@ -181,6 +188,7 @@ Shows all commands in a category, grouped by subcategory:
 ```
 
 **Features:**
+
 - **Subcategory grouping** - Commands organized by purpose
 - **Mode indicators** - `[mode]` shows mode support
 - **Command descriptions** - Short summaries for quick scanning
@@ -188,6 +196,7 @@ Shows all commands in a category, grouped by subcategory:
 - **Navigation breadcrumbs** - Back to hub, drill down to command detail
 
 **All Categories:**
+
 - `code` (12) - Code quality, linting, debugging, CI/CD
 - `test` (7) - Testing, coverage, debugging
 - `docs` (19) - Documentation generation, sync, validation
@@ -376,6 +385,7 @@ Shows full command tutorial with step-by-step instructions:
 ```
 
 **Tutorial Sections:**
+
 1. **Description** - Detailed explanation of what the command does
 2. **Modes** - Execution modes with time budgets (if applicable)
 3. **Basic Usage** - Syntax examples with mode variations
@@ -437,6 +447,7 @@ Many commands support execution modes for different use cases:
 | **release** | < 300s | Pre-release comprehensive | `/craft:code:lint release` |
 
 **Mode indicators in hub:**
+
 - Commands supporting modes show `[mode]` in Layer 2 (Category View)
 - Layer 3 (Command Detail) shows all available modes with time budgets
 - Use modes to balance speed vs. thoroughness
@@ -496,11 +507,13 @@ common_workflows:                    # Usage patterns
 ```
 
 **Required fields:**
+
 - `name` - Command identifier
 - `category` - Primary category
 - `description` - One-line summary
 
 **Optional fields:**
+
 - `subcategory` - For Layer 2 grouping
 - `modes` - Execution modes
 - `time_budgets` - Time estimates
@@ -517,6 +530,7 @@ common_workflows:                    # Usage patterns
 **Location:** `commands/_discovery.py`
 
 **Key Functions:**
+
 ```python
 discover_commands()              # Scan and discover all commands
 load_cached_commands()           # Load with auto-invalidation
@@ -564,22 +578,26 @@ generate_command_tutorial(cmd)   # Auto-generate tutorial
 ## Tips & Best Practices
 
 ### For Quick Tasks
+
 - Start with `/craft:do <task>` for smart routing
 - Use default mode for fast checks
 - Use `/craft:check` for comprehensive validation
 
 ### For Learning
+
 - Start at Layer 1 (Main Menu) to browse categories
 - Use Layer 2 (Category View) to scan available commands
 - Use Layer 3 (Command Detail) for step-by-step tutorials
 
 ### For Power Users
+
 - Jump directly to Layer 3: `/craft:hub code:lint`
 - Use debug mode for verbose output
 - Use release mode before deployments
 - Check related commands for complementary tools
 
 ### For Plugin Developers
+
 - Add frontmatter to new commands
 - Run `python3 commands/_discovery.py` to regenerate cache
 - Test with `python3 tests/test_hub_*.py`
@@ -592,6 +610,7 @@ generate_command_tutorial(cmd)   # Auto-generate tutorial
 
 **Problem:** Counts seem wrong or outdated
 **Solution:** Delete cache and regenerate:
+
 ```bash
 rm commands/_cache.json
 python3 commands/_discovery.py
@@ -601,6 +620,7 @@ python3 commands/_discovery.py
 
 **Problem:** `/craft:hub code:lint` says "not found"
 **Solution:** Check command name format:
+
 - Use `category:command` format (e.g., `code:lint`)
 - Browse Layer 2 to find correct name: `/craft:hub code`
 
@@ -608,6 +628,7 @@ python3 commands/_discovery.py
 
 **Problem:** Hub seems slow
 **Solution:** Check cache file exists:
+
 ```bash
 ls -lh commands/_cache.json
 # Should be < 100KB and recent timestamp
@@ -618,10 +639,12 @@ ls -lh commands/_cache.json
 ## Migration from v1.x
 
 ### Breaking Changes
+
 - None - Hub v2.0 is fully backward compatible
 - Old usage (`/craft:hub`, `/craft:hub code`) still works
 
 ### New Features
+
 - Layer 3 command detail views
 - Auto-detection (no hardcoded counts)
 - Subcategory grouping
@@ -629,6 +652,7 @@ ls -lh commands/_cache.json
 - Related commands navigation
 
 ### What to Update
+
 - Add frontmatter to custom commands
 - Regenerate cache after upgrade
 - Update documentation if referencing command counts

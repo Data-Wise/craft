@@ -3,6 +3,7 @@
 ⏱️ **2 minutes** • 🟢 Beginner • ✓ 4 steps
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Get craft plugin installed and verify it works
 > - **Why:** Start automating your development workflow immediately
 > - **How:** Clone to `~/.claude/plugins/craft` then run `/craft:hub`
@@ -41,6 +42,7 @@ Get craft running in 30 seconds.
 ```
 
 Expected output:
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ /craft:hub - Command Discovery                              │

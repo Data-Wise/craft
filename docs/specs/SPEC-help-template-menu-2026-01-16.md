@@ -19,6 +19,7 @@ Craft has 90 commands across 8 categories, making it hard for users to find spec
 Create a standardized markdown template for help files and reorganize the website menu with a flat category structure. Focus on progressive disclosure (TL;DR → Tabs → Reference) and search-first discovery.
 
 **Key Principles:**
+
 - ADHD-friendly design (TL;DR always at top, tabs hide complexity)
 - Pure markdown (no dependencies, no tooling)
 - Phased rollout (not big bang - validate early, adjust if needed)
@@ -29,6 +30,7 @@ Create a standardized markdown template for help files and reorganize the websit
 ## Scope
 
 ### In Scope
+
 - ✅ Markdown help file template with 10 sections
 - ✅ Help homepage with popular commands + category tabs
 - ✅ 8 category landing pages (one per command category)
@@ -38,6 +40,7 @@ Create a standardized markdown template for help files and reorganize the websit
 - ✅ Pre-commit hook (detect missing help files)
 
 ### Out of Scope
+
 - ❌ Auto-generation from command frontmatter (manual creation preserves quality)
 - ❌ Help file validation script (future enhancement)
 - ❌ Analytics tracking (nice-to-have)
@@ -50,6 +53,7 @@ Create a standardized markdown template for help files and reorganize the websit
 ### Template Structure
 
 **Required Sections (always include):**
+
 1. **TL;DR** - 30-second answer (What, Why, How, Next)
 2. **Quick Reference** - Copy-paste code snippet
 3. **Overview** - 2-3 paragraphs context
@@ -66,6 +70,7 @@ Create a standardized markdown template for help files and reorganize the websit
 ### Menu Structure
 
 **Before:**
+
 ```
 Help:
   - /craft:hub
@@ -78,6 +83,7 @@ Help:
 ```
 
 **After:**
+
 ```
 Help:
   - Overview (homepage)
@@ -97,9 +103,11 @@ Help:
 ## Implementation Phases
 
 ### Phase 0: Foundation (Week 1 - 4-6 hours)
+
 **Goal:** Validate template with 3 pilots
 
 **Files to Create:**
+
 - `docs/templates/HELP-TEMPLATE.md` (200 lines)
 - `docs/help/index.md` (150 lines)
 - `docs/help/smart/index.md` (80 lines)
@@ -108,10 +116,12 @@ Help:
 - `docs/help/smart/orchestrate.md` (migrate from existing)
 
 **Files to Modify:**
+
 - `mkdocs.yml` - Add Help section with categories
 - `docs/CONTRIBUTING.md` - Add "Create help file" to checklist
 
 **Success Criteria:**
+
 - [ ] Template covers all sections
 - [ ] 3 pilot commands follow template
 - [ ] Help homepage renders correctly
@@ -120,13 +130,16 @@ Help:
 ---
 
 ### Phase 1: Git Category (Week 2 - 6-8 hours)
+
 **Goal:** Complete second category to validate landing page pattern
 
 **Files to Create:**
+
 - `docs/help/git/index.md`
 - 6 git command help files (init, worktree, clean, sync, branch, recap)
 
 **Success Criteria:**
+
 - [ ] All 6 git commands documented
 - [ ] Landing page shows workflows
 - [ ] Cross-links work
@@ -134,29 +147,35 @@ Help:
 ---
 
 ### Phase 2: Docs + Site Categories (Week 3 - 6-8 hours)
+
 **Files:** 11 help files (7 docs + 4 site)
 
 ---
 
 ### Phase 3: Code + CI Categories (Week 4 - 6-8 hours)
+
 **Files:** 11 help files (5 code + 6 CI)
 
 ---
 
 ### Phase 4: Arch + Workflow Categories (Week 5 - 3-4 hours)
+
 **Files:** 3 help files (1 arch + 2 workflow)
 
 ---
 
 ### Phase 5: Popular Commands (Week 6 - 2-3 hours)
+
 **Files:** `docs/help/popular.md` (curated top 20-30)
 
 ---
 
 ### Phase 6: Pre-commit Hook (Week 7 - 2-3 hours)
+
 **Goal:** Automated validation for new commands
 
 **Integration:**
+
 - Add to `/craft:git:init` command
 - Append to existing pre-commit hook
 - Prompt if help file missing
@@ -166,6 +185,7 @@ Help:
 ## Files Created/Modified
 
 ### New Files (Phase 0)
+
 | File | Lines | Purpose |
 |------|-------|---------|
 | `docs/templates/HELP-TEMPLATE.md` | 200 | Template with all sections |
@@ -173,12 +193,14 @@ Help:
 | `docs/help/smart/index.md` | 80 | Smart category page |
 
 ### Modified Files (Phase 0)
+
 | File | Changes |
 |------|---------|
 | `mkdocs.yml` | Add Help section with 8 categories |
 | `docs/CONTRIBUTING.md` | Add help file creation checklist |
 
 ### Full Rollout (Phases 1-6)
+
 - **Total new files:** ~50 help files + 8 category pages
 - **Total lines:** ~8,000 lines of documentation
 
@@ -187,6 +209,7 @@ Help:
 ## Success Metrics
 
 ### Phase 0 (MVP)
+
 | Metric | Target |
 |--------|--------|
 | Template sections | 10 documented |
@@ -194,6 +217,7 @@ Help:
 | Site build | No errors |
 
 ### Phases 1-4 (Rollout)
+
 | Metric | Target |
 |--------|--------|
 | Category coverage | 8 categories |
@@ -202,6 +226,7 @@ Help:
 | Search | All findable |
 
 ### Phase 6 (Maintenance)
+
 | Metric | Target |
 |--------|--------|
 | Hook detection | 100% new commands |
@@ -225,6 +250,7 @@ Help:
 **None** - Pure markdown implementation
 
 **Prerequisites:**
+
 - MkDocs Material theme (already configured)
 - Tab extension (already enabled)
 - Search plugin (already enabled)
@@ -250,6 +276,7 @@ Help:
 ## Next Steps
 
 ### Immediate (This Session)
+
 1. Create `docs/templates/HELP-TEMPLATE.md`
 2. Create `docs/help/index.md`
 3. Create `docs/help/smart/index.md`
@@ -257,6 +284,7 @@ Help:
 5. Update `mkdocs.yml`
 
 ### Week 2+ (Follow Plan)
+
 Execute Phases 1-6 as documented
 
 ---

@@ -49,6 +49,7 @@ open docs/demos/teaching-workflow.gif
 ```
 
 **What batch conversion does:**
+
 - Finds all `.cast` files in `docs/demos/` and `docs/gifs/`
 - Skips existing `.gif` files (unless `--force`)
 - Shows progress bar with ETA
@@ -56,6 +57,7 @@ open docs/demos/teaching-workflow.gif
 - Reports compression ratios and total size savings
 
 **Progress output:**
+
 ```
 Processing .cast files...
 [████████████░░░░░░░] 8/11 (73%)
@@ -95,6 +97,7 @@ open docs/demos/*.gif docs/gifs/*.gif
 ### GIF 1: Teaching Workflow (`docs/demos/teaching-workflow.tape`)
 
 **Commands to test:**
+
 ```bash
 /craft:git:status
 /craft:site:build
@@ -104,12 +107,14 @@ open docs/demos/*.gif docs/gifs/*.gif
 ```
 
 **What to capture:**
+
 - Exact output format (boxes, icons, text)
 - Timing (how long each command takes)
 - Color scheme
 - Progress indicators
 
 **How to test:**
+
 1. Open Claude Code in terminal
 2. Navigate to a teaching project (with `.flow/teach-config.yml`)
 3. Run each command above
@@ -117,6 +122,7 @@ open docs/demos/*.gif docs/gifs/*.gif
 5. Note the format and timing
 
 **Update tape with real output:**
+
 - Replace simulated `Type` commands with accurate output
 - Match the exact format you saw
 - Adjust `Sleep` values to match real timing
@@ -139,6 +145,7 @@ open docs/demos/*.gif docs/gifs/*.gif
 | 10 | `/craft:orchestrate 'prepare v2.0 release' release` | Orchestrator dashboard, agent status |
 
 **For each command:**
+
 1. Run in Claude Code (not bash!)
 2. Capture the exact output
 3. Note any interactive elements
@@ -186,7 +193,8 @@ gifsicle -O3 --colors 128 --lossy=80 \
 
 **Example: Updating teaching-workflow.tape**
 
-#### Before (Simulated):
+#### Before (Simulated)
+
 ```tape
 Type "$ /craft:site:build"
 Enter
@@ -194,7 +202,8 @@ Sleep 300ms
 Type "✓ Built successfully"
 ```
 
-#### After (Accurate):
+#### After (Accurate)
+
 ```tape
 Type "$ /craft:site:build"
 Enter
@@ -220,6 +229,7 @@ Sleep 2s
 ```
 
 **Key differences:**
+
 - Shows actual box formatting
 - Includes course info
 - Shows file count and size
@@ -232,6 +242,7 @@ Sleep 2s
 **Location**: `scripts/regenerate-gifs.sh`
 
 **What it does:**
+
 1. Backs up existing GIFs
 2. Runs VHS on each `.tape` file
 3. Optimizes with gifsicle (`-O3 --colors 128 --lossy=80`)
@@ -239,6 +250,7 @@ Sleep 2s
 5. Reports results
 
 **Usage:**
+
 ```bash
 # Regenerate all GIFs
 ./scripts/regenerate-gifs.sh
@@ -286,17 +298,20 @@ ls -lh teaching-workflow.gif
 After regenerating, verify:
 
 **Technical:**
+
 - [ ] All GIFs under 2MB
 - [ ] Optimized with gifsicle
 - [ ] Smooth playback
 
 **Accuracy:**
+
 - [ ] Output matches real `/craft` command behavior
 - [ ] Formatting is correct (boxes, icons, spacing)
 - [ ] Timing feels natural
 - [ ] No simulated/fake output
 
 **Readability:**
+
 - [ ] Text is legible
 - [ ] Command prompts visible
 - [ ] Colors have good contrast
@@ -369,11 +384,13 @@ For each GIF:
 ## Batch Operations
 
 ### Regenerate all GIFs
+
 ```bash
 ./scripts/regenerate-gifs.sh
 ```
 
 ### Optimize all existing GIFs
+
 ```bash
 for gif in docs/demos/*.gif docs/gifs/*.gif; do
     gifsicle -O3 --colors 128 --lossy=80 "$gif" -o "$gif"
@@ -382,6 +399,7 @@ done
 ```
 
 ### Check all GIF sizes
+
 ```bash
 ls -lh docs/demos/*.gif docs/gifs/*.gif | \
   awk '{if ($5 ~ /M/) { size=$5; gsub(/M/, "", size);

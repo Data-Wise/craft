@@ -23,21 +23,27 @@ I want to add Craft to my new project with recommended settings and git workflow
 ## Solution
 
 1. **Navigate to your project**
+
    ```bash
    cd /path/to/your/project
    ```
+
    Why: Craft needs to be run from your project root
 
 2. **Initialize Craft**
+
    ```bash
    /craft:git:init
    ```
+
    Why: Sets up recommended git workflow patterns, creates `.claude/` directory, and configures project-specific settings
 
 3. **Verify setup**
+
    ```bash
    /craft:check
    ```
+
    Why: Runs pre-flight validation to ensure everything is configured correctly
 
 4. **Review generated files**
@@ -63,16 +69,19 @@ All settings are stored in `.claude/settings.local.json` and can be customized l
 ## Variations
 
 - **Skip interactive prompts:** Use defaults without confirmation
+
   ```bash
   /craft:git:init --yes
   ```
 
 - **Custom project type:** Override auto-detection
+
   ```bash
   /craft:git:init --type python
   ```
 
 - **Skip git hooks:** Initialize without pre-commit hooks
+
   ```bash
   /craft:git:init --no-hooks
   ```

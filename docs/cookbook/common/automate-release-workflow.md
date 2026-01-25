@@ -23,15 +23,19 @@ I want to automate testing and validation before deployment so broken code never
 ## Solution
 
 1. **Detect project setup**
+
    ```bash
    /craft:ci:detect
    ```
+
    Why: Analyzes your project to identify build tools, test frameworks, and CI requirements
 
 2. **Generate CI workflow**
+
    ```bash
    /craft:ci:generate
    ```
+
    Why: Creates a GitHub Actions workflow tailored to your project type
 
 3. **Review generated workflow**
@@ -40,17 +44,21 @@ I want to automate testing and validation before deployment so broken code never
    - Customize triggers if needed (branches, pull requests)
 
 4. **Test locally before committing**
+
    ```bash
    /craft:code:ci-local
    ```
+
    Why: Runs the same checks that will run in CI, catching issues before pushing
 
 5. **Commit and push**
+
    ```bash
    git add .github/workflows/ci.yml
    git commit -m "ci: add GitHub Actions workflow"
    git push
    ```
+
    Why: Activates the CI workflow on your repository
 
 6. **Verify CI runs**
@@ -63,30 +71,35 @@ I want to automate testing and validation before deployment so broken code never
 `/craft:ci:generate` creates a customized GitHub Actions workflow based on your project:
 
 **For Node.js projects:**
+
 - `npm install` dependencies
 - `npm test` runs tests
 - `npm run lint` checks code quality
 - Matrix testing across Node versions (14, 16, 18)
 
 **For Python projects:**
+
 - `pip install` dependencies
 - `pytest` runs tests
 - `flake8`/`black` checks code style
 - Matrix testing across Python versions (3.8, 3.9, 3.10)
 
 **For R packages:**
+
 - `R CMD check` validates package
 - `R CMD build` builds tarball
 - `covr::codecov()` reports coverage
 - Matrix testing across R versions
 
 **For Quarto projects:**
+
 - `quarto check` validates syntax
 - `quarto render` builds site
 - Link validation
 - Deploy to GitHub Pages (optional)
 
 **Common features across all project types:**
+
 - Dependency caching for faster builds
 - Parallel job execution
 - Pull request checks
@@ -94,6 +107,7 @@ I want to automate testing and validation before deployment so broken code never
 - Status badges for README
 
 The workflow runs on:
+
 - Every push to `main` or `dev` branches
 - Every pull request
 - Manual workflow dispatch
@@ -101,29 +115,37 @@ The workflow runs on:
 ## Variations
 
 - **Run checks locally without generating workflow:**
+
   ```bash
   /craft:code:ci-local
   ```
+
   Use during development to catch issues early
 
 - **Validate existing workflow:**
+
   ```bash
   /craft:ci:validate
   ```
+
   Use to check if your current CI workflow follows best practices
 
 - **Generate with custom triggers:**
+
   ```bash
   /craft:ci:generate --on push,pull_request,schedule
   ```
+
   Add scheduled runs (e.g., nightly builds)
 
 - **Multi-language projects:**
+
   ```bash
   /craft:ci:detect
   # Review detected languages
   /craft:ci:generate --lang python,node
   ```
+
   Creates workflow for multiple languages
 
 ## Troubleshooting

@@ -9,11 +9,13 @@ Craft provides 8 design presets for documentation sites, including 4 ADHD-friend
 DT's standard design with Material theme.
 
 **Colors:**
+
 - Primary: Blue (#1a73e8)
 - Accent: Orange (#ff6b35)
 - Scheme: Auto (light/dark)
 
 **Features:**
+
 - Navigation tabs
 - Dark mode toggle
 - Code copy buttons
@@ -27,6 +29,7 @@ DT's standard design with Material theme.
 Clean and simple, fast loading.
 
 **Colors:**
+
 - Primary: Neutral gray (#424242)
 - Accent: Blue (#1976d2)
 - Scheme: Light only
@@ -40,6 +43,7 @@ Clean and simple, fast loading.
 Community-friendly with badges and contributor focus.
 
 **Colors:**
+
 - Primary: GitHub blue (#0366d6)
 - Accent: Green (#28a745)
 - Scheme: Auto
@@ -53,6 +57,7 @@ Community-friendly with badges and contributor focus.
 Professional and formal.
 
 **Colors:**
+
 - Primary: Navy (#003366)
 - Accent: Corporate blue (#0066cc)
 - Scheme: Light only
@@ -68,11 +73,13 @@ Professional and formal.
 Calm forest green, minimal distractions.
 
 **Colors:**
+
 - Primary: Forest green (#2d6a4f)
 - Accent: Sage (#a4c3b2)
 - Scheme: Auto
 
 **Features:**
+
 - Reduced animations
 - Clear heading hierarchy
 - Calm color palette
@@ -85,11 +92,13 @@ Calm forest green, minimal distractions.
 Warm earth tones, cozy reading experience.
 
 **Colors:**
+
 - Primary: Warm brown (#8b5a2b)
 - Accent: Terracotta (#d4a574)
 - Scheme: Auto
 
 **Features:**
+
 - Cream backgrounds
 - Soft contrasts
 - Warm undertones
@@ -102,11 +111,13 @@ Warm earth tones, cozy reading experience.
 Dark-first, reduced eye strain.
 
 **Colors:**
+
 - Primary: Muted sage (#7c9885)
 - Accent: Soft gold (#d4af37)
 - Scheme: Dark only (no light mode)
 
 **Features:**
+
 - Night reading optimized
 - No harsh whites
 - Reduced blue light
@@ -119,11 +130,13 @@ Dark-first, reduced eye strain.
 Warm light, never harsh white.
 
 **Colors:**
+
 - Primary: Blue-gray (#5a6e78)
 - Accent: Warm orange (#ff8c42)
 - Scheme: Light only (warm)
 
 **Features:**
+
 - Soft shadows
 - Sepia undertones
 - No pure white backgrounds

@@ -3,6 +3,7 @@
 ⏱️ **10 minutes** • 🟡 Intermediate • ✓ Complete guide
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Complete guide to installing and using craft's 89 commands, 21 skills, and 8 agents
 > - **Why:** Master the full-stack toolkit to automate your entire development workflow
 > - **How:** Install plugin → verify with `/craft:hub` → start with `/craft:do "task"`
@@ -83,6 +84,7 @@ This interactive wizard will:
 ```
 
 After initialization, you'll have:
+
 - ✅ Protected `main` branch (PR + CI required)
 - ✅ `dev` branch ready for work
 - ✅ CI workflow configured

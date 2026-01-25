@@ -107,6 +107,7 @@ graph TD
 ```
 
 **Key Safety Features:**
+
 1. **Always preview first** - See changes before publish
 2. **Validation checkpoint** - Blocks bad content
 3. **Auto-branch management** - Handles git switching
@@ -117,6 +118,7 @@ graph TD
 Before publishing, the system checks:
 
 #### Schedule Validation
+
 ```yaml
 # Required fields in schedule.qmd
 - week number
@@ -126,6 +128,7 @@ Before publishing, the system checks:
 ```
 
 #### Syllabus Validation
+
 ```yaml
 # Required sections
 - Course description
@@ -135,6 +138,7 @@ Before publishing, the system checks:
 ```
 
 #### Assignment Validation
+
 ```yaml
 # For each assignment
 - Due date (within semester)
@@ -170,6 +174,7 @@ Before publishing, the system checks:
 ```
 
 Shows:
+
 - Current week in semester
 - Weeks completed vs remaining
 - Content status per week
@@ -210,6 +215,7 @@ See [`docs/teaching-config-schema.md`](../teaching-config-schema.md) for complet
 ### Common Configurations
 
 #### Minimal (Required)
+
 ```yaml
 teaching:
   enabled: true
@@ -226,6 +232,7 @@ teaching:
 ```
 
 #### Standard (Recommended)
+
 ```yaml
 teaching:
   enabled: true
@@ -256,6 +263,7 @@ teaching:
 ```
 
 #### Advanced (Full Features)
+
 ```yaml
 teaching:
   enabled: true
@@ -321,6 +329,7 @@ git checkout dev
 ```
 
 **What happens:**
+
 1. Validates schedule has Week 8 complete
 2. Checks syllabus references Week 8
 3. Switches to `main` branch
@@ -370,12 +379,14 @@ EOF
 ### `/craft:site:build`
 
 **Standard mode:**
+
 ```bash
 /craft:site:build
 # Builds MkDocs site
 ```
 
 **Teaching mode:**
+
 ```bash
 /craft:site:build
 # - Detects current branch (dev/main)
@@ -407,9 +418,11 @@ EOF
 ### `/craft:git:status`
 
 **Standard mode:**
+
 - Shows git branch, changes, remote status
 
 **Teaching mode:**
+
 ```
 ╭─ Git Status (Teaching Mode) ────────────────────────────╮
 │                                                         │
@@ -441,6 +454,7 @@ EOF
 **Solutions:**
 
 1. **Check what's wrong:**
+
    ```bash
    /craft:site:publish --dry-run --validate-only
    ```
@@ -453,6 +467,7 @@ EOF
    - **Malformed YAML**: Validate teach-config.yml syntax
 
 3. **Skip validation (emergency only):**
+
    ```bash
    /craft:site:publish --skip-validation
    ```
@@ -462,6 +477,7 @@ EOF
 **Problem:** Not sure which branch you're on
 
 **Solution:**
+
 ```bash
 # Teaching-aware status
 /craft:git:status
@@ -479,6 +495,7 @@ EOF
 **Checks:**
 
 1. **Verify production build:**
+
    ```bash
    git checkout main
    /craft:site:build
@@ -490,6 +507,7 @@ EOF
    - Verify source: `gh-pages` branch or `main` branch + `/docs`
 
 3. **Force rebuild:**
+
    ```bash
    /craft:site:publish --force-rebuild
    ```
@@ -544,11 +562,13 @@ For detailed configuration options, see [`docs/teaching-config-schema.md`](../te
 ### Scenario 1: Accidental Main Branch Modification
 
 **What happens:**
+
 - You edit files while on `main` branch
 - Publish publishes immediately (no preview)
 - Students see incomplete/broken content
 
 **Prevention:**
+
 ```bash
 # Always check your branch first
 git branch --show-current
@@ -560,6 +580,7 @@ git branch --show-current
 ```
 
 **Recovery:**
+
 ```bash
 # 1. Revert changes on main
 git checkout main
@@ -576,11 +597,13 @@ git checkout dev
 ### Scenario 2: Semester Dates Misalignment
 
 **What happens:**
+
 - Current week shows incorrectly in progress dashboard
 - Assignment due dates appear out of order
 - Validation rejects valid dates as "out of range"
 
 **Debug steps:**
+
 ```bash
 # Check config dates
 cat .flow/teach-config.yml | grep -A 5 "semester:"
@@ -595,6 +618,7 @@ cat .flow/teach-config.yml | grep -A 5 "semester:"
 ```
 
 **Fix:**
+
 ```yaml
 semester:
   start_date: "2025-01-13"  # Must be first day of Week 1
@@ -605,16 +629,19 @@ semester:
 ### Scenario 3: Assignment Due Date Validation Error
 
 **Error message:**
+
 ```
 ✗ Assignment due date (2025-12-20) is after semester end (2025-05-09)
 ```
 
 **Common causes:**
+
 1. Copy-pasted due date with wrong year
 2. Date format confusion (MM-DD vs DD-MM)
 3. Semester dates don't match actual schedule
 
 **Fix:**
+
 ```bash
 # Check assignment file
 grep -r "due.*date" assignments/
@@ -628,11 +655,13 @@ grep -r "due.*date" assignments/
 ### Scenario 4: Build Fails Silently
 
 **Symptom:**
+
 - `/craft:site:build` returns success
 - But preview doesn't update
 - Old content still visible in browser
 
 **Diagnosis:**
+
 ```bash
 # 1. Check build output
 /craft:site:build --verbose
@@ -651,11 +680,13 @@ rm -rf .mkdocs_cache/
 ### Scenario 5: Config File Not Found
 
 **Error:**
+
 ```
 ❌ Teaching mode enabled but .flow/teach-config.yml not found
 ```
 
 **Solutions:**
+
 ```bash
 # Create the directory
 mkdir -p .flow
@@ -708,6 +739,7 @@ python3 -m yaml .flow/teach-config.yml
 ### From Manual Git Workflow
 
 **Before:**
+
 ```bash
 # Manual process
 git checkout main
@@ -717,6 +749,7 @@ git checkout dev
 ```
 
 **After:**
+
 ```bash
 # One command
 /craft:site:publish
@@ -727,6 +760,7 @@ See [`docs/teaching-migration.md`](../teaching-migration.md) for complete migrat
 ### From Other Systems
 
 If you're coming from:
+
 - **Jekyll**: Quarto is similar, adapt frontmatter
 - **Hugo**: Content structure maps 1:1
 - **Wordpress**: Export to markdown first
@@ -802,6 +836,7 @@ jobs:
 ## Impact
 
 **Measured improvements:**
+
 - ⏱️ **80% time reduction**: 15 min → 3 min per publish
 - 🐛 **Zero production bugs**: Content validation catches issues
 - 🎯 **100% confidence**: Preview-before-publish eliminates anxiety

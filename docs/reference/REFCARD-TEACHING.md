@@ -44,6 +44,7 @@ EOF
 ## Common Workflows
 
 ### Weekly Content Update
+
 ```bash
 git checkout dev           # Start on preview
 # ... edit content ...
@@ -53,11 +54,13 @@ git checkout dev           # Start on preview
 ```
 
 ### Check Progress
+
 ```bash
 /craft:site:progress       # Semester dashboard
 ```
 
 ### Emergency Fix
+
 ```bash
 git checkout main          # Go to production
 # ... fix issue ...
@@ -69,6 +72,7 @@ git checkout dev           # Back to preview
 ## Validation
 
 ### Check Before Publish
+
 ```bash
 /craft:site:publish --dry-run --validate-only
 ```
@@ -83,6 +87,7 @@ git checkout dev           # Back to preview
 | Bad YAML | Validate teach-config.yml |
 
 ### Skip Validation (Emergency)
+
 ```bash
 /craft:site:publish --skip-validation
 ```
@@ -96,6 +101,7 @@ dev (preview) ← You edit here
 ```
 
 **Rules:**
+
 - Edit on `dev`
 - Preview with `/craft:site:build`
 - Publish with `/craft:site:publish` (auto-switches branches)
@@ -104,6 +110,7 @@ dev (preview) ← You edit here
 ## Configuration
 
 ### Minimal
+
 ```yaml
 teaching:
   enabled: true
@@ -118,6 +125,7 @@ teaching:
 ```
 
 ### Standard
+
 ```yaml
 teaching:
   enabled: true
@@ -140,12 +148,14 @@ teaching:
 ## Flags
 
 ### `/craft:site:build`
+
 ```bash
 /craft:site:build              # Normal build
 /craft:site:build --force      # Force rebuild
 ```
 
 ### `/craft:site:publish`
+
 ```bash
 /craft:site:publish                    # Full workflow
 /craft:site:publish --dry-run          # Preview what would happen
@@ -155,6 +165,7 @@ teaching:
 ```
 
 ### `/craft:site:progress`
+
 ```bash
 /craft:site:progress           # Full dashboard
 /craft:site:progress --json    # JSON output
@@ -163,6 +174,7 @@ teaching:
 ## Troubleshooting
 
 ### Not Detecting Teaching Mode
+
 ```bash
 # Check config exists
 ls .flow/teach-config.yml
@@ -175,6 +187,7 @@ grep "enabled: true" .flow/teach-config.yml
 ```
 
 ### Wrong Branch
+
 ```bash
 /craft:git:status              # Shows current branch + context
 git checkout dev               # Switch to preview
@@ -182,6 +195,7 @@ git checkout main              # Switch to production
 ```
 
 ### Validation Errors
+
 ```bash
 # See what's wrong
 /craft:site:publish --dry-run --validate-only
@@ -191,6 +205,7 @@ git checkout main              # Switch to production
 ```
 
 ### Site Not Updating
+
 ```bash
 # 1. Check GitHub Pages settings
 # Repo → Settings → Pages

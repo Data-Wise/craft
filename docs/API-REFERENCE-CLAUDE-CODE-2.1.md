@@ -20,17 +20,21 @@ Provides task complexity analysis and routing recommendations.
 Calculate complexity score for a task description.
 
 **Parameters:**
+
 - `task` (str): Natural language task description
 
 **Returns:**
+
 - `int`: Complexity score (0-10)
 
 **Scoring Algorithm:**
+
 - **0-3**: Simple single-operation tasks → Route to specific commands
 - **4-7**: Multi-step tasks → Delegate to specialized agent
 - **8-10**: Complex multi-category tasks → Delegate to orchestrator
 
 **Scoring Factors** (each +2 points):
+
 1. **Multi-step**: Task requires 3+ distinct operations
 2. **Cross-category**: Spans multiple categories (code, test, docs, etc.)
 3. **Planning**: Requires design/architecture phase
@@ -38,6 +42,7 @@ Calculate complexity score for a task description.
 5. **Multi-file**: Affects 5+ files
 
 **Example:**
+
 ```python
 from utils.complexity_scorer import calculate_complexity_score
 
@@ -63,17 +68,21 @@ score = calculate_complexity_scoring(
 Map complexity score to routing decision.
 
 **Parameters:**
+
 - `score` (int): Complexity score (0-10)
 
 **Returns:**
+
 - `str`: One of "commands", "agent", or "orchestrator"
 
 **Routing Logic:**
+
 - **0-3** → `"commands"`: Execute via specific Craft commands
 - **4-7** → `"agent"`: Delegate to single specialized agent
 - **8-10** → `"orchestrator"`: Multi-agent coordination required
 
 **Example:**
+
 ```python
 from utils.complexity_scorer import get_routing_decision
 
@@ -94,9 +103,11 @@ routing = get_routing_decision(9)
 Generate detailed score explanation with factors.
 
 **Parameters:**
+
 - `task` (str): Task description
 
 **Returns:**
+
 - `dict`: Score breakdown with keys:
   - `task` (str): Original task
   - `score` (int): Complexity score
@@ -105,6 +116,7 @@ Generate detailed score explanation with factors.
   - `explanation` (str): Human-readable explanation
 
 **Example:**
+
 ```python
 from utils.complexity_scorer import explain_score
 
@@ -160,6 +172,7 @@ print(result)
    - `test_explain_score_output()` - Output format validation
 
 **Running Tests:**
+
 ```bash
 # Run all complexity scoring tests
 python3 tests/test_complexity_scoring.py
@@ -207,6 +220,7 @@ python3 tests/test_complexity_scoring.py
    - `test_validator_category_is_validation()`
 
 **Running Tests:**
+
 ```bash
 # Run all hot-reload validator tests
 python3 tests/test_hot_reload_validators.py
@@ -254,6 +268,7 @@ python3 tests/test_hot_reload_validators.py
    - `test_hook_saves_session_state()` - JSON session persistence
 
 **Running Tests:**
+
 ```bash
 # Run all agent hooks tests
 python3 tests/test_agent_hooks.py
@@ -273,6 +288,7 @@ python3 tests/test_agent_hooks.py
 **Enhancement**: Complexity scoring integration
 
 **Flow:**
+
 ```
 User task → complexity_scorer.calculate_complexity_score()
          → get_routing_decision()
@@ -280,6 +296,7 @@ User task → complexity_scorer.calculate_complexity_score()
 ```
 
 **Example Integration:**
+
 ```bash
 # Simple task (score 2)
 /craft:do lint code
@@ -301,6 +318,7 @@ User task → complexity_scorer.calculate_complexity_score()
 **Enhancement**: Hot-reload validator discovery
 
 **Flow:**
+
 ```
 User invokes /craft:check
 → Scan .claude-plugin/skills/validation/
@@ -310,11 +328,13 @@ User invokes /craft:check
 ```
 
 **Validators Discovered:**
+
 - `test-coverage.md` - Mode-aware coverage thresholds
 - `broken-links.md` - Internal link validation
 - `lint-check.md` - Multi-language linting
 
 **Example:**
+
 ```bash
 /craft:check
 
@@ -333,11 +353,13 @@ User invokes /craft:check
 **Version**: 2.1.0 → 2.3.0
 
 **New Capabilities:**
+
 1. **Forked Context Execution** - Isolated validator runs
 2. **Agent Resilience** - 9 recovery patterns
 3. **Session Teleportation** - Cross-device resume
 
 **Hook Events:**
+
 - `PreToolUse`: Resource limit checking (mode-aware)
 - `PostToolUse`: Status tracking, duration logging
 - `Stop`: Session state persistence
@@ -369,12 +391,14 @@ User invokes /craft:check
 ### Complexity Scorer
 
 **Empty Task:**
+
 ```python
 score = calculate_complexity_score("")
 # Returns: 0 (routes to commands)
 ```
 
 **Invalid Input:**
+
 ```python
 score = calculate_complexity_score(None)
 # Raises: TypeError
@@ -383,10 +407,12 @@ score = calculate_complexity_score(None)
 ### Validators
 
 **Missing Frontmatter:**
+
 - Validator skipped with warning
 - Does not fail entire check
 
 **Invalid YAML:**
+
 - Parser error logged
 - Validator marked as invalid
 
@@ -419,12 +445,14 @@ score = calculate_complexity_score(None)
 ### From Manual Routing to Complexity Scoring
 
 **Before:**
+
 ```bash
 # Manual decision required
 /craft:code:lint  # User decides which command
 ```
 
 **After:**
+
 ```bash
 # Automatic routing based on complexity
 /craft:do lint code  # Routes to /craft:code:lint
@@ -434,12 +462,14 @@ score = calculate_complexity_score(None)
 ### From Static Validators to Hot-Reload
 
 **Before:**
+
 ```bash
 # Validators hardcoded in /craft:check
 # Required plugin restart for changes
 ```
 
 **After:**
+
 ```bash
 # Validators auto-discovered from .claude-plugin/skills/validation/
 # Changes take effect immediately (hot-reload)
@@ -454,6 +484,7 @@ score = calculate_complexity_score(None)
 **Issue**: `python3 tests/test_complexity_scoring.py` fails
 
 **Solution:**
+
 ```bash
 # Verify utility exists
 ls -la utils/complexity_scorer.py
@@ -470,6 +501,7 @@ python3 -v tests/test_complexity_scoring.py
 **Issue**: `/craft:check` doesn't find new validators
 
 **Solution:**
+
 ```bash
 # Verify frontmatter
 head -20 .claude-plugin/skills/validation/my-validator.md
@@ -486,6 +518,7 @@ grep "context: fork" .claude-plugin/skills/validation/my-validator.md
 **Issue**: Orchestrator hooks not running
 
 **Solution:**
+
 ```bash
 # Verify script exists
 ls -la .claude-plugin/hooks/orchestrate-hooks.sh

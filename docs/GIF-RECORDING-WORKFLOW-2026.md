@@ -7,6 +7,7 @@
 ## Default Method: asciinema + agg
 
 **Why this is the standard for Craft commands:**
+
 - Records REAL Claude Code output (not simulated)
 - Works for both bash commands AND plugin commands
 - Captures actual formatting, colors, timing
@@ -219,6 +220,7 @@ done
 | **Use Case** | Repeatable, scriptable demos | One-time accurate captures |
 
 **Recommendation:**
+
 - Use **asciinema + agg** for Craft plugin commands (need real output)
 - Use **VHS** for pure CLI tools (can script Type commands)
 

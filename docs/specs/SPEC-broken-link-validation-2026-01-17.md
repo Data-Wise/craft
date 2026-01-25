@@ -72,12 +72,14 @@ Enhance existing documentation validation commands with `.linkcheck-ignore` patt
 **File:** `utils/linkcheck_ignore_parser.py`
 
 **Functionality:**
+
 - Parse `.linkcheck-ignore` markdown file
 - Extract file patterns and link targets
 - Support comment lines and section headers
 - Return structured ignore rules
 
 **API:**
+
 ```python
 def parse_linkcheck_ignore(filepath: str = ".linkcheck-ignore") -> dict:
     """
@@ -100,11 +102,13 @@ def parse_linkcheck_ignore(filepath: str = ".linkcheck-ignore") -> dict:
 ```
 
 **Pattern Matching:**
+
 - Exact match: `docs/test-violations.md` → `nonexistent.md`
 - Glob patterns: `docs/specs/*.md` → `../brainstorm/*.md`
 - Partial match: Any file linking to `../README.md`
 
 **Tasks:**
+
 1. Create `utils/linkcheck_ignore_parser.py` (30 min)
 2. Implement markdown parsing logic (20 min)
 3. Add basic tests (10 min)
@@ -116,12 +120,14 @@ def parse_linkcheck_ignore(filepath: str = ".linkcheck-ignore") -> dict:
 **File:** `commands/docs/check-links.md`
 
 **Changes:**
+
 1. Call parser at start of validation
 2. Check each broken link against ignore patterns
 3. Categorize links: `critical`, `expected`, `external`
 4. Update output format to show categories
 
 **Output Example:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ /craft:docs:check-links (default mode)                      │
@@ -162,11 +168,13 @@ def parse_linkcheck_ignore(filepath: str = ".linkcheck-ignore") -> dict:
 ```
 
 **Exit Codes:**
+
 - `0`: All links valid (or only expected broken)
 - `1`: Critical broken links found
 - `2`: Validation error
 
 **Tasks:**
+
 1. Import parser in command (5 min)
 2. Filter broken links by category (10 min)
 3. Update output formatting (10 min)
@@ -179,6 +187,7 @@ def parse_linkcheck_ignore(filepath: str = ".linkcheck-ignore") -> dict:
 **File:** `tests/test_linkcheck_ignore.py`
 
 **Test Cases:**
+
 1. Parse valid .linkcheck-ignore file
 2. Handle missing .linkcheck-ignore (graceful)
 3. Match exact file patterns
@@ -188,6 +197,7 @@ def parse_linkcheck_ignore(filepath: str = ".linkcheck-ignore") -> dict:
 7. VS Code format with categories
 
 **Tasks:**
+
 1. Create test file (10 min)
 2. Write 7 test cases (15 min)
 3. Run tests and fix issues (5 min)
@@ -197,6 +207,7 @@ def parse_linkcheck_ignore(filepath: str = ".linkcheck-ignore") -> dict:
 ### Phase 4: Documentation & CI (30 min)
 
 **Files to Update:**
+
 1. `commands/docs/check-links.md` - Add .linkcheck-ignore section
 2. `commands/docs/check.md` - Document ignore support
 3. `.linkcheck-ignore` - Add usage instructions (header comment)
@@ -204,6 +215,7 @@ def parse_linkcheck_ignore(filepath: str = ".linkcheck-ignore") -> dict:
 5. `CI-TEMPLATES.md` - Add .linkcheck-ignore example
 
 **New Section for check-links.md:**
+
 ```markdown
 ## .linkcheck-ignore Support
 
@@ -240,6 +252,7 @@ Target: ../brainstorm/*.md
     # Only fails on critical broken links
     # Expected links (in .linkcheck-ignore) don't block CI
 ```
+
 ```
 
 **Tasks:**
@@ -254,6 +267,7 @@ Target: ../brainstorm/*.md
 ## File Structure
 
 ```
+
 craft/
 ├── commands/
 │   └── docs/
@@ -272,6 +286,7 @@ craft/
 └── docs/
     └── specs/
         └── SPEC-broken-link-validation-2026-01-17.md  [NEW] This spec
+
 ```
 
 ---

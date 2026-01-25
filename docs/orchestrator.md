@@ -9,6 +9,7 @@ The orchestrator coordinates multiple specialized agents to handle complex devel
 ## Overview
 
 Orchestrator v2 provides:
+
 - **Mode-aware execution** - Adapts based on urgency and complexity
 - **Subagent monitoring** - Real-time progress tracking
 - **Context tracking** - Token budget management
@@ -34,6 +35,7 @@ Orchestrator v2 provides:
 ## Modes
 
 ### Optimize Mode (Fast)
+
 **Time:** <180s
 **Agents:** 3-4 in parallel
 **Use case:** Feature development, quick iterations
@@ -43,12 +45,14 @@ Orchestrator v2 provides:
 ```
 
 **Workflow:**
+
 1. Launches 3-4 agents simultaneously
 2. Monitors progress in real-time
 3. Synthesizes results as agents complete
 4. Provides actionable recommendations
 
 ### Release Mode (Comprehensive)
+
 **Time:** <300s
 **Agents:** 4+ comprehensive checks
 **Use case:** Production preparation, quality audit
@@ -58,6 +62,7 @@ Orchestrator v2 provides:
 ```
 
 **Workflow:**
+
 1. Security audit (security-specialist)
 2. Performance check (performance-engineer)
 3. Test suite (testing-specialist)
@@ -65,6 +70,7 @@ Orchestrator v2 provides:
 5. Code quality (code-quality-reviewer)
 
 ### Debug Mode (Verbose)
+
 **Time:** <120s
 **Agents:** 2-3 with detailed logging
 **Use case:** Troubleshooting, diagnostics
@@ -78,6 +84,7 @@ Orchestrator v2 provides:
 ### Parallel Execution
 
 **Sequential (Old):**
+
 ```
 Agent 1: ████████ (60s)
 Agent 2:         ████████ (60s)
@@ -86,6 +93,7 @@ Total:   ███████████████████████�
 ```
 
 **Parallel (Orchestrator v2):**
+
 ```
 Agent 1: ████████ (60s)
 Agent 2: ████████ (60s)
@@ -118,6 +126,7 @@ testing-specialist: "Adding security test cases"
 ```
 
 **Output:**
+
 ```
 ╭──────────────────────────────────────────╮
 │ 📊 Orchestrator Status                   │
@@ -142,6 +151,7 @@ testing-specialist: "Adding security test cases"
 ```
 
 **Visualizes:**
+
 - Agent start/end times
 - Parallel execution periods
 - Idle time (if any)
@@ -154,6 +164,7 @@ testing-specialist: "Adding security test cases"
 ```
 
 **Tracks:**
+
 - Tokens used per agent
 - Total token consumption
 - Budget remaining
@@ -205,12 +216,14 @@ After agents complete, orchestrator synthesizes results:
 ### Dynamic Agent Selection
 
 Orchestrator intelligently selects agents based on:
+
 - Task pattern
 - Mode
 - Project context
 - Previous results
 
 **Example:**
+
 ```
 Task: "add authentication"
 Pattern: FEATURE_IMPLEMENTATION + SECURITY
@@ -239,6 +252,7 @@ Agent 3: ✅ Success
 ### Resource Management
 
 Orchestrator manages:
+
 - **Token budget:** Prevents context overflow
 - **Time budget:** Respects mode time limits
 - **Agent limits:** Max 4-6 agents simultaneously
@@ -249,12 +263,14 @@ Orchestrator manages:
 ### When to Use Orchestrator
 
 **Good use cases:**
+
 - Complex multi-faceted tasks
 - Production readiness checks
 - Comprehensive code reviews
 - Architecture decisions
 
 **Not ideal for:**
+
 - Simple single-command tasks
 - Quick status checks
 - Narrow focused operations

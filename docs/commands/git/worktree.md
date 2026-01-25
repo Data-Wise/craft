@@ -11,6 +11,7 @@
 ```
 
 **Quick examples:**
+
 ```bash
 # First-time setup
 /craft:git:worktree setup
@@ -32,6 +33,7 @@
 Manage git worktrees to work on multiple branches simultaneously without switching. Each branch gets its own folder, eliminating stash juggling and context switching.
 
 **Why worktrees?**
+
 - **No branch switching** - Each branch has its own folder
 - **Parallel development** - Work on feature + hotfix at same time
 - **Claude Code friendly** - Each terminal/session stays on its branch
@@ -181,6 +183,7 @@ Runs tests, generates changelog, and creates PR:
 ```
 
 **Flags:**
+
 ```bash
 /craft:git:worktree finish --skip-tests    # Skip test step
 /craft:git:worktree finish --draft         # Create draft PR
@@ -231,6 +234,7 @@ Need to work on something else?
 ## Best Practices
 
 ### DO
+
 - Keep worktrees outside project folder (`~/.git-worktrees/`)
 - Use consistent naming (`project/branch-name`)
 - Install deps after creating worktree
@@ -238,6 +242,7 @@ Need to work on something else?
 - Use different ports for dev servers (`PORT=3001 npm run dev`)
 
 ### DON'T
+
 - Create worktrees inside the project folder
 - Switch branches within a worktree (defeats the purpose!)
 - Forget to install dependencies

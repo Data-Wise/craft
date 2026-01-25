@@ -23,6 +23,7 @@ Embed dependency checking, installation, and management directly into `/craft:do
 **So that** I can create GIF demos without manually installing asciinema, agg, and gifsicle
 
 **Acceptance Criteria:**
+
 - ✅ Running `/craft:docs:demo "feature"` checks dependencies automatically
 - ✅ Missing tools trigger informed consent prompt before installation
 - ✅ Installation failures fall back to alternative methods gracefully
@@ -44,6 +45,7 @@ Embed dependency checking, installation, and management directly into `/craft:do
 **So that** I don't manually run `agg` + `gifsicle` for 11+ files
 
 **Acceptance:**
+
 - `--batch` flag processes all `.cast` files in `docs/demos/` and `docs/gifs/`
 - Shows progress indicator (1/11, 2/11, etc.)
 - Skips files where `.gif` already exists (unless `--force`)
@@ -56,6 +58,7 @@ Embed dependency checking, installation, and management directly into `/craft:do
 **So that** builds don't fail mid-execution due to missing tools
 
 **Acceptance:**
+
 - `--check` exits with code 0 if all dependencies satisfied
 - `--check` exits with code 1 if any dependency missing/broken
 - `--check --json` outputs machine-readable status
@@ -68,6 +71,7 @@ Embed dependency checking, installation, and management directly into `/craft:do
 **So that** I know exactly what to install and how
 
 **Acceptance:**
+
 - Dependency errors show table of missing tools
 - Each missing tool has copy-paste installation command
 - Links to tool documentation for troubleshooting
@@ -398,6 +402,7 @@ interface SessionCache {
 ```
 
 **Cache Invalidation:**
+
 - Never persists across sessions
 - Cleared on any `--fix` operation
 - Cleared on explicit `--check` with `--no-cache` flag
@@ -408,6 +413,7 @@ interface SessionCache {
 See API Design section for YAML structure.
 
 **Key Fields:**
+
 - `required` - Boolean, blocks execution if missing
 - `methods` - Array of methods that need this tool
 - `install` - Object with package manager → package name mappings
@@ -445,6 +451,7 @@ See API Design section for YAML structure.
 | **Linux (Other)** | cargo | binary download | manual | - |
 
 **Detection Logic:**
+
 1. Check `uname -s` for platform (Darwin, Linux, etc.)
 2. On macOS: Default to `brew`
 3. On Linux: Check for `apt-get`, `pacman`, then default to `cargo`
@@ -629,6 +636,7 @@ Exit code: 0 (all fixed)
 **Context:** Currently spec says `--convert` and `--batch` only process `.cast` files. VHS `.tape` files could also be batch-processed.
 
 **Options:**
+
 1. **`.cast` only** (current spec) - Keep it simple, `.tape` → `.gif` via `vhs [file].tape` is already easy
 2. **Auto-detect both** - Process `.cast` and `.tape` files in batch mode
 3. **Separate flag** - `--batch-tape` for VHS tapes, `--batch` for asciinema
@@ -644,6 +652,7 @@ Exit code: 0 (all fixed)
 **Context:** Some tools (like `agg`) don't have stable version numbering. Strict version checks may break unnecessarily.
 
 **Options:**
+
 1. **Strict** - Require exact minimum version, fail if below
 2. **Warn** - Check version, warn if below minimum but continue
 3. **Best-effort** - Try to parse version, skip check if unparseable
@@ -652,6 +661,7 @@ Exit code: 0 (all fixed)
 **Current Spec:** Option 3 (best-effort) with warnings
 
 **Trade-offs:**
+
 - Strict: Maximum safety, possible false negatives
 - Warn: Good balance, user decides to upgrade
 - Best-effort: Maximum compatibility, possible runtime errors
@@ -668,6 +678,7 @@ Exit code: 0 (all fixed)
 **Context:** Tools like `agg` and `vhs` release frequently. Should craft auto-update them?
 
 **Options:**
+
 1. **Never auto-update** (current spec) - User controls all updates
 2. **Notify on outdated** - Show message "agg 1.2.0 available (you have 1.0.0)"
 3. **Prompt to update** - Ask user if they want to update during `--check`
@@ -705,6 +716,7 @@ Exit code: 0 (all fixed)
 ### Phase 1: Core Dependency Checking (v1.23.0)
 
 **Scope:**
+
 - Add `dependencies` section to command frontmatter
 - Implement `DependencyChecker` with tool detection
 - Add session-level caching
@@ -714,6 +726,7 @@ Exit code: 0 (all fixed)
 **Duration:** ~6 hours
 
 **Files to modify:**
+
 - `commands/docs/demo.md` - Add frontmatter, update When Invoked
 - `scripts/dependency-manager.sh` - New helper script
 - `tests/test_dependency_checking.py` - New test suite
@@ -721,6 +734,7 @@ Exit code: 0 (all fixed)
 ### Phase 2: Auto-Installation (v1.24.0)
 
 **Scope:**
+
 - Implement `DependencyInstaller` with brew/cargo/binary strategies
 - Add informed consent prompts
 - Implement `--fix` flag
@@ -730,6 +744,7 @@ Exit code: 0 (all fixed)
 **Duration:** ~8 hours
 
 **Files to modify:**
+
 - `scripts/dependency-installer.sh` - New installer script
 - `commands/docs/demo.md` - Add installation workflow
 - `tests/test_dependency_installation.py` - Test suite
@@ -737,6 +752,7 @@ Exit code: 0 (all fixed)
 ### Phase 3: Batch Conversion (v1.25.0)
 
 **Scope:**
+
 - Implement `--convert` flag for single file conversion
 - Implement `--batch` flag for bulk processing
 - Progress indicators
@@ -746,6 +762,7 @@ Exit code: 0 (all fixed)
 **Duration:** ~4 hours
 
 **Files to modify:**
+
 - `commands/docs/demo.md` - Add batch conversion logic
 - `scripts/batch-convert.sh` - New batch processor
 - `docs/GIF-REGENERATION-CHECKLIST.md` - Add batch mode instructions
@@ -753,6 +770,7 @@ Exit code: 0 (all fixed)
 ### Phase 4: Advanced Features (v1.26.0)
 
 **Scope:**
+
 - Health check validation
 - Version checking with warnings
 - Repair functionality (reinstall broken tools)
@@ -762,6 +780,7 @@ Exit code: 0 (all fixed)
 **Duration:** ~6 hours
 
 **Files to modify:**
+
 - `scripts/health-check.sh` - New health checker
 - `.github/workflows/validate-dependencies.yml` - CI integration
 - `docs/reference/dependency-management.md` - New guide

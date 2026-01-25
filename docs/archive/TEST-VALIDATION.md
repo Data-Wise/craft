@@ -18,6 +18,7 @@ The `docs/test-violations.md` file contains 6 test cases:
 ## Test 1: Link Checking (Default Mode)
 
 ### Command
+
 ```bash
 /craft:docs:check-links docs/test-violations.md
 ```
@@ -68,6 +69,7 @@ The `docs/test-violations.md` file contains 6 test cases:
 ```
 
 ### VS Code Integration Format
+
 ```
 docs/test-violations.md:8:11: [missing file](nonexistent.md) → File not found
 docs/test-violations.md:10:11: [another broken link](../missing-directory/file.md) → File not found
@@ -76,6 +78,7 @@ docs/test-violations.md:15:6: [API reference](/docs/reference/nonexistent-api.md
 ```
 
 ### Validation Checklist
+
 - [ ] Detects all 4 broken links
 - [ ] Validates 4 valid internal links
 - [ ] Skips 3 external links (https://, mailto:)
@@ -88,6 +91,7 @@ docs/test-violations.md:15:6: [API reference](/docs/reference/nonexistent-api.md
 ## Test 2: Markdown Linting (Default Mode)
 
 ### Command
+
 ```bash
 /craft:docs:lint docs/test-violations.md
 ```
@@ -138,12 +142,14 @@ docs/test-violations.md:15:6: [API reference](/docs/reference/nonexistent-api.md
 ```
 
 ### VS Code Integration Format
+
 ```
 docs/test-violations.md:30:1: MD032 - Missing blank line before list (auto-fixable)
 docs/test-violations.md:37:1: MD040 - Code fence missing language tag (auto-fixable)
 ```
 
 ### Validation Checklist
+
 - [ ] Detects missing blank line before list (line 30)
 - [ ] Detects code fence without language tag (line 37)
 - [ ] Correctly identifies both as auto-fixable
@@ -157,6 +163,7 @@ docs/test-violations.md:37:1: MD040 - Code fence missing language tag (auto-fixa
 ## Test 3: Markdown Linting with Auto-Fix
 
 ### Command
+
 ```bash
 /craft:docs:lint --fix docs/test-violations.md
 ```
@@ -186,12 +193,14 @@ docs/test-violations.md:37:1: MD040 - Code fence missing language tag (auto-fixa
 ### File Changes After Auto-Fix
 
 **Before (line 30-31):**
+
 ```markdown
 Some text without blank line before list:
 - Item 1
 ```
 
 **After (line 30-32):**
+
 ```markdown
 Some text without blank line before list:
 
@@ -199,8 +208,10 @@ Some text without blank line before list:
 ```
 
 **Before (line 37):**
+
 ```markdown
 ```
+
 ```
 
 **After (line 37):**
@@ -209,6 +220,7 @@ Some text without blank line before list:
 ```
 
 ### Validation Checklist
+
 - [ ] Adds blank line before list
 - [ ] Adds 'python' language tag to code fence
 - [ ] File is modified in place
@@ -221,6 +233,7 @@ Some text without blank line before list:
 ## Test 4: Link Checking (Release Mode)
 
 ### Command
+
 ```bash
 /craft:docs:check-links release docs/test-violations.md
 ```
@@ -271,6 +284,7 @@ Summary:
 ```
 
 ### Validation Checklist
+
 - [ ] Validates anchor links within file
 - [ ] Detects broken anchor (#this-heading-does-not-exist)
 - [ ] Shows available headings as suggestions
@@ -282,6 +296,7 @@ Summary:
 ## Test 5: Markdown Linting (Debug Mode)
 
 ### Command
+
 ```bash
 /craft:docs:lint debug docs/test-violations.md
 ```
@@ -351,6 +366,7 @@ Run with --fix to apply changes.
 ```
 
 ### Validation Checklist
+
 - [ ] Shows detailed context (lines before/after)
 - [ ] Explains why each rule matters
 - [ ] Shows suggested fixes with line numbers
@@ -362,6 +378,7 @@ Run with --fix to apply changes.
 ## Test 6: Pre-commit Hook Simulation
 
 ### Scenario
+
 ```bash
 # Stage test file with violations
 git add docs/test-violations.md
@@ -426,6 +443,7 @@ git commit -m "docs: add test file"
 **Commit succeeds - exit code 0**
 
 ### Validation Checklist
+
 - [ ] Hook runs automatically on commit
 - [ ] Auto-fixes markdown issues
 - [ ] Re-stages fixed files
@@ -438,9 +456,11 @@ git commit -m "docs: add test file"
 ## Integration Test: /craft:check
 
 ### Scenario
+
 Working directory has docs changes.
 
 ### Command
+
 ```bash
 /craft:check
 ```
@@ -473,6 +493,7 @@ Working directory has docs changes.
 ```
 
 ### Validation Checklist
+
 - [ ] Detects docs/ changes
 - [ ] Runs both lint and link checks
 - [ ] Reports issues in summary format
@@ -522,18 +543,21 @@ Working directory has docs changes.
 To validate the commands work as documented:
 
 1. **Test link checking:**
+
    ```bash
    /craft:docs:check-links docs/test-violations.md
    # Expect: 4 broken links detected
    ```
 
 2. **Test markdown linting:**
+
    ```bash
    /craft:docs:lint docs/test-violations.md
    # Expect: 2 issues (MD032, MD040)
    ```
 
 3. **Test auto-fix:**
+
    ```bash
    /craft:docs:lint --fix docs/test-violations.md
    # Expect: Both issues auto-fixed
@@ -542,6 +566,7 @@ To validate the commands work as documented:
    ```
 
 4. **Test pre-commit hook:**
+
    ```bash
    /craft:git:init
    # Select "Yes" for pre-commit hooks
@@ -554,6 +579,7 @@ To validate the commands work as documented:
    ```
 
 5. **Test integration:**
+
    ```bash
    # Make docs change
    echo "Test" >> docs/test-violations.md

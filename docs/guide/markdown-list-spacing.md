@@ -1,6 +1,7 @@
 # Markdown List Spacing Best Practices
 
 > **TL;DR** (5 minutes)
+>
 > - Use `-` (dash) for all unordered list markers
 > - Use exactly 1 space after markers (`- Item`, not `-  Item`)
 > - Add blank line before and after lists
@@ -36,11 +37,12 @@ Different markdown renderers handle list spacing differently:
 -  Item with 2 spaces
 ```
 
-**GitHub:** `- ` Item with 2 spaces` (renders literally)
+**GitHub:** `-` Item with 2 spaces` (renders literally)
 **MkDocs:** `- Item with 2 spaces` (may look wrong)
 **VS Code:** `- Item with 2 spaces` (may break preview)
 
 **Correct:**
+
 ```markdown
 - Item with 1 space
 ```
@@ -50,6 +52,7 @@ Different markdown renderers handle list spacing differently:
 ### Portable Documentation
 
 When your markdown works everywhere, you avoid:
+
 - Broken rendering in different platforms
 - Inconsistent spacing in generated docs
 - Confusion about "correct" format
@@ -58,6 +61,7 @@ When your markdown works everywhere, you avoid:
 ### Auto-fix Capability
 
 With consistent rules, you can:
+
 - Fix issues automatically: `/craft:docs:lint --fix`
 - Prevent new violations with pre-commit hooks
 - Focus on content, not formatting
@@ -72,6 +76,7 @@ With consistent rules, you can:
 **Requirement:** Exactly 1 space after list markers.
 
 **Unordered lists:**
+
 ```markdown
 ✅ Correct: - Item with 1 space
 ❌ Wrong:  - Item with 2 spaces
@@ -79,6 +84,7 @@ With consistent rules, you can:
 ```
 
 **Ordered lists:**
+
 ```markdown
 ✅ Correct: 1. Item with 1 space
 ❌ Wrong: 1.  Item with 2 spaces
@@ -86,6 +92,7 @@ With consistent rules, you can:
 ```
 
 **Nested lists:**
+
 ```markdown
 ✅ Correct:
 - Parent item
@@ -103,6 +110,7 @@ With consistent rules, you can:
 **Requirement:** Use `-` (dash) for all unordered list markers.
 
 **Never mix:**
+
 ```markdown
 ❌ Wrong:
 - First item
@@ -111,6 +119,7 @@ With consistent rules, you can:
 ```
 
 **Always consistent:**
+
 ```markdown
 ✅ Correct:
 - First item
@@ -119,6 +128,7 @@ With consistent rules, you can:
 ```
 
 **Why dash?**
+
 - Most common convention
 - Renders consistently
 - Easy to type
@@ -129,6 +139,7 @@ With consistent rules, you can:
 **Requirement:** Blank line before and after lists.
 
 **Missing blank line before:**
+
 ```markdown
 ❌ Wrong:
 ## Section Title
@@ -143,6 +154,7 @@ With consistent rules, you can:
 ```
 
 **Missing blank line after:**
+
 ```markdown
 ❌ Wrong:
 - First item
@@ -165,6 +177,7 @@ With consistent rules, you can:
 **Symptom:** List items have uneven spacing or look misaligned.
 
 **Example:**
+
 ```markdown
 -  First item
 - Second item
@@ -172,6 +185,7 @@ With consistent rules, you can:
 ```
 
 **Fix:** Use exactly 1 space.
+
 ```markdown
 - First item
 - Second item
@@ -183,6 +197,7 @@ With consistent rules, you can:
 **Symptom:** Inconsistent list markers throughout document.
 
 **Example:**
+
 ```markdown
 ## Features
 - Feature 1
@@ -191,6 +206,7 @@ With consistent rules, you can:
 ```
 
 **Fix:** Use `-` everywhere.
+
 ```markdown
 ## Features
 - Feature 1
@@ -203,6 +219,7 @@ With consistent rules, you can:
 **Symptom:** Lists merge with surrounding text, poor readability.
 
 **Example:**
+
 ```markdown
 ## Getting Started
 First, install the package:
@@ -212,6 +229,7 @@ Then run the setup script.
 ```
 
 **Fix:** Add blank lines.
+
 ```markdown
 ## Getting Started
 
@@ -228,6 +246,7 @@ Then run the setup script.
 **Symptom:** Lists inside code blocks flagged as violations.
 
 **Example:**
+
 ```markdown
 ## Installation
 
@@ -252,12 +271,14 @@ Run the auto-fix command:
 ```
 
 **What it does:**
+
 - Normalizes spacing to 1 space
 - Changes all markers to `-`
 - Adds missing blank lines
 - Preserves content (only fixes formatting)
 
 **Preview first:**
+
 ```bash
 /craft:docs:lint --fix --dry-run
 ```
@@ -267,11 +288,13 @@ Run the auto-fix command:
 **If auto-fix doesn't work or you prefer manual editing:**
 
 1. **Find violations:**
+
    ```bash
    /craft:docs:lint
    ```
 
 2. **Locate each issue:**
+
    ```
    docs/guide/tutorial.md:45:1: MD030 - Spaces after list markers
    ```
@@ -282,6 +305,7 @@ Run the auto-fix command:
    - Add blank lines before/after lists
 
 4. **Verify fix:**
+
    ```bash
    /craft:docs:lint docs/guide/tutorial.md
    ```
@@ -300,12 +324,14 @@ Enable automatic validation before commits:
 ```
 
 **What hooks do:**
+
 - Check staged `.md` files for violations
 - Offer interactive auto-fix (`y/n`)
 - Block commits with unfixed issues
 - Skip if no markdown files staged
 
 **Pre-commit workflow:**
+
 ```bash
 # Stage markdown files
 git add docs/guide/tutorial.md
@@ -389,6 +415,7 @@ Follow these steps:
 ```
 
 **Why good:**
+
 - Blank line before list
 - 1 space after numbers
 - Blank line after list
@@ -410,6 +437,7 @@ Follow these steps:
 ```
 
 **Why good:**
+
 - Consistent `-` markers
 - Proper indentation (2 spaces)
 - 1 space after markers at all levels
@@ -434,6 +462,7 @@ Steps:
 ```
 
 **Why good:**
+
 - Blank lines between sections
 - Consistent ordered list format
 - Clear separation of list types
@@ -492,11 +521,13 @@ This is details.
 **Problem:** `/craft:docs:lint --fix` doesn't fix violations.
 
 **Possible causes:**
+
 1. **File not saved** - Save before running
 2. **Wrong file format** - Check it's `.md`, not `.md.txt`
 3. **Permission issues** - Check file is writable
 
 **Solution:**
+
 ```bash
 # Save file
 # Verify it's markdown
@@ -530,12 +561,14 @@ ls -la docs/guide/tutorial.md
 **Solution:** Nothing to fix! Code blocks are exempt.
 
 **Example:**
+
 ```markdown
 ```bash
 # This is fine
 - ls -la
 * grep "pattern"
 ```
+
 ```
 
 ---
@@ -612,6 +645,7 @@ Definition lists (`:` syntax) have different rules:
 | **MD032** | Blank lines around lists | ✅ Yes |
 
 **Common Patterns:**
+
 ```bash
 # Check all markdown
 /craft:docs:lint
@@ -631,6 +665,7 @@ Definition lists (`:` syntax) have different rules:
 ## Summary
 
 **Key takeaways:**
+
 1. Always use `-` for list markers
 2. Always use exactly 1 space after markers
 3. Always add blank lines around lists
@@ -638,6 +673,7 @@ Definition lists (`:` syntax) have different rules:
 5. Pre-commit hooks prevent new violations
 
 **Benefits:**
+
 - ✅ Consistent rendering everywhere
 - ✅ Portable documentation
 - ✅ Auto-fix capability
@@ -645,6 +681,7 @@ Definition lists (`:` syntax) have different rules:
 - ✅ Focus on content, not formatting
 
 **Next steps:**
+
 - Review [Documentation Quality Guide](documentation-quality.md) for complete workflow
 - Check [Command Reference](../../commands/docs/lint.md) for all linting options
 - See [Spec](../specs/SPEC-markdownlint-list-spacing-2026-01-19.md) for technical details

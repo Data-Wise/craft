@@ -11,6 +11,7 @@
 ```
 
 **Quick examples:**
+
 ```bash
 # Auto-detect and generate
 /craft:ci:generate
@@ -30,6 +31,7 @@
 Generates a GitHub Actions workflow file based on project detection or a specified template. Automatically detects project type, build tools, test frameworks, and creates an appropriate CI configuration.
 
 **Workflow:**
+
 1. **Detect** - Run project detection (or use specified template)
 2. **Customize** - Adjust based on detected features
 3. **Generate** - Write workflow file
@@ -74,6 +76,7 @@ The generator can include:
 ```
 
 Generates:
+
 ```yaml
 name: CI
 
@@ -108,6 +111,7 @@ jobs:
 ```
 
 Generates:
+
 ```yaml
 name: CI
 
@@ -142,6 +146,7 @@ jobs:
 ```
 
 Generates:
+
 ```yaml
 name: Validate Plugin
 

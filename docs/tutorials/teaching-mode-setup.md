@@ -3,6 +3,7 @@
 ⏱️ **25 minutes** • 🟢 Beginner • ✓ Complete first-time setup
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** Set up Craft's teaching workflows for your course
 > - **Why:** Automated validation, safe publishing, progress tracking
 > - **How:** Create config file → Test detection → Validate → Publish
@@ -119,6 +120,7 @@ Test that your config file is valid:
 ```
 
 **Expected output:**
+
 ```
 ✓ Teaching mode detected
 ✓ Configuration valid
@@ -127,6 +129,7 @@ Test that your config file is valid:
 ```
 
 **If you see errors**, check:
+
 - Date format is `YYYY-MM-DD`
 - Dates are in logical order (start < end)
 - Breaks fall within semester dates
@@ -229,15 +232,18 @@ Status: Ready to publish ✅
 ### 3.3 Fix Validation Errors
 
 **Missing syllabus sections:**
+
 - Add headings in your `syllabus/index.qmd` or `syllabus.qmd`
 - Required sections (default): grading, policies, objectives, schedule
 - Can customize in `validation.required_sections`
 
 **Incomplete schedule:**
+
 - Check your `schedule.qmd` for missing weeks
 - Validation expects content for each week (lectures, readings, or assignments)
 
 **Missing assignment files:**
+
 - Validation checks that assignments referenced in schedule exist
 - Add missing files or update references
 
@@ -290,6 +296,7 @@ The command shows a categorized diff:
 ```
 
 **File categories:**
+
 - **CRITICAL**: syllabus*, schedule*, assignments/
 - **CONTENT**: lectures/, readings/, resources/
 - **OTHER**: All other files
@@ -343,6 +350,7 @@ https://yourname.github.io/stat-440/
 ```
 
 **Check:**
+
 - Syllabus displays correctly
 - Schedule shows all weeks
 - Assignments are linked properly
@@ -383,6 +391,7 @@ Use the progress dashboard to monitor semester status.
 ```
 
 **Key information:**
+
 - Current week (auto-calculated from dates and breaks)
 - Visual progress bar
 - Upcoming break countdown
@@ -456,6 +465,7 @@ Run `/craft:site:progress` at the start of each week to:
 **Symptom:** `/craft:site:status` doesn't show teaching mode
 
 **Solution:**
+
 1. Check file location: `.flow/teach-config.yml` in project root
 2. Verify YAML syntax with validator
 3. Ensure file is readable (`ls -la .flow/`)
@@ -465,6 +475,7 @@ Run `/craft:site:progress` at the start of each week to:
 **Symptom:** Errors prevent `/craft:site:publish` from proceeding
 
 **Solution:**
+
 1. Read error messages carefully
 2. Fix missing sections or incomplete content
 3. Run `/craft:site:validate` to verify fixes
@@ -475,6 +486,7 @@ Run `/craft:site:progress` at the start of each week to:
 **Symptom:** "Cannot fast-forward" error
 
 **Solution:**
+
 ```bash
 # Production branch has diverged from draft
 git checkout production
@@ -489,6 +501,7 @@ git commit
 **Symptom:** Current week calculation is wrong
 
 **Solution:**
+
 1. Verify `dates.start` and `dates.end` in config
 2. Check break dates are correct
 3. Ensure breaks don't overlap
@@ -499,6 +512,7 @@ git commit
 **Symptom:** GitHub Pages not updating
 
 **Solution:**
+
 1. Check GitHub Actions: `gh run list --limit 5`
 2. Verify branch in Settings → Pages (should be "production")
 3. Check build logs for errors
@@ -509,17 +523,20 @@ git commit
 Now that teaching mode is set up:
 
 **Weekly tasks:**
+
 - [ ] Run `/craft:site:progress` each Monday
 - [ ] Update content on `draft` branch
 - [ ] Validate with `/craft:site:validate`
 - [ ] Publish with `/craft:site:publish`
 
 **Semester tasks:**
+
 - [ ] Add assignment files before due dates
 - [ ] Update syllabus when policies change
 - [ ] Keep schedule current (adjust for snow days, etc.)
 
 **Advanced features:**
+
 - [ ] Explore `--json` output for scripting
 - [ ] Set up CI/CD to auto-validate on push
 - [ ] Create custom validation rules

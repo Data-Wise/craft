@@ -16,9 +16,7 @@
   "MD007": {
     "indent": 2
   },
-  "MD029": {
-    "style": "one_or_ordered"
-  },
+  "MD029": false,
   "MD030": {
     "ul_single": 1,
     "ol_single": 1,
@@ -37,10 +35,10 @@
   "MD024": {
     "siblings_only": true
   },
-  "MD036": true,
+  "MD036": false,
 
   "_comment_code": "=== CODE BLOCKS ===",
-  "MD040": true,
+  "MD040": false,
   "MD046": {
     "style": "fenced"
   },

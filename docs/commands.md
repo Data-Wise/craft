@@ -16,6 +16,7 @@ Use `/craft:hub` to discover all available commands interactively.
 ## Smart Commands
 
 ### /craft:do 🔍
+
 Universal command - AI routes to appropriate workflow.
 
 ```bash
@@ -28,6 +29,7 @@ Universal command - AI routes to appropriate workflow.
 **Dry-run:** Preview which commands will be executed and estimated time.
 
 ### /craft:orchestrate 🔍
+
 Multi-agent orchestrator with mode-aware execution.
 
 ```bash
@@ -41,6 +43,7 @@ Multi-agent orchestrator with mode-aware execution.
 **Dry-run:** Preview agent allocation, parallelization waves, and execution time.
 
 ### /craft:check 🔍
+
 Pre-flight validation for commits, PRs, and releases.
 
 ```bash
@@ -53,6 +56,7 @@ Pre-flight validation for commits, PRs, and releases.
 **Dry-run:** Preview which checks will be performed without executing them.
 
 ### /craft:help
+
 Context-aware help and suggestions.
 
 ```bash
@@ -63,6 +67,7 @@ Context-aware help and suggestions.
 ## Architecture Commands (arch/)
 
 ### /craft:arch:analyze
+
 Analyze codebase architecture with mode support.
 
 ```bash
@@ -73,6 +78,7 @@ Analyze codebase architecture with mode support.
 ## CI/CD Commands (ci/)
 
 ### /craft:ci:detect
+
 Detect project type, build tools, and test frameworks.
 
 ```bash
@@ -82,6 +88,7 @@ Detect project type, build tools, and test frameworks.
 **Detects:** Language, framework, build system, test runner, dependencies
 
 ### /craft:ci:generate
+
 Generate GitHub Actions workflow from project detection.
 
 ```bash
@@ -92,6 +99,7 @@ Generate GitHub Actions workflow from project detection.
 **Generates:** .github/workflows/ci.yml with tests, linting, build steps
 
 ### /craft:ci:validate
+
 Validate existing CI workflow against project configuration.
 
 ```bash
@@ -101,6 +109,7 @@ Validate existing CI workflow against project configuration.
 ## Code Quality Commands (code/)
 
 ### /craft:code:lint
+
 Code style and quality checks with mode support.
 
 ```bash
@@ -111,6 +120,7 @@ Code style and quality checks with mode support.
 ## Distribution Commands (dist/)
 
 ### /craft:dist:curl-install
+
 Generate curl-based installation scripts for GitHub releases.
 
 ```bash
@@ -122,6 +132,7 @@ Generate curl-based installation scripts for GitHub releases.
 ## Documentation Commands (docs/)
 
 ### /craft:docs:mermaid
+
 Generate Mermaid diagram templates.
 
 ```bash
@@ -131,6 +142,7 @@ Generate Mermaid diagram templates.
 ```
 
 ### /craft:docs:api-documenter
+
 Create API documentation with OpenAPI support.
 
 ```bash
@@ -138,6 +150,7 @@ Create API documentation with OpenAPI support.
 ```
 
 ### /craft:docs:tutorial-engineer
+
 Build step-by-step tutorials from code.
 
 ```bash
@@ -145,6 +158,7 @@ Build step-by-step tutorials from code.
 ```
 
 ### /craft:docs:reference-builder
+
 Generate technical references and API docs.
 
 ```bash
@@ -154,6 +168,7 @@ Generate technical references and API docs.
 ## Git Commands (git/)
 
 ### /craft:git:worktree
+
 Git worktree management for parallel development.
 
 ```bash
@@ -163,6 +178,7 @@ Git worktree management for parallel development.
 ```
 
 ### /craft:git:clean
+
 Clean up merged branches safely.
 
 ```bash
@@ -173,6 +189,7 @@ Clean up merged branches safely.
 ## Test Commands (test/)
 
 ### /craft:test:run
+
 Unified test runner with mode support.
 
 ```bash
@@ -181,6 +198,7 @@ Unified test runner with mode support.
 ```
 
 ### /craft:test:cli-gen
+
 Generate CLI test suites (interactive and automated).
 
 ```bash
@@ -188,6 +206,7 @@ Generate CLI test suites (interactive and automated).
 ```
 
 ### /craft:test:cli-run
+
 Run CLI test suites.
 
 ```bash
@@ -207,6 +226,7 @@ All applicable commands support 4 execution modes:
 | **release** | <300s | Comprehensive audit |
 
 **Usage:**
+
 ```bash
 /craft:code:lint debug
 /craft:test:run release
@@ -229,6 +249,7 @@ All applicable commands support 4 execution modes:
 27 of 97 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
+
 - `git:branch` - Preview branch operations
 - `git:clean` - Preview merged branch deletion (CRITICAL)
 - `git:init` - Preview repository initialization
@@ -237,17 +258,20 @@ All applicable commands support 4 execution modes:
 - `git:worktree` - Preview worktree operations (HIGH)
 
 ### CI/CD Commands (3/3) — 100% ✅
+
 - `ci:detect` - Preview project type detection
 - `ci:generate` - Preview workflow generation (CRITICAL)
 - `ci:validate` - Preview CI validation
 
 ### Site Commands (4/6) — 67%
+
 - `site:build` - Preview site build
 - `site:check` - Preview validation checks
 - `site:deploy` - Preview GitHub Pages deployment (CRITICAL)
 - `site:update` - Preview site content updates
 
 ### Documentation Commands (5/10) — 50%
+
 - `docs:changelog` - Preview changelog generation
 - `docs:check` - Preview health check
 - `docs:claude-md` - Preview CLAUDE.md generation
@@ -255,23 +279,28 @@ All applicable commands support 4 execution modes:
 - `docs:sync` - Preview documentation sync
 
 ### Code Commands (3/12) — 25%
+
 - `code:ci-local` - Preview local CI checks (6 checks)
 - `code:deps-audit` - Preview security vulnerability scanning
 - `code:lint` - Preview linting plan (mode-aware)
 
 ### Test Commands (2/6) — 33%
+
 - `test:cli-run` - Preview CLI test execution
 - `test:run` - Preview test execution (mode-aware)
 
 ### Distribution Commands (1/4) — 25%
+
 - `dist:pypi` - Preview PyPI publishing (CRITICAL - IRREVERSIBLE warnings)
 
 ### Smart Routing (3/3) — 100% ✅
+
 - `check` - Preview validation plan
 - `do` - Preview routing plan
 - `orchestrate` - Preview orchestration plan
 
 **Example usage:**
+
 ```bash
 /craft:git:clean --dry-run           # Preview branch cleanup
 /craft:code:lint release -n          # Preview comprehensive linting

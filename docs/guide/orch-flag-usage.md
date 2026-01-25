@@ -99,7 +99,7 @@ Available modes:
 
 ## When to Use --orch
 
-### Use --orch When:
+### Use --orch When
 
 1. **Complex multi-step tasks** that require coordination across multiple agents
 2. **Cross-category work** spanning code, docs, and CI
@@ -124,11 +124,13 @@ The orchestrator is automatically triggered for high-complexity tasks (score 8-1
 **Issue:** Running `--orch` without mode doesn't show interactive prompt
 
 **Causes:**
+
 1. Not running in Claude Code CLI context
 2. Running in test/automated script environment
 3. Tool access restricted or unavailable
 
 **Solutions:**
+
 - ✅ Use explicit mode: `--orch=optimize`
 - ✅ Verify Claude Code version (requires 2.1.0+)
 - ✅ Check that AskUserQuestion tool is available
@@ -144,12 +146,14 @@ If prompt fails, automatically defaults to "default" mode with notification.
 **Issue:** Error message "⚠️  Orchestrator Spawn Failed"
 
 **Causes:**
+
 1. Orchestrator agent not available or disabled
 2. Permission denied for agent delegation
 3. Resource constraints (context limit reached)
 4. Network/service interruption
 
 **Solutions:**
+
 - ✅ Check agent status: `/craft:hub` → agents section
 - ✅ Try smaller task or lower complexity mode (debug/default)
 - ✅ Use explicit commands instead: `/craft:check`, `/craft:code:lint`
@@ -159,6 +163,7 @@ If prompt fails, automatically defaults to "default" mode with notification.
 The system automatically falls back to command routing when orchestrator spawn fails, ensuring task completion even when orchestration is unavailable.
 
 **Example fallback flow:**
+
 ```
 User runs: /craft:do "add auth" --orch=optimize
 System tries: Spawn orchestrator
@@ -176,6 +181,7 @@ Result: Task completes via commands instead
 **Cause:** Typo or unsupported mode specified
 
 **Solution:** Use one of the 4 valid modes:
+
 - `--orch=default` (2 agents, moderate parallelization)
 - `--orch=debug` (1 agent, sequential troubleshooting)
 - `--orch=optimize` (4 agents, fast parallel work)
@@ -188,11 +194,13 @@ Result: Task completes via commands instead
 **Issue:** `--dry-run` output missing or incomplete
 
 **Causes:**
+
 1. Dry-run flag not parsed correctly
 2. Other flags conflicting
 3. Output buffering issues
 
 **Solutions:**
+
 - ✅ Try: `--dry-run` or `-n` (short form)
 - ✅ Place `--dry-run` at end of command
 - ✅ Check for typos in flags
@@ -207,11 +215,13 @@ Result: Task completes via commands instead
 **Cause:** Interactive prompt waiting for input in automated environment
 
 **Solution:**
+
 - ✅ Always use explicit mode in scripts/automation: `--orch=default`
 - ✅ Don't use bare `--orch` in non-interactive contexts
 - ✅ Set default mode in calling script
 
 **Best Practice for Scripts:**
+
 ```bash
 # ❌ Don't: Interactive prompt in script
 /craft:do "build project" --orch
@@ -288,9 +298,11 @@ If you encounter issues not covered here:
 ### Common Issues
 
 **"Invalid mode" error**
+
 ```
 Error: Invalid mode: 'fast'. Valid modes: default, debug, optimize, release
 ```
+
 Make sure to use one of the valid mode names.
 
 **Orchestrator not spawning**
@@ -335,6 +347,7 @@ The `--orch` flag is opt-in and doesn't affect existing workflows. Commands work
 4. Use `--orch=release` before major releases
 
 For more information, see:
+
 - [Complexity Scoring Algorithm](../guide/complexity-scoring-algorithm.md)
 - [Orchestrator Command](../commands/orchestrate.md)
 - [Version History](../VERSION-HISTORY.md)

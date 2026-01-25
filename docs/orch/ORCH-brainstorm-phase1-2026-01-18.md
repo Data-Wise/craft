@@ -11,6 +11,7 @@
 ## Executive Summary
 
 Implement Phase 1 (MVP) of the brainstorm question control feature, enabling users to:
+
 - Specify custom question counts via colon notation (`d:5`, `m:12`)
 - Filter questions by categories (`--categories req,tech,success`)
 - Ask unlimited questions with milestone prompts
@@ -118,6 +119,7 @@ AskUserQuestion:
 ```
 
 **Test Cases:**
+
 - `d:5` → deep with 5 questions
 - `m:12` → max with 12 questions
 - `q:0` → quick with 0 questions
@@ -126,6 +128,7 @@ AskUserQuestion:
 - `:5` alone → error (depth required)
 
 **Acceptance Criteria:**
+
 - ✅ All colon notation formats parse correctly
 - ✅ Invalid syntax triggers interactive prompt
 - ✅ Standalone `:N` shows error
@@ -356,6 +359,7 @@ question_bank:
 | `auto` | requirements, users, technical, success |
 
 **Acceptance Criteria:**
+
 - ✅ All 8 categories implemented
 - ✅ 2 questions per category (16 total)
 - ✅ Questions use AskUserQuestion format
@@ -478,6 +482,7 @@ def prioritize_questions(questions, count):
 ```
 
 **Acceptance Criteria:**
+
 - ✅ `--categories` and `-C` both work
 - ✅ Comma-separated list parsing
 - ✅ Shorthand expansion (req → requirements)
@@ -606,6 +611,7 @@ def ask_continuation_prompt(questions_asked, total_count):
 **Milestone Prompt Examples:**
 
 After 8 questions:
+
 ```
 You've answered 8 questions. Good context so far!
 
@@ -617,6 +623,7 @@ Continue gathering context or start brainstorming?
 ```
 
 After 16 questions (unlimited mode):
+
 ```
 You've answered 16 questions. Comprehensive context!
 
@@ -627,6 +634,7 @@ Continue gathering context or start brainstorming?
 ```
 
 **Acceptance Criteria:**
+
 - ✅ Prompts appear every 8 questions
 - ✅ User can add 4, 8, or unlimited
 - ✅ "Keep going" mode asks after every 4
@@ -676,9 +684,11 @@ Continue gathering context or start brainstorming?
 ```
 
 **Backward Compatible:**
+
 - All existing syntax still works
 - `d` = `d:8` (deep with default 8 questions)
 - `m` = `m:8` (max with default 8 questions)
+
 ```
 
 **Acceptance Criteria:**
@@ -862,6 +872,7 @@ class TestBrainstormPhase1Integration:
 ```
 
 **Acceptance Criteria:**
+
 - ✅ All unit tests pass (100% coverage)
 - ✅ Integration tests validate end-to-end
 - ✅ Edge cases handled (invalid syntax, etc.)
@@ -881,6 +892,7 @@ class TestBrainstormPhase1Integration:
 6. **Task 6 last** (Tests) - Validate everything
 
 **Why this order?**
+
 - Question bank is the foundation
 - Categories flag is simple and useful for testing
 - Colon notation can use real question bank for testing
@@ -938,6 +950,7 @@ If Phase 1 causes issues:
 3. **Hotfix** - Create `hotfix/revert-phase1` branch
 
 **Critical bugs that require rollback:**
+
 - Breaks existing brainstorm functionality
 - Causes data loss or corruption
 - Performance regression > 2x slower
@@ -970,12 +983,14 @@ If Phase 1 causes issues:
 ## Notes
 
 **IMPORTANT:**
+
 - This is MVP - Phase 2/3 are deferred
 - Focus on core functionality, not polish
 - Ship and gather feedback before Phase 2/3
 - Keep implementation simple and testable
 
 **Known Limitations (Phase 1):**
+
 - No question style choice (always one-at-a-time)
 - No saved preferences
 - No custom questions

@@ -69,6 +69,7 @@ Your Task → Complexity Analysis → Route Decision
 ### How It Works (Before vs After)
 
 **Before (Brittle):**
+
 ```
 Wave 1: [Agent A] [Agent B]
          ↓ denied    ↓ success
@@ -76,6 +77,7 @@ Wave 2: ❌ BLOCKED
 ```
 
 **After (Resilient):**
+
 ```
 Wave 1: [Agent A] [Agent B]
          ↓ denied    ↓ success

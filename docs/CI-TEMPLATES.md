@@ -55,6 +55,7 @@ jobs:
 ```
 
 **Key features:**
+
 - Multi-platform (Ubuntu + macOS)
 - Multi-Python version matrix
 - uv for fast dependency management
@@ -102,6 +103,7 @@ jobs:
 ```
 
 **Key features:**
+
 - Multi-Node version matrix (18, 20, 22)
 - npm caching
 - Separate unit/integration test jobs
@@ -159,6 +161,7 @@ jobs:
 ```
 
 **Key features:**
+
 - Separate frontend (Vitest) and backend (cargo) jobs
 - Rust caching with Swatinem/rust-cache
 - WebKit dependencies for Linux
@@ -195,6 +198,7 @@ jobs:
 ```
 
 **For Bun-based MCP servers:**
+
 ```yaml
       - uses: oven-sh/setup-bun@v1
       - run: bun install
@@ -289,6 +293,7 @@ jobs:
 ```
 
 **Features:**
+
 - ✅ Validates internal markdown links
 - ✅ Respects `.linkcheck-ignore` patterns
 - ✅ Only fails on critical broken links
@@ -296,11 +301,13 @@ jobs:
 - ✅ Fast (< 10s for typical projects)
 
 **Setup:**
+
 1. Create `.linkcheck-ignore` in project root (optional but recommended)
 2. Add workflow file to `.github/workflows/docs-quality.yml`
 3. Expected broken links won't block CI
 
 **Example .linkcheck-ignore:**
+
 ```markdown
 # Known Broken Links
 

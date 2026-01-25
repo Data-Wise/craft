@@ -355,6 +355,7 @@ print(f"Cached load: {elapsed:.2f}ms")
 **Common optimizations:**
 
 1. **Reduce file I/O**:
+
    ```python
    # Bad: Multiple file reads
    for filepath in files:
@@ -369,12 +370,14 @@ print(f"Cached load: {elapsed:.2f}ms")
    ```
 
 2. **Optimize JSON serialization**:
+
    ```python
    # Use compact JSON format
    json.dump(cache, f, separators=(',', ':'))
    ```
 
 3. **Early termination**:
+
    ```python
    # Stop scanning if cache is valid
    if cache_is_valid():
@@ -533,6 +536,7 @@ if not os.path.exists(filepath):
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation only

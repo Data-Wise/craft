@@ -20,9 +20,11 @@ Complete documentation suite for the `/craft:docs:demo` dependency management sy
 ### 📚 User Documentation
 
 #### [DEPENDENCY-MANAGEMENT.md](DEPENDENCY-MANAGEMENT.md)
+
 **Primary user guide** for the dependency management system.
 
 **Contents**:
+
 - Overview and key features
 - Quick start guide
 - Complete flags reference
@@ -37,6 +39,7 @@ Complete documentation suite for the `/craft:docs:demo` dependency management sy
 **Length**: 685 lines
 
 **When to Use**:
+
 - First time using the system
 - Setting up CI/CD pipelines
 - Troubleshooting issues
@@ -47,9 +50,11 @@ Complete documentation suite for the `/craft:docs:demo` dependency management sy
 ### 🔧 Developer Documentation
 
 #### [API-REFERENCE.md](API-REFERENCE.md)
+
 **Complete API documentation** for all scripts and functions.
 
 **Contents**:
+
 - Function signatures with types
 - Parameter documentation
 - Return value JSON schemas
@@ -59,6 +64,7 @@ Complete documentation suite for the `/craft:docs:demo` dependency management sy
 - Integration patterns
 
 **Documented Scripts** (10 total):
+
 - `dependency-manager.sh` - 4 commands
 - `tool-detector.sh` - 1 function
 - `session-cache.sh` - 3 functions
@@ -75,6 +81,7 @@ Complete documentation suite for the `/craft:docs:demo` dependency management sy
 **Length**: ~1,200 lines
 
 **When to Use**:
+
 - Writing scripts that call these functions
 - Understanding return value formats
 - Implementing custom workflows
@@ -83,9 +90,11 @@ Complete documentation suite for the `/craft:docs:demo` dependency management sy
 ---
 
 #### [DEPENDENCY-ARCHITECTURE.md](DEPENDENCY-ARCHITECTURE.md)
+
 **Visual architecture documentation** with Mermaid diagrams.
 
 **Contents** (13 diagrams):
+
 - **System Overview**: Complete 4-phase architecture
 - **Component Diagrams** (4):
   - Phase 1: Dependency Detection
@@ -116,6 +125,7 @@ Complete documentation suite for the `/craft:docs:demo` dependency management sy
 **Length**: ~700 lines
 
 **When to Use**:
+
 - Understanding system design
 - Planning integrations
 - Explaining architecture to team
@@ -124,9 +134,11 @@ Complete documentation suite for the `/craft:docs:demo` dependency management sy
 ---
 
 #### [DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md)
+
 **Comprehensive developer guide** for contributors.
 
 **Contents**:
+
 - Development setup and environment
 - Code structure and conventions
 - Step-by-step feature addition guides:
@@ -146,6 +158,7 @@ Complete documentation suite for the `/craft:docs:demo` dependency management sy
 **Length**: ~400 lines
 
 **When to Use**:
+
 - Contributing code
 - Adding new features
 - Writing tests
@@ -182,7 +195,7 @@ Test Patterns:        9 patterns
 
 ## Quick Links by Task
 
-### I want to...
+### I want to
 
 **Use the system**
 → Start with [DEPENDENCY-MANAGEMENT.md](DEPENDENCY-MANAGEMENT.md)
@@ -242,18 +255,21 @@ Test Patterns:        9 patterns
 ### Updating Documentation
 
 **After code changes**:
+
 1. Update relevant function signatures in [API-REFERENCE.md](API-REFERENCE.md)
 2. Update diagrams in [DEPENDENCY-ARCHITECTURE.md](DEPENDENCY-ARCHITECTURE.md) if structure changed
 3. Update user guide in [DEPENDENCY-MANAGEMENT.md](DEPENDENCY-MANAGEMENT.md) if features changed
 4. Update examples in [DEVELOPER-GUIDE.md](DEVELOPER-GUIDE.md) if patterns changed
 
 **For version updates**:
+
 ```bash
 # Update version in all docs
 sed -i '' 's/Version: [0-9.]\+/Version: 1.27.0/g' docs/*.md
 ```
 
 **For new scripts**:
+
 1. Add function documentation to [API-REFERENCE.md](API-REFERENCE.md)
 2. Add component to architecture diagrams
 3. Add usage examples to [DEPENDENCY-MANAGEMENT.md](DEPENDENCY-MANAGEMENT.md)
@@ -262,18 +278,21 @@ sed -i '' 's/Version: [0-9.]\+/Version: 1.27.0/g' docs/*.md
 ### Documentation Standards
 
 **Consistency**:
+
 - Use consistent terminology (e.g., "tool" not "dependency" for specific programs)
 - Follow established patterns for sections
 - Maintain alphabetical order in function listings
 - Use consistent code block formatting
 
 **Quality**:
+
 - All code examples must be tested
 - All links must be valid
 - All diagrams must render correctly
 - All JSON schemas must be valid
 
 **Completeness**:
+
 - Every public function documented
 - Every flag documented
 - Every workflow documented

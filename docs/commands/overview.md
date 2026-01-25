@@ -1,6 +1,7 @@
 # Commands Overview
 
 > **TL;DR** (30 seconds)
+>
 > - **What:** 74 commands organized into 9 categories (Smart, Docs, Site, Code, Git, CI, Architecture, Distribution, Planning)
 > - **Why:** One plugin handles your entire development workflow from docs to deployment
 > - **How:** Use `/craft:hub` to discover all commands by category
@@ -80,6 +81,7 @@ Many commands support execution modes:
 | `release` | <300s | Comprehensive audit |
 
 **Example:**
+
 ```bash
 /craft:code:lint optimize    # Fast parallel linting
 /craft:test:run debug        # Verbose test output
