@@ -10,27 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/specs/SPEC-spec-integration-2026-01-16/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/RELEASE-v2.8.0/">
       
       
+        <link rel="prev" href="../VERSION-HISTORY/">
+      
+      
+        <link rel="next" href="../reference/REFCARD-claude-code-2.1-enhancements/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>SPEC: Spec Standards Integration into Craft Commands - Craft Plugin</title>
+        <title>Release Notes v2.8.0 - Craft Plugin</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,9 +53,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#spec-spec-standards-integration-into-craft-commands" class="md-skip">
+        <a href="#release-v280-markdown-linting-execution-layer" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +94,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href=".." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SPEC: Spec Standards Integration into Craft Commands
+              Release Notes v2.8.0
             
           </span>
         </div>
@@ -225,7 +229,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../.." class="md-tabs__link">
+        <a href=".." class="md-tabs__link">
           
   
   
@@ -245,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../guide/getting-started/" class="md-tabs__link">
+        <a href="../guide/getting-started/" class="md-tabs__link">
           
   
   
@@ -265,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../commands/overview/" class="md-tabs__link">
+        <a href="../commands/overview/" class="md-tabs__link">
           
   
   
@@ -285,7 +289,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../cookbook/" class="md-tabs__link">
+        <a href="../cookbook/" class="md-tabs__link">
           
   
   
@@ -301,11 +305,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../reference/configuration/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../reference/configuration/" class="md-tabs__link">
           
   
   
@@ -325,7 +331,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../guide/documentation-quality-development/" class="md-tabs__link">
+        <a href="../guide/documentation-quality-development/" class="md-tabs__link">
           
   
   
@@ -343,7 +349,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../REFCARD/" class="md-tabs__link">
+      <a href="../REFCARD/" class="md-tabs__link">
         
   
   
@@ -378,7 +384,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href=".." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -458,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -486,7 +492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../QUICK-START/" class="md-nav__link">
+      <a href="../QUICK-START/" class="md-nav__link">
         
   
   
@@ -514,7 +520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ADHD-QUICK-START/" class="md-nav__link">
+      <a href="../ADHD-QUICK-START/" class="md-nav__link">
         
   
   
@@ -542,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/choose-path/" class="md-nav__link">
+      <a href="../getting-started/choose-path/" class="md-nav__link">
         
   
   
@@ -570,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/" class="md-nav__link">
+      <a href="../workflows/" class="md-nav__link">
         
   
   
@@ -598,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../PLAYGROUND/" class="md-nav__link">
+      <a href="../PLAYGROUND/" class="md-nav__link">
         
   
   
@@ -683,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/getting-started/" class="md-nav__link">
+      <a href="../guide/getting-started/" class="md-nav__link">
         
   
   
@@ -761,7 +767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -789,7 +795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/claude-code-2.1-integration/" class="md-nav__link">
+      <a href="../guide/claude-code-2.1-integration/" class="md-nav__link">
         
   
   
@@ -817,7 +823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/complexity-scoring-algorithm/" class="md-nav__link">
+      <a href="../guide/complexity-scoring-algorithm/" class="md-nav__link">
         
   
   
@@ -845,7 +851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -873,7 +879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -901,7 +907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -987,7 +993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/documentation-quality/" class="md-nav__link">
+      <a href="../guide/documentation-quality/" class="md-nav__link">
         
   
   
@@ -1015,7 +1021,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+      <a href="../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
         
   
   
@@ -1043,7 +1049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/getting-started/" class="md-nav__link">
+      <a href="../guide/getting-started/" class="md-nav__link">
         
   
   
@@ -1071,7 +1077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/release-workflow/" class="md-nav__link">
+      <a href="../workflows/release-workflow/" class="md-nav__link">
         
   
   
@@ -1099,7 +1105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/git-feature-workflow/" class="md-nav__link">
+      <a href="../workflows/git-feature-workflow/" class="md-nav__link">
         
   
   
@@ -1127,7 +1133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/pre-commit-workflow/" class="md-nav__link">
+      <a href="../workflows/pre-commit-workflow/" class="md-nav__link">
         
   
   
@@ -1213,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../TEACHING-DOCS-INDEX/" class="md-nav__link">
+      <a href="../TEACHING-DOCS-INDEX/" class="md-nav__link">
         
   
   
@@ -1241,7 +1247,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/teaching-mode-setup/" class="md-nav__link">
+      <a href="../tutorials/teaching-mode-setup/" class="md-nav__link">
         
   
   
@@ -1269,7 +1275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/teaching-workflow/" class="md-nav__link">
+      <a href="../guide/teaching-workflow/" class="md-nav__link">
         
   
   
@@ -1297,7 +1303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-TEACHING/" class="md-nav__link">
+      <a href="../reference/REFCARD-TEACHING/" class="md-nav__link">
         
   
   
@@ -1325,7 +1331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../teaching-config-schema/" class="md-nav__link">
+      <a href="../teaching-config-schema/" class="md-nav__link">
         
   
   
@@ -1353,7 +1359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../teaching-migration/" class="md-nav__link">
+      <a href="../teaching-migration/" class="md-nav__link">
         
   
   
@@ -1489,7 +1495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git-init-reference/" class="md-nav__link">
+      <a href="../commands/git-init-reference/" class="md-nav__link">
         
   
   
@@ -1517,7 +1523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/git-init-tutorial/" class="md-nav__link">
+      <a href="../guide/git-init-tutorial/" class="md-nav__link">
         
   
   
@@ -1545,7 +1551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/git-init-flow/" class="md-nav__link">
+      <a href="../architecture/git-init-flow/" class="md-nav__link">
         
   
   
@@ -1573,7 +1579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git-init-docs-index/" class="md-nav__link">
+      <a href="../git-init-docs-index/" class="md-nav__link">
         
   
   
@@ -1609,7 +1615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/orchestrator/" class="md-nav__link">
+      <a href="../guide/orchestrator/" class="md-nav__link">
         
   
   
@@ -1637,7 +1643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/orch-flag-usage/" class="md-nav__link">
+      <a href="../guide/orch-flag-usage/" class="md-nav__link">
         
   
   
@@ -1665,7 +1671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/homebrew-installation/" class="md-nav__link">
+      <a href="../guide/homebrew-installation/" class="md-nav__link">
         
   
   
@@ -1693,7 +1699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/skills-agents/" class="md-nav__link">
+      <a href="../guide/skills-agents/" class="md-nav__link">
         
   
   
@@ -1721,7 +1727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/integration-testing/" class="md-nav__link">
+      <a href="../guide/integration-testing/" class="md-nav__link">
         
   
   
@@ -1749,7 +1755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/markdown-list-spacing/" class="md-nav__link">
+      <a href="../guide/markdown-list-spacing/" class="md-nav__link">
         
   
   
@@ -1777,7 +1783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ACCESSIBILITY/" class="md-nav__link">
+      <a href="../ACCESSIBILITY/" class="md-nav__link">
         
   
   
@@ -1870,7 +1876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/overview/" class="md-nav__link">
+      <a href="../commands/overview/" class="md-nav__link">
         
   
   
@@ -1948,7 +1954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/smart/" class="md-nav__link">
+      <a href="../commands/smart/" class="md-nav__link">
         
   
   
@@ -1976,7 +1982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/" class="md-nav__link">
+      <a href="../commands/docs/" class="md-nav__link">
         
   
   
@@ -2004,7 +2010,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/site/" class="md-nav__link">
+      <a href="../commands/site/" class="md-nav__link">
         
   
   
@@ -2032,7 +2038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/" class="md-nav__link">
+      <a href="../commands/code/" class="md-nav__link">
         
   
   
@@ -2060,7 +2066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/" class="md-nav__link">
+      <a href="../commands/git/" class="md-nav__link">
         
   
   
@@ -2088,7 +2094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/arch/" class="md-nav__link">
+      <a href="../commands/arch/" class="md-nav__link">
         
   
   
@@ -2116,7 +2122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/dist/" class="md-nav__link">
+      <a href="../commands/dist/" class="md-nav__link">
         
   
   
@@ -2144,7 +2150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/plan/" class="md-nav__link">
+      <a href="../commands/plan/" class="md-nav__link">
         
   
   
@@ -2180,7 +2186,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/" class="md-nav__link">
+      <a href="../commands/" class="md-nav__link">
         
   
   
@@ -2258,7 +2264,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/check/" class="md-nav__link">
+      <a href="../commands/check/" class="md-nav__link">
         
   
   
@@ -2286,7 +2292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/do/" class="md-nav__link">
+      <a href="../commands/do/" class="md-nav__link">
         
   
   
@@ -2314,7 +2320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/hub/" class="md-nav__link">
+      <a href="../commands/hub/" class="md-nav__link">
         
   
   
@@ -2342,7 +2348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate/" class="md-nav__link">
+      <a href="../commands/orchestrate/" class="md-nav__link">
         
   
   
@@ -2370,7 +2376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/ci/generate/" class="md-nav__link">
+      <a href="../commands/ci/generate/" class="md-nav__link">
         
   
   
@@ -2398,7 +2404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/update/" class="md-nav__link">
+      <a href="../commands/docs/update/" class="md-nav__link">
         
   
   
@@ -2426,7 +2432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/worktree/" class="md-nav__link">
+      <a href="../commands/git/worktree/" class="md-nav__link">
         
   
   
@@ -2454,7 +2460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/brainstorm/" class="md-nav__link">
+      <a href="../commands/workflow/brainstorm/" class="md-nav__link">
         
   
   
@@ -2547,7 +2553,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/" class="md-nav__link">
+      <a href="../cookbook/" class="md-nav__link">
         
   
   
@@ -2625,7 +2631,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
+      <a href="../cookbook/common/setup-new-project/" class="md-nav__link">
         
   
   
@@ -2653,7 +2659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/deploy-course-website/" class="md-nav__link">
+      <a href="../cookbook/common/deploy-course-website/" class="md-nav__link">
         
   
   
@@ -2681,7 +2687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/automate-release-workflow/" class="md-nav__link">
+      <a href="../cookbook/common/automate-release-workflow/" class="md-nav__link">
         
   
   
@@ -2709,7 +2715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
+      <a href="../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
         
   
   
@@ -2795,7 +2801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
+      <a href="../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
         
   
   
@@ -2835,24 +2841,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -2870,7 +2881,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2888,7 +2899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/configuration/" class="md-nav__link">
+      <a href="../reference/configuration/" class="md-nav__link">
         
   
   
@@ -2916,7 +2927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/presets/" class="md-nav__link">
+      <a href="../reference/presets/" class="md-nav__link">
         
   
   
@@ -2944,7 +2955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../skills-agents/" class="md-nav__link">
+      <a href="../skills-agents/" class="md-nav__link">
         
   
   
@@ -2972,7 +2983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../orchestrator/" class="md-nav__link">
+      <a href="../orchestrator/" class="md-nav__link">
         
   
   
@@ -3000,7 +3011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -3028,7 +3039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
+      <a href="../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -3056,7 +3067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/DISCOVERY-API/" class="md-nav__link">
+      <a href="../api/DISCOVERY-API/" class="md-nav__link">
         
   
   
@@ -3084,7 +3095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/documentation-quality/" class="md-nav__link">
+      <a href="../reference/documentation-quality/" class="md-nav__link">
         
   
   
@@ -3112,7 +3123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../VERSION-HISTORY/" class="md-nav__link">
+      <a href="../VERSION-HISTORY/" class="md-nav__link">
         
   
   
@@ -3137,10 +3148,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../RELEASE-v2.8.0/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes v2.8.0
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3156,6 +3194,370 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-markdown-linting-execution-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Markdown Linting Execution Layer ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-feature-status-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Feature Status Table ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-markdown-configuration-existing-now-documented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Markdown Configuration (Existing - Now Documented)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Test Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-test-suite-706706-passing-100" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Test Suite: 706/706 PASSING (100%) ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Users
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-installation-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool Installation (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verification-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verification Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Breaking Changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deprecations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-enhancements-v290" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Future Enhancements (v2.9.0+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Enhancements (v2.9.0+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updated-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updated Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New Additions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#immediate-v280-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Immediate (v2.8.0 - Complete)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coming-soon-v290-planned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coming Soon (v2.9.0 - Planned)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#later-v300" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Later (v3.0.0+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3218,7 +3620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -3246,7 +3648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+      <a href="../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
         
   
   
@@ -3332,7 +3734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
+      <a href="../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
         
   
   
@@ -3360,7 +3762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
+      <a href="../GIF-REGENERATION-GUIDE/" class="md-nav__link">
         
   
   
@@ -3438,7 +3840,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
+      <a href="../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
         
   
   
@@ -3516,7 +3918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/" class="md-nav__link">
+      <a href="../tutorials/" class="md-nav__link">
         
   
   
@@ -3544,7 +3946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/dependency-management-getting-started/" class="md-nav__link">
+      <a href="../tutorials/dependency-management-getting-started/" class="md-nav__link">
         
   
   
@@ -3580,7 +3982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../API-REFERENCE/" class="md-nav__link">
+      <a href="../API-REFERENCE/" class="md-nav__link">
         
   
   
@@ -3608,7 +4010,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
+      <a href="../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -3636,7 +4038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../DEVELOPER-GUIDE/" class="md-nav__link">
+      <a href="../DEVELOPER-GUIDE/" class="md-nav__link">
         
   
   
@@ -3730,7 +4132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
+      <a href="../specs/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
         
   
   
@@ -3758,7 +4160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
+      <a href="../specs/_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
         
   
   
@@ -3786,7 +4188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
+      <a href="../specs/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
         
   
   
@@ -3814,7 +4216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
+      <a href="../specs/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
         
   
   
@@ -3842,7 +4244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
+      <a href="../specs/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
         
   
   
@@ -3870,7 +4272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
+      <a href="../specs/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
         
   
   
@@ -3898,7 +4300,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../specs/_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
         
   
   
@@ -3991,7 +4393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/documentation-quality-development/" class="md-nav__link">
+      <a href="../guide/documentation-quality-development/" class="md-nav__link">
         
   
   
@@ -4019,7 +4421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CI-TEMPLATES/" class="md-nav__link">
+      <a href="../CI-TEMPLATES/" class="md-nav__link">
         
   
   
@@ -4047,7 +4449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+      <a href="../CI-DETECTION-ROLLOUT/" class="md-nav__link">
         
   
   
@@ -4082,7 +4484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../REFCARD/" class="md-nav__link">
+      <a href="../REFCARD/" class="md-nav__link">
         
   
   
@@ -4129,10 +4531,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem-statement" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem Statement
+        Summary
       
     </span>
   </a>
@@ -4140,33 +4542,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#solution-overview" class="md-nav__link">
+  <a href="#key-features" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Solution Overview
+        Key Features
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scope" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scope
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Scope">
+    <nav class="md-nav" aria-label="Key Features">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#in-scope" class="md-nav__link">
+  <a href="#1-markdown-linting-execution-layer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        In Scope
+        1. Markdown Linting Execution Layer ✅
       
     </span>
   </a>
@@ -4174,10 +4565,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#out-of-scope" class="md-nav__link">
+  <a href="#2-feature-status-table" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Out of Scope
+        2. Feature Status Table ✅
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-markdown-configuration-existing-now-documented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Markdown Configuration (Existing - Now Documented)
       
     </span>
   </a>
@@ -4190,55 +4592,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#design" class="md-nav__link">
+  <a href="#test-results" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design
+        Test Results
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Design">
+    <nav class="md-nav" aria-label="Test Results">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#template-storage-embedded" class="md-nav__link">
+  <a href="#full-test-suite-706706-passing-100" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Template Storage (Embedded)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#validation-strategy-content-validation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Validation Strategy (Content Validation)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#command-integration-map" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Command Integration Map
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#website-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Website Structure
+        Full Test Suite: 706/706 PASSING (100%) ✅
       
     </span>
   </a>
@@ -4251,22 +4620,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-phases" class="md-nav__link">
+  <a href="#changes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Implementation Phases
+        Changes
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Implementation Phases">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#phase-1-foundation-week-1-2-3-hours" class="md-nav__link">
+  <a href="#for-users" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 1: Foundation (Week 1 - 2-3 hours)
+        For Users
       
     </span>
   </a>
@@ -4274,32 +4654,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#phase-2-command-integration-week-2-6-8-hours" class="md-nav__link">
+  <a href="#tool-installation-optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 2: Command Integration (Week 2 - 6-8 hours)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-3-website-integration-week-3-6-8-hours" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 3: Website Integration (Week 3 - 6-8 hours)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-4-template-versioning-week-4-2-3-hours" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 4: Template Versioning (Week 4 - 2-3 hours)
+        Tool Installation (Optional)
       
     </span>
   </a>
@@ -4312,33 +4670,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#files-createdmodified" class="md-nav__link">
+  <a href="#verification-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Files Created/Modified
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Files Created/Modified">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#new-files-phase-1-4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        New Files (Phase 1-4)
+        Verification Steps
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#modified-files-phase-1-4" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Modified Files (Phase 1-4)
+        Breaking Changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deprecations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-enhancements-v290" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Future Enhancements (v2.9.0+)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Future Enhancements (v2.9.0+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned Features
       
     </span>
   </a>
@@ -4351,22 +4753,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#success-metrics" class="md-nav__link">
+  <a href="#performance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Success Metrics
+        Performance
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Success Metrics">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Points
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#phase-1-foundation" class="md-nav__link">
+  <a href="#updated-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 1 (Foundation)
+        Updated Files
       
     </span>
   </a>
@@ -4374,32 +4798,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#phase-2-command-integration" class="md-nav__link">
+  <a href="#new-additions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 2 (Command Integration)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-3-website-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 3 (Website Integration)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-4-versioning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 4 (Versioning)
+        New Additions
       
     </span>
   </a>
@@ -4412,32 +4814,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#risk-assessment" class="md-nav__link">
+  <a href="#release-checklist" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Risk Assessment
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dependencies
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#open-questions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Open Questions
+        Release Checklist
       
     </span>
   </a>
@@ -4457,10 +4837,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#immediate-this-session" class="md-nav__link">
+  <a href="#immediate-v280-complete" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Immediate (This Session)
+        Immediate (v2.8.0 - Complete)
       
     </span>
   </a>
@@ -4468,10 +4848,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#next-session-phase-1-week-1" class="md-nav__link">
+  <a href="#coming-soon-v290-planned" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Session (Phase 1 - Week 1)
+        Coming Soon (v2.9.0 - Planned)
       
     </span>
   </a>
@@ -4479,10 +4859,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#week-2-4" class="md-nav__link">
+  <a href="#later-v300" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Week 2-4
+        Later (v3.0.0+)
       
     </span>
   </a>
@@ -4511,7 +4891,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/specs/SPEC-spec-integration-2026-01-16.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/RELEASE-v2.8.0.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4519,573 +4899,406 @@
   
 
 
-<h1 id="spec-spec-standards-integration-into-craft-commands">SPEC: Spec Standards Integration into Craft Commands<a class="headerlink" href="#spec-spec-standards-integration-into-craft-commands" title="Permanent link">&para;</a></h1>
-<p><strong>Status:</strong> Draft
-<strong>Date:</strong> 2026-01-16
-<strong>Priority:</strong> High
-<strong>Target:</strong> v1.21.0
-<strong>Effort:</strong> ~20 hours (4 weeks phased)</p>
-<hr />
-<h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
-<p>Currently, craft has no standardized way to create, validate, or use specifications. Specs are ad-hoc, inconsistent, and disconnected from the development workflow. The help template spec we just created is comprehensive, but there's no system to ensure future specs follow the same structure. Without integration, specs will remain documentation artifacts rather than living implementation guides.</p>
-<hr />
-<h2 id="solution-overview">Solution Overview<a class="headerlink" href="#solution-overview" title="Permanent link">&para;</a></h2>
-<p>Integrate spec standards deeply into craft commands with a five-part solution:</p>
-<ol>
-<li><strong>Template Embedding</strong> - Store spec template v1.0.0 in brainstorm command</li>
-<li><strong>Command Integration</strong> - Connect brainstorm → do → check → site/docs commands</li>
-<li><strong>Validation System</strong> - Content validation on commit via pre-commit hook</li>
-<li><strong>Website Publishing</strong> - New Specifications section with category pages</li>
-<li><strong>Smart Routing</strong> - /craft:do searches specs by keyword for implementation guidance</li>
-</ol>
-<p><strong>Key Principles:</strong></p>
+<h1 id="release-v280-markdown-linting-execution-layer">Release v2.8.0 - Markdown Linting Execution Layer<a class="headerlink" href="#release-v280-markdown-linting-execution-layer" title="Permanent link">&para;</a></h1>
+<p><strong>Release Date:</strong> 2026-01-25
+<strong>Type:</strong> Minor Release
+<strong>Status:</strong> Ready for Production</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>This release implements the execution layer for <code>/craft:docs:lint</code>, bridging the gap between existing markdown linting configuration (30 rules in <code>.markdownlint.json</code>, pre-commit hook) and the aspirational command documentation. The MVP focuses on core functionality: basic linting and auto-fix capabilities.</p>
+<h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
+<h3 id="1-markdown-linting-execution-layer">1. Markdown Linting Execution Layer ✅<a class="headerlink" href="#1-markdown-linting-execution-layer" title="Permanent link">&para;</a></h3>
+<p><strong>Implementation:</strong></p>
 <ul>
-<li>Consistency: All specs use same template structure</li>
-<li>Validation: Content validation (not just format checking)</li>
-<li>Integration: Specs drive implementation (not just documentation)</li>
-<li>Versioning: Template versions for backward compatibility</li>
+<li><code>scripts/docs-lint.sh</code> - Bash execution script for markdown linting</li>
+<li>Detects <code>markdownlint-cli2</code> globally or falls back to <code>npx</code></li>
+<li>Supports <code>--fix</code> flag for auto-fixing issues</li>
+<li>Supports target path specification</li>
 </ul>
-<hr />
-<h2 id="scope">Scope<a class="headerlink" href="#scope" title="Permanent link">&para;</a></h2>
-<h3 id="in-scope">In Scope<a class="headerlink" href="#in-scope" title="Permanent link">&para;</a></h3>
+<p><strong>Components:</strong></p>
 <ul>
-<li>✅ Embed spec template v1.0.0 in <code>commands/workflow/brainstorm.md</code></li>
-<li>✅ Create validation module <code>tests/validate_specs.py</code></li>
-<li>✅ Add spec validation to pre-commit hook</li>
-<li>✅ Implement spec search in <code>/craft:do</code></li>
-<li>✅ Add spec validation to <code>/craft:check</code></li>
-<li>✅ Create Specifications section on website</li>
-<li>✅ Generate help pages from specs</li>
-<li>✅ Template version tracking system</li>
+<li>Execution script: <code>scripts/docs-lint.sh</code> (new)</li>
+<li>Command file: <code>commands/docs/lint.md</code> (updated with trigger)</li>
+<li>Configuration: <code>.markdownlint.json</code> (30 rules, existing)</li>
+<li>Pre-commit hook: <code>.pre-commit-config.yaml</code> (working, existing)</li>
 </ul>
-<h3 id="out-of-scope">Out of Scope<a class="headerlink" href="#out-of-scope" title="Permanent link">&para;</a></h3>
-<ul>
-<li>❌ Auto-migration tool (manual migration OK for now)</li>
-<li>❌ Spec analytics/metrics (future enhancement)</li>
-<li>❌ GitHub issue integration (future enhancement)</li>
-<li>❌ Interactive spec editor (future enhancement)</li>
-</ul>
-<hr />
-<h2 id="design">Design<a class="headerlink" href="#design" title="Permanent link">&para;</a></h2>
-<h3 id="template-storage-embedded">Template Storage (Embedded)<a class="headerlink" href="#template-storage-embedded" title="Permanent link">&para;</a></h3>
-<p>Template v1.0.0 lives in <code>commands/workflow/brainstorm.md</code> with these sections:</p>
-<p><strong>Required Sections:</strong></p>
-<ol>
-<li>Problem Statement (20+ words)</li>
-<li>Solution Overview (20+ words)</li>
-<li>Scope (In/Out with 1+ item each)</li>
-<li>Design</li>
-<li>Implementation Phases</li>
-<li>Files Created/Modified</li>
-<li>Success Metrics (1+ metric)</li>
-<li>Risk Assessment</li>
-<li>Dependencies</li>
-<li>Open Questions</li>
-<li>Next Steps</li>
-</ol>
-<p><strong>Frontmatter:</strong></p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nn">---</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">draft|approved|implemented|deprecated</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">created</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YYYY-MM-DD</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">from_brainstorm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BRAINSTORM-*.md</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nn">---</span>
+<p><strong>Features:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Basic linting - check all markdown files</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>bash<span class="w"> </span>scripts/docs-lint.sh
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Auto-fix - apply safe fixes</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>bash<span class="w"> </span>scripts/docs-lint.sh<span class="w"> </span>--fix
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Check specific path</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>bash<span class="w"> </span>scripts/docs-lint.sh<span class="w"> </span>docs/guide/
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>bash<span class="w"> </span>scripts/docs-lint.sh<span class="w"> </span>README.md
 </span></code></pre></div>
-<h3 id="validation-strategy-content-validation">Validation Strategy (Content Validation)<a class="headerlink" href="#validation-strategy-content-validation" title="Permanent link">&para;</a></h3>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Unified command for markdown quality checks</li>
+<li>Auto-fix capability for common issues</li>
+<li>No additional setup required (global install detection)</li>
+<li>Fast execution (&lt; 5s for 50 files)</li>
+<li>Integration with pre-commit hooks</li>
+</ul>
+<h3 id="2-feature-status-table">2. Feature Status Table ✅<a class="headerlink" href="#2-feature-status-table" title="Permanent link">&para;</a></h3>
+<p><strong>Clear MVP vs Future Distinctions:</strong></p>
 <table>
 <thead>
 <tr>
-<th>Section</th>
-<th>Validation Rule</th>
+<th>Feature</th>
+<th>Status</th>
+<th>Details</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Problem Statement</td>
-<td>20+ words (not just "N/A")</td>
+<td>Basic linting</td>
+<td>✅ v2.8.0</td>
+<td>Check markdown against 30+ rules</td>
 </tr>
 <tr>
-<td>Solution Overview</td>
-<td>20+ words</td>
+<td>Auto-fix (--fix)</td>
+<td>✅ v2.8.0</td>
+<td>Apply fixes for safe issues</td>
 </tr>
 <tr>
-<td>Scope</td>
-<td>Must have In/Out with 1+ item each</td>
+<td>Config (.markdownlint.json)</td>
+<td>✅ v2.8.0</td>
+<td>30 rules configured</td>
 </tr>
 <tr>
-<td>Success Metrics</td>
-<td>1+ metric defined</td>
+<td>Pre-commit hook</td>
+<td>✅ v2.8.0</td>
+<td>Auto-fix on staged markdown</td>
 </tr>
 <tr>
-<td>All others</td>
-<td>Can be "N/A - [reason]"</td>
+<td>Styled output boxes</td>
+<td>📝 v2.9.0</td>
+<td>Planned for better readability</td>
+</tr>
+<tr>
+<td>Modes (debug/optimize/release)</td>
+<td>📝 v2.9.0</td>
+<td>Planned execution modes</td>
+</tr>
+<tr>
+<td>Interactive prompts</td>
+<td>📝 v2.9.0</td>
+<td>Planned for complex issues</td>
+</tr>
+<tr>
+<td>Language detection (MD040)</td>
+<td>📝 v2.9.0</td>
+<td>Planned code fence analysis</td>
+</tr>
+<tr>
+<td>Rule expansion (30 → 42)</td>
+<td>📝 v2.9.0</td>
+<td>Planned additional rules</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Validation Triggers:</strong></p>
+<p><strong>Benefits:</strong></p>
 <ul>
-<li>On commit (pre-commit hook) - blocks invalid specs</li>
-<li>In <code>/craft:check</code> - reports spec issues</li>
-<li>In <code>/craft:site:check</code> - validates before deployment</li>
+<li>Transparent roadmap (what works now vs what's coming)</li>
+<li>Prevents confusion about partially-implemented features</li>
+<li>Clear upgrade path for users</li>
 </ul>
-<p><strong>Error Handling:</strong> Block and prompt to fix (strict mode)</p>
-<h3 id="command-integration-map">Command Integration Map<a class="headerlink" href="#command-integration-map" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart LR
-    Brainstorm["/brainstorm d f s"] --&gt;|creates| Spec["SPEC-*.md"]
-    Spec --&gt;|validates| Hook["pre-commit hook"]
-    Spec --&gt;|searches| Do["/craft:do"]
-    Do --&gt;|implements| Code["Implementation"]
-    Spec --&gt;|checks| Check["/craft:check"]
-    Spec --&gt;|generates| Help["help pages"]
-    Spec --&gt;|publishes| Site["site:update"]
-    Site --&gt;|deploys| Web["website"]</code></pre>
-<h3 id="website-structure">Website Structure<a class="headerlink" href="#website-structure" title="Permanent link">&para;</a></h3>
-<p><strong>Navigation Addition:</strong></p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Specifications</span><span class="p">:</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Overview</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">specs/index.md</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Feature Specs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">specs/features.md</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Architecture Specs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">specs/architecture.md</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">API Specs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">specs/api.md</span>
+<h3 id="3-markdown-configuration-existing-now-documented">3. Markdown Configuration (Existing - Now Documented)<a class="headerlink" href="#3-markdown-configuration-existing-now-documented" title="Permanent link">&para;</a></h3>
+<p><strong>30 Rules Enabled:</strong></p>
+<ul>
+<li><strong>List formatting (7):</strong> MD004, MD005, MD007, MD029, MD030, MD031, MD032</li>
+<li><strong>Headings (5):</strong> MD003, MD022, MD023, MD024, MD036</li>
+<li><strong>Code blocks (3):</strong> MD046, MD048</li>
+<li><strong>Links/Images (5):</strong> MD011, MD042, MD045, MD052, MD056</li>
+<li><strong>Whitespace (3):</strong> MD009, MD010, MD012</li>
+<li><strong>Inline (1):</strong> MD034</li>
+<li><strong>HTML (1):</strong> MD033 (with craft-specific exceptions)</li>
+</ul>
+<p><strong>Auto-fixable Issues:</strong></p>
+<ul>
+<li>Trailing spaces (MD009)</li>
+<li>Hard tabs (MD010)</li>
+<li>Multiple blank lines (MD012)</li>
+<li>Blank lines around lists (MD032)</li>
+<li>List spacing (MD030)</li>
+<li>Inconsistent markers (MD004)</li>
+<li>Bare URLs (MD034)</li>
+</ul>
+<h2 id="test-results">Test Results<a class="headerlink" href="#test-results" title="Permanent link">&para;</a></h2>
+<h3 id="full-test-suite-706706-passing-100">Full Test Suite: 706/706 PASSING (100%) ✅<a class="headerlink" href="#full-test-suite-706706-passing-100" title="Permanent link">&para;</a></h3>
+<p><strong>All tests passing:</strong></p>
+<ul>
+<li>Core plugin tests: 370 tests</li>
+<li>Markdownlint tests: 84 tests</li>
+<li>Complexity scoring: 15 tests</li>
+<li>Teaching integration: 12 tests</li>
+<li>Hub discovery, orchestrator, git, code quality, integration tests</li>
+</ul>
+<p><strong>Test Coverage:</strong></p>
+<ul>
+<li>Command discovery and discovery</li>
+<li>Skills and agents</li>
+<li>Plugin structure validation</li>
+<li>1 pre-existing broken link (unrelated to this release)</li>
+</ul>
+<p><strong>Command:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>tests/test_craft_plugin.py
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># ✅ Expected: All tests passed! Craft plugin is ready.</span>
 </span></code></pre></div>
-<p><strong>Spec Index Page:</strong> List all specs grouped by category (draft/approved/implemented)</p>
-<p><strong>Help ↔ Spec Links:</strong> Help pages have "View Full Specification" link in footer</p>
-<hr />
-<h2 id="implementation-phases">Implementation Phases<a class="headerlink" href="#implementation-phases" title="Permanent link">&para;</a></h2>
-<h3 id="phase-1-foundation-week-1-2-3-hours">Phase 1: Foundation (Week 1 - 2-3 hours)<a class="headerlink" href="#phase-1-foundation-week-1-2-3-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Goal:</strong> Embed template and validate specs on commit</p>
-<p><strong>Tasks:</strong></p>
+<h2 id="changes">Changes<a class="headerlink" href="#changes" title="Permanent link">&para;</a></h2>
+<p><strong>Files Created:</strong></p>
+<ul>
+<li><code>scripts/docs-lint.sh</code> - Markdown linting execution script (74 lines)</li>
+</ul>
+<p><strong>Files Modified:</strong></p>
+<ul>
+<li><code>commands/docs/lint.md</code> - Added trigger, feature status table, execution section</li>
+<li><code>CLAUDE.md</code> - Updated v2.7.0 → v2.8.0, documented execution layer</li>
+<li><code>.claude-plugin/plugin.json</code> - Version bumped to 2.8.0</li>
+</ul>
+<p><strong>Total Changes:</strong></p>
+<ul>
+<li>3 files modified/created</li>
+<li>+132 lines added</li>
+<li>-29 lines removed</li>
+<li>Pre-commit hook validation: ✅ Passing</li>
+</ul>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<h3 id="for-users">For Users<a class="headerlink" href="#for-users" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Update craft plugin (on dev branch)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>dev
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Verify installation</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>bash<span class="w"> </span>scripts/docs-lint.sh<span class="w"> </span>--help
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Expected: markdownlint-cli2 help output or npx auto-download message</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># Test linting</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>bash<span class="w"> </span>scripts/docs-lint.sh<span class="w"> </span>docs/README.md
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Expected: Lint output showing any issues</span>
+</span></code></pre></div>
+<h3 id="tool-installation-optional">Tool Installation (Optional)<a class="headerlink" href="#tool-installation-optional" title="Permanent link">&para;</a></h3>
+<p>Global install is recommended for faster execution:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Install markdownlint-cli2 globally</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>markdownlint-cli2
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Verify</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>markdownlint-cli2<span class="w"> </span>--help
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Now linting is instant (&lt; 1s for common cases)</span>
+</span></code></pre></div>
+<p>Without global install, the script automatically falls back to <code>npx</code> (slower first run).</p>
+<h2 id="verification-steps">Verification Steps<a class="headerlink" href="#verification-steps" title="Permanent link">&para;</a></h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># 1. Check script exists and is executable</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>scripts/docs-lint.sh
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># ✅ Expected: -rwxr-xr-x</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># 2. Test basic linting</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>bash<span class="w"> </span>scripts/docs-lint.sh
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># ✅ Expected: Lint output with any detected issues</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># 3. Test with specific path</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>bash<span class="w"> </span>scripts/docs-lint.sh<span class="w"> </span>docs/guide/
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># ✅ Expected: Lint output for that directory</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># 4. Run full test suite</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>python3<span class="w"> </span>tests/test_craft_plugin.py
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="c1"># ✅ Expected: All tests passed! Craft plugin is ready.</span>
+</span></code></pre></div>
+<h2 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">&para;</a></h2>
+<p>None. This release is fully backward compatible.</p>
+<ul>
+<li>Existing <code>.markdownlint.json</code> configuration unchanged</li>
+<li>Pre-commit hook continues to work</li>
+<li>All existing commands unaffected</li>
+</ul>
+<h2 id="deprecations">Deprecations<a class="headerlink" href="#deprecations" title="Permanent link">&para;</a></h2>
+<p>None.</p>
+<h2 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h2>
+<p>No migration required. The execution layer is an enhancement to existing functionality.</p>
+<p><strong>Optional upgrade:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># To use the new execution script</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>bash<span class="w"> </span>scripts/docs-lint.sh
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Pre-commit hook already working (no changes needed)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: update&quot;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># → Hook runs automatically</span>
+</span></code></pre></div>
+<h2 id="known-limitations">Known Limitations<a class="headerlink" href="#known-limitations" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Add spec template v1.0.0 to <code>commands/workflow/brainstorm.md</code></li>
-<li>Create <code>tests/validate_specs.py</code> module</li>
-<li>Update <code>capture_spec()</code> function to use embedded template</li>
-<li>Add spec validation to <code>.git/hooks/pre-commit</code></li>
+<li><strong>MVP Scope:</strong> v2.8.0 focuses on execution layer only</li>
+<li>Styled output boxes (boxed formatting) planned for v2.9.0</li>
+<li>Execution modes (debug, optimize, release) planned for v2.9.0</li>
+<li>Interactive prompts for complex issues planned for v2.9.0</li>
+<li>
+<p>Language detection for code fences planned for v2.9.0</p>
+</li>
+<li>
+<p><strong>Output Format:</strong> Currently raw <code>markdownlint-cli2</code> output</p>
+</li>
+<li>Future versions will have styled boxes and better formatting</li>
+<li>Use <code>--verbose</code> flag to see raw output (same as current default)</li>
 </ol>
-<p><strong>Deliverables:</strong></p>
-<ul>
-<li>Embedded template with all required sections</li>
-<li>Working validator (CLI + importable)</li>
-<li>Pre-commit hook blocks invalid specs</li>
-</ul>
-<p><strong>Success Criteria:</strong></p>
-<ul>
-<li>[ ] <code>/craft:workflow:brainstorm d f s "test"</code> generates valid spec</li>
-<li>[ ] <code>python3 tests/validate_specs.py</code> validates existing specs</li>
-<li>[ ] Pre-commit hook catches missing sections</li>
-</ul>
-<hr />
-<h3 id="phase-2-command-integration-week-2-6-8-hours">Phase 2: Command Integration (Week 2 - 6-8 hours)<a class="headerlink" href="#phase-2-command-integration-week-2-6-8-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Goal:</strong> Connect specs to implementation workflow</p>
-<p><strong>Tasks:</strong></p>
+<h2 id="future-enhancements-v290">Future Enhancements (v2.9.0+)<a class="headerlink" href="#future-enhancements-v290" title="Permanent link">&para;</a></h2>
+<h3 id="planned-features">Planned Features<a class="headerlink" href="#planned-features" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Add <code>find_relevant_spec()</code> to <code>/craft:do</code></li>
-<li>Integrate spec search into smart routing</li>
-<li>Add <code>check_specs()</code> to <code>/craft:check</code></li>
-<li>Add spec validation to <code>/craft:site:check</code></li>
+<li><strong>Styled Output Boxes</strong> (v2.9.0)</li>
+<li>Formatted output with boxes and colors</li>
+<li>Better readability and visual hierarchy</li>
+<li>
+<p>Estimated: 2-4 hours</p>
+</li>
+<li>
+<p><strong>Execution Modes</strong> (v2.9.0)</p>
+</li>
+<li><code>debug</code> mode: Verbose context + suggestions</li>
+<li><code>optimize</code> mode: Parallel processing for large codebases</li>
+<li><code>release</code> mode: Comprehensive validation</li>
+<li>
+<p>Estimated: 6-8 hours</p>
+</li>
+<li>
+<p><strong>Language Detection</strong> (v2.9.0)</p>
+</li>
+<li>Auto-detect code fence languages (Python, JavaScript, bash, SQL, etc.)</li>
+<li>Interactive prompt for ambiguous cases</li>
+<li>
+<p>Estimated: 4-6 hours</p>
+</li>
+<li>
+<p><strong>Rule Expansion</strong> (v2.9.0)</p>
+</li>
+<li>Expand from 30 to 42 rules</li>
+<li>Additional categories: table formatting, reference links, etc.</li>
+<li>
+<p>Estimated: 3-4 hours</p>
+</li>
+<li>
+<p><strong>Interactive Prompts</strong> (v2.9.0)</p>
+</li>
+<li>User-friendly menus for complex issues</li>
+<li>Suggestions for heading hierarchy fixes</li>
+<li>Custom language selection for code fences</li>
 </ol>
-<p><strong>Deliverables:</strong></p>
-<ul>
-<li>Spec search by keyword (similarity matching)</li>
-<li>Check command validates specs</li>
-<li>Site check validates before deployment</li>
-</ul>
-<p><strong>Success Criteria:</strong></p>
-<ul>
-<li>[ ] <code>/craft:do "implement X"</code> finds spec for X</li>
-<li>[ ] <code>/craft:check</code> shows spec validation results</li>
-<li>[ ] <code>/craft:site:check</code> blocks on invalid specs</li>
-</ul>
-<hr />
-<h3 id="phase-3-website-integration-week-3-6-8-hours">Phase 3: Website Integration (Week 3 - 6-8 hours)<a class="headerlink" href="#phase-3-website-integration-week-3-6-8-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Goal:</strong> Publish specs to documentation site</p>
-<p><strong>Tasks:</strong></p>
-<ol>
-<li>Add Specifications section to <code>mkdocs.yml</code></li>
-<li>Create <code>docs/specs/index.md</code> (spec index)</li>
-<li>Create category pages (features.md, architecture.md, api.md)</li>
-<li>Add <code>generate_help_from_spec()</code> to <code>/craft:docs:update</code></li>
-<li>Update help template to link to specs</li>
-</ol>
-<p><strong>Deliverables:</strong></p>
-<ul>
-<li>Specifications section live on site</li>
-<li>Spec index with category filtering</li>
-<li>Help pages link to specs</li>
-<li>Auto-generate help from specs</li>
-</ul>
-<p><strong>Success Criteria:</strong></p>
-<ul>
-<li>[ ] Specs section appears in site navigation</li>
-<li>[ ] Spec index lists all specs by category</li>
-<li>[ ] Help pages have "View Specification" links</li>
-<li>[ ] <code>/craft:docs:update generate-help-from-specs</code> works</li>
-</ul>
-<hr />
-<h3 id="phase-4-template-versioning-week-4-2-3-hours">Phase 4: Template Versioning (Week 4 - 2-3 hours)<a class="headerlink" href="#phase-4-template-versioning-week-4-2-3-hours" title="Permanent link">&para;</a></h3>
-<p><strong>Goal:</strong> Track template versions and enable evolution</p>
-<p><strong>Tasks:</strong></p>
-<ol>
-<li>Create <code>docs/specs/TEMPLATE-VERSIONS.md</code></li>
-<li>Document v1.0.0 sections and validation rules</li>
-<li>Add migration strategy for future versions</li>
-<li>Update validator to check template version</li>
-</ol>
-<p><strong>Deliverables:</strong></p>
-<ul>
-<li>Template version history documented</li>
-<li>Migration strategy defined</li>
-<li>Validator checks spec version</li>
-</ul>
-<p><strong>Success Criteria:</strong></p>
-<ul>
-<li>[ ] TEMPLATE-VERSIONS.md exists</li>
-<li>[ ] Validator warns on outdated specs</li>
-<li>[ ] Backward compatibility policy documented</li>
-</ul>
-<hr />
-<h2 id="files-createdmodified">Files Created/Modified<a class="headerlink" href="#files-createdmodified" title="Permanent link">&para;</a></h2>
-<h3 id="new-files-phase-1-4">New Files (Phase 1-4)<a class="headerlink" href="#new-files-phase-1-4" title="Permanent link">&para;</a></h3>
+<h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>File</th>
-<th>Purpose</th>
-<th>Lines (est)</th>
+<th>Operation</th>
+<th>Time</th>
+<th>Tool</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>tests/validate_specs.py</code></td>
-<td>Spec validation module</td>
-<td>150</td>
+<td>Check 50 markdown files</td>
+<td>~4s</td>
+<td>markdownlint-cli2</td>
 </tr>
 <tr>
-<td><code>docs/specs/index.md</code></td>
-<td>Spec index page</td>
-<td>80</td>
+<td>Auto-fix 5 files</td>
+<td>~5s</td>
+<td>markdownlint-cli2 + confirmation</td>
 </tr>
 <tr>
-<td><code>docs/specs/features.md</code></td>
-<td>Feature specs category</td>
-<td>60</td>
+<td>Pre-commit hook (5 files)</td>
+<td>~2s</td>
+<td>markdownlint-cli2</td>
 </tr>
 <tr>
-<td><code>docs/specs/architecture.md</code></td>
-<td>Architecture specs category</td>
-<td>60</td>
-</tr>
-<tr>
-<td><code>docs/specs/api.md</code></td>
-<td>API specs category</td>
-<td>60</td>
-</tr>
-<tr>
-<td><code>docs/specs/TEMPLATE-VERSIONS.md</code></td>
-<td>Template version history</td>
-<td>100</td>
+<td>Tool detection</td>
+<td>&lt;100ms</td>
+<td>bash command check</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Total new:</strong> ~510 lines across 6 files</p>
-<h3 id="modified-files-phase-1-4">Modified Files (Phase 1-4)<a class="headerlink" href="#modified-files-phase-1-4" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Changes</th>
-<th>Lines (est)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>commands/workflow/brainstorm.md</code></td>
-<td>Embed template, enhance capture</td>
-<td>+200</td>
-</tr>
-<tr>
-<td><code>commands/do.md</code></td>
-<td>Add spec search logic</td>
-<td>+50</td>
-</tr>
-<tr>
-<td><code>commands/check.md</code></td>
-<td>Add spec validation</td>
-<td>+30</td>
-</tr>
-<tr>
-<td><code>commands/site/check.md</code></td>
-<td>Add spec validation</td>
-<td>+40</td>
-</tr>
-<tr>
-<td><code>commands/docs/update.md</code></td>
-<td>Add help-from-spec generation</td>
-<td>+60</td>
-</tr>
-<tr>
-<td><code>commands/site/update.md</code></td>
-<td>Add specs to navigation</td>
-<td>+30</td>
-</tr>
-<tr>
-<td><code>commands/git/init.md</code></td>
-<td>Add spec validation to hook</td>
-<td>+40</td>
-</tr>
-<tr>
-<td><code>mkdocs.yml</code></td>
-<td>Add Specifications section</td>
-<td>+10</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Total modified:</strong> ~460 lines across 8 files</p>
-<hr />
-<h2 id="success-metrics">Success Metrics<a class="headerlink" href="#success-metrics" title="Permanent link">&para;</a></h2>
-<h3 id="phase-1-foundation">Phase 1 (Foundation)<a class="headerlink" href="#phase-1-foundation" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Target</th>
-<th>How to Measure</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Template embedded</td>
-<td>100%</td>
-<td>Grep for template v1.0.0 in brainstorm.md</td>
-</tr>
-<tr>
-<td>Validator works</td>
-<td>100% passing specs</td>
-<td><code>python3 tests/validate_specs.py</code> exits 0</td>
-</tr>
-<tr>
-<td>Hook validates</td>
-<td>100% invalid specs blocked</td>
-<td>Test with incomplete spec</td>
-</tr>
-</tbody>
-</table>
-<h3 id="phase-2-command-integration">Phase 2 (Command Integration)<a class="headerlink" href="#phase-2-command-integration" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Target</th>
-<th>How to Measure</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Spec search accuracy</td>
-<td>80% correct matches</td>
-<td>Manual testing with 10 requests</td>
-</tr>
-<tr>
-<td>Check integration</td>
-<td>All specs validated</td>
-<td><code>/craft:check</code> shows spec results</td>
-</tr>
-<tr>
-<td>Site check blocks</td>
-<td>Invalid specs rejected</td>
-<td>Test with incomplete spec</td>
-</tr>
-</tbody>
-</table>
-<h3 id="phase-3-website-integration">Phase 3 (Website Integration)<a class="headerlink" href="#phase-3-website-integration" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Target</th>
-<th>How to Measure</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Specs section live</td>
-<td>100%</td>
-<td>Check site navigation</td>
-</tr>
-<tr>
-<td>Spec index complete</td>
-<td>All specs listed</td>
-<td>Count specs in index vs docs/specs/</td>
-</tr>
-<tr>
-<td>Help links work</td>
-<td>50% help pages link to specs</td>
-<td>Grep for "View Specification"</td>
-</tr>
-</tbody>
-</table>
-<h3 id="phase-4-versioning">Phase 4 (Versioning)<a class="headerlink" href="#phase-4-versioning" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Target</th>
-<th>How to Measure</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Version tracked</td>
-<td>All specs have version</td>
-<td>Grep for "version: 1.0.0"</td>
-</tr>
-<tr>
-<td>Migration guide exists</td>
-<td>100%</td>
-<td>TEMPLATE-VERSIONS.md exists</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="risk-assessment">Risk Assessment<a class="headerlink" href="#risk-assessment" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Risk</th>
-<th>Likelihood</th>
-<th>Impact</th>
-<th>Mitigation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Template changes break old specs</strong></td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Version tracking + backward compat policy</td>
-</tr>
-<tr>
-<td><strong>Validation too strict</strong></td>
-<td>Low</td>
-<td>High</td>
-<td>Content validation only (not format), allow N/A</td>
-</tr>
-<tr>
-<td><strong>Spec search mismatches</strong></td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Manual override: <code>--spec=SPEC-*.md</code> flag</td>
-</tr>
-<tr>
-<td><strong>Help generation loses context</strong></td>
-<td>Low</td>
-<td>Medium</td>
-<td>Keep specs comprehensive, help links to spec</td>
-</tr>
-<tr>
-<td><strong>Pre-commit hook friction</strong></td>
-<td>Low</td>
-<td>Low</td>
-<td>Allow skip with <code>--no-verify</code> flag</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<p><strong>None</strong> - Pure Python/bash implementation</p>
-<p><strong>Prerequisites:</strong></p>
+<p><strong>Performance Tips:</strong></p>
 <ul>
-<li>Python 3.x (for validator)</li>
-<li>Bash (for pre-commit hook)</li>
-<li>MkDocs Material theme (already configured)</li>
+<li>Install globally: <code>npm i -g markdownlint-cli2</code> (instant detection)</li>
+<li>Use specific paths for quick checks: <code>bash scripts/docs-lint.sh docs/guide/</code></li>
+<li>Default mode focuses on critical errors only</li>
 </ul>
-<p><strong>Tool Requirements:</strong></p>
+<h2 id="integration-points">Integration Points<a class="headerlink" href="#integration-points" title="Permanent link">&para;</a></h2>
+<p><strong>Called by:</strong></p>
 <ul>
-<li><code>re</code> module (standard library)</li>
-<li><code>pathlib</code> module (standard library)</li>
-<li>No external dependencies</li>
+<li><code>/craft:docs:lint</code> command (direct execution)</li>
+<li>Pre-commit hook (on <code>git commit</code>)</li>
+<li><code>/craft:code:lint</code> (delegates markdown files here - planned v2.9.0)</li>
+<li><code>/craft:check</code> (pre-flight validation - planned v2.9.0)</li>
 </ul>
-<hr />
-<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Should specs be required for all features?</strong></li>
-<li><strong>Recommendation:</strong> Start optional, require for High/Critical priority</li>
-<li>
-<p><strong>Decision:</strong> TBD after Phase 3 (see adoption metrics)</p>
-</li>
-<li>
-<p><strong>How to handle spec updates after implementation?</strong></p>
-</li>
-<li><strong>Recommendation:</strong> Keep specs immutable, create v2 spec if design changes</li>
-<li>
-<p><strong>Decision:</strong> Test with help-template spec (implementation → update spec?)</p>
-</li>
-<li>
-<p><strong>Should specs be versioned (v1, v2) or timestamped?</strong></p>
-</li>
-<li><strong>Recommendation:</strong> Timestamp in filename, version in frontmatter</li>
-<li>
-<p><strong>Decision:</strong> Approved (current pattern works well)</p>
-</li>
-<li>
-<p><strong>What about specs for bug fixes vs features?</strong></p>
-</li>
-<li><strong>Recommendation:</strong> Specs for features only, bugs use GitHub issues</li>
-<li><strong>Decision:</strong> Approved (specs are for design, not bug tracking)</li>
-</ol>
+<p><strong>Works with:</strong></p>
+<ul>
+<li><code>.markdownlint.json</code> (configuration, 30 rules)</li>
+<li><code>.pre-commit-config.yaml</code> (pre-commit integration)</li>
+<li>GitHub Actions CI (via <code>npx markdownlint-cli2</code>)</li>
+</ul>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<h3 id="updated-files">Updated Files<a class="headerlink" href="#updated-files" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>commands/docs/lint.md</code> - Added "Execution" section and "Feature Status" table</li>
+<li><code>CLAUDE.md</code> - Updated development status and roadmap</li>
+</ul>
+<h3 id="new-additions">New Additions<a class="headerlink" href="#new-additions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Execution details in command documentation</li>
+<li>Clear MVP vs future features distinction</li>
+<li>Release notes (this file)</li>
+</ul>
+<h2 id="release-checklist">Release Checklist<a class="headerlink" href="#release-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[x] Version bumped to 2.8.0 in <code>.claude-plugin/plugin.json</code></li>
+<li>[x] <code>scripts/docs-lint.sh</code> created and tested</li>
+<li>[x] <code>commands/docs/lint.md</code> updated with trigger and feature status</li>
+<li>[x] All 706+ tests passing</li>
+<li>[x] Pre-commit hook validation passing</li>
+<li>[x] CLAUDE.md updated</li>
+<li>[x] PR #34 created and merged to dev</li>
+<li>[x] Release notes created</li>
+<li>[ ] Version tag created (v2.8.0)</li>
+<li>[ ] GitHub release created</li>
+<li>[ ] PR from dev to main</li>
+<li>[ ] Merged to main</li>
+<li>[ ] Documentation site updated</li>
+</ul>
 <hr />
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<h3 id="immediate-this-session">Immediate (This Session)<a class="headerlink" href="#immediate-this-session" title="Permanent link">&para;</a></h3>
+<h3 id="immediate-v280-complete">Immediate (v2.8.0 - Complete)<a class="headerlink" href="#immediate-v280-complete" title="Permanent link">&para;</a></h3>
 <ol>
-<li>✅ Complete deep feature brainstorming</li>
-<li>✅ Generate comprehensive plan</li>
-<li>✅ Auto-capture as SPEC-spec-integration-2026-01-16.md</li>
+<li>✅ Create and merge PR #34 (feature/docs-lint-execute)</li>
+<li>✅ Update CLAUDE.md with v2.8.0 progress</li>
+<li>✅ Verify all tests passing</li>
+<li>📋 Create GitHub release (v2.8.0)</li>
+<li>📋 Tag release: <code>git tag v2.8.0</code></li>
+<li>📋 Create PR from dev → main</li>
 </ol>
-<h3 id="next-session-phase-1-week-1">Next Session (Phase 1 - Week 1)<a class="headerlink" href="#next-session-phase-1-week-1" title="Permanent link">&para;</a></h3>
+<h3 id="coming-soon-v290-planned">Coming Soon (v2.9.0 - Planned)<a class="headerlink" href="#coming-soon-v290-planned" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Embed template</strong> in <code>commands/workflow/brainstorm.md</code></li>
-<li>Copy template v1.0.0 from brainstorm</li>
-<li>Add to "Spec Template (v1.0.0)" section</li>
-<li>
-<p>Update capture_spec() to use embedded template</p>
-</li>
-<li>
-<p><strong>Create validator</strong> <code>tests/validate_specs.py</code></p>
-</li>
-<li>Implement REQUIRED_SECTIONS check</li>
-<li>Implement CONTENT_RULES validation</li>
-<li>
-<p>Add CLI entry point</p>
-</li>
-<li>
-<p><strong>Update pre-commit hook</strong> in <code>commands/git/init.md</code></p>
-</li>
-<li>Add spec validation block</li>
-<li>Check required sections</li>
-<li>
-<p>Validate Problem Statement length</p>
-</li>
-<li>
-<p><strong>Test end-to-end</strong></p>
-</li>
-<li>Run <code>/craft:workflow:brainstorm d f s "test"</code></li>
-<li>Validate generated spec</li>
-<li>Commit spec and verify hook runs</li>
+<li>Styled output boxes (improve readability)</li>
+<li>Execution modes (debug, optimize, release)</li>
+<li>Language detection (MD040 auto-fix)</li>
+<li>Interactive prompts (complex issues)</li>
+<li>Additional rules (30 → 42 rules)</li>
 </ol>
-<p><strong>Time estimate:</strong> 2-3 hours</p>
-<h3 id="week-2-4">Week 2-4<a class="headerlink" href="#week-2-4" title="Permanent link">&para;</a></h3>
-<p>Follow phased implementation plan (Phases 2-4)</p>
+<h3 id="later-v300">Later (v3.0.0+)<a class="headerlink" href="#later-v300" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Custom linting rules for craft-specific patterns</li>
+<li>Integration with other documentation tools</li>
+<li>Performance optimizations for massive codebases</li>
+</ol>
 <hr />
-<p><strong>Specification Author:</strong> Claude Sonnet 4.5
-<strong>Brainstorm Mode:</strong> Deep Feature (12 questions)
-<strong>Plan File:</strong> <code>/Users/dt/.claude/plans/purring-prancing-mango.md</code></p>
+<p><strong>Related Links:</strong></p>
+<ul>
+<li>GitHub PR: <a href="https://github.com/Data-Wise/craft/pull/34">#34 - Markdown Linting Execution Layer</a></li>
+<li>Implementation Commit: <code>9c439a8</code> (feat: implement /craft:docs:lint execution layer)</li>
+<li>Feature Status: See <code>CLAUDE.md</code> v2.8.0 section</li>
+<li>Command Documentation: <code>commands/docs/lint.md</code></li>
+</ul>
 
 
 
 
 
 
-
-  
-  
 
 
 
@@ -5135,10 +5348,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
