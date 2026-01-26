@@ -831,7 +831,7 @@ jobs:
 - [Teaching Mode Setup Tutorial](../tutorials/teaching-mode-setup.md) - Step-by-step setup
 - [Teaching Config Schema](../teaching-config-schema.md) - Complete config reference
 - [Migration Guide](../teaching-migration.md) - Moving from manual workflows
-- [Manual Testing Checklist](../../tests/MANUAL-TESTING-CHECKLIST.md) - QA procedures
+- [Manual Testing Checklist](https://github.com/Data-Wise/craft/blob/main/tests/MANUAL-TESTING-CHECKLIST.md) - QA procedures
 
 ## Impact
 

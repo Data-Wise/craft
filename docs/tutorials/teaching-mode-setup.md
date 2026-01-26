@@ -546,9 +546,7 @@ Now that teaching mode is set up:
 
 - **[Config Schema Reference](../teaching-config-schema.md)** - Complete YAML specification
 - **[Migration Guide](../teaching-migration.md)** - From manual to Craft workflows
-- **[Command Reference: `/craft:site:publish`](../../commands/site/publish.md)** - Full command documentation
-- **[Command Reference: `/craft:site:progress`](../../commands/site/progress.md)** - Progress dashboard
-- **[Command Reference: `/craft:site:validate`](../../commands/site/check.md)** - Content validation (via site:check)
+- **[Site Commands Reference](../commands/site.md)** - All site commands including publish, progress, and validate
 
 ## Help and Support
 

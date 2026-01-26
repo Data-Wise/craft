@@ -127,7 +127,7 @@ Implementation of the execution layer for `/craft:docs:lint` (PR #34):
 
 **Testing**: All 706+ tests passing (100%), pre-commit hook validated
 
-**Documentation**: [RELEASE-v2.8.0.md](../RELEASE-v2.8.0.md) for comprehensive details
+**Documentation**: [RELEASE-v2.8.0.md](RELEASE-v2.8.0.md) for comprehensive details
 
 ## What's New in v2.7.0
 

@@ -714,7 +714,7 @@ craft/
 - [API Reference](./API-REFERENCE-CLAUDE-CODE-2.1.md) - Complete API documentation
 - [Testing Guide](./TESTING-CLAUDE-CODE-2.1.md) - Test suite documentation
 - [.STATUS](../.STATUS) - Implementation status
-- [CLAUDE.md](../CLAUDE.md) - Project overview
+- [CLAUDE.md](https://github.com/Data-Wise/craft/blob/main/CLAUDE.md) - Project overview
 
 ---
 

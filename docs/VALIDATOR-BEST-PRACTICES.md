@@ -711,8 +711,8 @@ fi
 ## Resources
 
 - [Craft Plugin Documentation](https://data-wise.github.io/craft/)
-- [/craft:check Command](../commands/check.md)
-- [Validator Generator](../commands/check/gen-validator.md)
+- [/craft:check Command](commands/check.md)
+- [Smart Commands (includes check)](commands/smart.md)
 - [GitHub Validator Marketplace](https://github.com/topics/craft-plugin-validator)
 
 ---

@@ -122,6 +122,8 @@ nav:
       - NEW (v2.5.0) --orch Flag Quick Start: guide/orch-flag-usage.md
       - Homebrew Distribution: guide/homebrew-installation.md
       - Skills & Agents: guide/skills-agents.md
+      - Integration Testing: guide/integration-testing.md
+      - Markdown List Spacing: guide/markdown-list-spacing.md
       - Accessibility: ACCESSIBILITY.md
 
   # 3. COMMANDS & REFERENCE - Command documentation
@@ -165,8 +167,11 @@ nav:
     - Skills & Agents Reference: skills-agents.md
     - Orchestrator Deep Dive: orchestrator.md
     - Architecture Overview: architecture.md
+    - Hub v2.0 Architecture: architecture/HUB-V2-ARCHITECTURE.md
+    - Discovery API: api/DISCOVERY-API.md
     - Documentation Quality: reference/documentation-quality.md
     - Version History: VERSION-HISTORY.md
+    - Release Notes v2.8.0: RELEASE-v2.8.0.md
     - Enhancement Guides:
       - Claude Code 2.1 Quick Reference: reference/REFCARD-claude-code-2.1-enhancements.md
       - NEW (v2.7.0) Docs Update Reference: reference/REFCARD-DOCS-UPDATE.md
@@ -183,12 +188,12 @@ nav:
         - Developer Guide: DEVELOPER-GUIDE.md
     - Specifications:
       - Broken Link Validation: specs/SPEC-broken-link-validation-2026-01-17.md
-      - Hub v2.0 Discovery: specs/SPEC-craft-hub-v2-2026-01-15.md
+      - Hub v2.0 Discovery: specs/_archive/SPEC-craft-hub-v2-2026-01-15.md
       - Dry-Run Feature: specs/SPEC-dry-run-feature-2026-01-15.md
       - Teaching Workflow: specs/SPEC-teaching-workflow-2026-01-16.md
       - Website Organization: specs/SPEC-website-organization-standard-2026-01-17.md
       - Help Template System: specs/SPEC-help-template-menu-2026-01-16.md
-      - NEW (v2.7.0) Interactive Docs Update: specs/SPEC-docs-update-interactive-2026-01-22.md
+      - NEW (v2.7.0) Interactive Docs Update: specs/_archive/SPEC-docs-update-interactive-2026-01-22.md
 
   # 6. FOR CONTRIBUTORS - Development resources
   - For Contributors:

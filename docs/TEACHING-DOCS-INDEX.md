@@ -85,7 +85,7 @@ Complete documentation for Craft's teaching mode feature.
 
 **Start here:**
 
-1. Read [README Teaching Mode section](../README.md#teaching-mode-new-in-v1180) (2 min)
+1. Read [README Teaching Mode section](https://github.com/Data-Wise/craft#teaching-mode-new-in-v1180) (2 min)
 2. Follow [Teaching Mode Setup Tutorial](tutorials/teaching-mode-setup.md) (25 min)
 3. Bookmark [Config Schema](teaching-config-schema.md) for reference
 
@@ -301,7 +301,7 @@ validation:
 
 **General Craft documentation:**
 
-- [Craft README](../README.md) - Full feature list
+- [Craft README](https://github.com/Data-Wise/craft#readme) - Full feature list
 - [Quick Start](QUICK-START.md) - General Craft usage
 - [ADHD Guide](ADHD-QUICK-START.md) - Neurodivergent-friendly workflows
 - [Command Reference](REFCARD.md) - All 86+ commands

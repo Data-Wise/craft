@@ -54,7 +54,7 @@
 - Path targeting: `/craft:docs:lint docs/guide/` (check specific directories)
 - Pre-commit integration: Auto-fix on staged markdown
 - All 706+ tests passing (100%)
-- [Release Notes](../RELEASE-v2.8.0.md) | [Full Docs](../commands/docs/lint.md)
+- [Release Notes](RELEASE-v2.8.0.md) | [Docs Command Reference](commands/docs.md)
 
 **NEW in v2.7.0: Interactive Documentation Update**
 

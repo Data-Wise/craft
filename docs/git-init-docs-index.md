@@ -246,7 +246,7 @@ docs/
 
 ### Craft Hub
 
-**File:** [commands/hub.md](../commands/hub.md)
+**File:** [commands/hub.md](commands/hub.md)
 
 **Updates:**
 

@@ -2,12 +2,12 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml)
-[![Version](https://img.shields.io/badge/version-1.24.0-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v1.24.0)
+[![Version](https://img.shields.io/badge/version-2.8.0-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v2.8.0)
 [![Documentation](https://img.shields.io/badge/docs-95%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v1.24.0 - Hub v2.0** 🚀
-> **97 commands** | **21 skills** | **8 agents** | **Zero-maintenance discovery**
-> Smart command discovery with auto-detection (94% faster), 3-layer navigation, 98% test coverage
+> **v2.8.0 - Markdown Linting Execution Layer** 🚀
+> **100 commands** | **21 skills** | **8 agents** | **Documentation quality automation**
+> Smart markdown linting with auto-fix, pre-commit hooks, and interactive docs workflow
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -26,6 +26,7 @@ brew install craft
 ```
 
 The Homebrew formula automatically:
+
 - Installs the plugin to `~/.claude/plugins/craft`
 - Makes it available in Claude Code CLI and Claude Desktop
 - No additional configuration needed
@@ -65,6 +66,7 @@ cp -r . ~/.claude/plugins/craft
 ```
 
 **Installation locations:**
+
 - Plugin directory: `~/.claude/plugins/craft`
 - Commands: `~/.claude/plugins/craft/commands/`
 - Skills: `~/.claude/plugins/craft/skills/`
@@ -85,6 +87,7 @@ claude
 ```
 
 **Expected output:**
+
 ```
 Craft v1.17.0 loaded
 86 commands available
@@ -119,6 +122,7 @@ Craft automatically loads when you open Claude Desktop. Commands work the same w
 Craft is a pure plugin that uses built-in Claude Code capabilities. No external servers needed.
 
 **Benefits:**
+
 - ✅ Instant startup (no server overhead)
 - ✅ Simple installation (no server config)
 - ✅ Works offline
@@ -126,7 +130,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 
 ## 📚 Documentation
 
-**Full documentation:** https://data-wise.github.io/craft/ (95% complete)
+**Full documentation:** <https://data-wise.github.io/craft/> (95% complete)
 
 - [Quick Start](https://data-wise.github.io/craft/QUICK-START/) (30 seconds)
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
@@ -179,6 +183,7 @@ Commands support execution modes for different use cases:
 Specialized workflows for teaching projects with automated validation, semester tracking, and safe publishing.
 
 **Key Features:**
+
 - Auto-detection via `.flow/teach-config.yml` configuration
 - Content validation (syllabus sections, schedule completeness, assignment files)
 - Preview-before-publish workflow (draft → production branches)
@@ -188,11 +193,13 @@ Specialized workflows for teaching projects with automated validation, semester 
 ![Teaching Workflow Demo](docs/demos/teaching-workflow.gif)
 
 **Quick Start:**
+
 1. Create `.flow/teach-config.yml` with course info and semester dates
 2. Run `/craft:site:validate` to check content completeness
 3. Publish with confidence using `/craft:site:publish`
 
 **Example workflow:**
+
 ```bash
 # Check semester progress
 /craft:site:progress
@@ -209,6 +216,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ## Commands (86 total)
 
 ### Workflow Commands (12) - NEW in v1.17.0
+
 | Command | Description |
 |---------|-------------|
 | `/brainstorm [depth] [focus] [action]` | Enhanced brainstorming with smart detection, design modes, time budgets, and agent delegation |
@@ -225,6 +233,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/adhd-guide` | ADHD-friendly workflow guide and best practices |
 
 **Brainstorming Modes:**
+
 ```bash
 /brainstorm q feat        # Quick feature brainstorm
 /brainstorm d arch        # Deep architecture analysis
@@ -232,6 +241,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ```
 
 ### Smart Commands (4) - ENHANCED
+
 | Command | Description |
 |---------|-------------|
 | `/craft:do <task>` | Universal command - routes to appropriate workflow |
@@ -240,6 +250,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:help` | Context-aware help and suggestions |
 
 #### Orchestrator Modes (NEW in v1.4.0)
+
 ```bash
 /craft:orchestrate "add auth" optimize    # Fast parallel (4 agents)
 /craft:orchestrate "prep release" release # Thorough audit
@@ -250,6 +261,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ```
 
 ### Code Commands (12)
+
 | Command | Description | Modes |
 |---------|-------------|-------|
 | `/craft:code:debug` | Systematic debugging | - |
@@ -266,6 +278,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:code:ci-fix` | Fix CI failures | - |
 
 ### Test Commands (6)
+
 | Command | Description | Modes |
 |---------|-------------|-------|
 | `/craft:test:run` | Unified test runner | ✓ |
@@ -276,6 +289,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:test:cli-run` | Run CLI test suites | - |
 
 ### Architecture Commands (4)
+
 | Command | Description | Modes |
 |---------|-------------|-------|
 | `/craft:arch:analyze` | Architecture analysis | ✓ |
@@ -284,6 +298,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:arch:diagram` | Generate diagrams | - |
 
 ### Planning Commands (3)
+
 | Command | Description |
 |---------|-------------|
 | `/craft:plan:feature` | Plan features with tasks |
@@ -293,6 +308,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ### Documentation Commands (13) - CONSOLIDATED in v1.11.0
 
 #### Super Commands (3) - Smart defaults, do everything useful
+
 | Command | Description |
 |---------|-------------|
 | `/craft:docs:update` | **Smart-Full**: Detect → Generate all needed → Check → Changelog |
@@ -317,6 +333,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ```
 
 #### Specialized Commands (9)
+
 | Command | Description |
 |---------|-------------|
 | `/craft:docs:api` | OpenAPI/Swagger documentation |
@@ -330,11 +347,13 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:docs:guide` | **NEW** Feature guide + demo + refcard generator |
 
 #### Internal (1)
+
 | Command | Description |
 |---------|-------------|
 | `/craft:docs:claude-md` | Update CLAUDE.md (called by other commands) |
 
 ### Site Commands (12) - ENHANCED in v1.9.0
+
 | Command | Description |
 |---------|-------------|
 | `/craft:site:create` | Full documentation site wizard with 8 design presets |
@@ -351,6 +370,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:site:init` | Basic initialization (use `create` for full wizard) |
 
 ### Git Commands (5 + 4 guides)
+
 | Command | Description |
 |---------|-------------|
 | `/craft:git:branch` | Branch management |
@@ -362,6 +382,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 **Git Guides:** refcard, undo-guide, safety-rails, learning-guide
 
 ### CI Commands (3) - NEW in v1.10.0
+
 | Command | Description |
 |---------|-------------|
 | `/craft:ci:detect` | Smart detection of project type, build tools, and CI requirements |
@@ -369,12 +390,14 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:ci:validate` | Validate existing CI workflow against project configuration |
 
 ### Distribution Commands (2)
+
 | Command | Description |
 |---------|-------------|
 | `/craft:dist:homebrew` | Generate/update Homebrew formula |
 | `/craft:dist:curl-install` | Create curl-based install scripts |
 
 ### Discovery
+
 | Command | Description |
 |---------|-------------|
 | `/craft:hub` | Command discovery hub |
@@ -416,11 +439,13 @@ Specialized workflows for teaching projects with automated validation, semester 
 ## Workflows
 
 ### Daily Development
+
 ```
 /craft:check → /craft:test:run → /craft:git:sync
 ```
 
 ### Release Preparation
+
 ```
 /craft:check --for release
 # OR
@@ -428,12 +453,14 @@ Specialized workflows for teaching projects with automated validation, semester 
 ```
 
 ### Feature Development
+
 ```
 /craft:do "add feature name"
 # Routes to: arch:plan → code:test-gen → git:branch
 ```
 
 ### Documentation Workflow (v1.11.0 - Consolidated)
+
 ```bash
 # THE ONE COMMAND - detects what's needed, does it all
 /craft:docs:update                    # Smart detection → full execution
@@ -453,6 +480,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ```
 
 ### Site Workflow (NEW in v1.7.0)
+
 ```
 # Create new documentation site with design preset
 /craft:site:create --preset adhd-focus
@@ -476,7 +504,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ## Version
 
-- **Version:** 1.11.0
+- **Version:** 2.8.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
@@ -496,7 +524,9 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 ## Changelog
 
 ### [1.11.0] - 2025-12-30
+
 #### Changed
+
 - **Documentation Commands Consolidation** (16→12 commands):
   - **Super Commands (3)**: `update`, `sync`, `check` - smart defaults, do everything useful
   - **Specialized Commands (8)**: `api`, `changelog`, `site`, `mermaid`, `nav-update`, `prompt`, `demo`, `guide`
@@ -506,10 +536,12 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - **`check`**: Renamed from `validate`, Version C full-by-default (links + stale + nav + auto-fix)
 
 #### Added
+
 - `/craft:docs:demo` - Terminal recorder for GIF demos (asciinema default, VHS optional)
 - `/craft:docs:guide` - Feature guide + demo + refcard generator
 
 #### Removed
+
 - `/craft:docs:validate` → renamed to `/craft:docs:check`
 - `/craft:docs:done` → merged into `sync` (default is quick)
 - `/craft:docs:generate` → merged into `update`
@@ -517,12 +549,15 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - `/craft:docs:analyze` → merged into `sync`
 
 #### Philosophy
+
 > "Just run the command. It figures out what's needed, then does it."
 
 - Total: 68 commands, 17 skills, 7 agents
 
 ### [1.10.0] - 2025-12-28
+
 #### Added
+
 - **CI Toolkit** (3 commands):
   - `/craft:ci:detect` - Smart detection of project type, build tools, and CI requirements
   - `/craft:ci:generate` - Generate GitHub Actions workflow from detection (Python, Node, R, Rust, Go templates)
@@ -535,7 +570,9 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - Total: 67 commands, 17 skills, 7 agents
 
 ### [1.9.0] - 2025-12-28
+
 #### Added
+
 - **Site Navigation Command**:
   - `/craft:site:nav` - ADHD-friendly navigation reorganization
   - Interactive mode selection menu (analyze, adhd, apply, preview)
@@ -564,14 +601,18 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - Total: 63 commands, 16 skills, 7 agents
 
 ### [1.8.0] - 2025-12-28
+
 #### Added
+
 - **Git Worktrees**: `/craft:git:worktree` for parallel development
 - **Mermaid Diagrams**: `/craft:docs:mermaid` with 6 diagram templates
 - **New Skills**: `mermaid-linter`, `worktree-expert`
 - Total: 60 commands, 16 skills, 7 agents
 
 ### [1.7.0] - 2025-12-27
+
 #### Added
+
 - **Site Commands Redesign** (5 new commands):
   - `/craft:site:create` - Full documentation site wizard with design presets
   - `/craft:site:update` - Smart content sync from code changes
@@ -590,7 +631,9 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - Total: 61 commands, 15 skills, 7 agents
 
 ### [1.6.0] - 2025-12-27
+
 #### Added
+
 - **Docs Workflow Commands** (4 new commands):
   - `/craft:docs:update [full]` - Smart universal documentation updater
   - `/craft:docs:feature [name]` - Comprehensive feature documentation
@@ -600,7 +643,9 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - Total: 58 commands, 15 skills, 7 agents
 
 ### [1.5.0] - 2025-12-27
+
 #### Added
+
 - **Distribution Commands** (2 new commands):
   - `/craft:dist:homebrew` - Generate/update Homebrew formulas
   - `/craft:dist:curl-install` - Create curl-based installation scripts
@@ -610,7 +655,9 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - Total: 54 commands, 15 skills, 7 agents
 
 ### [1.4.0] - 2025-12-27
+
 #### Enhanced
+
 - **Orchestrator v2.1** with major improvements:
   - Mode-aware execution (default, debug, optimize, release)
   - Improved context tracking with token estimation heuristics
@@ -622,7 +669,9 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - Total: 51 commands, 12 skills, 7 agents
 
 ### [1.3.0] - 2025-12-26
+
 #### Added
+
 - 5 documentation agents (ported from documentation-generation plugin)
   - `docs-architect` - Long-form technical documentation
   - `tutorial-engineer` - Step-by-step tutorials
@@ -641,7 +690,9 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - Total: 50 commands, 11 skills, 6 agents
 
 ### [1.2.0] - 2025-12-26
+
 #### Added
+
 - Mode system (default, debug, optimize, release)
 - 3 smart commands (do, check, help)
 - 2 new skills (mode-controller, task-analyzer)
@@ -649,7 +700,9 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - Total: 46 commands, 8 skills, 1 agent
 
 ### [1.1.0] - 2025-12-26
+
 #### Added
+
 - 6 new code commands (lint, coverage, deps-check, deps-audit, ci-local, ci-fix)
 - 4 new test commands (run, watch, coverage, debug)
 - 4 new architecture commands (analyze, plan, review, diagram)
@@ -658,7 +711,9 @@ See the [documentation site](https://data-wise.github.io/craft/) for comprehensi
 - Total: 42 commands, 6 skills, 1 agent
 
 ### [1.0.0] - 2025-12-26
+
 #### Added
+
 - Initial release with 26 commands
 - 6 code, 6 site, 8 git, 5 docs commands
 - 3 skills (backend, frontend, devops)

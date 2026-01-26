@@ -1010,9 +1010,9 @@ Statistics:
 ## See Also
 
 - [Architecture Documentation](../architecture/HUB-V2-ARCHITECTURE.md)
-- [User Guide](../../commands/hub.md)
-- [Testing Guide](../../tests/HUB-V2-TESTING-GUIDE.md)
-- [Command Frontmatter Schema](../../commands/_schema.json)
+- [User Guide](../commands/hub.md)
+- [Testing Guide](https://github.com/Data-Wise/craft/blob/main/tests/HUB-V2-TESTING-GUIDE.md)
+- [Command Frontmatter Schema](https://github.com/Data-Wise/craft/blob/main/commands/_schema.json)
 
 ---
 

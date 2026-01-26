@@ -37,7 +37,7 @@ Hub v2.0 is a zero-maintenance command discovery system for the Craft plugin. Th
 - Read the [Architecture Documentation](../architecture/HUB-V2-ARCHITECTURE.md)
 - Review the [API Reference](../api/DISCOVERY-API.md)
 - Run the test suite to ensure everything works
-- Familiarize yourself with the [User Guide](../../commands/hub.md)
+- Familiarize yourself with the [User Guide](../commands/hub.md)
 
 ---
 
@@ -723,7 +723,7 @@ python3 tests/test_hub_discovery.py
 1. **Check existing documentation**:
    - [Architecture docs](../architecture/HUB-V2-ARCHITECTURE.md)
    - [API reference](../api/DISCOVERY-API.md)
-   - [Testing guide](../../tests/HUB-V2-TESTING-GUIDE.md)
+   - [Testing guide](https://github.com/Data-Wise/craft/blob/main/tests/HUB-V2-TESTING-GUIDE.md)
 
 2. **Review test suite**:
    - Tests show expected behavior
@@ -742,9 +742,9 @@ python3 tests/test_hub_discovery.py
 
 - [Architecture Documentation](../architecture/HUB-V2-ARCHITECTURE.md)
 - [API Reference](../api/DISCOVERY-API.md)
-- [User Guide](../../commands/hub.md)
-- [Testing Guide](../../tests/HUB-V2-TESTING-GUIDE.md)
-- [Testing Summary](../../tests/TESTING-SUMMARY.md)
+- [User Guide](../commands/hub.md)
+- [Testing Guide](https://github.com/Data-Wise/craft/blob/main/tests/HUB-V2-TESTING-GUIDE.md)
+- [Testing Summary](https://github.com/Data-Wise/craft/blob/main/tests/TESTING-SUMMARY.md)
 
 ### Source Code
 

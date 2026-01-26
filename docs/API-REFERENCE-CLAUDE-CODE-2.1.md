@@ -536,7 +536,7 @@ bash -n .claude-plugin/hooks/orchestrate-hooks.sh
 
 - [Testing Guide](./TESTING-CLAUDE-CODE-2.1.md) - Comprehensive test suite documentation
 - [.STATUS](../.STATUS) - Implementation status and Wave 1-4 details
-- [CLAUDE.md](../CLAUDE.md) - Project overview and quick reference
+- [CLAUDE.md](https://github.com/Data-Wise/craft/blob/main/CLAUDE.md) - Project overview and quick reference
 
 ---
 

@@ -10,7 +10,7 @@
 Complete guide for maintaining list formatting standards across Craft documentation.
 
 !!! info "Related Documentation"
-    - **[Command Reference](../../commands/docs/lint.md)** - `/craft:docs:lint` command details
+    - **[Command Reference](../commands/docs.md)** - `/craft:docs:lint` command details
     - **[Quality Guide](documentation-quality.md)** - Complete markdown quality workflow
 
 ## What You'll Learn
@@ -618,7 +618,7 @@ Definition lists (`:` syntax) have different rules:
 
 ### Command Documentation
 
-- **[`/craft:docs:lint`](../../commands/docs/lint.md)** - Markdown quality command
+- **[`/craft:docs:lint`](../commands/docs.md)** - Markdown quality command
 - **[`/craft:check`](../commands/check.md)** - Pre-flight validation
 
 ### Guides
@@ -632,7 +632,7 @@ Definition lists (`:` syntax) have different rules:
 
 ### Tests
 
-- **[List Spacing Tests](../tests/README.md)** - 78 tests, 100% passing
+- **[List Spacing Tests](https://github.com/Data-Wise/craft/blob/main/tests/README.md)** - 78 tests, 100% passing
 
 ---
 
@@ -683,5 +683,5 @@ Definition lists (`:` syntax) have different rules:
 **Next steps:**
 
 - Review [Documentation Quality Guide](documentation-quality.md) for complete workflow
-- Check [Command Reference](../../commands/docs/lint.md) for all linting options
+- Check [Command Reference](../commands/docs.md) for all linting options
 - See [Spec](../specs/SPEC-markdownlint-list-spacing-2026-01-19.md) for technical details

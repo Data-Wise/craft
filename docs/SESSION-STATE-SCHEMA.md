@@ -553,5 +553,5 @@ All session files must include:
 
 ## See Also
 
-- [Session Teleportation Command](../commands/orchestrate/resume.md)
-- [Orchestrator v2 Agent](../agents/orchestrator-v2.md)
+- [Orchestrate Command](commands/orchestrate.md) - Session management and teleportation
+- [Orchestrator Deep Dive](orchestrator.md) - Agent architecture and workflows

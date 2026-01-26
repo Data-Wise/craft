@@ -684,7 +684,7 @@ Complete guide for contributors and maintainers:
 
 **Includes**: 50+ code examples, test templates, troubleshooting guides
 
-### 🧪 [Test Suite](../tests/test_dependency_management.sh)
+### 🧪 [Test Suite](https://github.com/Data-Wise/craft/blob/main/tests/test_dependency_management.sh)
 
 Comprehensive test coverage (100% passing):
 

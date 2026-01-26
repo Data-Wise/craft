@@ -75,7 +75,7 @@ Having issues? Check the troubleshooting section:
 
 - **Quick questions?** Try the [ADHD Quick Start](../ADHD-QUICK-START.md)
 - **Comprehensive guide?** See [Getting Started](../guide/getting-started.md)
-- **Command reference?** Browse [Commands](../../commands/hub.md)
+- **Command reference?** Browse [Commands](../commands/hub.md)
 - **Smart routing?** Use [`/craft:do`](../commands/do.md) to let Craft figure out what you need
 
 ## Contributing Recipes
@@ -87,4 +87,4 @@ Have a useful workflow? We'd love to add it to the cookbook!
 3. Include time estimates and difficulty level
 4. Link to relevant commands and guides
 
-See [Contributing](../../CONTRIBUTING.md) for details.
+See [Contributing on GitHub](https://github.com/Data-Wise/craft/blob/main/CONTRIBUTING.md) for details.
