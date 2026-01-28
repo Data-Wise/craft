@@ -2,13 +2,43 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.8.0 (2026-01-25)
-**Total Releases:** 30 versions | **Development Time:** 2+ years
-**Community:** 100+ commands documented, 706+ tests, 90%+ coverage
+**Latest Release:** v2.8.1 (2026-01-28)
+**Total Releases:** 31 versions | **Development Time:** 2+ years
+**Community:** 100+ commands documented, 770+ tests, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.8.1 (2026-01-28) - Markdown Lint Style Fixes
+
+**Status:** Released ✅
+
+**Highlights:**
+
+- **Auto-Fixed 191 Files**: MD031, MD032, MD034, MD003 violations resolved
+- **MD025 Fixes**: Fixed duplicate H1 headings in 6 files
+- **MD060 Fixes**: Table alignment in 5 critical files (CLAUDE.md, README.md, commands/do.md)
+- **Emoji-Aware Formatter**: Table padding accounts for emoji display width
+- **Configuration Update**: Added `front_matter_title` to ignore YAML titles in MD025
+
+**Stats:**
+
+- Files modified: 191
+- Tables formatted: 40 (in critical files)
+- Heading fixes: 6 files
+- Config additions: MD025 front_matter_title setting
+
+**Key Changes:**
+
+- Blank lines around code blocks and lists (MD031, MD032)
+- Bare URLs wrapped with angle brackets (MD034)
+- Setext headings converted to ATX style (MD003)
+- Duplicate H1 → `## Implementation` in command files
+
+**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.8.1>
+
+---
 
 ### v2.8.0 (2026-01-25) - Markdown Linting Execution Layer
 
@@ -572,23 +602,23 @@ Addresses 4 of 12 gaps identified in v2.5.0 gap analysis:
 
 **Foundation Releases:**
 
-| Version | Focus | Status |
-|---------|-------|--------|
+| Version | Focus                      | Status   |
+| ------- | -------------------------- | -------- |
 | v1.15.0 | Command coverage expansion | Released |
-| v1.14.0 | Documentation framework | Released |
-| v1.13.0 | Site building system | Released |
-| v1.12.0 | CI/CD workflow | Released |
-| v1.11.0 | Git workflow commands | Released |
-| v1.10.0 | Testing framework | Released |
-| v1.9.0 | Architecture analysis | Released |
-| v1.8.0 | Brainstorming workflow | Released |
-| v1.7.0 | Code quality tools | Released |
-| v1.6.0 | Plugin system | Released |
-| v1.5.0 | Agent framework | Released |
-| v1.4.0 | Skills system | Released |
-| v1.3.0 | Documentation system | Released |
-| v1.2.0 | Command framework | Released |
-| v1.1.0 | Initial release | Released |
+| v1.14.0 | Documentation framework    | Released |
+| v1.13.0 | Site building system       | Released |
+| v1.12.0 | CI/CD workflow             | Released |
+| v1.11.0 | Git workflow commands      | Released |
+| v1.10.0 | Testing framework          | Released |
+| v1.9.0  | Architecture analysis      | Released |
+| v1.8.0  | Brainstorming workflow     | Released |
+| v1.7.0  | Code quality tools         | Released |
+| v1.6.0  | Plugin system              | Released |
+| v1.5.0  | Agent framework            | Released |
+| v1.4.0  | Skills system              | Released |
+| v1.3.0  | Documentation system       | Released |
+| v1.2.0  | Command framework          | Released |
+| v1.1.0  | Initial release            | Released |
 
 ---
 
@@ -642,16 +672,16 @@ Addresses 4 of 12 gaps identified in v2.5.0 gap analysis:
 ## Statistics by Release
 
 | Version | Commands | Scripts | Tests | Skills | Agents | Documentation |
-|---------|----------|---------|-------|--------|--------|-----------------|
-| v1.24.0 | 99 | 20+ | 516+ | 21 | 8 | 87% |
-| v1.23.1 | 97 | 18 | 516+ | 21 | 8 | 85% |
-| v1.23.0 | 92 | 15 | 491 | 21 | 8 | 80% |
-| v1.22.0 | 92 | 12 | 369 | 21 | 8 | 75% |
-| v1.21.0 | 89 | 8 | 230 | 20 | 8 | 70% |
-| v1.20.0 | 85 | 6 | 150 | 18 | 6 | 60% |
-| v1.19.0 | 75 | 4 | 100 | 15 | 5 | 50% |
-| v1.18.0 | 66 | 2 | 50 | 12 | 4 | 40% |
-| v1.17.0 | 60 | 1 | 30 | 10 | 3 | 30% |
+| ------- | -------- | ------- | ----- | ------ | ------ | ------------- |
+| v1.24.0 | 99       | 20+     | 516+  | 21     | 8      | 87%           |
+| v1.23.1 | 97       | 18      | 516+  | 21     | 8      | 85%           |
+| v1.23.0 | 92       | 15      | 491   | 21     | 8      | 80%           |
+| v1.22.0 | 92       | 12      | 369   | 21     | 8      | 75%           |
+| v1.21.0 | 89       | 8       | 230   | 20     | 8      | 70%           |
+| v1.20.0 | 85       | 6       | 150   | 18     | 6      | 60%           |
+| v1.19.0 | 75       | 4       | 100   | 15     | 5      | 50%           |
+| v1.18.0 | 66       | 2       | 50    | 12     | 4      | 40%           |
+| v1.17.0 | 60       | 1       | 30    | 10     | 3      | 30%           |
 
 ---
 

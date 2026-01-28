@@ -4,37 +4,37 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.8.0                                             │
+│  Version: 2.8.1                                             │
 │  Commands: 100 | Agents: 8 | Skills: 21                     │
 │  Documentation: 98% complete | Diagrams: 17 Mermaid         │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  NEW: Markdown linting execution layer with auto-fix        │
+│  NEW: 191 files auto-fixed, table alignment, MD025 fixes    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ## Essential Commands
 
-| Command | Description |
-|---------|-------------|
+| Command            | Description                                 |
+| ------------------ | ------------------------------------------- |
 | `/craft:do <task>` | Universal command - routes to best workflow |
-| `/craft:check` | Pre-flight checks (commit/pr/release) |
-| `/craft:help` | Context-aware help and suggestions |
-| `/craft:hub` | Command discovery hub |
+| `/craft:check`     | Pre-flight checks (commit/pr/release)       |
+| `/craft:help`      | Context-aware help and suggestions          |
+| `/craft:hub`       | Command discovery hub                       |
 
 ## Smart Documentation (17 commands)
 
-| Command | Description |
-|---------|-------------|
-| `/craft:docs:lint` | **NEW v2.8.0** Markdown linting with auto-fix support |
-| `/craft:docs:update` | **v2.7.0** Interactive: 9 categories, prompts, auto-fix |
-| `/craft:docs:update --interactive` | Category-level prompts for precise control |
-| `/craft:docs:update --category=NAME` | Update only specific category |
-| `/craft:docs:sync` | Detection: Classify changes, report stale docs |
-| `/craft:docs:check` | Validation: Links + stale + nav + auto-fix |
-| `/craft:docs:website` | ADHD-friendly enhancement with scoring |
-| `/craft:docs:guide` | Feature guide + demo + refcard generator |
-| `/craft:docs:demo` | VHS tape generator for GIF demos |
-| `/craft:docs:mermaid` | Mermaid diagram templates (6 types) |
+| Command                              | Description                                             |
+| ------------------------------------ | ------------------------------------------------------- |
+| `/craft:docs:lint`                   | **NEW v2.8.0** Markdown linting with auto-fix support   |
+| `/craft:docs:update`                 | **v2.7.0** Interactive: 9 categories, prompts, auto-fix |
+| `/craft:docs:update --interactive`   | Category-level prompts for precise control              |
+| `/craft:docs:update --category=NAME` | Update only specific category                           |
+| `/craft:docs:sync`                   | Detection: Classify changes, report stale docs          |
+| `/craft:docs:check`                  | Validation: Links + stale + nav + auto-fix              |
+| `/craft:docs:website`                | ADHD-friendly enhancement with scoring                  |
+| `/craft:docs:guide`                  | Feature guide + demo + refcard generator                |
+| `/craft:docs:demo`                   | VHS tape generator for GIF demos                        |
+| `/craft:docs:mermaid`                | Mermaid diagram templates (6 types)                     |
 
 **Quick examples:**
 
@@ -53,7 +53,7 @@
 - Auto-fix: `/craft:docs:lint --fix` (apply safe fixes)
 - Path targeting: `/craft:docs:lint docs/guide/` (check specific directories)
 - Pre-commit integration: Auto-fix on staged markdown
-- All 706+ tests passing (100%)
+- All 770+ tests passing (100%)
 - [Release Notes](RELEASE-v2.8.0.md) | [Docs Command Reference](commands/docs.md)
 
 **NEW in v2.7.0: Interactive Documentation Update**
@@ -67,17 +67,17 @@
 
 ## Site Commands (15 commands)
 
-| Command | Description |
-|---------|-------------|
-| `/craft:site:create` | Full site wizard with 8 ADHD-friendly presets |
-| `/craft:site:build` | Build site (teaching-aware) |
-| `/craft:site:publish` | **NEW** Preview → Validate → Deploy (teaching mode) |
-| `/craft:site:progress` | **NEW** Semester progress dashboard (teaching mode) |
-| `/craft:site:nav` | Navigation reorganization (max 7 sections) |
-| `/craft:site:audit` | Content inventory & audit |
-| `/craft:site:consolidate` | Merge duplicate/overlapping docs |
-| `/craft:site:status` | Dashboard and health check |
-| `/craft:site:deploy` | Deploy to GitHub Pages |
+| Command                   | Description                                         |
+| ------------------------- | --------------------------------------------------- |
+| `/craft:site:create`      | Full site wizard with 8 ADHD-friendly presets       |
+| `/craft:site:build`       | Build site (teaching-aware)                         |
+| `/craft:site:publish`     | **NEW** Preview → Validate → Deploy (teaching mode) |
+| `/craft:site:progress`    | **NEW** Semester progress dashboard (teaching mode) |
+| `/craft:site:nav`         | Navigation reorganization (max 7 sections)          |
+| `/craft:site:audit`       | Content inventory & audit                           |
+| `/craft:site:consolidate` | Merge duplicate/overlapping docs                    |
+| `/craft:site:status`      | Dashboard and health check                          |
+| `/craft:site:deploy`      | Deploy to GitHub Pages                              |
 
 **Teaching Mode Quick Start:**
 
@@ -96,12 +96,12 @@
 
 ## Code & Testing (17 commands)
 
-| Command | Modes | Description |
-|---------|-------|-------------|
-| `/craft:code:lint` | all | Linting with auto-fix |
-| `/craft:test:run` | all | Test runner with watch mode |
-| `/craft:code:debug` | - | Systematic debugging |
-| `/craft:code:refactor` | - | Refactoring guidance |
+| Command                | Modes | Description                 |
+| ---------------------- | ----- | --------------------------- |
+| `/craft:code:lint`     | all   | Linting with auto-fix       |
+| `/craft:test:run`      | all   | Test runner with watch mode |
+| `/craft:code:debug`    | ----- | Systematic debugging        |
+| `/craft:code:refactor` | ----- | Refactoring guidance        |
 
 **Modes:** `default` (<10s) | `debug` (<120s) | `optimize` (<180s) | `release` (<300s)
 
@@ -114,14 +114,14 @@
 
 ## Git Commands (5 commands)
 
-| Command | Description |
-|---------|-------------|
-| `/craft:git:init` | **NEW** Initialize repository with craft workflow |
-| `/craft:git:worktree` | Parallel development with git worktrees |
-| `/craft:git:sync` | Smart git sync |
-| `/craft:git:clean` | Clean merged branches |
-| `/craft:git:recap` | Activity summary |
-| `/craft:git:branch` | Branch management |
+| Command               | Description                                       |
+| --------------------- | ------------------------------------------------- |
+| `/craft:git:init`     | **NEW** Initialize repository with craft workflow |
+| `/craft:git:worktree` | Parallel development with git worktrees           |
+| `/craft:git:sync`     | Smart git sync                                    |
+| `/craft:git:clean`    | Clean merged branches                             |
+| `/craft:git:recap`    | Activity summary                                  |
+| `/craft:git:branch`   | Branch management                                 |
 
 **Quick examples:**
 
@@ -200,71 +200,71 @@
 
 Auto-triggered expertise:
 
-| Skill | Triggers |
-|-------|----------|
-| `backend-designer` | API, database, auth |
-| `frontend-designer` | UI/UX, components |
-| `test-strategist` | Test strategy |
-| `system-architect` | System design |
-| `project-planner` | Feature planning |
-| `distribution-strategist` | Homebrew, PyPI, packaging |
-| `homebrew-formula-expert` | Homebrew formulas |
-| `doc-classifier` | Documentation type detection |
-| `mermaid-linter` | Mermaid diagram validation |
-| `session-state` | Orchestrator state tracking |
-| ...and 11 more | See [Skills & Agents Guide](guide/skills-agents.md) |
+| Skill                     | Triggers                                            |
+| ------------------------- | --------------------------------------------------- |
+| `backend-designer`        | API, database, auth                                 |
+| `frontend-designer`       | UI/UX, components                                   |
+| `test-strategist`         | Test strategy                                       |
+| `system-architect`        | System design                                       |
+| `project-planner`         | Feature planning                                    |
+| `distribution-strategist` | Homebrew, PyPI, packaging                           |
+| `homebrew-formula-expert` | Homebrew formulas                                   |
+| `doc-classifier`          | Documentation type detection                        |
+| `mermaid-linter`          | Mermaid diagram validation                          |
+| `session-state`           | Orchestrator state tracking                         |
+| ...and 11 more            | See [Skills & Agents Guide](guide/skills-agents.md) |
 
 ## Agents (8 specialized)
 
-| Agent | Specialty |
-|-------|-----------|
-| `orchestrator-v2` | Mode-aware execution, monitoring |
-| `backend-architect` | Scalable APIs, microservices |
-| `docs-architect` | Technical documentation |
-| `api-documenter` | OpenAPI, developer portals |
-| `tutorial-engineer` | Step-by-step tutorials |
-| `mermaid-expert` | Diagram creation |
-| `reference-builder` | API reference documentation |
-| `demo-engineer` | VHS demo creation |
+| Agent               | Specialty                        |
+| ------------------- | -------------------------------- |
+| `orchestrator-v2`   | Mode-aware execution, monitoring |
+| `backend-architect` | Scalable APIs, microservices     |
+| `docs-architect`    | Technical documentation          |
+| `api-documenter`    | OpenAPI, developer portals       |
+| `tutorial-engineer` | Step-by-step tutorials           |
+| `mermaid-expert`    | Diagram creation                 |
+| `reference-builder` | API reference documentation      |
+| `demo-engineer`     | VHS demo creation                |
 
 ## Configuration
 
 ### Mode System
 
-| Mode | Time | Use Case |
-|------|------|----------|
-| **default** | <10s | Quick checks |
-| **debug** | <120s | Verbose output |
+| Mode         | Time  | Use Case              |
+| ------------ | ----- | --------------------- |
+| **default**  | <10s  | Quick checks          |
+| **debug**    | <120s | Verbose output        |
 | **optimize** | <180s | Parallel, performance |
-| **release** | <300s | Comprehensive audit |
+| **release**  | <300s | Comprehensive audit   |
 
 ### ADHD-Friendly Presets
 
-| Preset | Description |
-|--------|-------------|
-| `data-wise` | DT's standard (blue/orange) |
-| `adhd-focus` | Calm forest green |
-| `adhd-calm` | Warm earth tones |
-| `adhd-dark` | Dark-first, reduced eye strain |
-| `adhd-light` | Warm light, never harsh white |
+| Preset       | Description                    |
+| ------------ | ------------------------------ |
+| `data-wise`  | DT's standard (blue/orange)    |
+| `adhd-focus` | Calm forest green              |
+| `adhd-calm`  | Warm earth tones               |
+| `adhd-dark`  | Dark-first, reduced eye strain |
+| `adhd-light` | Warm light, never harsh white  |
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Command not found | Verify installation: `/craft:hub` |
-| Skill not triggering | Check skill definitions in plugin |
-| Build fails | Run `/craft:check` for diagnostics |
+| Issue                | Solution                           |
+| -------------------- | ---------------------------------- |
+| Command not found    | Verify installation: `/craft:hub`  |
+| Skill not triggering | Check skill definitions in plugin  |
+| Build fails          | Run `/craft:check` for diagnostics |
 
 ## Technical Deep Dives
 
 New comprehensive guides (Phase 3 documentation):
 
-| Guide | Diagrams | Content |
-|-------|----------|---------|
-| **[Version History](VERSION-HISTORY.md)** | - | Complete timeline v1.0.0 → v2.4.0 with feature evolution |
-| **[Claude Code 2.1 Integration](guide/claude-code-2.1-integration.md)** | 9 Mermaid | Hot-reload validators, complexity scoring, orchestration hooks, agent delegation (610 lines) |
-| **[Complexity Scoring Algorithm](guide/complexity-scoring-algorithm.md)** | 8 Mermaid | Technical documentation of 0-10 scoring system, decision trees, examples (571 lines) |
+| Guide                                                                     | Diagrams  | Content                                                                                      |
+| ------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------- |
+| **[Version History](VERSION-HISTORY.md)**                                 | --------- | Complete timeline v1.0.0 → v2.4.0 with feature evolution                                     |
+| **[Claude Code 2.1 Integration](guide/claude-code-2.1-integration.md)**   | 9 Mermaid | Hot-reload validators, complexity scoring, orchestration hooks, agent delegation (610 lines) |
+| **[Complexity Scoring Algorithm](guide/complexity-scoring-algorithm.md)** | 8 Mermaid | Technical documentation of 0-10 scoring system, decision trees, examples (571 lines)         |
 
 **Total:** 17 Mermaid diagrams across all guides
 

@@ -2,10 +2,10 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml)
-[![Version](https://img.shields.io/badge/version-2.8.0-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v2.8.0)
+[![Version](https://img.shields.io/badge/version-2.8.1-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v2.8.1)
 [![Documentation](https://img.shields.io/badge/docs-95%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.8.0 - Markdown Linting Execution Layer** 🚀
+> **v2.8.1 - Markdown Lint Style Fixes** 🚀
 > **100 commands** | **21 skills** | **8 agents** | **Documentation quality automation**
 > Smart markdown linting with auto-fix, pre-commit hooks, and interactive docs workflow
 
@@ -270,8 +270,8 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:code:refactor`   | Refactoring guidance  | ----- |
 | `/craft:code:release`    | Release workflow      | ----- |
 | `/craft:code:test-gen`   | Generate test files   | ----- |
-| `/craft:code:lint`       | Code style checks     | ✓     |
-| `/craft:code:coverage`   | Coverage report       | ✓     |
+| `/craft:code:lint`       | Code style checks     | ✓    |
+| `/craft:code:coverage`   | Coverage report       | ✓    |
 | `/craft:code:deps-check` | Dependency health     | ----- |
 | `/craft:code:deps-audit` | Security scan         | ----- |
 | `/craft:code:ci-local`   | CI checks locally     | ----- |
@@ -281,9 +281,9 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 | Command                | Description              | Modes |
 | ---------------------- | ------------------------ | ----- |
-| `/craft:test:run`      | Unified test runner      | ✓     |
+| `/craft:test:run`      | Unified test runner      | ✓    |
 | `/craft:test:watch`    | Watch mode               | ----- |
-| `/craft:test:coverage` | Coverage analysis        | ✓     |
+| `/craft:test:coverage` | Coverage analysis        | ✓    |
 | `/craft:test:debug`    | Debug failing tests      | ----- |
 | `/craft:test:cli-gen`  | Generate CLI test suites | ----- |
 | `/craft:test:cli-run`  | Run CLI test suites      | ----- |
@@ -292,7 +292,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 | Command               | Description           | Modes |
 | --------------------- | --------------------- | ----- |
-| `/craft:arch:analyze` | Architecture analysis | ✓     |
+| `/craft:arch:analyze` | Architecture analysis | ✓    |
 | `/craft:arch:plan`    | Design architecture   | ----- |
 | `/craft:arch:review`  | Review changes        | ----- |
 | `/craft:arch:diagram` | Generate diagrams     | ----- |
@@ -504,7 +504,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ## Version
 
-- **Version:** 2.8.0
+- **Version:** 2.8.1
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 

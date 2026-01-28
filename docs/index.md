@@ -13,7 +13,7 @@
 
 > Full-stack developer toolkit for Claude Code - 100 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v2.8.0:** Markdown linting execution layer for `/craft:docs:lint` with auto-fix support. See [what's new](#whats-new-in-v280)
+> **NEW in v2.8.1:** Auto-fixed 191 files, MD025/MD060 fixes, emoji-aware table formatting. See [what's new](#whats-new-in-v281)
 
 ## Features
 
@@ -97,6 +97,32 @@ Complete OpenAPI-style documentation for all 97 Craft commands:
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
 
+## What's New in v2.8.1
+
+**Markdown Lint Style Fixes** 🎨
+
+Comprehensive cleanup of markdown formatting across the codebase:
+
+- **Auto-Fixed 191 Files**: Applied markdownlint-cli2 --fix
+  - MD031: Blank lines around fenced code blocks
+  - MD032: Blank lines around lists
+  - MD034: Bare URLs wrapped with angle brackets
+  - MD003: Setext headings converted to ATX style
+
+- **MD025 Fixes (Duplicate H1 Headings)**:
+  - Fixed 6 files with multiple top-level headings
+  - Added `front_matter_title` config to ignore YAML titles
+
+- **MD060 Fixes (Table Alignment)**:
+  - Formatted tables in CLAUDE.md, README.md, commands/do.md
+  - Created emoji-aware table formatter for proper padding
+
+**Testing**: All 770+ tests passing (100%)
+
+**Release**: [v2.8.1 on GitHub](https://github.com/Data-Wise/craft/releases/tag/v2.8.1)
+
+---
+
 ## What's New in v2.8.0
 
 **Markdown Linting Execution Layer** ✨
@@ -104,30 +130,11 @@ Complete OpenAPI-style documentation for all 97 Craft commands:
 Implementation of the execution layer for `/craft:docs:lint` (PR #34):
 
 - **`scripts/docs-lint.sh`**: Bash execution script for markdown linting
-  - Auto-detects `markdownlint-cli2` globally or falls back to `npx`
-  - Supports `--fix` flag for auto-fixing issues
-  - Supports target path specification
-
-- **MVP Features (v2.8.0)**:
-  - Basic linting: Check markdown files against 30+ rules
-  - Auto-fix: Apply safe fixes with `--fix` flag
-  - Path targeting: Check specific files or directories
-  - Pre-commit integration: Works with existing hooks
-
-- **Clear Roadmap**: Feature status table distinguishes MVP (v2.8.0) from planned (v2.9.0+)
-  - Planned: Styled output boxes, execution modes (debug/optimize/release), language detection, interactive prompts, rule expansion (30 → 42)
-
-**Try it:**
-
-```bash
-/craft:docs:lint                  # Check all markdown
-/craft:docs:lint --fix            # Auto-fix issues
-/craft:docs:lint docs/guide/      # Check specific path
-```
-
-**Testing**: All 706+ tests passing (100%), pre-commit hook validated
+- **MVP Features**: Basic linting (30+ rules), auto-fix, path targeting, pre-commit integration
 
 **Documentation**: [RELEASE-v2.8.0.md](RELEASE-v2.8.0.md) for comprehensive details
+
+---
 
 ## What's New in v2.7.0
 
@@ -375,19 +382,19 @@ New `/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 c
 
 ## Key Command Categories
 
-| Category | Count | Description |
-|----------|-------|-------------|
-| **Smart** | 4 | Universal command, orchestrator, checks, help, hub |
-| **Documentation** | 19 | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow |
-| **Site** | 16 | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit |
+| Category           | Count  | Description                                                                                                               |
+| ------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------- |
+| **Smart**          | 4      | Universal command, orchestrator, checks, help, hub                                                                        |
+| **Documentation**  | 19     | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow                                  |
+| **Site**           | 16     | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit                                                          |
 | **Code & Testing** | 12 + 7 | Code: linting, testing, debugging, refactoring, CI fixes, deps management; Tests: run, debug, watch, coverage, generation |
-| **Git** | 11 | Repository initialization, branch management, worktrees, sync, recap, clean, learning guides |
-| **CI** | 3 | Detection, generation, validation |
-| **Architecture** | 4 | Analysis, diagrams, planning, reviews |
-| **Distribution** | 3 | Homebrew, PyPI, curl installers |
-| **Planning** | 3 | Feature planning, sprints, roadmaps |
-| **Workflow** | 12 | Brainstorming, task management, spec capture, getting unstuck |
-| **Total** | **97** | **Complete development workflow coverage** |
+| **Git**            | 11     | Repository initialization, branch management, worktrees, sync, recap, clean, learning guides                              |
+| **CI**             | 3      | Detection, generation, validation                                                                                         |
+| **Architecture**   | 4      | Analysis, diagrams, planning, reviews                                                                                     |
+| **Distribution**   | 3      | Homebrew, PyPI, curl installers                                                                                           |
+| **Planning**       | 3      | Feature planning, sprints, roadmaps                                                                                       |
+| **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
+| **Total**          | **97** | **Complete development workflow coverage**                                                                                |
 
 ## Links
 
