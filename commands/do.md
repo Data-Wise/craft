@@ -179,12 +179,12 @@ Ready to implement? (y/n)
 
 ### When to Delegate
 
-| Condition | Action | Reason |
-|-----------|--------|--------|
-| Score < 4 | Route to commands | Simple, fast execution |
-| Score 4-7 | Delegate to agent | Medium complexity, needs expertise |
-| Score 8-10 | Delegate to orchestrator | Complex, multi-agent coordination |
-| User says "no agents" | Force command routing | Explicit user preference |
+| Condition             | Action                   | Reason                             |
+| --------------------- | ------------------------ | ---------------------------------- |
+| Score < 4             | Route to commands        | Simple, fast execution             |
+| Score 4-7             | Delegate to agent        | Medium complexity, needs expertise |
+| Score 8-10            | Delegate to orchestrator | Complex, multi-agent coordination  |
+| User says "no agents" | Force command routing    | Explicit user preference           |
 
 ### Forked Context Benefits
 
@@ -306,13 +306,13 @@ Available modes:
 +---------------------------------------------------------------------+
 | DRY RUN: Orchestration Preview                                      |
 +---------------------------------------------------------------------+
-| Task: refactor auth                                                 |
-| Mode: release                                                       |
-| Max Agents: 4                                                       |
-| Compression: 85%                                                    |
+| Task: refactor auth |
+| Mode: release       |
+| Max Agents: 4       |
+| Compression: 85%    |
 +---------------------------------------------------------------------+
-| This would spawn the orchestrator with the above settings.          |
-| Remove --dry-run to execute.                                        |
+| This would spawn the orchestrator with the above settings. |
+| Remove --dry-run to execute.                               |
 +---------------------------------------------------------------------+
 ```
 
@@ -327,15 +327,15 @@ Available modes:
 
 ## Task Categories
 
-| Category | Keywords | Commands Used |
-|----------|----------|---------------|
-| **Feature** | add, create, implement, build | arch:plan, code:test-gen, git:branch |
-| **Bug** | fix, debug, issue, error | code:debug, test:run, test:debug |
-| **Quality** | lint, quality, clean, improve | code:lint, test:coverage, code:refactor |
-| **Docs** | document, update docs, readme | docs:sync, docs:validate, docs:changelog |
-| **Test** | test, coverage, verify | test:run, test:coverage, test:debug |
-| **Release** | release, deploy, publish | deps-audit, lint, test:run, code:release |
-| **Architecture** | design, refactor, restructure | arch:analyze, arch:plan, arch:diagram |
+| Category         | Keywords                      | Commands Used                            |
+| ---------------- | ----------------------------- | ---------------------------------------- |
+| **Feature**      | add, create, implement, build | arch:plan, code:test-gen, git:branch     |
+| **Bug**          | fix, debug, issue, error      | code:debug, test:run, test:debug         |
+| **Quality**      | lint, quality, clean, improve | code:lint, test:coverage, code:refactor  |
+| **Docs**         | document, update docs, readme | docs:sync, docs:validate, docs:changelog |
+| **Test**         | test, coverage, verify        | test:run, test:coverage, test:debug      |
+| **Release**      | release, deploy, publish      | deps-audit, lint, test:run, code:release |
+| **Architecture** | design, refactor, restructure | arch:analyze, arch:plan, arch:diagram    |
 
 ## Routing Logic
 
@@ -361,11 +361,11 @@ Before routing, `/craft:do` analyzes task complexity to determine execution stra
 
 ### Complexity Scoring
 
-| Score | Task Type | Routing Decision | Example |
-|-------|-----------|------------------|---------|
-| 0-3 | **Simple** | Route to commands | "lint the code" |
-| 4-7 | **Medium** | Single agent delegation | "add OAuth login" |
-| 8-10 | **Complex** | orchestrator-v2 delegation | "prepare v2.0 release" |
+| Score | Task Type   | Routing Decision           | Example                |
+| ----- | ----------- | -------------------------- | ---------------------- |
+| 0-3   | **Simple**  | Route to commands          | "lint the code"        |
+| 4-7   | **Medium**  | Single agent delegation    | "add OAuth login"      |
+| 8-10  | **Complex** | orchestrator-v2 delegation | "prepare v2.0 release" |
 
 ### Scoring Factors
 
@@ -402,23 +402,23 @@ Complexity Score (0-10)
 
 When complexity score ≥ 4, `/craft:do` delegates to specialized agents:
 
-| Agent | Triggers | Max Complexity | Use Case |
-|-------|----------|----------------|----------|
-| `feature-dev` | add, create, implement, build | 7 | New features |
-| `backend-architect` | design, architect, refactor | 8 | Architecture |
-| `bug-detective` | fix, debug, error, issue | 6 | Debugging |
-| `code-quality-reviewer` | quality, lint, improve | 5 | Code quality |
-| `orchestrator-v2` | (any) | 10 | Multi-step orchestration |
+| Agent                   | Triggers                      | Max Complexity | Use Case                 |
+| ----------------------- | ----------------------------- | -------------- | ------------------------ |
+| `feature-dev`           | add, create, implement, build | 7              | New features             |
+| `backend-architect`     | design, architect, refactor   | 8              | Architecture             |
+| `bug-detective`         | fix, debug, error, issue      | 6              | Debugging                |
+| `code-quality-reviewer` | quality, lint, improve        | 5              | Code quality             |
+| `orchestrator-v2`       | (any)                         | 10             | Multi-step orchestration |
 
 ### Example Complexity Scores
 
-| Task | Factors | Score | Decision |
-|------|---------|-------|----------|
-| "lint the code" | None | 0 | → /craft:code:lint |
-| "fix login bug" | Multi-step | 2 | → /craft:code:debug |
-| "add OAuth login" | Multi-step, Planning | 4 | → feature-dev agent |
-| "refactor DB layer" | Multi-step, Planning, Multi-file | 6 | → backend-architect agent |
-| "prepare v2.0 release" | Multi-step, Cross-category, Multi-file | 8 | → orchestrator-v2 agent |
+| Task                   | Factors                                | Score | Decision                  |
+| ---------------------- | -------------------------------------- | ----- | ------------------------- |
+| "lint the code"        | None                                   | 0     | → /craft:code:lint        |
+| "fix login bug"        | Multi-step                             | 2     | → /craft:code:debug       |
+| "add OAuth login"      | Multi-step, Planning                   | 4     | → feature-dev agent       |
+| "refactor DB layer"    | Multi-step, Planning, Multi-file       | 6     | → backend-architect agent |
+| "prepare v2.0 release" | Multi-step, Cross-category, Multi-file | 8     | → orchestrator-v2 agent   |
 
 ## Output Format
 

@@ -164,12 +164,12 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 
 Commands support execution modes for different use cases:
 
-| Mode | Time | Use Case |
-|------|------|----------|
-| **default** | < 10s | Quick checks |
-| **debug** | < 120s | Verbose output, traces |
-| **optimize** | < 180s | Parallel, performance |
-| **release** | < 300s | Comprehensive audit |
+| Mode         | Time   | Use Case               |
+| ------------ | ------ | ---------------------- |
+| **default**  | < 10s  | Quick checks           |
+| **debug**    | < 120s | Verbose output, traces |
+| **optimize** | < 180s | Parallel, performance  |
+| **release**  | < 300s | Comprehensive audit    |
 
 ```bash
 /craft:code:lint                # Quick check
@@ -217,20 +217,20 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ### Workflow Commands (12) - NEW in v1.17.0
 
-| Command | Description |
-|---------|-------------|
+| Command                                | Description                                                                                   |
+| -------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `/brainstorm [depth] [focus] [action]` | Enhanced brainstorming with smart detection, design modes, time budgets, and agent delegation |
-| `/spec-review <file>` | Interactive spec review with validation, status updates, and archival |
-| `/focus [task]` | Enter focus mode for deep work on a specific task |
-| `/next` | Get next task recommendation |
-| `/done [message]` | Mark current task as complete |
-| `/recap` | Generate session summary and progress report |
-| `/stuck [description]` | Get help when blocked on a task |
-| `/refine <spec-file>` | Refine and improve existing spec documents |
-| `/task-status [task-id]` | Check status of background tasks |
-| `/task-output <task-id>` | Get output from completed task |
-| `/task-cancel <task-id>` | Cancel running background task |
-| `/adhd-guide` | ADHD-friendly workflow guide and best practices |
+| `/spec-review <file>`                  | Interactive spec review with validation, status updates, and archival                         |
+| `/focus [task]`                        | Enter focus mode for deep work on a specific task                                             |
+| `/next`                                | Get next task recommendation                                                                  |
+| `/done [message]`                      | Mark current task as complete                                                                 |
+| `/recap`                               | Generate session summary and progress report                                                  |
+| `/stuck [description]`                 | Get help when blocked on a task                                                               |
+| `/refine <spec-file>`                  | Refine and improve existing spec documents                                                    |
+| `/task-status [task-id]`               | Check status of background tasks                                                              |
+| `/task-output <task-id>`               | Get output from completed task                                                                |
+| `/task-cancel <task-id>`               | Cancel running background task                                                                |
+| `/adhd-guide`                          | ADHD-friendly workflow guide and best practices                                               |
 
 **Brainstorming Modes:**
 
@@ -242,12 +242,12 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ### Smart Commands (4) - ENHANCED
 
-| Command | Description |
-|---------|-------------|
-| `/craft:do <task>` | Universal command - routes to appropriate workflow |
+| Command                            | Description                                                                                      |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `/craft:do <task>`                 | Universal command - routes to appropriate workflow                                               |
 | `/craft:orchestrate <task> [mode]` | **ENHANCED v2.1** Launch orchestrator with mode-aware execution, context tracking, timeline view |
-| `/craft:check` | Pre-flight checks (commit/pr/release) |
-| `/craft:help` | Context-aware help and suggestions |
+| `/craft:check`                     | Pre-flight checks (commit/pr/release)                                                            |
+| `/craft:help`                      | Context-aware help and suggestions                                                               |
 
 #### Orchestrator Modes (NEW in v1.4.0)
 
@@ -262,58 +262,58 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ### Code Commands (12)
 
-| Command | Description | Modes |
-|---------|-------------|-------|
-| `/craft:code:debug` | Systematic debugging | - |
-| `/craft:code:demo` | Create demonstrations | - |
-| `/craft:code:docs-check` | Pre-flight doc check | - |
-| `/craft:code:refactor` | Refactoring guidance | - |
-| `/craft:code:release` | Release workflow | - |
-| `/craft:code:test-gen` | Generate test files | - |
-| `/craft:code:lint` | Code style checks | ✓ |
-| `/craft:code:coverage` | Coverage report | ✓ |
-| `/craft:code:deps-check` | Dependency health | - |
-| `/craft:code:deps-audit` | Security scan | - |
-| `/craft:code:ci-local` | CI checks locally | - |
-| `/craft:code:ci-fix` | Fix CI failures | - |
+| Command                  | Description           | Modes |
+| ------------------------ | --------------------- | ----- |
+| `/craft:code:debug`      | Systematic debugging  | ----- |
+| `/craft:code:demo`       | Create demonstrations | ----- |
+| `/craft:code:docs-check` | Pre-flight doc check  | ----- |
+| `/craft:code:refactor`   | Refactoring guidance  | ----- |
+| `/craft:code:release`    | Release workflow      | ----- |
+| `/craft:code:test-gen`   | Generate test files   | ----- |
+| `/craft:code:lint`       | Code style checks     | ✓     |
+| `/craft:code:coverage`   | Coverage report       | ✓     |
+| `/craft:code:deps-check` | Dependency health     | ----- |
+| `/craft:code:deps-audit` | Security scan         | ----- |
+| `/craft:code:ci-local`   | CI checks locally     | ----- |
+| `/craft:code:ci-fix`     | Fix CI failures       | ----- |
 
 ### Test Commands (6)
 
-| Command | Description | Modes |
-|---------|-------------|-------|
-| `/craft:test:run` | Unified test runner | ✓ |
-| `/craft:test:watch` | Watch mode | - |
-| `/craft:test:coverage` | Coverage analysis | ✓ |
-| `/craft:test:debug` | Debug failing tests | - |
-| `/craft:test:cli-gen` | Generate CLI test suites | - |
-| `/craft:test:cli-run` | Run CLI test suites | - |
+| Command                | Description              | Modes |
+| ---------------------- | ------------------------ | ----- |
+| `/craft:test:run`      | Unified test runner      | ✓     |
+| `/craft:test:watch`    | Watch mode               | ----- |
+| `/craft:test:coverage` | Coverage analysis        | ✓     |
+| `/craft:test:debug`    | Debug failing tests      | ----- |
+| `/craft:test:cli-gen`  | Generate CLI test suites | ----- |
+| `/craft:test:cli-run`  | Run CLI test suites      | ----- |
 
 ### Architecture Commands (4)
 
-| Command | Description | Modes |
-|---------|-------------|-------|
-| `/craft:arch:analyze` | Architecture analysis | ✓ |
-| `/craft:arch:plan` | Design architecture | - |
-| `/craft:arch:review` | Review changes | - |
-| `/craft:arch:diagram` | Generate diagrams | - |
+| Command               | Description           | Modes |
+| --------------------- | --------------------- | ----- |
+| `/craft:arch:analyze` | Architecture analysis | ✓     |
+| `/craft:arch:plan`    | Design architecture   | ----- |
+| `/craft:arch:review`  | Review changes        | ----- |
+| `/craft:arch:diagram` | Generate diagrams     | ----- |
 
 ### Planning Commands (3)
 
-| Command | Description |
-|---------|-------------|
+| Command               | Description              |
+| --------------------- | ------------------------ |
 | `/craft:plan:feature` | Plan features with tasks |
-| `/craft:plan:sprint` | Sprint planning |
-| `/craft:plan:roadmap` | Generate roadmaps |
+| `/craft:plan:sprint`  | Sprint planning          |
+| `/craft:plan:roadmap` | Generate roadmaps        |
 
 ### Documentation Commands (13) - CONSOLIDATED in v1.11.0
 
 #### Super Commands (3) - Smart defaults, do everything useful
 
-| Command | Description |
-|---------|-------------|
-| `/craft:docs:update` | **Smart-Full**: Detect → Generate all needed → Check → Changelog |
-| `/craft:docs:sync` | **Detection**: Classify changes, report stale docs, recommend actions |
-| `/craft:docs:check` | **Validation**: Links + stale + nav + auto-fix (Version C: full-by-default) |
+| Command              | Description                                                                 |
+| -------------------- | --------------------------------------------------------------------------- |
+| `/craft:docs:update` | **Smart-Full**: Detect → Generate all needed → Check → Changelog            |
+| `/craft:docs:sync`   | **Detection**: Classify changes, report stale docs, recommend actions       |
+| `/craft:docs:check`  | **Validation**: Links + stale + nav + auto-fix (Version C: full-by-default) |
 
 ```bash
 # Just run it - figures out what's needed
@@ -334,107 +334,107 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 #### Specialized Commands (9)
 
-| Command | Description |
-|---------|-------------|
-| `/craft:docs:api` | OpenAPI/Swagger documentation |
-| `/craft:docs:changelog` | Auto-update CHANGELOG |
-| `/craft:docs:site` | Website-focused updates with optional deploy |
-| `/craft:docs:website` | **NEW v1.15.0** ADHD-friendly website enhancement (scoring, TL;DR, mermaid fixes) |
-| `/craft:docs:mermaid` | Mermaid diagram templates (6 types) |
-| `/craft:docs:nav-update` | Update mkdocs.yml navigation |
-| `/craft:docs:prompt` | Generate reusable maintenance prompts |
-| `/craft:docs:demo` | Terminal recorder for GIF demos (asciinema/VHS) |
-| `/craft:docs:guide` | **NEW** Feature guide + demo + refcard generator |
+| Command                  | Description                                                                       |
+| ------------------------ | --------------------------------------------------------------------------------- |
+| `/craft:docs:api`        | OpenAPI/Swagger documentation                                                     |
+| `/craft:docs:changelog`  | Auto-update CHANGELOG                                                             |
+| `/craft:docs:site`       | Website-focused updates with optional deploy                                      |
+| `/craft:docs:website`    | **NEW v1.15.0** ADHD-friendly website enhancement (scoring, TL;DR, mermaid fixes) |
+| `/craft:docs:mermaid`    | Mermaid diagram templates (6 types)                                               |
+| `/craft:docs:nav-update` | Update mkdocs.yml navigation                                                      |
+| `/craft:docs:prompt`     | Generate reusable maintenance prompts                                             |
+| `/craft:docs:demo`       | Terminal recorder for GIF demos (asciinema/VHS)                                   |
+| `/craft:docs:guide`      | **NEW** Feature guide + demo + refcard generator                                  |
 
 #### Internal (1)
 
-| Command | Description |
-|---------|-------------|
+| Command                 | Description                                 |
+| ----------------------- | ------------------------------------------- |
 | `/craft:docs:claude-md` | Update CLAUDE.md (called by other commands) |
 
 ### Site Commands (12) - ENHANCED in v1.9.0
 
-| Command | Description |
-|---------|-------------|
-| `/craft:site:create` | Full documentation site wizard with 8 design presets |
-| `/craft:site:nav` | **NEW v1.9.0** Navigation reorganization (ADHD-friendly, max 7 sections) |
-| `/craft:site:audit` | **NEW v1.9.0** Content inventory & audit (outdated, duplicates, gaps) |
-| `/craft:site:consolidate` | **NEW v1.9.0** Merge duplicate/overlapping documentation files |
-| `/craft:site:update` | Update site content from code changes |
-| `/craft:site:status` | Dashboard and health check |
-| `/craft:site:theme` | Quick theme changes (colors, presets, fonts) |
-| `/craft:site:add` | Add new documentation pages |
-| `/craft:site:build` | Build site |
-| `/craft:site:preview` | Preview locally |
-| `/craft:site:deploy` | Deploy to GitHub Pages |
-| `/craft:site:init` | Basic initialization (use `create` for full wizard) |
+| Command                   | Description                                                              |
+| ------------------------- | ------------------------------------------------------------------------ |
+| `/craft:site:create`      | Full documentation site wizard with 8 design presets                     |
+| `/craft:site:nav`         | **NEW v1.9.0** Navigation reorganization (ADHD-friendly, max 7 sections) |
+| `/craft:site:audit`       | **NEW v1.9.0** Content inventory & audit (outdated, duplicates, gaps)    |
+| `/craft:site:consolidate` | **NEW v1.9.0** Merge duplicate/overlapping documentation files           |
+| `/craft:site:update`      | Update site content from code changes                                    |
+| `/craft:site:status`      | Dashboard and health check                                               |
+| `/craft:site:theme`       | Quick theme changes (colors, presets, fonts)                             |
+| `/craft:site:add`         | Add new documentation pages                                              |
+| `/craft:site:build`       | Build site                                                               |
+| `/craft:site:preview`     | Preview locally                                                          |
+| `/craft:site:deploy`      | Deploy to GitHub Pages                                                   |
+| `/craft:site:init`        | Basic initialization (use `create` for full wizard)                      |
 
 ### Git Commands (5 + 4 guides)
 
-| Command | Description |
-|---------|-------------|
-| `/craft:git:branch` | Branch management |
-| `/craft:git:sync` | Smart git sync |
-| `/craft:git:clean` | Clean merged branches |
-| `/craft:git:recap` | Activity summary |
+| Command               | Description                                            |
+| --------------------- | ------------------------------------------------------ |
+| `/craft:git:branch`   | Branch management                                      |
+| `/craft:git:sync`     | Smart git sync                                         |
+| `/craft:git:clean`    | Clean merged branches                                  |
+| `/craft:git:recap`    | Activity summary                                       |
 | `/craft:git:worktree` | **NEW v1.8.0** Parallel development with git worktrees |
 
 **Git Guides:** refcard, undo-guide, safety-rails, learning-guide
 
 ### CI Commands (3) - NEW in v1.10.0
 
-| Command | Description |
-|---------|-------------|
-| `/craft:ci:detect` | Smart detection of project type, build tools, and CI requirements |
-| `/craft:ci:generate` | Generate GitHub Actions workflow from detection |
-| `/craft:ci:validate` | Validate existing CI workflow against project configuration |
+| Command              | Description                                                       |
+| -------------------- | ----------------------------------------------------------------- |
+| `/craft:ci:detect`   | Smart detection of project type, build tools, and CI requirements |
+| `/craft:ci:generate` | Generate GitHub Actions workflow from detection                   |
+| `/craft:ci:validate` | Validate existing CI workflow against project configuration       |
 
 ### Distribution Commands (2)
 
-| Command | Description |
-|---------|-------------|
-| `/craft:dist:homebrew` | Generate/update Homebrew formula |
+| Command                    | Description                       |
+| -------------------------- | --------------------------------- |
+| `/craft:dist:homebrew`     | Generate/update Homebrew formula  |
 | `/craft:dist:curl-install` | Create curl-based install scripts |
 
 ### Discovery
 
-| Command | Description |
-|---------|-------------|
+| Command      | Description           |
+| ------------ | --------------------- |
 | `/craft:hub` | Command discovery hub |
 
 ## Skills (17)
 
-| Skill | Category | Triggers |
-|-------|----------|----------|
-| `backend-designer` | Design | API, database, auth |
-| `frontend-designer` | Design | UI/UX, components |
-| `devops-helper` | Design | CI/CD, deployment |
-| `test-strategist` | Testing | Test strategy |
-| `cli-test-strategist` | Testing | CLI testing |
-| `system-architect` | Architecture | System design |
-| `project-planner` | Planning | Feature planning |
-| `mode-controller` | Modes | Mode behavior |
-| `task-analyzer` | Orchestration | Task routing |
-| `changelog-automation` | Documentation | Changelog patterns |
-| `architecture-decision-records` | Documentation | ADR generation |
-| `openapi-spec-generation` | Documentation | OpenAPI specs |
-| `mermaid-linter` | Documentation | Mermaid diagram validation |
-| `project-detector` | CI | **NEW v1.10.0** Smart project type detection |
-| `distribution-strategist` | Distribution | Release channels |
-| `homebrew-formula-expert` | Distribution | Homebrew formulas |
-| `worktree-expert` | Git | Git worktree workflows |
+| Skill                           | Category      | Triggers                                     |
+| ------------------------------- | ------------- | -------------------------------------------- |
+| `backend-designer`              | Design        | API, database, auth                          |
+| `frontend-designer`             | Design        | UI/UX, components                            |
+| `devops-helper`                 | Design        | CI/CD, deployment                            |
+| `test-strategist`               | Testing       | Test strategy                                |
+| `cli-test-strategist`           | Testing       | CLI testing                                  |
+| `system-architect`              | Architecture  | System design                                |
+| `project-planner`               | Planning      | Feature planning                             |
+| `mode-controller`               | Modes         | Mode behavior                                |
+| `task-analyzer`                 | Orchestration | Task routing                                 |
+| `changelog-automation`          | Documentation | Changelog patterns                           |
+| `architecture-decision-records` | Documentation | ADR generation                               |
+| `openapi-spec-generation`       | Documentation | OpenAPI specs                                |
+| `mermaid-linter`                | Documentation | Mermaid diagram validation                   |
+| `project-detector`              | CI            | **NEW v1.10.0** Smart project type detection |
+| `distribution-strategist`       | Distribution  | Release channels                             |
+| `homebrew-formula-expert`       | Distribution  | Homebrew formulas                            |
+| `worktree-expert`               | Git           | Git worktree workflows                       |
 
 ## Agents (7)
 
-| Agent | Purpose |
-|-------|---------|
-| `orchestrator` | Smart delegation to skills |
-| `orchestrator-v2` | **ENHANCED** Mode-aware execution, context tracking, timeline view |
-| `docs-architect` | Long-form technical documentation |
-| `tutorial-engineer` | Step-by-step tutorials |
-| `api-documenter` | OpenAPI/Swagger documentation |
-| `reference-builder` | Technical reference guides |
-| `mermaid-expert` | Mermaid diagram generation |
+| Agent               | Purpose                                                            |
+| ------------------- | ------------------------------------------------------------------ |
+| `orchestrator`      | Smart delegation to skills                                         |
+| `orchestrator-v2`   | **ENHANCED** Mode-aware execution, context tracking, timeline view |
+| `docs-architect`    | Long-form technical documentation                                  |
+| `tutorial-engineer` | Step-by-step tutorials                                             |
+| `api-documenter`    | OpenAPI/Swagger documentation                                      |
+| `reference-builder` | Technical reference guides                                         |
+| `mermaid-expert`    | Mermaid diagram generation                                         |
 
 ## Workflows
 

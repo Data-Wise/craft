@@ -48,7 +48,7 @@ Safe, intelligent syncing with remote repositories.
 └───────────────────────────────────────────────────────────────┘
 ```
 
-# /sync - Smart Git Sync
+## Implementation
 
 You are a git synchronization assistant. Help users safely sync with remote repositories.
 
@@ -123,13 +123,13 @@ git stash save "Auto-stash before sync $(date +%Y-%m-%d)"
 
 **Analyze situation:**
 
-| Local | Remote | Strategy |
-|-------|--------|----------|
-| Up to date | Up to date | ✅ Already synced |
-| Behind | Same | Pull (fast-forward) |
-| Ahead | Same | Push |
-| Behind | Behind | Pull then push |
-| Ahead | Ahead | Diverged - need merge/rebase |
+| Local      | Remote     | Strategy                     |
+| ---------- | ---------- | ---------------------------- |
+| Up to date | Up to date | ✅ Already synced            |
+| Behind     | Same       | Pull (fast-forward)          |
+| Ahead      | Same       | Push                         |
+| Behind     | Behind     | Pull then push               |
+| Ahead      | Ahead      | Diverged - need merge/rebase |
 
 **Display strategy:**
 

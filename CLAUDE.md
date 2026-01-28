@@ -19,13 +19,13 @@ feature/* (worktrees) ← All implementation work
 
 ### Workflow Steps
 
-| Step | Action | Command |
-|------|--------|---------|
-| 1. Plan | Analyze on `dev`, wait for approval | `git checkout dev` |
-| 2. Branch | Create worktree for isolation | `/craft:git:worktree feature/<name>` |
-| 3. Develop | Conventional commits (`feat:`, `fix:`, etc.) | Small, atomic commits |
-| 4. Integrate | Test → rebase → PR to dev | `gh pr create --base dev` |
-| 5. Release | PR from dev to main | `gh pr create --base main --head dev` |
+| Step         | Action                                       | Command                               |
+| ------------ | -------------------------------------------- | ------------------------------------- |
+| 1. Plan      | Analyze on `dev`, wait for approval          | `git checkout dev`                    |
+| 2. Branch    | Create worktree for isolation                | `/craft:git:worktree feature/<name>`  |
+| 3. Develop   | Conventional commits (`feat:`, `fix:`, etc.) | Small, atomic commits                 |
+| 4. Integrate | Test → rebase → PR to dev                    | `gh pr create --base dev`             |
+| 5. Release   | PR from dev to main                          | `gh pr create --base main --head dev` |
 
 ### Constraints
 
@@ -36,48 +36,48 @@ feature/* (worktrees) ← All implementation work
 
 ## Quick Commands
 
-| Task | Shell | Craft |
-|------|-------|-------|
-| Run unit tests | `python3 tests/test_craft_plugin.py` | `/craft:test:run` |
-| Integration tests | `python3 tests/test_integration_*.py` | - |
-| Dependency tests | `bash tests/test_dependency_management.sh` | - |
-| Validate | `./scripts/validate-counts.sh` | `/craft:check` |
-| Build docs | `mkdocs build` | - |
-| Lint code | - | `/craft:code:lint` |
-| Lint markdown | `npx markdownlint-cli2 "**/*.md"` | `/craft:docs:lint` |
-| Architecture | - | `/craft:arch:analyze` |
-| Git status | `git status` | `/craft:git:status` |
-| Worktree | `git worktree add ...` | `/craft:git:worktree <branch>` |
-| Clean branches | - | `/craft:git:clean` |
-| CI workflow | - | `/craft:ci:generate` |
-| Smart routing | - | `/craft:do <task>` |
-| Brainstorm | - | `/craft:workflow:brainstorm` |
-| Orchestrate | - | `/craft:orchestrate` |
-| Orchestrate task | - | `/craft:do "task" --orch=<mode>` |
+| Task              | Shell                                      | Craft                            |
+| ----------------- | ------------------------------------------ | -------------------------------- |
+| Run unit tests    | `python3 tests/test_craft_plugin.py`       | `/craft:test:run`                |
+| Integration tests | `python3 tests/test_integration_*.py`      | -------------------------------- |
+| Dependency tests  | `bash tests/test_dependency_management.sh` | -------------------------------- |
+| Validate          | `./scripts/validate-counts.sh`             | `/craft:check`                   |
+| Build docs        | `mkdocs build`                             | -------------------------------- |
+| Lint code         | ------------------------------------------ | `/craft:code:lint`               |
+| Lint markdown     | `npx markdownlint-cli2 "**/*.md"`          | `/craft:docs:lint`               |
+| Architecture      | ------------------------------------------ | `/craft:arch:analyze`            |
+| Git status        | `git status`                               | `/craft:git:status`              |
+| Worktree          | `git worktree add ...`                     | `/craft:git:worktree <branch>`   |
+| Clean branches    | ------------------------------------------ | `/craft:git:clean`               |
+| CI workflow       | ------------------------------------------ | `/craft:ci:generate`             |
+| Smart routing     | ------------------------------------------ | `/craft:do <task>`               |
+| Brainstorm        | ------------------------------------------ | `/craft:workflow:brainstorm`     |
+| Orchestrate       | ------------------------------------------ | `/craft:orchestrate`             |
+| Orchestrate task  | ------------------------------------------ | `/craft:do "task" --orch=<mode>` |
 
 ## Execution Modes
 
-| Mode | Budget | Use Case | Example |
-|------|--------|----------|---------|
-| **default** | < 10s | Quick tasks | `/craft:code:lint` |
-| **debug** | < 120s | Verbose traces | `/craft:code:lint debug` |
-| **optimize** | < 180s | Performance | `/craft:code:lint optimize` |
-| **release** | < 300s | Thorough validation | `/craft:code:lint release` |
+| Mode         | Budget | Use Case            | Example                     |
+| ------------ | ------ | ------------------- | --------------------------- |
+| **default**  | < 10s  | Quick tasks         | `/craft:code:lint`          |
+| **debug**    | < 120s | Verbose traces      | `/craft:code:lint debug`    |
+| **optimize** | < 180s | Performance         | `/craft:code:lint optimize` |
+| **release**  | < 300s | Thorough validation | `/craft:code:lint release`  |
 
 Auto-selection: debug (errors), optimize (performance), release (deploy), else default.
 
 ## Agents
 
-| Agent | Model | Use For |
-|-------|-------|---------|
-| **orchestrator-v2** | sonnet | Complex multi-step tasks, parallel execution (v2.3.0) |
-| **orchestrator** | sonnet | Basic workflow automation |
-| **docs-architect** | sonnet | System documentation, architecture guides |
-| **api-documenter** | sonnet | OpenAPI specs, API docs, SDKs |
-| **tutorial-engineer** | sonnet | Step-by-step tutorials, onboarding |
-| **reference-builder** | haiku | Parameter listings, config references |
-| **mermaid-expert** | haiku | Flowcharts, sequence diagrams, ERDs |
-| **demo-engineer** | - | Terminal GIF demos (asciinema workflow) |
+| Agent                 | Model  | Use For                                               |
+| --------------------- | ------ | ----------------------------------------------------- |
+| **orchestrator-v2**   | sonnet | Complex multi-step tasks, parallel execution (v2.3.0) |
+| **orchestrator**      | sonnet | Basic workflow automation                             |
+| **docs-architect**    | sonnet | System documentation, architecture guides             |
+| **api-documenter**    | sonnet | OpenAPI specs, API docs, SDKs                         |
+| **tutorial-engineer** | sonnet | Step-by-step tutorials, onboarding                    |
+| **reference-builder** | haiku  | Parameter listings, config references                 |
+| **mermaid-expert**    | haiku  | Flowcharts, sequence diagrams, ERDs                   |
+| **demo-engineer**     | ------ | Terminal GIF demos (asciinema workflow)               |
 
 ## Project Structure
 
@@ -160,12 +160,12 @@ The v1.24.0 release includes 27 integration tests validating three critical syst
 
 ### Integration Test Categories
 
-| Category | Tests | Purpose | Guide |
-|----------|-------|---------|-------|
-| **Dependency System** | 9 | Tool detection, installation, repair | [Dependency Management Advanced](docs/guide/dependency-management-advanced.md) |
-| **Orchestrator Workflows** | 13 | Complexity scoring, routing, agent coordination | [Claude Code 2.1.0 Guide](docs/guide/claude-code-2.1-integration.md) |
-| **Teaching Workflow** | 8 | Course detection, validation, publishing | [Teaching Workflow Guide](docs/guide/teaching-workflow.md) |
-| **Total** | **27** | **End-to-end system validation** | [Integration Testing Guide](docs/guide/integration-testing.md) |
+| Category                   | Tests  | Purpose                                         | Guide                                                                          |
+| -------------------------- | ------ | ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| **Dependency System**      | 9      | Tool detection, installation, repair            | [Dependency Management Advanced](docs/guide/dependency-management-advanced.md) |
+| **Orchestrator Workflows** | 13     | Complexity scoring, routing, agent coordination | [Claude Code 2.1.0 Guide](docs/guide/claude-code-2.1-integration.md)           |
+| **Teaching Workflow**      | 8      | Course detection, validation, publishing        | [Teaching Workflow Guide](docs/guide/teaching-workflow.md)                     |
+| **Total**                  | **27** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
 
 ### Running Integration Tests
 
@@ -191,20 +191,20 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Implementation & Documentation Completeness (v2.6.0)
 
-| Feature | Commands | Implementation | Documentation | Status |
-|---------|----------|---|---|---|
-| **Brainstorm Question Control (v2.4.0)** | 1 | 100% | 95% | Complete ✅ |
-| **Hub v2.0** | 1 | 100% | 95% | Complete ✅ |
-| **Claude Code 2.1.0** | 3 | 100% | 90% | Complete ✅ |
-| **Dependency Management** | 1 | 100% | 85% | Complete ✅ |
-| **Teaching Workflow** | 5 | 100% | 90% | Complete ✅ |
-| **Website Organization** | 6 | 100% | 100% | Complete ✅ |
-| **Broken Link Validation** | 2 | 100% | 95% | Complete ✅ |
-| **Code Quality Commands** | 8 | 100% | 85% | Complete ✅ |
-| **Testing Commands** | 10 | 100% | 80% | Complete ✅ |
-| **Architecture Commands** | 12 | 100% | 75% | Complete ✅ |
-| **Remaining Commands** | 51 | 100% | 40% | Baseline ✅ |
-| **TOTAL** | **100** | **100%** | **95%** | v2.6.0 ✅ |
+| Feature                                  | Commands | Implementation | Documentation | Status      |
+| ---------------------------------------- | -------- | -------------- | ------------- | ----------- |
+| **Brainstorm Question Control (v2.4.0)** | 1        | 100%           | 95%           | Complete ✅ |
+| **Hub v2.0**                             | 1        | 100%           | 95%           | Complete ✅ |
+| **Claude Code 2.1.0**                    | 3        | 100%           | 90%           | Complete ✅ |
+| **Dependency Management**                | 1        | 100%           | 85%           | Complete ✅ |
+| **Teaching Workflow**                    | 5        | 100%           | 90%           | Complete ✅ |
+| **Website Organization**                 | 6        | 100%           | 100%          | Complete ✅ |
+| **Broken Link Validation**               | 2        | 100%           | 95%           | Complete ✅ |
+| **Code Quality Commands**                | 8        | 100%           | 85%           | Complete ✅ |
+| **Testing Commands**                     | 10       | 100%           | 80%           | Complete ✅ |
+| **Architecture Commands**                | 12       | 100%           | 75%           | Complete ✅ |
+| **Remaining Commands**                   | 51       | 100%           | 40%           | Baseline ✅ |
+| **TOTAL**                                | **100**  | **100%**       | **95%**       | v2.6.0 ✅   |
 
 **Legend:**
 
@@ -216,41 +216,41 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Documentation Guides
 
-| Guide | Content | Location |
-|-------|---------|----------|
-| **Version History** | Evolution from v1.0.0 → v2.4.0, feature timeline | `docs/VERSION-HISTORY.md` |
-| **Complexity Scoring** | 7-factor algorithm, routing zones, examples | `docs/guide/complexity-scoring-algorithm.md` |
-| **Claude Code 2.1** | Integration overview, agent delegation, session teleportation | `docs/guide/claude-code-2.1-integration.md` |
-| **Teaching Workflow** | Preview-before-publish, semester tracking, validation | `docs/guide/teaching-workflow.md` |
-| **Dependency Management** | Checking, installation, batch conversion workflow | Tutorial docs (in development) |
-| **Integration Testing** | Test patterns, validation, debugging | Tutorial docs (in development) |
+| Guide                     | Content                                                       | Location                                     |
+| ------------------------- | ------------------------------------------------------------- | -------------------------------------------- |
+| **Version History**       | Evolution from v1.0.0 → v2.4.0, feature timeline              | `docs/VERSION-HISTORY.md`                    |
+| **Complexity Scoring**    | 7-factor algorithm, routing zones, examples                   | `docs/guide/complexity-scoring-algorithm.md` |
+| **Claude Code 2.1**       | Integration overview, agent delegation, session teleportation | `docs/guide/claude-code-2.1-integration.md`  |
+| **Teaching Workflow**     | Preview-before-publish, semester tracking, validation         | `docs/guide/teaching-workflow.md`            |
+| **Dependency Management** | Checking, installation, batch conversion workflow             | Tutorial docs (in development)               |
+| **Integration Testing**   | Test patterns, validation, debugging                          | Tutorial docs (in development)               |
 
 ## Active Development
 
 ### Current Worktrees (v2.8.0)
 
-| Branch | Location | Status |
-|--------|----------|--------|
-| `dev` | `/Users/dt/projects/dev-tools/craft` | Main repo (clean) |
-| `feature/docs-lint-execute` | `~/.git-worktrees/craft/feature-docs-lint-execute` | **PR #34: Execution layer** |
-| `feature/docs-update-interactive` | `~/.git-worktrees/craft/feature-docs-update-interactive` | **Planned: Phase 1** |
+| Branch                            | Location                                                 | Status                      |
+| --------------------------------- | -------------------------------------------------------- | --------------------------- |
+| `dev`                             | `/Users/dt/projects/dev-tools/craft`                     | Main repo (clean)           |
+| `feature/docs-lint-execute`       | `~/.git-worktrees/craft/feature-docs-lint-execute`       | **PR #34: Execution layer** |
+| `feature/docs-update-interactive` | `~/.git-worktrees/craft/feature-docs-update-interactive` | **Planned: Phase 1**        |
 
 ### v2.8.0 - Markdown Linting Execution Layer (In Progress)
 
 **Status:** Execution layer implemented (PR #34), awaiting merge
 
-| Feature | Priority | Effort | Status |
-|---------|----------|--------|--------|
-| **Execution layer** | Critical | 40m | ✅ Complete (PR #34) |
-| Basic linting command | Critical | 5m | ✅ Complete |
-| Auto-fix support | High | 10m | ✅ Complete |
-| Pre-commit hook | High | 15m | ✅ Complete |
-| Interactive docs:update specs | Critical | 4h | ✅ Complete (1,634 lines) |
-| docs:sync merge specs | Critical | 2h | ✅ Complete (947 lines) |
-| Phase 1: Core workflow | High | 8-10h | 📝 Planned |
-| Phase 2: Enhanced modes | Medium | 6-8h | 📝 Planned |
-| Phase 3: Language detection | Medium | 4-6h | 📝 Planned |
-| Phase 4: Styled output | High | 2-4h | 📝 Planned |
+| Feature                       | Priority | Effort | Status                    |
+| ----------------------------- | -------- | ------ | ------------------------- |
+| **Execution layer**           | Critical | 40m    | ✅ Complete (PR #34)      |
+| Basic linting command         | Critical | 5m     | ✅ Complete               |
+| Auto-fix support              | High     | 10m    | ✅ Complete               |
+| Pre-commit hook               | High     | 15m    | ✅ Complete               |
+| Interactive docs:update specs | Critical | 4h     | ✅ Complete (1,634 lines) |
+| docs:sync merge specs         | Critical | 2h     | ✅ Complete (947 lines)   |
+| Phase 1: Core workflow        | High     | 8-10h  | 📝 Planned                |
+| Phase 2: Enhanced modes       | Medium   | 6-8h   | 📝 Planned                |
+| Phase 3: Language detection   | Medium   | 4-6h   | 📝 Planned                |
+| Phase 4: Styled output        | High     | 2-4h   | 📝 Planned                |
 
 **v2.8.0 Execution Layer (MVP):**
 
@@ -277,73 +277,73 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Completed Features (v2.6.0)
 
-| Feature | Priority | Effort | Status |
-|---------|----------|--------|--------|
-| Test fixes (706/706 passing) | Critical | 4h | ✅ Complete |
-| Markdownlint expansion (3 → 24 rules) | High | 2h | ✅ Complete |
-| Release notes | High | 1h | ✅ Complete |
-| CI/CD fixes | Medium | 1h | ✅ Complete |
+| Feature                               | Priority | Effort | Status      |
+| ------------------------------------- | -------- | ------ | ----------- |
+| Test fixes (706/706 passing)          | Critical | 4h     | ✅ Complete |
+| Markdownlint expansion (3 → 24 rules) | High     | 2h     | ✅ Complete |
+| Release notes                         | High     | 1h     | ✅ Complete |
+| CI/CD fixes                           | Medium   | 1h     | ✅ Complete |
 
 See `docs/specs/` for detailed specifications (14 total).
 
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `.STATUS` | Current milestone, progress, session history |
-| `commands/do.md` | Universal smart routing with complexity scoring |
-| `commands/check.md` | Pre-flight validation |
-| `commands/orchestrate.md` | Multi-agent coordination |
-| `commands/hub.md` | Zero-maintenance command discovery (v2.0) |
-| `commands/workflow/brainstorm.md` | ADHD-friendly brainstorming (v2.4.0 - Question control) |
-| `docs/guide/orch-flag-usage.md` | --orch flag usage guide (v2.5.0, improved v2.5.1) |
-| `docs/VERSION-HISTORY.md` | Complete version evolution (NEW) |
-| `docs/guide/complexity-scoring-algorithm.md` | Complexity algorithm guide (NEW) |
-| `docs/guide/claude-code-2.1-integration.md` | Claude Code 2.1 integration guide (NEW) |
-| `docs/orch/ORCH-brainstorm-phase1-2026-01-18.md` | Phase 1 implementation plan |
-| `docs/specs/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec |
-| `docs/specs/SPEC-craft-hub-v2-2026-01-15.md` | Hub v2.0 architecture spec |
-| `.linkcheck-ignore` | Expected broken links (test files, brainstorm refs) |
-| `utils/complexity_scorer.py` | Task complexity scoring (0-10 scale) |
-| `utils/linkcheck_ignore_parser.py` | Parser for .linkcheck-ignore patterns |
-| `scripts/dependency-manager.sh` | Dependency checking and installation |
-| `tests/test_brainstorm_phase1.py` | Phase 1 unit tests (53 tests) |
-| `tests/test_integration_brainstorm_phase1.py` | Phase 1 integration tests (24 tests) |
+| File                                              | Purpose                                                 |
+| ------------------------------------------------- | ------------------------------------------------------- |
+| `.STATUS`                                         | Current milestone, progress, session history            |
+| `commands/do.md`                                  | Universal smart routing with complexity scoring         |
+| `commands/check.md`                               | Pre-flight validation                                   |
+| `commands/orchestrate.md`                         | Multi-agent coordination                                |
+| `commands/hub.md`                                 | Zero-maintenance command discovery (v2.0)               |
+| `commands/workflow/brainstorm.md`                 | ADHD-friendly brainstorming (v2.4.0 - Question control) |
+| `docs/guide/orch-flag-usage.md`                   | --orch flag usage guide (v2.5.0, improved v2.5.1)       |
+| `docs/VERSION-HISTORY.md`                         | Complete version evolution (NEW)                        |
+| `docs/guide/complexity-scoring-algorithm.md`      | Complexity algorithm guide (NEW)                        |
+| `docs/guide/claude-code-2.1-integration.md`       | Claude Code 2.1 integration guide (NEW)                 |
+| `docs/orch/ORCH-brainstorm-phase1-2026-01-18.md`  | Phase 1 implementation plan                             |
+| `docs/specs/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec                       |
+| `docs/specs/SPEC-craft-hub-v2-2026-01-15.md`      | Hub v2.0 architecture spec                              |
+| `.linkcheck-ignore`                               | Expected broken links (test files, brainstorm refs)     |
+| `utils/complexity_scorer.py`                      | Task complexity scoring (0-10 scale)                    |
+| `utils/linkcheck_ignore_parser.py`                | Parser for .linkcheck-ignore patterns                   |
+| `scripts/dependency-manager.sh`                   | Dependency checking and installation                    |
+| `tests/test_brainstorm_phase1.py`                 | Phase 1 unit tests (53 tests)                           |
+| `tests/test_integration_brainstorm_phase1.py`     | Phase 1 integration tests (24 tests)                    |
 
 ## Test Suite
 
-| Test File | Tests | Coverage | Purpose |
-|-----------|-------|----------|---------|
-| **Unit & Feature Tests** | | | |
-| `tests/test_craft_plugin.py` | 370 | 84% | Core functionality |
-| `tests/test_brainstorm_phase1.py` | 53 | 100% | Question control (v2.4.0) |
-| `tests/test_complexity_scoring.py` | 15 | 100% | Complexity scorer |
-| `tests/test_hot_reload_validators.py` | 9 | 95% | Hot-reload validators |
-| `tests/test_agent_hooks.py` | 13 | 100% | Agent hooks |
-| **Integration Tests** | | | |
-| `tests/test_integration_brainstorm_phase1.py` | 24 | 100% | Question control integration |
-| `tests/test_integration_dependency_system.py` | 9 | 100% | Dependency workflow |
-| `tests/test_integration_orchestrator_workflows.py` | 13 | 100% | Task routing & scoring |
-| `tests/test_integration_teaching_workflow.py` | 8 | 100% | Teaching mode (3 skipped) |
-| **System Tests** | | | |
-| `tests/test_dependency_management.sh` | 79 | 100% | Dependency system |
-| **Total** | **581+** | **~90%** | **All systems** |
+| Test File                                          | Tests    | Coverage | Purpose                      |
+| -------------------------------------------------- | -------- | -------- | ---------------------------- |
+| **Unit & Feature Tests**                           |          |          |                              |
+| `tests/test_craft_plugin.py`                       | 370      | 84%      | Core functionality           |
+| `tests/test_brainstorm_phase1.py`                  | 53       | 100%     | Question control (v2.4.0)    |
+| `tests/test_complexity_scoring.py`                 | 15       | 100%     | Complexity scorer            |
+| `tests/test_hot_reload_validators.py`              | 9        | 95%      | Hot-reload validators        |
+| `tests/test_agent_hooks.py`                        | 13       | 100%     | Agent hooks                  |
+| **Integration Tests**                              |          |          |                              |
+| `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
+| `tests/test_integration_dependency_system.py`      | 9        | 100%     | Dependency workflow          |
+| `tests/test_integration_orchestrator_workflows.py` | 13       | 100%     | Task routing & scoring       |
+| `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
+| **System Tests**                                   |          |          |                              |
+| `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
+| **Total**                                          | **581+** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
-| Issue | Fix |
-|-------|-----|
-| Unit tests failing | `python3 tests/test_craft_plugin.py` |
-| Integration tests failing | `python3 tests/test_integration_<name>.py` |
-| Dependency tests failing | `bash tests/test_dependency_management.sh` |
-| Broken links | `python3 tests/test_craft_plugin.py -k "broken_links"` |
-| Outdated counts | `./scripts/validate-counts.sh` |
-| Stale worktree | `git worktree remove <path> --force` |
-| Orphaned worktrees | `git worktree prune` |
-| Rebase conflicts | `git rebase --abort && git merge origin/dev` |
-| Plugin not loading | Check `.claude-plugin/plugin.json` frontmatter |
-| Command not found | Verify file in `commands/` with valid frontmatter |
-| Agent not triggering | Check triggers list in agent frontmatter |
+| Issue                       | Fix                                                                                |
+| --------------------------- | ---------------------------------------------------------------------------------- |
+| Unit tests failing          | `python3 tests/test_craft_plugin.py`                                               |
+| Integration tests failing   | `python3 tests/test_integration_<name>.py`                                         |
+| Dependency tests failing    | `bash tests/test_dependency_management.sh`                                         |
+| Broken links                | `python3 tests/test_craft_plugin.py -k "broken_links"`                             |
+| Outdated counts             | `./scripts/validate-counts.sh`                                                     |
+| Stale worktree              | `git worktree remove <path> --force`                                               |
+| Orphaned worktrees          | `git worktree prune`                                                               |
+| Rebase conflicts            | `git rebase --abort && git merge origin/dev`                                       |
+| Plugin not loading          | Check `.claude-plugin/plugin.json` frontmatter                                     |
+| Command not found           | Verify file in `commands/` with valid frontmatter                                  |
+| Agent not triggering        | Check triggers list in agent frontmatter                                           |
 | GIF showing broken commands | **CRITICAL:** Test commands FIRST with Bash tool, verify output, THEN generate GIF |
 
 ## Phase 3 Documentation Enhancements

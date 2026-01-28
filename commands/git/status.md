@@ -76,7 +76,7 @@ When not in teaching mode, shows clean git status:
 └─────────────────────────────────────────────────┘
 ```
 
-# /craft:git:status - Enhanced Git Status
+## Implementation
 
 You are a git status assistant with teaching mode awareness.
 
@@ -192,11 +192,11 @@ def format_file_line(filepath, insertions, deletions):
 
 **Suggestion logic:**
 
-| Branch Type | Suggestion |
-|-------------|------------|
-| DRAFT | "Run /craft:site:publish to merge to production" |
-| PRODUCTION | "Switch to draft branch to make changes" |
-| OTHER | "Teaching branches: draft (work), production (live)" |
+| Branch Type | Suggestion                                           |
+| ----------- | ---------------------------------------------------- |
+| DRAFT       | "Run /craft:site:publish to merge to production"     |
+| PRODUCTION  | "Switch to draft branch to make changes"             |
+| OTHER       | "Teaching branches: draft (work), production (live)" |
 
 ### Step 4: Standard Git Status (if not teaching mode)
 
