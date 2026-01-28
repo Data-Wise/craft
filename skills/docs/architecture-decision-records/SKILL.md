@@ -21,6 +21,7 @@ Comprehensive patterns for creating, maintaining, and managing Architecture Deci
 ### 1. What is an ADR?
 
 An Architecture Decision Record captures:
+
 - **Context**: Why we needed to make a decision
 - **Decision**: What we decided
 - **Consequences**: What happens as a result
@@ -259,11 +260,13 @@ Current challenges:
 ### Event Store
 
 ```
+
 OrderCreated { orderId, customerId, items[], timestamp }
 OrderItemAdded { orderId, item, timestamp }
 OrderItemRemoved { orderId, itemId, timestamp }
 PaymentReceived { orderId, amount, paymentId, timestamp }
 OrderShipped { orderId, trackingNumber, timestamp }
+
 ```
 
 ### Projections
@@ -407,6 +410,7 @@ adr link 2 "Complements" 1 "Is complemented by"
 ## Best Practices
 
 ### Do's
+
 - **Write ADRs early** - Before implementation starts
 - **Keep them short** - 1-2 pages maximum
 - **Be honest about trade-offs** - Include real cons
@@ -414,6 +418,7 @@ adr link 2 "Complements" 1 "Is complemented by"
 - **Update status** - Deprecate when superseded
 
 ### Don'ts
+
 - **Don't change accepted ADRs** - Write new ones to supersede
 - **Don't skip context** - Future readers need background
 - **Don't hide failures** - Rejected decisions are valuable

@@ -113,6 +113,7 @@ You are a terminal demo creator. Record real terminal sessions or generate scrip
 ## Purpose
 
 **Create GIF demos of CLI features:**
+
 - Record real terminal sessions with asciinema (default)
 - Generate VHS tape files for scripted demos (optional)
 - Auto-detect commands from feature
@@ -145,6 +146,7 @@ ait command3
 ```
 
 **Why this matters:**
+
 - GIFs must show **real, working** commands
 - Output must match **actual** format
 - Timing must be **realistic** (not guessed)
@@ -185,6 +187,7 @@ The demo command includes built-in dependency checking for all required tools.
 ```
 
 Shows a status table with:
+
 - Tool name and purpose
 - Installation status (✅ OK, ❌ MISSING, ⚠️  OPTIONAL)
 - Installed version
@@ -202,6 +205,7 @@ Get machine-readable dependency status for CI/CD pipelines:
 ```
 
 **Output format:**
+
 ```json
 {
   "status": "ok",
@@ -215,10 +219,12 @@ Get machine-readable dependency status for CI/CD pipelines:
 ```
 
 **Status values:**
+
 - `ok` - All required tools installed and healthy
 - `issues` - Missing or broken tools detected
 
 **Exit codes:**
+
 - `0` - All required dependencies OK
 - `1` - Missing required dependencies or health check failed
 
@@ -232,6 +238,7 @@ The `--fix` flag automatically installs missing dependencies with your consent.
 ```
 
 **How it works:**
+
 1. Checks for missing dependencies
 2. Prompts for consent before each installation
 3. Tries multiple installation methods (brew → cargo → binary)
@@ -239,11 +246,13 @@ The `--fix` flag automatically installs missing dependencies with your consent.
 5. Shows summary of installed/skipped/failed tools
 
 **Installation Strategies:**
+
 - **Homebrew** (~30 seconds) - macOS package manager
 - **Cargo** (~2-5 minutes) - Rust compilation
 - **Binary** (~10 seconds) - Direct download from GitHub
 
 **User Consent:**
+
 - You approve each tool individually
 - Choose 'Y' to install, 'N' to skip, 'S' to skip all
 - Installation requires sudo for system paths
@@ -251,12 +260,14 @@ The `--fix` flag automatically installs missing dependencies with your consent.
 ### Required Tools by Method
 
 **asciinema method:**
+
 - asciinema (record sessions)
 - agg (convert .cast to .gif)
 - gifsicle (optimize GIF size)
 - fswatch (optional, for watch mode)
 
 **vhs method:**
+
 - vhs (scripted demos)
 - gifsicle (optimize GIF size)
 - fswatch (optional, for watch mode)
@@ -266,6 +277,7 @@ The `--fix` flag automatically installs missing dependencies with your consent.
 Convert existing `.cast` recordings to optimized `.gif` files.
 
 **Convert single file:**
+
 ```bash
 /craft:docs:demo --convert recording.cast              # Auto-generate recording.gif
 /craft:docs:demo --convert demo.cast output.gif        # Custom output name
@@ -273,6 +285,7 @@ Convert existing `.cast` recordings to optimized `.gif` files.
 ```
 
 **Batch convert all files:**
+
 ```bash
 /craft:docs:demo --batch                               # Convert all .cast in docs/
 /craft:docs:demo --batch --force                       # Overwrite existing GIFs
@@ -281,6 +294,7 @@ Convert existing `.cast` recordings to optimized `.gif` files.
 ```
 
 **Features:**
+
 - Automatically finds all `.cast` files in `docs/demos/` and `docs/gifs/`
 - Skips existing `.gif` files (unless `--force`)
 - Shows progress bar with ETA
@@ -288,6 +302,7 @@ Convert existing `.cast` recordings to optimized `.gif` files.
 - Cross-platform (macOS/Linux)
 
 **Output format:**
+
 - Input: `recording.cast` (45 KB)
 - Processing with `agg` (font-size 16, monokai theme)
 - Optimizing with `gifsicle` (--optimize=3 --colors 256)
@@ -303,12 +318,14 @@ Convert existing `.cast` recordings to optimized `.gif` files.
 ### When to Use Each Method
 
 **Use asciinema (default) for:**
+
 - Claude Code plugin commands (e.g., `/craft:site:build`)
 - Bash CLI tools with real output
 - When you want to record actual execution
 - When accuracy is critical
 
 **Use VHS for:**
+
 - Scripted, repeatable demos
 - When you need exact control over timing
 - Automated demo generation in CI/CD
@@ -320,23 +337,27 @@ Convert existing `.cast` recordings to optimized `.gif` files.
 When `--check` flag is provided:
 
 1. Source the dependency manager:
+
    ```bash
    source scripts/dependency-manager.sh
    ```
 
 2. Determine method and output format:
+
    ```bash
    method="${args_method:-asciinema}"  # Default to asciinema
    json_mode="${args_json:-false}"     # JSON output if --json flag present
    ```
 
 3. Check dependencies and capture status:
+
    ```bash
    status_json=$(check_dependencies "$method")
    exit_code=$?
    ```
 
 4. Display status based on output mode:
+
    ```bash
    if [ "$json_mode" = "true" ]; then
        # Machine-readable JSON output
@@ -356,6 +377,7 @@ When `--check` flag is provided:
 #### JSON Output Details
 
 The `display_status_json` function:
+
 1. Analyzes the status JSON from `check_dependencies`
 2. Counts missing and broken required tools
 3. Sets overall status to "ok" if all OK, "issues" if any problems
@@ -369,23 +391,27 @@ The `display_status_json` function:
 When `--fix` flag is provided:
 
 1. Source the installation utilities:
+
    ```bash
    source scripts/dependency-installer.sh
    source scripts/consent-prompt.sh
    ```
 
 2. Determine method and check dependencies:
+
    ```bash
    method="${args_method:-asciinema}"
    status=$(check_dependencies "$method")
    ```
 
 3. Get list of missing tools:
+
    ```bash
    missing_tools=$(parse_missing_tools "$status")
    ```
 
 4. For each missing tool:
+
    ```bash
    for tool in $missing_tools; do
        tool_spec=$(get_tool_spec "$tool")
@@ -394,11 +420,13 @@ When `--fix` flag is provided:
    ```
 
 5. Display installation summary:
+
    ```bash
    show_installation_summary "$installed" "$skipped" "$failed"
    ```
 
 6. Re-check dependencies and display final status:
+
    ```bash
    display_status_table "$method"
    ```
@@ -434,11 +462,13 @@ fi
 When `--convert` flag is provided:
 
 1. Source the conversion utility:
+
    ```bash
    source scripts/convert-cast.sh
    ```
 
 2. Parse arguments:
+
    ```bash
    cast_file="$1"
    output_gif="${2:-}"  # Optional custom output
@@ -446,6 +476,7 @@ When `--convert` flag is provided:
    ```
 
 3. Validate and convert:
+
    ```bash
    if ! validate_cast_file "$cast_file"; then
        echo "Error: Invalid .cast file"
@@ -461,11 +492,13 @@ When `--convert` flag is provided:
 When `--batch` flag is provided:
 
 1. Source the batch converter:
+
    ```bash
    source scripts/batch-convert.sh
    ```
 
 2. Parse batch options:
+
    ```bash
    search_paths="${args_search_path:-docs/demos docs/gifs}"
    force_flag="${args_force:-false}"
@@ -473,12 +506,14 @@ When `--batch` flag is provided:
    ```
 
 3. Find and filter files:
+
    ```bash
    cast_files=$(find_cast_files "$search_paths")
    filtered_files=$(filter_existing "$cast_files" "$force_flag")
    ```
 
 4. Process batch with progress:
+
    ```bash
    if [ "$dry_run" = "true" ]; then
        echo "Dry run - would convert:"
@@ -560,6 +595,7 @@ Sleep 3s
 ```
 
 **Timing Guidelines:**
+
 - `Sleep 2.5s` - Standard command output
 - `Sleep 3s` - Complex output to read
 - `Sleep 1.5s` - Simple/expected output
@@ -937,11 +973,13 @@ Sleep 0.5s
 ## Integration
 
 **Related commands:**
+
 - `/craft:docs:analyze` - Recommends when GIF is needed
 - `/craft:docs:guide` - Embeds GIF in generated guides
 - `/craft:docs:mermaid` - Complementary visual docs
 
 **CI Integration:**
+
 - `.github/workflows/demos.yml` auto-generates GIFs
 - Optimizes with gifsicle (`-O3 --lossy=80`)
 - Posts PR comments with sizes
@@ -1038,6 +1076,7 @@ Skip the manual steps - generate tape AND create GIF in one command:
 ```
 
 **What --generate does:**
+
 1. Creates the `.tape` file
 2. Runs `vhs` to generate the GIF
 3. Optimizes with `gifsicle`

@@ -5,6 +5,7 @@ You are an ADHD-friendly site status checker. Provide a quick dashboard showing 
 ## Purpose
 
 **One glance to know your site's health:**
+
 - Build status and errors
 - Content freshness
 - Link validation
@@ -128,6 +129,7 @@ Breakdown:
 ```
 
 **Mermaid Health Scoring:**
+
 | Check | Points | Criteria |
 |-------|--------|----------|
 | custom_fences | 5 | Must be configured for diagrams to render |
@@ -144,6 +146,7 @@ One-line status for embedding or quick checks:
 ```
 
 Output:
+
 ```
 ✅ aiterm docs | 12 pages | Build OK | Links OK | ⚠️ Stale (2 days) | Last deploy: Dec 26
 ```
@@ -228,11 +231,13 @@ Compares code changes to docs updates:
 ## Integration
 
 **Related commands:**
+
 - `/craft:site:update` - Update site content
 - `/craft:site:check` - Detailed validation
 - `/craft:site:deploy` - Deploy to hosting
 
 **Called by:**
+
 - `/craft:docs:done` - End-of-session checks
 - `/craft:check commit` - Pre-commit validation
 

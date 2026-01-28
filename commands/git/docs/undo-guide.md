@@ -9,6 +9,7 @@
 ## 🆘 Emergency Triage
 
 ### Step 1: What happened?
+
 - [ ] I committed the wrong message → [Fix Message](#fix-wrong-commit-message)
 - [ ] I committed to the wrong branch → [Fix Wrong Branch](#committed-to-wrong-branch)
 - [ ] I want to undo my last commit → [Undo Last Commit](#undo-last-commit)
@@ -256,16 +257,19 @@ const API_URL = "https://api.prod.com";
 Open `src/file.js` in your editor and decide:
 
 **Option A: Keep yours**
+
 ```javascript
 const API_URL = "https://api.staging.com";
 ```
 
 **Option B: Keep theirs**
+
 ```javascript
 const API_URL = "https://api.prod.com";
 ```
 
 **Option C: Combine both**
+
 ```javascript
 const API_URL = process.env.API_URL || "https://api.staging.com";
 ```
@@ -446,6 +450,7 @@ git branch -a             # All branches
 ## When to Ask for Help
 
 Get help if:
+
 - ❌ You pushed secrets/passwords
 - ❌ You're about to force push to main
 - ❌ You deleted commits that others depend on
@@ -459,7 +464,7 @@ Get help if:
 
 ## Prevention Better Than Cure
 
-### Before Any Risky Operation:
+### Before Any Risky Operation
 
 ```bash
 # Create safety branch:
@@ -469,7 +474,7 @@ git branch backup-before-risky-thing
 git checkout backup-before-risky-thing
 ```
 
-### Daily Backups:
+### Daily Backups
 
 ```bash
 # Push to remote daily:
@@ -480,7 +485,7 @@ git checkout backup-before-risky-thing
 # Your work is backed up to GitHub
 ```
 
-### Use Feature Branches:
+### Use Feature Branches
 
 ```bash
 # Never work directly on main:
@@ -521,6 +526,7 @@ git reset --hard <hash>   # Jump to any point
 ```
 
 **Even if you:**
+
 - Deleted a branch
 - Reset --hard
 - Rebased and lost commits

@@ -31,6 +31,7 @@ triggers:
 ## 🎯 TL;DR
 
 You are an **Orchestrator Agent** that:
+
 1. Analyzes tasks → decomposes into subtasks
 2. Delegates to headless subagents running in background
 3. Monitors progress + context consumption
@@ -58,6 +59,7 @@ You are an **Orchestrator Agent** that:
 ### What is Forked Context?
 
 The orchestrator runs in **forked context** - an isolated execution environment that:
+
 - **Doesn't pollute main conversation** - All orchestration work happens in a separate context
 - **Enables clean resumption** - Main conversation continues from where it left off
 - **Prevents context corruption** - Agent outputs don't fill up the main chat
@@ -99,12 +101,14 @@ Main Conversation (context A)
 ### Benefits of Forked Execution
 
 **For the user:**
+
 - ✅ **Clean chat history** - Main conversation stays readable
 - ✅ **No context waste** - Agent outputs don't consume main context
 - ✅ **Predictable behavior** - Each orchestration is independent
 - ✅ **Session continuity** - Can continue conversation after orchestration
 
 **For the orchestrator:**
+
 - ✅ **Full context budget** - Start each wave with clean slate
 - ✅ **Isolation guarantees** - Errors don't corrupt main conversation
 - ✅ **Parallel safety** - Multiple waves can run simultaneously
@@ -151,6 +155,7 @@ The orchestrator maintains session state in `.craft/cache/`:
 ```
 
 **Key properties:**
+
 - State persists across waves
 - Each wave can access previous wave results
 - Session history available for resume/recovery
@@ -216,6 +221,7 @@ task = Task(
 ### Delegation Patterns
 
 **Pattern A: Parallel Independent**
+
 ```markdown
 Spawning 3 agents in parallel:
 
@@ -228,6 +234,7 @@ ETA: ~5 min (bounded by slowest)
 ```
 
 **Pattern B: Sequential Pipeline**
+
 ```markdown
 Pipeline (sequential):
 
@@ -241,6 +248,7 @@ Pipeline (sequential):
 ```
 
 **Pattern C: Fan-out/Fan-in**
+
 ```markdown
 Fan-out:
 [ORCHESTRATOR] → spawns [A1], [A2], [A3]
@@ -306,6 +314,7 @@ Fan-in:
 ## BEHAVIOR 4: Chat Compression Protocol
 
 ### When to Compress
+
 - Context usage > 70%: **WARNING** — prepare for compression
 - Context usage > 85%: **COMPRESS NOW**
 - Long conversation (>20 exchanges): Proactive compression
@@ -484,7 +493,9 @@ Prevent cascade failures by tracking agent reliability:
 **Error category**: Logical
 **Error**:
 ```
+
 Error in medci(): argument "alpha" is missing
+
 ```
 
 **Diagnosis**: Missing default parameter
@@ -671,12 +682,14 @@ The orchestrator adapts behavior based on the mode specified:
 ### Mode-Specific Behaviors
 
 **default mode** (balanced):
+
 - 2 concurrent agents max
 - Standard status updates every 2-3 exchanges
 - 70% compression threshold
 - Full decision checkpoints
 
 **debug mode** (verbose):
+
 - Sequential execution (1 agent at a time)
 - Detailed output from each agent
 - 90% compression (preserve more context)
@@ -684,6 +697,7 @@ The orchestrator adapts behavior based on the mode specified:
 - Include raw command output
 
 **optimize mode** (speed):
+
 - 4 concurrent agents
 - Minimal status updates (only errors/completion)
 - 60% compression (aggressive)
@@ -691,6 +705,7 @@ The orchestrator adapts behavior based on the mode specified:
 - Skip non-critical validation
 
 **release mode** (thorough):
+
 - 4 concurrent agents with full validation
 - Comprehensive status dashboard
 - 85% compression (balanced)
@@ -802,6 +817,7 @@ When user says `timeline`, show visual execution timeline:
 ## ⏱️ EXECUTION TIMELINE
 
 ```
+
 TIME     0    1m    2m    3m    4m    5m    6m
 ─────────┼─────┼─────┼─────┼─────┼─────┼─────┤
 arch-1   ██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ✅ 1.2m
@@ -811,6 +827,7 @@ test-1   ░░░░░░░░░░░░░░░░░░░░███�
 doc-1    ░░░░░░░░░░████░░░░░░░░░░░░░░░░░░░░░ ✅ 0.8m
 ─────────┼─────┼─────┼─────┼─────┼─────┼─────┤
                               NOW ▲
+
 ```
 
 **Summary**:
@@ -1085,6 +1102,7 @@ Proceed? [Y/n/modify plan]
 ## Self-Monitoring Checklist
 
 Each agent checks before each action:
+
 1. Am I still needed? (task complete?)
 2. Am I blocked? (waiting on dependency?)
 3. Context budget OK? (< 15% of total?)
@@ -1099,6 +1117,7 @@ If any check fails → report to orchestrator
 **Author**: Enhanced for ADHD-optimized workflows
 
 ### Changelog (v2.3.0)
+
 - **Enhanced agent resilience** - Comprehensive error handling and recovery patterns
 - **Error categorization** - Classify errors (transient, resource, configuration, logical, permanent)
 - **Exponential backoff retry** - Smart retry logic with 2s-16s backoff schedule
@@ -1111,6 +1130,7 @@ If any check fails → report to orchestrator
 - **Self-healing mechanisms** - Learn from patterns, auto-fix recurring issues
 
 ### Changelog (v2.2.0)
+
 - **Added forked context execution** - Orchestrator runs in isolated context
 - **Wave isolation** - Each orchestration is independent, doesn't pollute main chat
 - **Context lifecycle management** - Clean fork, execute, cleanup, merge pattern
@@ -1118,6 +1138,7 @@ If any check fails → report to orchestrator
 - **Clean summaries** - Only essential results return to main conversation
 
 ### Changelog (v2.1.0)
+
 - Added mode-aware execution (default, debug, optimize, release)
 - Added improved context tracking with token estimation
 - Added timeline view for visual execution progress

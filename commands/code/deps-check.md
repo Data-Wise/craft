@@ -71,5 +71,6 @@ Run with --update to see update commands
 ## Integration
 
 Works with:
+
 - `/craft:code:deps-audit` - Security audit
 - `/craft:code:release` - Release preparation

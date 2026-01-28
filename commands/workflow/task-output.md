@@ -5,6 +5,7 @@ Retrieve and display results from completed (or running) background tasks.
 ## Purpose
 
 View output from background tasks launched by:
+
 - `/workflow:brainstorm --background`
 - `/workflow:refine` (option 2: background)
 - Any command with background delegation
@@ -19,7 +20,7 @@ View output from background tasks launched by:
 
 ---
 
-## When invoked:
+## When invoked
 
 ### View Completed Task Output
 
@@ -28,6 +29,7 @@ View output from background tasks launched by:
 ```
 
 **Output:**
+
 ```
 TASK OUTPUT
 ════════════════════════════════════════════════════════════
@@ -74,6 +76,7 @@ Check other tasks:
 ```
 
 **Implementation:**
+
 1. Look up task by ID
 2. Check if task is completed
 3. Use TaskOutput tool to retrieve results
@@ -90,6 +93,7 @@ Check other tasks:
 ```
 
 **If task is still running:**
+
 ```
 TASK OUTPUT
 ════════════════════════════════════════════════════════════
@@ -123,6 +127,7 @@ Current status: Generating ideas...
 ```
 
 **Implementation:**
+
 1. Check task status with TaskOutput `block: false`
 2. If not complete, show current status
 3. Offer to wait or check later
@@ -137,6 +142,7 @@ Current status: Generating ideas...
 ```
 
 **Output:**
+
 ```
 TASK OUTPUT
 ════════════════════════════════════════════════════════════
@@ -161,6 +167,7 @@ RESULTS:
 ```
 
 **Implementation:**
+
 1. Use TaskOutput with `block: true`
 2. Show waiting indicator
 3. When complete, display full results
@@ -175,6 +182,7 @@ RESULTS:
 ```
 
 **Output:**
+
 ```
 TASK OUTPUT (Latest)
 ════════════════════════════════════════════════════════════
@@ -191,6 +199,7 @@ RESULTS:
 ```
 
 **Implementation:**
+
 1. List all tasks from registry
 2. Find most recent completed task
 3. Display its output
@@ -205,6 +214,7 @@ RESULTS:
 ```
 
 **Output:**
+
 ```
 TASK OUTPUT (Raw)
 ════════════════════════════════════════════════════════════
@@ -219,6 +229,7 @@ TASK OUTPUT (Raw)
 ```
 
 **Useful for:**
+
 - Debugging
 - Copying output to other tools
 - Seeing exactly what agent produced
@@ -230,18 +241,21 @@ TASK OUTPUT (Raw)
 **By command type:**
 
 ### Brainstorm Output
+
 - Parse ideas structure
 - Display with proper emoji and formatting
 - Extract and highlight recommendations
 - Show IDEAS.md save confirmation
 
 ### Refine Output
+
 - Show original prompt
 - Show optimized prompt
 - Display execution results if applicable
 - Highlight improvements made
 
 ### Generic Task Output
+
 - Display as-is with minimal formatting
 - Add clear section headers
 - Show task metadata
@@ -252,6 +266,7 @@ TASK OUTPUT (Raw)
 ## Error Handling
 
 ### Task Not Found
+
 ```
 ❌ Task not found: abc123
 
@@ -264,6 +279,7 @@ List all tasks:
 ```
 
 ### Task Failed
+
 ```
 TASK OUTPUT
 ════════════════════════════════════════════════════════════
@@ -300,6 +316,7 @@ Get help:
 ```
 
 ### No Tasks Available
+
 ```
 No background tasks found.
 
@@ -322,6 +339,7 @@ Check task status:
 3. **References:** IDEAS.md, PROMPTS.md (depending on command)
 
 **Retention:**
+
 - Active tasks: Until completed or cancelled
 - Completed tasks: 7 days (configurable)
 - Failed tasks: 7 days (for debugging)
@@ -331,6 +349,7 @@ Check task status:
 ## Integration with Workflow
 
 **Typical flow:**
+
 ```bash
 # Launch background task
 /workflow:brainstorm "ideas" --background
@@ -366,17 +385,20 @@ Check task status:
 ## Advanced Usage
 
 ### Chain with other commands
+
 ```bash
 # View output and immediately work on it
 /workflow:task-output abc123 && /workflow:next
 ```
 
 ### Save to file
+
 ```bash
 /workflow:task-output abc123 --raw > my-output.md
 ```
 
 ### Check multiple tasks
+
 ```bash
 /workflow:task-status              # List all
 /workflow:task-output abc123       # View first
@@ -398,6 +420,7 @@ Check task status:
 ## Examples
 
 ### Example 1: View Brainstorm Results
+
 ```bash
 /workflow:task-output abc123
 
@@ -410,6 +433,7 @@ AI: [Lets user pick an idea to work on]
 ```
 
 ### Example 2: Check Failed Task
+
 ```bash
 /workflow:task-output xyz789
 
@@ -420,6 +444,7 @@ AI: ❌ Task failed
 ```
 
 ### Example 3: Wait for Running Task
+
 ```bash
 /workflow:task-output abc123 --wait
 

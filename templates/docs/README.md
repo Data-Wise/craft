@@ -54,6 +54,7 @@ What are you documenting?
 ### Is this for brand new users?
 
 **Yes** → Use **QUICK-START-TEMPLATE.md**
+
 - 30-second setup
 - Common tasks table
 - Minimal explanation
@@ -63,6 +64,7 @@ What are you documenting?
 ### Is this step-by-step learning?
 
 **Yes** → Use **TUTORIAL-TEMPLATE.md**
+
 - Numbered steps
 - Checkpoints after each step
 - Practice exercises
@@ -72,6 +74,7 @@ What are you documenting?
 ### Is this showing how to do a task?
 
 **Yes** → Use **WORKFLOW-TEMPLATE.md**
+
 - Scenario-based
 - Multiple variations
 - Troubleshooting section
@@ -81,6 +84,7 @@ What are you documenting?
 ### Is this documenting a command?
 
 **Yes** → Use **HELP-PAGE-TEMPLATE.md**
+
 - Complete syntax reference
 - All options documented
 - Usage examples
@@ -90,6 +94,7 @@ What are you documenting?
 ### Is this for quick lookup?
 
 **Yes** → Use **REFCARD-TEMPLATE.md**
+
 - One page, no scrolling
 - Tables and boxes
 - No explanations
@@ -121,6 +126,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 **Scenario:** You added `pick` command to flow-cli
 
 **Documents to create:**
+
 1. **Help Page** (`docs/commands/pick.md`)
    - Use: HELP-PAGE-TEMPLATE.md
    - Complete command reference
@@ -142,6 +148,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 **Scenario:** Documenting Git feature branch workflow
 
 **Documents to create:**
+
 1. **Workflow** (`docs/workflows/git-feature-workflow.md`)
    - Use: WORKFLOW-TEMPLATE.md
    - Show real-world usage
@@ -159,6 +166,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 **Scenario:** Help new users get started with flow-cli
 
 **Documents to create:**
+
 1. **Quick Start** (`docs/getting-started/quick-start.md`)
    - Use: QUICK-START-TEMPLATE.md
    - 5-minute setup
@@ -178,6 +186,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 ### QUICK-START-TEMPLATE.md
 
 **Key features:**
+
 - TL;DR at top
 - 30-second setup
 - Common tasks table
@@ -185,6 +194,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 - Current status
 
 **When to use:**
+
 - Project README files
 - New contributor onboarding
 - Plugin quick starts
@@ -194,12 +204,14 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 ### GETTING-STARTED-TEMPLATE.md
 
 **Key features:**
+
 - Prerequisites with verification
 - Hands-on testing
 - Configuration setup
 - Next steps
 
 **When to use:**
+
 - First-time installation
 - Configuration guides
 - Environment setup
@@ -209,6 +221,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 ### TUTORIAL-TEMPLATE.md
 
 **Key features:**
+
 - Learning objectives
 - Numbered steps
 - Checkpoints
@@ -216,6 +229,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 - Summary
 
 **When to use:**
+
 - Feature tutorials
 - Step-by-step guides
 - Learning paths
@@ -225,6 +239,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 ### WORKFLOW-TEMPLATE.md
 
 **Key features:**
+
 - Scenario-based
 - Multiple variations
 - Common patterns
@@ -232,6 +247,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 - Best practices
 
 **When to use:**
+
 - Real-world tasks
 - Common patterns
 - Process documentation
@@ -241,6 +257,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 ### HELP-PAGE-TEMPLATE.md
 
 **Key features:**
+
 - Complete syntax
 - All options documented
 - Usage examples
@@ -248,6 +265,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 - Related commands
 
 **When to use:**
+
 - Command documentation
 - API reference
 - Tool manuals
@@ -257,6 +275,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 ### REFCARD-TEMPLATE.md
 
 **Key features:**
+
 - One page, no scrolling
 - Tables and boxes
 - No explanations
@@ -264,6 +283,7 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 - Quick patterns
 
 **When to use:**
+
 - Command lookup
 - Keyboard shortcuts
 - Quick reference
@@ -273,12 +293,14 @@ Legend: ✅ Primary use | 🟡 Secondary use | ❌ Not suitable
 ### GIF-GUIDELINES.md
 
 **Key features:**
+
 - Visual demonstration
 - 5-15 seconds
 - Optimized file size
 - Accessibility captions
 
 **When to use:**
+
 - Interactive features
 - Complex workflows
 - UI demonstrations
@@ -341,6 +363,7 @@ All templates follow these principles:
 ```
 
 **Numbering:**
+
 - 01-09: Core workflow (beginner)
 - 10-19: Advanced features (intermediate)
 - 20-29: Expert topics (advanced)
@@ -382,6 +405,7 @@ dash-interactive-tui.gif
 Before publishing documentation:
 
 **Content:**
+
 - [ ] Template fully applied
 - [ ] All sections completed
 - [ ] Examples tested and verified
@@ -389,6 +413,7 @@ Before publishing documentation:
 - [ ] Links tested (no 404s)
 
 **ADHD-Friendly:**
+
 - [ ] Clear visual hierarchy
 - [ ] Short paragraphs (≤ 3 sentences)
 - [ ] Tables used for scannable data
@@ -397,6 +422,7 @@ Before publishing documentation:
 - [ ] Summary/quick reference at end
 
 **Accessibility:**
+
 - [ ] Alt text for images/GIFs
 - [ ] Code examples have descriptions
 - [ ] Headings properly nested (H1 → H2 → H3)
@@ -404,6 +430,7 @@ Before publishing documentation:
 - [ ] Links have descriptive text
 
 **Navigation:**
+
 - [ ] Related docs linked
 - [ ] Next steps provided
 - [ ] Breadcrumbs clear
@@ -414,12 +441,14 @@ Before publishing documentation:
 ## Template Updates
 
 **When to update templates:**
+
 - User feedback identifies pain points
 - New ADHD-friendly patterns discovered
 - Documentation standards evolve
 - MkDocs Material theme updates
 
 **Update process:**
+
 1. Discuss changes in GitHub issue
 2. Update template file
 3. Update this README
@@ -432,6 +461,7 @@ Before publishing documentation:
 ## Contributing
 
 **Adding new templates:**
+
 1. Identify gap in current templates
 2. Create draft in `docs/conventions/adhd/`
 3. Include complete example
@@ -439,6 +469,7 @@ Before publishing documentation:
 5. Create PR for review
 
 **Improving existing templates:**
+
 1. Test changes on 2-3 real docs
 2. Update template file
 3. Update this README
@@ -448,9 +479,9 @@ Before publishing documentation:
 
 ## Related Resources
 
-- **MkDocs Material:** https://squidfunk.github.io/mkdocs-material/
-- **ADHD-Friendly Design:** https://adhddesign.com/
-- **Plain Language Guidelines:** https://www.plainlanguage.gov/
+- **MkDocs Material:** <https://squidfunk.github.io/mkdocs-material/>
+- **ADHD-Friendly Design:** <https://adhddesign.com/>
+- **Plain Language Guidelines:** <https://www.plainlanguage.gov/>
 - **Documentation Style Guide:** `../../DOCUMENTATION-STYLE-GUIDE.md`
 
 ---

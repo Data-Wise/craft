@@ -50,6 +50,7 @@ fi
 ```
 
 **Output:**
+
 ```
 Step 1: Detect Project Type
 ───────────────────────────────────────
@@ -83,6 +84,7 @@ fi
 ```
 
 **Output:**
+
 ```
 Step 2: Determine Source
 ───────────────────────────────────────
@@ -141,6 +143,7 @@ def generate_formula(project_type, name, version, org, repo, description, licens
 ```
 
 **Output:**
+
 ```
 Step 3: Generate Formula
 ───────────────────────────────────────
@@ -167,6 +170,7 @@ fi
 ```
 
 **Output:**
+
 ```
 Step 4: Validate Formula
 ───────────────────────────────────────
@@ -239,6 +243,7 @@ jobs:
 ```
 
 **Output:**
+
 ```
 Step 5: Generate Workflow
 ───────────────────────────────────────
@@ -266,6 +271,7 @@ fi
 ```
 
 **Output (token missing):**
+
 ```
 Step 6: Check Token
 ───────────────────────────────────────
@@ -278,6 +284,7 @@ See: /craft:dist:homebrew token for setup guide
 ```
 
 **Output (token present):**
+
 ```
 Step 6: Check Token
 ───────────────────────────────────────

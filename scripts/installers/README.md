@@ -13,12 +13,14 @@ Each installer is a self-contained shell script that handles installation via a 
 **Purpose:** Install packages via Homebrew (macOS/Linux)
 
 **Functions:**
+
 - `check_brew_available()` - Check if Homebrew is installed and functional
 - `brew_search_package(package)` - Verify package exists in Homebrew
 - `brew_install_package(tool_name, package)` - Install package via brew
 - `get_brew_status()` - Get Homebrew installation status (JSON)
 
 **Output:** JSON format
+
 ```json
 {
   "success": true|false,
@@ -28,6 +30,7 @@ Each installer is a self-contained shell script that handles installation via a 
 ```
 
 **Example Usage:**
+
 ```bash
 source scripts/installers/brew-installer.sh
 
@@ -49,10 +52,12 @@ fi
 ```
 
 **Platform Support:**
+
 - ✅ macOS (primary)
 - ✅ Linux (if Homebrew installed)
 
 **Error Handling:**
+
 - Homebrew not installed
 - Package not found
 - Installation fails
@@ -73,6 +78,7 @@ fi
 ## Integration
 
 These installers are sourced by `dependency-installer.sh` which provides:
+
 - Wrapper functions that extract package names from tool specs
 - Retry logic (2 attempts)
 - Logging to `/tmp/craft-install-$SESSION_ID.log`

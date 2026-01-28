@@ -46,6 +46,7 @@ end
 ## Language-Specific Patterns
 
 ### Python (virtualenv)
+
 ```ruby
 class MyPythonApp < Formula
   include Language::Python::Virtualenv
@@ -80,6 +81,7 @@ end
 ```
 
 ### Node.js
+
 ```ruby
 class MyNodeApp < Formula
   desc "My Node.js application"
@@ -102,6 +104,7 @@ end
 ```
 
 ### Go
+
 ```ruby
 class MyGoApp < Formula
   desc "My Go application"
@@ -123,6 +126,7 @@ end
 ```
 
 ### Rust
+
 ```ruby
 class MyRustApp < Formula
   desc "My Rust application"
@@ -146,6 +150,7 @@ end
 ## Best Practices
 
 ### Description (`desc`)
+
 ```ruby
 # Good
 desc "Terminal optimizer for AI-assisted development"
@@ -157,6 +162,7 @@ desc "..."  # Too long (> 80 chars)
 ```
 
 ### URL Patterns
+
 ```ruby
 # GitHub release (preferred)
 url "https://github.com/user/repo/archive/v1.0.0.tar.gz"
@@ -172,6 +178,7 @@ url "https://registry.npmjs.org/myapp/-/myapp-1.0.0.tgz"
 ```
 
 ### SHA256 Calculation
+
 ```bash
 # From URL
 curl -sL https://github.com/user/repo/archive/v1.0.0.tar.gz | shasum -a 256
@@ -181,6 +188,7 @@ shasum -a 256 myapp-1.0.0.tar.gz
 ```
 
 ### License (SPDX identifiers)
+
 ```ruby
 license "MIT"
 license "Apache-2.0"
@@ -189,6 +197,7 @@ license any_of: ["MIT", "Apache-2.0"]  # Dual license
 ```
 
 ### Dependencies
+
 ```ruby
 # Runtime dependency
 depends_on "python@3.12"
@@ -209,6 +218,7 @@ depends_on "linux-headers" => :build if OS.linux?
 ## Common Issues & Fixes
 
 ### Issue: Python dependencies missing
+
 ```ruby
 # Problem: pip install fails due to missing deps
 
@@ -228,6 +238,7 @@ end
 ```
 
 ### Issue: Binary not in PATH
+
 ```ruby
 # Solution: Create symlink
 def install
@@ -237,6 +248,7 @@ end
 ```
 
 ### Issue: Test fails
+
 ```ruby
 # Problem: Command requires config file
 
@@ -249,6 +261,7 @@ end
 ```
 
 ### Issue: brew audit failures
+
 ```bash
 # Run audit
 brew audit --strict --online Formula/myapp.rb
@@ -263,6 +276,7 @@ brew audit --strict --online Formula/myapp.rb
 ## Tap Management
 
 ### Create Tap Repository
+
 ```bash
 # Structure
 homebrew-tap/
@@ -276,6 +290,7 @@ homebrew-tap/
 ```
 
 ### Update Formula
+
 ```ruby
 # Old
 url "https://github.com/user/repo/archive/v1.0.0.tar.gz"
@@ -287,6 +302,7 @@ sha256 "new-sha256"
 ```
 
 ### Testing Locally
+
 ```bash
 # Install from local formula
 brew install --build-from-source ./Formula/myapp.rb
@@ -423,6 +439,7 @@ end
 ## Integration
 
 Use with:
+
 - `/craft:dist:homebrew` - Generate formula automatically
 - `/craft:check --for release` - Validate before formula update
 - `/craft:git:tag` - Create version for formula

@@ -95,6 +95,7 @@ Daily Standup Schedule:
 ## Integration
 
 Works with:
+
 - `/craft:plan:feature` - Feature breakdown
 - `/craft:plan:roadmap` - Long-term planning
 - `/craft:git:branch` - Create sprint branches

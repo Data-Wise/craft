@@ -25,6 +25,7 @@
 ## 🔄 Daily Workflow Patterns
 
 ### Morning Routine
+
 ```bash
 /recap          # Where was I?
 /git-recap      # What did I commit yesterday?
@@ -33,6 +34,7 @@
 ```
 
 ### During Work
+
 ```bash
 /focus "task"   # Start focused work
 [work 25 min]
@@ -42,11 +44,13 @@
 ```
 
 ### End of Session
+
 ```bash
 /done           # Accomplishments + auto-commit + push
 ```
 
 ### Feature Development
+
 ```bash
 /branch new feature-name    # Start new branch
 /focus "build feature"      # Focus session
@@ -58,6 +62,7 @@
 ## 📋 Command Details
 
 ### /commit
+
 **Purpose:** Quick, quality commits without breaking flow
 
 ```
@@ -65,6 +70,7 @@ Quick commit → AI suggests message → Accept/edit → Push?
 ```
 
 **Example:**
+
 ```
 User: /commit
 AI: Analyzed changes...
@@ -80,6 +86,7 @@ AI: Analyzed changes...
 ---
 
 ### /done
+
 **Purpose:** Graceful session end with git integration
 
 ```
@@ -87,6 +94,7 @@ Accomplishments → Commit? → Push? → Affirmation
 ```
 
 **Example:**
+
 ```
 User: /done
 AI: 🎯 What did you accomplish?
@@ -102,6 +110,7 @@ AI: [Creates commit, offers to push]
 ---
 
 ### /git-recap
+
 **Purpose:** Quick git activity overview
 
 ```
@@ -109,6 +118,7 @@ Shows: Today's commits, unpushed changes, open PRs
 ```
 
 **Example:**
+
 ```
 📊 GIT ACTIVITY SUMMARY
 🌿 CURRENT: feature-auth (2 ahead)
@@ -123,6 +133,7 @@ Shows: Today's commits, unpushed changes, open PRs
 ---
 
 ### /sync
+
 **Purpose:** Safe syncing with conflict help
 
 ```
@@ -130,6 +141,7 @@ Check status → Handle uncommitted → Pull/Rebase → Resolve conflicts → Pu
 ```
 
 **Example:**
+
 ```
 User: /sync
 AI: 🔄 SYNC STATUS CHECK
@@ -144,6 +156,7 @@ AI: 🔄 SYNC STATUS CHECK
 ---
 
 ### /branch
+
 **Purpose:** Safe branch management
 
 ```
@@ -151,6 +164,7 @@ List branches → Create/Switch/Delete → Auto-update .STATUS
 ```
 
 **Example:**
+
 ```
 User: /branch new feature-dashboard
 AI: ✅ Created: feature-dashboard
@@ -165,6 +179,7 @@ AI: ✅ Ready! Run /next
 ---
 
 ### /pr-create
+
 **Purpose:** Comprehensive PR with auto-generated content
 
 ```
@@ -172,6 +187,7 @@ Analyze commits → Generate title/description → Link issues → Create
 ```
 
 **Example:**
+
 ```
 User: /pr-create
 AI: 📝 SUGGESTED TITLE:
@@ -188,6 +204,7 @@ AI: 📝 SUGGESTED TITLE:
 ---
 
 ### /pr-review
+
 **Purpose:** Self-review before submitting PR
 
 ```
@@ -195,6 +212,7 @@ Check code quality → Test coverage → Docs → Security → Fix issues
 ```
 
 **Example:**
+
 ```
 User: /pr-review
 AI: 📊 PR SELF-REVIEW SUMMARY
@@ -212,6 +230,7 @@ AI: 📊 PR SELF-REVIEW SUMMARY
 ## 🧠 Memory Aids
 
 ### Mnemonic: "CDSB PR²"
+
 - **C**ommit - Save work anytime
 - **D**one - End sessions
 - **S**sync - Stay current
@@ -220,6 +239,7 @@ AI: 📊 PR SELF-REVIEW SUMMARY
 - **PR**-create - Share work
 
 ### Visual Memory Map
+
 ```
        START DAY              DURING WORK           END SESSION
            ↓                       ↓                     ↓
@@ -231,6 +251,7 @@ AI: 📊 PR SELF-REVIEW SUMMARY
 ```
 
 ### Command Families
+
 ```
 📊 Status Commands:    /recap, /git-recap
 🔧 Work Commands:      /commit, /done
@@ -241,7 +262,9 @@ AI: 📊 PR SELF-REVIEW SUMMARY
 ## 🎨 Integration with Existing Workflow
 
 ### Your Existing Commands
+
 These continue to work exactly as before:
+
 - All 133+ zsh aliases
 - `work <project>` - Jump to project
 - `pb` - Build
@@ -249,7 +272,9 @@ These continue to work exactly as before:
 - `finish` - End session (now enhanced as `/done`)
 
 ### New Git Additions
+
 The 7 new commands layer on top seamlessly:
+
 - `/commit` - Use during work sessions
 - `/done` - Enhanced finish with git
 - All others - On-demand tools
@@ -279,6 +304,7 @@ The 7 new commands layer on top seamlessly:
 ## 🔗 Command Chaining
 
 Common sequences:
+
 ```bash
 # Start new feature
 /branch new feature-x && /focus "build feature x"
@@ -296,6 +322,7 @@ Common sequences:
 ## 📍 Quick Command Finder
 
 **"I want to..."**
+
 - **save my work** → `/commit`
 - **stop for the day** → `/done`
 - **see what I did** → `/git-recap`
@@ -307,6 +334,7 @@ Common sequences:
 ## 📂 Files Location
 
 All commands stored in:
+
 ```
 ~/.claude/commands/
 ├── workflow/

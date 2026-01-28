@@ -146,7 +146,7 @@ Preview test execution plan:
 | Project | Framework | Discovery |
 |---------|-----------|-----------|
 | Python | pytest, unittest | tests/, test_*.py |
-| JavaScript | jest, vitest, mocha | *.test.js, *.spec.js |
+| JavaScript | jest, vitest, mocha | *.test.js,*.spec.js |
 | R | testthat | tests/testthat/ |
 | Go | go test | *_test.go |
 | Rust | cargo test | tests/, #[test] |
@@ -154,6 +154,7 @@ Preview test execution plan:
 ## Mode Behaviors
 
 ### Default Mode (< 30s)
+
 ```bash
 # Python: pytest -x -q --tb=no
 # JavaScript: jest --bail --silent
@@ -161,17 +162,20 @@ Preview test execution plan:
 ```
 
 **Output:**
+
 ```
 ✓ Tests passed (45/45) in 12.3s
 ```
 
 ### Debug Mode (< 120s)
+
 ```bash
 # Python: pytest -v --tb=long --capture=no
 # JavaScript: jest --verbose --detectOpenHandles
 ```
 
 **Output:**
+
 ```
 ╭─ Test Results (Debug Mode) ─────────────────────────╮
 │ Suite: tests/ | Time: 45.2s                         │
@@ -187,12 +191,14 @@ Preview test execution plan:
 ```
 
 ### Optimize Mode (< 180s)
+
 ```bash
 # Python: pytest -n auto --dist loadfile
 # JavaScript: jest --maxWorkers=4
 ```
 
 **Output:**
+
 ```
 ╭─ Test Results (Optimize Mode) ──────────────────────╮
 │ Workers: 4 | Time: 23.1s (vs 89.4s sequential)     │
@@ -208,12 +214,14 @@ Preview test execution plan:
 ```
 
 ### Release Mode (< 300s)
+
 ```bash
 # Python: pytest --cov=src --cov-report=term-missing
 # JavaScript: jest --coverage --coverageThreshold
 ```
 
 **Output:**
+
 ```
 ╭─ Test Results (Release Mode) ───────────────────────╮
 │ Status: ✓ READY FOR RELEASE                        │
@@ -238,6 +246,7 @@ Preview test execution plan:
 ## Integration
 
 Works with:
+
 - `/craft:test:watch` - Watch mode
 - `/craft:test:coverage` - Coverage report
 - `/craft:test:debug` - Debug failures

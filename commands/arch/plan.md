@@ -98,6 +98,7 @@ Estimated Effort: 2-3 days
 ## Integration
 
 Works with:
+
 - `/craft:arch:analyze` - Current architecture
 - `/craft:arch:diagram` - Visualize plan
 - `/craft:plan:feature` - Feature planning

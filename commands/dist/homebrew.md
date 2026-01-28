@@ -162,6 +162,7 @@ jobs:
 | PyPI | Python packages published to PyPI |
 
 For PyPI source, use:
+
 ```bash
 /craft:dist:homebrew workflow --source pypi
 ```
@@ -253,18 +254,20 @@ Create a **Fine-Grained Personal Access Token**:
 ### Setup Steps
 
 1. **Create Token**
-   - Go to: https://github.com/settings/tokens?type=beta
+   - Go to: <https://github.com/settings/tokens?type=beta>
    - Click "Generate new token"
    - Configure as above
    - Copy the token immediately
 
 2. **Add to Repository**
+
    ```bash
    gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo YOUR-ORG/your-repo
    # Paste token when prompted
    ```
 
 3. **Verify**
+
    ```bash
    gh secret list --repo YOUR-ORG/your-repo
    # Should show: HOMEBREW_TAP_GITHUB_TOKEN
@@ -273,6 +276,7 @@ Create a **Fine-Grained Personal Access Token**:
 ### Token Rotation
 
 Set a calendar reminder for 80 days after creation:
+
 1. Create new token with same settings
 2. Update in all repos: `gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo ...`
 3. Delete old token from GitHub settings
@@ -480,6 +484,7 @@ expected sha256 checksum <old>, got <new>
 ### Example
 
 **Before (stale):**
+
 ```ruby
 resource "click" do
   url "https://files.pythonhosted.org/packages/old/path/click-8.0.0.tar.gz"
@@ -488,6 +493,7 @@ end
 ```
 
 **After (updated):**
+
 ```ruby
 resource "click" do
   url "https://files.pythonhosted.org/packages/source/c/click/click-8.1.7.tar.gz"
@@ -535,12 +541,14 @@ Running brew audit... ✓ passed
 ### Common Issues
 
 **Issue: Package renamed on PyPI**
+
 ```
 Warning: Package 'old-name' not found on PyPI
 Hint: Check if package was renamed or deprecated
 ```
 
 **Issue: Source distribution not available**
+
 ```
 Warning: No sdist found for 'package-name'
 Only wheel distributions available

@@ -24,6 +24,7 @@
 **Purpose:** One command to make any documentation site ADHD-friendly
 
 **Usage:**
+
 ```bash
 /craft:docs:website                  # Full enhancement (all 3 phases)
 /craft:docs:website --analyze        # Show ADHD score only
@@ -34,6 +35,7 @@
 ```
 
 **ADHD Score Algorithm (0-100):**
+
 - Visual Hierarchy (25%): TL;DR boxes, headings, emojis
 - Time Estimates (20%): Tutorials have duration info
 - Workflow Diagrams (20%): Mermaid diagrams present, no errors
@@ -51,6 +53,7 @@
 - [x] Validate with `mkdocs build --strict` ✅ COMPLETE
 
 **Template: TL;DR Box**
+
 ```markdown
 > **TL;DR** (30 seconds)
 > - **What:** [One sentence]
@@ -60,6 +63,7 @@
 ```
 
 **Template: Time Estimate**
+
 ```markdown
 ⏱️ **10 minutes** • 🟢 Beginner • ✓ 7 steps
 ```
@@ -75,6 +79,7 @@
 - [x] Interactive mermaid diagrams (clickable nodes) ✅ COMPLETE
 
 **Navigation Structure:**
+
 ```yaml
 nav:
   - Home: index.md
@@ -131,6 +136,7 @@ nav:
 ### Distribution Commands (All Complete)
 
 #### `/craft:dist:homebrew` - Homebrew Tap Management ✅
+
 - Detect project type (Python, Node, Go, Rust)
 - Generate formula file with dependencies
 - Calculate SHA256 for release tarballs
@@ -138,18 +144,21 @@ nav:
 - Push to homebrew-tap repository
 
 #### `/craft:dist:curl-install` - Direct GitHub Installation ✅
+
 - Create `install.sh` for direct GitHub downloads
 - Support multiple installation methods (binary, source)
 - Include version detection and updates
 - Add to README installation section
 
 #### Skills Added ✅
+
 - `distribution-strategist` - Distribution channel recommendations
 - `homebrew-formula-expert` - Formula best practices
 
 **Stats:** 53 commands, 13 skills, 7 agents
 
 **Dogfooding:** Tested on aiterm v0.3.5
+
 - Generated and validated Homebrew formula
 - Created install.sh with smart auto-detection
 - Updated README with curl install instructions
@@ -163,12 +172,14 @@ nav:
 #### Phase 1: Quick Wins ✅
 
 **1. Real Context Tracking** ✅
+
 - Improved heuristics for context usage estimation
 - Watch for Claude Code system warnings about context
 - Smarter compression triggers based on exchange count + content size
 - Per-agent context budget tracking
 
 **2. Mode Integration** ✅
+
 - Orchestrator respects craft mode system
 - `default` mode: 2 agents, 70% compression threshold
 - `debug` mode: 1 agent (sequential), verbose output, 90% threshold
@@ -176,6 +187,7 @@ nav:
 - `release` mode: 4 agents, full reports, 85% threshold
 
 **Usage:**
+
 ```bash
 /craft:orchestrate "add auth" optimize    # Fast parallel
 /craft:orchestrate "prep release" release # Thorough
@@ -184,11 +196,13 @@ nav:
 #### Phase 2: State Persistence ✅
 
 **3. Session State File** ✅
+
 - Persist orchestrator state to `.claude/orchestrator-session.json`
 - Enable session recovery after disconnects
 - Track completed work, active agents, decisions made
 
 **New Commands:**
+
 ```bash
 /craft:orchestrate continue      # Resume from saved state
 /craft:orchestrate save          # Force state save
@@ -198,6 +212,7 @@ nav:
 #### Phase 3: ADHD Enhancements ✅
 
 **4. Timeline View** ✅
+
 - Visual Gantt-style timeline of agent execution
 - ETA countdown with progress bars
 - Reduces anxiety about "what's happening"
@@ -249,6 +264,7 @@ Live validation tests completed on aiterm project:
 ### What `/craft:docs:feature` Does
 
 After implementing a feature, ONE command updates:
+
 1. Detects new commands, modules, files from commits
 2. Updates CLI help epilogs
 3. Updates commands reference
@@ -313,6 +329,7 @@ QUICK UPDATE:      /craft:docs:update
 | `adhd-light` | Warm off-white, soft contrast | Day reading, no glare |
 
 **Config File:** `.craft/site-design.yaml`
+
 ```yaml
 preset: "data-wise"
 branding:
@@ -328,6 +345,7 @@ navigation:
 ### Page Templates
 
 Standard pages with consistent structure:
+
 - **index.md** - Project overview with feature grid
 - **QUICK-START.md** - 30-second setup guide
 - **REFCARD.md** - Quick command reference
@@ -343,11 +361,13 @@ Standard pages with consistent structure:
 ### Implementation Phases
 
 **Phase 1: Core Commands ✅ COMPLETE**
+
 - [x] `/craft:site:create` - Full wizard
 - [x] `/craft:site:update` - Content updater
 - [x] `/craft:site:status` - Dashboard
 
 **Phase 2: Design System ✅ COMPLETE**
+
 - [x] `/craft:site:theme` - Quick theme changes
 - [x] Design presets (8 presets total)
   - Standard: data-wise, minimal, open-source, corporate
@@ -356,6 +376,7 @@ Standard pages with consistent structure:
 - [x] MkDocs templates (mkdocs.yml, extra.css)
 
 **Phase 3: Content Management ✅ COMPLETE**
+
 - [x] `/craft:site:add` - Add pages with nav sync
 - [ ] Enhanced build/check/deploy (deferred - existing commands work well)
 
@@ -372,6 +393,7 @@ Standard pages with consistent structure:
 **Theme:** Automated Homebrew formula management with zero manual intervention
 
 **Background:** Built reusable workflow system for Data-Wise tap (Dec 31, 2025)
+
 - Centralized workflow: `homebrew-tap/.github/workflows/update-formula.yml`
 - Auto-merge PRs on release
 - Multi-source support (GitHub tarballs, PyPI packages)
@@ -386,6 +408,7 @@ Standard pages with consistent structure:
 | Formula validation | ✅ DONE | Run `brew audit` before release (via `validate` subcommand) |
 
 **Completed:** Dec 31, 2025
+
 - Created `skills/distribution/homebrew-workflow-expert.md` (260 lines)
 - Enhanced `commands/dist/homebrew.md` with 5 subcommands (473 lines)
 
@@ -397,6 +420,7 @@ Standard pages with consistent structure:
 | PyPI resource updater | ✅ DONE | Fix stale URLs automatically from PyPI API |
 
 **Completed:** Dec 31, 2025
+
 - Created `skills/distribution/homebrew-setup-wizard.md` (implementation logic)
 - Added `update-resources` subcommand to `commands/dist/homebrew.md`
 
@@ -409,6 +433,7 @@ Standard pages with consistent structure:
 | Cross-platform packages | 📋 PLANNED | apt, chocolatey, scoop |
 
 **Phase 3 Progress:** Dec 31, 2025
+
 - Created `skills/distribution/homebrew-multi-formula.md` (batch releases, dependency ordering)
 - Added `release-batch` and `deps` subcommands to `/craft:dist:homebrew`
 - Dogfooded: flow-cli and nexus-cli now have homebrew-release workflows
@@ -430,6 +455,7 @@ Standard pages with consistent structure:
 ### New Skill
 
 **`homebrew-workflow-expert.md`** - Expert knowledge on:
+
 - Reusable workflow patterns
 - GitHub Actions for formula updates
 - Token setup and management
@@ -477,17 +503,20 @@ secrets:
 ## Ideas Backlog
 
 ### Brainstorm-Workflow Integration (Future)
+
 - Add `/craft:do "docs"` routing to `/craft:docs:workflow` when spec exists
 - Add workflow suggestion to `/spec:review` approval output
 - Link to workflow from within generated spec footer
 
 ### Site Commands (Future Enhancements)
+
 - `/craft:site:migrate` - Framework migration (MkDocs ↔ Docusaurus)
 - Multi-target deployment (Netlify, Vercel, Cloudflare Pages)
 - Version selector for multi-version docs
 - Academic preset (citation-friendly)
 
 ### Distribution
+
 - Monorepo support for distribution commands
 - Version bumping automation
 - Changelog-to-release-notes conversion

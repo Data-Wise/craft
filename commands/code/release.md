@@ -5,6 +5,7 @@ Guide through the package/project release process.
 ## Purpose
 
 Manage releases for:
+
 - R packages (CRAN submission)
 - npm packages
 - GitHub releases
@@ -117,6 +118,7 @@ npm publish
 ## MCP Integration
 
 Uses these tools when available:
+
 - `r_check` - Run R CMD check
 - `r_test` - Run test suite
 - `r_coverage` - Check coverage

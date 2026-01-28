@@ -32,6 +32,7 @@ python3 tests/test_craft_plugin.py
 **Status:** Not started
 
 ### Objectives
+
 - ✅ Add dependency declarations to command frontmatter
 - ✅ Implement tool detection and validation
 - ✅ Add session-level caching
@@ -51,6 +52,7 @@ python3 tests/test_craft_plugin.py
 ### Implementation Steps
 
 1. **Add frontmatter dependencies (1h)**
+
    ```yaml
    dependencies:
      asciinema:
@@ -109,6 +111,7 @@ python3 tests/test_craft_plugin.py
 **Status:** Not started
 
 ### Objectives
+
 - ✅ Implement multi-strategy installer (brew, cargo, binary)
 - ✅ Add informed consent prompts
 - ✅ Create `--fix` flag
@@ -189,6 +192,7 @@ python3 tests/test_craft_plugin.py
 **Status:** Not started
 
 ### Objectives
+
 - ✅ Implement `--convert` flag for single files
 - ✅ Implement `--batch` flag for bulk processing
 - ✅ Add progress indicators
@@ -251,6 +255,7 @@ python3 tests/test_craft_plugin.py
 **Status:** Not started
 
 ### Objectives
+
 - ✅ Implement health check validation
 - ✅ Add version checking with warnings
 - ✅ Implement repair functionality
@@ -290,6 +295,7 @@ python3 tests/test_craft_plugin.py
 4. **Add JSON output (1h)**
    - `--check --json` flag
    - Output structured JSON:
+
      ```json
      {
        "status": "missing",
@@ -327,6 +333,7 @@ python3 tests/test_craft_plugin.py
 ## Testing Strategy
 
 ### Unit Tests
+
 ```bash
 # Test individual functions
 python3 -m pytest tests/test_dependency_checking.py::test_detect_asciinema
@@ -334,12 +341,14 @@ python3 -m pytest tests/test_dependency_installation.py::test_brew_installer
 ```
 
 ### Integration Tests
+
 ```bash
 # Test full workflows
 python3 -m pytest tests/test_dependency_checking.py -k integration
 ```
 
 ### E2E Tests
+
 ```bash
 # Test on clean environment (GitHub Actions)
 .github/workflows/test-dependencies.yml
@@ -360,6 +369,7 @@ python3 -m pytest tests/test_dependency_checking.py -k integration
 ## Git Workflow
 
 ### Commits
+
 ```bash
 # Phase 1
 git add commands/docs/demo.md scripts/dependency-*.sh tests/
@@ -409,6 +419,7 @@ Closes #XXX"
 ```
 
 ### PR Creation
+
 ```bash
 # After all phases complete
 cd /Users/dt/.git-worktrees/craft/feature-demo-deps

@@ -25,6 +25,7 @@ Run test suite and check coverage percentage against project-specific thresholds
 Auto-detect project type and run appropriate coverage tool:
 
 ### Python Projects
+
 ```bash
 # Run pytest with coverage
 python3 -m pytest --cov=. --cov-report=json --cov-report=term tests/
@@ -34,6 +35,7 @@ COVERAGE=$(jq '.totals.percent_covered' coverage.json 2>/dev/null || echo "0")
 ```
 
 ### JavaScript/TypeScript Projects
+
 ```bash
 # Run jest with coverage
 npm test -- --coverage --coverageReporters=json
@@ -43,6 +45,7 @@ COVERAGE=$(jq '.total.lines.pct' coverage/coverage-summary.json 2>/dev/null || e
 ```
 
 ### R Packages
+
 ```bash
 # Run devtools::test() with coverage
 R -e 'covr::package_coverage()' > coverage.Rout
@@ -52,6 +55,7 @@ COVERAGE=$(grep -oP '\d+\.\d+(?=%)' coverage.Rout | head -1)
 ```
 
 ### Go Projects
+
 ```bash
 # Run go test with coverage
 go test -cover -coverprofile=coverage.out ./...

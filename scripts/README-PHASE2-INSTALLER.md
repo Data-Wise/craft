@@ -127,6 +127,7 @@ install_tool()
 Installation attempts strategies in this priority order:
 
 ### 1. Homebrew (brew)
+
 - **Platform:** macOS, Linux (if installed)
 - **Speed:** ~30 seconds
 - **Reliability:** High
@@ -134,6 +135,7 @@ Installation attempts strategies in this priority order:
 - **Status:** Stub (Wave 2)
 
 ### 2. Cargo Git (cargo_git)
+
 - **Platform:** Any with Rust installed
 - **Speed:** ~2-5 minutes (compile from source)
 - **Reliability:** High
@@ -141,6 +143,7 @@ Installation attempts strategies in this priority order:
 - **Status:** Stub (Wave 2)
 
 ### 3. Cargo (cargo)
+
 - **Platform:** Any with Rust installed
 - **Speed:** ~2-5 minutes (compile from crates.io)
 - **Reliability:** High
@@ -148,6 +151,7 @@ Installation attempts strategies in this priority order:
 - **Status:** Stub (Wave 2)
 
 ### 4. Binary Download (binary)
+
 - **Platform:** Any with curl
 - **Speed:** ~10 seconds
 - **Reliability:** Medium (depends on GitHub releases)
@@ -155,6 +159,7 @@ Installation attempts strategies in this priority order:
 - **Status:** Stub (Wave 2)
 
 **Platform Filtering:** Unavailable strategies are automatically removed based on:
+
 - Platform detection (macOS vs Linux)
 - Available tools (brew, cargo, curl)
 - Architecture (arm64 vs x86_64 for binaries)
@@ -326,14 +331,17 @@ INSTALL_LOG=/tmp/my-install.log ./scripts/dependency-installer.sh
 Main installation orchestrator.
 
 **Arguments:**
+
 - `tool_name` - Tool command name (e.g., "asciinema")
 - `tool_spec` - JSON tool specification from frontmatter
 
 **Returns:**
+
 - `0` - Successful installation and verification
 - `1` - User declined or all strategies failed
 
 **Example:**
+
 ```bash
 deps_json=$(parse_frontmatter)
 agg_spec=$(echo "$deps_json" | jq '.agg')
@@ -347,12 +355,15 @@ install_tool "agg" "$agg_spec"
 Extract installation methods from tool spec in priority order.
 
 **Arguments:**
+
 - `tool_spec` - JSON tool specification
 
 **Returns:**
+
 - Newline-separated list of strategy names
 
 **Example:**
+
 ```bash
 strategies=$(get_install_strategies "$tool_spec")
 # Output:
@@ -369,17 +380,21 @@ strategies=$(get_install_strategies "$tool_spec")
 Filter strategies by platform availability.
 
 **Arguments:**
+
 - `strategies` - Newline-separated list of strategy names
 
 **Returns:**
+
 - Newline-separated list of available strategies
 
 **Checks:**
+
 - `brew` - Requires `command -v brew`
 - `cargo`/`cargo_git` - Requires `command -v cargo`
 - `binary` - Requires `command -v curl`
 
 **Example:**
+
 ```bash
 available=$(filter_available_strategies "$strategies")
 # On macOS without brew:
@@ -395,15 +410,18 @@ available=$(filter_available_strategies "$strategies")
 Attempt installation with retry logic.
 
 **Arguments:**
+
 - `tool_name` - Tool command name
 - `strategy` - Strategy name (brew, cargo, cargo_git, binary)
 - `tool_spec` - JSON tool specification
 
 **Returns:**
+
 - `0` - Installation succeeded
 - `1` - Installation failed after 2 attempts
 
 **Behavior:**
+
 - Tries installation up to 2 times
 - 2-second delay between retries
 - Logs all attempts to INSTALL_LOG
@@ -415,14 +433,17 @@ Attempt installation with retry logic.
 Verify tool installed and healthy.
 
 **Arguments:**
+
 - `tool_name` - Tool command name
 - `tool_spec` - JSON tool specification
 
 **Returns:**
+
 - `0` - Tool installed and healthy
 - `1` - Tool missing or broken
 
 **Behavior:**
+
 - Invalidates cache for this tool
 - Uses `detect_tool()` from tool-detector.sh
 - Checks both installation and health status
@@ -434,11 +455,13 @@ Verify tool installed and healthy.
 Get user approval for installation.
 
 **Arguments:**
+
 - `tool_name` - Tool command name
 - `purpose` - User-facing description
 - `strategies` - Newline-separated list of strategies
 
 **Returns:**
+
 - `0` - User approved
 - `1` - User declined or SKIP_ALL is set
 
@@ -451,6 +474,7 @@ Detect operating system and architecture.
 **No arguments**
 
 **Sets global variables:**
+
 - `PLATFORM` - "macos", "linux", or "unknown"
 - `ARCH` - "arm64", "x86_64", etc. (from `uname -m`)
 
@@ -522,6 +546,7 @@ source "$SCRIPT_DIR/session-cache.sh"
 ```
 
 **Tests:**
+
 - Parse asciinema tool spec from frontmatter
 - Extract installation strategies
 - Filter by platform availability
@@ -534,6 +559,7 @@ source "$SCRIPT_DIR/session-cache.sh"
 ```
 
 **Verifies:**
+
 - File existence and permissions
 - Bash syntax validity
 - Script sourcing
@@ -547,6 +573,7 @@ source "$SCRIPT_DIR/session-cache.sh"
 ### Integration Tests
 
 Created test scripts in `/tmp/`:
+
 - `test-stub-installers.sh` - Test all 4 stub functions
 - `test-full-workflow.sh` - End-to-end workflow test
 - `test-installer-integration.sh` - Integration with Phase 1

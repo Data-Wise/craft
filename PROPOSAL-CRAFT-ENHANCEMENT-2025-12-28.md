@@ -9,6 +9,7 @@
 ## Executive Summary
 
 The craft plugin is already comprehensive, but marketplace research reveals opportunities to:
+
 1. **Reduce command sprawl** (64 commands may be overwhelming)
 2. **Enhance orchestration** (multi-agent workflows)
 3. **Add quality gates** (automated validation between steps)
@@ -19,6 +20,7 @@ The craft plugin is already comprehensive, but marketplace research reveals oppo
 ## Current State Analysis
 
 ### Strengths
+
 | Area | Assessment |
 |------|------------|
 | **Coverage** | Excellent - covers code, git, site, docs, test, arch, plan, dist |
@@ -28,6 +30,7 @@ The craft plugin is already comprehensive, but marketplace research reveals oppo
 | **Documentation** | Very good - consistent markdown structure |
 
 ### Gaps Identified (vs Marketplace Best Practices)
+
 | Gap | Impact | Priority |
 |-----|--------|----------|
 | Too many commands (64) | Decision paralysis | HIGH |
@@ -70,6 +73,7 @@ The craft plugin is already comprehensive, but marketplace research reveals oppo
 **Goal:** Reduce 64 commands to ~25 primary commands via smart routing
 
 **Approach:**
+
 1. Keep top-level commands as primary entry points
 2. Route to specific commands via `/craft:do`
 3. Convert many commands to skills (auto-invoked)
@@ -99,6 +103,7 @@ The craft plugin is already comprehensive, but marketplace research reveals oppo
 **Goal:** Add pre-configured workflow patterns without removing commands
 
 **New Commands:**
+
 ```
 /craft:recipe list          # Show available recipes
 /craft:recipe run <name>    # Execute a recipe
@@ -118,6 +123,7 @@ The craft plugin is already comprehensive, but marketplace research reveals oppo
 | **r-package** | code:lint → test:run → docs:generate → dist:homebrew | R package release |
 
 **Recipe Format (YAML):**
+
 ```yaml
 name: full-stack-feature
 description: Complete feature development workflow
@@ -151,6 +157,7 @@ steps:
    - `approval` - Human approval required
 
 2. **Gate Integration:**
+
 ```
 /craft:gate add <type>      # Add gate to current workflow
 /craft:gate check           # Run all gates
@@ -158,6 +165,7 @@ steps:
 ```
 
 3. **Orchestrator Enhancement:**
+
 ```
 /craft:orchestrate "add auth" --gates strict
 # Automatically adds gates between phases
@@ -172,11 +180,13 @@ steps:
 **Philosophy:** "Don't make users memorize commands - let Claude figure it out"
 
 **Approach:**
+
 1. Keep only 10 essential commands
 2. Convert everything else to skills
 3. `/craft:do` becomes the primary interface
 
 **Essential Commands (10):**
+
 ```
 /craft:do <task>           # Universal entry point
 /craft:check [for]         # Pre-flight validation
@@ -191,6 +201,7 @@ steps:
 ```
 
 **Everything Else → Skills:**
+
 - `lint`, `coverage`, `refactor` → code-quality skill
 - `changelog`, `claude-md`, `nav-update` → docs-automation skill
 - `branch`, `worktree`, `sync` → git-workflow skill
@@ -240,6 +251,7 @@ Phase 4: Plan D (Skills-First)         [Future]
 **Enhanced:** Routes to recipe if multi-step task detected
 
 **Example:**
+
 ```
 User: /craft:do "prepare release"
 Claude: Detected multi-step task. Running recipe: release-prep
@@ -338,22 +350,26 @@ arguments:
 ## Implementation Priority
 
 ### Phase 1: Quick Wins (This Week)
+
 - [ ] Create `/craft:recipe` command
 - [ ] Add 6 built-in recipes
 - [ ] Update hub to show recipes
 
 ### Phase 2: Orchestrator Enhancement (Next Week)
+
 - [ ] Add quality gates to orchestrator
 - [ ] Implement gate checking between steps
 - [ ] Add `--gates` flag to orchestrate
 
 ### Phase 3: Command Consolidation (Week 3)
+
 - [ ] Merge code commands (12→4)
 - [ ] Merge docs commands (13→4)
 - [ ] Convert merged commands to skills
 - [ ] Update hub and documentation
 
 ### Phase 4: Skills-First (Future)
+
 - [ ] Design skill auto-detection patterns
 - [ ] Implement context-based skill triggering
 - [ ] Reduce command count to 10
@@ -388,6 +404,7 @@ arguments:
 **Recommended:** Start with Plan B (Workflow Recipes) as quick win, then iterate.
 
 **Options:**
+
 - A) Implement Plan B only (recipes) - Low risk, immediate value
 - B) Implement Plan B + C (recipes + gates) - Medium effort, high value
 - C) Full roadmap (B → C → A) - Comprehensive transformation

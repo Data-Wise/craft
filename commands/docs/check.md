@@ -20,6 +20,7 @@ You are a documentation health checker. Validate, fix, and report on documentati
 ## Purpose
 
 **Full documentation health check by default:**
+
 - Broken links (internal and external)
 - Stale docs (not updated when code changed)
 - Navigation consistency (mkdocs.yml)
@@ -63,6 +64,7 @@ cat mkdocs.yml | grep -A 100 "nav:"
 ### Step 2: Run Full Check Cycle
 
 **Phase 1: Link Validation (with .linkcheck-ignore support)**
+
 ```
 🔗 CHECKING LINKS...
 
@@ -82,6 +84,7 @@ Summary: 45 internal (1 critical, 1 expected), 12 external (1 broken)
 **Note**: Critical broken links cause exit code 1. Expected broken links (documented in `.linkcheck-ignore`) are shown as warnings but don't block CI. See `/craft:docs:check-links` for details on `.linkcheck-ignore` format.
 
 **Phase 2: Stale Detection**
+
 ```
 📅 CHECKING STALE DOCS...
 
@@ -99,6 +102,7 @@ Summary: 2 docs may be stale
 ```
 
 **Phase 3: Navigation Consistency**
+
 ```
 📁 CHECKING NAVIGATION...
 
@@ -114,6 +118,7 @@ Summary: 1 missing, 1 orphan
 ```
 
 **Phase 4: Auto-Fix Safe Issues**
+
 ```
 🔧 AUTO-FIXING...
 
@@ -175,6 +180,7 @@ Auto-fixed: 2 issues
 | Both conditions | - | ⚠⚠ High priority |
 
 **Related code detection:**
+
 - `docs/guide/auth.md` → `src/auth/`, `src/**/auth*`
 - `docs/reference/api.md` → `src/api/`, `src/**/api*`
 - Filename-based matching
@@ -190,9 +196,11 @@ Auto-fixed: 2 issues
 ## Output Modes
 
 ### Default (Interactive)
+
 Full visual output with boxes, colors, and actionable suggestions.
 
 ### JSON (`--json`)
+
 ```json
 {
   "status": "issues_found",
@@ -210,6 +218,7 @@ Full visual output with boxes, colors, and actionable suggestions.
 ```
 
 ### CI Mode (`--report-only`)
+
 ```
 DOCS CHECK: 3 issues found
 
@@ -238,9 +247,11 @@ Exit code: 1
 ## Integration
 
 **Called by:**
+
 - `/craft:docs:update` - Runs check after generating docs
 
 **Works with:**
+
 - `/craft:docs:sync` - Detection pairs with check
 - `/craft:docs:guide` - Validate generated guides
 - `/craft:ci:validate` - Part of CI pipeline

@@ -48,6 +48,7 @@ Creates the worktree parent folder structure:
 ```
 
 **What it does:**
+
 ```bash
 # Get project name from git remote or folder
 project=$(basename $(git rev-parse --show-toplevel))
@@ -61,6 +62,7 @@ echo "Next: /craft:git:worktree create <branch-name>"
 ```
 
 **Output:**
+
 ```
 ╭─ Worktree Setup ────────────────────────────────────╮
 │ Project: aiterm                                     │
@@ -84,6 +86,7 @@ Creates a worktree for an existing or new branch:
 ```
 
 **What it does:**
+
 ```bash
 project=$(basename $(git rev-parse --show-toplevel))
 branch=$1
@@ -112,6 +115,7 @@ echo "✅ Worktree ready at ~/.git-worktrees/$project/$folder_name"
 ```
 
 **Output:**
+
 ```
 ╭─ Create Worktree ───────────────────────────────────╮
 │ Branch: feature/new-ui                              │
@@ -141,6 +145,7 @@ echo "✅ Worktree ready at ~/.git-worktrees/$project/$folder_name"
 **Use case:** You're working on a feature in the main folder but want to move it to a worktree so main folder can stay on `main` branch.
 
 **What it does:**
+
 ```bash
 project=$(basename $(git rev-parse --show-toplevel))
 current_branch=$(git branch --show-current)
@@ -177,6 +182,7 @@ echo "✅ Branch moved to worktree!"
 ```
 
 **Output:**
+
 ```
 ╭─ Move Branch to Worktree ───────────────────────────╮
 │ Branch: feat/mission-control-hud                    │
@@ -220,6 +226,7 @@ echo "✅ Branch moved to worktree!"
 ```
 
 **What it does:**
+
 ```bash
 git worktree list --porcelain | while read line; do
     # Parse and display nicely
@@ -227,6 +234,7 @@ done
 ```
 
 **Output:**
+
 ```
 ╭─ Git Worktrees ─────────────────────────────────────╮
 │ Project: scribe                                     │
@@ -261,6 +269,7 @@ Safely removes worktrees for branches that have been merged:
 ```
 
 **What it does:**
+
 ```bash
 # Find merged branches
 merged=$(git branch --merged main | grep -v "main\|master\|\*")
@@ -279,6 +288,7 @@ git worktree prune
 ```
 
 **Output:**
+
 ```
 ╭─ Clean Worktrees ───────────────────────────────────╮
 │ Scanning for merged branches with worktrees...      │
@@ -309,6 +319,7 @@ Install dependencies for the current worktree based on project type:
 ```
 
 **Auto-detection:**
+
 | Project Type | Detection | Install Command |
 |--------------|-----------|-----------------|
 | Node.js | `package.json` | `npm install` |
@@ -328,6 +339,7 @@ Install dependencies for the current worktree based on project type:
 ```
 
 **Use case:** You've completed work on a feature in a worktree and want to:
+
 1. Verify tests pass
 2. Document the changes
 3. Create a PR for review
@@ -402,6 +414,7 @@ gh pr create \
 ```
 
 **Output:**
+
 ```
 ╭─ Finish Feature ────────────────────────────────────╮
 │ Branch: feat/user-auth                              │
@@ -442,6 +455,7 @@ gh pr create \
 ```
 
 **Flags (optional):**
+
 ```bash
 /craft:git:worktree finish --skip-tests    # Skip test step
 /craft:git:worktree finish --draft         # Create draft PR
@@ -461,6 +475,7 @@ The `finish` action uses Claude to generate:
    - Screenshots (if applicable)
 
 **Example PR Body Generated:**
+
 ```markdown
 ## Summary
 Adds JWT-based user authentication with login, logout, and session management.
@@ -500,6 +515,7 @@ alias scribe-alt='cd ~/.git-worktrees/scribe/wonderful-wilson'
 ## Best Practices
 
 ### DO
+
 - Keep worktrees outside project folder (`~/.git-worktrees/`)
 - Use consistent naming (`project/branch-name`)
 - Install deps after creating worktree
@@ -507,6 +523,7 @@ alias scribe-alt='cd ~/.git-worktrees/scribe/wonderful-wilson'
 - Use different ports for dev servers (`PORT=3001 npm run dev`)
 
 ### DON'T
+
 - Create worktrees inside the project folder
 - Switch branches within a worktree (defeats the purpose!)
 - Forget to install dependencies
@@ -536,17 +553,20 @@ Need to work on something else?
 ## Integration
 
 **Related commands:**
+
 - `/craft:check` - Now detects worktree context
 - `/craft:git:sync` - Works in worktrees too
 - `/craft:git:clean` - Cleans branches (not worktrees)
 - `/craft:git:feature` - Feature branch workflow (start/promote/release)
 
 **aiterm integration:**
+
 - `ait sessions` - Tracks sessions per worktree
 - `ait detect` - Identifies worktree context
 - `ait feature status` - Rich pipeline visualization
 
 **Workflow summary:**
+
 ```
 /craft:git:worktree create feat/my-feature   # Start
         ↓

@@ -83,13 +83,14 @@ You are a git status assistant with teaching mode awareness.
 ## Purpose
 
 Provide clear, actionable git status information:
+
 - Show current branch and tracking status
 - Highlight uncommitted changes
 - Teaching mode: Show draft vs production diff
 - Teaching mode: Highlight critical files (syllabus, schedule, assignments)
 - Format in ADHD-friendly boxes with visual hierarchy
 
-## When invoked:
+## When invoked
 
 ### Step 1: Basic Git Status Check
 
@@ -228,11 +229,13 @@ deleted=$(git status --short | grep '^ D' | wc -l)
 ### Step 5: Handle Arguments
 
 **If --verbose:**
+
 - Show teaching context (if applicable)
 - Add separator
 - Show full `git status` output below
 
 **If --compact:**
+
 - Teaching mode: Only show teaching context box
 - Standard mode: Only show summary line
 

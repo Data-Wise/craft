@@ -30,6 +30,7 @@ git branch --show-current  # Should show: feature/orch-flag-v2.5.1-improvements
 **File:** `utils/orch_flag_handler.py`
 
 **Current (stub):**
+
 ```python
 def prompt_user_for_mode():
     """Prompt user to select orchestration mode"""
@@ -38,6 +39,7 @@ def prompt_user_for_mode():
 ```
 
 **Replace with:**
+
 ```python
 def prompt_user_for_mode() -> str:
     """
@@ -71,6 +73,7 @@ def prompt_user_for_mode() -> str:
 ```
 
 **Documentation Comment:**
+
 ```python
 # NOTE: Interactive mode prompts work only when invoked by Claude Code
 # with access to AskUserQuestion tool. When called programmatically
@@ -86,6 +89,7 @@ def prompt_user_for_mode() -> str:
 ```
 
 **Why This Approach:**
+
 - `AskUserQuestion` is a Claude Code tool, not a Python function we can import
 - The tool is invoked by Claude during execution, not by Python code
 - We document the expected behavior for Claude to implement
@@ -96,6 +100,7 @@ def prompt_user_for_mode() -> str:
 **File:** `utils/orch_flag_handler.py`
 
 **Current:**
+
 ```python
 def spawn_orchestrator(task: str, mode: str, extra_args: str = ""):
     """Spawn orchestrator with specified mode"""
@@ -105,6 +110,7 @@ def spawn_orchestrator(task: str, mode: str, extra_args: str = ""):
 ```
 
 **Update to:**
+
 ```python
 def spawn_orchestrator(task: str, mode: str, extra_args: str = "") -> bool:
     """
@@ -142,6 +148,7 @@ def spawn_orchestrator(task: str, mode: str, extra_args: str = "") -> bool:
 ```
 
 **Add Helper Function:**
+
 ```python
 def handle_orchestrator_failure(task: str, error: str) -> None:
     """
@@ -166,11 +173,13 @@ def handle_orchestrator_failure(task: str, error: str) -> None:
 #### Step 1.3: Update Type Hints and Docstrings
 
 **Add to top of file:**
+
 ```python
 from typing import Optional, Tuple, Dict, Any, Union
 ```
 
 **Update function signatures:**
+
 ```python
 def handle_orch_flag(
     task: str,
@@ -199,6 +208,7 @@ def show_orchestration_preview(
 **File:** `tests/test_orch_flag_handler.py`
 
 **Add at end of file:**
+
 ```python
 # ============================================================================
 # Mode Prompt Tests (v2.5.1)
@@ -259,6 +269,7 @@ def test_handle_orchestrator_failure_displays_message(capsys):
 #### Step 2.2: Update Existing Tests
 
 **Check that all existing tests still pass:**
+
 ```bash
 cd ~/.git-worktrees/craft/feature-orch-flag-v2.5.1-improvements
 PYTHONPATH=. pytest tests/test_orch_flag_handler.py -v
@@ -285,12 +296,14 @@ PYTHONPATH=. pytest tests/test_orch_flag_handler.py -v
 ```
 
 **Before:**
+
 ```markdown
 | `docs/VERSION-HISTORY.md` | Complete version evolution (NEW) |
 | `docs/guide/complexity-scoring-algorithm.md` | Complexity algorithm guide (NEW) |
 ```
 
 **After:**
+
 ```markdown
 | `docs/VERSION-HISTORY.md` | Complete version evolution (NEW) |
 | `docs/guide/complexity-scoring-algorithm.md` | Complexity algorithm guide (NEW) |
@@ -428,12 +441,14 @@ PYTHONPATH=. pytest tests/test_orch_flag_handler.py -v
 Before marking as complete:
 
 ### Code Quality
+
 - [ ] All functions have type hints
 - [ ] All functions have docstrings
 - [ ] Error handling is comprehensive
 - [ ] No breaking changes to existing API
 
 ### Testing
+
 - [ ] All unit tests pass (24/24)
 - [ ] All integration tests pass (21/21)
 - [ ] All E2E tests pass (17/17)
@@ -441,6 +456,7 @@ Before marking as complete:
 - [ ] Test coverage ≥ 95% for modified functions
 
 ### Documentation
+
 - [ ] CLAUDE.md updated with orch guide link
 - [ ] orch-flag-usage.md has troubleshooting section
 - [ ] VERSION-HISTORY.md has v2.5.1 entry
@@ -448,6 +464,7 @@ Before marking as complete:
 - [ ] All internal links working
 
 ### Git Workflow
+
 - [ ] All changes committed with conventional commits
 - [ ] Commit messages follow pattern: `feat:`, `fix:`, `docs:`, `test:`
 - [ ] No stray files or uncommitted changes

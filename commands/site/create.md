@@ -5,6 +5,7 @@ You are an ADHD-friendly documentation site creator. One command to go from zero
 ## Purpose
 
 **The "zero to deployed" solution for documentation sites:**
+
 - Detects project type and recommends framework
 - Applies consistent design through presets
 - Creates starter content with proper templates
@@ -35,6 +36,7 @@ git remote get-url origin 2>/dev/null
 ```
 
 **Display:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ /craft:site:create                                          │
@@ -323,16 +325,19 @@ Per [Material for MkDocs documentation](https://squidfunk.github.io/mkdocs-mater
 **No `extra_javascript` needed!** The configuration above is complete.
 
 **Why no CDN?**
+
 - Material for MkDocs integrates Mermaid natively
 - Adding a CDN manually causes double initialization
 - Can create version conflicts and theme styling issues
 - Native integration "works with instant loading" automatically
 
 **Only add `extra_javascript` if:**
+
 - You need custom Mermaid configuration (ELK layouts, etc.)
 - Using a non-Material theme
 
 **For custom config** (advanced users only):
+
 ```yaml
 extra_javascript:
   - javascripts/mermaid-config.js
@@ -461,6 +466,7 @@ features:
 - [GitHub]({REPO_URL})
 - [PyPI]({PYPI_URL})
 - [Changelog](CHANGELOG.md)
+
 ```
 
 ### QUICK-START.md Template
@@ -503,6 +509,7 @@ Get up and running in 30 seconds.
 ```
 
 Expected output:
+
 ```
 {EXPECTED_OUTPUT}
 ```
@@ -512,6 +519,7 @@ Expected output:
 - [Full Guide](guide/overview.md) - Complete documentation
 - [Reference Card](REFCARD.md) - Quick command reference
 - [Configuration](reference/configuration.md) - Customize your setup
+
 ```
 
 ### REFCARD.md Template
@@ -520,12 +528,14 @@ Expected output:
 # Quick Reference
 
 ```
+
 ┌─────────────────────────────────────────────────────────────┐
 │  {PROJECT_NAME} QUICK REFERENCE                             │
 ├─────────────────────────────────────────────────────────────┤
 │  Version: {VERSION}                                         │
 │  Docs: {DOCS_URL}                                           │
 └─────────────────────────────────────────────────────────────┘
+
 ```
 
 ## Essential Commands
@@ -570,11 +580,13 @@ Expected output:
 
 - [Full Documentation](guide/overview.md)
 - [GitHub Issues]({REPO_URL}/issues)
+
 ```
 
 ## Files Created
 
 ```
+
 project/
 ├── mkdocs.yml                 # Site configuration
 ├── .craft/
@@ -598,11 +610,13 @@ project/
 │   └── workflows/
 │       └── docs.yml           # Deployment workflow
 └── requirements-docs.txt      # MkDocs dependencies
+
 ```
 
 ## Output
 
 ```
+
 ┌─────────────────────────────────────────────────────────────┐
 │ ✅ DOCUMENTATION SITE CREATED                               │
 ├─────────────────────────────────────────────────────────────┤
@@ -631,6 +645,7 @@ project/
 │   → Run mkdocs serve to preview                             │
 │   → Push to GitHub to auto-deploy                           │
 └─────────────────────────────────────────────────────────────┘
+
 ```
 
 ## Mermaid Diagram Best Practices
@@ -645,6 +660,7 @@ Per [official Mermaid documentation](https://mermaid.js.org/syntax/flowchart.htm
 flowchart TD
     A[Getting Started<br/>7 steps]    ❌ Manual line breaks
 ```
+
 ```
 
 **✅ Recommended:**
@@ -654,6 +670,7 @@ flowchart TD
     A["`**Getting Started**
     7 steps · 10 minutes`"]           ✅ Auto-wraps, supports **bold**
 ```
+
 ```
 
 **Benefits:**
@@ -681,6 +698,7 @@ Skips all prompts and uses detected/default values:
 ```
 
 Defaults:
+
 - Preset: `data-wise`
 - Name: from project config
 - Tagline: from project config
@@ -693,6 +711,7 @@ This command is **Phase 1** of the site command redesign.
 **Replaces:** `/craft:site:init` (which remains for basic init only)
 
 **Related commands:**
+
 - `/craft:site:update` - Update content from code changes
 - `/craft:site:status` - Dashboard and health check
 - `/craft:site:theme` - Quick theme changes

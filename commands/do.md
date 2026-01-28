@@ -210,6 +210,7 @@ If agent delegation fails or is denied:
 ## Examples
 
 ### Feature Development
+
 ```bash
 /craft:do add user authentication
 
@@ -220,6 +221,7 @@ If agent delegation fails or is denied:
 ```
 
 ### Bug Fixing
+
 ```bash
 /craft:do fix the login redirect issue
 
@@ -230,6 +232,7 @@ If agent delegation fails or is denied:
 ```
 
 ### Code Quality
+
 ```bash
 /craft:do improve code quality
 
@@ -240,6 +243,7 @@ If agent delegation fails or is denied:
 ```
 
 ### Documentation
+
 ```bash
 /craft:do update documentation
 
@@ -250,6 +254,7 @@ If agent delegation fails or is denied:
 ```
 
 ### Release Preparation
+
 ```bash
 /craft:do prepare for release
 
@@ -264,6 +269,7 @@ If agent delegation fails or is denied:
 ## Examples with --orch Flag (NEW in v2.5.0)
 
 ### Quick Orchestration
+
 ```bash
 /craft:do "add user authentication" --orch=optimize
 
@@ -276,6 +282,7 @@ Executing: /craft:orchestrate 'add user authentication' optimize
 ```
 
 ### Mode Selection Prompt
+
 ```bash
 /craft:do "add payment" --orch
 
@@ -292,6 +299,7 @@ Available modes:
 ```
 
 ### Preview Orchestration
+
 ```bash
 /craft:do "refactor auth" --orch=release --dry-run
 
@@ -309,6 +317,7 @@ Available modes:
 ```
 
 ### Orchestrate Complex Task
+
 ```bash
 /craft:do "redesign database layer with migrations and tests" --orch=release
 
@@ -437,6 +446,7 @@ When complexity score ≥ 4, `/craft:do` delegates to specialized agents:
 ## Integration
 
 Works with all craft commands and skills:
+
 - Routes to appropriate category commands
 - Uses skills for specialized analysis
 - Chains commands for complex workflows

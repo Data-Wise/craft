@@ -134,6 +134,7 @@ Activates **Orchestrator v2.1** mode which:
 ## Examples
 
 ### Start Orchestrated Workflow
+
 ```bash
 /craft:orchestrate "add user authentication with OAuth"
 
@@ -157,6 +158,7 @@ Spawning agents...
 ```
 
 ### Fast Parallel Mode
+
 ```bash
 /craft:orchestrate "add tests for all endpoints" optimize
 
@@ -172,6 +174,7 @@ Spawning 4 test agents in parallel...
 ```
 
 ### Check Status
+
 ```bash
 /craft:orchestrate status
 
@@ -188,6 +191,7 @@ Spawning 4 test agents in parallel...
 ```
 
 ### View Timeline (NEW)
+
 ```bash
 /craft:orchestrate timeline
 
@@ -205,6 +209,7 @@ code-2   ░░░░░░░░██████░░░░░░░░░ �
 ```
 
 ### Context Budget (NEW)
+
 ```bash
 /craft:orchestrate budget
 
@@ -221,6 +226,7 @@ Status: 🟢 Healthy (< 50%)
 ```
 
 ### Force Compression
+
 ```bash
 /craft:orchestrate compress
 
@@ -238,6 +244,7 @@ Status: 🟢 Healthy (< 50%)
 ```
 
 ### Resume Previous Session (NEW)
+
 ```bash
 /craft:orchestrate continue
 
@@ -258,6 +265,7 @@ Resuming...
 ```
 
 ### Abort All Agents
+
 ```bash
 /craft:orchestrate abort
 
@@ -327,6 +335,7 @@ Sessions persist across disconnects:
 ### Auto-Save Events
 
 State is automatically saved on:
+
 - Task analysis completion
 - Agent start/complete/fail
 - Decision checkpoints
@@ -345,6 +354,7 @@ The orchestrator tracks context usage with heuristics:
 | > 85% | 🔴 Auto-compress triggered |
 
 ### Automatic Triggers
+
 - Exchange count > 20
 - Large agent response (> 3000 tokens)
 - Claude system warning about context
@@ -361,6 +371,7 @@ The orchestrator can coordinate complex brainstorming workflows using `/brainsto
 ```
 
 The orchestrator will:
+
 1. Launch `/brainstorm d:8 "authentication" -C req,users,scope,success` for context
 2. Spawn `backend-architect` agent to design auth flow
 3. Spawn `frontend-specialist` agent for login UI design
@@ -393,6 +404,7 @@ The orchestrator will:
 ## Integration
 
 Works with all craft commands:
+
 - Routes to `/craft:arch:*` for design tasks
 - Routes to `/craft:code:*` for implementation
 - Routes to `/craft:test:*` for testing

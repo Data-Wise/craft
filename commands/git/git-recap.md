@@ -20,6 +20,7 @@ You are a git activity assistant. Provide quick overview of recent git activity.
 ## Purpose
 
 Quick git status check complementing `/recap`:
+
 - Recent commits (today/week)
 - Branch status
 - Unpushed commits
@@ -87,7 +88,7 @@ Preview git commands that will be executed to gather activity data:
 
 **Note**: This is a read-only command, so dry-run shows what will be analyzed without modifying any git state.
 
-## When invoked:
+## When invoked
 
 ### Step 1: Gather Git Information
 
@@ -157,6 +158,7 @@ git stash list
 Based on status, suggest next steps:
 
 **If unpushed commits:**
+
 ```
 💡 SUGGESTED ACTIONS:
 • Push commits: git push origin feature-auth
@@ -164,6 +166,7 @@ Based on status, suggest next steps:
 ```
 
 **If working directory dirty:**
+
 ```
 💡 SUGGESTED ACTIONS:
 • Commit changes: /commit
@@ -171,6 +174,7 @@ Based on status, suggest next steps:
 ```
 
 **If branch is behind remote:**
+
 ```
 💡 SUGGESTED ACTIONS:
 • Pull updates: git pull
@@ -178,6 +182,7 @@ Based on status, suggest next steps:
 ```
 
 **If on main with unpushed:**
+
 ```
 ⚠️ WARNING: You have unpushed commits on main
 💡 Consider creating a feature branch
@@ -188,6 +193,7 @@ Based on status, suggest next steps:
 ### Quick Mode (Default)
 
 Shows:
+
 - Current branch
 - Today's commits (if any)
 - Unpushed commits
@@ -196,6 +202,7 @@ Shows:
 ### Detailed Mode (`/git-recap --detailed`)
 
 Additional info:
+
 - This week's commits
 - Commit breakdown by type
 - Stashes
@@ -204,6 +211,7 @@ Additional info:
 ### Summary Mode (`/git-recap --summary`)
 
 One-line summary:
+
 ```
 📊 feature-auth | 3 commits today | 2 unpushed | 1 PR open
 ```
@@ -213,6 +221,7 @@ One-line summary:
 ### Productivity Insights
 
 **Active day:**
+
 ```
 🔥 PRODUCTIVE DAY!
 15 commits today - that's above your average (8/day)
@@ -224,6 +233,7 @@ Top activity:
 ```
 
 **Quiet period:**
+
 ```
 💤 No commits in 3 days
 
@@ -236,6 +246,7 @@ Last commit: feat: add user profile
 ### Warning Flags
 
 **Uncommitted changes:**
+
 ```
 ⚠️ You have uncommitted changes
 
@@ -246,6 +257,7 @@ Last commit: feat: add user profile
 ```
 
 **Diverged branches:**
+
 ```
 ⚠️ Your branch has diverged from origin
 
@@ -256,6 +268,7 @@ Remote: 1 commit ahead
 ```
 
 **Large PR:**
+
 ```
 ℹ️ PR #42 has 450+ lines changed
 
@@ -265,18 +278,21 @@ Consider splitting into smaller PRs for easier review.
 ## Integration Points
 
 ### With /recap
+
 ```
 /recap        → Overall context (project + git)
 /git-recap    → Git-specific detail
 ```
 
 Use together for complete picture:
+
 ```
 /recap        # Where was I in the project?
 /git-recap    # What did I commit?
 ```
 
 ### With /commit
+
 ```
 /git-recap    → See recent commits
 /commit       → Add new commit
@@ -284,6 +300,7 @@ Use together for complete picture:
 ```
 
 ### With /sync
+
 ```
 /git-recap    → Check if behind remote
 /sync         → Pull and merge
@@ -293,6 +310,7 @@ Use together for complete picture:
 ## Statistics Tracking
 
 **Commit patterns:**
+
 ```
 📊 YOUR GIT STATS (Last 30 days)
 
@@ -318,6 +336,7 @@ Peak hours: 9-11am, 2-4pm
 Based on output, offer shortcuts:
 
 **If unpushed:**
+
 ```
 Quick actions:
 p - Push commits
@@ -326,6 +345,7 @@ c - Commit more changes
 ```
 
 **If clean:**
+
 ```
 ✅ All committed and pushed!
 
@@ -337,6 +357,7 @@ b - Create new branch (/branch new)
 ## Examples
 
 ### Morning Check-in
+
 ```
 User: /git-recap
 
@@ -351,6 +372,7 @@ AI:
 ```
 
 ### Mid-Session
+
 ```
 User: /git-recap
 
@@ -365,6 +387,7 @@ AI:
 ```
 
 ### End of Day
+
 ```
 User: /git-recap
 
@@ -398,12 +421,14 @@ AI:
 **Daily goal:** Start EVERY work session with `/git-recap`
 
 **Why it matters:**
+
 - Shows what you did yesterday (ADHD memory aid!)
 - Catches issues early (uncommitted changes, etc.)
 - Builds git awareness
 - Takes only 5 seconds
 
 **How to practice:**
+
 ```bash
 # Every morning before starting work:
 /git-recap    # What happened yesterday?
@@ -425,12 +450,14 @@ A: Read them and follow the suggestions. They're helpful, not scolding.
 ### Building the Habit
 
 **Triggers to remember /git-recap:**
+
 - Opening laptop in morning → `/git-recap`
 - Before starting work → `/git-recap`
 - After /sync → `/git-recap` (to see what changed)
 
 **Physical reminder:**
 Update your post-it note:
+
 ```
 MORNING = /git-recap
 STOP = /done
@@ -439,6 +466,7 @@ STOP = /done
 ### Integration with Week 1
 
 **New morning routine:**
+
 ```bash
 /git-recap    # NEW: What happened yesterday?
 /sync         # (You'll learn this in Week 4)
@@ -446,6 +474,7 @@ STOP = /done
 ```
 
 **Still using /done:**
+
 ```bash
 [work]
 /done         # Keep doing this from Week 1!
@@ -454,11 +483,13 @@ STOP = /done
 ### Progress Tracking
 
 See your learning progress:
+
 ```bash
 /git learn    # View 4-week path
 ```
 
 Quick reference:
+
 ```bash
 cat ~/.claude/commands/GIT-REFCARD.md
 ```
@@ -466,6 +497,7 @@ cat ~/.claude/commands/GIT-REFCARD.md
 ### Next Steps
 
 Once you check `/git-recap` every morning (end of Week 2):
+
 - **Week 3:** Add `/commit` during work sessions
 - Keep using `/done` from Week 1
 - Read full guide: `~/.claude/commands/GIT-LEARNING-GUIDE.md`

@@ -76,6 +76,7 @@ Analyze every documentation file:
 | In Nav | Listed in mkdocs.yml? |
 
 **Status codes:**
+
 - ✅ **Current** - Good, no issues
 - ✏️ **Edit** - Minor fixes needed
 - 🔄 **Revise** - Major rewrite needed
@@ -161,6 +162,7 @@ grep -r "TODO\|FIXME\|XXX" docs/ --include="*.md"
 Find overlapping content:
 
 **Detection methods:**
+
 1. Similar filenames (troubleshooting.md, TROUBLESHOOTING.md)
 2. Similar headings across files
 3. Similar content blocks (fuzzy match)
@@ -200,6 +202,7 @@ Find overlapping content:
 Identify missing documentation:
 
 **Check for:**
+
 1. Commands without docs
 2. Features without guides
 3. Config options without reference
@@ -273,6 +276,7 @@ Always end with:
 ## Integration
 
 **Part of site command family:**
+
 - `/craft:site:nav` - Reorganize navigation
 - `/craft:site:audit` - Content inventory ← this command
 - `/craft:site:consolidate` - Merge duplicates
@@ -280,6 +284,7 @@ Always end with:
 - `/craft:site:deploy` - Deploy to GitHub Pages
 
 **Uses:**
+
 - AskUserQuestion for mode selection
 - Read/Glob for file analysis
 - Grep for content scanning

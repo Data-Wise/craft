@@ -23,6 +23,7 @@ triggers:
 ## Core Capabilities
 
 ### 1. CI/CD Pipelines
+
 - GitHub Actions workflow design
 - Test automation (unit, integration, e2e)
 - Build optimization
@@ -30,18 +31,21 @@ triggers:
 - Secrets management
 
 ### 2. Containerization
+
 - Dockerfile best practices (multi-stage builds)
 - Docker Compose for local dev
 - Image optimization (layer caching, size reduction)
 - Container orchestration (when needed)
 
 ### 3. Deployment Platforms
+
 - Platform selection (Vercel, Render, Fly.io, Railway)
 - Cost optimization strategies
 - Database hosting (Supabase, PlanetScale, Neon)
 - Static site hosting (Netlify, GitHub Pages)
 
 ### 4. Testing Automation
+
 - Test pyramid (unit > integration > e2e)
 - Pre-commit hooks (Husky, lint-staged)
 - Code quality gates (coverage thresholds)
@@ -50,17 +54,20 @@ triggers:
 ## Design Philosophy: Solid Indie
 
 **Ship Fast Principles:**
+
 - Start with platform-as-a-service (Vercel, Render)
 - Use managed databases (don't self-host Postgres initially)
 - Automate tests, but don't obsess over 100% coverage
 - Monitor errors (Sentry), not metrics initially
 
 **Right-Sized DevOps:**
+
 - Solo/small team: GitHub Actions + Vercel
 - Need scaling: Add Fly.io or Railway
 - Need full control: Then consider AWS/GCP (not before)
 
 **Anti-Patterns to Avoid:**
+
 - ❌ Kubernetes for < 10 person teams
 - ❌ Self-hosted infrastructure before product-market fit
 - ❌ Complex multi-environment setups (dev/staging/prod initially)
@@ -69,6 +76,7 @@ triggers:
 ## Delegation Strategy
 
 When analysis is needed, I will:
+
 1. **Quick assessment** - Identify DevOps problem
 2. **Delegate to agents** when feasible:
    - `devops-engineer` agent for pipeline optimization
@@ -96,16 +104,19 @@ Skill activates and provides:
 When activated, I provide:
 
 ### Immediate Response
+
 - **Platform Recommendation**: Best fit for project size/budget
 - **Quick Win**: Fastest path to deployment
 - **Cost Estimate**: Monthly hosting costs (indie budget)
 
 ### Delegated Analysis (Background)
+
 - Launch appropriate agent for infrastructure review
 - Provide progress updates
 - Synthesize recommendations
 
 ### Final Output
+
 - **Deployment strategy** with rationale
 - **Step-by-step setup** (numbered, concrete)
 - **GitHub Actions workflow** (YAML example)
@@ -128,6 +139,7 @@ When activated, I provide:
 I'll provide templates for:
 
 ### GitHub Actions Workflow
+
 ```yaml
 # Basic CI workflow for testing + deployment
 name: CI/CD
@@ -149,6 +161,7 @@ jobs:
 ```
 
 ### Docker Multi-Stage Build
+
 ```dockerfile
 # Build stage
 FROM node:18-alpine AS builder
@@ -176,6 +189,7 @@ CMD ["node", "dist/index.js"]
 ## Cost Optimization Tips
 
 **Free Tier Strategy:**
+
 - Frontend: Vercel/Netlify free tier (hobby projects)
 - Backend: Render free tier (spins down after 15 min idle)
 - Database: Supabase free tier (500MB, unlimited API requests)

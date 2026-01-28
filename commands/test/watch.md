@@ -78,5 +78,6 @@ Watching for changes... (Ctrl+C to stop)
 ## Integration
 
 Works with:
+
 - `/craft:test:run` - Manual test runs
 - `/craft:test:debug` - Debug failures

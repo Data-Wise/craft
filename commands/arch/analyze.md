@@ -47,7 +47,9 @@ Analyze codebase architecture patterns, dependencies, and structure.
 ## Mode Behaviors
 
 ### Default Mode (< 15s)
+
 **Output:**
+
 ```
 ╭─ Architecture Overview ─────────────────────────────╮
 │ Project: aiterm | Type: Python CLI                 │
@@ -60,7 +62,9 @@ Analyze codebase architecture patterns, dependencies, and structure.
 ```
 
 ### Debug Mode (< 120s)
+
 **Output:**
+
 ```
 ╭─ Architecture Analysis (Debug Mode) ────────────────╮
 │ STRUCTURE                                           │
@@ -82,7 +86,9 @@ Analyze codebase architecture patterns, dependencies, and structure.
 ```
 
 ### Optimize Mode (< 180s)
+
 **Output:**
+
 ```
 ╭─ Architecture Analysis (Optimize Mode) ─────────────╮
 │ IMPORT PERFORMANCE                                  │
@@ -102,7 +108,9 @@ Analyze codebase architecture patterns, dependencies, and structure.
 ```
 
 ### Release Mode (< 300s)
+
 **Output:**
+
 ```
 ╭─ Architecture Audit (Release Mode) ─────────────────╮
 │ Status: ⚠ MINOR ISSUES (3)                         │
@@ -131,6 +139,7 @@ Analyze codebase architecture patterns, dependencies, and structure.
 ## Integration
 
 Works with:
+
 - `/craft:arch:plan` - Design planning
 - `/craft:arch:review` - Architecture review
 - `/craft:arch:diagram` - Generate diagrams

@@ -78,6 +78,7 @@ Apply auto-fixes? [y/N]
 ## Integration
 
 Works with:
+
 - `/craft:code:ci-local` - Run CI locally
 - `/craft:test:debug` - Debug failing tests
 - `/craft:code:lint --fix` - Fix lint issues

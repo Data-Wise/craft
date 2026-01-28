@@ -292,6 +292,7 @@ auto_merge: true  # Always auto-merge
 ```
 
 Best for:
+
 - Personal taps
 - Trusted automated releases
 - CI-validated releases
@@ -303,6 +304,7 @@ auto_merge: ${{ github.event_name == 'release' }}
 ```
 
 Best for:
+
 - Manual workflow dispatches need review
 - Releases are pre-validated
 
@@ -313,6 +315,7 @@ auto_merge: false  # Always create PR for review
 ```
 
 Best for:
+
 - Team taps
 - Critical packages
 - Compliance requirements
@@ -328,6 +331,7 @@ on:
 ```
 
 Triggers when:
+
 - New release is published
 - Draft is converted to release
 
@@ -341,6 +345,7 @@ on:
 ```
 
 Triggers when:
+
 - Any tag matching `v*` is pushed
 
 ### Manual Dispatch
@@ -355,6 +360,7 @@ on:
 ```
 
 Triggers when:
+
 - User manually runs workflow
 - Provides version input
 
@@ -396,6 +402,7 @@ on:
 ### Issue: Token doesn't have access
 
 Check token has:
+
 - Correct repository scope (tap repo, not source repo)
 - Contents: Read and write
 - Pull requests: Read and write
@@ -413,6 +420,7 @@ Check token has:
 ### Issue: Auto-merge fails
 
 Ensure:
+
 - Token has PR write permissions
 - No branch protection requiring reviews
 - PR passes any required checks
@@ -443,6 +451,7 @@ Ensure:
 ## Integration
 
 Use with:
+
 - `/craft:dist:homebrew workflow` - Generate caller workflow
 - `/craft:dist:homebrew setup` - Full setup wizard
 - `/craft:dist:homebrew validate` - Pre-release validation

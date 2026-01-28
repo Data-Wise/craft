@@ -15,6 +15,7 @@
 **Size:** 549 lines
 **Functions:** 11 total (7 core + 4 stubs)
 **Features:**
+
 - Multi-strategy installation orchestration
 - Platform detection (macOS/Linux, arm64/x86_64)
 - User consent prompts with skip-all option
@@ -27,6 +28,7 @@
 
 **Size:** 350+ lines
 **Sections:**
+
 - Architecture overview with ASCII diagram
 - Strategy priority explanation
 - Complete function reference
@@ -142,6 +144,7 @@ Installation attempts strategies in this order:
    - Reliability: Medium (depends on GitHub releases)
 
 **Filtering:** Unavailable strategies are automatically removed based on:
+
 - Platform (macOS vs Linux)
 - Available tools (brew, cargo, curl)
 - Architecture (arm64 vs x86_64 for binaries)
@@ -172,6 +175,7 @@ Installation attempts strategies in this order:
 ```
 
 **Options:**
+
 - **Y** (default): Proceed with installation
 - **N**: Skip this tool, continue with others
 - **S**: Set `SKIP_ALL=true`, skip all remaining tools
@@ -190,12 +194,12 @@ while [ $attempt -le $max_attempts ]; do
     if install_strategy_succeeds; then
         return 0
     fi
-    
+
     if [ $attempt -lt $max_attempts ]; then
         echo "Retry attempt $((attempt + 1))..."
         sleep 2
     fi
-    
+
     ((attempt++))
 done
 
@@ -243,12 +247,15 @@ source "$SCRIPT_DIR/session-cache.sh"
 ```
 
 **Uses from dependency-manager.sh:**
+
 - `parse_frontmatter()` - Extract tool specs
 
 **Uses from tool-detector.sh:**
+
 - `detect_tool()` - Verify installation
 
 **Uses from session-cache.sh:**
+
 - Cache invalidation after install
 - Cache storage after verification
 
@@ -263,6 +270,7 @@ source "$SCRIPT_DIR/session-cache.sh"
 ```
 
 **Tests:**
+
 - Parse asciinema tool spec from frontmatter
 - Extract installation strategies
 - Filter by platform availability
@@ -301,6 +309,7 @@ Created comprehensive test scripts:
 | `INSTALL_LOG` | /tmp/craft-install-$$.log | Installation log path |
 
 **Debug mode example:**
+
 ```bash
 DEBUG=1 ./scripts/dependency-installer.sh
 ```
@@ -329,6 +338,7 @@ DEBUG=1 ./scripts/dependency-installer.sh
 - Session end markers
 
 **Example:**
+
 ```
 [2026-01-17 15:00:00] === Starting installation: agg ===
 [2026-01-17 15:00:01] User approved installation of agg
@@ -445,6 +455,7 @@ The `--fix` flag integration enables:
 ```
 
 **Workflow:**
+
 1. Source installation utilities (`dependency-installer.sh`, `consent-prompt.sh`)
 2. Check dependencies for specified method
 3. Extract list of missing tools
@@ -459,6 +470,7 @@ The `--fix` flag integration enables:
 7. Exit with appropriate code
 
 **Exit Codes:**
+
 - `0` - All required dependencies installed or already OK
 - `1` - Some required dependencies still missing
 - `2` - User skipped all installations
@@ -468,12 +480,14 @@ The `--fix` flag integration enables:
 ## Files Created/Updated
 
 ### Phase 2 Wave 1 (Framework)
+
 | File | Size | Purpose |
 |------|------|---------|
 | `scripts/dependency-installer.sh` | 549 lines | Main installer framework |
 | `scripts/INSTALLER-USAGE.md` | 350+ lines | Complete usage guide |
 
 ### Phase 2 Wave 2 (Installers)
+
 | File | Size | Purpose |
 |------|------|---------|
 | `scripts/installers/brew-installer.sh` | 173 lines | Homebrew package installer |
@@ -482,6 +496,7 @@ The `--fix` flag integration enables:
 | `scripts/consent-prompt.sh` | 242 lines | User consent prompts |
 
 ### Phase 2 Wave 3 (Integration)
+
 | File | Size | Purpose |
 |------|------|---------|
 | `commands/docs/demo.md` | Updated | Added --fix flag docs and logic |
@@ -493,6 +508,7 @@ The `--fix` flag integration enables:
 ## Success Metrics
 
 ### Wave 1 (Framework)
+
 ✅ All core functions implemented
 ✅ Platform detection working (macOS, Linux)
 ✅ Strategy prioritization correct (brew → cargo_git → cargo → binary)
@@ -503,6 +519,7 @@ The `--fix` flag integration enables:
 ✅ All integration tests passing
 
 ### Wave 2 (Installers)
+
 ✅ Homebrew installer fully implemented
 ✅ Cargo installer with crates.io and git support
 ✅ Binary installer with architecture templating
@@ -511,6 +528,7 @@ The `--fix` flag integration enables:
 ✅ Production-ready code (~814 lines)
 
 ### Wave 3 (Integration)
+
 ✅ --fix flag documented in demo.md
 ✅ Implementation logic section added
 ✅ Integration test suite created
@@ -523,12 +541,14 @@ The `--fix` flag integration enables:
 ## Timeline
 
 ### Overall Phase 2
+
 - **Wave 1 (Framework):** 2 hours
 - **Wave 2 (Installers):** 4 hours
 - **Wave 3 (Integration):** 1 hour
 - **Total:** 7 hours
 
 ### Breakdown
+
 - **Development:** 5.5 hours
 - **Testing:** 1 hour
 - **Documentation:** 0.5 hours
@@ -548,6 +568,7 @@ Phase 2 auto-installation system is **fully implemented and integrated**:
 **Total Phase 2 Code:** ~1,363 lines of production code
 
 **Next Steps (Phase 3):**
+
 1. Implement actual --fix flag logic in demo.md command handler
 2. Connect installer framework to command invocation
 3. Add --fix to command argument parsing

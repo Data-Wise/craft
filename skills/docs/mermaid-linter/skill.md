@@ -39,28 +39,33 @@ markdown_extensions:
 **⚠️ WARNING: Adding extra_javascript CDN can cause conflicts**
 
 If you have this in your config, **remove it**:
+
 ```yaml
 extra_javascript:
   - https://unpkg.com/mermaid@10/dist/mermaid.min.js  # ❌ NOT NEEDED
 ```
 
 Material for MkDocs handles Mermaid natively. Adding the CDN manually can cause:
+
 - Double initialization
 - Version conflicts
 - Theme styling issues
 
 **Only add extra_javascript if:**
+
 - Using custom Mermaid configuration (ELK layouts, etc.)
 - Need specific Mermaid version for compatibility
 - Using non-Material theme
 
 If custom config is needed, use:
+
 ```yaml
 extra_javascript:
   - javascripts/mermaid-config.js  # Your custom config
 ```
 
 With `javascripts/mermaid-config.js`:
+
 ```javascript
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
 mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' });
@@ -117,10 +122,12 @@ Check for Mermaid overflow CSS in stylesheets:
 Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), check each diagram for valid syntax:
 
 **Diagram Types:**
+
 - **Fully supported by Material theme:** `flowchart`, `sequenceDiagram`, `classDiagram`, `stateDiagram`, `erDiagram`
 - **Work but no theme styling:** `graph`, `gantt`, `pie`, `journey`, `gitGraph`, `mindmap`, `quadrantChart`
 
 **Direction Keywords:**
+
 - `TB` or `TD` - Top to bottom (recommended for mobile)
 - `BT` - Bottom to top
 - `LR` - Left to right (simple linear flows only)
@@ -129,6 +136,7 @@ Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), check
 **Critical Syntax Rules:**
 
 1. **Reserved "end" keyword** - Must capitalize to avoid breaking diagram:
+
    ```mermaid
    flowchart TD
        A[Start] --> B[End]      ✅ Capitalized "End"
@@ -136,6 +144,7 @@ Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), check
    ```
 
 2. **First letter 'o' or 'x'** - Add space or capitalize:
+
    ```mermaid
    flowchart LR
        A --> oNode    ❌ Treated as circle edge
@@ -145,6 +154,7 @@ Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), check
 3. **Prefer `flowchart` over `graph`** - Both work identically, but `flowchart` is clearer intent
 
 4. **All nodes must be connected** - Orphaned nodes cause syntax errors:
+
    ```mermaid
    flowchart TD
        A --> B
@@ -156,6 +166,7 @@ Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), check
 Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), use automatic text wrapping instead of manual line breaks.
 
 **❌ AVOID: Manual `<br/>` tags**
+
 ```mermaid
 flowchart TD
     A[Getting Started<br/>7 steps]    ❌ Manual breaks
@@ -163,6 +174,7 @@ flowchart TD
 ```
 
 **✅ RECOMMENDED: Markdown strings with automatic wrapping**
+
 ```mermaid
 flowchart TD
     A["`**Getting Started**
@@ -171,6 +183,7 @@ flowchart TD
 ```
 
 Markdown string syntax (backticks with quotes):
+
 - Supports **bold**, *italic*, `code`
 - Automatic text wrapping at node width
 - More maintainable than `<br/>` tags
@@ -208,6 +221,7 @@ flowchart LR
 | `flowchart LR` | Simple linear flows (< 5 nodes), system architecture | Complex workflows, parallel processes |
 
 **Why vertical layouts render better:**
+
 - Better spacing on mobile/narrow screens
 - Reduced text overlap in decision diamonds
 - Clearer visualization of parallel processes using subgraphs
@@ -238,6 +252,7 @@ flowchart TD
 ```
 
 **When to use subgraphs (always with TD):**
+
 - Parallel worktree workflows
 - Multi-path decision flows
 - Feature development pipelines
@@ -245,6 +260,7 @@ flowchart TD
 ### 6. Diagram Count Report
 
 Report all mermaid diagrams found:
+
 - Total count per file
 - Diagram types used
 - Files with most diagrams
@@ -309,11 +325,13 @@ Recommendations:
 ## Integration
 
 **Called by:**
+
 - `/craft:site:status --check` - Site health check
 - `/craft:docs:validate` - Documentation validation
 - `/craft:check commit` - Pre-commit checks
 
 **Related:**
+
 - `/craft:site:status` - Quick Mermaid config check
 - `/craft:docs:generate` - Includes Mermaid guidelines
 

@@ -5,6 +5,7 @@ You are a website optimization expert specializing in ADHD-friendly documentatio
 ## Purpose
 
 **One command to make any documentation site ADHD-friendly:**
+
 1. Analyze current ADHD-friendliness score (0-100)
 2. Generate enhancement plan (3 phases)
 3. Execute improvements automatically
@@ -59,6 +60,7 @@ PROJECT_NAME=$(basename $(pwd))
 ```
 
 **Supported Frameworks:**
+
 - MkDocs Material (primary)
 - Quarto (partial support)
 - Sphinx (basic support)
@@ -408,6 +410,7 @@ find docs -name "*.md" -exec grep -l '```mermaid' {} \;
 | Wrong arrow syntax `--->` | Change to `-->` |
 
 **Validation:**
+
 ```bash
 # After fixes, validate with mkdocs
 mkdocs build --strict 2>&1 | grep -i mermaid
@@ -418,6 +421,7 @@ mkdocs build --strict 2>&1 | grep -i mermaid
 #### 3.2: Add TL;DR Boxes
 
 **Template:**
+
 ```markdown
 > **TL;DR** (30 seconds)
 > - **What:** [One sentence description]
@@ -427,6 +431,7 @@ mkdocs build --strict 2>&1 | grep -i mermaid
 ```
 
 **Target Pages:**
+
 - All pages in `docs/guide/`
 - All pages in `docs/tutorials/`
 - `docs/index.md` (homepage)
@@ -435,6 +440,7 @@ mkdocs build --strict 2>&1 | grep -i mermaid
 - `docs/REFCARD.md`
 
 **Insertion Logic:**
+
 ```python
 def add_tldr_box(file_path, page_type):
     content = read_file(file_path)
@@ -477,15 +483,18 @@ def add_tldr_box(file_path, page_type):
 #### 3.3: Add Time Estimates
 
 **Template:**
+
 ```markdown
 ⏱️ **10 minutes** • 🟢 Beginner • ✓ 7 steps
 ```
 
 **Target Pages:**
+
 - All tutorial pages
 - All guide pages with step-by-step instructions
 
 **Insertion Logic:**
+
 ```python
 def add_time_estimate(file_path):
     content = read_file(file_path)
@@ -528,6 +537,7 @@ def add_time_estimate(file_path):
 **Location:** `docs/ADHD-QUICK-START.md`
 
 **Template:**
+
 ```markdown
 # ADHD Quick Start
 
@@ -577,6 +587,7 @@ Ready for more? Your site will include:
 - Quick Reference Card (command cheat sheet)
 - Interactive Tutorials (step-by-step learning)
 - Visual Workflows (diagram-based guides)
+
 ```
 
 **Generation Logic:**
@@ -688,11 +699,13 @@ Show comprehensive report:
 ## Integration
 
 **Works with existing craft commands:**
+
 - `/craft:docs:update` - Can call `--website-mode` for enhancements
 - `/craft:site:status` - Shows ADHD score in output
 - `/craft:docs:check` - Validates website enhancements
 
 **Uses these internal functions:**
+
 - `detect_site_type()` - From existing site commands
 - `count_files()` - From existing analysis tools
 - `validate_markdown()` - From existing validation

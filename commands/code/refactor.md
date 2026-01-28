@@ -5,6 +5,7 @@ Improve code structure without changing behavior.
 ## Purpose
 
 Support refactoring efforts:
+
 - Improve code readability
 - Reduce duplication (DRY)
 - Enhance maintainability
@@ -67,6 +68,7 @@ Support refactoring efforts:
 ```
 
 **After:**
+
 ```r
 [Refactored code]
 ```
@@ -74,17 +76,21 @@ Support refactoring efforts:
 **Rationale:** [Why this improves the code]
 
 #### Change 2: [Name]
+
 [Same structure]
 
 ### Implementation Order
+
 1. [First change - safest]
 2. [Second change]
 3. [Continue...]
 
 ### Risk Assessment
+
 - **Breaking changes**: [None/List]
 - **Performance impact**: [None/Describe]
 - **Test updates needed**: [Yes/No]
+
 ```
 
 ## Common Refactorings
@@ -106,6 +112,7 @@ process_data <- function(data) {
 ```
 
 ### Rename for Clarity
+
 ```r
 # Before
 x <- calc(d, n)
@@ -115,6 +122,7 @@ mean_score <- calculate_mean(data, sample_size)
 ```
 
 ### Simplify Conditionals
+
 ```r
 # Before
 if (x == TRUE) { } else if (x == FALSE) { }
@@ -124,6 +132,7 @@ if (x) { } else { }
 ```
 
 ### Remove Duplication
+
 ```r
 # Before: Same code in multiple places
 # After: Single function called from multiple places

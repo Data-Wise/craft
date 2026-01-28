@@ -14,24 +14,28 @@ Expert in managing craft plugin execution modes for different use cases.
 ## When to Use Each Mode
 
 ### Default Mode
+
 - Quick code checks
 - Simple lookups
 - Status queries
 - Day-to-day operations
 
 ### Debug Mode
+
 - Investigating errors
 - Tracing execution
 - Understanding behavior
 - Finding root causes
 
 ### Optimize Mode
+
 - Performance profiling
 - Identifying bottlenecks
 - Memory analysis
 - Speed improvements
 
 ### Release Mode
+
 - Pre-deployment validation
 - Complete test suites
 - Documentation checks
@@ -85,6 +89,7 @@ Else → default mode
 ## Integration
 
 This skill is automatically activated when:
+
 - User includes mode keyword (debug, optimize, release)
 - Context suggests specific mode
 - Command supports mode parameter
@@ -101,11 +106,13 @@ This skill is automatically activated when:
 ## Output Format by Mode
 
 ### Default
+
 ```
 ✓ Lint passed (3 files checked)
 ```
 
 ### Debug
+
 ```
 ╭─ Lint Results (Debug Mode) ─────────────────────────╮
 │ Files: 3                                            │
@@ -121,6 +128,7 @@ This skill is automatically activated when:
 ```
 
 ### Optimize
+
 ```
 ╭─ Lint Results (Optimize Mode) ──────────────────────╮
 │ Performance Impact:                                 │
@@ -133,6 +141,7 @@ This skill is automatically activated when:
 ```
 
 ### Release
+
 ```
 ╭─ Lint Results (Release Mode) ───────────────────────╮
 │ Status: READY FOR RELEASE                          │

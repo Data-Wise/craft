@@ -18,6 +18,7 @@ Expert in selecting and prioritizing distribution channels for software projects
 ## Role
 
 Analyze project characteristics and recommend the most effective distribution strategy, considering:
+
 - Project type (CLI, library, app, service)
 - Target audience (developers, end-users, enterprises)
 - Platform requirements (cross-platform, OS-specific)
@@ -103,6 +104,7 @@ Analyze project characteristics and recommend the most effective distribution st
 ## Decision Framework
 
 ### When to use Homebrew
+
 ✅ macOS is primary or significant platform
 ✅ CLI tool with few dependencies
 ✅ Want professional distribution feel
@@ -113,6 +115,7 @@ Analyze project characteristics and recommend the most effective distribution st
 ❌ Rapidly changing (< weekly releases)
 
 ### When to use PyPI/npm/cargo
+
 ✅ Library or SDK
 ✅ Language ecosystem alignment
 ✅ Dependency management matters
@@ -123,6 +126,7 @@ Analyze project characteristics and recommend the most effective distribution st
 ❌ Offline installation required
 
 ### When to use curl script
+
 ✅ Maximum compatibility
 ✅ Single binary distribution
 ✅ Custom installation logic needed
@@ -133,6 +137,7 @@ Analyze project characteristics and recommend the most effective distribution st
 ❌ Need package manager updates
 
 ### When to use Docker
+
 ✅ Service or daemon
 ✅ Complex runtime dependencies
 ✅ Need isolation
@@ -145,6 +150,7 @@ Analyze project characteristics and recommend the most effective distribution st
 ## Example Recommendations
 
 ### Python CLI Tool (like aiterm)
+
 ```
 Primary:   PyPI (pip install)
 Secondary: Homebrew (brew install)
@@ -157,6 +163,7 @@ Reasoning:
 ```
 
 ### Rust CLI Tool
+
 ```
 Primary:   cargo install
 Secondary: Homebrew
@@ -169,6 +176,7 @@ Reasoning:
 ```
 
 ### Node.js Library
+
 ```
 Primary:   npm (npm install)
 Secondary: GitHub packages
@@ -183,6 +191,7 @@ Reasoning:
 ## Integration
 
 Use with:
+
 - `/craft:dist:homebrew` - Generate Homebrew formula
 - `/craft:dist:curl-install` - Generate install script
 - `/craft:check --for release` - Pre-release validation

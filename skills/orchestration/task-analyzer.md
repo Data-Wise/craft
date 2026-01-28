@@ -5,6 +5,7 @@ Expert in analyzing natural language task descriptions and routing to appropriat
 ## When to Use
 
 This skill is automatically activated when:
+
 - User invokes `/craft:do <task>`
 - User describes a development task
 - Context suggests multi-step workflow needed
@@ -80,6 +81,7 @@ Determines task complexity for mode selection:
 ## Output Format
 
 ### Analysis Report
+
 ```
 ╭─ Task Analysis ─────────────────────────────────────╮
 │ Input: "add user authentication"                   │
@@ -99,6 +101,7 @@ Determines task complexity for mode selection:
 ## Integration
 
 Works with:
+
 - `/craft:do` - Primary entry point
 - `/craft:check` - Validation after workflows
 - All category commands (code, test, arch, etc.)
@@ -107,6 +110,7 @@ Works with:
 ## Example Analyses
 
 ### Simple Task
+
 ```
 Input: "fix typo in readme"
 Analysis:
@@ -117,6 +121,7 @@ Analysis:
 ```
 
 ### Complex Task
+
 ```
 Input: "implement oauth2 login with google"
 Analysis:

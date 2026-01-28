@@ -5,6 +5,7 @@ Create comprehensive test cases for code.
 ## Purpose
 
 Generate tests that:
+
 - Verify correct behavior
 - Cover edge cases
 - Catch regressions
@@ -54,20 +55,24 @@ function_name(param1, param2, ...)
 ### Test Categories
 
 #### 1. Basic Functionality
+
 - [ ] Returns expected output for typical input
 - [ ] Handles default parameters correctly
 
 #### 2. Edge Cases
+
 - [ ] Empty input
 - [ ] Single element
 - [ ] Maximum size input
 
 #### 3. Error Handling
+
 - [ ] Invalid input type
 - [ ] Missing required parameters
 - [ ] Out of range values
 
 #### 4. Special Values
+
 - [ ] NA/NULL handling
 - [ ] Infinite values
 - [ ] Zero values
@@ -92,6 +97,7 @@ test_that("function_name validates input types", {
   expect_error(function_name("not_a_number"), "must be numeric")
 })
 ```
+
 ```
 
 ## Test Frameworks
@@ -115,6 +121,7 @@ test_that("description of behavior", {
 ```
 
 ### JavaScript (Jest)
+
 ```javascript
 describe('functionName', () => {
   it('should return expected output', () => {
@@ -126,6 +133,7 @@ describe('functionName', () => {
 ## MCP Integration
 
 Uses these tools when available:
+
 - `r_test` - Run testthat tests
 - `r_coverage` - Check test coverage
 - `r_execute` - Verify test behavior
@@ -133,16 +141,19 @@ Uses these tools when available:
 ## Test Types
 
 ### Unit Tests
+
 - Test single functions in isolation
 - Mock dependencies
 - Fast execution
 
 ### Integration Tests
+
 - Test multiple components together
 - Real dependencies
 - Slower but more realistic
 
 ### Snapshot Tests
+
 - Capture output and compare
 - Good for complex outputs
 - Detect unexpected changes

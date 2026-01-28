@@ -64,12 +64,14 @@ graph LR
 ```
 
 **Use for:**
+
 - Package dependencies
 - Module relationships
 - Service connections
 - Import hierarchies
 
 **Customization points:**
+
 - Replace subgraph names with your layers
 - Add/remove nodes as needed
 - Change arrow directions for data flow
@@ -96,12 +98,14 @@ flowchart TD
 ```
 
 **Use for:**
+
 - User workflows
 - CI/CD pipelines
 - Decision trees
 - Installation steps
 
 **Node shapes:**
+
 - `([text])` - Start/End (stadium)
 - `[text]` - Process (rectangle)
 - `{text}` - Decision (diamond)
@@ -145,12 +149,14 @@ graph TB
 ```
 
 **Use for:**
+
 - System overviews
 - Microservices
 - Infrastructure diagrams
 - Component relationships
 
 **Node shapes:**
+
 - `[(text)]` - Database (cylinder)
 - `[text]` - Service (rectangle)
 - `((text))` - Circle (for actors)
@@ -198,6 +204,7 @@ graph TB
 ```
 
 **Use for:**
+
 - Before/After states
 - Feature comparisons
 - Trade-off analysis
@@ -231,12 +238,14 @@ sequenceDiagram
 ```
 
 **Use for:**
+
 - API interactions
 - Authentication flows
 - Message passing
 - Protocol documentation
 
 **Arrow types:**
+
 - `->>` Solid with arrowhead
 - `-->>` Dotted with arrowhead
 - `-x` Solid with X (async)
@@ -265,6 +274,7 @@ stateDiagram-v2
 ```
 
 **Use for:**
+
 - UI states
 - Order workflows
 - Session lifecycles
@@ -279,12 +289,14 @@ stateDiagram-v2
 Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), use markdown string syntax for multi-line text:
 
 **❌ Avoid:**
+
 ```mermaid
 flowchart TD
     A[Getting Started<br/>7 steps]    ❌ Manual line breaks
 ```
 
 **✅ Recommended:**
+
 ```mermaid
 flowchart TD
     A["`**Getting Started**
@@ -292,6 +304,7 @@ flowchart TD
 ```
 
 **Benefits:**
+
 - Automatic text wrapping at node width
 - Supports **bold**, *italic*, `code` formatting
 - Better mobile responsiveness
@@ -454,13 +467,16 @@ graph TB
 ## Integration
 
 **Related commands:**
+
 - `/craft:docs:generate diagram` - Routes to mermaid-expert agent
 - `/craft:site:status` - Validates Mermaid configuration
 
 **Uses skill:**
+
 - `mermaid-linter` - Validates diagram syntax and text length
 
 **mkdocs.yml requirements:**
+
 ```yaml
 markdown_extensions:
   - pymdownx.superfences:
@@ -487,6 +503,7 @@ markdown_extensions:
 | `state` | - | State machines |
 
 **Direction keywords:**
+
 - `LR` - Left to Right (wide)
 - `RL` - Right to Left
 - `TB` or `TD` - Top to Bottom (tall)

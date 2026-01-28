@@ -19,6 +19,7 @@ You are an ADHD-friendly semester progress dashboard generator. Display a compre
 ## Purpose
 
 **At a glance, show:**
+
 - Current week and semester progress
 - Visual progress bar
 - Upcoming milestones
@@ -335,12 +336,14 @@ Error: --week must be an integer (got 'five')
 **Problem:** Current week is wrong
 
 **Solution:**
+
 1. Verify `dates.start` is correct in config
 2. Check that breaks are properly defined
 3. Ensure dates don't overlap
 4. Use `--week` for manual override
 
 **Example:**
+
 ```bash
 # Test specific week
 /craft:site:progress --week 8
@@ -358,6 +361,7 @@ Use `--json` flag for programmatic access:
 ```
 
 **Output schema:**
+
 ```json
 {
   "course": {"number": "STAT 440", "title": "..."},
@@ -379,11 +383,13 @@ Use `--json` flag for programmatic access:
 ## Integration
 
 **Related commands:**
+
 - `/craft:site:validate` - Validate course content before publishing
 - `/craft:site:publish` - Deploy content to production
 - `/craft:site:build` - Build site with teaching context
 
 **Use cases:**
+
 - Weekly check-in on semester progress
 - Planning upcoming content
 - Status updates in meetings
@@ -402,16 +408,19 @@ Use `--json` flag for programmatic access:
 ## Implementation Notes
 
 **Dependencies:**
+
 - `utils/detect_teaching_mode.py` - Teaching mode detection
 - `commands/utils/teach_config.py` - Config parser
 - `commands/utils/semester_progress.py` - Progress calculation
 
 **Exit codes:**
+
 - `0` - Success
 - `1` - Not in teaching mode or config error
 - `2` - Invalid arguments
 
 **Performance:**
+
 - Target: < 200ms for dashboard generation
 - Config loading: < 50ms
 - Progress calculation: < 100ms

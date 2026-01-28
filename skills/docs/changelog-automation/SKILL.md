@@ -530,6 +530,7 @@ Reviewed-by: @alice
 ## Best Practices
 
 ### Do's
+
 - **Follow Conventional Commits** - Enables automation
 - **Write clear messages** - Future you will thank you
 - **Reference issues** - Link commits to tickets
@@ -537,6 +538,7 @@ Reviewed-by: @alice
 - **Automate releases** - Reduce manual errors
 
 ### Don'ts
+
 - **Don't mix changes** - One logical change per commit
 - **Don't skip validation** - Use commitlint
 - **Don't manual edit** - Generated changelogs only

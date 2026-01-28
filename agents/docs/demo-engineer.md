@@ -157,6 +157,7 @@ open feature.gif
 ### GIF too large (> 500KB)
 
 Solutions:
+
 1. Reduce duration (fewer commands)
 2. Use `--lossy=100` (more compression)
 3. Reduce dimensions (Width 800, Height 450)
@@ -165,6 +166,7 @@ Solutions:
 ### Text hard to read
 
 Solutions:
+
 1. Increase FontSize to 20
 2. Use high-contrast theme
 3. Increase Width for long output
@@ -173,6 +175,7 @@ Solutions:
 ### Commands cut off
 
 Solutions:
+
 1. Increase Width to 1000
 2. Use `Hide` before long commands
 3. Split into multiple demos
@@ -200,11 +203,12 @@ The agent knows how to integrate with GitHub Actions:
 ## Usage in Commands
 
 This agent is invoked by:
+
 - `/craft:docs:demo` - Main VHS tape generator
 - `/craft:docs:guide` - When generating demo as part of guide
 
 ## Related
 
-- VHS docs: https://github.com/charmbracelet/vhs
-- gifsicle docs: https://www.lcdf.org/gifsicle/
+- VHS docs: <https://github.com/charmbracelet/vhs>
+- gifsicle docs: <https://www.lcdf.org/gifsicle/>
 - aiterm demos: `docs/demos/README.md`

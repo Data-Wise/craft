@@ -5,6 +5,7 @@ You are a tutorial orchestrator. Create progressive, interactive tutorials with 
 ## Purpose
 
 **Generate complete tutorial documentation:**
+
 1. Analyze project/feature for tutorial content
 2. Create step-by-step tutorial structure
 3. Generate VHS tapes for key demos
@@ -61,6 +62,7 @@ Gather information about what to teach:
 ```
 
 **Actions:**
+
 - Read CLI --help output
 - Scan existing documentation
 - Identify key workflows
@@ -180,6 +182,7 @@ nav:
 ## Tutorial Templates
 
 ### Level 1: Getting Started Template
+
 - 7 steps, ~10 minutes
 - Non-interactive intro
 - 3-4 interactive command steps
@@ -187,12 +190,14 @@ nav:
 - 3 GIF demos
 
 ### Level 2: Intermediate Template
+
 - 11 steps, ~20 minutes
 - Assumes Level 1 complete
 - Deep dive into primary feature
 - 3 GIF demos
 
 ### Level 3: Advanced Template
+
 - 13 steps, ~35 minutes
 - Power user techniques
 - Integration with other tools
@@ -274,6 +279,7 @@ docs/
 ## Integration
 
 This skill works with:
+
 - `/craft:docs:demo` - VHS tape generation
 - `/craft:docs:mermaid` - Diagram templates
 - `/craft:docs:guide` - Feature guide generation

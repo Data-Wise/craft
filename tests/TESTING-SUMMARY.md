@@ -19,6 +19,7 @@ This document provides a comprehensive overview of all testing resources availab
 **Purpose:** CI-ready, non-interactive validation of plugin structure and functionality.
 
 **Coverage:**
+
 - Plugin structure validation (plugin.json, directories)
 - Command files (97 commands across 16 categories)
 - Skills validation (21 skills)
@@ -27,6 +28,7 @@ This document provides a comprehensive overview of all testing resources availab
 - Cross-reference validation
 
 **Usage:**
+
 ```bash
 # Basic run
 bash tests/cli/automated-tests.sh
@@ -42,6 +44,7 @@ VERBOSE=1 bash tests/cli/automated-tests.sh
 ```
 
 **Expected Results:**
+
 - All tests pass (0 failures)
 - Validates 97 commands
 - Checks 21 skills
@@ -55,18 +58,21 @@ VERBOSE=1 bash tests/cli/automated-tests.sh
 **Purpose:** Human-guided QA with expected/actual comparison.
 
 **Coverage:**
+
 - Manual validation of command outputs
 - User experience testing
 - Interactive prompts (y/n/q)
 - Logging to `tests/cli/logs/`
 
 **Usage:**
+
 ```bash
 # Run interactive tests
 bash tests/cli/interactive-tests.sh
 ```
 
 **Workflow:**
+
 1. Test displays expected behavior
 2. Command executes
 3. Actual output shown
@@ -80,12 +86,14 @@ bash tests/cli/interactive-tests.sh
 **Purpose:** Comprehensive validation of Hub v2.0 auto-detection and 3-layer navigation.
 
 #### Discovery Engine Tests (`tests/test_hub_discovery.py`)
+
 - 12 tests covering auto-detection engine
 - Performance validation (<200ms uncached, <10ms cached)
 - Cache invalidation testing
 - Command statistics accuracy
 
 **Run:**
+
 ```bash
 python3 tests/test_hub_discovery.py
 ```
@@ -93,11 +101,13 @@ python3 tests/test_hub_discovery.py
 **Expected:** 12/12 passing (~67ms)
 
 #### Integration Tests (`tests/test_hub_integration.py`)
+
 - 7 tests covering hub display generation
 - Category count validation
 - Real data integration
 
 **Run:**
+
 ```bash
 python3 tests/test_hub_integration.py
 ```
@@ -105,12 +115,14 @@ python3 tests/test_hub_integration.py
 **Expected:** 7/7 passing (~50ms)
 
 #### Layer 2 Tests (`tests/test_hub_layer2.py`)
+
 - 7 tests covering category view navigation
 - Subcategory grouping
 - Mode indicators
 - Common workflows
 
 **Run:**
+
 ```bash
 python3 tests/test_hub_layer2.py
 ```
@@ -118,12 +130,14 @@ python3 tests/test_hub_layer2.py
 **Expected:** 7/7 passing (~50ms)
 
 #### Layer 3 Tests (`tests/test_hub_layer3.py`)
+
 - 8 tests covering command detail generation
 - Tutorial auto-generation
 - Related commands lookup
 - Navigation breadcrumbs
 
 **Run:**
+
 ```bash
 python3 tests/test_hub_layer3.py
 ```
@@ -135,28 +149,34 @@ python3 tests/test_hub_layer3.py
 ### 4. Demo Scripts
 
 #### Layer 2 Demo (`tests/demo_layer2.py`)
+
 **Purpose:** Visual demonstration of category views
 
 **Run:**
+
 ```bash
 python3 tests/demo_layer2.py
 ```
 
 **Shows:**
+
 - CODE category (12 commands)
 - TEST category (7 commands)
 - DOCS category (19 commands)
 - GIT category (11 commands)
 
 #### Layer 3 Demo (`tests/demo_layer3.py`)
+
 **Purpose:** Visual demonstration of command detail views
 
 **Run:**
+
 ```bash
 python3 tests/demo_layer3.py
 ```
 
 **Shows:**
+
 - code:lint tutorial
 - test:run tutorial
 - docs:sync tutorial
@@ -169,6 +189,7 @@ python3 tests/demo_layer3.py
 **Purpose:** Comprehensive manual testing checklist for Hub v2.0 validation before merge.
 
 **Coverage:**
+
 - 12 testing phases
 - 95 test checkboxes
 - All 3 hub layers
@@ -178,6 +199,7 @@ python3 tests/demo_layer3.py
 - User experience validation
 
 **Phases:**
+
 1. Auto-Detection Engine (10 checks)
 2. Layer 1 - Main Menu (15 checks)
 3. Layer 2 - Category View (25 checks)
@@ -194,6 +216,7 @@ python3 tests/demo_layer3.py
 **Time Estimate:** 30-45 minutes
 
 **Usage:**
+
 ```bash
 # View guide
 cat tests/HUB-V2-TESTING-GUIDE.md
@@ -352,6 +375,7 @@ ls -lt tests/cli/logs/ | head -5
 
 **Problem:** Python tests fail with import errors
 **Solution:**
+
 ```bash
 # Ensure you're in plugin root
 cd /path/to/craft
@@ -365,6 +389,7 @@ python3 tests/test_hub_discovery.py
 
 **Problem:** Cache tests fail
 **Solution:**
+
 ```bash
 # Delete cache and regenerate
 rm commands/_cache.json
@@ -376,6 +401,7 @@ python3 tests/test_hub_discovery.py
 
 **Problem:** CLI tests fail
 **Solution:**
+
 ```bash
 # Check script permissions
 chmod +x tests/cli/automated-tests.sh
@@ -391,6 +417,7 @@ which jq bc
 
 **Problem:** Tests running slowly
 **Solution:**
+
 ```bash
 # Check cache exists
 ls -lh commands/_cache.json
@@ -409,16 +436,19 @@ python3 -m cProfile tests/test_hub_discovery.py
 ### Adding New Tests
 
 **For Discovery Engine:**
+
 1. Add test function to `tests/test_hub_discovery.py`
 2. Follow existing pattern (TestResult dataclass)
 3. Run and verify: `python3 tests/test_hub_discovery.py`
 
 **For CLI:**
+
 1. Add test function to `tests/cli/automated-tests.sh`
 2. Use helper functions (start_test, log_pass, log_fail)
 3. Run: `bash tests/cli/automated-tests.sh`
 
 **Best Practices:**
+
 - One assertion per test
 - Clear test names
 - Helpful failure messages
@@ -453,12 +483,14 @@ python3 -m cProfile tests/test_hub_discovery.py
 ## Resources
 
 ### Documentation
+
 - Hub v2.0 User Guide: `docs/help/hub.md`
 - User Testing Guide: `tests/HUB-V2-TESTING-GUIDE.md`
 - CLI Test README: `tests/cli/README.md`
 - Discovery Usage: `commands/_discovery_usage.md`
 
 ### Test Files
+
 - Discovery Tests: `tests/test_hub_discovery.py`
 - Integration Tests: `tests/test_hub_integration.py`
 - Layer 2 Tests: `tests/test_hub_layer2.py`
@@ -467,6 +499,7 @@ python3 -m cProfile tests/test_hub_discovery.py
 - Interactive CLI: `tests/cli/interactive-tests.sh`
 
 ### Demo Files
+
 - Layer 2 Demo: `tests/demo_layer2.py`
 - Layer 3 Demo: `tests/demo_layer3.py`
 
@@ -475,6 +508,7 @@ python3 -m cProfile tests/test_hub_discovery.py
 ## Contact
 
 For questions about testing:
+
 - Open issue on GitHub
 - Check CLAUDE.md for plugin overview
 - Review test output for specific failures

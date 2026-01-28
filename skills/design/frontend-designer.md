@@ -22,6 +22,7 @@ triggers:
 ## Core Capabilities
 
 ### 1. Component Architecture
+
 - Component composition patterns
 - Props vs state decisions
 - Component reusability strategies
@@ -29,6 +30,7 @@ triggers:
 - Design system integration
 
 ### 2. UI/UX Patterns
+
 - Layout patterns (grid, flexbox, responsive)
 - Navigation patterns (tabs, drawer, breadcrumbs)
 - Form design (validation, error handling, multi-step)
@@ -36,6 +38,7 @@ triggers:
 - Empty states and error boundaries
 
 ### 3. Accessibility (A11y)
+
 - WCAG compliance checklist
 - Semantic HTML
 - ARIA labels and roles
@@ -44,6 +47,7 @@ triggers:
 - Color contrast (ADHD-friendly palettes)
 
 ### 4. Performance
+
 - Code splitting strategies
 - Lazy loading images/components
 - Virtual scrolling for long lists
@@ -53,12 +57,14 @@ triggers:
 ## ADHD-Friendly Design Patterns
 
 **Visual Hierarchy:**
+
 - Clear focus states (bold borders, high contrast)
 - Reduce visual clutter (progressive disclosure)
 - Consistent spacing (8px grid system)
 - Limited color palette (3-5 colors max)
 
 **Interaction Design:**
+
 - Immediate feedback (loading spinners, success states)
 - Undo/redo capabilities
 - Auto-save (reduce "did I save?" anxiety)
@@ -66,6 +72,7 @@ triggers:
 - Keyboard shortcuts for common actions
 
 **Cognitive Load Reduction:**
+
 - One primary action per screen
 - Hide advanced options behind "Advanced" toggle
 - Use wizards for multi-step processes
@@ -75,12 +82,14 @@ triggers:
 ## Design Philosophy: Solid Indie
 
 **Ship Fast Principles:**
+
 - Start with Tailwind/Bootstrap, customize later
 - Use proven component libraries (shadcn/ui, Headless UI)
 - Mobile-first responsive design
 - Accessibility from day one (easier than retrofitting)
 
 **Anti-Patterns to Avoid:**
+
 - ❌ Custom design system before 10K users
 - ❌ Over-abstraction (generic <Button> with 20 props)
 - ❌ Premature animation (ship functionality first)
@@ -89,6 +98,7 @@ triggers:
 ## Delegation Strategy
 
 When analysis is needed, I will:
+
 1. **Quick assessment** - Identify design problem
 2. **Delegate to agents** when feasible:
    - `ux-ui-designer` agent for comprehensive UX review
@@ -116,17 +126,20 @@ Skill activates and provides:
 When activated, I provide:
 
 ### Immediate Response
+
 - **Pattern Recognition**: Identify the UI/UX problem
 - **Quick Recommendation**: Suggest proven pattern
 - **Accessibility Note**: Key a11y considerations
 - **ADHD-Friendly Tip**: Cognitive load reduction suggestion
 
 ### Delegated Analysis (Background)
+
 - Launch appropriate agent for UX/accessibility review
 - Provide progress updates
 - Synthesize findings
 
 ### Final Output
+
 - **Recommended approach** with rationale
 - **Component structure** (props, state, composition)
 - **Accessibility checklist** (WCAG items to address)

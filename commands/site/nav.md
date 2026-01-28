@@ -45,6 +45,7 @@ Options:
 **Note:** User can select "Other" and type "cancel" to exit.
 
 If user selects "Other" with "cancel":
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ Cancelled. No changes made.                                 │
@@ -53,6 +54,7 @@ If user selects "Other" with "cancel":
 │ Available modes: analyze, adhd, apply, preview              │
 └─────────────────────────────────────────────────────────────┘
 ```
+
 Then stop.
 
 ### Step 2: Detect Documentation Framework
@@ -66,6 +68,7 @@ cat mkdocs.yml
 ```
 
 If no mkdocs.yml found:
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ ❌ No mkdocs.yml found                                      │
@@ -74,6 +77,7 @@ If no mkdocs.yml found:
 │ To create a new site: /craft:site:create                    │
 └─────────────────────────────────────────────────────────────┘
 ```
+
 Then stop.
 
 ### Step 3: Analyze Current Navigation
@@ -90,6 +94,7 @@ find docs -name "*.md" -type f | wc -l
 ```
 
 Display analysis:
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ 📊 NAVIGATION ANALYSIS                                      │
@@ -119,6 +124,7 @@ Display analysis:
 Analyze and propose reorganization:
 
 **ADHD-Friendly Design Principles:**
+
 1. Maximum 6-7 top-level sections
 2. Progressive disclosure (basics first, details later)
 3. Clear visual hierarchy
@@ -126,6 +132,7 @@ Analyze and propose reorganization:
 5. Separate user docs from developer docs
 
 **Proposed Structure Template:**
+
 ```yaml
 nav:
   # TIER 1: ESSENTIALS
@@ -180,11 +187,13 @@ If current nav exceeds limits, propose consolidation.
 #### Mode: Apply
 
 Check for existing proposal:
+
 ```bash
 ls PROPOSAL-NAV-REORGANIZATION.md 2>/dev/null || ls PROPOSAL-DOCS-REORGANIZATION.md 2>/dev/null
 ```
 
 If no proposal found:
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ ❌ No proposal found                                        │
@@ -194,6 +203,7 @@ If no proposal found:
 ```
 
 If proposal exists:
+
 1. Read the proposed nav structure from proposal
 2. Show diff between current and proposed
 3. Ask for confirmation
@@ -205,6 +215,7 @@ If proposal exists:
 #### Mode: Preview
 
 Same as Analyze, but:
+
 - Show proposed changes as diff
 - Do NOT save proposal file
 - Do NOT modify any files
@@ -297,6 +308,7 @@ Always end with this footer:
 ## Integration
 
 **Part of site command family:**
+
 - `/craft:site:create` - Create new site
 - `/craft:site:nav` - Reorganize navigation ← this command
 - `/craft:site:audit` - Content audit
@@ -304,6 +316,7 @@ Always end with this footer:
 - `/craft:site:deploy` - Deploy to GitHub Pages
 
 **Uses:**
+
 - AskUserQuestion for mode selection
 - Read tool for mkdocs.yml analysis
 - Write tool for proposal file

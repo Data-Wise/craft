@@ -93,6 +93,7 @@ Status: NEEDS ATTENTION
 ## Integration
 
 Works with:
+
 - `/craft:arch:analyze` - Full analysis
 - `/craft:code:ci-local` - CI checks
 - `/craft:git:sync` - Pre-push validation

@@ -203,12 +203,14 @@ fi
 ## Example Output
 
 ### Success
+
 ```
 🔍 Running ruff...
 ✅ PASS: No lint issues found (ruff)
 ```
 
 ### Failure
+
 ```
 🔍 Running ruff...
 src/main.py:12:5: E501 Line too long (89 > 88 characters)
@@ -217,6 +219,7 @@ src/utils.py:45:1: F401 'os' imported but unused
 ```
 
 ### Debug Mode (Non-blocking)
+
 ```
 🔍 Running ruff...
 src/main.py:12:5: E501 Line too long (89 > 88 characters)

@@ -31,6 +31,7 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 ### Unit Tests (21 tests)
 
 **MD030 (List Spacing)**
+
 - ✅ Config exists
 - ✅ ul_single: 1 space
 - ✅ ol_single: 1 space
@@ -40,6 +41,7 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 - ✅ Auto-fixes 2-space violations
 
 **MD004 (Marker Style)**
+
 - ✅ Config exists
 - ✅ Style is "dash"
 - ✅ Detects asterisk markers
@@ -48,12 +50,14 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 - ✅ Auto-fixes plus → dash
 
 **MD032 (Blank Lines)**
+
 - ✅ Config exists
 - ✅ Enabled (true)
 - ✅ Detects missing blank line
 - ✅ Auto-fixes blank line
 
 **Nested & Ordered Lists**
+
 - ✅ Nested list spacing consistency
 - ✅ Nested list auto-fix
 - ✅ Ordered list spacing
@@ -62,6 +66,7 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 ### Validation Tests (42 tests)
 
 **Config Validity**
+
 - ✅ File exists
 - ✅ Valid JSON
 - ✅ Has schema reference
@@ -70,6 +75,7 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 - ✅ Linter accepts config
 
 **MD030 Validation**
+
 - ✅ Exists in config
 - ✅ Is dict type
 - ✅ All 4 keys exist (ul_single, ol_single, ul_multi, ol_multi)
@@ -77,6 +83,7 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 - ✅ All values in range 0-3
 
 **MD004 Validation**
+
 - ✅ Exists in config
 - ✅ Is dict type
 - ✅ Has style key
@@ -85,11 +92,13 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 - ✅ Style is "dash"
 
 **MD032 Validation**
+
 - ✅ Exists in config
 - ✅ Is boolean type
 - ✅ Enabled (true)
 
 **Integration with Existing Rules**
+
 - ✅ MD013 disabled
 - ✅ MD033 configured
 - ✅ MD033 has allowed_elements
@@ -102,6 +111,7 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 - ✅ All required keys present
 
 **CLI Availability**
+
 - ✅ npx available
 - ✅ markdownlint-cli2 available
 - ✅ Version output present
@@ -109,16 +119,19 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 ### E2E Tests (15 tests - precommit excluded)
 
 **Full Workflow**
+
 - ✅ Multiple files linting
 - ✅ Bulk auto-fix
 - ✅ Mixed violations
 
 **Baseline Report**
+
 - ✅ Report exists
 - ✅ Has violation data
 - ✅ Can be regenerated
 
 **Documentation Integration**
+
 - ✅ lint.md exists
 - ✅ Mentions MD030
 - ✅ Mentions MD004
@@ -127,6 +140,7 @@ python3 -m pytest tests/test_markdownlint_list_spacing_e2e.py -v -k "not precomm
 - ✅ Complies with rules
 
 **Real-World Scenarios**
+
 - ✅ Large file handling (100+ violations)
 - ✅ No false positives
 - ✅ Code blocks not affected

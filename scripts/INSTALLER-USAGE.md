@@ -3,6 +3,7 @@
 ## Overview
 
 The `dependency-installer.sh` script orchestrates multi-strategy tool installation with:
+
 - User consent prompts
 - Automatic fallback strategies
 - Retry logic (2 attempts per strategy)
@@ -80,6 +81,7 @@ When `install_tool()` is called:
 ```
 
 User choices:
+
 - **Y** (default): Proceed with installation
 - **N**: Skip this tool only
 - **S**: Skip all tools (sets SKIP_ALL=true)
@@ -91,14 +93,17 @@ User choices:
 Main installation orchestrator.
 
 **Arguments:**
+
 - `tool_name` - Tool command name (e.g., "asciinema")
 - `tool_spec` - JSON tool specification from frontmatter
 
 **Returns:**
+
 - `0` on successful installation and verification
 - `1` if user declined or all strategies failed
 
 **Example:**
+
 ```bash
 install_tool "agg" "$agg_spec"
 ```
@@ -110,12 +115,15 @@ install_tool "agg" "$agg_spec"
 Extract installation methods from tool spec in priority order.
 
 **Arguments:**
+
 - `tool_spec` - JSON tool specification
 
 **Returns:**
+
 - Newline-separated list of strategy names
 
 **Example:**
+
 ```bash
 strategies=$(get_install_strategies "$tool_spec")
 # Output: brew\ncargo_git\nbinary
@@ -128,17 +136,21 @@ strategies=$(get_install_strategies "$tool_spec")
 Filter strategies by platform availability.
 
 **Arguments:**
+
 - `strategies` - Newline-separated list of strategy names
 
 **Returns:**
+
 - Newline-separated list of available strategies
 
 **Checks:**
+
 - `brew` - Requires `brew` command
 - `cargo`/`cargo_git` - Requires `cargo` command
 - `binary` - Requires `curl` command
 
 **Example:**
+
 ```bash
 available=$(filter_available_strategies "$strategies")
 ```
@@ -150,20 +162,24 @@ available=$(filter_available_strategies "$strategies")
 Attempt installation with retry logic.
 
 **Arguments:**
+
 - `tool_name` - Tool command name
 - `strategy` - Strategy name (brew, cargo, cargo_git, binary)
 - `tool_spec` - JSON tool specification
 
 **Returns:**
+
 - `0` on success
 - `1` on failure after 2 attempts
 
 **Behavior:**
+
 - Tries installation up to 2 times
 - 2-second delay between retries
 - Logs all attempts to INSTALL_LOG
 
 **Example:**
+
 ```bash
 if try_install "asciinema" "brew" "$spec"; then
     echo "Installation succeeded"
@@ -177,19 +193,23 @@ fi
 Verify tool installed and healthy.
 
 **Arguments:**
+
 - `tool_name` - Tool command name
 - `tool_spec` - JSON tool specification
 
 **Returns:**
+
 - `0` if tool installed and healthy
 - `1` otherwise
 
 **Behavior:**
+
 - Invalidates cache for this tool
 - Uses `detect_tool()` from tool-detector.sh
 - Checks both installation and health status
 
 **Example:**
+
 ```bash
 if verify_installation "asciinema" "$spec"; then
     echo "Tool verified"
@@ -203,15 +223,18 @@ fi
 Get user approval for installation.
 
 **Arguments:**
+
 - `tool_name` - Tool command name
 - `purpose` - User-facing description
 - `strategies` - Newline-separated list of strategies
 
 **Returns:**
+
 - `0` if user approves
 - `1` if user declines or SKIP_ALL is set
 
 **Example:**
+
 ```bash
 if prompt_user_consent "agg" "Convert .cast to .gif" "$strategies"; then
     # User approved
@@ -259,16 +282,19 @@ Install by downloading binary.
 ## Testing
 
 ### Run Built-in Test
+
 ```bash
 ./scripts/dependency-installer.sh
 ```
 
 ### Test with Debug Output
+
 ```bash
 DEBUG=1 ./scripts/dependency-installer.sh
 ```
 
 ### Integration Test
+
 ```bash
 # Parse frontmatter
 deps_json=$(source scripts/dependency-manager.sh && parse_frontmatter)
@@ -291,12 +317,14 @@ echo "Available: $available"
 All installation attempts are logged to `$INSTALL_LOG` (default: `/tmp/craft-install-$$.log`).
 
 **Log entries include:**
+
 - Timestamp
 - User consent decisions
 - Installation attempts and results
 - Verification outcomes
 
 **Example log:**
+
 ```
 [2026-01-17 15:00:00] === Starting installation: agg ===
 [2026-01-17 15:00:01] User approved installation of agg

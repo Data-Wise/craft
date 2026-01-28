@@ -214,5 +214,6 @@ Run with --fix to auto-fix lint issues.
 ## Integration
 
 Works with:
+
 - `/craft:code:ci-fix` - Fix CI failures
 - `/craft:git:sync` - Pre-push validation

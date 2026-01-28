@@ -103,6 +103,7 @@ Jan     Feb     Mar     Apr     May     Jun
 ## Integration
 
 Works with:
+
 - `/craft:plan:sprint` - Sprint planning
 - `/craft:plan:feature` - Feature details
 - `/craft:docs:sync` - Update documentation

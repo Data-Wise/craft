@@ -167,6 +167,7 @@ def detect_project(path: Path) -> Optional[ProjectInfo]:
 ## Test Framework Detection
 
 ### Python
+
 ```python
 def detect_python_test_framework(path: Path) -> str:
     """Detect Python test framework."""
@@ -193,6 +194,7 @@ def detect_python_test_framework(path: Path) -> str:
 ```
 
 ### Node.js
+
 ```python
 def detect_node_test_framework(path: Path) -> str:
     """Detect Node.js test framework."""
@@ -215,6 +217,7 @@ def detect_node_test_framework(path: Path) -> str:
 ```
 
 ### R
+
 ```python
 def detect_r_test_framework(path: Path) -> str:
     """Detect R test framework."""
@@ -233,6 +236,7 @@ def detect_r_test_framework(path: Path) -> str:
 ```
 
 ### Rust
+
 ```python
 def detect_rust_test_framework(path: Path) -> str:
     """Detect Rust test framework."""
@@ -264,6 +268,7 @@ def detect_rust_test_framework(path: Path) -> str:
 ```
 
 ### Go
+
 ```python
 def detect_go_test_framework(path: Path) -> str:
     """Detect Go test framework."""
@@ -300,6 +305,7 @@ def detect_go_test_framework(path: Path) -> str:
 ```
 
 ### Tauri (Rust + Node hybrid)
+
 ```python
 def detect_tauri_project(path: Path) -> bool:
     """Detect Tauri desktop app project."""
@@ -329,6 +335,7 @@ def detect_tauri_test_framework(path: Path) -> dict:
 ```
 
 ### Swift
+
 ```python
 def detect_swift_project(path: Path) -> Optional[str]:
     """Detect Swift project type."""
@@ -368,6 +375,7 @@ def detect_swift_test_framework(path: Path) -> str:
 ```
 
 ### MCP Server
+
 ```python
 def detect_mcp_server(path: Path) -> bool:
     """Detect MCP (Model Context Protocol) server project."""
@@ -392,6 +400,7 @@ def detect_mcp_server(path: Path) -> bool:
 ```
 
 ### Homebrew Tap
+
 ```python
 def detect_homebrew_tap(path: Path) -> bool:
     """Detect Homebrew tap project."""
@@ -411,6 +420,7 @@ def detect_homebrew_tap(path: Path) -> bool:
 ```
 
 ### ZSH Plugin
+
 ```python
 def detect_zsh_plugin(path: Path) -> bool:
     """Detect ZSH plugin project."""
@@ -433,6 +443,7 @@ def detect_zsh_plugin(path: Path) -> bool:
 ```
 
 ### Emacs Lisp Package
+
 ```python
 def detect_elisp_package(path: Path) -> bool:
     """Detect Emacs Lisp package project."""
@@ -495,6 +506,7 @@ Based on detection, recommend appropriate CI template:
 ## Version Detection
 
 ### Python Versions
+
 ```python
 def detect_python_versions(path: Path) -> list[str]:
     """Detect Python version requirements."""
@@ -526,6 +538,7 @@ def get_versions_from(min_version: str) -> list[str]:
 ```
 
 ### Node Versions
+
 ```python
 def detect_node_versions(path: Path) -> list[str]:
     """Detect Node.js version requirements."""
@@ -643,9 +656,11 @@ jobs:
 ```
 
 ### Next Steps
+
 1. Run `/craft:ci:generate` to create workflow file
 2. Customize matrix if needed
 3. Add secrets for coverage upload
+
 ```
 
 ## CI Templates Reference

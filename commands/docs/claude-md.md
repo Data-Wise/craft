@@ -16,6 +16,7 @@ You are a CLAUDE.md maintenance assistant. Keep project instructions current.
 ## Purpose
 
 Update CLAUDE.md files to reflect:
+
 - Current project status
 - New features/commands
 - Changed architecture
@@ -82,6 +83,7 @@ Proceed with updates? (y/n/select)
 ### Step 4: Generate Updates
 
 For each section:
+
 1. Read current content
 2. Generate updated content
 3. Show diff
@@ -123,6 +125,7 @@ For each section:
 ### Section-Specific Updates
 
 **Project Status:**
+
 ```markdown
 ## Project Status: v0.2.1 ✅ RELEASED
 
@@ -135,6 +138,7 @@ For each section:
 ```
 
 **Quick Reference:**
+
 ```markdown
 ## Quick Reference
 
@@ -167,25 +171,33 @@ Next steps:
 ## Smart Features
 
 ### 1. Version Sync
+
 Automatically sync version from:
+
 - `pyproject.toml` (Python)
 - `package.json` (Node)
 - `DESCRIPTION` (R)
 
 ### 2. Command Discovery
+
 Scan for new commands in:
+
 - `src/*/cli/*.py`
 - `commands/*.md`
 - CLI help output
 
 ### 3. Status File Integration
+
 Read `.STATUS` file for:
+
 - Current progress
 - Next steps
 - Recent session notes
 
 ### 4. Architecture Detection
+
 Detect new modules/files:
+
 ```
 New directories detected:
   • src/aiterm/opencode/ (new module)
@@ -196,6 +208,7 @@ Add to Architecture section? (y/n)
 ## Integration
 
 Works with:
+
 - `/craft:docs:sync` - Part of doc sync workflow
 - `/craft:code:release` - Update before release
 - `/workflow:done` - Update at session end

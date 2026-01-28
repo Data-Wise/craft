@@ -20,7 +20,7 @@ Detection Rules:
 quarto preview
 ```
 
-Default URL: http://localhost:4000 (or similar)
+Default URL: <http://localhost:4000> (or similar)
 
 ## For pkgdown Sites
 
@@ -36,7 +36,7 @@ Or serve the `docs/` directory.
 mkdocs serve
 ```
 
-Default URL: http://127.0.0.1:8000
+Default URL: <http://127.0.0.1:8000>
 
 ## Output
 

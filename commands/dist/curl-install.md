@@ -31,6 +31,7 @@ Generate `install.sh` scripts for direct GitHub installation.
 ## Generated Script
 
 ### Auto-Detection Script
+
 ```bash
 #!/bin/bash
 set -euo pipefail
@@ -100,6 +101,7 @@ install
 ```
 
 ### Source Installation (Python)
+
 ```bash
 #!/bin/bash
 set -euo pipefail
@@ -120,6 +122,7 @@ info "Installed! Run: $PACKAGE --help"
 ```
 
 ### Source Installation (Node.js)
+
 ```bash
 #!/bin/bash
 set -euo pipefail
@@ -160,14 +163,17 @@ curl -fsSL https://raw.githubusercontent.com/user/repo/main/install.sh | bash
 ```
 
 ### Homebrew (macOS)
+
 ```bash
 brew install user/tap/myapp
 ```
 
 ### pip (Python)
+
 ```bash
 pip install myapp
 ```
+
 ```
 
 ## Platform Detection
@@ -206,6 +212,7 @@ Test with:
 ```
 
 ### 2. Preview Before Writing
+
 ```bash
 /craft:dist:curl-install preview
 
@@ -213,6 +220,7 @@ Test with:
 ```
 
 ### 3. Update README
+
 ```bash
 /craft:dist:curl-install --update-readme
 
@@ -224,6 +232,7 @@ Test with:
 ## Integration
 
 Works with other craft commands:
+
 - `/craft:dist:homebrew` - Generate Homebrew formula
 - `/craft:check --for release` - Validate before generating
 - `/craft:git:tag` - Create version tag

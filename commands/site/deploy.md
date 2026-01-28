@@ -121,6 +121,7 @@ mkdocs gh-deploy
 ```
 
 **What it does:**
+
 1. Builds the site (`mkdocs build`)
 2. Creates/updates `gh-pages` branch
 3. Pushes to GitHub
@@ -133,6 +134,7 @@ quarto publish gh-pages
 ```
 
 **What it does:**
+
 1. Renders the site
 2. Pushes to `gh-pages` branch
 3. Configures GitHub Pages if needed
@@ -192,16 +194,19 @@ Or run: gh repo edit --enable-pages
 ## Troubleshooting
 
 **404 error after deployment:**
+
 - Wait 1-2 minutes for Pages to update
 - Check base URL in site config
 - Verify GitHub Pages is enabled
 
 **Build failed:**
+
 - Check GitHub Actions logs
 - Verify all dependencies are installed
 - Check for broken links or invalid syntax
 
 **Permission denied:**
+
 - Check repository permissions
 - Verify GitHub token has write access
 - Check if branch protection rules block gh-pages

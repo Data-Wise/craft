@@ -84,6 +84,7 @@ Preview the CI workflow that would be generated without creating any files:
 ```
 
 **Benefits:**
+
 - Preview detected project configuration before generating
 - Verify template selection is correct
 - Check workflow triggers and job configuration
@@ -535,6 +536,7 @@ When generating, the command will ask about optional features:
 ## Integration
 
 Works with:
+
 - `/craft:ci:detect` - Run detection first
 - `/craft:ci:validate` - Validate generated workflow
 - `/craft:check ci` - Quick CI check

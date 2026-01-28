@@ -301,6 +301,7 @@ Continue your learning:
 ### Step Structure
 
 Each step should have:
+
 1. **Brief intro** — What and why (1-2 sentences)
 2. **Code/command** — What to do
 3. **Explanation** — What happened (optional for obvious steps)
@@ -308,6 +309,7 @@ Each step should have:
 ### Checkpoints
 
 Place checkpoints:
+
 - After each Part (major section)
 - Before any destructive/irreversible action
 - At natural "save points"

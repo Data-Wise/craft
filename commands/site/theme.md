@@ -5,6 +5,7 @@ You are an ADHD-friendly theme manager. Make quick visual changes to your docume
 ## Purpose
 
 **Fast theme adjustments:**
+
 - Change colors instantly
 - Switch color palettes
 - Toggle dark mode
@@ -270,11 +271,13 @@ Happy with the changes?
 ## Integration
 
 **Related commands:**
+
 - `/craft:site:create` - Full site creation with design
 - `/craft:site:status` - Check current configuration
 - `/craft:site:update` - Update content
 
 **Preset files:**
+
 - `craft/templates/site/presets/*.yaml`
 
 ## ADHD-Friendly Features

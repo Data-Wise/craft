@@ -7,12 +7,14 @@
 ## Why GIFs?
 
 **Benefits:**
+
 - **Visual learning** — Show, don't just tell
 - **Quick understanding** — 5 seconds > 5 paragraphs
 - **No hosting needed** — Self-contained files
 - **Accessible** — Works without video players
 
 **Use cases:**
+
 - Demonstrating interactive commands (`pick`, `dash -i`)
 - Showing TUI interfaces
 - Illustrating workflow patterns
@@ -107,6 +109,7 @@ gifsicle -O3 --colors 128 --lossy=80 \
 ```
 
 **Recording Method:**
+
 - **All commands** → Use asciinema to record real execution
 - **Alternative** → VHS for scripted/repeatable demos (`/craft:docs:demo --method vhs`)
 
@@ -149,6 +152,7 @@ Loop: Infinite
 ### Examples
 
 **Good names:**
+
 - `pick-basic-usage.gif`
 - `cc-dispatcher-opus-mode.gif`
 - `dash-interactive-tui.gif`
@@ -156,6 +160,7 @@ Loop: Infinite
 - `win-tracking-streak.gif`
 
 **Bad names:**
+
 - `demo.gif` (not descriptive)
 - `screen-recording-2026-01-07.gif` (includes date)
 - `my-test.gif` (not professional)
@@ -211,11 +216,13 @@ docs/
 ### Tools
 
 **Recommended:**
+
 - **QuickTime Player** (Mac) — Built-in, simple
 - **Kap** (Mac) — Lightweight, GIF-optimized
 - **peek** (Linux) — Designed for GIFs
 
 **Conversion:**
+
 - **gifsicle** — Optimize existing GIFs
 - **ffmpeg** — Convert video to GIF
 
@@ -239,6 +246,7 @@ export PS1="$ "  # Simple prompt
 ### Recording Process
 
 **Before recording:**
+
 1. ✅ Practice the workflow 2-3 times
 2. ✅ Clear terminal (`clear`)
 3. ✅ Set simple PS1 prompt
@@ -246,12 +254,14 @@ export PS1="$ "  # Simple prompt
 5. ✅ Disable notifications
 
 **During recording:**
+
 1. **Count 2 seconds** before starting
 2. **Type at normal pace** (not too fast)
 3. **Pause 1 second** after important output
 4. **Count 2 seconds** after completion
 
 **After recording:**
+
 1. Trim unnecessary frames
 2. Optimize file size
 3. Test on documentation page
@@ -264,6 +274,7 @@ export PS1="$ "  # Simple prompt
 ### Recording Tools
 
 **asciinema + agg (default):**
+
 ```bash
 # Install asciinema (terminal recorder)
 brew install asciinema
@@ -278,6 +289,7 @@ mv agg-$(uname -m)-apple-darwin /usr/local/bin/agg
 ```
 
 **VHS (alternative):**
+
 ```bash
 # For scripted/repeatable demos
 brew install charmbracelet/tap/vhs
@@ -290,6 +302,7 @@ brew install charmbracelet/tap/vhs
 Optimization reduces file size by 30-70% while maintaining quality, improving page load times and reducing bandwidth.
 
 Install gifsicle (required for GIF creation):
+
 ```bash
 # macOS
 brew install gifsicle
@@ -411,6 +424,7 @@ gifsicle -O3 --colors 256 --lossy=60 demo.gif -o demo.gif
 ```
 
 **Acceptance Criteria:**
+
 - ✅ File size ≤ 2MB
 - ✅ All text readable without zooming
 - ✅ Command prompts clearly visible
@@ -424,6 +438,7 @@ gifsicle -O3 --colors 256 --lossy=60 demo.gif -o demo.gif
 ### What to Show
 
 **Do show:**
+
 - ✅ Complete workflows (start to finish)
 - ✅ Interactive UI (fzf pickers, TUI dashboards)
 - ✅ Successful outcomes
@@ -431,6 +446,7 @@ gifsicle -O3 --colors 256 --lossy=60 demo.gif -o demo.gif
 - ✅ Actual command output
 
 **Don't show:**
+
 - ❌ Error states (unless troubleshooting GIF)
 - ❌ Personal information (API keys, paths with username)
 - ❌ Incomplete workflows
@@ -447,6 +463,7 @@ gifsicle -O3 --colors 256 --lossy=60 demo.gif -o demo.gif
 | **15+ sec** | Complex tutorial (split into multiple GIFs) |
 
 **ADHD-Friendly:**
+
 - Shorter is better
 - One concept per GIF
 - Loop should feel natural
@@ -458,12 +475,14 @@ gifsicle -O3 --colors 256 --lossy=60 demo.gif -o demo.gif
 ### Visual Clarity
 
 **Terminal settings:**
+
 - Font size: 14-16pt (readable in GIF)
 - Contrast: High (Solarized Light/Dark)
 - Colors: Limited palette (< 8 colors)
 - Width: 80-100 columns (fits in docs)
 
 **Recording settings:**
+
 - No transparency effects
 - No blinking cursors (distracting)
 - No animations in PS1 prompt
@@ -498,6 +517,7 @@ The GIF demonstrates:
 **Purpose:** Show feature in action
 
 **Structure:**
+
 1. Start state (clear terminal)
 2. Command execution
 3. Expected output
@@ -510,6 +530,7 @@ The GIF demonstrates:
 **Purpose:** Accompany tutorial steps
 
 **Structure:**
+
 1. Step N from tutorial
 2. Command from tutorial
 3. Output from tutorial
@@ -522,6 +543,7 @@ The GIF demonstrates:
 **Purpose:** Showcase new feature
 
 **Structure:**
+
 1. Before state (old behavior)
 2. New command/feature
 3. After state (improvement)
@@ -533,6 +555,7 @@ The GIF demonstrates:
 **Purpose:** Show differences between approaches
 
 **Structure:**
+
 1. Approach A
 2. Split or fade transition
 3. Approach B
@@ -547,12 +570,14 @@ The GIF demonstrates:
 Before adding GIF to documentation:
 
 **Verification (REQUIRED FIRST):**
+
 - [ ] **Commands tested in Claude Code** (or bash for CLI tools)
 - [ ] **Real output captured** (screenshots/copy-paste)
 - [ ] **No errors** during testing
 - [ ] **Timing observed** (how long output takes to appear)
 
 **Technical (REQUIRED):**
+
 - [ ] **Optimized with gifsicle** (`-O3 --colors 128 --lossy=80`)
 - [ ] **File size ≤ 2MB** (check with `ls -lh`)
 - [ ] **Resolution 800-1200px width**
@@ -561,6 +586,7 @@ Before adding GIF to documentation:
 - [ ] **No audio track**
 
 **Readability (REQUIRED):**
+
 - [ ] **All text readable** without zooming at normal viewing size
 - [ ] **Command prompts clearly visible** ($ or > visible)
 - [ ] **Output legible** (14-16pt font minimum in recording)
@@ -569,18 +595,21 @@ Before adding GIF to documentation:
 - [ ] **Smooth playback** (no jarring jumps)
 
 **Content:**
+
 - [ ] Shows complete workflow
 - [ ] No sensitive information visible
 - [ ] Demonstrates one clear concept
 - [ ] Matches actual command behavior
 
 **Accessibility:**
+
 - [ ] Alt text provided
 - [ ] Caption written
 - [ ] Text explanation in docs
 - [ ] High contrast terminal
 
 **Naming & Organization:**
+
 - [ ] Follows naming convention (`<feature>-<action>-<variant>.gif`)
 - [ ] Stored in correct directory (`docs/demos/` or `docs/gifs/`)
 - [ ] Referenced correctly in docs
@@ -595,6 +624,7 @@ Before adding GIF to documentation:
 **File:** `docs/assets/gifs/commands/pick-basic-usage.gif`
 
 **Recording:**
+
 ```bash
 # Setup
 clear
@@ -609,6 +639,7 @@ pwd
 ```
 
 **In documentation:**
+
 ```markdown
 ### Using Pick to Navigate Projects
 
@@ -626,6 +657,7 @@ Enter to navigate.
 **File:** `docs/assets/gifs/dispatchers/cc-unified-grammar.gif`
 
 **Recording:**
+
 ```bash
 # Show both orders work
 clear
@@ -644,6 +676,7 @@ cc pick opus
 ```
 
 **In documentation:**
+
 ```markdown
 ### Unified Grammar (v4.8.0)
 
@@ -662,12 +695,14 @@ specify the mode first or the target first, the result is the same.
 ### Updating GIFs
 
 **When to update:**
+
 - UI changes significantly
 - Command syntax changes
 - Feature behavior changes
 - Brand new feature added
 
 **Update process:**
+
 1. Create new GIF with updated workflow
 2. Optimize new GIF
 3. Replace old GIF (keep same filename)
@@ -696,16 +731,19 @@ git commit -m "docs: update pick GIF for v4.8 UI changes
 ### Video Alternatives
 
 **When GIFs aren't enough:**
+
 - Complex workflows > 15 seconds
 - Workflows requiring audio explanation
 - Multi-pane terminal workflows
 
 **Options:**
+
 - **asciinema** — Terminal session recordings
 - **YouTube** — Hosted video tutorials
 - **Vimeo** — Higher quality, no ads
 
 **Embedding asciinema:**
+
 ```markdown
 <script id="asciicast-123456"
   src="https://asciinema.org/a/123456.js"
@@ -716,6 +754,7 @@ git commit -m "docs: update pick GIF for v4.8 UI changes
 ### Interactive Demos
 
 **Future consideration:**
+
 - **ttyrec/ttygif** — Terminal recordings
 - **Carbon** — Beautiful code screenshots
 - **termtosvg** — SVG terminal recordings (smaller than GIF)

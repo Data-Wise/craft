@@ -21,6 +21,7 @@ triggers:
 ## Core Capabilities
 
 ### 1. API Design Patterns
+
 - RESTful API structure (resources, endpoints, versioning)
 - GraphQL schema design
 - API authentication (JWT, OAuth, API keys)
@@ -28,6 +29,7 @@ triggers:
 - Error handling and status codes
 
 ### 2. Database Design
+
 - Schema design (normalized vs denormalized)
 - Index strategies for performance
 - Migration planning
@@ -35,6 +37,7 @@ triggers:
 - Connection pooling
 
 ### 3. Authentication & Authorization
+
 - Session management (JWT vs session cookies)
 - OAuth flows (authorization code, client credentials)
 - Permission models (RBAC, ABAC)
@@ -42,6 +45,7 @@ triggers:
 - Password hashing (bcrypt, argon2)
 
 ### 4. Performance Patterns
+
 - Caching strategies (Redis, in-memory, CDN)
 - Query optimization
 - Background jobs (Celery, Bull, Temporal)
@@ -51,12 +55,14 @@ triggers:
 ## Design Philosophy: Solid Indie
 
 **Ship Fast Principles:**
+
 - Start with monolith, extract services only when needed
 - Use proven patterns, avoid trendy frameworks
 - Prefer boring technology that works
 - Document trade-offs, not just decisions
 
 **Anti-Patterns to Avoid:**
+
 - ❌ Microservices for < 5 person teams
 - ❌ Over-abstraction (generic repositories, factories)
 - ❌ Premature optimization
@@ -65,6 +71,7 @@ triggers:
 ## Delegation Strategy
 
 When analysis is needed, I will:
+
 1. **Analyze current state** - Review existing code/architecture
 2. **Delegate to agents** when feasible:
    - `backend-architect` agent for deep architectural analysis
@@ -92,16 +99,19 @@ Skill activates and provides:
 When activated, I provide:
 
 ### Immediate Response
+
 - **Pattern Recognition**: Identify the design problem category
 - **Quick Recommendation**: Suggest proven pattern
 - **Trade-offs**: List pros/cons of approach
 
 ### Delegated Analysis (Background)
+
 - Launch appropriate agent for deep analysis
 - Provide progress updates
 - Synthesize agent findings into actionable plan
 
 ### Final Output
+
 - **Recommended approach** with rationale
 - **Implementation steps** (numbered, concrete)
 - **Code examples** (if requested)

@@ -78,6 +78,7 @@ convert-cast.sh  batch-convert.sh
 **Purpose:** Single .cast file to .gif converter
 
 **Functions:**
+
 - `convert_single(cast_file, output_gif)` - Main conversion orchestrator
 - `validate_cast_file()` - File validation (exists, .cast extension, JSON format)
 - `get_output_path()` - Output path resolution with --force handling
@@ -89,6 +90,7 @@ convert-cast.sh  batch-convert.sh
 - `get_file_size()` - Cross-platform size detection
 
 **Features:**
+
 - Auto-derive output path from .cast filename
 - JSON format validation of .cast files
 - Exit code 2 if file exists without --force
@@ -96,10 +98,12 @@ convert-cast.sh  batch-convert.sh
 - Cross-platform (macOS/Linux)
 
 **Configuration:**
+
 - agg: `--font-size 16 --line-height 1.4 --theme monokai`
 - gifsicle: `--optimize=3 --colors 256`
 
 **Exit Codes:**
+
 - 0 = Success
 - 1 = Error (missing deps, invalid file, conversion failed)
 - 2 = File exists (use --force to overwrite)
@@ -109,6 +113,7 @@ convert-cast.sh  batch-convert.sh
 **Purpose:** Bulk .cast file processor with progress indicators
 
 **Functions:**
+
 - `find_cast_files(search_paths)` - Recursively find .cast files
 - `filter_existing(cast_files, force_flag)` - Skip existing GIFs unless --force
 - `process_batch(cast_files)` - Conversion loop with error tracking
@@ -120,6 +125,7 @@ convert-cast.sh  batch-convert.sh
 - `trap_cleanup()` - Graceful Ctrl+C handling
 
 **Features:**
+
 - Recursive file discovery with sorting
 - Smart deduplication (skip existing files)
 - Progress bar: `[████████░░] 8/11 (73%)`
@@ -134,12 +140,14 @@ convert-cast.sh  batch-convert.sh
 - Cross-platform (macOS/Linux)
 
 **Command-Line Flags:**
+
 - `--search-path <path>` - Custom search directories (repeatable)
 - `--force` - Overwrite existing .gif files
 - `--dry-run` - Preview conversions without processing
 - `--verbose, -v` - Detailed debug logging
 
 **Exit Codes:**
+
 - 0 = All conversions successful or no files found
 - 1 = Some conversions failed
 - 2 = All conversions failed
@@ -277,6 +285,7 @@ None - all new flags are additive and backward compatible.
 ## Next Steps (Phase 4)
 
 Phase 4 will add advanced features:
+
 - Health check validation
 - Version checking with warnings
 - Repair functionality for broken installs

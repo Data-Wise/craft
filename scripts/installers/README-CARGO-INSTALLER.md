@@ -25,10 +25,12 @@ Both strategies compile packages from source, which can take significant time (2
 Verifies that cargo is installed and functional.
 
 **Returns:**
+
 - `0` - Cargo is available
 - `1` - Cargo is not available or not functional
 
 **Usage:**
+
 ```bash
 if check_cargo_available; then
     echo "Cargo is available"
@@ -44,18 +46,22 @@ fi
 Install a Rust package from crates.io.
 
 **Parameters:**
+
 - `tool_name` - Display name of the tool (e.g., "agg")
 - `package` - Crate name on crates.io (e.g., "agg")
 
 **Returns:**
+
 - `0` - Installation successful
 - `1` - Installation failed
 
 **Output:** JSON to stdout
+
 - Success: `{"success": true}`
 - Failure: `{"success": false, "error": "error message"}`
 
 **Side Effects:**
+
 - Displays progress messages to stderr
 - Creates log file: `/tmp/cargo-install-$$.log`
 - Installs binary to `~/.cargo/bin/`
@@ -64,6 +70,7 @@ Install a Rust package from crates.io.
 **Compilation Time:** 2-5 minutes typical
 
 **Usage:**
+
 ```bash
 # Install agg from crates.io
 cargo_install_package "agg" "agg"
@@ -77,6 +84,7 @@ fi
 ```
 
 **Example Output (Success):**
+
 ```
 ⏳ Compiling agg from source (this may take 2-5 minutes)...
    This is normal for Rust packages - please be patient
@@ -89,6 +97,7 @@ fi
 ```
 
 **Example Output (Failure):**
+
 ```
 ⏳ Compiling agg from source (this may take 2-5 minutes)...
    This is normal for Rust packages - please be patient
@@ -105,18 +114,22 @@ See log: /tmp/cargo-install-12345.log
 Install a Rust package from a git repository.
 
 **Parameters:**
+
 - `tool_name` - Display name of the tool (e.g., "agg")
-- `repo_url` - Git repository URL (e.g., "https://github.com/asciinema/agg")
+- `repo_url` - Git repository URL (e.g., "<https://github.com/asciinema/agg>")
 
 **Returns:**
+
 - `0` - Installation successful
 - `1` - Installation failed
 
 **Output:** JSON to stdout
+
 - Success: `{"success": true}`
 - Failure: `{"success": false, "error": "error message"}`
 
 **Side Effects:**
+
 - Displays progress messages to stderr
 - Creates log file: `/tmp/cargo-git-install-$$.log`
 - Clones repository (temporary location)
@@ -126,10 +139,12 @@ Install a Rust package from a git repository.
 **Compilation Time:** 3-8 minutes typical (includes git clone)
 
 **Requirements:**
+
 - `cargo` must be installed
 - `git` must be installed
 
 **Usage:**
+
 ```bash
 # Install agg from GitHub
 cargo_install_from_git "agg" "https://github.com/asciinema/agg"
@@ -143,6 +158,7 @@ fi
 ```
 
 **Example Output (Success):**
+
 ```
 ⏳ Compiling agg from git (this may take 3-8 minutes)...
    This is normal for Rust packages - please be patient
@@ -156,6 +172,7 @@ fi
 ```
 
 **Example Output (Git Not Available):**
+
 ```
 {"success": false, "error": "Git not installed. Install git first."}
 ```
@@ -212,6 +229,7 @@ install_via_cargo_git() {
 ### Cargo Not Installed
 
 **Detection:**
+
 ```bash
 if ! command -v cargo &> /dev/null; then
     # Cargo not found
@@ -219,11 +237,13 @@ fi
 ```
 
 **Output:**
+
 ```json
 {"success": false, "error": "Cargo not installed. Install Rust from https://rustup.rs/"}
 ```
 
 **User Guidance:**
+
 - Install Rust via rustup: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 - Or via Homebrew: `brew install rust`
 
@@ -232,6 +252,7 @@ fi
 ### Git Not Installed (cargo_git only)
 
 **Detection:**
+
 ```bash
 if ! command -v git &> /dev/null; then
     # Git not found
@@ -239,11 +260,13 @@ fi
 ```
 
 **Output:**
+
 ```json
 {"success": false, "error": "Git not installed. Install git first."}
 ```
 
 **User Guidance:**
+
 - Install Git via Homebrew: `brew install git`
 - Or via system package manager
 
@@ -252,12 +275,14 @@ fi
 ### Compilation Errors
 
 **Common Causes:**
+
 1. Missing system dependencies (gcc, make, pkg-config)
 2. Network errors during dependency download
 3. Source code compile errors
 4. Incompatible Rust version
 
 **Output:**
+
 ```json
 {"success": false, "error": "error: failed to compile package..."}
 ```
@@ -265,6 +290,7 @@ fi
 **Log File:** `/tmp/cargo-install-$$.log` or `/tmp/cargo-git-install-$$.log`
 
 **Debugging:**
+
 ```bash
 # View full compilation log
 cat /tmp/cargo-install-12345.log
@@ -279,16 +305,19 @@ grep -i "failed" /tmp/cargo-install-12345.log
 ### Network Errors
 
 **Common Scenarios:**
+
 1. Cannot reach crates.io registry
 2. Cannot clone git repository
 3. Dependency download failures
 
 **Example Error:**
+
 ```
 error: failed to download from `https://crates.io/...`
 ```
 
 **Resolution:**
+
 - Check internet connection
 - Verify firewall/proxy settings
 - Retry installation
@@ -305,6 +334,7 @@ error: failed to download from `https://crates.io/...`
 | `cargo_git` | 3-8 minutes | 15 minutes |
 
 **Factors Affecting Speed:**
+
 - Number of dependencies
 - System CPU/RAM
 - Network speed (for downloads)
@@ -316,19 +346,23 @@ error: failed to download from `https://crates.io/...`
 ### Resource Usage
 
 **CPU:**
+
 - High during compilation (all cores utilized)
 - `cargo` runs in release mode (`--release`)
 
 **Memory:**
+
 - Typical: 500MB - 2GB
 - Large projects: up to 4GB
 
 **Disk:**
+
 - Build artifacts: 100MB - 1GB temporary
 - Final binary: 1MB - 50MB (in `~/.cargo/bin/`)
 - Build cache: `~/.cargo/registry/` (persistent)
 
 **Network:**
+
 - Download dependencies from crates.io
 - Git clone for `cargo_git` (can be large)
 
@@ -341,6 +375,7 @@ error: failed to download from `https://crates.io/...`
 Both functions show clear progress messages:
 
 1. **Start Message:**
+
    ```
    ⏳ Compiling <tool> from source (this may take 2-5 minutes)...
       This is normal for Rust packages - please be patient
@@ -352,6 +387,7 @@ Both functions show clear progress messages:
    - Compiler messages
 
 3. **Completion:**
+
    ```
    ✓ Compiled successfully
    ```
@@ -363,12 +399,14 @@ Both functions show clear progress messages:
 **Binary Path:** `~/.cargo/bin/<tool_name>`
 
 **PATH Setup:**
+
 ```bash
 # Add to ~/.zshrc or ~/.bashrc
 export PATH="$HOME/.cargo/bin:$PATH"
 ```
 
 **Verification:**
+
 ```bash
 # Check if installed
 which agg
@@ -391,6 +429,7 @@ Run the installer directly to test:
 ```
 
 **Output:**
+
 ```
 Cargo Installer Test
 ====================
@@ -467,6 +506,7 @@ install_via_cargo_git "agg" "$test_spec"
 **Symptom:** `{"success": false, "error": "Cargo not installed..."}`
 
 **Solution:**
+
 ```bash
 # Install Rust via rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -485,6 +525,7 @@ cargo --version
 **Symptom:** Process hangs for > 15 minutes
 
 **Solution:**
+
 1. Check log file for errors: `cat /tmp/cargo-install-*.log`
 2. Kill process: `pkill -f "cargo install"`
 3. Try binary installation strategy instead
@@ -497,6 +538,7 @@ cargo --version
 **Symptom:** `which <tool>` returns nothing after successful install
 
 **Solution:**
+
 ```bash
 # Add cargo bin to PATH
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -515,6 +557,7 @@ source ~/.zshrc
 **Symptom:** Error writing to `~/.cargo/bin/`
 
 **Solution:**
+
 ```bash
 # Fix cargo directory permissions
 chmod -R u+w ~/.cargo

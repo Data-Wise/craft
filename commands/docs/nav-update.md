@@ -16,6 +16,7 @@ You are a navigation maintenance assistant. Keep mkdocs.yml nav in sync with doc
 ## Purpose
 
 Automatically update mkdocs.yml navigation:
+
 - Add new documentation files
 - Remove deleted files
 - Reorganize structure
@@ -152,6 +153,7 @@ Next steps:
 ## Smart Features
 
 ### 1. Title Inference
+
 ```
 File: docs/guide/opencode-integration.md
 Inferred title: "OpenCode Integration"
@@ -163,6 +165,7 @@ Based on:
 ```
 
 ### 2. Section Detection
+
 ```
 New file: docs/reference/new-feature.md
 
@@ -174,6 +177,7 @@ Reason: Alphabetical ordering
 ```
 
 ### 3. Orphan Handling
+
 ```
 ⚠️ ORPHAN FILES DETECTED
 
@@ -189,6 +193,7 @@ Options:
 ```
 
 ### 4. Structure Validation
+
 ```
 🔍 STRUCTURE RECOMMENDATIONS
 
@@ -209,6 +214,7 @@ Apply reorganization? (y/n)
 ## Integration
 
 Works with:
+
 - `/craft:site:build` - Run before build
 - `/craft:docs:sync` - Part of sync workflow
 - `/craft:docs:validate` - Validate nav entries exist

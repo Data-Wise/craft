@@ -23,6 +23,7 @@ Implemented three Medium Effort enhancements from the Claude Code 2.1.0 enhancem
 **File Modified:** `commands/do.md`
 
 **New Sections:**
+
 - **Agent Selection Logic** - Keyword-based routing to specialized agents
 - **Delegation Workflow** - Step-by-step agent execution process
 - **Agent Routing Table** - Complete mapping of triggers to agents
@@ -54,11 +55,13 @@ Implemented three Medium Effort enhancements from the Claude Code 2.1.0 enhancem
 ### Enhanced Dry-Run Output
 
 **Before:**
+
 ```
 │ ✓ Routing Decision: feature-dev Agent
 ```
 
 **After:**
+
 ```
 │ ✓ Routing Decision: feature-dev Agent
 │   - Context: Forked (isolated execution)
@@ -97,6 +100,7 @@ Implemented three Medium Effort enhancements from the Claude Code 2.1.0 enhancem
 **File Modified:** `commands/check.md`
 
 **New Section:**
+
 - **Hot-Reload Validator Discovery** - Complete documentation of dynamic validator system
 
 ### How It Works
@@ -189,6 +193,7 @@ version: 1.0.0
 **File Modified:** `agents/orchestrator-v2.md`
 
 **Changes:**
+
 - Added `context: fork` to frontmatter
 - Added **BEHAVIOR 0: Forked Context Execution** section (113 lines)
 - Updated version from 2.1.0 to 2.2.0
@@ -228,12 +233,14 @@ Main Conversation (context A)
 ### Benefits
 
 **For the user:**
+
 - ✅ **Clean chat history** - Main conversation stays readable
 - ✅ **No context waste** - Agent outputs don't consume main context
 - ✅ **Predictable behavior** - Each orchestration is independent
 - ✅ **Session continuity** - Can continue conversation after orchestration
 
 **For the orchestrator:**
+
 - ✅ **Full context budget** - Start each wave with clean slate
 - ✅ **Isolation guarantees** - Errors don't corrupt main conversation
 - ✅ **Parallel safety** - Multiple waves can run simultaneously
@@ -307,6 +314,7 @@ State persists in `.craft/cache/`:
 ### Manual Tests
 
 1. **Agent Delegation**:
+
    ```bash
    # Test routing to different agents
    /craft:do "add login feature" --dry-run         # → feature-dev (score: 4)
@@ -316,6 +324,7 @@ State persists in `.craft/cache/`:
    ```
 
 2. **Validator Discovery**:
+
    ```bash
    # Test validator auto-detection
    /craft:check --dry-run   # Should show 3 hot-reload validators
@@ -328,6 +337,7 @@ State persists in `.craft/cache/`:
    ```
 
 3. **Forked Context**:
+
    ```bash
    # Test orchestrator in forked context
    /craft:orchestrate "add tests for authentication"
@@ -360,6 +370,7 @@ Wave 2 builds on Wave 1 infrastructure:
 | Orchestration hooks | Forked context execution |
 
 **Synergy:**
+
 - Complexity scores (Wave 1) → Agent routing (Wave 2)
 - Validation skills (Wave 1) → Hot-reload discovery (Wave 2)
 - Agent hooks (Wave 1) → Forked context monitoring (Wave 2)

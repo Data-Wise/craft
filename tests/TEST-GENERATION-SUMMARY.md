@@ -56,6 +56,7 @@ Hub v2.0 currently has **34 comprehensive tests** covering core functionality (1
 **Purpose:** Test custom YAML parser edge cases
 
 **Test Cases:**
+
 1. ✅ Multiline string values
 2. ✅ Quoted strings with colons
 3. ✅ Empty frontmatter section
@@ -73,6 +74,7 @@ Hub v2.0 currently has **34 comprehensive tests** covering core functionality (1
 15. ✅ Duplicate keys (last wins behavior)
 
 **Why Important:**
+
 - Documents parser capabilities and limitations
 - Identifies areas for future enhancement
 - Prevents regressions when updating parser
@@ -83,6 +85,7 @@ Hub v2.0 currently has **34 comprehensive tests** covering core functionality (1
 **Purpose:** Test category and command name inference from file paths
 
 **Test Cases:**
+
 1. ✅ Top-level files (`hub.md` → `hub` category)
 2. ✅ Nested directories (`git/docs/advanced/refcard.md` → `git`)
 3. ✅ Internal files (files starting with `_`)
@@ -92,6 +95,7 @@ Hub v2.0 currently has **34 comprehensive tests** covering core functionality (1
 7. ✅ Utils directory skipped in name (`code/utils/helper.md` → `code:helper`)
 
 **Why Important:**
+
 - Ensures cross-platform compatibility (Windows/Unix)
 - Validates path normalization
 - Prevents naming inconsistencies
@@ -102,6 +106,7 @@ Hub v2.0 currently has **34 comprehensive tests** covering core functionality (1
 **Purpose:** Test cache management under error conditions
 
 **Test Cases:**
+
 1. ✅ Corrupted cache file (invalid JSON)
 2. ✅ Missing cache fields (graceful regeneration)
 3. ✅ Cache permission denied (mock test)
@@ -110,6 +115,7 @@ Hub v2.0 currently has **34 comprehensive tests** covering core functionality (1
 6. ✅ Cache statistics accuracy
 
 **Why Important:**
+
 - Ensures graceful degradation on errors
 - Validates cache invalidation logic
 - Prevents data inconsistencies
@@ -124,6 +130,7 @@ Hub v2.0 currently has **34 comprehensive tests** covering core functionality (1
 **Purpose:** Validate complete user workflows through all 3 layers
 
 **Test Cases:**
+
 1. ✅ Browse by category workflow
 2. ✅ Search specific command workflow
 3. ✅ Learn command with tutorial workflow
@@ -134,12 +141,14 @@ Hub v2.0 currently has **34 comprehensive tests** covering core functionality (1
 8. ✅ Navigation breadcrumbs workflow
 
 **Why Important:**
+
 - Validates end-to-end functionality
 - Ensures 3-layer navigation works seamlessly
 - Tests real user scenarios
 - Validates progressive disclosure design
 
 **Example Workflow Test:**
+
 ```python
 def test_workflow_2_search_specific_command(self):
     """
@@ -169,6 +178,7 @@ def test_workflow_2_search_specific_command(self):
 **Purpose:** Validate performance under realistic usage patterns
 
 **Test Cases:**
+
 1. ✅ Cold start performance (< 200ms)
 2. ✅ Cached performance (< 10ms)
 3. ✅ Rapid category switches (25 operations < 100ms)
@@ -176,12 +186,14 @@ def test_workflow_2_search_specific_command(self):
 5. ✅ Concurrent access simulation (10 users)
 
 **Why Important:**
+
 - Validates performance targets
 - Ensures scalability
 - Tests realistic usage patterns
 - Prevents performance regressions
 
 **Performance Targets:**
+
 | Operation | Target | Validates |
 |-----------|--------|-----------|
 | Cold start | < 200ms | Initial discovery speed |
@@ -198,6 +210,7 @@ def test_workflow_2_search_specific_command(self):
 **Purpose:** Validate real-world developer workflows
 
 **Test Cases:**
+
 1. ✅ Add new command workflow (auto-detection)
 2. ✅ Refactor command category (move file)
 3. ✅ Update command metadata (edit frontmatter)
@@ -206,12 +219,14 @@ def test_workflow_2_search_specific_command(self):
 6. ✅ Command search implementation (fuzzy matching)
 
 **Why Important:**
+
 - Tests actual developer workflows
 - Validates zero-maintenance promise
 - Ensures system meets real needs
 - Documents expected behaviors
 
 **Example Dogfooding Test:**
+
 ```python
 def test_add_new_command_workflow(self):
     """
@@ -243,6 +258,7 @@ def test_add_new_command_workflow(self):
 **Impact:** Enhanced reliability and edge case coverage
 
 **Tasks:**
+
 1. Create `test_hub_yaml_edge_cases.py`
 2. Create `test_hub_category_inference.py`
 3. Create `test_hub_cache_edge_cases.py`
@@ -250,6 +266,7 @@ def test_add_new_command_workflow(self):
 5. Document results in coverage report
 
 **Expected Outcomes:**
+
 - Identify 0-3 edge case bugs
 - Document parser limitations
 - Validate cross-platform compatibility
@@ -262,6 +279,7 @@ def test_add_new_command_workflow(self):
 **Impact:** End-to-end validation and performance benchmarking
 
 **Tasks:**
+
 1. Create `test_hub_e2e_workflows.py`
 2. Create `test_hub_performance_e2e.py`
 3. Validate against real user scenarios
@@ -269,6 +287,7 @@ def test_add_new_command_workflow(self):
 5. Document workflow patterns
 
 **Expected Outcomes:**
+
 - 100% e2e workflow coverage
 - Performance validation (< 200ms, < 10ms targets)
 - Real user scenario validation
@@ -281,6 +300,7 @@ def test_add_new_command_workflow(self):
 **Impact:** Real-world usage validation
 
 **Tasks:**
+
 1. Create `test_hub_dogfooding.py`
 2. Validate developer workflows
 3. Test zero-maintenance promise
@@ -288,6 +308,7 @@ def test_add_new_command_workflow(self):
 5. Create usage examples
 
 **Expected Outcomes:**
+
 - Developer workflow validation
 - Zero-maintenance verification
 - Real-world usage documentation
@@ -299,6 +320,7 @@ def test_add_new_command_workflow(self):
 **Tasks:** Test runner, coverage report, CI integration
 
 **Deliverables:**
+
 1. `tests/run_all_tests.sh` (unified test runner)
 2. `tests/TEST-COVERAGE-REPORT.md` (coverage summary)
 3. CI integration (GitHub Actions)
@@ -429,11 +451,13 @@ def test_add_new_command_workflow(self):
 This test plan provides **47 additional tests** that enhance Hub v2.0 coverage from 100% core functionality to comprehensive edge case, e2e, and real-world usage coverage.
 
 **Current State:**
+
 - ✅ 34 tests (100% core coverage)
 - ✅ Production-ready
 - ✅ All targets met
 
 **Enhanced State (After Implementation):**
+
 - ✅ 81 tests (comprehensive coverage)
 - ✅ Edge cases validated
 - ✅ E2E workflows tested

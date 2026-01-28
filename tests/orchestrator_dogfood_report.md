@@ -72,4 +72,3 @@
 | Test | Status | Details | Time |
 |------|--------|---------|------|
 | Context Threshold Values | ✓ PASS | All 43 percentages valid (0-100) | 0.5ms |
-

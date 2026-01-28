@@ -38,19 +38,23 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Discovery Performance
 
 - [ ] **First run (uncached)**
+
   ```bash
   rm commands/_cache.json
   python3 commands/_discovery.py
   ```
+
   - [ ] Completes in < 200ms (target: ~12ms)
   - [ ] Discovers 97 commands
   - [ ] Shows 16 categories
   - [ ] Creates `commands/_cache.json`
 
 - [ ] **Cached run**
+
   ```bash
   python3 commands/_discovery.py
   ```
+
   - [ ] Completes in < 10ms (target: ~2ms)
   - [ ] Loads from cache
   - [ ] Shows same counts (97 commands, 16 categories)
@@ -63,11 +67,13 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Command Statistics
 
 - [ ] **Run stats check**
+
   ```python
   from commands._discovery import get_command_stats
   stats = get_command_stats()
   print(stats)
   ```
+
   - [ ] `stats['total']` = 97
   - [ ] `stats['categories']` has 16 entries
   - [ ] `stats['categories']['code']` = 12
@@ -81,9 +87,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Basic Display
 
 - [ ] **Invoke hub**
+
   ```
   Say to Claude: "/craft:hub"
   ```
+
   - [ ] Shows main menu with box border
   - [ ] Displays "CRAFT - Full Stack Developer Toolkit"
   - [ ] Shows total: "97 Commands | 21 Skills | 8 Agents"
@@ -116,9 +124,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### CODE Category
 
 - [ ] **Invoke category view**
+
   ```
   Say to Claude: "/craft:hub code"
   ```
+
   - [ ] Shows "💻 CODE COMMANDS (12 total)"
   - [ ] Shows description: "Code Quality & Development Tools"
   - [ ] Commands numbered 1-12
@@ -144,9 +154,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### TEST Category
 
 - [ ] **Invoke TEST category**
+
   ```
   Say to Claude: "/craft:hub test"
   ```
+
   - [ ] Shows "🧪 TEST COMMANDS (7 total)"
   - [ ] Lists all 7 test commands
   - [ ] Shows mode indicators
@@ -155,9 +167,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### DOCS Category
 
 - [ ] **Invoke DOCS category**
+
   ```
   Say to Claude: "/craft:hub docs"
   ```
+
   - [ ] Shows "📄 DOCS COMMANDS (19 total)"
   - [ ] Lists all 19 docs commands
   - [ ] Shows workflows
@@ -165,9 +179,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### GIT Category
 
 - [ ] **Invoke GIT category**
+
   ```
   Say to Claude: "/craft:hub git"
   ```
+
   - [ ] Shows "🔀 GIT COMMANDS (11 total)"
   - [ ] Lists all 11 git commands
   - [ ] Shows workflows
@@ -179,9 +195,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### CODE:LINT Command
 
 - [ ] **Invoke command detail**
+
   ```
   Say to Claude: "/craft:hub code:lint"
   ```
+
   - [ ] Shows "📚 COMMAND: /craft:code:lint"
   - [ ] Shows description section
   - [ ] Shows MODES section (if command has modes)
@@ -206,9 +224,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### TEST:RUN Command
 
 - [ ] **Invoke command detail**
+
   ```
   Say to Claude: "/craft:hub test:run"
   ```
+
   - [ ] Shows command tutorial
   - [ ] Shows modes (if applicable)
   - [ ] Shows usage examples
@@ -217,9 +237,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### DOCS:SYNC Command
 
 - [ ] **Invoke command detail**
+
   ```
   Say to Claude: "/craft:hub docs:sync"
   ```
+
   - [ ] Shows command tutorial
   - [ ] Shows description
   - [ ] Usage examples present
@@ -227,9 +249,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### GIT:WORKTREE Command
 
 - [ ] **Invoke command detail**
+
   ```
   Say to Claude: "/craft:hub git:worktree"
   ```
+
   - [ ] Shows command tutorial
   - [ ] All sections present
   - [ ] Navigation works
@@ -241,11 +265,13 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Drill-Down Flow
 
 - [ ] **Main Menu → Category → Command**
+
   ```
   Step 1: /craft:hub
   Step 2: Select CODE category → /craft:hub code
   Step 3: Select lint command → /craft:hub code:lint
   ```
+
   - [ ] Each step shows appropriate content
   - [ ] Navigation breadcrumbs work
   - [ ] Can navigate back at each step
@@ -253,9 +279,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Direct Jump
 
 - [ ] **Jump directly to command**
+
   ```
   Say to Claude: "/craft:hub test:coverage"
   ```
+
   - [ ] Goes directly to Layer 3 (command detail)
   - [ ] Skips Layer 1 and Layer 2
   - [ ] Shows complete tutorial
@@ -263,12 +291,14 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Category Browse
 
 - [ ] **Browse multiple categories**
+
   ```
   /craft:hub code
   /craft:hub test
   /craft:hub docs
   /craft:hub git
   ```
+
   - [ ] Each shows correct command count
   - [ ] Each shows category-specific commands
   - [ ] Navigation consistent across all
@@ -288,9 +318,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Invalid Category
 
 - [ ] **Non-existent category**
+
   ```
   Say to Claude: "/craft:hub nonexistent"
   ```
+
   - [ ] Shows error message
   - [ ] Suggests valid alternatives
   - [ ] Doesn't crash
@@ -298,9 +330,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Invalid Command
 
 - [ ] **Non-existent command**
+
   ```
   Say to Claude: "/craft:hub code:nonexistent"
   ```
+
   - [ ] Shows "Command not found" message
   - [ ] Suggests browsing category
   - [ ] Doesn't crash
@@ -308,9 +342,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Partial Command Name
 
 - [ ] **Command name without category**
+
   ```
   Say to Claude: "/craft:hub lint"
   ```
+
   - [ ] Either shows error or finds unique match
   - [ ] Handles gracefully
 
@@ -324,10 +360,12 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Cache Corruption
 
 - [ ] **Corrupt cache file**
+
   ```bash
   echo "invalid json" > commands/_cache.json
   python3 commands/_discovery.py
   ```
+
   - [ ] Regenerates valid cache
   - [ ] Doesn't crash
   - [ ] Shows correct counts after regeneration
@@ -363,9 +401,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Large Category Handling
 
 - [ ] **DOCS category (19 commands)**
+
   ```
   Say to Claude: "/craft:hub docs"
   ```
+
   - [ ] Handles large list gracefully
   - [ ] No performance degradation
   - [ ] All commands listed
@@ -377,9 +417,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Help Page
 
 - [ ] **Read documentation**
+
   ```bash
   cat docs/help/hub.md
   ```
+
   - [ ] Mentions v2.0
   - [ ] Explains 3 layers
   - [ ] Shows all categories with counts
@@ -389,9 +431,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### CHANGELOG
 
 - [ ] **Read changelog**
+
   ```bash
   cat CHANGELOG.md | head -100
   ```
+
   - [ ] Hub v2.0 entry present
   - [ ] Lists all features
   - [ ] Performance metrics included
@@ -400,10 +444,12 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Command Frontmatter
 
 - [ ] **Check sample commands**
+
   ```bash
   head -20 commands/code/lint.md
   head -20 commands/test/run.md
   ```
+
   - [ ] YAML frontmatter present
   - [ ] Required fields: name, category, description
   - [ ] Optional fields used appropriately
@@ -415,29 +461,35 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### With /craft:do
 
 - [ ] **Test smart routing interaction**
+
   ```
   Say to Claude: "/craft:do check code quality"
   ```
+
   - [ ] Doesn't conflict with hub
   - [ ] Can still use hub after /craft:do
 
 ### With /craft:check
 
 - [ ] **Test validation interaction**
+
   ```
   Say to Claude: "/craft:check"
   ```
+
   - [ ] Hub still accessible
   - [ ] No conflicts
 
 ### With Other Commands
 
 - [ ] **Run actual commands after hub browsing**
+
   ```
   Step 1: /craft:hub code
   Step 2: /craft:hub code:lint
   Step 3: Actually run /craft:code:lint
   ```
+
   - [ ] Hub browsing doesn't break command execution
   - [ ] Commands work as expected
 
@@ -448,15 +500,19 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Old Usage Still Works
 
 - [ ] **Plain hub invocation**
+
   ```
   Say to Claude: "/craft:hub"
   ```
+
   - [ ] Works same as before (shows main menu)
 
 - [ ] **Category invocation**
+
   ```
   Say to Claude: "/craft:hub code"
   ```
+
   - [ ] Works (shows Layer 2)
   - [ ] Even though this format existed before, now shows improved view
 
@@ -505,21 +561,25 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Code Quality
 
 - [ ] **Run linters**
+
   ```bash
   # If applicable
   python3 -m pylint commands/_discovery.py
   ```
+
   - [ ] No critical issues
 
 ### Test Suite
 
 - [ ] **All tests pass**
+
   ```bash
   python3 tests/test_hub_discovery.py
   python3 tests/test_hub_integration.py
   python3 tests/test_hub_layer2.py
   python3 tests/test_hub_layer3.py
   ```
+
   - [ ] 12/12 discovery tests pass
   - [ ] 7/7 integration tests pass
   - [ ] 7/7 Layer 2 tests pass
@@ -529,25 +589,31 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Demos Run Successfully
 
 - [ ] **Layer 2 demo**
+
   ```bash
   python3 tests/demo_layer2.py
   ```
+
   - [ ] Runs without errors
   - [ ] Shows 4 category examples
 
 - [ ] **Layer 3 demo**
+
   ```bash
   python3 tests/demo_layer3.py
   ```
+
   - [ ] Runs without errors
   - [ ] Shows 4 command detail examples
 
 ### Git Status Clean
 
 - [ ] **No uncommitted changes**
+
   ```bash
   git status
   ```
+
   - [ ] All changes committed
   - [ ] Cache file ignored (in .gitignore)
   - [ ] No unexpected files
@@ -555,9 +621,11 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 ### Remote Synced
 
 - [ ] **Push to remote**
+
   ```bash
   git log origin/feature/hub-v2 -3
   ```
+
   - [ ] All commits pushed
   - [ ] Branch up to date
 
@@ -599,11 +667,13 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 **Date:** _______________
 
 **Recommendation:**
+
 - [ ] ✅ Approve for merge to dev
 - [ ] ⚠️ Approve with minor fixes
 - [ ] ❌ Request changes before merge
 
 **Comments:**
+
 ```
 [Add any additional comments, observations, or recommendations here]
 ```

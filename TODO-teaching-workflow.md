@@ -10,6 +10,7 @@
 ## Phase 1: Foundation (60 min) ⏱️
 
 ### Task 1.1: Teaching Mode Detection Utility (20 min)
+
 - [ ] Create `commands/utils/detect_teaching_mode.py`
   - [ ] Implement detection priority logic:
     - [ ] Priority 1: Check `.flow/teach-config.yml` exists
@@ -24,6 +25,7 @@
 - [ ] **Acceptance:** Detection works for STAT 545 test project
 
 ### Task 1.2: Teaching Validation Suite (25 min)
+
 - [ ] Create `commands/utils/teaching_validation.py`
   - [ ] Define `ValidationResult` dataclass
     - [ ] Fields: valid, errors, warnings, checks
@@ -51,6 +53,7 @@
 - [ ] **Acceptance:** Validation catches all issues in test course
 
 ### Task 1.3: Branch Status Display (15 min)
+
 - [ ] Enhance `/craft:git:status` command
   - [ ] Detect teaching mode using utility
   - [ ] If teaching mode:
@@ -66,6 +69,7 @@
 ## Phase 2: Publishing Workflow (90 min) ⏱️
 
 ### Task 2.1: Config File Schema (15 min)
+
 - [ ] Document `.flow/teach-config.yml` schema
   - [ ] Create `docs/teaching-config-schema.md`
   - [ ] Define all fields:
@@ -80,6 +84,7 @@
 - [ ] **Acceptance:** Schema doc is clear and complete
 
 ### Task 2.2: Preview-Before-Publish Workflow (75 min)
+
 - [ ] Enhance `/craft:site:publish` command
   - [ ] **Step 1: Validate draft branch (10 min)**
     - [ ] Detect teaching mode
@@ -131,6 +136,7 @@
 ## Phase 3: Progress Tracking (120 min) ⏱️
 
 ### Task 3.1: Config File Parser (20 min)
+
 - [ ] Create `commands/utils/teach_config.py`
   - [ ] Implement `load_teach_config(cwd)` function
     - [ ] Auto-detect config path (.flow/ or root)
@@ -149,6 +155,7 @@
 - [ ] **Acceptance:** Parser handles all edge cases
 
 ### Task 3.2: Week Calculation Logic (40 min)
+
 - [ ] Create `commands/utils/semester_progress.py`
   - [ ] Implement `calculate_current_week(config, current_date)` function
     - [ ] Parse semester start/end dates
@@ -173,6 +180,7 @@
 - [ ] **Acceptance:** Week calculation matches manual tracking
 
 ### Task 3.3: Progress Dashboard Command (60 min)
+
 - [ ] Create `/craft:site:progress` command
   - [ ] Detect teaching mode
   - [ ] If not teaching: show error, suggest config setup
@@ -197,6 +205,7 @@
 ## Phase 4: Integration (60 min) ⏱️
 
 ### Task 4.1: Teaching-Aware Site Build (30 min)
+
 - [ ] Enhance `/craft:site:build` command
   - [ ] Detect teaching mode
   - [ ] If teaching:
@@ -212,6 +221,7 @@
 - [ ] **Acceptance:** Build shows teaching context
 
 ### Task 4.2: Documentation (30 min)
+
 - [ ] Create teaching mode documentation
   - [ ] README section: "Teaching Mode"
     - [ ] Overview of features
@@ -237,6 +247,7 @@
 ## Testing & Validation
 
 ### Integration Tests
+
 - [ ] Create test course project
   - [ ] Minimal course (syllabus + schedule)
   - [ ] Full course (STAT 545 structure)
@@ -250,6 +261,7 @@
   - [ ] Deployment failures
 
 ### Manual Testing
+
 - [ ] Test with STAT 545 (Spring 2026)
   - [ ] Detection accuracy
   - [ ] Validation completeness
@@ -264,18 +276,21 @@
 ## Success Metrics (Track These)
 
 ### Performance
+
 - [ ] Teaching mode detection: < 100ms
 - [ ] Full validation: < 5s
 - [ ] Diff preview: < 1s
 - [ ] Complete publish workflow: < 5 min
 
 ### Quality
+
 - [ ] All validation checks pass
 - [ ] No false positives (warnings OK)
 - [ ] Week calculation accurate
 - [ ] Rollback works on failure
 
 ### User Experience
+
 - [ ] ADHD-friendly output (short paragraphs, visual structure)
 - [ ] Clear error messages with suggestions
 - [ ] Confirmation prompts before destructive actions
@@ -286,21 +301,25 @@
 ## Commit Strategy (Conventional Commits)
 
 ### Phase 1
+
 - `feat(teaching): add teaching mode detection utility`
 - `feat(teaching): add content validation suite`
 - `feat(git): enhance status with teaching context`
 
 ### Phase 2
+
 - `docs(teaching): add teach-config.yml schema`
 - `feat(site): add preview-before-publish workflow`
 - `test(teaching): add publish workflow integration tests`
 
 ### Phase 3
+
 - `feat(teaching): add config file parser`
 - `feat(teaching): add semester progress calculation`
 - `feat(site): add progress dashboard command`
 
 ### Phase 4
+
 - `feat(site): add teaching context to build command`
 - `docs(teaching): add setup guide and tutorials`
 - `docs: update command references for teaching mode`
@@ -310,6 +329,7 @@
 ## PR Checklist
 
 Before creating PR:
+
 - [ ] All phases complete
 - [ ] All tests passing (≥90% coverage)
 - [ ] Documentation complete
@@ -324,6 +344,7 @@ Before creating PR:
 ## Notes
 
 ### Key Insights from Spec
+
 - Preview-before-publish eliminates deployment anxiety
 - Validation warnings OK, only errors block publish
 - Semester progress auto-calculated, manual override available
@@ -331,6 +352,7 @@ Before creating PR:
 - ADHD-friendly output throughout
 
 ### Potential Extensions (Future)
+
 - LMS integration (Canvas, Moodle) - v1.23.0
 - Multi-instructor support - v1.23.0
 - Assignment template library - Phase 5

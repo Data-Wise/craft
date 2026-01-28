@@ -55,12 +55,13 @@ You are a git synchronization assistant. Help users safely sync with remote repo
 ## Purpose
 
 Safe, intelligent syncing:
+
 - Pull latest changes
 - Handle conflicts gracefully
 - Commit work in progress if needed
 - Stay up to date with remote
 
-## When invoked:
+## When invoked
 
 ### Step 1: Pre-Sync Check
 
@@ -75,6 +76,7 @@ git rev-list @{u}..HEAD --count  # Commits ahead
 ```
 
 **Show status:**
+
 ```
 🔄 SYNC STATUS CHECK
 
@@ -93,6 +95,7 @@ Status:
 ### Step 2: Handle Uncommitted Changes
 
 **If working directory is dirty:**
+
 ```
 ⚠️ You have uncommitted changes
 
@@ -106,10 +109,12 @@ Choice:
 ```
 
 **If option 1:**
+
 - Run `/commit` workflow
 - Continue to sync after commit
 
 **If option 2:**
+
 ```bash
 git stash save "Auto-stash before sync $(date +%Y-%m-%d)"
 ```
@@ -127,6 +132,7 @@ git stash save "Auto-stash before sync $(date +%Y-%m-%d)"
 | Ahead | Ahead | Diverged - need merge/rebase |
 
 **Display strategy:**
+
 ```
 📋 SYNC PLAN
 
@@ -148,21 +154,25 @@ Proceed with rebase? (y/n/merge)
 ### Step 4: Execute Sync
 
 **If fast-forward (behind only):**
+
 ```bash
 git pull origin $(git branch --show-current)
 ```
 
 **If rebase chosen:**
+
 ```bash
 git pull --rebase origin $(git branch --show-current)
 ```
 
 **If merge chosen:**
+
 ```bash
 git pull origin $(git branch --show-current)
 ```
 
 **Show progress:**
+
 ```
 🔄 SYNCING...
 
@@ -184,6 +194,7 @@ Push to remote? (y/n)
 ### Step 5: Handle Conflicts
 
 **If conflicts occur:**
+
 ```
 ⚠️ MERGE CONFLICTS DETECTED
 
@@ -201,6 +212,7 @@ Choice:
 ```
 
 **Show conflict preview:**
+
 ```
 📝 CONFLICT PREVIEW: src/auth.js
 
@@ -223,6 +235,7 @@ Edit file to resolve? (y/n)
 ```
 
 **After resolution:**
+
 ```bash
 git add <resolved-files>
 git rebase --continue
@@ -233,6 +246,7 @@ git merge --continue
 ### Step 6: Post-Sync Actions
 
 **If stashed changes:**
+
 ```
 💾 RESTORING STASHED CHANGES
 
@@ -249,6 +263,7 @@ Continue working!
 ```
 
 **Push if ahead:**
+
 ```
 🚀 Your branch is 2 commits ahead
 
@@ -266,6 +281,7 @@ Both local and remote are identical.
 ### 1. Conflict Prevention
 
 **Check for potential conflicts before syncing:**
+
 ```
 🔍 CONFLICT ANALYSIS
 
@@ -283,6 +299,7 @@ View diff? (y/n)
 ### 2. Auto-Commit Before Sync
 
 **If user has uncommitted work:**
+
 ```
 💡 AUTO-COMMIT SUGGESTION
 
@@ -301,6 +318,7 @@ Auto-commit? (y/n/manual)
 ### 3. Sync Multiple Branches
 
 **Sync main + current branch:**
+
 ```
 🔄 MULTI-BRANCH SYNC
 
@@ -362,6 +380,7 @@ Run /sync regularly (daily recommended).
 ### Common Conflict Types
 
 **1. Both modified same lines:**
+
 ```
 <<<<<<< HEAD
 const API_URL = "https://api.prod.com";
@@ -373,6 +392,7 @@ Resolution: Choose appropriate environment or make configurable
 ```
 
 **2. File moved/renamed:**
+
 ```
 File moved by you: src/old.js → src/new.js
 File modified by remote: src/old.js
@@ -381,6 +401,7 @@ Resolution: Apply remote changes to new location
 ```
 
 **3. Deleted vs Modified:**
+
 ```
 You deleted: src/legacy.js
 Remote modified: src/legacy.js

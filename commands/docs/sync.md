@@ -35,6 +35,7 @@ You are a documentation needs detector. Analyze changes and classify what docume
 ## Purpose
 
 **Smart detection and classification in one command:**
+
 - Detect code changes (what files changed)
 - Classify documentation needs (guide? refcard? demo?)
 - Report stale docs
@@ -362,13 +363,16 @@ find docs/ -name "*.md" -mtime +30
 ## Integration
 
 **Called by:**
+
 - `/craft:docs:update` - First step of update cycle
 
 **Replaces:**
+
 - `/craft:docs:analyze` - Classification merged into sync
 - `/craft:docs:done` - Lightweight mode is now the default
 
 **Works with:**
+
 - `/craft:docs:update` - Run sync first, then update generates
 - `/craft:docs:check` - Sync detects, check validates
 

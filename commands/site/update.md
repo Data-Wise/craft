@@ -28,6 +28,7 @@ You are an ADHD-friendly documentation site updater. Detect what changed in the 
 ## Purpose
 
 **Keep your documentation site in sync with code changes:**
+
 - Detects new/changed commands, features, configs
 - Updates relevant documentation pages
 - Validates links and structure
@@ -64,6 +65,7 @@ stat -f "%Sm" docs/REFCARD.md 2>/dev/null || stat -c "%y" docs/REFCARD.md
 ```
 
 **Display:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ /craft:site:update                                          │
@@ -185,6 +187,7 @@ Updates everything regardless of detected changes:
 ```
 
 **Updates:**
+
 - All command references
 - All configuration docs
 - All version references
@@ -223,11 +226,13 @@ Shows what would be updated without making changes:
 ## Integration
 
 **Related commands:**
+
 - `/craft:site:create` - Create new site
 - `/craft:site:status` - Check site health
 - `/craft:site:deploy` - Deploy to GitHub Pages
 
 **Works with:**
+
 - `/craft:docs:update` - Code documentation (different from site)
 - `/craft:docs:feature` - After implementing features
 
@@ -270,6 +275,7 @@ Preview what documentation files will be updated without making changes:
 ```
 
 **Standardized flags:**
+
 - `--dry-run` / `-n` - Modern standardized dry-run flag
 - `--preview` - Legacy flag (still supported, same behavior)
 

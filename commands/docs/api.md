@@ -5,6 +5,7 @@ You are an API documentation specialist. Generate OpenAPI 3.1 specifications and
 ## Purpose
 
 Generate and maintain API documentation:
+
 - OpenAPI 3.1 specifications
 - Swagger UI setup
 - SDK generation
@@ -59,6 +60,7 @@ cat package.json 2>/dev/null | grep -E "express|fastify|hono"
 ```
 
 **Supported Frameworks:**
+
 | Framework | Language | Auto-detect |
 |-----------|----------|-------------|
 | FastAPI | Python | ✅ Built-in OpenAPI |
@@ -71,6 +73,7 @@ cat package.json 2>/dev/null | grep -E "express|fastify|hono"
 ### Step 2: Generate OpenAPI Spec
 
 **For FastAPI (auto-generation):**
+
 ```python
 # FastAPI generates OpenAPI automatically
 # Export with:
@@ -80,6 +83,7 @@ print(json.dumps(app.openapi(), indent=2))
 ```
 
 **For other frameworks - use api-documenter agent:**
+
 - Analyze route definitions
 - Extract parameters, responses, schemas
 - Generate OpenAPI 3.1 YAML
@@ -133,6 +137,7 @@ Select option (1-4) or skip:
 ```
 
 **For Swagger UI:**
+
 ```bash
 # Static hosting
 npx @stoplight/prism-cli mock openapi.yaml
@@ -221,12 +226,15 @@ openapi-generator-cli generate \
 ## Integration
 
 Uses agents:
+
 - `api-documenter` - OpenAPI generation and enhancement
 
 Uses skills:
+
 - `openapi-spec-generation` - Spec patterns and validation
 
 Works with:
+
 - `/craft:docs:generate` - Part of full documentation
 - `/craft:docs:validate` - Validate generated spec
 - `/craft:code:deps-audit` - Check API dependencies

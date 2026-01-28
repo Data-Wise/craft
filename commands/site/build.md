@@ -150,11 +150,13 @@ Next steps:
 ## Error Handling
 
 If build fails:
+
 1. Show the error message
 2. Suggest common fixes
 3. Offer to help debug
 
 **Common issues:**
+
 - Missing dependencies
 - Broken links
 - Invalid YAML

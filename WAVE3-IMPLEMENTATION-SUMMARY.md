@@ -23,6 +23,7 @@ Implemented three Long-term enhancements from the Claude Code 2.1.0 enhancement 
 **File Modified:** `agents/orchestrator-v2.md`
 
 **Enhancement to BEHAVIOR 5:**
+
 - **Error Categorization** - 5 categories with appropriate recovery strategies
 - **Exponential Backoff Retry** - Smart retry logic (2s-16s backoff schedule)
 - **Timeout Management** - Soft/hard timeout with grace period
@@ -108,6 +109,7 @@ Implemented three Long-term enhancements from the Claude Code 2.1.0 enhancement 
 **Command**: `/craft:check:gen-validator`
 
 **Features**:
+
 - Generate validator templates with proper frontmatter
 - Multi-language support (Python, JS, Go, Rust, R, etc.)
 - Interactive mode with guided prompts
@@ -119,6 +121,7 @@ Implemented three Long-term enhancements from the Claude Code 2.1.0 enhancement 
   - Output formatting
 
 **Usage**:
+
 ```bash
 # Basic generation
 /craft:check:gen-validator security-audit
@@ -135,6 +138,7 @@ Implemented three Long-term enhancements from the Claude Code 2.1.0 enhancement 
 **File**: `docs/VALIDATOR-BEST-PRACTICES.md` (230 lines)
 
 **Contents**:
+
 - Validator anatomy and structure
 - 8 best practices with examples
 - 5 anti-patterns to avoid
@@ -143,6 +147,7 @@ Implemented three Long-term enhancements from the Claude Code 2.1.0 enhancement 
 - Example validators (YAML linter, load time check)
 
 **Best Practices Covered**:
+
 1. Graceful tool detection
 2. Mode-aware behavior
 3. Clear, consistent output
@@ -153,6 +158,7 @@ Implemented three Long-term enhancements from the Claude Code 2.1.0 enhancement 
 8. Documentation requirements
 
 **Anti-Patterns Documented**:
+
 - 🚫 Modifying user code (read-only rule)
 - 🚫 Network requests without timeout
 - 🚫 Writing to repository (use `.craft/cache/`)
@@ -162,11 +168,13 @@ Implemented three Long-term enhancements from the Claude Code 2.1.0 enhancement 
 ### Validator Marketplace Integration
 
 **GitHub Topics**:
+
 - `craft-plugin-validator`
 - `craft-plugin`
 - Language-specific tags
 
 **Discovery**:
+
 ```bash
 # Search GitHub
 https://github.com/topics/craft-plugin-validator
@@ -176,6 +184,7 @@ https://github.com/topics/craft-plugin-validator+python
 ```
 
 **Installation**:
+
 ```bash
 # Direct download
 curl -o .claude-plugin/skills/validation/security-audit.md \
@@ -220,6 +229,7 @@ curl -o .claude-plugin/skills/validation/security-audit.md \
 **Command**: `/craft:orchestrate:resume`
 
 **Features**:
+
 - Resume orchestration sessions across devices
 - Cross-device synchronization via Claude Desktop
 - Session state persistence and recovery
@@ -227,6 +237,7 @@ curl -o .claude-plugin/skills/validation/security-audit.md \
 - Conflict resolution for concurrent edits
 
 **Usage**:
+
 ```bash
 # Resume most recent session
 /craft:orchestrate:resume
@@ -246,6 +257,7 @@ curl -o .claude-plugin/skills/validation/security-audit.md \
 **File**: `docs/SESSION-STATE-SCHEMA.md` (comprehensive specification)
 
 **Core Fields**:
+
 - `session_id` - UUID v4 identifier
 - `created_at`, `updated_at` - ISO 8601 timestamps
 - `device`, `project`, `goal` - Session metadata
@@ -258,6 +270,7 @@ curl -o .claude-plugin/skills/validation/security-audit.md \
 - `teleportation{}` - Sync metadata
 
 **Agent State Tracking**:
+
 ```json
 {
   "id": "arch-1",
@@ -297,16 +310,19 @@ Device A (MacBook Pro)
 ### Sync Features
 
 **Automatic Sync** (default):
+
 - Triggered on agent start/complete/error
 - Background sync (< 2s latency)
 - Encrypted with AES-256-GCM
 
 **Manual Sync**:
+
 ```bash
 /craft:orchestrate:sync [session-id]
 ```
 
 **Conflict Resolution**:
+
 ```markdown
 ## ⚠️ SYNC CONFLICT DETECTED
 
@@ -329,16 +345,19 @@ Resolution: Use iMac (newer by 8 seconds)
 ### Security & Privacy
 
 **Encryption**:
+
 - Algorithm: AES-256-GCM
 - Key derivation: PBKDF2 (100k iterations)
 - Storage: Claude Desktop cloud (Anthropic-managed)
 
 **What is encrypted**:
+
 - Session metadata (goal, progress, decisions)
 - Agent outputs and results
 - File paths and content hashes
 
 **What is NOT stored**:
+
 - Actual file contents (only hashes)
 - API keys or secrets
 - Passwords or credentials
@@ -346,16 +365,19 @@ Resolution: Use iMac (newer by 8 seconds)
 ### Team Collaboration
 
 **Share sessions**:
+
 ```bash
 /craft:orchestrate:share abc123 --email colleague@example.com
 ```
 
 **Accept shared session**:
+
 ```bash
 /craft:orchestrate:accept def456
 ```
 
 **Collaboration features**:
+
 - ✅ Multi-device resume
 - ✅ Real-time sync
 - ✅ Conflict resolution
@@ -399,6 +421,7 @@ Resolution: Use iMac (newer by 8 seconds)
 ### Manual Tests
 
 **1. Agent Resilience**:
+
 ```bash
 # Test error categorization (simulate transient error)
 /craft:orchestrate "task with network dependency" --mode debug
@@ -411,6 +434,7 @@ Resolution: Use iMac (newer by 8 seconds)
 ```
 
 **2. Validator Ecosystem**:
+
 ```bash
 # Generate validator
 /craft:check:gen-validator test-validator --interactive
@@ -427,6 +451,7 @@ curl -o .claude-plugin/skills/validation/security.md \
 ```
 
 **3. Session Teleportation**:
+
 ```bash
 # Start session on Device A
 /craft:orchestrate "add feature"
@@ -461,6 +486,7 @@ cat .craft/cache/orchestration-sessions/abc123.json | jq .
 | Agent hooks | → Forked context | → Session teleportation |
 
 **Complete Pipeline**:
+
 ```
 1. User: /craft:do "add auth"
 2. Complexity scoring (Wave 1) → Score: 6

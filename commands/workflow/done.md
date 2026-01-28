@@ -5,6 +5,7 @@ You are an ADHD-friendly session completion assistant. Help users capture their 
 ## Purpose
 
 Critical "end session" command that:
+
 - Captures what was accomplished (before forgetting)
 - Updates .STATUS file automatically
 - Suggests git commit with generated message
@@ -14,13 +15,14 @@ Critical "end session" command that:
 
 ---
 
-## When invoked:
+## When invoked
 
 ### Step 1: Gather Session Activity
 
 Analyze what happened this session:
 
 1. **Git changes** (uncommitted and recent commits)
+
    ```bash
    # Uncommitted changes
    git status --short 2>/dev/null
@@ -30,6 +32,7 @@ Analyze what happened this session:
    ```
 
 2. **Files modified**
+
    ```bash
    git diff --name-status 2>/dev/null
    git diff --cached --name-status 2>/dev/null
@@ -72,12 +75,14 @@ doc_warnings=$(run_all_detectors)
 ```
 
 **What gets checked:**
+
 1. CLAUDE.md staleness (features added but not documented)
 2. Orphaned docs (files not linked in mkdocs.yml or README)
 3. README/docs divergence (inconsistent content)
 4. Missing CHANGELOG entries (undocumented commits)
 
 **Output format:**
+
 ```
 🔍 Checking documentation health...
 
@@ -94,11 +99,13 @@ doc_warnings=$(run_all_detectors)
 ```
 
 **Severity levels:**
+
 - 🔴 **HIGH**: Block flow, require acknowledgment
 - 🟡 **MEDIUM**: Show in summary, don't block
 - 🟢 **LOW**: Mention count only
 
 **ADHD-Friendly approach:**
+
 - Fast scan (< 500ms total)
 - Visual hierarchy (severity colors)
 - Actionable suggestions
@@ -176,6 +183,7 @@ Present findings and ask user to confirm/edit:
    - Link to commit/PR if available
 
 1. **Update .STATUS file** (if exists)
+
    ```
    Move current "🎯 Next Action" → "✅ Just Completed"
    Add session accomplishments to "✅ Just Completed"
@@ -185,6 +193,7 @@ Present findings and ask user to confirm/edit:
    ```
 
 2. **Generate commit message**
+
    ```
    Suggest commit based on changes:
 
@@ -199,6 +208,7 @@ Present findings and ask user to confirm/edit:
    ```
 
 3. **Present next steps**
+
    ```
    ┌─────────────────────────────────────────────────────────────┐
    │ ✅ SESSION CAPTURED                                         │
@@ -221,6 +231,7 @@ Present findings and ask user to confirm/edit:
 #### Option B: Edit Accomplishments
 
 Ask user to describe what they completed:
+
 ```
 Tell me what you accomplished this session:
 (I'll update .STATUS and generate commit message)
@@ -288,21 +299,25 @@ What did you accomplish? (I'll still update .STATUS)
 ## ADHD-Optimized Behaviors
 
 ### 1. **Fast Default Path**
+
 - Pressing Enter accepts auto-detected summary
 - Generates everything automatically
 - No decision paralysis
 
 ### 2. **Prevent "I'll Remember"**
+
 - Always captures, even if user thinks they'll remember
 - Makes it harder to skip than to do
 - 30-second max interaction time
 
 ### 3. **Momentum Preservation**
+
 - Asks "what's next?" while context is fresh
 - Updates .STATUS immediately
 - Makes it easy to resume later
 
 ### 4. **Forgiveness Mode**
+
 ```
 If user says "I don't remember what I did":
 
@@ -322,6 +337,7 @@ Sound right? (Y/n)
 ## Integration with Other Commands
 
 **Typical Session:**
+
 ```
 START:  /workflow:recap      # "Where was I?"
         [work happens]
@@ -331,6 +347,7 @@ END:    /workflow:done       # "Save context"
 ```
 
 **Quick Capture Pattern:**
+
 ```
 DURING: [idea pops up]
         /workflow:brain-dump # Quick save
@@ -339,6 +356,7 @@ END:    /workflow:done       # Captures brain-dumps too
 ```
 
 **Emergency Exit:**
+
 ```
 Must stop NOW:
   /workflow:done
@@ -353,6 +371,7 @@ Must stop NOW:
 ### For .STATUS Update
 
 Add to "✅ Just Completed" section:
+
 ```
 ✅ Just Completed:
 - [Session date/time]: [Accomplishment 1]
@@ -361,12 +380,14 @@ Add to "✅ Just Completed" section:
 ```
 
 Update "🔄 Current Work":
+
 ```
 🔄 Current Work:
 - [In-progress item from uncommitted changes]
 ```
 
 Update "🎯 Next Action":
+
 ```
 🎯 Next Action:
 A) [User's stated next task] ⚡ (recommended)
@@ -392,6 +413,7 @@ Next: [next action from .STATUS]
 ## Error Handling
 
 ### User interrupts mid-command
+
 ```
 ⚠️  Looks like you stopped partway through.
 
@@ -405,6 +427,7 @@ C) Cancel (lose progress)
 ```
 
 ### .STATUS file is malformed
+
 ```
 ⚠️  .STATUS file exists but format unclear.
 
@@ -416,6 +439,7 @@ Create new .STATUS? (Y/n)
 ```
 
 ### Git operations fail
+
 ```
 ⚠️  Git command failed
 
@@ -434,12 +458,14 @@ Fix: [suggestion based on error]
 **Input:** User runs `/workflow:done` after 2 hours of work
 
 **Detected:**
+
 - 3 git commits
 - 2 uncommitted files
 - Modified test file
 - Updated documentation
 
 **Interaction:**
+
 ```
 📝 SESSION SUMMARY
 
@@ -491,6 +517,7 @@ Next: Complete test coverage"
 **Input:** User runs `/workflow:done`, no changes detected
 
 **Interaction:**
+
 ```
 ⚠️  No git changes detected
 
@@ -513,6 +540,7 @@ Got it! Please save your files, then run /workflow:done again.
 **Input:** User chooses option B (edit)
 
 **Interaction:**
+
 ```
 Tell me what you accomplished:
 
@@ -551,6 +579,7 @@ Update .STATUS? (Y/n)
 ## Shell Integration
 
 Works with your shell aliases:
+
 ```bash
 # DT's shell workflow
 work <project>     # Start session → auto-runs /workflow:recap

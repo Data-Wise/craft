@@ -29,6 +29,7 @@ Publish teaching site changes from draft to production with comprehensive previe
 Teaching mode is automatically enabled when Craft detects `.flow/teach-config.yml` in your project. This provides specialized publishing workflows for course websites with enhanced safety and validation.
 
 **Benefits:**
+
 - Content validation before publishing (syllabus, schedule, assignments)
 - Preview changes with categorized diff (critical, content, other)
 - Safe merge with automatic rollback on failure
@@ -44,6 +45,7 @@ For teaching projects, this command provides a 5-step safety workflow:
 ### Step 1: Validate Draft Branch
 
 Checks teaching content for completeness:
+
 - **Syllabus sections**: Grading, policies, objectives, schedule
 - **Schedule completeness**: All weeks have content
 - **Assignment files**: Referenced assignments exist
@@ -107,6 +109,7 @@ Shows diff statistics between draft and production branches with ADHD-friendly c
 ```
 
 **File categories:**
+
 - **Critical**: syllabus*, schedule*, assignments/
 - **Content**: lectures/, readings/, resources/
 - **Other**: All other files
@@ -124,26 +127,32 @@ Presents 3 options via AskUserQuestion:
 Safe publish sequence with automatic rollback on failure:
 
 1. **Create backup branch**
+
    ```bash
    git branch production-backup-20260116-143022
    ```
 
 2. **Checkout production**
+
    ```bash
    git checkout production
    ```
 
 3. **Fast-forward merge**
+
    ```bash
    git merge draft --ff-only
    ```
+
    - **On conflict**: Shows error, suggests manual resolution, aborts
    - **On success**: Continues to push
 
 4. **Push to remote**
+
    ```bash
    git push origin production
    ```
+
    - Handles auth errors
    - Handles network errors
 
@@ -155,9 +164,11 @@ Safe publish sequence with automatic rollback on failure:
 
 6. **Rollback on failure**
    - If merge OR push fails:
+
      ```bash
      git reset --hard production-backup-20260116-143022
      ```
+
    - Preserves backup branch
    - Shows clear error message
 
@@ -193,11 +204,13 @@ For non-teaching projects, uses simplified workflow:
 4. Deploy using appropriate command
 
 **Example for Quarto:**
+
 ```bash
 quarto publish gh-pages
 ```
 
 **Example for MkDocs:**
+
 ```bash
 mkdocs gh-deploy
 ```
@@ -207,6 +220,7 @@ mkdocs gh-deploy
 The command reads `.flow/teach-config.yml` for deployment settings.
 
 **Minimal configuration:**
+
 ```yaml
 course:
   number: "STAT 440"
@@ -224,6 +238,7 @@ deployment:
 ```
 
 **Full configuration with optional fields:**
+
 ```yaml
 course:
   number: "STAT 440"
@@ -258,6 +273,7 @@ validation:
 ## Error Handling
 
 ### Validation Errors
+
 ```
 ❌ BLOCKED: Cannot publish with validation errors
 
@@ -269,6 +285,7 @@ Fix these issues before publishing, or use --skip-validation to override.
 ```
 
 ### Merge Conflicts
+
 ```
 ❌ MERGE FAILED: Cannot fast-forward
 
@@ -286,6 +303,7 @@ Your changes are safe - no modifications were made.
 ```
 
 ### Network Errors
+
 ```
 ❌ PUSH FAILED: Could not push to remote
 
@@ -303,20 +321,24 @@ The backup branch 'production-backup-20260116-143022' was preserved.
 ## Troubleshooting
 
 **Validation blocking publish:**
+
 - Fix the errors shown in validation report
 - Or use `--skip-validation` to override (not recommended)
 
 **Merge conflicts:**
+
 - Production branch has diverged from draft
 - Merge manually or rebase draft onto production
 - Then run publish again
 
 **Deployment not live after 5 minutes:**
+
 - Check GitHub Actions: `gh run list --limit 5`
 - Check GitHub Pages settings: Repository → Settings → Pages
 - Verify branch is set to production (or gh-pages)
 
 **Need to undo publish:**
+
 - The backup branch is preserved
 - Reset production: `git checkout production && git reset --hard production-backup-<timestamp>`
 - Force push: `git push origin production --force`

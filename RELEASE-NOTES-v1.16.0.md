@@ -27,11 +27,13 @@ This release marks the **completion of comprehensive documentation** for all Cra
 All 74 commands now have comprehensive documentation across 9 categories:
 
 #### **New Command Categories (v1.16.0):**
+
 - **Architecture** (4 commands) - `/craft:arch:analyze`, `diagram`, `plan`, `review`
 - **Distribution** (3 commands) - `/craft:dist:homebrew`, `pypi`, `curl-install`
 - **Planning** (3 commands) - `/craft:plan:feature`, `sprint`, `roadmap`
 
 #### **Updated Categories:**
+
 - **Code & Testing** (17 commands) - Added CI/CD, dependencies, release management
 - **Site Management** (15 commands) - Added page creation, validation, framework support
 - **Documentation** (17 commands) - Added site integration and workflows
@@ -58,6 +60,7 @@ All 74 commands now have comprehensive documentation across 9 categories:
 ### 3. Complete Skills & Agents Guide
 
 **21 Skills documented:**
+
 - Design (3): backend-designer, frontend-designer, system-architect
 - Testing (2): test-strategist, cli-test-strategist
 - Development (3): devops-helper, project-planner, mode-controller
@@ -67,6 +70,7 @@ All 74 commands now have comprehensive documentation across 9 categories:
 - Core (2): task-analyzer, mode-controller
 
 **8 Agents documented:**
+
 - backend-architect - Scalable API design
 - docs-architect - Technical documentation
 - api-documenter - OpenAPI/SDK generation
@@ -84,6 +88,7 @@ curl -fsSL https://raw.githubusercontent.com/Data-Wise/claude-plugins/main/craft
 ```
 
 Features:
+
 - Automatic dependency checking (Claude Code CLI)
 - Sparse checkout for fast installation
 - Update detection and reinstall option
@@ -94,9 +99,10 @@ Features:
 
 ## 📚 Documentation Site
 
-**Live at:** https://data-wise.github.io/claude-plugins/craft/
+**Live at:** <https://data-wise.github.io/claude-plugins/craft/>
 
-### Navigation Structure:
+### Navigation Structure
+
 - 🚀 Quick Start (30-second onboarding)
 - 🧠 ADHD Guide (neurodivergent-friendly)
 - 📊 Visual Workflows (10 GIF demonstrations)
@@ -105,7 +111,8 @@ Features:
 - Commands (9 categories, all 74 documented)
 - Guide (getting started, skills & agents, orchestrator)
 
-### ADHD-Friendly Features:
+### ADHD-Friendly Features
+
 - 8 design presets (data-wise, adhd-focus, adhd-calm, etc.)
 - TL;DR boxes on every page (30-second summaries)
 - Time estimates for all tutorials
@@ -118,6 +125,7 @@ Features:
 ## 🔧 Technical Improvements
 
 ### Documentation Infrastructure
+
 - **MkDocs Material** theme with custom styling
 - **Strict mode validation** - zero warnings or errors
 - **Broken link detection** - automated checking
@@ -125,6 +133,7 @@ Features:
 - **VHS integration** - reproducible GIF demos
 
 ### Content Quality
+
 - All command counts updated (74 commands, 21 skills, 8 agents)
 - Cross-referenced documentation (commands ↔ workflows)
 - Integration tables showing command relationships
@@ -132,6 +141,7 @@ Features:
 - Next steps guidance on every page
 
 ### Build & Deploy
+
 - GitHub Actions auto-deployment
 - `mkdocs build --strict` passes cleanly
 - Navigation structure optimized (< 7 top sections)
@@ -200,6 +210,7 @@ After installation, restart Claude Code and try:
 ## 📊 Statistics
 
 ### Code & Documentation
+
 - **Lines of Documentation:** ~12,000+ (across all .md files)
 - **Command Files:** 74 command implementations
 - **Skills:** 21 auto-triggered expertise modules
@@ -208,6 +219,7 @@ After installation, restart Claude Code and try:
 - **MkDocs Pages:** 25+ comprehensive guides
 
 ### Test Coverage
+
 - All documentation builds without errors (`mkdocs build --strict`)
 - Zero broken links
 - All Mermaid diagrams validated
@@ -218,18 +230,21 @@ After installation, restart Claude Code and try:
 ## 🎯 Use Cases
 
 ### For Individual Developers
+
 - `/craft:do` - Natural language task routing
 - `/craft:code:lint optimize` - Fast parallel linting
 - `/craft:test:run debug` - Detailed test output
 - `/craft:check --for commit` - Pre-commit safety
 
 ### For Teams
+
 - `/craft:site:create` - Documentation sites in minutes
 - `/craft:arch:analyze` - Architecture pattern detection
 - `/craft:plan:sprint` - Sprint planning with capacity management
 - `/craft:dist:homebrew setup` - Automated release distribution
 
 ### For Open Source Projects
+
 - `/craft:docs:update` - Smart documentation sync
 - `/craft:git:worktree` - Parallel development workflows
 - `/craft:check --for release` - Pre-release validation
@@ -251,6 +266,7 @@ git pull origin main
 ```
 
 **What's New:**
+
 - 3 new command categories (Architecture, Distribution, Planning)
 - 16 additional commands documented
 - 10 workflow GIF demonstrations
@@ -276,6 +292,7 @@ None currently. Documentation build validates cleanly with `mkdocs build --stric
 Built with Claude Code and documented with the help of Claude Sonnet 4.5.
 
 **Key Technologies:**
+
 - MkDocs Material (documentation framework)
 - VHS (terminal GIF recording)
 - Mermaid.js (diagram generation)
@@ -291,9 +308,9 @@ MIT License - see LICENSE file for details
 
 ## 🔗 Links
 
-- **Documentation:** https://data-wise.github.io/claude-plugins/craft/
-- **Repository:** https://github.com/Data-Wise/claude-plugins
-- **Issues:** https://github.com/Data-Wise/claude-plugins/issues
+- **Documentation:** <https://data-wise.github.io/claude-plugins/craft/>
+- **Repository:** <https://github.com/Data-Wise/claude-plugins>
+- **Issues:** <https://github.com/Data-Wise/claude-plugins/issues>
 - **Installation:** One-command via curl (see above)
 
 ---
@@ -301,6 +318,7 @@ MIT License - see LICENSE file for details
 ## 🎉 What's Next?
 
 v1.16.0 represents the "Documentation Complete" milestone. Future development will focus on:
+
 - Additional workflow automations
 - Enhanced ADHD-friendly features
 - Community-contributed skills and agents

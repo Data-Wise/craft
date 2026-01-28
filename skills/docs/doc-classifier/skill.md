@@ -119,11 +119,13 @@ if classification["guide"]["needed"]:
 ## Integration
 
 **Used by:**
+
 - `/craft:docs:analyze` - Main classification command
 - `/craft:docs:guide` - Determine what to generate
 - `/craft:docs:feature` - Smart detection enhancement
 - `/craft:docs:update` - Selective updates
 
 **Complements:**
+
 - `mermaid-linter` skill - Validate generated diagrams
 - `changelog-automation` skill - Detect feature boundaries

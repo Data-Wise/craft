@@ -12,12 +12,14 @@
 ## JSON Output
 
 **Success:**
+
 ```json
 {"success": true}
 {"success": true, "message": "Package already installed"}
 ```
 
 **Failure:**
+
 ```json
 {"success": false, "error": "Homebrew not installed or not functional"}
 {"success": false, "error": "Package 'xyz' not found in Homebrew"}
@@ -27,6 +29,7 @@
 ## Usage Examples
 
 ### Check Availability
+
 ```bash
 source scripts/installers/brew-installer.sh
 
@@ -36,6 +39,7 @@ fi
 ```
 
 ### Search for Package
+
 ```bash
 if brew_search_package "gifsicle"; then
     echo "Package found"
@@ -45,6 +49,7 @@ fi
 ```
 
 ### Install Package
+
 ```bash
 result=$(brew_install_package "gifsicle" "gifsicle")
 success=$(echo "$result" | jq -r '.success')
@@ -58,6 +63,7 @@ fi
 ```
 
 ### Get Status
+
 ```bash
 get_brew_status | jq .
 # Output:
@@ -71,12 +77,14 @@ get_brew_status | jq .
 ## Integration with dependency-installer.sh
 
 The `install_via_brew()` wrapper function:
+
 1. Extracts package name from tool_spec JSON
 2. Calls `brew_install_package()`
 3. Parses JSON result
 4. Returns 0 (success) or 1 (failure)
 
 **Example:**
+
 ```bash
 tool_spec='{"install": {"brew": "gifsicle"}}'
 if install_via_brew "gifsicle" "$tool_spec"; then
@@ -96,6 +104,7 @@ fi
 ## Temp Files
 
 Installation output logged to: `/tmp/brew-install-$$.log`
+
 - Automatically cleaned up on success
 - Retained on failure for debugging
 

@@ -23,6 +23,7 @@ Validate internal links in documentation files to prevent broken references.
 ## Purpose
 
 **Fast, focused link validation:**
+
 - Internal markdown links (relative & absolute)
 - Detects broken file references before deployment
 - Catches issues like v1.20.0 workflows/ directory not deployed
@@ -292,11 +293,13 @@ Summary:
 ```
 
 **Exit Code Logic (UPDATED):**
+
 - `0`: No critical broken links (expected links OK)
 - `1`: Critical broken links found (must fix)
 - `2`: Validation error
 
 **VS Code Integration (file:line:col format):**
+
 ```
 docs/index.md:34:10: [Configuration](/docs/config.md) → File not found
 docs/guide/setup.md:15:5: [missing.md](missing.md) → File not found
@@ -480,6 +483,7 @@ validate_anchor() {
 | 2 | Validation error | ✗ Check command syntax |
 
 **Behavior with .linkcheck-ignore:**
+
 - Expected broken links (documented in .linkcheck-ignore) → Exit 0
 - Critical broken links (not in .linkcheck-ignore) → Exit 1
 - Missing .linkcheck-ignore → All broken links treated as critical
@@ -487,11 +491,13 @@ validate_anchor() {
 ## Integration
 
 **Called by:**
+
 - `/craft:check` - Pre-flight validation
 - `/craft:site:check` - Site validation
 - Pre-commit hooks - Prevent broken links
 
 **Works with:**
+
 - `/craft:docs:lint` - Markdown quality checks
 - `/craft:ci:validate` - CI pipeline validation
 
@@ -539,6 +545,7 @@ validate_anchor() {
 | 50 | release | ~13s (+ anchors) |
 
 **Optimization Tips:**
+
 - Use `optimize` mode for large doc sets (100+ files)
 - Use specific paths for quick checks: `/craft:docs:check-links docs/guide/`
 - Default mode skips anchors for speed
@@ -652,11 +659,13 @@ Target: `../README.md`
 ### Behavior
 
 When `.linkcheck-ignore` exists:
+
 - **Critical links**: Broken links NOT in ignore file → Exit code 1
 - **Expected links**: Broken links in ignore file → Exit code 0 (warning shown)
 - **All valid**: No broken links → Exit code 0
 
 When `.linkcheck-ignore` is missing:
+
 - All broken links treated as critical → Exit code 1
 
 ### CI Integration
@@ -681,6 +690,7 @@ When `.linkcheck-ignore` is missing:
 ### Path Normalization
 
 The parser automatically normalizes paths:
+
 - `docs/brainstorm/*.md` matches `../brainstorm/file.md`
 - Both absolute and relative paths work
 - Case-sensitive matching (respects filesystem)

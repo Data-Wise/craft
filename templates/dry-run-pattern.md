@@ -7,6 +7,7 @@ This template shows how to add `--dry-run` / `-n` support to craft commands.
 The dry-run feature provides users with a preview of what a command will do before executing it. This builds trust in automation and prevents accidental destructive operations.
 
 **Key Principles:**
+
 - High-level summary (not verbose shell commands)
 - Consistent bordered box format
 - Clear warnings for uncertain operations
@@ -274,7 +275,8 @@ preview = render_simple_preview(
 
 ## Best Practices
 
-### DO:
+### DO
+
 ✅ Use high-level descriptions (not shell commands)
 ✅ Show 3-7 key operations
 ✅ Include warnings for uncertain operations
@@ -282,7 +284,8 @@ preview = render_simple_preview(
 ✅ Keep summary concise and informative
 ✅ Test that dry-run matches actual execution
 
-### DON'T:
+### DON'T
+
 ❌ Show verbose shell output
 ❌ List every single operation
 ❌ Make any changes during dry-run

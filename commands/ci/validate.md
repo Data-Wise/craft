@@ -210,6 +210,7 @@ When run with `--fix`, the command will:
 ## Integration
 
 Works with:
+
 - `/craft:ci:detect` - Detect project configuration
 - `/craft:ci:generate` - Generate new workflow
 - `/craft:check ci` - Quick validation

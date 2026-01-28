@@ -87,6 +87,7 @@ graph TB
 ```
 
 Diagram saved to: docs/architecture.md
+
 ```
 
 ## Diagram Templates
@@ -98,12 +99,14 @@ Diagram saved to: docs/architecture.md
 ```
 
 ### Sequence Diagram
+
 ```bash
 /craft:arch:diagram sequence --from "API request handling"
 # Generates request flow diagram
 ```
 
 ### ER Diagram
+
 ```bash
 /craft:arch:diagram er
 # Generates database schema diagram
@@ -112,6 +115,7 @@ Diagram saved to: docs/architecture.md
 ## Integration
 
 Works with:
+
 - `/craft:arch:analyze` - Analysis data
 - `/craft:arch:plan` - Visualize plans
 - `/craft:docs:sync` - Embed in docs

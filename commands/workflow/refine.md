@@ -5,6 +5,7 @@ Optimize vague or unclear prompts into specific, well-structured requests that g
 ## Purpose
 
 Help users write better prompts by:
+
 - Analyzing clarity and specificity
 - Checking project context
 - Rewriting with improvements
@@ -16,17 +17,20 @@ Help users write better prompts by:
 - `/refine "<your prompt>"` - Optimize a specific prompt
 - `/refine` - Interactive mode (will ask for prompt)
 
-## When invoked:
+## When invoked
 
 ### Step 1: Get the Prompt
 
 **If provided as argument:**
+
 ```
 /refine "Can you help me write a function that does X?"
 ```
+
 Use the provided text.
 
 **If invoked without argument:**
+
 ```
 💡 PROMPT OPTIMIZER
 
@@ -64,6 +68,7 @@ Before optimizing, gather context:
 ### Step 3: Analyze the Prompt
 
 Identify issues:
+
 - ❌ **Vague requirements** - "make it better", "fix this", "help with X"
 - ❌ **No language specified** - "write a function" (which language?)
 - ❌ **Question phrasing** - "Can you..." instead of directive
@@ -75,6 +80,7 @@ Identify issues:
 ### Step 4: Optimize the Prompt
 
 Rewrite to be:
+
 - **Specific** - Clear language, framework, requirements
 - **Directive** - "Write X" not "Can you write X?"
 - **Structured** - Use bullets for multi-part requests
@@ -125,6 +131,7 @@ Estimated execution time: ~{duration}
 ### Step 6: Handle User Choice
 
 **If user chooses "1" or "Execute" or "yes" or "wait":**
+
 ```
 ✅ Executing optimized prompt now...
 
@@ -158,6 +165,7 @@ I'll notify you when execution is complete!
 ```
 
 **Implementation:**
+
 1. Use Task tool with `run_in_background: true`
 2. Set `subagent_type: "general-purpose"`
 3. Pass optimized prompt as the task
@@ -172,6 +180,7 @@ I'll notify you when execution is complete!
 6. Return immediately (don't wait)
 
 **When task completes (automatic notification):**
+
 ```
 🎉 Prompt execution complete! (task: {task_id})
 
@@ -188,11 +197,13 @@ View results now?
 ```
 
 **If user says "y" or "yes":**
+
 - Use TaskOutput tool to retrieve results
 - Display full execution output
 - Offer next steps
 
 **If user says "later":**
+
 ```
 ✅ Results saved
 
@@ -205,6 +216,7 @@ Ready for next task!
 ---
 
 **If user chooses "3" or "Revise":**
+
 ```
 What would you like to change about the optimization?
 
@@ -221,6 +233,7 @@ Your feedback:
 [Wait for feedback, then regenerate optimization with their input, show new version, repeat choice prompt]
 
 **If user chooses "4" or types "copy":**
+
 ```
 ✅ Copied to clipboard!
 
@@ -243,6 +256,7 @@ Paste it wherever you need! ✨
 [Use pbcopy on macOS, xclip on Linux to copy to clipboard]
 
 **If user types "cancel" or "exit":**
+
 ```
 Cancelled. No changes made.
 ```
@@ -416,31 +430,36 @@ Please show the optimized code with benchmark comparisons.
 
 ## Context-Aware Optimization Patterns
 
-### For R Packages:
+### For R Packages
+
 - Reference roxygen2, testthat, usethis
 - Mention CRAN compliance if relevant
 - Suggest tidyverse patterns
 - Include pkgdown for documentation
 
-### For Python:
+### For Python
+
 - Type hints (PEP 484)
 - Docstrings (PEP 257)
 - pytest or unittest
 - Black formatting, ruff linting
 
-### For Node.js/TypeScript:
+### For Node.js/TypeScript
+
 - TypeScript types
 - Jest or Vitest for tests
 - ESLint rules
 - JSDoc comments
 
-### For Quarto/Research:
+### For Quarto/Research
+
 - Reproducibility focus
 - Citation handling
 - Figure/table formatting
 - Cross-referencing
 
-### For Documentation:
+### For Documentation
+
 - Examples over explanation
 - Clear structure
 - Search-friendly
@@ -516,6 +535,7 @@ Choose:
 ## Advanced Features
 
 ### Template Mode (Future)
+
 ```
 /refine --template bug-report "..."
 /refine --template feature-request "..."
@@ -523,12 +543,14 @@ Choose:
 ```
 
 ### Learning Mode
+
 ```
 /refine --explain "..."
 [Shows prompt engineering principles for each change]
 ```
 
 ### Skill Integration
+
 ```
 [Checks ~/.claude/ for custom skills]
 [Tailors optimization to match available expertise]
@@ -537,6 +559,7 @@ Choose:
 ## Implementation Notes
 
 **Clipboard copy command:**
+
 ```bash
 # macOS
 echo "$optimized_prompt" | pbcopy
@@ -550,6 +573,7 @@ echo "$optimized_prompt"
 ```
 
 **Context detection:**
+
 - Check for DESCRIPTION (R)
 - Check for pyproject.toml/setup.py (Python)
 - Check for package.json (Node)
@@ -558,6 +582,7 @@ echo "$optimized_prompt"
 - Parse last 3 git commits
 
 **Optimization principles:**
+
 - Directive > Question
 - Specific > Vague
 - Structured > Wall of text

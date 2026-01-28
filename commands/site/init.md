@@ -47,6 +47,7 @@ altdoc::setup_docs(tool = "quarto_website")
 ```
 
 Creates:
+
 - `_quarto.yml` - Site configuration
 - `docs/` - Documentation directory
 - Reference pages from roxygen2
@@ -63,6 +64,7 @@ pkgdown::build_site()
 ```
 
 Creates:
+
 - `_pkgdown.yml` - Site configuration
 - `docs/` - Built site
 
@@ -76,9 +78,10 @@ Use MkDocs with Material theme:
 Creating documentation site with Material theme...
 ```
 
-### Steps:
+### Steps
 
 1. Create `mkdocs.yml`:
+
 ```yaml
 site_name: [PROJECT_NAME]
 site_description: [from package.json/pyproject.toml or ask]
@@ -130,6 +133,7 @@ nav:
 ```
 
 2. Create directory structure:
+
 ```
 docs/
 ├── index.md
@@ -143,11 +147,13 @@ docs/
 ```
 
 3. Create `requirements.txt` (add to existing or create):
+
 ```
 mkdocs-material>=9.0
 ```
 
 4. Create `.github/workflows/docs.yml`:
+
 ```yaml
 name: Deploy Docs
 on:

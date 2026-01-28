@@ -1007,6 +1007,7 @@ openapi-generator-cli generate \
 ## Best Practices
 
 ### Do's
+
 - **Use $ref** - Reuse schemas, parameters, responses
 - **Add examples** - Real-world values help consumers
 - **Document errors** - All possible error codes
@@ -1014,6 +1015,7 @@ openapi-generator-cli generate \
 - **Use semantic versioning** - For spec changes
 
 ### Don'ts
+
 - **Don't use generic descriptions** - Be specific
 - **Don't skip security** - Define all schemes
 - **Don't forget nullable** - Be explicit about null

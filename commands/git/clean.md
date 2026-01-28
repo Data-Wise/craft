@@ -42,6 +42,7 @@ This command safely removes branches that have been merged.
 ## Implementation
 
 The command:
+
 1. Lists all local branches using `git branch --merged`
 2. Filters out protected branches and current branch
 3. Checks each branch for uncommitted changes

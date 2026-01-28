@@ -263,6 +263,7 @@ For monorepos or multi-project directories:
 ## Integration
 
 Works with:
+
 - `/craft:ci:generate` - Generate workflow from detection
 - `/craft:ci:validate` - Validate existing CI configuration
 - `/craft:check ci` - Quick CI pre-flight check

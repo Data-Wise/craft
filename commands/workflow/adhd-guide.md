@@ -20,6 +20,7 @@ Strategies for staying focused and productive with ADHD.
 ```
 
 **Why this works:**
+
 - Eliminates "what was I doing?" paralysis
 - Provides clear starting point
 - Takes 2 minutes, saves 20
@@ -33,6 +34,7 @@ Strategies for staying focused and productive with ADHD.
 ```
 
 **Why this works:**
+
 - Tomorrow-you will forget details
 - Everything is saved
 - No panic about lost work
@@ -49,6 +51,7 @@ Strategies for staying focused and productive with ADHD.
 ```
 
 **Why:**
+
 - ADHD = forget to save
 - Small commits = easier to undo
 - Progress visible in git log
@@ -63,6 +66,7 @@ Strategies for staying focused and productive with ADHD.
 **Immediately!** Don't think "I'll remember" - you won't.
 
 **Why:**
+
 - Ideas appear randomly
 - Disappear just as fast
 - Writing = 10 seconds
@@ -77,6 +81,7 @@ Strategies for staying focused and productive with ADHD.
 **Don't wait 30+ minutes!**
 
 **Why:**
+
 - Stuck ≠ lazy
 - ADHD = harder to switch strategies
 - AI can suggest alternatives
@@ -95,6 +100,7 @@ Strategies for staying focused and productive with ADHD.
 ```
 
 **Example:**
+
 ```bash
 /workflow:brain-dump "fixing login bug, next try adding debug logging to auth.js line 45"
 ```
@@ -120,11 +126,13 @@ Strategies for staying focused and productive with ADHD.
 ```
 
 **What it does:**
+
 - Closes distractions
 - Sets timer
 - Clear focus goal
 
 **When to use:**
+
 - Deep work needed
 - Deadline pressure
 - Too many distractions
@@ -140,6 +148,7 @@ Strategies for staying focused and productive with ADHD.
 ```
 
 **Why Pomodoro works for ADHD:**
+
 - External timer (not relying on memory)
 - Built-in breaks
 - Finite time (less overwhelming)
@@ -152,11 +161,13 @@ Strategies for staying focused and productive with ADHD.
 ### Two Types of Ideas
 
 **Quick thoughts** (30 seconds):
+
 ```bash
 /workflow:brain-dump "add dark mode to settings"
 ```
 
 **Structured thinking** (5-10 minutes):
+
 ```bash
 /workflow:brainstorm "dark mode implementation"
 ```
@@ -164,12 +175,14 @@ Strategies for staying focused and productive with ADHD.
 ### When to Use Each
 
 **Brain-dump:**
+
 - Random idea while working
 - Quick thought you'll forget
 - Interruption capture
 - End-of-day thoughts
 
 **Brainstorm:**
+
 - Planning a feature
 - Problem-solving
 - Generating alternatives
@@ -178,6 +191,7 @@ Strategies for staying focused and productive with ADHD.
 ### Don't Let Ideas Pile Up
 
 **Weekly review:**
+
 ```bash
 1. cat NOTES.md
 2. /workflow:brainstorm "review ideas"
@@ -193,6 +207,7 @@ Strategies for staying focused and productive with ADHD.
 ### "I forgot to commit for 3 days"
 
 **Solution:**
+
 - Set 1-hour timer
 - When rings: `/git:commit`
 - Reset timer
@@ -202,6 +217,7 @@ Strategies for staying focused and productive with ADHD.
 ### "I started 5 things, finished 0"
 
 **Solution:**
+
 ```bash
 1. /workflow:recap              # See what's in progress
 2. /workflow:next               # Pick ONE
@@ -214,6 +230,7 @@ Strategies for staying focused and productive with ADHD.
 ### "I have 47 browser tabs open"
 
 **Solution:**
+
 ```bash
 # Before closing tabs:
 /workflow:brain-dump "interesting links: [paste URLs]"
@@ -225,6 +242,7 @@ Strategies for staying focused and productive with ADHD.
 ### "I can't remember what I learned"
 
 **Solution:**
+
 ```bash
 # After learning something:
 /workflow:brain-dump "learned: [key points]"
@@ -236,6 +254,7 @@ grep "learned:" NOTES.md
 ### "I spent 2 hours on wrong thing"
 
 **Solution:**
+
 - Use `/workflow:next` to verify priority
 - Check `.STATUS` file regularly
 - Set timer to re-check every 30 min
@@ -247,6 +266,7 @@ grep "learned:" NOTES.md
 ### .STATUS File (Essential!)
 
 Keep in every project:
+
 ```
 project: my-project
 status: active
@@ -268,6 +288,7 @@ Building user authentication
 ```
 
 **Why:**
+
 - External memory
 - `/workflow:recap` reads this
 - Clear progress tracking
@@ -276,6 +297,7 @@ Building user authentication
 ### Update .STATUS in `/workflow:done`
 
 The command updates it automatically:
+
 - Captures completed work
 - Records next steps
 - Notes blockers
@@ -291,12 +313,14 @@ The command updates it automatically:
 ### Switch Projects Cleanly
 
 **Leaving Project A:**
+
 ```bash
 /workflow:done                  # Save context A
 /git:sync                       # Back up
 ```
 
 **Entering Project B:**
+
 ```bash
 cd ~/projects/project-b
 /workflow:recap                 # Load context B
@@ -312,6 +336,7 @@ cd ~/projects/project-b
 ### Before Meds Kick In (Morning)
 
 **Low mental energy:**
+
 ```bash
 /workflow:recap                 # Easy, just reading
 /git:sync                       # Automated
@@ -323,6 +348,7 @@ cd ~/projects/project-b
 ### Peak Focus Time
 
 **Use for:**
+
 - Complex problems
 - Deep work
 - Creative thinking
@@ -331,6 +357,7 @@ cd ~/projects/project-b
 ### End of Day (Meds Wearing Off)
 
 **Use for:**
+
 ```bash
 /workflow:done                  # Just capturing
 /git:commit                     # Simple action
@@ -346,12 +373,14 @@ cd ~/projects/project-b
 ### Use Commands, Not Memory
 
 **DON'T:**
+
 - Remember to commit
 - Remember what you were doing
 - Remember good ideas
 - Track progress mentally
 
 **DO:**
+
 ```bash
 /workflow:recap     # Remember for you
 /workflow:done      # Track for you
@@ -362,6 +391,7 @@ cd ~/projects/project-b
 ### Automate Decisions
 
 **Questions to eliminate:**
+
 - "Should I commit?" → Yes, every 30-60 min
 - "Should I save this idea?" → Yes, brain-dump it
 - "Is this the right task?" → `/workflow:next` decides
@@ -396,12 +426,14 @@ cat NOTES.md
 ```
 
 **Don't:**
+
 - Multitask
 - Answer messages
 - Check email
 - Start new ideas
 
 **Do:**
+
 - ONE thing
 - Timer-based
 - Frequent commits
@@ -428,6 +460,7 @@ cat NOTES.md
 ### With Shell Functions
 
 User's ADHD workflow:
+
 ```bash
 work <project>      # Jumps to project + shows context
 finish              # Runs /workflow:done + commits
@@ -435,6 +468,7 @@ dash                # Dashboard of all projects
 ```
 
 **Combine with commands:**
+
 ```bash
 work medfit         # Switch project
 /workflow:recap     # Load context
@@ -453,6 +487,7 @@ work medfit         # Switch project
 ### With .STATUS Files
 
 All research/teaching projects have `.STATUS`:
+
 ```bash
 /workflow:recap     # Reads .STATUS automatically
 /workflow:done      # Updates .STATUS
@@ -469,6 +504,7 @@ All research/teaching projects have `.STATUS`:
 **End work:** `/workflow:done` → `/git:sync`
 
 **Remember:**
+
 - Commands remember for you
 - External brain > mental tracking
 - Progress > perfection
@@ -477,6 +513,7 @@ All research/teaching projects have `.STATUS`:
 ---
 
 **See also:**
+
 - `/workflow` - Workflow hub
 - `/help workflows` - Command sequences
 - `/help` - Getting started

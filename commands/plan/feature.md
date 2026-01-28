@@ -97,6 +97,7 @@ Total Estimate: 16 hours (2 days)
 ## Integration
 
 Works with:
+
 - `/craft:plan:sprint` - Sprint planning
 - `/craft:arch:plan` - Architecture planning
 - `/craft:git:branch` - Create feature branch

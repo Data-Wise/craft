@@ -15,6 +15,7 @@ You're learning on **real work** (for ADHD motivation) but with **safety rails**
 ### Week 1: /done (Maximum Safety)
 
 **What /done does:**
+
 1. ✅ Asks what you accomplished (just text, totally safe)
 2. ✅ Asks what's next (just text, totally safe)
 3. ⚠️ **PERMISSION REQUIRED**: "Commit these changes?"
@@ -50,6 +51,7 @@ feat(auth): add password validation
 ```
 
 **Your options:**
+
 - `y` - Commit (you saw what will be committed, you approve)
 - `n` - Don't commit (changes stay uncommitted, totally fine)
 - `review` - See full diff before deciding
@@ -99,11 +101,13 @@ After committing, `/done` asks:
 ```
 
 **Your options:**
+
 - `y` - Push now (your code goes to GitHub)
 - `n` - Don't push (commit stays local, you can push manually later)
 - `later` - Remind me next time
 
 **Default in Week 1-2: Choose 'n' (don't push)**
+
 - Commit stays local
 - You can review it later
 - You can amend it if needed
@@ -116,12 +120,14 @@ After committing, `/done` asks:
 **Safety level:** ✅✅✅ COMPLETELY SAFE
 
 `/git-recap` only READS information. It cannot:
+
 - ❌ Commit anything
 - ❌ Push anything
 - ❌ Delete anything
 - ❌ Modify anything
 
 **It only shows:**
+
 - ✅ Commits you already made
 - ✅ Current branch status
 - ✅ Unpushed commits (if any)
@@ -156,11 +162,13 @@ What do you want to do? (1/2/3/4 or 'y' to accept)
 ```
 
 **Always choose '1' (review) first few times:**
+
 - See exactly what will be committed
 - Verify it matches what you expect
 - Build confidence
 
 **After reviewing:**
+
 - Files look right? Choose 'y' to commit
 - Message needs tweaking? Choose '2' (edit)
 - Not ready? Choose '4' (cancel)
@@ -177,6 +185,7 @@ Trust AI suggestion? (y/edit/review/cancel)
 ```
 
 **Now you can:**
+
 - Choose 'y' directly (faster workflow)
 - Still choose 'review' if uncertain
 - Edit if message seems off
@@ -190,6 +199,7 @@ Push to remote? (y/n/later)
 ```
 
 **Week 3 recommendation: Choose 'n' (no push)**
+
 - Build up 3-4 local commits
 - Review them together: `git log -3`
 - Then push all at once: `git push`
@@ -223,6 +233,7 @@ What should I do? (1/2/3/4)
 ```
 
 **Always choose '3' first time:**
+
 - See what changes exist
 - Decide if you want to commit or stash
 - No surprises
@@ -290,6 +301,7 @@ What should I do? (1/2/3/4)
 ### 1. Preview Before Action
 
 Every command that modifies git shows you:
+
 - What files will be affected
 - What the operation will do
 - Expected outcome
@@ -297,6 +309,7 @@ Every command that modifies git shows you:
 ### 2. Confirm Before Destructive Operations
 
 Commands ask permission before:
+
 - Committing
 - Pushing
 - Deleting branches
@@ -306,6 +319,7 @@ Commands ask permission before:
 ### 3. Uncommitted Changes Protection
 
 If you have uncommitted changes, commands will:
+
 - Warn you
 - Show you the changes
 - Ask what to do with them
@@ -492,26 +506,26 @@ git cherry-pick a3f9d2e       # Bring back one commit
 
 Print this and keep it visible during Weeks 1-3:
 
-### Before Every /commit or /done:
+### Before Every /commit or /done
 
 - [ ] I know what files I changed
 - [ ] I've tested my changes (if code)
 - [ ] I'm ready to save this work
 
-### During the prompts:
+### During the prompts
 
 - [ ] Week 1-2: Choose 'review' every time
 - [ ] Week 3: Choose 'review' if uncertain
 - [ ] Week 4+: Trust but spot-check
 
-### After committing:
+### After committing
 
 - [ ] Week 1-3: Choose 'n' (don't push yet)
 - [ ] Review with `git log -1`
 - [ ] If message is wrong: `git commit --amend`
 - [ ] Push when confident
 
-### Before any /sync:
+### Before any /sync
 
 - [ ] Save work first (/commit)
 - [ ] Know what branch I'm on
@@ -522,31 +536,41 @@ Print this and keep it visible during Weeks 1-3:
 ## Progressive Trust Model
 
 ### Days 1-5 (Week 1)
+
 **Trust level:** ⭐☆☆☆☆ (Verify everything)
+
 ```
 /done → review → read carefully → commit → don't push → review commit → push manually
 ```
 
 ### Days 8-14 (Week 2)
+
 **Trust level:** ⭐⭐☆☆☆ (Verify most things)
+
 ```
 /done → review → skim quickly → commit → don't push → batch push later
 ```
 
 ### Days 15-21 (Week 3)
+
 **Trust level:** ⭐⭐⭐☆☆ (Spot check)
+
 ```
 /commit → review first 2 of day → trust rest → batch push end of day
 ```
 
 ### Days 22+ (Week 4+)
+
 **Trust level:** ⭐⭐⭐⭐☆ (Trust with awareness)
+
 ```
 /commit → accept AI → push when done → /git-recap to verify
 ```
 
 ### Days 30+ (Mastery)
+
 **Trust level:** ⭐⭐⭐⭐⭐ (Full trust, occasional verification)
+
 ```
 /commit → y/y → continue working
 ```
@@ -556,6 +580,7 @@ Print this and keep it visible during Weeks 1-3:
 ## Red Flags (Stop and Review)
 
 Always review manually if:
+
 - ⚠️ Committing more than 10 files at once
 - ⚠️ More than 200 lines changed
 - ⚠️ You don't remember making some changes
@@ -585,7 +610,8 @@ Remember, you have multiple safety layers:
 
 ## Confidence Building
 
-### After Week 1 (5-7 uses of /done):
+### After Week 1 (5-7 uses of /done)
+
 ```bash
 git log --oneline -10    # Review your commits
 
@@ -597,7 +623,8 @@ git log --oneline -10    # Review your commits
 
 **If all checks pass: You can trust the system.**
 
-### After Week 3 (15-20 uses of /commit):
+### After Week 3 (15-20 uses of /commit)
+
 ```bash
 git log --oneline --since="1 week ago"
 
@@ -615,6 +642,7 @@ git log --oneline --since="1 week ago"
 ## When to Ask for Help
 
 Post in your learning channel if:
+
 - AI suggests a message that doesn't match your changes
 - You're consistently editing every commit message
 - Sync creates conflicts you don't understand
@@ -627,16 +655,19 @@ Post in your learning channel if:
 ## Summary: Safety Rails Philosophy
 
 **Week 1-2:** "Show me everything, I'll decide"
+
 - Maximum visibility
 - Minimum auto-action
 - Build confidence through transparency
 
 **Week 3:** "I trust you, but I'm watching"
+
 - Faster workflow
 - Spot checks instead of full review
 - Build confidence through repetition
 
 **Week 4+:** "I trust you, tell me if something's wrong"
+
 - Autonomous workflow
 - Review only on red flags
 - Confidence through experience

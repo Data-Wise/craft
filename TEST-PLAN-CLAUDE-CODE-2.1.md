@@ -647,6 +647,7 @@ python3 -m pytest tests/ --cov=. --cov-report=term
 ### Test Data
 
 All test data should be:
+
 - Minimal and focused
 - Self-contained (no external dependencies)
 - Deterministic (no flaky tests)
@@ -655,6 +656,7 @@ All test data should be:
 ### Continuous Integration
 
 Tests should run on:
+
 - Every commit (unit tests only)
 - Every PR (unit + E2E tests)
 - Release builds (all tests including dogfooding)

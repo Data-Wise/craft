@@ -308,16 +308,19 @@ PROMPT-DOCS-EDIT-[filename].md # edit
 ## Integration
 
 **Part of docs command family:**
+
 - `/craft:docs:update` - Update docs from code
 - `/craft:docs:changelog` - Update changelog
 - `/craft:docs:prompt` - Generate prompts ← this command
 
 **Works with site commands:**
+
 - `/craft:site:nav` - Use reorganize prompt
 - `/craft:site:audit` - Use audit prompt
 - `/craft:site:consolidate` - After audit identifies duplicates
 
 **Uses:**
+
 - AskUserQuestion for prompt type selection
 - Read for gathering project context
 - Write for saving prompt file

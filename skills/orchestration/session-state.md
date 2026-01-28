@@ -93,6 +93,7 @@ Handles persistent state for orchestrator sessions, enabling resume after discon
 ### Save Session
 
 Called automatically on:
+
 - Agent completion
 - User says `save`
 - Before compression

@@ -48,6 +48,7 @@ tests/
 ## Generated Test Categories
 
 ### For CLI Tools
+
 1. **Smoke Tests** - Version, help, aliases
 2. **Core Commands** - Each subcommand
 3. **Subcommand Groups** - Nested commands
@@ -55,6 +56,7 @@ tests/
 5. **Help Accessibility** - All --help flags
 
 ### For Claude Plugins
+
 1. **Plugin Structure** - plugin.json validity
 2. **Directories** - commands/, skills/, agents/
 3. **File Counts** - Commands, skills, agents
@@ -101,11 +103,13 @@ fi
 ### Step 2: Analyze Project Structure
 
 **For CLI:**
+
 - Extract CLI name from pyproject.toml/package.json
 - List all subcommands from --help output
 - Identify command groups
 
 **For Plugin:**
+
 - Parse plugin.json for name, version
 - Count commands, skills, agents
 - Map directory structure
@@ -113,6 +117,7 @@ fi
 ### Step 3: Generate Automated Tests
 
 Template structure:
+
 ```bash
 #!/bin/bash
 # Automated CLI Test Suite for: [PROJECT_NAME]
@@ -134,6 +139,7 @@ TOTAL=0
 ### Step 4: Generate Interactive Tests
 
 Template structure:
+
 ```bash
 #!/bin/bash
 # Interactive Test Suite for: [PROJECT_NAME]
@@ -158,6 +164,7 @@ Document how to run both test suites.
 ## Test Script Features
 
 ### Automated Tests
+
 - ✅ Non-interactive (CI-ready)
 - ✅ Exit code validation
 - ✅ Pattern matching
@@ -166,6 +173,7 @@ Document how to run both test suites.
 - ✅ `set -euo pipefail` safe
 
 ### Interactive Tests
+
 - ✅ Run → Show Expected → Show Actual → Judge
 - ✅ Single keystroke (y=pass, n=fail, q=quit)
 - ✅ Logging to `logs/` directory
@@ -175,6 +183,7 @@ Document how to run both test suites.
 ## Integration
 
 After generation:
+
 ```bash
 # Run automated tests
 bash tests/cli/automated-tests.sh
@@ -190,6 +199,7 @@ bash tests/cli/interactive-tests.sh
 ## Customization After Generation
 
 The generated tests are starting points. Customize by:
+
 - Adding project-specific test cases
 - Modifying expected output descriptions
 - Adding environment-specific tests

@@ -2,7 +2,7 @@
 
 You are an ADHD-friendly context restoration assistant. Help the user quickly understand where they left off.
 
-## When invoked:
+## When invoked
 
 ### Step 1: Gather Context
 
@@ -14,11 +14,13 @@ Read these sources (in order of priority):
    - Extract "🔴 Blockers" section
 
 2. **Recent git activity** (last 48 hours)
+
    ```bash
    git log --oneline --since="48 hours ago" --author="$(git config user.name)" 2>/dev/null
    ```
 
 3. **Open PRs/Issues** (if gh CLI available)
+
    ```bash
    gh pr list --author @me --state open 2>/dev/null
    gh issue list --assignee @me --state open 2>/dev/null
@@ -65,7 +67,7 @@ Display in this format:
 3. **Don't overwhelm** - ADHD users need focused info
 4. **Suggest next step** - Always end with actionable suggestion
 
-### If no .STATUS file exists:
+### If no .STATUS file exists
 
 ```
 📍 No .STATUS file found. Creating context from git...
@@ -80,5 +82,6 @@ Display in this format:
 ### Coordination with Shell
 
 This command enhances the shell `here()` function:
+
 - `here` → Quick view (shell, no AI)
 - `/recap` → AI-enhanced analysis with git history and PR status

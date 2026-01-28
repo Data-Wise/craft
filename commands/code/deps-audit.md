@@ -164,6 +164,7 @@ Run with --fix to auto-fix
 ## Integration
 
 Works with:
+
 - `/craft:code:deps-check` - Dependency health
 - `/craft:code:ci-local` - Pre-commit checks
 - `/craft:code:release` - Release validation

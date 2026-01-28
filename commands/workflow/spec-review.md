@@ -158,16 +158,19 @@ AskUserQuestion:
 #### Step 4: Execute Action
 
 **If Approve:**
+
 1. Update spec status to `approved`
 2. Update timestamp
 3. Show confirmation
 
 **If Update:**
+
 1. Show which sections need work
 2. Ask clarifying questions
 3. Update spec file
 
 **If Add Questions:**
+
 1. Ask for question text
 2. Append to Open Questions section
 3. Keep status as draft
@@ -189,6 +192,7 @@ AskUserQuestion:
 ```
 
 If confirmed:
+
 1. Update status to `approved`
 2. Update timestamp
 3. Show confirmation with next steps
@@ -212,6 +216,7 @@ AskUserQuestion:
 ```
 
 If confirmed:
+
 1. Move to `docs/specs/_archive/`
 2. Update status to `done`
 3. Update timestamp
@@ -325,10 +330,12 @@ Rich formatted output with colors, boxes, and status indicators.
 ## Integration
 
 **Called by:**
+
 - `/workflow:brainstorm` - Suggests review after spec capture
 - `/craft:do` - Checks for relevant spec before implementation
 
 **Works with:**
+
 - `/workflow:done` - Offers to archive completed specs
 - `/craft:docs:update` - Can generate docs from approved specs
 
@@ -383,6 +390,7 @@ Claude: Confirms archive
 ### v1.0.0 (Current)
 
 **Initial Release:**
+
 - ✅ List, show, review, approve, archive actions
 - ✅ Validation checks (acceptance, technical, questions)
 - ✅ Status workflow (draft → reviewed → approved → implementing → done)

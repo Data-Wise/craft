@@ -5,6 +5,7 @@ You are a documentation site specialist. Update all website-related docs and opt
 ## Purpose
 
 **Focused updates for documentation websites (MkDocs, Docusaurus, etc.):**
+
 - Update all files in docs/ directory
 - Ensure navigation is current
 - Validate site structure
@@ -87,6 +88,7 @@ grep -r "\]\(\./" docs/
 #### 4.1 Index Page (docs/index.md)
 
 Update:
+
 - Version badges
 - Feature highlights
 - Quick links
@@ -95,6 +97,7 @@ Update:
 #### 4.2 Quick Start (docs/QUICK-START.md)
 
 Update:
+
 - Installation instructions
 - First-run examples
 - Verification steps
@@ -102,6 +105,7 @@ Update:
 #### 4.3 Reference Card (docs/REFCARD.md)
 
 Update:
+
 - All commands quick reference
 - Common workflows
 - Troubleshooting shortcuts
@@ -109,6 +113,7 @@ Update:
 #### 4.4 Getting Started Section
 
 Update:
+
 - Installation guides
 - Configuration guides
 - First steps tutorials
@@ -116,6 +121,7 @@ Update:
 #### 4.5 Guide Section
 
 Update:
+
 - Feature guides
 - Workflow documentation
 - Best practices
@@ -123,6 +129,7 @@ Update:
 #### 4.6 Reference Section
 
 Update:
+
 - Commands reference
 - Configuration reference
 - API reference (if applicable)
@@ -291,6 +298,7 @@ This command focuses on **website docs only**. It:
 - Calls `/craft:site:deploy` for deployment (if --deploy)
 
 **Related commands:**
+
 - `/craft:docs:update` - All docs including non-website
 - `/craft:docs:feature` - After adding features
 - `/craft:site:preview` - Just preview, no updates

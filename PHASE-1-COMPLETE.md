@@ -78,6 +78,7 @@ tool-detector.sh   session-cache.sh
 **Purpose:** Orchestrates dependency checking workflow
 
 **Functions:**
+
 - `parse_frontmatter()` - Extract dependency specs from demo.md YAML
 - `check_dependencies(method)` - Check deps for specific method
 - `check_all_dependencies()` - Check all deps regardless of method
@@ -85,6 +86,7 @@ tool-detector.sh   session-cache.sh
 - `get_install_command(tool, spec)` - Get platform-specific install command
 
 **Features:**
+
 - YAML frontmatter parsing (Python integration)
 - JSON-based tool specs
 - Platform detection (macOS/Linux)
@@ -96,12 +98,14 @@ tool-detector.sh   session-cache.sh
 **Purpose:** Low-level tool detection and validation
 
 **Functions:**
+
 - `detect_tool(name, spec)` - Main detection orchestrator
 - `extract_version(cmd)` - Parse version from tool output
 - `compare_versions(v1, v2)` - Semantic version comparison
 - `run_health_check(cmd)` - Validate tool functionality
 
 **Features:**
+
 - PATH existence checking
 - Version extraction via custom commands
 - Health check validation (expected exit codes)
@@ -113,6 +117,7 @@ tool-detector.sh   session-cache.sh
 **Purpose:** Performance optimization via session-level caching
 
 **Functions:**
+
 - `init_cache()` - Create session cache directory
 - `store_cache(tool, status)` - Store detection result
 - `get_cached_status(tool)` - Retrieve cached result
@@ -120,6 +125,7 @@ tool-detector.sh   session-cache.sh
 - `cleanup_cache()` - Remove session cache
 
 **Features:**
+
 - Session-scoped caching (`/tmp/craft-deps-$SESSION_ID/`)
 - 60-second TTL (configurable)
 - JSON storage format
@@ -131,6 +137,7 @@ tool-detector.sh   session-cache.sh
 **Purpose:** Validate the complete integration
 
 **Tests:**
+
 1. Check asciinema method
 2. Check vhs method
 3. Check all methods
@@ -186,12 +193,14 @@ tool-detector.sh   session-cache.sh
 ### Dependencies Declared in Frontmatter
 
 **asciinema method:**
+
 - asciinema (required) - Record terminal sessions
 - agg (required) - Convert .cast to .gif
 - gifsicle (required) - Optimize GIF size
 - fswatch (optional) - Watch mode
 
 **vhs method:**
+
 - vhs (required) - Generate scripted demos
 - gifsicle (required) - Optimize GIF size
 - fswatch (optional) - Watch mode
@@ -207,6 +216,7 @@ bash scripts/test-demo-check.sh
 ```
 
 **Output:**
+
 - ✓ Test 1: Check asciinema method
 - ✓ Test 2: Check vhs method
 - ✓ Test 3: Check all methods

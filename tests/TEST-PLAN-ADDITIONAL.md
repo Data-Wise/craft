@@ -239,6 +239,7 @@ name: second-name
 ```
 
 **Expected Test Results:**
+
 - 15 tests total
 - Documents parser capabilities and limitations
 - Identifies areas for enhancement
@@ -308,6 +309,7 @@ class TestCategoryInference:
 ```
 
 **Expected Test Results:**
+
 - 7 tests total
 - Validates path handling across platforms
 - Ensures consistent category/name inference
@@ -440,6 +442,7 @@ description: Temporary test command
 ```
 
 **Expected Test Results:**
+
 - 6 tests total
 - Validates cache reliability and error handling
 - Ensures graceful degradation
@@ -649,6 +652,7 @@ class TestE2EWorkflows:
 ```
 
 **Expected Test Results:**
+
 - 8 tests total
 - Covers all major user workflows
 - Validates 3-layer navigation works end-to-end
@@ -757,6 +761,7 @@ class TestE2EPerformance:
 ```
 
 **Expected Test Results:**
+
 - 5 tests total
 - Validates performance targets under realistic usage
 - Ensures system scales to multiple concurrent users
@@ -919,6 +924,7 @@ class TestDogfooding:
 ```
 
 **Expected Test Results:**
+
 - 6 tests total
 - Validates real-world developer workflows
 - Ensures system meets actual usage needs
@@ -931,11 +937,13 @@ class TestDogfooding:
 
 **Effort:** 2 hours
 **Files:**
+
 - `tests/test_hub_yaml_edge_cases.py` (15 tests)
 - `tests/test_hub_category_inference.py` (7 tests)
 - `tests/test_hub_cache_edge_cases.py` (6 tests)
 
 **Tasks:**
+
 1. Create test files
 2. Implement all 28 unit tests
 3. Run tests and document results
@@ -945,10 +953,12 @@ class TestDogfooding:
 
 **Effort:** 1.5 hours
 **Files:**
+
 - `tests/test_hub_e2e_workflows.py` (8 tests)
 - `tests/test_hub_performance_e2e.py` (5 tests)
 
 **Tasks:**
+
 1. Implement workflow tests
 2. Implement performance tests
 3. Validate against real user scenarios
@@ -958,9 +968,11 @@ class TestDogfooding:
 
 **Effort:** 1 hour
 **Files:**
+
 - `tests/test_hub_dogfooding.py` (6 tests)
 
 **Tasks:**
+
 1. Implement real-world usage tests
 2. Validate developer workflows
 3. Document expected behaviors
@@ -970,10 +982,12 @@ class TestDogfooding:
 
 **Effort:** 30 minutes
 **Files:**
+
 - `tests/run_all_tests.sh` (test runner)
 - `tests/TEST-COVERAGE-REPORT.md` (updated)
 
 **Tasks:**
+
 1. Create unified test runner
 2. Generate coverage report
 3. Update documentation

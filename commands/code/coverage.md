@@ -69,6 +69,7 @@ Uncovered lines:
 ## Integration
 
 Works with:
+
 - `/craft:test:run` - Run tests
 - `/craft:code:ci-local` - Pre-commit checks
 - `/craft:code:release` - Release validation

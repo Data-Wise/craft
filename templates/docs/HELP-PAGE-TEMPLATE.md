@@ -686,10 +686,12 @@ echo $FZF_DEFAULT_OPTS
 ### Synopsis Section
 
 **Always include:**
+
 - Command syntax with OPTIONS and ARGUMENTS placeholders
 - 3 quick examples (basic, common, advanced)
 
 **Format:**
+
 ```markdown
 ## Synopsis
 
@@ -713,11 +715,13 @@ command --complex --options
 ### Description Section
 
 **Structure:**
+
 1. 2-3 paragraphs explaining purpose and behavior
 2. "Use cases" bullet list
 3. "What it does" bullet list
 
 **Keep it concise:**
+
 - Focus on WHAT it does, not HOW (implementation details)
 - Use active voice
 - Start with most common use case
@@ -725,12 +729,14 @@ command --complex --options
 ### Options Section
 
 **Organization:**
+
 1. Required arguments first
 2. Optional arguments second
 3. Flags third
 4. Mode flags last
 
 **Table format:**
+
 ```markdown
 | Flag | Short | Description |
 |------|-------|-------------|
@@ -740,11 +746,13 @@ command --complex --options
 ### Usage Examples Section
 
 **Always show:**
+
 - Basic (beginner)
 - Intermediate (common user)
 - Advanced (power user)
 
 **Include:**
+
 - Scenario (when you'd use this)
 - Command
 - Expected output

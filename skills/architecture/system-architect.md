@@ -5,6 +5,7 @@ Expert in software architecture, system design, and technical decision-making.
 ## When to Use
 
 Use this skill when:
+
 - Designing new systems or features
 - Making architectural decisions
 - Reviewing architecture changes
@@ -14,6 +15,7 @@ Use this skill when:
 ## Capabilities
 
 ### Architecture Patterns
+
 - Microservices vs monolith decisions
 - Event-driven architecture
 - Domain-driven design (DDD)
@@ -21,6 +23,7 @@ Use this skill when:
 - CQRS and event sourcing
 
 ### System Design
+
 - Scalability planning
 - Performance optimization
 - Security architecture
@@ -28,6 +31,7 @@ Use this skill when:
 - API design
 
 ### Technical Leadership
+
 - Technology selection
 - Build vs buy decisions
 - Technical debt management
@@ -35,6 +39,7 @@ Use this skill when:
 - Documentation standards
 
 ### Pattern Recognition
+
 - Anti-pattern detection
 - Coupling/cohesion analysis
 - SOLID principle application
@@ -61,6 +66,7 @@ Use this skill when:
 ## Integration
 
 Works with:
+
 - `/craft:arch:analyze` - Codebase analysis
 - `/craft:arch:plan` - Architecture planning
 - `/craft:arch:review` - Architecture review

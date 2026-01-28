@@ -5,6 +5,7 @@ Generate a 5-minute quickstart guide for any project.
 ## Purpose
 
 **Get users running in under 5 minutes:**
+
 - Detects project type (Node, Python, R, Go, Rust)
 - Extracts setup from README, package files, CI
 - Uses `QUICK-START-TEMPLATE.md` for consistent structure
@@ -173,8 +174,9 @@ status: Production Ready
 ## Need Help?
 
 - **Commands list:** `/help hub`
-- **Documentation:** https://data-wise.github.io/craft/
-- **Issues:** https://github.com/Data-Wise/craft/issues
+- **Documentation:** <https://data-wise.github.io/craft/>
+- **Issues:** <https://github.com/Data-Wise/craft/issues>
+
 ```
 
 ## Project Type Detection

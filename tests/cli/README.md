@@ -13,6 +13,7 @@ bash tests/cli/automated-tests.sh
 ```
 
 **What it tests:**
+
 - Plugin structure (plugin.json, directories)
 - Command files exist and are valid
 - Skill files exist and are valid
@@ -20,6 +21,7 @@ bash tests/cli/automated-tests.sh
 - Markdown syntax (code fence balance, frontmatter)
 
 **Options:**
+
 - `VERBOSE=1` - Show individual file checks
 
 ### Interactive Tests (`interactive-tests.sh`)
@@ -31,6 +33,7 @@ bash tests/cli/interactive-tests.sh
 ```
 
 **What it tests:**
+
 - Plugin JSON content
 - Directory structure
 - Command/skill/agent counts
@@ -38,6 +41,7 @@ bash tests/cli/interactive-tests.sh
 - Markdown validation
 
 **Keys:**
+
 - `y` = pass
 - `n` = fail
 - `q` = quit
@@ -45,6 +49,7 @@ bash tests/cli/interactive-tests.sh
 ## Logs
 
 Test logs are saved to `tests/cli/logs/`:
+
 - `interactive-test-YYYYMMDD-HHMMSS.log`
 
 ## Running from Project Root

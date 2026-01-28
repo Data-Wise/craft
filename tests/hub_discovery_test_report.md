@@ -61,13 +61,17 @@
 ## Implementation Notes
 
 ### Current Status
+
 - ✅ Test structure complete with 12 test cases
 - ⏳ Using stubbed discovery functions (awaiting Agent 1 implementation)
 - ⏳ Ready for integration testing after `commands/_discovery.py` is complete
 
 ### Integration Steps
+
 After Agent 1 completes `commands/_discovery.py`:
+
 1. Replace stub functions with actual imports:
+
    ```python
    from commands._discovery import (
        discover_commands,
@@ -77,11 +81,13 @@ After Agent 1 completes `commands/_discovery.py`:
        get_command_stats
    )
    ```
+
 2. Re-run tests: `python tests/test_hub_discovery.py`
 3. Validate all 97 commands are discovered
 4. Verify performance targets are met
 
 ### Test Coverage
+
 - **Discovery**: Command finding, category inference
 - **Parsing**: YAML frontmatter, mode extraction, error handling
 - **Cache**: Generation, loading, invalidation
@@ -89,6 +95,7 @@ After Agent 1 completes `commands/_discovery.py`:
 - **Statistics**: Total counts, category breakdown, mode counts
 
 ### Expected Results (Post-Integration)
+
 - Total commands: 97 (71 main + 26 docs/utils)
 - Categories: code, test, docs, git, site, arch, ci, dist, workflow, hub
 - Commands with modes: ~15-20

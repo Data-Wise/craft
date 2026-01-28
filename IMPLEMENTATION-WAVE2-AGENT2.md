@@ -69,6 +69,7 @@
 **Configuration Support:**
 
 Reads `.flow/teach-config.yml` for:
+
 ```yaml
 branches:
   draft: "draft"
@@ -121,6 +122,7 @@ deployment:
   - Full workflow success
 
 **Test Run Results:**
+
 ```bash
 Ran 20 tests in 0.081s
 
@@ -132,6 +134,7 @@ OK
 **Teaching Config Schema:** `/Users/dt/.git-worktrees/craft/feature-teaching-workflow/docs/teaching-config-schema.md`
 
 Already exists from Wave 2 Agent 1. Covers:
+
 - Course information
 - Semester dates and breaks
 - Instructor information
@@ -140,6 +143,7 @@ Already exists from Wave 2 Agent 1. Covers:
 - Validation rules
 
 **Command Documentation:** Embedded in `commands/site/publish.md`
+
 - Complete usage examples
 - Error handling scenarios
 - Troubleshooting guide
@@ -171,6 +175,7 @@ feature/* (worktrees) ← Implementation
 ```
 
 For teaching projects:
+
 ```
 production (students see) ← Published content
   ↑
@@ -178,6 +183,7 @@ draft (instructors see) ← Work in progress
 ```
 
 **Publish Flow:**
+
 1. Work on `draft` branch
 2. Run `/craft:site:publish`
 3. Validation → Preview → Confirm → Merge → Push
@@ -188,34 +194,41 @@ draft (instructors see) ← Work in progress
 ## Acceptance Criteria
 
 ✅ **Command works for both teaching and non-teaching projects**
+
 - Teaching mode: Full 5-step workflow with validation
 - Non-teaching mode: Simplified workflow
 
 ✅ **Validation is called and displayed correctly**
+
 - ValidationResult formatted with ADHD-friendly output
 - Errors block, warnings allow (configurable)
 
 ✅ **Preview shows critical files highlighted**
+
 - Files categorized: critical ⚠️, content ✓, other
 - Summary shows total changes
 
 ✅ **Confirmation flow works with all 3 options**
+
 - "Yes - Merge and deploy"
 - "Preview full diff first" (with loop back)
 - "Cancel" (abort safely)
 
 ✅ **Publish executes safely with rollback on failure**
+
 - Backup branch created before changes
 - Rollback on merge failure
 - Rollback on push failure
 - Backup preserved for manual recovery
 
 ✅ **Tests cover all scenarios**
+
 - 20 tests, 100% passing
 - Mock git operations (no actual repo changes)
 - Integration test for full workflow
 
 ✅ **ADHD-friendly formatting throughout**
+
 - Visual hierarchy with boxes
 - Icons for status (✅ ❌ ⚠️ ✓)
 - Clear next steps
@@ -251,6 +264,7 @@ git commit -m "feat: add week 8 lecture"
 ```
 
 **Output:**
+
 ```
 ============================================================
 TEACHING CONTENT VALIDATION: ✅ READY TO PUBLISH
@@ -316,6 +330,7 @@ Verifying deployment...
 ```
 
 **Output:**
+
 ```
 Detected: MkDocs site
 Preview: 12 files changed
@@ -360,16 +375,19 @@ Live site: https://data-wise.github.io/project/
 ## Dependencies
 
 **Existing utilities:**
+
 - `utils/detect_teaching_mode.py` ✅
 - `commands/utils/teaching_validation.py` ✅
 
 **Python packages:**
+
 - `subprocess` (standard library)
 - `requests` (for deployment verification)
 - `datetime` (for backup timestamps)
 - `pathlib` (for file operations)
 
 **External tools:**
+
 - `git` (version control)
 - `gh` (GitHub CLI - optional, for PR creation)
 - `mkdocs` or `quarto` (site generation - depends on project type)

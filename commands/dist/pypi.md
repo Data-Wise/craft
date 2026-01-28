@@ -381,7 +381,7 @@ Full setup wizard for new PyPI publishing.
 
 After running setup, configure PyPI:
 
-1. Go to https://pypi.org/manage/account/publishing/
+1. Go to <https://pypi.org/manage/account/publishing/>
 2. Add new pending publisher:
    - **Owner**: Your GitHub username/org
    - **Repository**: Your repo name
@@ -476,6 +476,7 @@ Setting up a new project for PyPI publishing for the first time.
 ### Version Synchronization
 
 Ensure these match before publishing:
+
 - `pyproject.toml` → `version = "X.Y.Z"`
 - `src/package/__init__.py` → `__version__ = "X.Y.Z"`
 - Git tag → `vX.Y.Z`

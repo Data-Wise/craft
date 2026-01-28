@@ -33,6 +33,7 @@ Enhanced `/craft:docs:lint` to strictly enforce list formatting rules for consis
 #### Configuration
 
 - Updated `.markdownlint.json` with explicit MD030/MD004/MD032 rules:
+
   ```json
   "MD030": {
     "ul_single": 1,
@@ -95,6 +96,7 @@ Enhanced `/craft:docs:lint` to strictly enforce list formatting rules for consis
 - CI/CD integration planned after migration complete
 
 **Related:**
+
 - Spec: `docs/specs/SPEC-markdownlint-list-spacing-2026-01-19.md`
 - Implementation: `IMPLEMENTATION-MARKDOWNLINT-LIST-SPACING.md`
 - Tests: `tests/README.md` (full test catalog)
@@ -247,6 +249,7 @@ Changed the default GIF recording method from VHS (scripted simulations) to asci
   - `scripts/capture-craft-output.sh` - Command output capture framework
 
 **Files Changed:**
+
 - `commands/docs/demo.md` - Added asciinema method support
 - `templates/docs/GIF-GUIDELINES.md` - Updated to asciinema standard
 - `docs/GIF-RECORDING-WORKFLOW-2026.md` - New workflow guide
@@ -291,12 +294,14 @@ Comprehensive documentation navigation improvements including spec file organiza
   - Broken link tracking: All expected broken links cataloged in .linkcheck-ignore
 
 **Files Changed:**
+
 - `mkdocs.yml` - Navigation structure updates
 - `docs/TEACHING-DOCS-INDEX.md` - Command reference links standardized
 - `docs/teaching-migration.md` - Command reference links standardized
 - `docs/.archive/PRESET-GALLERY.md` - Archived (superseded)
 
 **Success Metrics:**
+
 - ✅ 6 spec files added to navigation
 - ✅ 9 command/cookbook files added to navigation
 - ✅ 13 teaching doc links standardized
@@ -332,6 +337,7 @@ Comprehensive test suite targeting coverage gaps in utility modules, achieving 9
   - Test execution commands
 
 **Success Metrics:**
+
 - ✅ Overall coverage: 75% → 84% (+9%)
 - ✅ Production code coverage: ~91% (excluding demo blocks)
 - ✅ Coverage gaps reduced: 74 lines → 46 lines (-38%)
@@ -381,6 +387,7 @@ A comprehensive `.linkcheck-ignore` parser system that distinguishes between cri
   - Backward compatible (opt-in via .linkcheck-ignore file)
 
 **Success Metrics:**
+
 - ✅ 100% reduction in CI false positives (30 expected links → 0 failures)
 - ✅ Clear distinction between critical and expected broken links
 - ✅ Zero manual filtering required
@@ -478,6 +485,7 @@ A comprehensive teaching workflow system for course website management with prev
 ### Added
 
 #### Phase 1: Infrastructure + Git Commands (PR #6)
+
 - **Infrastructure:**
   - `utils/dry_run_output.py` (324 lines) - Shared dry-run output utilities
   - `templates/dry-run-pattern.md` (306 lines) - Implementation template
@@ -492,6 +500,7 @@ A comprehensive teaching workflow system for course website management with prev
   - `/craft:git:sync` - Preview sync operations
 
 #### Phase 2: CI/Site/Docs Commands (PR #7)
+
 - **CI/CD Commands (3):**
   - `/craft:ci:detect` - Preview project type detection (60+ patterns)
   - `/craft:ci:generate` - Preview workflow generation (CRITICAL priority)
@@ -511,6 +520,7 @@ A comprehensive teaching workflow system for course website management with prev
   - `/craft:docs:sync` - Preview documentation sync
 
 #### Phase 3: Smart Routing + Code/Test Commands (PR #8, #9)
+
 - **Smart Routing Commands (3):**
   - `/craft:do` - Preview routing plan with time estimates
   - `/craft:orchestrate` - Preview agent allocation and parallelization
@@ -643,7 +653,7 @@ See git history for versions prior to 1.17.0.
 
 ## Links
 
-- **Homepage:** https://Data-Wise.github.io/craft/
-- **Repository:** https://github.com/Data-Wise/craft
-- **Documentation:** https://Data-Wise.github.io/craft/
+- **Homepage:** <https://Data-Wise.github.io/craft/>
+- **Repository:** <https://github.com/Data-Wise/craft>
+- **Documentation:** <https://Data-Wise.github.io/craft/>
 - **Dry-Run Summary:** [DRY-RUN-SUMMARY.md](DRY-RUN-SUMMARY.md)

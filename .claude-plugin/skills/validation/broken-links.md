@@ -60,11 +60,13 @@ fi
 ## Example Output
 
 ### Success
+
 ```
 ✅ PASS: No broken links found (342 links checked)
 ```
 
 ### Failure
+
 ```
 ❌ FAIL: Broken links detected
 

@@ -5,6 +5,7 @@ Expert in project planning, estimation, and delivery management.
 ## When to Use
 
 Use this skill when:
+
 - Planning new features or projects
 - Breaking down complex work
 - Estimating effort and timelines
@@ -14,6 +15,7 @@ Use this skill when:
 ## Capabilities
 
 ### Feature Planning
+
 - User story creation
 - Task breakdown (WBS)
 - Dependency mapping
@@ -21,6 +23,7 @@ Use this skill when:
 - MVP scoping
 
 ### Estimation
+
 - Effort estimation techniques
 - Complexity assessment
 - Risk-adjusted timelines
@@ -28,6 +31,7 @@ Use this skill when:
 - Velocity tracking
 
 ### Project Management
+
 - Sprint planning
 - Milestone definition
 - Progress tracking
@@ -35,6 +39,7 @@ Use this skill when:
 - Stakeholder communication
 
 ### Agile Practices
+
 - Scrum ceremonies
 - Kanban workflows
 - Backlog grooming
@@ -70,6 +75,7 @@ Use this skill when:
 ## Integration
 
 Works with:
+
 - `/craft:plan:feature` - Feature planning
 - `/craft:plan:sprint` - Sprint planning
 - `/craft:plan:roadmap` - Roadmap generation

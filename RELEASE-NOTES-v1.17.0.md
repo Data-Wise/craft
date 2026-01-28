@@ -27,6 +27,7 @@ This release marks the **integration of the workflow plugin** into craft, combin
 All workflow plugin commands are now available in craft:
 
 #### **Brainstorming & Planning:**
+
 - `/brainstorm [depth] [focus] [action]` - Enhanced brainstorming with smart detection, modes, and agent delegation
   - **Depth modes:** `q|quick`, `d|deep`, `m|max` (2-4 questions, 4-6, 8+ with agents)
   - **Focus areas:** `f|feat`, `a|arch`, `x|ux`, `b|api`, `u|ui`, `o|ops`
@@ -35,6 +36,7 @@ All workflow plugin commands are now available in craft:
 - `/refine <spec-file>` - Refine and improve existing specifications
 
 #### **Task Management:**
+
 - `/focus [task]` - Enter focus mode for deep work
 - `/next` - Get next task recommendation
 - `/done [message]` - Mark current task complete
@@ -42,21 +44,25 @@ All workflow plugin commands are now available in craft:
 - `/stuck [description]` - Get help when blocked
 
 #### **Background Task Control:**
+
 - `/task-status [task-id]` - Check status of background tasks
 - `/task-output <task-id>` - Get output from completed task
 - `/task-cancel <task-id>` - Cancel running background task
 
 #### **Workflow Guide:**
+
 - `/adhd-guide` - ADHD-friendly workflow guide and best practices
 
 ### 2. Enhanced Developer Experience
 
 **Unified Workflow:**
+
 - All craft development commands work seamlessly with workflow features
 - Use `/brainstorm` to design features, then `/craft:do` to implement
 - Use `/focus` during development, `/done` to complete tasks
 
 **Example Workflow:**
+
 ```bash
 # Design phase
 /brainstorm d feat save "user authentication"
@@ -73,6 +79,7 @@ All workflow plugin commands are now available in craft:
 ### 3. Command Organization
 
 Workflow commands are organized in a new category:
+
 ```
 craft/commands/
 ├── workflow/          # NEW (12 commands)
@@ -97,12 +104,15 @@ craft/commands/
 If you were using the standalone `workflow` plugin:
 
 ### Automatic Migration
+
 The workflow commands now work identically in craft:
+
 - ✅ Same command names (no namespace changes)
 - ✅ Same arguments and options
 - ✅ Same behavior and output
 
 ### Steps to Migrate
+
 ```bash
 # 1. Uninstall old workflow plugin (if installed)
 rm -rf ~/.claude/plugins/workflow
@@ -116,6 +126,7 @@ cd ~/projects/dev-tools/claude-plugins/craft
 ```
 
 ### Command Compatibility
+
 | Old Command | New Command | Status |
 |------------|-------------|--------|
 | `/brainstorm` | `/brainstorm` | ✅ Identical |
@@ -136,11 +147,13 @@ cd ~/projects/dev-tools/claude-plugins/craft
 ## 📦 Installation
 
 ### Quick Install
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Data-Wise/claude-plugins/main/craft/install.sh | bash
 ```
 
 ### Manual Install
+
 ```bash
 git clone --depth 1 --filter=blob:none --sparse https://github.com/Data-Wise/claude-plugins.git
 cd claude-plugins && git sparse-checkout set craft
@@ -152,24 +165,28 @@ cp -r craft ~/.claude/plugins/
 ## 🚀 Getting Started with Workflow Features
 
 ### 1. Quick Brainstorm
+
 ```bash
 /brainstorm q feat "add dark mode"
 # Quick feature brainstorm (2-4 questions, ~2 min)
 ```
 
 ### 2. Deep Architecture Design
+
 ```bash
 /brainstorm d arch save "microservices migration"
 # Deep analysis with spec capture (4-6 questions, ~5 min)
 ```
 
 ### 3. Max Depth with Agents
+
 ```bash
 /brainstorm max ux save "redesign dashboard"
 # Full analysis with expert agents (8+ questions, 2 agents, ~10 min)
 ```
 
 ### 4. Focus Mode Development
+
 ```bash
 /focus "implement payment gateway"
 # Enter focus mode, work, then:
@@ -180,16 +197,17 @@ cp -r craft ~/.claude/plugins/
 
 ## 📚 Documentation
 
-- **Full Documentation:** https://data-wise.github.io/claude-plugins/craft/
-- **Workflow Guide:** https://data-wise.github.io/claude-plugins/craft/guide/workflow/
-- **Quick Start:** https://data-wise.github.io/claude-plugins/craft/QUICK-START/
-- **ADHD Guide:** https://data-wise.github.io/claude-plugins/craft/ADHD-QUICK-START/
+- **Full Documentation:** <https://data-wise.github.io/claude-plugins/craft/>
+- **Workflow Guide:** <https://data-wise.github.io/claude-plugins/craft/guide/workflow/>
+- **Quick Start:** <https://data-wise.github.io/claude-plugins/craft/QUICK-START/>
+- **ADHD Guide:** <https://data-wise.github.io/claude-plugins/craft/ADHD-QUICK-START/>
 
 ---
 
 ## 🔧 Technical Details
 
 ### Changes
+
 - ✅ Added 12 workflow commands to `craft/commands/workflow/`
 - ✅ Updated plugin.json: version 1.16.0 → 1.17.0
 - ✅ Updated package.json: version 1.16.0 → 1.17.0
@@ -198,6 +216,7 @@ cp -r craft ~/.claude/plugins/
 - ✅ No namespace conflicts with existing craft commands
 
 ### Compatibility
+
 - ✅ Backward compatible with all existing craft commands
 - ✅ Workflow commands work identically to standalone plugin
 - ✅ No breaking changes
@@ -207,6 +226,7 @@ cp -r craft ~/.claude/plugins/
 ## 🎁 What's Next
 
 With workflow integration complete, craft now provides:
+
 - **Complete development toolkit:** 74 commands for code, git, docs, testing, CI
 - **Workflow automation:** 12 commands for planning, focus, task management
 - **Unified experience:** Seamless integration between development and workflow
@@ -215,4 +235,4 @@ With workflow integration complete, craft now provides:
 
 ---
 
-**Full Changelog:** https://github.com/Data-Wise/claude-plugins/blob/main/craft/RELEASE-NOTES-v1.17.0.md
+**Full Changelog:** <https://github.com/Data-Wise/claude-plugins/blob/main/craft/RELEASE-NOTES-v1.17.0.md>

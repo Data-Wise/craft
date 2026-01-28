@@ -23,6 +23,7 @@ Get intelligent help based on your project and question.
 ### Based on Project Type
 
 **Python Project:**
+
 ```
 ╭─ Suggested Commands for Python Project ─────────────╮
 │                                                     │
@@ -43,6 +44,7 @@ Get intelligent help based on your project and question.
 ```
 
 **R Package:**
+
 ```
 ╭─ Suggested Commands for R Package ──────────────────╮
 │                                                     │
@@ -65,6 +67,7 @@ Get intelligent help based on your project and question.
 ### Based on Current State
 
 **Uncommitted Changes:**
+
 ```
 ╭─ You have uncommitted changes ──────────────────────╮
 │                                                     │
@@ -77,6 +80,7 @@ Get intelligent help based on your project and question.
 ```
 
 **Failing Tests:**
+
 ```
 ╭─ Tests are failing ─────────────────────────────────╮
 │                                                     │
@@ -91,6 +95,7 @@ Get intelligent help based on your project and question.
 ## Topic-Based Help
 
 ### Testing
+
 ```bash
 /craft:help testing
 
@@ -116,6 +121,7 @@ Get intelligent help based on your project and question.
 ```
 
 ### Architecture
+
 ```bash
 /craft:help architecture
 
@@ -168,5 +174,6 @@ Get intelligent help based on your project and question.
 ## Integration
 
 For complete command listing:
+
 - `/craft:hub` - Full command discovery
 - `/craft:hub <category>` - Category deep dive

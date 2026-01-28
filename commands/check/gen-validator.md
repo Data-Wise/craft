@@ -247,6 +247,7 @@ fi
 | default | Medium+ | Yes (medium+) |
 | optimize | High | Yes (high only) |
 | release | High | Yes (high only) |
+
 ```
 
 ## Validator Best Practices
@@ -335,6 +336,7 @@ https://github.com/topics/craft-plugin-validator+python
 To share your validator with the community:
 
 1. **Create a GitHub repo**:
+
    ```
    my-craft-validator/
    ├── README.md
@@ -349,6 +351,7 @@ To share your validator with the community:
    - Language tags (e.g., `python`, `javascript`)
 
 3. **Document usage**:
+
    ```markdown
    # My Craft Validator
 
@@ -359,14 +362,18 @@ To share your validator with the community:
    ```
 
    ## What it validates
+
    [Description]
 
    ## Requirements
+
    - Tool: mytool v2.0+
    - Languages: Python 3.8+
+
    ```
 
 4. **Tag releases**:
+
    ```bash
    git tag -a v1.0.0 -m "Initial release"
    git push origin v1.0.0

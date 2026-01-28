@@ -5,6 +5,7 @@ Perform comprehensive documentation validation before deployment for any project
 ## Project Type Detection
 
 First, detect the project type by examining:
+
 - `package.json` → npm/Node.js project
 - `DESCRIPTION` → R package (use pkgdown)
 - `mkdocs.yml` → MkDocs documentation site
@@ -18,18 +19,21 @@ First, detect the project type by examining:
 Check version consistency across files based on project type:
 
 **npm/Node.js projects:**
+
 - `package.json` version
 - `src/index.ts` or `src/index.js` VERSION constant (if exists)
 - `CLAUDE.md` version reference
 - Extension files (e.g., `_extensions/*/extension.yml`)
 
 **R packages:**
+
 - `DESCRIPTION` Version field
 - `NEWS.md` version entries
 - `CLAUDE.md` version reference
 - `_pkgdown.yml` if exists
 
 **All projects:**
+
 - Report any version mismatches
 - Suggest which file to update
 
@@ -38,6 +42,7 @@ Check version consistency across files based on project type:
 Scan README.md for badges and validate:
 
 **Dynamic badges (GOOD):**
+
 ```markdown
 ![npm version](https://img.shields.io/npm/v/PACKAGE)
 ![CI](https://img.shields.io/github/actions/workflow/status/...)
@@ -45,11 +50,13 @@ Scan README.md for badges and validate:
 ```
 
 **Static badges (FLAG THESE):**
+
 ```markdown
 ![version](https://img.shields.io/badge/version-X.Y.Z-blue)
 ```
 
 Report:
+
 - List all badges found
 - Flag any static version badges that should be dynamic
 - Verify badge URLs are valid (use WebFetch to check)
@@ -59,15 +66,18 @@ Report:
 Scan documentation files for broken links:
 
 **Internal links:**
+
 - `[text](page.md)` - verify file exists
 - `[text](#anchor)` - verify anchor exists
 - `[text](../path)` - verify relative path resolves
 
 **GitHub links:**
+
 - `github.com/OWNER/REPO/blob/main/PATH` - verify path exists in repo
 - `github.com/OWNER/REPO/tree/main/PATH` - verify directory exists
 
 **External links:**
+
 - Check reachability with WebFetch (sample, not exhaustive)
 
 Report all broken links with file:line references.
@@ -75,12 +85,14 @@ Report all broken links with file:line references.
 ### Phase 4: mkdocs.yml / _pkgdown.yml Validation
 
 **For MkDocs projects:**
+
 - Verify all `nav:` entries point to existing files
 - Check for orphan pages (files in docs/ not in nav)
 - Validate required sections exist per Data-Wise standards
 - Check theme configuration
 
 **For R packages with pkgdown:**
+
 - Verify `_pkgdown.yml` structure
 - Check reference organization
 - Validate article paths
@@ -90,16 +102,19 @@ Report all broken links with file:line references.
 Run the appropriate build command:
 
 **MkDocs:**
+
 ```bash
 mkdocs build --strict
 ```
 
 **pkgdown:**
+
 ```bash
 Rscript -e "pkgdown::build_site()"
 ```
 
 **npm with docs:**
+
 ```bash
 npm run build  # if build script exists
 ```
@@ -111,11 +126,13 @@ Report any build errors or warnings.
 Start local server for user review:
 
 **MkDocs:**
+
 ```bash
 mkdocs serve  # http://localhost:8000
 ```
 
 **pkgdown:**
+
 ```bash
 Rscript -e "pkgdown::preview_site()"
 ```
@@ -125,10 +142,12 @@ Tell user: "Preview available at [URL]. Review and confirm when ready."
 ### Phase 7: User Confirmation
 
 Use AskUserQuestion to ask:
+
 - "Does the preview look correct?"
 - "Ready to deploy?"
 
 Options:
+
 1. "Yes, deploy now"
 2. "No, I need to fix something"
 3. "Skip deployment, just show report"
@@ -136,6 +155,7 @@ Options:
 ### Phase 8: Deploy (if confirmed)
 
 **Git workflow:**
+
 ```bash
 git add -A
 git status  # Show what will be committed
@@ -144,6 +164,7 @@ git push origin main
 ```
 
 **Monitor deployment:**
+
 - Start `gh run list` monitoring in background
 - Check workflow status every 10 seconds
 - Report when deployment completes
@@ -151,6 +172,7 @@ git push origin main
 ### Phase 9: Verification
 
 After deployment:
+
 - Wait for GitHub Actions to complete
 - Fetch live site with WebFetch to verify deployment
 - Compare key content to ensure updates are live
@@ -200,6 +222,7 @@ After deployment:
 ## Skills Integration
 
 This command integrates with existing skills:
+
 - `doc-management` - For commit message standards
 - `data-wise-documentation` - For Data-Wise specific checks
 

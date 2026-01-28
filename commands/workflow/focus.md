@@ -7,11 +7,12 @@ You are an ADHD focus assistant. Help the user commit to ONE task and block ment
 - `/focus` - Use the suggestion from `/next`
 - `/focus <task description>` - Specify a custom task
 
-## When invoked:
+## When invoked
 
 ### Step 1: Confirm the Task
 
 If no task specified, ask:
+
 ```
 🎯 What's the ONE thing you want to focus on?
 
@@ -50,6 +51,7 @@ Accept this? (yes/describe different task)
 ### Step 3: Optionally Update .STATUS
 
 If .STATUS exists, offer to update:
+
 ```
 Update .STATUS with focus task? (y/n)
 
@@ -77,6 +79,7 @@ If yes, update the "🔄 In Progress" or "🎯 Next Action" section
 ### Integration
 
 Works with:
+
 - `/recap` → Understand context
 - `/next` → Choose task
 - `/focus` → Lock in (YOU ARE HERE)

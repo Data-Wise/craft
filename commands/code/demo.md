@@ -5,6 +5,7 @@ Create working code demonstrations and examples.
 ## Purpose
 
 Generate demonstrations for:
+
 - Package vignettes
 - Tutorial materials
 - Conference presentations
@@ -82,11 +83,13 @@ result
 ## Common Variations
 
 ### Variation A: [Description]
+
 ```r
 # How to modify for this case
 ```
 
 ### Variation B: [Description]
+
 ```r
 # Alternative approach
 ```
@@ -97,12 +100,15 @@ result
 **Solution**: [How to fix]
 
 ## Next Steps
+
 - [Where to learn more]
 - [Related functions/topics]
 
 ## References
+
 - [Documentation links]
 - [Papers if applicable]
+
 ```
 
 ## Demo Types

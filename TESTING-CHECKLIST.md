@@ -19,20 +19,24 @@
 
 **Scenario:** Interactive mode selection works as expected
 
-### Steps:
+### Steps
+
 1. Run: `/craft:do "test task" --orch`
 2. Observe mode selection prompt
 
-### Expected:
+### Expected
+
 - [ ] Mode selection prompt appears with 4 options
 - [ ] Each option shows: mode name, agent count, description
 - [ ] "default" option is marked as "Recommended"
 - [ ] Options are clearly formatted and easy to read
 
-### Action:
+### Action
+
 3. Select: "optimize (4 agents)"
 
-### Expected:
+### Expected
+
 - [ ] Task proceeds with optimize mode
 - [ ] Orchestrator spawns successfully
 - [ ] No errors or warnings displayed
@@ -49,12 +53,14 @@ _______________________________________________________________
 
 **Scenario:** User cancels mode selection gracefully
 
-### Steps:
+### Steps
+
 1. Run: `/craft:do "test task" --orch`
 2. Mode selection prompt appears
 3. Select: "Other" or cancel the prompt
 
-### Expected:
+### Expected
+
 - [ ] Falls back to "default" mode automatically
 - [ ] Warning message shown: "Defaulting to 'default' mode"
 - [ ] Task continues with default mode (doesn't crash)
@@ -71,10 +77,12 @@ _______________________________________________________________
 
 **Scenario:** Explicit mode bypasses interactive prompt
 
-### Steps:
+### Steps
+
 1. Run: `/craft:do "test task" --orch=release`
 
-### Expected:
+### Expected
+
 - [ ] No mode prompt appears
 - [ ] Goes directly to release mode
 - [ ] Orchestrator spawns with release configuration
@@ -91,10 +99,12 @@ _______________________________________________________________
 
 **Scenario:** Invalid mode shows helpful error
 
-### Steps:
+### Steps
+
 1. Run: `/craft:do "test task" --orch=invalid`
 
-### Expected:
+### Expected
+
 - [ ] Error message displayed clearly
 - [ ] Error lists all valid modes: default, debug, optimize, release
 - [ ] Task does not proceed
@@ -111,10 +121,12 @@ _______________________________________________________________
 
 **Scenario:** Dry-run preview works with orchestration mode
 
-### Steps:
+### Steps
+
 1. Run: `/craft:do "test task" --orch=optimize --dry-run`
 
-### Expected:
+### Expected
+
 - [ ] Preview box displayed (ASCII art borders)
 - [ ] Shows task description
 - [ ] Shows selected mode: "optimize"
@@ -134,13 +146,16 @@ _______________________________________________________________
 
 **Scenario:** Graceful handling when orchestrator unavailable
 
-### Preparation:
+### Preparation
+
 - Temporarily disable orchestrator (rename agent file or simulate failure)
 
-### Steps:
+### Steps
+
 1. Run: `/craft:do "test task" --orch=optimize`
 
-### Expected:
+### Expected
+
 - [ ] Error message: "⚠️  Orchestrator Spawn Failed"
 - [ ] Shows task name in error
 - [ ] Shows error details
@@ -164,22 +179,26 @@ _______________________________________________________________
 **Scenario:** Multiple flags work together correctly
 
 ### Test 7a: Orch + Dry-Run + For
+
 ```bash
 /craft:check --orch=release --dry-run --for release
 ```
 
-### Expected:
+### Expected
+
 - [ ] All flags recognized
 - [ ] Dry-run preview shows orch mode
 - [ ] "For release" context included
 - [ ] No conflicts between flags
 
 ### Test 7b: Orch + Categories (Brainstorm)
+
 ```bash
 /craft:workflow:brainstorm "test" --orch=optimize -C req,tech
 ```
 
-### Expected:
+### Expected
+
 - [ ] Orchestrator spawns with optimize mode
 - [ ] Categories (req, tech) passed to orchestrator
 - [ ] Both features work together
@@ -195,14 +214,16 @@ _______________________________________________________________
 
 **Scenario:** Complexity score suggests appropriate mode
 
-### Steps:
+### Steps
+
 1. Check `recommend_orchestration_mode()` in code
 2. Verify recommendations align with docs:
    - Score 0-3 → default
    - Score 4-7 → optimize
    - Score 8-10 → release
 
-### Expected:
+### Expected
+
 - [ ] Low complexity tasks recommend default
 - [ ] Medium complexity recommend optimize
 - [ ] High complexity recommend release
@@ -219,12 +240,14 @@ _______________________________________________________________
 
 **Scenario:** All error messages are clear and actionable
 
-### Review error messages for:
+### Review error messages for
+
 1. Invalid mode error
 2. Orchestrator failure error
 3. Mode prompt failure
 
-### Expected:
+### Expected
+
 - [ ] Errors use emoji indicators (⚠️, ❌, 💡)
 - [ ] Errors explain what went wrong
 - [ ] Errors provide specific solutions
@@ -242,12 +265,14 @@ _______________________________________________________________
 
 **Scenario:** Documentation matches actual behavior
 
-### Steps:
+### Steps
+
 1. Read: `docs/guide/orch-flag-usage.md`
 2. Read: `CLAUDE.md` (orch section)
 3. Compare with actual behavior from tests above
 
-### Expected:
+### Expected
+
 - [ ] Examples in docs work as shown
 - [ ] All flags documented correctly
 - [ ] Troubleshooting section helpful
@@ -263,6 +288,7 @@ _______________________________________________________________
 ## Pass Criteria
 
 **Minimum Requirements:**
+
 - All 10 tests pass
 - No unexpected errors or crashes
 - Fallbacks work gracefully
@@ -270,6 +296,7 @@ _______________________________________________________________
 - Error messages are helpful
 
 **Optional Enhancements Noted:**
+
 - Performance (mode prompt response time)
 - Edge cases discovered during testing
 - User feedback incorporated
@@ -311,6 +338,7 @@ _______________________________________________________________
 ## Additional Notes
 
 Use this space to document:
+
 - Unexpected behaviors
 - Performance observations
 - User experience feedback

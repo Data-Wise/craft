@@ -5,9 +5,10 @@
 <!-- Describe what this PR does and why -->
 
 **Changes:**
--
--
--
+
+- Change 1
+- Change 2
+- Change 3
 
 **Related Issues:** Fixes #<!-- issue number -->
 
@@ -33,6 +34,7 @@
 - [ ] Breaking changes (describe below)
 
 **If breaking changes:**
+
 - What breaks:
 - Migration path:
 - Deprecation notice added: [ ]

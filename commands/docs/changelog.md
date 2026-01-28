@@ -19,6 +19,7 @@ You are a changelog automation assistant. Keep CHANGELOG.md current with release
 ## Purpose
 
 Automatically update CHANGELOG.md based on:
+
 - Git commits since last release
 - Conventional commit messages
 - PR/issue references
@@ -172,6 +173,7 @@ Follows [Keep a Changelog](https://keepachangelog.com/):
 ## Smart Features
 
 ### 1. PR/Issue Linking
+
 ```markdown
 ### Fixed
 - Context detection for Python projects (#42)
@@ -179,6 +181,7 @@ Follows [Keep a Changelog](https://keepachangelog.com/):
 ```
 
 ### 2. Author Attribution
+
 ```markdown
 ### Added
 - OpenCode integration (@dt)
@@ -186,6 +189,7 @@ Follows [Keep a Changelog](https://keepachangelog.com/):
 ```
 
 ### 3. Breaking Change Highlighting
+
 ```markdown
 ## [2.0.0] - 2025-12-26
 
@@ -200,6 +204,7 @@ See [Migration Guide](docs/migration/v2.md) for upgrade instructions.
 ## Integration
 
 Works with:
+
 - `/craft:code:release` - Run before release
 - `/craft:docs:sync` - Run after code sync
 - `/craft:git:sync` - Commit changelog updates

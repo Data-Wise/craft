@@ -17,6 +17,7 @@ Generate comprehensive test suites for command-line applications.
 ## Purpose
 
 Create test suites that verify CLI behavior:
+
 - **Interactive mode** - Human-guided testing with prompts
 - **Automated mode** - CI-ready test scripts
 
@@ -48,6 +49,7 @@ ls -la bin/ 2>/dev/null
 ```
 
 **Detected CLI:**
+
 ```
 📦 CLI APPLICATION DETECTED
 ═══════════════════════════════════════════════════════════════
@@ -72,6 +74,7 @@ ${CLI_NAME} <subcommand> --help
 ```
 
 **Command Tree:**
+
 ```
 aiterm/ait
 ├── doctor           # System check
@@ -274,6 +277,7 @@ Next steps:
 ## Integration
 
 Works with:
+
 - `/craft:test:cli-run` - Run generated test suites
 - `/craft:test:run` - Unified test runner
 - `/craft:code:ci-local` - CI checks

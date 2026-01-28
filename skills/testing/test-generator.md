@@ -5,6 +5,7 @@ Generates dogfooding test suites (automated + interactive) for any project type.
 ## When to Use
 
 Use this skill when:
+
 - Setting up CLI tests for a new project
 - Creating plugin validation tests
 - Generating interactive QA test suites
@@ -31,6 +32,7 @@ Automatically detects project type and generates appropriate tests:
 Generates two complementary test suites:
 
 #### 1. Automated Tests (`automated-tests.sh`)
+
 - Non-interactive, CI-ready
 - Exit code validation
 - Output pattern matching
@@ -38,6 +40,7 @@ Generates two complementary test suites:
 - Runs in < 60 seconds
 
 #### 2. Interactive Tests (`interactive-tests.sh`)
+
 - Human-guided QA
 - Expected vs actual comparison
 - Single-key responses (y/n/q)
@@ -47,6 +50,7 @@ Generates two complementary test suites:
 ### Test Categories by Project Type
 
 **CLI Tools:**
+
 - Smoke tests (version, help, aliases)
 - Core commands (each subcommand)
 - Error handling (invalid commands)
@@ -54,6 +58,7 @@ Generates two complementary test suites:
 - Help accessibility
 
 **Claude Plugins:**
+
 - Plugin structure (plugin.json)
 - Directory structure (commands/, skills/, agents/)
 - File counts and validity
@@ -61,6 +66,7 @@ Generates two complementary test suites:
 - Cross-reference checks
 
 **Libraries:**
+
 - Import validation
 - API surface coverage
 - Module structure
@@ -69,11 +75,13 @@ Generates two complementary test suites:
 ## Usage
 
 ### Basic Generation
+
 ```
 Generate CLI tests for this project
 ```
 
 ### With Options
+
 ```
 Generate dogfooding tests:
 - Project: ~/projects/my-tool
@@ -82,6 +90,7 @@ Generate dogfooding tests:
 ```
 
 ### Specific Project Types
+
 ```
 Create plugin validation tests for craft
 Create CLI tests for aiterm
@@ -103,6 +112,7 @@ tests/
 ## Test Script Features
 
 ### Automated Tests
+
 ```bash
 # Colors and formatting
 ✅ PASS: Test description
@@ -124,6 +134,7 @@ tests/
 ```
 
 ### Interactive Tests
+
 ```bash
 TEST 1/15: Version Check
   Command: tool --version
@@ -139,6 +150,7 @@ tool version 1.0.0
 ## Integration
 
 Works with:
+
 - `/craft:test:run` - Execute generated tests
 - `/craft:code:ci-local` - Add to CI pipeline
 - `test-strategist` skill - Test strategy guidance
@@ -156,6 +168,7 @@ Works with:
 ## Customization
 
 Tests can be customized after generation:
+
 - Add project-specific test cases
 - Modify expected outputs
 - Adjust test categories

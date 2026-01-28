@@ -1,7 +1,7 @@
 # /craft:hub - Command Discovery Hub
 
 > **v2.5.0 Update**: Added `--orch` flag for quick orchestration across 5 key commands: `/craft:do`, `/craft:workflow:brainstorm`, `/craft:check`, `/craft:docs:sync`, `/craft:ci:generate`.
-> 
+>
 > **v2.4.0 Update**: Added brainstorm question control with colon notation (`d:5`, `m:12`, `q:3`) and categories flag (`-C req,tech,success`).
 
 You are a command discovery assistant for the craft plugin. Help users find the right command.
@@ -54,6 +54,7 @@ Detection Rules (check in order):
 **Generate this display dynamically** using stats and commands data loaded in Step 0.
 
 Replace placeholders:
+
 - `[TOTAL]` → `stats['total']`
 - `[CODE_COUNT]` → `stats['categories'].get('code', 0)`
 - `[TEST_COUNT]` → `stats['categories'].get('test', 0)`
@@ -122,12 +123,14 @@ Display template:
 ```
 
 **How to generate:**
+
 1. Load stats and commands data (Step 0)
 2. Replace all `[PLACEHOLDER]` values with actual data from stats
 3. Display the completed hub menu
 4. Optionally list top commands per category (first 5-6 from each)
 
 **Category Navigation:**
+
 - User can say `/craft:hub <category>` to see all commands in that category (Layer 2)
 - User can say `/craft:hub <category>:<command>` for command details (Layer 3 - future)
 
@@ -166,6 +169,7 @@ else:
 **Generate this display using category_info data:**
 
 Replace placeholders:
+
 - `[CATEGORY]` → `category_info['name'].upper()`
 - `[ICON]` → `category_info['icon']`
 - `[COUNT]` → `category_info['count']`
@@ -199,6 +203,7 @@ Display template:
 ```
 
 **Implementation notes:**
+
 1. Group commands by subcategory using `category_info['subcategories']`
 2. For commands without subcategory, use 'general' group
 3. Show mode indicator `[mode]` for commands that support modes
@@ -336,6 +341,7 @@ The `generate_command_tutorial()` function creates a formatted display with:
 ```
 
 **Implementation Notes:**
+
 1. Command detail is generated dynamically from frontmatter metadata
 2. Tutorial sections are auto-generated but can be enriched with custom tutorial files
 3. Related commands are looked up to show their descriptions
@@ -346,6 +352,7 @@ The `generate_command_tutorial()` function creates a formatted display with:
 ## Smart Commands (v2.5.0 Enhanced)
 
 ### `/craft:do <task>` - Universal Command with --orch (NEW v2.5.0)
+
 ```
 Intelligently routes your task to the right workflow:
 
@@ -365,6 +372,7 @@ Intelligently routes your task to the right workflow:
 ```
 
 ### `/craft:check` - Universal Pre-flight (v2.5.0 Enhanced)
+
 ```
 Auto-detects project type and runs appropriate checks:
 
@@ -381,6 +389,7 @@ Auto-detects project type and runs appropriate checks:
 ```
 
 ### `/craft:help` - Context-Aware Help
+
 ```
 /craft:help                    Shows relevant commands for your project
 /craft:help testing            Deep dive into testing commands
@@ -399,6 +408,7 @@ Many commands support modes for different use cases:
 | **release** | < 300s | Pre-release comprehensive checks |
 
 ### Mode Examples
+
 ```bash
 /craft:code:lint                # default mode - quick
 /craft:code:lint debug          # verbose with fix suggestions
@@ -417,6 +427,7 @@ Many commands support modes for different use cases:
 ## Category Deep Dive
 
 ### `/craft:hub code`
+
 ```
 💻 CODE COMMANDS (12)
 ─────────────────────────────────────────────────────────────────────────
@@ -438,6 +449,7 @@ Command                  │ Description                    │ Modes
 ```
 
 ### `/craft:hub test`
+
 ```
 🧪 TEST COMMANDS (4) - Testing & Quality
 ─────────────────────────────────────────────────────────────────────────
@@ -451,6 +463,7 @@ Command                  │ Description                    │ Modes
 ```
 
 ### `/craft:hub arch`
+
 ```
 🏗️ ARCH COMMANDS (4) - Architecture & Design
 ─────────────────────────────────────────────────────────────────────────
@@ -464,6 +477,7 @@ Command                  │ Description                    │ Modes
 ```
 
 ### `/craft:hub plan`
+
 ```
 📋 PLAN COMMANDS (3) - Planning & Project Management
 ─────────────────────────────────────────────────────────────────────────
@@ -476,6 +490,7 @@ Command                  │ Description
 ```
 
 ### `/craft:hub workflow` (v2.5.0 Enhanced)
+
 ```
  WORKFLOW COMMANDS (4) - ADHD-Friendly Workflow Management
 ────────────────────────────────────────────────────────────────────────
@@ -512,6 +527,7 @@ Command                           │ Description
 ```
 
 ### `/craft:hub docs`
+
 ```
 📄 DOCS COMMANDS (5) - Documentation Automation
 ─────────────────────────────────────────────────────────────────────────
@@ -526,6 +542,7 @@ Command                  │ Description
 ```
 
 ### `/craft:hub site`
+
 ```
 📖 SITE COMMANDS (6) - Documentation Sites
 ─────────────────────────────────────────────────────────────────────────
@@ -541,6 +558,7 @@ Command                  │ R Package        │ Other (MkDocs)
 ```
 
 ### `/craft:hub git`
+
 ```
 🔀 GIT COMMANDS (5 commands + 4 guides)
 ────────────────────────────────────────────────────────────────────────
@@ -560,6 +578,7 @@ Guides:
 ```
 
 ### `/craft:hub workflow` (NEW v2.4.0)
+
 ```
 🔄 WORKFLOW COMMANDS (4) - ADHD-Friendly Workflow Management
 ────────────────────────────────────────────────────────────────────────
@@ -605,6 +624,7 @@ Command                           │ Description
 ## Context-Aware Suggestions
 
 ### Python Package (pyproject.toml detected)
+
 ```
 💡 SUGGESTED FOR PYTHON PROJECT:
 
@@ -616,6 +636,7 @@ Command                           │ Description
 ```
 
 ### R Package (DESCRIPTION detected)
+
 ```
 💡 SUGGESTED FOR R PACKAGE:
 
@@ -627,6 +648,7 @@ Command                           │ Description
 ```
 
 ### Node.js Project (package.json detected)
+
 ```
 💡 SUGGESTED FOR NODE PROJECT:
 
@@ -709,6 +731,7 @@ Command                           │ Description
 The orchestrator coordinates multiple agents for complex tasks:
 
 **Traditional Method:**
+
 ```bash
 /craft:orchestrate "implement feature X"       # Start with default mode
 /craft:orchestrate "complex task" optimize     # Parallel execution (4 agents)
@@ -720,6 +743,7 @@ The orchestrator coordinates multiple agents for complex tasks:
 ```
 
 **NEW (v2.5.0) Quick Orchestration with --orch Flag:**
+
 ```bash
 # Quick orchestration from any supported command
 /craft:do "implement feature X" --orch         # Same as orchestrate (default mode)
@@ -735,6 +759,7 @@ The orchestrator coordinates multiple agents for complex tasks:
 ```
 
 **Key Features:**
+
 - Mode-aware execution (default/debug/optimize/release)
 - Up to 4 parallel agents in optimize/release modes
 - Chat compression for long sessions

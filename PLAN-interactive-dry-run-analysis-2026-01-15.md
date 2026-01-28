@@ -38,18 +38,21 @@ For each command, you will have options to:
 #### 1. Current Behavior
 
 **What it does:**
+
 - Primary purpose
 - Current arguments
 - Key operations performed
 - Files/systems affected
 
 **Current implementation:**
+
 ```bash
 # Command file location
 commands/[category]/[name].md
 ```
 
 **Usage examples:**
+
 ```bash
 # Current usage
 /craft:[category]:[name] [args]
@@ -60,24 +63,28 @@ commands/[category]/[name].md
 #### 2. Operations Analysis
 
 **Irreversible Operations:**
+
 - [ ] Deletes files/branches/data
 - [ ] Publishes to external service
 - [ ] Modifies remote state
 - [ ] Creates external resources
 
 **File System Changes:**
+
 - [ ] Creates files
 - [ ] Modifies files
 - [ ] Deletes files
 - [ ] Moves/renames files
 
 **Git Operations:**
+
 - [ ] Creates branches
 - [ ] Deletes branches
 - [ ] Commits changes
 - [ ] Pushes to remote
 
 **External API Calls:**
+
 - [ ] GitHub API
 - [ ] PyPI/package registries
 - [ ] Build services
@@ -114,11 +121,13 @@ commands/[category]/[name].md
 ```
 
 **Information to Show:**
+
 1. _______________________________________________
 2. _______________________________________________
 3. _______________________________________________
 
 **Warnings to Include:**
+
 - _______________________________________________
 - _______________________________________________
 
@@ -134,15 +143,18 @@ _______________________________________________
 **Estimated Effort:** ___ hours
 
 **Dependencies:**
+
 - Files to read: _______________________________________________
 - APIs to check: _______________________________________________
 - State to analyze: _______________________________________________
 
 **Edge Cases:**
+
 1. _______________________________________________
 2. _______________________________________________
 
 **Best-Effort Limitations:**
+
 - Cannot determine: _______________________________________________
 - Runtime-only info: _______________________________________________
 
@@ -151,10 +163,12 @@ _______________________________________________
 #### 5. Refinement Options
 
 **Option A: Keep Current Behavior**
+
 - No changes to command logic
 - Just add dry-run preview
 
 **Option B: Minor Refinement**
+
 - Small improvements to current behavior
 - Examples:
   - Better error messages
@@ -162,6 +176,7 @@ _______________________________________________
   - Improved output formatting
 
 **Option C: Major Refactor**
+
 - Significant changes to command behavior
 - Examples:
   - Split into multiple commands
@@ -169,6 +184,7 @@ _______________________________________________
   - Rewrite core logic
 
 **Option D: Deprecate**
+
 - Mark command as deprecated
 - Suggest alternative command
 - Remove in future version
@@ -183,14 +199,17 @@ _______________________________________________
 #### 6. Testing Plan
 
 **Test Scenarios:**
+
 1. _______________________________________________
 2. _______________________________________________
 3. _______________________________________________
 
 **Test Data Needed:**
+
 - _______________________________________________
 
 **Validation:**
+
 - [ ] Dry-run shows correct preview
 - [ ] No side effects during dry-run
 - [ ] Actual execution matches preview
@@ -345,6 +364,7 @@ _______________________________________________
 **Location:** `docs/dry-run-analysis/`
 
 **Files:**
+
 ```
 docs/dry-run-analysis/
 ├── git-clean.md
@@ -364,6 +384,7 @@ docs/dry-run-analysis/
 **File:** `docs/dry-run-analysis/SUMMARY.md`
 
 **Contents:**
+
 - Commands analyzed: X/47
 - Commands with dry-run designed: X/47
 - Commands needing refactor: X/47
@@ -376,6 +397,7 @@ docs/dry-run-analysis/
 ## Interactive Commands During Session
 
 ### Edit Mode
+
 ```
 > edit description
 > edit preview
@@ -384,6 +406,7 @@ docs/dry-run-analysis/
 ```
 
 ### Analysis Commands
+
 ```
 > analyze [section]
 > show implementation
@@ -392,6 +415,7 @@ docs/dry-run-analysis/
 ```
 
 ### Design Commands
+
 ```
 > draft preview
 > show preview
@@ -400,6 +424,7 @@ docs/dry-run-analysis/
 ```
 
 ### Navigation
+
 ```
 > next
 > previous
@@ -410,6 +435,7 @@ docs/dry-run-analysis/
 ```
 
 ### Save/Load
+
 ```
 > save
 > save and exit
@@ -499,26 +525,31 @@ Moving to next command...
 ## Benefits of This Approach
 
 ### 1. Thorough Understanding
+
 - Deep dive into each command before implementation
 - Uncover edge cases and limitations early
 - Document assumptions and decisions
 
 ### 2. Consistent Design
+
 - Standardized analysis template
 - Uniform dry-run output format
 - Reusable patterns across similar commands
 
 ### 3. Quality Improvement
+
 - Identify commands that need refactoring
 - Spot inconsistent behavior
 - Improve error handling and validation
 
 ### 4. Better Estimates
+
 - Accurate effort estimation per command
 - Identify dependencies and blockers
 - Prioritize based on actual complexity
 
 ### 5. Documentation Artifact
+
 - Analysis serves as implementation spec
 - Testing scenarios already defined
 - User documentation can reference designs
@@ -538,16 +569,19 @@ Moving to next command...
 ## Estimated Timeline
 
 **Per Command Analysis:**
+
 - Simple commands: 15-20 minutes
 - Medium commands: 30-45 minutes
 - Complex commands: 1-2 hours
 
 **Total Effort:**
+
 - 47 commands × 30 min average = ~24 hours
 - Spread over 5-6 sessions
 - 1-2 weeks calendar time
 
 **Deliverable:**
+
 - 47 command analysis files
 - Comprehensive implementation guide
 - Testing scenarios

@@ -149,6 +149,7 @@ git checkout -b <name>
 ```
 
 **Interactive mode (no name provided):**
+
 ```
 🌿 CREATE NEW BRANCH
 
@@ -164,6 +165,7 @@ Branch name: (e.g., feature/user-auth, fix/login-bug)
 ```
 
 **If .STATUS exists, update it:**
+
 ```markdown
 ## 🌿 Current Branch
 feature-dashboard
@@ -173,6 +175,7 @@ feature-dashboard
 ```
 
 **Result:**
+
 ```
 ✅ Created and switched to: feature-dashboard
 
@@ -191,6 +194,7 @@ git status --short
 ```
 
 **Warning if uncommitted:**
+
 ```
 ⚠️ You have uncommitted changes:
    M src/file.js
@@ -206,6 +210,7 @@ Choice:
 ```
 
 **After switch:**
+
 ```
 ✅ Switched to: main
 
@@ -234,6 +239,7 @@ git rev-list HEAD..<name> --count
 ```
 
 **If not merged:**
+
 ```
 ⚠️ BRANCH NOT MERGED
 
@@ -247,6 +253,7 @@ Still delete? (yes/no/merge-first)
 ```
 
 **If merged:**
+
 ```
 ✅ SAFE TO DELETE
 
@@ -262,6 +269,7 @@ Delete remote branch too? (y/n)
 ```
 
 **Execute:**
+
 ```bash
 git branch -d <name>  # Safe delete
 # or
@@ -287,6 +295,7 @@ git pull origin $(git branch --show-current)
 ```
 
 **Display:**
+
 ```
 🔄 SYNCING: feature-auth
 
@@ -314,6 +323,7 @@ Recommended: 2 (rebase)
 ### 1. Branch Naming Suggestions
 
 Based on context:
+
 ```
 💡 BRANCH NAME SUGGESTIONS:
 
@@ -365,6 +375,7 @@ Proceed? (y/n)
 ### 4. Auto-Update .STATUS
 
 When switching branches:
+
 ```
 📝 .STATUS on feature-auth says:
 "Working on authentication system"

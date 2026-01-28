@@ -5,6 +5,7 @@ Check status of background tasks launched by workflow commands.
 ## Purpose
 
 Monitor background tasks from:
+
 - `/workflow:brainstorm --background`
 - `/workflow:refine` (option 2: background)
 - Any other command with background delegation
@@ -19,7 +20,7 @@ Monitor background tasks from:
 
 ---
 
-## When invoked:
+## When invoked
 
 ### Without Arguments: List All Tasks
 
@@ -62,6 +63,7 @@ BACKGROUND TASKS
 ```
 
 **Implementation:**
+
 1. Check for `.claude/tasks.json` file
 2. If doesn't exist, check Claude Code's internal task tracking via `/tasks` command
 3. Parse task list and categorize by status
@@ -77,6 +79,7 @@ BACKGROUND TASKS
 ```
 
 **Output for RUNNING task:**
+
 ```
 TASK STATUS: abc123
 ════════════════════════════════════════════════════════════
@@ -100,6 +103,7 @@ Or wait for completion:
 ```
 
 **Output for COMPLETED task:**
+
 ```
 TASK STATUS: abc123
 ════════════════════════════════════════════════════────════
@@ -118,6 +122,7 @@ View results:
 ```
 
 **Output for FAILED task:**
+
 ```
 TASK STATUS: abc123
 ════════════════════════════════════════════════════════════
@@ -141,6 +146,7 @@ Retry with different approach:
 ```
 
 **Implementation:**
+
 1. Look up task by ID in task registry
 2. Check current status using TaskOutput tool with `block: false`
 3. Calculate time elapsed and estimate remaining
@@ -156,6 +162,7 @@ Retry with different approach:
 ```
 
 **Output:**
+
 ```
 TASK STATUS: abc123
 ════════════════════════════════════════════════════════════
@@ -179,6 +186,7 @@ View results now? (y/n)
 ```
 
 **Implementation:**
+
 1. Use TaskOutput tool with `block: true`
 2. Show waiting indicator
 3. When complete, offer to show results
@@ -233,12 +241,14 @@ View results now? (y/n)
 ## Time Display
 
 **Relative time formatting:**
+
 - < 1 minute: "30 seconds ago"
 - < 60 minutes: "5 minutes ago"
 - < 24 hours: "2 hours ago"
 - >= 24 hours: "2 days ago"
 
 **Duration formatting:**
+
 - < 60s: "45s"
 - < 60m: "2m 30s"
 - >= 60m: "1h 15m"
@@ -248,6 +258,7 @@ View results now? (y/n)
 ## Error Handling
 
 **If task ID not found:**
+
 ```
 ❌ Task not found: abc123
 
@@ -260,6 +271,7 @@ List all tasks:
 ```
 
 **If no tasks exist:**
+
 ```
 No background tasks found.
 
@@ -278,6 +290,7 @@ Background tasks are created when you use:
 ## Integration with Other Commands
 
 **After launching background task:**
+
 ```
 /workflow:brainstorm "ideas" --background
 
@@ -286,6 +299,7 @@ AI: ✅ Task launched (abc123)
 ```
 
 **Check status anytime:**
+
 ```
 /workflow:task-status abc123
 
@@ -293,6 +307,7 @@ AI: Running... 66% complete
 ```
 
 **When task completes:**
+
 ```
 AI: 🎉 Task abc123 complete!
 

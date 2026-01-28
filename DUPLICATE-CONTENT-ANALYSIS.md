@@ -45,6 +45,7 @@
 ### Content Overlap
 
 **Both files contain:**
+
 - Documentation Workflow
 - Site Creation Workflow
 - Release Workflow
@@ -52,11 +53,13 @@
 - Next steps
 
 **Only in WORKFLOWS.md:**
+
 - Testing Workflow
 - Git Worktree Workflow
 - Orchestrator Workflow
 
 **Only in workflows/index.md:**
+
 - Development Workflow
 - AI Routing Workflow
 - Pro tips and callouts
@@ -84,6 +87,7 @@ The files serve the same purpose - visual workflow guides. However:
 3. **Recommendation:** 🗑️ **Delete WORKFLOWS.md**
 
 **Action Plan:**
+
 1. Extract unique workflows from WORKFLOWS.md
 2. Add them to workflows/index.md OR create separate workflow pages
 3. Delete WORKFLOWS.md
@@ -94,6 +98,7 @@ The files serve the same purpose - visual workflow guides. However:
 From WORKFLOWS.md, these workflows should be preserved:
 
 #### 1. Testing Workflow (lines 90-130)
+
 ```mermaid
 flowchart TD
     Start([Write code]) --> Local[/craft:test:run/]
@@ -106,6 +111,7 @@ flowchart TD
 ```
 
 #### 2. Git Worktree Workflow (lines 150-190)
+
 ```mermaid
 flowchart TD
     Start([Feature request]) --> Create[/craft:git:worktree add feature/new-api/]
@@ -115,6 +121,7 @@ flowchart TD
 ```
 
 #### 3. Orchestrator Workflow (lines 210-245)
+
 ```mermaid
 flowchart TD
     Start([Complex task]) --> Do[/craft:orchestrate "task" mode/]
@@ -123,6 +130,7 @@ flowchart TD
 ```
 
 **Recommendation:** Add these as separate workflow pages:
+
 - `workflows/testing-workflow.md`
 - `workflows/git-worktree-workflow.md` (exists but different content)
 - `workflows/orchestrator-workflow.md`
@@ -143,6 +151,7 @@ flowchart TD
 ### Content Comparison
 
 #### orchestrator.md (Reference)
+
 - Comprehensive technical documentation
 - Agent coordination details
 - Monitoring & status implementation
@@ -151,6 +160,7 @@ flowchart TD
 - Best practices for developers
 
 **Sections:**
+
 1. Overview
 2. Basic Usage
 3. Modes (detailed)
@@ -162,6 +172,7 @@ flowchart TD
 9. See Also
 
 #### guide/orchestrator.md (Tutorial)
+
 - User-focused tutorial
 - Quick start examples
 - Practical mode usage
@@ -170,6 +181,7 @@ flowchart TD
 - Next steps for users
 
 **Sections:**
+
 1. Overview
 2. Basic Usage
 3. Modes (simple)
@@ -201,6 +213,7 @@ These files serve **different purposes for different audiences:**
 Add a notice at the top of each file to differentiate:
 
 **orchestrator.md:**
+
 ```markdown
 # Orchestrator Reference
 
@@ -209,6 +222,7 @@ Add a notice at the top of each file to differentiate:
 ```
 
 **guide/orchestrator.md:**
+
 ```markdown
 # Orchestrator Mode
 
@@ -273,6 +287,7 @@ git rm docs/WORKFLOWS.md
 ## Verification Checklist
 
 Before deleting WORKFLOWS.md:
+
 - [ ] Extract unique workflows (Testing, Git Worktree, Orchestrator)
 - [ ] Search for any links to WORKFLOWS.md
 - [ ] Verify workflows/index.md has all essential content
@@ -280,6 +295,7 @@ Before deleting WORKFLOWS.md:
 - [ ] Test site build
 
 After changes:
+
 - [ ] Add clarity notices to both orchestrator files
 - [ ] Cross-link orchestrator reference ↔ guide
 - [ ] Rebuild and deploy site

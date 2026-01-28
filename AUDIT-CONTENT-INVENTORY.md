@@ -178,6 +178,7 @@ ORCHESTRATOR-ENHANCEMENTS.md:
 #### WORKFLOWS.md vs workflows/index.md
 
 Need to compare these files:
+
 - `WORKFLOWS.md` (145 lines) - Not in nav
 - `workflows/index.md` (285 lines) - In nav with Mermaid diagrams
 
@@ -193,6 +194,7 @@ Need to compare these files:
 ### 4. Spec Files Location
 
 **3 spec files in docs/ directory:**
+
 - `specs/SPEC-docs-improvement-2026-01-14.md`
 - `specs/SPEC-dry-run-feature-2026-01-15.md`
 - `specs/SPEC-testing-enhancements-2025-12-30.md`
@@ -202,6 +204,7 @@ Need to compare these files:
 ### 5. Documentation Gaps
 
 **Missing documentation:**
+
 - ✅ Dry-run feature is well-documented (DRY-RUN-SUMMARY.md, CHANGELOG.md)
 - ✅ Git init has comprehensive docs
 - ⚠️ No dedicated page for all 27 dry-run commands (mentioned in commands.md but could be separate)
@@ -209,6 +212,7 @@ Need to compare these files:
 - ⚠️ No FAQ page
 
 **Recommended additions:**
+
 1. `docs/TROUBLESHOOTING.md` - Common issues and solutions
 2. `docs/FAQ.md` - Frequently asked questions
 3. `docs/DRY-RUN-GUIDE.md` - Comprehensive dry-run feature guide

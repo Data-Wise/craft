@@ -5,11 +5,13 @@ Cancel a running background task.
 ## Purpose
 
 Stop execution of background tasks from:
+
 - `/workflow:brainstorm --background`
 - `/workflow:refine` (option 2: background)
 - Any command with background delegation
 
 **Use when:**
+
 - Task is taking too long
 - Realized you asked the wrong question
 - Want to try a different approach
@@ -25,7 +27,7 @@ Stop execution of background tasks from:
 
 ---
 
-## When invoked:
+## When invoked
 
 ### Cancel Specific Task
 
@@ -34,6 +36,7 @@ Stop execution of background tasks from:
 ```
 
 **Output:**
+
 ```
 CANCEL BACKGROUND TASK
 ════════════════════════════════════════════════════════════
@@ -58,6 +61,7 @@ Confirm? (y/n)
 ```
 
 **If user confirms (y):**
+
 ```
 ✅ Task cancelled: abc123
 
@@ -77,6 +81,7 @@ Check remaining tasks:
 ```
 
 **If user declines (n):**
+
 ```
 ❌ Cancellation aborted
 
@@ -87,6 +92,7 @@ Check status:
 ```
 
 **Implementation:**
+
 1. Look up task by ID
 2. Verify it's currently running
 3. Show confirmation prompt
@@ -104,6 +110,7 @@ Check status:
 ```
 
 **Output:**
+
 ```
 ✅ Task cancelled: abc123 (forced)
 
@@ -125,6 +132,7 @@ Check remaining tasks:
 ```
 
 **Output:**
+
 ```
 CANCEL ALL BACKGROUND TASKS
 ════════════════════════════════════════════════════════════
@@ -149,6 +157,7 @@ Confirm? (y/n)
 ```
 
 **If user confirms (y):**
+
 ```
 ✅ Cancelled 3 tasks:
   • abc123 - /workflow:brainstorm
@@ -166,6 +175,7 @@ Start new tasks:
 ```
 
 **If user declines (n):**
+
 ```
 ❌ Cancellation aborted
 
@@ -180,6 +190,7 @@ Check status:
 ## Error Handling
 
 ### Task Not Found
+
 ```
 ❌ Task not found: abc123
 
@@ -195,6 +206,7 @@ List all tasks:
 ```
 
 ### Task Already Completed
+
 ```
 ❌ Cannot cancel: Task already completed
 
@@ -208,6 +220,7 @@ View results:
 ```
 
 ### Task Already Cancelled
+
 ```
 ❌ Task already cancelled: abc123
 
@@ -220,6 +233,7 @@ Start a new task:
 ```
 
 ### Task Already Failed
+
 ```
 ❌ Cannot cancel: Task already failed
 
@@ -236,6 +250,7 @@ Retry:
 ```
 
 ### No Running Tasks
+
 ```
 No running tasks to cancel.
 
@@ -261,6 +276,7 @@ View results:
 5. **Notifications cleared** - No completion notification sent
 
 **Partial work:**
+
 - Not saved to IDEAS.md or other files
 - Not available via task-output
 - Completely discarded
@@ -272,16 +288,19 @@ View results:
 ## Safety Features
 
 ### Confirmation Required
+
 - Default behavior asks for confirmation
 - Prevents accidental cancellation
 - Shows task details before confirming
 
 ### Force Flag Available
+
 - `--force` skips confirmation
 - Useful for scripting
 - Quick cancellation when certain
 
 ### Granular Control
+
 - Cancel specific task by ID
 - Cancel all running tasks
 - Cannot cancel completed/failed tasks (protects results)
@@ -291,6 +310,7 @@ View results:
 ## Use Cases
 
 ### Use Case 1: Wrong Topic
+
 ```bash
 /workflow:brainstorm "improve performance" --background
 > Task abc123 launched
@@ -306,6 +326,7 @@ View results:
 ```
 
 ### Use Case 2: Taking Too Long
+
 ```bash
 /workflow:brainstorm "complex redesign" --background
 > Task abc123 launched (estimated 5 min)
@@ -324,6 +345,7 @@ View results:
 ```
 
 ### Use Case 3: Clear Queue Before Shutdown
+
 ```bash
 /workflow:task-status
 > 3 tasks running
@@ -342,6 +364,7 @@ View results:
 ## Integration with Workflow
 
 **Typical flow:**
+
 ```bash
 # Launch background task
 /workflow:brainstorm "ideas" --background
@@ -374,18 +397,21 @@ View results:
 ## Advanced Usage
 
 ### Cancel and Retry
+
 ```bash
 /workflow:task-cancel abc123 --force && \
   /workflow:brainstorm "better topic" --background
 ```
 
 ### Cancel All and Start Fresh
+
 ```bash
 /workflow:task-cancel --all --force && \
   /workflow:task-status
 ```
 
 ### Cancel with Custom Message
+
 ```bash
 /workflow:task-cancel abc123
 # Add to IDEAS.md: "Cancelled brainstorm - topic was too broad"
@@ -405,6 +431,7 @@ View results:
 ## Examples
 
 ### Example 1: Simple Cancel
+
 ```bash
 /workflow:task-cancel abc123
 
@@ -416,6 +443,7 @@ AI: ✅ Cancelled
 ```
 
 ### Example 2: Force Cancel
+
 ```bash
 /workflow:task-cancel abc123 --force
 
@@ -423,6 +451,7 @@ AI: ✅ Task cancelled: abc123 (forced)
 ```
 
 ### Example 3: Cancel All
+
 ```bash
 /workflow:task-cancel --all
 
@@ -432,6 +461,7 @@ AI: ✅ Cancelled 3 tasks
 ```
 
 ### Example 4: Can't Cancel Completed
+
 ```bash
 /workflow:task-cancel abc123
 
@@ -445,6 +475,7 @@ AI: ❌ Cannot cancel: Task already completed
 ## Technical Implementation
 
 **Cancellation mechanism:**
+
 1. Identify running task process
 2. Send termination signal (SIGTERM)
 3. Wait for graceful shutdown (2 seconds)
@@ -453,6 +484,7 @@ AI: ❌ Cannot cancel: Task already completed
 6. Clean up resources
 
 **Task registry update:**
+
 ```json
 {
   "id": "abc123",

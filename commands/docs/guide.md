@@ -5,6 +5,7 @@ You are a documentation orchestrator. Create complete feature guides with mermai
 ## Purpose
 
 **One command to generate complete feature documentation:**
+
 1. Analyze what documentation is needed
 2. Generate guide with proper structure
 3. Create VHS tape for GIF demo
@@ -46,6 +47,7 @@ First, gather intelligence about the feature:
 ```
 
 **Actions:**
+
 - Run `/craft:docs:analyze` internally
 - Extract feature scope
 - Determine what to generate
@@ -150,7 +152,7 @@ $ [example invocation]
 [Description]
 
 ```bash
-$ [example]
+[example]
 ```
 
 [Repeat for each command]
@@ -180,11 +182,13 @@ $ [example]
 - [Link to related guide 1]
 - [Link to related command reference]
 - [Link to refcard]
+
 ```
 
 **Progress output:**
 
 ```
+
 ┌─────────────────────────────────────────────────────────────┐
 │ Phase 3/7: GENERATING GUIDE                                  │
 ├─────────────────────────────────────────────────────────────┤
@@ -202,6 +206,7 @@ $ [example]
 │ Created: docs/guide/sessions.md (275 lines)                  │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
+
 ```
 
 ### Phase 4: GENERATE VHS TAPE
@@ -209,6 +214,7 @@ $ [example]
 Create the demo tape file:
 
 ```
+
 ┌─────────────────────────────────────────────────────────────┐
 │ Phase 4/7: GENERATING VHS TAPE                               │
 ├─────────────────────────────────────────────────────────────┤
@@ -222,6 +228,7 @@ Create the demo tape file:
 │ Est. duration: ~25 seconds                                   │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
+
 ```
 
 ### Phase 5: GENERATE REFCARD
@@ -229,6 +236,7 @@ Create the demo tape file:
 Generate domain-specific quick reference (if 3+ commands):
 
 ```
+
 ┌─────────────────────────────────────────────────────────────┐
 │ Phase 5/7: GENERATING REFCARD                                │
 ├─────────────────────────────────────────────────────────────┤
@@ -244,6 +252,7 @@ Generate domain-specific quick reference (if 3+ commands):
 │ Created: docs/reference/REFCARD-SESSIONS.md (85 lines)       │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
+
 ```
 
 **Refcard Template:**
@@ -269,6 +278,7 @@ Generate domain-specific quick reference (if 3+ commands):
 ```
 
 ### [Workflow 2 Name]
+
 ```bash
 [command sequence]
 ```
@@ -294,6 +304,7 @@ Generate domain-specific quick reference (if 3+ commands):
 
 - [Full Guide](../guide/[feature].md)
 - [Commands Reference](./commands.md)
+
 ```
 
 ### Phase 6: UPDATE NAVIGATION
@@ -301,6 +312,7 @@ Generate domain-specific quick reference (if 3+ commands):
 Add to mkdocs.yml:
 
 ```
+
 ┌─────────────────────────────────────────────────────────────┐
 │ Phase 6/7: UPDATING NAVIGATION                               │
 ├─────────────────────────────────────────────────────────────┤
@@ -312,6 +324,7 @@ Add to mkdocs.yml:
 │ ✓ Updated: mkdocs.yml                                        │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
+
 ```
 
 ### Phase 7: SUMMARY
@@ -319,6 +332,7 @@ Add to mkdocs.yml:
 Final output with next steps:
 
 ```
+
 ┌─────────────────────────────────────────────────────────────┐
 │ ✅ DOCUMENTATION GENERATION COMPLETE                         │
 ├─────────────────────────────────────────────────────────────┤
@@ -350,6 +364,7 @@ Final output with next steps:
 │    git commit -m "docs: add session tracking documentation"  │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
+
 ```
 
 ## Mermaid Diagram Types
@@ -408,12 +423,14 @@ sequenceDiagram
 ## Integration Points
 
 **Uses these commands internally:**
+
 - `/craft:docs:analyze` - Feature classification
 - `/craft:docs:demo` - VHS tape generation
 - `/craft:docs:mermaid` - Diagram templates
 - `/craft:docs:nav-update` - Navigation updates
 
 **Uses these agents:**
+
 - `tutorial-engineer` - Guide structure
 - `mermaid-expert` - Diagram generation
 

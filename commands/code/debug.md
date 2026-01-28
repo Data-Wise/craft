@@ -5,6 +5,7 @@ Help diagnose and fix bugs in code.
 ## Purpose
 
 Systematic debugging support for:
+
 - Error message interpretation
 - Root cause analysis
 - Reproducing issues
@@ -55,7 +56,9 @@ Systematic debugging support for:
 
 ### Error Details
 ```
+
 [Error message or unexpected output]
+
 ```
 
 ### Root Cause
@@ -67,17 +70,21 @@ Systematic debugging support for:
 ```
 
 ### Suggested Fix
+
 ```r
 # Fixed code with explanation
 ```
 
 ### Explanation
+
 [Why this fix works]
 
 ### Prevention
+
 - [ ] Add test case for this scenario
 - [ ] Update documentation if behavior was unclear
 - [ ] Consider related edge cases
+
 ```
 
 ## Debugging Strategies
@@ -100,6 +107,7 @@ options(warn = 2)  # Treat warnings as errors
 ```
 
 ### For JavaScript/TypeScript
+
 ```javascript
 // Console debugging
 console.log(variable)
@@ -113,6 +121,7 @@ try { } catch (e) { console.error(e.stack) }
 ## MCP Integration
 
 Uses these tools when available:
+
 - `r_execute` - Run code snippets
 - `r_inspect` - Examine objects
 - `r_session` - Interactive debugging
@@ -120,21 +129,25 @@ Uses these tools when available:
 ## Common Bug Patterns
 
 ### Type Errors
+
 - Wrong data type passed
 - NULL/undefined where object expected
 - Vector vs. scalar confusion
 
 ### Logic Errors
+
 - Off-by-one errors
 - Wrong comparison operator
 - Missing edge case handling
 
 ### Environment Issues
+
 - Missing dependencies
 - Version conflicts
 - Path problems
 
 ### Data Issues
+
 - Unexpected NA/NULL values
 - Encoding problems
 - Format mismatches

@@ -196,6 +196,7 @@ fi
 ```
 
 **Worktree-aware output:**
+
 ```
 ╭─ /craft:check ──────────────────────────────────────╮
 │ Project: scribe (Node.js)                           │
@@ -210,6 +211,7 @@ fi
 Detects project type and runs appropriate checks:
 
 ### Python Projects
+
 ```
 ✓ Detected: Python (pyproject.toml)
 Checks:
@@ -221,6 +223,7 @@ Checks:
 ```
 
 ### JavaScript/TypeScript Projects
+
 ```
 ✓ Detected: Node.js (package.json)
 Checks:
@@ -232,6 +235,7 @@ Checks:
 ```
 
 ### R Packages
+
 ```
 ✓ Detected: R Package (DESCRIPTION)
 Checks:
@@ -243,6 +247,7 @@ Checks:
 ```
 
 ### Go Projects
+
 ```
 ✓ Detected: Go (go.mod)
 Checks:
@@ -277,6 +282,7 @@ fi
 ```
 
 **Integration:**
+
 - Automatically runs 2 checks when docs are changed:
   1. `/craft:docs:lint` - Markdown quality (critical errors)
   2. `/craft:docs:check-links` - Internal link validation
@@ -287,6 +293,7 @@ fi
 ## Check Modes
 
 ### Default Mode (Quick)
+
 - Lint check (fast rules only)
 - Test run (fail-fast)
 - Git status
@@ -294,6 +301,7 @@ fi
 - ~30 seconds
 
 ### Thorough Mode
+
 - Full lint check
 - Complete test suite
 - Type checking
@@ -423,6 +431,7 @@ version: 1.0.0
 ```
 
 **Requirements:**
+
 - Must have `hot_reload: true` in frontmatter
 - Must use `context: fork` for isolation
 - Must report clear pass/fail status
@@ -440,6 +449,7 @@ version: 1.0.0
 ```
 
 **Benefits:**
+
 - ✅ **No restart required** - Add validators on the fly
 - ✅ **Isolated execution** - Validators don't corrupt context
 - ✅ **Community extensible** - Users can add custom validators
@@ -449,16 +459,19 @@ version: 1.0.0
 ### Community Validator Ecosystem (NEW in v1.23.0)
 
 **Generate custom validators**:
+
 ```bash
 /craft:check:gen-validator security-audit --languages "python,javascript"
 ```
 
 **Discover community validators**:
+
 - [GitHub Validator Marketplace](https://github.com/topics/craft-plugin-validator)
 - Search by language: `craft-plugin-validator+python`
 - 100+ community validators available
 
 **Install validators**:
+
 ```bash
 # Direct download
 curl -o .claude-plugin/skills/validation/security-audit.md \
@@ -472,6 +485,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 ```
 
 **Validator registry** (community-maintained):
+
 | Validator | Languages | Purpose |
 |-----------|-----------|---------|
 | security-audit | Python, JS | Vulnerability scanning |
@@ -481,6 +495,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 | dependency-audit | Python, JS, Go | Dependency vulnerabilities |
 
 **Resources**:
+
 - [Validator Generator](/craft:check:gen-validator)
 - [Best Practices Guide](../docs/VALIDATOR-BEST-PRACTICES.md)
 - [Example Validators](https://github.com/topics/craft-plugin-validator)
@@ -488,6 +503,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 ## Context-Specific Checks
 
 ### Pre-Commit (`--for commit`)
+
 ```
 ╭─ Pre-Commit Checks ─────────────────────────────────╮
 │ ✓ Lint: No issues                                  │
@@ -500,6 +516,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 ```
 
 ### Pre-PR (`--for pr`)
+
 ```
 ╭─ Pre-PR Checks ─────────────────────────────────────╮
 │ ✓ Lint: No issues                                  │
@@ -514,6 +531,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 ```
 
 ### Pre-Release (`--for release`)
+
 ```
 ╭─ Pre-Release Checks ────────────────────────────────╮
 │ ✓ Lint: No issues (strict mode)                    │
@@ -532,6 +550,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 ## Output Format
 
 ### All Passing
+
 ```
 ╭─ /craft:check ──────────────────────────────────────╮
 │ Project: aiterm (Python CLI)                       │
@@ -547,6 +566,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 ```
 
 ### Issues Found
+
 ```
 ╭─ /craft:check ──────────────────────────────────────╮
 │ Project: aiterm (Python CLI)                       │
@@ -569,6 +589,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 ## Integration
 
 Works with:
+
 - `/craft:code:lint` - Detailed code lint results
 - `/craft:test:run` - Detailed test results
 - `/craft:docs:lint` - Markdown quality validation

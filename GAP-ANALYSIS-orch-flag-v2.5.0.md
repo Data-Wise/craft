@@ -9,6 +9,7 @@
 ## Executive Summary
 
 The --orch flag integration is **95% complete** with excellent coverage across:
+
 - ✅ **Core functionality** - 56 tests, all passing
 - ✅ **Command integration** - 5/5 commands updated with examples
 - ✅ **Website documentation** - Guide published, mkdocs navigation updated
@@ -39,10 +40,12 @@ The --orch flag integration is **95% complete** with excellent coverage across:
 ### 🔍 Documentation Gaps (3)
 
 #### Gap 1.1: CLAUDE.md Missing Direct Link to Orch Guide
+
 **Severity:** Low
 **Current:** CLAUDE.md mentions orchestration but doesn't link to the new guide
 **Expected:** Direct link to `docs/guide/orch-flag-usage.md` in Quick Commands or Key Files section
 **Fix:**
+
 ```markdown
 ## Key Files
 
@@ -52,12 +55,14 @@ The --orch flag integration is **95% complete** with excellent coverage across:
 ```
 
 #### Gap 1.2: Hub Command Missing Orch Flag Examples
+
 **Severity:** Low
 **Current:** `commands/hub.md` references orch but no specific examples
 **Expected:** Example showing `/craft:hub --orch` or link to orch guide
 **Impact:** Users discovering commands via hub won't see orch flag capabilities
 
 #### Gap 1.3: No Tutorial/Cookbook Entry for Orch Workflow
+
 **Severity:** Low
 **Current:** No step-by-step tutorial for first-time orch flag users
 **Expected:** Tutorial showing: simple task → orch flag → mode selection → result
@@ -79,10 +84,12 @@ The --orch flag integration is **95% complete** with excellent coverage across:
 ### 🔍 Website Gaps (2)
 
 #### Gap 2.1: Missing Cross-Reference from Quick Start
+
 **Severity:** Low
 **Current:** Quick Start guides don't mention --orch flag shortcut
 **Expected:** `QUICK-START.md` and `ADHD-QUICK-START.md` mention orch as time-saver
 **Fix:**
+
 ```markdown
 ## Power User Tip
 
@@ -93,13 +100,15 @@ See: [Orch Flag Guide](docs/guide/orch-flag-usage.md)
 ```
 
 #### Gap 2.2: No Visual Workflow Diagram for Orch Flag
+
 **Severity:** Low
 **Current:** No mermaid diagram showing orch flag decision flow
 **Expected:** Diagram in `docs/guide/orch-flag-usage.md` showing:
-  - User invokes command with --orch
-  - Mode selection (explicit vs prompt)
-  - Orchestrator spawn
-  - Result synthesis
+
+- User invokes command with --orch
+- Mode selection (explicit vs prompt)
+- Orchestrator spawn
+- Result synthesis
 **Benefit:** Visual learners understand flow faster
 
 ---
@@ -116,6 +125,7 @@ See: [Orch Flag Guide](docs/guide/orch-flag-usage.md)
 | **Total** | **56** | **✅ 56/56** | **100% passing** |
 
 **Tested Scenarios:**
+
 - ✅ Flag disabled (no orchestration)
 - ✅ Flag with all valid modes (default, debug, optimize, release)
 - ✅ Flag with invalid mode (error handling)
@@ -128,9 +138,11 @@ See: [Orch Flag Guide](docs/guide/orch-flag-usage.md)
 ### 🔍 Test Gaps (4)
 
 #### Gap 3.1: No Tests for Mode Prompt User Interaction
+
 **Severity:** Medium
 **Current:** Tests mock mode selection, don't test `prompt_user_for_mode()`
 **Missing:**
+
 - User cancels mode prompt
 - User provides invalid input to prompt
 - Mode prompt timeout behavior
@@ -138,9 +150,11 @@ See: [Orch Flag Guide](docs/guide/orch-flag-usage.md)
 **Recommendation:** Add manual testing checklist to IMPLEMENTATION.md
 
 #### Gap 3.2: No Tests for Orchestrator Failure Scenarios
+
 **Severity:** Medium
 **Current:** Tests assume orchestrator spawn succeeds
 **Missing:**
+
 - Orchestrator not available (e.g., agent disabled)
 - Orchestrator spawn timeout
 - Permission denied for agent delegation
@@ -148,14 +162,17 @@ See: [Orch Flag Guide](docs/guide/orch-flag-usage.md)
 **Recommendation:** Add fallback tests showing command routing as backup
 
 #### Gap 3.3: No Tests for Complex Flag Combinations
+
 **Severity:** Low
 **Current:** Some flag combinations untested:
+
 - `/craft:check --orch --dry-run --for release`
 - `/craft:workflow:brainstorm --orch -C req,tech --time-budget 30`
 **Impact:** Edge cases might have unexpected behavior
 **Recommendation:** Add integration tests for 3+ flag combinations
 
 #### Gap 3.4: No Performance Tests for Orch Spawn Time
+
 **Severity:** Low
 **Current:** No tests verify orch spawn overhead
 **Expected:** Spawn should be < 1 second (per spec AC12)
@@ -178,35 +195,43 @@ See: [Orch Flag Guide](docs/guide/orch-flag-usage.md)
 ### 🔍 Implementation Gaps (3)
 
 #### Gap 4.1: Mode Prompt Not Fully Implemented
+
 **Severity:** High (Flagged in PR review)
 **Current:** `prompt_user_for_mode()` is a stub:
+
 ```python
 def prompt_user_for_mode():
     """Prompt user to select orchestration mode"""
     # TODO: Implement using AskUserQuestion tool
     return "default"  # Stub
 ```
+
 **Impact:** `--orch` without mode always returns "default", no prompt shown
 **Status:** Known issue from PR #27 review
 **Recommendation:** Implement `AskUserQuestion` call or document as "manual mode selection only"
 
 #### Gap 4.2: Spawn Orchestrator Always Returns Success
+
 **Severity:** Medium
 **Current:** `spawn_orchestrator()` doesn't check if spawn succeeded:
+
 ```python
 def spawn_orchestrator(task, mode):
     """Spawn orchestrator with specified mode"""
     Skill(skill="craft:orchestrate", args=f"{task} {mode}")
     # No error handling if skill fails
 ```
+
 **Impact:** Silent failures if orchestrator unavailable
 **Recommendation:** Add try/except and fallback logic
 
 #### Gap 4.3: No Session State for Mode Persistence
+
 **Severity:** Low
 **Current:** Mode must be specified every time
 **Enhancement:** Remember last-used mode per session
 **Example:**
+
 ```python
 # First use
 /craft:do "task" --orch=optimize  # Stores "optimize"
@@ -214,6 +239,7 @@ def spawn_orchestrator(task, mode):
 # Later in same session
 /craft:check --orch  # Auto-uses "optimize" (with confirmation)
 ```
+
 **Status:** Future enhancement (not in v2.5.0 scope)
 
 ---
@@ -292,12 +318,14 @@ def spawn_orchestrator(task, mode):
 ## Conclusion
 
 The --orch flag integration is **production-ready** with **excellent coverage**:
+
 - ✅ **Core functionality**: 100% tested (56/56 tests passing)
 - ✅ **Command integration**: All 5 commands updated with examples
 - ✅ **Documentation**: Comprehensive guide + API references
 - ✅ **Website**: Proper navigation and cross-references
 
 **Identified gaps are minor** (1 high, 2 medium, 9 low) and **do not block release**:
+
 - High priority gap (prompt stub) is **documented and acceptable** for v2.5.0
 - Medium priority gaps are **quality improvements**, not blockers
 - Low priority gaps are **enhancements** for future versions

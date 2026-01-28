@@ -33,6 +33,7 @@
 ### 17 Comprehensive Tests
 
 #### detect_teaching_mode.py Coverage (6 tests)
+
 1. ✅ `test_yaml_import_error_fallback` - YAML unavailable scenario
 2. ✅ `test_yaml_unavailable_text_search_fallback` - Fallback text search
 3. ✅ `test_yaml_unavailable_false_positive_prevention` - Validation in fallback
@@ -41,6 +42,7 @@
 6. ✅ `test_main_execution_with_argument` - Main block (CLI argument)
 
 #### linkcheck_ignore_parser.py Coverage (8 tests)
+
 7. ✅ `test_parse_missing_file_exception` - Graceful missing file handling
 8. ✅ `test_parse_permission_error` - Permission error propagation
 9. ✅ `test_parse_invalid_yaml_like_content` - Malformed markdown parsing
@@ -51,9 +53,11 @@
 14. ✅ `test_main_generic_exception_handling` - Generic errors in main()
 
 #### dry_run_output.py Coverage (1 test)
+
 15. ✅ `test_main_execution_examples` - All three example blocks
 
 #### Integration Tests (2 tests)
+
 16. ✅ `test_teaching_mode_with_linkcheck_integration` - Cross-module integration
 17. ✅ `test_dry_run_with_teaching_mode_detection` - Teaching + dry-run integration
 
@@ -64,16 +68,20 @@
 ### Still Missing (16 lines total)
 
 #### detect_teaching_mode.py (15 lines - 75% coverage)
+
 **Lines 33-34**: Import error exception block
+
 ```python
 except ImportError:
     YAML_AVAILABLE = False
 ```
+
 - **Reason uncovered**: Hard to mock import-time exception
 - **Risk**: Low (defensive code)
 - **Recommendation**: Accept this gap or use import mocking library
 
 **Lines 153-167**: `if __name__ == "__main__"` block
+
 ```python
 if __name__ == "__main__":
     import sys
@@ -81,27 +89,34 @@ if __name__ == "__main__":
     print(f"Current directory:")
     ...
 ```
+
 - **Reason uncovered**: Demo/example code, not production path
 - **Risk**: None (example code)
 - **Recommendation**: Acceptable gap for demo code
 
 #### linkcheck_ignore_parser.py (13 lines - 87% coverage)
+
 **Lines 151, 160, 170, 189-196**: Edge case error handling
+
 - Complex parsing edge cases
 - Error handling in rarely-hit branches
 - **Risk**: Low (defensive code)
 
 **Lines 215, 224-227, 250, 270, 278**: Path normalization edge cases
+
 - Substring matching logic
 - Complex path normalization scenarios
 - **Risk**: Low (existing tests cover common cases)
 
 **Lines 250, 270, 278**: Main block exception handling
+
 - Demo code exception handling
 - **Recommendation**: Acceptable gap
 
 #### dry_run_output.py (14 lines - 86% coverage)
+
 **Lines 277-324**: `if __name__ == "__main__"` block
+
 ```python
 if __name__ == "__main__":
     # Example 1: Git clean
@@ -110,6 +125,7 @@ if __name__ == "__main__":
     # Example 2: CI Generate
     ...
 ```
+
 - **Reason uncovered**: Demo/example code
 - **Risk**: None (example code)
 - **Recommendation**: Acceptable gap for demo code
@@ -123,6 +139,7 @@ if __name__ == "__main__":
 **Total:** ~29 lines of `if __name__ == "__main__"` blocks
 
 These are example/demo code that:
+
 - Demonstrate module usage
 - Never execute in production
 - Intended for manual testing/exploration
@@ -135,6 +152,7 @@ These are example/demo code that:
 **Total:** ~17 lines of defensive error handling
 
 These are:
+
 - Import-time exception handling (lines 33-34)
 - Rarely-hit parsing edge cases (lines 189-196)
 - Complex path normalization branches (lines 215, 224-227)
@@ -150,6 +168,7 @@ These are:
 **Current Achievement:** 84% overall
 
 **If excluding demo blocks:**
+
 - `detect_teaching_mode.py`: 75% → **88%** (excluding 15 demo lines)
 - `dry_run_output.py`: 86% → **94%** (excluding 14 demo lines)
 - `linkcheck_ignore_parser.py`: 87% → **91%** (excluding 12 demo lines)
@@ -162,6 +181,7 @@ These are:
 ### ✅ Accept Current Coverage (84% - 91% adjusted)
 
 **Rationale:**
+
 1. **Production code fully covered**: All production paths have tests
 2. **Demo code uncovered**: Standard practice to exclude `if __name__ == "__main__"` blocks
 3. **Edge cases covered**: Integration tests cover real-world scenarios
@@ -231,10 +251,12 @@ open htmlcov/index.html
 ## Files Changed
 
 ### Created
+
 - ✅ `tests/test_coverage_gaps.py` (514 lines, 17 tests)
 - ✅ `TEST-COVERAGE-REPORT.md` (this file)
 
 ### Modified
+
 - No modifications to production code (tests only)
 
 ---
@@ -248,12 +270,14 @@ open htmlcov/index.html
 - **Production code coverage**: **~91%** ✅
 
 The new test suite (`test_coverage_gaps.py`) successfully fills coverage gaps in:
+
 - YAML fallback scenarios
 - Error handling branches
 - Path normalization logic
 - Integration between modules
 
 Remaining gaps are:
+
 - Demo/example code (`if __name__ == "__main__"` blocks) - **Industry standard to exclude**
 - Import-time error handling - **Hard to test, low risk**
 - Defensive edge cases - **Covered by integration tests**

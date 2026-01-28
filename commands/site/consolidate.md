@@ -245,6 +245,7 @@ With `--preview` flag, show what would happen without making changes:
 ## Integration
 
 **Part of site command family:**
+
 - `/craft:site:nav` - Reorganize navigation
 - `/craft:site:audit` - Content inventory
 - `/craft:site:consolidate` - Merge duplicates ← this command
@@ -252,6 +253,7 @@ With `--preview` flag, show what would happen without making changes:
 - `/craft:site:deploy` - Deploy to GitHub Pages
 
 **Uses:**
+
 - AskUserQuestion for mode and file selection
 - Read for file analysis
 - Write/Edit for merging

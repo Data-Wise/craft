@@ -5,6 +5,7 @@ Generate task-focused workflow documentation for multi-step processes.
 ## Purpose
 
 **Document how users accomplish real tasks:**
+
 - Analyzes code for multi-step processes
 - Detects hooks, events, and command chains
 - Uses `WORKFLOW-TEMPLATE.md` for consistent structure
@@ -45,11 +46,13 @@ Generate task-focused workflow documentation for multi-step processes.
 When `--from-spec` is provided, the command:
 
 1. **Searches** for matching spec in `docs/specs/`:
+
    ```bash
    ls docs/specs/SPEC-*[topic]*.md
    ```
 
 2. **Extracts** workflow information from spec sections:
+
    | Spec Section | Workflow Section |
    |--------------|------------------|
    | User Stories | "When to Use" scenarios |
@@ -61,6 +64,7 @@ When `--from-spec` is provided, the command:
 3. **Generates** implementation workflow with spec references
 
 **Example:**
+
 ```bash
 # After brainstorming
 /brainstorm d f s "authentication"
@@ -73,6 +77,7 @@ When `--from-spec` is provided, the command:
 ```
 
 **Spec → Workflow Mapping:**
+
 ```
 SPEC-auth-2026-01-14.md
 ├── Overview → Workflow description
@@ -265,6 +270,7 @@ git checkout main
 | Create worktree | `/craft:git:worktree feature/name` |
 | Clean branches | `/craft:git:clean` |
 | Create PR | `gh pr create --base dev` |
+
 ```
 
 ## Flags Reference

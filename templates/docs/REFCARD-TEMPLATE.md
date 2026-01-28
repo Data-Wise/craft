@@ -215,6 +215,7 @@ LONG (>12 chars)     Put description on next line or use table
 | "Push to remote" | "Pushes your commits to the remote" |
 
 **Rules:**
+
 - Start with verb
 - 2-4 words max
 - No articles (a, the)

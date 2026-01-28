@@ -153,6 +153,7 @@ AskUserQuestion: "Enable branch protection on main?"
 ```
 
 If enabled:
+
 - ✅ Require pull requests before merge
 - ✅ Require status checks (CI must pass)
 - ✅ Block force pushes
@@ -192,6 +193,7 @@ AskUserQuestion: "Create project tracking files?" (multi-select)
 Templates:
 
 **`.STATUS`:**
+
 ```yaml
 status: Initial Setup
 version: 0.1.0-dev
@@ -206,12 +208,14 @@ repo: https://github.com/user/repo
 ```
 
 **`CLAUDE.md`:**
+
 - Craft workflow pattern
 - Git constraints
 - Quick commands
 - Project structure
 
 **PR Template:**
+
 - Summary section
 - Test plan
 - Breaking changes checklist
@@ -264,6 +268,7 @@ exit 0
 ```
 
 **Hook behavior:**
+
 - Runs only when docs/ files are staged
 - Auto-fixes safe issues (trailing spaces, blank lines, code fences)
 - Blocks commit if manual fixes needed
@@ -271,6 +276,7 @@ exit 0
 - Fast (< 6s for typical changes)
 
 **Disable temporarily:**
+
 ```bash
 # Skip hooks for this commit only
 git commit --no-verify -m "docs: update"
@@ -288,6 +294,7 @@ AskUserQuestion: "Create initial commit?"
 ```
 
 If yes:
+
 ```bash
 git add -A
 git commit -m "chore: initialize repository with craft workflow
@@ -319,6 +326,7 @@ AskUserQuestion: "Run /craft:check to validate setup?"
 ```
 
 Validates:
+
 - Git structure
 - Branch protection
 - CI workflow
@@ -398,6 +406,7 @@ The command uses **rollback-on-error** strategy:
 | Commits | Reset to pre-init state |
 
 If any step fails:
+
 1. Show error message with context
 2. Automatically rollback completed steps
 3. Leave repository in original state
@@ -408,6 +417,7 @@ If any step fails:
 ### Smart Routing
 
 `/craft:do` recognizes these phrases:
+
 - "initialize project"
 - "set up git"
 - "create repository"
@@ -553,6 +563,7 @@ git commit -m "docs: update"
 ```
 
 **Skip hook for emergency fixes:**
+
 ```bash
 git commit --no-verify -m "docs: emergency fix"
 ```
@@ -574,6 +585,7 @@ ls -la .git/hooks/pre-commit
 ---
 
 **See Also:**
+
 - [Git Workflow Guide](../../docs/WORKFLOWS/git-feature-workflow.md)
 - [Branch Protection](../../docs/WORKFLOWS/pre-commit-workflow.md)
 - [CI/CD Setup](../../docs/help/ci-generate.md)

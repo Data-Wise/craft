@@ -5,6 +5,7 @@ Generate comprehensive help documentation for commands using ADHD-friendly templ
 ## Purpose
 
 **One command to document any command:**
+
 - Extracts info from command file and --help output
 - Uses `HELP-PAGE-TEMPLATE.md` for consistent structure
 - Generates examples, options tables, and troubleshooting
@@ -60,6 +61,7 @@ cat commands/[category]/[command].md
 ### Step 2: Extract Information
 
 Extract from command file:
+
 - Synopsis (usage pattern)
 - Description (purpose)
 - Flags and arguments
@@ -147,6 +149,7 @@ Generated help page follows this structure:
 ```
 
 **Quick examples:**
+
 ```bash
 /craft:docs:update                    # Auto-detect and generate
 /craft:docs:update "auth"             # Document auth feature
@@ -173,9 +176,11 @@ Generated help page follows this structure:
 ## Examples
 
 ### Basic Usage
+
 [Example 1]
 
 ### Feature-Specific
+
 [Example 2]
 
 ---
@@ -194,6 +199,7 @@ Generated help page follows this structure:
 - [Tutorial: Documentation Workflow](../tutorials/docs-workflow.md)
 - [Workflow: Feature Documentation](../workflows/feature-docs.md)
 - Related: /craft:docs:sync, /craft:docs:guide, /craft:docs:check
+
 ```
 
 ## Flags Reference

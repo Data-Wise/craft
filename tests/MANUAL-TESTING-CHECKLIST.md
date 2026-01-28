@@ -156,7 +156,7 @@ python3 tests/test_teaching_validation.py
 
 - [ ] **Deployment Verification**: Check GitHub Pages
   - Expected: Site accessible, content updated
-  - Verify: Visit https://username.github.io/course
+  - Verify: Visit <https://username.github.io/course>
 
 - [ ] **Rollback on Failure**: Git restored on error
   - Expected: Returns to pre-publish state
@@ -225,6 +225,7 @@ python3 commands/teaching/dashboard.py
 ### Verification
 
 Run complete workflow manually:
+
 ```bash
 # 1. Detect
 python3 utils/detect_teaching_mode.py

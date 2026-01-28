@@ -5,6 +5,7 @@ You are an ADHD-friendly page creator. Add new documentation pages with automati
 ## Purpose
 
 **Add pages without manual nav editing:**
+
 - Creates new page from template
 - Automatically updates mkdocs.yml navigation
 - Maintains navigation structure standards
@@ -93,6 +94,7 @@ FILENAME=$(echo "$PAGE_TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-').md
 Based on page type, use appropriate template:
 
 #### Guide Template
+
 ```markdown
 # {TITLE}
 
@@ -124,6 +126,7 @@ Based on page type, use appropriate template:
 ```
 
 #### Reference Template
+
 ```markdown
 # {TITLE}
 
@@ -150,6 +153,7 @@ Based on page type, use appropriate template:
 ```
 
 #### Tutorial Template
+
 ```markdown
 # {TITLE}
 
@@ -186,6 +190,7 @@ Learn how to {goal} in this step-by-step tutorial.
 ## Summary
 
 You learned how to:
+
 - Point 1
 - Point 2
 - Point 3
@@ -194,6 +199,7 @@ You learned how to:
 
 - [Next Tutorial](path.md)
 - [Related Guide](path.md)
+
 ```
 
 ### Step 5: Update Navigation
@@ -264,6 +270,7 @@ nav:
 ```
 
 Creates:
+
 - `docs/deployment/` directory
 - `docs/deployment/index.md` (section overview)
 - Updates nav with new section
@@ -314,11 +321,13 @@ Add multiple pages at once:
 ## Integration
 
 **Related commands:**
+
 - `/craft:site:create` - Create new site
 - `/craft:site:update` - Update existing content
 - `/craft:site:status` - Check site health
 
 **Uses templates from:**
+
 - `craft/templates/site/pages/`
 
 ## ADHD-Friendly Features

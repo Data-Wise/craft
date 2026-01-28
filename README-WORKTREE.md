@@ -1,6 +1,7 @@
 # Feature Branch: Demo Dependency Management
 
 **Quick Start:**
+
 ```bash
 cd ~/.git-worktrees/craft/feature-demo-deps
 claude
@@ -9,6 +10,7 @@ claude
 ## What This Branch Does
 
 Implements dependency management for `/craft:docs:demo` command:
+
 - `--check` - Validate dependencies
 - `--fix` - Auto-install missing tools
 - `--batch` - Convert multiple .cast files
@@ -25,6 +27,7 @@ Implements dependency management for `/craft:docs:demo` command:
 ## Current Phase
 
 **Phase 1: Core Dependency Checking** ✅ COMPLETE
+
 - [x] Add dependencies frontmatter
 - [x] Create dependency-manager.sh (491 lines)
 - [x] Create tool-detector.sh (297 lines)
@@ -41,6 +44,7 @@ Implements dependency management for `/craft:docs:demo` command:
 ## Todo List
 
 See full todo list in Claude Code session or run:
+
 ```bash
 cat IMPLEMENTATION-PLAN.md | grep "^###"
 ```
