@@ -5,6 +5,41 @@ All notable changes to the Craft plugin will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.1] - 2026-01-28
+
+### 🎨 Style: Markdown Lint Auto-Fix
+
+Applied comprehensive markdown linting fixes across 191 files.
+
+#### Auto-Fixed Issues
+
+- **MD031**: Added blank lines around fenced code blocks
+- **MD032**: Added blank lines around lists
+- **MD034**: Wrapped bare URLs with angle brackets
+- **MD003**: Converted setext headings (`===`) to atx style (`#`)
+
+#### MD025 Fixes (Duplicate H1 Headings)
+
+- `commands/git/status.md`: Convert duplicate H1 → `## Implementation`
+- `commands/git/sync.md`: Convert duplicate H1 → `## Implementation`
+- `templates/git-init/pull_request_template.md`: Fixed setext heading
+- `tests/hub_layer2_test_report.md`: `===` → `#`
+- `tests/hub_layer3_test_report.md`: `===` → `#`
+- `.markdownlint.json`: Added `"MD025": {"front_matter_title": ""}` to ignore YAML title
+
+#### MD060 Fixes (Table Alignment) - Critical Files
+
+- `CLAUDE.md`: 13 tables formatted with emoji-aware padding
+- `README.md`: 17 tables formatted
+- `commands/do.md`: 8 tables formatted
+- `commands/git/status.md`: 1 table formatted
+- `commands/git/sync.md`: 1 table formatted
+
+**Files Changed:** 191
+**Impact:** Improved markdown consistency and portability
+
+---
+
 ## [Unreleased] - Hub v2.0
 
 ### 📝 Documentation: Markdownlint List Spacing Enforcement
