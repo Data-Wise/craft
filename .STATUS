@@ -1,12 +1,21 @@
 status: Released
-version: 2.8.0
-release_date: 2026-01-25
-milestone: v2.8.0 - Markdown Linting Execution Layer
-last_session: 2026-01-25T22:50:00Z
+version: 2.8.1
+release_date: 2026-01-28
+milestone: v2.8.1 - Markdown Lint Style Fixes
+last_session: 2026-01-28T12:45:00Z
 
-progress: 100% (v2.8.0 RELEASED ✅ - COMPLETE RELEASE CYCLE)
+progress: 100% (v2.8.1 RELEASED ✅)
 
-✅ Just Completed (Session 2026-01-25 - Documentation Pre-flight & Cleanup):
+✅ Just Completed (Session 2026-01-28 - Markdown Lint Fixes):
+- v2.8.1 Patch Release ✅
+  • Auto-fixed 191 markdown files (MD031, MD032, MD034, MD003)
+  • Fixed MD025 duplicate H1 headings in 6 files
+  • Fixed MD060 table alignment in 5 critical files
+  • Added MD025 front_matter_title config to ignore YAML titles
+  • Created emoji-aware table formatting script
+  • Release: https://github.com/Data-Wise/craft/releases/tag/v2.8.1
+
+✅ Earlier Completed (Session 2026-01-25 - Documentation Pre-flight & Cleanup):
 - Documentation Pre-flight Check Complete ✅
   • MkDocs warnings reduced: 69 → 13 (56 fixed)
   • Version sync: package.json, README.md updated to v2.8.0

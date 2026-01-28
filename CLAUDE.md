@@ -89,7 +89,7 @@ craft/
 ├── agents/             # 8 agents
 ├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (complexity scorer, validators, parsers)
-├── tests/              # Comprehensive test suite (581+ tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (770+ tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (14 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
@@ -204,7 +204,7 @@ python3 tests/test_integration_teaching_workflow.py
 | **Testing Commands**                     | 10       | 100%           | 80%           | Complete ✅ |
 | **Architecture Commands**                | 12       | 100%           | 75%           | Complete ✅ |
 | **Remaining Commands**                   | 51       | 100%           | 40%           | Baseline ✅ |
-| **TOTAL**                                | **100**  | **100%**       | **95%**       | v2.6.0 ✅   |
+| **TOTAL**                                | **100**  | **100%**       | **95%**       | v2.8.1 ✅   |
 
 **Legend:**
 
@@ -227,62 +227,46 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Active Development
 
-### Current Worktrees (v2.8.0)
+### Current Worktrees (v2.8.1)
 
-| Branch                            | Location                                                 | Status                      |
-| --------------------------------- | -------------------------------------------------------- | --------------------------- |
-| `dev`                             | `/Users/dt/projects/dev-tools/craft`                     | Main repo (clean)           |
-| `feature/docs-lint-execute`       | `~/.git-worktrees/craft/feature-docs-lint-execute`       | **PR #34: Execution layer** |
-| `feature/docs-update-interactive` | `~/.git-worktrees/craft/feature-docs-update-interactive` | **Planned: Phase 1**        |
+| Branch                            | Location                                                 | Status              |
+| --------------------------------- | -------------------------------------------------------- | ------------------- |
+| `main`                            | `/Users/dt/projects/dev-tools/craft`                     | Main repo (v2.8.1)  |
+| `feature/docs-update-interactive` | `~/.git-worktrees/craft/feature-docs-update-interactive` | **Planned: Phase 1** |
 
-### v2.8.0 - Markdown Linting Execution Layer (In Progress)
+### v2.8.1 - Markdown Lint Style Fixes (Released 2026-01-28)
 
-**Status:** Execution layer implemented (PR #34), awaiting merge
+**Status:** Released
 
-| Feature                       | Priority | Effort | Status                    |
-| ----------------------------- | -------- | ------ | ------------------------- |
-| **Execution layer**           | Critical | 40m    | ✅ Complete (PR #34)      |
-| Basic linting command         | Critical | 5m     | ✅ Complete               |
-| Auto-fix support              | High     | 10m    | ✅ Complete               |
-| Pre-commit hook               | High     | 15m    | ✅ Complete               |
-| Interactive docs:update specs | Critical | 4h     | ✅ Complete (1,634 lines) |
-| docs:sync merge specs         | Critical | 2h     | ✅ Complete (947 lines)   |
-| Phase 1: Core workflow        | High     | 8-10h  | 📝 Planned                |
-| Phase 2: Enhanced modes       | Medium   | 6-8h   | 📝 Planned                |
-| Phase 3: Language detection   | Medium   | 4-6h   | 📝 Planned                |
-| Phase 4: Styled output        | High     | 2-4h   | 📝 Planned                |
+| Feature                           | Status      |
+| --------------------------------- | ----------- |
+| Auto-fix 191 files                | ✅ Complete |
+| MD025 duplicate H1 fixes (6 files) | ✅ Complete |
+| MD060 table alignment (5 files)   | ✅ Complete |
+| MD025 front_matter_title config   | ✅ Complete |
+| Emoji-aware table formatter       | ✅ Complete |
 
-**v2.8.0 Execution Layer (MVP):**
+**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.8.1>
 
-- `scripts/docs-lint.sh`: Execution layer for markdown linting
-  - Detects `markdownlint-cli2` globally or falls back to `npx`
-  - Supports `--fix` flag for auto-fixing issues
-  - Supports target path specification
-- `/craft:docs:lint` command wired to execution script
-  - Basic linting: Check all markdown files
-  - Auto-fix: Apply safe fixes with `--fix` flag
-  - Specific paths: `/craft:docs:lint docs/guide/`
-- `.markdownlint.json`: 30 rules configured (v2.6.0)
-- Pre-commit hook: Auto-fix on staged markdown
-- Feature status table: Clarifies MVP vs planned features
+### v2.9.0 - Next Release (Planned)
 
-**Future (v2.9.0+):**
+| Feature                     | Priority | Status     |
+| --------------------------- | -------- | ---------- |
+| Phase 1: Core workflow      | High     | 📝 Planned |
+| Phase 2: Enhanced modes     | Medium   | 📝 Planned |
+| Phase 3: Language detection | Medium   | 📝 Planned |
+| Phase 4: Styled output      | High     | 📝 Planned |
 
-- Styled output boxes
-- Execution modes (debug, optimize, release)
-- Interactive prompts (MD001, MD040 language detection)
-- Rule expansion (30 → 42 rules)
+### Completed Features (v2.8.0)
 
-**Specs & PR:** PR #34 (feature/docs-lint-execute)
-
-### Completed Features (v2.6.0)
-
-| Feature                               | Priority | Effort | Status      |
-| ------------------------------------- | -------- | ------ | ----------- |
-| Test fixes (706/706 passing)          | Critical | 4h     | ✅ Complete |
-| Markdownlint expansion (3 → 24 rules) | High     | 2h     | ✅ Complete |
-| Release notes                         | High     | 1h     | ✅ Complete |
-| CI/CD fixes                           | Medium   | 1h     | ✅ Complete |
+| Feature                               | Status      |
+| ------------------------------------- | ----------- |
+| Execution layer (docs-lint.sh)        | ✅ Complete |
+| Basic linting command                 | ✅ Complete |
+| Auto-fix support                      | ✅ Complete |
+| Pre-commit hook                       | ✅ Complete |
+| Test fixes (706/706 passing)          | ✅ Complete |
+| Markdownlint expansion (3 → 24 rules) | ✅ Complete |
 
 See `docs/specs/` for detailed specifications (14 total).
 
