@@ -10,6 +10,46 @@
 
 ## Release Timeline
 
+### v2.9.0-dev (In Progress) - Command Behavior Enhancements
+
+**Status:** On `dev` branch (not yet released)
+
+**Highlights:**
+
+- **"Show Steps First" Pattern**: All 4 most-used commands now show a plan before executing and ask for confirmation
+- **Interactive Orchestration**: Mode selection via AskUserQuestion, task analysis display, wave checkpoints between agent groups
+- **Worktree Auto-Setup**: Scope detection from branch name patterns, auto-creates ORCHESTRATE/SPEC/STATUS files
+- **Post-Merge Pipeline**: `--post-merge` flag for docs:update with 5-phase detection and auto-fix workflow
+- **Check Step Preview**: Mode-specific check lists with skip/dry-run options
+- **Orchestrator-v2 Alignment**: Updated agent definition with Claude Code subagent constraints
+
+**Commands Enhanced:**
+
+| Command | Enhancement |
+|---------|-------------|
+| `/craft:orchestrate` | Mode selection, plan confirmation, wave checkpoints |
+| `/craft:git:worktree` | Scope detection, auto-create workflow files |
+| `/craft:docs:update` | `--post-merge` flag, 5-phase auto-fix pipeline |
+| `/craft:check` | Step preview, mode-specific check lists |
+
+**Documentation Added:**
+
+- Interactive Commands Guide (`docs/guide/interactive-commands.md`)
+- Interactive Orchestration Tutorial (`docs/tutorials/interactive-orchestration.md`)
+- Interactive Commands Reference Card (`docs/reference/REFCARD-INTERACTIVE-COMMANDS.md`)
+- Command Enhancement Spec (`docs/specs/SPEC-command-enhancements-2026-01-29.md`)
+
+**Stats:**
+
+- New tests: 145 (93 e2e + 52 orch handler)
+- Total tests: 770+
+- Files changed: 17 (PR #36)
+- Lines: +3,329 / -287
+
+**Branch:** `dev` (20 commits ahead of main)
+
+---
+
 ### v2.8.1 (2026-01-28) - Markdown Lint Style Fixes
 
 **Status:** Released ✅

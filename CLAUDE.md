@@ -2,10 +2,10 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**100 commands** · **21 skills** · **8 agents** · **14 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**100 commands** · **21 skills** · **8 agents** · **15 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.8.1 (released 2026-01-28)
-**Documentation Status:** 96% complete
+**Current Version:** v2.8.1 (released 2026-01-28) | **dev:** v2.9.0-dev (command enhancements)
+**Documentation Status:** 96% complete | **Tests:** 770+
 
 ## Git Workflow
 
@@ -100,6 +100,18 @@ craft/
 
 ## Recent Major Features
 
+### v2.9.0-dev - Command Behavior Enhancements (On dev branch)
+
+- **"Show Steps First" Pattern**: All 4 most-used commands show plan before executing, ask for confirmation
+- **Interactive Orchestration**: Mode selection via AskUserQuestion, wave checkpoints, plan confirmation
+- **Worktree Auto-Setup**: Scope detection from branch patterns, auto-creates ORCHESTRATE/SPEC files
+- **Post-Merge Pipeline**: `--post-merge` flag for docs:update with 5-phase auto-fix
+- **Check Step Preview**: Mode-specific check lists with skip/dry-run options
+- **Orchestrator-v2 Alignment**: Updated agent with Claude Code subagent constraints
+- 145 new tests (93 e2e + 52 orch handler), all passing
+- Documentation: guide, tutorial, reference card, 4 command doc pages updated
+- Merged via PR #36, 17 files changed, +3,329/-287 lines
+
 ### v2.6.0 - Documentation Quality Improvements (Released 2026-01-20) ✅
 
 - Fixed all failing tests → 706/706 passing (100% pass rate)
@@ -189,10 +201,11 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Feature Status Matrix
 
-### Implementation & Documentation Completeness (v2.6.0)
+### Implementation & Documentation Completeness (v2.9.0-dev)
 
 | Feature                                  | Commands | Implementation | Documentation | Status      |
 | ---------------------------------------- | -------- | -------------- | ------------- | ----------- |
+| **Command Enhancements (v2.9.0-dev)**    | 4        | 100%           | 95%           | On dev      |
 | **Brainstorm Question Control (v2.4.0)** | 1        | 100%           | 95%           | Complete ✅ |
 | **Hub v2.0**                             | 1        | 100%           | 95%           | Complete ✅ |
 | **Claude Code 2.1.0**                    | 3        | 100%           | 90%           | Complete ✅ |
@@ -229,11 +242,10 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Worktrees
 
-| Branch                       | Location                                              | Status                         |
-| ---------------------------- | ----------------------------------------------------- | ------------------------------ |
-| `dev`                        | `/Users/dt/projects/dev-tools/craft`                  | Main repo (v2.8.1 base)       |
-| `feature/command-enhancements` | `~/.git-worktrees/craft/feature-command-enhancements` | **WIP: 5 phases (cmd UX)**    |
-| `feature/v2.9.0`            | _(worktree removed, branch preserved @ 8bf5444)_      | Paused: 7,418 lines preserved |
+| Branch             | Location                                         | Status                         |
+| ------------------ | ------------------------------------------------ | ------------------------------ |
+| `dev`              | `/Users/dt/projects/dev-tools/craft`             | Main repo (cmd enhancements merged) |
+| `feature/v2.9.0`  | _(worktree removed, branch preserved @ 8bf5444)_ | Paused: 7,418 lines preserved |
 
 ### v2.8.1 - Markdown Lint Style Fixes (Released 2026-01-28)
 
@@ -249,18 +261,18 @@ python3 tests/test_integration_teaching_workflow.py
 
 **Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.8.1>
 
-### Command Enhancements (Active)
+### Command Enhancements (Merged to dev)
 
 **Spec:** `docs/specs/SPEC-command-enhancements-2026-01-29.md`
-**Branch:** `feature/command-enhancements` (worktree: `~/.git-worktrees/craft/feature-command-enhancements`)
+**Merged:** PR #36 → dev (2026-01-29)
 
-| Phase | Enhancement                            | Priority | Status     |
-| ----- | -------------------------------------- | -------- | ---------- |
-| 1     | Orchestrate: Fix mode + confirmations  | High     | 🔜 Up next |
-| 2     | Cross-cutting: "Show Steps First"      | High     | 📝 Planned |
-| 3     | git:worktree: Auto-setup files         | Medium   | 📝 Planned |
-| 4     | docs:update: `--post-merge` pipeline   | Medium   | 📝 Planned |
-| 5     | check: Step preview + mode list        | Medium   | 📝 Planned |
+| Phase | Enhancement                            | Priority | Status      |
+| ----- | -------------------------------------- | -------- | ----------- |
+| 1     | Orchestrate: Fix mode + confirmations  | High     | ✅ Complete |
+| 2     | Cross-cutting: "Show Steps First"      | High     | ✅ Complete |
+| 3     | git:worktree: Auto-setup files         | Medium   | ✅ Complete |
+| 4     | docs:update: `--post-merge` pipeline   | Medium   | ✅ Complete |
+| 5     | check: Step preview + mode list        | Medium   | ✅ Complete |
 
 ### v2.9.0 Features (Paused)
 
@@ -312,6 +324,11 @@ See `docs/specs/` for detailed specifications (14 total).
 | `scripts/dependency-manager.sh`                   | Dependency checking and installation                    |
 | `tests/test_brainstorm_phase1.py`                 | Phase 1 unit tests (53 tests)                           |
 | `tests/test_integration_brainstorm_phase1.py`     | Phase 1 integration tests (24 tests)                    |
+| `docs/guide/interactive-commands.md`              | "Show Steps First" pattern guide (v2.9.0)               |
+| `docs/tutorials/interactive-orchestration.md`     | Interactive orchestration tutorial (v2.9.0)             |
+| `docs/reference/REFCARD-INTERACTIVE-COMMANDS.md`  | Interactive commands quick reference (v2.9.0)           |
+| `tests/test_command_enhancements_e2e.py`          | Command enhancements e2e tests (93 tests)               |
+| `tests/test_orch_flag_handler.py`                 | Orch flag handler tests (52 tests)                      |
 
 ## Test Suite
 
@@ -323,14 +340,16 @@ See `docs/specs/` for detailed specifications (14 total).
 | `tests/test_complexity_scoring.py`                 | 15       | 100%     | Complexity scorer            |
 | `tests/test_hot_reload_validators.py`              | 9        | 95%      | Hot-reload validators        |
 | `tests/test_agent_hooks.py`                        | 13       | 100%     | Agent hooks                  |
-| **Integration Tests**                              |          |          |                              |
+| `tests/test_orch_flag_handler.py`                  | 52       | 100%     | Orch flag handler (v2.9.0)   |
+| **Integration & E2E Tests**                        |          |          |                              |
+| `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
 | `tests/test_integration_dependency_system.py`      | 9        | 100%     | Dependency workflow          |
 | `tests/test_integration_orchestrator_workflows.py` | 13       | 100%     | Task routing & scoring       |
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
-| **Total**                                          | **581+** | **~90%** | **All systems**              |
+| **Total**                                          | **770+** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 

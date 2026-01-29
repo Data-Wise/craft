@@ -1,10 +1,11 @@
 # SPEC: Command Behavior Enhancements
 
-**Status:** draft
+**Status:** implemented
 **Created:** 2026-01-29
+**Implemented:** 2026-01-29 (PR #36 → dev)
 **From Brainstorm:** BRAINSTORM-command-enhancements-2026-01-29.md
-**Target Release:** v2.9.0 (or v2.10.0)
-**Branch:** `feature/v2.9.0` (worktree: `~/.git-worktrees/craft/feature-v2.9.0`)
+**Target Release:** v2.9.0
+**Branch:** `dev` (merged from `feature/command-enhancements`)
 
 ---
 
@@ -22,14 +23,14 @@ Enhance the four most-used craft commands (orchestrate, docs:update, check, git:
 
 ### Acceptance Criteria
 
-- [ ] All 4 commands show numbered step plan before execution
-- [ ] `AskUserQuestion` used for confirmation at key decision points
-- [ ] Orchestrate asks for mode selection when not specified
-- [ ] Orchestrate pauses between waves for review
-- [ ] docs:update supports `--post-merge` for automated post-merge workflow
-- [ ] git:worktree auto-creates workflow files based on scope
-- [ ] check shows plan preview with mode-specific check list
-- [ ] Execution modes produce visibly different output
+- [x] All 4 commands show numbered step plan before execution
+- [x] `AskUserQuestion` used for confirmation at key decision points
+- [x] Orchestrate asks for mode selection when not specified
+- [x] Orchestrate pauses between waves for review
+- [x] docs:update supports `--post-merge` for automated post-merge workflow
+- [x] git:worktree auto-creates workflow files based on scope
+- [x] check shows plan preview with mode-specific check list
+- [x] Execution modes produce visibly different output
 
 ---
 
@@ -191,14 +192,14 @@ Orchestration Plan:
 
 ## Review Checklist
 
-- [ ] Implementation matches spec
-- [ ] All acceptance criteria met
-- [ ] Tests added for step preview behavior
-- [ ] Orchestrator-v2 agent updated with checkpoint behavior
-- [ ] docs:update supports --post-merge flag
-- [ ] git:worktree auto-setup works for all scope levels
-- [ ] No regressions in 706+ existing tests
-- [ ] Documentation updated (CLAUDE.md, command docs)
+- [x] Implementation matches spec
+- [x] All acceptance criteria met
+- [x] Tests added for step preview behavior (93 e2e + 52 orch handler)
+- [x] Orchestrator-v2 agent updated with checkpoint behavior
+- [x] docs:update supports --post-merge flag
+- [x] git:worktree auto-setup works for all scope levels
+- [x] No regressions in 706+ existing tests (all passing)
+- [x] Documentation updated (CLAUDE.md, command docs, guide, tutorial, refcard)
 
 ---
 
@@ -241,3 +242,5 @@ Orchestration Plan:
 | Date | Change | Author |
 | ---- | ------ | ------ |
 | 2026-01-29 | Initial spec from max brainstorm | Claude |
+| 2026-01-29 | Implemented all features, merged PR #36 → dev | Claude |
+| 2026-01-29 | Status updated to implemented, criteria checked | Claude |

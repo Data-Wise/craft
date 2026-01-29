@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.8.0 introduces markdown linting execution layer with auto-fix support and clear roadmap for future enhancements.
+site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0-dev adds interactive command behavior with "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -197,6 +197,7 @@ nav:
       - Website Organization: specs/SPEC-website-organization-standard-2026-01-17.md
       - Help Template System: specs/SPEC-help-template-menu-2026-01-16.md
       - NEW (v2.7.0) Interactive Docs Update: specs/_archive/SPEC-docs-update-interactive-2026-01-22.md
+      - NEW Command Behavior Enhancements: specs/SPEC-command-enhancements-2026-01-29.md
 
   # 6. FOR CONTRIBUTORS - Development resources
   - For Contributors:

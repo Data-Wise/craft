@@ -16,7 +16,7 @@
 
 # Auto-apply everything (use with caution)
 /craft:docs:update --auto-yes
-```text
+```
 
 ## Detection Categories (9 Total)
 
@@ -42,7 +42,7 @@
 3. Preview      → Show what would change
 4. Apply        → Update approved categories
 5. Summary      → Report changes made
-```text
+```
 
 ### Sample Prompt
 
@@ -59,7 +59,7 @@
 │   C) Skip this category                         │
 │                                                 │
 ╰─────────────────────────────────────────────────╯
-```text
+```
 
 ## Common Flags
 
@@ -85,7 +85,7 @@ Update individual categories:
 
 # Command counts only
 /craft:docs:update --category=command_counts
-```text
+```
 
 ## Feature-Specific Mode
 
@@ -97,7 +97,7 @@ Scope to a specific feature:
 
 # Document "auth" system
 /craft:docs:update "auth"
-```text
+```
 
 ## Advanced Usage
 
@@ -112,7 +112,7 @@ Scope to a specific feature:
 
 # 3. Apply if satisfied
 /craft:docs:update --interactive
-```text
+```
 
 ### Batch Mode
 
@@ -122,7 +122,7 @@ Scope to a specific feature:
 
 # Combine with category filter
 /craft:docs:update --auto-yes --category=version_refs
-```text
+```
 
 ### Custom Generation
 
@@ -136,7 +136,7 @@ Scope to a specific feature:
 
 # Lower threshold for more docs
 /craft:docs:update --threshold 2
-```text
+```
 
 ## Output Example
 
@@ -163,7 +163,7 @@ Scope to a specific feature:
 │   3. Commit: git commit                         │
 │                                                 │
 ╰─────────────────────────────────────────────────╯
-```text
+```
 
 ## Utilities Used
 
@@ -175,7 +175,7 @@ python3 utils/docs_detector.py . v2.5.1
 
 # Standalone validation
 python3 utils/help_file_validator.py .
-```text
+```
 
 ### Integration Tests
 
@@ -184,7 +184,7 @@ python3 utils/help_file_validator.py .
 python3 tests/test_docs_utilities.py
 
 # Expected: 7/7 tests passing
-```text
+```
 
 ## Performance
 
