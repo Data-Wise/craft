@@ -3,6 +3,10 @@
 Unit tests for orch_flag_handler.py
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import pytest
 from unittest.mock import patch
 from utils.orch_flag_handler import (
