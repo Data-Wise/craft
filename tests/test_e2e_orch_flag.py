@@ -5,6 +5,7 @@ End-to-end tests for --orch flag integration
 Tests complete workflows from command invocation through orchestrator spawning.
 """
 
+import os
 import pytest
 import subprocess
 import sys
@@ -15,11 +16,14 @@ class TestOrchFlagE2E:
 
     def test_orch_flag_handler_cli(self):
         """Test orch_flag_handler.py runs as CLI"""
+        # Use project root (parent of tests directory)
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
         result = subprocess.run(
             [sys.executable, "utils/orch_flag_handler.py"],
             capture_output=True,
             text=True,
-            cwd="/Users/dt/.git-worktrees/craft/feature-orch-flag-integration",
+            cwd=project_root,
         )
         assert result.returncode == 0
         assert "Orch Flag Handler Test Cases" in result.stdout
@@ -192,12 +196,19 @@ class TestOrchFlagDocumentation:
         """Test orch-flag-usage.md user guide exists"""
         import os
 
-        guide_path = "/Users/dt/.git-worktrees/craft/feature-orch-flag-integration/docs/guide/orch-flag-usage.md"
-        assert os.path.exists(guide_path)
+        # Use project root (parent of tests directory)
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        guide_path = os.path.join(project_root, "docs", "guide", "orch-flag-usage.md")
+        assert os.path.exists(guide_path), f"Guide not found at {guide_path}"
 
     def test_user_guide_has_content(self):
         """Test user guide has substantial content"""
-        guide_path = "/Users/dt/.git-worktrees/craft/feature-orch-flag-integration/docs/guide/orch-flag-usage.md"
+        import os
+
+        # Use project root (parent of tests directory)
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        guide_path = os.path.join(project_root, "docs", "guide", "orch-flag-usage.md")
+
         with open(guide_path, "r") as f:
             content = f.read()
 
@@ -209,10 +220,13 @@ class TestOrchFlagDocumentation:
 
     def test_claude_md_updated(self):
         """Test CLAUDE.md has --orch flag documentation"""
-        with open(
-            "/Users/dt/.git-worktrees/craft/feature-orch-flag-integration/CLAUDE.md",
-            "r",
-        ) as f:
+        import os
+
+        # Use project root (parent of tests directory)
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        claude_md_path = os.path.join(project_root, "CLAUDE.md")
+
+        with open(claude_md_path, "r") as f:
             content = f.read()
 
         assert "--orch" in content
@@ -220,10 +234,15 @@ class TestOrchFlagDocumentation:
 
     def test_version_history_updated(self):
         """Test VERSION-HISTORY.md has v2.5.0 release notes"""
-        with open(
-            "/Users/dt/.git-worktrees/craft/feature-orch-flag-integration/docs/VERSION-HISTORY.md",
-            "r",
-        ) as f:
+        import os
+
+        # Use project root (parent of tests directory)
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        version_history_path = os.path.join(
+            project_root, "docs", "VERSION-HISTORY.md"
+        )
+
+        with open(version_history_path, "r") as f:
             content = f.read()
 
         assert "v2.5.0" in content

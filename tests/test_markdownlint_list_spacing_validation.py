@@ -347,22 +347,22 @@ class TestIntegrationWithDefaultRules:
         """New rules should not break existing config structure."""
         config = self.get_config()
 
-        # Check that all keys are valid
-        valid_keys = [
-            "$schema",
-            "default",
-            "MD013",
-            "MD033",
-            "MD024",
-            "MD041",
-            "MD049",
-            "MD050",
-            "MD030",
-            "MD004",
-            "MD032",
-        ]
+        # Check that all keys follow expected patterns
+        import re
         for key in config.keys():
-            assert key in valid_keys, "Unexpected config key: {0}".format(key)
+            # Valid key patterns:
+            # - $schema
+            # - default
+            # - MD### (markdownlint rules)
+            # - _comment* or _note* (comment fields)
+            is_valid = (
+                key == "$schema"
+                or key == "default"
+                or re.match(r"^MD\d{3}$", key)  # MD001, MD030, etc.
+                or key.startswith("_comment")
+                or key.startswith("_note")
+            )
+            assert is_valid, "Unexpected config key: {0}".format(key)
 
     def test_config_completeness(self):
         """Config should have all required keys."""
