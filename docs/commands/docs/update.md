@@ -35,11 +35,13 @@ The ONE command for documentation. Detects what changed, figures out what docs a
 
 **What it does:**
 
-1. **sync** - Detect changes, classify docs needed
-2. **generate** - Guide, demo, refcard (as needed)
-3. **check** - Validate + auto-fix
-4. **changelog** - If commits present
-5. **summary** - Report what was done
+1. **Preview** — shows what needs updating before acting (NEW)
+2. **Confirm** — asks how to proceed: interactive, auto-apply, or preview-only (NEW)
+3. **sync** — detect changes, classify docs needed
+4. **generate** — guide, demo, refcard (as needed)
+5. **check** — validate + auto-fix
+6. **changelog** — if commits present
+7. **summary** — report what was done
 
 ---
 
@@ -115,6 +117,7 @@ Scopes documentation to files matching "auth":
 | `--dry-run` | Preview plan without executing |
 | `--no-check` | Skip validation phase |
 | `--no-changelog` | Skip changelog update |
+| `--post-merge` | Post-merge pipeline — auto-fix safe categories, prompt for manual (NEW) |
 | `--verbose` | Detailed output |
 
 ### Force Generation Flags
@@ -233,6 +236,96 @@ Located in `templates/docs/`:
 | `REFCARD-TEMPLATE.md` | Quick reference cards |
 | `GETTING-STARTED-TEMPLATE.md` | First-time setup |
 | `GIF-GUIDELINES.md` | Terminal recording standards |
+
+---
+
+## Post-Merge Pipeline (NEW)
+
+After merging a PR, run `--post-merge` to automatically update all documentation:
+
+```bash
+/craft:docs:update --post-merge                  # Full pipeline
+/craft:docs:update --post-merge --dry-run        # Preview only
+```
+
+### Pipeline Flow
+
+```
+PR merged
+  → Phase 1: Auto-detect (9 categories)
+  → Phase 2: Auto-fix safe categories (no prompts)
+  → Phase 3: Prompt for manual categories
+  → Phase 4: Lint + validate
+  → Phase 5: Summary
+```
+
+### Phase 1: Detection
+
+```
+Post-Merge Documentation Scan:
+  Merge: PR #42 "feat: add auth system" → dev
+  Changed files: 15
+  New commands: 3
+
+  Detected categories:
+  [AUTO]   Version references — 12 files
+  [AUTO]   Command counts — 4 files
+  [AUTO]   Navigation entries — 2 new pages
+  [AUTO]   Broken links — 1 link
+  [MANUAL] Help files — 3 new commands
+  [MANUAL] Changelog draft — from PR description
+  [SKIP]   GIF regeneration — no changed commands
+```
+
+### Phase 2: Auto-Fix (no prompts)
+
+Safe categories are fixed automatically:
+
+| Category | Action |
+|----------|--------|
+| Version references | Find-replace version strings across all docs |
+| Command counts | Recalculate from `commands/**/*.md` |
+| Navigation entries | Add new pages to mkdocs.yml |
+| Broken links | Update changed file paths |
+
+### Phase 3: Manual Categories (interactive)
+
+Categories requiring judgment prompt via interactive questions:
+
+```
+? 3 new commands need help documentation. How should I handle them?
+  › Generate all (Recommended)
+    Generate one at a time
+    Skip for now
+```
+
+### Phase 4-5: Validate and Summarize
+
+```
+Validation:
+  Markdown lint... ✅ 0 issues
+  Internal links... ✅ all resolved
+  Count validation... ✅ matches
+
+Post-Merge Documentation Update Complete:
+  Auto-fixed: 4 categories (19 files changed)
+  Manual: 2 categories (3 files created)
+  Skipped: 3 categories (no changes needed)
+```
+
+### Safe vs Manual Categories
+
+| Category | Safe (auto-fix) | Manual (prompt) |
+|----------|:-:|:-:|
+| Version references | ✅ | |
+| Command counts | ✅ | |
+| Navigation entries | ✅ | |
+| Broken links | ✅ | |
+| Help files | | ✅ |
+| Tutorials | | ✅ |
+| Changelog | | ✅ |
+| GIF regeneration | | ✅ |
+| Feature status | | ✅ |
 
 ---
 

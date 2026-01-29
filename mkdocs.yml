@@ -113,6 +113,8 @@ nav:
       - Config Schema: teaching-config-schema.md
       - Migration Guide: teaching-migration.md
     - Specialized Features:
+      - NEW Interactive Commands: guide/interactive-commands.md
+      - NEW Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
       - Git Repository Init:
         - Command Reference: commands/git-init-reference.md
         - Tutorial: guide/git-init-tutorial.md

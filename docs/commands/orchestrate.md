@@ -34,12 +34,15 @@ Activates Orchestrator v2.1 mode which decomposes complex tasks into subtasks, s
 
 **What it does:**
 
-1. **Analyzes** your task and decomposes into subtasks
-2. **Spawns** background subagents to work in parallel
-3. **Monitors** progress with visual status dashboard
-4. **Tracks** context usage with token estimation
-5. **Compresses** chat when approaching limits
-6. **Reports** results with ADHD-friendly formatting
+1. **Selects mode** — prompts interactively if no mode specified (NEW)
+2. **Shows plan** — displays task analysis before acting (NEW)
+3. **Confirms** — asks before spawning any agents (NEW)
+4. **Spawns** background subagents to work in parallel
+5. **Checkpoints** — pauses between waves for review (NEW)
+6. **Monitors** progress with visual status dashboard
+7. **Tracks** context usage with token estimation
+8. **Compresses** chat when approaching limits
+9. **Reports** results with ADHD-friendly formatting
 
 ---
 
@@ -83,6 +86,90 @@ During orchestration, use these commands:
 
 ---
 
+## Interactive Workflow (NEW)
+
+Commands now follow a "Show Steps First" pattern — plans are shown before execution, and confirmation is required at key points.
+
+### Step 0: Mode Selection
+
+If no mode is specified, you'll be prompted:
+
+```
+/craft:orchestrate "add user authentication"
+
+? Which orchestration mode should I use?
+  › Default (Recommended) — 2 agents max, balanced speed and oversight
+    Debug — 1 agent, sequential, verbose output
+    Optimize — 4 agents, aggressive parallelization
+    Release — 4 agents, full audit trail
+```
+
+### Step 1: Plan Display
+
+The orchestrator shows its plan **before spawning any agents**:
+
+```
+## TASK ANALYSIS
+
+Request: Add user authentication
+Complexity: complex
+Mode: default (2 agents max)
+Estimated subtasks: 5
+Delegation strategy: hybrid
+
+| # | Task              | Agent | Wave | Dependencies |
+|---|-------------------|-------|------|--------------|
+| 1 | Design auth flow  | arch  | 1    | none         |
+| 2 | Implement backend | code  | 1    | none         |
+| 3 | Create login UI   | code  | 2    | 1            |
+| 4 | Add tests         | test  | 2    | 2            |
+| 5 | Update docs       | doc   | 3    | 2,3          |
+```
+
+### Step 2: Confirmation
+
+You decide whether to proceed:
+
+```
+? Proceed with this orchestration plan?
+  › Yes - Start Wave 1 (Recommended)
+    Modify steps
+    Change mode
+    Cancel
+```
+
+### Step 3: Wave Checkpoints
+
+After each wave, results are shown and you can pause, review, or modify:
+
+```
+## WAVE 1 COMPLETE
+
+| Agent  | Task            | Status  | Output                   |
+|--------|-----------------|---------|--------------------------|
+| arch-1 | Design auth     | ✅ Done | OAuth 2.0 + PKCE         |
+| code-1 | Backend routes  | ✅ Done | 4 endpoints created      |
+
+? Wave 1 complete. Continue to Wave 2?
+  › Yes - Continue (Recommended)
+    Review results first
+    Modify next wave
+    Stop here
+```
+
+### Mode-Specific Behavior
+
+Each mode produces visibly different output:
+
+| Behavior | default | debug | optimize | release |
+|----------|---------|-------|----------|---------|
+| Plan display | Summary table | Step traces with rationale | Parallel dependency map | Full audit with risk notes |
+| Checkpoints | Per wave | Every step | Wave end only | Every step |
+| Agent output | Summary | Verbose (full output) | Summary | Full output + diffs |
+| Auto-proceed | Ask per wave | Ask every step | Ask per wave | Ask every step |
+
+---
+
 ## Examples
 
 ### Start Orchestrated Workflow
@@ -90,22 +177,25 @@ During orchestration, use these commands:
 ```bash
 /craft:orchestrate "add user authentication with OAuth"
 
-## 📋 TASK ANALYSIS
+## TASK ANALYSIS
 
-**Request**: Add OAuth authentication
-**Complexity**: complex
-**Mode**: default (2 agents max)
-**Estimated subtasks**: 5
+Request: Add OAuth authentication
+Complexity: complex
+Mode: default (2 agents max)
+Estimated subtasks: 5
 
-| # | Task | Agent | Priority | Dependencies |
-|---|------|-------|----------|--------------|
-| 1 | Design auth flow | arch | P0 | none |
-| 2 | Implement backend | code | P0 | 1 |
-| 3 | Create login UI | code | P1 | 1 |
-| 4 | Add tests | test | P1 | 2,3 |
-| 5 | Update docs | doc | P2 | 2 |
+| # | Task              | Agent | Wave | Dependencies |
+|---|-------------------|-------|------|--------------|
+| 1 | Design auth flow  | arch  | 1    | none         |
+| 2 | Implement backend | code  | 1    | none         |
+| 3 | Create login UI   | code  | 2    | 1            |
+| 4 | Add tests         | test  | 2    | 2,3          |
+| 5 | Update docs       | doc   | 3    | 2            |
 
-Spawning agents...
+? Proceed with this orchestration plan?
+  › Yes - Start Wave 1 (Recommended)
+
+Spawning Wave 1 agents...
 ```
 
 ### Check Status
