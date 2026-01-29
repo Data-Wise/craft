@@ -10,9 +10,9 @@
 
 ## Release Timeline
 
-### v2.9.0-dev (In Progress) - Command Behavior Enhancements
+### v2.9.0 (2026-01-29) - Command Behavior Enhancements
 
-**Status:** On `dev` branch (not yet released)
+**Status:** Released ✅
 
 **Highlights:**
 
