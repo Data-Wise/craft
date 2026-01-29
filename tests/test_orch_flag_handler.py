@@ -296,5 +296,170 @@ def test_recommend_orchestration_mode_returns_valid_modes():
         assert mode in VALID_MODES
 
 
+# ============================================================================
+# v2.8.0+ Tests: Interactive Command Enhancements
+# ============================================================================
+
+
+@patch("utils.orch_flag_handler.print")
+def test_prompt_user_for_mode_always_returns_default(mock_print):
+    """Test non-interactive fallback always returns 'default'"""
+    result = prompt_user_for_mode()
+    assert result == "default"
+
+
+@patch("utils.orch_flag_handler.print")
+def test_prompt_user_for_mode_displays_all_mode_names(mock_print):
+    """Test fallback displays every valid mode name in output"""
+    prompt_user_for_mode()
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    for mode in VALID_MODES:
+        assert mode in all_output, f"Mode '{mode}' not found in printed output"
+
+
+@patch("utils.orch_flag_handler.print")
+def test_prompt_user_for_mode_displays_all_descriptions(mock_print):
+    """Test fallback displays mode descriptions"""
+    prompt_user_for_mode()
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    for desc in MODE_DESCRIPTIONS.values():
+        assert desc in all_output, f"Description '{desc}' not found in output"
+
+
+@patch("utils.orch_flag_handler.print")
+def test_prompt_user_for_mode_mentions_ask_user_question(mock_print):
+    """Test fallback references AskUserQuestion (the real interactive mechanism)"""
+    prompt_user_for_mode()
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "AskUserQuestion" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_prompt_user_for_mode_mentions_step_0(mock_print):
+    """Test fallback references Step 0 (the orchestrate.md spec location)"""
+    prompt_user_for_mode()
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "Step 0" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_prompt_user_for_mode_mentions_explicit_flag_usage(mock_print):
+    """Test fallback tells users about --orch=<mode> for explicit selection"""
+    prompt_user_for_mode()
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "--orch=" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_prompt_user_for_mode_print_count(mock_print):
+    """Test fallback prints header + modes + hints (at least 8 lines)"""
+    prompt_user_for_mode()
+    # Header (2) + separator (1) + 4 modes + 3 hint lines = 10 minimum
+    assert mock_print.call_count >= 8
+
+
+@patch("utils.orch_flag_handler.print")
+def test_show_preview_with_extra_context(mock_print):
+    """Test orchestration preview displays extra context dict"""
+    extra = {"Branch": "feature/auth", "Files": "12 changed"}
+    show_orchestration_preview("add auth", "optimize", extra_context=extra)
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "feature/auth" in all_output
+    assert "12 changed" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_show_preview_without_extra_context(mock_print):
+    """Test preview works without extra context"""
+    show_orchestration_preview("task", "default")
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "task" in all_output
+    assert "default" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_show_preview_displays_mode_config(mock_print):
+    """Test preview shows max_agents and compression for the mode"""
+    show_orchestration_preview("task", "release")
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "4" in all_output  # max_agents for release
+    assert "85" in all_output  # compression for release
+
+
+@patch("utils.orch_flag_handler.print")
+def test_show_preview_displays_dry_run_banner(mock_print):
+    """Test preview shows DRY RUN header"""
+    show_orchestration_preview("task", "default")
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "DRY RUN" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_show_preview_truncates_long_task(mock_print):
+    """Test preview truncates task descriptions >49 chars"""
+    long_task = "a" * 100
+    show_orchestration_preview(long_task, "default")
+    # Should not crash - preview handles long strings
+    mock_print.assert_called()
+
+
+def test_mode_config_values_in_range():
+    """Test all mode configs have sensible values"""
+    for mode in VALID_MODES:
+        config = get_mode_config(mode)
+        assert 1 <= config["max_agents"] <= 8
+        assert 0 < config["compression"] <= 100
+
+
+def test_handle_orch_flag_no_mode_calls_prompt(capsys):
+    """Test orch_flag=True with no mode triggers prompt fallback"""
+    should_orch, mode = handle_orch_flag("task", orch_flag=True, mode=None)
+    assert should_orch is True
+    assert mode == "default"  # prompt_user_for_mode returns "default"
+    captured = capsys.readouterr()
+    assert "Orchestration Mode" in captured.out
+
+
+@patch("utils.orch_flag_handler.print")
+def test_spawn_orchestrator_displays_task_and_mode(mock_print):
+    """Test spawn shows both task and mode in output"""
+    spawn_orchestrator("refactor auth", "debug")
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "refactor auth" in all_output
+    assert "debug" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_spawn_orchestrator_shows_craft_command(mock_print):
+    """Test spawn shows the /craft:orchestrate command it would execute"""
+    spawn_orchestrator("add tests", "optimize")
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "/craft:orchestrate" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_failure_handler_shows_task_name(mock_print):
+    """Test failure handler includes the failed task name"""
+    handle_orchestrator_failure("deploy to prod", "timeout")
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "deploy to prod" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_failure_handler_shows_error_message(mock_print):
+    """Test failure handler includes the error message"""
+    handle_orchestrator_failure("task", "Agent pool exhausted")
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "Agent pool exhausted" in all_output
+
+
+@patch("utils.orch_flag_handler.print")
+def test_failure_handler_mentions_dry_run(mock_print):
+    """Test failure handler suggests --dry-run as recovery option"""
+    handle_orchestrator_failure("task", "error")
+    all_output = " ".join(str(c) for c in mock_print.call_args_list)
+    assert "dry-run" in all_output.lower()
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

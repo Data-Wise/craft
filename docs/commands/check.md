@@ -38,10 +38,46 @@ Runs appropriate checks for your project type and context. Auto-detects Python, 
 
 **What it does:**
 
+- **Shows plan** — previews which checks will run before executing (NEW)
+- **Confirms** — asks before running, with skip/dry-run options (NEW)
 - Detects project type from marker files (package.json, pyproject.toml, etc.)
 - Detects if running in a git worktree
 - Runs appropriate lint, test, and security checks
 - Reports status with clear pass/fail indicators
+
+---
+
+## Interactive Step Preview (NEW)
+
+Before running any checks, the command shows what it will do and asks for confirmation:
+
+```
+/craft:check
+
+Pre-flight Check Plan:
+  Project: craft (Claude Plugin)
+  Mode: default
+  Branch: feature/command-enhancements
+
+  Checks to run:
+  1. Git status (clean working tree?)
+  2. Unit tests (python3 tests/test_craft_plugin.py)
+  3. Markdown lint (30 rules via markdownlint-cli2)
+
+? Run these pre-flight checks?
+  › Yes - Run all (Recommended)
+    Skip lint (faster)
+    Skip external links (faster)
+    Dry run (show commands only)
+```
+
+After execution, a summary is displayed:
+
+```
+  Results: 3/3 checks passed
+  Issues: 0 warnings, 0 errors
+  Next steps: Ready to commit
+```
 
 ---
 
@@ -66,7 +102,7 @@ Runs appropriate checks for your project type and context. Auto-detects Python, 
 
 ## Check Modes
 
-### Default Mode (< 30 seconds)
+### Default Mode
 
 | Check | What it does |
 |-------|--------------|
@@ -74,7 +110,7 @@ Runs appropriate checks for your project type and context. Auto-detects Python, 
 | Tests | Fail-fast mode |
 | Git status | Working tree clean? |
 
-### Thorough Mode (3-5 minutes)
+### Thorough Mode
 
 | Check | What it does |
 |-------|--------------|
@@ -83,6 +119,18 @@ Runs appropriate checks for your project type and context. Auto-detects Python, 
 | Types | Full type checking |
 | Security | Vulnerability audit |
 | Docs | Validation |
+
+### Mode-Specific Check Depth (NEW)
+
+The check depth varies by mode:
+
+| Check | default | debug | release |
+|-------|---------|-------|---------|
+| Unit tests | Quick (fail-fast) | Verbose (all output) | Full + coverage report |
+| Markdown lint | Changed files only | All files | All files + strict rules |
+| Link validation | Skip external | Internal links only | All links (internal + external) |
+| Version sync | Basic check | Show all version refs | Full audit with diff |
+| Git status | Summary | Detailed | Full diff + ahead/behind |
 
 ---
 
@@ -116,19 +164,42 @@ Runs appropriate checks for your project type and context. Auto-detects Python, 
 # Runs: lint (all rules), tests (full), types, security, docs
 ```
 
-### Context-Specific
+### Context-Specific (NEW: detailed check matrix)
 
 ```bash
 # Before creating a PR
 /craft:check --for pr
 
-# Checks: lint, tests, coverage >= 80%, no merge conflicts, branch up to date
+Pre-flight Check Plan:
+  Project: craft (Claude Plugin)
+  Mode: default
+  Branch: feature/command-enhancements
+  Context: pr (pre-PR validation)
 
-# Before release
-/craft:check --for release
-
-# Checks: all above + security audit, docs valid, changelog updated, version bumped
+  Checks to run (8 for PR context):
+  1. Git status (ahead of dev?)
+  2. Lint — all files
+  3. Unit tests — full suite
+  4. Type check
+  5. Security advisory
+  6. Internal link validation
+  7. Merge conflict detection
+  8. Coverage threshold (80% minimum)
 ```
+
+The `--for` flag adjusts which checks run based on context:
+
+| Check | `--for commit` | `--for pr` | `--for release` | `--for deploy` |
+|-------|---------------|-----------|----------------|---------------|
+| Git status | Clean tree | Ahead of base | Tag exists | Clean + tagged |
+| Lint | Changed files | All files | All + strict | All + strict |
+| Tests | Fast (fail-fast) | Full suite | Full + coverage | Full + coverage |
+| Type check | Skip | Run | Run | Run |
+| Security | Skip | Advisory | Full audit | Full audit |
+| Links | Skip | Internal | All links | All links |
+| Version sync | Skip | Check | Full audit | Full audit |
+| Merge conflicts | Skip | Detect | N/A | N/A |
+| Coverage threshold | Skip | 80% min | 90% min | 90% min |
 
 ### In Worktree
 

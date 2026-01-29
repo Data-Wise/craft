@@ -135,6 +135,89 @@ Preview which checks will be performed without actually executing them:
 
 **Note**: Dry-run shows the validation plan based on project type and context. Read-only analysis, no actual checks performed.
 
+## Execution Behavior (MANDATORY)
+
+When this command runs, Claude MUST follow these steps in order. Do NOT skip
+any step or proceed without showing the plan first.
+
+### Step 0: Show Check Plan
+
+Before running ANY checks, display what will be checked:
+
+```text
+Pre-flight Check Plan:
+  Project: <project-name> (<project-type>)
+  Mode: <mode>
+  Branch: <current-branch>
+  Context: <for-value or "general">
+
+  Checks to run:
+  1. <check-name> (<tool>)
+  2. <check-name> (<tool>)
+  ...
+  N. <check-name> (<tool>)
+```
+
+### Step 0.5: Confirm Before Running
+
+After showing the plan, ask before executing:
+
+```json
+{
+  "questions": [{
+    "question": "Run these pre-flight checks?",
+    "header": "Check",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Yes - Run all (Recommended)",
+        "description": "Execute all <N> checks as shown above."
+      },
+      {
+        "label": "Skip lint (faster)",
+        "description": "Run all checks except linting."
+      },
+      {
+        "label": "Skip external links (faster)",
+        "description": "Run all checks except external link validation."
+      },
+      {
+        "label": "Dry run (show commands only)",
+        "description": "Show the exact commands without executing them."
+      }
+    ]
+  }]
+}
+```
+
+### Steps 1-N: Execute with Progress
+
+Run each check and display results as they complete:
+
+```text
+  [1/N] <check-name>... ✅ passed (X issues)
+  [2/N] <check-name>... ❌ failed (Y errors)
+  ...
+```
+
+### Step N+1: Summary
+
+```text
+  Results: X/N checks passed
+  Issues: Y warnings, Z errors
+  Next steps: [actionable recommendations]
+```
+
+### Mode-Specific Check Lists
+
+| Check | default | debug | release |
+|-------|---------|-------|---------|
+| Unit tests | Quick (fail-fast) | Verbose (all output) | Full + coverage report |
+| Markdown lint | Changed files only | All files | All files + strict rules |
+| Link validation | Skip external | Internal links only | All links (internal + external) |
+| Version sync | Basic check | Show all version refs | Full audit with diff |
+| Git status | Summary | Detailed | Full diff + ahead/behind |
+
 ## Orchestration Mode (NEW in v2.5.0)
 
 Use `--orch` flag to run checks via orchestrator for complex validation scenarios:
@@ -298,7 +381,6 @@ fi
 - Test run (fail-fast)
 - Git status
 - Docs quality (if docs/ changed: lint + links)
-- ~30 seconds
 
 ### Thorough Mode
 
@@ -307,7 +389,42 @@ fi
 - Type checking
 - Security audit
 - Doc validation (lint + links + anchors)
-- ~3-5 minutes
+
+### Context-Specific Check Lists (`--for` flag)
+
+The `--for` flag adjusts which checks run based on what you're preparing for:
+
+| Check | `--for commit` | `--for pr` | `--for release` | `--for deploy` |
+|-------|---------------|-----------|----------------|---------------|
+| Git status | Clean tree | Ahead of base | Tag exists | Clean + tagged |
+| Lint | Changed files | All files | All + strict | All + strict |
+| Tests | Fast (fail-fast) | Full suite | Full + coverage | Full + coverage |
+| Type check | Skip | Run | Run | Run |
+| Security | Skip | Advisory | Full audit | Full audit |
+| Links | Skip | Internal | All links | All links |
+| Version sync | Skip | Check | Full audit | Full audit |
+| Merge conflicts | Skip | Detect | N/A | N/A |
+| Coverage threshold | Skip | 80% min | 90% min | 90% min |
+
+When `--for` is specified, the Step 0 preview shows this context:
+
+```text
+Pre-flight Check Plan:
+  Project: craft (Claude Code Plugin)
+  Mode: default
+  Branch: feature/command-enhancements
+  Context: pr (pre-PR validation)
+
+  Checks to run (8 for PR context):
+  1. Git status (ahead of dev?)
+  2. Lint — all files (ruff / markdownlint)
+  3. Unit tests — full suite (python3 tests/test_craft_plugin.py)
+  4. Type check (mypy, if applicable)
+  5. Security advisory (pip-audit / npm audit)
+  6. Internal link validation
+  7. Merge conflict detection (git merge-tree)
+  8. Coverage threshold (80% minimum)
+```
 
 ## Hot-Reload Validator Discovery (NEW in v1.23.0)
 
