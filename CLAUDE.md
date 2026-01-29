@@ -227,12 +227,13 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Active Development
 
-### Current Worktrees (v2.9.0-dev)
+### Current Worktrees
 
-| Branch            | Location                                    | Status                    |
-| ----------------- | ------------------------------------------- | ------------------------- |
-| `dev`             | `/Users/dt/projects/dev-tools/craft`        | Main repo (v2.8.1 base)  |
-| `feature/v2.9.0`  | `~/.git-worktrees/craft/feature-v2.9.0`    | **WIP: 6 phases planned** |
+| Branch                       | Location                                              | Status                         |
+| ---------------------------- | ----------------------------------------------------- | ------------------------------ |
+| `dev`                        | `/Users/dt/projects/dev-tools/craft`                  | Main repo (v2.8.1 base)       |
+| `feature/command-enhancements` | `~/.git-worktrees/craft/feature-command-enhancements` | **WIP: 5 phases (cmd UX)**    |
+| `feature/v2.9.0`            | _(worktree removed, branch preserved @ 8bf5444)_      | Paused: 7,418 lines preserved |
 
 ### v2.8.1 - Markdown Lint Style Fixes (Released 2026-01-28)
 
@@ -248,19 +249,32 @@ python3 tests/test_integration_teaching_workflow.py
 
 **Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.8.1>
 
-### v2.9.0 - Next Release (WIP)
+### Command Enhancements (Active)
+
+**Spec:** `docs/specs/SPEC-command-enhancements-2026-01-29.md`
+**Branch:** `feature/command-enhancements` (worktree: `~/.git-worktrees/craft/feature-command-enhancements`)
+
+| Phase | Enhancement                            | Priority | Status     |
+| ----- | -------------------------------------- | -------- | ---------- |
+| 1     | Orchestrate: Fix mode + confirmations  | High     | 🔜 Up next |
+| 2     | Cross-cutting: "Show Steps First"      | High     | 📝 Planned |
+| 3     | git:worktree: Auto-setup files         | Medium   | 📝 Planned |
+| 4     | docs:update: `--post-merge` pipeline   | Medium   | 📝 Planned |
+| 5     | check: Step preview + mode list        | Medium   | 📝 Planned |
+
+### v2.9.0 Features (Paused)
 
 **Spec:** `docs/specs/SPEC-v2.9.0-features-2026-01-29.md`
-**Branch:** `feature/v2.9.0` (worktree: `~/.git-worktrees/craft/feature-v2.9.0`)
+**Branch:** `feature/v2.9.0` (preserved @ 8bf5444, worktree removed)
 
 | Phase | Feature                      | Priority | Status          |
 | ----- | ---------------------------- | -------- | --------------- |
-| 1     | Styled Output Boxes          | High     | 🔜 Up next      |
-| 2     | Execution Modes              | Medium   | 📝 Planned      |
-| 3     | Language Detection           | Medium   | 📝 Planned      |
-| 4     | Interactive Prompts          | Medium   | 📝 Planned      |
-| 5     | Rule Expansion (30 → 42)     | Medium   | 📝 Planned      |
-| 6     | Core Workflow (docs:update)  | High     | 📝 Planned      |
+| 1     | Styled Output Boxes          | High     | 📝 Paused       |
+| 2     | Execution Modes              | Medium   | 📝 Paused       |
+| 3     | Language Detection           | Medium   | 📝 Paused       |
+| 4     | Interactive Prompts          | Medium   | 📝 Paused       |
+| 5     | Rule Expansion (30 → 42)     | Medium   | 📝 Paused       |
+| 6     | Core Workflow (docs:update)  | High     | 📝 Paused       |
 
 ### Completed Features (v2.8.0)
 

@@ -6,16 +6,19 @@ last_session: 2026-01-29T00:00:00Z
 
 progress: 5% (v2.9.0 WIP - planning & spec complete)
 
-🔄 In Progress (Session 2026-01-29 - v2.9.0 Setup):
-- v2.9.0 Feature Branch Created ✅
-  • Worktree: ~/.git-worktrees/craft/feature-v2.9.0
-  • Branch: feature/v2.9.0 (from dev @ ff5fc2f)
-  • Orchestration plan: ORCHESTRATE-v2.9.0.md
-  • Formal spec: docs/specs/SPEC-v2.9.0-features-2026-01-29.md
-  • 6 phases planned (styled output, execution modes, language detection,
-    interactive prompts, rule expansion, core workflow)
+🔄 In Progress (Session 2026-01-29 - Command Enhancements):
+- Command Enhancements Branch Created ✅
+  • Worktree: ~/.git-worktrees/craft/feature-command-enhancements
+  • Branch: feature/command-enhancements (from dev @ c2ebfa7)
+  • Orchestration plan: ORCHESTRATE-command-enhancements.md
+  • Spec: docs/specs/SPEC-command-enhancements-2026-01-29.md
+  • 5 phases: orchestrate fixes, "Show Steps First", worktree auto-setup,
+    docs:update post-merge, check preview
+- v2.9.0 Feature Branch Preserved (WIP on feature/v2.9.0 @ 8bf5444)
+  • 7,418 lines of implementations saved (styled output, lang detection, etc.)
+  • Worktree removed — branch still exists for future use
 
-🎯 Next Action: Start Phase 1 (Styled Output Boxes) in worktree
+🎯 Next Action: Start Phase 1 (Fix orchestrate mode selection + plan confirmation)
 
 ✅ Just Completed (Session 2026-01-28 - Markdown Lint Fixes):
 - v2.8.1 Patch Release ✅
