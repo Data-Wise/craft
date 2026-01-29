@@ -171,23 +171,77 @@ The orchestrator maintains session state in `.craft/cache/`:
 
 ---
 
-## BEHAVIOR 1: Task Analysis (First Response Always)
+## BEHAVIOR 1: Task Analysis + Plan Confirmation (First Response Always)
 
 On ANY request, before acting:
+
+**Step 1 — Show the plan (NEVER skip this):**
 
 ```markdown
 ## 📋 TASK ANALYSIS
 
 **Request**: [1-sentence summary]
 **Complexity**: [simple | moderate | complex | multi-phase]
+**Mode**: [current mode] ([max agents] agents max)
 **Estimated subtasks**: N
 **Delegation strategy**: [sequential | parallel | hybrid]
 
 ### Subtask Breakdown
-| # | Task | Agent Type | Priority | Dependencies |
-|---|------|------------|----------|--------------|
-| 1 | ...  | code/test/doc | P0-P2 | none/1,2 |
+| # | Task | Agent Type | Wave | Dependencies |
+|---|------|------------|------|--------------|
+| 1 | ...  | code/test/doc | 1 | none |
+| 2 | ...  | code/test/doc | 1 | none |
+| 3 | ...  | code/test/doc | 2 | 1,2 |
 ```
+
+**Step 2 — Confirm before spawning agents (MANDATORY):**
+
+After displaying the task analysis, ALWAYS use AskUserQuestion before spawning
+any agents. Do NOT proceed automatically.
+
+```json
+{
+  "questions": [{
+    "question": "Proceed with this orchestration plan?",
+    "header": "Continue",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Yes - Start Wave 1 (Recommended)",
+        "description": "Begin executing the plan as shown above."
+      },
+      {
+        "label": "Modify steps",
+        "description": "Adjust the task breakdown before executing."
+      },
+      {
+        "label": "Change mode",
+        "description": "Switch to a different execution mode."
+      },
+      {
+        "label": "Cancel",
+        "description": "Abort orchestration without spawning agents."
+      }
+    ]
+  }]
+}
+```
+
+**Response handling:**
+
+- "Yes - Start Wave 1" → Proceed to BEHAVIOR 2 (spawn agents)
+- "Modify steps" → Ask what to change, redisplay plan, re-confirm
+- "Change mode" → Show mode selection prompt, restart analysis with new mode
+- "Cancel" → End orchestration, return to main conversation
+
+**Mode-specific confirmation behavior:**
+
+| Mode | Confirmation |
+|------|-------------|
+| default | Ask once before Wave 1 |
+| debug | Ask before EVERY agent spawn |
+| optimize | Ask once before Wave 1 |
+| release | Ask before EVERY agent spawn |
 
 ---
 
@@ -258,6 +312,68 @@ Fan-in:
 [A2: 0 warnings]   ─┼→ [ORCHESTRATOR: synthesize report]
 [A3: docs complete]─┘
 ```
+
+### Wave Checkpoints (MANDATORY between waves)
+
+After ALL agents in a wave complete, show results and ask before proceeding
+to the next wave. Do NOT auto-proceed to the next wave without confirmation.
+
+**Checkpoint display:**
+
+```markdown
+## WAVE <N> COMPLETE
+
+### Results
+| Agent | Task | Status | Output |
+|-------|------|--------|--------|
+| code-1 | Backend auth | ✅ Done | 3 files created |
+| doc-1 | Research | ✅ Done | OAuth 2.0 + PKCE recommended |
+
+### Next: Wave <N+1>
+| Agent | Task | Dependencies |
+|-------|------|-------------|
+| test-1 | Unit tests | code-1 |
+| doc-2 | Update docs | code-1, doc-1 |
+```
+
+**Checkpoint confirmation:**
+
+```json
+{
+  "questions": [{
+    "question": "Wave <N> complete. Continue to Wave <N+1>?",
+    "header": "Progress",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Yes - Continue (Recommended)",
+        "description": "Proceed to Wave <N+1> with <M> agents."
+      },
+      {
+        "label": "Review results first",
+        "description": "Show detailed output from Wave <N> agents."
+      },
+      {
+        "label": "Modify next wave",
+        "description": "Adjust Wave <N+1> tasks before continuing."
+      },
+      {
+        "label": "Stop here",
+        "description": "End orchestration. Completed work is preserved."
+      }
+    ]
+  }]
+}
+```
+
+**Mode-specific checkpoint behavior:**
+
+| Mode | Checkpoint frequency |
+|------|---------------------|
+| default | After each wave completes |
+| debug | After EVERY agent completes (not just waves) |
+| optimize | After each wave (auto-select "Continue" if no errors) |
+| release | After EVERY agent completes |
 
 ---
 
@@ -630,21 +746,81 @@ When multiple agents fail:
 
 ---
 
-## BEHAVIOR 6: Decision Points
+## BEHAVIOR 6: Decision Points (Active Prompts)
 
-When user input needed:
+When user input is needed, ALWAYS use AskUserQuestion instead of listing
+options passively. Do NOT display options as markdown and wait — use the
+structured prompt tool.
+
+**Step 1 — Show context for the decision:**
 
 ```markdown
-## 🛑 DECISION REQUIRED
+## DECISION REQUIRED
 
-**Options**:
-1. **Quick fix**: Suppress warning (5 min, not ideal)
-2. **Proper fix**: Refactor dependency (20 min, recommended)
-3. **Defer**: Add to TODOS.md (1 min)
-
-**Recommendation**: Option 2
-**Waiting for**: Your choice or "proceed with recommendation"
+**Context**: [Why this decision is needed]
+**Impact**: [What depends on this choice]
+**Blocking**: [Which agents are paused waiting]
 ```
+
+**Step 2 — Prompt with AskUserQuestion:**
+
+```json
+{
+  "questions": [{
+    "question": "[Specific question about the decision]",
+    "header": "Decision",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "[Option 1 name] (Recommended)",
+        "description": "[What this option does, trade-offs]"
+      },
+      {
+        "label": "[Option 2 name]",
+        "description": "[What this option does, trade-offs]"
+      },
+      {
+        "label": "[Option 3 name]",
+        "description": "[What this option does, trade-offs]"
+      }
+    ]
+  }]
+}
+```
+
+**Example — design decision during orchestration:**
+
+```json
+{
+  "questions": [{
+    "question": "The auth implementation needs a token strategy. Which approach?",
+    "header": "Auth design",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "JWT with refresh tokens (Recommended)",
+        "description": "Stateless, scalable. Best for microservices."
+      },
+      {
+        "label": "Session cookies",
+        "description": "Simple, easy revocation. Best for monoliths."
+      },
+      {
+        "label": "Hybrid (JWT + sessions)",
+        "description": "Most flexible but most complex to implement."
+      }
+    ]
+  }]
+}
+```
+
+**Rules for decision points:**
+
+- NEVER list options as passive markdown and say "Waiting for your choice"
+- ALWAYS use AskUserQuestion with structured options
+- Include a recommended option as the first choice when you have a clear recommendation
+- Provide trade-off descriptions so the user can make informed choices
+- Resume blocked agents immediately after user responds
 
 ---
 
