@@ -1,24 +1,66 @@
 status: Active
 version: 2.9.0-dev
 release_date: 2026-01-28 (v2.8.1)
-milestone: v2.9.0 - Output, Modes, Linting Intelligence
-last_session: 2026-01-29T00:00:00Z
+milestone: v2.9.0 - Command Enhancements & UX
+last_session: 2026-01-29T12:00:00Z
 
-progress: 5% (v2.9.0 WIP - planning & spec complete)
+progress: 15% (v2.9.0 WIP - command enhancements in feature branch, 9 commits)
+
+📊 Branch Status (as of 2026-01-29):
+
+| Branch                       | Head     | Ahead of | Status                |
+|------------------------------|----------|----------|-----------------------|
+| main                         | ff5fc2f  | —        | Production (v2.8.1)   |
+| dev                          | f02a21b  | main +5  | Integration (lint clean) |
+| feature/command-enhancements | 1f37955  | dev +9   | Active worktree (5 phases done) |
+| feature/v2.9.0               | 8bf5444  | —        | Paused (7,418 lines preserved) |
+| feature/git-init-command     | e982759  | —        | Stale (no worktree)   |
+| gh-pages                     | 106e35f  | —        | Deployed docs site    |
+
+Worktrees:
+  • /Users/dt/projects/dev-tools/craft → dev (main repo)
+  • ~/.git-worktrees/craft/feature-command-enhancements → feature/command-enhancements (clean)
+
+dev ahead of main (5 commits):
+  f02a21b style: fix remaining 50 markdown lint issues across 18 files
+  575ab71 style: fix markdown lint issues across 6 files
+  67f9d7e docs: switch active worktree to command-enhancements
+  c2ebfa7 docs: add command enhancements brainstorm and spec
+  d716cab docs: update .STATUS and CLAUDE.md for v2.9.0 development
+
+feature/command-enhancements ahead of dev (9 commits):
+  1f37955 feat: align orchestrator-v2 with Claude Code subagent architecture
+  1d04557 docs: add interactive commands quick reference card
+  c64e639 docs: add help files, guide, and tutorial for command enhancements
+  de4236e docs: mark all 5 phases complete in orchestration plan
+  c189d96 feat: add check step preview with mode-specific lists
+  a8edb69 feat: add docs:update --post-merge pipeline
+  b853445 feat: add git:worktree auto-setup with scope detection
+  9245323 feat: add interactive orchestration with plan confirmation and wave checkpoints
+  9e73132 docs: add command enhancements orchestration plan
 
 🔄 In Progress (Session 2026-01-29 - Command Enhancements):
-- Command Enhancements Branch Created ✅
+- Command Enhancements Branch — All 5 Phases Complete ✅
   • Worktree: ~/.git-worktrees/craft/feature-command-enhancements
   • Branch: feature/command-enhancements (from dev @ c2ebfa7)
-  • Orchestration plan: ORCHESTRATE-command-enhancements.md
-  • Spec: docs/specs/SPEC-command-enhancements-2026-01-29.md
-  • 5 phases: orchestrate fixes, "Show Steps First", worktree auto-setup,
-    docs:update post-merge, check preview
+  • 9 commits, 5 phases implemented
+  • Phase 1: Interactive orchestration with plan confirmation ✅
+  • Phase 2: Show Steps First pattern with wave checkpoints ✅
+  • Phase 3: Git worktree auto-setup with scope detection ✅
+  • Phase 4: docs:update --post-merge pipeline ✅
+  • Phase 5: Check step preview with mode-specific lists ✅
+  • Orchestrator-v2 aligned with Claude Code subagent architecture ✅
+  • Docs: help files, guide, tutorial, refcard added ✅
 - v2.9.0 Feature Branch Preserved (WIP on feature/v2.9.0 @ 8bf5444)
   • 7,418 lines of implementations saved (styled output, lang detection, etc.)
   • Worktree removed — branch still exists for future use
+- Markdown Lint Cleanup ✅
+  • Fixed 50 remaining lint issues across 18 files (f02a21b)
+  • Fixed 6 earlier issues across 6 files (575ab71)
+  • Created .markdownlint-cli2.jsonc and .markdownlintignore
+  • Full codebase now passes markdownlint (0 errors, 349 files)
 
-🎯 Next Action: Start Phase 1 (Fix orchestrate mode selection + plan confirmation)
+🎯 Next Action: Create PR for feature/command-enhancements → dev, then test and merge
 
 ✅ Just Completed (Session 2026-01-28 - Markdown Lint Fixes):
 - v2.8.1 Patch Release ✅
