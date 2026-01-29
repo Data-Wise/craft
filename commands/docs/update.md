@@ -35,6 +35,9 @@ flags:
   - name: --no-changelog
     description: Skip changelog update
     type: boolean
+  - name: --post-merge
+    description: Post-merge pipeline — auto-detect and fix documentation after PR merge
+    type: boolean
 examples:
   - command: /craft:docs:update --interactive
     description: Interactive mode with category-level prompts
@@ -44,6 +47,8 @@ examples:
     description: Update only version references
   - command: /craft:docs:update --auto-yes
     description: Apply all updates without prompts
+  - command: /craft:docs:update --post-merge
+    description: Post-merge pipeline — auto-fix safe categories, prompt for manual ones
 see_also:
   - /craft:docs:sync
   - /craft:docs:check
@@ -80,6 +85,98 @@ You are an ADHD-friendly documentation generator. Detect what's needed, generate
 │  4. changelog (if commits present)                          │
 │  5. summary                                                 │
 └─────────────────────────────────────────────────────────────┘
+```
+
+## Execution Behavior (MANDATORY)
+
+When this command runs, Claude MUST follow these steps in order. Do NOT skip
+the detection-first preview or proceed without showing what will be updated.
+
+### Step 0: Detection-First Preview
+
+Before making ANY changes, scan and display what needs updating:
+
+```text
+Documentation Update Plan:
+  Project: <project-name>
+  Version: <current> → <target> (if applicable)
+  Mode: <interactive|auto-yes|dry-run>
+
+  Categories detected:
+  1. Version references — <N> files need updating
+  2. Command counts — <N> files outdated
+  3. Broken links — <N> links need fixing
+  ...
+
+  Total: <N> updates across <M> files
+```
+
+### Step 0.5: Confirm Approach
+
+After showing the detection results, ask how to proceed:
+
+```json
+{
+  "questions": [{
+    "question": "How should I handle these documentation updates?",
+    "header": "Approach",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Interactive - category by category (Recommended)",
+        "description": "Prompt for each category. You approve/skip each one."
+      },
+      {
+        "label": "Auto-apply safe categories",
+        "description": "Auto-fix version refs, counts, links. Prompt for manual categories."
+      },
+      {
+        "label": "Preview only",
+        "description": "Show detailed diff for each category without applying."
+      },
+      {
+        "label": "Cancel",
+        "description": "Exit without making changes."
+      }
+    ]
+  }]
+}
+```
+
+### Steps 1-N: Execute Per Category
+
+For each category, show what will change and apply (or prompt in interactive mode):
+
+```text
+  [1/N] Version references... ✅ updated 12 files
+  [2/N] Command counts... ✅ updated 4 files
+  [3/N] Broken links... ⚠️ 3 links need manual review
+  ...
+```
+
+### Step N+1: Summary with Validation
+
+```text
+  Results: X categories updated, Y skipped
+  Files changed: Z
+  Validation: lint ✅ | links ✅ | counts ✅
+  Next steps: [commit, review changes, etc.]
+```
+
+### Safe vs Manual Categories
+
+| Category | Safe (auto-fix) | Manual (prompt) |
+|----------|-----------------|-----------------|
+| Version references | ✅ Find-replace | |
+| Command counts | ✅ Recalculate | |
+| Navigation entries | ✅ Add to mkdocs.yml | |
+| Broken links | ✅ Update paths | |
+| Help files | | ✅ New content needed |
+| Tutorials | | ✅ Content review |
+| Changelog | | ✅ Draft from commits |
+| GIF regeneration | | ✅ Manual recording |
+| Feature status | | ✅ Completion judgment |
+
 ```text
 
 ## Usage
@@ -280,6 +377,135 @@ Auto-triggered after updates:
 │                                                             │
 ╰─────────────────────────────────────────────────────────────╯
 ```text
+
+## Post-Merge Pipeline (NEW)
+
+When invoked with `--post-merge`, runs a specialized pipeline designed to
+update documentation after a PR is merged to `dev` or `main`.
+
+### Usage
+
+```bash
+/craft:docs:update --post-merge                  # Full post-merge pipeline
+/craft:docs:update --post-merge --dry-run        # Preview what would change
+```
+
+### Pipeline Flow
+
+```text
+PR merged
+  → Phase 1: Auto-detect (9 categories)
+  → Phase 2: Auto-fix safe categories (no prompts)
+  → Phase 3: Prompt for manual categories (AskUserQuestion)
+  → Phase 4: Lint + validate
+  → Phase 5: Summary
+```
+
+### Phase 1: Auto-Detection
+
+Scans the merged changes to classify what documentation needs updating:
+
+```text
+Post-Merge Documentation Scan:
+  Merge: PR #<N> "<title>" → <base-branch>
+  Changed files: <N>
+  New commands: <N>
+  Version bump: <old> → <new> (if applicable)
+
+  Detected categories:
+  [AUTO]   Version references — <N> files
+  [AUTO]   Command counts — <N> files
+  [AUTO]   Navigation entries — <N> new pages
+  [AUTO]   Broken links — <N> links
+  [MANUAL] Help files — <N> new commands
+  [MANUAL] Tutorial updates — <N> tutorials
+  [MANUAL] Changelog draft — from PR description
+  [MANUAL] GIF regeneration — <N> changed commands
+  [SKIP]   Feature status — no changes detected
+```
+
+### Phase 2: Auto-Fix Safe Categories
+
+These categories are fixed automatically without prompts:
+
+| Category | Action | Method |
+|----------|--------|--------|
+| Version references | Find-replace version strings | Regex across all docs |
+| Command counts | Recalculate from file system | Count `commands/**/*.md` |
+| Navigation entries | Add new pages to mkdocs.yml | Parse and insert |
+| Broken links | Update changed file paths | Path resolution |
+
+Output:
+
+```text
+  Auto-fixing safe categories...
+  [1/4] Version references... ✅ updated 12 files (v2.8.1 → v2.9.0)
+  [2/4] Command counts... ✅ updated 4 files (100 → 103 commands)
+  [3/4] Navigation entries... ✅ added 2 pages to mkdocs.yml
+  [4/4] Broken links... ✅ fixed 3 links
+```
+
+### Phase 3: Manual Categories (Interactive)
+
+Categories requiring human judgment prompt via AskUserQuestion:
+
+```json
+{
+  "questions": [{
+    "question": "3 new commands need help documentation. How should I handle them?",
+    "header": "Help files",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Generate all (Recommended)",
+        "description": "Create help files for: /craft:new-cmd-1, /craft:new-cmd-2, /craft:new-cmd-3."
+      },
+      {
+        "label": "Generate one at a time",
+        "description": "Review each help file before creating the next."
+      },
+      {
+        "label": "Skip for now",
+        "description": "Leave help files for manual creation later."
+      }
+    ]
+  }]
+}
+```
+
+Each manual category gets its own prompt:
+
+| Category | Prompt Question |
+|----------|----------------|
+| Help files | "N new commands need help docs. Generate?" |
+| Tutorials | "N tutorials reference changed APIs. Update?" |
+| Changelog | "Draft changelog from PR description?" |
+| GIF regeneration | "N GIFs show changed commands. Regenerate?" |
+| Feature status | "Update feature matrix for completed work?" |
+
+### Phase 4: Lint + Validate
+
+After all updates applied:
+
+```text
+  Validation:
+  [1/3] Markdown lint... ✅ 0 issues
+  [2/3] Internal links... ✅ all resolved
+  [3/3] Count validation... ✅ matches
+```
+
+### Phase 5: Summary
+
+```text
+  Post-Merge Documentation Update Complete:
+
+  Auto-fixed: 4 categories (21 files changed)
+  Manual: 2 categories (3 files created)
+  Skipped: 3 categories (no changes needed)
+  Validation: ✅ all checks passed
+
+  Next: Review changes and commit
+```
 
 ## When Invoked
 
