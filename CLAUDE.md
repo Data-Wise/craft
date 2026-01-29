@@ -227,12 +227,12 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Active Development
 
-### Current Worktrees (v2.8.1)
+### Current Worktrees (v2.9.0-dev)
 
-| Branch                            | Location                                                 | Status              |
-| --------------------------------- | -------------------------------------------------------- | ------------------- |
-| `main`                            | `/Users/dt/projects/dev-tools/craft`                     | Main repo (v2.8.1)  |
-| `feature/docs-update-interactive` | `~/.git-worktrees/craft/feature-docs-update-interactive` | **Planned: Phase 1** |
+| Branch            | Location                                    | Status                    |
+| ----------------- | ------------------------------------------- | ------------------------- |
+| `dev`             | `/Users/dt/projects/dev-tools/craft`        | Main repo (v2.8.1 base)  |
+| `feature/v2.9.0`  | `~/.git-worktrees/craft/feature-v2.9.0`    | **WIP: 6 phases planned** |
 
 ### v2.8.1 - Markdown Lint Style Fixes (Released 2026-01-28)
 
@@ -248,14 +248,19 @@ python3 tests/test_integration_teaching_workflow.py
 
 **Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.8.1>
 
-### v2.9.0 - Next Release (Planned)
+### v2.9.0 - Next Release (WIP)
 
-| Feature                     | Priority | Status     |
-| --------------------------- | -------- | ---------- |
-| Phase 1: Core workflow      | High     | 📝 Planned |
-| Phase 2: Enhanced modes     | Medium   | 📝 Planned |
-| Phase 3: Language detection | Medium   | 📝 Planned |
-| Phase 4: Styled output      | High     | 📝 Planned |
+**Spec:** `docs/specs/SPEC-v2.9.0-features-2026-01-29.md`
+**Branch:** `feature/v2.9.0` (worktree: `~/.git-worktrees/craft/feature-v2.9.0`)
+
+| Phase | Feature                      | Priority | Status          |
+| ----- | ---------------------------- | -------- | --------------- |
+| 1     | Styled Output Boxes          | High     | 🔜 Up next      |
+| 2     | Execution Modes              | Medium   | 📝 Planned      |
+| 3     | Language Detection           | Medium   | 📝 Planned      |
+| 4     | Interactive Prompts          | Medium   | 📝 Planned      |
+| 5     | Rule Expansion (30 → 42)     | Medium   | 📝 Planned      |
+| 6     | Core Workflow (docs:update)  | High     | 📝 Planned      |
 
 ### Completed Features (v2.8.0)
 

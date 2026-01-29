@@ -1,10 +1,21 @@
-status: Released
-version: 2.8.1
-release_date: 2026-01-28
-milestone: v2.8.1 - Markdown Lint Style Fixes
-last_session: 2026-01-28T12:45:00Z
+status: Active
+version: 2.9.0-dev
+release_date: 2026-01-28 (v2.8.1)
+milestone: v2.9.0 - Output, Modes, Linting Intelligence
+last_session: 2026-01-29T00:00:00Z
 
-progress: 100% (v2.8.1 RELEASED ✅)
+progress: 5% (v2.9.0 WIP - planning & spec complete)
+
+🔄 In Progress (Session 2026-01-29 - v2.9.0 Setup):
+- v2.9.0 Feature Branch Created ✅
+  • Worktree: ~/.git-worktrees/craft/feature-v2.9.0
+  • Branch: feature/v2.9.0 (from dev @ ff5fc2f)
+  • Orchestration plan: ORCHESTRATE-v2.9.0.md
+  • Formal spec: docs/specs/SPEC-v2.9.0-features-2026-01-29.md
+  • 6 phases planned (styled output, execution modes, language detection,
+    interactive prompts, rule expansion, core workflow)
+
+🎯 Next Action: Start Phase 1 (Styled Output Boxes) in worktree
 
 ✅ Just Completed (Session 2026-01-28 - Markdown Lint Fixes):
 - v2.8.1 Patch Release ✅
