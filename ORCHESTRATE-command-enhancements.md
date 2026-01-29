@@ -26,13 +26,13 @@ documented steps."
 
 ## Phase Overview
 
-| Phase | Enhancement | Priority | Depends On |
-| ----- | ----------- | -------- | ---------- |
-| 1 | Orchestrate: Fix mode selection + plan confirmation | High | None |
-| 2 | Cross-cutting: "Show Steps First" pattern | High | Phase 1 |
-| 3 | git:worktree: Auto-setup workflow files | Medium | Phase 2 |
-| 4 | docs:update: `--post-merge` pipeline | Medium | Phase 2 |
-| 5 | check: Step preview + mode-specific list | Medium | Phase 2 |
+| Phase | Enhancement | Priority | Depends On | Status |
+| ----- | ----------- | -------- | ---------- | ------ |
+| 1 | Orchestrate: Fix mode selection + plan confirmation | High | None | ✅ Done |
+| 2 | Cross-cutting: "Show Steps First" pattern | High | Phase 1 | ✅ Done |
+| 3 | git:worktree: Auto-setup workflow files | Medium | Phase 2 | ✅ Done |
+| 4 | docs:update: `--post-merge` pipeline | Medium | Phase 2 | ✅ Done |
+| 5 | check: Step preview + mode-specific list | Medium | Phase 2 | ✅ Done |
 
 ```text
 Phase 1 (Orchestrate fixes) ──► Phase 2 (Show Steps First) ──┬──► Phase 3 (Worktree auto-setup)
@@ -119,12 +119,12 @@ BEHAVIOR 6 currently lists options and waits. Change to structured prompts.
 
 **Acceptance criteria:**
 
-- [ ] `prompt_user_for_mode()` triggers AskUserQuestion when no mode specified
-- [ ] Orchestrator shows task analysis and asks before spawning agents
-- [ ] Checkpoints between waves with continue/pause/modify options
-- [ ] Decision points use AskUserQuestion instead of passive listing
-- [ ] Each mode produces visibly different output format
-- [ ] Tests updated for new interactive behavior
+- [x] `prompt_user_for_mode()` triggers AskUserQuestion when no mode specified
+- [x] Orchestrator shows task analysis and asks before spawning agents
+- [x] Checkpoints between waves with continue/pause/modify options
+- [x] Decision points use AskUserQuestion instead of passive listing
+- [x] Each mode produces visibly different output format
+- [ ] Tests updated for new interactive behavior (deferred — markdown-only changes)
 
 ---
 
@@ -152,11 +152,11 @@ Step N+1: Summary with next steps
 
 **Acceptance criteria:**
 
-- [ ] All 4 commands show numbered step plan before execution
-- [ ] AskUserQuestion used for confirmation at key decision points
-- [ ] Plan displayed as numbered list (screen reader friendly)
-- [ ] Progress shown with text indicators (not just icons)
-- [ ] Mode differences documented in help text
+- [x] All 4 commands show numbered step plan before execution
+- [x] AskUserQuestion used for confirmation at key decision points
+- [x] Plan displayed as numbered list (screen reader friendly)
+- [x] Progress shown with text indicators (not just icons)
+- [x] Mode differences documented in help text
 
 ---
 
@@ -191,12 +191,12 @@ Step N+1: Summary with next steps
 
 **Acceptance criteria:**
 
-- [ ] Scope detection from branch name pattern
-- [ ] AskUserQuestion for scope confirmation
-- [ ] ORCHESTRATE file created with task plan template
-- [ ] SPEC file created for medium+ scope
-- [ ] .STATUS updated in main repo
-- [ ] CLAUDE.md worktree table updated
+- [x] Scope detection from branch name pattern
+- [x] AskUserQuestion for scope confirmation
+- [x] ORCHESTRATE file created with task plan template
+- [x] SPEC file created for medium+ scope
+- [x] .STATUS updated in main repo
+- [x] CLAUDE.md worktree table updated
 
 ---
 
@@ -235,12 +235,12 @@ PR merged → Auto-detect (9 categories) → Auto-fix safe categories
 
 **Acceptance criteria:**
 
-- [ ] `--post-merge` flag triggers the pipeline
-- [ ] Auto-detection runs first (9 categories from docs_detector.py)
-- [ ] Safe categories auto-fixed without prompts
-- [ ] Manual categories prompt via AskUserQuestion
-- [ ] Validation pipeline runs after updates (lint + check-links)
-- [ ] Summary shows what was auto-fixed and what was created
+- [x] `--post-merge` flag triggers the pipeline
+- [x] Auto-detection runs first (9 categories from docs_detector.py)
+- [x] Safe categories auto-fixed without prompts
+- [x] Manual categories prompt via AskUserQuestion
+- [x] Validation pipeline runs after updates (lint + check-links)
+- [x] Summary shows what was auto-fixed and what was created
 
 ---
 
@@ -289,10 +289,10 @@ AskUserQuestion:
 
 **Acceptance criteria:**
 
-- [ ] Check plan displayed before execution
-- [ ] Mode-specific check list shows different depth per mode
-- [ ] AskUserQuestion for confirm/skip/dry-run
-- [ ] Skip options available for faster runs
+- [x] Check plan displayed before execution
+- [x] Mode-specific check list shows different depth per mode
+- [x] AskUserQuestion for confirm/skip/dry-run
+- [x] Skip options available for faster runs
 
 ---
 
