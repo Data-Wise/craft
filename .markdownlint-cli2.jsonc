@@ -1,0 +1,7 @@
+{
+  // Ignore patterns for markdownlint-cli2
+  "ignores": [
+    ".pytest_cache/**",
+    "node_modules/**"
+  ]
+}

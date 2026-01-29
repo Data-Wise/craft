@@ -65,14 +65,14 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 
 **Purpose:** Server-side design, API architecture, database design
 
-#### Use cases
+**Use cases:**
 
 - Designing RESTful or GraphQL APIs
 - Database schema optimization
 - Authentication/authorization systems
 - Scalable backend architecture
 
-#### Invoke
+**Invoke:**
 
 ```bash
 # Via orchestrator
@@ -86,14 +86,14 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 
 **Purpose:** Application performance optimization
 
-#### Use cases
+**Use cases:**
 
 - Identifying bottlenecks
 - Load testing strategies
 - Caching implementation
 - Query optimization
 
-#### Invoke
+**Invoke:**
 
 ```bash
 /craft:orchestrate "optimize database queries" optimize
@@ -103,14 +103,14 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 
 **Purpose:** Comprehensive testing strategies
 
-#### Use cases
+**Use cases:**
 
 - Test strategy development
 - Unit/integration/e2e testing
 - Test coverage improvement
 - TDD/BDD implementation
 
-#### Invoke
+**Invoke:**
 
 ```bash
 /craft:orchestrate "improve test coverage" release
@@ -120,14 +120,14 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 
 **Purpose:** Security audits and secure coding
 
-#### Use cases
+**Use cases:**
 
 - OWASP vulnerability assessment
 - Authentication/authorization review
 - Secure coding practices
 - Security audit preparation
 
-#### Invoke
+**Invoke:**
 
 ```bash
 /craft:orchestrate "security audit" release
@@ -137,14 +137,14 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 
 **Purpose:** CI/CD and deployment automation
 
-#### Use cases
+**Use cases:**
 
 - Pipeline setup and optimization
 - Docker/Kubernetes configuration
 - Cloud infrastructure (AWS/GCP/Azure)
 - Deployment strategies
 
-#### Invoke
+**Invoke:**
 
 ```bash
 /craft:orchestrate "setup CI/CD pipeline" optimize
@@ -154,14 +154,14 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 
 **Purpose:** Technical leadership and coordination
 
-#### Use cases
+**Use cases:**
 
 - Architectural decisions
 - Technical strategy
 - Team coordination
 - Technical debt management
 
-#### Invoke
+**Invoke:**
 
 ```bash
 /craft:orchestrate "plan technical roadmap" release
@@ -171,14 +171,14 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 
 **Purpose:** Code quality standards and best practices
 
-#### Use cases
+**Use cases:**
 
 - Code review automation
 - Refactoring guidance
 - Design pattern application
 - Clean code principles
 
-#### Invoke
+**Invoke:**
 
 ```bash
 /craft:orchestrate "code review" debug

@@ -1354,13 +1354,13 @@ Update all?
 |------|--------|--------|
 | 2026-01-22 | Initial spec from deep brainstorm | Claude |
 | 2026-01-22 | **Revision:** Comprehensive help file validation added | Claude |
-|            | - Test ALL commands and subcommands (recursive scan) |
-|            | - Validate ALL flags in arguments array |
-|            | - Offer to CREATE missing help files (not just update) |
-|            | - CLI --help output validation |
-|            | - YAML vs --help consistency checks |
-|            | - HELP-PAGE-TEMPLATE.md compliance validation |
-|            | - Batch prompts for common issues |
+|            | - Test ALL commands and subcommands (recursive scan) | |
+|            | - Validate ALL flags in arguments array | |
+|            | - Offer to CREATE missing help files (not just update) | |
+|            | - CLI --help output validation | |
+|            | - YAML vs --help consistency checks | |
+|            | - HELP-PAGE-TEMPLATE.md compliance validation | |
+|            | - Batch prompts for common issues | |
 
 ---
 

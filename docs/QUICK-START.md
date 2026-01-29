@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD046 -->
 # Quick Start
 
 ⏱️ **2 minutes** • 🟢 Beginner • ✓ 4 steps

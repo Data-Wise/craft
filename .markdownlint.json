@@ -78,7 +78,8 @@
       "antml:function_calls",
       "antml:invoke",
       "antml:parameter",
-      "div"
+      "div",
+      "br"
     ]
   }
 }

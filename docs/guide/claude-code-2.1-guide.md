@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD046 -->
 # Claude Code 2.1.0 Integration Guide
 
 ⏱️ **25 minutes** • 🟠 Advanced • ✓ Complete guide

@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD046 MD051 -->
 # ADHD Quick Start
 
 ⏱️ **Under 2 minutes** • 🟢 Beginner • ✓ Fastest path to success

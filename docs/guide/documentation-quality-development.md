@@ -416,6 +416,7 @@ exit 0
 | 0 | Success | None |
 | 1 | Issues found | Fix manually |
 | 2 | Configuration error | Check arguments |
+
 \```
 
 ```
