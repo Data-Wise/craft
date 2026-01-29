@@ -33,11 +33,13 @@ documented steps."
 | 3 | git:worktree: Auto-setup workflow files | Medium | Phase 2 | ✅ Done |
 | 4 | docs:update: `--post-merge` pipeline | Medium | Phase 2 | ✅ Done |
 | 5 | check: Step preview + mode-specific list | Medium | Phase 2 | ✅ Done |
+| 6 | Orchestrator-v2: Align with Claude Code architecture | High | Phase 1 | ✅ Done |
 
 ```text
 Phase 1 (Orchestrate fixes) ──► Phase 2 (Show Steps First) ──┬──► Phase 3 (Worktree auto-setup)
                                                                ├──► Phase 4 (docs:update post-merge)
-                                                               └──► Phase 5 (check preview)
+                                                               ├──► Phase 5 (check preview)
+                                                               └──► Phase 6 (orchestrator-v2 architecture)
 ```
 
 ---
