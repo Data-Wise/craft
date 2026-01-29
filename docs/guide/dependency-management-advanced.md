@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD046 -->
 # Dependency Management Advanced Guide
 
 ⏱️ **20 minutes** • 🟠 Intermediate • ✓ Complete guide

@@ -38,6 +38,7 @@ Manage git worktrees to work on multiple branches simultaneously without switchi
 - **Parallel development** - Work on feature + hotfix at same time
 - **Claude Code friendly** - Each terminal/session stays on its branch
 - **No stash juggling** - Uncommitted work stays put
+- **Auto-setup** — detects scope and creates workflow files automatically (NEW)
 
 ---
 
@@ -84,25 +85,83 @@ Creates the worktree parent folder structure:
 /craft:git:worktree create feature/new-ui
 ```
 
-Creates a worktree and installs dependencies:
+Creates a worktree with step preview (NEW) and optional auto-setup:
 
 ```
-╭─ Create Worktree ───────────────────────────────────╮
-│ Branch: feature/new-ui                              │
-│ Location: ~/.git-worktrees/craft/feature-new-ui     │
-├─────────────────────────────────────────────────────┤
-│ Creating worktree...                                │
-│ ✅ Worktree created                                 │
-│                                                     │
-│ Installing dependencies...                          │
-│ 📦 Detected: Node.js (package.json)                 │
-│ ✅ npm install complete                             │
-├─────────────────────────────────────────────────────┤
-│ Ready! Start working:                               │
-│   cd ~/.git-worktrees/craft/feature-new-ui          │
-│   claude                                            │
-╰─────────────────────────────────────────────────────╯
+Worktree Setup Plan:
+  Project: craft
+  Action: create
+  Branch: feature/new-ui
+  Location: ~/.git-worktrees/craft/feature-new-ui
+
+  Steps:
+  1. Create worktree directory
+  2. Create branch from dev
+  3. Install dependencies (Node.js detected)
+  4. Auto-setup workflow files (scope: medium)
+
+? Proceed with this worktree setup?
+  › Yes - Create worktree (Recommended)
+    Change base branch
+    Change location
+    Cancel
+
+  [1/4] Creating directory... ✅
+  [2/4] Creating branch from dev... ✅
+  [3/4] Installing dependencies (npm install)... ✅
+  [4/4] Creating ORCHESTRATE-new-ui.md... ✅
+
+Worktree ready: ~/.git-worktrees/craft/feature-new-ui
+Branch: feature/new-ui
+Next: cd ~/.git-worktrees/craft/feature-new-ui && claude
 ```
+
+### Auto-Setup After Create (NEW)
+
+After creating a worktree, the command detects scope from the branch name and offers to create workflow files:
+
+```
+/craft:git:worktree create feature/v2.9.0
+
+Step 1: Create worktree ✅
+  Branch: feature/v2.9.0
+  Location: ~/.git-worktrees/craft/feature-v2.9.0
+
+Step 2: Scope detection
+  Branch pattern: feature/* → Medium scope
+
+? Branch 'feature/v2.9.0' detected as medium scope.
+  What workflow files should I create?
+  › Create ORCHESTRATE file (Recommended)
+    Multi-phase project (ORCHESTRATE + SPEC + update .STATUS + CLAUDE.md)
+    Minimal (no files)
+    Custom
+
+Step 3: Files created
+  ✅ ORCHESTRATE-v2.9.0.md (plan template)
+
+Ready! Start working:
+  cd ~/.git-worktrees/craft/feature-v2.9.0
+  claude
+```
+
+**Scope Detection:**
+
+| Branch Pattern | Scope | Auto-Create |
+|----------------|-------|-------------|
+| `fix/*` | Small | No workflow files |
+| `feature/*` | Medium | ORCHESTRATE file |
+| `v*` (release) | Release | ORCHESTRATE + SPEC |
+| User selects "multi-phase" | Large | ORCHESTRATE + SPEC + .STATUS + CLAUDE.md |
+
+**Generated Files:**
+
+- **ORCHESTRATE-\<name\>.md** — Task plan template with phases, acceptance criteria, and "how to start"
+- **docs/specs/SPEC-\<name\>-\<date\>.md** — Requirements, design decisions, implementation plan (medium+ scope)
+- **.STATUS** update — Marks branch as WIP in main repo (multi-phase only)
+- **CLAUDE.md** update — Adds worktree to active table (multi-phase only)
+
+---
 
 ### move - Move Current Branch to Worktree
 

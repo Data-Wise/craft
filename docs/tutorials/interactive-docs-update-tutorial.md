@@ -31,7 +31,7 @@ Step 1: Preview (Dry-Run)        [5 min]
 Step 2: Interactive Update       [5 min]
 Step 3: Verify Changes           [3 min]
 Step 4: Category-Specific Mode   [3 min]
-```text
+```
 
 ---
 
@@ -43,7 +43,7 @@ First, let's see what documentation issues exist **without making any changes**.
 
 ```bash
 /craft:docs:update --interactive --dry-run
-```text
+```
 
 ### What Happens
 
@@ -59,7 +59,7 @@ The system runs two detection utilities:
 │   ✓ help_file_validator.py - Validated help     │
 │                                                 │
 ╰─────────────────────────────────────────────────╯
-```text
+```
 
 ### Detection Results
 
@@ -79,7 +79,7 @@ Categories with no issues:
   ✓ Broken Links
   ✓ Stale Examples
   ✓ Outdated Diagrams
-```text
+```
 
 ### Interactive Prompts (Preview)
 
@@ -96,7 +96,7 @@ You'll be prompted for each category group:
 │   B) Preview changes first                      │
 │   C) Skip this category                         │
 ╰─────────────────────────────────────────────────╯
-```text
+```
 
 **Try selecting different options** to see what each does:
 
@@ -117,7 +117,7 @@ Files That Would Be Modified: ~180 files
 
 To apply these changes (without --dry-run):
   /craft:docs:update --interactive
-```text
+```
 
 **Key Point:** Nothing was changed! This was just a preview.
 
@@ -131,7 +131,7 @@ Now let's actually fix some documentation issues.
 
 ```bash
 /craft:docs:update --interactive
-```text
+```
 
 ### Choose What to Fix
 
@@ -153,7 +153,7 @@ Prompt 3: Missing Help
   ⊘ Skipped by user
 
 ... (other categories)
-```text
+```
 
 ### Watch It Work
 
@@ -178,7 +178,7 @@ As each category is applied, you'll see progress:
 │   ... and 30 more files                         │
 │                                                 │
 ╰─────────────────────────────────────────────────╯
-```text
+```
 
 ### Final Summary
 
@@ -202,7 +202,7 @@ As each category is applied, you'll see progress:
 │   3. Commit: git add . && git commit            │
 │                                                 │
 ╰─────────────────────────────────────────────────╯
-```text
+```
 
 ---
 
@@ -214,7 +214,7 @@ Always review what was changed before committing.
 
 ```bash
 git status
-```text
+```
 
 Output:
 
@@ -223,7 +223,7 @@ modified:   README.md
 modified:   CLAUDE.md
 modified:   docs/VERSION-HISTORY.md
 ... (64 more files)
-```text
+```
 
 ### Review Specific Changes
 
@@ -236,7 +236,7 @@ git diff README.md
 
 # Count changes
 git diff --stat
-```text
+```
 
 ### Example Diff
 
@@ -246,14 +246,14 @@ git diff --stat
 
 - craft has 99 commands
 + craft has 101 commands
-```text
+```
 
 ### If Everything Looks Good
 
 ```bash
 git add .
 git commit -m "docs: update version refs and counts via interactive mode"
-```text
+```
 
 ### If You Made a Mistake
 
@@ -265,7 +265,7 @@ git checkout .
 git checkout README.md
 
 # Then run interactive mode again
-```text
+```
 
 ---
 
@@ -277,7 +277,7 @@ Sometimes you only want to fix one type of issue.
 
 ```bash
 /craft:docs:update --interactive --category=version_refs
-```text
+```
 
 **Benefits:**
 
@@ -302,7 +302,7 @@ Sometimes you only want to fix one type of issue.
 │   ... and 64 more files                         │
 │                                                 │
 ╰─────────────────────────────────────────────────╯
-```text
+```
 
 **Then you get a single prompt:**
 
@@ -312,7 +312,7 @@ Apply 545 version reference updates to v2.5.1?
   A) Yes, update all
   B) Show detailed file list first
   C) Cancel - don't apply updates
-```text
+```
 
 ### Try Other Categories
 
@@ -325,7 +325,7 @@ Apply 545 version reference updates to v2.5.1?
 
 # Fix broken links
 /craft:docs:update --category=broken_links
-```text
+```
 
 ---
 
@@ -337,7 +337,7 @@ Combine `--dry-run` with `--category`:
 
 ```bash
 /craft:docs:update --interactive --category=version_refs --dry-run
-```text
+```
 
 This shows what would change for just version references.
 
@@ -347,7 +347,7 @@ If you're confident, skip all prompts:
 
 ```bash
 /craft:docs:update --auto-yes
-```text
+```
 
 **⚠️ Warning:** This applies ALL updates without asking!
 
@@ -359,7 +359,7 @@ Better approach:
 
 # Then auto-apply if it looks good
 /craft:docs:update --auto-yes
-```text
+```
 
 ### Batch Update Multiple Categories
 
@@ -375,7 +375,7 @@ git diff
 
 # Commit both
 git commit -m "docs: update metadata (versions and counts)"
-```text
+```
 
 ---
 
@@ -391,7 +391,7 @@ You just released v2.5.1 and need to update all docs:
 
 # Update command counts (if commands added)
 /craft:docs:update --category=command_counts --auto-yes
-```text
+```
 
 ### Scenario 2: Documentation Audit
 
@@ -405,7 +405,7 @@ You want to fix all documentation issues:
 
 # Apply interactively
 /craft:docs:update --interactive
-```text
+```
 
 ### Scenario 3: Specific Issue
 
@@ -413,7 +413,7 @@ You know there are broken links:
 
 ```bash
 /craft:docs:update --category=broken_links
-```text
+```
 
 ### Scenario 4: New Commands Added
 
@@ -421,7 +421,7 @@ You added commands and they need help:
 
 ```bash
 /craft:docs:update --category=missing_help
-```text
+```
 
 ---
 
@@ -433,7 +433,7 @@ Start with one category:
 
 ```bash
 /craft:docs:update --category=version_refs
-```text
+```
 
 ### "I'm Not Sure What Changed"
 
@@ -441,7 +441,7 @@ Always use dry-run first:
 
 ```bash
 /craft:docs:update --interactive --dry-run
-```text
+```
 
 ### "I Made a Mistake!"
 
@@ -449,7 +449,7 @@ Revert with git:
 
 ```bash
 git checkout .  # Undo all changes
-```text
+```
 
 ### "Utilities Not Found"
 
@@ -458,7 +458,7 @@ Check installation:
 ```bash
 ls utils/docs_detector.py
 ls utils/help_file_validator.py
-```text
+```
 
 If missing, you're on the wrong branch.
 

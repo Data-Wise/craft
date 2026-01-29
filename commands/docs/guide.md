@@ -293,6 +293,7 @@ Generate domain-specific quick reference (if 3+ commands):
 [command]
 ```
 
+<!-- markdownlint-disable-next-line MD024 -->
 ## Troubleshooting
 
 | Issue | Solution |

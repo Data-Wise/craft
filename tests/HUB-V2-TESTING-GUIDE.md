@@ -114,7 +114,7 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 
 ### Navigation Hint
 
-- [ ] Shows tip: "Say '/craft:hub <category>' to explore a category"
+- [ ] Shows tip: "Say '/craft:hub `<category>`' to explore a category"
 - [ ] Example provided: "/craft:hub code"
 
 ---

@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD046 -->
 # Teaching Mode Setup
 
 ⏱️ **25 minutes** • 🟢 Beginner • ✓ Complete first-time setup

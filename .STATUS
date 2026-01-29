@@ -1,10 +1,60 @@
-status: Released
-version: 2.8.1
-release_date: 2026-01-28
-milestone: v2.8.1 - Markdown Lint Style Fixes
-last_session: 2026-01-28T12:45:00Z
+status: Active
+version: 2.9.0-dev
+release_date: 2026-01-28 (v2.8.1)
+milestone: v2.9.0 - Release & Next Features
+last_session: 2026-01-29T18:00:00Z
 
-progress: 100% (v2.8.1 RELEASED ✅)
+progress: 75% (docs generated, tests passing, awaiting release)
+
+📊 Branch Status (as of 2026-01-29):
+
+| Branch    | Head     | Ahead of | Status                     |
+|-----------|----------|----------|----------------------------|
+| main      | ff5fc2f  | —        | Production (v2.8.1)        |
+| dev       | 5b76d91  | main +20 | Docs updated, ready for QA |
+| gh-pages  | 106e35f  | —        | Deployed docs site         |
+
+Worktrees:
+  • /Users/dt/projects/dev-tools/craft → dev (main repo)
+
+Cleaned up branches:
+  • feature/command-enhancements — merged via PR #36, deleted
+  • feature/v2.9.0 — WIP discarded, branch deleted
+  • feature/git-init-command — deleted (stale)
+
+🎯 Next Action: Final QA review, then dev → main PR for v2.9.0 release
+
+✅ Just Completed (Session 2026-01-29 - Documentation Generation):
+- Documentation updated for merged features ✅
+  • VERSION-HISTORY.md: Added v2.9.0-dev entry with feature summary
+  • SPEC updated: Status draft → implemented, all acceptance criteria checked
+  • CLAUDE.md: Updated test counts (770+), feature status, worktrees, key files
+  • mkdocs.yml: Updated site description, added spec to nav
+  • Tutorial fix: 32 broken code fence closings in interactive-docs-update-tutorial.md
+  • Reference fix: 11 broken code fence closings in REFCARD-DOCS-UPDATE.md
+- All existing documentation verified comprehensive:
+  • Guide: docs/guide/interactive-commands.md (170 lines)
+  • Tutorial: docs/tutorials/interactive-orchestration.md (222 lines)
+  • Reference: docs/reference/REFCARD-INTERACTIVE-COMMANDS.md (262 lines)
+  • 4 command doc pages updated with interactive workflow sections
+
+✅ Earlier Completed (Session 2026-01-29 - Command Enhancements):
+- PR #36 Merged: feature/command-enhancements → dev ✅
+  • 9 commits, 5 phases implemented
+  • Phase 1: Interactive orchestration with plan confirmation
+  • Phase 2: Show Steps First pattern with wave checkpoints
+  • Phase 3: Git worktree auto-setup with scope detection
+  • Phase 4: docs:update --post-merge pipeline
+  • Phase 5: Check step preview with mode-specific lists
+  • Orchestrator-v2 aligned with Claude Code subagent architecture
+  • Docs: help files, guide, tutorial, refcard added
+  • Tests: unit and e2e tests added
+- Branch Cleanup ✅
+  • feature/v2.9.0 WIP branch deleted (7,418 lines — no longer needed)
+  • feature/command-enhancements deleted post-merge
+  • Worktree directories cleaned up
+- Markdown Lint Cleanup ✅
+  • Full codebase passes markdownlint (0 errors, 349 files)
 
 ✅ Just Completed (Session 2026-01-28 - Markdown Lint Fixes):
 - v2.8.1 Patch Release ✅

@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD051 -->
 # Test Violations File
 
 This file contains known violations for testing documentation quality checks.

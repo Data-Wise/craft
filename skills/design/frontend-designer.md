@@ -91,7 +91,7 @@ triggers:
 **Anti-Patterns to Avoid:**
 
 - ❌ Custom design system before 10K users
-- ❌ Over-abstraction (generic <Button> with 20 props)
+- ❌ Over-abstraction (generic `<Button>` with 20 props)
 - ❌ Premature animation (ship functionality first)
 - ❌ Pixel-perfect designs (80% is shipping)
 

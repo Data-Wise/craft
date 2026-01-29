@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD046 -->
 # Integration Testing Guide
 
 ⏱️ **15 minutes** • 🟢 Beginner • ✓ Complete guide
@@ -305,7 +306,7 @@ The teaching workflow system enables course management and publishing. Tests ver
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| **Dependency System** |
+| **Dependency System** | | |
 | Main orchestrator | `scripts/dependency-manager.sh` | Coordinates detection, check, fix, batch |
 | Tool detection | `scripts/tool-detector.sh` | Finds tools using 4 methods |
 | Health validation | `scripts/health-check.sh` | Verifies tool functionality |
@@ -315,14 +316,14 @@ The teaching workflow system enables course management and publishing. Tests ver
 | Binary installer | `scripts/installers/installer-binary.sh` | Direct binary download |
 | Consent installer | `scripts/installers/installer-consent.sh` | Interactive approval |
 | Session cache | `scripts/session-cache.sh` | Performance caching |
-| **Orchestrator** |
+| **Orchestrator** | | |
 | Complexity scorer | `utils/complexity_scorer.py` | Calculates task complexity (0-10) |
 | Task routing | `commands/do.md` | Routes tasks to correct handler |
 | Orchestration | `commands/orchestrate.md` | Multi-agent coordination |
 | Validators | `.claude-plugin/skills/validation/` | Hot-reload validators |
 | Hooks | `.claude-plugin/hooks/orchestrate-hooks.sh` | Lifecycle hooks |
 | Orchestrator v2 | `agents/orchestrator-v2.md` | v2.3.0 agent |
-| **Teaching** |
+| **Teaching** | | |
 | Detection | `commands/utils/detect_teaching_mode.py` | Detects teaching projects |
 | Config | `commands/utils/teach_config.py` | Parses configuration |
 | Validation | `commands/utils/teaching_validation.py` | Validates content |

@@ -280,7 +280,7 @@ Let's say you want to ensure your CHANGELOG is always updated. Here's how simple
 
 **Create file:** `~/.craft/validators/changelog-updated.md`
 
-```markdown
+````markdown
 ---
 name: check:changelog-updated
 description: Ensure CHANGELOG.md was updated in this release
@@ -307,8 +307,7 @@ else
   exit 1
 fi
 ```
-
-```
+````
 
 **That's it!** Next time you run `/craft:check`, this validator automatically runs—no restart required.
 
@@ -396,10 +395,12 @@ You asked for a feature. You got a complete, tested feature. One command.
 **What happens:**
 
 **Wave 1 (Parallel):**
+
 - Architecture Agent reviews system changes
 - Documentation Agent updates README, CHANGELOG, guides
 
 **Wave 2 (Sequential):**
+
 - Backend Agent implements final changes
 - Testing Agent runs full test suite
 
@@ -409,6 +410,7 @@ You asked for a feature. You got a complete, tested feature. One command.
 Everything stops. You're stuck.
 
 **New behavior:**
+
 - Documentation completes ✅
 - Backend continues with note: "Using existing architecture docs"
 - Testing proceeds ✅
@@ -427,7 +429,7 @@ One skip didn't derail the whole release prep. You kept moving forward.
 
 1. Create `~/.craft/validators/no-console-log.md`:
 
-```markdown
+````markdown
 ---
 name: check:no-console-log
 description: Ensure no console.log in production code
@@ -451,8 +453,7 @@ else
   exit 0
 fi
 ```
-
-```
+````
 
 2. That's it! No restart needed.
 
@@ -478,6 +479,7 @@ You wanted a new check. You created a file. It works immediately.
 `/craft:do "fix the navigation menu bug" --dry-run`
 
 **What to watch for:**
+
 - Complexity score (probably 4-5, medium)
 - Which agent it would delegate to (`bug-detective`)
 - Why it made that choice
@@ -486,6 +488,7 @@ You wanted a new check. You created a file. It works immediately.
 `/craft:do "update the README" --dry-run`
 
 **What to watch for:**
+
 - Lower complexity score (probably 1-2, simple)
 - Routes to simple command instead of agent
 
@@ -497,6 +500,7 @@ You wanted a new check. You created a file. It works immediately.
 `/craft:orchestrate "update documentation site"`
 
 **During execution:**
+
 - Watch the wave progress
 - If prompted for permission, try skipping one agent
 - Notice that others continue
@@ -510,7 +514,7 @@ You wanted a new check. You created a file. It works immediately.
 
 **File:** `~/.craft/validators/git-status-clean.md`
 
-```markdown
+````markdown
 ---
 name: check:git-clean
 description: Ensure no uncommitted changes
@@ -532,13 +536,13 @@ else
   exit 1
 fi
 ```
-
-```
+````
 
 **Then run:**
 `/craft:check`
 
 **What to watch for:**
+
 - Your new validator appears automatically
 - It runs without any restart
 - Result shows in the custom validators section
@@ -552,6 +556,7 @@ fi
 **A:** Use `/craft:do` when you want smart routing. It'll figure out the best approach. Use specific commands when you know exactly what you want.
 
 **Rule of thumb:**
+
 - Unsure what command to use? → `/craft:do`
 - Know exactly what you need? → Specific command
 

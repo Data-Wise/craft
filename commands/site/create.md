@@ -576,6 +576,7 @@ Expected output:
 |-------|----------|
 | {issue1} | {solution1} |
 
+<!-- markdownlint-disable-next-line MD024 -->
 ## Links
 
 - [Full Documentation](guide/overview.md)

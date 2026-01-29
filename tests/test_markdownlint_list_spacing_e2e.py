@@ -6,10 +6,12 @@ Tests full workflow including linting, auto-fix, and pre-commit hook integration
 """
 
 import json
+import os
 import subprocess
 import tempfile
 import shutil
 from pathlib import Path
+import pytest
 
 
 class TestFullLintingWorkflow:
@@ -167,6 +169,10 @@ Text before list
             Path(temp_path).unlink()
 
 
+@pytest.mark.skipif(
+    os.getenv("CI") is not None,
+    reason="Pre-commit hooks not installed in CI environment"
+)
 class TestPrecommitHookIntegration:
     """Tests for pre-commit hook integration."""
 

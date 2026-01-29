@@ -25,6 +25,83 @@ Manage git worktrees for working on multiple branches simultaneously without swi
 - **Claude Code friendly** - Each terminal/session stays on its branch
 - **No stash juggling** - Uncommitted work stays put
 
+## Execution Behavior (MANDATORY)
+
+When this command runs, Claude MUST follow these steps in order. Do NOT skip
+the setup plan or proceed without confirming with the user.
+
+### Step 0: Show Setup Plan
+
+Before making ANY changes (creating directories, branches, or files), display
+what will happen:
+
+```text
+Worktree Setup Plan:
+  Project: <project-name>
+  Action: <create|move|clean|finish>
+  Branch: <branch-name>
+  Location: ~/.git-worktrees/<project>/<folder-name>
+
+  Steps:
+  1. <first action> (e.g., Create worktree directory)
+  2. <second action> (e.g., Create branch from dev)
+  3. <third action> (e.g., Install dependencies)
+  ...
+```
+
+### Step 0.5: Confirm Before Executing
+
+After showing the plan, ask before proceeding:
+
+```json
+{
+  "questions": [{
+    "question": "Proceed with this worktree setup?",
+    "header": "Worktree",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Yes - Create worktree (Recommended)",
+        "description": "Execute the <N> steps shown above."
+      },
+      {
+        "label": "Change base branch",
+        "description": "Branch from a different base (currently: dev)."
+      },
+      {
+        "label": "Change location",
+        "description": "Use a different worktree directory."
+      },
+      {
+        "label": "Cancel",
+        "description": "Exit without creating anything."
+      }
+    ]
+  }]
+}
+```
+
+### Steps 1-N: Execute with Progress
+
+Show each step as it completes:
+
+```text
+  [1/N] Creating directory... ✅
+  [2/N] Creating branch... ✅
+  [3/N] Installing dependencies... ✅
+  ...
+```
+
+### Step N+1: Summary with Next Steps
+
+```text
+  Worktree ready: ~/.git-worktrees/<project>/<folder>
+  Branch: <branch-name>
+  Next: cd <path> && claude
+```
+
+**Exception:** The `list` action does not require confirmation — it's read-only.
+
 ## Usage
 
 ```bash
@@ -132,6 +209,132 @@ echo "✅ Worktree ready at ~/.git-worktrees/$project/$folder_name"
 │   cd ~/.git-worktrees/aiterm/feature-new-ui         │
 │   claude                                            │
 ╰─────────────────────────────────────────────────────╯
+```
+
+### Auto-Setup After Create (NEW)
+
+After creating a worktree, the command automatically detects scope from the
+branch name and offers to create workflow files.
+
+#### Scope Detection
+
+| Branch Pattern | Scope | Auto-Create |
+|----------------|-------|-------------|
+| `fix/*` | Small | No workflow files |
+| `feature/*` | Medium | ORCHESTRATE file |
+| `v*` (release) | Release | ORCHESTRATE + SPEC |
+| User selects "multi-phase" | Large | ORCHESTRATE + SPEC + .STATUS + CLAUDE.md |
+| User selects "custom" | Custom | Ask what to create |
+
+#### Scope Confirmation
+
+After detecting scope, confirm with the user:
+
+```json
+{
+  "questions": [{
+    "question": "Branch '<branch>' detected as <scope> scope. What workflow files should I create?",
+    "header": "Scope",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "<auto-detected option> (Recommended)",
+        "description": "Based on branch pattern '<pattern>'."
+      },
+      {
+        "label": "Multi-phase project",
+        "description": "ORCHESTRATE + SPEC + update .STATUS + update CLAUDE.md."
+      },
+      {
+        "label": "Minimal (no files)",
+        "description": "Skip workflow file creation."
+      },
+      {
+        "label": "Custom",
+        "description": "Choose exactly which files to create."
+      }
+    ]
+  }]
+}
+```
+
+#### Files Created
+
+**ORCHESTRATE file** (`ORCHESTRATE-<name>.md`):
+
+```markdown
+# <Name> Orchestration Plan
+
+> **Branch:** `<branch>`
+> **Base:** `dev`
+> **Worktree:** `~/.git-worktrees/<project>/<folder>`
+
+## Objective
+
+[Describe the goal of this work]
+
+## Phase Overview
+
+| Phase | Task | Priority | Status |
+| ----- | ---- | -------- | ------ |
+| 1     |      | High     |        |
+
+## Acceptance Criteria
+
+- [ ] ...
+
+## How to Start
+
+\`\`\`bash
+cd <worktree-path>
+claude
+\`\`\`
+```
+
+**SPEC file** (`docs/specs/SPEC-<name>-<date>.md`) — for medium+ scope:
+
+```markdown
+# SPEC: <Name>
+
+> **Date:** <YYYY-MM-DD>
+> **Branch:** `<branch>`
+> **Status:** Draft
+
+## Summary
+
+[1-2 sentence summary]
+
+## Requirements
+
+- ...
+
+## Design
+
+[Architecture decisions, trade-offs]
+
+## Implementation Plan
+
+| Step | Description | Files |
+| ---- | ----------- | ----- |
+| 1    |             |       |
+```
+
+**Main repo updates** — for multi-phase scope only:
+
+- `.STATUS`: Add worktree entry with `status: WIP`
+- `CLAUDE.md`: Add row to Active Worktrees table
+
+#### Auto-Setup Flow
+
+```text
+create worktree
+  → detect scope from branch name
+  → AskUserQuestion: confirm scope
+  → create ORCHESTRATE file (if medium+)
+  → create SPEC file (if release/multi-phase)
+  → update .STATUS in main repo (if multi-phase)
+  → update CLAUDE.md in main repo (if multi-phase)
+  → show summary of created files
 ```
 
 ### move - Move Current Branch to Worktree

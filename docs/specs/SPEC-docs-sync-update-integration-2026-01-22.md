@@ -136,8 +136,8 @@
 
 ### ❌ Missing Integration
 
-| Gap | Impact |
-|-----|--------|
+| Gap | Impact | Priority |
+|-----|--------|----------|
 | **No handoff** | User must manually run `docs:update` after `sync` | Medium |
 | **Re-scanning** | `update` might re-scan what `sync` already found | Low |
 | **No cache** | `sync` results not persisted for `update` | Low |

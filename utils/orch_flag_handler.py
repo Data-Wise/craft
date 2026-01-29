@@ -52,58 +52,41 @@ def handle_orch_flag(
 
 def prompt_user_for_mode() -> str:
     """
-    Prompt user to select orchestration mode interactively.
+    Fallback for mode selection in non-interactive contexts.
 
-    This function documents the expected behavior when Claude Code
-    uses the AskUserQuestion tool to prompt for mode selection.
+    IMPORTANT: This function only runs in tests and scripts. The actual
+    interactive mode selection is implemented in commands/orchestrate.md
+    under "Execution Behavior > Step 0: Mode Selection", which instructs
+    Claude to use AskUserQuestion with structured options.
 
-    In Claude Code execution context:
-        - Displays 4 mode options with descriptions
-        - User selects interactively
-        - Returns selected mode name
+    When called by Claude Code:
+        - Claude reads commands/orchestrate.md
+        - Step 0 triggers AskUserQuestion (JSON prompt)
+        - This Python function is NOT invoked
 
-    In test/programmatic context:
-        - Falls back to "default" mode
+    When called in tests/scripts:
         - Displays available modes as reference
+        - Returns "default" as fallback
 
     Returns:
-        Selected mode name (default|debug|optimize|release)
+        "default" (always, in non-interactive context)
 
-    Note:
-        The interactive prompt requires Claude Code's AskUserQuestion tool.
-        When invoked by Claude, it will show:
-
-        Question: "Which orchestration mode should I use?"
-        Options:
-          1. default (2 agents) - Recommended
-             Quick tasks, moderate parallelization
-          2. debug (1 agent)
-             Sequential, verbose output for troubleshooting
-          3. optimize (4 agents)
-             Fast parallel work, aggressive optimization
-          4. release (4 agents)
-             Pre-release audit, thorough validation
-
-        In non-interactive contexts (tests, scripts), defaults to "default".
+    See Also:
+        commands/orchestrate.md - Step 0: Mode Selection (AskUserQuestion)
+        agents/orchestrator-v2.md - BEHAVIOR 1: Task Analysis + Plan Confirmation
     """
-    try:
-        # In actual Claude Code execution, this would use AskUserQuestion tool
-        # For documentation and testing, we display modes and return default
-        print("\n🎯 Orchestration Mode Selection")
-        print("=" * 50)
-        print("\nAvailable modes:")
-        for mode, desc in MODE_DESCRIPTIONS.items():
-            print(f"  {mode:10s} - {desc}")
-        print("\n💡 In Claude Code, you'll get an interactive prompt")
-        print("💡 In scripts/tests, defaulting to 'default' mode")
-        print("   Use --orch=<mode> for explicit selection\n")
+    # Non-interactive fallback — display modes and return default
+    print("\n🎯 Orchestration Mode Selection")
+    print("=" * 50)
+    print("\nAvailable modes:")
+    for mode, desc in MODE_DESCRIPTIONS.items():
+        print(f"  {mode:10s} - {desc}")
+    print("\n💡 In Claude Code, AskUserQuestion prompts mode selection")
+    print("   See: commands/orchestrate.md > Step 0: Mode Selection")
+    print("💡 In scripts/tests, defaulting to 'default' mode")
+    print("   Use --orch=<mode> for explicit selection\n")
 
-        return "default"
-
-    except Exception as e:
-        print(f"⚠️  Mode selection failed: {e}")
-        print(f"💡 Defaulting to 'default' mode")
-        return "default"
+    return "default"
 
 
 def show_orchestration_preview(

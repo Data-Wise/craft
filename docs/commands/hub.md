@@ -325,6 +325,7 @@ Shows detailed documentation for a specific command:
 
 ---
 
+<!-- markdownlint-disable-next-line MD024 -->
 ## Layer 3: Command Detail + Tutorial
 
 **Invocation:** `/craft:hub <category>:<command>`

@@ -508,7 +508,7 @@ my-craft-validator/
 
 ### README Template
 
-```markdown
+````markdown
 # My Craft Validator
 
 > Custom validator for [what it validates]
@@ -570,12 +570,12 @@ Pull requests welcome! Please ensure:
 ## License
 
 MIT
-
-```
+````
 
 ### GitHub Topics
 
 Add these topics to your repository:
+
 - `craft-plugin`
 - `craft-plugin-validator`
 - `validation`
@@ -588,7 +588,7 @@ Add these topics to your repository:
 
 ### Example 1: Simple Linter
 
-```markdown
+````markdown
 ---
 name: check:yamllint
 description: YAML file linting
@@ -642,11 +642,11 @@ else
 fi
 ```
 
-```
+````
 
 ### Example 2: Performance Check
 
-```markdown
+````markdown
 ---
 name: check:load-time
 description: Page load time validation
@@ -703,8 +703,7 @@ else
     exit 1
 fi
 ```
-
-```
+````
 
 ---
 

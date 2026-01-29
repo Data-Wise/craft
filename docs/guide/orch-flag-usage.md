@@ -293,6 +293,7 @@ If you encounter issues not covered here:
 /craft:ci:generate --orch=optimize
 ```
 
+<!-- markdownlint-disable-next-line MD024 -->
 ## Troubleshooting
 
 ### Common Issues

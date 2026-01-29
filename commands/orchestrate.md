@@ -120,16 +120,125 @@ Preview the orchestration plan without spawning any agents:
 /craft:orchestrate "debug login" debug    # Sequential verbose
 ```
 
+## Execution Behavior (MANDATORY)
+
+When this command runs, Claude MUST follow these steps in order. Do NOT skip
+any step or proceed without confirmation.
+
+### Step 0: Mode Selection (when no mode argument given)
+
+If the user did not specify a mode (`default|debug|optimize|release`), prompt:
+
+```json
+{
+  "questions": [{
+    "question": "Which orchestration mode should I use?",
+    "header": "Mode",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Default (Recommended)",
+        "description": "2 agents max, balanced speed and oversight. Best for most tasks."
+      },
+      {
+        "label": "Debug",
+        "description": "1 agent, sequential execution, verbose output. Use for troubleshooting."
+      },
+      {
+        "label": "Optimize",
+        "description": "4 agents, aggressive parallelization. Use for speed-critical work."
+      },
+      {
+        "label": "Release",
+        "description": "4 agents, full audit trail. Use for pre-release validation."
+      }
+    ]
+  }]
+}
+```
+
+If the user specified a mode via argument, skip this step and use that mode.
+
+### Step 1: Task Analysis (show plan FIRST)
+
+Analyze the task and display a numbered plan. Do NOT spawn any agents yet.
+
+```text
+## TASK ANALYSIS
+
+**Request**: [1-sentence summary]
+**Complexity**: [simple | moderate | complex | multi-phase]
+**Mode**: [selected mode] ([max agents] agents max)
+**Estimated subtasks**: N
+**Delegation strategy**: [sequential | parallel | hybrid]
+
+| # | Task | Agent | Wave | Dependencies |
+|---|------|-------|------|--------------|
+| 1 | ... | ... | 1 | none |
+| 2 | ... | ... | 1 | none |
+| 3 | ... | ... | 2 | 1 |
+```
+
+### Step 2: Confirm Before Execution
+
+After showing the plan, ALWAYS ask before spawning agents:
+
+```json
+{
+  "questions": [{
+    "question": "Proceed with this orchestration plan?",
+    "header": "Continue",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Yes - Start Wave 1 (Recommended)",
+        "description": "Begin executing the plan as shown above."
+      },
+      {
+        "label": "Modify steps",
+        "description": "I'll adjust the task breakdown before executing."
+      },
+      {
+        "label": "Change mode",
+        "description": "Switch to a different execution mode."
+      },
+      {
+        "label": "Cancel",
+        "description": "Abort orchestration without spawning agents."
+      }
+    ]
+  }]
+}
+```
+
+Only spawn agents after the user selects "Yes - Start Wave 1".
+
+### Steps 3-N: Execute with Progress
+
+Spawn agents according to the confirmed plan. Show progress after each wave.
+
+### Mode-Specific Behavior
+
+| Behavior | default | debug | optimize | release |
+|----------|---------|-------|----------|---------|
+| Plan display | Summary table | Step traces with rationale | Parallel dependency map | Full audit with risk notes |
+| Checkpoints | Per wave | Every step | Wave end only | Every step |
+| Agent output | Summary | Verbose (full output) | Summary | Full output + diffs |
+| Auto-proceed | Ask per wave | Ask every step | Ask per wave | Ask every step |
+
 ## What It Does
 
 Activates **Orchestrator v2.1** mode which:
 
-1. **Analyzes** your task and decomposes into subtasks
-2. **Spawns** background subagents to work in parallel
-3. **Monitors** progress with visual status dashboard
-4. **Tracks context** usage with token estimation
-5. **Compresses** chat when approaching limits
-6. **Reports** results with ADHD-friendly formatting
+1. **Selects mode** — asks if not specified (Step 0)
+2. **Analyzes** your task and shows the plan (Step 1)
+3. **Confirms** before spawning any agents (Step 2)
+4. **Spawns** background subagents to work in parallel
+5. **Monitors** progress with visual status dashboard
+6. **Checkpoints** between waves for review
+7. **Tracks context** usage with token estimation
+8. **Compresses** chat when approaching limits
+9. **Reports** results with ADHD-friendly formatting
 
 ## Examples
 
