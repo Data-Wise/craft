@@ -113,8 +113,6 @@ nav:
       - Config Schema: teaching-config-schema.md
       - Migration Guide: teaching-migration.md
     - Specialized Features:
-      - NEW Beginner Check Tutorial: tutorials/check-tutorial-beginner.md
-      - NEW Smart Routing Tutorial: tutorials/smart-routing-tutorial.md
       - NEW Interactive Commands: guide/interactive-commands.md
       - NEW Check Command Mastery: guide/check-command-mastery.md
       - NEW Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
@@ -163,12 +161,9 @@ nav:
     - Cookbook Home: cookbook/index.md
     - Common Recipes:
       - Set Up New Project: cookbook/common/setup-new-project.md
-      - Check Code Quality Before Commit: cookbook/common/check-code-quality-before-commit.md
       - Deploy Course Website: cookbook/common/deploy-course-website.md
-      - Post-Merge Documentation Update: cookbook/common/post-merge-documentation.md
-      - Use Interactive Orchestration: cookbook/common/use-interactive-orchestration.md
-      - Setup Parallel Worktrees: cookbook/common/setup-parallel-worktrees.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
+      - Check Code Quality Before Commit: cookbook/common/check-code-quality-before-commit.md
     - Troubleshooting:
       - Command Not Found: cookbook/troubleshooting/command-not-found.md
 
@@ -189,7 +184,6 @@ nav:
       - NEW (v2.7.0) Docs Update Reference: reference/REFCARD-DOCS-UPDATE.md
       - NEW Interactive Commands Reference: reference/REFCARD-INTERACTIVE-COMMANDS.md
       - NEW Git Worktree Quick Reference: reference/REFCARD-GIT-WORKTREE.md
-      - NEW Check Command Reference: reference/REFCARD-CHECK.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md

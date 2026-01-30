@@ -1,24 +1,43 @@
 status: Active
-version: 2.9.2-dev
+version: 2.10.0-dev
 release_date: 2026-01-29 (v2.9.1)
-milestone: v2.10.0 - Future Enhancements
-last_session: 2026-01-29T23:18:00Z
+milestone: v2.10.0 - Claude-MD Command Suite
+last_session: 2026-01-30T00:15:00Z
 
-progress: 100% (v2.9.1 RELEASED)
+progress: 100% (PR #39 MERGED - Claude-MD port complete)
 
-📊 Branch Status (as of 2026-01-29):
+📊 Branch Status (as of 2026-01-30):
 
 | Branch    | Head     | Ahead of | Status                        |
 |-----------|----------|----------|-------------------------------|
 | main      | ed4c796  | —        | Production (v2.9.1) ✅         |
-| dev       | ed4c796  | —        | Synced with main              |
+| dev       | (merge)  | +8       | Claude-MD suite merged        |
 | gh-pages  | 106e35f  | —        | Deployed docs site            |
 
 Worktrees:
   • /Users/dt/projects/dev-tools/craft → dev (main repo)
   • No active feature worktrees - clean state
 
-🎯 Current State: v2.9.1 released and deployed
+🎯 Current State: PR #39 merged - 5 claude-md commands + test enhancements
+
+✅ PR #39 Merged (2026-01-30):
+
+**What Merged:**
+- 5 new commands: update, audit, fix, scaffold, edit
+- 7 utility modules (2,713 lines Python)
+- 3 project templates (plugin, teaching, r-package)
+- 81 tests (100% passing, 0.024s)
+- 3,304 lines documentation
+- Test enhancements: concurrent, symlink, performance
+
+**Files Changed:** 38 (+15,997/-271)
+
+**Performance:**
+- Full detection: 0.003s (166x faster than target)
+- Command scanning: 0.002s (50x faster than target)
+- Version extraction: 0.001s per 100 calls
+
+---
 
 ✅ v2.9.1 Release Complete (2026-01-29):
 

@@ -1,0 +1,491 @@
+# Quick Reference: CLAUDE.md Commands
+
+> **Fast lookup** for claude-md command syntax and common workflows.
+
+**5 Commands** · **3 Templates** · **Show Steps First Pattern**
+
+---
+
+## Command Summary
+
+| Command | Purpose | Interactive | Time |
+|---------|---------|-------------|------|
+| `scaffold` | Create from template | Yes | ~2 min |
+| `update` | Sync with project | Yes | ~1 min |
+| `audit` | Validate (read-only) | No | ~10 sec |
+| `fix` | Auto-fix issues | Yes | ~30 sec |
+| `edit` | Section editing | Yes | ~2 min |
+
+---
+
+## Quick Start
+
+```bash
+# New project - create CLAUDE.md
+/craft:docs:claude-md:scaffold
+
+# Existing project - check status
+/craft:docs:claude-md:audit
+
+# Fix issues
+/craft:docs:claude-md:fix
+
+# Keep current
+/craft:docs:claude-md:update
+```
+
+---
+
+## scaffold - Create from Template
+
+### Basic Usage
+
+```bash
+# Auto-detect project type
+/craft:docs:claude-md:scaffold
+
+# Force specific template
+/craft:docs:claude-md:scaffold --template=plugin
+/craft:docs:claude-md:scaffold --template=teaching
+/craft:docs:claude-md:scaffold --template=r-package
+
+# Overwrite existing
+/craft:docs:claude-md:scaffold --force
+
+# Preview without creating
+/craft:docs:claude-md:scaffold --dry-run
+```
+
+### Templates
+
+| Template | For | Auto-Detected When |
+|----------|-----|---------------------|
+| `plugin` | Craft plugins | `.claude-plugin/plugin.json` exists |
+| `teaching` | Quarto course sites | `_quarto.yml` + `course.yml` exist |
+| `r-package` | R packages | `DESCRIPTION` + `NAMESPACE` exist |
+
+### Auto-Populated Variables
+
+**Plugin template (18 variables):**
+
+- Name, version, description from `plugin.json`
+- Command/skill/agent counts from directory scan
+- Repository URL from git remote
+- Documentation URL from `plugin.json`
+
+**Teaching template (12 variables):**
+
+- Course name/code from `course.yml`
+- Semester, instructor from `course.yml`
+- Week/assignment/exam counts from filesystem
+
+**R package template (15 variables):**
+
+- Package metadata from `DESCRIPTION`
+- Function/test/vignette counts from directories
+- Dependencies from `DESCRIPTION`
+
+---
+
+## update - Sync with Project
+
+### Basic Usage
+
+```bash
+# Full update (all sections)
+/craft:docs:claude-md:update
+
+# Specific section only
+/craft:docs:claude-md:update status
+/craft:docs:claude-md:update commands
+/craft:docs:claude-md:update architecture
+
+# Update + optimize
+/craft:docs:claude-md:update --optimize
+
+# Preview without applying
+/craft:docs:claude-md:update --dry-run
+
+# Interactive section selection
+/craft:docs:claude-md:update --interactive
+```
+
+### What Gets Updated
+
+**All project types:**
+
+- Version (from plugin.json/package.json/pyproject.toml/DESCRIPTION)
+- Status and progress (from .STATUS file)
+
+**Craft plugins:**
+
+- Command count and list
+- Skill count and list
+- Agent count and list
+- Test count
+
+**Teaching sites:**
+
+- Week count
+- Assignment count
+- Course metadata
+
+**R packages:**
+
+- Function count
+- Test count
+- Vignette count
+- Dependencies
+
+---
+
+## audit - Validate
+
+### Basic Usage
+
+```bash
+# Audit local CLAUDE.md
+/craft:docs:claude-md:audit
+
+# Strict mode (exit 1 on errors)
+/craft:docs:claude-md:audit --strict
+
+# Specific scope
+/craft:docs:claude-md:audit errors
+/craft:docs:claude-md:audit warnings
+/craft:docs:claude-md:audit all
+```
+
+### Checks Performed
+
+| Check | Severity | Description |
+|-------|----------|-------------|
+| Version mismatch | Warning | CLAUDE.md version vs source |
+| Stale commands | Error | Commands that no longer exist |
+| Broken links | Error | Dead internal/external links |
+| Missing sections | Warning | Required sections absent |
+| Progress drift | Warning | Progress vs .STATUS mismatch |
+
+### Output Format
+
+```text
+AUDIT RESULTS
+
+File: CLAUDE.md (242 lines)
+Last modified: 2 weeks ago
+
+ERRORS (2):
+  Line 45: Command /craft:old-command no longer exists
+  Line 78: Broken link to docs/removed.md
+
+WARNINGS (3):
+  Version mismatch: v1.0.0 vs v1.2.0
+  Progress drift: 60% vs 85%
+  Missing: 3 new commands not documented
+
+INFO (1):
+  Optimization available (file length: 242 lines)
+
+Status: FAILED (2 errors)
+```
+
+---
+
+## fix - Auto-Fix Issues
+
+### Basic Usage
+
+```bash
+# Fix errors only
+/craft:docs:claude-md:fix
+
+# Fix errors + warnings
+/craft:docs:claude-md:fix warnings
+
+# Fix everything auto-fixable
+/craft:docs:claude-md:fix all
+
+# Preview without applying
+/craft:docs:claude-md:fix --dry-run
+
+# Interactive confirmation
+/craft:docs:claude-md:fix --interactive
+```
+
+### Auto-Fixable Issues
+
+| Issue | Fix Action |
+|-------|------------|
+| Stale command reference | Remove from table |
+| Broken link | Remove link reference |
+| Version mismatch | Update to source version |
+| Progress drift | Sync from .STATUS |
+
+### Manual-Only Issues
+
+- Missing sections (need content)
+- New commands (use `update` instead)
+- Template restructuring
+- Custom content updates
+
+### Output Format
+
+```text
+Auto-fixing issues...
+
+Fix 1/4: Remove stale command
+  Line 45: /craft:old-command
+  Status: FIXED
+
+Fix 2/4: Update version
+  v1.0.0 → v1.2.0
+  Status: FIXED
+
+Fix 3/4: Sync progress
+  60% → 85%
+  Status: FIXED
+
+Fix 4/4: Add new commands (MANUAL)
+  Missing: 3 commands
+  Status: SKIPPED
+
+Summary:
+  3 fixed automatically
+  1 requires manual action
+```
+
+---
+
+## edit - Section Editing
+
+### Basic Usage
+
+```bash
+# Interactive section selection
+/craft:docs:claude-md:edit
+
+# Edit specific section by name
+/craft:docs:claude-md:edit "Quick Commands"
+/craft:docs:claude-md:edit troubleshooting
+
+# Replace entire section
+/craft:docs:claude-md:edit "Testing" --replace
+
+# Delete section
+/craft:docs:claude-md:edit "Deprecated" --delete
+```
+
+### Section Operations
+
+| Operation | Command | Description |
+|-----------|---------|-------------|
+| **Edit** | `/craft:docs:claude-md:edit` | Modify section content |
+| **Replace** | `--replace` | Replace entire section |
+| **Delete** | `--delete` | Remove section |
+| **Preview** | (automatic) | Show diff before applying |
+
+### Interactive Flow
+
+```text
+1. List sections
+2. Select section (1-8, all, cancel)
+3. Open in editor (iA Writer default)
+4. Make changes and save
+5. Preview diff with change stats
+6. Confirm (apply/edit more/discard/cancel)
+7. Apply changes
+8. Auto-backup created
+```
+
+---
+
+## Common Workflows
+
+### New Project Setup (5 min)
+
+```bash
+cd ~/projects/my-project
+/craft:docs:claude-md:scaffold
+/craft:docs:claude-md:edit      # Customize
+/craft:docs:claude-md:audit      # Validate
+git add CLAUDE.md
+git commit -m "docs: add CLAUDE.md"
+```
+
+### Weekly Maintenance (3 min)
+
+```bash
+/craft:docs:claude-md:audit      # Check status
+/craft:docs:claude-md:fix        # Auto-fix
+/craft:docs:claude-md:update     # Sync changes
+git add CLAUDE.md
+git commit -m "docs: update CLAUDE.md"
+```
+
+### Pre-Release Validation (2 min)
+
+```bash
+/craft:docs:claude-md:update --optimize
+/craft:docs:claude-md:audit --strict
+/craft:docs:claude-md:fix all
+git add CLAUDE.md
+git commit -m "docs: prepare CLAUDE.md for release"
+```
+
+### Quick Section Update (2 min)
+
+```bash
+/craft:docs:claude-md:edit       # Select section
+# Edit in iA Writer
+# Review diff
+# Confirm and apply
+git add CLAUDE.md
+git commit -m "docs: update troubleshooting section"
+```
+
+---
+
+## Flags & Options
+
+### Common Flags
+
+| Flag | Short | Commands | Purpose |
+|------|-------|----------|---------|
+| `--dry-run` | `-n` | update, fix, scaffold | Preview without applying |
+| `--interactive` | `-i` | update, fix | Prompt for each change |
+| `--optimize` | `-o` | update | Condense verbose sections |
+| `--force` | `-f` | scaffold | Overwrite existing file |
+| `--strict` | - | audit | Exit 1 on errors (CI) |
+
+### Template Selection
+
+| Flag | Value | Purpose |
+|------|-------|---------|
+| `--template` | `plugin` | Force plugin template |
+| `--template` | `teaching` | Force teaching template |
+| `--template` | `r-package` | Force R package template |
+
+### Section Scope
+
+| Argument | Commands | Purpose |
+|----------|----------|---------|
+| `status` | update | Update version/progress only |
+| `commands` | update | Update command list only |
+| `architecture` | update | Update structure only |
+| `errors` | audit | Check errors only |
+| `warnings` | audit | Check warnings only |
+| `all` | audit, fix | All checks/fixes |
+
+---
+
+## Project Type Detection
+
+### Detection Priority
+
+1. **Craft Plugin** - `.claude-plugin/plugin.json` exists
+2. **Teaching Site** - `_quarto.yml` + `course.yml` exist
+3. **R Package** - `DESCRIPTION` + `NAMESPACE` exist
+4. **Generic** - Fallback if no specific indicators
+
+### Override Detection
+
+```bash
+# Force template even if wrong type detected
+/craft:docs:claude-md:scaffold --template=plugin
+```
+
+---
+
+## Integration Points
+
+### With craft:check
+
+```bash
+# Includes CLAUDE.md validation
+/craft:check
+```
+
+### With craft:git:worktree
+
+```bash
+# After creating worktree
+git worktree add ~/.git-worktrees/project/feature-xyz -b feature/xyz dev
+cd ~/.git-worktrees/project/feature-xyz
+
+# Scaffold if missing
+/craft:docs:claude-md:scaffold
+```
+
+### With craft:docs:update
+
+```bash
+# Coordinate documentation updates
+/craft:docs:update
+/craft:docs:claude-md:update
+```
+
+---
+
+## Troubleshooting
+
+| Issue | Quick Fix |
+|-------|-----------|
+| "Could not detect project type" | Use `--template=<type>` flag |
+| "Version mismatch" | Run `/craft:docs:claude-md:fix` |
+| "Stale commands" | Run `/craft:docs:claude-md:fix` |
+| "File too long" | Run `/craft:docs:claude-md:update --optimize` |
+| "Template not detected" | Check indicator files exist |
+| "Section not found" | Use `/craft:docs:claude-md:edit` to list |
+| "Changes not applying" | Check file permissions |
+
+---
+
+## Keyboard Shortcuts
+
+### In iA Writer (Default Editor)
+
+| Key | Action |
+|-----|--------|
+| `⌘S` | Save file |
+| `⌘W` | Close file |
+| `⌘Q` | Quit iA Writer |
+
+### Alternative Editors
+
+```bash
+# VS Code
+/craft:docs:claude-md:edit -e code
+
+# Sublime Text
+/craft:docs:claude-md:edit -e sublime
+
+# Cursor
+/craft:docs:claude-md:edit -e cursor
+```
+
+---
+
+## Tips & Best Practices
+
+1. **Preview First** - Always use `--dry-run` before applying changes
+2. **Frequent Updates** - Run `update` after major changes
+3. **Validate Before Release** - Use `audit --strict` in CI
+4. **Keep Concise** - Use `--optimize` flag to condense
+5. **Section Editing** - Edit specific sections instead of entire file
+6. **Template Customization** - Create org-specific templates
+7. **Git Integration** - Commit CLAUDE.md changes separately
+
+---
+
+## See Also
+
+- **Tutorial:** [CLAUDE.md Workflows](../tutorials/claude-md-workflows.md)
+- **Commands:** [CLAUDE-MD Commands](../commands/docs/claude-md.md)
+- **Guide:** [Interactive Commands](../guide/interactive-commands.md)
+- **Templates:** `templates/claude-md/`
+
+---
+
+**Version:** 1.0.0
+**Last Updated:** 2026-01-29
+**Craft Version:** v2.9.0+
