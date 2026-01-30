@@ -4,8 +4,8 @@
 
 **100 commands** · **21 skills** · **8 agents** · **15 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.8.1 (released 2026-01-28) | **dev:** v2.9.0-dev (command enhancements)
-**Documentation Status:** 96% complete | **Tests:** 770+
+**Current Version:** v2.9.0 (released 2026-01-29) | **dev:** v2.9.0 (synced with main)
+**Documentation Status:** 98% complete | **Tests:** 847 passing
 
 ## Git Workflow
 
@@ -100,7 +100,9 @@ craft/
 
 ## Recent Major Features
 
-### v2.9.0-dev - Command Behavior Enhancements (On dev branch)
+### v2.9.0 - Command Behavior Enhancements (Released 2026-01-29) ✅
+
+**Command Enhancements:**
 
 - **"Show Steps First" Pattern**: All 4 most-used commands show plan before executing, ask for confirmation
 - **Interactive Orchestration**: Mode selection via AskUserQuestion, wave checkpoints, plan confirmation
@@ -108,9 +110,27 @@ craft/
 - **Post-Merge Pipeline**: `--post-merge` flag for docs:update with 5-phase auto-fix
 - **Check Step Preview**: Mode-specific check lists with skip/dry-run options
 - **Orchestrator-v2 Alignment**: Updated agent with Claude Code subagent constraints
-- 145 new tests (93 e2e + 52 orch handler), all passing
-- Documentation: guide, tutorial, reference card, 4 command doc pages updated
-- Merged via PR #36, 17 files changed, +3,329/-287 lines
+
+**Documentation Expansion (2026-01-29):**
+
+- 6 comprehensive files created (3,880 lines total)
+- Documentation completeness: 95% → 98% (+3%)
+- Tutorial coverage: 25% → 75% (+50%)
+- New guides: Check Command Mastery (460 lines), Worktree Advanced Patterns (575 lines)
+- New tutorials: Post-Merge Pipeline (542 lines), Worktree Setup (795 lines), Orchestrator Modes (446 lines)
+- New reference: Git Worktree Quick Reference (484 lines)
+- Coverage improvements: Check command (+55%), Git worktree (+38%), Orchestrator modes (+45%)
+
+**Testing:**
+
+- 145 new tests (93 e2e + 52 orch handler), 847 total tests passing
+- CI Test Fixes: Resolved 15 failing tests (hardcoded paths, pre-commit hooks, config validation, dependencies)
+
+**Release:**
+
+- Merged via PR #36 (command enhancements) + PR #37 (test fixes) + documentation expansion
+- Release: <https://github.com/Data-Wise/craft/releases/tag/v2.9.0>
+- Documentation site: <https://data-wise.github.io/craft/>
 
 ### v2.6.0 - Documentation Quality Improvements (Released 2026-01-20) ✅
 
@@ -201,11 +221,14 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Feature Status Matrix
 
-### Implementation & Documentation Completeness (v2.9.0-dev)
+### Implementation & Documentation Completeness (v2.9.0)
 
 | Feature                                  | Commands | Implementation | Documentation | Status      |
 | ---------------------------------------- | -------- | -------------- | ------------- | ----------- |
-| **Command Enhancements (v2.9.0-dev)**    | 4        | 100%           | 95%           | On dev      |
+| **Command Enhancements (v2.9.0)**        | 4        | 100%           | 98%           | Released ✅ |
+| **Check Command Mastery**                | 1        | 100%           | 95%           | Released ✅ |
+| **Git Worktree Advanced**                | 1        | 100%           | 98%           | Released ✅ |
+| **Orchestrator Modes**                   | 1        | 100%           | 95%           | Released ✅ |
 | **Brainstorm Question Control (v2.4.0)** | 1        | 100%           | 95%           | Complete ✅ |
 | **Hub v2.0**                             | 1        | 100%           | 95%           | Complete ✅ |
 | **Claude Code 2.1.0**                    | 3        | 100%           | 90%           | Complete ✅ |
@@ -217,7 +240,7 @@ python3 tests/test_integration_teaching_workflow.py
 | **Testing Commands**                     | 10       | 100%           | 80%           | Complete ✅ |
 | **Architecture Commands**                | 12       | 100%           | 75%           | Complete ✅ |
 | **Remaining Commands**                   | 51       | 100%           | 40%           | Baseline ✅ |
-| **TOTAL**                                | **100**  | **100%**       | **95%**       | v2.8.1 ✅   |
+| **TOTAL**                                | **100**  | **100%**       | **98%**       | v2.9.0 ✅   |
 
 **Legend:**
 
@@ -229,64 +252,73 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Documentation Guides
 
-| Guide                     | Content                                                       | Location                                     |
-| ------------------------- | ------------------------------------------------------------- | -------------------------------------------- |
-| **Version History**       | Evolution from v1.0.0 → v2.4.0, feature timeline              | `docs/VERSION-HISTORY.md`                    |
-| **Complexity Scoring**    | 7-factor algorithm, routing zones, examples                   | `docs/guide/complexity-scoring-algorithm.md` |
-| **Claude Code 2.1**       | Integration overview, agent delegation, session teleportation | `docs/guide/claude-code-2.1-integration.md`  |
-| **Teaching Workflow**     | Preview-before-publish, semester tracking, validation         | `docs/guide/teaching-workflow.md`            |
-| **Dependency Management** | Checking, installation, batch conversion workflow             | Tutorial docs (in development)               |
-| **Integration Testing**   | Test patterns, validation, debugging                          | Tutorial docs (in development)               |
+| Guide                        | Content                                                       | Location                                        |
+| ---------------------------- | ------------------------------------------------------------- | ----------------------------------------------- |
+| **Version History**          | Evolution from v1.0.0 → v2.9.0, feature timeline              | `docs/VERSION-HISTORY.md`                       |
+| **Check Command Mastery**    | Decision framework, scenarios, performance trade-offs (NEW)   | `docs/guide/check-command-mastery.md`           |
+| **Worktree Advanced**        | Multi-worktree management, team collaboration (NEW)           | `docs/guide/worktree-advanced-patterns.md`      |
+| **Interactive Commands**     | "Show Steps First" pattern across all commands (NEW)          | `docs/guide/interactive-commands.md`            |
+| **Complexity Scoring**       | 7-factor algorithm, routing zones, examples                   | `docs/guide/complexity-scoring-algorithm.md`    |
+| **Claude Code 2.1**          | Integration overview, agent delegation, session teleportation | `docs/guide/claude-code-2.1-integration.md`     |
+| **Teaching Workflow**        | Preview-before-publish, semester tracking, validation         | `docs/guide/teaching-workflow.md`               |
+| **Post-Merge Pipeline**      | 5-phase auto-fix workflow after PR merge (NEW)                | `docs/tutorials/TUTORIAL-post-merge-pipeline.md` |
+| **Worktree Setup**           | Beginner to intermediate guide with auto-setup (NEW)          | `docs/tutorials/TUTORIAL-worktree-setup.md`     |
+| **Orchestrator Modes**       | Same task in 4 modes with performance metrics (NEW)           | `docs/tutorials/orchestrator-modes-compared.md` |
+| **Interactive Orchestration**| Wave checkpoints, mode selection tutorial                    | `docs/tutorials/interactive-orchestration.md`   |
+| **Dependency Management**    | Checking, installation, batch conversion workflow             | Tutorial docs (in development)                  |
+| **Integration Testing**      | Test patterns, validation, debugging                          | Tutorial docs (in development)                  |
 
 ## Active Development
 
-### Current Worktrees
+### Current Status
 
-| Branch             | Location                                         | Status                         |
-| ------------------ | ------------------------------------------------ | ------------------------------ |
-| `dev`              | `/Users/dt/projects/dev-tools/craft`             | Main repo (cmd enhancements merged) |
-| `feature/v2.9.0`  | _(worktree removed, branch preserved @ 8bf5444)_ | Paused: 7,418 lines preserved |
+**Branch:** `dev` (synced with main @ v2.9.0)
+**Location:** `/Users/dt/projects/dev-tools/craft`
+**Status:** ✅ All releases merged, ready for new features
 
-### v2.8.1 - Markdown Lint Style Fixes (Released 2026-01-28)
+| Branch | Commit | Status |
+|--------|--------|--------|
+| **main** | `93a10ad` | ✅ v2.9.0 released |
+| **dev** | `93a10ad` | ✅ Synced with main |
+| **Worktrees** | None active | Clean state |
 
-**Status:** Released
+### Recent Releases
 
-| Feature                           | Status      |
-| --------------------------------- | ----------- |
-| Auto-fix 191 files                | ✅ Complete |
-| MD025 duplicate H1 fixes (6 files) | ✅ Complete |
-| MD060 table alignment (5 files)   | ✅ Complete |
-| MD025 front_matter_title config   | ✅ Complete |
-| Emoji-aware table formatter       | ✅ Complete |
+#### v2.9.0 - Command Behavior Enhancements (2026-01-29) ✅
+
+**Merged PRs:**
+
+- PR #36: Command enhancements (feature → dev)
+- PR #37: v2.9.0 release + CI test fixes (dev → main)
+
+**What Shipped:**
+
+- "Show Steps First" pattern across 4 commands
+- Interactive orchestration with mode selection
+- Git worktree auto-setup with scope detection
+- Post-merge documentation pipeline
+- Check step preview with mode-specific lists
+- 15 CI test fixes (paths, hooks, config, dependencies)
+
+**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.9.0>
+
+#### v2.8.1 - Markdown Lint Style Fixes (2026-01-28) ✅
+
+- Auto-fix 191 files
+- MD025 duplicate H1 fixes (6 files)
+- MD060 table alignment (5 files)
+- Emoji-aware table formatter
 
 **Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.8.1>
 
-### Command Enhancements (Merged to dev)
+### Future Features (v2.10.0+)
 
-**Spec:** `docs/specs/SPEC-command-enhancements-2026-01-29.md`
-**Merged:** PR #36 → dev (2026-01-29)
+**Ideas for Next Release:**
 
-| Phase | Enhancement                            | Priority | Status      |
-| ----- | -------------------------------------- | -------- | ----------- |
-| 1     | Orchestrate: Fix mode + confirmations  | High     | ✅ Complete |
-| 2     | Cross-cutting: "Show Steps First"      | High     | ✅ Complete |
-| 3     | git:worktree: Auto-setup files         | Medium   | ✅ Complete |
-| 4     | docs:update: `--post-merge` pipeline   | Medium   | ✅ Complete |
-| 5     | check: Step preview + mode list        | Medium   | ✅ Complete |
-
-### v2.9.0 Features (Paused)
-
-**Spec:** `docs/specs/SPEC-v2.9.0-features-2026-01-29.md`
-**Branch:** `feature/v2.9.0` (preserved @ 8bf5444, worktree removed)
-
-| Phase | Feature                      | Priority | Status          |
-| ----- | ---------------------------- | -------- | --------------- |
-| 1     | Styled Output Boxes          | High     | 📝 Paused       |
-| 2     | Execution Modes              | Medium   | 📝 Paused       |
-| 3     | Language Detection           | Medium   | 📝 Paused       |
-| 4     | Interactive Prompts          | Medium   | 📝 Paused       |
-| 5     | Rule Expansion (30 → 42)     | Medium   | 📝 Paused       |
-| 6     | Core Workflow (docs:update)  | High     | 📝 Paused       |
+- Styled output boxes for better UX
+- Enhanced execution modes
+- Language detection for multi-lang projects
+- Rule expansion (30 → 42 markdownlint rules)
 
 ### Completed Features (v2.8.0)
 
@@ -349,7 +381,7 @@ See `docs/specs/` for detailed specifications (14 total).
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
-| **Total**                                          | **770+** | **~90%** | **All systems**              |
+| **Total**                                          | **847**  | **~90%** | **All systems**              |
 
 ## Troubleshooting
 

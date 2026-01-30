@@ -99,6 +99,92 @@ Scope to a specific feature:
 /craft:docs:update "auth"
 ```
 
+## Post-Merge Pipeline (NEW)
+
+After merging a PR, use `--post-merge` to automatically update documentation:
+
+```bash
+# Full pipeline
+/craft:docs:update --post-merge
+
+# Preview only
+/craft:docs:update --post-merge --dry-run
+```
+
+### The 5-Phase Pipeline
+
+```text
+Phase 1: Auto-detect (9 categories)
+Phase 2: Auto-fix safe categories (no prompts)
+Phase 3: Prompt for manual categories
+Phase 4: Lint + validate
+Phase 5: Summary
+```
+
+### Safe vs Manual Categories
+
+| Category | Auto-Fix | Requires Prompt |
+|----------|:--------:|:---------------:|
+| Version references | ✅ | |
+| Command counts | ✅ | |
+| Navigation entries | ✅ | |
+| Broken links | ✅ | |
+| Help files | | ✅ |
+| Tutorials | | ✅ |
+| Changelog | | ✅ |
+| GIF regeneration | | ✅ |
+| Feature status | | ✅ |
+
+### Post-Merge Workflow
+
+```bash
+# 1. Merge PR
+gh pr merge 42
+
+# 2. Pull changes
+git checkout dev && git pull origin dev
+
+# 3. Run post-merge pipeline
+/craft:docs:update --post-merge
+
+# 4. Review changes
+git diff
+
+# 5. Test docs build
+mkdocs build
+
+# 6. Commit
+git commit -m "docs: post-merge updates for PR #42"
+
+# 7. Deploy (optional)
+/craft:site:deploy
+```
+
+### Sample Output
+
+```text
+Post-Merge Documentation Scan:
+  Merge: PR #42 "feat: add auth system" → dev
+
+  [AUTO] Version references — 12 files
+  [AUTO] Command counts — 4 files
+  [AUTO] Navigation entries — 2 pages
+  [MANUAL] Help files — 3 commands
+  [SKIP] GIF regeneration — no changed commands
+
+Auto-fixing... ✅ (19 files changed)
+
+? 3 new commands need help. How to handle?
+  > Generate all (Recommended)
+
+Generating... ✅ (3 files created)
+
+Post-Merge Complete:
+  Auto-fixed: 4 categories (19 files)
+  Manual: 1 category (3 files)
+  Total: 22 files changed
+```
+
 ## Advanced Usage
 
 ### Preview + Apply Workflow

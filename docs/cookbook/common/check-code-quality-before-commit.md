@@ -22,24 +22,63 @@ I want to check code quality, run tests, and validate my changes before committi
 
 ## Solution
 
-1. **Quick validation (recommended)**
+1. **Preview what will be checked (v2.9.0 - optional)**
+
+   ```bash
+   /craft:check --dry-run
+   ```
+
+   Why: Shows you the checklist without running, so you know what to expect
+
+   **Example output:**
+
+   ```
+   ╭─ Pre-Flight Validation Plan ─────────────────╮
+   │ Mode: default                                 │
+   │ Estimated time: 5-10 seconds                  │
+   ├───────────────────────────────────────────────┤
+   │                                               │
+   │ Steps to run:                                 │
+   │                                               │
+   │ 1. Code Quality (2s)                          │
+   │    • markdownlint (24 rules)                  │
+   │    • python linting (ruff)                    │
+   │                                               │
+   │ 2. Quick Tests (3s)                           │
+   │    • Unit tests (fast subset, ~200 tests)     │
+   │                                               │
+   │ 3. Basic Validation (2s)                      │
+   │    • Config files                             │
+   │    • Required files                           │
+   │                                               │
+   ╰───────────────────────────────────────────────╯
+   ```
+
+2. **Run validation checks**
 
    ```bash
    /craft:check
    ```
 
-   Why: Runs all pre-flight checks (lint, test, validation) appropriate for your project type
+   **What happens (v2.9.0 "Show Steps First" pattern):**
 
-2. **Review results**
+   - Shows you the plan (same as --dry-run)
+   - Asks: "Proceed with these checks? (y/n/switch-mode)"
+   - You confirm, cancel, or switch to thorough mode
+   - Runs the checks after confirmation
+
+   Why: Gives you control and visibility before running
+
+3. **Review results**
    - Green checkmarks = all good
    - Yellow warnings = should fix but not blocking
    - Red errors = must fix before committing
 
-3. **Fix any issues**
+4. **Fix any issues**
    - Address errors and warnings shown in output
    - Re-run `/craft:check` to verify fixes
 
-4. **Commit with confidence**
+5. **Commit with confidence**
 
    ```bash
    git add .
@@ -89,6 +128,31 @@ I want to check code quality, run tests, and validate my changes before committi
 The command is smart about what to run and fails fast if critical issues are found.
 
 ## Variations
+
+- **Preview without running (v2.9.0):**
+
+  ```bash
+  /craft:check --dry-run
+  ```
+
+  Use when you want to see what will be checked without actually running
+
+- **Thorough validation before PR (v2.9.0):**
+
+  ```bash
+  /craft:check --mode=thorough
+  ```
+
+  Runs full test suite, coverage analysis, link validation (~2-5 min)
+
+- **Skip specific checks (v2.9.0):**
+
+  ```bash
+  /craft:check --skip=tests        # Skip test execution
+  /craft:check --skip=lint,docs    # Skip multiple checks
+  ```
+
+  Use when you want to run most checks but skip time-consuming ones
 
 - **Run only lint checks:**
 

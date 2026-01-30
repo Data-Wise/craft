@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0-dev adds interactive command behavior with "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.
+site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0 released with interactive command behavior, "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -113,8 +113,15 @@ nav:
       - Config Schema: teaching-config-schema.md
       - Migration Guide: teaching-migration.md
     - Specialized Features:
+      - NEW Beginner Check Tutorial: tutorials/check-tutorial-beginner.md
+      - NEW Smart Routing Tutorial: tutorials/smart-routing-tutorial.md
       - NEW Interactive Commands: guide/interactive-commands.md
+      - NEW Check Command Mastery: guide/check-command-mastery.md
+      - NEW Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
       - NEW Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
+      - NEW Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
+      - NEW Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
+      - NEW Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
       - Git Repository Init:
         - Command Reference: commands/git-init-reference.md
         - Tutorial: guide/git-init-tutorial.md
@@ -156,9 +163,12 @@ nav:
     - Cookbook Home: cookbook/index.md
     - Common Recipes:
       - Set Up New Project: cookbook/common/setup-new-project.md
-      - Deploy Course Website: cookbook/common/deploy-course-website.md
-      - Automate Release Workflow: cookbook/common/automate-release-workflow.md
       - Check Code Quality Before Commit: cookbook/common/check-code-quality-before-commit.md
+      - Deploy Course Website: cookbook/common/deploy-course-website.md
+      - Post-Merge Documentation Update: cookbook/common/post-merge-documentation.md
+      - Use Interactive Orchestration: cookbook/common/use-interactive-orchestration.md
+      - Setup Parallel Worktrees: cookbook/common/setup-parallel-worktrees.md
+      - Automate Release Workflow: cookbook/common/automate-release-workflow.md
     - Troubleshooting:
       - Command Not Found: cookbook/troubleshooting/command-not-found.md
 
@@ -178,6 +188,8 @@ nav:
       - Claude Code 2.1 Quick Reference: reference/REFCARD-claude-code-2.1-enhancements.md
       - NEW (v2.7.0) Docs Update Reference: reference/REFCARD-DOCS-UPDATE.md
       - NEW Interactive Commands Reference: reference/REFCARD-INTERACTIVE-COMMANDS.md
+      - NEW Git Worktree Quick Reference: reference/REFCARD-GIT-WORKTREE.md
+      - NEW Check Command Reference: reference/REFCARD-CHECK.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
