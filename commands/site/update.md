@@ -141,6 +141,69 @@ For each file to update:
 - Update defaults table
 - Add examples
 
+### Step 3.5: Synchronize Badges
+
+After content updates are complete, synchronize version and CI badges across README.md and docs/index.md:
+
+```python
+from utils.badge_syncer import BadgeSyncer
+
+print("\n📛 Syncing badges...")
+
+syncer = BadgeSyncer(project_root=Path.cwd())
+mismatches = syncer.sync_badges(
+    files=['README.md', 'docs/index.md'],
+    auto_confirm=False,  # Always prompt user
+    calculate_coverage=True
+)
+
+if mismatches:
+    print(f"✅ Updated {len(mismatches)} badge{'s' if len(mismatches) != 1 else ''}")
+else:
+    print("✅ Badges already in sync")
+```
+
+#### Display Format
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 3.5: SYNCHRONIZING BADGES                              │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Found 3 badge issues:                                       │
+│                                                             │
+│   README.md:                                                │
+│     • Update version badge: 2.9.1 → 2.10.0-dev              │
+│     • Fix CI badge branch: main → dev                       │
+│                                                             │
+│   docs/index.md:                                            │
+│     • Update version badge: 2.9.1 → 2.10.0-dev              │
+│                                                             │
+│ ✓ Updated 3 badges                                          │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Error Handling
+
+Badge sync is non-blocking - if synchronization fails, site update continues with a warning:
+
+```python
+try:
+    mismatches = syncer.sync_badges(...)
+except Exception as e:
+    print(f"⚠️  Badge sync failed: {e}")
+    print("Continuing with site update...")
+```
+
+#### Badges Synchronized
+
+| Badge Type | Generated From | Files Updated |
+|------------|----------------|---------------|
+| Version | plugin.json, package.json, pyproject.toml | README.md, docs/index.md |
+| CI Status | .github/workflows/*.yml | README.md, docs/index.md |
+| Docs Coverage | .STATUS file "Documentation: XX%" | README.md, docs/index.md |
+
 ### Step 4: Validate (if --validate)
 
 ```bash

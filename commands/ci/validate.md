@@ -90,6 +90,8 @@ Preview what validation checks will be performed:
 | **Fail Fast** | Matrix has fail-fast configured |
 | **Timeouts** | Jobs have reasonable timeouts |
 | **Actions Versions** | Uses pinned action versions (@v4 not @latest) |
+| **Badge URLs** | CI badges point to correct workflows |
+| **Badge Branches** | Badge URLs use appropriate branch parameter |
 
 ## Output Example
 
@@ -205,6 +207,80 @@ When run with `--fix`, the command will:
 │                                                         │
 │  Apply these changes? [y/N]                             │
 ╰─────────────────────────────────────────────────────────╯
+```
+
+## Badge Validation
+
+`/craft:ci:validate` checks CI badges in README.md and docs/index.md for accuracy:
+
+### Validation Checks
+
+- **Workflow Exists**: Badge points to an actual workflow file in `.github/workflows/`
+- **Branch Correct**: Badge URL branch parameter matches current branch
+- **URL Format**: Badge URL follows GitHub Actions format
+
+### Example Output
+
+```
+╭─ CI Badge Validation ───────────────────────────╮
+│                                                  │
+│  📁 README.md                                    │
+│                                                  │
+│    ❌ Line 3: missing_workflow                  │
+│       Badge points to non-existent workflow     │
+│                                                  │
+│    ⚠️  Line 4: wrong_branch                     │
+│       Badge uses 'main', expected 'dev'         │
+│                                                  │
+├──────────────────────────────────────────────────┤
+│  Total: 1 error, 1 warning                      │
+│  Run with --fix to update badges                │
+╰──────────────────────────────────────────────────╯
+```
+
+### Execution Logic
+
+```python
+from utils.ci_badge_validator import CIBadgeValidator, format_issues_report
+import subprocess
+
+validator = CIBadgeValidator(Path.cwd())
+current_branch = subprocess.run(
+    ['git', 'branch', '--show-current'],
+    capture_output=True,
+    text=True
+).stdout.strip()
+
+badge_issues = validator.validate_badges(branch=current_branch)
+
+if badge_issues:
+    print(format_issues_report(badge_issues))
+
+    errors = [i for i in badge_issues if i.severity == 'error']
+    if errors and not args.fix:
+        print("❌ Badge errors must be fixed")
+        exit(1)
+```
+
+### Badge Fix Mode
+
+When run with `--fix`, badge issues are automatically corrected:
+
+```bash
+/craft:ci:validate --fix
+```
+
+```
+╭─ Badge Auto-Fix ─────────────────────────────────╮
+│                                                  │
+│  README.md:                                      │
+│    ✓ Updated CI badge branch: main → dev        │
+│                                                  │
+│  docs/index.md:                                  │
+│    ✓ Removed badge for deleted workflow         │
+│                                                  │
+│  Total: 2 badges fixed                          │
+╰──────────────────────────────────────────────────╯
 ```
 
 ## Integration

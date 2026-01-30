@@ -95,6 +95,39 @@ class DocsUpdateOrchestrator:
                     "details": detection_result.details,
                 }
 
+            # Add badge detection
+            try:
+                from badge_detector import BadgeDetector
+                from badge_syncer import BadgeSyncer
+
+                syncer = BadgeSyncer(self.project_root)
+                badge_mismatches = syncer.sync_badges(
+                    files=['README.md', 'docs/index.md'],
+                    auto_confirm=False,
+                    calculate_coverage=True,
+                    dry_run=True  # Detection only
+                )
+
+                if badge_mismatches:
+                    detection_results["badges"] = {
+                        "category": "badges",
+                        "found": True,
+                        "count": len(badge_mismatches),
+                        "items": [
+                            {
+                                "file": str(m.file_path.relative_to(self.project_root)),
+                                "issue": m.fix_action,
+                                "badge_type": m.badge_type.value,
+                                "severity": m.severity.value
+                            }
+                            for m in badge_mismatches
+                        ],
+                        "details": badge_mismatches  # Store for apply_updates
+                    }
+            except ImportError:
+                # Badge utilities not available, skip
+                pass
+
             return detection_results
 
         except Exception as e:
@@ -133,7 +166,7 @@ class DocsUpdateOrchestrator:
         metadata_group = [
             (k, v)
             for k, v in categories_with_issues
-            if k in ["version_refs", "command_counts"]
+            if k in ["version_refs", "command_counts", "badges"]
         ]
         if metadata_group:
             groups.append(metadata_group)
@@ -234,6 +267,8 @@ class DocsUpdateOrchestrator:
                 files_affected, changes = self._apply_version_ref_updates(items)
             elif category == "command_counts":
                 files_affected, changes = self._apply_command_count_updates(items)
+            elif category == "badges":
+                files_affected, changes = self._apply_badge_updates(items, result)
             elif category == "broken_links":
                 files_affected, changes = self._apply_broken_link_fixes(items)
             elif category == "missing_help":
@@ -444,6 +479,37 @@ class DocsUpdateOrchestrator:
 
             # Cross-references typically need review
             changes.append(f"Review cross-references in {item.get('file')}")
+
+        return files_affected, changes
+
+    def _apply_badge_updates(self, items: List[Dict], result: Dict) -> Tuple[Set[str], List[str]]:
+        """Apply badge synchronization updates"""
+        files_affected = set()
+        changes = []
+
+        try:
+            from badge_syncer import BadgeSyncer
+
+            # Get badge mismatches from detection details
+            badge_mismatches = result.get("details", [])
+            if not badge_mismatches:
+                return files_affected, changes
+
+            syncer = BadgeSyncer(self.project_root)
+
+            # Apply updates (auto-confirm since user already approved in interactive prompt)
+            applied = syncer._apply_updates(badge_mismatches, auto_confirm=True)
+
+            # Track affected files and changes
+            for mismatch in applied:
+                file_rel = mismatch.file_path.relative_to(self.project_root)
+                files_affected.add(str(file_rel))
+                changes.append(f"{mismatch.fix_action} in {file_rel}")
+
+        except ImportError:
+            print("⚠️  Badge utilities not available, skipping badge updates")
+        except Exception as e:
+            print(f"⚠️  Badge update failed: {e}")
 
         return files_affected, changes
 
