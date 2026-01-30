@@ -6,31 +6,35 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0 released with interactive command behavior, "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.">
+        <meta name="description" content="Run complex multi-step tasks with mode selection and wave checkpoints">
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/brainstorm/BRAINSTORM-homebrew-automation-2025-12-31/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/cookbook/common/use-interactive-orchestration/">
       
       
+        <link rel="prev" href="../post-merge-documentation/">
+      
+      
+        <link rel="next" href="../setup-parallel-worktrees/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Homebrew Automation for Craft Plugin - Craft Plugin</title>
+        <title>Recipe: Use Interactive Orchestration - Craft Plugin</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,9 +53,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#homebrew-automation-for-craft-plugin" class="md-skip">
+        <a href="#recipe-use-interactive-orchestration" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +94,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -110,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Homebrew Automation for Craft Plugin
+              Recipe: Use Interactive Orchestration
             
           </span>
         </div>
@@ -225,7 +229,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../.." class="md-tabs__link">
+        <a href="../../.." class="md-tabs__link">
           
   
   
@@ -245,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../guide/getting-started/" class="md-tabs__link">
+        <a href="../../../guide/getting-started/" class="md-tabs__link">
           
   
   
@@ -265,7 +269,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../commands/overview/" class="md-tabs__link">
+        <a href="../../../commands/overview/" class="md-tabs__link">
           
   
   
@@ -281,11 +285,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../cookbook/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
           
   
   
@@ -305,7 +311,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../reference/configuration/" class="md-tabs__link">
+        <a href="../../../reference/configuration/" class="md-tabs__link">
           
   
   
@@ -325,7 +331,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../guide/documentation-quality-development/" class="md-tabs__link">
+        <a href="../../../guide/documentation-quality-development/" class="md-tabs__link">
           
   
   
@@ -343,7 +349,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../REFCARD/" class="md-tabs__link">
+      <a href="../../../REFCARD/" class="md-tabs__link">
         
   
   
@@ -378,7 +384,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -458,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -486,7 +492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../QUICK-START/" class="md-nav__link">
+      <a href="../../../QUICK-START/" class="md-nav__link">
         
   
   
@@ -514,7 +520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ADHD-QUICK-START/" class="md-nav__link">
+      <a href="../../../ADHD-QUICK-START/" class="md-nav__link">
         
   
   
@@ -542,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/choose-path/" class="md-nav__link">
+      <a href="../../../getting-started/choose-path/" class="md-nav__link">
         
   
   
@@ -570,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/" class="md-nav__link">
+      <a href="../../../workflows/" class="md-nav__link">
         
   
   
@@ -598,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../PLAYGROUND/" class="md-nav__link">
+      <a href="../../../PLAYGROUND/" class="md-nav__link">
         
   
   
@@ -683,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/getting-started/" class="md-nav__link">
+      <a href="../../../guide/getting-started/" class="md-nav__link">
         
   
   
@@ -761,7 +767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -789,7 +795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/claude-code-2.1-integration/" class="md-nav__link">
+      <a href="../../../guide/claude-code-2.1-integration/" class="md-nav__link">
         
   
   
@@ -817,7 +823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/complexity-scoring-algorithm/" class="md-nav__link">
+      <a href="../../../guide/complexity-scoring-algorithm/" class="md-nav__link">
         
   
   
@@ -845,7 +851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -873,7 +879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -901,7 +907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -987,7 +993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/documentation-quality/" class="md-nav__link">
+      <a href="../../../guide/documentation-quality/" class="md-nav__link">
         
   
   
@@ -1015,7 +1021,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+      <a href="../../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
         
   
   
@@ -1043,7 +1049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/getting-started/" class="md-nav__link">
+      <a href="../../../guide/getting-started/" class="md-nav__link">
         
   
   
@@ -1071,7 +1077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/release-workflow/" class="md-nav__link">
+      <a href="../../../workflows/release-workflow/" class="md-nav__link">
         
   
   
@@ -1099,7 +1105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/git-feature-workflow/" class="md-nav__link">
+      <a href="../../../workflows/git-feature-workflow/" class="md-nav__link">
         
   
   
@@ -1127,7 +1133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/pre-commit-workflow/" class="md-nav__link">
+      <a href="../../../workflows/pre-commit-workflow/" class="md-nav__link">
         
   
   
@@ -1213,7 +1219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../TEACHING-DOCS-INDEX/" class="md-nav__link">
+      <a href="../../../TEACHING-DOCS-INDEX/" class="md-nav__link">
         
   
   
@@ -1241,7 +1247,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/teaching-mode-setup/" class="md-nav__link">
+      <a href="../../../tutorials/teaching-mode-setup/" class="md-nav__link">
         
   
   
@@ -1269,7 +1275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/teaching-workflow/" class="md-nav__link">
+      <a href="../../../guide/teaching-workflow/" class="md-nav__link">
         
   
   
@@ -1297,7 +1303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-TEACHING/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-TEACHING/" class="md-nav__link">
         
   
   
@@ -1325,7 +1331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../teaching-config-schema/" class="md-nav__link">
+      <a href="../../../teaching-config-schema/" class="md-nav__link">
         
   
   
@@ -1353,7 +1359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../teaching-migration/" class="md-nav__link">
+      <a href="../../../teaching-migration/" class="md-nav__link">
         
   
   
@@ -1439,7 +1445,63 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/interactive-commands/" class="md-nav__link">
+      <a href="../../../tutorials/check-tutorial-beginner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Beginner Check Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/smart-routing-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Smart Routing Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/interactive-commands/" class="md-nav__link">
         
   
   
@@ -1467,7 +1529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/check-command-mastery/" class="md-nav__link">
+      <a href="../../../guide/check-command-mastery/" class="md-nav__link">
         
   
   
@@ -1495,7 +1557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
+      <a href="../../../guide/worktree-advanced-patterns/" class="md-nav__link">
         
   
   
@@ -1523,7 +1585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
+      <a href="../../../tutorials/interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -1551,7 +1613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
         
   
   
@@ -1579,7 +1641,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
         
   
   
@@ -1607,7 +1669,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+      <a href="../../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
         
   
   
@@ -1646,10 +1708,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_10" >
         
           
-          <label class="md-nav__link" for="__nav_2_5_8" id="__nav_2_5_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5_10" id="__nav_2_5_10_label" tabindex="0">
             
   
   
@@ -1667,8 +1729,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5_8">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1685,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git-init-reference/" class="md-nav__link">
+      <a href="../../../commands/git-init-reference/" class="md-nav__link">
         
   
   
@@ -1713,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/git-init-tutorial/" class="md-nav__link">
+      <a href="../../../guide/git-init-tutorial/" class="md-nav__link">
         
   
   
@@ -1741,7 +1803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/git-init-flow/" class="md-nav__link">
+      <a href="../../../architecture/git-init-flow/" class="md-nav__link">
         
   
   
@@ -1769,7 +1831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git-init-docs-index/" class="md-nav__link">
+      <a href="../../../git-init-docs-index/" class="md-nav__link">
         
   
   
@@ -1805,7 +1867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/orchestrator/" class="md-nav__link">
+      <a href="../../../guide/orchestrator/" class="md-nav__link">
         
   
   
@@ -1833,7 +1895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/orch-flag-usage/" class="md-nav__link">
+      <a href="../../../guide/orch-flag-usage/" class="md-nav__link">
         
   
   
@@ -1861,7 +1923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/homebrew-installation/" class="md-nav__link">
+      <a href="../../../guide/homebrew-installation/" class="md-nav__link">
         
   
   
@@ -1889,7 +1951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/skills-agents/" class="md-nav__link">
+      <a href="../../../guide/skills-agents/" class="md-nav__link">
         
   
   
@@ -1917,7 +1979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/integration-testing/" class="md-nav__link">
+      <a href="../../../guide/integration-testing/" class="md-nav__link">
         
   
   
@@ -1945,7 +2007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/markdown-list-spacing/" class="md-nav__link">
+      <a href="../../../guide/markdown-list-spacing/" class="md-nav__link">
         
   
   
@@ -1973,7 +2035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ACCESSIBILITY/" class="md-nav__link">
+      <a href="../../../ACCESSIBILITY/" class="md-nav__link">
         
   
   
@@ -2066,7 +2128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/overview/" class="md-nav__link">
+      <a href="../../../commands/overview/" class="md-nav__link">
         
   
   
@@ -2144,7 +2206,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/smart/" class="md-nav__link">
+      <a href="../../../commands/smart/" class="md-nav__link">
         
   
   
@@ -2172,7 +2234,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/" class="md-nav__link">
+      <a href="../../../commands/docs/" class="md-nav__link">
         
   
   
@@ -2200,7 +2262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/site/" class="md-nav__link">
+      <a href="../../../commands/site/" class="md-nav__link">
         
   
   
@@ -2228,7 +2290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/" class="md-nav__link">
+      <a href="../../../commands/code/" class="md-nav__link">
         
   
   
@@ -2256,7 +2318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/" class="md-nav__link">
+      <a href="../../../commands/git/" class="md-nav__link">
         
   
   
@@ -2284,7 +2346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/arch/" class="md-nav__link">
+      <a href="../../../commands/arch/" class="md-nav__link">
         
   
   
@@ -2312,7 +2374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/dist/" class="md-nav__link">
+      <a href="../../../commands/dist/" class="md-nav__link">
         
   
   
@@ -2340,7 +2402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/plan/" class="md-nav__link">
+      <a href="../../../commands/plan/" class="md-nav__link">
         
   
   
@@ -2376,7 +2438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/" class="md-nav__link">
+      <a href="../../../commands/" class="md-nav__link">
         
   
   
@@ -2454,7 +2516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/check/" class="md-nav__link">
+      <a href="../../../commands/check/" class="md-nav__link">
         
   
   
@@ -2482,7 +2544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/do/" class="md-nav__link">
+      <a href="../../../commands/do/" class="md-nav__link">
         
   
   
@@ -2510,7 +2572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/hub/" class="md-nav__link">
+      <a href="../../../commands/hub/" class="md-nav__link">
         
   
   
@@ -2538,7 +2600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate/" class="md-nav__link">
+      <a href="../../../commands/orchestrate/" class="md-nav__link">
         
   
   
@@ -2566,7 +2628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/ci/generate/" class="md-nav__link">
+      <a href="../../../commands/ci/generate/" class="md-nav__link">
         
   
   
@@ -2594,7 +2656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/update/" class="md-nav__link">
+      <a href="../../../commands/docs/update/" class="md-nav__link">
         
   
   
@@ -2622,7 +2684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/worktree/" class="md-nav__link">
+      <a href="../../../commands/git/worktree/" class="md-nav__link">
         
   
   
@@ -2650,7 +2712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/brainstorm/" class="md-nav__link">
+      <a href="../../../commands/workflow/brainstorm/" class="md-nav__link">
         
   
   
@@ -2690,24 +2752,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   
@@ -2725,7 +2792,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2743,7 +2810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   
@@ -2768,6 +2835,8 @@
                 
   
   
+    
+  
   
   
     
@@ -2778,11 +2847,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
         
           
           <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
@@ -2803,7 +2872,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2821,7 +2890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
+      <a href="../setup-new-project/" class="md-nav__link">
         
   
   
@@ -2849,7 +2918,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/deploy-course-website/" class="md-nav__link">
+      <a href="../check-code-quality-before-commit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Check Code Quality Before Commit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy-course-website/" class="md-nav__link">
         
   
   
@@ -2877,14 +2974,311 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/automate-release-workflow/" class="md-nav__link">
+      <a href="../post-merge-documentation/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Automate Release Workflow
+    Post-Merge Documentation Update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use Interactive Orchestration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use Interactive Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explanation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explanation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactive-mode-selection-v290" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Mode Selection (v2.9.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wave-checkpoints-v290" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wave Checkpoints (v2.9.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-each-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Each Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use Each Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-default-mode-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use default mode when
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-wave-mode-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use wave mode when
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-phase-mode-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use phase mode when
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-documentation-update-wave-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Documentation Update (wave mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-feature-implementation-phase-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Feature Implementation (phase mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-quick-multi-step-default-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Quick Multi-Step (default mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-parallel-worktrees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Parallel Worktrees
   
 
     
@@ -2905,14 +3299,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
+      <a href="../automate-release-workflow/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Check Code Quality Before Commit
+    Automate Release Workflow
   
 
     
@@ -2991,7 +3385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
+      <a href="../../troubleshooting/command-not-found/" class="md-nav__link">
         
   
   
@@ -3084,7 +3478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/configuration/" class="md-nav__link">
+      <a href="../../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -3112,7 +3506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/presets/" class="md-nav__link">
+      <a href="../../../reference/presets/" class="md-nav__link">
         
   
   
@@ -3140,7 +3534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../skills-agents/" class="md-nav__link">
+      <a href="../../../skills-agents/" class="md-nav__link">
         
   
   
@@ -3168,7 +3562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../orchestrator/" class="md-nav__link">
+      <a href="../../../orchestrator/" class="md-nav__link">
         
   
   
@@ -3196,7 +3590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/" class="md-nav__link">
+      <a href="../../../architecture/" class="md-nav__link">
         
   
   
@@ -3224,7 +3618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -3252,7 +3646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/DISCOVERY-API/" class="md-nav__link">
+      <a href="../../../api/DISCOVERY-API/" class="md-nav__link">
         
   
   
@@ -3280,7 +3674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/documentation-quality/" class="md-nav__link">
+      <a href="../../../reference/documentation-quality/" class="md-nav__link">
         
   
   
@@ -3308,7 +3702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../VERSION-HISTORY/" class="md-nav__link">
+      <a href="../../../VERSION-HISTORY/" class="md-nav__link">
         
   
   
@@ -3336,7 +3730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../RELEASE-v2.8.0/" class="md-nav__link">
+      <a href="../../../RELEASE-v2.8.0/" class="md-nav__link">
         
   
   
@@ -3414,7 +3808,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -3442,7 +3836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
         
   
   
@@ -3470,7 +3864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
         
   
   
@@ -3498,7 +3892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
         
   
   
@@ -3506,6 +3900,34 @@
     
   
     NEW Git Worktree Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/REFCARD-CHECK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Check Command Reference
   
 
     
@@ -3584,7 +4006,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
+      <a href="../../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
         
   
   
@@ -3612,7 +4034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
+      <a href="../../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
         
   
   
@@ -3690,7 +4112,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
+      <a href="../../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
         
   
   
@@ -3768,7 +4190,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/" class="md-nav__link">
+      <a href="../../../tutorials/" class="md-nav__link">
         
   
   
@@ -3796,7 +4218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/dependency-management-getting-started/" class="md-nav__link">
+      <a href="../../../tutorials/dependency-management-getting-started/" class="md-nav__link">
         
   
   
@@ -3832,7 +4254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../API-REFERENCE/" class="md-nav__link">
+      <a href="../../../API-REFERENCE/" class="md-nav__link">
         
   
   
@@ -3860,7 +4282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -3888,7 +4310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../DEVELOPER-GUIDE/" class="md-nav__link">
+      <a href="../../../DEVELOPER-GUIDE/" class="md-nav__link">
         
   
   
@@ -3982,7 +4404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
+      <a href="../../../specs/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
         
   
   
@@ -4010,7 +4432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
+      <a href="../../../specs/_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
         
   
   
@@ -4038,7 +4460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
+      <a href="../../../specs/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
         
   
   
@@ -4066,7 +4488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
+      <a href="../../../specs/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
         
   
   
@@ -4094,7 +4516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
+      <a href="../../../specs/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
         
   
   
@@ -4122,7 +4544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
+      <a href="../../../specs/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
         
   
   
@@ -4150,7 +4572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../../specs/_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
         
   
   
@@ -4178,7 +4600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+      <a href="../../../specs/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
         
   
   
@@ -4271,7 +4693,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/documentation-quality-development/" class="md-nav__link">
+      <a href="../../../guide/documentation-quality-development/" class="md-nav__link">
         
   
   
@@ -4299,7 +4721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CI-TEMPLATES/" class="md-nav__link">
+      <a href="../../../CI-TEMPLATES/" class="md-nav__link">
         
   
   
@@ -4327,7 +4749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+      <a href="../../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
         
   
   
@@ -4362,7 +4784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../REFCARD/" class="md-nav__link">
+      <a href="../../../REFCARD/" class="md-nav__link">
         
   
   
@@ -4409,10 +4831,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#background-what-we-built-today" class="md-nav__link">
+  <a href="#problem" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Background: What We Built Today
+        Problem
       
     </span>
   </a>
@@ -4420,22 +4842,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-wins-30-min-each" class="md-nav__link">
+  <a href="#solution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Wins (&lt; 30 min each)
+        Solution
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Wins (&lt; 30 min each)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explanation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explanation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-new-skill-homebrew-release-workflow" class="md-nav__link">
+  <a href="#interactive-mode-selection-v290" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚡ 1. New Skill: homebrew-release-workflow
+        Interactive Mode Selection (v2.9.0)
       
     </span>
   </a>
@@ -4443,21 +4876,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-enhance-craftdisthomebrew-command" class="md-nav__link">
+  <a href="#wave-checkpoints-v290" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚡ 2. Enhance /craft:dist:homebrew Command
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-formula-validation-skill" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ⚡ 3. Formula Validation Skill
+        Wave Checkpoints (v2.9.0)
       
     </span>
   </a>
@@ -4470,22 +4892,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#medium-effort-1-2-hours" class="md-nav__link">
+  <a href="#variations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Medium Effort (1-2 hours)
+        Variations
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Medium Effort (1-2 hours)">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-each-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Each Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use Each Mode">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#4-homebrew-setup-wizard" class="md-nav__link">
+  <a href="#use-default-mode-when" class="md-nav__link">
     <span class="md-ellipsis">
       
-        □ 4. Homebrew Setup Wizard
+        Use default mode when
       
     </span>
   </a>
@@ -4493,10 +4937,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-pypi-resource-url-updater" class="md-nav__link">
+  <a href="#use-wave-mode-when" class="md-nav__link">
     <span class="md-ellipsis">
       
-        □ 5. PyPI Resource URL Updater
+        Use wave mode when
       
     </span>
   </a>
@@ -4504,10 +4948,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-multi-formula-release-coordinator" class="md-nav__link">
+  <a href="#use-phase-mode-when" class="md-nav__link">
     <span class="md-ellipsis">
       
-        □ 6. Multi-Formula Release Coordinator
+        Use phase mode when
       
     </span>
   </a>
@@ -4520,22 +4964,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#long-term-future-sessions" class="md-nav__link">
+  <a href="#example-workflows" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Long-term (Future sessions)
+        Example Workflows
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Long-term (Future sessions)">
+    <nav class="md-nav" aria-label="Example Workflows">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#7-homebrew-cask-support" class="md-nav__link">
+  <a href="#example-1-documentation-update-wave-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        □ 7. Homebrew Cask Support
+        Example 1: Documentation Update (wave mode)
       
     </span>
   </a>
@@ -4543,10 +4987,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#8-cross-platform-support" class="md-nav__link">
+  <a href="#example-2-feature-implementation-phase-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        □ 8. Cross-Platform Support
+        Example 2: Feature Implementation (phase mode)
       
     </span>
   </a>
@@ -4554,21 +4998,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#9-formula-dependency-graph" class="md-nav__link">
+  <a href="#example-3-quick-multi-step-default-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        □ 9. Formula Dependency Graph
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#10-homebrew-analytics-dashboard" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        □ 10. Homebrew Analytics Dashboard
+        Example 3: Quick Multi-Step (default mode)
       
     </span>
   </a>
@@ -4581,121 +5014,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#acceptance-criteria" class="md-nav__link">
+  <a href="#related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Acceptance Criteria
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Acceptance Criteria">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#for-quick-wins-mvp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Quick Wins (MVP)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#for-medium-effort" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Medium Effort
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-priority" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation Priority
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#technical-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Technical Notes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Technical Notes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reusable-workflow-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reusable Workflow Location
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#workflow-call-pattern" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workflow Call Pattern
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#token-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Token Requirements
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-files-to-createupdate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related Files to Create/Update
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recommended-path" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recommended Path
+        Related
       
     </span>
   </a>
@@ -4719,7 +5041,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/brainstorm/BRAINSTORM-homebrew-automation-2025-12-31.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/cookbook/common/use-interactive-orchestration.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4727,235 +5049,300 @@
   
 
 
-<h1 id="homebrew-automation-for-craft-plugin">Homebrew Automation for Craft Plugin<a class="headerlink" href="#homebrew-automation-for-craft-plugin" title="Permanent link">&para;</a></h1>
-<p><strong>Generated:</strong> 2025-12-31
-<strong>Mode:</strong> feature | <strong>Depth:</strong> default
-<strong>Context:</strong> Lessons learned from aiterm/atlas/flow-cli/nexus-cli homebrew automation</p>
-<hr />
-<h2 id="background-what-we-built-today">Background: What We Built Today<a class="headerlink" href="#background-what-we-built-today" title="Permanent link">&para;</a></h2>
-<p>Created a reusable Homebrew workflow system:</p>
+<h1 id="recipe-use-interactive-orchestration">Recipe: Use Interactive Orchestration<a class="headerlink" href="#recipe-use-interactive-orchestration" title="Permanent link">&para;</a></h1>
+<p><strong>Time:</strong> 5-7 minutes
+<strong>Level:</strong> Intermediate
+<strong>Prerequisites:</strong> Complex task requiring multiple steps or agents
+<strong>NEW:</strong> v2.9.0 - Interactive mode selection and wave checkpoints</p>
+<h2 id="problem">Problem<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
+<p>I have a complex task that requires multiple steps, different specialized agents, or coordination across several files. I want to run it with visibility and control over the execution.</p>
+<h2 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Centralized workflow</strong> - <code>homebrew-tap/.github/workflows/update-formula.yml</code></li>
-<li><strong>Auto-merge PRs</strong> - No manual intervention needed</li>
-<li><strong>Multi-source support</strong> - GitHub tarballs and PyPI packages</li>
-<li><strong>Token management</strong> - Fine-grained PAT for tap access</li>
+<li><strong>Start orchestration with task description</strong></li>
 </ol>
-<hr />
-<h2 id="quick-wins-30-min-each">Quick Wins (&lt; 30 min each)<a class="headerlink" href="#quick-wins-30-min-each" title="Permanent link">&para;</a></h2>
-<h3 id="1-new-skill-homebrew-release-workflow">⚡ 1. New Skill: <code>homebrew-release-workflow</code><a class="headerlink" href="#1-new-skill-homebrew-release-workflow" title="Permanent link">&para;</a></h3>
-<p><strong>Benefit:</strong> Generate release workflows for any repo</p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gh"># /craft:dist:homebrew-workflow</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Generate GitHub Actions workflow for automated Homebrew formula updates.
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Output:
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">-</span><span class="w"> </span>.github/workflows/homebrew-release.yml (GitHub source)
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">-</span><span class="w"> </span>.github/workflows/homebrew-release.yml (PyPI source)
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add user authentication with JWT, update docs, and add tests&quot;</span>
 </span></code></pre></div>
-<h3 id="2-enhance-craftdisthomebrew-command">⚡ 2. Enhance <code>/craft:dist:homebrew</code> Command<a class="headerlink" href="#2-enhance-craftdisthomebrew-command" title="Permanent link">&para;</a></h3>
-<p><strong>Benefit:</strong> One command to set up full automation</p>
-<p>Add subcommands:</p>
-<ul>
-<li><code>ait craft dist:homebrew formula</code> - Generate formula only (existing)</li>
-<li><code>ait craft dist:homebrew workflow</code> - Generate release workflow</li>
-<li><code>ait craft dist:homebrew token</code> - Guide for token setup</li>
-<li><code>ait craft dist:homebrew setup</code> - Full setup wizard</li>
-</ul>
-<h3 id="3-formula-validation-skill">⚡ 3. Formula Validation Skill<a class="headerlink" href="#3-formula-validation-skill" title="Permanent link">&para;</a></h3>
-<p><strong>Benefit:</strong> Catch errors before release</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:dist:homebrew<span class="w"> </span>validate
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># Runs: brew audit --strict --online Formula/name.rb</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Checks: desc length, license SPDX, test block, SHA256</span>
+<p><strong>What happens (v2.9.0 "Show Steps First" pattern):</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>╭─ Task Analysis ──────────────────────────────╮
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│ Task: add user authentication with JWT,      │
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│       update docs, and add tests              │
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│ Complexity: 8/10 (high)                       │
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│ Estimated agents: 3                           │
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│ Estimated time: 2-4 hours                     │
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>╰───────────────────────────────────────────────╯
 </span></code></pre></div>
-<hr />
-<h2 id="medium-effort-1-2-hours">Medium Effort (1-2 hours)<a class="headerlink" href="#medium-effort-1-2-hours" title="Permanent link">&para;</a></h2>
-<h3 id="4-homebrew-setup-wizard">□ 4. Homebrew Setup Wizard<a class="headerlink" href="#4-homebrew-setup-wizard" title="Permanent link">&para;</a></h3>
-<p><strong>User Story:</strong> As a developer releasing a new tool, I want a guided setup so I don't miss any steps.</p>
-<p><strong>Flow:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:dist:homebrew setup
+<ol>
+<li><strong>Choose orchestration mode (v2.9.0)</strong></li>
+</ol>
+<p>You'll be asked:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Select orchestration mode:
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>1. Detect project type (Python/Node/Go/Rust/Shell)
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>2. Generate formula template
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>3. Create release workflow
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>4. Guide token creation
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>5. Add token to repo secrets
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>6. Create initial release
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>7. Verify installation works
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>1. default - Sequential execution (one step at a time)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>   Best for: Simple multi-step tasks
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>   Time: Moderate
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>2. wave - Parallel waves with checkpoints
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>   Best for: Independent parallel tasks
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>   Time: Faster
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>3. phase - Sequential phases with validation
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>   Best for: Complex dependent tasks
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>   Time: Comprehensive
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>Which mode? (1/2/3)
 </span></code></pre></div>
-<h3 id="5-pypi-resource-url-updater">□ 5. PyPI Resource URL Updater<a class="headerlink" href="#5-pypi-resource-url-updater" title="Permanent link">&para;</a></h3>
-<p><strong>User Story:</strong> As a Python package maintainer, I want automatic updates to resource URLs when PyPI changes them.</p>
-<p><strong>Problem:</strong> PyPI resource URLs change, breaking formulas (nexus-cli issue)</p>
-<p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:dist:homebrew<span class="w"> </span>update-resources<span class="w"> </span>nexus-cli
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Fetches current URLs from PyPI API</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Updates Formula/nexus-cli.rb with new URLs</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># Creates PR or commits directly</span>
-</span></code></pre></div>
-<h3 id="6-multi-formula-release-coordinator">□ 6. Multi-Formula Release Coordinator<a class="headerlink" href="#6-multi-formula-release-coordinator" title="Permanent link">&para;</a></h3>
-<p><strong>User Story:</strong> As a maintainer of multiple tools, I want to release them together when they have dependencies.</p>
-<p><strong>Example:</strong> rforge ecosystem packages need coordinated releases</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:dist:homebrew<span class="w"> </span>release-batch<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span>--packages<span class="w"> </span><span class="s2">&quot;mediationverse,rmediation,pmed&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span>--order<span class="w"> </span><span class="s2">&quot;dependency&quot;</span>
-</span></code></pre></div>
-<hr />
-<h2 id="long-term-future-sessions">Long-term (Future sessions)<a class="headerlink" href="#long-term-future-sessions" title="Permanent link">&para;</a></h2>
-<h3 id="7-homebrew-cask-support">□ 7. Homebrew Cask Support<a class="headerlink" href="#7-homebrew-cask-support" title="Permanent link">&para;</a></h3>
-<p><strong>Current:</strong> Only Formula (CLI tools)
-<strong>Future:</strong> Cask support for desktop apps (like Scribe)</p>
-<p>Features needed:</p>
-<ul>
-<li>DMG/PKG URL handling</li>
-<li>Livecheck integration</li>
-<li>Postflight scripts</li>
-<li>zap trash paths</li>
-</ul>
-<h3 id="8-cross-platform-support">□ 8. Cross-Platform Support<a class="headerlink" href="#8-cross-platform-support" title="Permanent link">&para;</a></h3>
-<p><strong>Current:</strong> macOS-focused (Homebrew)
-<strong>Future:</strong> Generate for multiple package managers</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:dist:package<span class="w"> </span>--targets<span class="w"> </span>homebrew,apt,chocolatey,scoop
-</span></code></pre></div>
-<h3 id="9-formula-dependency-graph">□ 9. Formula Dependency Graph<a class="headerlink" href="#9-formula-dependency-graph" title="Permanent link">&para;</a></h3>
-<p><strong>User Story:</strong> Visualize which formulas depend on each other in the tap.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:dist:homebrew<span class="w"> </span>deps
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># Output: Mermaid diagram of formula dependencies</span>
-</span></code></pre></div>
-<h3 id="10-homebrew-analytics-dashboard">□ 10. Homebrew Analytics Dashboard<a class="headerlink" href="#10-homebrew-analytics-dashboard" title="Permanent link">&para;</a></h3>
-<p><strong>User Story:</strong> Track install counts and usage patterns.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:dist:homebrew<span class="w"> </span>stats<span class="w"> </span>aiterm
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># Shows: installs/day, version distribution, errors</span>
-</span></code></pre></div>
-<hr />
-<h2 id="acceptance-criteria">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
-<h3 id="for-quick-wins-mvp">For Quick Wins (MVP)<a class="headerlink" href="#for-quick-wins-mvp" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Acceptance Criteria</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>homebrew-workflow</code> skill</td>
-<td>Generates valid workflow, passes linting</td>
-</tr>
-<tr>
-<td>Enhanced <code>dist:homebrew</code></td>
-<td>New subcommands work, help text updated</td>
-</tr>
-<tr>
-<td>Formula validation</td>
-<td>Catches common audit failures</td>
-</tr>
-</tbody>
-</table>
-<h3 id="for-medium-effort">For Medium Effort<a class="headerlink" href="#for-medium-effort" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Acceptance Criteria</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Setup wizard</td>
-<td>New user can go from 0 to working formula in &lt; 10 min</td>
-</tr>
-<tr>
-<td>Resource updater</td>
-<td>Successfully updates nexus-cli URLs from PyPI API</td>
-</tr>
-<tr>
-<td>Batch release</td>
-<td>Releases 3+ packages in correct dependency order</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="implementation-priority">Implementation Priority<a class="headerlink" href="#implementation-priority" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Priority 1 (This week):
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>├── ⚡ homebrew-workflow skill
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├── ⚡ Enhanced dist:homebrew command
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>└── ⚡ Formula validation
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>Priority 2 (Next week):
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>├── □ Setup wizard
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>└── □ PyPI resource updater
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>Priority 3 (Future):
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>├── □ Multi-formula coordinator
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>├── □ Cask support
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>└── □ Cross-platform packages
-</span></code></pre></div>
-<hr />
-<h2 id="technical-notes">Technical Notes<a class="headerlink" href="#technical-notes" title="Permanent link">&para;</a></h2>
-<h3 id="reusable-workflow-location">Reusable Workflow Location<a class="headerlink" href="#reusable-workflow-location" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Data-Wise/homebrew-tap/.github/workflows/update-formula.yml
-</span></code></pre></div>
-<h3 id="workflow-call-pattern">Workflow Call Pattern<a class="headerlink" href="#workflow-call-pattern" title="Permanent link">&para;</a></h3>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Data-Wise/homebrew-tap/.github/workflows/update-formula.yml@main</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">with</span><span class="p">:</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">formula_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myapp</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ needs.prepare.outputs.version }}</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="nt">sha256</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ needs.prepare.outputs.sha256 }}</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="nt">source_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github</span><span class="w">  </span><span class="c1"># or pypi</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="nt">auto_merge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nt">secrets</span><span class="p">:</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">  </span><span class="nt">tap_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}</span>
-</span></code></pre></div>
-<h3 id="token-requirements">Token Requirements<a class="headerlink" href="#token-requirements" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Fine-grained PAT</li>
-<li>Scope: <code>Data-Wise/homebrew-tap</code> only</li>
-<li>Permissions: Contents (R/W), Pull requests (R/W)</li>
-</ul>
-<hr />
-<h2 id="related-files-to-createupdate">Related Files to Create/Update<a class="headerlink" href="#related-files-to-createupdate" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>craft/skills/distribution/homebrew-workflow-expert.md</code></td>
-<td>Create</td>
-</tr>
-<tr>
-<td><code>craft/commands/dist/homebrew-workflow.md</code></td>
-<td>Create</td>
-</tr>
-<tr>
-<td><code>craft/commands/dist/homebrew.md</code></td>
-<td>Update with subcommands</td>
-</tr>
-<tr>
-<td><code>craft/skills/distribution/homebrew-formula-expert.md</code></td>
-<td>Update with automation</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="recommended-path">Recommended Path<a class="headerlink" href="#recommended-path" title="Permanent link">&para;</a></h2>
-<p>→ <strong>Start with Quick Win #1</strong> (homebrew-workflow skill) because:</p>
+<p><strong>Choose based on your task:</strong>
+   - <strong>default</strong> (1): For straightforward tasks, no parallelization
+   - <strong>wave</strong> (2): For tasks with independent steps that can run in parallel
+   - <strong>phase</strong> (3): For complex tasks with dependencies and validation needs</p>
 <ol>
-<li>Immediately useful for new repos</li>
-<li>Codifies the pattern we just built</li>
-<li>Low effort, high value</li>
-<li>Builds foundation for wizard</li>
+<li><strong>Review execution plan</strong></li>
 </ol>
-<p>→ Then <strong>Quick Win #2</strong> to integrate into existing command structure</p>
-<p>→ Then <strong>Quick Win #3</strong> to catch errors early</p>
+<p>After selecting mode, you'll see:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>╭─ Execution Plan (wave mode) ─────────────────╮
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│                                               │
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│ Wave 1 (parallel):                            │
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│   • backend-architect: JWT implementation     │
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>│   • security-specialist: Auth security review │
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│                                               │
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│ Wave 2 (after wave 1):                        │
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   • test-automator: Add auth tests            │
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│   • docs-architect: Update auth documentation │
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│                                               │
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│ Checkpoints:                                  │
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>│   ✓ After wave 1: Review JWT implementation   │
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>│   ✓ After wave 2: Verify all tests pass       │
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>│                                               │
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>╰───────────────────────────────────────────────╯
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>Proceed with this plan? (y/n/adjust)
+</span></code></pre></div>
+<ol>
+<li><strong>Confirm or adjust</strong></li>
+</ol>
+<p>Options:
+   - <strong>y</strong> - Proceed with the plan
+   - <strong>n</strong> - Cancel and revise your task description
+   - <strong>adjust</strong> - Modify mode or agent selection</p>
+<ol>
+<li><strong>Monitor execution with checkpoints (v2.9.0)</strong></li>
+</ol>
+<p>During execution:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>╭─ Wave 1 Progress ────────────────────────────╮
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│ [████████████░░░░░░░░] 60%                    │
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>│                                               │
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>│ ✓ backend-architect: JWT implementation done  │
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│ ⟳ security-specialist: Reviewing...           │
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>╰───────────────────────────────────────────────╯
+</span></code></pre></div>
+<p>After each wave:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>╭─ Wave 1 Checkpoint ──────────────────────────╮
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>│ Both agents completed successfully            │
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>│                                               │
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│ Results:                                      │
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>│ • src/auth/jwt.ts created (145 lines)         │
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│ • Security review: No critical issues found   │
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│                                               │
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│ Continue to wave 2? (y/n/adjust)              │
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>╰───────────────────────────────────────────────╯
+</span></code></pre></div>
+<ol>
+<li><strong>Review final results</strong></li>
+</ol>
+<p>When complete:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>╭─ Orchestration Complete ─────────────────────╮
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>│ All waves completed successfully              │
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>│                                               │
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>│ Summary:                                      │
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│ • 4 agents executed                           │
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│ • 8 files modified                            │
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>│ • 342 lines added                             │
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>│ • 89 lines removed                            │
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│ • All tests passing (45 new tests)            │
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>│                                               │
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>│ Next steps:                                   │
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>│ 1. Review changes in modified files           │
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>│ 2. Run /craft:check --mode=thorough           │
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>│ 3. Commit changes                             │
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>╰───────────────────────────────────────────────╯
+</span></code></pre></div>
+<h2 id="explanation">Explanation<a class="headerlink" href="#explanation" title="Permanent link">&para;</a></h2>
+<h3 id="interactive-mode-selection-v290">Interactive Mode Selection (v2.9.0)<a class="headerlink" href="#interactive-mode-selection-v290" title="Permanent link">&para;</a></h3>
+<p>The orchestrator now asks you to choose how to execute:</p>
+<p><strong>default mode:</strong></p>
+<ul>
+<li>Sequential execution</li>
+<li>One step completes before next begins</li>
+<li>Best for: Simple multi-step tasks where order matters</li>
+<li>Example: "Update docs then deploy"</li>
+</ul>
+<p><strong>wave mode:</strong></p>
+<ul>
+<li>Parallel waves with checkpoints</li>
+<li>Independent tasks run simultaneously</li>
+<li>Pauses between waves for review</li>
+<li>Best for: Tasks with parallelizable steps</li>
+<li>Example: "Update multiple documentation files" (parallel) → "Build site" (after all updates)</li>
+</ul>
+<p><strong>phase mode:</strong></p>
+<ul>
+<li>Sequential phases with validation</li>
+<li>Each phase has clear deliverables</li>
+<li>Comprehensive validation at checkpoints</li>
+<li>Best for: Complex projects with dependencies</li>
+<li>Example: "Phase 1: Design → Phase 2: Implement → Phase 3: Test → Phase 4: Document"</li>
+</ul>
+<h3 id="wave-checkpoints-v290">Wave Checkpoints (v2.9.0)<a class="headerlink" href="#wave-checkpoints-v290" title="Permanent link">&para;</a></h3>
+<p>After each wave completes:</p>
+<ol>
+<li><strong>Shows results</strong> from all agents in that wave</li>
+<li><strong>Asks for confirmation</strong> before continuing</li>
+<li><strong>Allows adjustments</strong> if issues found</li>
+<li><strong>Provides context</strong> for decision-making</li>
+</ol>
+<p>Benefits:</p>
+<ul>
+<li>Catch problems early before they cascade</li>
+<li>Review intermediate results</li>
+<li>Adjust plan based on actual outcomes</li>
+<li>ADHD-friendly: natural break points in long tasks</li>
+</ul>
+<h2 id="variations">Variations<a class="headerlink" href="#variations" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Quick orchestration without mode selection:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;simple task&quot;</span><span class="w"> </span>--mode<span class="o">=</span>default
+</span></code></pre></div>
+<p>Skips mode selection, goes directly to execution</p>
+<ul>
+<li><strong>Preview plan without executing:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>--dry-run
+</span></code></pre></div>
+<p>Shows the execution plan but doesn't run it</p>
+<ul>
+<li><strong>Use with /craft:do for automatic mode selection:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;complex multi-step task&quot;</span>
+</span></code></pre></div>
+<p>If complexity score is 8-10, automatically routes to orchestrator</p>
+<ul>
+<li><strong>Resume paused orchestration:</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate:resume
+</span></code></pre></div>
+<p>Continue from last checkpoint if interrupted</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"Mode selection not showing"</td>
+<td>Update to v2.9.0+, older versions don't have interactive mode</td>
+</tr>
+<tr>
+<td>"Wave checkpoint hangs"</td>
+<td>One agent may be waiting for input, check agent output</td>
+</tr>
+<tr>
+<td>"Want to switch modes mid-execution"</td>
+<td>Cancel (Ctrl+C) and restart with different mode</td>
+</tr>
+<tr>
+<td>"Checkpoint shows errors"</td>
+<td>Review agent output, fix issues, then choose "adjust" to modify plan</td>
+</tr>
+<tr>
+<td>"Too many confirmation prompts"</td>
+<td>Use --mode flag to skip mode selection, or --yes to auto-confirm</td>
+</tr>
+<tr>
+<td>"Need to see what mode will do"</td>
+<td>Use --dry-run first to preview execution plan</td>
+</tr>
+</tbody>
+</table>
+<h2 id="when-to-use-each-mode">When to Use Each Mode<a class="headerlink" href="#when-to-use-each-mode" title="Permanent link">&para;</a></h2>
+<h3 id="use-default-mode-when">Use <strong>default</strong> mode when<a class="headerlink" href="#use-default-mode-when" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Task has 2-4 simple sequential steps</li>
+<li>No parallelization possible</li>
+<li>You want simplest execution</li>
+<li>Example: "Lint code, run tests, commit"</li>
+</ul>
+<h3 id="use-wave-mode-when">Use <strong>wave</strong> mode when<a class="headerlink" href="#use-wave-mode-when" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Multiple independent subtasks</li>
+<li>Can benefit from parallel execution</li>
+<li>Want checkpoints to review progress</li>
+<li>Example: "Update 5 documentation files + generate diagrams" (wave 1: parallel updates, wave 2: build site)</li>
+</ul>
+<h3 id="use-phase-mode-when">Use <strong>phase</strong> mode when<a class="headerlink" href="#use-phase-mode-when" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Complex multi-phase project</li>
+<li>Strong dependencies between phases</li>
+<li>Need comprehensive validation</li>
+<li>Example: "Design API → Implement backend → Add tests → Update docs → Deploy" (must be sequential)</li>
+</ul>
+<h2 id="example-workflows">Example Workflows<a class="headerlink" href="#example-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-documentation-update-wave-mode">Example 1: Documentation Update (wave mode)<a class="headerlink" href="#example-1-documentation-update-wave-mode" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;update all tutorials for v2.9.0 features&quot;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># Choose mode: 2 (wave)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Execution:</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># Wave 1 (parallel): Update 4 tutorial files</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># Wave 2 (parallel): Update 3 reference cards</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># Wave 3 (sequential): Rebuild docs site, validate links</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># Result: 7 files updated in parallel, then validated</span>
+</span></code></pre></div>
+<h3 id="example-2-feature-implementation-phase-mode">Example 2: Feature Implementation (phase mode)<a class="headerlink" href="#example-2-feature-implementation-phase-mode" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add OAuth2 authentication to API&quot;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># Choose mode: 3 (phase)</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Execution:</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># Phase 1: Design (security review, API design)</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Phase 2: Implement (backend code, database)</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="c1"># Phase 3: Test (unit tests, integration tests)</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1"># Phase 4: Document (API docs, tutorial)</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="c1"># Each phase validated before next begins</span>
+</span></code></pre></div>
+<h3 id="example-3-quick-multi-step-default-mode">Example 3: Quick Multi-Step (default mode)<a class="headerlink" href="#example-3-quick-multi-step-default-mode" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;fix markdown lint errors and commit&quot;</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># Choose mode: 1 (default)</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># Execution: Sequential</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># 1. Run markdownlint --fix</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># 2. Stage changes</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># 3. Commit with message</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="c1"># Simple, fast, no parallelization needed</span>
+</span></code></pre></div>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../../commands/orchestrate/">Orchestrate Command</a> — Full command reference</li>
+<li><a href="../../../tutorials/interactive-orchestration/">Interactive Orchestration Tutorial</a> — Complete guide</li>
+<li><a href="../../../reference/REFCARD-INTERACTIVE-COMMANDS/">Interactive Commands Reference</a> — Quick reference</li>
+<li><a href="../../../commands/do/">Do Command</a> — Automatic routing to orchestrator</li>
+</ul>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -5005,10 +5392,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
