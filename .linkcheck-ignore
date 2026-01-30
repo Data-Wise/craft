@@ -117,7 +117,24 @@ Targets:
 - Reason: These are intentional example links shown in documentation to illustrate what broken links look like
 - Fix: Not needed - examples are correct as-is
 
-### 7. Planned Documentation (Not Yet Created)
+### 7. Template Placeholders (NEW in v2.10.0)
+Files with broken links:
+- `templates/claude-md/teaching-template.md`
+- `templates/claude-md/r-package-template.md`
+- `templates/claude-md/mcp-server-template.md`
+
+Targets (template variables):
+- `{course_url}`
+- `{repo_url}`
+- `{canvas_url}`
+- `{package_name}`
+- `{github_org}`
+- Any link containing `{variable}` pattern
+
+Reason: Template files contain placeholder variables that are replaced when scaffolding new projects
+Fix: Not needed - templates are correct and functional
+
+### 8. Planned Documentation (Not Yet Created)
 Files with broken links:
 - `commands/orchestrate/resume.md`
 - `commands/git/init.md`
@@ -132,8 +149,8 @@ Targets:
 ## Build Status
 - **Build command**: `mkdocs build --strict` will show these warnings
 - **Expected**: ~30 warnings from categories above
-- **Action required**: Fix categories #3, #4, #5, #7 in future PRs
-- **No action needed**: Categories #1, #2, #6 (intentional)
+- **Action required**: Fix categories #3, #4, #5, #8 in future PRs
+- **No action needed**: Categories #1, #2, #6, #7 (intentional)
 
 ## Next Steps (Phase 2+)
 1. Update teaching docs to use category page anchors
@@ -143,5 +160,5 @@ Targets:
 
 ---
 Created: 2026-01-17
-Last updated: 2026-01-17
-Related: PR #13 (Website Organization Phase 1)
+Last updated: 2026-01-30
+Related: PR #13 (Website Organization Phase 1), PR #39 (CLAUDE-MD suite)

@@ -409,8 +409,7 @@ Only updates command list, skips other sections.
 
 ## See Also
 
-- **Guide:** [Interactive Commands](../../guide/interactive-commands.md)
-- **Spec:** [CLAUDE-MD Command Porting](../../specs/SPEC-claude-md-port.md)
+- **Guide:** [Interactive Commands](../../../docs/guide/interactive-commands.md)
 - **Template:** Show Steps First pattern
 - **Utility:** `utils/claude_md_detector.py`
 
