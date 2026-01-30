@@ -25,7 +25,7 @@ import sys
 # Add utils to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from utils.claude_md_detector import detect_project_info, ProjectType
+from utils.claude_md_detector import detect_project, ProjectInfo
 from utils.claude_md_template_populator import TemplatePopulator
 from utils.claude_md_auditor import CLAUDEMDAuditor, Severity
 from utils.claude_md_fixer import CLAUDEMDFixer
@@ -133,7 +133,7 @@ class TestProjectDetection:
 
     def test_detect_craft_plugin(self, craft_plugin_project):
         """Verify craft plugin detection."""
-        project_info = detect_project_info(str(craft_plugin_project))
+        project_info = detect_project(str(craft_plugin_project))
 
         assert project_info["type"] == "craft-plugin"
         assert project_info["name"] == "test-plugin"
@@ -141,7 +141,7 @@ class TestProjectDetection:
 
     def test_detect_r_package(self, r_package_project):
         """Verify R package detection."""
-        project_info = detect_project_info(str(r_package_project))
+        project_info = detect_project(str(r_package_project))
 
         assert project_info["type"] == "r-package"
         assert "testpkg" in project_info["name"]
@@ -149,28 +149,28 @@ class TestProjectDetection:
 
     def test_detect_teaching_site(self, teaching_project):
         """Verify teaching site detection."""
-        project_info = detect_project_info(str(teaching_project))
+        project_info = detect_project(str(teaching_project))
 
         assert project_info["type"] == "teaching-site"
 
     def test_version_extraction_plugin_json(self, craft_plugin_project):
         """Test version extraction from plugin.json."""
-        project_info = detect_project_info(str(craft_plugin_project))
+        project_info = detect_project(str(craft_plugin_project))
         assert project_info["version"] == "1.0.0"
 
     def test_version_extraction_description(self, r_package_project):
         """Test version extraction from DESCRIPTION."""
-        project_info = detect_project_info(str(r_package_project))
+        project_info = detect_project(str(r_package_project))
         assert project_info["version"] == "0.1.0"
 
     def test_command_counting(self, craft_plugin_project):
         """Test command discovery and counting."""
-        project_info = detect_project_info(str(craft_plugin_project))
+        project_info = detect_project(str(craft_plugin_project))
         assert project_info["command_count"] >= 1
 
     def test_empty_directory_detection(self, temp_dir):
         """Test detection on empty directory."""
-        project_info = detect_project_info(str(temp_dir))
+        project_info = detect_project(str(temp_dir))
         # Should detect as generic or unknown
         assert "type" in project_info
 
@@ -526,7 +526,7 @@ class TestErrorHandling:
         (temp_dir / ".claude-plugin" / "plugin.json").write_text("{invalid json")
 
         # Should handle gracefully
-        project_info = detect_project_info(str(temp_dir))
+        project_info = detect_project(str(temp_dir))
         assert "type" in project_info  # Should still return something
 
     def test_empty_claude_md_handling(self, temp_dir):
