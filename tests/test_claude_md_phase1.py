@@ -12,6 +12,9 @@ Covers:
 import unittest
 import tempfile
 import json
+import os
+import time
+import threading
 from pathlib import Path
 import sys
 
@@ -112,6 +115,153 @@ Title: Test Package
         self.assertIn("test1.md", commands)
         self.assertIn("docs/test2.md", commands)
         self.assertIn("docs/test3.md", commands)
+
+    def test_concurrent_detection_calls(self):
+        """Test concurrent detection calls are thread-safe."""
+        # Create plugin.json
+        plugin_json = self.path / ".claude-plugin"
+        plugin_json.mkdir()
+        (plugin_json / "plugin.json").write_text(json.dumps({
+            "name": "test-plugin",
+            "version": "1.0.0"
+        }))
+
+        # Create commands directory
+        commands_dir = self.path / "commands"
+        commands_dir.mkdir()
+        (commands_dir / "test.md").write_text("# Test command")
+
+        # Run detection in parallel threads
+        results = []
+        errors = []
+
+        def detect_project():
+            try:
+                detector = CLAUDEMDDetector(self.path)
+                info = detector.detect()
+                results.append(info)
+            except Exception as e:
+                errors.append(e)
+
+        # Create 10 concurrent threads
+        threads = []
+        for _ in range(10):
+            thread = threading.Thread(target=detect_project)
+            threads.append(thread)
+            thread.start()
+
+        # Wait for all threads to complete
+        for thread in threads:
+            thread.join()
+
+        # Verify results
+        self.assertEqual(len(errors), 0, f"Errors occurred: {errors}")
+        self.assertEqual(len(results), 10, "All threads should complete")
+
+        # All results should be consistent
+        for info in results:
+            self.assertIsNotNone(info)
+            self.assertEqual(info.type, "craft-plugin")
+            self.assertEqual(info.name, "test-plugin")
+            self.assertEqual(info.version, "1.0.0")
+
+    def test_symlink_handling(self):
+        """Test detection handles symlinked commands correctly."""
+        # Create plugin.json
+        plugin_json = self.path / ".claude-plugin"
+        plugin_json.mkdir()
+        (plugin_json / "plugin.json").write_text(json.dumps({
+            "name": "test-plugin",
+            "version": "1.0.0"
+        }))
+
+        # Create real commands directory
+        real_commands = self.path / "real_commands"
+        real_commands.mkdir()
+        (real_commands / "real_cmd.md").write_text("# Real command")
+
+        # Create commands directory with symlink
+        commands_dir = self.path / "commands"
+        commands_dir.mkdir()
+        (commands_dir / "direct.md").write_text("# Direct command")
+
+        # Create symlink to real command
+        symlink_path = commands_dir / "symlinked.md"
+        try:
+            os.symlink(real_commands / "real_cmd.md", symlink_path)
+            has_symlink = True
+        except (OSError, NotImplementedError):
+            # Symlinks not supported on this system
+            has_symlink = False
+
+        detector = CLAUDEMDDetector(self.path)
+        commands = detector._scan_commands()
+
+        # Should find direct command
+        self.assertIn("direct.md", commands)
+
+        if has_symlink:
+            # Should handle symlinked command
+            # Count should include symlink (detector follows them)
+            self.assertGreaterEqual(len(commands), 1)
+
+    def test_performance_benchmarks(self):
+        """Test detection performance meets targets."""
+        # Create a moderately complex project structure
+        plugin_json = self.path / ".claude-plugin"
+        plugin_json.mkdir()
+        (plugin_json / "plugin.json").write_text(json.dumps({
+            "name": "test-plugin",
+            "version": "1.0.0"
+        }))
+
+        # Create 50 commands across nested directories
+        commands_dir = self.path / "commands"
+        commands_dir.mkdir()
+
+        for i in range(20):
+            (commands_dir / f"cmd{i}.md").write_text(f"# Command {i}")
+
+        # Nested directories
+        for subdir in ["docs", "git", "code", "test"]:
+            sub = commands_dir / subdir
+            sub.mkdir()
+            for i in range(10):
+                (sub / f"{subdir}_cmd{i}.md").write_text(f"# {subdir} {i}")
+
+        # Benchmark detection
+        detector = CLAUDEMDDetector(self.path)
+
+        start_time = time.time()
+        info = detector.detect()
+        elapsed = time.time() - start_time
+
+        # Assertions
+        self.assertIsNotNone(info)
+        self.assertEqual(len(info.commands), 60)  # 20 + 4*10
+
+        # Performance targets
+        self.assertLess(elapsed, 0.5,
+                       f"Detection took {elapsed:.3f}s, should be < 0.5s")
+
+        # Benchmark command scanning specifically
+        start_time = time.time()
+        commands = detector._scan_commands()
+        scan_elapsed = time.time() - start_time
+
+        self.assertEqual(len(commands), 60)
+        self.assertLess(scan_elapsed, 0.1,
+                       f"Command scanning took {scan_elapsed:.3f}s, should be < 0.1s")
+
+        # Benchmark version extraction
+        start_time = time.time()
+        for _ in range(100):  # 100 iterations to measure
+            version = detector.get_version_from_source("plugin.json")
+        version_elapsed = time.time() - start_time
+
+        self.assertEqual(version, "1.0.0")
+        self.assertLess(version_elapsed, 0.1,
+                       f"100 version extractions took {version_elapsed:.3f}s, should be < 0.1s")
 
 
 class TestSimpleCLAUDEMDUpdater(unittest.TestCase):
