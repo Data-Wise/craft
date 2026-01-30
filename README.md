@@ -2,12 +2,12 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml)
 [![Validate Plugins](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml)
-[![Version](https://img.shields.io/badge/version-2.8.1-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v2.8.1)
-[![Documentation](https://img.shields.io/badge/docs-95%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
+[![Version](https://img.shields.io/badge/version-2.10.0--dev-blue.svg)](https://github.com/Data-Wise/craft)
+[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.8.1 - Markdown Lint Style Fixes** 🚀
-> **100 commands** | **21 skills** | **8 agents** | **Documentation quality automation**
-> Smart markdown linting with auto-fix, pre-commit hooks, and interactive docs workflow
+> **v2.10.0-dev - Claude-MD Command Suite** 🚀
+> **105 commands** | **21 skills** | **8 agents** | **CLAUDE.md automation**
+> Comprehensive CLAUDE.md management with validation, auto-fix, and templates. 166x faster than targets.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
