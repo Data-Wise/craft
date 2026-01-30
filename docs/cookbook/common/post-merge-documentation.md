@@ -373,4 +373,4 @@ git push
 - [Docs Update Command](../../commands/docs/update.md) — Full command reference
 - [Post-Merge Pipeline Tutorial](../../tutorials/TUTORIAL-post-merge-pipeline.md) — Detailed guide
 - [Docs Update Reference](../../reference/REFCARD-DOCS-UPDATE.md) — Quick reference
-- [Git Workflow](../../guide/git-feature-workflow.md) — Feature branch workflow
+- [Git Workflow](../../workflows/git-feature-workflow.md) — Feature branch workflow

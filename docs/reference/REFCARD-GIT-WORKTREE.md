@@ -358,5 +358,5 @@ python -c "import pkg" 2>/dev/null && echo "✅ Package installed" || echo "❌ 
 
 - **Tutorial:** [Worktree Setup Tutorial](../tutorials/TUTORIAL-worktree-setup.md) — Step-by-step guide
 - **Command docs:** [/craft:git:worktree](../commands/git/worktree.md) — Full documentation
-- **Workflow:** [Git Feature Workflow](../../workflows/git-feature-workflow.md) — Complete workflow
+- **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — Complete workflow
 - **Pattern guide:** [Interactive Commands Guide](../guide/interactive-commands.md) — How the pattern works

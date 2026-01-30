@@ -943,4 +943,4 @@ op inject -i .env.template -o .env
 - **Tutorial:** [Worktree Setup Tutorial](../tutorials/TUTORIAL-worktree-setup.md) — Beginner guide
 - **Quick reference:** [Worktree Refcard](../reference/REFCARD-GIT-WORKTREE.md) — Common commands
 - **Command docs:** [/craft:git:worktree](../commands/git/worktree.md) — Full documentation
-- **Workflow:** [Git Feature Workflow](../../workflows/git-feature-workflow.md) — Complete git workflow
+- **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — Complete git workflow

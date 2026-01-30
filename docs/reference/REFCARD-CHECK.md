@@ -646,7 +646,7 @@ In project `.craft-config.json`:
 - [Check Command Mastery Guide](../guide/check-command-mastery.md) - Complete guide with scenarios
 - [Interactive Commands Reference](REFCARD-INTERACTIVE-COMMANDS.md) - "Show Steps First" pattern
 - [Pre-Commit Workflow](../workflows/pre-commit-workflow.md) - Full pre-commit workflow
-- [CI/CD Integration](../guide/ci-cd-integration.md) - Using check in CI/CD
+- [CI/CD Commands](../commands/ci/generate.md) - Using check in CI/CD
 
 ---
 

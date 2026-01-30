@@ -1356,7 +1356,7 @@ end tell'
 # Prompts: Next session goal
 ```
 
-**See:** [Brainstorm Documentation](workflows/brainstorm-workflow.md) for complete guide
+**See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
 ## Skills (21 total)
 

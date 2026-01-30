@@ -696,5 +696,5 @@ You've learned:
 
 - **Command reference:** [/craft:git:worktree](../commands/git/worktree.md) — Full documentation
 - **Quick reference:** [Git Worktree Refcard](../reference/REFCARD-GIT-WORKTREE.md) — Cheat sheet
-- **Workflow guide:** [Git Feature Workflow](../../workflows/git-feature-workflow.md) — Complete git workflow
+- **Workflow guide:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — Complete git workflow
 - **Pattern guide:** [Interactive Commands Guide](../guide/interactive-commands.md) — How this pattern works
