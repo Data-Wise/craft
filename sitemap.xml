@@ -17,6 +17,10 @@
          <lastmod>2026-01-30</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/API-REFERENCE-CLAUDE-MD/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/API-REFERENCE-COMMANDS/</loc>
          <lastmod>2026-01-30</lastmod>
     </url>
@@ -46,6 +50,10 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/DEVELOPER-GUIDE/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/FEATURE-RELEASE-CLAUDE-MD/</loc>
          <lastmod>2026-01-30</lastmod>
     </url>
     <url>
@@ -169,6 +177,10 @@
          <lastmod>2026-01-30</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-craft-hub-update-2026-01-15/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-docs-sync-update-merge-2026-01-22/</loc>
          <lastmod>2026-01-30</lastmod>
     </url>
@@ -177,11 +189,43 @@
          <lastmod>2026-01-30</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-dry-run-feature-2026-01-15/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-homebrew-automation-2025-12-31/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-markdownlint-list-spacing-2026-01-19/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-spec-integration-2026-01-16/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-teaching-workflow-2026-01-16/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-website-organization-2026-01-17/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/brainstorm/ORCHESTRATE-command-enhancements/</loc>
          <lastmod>2026-01-30</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/brainstorm/PLAN-interactive-dry-run-analysis-2026-01-15/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/brainstorm/PROPOSAL-craft-enhancements-2026-01-17/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/brainstorm/PROPOSAL-question-control-2026-01-18/</loc>
          <lastmod>2026-01-30</lastmod>
     </url>
     <url>
@@ -246,6 +290,10 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/commands/ci/generate/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/docs/claude-md/</loc>
          <lastmod>2026-01-30</lastmod>
     </url>
     <url>
@@ -401,6 +449,10 @@
          <lastmod>2026-01-30</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/reference/REFCARD-CLAUDE-MD/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/reference/REFCARD-DOCS-UPDATE/</loc>
          <lastmod>2026-01-30</lastmod>
     </url>
@@ -526,6 +578,10 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/tutorials/check-tutorial-beginner/</loc>
+         <lastmod>2026-01-30</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/tutorials/claude-md-workflows/</loc>
          <lastmod>2026-01-30</lastmod>
     </url>
     <url>
