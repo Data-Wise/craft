@@ -114,7 +114,12 @@ nav:
       - Migration Guide: teaching-migration.md
     - Specialized Features:
       - NEW Interactive Commands: guide/interactive-commands.md
+      - NEW Check Command Mastery: guide/check-command-mastery.md
+      - NEW Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
       - NEW Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
+      - NEW Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
+      - NEW Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
+      - NEW Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
       - Git Repository Init:
         - Command Reference: commands/git-init-reference.md
         - Tutorial: guide/git-init-tutorial.md
@@ -178,6 +183,7 @@ nav:
       - Claude Code 2.1 Quick Reference: reference/REFCARD-claude-code-2.1-enhancements.md
       - NEW (v2.7.0) Docs Update Reference: reference/REFCARD-DOCS-UPDATE.md
       - NEW Interactive Commands Reference: reference/REFCARD-INTERACTIVE-COMMANDS.md
+      - NEW Git Worktree Quick Reference: reference/REFCARD-GIT-WORKTREE.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
