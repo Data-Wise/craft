@@ -79,7 +79,9 @@
       "antml:invoke",
       "antml:parameter",
       "div",
-      "br"
+      "br",
+      "details",
+      "summary"
     ]
   }
 }

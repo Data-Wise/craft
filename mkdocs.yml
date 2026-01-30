@@ -113,6 +113,8 @@ nav:
       - Config Schema: teaching-config-schema.md
       - Migration Guide: teaching-migration.md
     - Specialized Features:
+      - NEW Beginner Check Tutorial: tutorials/check-tutorial-beginner.md
+      - NEW Smart Routing Tutorial: tutorials/smart-routing-tutorial.md
       - NEW Interactive Commands: guide/interactive-commands.md
       - NEW Check Command Mastery: guide/check-command-mastery.md
       - NEW Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
