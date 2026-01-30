@@ -1,24 +1,25 @@
-status: Released
-version: 2.9.0
-release_date: 2026-01-29
-milestone: v2.9.0 - Command Behavior Enhancements
-last_session: 2026-01-29T23:58:04Z
+status: WIP
+version: 2.10.0-dev
+branch: feature/claude-md-port
+milestone: Claude-MD Command Porting
+last_session: 2026-01-29T22:00:00Z
 
-progress: 100% (v2.9.0 RELEASED ✅)
+progress: 0% (Planning Complete, Implementation Starting)
 
 📊 Branch Status (as of 2026-01-29):
 
 | Branch    | Head     | Status                     |
 |-----------|----------|----------------------------|
 | main      | 93a10ad  | Production (v2.9.0) ✅      |
-| dev       | 93a10ad  | Synced with main ✅         |
+| dev       | cd28bf4  | Latest (docs expansion)    |
+| feature/claude-md-port | cd28bf4 | WIP - Planning complete 📝 |
 | gh-pages  | 106e35f  | Deployed docs site         |
 
 Worktrees:
   • /Users/dt/projects/dev-tools/craft → dev (main repo)
-  • No active feature worktrees - clean state
+  • ~/.git-worktrees/craft/feature-claude-md-port → feature/claude-md-port (WIP)
 
-🎯 Current State: v2.9.0 released and deployed
+🎯 Current Work: Porting claude-md commands from local Claude Code to craft plugin
 
 ✅ v2.9.0 Release Complete (2026-01-29):
 
@@ -61,6 +62,58 @@ Worktrees:
 ---
 
 ## Session History
+
+### 2026-01-29 (Late) - Claude-MD Porting Planning 📝
+
+**Feature:** Port claude-md commands from local Claude Code to craft plugin
+
+**Planning Completed:**
+1. Interactive planning session with user
+   - Scope: Start with update command, expand to full suite
+   - Structure: Nested `/craft:docs:claude-md:*` namespace
+   - Integration: Replace existing command completely
+   - Adaptations: Craft project types + minimal changes
+2. Implementation plan created (Plan agent)
+   - 4-phase approach: Update → Audit/Fix → Scaffold/Edit → Docs
+   - 55-69 tests target, 85-90% coverage
+   - 6-day timeline (relaxed pace)
+3. Worktree created: `feature/claude-md-port`
+4. Documentation created:
+   - ORCHESTRATE.md (9.7 KB) - 4-phase orchestration plan
+   - SPEC.md (29 KB) - Complete technical specification
+5. .STATUS updated to WIP status
+
+**Source Commands (7 total, 2,142 lines):**
+- `~/.claude/commands/claude-md/update.md` (278 lines)
+- `~/.claude/commands/claude-md/audit.md` (195 lines)
+- `~/.claude/commands/claude-md/fix.md` (217 lines)
+- `~/.claude/commands/claude-md/scaffold.md` (193 lines)
+- `~/.claude/commands/claude-md/edit.md` (271 lines)
+- `~/.claude/commands/claude-md/tutorial.md` (558 lines)
+- `~/.claude/commands/claude-md/help.md` (430 lines)
+
+**Target Structure:**
+```
+commands/docs/claude-md/
+├── update.md       # Phase 1 (2 hours)
+├── audit.md        # Phase 2 (2.5 hours)
+├── fix.md          # Phase 2
+├── scaffold.md     # Phase 3 (3.5 hours)
+└── edit.md         # Phase 3
+```
+
+**Craft-Specific Enhancements:**
+- Project type detection (plugin, teaching, R package, MCP)
+- Integration with `/craft:check`, `/craft:docs:update`, `/craft:git:worktree`
+- "Show Steps First" pattern with dry-run support
+- 3 craft-specific templates
+
+**Next:** Start Phase 1 implementation (update command)
+
+**Files:**
+- ORCHESTRATE.md - Phase-by-phase implementation plan
+- SPEC.md - Architecture, user stories, testing strategy
+- Detailed plan: `/private/tmp/claude-501/-Users-dt-projects-dev-tools-craft/tasks/a659dde.output`
 
 ### 2026-01-29 (Evening) - v2.9.0 Release & Sync ✅
 
@@ -108,22 +161,54 @@ Worktrees:
 
 ## Next Steps
 
-**Ready for New Development:**
-- dev branch synced with main
-- Clean working directory
-- No active worktrees
-- All systems validated
+**Current Work - Claude-MD Porting (feature/claude-md-port):**
 
-**Future Feature Ideas (v2.10.0+):**
+**Phase 1: Update Command (Priority: HIGH)**
+- [ ] Create `commands/docs/claude-md/update.md` (replace existing)
+- [ ] Create `utils/claude_md_detector.py` (project type detection)
+- [ ] Add craft-specific templates (plugin, teaching, r-package)
+- [ ] Implement "Show Steps First" pattern
+- [ ] Add dry-run mode
+- [ ] Write 15-20 tests (90%+ coverage target)
+- **Estimated:** 2 hours
+
+**Phase 2: Validation Commands (Priority: HIGH)**
+- [ ] Create `commands/docs/claude-md/audit.md`
+- [ ] Create `commands/docs/claude-md/fix.md`
+- [ ] Integrate with `/craft:check`
+- [ ] Write 18-22 tests (85%+ coverage target)
+- **Estimated:** 2.5 hours
+
+**Phase 3: Generation Commands (Priority: MEDIUM)**
+- [ ] Create `commands/docs/claude-md/scaffold.md`
+- [ ] Create `commands/docs/claude-md/edit.md`
+- [ ] Create 3 craft templates in `templates/claude-md/`
+- [ ] Write 22-27 tests (85%+ coverage target)
+- **Estimated:** 3.5 hours
+
+**Phase 4: Documentation (Priority: LOW)**
+- [ ] Convert tutorial to `docs/tutorials/claude-md-workflows.md`
+- [ ] Create `docs/commands/docs/claude-md.md`
+- [ ] Create `docs/reference/REFCARD-CLAUDE-MD.md`
+- [ ] Integrate with `/craft:hub`
+- **Estimated:** 2 hours
+
+**To Start Work:**
+```bash
+cd ~/.git-worktrees/craft/feature-claude-md-port
+claude
+/craft:do "read ORCHESTRATE.md and start Phase 1" --orch=phase
+```
+
+**After Completion:**
+- Run all tests: `python3 tests/test_claude_md_*.py`
+- Validate integration with craft commands
+- Create PR: `gh pr create --base dev`
+- Clean worktree after merge
+
+**Future Features (v2.11.0+):**
 - Styled output boxes for enhanced UX
 - Enhanced execution modes
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
 - Additional interactive workflows
-
-**Development Workflow:**
-1. Start new feature: `git checkout dev`
-2. Create worktree: `/craft:git:worktree feature/<name>`
-3. Implement with tests
-4. PR to dev for integration
-5. Release PR from dev to main
