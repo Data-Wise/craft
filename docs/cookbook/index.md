@@ -31,10 +31,16 @@ Recipes are categorized by difficulty level (Beginner, Intermediate, Advanced) a
 ### Quick Start (< 5 minutes)
 
 - [Set Up New Project](common/setup-new-project.md) — Add Craft to a new project in 5 minutes
-- [Check Code Quality Before Commit](common/check-code-quality-before-commit.md) — Run pre-commit checks in 2 minutes
+- [Check Code Quality Before Commit](common/check-code-quality-before-commit.md) — Run pre-commit checks in 2 minutes ⭐ Updated for v2.9.0
 - [Deploy Course Website](common/deploy-course-website.md) — Safely publish course site updates in 3 minutes
+- [Post-Merge Documentation Update](common/post-merge-documentation.md) — Auto-update docs after merging in 3-5 minutes ⭐ NEW v2.9.0
 
-### CI/CD & Automation (5-15 minutes)
+### Workflow & Orchestration (5-10 minutes)
+
+- [Use Interactive Orchestration](common/use-interactive-orchestration.md) — Run complex tasks with mode selection and checkpoints in 5-7 minutes ⭐ NEW v2.9.0
+- [Setup Parallel Worktrees](common/setup-parallel-worktrees.md) — Create isolated feature branches with auto-generated plans in 8-10 minutes ⭐ NEW v2.9.0
+
+### CI/CD & Automation (10 minutes)
 
 - [Automate Release Workflow](common/automate-release-workflow.md) — Set up GitHub Actions CI in 10 minutes
 
@@ -46,21 +52,26 @@ Got limited time? Find recipes that fit your schedule:
 
 Perfect for between meetings or when you need a quick confidence boost.
 
-- **2 min:** [Check Code Quality Before Commit](common/check-code-quality-before-commit.md)
+- **2 min:** [Check Code Quality Before Commit](common/check-code-quality-before-commit.md) ⭐ Updated v2.9.0
 - **3 min:** [Deploy Course Website](common/deploy-course-website.md)
+- **3-5 min:** [Post-Merge Documentation Update](common/post-merge-documentation.md) ⭐ NEW v2.9.0
 
 ### 🔧 Short Tasks (3-10 minutes)
 
 Great for focused work sessions or getting familiar with Craft.
 
 - **5 min:** [Set Up New Project](common/setup-new-project.md)
+- **5-7 min:** [Use Interactive Orchestration](common/use-interactive-orchestration.md) ⭐ NEW v2.9.0
+- **8-10 min:** [Setup Parallel Worktrees](common/setup-parallel-worktrees.md) ⭐ NEW v2.9.0
 - **10 min:** [Automate Release Workflow](common/automate-release-workflow.md)
 
 ### 🏗️ Project Work (10+ minutes)
 
 For deeper work when you have dedicated time.
 
-- Coming soon: More advanced recipes
+- **Coming soon:** Multi-phase feature development
+- **Coming soon:** Custom plugin creation
+- **Coming soon:** Advanced testing workflows
 
 !!! tip "ADHD-Friendly"
     All recipes include clear time estimates and quick wins marked with ⚡. Start with the 2-minute tasks to build momentum!

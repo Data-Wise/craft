@@ -161,9 +161,12 @@ nav:
     - Cookbook Home: cookbook/index.md
     - Common Recipes:
       - Set Up New Project: cookbook/common/setup-new-project.md
-      - Deploy Course Website: cookbook/common/deploy-course-website.md
-      - Automate Release Workflow: cookbook/common/automate-release-workflow.md
       - Check Code Quality Before Commit: cookbook/common/check-code-quality-before-commit.md
+      - Deploy Course Website: cookbook/common/deploy-course-website.md
+      - Post-Merge Documentation Update: cookbook/common/post-merge-documentation.md
+      - Use Interactive Orchestration: cookbook/common/use-interactive-orchestration.md
+      - Setup Parallel Worktrees: cookbook/common/setup-parallel-worktrees.md
+      - Automate Release Workflow: cookbook/common/automate-release-workflow.md
     - Troubleshooting:
       - Command Not Found: cookbook/troubleshooting/command-not-found.md
 
