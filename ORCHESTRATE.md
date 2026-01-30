@@ -44,7 +44,7 @@ Port 7 claude-md subcommands from `~/.claude/commands/claude-md/` to craft plugi
    - 15-20 tests
    - Test project detection, version sync, dry-run, interactive mode
 
-### Success Criteria
+### Phase 1 Success Criteria
 
 - [ ] Update command works with dry-run preview
 - [ ] Detects craft plugin projects correctly
@@ -58,11 +58,78 @@ Port 7 claude-md subcommands from `~/.claude/commands/claude-md/` to craft plugi
 
 ## Phase 2: Validation - Audit & Fix Commands (Priority: HIGH) ✅ COMPLETE
 
+## Phase 3: Generation - Scaffold & Edit Commands (Priority: MEDIUM) ✅ COMPLETE
+
+**Status:** ✅ Complete (2026-01-29)
+**Goal:** Add template-based generation and interactive editing
+**Duration:** ~2.5 hours (estimated 3.5 hours)
+
+### Specification Summary
+
+Successfully implemented template-based scaffold and interactive edit commands with comprehensive testing.
+
+**Files Created (10):**
+
+- commands/docs/claude-md/scaffold.md (378 lines)
+- commands/docs/claude-md/edit.md (365 lines)
+- templates/claude-md/plugin-template.md (107 lines)
+- templates/claude-md/teaching-template.md (106 lines)
+- templates/claude-md/r-package-template.md (113 lines)
+- utils/claude_md_template_populator.py (484 lines)
+- utils/claude_md_section_editor.py (241 lines)
+- tests/test_claude_md_scaffold.py (390 lines, 19 tests)
+- tests/test_claude_md_edit.py (225 lines, 14 tests)
+- tests/test_claude_md_integration_phase3.py (280 lines, 10 tests)
+
+**Test Results:** 43/43 passing (100%)
+
+- Wave 1 (Scaffold): 19 tests
+- Wave 2 (Edit): 14 tests
+- Wave 3 (Integration): 10 tests
+
+### Planned Features
+
+**Scaffold Command:**
+
+1. ✅ Auto-detects project type (plugin, teaching, r-package)
+2. ✅ Populates 18+ template variables from project analysis
+3. ✅ "Show Steps First" pattern with preview
+4. ✅ Dry-run and force overwrite modes
+5. ✅ 80-90% auto-population success rate
+
+**Edit Command:**
+
+1. ✅ Section parsing with regex header detection
+2. ✅ Interactive section selection
+3. ✅ Preview before/after with diff and change stats
+4. ✅ Backup/restore functionality
+5. ✅ Fuzzy section matching
+
+**Templates (3):**
+
+1. ✅ plugin-template.md - Craft plugin structure
+2. ✅ teaching-template.md - Quarto course sites
+3. ✅ r-package-template.md - R package development
+
+### Success Criteria
+
+- [x] Scaffold detects craft plugin projects
+- [x] Templates auto-populate from project analysis
+- [x] Edit mode allows section selection
+- [x] 43 tests passing (target was 22+, 95% above target)
+- [x] 3 craft-specific templates created
+- [x] Preview before applying edits
+- [x] Integration with existing commands
+
+**Documentation:** See PHASE3-COMPLETE.md for full details
+
+---
+
 **Status:** ✅ Complete (2026-01-29)
 **Goal:** Add validation and auto-fix capabilities
 **Duration:** ~2.5 hours (as estimated)
 
-### Summary
+### Implementation Summary
 
 Successfully implemented audit and fix commands with comprehensive testing.
 
@@ -82,7 +149,7 @@ Successfully implemented audit and fix commands with comprehensive testing.
 - Wave 2 (Fix): 8 tests
 - Wave 3 (Integration): 6 tests
 
-### Features Implemented
+### Implemented Features
 
 **Audit Command (5 checks):**
 
@@ -112,7 +179,7 @@ Successfully implemented audit and fix commands with comprehensive testing.
 - 🔲 craft:check integration (ready, not implemented)
 - 🔲 Pre-commit hook (ready, not implemented)
 
-### Success Criteria
+### Achievement Summary
 
 - [x] Audit detects version mismatches
 - [x] Audit finds missing commands
@@ -123,57 +190,6 @@ Successfully implemented audit and fix commands with comprehensive testing.
 - [x] Clear severity levels and styled output
 
 **Documentation:** See PHASE2-COMPLETE.md for full details
-
----
-
-## Phase 3: Generation - Scaffold & Edit Commands (Priority: MEDIUM)
-
-**Goal:** Add template-based generation and interactive editing
-
-### Files to Create
-
-1. **commands/docs/claude-md/scaffold.md** (NEW)
-   - Source: `~/.claude/commands/claude-md/scaffold.md` (193 lines)
-   - Create CLAUDE.md from templates
-   - Craft-specific templates (plugin, teaching, r-package)
-   - Auto-detect project type and populate
-
-2. **commands/docs/claude-md/edit.md** (NEW)
-   - Source: `~/.claude/commands/claude-md/edit.md` (271 lines)
-   - Interactive section-by-section editing
-   - AskUserQuestion for section selection
-   - Preview changes before applying
-
-3. **templates/claude-md/** (NEW DIRECTORY)
-   - `plugin-template.md` - Craft plugin structure
-   - `teaching-template.md` - Course/teaching site
-   - `r-package-template.md` - R package with pkgdown
-   - `mcp-template.md` - MCP server
-
-4. **tests/test_claude_md_scaffold.py** (NEW)
-   - 12-15 tests for template generation
-
-5. **tests/test_claude_md_edit.py** (NEW)
-   - 10-12 tests for interactive editing
-
-### Template Requirements
-
-Each template should include:
-
-- Auto-populated version from source files
-- Auto-discovered commands/structure
-- Project-specific Quick Reference
-- Standard sections (Overview, Architecture, Workflow)
-
-### Success Criteria
-
-- [ ] Scaffold detects craft plugin projects
-- [ ] Templates auto-populate from project analysis
-- [ ] Edit mode allows section selection
-- [ ] 22+ tests passing
-- [ ] 3 craft-specific templates created
-
-**Estimated:** 3.5 hours implementation + testing
 
 ---
 
@@ -206,7 +222,7 @@ Update `/craft:hub` to include claude-md category:
 - Create progressive disclosure hierarchy
 - Add examples to command listings
 
-### Success Criteria
+### Phase 4 Success Criteria
 
 - [ ] Tutorial covers all 4 phases
 - [ ] Help integrated with `/craft:hub`
