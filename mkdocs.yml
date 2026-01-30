@@ -184,6 +184,7 @@ nav:
       - NEW (v2.7.0) Docs Update Reference: reference/REFCARD-DOCS-UPDATE.md
       - NEW Interactive Commands Reference: reference/REFCARD-INTERACTIVE-COMMANDS.md
       - NEW Git Worktree Quick Reference: reference/REFCARD-GIT-WORKTREE.md
+      - NEW Check Command Reference: reference/REFCARD-CHECK.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
