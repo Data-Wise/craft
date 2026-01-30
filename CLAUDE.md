@@ -57,6 +57,8 @@ feature/* (worktrees) ← All implementation work
 | CLAUDE.md update  | ------------------------------------------ | `/craft:docs:claude-md:update`   |
 | CLAUDE.md audit   | ------------------------------------------ | `/craft:docs:claude-md:audit`    |
 | CLAUDE.md fix     | ------------------------------------------ | `/craft:docs:claude-md:fix`      |
+| Badge sync        | ------------------------------------------ | `/craft:site:update` (Step 3.5)  |
+| CI badge validate | ------------------------------------------ | `/craft:ci:validate`             |
 
 ## Execution Modes
 
