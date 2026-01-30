@@ -116,6 +116,7 @@ nav:
       - NEW Interactive Commands: guide/interactive-commands.md
       - NEW Check Command Mastery: guide/check-command-mastery.md
       - NEW Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
+      - NEW Claude-MD Workflows: tutorials/claude-md-workflows.md
       - NEW Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
       - NEW Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
       - NEW Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
@@ -153,6 +154,7 @@ nav:
       - /craft:orchestrate: commands/orchestrate.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:docs:update: commands/docs/update.md
+      - /craft:docs:claude-md: commands/docs/claude-md.md
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
 
@@ -184,6 +186,7 @@ nav:
       - NEW (v2.7.0) Docs Update Reference: reference/REFCARD-DOCS-UPDATE.md
       - NEW Interactive Commands Reference: reference/REFCARD-INTERACTIVE-COMMANDS.md
       - NEW Git Worktree Quick Reference: reference/REFCARD-GIT-WORKTREE.md
+      - NEW Claude-MD Quick Reference: reference/REFCARD-CLAUDE-MD.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md

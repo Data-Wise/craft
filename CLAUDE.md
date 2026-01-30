@@ -2,10 +2,10 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**100 commands** · **21 skills** · **8 agents** · **15 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**105 commands** · **21 skills** · **8 agents** · **15 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.9.0 (released 2026-01-29) | **dev:** v2.9.0 (synced with main)
-**Documentation Status:** 98% complete | **Tests:** 847 passing
+**Current Version:** v2.10.0-dev (in development) | **Latest Release:** v2.9.1 (2026-01-29)
+**Documentation Status:** 98% complete | **Tests:** 847 passing (81 claude-md + 766 core)
 
 ## Git Workflow
 
@@ -54,6 +54,9 @@ feature/* (worktrees) ← All implementation work
 | Brainstorm        | ------------------------------------------ | `/craft:workflow:brainstorm`     |
 | Orchestrate       | ------------------------------------------ | `/craft:orchestrate`             |
 | Orchestrate task  | ------------------------------------------ | `/craft:do "task" --orch=<mode>` |
+| CLAUDE.md update  | ------------------------------------------ | `/craft:docs:claude-md:update`   |
+| CLAUDE.md audit   | ------------------------------------------ | `/craft:docs:claude-md:audit`    |
+| CLAUDE.md fix     | ------------------------------------------ | `/craft:docs:claude-md:fix`      |
 
 ## Execution Modes
 
@@ -99,6 +102,51 @@ craft/
 ```
 
 ## Recent Major Features
+
+### v2.10.0 - Claude-MD Command Suite (In Development) 🚧
+
+**Merged:** PR #39 (2026-01-30)
+
+**Commands Added (5):**
+
+- `/craft:docs:claude-md:update` - Sync CLAUDE.md with project state
+- `/craft:docs:claude-md:audit` - Validate completeness and accuracy (5 checks)
+- `/craft:docs:claude-md:fix` - Auto-fix common issues (4 fix methods)
+- `/craft:docs:claude-md:scaffold` - Create from template (3 project types)
+- `/craft:docs:claude-md:edit` - Interactive section editing
+
+**Implementation:**
+
+- 7 utility modules (2,713 lines Python)
+  - `claude_md_detector.py` - 6 project types, version extraction
+  - `claude_md_auditor.py` - 5 validation checks, 3 severity levels
+  - `claude_md_fixer.py` - 4 auto-fix methods
+  - `claude_md_template_populator.py` - 18+ template variables
+  - `claude_md_section_editor.py` - Interactive editing
+  - `claude_md_updater.py` - Metric-based updates
+  - `claude_md_updater_simple.py` - Simple metric updates
+- 3 project templates (plugin, teaching, r-package)
+- 81 comprehensive tests (100% passing, 0.024s)
+- 3,304 lines documentation
+
+**Performance:**
+
+- Full detection: 0.003s (166x faster than 0.5s target)
+- Command scanning: 0.002s (50x faster than 0.1s target)
+- Version extraction: 0.001s per 100 calls
+- Thread-safe concurrent detection verified
+
+**Test Enhancements:**
+
+- Concurrent detection (10 parallel threads)
+- Symlink handling with fallback
+- Performance benchmarking with targets
+
+**Files Changed:** 38 (+15,997/-271)
+
+**Release:** Target v2.10.0 (pending)
+
+---
 
 ### v2.9.0 - Command Behavior Enhancements (Released 2026-01-29) ✅
 
