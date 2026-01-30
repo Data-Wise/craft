@@ -74,7 +74,7 @@ priority: high
 ### Performance Metrics
 
 | Operation | Time | Target | Status |
-|-----------|------|--------|--------|
+| ----------- | ------ | -------- | -------- |
 | Badge detection | 0.016s | <1s | ✅ 62x faster |
 | Badge sync (2 files) | 0.050s | <3s | ✅ 60x faster |
 | CI validation | 0.005s | <1s | ✅ 200x faster |

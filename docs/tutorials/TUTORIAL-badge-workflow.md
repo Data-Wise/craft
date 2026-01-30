@@ -407,7 +407,7 @@ issues = validator.validate_badges()
 ### File Locations
 
 | File | Purpose |
-|------|---------|
+| ------ | --------- |
 | `utils/badge_detector.py` | Badge parsing and classification |
 | `utils/badge_syncer.py` | Badge synchronization orchestration |
 | `utils/ci_badge_validator.py` | CI-specific validation |

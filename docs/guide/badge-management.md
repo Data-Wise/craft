@@ -19,7 +19,7 @@ The badge management system ensures version, CI status, and documentation covera
 ## Badge Types
 
 | Type | Generated From | Example |
-|------|----------------|---------|
+| ------ | ---------------- | --------- |
 | **Version** | plugin.json, package.json, pyproject.toml | `[![Version](https://img.shields.io/badge/version-2.10.0--dev-blue.svg)](...)` |
 | **CI Status** | `.github/workflows/*.yml` files | `[![CI](https://github.com/user/repo/actions/workflows/ci.yml/badge.svg?branch=dev)](...)` |
 | **Docs Coverage** | `.STATUS` file "Documentation: XX%" | `[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](...)` |
@@ -115,7 +115,7 @@ CI badge validation checks workflow existence and branch parameters:
 #### Validation Checks
 
 | Check | Description | Severity |
-|-------|-------------|----------|
+| ------- | ------------- | ---------- |
 | **Workflow Exists** | Badge points to actual `.github/workflows/*.yml` file | Error |
 | **Branch Correct** | Badge `?branch=` parameter matches current branch | Warning |
 | **URL Format** | Badge follows GitHub Actions URL pattern | Warning |
@@ -402,7 +402,7 @@ except OSError as e:
 ## Performance
 
 | Operation | Time | Notes |
-|-----------|------|-------|
+| ----------- | ------ | ------- |
 | Badge detection | <1ms | Regex-based, single pass |
 | Version extraction | <1ms | Cached by CLAUDEMDDetector |
 | CI badge generation | 5-10ms | Scans workflow directory |
@@ -705,7 +705,7 @@ syncer.sync_badges(calculate_coverage=False)
 ## Related Commands
 
 | Command | Badge Integration |
-|---------|-------------------|
+| --------- | ------------------- |
 | `/craft:site:update` | Step 3.5: Badge sync |
 | `/craft:docs:update` | Badges in metadata group |
 | `/craft:ci:validate` | CI badge validation |
