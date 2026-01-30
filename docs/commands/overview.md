@@ -98,3 +98,128 @@ Many commands support execution modes:
 | Check before commit | `/craft:check` |
 | Get help | `/craft:help` |
 | Discover commands | `/craft:hub` |
+
+---
+
+## NEW in v2.9.0: Interactive Command Behavior
+
+Four key commands now use the **"Show Steps First" pattern**:
+
+### /craft:check - Pre-Flight Validation
+
+```bash
+/craft:check
+
+# Shows plan → Asks to proceed → Runs checks
+# NEW: --dry-run flag, --mode selection, --skip flags
+```
+
+[Learn more →](check.md) | [Cookbook recipe](../cookbook/common/check-code-quality-before-commit.md) | [Quick reference](../reference/REFCARD-CHECK.md)
+
+### /craft:orchestrate - Multi-Agent Coordination
+
+```bash
+/craft:orchestrate "complex task"
+
+# Shows plan → Asks for mode → Confirms → Runs with checkpoints
+# NEW: Interactive mode selection (default/wave/phase)
+```
+
+[Learn more →](orchestrate.md) | [Tutorial](../tutorials/interactive-orchestration.md) | [Modes compared](../tutorials/orchestrator-modes-compared.md)
+
+### /craft:git:worktree - Parallel Development
+
+```bash
+/craft:git:worktree feature/new-feature
+
+# Creates worktree → Auto-generates ORCHESTRATE.md + SPEC.md
+# NEW: Scope detection and auto-setup
+```
+
+[Learn more →](git/worktree.md) | [Tutorial](../tutorials/TUTORIAL-worktree-setup.md) | [Quick reference](../reference/REFCARD-GIT-WORKTREE.md)
+
+### /craft:docs:update - Documentation Generator
+
+```bash
+/craft:docs:update
+
+# Detects changes → Shows plan → Confirms → Generates → Validates
+# NEW: --post-merge flag for automated 5-phase pipeline
+```
+
+[Learn more →](docs/update.md) | [Tutorial](../tutorials/TUTORIAL-post-merge-pipeline.md) | [Quick reference](../reference/REFCARD-DOCS-UPDATE.md)
+
+---
+
+## Quick Wins for New Users
+
+**⚡ 30 seconds:**
+
+```bash
+/craft:hub        # Discover all commands by category
+```
+
+**⚡ 2 minutes:**
+
+```bash
+/craft:check      # Validate your project before commit
+```
+
+[Cookbook recipe →](../cookbook/common/check-code-quality-before-commit.md)
+
+**⚡ 3-5 minutes:**
+
+```bash
+/craft:docs:update --post-merge    # Update docs after merging
+```
+
+[Cookbook recipe →](../cookbook/common/post-merge-documentation.md)
+
+**⚡ 5-7 minutes:**
+
+```bash
+/craft:orchestrate "your task"     # Multi-step workflow with mode selection
+```
+
+[Cookbook recipe →](../cookbook/common/use-interactive-orchestration.md)
+
+**⚡ 8-10 minutes:**
+
+```bash
+/craft:git:worktree feature/name   # Setup parallel development
+```
+
+[Cookbook recipe →](../cookbook/common/setup-parallel-worktrees.md)
+
+---
+
+## Learning Path
+
+### Level 1: Essentials (First 30 minutes)
+
+1. **Discover commands:** `/craft:hub`
+2. **Get help:** `/craft:help`
+3. **Quick check:** `/craft:check`
+4. **Smart routing:** `/craft:do "simple task"`
+
+### Level 2: Workflows (Next 2 hours)
+
+1. **Documentation:** `/craft:docs:update`
+2. **Testing:** `/craft:test:run`
+3. **Git worktrees:** `/craft:git:worktree setup`
+4. **Orchestration:** `/craft:orchestrate "multi-step task"`
+
+### Level 3: Advanced (Ongoing)
+
+1. **Site creation:** `/craft:site:create`
+2. **CI/CD setup:** `/craft:ci:generate`
+3. **Architecture analysis:** `/craft:arch:analyze`
+4. **Distribution:** `/craft:dist:homebrew`
+
+**Resources:**
+
+- [Cookbook & Examples](../cookbook/index.md) - Task-focused recipes
+- [Tutorials](../tutorials/) - Step-by-step guides
+- [Guides](../guide/) - Comprehensive documentation
+
+---
