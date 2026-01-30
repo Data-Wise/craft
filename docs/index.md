@@ -13,7 +13,7 @@
 
 > Full-stack developer toolkit for Claude Code - 100 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v2.8.1:** Auto-fixed 191 files, MD025/MD060 fixes, emoji-aware table formatting. See [what's new](#whats-new-in-v281)
+> **NEW in v2.9.0:** "Show Steps First" pattern, interactive orchestration, git worktree auto-setup, post-merge pipeline. See [what's new](#whats-new-in-v290)
 
 ## Features
 
@@ -96,6 +96,40 @@ Complete OpenAPI-style documentation for all 97 Craft commands:
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
+
+## What's New in v2.9.0
+
+**Command Behavior Enhancements** 🚀
+
+Major interactive workflow improvements and comprehensive test infrastructure fixes:
+
+- **"Show Steps First" Pattern**: 4 most-used commands now preview execution plan before running
+  - `/craft:orchestrate` - Mode selection, plan confirmation, wave checkpoints
+  - `/craft:check` - Step preview with mode-specific check lists
+  - `/craft:docs:update` - `--post-merge` flag with 5-phase safe pipeline
+  - `/craft:git:worktree` - Scope detection, auto-creates ORCHESTRATE/SPEC files
+
+- **Interactive Orchestration**:
+  - Mode selection via `AskUserQuestion` when mode not specified
+  - Plan confirmation shows task analysis before spawning agents
+  - Wave checkpoints pause between agent groups for review
+  - Decision points with structured prompts for design choices
+
+- **Git Worktree Auto-Setup**:
+  - Automatically detects scope from branch patterns (fix/*→ feature/* → v* → multi-phase)
+  - Auto-creates workflow files (ORCHESTRATE, SPEC, .STATUS, CLAUDE.md) based on scope
+
+- **CI Test Infrastructure**:
+  - Fixed 15 failing tests (hardcoded paths, pre-commit hooks, config validation, dependencies)
+  - Updated orchestrator-v2 for Claude Code subagent constraints
+  - 145 new tests (93 e2e + 52 orch handler)
+  - **Total: 847 tests passing** (was 832)
+
+**Documentation**: 3 new guides (guide, tutorial, reference - 650+ lines total)
+
+**Release**: [v2.9.0 on GitHub](https://github.com/Data-Wise/craft/releases/tag/v2.9.0)
+
+---
 
 ## What's New in v2.8.1
 
