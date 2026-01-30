@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.8.0 introduces markdown linting execution layer with auto-fix support and clear roadmap for future enhancements.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0 released with interactive command behavior, "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.">
       
       
       
@@ -1287,8 +1287,285 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example-diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Diff
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-everything-looks-good" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Everything Looks Good
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-made-a-mistake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If You Made a Mistake
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-category-specific-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Category-Specific Updates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Category-Specific Updates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-just-version-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update Just Version References
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-other-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try Other Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Tips
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preview-a-specific-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preview a Specific Category
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-apply-no-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-Apply (No Prompts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-update-multiple-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Update Multiple Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-1-after-version-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 1: After Version Bump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-2-documentation-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 2: Documentation Audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-3-specific-issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 3: Specific Issue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-4-new-commands-added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 4: New Commands Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#too-many-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Too Many Changes!"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#im-not-sure-what-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "I'm Not Sure What Changed"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-made-a-mistake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "I Made a Mistake!"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilities-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Utilities Not Found"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-youve-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You've Learned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1703,6 +1980,202 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../guide/interactive-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/check-command-mastery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Check Command Mastery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Worktree Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interactive-orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Orchestration Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Post-Merge Pipeline Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TUTORIAL-worktree-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../orchestrator-modes-compared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Orchestrator Modes Compared
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1715,10 +2188,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5_8" id="__nav_2_5_8_label" tabindex="0">
             
   
   
@@ -1736,8 +2209,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5_1">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3532,6 +4005,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4184,6 +4713,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Command Behavior Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4593,8 +5150,285 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#example-diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Diff
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-everything-looks-good" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Everything Looks Good
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-you-made-a-mistake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If You Made a Mistake
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-category-specific-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Category-Specific Updates
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Category-Specific Updates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-just-version-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update Just Version References
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-other-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try Other Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Tips
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preview-a-specific-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preview a Specific Category
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-apply-no-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-Apply (No Prompts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-update-multiple-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Update Multiple Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Scenarios
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Scenarios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-1-after-version-bump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 1: After Version Bump
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-2-documentation-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 2: Documentation Audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-3-specific-issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 3: Specific Issue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-4-new-commands-added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 4: New Commands Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#too-many-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Too Many Changes!"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#im-not-sure-what-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "I'm Not Sure What Changed"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-made-a-mistake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "I Made a Mistake!"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utilities-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Utilities Not Found"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-youve-learned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What You've Learned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
   
 </li>
       
@@ -4645,56 +5479,57 @@
 </ol>
 <p><strong>Interactive mode does all of this automatically</strong> while giving you control at each step.</p>
 <h2 id="tutorial-overview">Tutorial Overview<a class="headerlink" href="#tutorial-overview" title="Permanent link">&para;</a></h2>
-<p><code>text
-Step 1: Preview (Dry-Run)        [5 min]
-Step 2: Interactive Update       [5 min]
-Step 3: Verify Changes           [3 min]
-Step 4: Category-Specific Mode   [3 min]</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Step 1: Preview (Dry-Run)        [5 min]
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Step 2: Interactive Update       [5 min]
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Step 3: Verify Changes           [3 min]
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Step 4: Category-Specific Mode   [3 min]
+</span></code></pre></div>
 <hr />
 <h2 id="step-1-preview-what-would-change-dry-run">Step 1: Preview What Would Change (Dry-Run)<a class="headerlink" href="#step-1-preview-what-would-change-dry-run" title="Permanent link">&para;</a></h2>
 <p>First, let's see what documentation issues exist <strong>without making any changes</strong>.</p>
 <h3 id="run-the-command">Run the Command<a class="headerlink" href="#run-the-command" title="Permanent link">&para;</a></h3>
-<p><code>bash
-/craft:docs:update --interactive --dry-run</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run
+</span></code></pre></div>
 <h3 id="what-happens">What Happens<a class="headerlink" href="#what-happens" title="Permanent link">&para;</a></h3>
 <p>The system runs two detection utilities:</p>
-<p><code>text
-╭─────────────────────────────────────────────────╮
-│ DETECTING CHANGES                               │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│ Running detection utilities...                  │
-│   ✓ docs_detector.py - Scanned 9 categories     │
-│   ✓ help_file_validator.py - Validated help     │
-│                                                 │
-╰─────────────────────────────────────────────────╯</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>╭─────────────────────────────────────────────────╮
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│ DETECTING CHANGES                               │
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├─────────────────────────────────────────────────┤
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│                                                 │
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│ Running detection utilities...                  │
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│   ✓ docs_detector.py - Scanned 9 categories     │
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│   ✓ help_file_validator.py - Validated help     │
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│                                                 │
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>╰─────────────────────────────────────────────────╯
+</span></code></pre></div>
 <h3 id="detection-results">Detection Results<a class="headerlink" href="#detection-results" title="Permanent link">&para;</a></h3>
 <p>You'll see issues grouped by category:</p>
-<p>```text
-Found issues in 6 categories:</p>
-<p>📦 Version References        545 items
-  📊 Command Counts            289 items
-  📝 Missing Help               60 items
-  🏷️  Outdated Status            27 items
-  📖 Inconsistent Terminology   44 items
-  🔗 Missing Cross-References  366 items</p>
-<p>Categories with no issues:
-  ✓ Broken Links
-  ✓ Stale Examples
-  ✓ Outdated Diagrams
-```text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Found issues in 6 categories:
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  📦 Version References        545 items
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  📊 Command Counts            289 items
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  📝 Missing Help               60 items
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  🏷️  Outdated Status            27 items
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  📖 Inconsistent Terminology   44 items
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  🔗 Missing Cross-References  366 items
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>Categories with no issues:
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  ✓ Broken Links
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  ✓ Stale Examples
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>  ✓ Outdated Diagrams
+</span></code></pre></div>
 <h3 id="interactive-prompts-preview">Interactive Prompts (Preview)<a class="headerlink" href="#interactive-prompts-preview" title="Permanent link">&para;</a></h3>
 <p>You'll be prompted for each category group:</p>
 <p><strong>Prompt 1: Metadata Updates</strong></p>
-<p><code>text
-╭─────────────────────────────────────────────────╮
-│ Version References (545 items)                  │
-│ Should I update version references?             │
-│                                                 │
-│   A) Yes, update all (545 files → v2.5.1)      │
-│   B) Preview changes first                      │
-│   C) Skip this category                         │
-╰─────────────────────────────────────────────────╯</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>╭─────────────────────────────────────────────────╮
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│ Version References (545 items)                  │
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>│ Should I update version references?             │
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>│                                                 │
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│   A) Yes, update all (545 files → v2.5.1)      │
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│   B) Preview changes first                      │
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│   C) Skip this category                         │
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>╰─────────────────────────────────────────────────╯
+</span></code></pre></div>
 <p><strong>Try selecting different options</strong> to see what each does:</p>
 <ul>
 <li><strong>Option A:</strong> Shows what would be updated</li>
@@ -4703,126 +5538,129 @@ Found issues in 6 categories:</p>
 </ul>
 <h3 id="preview-summary">Preview Summary<a class="headerlink" href="#preview-summary" title="Permanent link">&para;</a></h3>
 <p>At the end, you'll see:</p>
-<p>```text
-DRY RUN COMPLETE
-Summary of Changes (No files modified)</p>
-<p>Total Changes: 1,331 updates across 6 categories
-Files That Would Be Modified: ~180 files</p>
-<p>To apply these changes (without --dry-run):
-  /craft:docs:update --interactive
-```text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>DRY RUN COMPLETE
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Summary of Changes (No files modified)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Total Changes: 1,331 updates across 6 categories
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Files That Would Be Modified: ~180 files
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>To apply these changes (without --dry-run):
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  /craft:docs:update --interactive
+</span></code></pre></div>
 <p><strong>Key Point:</strong> Nothing was changed! This was just a preview.</p>
 <hr />
 <h2 id="step-2-apply-updates-interactively">Step 2: Apply Updates Interactively<a class="headerlink" href="#step-2-apply-updates-interactively" title="Permanent link">&para;</a></h2>
 <p>Now let's actually fix some documentation issues.</p>
 <h3 id="run-the-command-no-dry-run">Run the Command (No --dry-run)<a class="headerlink" href="#run-the-command-no-dry-run" title="Permanent link">&para;</a></h3>
-<p><code>bash
-/craft:docs:update --interactive</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:docs:update<span class="w"> </span>--interactive
+</span></code></pre></div>
 <h3 id="choose-what-to-fix">Choose What to Fix<a class="headerlink" href="#choose-what-to-fix" title="Permanent link">&para;</a></h3>
 <p>This time, your selections will actually apply updates.</p>
 <p><strong>Example Session:</strong></p>
-<p>```text
-Prompt 1: Version References
-  Your answer: A (Yes, update all)
-  ✓ Updated 545 version references</p>
-<p>Prompt 2: Command Counts
-  Your answer: A (Yes, update all)
-  ✓ Updated 289 command counts</p>
-<p>Prompt 3: Missing Help
-  Your answer: C (Skip this category)
-  ⊘ Skipped by user</p>
-<p>... (other categories)
-```text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Prompt 1: Version References
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  Your answer: A (Yes, update all)
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  ✓ Updated 545 version references
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Prompt 2: Command Counts
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  Your answer: A (Yes, update all)
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  ✓ Updated 289 command counts
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>Prompt 3: Missing Help
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  Your answer: C (Skip this category)
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  ⊘ Skipped by user
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>... (other categories)
+</span></code></pre></div>
 <h3 id="watch-it-work">Watch It Work<a class="headerlink" href="#watch-it-work" title="Permanent link">&para;</a></h3>
 <p>As each category is applied, you'll see progress:</p>
-<p><code>text
-╭─────────────────────────────────────────────────╮
-│ APPLYING UPDATES                                │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│ ✓ Version References (545 updates)              │
-│   Updated files:                                │
-│   • docs/VERSION-HISTORY.md (63 changes)        │
-│   • README.md (35 changes)                      │
-│   • CLAUDE.md (23 changes)                      │
-│   ... and 64 more files                         │
-│                                                 │
-│ ✓ Command Counts (289 updates)                  │
-│   Updated files:                                │
-│   • CLAUDE.md (2 changes)                       │
-│   • docs/architecture.md (4 changes)            │
-│   ... and 30 more files                         │
-│                                                 │
-╰─────────────────────────────────────────────────╯</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>╭─────────────────────────────────────────────────╮
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│ APPLYING UPDATES                                │
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├─────────────────────────────────────────────────┤
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>│                                                 │
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>│ ✓ Version References (545 updates)              │
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>│   Updated files:                                │
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>│   • docs/VERSION-HISTORY.md (63 changes)        │
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>│   • README.md (35 changes)                      │
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>│   • CLAUDE.md (23 changes)                      │
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>│   ... and 64 more files                         │
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>│                                                 │
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>│ ✓ Command Counts (289 updates)                  │
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>│   Updated files:                                │
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>│   • CLAUDE.md (2 changes)                       │
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>│   • docs/architecture.md (4 changes)            │
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>│   ... and 30 more files                         │
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>│                                                 │
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>╰─────────────────────────────────────────────────╯
+</span></code></pre></div>
 <h3 id="final-summary">Final Summary<a class="headerlink" href="#final-summary" title="Permanent link">&para;</a></h3>
-<p><code>text
-╭─────────────────────────────────────────────────╮
-│ ✅ DOCUMENTATION UPDATE COMPLETE                │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│ Categories Updated:                             │
-│   ✓ Version references: 545 updates             │
-│   ✓ Command counts: 289 updates                 │
-│   ⊘ Missing help: Skipped                       │
-│                                                 │
-│ Files Modified: 67                              │
-│ Total Changes: 834 updates                      │
-│ Time: 3.2 seconds                               │
-│                                                 │
-│ Next Steps:                                     │
-│   1. Review: git diff                           │
-│   2. Test: /craft:test:run                      │
-│   3. Commit: git add . &amp;&amp; git commit            │
-│                                                 │
-╰─────────────────────────────────────────────────╯</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>╭─────────────────────────────────────────────────╮
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>│ ✅ DOCUMENTATION UPDATE COMPLETE                │
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>├─────────────────────────────────────────────────┤
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>│                                                 │
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>│ Categories Updated:                             │
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>│   ✓ Version references: 545 updates             │
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>│   ✓ Command counts: 289 updates                 │
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>│   ⊘ Missing help: Skipped                       │
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>│                                                 │
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>│ Files Modified: 67                              │
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>│ Total Changes: 834 updates                      │
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>│ Time: 3.2 seconds                               │
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>│                                                 │
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>│ Next Steps:                                     │
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>│   1. Review: git diff                           │
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>│   2. Test: /craft:test:run                      │
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>│   3. Commit: git add . &amp;&amp; git commit            │
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>│                                                 │
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>╰─────────────────────────────────────────────────╯
+</span></code></pre></div>
 <hr />
 <h2 id="step-3-verify-changes">Step 3: Verify Changes<a class="headerlink" href="#step-3-verify-changes" title="Permanent link">&para;</a></h2>
 <p>Always review what was changed before committing.</p>
 <h3 id="check-what-files-changed">Check What Files Changed<a class="headerlink" href="#check-what-files-changed" title="Permanent link">&para;</a></h3>
-<p><code>bash
-git status</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git<span class="w"> </span>status
+</span></code></pre></div>
 <p>Output:</p>
-<p><code>text
-modified:   README.md
-modified:   CLAUDE.md
-modified:   docs/VERSION-HISTORY.md
-... (64 more files)</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>modified:   README.md
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>modified:   CLAUDE.md
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>modified:   docs/VERSION-HISTORY.md
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>... (64 more files)
+</span></code></pre></div>
 <h3 id="review-specific-changes">Review Specific Changes<a class="headerlink" href="#review-specific-changes" title="Permanent link">&para;</a></h3>
-<p>```bash</p>
-<h1 id="see-all-changes">See all changes<a class="headerlink" href="#see-all-changes" title="Permanent link">&para;</a></h1>
-<p>git diff</p>
-<h1 id="see-changes-in-one-file">See changes in one file<a class="headerlink" href="#see-changes-in-one-file" title="Permanent link">&para;</a></h1>
-<p>git diff README.md</p>
-<h1 id="count-changes">Count changes<a class="headerlink" href="#count-changes" title="Permanent link">&para;</a></h1>
-<p>git diff --stat
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># See all changes</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>git<span class="w"> </span>diff
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># See changes in one file</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>git<span class="w"> </span>diff<span class="w"> </span>README.md
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Count changes</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>git<span class="w"> </span>diff<span class="w"> </span>--stat
+</span></code></pre></div>
 <h3 id="example-diff">Example Diff<a class="headerlink" href="#example-diff" title="Permanent link">&para;</a></h3>
-<p>```diff
-- <strong>Version:</strong> v1.24.0
-+ <strong>Version:</strong> v2.5.1</p>
-<ul>
-<li>craft has 99 commands</li>
-<li>craft has 101 commands
-```text</li>
-</ul>
+<div class="language-diff highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gd">- **Version:** v1.24.0</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="gi">+ **Version:** v2.5.1</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="gd">- craft has 99 commands</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="gi">+ craft has 101 commands</span>
+</span></code></pre></div>
 <h3 id="if-everything-looks-good">If Everything Looks Good<a class="headerlink" href="#if-everything-looks-good" title="Permanent link">&para;</a></h3>
-<p><code>bash
-git add .
-git commit -m "docs: update version refs and counts via interactive mode"</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: update version refs and counts via interactive mode&quot;</span>
+</span></code></pre></div>
 <h3 id="if-you-made-a-mistake">If You Made a Mistake<a class="headerlink" href="#if-you-made-a-mistake" title="Permanent link">&para;</a></h3>
-<p>```bash</p>
-<h1 id="undo-all-changes">Undo all changes<a class="headerlink" href="#undo-all-changes" title="Permanent link">&para;</a></h1>
-<p>git checkout .</p>
-<h1 id="undo-changes-in-one-file">Undo changes in one file<a class="headerlink" href="#undo-changes-in-one-file" title="Permanent link">&para;</a></h1>
-<p>git checkout README.md</p>
-<h1 id="then-run-interactive-mode-again">Then run interactive mode again<a class="headerlink" href="#then-run-interactive-mode-again" title="Permanent link">&para;</a></h1>
-<p>```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Undo all changes</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>.
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Undo changes in one file</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>README.md
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># Then run interactive mode again</span>
+</span></code></pre></div>
 <hr />
 <h2 id="step-4-category-specific-updates">Step 4: Category-Specific Updates<a class="headerlink" href="#step-4-category-specific-updates" title="Permanent link">&para;</a></h2>
 <p>Sometimes you only want to fix one type of issue.</p>
 <h3 id="update-just-version-references">Update Just Version References<a class="headerlink" href="#update-just-version-references" title="Permanent link">&para;</a></h3>
-<p><code>bash
-/craft:docs:update --interactive --category=version_refs</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--category<span class="o">=</span>version_refs
+</span></code></pre></div>
 <p><strong>Benefits:</strong></p>
 <ul>
 <li>Faster (only scans one category)</li>
@@ -4830,113 +5668,116 @@ git commit -m "docs: update version refs and counts via interactive mode"</code>
 <li>Safer (less chance of unexpected changes)</li>
 </ul>
 <h3 id="example-output">Example Output<a class="headerlink" href="#example-output" title="Permanent link">&para;</a></h3>
-<p><code>text
-╭─────────────────────────────────────────────────╮
-│ Category-Specific Mode: version_refs            │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│ Found: 545 version references to update         │
-│ Target version: v2.5.1                          │
-│                                                 │
-│ Top files affected:                             │
-│   • docs/VERSION-HISTORY.md (63 changes)        │
-│   • README.md (35 changes)                      │
-│   • CLAUDE.md (23 changes)                      │
-│   ... and 64 more files                         │
-│                                                 │
-╰─────────────────────────────────────────────────╯</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>╭─────────────────────────────────────────────────╮
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>│ Category-Specific Mode: version_refs            │
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>├─────────────────────────────────────────────────┤
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>│                                                 │
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>│ Found: 545 version references to update         │
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>│ Target version: v2.5.1                          │
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>│                                                 │
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>│ Top files affected:                             │
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>│   • docs/VERSION-HISTORY.md (63 changes)        │
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>│   • README.md (35 changes)                      │
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>│   • CLAUDE.md (23 changes)                      │
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>│   ... and 64 more files                         │
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>│                                                 │
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>╰─────────────────────────────────────────────────╯
+</span></code></pre></div>
 <p><strong>Then you get a single prompt:</strong></p>
-<p>```text
-Apply 545 version reference updates to v2.5.1?</p>
-<p>A) Yes, update all
-  B) Show detailed file list first
-  C) Cancel - don't apply updates
-```text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Apply 545 version reference updates to v2.5.1?
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  A) Yes, update all
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  B) Show detailed file list first
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>  C) Cancel - don&#39;t apply updates
+</span></code></pre></div>
 <h3 id="try-other-categories">Try Other Categories<a class="headerlink" href="#try-other-categories" title="Permanent link">&para;</a></h3>
-<p>```bash</p>
-<h1 id="fix-command-counts">Fix command counts<a class="headerlink" href="#fix-command-counts" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --category=command_counts</p>
-<h1 id="add-missing-help">Add missing help<a class="headerlink" href="#add-missing-help" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --category=missing_help</p>
-<h1 id="fix-broken-links">Fix broken links<a class="headerlink" href="#fix-broken-links" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --category=broken_links
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Fix command counts</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>command_counts
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># Add missing help</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>missing_help
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="c1"># Fix broken links</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>broken_links
+</span></code></pre></div>
 <hr />
 <h2 id="advanced-tips">Advanced Tips<a class="headerlink" href="#advanced-tips" title="Permanent link">&para;</a></h2>
 <h3 id="preview-a-specific-category">Preview a Specific Category<a class="headerlink" href="#preview-a-specific-category" title="Permanent link">&para;</a></h3>
 <p>Combine <code>--dry-run</code> with <code>--category</code>:</p>
-<p><code>bash
-/craft:docs:update --interactive --category=version_refs --dry-run</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--category<span class="o">=</span>version_refs<span class="w"> </span>--dry-run
+</span></code></pre></div>
 <p>This shows what would change for just version references.</p>
 <h3 id="auto-apply-no-prompts">Auto-Apply (No Prompts)<a class="headerlink" href="#auto-apply-no-prompts" title="Permanent link">&para;</a></h3>
 <p>If you're confident, skip all prompts:</p>
-<p><code>bash
-/craft:docs:update --auto-yes</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/craft:docs:update<span class="w"> </span>--auto-yes
+</span></code></pre></div>
 <p><strong>⚠️ Warning:</strong> This applies ALL updates without asking!</p>
 <p>Better approach:</p>
-<p>```bash</p>
-<h1 id="dry-run-first">Dry-run first<a class="headerlink" href="#dry-run-first" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --dry-run</p>
-<h1 id="then-auto-apply-if-it-looks-good">Then auto-apply if it looks good<a class="headerlink" href="#then-auto-apply-if-it-looks-good" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --auto-yes
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Dry-run first</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>/craft:docs:update<span class="w"> </span>--dry-run
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># Then auto-apply if it looks good</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>/craft:docs:update<span class="w"> </span>--auto-yes
+</span></code></pre></div>
 <h3 id="batch-update-multiple-categories">Batch Update Multiple Categories<a class="headerlink" href="#batch-update-multiple-categories" title="Permanent link">&para;</a></h3>
 <p>Update several categories at once:</p>
-<p>```bash</p>
-<h1 id="update-metadata-categories">Update metadata categories<a class="headerlink" href="#update-metadata-categories" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --interactive --category=version_refs
-/craft:docs:update --interactive --category=command_counts</p>
-<h1 id="review-changes">Review changes<a class="headerlink" href="#review-changes" title="Permanent link">&para;</a></h1>
-<p>git diff</p>
-<h1 id="commit-both">Commit both<a class="headerlink" href="#commit-both" title="Permanent link">&para;</a></h1>
-<p>git commit -m "docs: update metadata (versions and counts)"
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Update metadata categories</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--category<span class="o">=</span>version_refs
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--category<span class="o">=</span>command_counts
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="c1"># Review changes</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>git<span class="w"> </span>diff
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="c1"># Commit both</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: update metadata (versions and counts)&quot;</span>
+</span></code></pre></div>
 <hr />
 <h2 id="common-scenarios">Common Scenarios<a class="headerlink" href="#common-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="scenario-1-after-version-bump">Scenario 1: After Version Bump<a class="headerlink" href="#scenario-1-after-version-bump" title="Permanent link">&para;</a></h3>
 <p>You just released v2.5.1 and need to update all docs:</p>
-<p>```bash</p>
-<h1 id="update-version-references">Update version references<a class="headerlink" href="#update-version-references" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --category=version_refs --auto-yes</p>
-<h1 id="update-command-counts-if-commands-added">Update command counts (if commands added)<a class="headerlink" href="#update-command-counts-if-commands-added" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --category=command_counts --auto-yes
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Update version references</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs<span class="w"> </span>--auto-yes
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Update command counts (if commands added)</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>command_counts<span class="w"> </span>--auto-yes
+</span></code></pre></div>
 <h3 id="scenario-2-documentation-audit">Scenario 2: Documentation Audit<a class="headerlink" href="#scenario-2-documentation-audit" title="Permanent link">&para;</a></h3>
 <p>You want to fix all documentation issues:</p>
-<p>```bash</p>
-<h1 id="preview-everything-first">Preview everything first<a class="headerlink" href="#preview-everything-first" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --interactive --dry-run</p>
-<h1 id="review-what-would-change">Review what would change<a class="headerlink" href="#review-what-would-change" title="Permanent link">&para;</a></h1>
-<h1 id="apply-interactively">Apply interactively<a class="headerlink" href="#apply-interactively" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --interactive
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Preview everything first</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># Review what would change</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="c1"># Apply interactively</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>/craft:docs:update<span class="w"> </span>--interactive
+</span></code></pre></div>
 <h3 id="scenario-3-specific-issue">Scenario 3: Specific Issue<a class="headerlink" href="#scenario-3-specific-issue" title="Permanent link">&para;</a></h3>
 <p>You know there are broken links:</p>
-<p><code>bash
-/craft:docs:update --category=broken_links</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>broken_links
+</span></code></pre></div>
 <h3 id="scenario-4-new-commands-added">Scenario 4: New Commands Added<a class="headerlink" href="#scenario-4-new-commands-added" title="Permanent link">&para;</a></h3>
 <p>You added commands and they need help:</p>
-<p><code>bash
-/craft:docs:update --category=missing_help</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>missing_help
+</span></code></pre></div>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="too-many-changes">"Too Many Changes!"<a class="headerlink" href="#too-many-changes" title="Permanent link">&para;</a></h3>
 <p>Start with one category:</p>
-<p><code>bash
-/craft:docs:update --category=version_refs</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs
+</span></code></pre></div>
 <h3 id="im-not-sure-what-changed">"I'm Not Sure What Changed"<a class="headerlink" href="#im-not-sure-what-changed" title="Permanent link">&para;</a></h3>
 <p>Always use dry-run first:</p>
-<p><code>bash
-/craft:docs:update --interactive --dry-run</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run
+</span></code></pre></div>
 <h3 id="i-made-a-mistake">"I Made a Mistake!"<a class="headerlink" href="#i-made-a-mistake" title="Permanent link">&para;</a></h3>
 <p>Revert with git:</p>
-<p><code>bash
-git checkout .  # Undo all changes</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>.<span class="w">  </span><span class="c1"># Undo all changes</span>
+</span></code></pre></div>
 <h3 id="utilities-not-found">"Utilities Not Found"<a class="headerlink" href="#utilities-not-found" title="Permanent link">&para;</a></h3>
 <p>Check installation:</p>
-<p><code>bash
-ls utils/docs_detector.py
-ls utils/help_file_validator.py</code>text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>ls<span class="w"> </span>utils/docs_detector.py
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>ls<span class="w"> </span>utils/help_file_validator.py
+</span></code></pre></div>
 <p>If missing, you're on the wrong branch.</p>
 <hr />
 <h2 id="what-youve-learned">What You've Learned<a class="headerlink" href="#what-youve-learned" title="Permanent link">&para;</a></h2>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.8.0 introduces markdown linting execution layer with auto-fix support and clear roadmap for future enhancements.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0 released with interactive command behavior, "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.">
       
       
       
@@ -16,7 +16,7 @@
         <link rel="prev" href="../REFCARD-claude-code-2.1-enhancements/">
       
       
-        <link rel="next" href="../../GIF-RECORDING-WORKFLOW-2026/">
+        <link rel="next" href="../REFCARD-INTERACTIVE-COMMANDS/">
       
       
         
@@ -1444,6 +1444,202 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../guide/interactive-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/check-command-mastery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Check Command Mastery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Worktree Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Orchestration Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Post-Merge Pipeline Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Orchestrator Modes Compared
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1456,10 +1652,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5_8" id="__nav_2_5_8_label" tabindex="0">
             
   
   
@@ -1477,8 +1673,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5_1">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3329,10 +3525,365 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#detection-categories-9-total" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Categories (9 Total)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interactive Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample Prompt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Flags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#category-specific-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category-Specific Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-specific-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature-Specific Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-merge-pipeline-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Merge Pipeline (NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Merge Pipeline (NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-5-phase-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 5-Phase Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safe-vs-manual-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe vs Manual Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-merge-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Merge Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preview-apply-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preview + Apply Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilities-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilities Used
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utilities Used">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detection-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Tips
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REFCARD-GIT-WORKTREE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -3990,6 +4541,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Command Behavior Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4210,6 +4789,305 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#detection-categories-9-total" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection Categories (9 Total)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interactive Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample Prompt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Flags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#category-specific-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Category-Specific Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-specific-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feature-Specific Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-merge-pipeline-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Merge Pipeline (NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Merge Pipeline (NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-5-phase-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 5-Phase Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safe-vs-manual-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe vs Manual Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-merge-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Merge Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preview-apply-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preview + Apply Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilities-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utilities Used
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utilities Used">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detection-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detection System
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Tips
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4238,16 +5116,18 @@
 <h1 id="quick-reference-craftdocsupdate">Quick Reference: /craft:docs:update<a class="headerlink" href="#quick-reference-craftdocsupdate" title="Permanent link">&para;</a></h1>
 <p><strong>One command for all documentation updates</strong> - Smart detection, interactive prompts, automatic fixes.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<p>```bash</p>
-<h1 id="interactive-mode-recommended-for-first-use">Interactive mode (recommended for first use)<a class="headerlink" href="#interactive-mode-recommended-for-first-use" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --interactive</p>
-<h1 id="preview-before-applying">Preview before applying<a class="headerlink" href="#preview-before-applying" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --interactive --dry-run</p>
-<h1 id="update-specific-category">Update specific category<a class="headerlink" href="#update-specific-category" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --category=version_refs</p>
-<h1 id="auto-apply-everything-use-with-caution">Auto-apply everything (use with caution)<a class="headerlink" href="#auto-apply-everything-use-with-caution" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --auto-yes
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Interactive mode (recommended for first use)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:docs:update<span class="w"> </span>--interactive
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Preview before applying</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Update specific category</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Auto-apply everything (use with caution)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>/craft:docs:update<span class="w"> </span>--auto-yes
+</span></code></pre></div>
 <h2 id="detection-categories-9-total">Detection Categories (9 Total)<a class="headerlink" href="#detection-categories-9-total" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4307,26 +5187,26 @@
 </table>
 <h2 id="interactive-mode">Interactive Mode<a class="headerlink" href="#interactive-mode" title="Permanent link">&para;</a></h2>
 <h3 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h3>
-<p><code>text
-1. Detection    → Scan 9 categories
-2. Prompts      → Group into 2-4 questions each
-3. Preview      → Show what would change
-4. Apply        → Update approved categories
-5. Summary      → Report changes made</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1. Detection    → Scan 9 categories
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>2. Prompts      → Group into 2-4 questions each
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>3. Preview      → Show what would change
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>4. Apply        → Update approved categories
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>5. Summary      → Report changes made
+</span></code></pre></div>
 <h3 id="sample-prompt">Sample Prompt<a class="headerlink" href="#sample-prompt" title="Permanent link">&para;</a></h3>
-<p><code>text
-╭─────────────────────────────────────────────────╮
-│ Documentation Updates Available                 │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│ Version References (545 items)                  │
-│ Should I update version references?             │
-│                                                 │
-│   A) Yes, update all (545 files → v2.5.1)      │
-│   B) Preview changes first                      │
-│   C) Skip this category                         │
-│                                                 │
-╰─────────────────────────────────────────────────╯</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>╭─────────────────────────────────────────────────╮
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│ Documentation Updates Available                 │
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├─────────────────────────────────────────────────┤
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│                                                 │
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│ Version References (545 items)                  │
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│ Should I update version references?             │
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│                                                 │
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│   A) Yes, update all (545 files → v2.5.1)      │
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│   B) Preview changes first                      │
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│   C) Skip this category                         │
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│                                                 │
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>╰─────────────────────────────────────────────────╯
+</span></code></pre></div>
 <h2 id="common-flags">Common Flags<a class="headerlink" href="#common-flags" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -4371,87 +5251,206 @@
 </table>
 <h2 id="category-specific-mode">Category-Specific Mode<a class="headerlink" href="#category-specific-mode" title="Permanent link">&para;</a></h2>
 <p>Update individual categories:</p>
-<p>```bash</p>
-<h1 id="version-references-only">Version references only<a class="headerlink" href="#version-references-only" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --category=version_refs</p>
-<h1 id="help-files-only">Help files only<a class="headerlink" href="#help-files-only" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --category=missing_help</p>
-<h1 id="command-counts-only">Command counts only<a class="headerlink" href="#command-counts-only" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --category=command_counts
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Version references only</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>version_refs
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Help files only</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>missing_help
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Command counts only</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>/craft:docs:update<span class="w"> </span>--category<span class="o">=</span>command_counts
+</span></code></pre></div>
 <h2 id="feature-specific-mode">Feature-Specific Mode<a class="headerlink" href="#feature-specific-mode" title="Permanent link">&para;</a></h2>
 <p>Scope to a specific feature:</p>
-<p>```bash</p>
-<h1 id="document-sessions-feature">Document "sessions" feature<a class="headerlink" href="#document-sessions-feature" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update "sessions"</p>
-<h1 id="document-auth-system">Document "auth" system<a class="headerlink" href="#document-auth-system" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update "auth"
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Document &quot;sessions&quot; feature</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:docs:update<span class="w"> </span><span class="s2">&quot;sessions&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Document &quot;auth&quot; system</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>/craft:docs:update<span class="w"> </span><span class="s2">&quot;auth&quot;</span>
+</span></code></pre></div>
+<h2 id="post-merge-pipeline-new">Post-Merge Pipeline (NEW)<a class="headerlink" href="#post-merge-pipeline-new" title="Permanent link">&para;</a></h2>
+<p>After merging a PR, use <code>--post-merge</code> to automatically update documentation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Full pipeline</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:docs:update<span class="w"> </span>--post-merge
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Preview only</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:docs:update<span class="w"> </span>--post-merge<span class="w"> </span>--dry-run
+</span></code></pre></div>
+<h3 id="the-5-phase-pipeline">The 5-Phase Pipeline<a class="headerlink" href="#the-5-phase-pipeline" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Phase 1: Auto-detect (9 categories)
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Phase 2: Auto-fix safe categories (no prompts)
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Phase 3: Prompt for manual categories
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Phase 4: Lint + validate
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>Phase 5: Summary
+</span></code></pre></div>
+<h3 id="safe-vs-manual-categories">Safe vs Manual Categories<a class="headerlink" href="#safe-vs-manual-categories" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th style="text-align: center;">Auto-Fix</th>
+<th style="text-align: center;">Requires Prompt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version references</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Command counts</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Navigation entries</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Broken links</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Help files</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Tutorials</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Changelog</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>GIF regeneration</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Feature status</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-merge-workflow">Post-Merge Workflow<a class="headerlink" href="#post-merge-workflow" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 1. Merge PR</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>gh<span class="w"> </span>pr<span class="w"> </span>merge<span class="w"> </span><span class="m">42</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># 2. Pull changes</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>dev
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># 3. Run post-merge pipeline</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>/craft:docs:update<span class="w"> </span>--post-merge
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># 4. Review changes</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>git<span class="w"> </span>diff
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="c1"># 5. Test docs build</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>mkdocs<span class="w"> </span>build
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="c1"># 6. Commit</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: post-merge updates for PR #42&quot;</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="c1"># 7. Deploy (optional)</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>/craft:site:deploy
+</span></code></pre></div>
+<h3 id="sample-output">Sample Output<a class="headerlink" href="#sample-output" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Post-Merge Documentation Scan:
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  Merge: PR #42 &quot;feat: add auth system&quot; → dev
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  [AUTO] Version references — 12 files
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  [AUTO] Command counts — 4 files
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  [AUTO] Navigation entries — 2 pages
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  [MANUAL] Help files — 3 commands
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  [SKIP] GIF regeneration — no changed commands
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>Auto-fixing... ✅ (19 files changed)
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>? 3 new commands need help. How to handle?
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>  &gt; Generate all (Recommended)
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>Generating... ✅ (3 files created)
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>Post-Merge Complete:
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>  Auto-fixed: 4 categories (19 files)
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>  Manual: 1 category (3 files)
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>  Total: 22 files changed
+</span></code></pre></div>
 <h2 id="advanced-usage">Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h2>
 <h3 id="preview-apply-workflow">Preview + Apply Workflow<a class="headerlink" href="#preview-apply-workflow" title="Permanent link">&para;</a></h3>
-<p>```bash</p>
-<h1 id="1-preview-all-changes">1. Preview all changes<a class="headerlink" href="#1-preview-all-changes" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --interactive --dry-run</p>
-<h1 id="2-review-output">2. Review output<a class="headerlink" href="#2-review-output" title="Permanent link">&para;</a></h1>
-<h1 id="shows-what-would-change">(shows what would change)<a class="headerlink" href="#shows-what-would-change" title="Permanent link">&para;</a></h1>
-<h1 id="3-apply-if-satisfied">3. Apply if satisfied<a class="headerlink" href="#3-apply-if-satisfied" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --interactive
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># 1. Preview all changes</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:docs:update<span class="w"> </span>--interactive<span class="w"> </span>--dry-run
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># 2. Review output</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># (shows what would change)</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># 3. Apply if satisfied</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>/craft:docs:update<span class="w"> </span>--interactive
+</span></code></pre></div>
 <h3 id="batch-mode">Batch Mode<a class="headerlink" href="#batch-mode" title="Permanent link">&para;</a></h3>
-<p>```bash</p>
-<h1 id="apply-all-updates-without-prompts">Apply all updates without prompts<a class="headerlink" href="#apply-all-updates-without-prompts" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --auto-yes</p>
-<h1 id="combine-with-category-filter">Combine with category filter<a class="headerlink" href="#combine-with-category-filter" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --auto-yes --category=version_refs
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Apply all updates without prompts</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>/craft:docs:update<span class="w"> </span>--auto-yes
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Combine with category filter</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>/craft:docs:update<span class="w"> </span>--auto-yes<span class="w"> </span>--category<span class="o">=</span>version_refs
+</span></code></pre></div>
 <h3 id="custom-generation">Custom Generation<a class="headerlink" href="#custom-generation" title="Permanent link">&para;</a></h3>
-<p>```bash</p>
-<h1 id="force-specific-doc-types">Force specific doc types<a class="headerlink" href="#force-specific-doc-types" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update "feature" --with-tutorial
-/craft:docs:update --with-help --with-workflow</p>
-<h1 id="generate-everything">Generate everything<a class="headerlink" href="#generate-everything" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --all</p>
-<h1 id="lower-threshold-for-more-docs">Lower threshold for more docs<a class="headerlink" href="#lower-threshold-for-more-docs" title="Permanent link">&para;</a></h1>
-<p>/craft:docs:update --threshold 2
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Force specific doc types</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:docs:update<span class="w"> </span><span class="s2">&quot;feature&quot;</span><span class="w"> </span>--with-tutorial
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>/craft:docs:update<span class="w"> </span>--with-help<span class="w"> </span>--with-workflow
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Generate everything</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>/craft:docs:update<span class="w"> </span>--all
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># Lower threshold for more docs</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>/craft:docs:update<span class="w"> </span>--threshold<span class="w"> </span><span class="m">2</span>
+</span></code></pre></div>
 <h2 id="output-example">Output Example<a class="headerlink" href="#output-example" title="Permanent link">&para;</a></h2>
-<p><code>text
-╭─────────────────────────────────────────────────╮
-│ ✅ DOCUMENTATION UPDATE COMPLETE                │
-├─────────────────────────────────────────────────┤
-│                                                 │
-│ Interactive Mode Summary:                       │
-│                                                 │
-│ Categories Processed:                           │
-│   ✓ Version references: 12 files updated        │
-│   ✓ Command counts: 4 files updated             │
-│   ✓ Broken links: 3 fixed                       │
-│   ⊘ Missing help: Skipped by user               │
-│                                                 │
-│ Files Modified: 19                              │
-│ Total Changes: 35 updates                       │
-│ Time: 2.3 seconds                               │
-│                                                 │
-│ Next Steps:                                     │
-│   1. Review: git diff                           │
-│   2. Test: /craft:test:run                      │
-│   3. Commit: git commit                         │
-│                                                 │
-╰─────────────────────────────────────────────────╯</code>text</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>╭─────────────────────────────────────────────────╮
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>│ ✅ DOCUMENTATION UPDATE COMPLETE                │
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>├─────────────────────────────────────────────────┤
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>│                                                 │
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>│ Interactive Mode Summary:                       │
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>│                                                 │
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>│ Categories Processed:                           │
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>│   ✓ Version references: 12 files updated        │
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>│   ✓ Command counts: 4 files updated             │
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>│   ✓ Broken links: 3 fixed                       │
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>│   ⊘ Missing help: Skipped by user               │
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>│                                                 │
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>│ Files Modified: 19                              │
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>│ Total Changes: 35 updates                       │
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>│ Time: 2.3 seconds                               │
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>│                                                 │
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>│ Next Steps:                                     │
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>│   1. Review: git diff                           │
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>│   2. Test: /craft:test:run                      │
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>│   3. Commit: git commit                         │
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>│                                                 │
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>╰─────────────────────────────────────────────────╯
+</span></code></pre></div>
 <h2 id="utilities-used">Utilities Used<a class="headerlink" href="#utilities-used" title="Permanent link">&para;</a></h2>
 <h3 id="detection-system">Detection System<a class="headerlink" href="#detection-system" title="Permanent link">&para;</a></h3>
-<p>```bash</p>
-<h1 id="standalone-detection">Standalone detection<a class="headerlink" href="#standalone-detection" title="Permanent link">&para;</a></h1>
-<p>python3 utils/docs_detector.py . v2.5.1</p>
-<h1 id="standalone-validation">Standalone validation<a class="headerlink" href="#standalone-validation" title="Permanent link">&para;</a></h1>
-<p>python3 utils/help_file_validator.py .
-```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Standalone detection</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>python3<span class="w"> </span>utils/docs_detector.py<span class="w"> </span>.<span class="w"> </span>v2.5.1
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Standalone validation</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>python3<span class="w"> </span>utils/help_file_validator.py<span class="w"> </span>.
+</span></code></pre></div>
 <h3 id="integration-tests">Integration Tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h3>
-<p>```bash</p>
-<h1 id="run-utility-tests">Run utility tests<a class="headerlink" href="#run-utility-tests" title="Permanent link">&para;</a></h1>
-<p>python3 tests/test_docs_utilities.py</p>
-<h1 id="expected-77-tests-passing">Expected: 7/7 tests passing<a class="headerlink" href="#expected-77-tests-passing" title="Permanent link">&para;</a></h1>
-<p>```text</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Run utility tests</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>python3<span class="w"> </span>tests/test_docs_utilities.py
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Expected: 7/7 tests passing</span>
+</span></code></pre></div>
 <h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

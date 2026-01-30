@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.8.0 introduces markdown linting execution layer with auto-fix support and clear roadmap for future enhancements.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0 released with interactive command behavior, "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.">
       
       
       
@@ -1444,6 +1444,202 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../guide/interactive-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/check-command-mastery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Check Command Mastery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Worktree Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Orchestration Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Post-Merge Pipeline Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Orchestrator Modes Compared
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1456,10 +1652,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5_8" id="__nav_2_5_8_label" tabindex="0">
             
   
   
@@ -1477,8 +1673,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5_1">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2455,6 +2651,78 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-workflow-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Workflow (NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interactive Workflow (NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-0-mode-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0: Mode Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-plan-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Plan Display
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-confirmation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Confirmation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-wave-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Wave Checkpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-specific-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode-Specific Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3576,6 +3844,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4228,6 +4552,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Command Behavior Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4478,6 +4830,78 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-workflow-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Workflow (NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interactive Workflow (NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-0-mode-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 0: Mode Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-plan-display" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Plan Display
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-confirmation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Confirmation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-wave-checkpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Wave Checkpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-specific-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode-Specific Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4737,8 +5161,11 @@
 <p>Activates Orchestrator v2.1 mode which decomposes complex tasks into subtasks, spawns background subagents to work in parallel, monitors progress, and manages context compression.</p>
 <p><strong>What it does:</strong></p>
 <ol>
-<li><strong>Analyzes</strong> your task and decomposes into subtasks</li>
+<li><strong>Selects mode</strong> — prompts interactively if no mode specified (NEW)</li>
+<li><strong>Shows plan</strong> — displays task analysis before acting (NEW)</li>
+<li><strong>Confirms</strong> — asks before spawning any agents (NEW)</li>
 <li><strong>Spawns</strong> background subagents to work in parallel</li>
+<li><strong>Checkpoints</strong> — pauses between waves for review (NEW)</li>
 <li><strong>Monitors</strong> progress with visual status dashboard</li>
 <li><strong>Tracks</strong> context usage with token estimation</li>
 <li><strong>Compresses</strong> chat when approaching limits</li>
@@ -4849,93 +5276,193 @@
 </tbody>
 </table>
 <hr />
+<h2 id="interactive-workflow-new">Interactive Workflow (NEW)<a class="headerlink" href="#interactive-workflow-new" title="Permanent link">&para;</a></h2>
+<p>Commands now follow a "Show Steps First" pattern — plans are shown before execution, and confirmation is required at key points.</p>
+<h3 id="step-0-mode-selection">Step 0: Mode Selection<a class="headerlink" href="#step-0-mode-selection" title="Permanent link">&para;</a></h3>
+<p>If no mode is specified, you'll be prompted:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:orchestrate &quot;add user authentication&quot;
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>? Which orchestration mode should I use?
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  › Default (Recommended) — 2 agents max, balanced speed and oversight
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    Debug — 1 agent, sequential, verbose output
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    Optimize — 4 agents, aggressive parallelization
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    Release — 4 agents, full audit trail
+</span></code></pre></div>
+<h3 id="step-1-plan-display">Step 1: Plan Display<a class="headerlink" href="#step-1-plan-display" title="Permanent link">&para;</a></h3>
+<p>The orchestrator shows its plan <strong>before spawning any agents</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>## TASK ANALYSIS
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Request: Add user authentication
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Complexity: complex
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Mode: default (2 agents max)
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>Estimated subtasks: 5
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>Delegation strategy: hybrid
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>| # | Task              | Agent | Wave | Dependencies |
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>|---|-------------------|-------|------|--------------|
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>| 1 | Design auth flow  | arch  | 1    | none         |
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>| 2 | Implement backend | code  | 1    | none         |
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>| 3 | Create login UI   | code  | 2    | 1            |
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>| 4 | Add tests         | test  | 2    | 2            |
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>| 5 | Update docs       | doc   | 3    | 2,3          |
+</span></code></pre></div>
+<h3 id="step-2-confirmation">Step 2: Confirmation<a class="headerlink" href="#step-2-confirmation" title="Permanent link">&para;</a></h3>
+<p>You decide whether to proceed:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>? Proceed with this orchestration plan?
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  › Yes - Start Wave 1 (Recommended)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    Modify steps
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    Change mode
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    Cancel
+</span></code></pre></div>
+<h3 id="step-3-wave-checkpoints">Step 3: Wave Checkpoints<a class="headerlink" href="#step-3-wave-checkpoints" title="Permanent link">&para;</a></h3>
+<p>After each wave, results are shown and you can pause, review, or modify:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>## WAVE 1 COMPLETE
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>| Agent  | Task            | Status  | Output                   |
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>|--------|-----------------|---------|--------------------------|
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>| arch-1 | Design auth     | ✅ Done | OAuth 2.0 + PKCE         |
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>| code-1 | Backend routes  | ✅ Done | 4 endpoints created      |
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>? Wave 1 complete. Continue to Wave 2?
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  › Yes - Continue (Recommended)
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    Review results first
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    Modify next wave
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    Stop here
+</span></code></pre></div>
+<h3 id="mode-specific-behavior">Mode-Specific Behavior<a class="headerlink" href="#mode-specific-behavior" title="Permanent link">&para;</a></h3>
+<p>Each mode produces visibly different output:</p>
+<table>
+<thead>
+<tr>
+<th>Behavior</th>
+<th>default</th>
+<th>debug</th>
+<th>optimize</th>
+<th>release</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plan display</td>
+<td>Summary table</td>
+<td>Step traces with rationale</td>
+<td>Parallel dependency map</td>
+<td>Full audit with risk notes</td>
+</tr>
+<tr>
+<td>Checkpoints</td>
+<td>Per wave</td>
+<td>Every step</td>
+<td>Wave end only</td>
+<td>Every step</td>
+</tr>
+<tr>
+<td>Agent output</td>
+<td>Summary</td>
+<td>Verbose (full output)</td>
+<td>Summary</td>
+<td>Full output + diffs</td>
+</tr>
+<tr>
+<td>Auto-proceed</td>
+<td>Ask per wave</td>
+<td>Ask every step</td>
+<td>Ask per wave</td>
+<td>Ask every step</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="start-orchestrated-workflow">Start Orchestrated Workflow<a class="headerlink" href="#start-orchestrated-workflow" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add user authentication with OAuth&quot;</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1">## 📋 TASK ANALYSIS</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>**Request**:<span class="w"> </span>Add<span class="w"> </span>OAuth<span class="w"> </span>authentication
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>**Complexity**:<span class="w"> </span>complex
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>**Mode**:<span class="w"> </span>default<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>agents<span class="w"> </span>max<span class="o">)</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>**Estimated<span class="w"> </span>subtasks**:<span class="w"> </span><span class="m">5</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">|</span><span class="w"> </span><span class="c1"># | Task | Agent | Priority | Dependencies |</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p">|</span>---<span class="p">|</span>------<span class="p">|</span>-------<span class="p">|</span>----------<span class="p">|</span>--------------<span class="p">|</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Design<span class="w"> </span>auth<span class="w"> </span>flow<span class="w"> </span><span class="p">|</span><span class="w"> </span>arch<span class="w"> </span><span class="p">|</span><span class="w"> </span>P0<span class="w"> </span><span class="p">|</span><span class="w"> </span>none<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Implement<span class="w"> </span>backend<span class="w"> </span><span class="p">|</span><span class="w"> </span>code<span class="w"> </span><span class="p">|</span><span class="w"> </span>P0<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Create<span class="w"> </span>login<span class="w"> </span>UI<span class="w"> </span><span class="p">|</span><span class="w"> </span>code<span class="w"> </span><span class="p">|</span><span class="w"> </span>P1<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">|</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Add<span class="w"> </span>tests<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>P1<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2</span>,3<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="p">|</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Update<span class="w"> </span>docs<span class="w"> </span><span class="p">|</span><span class="w"> </span>doc<span class="w"> </span><span class="p">|</span><span class="w"> </span>P2<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>Spawning<span class="w"> </span>agents...
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add user authentication with OAuth&quot;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1">## TASK ANALYSIS</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Request:<span class="w"> </span>Add<span class="w"> </span>OAuth<span class="w"> </span>authentication
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>Complexity:<span class="w"> </span>complex
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>Mode:<span class="w"> </span>default<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>agents<span class="w"> </span>max<span class="o">)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>Estimated<span class="w"> </span>subtasks:<span class="w"> </span><span class="m">5</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="p">|</span><span class="w"> </span><span class="c1"># | Task              | Agent | Wave | Dependencies |</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">|</span>---<span class="p">|</span>-------------------<span class="p">|</span>-------<span class="p">|</span>------<span class="p">|</span>--------------<span class="p">|</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Design<span class="w"> </span>auth<span class="w"> </span>flow<span class="w">  </span><span class="p">|</span><span class="w"> </span>arch<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>none<span class="w">         </span><span class="p">|</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Implement<span class="w"> </span>backend<span class="w"> </span><span class="p">|</span><span class="w"> </span>code<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>none<span class="w">         </span><span class="p">|</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Create<span class="w"> </span>login<span class="w"> </span>UI<span class="w">   </span><span class="p">|</span><span class="w"> </span>code<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w">            </span><span class="p">|</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="p">|</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Add<span class="w"> </span>tests<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="nb">test</span><span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="m">2</span>,3<span class="w">          </span><span class="p">|</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="p">|</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Update<span class="w"> </span>docs<span class="w">       </span><span class="p">|</span><span class="w"> </span>doc<span class="w">   </span><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w">            </span><span class="p">|</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>?<span class="w"> </span>Proceed<span class="w"> </span>with<span class="w"> </span>this<span class="w"> </span>orchestration<span class="w"> </span>plan?
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">  </span>›<span class="w"> </span>Yes<span class="w"> </span>-<span class="w"> </span>Start<span class="w"> </span>Wave<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">(</span>Recommended<span class="o">)</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>Spawning<span class="w"> </span>Wave<span class="w"> </span><span class="m">1</span><span class="w"> </span>agents...
 </span></code></pre></div>
 <h3 id="check-status">Check Status<a class="headerlink" href="#check-status" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:orchestrate<span class="w"> </span>status
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1">## 🔄 AGENT STATUS</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">|</span><span class="w"> </span>Agent<span class="w"> </span><span class="p">|</span><span class="w"> </span>Task<span class="w"> </span><span class="p">|</span><span class="w"> </span>Status<span class="w"> </span><span class="p">|</span><span class="w"> </span>Progress<span class="w"> </span><span class="p">|</span><span class="w"> </span>Context<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">|</span>-------<span class="p">|</span>------<span class="p">|</span>--------<span class="p">|</span>----------<span class="p">|</span>---------<span class="p">|</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">|</span><span class="w"> </span>main<span class="w">  </span><span class="p">|</span><span class="w"> </span>orchestrate<span class="w"> </span><span class="p">|</span><span class="w"> </span>🟢<span class="w"> </span>active<span class="w"> </span><span class="p">|</span><span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">45</span>%<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">|</span><span class="w"> </span>arch-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>design<span class="w"> </span><span class="p">|</span><span class="w"> </span>✅<span class="w"> </span><span class="nb">complete</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>/1<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>%<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">|</span><span class="w"> </span>code-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>backend<span class="w"> </span><span class="p">|</span><span class="w"> </span>🟡<span class="w"> </span>running<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">3</span>/7<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">18</span>%<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">|</span><span class="w"> </span>code-2<span class="w"> </span><span class="p">|</span><span class="w"> </span>frontend<span class="w"> </span><span class="p">|</span><span class="w"> </span>🟡<span class="w"> </span>running<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2</span>/5<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">12</span>%<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>**Context<span class="w"> </span>Budget**:<span class="w"> </span><span class="m">67</span>%<span class="w"> </span><span class="o">(</span>~86K<span class="w"> </span>tokens<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>**Mode**:<span class="w"> </span>default
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orchestrate<span class="w"> </span>status
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1">## 🔄 AGENT STATUS</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">|</span><span class="w"> </span>Agent<span class="w"> </span><span class="p">|</span><span class="w"> </span>Task<span class="w"> </span><span class="p">|</span><span class="w"> </span>Status<span class="w"> </span><span class="p">|</span><span class="w"> </span>Progress<span class="w"> </span><span class="p">|</span><span class="w"> </span>Context<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">|</span>-------<span class="p">|</span>------<span class="p">|</span>--------<span class="p">|</span>----------<span class="p">|</span>---------<span class="p">|</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="p">|</span><span class="w"> </span>main<span class="w">  </span><span class="p">|</span><span class="w"> </span>orchestrate<span class="w"> </span><span class="p">|</span><span class="w"> </span>🟢<span class="w"> </span>active<span class="w"> </span><span class="p">|</span><span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">45</span>%<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">|</span><span class="w"> </span>arch-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>design<span class="w"> </span><span class="p">|</span><span class="w"> </span>✅<span class="w"> </span><span class="nb">complete</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span>/1<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">0</span>%<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="p">|</span><span class="w"> </span>code-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>backend<span class="w"> </span><span class="p">|</span><span class="w"> </span>🟡<span class="w"> </span>running<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">3</span>/7<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">18</span>%<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="p">|</span><span class="w"> </span>code-2<span class="w"> </span><span class="p">|</span><span class="w"> </span>frontend<span class="w"> </span><span class="p">|</span><span class="w"> </span>🟡<span class="w"> </span>running<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2</span>/5<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">12</span>%<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>**Context<span class="w"> </span>Budget**:<span class="w"> </span><span class="m">67</span>%<span class="w"> </span><span class="o">(</span>~86K<span class="w"> </span>tokens<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>**Mode**:<span class="w"> </span>default
 </span></code></pre></div>
 <h3 id="view-timeline">View Timeline<a class="headerlink" href="#view-timeline" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:orchestrate<span class="w"> </span>timeline
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">## ⏱️ EXECUTION TIMELINE</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>TIME<span class="w">     </span><span class="m">0</span><span class="w">    </span>1m<span class="w">    </span>2m<span class="w">    </span>3m<span class="w">    </span>4m
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>─────────┼─────┼─────┼─────┼─────┤
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>arch-1<span class="w">   </span>██████░░░░░░░░░░░░░░░░░░<span class="w"> </span>✅<span class="w"> </span><span class="m">1</span>.2m
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>code-1<span class="w">   </span>░░░░░░████████████░░░░░<span class="w"> </span>🟡<span class="w"> </span><span class="m">2</span>.5m
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>code-2<span class="w">   </span>░░░░░░░░██████░░░░░░░░░<span class="w"> </span>✅<span class="w"> </span><span class="m">1</span>.8m
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>─────────┼─────┼─────┼─────┼─────┤
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">                         </span>NOW<span class="w"> </span>▲
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>**ETA**:<span class="w"> </span>~1.5<span class="w"> </span>min<span class="w"> </span>remaining
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:orchestrate<span class="w"> </span>timeline
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1">## ⏱️ EXECUTION TIMELINE</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>TIME<span class="w">     </span><span class="m">0</span><span class="w">    </span>1m<span class="w">    </span>2m<span class="w">    </span>3m<span class="w">    </span>4m
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>─────────┼─────┼─────┼─────┼─────┤
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>arch-1<span class="w">   </span>██████░░░░░░░░░░░░░░░░░░<span class="w"> </span>✅<span class="w"> </span><span class="m">1</span>.2m
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>code-1<span class="w">   </span>░░░░░░████████████░░░░░<span class="w"> </span>🟡<span class="w"> </span><span class="m">2</span>.5m
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>code-2<span class="w">   </span>░░░░░░░░██████░░░░░░░░░<span class="w"> </span>✅<span class="w"> </span><span class="m">1</span>.8m
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>─────────┼─────┼─────┼─────┼─────┤
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">                         </span>NOW<span class="w"> </span>▲
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>**ETA**:<span class="w"> </span>~1.5<span class="w"> </span>min<span class="w"> </span>remaining
 </span></code></pre></div>
 <h3 id="context-budget">Context Budget<a class="headerlink" href="#context-budget" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:orchestrate<span class="w"> </span>budget
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1">## 📊 CONTEXT BUDGET</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">|</span><span class="w"> </span>Component<span class="w"> </span><span class="p">|</span><span class="w"> </span>Tokens<span class="w"> </span><span class="o">(</span>est<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>%<span class="w"> </span>of<span class="w"> </span>~128K<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">|</span>-----------<span class="p">|</span>--------------<span class="p">|</span>------------<span class="p">|</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">|</span><span class="w"> </span>System<span class="w"> </span>prompt<span class="w"> </span><span class="p">|</span><span class="w"> </span>~3,000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2</span>.3%<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">|</span><span class="w"> </span>Conversation<span class="w"> </span><span class="p">|</span><span class="w"> </span>~15,000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">11</span>.7%<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">|</span><span class="w"> </span>Agent<span class="w"> </span>results<span class="w"> </span><span class="p">|</span><span class="w"> </span>~8,000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">6</span>.3%<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="p">|</span><span class="w"> </span>**Total**<span class="w"> </span><span class="p">|</span><span class="w"> </span>**~26,000**<span class="w"> </span><span class="p">|</span><span class="w"> </span>**20.3%**<span class="w"> </span><span class="p">|</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>Status:<span class="w"> </span>🟢<span class="w"> </span>Healthy<span class="w"> </span><span class="o">(</span>&lt;<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate<span class="w"> </span>budget
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1">## 📊 CONTEXT BUDGET</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">|</span><span class="w"> </span>Component<span class="w"> </span><span class="p">|</span><span class="w"> </span>Tokens<span class="w"> </span><span class="o">(</span>est<span class="o">)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>%<span class="w"> </span>of<span class="w"> </span>~128K<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="p">|</span>-----------<span class="p">|</span>--------------<span class="p">|</span>------------<span class="p">|</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">|</span><span class="w"> </span>System<span class="w"> </span>prompt<span class="w"> </span><span class="p">|</span><span class="w"> </span>~3,000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2</span>.3%<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">|</span><span class="w"> </span>Conversation<span class="w"> </span><span class="p">|</span><span class="w"> </span>~15,000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">11</span>.7%<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="p">|</span><span class="w"> </span>Agent<span class="w"> </span>results<span class="w"> </span><span class="p">|</span><span class="w"> </span>~8,000<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">6</span>.3%<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="p">|</span><span class="w"> </span>**Total**<span class="w"> </span><span class="p">|</span><span class="w"> </span>**~26,000**<span class="w"> </span><span class="p">|</span><span class="w"> </span>**20.3%**<span class="w"> </span><span class="p">|</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>Status:<span class="w"> </span>🟢<span class="w"> </span>Healthy<span class="w"> </span><span class="o">(</span>&lt;<span class="w"> </span><span class="m">50</span>%<span class="o">)</span>
 </span></code></pre></div>
 <hr />
 <h2 id="session-management">Session Management<a class="headerlink" href="#session-management" title="Permanent link">&para;</a></h2>
 <p>Sessions persist across disconnects:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Resume previous session</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Force save current state</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>/craft:orchestrate<span class="w"> </span>save
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># View session history</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>/craft:orchestrate<span class="w"> </span><span class="nb">history</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1">## 📜 SESSION HISTORY</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="p">|</span><span class="w"> </span><span class="c1"># | Date | Goal | Status |</span>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="p">|</span>---<span class="p">|</span>------<span class="p">|</span>------<span class="p">|</span>--------<span class="p">|</span>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Add<span class="w"> </span>auth<span class="w"> </span>to<span class="w"> </span>API<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">complete</span><span class="w"> </span><span class="p">|</span>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Fix<span class="w"> </span>parsing<span class="w"> </span>bug<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">complete</span><span class="w"> </span><span class="p">|</span>
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Refactor<span class="w"> </span>CLI<span class="w"> </span><span class="p">|</span><span class="w"> </span>abandoned<span class="w"> </span><span class="p">|</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Resume previous session</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Force save current state</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>/craft:orchestrate<span class="w"> </span>save
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># View session history</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>/craft:orchestrate<span class="w"> </span><span class="nb">history</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1">## 📜 SESSION HISTORY</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="p">|</span><span class="w"> </span><span class="c1"># | Date | Goal | Status |</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="p">|</span>---<span class="p">|</span>------<span class="p">|</span>------<span class="p">|</span>--------<span class="p">|</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Add<span class="w"> </span>auth<span class="w"> </span>to<span class="w"> </span>API<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">complete</span><span class="w"> </span><span class="p">|</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Fix<span class="w"> </span>parsing<span class="w"> </span>bug<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">complete</span><span class="w"> </span><span class="p">|</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Jan<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Refactor<span class="w"> </span>CLI<span class="w"> </span><span class="p">|</span><span class="w"> </span>abandoned<span class="w"> </span><span class="p">|</span>
 </span></code></pre></div>
 <p><strong>State file locations:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>.claude/orchestrator-session.json     # Current session
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>.claude/orchestrator-history/         # Archived sessions
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>.claude/orchestrator-session.json     # Current session
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>.claude/orchestrator-history/         # Archived sessions
 </span></code></pre></div>
 <hr />
 <h2 id="context-monitoring">Context Monitoring<a class="headerlink" href="#context-monitoring" title="Permanent link">&para;</a></h2>
@@ -4976,19 +5503,19 @@
 <hr />
 <h2 id="compression">Compression<a class="headerlink" href="#compression" title="Permanent link">&para;</a></h2>
 <p>When context gets high, compression archives completed work:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:orchestrate<span class="w"> </span>compress
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1">## ⚠️ CONTEXT COMPRESSION</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1">### Completed (Archived)</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>-<span class="w"> </span>✅<span class="w"> </span>Auth<span class="w"> </span>design:<span class="w"> </span>OAuth<span class="w"> </span><span class="m">2</span>.0<span class="w"> </span>+<span class="w"> </span>PKCE
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>-<span class="w"> </span>✅<span class="w"> </span>Backend<span class="w"> </span>routes:<span class="w"> </span>/auth/*,<span class="w"> </span>/callback
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1">### Active (Retained)</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>-<span class="w"> </span>🔄<span class="w"> </span>Frontend<span class="w"> </span>login<span class="w"> </span>component
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>-<span class="w"> </span>🔄<span class="w"> </span>Test<span class="w"> </span>generation
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>**New<span class="w"> </span>context<span class="w"> </span>usage**:<span class="w"> </span>~35%
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:orchestrate<span class="w"> </span>compress
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1">## ⚠️ CONTEXT COMPRESSION</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1">### Completed (Archived)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>-<span class="w"> </span>✅<span class="w"> </span>Auth<span class="w"> </span>design:<span class="w"> </span>OAuth<span class="w"> </span><span class="m">2</span>.0<span class="w"> </span>+<span class="w"> </span>PKCE
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>-<span class="w"> </span>✅<span class="w"> </span>Backend<span class="w"> </span>routes:<span class="w"> </span>/auth/*,<span class="w"> </span>/callback
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="c1">### Active (Retained)</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>-<span class="w"> </span>🔄<span class="w"> </span>Frontend<span class="w"> </span>login<span class="w"> </span>component
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>-<span class="w"> </span>🔄<span class="w"> </span>Test<span class="w"> </span>generation
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>**New<span class="w"> </span>context<span class="w"> </span>usage**:<span class="w"> </span>~35%
 </span></code></pre></div>
 <hr />
 <h2 id="integration">Integration<a class="headerlink" href="#integration" title="Permanent link">&para;</a></h2>
@@ -5004,7 +5531,7 @@
 <h2 id="orchestrating-brainstorm-sessions-v240-new">Orchestrating Brainstorm Sessions (v2.4.0 NEW)<a class="headerlink" href="#orchestrating-brainstorm-sessions-v240-new" title="Permanent link">&para;</a></h2>
 <p>The orchestrator coordinates complex workflows that include context gathering with <code>/brainstorm</code>:</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;plan new authentication feature&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;plan new authentication feature&quot;</span>
 </span></code></pre></div>
 <p>Flow:</p>
 <ol>
@@ -5015,17 +5542,17 @@
 <li>Synthesize into implementation plan</li>
 </ol>
 <h3 id="brainstorm-orchestration-patterns">Brainstorm + Orchestration Patterns<a class="headerlink" href="#brainstorm-orchestration-patterns" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Quick context then implement</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add payment&quot;</span><span class="w"> </span>default
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># → Brainstorm q:2 → backend implementation</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1"># Deep context with parallel agents</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design microservices&quot;</span><span class="w"> </span>optimize
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># → Brainstorm d:8 -C tech,risk → 4 agents in parallel</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="c1"># Full lifecycle (v2.4.0)</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement feature&quot;</span><span class="w"> </span>release
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="c1"># → Brainstorm d:10 -C req,tech,success → arch + code + test + docs</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Quick context then implement</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;add payment&quot;</span><span class="w"> </span>default
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># → Brainstorm q:2 → backend implementation</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># Deep context with parallel agents</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;design microservices&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c1"># → Brainstorm d:8 -C tech,risk → 4 agents in parallel</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="c1"># Full lifecycle (v2.4.0)</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;implement feature&quot;</span><span class="w"> </span>release
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="c1"># → Brainstorm d:10 -C req,tech,success → arch + code + test + docs</span>
 </span></code></pre></div>
 <h3 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h3>
 <ul>

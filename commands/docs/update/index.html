@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.8.0 introduces markdown linting execution layer with auto-fix support and clear roadmap for future enhancements.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0 released with interactive command behavior, "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.">
       
       
       
@@ -1444,6 +1444,202 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../../guide/interactive-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/check-command-mastery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Check Command Mastery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guide/worktree-advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Worktree Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/interactive-orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Orchestration Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Post-Merge Pipeline Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Orchestrator Modes Compared
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1456,10 +1652,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5_8" id="__nav_2_5_8_label" tabindex="0">
             
   
   
@@ -1477,8 +1673,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5_1">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2615,6 +2811,89 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#post-merge-pipeline-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Merge Pipeline (NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Merge Pipeline (NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-auto-fix-no-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Auto-Fix (no prompts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-manual-categories-interactive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Manual Categories (interactive)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-5-validate-and-summarize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4-5: Validate and Summarize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safe-vs-manual-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe vs Manual Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3504,6 +3783,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4156,6 +4491,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../specs/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Command Behavior Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4510,6 +4873,89 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#post-merge-pipeline-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Merge Pipeline (NEW)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Merge Pipeline (NEW)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-auto-fix-no-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: Auto-Fix (no prompts)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-manual-categories-interactive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: Manual Categories (interactive)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-5-validate-and-summarize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4-5: Validate and Summarize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safe-vs-manual-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe vs Manual Categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4595,11 +5041,13 @@
 </blockquote>
 <p><strong>What it does:</strong></p>
 <ol>
-<li><strong>sync</strong> - Detect changes, classify docs needed</li>
-<li><strong>generate</strong> - Guide, demo, refcard (as needed)</li>
-<li><strong>check</strong> - Validate + auto-fix</li>
-<li><strong>changelog</strong> - If commits present</li>
-<li><strong>summary</strong> - Report what was done</li>
+<li><strong>Preview</strong> — shows what needs updating before acting (NEW)</li>
+<li><strong>Confirm</strong> — asks how to proceed: interactive, auto-apply, or preview-only (NEW)</li>
+<li><strong>sync</strong> — detect changes, classify docs needed</li>
+<li><strong>generate</strong> — guide, demo, refcard (as needed)</li>
+<li><strong>check</strong> — validate + auto-fix</li>
+<li><strong>changelog</strong> — if commits present</li>
+<li><strong>summary</strong> — report what was done</li>
 </ol>
 <hr />
 <h2 id="usage-modes">Usage Modes<a class="headerlink" href="#usage-modes" title="Permanent link">&para;</a></h2>
@@ -4681,6 +5129,10 @@
 <tr>
 <td><code>--no-changelog</code></td>
 <td>Skip changelog update</td>
+</tr>
+<tr>
+<td><code>--post-merge</code></td>
+<td>Post-merge pipeline — auto-fix safe categories, prompt for manual (NEW)</td>
 </tr>
 <tr>
 <td><code>--verbose</code></td>
@@ -4931,6 +5383,138 @@
 <tr>
 <td><code>GIF-GUIDELINES.md</code></td>
 <td>Terminal recording standards</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="post-merge-pipeline-new">Post-Merge Pipeline (NEW)<a class="headerlink" href="#post-merge-pipeline-new" title="Permanent link">&para;</a></h2>
+<p>After merging a PR, run <code>--post-merge</code> to automatically update all documentation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:docs:update<span class="w"> </span>--post-merge<span class="w">                  </span><span class="c1"># Full pipeline</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/craft:docs:update<span class="w"> </span>--post-merge<span class="w"> </span>--dry-run<span class="w">        </span><span class="c1"># Preview only</span>
+</span></code></pre></div>
+<h3 id="pipeline-flow">Pipeline Flow<a class="headerlink" href="#pipeline-flow" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>PR merged
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  → Phase 1: Auto-detect (9 categories)
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  → Phase 2: Auto-fix safe categories (no prompts)
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  → Phase 3: Prompt for manual categories
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  → Phase 4: Lint + validate
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  → Phase 5: Summary
+</span></code></pre></div>
+<h3 id="phase-1-detection">Phase 1: Detection<a class="headerlink" href="#phase-1-detection" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Post-Merge Documentation Scan:
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  Merge: PR #42 &quot;feat: add auth system&quot; → dev
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  Changed files: 15
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  New commands: 3
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>  Detected categories:
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>  [AUTO]   Version references — 12 files
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>  [AUTO]   Command counts — 4 files
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>  [AUTO]   Navigation entries — 2 new pages
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>  [AUTO]   Broken links — 1 link
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>  [MANUAL] Help files — 3 new commands
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>  [MANUAL] Changelog draft — from PR description
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>  [SKIP]   GIF regeneration — no changed commands
+</span></code></pre></div>
+<h3 id="phase-2-auto-fix-no-prompts">Phase 2: Auto-Fix (no prompts)<a class="headerlink" href="#phase-2-auto-fix-no-prompts" title="Permanent link">&para;</a></h3>
+<p>Safe categories are fixed automatically:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version references</td>
+<td>Find-replace version strings across all docs</td>
+</tr>
+<tr>
+<td>Command counts</td>
+<td>Recalculate from <code>commands/**/*.md</code></td>
+</tr>
+<tr>
+<td>Navigation entries</td>
+<td>Add new pages to mkdocs.yml</td>
+</tr>
+<tr>
+<td>Broken links</td>
+<td>Update changed file paths</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-3-manual-categories-interactive">Phase 3: Manual Categories (interactive)<a class="headerlink" href="#phase-3-manual-categories-interactive" title="Permanent link">&para;</a></h3>
+<p>Categories requiring judgment prompt via interactive questions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>? 3 new commands need help documentation. How should I handle them?
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  › Generate all (Recommended)
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    Generate one at a time
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    Skip for now
+</span></code></pre></div>
+<h3 id="phase-4-5-validate-and-summarize">Phase 4-5: Validate and Summarize<a class="headerlink" href="#phase-4-5-validate-and-summarize" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Validation:
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  Markdown lint... ✅ 0 issues
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  Internal links... ✅ all resolved
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  Count validation... ✅ matches
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>Post-Merge Documentation Update Complete:
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  Auto-fixed: 4 categories (19 files changed)
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>  Manual: 2 categories (3 files created)
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>  Skipped: 3 categories (no changes needed)
+</span></code></pre></div>
+<h3 id="safe-vs-manual-categories">Safe vs Manual Categories<a class="headerlink" href="#safe-vs-manual-categories" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th style="text-align: center;">Safe (auto-fix)</th>
+<th style="text-align: center;">Manual (prompt)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version references</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Command counts</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Navigation entries</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Broken links</td>
+<td style="text-align: center;">✅</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td>Help files</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Tutorials</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Changelog</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>GIF regeneration</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td>Feature status</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">✅</td>
 </tr>
 </tbody>
 </table>

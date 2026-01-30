@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.8.0 introduces markdown linting execution layer with auto-fix support and clear roadmap for future enhancements.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0 released with interactive command behavior, "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.">
       
       
       
@@ -1444,6 +1444,202 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../guide/interactive-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/check-command-mastery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Check Command Mastery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Worktree Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Orchestration Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Post-Merge Pipeline Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Orchestrator Modes Compared
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1456,10 +1652,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_8" >
         
           
-          <label class="md-nav__link" for="__nav_2_5_1" id="__nav_2_5_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5_8" id="__nav_2_5_8_label" tabindex="0">
             
   
   
@@ -1477,8 +1673,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5_1">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2353,6 +2549,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#interactive-step-preview-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Step Preview (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#options" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2404,10 +2611,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-mode-30-seconds" class="md-nav__link">
+  <a href="#default-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Default Mode (&lt; 30 seconds)
+        Default Mode
       
     </span>
   </a>
@@ -2415,10 +2622,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#thorough-mode-3-5-minutes" class="md-nav__link">
+  <a href="#thorough-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Thorough Mode (3-5 minutes)
+        Thorough Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-specific-check-depth-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode-Specific Check Depth (NEW)
       
     </span>
   </a>
@@ -2454,7 +2672,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#thorough-mode" class="md-nav__link">
+  <a href="#thorough-mode_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Thorough Mode
@@ -2465,10 +2683,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#context-specific" class="md-nav__link">
+  <a href="#context-specific-new-detailed-check-matrix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Context-Specific
+        Context-Specific (NEW: detailed check matrix)
       
     </span>
   </a>
@@ -3521,6 +3739,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4173,6 +4447,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Command Behavior Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4405,6 +4707,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#interactive-step-preview-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Step Preview (NEW)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#options" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4456,10 +4769,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-mode-30-seconds" class="md-nav__link">
+  <a href="#default-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Default Mode (&lt; 30 seconds)
+        Default Mode
       
     </span>
   </a>
@@ -4467,10 +4780,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#thorough-mode-3-5-minutes" class="md-nav__link">
+  <a href="#thorough-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Thorough Mode (3-5 minutes)
+        Thorough Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-specific-check-depth-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode-Specific Check Depth (NEW)
       
     </span>
   </a>
@@ -4506,7 +4830,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#thorough-mode" class="md-nav__link">
+  <a href="#thorough-mode_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Thorough Mode
@@ -4517,10 +4841,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#context-specific" class="md-nav__link">
+  <a href="#context-specific-new-detailed-check-matrix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Context-Specific
+        Context-Specific (NEW: detailed check matrix)
       
     </span>
   </a>
@@ -4631,11 +4955,39 @@
 </ul>
 <p><strong>What it does:</strong></p>
 <ul>
+<li><strong>Shows plan</strong> — previews which checks will run before executing (NEW)</li>
+<li><strong>Confirms</strong> — asks before running, with skip/dry-run options (NEW)</li>
 <li>Detects project type from marker files (package.json, pyproject.toml, etc.)</li>
 <li>Detects if running in a git worktree</li>
 <li>Runs appropriate lint, test, and security checks</li>
 <li>Reports status with clear pass/fail indicators</li>
 </ul>
+<hr />
+<h2 id="interactive-step-preview-new">Interactive Step Preview (NEW)<a class="headerlink" href="#interactive-step-preview-new" title="Permanent link">&para;</a></h2>
+<p>Before running any checks, the command shows what it will do and asks for confirmation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:check
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Pre-flight Check Plan:
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  Project: craft (Claude Plugin)
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  Mode: default
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  Branch: feature/command-enhancements
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  Checks to run:
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  1. Git status (clean working tree?)
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  2. Unit tests (python3 tests/test_craft_plugin.py)
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  3. Markdown lint (30 rules via markdownlint-cli2)
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>? Run these pre-flight checks?
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  › Yes - Run all (Recommended)
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    Skip lint (faster)
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    Skip external links (faster)
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    Dry run (show commands only)
+</span></code></pre></div>
+<p>After execution, a summary is displayed:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>  Results: 3/3 checks passed
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  Issues: 0 warnings, 0 errors
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  Next steps: Ready to commit
+</span></code></pre></div>
 <hr />
 <h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
 <h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>
@@ -4684,7 +5036,7 @@
 </table>
 <hr />
 <h2 id="check-modes">Check Modes<a class="headerlink" href="#check-modes" title="Permanent link">&para;</a></h2>
-<h3 id="default-mode-30-seconds">Default Mode (&lt; 30 seconds)<a class="headerlink" href="#default-mode-30-seconds" title="Permanent link">&para;</a></h3>
+<h3 id="default-mode">Default Mode<a class="headerlink" href="#default-mode" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -4707,7 +5059,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="thorough-mode-3-5-minutes">Thorough Mode (3-5 minutes)<a class="headerlink" href="#thorough-mode-3-5-minutes" title="Permanent link">&para;</a></h3>
+<h3 id="thorough-mode">Thorough Mode<a class="headerlink" href="#thorough-mode" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -4738,53 +5090,183 @@
 </tr>
 </tbody>
 </table>
+<h3 id="mode-specific-check-depth-new">Mode-Specific Check Depth (NEW)<a class="headerlink" href="#mode-specific-check-depth-new" title="Permanent link">&para;</a></h3>
+<p>The check depth varies by mode:</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>default</th>
+<th>debug</th>
+<th>release</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit tests</td>
+<td>Quick (fail-fast)</td>
+<td>Verbose (all output)</td>
+<td>Full + coverage report</td>
+</tr>
+<tr>
+<td>Markdown lint</td>
+<td>Changed files only</td>
+<td>All files</td>
+<td>All files + strict rules</td>
+</tr>
+<tr>
+<td>Link validation</td>
+<td>Skip external</td>
+<td>Internal links only</td>
+<td>All links (internal + external)</td>
+</tr>
+<tr>
+<td>Version sync</td>
+<td>Basic check</td>
+<td>Show all version refs</td>
+<td>Full audit with diff</td>
+</tr>
+<tr>
+<td>Git status</td>
+<td>Summary</td>
+<td>Detailed</td>
+<td>Full diff + ahead/behind</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Quick check before commit</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:check
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Output:</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># ╭─ /craft:check ──────────────────────────────────────╮</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># │ Project: craft (Claude Plugin)                      │</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># │ Time: 12.4s                                         │</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># ├─────────────────────────────────────────────────────┤</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># │ ✓ Lint         0 issues                             │</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># │ ✓ Tests        13/13 passed                         │</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># │ ✓ Git          Clean working tree                   │</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1"># ├─────────────────────────────────────────────────────┤</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># │ STATUS: ALL CHECKS PASSED ✓                         │</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="c1"># ╰─────────────────────────────────────────────────────╯</span>
-</span></code></pre></div>
-<h3 id="thorough-mode">Thorough Mode<a class="headerlink" href="#thorough-mode" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Full validation before release</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:check<span class="w"> </span>thorough
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Runs: lint (all rules), tests (full), types, security, docs</span>
-</span></code></pre></div>
-<h3 id="context-specific">Context-Specific<a class="headerlink" href="#context-specific" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Before creating a PR</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>pr
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Quick check before commit</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:check
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Checks: lint, tests, coverage &gt;= 80%, no merge conflicts, branch up to date</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># Before release</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>release
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Checks: all above + security audit, docs valid, changelog updated, version bumped</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Output:</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># ╭─ /craft:check ──────────────────────────────────────╮</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># │ Project: craft (Claude Plugin)                      │</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># │ Time: 12.4s                                         │</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1"># ├─────────────────────────────────────────────────────┤</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># │ ✓ Lint         0 issues                             │</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># │ ✓ Tests        13/13 passed                         │</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># │ ✓ Git          Clean working tree                   │</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="c1"># ├─────────────────────────────────────────────────────┤</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># │ STATUS: ALL CHECKS PASSED ✓                         │</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="c1"># ╰─────────────────────────────────────────────────────╯</span>
 </span></code></pre></div>
+<h3 id="thorough-mode_1">Thorough Mode<a class="headerlink" href="#thorough-mode_1" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Full validation before release</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:check<span class="w"> </span>thorough
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Runs: lint (all rules), tests (full), types, security, docs</span>
+</span></code></pre></div>
+<h3 id="context-specific-new-detailed-check-matrix">Context-Specific (NEW: detailed check matrix)<a class="headerlink" href="#context-specific-new-detailed-check-matrix" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Before creating a PR</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>pr
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Pre-flight<span class="w"> </span>Check<span class="w"> </span>Plan:
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span>Project:<span class="w"> </span>craft<span class="w"> </span><span class="o">(</span>Claude<span class="w"> </span>Plugin<span class="o">)</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span>Mode:<span class="w"> </span>default
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span>Branch:<span class="w"> </span>feature/command-enhancements
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span>Context:<span class="w"> </span>pr<span class="w"> </span><span class="o">(</span>pre-PR<span class="w"> </span>validation<span class="o">)</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span>Checks<span class="w"> </span>to<span class="w"> </span>run<span class="w"> </span><span class="o">(</span><span class="m">8</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>PR<span class="w"> </span>context<span class="o">)</span>:
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="m">1</span>.<span class="w"> </span>Git<span class="w"> </span>status<span class="w"> </span><span class="o">(</span>ahead<span class="w"> </span>of<span class="w"> </span>dev?<span class="o">)</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">  </span><span class="m">2</span>.<span class="w"> </span>Lint<span class="w"> </span>—<span class="w"> </span>all<span class="w"> </span>files
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">  </span><span class="m">3</span>.<span class="w"> </span>Unit<span class="w"> </span>tests<span class="w"> </span>—<span class="w"> </span>full<span class="w"> </span>suite
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">  </span><span class="m">4</span>.<span class="w"> </span>Type<span class="w"> </span>check
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">  </span><span class="m">5</span>.<span class="w"> </span>Security<span class="w"> </span>advisory
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">  </span><span class="m">6</span>.<span class="w"> </span>Internal<span class="w"> </span>link<span class="w"> </span>validation
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">  </span><span class="m">7</span>.<span class="w"> </span>Merge<span class="w"> </span>conflict<span class="w"> </span>detection
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">  </span><span class="m">8</span>.<span class="w"> </span>Coverage<span class="w"> </span>threshold<span class="w"> </span><span class="o">(</span><span class="m">80</span>%<span class="w"> </span>minimum<span class="o">)</span>
+</span></code></pre></div>
+<p>The <code>--for</code> flag adjusts which checks run based on context:</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th><code>--for commit</code></th>
+<th><code>--for pr</code></th>
+<th><code>--for release</code></th>
+<th><code>--for deploy</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Git status</td>
+<td>Clean tree</td>
+<td>Ahead of base</td>
+<td>Tag exists</td>
+<td>Clean + tagged</td>
+</tr>
+<tr>
+<td>Lint</td>
+<td>Changed files</td>
+<td>All files</td>
+<td>All + strict</td>
+<td>All + strict</td>
+</tr>
+<tr>
+<td>Tests</td>
+<td>Fast (fail-fast)</td>
+<td>Full suite</td>
+<td>Full + coverage</td>
+<td>Full + coverage</td>
+</tr>
+<tr>
+<td>Type check</td>
+<td>Skip</td>
+<td>Run</td>
+<td>Run</td>
+<td>Run</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Skip</td>
+<td>Advisory</td>
+<td>Full audit</td>
+<td>Full audit</td>
+</tr>
+<tr>
+<td>Links</td>
+<td>Skip</td>
+<td>Internal</td>
+<td>All links</td>
+<td>All links</td>
+</tr>
+<tr>
+<td>Version sync</td>
+<td>Skip</td>
+<td>Check</td>
+<td>Full audit</td>
+<td>Full audit</td>
+</tr>
+<tr>
+<td>Merge conflicts</td>
+<td>Skip</td>
+<td>Detect</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Coverage threshold</td>
+<td>Skip</td>
+<td>80% min</td>
+<td>90% min</td>
+<td>90% min</td>
+</tr>
+</tbody>
+</table>
 <h3 id="in-worktree">In Worktree<a class="headerlink" href="#in-worktree" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Running from a worktree</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-x
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:check
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Output shows worktree context:</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># ╭─ /craft:check ──────────────────────────────────────╮</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># │ Project: craft (Claude Plugin)                      │</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># │ 🌳 Worktree: ~/.git-worktrees/craft/feature-x      │</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># │    Main: ~/projects/dev-tools/craft                │</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1"># │    Branch: feature/docs-improvement                │</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1"># ...</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Running from a worktree</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-x
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>/craft:check
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Output shows worktree context:</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># ╭─ /craft:check ──────────────────────────────────────╮</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># │ Project: craft (Claude Plugin)                      │</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="c1"># │ 🌳 Worktree: ~/.git-worktrees/craft/feature-x      │</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="c1"># │    Main: ~/projects/dev-tools/craft                │</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># │    Branch: feature/docs-improvement                │</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="c1"># ...</span>
 </span></code></pre></div>
 <hr />
 <h2 id="project-type-detection">Project Type Detection<a class="headerlink" href="#project-type-detection" title="Permanent link">&para;</a></h2>
