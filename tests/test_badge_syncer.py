@@ -14,6 +14,7 @@ import tempfile
 import shutil
 import sys
 import json
+import subprocess
 
 # Add utils directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
@@ -442,6 +443,9 @@ class TestBadgeSyncer(unittest.TestCase):
 
     def test_find_mismatches_missing_badge(self):
         """Test mismatch detection when badge is missing."""
+        # Create empty README.md so it exists
+        (self.test_dir / "README.md").write_text("# Test\n\nNo badges here.\n")
+
         current = {}  # No badges
         expected = {
             'version': Badge(
