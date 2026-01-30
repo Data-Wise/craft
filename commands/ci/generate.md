@@ -533,6 +533,72 @@ When generating, the command will ask about optional features:
 ╰─────────────────────────────────────────────────────────╯
 ```
 
+## CI Badge Generation
+
+After creating a workflow, `/craft:ci:generate` offers to add a CI badge to README.md:
+
+### Interactive Prompt
+
+```
+╭─ CI Workflow Generated ─────────────────────────╮
+│  ✅ Created: .github/workflows/ci.yml           │
+│                                                 │
+│  📛 Add CI badge to README.md? (y/n)            │
+│                                                 │
+│  Badge preview:                                 │
+│  [![Craft CI](https://github.com/user/repo/    │
+│    actions/workflows/ci.yml/badge.svg?          │
+│    branch=dev)](https://github.com/user/repo/   │
+│    actions/workflows/ci.yml)                    │
+│                                                 │
+╰─────────────────────────────────────────────────╯
+```
+
+### Badge Generation Logic
+
+```python
+from utils.badge_syncer import BadgeSyncer
+import subprocess
+
+# Get current branch for badge
+current_branch = subprocess.run(
+    ['git', 'branch', '--show-current'],
+    capture_output=True,
+    text=True
+).stdout.strip()
+
+# Generate CI badge
+syncer = BadgeSyncer(Path.cwd())
+ci_badges = syncer._generate_ci_badges()
+
+# Show preview and prompt
+if ci_badges:
+    for badge_key, badge in ci_badges.items():
+        print(f"\nBadge preview:")
+        print(f"  {badge.raw_markdown}")
+
+    response = input("\nAdd CI badge to README.md? [y/N]: ").strip().lower()
+    if response == 'y':
+        # Insert badge at appropriate location
+        readme = Path.cwd() / "README.md"
+        content = readme.read_text()
+        updated = syncer._insert_badge(content, list(ci_badges.values())[0])
+        readme.write_text(updated)
+        print("✅ Badge added to README.md")
+```
+
+### Badge Placement
+
+Badges are inserted immediately after the first markdown heading (`# Title`):
+
+```markdown
+# My Project
+
+[![CI](https://github.com/user/repo/actions/workflows/ci.yml/badge.svg?branch=dev)](...)
+
+> Project description...
+```
+
 ## Integration
 
 Works with:

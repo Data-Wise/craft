@@ -5,9 +5,9 @@
 [![Version](https://img.shields.io/badge/version-2.10.0--dev-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.10.0-dev - Claude-MD Command Suite** 🚀
-> **105 commands** | **21 skills** | **8 agents** | **CLAUDE.md automation**
-> Comprehensive CLAUDE.md management with validation, auto-fix, and templates. 166x faster than targets.
+> **v2.11.0-dev - Badge Management System** 🚀
+> **105 commands** | **21 skills** | **8 agents** | **Auto-sync badges**
+> Automated badge synchronization for version, CI status, and coverage. Integrated into site:update and docs:update workflows.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 

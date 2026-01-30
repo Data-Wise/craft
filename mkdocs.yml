@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0 released with interactive command behavior, "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.
+site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.11.0-dev features badge management system with automatic sync for version, CI status, and docs coverage badges across README and docs.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -113,6 +113,8 @@ nav:
       - Config Schema: teaching-config-schema.md
       - Migration Guide: teaching-migration.md
     - Specialized Features:
+      - NEW Badge Management: guide/badge-management.md
+      - NEW Badge Workflow Tutorial: tutorials/TUTORIAL-badge-workflow.md
       - NEW Interactive Commands: guide/interactive-commands.md
       - NEW Check Command Mastery: guide/check-command-mastery.md
       - NEW Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
@@ -199,6 +201,7 @@ nav:
         - Architecture Diagrams: DEPENDENCY-ARCHITECTURE.md
         - Developer Guide: DEVELOPER-GUIDE.md
     - Specifications:
+      - NEW Badge Management System: specs/SPEC-badge-system-2026-01-30.md
       - Broken Link Validation: specs/SPEC-broken-link-validation-2026-01-17.md
       - Hub v2.0 Discovery: specs/_archive/SPEC-craft-hub-v2-2026-01-15.md
       - Dry-Run Feature: specs/SPEC-dry-run-feature-2026-01-15.md
