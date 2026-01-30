@@ -77,7 +77,7 @@ Applied 4 fixes to CLAUDE.md:
   ✓ Updated version: v2.8.1 → v2.9.0
   ✓ Synced progress: 95% → 98%
 
-File: /Users/dt/projects/dev-tools/craft/CLAUDE.md
+File: $(pwd)/CLAUDE.md
 Changes: -3 lines, +2 lines
 
 Manual items remaining:

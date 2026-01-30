@@ -42,7 +42,7 @@ This command ALWAYS shows a preview before creating files.
 ```
 Project Type Detection
 
-Directory: /Users/dt/projects/dev-tools/craft
+Directory: $(pwd)
 Analyzing project structure...
 
 Detected indicators:
@@ -128,7 +128,7 @@ Options after preview:
 ```
 ✅ CLAUDE.md Created
 
-File: /Users/dt/projects/dev-tools/craft/CLAUDE.md
+File: $(pwd)/CLAUDE.md
 Lines: 329
 Template: plugin-template.md
 Variables populated: 18/20 (90%)
@@ -206,7 +206,7 @@ If CLAUDE.md exists:
 ```
 ⚠️ CLAUDE.md Already Exists
 
-File: /Users/dt/projects/dev-tools/craft/CLAUDE.md
+File: $(pwd)/CLAUDE.md
 Lines: 329
 Last modified: 2 days ago
 

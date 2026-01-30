@@ -43,7 +43,7 @@ This command ALWAYS shows available sections before editing.
 ```
 CLAUDE.md Structure Analysis
 
-File: /Users/dt/projects/dev-tools/craft/CLAUDE.md
+File: $(pwd)/CLAUDE.md
 Lines: 329
 Last modified: 2 days ago
 
@@ -181,7 +181,7 @@ Apply optimization? [y/n/keep-original]
 
 Section: Quick Commands
 Lines changed: 16 → 20 (+4)
-File: /Users/dt/projects/dev-tools/craft/CLAUDE.md
+File: $(pwd)/CLAUDE.md
 
 Next steps:
   1. Review: git diff CLAUDE.md

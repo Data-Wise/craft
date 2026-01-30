@@ -34,7 +34,7 @@ This command previews validation checks before executing, following the craft "S
 ```
 Audit Plan for CLAUDE.md
 
-File: /Users/dt/projects/dev-tools/craft/CLAUDE.md
+File: $(pwd)/CLAUDE.md
 Size: 329 lines
 Last modified: 2 days ago
 
