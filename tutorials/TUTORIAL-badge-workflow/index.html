@@ -6,13 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.9.0 released with interactive command behavior, "Show Steps First" pattern, orchestration wave checkpoints, worktree auto-setup, and post-merge documentation pipeline.">
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.11.0-dev features badge management system with automatic sync for version, CI status, and docs coverage badges across README and docs.">
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/brainstorm/BRAINSTORM-website-organization-2026-01-17/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/tutorials/TUTORIAL-badge-workflow/">
       
       
+        <link rel="prev" href="../../guide/badge-management/">
+      
+      
+        <link rel="next" href="../../guide/interactive-commands/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Website Organization Improvement - Brainstorm - Craft Plugin</title>
+        <title>NEW Badge Workflow Tutorial - Craft Plugin</title>
       
     
     
@@ -76,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#website-organization-improvement-brainstorm" class="md-skip">
+        <a href="#tutorial-badge-management-workflow" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Website Organization Improvement - Brainstorm
+              NEW Badge Workflow Tutorial
             
           </span>
         </div>
@@ -241,10 +245,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../../guide/getting-started/" class="md-tabs__link">
           
   
@@ -630,24 +636,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -665,7 +676,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -761,7 +772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -1015,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+      <a href="../interactive-docs-update-tutorial/" class="md-nav__link">
         
   
   
@@ -1241,7 +1252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/teaching-mode-setup/" class="md-nav__link">
+      <a href="../teaching-mode-setup/" class="md-nav__link">
         
   
   
@@ -1386,6 +1397,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1396,11 +1409,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
         
           
           <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
@@ -1421,7 +1434,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1431,6 +1444,486 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/badge-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Badge Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Badge Workflow Tutorial
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Badge Workflow Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-1-version-bump-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 1: Version Bump Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario 1: Version Bump Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-update-version-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Update Version File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-run-site-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Run Site Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Verify Changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happened" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happened
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-2-adding-ci-workflow-with-badge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 2: Adding CI Workflow with Badge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario 2: Adding CI Workflow with Badge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-generate-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Generate Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-badge-offer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Badge Offer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-badge-added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Verify Badge Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happened_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happened
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-3-fixing-outdated-badges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 3: Fixing Outdated Badges
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario 3: Fixing Outdated Badges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-check-current-badges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Check Current Badges
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-validate-ci-badges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Validate CI Badges
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-apply-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Apply Fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-verify-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Verify Fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-4-multi-file-badge-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 4: Multi-File Badge Sync
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario 4: Multi-File Badge Sync">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-check-current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Check Current State
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-run-docs-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Run Docs Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Verify Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happened_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happened
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-5-troubleshooting-badge-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 5: Troubleshooting Badge Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario 5: Troubleshooting Badge Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-badge-parsing-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Badge Parsing Fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-wrong-badge-type-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Wrong Badge Type Detected
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-sync-performance-slow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Sync Performance Slow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Locations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
             
               
                 
@@ -1523,7 +2016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/claude-md-workflows/" class="md-nav__link">
+      <a href="../claude-md-workflows/" class="md-nav__link">
         
   
   
@@ -1551,7 +2044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
+      <a href="../interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -1579,7 +2072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+      <a href="../TUTORIAL-post-merge-pipeline/" class="md-nav__link">
         
   
   
@@ -1607,7 +2100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+      <a href="../TUTORIAL-worktree-setup/" class="md-nav__link">
         
   
   
@@ -1635,7 +2128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+      <a href="../orchestrator-modes-compared/" class="md-nav__link">
         
   
   
@@ -1674,10 +2167,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_11" >
         
           
-          <label class="md-nav__link" for="__nav_2_5_9" id="__nav_2_5_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5_11" id="__nav_2_5_11_label" tabindex="0">
             
   
   
@@ -1695,8 +2188,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5_9">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_11">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3852,7 +4345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -3880,7 +4373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/dependency-management-getting-started/" class="md-nav__link">
+      <a href="../dependency-management-getting-started/" class="md-nav__link">
         
   
   
@@ -4058,6 +4551,41 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/SPEC-badge-system-2026-01-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Badge Management System
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--implemented"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -4493,10 +5021,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#context-gathered" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Context Gathered
+        Overview
       
     </span>
   </a>
@@ -4504,45 +5032,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#current-state-analysis" class="md-nav__link">
+  <a href="#scenario-1-version-bump-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Current State Analysis
+        Scenario 1: Version Bump Workflow
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#proposed-solutions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Proposed Solutions
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Proposed Solutions">
+    <nav class="md-nav" aria-label="Scenario 1: Version Bump Workflow">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#phase-1-quick-wins-1-hour" class="md-nav__link">
+  <a href="#step-1-update-version-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 1: Quick Wins (&lt; 1 hour)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Phase 1: Quick Wins (&lt; 1 hour)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#win-11-consolidate-14-7-sections" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Win 1.1: Consolidate 14 → 7 Sections
+        Step 1: Update Version File
       
     </span>
   </a>
@@ -4550,10 +5055,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#win-12-refine-emoji-usage" class="md-nav__link">
+  <a href="#step-2-run-site-update" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Win 1.2: Refine Emoji Usage
+        Step 2: Run Site Update
       
     </span>
   </a>
@@ -4561,38 +5066,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#win-13-add-choose-your-path-landing" class="md-nav__link">
+  <a href="#step-3-verify-changes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Win 1.3: Add "Choose Your Path" Landing
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-2-medium-effort-2-4-hours" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 2: Medium Effort (2-4 hours)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Phase 2: Medium Effort (2-4 hours)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#win-21-create-cookbook-section" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Win 2.1: Create Cookbook Section
+        Step 3: Verify Changes
       
     </span>
   </a>
@@ -4600,37 +5077,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#win-22-merge-help-into-commands" class="md-nav__link">
+  <a href="#what-happened" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Win 2.2: Merge Help into Commands
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#win-23-visual-workflow-index" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Win 2.3: Visual Workflow Index
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-3-future-enhancements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 3: Future Enhancements
+        What Happened
       
     </span>
   </a>
@@ -4643,33 +5093,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#expected-impact" class="md-nav__link">
+  <a href="#scenario-2-adding-ci-workflow-with-badge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Expected Impact
+        Scenario 2: Adding CI Workflow with Badge
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Implementation Checklist
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Checklist">
+    <nav class="md-nav" aria-label="Scenario 2: Adding CI Workflow with Badge">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#phase-1-1-hour" class="md-nav__link">
+  <a href="#step-1-generate-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 1 (&lt; 1 hour)
+        Step 1: Generate Workflow
       
     </span>
   </a>
@@ -4677,10 +5116,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#phase-2-2-4-hours-optional" class="md-nav__link">
+  <a href="#step-2-badge-offer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Phase 2 (2-4 hours) - OPTIONAL
+        Step 2: Badge Offer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-badge-added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Verify Badge Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happened_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happened
       
     </span>
   </a>
@@ -4693,24 +5154,224 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#url-preservation" class="md-nav__link">
+  <a href="#scenario-3-fixing-outdated-badges" class="md-nav__link">
     <span class="md-ellipsis">
       
-        URL Preservation
+        Scenario 3: Fixing Outdated Badges
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario 3: Fixing Outdated Badges">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-check-current-badges" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Check Current Badges
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#success-criteria" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#step-2-validate-ci-badges" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Success Criteria
+        Step 2: Validate CI Badges
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-apply-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Apply Fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-verify-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Verify Fix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-4-multi-file-badge-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 4: Multi-File Badge Sync
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario 4: Multi-File Badge Sync">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-check-current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Check Current State
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-run-docs-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Run Docs Update
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Verify Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-happened_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happened
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-5-troubleshooting-badge-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 5: Troubleshooting Badge Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario 5: Troubleshooting Badge Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-badge-parsing-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Badge Parsing Fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-wrong-badge-type-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Wrong Badge Type Detected
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-sync-performance-slow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Sync Performance Slow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Locations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4726,10 +5387,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#open-questions" class="md-nav__link">
+  <a href="#resources" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Open Questions
+        Resources
       
     </span>
   </a>
@@ -4753,7 +5414,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/brainstorm/BRAINSTORM-website-organization-2026-01-17.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/tutorials/TUTORIAL-badge-workflow.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4761,283 +5422,356 @@
   
 
 
-<h1 id="website-organization-improvement-brainstorm">Website Organization Improvement - Brainstorm<a class="headerlink" href="#website-organization-improvement-brainstorm" title="Permanent link">&para;</a></h1>
-<p><strong>Generated:</strong> 2026-01-17
-<strong>Mode:</strong> UX/IA (deep analysis)
-<strong>Duration:</strong> 8 questions + comprehensive analysis</p>
-<h2 id="context-gathered">Context Gathered<a class="headerlink" href="#context-gathered" title="Permanent link">&para;</a></h2>
+<h1 id="tutorial-badge-management-workflow">Tutorial: Badge Management Workflow<a class="headerlink" href="#tutorial-badge-management-workflow" title="Permanent link">&para;</a></h1>
+<p><strong>Learn badge synchronization through hands-on scenarios</strong></p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This tutorial walks through common badge management scenarios:</p>
+<ol>
+<li>Version bump workflow</li>
+<li>Adding CI workflow with badge</li>
+<li>Fixing outdated badges</li>
+<li>Multi-file sync</li>
+<li>Troubleshooting badge issues</li>
+</ol>
+<p><strong>Time</strong>: 15-20 minutes
+<strong>Prerequisites</strong>: Craft plugin installed, project with git repo</p>
+<h2 id="scenario-1-version-bump-workflow">Scenario 1: Version Bump Workflow<a class="headerlink" href="#scenario-1-version-bump-workflow" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Update version from 2.9.0 to 2.10.0-dev and sync badges</p>
+<h3 id="step-1-update-version-file">Step 1: Update Version File<a class="headerlink" href="#step-1-update-version-file" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>your-project
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># For craft plugin:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>vim<span class="w"> </span>.claude-plugin/plugin.json
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Change: &quot;version&quot;: &quot;2.9.0&quot; → &quot;version&quot;: &quot;2.10.0-dev&quot;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># For Python project:</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>vim<span class="w"> </span>pyproject.toml
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Change: version = &quot;2.9.0&quot; → version = &quot;2.10.0-dev&quot;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># For Node project:</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>vim<span class="w"> </span>package.json
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># Change: &quot;version&quot;: &quot;2.9.0&quot; → &quot;version&quot;: &quot;2.10.0-dev&quot;</span>
+</span></code></pre></div>
+<h3 id="step-2-run-site-update">Step 2: Run Site Update<a class="headerlink" href="#step-2-run-site-update" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:site:update
+</span></code></pre></div>
+<p><strong>Expected Output</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Step 3.5: SYNCHRONIZING BADGES
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Found 2 badge issues:
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  README.md:
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    • Update version badge: 2.9.0 → 2.10.0-dev
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  docs/index.md:
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    • Update version badge: 2.9.0 → 2.10.0-dev
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>Apply these updates? [y/N]: y
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>✓ Updated 2 badges
+</span></code></pre></div>
+<h3 id="step-3-verify-changes">Step 3: Verify Changes<a class="headerlink" href="#step-3-verify-changes" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Check README.md</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>grep<span class="w"> </span><span class="s2">&quot;version-2.10.0--dev&quot;</span><span class="w"> </span>README.md
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Check docs/index.md</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>grep<span class="w"> </span><span class="s2">&quot;version-2.10.0--dev&quot;</span><span class="w"> </span>docs/index.md
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Both should show the updated badge</span>
+</span></code></pre></div>
+<h3 id="what-happened">What Happened<a class="headerlink" href="#what-happened" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Site update detected version changed (Step 1)</li>
+<li>Badge sync ran as Step 3.5</li>
+<li>Detected version mismatch in both files</li>
+<li>Prompted for approval</li>
+<li>Updated both files atomically</li>
+<li>Shields.io URL uses double-dash: <code>2.10.0--dev</code></li>
+</ol>
+<h2 id="scenario-2-adding-ci-workflow-with-badge">Scenario 2: Adding CI Workflow with Badge<a class="headerlink" href="#scenario-2-adding-ci-workflow-with-badge" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Create new CI workflow and add badge to README</p>
+<h3 id="step-1-generate-workflow">Step 1: Generate Workflow<a class="headerlink" href="#step-1-generate-workflow" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:ci:generate<span class="w"> </span>python
+</span></code></pre></div>
+<p><strong>Interactive prompts</strong>:</p>
+<ul>
+<li>Python versions: <code>3.10, 3.11, 3.12</code></li>
+<li>Enable linting: <code>yes</code></li>
+<li>Enable type checking: <code>yes</code></li>
+</ul>
+<h3 id="step-2-badge-offer">Step 2: Badge Offer<a class="headerlink" href="#step-2-badge-offer" title="Permanent link">&para;</a></h3>
+<p>After workflow creation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>╭─ CI Workflow Generated ─────────────────────────╮
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>│  ✅ Created: .github/workflows/ci.yml           │
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>│                                                 │
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│  📛 Add CI badge to README.md? (y/n)            │
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>│                                                 │
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│  Badge preview:                                 │
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│  [![Craft CI](https://github.com/your-org/     │
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│    your-repo/actions/workflows/ci.yml/          │
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│    badge.svg?branch=dev)](...)                  │
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│                                                 │
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>╰─────────────────────────────────────────────────╯
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>Add CI badge to README.md? [y/N]: y
+</span></code></pre></div>
+<h3 id="step-3-verify-badge-added">Step 3: Verify Badge Added<a class="headerlink" href="#step-3-verify-badge-added" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>head<span class="w"> </span>-10<span class="w"> </span>README.md
+</span></code></pre></div>
+<p><strong>Expected</strong>:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gh"># Your Project</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>[<span class="nt">![Version</span>](<span class="na">...</span>))](...)
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>[<span class="nt">![Craft CI</span>](<span class="na">https://github.com/your-org/your-repo/actions/workflows/ci.yml/badge.svg?branch=dev</span>)](...)
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">&gt; </span><span class="ge">Project description</span>
+</span></code></pre></div>
+<h3 id="what-happened_1">What Happened<a class="headerlink" href="#what-happened_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li><code>ci:generate</code> created <code>.github/workflows/ci.yml</code></li>
+<li>Detected new workflow file</li>
+<li>Generated CI badge with correct branch parameter (<code>dev</code>)</li>
+<li>Offered to add badge to README</li>
+<li>Inserted badge after title line</li>
+</ol>
+<h2 id="scenario-3-fixing-outdated-badges">Scenario 3: Fixing Outdated Badges<a class="headerlink" href="#scenario-3-fixing-outdated-badges" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Fix badges with wrong branch parameter</p>
+<h3 id="step-1-check-current-badges">Step 1: Check Current Badges<a class="headerlink" href="#step-1-check-current-badges" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>grep<span class="w"> </span><span class="s2">&quot;badge.svg&quot;</span><span class="w"> </span>README.md
+</span></code></pre></div>
+<p><strong>Current state</strong>:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>[<span class="nt">![CI</span>](<span class="na">https://github.com/org/repo/actions/workflows/ci.yml/badge.svg?branch=main</span>)](...)
+</span></code></pre></div>
+<p><strong>Problem</strong>: Badge uses <code>branch=main</code> but you're on <code>dev</code> branch</p>
+<h3 id="step-2-validate-ci-badges">Step 2: Validate CI Badges<a class="headerlink" href="#step-2-validate-ci-badges" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:ci:validate
+</span></code></pre></div>
+<p><strong>Output</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>╭─ CI Badge Validation ───────────────────────────╮
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>│                                                  │
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>│  📁 README.md                                    │
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>│                                                  │
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>│    ⚠️  Line 4: wrong_branch                     │
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>│       Badge uses &#39;main&#39;, expected &#39;dev&#39;         │
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>│                                                  │
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>├──────────────────────────────────────────────────┤
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>│  Total: 1 warning                               │
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>│  Run with --fix to update badges                │
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>╰──────────────────────────────────────────────────╯
+</span></code></pre></div>
+<h3 id="step-3-apply-fix">Step 3: Apply Fix<a class="headerlink" href="#step-3-apply-fix" title="Permanent link">&para;</a></h3>
+<p><strong>Option A</strong>: Auto-fix via ci:validate</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:ci:validate<span class="w"> </span>--fix
+</span></code></pre></div>
+<p><strong>Option B</strong>: Sync via site:update</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:site:update
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># Step 3.5 will fix the branch parameter</span>
+</span></code></pre></div>
+<h3 id="step-4-verify-fix">Step 4: Verify Fix<a class="headerlink" href="#step-4-verify-fix" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>grep<span class="w"> </span><span class="s2">&quot;badge.svg&quot;</span><span class="w"> </span>README.md
+</span></code></pre></div>
+<p><strong>After fix</strong>:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[<span class="nt">![CI</span>](<span class="na">https://github.com/org/repo/actions/workflows/ci.yml/badge.svg?branch=dev</span>)](...)
+</span></code></pre></div>
+<h2 id="scenario-4-multi-file-badge-sync">Scenario 4: Multi-File Badge Sync<a class="headerlink" href="#scenario-4-multi-file-badge-sync" title="Permanent link">&para;</a></h2>
+<p><strong>Goal</strong>: Ensure badges consistent across README.md and docs/index.md</p>
+<h3 id="step-1-check-current-state">Step 1: Check Current State<a class="headerlink" href="#step-1-check-current-state" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># README version</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>grep<span class="w"> </span><span class="s2">&quot;version-&quot;</span><span class="w"> </span>README.md
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Docs version</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>grep<span class="w"> </span><span class="s2">&quot;version-&quot;</span><span class="w"> </span>docs/index.md
+</span></code></pre></div>
+<p><strong>Problem</strong>: Different versions shown</p>
+<ul>
+<li>README.md: <code>version-2.10.0--dev</code></li>
+<li>docs/index.md: <code>version-2.9.0</code></li>
+</ul>
+<h3 id="step-2-run-docs-update">Step 2: Run Docs Update<a class="headerlink" href="#step-2-run-docs-update" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/craft:docs:update
+</span></code></pre></div>
+<p><strong>Interactive mode</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Documentation Update Plan:
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  Categories detected:
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  1. Badges — 1 badge outdated
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  2. Version references — 3 files need updating
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>  Group 1: Metadata updates
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    • badges (1 issue)
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>    • version_refs (3 issues)
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>How should I handle these updates?
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>  → Interactive - category by category
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>Update badges? (1 badge outdated in docs/index.md)
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>  [y/N]: y
+</span></code></pre></div>
+<h3 id="step-3-verify-sync">Step 3: Verify Sync<a class="headerlink" href="#step-3-verify-sync" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Both should now match</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>grep<span class="w"> </span><span class="s2">&quot;version-2.10.0--dev&quot;</span><span class="w"> </span>README.md
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>grep<span class="w"> </span><span class="s2">&quot;version-2.10.0--dev&quot;</span><span class="w"> </span>docs/index.md
+</span></code></pre></div>
+<h3 id="what-happened_2">What Happened<a class="headerlink" href="#what-happened_2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Docs update detected badge mismatch in metadata group</li>
+<li>Grouped with version_refs for efficient prompting</li>
+<li>Applied update to docs/index.md</li>
+<li>Both files now show correct version</li>
+</ol>
+<h2 id="scenario-5-troubleshooting-badge-issues">Scenario 5: Troubleshooting Badge Issues<a class="headerlink" href="#scenario-5-troubleshooting-badge-issues" title="Permanent link">&para;</a></h2>
+<h3 id="issue-badge-parsing-fails">Issue: Badge Parsing Fails<a class="headerlink" href="#issue-badge-parsing-fails" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: Badge exists but detector returns empty list</p>
+<p><strong>Debug</strong>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Step 1: Check file encoding</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="n">file</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># Should show: UTF-8 Unicode text</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1"># Step 2: Test regex manually</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="n">python3</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="n">content</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;README.md&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\[!\[([^\]]*)\]\(([^\)]+)\)\]\(([^\)]+)\)&#39;</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span><span class="si">}</span><span class="s1"> linked badges&#39;</span><span class="p">)</span>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="s2">&quot;</span>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="c1"># Step 3: Check for unusual characters</span>
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="n">grep</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;badge&quot;</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span> <span class="o">|</span> <span class="n">cat</span> <span class="o">-</span><span class="n">A</span>
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="c1"># Look for non-standard spaces, invisible chars</span>
+</span></code></pre></div>
+<p><strong>Common fixes</strong>:</p>
+<ul>
+<li>Remove non-breaking spaces around badge</li>
+<li>Ensure proper markdown formatting</li>
+<li>Check for unescaped characters in URLs</li>
+</ul>
+<h3 id="issue-wrong-badge-type-detected">Issue: Wrong Badge Type Detected<a class="headerlink" href="#issue-wrong-badge-type-detected" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: Version badge classified as CUSTOM</p>
+<p><strong>Debug</strong>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">utils.badge_detector</span><span class="w"> </span><span class="kn">import</span> <span class="n">BadgeDetector</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="n">detector</span> <span class="o">=</span> <span class="n">BadgeDetector</span><span class="p">()</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="n">badges</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">parse_badges</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;README.md&#39;</span><span class="p">))</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="k">for</span> <span class="n">badge</span> <span class="ow">in</span> <span class="n">badges</span><span class="p">:</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Label: </span><span class="si">{</span><span class="n">badge</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;URL: </span><span class="si">{</span><span class="n">badge</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Type: </span><span class="si">{</span><span class="n">badge</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classification: </span><span class="si">{</span><span class="n">detector</span><span class="o">.</span><span class="n">_classify_badge</span><span class="p">(</span><span class="n">badge</span><span class="o">.</span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="n">badge</span><span class="o">.</span><span class="n">url</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>    <span class="nb">print</span><span class="p">()</span>
+</span></code></pre></div>
+<p><strong>Common fixes</strong>:</p>
+<ul>
+<li>Add "version" to badge label</li>
+<li>Use shields.io <code>/badge/version-X.Y.Z</code> URL format</li>
+<li>Check URL contains classification keywords</li>
+</ul>
+<h3 id="issue-sync-performance-slow">Issue: Sync Performance Slow<a class="headerlink" href="#issue-sync-performance-slow" title="Permanent link">&para;</a></h3>
+<p><strong>Symptom</strong>: Badge sync takes &gt;5 seconds</p>
+<p><strong>Debug</strong>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">utils.badge_syncer</span><span class="w"> </span><span class="kn">import</span> <span class="n">BadgeSyncer</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="n">syncer</span> <span class="o">=</span> <span class="n">BadgeSyncer</span><span class="p">()</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="c1"># Time each phase</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="n">badges</span> <span class="o">=</span> <span class="n">syncer</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">detect_all</span><span class="p">()</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detection: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="n">expected</span> <span class="o">=</span> <span class="n">syncer</span><span class="o">.</span><span class="n">_generate_expected_badges</span><span class="p">(</span><span class="n">calculate_coverage</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generation (with coverage): </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a><span class="n">expected</span> <span class="o">=</span> <span class="n">syncer</span><span class="o">.</span><span class="n">_generate_expected_badges</span><span class="p">(</span><span class="n">calculate_coverage</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-22-17"><a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generation (no coverage): </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>Common fixes</strong>:</p>
+<ul>
+<li>Set <code>calculate_coverage=False</code> if coverage hasn't changed</li>
+<li>Limit files to only those that need updating</li>
+<li>Cache expected badges for repeated syncs</li>
+</ul>
+<h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
+<h3 id="common-commands">Common Commands<a class="headerlink" href="#common-commands" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Auto-sync badges during site update</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>/craft:site:update
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># Validate CI badges</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>/craft:ci:validate
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># Fix CI badge issues</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>/craft:ci:validate<span class="w"> </span>--fix
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="c1"># Interactive docs update (includes badges)</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>/craft:docs:update
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="c1"># Generate workflow with badge offer</span>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>/craft:ci:generate<span class="w"> </span>python
+</span></code></pre></div>
+<h3 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Detect badges</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">utils.badge_detector</span><span class="w"> </span><span class="kn">import</span> <span class="n">BadgeDetector</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="n">detector</span> <span class="o">=</span> <span class="n">BadgeDetector</span><span class="p">()</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="n">badges</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect_all</span><span class="p">()</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="c1"># Sync badges (dry-run)</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">utils.badge_syncer</span><span class="w"> </span><span class="kn">import</span> <span class="n">BadgeSyncer</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="n">syncer</span> <span class="o">=</span> <span class="n">BadgeSyncer</span><span class="p">()</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="n">mismatches</span> <span class="o">=</span> <span class="n">syncer</span><span class="o">.</span><span class="n">sync_badges</span><span class="p">(</span><span class="n">dry_run</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="c1"># Sync badges (apply)</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="n">mismatches</span> <span class="o">=</span> <span class="n">syncer</span><span class="o">.</span><span class="n">sync_badges</span><span class="p">(</span><span class="n">auto_confirm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a>
+</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="c1"># Validate CI badges</span>
+</span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="kn">from</span><span class="w"> </span><span class="nn">utils.ci_badge_validator</span><span class="w"> </span><span class="kn">import</span> <span class="n">CIBadgeValidator</span>
+</span><span id="__span-24-16"><a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="n">validator</span> <span class="o">=</span> <span class="n">CIBadgeValidator</span><span class="p">()</span>
+</span><span id="__span-24-17"><a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a><span class="n">issues</span> <span class="o">=</span> <span class="n">validator</span><span class="o">.</span><span class="n">validate_badges</span><span class="p">()</span>
+</span></code></pre></div>
+<h3 id="file-locations">File Locations<a class="headerlink" href="#file-locations" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Question</th>
-<th>Answer</th>
+<th>File</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Primary users</strong></td>
-<td>All three equally (beginners, daily users, advanced)</td>
+<td><code>utils/badge_detector.py</code></td>
+<td>Badge parsing and classification</td>
 </tr>
 <tr>
-<td><strong>Biggest pain point</strong></td>
-<td>Too many top-level sections (14 items)</td>
+<td><code>utils/badge_syncer.py</code></td>
+<td>Badge synchronization orchestration</td>
 </tr>
 <tr>
-<td><strong>IA pattern</strong></td>
-<td>Hybrid (task + feature groupings)</td>
+<td><code>utils/ci_badge_validator.py</code></td>
+<td>CI-specific validation</td>
 </tr>
 <tr>
-<td><strong>Teaching Mode priority</strong></td>
-<td>Equal priority (standalone feature)</td>
-</tr>
-<tr>
-<td><strong>Guide vs Reference</strong></td>
-<td>Keep together by topic</td>
-</tr>
-<tr>
-<td><strong>First impression</strong></td>
-<td>Quick Start (30s to first command)</td>
-</tr>
-<tr>
-<td><strong>Help structure</strong></td>
-<td>Merge into Commands section</td>
-</tr>
-<tr>
-<td><strong>Missing elements</strong></td>
-<td>Use case search, visual workflows, progressive disclosure, cookbook</td>
-</tr>
-<tr>
-<td><strong>Emoji usage</strong></td>
-<td>Refine (only for key sections)</td>
-</tr>
-<tr>
-<td><strong>Sidebar nesting</strong></td>
-<td>Variable (2-4 levels based on complexity)</td>
-</tr>
-<tr>
-<td><strong>Implementation priority</strong></td>
-<td>Quick wins first</td>
-</tr>
-<tr>
-<td><strong>URL policy</strong></td>
-<td>Preserve all (redirects if needed)</td>
+<td><code>tests/test_badge_*.py</code></td>
+<td>Test suite (98 tests)</td>
 </tr>
 </tbody>
 </table>
-<h2 id="current-state-analysis">Current State Analysis<a class="headerlink" href="#current-state-analysis" title="Permanent link">&para;</a></h2>
-<p><strong>Problems:</strong></p>
-<ol>
-<li>Navigation overload - 14 top-level sections</li>
-<li>Scattered commands - Help duplicates Commands</li>
-<li>Unclear hierarchy - Guide vs Reference vs Help confusion</li>
-<li>Missing patterns - No cookbook or progressive paths</li>
-<li>Inconsistent emojis - Used everywhere without purpose</li>
-</ol>
-<p><strong>Current structure:</strong></p>
-<ul>
-<li>Home</li>
-<li>🚀 Quick Start</li>
-<li>🧠 ADHD Guide</li>
-<li>📊 Visual Workflows</li>
-<li>🎮 Playground</li>
-<li>📚 Reference Card</li>
-<li>Commands (10 subsections)</li>
-<li>Guide (8 subsections)</li>
-<li>Help (10 subsections) ← DUPLICATE</li>
-<li>Teaching Mode (6 subsections)</li>
-<li>Development (1 subsection)</li>
-<li>Git Init (4 subsections)</li>
-<li>Workflows (3 subsections)</li>
-<li>Architecture &amp; Reference (3 subsections)</li>
-<li>CI/CD Resources (2 subsections)</li>
-</ul>
-<p><strong>Total:</strong> 14 top-level sections, ~60 pages</p>
-<h2 id="proposed-solutions">Proposed Solutions<a class="headerlink" href="#proposed-solutions" title="Permanent link">&para;</a></h2>
-<h3 id="phase-1-quick-wins-1-hour">Phase 1: Quick Wins (&lt; 1 hour)<a class="headerlink" href="#phase-1-quick-wins-1-hour" title="Permanent link">&para;</a></h3>
-<h4 id="win-11-consolidate-14-7-sections">Win 1.1: Consolidate 14 → 7 Sections<a class="headerlink" href="#win-11-consolidate-14-7-sections" title="Permanent link">&para;</a></h4>
-<p><strong>New structure:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>🚀 Getting Started (5 pages)
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├─ Quick Start
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─ ADHD Guide
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├─ Choose Your Path (NEW)
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├─ Visual Workflows
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>└─ Playground (moved from top-level)
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>📖 Guides &amp; Tutorials (12 pages)
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├─ Core Workflows
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├─ Teaching Mode
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>└─ Specialized Features
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>⚙️ Commands &amp; Reference (20 pages)
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├─ Command Overview
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├─ By Category
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>└─ Complete A-Z
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>📚 Cookbook &amp; Examples (NEW - 7 pages)
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>├─ Common Recipes
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>└─ Advanced Patterns
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>🔧 Reference &amp; Architecture (5 pages)
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>🛠️ For Contributors (4 pages)
-</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
-</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>📋 Quick Reference Card
-</span></code></pre></div>
-<p><strong>Impact:</strong> 50% reduction in top-level complexity (14 → 7 sections)</p>
-<h4 id="win-12-refine-emoji-usage">Win 1.2: Refine Emoji Usage<a class="headerlink" href="#win-12-refine-emoji-usage" title="Permanent link">&para;</a></h4>
-<p>Keep emojis for: Getting Started, Guides, Commands, Cookbook
-Remove from: Reference, Contributors (professional tone)</p>
-<h4 id="win-13-add-choose-your-path-landing">Win 1.3: Add "Choose Your Path" Landing<a class="headerlink" href="#win-13-add-choose-your-path-landing" title="Permanent link">&para;</a></h4>
-<p>Three personalized journeys:</p>
-<ul>
-<li>I'm New to Craft → Quick Start, Visuals, ADHD Guide</li>
-<li>I Use Craft Daily → Commands, Cookbook, Reference Card</li>
-<li>I'm Building on Craft → Architecture, Skills, Contributors</li>
-</ul>
-<h3 id="phase-2-medium-effort-2-4-hours">Phase 2: Medium Effort (2-4 hours)<a class="headerlink" href="#phase-2-medium-effort-2-4-hours" title="Permanent link">&para;</a></h3>
-<h4 id="win-21-create-cookbook-section">Win 2.1: Create Cookbook Section<a class="headerlink" href="#win-21-create-cookbook-section" title="Permanent link">&para;</a></h4>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docs/cookbook/
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├─ index.md
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├─ common/
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│  ├─ setup-new-project.md
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│  ├─ deploy-course-site.md
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│  ├─ automate-release.md
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│  └─ code-quality-check.md
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>└─ advanced/
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>   ├─ multi-agent-workflow.md
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>   ├─ custom-doc-site.md
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>   └─ teaching-automation.md
-</span></code></pre></div>
-<p><strong>Recipe template:</strong></p>
-<ul>
-<li>Problem (user's goal)</li>
-<li>Solution (step-by-step commands)</li>
-<li>Explanation (why it works)</li>
-<li>Variations (common modifications)</li>
-<li>Related (links to guides/commands)</li>
-</ul>
-<h4 id="win-22-merge-help-into-commands">Win 2.2: Merge Help into Commands<a class="headerlink" href="#win-22-merge-help-into-commands" title="Permanent link">&para;</a></h4>
-<p>Consolidate help/*.md into command documentation:</p>
-<ul>
-<li>help/hub.md → commands/smart.md#hub</li>
-<li>help/do.md → commands/smart.md#do</li>
-<li>help/check.md → commands/smart.md#check</li>
-</ul>
-<p>Add MkDocs redirects to preserve URLs.</p>
-<h4 id="win-23-visual-workflow-index">Win 2.3: Visual Workflow Index<a class="headerlink" href="#win-23-visual-workflow-index" title="Permanent link">&para;</a></h4>
-<p>Create workflows/index.md with Mermaid flowchart:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>I want to... →
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  Deploy course site → Teaching Mode Guide
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  Prepare release → Release Workflow
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  Update docs → Documentation Workflow
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  Check quality → Code Quality Workflow
-</span></code></pre></div>
-<h3 id="phase-3-future-enhancements">Phase 3: Future Enhancements<a class="headerlink" href="#phase-3-future-enhancements" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Search by use case</strong> - MkDocs plugin with tag-based search</li>
-<li><strong>Progressive disclosure</strong> - Badge levels (🟢 Beginner, 🟡 Intermediate, 🔴 Advanced)</li>
-<li><strong>Interactive playground</strong> - Live command preview, sandbox</li>
-</ol>
-<h2 id="expected-impact">Expected Impact<a class="headerlink" href="#expected-impact" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Before</th>
-<th>After</th>
-<th>Improvement</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Top-level sections</td>
-<td>14</td>
-<td>7</td>
-<td>50% reduction</td>
-</tr>
-<tr>
-<td>Clicks to command</td>
-<td>3-4</td>
-<td>2-3</td>
-<td>25% faster</td>
-</tr>
-<tr>
-<td>Time to first command</td>
-<td>2 min</td>
-<td>30 sec</td>
-<td>75% faster</td>
-</tr>
-<tr>
-<td>Mobile usability</td>
-<td>Poor</td>
-<td>Good</td>
-<td>Significant</td>
-</tr>
-</tbody>
-</table>
-<h2 id="implementation-checklist">Implementation Checklist<a class="headerlink" href="#implementation-checklist" title="Permanent link">&para;</a></h2>
-<h3 id="phase-1-1-hour">Phase 1 (&lt; 1 hour)<a class="headerlink" href="#phase-1-1-hour" title="Permanent link">&para;</a></h3>
-<ul>
-<li>[ ] Update mkdocs.yml (20 min)</li>
-<li>Consolidate sections</li>
-<li>Remove Help, merge into Commands</li>
-<li>Refine emojis</li>
-<li>[ ] Create Choose Your Path page (15 min)</li>
-<li>[ ] Test navigation (10 min)</li>
-<li>[ ] Commit Phase 1 (5 min)</li>
-</ul>
-<h3 id="phase-2-2-4-hours-optional">Phase 2 (2-4 hours) - OPTIONAL<a class="headerlink" href="#phase-2-2-4-hours-optional" title="Permanent link">&para;</a></h3>
-<ul>
-<li>[ ] Create Cookbook structure (30 min)</li>
-<li>[ ] Write 4 common recipes (90 min)</li>
-<li>[ ] Merge Help into Commands (45 min)</li>
-<li>[ ] Add visual workflow index (30 min)</li>
-<li>[ ] Test &amp; commit (15 min)</li>
-</ul>
-<h2 id="url-preservation">URL Preservation<a class="headerlink" href="#url-preservation" title="Permanent link">&para;</a></h2>
-<p><strong>Redirects required:</strong></p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">plugins</span><span class="p">:</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">redirects</span><span class="p">:</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">      </span><span class="nt">redirect_maps</span><span class="p">:</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="s">&#39;help/hub.md&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;commands/overview.md#hub&#39;</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="s">&#39;help/do.md&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;commands/smart.md#do&#39;</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="s">&#39;help/check.md&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;commands/smart.md#check&#39;</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="s">&#39;help/orchestrate.md&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;guide/orchestrator.md&#39;</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="s">&#39;git-init-docs-index.md&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;guides/git-init/index.md&#39;</span>
-</span></code></pre></div>
-<p><strong>No breaks:</strong> All guide pages, command references, top-level entry points</p>
-<h2 id="success-criteria">Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
-<p><strong>Phase 1:</strong></p>
-<ul>
-<li>✅ New users find Quick Start in &lt; 5 seconds</li>
-<li>✅ Daily users find commands in 2 clicks</li>
-<li>✅ Mobile sidebar scrolls comfortably</li>
-<li>✅ Zero broken links</li>
-</ul>
-<p><strong>Phase 2:</strong></p>
-<ul>
-<li>✅ Cookbook has 4+ recipes</li>
-<li>✅ Help section fully merged</li>
-<li>✅ Visual workflow index complete</li>
-</ul>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>After completing this tutorial:</p>
 <ol>
-<li>Review this plan</li>
-<li>Decide on Phase 1 scope</li>
-<li>Choose implementation timing</li>
-<li>Execute Phase 1 reorganization</li>
-<li>Test with real users</li>
-<li>Iterate based on feedback</li>
+<li><strong>Explore</strong>: Check badges in your own projects</li>
+<li><strong>Experiment</strong>: Try badge sync in different project types</li>
+<li><strong>Customize</strong>: Extend badge types for project-specific needs</li>
+<li><strong>Automate</strong>: Add badge sync to git pre-commit hooks (future)</li>
 </ol>
-<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Should Teaching Mode move earlier in navigation?</li>
-<li>~~Should Playground nest under Getting Started or stay top-level?~~ ✅ RESOLVED: Nest under Getting Started</li>
-<li>Any critical pages missing from plan?</li>
+<li><a href="../../guide/badge-management/">Badge Management Guide</a> - Comprehensive reference</li>
+<li><a href="../../commands/site/update.md">Site Update Command</a> - Step 3.5 details</li>
+<li><a href="../../commands/ci/validate.md">CI Validate Command</a> - Validation reference</li>
+<li><a href="../../specs/SPEC-badge-system-2026-01-30/">SPEC: Badge System</a> - Implementation spec</li>
 </ul>
-<hr />
-<p><strong>Completed in:</strong> Deep analysis mode (8 questions)
-<strong>Related:</strong> SPEC-website-organization-standard-2026-01-17.md</p>
 
 
 
