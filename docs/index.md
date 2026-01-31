@@ -1,27 +1,27 @@
 # Craft Plugin
 
-[![Craft CI](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/craft-ci.yml)
-[![Validate Plugins](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/claude-plugins/actions/workflows/validate-plugins.yml)
+[![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
+[![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
 [![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 97 commands, 8 AI agents, and 21 auto-triggered skills
-> - **Why:** Automate documentation, testing, git workflows, and site creation with one command
+> - **What:** Full-stack developer toolkit with 105 commands, 8 AI agents, and 21 auto-triggered skills
+> - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code - 100 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code - 105 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v2.9.0:** "Show Steps First" pattern, interactive orchestration, git worktree auto-setup, post-merge pipeline. See [what's new](#whats-new-in-v290)
+> **NEW in v2.10.0-dev:** Claude-MD command suite (5 commands), 81 comprehensive tests, 3,304 lines of documentation. Performance: 166x faster than targets. See [what's new](#whats-new-in-v2100-dev)
 
 ## Features
 
 <div class="grid cards" markdown>
 
-- :rocket: **100 Commands**
+- :rocket: **105 Commands**
 
-    Smart commands, docs, site management, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
+    Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
 
 - :brain: **8 Specialized Agents**
 
@@ -128,6 +128,69 @@ Major interactive workflow improvements and comprehensive test infrastructure fi
 **Documentation**: 3 new guides (guide, tutorial, reference - 650+ lines total)
 
 **Release**: [v2.9.0 on GitHub](https://github.com/Data-Wise/craft/releases/tag/v2.9.0)
+
+---
+
+## What's New in v2.10.0-dev
+
+**Claude-MD Command Suite** 🚀 (In Development)
+
+Comprehensive CLAUDE.md management tools ported from local Claude Code (PR #39):
+
+**5 New Commands:**
+
+- `/craft:docs:claude-md:update` - Sync CLAUDE.md with project state
+  - Detects version mismatches, new commands, test count changes
+  - "Show Steps First" pattern with preview and confirmation
+  - Supports dry-run, interactive, and section-specific modes
+- `/craft:docs:claude-md:audit` - Validate completeness and accuracy
+  - 5 validation checks: version sync, command coverage, broken links, required sections, status sync
+  - 3 severity levels: ERROR, WARNING, INFO
+- `/craft:docs:claude-md:fix` - Auto-fix common issues
+  - 4 fix methods with dry-run support
+- `/craft:docs:claude-md:scaffold` - Create from template
+  - 3 project templates: craft-plugin, teaching-site, r-package
+  - 18+ template variables with auto-population
+- `/craft:docs:claude-md:edit` - Interactive section editing
+
+**Implementation:**
+
+- **7 utility modules** (2,713 lines Python)
+  - Project type detection (6 types)
+  - Validation (5 checks)
+  - Auto-fix (4 methods)
+  - Template population (18+ variables)
+- **3 project templates**
+- **81 comprehensive tests** (100% passing, 0.024s)
+- **3,304 lines of documentation**
+
+**Performance:**
+
+- Full detection: **0.003s** (166x faster than 0.5s target)
+- Command scanning: **0.002s** (50x faster than 0.1s target)
+- Version extraction: **0.001s** per 100 calls (100x faster)
+- Thread-safe concurrent detection verified (10 parallel threads)
+
+**Test Enhancements:**
+
+- Concurrent detection testing
+- Symlink handling with fallback
+- Performance benchmarking with targets
+
+**Try it:**
+
+```bash
+/craft:docs:claude-md:update                # Sync CLAUDE.md
+/craft:docs:claude-md:audit                 # Validate
+/craft:docs:claude-md:fix --dry-run         # Preview fixes
+/craft:docs:claude-md:scaffold              # Create new
+```
+
+**Documentation:**
+
+- [Command Reference](commands/docs/claude-md.md)
+- [Quick Reference Card](reference/REFCARD-CLAUDE-MD.md)
+- [Tutorial Guide](tutorials/claude-md-workflows.md)
 
 ---
 

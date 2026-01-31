@@ -1,26 +1,100 @@
 status: Active
-version: 2.9.1-dev
-release_date: 2026-01-29 (v2.9.0)
-milestone: v2.9.1 - Documentation Enhancements
-last_session: 2026-01-29T23:15:00Z
+version: 2.10.0-dev
+release_date: 2026-01-29 (v2.9.1)
+milestone: v2.10.0 - Claude-MD Command Suite
+last_session: 2026-01-30T00:15:00Z
 
-progress: 95% (docs complete, tests passing, ready for release)
+progress: 100% (PR #39 MERGED - Claude-MD port complete)
 
-📊 Branch Status (as of 2026-01-29):
+📊 Branch Status (as of 2026-01-30):
 
-| Branch    | Head     | Ahead of | Status                     |
-|-----------|----------|----------|----------------------------|
-| main      | 93a10ad  | —        | Production (v2.9.0) ✅      |
-| dev       | e222518  | main +9  | v2.9.1 docs ready for release |
-| gh-pages  | 106e35f  | —        | Deployed docs site         |
+| Branch    | Head     | Ahead of | Status                        |
+|-----------|----------|----------|-------------------------------|
+| main      | ed4c796  | —        | Production (v2.9.1) ✅         |
+| dev       | (merge)  | +8       | Claude-MD suite merged        |
+| gh-pages  | 106e35f  | —        | Deployed docs site            |
 
 Worktrees:
   • /Users/dt/projects/dev-tools/craft → dev (main repo)
   • No active feature worktrees - clean state
 
-🎯 Current State: v2.9.0 released and deployed
+🎯 Current State: PR #39 merged - 5 claude-md commands + test enhancements
 
-✅ v2.9.0 Release Complete (2026-01-29):
+✅ PR #39 Merged (2026-01-30):
+
+**What Merged:**
+- 5 new commands: update, audit, fix, scaffold, edit
+- 7 utility modules (2,713 lines Python)
+- 3 project templates (plugin, teaching, r-package)
+- 81 tests (100% passing, 0.024s)
+- 3,304 lines documentation
+- Test enhancements: concurrent, symlink, performance
+
+**Files Changed:** 38 (+15,997/-271)
+
+**Performance:**
+- Full detection: 0.003s (166x faster than target)
+- Command scanning: 0.002s (50x faster than target)
+- Version extraction: 0.001s per 100 calls
+
+---
+
+✅ v2.9.1 Release Complete (2026-01-29):
+
+**What Shipped:**
+- 3 new cookbook recipes (1,161 lines)
+- 2 new beginner tutorials (1,618 lines)
+- Expanded command documentation (+442 lines)
+- Fixed 6 broken internal links
+- Documentation coverage: 95%
+
+**Merged PRs:**
+- PR #38: Documentation enhancements (dev → main)
+
+**Documentation:**
+- New cookbook: use-interactive-orchestration.md (374 lines)
+- New cookbook: setup-parallel-worktrees.md (410 lines)
+- New cookbook: post-merge-documentation.md (377 lines)
+- New tutorial: check-tutorial-beginner.md (865 lines)
+- New tutorial: smart-routing-tutorial.md (753 lines)
+- Expanded: commands/smart.md (+318 lines)
+- Expanded: commands/overview.md (+124 lines)
+- Updated: check-code-quality-before-commit.md with v2.9.0 features
+
+**Release Links:**
+- GitHub Release: https://github.com/Data-Wise/craft/releases/tag/v2.9.1
+- Full Changelog: https://github.com/Data-Wise/craft/compare/v2.9.0...v2.9.1
+- Documentation: https://data-wise.github.io/craft/
+
+**Branch Sync:**
+- main and dev both at ed4c796
+- Tag v2.9.1 points to squash merge commit
+- All branches synchronized
+
+---
+
+## Session History
+
+### 2026-01-29 (Night) - v2.9.1 Release ✅
+
+**Tasks Completed:**
+1. Documentation Enhancement: Created 3 cookbook recipes, 2 tutorials
+2. Command Documentation: Expanded smart.md and overview.md
+3. Quality Fixes: Fixed 6 broken links, updated markdown config
+4. Release: Merged PR #38, tagged v2.9.1, created GitHub release
+5. Branch Sync: Reset dev to match main after squash merge
+
+**Commits:**
+- ed4c796: Release v2.9.1 - Documentation Enhancements (#38)
+
+**Final State:**
+- ✅ All tests passing (13/13)
+- ✅ Documentation coverage 95%
+- ✅ All branches synced
+- ✅ Release published
+- ✅ Ready for next features
+
+### 2026-01-29 (Evening) - v2.9.0 Release & Sync ✅
 
 **What Shipped:**
 - "Show Steps First" Pattern: 4 commands with plan confirmation

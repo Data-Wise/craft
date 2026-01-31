@@ -1,13 +1,13 @@
 # Craft - Full Stack Developer Toolkit Plugin
 
-[![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/craft-ci.yml)
-[![Validate Plugins](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/validate-plugins.yml)
-[![Version](https://img.shields.io/badge/version-2.8.1-blue.svg)](https://github.com/Data-Wise/craft/releases/tag/v2.8.1)
-[![Documentation](https://img.shields.io/badge/docs-95%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
+[![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
+[![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
+[![Version](https://img.shields.io/badge/version-2.10.0--dev-blue.svg)](https://github.com/Data-Wise/craft)
+[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.8.1 - Markdown Lint Style Fixes** 🚀
-> **100 commands** | **21 skills** | **8 agents** | **Documentation quality automation**
-> Smart markdown linting with auto-fix, pre-commit hooks, and interactive docs workflow
+> **v2.11.0-dev - Badge Management System** 🚀
+> **105 commands** | **21 skills** | **8 agents** | **Auto-sync badges**
+> Automated badge synchronization for version, CI status, and coverage. Integrated into site:update and docs:update workflows.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 

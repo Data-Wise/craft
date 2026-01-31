@@ -221,6 +221,7 @@ Interactive mode provides category-level control over documentation updates:
 
 | Category | What It Updates | Example |
 |----------|-----------------|---------|
+| **badges** | Version/CI badge URLs in README & docs | 3 badges outdated (version, branch) |
 | **version_refs** | Version numbers in docs (v2.5.0 → v2.6.0) | 12 files need version update |
 | **command_counts** | "99 commands" → "101 commands" | 4 files with outdated counts |
 | **feature_status** | Feature matrix, completion % | 3 features marked complete |
