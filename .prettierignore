@@ -1,0 +1,5 @@
+# Prevent prettier from inserting spaces between emoji shortcodes
+# and MkDocs attr_list attributes (e.g., :rocket:{ .lg .middle })
+# Prettier adds a space before { which breaks attr_list attachment.
+docs/**/*.md
+*.md

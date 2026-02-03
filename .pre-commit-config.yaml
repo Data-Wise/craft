@@ -39,6 +39,17 @@ repos:
       - id: check-json
         files: \.json$
 
+  # Custom CRAFT-001: emoji-attribute spacing check
+  # Detects `:emoji: {` (space before brace) which breaks MkDocs attr_list
+  - repo: local
+    hooks:
+      - id: emoji-attr-spacing
+        name: Check emoji-attribute spacing (CRAFT-001)
+        entry: bash -c 'scripts/docs-lint-emoji.sh'
+        language: system
+        files: '\.md$'
+        pass_filenames: false
+
 # CI configuration
 ci:
   autofix_commit_msg: |

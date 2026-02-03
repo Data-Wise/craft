@@ -19,27 +19,27 @@
 
 <div class="grid cards" markdown>
 
-- :rocket: **105 Commands**
+- :rocket:{ .lg .middle } **105 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
 
-- :brain: **8 Specialized Agents**
+- :brain:{ .lg .middle } **8 Specialized Agents**
 
     Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators
 
-- :sparkles: **21 Skills**
+- :sparkles:{ .lg .middle } **21 Skills**
 
     Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, and documentation automation
 
-- :zap: **Smart Orchestration**
+- :zap:{ .lg .middle } **Smart Orchestration**
 
     Enhanced orchestrator v2.1 with mode-aware execution, subagent monitoring, and timeline tracking
 
-- :art: **8 ADHD-Friendly Presets**
+- :art:{ .lg .middle } **8 ADHD-Friendly Presets**
 
     Documentation site designs optimized for focus, calm, and quick comprehension
 
-- :books: **Documentation Excellence**
+- :books:{ .lg .middle } **Documentation Excellence**
 
     98% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation (16→13 commands), TL;DR boxes, time estimates, mermaid validation
 
@@ -72,19 +72,19 @@ Complete OpenAPI-style documentation for all 97 Craft commands:
 
 <div class="grid cards" markdown>
 
-- :scroll: **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
+- :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
     Complete documentation for all 97 commands organized by category with parameters, usage examples, and output formats
 
-- :gear: **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
+- :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
     Detailed parameter reference, types, defaults, aliases, and environment variables for every command
 
-- :warning: **[Error Scenarios & Recovery](reference/ERROR-SCENARIOS.md)**
+- :warning:{ .lg .middle } **[Error Scenarios & Recovery](reference/ERROR-SCENARIOS.md)**
 
     Comprehensive error handling guide with 50+ error scenarios, codes, causes, and recovery steps
 
-- :bulb: **[Command Examples](reference/COMMAND-EXAMPLES.md)**
+- :bulb:{ .lg .middle } **[Command Examples](reference/COMMAND-EXAMPLES.md)**
 
     Real-world usage patterns, workflows, and practical examples for all command categories
 
@@ -417,25 +417,25 @@ New `/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 c
 
 <div class="grid cards" markdown>
 
-- :memo: **Documentation Automation**
+- :memo:{ .lg .middle } **Documentation Automation**
 
     Update all docs from code changes in one command
 
     → [Learn more](workflows/index.md#documentation-workflow)
 
-- :globe_with_meridians: **Site Creation**
+- :globe_with_meridians:{ .lg .middle } **Site Creation**
 
     Zero to deployed docs site in < 5 minutes
 
     → [Learn more](workflows/index.md#site-creation-workflow)
 
-- :rocket: **Release Management**
+- :rocket:{ .lg .middle } **Release Management**
 
     Pre-release checks to published in one flow
 
     → [Learn more](workflows/index.md#release-workflow)
 
-- :computer: **Development Workflow**
+- :computer:{ .lg .middle } **Development Workflow**
 
     Feature branches with git worktrees
 
@@ -447,31 +447,31 @@ New `/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 c
 
 <div class="grid cards" markdown>
 
-- :rocket: **[Quick Start](QUICK-START.md)**
+- :rocket:{ .lg .middle } **[Quick Start](QUICK-START.md)**
 
     Get running in 30 seconds
 
-- :brain: **[ADHD Guide](ADHD-QUICK-START.md)**
+- :brain:{ .lg .middle } **[ADHD Guide](ADHD-QUICK-START.md)**
 
     Under 2 minutes, zero cognitive load
 
-- :bar_chart: **[Visual Workflows](workflows/index.md)**
+- :bar_chart:{ .lg .middle } **[Visual Workflows](workflows/index.md)**
 
     5 diagrams showing complete flows
 
-- :books: **[Commands Overview](commands/overview.md)**
+- :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
     All 97 commands organized
 
-- :sparkles: **[Skills & Agents](guide/skills-agents.md)**
+- :sparkles:{ .lg .middle } **[Skills & Agents](guide/skills-agents.md)**
 
     Understanding the AI system
 
-- :page_facing_up: **[Quick Reference](REFCARD.md)**
+- :page_facing_up:{ .lg .middle } **[Quick Reference](REFCARD.md)**
 
     Command cheat sheet
 
-- :scroll: **[API Reference](API-REFERENCE-COMMANDS.md)** ⭐ NEW
+- :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)** ⭐ NEW
 
     Complete documentation for all 97 commands
 
