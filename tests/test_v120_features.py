@@ -18,7 +18,7 @@ import time
 
 
 @dataclass
-class TestResult:
+class CheckResult:
     name: str
     passed: bool
     duration_ms: float
@@ -38,8 +38,8 @@ PLUGIN_DIR = Path(__file__).parent.parent
 # ─── Mode System Tests (Option B) ─────────────────────────────────────────────
 
 
-def test_mode_controller_skill_exists() -> TestResult:
-    """Test that mode-controller skill exists."""
+def _check_mode_controller_skill_exists() -> CheckResult:
+    """Check that mode-controller skill exists."""
     start = time.time()
 
     skill_path = PLUGIN_DIR / "skills" / "modes" / "mode-controller.md"
@@ -47,7 +47,7 @@ def test_mode_controller_skill_exists() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not skill_path.exists():
-        return TestResult(
+        return CheckResult(
             "Mode Controller Skill", False, duration,
             "Missing skills/modes/mode-controller.md", "mode-system"
         )
@@ -59,19 +59,24 @@ def test_mode_controller_skill_exists() -> TestResult:
     missing_modes = [m for m in modes if m not in content.lower()]
 
     if missing_modes:
-        return TestResult(
+        return CheckResult(
             "Mode Controller Skill", False, duration,
             f"Missing mode definitions: {missing_modes}", "mode-system"
         )
 
-    return TestResult(
+    return CheckResult(
         "Mode Controller Skill", True, duration,
         f"All 4 modes defined ({len(content)} chars)", "mode-system"
     )
 
 
-def test_lint_command_has_mode_support() -> TestResult:
-    """Test that lint command supports modes."""
+def test_mode_controller_skill_exists():
+    result = _check_mode_controller_skill_exists()
+    assert result.passed, result.details
+
+
+def _check_lint_command_has_mode_support() -> CheckResult:
+    """Check that lint command supports modes."""
     start = time.time()
 
     lint_path = PLUGIN_DIR / "commands" / "code" / "lint.md"
@@ -79,7 +84,7 @@ def test_lint_command_has_mode_support() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not lint_path.exists():
-        return TestResult(
+        return CheckResult(
             "Lint Mode Support", False, duration,
             "Missing commands/code/lint.md", "mode-system"
         )
@@ -100,19 +105,24 @@ def test_lint_command_has_mode_support() -> TestResult:
         issues.append("missing mode behaviors")
 
     if issues:
-        return TestResult(
+        return CheckResult(
             "Lint Mode Support", False, duration,
             f"Issues: {', '.join(issues)}", "mode-system"
         )
 
-    return TestResult(
+    return CheckResult(
         "Lint Mode Support", True, duration,
         "Has frontmatter, mode argument, and behaviors", "mode-system"
     )
 
 
-def test_test_run_command_has_mode_support() -> TestResult:
-    """Test that test:run command supports modes."""
+def test_lint_command_has_mode_support():
+    result = _check_lint_command_has_mode_support()
+    assert result.passed, result.details
+
+
+def _check_test_run_command_has_mode_support() -> CheckResult:
+    """Check that test:run command supports modes."""
     start = time.time()
 
     test_path = PLUGIN_DIR / "commands" / "test" / "run.md"
@@ -120,7 +130,7 @@ def test_test_run_command_has_mode_support() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not test_path.exists():
-        return TestResult(
+        return CheckResult(
             "Test Run Mode Support", False, duration,
             "Missing commands/test/run.md", "mode-system"
         )
@@ -132,19 +142,24 @@ def test_test_run_command_has_mode_support() -> TestResult:
     has_all_modes = all(m in content.lower() for m in ["default", "debug", "optimize", "release"])
 
     if not has_mode_arg or not has_all_modes:
-        return TestResult(
+        return CheckResult(
             "Test Run Mode Support", False, duration,
             "Missing mode argument or mode definitions", "mode-system"
         )
 
-    return TestResult(
+    return CheckResult(
         "Test Run Mode Support", True, duration,
         "Has mode support with all 4 modes", "mode-system"
     )
 
 
-def test_arch_analyze_command_has_mode_support() -> TestResult:
-    """Test that arch:analyze command supports modes."""
+def test_test_run_command_has_mode_support():
+    result = _check_test_run_command_has_mode_support()
+    assert result.passed, result.details
+
+
+def _check_arch_analyze_command_has_mode_support() -> CheckResult:
+    """Check that arch:analyze command supports modes."""
     start = time.time()
 
     arch_path = PLUGIN_DIR / "commands" / "arch" / "analyze.md"
@@ -152,7 +167,7 @@ def test_arch_analyze_command_has_mode_support() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not arch_path.exists():
-        return TestResult(
+        return CheckResult(
             "Arch Analyze Mode Support", False, duration,
             "Missing commands/arch/analyze.md", "mode-system"
         )
@@ -163,22 +178,27 @@ def test_arch_analyze_command_has_mode_support() -> TestResult:
     has_mode_support = "mode" in content.lower() and ("default" in content.lower() or "debug" in content.lower())
 
     if not has_mode_support:
-        return TestResult(
+        return CheckResult(
             "Arch Analyze Mode Support", False, duration,
             "Missing mode support", "mode-system"
         )
 
-    return TestResult(
+    return CheckResult(
         "Arch Analyze Mode Support", True, duration,
         "Has mode support", "mode-system"
     )
 
 
+def test_arch_analyze_command_has_mode_support():
+    result = _check_arch_analyze_command_has_mode_support()
+    assert result.passed, result.details
+
+
 # ─── Smart Orchestrator Tests (Option C) ──────────────────────────────────────
 
 
-def test_do_command_exists() -> TestResult:
-    """Test that /craft:do universal command exists."""
+def _check_do_command_exists() -> CheckResult:
+    """Check that /craft:do universal command exists."""
     start = time.time()
 
     do_path = PLUGIN_DIR / "commands" / "do.md"
@@ -186,7 +206,7 @@ def test_do_command_exists() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not do_path.exists():
-        return TestResult(
+        return CheckResult(
             "Do Command", False, duration,
             "Missing commands/do.md", "orchestrator"
         )
@@ -207,19 +227,24 @@ def test_do_command_exists() -> TestResult:
         issues.append("missing task categories")
 
     if issues:
-        return TestResult(
+        return CheckResult(
             "Do Command", False, duration,
             f"Issues: {', '.join(issues)}", "orchestrator"
         )
 
-    return TestResult(
+    return CheckResult(
         "Do Command", True, duration,
         f"Complete with task routing ({len(content)} chars)", "orchestrator"
     )
 
 
-def test_check_command_exists() -> TestResult:
-    """Test that /craft:check universal pre-flight command exists."""
+def test_do_command_exists():
+    result = _check_do_command_exists()
+    assert result.passed, result.details
+
+
+def _check_check_command_exists() -> CheckResult:
+    """Check that /craft:check universal pre-flight command exists."""
     start = time.time()
 
     check_path = PLUGIN_DIR / "commands" / "check.md"
@@ -227,7 +252,7 @@ def test_check_command_exists() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not check_path.exists():
-        return TestResult(
+        return CheckResult(
             "Check Command", False, duration,
             "Missing commands/check.md", "orchestrator"
         )
@@ -251,19 +276,24 @@ def test_check_command_exists() -> TestResult:
         features.append("detection")
 
     if len(features) < 3:
-        return TestResult(
+        return CheckResult(
             "Check Command", False, duration,
             f"Missing features, only found: {features}", "orchestrator"
         )
 
-    return TestResult(
+    return CheckResult(
         "Check Command", True, duration,
         f"Complete with modes: {features}", "orchestrator"
     )
 
 
-def test_smart_help_command_exists() -> TestResult:
-    """Test that /craft:help smart help command exists."""
+def test_check_command_exists():
+    result = _check_check_command_exists()
+    assert result.passed, result.details
+
+
+def _check_smart_help_command_exists() -> CheckResult:
+    """Check that /craft:help smart help command exists."""
     start = time.time()
 
     help_path = PLUGIN_DIR / "commands" / "smart-help.md"
@@ -271,7 +301,7 @@ def test_smart_help_command_exists() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not help_path.exists():
-        return TestResult(
+        return CheckResult(
             "Smart Help Command", False, duration,
             "Missing commands/smart-help.md", "orchestrator"
         )
@@ -283,19 +313,24 @@ def test_smart_help_command_exists() -> TestResult:
     has_project_types = sum(1 for t in ["python", "node", "r package"] if t in content.lower()) >= 1
 
     if not has_context:
-        return TestResult(
+        return CheckResult(
             "Smart Help Command", False, duration,
             "Missing context-awareness", "orchestrator"
         )
 
-    return TestResult(
+    return CheckResult(
         "Smart Help Command", True, duration,
         f"Context-aware help ({len(content)} chars)", "orchestrator"
     )
 
 
-def test_task_analyzer_skill_exists() -> TestResult:
-    """Test that task-analyzer skill exists."""
+def test_smart_help_command_exists():
+    result = _check_smart_help_command_exists()
+    assert result.passed, result.details
+
+
+def _check_task_analyzer_skill_exists() -> CheckResult:
+    """Check that task-analyzer skill exists."""
     start = time.time()
 
     skill_path = PLUGIN_DIR / "skills" / "orchestration" / "task-analyzer.md"
@@ -303,7 +338,7 @@ def test_task_analyzer_skill_exists() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not skill_path.exists():
-        return TestResult(
+        return CheckResult(
             "Task Analyzer Skill", False, duration,
             "Missing skills/orchestration/task-analyzer.md", "orchestrator"
         )
@@ -327,22 +362,27 @@ def test_task_analyzer_skill_exists() -> TestResult:
         capabilities.append("complexity")
 
     if len(capabilities) < 3:
-        return TestResult(
+        return CheckResult(
             "Task Analyzer Skill", False, duration,
             f"Missing capabilities, only found: {capabilities}", "orchestrator"
         )
 
-    return TestResult(
+    return CheckResult(
         "Task Analyzer Skill", True, duration,
         f"Complete with: {capabilities}", "orchestrator"
     )
 
 
+def test_task_analyzer_skill_exists():
+    result = _check_task_analyzer_skill_exists()
+    assert result.passed, result.details
+
+
 # ─── Hub & README Tests ───────────────────────────────────────────────────────
 
 
-def test_hub_reflects_v120() -> TestResult:
-    """Test that hub.md reflects v1.2.0 features."""
+def _check_hub_reflects_v120() -> CheckResult:
+    """Check that hub.md reflects v1.2.0 features."""
     start = time.time()
 
     hub_path = PLUGIN_DIR / "commands" / "hub.md"
@@ -350,7 +390,7 @@ def test_hub_reflects_v120() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not hub_path.exists():
-        return TestResult(
+        return CheckResult(
             "Hub v1.2.0 Update", False, duration,
             "Missing commands/hub.md", "integration"
         )
@@ -374,19 +414,24 @@ def test_hub_reflects_v120() -> TestResult:
         features.append("smart commands")
 
     if len(features) < 3:
-        return TestResult(
+        return CheckResult(
             "Hub v1.2.0 Update", False, duration,
             f"Missing v1.2.0 features: {features}", "integration"
         )
 
-    return TestResult(
+    return CheckResult(
         "Hub v1.2.0 Update", True, duration,
         f"Reflects v1.2.0: {features}", "integration"
     )
 
 
-def test_readme_reflects_v120() -> TestResult:
-    """Test that README.md reflects v1.2.0."""
+def test_hub_reflects_v120():
+    result = _check_hub_reflects_v120()
+    assert result.passed, result.details
+
+
+def _check_readme_reflects_v120() -> CheckResult:
+    """Check that README.md reflects v1.2.0."""
     start = time.time()
 
     readme_path = PLUGIN_DIR / "README.md"
@@ -394,7 +439,7 @@ def test_readme_reflects_v120() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not readme_path.exists():
-        return TestResult(
+        return CheckResult(
             "README v1.2.0 Update", False, duration,
             "Missing README.md", "integration"
         )
@@ -407,28 +452,33 @@ def test_readme_reflects_v120() -> TestResult:
     has_mode_section = "Mode" in content
 
     if not has_version:
-        return TestResult(
+        return CheckResult(
             "README v1.2.0 Update", False, duration,
             "Missing version 1.2.0", "integration"
         )
 
     if not has_46_commands:
-        return TestResult(
+        return CheckResult(
             "README v1.2.0 Update", False, duration,
             "Missing 46 commands count", "integration"
         )
 
-    return TestResult(
+    return CheckResult(
         "README v1.2.0 Update", True, duration,
         "README reflects v1.2.0", "integration"
     )
 
 
+def test_readme_reflects_v120():
+    result = _check_readme_reflects_v120()
+    assert result.passed, result.details
+
+
 # ─── Count Validation Tests ───────────────────────────────────────────────────
 
 
-def test_total_command_count() -> TestResult:
-    """Test that we have exactly 46 commands."""
+def _check_total_command_count() -> CheckResult:
+    """Check that we have at least 43 commands."""
     start = time.time()
 
     commands_dir = PLUGIN_DIR / "commands"
@@ -440,19 +490,24 @@ def test_total_command_count() -> TestResult:
     expected_min = 43
 
     if len(commands) < expected_min:
-        return TestResult(
+        return CheckResult(
             "Total Command Count", False, duration,
             f"Found {len(commands)} commands, expected at least {expected_min}", "validation"
         )
 
-    return TestResult(
+    return CheckResult(
         "Total Command Count", True, duration,
         f"Found {len(commands)} commands", "validation"
     )
 
 
-def test_total_skill_count() -> TestResult:
-    """Test that we have 8 skills."""
+def test_total_command_count():
+    result = _check_total_command_count()
+    assert result.passed, result.details
+
+
+def _check_total_skill_count() -> CheckResult:
+    """Check that we have at least 8 skills."""
     start = time.time()
 
     skills_dir = PLUGIN_DIR / "skills"
@@ -460,23 +515,29 @@ def test_total_skill_count() -> TestResult:
 
     duration = (time.time() - start) * 1000
 
-    expected = 8
+    # Minimum from v1.2.0 baseline; project has grown since
+    expected_min = 8
 
-    if len(skills) != expected:
+    if len(skills) < expected_min:
         skill_names = [s.stem for s in skills]
-        return TestResult(
+        return CheckResult(
             "Total Skill Count", False, duration,
-            f"Found {len(skills)} skills, expected {expected}: {skill_names}", "validation"
+            f"Found {len(skills)} skills, expected at least {expected_min}: {skill_names}", "validation"
         )
 
-    return TestResult(
+    return CheckResult(
         "Total Skill Count", True, duration,
-        f"Found {len(skills)} skills as expected", "validation"
+        f"Found {len(skills)} skills (minimum: {expected_min})", "validation"
     )
 
 
-def test_skills_directory_structure() -> TestResult:
-    """Test that skills are organized correctly."""
+def test_total_skill_count():
+    result = _check_total_skill_count()
+    assert result.passed, result.details
+
+
+def _check_skills_directory_structure() -> CheckResult:
+    """Check that skills are organized correctly."""
     start = time.time()
 
     skills_dir = PLUGIN_DIR / "skills"
@@ -495,40 +556,45 @@ def test_skills_directory_structure() -> TestResult:
 
     # At least 4 subdirs should exist
     if len(found) < 4:
-        return TestResult(
+        return CheckResult(
             "Skills Directory Structure", False, duration,
             f"Missing subdirs: {missing}", "validation"
         )
 
-    return TestResult(
+    return CheckResult(
         "Skills Directory Structure", True, duration,
         f"Found subdirs: {found}", "validation"
     )
 
 
+def test_skills_directory_structure():
+    result = _check_skills_directory_structure()
+    assert result.passed, result.details
+
+
 # ─── Test Runner ─────────────────────────────────────────────────────────────
 
 
-def run_all_tests() -> list[TestResult]:
+def run_all_tests() -> list[CheckResult]:
     """Run all v1.2.0 validation tests."""
     tests = [
         # Mode System Tests (Option B)
-        test_mode_controller_skill_exists,
-        test_lint_command_has_mode_support,
-        test_test_run_command_has_mode_support,
-        test_arch_analyze_command_has_mode_support,
+        _check_mode_controller_skill_exists,
+        _check_lint_command_has_mode_support,
+        _check_test_run_command_has_mode_support,
+        _check_arch_analyze_command_has_mode_support,
         # Smart Orchestrator Tests (Option C)
-        test_do_command_exists,
-        test_check_command_exists,
-        test_smart_help_command_exists,
-        test_task_analyzer_skill_exists,
+        _check_do_command_exists,
+        _check_check_command_exists,
+        _check_smart_help_command_exists,
+        _check_task_analyzer_skill_exists,
         # Integration Tests
-        test_hub_reflects_v120,
-        test_readme_reflects_v120,
+        _check_hub_reflects_v120,
+        _check_readme_reflects_v120,
         # Validation Tests
-        test_total_command_count,
-        test_total_skill_count,
-        test_skills_directory_structure,
+        _check_total_command_count,
+        _check_total_skill_count,
+        _check_skills_directory_structure,
     ]
 
     results = []
@@ -543,7 +609,7 @@ def run_all_tests() -> list[TestResult]:
     return results
 
 
-def generate_report(results: list[TestResult]) -> str:
+def generate_report(results: list[CheckResult]) -> str:
     """Generate markdown report."""
     passed = sum(1 for r in results if r.passed)
     total = len(results)
