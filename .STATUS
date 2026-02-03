@@ -27,7 +27,7 @@ Worktrees:
 - Eliminated all 236 pytest warnings across 13 test files
 - Fixed 21 stale test expectations (surfaced by warning fixes)
 - Resolved CI failures (broken links, mkdocs skip, pre-commit framework)
-- Test count: 847 → 1064 (all passing, 0 warnings)
+- Test count: 847 → 1111 (all passing, 0 warnings)
 
 **Files Changed:** 28 (+1,711/-801)
 
@@ -86,7 +86,7 @@ Worktrees:
 - dev branch synced with main
 - Clean working directory
 - No active worktrees
-- All systems validated (1064 tests, 0 warnings)
+- All systems validated (1111 tests, 0 warnings)
 
 **Future Feature Ideas (v2.12.0+):**
 - Styled output boxes for enhanced UX

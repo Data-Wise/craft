@@ -5,7 +5,7 @@
 **104 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.11.0 | **Latest Release:** v2.11.0 (2026-02-03)
-**Documentation Status:** 98% complete | **Tests:** 1064 passing (81 claude-md + 983 core)
+**Documentation Status:** 98% complete | **Tests:** 1111 passing (81 claude-md + 1030 core)
 
 ## Git Workflow
 
@@ -95,7 +95,7 @@ craft/
 ├── agents/             # 8 agents
 ├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (complexity scorer, validators, parsers)
-├── tests/              # Comprehensive test suite (1064 tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1111 tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (20 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
@@ -115,11 +115,12 @@ craft/
 - Eliminated all 236 pytest warnings (PytestReturnNotNoneWarning + PytestCollectionWarning)
 - Refactored 13 test files: `test_*` → `_check_*` helpers + thin `test_*` wrappers
 - Fixed 21 stale test expectations surfaced by warning conversion
-- Test count: 847 → 1064 (all passing, 0 warnings, 3 skipped)
+- Test count: 847 → 1111 (all passing, 0 warnings, 3 skipped)
 
 **CRAFT-001 Lint Rule:**
 
 - New emoji-attribute spacing rule (`scripts/docs-lint-emoji.sh`)
+- 50 tests covering detection, fix mode, code block safety, path exclusions
 - CI integration in `docs-quality.yml`
 - Pre-commit hook integration via `.pre-commit-config.yaml`
 
@@ -467,6 +468,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_hot_reload_validators.py`              | 9        | 95%      | Hot-reload validators        |
 | `tests/test_agent_hooks.py`                        | 13       | 100%     | Agent hooks                  |
 | `tests/test_orch_flag_handler.py`                  | 52       | 100%     | Orch flag handler (v2.9.0)   |
+| `tests/test_craft_001_emoji_spacing.py`            | 50       | 100%     | CRAFT-001 lint rule (v2.11.0)|
 | **Integration & E2E Tests**                        |          |          |                              |
 | `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
@@ -475,7 +477,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
-| **Total**                                          | **1064** | **~90%** | **All systems**              |
+| **Total**                                          | **1111** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
