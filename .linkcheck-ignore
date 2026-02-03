@@ -157,8 +157,19 @@ Targets:
 - `../docs/SESSION-STATE-SCHEMA.md`
 - `../docs/SESSION-TELEPORTATION.md`
 - `../../docs/help/ci-generate.md`
+- `../../docs/WORKFLOWS/git-feature-workflow.md`
+- `../../docs/WORKFLOWS/pre-commit-workflow.md`
 - Reason: These reference planned documentation that will be created in future releases
 - Fix: Create the referenced documentation files
+
+### 10. Spec Brainstorm Cross-References
+Files with broken links:
+- `docs/specs/SPEC-website-organization-standard-2026-01-17.md`
+
+Targets:
+- `../brainstorm/BRAINSTORM-website-organization-2026-01-17.md`
+- Reason: Specs reference brainstorm files that are gitignored and not published
+- Fix: Update to GitHub blob URLs or remove references
 
 ## Build Status
 - **Build command**: `mkdocs build --strict` will show these warnings
