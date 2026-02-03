@@ -6,20 +6,20 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 105 commands, 8 AI agents, and 21 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 104 commands, 8 AI agents, and 21 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code - 105 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code - 104 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
 >
-> **NEW in v2.10.0-dev:** Claude-MD command suite (5 commands), 81 comprehensive tests, 3,304 lines of documentation. Performance: 166x faster than targets. See [what's new](#whats-new-in-v2100-dev)
+> **NEW in v2.11.0:** Test suite cleanup (847 → 1111 tests, 0 warnings), CRAFT-001 emoji-attribute spacing lint rule, 50 new tests. See [what's new](#whats-new-in-v2110)
 
 ## Features
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **105 Commands**
+- :rocket:{ .lg .middle } **104 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
 
@@ -123,7 +123,7 @@ Major interactive workflow improvements and comprehensive test infrastructure fi
   - Fixed 15 failing tests (hardcoded paths, pre-commit hooks, config validation, dependencies)
   - Updated orchestrator-v2 for Claude Code subagent constraints
   - 145 new tests (93 e2e + 52 orch handler)
-  - **Total: 847 tests passing** (was 832)
+  - **Total: 1111 tests passing** (was 847)
 
 **Documentation**: 3 new guides (guide, tutorial, reference - 650+ lines total)
 
@@ -131,9 +131,22 @@ Major interactive workflow improvements and comprehensive test infrastructure fi
 
 ---
 
-## What's New in v2.10.0-dev
+## What's New in v2.11.0
 
-**Claude-MD Command Suite** 🚀 (In Development)
+**Test Suite Cleanup & CRAFT-001** (2026-02-03)
+
+- Eliminated all **236 pytest warnings** across 13 test files using `_check_*` + `test_*` wrapper pattern
+- Fixed **21 hidden test failures** that were silently passing
+- Added **CRAFT-001** emoji-attribute spacing lint rule with CI integration
+- **50 new tests** for CRAFT-001 across 9 categories
+- Test count: **847 → 1111** (all passing, 0 warnings)
+- New documentation: [CRAFT-001 Tutorial](tutorials/TUTORIAL-craft-001-emoji-spacing.md), [Test Wrapper Pattern Guide](guide/test-wrapper-pattern.md)
+
+---
+
+## What's New in v2.10.0
+
+**Claude-MD Command Suite**
 
 Comprehensive CLAUDE.md management tools ported from local Claude Code (PR #39):
 

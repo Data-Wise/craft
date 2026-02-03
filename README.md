@@ -504,7 +504,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ## Version
 
-- **Version:** 2.8.1
+- **Version:** 2.11.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
