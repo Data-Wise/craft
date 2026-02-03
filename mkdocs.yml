@@ -123,6 +123,8 @@ nav:
       - NEW Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
       - NEW Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
       - NEW Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
+      - NEW CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
+      - NEW Test Wrapper Pattern Guide: guide/test-wrapper-pattern.md
       - Git Repository Init:
         - Command Reference: commands/git-init-reference.md
         - Tutorial: guide/git-init-tutorial.md

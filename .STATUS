@@ -1,182 +1,82 @@
 status: Active
-version: 2.10.0-dev
-release_date: 2026-01-29 (v2.9.1)
-milestone: v2.10.0 - Claude-MD Command Suite
-last_session: 2026-01-30T00:15:00Z
+version: 2.11.0
+release_date: 2026-02-03 (v2.11.0)
+milestone: v2.11.0 - Test Suite Cleanup & CRAFT-001
+last_session: 2026-02-03T17:07:00Z
 
-progress: 100% (PR #39 MERGED - Claude-MD port complete)
+progress: 100% (PR #42 MERGED - Test cleanup + CRAFT-001 complete)
 
-📊 Branch Status (as of 2026-01-30):
+📊 Branch Status (as of 2026-02-03):
 
 | Branch    | Head     | Ahead of | Status                        |
 |-----------|----------|----------|-------------------------------|
-| main      | ed4c796  | —        | Production (v2.9.1) ✅         |
-| dev       | (merge)  | +8       | Claude-MD suite merged        |
+| main      | 35ffb8f  | —        | Production (v2.11.0) ✅        |
+| dev       | a7cce7a  | 0        | Synced with main              |
 | gh-pages  | 106e35f  | —        | Deployed docs site            |
 
 Worktrees:
   • /Users/dt/projects/dev-tools/craft → dev (main repo)
   • No active feature worktrees - clean state
 
-🎯 Current State: PR #39 merged - 5 claude-md commands + test enhancements
+🎯 Current State: PR #42 merged - CRAFT-001 + test suite cleanup
 
-✅ PR #39 Merged (2026-01-30):
+✅ PR #42 Merged (2026-02-03):
 
 **What Merged:**
+- CRAFT-001 emoji-attribute spacing lint rule + CI integration
+- Eliminated all 236 pytest warnings across 13 test files
+- Fixed 21 stale test expectations (surfaced by warning fixes)
+- Resolved CI failures (broken links, mkdocs skip, pre-commit framework)
+- Test count: 847 → 1111 (all passing, 0 warnings)
+
+**Files Changed:** 28 (+1,711/-801)
+
+**Key Changes:**
+- New lint rule: scripts/docs-lint-emoji.sh (CRAFT-001)
+- CI integration: .github/workflows/docs-quality.yml
+- 13 test files refactored (_check_* + test_* wrapper pattern)
+- 3 teaching fixture schemas updated
+- .linkcheck-ignore expanded with 2 new sections
+
+**Commits (9):**
+- 0969199 feat: add CRAFT-001 emoji-attribute spacing lint rule
+- 3957229 ci: add CRAFT-001 emoji-attribute check to docs-quality workflow
+- fcbae4a docs: update CLAUDE.md with CRAFT-001 rule details
+- d3576ba fix: update tests to match pre-commit framework and utility APIs
+- b4988e8 fix: eliminate PytestReturnNotNoneWarning from v120 feature tests
+- 464f60c fix: eliminate all 111 pytest warnings and fix 21 stale test expectations
+- 368503c fix: resolve 2 CI failures (broken links + mkdocs skip)
+- a7cce7a fix: add missing pytest import for mkdocs skip in CI
+
+---
+
+## Previous Releases
+
+### v2.10.0 - Claude-MD Command Suite (2026-01-30) ✅
+
+**What Shipped:**
 - 5 new commands: update, audit, fix, scaffold, edit
 - 7 utility modules (2,713 lines Python)
 - 3 project templates (plugin, teaching, r-package)
 - 81 tests (100% passing, 0.024s)
 - 3,304 lines documentation
-- Test enhancements: concurrent, symlink, performance
 
-**Files Changed:** 38 (+15,997/-271)
-
-**Performance:**
-- Full detection: 0.003s (166x faster than target)
-- Command scanning: 0.002s (50x faster than target)
-- Version extraction: 0.001s per 100 calls
-
----
-
-✅ v2.9.1 Release Complete (2026-01-29):
+### v2.9.1 - Documentation Enhancements (2026-01-29) ✅
 
 **What Shipped:**
 - 3 new cookbook recipes (1,161 lines)
 - 2 new beginner tutorials (1,618 lines)
 - Expanded command documentation (+442 lines)
-- Fixed 6 broken internal links
 - Documentation coverage: 95%
 
-**Merged PRs:**
-- PR #38: Documentation enhancements (dev → main)
-
-**Documentation:**
-- New cookbook: use-interactive-orchestration.md (374 lines)
-- New cookbook: setup-parallel-worktrees.md (410 lines)
-- New cookbook: post-merge-documentation.md (377 lines)
-- New tutorial: check-tutorial-beginner.md (865 lines)
-- New tutorial: smart-routing-tutorial.md (753 lines)
-- Expanded: commands/smart.md (+318 lines)
-- Expanded: commands/overview.md (+124 lines)
-- Updated: check-code-quality-before-commit.md with v2.9.0 features
-
-**Release Links:**
-- GitHub Release: https://github.com/Data-Wise/craft/releases/tag/v2.9.1
-- Full Changelog: https://github.com/Data-Wise/craft/compare/v2.9.0...v2.9.1
-- Documentation: https://data-wise.github.io/craft/
-
-**Branch Sync:**
-- main and dev both at ed4c796
-- Tag v2.9.1 points to squash merge commit
-- All branches synchronized
-
----
-
-## Session History
-
-### 2026-01-29 (Night) - v2.9.1 Release ✅
-
-**Tasks Completed:**
-1. Documentation Enhancement: Created 3 cookbook recipes, 2 tutorials
-2. Command Documentation: Expanded smart.md and overview.md
-3. Quality Fixes: Fixed 6 broken links, updated markdown config
-4. Release: Merged PR #38, tagged v2.9.1, created GitHub release
-5. Branch Sync: Reset dev to match main after squash merge
-
-**Commits:**
-- ed4c796: Release v2.9.1 - Documentation Enhancements (#38)
-
-**Final State:**
-- ✅ All tests passing (13/13)
-- ✅ Documentation coverage 95%
-- ✅ All branches synced
-- ✅ Release published
-- ✅ Ready for next features
-
-### 2026-01-29 (Evening) - v2.9.0 Release & Sync ✅
+### v2.9.0 - Command Behavior Enhancements (2026-01-29) ✅
 
 **What Shipped:**
-- "Show Steps First" Pattern: 4 commands with plan confirmation
-- Interactive Orchestration: Mode selection, wave checkpoints
-- Git Worktree Auto-Setup: Scope detection, file generation
-- Post-Merge Pipeline: docs:update --post-merge with 5 phases
-- Check Step Preview: Mode-specific lists with skip options
-- Orchestrator-v2 Updates: Claude Code subagent alignment
-- CI Test Fixes: 15 tests fixed (paths, hooks, config, deps)
-
-**Merged PRs:**
-- PR #36: Command enhancements (feature → dev)
-- PR #37: v2.9.0 release + test fixes (dev → main)
-
-**Test Coverage:**
-- 847 tests passing (was 832)
-- 145 new tests added
-- 0 failing tests
-- 9 skipped (6 pre-commit hooks in CI + 3 teaching)
-
-**Documentation:**
-- New guide: docs/guide/interactive-commands.md (170 lines)
-- New tutorial: docs/tutorials/interactive-orchestration.md (222 lines)
-- New reference: docs/reference/REFCARD-INTERACTIVE-COMMANDS.md (262 lines)
-- Updated: 4 command doc pages with interactive workflow sections
-- Updated: CLAUDE.md with v2.9.0 status and test counts
-
-**Release Links:**
-- GitHub Release: https://github.com/Data-Wise/craft/releases/tag/v2.9.0
-- Full Changelog: https://github.com/Data-Wise/craft/compare/v2.8.1...v2.9.0
-- Documentation: https://data-wise.github.io/craft/
-
-**Branch Sync:**
-- main and dev both at 93a10ad
-- Tag v2.9.0 points to merge commit
-- All branches synchronized
-
----
-
-## Session History
-
-### 2026-01-29 (Evening) - v2.9.0 Release & Sync ✅
-
-**Tasks Completed:**
-1. Code Review: Identified 15 failing CI tests in PR #37
-2. Test Fixes: Resolved all failures
-   - Hardcoded paths → relative paths (5 tests)
-   - Pre-commit hooks → CI skip decorator (6 tests)
-   - Config validation → regex patterns (1 test)
-   - Missing dependency → added requests (3 tests)
-3. CI Validation: All checks passing
-4. PR Merge: #37 merged to main
-5. Tag Update: v2.9.0 tag moved to merge commit
-6. Release Update: GitHub release notes updated
-7. Branch Sync: dev synced with main (fast-forward)
-8. Documentation: CLAUDE.md and .STATUS updated
-
-**Commits:**
-- ebea798: fix: resolve 15 failing CI tests in PR #37
-- 93a10ad: Merge pull request #37 from Data-Wise/dev
-
-**Final State:**
-- ✅ All tests passing (847 total)
-- ✅ All branches synced
-- ✅ Release published
-- ✅ Documentation updated
-- ✅ Ready for next features
-
-### 2026-01-29 (Day) - Command Enhancements Merge ✅
-
-**Merged PR #36:** feature/command-enhancements → dev
-- 9 commits, 5 implementation phases
-- All acceptance criteria met
-- Documentation comprehensive
-- Tests comprehensive (145 new tests)
-
-### 2026-01-28 - v2.8.1 Release ✅
-
-**Markdown Lint Style Fixes:**
-- Auto-fixed 191 files
-- Fixed MD025, MD060 issues
-- Added emoji-aware table formatter
+- "Show Steps First" pattern across 4 commands
+- Interactive orchestration with mode selection
+- Git worktree auto-setup with scope detection
+- Post-merge documentation pipeline
+- 847 tests passing
 
 ---
 
@@ -186,9 +86,9 @@ Worktrees:
 - dev branch synced with main
 - Clean working directory
 - No active worktrees
-- All systems validated
+- All systems validated (1111 tests, 0 warnings)
 
-**Future Feature Ideas (v2.10.0+):**
+**Future Feature Ideas (v2.12.0+):**
 - Styled output boxes for enhanced UX
 - Enhanced execution modes
 - Language detection for multi-lang projects
