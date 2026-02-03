@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from commands._discovery import parse_yaml_frontmatter
 
 
-class TestYAMLParserEdgeCases:
+class YAMLParserEdgeCases:
     """Test edge cases in YAML frontmatter parsing."""
 
     def __init__(self):
@@ -213,7 +213,7 @@ def main():
     print("=" * 70)
     print()
 
-    tester = TestYAMLParserEdgeCases()
+    tester = YAMLParserEdgeCases()
 
     # Run all tests
     tests = [

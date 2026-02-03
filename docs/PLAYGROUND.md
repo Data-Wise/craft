@@ -401,19 +401,19 @@ You've seen individual commands in action. Now learn how they work together:
 
 <div class="grid cards" markdown>
 
-- :bar_chart: **[Visual Workflows](workflows/index.md)**
+- :bar_chart:{ .lg .middle } **[Visual Workflows](workflows/index.md)**
 
     See 5 complete workflows with diagrams
 
-- :books: **[Commands Overview](commands/overview.md)**
+- :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
     Explore all 69 commands organized by category
 
-- :rocket: **[Quick Reference](REFCARD.md)**
+- :rocket:{ .lg .middle } **[Quick Reference](REFCARD.md)**
 
     Command cheat sheet for quick lookup
 
-- :brain: **[ADHD Guide](ADHD-QUICK-START.md)**
+- :brain:{ .lg .middle } **[ADHD Guide](ADHD-QUICK-START.md)**
 
     Optimized learning path (under 2 minutes)
 

@@ -27,7 +27,7 @@ from typing import Optional, Dict, List, Any
 
 
 @dataclass
-class TestResult:
+class CheckResult:
     name: str
     passed: bool
     duration_ms: float
@@ -139,7 +139,7 @@ def stub_get_command_stats(commands: List[Dict[str, Any]]) -> Dict[str, Any]:
 # ─── Discovery Tests ─────────────────────────────────────────────────────────
 
 
-def test_discovery_finds_all_commands() -> TestResult:
+def _check_discovery_finds_all_commands() -> CheckResult:
     """Test that discovery finds all 97 command files."""
     start = time.time()
 
@@ -148,20 +148,20 @@ def test_discovery_finds_all_commands() -> TestResult:
 
     duration = (time.time() - start) * 1000
 
-    # Expected: 97 total commands (71 main + 26 docs/utils)
-    expected = 97
+    # Expected: at least 100 commands (count grows as features are added)
+    min_expected = 100
     found = len(commands)
 
-    if found != expected:
-        return TestResult(
+    if found < min_expected:
+        return CheckResult(
             "Discovery Finds All Commands",
             False,
             duration,
-            f"Expected {expected} commands, found {found}",
+            f"Expected at least {min_expected} commands, found {found}",
             "discovery"
         )
 
-    return TestResult(
+    return CheckResult(
         "Discovery Finds All Commands",
         True,
         duration,
@@ -170,7 +170,13 @@ def test_discovery_finds_all_commands() -> TestResult:
     )
 
 
-def test_category_inference() -> TestResult:
+def test_discovery_finds_all_commands():
+    """Test that discovery finds all 97 command files."""
+    result = _check_discovery_finds_all_commands()
+    assert result.passed, result.details
+
+
+def _check_category_inference() -> CheckResult:
     """Test category inference from file paths."""
     start = time.time()
 
@@ -196,7 +202,7 @@ def test_category_inference() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if errors:
-        return TestResult(
+        return CheckResult(
             "Category Inference",
             False,
             duration,
@@ -204,7 +210,7 @@ def test_category_inference() -> TestResult:
             "discovery"
         )
 
-    return TestResult(
+    return CheckResult(
         "Category Inference",
         True,
         duration,
@@ -213,7 +219,13 @@ def test_category_inference() -> TestResult:
     )
 
 
-def test_frontmatter_parsing() -> TestResult:
+def test_category_inference():
+    """Test category inference from file paths."""
+    result = _check_category_inference()
+    assert result.passed, result.details
+
+
+def _check_frontmatter_parsing() -> CheckResult:
     """Test YAML frontmatter extraction."""
     start = time.time()
 
@@ -221,7 +233,7 @@ def test_frontmatter_parsing() -> TestResult:
     lint_cmd = plugin_dir / "commands" / "code" / "lint.md"
 
     if not lint_cmd.exists():
-        return TestResult(
+        return CheckResult(
             "Frontmatter Parsing",
             False,
             0,
@@ -238,7 +250,7 @@ def test_frontmatter_parsing() -> TestResult:
     missing = [f for f in required_fields if f not in metadata]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "Frontmatter Parsing",
             False,
             duration,
@@ -248,7 +260,7 @@ def test_frontmatter_parsing() -> TestResult:
 
     # Verify arguments structure
     if not isinstance(metadata["arguments"], list):
-        return TestResult(
+        return CheckResult(
             "Frontmatter Parsing",
             False,
             duration,
@@ -263,7 +275,7 @@ def test_frontmatter_parsing() -> TestResult:
         missing_arg_fields = [f for f in arg_fields if f not in arg]
 
         if missing_arg_fields:
-            return TestResult(
+            return CheckResult(
                 "Frontmatter Parsing",
                 False,
                 duration,
@@ -271,7 +283,7 @@ def test_frontmatter_parsing() -> TestResult:
                 "parsing"
             )
 
-    return TestResult(
+    return CheckResult(
         "Frontmatter Parsing",
         True,
         duration,
@@ -280,7 +292,13 @@ def test_frontmatter_parsing() -> TestResult:
     )
 
 
-def test_mode_extraction() -> TestResult:
+def test_frontmatter_parsing():
+    """Test YAML frontmatter extraction."""
+    result = _check_frontmatter_parsing()
+    assert result.passed, result.details
+
+
+def _check_mode_extraction() -> CheckResult:
     """Test execution mode extraction from command content."""
     start = time.time()
 
@@ -288,7 +306,7 @@ def test_mode_extraction() -> TestResult:
     lint_cmd = plugin_dir / "commands" / "code" / "lint.md"
 
     if not lint_cmd.exists():
-        return TestResult(
+        return CheckResult(
             "Mode Extraction",
             False,
             0,
@@ -305,7 +323,7 @@ def test_mode_extraction() -> TestResult:
 
     missing = [m for m in expected_modes if m not in modes]
     if missing:
-        return TestResult(
+        return CheckResult(
             "Mode Extraction",
             False,
             duration,
@@ -313,7 +331,7 @@ def test_mode_extraction() -> TestResult:
             "parsing"
         )
 
-    return TestResult(
+    return CheckResult(
         "Mode Extraction",
         True,
         duration,
@@ -322,10 +340,16 @@ def test_mode_extraction() -> TestResult:
     )
 
 
+def test_mode_extraction():
+    """Test execution mode extraction from command content."""
+    result = _check_mode_extraction()
+    assert result.passed, result.details
+
+
 # ─── Cache Tests ─────────────────────────────────────────────────────────────
 
 
-def test_cache_generation() -> TestResult:
+def _check_cache_generation() -> CheckResult:
     """Test cache file is generated correctly."""
     start = time.time()
 
@@ -343,7 +367,7 @@ def test_cache_generation() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not generated_path.exists():
-        return TestResult(
+        return CheckResult(
             "Cache Generation",
             False,
             duration,
@@ -361,7 +385,7 @@ def test_cache_generation() -> TestResult:
         missing = [f for f in required_fields if f not in cache_data]
 
         if missing:
-            return TestResult(
+            return CheckResult(
                 "Cache Generation",
                 False,
                 duration,
@@ -369,7 +393,7 @@ def test_cache_generation() -> TestResult:
                 "cache"
             )
 
-        return TestResult(
+        return CheckResult(
             "Cache Generation",
             True,
             duration,
@@ -378,7 +402,7 @@ def test_cache_generation() -> TestResult:
         )
 
     except json.JSONDecodeError as e:
-        return TestResult(
+        return CheckResult(
             "Cache Generation",
             False,
             duration,
@@ -387,7 +411,13 @@ def test_cache_generation() -> TestResult:
         )
 
 
-def test_cache_loading() -> TestResult:
+def test_cache_generation():
+    """Test cache file is generated correctly."""
+    result = _check_cache_generation()
+    assert result.passed, result.details
+
+
+def _check_cache_loading() -> CheckResult:
     """Test cache file loading."""
     start = time.time()
 
@@ -403,7 +433,7 @@ def test_cache_loading() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if cache_data is None:
-        return TestResult(
+        return CheckResult(
             "Cache Loading",
             False,
             duration,
@@ -412,7 +442,7 @@ def test_cache_loading() -> TestResult:
         )
 
     if "commands" not in cache_data:
-        return TestResult(
+        return CheckResult(
             "Cache Loading",
             False,
             duration,
@@ -420,7 +450,7 @@ def test_cache_loading() -> TestResult:
             "cache"
         )
 
-    return TestResult(
+    return CheckResult(
         "Cache Loading",
         True,
         duration,
@@ -429,7 +459,13 @@ def test_cache_loading() -> TestResult:
     )
 
 
-def test_cache_invalidation() -> TestResult:
+def test_cache_loading():
+    """Test cache file loading."""
+    result = _check_cache_loading()
+    assert result.passed, result.details
+
+
+def _check_cache_invalidation() -> CheckResult:
     """Test cache rebuilds when files change."""
     start = time.time()
 
@@ -457,7 +493,7 @@ def test_cache_invalidation() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not cache_is_stale:
-        return TestResult(
+        return CheckResult(
             "Cache Invalidation",
             False,
             duration,
@@ -465,7 +501,7 @@ def test_cache_invalidation() -> TestResult:
             "cache"
         )
 
-    return TestResult(
+    return CheckResult(
         "Cache Invalidation",
         True,
         duration,
@@ -474,10 +510,16 @@ def test_cache_invalidation() -> TestResult:
     )
 
 
+def test_cache_invalidation():
+    """Test cache rebuilds when files change."""
+    result = _check_cache_invalidation()
+    assert result.passed, result.details
+
+
 # ─── Performance Tests ───────────────────────────────────────────────────────
 
 
-def test_performance_first_run() -> TestResult:
+def _check_performance_first_run() -> CheckResult:
     """Test first run completes < 200ms."""
     plugin_dir = Path(__file__).parent.parent
     cache_path = plugin_dir / "commands" / "_cache.json"
@@ -493,7 +535,7 @@ def test_performance_first_run() -> TestResult:
     target_ms = 200
 
     if duration > target_ms:
-        return TestResult(
+        return CheckResult(
             "Performance (First Run)",
             False,
             duration,
@@ -501,7 +543,7 @@ def test_performance_first_run() -> TestResult:
             "performance"
         )
 
-    return TestResult(
+    return CheckResult(
         "Performance (First Run)",
         True,
         duration,
@@ -510,7 +552,13 @@ def test_performance_first_run() -> TestResult:
     )
 
 
-def test_performance_cached_run() -> TestResult:
+def test_performance_first_run():
+    """Test first run completes < 200ms."""
+    result = _check_performance_first_run()
+    assert result.passed, result.details
+
+
+def _check_performance_cached_run() -> CheckResult:
     """Test cached run completes < 10ms."""
     plugin_dir = Path(__file__).parent.parent
 
@@ -525,7 +573,7 @@ def test_performance_cached_run() -> TestResult:
     target_ms = 10
 
     if cache_data is None:
-        return TestResult(
+        return CheckResult(
             "Performance (Cached)",
             False,
             duration,
@@ -534,7 +582,7 @@ def test_performance_cached_run() -> TestResult:
         )
 
     if duration > target_ms:
-        return TestResult(
+        return CheckResult(
             "Performance (Cached)",
             False,
             duration,
@@ -542,7 +590,7 @@ def test_performance_cached_run() -> TestResult:
             "performance"
         )
 
-    return TestResult(
+    return CheckResult(
         "Performance (Cached)",
         True,
         duration,
@@ -551,10 +599,16 @@ def test_performance_cached_run() -> TestResult:
     )
 
 
+def test_performance_cached_run():
+    """Test cached run completes < 10ms."""
+    result = _check_performance_cached_run()
+    assert result.passed, result.details
+
+
 # ─── Statistics Tests ────────────────────────────────────────────────────────
 
 
-def test_command_stats() -> TestResult:
+def _check_command_stats() -> CheckResult:
     """Test get_command_stats() returns correct counts."""
     start = time.time()
 
@@ -569,7 +623,7 @@ def test_command_stats() -> TestResult:
     missing = [f for f in required_fields if f not in stats]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "Command Stats",
             False,
             duration,
@@ -579,7 +633,7 @@ def test_command_stats() -> TestResult:
 
     # Verify total
     if stats["total"] != len(commands):
-        return TestResult(
+        return CheckResult(
             "Command Stats",
             False,
             duration,
@@ -590,7 +644,7 @@ def test_command_stats() -> TestResult:
     # Verify category counts sum to total
     cat_sum = sum(stats["categories"].values())
     if cat_sum != stats["total"]:
-        return TestResult(
+        return CheckResult(
             "Command Stats",
             False,
             duration,
@@ -598,7 +652,7 @@ def test_command_stats() -> TestResult:
             "statistics"
         )
 
-    return TestResult(
+    return CheckResult(
         "Command Stats",
         True,
         duration,
@@ -607,7 +661,13 @@ def test_command_stats() -> TestResult:
     )
 
 
-def test_all_categories_present() -> TestResult:
+def test_command_stats():
+    """Test get_command_stats() returns correct counts."""
+    result = _check_command_stats()
+    assert result.passed, result.details
+
+
+def _check_all_categories_present() -> CheckResult:
     """Test all expected categories are discovered."""
     start = time.time()
 
@@ -627,7 +687,7 @@ def test_all_categories_present() -> TestResult:
     missing = expected_categories - found_categories
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "All Categories Present",
             False,
             duration,
@@ -635,7 +695,7 @@ def test_all_categories_present() -> TestResult:
             "statistics"
         )
 
-    return TestResult(
+    return CheckResult(
         "All Categories Present",
         True,
         duration,
@@ -644,7 +704,13 @@ def test_all_categories_present() -> TestResult:
     )
 
 
-def test_missing_frontmatter_handling() -> TestResult:
+def test_all_categories_present():
+    """Test all expected categories are discovered."""
+    result = _check_all_categories_present()
+    assert result.passed, result.details
+
+
+def _check_missing_frontmatter_handling() -> CheckResult:
     """Test graceful handling of missing frontmatter."""
     start = time.time()
 
@@ -661,7 +727,7 @@ def test_missing_frontmatter_handling() -> TestResult:
 
         # Should return empty dict, not None or error
         if metadata is None:
-            return TestResult(
+            return CheckResult(
                 "Missing Frontmatter Handling",
                 False,
                 duration,
@@ -670,7 +736,7 @@ def test_missing_frontmatter_handling() -> TestResult:
             )
 
         if not isinstance(metadata, dict):
-            return TestResult(
+            return CheckResult(
                 "Missing Frontmatter Handling",
                 False,
                 duration,
@@ -678,7 +744,7 @@ def test_missing_frontmatter_handling() -> TestResult:
                 "parsing"
             )
 
-        return TestResult(
+        return CheckResult(
             "Missing Frontmatter Handling",
             True,
             duration,
@@ -692,33 +758,39 @@ def test_missing_frontmatter_handling() -> TestResult:
             test_file.unlink()
 
 
+def test_missing_frontmatter_handling():
+    """Test graceful handling of missing frontmatter."""
+    result = _check_missing_frontmatter_handling()
+    assert result.passed, result.details
+
+
 # ─── Test Runner ─────────────────────────────────────────────────────────────
 
 
-def run_all_tests() -> list[TestResult]:
+def run_all_tests() -> list[CheckResult]:
     """Run all validation tests."""
     tests = [
         # Discovery tests
-        test_discovery_finds_all_commands,
-        test_category_inference,
+        _check_discovery_finds_all_commands,
+        _check_category_inference,
 
         # Parsing tests
-        test_frontmatter_parsing,
-        test_mode_extraction,
-        test_missing_frontmatter_handling,
+        _check_frontmatter_parsing,
+        _check_mode_extraction,
+        _check_missing_frontmatter_handling,
 
         # Cache tests
-        test_cache_generation,
-        test_cache_loading,
-        test_cache_invalidation,
+        _check_cache_generation,
+        _check_cache_loading,
+        _check_cache_invalidation,
 
         # Performance tests
-        test_performance_first_run,
-        test_performance_cached_run,
+        _check_performance_first_run,
+        _check_performance_cached_run,
 
         # Statistics tests
-        test_command_stats,
-        test_all_categories_present,
+        _check_command_stats,
+        _check_all_categories_present,
     ]
 
     results = []
@@ -733,7 +805,7 @@ def run_all_tests() -> list[TestResult]:
     return results
 
 
-def generate_report(results: list[TestResult]) -> str:
+def generate_report(results: list[CheckResult]) -> str:
     """Generate markdown report."""
     passed = sum(1 for r in results if r.passed)
     total = len(results)

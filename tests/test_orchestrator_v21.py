@@ -20,7 +20,7 @@ import time
 
 
 @dataclass
-class TestResult:
+class CheckResult:
     name: str
     passed: bool
     duration_ms: float
@@ -40,7 +40,7 @@ PLUGIN_DIR = Path(__file__).parent.parent
 # ─── Orchestrator v2.1 Agent Tests ───────────────────────────────────────────
 
 
-def test_orchestrator_v21_exists() -> TestResult:
+def _check_orchestrator_v21_exists() -> CheckResult:
     """Test that orchestrator-v2.md exists."""
     start = time.time()
 
@@ -48,18 +48,24 @@ def test_orchestrator_v21_exists() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not agent_path.exists():
-        return TestResult(
+        return CheckResult(
             "Orchestrator v2.1 Exists", False, duration,
             "Missing agents/orchestrator-v2.md", "orchestrator"
         )
 
-    return TestResult(
+    return CheckResult(
         "Orchestrator v2.1 Exists", True, duration,
         f"File exists ({agent_path.stat().st_size} bytes)", "orchestrator"
     )
 
 
-def test_orchestrator_version() -> TestResult:
+def test_orchestrator_v21_exists():
+    """Test that orchestrator-v2.md exists."""
+    result = _check_orchestrator_v21_exists()
+    assert result.passed, result.details
+
+
+def _check_orchestrator_version() -> CheckResult:
     """Test that orchestrator version is 2.1.0."""
     start = time.time()
 
@@ -67,7 +73,7 @@ def test_orchestrator_version() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not agent_path.exists():
-        return TestResult(
+        return CheckResult(
             "Orchestrator Version", False, duration,
             "File not found", "orchestrator"
         )
@@ -75,22 +81,28 @@ def test_orchestrator_version() -> TestResult:
     content = agent_path.read_text()
 
     # Check version in frontmatter
-    if "version: 2.1.0" not in content:
+    if "version: 2.4.0" not in content:
         # Try to find actual version
         version_match = re.search(r"version:\s*([\d.]+)", content)
         actual = version_match.group(1) if version_match else "unknown"
-        return TestResult(
+        return CheckResult(
             "Orchestrator Version", False, duration,
-            f"Expected 2.1.0, found {actual}", "orchestrator"
+            f"Expected 2.4.0, found {actual}", "orchestrator"
         )
 
-    return TestResult(
+    return CheckResult(
         "Orchestrator Version", True, duration,
-        "Version 2.1.0 confirmed", "orchestrator"
+        "Version 2.4.0 confirmed", "orchestrator"
     )
 
 
-def test_behavior_7_mode_aware() -> TestResult:
+def test_orchestrator_version():
+    """Test that orchestrator version is 2.1.0."""
+    result = _check_orchestrator_version()
+    assert result.passed, result.details
+
+
+def _check_behavior_7_mode_aware() -> CheckResult:
     """Test BEHAVIOR 7: Mode-Aware Execution exists."""
     start = time.time()
 
@@ -98,7 +110,7 @@ def test_behavior_7_mode_aware() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not agent_path.exists():
-        return TestResult(
+        return CheckResult(
             "BEHAVIOR 7: Mode-Aware", False, duration,
             "File not found", "mode-system"
         )
@@ -119,18 +131,24 @@ def test_behavior_7_mode_aware() -> TestResult:
     missing = [elem for elem in required_elements if elem not in content]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "BEHAVIOR 7: Mode-Aware", False, duration,
             f"Missing: {', '.join(missing)}", "mode-system"
         )
 
-    return TestResult(
+    return CheckResult(
         "BEHAVIOR 7: Mode-Aware", True, duration,
         f"All {len(required_elements)} elements present", "mode-system"
     )
 
 
-def test_behavior_8_context_tracking() -> TestResult:
+def test_behavior_7_mode_aware():
+    """Test BEHAVIOR 7: Mode-Aware Execution exists."""
+    result = _check_behavior_7_mode_aware()
+    assert result.passed, result.details
+
+
+def _check_behavior_8_context_tracking() -> CheckResult:
     """Test BEHAVIOR 8: Improved Context Tracking exists."""
     start = time.time()
 
@@ -138,7 +156,7 @@ def test_behavior_8_context_tracking() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not agent_path.exists():
-        return TestResult(
+        return CheckResult(
             "BEHAVIOR 8: Context Tracking", False, duration,
             "File not found", "context"
         )
@@ -147,7 +165,7 @@ def test_behavior_8_context_tracking() -> TestResult:
 
     required_elements = [
         "BEHAVIOR 8",
-        "Context Tracking",
+        "Context Management",
         "Estimated Tokens",
         "Context Budget",
         "Compression Triggers",
@@ -158,18 +176,24 @@ def test_behavior_8_context_tracking() -> TestResult:
     missing = [elem for elem in required_elements if elem not in content]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "BEHAVIOR 8: Context Tracking", False, duration,
             f"Missing: {', '.join(missing)}", "context"
         )
 
-    return TestResult(
+    return CheckResult(
         "BEHAVIOR 8: Context Tracking", True, duration,
         f"All {len(required_elements)} elements present", "context"
     )
 
 
-def test_behavior_9_timeline() -> TestResult:
+def test_behavior_8_context_tracking():
+    """Test BEHAVIOR 8: Improved Context Tracking exists."""
+    result = _check_behavior_8_context_tracking()
+    assert result.passed, result.details
+
+
+def _check_behavior_9_timeline() -> CheckResult:
     """Test BEHAVIOR 9: Timeline View exists."""
     start = time.time()
 
@@ -177,7 +201,7 @@ def test_behavior_9_timeline() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not agent_path.exists():
-        return TestResult(
+        return CheckResult(
             "BEHAVIOR 9: Timeline View", False, duration,
             "File not found", "timeline"
         )
@@ -195,18 +219,24 @@ def test_behavior_9_timeline() -> TestResult:
     missing = [elem for elem in required_elements if elem not in content]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "BEHAVIOR 9: Timeline View", False, duration,
             f"Missing: {', '.join(missing)}", "timeline"
         )
 
-    return TestResult(
+    return CheckResult(
         "BEHAVIOR 9: Timeline View", True, duration,
         f"All {len(required_elements)} elements present", "timeline"
     )
 
 
-def test_new_control_commands() -> TestResult:
+def test_behavior_9_timeline():
+    """Test BEHAVIOR 9: Timeline View exists."""
+    result = _check_behavior_9_timeline()
+    assert result.passed, result.details
+
+
+def _check_new_control_commands() -> CheckResult:
     """Test that new control commands are documented."""
     start = time.time()
 
@@ -214,7 +244,7 @@ def test_new_control_commands() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not agent_path.exists():
-        return TestResult(
+        return CheckResult(
             "New Control Commands", False, duration,
             "File not found", "commands"
         )
@@ -225,18 +255,24 @@ def test_new_control_commands() -> TestResult:
     missing = [cmd for cmd in new_commands if f"`{cmd}`" not in content]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "New Control Commands", False, duration,
             f"Missing commands: {', '.join(missing)}", "commands"
         )
 
-    return TestResult(
+    return CheckResult(
         "New Control Commands", True, duration,
         f"All {len(new_commands)} new commands documented", "commands"
     )
 
 
-def test_mode_configuration_table() -> TestResult:
+def test_new_control_commands():
+    """Test that new control commands are documented."""
+    result = _check_new_control_commands()
+    assert result.passed, result.details
+
+
+def _check_mode_configuration_table() -> CheckResult:
     """Test that mode configuration table is complete."""
     start = time.time()
 
@@ -244,7 +280,7 @@ def test_mode_configuration_table() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not agent_path.exists():
-        return TestResult(
+        return CheckResult(
             "Mode Configuration Table", False, duration,
             "File not found", "mode-system"
         )
@@ -267,21 +303,27 @@ def test_mode_configuration_table() -> TestResult:
             issues.append(f"{mode} missing threshold {threshold}")
 
     if issues:
-        return TestResult(
+        return CheckResult(
             "Mode Configuration Table", False, duration,
             f"Issues: {', '.join(issues)}", "mode-system"
         )
 
-    return TestResult(
+    return CheckResult(
         "Mode Configuration Table", True, duration,
         "All 4 modes properly configured", "mode-system"
     )
 
 
+def test_mode_configuration_table():
+    """Test that mode configuration table is complete."""
+    result = _check_mode_configuration_table()
+    assert result.passed, result.details
+
+
 # ─── Orchestrate Command Tests ───────────────────────────────────────────────
 
 
-def test_orchestrate_command_exists() -> TestResult:
+def _check_orchestrate_command_exists() -> CheckResult:
     """Test that orchestrate.md command exists."""
     start = time.time()
 
@@ -289,18 +331,24 @@ def test_orchestrate_command_exists() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not cmd_path.exists():
-        return TestResult(
+        return CheckResult(
             "Orchestrate Command Exists", False, duration,
             "Missing commands/orchestrate.md", "command"
         )
 
-    return TestResult(
+    return CheckResult(
         "Orchestrate Command Exists", True, duration,
         f"File exists ({cmd_path.stat().st_size} bytes)", "command"
     )
 
 
-def test_orchestrate_command_version() -> TestResult:
+def test_orchestrate_command_exists():
+    """Test that orchestrate.md command exists."""
+    result = _check_orchestrate_command_exists()
+    assert result.passed, result.details
+
+
+def _check_orchestrate_command_version() -> CheckResult:
     """Test orchestrate command version is 1.1.0."""
     start = time.time()
 
@@ -308,7 +356,7 @@ def test_orchestrate_command_version() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not cmd_path.exists():
-        return TestResult(
+        return CheckResult(
             "Orchestrate Command Version", False, duration,
             "File not found", "command"
         )
@@ -318,18 +366,24 @@ def test_orchestrate_command_version() -> TestResult:
     if "version: 1.1.0" not in content:
         version_match = re.search(r"version:\s*([\d.]+)", content)
         actual = version_match.group(1) if version_match else "unknown"
-        return TestResult(
+        return CheckResult(
             "Orchestrate Command Version", False, duration,
             f"Expected 1.1.0, found {actual}", "command"
         )
 
-    return TestResult(
+    return CheckResult(
         "Orchestrate Command Version", True, duration,
         "Version 1.1.0 confirmed", "command"
     )
 
 
-def test_orchestrate_mode_syntax() -> TestResult:
+def test_orchestrate_command_version():
+    """Test orchestrate command version is 1.1.0."""
+    result = _check_orchestrate_command_version()
+    assert result.passed, result.details
+
+
+def _check_orchestrate_mode_syntax() -> CheckResult:
     """Test that mode syntax is documented in command."""
     start = time.time()
 
@@ -337,7 +391,7 @@ def test_orchestrate_mode_syntax() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not cmd_path.exists():
-        return TestResult(
+        return CheckResult(
             "Orchestrate Mode Syntax", False, duration,
             "File not found", "command"
         )
@@ -354,18 +408,24 @@ def test_orchestrate_mode_syntax() -> TestResult:
     missing = [r for r in required if r not in content]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "Orchestrate Mode Syntax", False, duration,
             f"Missing: {', '.join(missing)}", "command"
         )
 
-    return TestResult(
+    return CheckResult(
         "Orchestrate Mode Syntax", True, duration,
         "Mode syntax documented", "command"
     )
 
 
-def test_orchestrate_new_subcommands() -> TestResult:
+def test_orchestrate_mode_syntax():
+    """Test that mode syntax is documented in command."""
+    result = _check_orchestrate_mode_syntax()
+    assert result.passed, result.details
+
+
+def _check_orchestrate_new_subcommands() -> CheckResult:
     """Test that new subcommands are documented."""
     start = time.time()
 
@@ -373,7 +433,7 @@ def test_orchestrate_new_subcommands() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not cmd_path.exists():
-        return TestResult(
+        return CheckResult(
             "Orchestrate Subcommands", False, duration,
             "File not found", "command"
         )
@@ -384,21 +444,27 @@ def test_orchestrate_new_subcommands() -> TestResult:
     missing = [sc for sc in subcommands if sc not in content]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "Orchestrate Subcommands", False, duration,
             f"Missing: {', '.join(missing)}", "command"
         )
 
-    return TestResult(
+    return CheckResult(
         "Orchestrate Subcommands", True, duration,
         f"All {len(subcommands)} subcommands documented", "command"
     )
 
 
+def test_orchestrate_new_subcommands():
+    """Test that new subcommands are documented."""
+    result = _check_orchestrate_new_subcommands()
+    assert result.passed, result.details
+
+
 # ─── README Tests ────────────────────────────────────────────────────────────
 
 
-def test_readme_version() -> TestResult:
+def _check_readme_version() -> CheckResult:
     """Test that README shows v1.4.0-dev."""
     start = time.time()
 
@@ -406,7 +472,7 @@ def test_readme_version() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not readme_path.exists():
-        return TestResult(
+        return CheckResult(
             "README Version", False, duration,
             "File not found", "readme"
         )
@@ -416,18 +482,24 @@ def test_readme_version() -> TestResult:
     if "1.4.0" not in content:
         version_match = re.search(r"Version:\*\*\s*([\d.]+)", content)
         actual = version_match.group(1) if version_match else "unknown"
-        return TestResult(
+        return CheckResult(
             "README Version", False, duration,
             f"Expected 1.4.0, found {actual}", "readme"
         )
 
-    return TestResult(
+    return CheckResult(
         "README Version", True, duration,
         "Version 1.4.0-dev confirmed", "readme"
     )
 
 
-def test_readme_orchestrator_v2() -> TestResult:
+def test_readme_version():
+    """Test that README shows v1.4.0-dev."""
+    result = _check_readme_version()
+    assert result.passed, result.details
+
+
+def _check_readme_orchestrator_v2() -> CheckResult:
     """Test that README documents orchestrator-v2."""
     start = time.time()
 
@@ -435,7 +507,7 @@ def test_readme_orchestrator_v2() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not readme_path.exists():
-        return TestResult(
+        return CheckResult(
             "README Orchestrator v2", False, duration,
             "File not found", "readme"
         )
@@ -452,18 +524,24 @@ def test_readme_orchestrator_v2() -> TestResult:
     missing = [r for r in required if r.lower() not in content.lower()]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "README Orchestrator v2", False, duration,
             f"Missing: {', '.join(missing)}", "readme"
         )
 
-    return TestResult(
+    return CheckResult(
         "README Orchestrator v2", True, duration,
         "Orchestrator v2 documented", "readme"
     )
 
 
-def test_readme_7_agents() -> TestResult:
+def test_readme_orchestrator_v2():
+    """Test that README documents orchestrator-v2."""
+    result = _check_readme_orchestrator_v2()
+    assert result.passed, result.details
+
+
+def _check_readme_7_agents() -> CheckResult:
     """Test that README shows 7 agents."""
     start = time.time()
 
@@ -471,7 +549,7 @@ def test_readme_7_agents() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not readme_path.exists():
-        return TestResult(
+        return CheckResult(
             "README Agent Count", False, duration,
             "File not found", "readme"
         )
@@ -482,21 +560,27 @@ def test_readme_7_agents() -> TestResult:
         # Try to find actual count
         count_match = re.search(r"Agents \((\d+)\)", content)
         actual = count_match.group(1) if count_match else "unknown"
-        return TestResult(
+        return CheckResult(
             "README Agent Count", False, duration,
             f"Expected 7 agents, found {actual}", "readme"
         )
 
-    return TestResult(
+    return CheckResult(
         "README Agent Count", True, duration,
         "7 agents documented", "readme"
     )
 
 
+def test_readme_7_agents():
+    """Test that README shows 7 agents."""
+    result = _check_readme_7_agents()
+    assert result.passed, result.details
+
+
 # ─── ROADMAP Tests ───────────────────────────────────────────────────────────
 
 
-def test_roadmap_orchestrator_enhancements() -> TestResult:
+def _check_roadmap_orchestrator_enhancements() -> CheckResult:
     """Test that ROADMAP includes orchestrator enhancements."""
     start = time.time()
 
@@ -504,7 +588,7 @@ def test_roadmap_orchestrator_enhancements() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not roadmap_path.exists():
-        return TestResult(
+        return CheckResult(
             "ROADMAP Orchestrator", False, duration,
             "File not found", "roadmap"
         )
@@ -512,7 +596,7 @@ def test_roadmap_orchestrator_enhancements() -> TestResult:
     content = roadmap_path.read_text()
 
     required = [
-        "Orchestrator v2 Enhancements",
+        "Orchestrator v2.1 Enhancement",
         "Mode Integration",
         "Context Tracking",
         "Timeline View"
@@ -521,42 +605,48 @@ def test_roadmap_orchestrator_enhancements() -> TestResult:
     missing = [r for r in required if r not in content]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "ROADMAP Orchestrator", False, duration,
             f"Missing: {', '.join(missing)}", "roadmap"
         )
 
-    return TestResult(
+    return CheckResult(
         "ROADMAP Orchestrator", True, duration,
         "Orchestrator enhancements planned", "roadmap"
     )
 
 
+def test_roadmap_orchestrator_enhancements():
+    """Test that ROADMAP includes orchestrator enhancements."""
+    result = _check_roadmap_orchestrator_enhancements()
+    assert result.passed, result.details
+
+
 # ─── Test Runner ─────────────────────────────────────────────────────────────
 
 
-def run_all_tests() -> tuple[list[TestResult], int, int]:
+def run_all_tests() -> tuple[list[CheckResult], int, int]:
     """Run all tests and return results."""
     tests = [
         # Agent tests
-        test_orchestrator_v21_exists,
-        test_orchestrator_version,
-        test_behavior_7_mode_aware,
-        test_behavior_8_context_tracking,
-        test_behavior_9_timeline,
-        test_new_control_commands,
-        test_mode_configuration_table,
+        _check_orchestrator_v21_exists,
+        _check_orchestrator_version,
+        _check_behavior_7_mode_aware,
+        _check_behavior_8_context_tracking,
+        _check_behavior_9_timeline,
+        _check_new_control_commands,
+        _check_mode_configuration_table,
         # Command tests
-        test_orchestrate_command_exists,
-        test_orchestrate_command_version,
-        test_orchestrate_mode_syntax,
-        test_orchestrate_new_subcommands,
+        _check_orchestrate_command_exists,
+        _check_orchestrate_command_version,
+        _check_orchestrate_mode_syntax,
+        _check_orchestrate_new_subcommands,
         # README tests
-        test_readme_version,
-        test_readme_orchestrator_v2,
-        test_readme_7_agents,
+        _check_readme_version,
+        _check_readme_orchestrator_v2,
+        _check_readme_7_agents,
         # ROADMAP tests
-        test_roadmap_orchestrator_enhancements,
+        _check_roadmap_orchestrator_enhancements,
     ]
 
     results = []
@@ -585,7 +675,7 @@ def run_all_tests() -> tuple[list[TestResult], int, int]:
     return results, passed, failed
 
 
-def generate_report(results: list[TestResult], passed: int, failed: int) -> str:
+def generate_report(results: list[CheckResult], passed: int, failed: int) -> str:
     """Generate markdown test report."""
     total = passed + failed
 

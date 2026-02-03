@@ -35,7 +35,7 @@ from utils.detect_teaching_mode import detect_teaching_mode
 
 
 @dataclass
-class TestResult:
+class CheckResult:
     name: str
     passed: bool
     duration_ms: float
@@ -77,7 +77,7 @@ def calculate_semester_progress(cwd: str) -> Optional[Dict[str, any]]:
 
 # ─── End-to-End Workflow Tests ───────────────────────────────────────────────
 
-def test_e2e_minimal_course() -> TestResult:
+def _check_e2e_minimal_course() -> CheckResult:
     """Test complete workflow with minimal course configuration."""
     start = time.time()
 
@@ -88,7 +88,7 @@ def test_e2e_minimal_course() -> TestResult:
         is_teaching, method = detect_teaching_mode(str(fixture))
 
         if not is_teaching:
-            return TestResult(
+            return CheckResult(
                 "E2E Minimal Course", False,
                 (time.time() - start) * 1000,
                 "Failed to detect minimal teaching project",
@@ -99,15 +99,15 @@ def test_e2e_minimal_course() -> TestResult:
         config = load_teach_config(str(fixture))
 
         if not config:
-            return TestResult(
+            return CheckResult(
                 "E2E Minimal Course", False,
                 (time.time() - start) * 1000,
                 "Failed to load config",
                 "integration"
             )
 
-        if config['course']['code'] != "TEST 100":
-            return TestResult(
+        if config['course']['number'] != "TEST 100":
+            return CheckResult(
                 "E2E Minimal Course", False,
                 (time.time() - start) * 1000,
                 f"Wrong course code: {config['course']['code']}",
@@ -118,7 +118,7 @@ def test_e2e_minimal_course() -> TestResult:
         errors = validate_config(config)
 
         if errors:
-            return TestResult(
+            return CheckResult(
                 "E2E Minimal Course", False,
                 (time.time() - start) * 1000,
                 f"Validation errors: {errors}",
@@ -129,7 +129,7 @@ def test_e2e_minimal_course() -> TestResult:
         progress = calculate_semester_progress(str(fixture))
 
         if not progress:
-            return TestResult(
+            return CheckResult(
                 "E2E Minimal Course", False,
                 (time.time() - start) * 1000,
                 "Failed to calculate progress",
@@ -137,14 +137,14 @@ def test_e2e_minimal_course() -> TestResult:
             )
 
         duration = (time.time() - start) * 1000
-        return TestResult(
+        return CheckResult(
             "E2E Minimal Course", True, duration,
             f"Complete workflow: detect({method}) → config → validate → progress ({duration:.1f}ms)",
             "integration"
         )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "E2E Minimal Course", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -152,7 +152,7 @@ def test_e2e_minimal_course() -> TestResult:
         )
 
 
-def test_e2e_full_course() -> TestResult:
+def _check_e2e_full_course() -> CheckResult:
     """Test complete workflow with full course configuration."""
     start = time.time()
 
@@ -163,7 +163,7 @@ def test_e2e_full_course() -> TestResult:
         is_teaching, method = detect_teaching_mode(str(fixture))
 
         if not is_teaching:
-            return TestResult(
+            return CheckResult(
                 "E2E Full Course", False,
                 (time.time() - start) * 1000,
                 "Failed to detect full teaching project",
@@ -174,7 +174,7 @@ def test_e2e_full_course() -> TestResult:
         config = load_teach_config(str(fixture))
 
         if not config:
-            return TestResult(
+            return CheckResult(
                 "E2E Full Course", False,
                 (time.time() - start) * 1000,
                 "Failed to load config",
@@ -183,7 +183,7 @@ def test_e2e_full_course() -> TestResult:
 
         # Check optional sections
         if 'teaching_assistants' not in config or len(config['teaching_assistants']) != 2:
-            return TestResult(
+            return CheckResult(
                 "E2E Full Course", False,
                 (time.time() - start) * 1000,
                 f"Expected 2 TAs, got {len(config.get('teaching_assistants', []))}",
@@ -194,7 +194,7 @@ def test_e2e_full_course() -> TestResult:
         errors = validate_config(config)
 
         if errors:
-            return TestResult(
+            return CheckResult(
                 "E2E Full Course", False,
                 (time.time() - start) * 1000,
                 f"Validation errors: {errors}",
@@ -202,9 +202,9 @@ def test_e2e_full_course() -> TestResult:
             )
 
         # Step 4: Check break handling
-        breaks = config['semester'].get('breaks', [])
+        breaks = config['dates'].get('breaks', [])
         if len(breaks) != 2:
-            return TestResult(
+            return CheckResult(
                 "E2E Full Course", False,
                 (time.time() - start) * 1000,
                 f"Expected 2 breaks, got {len(breaks)}",
@@ -212,14 +212,14 @@ def test_e2e_full_course() -> TestResult:
             )
 
         duration = (time.time() - start) * 1000
-        return TestResult(
+        return CheckResult(
             "E2E Full Course", True, duration,
             f"Full config: 2 TAs, 2 breaks, 5 homeworks ({duration:.1f}ms)",
             "integration"
         )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "E2E Full Course", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -227,7 +227,7 @@ def test_e2e_full_course() -> TestResult:
         )
 
 
-def test_e2e_summer_session() -> TestResult:
+def _check_e2e_summer_session() -> CheckResult:
     """Test workflow with summer session (compressed, no breaks)."""
     start = time.time()
 
@@ -237,7 +237,7 @@ def test_e2e_summer_session() -> TestResult:
         # Detection
         is_teaching, method = detect_teaching_mode(str(fixture))
         if not is_teaching:
-            return TestResult(
+            return CheckResult(
                 "E2E Summer Session", False,
                 (time.time() - start) * 1000,
                 "Failed to detect summer teaching project",
@@ -248,7 +248,7 @@ def test_e2e_summer_session() -> TestResult:
         config = load_teach_config(str(fixture))
 
         if not config:
-            return TestResult(
+            return CheckResult(
                 "E2E Summer Session", False,
                 (time.time() - start) * 1000,
                 "Failed to load config",
@@ -256,9 +256,9 @@ def test_e2e_summer_session() -> TestResult:
             )
 
         # Verify no breaks
-        breaks = config['semester'].get('breaks', [])
+        breaks = config['dates'].get('breaks', [])
         if breaks:
-            return TestResult(
+            return CheckResult(
                 "E2E Summer Session", False,
                 (time.time() - start) * 1000,
                 "Summer session should have no breaks",
@@ -269,7 +269,7 @@ def test_e2e_summer_session() -> TestResult:
         errors = validate_config(config)
 
         if errors:
-            return TestResult(
+            return CheckResult(
                 "E2E Summer Session", False,
                 (time.time() - start) * 1000,
                 f"Validation errors: {errors}",
@@ -277,14 +277,14 @@ def test_e2e_summer_session() -> TestResult:
             )
 
         duration = (time.time() - start) * 1000
-        return TestResult(
+        return CheckResult(
             "E2E Summer Session", True, duration,
             f"Summer session: no breaks, 8 quizzes ({duration:.1f}ms)",
             "integration"
         )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "E2E Summer Session", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -294,7 +294,7 @@ def test_e2e_summer_session() -> TestResult:
 
 # ─── Error Scenario Tests ─────────────────────────────────────────────────────
 
-def test_error_missing_config() -> TestResult:
+def _check_error_missing_config() -> CheckResult:
     """Test handling of missing teach-config.yml."""
     start = time.time()
 
@@ -310,7 +310,7 @@ def test_error_missing_config() -> TestResult:
             is_teaching, method = detect_teaching_mode(str(tmp_path))
 
             if not is_teaching:
-                return TestResult(
+                return CheckResult(
                     "Error: Missing Config", False,
                     (time.time() - start) * 1000,
                     "Should detect teaching project even without config",
@@ -321,7 +321,7 @@ def test_error_missing_config() -> TestResult:
             config = load_teach_config(str(tmp_path))
 
             if config is not None:
-                return TestResult(
+                return CheckResult(
                     "Error: Missing Config", False,
                     (time.time() - start) * 1000,
                     "Should return None for missing config",
@@ -329,14 +329,14 @@ def test_error_missing_config() -> TestResult:
                 )
 
             duration = (time.time() - start) * 1000
-            return TestResult(
+            return CheckResult(
                 "Error: Missing Config", True, duration,
                 f"Correctly detected teaching but no config (via {method})",
                 "error_scenarios"
             )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "Error: Missing Config", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -344,7 +344,7 @@ def test_error_missing_config() -> TestResult:
         )
 
 
-def test_error_invalid_yaml() -> TestResult:
+def _check_error_invalid_yaml() -> CheckResult:
     """Test handling of invalid YAML syntax."""
     start = time.time()
 
@@ -352,20 +352,23 @@ def test_error_invalid_yaml() -> TestResult:
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp_path = Path(tmpdir)
 
-            # Create config with invalid YAML
+            # Create config with truly invalid YAML syntax
             config_content = """---
 course:
-  code: "TEST 100"
-  title: Unclosed quote
-  term: "Spring 2026"
+  number: "TEST 100"
+  title: "Test Course
+  semester: Spring
+  year: 2026
+  invalid_indent:
+ broken: true
 """
             (tmp_path / "teach-config.yml").write_text(config_content)
 
-            # Should fail to load
+            # Should fail to load due to malformed YAML
             config = load_teach_config(str(tmp_path))
 
             if config is not None:
-                return TestResult(
+                return CheckResult(
                     "Error: Invalid YAML", False,
                     (time.time() - start) * 1000,
                     "Should return None for invalid YAML",
@@ -373,14 +376,14 @@ course:
                 )
 
             duration = (time.time() - start) * 1000
-            return TestResult(
+            return CheckResult(
                 "Error: Invalid YAML", True, duration,
                 "Correctly rejected invalid YAML",
                 "error_scenarios"
             )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "Error: Invalid YAML", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -388,7 +391,7 @@ course:
         )
 
 
-def test_error_missing_required_fields() -> TestResult:
+def _check_error_missing_required_fields() -> CheckResult:
     """Test validation of missing required fields."""
     start = time.time()
 
@@ -397,25 +400,34 @@ def test_error_missing_required_fields() -> TestResult:
             tmp_path = Path(tmpdir)
 
             # Create config missing required fields
+            # Has 'course' but missing 'number', 'semester', 'year'
+            # Has 'dates' but missing 'end'
             config_content = """---
 course:
-  code: "TEST 100"
-  # Missing title and term
+  title: "Incomplete Course"
+  # Missing number, semester, year
 
-semester:
-  start_date: "2026-01-01"
-  # Missing end_date
-
-# Missing instructor section entirely
+dates:
+  start: "2026-01-01"
+  # Missing end
 """
             (tmp_path / "teach-config.yml").write_text(config_content)
 
-            config = load_teach_config(str(tmp_path))
+            try:
+                config = load_teach_config(str(tmp_path))
+            except ValueError:
+                # load_teach_config raises ValueError on validation failure
+                duration = (time.time() - start) * 1000
+                return CheckResult(
+                    "Error: Missing Fields", True, duration,
+                    "Correctly raised ValueError for missing required fields",
+                    "error_scenarios"
+                )
 
             if not config:
                 # OK if it fails to load
                 duration = (time.time() - start) * 1000
-                return TestResult(
+                return CheckResult(
                     "Error: Missing Fields", True, duration,
                     "Correctly rejected config with missing fields",
                     "error_scenarios"
@@ -425,7 +437,7 @@ semester:
             errors = validate_config(config)
 
             if not errors:
-                return TestResult(
+                return CheckResult(
                     "Error: Missing Fields", False,
                     (time.time() - start) * 1000,
                     "Should report errors for missing required fields",
@@ -433,14 +445,14 @@ semester:
                 )
 
             duration = (time.time() - start) * 1000
-            return TestResult(
+            return CheckResult(
                 "Error: Missing Fields", True, duration,
                 f"Correctly reported {len(errors)} validation errors",
                 "error_scenarios"
             )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "Error: Missing Fields", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -450,7 +462,7 @@ semester:
 
 # ─── Edge Case Tests ──────────────────────────────────────────────────────────
 
-def test_edge_before_semester() -> TestResult:
+def _check_edge_before_semester() -> CheckResult:
     """Test progress calculation before semester starts."""
     start = time.time()
 
@@ -464,24 +476,21 @@ def test_edge_before_semester() -> TestResult:
 
             config_content = f"""---
 course:
-  code: "TEST 100"
+  number: "TEST 100"
   title: "Future Course"
-  term: "Future"
+  semester: "Spring"
+  year: 2027
 
-semester:
-  start_date: "{future_start}"
-  end_date: "{future_end}"
-
-instructor:
-  name: "Test"
-  email: "test@test.com"
+dates:
+  start: "{future_start}"
+  end: "{future_end}"
 """
             (tmp_path / "teach-config.yml").write_text(config_content)
 
             progress = calculate_semester_progress(str(tmp_path))
 
             if not progress:
-                return TestResult(
+                return CheckResult(
                     "Edge: Before Semester", False,
                     (time.time() - start) * 1000,
                     "Failed to calculate progress for future course",
@@ -489,23 +498,23 @@ instructor:
                 )
 
             # Week should be 0 or negative, percentage 0
-            if progress.get('week', 1) > 0:
-                return TestResult(
+            if progress.get('current_week', 1) > 0:
+                return CheckResult(
                     "Edge: Before Semester", False,
                     (time.time() - start) * 1000,
-                    f"Current week should be ≤0, got {progress.get('week')}",
+                    f"Current week should be ≤0, got {progress.get('current_week')}",
                     "edge_cases"
                 )
 
             duration = (time.time() - start) * 1000
-            return TestResult(
+            return CheckResult(
                 "Edge: Before Semester", True, duration,
-                f"Correct: week={progress.get('week', 0)}, before semester start",
+                f"Correct: week={progress.get('current_week', 0)}, before semester start",
                 "edge_cases"
             )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "Edge: Before Semester", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -513,7 +522,7 @@ instructor:
         )
 
 
-def test_edge_after_semester() -> TestResult:
+def _check_edge_after_semester() -> CheckResult:
     """Test progress calculation after semester ends."""
     start = time.time()
 
@@ -527,49 +536,48 @@ def test_edge_after_semester() -> TestResult:
 
             config_content = f"""---
 course:
-  code: "TEST 100"
+  number: "TEST 100"
   title: "Past Course"
-  term: "Past"
+  semester: "Fall"
+  year: 2025
 
-semester:
-  start_date: "{past_start}"
-  end_date: "{past_end}"
-
-instructor:
-  name: "Test"
-  email: "test@test.com"
+dates:
+  start: "{past_start}"
+  end: "{past_end}"
 """
             (tmp_path / "teach-config.yml").write_text(config_content)
 
             progress = calculate_semester_progress(str(tmp_path))
 
             if not progress:
-                return TestResult(
+                return CheckResult(
                     "Edge: After Semester", False,
                     (time.time() - start) * 1000,
                     "Failed to calculate progress for past course",
                     "edge_cases"
                 )
 
-            # Should indicate semester is over
-            status = progress.get('status', '')
-            if 'complete' not in status.lower() and 'ended' not in status.lower():
-                return TestResult(
+            # Should indicate semester is over via percent_complete == 100
+            percent = progress.get('percent_complete', 0)
+            current_week = progress.get('current_week', 0)
+            total_weeks = progress.get('total_weeks', 0)
+            if percent < 100.0 or current_week != total_weeks:
+                return CheckResult(
                     "Edge: After Semester", False,
                     (time.time() - start) * 1000,
-                    f"Status should indicate completion, got: {status}",
+                    f"Should be 100% complete, got {percent}% (week {current_week}/{total_weeks})",
                     "edge_cases"
                 )
 
             duration = (time.time() - start) * 1000
-            return TestResult(
+            return CheckResult(
                 "Edge: After Semester", True, duration,
-                f"Correct: {status}",
+                f"Correct: {percent}% complete, week {current_week}/{total_weeks}",
                 "edge_cases"
             )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "Edge: After Semester", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -579,7 +587,7 @@ instructor:
 
 # ─── Performance Benchmarks ───────────────────────────────────────────────────
 
-def test_benchmark_detection() -> TestResult:
+def _check_benchmark_detection() -> CheckResult:
     """Benchmark: Teaching mode detection should be < 100ms."""
     start = time.time()
 
@@ -592,7 +600,7 @@ def test_benchmark_detection() -> TestResult:
         duration = (time.time() - start) * 1000
 
         if not is_teaching:
-            return TestResult(
+            return CheckResult(
                 "Benchmark: Detection", False, duration,
                 "Failed to detect teaching project",
                 "performance"
@@ -602,14 +610,14 @@ def test_benchmark_detection() -> TestResult:
         target_ms = 100
         passed = duration < target_ms
 
-        return TestResult(
+        return CheckResult(
             "Benchmark: Detection", passed, duration,
             f"{duration:.2f}ms (target: <{target_ms}ms) {'✓' if passed else '✗'}",
             "performance"
         )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "Benchmark: Detection", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -617,7 +625,7 @@ def test_benchmark_detection() -> TestResult:
         )
 
 
-def test_benchmark_config_parsing() -> TestResult:
+def _check_benchmark_config_parsing() -> CheckResult:
     """Benchmark: Config parsing should be < 200ms."""
     start = time.time()
 
@@ -630,7 +638,7 @@ def test_benchmark_config_parsing() -> TestResult:
         duration = (time.time() - start) * 1000
 
         if not config:
-            return TestResult(
+            return CheckResult(
                 "Benchmark: Config Parse", False, duration,
                 "Failed to load config",
                 "performance"
@@ -640,14 +648,14 @@ def test_benchmark_config_parsing() -> TestResult:
         target_ms = 200
         passed = duration < target_ms
 
-        return TestResult(
+        return CheckResult(
             "Benchmark: Config Parse", passed, duration,
             f"{duration:.2f}ms (target: <{target_ms}ms) {'✓' if passed else '✗'}",
             "performance"
         )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "Benchmark: Config Parse", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -655,7 +663,7 @@ def test_benchmark_config_parsing() -> TestResult:
         )
 
 
-def test_benchmark_validation() -> TestResult:
+def _check_benchmark_validation() -> CheckResult:
     """Benchmark: Full validation should be < 5s."""
     start = time.time()
 
@@ -668,7 +676,7 @@ def test_benchmark_validation() -> TestResult:
         duration = (time.time() - start) * 1000
 
         if not results:
-            return TestResult(
+            return CheckResult(
                 "Benchmark: Validation", False, duration,
                 "Validation failed to return results",
                 "performance"
@@ -678,15 +686,15 @@ def test_benchmark_validation() -> TestResult:
         target_ms = 5000
         passed = duration < target_ms
 
-        check_count = len(results.get('checks', []))
-        return TestResult(
+        check_count = len(results.checks) if hasattr(results, 'checks') else 0
+        return CheckResult(
             "Benchmark: Validation", passed, duration,
             f"{duration:.2f}ms for {check_count} checks (target: <{target_ms}ms) {'✓' if passed else '✗'}",
             "performance"
         )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "Benchmark: Validation", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -694,7 +702,7 @@ def test_benchmark_validation() -> TestResult:
         )
 
 
-def test_benchmark_progress() -> TestResult:
+def _check_benchmark_progress() -> CheckResult:
     """Benchmark: Progress calculation should be < 100ms."""
     start = time.time()
 
@@ -707,7 +715,7 @@ def test_benchmark_progress() -> TestResult:
         duration = (time.time() - start) * 1000
 
         if not progress:
-            return TestResult(
+            return CheckResult(
                 "Benchmark: Progress", False, duration,
                 "Failed to calculate progress",
                 "performance"
@@ -717,14 +725,14 @@ def test_benchmark_progress() -> TestResult:
         target_ms = 100
         passed = duration < target_ms
 
-        return TestResult(
+        return CheckResult(
             "Benchmark: Progress", passed, duration,
             f"{duration:.2f}ms (target: <{target_ms}ms) {'✓' if passed else '✗'}",
             "performance"
         )
 
     except Exception as e:
-        return TestResult(
+        return CheckResult(
             "Benchmark: Progress", False,
             (time.time() - start) * 1000,
             f"Exception: {str(e)}",
@@ -732,30 +740,93 @@ def test_benchmark_progress() -> TestResult:
         )
 
 
+# ─── Pytest Wrappers ─────────────────────────────────────────────────────────
+
+
+def test_e2e_minimal_course():
+    result = _check_e2e_minimal_course()
+    assert result.passed, result.details
+
+
+def test_e2e_full_course():
+    result = _check_e2e_full_course()
+    assert result.passed, result.details
+
+
+def test_e2e_summer_session():
+    result = _check_e2e_summer_session()
+    assert result.passed, result.details
+
+
+def test_error_missing_config():
+    result = _check_error_missing_config()
+    assert result.passed, result.details
+
+
+def test_error_invalid_yaml():
+    result = _check_error_invalid_yaml()
+    assert result.passed, result.details
+
+
+def test_error_missing_required_fields():
+    result = _check_error_missing_required_fields()
+    assert result.passed, result.details
+
+
+def test_edge_before_semester():
+    result = _check_edge_before_semester()
+    assert result.passed, result.details
+
+
+def test_edge_after_semester():
+    result = _check_edge_after_semester()
+    assert result.passed, result.details
+
+
+def test_benchmark_detection():
+    result = _check_benchmark_detection()
+    assert result.passed, result.details
+
+
+def test_benchmark_config_parsing():
+    result = _check_benchmark_config_parsing()
+    assert result.passed, result.details
+
+
+def test_benchmark_validation():
+    result = _check_benchmark_validation()
+    assert result.passed, result.details
+
+
+def test_benchmark_progress():
+    result = _check_benchmark_progress()
+    assert result.passed, result.details
+
+
 # ─── Test Runner ──────────────────────────────────────────────────────────────
 
-def run_all_tests() -> List[TestResult]:
+def run_all_tests() -> List[CheckResult]:
     """Run all integration tests."""
     tests = [
         # End-to-end workflows
-        test_e2e_minimal_course,
-        test_e2e_full_course,
-        test_e2e_summer_session,
+        _check_e2e_minimal_course,
+        _check_e2e_full_course,
+        _check_e2e_summer_session,
 
         # Error scenarios
-        test_error_missing_config,
-        test_error_invalid_yaml,
-        test_error_missing_required_fields,
+        _check_error_missing_config,
+        _check_error_invalid_yaml,
+        _check_error_missing_required_fields,
 
         # Edge cases
-        test_edge_before_semester,
-        test_edge_after_semester,
+        _check_edge_before_semester,
+        _check_edge_after_semester,
 
         # Performance benchmarks
-        test_benchmark_detection,
-        test_benchmark_config_parsing,
-        test_benchmark_validation,
-        test_benchmark_progress,
+        _check_benchmark_detection,
+        _check_benchmark_config_parsing,
+        _check_benchmark_validation,
+        _check_benchmark_progress,
     ]
 
     results = []
@@ -769,7 +840,7 @@ def run_all_tests() -> List[TestResult]:
     return results
 
 
-def print_summary(results: List[TestResult]) -> None:
+def print_summary(results: List[CheckResult]) -> None:
     """Print test results summary."""
     print("\n" + "=" * 80)
     print("TEACHING WORKFLOW INTEGRATION TEST RESULTS")

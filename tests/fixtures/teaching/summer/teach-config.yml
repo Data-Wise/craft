@@ -1,14 +1,15 @@
 ---
 # Summer Session Configuration (Edge Case: Compressed Schedule)
 course:
-  code: "STAT 200"
+  number: "STAT 200"
   title: "Statistical Methods (Summer)"
-  term: "Summer 2026"
+  semester: "Summer"
+  year: 2026
   credits: 3
 
-semester:
-  start_date: "2026-06-01"
-  end_date: "2026-07-24"
+dates:
+  start: "2026-06-01"
+  end: "2026-07-24"
   # No breaks in summer session
 
 instructor:

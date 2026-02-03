@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
 
 
 @dataclass
-class TestResult:
+class CheckResult:
     name: str
     passed: bool
     duration_ms: float
@@ -38,7 +38,7 @@ def log(msg: str) -> None:
 # ─── Plugin Structure Tests ──────────────────────────────────────────────────
 
 
-def test_plugin_json_exists() -> TestResult:
+def _check_plugin_json_exists() -> CheckResult:
     """Test that plugin.json exists and is valid."""
     import time
     start = time.time()
@@ -47,7 +47,7 @@ def test_plugin_json_exists() -> TestResult:
     plugin_json = plugin_dir / ".claude-plugin" / "plugin.json"
 
     if not plugin_json.exists():
-        return TestResult(
+        return CheckResult(
             "Plugin JSON Exists", False, 0,
             f"Missing: {plugin_json}", "structure"
         )
@@ -63,31 +63,37 @@ def test_plugin_json_exists() -> TestResult:
         duration = (time.time() - start) * 1000
 
         if missing:
-            return TestResult(
+            return CheckResult(
                 "Plugin JSON Valid", False, duration,
                 f"Missing fields: {missing}", "structure"
             )
 
         # Check author is object
         if not isinstance(data.get("author"), dict):
-            return TestResult(
+            return CheckResult(
                 "Plugin JSON Valid", False, duration,
                 "author must be an object with 'name' field", "structure"
             )
 
-        return TestResult(
+        return CheckResult(
             "Plugin JSON Valid", True, duration,
             f"name={data['name']}, version={data['version']}", "structure"
         )
 
     except json.JSONDecodeError as e:
-        return TestResult(
+        return CheckResult(
             "Plugin JSON Valid", False, 0,
             f"Invalid JSON: {e}", "structure"
         )
 
 
-def test_directory_structure() -> TestResult:
+def test_plugin_json_exists():
+    """Test that plugin.json exists and is valid."""
+    result = _check_plugin_json_exists()
+    assert result.passed, result.details
+
+
+def _check_directory_structure() -> CheckResult:
     """Test that required directories exist."""
     import time
     start = time.time()
@@ -103,18 +109,24 @@ def test_directory_structure() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "Directory Structure", False, duration,
             f"Missing directories: {missing}", "structure"
         )
 
-    return TestResult(
+    return CheckResult(
         "Directory Structure", True, duration,
         f"All {len(required_dirs)} directories present", "structure"
     )
 
 
-def test_readme_exists() -> TestResult:
+def test_directory_structure():
+    """Test that required directories exist."""
+    result = _check_directory_structure()
+    assert result.passed, result.details
+
+
+def _check_readme_exists() -> CheckResult:
     """Test that README.md exists."""
     import time
     start = time.time()
@@ -125,16 +137,22 @@ def test_readme_exists() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not readme.exists():
-        return TestResult(
+        return CheckResult(
             "README Exists", False, duration,
             "Missing README.md", "structure"
         )
 
     size = readme.stat().st_size
-    return TestResult(
+    return CheckResult(
         "README Exists", True, duration,
         f"README.md ({size} bytes)", "structure"
     )
+
+
+def test_readme_exists():
+    """Test that README.md exists."""
+    result = _check_readme_exists()
+    assert result.passed, result.details
 
 
 # ─── Command Tests ───────────────────────────────────────────────────────────
@@ -147,7 +165,7 @@ def find_all_commands() -> list[Path]:
     return list(commands_dir.rglob("*.md"))
 
 
-def test_command_count() -> TestResult:
+def _check_command_count() -> CheckResult:
     """Test that we have expected number of commands."""
     import time
     start = time.time()
@@ -159,16 +177,22 @@ def test_command_count() -> TestResult:
     min_expected = 15
 
     if len(commands) < min_expected:
-        return TestResult(
+        return CheckResult(
             "Command Count", False, duration,
             f"Found {len(commands)} commands, expected at least {min_expected}",
             "commands"
         )
 
-    return TestResult(
+    return CheckResult(
         "Command Count", True, duration,
         f"Found {len(commands)} commands", "commands"
     )
+
+
+def test_command_count():
+    """Test that we have expected number of commands."""
+    result = _check_command_count()
+    assert result.passed, result.details
 
 
 def validate_command_file(cmd_path: Path) -> tuple[bool, str]:
@@ -192,7 +216,7 @@ def validate_command_file(cmd_path: Path) -> tuple[bool, str]:
         return False, f"Error reading: {e}"
 
 
-def test_all_commands_valid() -> TestResult:
+def _check_all_commands_valid() -> CheckResult:
     """Test that all command files are valid."""
     import time
     start = time.time()
@@ -209,19 +233,25 @@ def test_all_commands_valid() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if invalid:
-        return TestResult(
+        return CheckResult(
             "Commands Valid", False, duration,
             f"Invalid commands: {invalid[:3]}{'...' if len(invalid) > 3 else ''}",
             "commands"
         )
 
-    return TestResult(
+    return CheckResult(
         "Commands Valid", True, duration,
         f"All {len(commands)} commands are valid", "commands"
     )
 
 
-def test_command_categories() -> TestResult:
+def test_all_commands_valid():
+    """Test that all command files are valid."""
+    result = _check_all_commands_valid()
+    assert result.passed, result.details
+
+
+def _check_command_categories() -> CheckResult:
     """Test that commands are organized in categories."""
     import time
     start = time.time()
@@ -244,18 +274,24 @@ def test_command_categories() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "Command Categories", False, duration,
             f"Missing categories: {missing}", "commands"
         )
 
-    return TestResult(
+    return CheckResult(
         "Command Categories", True, duration,
         f"Found categories: {found}", "commands"
     )
 
 
-def test_hub_command_exists() -> TestResult:
+def test_command_categories():
+    """Test that commands are organized in categories."""
+    result = _check_command_categories()
+    assert result.passed, result.details
+
+
+def _check_hub_command_exists() -> CheckResult:
     """Test that the main hub command exists."""
     import time
     start = time.time()
@@ -266,7 +302,7 @@ def test_hub_command_exists() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not hub.exists():
-        return TestResult(
+        return CheckResult(
             "Hub Command", False, duration,
             "Missing commands/hub.md", "commands"
         )
@@ -274,10 +310,16 @@ def test_hub_command_exists() -> TestResult:
     content = hub.read_text()
     size = len(content)
 
-    return TestResult(
+    return CheckResult(
         "Hub Command", True, duration,
         f"hub.md exists ({size} chars)", "commands"
     )
+
+
+def test_hub_command_exists():
+    """Test that the main hub command exists."""
+    result = _check_hub_command_exists()
+    assert result.passed, result.details
 
 
 # ─── Skills Tests ────────────────────────────────────────────────────────────
@@ -290,7 +332,7 @@ def find_all_skills() -> list[Path]:
     return list(skills_dir.rglob("*.md"))
 
 
-def test_skills_exist() -> TestResult:
+def _check_skills_exist() -> CheckResult:
     """Test that skills are defined."""
     import time
     start = time.time()
@@ -299,19 +341,25 @@ def test_skills_exist() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if len(skills) == 0:
-        return TestResult(
+        return CheckResult(
             "Skills Exist", False, duration,
             "No skills found", "skills"
         )
 
     skill_names = [s.stem for s in skills]
-    return TestResult(
+    return CheckResult(
         "Skills Exist", True, duration,
         f"Found {len(skills)} skills: {skill_names[:5]}", "skills"
     )
 
 
-def test_design_skills() -> TestResult:
+def test_skills_exist():
+    """Test that skills are defined."""
+    result = _check_skills_exist()
+    assert result.passed, result.details
+
+
+def _check_design_skills() -> CheckResult:
     """Test that design skills are present."""
     import time
     start = time.time()
@@ -332,15 +380,21 @@ def test_design_skills() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "Design Skills", False, duration,
             f"Missing: {missing}", "skills"
         )
 
-    return TestResult(
+    return CheckResult(
         "Design Skills", True, duration,
         f"All design skills present: {found}", "skills"
     )
+
+
+def test_design_skills():
+    """Test that design skills are present."""
+    result = _check_design_skills()
+    assert result.passed, result.details
 
 
 # ─── Agents Tests ────────────────────────────────────────────────────────────
@@ -353,7 +407,7 @@ def find_all_agents() -> list[Path]:
     return list(agents_dir.rglob("*.md"))
 
 
-def test_agents_exist() -> TestResult:
+def _check_agents_exist() -> CheckResult:
     """Test that agents are defined."""
     import time
     start = time.time()
@@ -362,19 +416,25 @@ def test_agents_exist() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if len(agents) == 0:
-        return TestResult(
+        return CheckResult(
             "Agents Exist", False, duration,
             "No agents found", "agents"
         )
 
     agent_names = [a.stem for a in agents]
-    return TestResult(
+    return CheckResult(
         "Agents Exist", True, duration,
         f"Found {len(agents)} agents: {agent_names}", "agents"
     )
 
 
-def test_orchestrator_agent() -> TestResult:
+def test_agents_exist():
+    """Test that agents are defined."""
+    result = _check_agents_exist()
+    assert result.passed, result.details
+
+
+def _check_orchestrator_agent() -> CheckResult:
     """Test that the orchestrator agent exists."""
     import time
     start = time.time()
@@ -385,7 +445,7 @@ def test_orchestrator_agent() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if not orchestrator.exists():
-        return TestResult(
+        return CheckResult(
             "Orchestrator Agent", False, duration,
             "Missing agents/orchestrator.md", "agents"
         )
@@ -393,16 +453,22 @@ def test_orchestrator_agent() -> TestResult:
     content = orchestrator.read_text()
     size = len(content)
 
-    return TestResult(
+    return CheckResult(
         "Orchestrator Agent", True, duration,
         f"orchestrator.md exists ({size} chars)", "agents"
     )
 
 
+def test_orchestrator_agent():
+    """Test that the orchestrator agent exists."""
+    result = _check_orchestrator_agent()
+    assert result.passed, result.details
+
+
 # ─── Integration Tests ───────────────────────────────────────────────────────
 
 
-def test_no_broken_links() -> TestResult:
+def _check_no_broken_links() -> CheckResult:
     """Test for broken internal links in markdown files.
 
     NOTE: docs/test-violations.md is intentionally excluded from this test.
@@ -453,6 +519,10 @@ def test_no_broken_links() -> TestResult:
                 if any(x in link.lower() for x in ["example", "missing", "path", "page.md", "anchor"]):
                     continue
 
+                # Skip template placeholder links (e.g., {docs_url}, {repo_url})
+                if '{' in link and '}' in link:
+                    continue
+
                 # Check relative links
                 link_path = md_file.parent / link.split("#")[0]
                 if not link_path.exists() and not link.startswith("/"):
@@ -473,20 +543,26 @@ def test_no_broken_links() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if broken:
-        return TestResult(
+        return CheckResult(
             "No Broken Links", False, duration,
             f"Broken links: {broken[:3]}{'...' if len(broken) > 3 else ''}",
             "integration"
         )
 
     ignored_msg = f", {len(ignored)} ignored" if ignored else ""
-    return TestResult(
+    return CheckResult(
         "No Broken Links", True, duration,
         f"Checked {len(all_md)} files, no broken links{ignored_msg}", "integration"
     )
 
 
-def test_consistent_naming() -> TestResult:
+def test_no_broken_links():
+    """Test for broken internal links in markdown files."""
+    result = _check_no_broken_links()
+    assert result.passed, result.details
+
+
+def _check_consistent_naming() -> CheckResult:
     """Test that files follow naming conventions."""
     import time
     start = time.time()
@@ -507,41 +583,47 @@ def test_consistent_naming() -> TestResult:
     duration = (time.time() - start) * 1000
 
     if bad_names:
-        return TestResult(
+        return CheckResult(
             "Consistent Naming", False, duration,
             f"Non-kebab-case names: {bad_names[:3]}", "integration"
         )
 
-    return TestResult(
+    return CheckResult(
         "Consistent Naming", True, duration,
         f"All {len(commands)} command names follow conventions", "integration"
     )
 
 
+def test_consistent_naming():
+    """Test that files follow naming conventions."""
+    result = _check_consistent_naming()
+    assert result.passed, result.details
+
+
 # ─── Test Runner ─────────────────────────────────────────────────────────────
 
 
-def run_all_tests() -> list[TestResult]:
+def run_all_tests() -> list[CheckResult]:
     """Run all validation tests."""
     tests = [
         # Structure tests
-        test_plugin_json_exists,
-        test_directory_structure,
-        test_readme_exists,
+        _check_plugin_json_exists,
+        _check_directory_structure,
+        _check_readme_exists,
         # Command tests
-        test_command_count,
-        test_all_commands_valid,
-        test_command_categories,
-        test_hub_command_exists,
+        _check_command_count,
+        _check_all_commands_valid,
+        _check_command_categories,
+        _check_hub_command_exists,
         # Skills tests
-        test_skills_exist,
-        test_design_skills,
+        _check_skills_exist,
+        _check_design_skills,
         # Agents tests
-        test_agents_exist,
-        test_orchestrator_agent,
+        _check_agents_exist,
+        _check_orchestrator_agent,
         # Integration tests
-        test_no_broken_links,
-        test_consistent_naming,
+        _check_no_broken_links,
+        _check_consistent_naming,
     ]
 
     results = []
@@ -556,7 +638,7 @@ def run_all_tests() -> list[TestResult]:
     return results
 
 
-def generate_report(results: list[TestResult]) -> str:
+def generate_report(results: list[CheckResult]) -> str:
     """Generate markdown report."""
     passed = sum(1 for r in results if r.passed)
     total = len(results)

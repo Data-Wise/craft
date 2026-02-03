@@ -1,15 +1,16 @@
 ---
 # Full Teaching Configuration (All Fields)
 course:
-  code: "STAT 545"
+  number: "STAT 545"
   title: "Advanced Data Analysis"
-  term: "Spring 2026"
+  semester: "Spring"
+  year: 2026
   credits: 3
   level: "graduate"
 
-semester:
-  start_date: "2026-01-20"
-  end_date: "2026-05-15"
+dates:
+  start: "2026-01-20"
+  end: "2026-05-15"
   breaks:
     - name: "Spring Break"
       start: "2026-03-16"

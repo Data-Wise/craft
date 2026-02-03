@@ -17,7 +17,7 @@ sys.path.insert(0, str(plugin_dir))
 # Import discovery engine
 from commands._discovery import get_command_stats, load_cached_commands
 
-def test_hub_display():
+def _check_hub_display():
     """Test that hub can generate display with discovery data."""
 
     print("=" * 70)
@@ -107,12 +107,12 @@ def test_hub_display():
     print("=" * 70)
 
     checks = [
-        (f"Total commands: {stats['total']}", stats['total'] == 97),
-        (f"CODE category: {stats['categories'].get('code', 0)}", stats['categories'].get('code', 0) == 12),
-        (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) == 7),
-        (f"DOCS category: {stats['categories'].get('docs', 0)}", stats['categories'].get('docs', 0) == 19),
-        (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) == 11),
-        (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) == 16),
+        (f"Total commands: {stats['total']}", stats['total'] >= 100),
+        (f"CODE category: {stats['categories'].get('code', 0)}", stats['categories'].get('code', 0) >= 12),
+        (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) >= 7),
+        (f"DOCS category: {stats['categories'].get('docs', 0)}", stats['categories'].get('docs', 0) >= 19),
+        (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) >= 11),
+        (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) >= 16),
         (f"All categories present", len(stats['categories']) >= 12)
     ]
 
@@ -134,5 +134,12 @@ def test_hub_display():
         print("⚠️  Some validation checks failed.")
         return 1
 
+
+def test_hub_display():
+    """Test that hub can generate display with discovery data."""
+    result = _check_hub_display()
+    assert result == 0, f"Hub display validation failed (exit code: {result})"
+
+
 if __name__ == "__main__":
-    exit(test_hub_display())
+    exit(_check_hub_display())

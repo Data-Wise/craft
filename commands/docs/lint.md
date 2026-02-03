@@ -481,6 +481,7 @@ const relaxedRules = {
 | **List spacing** | **MD030** | **Normalize to 1 space after marker** |
 | **Inconsistent marker** | **MD004** | **Change to '-' consistently** |
 | **Bare URLs** | **MD034** | **Convert to `<url>` format** |
+| **Emoji-attribute spacing** | **CRAFT-001** | **Remove space between `:emoji:` and `{`** |
 
 ### Auto-Fix with Language Detection (MD040)
 
@@ -501,6 +502,30 @@ const relaxedRules = {
 | Heading hierarchy skip | MD001 | Choose level or restructure |
 | Unknown code language | MD040 | Select from options or enter custom |
 | Inconsistent fence style | MD048 | Choose ``` or ~~~ |
+
+## Emoji-Attribute Spacing (CRAFT-001)
+
+**What it catches:**
+
+MkDocs `attr_list` extension requires attributes to be directly adjacent to the preceding element. A space between an emoji shortcode and its attribute list causes literal text rendering:
+
+```markdown
+<!-- BROKEN: space before { — renders as literal "{ .lg .middle }" text -->
+:rocket: { .lg .middle }
+
+<!-- CORRECT: no space — attr_list attaches classes to the emoji SVG -->
+:rocket:{ .lg .middle }
+```
+
+**Why it matters:**
+
+- Prettier and other formatters may insert a space before `{` automatically
+- The `attr_list` extension silently fails — no build error, just broken rendering
+- Affects grid cards, icon sizing, and any emoji with CSS class attributes
+
+**Rule ID:** `CRAFT-001` (custom — not a markdownlint rule)
+
+**Auto-fix:** Removes space(s) between `:emoji:` and `{` when run with `--fix`
 
 ## List Spacing Enforcement (v2.5.1)
 

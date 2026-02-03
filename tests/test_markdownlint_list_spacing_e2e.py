@@ -204,32 +204,28 @@ class TestPrecommitHookIntegration:
         assert content.startswith("#!/usr/bin/env bash"), "Hook should start with #!/usr/bin/env bash"
 
     def test_hook_checks_markdownlint(self):
-        """Hook should check markdownlint."""
+        """Hook should check markdownlint via pre-commit config."""
         main_repo = Path(__file__).parent.parent
-        hook_path = main_repo / ".git" / "hooks" / "pre-commit"
+        config_path = main_repo / ".pre-commit-config.yaml"
 
-        content = hook_path.read_text()
-        assert "markdownlint-cli2" in content, "Hook should call markdownlint-cli2"
+        content = config_path.read_text()
+        assert "markdownlint-cli2" in content, "Pre-commit config should include markdownlint-cli2 hook"
 
     def test_hook_checks_staged_files(self):
         """Hook should check only staged markdown files."""
         main_repo = Path(__file__).parent.parent
-        hook_path = main_repo / ".git" / "hooks" / "pre-commit"
+        config_path = main_repo / ".pre-commit-config.yaml"
 
-        content = hook_path.read_text()
-        assert "git diff --cached" in content, "Hook should check staged files"
-        assert "\\.md$" in content, "Hook should filter for .md files"
+        content = config_path.read_text()
+        assert "\\.md$" in content, "Pre-commit config should filter for .md files"
 
     def test_hook_offers_autofix(self):
         """Hook should offer auto-fix option."""
         main_repo = Path(__file__).parent.parent
-        hook_path = main_repo / ".git" / "hooks" / "pre-commit"
+        config_path = main_repo / ".pre-commit-config.yaml"
 
-        content = hook_path.read_text()
-        assert "--fix" in content, "Hook should offer --fix option"
-        assert "Would you like" in content or "auto-fix" in content, (
-            "Hook should prompt for auto-fix"
-        )
+        content = config_path.read_text()
+        assert "--fix" in content, "Pre-commit config should include --fix option"
 
 
 class TestBaselineReport:

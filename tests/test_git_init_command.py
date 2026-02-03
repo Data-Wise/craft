@@ -20,7 +20,7 @@ BLUE = '\033[0;34m'
 BOLD = '\033[1m'
 NC = '\033[0m'  # No Color
 
-class TestGitInitCommand:
+class GitInitCommandChecker:
     def __init__(self):
         self.plugin_root = Path(__file__).parent.parent
         self.passed = 0
@@ -352,5 +352,5 @@ class TestGitInitCommand:
             return 0
 
 if __name__ == "__main__":
-    tester = TestGitInitCommand()
+    tester = GitInitCommandChecker()
     sys.exit(tester.run_all_tests())

@@ -37,6 +37,9 @@ jobs:
         run: npx markdownlint-cli2 "docs/**/*.md" "README.md" "CLAUDE.md" --config .markdownlint.json
         continue-on-error: true
 
+      - name: Check emoji-attribute spacing (CRAFT-001)
+        run: bash scripts/docs-lint-emoji.sh
+
   link-check:
     name: Link Validation (Lychee)
     runs-on: ubuntu-latest
