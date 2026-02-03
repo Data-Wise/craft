@@ -26,7 +26,7 @@ from commands._discovery import (
 
 
 @dataclass
-class TestResult:
+class CheckResult:
     name: str
     passed: bool
     duration_ms: float
@@ -43,7 +43,7 @@ def log(msg: str) -> None:
 # ─── Layer 2 Tests ───────────────────────────────────────────────────────────
 
 
-def test_get_commands_by_category():
+def _check_get_commands_by_category():
     """Test filtering commands by category."""
     import time
     start = time.time()
@@ -54,7 +54,7 @@ def test_get_commands_by_category():
     duration = (time.time() - start) * 1000
 
     if len(code_commands) != 12:
-        return TestResult(
+        return CheckResult(
             "Get Commands By Category",
             False,
             duration,
@@ -65,7 +65,7 @@ def test_get_commands_by_category():
     # Verify all commands are in 'code' category
     non_code = [cmd for cmd in code_commands if cmd['category'] != 'code']
     if non_code:
-        return TestResult(
+        return CheckResult(
             "Get Commands By Category",
             False,
             duration,
@@ -73,7 +73,7 @@ def test_get_commands_by_category():
             "layer2"
         )
 
-    return TestResult(
+    return CheckResult(
         "Get Commands By Category",
         True,
         duration,
@@ -82,7 +82,13 @@ def test_get_commands_by_category():
     )
 
 
-def test_all_categories_have_commands():
+def test_get_commands_by_category():
+    """Test filtering commands by category."""
+    result = _check_get_commands_by_category()
+    assert result.passed, result.details
+
+
+def _check_all_categories_have_commands():
     """Test that all expected categories return commands."""
     import time
     start = time.time()
@@ -103,7 +109,7 @@ def test_all_categories_have_commands():
     duration = (time.time() - start) * 1000
 
     if errors:
-        return TestResult(
+        return CheckResult(
             "All Categories Have Commands",
             False,
             duration,
@@ -111,7 +117,7 @@ def test_all_categories_have_commands():
             "layer2"
         )
 
-    return TestResult(
+    return CheckResult(
         "All Categories Have Commands",
         True,
         duration,
@@ -120,7 +126,13 @@ def test_all_categories_have_commands():
     )
 
 
-def test_group_commands_by_subcategory():
+def test_all_categories_have_commands():
+    """Test that all expected categories return commands."""
+    result = _check_all_categories_have_commands()
+    assert result.passed, result.details
+
+
+def _check_group_commands_by_subcategory():
     """Test grouping commands by subcategory."""
     import time
     start = time.time()
@@ -133,7 +145,7 @@ def test_group_commands_by_subcategory():
 
     # Should have at least 'general' group
     if not grouped:
-        return TestResult(
+        return CheckResult(
             "Group By Subcategory",
             False,
             duration,
@@ -144,7 +156,7 @@ def test_group_commands_by_subcategory():
     # Verify all commands are in a group
     total_in_groups = sum(len(cmds) for cmds in grouped.values())
     if total_in_groups != len(code_commands):
-        return TestResult(
+        return CheckResult(
             "Group By Subcategory",
             False,
             duration,
@@ -152,7 +164,7 @@ def test_group_commands_by_subcategory():
             "layer2"
         )
 
-    return TestResult(
+    return CheckResult(
         "Group By Subcategory",
         True,
         duration,
@@ -161,7 +173,13 @@ def test_group_commands_by_subcategory():
     )
 
 
-def test_get_category_info():
+def test_group_commands_by_subcategory():
+    """Test grouping commands by subcategory."""
+    result = _check_group_commands_by_subcategory()
+    assert result.passed, result.details
+
+
+def _check_get_category_info():
     """Test getting complete category information."""
     import time
     start = time.time()
@@ -175,7 +193,7 @@ def test_get_category_info():
     missing = [f for f in required_fields if f not in info]
 
     if missing:
-        return TestResult(
+        return CheckResult(
             "Get Category Info",
             False,
             duration,
@@ -185,7 +203,7 @@ def test_get_category_info():
 
     # Verify data
     if info['name'] != 'code':
-        return TestResult(
+        return CheckResult(
             "Get Category Info",
             False,
             duration,
@@ -194,7 +212,7 @@ def test_get_category_info():
         )
 
     if info['count'] != 12:
-        return TestResult(
+        return CheckResult(
             "Get Category Info",
             False,
             duration,
@@ -203,7 +221,7 @@ def test_get_category_info():
         )
 
     if not info['icon']:
-        return TestResult(
+        return CheckResult(
             "Get Category Info",
             False,
             duration,
@@ -211,7 +229,7 @@ def test_get_category_info():
             "layer2"
         )
 
-    return TestResult(
+    return CheckResult(
         "Get Category Info",
         True,
         duration,
@@ -220,7 +238,13 @@ def test_get_category_info():
     )
 
 
-def test_category_info_all_categories():
+def test_get_category_info():
+    """Test getting complete category information."""
+    result = _check_get_category_info()
+    assert result.passed, result.details
+
+
+def _check_category_info_all_categories():
     """Test get_category_info for all categories."""
     import time
     start = time.time()
@@ -249,7 +273,7 @@ def test_category_info_all_categories():
     duration = (time.time() - start) * 1000
 
     if errors:
-        return TestResult(
+        return CheckResult(
             "Category Info All Categories",
             False,
             duration,
@@ -257,7 +281,7 @@ def test_category_info_all_categories():
             "layer2"
         )
 
-    return TestResult(
+    return CheckResult(
         "Category Info All Categories",
         True,
         duration,
@@ -266,7 +290,13 @@ def test_category_info_all_categories():
     )
 
 
-def test_invalid_category():
+def test_category_info_all_categories():
+    """Test get_category_info for all categories."""
+    result = _check_category_info_all_categories()
+    assert result.passed, result.details
+
+
+def _check_invalid_category():
     """Test handling of invalid category."""
     import time
     start = time.time()
@@ -278,7 +308,7 @@ def test_invalid_category():
 
     # Should return empty list, not error
     if commands != []:
-        return TestResult(
+        return CheckResult(
             "Invalid Category Handling",
             False,
             duration,
@@ -290,7 +320,7 @@ def test_invalid_category():
     info = get_category_info('nonexistent')
 
     if info['count'] != 0:
-        return TestResult(
+        return CheckResult(
             "Invalid Category Handling",
             False,
             duration,
@@ -298,7 +328,7 @@ def test_invalid_category():
             "layer2"
         )
 
-    return TestResult(
+    return CheckResult(
         "Invalid Category Handling",
         True,
         duration,
@@ -307,7 +337,13 @@ def test_invalid_category():
     )
 
 
-def test_layer2_display_generation():
+def test_invalid_category():
+    """Test handling of invalid category."""
+    result = _check_invalid_category()
+    assert result.passed, result.details
+
+
+def _check_layer2_display_generation():
     """Test generating Layer 2 display for a category."""
     import time
     start = time.time()
@@ -341,7 +377,7 @@ def test_layer2_display_generation():
 
     # Verify display was generated
     if not display or len(lines) < 5:
-        return TestResult(
+        return CheckResult(
             "Layer 2 Display Generation",
             False,
             duration,
@@ -351,7 +387,7 @@ def test_layer2_display_generation():
 
     # Verify all commands appear
     if cmd_num - 1 != info['count']:
-        return TestResult(
+        return CheckResult(
             "Layer 2 Display Generation",
             False,
             duration,
@@ -359,7 +395,7 @@ def test_layer2_display_generation():
             "layer2"
         )
 
-    return TestResult(
+    return CheckResult(
         "Layer 2 Display Generation",
         True,
         duration,
@@ -368,19 +404,25 @@ def test_layer2_display_generation():
     )
 
 
+def test_layer2_display_generation():
+    """Test generating Layer 2 display for a category."""
+    result = _check_layer2_display_generation()
+    assert result.passed, result.details
+
+
 # ─── Test Runner ──────────────────────────────────────────────────────────────
 
 
 def run_all_tests():
     """Run all Layer 2 tests."""
     tests = [
-        test_get_commands_by_category,
-        test_all_categories_have_commands,
-        test_group_commands_by_subcategory,
-        test_get_category_info,
-        test_category_info_all_categories,
-        test_invalid_category,
-        test_layer2_display_generation,
+        _check_get_commands_by_category,
+        _check_all_categories_have_commands,
+        _check_group_commands_by_subcategory,
+        _check_get_category_info,
+        _check_category_info_all_categories,
+        _check_invalid_category,
+        _check_layer2_display_generation,
     ]
 
     results = []

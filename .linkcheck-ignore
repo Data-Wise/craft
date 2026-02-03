@@ -134,7 +134,21 @@ Targets (template variables):
 Reason: Template files contain placeholder variables that are replaced when scaffolding new projects
 Fix: Not needed - templates are correct and functional
 
-### 8. Planned Documentation (Not Yet Created)
+### 8. Badge Management Documentation (v2.11.0)
+Files with broken links:
+- `docs/guide/badge-management.md`
+- `docs/specs/SPEC-badge-system-2026-01-30.md`
+
+Targets:
+- `../commands/site/update.md`
+- `../commands/ci/validate.md`
+- `... 2.9.0 ...`
+- `... 2.10.0-dev ...`
+
+- Reason: Badge management docs reference individual command pages and spec contains diff examples with pseudo-badge markdown
+- Fix: Update links to point to category pages with anchors
+
+### 9. Planned Documentation (Not Yet Created)
 Files with broken links:
 - `commands/orchestrate/resume.md`
 - `commands/git/init.md`

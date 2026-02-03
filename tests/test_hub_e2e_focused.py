@@ -21,7 +21,7 @@ from commands._discovery import (
 )
 
 
-class TestE2EWorkflows:
+class E2EWorkflows:
     """Test complete user workflows (focused set)."""
 
     def __init__(self):
@@ -186,7 +186,7 @@ def main():
     print("=" * 70)
     print()
 
-    tester = TestE2EWorkflows()
+    tester = E2EWorkflows()
 
     # Run focused set of tests
     tests = [
