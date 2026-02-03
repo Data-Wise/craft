@@ -2,10 +2,10 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**105 commands** · **21 skills** · **8 agents** · **15 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**104 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.10.0-dev (in development) | **Latest Release:** v2.9.1 (2026-01-29)
-**Documentation Status:** 98% complete | **Tests:** 847 passing (81 claude-md + 766 core)
+**Current Version:** v2.11.0 | **Latest Release:** v2.11.0 (2026-02-03)
+**Documentation Status:** 98% complete | **Tests:** 1064 passing (81 claude-md + 983 core)
 
 ## Git Workflow
 
@@ -90,14 +90,14 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 ```text
 craft/
 ├── .claude-plugin/     # Plugin manifest, hooks, validators
-├── commands/           # 100 commands (arch, ci, code, docs, git, site, test, workflow)
+├── commands/           # 104 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
 ├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (complexity scorer, validators, parsers)
-├── tests/              # Comprehensive test suite (770+ tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1064 tests, 90%+ coverage)
 ├── docs/
-│   ├── specs/          # Implementation specs (14 total)
+│   ├── specs/          # Implementation specs (20 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
 │   ├── tutorials/      # Step-by-step guides
 │   └── brainstorm/     # Working drafts (gitignored)
@@ -106,7 +106,34 @@ craft/
 
 ## Recent Major Features
 
-### v2.10.0 - Claude-MD Command Suite (In Development) 🚧
+### v2.11.0 - Test Suite Cleanup & CRAFT-001 (Released 2026-02-03) ✅
+
+**Merged:** PR #42 (2026-02-03)
+
+**Test Suite Overhaul:**
+
+- Eliminated all 236 pytest warnings (PytestReturnNotNoneWarning + PytestCollectionWarning)
+- Refactored 13 test files: `test_*` → `_check_*` helpers + thin `test_*` wrappers
+- Fixed 21 stale test expectations surfaced by warning conversion
+- Test count: 847 → 1064 (all passing, 0 warnings, 3 skipped)
+
+**CRAFT-001 Lint Rule:**
+
+- New emoji-attribute spacing rule (`scripts/docs-lint-emoji.sh`)
+- CI integration in `docs-quality.yml`
+- Pre-commit hook integration via `.pre-commit-config.yaml`
+
+**CI Fixes:**
+
+- Updated pre-commit tests to check `.pre-commit-config.yaml` (not hook stub)
+- Added `pytest.skip()` for mkdocs test when not installed
+- Expanded `.linkcheck-ignore` with WORKFLOWS/ and brainstorm targets
+
+**Files Changed:** 28 (+1,711/-801)
+
+---
+
+### v2.10.0 - Claude-MD Command Suite (Released 2026-01-30) ✅
 
 **Merged:** PR #39 (2026-01-30)
 
@@ -147,7 +174,7 @@ craft/
 
 **Files Changed:** 38 (+15,997/-271)
 
-**Release:** Target v2.10.0 (pending)
+**Release:** v2.10.0 (2026-01-30)
 
 #### CRAFT-001 Emoji-Attribute Spacing Rule
 
@@ -186,7 +213,7 @@ Custom lint rule for MkDocs `attr_list` extension compatibility:
 
 **Testing:**
 
-- 145 new tests (93 e2e + 52 orch handler), 847 total tests passing
+- 145 new tests (93 e2e + 52 orch handler)
 - CI Test Fixes: Resolved 15 failing tests (hardcoded paths, pre-commit hooks, config validation, dependencies)
 
 **Release:**
@@ -303,7 +330,7 @@ python3 tests/test_integration_teaching_workflow.py
 | **Testing Commands**                     | 10       | 100%           | 80%           | Complete ✅ |
 | **Architecture Commands**                | 12       | 100%           | 75%           | Complete ✅ |
 | **Remaining Commands**                   | 51       | 100%           | 40%           | Baseline ✅ |
-| **TOTAL**                                | **100**  | **100%**       | **98%**       | v2.9.0 ✅   |
+| **TOTAL**                                | **104**  | **100%**       | **98%**       | v2.11.0 ✅  |
 
 **Legend:**
 
@@ -335,46 +362,48 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Status
 
-**Branch:** `dev` (synced with main @ v2.9.0)
+**Branch:** `dev` (synced with main @ v2.11.0)
 **Location:** `/Users/dt/projects/dev-tools/craft`
 **Status:** ✅ All releases merged, ready for new features
 
 | Branch | Commit | Status |
 |--------|--------|--------|
-| **main** | `93a10ad` | ✅ v2.9.0 released |
-| **dev** | `93a10ad` | ✅ Synced with main |
+| **main** | `35ffb8f` | ✅ v2.11.0 released |
+| **dev** | `a7cce7a` | ✅ Synced with main |
 | **Worktrees** | None active | Clean state |
 
 ### Recent Releases
 
-#### v2.9.0 - Command Behavior Enhancements (2026-01-29) ✅
+#### v2.11.0 - Test Suite Cleanup & CRAFT-001 (2026-02-03) ✅
 
-**Merged PRs:**
-
-- PR #36: Command enhancements (feature → dev)
-- PR #37: v2.9.0 release + CI test fixes (dev → main)
+**Merged PR:** #42 (dev → main)
 
 **What Shipped:**
 
-- "Show Steps First" pattern across 4 commands
-- Interactive orchestration with mode selection
-- Git worktree auto-setup with scope detection
-- Post-merge documentation pipeline
-- Check step preview with mode-specific lists
-- 15 CI test fixes (paths, hooks, config, dependencies)
+- CRAFT-001 emoji-attribute spacing lint rule + CI
+- Eliminated 236 pytest warnings across 13 test files
+- Fixed 21 stale test expectations
+- Test count: 847 → 1064
 
-**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.9.0>
+**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.11.0>
 
-#### v2.8.1 - Markdown Lint Style Fixes (2026-01-28) ✅
+#### v2.10.0 - Claude-MD Command Suite (2026-01-30) ✅
 
-- Auto-fix 191 files
-- MD025 duplicate H1 fixes (6 files)
-- MD060 table alignment (5 files)
-- Emoji-aware table formatter
+**Merged PR:** #39 (dev → main)
 
-**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.8.1>
+- 5 new commands: update, audit, fix, scaffold, edit
+- 7 utility modules (2,713 lines Python)
+- 81 tests, 3 templates, 3,304 lines docs
 
-### Future Features (v2.10.0+)
+#### v2.9.1 - Documentation Enhancements (2026-01-29) ✅
+
+- 3 cookbook recipes, 2 tutorials, expanded command docs
+
+#### v2.9.0 - Command Behavior Enhancements (2026-01-29) ✅
+
+- "Show Steps First" pattern, interactive orchestration, worktree auto-setup
+
+### Future Features (v2.12.0+)
 
 **Ideas for Next Release:**
 
@@ -394,7 +423,7 @@ python3 tests/test_integration_teaching_workflow.py
 | Test fixes (706/706 passing)          | ✅ Complete |
 | Markdownlint expansion (3 → 24 rules) | ✅ Complete |
 
-See `docs/specs/` for detailed specifications (14 total).
+See `docs/specs/` for detailed specifications (20 total).
 
 ## Key Files
 
@@ -446,7 +475,7 @@ See `docs/specs/` for detailed specifications (14 total).
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
-| **Total**                                          | **847**  | **~90%** | **All systems**              |
+| **Total**                                          | **1064** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
@@ -480,7 +509,7 @@ See `docs/specs/` for detailed specifications (14 total).
 
 - 3 new guide documents (1,609 lines)
 - 17 Mermaid diagrams (task routing, complexity scoring, agent delegation, orchestration)
-- Feature completeness matrix showing 100 commands with 95% documentation
+- Feature completeness matrix showing 104 commands with 98% documentation
 - Version history timeline with 24+ releases documented
 
 **Success Criteria Met:**
@@ -495,9 +524,9 @@ See `docs/specs/` for detailed specifications (14 total).
 ## Links
 
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
-- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 100 commands
+- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 104 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
-- [Specifications](docs/specs/) — Implementation specs (14 total)
+- [Specifications](docs/specs/) — Implementation specs (20 total)
 - [Version History](docs/VERSION-HISTORY.md) — Complete release timeline (NEW)
 - [Complexity Scoring](docs/guide/complexity-scoring-algorithm.md) — Algorithm & routing (NEW)
 - [Claude Code 2.1](docs/guide/claude-code-2.1-integration.md) — Integration guide (NEW)
