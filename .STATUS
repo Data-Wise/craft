@@ -1,7 +1,7 @@
 status: Active
-version: 2.11.0
-release_date: 2026-02-03 (v2.11.0)
-milestone: v2.11.0 - Test Suite Cleanup & CRAFT-001
+version: 2.11.1
+release_date: 2026-02-03 (v2.11.1)
+milestone: v2.11.1 - Test Suite Cleanup & CRAFT-001
 last_session: 2026-02-03T17:07:00Z
 
 progress: 100% (PR #42 MERGED - Test cleanup + CRAFT-001 complete)
