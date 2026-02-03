@@ -45,6 +45,7 @@ feature/* (worktrees) ← All implementation work
 | Build docs        | `mkdocs build`                             | -------------------------------- |
 | Lint code         | ------------------------------------------ | `/craft:code:lint`               |
 | Lint markdown     | `npx markdownlint-cli2 "**/*.md"`          | `/craft:docs:lint`               |
+| Emoji attr check  | `bash scripts/docs-lint-emoji.sh`          | (runs in `/craft:docs:lint`)     |
 | Architecture      | ------------------------------------------ | `/craft:arch:analyze`            |
 | Git status        | `git status`                               | `/craft:git:status`              |
 | Worktree          | `git worktree add ...`                     | `/craft:git:worktree <branch>`   |
@@ -147,6 +148,18 @@ craft/
 **Files Changed:** 38 (+15,997/-271)
 
 **Release:** Target v2.10.0 (pending)
+
+#### CRAFT-001 Emoji-Attribute Spacing Rule
+
+Custom lint rule for MkDocs `attr_list` extension compatibility:
+
+- **Rule:** Detects space between emoji shortcode closing `:` and `{` which breaks `attr_list` attachment
+- **Fix:** Removes space so `:emoji:{ .lg .middle }` renders correctly as large centered icon
+- **Scripts:** `scripts/docs-lint.sh` (integrated), `scripts/docs-lint-emoji.sh` (standalone for pre-commit)
+- **CI:** Added to `docs-quality.yml` workflow
+- **Pre-commit:** `emoji-attr-spacing` hook in `.pre-commit-config.yaml`
+- **Prettier protection:** `.prettierignore` excludes `*.md` to prevent space insertion
+- **Applied to:** 25 grid card emojis across `docs/index.md` and `docs/PLAYGROUND.md`
 
 ---
 
@@ -411,6 +424,8 @@ See `docs/specs/` for detailed specifications (14 total).
 | `docs/reference/REFCARD-INTERACTIVE-COMMANDS.md`  | Interactive commands quick reference (v2.9.0)           |
 | `tests/test_command_enhancements_e2e.py`          | Command enhancements e2e tests (93 tests)               |
 | `tests/test_orch_flag_handler.py`                 | Orch flag handler tests (52 tests)                      |
+| `scripts/docs-lint-emoji.sh`                      | Standalone CRAFT-001 check for pre-commit hook          |
+| `.prettierignore`                                 | Prevents prettier from breaking emoji-attribute spacing |
 
 ## Test Suite
 
