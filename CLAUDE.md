@@ -55,9 +55,9 @@ feature/* (worktrees) ← All implementation work
 | Brainstorm        | ------------------------------------------ | `/craft:workflow:brainstorm`     |
 | Orchestrate       | ------------------------------------------ | `/craft:orchestrate`             |
 | Orchestrate task  | ------------------------------------------ | `/craft:do "task" --orch=<mode>` |
-| CLAUDE.md update  | ------------------------------------------ | `/craft:docs:claude-md:update`   |
-| CLAUDE.md audit   | ------------------------------------------ | `/craft:docs:claude-md:audit`    |
-| CLAUDE.md fix     | ------------------------------------------ | `/craft:docs:claude-md:fix`      |
+| CLAUDE.md init    | ------------------------------------------ | `/craft:docs:claude-md:init`     |
+| CLAUDE.md sync    | ------------------------------------------ | `/craft:docs:claude-md:sync`     |
+| CLAUDE.md edit    | ------------------------------------------ | `/craft:docs:claude-md:edit`     |
 | Badge sync        | ------------------------------------------ | `/craft:site:update` (Step 3.5)  |
 | CI badge validate | ------------------------------------------ | `/craft:ci:validate`             |
 
@@ -138,13 +138,15 @@ craft/
 
 **Merged:** PR #39 (2026-01-30)
 
-**Commands Added (5):**
+**Commands (3 new + 4 deprecated aliases):**
 
-- `/craft:docs:claude-md:update` - Sync CLAUDE.md with project state
-- `/craft:docs:claude-md:audit` - Validate completeness and accuracy (5 checks)
-- `/craft:docs:claude-md:fix` - Auto-fix common issues (4 fix methods)
-- `/craft:docs:claude-md:scaffold` - Create from template (3 project types)
-- `/craft:docs:claude-md:edit` - Interactive section editing
+- `/craft:docs:claude-md:init` - Initialize CLAUDE.md from lean template (< 150 lines)
+- `/craft:docs:claude-md:sync` - Unified sync pipeline (detect → audit → fix → optimize)
+- `/craft:docs:claude-md:edit` - Interactive editing with iA Writer integration
+- `/craft:docs:claude-md:scaffold` - DEPRECATED: alias for init
+- `/craft:docs:claude-md:update` - DEPRECATED: alias for sync
+- `/craft:docs:claude-md:audit` - DEPRECATED: alias for sync
+- `/craft:docs:claude-md:fix` - DEPRECATED: alias for sync --fix
 
 **Implementation:**
 

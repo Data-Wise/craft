@@ -15,13 +15,35 @@ arguments:
     required: false
     default: ia
     alias: -e
+  - name: hints
+    description: Add TODO optimization comments before opening
+    required: false
+    default: true
+  - name: no-hints
+    description: Open without annotations
+    required: false
+    default: false
+  - name: global
+    description: Target ~/.claude/CLAUDE.md
+    required: false
+    default: false
+    alias: -g
+  - name: validate
+    description: Run audit after edit completes
+    required: false
+    default: true
+  - name: no-validate
+    description: Skip post-edit validation
+    required: false
+    default: false
 tags: [documentation, claude-md, editing, interactive]
-version: 1.0.0
+version: 2.0.0
 ---
 
 # /craft:docs:claude-md:edit - Interactive CLAUDE.md Editing
 
 Edit CLAUDE.md sections interactively with optional Claude optimization suggestions.
+Enhanced with iA Writer TODO hints, sync-back validation, and budget display.
 
 **This command follows the "Show Steps First" pattern** - it shows available sections and lets you choose what to edit.
 
@@ -33,6 +55,84 @@ Edit CLAUDE.md sections interactively with optional Claude optimization suggesti
 4. Opens section for editing
 5. Optionally suggests optimizations
 6. Previews changes before applying
+
+## iA Writer Workflow
+
+The edit command follows a structured iA Writer integration:
+
+### Sequence
+
+1. Read CLAUDE.md and analyze sections
+2. Insert TODO hints as HTML comments (unless `--no-hints`)
+3. Open file in iA Writer via AppleScript
+4. Display budget status: `Lines: 280/150 (OVER)`
+5. Prompt: "Type 'done' when finished editing"
+6. Wait for user to type "done"
+7. Re-read the file
+8. Strip all TODO comments
+9. Run post-edit audit (unless `--no-validate`)
+10. Show validation report with budget status
+
+### TODO Hint Format
+
+Before opening, Claude inserts HTML comments with optimization guidance:
+
+```markdown
+<!-- TODO: Section "Recent Major Features" is 174 lines. Target: 0 lines.
+     Action: Move to docs/VERSION-HISTORY.md, replace with pointer. -->
+## Recent Major Features
+
+<!-- TODO: Section "Test Suite" is 25 lines. Target: 8 lines.
+     Action: Keep run command only, remove per-file breakdown. -->
+## Test Suite
+```
+
+### AppleScript Integration
+
+```bash
+# Open CLAUDE.md in iA Writer
+osascript -e 'tell application "iA Writer"
+    activate
+    open POSIX file "/path/to/CLAUDE.md"
+end tell'
+```
+
+### Post-Edit Validation
+
+After user says "done":
+
+1. Re-read the file
+2. Strip all `<!-- TODO: ... -->` comments
+3. Run full audit (5 checks)
+4. Check line count against budget
+5. Report results
+
+```
+Edit Complete - Validation Report
+
+Lines: 142 (budget: 150) ✅
+Sections: 8 present ✅
+
+Audit Results:
+  ✅ Version matches source
+  ✅ All commands documented
+  ✅ Required sections present
+  ✅ No stale references
+  ⚠️ 1 broken link (line 89: docs/old-guide.md)
+
+Fix broken link? [y/n]
+```
+
+## --global Flag
+
+When `--global` is passed, targets `~/.claude/CLAUDE.md`:
+
+```python
+if "--global" in args or "-g" in args:
+    target_path = Path.home() / ".claude" / "CLAUDE.md"
+else:
+    target_path = Path.cwd() / "CLAUDE.md"
+```
 
 ## Show Steps First Pattern
 
@@ -448,10 +548,8 @@ Use different editor? [ia/code/cursor/cancel]
 
 | Command | Purpose |
 |---------|---------|
-| `/craft:docs:claude-md:scaffold` | Create from template |
-| `/craft:docs:claude-md:update` | Auto-update sections |
-| `/craft:docs:claude-md:audit` | Validate completeness |
-| `/craft:docs:claude-md:fix` | Auto-fix issues |
+| `/craft:docs:claude-md:init` | Create new CLAUDE.md from lean template |
+| `/craft:docs:claude-md:sync` | Update + audit + fix + optimize |
 
 ## Examples
 
@@ -524,3 +622,13 @@ After editing, verify:
 - [ ] Section structure maintained
 - [ ] No broken formatting
 - [ ] Audit passes: `/craft:docs:claude-md:audit`
+
+## Migration Note
+
+This command is enhanced in v2.12.0 with:
+
+- TODO hint insertion for optimization guidance
+- iA Writer integration via AppleScript
+- Post-edit audit with budget validation
+- `--global` flag for ~/.claude/CLAUDE.md
+- `--no-validate` flag to skip post-edit checks
