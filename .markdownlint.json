@@ -67,6 +67,9 @@
   "_comment_inline": "=== INLINE ===",
   "MD034": true,
 
+  "_comment_tables": "=== TABLES ===",
+  "MD060": false,
+
   "_comment_html": "=== HTML (Craft-specific) ===",
   "MD033": {
     "allowed_elements": [
