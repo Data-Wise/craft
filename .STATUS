@@ -1,17 +1,24 @@
 status: Active
 version: 2.14.0
 release_date: 2026-02-05
-milestone: v2.14.0 - Unified Formatting Library
+milestone: v2.14.0 - Unified Formatting Library (Released)
 last_session: 2026-02-05
 
-progress: 100% (v2.14.0 feature complete)
+progress: 100% (v2.14.0 released, CI clean)
 
 📊 Branch Status:
 
-| Branch               | Head    | Base | Status                        |
-|----------------------|---------|------|-------------------------------|
-| main                 | 9f8c0a5 | —    | Production (v2.13.1)          |
-| feature/styled-output| pending | dev  | v2.14.0 formatting library    |
+| Branch | Head    | Base | Status                          |
+|--------|---------|------|---------------------------------|
+| main   | b0d6c5d | —    | Production (v2.14.0 + CI fix)   |
+| dev    | 025a286 | main | In sync with main               |
+
+✅ Just Completed (2026-02-05 session):
+- Released v2.14.0 (PR #53 merged to main)
+- Fixed demo deps CI: non-blocking for local-only tools (PR #54)
+- Fixed pre-commit symlink: formatting.sh resolution via readlink
+- Verified Homebrew formula at v2.14.0 with correct SHA
+- All CI workflows green on main
 
 ✅ v2.14.0 — Unified Formatting Library (2026-02-05):
 - New: scripts/formatting.sh — shared box-drawing, colors, ANSI-aware padding
@@ -31,7 +38,7 @@ progress: 100% (v2.14.0 feature complete)
 
 ## Next Steps
 
-🎯 Next Action: Create PR to dev, merge, tag release
+🎯 Next Action: Plan v2.15.0 features
 
 **Future (v2.15.0+):**
 - Language detection for multi-lang projects
