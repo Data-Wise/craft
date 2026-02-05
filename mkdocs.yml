@@ -159,11 +159,7 @@ nav:
       - /craft:orchestrate: commands/orchestrate.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:docs:update: commands/docs/update.md
-      - /craft:docs:claude-md:
-        - Overview: commands/docs/claude-md.md
-        - init: commands/docs/claude-md/init.md
-        - sync: commands/docs/claude-md/sync.md
-        - edit: commands/docs/claude-md/edit.md
+      - /craft:docs:claude-md: commands/docs/claude-md.md
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
       - /craft:arch:analyze: commands/arch/analyze.md

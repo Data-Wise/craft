@@ -754,9 +754,8 @@ Tests (7):
 
 ### Related Documentation
 
-- [CLAUDE.md](../CLAUDE.md) - Project documentation
-- [CHANGELOG.md](../CHANGELOG.md) - Version history
 - [Command Reference](commands/docs/claude-md.md)
+- [CHANGELOG](CHANGELOG.md) - Version history
 - [Quick Reference](reference/REFCARD-CLAUDE-MD.md)
 - [Tutorial Guide](tutorials/claude-md-workflows.md)
 
