@@ -8,17 +8,19 @@ WORKFLOW_DIR="${HOME}/.claude/plugins/workflow"
 CRAFT_DIR="${HOME}/.claude/plugins/craft"
 BACKUP_DIR="${HOME}/.claude/plugins/.backup-workflow-$(date +%Y%m%d-%H%M%S)"
 
-echo "╔═══════════════════════════════════════════════════════════╗"
-echo "║  Workflow → Craft Migration Tool                         ║"
-echo "╠═══════════════════════════════════════════════════════════╣"
-echo "║                                                           ║"
-echo "║  This script will:                                        ║"
-echo "║  1. Backup your existing workflow plugin                 ║"
-echo "║  2. Check if craft v1.17.0+ is installed                 ║"
-echo "║  3. Remove the old workflow plugin                       ║"
-echo "║  4. Confirm workflow commands work in craft              ║"
-echo "║                                                           ║"
-echo "╚═══════════════════════════════════════════════════════════╝"
+# Source formatting library
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/formatting.sh"
+
+box_header "Workflow → Craft Migration Tool"
+box_empty_row
+box_row "  This script will:"
+box_row "  1. Backup your existing workflow plugin"
+box_row "  2. Check if craft v1.17.0+ is installed"
+box_row "  3. Remove the old workflow plugin"
+box_row "  4. Confirm workflow commands work in craft"
+box_empty_row
+box_footer
 echo ""
 
 # Check if workflow plugin is installed
@@ -71,20 +73,18 @@ else
 fi
 
 echo ""
-echo "╔═══════════════════════════════════════════════════════════╗"
-echo "║  Migration Plan                                           ║"
-echo "╠═══════════════════════════════════════════════════════════╣"
-echo "║                                                           ║"
-echo "║  Source: ${WORKFLOW_DIR}"
-echo "║  Backup: ${BACKUP_DIR}"
-echo "║  Target: craft v${CRAFT_VERSION}"
-echo "║                                                           ║"
-echo "║  Workflow commands will work identically in craft:       ║"
-echo "║  • /brainstorm, /spec-review, /focus, /next, /done       ║"
-echo "║  • /recap, /stuck, /refine, /task-*                      ║"
-echo "║  • /adhd-guide                                           ║"
-echo "║                                                           ║"
-echo "╚═══════════════════════════════════════════════════════════╝"
+box_header "Migration Plan"
+box_empty_row
+box_row "  Source: ${WORKFLOW_DIR}"
+box_row "  Backup: ${BACKUP_DIR}"
+box_row "  Target: craft v${CRAFT_VERSION}"
+box_empty_row
+box_row "  Workflow commands will work identically in craft:"
+box_row "  • /brainstorm, /spec-review, /focus, /next, /done"
+box_row "  • /recap, /stuck, /refine, /task-*"
+box_row "  • /adhd-guide"
+box_empty_row
+box_footer
 echo ""
 
 read -p "Proceed with migration? (y/N): " -n 1 -r
@@ -126,30 +126,28 @@ fi
 echo "   ✅ Found ${WORKFLOW_CMD_COUNT} workflow commands in craft"
 
 echo ""
-echo "╔═══════════════════════════════════════════════════════════╗"
-echo "║  ✅ MIGRATION COMPLETE                                    ║"
-echo "╠═══════════════════════════════════════════════════════════╣"
-echo "║                                                           ║"
-echo "║  Workflow plugin has been replaced with craft v${CRAFT_VERSION}       ║"
-echo "║                                                           ║"
-echo "║  All workflow commands now work through craft:            ║"
-echo "║  • /brainstorm [depth] [focus] [action]                  ║"
-echo "║  • /spec-review <file>                                   ║"
-echo "║  • /focus [task]                                         ║"
-echo "║  • /next, /done, /recap, /stuck                          ║"
-echo "║  • /task-status, /task-output, /task-cancel              ║"
-echo "║  • /adhd-guide                                           ║"
-echo "║                                                           ║"
-echo "║  📚 Documentation:                                        ║"
-echo "║  https://data-wise.github.io/claude-plugins/craft/       ║"
-echo "║                                                           ║"
-echo "║  🗂️  Backup Location:                                     ║"
-echo "║  ${BACKUP_DIR}"
-echo "║                                                           ║"
-echo "║  🚀 Next Steps:                                           ║"
-echo "║  • Restart Claude Code to load updated plugin            ║"
-echo "║  • Try: /brainstorm or /craft:do                         ║"
-echo "║  • Help: /craft:help                                     ║"
-echo "║                                                           ║"
-echo "╚═══════════════════════════════════════════════════════════╝"
+box_header "✅ MIGRATION COMPLETE"
+box_empty_row
+box_row "  Workflow plugin has been replaced with craft v${CRAFT_VERSION}"
+box_empty_row
+box_row "  All workflow commands now work through craft:"
+box_row "  • /brainstorm [depth] [focus] [action]"
+box_row "  • /spec-review <file>"
+box_row "  • /focus [task]"
+box_row "  • /next, /done, /recap, /stuck"
+box_row "  • /task-status, /task-output, /task-cancel"
+box_row "  • /adhd-guide"
+box_empty_row
+box_row "  📚 Documentation:"
+box_row "  https://data-wise.github.io/claude-plugins/craft/"
+box_empty_row
+box_row "  🗂️  Backup Location:"
+box_row "  ${BACKUP_DIR}"
+box_empty_row
+box_row "  🚀 Next Steps:"
+box_row "  • Restart Claude Code to load updated plugin"
+box_row "  • Try: /brainstorm or /craft:do"
+box_row "  • Help: /craft:help"
+box_empty_row
+box_footer
 echo ""
