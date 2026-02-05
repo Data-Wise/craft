@@ -1,0 +1,6760 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.11.0-dev features badge management system with automatic sync for version, CI status, and docs coverage badges across README and docs.">
+      
+      
+      
+        <link rel="canonical" href="https://data-wise.github.io/craft/specs/SPEC-claude-md-v3-optimization-2026-02-04/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>SPEC: CLAUDE.md Optimization & Command Reform v3.0 - Craft Plugin</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spec-claudemd-optimization-command-reform-v30" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Craft Plugin
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SPEC: CLAUDE.md Optimization &amp; Command Reform v3.0
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Data-Wise/craft" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Data-Wise/craft
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  🚀 Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guide/getting-started/" class="md-tabs__link">
+          
+  
+  
+  📖 Guides & Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../commands/overview/" class="md-tabs__link">
+          
+  
+  
+  ⚙️ Commands & Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cookbook/" class="md-tabs__link">
+          
+  
+  
+  📚 Cookbook & Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/configuration/" class="md-tabs__link">
+          
+  
+  
+  Reference & Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guide/documentation-quality-development/" class="md-tabs__link">
+          
+  
+  
+  For Contributors
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../REFCARD/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  📋 Quick Reference Card
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Craft Plugin
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Data-Wise/craft" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Data-Wise/craft
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    🚀 Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    🚀 Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../QUICK-START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ADHD-QUICK-START/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADHD Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/choose-path/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choose Your Path
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visual Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PLAYGROUND/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Playground
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📖 Guides & Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📖 Guides & Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What's New
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    What's New
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1.0 Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/claude-code-2.1-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1 Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/complexity-scoring-algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complexity Scoring Algorithm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Workflows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Workflows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/documentation-quality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Interactive Docs Update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/release-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/git-feature-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflows/pre-commit-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pre-commit Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teaching Mode
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teaching Mode
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../TEACHING-DOCS-INDEX/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview & Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/teaching-mode-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/teaching-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-TEACHING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teaching-config-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config Schema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teaching-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specialized Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specialized Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/badge-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Badge Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-badge-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Badge Workflow Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/interactive-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/check-command-mastery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Check Command Mastery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Worktree Advanced Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/claude-md-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Claude-MD Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Orchestration Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Post-Merge Pipeline Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Orchestrator Modes Compared
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW CRAFT-001 Emoji Spacing Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/test-wrapper-pattern/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Test Wrapper Pattern Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5_13" id="__nav_2_5_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git Repository Init
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Git Repository Init
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git-init-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/git-init-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/git-init-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git-init-docs-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/orchestrator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestration & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/orch-flag-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.5.0) --orch Flag Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/homebrew-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/skills-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills & Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/integration-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/markdown-list-spacing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdown List Spacing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ACCESSIBILITY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accessibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ⚙️ Commands & Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ⚙️ Commands & Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    By Category
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    By Category
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/smart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/site/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Site Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Code & Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git & CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/arch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/dist/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Complete A-Z Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help & Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Help & Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/do/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:do
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/hub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:hub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/orchestrate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:orchestrate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/ci/generate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:generate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/docs/update/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:docs:update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/docs/claude-md/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:docs:claude-md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git/worktree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:worktree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/workflow/brainstorm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:workflow:brainstorm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📚 Cookbook & Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    📚 Cookbook & Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cookbook Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Common Recipes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Common Recipes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set Up New Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/deploy-course-website/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy Course Website
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/automate-release-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Automate Release Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Check Code Quality Before Commit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Not Found
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference & Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference & Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/presets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Presets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../skills-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills & Agents Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../orchestrator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrator Deep Dive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hub v2.0 Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/DISCOVERY-API/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discovery API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/documentation-quality/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Quality
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../VERSION-HISTORY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version History
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../RELEASE-v2.8.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes v2.8.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_11" id="__nav_5_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enhancement Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Enhancement Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1 Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Docs Update Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Interactive Commands Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Git Worktree Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-CLAUDE-MD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Claude-MD Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_12" id="__nav_5_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GIF Recording & Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    GIF Recording & Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GIF Recording Workflow (2026)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GIF Regeneration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_12_3" id="__nav_5_12_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependency Management
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_12_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_12_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dependency Management
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_12_3_2" id="__nav_5_12_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_12_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_12_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/dependency-management-getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API-REFERENCE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Diagrams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DEVELOPER-GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_13" id="__nav_5_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Specifications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SPEC-badge-system-2026-01-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Badge Management System
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--implemented"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Broken Link Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hub v2.0 Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dry-Run Feature
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teaching Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Website Organization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help Template System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW (v2.7.0) Interactive Docs Update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NEW Command Behavior Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    For Contributors
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    For Contributors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/documentation-quality-development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation Quality Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CI-TEMPLATES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD Templates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Detection Rollout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internal Conventions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Internal Conventions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/CLAUDE-MD-CONVENTIONS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLAUDE.md Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/TEST-CONVENTIONS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/PYTHON-CONVENTIONS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/COMMAND-SPEC-CONVENTIONS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command & Spec Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../REFCARD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    📋 Quick Reference Card
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#primary-user-story" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primary User Story
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Primary User Story">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acceptance-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acceptance Criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secondary-user-stories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secondary User Stories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-refactoring-5-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Refactoring: 5 -&gt; 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flags
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flags">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsclaude-mdinit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:claude-md:init
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsclaude-mdsync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:claude-md:sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftdocsclaude-mdedit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:claude-md:edit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pointer-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pointer Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pointer Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#format-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format Standard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#standard-detail-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard Detail Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p0-sections-always-in-claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        P0 Sections (Always in CLAUDE.md)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p1-sections-include-if-under-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        P1 Sections (Include if under budget)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p2-sections-always-in-detail-files-never-in-claudemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        P2 Sections (Always in detail files, never in CLAUDE.md)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anti-pattern-rules-hard-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anti-Pattern Rules (Hard Blocks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ia-writer-edit-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        iA Writer Edit Workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="iA Writer Edit Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#todo-hint-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TODO Hint Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applescript-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AppleScript Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-edit-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Edit Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sync-command-detailed-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sync Command: Detailed Behavior
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sync Command: Detailed Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-flow-no-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default Flow (no flags)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-optimize-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With --optimize flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-global-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With --global flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-commit-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-Commit Hook
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-Commit Hook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hook-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hook Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ci-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI Integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utility-module-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utility Module Changes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Utility Module Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modules-to-keep-no-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules to Keep (no changes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modules-to-merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules to Merge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New Module
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architecture-after-refactoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture After Refactoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Template Changes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Template Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lean-templates-new-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lean Templates (New Default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#budget-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Budget Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editor-fallback-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editor Fallback Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-command-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Command Mapping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Command Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scaffoldmd-443-lines-initmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scaffold.md (443 lines) -&gt; init.md
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updatemd-auditmd-fixmd-1193-lines-combined-syncmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        update.md + audit.md + fix.md (1,193 lines combined) -&gt; sync.md
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editmd-527-lines-editmd-enhanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        edit.md (527 lines) -&gt; edit.md (enhanced)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lean-template-craft-plugin-full-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lean Template: Craft Plugin (Full Example)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        History
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/specs/SPEC-claude-md-v3-optimization-2026-02-04.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="spec-claudemd-optimization-command-reform-v30">SPEC: CLAUDE.md Optimization &amp; Command Reform v3.0<a class="headerlink" href="#spec-claudemd-optimization-command-reform-v30" title="Permanent link">&para;</a></h1>
+<p><strong>Status:</strong> draft
+<strong>Created:</strong> 2026-02-04
+<strong>From Brainstorm:</strong> BRAINSTORM-claude-md-optimization-2026-02-04.md
+<strong>Target Version:</strong> v2.12.0</p>
+<hr />
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Redesign the CLAUDE.md command suite to enforce token-efficient CLAUDE.md files using a pointer/trigger architecture. Reduce 5 commands to 3 (init, sync, edit). Add iA Writer integration for external editing with sync-back. Enforce a hard &lt; 150 line budget with pre-commit hook enforcement.</p>
+<h2 id="primary-user-story">Primary User Story<a class="headerlink" href="#primary-user-story" title="Permanent link">&para;</a></h2>
+<p><strong>As a</strong> developer using Claude Code,
+<strong>I want</strong> my CLAUDE.md to be as lean as possible (&lt; 150 lines),
+<strong>so that</strong> every session starts with minimal token overhead while still having access to full project documentation on-demand via pointers.</p>
+<h3 id="acceptance-criteria">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] CLAUDE.md files generated by <code>init</code> are &lt; 150 lines</li>
+<li>[ ] <code>sync</code> command refuses to add release notes (hard block)</li>
+<li>[ ] <code>sync --optimize</code> moves bloated sections to detail files</li>
+<li>[ ] <code>edit</code> command opens iA Writer with TODO annotations</li>
+<li>[ ] Pre-commit hook blocks commits where CLAUDE.md &gt; 150 lines</li>
+<li>[ ] Pointer format: <code>-&gt; Full history: [VERSION-HISTORY.md](docs/VERSION-HISTORY.md)</code></li>
+<li>[ ] All 4 standard detail files supported (VERSION-HISTORY, ARCHITECTURE, CONTRIBUTING, COMMANDS)</li>
+<li>[ ] <code>--global</code> flag works on ~/.claude/CLAUDE.md</li>
+</ul>
+<h2 id="secondary-user-stories">Secondary User Stories<a class="headerlink" href="#secondary-user-stories" title="Permanent link">&para;</a></h2>
+<p><strong>As a</strong> craft plugin maintainer,
+<strong>I want</strong> the <code>sync</code> command to auto-audit after updating metrics,
+<strong>so that</strong> I catch issues in a single command invocation.</p>
+<p><strong>As a</strong> developer working across multiple projects,
+<strong>I want</strong> the global CLAUDE.md to use pointers to project-specific docs,
+<strong>so that</strong> project-specific detail doesn't pollute every session.</p>
+<hr />
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<h3 id="command-refactoring-5-3">Command Refactoring: 5 -&gt; 3<a class="headerlink" href="#command-refactoring-5-3" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>BEFORE (v2.10):                    AFTER (v3.0):
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>commands/docs/claude-md/           commands/docs/claude-md/
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── scaffold.md  ─────────────&gt;    ├── init.md      (scaffold + first setup)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── update.md    ──┐               ├── sync.md      (update + audit + fix + optimize)
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── audit.md     ──┤──────────&gt;    └── edit.md      (iA Writer integration)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── fix.md       ──┘
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>└── edit.md      ─────────────&gt;
+</span></code></pre></div>
+<h3 id="command-mapping">Command Mapping<a class="headerlink" href="#command-mapping" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Old Command</th>
+<th>New Command</th>
+<th>Behavior Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scaffold</code></td>
+<td><code>init</code></td>
+<td>Same core logic. Refuses if CLAUDE.md exists (unless <code>--force</code>). Uses lean templates (&lt; 150 lines).</td>
+</tr>
+<tr>
+<td><code>update</code></td>
+<td><code>sync</code></td>
+<td>Updates metrics + always audits + reports issues. <code>--fix</code> auto-fixes. <code>--optimize</code> enforces budget.</td>
+</tr>
+<tr>
+<td><code>audit</code></td>
+<td><code>sync</code> (embedded)</td>
+<td>Audit runs automatically after every sync. No standalone command.</td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td><code>sync --fix</code></td>
+<td>Auto-fix is a flag on sync, not a separate command.</td>
+</tr>
+<tr>
+<td><code>edit</code></td>
+<td><code>edit</code></td>
+<td>Enhanced: opens iA Writer via AppleScript, adds TODO hints, waits for 'done', re-reads + validates.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="flags">Flags<a class="headerlink" href="#flags" title="Permanent link">&para;</a></h3>
+<h4 id="craftdocsclaude-mdinit"><code>/craft:docs:claude-md:init</code><a class="headerlink" href="#craftdocsclaude-mdinit" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Short</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--type</code></td>
+<td><code>-t</code></td>
+<td>auto-detect</td>
+<td>Template type: plugin, teaching, r-package</td>
+</tr>
+<tr>
+<td><code>--force</code></td>
+<td><code>-f</code></td>
+<td>false</td>
+<td>Overwrite existing CLAUDE.md</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td><code>-n</code></td>
+<td>false</td>
+<td>Preview without creating</td>
+</tr>
+<tr>
+<td><code>--global</code></td>
+<td><code>-g</code></td>
+<td>false</td>
+<td>Target ~/.claude/CLAUDE.md</td>
+</tr>
+</tbody>
+</table>
+<h4 id="craftdocsclaude-mdsync"><code>/craft:docs:claude-md:sync</code><a class="headerlink" href="#craftdocsclaude-mdsync" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Short</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--fix</code></td>
+<td></td>
+<td>false</td>
+<td>Auto-fix issues found during audit</td>
+</tr>
+<tr>
+<td><code>--optimize</code></td>
+<td><code>-o</code></td>
+<td>false</td>
+<td>Enforce &lt; 150 line budget, move bloat to detail files</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td><code>-n</code></td>
+<td>false</td>
+<td>Preview changes without applying</td>
+</tr>
+<tr>
+<td><code>--global</code></td>
+<td><code>-g</code></td>
+<td>false</td>
+<td>Target ~/.claude/CLAUDE.md</td>
+</tr>
+<tr>
+<td><code>--section</code></td>
+<td><code>-s</code></td>
+<td>all</td>
+<td>Specific section: status, commands, architecture</td>
+</tr>
+</tbody>
+</table>
+<h4 id="craftdocsclaude-mdedit"><code>/craft:docs:claude-md:edit</code><a class="headerlink" href="#craftdocsclaude-mdedit" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Short</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--hints</code></td>
+<td></td>
+<td>true</td>
+<td>Add TODO optimization comments before opening</td>
+</tr>
+<tr>
+<td><code>--no-hints</code></td>
+<td></td>
+<td>false</td>
+<td>Open without annotations</td>
+</tr>
+<tr>
+<td><code>--global</code></td>
+<td><code>-g</code></td>
+<td>false</td>
+<td>Target ~/.claude/CLAUDE.md</td>
+</tr>
+<tr>
+<td><code>--validate</code></td>
+<td></td>
+<td>true</td>
+<td>Run audit after edit completes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pointer-architecture">Pointer Architecture<a class="headerlink" href="#pointer-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="format-standard">Format Standard<a class="headerlink" href="#format-standard" title="Permanent link">&para;</a></h3>
+<p>Pointer lines use markdown link with arrow prefix:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>-&gt; Full release history: [<span class="nt">VERSION-HISTORY.md</span>](<span class="na">docs/VERSION-HISTORY.md</span>)
+</span></code></pre></div>
+<p>Claude Code naturally understands markdown links and will <code>Read</code> the target file when the user asks about that topic. The arrow prefix (<code>-&gt;</code>) makes pointers visually distinct from regular links.</p>
+<h3 id="standard-detail-files">Standard Detail Files<a class="headerlink" href="#standard-detail-files" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Detail File</th>
+<th>Contains</th>
+<th>Pointer In CLAUDE.md</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/VERSION-HISTORY.md</code></td>
+<td>All release notes, changelogs, migration guides</td>
+<td><code>-&gt; Release history: [VERSION-HISTORY.md](docs/VERSION-HISTORY.md)</code></td>
+</tr>
+<tr>
+<td><code>docs/ARCHITECTURE.md</code></td>
+<td>Detailed system design, component diagrams, data flows</td>
+<td><code>-&gt; Architecture detail: [ARCHITECTURE.md](docs/ARCHITECTURE.md)</code></td>
+</tr>
+<tr>
+<td><code>CONTRIBUTING.md</code></td>
+<td>Dev setup, testing guide, PR process details</td>
+<td><code>-&gt; Contributing guide: [CONTRIBUTING.md](CONTRIBUTING.md)</code></td>
+</tr>
+<tr>
+<td><code>docs/COMMANDS.md</code></td>
+<td>Full command/API reference with all options and examples</td>
+<td><code>-&gt; Command reference: [COMMANDS.md](docs/COMMANDS.md)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="p0-sections-always-in-claudemd">P0 Sections (Always in CLAUDE.md)<a class="headerlink" href="#p0-sections-always-in-claudemd" title="Permanent link">&para;</a></h3>
+<p>These sections are never cut, regardless of budget:</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Max Lines</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Header/TL;DR</strong></td>
+<td>5</td>
+<td>Name, version, one-liner, key stats</td>
+</tr>
+<tr>
+<td><strong>Git Workflow</strong></td>
+<td>15</td>
+<td>Branch strategy, commit conventions, worktree commands</td>
+</tr>
+<tr>
+<td><strong>Quick Commands</strong></td>
+<td>15</td>
+<td>Build, test, lint, validate — the daily-use commands</td>
+</tr>
+<tr>
+<td><strong>Project Structure</strong></td>
+<td>15</td>
+<td>Directory layout with key files (tree format)</td>
+</tr>
+<tr>
+<td><strong>Troubleshooting</strong></td>
+<td>10</td>
+<td>Top 5-8 most common issues and fixes</td>
+</tr>
+<tr>
+<td><strong>Pointers</strong></td>
+<td>10</td>
+<td>Links to detail files</td>
+</tr>
+<tr>
+<td><strong>Total P0</strong></td>
+<td><strong>~70</strong></td>
+<td>Leaves 80 lines for P1 content</td>
+</tr>
+</tbody>
+</table>
+<h3 id="p1-sections-include-if-under-budget">P1 Sections (Include if under budget)<a class="headerlink" href="#p1-sections-include-if-under-budget" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Max Lines</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Agents/Routing</strong></td>
+<td>10</td>
+<td>Agent table for task routing</td>
+</tr>
+<tr>
+<td><strong>Execution Modes</strong></td>
+<td>8</td>
+<td>Mode table (default, debug, optimize, release)</td>
+</tr>
+<tr>
+<td><strong>Active Development</strong></td>
+<td>5</td>
+<td>Current branch + version only</td>
+</tr>
+<tr>
+<td><strong>Key Files</strong></td>
+<td>15</td>
+<td>Top 15 most-referenced files</td>
+</tr>
+</tbody>
+</table>
+<h3 id="p2-sections-always-in-detail-files-never-in-claudemd">P2 Sections (Always in detail files, never in CLAUDE.md)<a class="headerlink" href="#p2-sections-always-in-detail-files-never-in-claudemd" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Detail File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Release notes/history</td>
+<td>VERSION-HISTORY.md</td>
+</tr>
+<tr>
+<td>Feature matrices</td>
+<td>VERSION-HISTORY.md</td>
+</tr>
+<tr>
+<td>Per-test-file breakdowns</td>
+<td>CONTRIBUTING.md</td>
+</tr>
+<tr>
+<td>Phase completion details</td>
+<td>VERSION-HISTORY.md</td>
+</tr>
+<tr>
+<td>PR/merge details</td>
+<td>VERSION-HISTORY.md</td>
+</tr>
+<tr>
+<td>Diffstats (+lines/-lines)</td>
+<td>Never documented</td>
+</tr>
+<tr>
+<td>Implementation phase notes</td>
+<td>Never documented (delete after release)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="anti-pattern-rules-hard-blocks">Anti-Pattern Rules (Hard Blocks)<a class="headerlink" href="#anti-pattern-rules-hard-blocks" title="Permanent link">&para;</a></h3>
+<p>The <code>sync</code> command <strong>refuses</strong> to add these to CLAUDE.md:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Detection</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Release notes sections</td>
+<td>Regex: <code>^###? v\d+\.\d+</code> or <code>Released \d{4}</code></td>
+<td>Block + redirect to VERSION-HISTORY.md</td>
+</tr>
+<tr>
+<td>Diffstats</td>
+<td>Regex: <code>Files Changed:.*\+.*/-</code></td>
+<td>Block + delete</td>
+</tr>
+<tr>
+<td>"What Shipped" sections</td>
+<td>Regex: <code>What Shipped\|Merged PR</code></td>
+<td>Block + redirect</td>
+</tr>
+<tr>
+<td>Completed feature tables</td>
+<td>Regex: <code>Status.*Complete\|Released ✅</code></td>
+<td>Block + redirect</td>
+</tr>
+<tr>
+<td>Phase implementation details</td>
+<td>Regex: <code>^### Phase \d</code> with completion markers</td>
+<td>Block + redirect</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ia-writer-edit-workflow">iA Writer Edit Workflow<a class="headerlink" href="#ia-writer-edit-workflow" title="Permanent link">&para;</a></h2>
+<h3 id="sequence-diagram">Sequence Diagram<a class="headerlink" href="#sequence-diagram" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>User                    Claude                   iA Writer
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  │                       │                         │
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  ├── /claude-md:edit ──&gt; │                         │
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  │                       ├── Read CLAUDE.md        │
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  │                       ├── Analyze sections      │
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  │                       ├── Insert TODO hints     │
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  │                       ├── Write annotated file  │
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  │                       ├── AppleScript open ───&gt; │
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  │                       │                         ├── File opens
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  │                       ├── &quot;Editing in iA Writer&quot;│
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  │                       ├── &quot;Type &#39;done&#39; when     │
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  │                       │    finished&quot;            │
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  │   (edit in iA Writer) │                         │
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  │                       │                    save │
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>  ├── &quot;done&quot; ───────────&gt; │                         │
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>  │                       ├── Re-read CLAUDE.md     │
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>  │                       ├── Remove TODO comments  │
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>  │                       ├── Run audit             │
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>  │                       ├── Show validation report│
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>  │                       │                         │
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>  │  &lt;── Report ──────────┤                         │
+</span></code></pre></div>
+<h3 id="todo-hint-format">TODO Hint Format<a class="headerlink" href="#todo-hint-format" title="Permanent link">&para;</a></h3>
+<p>Before opening, Claude inserts HTML comments with optimization guidance:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&lt;!-- TODO: Section &quot;Recent Major Features&quot; is 174 lines. Target: 0 lines.
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>     Action: Move to docs/VERSION-HISTORY.md, replace with pointer. --&gt;
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gu">## Recent Major Features</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>&lt;!-- TODO: Section &quot;Test Suite&quot; is 25 lines. Target: 8 lines.
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>     Action: Keep run command only, remove per-file breakdown. --&gt;
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="gu">## Test Suite</span>
+</span></code></pre></div>
+<h3 id="applescript-integration">AppleScript Integration<a class="headerlink" href="#applescript-integration" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Open CLAUDE.md in iA Writer</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>osascript<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;tell application &quot;iA Writer&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="s1">    activate</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="s1">    open POSIX file &quot;/path/to/CLAUDE.md&quot;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="s1">end tell&#39;</span>
+</span></code></pre></div>
+<h3 id="post-edit-validation">Post-Edit Validation<a class="headerlink" href="#post-edit-validation" title="Permanent link">&para;</a></h3>
+<p>After user says "done":</p>
+<ol>
+<li>Re-read the file</li>
+<li>Strip all <code>&lt;!-- TODO: ... --&gt;</code> comments</li>
+<li>Run full audit (5 checks)</li>
+<li>Check line count against budget</li>
+<li>Report results</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Edit Complete - Validation Report
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Lines: 142 (budget: 150) ✅
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Sections: 8 present ✅
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>Audit Results:
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  ✅ Version matches source
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  ✅ All commands documented
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  ✅ Required sections present
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  ✅ No stale references
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>  ⚠️ 1 broken link (line 89: docs/old-guide.md)
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>Fix broken link? [y/n]
+</span></code></pre></div>
+<hr />
+<h2 id="sync-command-detailed-behavior">Sync Command: Detailed Behavior<a class="headerlink" href="#sync-command-detailed-behavior" title="Permanent link">&para;</a></h2>
+<h3 id="default-flow-no-flags">Default Flow (no flags)<a class="headerlink" href="#default-flow-no-flags" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:docs:claude-md:sync
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Phase 1: Detect
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  Project type: craft-plugin
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  Version source: .claude-plugin/plugin.json
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>Phase 2: Update Metrics
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  Version: v2.11.0 → v2.12.0 (changed)
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  Commands: 104 (unchanged)
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  Tests: 1111 (unchanged)
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>Phase 3: Audit
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>  ✅ Version now matches source
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>  ✅ Commands documented
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>  ✅ Links valid
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>  ⚠️ File is 280 lines (budget: 150)
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>  ⚠️ Contains release history (174 lines)
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>2 warnings found. Run with --fix to auto-fix, or --optimize to enforce budget.
+</span></code></pre></div>
+<h3 id="with-optimize-flag">With --optimize flag<a class="headerlink" href="#with-optimize-flag" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:docs:claude-md:sync --optimize
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>[Phase 1-2 same as above]
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Phase 3: Audit
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  ⚠️ File is 280 lines (budget: 150)
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>Phase 4: Optimize
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  CLAUDE.md is 280 lines (budget: 150). Found cuts:
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  ✂️ Release History (174 lines)
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>     → Move to docs/VERSION-HISTORY.md
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>     → Replace with: &quot;-&gt; Release history: [VERSION-HISTORY.md](...)&quot;
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>  ✂️ Feature Matrix (40 lines)
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>     → Move to docs/VERSION-HISTORY.md
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>     → Replace with: &quot;-&gt; Feature status: [VERSION-HISTORY.md](...)&quot;
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>  ✂️ Per-test breakdown (25 lines)
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>     → Collapse to summary (8 lines)
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>  Result: 280 → 138 lines (-142, -51%)
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>  Apply optimizations? [y/n]
+</span></code></pre></div>
+<h3 id="with-global-flag">With --global flag<a class="headerlink" href="#with-global-flag" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:docs:claude-md:sync --global
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Targeting: ~/.claude/CLAUDE.md (global)
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Phase 1: Detect
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  File: ~/.claude/CLAUDE.md
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  Lines: 134
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>Phase 2: Update
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  No metrics to update (global file)
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>Phase 3: Audit
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>  ✅ Under budget (134/150)
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  ⚠️ Contains project-specific section: &quot;Claude MCP Browser Extension&quot;
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>     → Consider moving to project CLAUDE.md with pointer
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>1 warning found.
+</span></code></pre></div>
+<hr />
+<h2 id="pre-commit-hook">Pre-Commit Hook<a class="headerlink" href="#pre-commit-hook" title="Permanent link">&para;</a></h2>
+<h3 id="hook-configuration">Hook Configuration<a class="headerlink" href="#hook-configuration" title="Permanent link">&para;</a></h3>
+<p>Add to <code>.pre-commit-config.yaml</code>:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claude-md-budget</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLAUDE.md line budget</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">      </span><span class="nt">entry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash -c &#39;lines=$(wc -l &lt; CLAUDE.md 2&gt;/dev/null || echo 0); if [ &quot;$lines&quot; -gt 150 ]; then echo &quot;CLAUDE.md is $lines lines (budget</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150). Run /craft:docs:claude-md:sync --optimize&quot;; exit 1; fi&#39;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">      </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">      </span><span class="nt">files</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLAUDE.md</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">      </span><span class="nt">pass_filenames</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span></code></pre></div>
+<h3 id="ci-integration">CI Integration<a class="headerlink" href="#ci-integration" title="Permanent link">&para;</a></h3>
+<p>Add to <code>docs-quality.yml</code>:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Check CLAUDE.md budget</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="no">lines=$(wc -l &lt; CLAUDE.md)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="no">if [ &quot;$lines&quot; -gt 150 ]; then</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">      </span><span class="no">echo &quot;::error::CLAUDE.md is $lines lines (budget: 150)&quot;</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">      </span><span class="no">exit 1</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="no">fi</span>
+</span></code></pre></div>
+<hr />
+<h2 id="utility-module-changes">Utility Module Changes<a class="headerlink" href="#utility-module-changes" title="Permanent link">&para;</a></h2>
+<h3 id="modules-to-keep-no-changes">Modules to Keep (no changes)<a class="headerlink" href="#modules-to-keep-no-changes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>claude_md_detector.py</code></td>
+<td>Core detection, used by init + sync</td>
+</tr>
+<tr>
+<td><code>claude_md_template_populator.py</code></td>
+<td>Used by init (was scaffold)</td>
+</tr>
+<tr>
+<td><code>claude_md_section_editor.py</code></td>
+<td>Used by edit command</td>
+</tr>
+</tbody>
+</table>
+<h3 id="modules-to-merge">Modules to Merge<a class="headerlink" href="#modules-to-merge" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Before</th>
+<th>After</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>claude_md_auditor.py</code></td>
+<td><code>claude_md_sync.py</code></td>
+<td>Audit is now part of sync</td>
+</tr>
+<tr>
+<td><code>claude_md_fixer.py</code></td>
+<td><code>claude_md_sync.py</code></td>
+<td>Fix is now part of sync</td>
+</tr>
+<tr>
+<td><code>claude_md_updater.py</code></td>
+<td><code>claude_md_sync.py</code></td>
+<td>Update is now part of sync</td>
+</tr>
+<tr>
+<td><code>claude_md_updater_simple.py</code></td>
+<td><code>claude_md_sync.py</code></td>
+<td>Merge into unified sync engine</td>
+</tr>
+</tbody>
+</table>
+<h3 id="new-module">New Module<a class="headerlink" href="#new-module" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>claude_md_optimizer.py</code></td>
+<td>Budget enforcement, section pruning, bloat detection, pointer generation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="architecture-after-refactoring">Architecture After Refactoring<a class="headerlink" href="#architecture-after-refactoring" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>utils/
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>├── claude_md_detector.py           # Unchanged - project detection
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>├── claude_md_template_populator.py # Unchanged - template variables
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>├── claude_md_section_editor.py     # Unchanged - section parsing
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>├── claude_md_sync.py               # NEW - merged update + audit + fix
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>└── claude_md_optimizer.py          # NEW - budget enforcement + pruning
+</span></code></pre></div>
+<hr />
+<h2 id="template-changes">Template Changes<a class="headerlink" href="#template-changes" title="Permanent link">&para;</a></h2>
+<h3 id="lean-templates-new-default">Lean Templates (New Default)<a class="headerlink" href="#lean-templates-new-default" title="Permanent link">&para;</a></h3>
+<p>All templates redesigned for &lt; 150 lines with pointer pattern:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gh"># CLAUDE.md - {plugin_name}</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">&gt; </span><span class="ge">**TL;DR**: {tagline}</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="gs">**{command_count} commands**</span> · <span class="gs">**{skill_count} skills**</span> · <span class="gs">**{agent_count} agents**</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="gs">**Version:**</span> v{version} | <span class="gs">**Tests:**</span> {test_count} passing
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="gu">## Git Workflow</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="sb">`main`</span> (protected, PR only) &lt;- <span class="sb">`dev`</span> (planning, no feature code) &lt;- <span class="sb">`feature/*`</span> (worktrees)
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>| Step | Action | Command |
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>|------|--------|---------|
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>| Plan | Analyze on <span class="sb">`dev`</span> | <span class="sb">`git checkout dev`</span> |
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>| Branch | Create worktree | <span class="sb">`/craft:git:worktree feature/&lt;name&gt;`</span> |
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>| Develop | Conventional commits | <span class="sb">`feat:`</span>, <span class="sb">`fix:`</span>, <span class="sb">`docs:`</span> |
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>| Integrate | PR to dev | <span class="sb">`gh pr create --base dev`</span> |
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>| Release | PR to main | <span class="sb">`gh pr create --base main --head dev`</span> |
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="gu">## Quick Commands</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>| Task | Command |
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>|------|---------|
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>{command_table}
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="gu">## Project Structure</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>```text
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>{directory_tree}
+</span></code></pre></div>
+<h2 id="key-files">Key Files<a class="headerlink" href="#key-files" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{key_files_table}</td>
+<td>(auto-populated)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{troubleshooting_table}</td>
+<td>(auto-populated)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>-&gt; Release history: <a href="docs/VERSION-HISTORY.md">VERSION-HISTORY.md</a>
+-&gt; Architecture: <a href="docs/ARCHITECTURE.md">ARCHITECTURE.md</a>
+-&gt; Contributing: <a href="CONTRIBUTING.md">CONTRIBUTING.md</a>
+-&gt; Command reference: <a href="docs/COMMANDS.md">COMMANDS.md</a></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>**Estimated populated size: 90-130 lines**
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>---
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>## Test Strategy
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>### Tests to Refactor
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>| Current Test File | New Test File | Changes |
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>|-------------------|---------------|---------|
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>| `test_claude_md_phase1.py` | `test_claude_md_init.py` | Rename scaffold→init references |
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>| `test_claude_md_audit.py` | `test_claude_md_sync.py` | Merge audit tests into sync |
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>| `test_claude_md_fix.py` | `test_claude_md_sync.py` | Merge fix tests into sync |
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>| `test_claude_md_scaffold.py` | `test_claude_md_init.py` | Rename scaffold→init |
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>| `test_claude_md_edit.py` | `test_claude_md_edit.py` | Add iA Writer workflow tests |
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>| `test_claude_md_comprehensive.py` | `test_claude_md_comprehensive.py` | Update command names |
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>| `test_claude_md_integration_phase2.py` | `test_claude_md_integration.py` | Merge + update |
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>| `test_claude_md_integration_phase3.py` | `test_claude_md_integration.py` | Merge + update |
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>### New Tests Needed
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>| Test | Coverage |
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>|------|----------|
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>| Budget enforcement (&lt; 150 lines) | sync --optimize |
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>| Release note blocking | sync anti-pattern detection |
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>| Pointer generation | sync --optimize creates correct pointers |
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>| Detail file creation | sync --optimize creates VERSION-HISTORY.md etc. |
+</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>| TODO hint insertion | edit --hints |
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>| TODO hint removal | edit post-validation |
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>| iA Writer AppleScript | edit AppleScript execution |
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>| --global flag | init/sync/edit on ~/.claude/CLAUDE.md |
+</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>| Pre-commit hook | Budget check script |
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>---
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>
+</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>## Migration Plan
+</span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a>
+</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>### Phase 1: Utility Refactoring
+</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>
+</span><span id="__span-13-40"><a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>1. Create `claude_md_sync.py` merging auditor + fixer + updater logic
+</span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>2. Create `claude_md_optimizer.py` with budget enforcement
+</span><span id="__span-13-42"><a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a>3. Add pointer generation to optimizer
+</span><span id="__span-13-43"><a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>4. Add anti-pattern detection (release notes, diffstats)
+</span><span id="__span-13-44"><a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>5. Tests for new modules
+</span><span id="__span-13-45"><a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>
+</span><span id="__span-13-46"><a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a>### Phase 2: Command Refactoring
+</span><span id="__span-13-47"><a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>
+</span><span id="__span-13-48"><a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a>1. Create `init.md` (from scaffold.md with lean templates)
+</span><span id="__span-13-49"><a id="__codelineno-13-49" name="__codelineno-13-49" href="#__codelineno-13-49"></a>2. Create `sync.md` (from update.md with embedded audit/fix/optimize)
+</span><span id="__span-13-50"><a id="__codelineno-13-50" name="__codelineno-13-50" href="#__codelineno-13-50"></a>3. Update `edit.md` (add iA Writer workflow + TODO hints)
+</span><span id="__span-13-51"><a id="__codelineno-13-51" name="__codelineno-13-51" href="#__codelineno-13-51"></a>4. Remove old command files (update.md, audit.md, fix.md, scaffold.md)
+</span><span id="__span-13-52"><a id="__codelineno-13-52" name="__codelineno-13-52" href="#__codelineno-13-52"></a>5. Update hub.md references
+</span><span id="__span-13-53"><a id="__codelineno-13-53" name="__codelineno-13-53" href="#__codelineno-13-53"></a>
+</span><span id="__span-13-54"><a id="__codelineno-13-54" name="__codelineno-13-54" href="#__codelineno-13-54"></a>### Phase 3: Template &amp; Documentation
+</span><span id="__span-13-55"><a id="__codelineno-13-55" name="__codelineno-13-55" href="#__codelineno-13-55"></a>
+</span><span id="__span-13-56"><a id="__codelineno-13-56" name="__codelineno-13-56" href="#__codelineno-13-56"></a>1. Create lean template variants (&lt; 150 lines)
+</span><span id="__span-13-57"><a id="__codelineno-13-57" name="__codelineno-13-57" href="#__codelineno-13-57"></a>2. Add pre-commit hook for budget enforcement
+</span><span id="__span-13-58"><a id="__codelineno-13-58" name="__codelineno-13-58" href="#__codelineno-13-58"></a>3. Update all documentation references (REFCARD, tutorials, etc.)
+</span><span id="__span-13-59"><a id="__codelineno-13-59" name="__codelineno-13-59" href="#__codelineno-13-59"></a>4. Update CLAUDE.md itself to use the new lean format
+</span><span id="__span-13-60"><a id="__codelineno-13-60" name="__codelineno-13-60" href="#__codelineno-13-60"></a>5. Update test suite
+</span><span id="__span-13-61"><a id="__codelineno-13-61" name="__codelineno-13-61" href="#__codelineno-13-61"></a>
+</span><span id="__span-13-62"><a id="__codelineno-13-62" name="__codelineno-13-62" href="#__codelineno-13-62"></a>### Phase 4: Global CLAUDE.md
+</span><span id="__span-13-63"><a id="__codelineno-13-63" name="__codelineno-13-63" href="#__codelineno-13-63"></a>
+</span><span id="__span-13-64"><a id="__codelineno-13-64" name="__codelineno-13-64" href="#__codelineno-13-64"></a>1. Add --global flag to all 3 commands
+</span><span id="__span-13-65"><a id="__codelineno-13-65" name="__codelineno-13-65" href="#__codelineno-13-65"></a>2. Create pointer pattern for project-specific sections
+</span><span id="__span-13-66"><a id="__codelineno-13-66" name="__codelineno-13-66" href="#__codelineno-13-66"></a>3. Apply lean optimization to ~/.claude/CLAUDE.md
+</span><span id="__span-13-67"><a id="__codelineno-13-67" name="__codelineno-13-67" href="#__codelineno-13-67"></a>
+</span><span id="__span-13-68"><a id="__codelineno-13-68" name="__codelineno-13-68" href="#__codelineno-13-68"></a>---
+</span><span id="__span-13-69"><a id="__codelineno-13-69" name="__codelineno-13-69" href="#__codelineno-13-69"></a>
+</span><span id="__span-13-70"><a id="__codelineno-13-70" name="__codelineno-13-70" href="#__codelineno-13-70"></a>## Resolved Questions
+</span><span id="__span-13-71"><a id="__codelineno-13-71" name="__codelineno-13-71" href="#__codelineno-13-71"></a>
+</span><span id="__span-13-72"><a id="__codelineno-13-72" name="__codelineno-13-72" href="#__codelineno-13-72"></a>| # | Question | Decision | Rationale |
+</span><span id="__span-13-73"><a id="__codelineno-13-73" name="__codelineno-13-73" href="#__codelineno-13-73"></a>|---|----------|----------|-----------|
+</span><span id="__span-13-74"><a id="__codelineno-13-74" name="__codelineno-13-74" href="#__codelineno-13-74"></a>| 1 | Backward compatibility? | **1 release of aliases** | v2.12 adds new + deprecation warnings. v2.13 removes old names. |
+</span><span id="__span-13-75"><a id="__codelineno-13-75" name="__codelineno-13-75" href="#__codelineno-13-75"></a>| 2 | Auto-create detail files? | **Yes, create with moved content** | If docs/VERSION-HISTORY.md doesn&#39;t exist, create it and move content there. |
+</span><span id="__span-13-76"><a id="__codelineno-13-76" name="__codelineno-13-76" href="#__codelineno-13-76"></a>| 3 | Budget configurability? | **Default 150, override in plugin.json** | `&quot;claude_md_budget&quot;: 200` in .claude-plugin/plugin.json overrides default. |
+</span><span id="__span-13-77"><a id="__codelineno-13-77" name="__codelineno-13-77" href="#__codelineno-13-77"></a>| 4 | Editor fallback? | **iA Writer -&gt; VS Code -&gt; $EDITOR** | Try iA Writer (AppleScript), then VS Code, then $EDITOR env var. |
+</span><span id="__span-13-78"><a id="__codelineno-13-78" name="__codelineno-13-78" href="#__codelineno-13-78"></a>
+</span><span id="__span-13-79"><a id="__codelineno-13-79" name="__codelineno-13-79" href="#__codelineno-13-79"></a>### Alias Deprecation Plan
+</span><span id="__span-13-80"><a id="__codelineno-13-80" name="__codelineno-13-80" href="#__codelineno-13-80"></a>
+</span><span id="__span-13-81"><a id="__codelineno-13-81" name="__codelineno-13-81" href="#__codelineno-13-81"></a>```text
+</span><span id="__span-13-82"><a id="__codelineno-13-82" name="__codelineno-13-82" href="#__codelineno-13-82"></a>v2.12.0:
+</span><span id="__span-13-83"><a id="__codelineno-13-83" name="__codelineno-13-83" href="#__codelineno-13-83"></a>  /craft:docs:claude-md:scaffold  -&gt; prints &quot;DEPRECATED: use /craft:docs:claude-md:init&quot; + runs init
+</span><span id="__span-13-84"><a id="__codelineno-13-84" name="__codelineno-13-84" href="#__codelineno-13-84"></a>  /craft:docs:claude-md:update    -&gt; prints &quot;DEPRECATED: use /craft:docs:claude-md:sync&quot; + runs sync
+</span><span id="__span-13-85"><a id="__codelineno-13-85" name="__codelineno-13-85" href="#__codelineno-13-85"></a>  /craft:docs:claude-md:audit     -&gt; prints &quot;DEPRECATED: use /craft:docs:claude-md:sync&quot; + runs sync
+</span><span id="__span-13-86"><a id="__codelineno-13-86" name="__codelineno-13-86" href="#__codelineno-13-86"></a>  /craft:docs:claude-md:fix       -&gt; prints &quot;DEPRECATED: use /craft:docs:claude-md:sync --fix&quot; + runs sync --fix
+</span><span id="__span-13-87"><a id="__codelineno-13-87" name="__codelineno-13-87" href="#__codelineno-13-87"></a>
+</span><span id="__span-13-88"><a id="__codelineno-13-88" name="__codelineno-13-88" href="#__codelineno-13-88"></a>v2.13.0:
+</span><span id="__span-13-89"><a id="__codelineno-13-89" name="__codelineno-13-89" href="#__codelineno-13-89"></a>  Old command files removed entirely
+</span></code></pre></div>
+<h3 id="budget-configuration">Budget Configuration<a class="headerlink" href="#budget-configuration" title="Permanent link">&para;</a></h3>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">// .claude-plugin/plugin.json</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p">{</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-plugin&quot;</span><span class="p">,</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="nt">&quot;claude_md_budget&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w">  </span><span class="c1">// override default 150</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Fallback chain: <code>plugin.json</code> -&gt; <code>package.json</code> (claude_md_budget field) -&gt; default 150.</p>
+<h3 id="editor-fallback-chain">Editor Fallback Chain<a class="headerlink" href="#editor-fallback-chain" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">EDITOR_CHAIN</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="p">(</span><span class="s2">&quot;iA Writer&quot;</span><span class="p">,</span> <span class="s1">&#39;tell application &quot;iA Writer&quot; to activate&#39;</span><span class="p">),</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="p">(</span><span class="s2">&quot;Visual Studio Code&quot;</span><span class="p">,</span> <span class="s1">&#39;tell application &quot;Visual Studio Code&quot; to activate&#39;</span><span class="p">),</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="p">]</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># Final fallback: os.environ.get(&quot;EDITOR&quot;, &quot;vim&quot;)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="review-checklist">Review Checklist<a class="headerlink" href="#review-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Spec reviewed by user</li>
+<li>[ ] Open questions resolved</li>
+<li>[ ] All acceptance criteria testable</li>
+<li>[ ] Migration plan validated</li>
+<li>[ ] Backward compatibility considered</li>
+<li>[ ] Documentation plan complete</li>
+</ul>
+<hr />
+<h2 id="detailed-command-mapping">Detailed Command Mapping<a class="headerlink" href="#detailed-command-mapping" title="Permanent link">&para;</a></h2>
+<h3 id="scaffoldmd-443-lines-initmd">scaffold.md (443 lines) -&gt; init.md<a class="headerlink" href="#scaffoldmd-443-lines-initmd" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature in scaffold</th>
+<th>Kept in init</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project type detection (6 types)</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td>Template population (18+ vars)</td>
+<td>Yes</td>
+<td>Use lean templates (&lt; 150 lines)</td>
+</tr>
+<tr>
+<td>"Show Steps First" preview</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td><code>--dry-run</code> flag</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td><code>--force</code> flag</td>
+<td>Yes</td>
+<td>Unchanged (refuses without it if file exists)</td>
+</tr>
+<tr>
+<td>Template variable substitution</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td>Unpopulated variable tracking</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td><strong>NEW</strong></td>
+<td>-</td>
+<td><code>--global</code> flag for ~/.claude/CLAUDE.md</td>
+</tr>
+<tr>
+<td><strong>NEW</strong></td>
+<td>-</td>
+<td>Lean template is default (no <code>--budget</code> needed)</td>
+</tr>
+<tr>
+<td><strong>NEW</strong></td>
+<td>-</td>
+<td>Post-init opens edit if unpopulated vars exist</td>
+</tr>
+</tbody>
+</table>
+<h3 id="updatemd-auditmd-fixmd-1193-lines-combined-syncmd">update.md + audit.md + fix.md (1,193 lines combined) -&gt; sync.md<a class="headerlink" href="#updatemd-auditmd-fixmd-1193-lines-combined-syncmd" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Source</th>
+<th>Kept in sync</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core metric updates (version, counts)</td>
+<td>update</td>
+<td>Yes</td>
+<td>Default behavior</td>
+</tr>
+<tr>
+<td>Phase 1 simple updater</td>
+<td>update</td>
+<td>Yes</td>
+<td>Runs first</td>
+</tr>
+<tr>
+<td>Section-specific updates</td>
+<td>update</td>
+<td>Yes</td>
+<td><code>--section</code> flag</td>
+</tr>
+<tr>
+<td><code>--dry-run</code> flag</td>
+<td>update</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td><code>--interactive</code> flag</td>
+<td>update</td>
+<td>Dropped</td>
+<td>Complexity not worth it</td>
+</tr>
+<tr>
+<td><code>--optimize</code> flag</td>
+<td>update</td>
+<td><strong>Enhanced</strong></td>
+<td>Now enforces &lt; 150 budget + moves bloat</td>
+</tr>
+<tr>
+<td>5 validation checks</td>
+<td>audit</td>
+<td>Yes</td>
+<td>Runs automatically after metrics update</td>
+</tr>
+<tr>
+<td>Strict mode for CI</td>
+<td>audit</td>
+<td>Yes</td>
+<td><code>--strict</code> flag preserved</td>
+</tr>
+<tr>
+<td>4 auto-fix types</td>
+<td>fix</td>
+<td>Yes</td>
+<td>Via <code>--fix</code> flag</td>
+</tr>
+<tr>
+<td>Fix scoping (errors/warnings/all)</td>
+<td>fix</td>
+<td>Yes</td>
+<td><code>--scope</code> flag preserved</td>
+</tr>
+<tr>
+<td>Fix dry-run</td>
+<td>fix</td>
+<td>Yes</td>
+<td>Inherits <code>--dry-run</code> from sync</td>
+</tr>
+<tr>
+<td>Backup creation</td>
+<td>fix</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td><strong>NEW</strong></td>
+<td>-</td>
+<td>-</td>
+<td>Release note hard block (anti-pattern detection)</td>
+</tr>
+<tr>
+<td><strong>NEW</strong></td>
+<td>-</td>
+<td>-</td>
+<td>Budget enforcement in --optimize</td>
+</tr>
+<tr>
+<td><strong>NEW</strong></td>
+<td>-</td>
+<td>-</td>
+<td>Auto-create detail files when moving content</td>
+</tr>
+<tr>
+<td><strong>NEW</strong></td>
+<td>-</td>
+<td>-</td>
+<td><code>--global</code> flag for ~/.claude/CLAUDE.md</td>
+</tr>
+<tr>
+<td><strong>NEW</strong></td>
+<td>-</td>
+<td>-</td>
+<td>Bloat audit check (line count + release sniffing)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="editmd-527-lines-editmd-enhanced">edit.md (527 lines) -&gt; edit.md (enhanced)<a class="headerlink" href="#editmd-527-lines-editmd-enhanced" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature in current edit</th>
+<th>Kept</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Section detection/parsing</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td>Section selection menu</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td>iA Writer as default editor</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td>Editor fallback chain (ia/code/sublime/cursor)</td>
+<td>Enhanced</td>
+<td>Simplified to ia -&gt; code -&gt; $EDITOR</td>
+</tr>
+<tr>
+<td><code>--optimize</code> suggestion mode</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td><code>--section</code> targeting</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td>Multi-section sequential editing</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td>Replace vs Edit modes</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td>Change preview (before/after diff)</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td>Error handling (section not found, editor missing)</td>
+<td>Yes</td>
+<td>Unchanged</td>
+</tr>
+<tr>
+<td><strong>NEW: TODO hint insertion</strong></td>
+<td>-</td>
+<td><code>&lt;!-- TODO: ... --&gt;</code> comments before opening</td>
+</tr>
+<tr>
+<td><strong>NEW: 'done' sync-back</strong></td>
+<td>-</td>
+<td>Waits for 'done', re-reads, strips hints, validates</td>
+</tr>
+<tr>
+<td><strong>NEW: Post-edit audit</strong></td>
+<td>-</td>
+<td>Auto-runs audit after edit (default, skip with <code>--no-validate</code>)</td>
+</tr>
+<tr>
+<td><strong>NEW: Budget display</strong></td>
+<td>-</td>
+<td>Shows current line count vs budget while editing</td>
+</tr>
+<tr>
+<td><strong>NEW: --global flag</strong></td>
+<td>-</td>
+<td>Target ~/.claude/CLAUDE.md</td>
+</tr>
+<tr>
+<td><strong>DROPPED: /tmp editing</strong></td>
+<td>-</td>
+<td>Edit whole file in place, not temp file copies</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lean-template-craft-plugin-full-example">Lean Template: Craft Plugin (Full Example)<a class="headerlink" href="#lean-template-craft-plugin-full-example" title="Permanent link">&para;</a></h2>
+<p>This is what <code>init</code> generates for a craft-type plugin at &lt; 150 lines:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="gh"># CLAUDE.md - craft</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="k">&gt; </span><span class="ge">**TL;DR**: Use `/craft:do &lt;task&gt;` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches.</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="gs">**104 commands**</span> · <span class="gs">**21 skills**</span> · <span class="gs">**8 agents**</span> · <span class="gs">**20 specs**</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="gs">**Version:**</span> v2.12.0 | <span class="gs">**Tests:**</span> 1111 passing | <span class="gs">**Docs:**</span> 98%
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="gu">## Git Workflow</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="sb">`main`</span> (protected, PR only) &lt;- <span class="sb">`dev`</span> (planning, no feature code) &lt;- <span class="sb">`feature/*`</span> (worktrees)
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>| Step | Action | Command |
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>|------|--------|---------|
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>| Plan | Analyze on <span class="sb">`dev`</span>, wait for approval | <span class="sb">`git checkout dev`</span> |
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>| Branch | Create worktree | <span class="sb">`/craft:git:worktree feature/&lt;name&gt;`</span> |
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>| Develop | Conventional commits | <span class="sb">`feat:`</span>, <span class="sb">`fix:`</span>, <span class="sb">`docs:`</span> |
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>| Integrate | PR to dev | <span class="sb">`gh pr create --base dev`</span> |
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>| Release | PR to main | <span class="sb">`gh pr create --base main --head dev`</span> |
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="gs">**CRITICAL**</span>: Never commit to <span class="sb">`main`</span>. Never write feature code on <span class="sb">`dev`</span>. Always verify: <span class="sb">`git branch --show-current`</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a><span class="gu">## Quick Commands</span>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>
+</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>| Task | Command |
+</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>|------|---------|
+</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>| Run all tests | <span class="sb">`python3 tests/test_craft_plugin.py`</span> |
+</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a>| Integration tests | <span class="sb">`python3 tests/test_integration_*.py`</span> |
+</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>| Dependency tests | <span class="sb">`bash tests/test_dependency_management.sh`</span> |
+</span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a>| Validate counts | <span class="sb">`./scripts/validate-counts.sh`</span> |
+</span><span id="__span-16-30"><a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a>| Build docs | <span class="sb">`mkdocs build`</span> |
+</span><span id="__span-16-31"><a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a>| Lint markdown | <span class="sb">`npx markdownlint-cli2 &quot;**/*.md&quot;`</span> |
+</span><span id="__span-16-32"><a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a>| Emoji attr check | <span class="sb">`bash scripts/docs-lint-emoji.sh`</span> |
+</span><span id="__span-16-33"><a id="__codelineno-16-33" name="__codelineno-16-33" href="#__codelineno-16-33"></a>| Smart routing | <span class="sb">`/craft:do &lt;task&gt;`</span> |
+</span><span id="__span-16-34"><a id="__codelineno-16-34" name="__codelineno-16-34" href="#__codelineno-16-34"></a>| Pre-flight check | <span class="sb">`/craft:check`</span> |
+</span><span id="__span-16-35"><a id="__codelineno-16-35" name="__codelineno-16-35" href="#__codelineno-16-35"></a>
+</span><span id="__span-16-36"><a id="__codelineno-16-36" name="__codelineno-16-36" href="#__codelineno-16-36"></a><span class="gu">## Execution Modes</span>
+</span><span id="__span-16-37"><a id="__codelineno-16-37" name="__codelineno-16-37" href="#__codelineno-16-37"></a>
+</span><span id="__span-16-38"><a id="__codelineno-16-38" name="__codelineno-16-38" href="#__codelineno-16-38"></a>| Mode | Budget | Use Case |
+</span><span id="__span-16-39"><a id="__codelineno-16-39" name="__codelineno-16-39" href="#__codelineno-16-39"></a>|------|--------|----------|
+</span><span id="__span-16-40"><a id="__codelineno-16-40" name="__codelineno-16-40" href="#__codelineno-16-40"></a>| default | &lt; 10s | Quick tasks |
+</span><span id="__span-16-41"><a id="__codelineno-16-41" name="__codelineno-16-41" href="#__codelineno-16-41"></a>| debug | &lt; 120s | Verbose traces |
+</span><span id="__span-16-42"><a id="__codelineno-16-42" name="__codelineno-16-42" href="#__codelineno-16-42"></a>| optimize | &lt; 180s | Performance |
+</span><span id="__span-16-43"><a id="__codelineno-16-43" name="__codelineno-16-43" href="#__codelineno-16-43"></a>| release | &lt; 300s | Thorough validation |
+</span><span id="__span-16-44"><a id="__codelineno-16-44" name="__codelineno-16-44" href="#__codelineno-16-44"></a>
+</span><span id="__span-16-45"><a id="__codelineno-16-45" name="__codelineno-16-45" href="#__codelineno-16-45"></a><span class="gu">## Agents</span>
+</span><span id="__span-16-46"><a id="__codelineno-16-46" name="__codelineno-16-46" href="#__codelineno-16-46"></a>
+</span><span id="__span-16-47"><a id="__codelineno-16-47" name="__codelineno-16-47" href="#__codelineno-16-47"></a>| Agent | Model | Use For |
+</span><span id="__span-16-48"><a id="__codelineno-16-48" name="__codelineno-16-48" href="#__codelineno-16-48"></a>|-------|-------|---------|
+</span><span id="__span-16-49"><a id="__codelineno-16-49" name="__codelineno-16-49" href="#__codelineno-16-49"></a>| orchestrator-v2 | sonnet | Complex multi-step, parallel execution |
+</span><span id="__span-16-50"><a id="__codelineno-16-50" name="__codelineno-16-50" href="#__codelineno-16-50"></a>| docs-architect | sonnet | System documentation |
+</span><span id="__span-16-51"><a id="__codelineno-16-51" name="__codelineno-16-51" href="#__codelineno-16-51"></a>| tutorial-engineer | sonnet | Step-by-step tutorials |
+</span><span id="__span-16-52"><a id="__codelineno-16-52" name="__codelineno-16-52" href="#__codelineno-16-52"></a>| reference-builder | haiku | Parameter listings, config references |
+</span><span id="__span-16-53"><a id="__codelineno-16-53" name="__codelineno-16-53" href="#__codelineno-16-53"></a>| mermaid-expert | haiku | Diagrams |
+</span><span id="__span-16-54"><a id="__codelineno-16-54" name="__codelineno-16-54" href="#__codelineno-16-54"></a>
+</span><span id="__span-16-55"><a id="__codelineno-16-55" name="__codelineno-16-55" href="#__codelineno-16-55"></a><span class="gu">## Project Structure</span>
+</span><span id="__span-16-56"><a id="__codelineno-16-56" name="__codelineno-16-56" href="#__codelineno-16-56"></a>
+</span><span id="__span-16-57"><a id="__codelineno-16-57" name="__codelineno-16-57" href="#__codelineno-16-57"></a><span class="sb">```text</span>
+</span><span id="__span-16-58"><a id="__codelineno-16-58" name="__codelineno-16-58" href="#__codelineno-16-58"></a>craft/
+</span><span id="__span-16-59"><a id="__codelineno-16-59" name="__codelineno-16-59" href="#__codelineno-16-59"></a>├── .claude-plugin/     # Plugin manifest, hooks, validators
+</span><span id="__span-16-60"><a id="__codelineno-16-60" name="__codelineno-16-60" href="#__codelineno-16-60"></a>├── commands/           # 104 commands (arch, ci, code, docs, git, site, test, workflow)
+</span><span id="__span-16-61"><a id="__codelineno-16-61" name="__codelineno-16-61" href="#__codelineno-16-61"></a>├── skills/             # 21 specialized skills
+</span><span id="__span-16-62"><a id="__codelineno-16-62" name="__codelineno-16-62" href="#__codelineno-16-62"></a>├── agents/             # 8 agents
+</span><span id="__span-16-63"><a id="__codelineno-16-63" name="__codelineno-16-63" href="#__codelineno-16-63"></a>├── scripts/            # 20+ utility scripts
+</span><span id="__span-16-64"><a id="__codelineno-16-64" name="__codelineno-16-64" href="#__codelineno-16-64"></a>├── utils/              # Python utilities
+</span><span id="__span-16-65"><a id="__codelineno-16-65" name="__codelineno-16-65" href="#__codelineno-16-65"></a>├── tests/              # 1111 tests, ~90% coverage
+</span><span id="__span-16-66"><a id="__codelineno-16-66" name="__codelineno-16-66" href="#__codelineno-16-66"></a>└── docs/               # Specs (20), guides, tutorials
+</span><span id="__span-16-67"><a id="__codelineno-16-67" name="__codelineno-16-67" href="#__codelineno-16-67"></a><span class="sb">```</span>
+</span><span id="__span-16-68"><a id="__codelineno-16-68" name="__codelineno-16-68" href="#__codelineno-16-68"></a>
+</span><span id="__span-16-69"><a id="__codelineno-16-69" name="__codelineno-16-69" href="#__codelineno-16-69"></a><span class="gu">## Key Files</span>
+</span><span id="__span-16-70"><a id="__codelineno-16-70" name="__codelineno-16-70" href="#__codelineno-16-70"></a>
+</span><span id="__span-16-71"><a id="__codelineno-16-71" name="__codelineno-16-71" href="#__codelineno-16-71"></a>| File | Purpose |
+</span><span id="__span-16-72"><a id="__codelineno-16-72" name="__codelineno-16-72" href="#__codelineno-16-72"></a>|------|---------|
+</span><span id="__span-16-73"><a id="__codelineno-16-73" name="__codelineno-16-73" href="#__codelineno-16-73"></a>| <span class="sb">`.STATUS`</span> | Current milestone and progress |
+</span><span id="__span-16-74"><a id="__codelineno-16-74" name="__codelineno-16-74" href="#__codelineno-16-74"></a>| <span class="sb">`commands/do.md`</span> | Universal smart routing |
+</span><span id="__span-16-75"><a id="__codelineno-16-75" name="__codelineno-16-75" href="#__codelineno-16-75"></a>| <span class="sb">`commands/check.md`</span> | Pre-flight validation |
+</span><span id="__span-16-76"><a id="__codelineno-16-76" name="__codelineno-16-76" href="#__codelineno-16-76"></a>| <span class="sb">`commands/orchestrate.md`</span> | Multi-agent coordination |
+</span><span id="__span-16-77"><a id="__codelineno-16-77" name="__codelineno-16-77" href="#__codelineno-16-77"></a>| <span class="sb">`commands/hub.md`</span> | Zero-maintenance command discovery |
+</span><span id="__span-16-78"><a id="__codelineno-16-78" name="__codelineno-16-78" href="#__codelineno-16-78"></a>| <span class="sb">`utils/complexity_scorer.py`</span> | Task complexity scoring (0-10) |
+</span><span id="__span-16-79"><a id="__codelineno-16-79" name="__codelineno-16-79" href="#__codelineno-16-79"></a>| <span class="sb">`scripts/dependency-manager.sh`</span> | Dependency checking |
+</span><span id="__span-16-80"><a id="__codelineno-16-80" name="__codelineno-16-80" href="#__codelineno-16-80"></a>| <span class="sb">`.linkcheck-ignore`</span> | Expected broken links |
+</span><span id="__span-16-81"><a id="__codelineno-16-81" name="__codelineno-16-81" href="#__codelineno-16-81"></a>
+</span><span id="__span-16-82"><a id="__codelineno-16-82" name="__codelineno-16-82" href="#__codelineno-16-82"></a><span class="gu">## Troubleshooting</span>
+</span><span id="__span-16-83"><a id="__codelineno-16-83" name="__codelineno-16-83" href="#__codelineno-16-83"></a>
+</span><span id="__span-16-84"><a id="__codelineno-16-84" name="__codelineno-16-84" href="#__codelineno-16-84"></a>| Issue | Fix |
+</span><span id="__span-16-85"><a id="__codelineno-16-85" name="__codelineno-16-85" href="#__codelineno-16-85"></a>|-------|-----|
+</span><span id="__span-16-86"><a id="__codelineno-16-86" name="__codelineno-16-86" href="#__codelineno-16-86"></a>| Tests failing | <span class="sb">`python3 tests/test_craft_plugin.py`</span> |
+</span><span id="__span-16-87"><a id="__codelineno-16-87" name="__codelineno-16-87" href="#__codelineno-16-87"></a>| Broken links | <span class="sb">`python3 tests/test_craft_plugin.py -k &quot;broken_links&quot;`</span> |
+</span><span id="__span-16-88"><a id="__codelineno-16-88" name="__codelineno-16-88" href="#__codelineno-16-88"></a>| Outdated counts | <span class="sb">`./scripts/validate-counts.sh`</span> |
+</span><span id="__span-16-89"><a id="__codelineno-16-89" name="__codelineno-16-89" href="#__codelineno-16-89"></a>| Stale worktree | <span class="sb">`git worktree remove &lt;path&gt; --force`</span> |
+</span><span id="__span-16-90"><a id="__codelineno-16-90" name="__codelineno-16-90" href="#__codelineno-16-90"></a>| Plugin not loading | Check <span class="sb">`.claude-plugin/plugin.json`</span> |
+</span><span id="__span-16-91"><a id="__codelineno-16-91" name="__codelineno-16-91" href="#__codelineno-16-91"></a>| GIF broken commands | Test with Bash first, THEN generate GIF |
+</span><span id="__span-16-92"><a id="__codelineno-16-92" name="__codelineno-16-92" href="#__codelineno-16-92"></a>
+</span><span id="__span-16-93"><a id="__codelineno-16-93" name="__codelineno-16-93" href="#__codelineno-16-93"></a><span class="gu">## Detail Files</span>
+</span><span id="__span-16-94"><a id="__codelineno-16-94" name="__codelineno-16-94" href="#__codelineno-16-94"></a>
+</span><span id="__span-16-95"><a id="__codelineno-16-95" name="__codelineno-16-95" href="#__codelineno-16-95"></a>-&gt; Release history: [<span class="nt">VERSION-HISTORY.md</span>](<span class="na">docs/VERSION-HISTORY.md</span>)
+</span><span id="__span-16-96"><a id="__codelineno-16-96" name="__codelineno-16-96" href="#__codelineno-16-96"></a>-&gt; Architecture detail: [<span class="nt">Architecture Guide</span>](<span class="na">docs/architecture/</span>)
+</span><span id="__span-16-97"><a id="__codelineno-16-97" name="__codelineno-16-97" href="#__codelineno-16-97"></a>-&gt; Contributing: [<span class="nt">CONTRIBUTING.md</span>](<span class="na">CONTRIBUTING.md</span>)
+</span><span id="__span-16-98"><a id="__codelineno-16-98" name="__codelineno-16-98" href="#__codelineno-16-98"></a>-&gt; Command reference: [<span class="nt">Commands Reference</span>](<span class="na">https://data-wise.github.io/craft/commands/</span>)
+</span><span id="__span-16-99"><a id="__codelineno-16-99" name="__codelineno-16-99" href="#__codelineno-16-99"></a>-&gt; All specs: [<span class="nt">docs/specs/</span>](<span class="na">docs/specs/</span>) (20 total)
+</span></code></pre></div>
+<p><strong>Line count: ~120 lines</strong> (well under 150 budget)</p>
+<p>Compare to current: 535 lines. <strong>Savings: 415 lines (78%), ~5,700 tokens per session.</strong></p>
+<h2 id="implementation-notes">Implementation Notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The 461 existing references mean documentation updates are the bulk of the work</li>
+<li>Python utility modules are the foundation — refactor those first, then commands</li>
+<li>The detector module is unchanged, which simplifies testing</li>
+<li>Pre-commit hook is a simple bash one-liner, low risk</li>
+<li>iA Writer integration uses proven AppleScript pattern from brainstorm rules</li>
+<li>Current edit.md already has editor support (ia/code/sublime/cursor) — enhance, don't rewrite</li>
+<li>Current scaffold.md already has lean template logic — just swap the default template</li>
+</ul>
+<hr />
+<h2 id="history">History<a class="headerlink" href="#history" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-02-04</td>
+<td>Initial spec from brainstorm session. 8 interactive questions answered.</td>
+</tr>
+<tr>
+<td>2026-02-04</td>
+<td>Resolved 4 open questions. Added command mapping, lean template example, alias deprecation plan. 12 total questions answered.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
