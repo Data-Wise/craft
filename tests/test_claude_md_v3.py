@@ -471,12 +471,11 @@ class TestCLAUDEMDOptimizer(unittest.TestCase):
         optimizer = CLAUDEMDOptimizer(claude_md, budget=75)
         self.assertEqual(optimizer.budget, 75)
 
-    def test_optimizer_budget_from_plugin_json(self):
-        """Budget is read from plugin.json when present."""
-        plugin_json_path = self.path / ".claude-plugin" / "plugin.json"
-        plugin_json_path.write_text(json.dumps({
-            "name": "test-plugin",
-            "version": "1.0.0",
+    def test_optimizer_budget_from_config_json(self):
+        """Budget is read from .claude-plugin/config.json when present."""
+        config_dir = self.path / ".claude-plugin"
+        config_dir.mkdir(parents=True, exist_ok=True)
+        (config_dir / "config.json").write_text(json.dumps({
             "claude_md_budget": 200
         }))
         claude_md = self._write_claude_md(CLEAN_CLAUDE_MD)

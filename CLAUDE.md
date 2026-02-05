@@ -4,7 +4,7 @@
 
 **106 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.13.0 | **Latest Release:** v2.13.0 (2026-02-05)
+**Current Version:** v2.13.1 | **Latest Release:** v2.13.1 (2026-02-05)
 **Documentation Status:** 99% complete | **Tests:** 1174 passing (176 claude-md + 998 core)
 
 ## Git Workflow
@@ -550,7 +550,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | Stale worktree              | `git worktree remove <path> --force`                                               |
 | Orphaned worktrees          | `git worktree prune`                                                               |
 | Rebase conflicts            | `git rebase --abort && git merge origin/dev`                                       |
-| Plugin not loading          | Check `.claude-plugin/plugin.json` frontmatter                                     |
+| Plugin not loading          | Check `.claude-plugin/plugin.json` has no unrecognized keys (strict schema)        |
 | Command not found           | Verify file in `commands/` with valid frontmatter                                  |
 | Agent not triggering        | Check triggers list in agent frontmatter                                           |
 | GIF showing broken commands | **CRITICAL:** Test commands FIRST with Bash tool, verify output, THEN generate GIF |

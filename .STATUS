@@ -1,17 +1,24 @@
 status: Active
-version: 2.13.0
+version: 2.13.1
 release_date: 2026-02-05
 milestone: v2.14.0 - Release Automation & UX
 last_session: 2026-02-05
 
-progress: 100% (v2.13.0 released)
+progress: 100% (v2.13.1 releasing)
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                              |
-|--------|---------|------|-------------------------------------|
-| main   | ce72bba | —    | Production (v2.13.0)                |
-| dev    | 322cd5e | main | Release automation (ahead of main)  |
+| Branch | Head    | Base | Status                   |
+|--------|---------|------|--------------------------|
+| main   | ce72bba | —    | Production (v2.13.0)     |
+| dev    | pending | main | v2.13.1 patch (PR ready) |
+
+✅ v2.13.1 Patch (2026-02-05):
+- fix: Move claude_md_budget from plugin.json to config.json
+- Claude Code strict schema rejects unrecognized keys in plugin.json
+- Budget config now in .claude-plugin/config.json (separate from manifest)
+- Updated utilities, tests, commands, docs, and troubleshooting
+- Homebrew formula patched with dual protection (Ruby + Python fallback)
 
 ✅ v2.13.0 Released (2026-02-05):
 - 30 new documentation pages (PR #47, squash-merged)
@@ -19,21 +26,11 @@ progress: 100% (v2.13.0 released)
 - plugin.json version bump fix (PR #48, #49)
 - Release: https://github.com/Data-Wise/craft/releases/tag/v2.13.0
 
-🔧 Post-release (on dev):
-- Pre-release validation script (scripts/pre-release-check.sh)
-- CI version-tag consistency check
-- Dynamic formula metadata in homebrew-release workflow
-- homebrew-tap: optional metadata inputs for formula updates
-
 ---
 
 ## Next Steps
 
-🎯 Next Action: PR dev → main (release automation), or start v2.14.0 features
-
-**On dev (ready to merge):**
-- Pre-release check script + CI + homebrew automation improvements
-- Prevents stale plugin.json version and formula count issues
+🎯 Next Action: Merge PR, tag v2.13.1, update homebrew formula
 
 **Future (v2.14.0+):**
 - Styled output boxes for enhanced UX
