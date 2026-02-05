@@ -6,12 +6,16 @@
 
 set -e
 
-# Color definitions
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-CYAN='\033[1;36m'
-NC='\033[0m'
+# Source formatting library
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/formatting.sh"
+
+# Aliases for backward compatibility within this file
+RED="$FMT_RED"
+GREEN="$FMT_GREEN"
+YELLOW="$FMT_YELLOW"
+CYAN="$FMT_CYAN"
+NC="$FMT_NC"
 
 # Global flag for skip-all mode
 SKIP_ALL=false
@@ -49,30 +53,28 @@ prompt_user_consent() {
 
     # Display consent prompt box
     echo ""
-    echo "┌─────────────────────────────────────────────────────────────┐"
-    echo -e "│ ${CYAN}🔧 INSTALLATION REQUIRED${NC}                                     │"
-    echo "├─────────────────────────────────────────────────────────────┤"
-    echo "│                                                              │"
-    printf "│ Tool: %-54s│\n" "$tool_name"
-    printf "│ Purpose: %-50s│\n" "$purpose"
-    echo "│                                                              │"
-    echo "│ Installation will try (in order):                            │"
+    box_single "🔧 INSTALLATION REQUIRED" "$CYAN"
+    box_empty_row
+    box_row " Tool: $tool_name"
+    box_row " Purpose: $purpose"
+    box_empty_row
+    box_row " Installation will try (in order):"
 
     # List each strategy with time estimate
     local i=1
     for strategy in "${strategy_array[@]}"; do
         local time_est=$(get_time_estimate "$strategy")
-        printf "│   %d. %-51s│\n" "$i" "$strategy ($time_est)"
+        box_row "   $i. $strategy ($time_est)"
         ((i++))
     done
 
-    echo "│                                                              │"
-    echo "│ Install $tool_name now?                                      │"
-    echo "│   [Y] Yes, install                                           │"
-    echo "│   [N] No, skip this tool                                     │"
-    echo "│   [S] Skip all missing tools                                 │"
-    echo "│                                                              │"
-    echo "└─────────────────────────────────────────────────────────────┘"
+    box_empty_row
+    box_row " Install $tool_name now?"
+    box_row "   [Y] Yes, install"
+    box_row "   [N] No, skip this tool"
+    box_row "   [S] Skip all missing tools"
+    box_empty_row
+    box_footer
     echo ""
 
     # Get user input with validation
@@ -170,10 +172,8 @@ show_installation_summary() {
     local failed_json="$3"
 
     echo ""
-    echo "┌─────────────────────────────────────────────────────────────┐"
-    echo -e "│ ${CYAN}📊 INSTALLATION SUMMARY${NC}                                      │"
-    echo "├─────────────────────────────────────────────────────────────┤"
-    echo "│                                                              │"
+    box_single "📊 INSTALLATION SUMMARY" "$CYAN"
+    box_empty_row
 
     # Helper function to extract JSON field value
     _extract_json_field() {
@@ -184,7 +184,7 @@ show_installation_summary() {
 
     # Parse JSON and display installed tools
     if [[ -n "$installed_json" && "$installed_json" != "[]" ]]; then
-        echo -e "│ ${GREEN}✅ Installed (count)${NC}:                                      │"
+        box_row " ${GREEN}✅ Installed (count)${NC}:"
 
         # Parse JSON array manually by finding object boundaries
         local json_clean=$(echo "$installed_json" | sed 's/\[//g; s/\]//g; s/}, /}\n/g')
@@ -193,7 +193,7 @@ show_installation_summary() {
                 local name=$(_extract_json_field "$item" "name")
                 local via=$(_extract_json_field "$item" "via")
                 if [[ -n "$name" ]]; then
-                    printf "│    ${GREEN}•${NC} %-50s│\n" "$name (via $via)"
+                    box_row "    ${GREEN}•${NC} $name (via $via)"
                 fi
             fi
         done < <(echo "$json_clean")
@@ -201,15 +201,15 @@ show_installation_summary() {
 
     # Display skipped tools
     if [[ -n "$skipped_json" && "$skipped_json" != "[]" ]]; then
-        echo "│                                                              │"
-        echo -e "│ ${YELLOW}⏭️  Skipped (count)${NC}:                                       │"
+        box_empty_row
+        box_row " ${YELLOW}⏭️  Skipped (count)${NC}:"
 
         local json_clean=$(echo "$skipped_json" | sed 's/\[//g; s/\]//g; s/}, /}\n/g')
         while IFS= read -r item; do
             if [[ -n "$item" ]] && [[ "$item" == *"name"* ]]; then
                 local name=$(_extract_json_field "$item" "name")
                 if [[ -n "$name" ]]; then
-                    printf "│    ${YELLOW}•${NC} %-50s│\n" "$name"
+                    box_row "    ${YELLOW}•${NC} $name"
                 fi
             fi
         done < <(echo "$json_clean")
@@ -217,24 +217,24 @@ show_installation_summary() {
 
     # Display failed tools
     if [[ -n "$failed_json" && "$failed_json" != "[]" ]]; then
-        echo "│                                                              │"
-        echo -e "│ ${RED}❌ Failed (count)${NC}:                                         │"
+        box_empty_row
+        box_row " ${RED}❌ Failed (count)${NC}:"
 
         local json_clean=$(echo "$failed_json" | sed 's/\[//g; s/\]//g; s/}, /}\n/g')
         while IFS= read -r item; do
             if [[ -n "$item" ]] && [[ "$item" == *"name"* ]]; then
                 local name=$(_extract_json_field "$item" "name")
                 if [[ -n "$name" ]]; then
-                    printf "│    ${RED}•${NC} %-50s│\n" "$name (all methods failed)"
+                    box_row "    ${RED}•${NC} $name (all methods failed)"
                 fi
             fi
         done < <(echo "$json_clean")
     fi
 
-    echo "│                                                              │"
-    echo "│ Next: Run /craft:docs:demo --check to verify                │"
-    echo "│                                                              │"
-    echo "└─────────────────────────────────────────────────────────────┘"
+    box_empty_row
+    box_row " Next: Run /craft:docs:demo --check to verify"
+    box_empty_row
+    box_footer
     echo ""
 }
 
