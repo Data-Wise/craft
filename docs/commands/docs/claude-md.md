@@ -261,6 +261,18 @@ The command suite is powered by these Python modules:
 | `utils/claude_md_detector.py` | 450 | 6 project types, version extraction |
 | `utils/claude_md_template_populator.py` | 380 | 18+ template variable substitution |
 
+### Budget Configuration
+
+Override the default 150-line budget in `.claude-plugin/config.json`:
+
+```json
+{ "claude_md_budget": 200 }
+```
+
+> **Important:** Do NOT put `claude_md_budget` in `plugin.json` — Claude Code's strict schema rejects unrecognized keys.
+
+Fallback chain: `config.json` → `package.json` (`claudeMd.budget`) → default 150.
+
 ### Pre-commit Integration
 
 ```bash

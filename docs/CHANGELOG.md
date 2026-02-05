@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.13.1] - 2026-02-05
+
+### Fixed
+
+- **Plugin loading:** Moved `claude_md_budget` from `plugin.json` to `.claude-plugin/config.json` — Claude Code's strict schema rejects unrecognized keys, silently breaking plugin loading ([#20415](https://github.com/anthropics/claude-code/issues/20415))
+- **Budget utilities:** Updated `claude_md_optimizer.py`, `claude_md_sync.py`, and `claude-md-budget-check.sh` to read budget from `config.json` instead of `plugin.json`
+- **Homebrew formula:** Added dual-protection JSON cleanup in `post_install` (Ruby allowlist + Python fallback) to strip unrecognized keys from immutable v2.13.0 tarball
+
+### Changed
+
+- Budget config fallback chain: `.claude-plugin/config.json` → `package.json` (`claudeMd.budget`) → default 150
+- Updated docs, sync command, conventions, and troubleshooting to reference `config.json`
+
+---
+
+## [2.13.0] - 2026-02-05
+
+### Documentation Gap-Fill & Release Automation
+
+- 30 new documentation pages (PR #47)
+- Documentation status: 98% → 99%
+- Pre-release validation script (`scripts/pre-release-check.sh`)
+- CI version-tag consistency check
+- Dynamic formula metadata in homebrew-release workflow
+
+---
+
 ## [2.12.0] - 2026-02-05
 
 ### CLAUDE.md v3 Command Refactoring
