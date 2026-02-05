@@ -656,18 +656,21 @@ class CLAUDEMDOptimizer:
         """Read line budget from project configuration.
 
         Checks in order:
-            1. .claude-plugin/plugin.json -> claude_md_budget
+            1. .claude-plugin/config.json -> claude_md_budget
             2. package.json -> claudeMd.budget
             3. Default: 150
+
+        Note: plugin.json is NOT checked — Claude Code's strict schema
+        rejects unrecognized keys and breaks plugin loading.
 
         Returns:
             Line budget as integer
         """
-        # Try plugin.json
-        plugin_json = self.project_root / ".claude-plugin" / "plugin.json"
-        if plugin_json.exists():
+        # Try .claude-plugin/config.json (separate from manifest)
+        config_json = self.project_root / ".claude-plugin" / "config.json"
+        if config_json.exists():
             try:
-                data = json.loads(plugin_json.read_text())
+                data = json.loads(config_json.read_text())
                 if "claude_md_budget" in data:
                     return int(data["claude_md_budget"])
             except (json.JSONDecodeError, OSError, ValueError):

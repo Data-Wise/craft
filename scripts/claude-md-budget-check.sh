@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # scripts/claude-md-budget-check.sh - CLAUDE.md budget enforcement
 # Checks that CLAUDE.md files don't exceed the configured line budget.
-# Default budget: 150 lines. Override in .claude-plugin/plugin.json:
+# Default budget: 150 lines. Override in .claude-plugin/config.json:
 #   { "claude_md_budget": 200 }
+#
+# Note: Do NOT put claude_md_budget in plugin.json — Claude Code's strict
+# schema rejects unrecognized keys and breaks plugin loading.
 #
 # Usage:
 #   bash scripts/claude-md-budget-check.sh          # Check staged CLAUDE.md files
@@ -16,20 +19,19 @@ cd "$PROJECT_ROOT"
 DEFAULT_BUDGET=150
 ERRORS=0
 
-# Read budget from plugin.json if available (pure shell, no Python needed)
+# Read budget from config.json if available (pure shell, no Python needed)
+# Does NOT read from plugin.json (strict schema, no custom keys allowed)
 read_budget() {
-    local config=".claude-plugin/plugin.json"
+    local config=".claude-plugin/config.json"
     if [[ -f "$config" ]]; then
         local budget
         budget=$(grep -o '"claude_md_budget"[[:space:]]*:[[:space:]]*[0-9]*' "$config" 2>/dev/null | grep -o '[0-9]*$' || true)
         if [[ -n "$budget" && "$budget" -gt 0 ]] 2>/dev/null; then
             echo "$budget"
-        else
-            echo "$DEFAULT_BUDGET"
+            return
         fi
-    else
-        echo "$DEFAULT_BUDGET"
     fi
+    echo "$DEFAULT_BUDGET"
 }
 
 BUDGET=$(read_budget)
@@ -64,7 +66,7 @@ done
 if [[ "$ERRORS" -gt 0 ]]; then
     echo "" >&2
     echo "CLAUDE.md budget exceeded in $ERRORS file(s)." >&2
-    echo "  Budget: $BUDGET lines (configure in .claude-plugin/plugin.json)" >&2
+    echo "  Budget: $BUDGET lines (configure in .claude-plugin/config.json)" >&2
     echo "  Run: /craft:docs:claude-md:sync --optimize" >&2
     exit 1
 fi

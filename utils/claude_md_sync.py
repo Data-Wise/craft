@@ -1268,18 +1268,21 @@ class CLAUDEMDSync:
         """Resolve line budget from config files.
 
         Priority:
-          1. plugin.json ``claude_md_budget`` field
-          2. package.json ``claude_md_budget`` field
+          1. .claude-plugin/config.json ``claude_md_budget`` field
+          2. package.json ``claudeMd.budget`` field
           3. DEFAULT_BUDGET constant (150)
+
+        Note: plugin.json is NOT checked — Claude Code's strict schema
+        rejects unrecognized keys and breaks plugin loading.
 
         Returns:
             Line budget as integer.
         """
-        # Try plugin.json
-        plugin_json = self.project_root / ".claude-plugin" / "plugin.json"
-        if plugin_json.exists():
+        # Try .claude-plugin/config.json (separate from manifest)
+        config_json = self.project_root / ".claude-plugin" / "config.json"
+        if config_json.exists():
             try:
-                data = json.loads(plugin_json.read_text())
+                data = json.loads(config_json.read_text())
                 if "claude_md_budget" in data:
                     return int(data["claude_md_budget"])
             except (json.JSONDecodeError, OSError, ValueError):
@@ -1290,8 +1293,9 @@ class CLAUDEMDSync:
         if package_json.exists():
             try:
                 data = json.loads(package_json.read_text())
-                if "claude_md_budget" in data:
-                    return int(data["claude_md_budget"])
+                claude_md_config = data.get("claudeMd", {})
+                if "budget" in claude_md_config:
+                    return int(claude_md_config["budget"])
             except (json.JSONDecodeError, OSError, ValueError):
                 pass
 

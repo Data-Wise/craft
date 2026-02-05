@@ -42,13 +42,17 @@ from utils.claude_md_optimizer import (
 # ---------------------------------------------------------------------------
 
 def _make_plugin_json(path: Path, version: str = "2.0.0", budget: int = None):
-    """Create .claude-plugin/plugin.json."""
+    """Create .claude-plugin/plugin.json and optional config.json."""
     plugin_dir = path / ".claude-plugin"
     plugin_dir.mkdir(parents=True, exist_ok=True)
+    # plugin.json only has schema-valid keys
     data = {"name": "test-plugin", "version": version, "description": "Test"}
-    if budget is not None:
-        data["claude_md_budget"] = budget
     (plugin_dir / "plugin.json").write_text(json.dumps(data))
+    # Budget goes in separate config.json (not plugin.json)
+    if budget is not None:
+        (plugin_dir / "config.json").write_text(json.dumps({
+            "claude_md_budget": budget
+        }))
 
 
 def _make_commands(path: Path, count: int = 1):
