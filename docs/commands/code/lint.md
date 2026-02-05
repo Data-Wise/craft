@@ -81,6 +81,6 @@ When the target path contains `.md` files, `/craft:code:lint` automatically dele
 
 ## See Also
 
-- [/craft:docs:lint](../docs.md) — Markdown-specific linting
+- [/craft:docs:lint](../docs.md) — Markdown-specific linting (category page)
 - [/craft:code:ci-local](ci-local.md) — Run full CI suite locally
 - [/craft:check](../check.md) — Pre-flight validation

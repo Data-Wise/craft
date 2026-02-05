@@ -112,4 +112,4 @@ Run with --fix to auto-fix lint issues.
 - [/craft:code:lint](lint.md) — Code style checks
 - [/craft:code:deps-audit](deps-audit.md) — Security audit
 - [/craft:check](../check.md) — Pre-flight validation
-- [/craft:git:sync](../git.md) — Commit and push with validation
+- [/craft:git:sync](../git/sync.md) — Commit and push with validation
