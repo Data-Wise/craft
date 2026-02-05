@@ -18,14 +18,15 @@ set -euo pipefail
 # Script configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Color definitions
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-CYAN='\033[1;36m'
-BOLD='\033[1m'
-DIM='\033[2m'
-NC='\033[0m'
+# Colors (shared library)
+source "$SCRIPT_DIR/formatting.sh"
+RED="$FMT_RED"
+GREEN="$FMT_GREEN"
+YELLOW="$FMT_YELLOW"
+CYAN="$FMT_CYAN"
+BOLD="$FMT_BOLD"
+DIM="$FMT_DIM"
+NC="$FMT_NC"
 
 # Progress tracking variables
 declare -a PROCESSED_FILES=()
