@@ -16,19 +16,59 @@ on:
         default: true
 
 jobs:
+  validate:
+    name: Pre-Release Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Determine version
+        id: version
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="$INPUT_VERSION"
+          else
+            VERSION="${GITHUB_REF#refs/tags/}"
+            VERSION="${VERSION#v}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Validate release consistency
+        env:
+          RELEASE_VERSION: ${{ steps.version.outputs.version }}
+        run: ./scripts/pre-release-check.sh "$RELEASE_VERSION"
+
   prepare:
     name: Prepare Release Info
+    needs: validate
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.release.outputs.version }}
       sha256: ${{ steps.release.outputs.sha256 }}
+      command_count: ${{ steps.metadata.outputs.command_count }}
+      agent_count: ${{ steps.metadata.outputs.agent_count }}
+      skill_count: ${{ steps.metadata.outputs.skill_count }}
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Get version and calculate SHA
         id: release
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            VERSION="${{ github.event.inputs.version }}"
+            VERSION="$INPUT_VERSION"
           else
             VERSION="${GITHUB_REF#refs/tags/}"
             VERSION="${VERSION#v}"
@@ -43,6 +83,17 @@ jobs:
           echo "Version: $VERSION"
           echo "SHA256: $SHA256"
 
+      - name: Extract plugin metadata
+        id: metadata
+        run: |
+          CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" | wc -l | tr -d ' ')
+          AGENT_COUNT=$(find agents -name "*.md" | wc -l | tr -d ' ')
+          SKILL_COUNT=$(find skills -name "*.md" | wc -l | tr -d ' ')
+          echo "command_count=$CMD_COUNT" >> $GITHUB_OUTPUT
+          echo "agent_count=$AGENT_COUNT" >> $GITHUB_OUTPUT
+          echo "skill_count=$SKILL_COUNT" >> $GITHUB_OUTPUT
+          echo "Metadata: $CMD_COUNT commands, $AGENT_COUNT agents, $SKILL_COUNT skills"
+
   update-homebrew:
     name: Update Homebrew Formula
     needs: prepare
@@ -53,5 +104,8 @@ jobs:
       sha256: ${{ needs.prepare.outputs.sha256 }}
       source_type: github
       auto_merge: ${{ github.event.inputs.auto_merge == 'true' || github.event_name == 'release' }}
+      command_count: ${{ needs.prepare.outputs.command_count }}
+      agent_count: ${{ needs.prepare.outputs.agent_count }}
+      skill_count: ${{ needs.prepare.outputs.skill_count }}
     secrets:
       tap_token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
