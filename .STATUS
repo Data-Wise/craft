@@ -4,35 +4,42 @@ release_date: 2026-02-05
 milestone: v2.13.0 - Documentation Gap-Fill
 last_session: 2026-02-05
 
-progress: 0% (v2.13.0 — planning)
+progress: 100% (v2.13.0 — docs-gap-fill merged)
 
 📊 Branch Status:
 
-| Branch                | Head     | Base | Status                  |
-|-----------------------|----------|------|-------------------------|
-| main                  | bcaee0c  | —    | Production (v2.12.0)    |
-| dev                   | 1da544a  | main | Post-release site fixes |
-| feature/docs-gap-fill | 1da544a  | dev  | Worktree: planning      |
+| Branch | Head    | Base | Status                          |
+|--------|---------|------|---------------------------------|
+| main   | 6b7f44d | —    | Production (v2.12.0)            |
+| dev    | 53007e3 | main | docs-gap-fill merged, site live |
+
+✅ v2.13.0 Docs Gap-Fill (2026-02-05):
+- 30 new documentation pages (PR #47, squash-merged)
+- 5 beginner cookbook recipes
+- 8 troubleshooting guides
+- 1 beginner tutorial ("Your First 10 Minutes")
+- 13 individual command pages
+- 4 category page decision guides ("When to Use What")
+- 7 broken links fixed, claude-md nav collapsed
+- Documentation status: 98% → 99%
+- Site deployed: https://data-wise.github.io/craft/
 
 ✅ v2.12.0 Released (2026-02-05):
 - CLAUDE.md v3 command refactoring (5→3 commands)
 - Index restructured with feature showcase
 - Stale docs cleanup (counts, NEW labels, REFCARD)
-- Site deployed: https://data-wise.github.io/craft/
 - Release: https://github.com/Data-Wise/craft/releases/tag/v2.12.0
 
 ---
 
 ## Next Steps
 
-🎯 Next Action: Start Phase 1 in docs-gap-fill worktree
+🎯 Next Action: Release v2.13.0 (PR dev → main) or start v2.14.0 features
 
-**v2.13.0 — Documentation Gap-Fill:**
-- Phase 1: 5 beginner cookbook recipes (High)
-- Phase 2: 8 troubleshooting recipes (High)
-- Phase 3: "Your First 10 Minutes" tutorial (High)
-- Phase 4: Top 15 individual command pages (Medium)
-- Phase 5: Category page depth expansion (Medium)
+**Ready to release:**
+- All docs-gap-fill work merged to dev
+- Site deployed and live
+- No open PRs
 
 **Future (v2.14.0+):**
 - Styled output boxes for enhanced UX
