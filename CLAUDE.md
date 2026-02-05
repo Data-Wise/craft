@@ -4,7 +4,7 @@
 
 **106 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.12.0 | **Latest Release:** v2.12.0 (2026-02-05)
+**Current Version:** v2.13.0 | **Latest Release:** v2.13.0 (2026-02-05)
 **Documentation Status:** 99% complete | **Tests:** 1174 passing (176 claude-md + 998 core)
 
 ## Git Workflow
@@ -42,6 +42,7 @@ feature/* (worktrees) ← All implementation work
 | Integration tests | `python3 tests/test_integration_*.py`      | -------------------------------- |
 | Dependency tests  | `bash tests/test_dependency_management.sh` | -------------------------------- |
 | Validate          | `./scripts/validate-counts.sh`             | `/craft:check`                   |
+| Pre-release check | `./scripts/pre-release-check.sh <version>` | -------------------------------- |
 | Build docs        | `mkdocs build`                             | -------------------------------- |
 | Lint code         | ------------------------------------------ | `/craft:code:lint`               |
 | Lint markdown     | `npx markdownlint-cli2 "**/*.md"`          | `/craft:docs:lint`               |
@@ -105,6 +106,18 @@ craft/
 ```
 
 ## Recent Major Features
+
+### v2.13.0 - Documentation Gap-Fill & Release Automation (2026-02-05) ✅
+
+**Merged:** PR #49 (2026-02-05)
+
+**Documentation (PR #47):** 30 new pages — 5 beginner cookbook recipes, 8 troubleshooting guides, 1 beginner tutorial, 13 command pages, 4 category decision guides. Documentation: 98% → 99%.
+
+**Release Automation:** Pre-release validation script (`scripts/pre-release-check.sh`), CI version-tag consistency check, dynamic formula metadata in homebrew-release workflow. Prevents stale plugin.json version and outdated formula counts.
+
+**Fixes:** Bumped plugin.json version, updated .STATUS for release.
+
+---
 
 ### v2.12.0 - CLAUDE.md v3 Command Refactoring (2026-02-05) ✅
 
@@ -365,7 +378,7 @@ python3 tests/test_integration_teaching_workflow.py
 | **Testing Commands**                     | 10       | 100%           | 80%           | Complete ✅ |
 | **Architecture Commands**                | 12       | 100%           | 75%           | Complete ✅ |
 | **Remaining Commands**                   | 51       | 100%           | 40%           | Baseline ✅ |
-| **TOTAL**                                | **106**  | **100%**       | **98%**       | v2.12.0 ✅  |
+| **TOTAL**                                | **106**  | **100%**       | **99%**       | v2.13.0 ✅  |
 
 **Legend:**
 
@@ -397,48 +410,51 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Status
 
-**Branch:** `dev` (releasing v2.12.0)
+**Branch:** `dev`
 **Location:** `/Users/dt/projects/dev-tools/craft`
-**Status:** ✅ All features merged, releasing v2.12.0
+**Status:** ✅ v2.13.0 released, dev has release automation changes
 
 | Branch | Commit | Status |
 |--------|--------|--------|
-| **main** | `9a5a909` | ✅ v2.11.0 released |
-| **dev** | `adabcd9` | ✅ v2.12.0 (releasing) |
+| **main** | `ce72bba` | ✅ v2.13.0 released |
+| **dev** | `322cd5e` | Release automation (ahead of main) |
 | **Worktrees** | None active | Clean state |
 
 ### Recent Releases
+
+#### v2.13.0 - Documentation Gap-Fill (2026-02-05) ✅
+
+**Merged PR:** #49 (dev → main)
+
+**What Shipped:**
+
+- 30 new documentation pages (beginner recipes, troubleshooting, command pages)
+- Documentation: 98% → 99%
+- plugin.json version bump fix
+
+**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.13.0>
+
+#### v2.12.0 - CLAUDE.md v3 Command Refactoring (2026-02-05) ✅
+
+**Merged PR:** #45 (dev → main)
+
+- CLAUDE.md v3 command refactoring (5→3 commands)
+- Pointer templates, sync pipeline, optimizer
+- 71 new tests
 
 #### v2.11.0 - Test Suite Cleanup & CRAFT-001 (2026-02-03) ✅
 
 **Merged PR:** #42 (dev → main)
 
-**What Shipped:**
-
 - CRAFT-001 emoji-attribute spacing lint rule + CI
 - Eliminated 236 pytest warnings across 13 test files
-- Fixed 21 stale test expectations
 - Test count: 847 → 1064
-
-**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.11.0>
 
 #### v2.10.0 - Claude-MD Command Suite (2026-01-30) ✅
 
-**Merged PR:** #39 (dev → main)
+- 5 new commands, 7 utility modules, 81 tests
 
-- 5 new commands: update, audit, fix, scaffold, edit
-- 7 utility modules (2,713 lines Python)
-- 81 tests, 3 templates, 3,304 lines docs
-
-#### v2.9.1 - Documentation Enhancements (2026-01-29) ✅
-
-- 3 cookbook recipes, 2 tutorials, expanded command docs
-
-#### v2.9.0 - Command Behavior Enhancements (2026-01-29) ✅
-
-- "Show Steps First" pattern, interactive orchestration, worktree auto-setup
-
-### Future Features (v2.12.0+)
+### Future Features (v2.14.0+)
 
 **Ideas for Next Release:**
 
@@ -446,6 +462,7 @@ python3 tests/test_integration_teaching_workflow.py
 - Enhanced execution modes
 - Language detection for multi-lang projects
 - Rule expansion (30 → 42 markdownlint rules)
+- Remove deprecation aliases for old claude-md commands
 
 ### Completed Features (v2.8.0)
 
@@ -492,6 +509,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | `utils/claude_md_sync.py`                         | 4-phase sync pipeline (detect → update → audit → fix)   |
 | `utils/claude_md_optimizer.py`                    | Line budget enforcement and section optimization        |
 | `scripts/claude-md-budget-check.sh`               | Pure-shell budget check for pre-commit hooks            |
+| `scripts/pre-release-check.sh`                    | Pre-release validation (version, counts, clean tree)    |
 | `scripts/docs-lint-emoji.sh`                      | Standalone CRAFT-001 check for pre-commit hook          |
 | `.prettierignore`                                 | Prevents prettier from breaking emoji-attribute spacing |
 
