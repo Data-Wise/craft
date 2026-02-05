@@ -5,7 +5,7 @@
 **104 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.12.0-dev | **Latest Release:** v2.11.0 (2026-02-03)
-**Documentation Status:** 98% complete | **Tests:** 1164 passing (134 claude-md + 1030 core)
+**Documentation Status:** 98% complete | **Tests:** 1184 passing (154 claude-md + 1030 core)
 
 ## Git Workflow
 
@@ -129,7 +129,7 @@ craft/
 - Detail files (`docs/VERSION-HISTORY.md`, `docs/ARCHITECTURE.md`) hold full content
 - CLAUDE.md stays lean (< 150 lines target for new projects)
 
-**Tests:** 53 new tests in `test_claude_md_v3.py` (sync pipeline, optimizer, budget enforcement)
+**Tests:** 62 new tests — 53 unit (`test_claude_md_v3.py`) + 9 integration (`test_integration_claude_md_v3.py`)
 
 **Files Changed:** 26 (+4,617/-1,829)
 
@@ -316,10 +316,11 @@ The v1.24.0 release includes 27 integration tests validating three critical syst
 
 | Category                   | Tests  | Purpose                                         | Guide                                                                          |
 | -------------------------- | ------ | ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| **CLAUDE.md v3 Pipeline**  | 9      | Sync pipeline, optimizer, budget enforcement    | `tests/test_integration_claude_md_v3.py`                                       |
 | **Dependency System**      | 9      | Tool detection, installation, repair            | [Dependency Management Advanced](docs/guide/dependency-management-advanced.md) |
 | **Orchestrator Workflows** | 13     | Complexity scoring, routing, agent coordination | [Claude Code 2.1.0 Guide](docs/guide/claude-code-2.1-integration.md)           |
 | **Teaching Workflow**      | 8      | Course detection, validation, publishing        | [Teaching Workflow Guide](docs/guide/teaching-workflow.md)                     |
-| **Total**                  | **27** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
+| **Total**                  | **36** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
 
 ### Running Integration Tests
 
@@ -328,6 +329,7 @@ The v1.24.0 release includes 27 integration tests validating three critical syst
 python3 tests/test_integration_*.py
 
 # Run specific category
+python3 tests/test_integration_claude_md_v3.py
 python3 tests/test_integration_dependency_system.py
 python3 tests/test_integration_orchestrator_workflows.py
 python3 tests/test_integration_teaching_workflow.py
@@ -507,10 +509,11 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
 | `tests/test_integration_dependency_system.py`      | 9        | 100%     | Dependency workflow          |
 | `tests/test_integration_orchestrator_workflows.py` | 13       | 100%     | Task routing & scoring       |
+| `tests/test_integration_claude_md_v3.py`           | 9        | 100%     | v3 sync/optimizer integ.     |
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
-| **Total**                                          | **1175** | **~90%** | **All systems**              |
+| **Total**                                          | **1184** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
