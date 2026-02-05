@@ -6,7 +6,7 @@
 [![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **v2.11.1 - Test Suite Cleanup & CRAFT-001** 🚀
-> **104 commands** | **21 skills** | **8 agents** | **1111 tests passing**
+> **106 commands** | **21 skills** | **8 agents** | **1174 tests passing**
 > CRAFT-001 lint rule, 236 pytest warnings eliminated, 21 stale expectations fixed.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.

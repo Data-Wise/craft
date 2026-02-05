@@ -5,7 +5,7 @@
 **106 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.12.0-dev | **Latest Release:** v2.11.0 (2026-02-03)
-**Documentation Status:** 98% complete | **Tests:** 1184 passing (154 claude-md + 1030 core)
+**Documentation Status:** 98% complete | **Tests:** 1174 passing (176 claude-md + 998 core)
 
 ## Git Workflow
 
@@ -94,8 +94,8 @@ craft/
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
 ├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
-├── utils/              # Python utilities (complexity scorer, validators, parsers)
-├── tests/              # Comprehensive test suite (1111 tests, 90%+ coverage)
+├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
+├── tests/              # Comprehensive test suite (1174 tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (20 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
@@ -364,7 +364,7 @@ python3 tests/test_integration_teaching_workflow.py
 | **Testing Commands**                     | 10       | 100%           | 80%           | Complete ✅ |
 | **Architecture Commands**                | 12       | 100%           | 75%           | Complete ✅ |
 | **Remaining Commands**                   | 51       | 100%           | 40%           | Baseline ✅ |
-| **TOTAL**                                | **104**  | **100%**       | **98%**       | v2.11.0 ✅  |
+| **TOTAL**                                | **106**  | **100%**       | **98%**       | v2.12.0-dev |
 
 **Legend:**
 
@@ -487,6 +487,10 @@ See `docs/specs/` for detailed specifications (20 total).
 | `docs/reference/REFCARD-INTERACTIVE-COMMANDS.md`  | Interactive commands quick reference (v2.9.0)           |
 | `tests/test_command_enhancements_e2e.py`          | Command enhancements e2e tests (93 tests)               |
 | `tests/test_orch_flag_handler.py`                 | Orch flag handler tests (52 tests)                      |
+| `utils/claude_md_common.py`                       | Shared path resolution for CLAUDE.md modules            |
+| `utils/claude_md_sync.py`                         | 4-phase sync pipeline (detect → update → audit → fix)   |
+| `utils/claude_md_optimizer.py`                    | Line budget enforcement and section optimization        |
+| `scripts/claude-md-budget-check.sh`               | Pure-shell budget check for pre-commit hooks            |
 | `scripts/docs-lint-emoji.sh`                      | Standalone CRAFT-001 check for pre-commit hook          |
 | `.prettierignore`                                 | Prevents prettier from breaking emoji-attribute spacing |
 
@@ -502,7 +506,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_agent_hooks.py`                        | 13       | 100%     | Agent hooks                  |
 | `tests/test_orch_flag_handler.py`                  | 52       | 100%     | Orch flag handler (v2.9.0)   |
 | `tests/test_craft_001_emoji_spacing.py`            | 50       | 100%     | CRAFT-001 lint rule (v2.11.0)|
-| `tests/test_claude_md_v3.py`                       | 53       | 100%     | v3 sync/optimizer (v2.12.0)  |
+| `tests/test_claude_md_v3.py`                       | 51       | 100%     | v3 sync/optimizer (v2.12.0)  |
 | `tests/test_claude_md_audit.py`                    | 11       | 100%     | Audit module (v2.10.0)       |
 | **Integration & E2E Tests**                        |          |          |                              |
 | `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
@@ -513,7 +517,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
-| **Total**                                          | **1184** | **~90%** | **All systems**              |
+| **Total**                                          | **1174** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
