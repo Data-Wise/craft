@@ -124,6 +124,7 @@ nav:
       - Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
       - Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
+      - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
       - Test Wrapper Pattern Guide: guide/test-wrapper-pattern.md
       - Git Repository Init:
         - Command Reference: commands/git-init-reference.md
@@ -165,6 +166,19 @@ nav:
         - edit: commands/docs/claude-md/edit.md
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
+      - /craft:arch:analyze: commands/arch/analyze.md
+      - /craft:code:lint: commands/code/lint.md
+      - /craft:code:deps-audit: commands/code/deps-audit.md
+      - /craft:code:ci-local: commands/code/ci-local.md
+      - /craft:test:run: commands/test/run.md
+      - /craft:test:cli-run: commands/test/cli-run.md
+      - /craft:git:branch: commands/git/branch.md
+      - /craft:git:clean: commands/git/clean.md
+      - /craft:git:status: commands/git/status.md
+      - /craft:git:sync: commands/git/sync.md
+      - /craft:docs:changelog: commands/docs/changelog.md
+      - /craft:docs:check: commands/docs/check.md
+      - /craft:docs:sync: commands/docs/sync.md
 
   # 4. COOKBOOK & EXAMPLES - Use case driven recipes
   - 📚 Cookbook & Examples:
@@ -174,8 +188,24 @@ nav:
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
       - Check Code Quality Before Commit: cookbook/common/check-code-quality-before-commit.md
+      - Find the Right Command: cookbook/common/find-the-right-command.md
+      - Update a Single Doc: cookbook/common/update-single-doc.md
+      - Quick Code Checks: cookbook/common/quick-code-checks.md
+      - Create a Git Branch: cookbook/common/create-git-branch.md
+      - View Project Architecture: cookbook/common/view-project-architecture.md
+      - Set Up Parallel Worktrees: cookbook/common/setup-parallel-worktrees.md
+      - Use Interactive Orchestration: cookbook/common/use-interactive-orchestration.md
+      - Post-Merge Documentation: cookbook/common/post-merge-documentation.md
     - Troubleshooting:
       - Command Not Found: cookbook/troubleshooting/command-not-found.md
+      - Command Times Out: cookbook/troubleshooting/command-times-out.md
+      - Wrong Command Output: cookbook/troubleshooting/wrong-command-output.md
+      - CI Workflow Fails: cookbook/troubleshooting/ci-workflow-fails.md
+      - Pre-commit Blocks Commit: cookbook/troubleshooting/pre-commit-blocks-commit.md
+      - Worktree Won't Create: cookbook/troubleshooting/worktree-wont-create.md
+      - Broken Links After Update: cookbook/troubleshooting/broken-links-after-update.md
+      - CLAUDE.md Out of Sync: cookbook/troubleshooting/claude-md-out-of-sync.md
+      - MkDocs Build Fails: cookbook/troubleshooting/mkdocs-build-fails.md
 
   # 5. REFERENCE & ARCHITECTURE - Technical deep-dive
   - Reference & Architecture:
