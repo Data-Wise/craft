@@ -31,6 +31,7 @@ jobs:
 
       - name: Check asciinema method dependencies
         id: check-asciinema
+        continue-on-error: true
         run: |
           # Run dependency check with JSON output
           ./scripts/dependency-manager.sh display_status_json asciinema > deps-asciinema.json 2>&1 || true
@@ -55,11 +56,10 @@ jobs:
 
           # Fail if issues detected
           if [ "$status" = "issues" ]; then
-            echo "::error::Missing or broken dependencies for asciinema method"
+            echo "::warning::Missing or broken dependencies for asciinema method (tools are local-only, not expected on CI)"
             if [ -f deps-asciinema.json ] && [ -s deps-asciinema.json ]; then
               jq -r '.tools[] | select(.installed == false or .health == "broken") | "  - \(.name): installed=\(.installed), health=\(.health)"' deps-asciinema.json 2>/dev/null || true
             fi
-            exit 1
           fi
 
       - name: Check VHS method dependencies
