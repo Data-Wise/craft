@@ -1,48 +1,41 @@
 status: Active
 version: 2.12.0
 release_date: 2026-02-05
-milestone: v2.12.0 - CLAUDE.md v3 Command Refactoring
+milestone: v2.13.0 - Documentation Gap-Fill
 last_session: 2026-02-05
 
-progress: 100% (v2.12.0 — releasing)
+progress: 0% (v2.13.0 — planning)
 
 📊 Branch Status:
 
-| Branch     | Head     | Base | Status              |
-|------------|----------|------|---------------------|
-| main       | 9a5a909  | —    | Production (v2.11.0) |
-| dev        | adabcd9  | main | Releasing v2.12.0   |
-| Worktrees  | None     | —    | Clean state         |
+| Branch                | Head     | Base | Status                  |
+|-----------------------|----------|------|-------------------------|
+| main                  | bcaee0c  | —    | Production (v2.12.0)    |
+| dev                   | 1da544a  | main | Post-release site fixes |
+| feature/docs-gap-fill | 1da544a  | dev  | Worktree: planning      |
 
-✅ v2.12.0 Release Summary:
-
-**CLAUDE.md v3 Command Refactoring (5→3 commands):**
-- `init` — Create from lean pointer templates (replaces `scaffold`)
-- `sync` — Unified pipeline: detect → audit → fix → optimize (replaces `update`/`audit`/`fix`)
-- `edit` — Enhanced with `--global` flag
-
-**New Utilities:**
-- `utils/claude_md_common.py` — Shared path resolution
-- `utils/claude_md_optimizer.py` (1,030 lines) — Budget enforcement
-- `utils/claude_md_sync.py` (1,465 lines) — 4-phase sync pipeline
-- `scripts/claude-md-budget-check.sh` — Pre-commit budget check
-
-**Documentation:**
-- Index restructured: 511 → 216 lines (feature showcase)
-- New docs/CHANGELOG.md with consolidated release history
-- Internal conventions docs (5 files)
-
-**Tests:** 1171 passing, 3 skipped, 0 warnings
+✅ v2.12.0 Released (2026-02-05):
+- CLAUDE.md v3 command refactoring (5→3 commands)
+- Index restructured with feature showcase
+- Stale docs cleanup (counts, NEW labels, REFCARD)
+- Site deployed: https://data-wise.github.io/craft/
+- Release: https://github.com/Data-Wise/craft/releases/tag/v2.12.0
 
 ---
 
 ## Next Steps
 
-🎯 Next Action: PR dev → main, tag v2.12.0
+🎯 Next Action: Start Phase 1 in docs-gap-fill worktree
 
-**Future Feature Ideas (v2.13.0+):**
+**v2.13.0 — Documentation Gap-Fill:**
+- Phase 1: 5 beginner cookbook recipes (High)
+- Phase 2: 8 troubleshooting recipes (High)
+- Phase 3: "Your First 10 Minutes" tutorial (High)
+- Phase 4: Top 15 individual command pages (Medium)
+- Phase 5: Category page depth expansion (Medium)
+
+**Future (v2.14.0+):**
 - Styled output boxes for enhanced UX
-- Enhanced execution modes
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
 - Remove deprecation aliases for old claude-md commands
