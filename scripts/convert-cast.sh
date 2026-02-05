@@ -20,6 +20,10 @@
 
 set -euo pipefail
 
+# Source formatting library
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/formatting.sh"
+
 # ============================================================================
 # Configuration
 # ============================================================================
@@ -238,9 +242,9 @@ report_conversion() {
 
     # Print summary
     echo ""
-    echo "═══════════════════════════════════════════════════════════"
+    fmt_divider "═"
     echo "Conversion Summary"
-    echo "═══════════════════════════════════════════════════════════"
+    fmt_divider "═"
     echo ""
     echo "Input file:        $cast_file"
     echo "Output file:       $output_gif"
@@ -283,9 +287,8 @@ convert_single() {
 
     local start_time=$(date +%s)
 
-    echo "╔═══════════════════════════════════════════════════════════╗"
-    echo "║  .cast to .gif Converter (Phase 3)                      ║"
-    echo "╚═══════════════════════════════════════════════════════════╝"
+    box_header ".cast to .gif Converter (Phase 3)"
+    box_footer
     echo ""
 
     # Validate input
