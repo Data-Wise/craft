@@ -37,13 +37,14 @@ VERSION_CHECK="$SCRIPT_DIR/version-check.sh"
 TOOL_DETECTOR="$SCRIPT_DIR/tool-detector.sh"
 DEPENDENCY_MANAGER="$SCRIPT_DIR/dependency-manager.sh"
 
-# Color definitions
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-CYAN='\033[0;36m'
-BOLD='\033[1m'
-NC='\033[0m'
+# Colors (shared library)
+source "$SCRIPT_DIR/formatting.sh"
+RED="$FMT_RED"
+GREEN="$FMT_GREEN"
+YELLOW="$FMT_YELLOW"
+CYAN="$FMT_CYAN"
+BOLD="$FMT_BOLD"
+NC="$FMT_NC"
 
 # Debug mode
 DEBUG=${DEBUG:-0}

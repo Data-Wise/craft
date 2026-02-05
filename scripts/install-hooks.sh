@@ -10,11 +10,14 @@
 
 set -e
 
-# Colors
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+# Source unified formatting library
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/formatting.sh"
+
+# Backward-compat aliases (legacy color names → FMT_ constants)
+GREEN="$FMT_GREEN"
+BLUE="$FMT_BLUE"
+YELLOW="$FMT_YELLOW"
+NC="$FMT_NC"
 
 echo -e "${BLUE}🔧 Installing Git hooks for Craft...${NC}"
 echo ""

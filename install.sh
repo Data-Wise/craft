@@ -9,14 +9,16 @@ PLUGIN_DIR="${HOME}/.claude/plugins/${PLUGIN_NAME}"
 REPO_URL="https://github.com/Data-Wise/claude-plugins.git"
 TEMP_DIR=$(mktemp -d)
 
-echo "╔═══════════════════════════════════════════════════════════╗"
-echo "║  Craft Plugin Installer for Claude Code                  ║"
-echo "╠═══════════════════════════════════════════════════════════╣"
-echo "║                                                           ║"
-echo "║  📦 Installing: craft v1.17.0 (with workflow)           ║"
-echo "║  📍 Location: ~/.claude/plugins/craft                    ║"
-echo "║                                                           ║"
-echo "╚═══════════════════════════════════════════════════════════╝"
+# Source formatting library
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/scripts/formatting.sh"
+
+box_header "Craft Plugin Installer for Claude Code"
+box_empty_row
+box_row "  📦 Installing: craft v1.17.0 (with workflow)"
+box_row "  📍 Location: ~/.claude/plugins/craft"
+box_empty_row
+box_footer
 echo ""
 
 # Check if Claude Code is installed
@@ -64,25 +66,23 @@ if [ -f "${PLUGIN_DIR}/.claude-plugin/plugin.json" ]; then
     VERSION=$(grep '"version"' "${PLUGIN_DIR}/.claude-plugin/plugin.json" | sed 's/.*"\([0-9.]*\)".*/\1/')
 
     echo ""
-    echo "╔═══════════════════════════════════════════════════════════╗"
-    echo "║  ✅ INSTALLATION COMPLETE                                 ║"
-    echo "╠═══════════════════════════════════════════════════════════╣"
-    echo "║                                                           ║"
-    echo "║  Plugin: craft v${VERSION}                                    ║"
-    echo "║  Location: ~/.claude/plugins/craft                        ║"
-    echo "║                                                           ║"
-    echo "║  📚 Documentation:                                        ║"
-    echo "║  https://data-wise.github.io/claude-plugins/craft/       ║"
-    echo "║                                                           ║"
-    echo "║  🚀 Quick Start:                                          ║"
-    echo "║  • Restart Claude Code to load the plugin                ║"
-    echo "║  • Try: /craft:do <task> or /brainstorm                  ║"
-    echo "║  • Help: /craft:help                                     ║"
-    echo "║  • Hub: /craft:hub                                       ║"
-    echo "║                                                           ║"
-    echo "║  86 commands (74 craft + 12 workflow) | 8 agents | 21 skills ║"
-    echo "║                                                           ║"
-    echo "╚═══════════════════════════════════════════════════════════╝"
+    box_header "✅ INSTALLATION COMPLETE"
+    box_empty_row
+    box_row "  Plugin: craft v${VERSION}"
+    box_row "  Location: ~/.claude/plugins/craft"
+    box_empty_row
+    box_row "  📚 Documentation:"
+    box_row "  https://data-wise.github.io/claude-plugins/craft/"
+    box_empty_row
+    box_row "  🚀 Quick Start:"
+    box_row "  • Restart Claude Code to load the plugin"
+    box_row "  • Try: /craft:do <task> or /brainstorm"
+    box_row "  • Help: /craft:help"
+    box_row "  • Hub: /craft:hub"
+    box_empty_row
+    box_row "  106 commands | 8 agents | 21 skills"
+    box_empty_row
+    box_footer
     echo ""
 else
     echo "❌ Installation verification failed"

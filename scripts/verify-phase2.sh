@@ -3,9 +3,13 @@
 
 set -e
 
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-NC='\033[0m'
+# Source unified formatting library
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/formatting.sh"
+
+# Backward-compat aliases (legacy color names → FMT_ constants)
+GREEN="$FMT_GREEN"
+RED="$FMT_RED"
+NC="$FMT_NC"
 
 SCRIPT_DIR="/Users/dt/.git-worktrees/craft/feature-demo-deps/scripts"
 

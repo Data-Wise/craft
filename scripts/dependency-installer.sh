@@ -17,6 +17,7 @@ set -e
 
 # Source utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/formatting.sh"
 source "$SCRIPT_DIR/dependency-manager.sh"
 source "$SCRIPT_DIR/tool-detector.sh"
 source "$SCRIPT_DIR/session-cache.sh"
@@ -27,13 +28,13 @@ source "$SCRIPT_DIR/installers/binary-installer.sh"
 # Installation methods priority (can be overridden)
 INSTALL_PRIORITY=("brew" "cargo_git" "cargo" "binary")
 
-# Color definitions
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-CYAN='\033[1;36m'
-BOLD='\033[1m'
-NC='\033[0m'
+# Color aliases for backward compatibility
+RED="$FMT_RED"
+GREEN="$FMT_GREEN"
+YELLOW="$FMT_YELLOW"
+CYAN="$FMT_CYAN"
+BOLD="$FMT_BOLD"
+NC="$FMT_NC"
 
 # Debug mode
 DEBUG=${DEBUG:-0}
@@ -184,17 +185,15 @@ prompt_user_consent() {
     fi
 
     # Display consent prompt
-    cat >&2 <<EOF
-
-┌─────────────────────────────────────────────────────────────┐
-│ 🔧 ${BOLD}INSTALLATION REQUIRED${NC}                                     │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│ Tool: $tool_name
-│ Purpose: $purpose
-│                                                              │
-│ Installation will try (in order):                            │
-EOF
+    {
+        echo ""
+        box_single "🔧 INSTALLATION REQUIRED" "$BOLD"
+        box_empty_row
+        box_row " Tool: $tool_name"
+        box_row " Purpose: $purpose"
+        box_empty_row
+        box_row " Installation will try (in order):"
+    } >&2
 
     local i=1
     while IFS= read -r strategy; do
@@ -207,19 +206,19 @@ EOF
             *) time_estimate="unknown" ;;
         esac
 
-        printf "│   %d. %-15s (%s)%*s│\n" "$i" "$strategy" "$time_estimate" $((33 - ${#strategy} - ${#time_estimate})) "" >&2
+        box_row "   $i. $strategy ($time_estimate)" >&2
         ((i++))
     done <<< "$strategies"
 
-    cat >&2 <<EOF
-│                                                              │
-│ Install $tool_name now?                                      │
-│   [Y] Yes, install                                           │
-│   [N] No, skip this tool                                     │
-│   [S] Skip all missing tools                                 │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-EOF
+    {
+        box_empty_row
+        box_row " Install $tool_name now?"
+        box_row "   [Y] Yes, install"
+        box_row "   [N] No, skip this tool"
+        box_row "   [S] Skip all missing tools"
+        box_empty_row
+        box_footer
+    } >&2
 
     # Get user input
     read -p "Your choice [Y/n/s]: " choice

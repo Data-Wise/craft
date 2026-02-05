@@ -17,16 +17,17 @@ set -e
 
 # Source utilities
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/formatting.sh"
 source "$SCRIPT_DIR/tool-detector.sh"
 source "$SCRIPT_DIR/session-cache.sh"
 
-# Color definitions
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-CYAN='\033[1;36m'
-BOLD='\033[1m'
-NC='\033[0m'
+# Color aliases for backward compatibility
+RED="$FMT_RED"
+GREEN="$FMT_GREEN"
+YELLOW="$FMT_YELLOW"
+CYAN="$FMT_CYAN"
+BOLD="$FMT_BOLD"
+NC="$FMT_NC"
 
 # Demo.md location
 DEMO_MD="$SCRIPT_DIR/../commands/docs/demo.md"
@@ -395,10 +396,8 @@ display_status_table() {
 
     # Print header
     echo ""
-    echo "┌─────────────────────────────────────────────────────────────┐"
-    echo -e "│ 🔍 ${BOLD}DEPENDENCY STATUS: ${method} method${NC}                      │"
-    echo "├─────────────────────────────────────────────────────────────┤"
-    printf "│ %-12s │ %-10s │ %-8s │ %-7s │ %-15s │\n" "Tool" "Status" "Version" "Health" "Install"
+    box_single "🔍 ${BOLD}DEPENDENCY STATUS: ${method} method${NC}"
+    printf '│ %-12s │ %-10s │ %-8s │ %-7s │ %-15s │\n' "Tool" "Status" "Version" "Health" "Install"
     echo "├──────────────┼────────────┼──────────┼─────────┼─────────────────┤"
 
     # Print each tool
@@ -480,7 +479,7 @@ display_status_table() {
         printf "%$((7 - ${#health_visible}))s │ %-15s │\n" "" "$install_display"
     done
 
-    echo "└──────────────┴────────────┴──────────┴─────────┴─────────────────┘"
+    box_footer
     echo ""
 
     # Print summary

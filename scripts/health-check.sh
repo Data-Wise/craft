@@ -5,12 +5,16 @@
 
 set -euo pipefail
 
-# Color definitions
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-CYAN='\033[0;36m'
-NC='\033[0m'
+# Source formatting library
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/formatting.sh"
+
+# Aliases for backward compatibility within this file
+RED="$FMT_RED"
+GREEN="$FMT_GREEN"
+YELLOW="$FMT_YELLOW"
+CYAN="$FMT_CYAN"
+NC="$FMT_NC"
 
 # Debug mode
 DEBUG=${DEBUG:-0}
@@ -295,42 +299,40 @@ generate_health_report() {
     debug_log "Generating comprehensive health report..."
 
     echo ""
-    echo "╔════════════════════════════════════════════════════════════╗"
-    echo "║             TOOL HEALTH CHECK REPORT                       ║"
-    echo "╠════════════════════════════════════════════════════════════╣"
+    box_header "TOOL HEALTH CHECK REPORT"
 
     # Check each tool with verbose output
     local all_ok=true
 
     # Asciinema
-    echo "│ asciinema: $(check_tool_health_verbose asciinema)"
+    box_row " asciinema: $(check_tool_health_verbose asciinema)"
     if [ $? -ne 0 ]; then all_ok=false; fi
 
     # Agg
-    echo "│ agg:       $(check_tool_health_verbose agg)"
+    box_row " agg:       $(check_tool_health_verbose agg)"
     if [ $? -ne 0 ]; then all_ok=false; fi
 
     # Gifsicle
-    echo "│ gifsicle:  $(check_tool_health_verbose gifsicle)"
+    box_row " gifsicle:  $(check_tool_health_verbose gifsicle)"
     if [ $? -ne 0 ]; then all_ok=false; fi
 
     # VHS (optional)
-    echo "│ vhs:       $(check_tool_health_verbose vhs) (optional)"
+    box_row " vhs:       $(check_tool_health_verbose vhs) (optional)"
     # Don't mark all_ok=false for optional tools
 
     # FSWatch (optional)
-    echo "│ fswatch:   $(check_tool_health_verbose fswatch) (optional)"
+    box_row " fswatch:   $(check_tool_health_verbose fswatch) (optional)"
     # Don't mark all_ok=false for optional tools
 
-    echo "╠════════════════════════════════════════════════════════════╣"
+    box_separator
 
     if [ "$all_ok" = true ]; then
-        echo "║ ${GREEN}✅ All required tools are healthy${NC}                 ║"
+        box_row " ${GREEN}✅ All required tools are healthy${NC}"
     else
-        echo "║ ${RED}❌ Some required tools are broken${NC}                  ║"
+        box_row " ${RED}❌ Some required tools are broken${NC}"
     fi
 
-    echo "╚════════════════════════════════════════════════════════════╝"
+    box_footer
     echo ""
 
     [ "$all_ok" = true ]
