@@ -4,8 +4,8 @@
 
 **106 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.13.1 | **Latest Release:** v2.13.1 (2026-02-05)
-**Documentation Status:** 99% complete | **Tests:** 1174 passing (176 claude-md + 998 core)
+**Current Version:** v2.14.0 | **Latest Release:** v2.14.0 (2026-02-05)
+**Documentation Status:** 99% complete | **Tests:** 1248 passing (176 claude-md + 998 core + 74 formatting)
 
 ## Git Workflow
 
@@ -106,6 +106,25 @@ craft/
 ```
 
 ## Recent Major Features
+
+### v2.14.0 - Unified Formatting Library (2026-02-05) ✅
+
+**Branch:** `feature/styled-output`
+
+**New Library:** `scripts/formatting.sh` (~180 lines) — shared bash formatting library providing box-drawing (double/single line), `FMT_` prefixed color constants, ANSI-aware padding, table formatting, and source guard. All boxes standardized to 63 visible characters.
+
+**API:** `box_header`, `box_single`, `box_row`, `box_separator`, `box_footer`, `box_empty_row`, `box_table`, `fmt_set_width`, `fmt_divider`, `_fmt_strip_ansi`.
+
+**Migrations:**
+
+- 8 box-drawing scripts migrated (install.sh, migrate-from-workflow.sh, convert-cast.sh, health-check.sh, consent-prompt.sh, dependency-installer.sh, dependency-manager.sh)
+- 15 color-only scripts migrated (validate-counts, pre-release-check, batch-convert, repair-tools, 3 installers, tool-detector, version-check, sync-version, verify-phase1/2, install-hooks, test-fix-flag, pre-commit-markdownlint)
+
+**Tests:** 74 new tests (28 unit + 30 integration + 16 edge cases)
+
+**Files Changed:** 24 (+1,100/-300)
+
+---
 
 ### v2.13.0 - Documentation Gap-Fill & Release Automation (2026-02-05) ✅
 
@@ -410,15 +429,15 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Status
 
-**Branch:** `dev`
-**Location:** `/Users/dt/projects/dev-tools/craft`
-**Status:** ✅ v2.13.0 released, dev has release automation changes
+**Branch:** `feature/styled-output`
+**Location:** `~/.git-worktrees/craft/feature-styled-output`
+**Status:** v2.14.0 feature complete, ready for PR
 
 | Branch | Commit | Status |
 |--------|--------|--------|
-| **main** | `ce72bba` | ✅ v2.13.0 released |
-| **dev** | `322cd5e` | Release automation (ahead of main) |
-| **Worktrees** | None active | Clean state |
+| **main** | `9f8c0a5` | ✅ v2.13.1 released |
+| **dev** | `9f8c0a5` | In sync with main |
+| **feature/styled-output** | active | v2.14.0 formatting library |
 
 ### Recent Releases
 
@@ -454,11 +473,10 @@ python3 tests/test_integration_teaching_workflow.py
 
 - 5 new commands, 7 utility modules, 81 tests
 
-### Future Features (v2.14.0+)
+### Future Features (v2.15.0+)
 
 **Ideas for Next Release:**
 
-- Styled output boxes for better UX
 - Enhanced execution modes
 - Language detection for multi-lang projects
 - Rule expansion (30 → 42 markdownlint rules)
@@ -509,6 +527,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | `utils/claude_md_sync.py`                         | 4-phase sync pipeline (detect → update → audit → fix)   |
 | `utils/claude_md_optimizer.py`                    | Line budget enforcement and section optimization        |
 | `scripts/claude-md-budget-check.sh`               | Pure-shell budget check for pre-commit hooks            |
+| `scripts/formatting.sh`                           | Unified box-drawing, colors, ANSI-aware padding (v2.14) |
 | `scripts/pre-release-check.sh`                    | Pre-release validation (version, counts, clean tree)    |
 | `scripts/docs-lint-emoji.sh`                      | Standalone CRAFT-001 check for pre-commit hook          |
 | `.prettierignore`                                 | Prevents prettier from breaking emoji-attribute spacing |
@@ -536,7 +555,8 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
-| **Total**                                          | **1174** | **~90%** | **All systems**              |
+| `tests/test_formatting.sh`                         | 74       | 100%     | Formatting library (v2.14.0) |
+| **Total**                                          | **1248** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
@@ -554,33 +574,6 @@ See `docs/specs/` for detailed specifications (20 total).
 | Command not found           | Verify file in `commands/` with valid frontmatter                                  |
 | Agent not triggering        | Check triggers list in agent frontmatter                                           |
 | GIF showing broken commands | **CRITICAL:** Test commands FIRST with Bash tool, verify output, THEN generate GIF |
-
-## Phase 3 Documentation Enhancements
-
-**Status:** Completed (87% → 95% target)
-
-**New Documentation:**
-
-- VERSION-HISTORY.md - Complete version evolution from v1.0.0 → v1.24.0
-- Complexity Scoring Algorithm Guide - 7-factor system with visual decision flows
-- Claude Code 2.1.0 Integration Guide - Smart routing, agents, validators, session teleportation
-- Feature Status Matrix - Implementation and documentation completeness by feature
-
-**Deliverables:**
-
-- 3 new guide documents (1,609 lines)
-- 17 Mermaid diagrams (task routing, complexity scoring, agent delegation, orchestration)
-- Feature completeness matrix showing 106 commands with 98% documentation
-- Version history timeline with 24+ releases documented
-
-**Success Criteria Met:**
-
-- ✅ VERSION-HISTORY.md created with comprehensive timeline
-- ✅ Mermaid visualizations for complexity scoring and orchestration (17 diagrams)
-- ✅ Feature status matrix in CLAUDE.md showing documentation completeness
-- ✅ All internal links verified and working
-- ✅ Documentation builds without errors (mkdocs: 3.83s)
-- ✅ Guides properly referenced with links to guides/ directory
 
 ## Links
 
