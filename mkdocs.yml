@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.12.0-dev features CLAUDE.md v3 command refactoring (5→3 commands) with budget enforcement and pointer templates.
+site_description: Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.12.0 features CLAUDE.md v3 command refactoring (5→3 commands) with budget enforcement and pointer templates.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft

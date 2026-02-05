@@ -2,10 +2,10 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
 [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.11.1-blue.svg)](https://github.com/Data-Wise/craft)
+[![Version](https://img.shields.io/badge/version-2.12.0-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.12.0-dev - CLAUDE.md v3 Command Refactoring** 🚀
+> **v2.12.0 - CLAUDE.md v3 Command Refactoring** 🚀
 > **106 commands** | **21 skills** | **8 agents** | **1174 tests passing**
 > 5→3 command consolidation (init, sync, edit), budget enforcement, pointer templates.
 
@@ -504,7 +504,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ## Version
 
-- **Version:** 2.11.1
+- **Version:** 2.12.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 

@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed **21 hidden test failures** that were silently passing
 - Added **CRAFT-001** emoji-attribute spacing lint rule with CI integration
 - **50 new tests** for CRAFT-001 across 9 categories
-- Test count: **847 → 1111** (all passing, 0 warnings)
+- Test count: **847 → 1111 → 1171** (all passing, 0 warnings)
 
 **Documentation:** [CRAFT-001 Tutorial](tutorials/TUTORIAL-craft-001-emoji-spacing.md) · [Test Wrapper Pattern Guide](guide/test-wrapper-pattern.md)
 
@@ -88,7 +88,7 @@ Major interactive workflow improvements and comprehensive test infrastructure fi
 - **Interactive Orchestration**: Mode selection via `AskUserQuestion`, wave checkpoints, decision points
 - **Git Worktree Auto-Setup**: Detects scope from branch patterns, auto-creates workflow files
 - **CI Test Infrastructure**: Fixed 15 failing tests, 145 new tests (93 e2e + 52 orch handler)
-- **Total: 1111 tests passing** (was 847)
+- **Total: 1171 tests passing** (was 847)
 
 **Documentation:** 3 new guides (650+ lines total) · [Release on GitHub](https://github.com/Data-Wise/craft/releases/tag/v2.9.0)
 

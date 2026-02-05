@@ -4,7 +4,7 @@
 
 **106 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.12.0-dev | **Latest Release:** v2.11.0 (2026-02-03)
+**Current Version:** v2.12.0 | **Latest Release:** v2.12.0 (2026-02-05)
 **Documentation Status:** 98% complete | **Tests:** 1174 passing (176 claude-md + 998 core)
 
 ## Git Workflow
@@ -145,7 +145,7 @@ craft/
 - Eliminated all 236 pytest warnings (PytestReturnNotNoneWarning + PytestCollectionWarning)
 - Refactored 13 test files: `test_*` → `_check_*` helpers + thin `test_*` wrappers
 - Fixed 21 stale test expectations surfaced by warning conversion
-- Test count: 847 → 1111 (all passing, 0 warnings, 3 skipped)
+- Test count: 847 → 1111 → 1171 (all passing, 0 warnings, 3 skipped)
 
 **CRAFT-001 Lint Rule:**
 
@@ -397,14 +397,14 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Status
 
-**Branch:** `dev` (synced with v2.12.0-dev merge)
+**Branch:** `dev` (releasing v2.12.0)
 **Location:** `/Users/dt/projects/dev-tools/craft`
-**Status:** ✅ PR #45 merged, ready for release
+**Status:** ✅ All features merged, releasing v2.12.0
 
 | Branch | Commit | Status |
 |--------|--------|--------|
-| **main** | `9a5a909` | ✅ v2.11.1 released |
-| **dev** | `c31bbc1` | ✅ v2.12.0-dev (PR #45 merged) |
+| **main** | `9a5a909` | ✅ v2.11.0 released |
+| **dev** | `adabcd9` | ✅ v2.12.0 (releasing) |
 | **Worktrees** | None active | Clean state |
 
 ### Recent Releases
