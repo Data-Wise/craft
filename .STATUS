@@ -1,89 +1,45 @@
 status: Active
 version: 2.11.1
 release_date: 2026-02-03 (v2.11.1)
-milestone: v2.11.1 - Released
-last_session: 2026-02-03T18:15:00Z
+milestone: v2.12.0 - CLAUDE.md Optimization & Command Reform
+last_session: 2026-02-04T23:30:00Z
 
-progress: 100% (v2.11.1 RELEASED - All PRs merged, docs deployed)
+progress: 15% (v2.12.0 - Spec complete, internal conventions documented, implementation not started)
 
-📊 Branch Status (as of 2026-02-03):
+📊 Branch Status (as of 2026-02-04):
 
-| Branch    | Head     | Ahead of | Status                        |
-|-----------|----------|----------|-------------------------------|
-| main      | 6b7f44d  | —        | Production (v2.11.1) ✅        |
-| dev       | 6b7f44d  | 0        | Synced with main              |
-| gh-pages  | 92252ac  | —        | Deployed docs site ✅          |
+| Branch              | Head    | Status                          |
+|---------------------|---------|---------------------------------|
+| main                | 9a5a909 | Production (v2.11.1 + docs) ✅   |
+| dev                 | 8660da6 | Synced with main (PR #44) ✅     |
+| feature/claude-md-v3| 1738376 | Worktree ready, no impl yet     |
+| gh-pages            | 92252ac | Deployed docs site ✅            |
 
 Worktrees:
-  • /Users/dt/projects/dev-tools/craft → dev (main repo)
-  • No active feature worktrees - clean state
+  - /Users/dt/projects/dev-tools/craft → dev (main repo)
+  - ~/.git-worktrees/craft/feature-claude-md-v3 → feature/claude-md-v3
 
-✅ Just Completed (2026-02-03 session):
-
-- Merged PR #42 (test cleanup + CRAFT-001) → main
-- Fixed 2 CI failures (broken links, mkdocs skip import)
-- Post-merge docs update for v2.11.0
-- Created 50 tests for CRAFT-001 (9 categories, full coverage)
-- Created CRAFT-001 tutorial + test wrapper pattern guide
-- Site update (commands, tests, version refs, What's New section)
-- Merged PR #43 (post-merge docs + tests) → main
-- Bumped to v2.11.1, created GitHub release
-- Deployed docs site to GitHub Pages
-
-📊 Session Stats: 9 commits, 2 PRs merged, 1 release, 1 deploy
+🎯 Next Action: `cd ~/.git-worktrees/craft/feature-claude-md-v3` and start implementation
 
 ---
 
-## Releases
+## What's Done (2026-02-04)
 
-### v2.11.1 - Test Suite Cleanup & CRAFT-001 (2026-02-03) ✅
+- Researched Anthropic CLAUDE.md best practices (< 300 lines, progressive disclosure)
+- Measured craft CLAUDE.md bloat: 535 lines, 58% waste
+- Brainstormed 4 proposals (BRAINSTORM-claude-md-optimization-2026-02-04.md)
+- Created spec: SPEC-claude-md-v3-optimization-2026-02-04.md (770 lines, 12 decisions)
+- Cleaned stale worktree, created feature/claude-md-v3
+- Global CLAUDE.md trimmed: 413 → 134 lines (68% reduction)
+- Created docs/internal/ with 5 convention documents (PR #44 → main)
+- Added internal conventions to mkdocs nav
 
-**What Shipped:**
-- CRAFT-001 emoji-attribute spacing lint rule + CI integration
-- Eliminated all 236 pytest warnings across 13 test files
-- Fixed 21 hidden test failures (soft failures)
-- 50 new tests for CRAFT-001 (9 categories)
-- CRAFT-001 tutorial + test wrapper pattern guide
-- Test count: 847 → 1111 (all passing, 0 warnings)
+## What's Left (v2.12.0)
 
-### v2.10.0 - Claude-MD Command Suite (2026-01-30) ✅
-
-**What Shipped:**
-- 5 new commands: update, audit, fix, scaffold, edit
-- 7 utility modules (2,713 lines Python)
-- 3 project templates (plugin, teaching, r-package)
-- 81 tests (100% passing, 0.024s)
-- 3,304 lines documentation
-
-### v2.9.1 - Documentation Enhancements (2026-01-29) ✅
-
-**What Shipped:**
-- 3 new cookbook recipes (1,161 lines)
-- 2 new beginner tutorials (1,618 lines)
-- Expanded command documentation (+442 lines)
-
----
-
-## Next Steps
-
-🎯 Next Action: Start v2.12.0 planning
-
-**Ready for New Development:**
-- dev branch synced with main
-- Clean working directory
-- No active worktrees
-- All systems validated (1111 tests, 0 warnings)
-
-**Future Feature Ideas (v2.12.0+):**
-- Styled output boxes for enhanced UX
-- Enhanced execution modes
-- Language detection for multi-lang projects
-- Markdownlint rule expansion (30 → 42)
-- Additional interactive workflows
-
-**Development Workflow:**
-1. Start new feature: `git checkout dev`
-2. Create worktree: `/craft:git:worktree feature/<name>`
-3. Implement with tests
-4. PR to dev for integration
-5. Release PR from dev to main
+1. Create `claude_md_sync.py` (merge auditor + fixer + updater)
+2. Create `claude_md_optimizer.py` (budget enforcement + pruning)
+3. Create `init.md`, `sync.md` commands; update `edit.md`
+4. Deprecation aliases for old commands
+5. Lean plugin template (< 150 lines)
+6. Pre-commit hook for CLAUDE.md budget
+7. Tests for all new modules
