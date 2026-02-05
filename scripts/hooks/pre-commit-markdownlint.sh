@@ -25,7 +25,9 @@
 set -e
 
 # Source unified formatting library
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/formatting.sh"
+# Resolve symlinks so this works when called via .git/hooks/pre-commit.legacy symlink
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || realpath "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")")" && cd .. && pwd)"
+source "$SCRIPT_DIR/formatting.sh"
 
 # Backward-compat aliases (legacy color names → FMT_ constants)
 RED="$FMT_RED"
