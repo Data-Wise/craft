@@ -187,6 +187,7 @@ nav:
     - Hub v2.0 Architecture: architecture/HUB-V2-ARCHITECTURE.md
     - Discovery API: api/DISCOVERY-API.md
     - Documentation Quality: reference/documentation-quality.md
+    - Changelog: CHANGELOG.md
     - Version History: VERSION-HISTORY.md
     - Release Notes v2.8.0: RELEASE-v2.8.0.md
     - Enhancement Guides:
