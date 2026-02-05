@@ -19,7 +19,7 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **104 Commands**
+- :rocket:{ .lg .middle } **106 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
 
@@ -64,7 +64,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 97 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 106 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## API Reference - NEW in v1.24.0
 
@@ -74,7 +74,7 @@ Complete OpenAPI-style documentation for all 97 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 97 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 106 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -309,7 +309,7 @@ Smart command discovery with 3-layer progressive disclosure (PR #17, #20):
 **Try it:**
 
 ```bash
-/craft:hub              # Browse all 97 commands by category
+/craft:hub              # Browse all 106 commands by category
 /craft:hub code         # View code category (12 commands)
 /craft:hub code:lint    # Get detailed tutorial for code:lint
 ```
@@ -471,7 +471,7 @@ New `/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 c
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 97 commands organized
+    All 106 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](guide/skills-agents.md)**
 
@@ -483,7 +483,7 @@ New `/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 c
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)** ⭐ NEW
 
-    Complete documentation for all 97 commands
+    Complete documentation for all 106 commands
 
 </div>
 

@@ -106,22 +106,23 @@ craft/
 
 ## Recent Major Features
 
-### v2.12.0 - CLAUDE.md v3 Command Refactoring (In Progress)
+### v2.12.0 - CLAUDE.md v3 Command Refactoring (2026-02-05) ✅
 
-**Branch:** `feature/claude-md-v3` | **PR:** #45
+**Merged:** PR #45 (2026-02-05)
 
 **Command Consolidation (5→3):**
 
-- `init` — NEW: Create CLAUDE.md from lean pointer templates (replaces `scaffold`)
-- `sync` — NEW: Unified pipeline (detect → audit → fix → optimize) (replaces `update`/`audit`/`fix`)
+- `init` — Create CLAUDE.md from lean pointer templates (replaces `scaffold`)
+- `sync` — Unified 4-phase pipeline: detect → audit → fix → optimize (replaces `update`/`audit`/`fix`)
 - `edit` — Enhanced with `--global` flag for `~/.claude/CLAUDE.md`
-- `scaffold`, `update`, `audit`, `fix` — DEPRECATED: route to `init`/`sync`
+- `scaffold`, `update`, `audit`, `fix` — Deprecation aliases (removed in v2.13.0)
 
 **New Utilities:**
 
+- `utils/claude_md_common.py` — Shared path resolution (DRY refactor)
 - `utils/claude_md_optimizer.py` (1,030 lines) — Section classification (P0/P1/P2), bloat detection, budget enforcement
 - `utils/claude_md_sync.py` (1,465 lines) — 4-phase sync pipeline with anti-pattern detection
-- `scripts/claude-md-budget-check.sh` — Pre-commit budget enforcement (line/token limits)
+- `scripts/claude-md-budget-check.sh` — Pure-shell pre-commit budget enforcement
 
 **Pointer Templates:**
 
@@ -129,9 +130,9 @@ craft/
 - Detail files (`docs/VERSION-HISTORY.md`, `docs/ARCHITECTURE.md`) hold full content
 - CLAUDE.md stays lean (< 150 lines target for new projects)
 
-**Tests:** 62 new tests — 53 unit (`test_claude_md_v3.py`) + 9 integration (`test_integration_claude_md_v3.py`)
+**Tests:** 71 new tests — 51 unit + 9 integration + 11 audit
 
-**Files Changed:** 26 (+4,617/-1,829)
+**Files Changed:** 33 (+5,374/-1,880)
 
 ---
 
@@ -396,15 +397,15 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Status
 
-**Branch:** `feature/claude-md-v3` (worktree)
-**Location:** `/Users/dt/.git-worktrees/craft/feature-claude-md-v3`
-**Status:** PR #45 open → `dev`
+**Branch:** `dev` (synced with v2.12.0-dev merge)
+**Location:** `/Users/dt/projects/dev-tools/craft`
+**Status:** ✅ PR #45 merged, ready for release
 
 | Branch | Commit | Status |
 |--------|--------|--------|
-| **main** | `35ffb8f` | ✅ v2.11.0 released |
-| **dev** | `a7cce7a` | ✅ Synced with main |
-| **feature/claude-md-v3** | `7370a10` | PR #45 open |
+| **main** | `9a5a909` | ✅ v2.11.1 released |
+| **dev** | `c31bbc1` | ✅ v2.12.0-dev (PR #45 merged) |
+| **Worktrees** | None active | Clean state |
 
 ### Recent Releases
 

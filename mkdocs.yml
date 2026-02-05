@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.11.0-dev features badge management system with automatic sync for version, CI status, and docs coverage badges across README and docs.
+site_description: Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.12.0-dev features CLAUDE.md v3 command refactoring (5→3 commands) with budget enforcement and pointer templates.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -158,7 +158,11 @@ nav:
       - /craft:orchestrate: commands/orchestrate.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:docs:update: commands/docs/update.md
-      - /craft:docs:claude-md: commands/docs/claude-md.md
+      - /craft:docs:claude-md:
+        - Overview: commands/docs/claude-md.md
+        - init: commands/docs/claude-md/init.md
+        - sync: commands/docs/claude-md/sync.md
+        - edit: commands/docs/claude-md/edit.md
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
 
