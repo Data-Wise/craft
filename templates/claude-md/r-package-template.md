@@ -102,11 +102,6 @@ Website sections:
 - **News**: From NEWS.md
 - **Getting Started**: From README.md
 
-## Package Status: v{version} - {status}
-
-**Progress:** {progress}%
-**Next:** {next_task}
-
 ## Dependencies
 
 {dependencies}
@@ -119,8 +114,16 @@ Website sections:
 
 {related_packages}
 
-## Links
+## Common Issues
 
-- [pkgdown Site]({pkgdown_url})
-- [GitHub Repository]({repo_url})
-- [CRAN Page]({cran_url})
+| Issue | Fix |
+|-------|-----|
+| Check fails | `devtools::check()` |
+| Missing docs | `devtools::document()` |
+| Test errors | `devtools::test()` |
+
+## References
+
+-> Package site: [{package_name}]({pkgdown_url})
+-> GitHub: [{package_name}]({repo_url})
+-> CRAN: [{package_name}]({cran_url})

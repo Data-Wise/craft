@@ -28,15 +28,15 @@ CLAUDE.md is a knowledge file that provides Claude Code with project-specific co
 
 ### The claude-md Command Suite
 
-Craft provides 5 specialized commands for CLAUDE.md management:
+Craft provides specialized commands for CLAUDE.md management:
 
 | Command | Purpose | Interactive |
 |---------|---------|-------------|
-| `/craft:docs:claude-md:scaffold` | Create from template | Yes |
-| `/craft:docs:claude-md:update` | Sync with project state | Yes |
-| `/craft:docs:claude-md:audit` | Validate (read-only) | No |
-| `/craft:docs:claude-md:fix` | Auto-fix issues | Yes |
+| `/craft:docs:claude-md:init` | Create from template | Yes |
+| `/craft:docs:claude-md:sync` | Unified sync pipeline (validate + update + fix) | Yes |
 | `/craft:docs:claude-md:edit` | Section-by-section editing | Yes |
+
+> **Note (v2.12.0):** `scaffold` -> `init`, `update`/`audit`/`fix` -> `sync`. Old names work as aliases until v2.13.0.
 
 All commands follow the **"Show Steps First"** pattern - preview before executing.
 
@@ -55,7 +55,7 @@ cd ~/projects/dev-tools/my-craft-plugin
 ### Step 2: Scaffold from Template
 
 ```bash
-/craft:docs:claude-md:scaffold
+/craft:docs:claude-md:init
 ```
 
 **What happens:**
@@ -139,7 +139,7 @@ Summary:
 Next steps:
   1. Review: cat CLAUDE.md
   2. Customize: /craft:docs:claude-md:edit
-  3. Validate: /craft:docs:claude-md:audit
+  3. Validate: /craft:docs:claude-md:sync
 ```
 
 ### Step 3: Customize Key Sections
@@ -184,7 +184,7 @@ When done:
 ### Step 4: Validate
 
 ```bash
-/craft:docs:claude-md:audit
+/craft:docs:claude-md:sync
 ```
 
 **Validation results:**
@@ -235,7 +235,7 @@ git commit -m "docs: add CLAUDE.md with auto-populated template"
 ### Step 1: Check Current Status
 
 ```bash
-/craft:docs:claude-md:audit
+/craft:docs:claude-md:sync
 ```
 
 **Typical results after active development:**
@@ -264,7 +264,7 @@ INFO (1):
 ### Step 2: Auto-Fix Common Issues
 
 ```bash
-/craft:docs:claude-md:fix
+/craft:docs:claude-md:sync --fix
 ```
 
 **Fix process:**
@@ -296,7 +296,7 @@ Fix 4/5: Sync progress
 
 Fix 5/5: Add new commands (MANUAL)
   Missing: /craft:new-feature, /craft:validate, /craft:analyze
-  Action: Use /craft:docs:claude-md:update to add
+  Action: Use /craft:docs:claude-md:sync to add
   Status: SKIPPED (manual)
 
 Summary:
@@ -307,7 +307,7 @@ Summary:
 ### Step 3: Update with New Commands
 
 ```bash
-/craft:docs:claude-md:update
+/craft:docs:claude-md:sync
 ```
 
 **Update process with preview:**
@@ -376,7 +376,7 @@ Next steps:
 git diff CLAUDE.md
 
 # Verify with audit
-/craft:docs:claude-md:audit
+/craft:docs:claude-md:sync
 
 # Commit
 git add CLAUDE.md
@@ -500,7 +500,7 @@ Validation:
 Next steps:
   1. Review full file: cat CLAUDE.md
   2. Edit another section: /craft:docs:claude-md:edit
-  3. Validate: /craft:docs:claude-md:audit
+  3. Validate: /craft:docs:claude-md:sync
   4. Commit: git add CLAUDE.md && git commit -m "docs: expand troubleshooting section"
 ```
 
@@ -601,7 +601,7 @@ mv templates/claude-md/my-org-plugin.md templates/claude-md/craft-plugin.md
 
 ```bash
 # Force template when scaffolding
-/craft:docs:claude-md:scaffold --template=my-org-plugin
+/craft:docs:claude-md:init --template=my-org-plugin
 ```
 
 ### Step 4: Test Template
@@ -609,7 +609,7 @@ mv templates/claude-md/my-org-plugin.md templates/claude-md/craft-plugin.md
 ```bash
 # Test in a sample project
 cd ~/projects/test-plugin
-/craft:docs:claude-md:scaffold
+/craft:docs:claude-md:init
 
 # Verify variables populated correctly
 cat CLAUDE.md
@@ -627,11 +627,11 @@ Always preview changes before committing:
 
 ```bash
 # Update with dry-run first
-/craft:docs:claude-md:update --dry-run
+/craft:docs:claude-md:sync --dry-run
 
 # Review what would change
 # Then apply if satisfied
-/craft:docs:claude-md:update
+/craft:docs:claude-md:sync
 ```
 
 ### Pattern 2: Interactive Section Updates
@@ -639,7 +639,7 @@ Always preview changes before committing:
 Selectively update only changed sections:
 
 ```bash
-/craft:docs:claude-md:update --interactive
+/craft:docs:claude-md:sync --interactive
 ```
 
 **Prompts for each section:**
@@ -663,7 +663,7 @@ Condense verbose CLAUDE.md files:
 
 ```bash
 # Update and optimize in one step
-/craft:docs:claude-md:update --optimize
+/craft:docs:claude-md:sync --optimize
 ```
 
 **Optimization actions:**
@@ -691,16 +691,16 @@ Before releases, ensure CLAUDE.md is pristine:
 
 ```bash
 # Comprehensive check
-/craft:docs:claude-md:audit --strict
+/craft:docs:claude-md:sync --strict
 
 # Fix any issues
-/craft:docs:claude-md:fix
+/craft:docs:claude-md:sync --fix
 
 # Update to latest
-/craft:docs:claude-md:update
+/craft:docs:claude-md:sync
 
 # Final validation
-/craft:docs:claude-md:audit --strict
+/craft:docs:claude-md:sync --strict
 ```
 
 ### Pattern 5: Cross-Project Consistency
@@ -745,13 +745,13 @@ git worktree add ~/.git-worktrees/craft/feature-xyz -b feature/xyz dev
 cd ~/.git-worktrees/craft/feature-xyz
 
 # If no CLAUDE.md, scaffold offers to create
-/craft:docs:claude-md:scaffold
+/craft:docs:claude-md:init
 
 # During development, keep updated
-/craft:docs:claude-md:update
+/craft:docs:claude-md:sync
 
 # Before merging, validate
-/craft:docs:claude-md:audit --strict
+/craft:docs:claude-md:sync --strict
 ```
 
 ---
@@ -763,7 +763,7 @@ cd ~/.git-worktrees/craft/feature-xyz
 **Symptoms:**
 
 ```text
-/craft:docs:claude-md:scaffold
+/craft:docs:claude-md:init
 
 Error: Could not detect project type
 No valid project indicators found
@@ -787,13 +787,13 @@ ls DESCRIPTION NAMESPACE
 2. **Force template:**
 
 ```bash
-/craft:docs:claude-md:scaffold --template=plugin
+/craft:docs:claude-md:init --template=plugin
 ```
 
 3. **Use generic template:**
 
 ```bash
-/craft:docs:claude-md:scaffold --template=generic
+/craft:docs:claude-md:init --template=generic
 ```
 
 ### Issue: "Version mismatch not auto-fixing"
@@ -801,7 +801,7 @@ ls DESCRIPTION NAMESPACE
 **Symptoms:**
 
 ```text
-/craft:docs:claude-md:fix
+/craft:docs:claude-md:sync --fix
 
 Warning: Version mismatch
   CLAUDE.md: v1.0.0
@@ -831,7 +831,7 @@ cat pyproject.toml | grep version
 /craft:docs:claude-md:edit
 
 # Or use update command
-/craft:docs:claude-md:update status
+/craft:docs:claude-md:sync status
 ```
 
 ### Issue: "New commands not being added"
@@ -839,7 +839,7 @@ cat pyproject.toml | grep version
 **Symptoms:**
 
 ```text
-/craft:docs:claude-md:update
+/craft:docs:claude-md:sync
 
 Detected 3 new commands:
   /craft:new-feature
@@ -873,7 +873,7 @@ category: code
 3. **Force full update:**
 
 ```bash
-/craft:docs:claude-md:update commands
+/craft:docs:claude-md:sync commands
 ```
 
 ### Issue: "Section editing changes entire file"
@@ -911,7 +911,7 @@ grep "^## " CLAUDE.md
 cp CLAUDE.md CLAUDE.md.manual-backup
 
 # Re-scaffold
-/craft:docs:claude-md:scaffold --force
+/craft:docs:claude-md:init --force
 
 # Merge manual changes back
 ```
@@ -921,7 +921,7 @@ cp CLAUDE.md CLAUDE.md.manual-backup
 **Symptoms:**
 
 ```text
-/craft:docs:claude-md:scaffold
+/craft:docs:claude-md:init
 
 Created CLAUDE.md with TODOs:
   {{plugin_name}} not populated

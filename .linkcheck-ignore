@@ -177,6 +177,30 @@ Targets:
 - **Action required**: Fix categories #3, #4, #5, #8 in future PRs
 - **No action needed**: Categories #1, #2, #6, #7 (intentional)
 
+### 11. Template Pointer Links (v2.12.0 - CLAUDE.md v3)
+Files with broken links:
+- `templates/claude-md/plugin-template.md`
+
+Targets:
+- `docs/VERSION-HISTORY.md`
+- `docs/ARCHITECTURE.md`
+
+Reason: Pointer-format links (`->`) reference paths relative to the project root where the template will be instantiated, not relative to the template file location
+Fix: Not needed - links are correct when template is used to scaffold a new CLAUDE.md
+
+### 12. Spec Internal References (v2.12.0 - CLAUDE.md v3)
+Files with broken links:
+- `docs/specs/SPEC-claude-md-v3-optimization-2026-02-04.md`
+
+Targets:
+- `docs/VERSION-HISTORY.md`
+- `docs/ARCHITECTURE.md`
+- `CONTRIBUTING.md`
+- `docs/COMMANDS.md`
+
+Reason: Spec documents contain example pointer syntax (`->`) that demonstrates the format — these resolve from project root, not from spec file location
+Fix: Not needed - these are examples of pointer syntax, not navigable links
+
 ## Next Steps (Phase 2+)
 1. Update teaching docs to use category page anchors
 2. Copy README teaching section to docs/ or use GitHub links

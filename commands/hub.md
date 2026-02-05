@@ -535,7 +535,7 @@ Command                  │ Description
 ─────────────────────────┼────────────────────────────────────────────
 /craft:docs:sync         │ Sync docs with code changes
 /craft:docs:changelog    │ Auto-update CHANGELOG.md
-/craft:docs:claude-md    │ Update CLAUDE.md
+/craft:docs:claude-md    │ CLAUDE.md management (init, sync, edit)
 /craft:docs:validate     │ Validate links, code, structure
 /craft:docs:nav-update   │ Update mkdocs.yml navigation
 ─────────────────────────────────────────────────────────────────────────

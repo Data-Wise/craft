@@ -2,10 +2,10 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**104 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**106 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.11.0 | **Latest Release:** v2.11.0 (2026-02-03)
-**Documentation Status:** 98% complete | **Tests:** 1111 passing (81 claude-md + 1030 core)
+**Current Version:** v2.12.0-dev | **Latest Release:** v2.11.0 (2026-02-03)
+**Documentation Status:** 98% complete | **Tests:** 1174 passing (176 claude-md + 998 core)
 
 ## Git Workflow
 
@@ -55,9 +55,9 @@ feature/* (worktrees) ← All implementation work
 | Brainstorm        | ------------------------------------------ | `/craft:workflow:brainstorm`     |
 | Orchestrate       | ------------------------------------------ | `/craft:orchestrate`             |
 | Orchestrate task  | ------------------------------------------ | `/craft:do "task" --orch=<mode>` |
-| CLAUDE.md update  | ------------------------------------------ | `/craft:docs:claude-md:update`   |
-| CLAUDE.md audit   | ------------------------------------------ | `/craft:docs:claude-md:audit`    |
-| CLAUDE.md fix     | ------------------------------------------ | `/craft:docs:claude-md:fix`      |
+| CLAUDE.md init    | ------------------------------------------ | `/craft:docs:claude-md:init`     |
+| CLAUDE.md sync    | ------------------------------------------ | `/craft:docs:claude-md:sync`     |
+| CLAUDE.md edit    | ------------------------------------------ | `/craft:docs:claude-md:edit`     |
 | Badge sync        | ------------------------------------------ | `/craft:site:update` (Step 3.5)  |
 | CI badge validate | ------------------------------------------ | `/craft:ci:validate`             |
 
@@ -90,12 +90,12 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 ```text
 craft/
 ├── .claude-plugin/     # Plugin manifest, hooks, validators
-├── commands/           # 104 commands (arch, ci, code, docs, git, site, test, workflow)
+├── commands/           # 106 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
 ├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
-├── utils/              # Python utilities (complexity scorer, validators, parsers)
-├── tests/              # Comprehensive test suite (1111 tests, 90%+ coverage)
+├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
+├── tests/              # Comprehensive test suite (1174 tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (20 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
@@ -105,6 +105,35 @@ craft/
 ```
 
 ## Recent Major Features
+
+### v2.12.0 - CLAUDE.md v3 Command Refactoring (In Progress)
+
+**Branch:** `feature/claude-md-v3` | **PR:** #45
+
+**Command Consolidation (5→3):**
+
+- `init` — NEW: Create CLAUDE.md from lean pointer templates (replaces `scaffold`)
+- `sync` — NEW: Unified pipeline (detect → audit → fix → optimize) (replaces `update`/`audit`/`fix`)
+- `edit` — Enhanced with `--global` flag for `~/.claude/CLAUDE.md`
+- `scaffold`, `update`, `audit`, `fix` — DEPRECATED: route to `init`/`sync`
+
+**New Utilities:**
+
+- `utils/claude_md_optimizer.py` (1,030 lines) — Section classification (P0/P1/P2), bloat detection, budget enforcement
+- `utils/claude_md_sync.py` (1,465 lines) — 4-phase sync pipeline with anti-pattern detection
+- `scripts/claude-md-budget-check.sh` — Pre-commit budget enforcement (line/token limits)
+
+**Pointer Templates:**
+
+- Templates reference live project state (`->` syntax) instead of duplicating information
+- Detail files (`docs/VERSION-HISTORY.md`, `docs/ARCHITECTURE.md`) hold full content
+- CLAUDE.md stays lean (< 150 lines target for new projects)
+
+**Tests:** 62 new tests — 53 unit (`test_claude_md_v3.py`) + 9 integration (`test_integration_claude_md_v3.py`)
+
+**Files Changed:** 26 (+4,617/-1,829)
+
+---
 
 ### v2.11.0 - Test Suite Cleanup & CRAFT-001 (Released 2026-02-03) ✅
 
@@ -138,13 +167,15 @@ craft/
 
 **Merged:** PR #39 (2026-01-30)
 
-**Commands Added (5):**
+**Commands (3 new + 4 deprecated aliases):**
 
-- `/craft:docs:claude-md:update` - Sync CLAUDE.md with project state
-- `/craft:docs:claude-md:audit` - Validate completeness and accuracy (5 checks)
-- `/craft:docs:claude-md:fix` - Auto-fix common issues (4 fix methods)
-- `/craft:docs:claude-md:scaffold` - Create from template (3 project types)
-- `/craft:docs:claude-md:edit` - Interactive section editing
+- `/craft:docs:claude-md:init` - Initialize CLAUDE.md from lean template (< 150 lines)
+- `/craft:docs:claude-md:sync` - Unified sync pipeline (detect → audit → fix → optimize)
+- `/craft:docs:claude-md:edit` - Interactive editing with iA Writer integration
+- `/craft:docs:claude-md:scaffold` - DEPRECATED: alias for init
+- `/craft:docs:claude-md:update` - DEPRECATED: alias for sync
+- `/craft:docs:claude-md:audit` - DEPRECATED: alias for sync
+- `/craft:docs:claude-md:fix` - DEPRECATED: alias for sync --fix
 
 **Implementation:**
 
@@ -285,10 +316,11 @@ The v1.24.0 release includes 27 integration tests validating three critical syst
 
 | Category                   | Tests  | Purpose                                         | Guide                                                                          |
 | -------------------------- | ------ | ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| **CLAUDE.md v3 Pipeline**  | 9      | Sync pipeline, optimizer, budget enforcement    | `tests/test_integration_claude_md_v3.py`                                       |
 | **Dependency System**      | 9      | Tool detection, installation, repair            | [Dependency Management Advanced](docs/guide/dependency-management-advanced.md) |
 | **Orchestrator Workflows** | 13     | Complexity scoring, routing, agent coordination | [Claude Code 2.1.0 Guide](docs/guide/claude-code-2.1-integration.md)           |
 | **Teaching Workflow**      | 8      | Course detection, validation, publishing        | [Teaching Workflow Guide](docs/guide/teaching-workflow.md)                     |
-| **Total**                  | **27** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
+| **Total**                  | **36** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
 
 ### Running Integration Tests
 
@@ -297,6 +329,7 @@ The v1.24.0 release includes 27 integration tests validating three critical syst
 python3 tests/test_integration_*.py
 
 # Run specific category
+python3 tests/test_integration_claude_md_v3.py
 python3 tests/test_integration_dependency_system.py
 python3 tests/test_integration_orchestrator_workflows.py
 python3 tests/test_integration_teaching_workflow.py
@@ -331,7 +364,7 @@ python3 tests/test_integration_teaching_workflow.py
 | **Testing Commands**                     | 10       | 100%           | 80%           | Complete ✅ |
 | **Architecture Commands**                | 12       | 100%           | 75%           | Complete ✅ |
 | **Remaining Commands**                   | 51       | 100%           | 40%           | Baseline ✅ |
-| **TOTAL**                                | **104**  | **100%**       | **98%**       | v2.11.0 ✅  |
+| **TOTAL**                                | **106**  | **100%**       | **98%**       | v2.12.0-dev |
 
 **Legend:**
 
@@ -363,15 +396,15 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Status
 
-**Branch:** `dev` (synced with main @ v2.11.0)
-**Location:** `/Users/dt/projects/dev-tools/craft`
-**Status:** ✅ All releases merged, ready for new features
+**Branch:** `feature/claude-md-v3` (worktree)
+**Location:** `/Users/dt/.git-worktrees/craft/feature-claude-md-v3`
+**Status:** PR #45 open → `dev`
 
 | Branch | Commit | Status |
 |--------|--------|--------|
 | **main** | `35ffb8f` | ✅ v2.11.0 released |
 | **dev** | `a7cce7a` | ✅ Synced with main |
-| **Worktrees** | None active | Clean state |
+| **feature/claude-md-v3** | `7370a10` | PR #45 open |
 
 ### Recent Releases
 
@@ -454,6 +487,10 @@ See `docs/specs/` for detailed specifications (20 total).
 | `docs/reference/REFCARD-INTERACTIVE-COMMANDS.md`  | Interactive commands quick reference (v2.9.0)           |
 | `tests/test_command_enhancements_e2e.py`          | Command enhancements e2e tests (93 tests)               |
 | `tests/test_orch_flag_handler.py`                 | Orch flag handler tests (52 tests)                      |
+| `utils/claude_md_common.py`                       | Shared path resolution for CLAUDE.md modules            |
+| `utils/claude_md_sync.py`                         | 4-phase sync pipeline (detect → update → audit → fix)   |
+| `utils/claude_md_optimizer.py`                    | Line budget enforcement and section optimization        |
+| `scripts/claude-md-budget-check.sh`               | Pure-shell budget check for pre-commit hooks            |
 | `scripts/docs-lint-emoji.sh`                      | Standalone CRAFT-001 check for pre-commit hook          |
 | `.prettierignore`                                 | Prevents prettier from breaking emoji-attribute spacing |
 
@@ -469,15 +506,18 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_agent_hooks.py`                        | 13       | 100%     | Agent hooks                  |
 | `tests/test_orch_flag_handler.py`                  | 52       | 100%     | Orch flag handler (v2.9.0)   |
 | `tests/test_craft_001_emoji_spacing.py`            | 50       | 100%     | CRAFT-001 lint rule (v2.11.0)|
+| `tests/test_claude_md_v3.py`                       | 51       | 100%     | v3 sync/optimizer (v2.12.0)  |
+| `tests/test_claude_md_audit.py`                    | 11       | 100%     | Audit module (v2.10.0)       |
 | **Integration & E2E Tests**                        |          |          |                              |
 | `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
 | `tests/test_integration_dependency_system.py`      | 9        | 100%     | Dependency workflow          |
 | `tests/test_integration_orchestrator_workflows.py` | 13       | 100%     | Task routing & scoring       |
+| `tests/test_integration_claude_md_v3.py`           | 9        | 100%     | v3 sync/optimizer integ.     |
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
-| **Total**                                          | **1111** | **~90%** | **All systems**              |
+| **Total**                                          | **1174** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
@@ -511,7 +551,7 @@ See `docs/specs/` for detailed specifications (20 total).
 
 - 3 new guide documents (1,609 lines)
 - 17 Mermaid diagrams (task routing, complexity scoring, agent delegation, orchestration)
-- Feature completeness matrix showing 104 commands with 98% documentation
+- Feature completeness matrix showing 106 commands with 98% documentation
 - Version history timeline with 24+ releases documented
 
 **Success Criteria Met:**
@@ -526,7 +566,7 @@ See `docs/specs/` for detailed specifications (20 total).
 ## Links
 
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
-- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 104 commands
+- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 106 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
 - [Specifications](docs/specs/) — Implementation specs (20 total)
 - [Version History](docs/VERSION-HISTORY.md) — Complete release timeline (NEW)
