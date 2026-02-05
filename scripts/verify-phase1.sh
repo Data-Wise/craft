@@ -9,11 +9,14 @@ echo "Phase 1 Verification Script"
 echo "=========================================="
 echo ""
 
-# Color codes
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
+# Source unified formatting library
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/formatting.sh"
+
+# Backward-compat aliases (legacy color names → FMT_ constants)
+GREEN="$FMT_GREEN"
+RED="$FMT_RED"
+YELLOW="$FMT_YELLOW"
+NC="$FMT_NC"
 
 pass() {
     echo -e "${GREEN}✓${NC} $1"

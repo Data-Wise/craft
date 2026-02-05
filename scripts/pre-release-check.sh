@@ -16,12 +16,13 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
 
-# Colors
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-CYAN='\033[0;36m'
-NC='\033[0m'
+# Colors (shared library)
+source "$SCRIPT_DIR/formatting.sh"
+RED="$FMT_RED"
+GREEN="$FMT_GREEN"
+YELLOW="$FMT_YELLOW"
+CYAN="$FMT_CYAN"
+NC="$FMT_NC"
 
 cd "$PLUGIN_DIR"
 

@@ -1,39 +1,39 @@
 status: Active
-version: 2.13.1
+version: 2.14.0
 release_date: 2026-02-05
-milestone: v2.14.0 - Release Automation & UX
+milestone: v2.14.0 - Unified Formatting Library
 last_session: 2026-02-05
 
-progress: 100% (v2.13.1 releasing)
+progress: 100% (v2.14.0 feature complete)
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                   |
-|--------|---------|------|--------------------------|
-| main   | ce72bba | —    | Production (v2.13.0)     |
-| dev    | pending | main | v2.13.1 patch (PR ready) |
+| Branch               | Head    | Base | Status                        |
+|----------------------|---------|------|-------------------------------|
+| main                 | 9f8c0a5 | —    | Production (v2.13.1)          |
+| feature/styled-output| pending | dev  | v2.14.0 formatting library    |
+
+✅ v2.14.0 — Unified Formatting Library (2026-02-05):
+- New: scripts/formatting.sh — shared box-drawing, colors, ANSI-aware padding
+- 74 tests (unit, integration, edge cases) — all passing
+- Migrated 8 box-drawing scripts to use formatting.sh
+- Migrated 15 color-only scripts to shared FMT_ color constants
+- All boxes standardized to 63 visible characters
+- Source guard prevents double-loading
 
 ✅ v2.13.1 Patch (2026-02-05):
 - fix: Move claude_md_budget from plugin.json to config.json
-- Claude Code strict schema rejects unrecognized keys in plugin.json
-- Budget config now in .claude-plugin/config.json (separate from manifest)
-- Updated utilities, tests, commands, docs, and troubleshooting
-- Homebrew formula patched with dual protection (Ruby + Python fallback)
 
 ✅ v2.13.0 Released (2026-02-05):
-- 30 new documentation pages (PR #47, squash-merged)
-- Documentation status: 98% → 99%
-- plugin.json version bump fix (PR #48, #49)
-- Release: https://github.com/Data-Wise/craft/releases/tag/v2.13.0
+- 30 new documentation pages, 99% documentation coverage
 
 ---
 
 ## Next Steps
 
-🎯 Next Action: Merge PR, tag v2.13.1, update homebrew formula
+🎯 Next Action: Create PR to dev, merge, tag release
 
-**Future (v2.14.0+):**
-- Styled output boxes for enhanced UX
+**Future (v2.15.0+):**
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
 - Remove deprecation aliases for old claude-md commands

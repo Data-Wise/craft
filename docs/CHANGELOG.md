@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.14.0] - 2026-02-05
+
+### Added
+
+- **Formatting library:** `scripts/formatting.sh` — unified box-drawing, `FMT_` color constants, ANSI-aware padding, source guard
+- **Box-drawing API:** `box_header`, `box_single`, `box_row`, `box_separator`, `box_footer`, `box_empty_row`, `box_table`
+- **Utility functions:** `fmt_set_width`, `fmt_divider`, `_fmt_strip_ansi`, `_fmt_visible_len`
+- **74 tests:** 28 unit + 30 integration + 16 edge cases in `tests/test_formatting.sh`
+- **Documentation:** Guide (`docs/guide/bash-formatting-library.md`), tutorial (`docs/tutorials/TUTORIAL-formatting-migration.md`), reference card (`docs/reference/REFCARD-FORMATTING.md`)
+
+### Changed
+
+- **8 scripts migrated to box-drawing:** install.sh, migrate-from-workflow.sh, convert-cast.sh, health-check.sh, consent-prompt.sh, dependency-installer.sh, dependency-manager.sh
+- **15 scripts migrated to shared colors:** validate-counts.sh, pre-release-check.sh, batch-convert.sh, repair-tools.sh, 3 installers, tool-detector.sh, version-check.sh, sync-version.sh, verify-phase1/2.sh, install-hooks.sh, test-fix-flag.sh, pre-commit-markdownlint hook
+- **Box width standardized:** All boxes now render at exactly 63 visible characters (previously 61-63 inconsistently)
+
+**Documentation:** [Guide](guide/bash-formatting-library.md) · [Quick Reference](reference/REFCARD-FORMATTING.md) · [Migration Tutorial](tutorials/TUTORIAL-formatting-migration.md)
+
+---
+
 ## [2.13.1] - 2026-02-05
 
 ### Fixed

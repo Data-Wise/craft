@@ -2,7 +2,7 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
 [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
+[![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **TL;DR** (30 seconds)
 >
@@ -205,8 +205,8 @@ Complete OpenAPI-style documentation for all 106 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **106** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.12.0 — CLAUDE.md v3 Command Refactoring"
-    5→3 command consolidation with budget enforcement and pointer architecture. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.14.0 — Unified Bash Formatting Library"
+    Shared box-drawing, `FMT_` color constants, ANSI-aware padding across 23 migrated scripts. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
