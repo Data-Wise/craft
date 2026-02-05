@@ -4,8 +4,8 @@
 
 **104 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.11.0 | **Latest Release:** v2.11.0 (2026-02-03)
-**Documentation Status:** 98% complete | **Tests:** 1111 passing (81 claude-md + 1030 core)
+**Current Version:** v2.12.0-dev | **Latest Release:** v2.11.0 (2026-02-03)
+**Documentation Status:** 98% complete | **Tests:** 1164 passing (134 claude-md + 1030 core)
 
 ## Git Workflow
 
@@ -105,6 +105,35 @@ craft/
 ```
 
 ## Recent Major Features
+
+### v2.12.0 - CLAUDE.md v3 Command Refactoring (In Progress)
+
+**Branch:** `feature/claude-md-v3` | **PR:** #45
+
+**Command Consolidation (5→3):**
+
+- `init` — NEW: Create CLAUDE.md from lean pointer templates (replaces `scaffold`)
+- `sync` — NEW: Unified pipeline (detect → audit → fix → optimize) (replaces `update`/`audit`/`fix`)
+- `edit` — Enhanced with `--global` flag for `~/.claude/CLAUDE.md`
+- `scaffold`, `update`, `audit`, `fix` — DEPRECATED: route to `init`/`sync`
+
+**New Utilities:**
+
+- `utils/claude_md_optimizer.py` (1,030 lines) — Section classification (P0/P1/P2), bloat detection, budget enforcement
+- `utils/claude_md_sync.py` (1,465 lines) — 4-phase sync pipeline with anti-pattern detection
+- `scripts/claude-md-budget-check.sh` — Pre-commit budget enforcement (line/token limits)
+
+**Pointer Templates:**
+
+- Templates reference live project state (`->` syntax) instead of duplicating information
+- Detail files (`docs/VERSION-HISTORY.md`, `docs/ARCHITECTURE.md`) hold full content
+- CLAUDE.md stays lean (< 150 lines target for new projects)
+
+**Tests:** 53 new tests in `test_claude_md_v3.py` (sync pipeline, optimizer, budget enforcement)
+
+**Files Changed:** 26 (+4,617/-1,829)
+
+---
 
 ### v2.11.0 - Test Suite Cleanup & CRAFT-001 (Released 2026-02-03) ✅
 
@@ -365,15 +394,15 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Status
 
-**Branch:** `dev` (synced with main @ v2.11.0)
-**Location:** `/Users/dt/projects/dev-tools/craft`
-**Status:** ✅ All releases merged, ready for new features
+**Branch:** `feature/claude-md-v3` (worktree)
+**Location:** `/Users/dt/.git-worktrees/craft/feature-claude-md-v3`
+**Status:** PR #45 open → `dev`
 
 | Branch | Commit | Status |
 |--------|--------|--------|
 | **main** | `35ffb8f` | ✅ v2.11.0 released |
 | **dev** | `a7cce7a` | ✅ Synced with main |
-| **Worktrees** | None active | Clean state |
+| **feature/claude-md-v3** | `7370a10` | PR #45 open |
 
 ### Recent Releases
 
@@ -471,6 +500,8 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_agent_hooks.py`                        | 13       | 100%     | Agent hooks                  |
 | `tests/test_orch_flag_handler.py`                  | 52       | 100%     | Orch flag handler (v2.9.0)   |
 | `tests/test_craft_001_emoji_spacing.py`            | 50       | 100%     | CRAFT-001 lint rule (v2.11.0)|
+| `tests/test_claude_md_v3.py`                       | 53       | 100%     | v3 sync/optimizer (v2.12.0)  |
+| `tests/test_claude_md_audit.py`                    | 11       | 100%     | Audit module (v2.10.0)       |
 | **Integration & E2E Tests**                        |          |          |                              |
 | `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
@@ -479,7 +510,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
-| **Total**                                          | **1111** | **~90%** | **All systems**              |
+| **Total**                                          | **1175** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
