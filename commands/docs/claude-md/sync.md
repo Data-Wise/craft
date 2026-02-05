@@ -273,9 +273,11 @@ When CLAUDE.md exceeds the 150-line budget, sync reports it as a warning:
 
 The budget is resolved from:
 
-1. `.claude-plugin/plugin.json` → `claude_md_budget`
-2. `package.json` → `claude_md_budget`
+1. `.claude-plugin/config.json` → `claude_md_budget`
+2. `package.json` → `claudeMd.budget`
 3. Default: 150 lines
+
+> **Note:** Do NOT put `claude_md_budget` in `plugin.json` — Claude Code's strict schema rejects unrecognized keys and breaks plugin loading.
 
 ## Section-Specific Updates
 

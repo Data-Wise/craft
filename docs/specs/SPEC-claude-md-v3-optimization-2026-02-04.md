@@ -530,7 +530,7 @@ All templates redesigned for < 150 lines with pointer pattern:
 |---|----------|----------|-----------|
 | 1 | Backward compatibility? | **1 release of aliases** | v2.12 adds new + deprecation warnings. v2.13 removes old names. |
 | 2 | Auto-create detail files? | **Yes, create with moved content** | If docs/VERSION-HISTORY.md doesn't exist, create it and move content there. |
-| 3 | Budget configurability? | **Default 150, override in plugin.json** | `"claude_md_budget": 200` in .claude-plugin/plugin.json overrides default. |
+| 3 | Budget configurability? | **Default 150, override in config.json** | `"claude_md_budget": 200` in .claude-plugin/config.json (NOT plugin.json — strict schema). |
 | 4 | Editor fallback? | **iA Writer -> VS Code -> $EDITOR** | Try iA Writer (AppleScript), then VS Code, then $EDITOR env var. |
 
 ### Alias Deprecation Plan
@@ -549,14 +549,13 @@ v2.13.0:
 ### Budget Configuration
 
 ```json
-// .claude-plugin/plugin.json
+// .claude-plugin/config.json (NOT plugin.json — strict schema rejects unknown keys)
 {
-  "name": "my-plugin",
-  "claude_md_budget": 200  // override default 150
+  "claude_md_budget": 200
 }
 ```
 
-Fallback chain: `plugin.json` -> `package.json` (claude_md_budget field) -> default 150.
+Fallback chain: `config.json` -> `package.json` (claudeMd.budget field) -> default 150.
 
 ### Editor Fallback Chain
 
@@ -735,7 +734,7 @@ craft/
 | Broken links | `python3 tests/test_craft_plugin.py -k "broken_links"` |
 | Outdated counts | `./scripts/validate-counts.sh` |
 | Stale worktree | `git worktree remove <path> --force` |
-| Plugin not loading | Check `.claude-plugin/plugin.json` |
+| Plugin not loading | Check `.claude-plugin/plugin.json` has no unrecognized keys (strict schema) |
 | GIF broken commands | Test with Bash first, THEN generate GIF |
 
 ## Detail Files

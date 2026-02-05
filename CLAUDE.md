@@ -550,7 +550,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | Stale worktree              | `git worktree remove <path> --force`                                               |
 | Orphaned worktrees          | `git worktree prune`                                                               |
 | Rebase conflicts            | `git rebase --abort && git merge origin/dev`                                       |
-| Plugin not loading          | Check `.claude-plugin/plugin.json` frontmatter                                     |
+| Plugin not loading          | Check `.claude-plugin/plugin.json` has no unrecognized keys (strict schema)        |
 | Command not found           | Verify file in `commands/` with valid frontmatter                                  |
 | Agent not triggering        | Check triggers list in agent frontmatter                                           |
 | GIF showing broken commands | **CRITICAL:** Test commands FIRST with Bash tool, verify output, THEN generate GIF |

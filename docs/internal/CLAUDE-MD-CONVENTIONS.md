@@ -5,7 +5,7 @@ Rules for authoring and maintaining CLAUDE.md files in Craft projects.
 ## Budget
 
 - Default: **< 150 lines**
-- Override via `claude_md_budget` in `.claude-plugin/plugin.json`
+- Override via `claude_md_budget` in `.claude-plugin/config.json` (NOT plugin.json)
 - Pre-commit hook enforces the budget
 
 ## Section Priority
