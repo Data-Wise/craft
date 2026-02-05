@@ -2,9 +2,9 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.9.0 (2026-01-29)
-**Total Releases:** 32 versions | **Development Time:** 2+ years
-**Community:** 100+ commands documented, 847 tests passing, 90%+ coverage
+**Latest Release:** v2.12.0 (2026-02-05)
+**Total Releases:** 35 versions | **Development Time:** 2+ years
+**Community:** 106 commands documented, 1171 tests passing, 90%+ coverage
 
 ---
 

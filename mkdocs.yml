@@ -100,7 +100,7 @@ nav:
       - Architecture: ARCHITECTURE-CLAUDE-CODE-2.1.md
     - Core Workflows:
       - Documentation Automation: guide/documentation-quality.md
-      - NEW (v2.7.0) Interactive Docs Update: tutorials/interactive-docs-update-tutorial.md
+      - Interactive Docs Update: tutorials/interactive-docs-update-tutorial.md
       - Site Creation & Management: guide/getting-started.md
       - Release Workflow: workflows/release-workflow.md
       - Development Workflow: workflows/git-feature-workflow.md
@@ -113,25 +113,25 @@ nav:
       - Config Schema: teaching-config-schema.md
       - Migration Guide: teaching-migration.md
     - Specialized Features:
-      - NEW Badge Management: guide/badge-management.md
-      - NEW Badge Workflow Tutorial: tutorials/TUTORIAL-badge-workflow.md
-      - NEW Interactive Commands: guide/interactive-commands.md
-      - NEW Check Command Mastery: guide/check-command-mastery.md
-      - NEW Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
-      - NEW Claude-MD Workflows: tutorials/claude-md-workflows.md
-      - NEW Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
-      - NEW Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
-      - NEW Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
-      - NEW Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
-      - NEW CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
-      - NEW Test Wrapper Pattern Guide: guide/test-wrapper-pattern.md
+      - Badge Management: guide/badge-management.md
+      - Badge Workflow Tutorial: tutorials/TUTORIAL-badge-workflow.md
+      - Interactive Commands: guide/interactive-commands.md
+      - Check Command Mastery: guide/check-command-mastery.md
+      - Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
+      - Claude-MD Workflows: tutorials/claude-md-workflows.md
+      - Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
+      - Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
+      - Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
+      - Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
+      - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
+      - Test Wrapper Pattern Guide: guide/test-wrapper-pattern.md
       - Git Repository Init:
         - Command Reference: commands/git-init-reference.md
         - Tutorial: guide/git-init-tutorial.md
         - Architecture: architecture/git-init-flow.md
         - Documentation Index: git-init-docs-index.md
       - Orchestration & Agents: guide/orchestrator.md
-      - NEW (v2.5.0) --orch Flag Quick Start: guide/orch-flag-usage.md
+      - --orch Flag Quick Start: guide/orch-flag-usage.md
       - Homebrew Distribution: guide/homebrew-installation.md
       - Skills & Agents: guide/skills-agents.md
       - Integration Testing: guide/integration-testing.md
@@ -192,10 +192,10 @@ nav:
     - Release Notes v2.8.0: RELEASE-v2.8.0.md
     - Enhancement Guides:
       - Claude Code 2.1 Quick Reference: reference/REFCARD-claude-code-2.1-enhancements.md
-      - NEW (v2.7.0) Docs Update Reference: reference/REFCARD-DOCS-UPDATE.md
-      - NEW Interactive Commands Reference: reference/REFCARD-INTERACTIVE-COMMANDS.md
-      - NEW Git Worktree Quick Reference: reference/REFCARD-GIT-WORKTREE.md
-      - NEW Claude-MD Quick Reference: reference/REFCARD-CLAUDE-MD.md
+      - Docs Update Reference: reference/REFCARD-DOCS-UPDATE.md
+      - Interactive Commands Reference: reference/REFCARD-INTERACTIVE-COMMANDS.md
+      - Git Worktree Quick Reference: reference/REFCARD-GIT-WORKTREE.md
+      - Claude-MD Quick Reference: reference/REFCARD-CLAUDE-MD.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
@@ -208,15 +208,15 @@ nav:
         - Architecture Diagrams: DEPENDENCY-ARCHITECTURE.md
         - Developer Guide: DEVELOPER-GUIDE.md
     - Specifications:
-      - NEW Badge Management System: specs/SPEC-badge-system-2026-01-30.md
+      - Badge Management System: specs/SPEC-badge-system-2026-01-30.md
       - Broken Link Validation: specs/SPEC-broken-link-validation-2026-01-17.md
       - Hub v2.0 Discovery: specs/_archive/SPEC-craft-hub-v2-2026-01-15.md
       - Dry-Run Feature: specs/SPEC-dry-run-feature-2026-01-15.md
       - Teaching Workflow: specs/SPEC-teaching-workflow-2026-01-16.md
       - Website Organization: specs/SPEC-website-organization-standard-2026-01-17.md
       - Help Template System: specs/SPEC-help-template-menu-2026-01-16.md
-      - NEW (v2.7.0) Interactive Docs Update: specs/_archive/SPEC-docs-update-interactive-2026-01-22.md
-      - NEW Command Behavior Enhancements: specs/SPEC-command-enhancements-2026-01-29.md
+      - Interactive Docs Update: specs/_archive/SPEC-docs-update-interactive-2026-01-22.md
+      - Command Behavior Enhancements: specs/SPEC-command-enhancements-2026-01-29.md
 
   # 6. FOR CONTRIBUTORS - Development resources
   - For Contributors:

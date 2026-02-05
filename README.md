@@ -160,7 +160,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 /craft:hub
 ```
 
-## Mode System (NEW in v1.2.0)
+## Mode System
 
 Commands support execution modes for different use cases:
 
@@ -178,7 +178,7 @@ Commands support execution modes for different use cases:
 /craft:arch:analyze optimize    # Performance analysis
 ```
 
-## Teaching Mode (NEW in v1.18.0)
+## Teaching Mode
 
 Specialized workflows for teaching projects with automated validation, semester tracking, and safe publishing.
 
@@ -215,7 +215,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ## Commands (86 total)
 
-### Workflow Commands (12) - NEW in v1.17.0
+### Workflow Commands (12)
 
 | Command                                | Description                                                                                   |
 | -------------------------------------- | --------------------------------------------------------------------------------------------- |
@@ -249,7 +249,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:check`                     | Pre-flight checks (commit/pr/release)                                                            |
 | `/craft:help`                      | Context-aware help and suggestions                                                               |
 
-#### Orchestrator Modes (NEW in v1.4.0)
+#### Orchestrator Modes
 
 ```bash
 /craft:orchestrate "add auth" optimize    # Fast parallel (4 agents)
@@ -381,7 +381,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 **Git Guides:** refcard, undo-guide, safety-rails, learning-guide
 
-### CI Commands (3) - NEW in v1.10.0
+### CI Commands (3)
 
 | Command              | Description                                                       |
 | -------------------- | ----------------------------------------------------------------- |
@@ -479,7 +479,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 /craft:docs:site --deploy
 ```
 
-### Site Workflow (NEW in v1.7.0)
+### Site Workflow
 
 ```
 # Create new documentation site with design preset
