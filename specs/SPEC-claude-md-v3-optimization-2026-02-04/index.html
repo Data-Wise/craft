@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.12.0 features CLAUDE.md v3 command refactoring (5→3 commands) with budget enforcement and pointer templates.">
+        <meta name="description" content="Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.14.0 adds a unified bash formatting library with box-drawing, ANSI-aware padding, and 23 migrated scripts.">
       
       
       
@@ -1439,6 +1439,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guide/bash-formatting-library/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bash Formatting Library
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formatting Migration Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guide/badge-management/" class="md-nav__link">
         
   
@@ -1814,10 +1870,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_14" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_16" >
         
           
-          <label class="md-nav__link" for="__nav_2_5_14" id="__nav_2_5_14_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5_16" id="__nav_2_5_16_label" tabindex="0">
             
   
   
@@ -1835,8 +1891,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5_14">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_16">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4450,6 +4506,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reference/REFCARD-FORMATTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formatting Library Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
@@ -5257,6 +5341,34 @@
     
   
     Interactive Docs Update
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SPEC-styled-output-v2.14.0-2026-02-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Styled Output Formatting
   
 
     
@@ -7118,7 +7230,7 @@
 </span><span id="__span-13-73"><a id="__codelineno-13-73" name="__codelineno-13-73" href="#__codelineno-13-73"></a>|---|----------|----------|-----------|
 </span><span id="__span-13-74"><a id="__codelineno-13-74" name="__codelineno-13-74" href="#__codelineno-13-74"></a>| 1 | Backward compatibility? | **1 release of aliases** | v2.12 adds new + deprecation warnings. v2.13 removes old names. |
 </span><span id="__span-13-75"><a id="__codelineno-13-75" name="__codelineno-13-75" href="#__codelineno-13-75"></a>| 2 | Auto-create detail files? | **Yes, create with moved content** | If docs/VERSION-HISTORY.md doesn&#39;t exist, create it and move content there. |
-</span><span id="__span-13-76"><a id="__codelineno-13-76" name="__codelineno-13-76" href="#__codelineno-13-76"></a>| 3 | Budget configurability? | **Default 150, override in plugin.json** | `&quot;claude_md_budget&quot;: 200` in .claude-plugin/plugin.json overrides default. |
+</span><span id="__span-13-76"><a id="__codelineno-13-76" name="__codelineno-13-76" href="#__codelineno-13-76"></a>| 3 | Budget configurability? | **Default 150, override in config.json** | `&quot;claude_md_budget&quot;: 200` in .claude-plugin/config.json (NOT plugin.json — strict schema). |
 </span><span id="__span-13-77"><a id="__codelineno-13-77" name="__codelineno-13-77" href="#__codelineno-13-77"></a>| 4 | Editor fallback? | **iA Writer -&gt; VS Code -&gt; $EDITOR** | Try iA Writer (AppleScript), then VS Code, then $EDITOR env var. |
 </span><span id="__span-13-78"><a id="__codelineno-13-78" name="__codelineno-13-78" href="#__codelineno-13-78"></a>
 </span><span id="__span-13-79"><a id="__codelineno-13-79" name="__codelineno-13-79" href="#__codelineno-13-79"></a>### Alias Deprecation Plan
@@ -7134,13 +7246,12 @@
 </span><span id="__span-13-89"><a id="__codelineno-13-89" name="__codelineno-13-89" href="#__codelineno-13-89"></a>  Old command files removed entirely
 </span></code></pre></div>
 <h3 id="budget-configuration">Budget Configuration<a class="headerlink" href="#budget-configuration" title="Permanent link">&para;</a></h3>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">// .claude-plugin/plugin.json</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">// .claude-plugin/config.json (NOT plugin.json — strict schema rejects unknown keys)</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="p">{</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-plugin&quot;</span><span class="p">,</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="nt">&quot;claude_md_budget&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w">  </span><span class="c1">// override default 150</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="p">}</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">&quot;claude_md_budget&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>Fallback chain: <code>plugin.json</code> -&gt; <code>package.json</code> (claude_md_budget field) -&gt; default 150.</p>
+<p>Fallback chain: <code>config.json</code> -&gt; <code>package.json</code> (claudeMd.budget field) -&gt; default 150.</p>
 <h3 id="editor-fallback-chain">Editor Fallback Chain<a class="headerlink" href="#editor-fallback-chain" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">EDITOR_CHAIN</span> <span class="o">=</span> <span class="p">[</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="p">(</span><span class="s2">&quot;iA Writer&quot;</span><span class="p">,</span> <span class="s1">&#39;tell application &quot;iA Writer&quot; to activate&#39;</span><span class="p">),</span>
@@ -7520,7 +7631,7 @@
 </span><span id="__span-16-87"><a id="__codelineno-16-87" name="__codelineno-16-87" href="#__codelineno-16-87"></a>| Broken links | <span class="sb">`python3 tests/test_craft_plugin.py -k &quot;broken_links&quot;`</span> |
 </span><span id="__span-16-88"><a id="__codelineno-16-88" name="__codelineno-16-88" href="#__codelineno-16-88"></a>| Outdated counts | <span class="sb">`./scripts/validate-counts.sh`</span> |
 </span><span id="__span-16-89"><a id="__codelineno-16-89" name="__codelineno-16-89" href="#__codelineno-16-89"></a>| Stale worktree | <span class="sb">`git worktree remove &lt;path&gt; --force`</span> |
-</span><span id="__span-16-90"><a id="__codelineno-16-90" name="__codelineno-16-90" href="#__codelineno-16-90"></a>| Plugin not loading | Check <span class="sb">`.claude-plugin/plugin.json`</span> |
+</span><span id="__span-16-90"><a id="__codelineno-16-90" name="__codelineno-16-90" href="#__codelineno-16-90"></a>| Plugin not loading | Check <span class="sb">`.claude-plugin/plugin.json`</span> has no unrecognized keys (strict schema) |
 </span><span id="__span-16-91"><a id="__codelineno-16-91" name="__codelineno-16-91" href="#__codelineno-16-91"></a>| GIF broken commands | Test with Bash first, THEN generate GIF |
 </span><span id="__span-16-92"><a id="__codelineno-16-92" name="__codelineno-16-92" href="#__codelineno-16-92"></a>
 </span><span id="__span-16-93"><a id="__codelineno-16-93" name="__codelineno-16-93" href="#__codelineno-16-93"></a><span class="gu">## Detail Files</span>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.12.0 features CLAUDE.md v3 command refactoring (5→3 commands) with budget enforcement and pointer templates.">
+        <meta name="description" content="Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.14.0 adds a unified bash formatting library with box-drawing, ANSI-aware padding, and 23 migrated scripts.">
       
       
       
@@ -1445,6 +1445,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../guide/bash-formatting-library/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bash Formatting Library
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formatting Migration Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../guide/badge-management/" class="md-nav__link">
         
   
@@ -1820,10 +1876,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_14" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_16" >
         
           
-          <label class="md-nav__link" for="__nav_2_5_14" id="__nav_2_5_14_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_5_16" id="__nav_2_5_16_label" tabindex="0">
             
   
   
@@ -1841,8 +1897,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_5_14">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5_16">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4387,6 +4443,112 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#2140-2026-02-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.14.0] - 2026-02-05
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.14.0] - 2026-02-05">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2131-2026-02-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.13.1] - 2026-02-05
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.13.1] - 2026-02-05">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2130-2026-02-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.13.0] - 2026-02-05
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.13.0] - 2026-02-05">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation-gap-fill-release-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Gap-Fill &amp; Release Automation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2120-2026-02-05" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4970,6 +5132,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/REFCARD-FORMATTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formatting Library Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -5805,6 +5995,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../specs/SPEC-styled-output-v2.14.0-2026-02-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Styled Output Formatting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../specs/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
         
   
@@ -6232,6 +6450,112 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2140-2026-02-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.14.0] - 2026-02-05
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.14.0] - 2026-02-05">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2131-2026-02-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.13.1] - 2026-02-05
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.13.1] - 2026-02-05">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2130-2026-02-05" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.13.0] - 2026-02-05
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.13.0] - 2026-02-05">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentation-gap-fill-release-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Gap-Fill &amp; Release Automation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#2120-2026-02-05" class="md-nav__link">
@@ -6732,6 +7056,46 @@
 <p>All notable changes to the Craft plugin are documented here.</p>
 <p>The format is based on <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<hr />
+<h2 id="2140-2026-02-05">[2.14.0] - 2026-02-05<a class="headerlink" href="#2140-2026-02-05" title="Permanent link">&para;</a></h2>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Formatting library:</strong> <code>scripts/formatting.sh</code> — unified box-drawing, <code>FMT_</code> color constants, ANSI-aware padding, source guard</li>
+<li><strong>Box-drawing API:</strong> <code>box_header</code>, <code>box_single</code>, <code>box_row</code>, <code>box_separator</code>, <code>box_footer</code>, <code>box_empty_row</code>, <code>box_table</code></li>
+<li><strong>Utility functions:</strong> <code>fmt_set_width</code>, <code>fmt_divider</code>, <code>_fmt_strip_ansi</code>, <code>_fmt_visible_len</code></li>
+<li><strong>74 tests:</strong> 28 unit + 30 integration + 16 edge cases in <code>tests/test_formatting.sh</code></li>
+<li><strong>Documentation:</strong> Guide (<code>docs/guide/bash-formatting-library.md</code>), tutorial (<code>docs/tutorials/TUTORIAL-formatting-migration.md</code>), reference card (<code>docs/reference/REFCARD-FORMATTING.md</code>)</li>
+</ul>
+<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>8 scripts migrated to box-drawing:</strong> install.sh, migrate-from-workflow.sh, convert-cast.sh, health-check.sh, consent-prompt.sh, dependency-installer.sh, dependency-manager.sh</li>
+<li><strong>15 scripts migrated to shared colors:</strong> validate-counts.sh, pre-release-check.sh, batch-convert.sh, repair-tools.sh, 3 installers, tool-detector.sh, version-check.sh, sync-version.sh, verify-phase1/2.sh, install-hooks.sh, test-fix-flag.sh, pre-commit-markdownlint hook</li>
+<li><strong>Box width standardized:</strong> All boxes now render at exactly 63 visible characters (previously 61-63 inconsistently)</li>
+</ul>
+<p><strong>Documentation:</strong> <a href="../guide/bash-formatting-library/">Guide</a> · <a href="../reference/REFCARD-FORMATTING/">Quick Reference</a> · <a href="../tutorials/TUTORIAL-formatting-migration/">Migration Tutorial</a></p>
+<hr />
+<h2 id="2131-2026-02-05">[2.13.1] - 2026-02-05<a class="headerlink" href="#2131-2026-02-05" title="Permanent link">&para;</a></h2>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Plugin loading:</strong> Moved <code>claude_md_budget</code> from <code>plugin.json</code> to <code>.claude-plugin/config.json</code> — Claude Code's strict schema rejects unrecognized keys, silently breaking plugin loading (<a href="https://github.com/anthropics/claude-code/issues/20415">#20415</a>)</li>
+<li><strong>Budget utilities:</strong> Updated <code>claude_md_optimizer.py</code>, <code>claude_md_sync.py</code>, and <code>claude-md-budget-check.sh</code> to read budget from <code>config.json</code> instead of <code>plugin.json</code></li>
+<li><strong>Homebrew formula:</strong> Added dual-protection JSON cleanup in <code>post_install</code> (Ruby allowlist + Python fallback) to strip unrecognized keys from immutable v2.13.0 tarball</li>
+</ul>
+<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Budget config fallback chain: <code>.claude-plugin/config.json</code> → <code>package.json</code> (<code>claudeMd.budget</code>) → default 150</li>
+<li>Updated docs, sync command, conventions, and troubleshooting to reference <code>config.json</code></li>
+</ul>
+<hr />
+<h2 id="2130-2026-02-05">[2.13.0] - 2026-02-05<a class="headerlink" href="#2130-2026-02-05" title="Permanent link">&para;</a></h2>
+<h3 id="documentation-gap-fill-release-automation">Documentation Gap-Fill &amp; Release Automation<a class="headerlink" href="#documentation-gap-fill-release-automation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>30 new documentation pages (PR #47)</li>
+<li>Documentation status: 98% → 99%</li>
+<li>Pre-release validation script (<code>scripts/pre-release-check.sh</code>)</li>
+<li>CI version-tag consistency check</li>
+<li>Dynamic formula metadata in homebrew-release workflow</li>
+</ul>
 <hr />
 <h2 id="2120-2026-02-05">[2.12.0] - 2026-02-05<a class="headerlink" href="#2120-2026-02-05" title="Permanent link">&para;</a></h2>
 <h3 id="claudemd-v3-command-refactoring">CLAUDE.md v3 Command Refactoring<a class="headerlink" href="#claudemd-v3-command-refactoring" title="Permanent link">&para;</a></h3>
