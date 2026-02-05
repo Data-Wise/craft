@@ -2,13 +2,116 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.12.0 (2026-02-05)
-**Total Releases:** 35 versions | **Development Time:** 2+ years
-**Community:** 106 commands documented, 1171 tests passing, 90%+ coverage
+**Latest Release:** v2.14.0 (2026-02-05)
+**Total Releases:** 36 versions | **Development Time:** 2+ years
+**Community:** 106 commands documented, 1248 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.14.0 (2026-02-05) - Unified Bash Formatting Library
+
+**Status:** Released ✅
+
+**Highlights:**
+
+- **New Library**: `scripts/formatting.sh` (~180 lines) — shared bash library for box-drawing, colors, and ANSI-aware padding
+- **Double/Single Box Styles**: `╔═╗` and `┌─┐` with auto-matching borders and consistent 63-char width
+- **ANSI-Aware Padding**: `box_row` strips escape codes to calculate visible width, ensuring borders align with colored content
+- **8 Box-Drawing Migrations**: install.sh, migrate-from-workflow.sh, convert-cast.sh, health-check.sh, consent-prompt.sh, dependency-installer.sh, dependency-manager.sh
+- **15 Color-Only Migrations**: validate-counts, pre-release-check, batch-convert, repair-tools, 3 installers, tool-detector, version-check, sync-version, verify-phase1/2, install-hooks, test-fix-flag, pre-commit-markdownlint
+- **Source Guard**: `_FMT_LOADED` variable prevents double-loading
+
+**API Functions:**
+
+| Function | Purpose |
+|----------|---------|
+| `box_header` | Double-line box top with title |
+| `box_single` | Single-line box top with title |
+| `box_row` | Content row with ANSI-aware padding |
+| `box_separator` | Mid-box divider (matches current style) |
+| `box_footer` | Close box and reset state |
+| `box_table` | Column-padded table rows |
+| `fmt_set_width` | Override default width (63) |
+| `fmt_divider` | Standalone divider line |
+
+**Documentation Added:**
+
+- Formatting Library Guide (`docs/guide/bash-formatting-library.md`)
+- Migration Tutorial (`docs/tutorials/TUTORIAL-formatting-migration.md`)
+- Quick Reference Card (`docs/reference/REFCARD-FORMATTING.md`)
+- Specification (`docs/specs/SPEC-styled-output-v2.14.0-2026-02-05.md`)
+
+**Stats:**
+
+- New tests: 74 (28 unit + 30 integration + 16 edge cases)
+- Total tests: 1248
+- Files changed: 24 (+1,100/-300)
+
+**Branch:** `feature/styled-output` (PR #52)
+
+---
+
+### v2.13.1 (2026-02-05) - Plugin Loading Fix
+
+**Status:** Released ✅
+
+**Highlights:**
+
+- **Plugin loading fix**: Moved `claude_md_budget` from `plugin.json` to `.claude-plugin/config.json` — Claude Code's strict schema rejects unrecognized keys
+- **Homebrew formula**: Added dual-protection JSON cleanup in `post_install`
+
+---
+
+### v2.13.0 (2026-02-05) - Documentation Gap-Fill & Release Automation
+
+**Status:** Released ✅
+
+**Highlights:**
+
+- 30 new documentation pages (beginner recipes, troubleshooting, command pages)
+- Documentation: 98% → 99%
+- Pre-release validation script (`scripts/pre-release-check.sh`)
+- CI version-tag consistency check
+
+---
+
+### v2.12.0 (2026-02-05) - CLAUDE.md v3 Command Refactoring
+
+**Status:** Released ✅
+
+**Highlights:**
+
+- Command consolidation (5→3): `init`, `sync`, `edit`
+- Pointer templates, 4-phase sync pipeline, budget enforcement
+- 71 new tests (51 unit + 9 integration + 11 audit)
+
+---
+
+### v2.11.0 (2026-02-03) - Test Suite Cleanup & CRAFT-001
+
+**Status:** Released ✅
+
+**Highlights:**
+
+- Eliminated 236 pytest warnings, refactored 13 test files
+- CRAFT-001 emoji-attribute spacing lint rule with 50 tests
+- Test count: 847 → 1171
+
+---
+
+### v2.10.0 (2026-01-30) - Claude-MD Command Suite
+
+**Status:** Released ✅
+
+**Highlights:**
+
+- 3 new CLAUDE.md commands + 4 deprecation aliases
+- 7 utility modules (2,713 lines Python)
+- 81 tests, 0.003s detection performance
+
+---
 
 ### v2.9.0 (2026-01-29) - Command Behavior Enhancements
 

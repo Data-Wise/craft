@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.12.0 features CLAUDE.md v3 command refactoring (5→3 commands) with budget enforcement and pointer templates.
+site_description: Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.14.0 adds a unified bash formatting library with box-drawing, ANSI-aware padding, and 23 migrated scripts.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -113,6 +113,8 @@ nav:
       - Config Schema: teaching-config-schema.md
       - Migration Guide: teaching-migration.md
     - Specialized Features:
+      - Bash Formatting Library: guide/bash-formatting-library.md
+      - Formatting Migration Tutorial: tutorials/TUTORIAL-formatting-migration.md
       - Badge Management: guide/badge-management.md
       - Badge Workflow Tutorial: tutorials/TUTORIAL-badge-workflow.md
       - Interactive Commands: guide/interactive-commands.md
@@ -217,6 +219,7 @@ nav:
     - Version History: VERSION-HISTORY.md
     - Release Notes v2.8.0: RELEASE-v2.8.0.md
     - Enhancement Guides:
+      - Formatting Library Reference: reference/REFCARD-FORMATTING.md
       - Claude Code 2.1 Quick Reference: reference/REFCARD-claude-code-2.1-enhancements.md
       - Docs Update Reference: reference/REFCARD-DOCS-UPDATE.md
       - Interactive Commands Reference: reference/REFCARD-INTERACTIVE-COMMANDS.md
@@ -242,6 +245,7 @@ nav:
       - Website Organization: specs/SPEC-website-organization-standard-2026-01-17.md
       - Help Template System: specs/SPEC-help-template-menu-2026-01-16.md
       - Interactive Docs Update: specs/_archive/SPEC-docs-update-interactive-2026-01-22.md
+      - Styled Output Formatting: specs/SPEC-styled-output-v2.14.0-2026-02-05.md
       - Command Behavior Enhancements: specs/SPEC-command-enhancements-2026-01-29.md
 
   # 6. FOR CONTRIBUTORS - Development resources
