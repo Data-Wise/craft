@@ -22,27 +22,27 @@ Universal commands with AI-powered routing:
 
 [Learn more →](smart.md)
 
-### 📚 Documentation Commands (13)
+### 📚 Documentation Commands (25)
 
 Smart documentation generation and validation:
 
 - Super Commands: `update`, `sync`, `check`
-- **NEW:** `/craft:docs:website` - ADHD-friendly enhancement
-- Specialized: `api`, `changelog`, `guide`, `demo`, `mermaid`
+- CLAUDE.md: `init`, `sync`, `edit`
+- Specialized: `api`, `changelog`, `guide`, `demo`, `mermaid`, `website`
 
 [Learn more →](docs.md)
 
-### 🌐 Site Commands (12)
+### 🌐 Site Commands (16)
 
 Full documentation site management:
 
 - `/craft:site:create` - Wizard with 8 ADHD-friendly presets
 - Navigation & audit: `nav`, `audit`, `consolidate`
-- Management: `status`, `update`, `deploy`
+- Management: `status`, `update`, `deploy`, `build`, `publish`
 
 [Learn more →](site.md)
 
-### 💻 Code & Testing Commands (12)
+### 💻 Code Commands (12) & Testing Commands (7)
 
 Development workflow tools:
 
@@ -53,21 +53,21 @@ Development workflow tools:
 
 [Learn more →](code.md)
 
-### 🔀 Git & CI Commands (12)
+### 🔀 Git Commands (11) & CI Commands (3)
 
 Version control and continuous integration:
 
-- Git: `worktree`, `sync`, `clean`, `recap`, `branch`
+- Git: `worktree`, `sync`, `clean`, `recap`, `branch`, `init`
 - CI: `detect`, `generate`, `validate`
 
 [Learn more →](git.md)
 
 ### 📦 Other Categories
 
-- **Architecture** (7): System design, tech stack analysis
-- **Distribution** (2): Homebrew formulas, curl installers
+- **Architecture** (4): System design, diagrams, planning, reviews
+- **Distribution** (3): Homebrew formulas, curl installers, PyPI
 - **Planning** (3): Feature planning, sprints, roadmaps
-- **Discovery** (1): Command hub
+- **Workflow** (12): Brainstorming, task management, spec capture
 
 ## Mode System
 
@@ -101,9 +101,9 @@ Many commands support execution modes:
 
 ---
 
-## NEW in v2.9.0: Interactive Command Behavior
+## Interactive Command Behavior
 
-Four key commands now use the **"Show Steps First" pattern**:
+Four key commands use the **"Show Steps First" pattern**:
 
 ### /craft:check - Pre-Flight Validation
 
@@ -111,7 +111,7 @@ Four key commands now use the **"Show Steps First" pattern**:
 /craft:check
 
 # Shows plan → Asks to proceed → Runs checks
-# NEW: --dry-run flag, --mode selection, --skip flags
+# --dry-run flag, --mode selection, --skip flags
 ```
 
 [Learn more →](check.md) | [Cookbook recipe](../cookbook/common/check-code-quality-before-commit.md) | [Quick reference](../reference/REFCARD-CHECK.md)
@@ -122,7 +122,7 @@ Four key commands now use the **"Show Steps First" pattern**:
 /craft:orchestrate "complex task"
 
 # Shows plan → Asks for mode → Confirms → Runs with checkpoints
-# NEW: Interactive mode selection (default/wave/phase)
+# Interactive mode selection (default/wave/phase)
 ```
 
 [Learn more →](orchestrate.md) | [Tutorial](../tutorials/interactive-orchestration.md) | [Modes compared](../tutorials/orchestrator-modes-compared.md)
@@ -133,7 +133,7 @@ Four key commands now use the **"Show Steps First" pattern**:
 /craft:git:worktree feature/new-feature
 
 # Creates worktree → Auto-generates ORCHESTRATE.md + SPEC.md
-# NEW: Scope detection and auto-setup
+# Scope detection and auto-setup
 ```
 
 [Learn more →](git/worktree.md) | [Tutorial](../tutorials/TUTORIAL-worktree-setup.md) | [Quick reference](../reference/REFCARD-GIT-WORKTREE.md)
@@ -144,7 +144,7 @@ Four key commands now use the **"Show Steps First" pattern**:
 /craft:docs:update
 
 # Detects changes → Shows plan → Confirms → Generates → Validates
-# NEW: --post-merge flag for automated 5-phase pipeline
+# --post-merge flag for automated 5-phase pipeline
 ```
 
 [Learn more →](docs/update.md) | [Tutorial](../tutorials/TUTORIAL-post-merge-pipeline.md) | [Quick reference](../reference/REFCARD-DOCS-UPDATE.md)
