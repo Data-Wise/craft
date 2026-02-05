@@ -2,7 +2,7 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**104 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**106 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.12.0-dev | **Latest Release:** v2.11.0 (2026-02-03)
 **Documentation Status:** 98% complete | **Tests:** 1184 passing (154 claude-md + 1030 core)
@@ -90,7 +90,7 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 ```text
 craft/
 ├── .claude-plugin/     # Plugin manifest, hooks, validators
-├── commands/           # 104 commands (arch, ci, code, docs, git, site, test, workflow)
+├── commands/           # 106 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
 ├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
@@ -547,7 +547,7 @@ See `docs/specs/` for detailed specifications (20 total).
 
 - 3 new guide documents (1,609 lines)
 - 17 Mermaid diagrams (task routing, complexity scoring, agent delegation, orchestration)
-- Feature completeness matrix showing 104 commands with 98% documentation
+- Feature completeness matrix showing 106 commands with 98% documentation
 - Version history timeline with 24+ releases documented
 
 **Success Criteria Met:**
@@ -562,7 +562,7 @@ See `docs/specs/` for detailed specifications (20 total).
 ## Links
 
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
-- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 104 commands
+- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 106 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
 - [Specifications](docs/specs/) — Implementation specs (20 total)
 - [Version History](docs/VERSION-HISTORY.md) — Complete release timeline (NEW)
