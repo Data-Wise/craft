@@ -5,18 +5,21 @@
 
 set -e
 
-# Color definitions
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-CYAN='\033[1;36m'
-NC='\033[0m'
+# Source the required modules
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Source unified formatting library
+source "$SCRIPT_DIR/formatting.sh"
+
+# Backward-compat aliases (legacy color names → FMT_ constants)
+GREEN="$FMT_GREEN"
+YELLOW="$FMT_YELLOW"
+CYAN="$FMT_CYAN"
+NC="$FMT_NC"
 
 echo -e "${CYAN}Testing --fix flag integration...${NC}"
 echo "========================================"
 echo ""
-
-# Source the required modules
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/dependency-manager.sh"
 source "$SCRIPT_DIR/dependency-installer.sh"
 source "$SCRIPT_DIR/consent-prompt.sh"

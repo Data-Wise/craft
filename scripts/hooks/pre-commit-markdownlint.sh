@@ -24,12 +24,15 @@
 
 set -e
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Source unified formatting library
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/formatting.sh"
+
+# Backward-compat aliases (legacy color names → FMT_ constants)
+RED="$FMT_RED"
+GREEN="$FMT_GREEN"
+YELLOW="$FMT_YELLOW"
+BLUE="$FMT_BLUE"
+NC="$FMT_NC"
 
 # Markdown rules to check (24 rules)
 MD_RULES="MD003|MD004|MD005|MD007|MD009|MD010|MD012|MD022|MD023|MD029|MD030|MD031|MD032|MD034|MD036|MD040|MD042|MD045|MD046|MD048|MD049|MD050|MD052|MD056"
