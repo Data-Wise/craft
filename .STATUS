@@ -1,56 +1,50 @@
 status: Active
 version: 2.11.1
 release_date: 2026-02-03 (v2.11.1)
-milestone: v2.11.1 - Test Suite Cleanup & CRAFT-001
-last_session: 2026-02-03T17:07:00Z
+milestone: v2.11.1 - Released
+last_session: 2026-02-03T18:15:00Z
 
-progress: 100% (PR #42 MERGED - Test cleanup + CRAFT-001 complete)
+progress: 100% (v2.11.1 RELEASED - All PRs merged, docs deployed)
 
 📊 Branch Status (as of 2026-02-03):
 
 | Branch    | Head     | Ahead of | Status                        |
 |-----------|----------|----------|-------------------------------|
-| main      | 35ffb8f  | —        | Production (v2.11.0) ✅        |
-| dev       | a7cce7a  | 0        | Synced with main              |
-| gh-pages  | 106e35f  | —        | Deployed docs site            |
+| main      | 6b7f44d  | —        | Production (v2.11.1) ✅        |
+| dev       | 6b7f44d  | 0        | Synced with main              |
+| gh-pages  | 92252ac  | —        | Deployed docs site ✅          |
 
 Worktrees:
   • /Users/dt/projects/dev-tools/craft → dev (main repo)
   • No active feature worktrees - clean state
 
-🎯 Current State: PR #42 merged - CRAFT-001 + test suite cleanup
+✅ Just Completed (2026-02-03 session):
 
-✅ PR #42 Merged (2026-02-03):
+- Merged PR #42 (test cleanup + CRAFT-001) → main
+- Fixed 2 CI failures (broken links, mkdocs skip import)
+- Post-merge docs update for v2.11.0
+- Created 50 tests for CRAFT-001 (9 categories, full coverage)
+- Created CRAFT-001 tutorial + test wrapper pattern guide
+- Site update (commands, tests, version refs, What's New section)
+- Merged PR #43 (post-merge docs + tests) → main
+- Bumped to v2.11.1, created GitHub release
+- Deployed docs site to GitHub Pages
 
-**What Merged:**
-- CRAFT-001 emoji-attribute spacing lint rule + CI integration
-- Eliminated all 236 pytest warnings across 13 test files
-- Fixed 21 stale test expectations (surfaced by warning fixes)
-- Resolved CI failures (broken links, mkdocs skip, pre-commit framework)
-- Test count: 847 → 1111 (all passing, 0 warnings)
-
-**Files Changed:** 28 (+1,711/-801)
-
-**Key Changes:**
-- New lint rule: scripts/docs-lint-emoji.sh (CRAFT-001)
-- CI integration: .github/workflows/docs-quality.yml
-- 13 test files refactored (_check_* + test_* wrapper pattern)
-- 3 teaching fixture schemas updated
-- .linkcheck-ignore expanded with 2 new sections
-
-**Commits (9):**
-- 0969199 feat: add CRAFT-001 emoji-attribute spacing lint rule
-- 3957229 ci: add CRAFT-001 emoji-attribute check to docs-quality workflow
-- fcbae4a docs: update CLAUDE.md with CRAFT-001 rule details
-- d3576ba fix: update tests to match pre-commit framework and utility APIs
-- b4988e8 fix: eliminate PytestReturnNotNoneWarning from v120 feature tests
-- 464f60c fix: eliminate all 111 pytest warnings and fix 21 stale test expectations
-- 368503c fix: resolve 2 CI failures (broken links + mkdocs skip)
-- a7cce7a fix: add missing pytest import for mkdocs skip in CI
+📊 Session Stats: 9 commits, 2 PRs merged, 1 release, 1 deploy
 
 ---
 
-## Previous Releases
+## Releases
+
+### v2.11.1 - Test Suite Cleanup & CRAFT-001 (2026-02-03) ✅
+
+**What Shipped:**
+- CRAFT-001 emoji-attribute spacing lint rule + CI integration
+- Eliminated all 236 pytest warnings across 13 test files
+- Fixed 21 hidden test failures (soft failures)
+- 50 new tests for CRAFT-001 (9 categories)
+- CRAFT-001 tutorial + test wrapper pattern guide
+- Test count: 847 → 1111 (all passing, 0 warnings)
 
 ### v2.10.0 - Claude-MD Command Suite (2026-01-30) ✅
 
@@ -67,20 +61,12 @@ Worktrees:
 - 3 new cookbook recipes (1,161 lines)
 - 2 new beginner tutorials (1,618 lines)
 - Expanded command documentation (+442 lines)
-- Documentation coverage: 95%
-
-### v2.9.0 - Command Behavior Enhancements (2026-01-29) ✅
-
-**What Shipped:**
-- "Show Steps First" pattern across 4 commands
-- Interactive orchestration with mode selection
-- Git worktree auto-setup with scope detection
-- Post-merge documentation pipeline
-- 847 tests passing
 
 ---
 
 ## Next Steps
+
+🎯 Next Action: Start v2.12.0 planning
 
 **Ready for New Development:**
 - dev branch synced with main

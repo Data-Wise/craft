@@ -218,6 +218,12 @@ nav:
     - Documentation Quality Development: guide/documentation-quality-development.md
     - CI/CD Templates: CI-TEMPLATES.md
     - CI Detection Rollout: CI-DETECTION-ROLLOUT.md
+    - Internal Conventions:
+      - Overview: internal/README.md
+      - CLAUDE.md Conventions: internal/CLAUDE-MD-CONVENTIONS.md
+      - Test Conventions: internal/TEST-CONVENTIONS.md
+      - Python Conventions: internal/PYTHON-CONVENTIONS.md
+      - Command & Spec Conventions: internal/COMMAND-SPEC-CONVENTIONS.md
 
   # 7. QUICK REFERENCE CARD - Printable reference
   - 📋 Quick Reference Card: REFCARD.md
