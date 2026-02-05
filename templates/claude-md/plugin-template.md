@@ -41,7 +41,7 @@
 1. Make changes in relevant directory (commands/skills/agents)
 2. Add tests in tests/
 3. Run validation: `/craft:check`
-4. Update docs: `/craft:docs:update`
+4. Update docs: `/craft:docs:claude-md:sync`
 5. Commit and push
 
 ## Testing
@@ -83,9 +83,17 @@ feature/* (worktrees) ← All implementation work
 
 {related_commands}
 
-## Links
+## Common Issues
 
-- [Documentation Site]({docs_url})
-- [Commands Reference]({docs_url}/commands/)
-- [Architecture Guide]({docs_url}/architecture/)
-- [GitHub Repository]({repo_url})
+| Issue | Fix |
+|-------|-----|
+| Tests failing | `python3 tests/test_{plugin_name}.py` |
+| Stale CLAUDE.md | `/craft:docs:claude-md:sync` |
+| Broken links | `/craft:docs:check-links` |
+
+## References
+
+-> Release history: [VERSION-HISTORY.md](docs/VERSION-HISTORY.md)
+-> Architecture: [ARCHITECTURE.md](docs/ARCHITECTURE.md)
+-> Command reference: [Commands]({docs_url}/commands/)
+-> GitHub: [{plugin_name}]({repo_url})

@@ -477,7 +477,7 @@ def update_claude_md(
     claude_md_path = project_path / "CLAUDE.md"
 
     if not claude_md_path.exists():
-        return None, "CLAUDE.md not found. Use /craft:docs:claude-md:scaffold to create."
+        return None, "CLAUDE.md not found. Use /craft:docs:claude-md:init to create."
 
     # Detect project
     project_info = detect_project(project_path)

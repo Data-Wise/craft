@@ -176,20 +176,32 @@ Text before list
 class TestPrecommitHookIntegration:
     """Tests for pre-commit hook integration."""
 
+    @staticmethod
+    def _get_hook_path():
+        """Resolve pre-commit hook path (works in both repos and worktrees)."""
+        repo_root = Path(__file__).parent.parent
+        git_path = repo_root / ".git"
+        if git_path.is_file():
+            # Worktree: .git is a file pointing to the main repo's git dir
+            # Use git-common-dir to find the shared hooks directory
+            result = subprocess.run(
+                ["git", "rev-parse", "--git-common-dir"],
+                capture_output=True, text=True, cwd=repo_root,
+            )
+            git_dir = Path(result.stdout.strip())
+            if not git_dir.is_absolute():
+                git_dir = (repo_root / git_dir).resolve()
+            return git_dir / "hooks" / "pre-commit"
+        return git_path / "hooks" / "pre-commit"
+
     def test_hook_file_exists(self):
         """Pre-commit hook should exist in main repo."""
-        main_repo = Path(__file__).parent.parent
-        hook_path = main_repo / ".git" / "hooks" / "pre-commit"
-
+        hook_path = self._get_hook_path()
         assert hook_path.exists(), "Pre-commit hook not found: {0}".format(hook_path)
 
     def test_hook_executable(self):
         """Pre-commit hook should be executable."""
-        main_repo = Path(__file__).parent.parent
-        hook_path = main_repo / ".git" / "hooks" / "pre-commit"
-
-        # Check if file has execute permission
-        import os
+        hook_path = self._get_hook_path()
 
         assert os.access(hook_path, os.X_OK), (
             "Pre-commit hook not executable: {0}".format(hook_path)
@@ -197,8 +209,7 @@ class TestPrecommitHookIntegration:
 
     def test_hook_has_shebang(self):
         """Pre-commit hook should have bash shebang."""
-        main_repo = Path(__file__).parent.parent
-        hook_path = main_repo / ".git" / "hooks" / "pre-commit"
+        hook_path = self._get_hook_path()
 
         content = hook_path.read_text()
         assert content.startswith("#!/usr/bin/env bash"), "Hook should start with #!/usr/bin/env bash"

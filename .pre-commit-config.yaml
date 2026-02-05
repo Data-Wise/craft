@@ -49,6 +49,12 @@ repos:
         language: system
         files: '\.md$'
         pass_filenames: false
+      - id: claude-md-budget
+        name: Check CLAUDE.md budget (< 150 lines)
+        entry: bash -c 'scripts/claude-md-budget-check.sh'
+        language: system
+        files: 'CLAUDE\.md$'
+        pass_filenames: false
 
 # CI configuration
 ci:

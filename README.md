@@ -2,12 +2,12 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
 [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.11.1-blue.svg)](https://github.com/Data-Wise/craft)
+[![Version](https://img.shields.io/badge/version-2.12.0-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.11.1 - Test Suite Cleanup & CRAFT-001** 🚀
-> **104 commands** | **21 skills** | **8 agents** | **1111 tests passing**
-> CRAFT-001 lint rule, 236 pytest warnings eliminated, 21 stale expectations fixed.
+> **v2.12.0 - CLAUDE.md v3 Command Refactoring** 🚀
+> **106 commands** | **21 skills** | **8 agents** | **1174 tests passing**
+> 5→3 command consolidation (init, sync, edit), budget enforcement, pointer templates.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -135,7 +135,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [Quick Start](https://data-wise.github.io/craft/QUICK-START/) (30 seconds)
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
-- [Command Reference](https://data-wise.github.io/craft/REFCARD/) (all 97 commands)
+- [Command Reference](https://data-wise.github.io/craft/REFCARD/) (all 106 commands)
 - [Skills & Agents](https://data-wise.github.io/craft/guide/skills-agents/) (21 skills, 8 agents)
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -160,7 +160,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 /craft:hub
 ```
 
-## Mode System (NEW in v1.2.0)
+## Mode System
 
 Commands support execution modes for different use cases:
 
@@ -178,7 +178,7 @@ Commands support execution modes for different use cases:
 /craft:arch:analyze optimize    # Performance analysis
 ```
 
-## Teaching Mode (NEW in v1.18.0)
+## Teaching Mode
 
 Specialized workflows for teaching projects with automated validation, semester tracking, and safe publishing.
 
@@ -215,7 +215,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ## Commands (86 total)
 
-### Workflow Commands (12) - NEW in v1.17.0
+### Workflow Commands (12)
 
 | Command                                | Description                                                                                   |
 | -------------------------------------- | --------------------------------------------------------------------------------------------- |
@@ -249,7 +249,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:check`                     | Pre-flight checks (commit/pr/release)                                                            |
 | `/craft:help`                      | Context-aware help and suggestions                                                               |
 
-#### Orchestrator Modes (NEW in v1.4.0)
+#### Orchestrator Modes
 
 ```bash
 /craft:orchestrate "add auth" optimize    # Fast parallel (4 agents)
@@ -381,7 +381,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 **Git Guides:** refcard, undo-guide, safety-rails, learning-guide
 
-### CI Commands (3) - NEW in v1.10.0
+### CI Commands (3)
 
 | Command              | Description                                                       |
 | -------------------- | ----------------------------------------------------------------- |
@@ -479,7 +479,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 /craft:docs:site --deploy
 ```
 
-### Site Workflow (NEW in v1.7.0)
+### Site Workflow
 
 ```
 # Create new documentation site with design preset
@@ -504,7 +504,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ## Version
 
-- **Version:** 2.11.1
+- **Version:** 2.12.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
