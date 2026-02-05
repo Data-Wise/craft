@@ -19,6 +19,7 @@ Author: Craft Plugin
 """
 
 import json
+import os
 import re
 import shutil
 import sys
@@ -113,6 +114,41 @@ DETAIL_FILES: Dict[str, str] = {
 
 # Pointer format: arrow prefix + markdown link
 POINTER_PREFIX = "->"
+
+
+# ---------------------------------------------------------------------------
+# Path Resolution
+# ---------------------------------------------------------------------------
+
+def resolve_claude_md_path(global_flag=False, start_dir=None):
+    """Resolve CLAUDE.md path. Use --global for ~/.claude/CLAUDE.md.
+
+    Args:
+        global_flag: If True, return ~/.claude/CLAUDE.md
+        start_dir: Directory to start searching from (default: cwd)
+
+    Returns:
+        Absolute path to CLAUDE.md
+
+    Raises:
+        FileNotFoundError: If no CLAUDE.md found
+    """
+    if global_flag:
+        path = os.path.expanduser("~/.claude/CLAUDE.md")
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"Global CLAUDE.md not found at {path}")
+        return path
+
+    # Walk up from start_dir to find CLAUDE.md
+    search_dir = start_dir or os.getcwd()
+    while True:
+        candidate = os.path.join(search_dir, "CLAUDE.md")
+        if os.path.exists(candidate):
+            return os.path.abspath(candidate)
+        parent = os.path.dirname(search_dir)
+        if parent == search_dir:  # Root reached
+            raise FileNotFoundError("No CLAUDE.md found in directory tree")
+        search_dir = parent
 
 
 # ---------------------------------------------------------------------------
@@ -594,10 +630,10 @@ class CLAUDEMDOptimizer:
             lines.append("  1. Review: git diff CLAUDE.md")
             if result.detail_files_created:
                 lines.append("  2. Review detail files created")
-                lines.append("  3. Run audit: /craft:docs:claude-md:audit")
+                lines.append("  3. Run sync: /craft:docs:claude-md:sync")
                 lines.append('  4. Commit: git add -A && git commit -m "docs: optimize CLAUDE.md"')
             else:
-                lines.append("  2. Run audit: /craft:docs:claude-md:audit")
+                lines.append("  2. Run sync: /craft:docs:claude-md:sync")
                 lines.append('  3. Commit: git add CLAUDE.md && git commit -m "docs: optimize CLAUDE.md"')
         else:
             lines.append("No optimization needed. CLAUDE.md is within budget.")
@@ -911,8 +947,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "file",
         nargs="?",
-        default="CLAUDE.md",
-        help="Path to CLAUDE.md file (default: ./CLAUDE.md)",
+        default=None,
+        help="Path to CLAUDE.md file (default: auto-detect)",
+    )
+    parser.add_argument(
+        "--global",
+        dest="global_flag",
+        action="store_true",
+        help="Operate on ~/.claude/CLAUDE.md",
     )
     parser.add_argument(
         "--budget", "-b",
@@ -937,7 +979,17 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    file_path = Path(args.file)
+
+    # Resolve path: explicit file > --global > auto-detect
+    if args.file:
+        file_path = Path(args.file)
+    else:
+        try:
+            resolved = resolve_claude_md_path(global_flag=args.global_flag)
+            file_path = Path(resolved)
+        except FileNotFoundError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
 
     if not file_path.exists():
         print(f"Error: {file_path} not found")

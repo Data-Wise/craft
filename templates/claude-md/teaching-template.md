@@ -94,8 +94,16 @@ quarto publish gh-pages
 
 {related_commands}
 
-## Links
+## Common Issues
 
-- [Course Website]({course_url})
-- [GitHub Repository]({repo_url})
-- [Canvas Site]({canvas_url})
+| Issue | Fix |
+|-------|-----|
+| Build fails | `quarto render` |
+| Broken links | Check schedule.qmd references |
+| Preview issues | `quarto preview` |
+
+## References
+
+-> Course site: [{course_name}]({course_url})
+-> GitHub: [{course_name}]({repo_url})
+-> Canvas: [{course_name}]({canvas_url})

@@ -12,8 +12,10 @@ import unittest
 import tempfile
 import json
 import os
+import shutil
 import sys
 from pathlib import Path
+from unittest.mock import patch
 
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -26,6 +28,7 @@ from utils.claude_md_sync import (
     MetricChange,
     FixResult,
     sync_claude_md,
+    resolve_claude_md_path as sync_resolve_claude_md_path,
     ANTI_PATTERNS,
     DEFAULT_BUDGET,
 )
@@ -36,6 +39,7 @@ from utils.claude_md_optimizer import (
     OptimizeResult,
     analyze_claude_md,
     optimize_claude_md,
+    resolve_claude_md_path as optimizer_resolve_claude_md_path,
     P0_SECTIONS,
     P1_SECTIONS,
     P2_SECTION_NAMES,
@@ -857,6 +861,110 @@ class TestSyncReport(unittest.TestCase):
 
         self.assertIn("Anti-Patterns (1)", report)
         self.assertIn("release_notes", report)
+
+
+# ---------------------------------------------------------------------------
+# TestGlobalFlagResolution
+# ---------------------------------------------------------------------------
+
+class TestGlobalFlagResolution(unittest.TestCase):
+    """Test resolve_claude_md_path() for --global flag and local walk-up."""
+
+    def setUp(self):
+        """Create temporary directories simulating home and project."""
+        self.temp_dir = tempfile.mkdtemp()
+        self.global_dir = os.path.join(self.temp_dir, '.claude')
+        os.makedirs(self.global_dir, exist_ok=True)
+
+    def tearDown(self):
+        """Clean up temporary directory."""
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+
+    def test_global_flag_returns_global_path(self):
+        """--global resolves to ~/.claude/CLAUDE.md when it exists."""
+        global_path = os.path.join(self.global_dir, 'CLAUDE.md')
+        with open(global_path, 'w') as f:
+            f.write('# Global CLAUDE.md\n')
+
+        with patch('os.path.expanduser', return_value=global_path):
+            result = sync_resolve_claude_md_path(global_flag=True)
+            self.assertEqual(result, global_path)
+
+    def test_global_flag_returns_global_path_optimizer(self):
+        """--global resolves via optimizer module too."""
+        global_path = os.path.join(self.global_dir, 'CLAUDE.md')
+        with open(global_path, 'w') as f:
+            f.write('# Global CLAUDE.md\n')
+
+        with patch('os.path.expanduser', return_value=global_path):
+            result = optimizer_resolve_claude_md_path(global_flag=True)
+            self.assertEqual(result, global_path)
+
+    def test_global_flag_missing_raises_error(self):
+        """--global raises FileNotFoundError when ~/.claude/CLAUDE.md is absent."""
+        missing_path = os.path.join(self.global_dir, 'CLAUDE.md')
+        # Do NOT create the file
+
+        with patch('os.path.expanduser', return_value=missing_path):
+            with self.assertRaises(FileNotFoundError) as ctx:
+                sync_resolve_claude_md_path(global_flag=True)
+            self.assertIn("Global CLAUDE.md not found", str(ctx.exception))
+
+    def test_global_flag_missing_raises_error_optimizer(self):
+        """--global raises FileNotFoundError via optimizer module too."""
+        missing_path = os.path.join(self.global_dir, 'CLAUDE.md')
+
+        with patch('os.path.expanduser', return_value=missing_path):
+            with self.assertRaises(FileNotFoundError) as ctx:
+                optimizer_resolve_claude_md_path(global_flag=True)
+            self.assertIn("Global CLAUDE.md not found", str(ctx.exception))
+
+    def test_local_resolution_walks_up(self):
+        """Without --global, walks up directory tree to find CLAUDE.md."""
+        # Create a project root with CLAUDE.md
+        project_root = os.path.join(self.temp_dir, 'project')
+        nested_dir = os.path.join(project_root, 'src', 'lib')
+        os.makedirs(nested_dir, exist_ok=True)
+
+        claude_md_path = os.path.join(project_root, 'CLAUDE.md')
+        with open(claude_md_path, 'w') as f:
+            f.write('# Project CLAUDE.md\n')
+
+        # Search from nested directory should walk up and find it
+        result = sync_resolve_claude_md_path(global_flag=False, start_dir=nested_dir)
+        self.assertEqual(result, os.path.abspath(claude_md_path))
+
+    def test_local_resolution_walks_up_optimizer(self):
+        """Walk-up works via optimizer module too."""
+        project_root = os.path.join(self.temp_dir, 'project')
+        nested_dir = os.path.join(project_root, 'src', 'lib')
+        os.makedirs(nested_dir, exist_ok=True)
+
+        claude_md_path = os.path.join(project_root, 'CLAUDE.md')
+        with open(claude_md_path, 'w') as f:
+            f.write('# Project CLAUDE.md\n')
+
+        result = optimizer_resolve_claude_md_path(global_flag=False, start_dir=nested_dir)
+        self.assertEqual(result, os.path.abspath(claude_md_path))
+
+    def test_local_resolution_not_found_raises(self):
+        """Raises FileNotFoundError when no CLAUDE.md in tree."""
+        # Create an empty directory tree with no CLAUDE.md
+        empty_dir = os.path.join(self.temp_dir, 'empty', 'nested')
+        os.makedirs(empty_dir, exist_ok=True)
+
+        with self.assertRaises(FileNotFoundError) as ctx:
+            sync_resolve_claude_md_path(global_flag=False, start_dir=empty_dir)
+        self.assertIn("No CLAUDE.md found", str(ctx.exception))
+
+    def test_local_resolution_not_found_raises_optimizer(self):
+        """Raises FileNotFoundError via optimizer module too."""
+        empty_dir = os.path.join(self.temp_dir, 'empty', 'nested')
+        os.makedirs(empty_dir, exist_ok=True)
+
+        with self.assertRaises(FileNotFoundError) as ctx:
+            optimizer_resolve_claude_md_path(global_flag=False, start_dir=empty_dir)
+        self.assertIn("No CLAUDE.md found", str(ctx.exception))
 
 
 if __name__ == '__main__':

@@ -19,6 +19,7 @@ Author: Craft Plugin
 """
 
 import json
+import os
 import re
 import shutil
 import sys
@@ -172,6 +173,41 @@ class SyncResult:
     def over_budget(self) -> bool:
         """True when line count exceeds budget."""
         return self.line_count > self.budget
+
+
+# ---------------------------------------------------------------------------
+# Path Resolution
+# ---------------------------------------------------------------------------
+
+def resolve_claude_md_path(global_flag=False, start_dir=None):
+    """Resolve the path to CLAUDE.md.
+
+    Args:
+        global_flag: If True, return ~/.claude/CLAUDE.md
+        start_dir: Directory to start searching from (default: cwd)
+
+    Returns:
+        Absolute path to CLAUDE.md
+
+    Raises:
+        FileNotFoundError: If no CLAUDE.md found
+    """
+    if global_flag:
+        path = os.path.expanduser("~/.claude/CLAUDE.md")
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"Global CLAUDE.md not found at {path}")
+        return path
+
+    # Walk up from start_dir to find CLAUDE.md
+    search_dir = start_dir or os.getcwd()
+    while True:
+        candidate = os.path.join(search_dir, "CLAUDE.md")
+        if os.path.exists(candidate):
+            return os.path.abspath(candidate)
+        parent = os.path.dirname(search_dir)
+        if parent == search_dir:  # Root reached
+            raise FileNotFoundError("No CLAUDE.md found in directory tree")
+        search_dir = parent
 
 
 # ---------------------------------------------------------------------------
@@ -1328,7 +1364,7 @@ def sync_claude_md(
 
     if not claude_md_path.exists():
         empty_result = SyncResult(project_info=None)
-        return empty_result, "CLAUDE.md not found. Use /craft:docs:claude-md:scaffold to create."
+        return empty_result, "CLAUDE.md not found. Use /craft:docs:claude-md:init to create."
 
     syncer = CLAUDEMDSync(claude_md_path)
     result = syncer.sync(
@@ -1355,8 +1391,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "file",
         nargs="?",
-        default="CLAUDE.md",
-        help="Path to CLAUDE.md file (default: ./CLAUDE.md)",
+        default=None,
+        help="Path to CLAUDE.md file (default: auto-detect)",
+    )
+    parser.add_argument(
+        "--global",
+        dest="global_flag",
+        action="store_true",
+        help="Operate on ~/.claude/CLAUDE.md",
     )
     parser.add_argument(
         "--fix",
@@ -1394,7 +1436,17 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    syncer = CLAUDEMDSync(Path(args.file))
+    # Resolve path: explicit file > --global > auto-detect
+    if args.file:
+        file_path = args.file
+    else:
+        try:
+            file_path = resolve_claude_md_path(global_flag=args.global_flag)
+        except FileNotFoundError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
+
+    syncer = CLAUDEMDSync(Path(file_path))
     result = syncer.sync(
         fix=args.fix,
         optimize=args.optimize,

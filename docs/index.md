@@ -150,18 +150,15 @@ Major interactive workflow improvements and comprehensive test infrastructure fi
 
 Comprehensive CLAUDE.md management tools ported from local Claude Code (PR #39):
 
-**5 New Commands:**
+**Commands** (consolidated in v2.12.0):
 
-- `/craft:docs:claude-md:update` - Sync CLAUDE.md with project state
+- `/craft:docs:claude-md:sync` - Unified sync pipeline (replaces `update`, `audit`, `fix`)
   - Detects version mismatches, new commands, test count changes
+  - Validates completeness (5 checks: version sync, command coverage, broken links, required sections, status sync)
+  - Auto-fixes issues with `--fix` flag (4 fix methods)
   - "Show Steps First" pattern with preview and confirmation
   - Supports dry-run, interactive, and section-specific modes
-- `/craft:docs:claude-md:audit` - Validate completeness and accuracy
-  - 5 validation checks: version sync, command coverage, broken links, required sections, status sync
-  - 3 severity levels: ERROR, WARNING, INFO
-- `/craft:docs:claude-md:fix` - Auto-fix common issues
-  - 4 fix methods with dry-run support
-- `/craft:docs:claude-md:scaffold` - Create from template
+- `/craft:docs:claude-md:init` - Create from template (renamed from `scaffold`)
   - 3 project templates: craft-plugin, teaching-site, r-package
   - 18+ template variables with auto-population
 - `/craft:docs:claude-md:edit` - Interactive section editing
@@ -193,10 +190,10 @@ Comprehensive CLAUDE.md management tools ported from local Claude Code (PR #39):
 **Try it:**
 
 ```bash
-/craft:docs:claude-md:update                # Sync CLAUDE.md
-/craft:docs:claude-md:audit                 # Validate
-/craft:docs:claude-md:fix --dry-run         # Preview fixes
-/craft:docs:claude-md:scaffold              # Create new
+/craft:docs:claude-md:sync                  # Sync CLAUDE.md (validate + update)
+/craft:docs:claude-md:sync --fix            # Sync with auto-fix
+/craft:docs:claude-md:sync --fix --dry-run  # Preview fixes
+/craft:docs:claude-md:init                  # Create new from template
 ```
 
 **Documentation:**

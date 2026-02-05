@@ -22,45 +22,54 @@ The Claude-MD Command Suite is a comprehensive set of tools for managing CLAUDE.
 
 ---
 
+> **Note (v2.12.0):** Commands have been consolidated. `scaffold` -> `init`, `update`/`audit`/`fix` -> `sync`. Old names work as aliases but will be removed in v2.13.0.
+
+---
+
 ## Features
 
-### 1. `/craft:docs:claude-md:update` - Sync CLAUDE.md
+### 1. `/craft:docs:claude-md:sync` - Unified Sync Pipeline
 
-**Purpose:** Keep CLAUDE.md synchronized with project state
+**Purpose:** Keep CLAUDE.md synchronized with project state (combines former `update`, `audit`, and `fix`)
 
 **Key Features:**
 
 - Detects version mismatches across source files
 - Identifies new/changed commands, skills, agents
 - Updates test counts and documentation metrics
+- Validates completeness and accuracy (5 check categories)
+- Auto-fixes common issues with `--fix` flag
 - "Show Steps First" pattern with preview
 - Supports dry-run, interactive, and section-specific modes
 
 **Usage:**
 
 ```bash
-# Default: smart update with preview
-/craft:docs:claude-md:update
+# Default: smart sync with preview
+/craft:docs:claude-md:sync
 
 # Dry run: preview without changes
-/craft:docs:claude-md:update --dry-run
+/craft:docs:claude-md:sync --dry-run
 
 # Interactive: prompt for each section
-/craft:docs:claude-md:update --interactive
+/craft:docs:claude-md:sync --interactive
 
-# Section-specific: update only version
-/craft:docs:claude-md:update --section=status
+# Section-specific: sync only version
+/craft:docs:claude-md:sync --section=status
+
+# Auto-fix issues
+/craft:docs:claude-md:sync --fix
 ```
 
 **Implementation:** `utils/claude_md_updater_simple.py` (371 lines)
 
 ---
 
-### 2. `/craft:docs:claude-md:audit` - Validate CLAUDE.md
+### 2. Validation (now part of `sync`)
 
-**Purpose:** Comprehensive validation with 5 check categories
+> **Deprecation:** The standalone `/craft:docs:claude-md:audit` command has been folded into `sync`. Use `/craft:docs:claude-md:sync` which runs validation as part of its pipeline. The `audit` name remains as an alias until v2.13.0.
 
-**Validation Checks:**
+**Validation Checks (run during sync):**
 
 | Check | Purpose | Severity Levels |
 |-------|---------|-----------------|
@@ -72,32 +81,19 @@ The Claude-MD Command Suite is a comprehensive set of tools for managing CLAUDE.
 
 **Severity Levels:**
 
-- 🔴 **ERROR** - Critical issues requiring immediate fix
-- ⚠️ **WARNING** - Non-critical but should be addressed
-- 📝 **INFO** - Informational, optional fixes
-
-**Usage:**
-
-```bash
-# Full audit
-/craft:docs:claude-md:audit
-
-# Check specific category
-/craft:docs:claude-md:audit --check=broken_links
-
-# JSON output for CI/CD
-/craft:docs:claude-md:audit --json
-```
+- **ERROR** - Critical issues requiring immediate fix
+- **WARNING** - Non-critical but should be addressed
+- **INFO** - Informational, optional fixes
 
 **Implementation:** `utils/claude_md_auditor.py` (599 lines)
 
 ---
 
-### 3. `/craft:docs:claude-md:fix` - Auto-fix Issues
+### 3. Auto-fix (now `sync --fix`)
 
-**Purpose:** Automatically resolve common CLAUDE.md issues
+> **Deprecation:** The standalone `/craft:docs:claude-md:fix` command has been folded into `sync --fix`. The `fix` name remains as an alias until v2.13.0.
 
-**Fix Methods:**
+**Fix Methods (available via `--fix` flag):**
 
 | Method | Action | Scope |
 |--------|--------|-------|
@@ -110,16 +106,16 @@ The Claude-MD Command Suite is a comprehensive set of tools for managing CLAUDE.
 
 ```bash
 # Preview fixes (dry-run)
-/craft:docs:claude-md:fix --dry-run
+/craft:docs:claude-md:sync --fix --dry-run
 
 # Apply all fixes
-/craft:docs:claude-md:fix
+/craft:docs:claude-md:sync --fix
 
 # Fix specific issue type
-/craft:docs:claude-md:fix --type=broken_links
+/craft:docs:claude-md:sync --fix --type=broken_links
 
 # Interactive: prompt for each fix
-/craft:docs:claude-md:fix --interactive
+/craft:docs:claude-md:sync --fix --interactive
 ```
 
 **Safety Features:**
@@ -133,7 +129,9 @@ The Claude-MD Command Suite is a comprehensive set of tools for managing CLAUDE.
 
 ---
 
-### 4. `/craft:docs:claude-md:scaffold` - Create from Template
+### 4. `/craft:docs:claude-md:init` - Create from Template
+
+> **Renamed:** Formerly `scaffold`. The `scaffold` name remains as an alias until v2.13.0.
 
 **Purpose:** Generate CLAUDE.md from project-specific templates
 
@@ -157,14 +155,14 @@ The Claude-MD Command Suite is a comprehensive set of tools for managing CLAUDE.
 **Usage:**
 
 ```bash
-# Auto-detect and scaffold
-/craft:docs:claude-md:scaffold
+# Auto-detect and init
+/craft:docs:claude-md:init
 
 # Specific project type
-/craft:docs:claude-md:scaffold --type=craft-plugin
+/craft:docs:claude-md:init --type=craft-plugin
 
 # Preview without creating
-/craft:docs:claude-md:scaffold --dry-run
+/craft:docs:claude-md:init --dry-run
 ```
 
 **Templates:**
@@ -213,10 +211,8 @@ The Claude-MD Command Suite is a comprehensive set of tools for managing CLAUDE.
 ```mermaid
 graph TB
     subgraph "Commands Layer"
-        Update[update.md]
-        Audit[audit.md]
-        Fix[fix.md]
-        Scaffold[scaffold.md]
+        Sync[sync.md]
+        Init[init.md]
         Edit[edit.md]
     end
 
@@ -244,14 +240,12 @@ graph TB
         StatusFile[.STATUS]
     end
 
-    Update --> Detector
-    Update --> UpdaterSimple
-    Audit --> Detector
-    Audit --> Auditor
-    Fix --> Auditor
-    Fix --> Fixer
-    Scaffold --> Detector
-    Scaffold --> Populator
+    Sync --> Detector
+    Sync --> UpdaterSimple
+    Sync --> Auditor
+    Sync --> Fixer
+    Init --> Detector
+    Init --> Populator
     Edit --> Editor
 
     Detector --> PluginJSON
@@ -495,8 +489,8 @@ python3 tests/test_claude_md_integration*.py
 
 | Command | Integration | Purpose |
 |---------|-------------|---------|
-| `/craft:check` | Calls audit | Pre-commit validation |
-| `/craft:docs:update` | Coordinates update | Doc sync workflow |
+| `/craft:check` | Calls sync | Pre-commit validation |
+| `/craft:docs:update` | Coordinates sync | Doc sync workflow |
 | `/craft:git:worktree` | Updates CLAUDE.md | Feature branch finish |
 | `/craft:hub` | Discovery | Command visibility |
 
@@ -565,10 +559,16 @@ If you were using local `~/.claude/commands/claude-md/` commands:
 
    ```diff
    - /claude-md:update
-   + /craft:docs:claude-md:update
+   + /craft:docs:claude-md:sync
 
    - /claude-md:audit
-   + /craft:docs:claude-md:audit
+   + /craft:docs:claude-md:sync
+
+   - /claude-md:fix
+   + /craft:docs:claude-md:sync --fix
+
+   - /claude-md:scaffold
+   + /craft:docs:claude-md:init
    ```
 
 ### Backward Compatibility
@@ -616,7 +616,7 @@ touch DESCRIPTION NAMESPACE
 
 ```bash
 # Auto-fix version
-/craft:docs:claude-md:fix --type=version
+/craft:docs:claude-md:sync --fix --type=version
 
 # Or manually update CLAUDE.md
 # Find version in plugin.json/package.json/etc.
@@ -630,10 +630,10 @@ touch DESCRIPTION NAMESPACE
 
 ```bash
 # Show all broken links
-/craft:docs:claude-md:audit --check=broken_links
+/craft:docs:claude-md:sync --check=broken_links
 
 # Auto-fix (removes broken links)
-/craft:docs:claude-md:fix --type=broken_links
+/craft:docs:claude-md:sync --fix --type=broken_links
 ```
 
 #### 4. "Template variable not found"
@@ -643,7 +643,7 @@ touch DESCRIPTION NAMESPACE
 **Solution:**
 
 - Ensure version is in source file
-- Run `/craft:docs:claude-md:scaffold --dry-run` to see available variables
+- Run `/craft:docs:claude-md:init --dry-run` to see available variables
 - Check project type detection is correct
 
 ---
@@ -653,8 +653,8 @@ touch DESCRIPTION NAMESPACE
 ### 1. Regular Audits
 
 ```bash
-# Run audit after major changes
-/craft:docs:claude-md:audit
+# Run sync after major changes
+/craft:docs:claude-md:sync
 
 # Integrate with pre-commit
 # .git/hooks/pre-commit

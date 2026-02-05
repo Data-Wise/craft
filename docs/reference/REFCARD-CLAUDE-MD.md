@@ -2,7 +2,9 @@
 
 > **Fast lookup** for claude-md command syntax and common workflows.
 
-**5 Commands** · **3 Templates** · **Show Steps First Pattern**
+**3 Commands** · **3 Templates** · **Show Steps First Pattern**
+
+> **Note (v2.12.0):** Commands consolidated. `scaffold` -> `init`, `update`/`audit`/`fix` -> `sync`. Old names work as aliases until v2.13.0.
 
 ---
 
@@ -10,10 +12,8 @@
 
 | Command | Purpose | Interactive | Time |
 |---------|---------|-------------|------|
-| `scaffold` | Create from template | Yes | ~2 min |
-| `update` | Sync with project | Yes | ~1 min |
-| `audit` | Validate (read-only) | No | ~10 sec |
-| `fix` | Auto-fix issues | Yes | ~30 sec |
+| `init` | Create from template | Yes | ~2 min |
+| `sync` | Unified sync pipeline (validate + update + fix) | Yes | ~1 min |
 | `edit` | Section editing | Yes | ~2 min |
 
 ---
@@ -22,38 +22,37 @@
 
 ```bash
 # New project - create CLAUDE.md
-/craft:docs:claude-md:scaffold
+/craft:docs:claude-md:init
 
-# Existing project - check status
-/craft:docs:claude-md:audit
+# Existing project - sync and validate
+/craft:docs:claude-md:sync
 
-# Fix issues
-/craft:docs:claude-md:fix
-
-# Keep current
-/craft:docs:claude-md:update
+# Sync with auto-fix
+/craft:docs:claude-md:sync --fix
 ```
 
 ---
 
-## scaffold - Create from Template
+## init - Create from Template
+
+> Renamed from `scaffold` in v2.12.0. The `scaffold` alias works until v2.13.0.
 
 ### Basic Usage
 
 ```bash
 # Auto-detect project type
-/craft:docs:claude-md:scaffold
+/craft:docs:claude-md:init
 
 # Force specific template
-/craft:docs:claude-md:scaffold --template=plugin
-/craft:docs:claude-md:scaffold --template=teaching
-/craft:docs:claude-md:scaffold --template=r-package
+/craft:docs:claude-md:init --template=plugin
+/craft:docs:claude-md:init --template=teaching
+/craft:docs:claude-md:init --template=r-package
 
 # Overwrite existing
-/craft:docs:claude-md:scaffold --force
+/craft:docs:claude-md:init --force
 
 # Preview without creating
-/craft:docs:claude-md:scaffold --dry-run
+/craft:docs:claude-md:init --dry-run
 ```
 
 ### Templates
@@ -87,27 +86,29 @@
 
 ---
 
-## update - Sync with Project
+## sync - Unified Sync Pipeline
+
+> Replaces `update`, `audit`, and `fix` (v2.12.0). Old names work as aliases until v2.13.0.
 
 ### Basic Usage
 
 ```bash
-# Full update (all sections)
-/craft:docs:claude-md:update
+# Full sync (validate + update all sections)
+/craft:docs:claude-md:sync
 
 # Specific section only
-/craft:docs:claude-md:update status
-/craft:docs:claude-md:update commands
-/craft:docs:claude-md:update architecture
+/craft:docs:claude-md:sync status
+/craft:docs:claude-md:sync commands
+/craft:docs:claude-md:sync architecture
 
-# Update + optimize
-/craft:docs:claude-md:update --optimize
+# Sync + optimize
+/craft:docs:claude-md:sync --optimize
 
 # Preview without applying
-/craft:docs:claude-md:update --dry-run
+/craft:docs:claude-md:sync --dry-run
 
 # Interactive section selection
-/craft:docs:claude-md:update --interactive
+/craft:docs:claude-md:sync --interactive
 ```
 
 ### What Gets Updated
@@ -139,21 +140,23 @@
 
 ---
 
-## audit - Validate
+## Validation (part of sync)
+
+> The standalone `audit` command has been folded into `sync`. The `audit` alias works until v2.13.0.
 
 ### Basic Usage
 
 ```bash
-# Audit local CLAUDE.md
-/craft:docs:claude-md:audit
+# Validate CLAUDE.md (runs as part of sync)
+/craft:docs:claude-md:sync
 
 # Strict mode (exit 1 on errors)
-/craft:docs:claude-md:audit --strict
+/craft:docs:claude-md:sync --strict
 
 # Specific scope
-/craft:docs:claude-md:audit errors
-/craft:docs:claude-md:audit warnings
-/craft:docs:claude-md:audit all
+/craft:docs:claude-md:sync errors
+/craft:docs:claude-md:sync warnings
+/craft:docs:claude-md:sync all
 ```
 
 ### Checks Performed
@@ -191,25 +194,27 @@ Status: FAILED (2 errors)
 
 ---
 
-## fix - Auto-Fix Issues
+## Auto-Fix (part of sync --fix)
+
+> The standalone `fix` command has been folded into `sync --fix`. The `fix` alias works until v2.13.0.
 
 ### Basic Usage
 
 ```bash
 # Fix errors only
-/craft:docs:claude-md:fix
+/craft:docs:claude-md:sync --fix
 
 # Fix errors + warnings
-/craft:docs:claude-md:fix warnings
+/craft:docs:claude-md:sync --fix warnings
 
 # Fix everything auto-fixable
-/craft:docs:claude-md:fix all
+/craft:docs:claude-md:sync --fix all
 
 # Preview without applying
-/craft:docs:claude-md:fix --dry-run
+/craft:docs:claude-md:sync --fix --dry-run
 
 # Interactive confirmation
-/craft:docs:claude-md:fix --interactive
+/craft:docs:claude-md:sync --fix --interactive
 ```
 
 ### Auto-Fixable Issues
@@ -305,9 +310,9 @@ Summary:
 
 ```bash
 cd ~/projects/my-project
-/craft:docs:claude-md:scaffold
+/craft:docs:claude-md:init
 /craft:docs:claude-md:edit      # Customize
-/craft:docs:claude-md:audit      # Validate
+/craft:docs:claude-md:sync      # Validate
 git add CLAUDE.md
 git commit -m "docs: add CLAUDE.md"
 ```
@@ -315,9 +320,7 @@ git commit -m "docs: add CLAUDE.md"
 ### Weekly Maintenance (3 min)
 
 ```bash
-/craft:docs:claude-md:audit      # Check status
-/craft:docs:claude-md:fix        # Auto-fix
-/craft:docs:claude-md:update     # Sync changes
+/craft:docs:claude-md:sync --fix  # Validate + auto-fix
 git add CLAUDE.md
 git commit -m "docs: update CLAUDE.md"
 ```
@@ -325,9 +328,9 @@ git commit -m "docs: update CLAUDE.md"
 ### Pre-Release Validation (2 min)
 
 ```bash
-/craft:docs:claude-md:update --optimize
-/craft:docs:claude-md:audit --strict
-/craft:docs:claude-md:fix all
+/craft:docs:claude-md:sync --optimize
+/craft:docs:claude-md:sync --strict
+/craft:docs:claude-md:sync --fix all
 git add CLAUDE.md
 git commit -m "docs: prepare CLAUDE.md for release"
 ```
@@ -351,11 +354,12 @@ git commit -m "docs: update troubleshooting section"
 
 | Flag | Short | Commands | Purpose |
 |------|-------|----------|---------|
-| `--dry-run` | `-n` | update, fix, scaffold | Preview without applying |
-| `--interactive` | `-i` | update, fix | Prompt for each change |
-| `--optimize` | `-o` | update | Condense verbose sections |
-| `--force` | `-f` | scaffold | Overwrite existing file |
-| `--strict` | - | audit | Exit 1 on errors (CI) |
+| `--dry-run` | `-n` | sync, init | Preview without applying |
+| `--interactive` | `-i` | sync | Prompt for each change |
+| `--optimize` | `-o` | sync | Condense verbose sections |
+| `--fix` | - | sync | Enable auto-fix mode |
+| `--force` | `-f` | init | Overwrite existing file |
+| `--strict` | - | sync | Exit 1 on errors (CI) |
 
 ### Template Selection
 
@@ -369,12 +373,12 @@ git commit -m "docs: update troubleshooting section"
 
 | Argument | Commands | Purpose |
 |----------|----------|---------|
-| `status` | update | Update version/progress only |
-| `commands` | update | Update command list only |
-| `architecture` | update | Update structure only |
-| `errors` | audit | Check errors only |
-| `warnings` | audit | Check warnings only |
-| `all` | audit, fix | All checks/fixes |
+| `status` | sync | Update version/progress only |
+| `commands` | sync | Update command list only |
+| `architecture` | sync | Update structure only |
+| `errors` | sync | Check errors only |
+| `warnings` | sync | Check warnings only |
+| `all` | sync | All checks/fixes |
 
 ---
 
@@ -391,7 +395,7 @@ git commit -m "docs: update troubleshooting section"
 
 ```bash
 # Force template even if wrong type detected
-/craft:docs:claude-md:scaffold --template=plugin
+/craft:docs:claude-md:init --template=plugin
 ```
 
 ---
@@ -412,8 +416,8 @@ git commit -m "docs: update troubleshooting section"
 git worktree add ~/.git-worktrees/project/feature-xyz -b feature/xyz dev
 cd ~/.git-worktrees/project/feature-xyz
 
-# Scaffold if missing
-/craft:docs:claude-md:scaffold
+# Init if missing
+/craft:docs:claude-md:init
 ```
 
 ### With craft:docs:update
@@ -421,7 +425,7 @@ cd ~/.git-worktrees/project/feature-xyz
 ```bash
 # Coordinate documentation updates
 /craft:docs:update
-/craft:docs:claude-md:update
+/craft:docs:claude-md:sync
 ```
 
 ---
@@ -431,9 +435,9 @@ cd ~/.git-worktrees/project/feature-xyz
 | Issue | Quick Fix |
 |-------|-----------|
 | "Could not detect project type" | Use `--template=<type>` flag |
-| "Version mismatch" | Run `/craft:docs:claude-md:fix` |
-| "Stale commands" | Run `/craft:docs:claude-md:fix` |
-| "File too long" | Run `/craft:docs:claude-md:update --optimize` |
+| "Version mismatch" | Run `/craft:docs:claude-md:sync --fix` |
+| "Stale commands" | Run `/craft:docs:claude-md:sync --fix` |
+| "File too long" | Run `/craft:docs:claude-md:sync --optimize` |
 | "Template not detected" | Check indicator files exist |
 | "Section not found" | Use `/craft:docs:claude-md:edit` to list |
 | "Changes not applying" | Check file permissions |
@@ -468,8 +472,8 @@ cd ~/.git-worktrees/project/feature-xyz
 ## Tips & Best Practices
 
 1. **Preview First** - Always use `--dry-run` before applying changes
-2. **Frequent Updates** - Run `update` after major changes
-3. **Validate Before Release** - Use `audit --strict` in CI
+2. **Frequent Syncs** - Run `sync` after major changes
+3. **Validate Before Release** - Use `sync --strict` in CI
 4. **Keep Concise** - Use `--optimize` flag to condense
 5. **Section Editing** - Edit specific sections instead of entire file
 6. **Template Customization** - Create org-specific templates

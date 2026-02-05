@@ -529,7 +529,7 @@ class CLAUDEMDAuditor:
                 lines.append(f"{i}. {issue.category.replace('_', ' ').title()}")
                 lines.append(f"   {issue.message}")
                 if issue.fixable:
-                    lines.append("   Fix: /craft:docs:claude-md:fix")
+                    lines.append("   Fix: /craft:docs:claude-md:sync --fix")
                 lines.append("")
 
         # Warnings
@@ -540,7 +540,7 @@ class CLAUDEMDAuditor:
                 lines.append(f"{i}. {issue.category.replace('_', ' ').title()}")
                 lines.append(f"   {issue.message}")
                 if issue.fixable:
-                    lines.append("   Fix: /craft:docs:claude-md:fix")
+                    lines.append("   Fix: /craft:docs:claude-md:sync --fix")
                 else:
                     lines.append("   Fix: Manual edit required")
                 lines.append("")
@@ -562,7 +562,7 @@ class CLAUDEMDAuditor:
         lines.append("")
 
         if errors or warnings:
-            lines.append("Next: /craft:docs:claude-md:fix")
+            lines.append("Next: /craft:docs:claude-md:sync --fix")
         else:
             lines.append("✅ No issues found")
 
