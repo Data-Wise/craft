@@ -293,7 +293,31 @@
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/commands/arch/analyze/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/commands/ci/generate/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/code/ci-local/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/code/deps-audit/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/code/lint/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/docs/changelog/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/docs/check/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
@@ -301,11 +325,39 @@
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/commands/docs/sync/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/commands/docs/update/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/commands/git/branch/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/git/clean/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/git/status/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/git/sync/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/commands/git/worktree/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/test/cli-run/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/test/run/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
@@ -325,11 +377,23 @@
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/cookbook/common/create-git-branch/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/cookbook/common/deploy-course-website/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/cookbook/common/find-the-right-command/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/cookbook/common/post-merge-documentation/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/cookbook/common/quick-code-checks/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
@@ -341,11 +405,51 @@
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/cookbook/common/update-single-doc/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/cookbook/common/use-interactive-orchestration/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/cookbook/common/view-project-architecture/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/cookbook/troubleshooting/broken-links-after-update/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/cookbook/troubleshooting/ci-workflow-fails/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/cookbook/troubleshooting/claude-md-out-of-sync/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/cookbook/troubleshooting/command-not-found/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/cookbook/troubleshooting/command-times-out/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/cookbook/troubleshooting/mkdocs-build-fails/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/cookbook/troubleshooting/pre-commit-blocks-commit/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/cookbook/troubleshooting/worktree-wont-create/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/cookbook/troubleshooting/wrong-command-output/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
@@ -541,6 +645,10 @@
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/specs/SPEC-docs-gap-fill-2026-02-05/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/specs/SPEC-docs-improvement-2026-01-14/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
@@ -614,6 +722,10 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/tutorials/TUTORIAL-craft-001-emoji-spacing/</loc>
+         <lastmod>2026-02-05</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/tutorials/TUTORIAL-first-10-minutes/</loc>
          <lastmod>2026-02-05</lastmod>
     </url>
     <url>
