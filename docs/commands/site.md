@@ -9,6 +9,28 @@
 
 Full documentation site wizard with 8 ADHD-friendly design presets - 15 commands.
 
+## When to Use What
+
+| Scenario | Command | Why |
+|----------|---------|-----|
+| New project, no docs site yet | `/craft:site:create` | Full wizard: theme, nav, deploy setup |
+| Already have mkdocs.yml, need to build | `/craft:site:build` | Compiles site without modifying config |
+| Preview changes locally | `/craft:site:preview` | Local dev server with hot reload |
+| Push to GitHub Pages | `/craft:site:deploy` | Build + deploy in one step |
+| Content changed, update site | `/craft:site:update` | Sync code changes into site content |
+| Check site health | `/craft:site:check` | Validate config, links, deploy readiness |
+| Reorganize navigation | `/craft:site:nav` | ADHD-friendly nav with max 7 sections |
+| Change theme/colors | `/craft:site:theme` | Swap presets or customize palette |
+
+**Common confusion:**
+
+- **create vs init** — `create` is the full wizard (presets, nav, deploy); `init` is bare-bones config only
+- **build vs deploy** — `build` compiles locally; `deploy` builds AND pushes to GitHub Pages
+- **update vs build** — `update` syncs content from code changes; `build` just compiles existing content
+- **check vs audit** — `check` validates config and links; `audit` inventories content (outdated, duplicates, gaps)
+
+---
+
 ## /craft:site:create
 
 **Purpose:** Zero to deployed documentation site in minutes.

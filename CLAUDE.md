@@ -5,7 +5,7 @@
 **106 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.12.0 | **Latest Release:** v2.12.0 (2026-02-05)
-**Documentation Status:** 98% complete | **Tests:** 1174 passing (176 claude-md + 998 core)
+**Documentation Status:** 99% complete | **Tests:** 1174 passing (176 claude-md + 998 core)
 
 ## Git Workflow
 
@@ -365,7 +365,7 @@ python3 tests/test_integration_teaching_workflow.py
 | **Testing Commands**                     | 10       | 100%           | 80%           | Complete ✅ |
 | **Architecture Commands**                | 12       | 100%           | 75%           | Complete ✅ |
 | **Remaining Commands**                   | 51       | 100%           | 40%           | Baseline ✅ |
-| **TOTAL**                                | **106**  | **100%**       | **98%**       | v2.12.0-dev |
+| **TOTAL**                                | **106**  | **100%**       | **98%**       | v2.12.0 ✅  |
 
 **Legend:**
 

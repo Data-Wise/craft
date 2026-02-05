@@ -9,6 +9,28 @@
 
 Smart documentation generation, validation, and enhancement - 17 commands.
 
+## Which Docs Command for What
+
+| Scenario | Command | What It Does |
+|----------|---------|--------------|
+| "Update everything after changes" | `/craft:docs:update` | Full cycle: detect → generate → validate → changelog |
+| "What docs need updating?" | `/craft:docs:sync` | Detection only — reports what's stale |
+| "Are my docs valid?" | `/craft:docs:check` | Validates links + nav + staleness, auto-fixes |
+| "Fix markdown formatting" | `/craft:docs:lint` | Markdownlint with auto-fix |
+| "Check only broken links" | `/craft:docs:check-links` | Internal link validation with .linkcheck-ignore |
+| "Update CLAUDE.md" | `/craft:docs:claude-md` | Sync CLAUDE.md with project state |
+| "Update changelog" | `/craft:docs:changelog` | Generate entries from git commits |
+| "Add page to nav" | `/craft:docs:nav-update` | Update mkdocs.yml navigation |
+
+**Decision flow:**
+
+1. **After writing code** → `/craft:docs:update` (does everything)
+2. **Before committing** → `/craft:docs:check` (validates)
+3. **PR merged to dev** → `/craft:docs:update --post-merge` (auto-fix pipeline)
+4. **Just want to check** → `/craft:docs:sync` (detection only, no changes)
+
+---
+
 ## Super Commands
 
 ### /craft:docs:update

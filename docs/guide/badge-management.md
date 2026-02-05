@@ -714,8 +714,7 @@ syncer.sync_badges(calculate_coverage=False)
 
 ## See Also
 
-- [Site Update Command](../commands/site/update.md) - Step 3.5 documentation
+- [Site Management](../commands/site.md) - Site commands including badge sync
 - [Docs Update Command](../commands/docs/update.md) - Interactive category workflow
-- [CI Validate Command](../commands/ci/validate.md) - Badge validation details
-- [CI Generate Command](../commands/ci/generate.md) - Badge generation workflow
+- [CI Generate Command](../commands/ci/generate.md) - CI workflow and badge generation
 - [SPEC: Badge System](../specs/SPEC-badge-system-2026-01-30.md) - Implementation spec

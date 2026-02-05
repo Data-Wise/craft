@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.9.0 (released 2026-01-29)                       │
-│  Commands: 100 | Agents: 8 | Skills: 21                     │
-│  Documentation: 98% complete | Tests: 847 passing           │
+│  Version: 2.12.0 (released 2026-02-05)                       │
+│  Commands: 106 | Agents: 8 | Skills: 21                     │
+│  Documentation: 98% complete | Tests: 1171 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  NEW v2.9.0: "Show Steps First", Interactive Orchestration  │
-│              Worktree Auto-Setup, Post-Merge Pipeline        │
+│  v2.12.0: CLAUDE.md v3 Command Refactoring (5→3 commands)   │
+│           Budget enforcement, pointer architecture            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -175,15 +175,15 @@
 **Categories:**
 
 - Smart Commands (do, check, orchestrate, hub)
-- Documentation (17 commands)
-- Site Management (15 commands)
-- Code & Testing (17 commands)
-- Git Operations (10+ commands)
-- Architecture (12 commands)
-- CI/CD (8 commands)
-- Distribution (6 commands)
+- Documentation (25 commands)
+- Site Management (16 commands)
+- Code (12 commands) & Testing (7 commands)
+- Git (11 commands) & CI (3 commands)
+- Architecture (4 commands)
+- Distribution (3 commands)
+- Workflow (12 commands) & Planning (3 commands)
 
-## NEW in v2.9.0 (Released 2026-01-29)
+## Interactive Command Behavior
 
 **"Show Steps First" Pattern** - All 4 most-used commands now show plan before executing:
 
@@ -457,17 +457,17 @@
 5. **Gantt** - Project timelines, milestones
 6. **State** - State machines, workflows
 
-**NEW in v2.8.0: Markdown Linting Execution Layer**
+**Markdown Linting Execution Layer**
 
 - Auto-detect `markdownlint-cli2` globally or use `npx` fallback
 - Check markdown: `/craft:docs:lint` (30+ rules configured)
 - Auto-fix: `/craft:docs:lint --fix` (apply safe fixes)
 - Path targeting: `/craft:docs:lint docs/guide/` (check specific directories)
 - Pre-commit integration: Auto-fix on staged markdown
-- All 770+ tests passing (100%)
+- All 1171 tests passing (100%)
 - [Release Notes](RELEASE-v2.8.0.md) | [Docs Command Reference](commands/docs.md)
 
-**NEW in v2.7.0: Interactive Documentation Update**
+**Interactive Documentation Update**
 
 - 9-category detection (version refs, command counts, broken links, etc.)
 - Category-level prompts for precise control

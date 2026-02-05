@@ -132,12 +132,12 @@ Tasks are scored on 7 factors (each 0-2 points):
 
 **Purpose:** Enhanced orchestrator v2 with interactive mode selection, wave checkpoints, and subagent monitoring.
 
-**NEW in v2.9.0:**
+**Features:**
 
-- ✨ Interactive mode selection (default/wave/phase)
-- ✨ Plan preview before execution
-- ✨ Wave checkpoints for review
-- ✨ Confirmation prompts at each stage
+- Interactive mode selection (default/wave/phase)
+- Plan preview before execution
+- Wave checkpoints for review
+- Confirmation prompts at each stage
 
 **Usage:**
 
@@ -285,12 +285,12 @@ After each wave completes, you'll see:
 
 **Purpose:** Pre-flight checks before commits, PRs, or releases with interactive step preview.
 
-**NEW in v2.9.0:**
+**Features:**
 
-- ✨ "Show Steps First" pattern - see the plan before running
-- ✨ `--dry-run` flag - preview without executing
-- ✨ `--mode` selection (default vs thorough)
-- ✨ `--skip` flags - skip specific checks
+- "Show Steps First" pattern - see the plan before running
+- `--dry-run` flag - preview without executing
+- `--mode` selection (default vs thorough)
+- `--skip` flags - skip specific checks
 - ✨ Interactive confirmation
 
 **Usage:**

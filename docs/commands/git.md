@@ -2,6 +2,30 @@
 
 Version control and continuous integration - 12 commands total.
 
+## Worktree vs Branch: When to Use What
+
+| Scenario | Command | Why |
+|----------|---------|-----|
+| Start a new feature | `/craft:git:worktree` | Isolated directory, no branch switching |
+| Quick one-file fix | `/craft:git:branch` | Lightweight, stays in same directory |
+| Work on 2+ features at once | `/craft:git:worktree` | Each feature gets its own directory |
+| Sync with remote | `/craft:git:sync` | Fetch + merge + push intelligently |
+| Clean up after merge | `/craft:git:clean` | Removes merged branches safely |
+| See what's going on | `/craft:git:status` | Enhanced status with teaching mode support |
+| Review recent activity | `/craft:git:recap` | Commit summary across branches |
+
+**Decision rule:** If the change takes more than one commit or you need to context-switch, use **worktree**. For quick fixes you'll commit immediately, use **branch**.
+
+**CI commands:**
+
+| Scenario | Command |
+|----------|---------|
+| What CI does my project need? | `/craft:ci:detect` |
+| Generate GitHub Actions workflow | `/craft:ci:generate` |
+| Validate existing CI config | `/craft:ci:validate` |
+
+---
+
 ## Git Commands (9)
 
 ### /craft:git:worktree
