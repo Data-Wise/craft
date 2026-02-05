@@ -240,20 +240,25 @@ class CLAUDEMDOptimizer:
     # Public API
     # ------------------------------------------------------------------
 
-    def analyze(self) -> List[SectionInfo]:
+    def analyze(self, lines: List[str] = None) -> List[SectionInfo]:
         """Analyze CLAUDE.md sections and classify by priority.
 
         Parses H2 headers to identify section boundaries, then classifies
         each section as P0 (always keep), P1 (keep if room), or P2
         (always move to detail file).
 
+        Args:
+            lines: Optional lines to analyze (default: self.lines).
+                   Pass working lines to avoid mutating optimizer state.
+
         Returns:
             List of SectionInfo objects sorted by appearance order
         """
-        if not self.lines:
+        target_lines = lines if lines is not None else self.lines
+        if not target_lines:
             return []
 
-        raw_sections = self._parse_sections()
+        raw_sections = self._parse_sections(target_lines)
         classified: List[SectionInfo] = []
 
         for name, start, end, content in raw_sections:
@@ -401,11 +406,8 @@ class CLAUDEMDOptimizer:
         # --- Step 3: Check if still over budget; trim P1 if needed ---
         current_count = len(working_lines)
         if current_count > self.budget:
-            # Re-parse from working content to get updated line numbers
-            working_content = "\n".join(working_lines)
-            self.content = working_content
-            self.lines = working_lines
-            updated_sections = self.analyze()
+            # Re-parse working lines without mutating self
+            updated_sections = self.analyze(lines=working_lines)
 
             p1_sections = [
                 s for s in updated_sections
@@ -464,10 +466,8 @@ class CLAUDEMDOptimizer:
         if not dry_run and actions:
             self._save(working_lines)
 
-        # Restore original content for reporting
-        if dry_run:
-            self.content = "\n".join(self.lines)
-        else:
+        # Update internal state to reflect final result
+        if not dry_run and actions:
             self.content = "\n".join(working_lines)
             self.lines = working_lines
 
@@ -686,28 +686,32 @@ class CLAUDEMDOptimizer:
 
         return DEFAULT_BUDGET
 
-    def _parse_sections(self) -> List[Tuple[str, int, int, str]]:
+    def _parse_sections(self, lines: List[str] = None) -> List[Tuple[str, int, int, str]]:
         """Parse CLAUDE.md into sections by H2 headers.
 
         Content before the first H2 is captured as "header".
 
+        Args:
+            lines: Lines to parse (default: self.lines)
+
         Returns:
             List of (name, start_line, end_line, content) tuples
         """
+        target_lines = lines if lines is not None else self.lines
         sections: List[Tuple[str, int, int, str]] = []
         current_name: Optional[str] = None
         current_start = 0
 
-        for i, line in enumerate(self.lines):
+        for i, line in enumerate(target_lines):
             header_match = re.match(r"^##\s+(.+)$", line)
             if header_match:
                 # Close previous section
                 if current_name is not None:
-                    content = "\n".join(self.lines[current_start:i])
+                    content = "\n".join(target_lines[current_start:i])
                     sections.append((current_name, current_start, i, content))
                 elif i > 0:
                     # Content before first H2 -> "header"
-                    content = "\n".join(self.lines[0:i])
+                    content = "\n".join(target_lines[0:i])
                     sections.append(("header", 0, i, content))
 
                 current_name = header_match.group(1).strip()
@@ -715,12 +719,12 @@ class CLAUDEMDOptimizer:
 
         # Close final section
         if current_name is not None:
-            content = "\n".join(self.lines[current_start:])
-            sections.append((current_name, current_start, len(self.lines), content))
-        elif not sections and self.lines:
+            content = "\n".join(target_lines[current_start:])
+            sections.append((current_name, current_start, len(target_lines), content))
+        elif not sections and target_lines:
             # Entire file is header (no H2 sections)
-            content = "\n".join(self.lines)
-            sections.append(("header", 0, len(self.lines), content))
+            content = "\n".join(target_lines)
+            sections.append(("header", 0, len(target_lines), content))
 
         return sections
 
@@ -949,6 +953,11 @@ if __name__ == "__main__":
         action="store_true",
         help="Show section-by-section breakdown table",
     )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Exit with error code if over budget (for CI/pre-commit)",
+    )
 
     args = parser.parse_args()
 
@@ -999,4 +1008,6 @@ if __name__ == "__main__":
     if args.dry_run:
         print("(Dry run - no changes applied. Remove --dry-run to apply)\n")
 
-    sys.exit(0 if result.within_budget else 1)
+    if args.strict and not result.within_budget:
+        sys.exit(1)
+    sys.exit(0)

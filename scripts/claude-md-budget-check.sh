@@ -16,13 +16,17 @@ cd "$PROJECT_ROOT"
 DEFAULT_BUDGET=150
 ERRORS=0
 
-# Read budget from plugin.json if available
+# Read budget from plugin.json if available (pure shell, no Python needed)
 read_budget() {
     local config=".claude-plugin/plugin.json"
     if [[ -f "$config" ]]; then
         local budget
-        budget=$(python3 -c "import json; d=json.load(open('$config')); print(d.get('claude_md_budget', $DEFAULT_BUDGET))" 2>/dev/null || echo "$DEFAULT_BUDGET")
-        echo "$budget"
+        budget=$(grep -o '"claude_md_budget"[[:space:]]*:[[:space:]]*[0-9]*' "$config" 2>/dev/null | grep -o '[0-9]*$' || true)
+        if [[ -n "$budget" && "$budget" -gt 0 ]] 2>/dev/null; then
+            echo "$budget"
+        else
+            echo "$DEFAULT_BUDGET"
+        fi
     else
         echo "$DEFAULT_BUDGET"
     fi
