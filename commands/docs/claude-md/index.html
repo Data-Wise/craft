@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 100 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.11.0-dev features badge management system with automatic sync for version, CI status, and docs coverage badges across README and docs.">
+        <meta name="description" content="Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.12.0 features CLAUDE.md v3 command refactoring (5→3 commands) with budget enforcement and pointer templates.">
       
       
       
@@ -27,7 +27,7 @@
     
     
       
-        <title>/craft:docs:claude-md - Craft Plugin</title>
+        <title>Overview - Craft Plugin</title>
       
     
     
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              /craft:docs:claude-md
+              Overview
             
           </span>
         </div>
@@ -1028,7 +1028,7 @@
   <span class="md-ellipsis">
     
   
-    NEW (v2.7.0) Interactive Docs Update
+    Interactive Docs Update
   
 
     
@@ -1452,7 +1452,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Badge Management
+    Badge Management
   
 
     
@@ -1480,7 +1480,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Badge Workflow Tutorial
+    Badge Workflow Tutorial
   
 
     
@@ -1508,7 +1508,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Interactive Commands
+    Interactive Commands
   
 
     
@@ -1536,7 +1536,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Check Command Mastery
+    Check Command Mastery
   
 
     
@@ -1564,7 +1564,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Worktree Advanced Patterns
+    Worktree Advanced Patterns
   
 
     
@@ -1592,7 +1592,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Claude-MD Workflows
+    Claude-MD Workflows
   
 
     
@@ -1620,7 +1620,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Interactive Orchestration Tutorial
+    Interactive Orchestration Tutorial
   
 
     
@@ -1648,7 +1648,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Post-Merge Pipeline Tutorial
+    Post-Merge Pipeline Tutorial
   
 
     
@@ -1676,7 +1676,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Git Worktree Setup Tutorial
+    Git Worktree Setup Tutorial
   
 
     
@@ -1704,7 +1704,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Orchestrator Modes Compared
+    Orchestrator Modes Compared
   
 
     
@@ -1732,7 +1732,7 @@
   <span class="md-ellipsis">
     
   
-    NEW CRAFT-001 Emoji Spacing Tutorial
+    CRAFT-001 Emoji Spacing Tutorial
   
 
     
@@ -1760,7 +1760,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Test Wrapper Pattern Guide
+    Test Wrapper Pattern Guide
   
 
     
@@ -1986,7 +1986,7 @@
   <span class="md-ellipsis">
     
   
-    NEW (v2.5.0) --orch Flag Quick Start
+    --orch Flag Quick Start
   
 
     
@@ -2776,6 +2776,58 @@
   
   
   
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_7" id="__nav_3_4_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:docs:claude-md
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    /craft:docs:claude-md
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -2791,7 +2843,7 @@
   <span class="md-ellipsis">
     
   
-    /craft:docs:claude-md
+    Overview
   
 
     
@@ -2809,7 +2861,7 @@
   <span class="md-ellipsis">
     
   
-    /craft:docs:claude-md
+    Overview
   
 
     
@@ -2847,10 +2899,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#command-categories" class="md-nav__link">
+  <a href="#command-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Command Categories
+        Command Summary
       
     </span>
   </a>
@@ -2868,21 +2920,32 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#v2120-migration-53-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.12.0 Migration (5→3 Commands)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#command-scaffold" class="md-nav__link">
+  <a href="#command-init" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Command: scaffold
+        Command: init
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command: scaffold">
+    <nav class="md-nav" aria-label="Command: init">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2897,10 +2960,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#workflow" class="md-nav__link">
+  <a href="#arguments" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workflow
+        Arguments
       
     </span>
   </a>
@@ -2908,10 +2971,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#project-type-detection" class="md-nav__link">
+  <a href="#what-it-does" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project Type Detection
+        What It Does
       
     </span>
   </a>
@@ -2919,22 +2982,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#templates" class="md-nav__link">
+  <a href="#available-templates" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Templates
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Templates">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#plugin-template" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Plugin Template
+        Available Templates
       
     </span>
   </a>
@@ -2942,59 +2993,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#teaching-template" class="md-nav__link">
+  <a href="#pointer-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Teaching Template
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#r-package-template" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        R Package Template
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Pointer Architecture
       
     </span>
   </a>
@@ -3007,15 +3009,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#command-update" class="md-nav__link">
+  <a href="#command-sync" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Command: update
+        Command: sync
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command: update">
+    <nav class="md-nav" aria-label="Command: sync">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3030,10 +3032,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#workflow_1" class="md-nav__link">
+  <a href="#arguments_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workflow
+        Arguments
       
     </span>
   </a>
@@ -3041,10 +3043,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-gets-updated" class="md-nav__link">
+  <a href="#4-phase-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Gets Updated
+        4-Phase Pipeline
       
     </span>
   </a>
@@ -3052,10 +3054,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#update-plan-preview" class="md-nav__link">
+  <a href="#audit-checks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Update Plan Preview
+        Audit Checks
       
     </span>
   </a>
@@ -3063,297 +3065,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#interactive-mode" class="md-nav__link">
+  <a href="#anti-patterns-detected" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Interactive Mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimization-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Optimization Mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#command-audit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Command: audit
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Command: audit">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#workflow_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workflow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#checks-performed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checks Performed
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#output-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output Format
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#severity-levels" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Severity Levels
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strict-mode-ci-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Strict Mode (CI Integration)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#command-fix" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Command: fix
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Command: fix">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#workflow_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workflow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#auto-fixable-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Auto-Fixable Issues
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#manual-only-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Manual-Only Issues
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fix-preview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fix Preview
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interactive-mode_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Interactive Mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#backup-and-restore" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backup and Restore
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Anti-Patterns Detected
       
     </span>
   </a>
@@ -3378,7 +3093,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#usage_4" class="md-nav__link">
+  <a href="#usage_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Usage
@@ -3389,7 +3104,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#workflow_4" class="md-nav__link">
+  <a href="#arguments_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
         Workflow
@@ -3399,99 +3125,28 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#section-detection" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilities" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Section Detection
+        Utilities
       
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Utilities">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#interactive-selection" class="md-nav__link">
+  <a href="#pre-commit-integration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Interactive Selection
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edit-preview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Edit Preview
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#editor-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Editor Selection
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#operations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Operations
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#backup-and-restore_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backup and Restore
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Pre-commit Integration
       
     </span>
   </a>
@@ -3516,10 +3171,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#new-project" class="md-nav__link">
+  <a href="#new-project-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        New Project
+        New Project Setup
       
     </span>
   </a>
@@ -3527,10 +3182,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#weekly-maintenance" class="md-nav__link">
+  <a href="#after-feature-work" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Weekly Maintenance
+        After Feature Work
       
     </span>
   </a>
@@ -3538,10 +3193,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pre-release" class="md-nav__link">
+  <a href="#before-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pre-Release
+        Before Release
       
     </span>
   </a>
@@ -3549,10 +3204,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-edit" class="md-nav__link">
+  <a href="#global-claudemd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Edit
+        Global CLAUDE.md
       
     </span>
   </a>
@@ -3565,71 +3220,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#integration-with-craft" class="md-nav__link">
+  <a href="#related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Integration with Craft
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Integration with Craft">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#with-craftcheck" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With /craft:check
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#with-craftgitworktree" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With /craft:git:worktree
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#with-craftdocsupdate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With /craft:docs:update
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Related
       
     </span>
   </a>
@@ -3639,6 +3233,98 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="init.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    init
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="sync.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sync
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="edit.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    edit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -4338,6 +4024,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../VERSION-HISTORY/" class="md-nav__link">
         
   
@@ -4405,10 +4119,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12" >
         
           
-          <label class="md-nav__link" for="__nav_5_11" id="__nav_5_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_12" id="__nav_5_12_label" tabindex="0">
             
   
   
@@ -4426,8 +4140,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_11">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_12">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4479,7 +4193,7 @@
   <span class="md-ellipsis">
     
   
-    NEW (v2.7.0) Docs Update Reference
+    Docs Update Reference
   
 
     
@@ -4507,7 +4221,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Interactive Commands Reference
+    Interactive Commands Reference
   
 
     
@@ -4535,7 +4249,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Git Worktree Quick Reference
+    Git Worktree Quick Reference
   
 
     
@@ -4563,7 +4277,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Claude-MD Quick Reference
+    Claude-MD Quick Reference
   
 
     
@@ -4603,10 +4317,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13" >
         
           
-          <label class="md-nav__link" for="__nav_5_12" id="__nav_5_12_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_13" id="__nav_5_13_label" tabindex="0">
             
   
   
@@ -4624,8 +4338,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_12_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_12">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_13">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4709,10 +4423,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13_3" >
         
           
-          <label class="md-nav__link" for="__nav_5_12_3" id="__nav_5_12_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_13_3" id="__nav_5_13_3_label" tabindex="0">
             
   
   
@@ -4730,8 +4444,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_12_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_12_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_5_13_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_13_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4787,10 +4501,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_12_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13_3_2" >
         
           
-          <label class="md-nav__link" for="__nav_5_12_3_2" id="__nav_5_12_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_13_3_2" id="__nav_5_13_3_2_label" tabindex="0">
             
   
   
@@ -4808,8 +4522,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_12_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_12_3_2">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_5_13_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_13_3_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5001,10 +4715,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_14" >
         
           
-          <label class="md-nav__link" for="__nav_5_13" id="__nav_5_13_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_14" id="__nav_5_14_label" tabindex="0">
             
   
   
@@ -5022,8 +4736,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_13">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_14">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5047,7 +4761,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Badge Management System
+    Badge Management System
   
 
     
@@ -5250,7 +4964,7 @@
   <span class="md-ellipsis">
     
   
-    NEW (v2.7.0) Interactive Docs Update
+    Interactive Docs Update
   
 
     
@@ -5278,7 +4992,7 @@
   <span class="md-ellipsis">
     
   
-    NEW Command Behavior Enhancements
+    Command Behavior Enhancements
   
 
     
@@ -5712,10 +5426,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#command-categories" class="md-nav__link">
+  <a href="#command-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Command Categories
+        Command Summary
       
     </span>
   </a>
@@ -5733,21 +5447,32 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#v2120-migration-53-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.12.0 Migration (5→3 Commands)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#command-scaffold" class="md-nav__link">
+  <a href="#command-init" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Command: scaffold
+        Command: init
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command: scaffold">
+    <nav class="md-nav" aria-label="Command: init">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -5762,10 +5487,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#workflow" class="md-nav__link">
+  <a href="#arguments" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workflow
+        Arguments
       
     </span>
   </a>
@@ -5773,10 +5498,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#project-type-detection" class="md-nav__link">
+  <a href="#what-it-does" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project Type Detection
+        What It Does
       
     </span>
   </a>
@@ -5784,22 +5509,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#templates" class="md-nav__link">
+  <a href="#available-templates" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Templates
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Templates">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#plugin-template" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Plugin Template
+        Available Templates
       
     </span>
   </a>
@@ -5807,59 +5520,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#teaching-template" class="md-nav__link">
+  <a href="#pointer-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Teaching Template
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#r-package-template" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        R Package Template
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Pointer Architecture
       
     </span>
   </a>
@@ -5872,15 +5536,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#command-update" class="md-nav__link">
+  <a href="#command-sync" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Command: update
+        Command: sync
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Command: update">
+    <nav class="md-nav" aria-label="Command: sync">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -5895,10 +5559,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#workflow_1" class="md-nav__link">
+  <a href="#arguments_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workflow
+        Arguments
       
     </span>
   </a>
@@ -5906,10 +5570,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-gets-updated" class="md-nav__link">
+  <a href="#4-phase-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Gets Updated
+        4-Phase Pipeline
       
     </span>
   </a>
@@ -5917,10 +5581,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#update-plan-preview" class="md-nav__link">
+  <a href="#audit-checks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Update Plan Preview
+        Audit Checks
       
     </span>
   </a>
@@ -5928,297 +5592,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#interactive-mode" class="md-nav__link">
+  <a href="#anti-patterns-detected" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Interactive Mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimization-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Optimization Mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#command-audit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Command: audit
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Command: audit">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#workflow_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workflow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#checks-performed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checks Performed
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#output-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output Format
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#severity-levels" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Severity Levels
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strict-mode-ci-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Strict Mode (CI Integration)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#command-fix" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Command: fix
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Command: fix">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#usage_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#workflow_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workflow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#auto-fixable-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Auto-Fixable Issues
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#manual-only-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Manual-Only Issues
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fix-preview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fix Preview
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#interactive-mode_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Interactive Mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#backup-and-restore" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backup and Restore
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Anti-Patterns Detected
       
     </span>
   </a>
@@ -6243,7 +5620,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#usage_4" class="md-nav__link">
+  <a href="#usage_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Usage
@@ -6254,7 +5631,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#workflow_4" class="md-nav__link">
+  <a href="#arguments_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
         Workflow
@@ -6264,99 +5652,28 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#section-detection" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#utilities" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Section Detection
+        Utilities
       
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Utilities">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#interactive-selection" class="md-nav__link">
+  <a href="#pre-commit-integration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Interactive Selection
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edit-preview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Edit Preview
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#editor-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Editor Selection
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#operations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Operations
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#examples_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#backup-and-restore_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backup and Restore
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#options_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#see-also_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Pre-commit Integration
       
     </span>
   </a>
@@ -6381,10 +5698,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#new-project" class="md-nav__link">
+  <a href="#new-project-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        New Project
+        New Project Setup
       
     </span>
   </a>
@@ -6392,10 +5709,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#weekly-maintenance" class="md-nav__link">
+  <a href="#after-feature-work" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Weekly Maintenance
+        After Feature Work
       
     </span>
   </a>
@@ -6403,10 +5720,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pre-release" class="md-nav__link">
+  <a href="#before-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pre-Release
+        Before Release
       
     </span>
   </a>
@@ -6414,10 +5731,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#quick-edit" class="md-nav__link">
+  <a href="#global-claudemd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Edit
+        Global CLAUDE.md
       
     </span>
   </a>
@@ -6430,71 +5747,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#integration-with-craft" class="md-nav__link">
+  <a href="#related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Integration with Craft
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Integration with Craft">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#with-craftcheck" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With /craft:check
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#with-craftgitworktree" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With /craft:git:worktree
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#with-craftdocsupdate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        With /craft:docs:update
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Related
       
     </span>
   </a>
@@ -6528,1473 +5784,488 @@
 
 <h1 id="claudemd-command-suite-reference">CLAUDE.md Command Suite Reference<a class="headerlink" href="#claudemd-command-suite-reference" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>Complete reference</strong> for the 5 claude-md commands that manage CLAUDE.md files.</p>
+<p><strong>Complete reference</strong> for the 3 claude-md commands that manage CLAUDE.md files.</p>
 </blockquote>
-<p><strong>5 Commands</strong> · <strong>Show Steps First Pattern</strong> · <strong>Full Automation</strong></p>
+<p><strong>3 Commands</strong> · <strong>Budget Enforcement</strong> · <strong>Pointer Architecture</strong> · <strong>v2.12.0</strong></p>
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The claude-md command suite provides complete lifecycle management for CLAUDE.md files:</p>
+<p>The claude-md command suite provides complete lifecycle management for CLAUDE.md files with a lean 3-command design:</p>
 <pre class="mermaid"><code>flowchart LR
-    A[scaffold] --&gt; B[edit]
-    B --&gt; C[update]
-    C --&gt; D[audit]
-    D --&gt; E{Issues?}
-    E --&gt;|Yes| F[fix]
-    E --&gt;|No| G[Done]
-    F --&gt; D</code></pre>
-<h3 id="command-categories">Command Categories<a class="headerlink" href="#command-categories" title="Permanent link">&para;</a></h3>
+    A[init] --&gt; B[edit]
+    B --&gt; C[sync]
+    C --&gt; D{Issues?}
+    D --&gt;|Yes| C
+    D --&gt;|No| E[Done]</code></pre>
+<h3 id="command-summary">Command Summary<a class="headerlink" href="#command-summary" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Category</th>
-<th>Commands</th>
+<th>Command</th>
 <th>Purpose</th>
+<th>Key Flags</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Creation</strong></td>
-<td><code>scaffold</code></td>
-<td>Create from template</td>
+<td><strong>init</strong></td>
+<td>Create from lean template (&lt; 150 lines)</td>
+<td><code>--type</code>, <code>--global</code>, <code>--force</code>, <code>--dry-run</code></td>
 </tr>
 <tr>
-<td><strong>Maintenance</strong></td>
-<td><code>update</code>, <code>edit</code></td>
-<td>Keep current</td>
+<td><strong>sync</strong></td>
+<td>4-phase pipeline: detect → audit → fix → optimize</td>
+<td><code>--fix</code>, <code>--optimize</code>, <code>--global</code>, <code>--dry-run</code></td>
 </tr>
 <tr>
-<td><strong>Validation</strong></td>
-<td><code>audit</code>, <code>fix</code></td>
-<td>Ensure quality</td>
+<td><strong>edit</strong></td>
+<td>Interactive editing with external editor</td>
+<td><code>--section</code>, <code>--editor</code>, <code>--global</code>, <code>--hints</code></td>
 </tr>
 </tbody>
 </table>
 <h3 id="design-principles">Design Principles<a class="headerlink" href="#design-principles" title="Permanent link">&para;</a></h3>
-<p>All commands follow these patterns:</p>
 <ol>
-<li><strong>Show Steps First</strong> - Preview before executing</li>
-<li><strong>Interactive by Default</strong> - Ask for confirmation</li>
-<li><strong>Dry-Run Support</strong> - Test without applying</li>
-<li><strong>Craft Integration</strong> - Work with existing craft commands</li>
+<li><strong>Budget Enforcement</strong> — Target &lt; 150 lines for new CLAUDE.md files</li>
+<li><strong>Pointer Architecture</strong> — Reference detail files instead of duplicating content</li>
+<li><strong>Show Steps First</strong> — Preview before executing</li>
+<li><strong>Global Support</strong> — All commands support <code>--global</code> for <code>~/.claude/CLAUDE.md</code></li>
 </ol>
+<h3 id="v2120-migration-53-commands">v2.12.0 Migration (5→3 Commands)<a class="headerlink" href="#v2120-migration-53-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Old Command</th>
+<th>New Command</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scaffold</code></td>
+<td><strong><code>init</code></strong></td>
+<td>Deprecation alias available until v2.13.0</td>
+</tr>
+<tr>
+<td><code>update</code></td>
+<td><strong><code>sync</code></strong></td>
+<td>Deprecation alias available until v2.13.0</td>
+</tr>
+<tr>
+<td><code>audit</code></td>
+<td><strong><code>sync</code></strong></td>
+<td>Now phase 2 of sync pipeline</td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td><strong><code>sync --fix</code></strong></td>
+<td>Now phase 3 of sync pipeline</td>
+</tr>
+<tr>
+<td><code>edit</code></td>
+<td><strong><code>edit</code></strong></td>
+<td>Enhanced with <code>--global</code> flag</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2 id="command-scaffold">Command: scaffold<a class="headerlink" href="#command-scaffold" title="Permanent link">&para;</a></h2>
-<p><strong>Create CLAUDE.md from project-type template with auto-population.</strong></p>
+<h2 id="command-init">Command: init<a class="headerlink" href="#command-init" title="Permanent link">&para;</a></h2>
+<p><strong>Create CLAUDE.md from lean project-type template with auto-population.</strong></p>
+<p>Replaces the old <code>scaffold</code> command. Enforces &lt; 150 line budget using lean templates and pointer architecture.</p>
 <h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Auto-detect project type</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:docs:claude-md:scaffold
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:docs:claude-md:init
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Force specific template</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>/craft:docs:claude-md:scaffold<span class="w"> </span>plugin
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>/craft:docs:claude-md:scaffold<span class="w"> </span>teaching
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>/craft:docs:claude-md:scaffold<span class="w"> </span>r-package
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Specify project type</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>/craft:docs:claude-md:init<span class="w"> </span>--type<span class="w"> </span>plugin
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>/craft:docs:claude-md:init<span class="w"> </span>--type<span class="w"> </span>teaching
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>/craft:docs:claude-md:init<span class="w"> </span>--type<span class="w"> </span>r-package
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Overwrite existing</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>/craft:docs:claude-md:scaffold<span class="w"> </span>--force
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Target global CLAUDE.md</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>/craft:docs:claude-md:init<span class="w"> </span>--global
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># Preview without creating</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>/craft:docs:claude-md:scaffold<span class="w"> </span>--dry-run
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>/craft:docs:claude-md:init<span class="w"> </span>--dry-run
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># Overwrite existing</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>/craft:docs:claude-md:init<span class="w"> </span>--force
 </span></code></pre></div>
-<h3 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart TD
-    A[Start scaffold] --&gt; B[Detect project type]
-    B --&gt; C[Scan project structure]
-    C --&gt; D[Extract metadata]
-    D --&gt; E[Populate template variables]
-    E --&gt; F{Show preview}
-    F --&gt;|User: Yes| G[Create CLAUDE.md]
-    F --&gt;|User: Customize| H[Edit before saving]
-    F --&gt;|User: Dry run| I[Show full content]
-    F --&gt;|User: Cancel| J[Exit]
-    G --&gt; K[Backup old file if exists]
-    H --&gt; G
-    I --&gt; J
-    K --&gt; L[Write new file]
-    L --&gt; M[Display summary]</code></pre>
-<h3 id="project-type-detection">Project Type Detection<a class="headerlink" href="#project-type-detection" title="Permanent link">&para;</a></h3>
-<p><strong>Detection priority:</strong></p>
-<ol>
-<li>Craft Plugin - <code>.claude-plugin/plugin.json</code> exists</li>
-<li>Teaching Site - <code>_quarto.yml</code> + <code>course.yml</code> exist</li>
-<li>R Package - <code>DESCRIPTION</code> + <code>NAMESPACE</code> exist</li>
-</ol>
-<p><strong>Override detection:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:docs:claude-md:scaffold<span class="w"> </span>--type<span class="o">=</span>plugin
-</span></code></pre></div>
-<h3 id="templates">Templates<a class="headerlink" href="#templates" title="Permanent link">&para;</a></h3>
-<h4 id="plugin-template">Plugin Template<a class="headerlink" href="#plugin-template" title="Permanent link">&para;</a></h4>
-<p><strong>File:</strong> <code>templates/claude-md/plugin-template.md</code></p>
-<p><strong>Auto-populated variables (18):</strong></p>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Source</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>plugin_name</code></td>
-<td>plugin.json → name</td>
-<td>"craft"</td>
-</tr>
-<tr>
-<td><code>version</code></td>
-<td>plugin.json → version</td>
-<td>"2.9.0"</td>
-</tr>
-<tr>
-<td><code>tagline</code></td>
-<td>plugin.json → description</td>
-<td>"Developer toolkit"</td>
-</tr>
-<tr>
-<td><code>command_count</code></td>
-<td>commands/ scan</td>
-<td>100</td>
-</tr>
-<tr>
-<td><code>skill_count</code></td>
-<td>skills/ scan</td>
-<td>21</td>
-</tr>
-<tr>
-<td><code>agent_count</code></td>
-<td>agents/ scan</td>
-<td>8</td>
-</tr>
-<tr>
-<td><code>test_count</code></td>
-<td>tests/ scan</td>
-<td>847</td>
-</tr>
-<tr>
-<td><code>command_table</code></td>
-<td>Generated from commands/</td>
-<td>Table of commands</td>
-</tr>
-<tr>
-<td><code>repo_url</code></td>
-<td>git remote</td>
-<td>github.com/user/craft</td>
-</tr>
-<tr>
-<td><code>docs_url</code></td>
-<td>plugin.json → repository.docs</td>
-<td>user.github.io/craft</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Structure:</strong></p>
-<ul>
-<li>Quick Commands table</li>
-<li>Project Structure tree</li>
-<li>Git Workflow instructions</li>
-<li>Testing commands</li>
-<li>Key Files reference</li>
-<li>Troubleshooting tips</li>
-<li>Links section</li>
-</ul>
-<h4 id="teaching-template">Teaching Template<a class="headerlink" href="#teaching-template" title="Permanent link">&para;</a></h4>
-<p><strong>File:</strong> <code>templates/claude-md/teaching-template.md</code></p>
-<p><strong>Auto-populated variables (12):</strong></p>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Source</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>course_name</code></td>
-<td>_quarto.yml → title</td>
-<td>"Data Science 101"</td>
-</tr>
-<tr>
-<td><code>course_code</code></td>
-<td>course.yml → course_code</td>
-<td>"DS-101"</td>
-</tr>
-<tr>
-<td><code>semester</code></td>
-<td>course.yml → semester</td>
-<td>"Fall 2024"</td>
-</tr>
-<tr>
-<td><code>instructor</code></td>
-<td>course.yml → instructor</td>
-<td>"Dr. Smith"</td>
-</tr>
-<tr>
-<td><code>week_count</code></td>
-<td>weeks/ directory count</td>
-<td>15</td>
-</tr>
-<tr>
-<td><code>assignment_count</code></td>
-<td>assignments/ file count</td>
-<td>8</td>
-</tr>
-<tr>
-<td><code>exam_count</code></td>
-<td>exams/ file count</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Structure:</strong></p>
-<ul>
-<li>Course Information</li>
-<li>Weekly Structure</li>
-<li>Assignment Guidelines</li>
-<li>Quarto Workflow</li>
-<li>Publishing Instructions</li>
-</ul>
-<h4 id="r-package-template">R Package Template<a class="headerlink" href="#r-package-template" title="Permanent link">&para;</a></h4>
-<p><strong>File:</strong> <code>templates/claude-md/r-package-template.md</code></p>
-<p><strong>Auto-populated variables (15):</strong></p>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Source</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>package_name</code></td>
-<td>DESCRIPTION → Package</td>
-<td>"ggplot2"</td>
-</tr>
-<tr>
-<td><code>package_title</code></td>
-<td>DESCRIPTION → Title</td>
-<td>"Create Graphics"</td>
-</tr>
-<tr>
-<td><code>version</code></td>
-<td>DESCRIPTION → Version</td>
-<td>"3.4.0"</td>
-</tr>
-<tr>
-<td><code>r_version</code></td>
-<td>DESCRIPTION → Depends</td>
-<td>"R (&gt;= 3.5.0)"</td>
-</tr>
-<tr>
-<td><code>function_count</code></td>
-<td>R/ file count</td>
-<td>127</td>
-</tr>
-<tr>
-<td><code>test_count</code></td>
-<td>tests/testthat file count</td>
-<td>345</td>
-</tr>
-<tr>
-<td><code>vignette_count</code></td>
-<td>vignettes/ file count</td>
-<td>8</td>
-</tr>
-<tr>
-<td><code>dependencies</code></td>
-<td>DESCRIPTION → Imports</td>
-<td>"dplyr, tidyr"</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Structure:</strong></p>
-<ul>
-<li>Package Information</li>
-<li>Development Workflow</li>
-<li>devtools commands</li>
-<li>roxygen2 patterns</li>
-<li>pkgdown configuration</li>
-<li>Testing with testthat</li>
-</ul>
-<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
-<p><strong>Example 1: Craft Plugin</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/my-plugin
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:docs:claude-md:scaffold
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Project Type Detection
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Detected indicators:
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  .claude-plugin/plugin.json  (craft plugin)
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  commands/ directory         (12 commands)
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  skills/ directory           (3 skills)
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>Project type: craft-plugin
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>Template: plugin-template.md
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>Extracting variables...
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>From plugin.json:
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>  name: my-plugin
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>  version: 1.0.0
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>  description: My awesome plugin
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>From filesystem:
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>  commands: 12
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>  skills: 3
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>  agents: 1
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>  tests: 45
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>Auto-populated: 18/18 variables (100%)
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>Preview: CLAUDE.md (156 lines)
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a># CLAUDE.md - My Plugin
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>&gt; My awesome plugin
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>**12 commands** · **3 skills** · **1 agent**
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>## Quick Commands
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>| Task | Shell | Craft |
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>|------|-------|-------|
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>| Run tests | `python3 -m pytest` | `/craft:test:run` |
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>...
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>
-</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>  Proceed with file creation?
-</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>  &gt; Yes - Create CLAUDE.md (Recommended)
-</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>    Customize - Edit before saving
-</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>    Dry run - Show full content
-</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>    Cancel - Exit
-</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>
-</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>Choice: y
-</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>
-</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a>Created: CLAUDE.md (156 lines)
-</span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a>
-</span><span id="__span-3-51"><a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>Summary:
-</span><span id="__span-3-52"><a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>  18 variables auto-populated
-</span><span id="__span-3-53"><a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>  0 TODOs (all fields filled)
-</span><span id="__span-3-54"><a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a>  3 sections generated
-</span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>
-</span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a>Next steps:
-</span><span id="__span-3-57"><a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a>  1. Review: cat CLAUDE.md
-</span><span id="__span-3-58"><a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a>  2. Customize: /craft:docs:claude-md:edit
-</span><span id="__span-3-59"><a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a>  3. Validate: /craft:docs:claude-md:audit
-</span></code></pre></div>
-<p><strong>Example 2: R Package</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span><span class="w"> </span>~/projects/r-packages/mypackage
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/craft:docs:claude-md:scaffold
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Project Type Detection
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Detected indicators:
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  DESCRIPTION file            (R package)
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  NAMESPACE file
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  R/ directory                (23 functions)
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  tests/testthat/            (67 tests)
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>Project type: r-package
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>Template: r-package-template.md
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>Extracting variables...
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>From DESCRIPTION:
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>  Package: mypackage
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>  Title: My R Package
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>  Version: 0.2.1
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>  Depends: R (&gt;= 4.0.0)
-</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
-</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>From filesystem:
-</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>  functions: 23
-</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>  tests: 67
-</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>  vignettes: 2
-</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>
-</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>Auto-populated: 15/15 variables (100%)
-</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>
-</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>Preview: CLAUDE.md (134 lines)
-</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>
-</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a># CLAUDE.md - mypackage
-</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>
-</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>&gt; My R Package
-</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a>
-</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a>**Version:** 0.2.1 | **R:** &gt;= 4.0.0 | **Functions:** 23
-</span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>
-</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a>## Development Workflow
-</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>
-</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a>| Task | Command |
-</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a>|------|---------|
-</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a>| Load all | `devtools::load_all()` |
-</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a>| Test | `devtools::test()` |
-</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a>| Check | `devtools::check()` |
-</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>...
-</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a>
-</span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a>  Proceed with file creation?
-</span><span id="__span-5-45"><a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a>  &gt; Yes - Create CLAUDE.md (Recommended)
-</span><span id="__span-5-46"><a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a>    Customize - Edit before saving
-</span><span id="__span-5-47"><a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>    Dry run - Show full content
-</span><span id="__span-5-48"><a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a>    Cancel - Exit
-</span><span id="__span-5-49"><a id="__codelineno-5-49" name="__codelineno-5-49" href="#__codelineno-5-49"></a>
-</span><span id="__span-5-50"><a id="__codelineno-5-50" name="__codelineno-5-50" href="#__codelineno-5-50"></a>Choice: y
-</span><span id="__span-5-51"><a id="__codelineno-5-51" name="__codelineno-5-51" href="#__codelineno-5-51"></a>
-</span><span id="__span-5-52"><a id="__codelineno-5-52" name="__codelineno-5-52" href="#__codelineno-5-52"></a>Created: CLAUDE.md (134 lines)
-</span></code></pre></div>
-<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
+<h3 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Flag</th>
+<th>Alias</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>--type=&lt;template&gt;</code></td>
+<td><code>--type</code></td>
+<td></td>
 <td>auto-detect</td>
-<td>Force template type</td>
+<td>Template type: <code>plugin</code>, <code>teaching</code>, <code>r-package</code></td>
 </tr>
 <tr>
-<td><code>--force</code> / <code>-f</code></td>
+<td><code>--force</code></td>
+<td><code>-f</code></td>
 <td>false</td>
 <td>Overwrite existing CLAUDE.md</td>
 </tr>
 <tr>
-<td><code>--dry-run</code> / <code>-n</code></td>
+<td><code>--dry-run</code></td>
+<td><code>-n</code></td>
 <td>false</td>
-<td>Preview without creating</td>
+<td>Preview template without creating</td>
+</tr>
+<tr>
+<td><code>--global</code></td>
+<td><code>-g</code></td>
+<td>false</td>
+<td>Target <code>~/.claude/CLAUDE.md</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Tutorial: <a href="../../../tutorials/claude-md-workflows/#workflow-1-new-project-setup">New Project Setup</a></li>
-<li>Command: <a href="#command-edit">edit</a> - Customize sections</li>
-<li>Command: <a href="#command-audit">audit</a> - Validate result</li>
-</ul>
+<h3 id="what-it-does">What It Does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Detect</strong> project type from filesystem indicators</li>
+<li><strong>Scan</strong> project structure for metadata (version, counts, repo URL)</li>
+<li><strong>Populate</strong> lean template with discovered values (&lt; 150 lines)</li>
+<li><strong>Preview</strong> generated CLAUDE.md for approval</li>
+<li><strong>Create</strong> file after confirmation</li>
+<li><strong>Validate</strong> with post-creation audit</li>
+</ol>
+<h3 id="available-templates">Available Templates<a class="headerlink" href="#available-templates" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Detection</th>
+<th>Auto-populated Fields</th>
+<th>Target Lines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>plugin</strong></td>
+<td><code>.claude-plugin/plugin.json</code></td>
+<td>name, version, counts, repo_url</td>
+<td>~120</td>
+</tr>
+<tr>
+<td><strong>teaching</strong></td>
+<td><code>_quarto.yml</code> + <code>course.yml</code></td>
+<td>course info, weeks, assignments</td>
+<td>~100</td>
+</tr>
+<tr>
+<td><strong>r-package</strong></td>
+<td><code>DESCRIPTION</code> + <code>Package:</code></td>
+<td>package info, version, functions</td>
+<td>~110</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pointer-architecture">Pointer Architecture<a class="headerlink" href="#pointer-architecture" title="Permanent link">&para;</a></h3>
+<p>Templates end with a References section containing pointers to detail files:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gu">## References</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>-&gt; Release history: [<span class="nt">VERSION-HISTORY.md</span>](<span class="na">docs/VERSION-HISTORY.md</span>)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>-&gt; Architecture: [<span class="nt">ARCHITECTURE.md</span>](<span class="na">docs/ARCHITECTURE.md</span>)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>-&gt; Contributing: [<span class="nt">CONTRIBUTING.md</span>](<span class="na">CONTRIBUTING.md</span>)
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>-&gt; Command reference: [<span class="nt">COMMANDS.md</span>](<span class="na">docs/COMMANDS.md</span>)
+</span></code></pre></div>
+<p>This keeps CLAUDE.md lean while Claude can still access full details by following pointers.</p>
 <hr />
-<h2 id="command-update">Command: update<a class="headerlink" href="#command-update" title="Permanent link">&para;</a></h2>
-<p><strong>Sync CLAUDE.md with current project state, updating metrics and content.</strong></p>
+<h2 id="command-sync">Command: sync<a class="headerlink" href="#command-sync" title="Permanent link">&para;</a></h2>
+<p><strong>Sync CLAUDE.md with project state — update metrics, audit, fix, optimize.</strong></p>
+<p>Replaces the old <code>update</code>, <code>audit</code>, and <code>fix</code> commands with a unified 4-phase pipeline.</p>
 <h3 id="usage_1">Usage<a class="headerlink" href="#usage_1" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Full update (all sections)</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:docs:claude-md:update
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Specific section</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/craft:docs:claude-md:update<span class="w"> </span>status
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>/craft:docs:claude-md:update<span class="w"> </span>commands
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>/craft:docs:claude-md:update<span class="w"> </span>architecture
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Update + optimize</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>/craft:docs:claude-md:update<span class="w"> </span>--optimize
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="c1"># Preview changes</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>/craft:docs:claude-md:update<span class="w"> </span>--dry-run
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="c1"># Interactive section selection</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>/craft:docs:claude-md:update<span class="w"> </span>--interactive
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Full sync (detect + audit)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:docs:claude-md:sync
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Sync with auto-fix</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:docs:claude-md:sync<span class="w"> </span>--fix
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Sync with budget optimization</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:docs:claude-md:sync<span class="w"> </span>--optimize
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Full pipeline (fix + optimize)</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>/craft:docs:claude-md:sync<span class="w"> </span>--fix<span class="w"> </span>--optimize
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># Sync specific section only</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>/craft:docs:claude-md:sync<span class="w"> </span>--section<span class="w"> </span>commands
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1"># Preview changes</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>/craft:docs:claude-md:sync<span class="w"> </span>--dry-run
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="c1"># Target global CLAUDE.md</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>/craft:docs:claude-md:sync<span class="w"> </span>--global
 </span></code></pre></div>
-<h3 id="workflow_1">Workflow<a class="headerlink" href="#workflow_1" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart TD
-    A[Start update] --&gt; B[Detect project type]
-    B --&gt; C[Analyze current CLAUDE.md]
-    C --&gt; D[Scan project state]
-    D --&gt; E[Compare with current]
-    E --&gt; F{Changes detected?}
-    F --&gt;|No| G[Already up to date]
-    F --&gt;|Yes| H[Show update plan]
-    H --&gt; I{User choice}
-    I --&gt;|Apply all| J[Update all sections]
-    I --&gt;|Interactive| K[Prompt per section]
-    I --&gt;|Dry run| L[Show preview only]
-    I --&gt;|Cancel| M[Exit]
-    K --&gt; N[Update selected sections]
-    J --&gt; O[Write changes]
-    N --&gt; O
-    O --&gt; P[Run post-update validation]
-    P --&gt; Q[Display summary]</code></pre>
-<h3 id="what-gets-updated">What Gets Updated<a class="headerlink" href="#what-gets-updated" title="Permanent link">&para;</a></h3>
-<p><strong>Core metrics (all project types):</strong></p>
-<ul>
-<li>Version number (from plugin.json/package.json/pyproject.toml/DESCRIPTION)</li>
-<li>Status and progress (from .STATUS file)</li>
-</ul>
-<p><strong>Craft plugins:</strong></p>
-<ul>
-<li>Command count and new commands</li>
-<li>Skill count and new skills</li>
-<li>Agent count and new agents</li>
-<li>Test count</li>
-<li>Documentation completion percentage</li>
-</ul>
-<p><strong>Teaching sites:</strong></p>
-<ul>
-<li>Week count</li>
-<li>Assignment count</li>
-<li>Exam count</li>
-<li>Course metadata (from course.yml)</li>
-</ul>
-<p><strong>R packages:</strong></p>
-<ul>
-<li>Function count</li>
-<li>Test count</li>
-<li>Vignette count</li>
-<li>Dependencies (from DESCRIPTION)</li>
-</ul>
-<h3 id="update-plan-preview">Update Plan Preview<a class="headerlink" href="#update-plan-preview" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>CLAUDE.md Update Plan
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Project: craft (craft-plugin)
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Mode: default
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>Changes Detected:
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>1. Version Mismatch
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>   Current: v2.8.1
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>   Actual:  v2.9.0
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>   Source:  .claude-plugin/plugin.json
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>2. New Commands (3)
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>   + /craft:docs:claude-md:audit
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>   + /craft:docs:claude-md:fix
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>   + /craft:docs:claude-md:scaffold
-</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
-</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>3. Test Count Update
-</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>   Current: 770 tests
-</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>   Actual:  847 tests (+77)
-</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
-</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>4. Documentation Status
-</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>   Current: 95% complete
-</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>   Actual:  98% complete (+3%)
-</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>
-</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>Net Changes: +18 lines, -5 lines
-</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>
-</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>  Proceed with these updates?
-</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>  &gt; Yes - Apply all changes (Recommended)
-</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>    Interactive - Select sections
-</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>    Dry run - Preview without applying
-</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>    Cancel - Exit
-</span></code></pre></div>
-<h3 id="interactive-mode">Interactive Mode<a class="headerlink" href="#interactive-mode" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:docs:claude-md:update<span class="w"> </span>--interactive
-</span></code></pre></div>
-<p><strong>Prompts per section:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Section 1/5: Project Status (version mismatch)
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  Update v2.8.1 → v2.9.0?
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  (y/n/skip): y
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>Section 2/5: Quick Commands (3 new commands)
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>  Add:
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    - /craft:docs:claude-md:audit
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    - /craft:docs:claude-md:fix
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    - /craft:docs:claude-md:scaffold
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>  (y/n/skip): y
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>Section 3/5: Project Structure (no changes)
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>  (y/n/skip): skip
-</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>Section 4/5: Testing (test count changed)
-</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>  Update: 770 → 847 tests
-</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>  (y/n/skip): y
-</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>
-</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>Section 5/5: Documentation (status changed)
-</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>  Update: 95% → 98%
-</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>  (y/n/skip): y
-</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>
-</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>Applied 4/5 section updates
-</span></code></pre></div>
-<h3 id="optimization-mode">Optimization Mode<a class="headerlink" href="#optimization-mode" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:docs:claude-md:update<span class="w"> </span>--optimize
-</span></code></pre></div>
-<p><strong>Applies condensation:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>OPTIMIZATION APPLIED
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Condensed sections:
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  Quick Commands: Shortened verbose descriptions
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  Project Structure: Grouped related directories
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>  Code examples: Removed obvious comments
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>Before: 287 lines
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>After: 231 lines (-56 lines, -19%)
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>Quality maintained:
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>  All essential info preserved
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>  All links still valid
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>  Structure unchanged
-</span></code></pre></div>
-<h3 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h3>
-<p><strong>Example 1: After Adding Commands</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Added 3 new commands</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>/craft:docs:claude-md:update
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>CLAUDE.md Update Plan
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Changes:
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>  1. New Commands (3)
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>     + /craft:new-feature
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>     + /craft:validate
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>     + /craft:analyze
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>  2. Command Count
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>     51 → 54 commands
-</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>
-</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>Proceed? (y/n): y
-</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
-</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>Updated: CLAUDE.md
-</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>  Added 3 commands to Quick Commands table
-</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>  Updated command count
-</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>
-</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>Post-Update Validation: PASSED
-</span></code></pre></div>
-<p><strong>Example 2: Version Bump</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Bumped version in plugin.json</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>/craft:docs:claude-md:update<span class="w"> </span>status
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Updating section: status
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Changes:
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>  Version: v1.0.0 → v1.2.0
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>  Progress: 60% → 85% (from .STATUS)
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>Applied changes to CLAUDE.md
-</span></code></pre></div>
-<h3 id="options_1">Options<a class="headerlink" href="#options_1" title="Permanent link">&para;</a></h3>
+<h3 id="arguments_1">Arguments<a class="headerlink" href="#arguments_1" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Flag</th>
+<th>Alias</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>status\|commands\|architecture</code></td>
+<td><code>--fix</code></td>
+<td></td>
+<td>false</td>
+<td>Auto-fix issues found during audit</td>
+</tr>
+<tr>
+<td><code>--optimize</code></td>
+<td><code>-o</code></td>
+<td>false</td>
+<td>Enforce line budget, move bloat to detail files</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td><code>-n</code></td>
+<td>false</td>
+<td>Preview changes without applying</td>
+</tr>
+<tr>
+<td><code>--global</code></td>
+<td><code>-g</code></td>
+<td>false</td>
+<td>Target <code>~/.claude/CLAUDE.md</code></td>
+</tr>
+<tr>
+<td><code>--section</code></td>
+<td><code>-s</code></td>
 <td>all</td>
-<td>Specific section to update</td>
-</tr>
-<tr>
-<td><code>--optimize</code> / <code>-o</code></td>
-<td>false</td>
-<td>Also condense verbose sections</td>
-</tr>
-<tr>
-<td><code>--dry-run</code> / <code>-n</code></td>
-<td>false</td>
-<td>Preview without applying</td>
-</tr>
-<tr>
-<td><code>--interactive</code> / <code>-i</code></td>
-<td>false</td>
-<td>Prompt for each section</td>
-</tr>
-<tr>
-<td><code>--validate</code></td>
-<td>true</td>
-<td>Run audit after update</td>
+<td>Specific section: <code>status</code>, <code>commands</code>, <code>testing</code>, <code>all</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="see-also_1">See Also<a class="headerlink" href="#see-also_1" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Tutorial: <a href="../../../tutorials/claude-md-workflows/#workflow-2-maintenance--updates">Maintenance Workflow</a></li>
-<li>Command: <a href="#command-audit">audit</a> - Validate after update</li>
-<li>Guide: <a href="../../../guide/interactive-commands/">Interactive Commands</a></li>
-</ul>
-<hr />
-<h2 id="command-audit">Command: audit<a class="headerlink" href="#command-audit" title="Permanent link">&para;</a></h2>
-<p><strong>Validate CLAUDE.md structure, content, and accuracy (read-only).</strong></p>
-<h3 id="usage_2">Usage<a class="headerlink" href="#usage_2" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Audit local CLAUDE.md</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>/craft:docs:claude-md:audit
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Strict mode (exit 1 on errors)</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>/craft:docs:claude-md:audit<span class="w"> </span>--strict
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># Specific scope</span>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>/craft:docs:claude-md:audit<span class="w"> </span>errors
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>/craft:docs:claude-md:audit<span class="w"> </span>warnings
-</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>/craft:docs:claude-md:audit<span class="w"> </span>all
-</span></code></pre></div>
-<h3 id="workflow_2">Workflow<a class="headerlink" href="#workflow_2" title="Permanent link">&para;</a></h3>
+<h3 id="4-phase-pipeline">4-Phase Pipeline<a class="headerlink" href="#4-phase-pipeline" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>flowchart TD
-    A[Start audit] --&gt; B[Load CLAUDE.md]
-    B --&gt; C[Detect project type]
-    C --&gt; D[Run checks]
-    D --&gt; E[Check 1: Version sync]
-    E --&gt; F[Check 2: Command coverage]
-    F --&gt; G[Check 3: Broken links]
-    G --&gt; H[Check 4: Required sections]
-    H --&gt; I[Check 5: Progress sync]
-    I --&gt; J[Categorize issues]
-    J --&gt; K{Strict mode?}
-    K --&gt;|Yes| L{Any errors?}
-    K --&gt;|No| M[Display results]
-    L --&gt;|Yes| N[Exit 1]
-    L --&gt;|No| M
-    M --&gt; O[Exit 0]</code></pre>
-<h3 id="checks-performed">Checks Performed<a class="headerlink" href="#checks-performed" title="Permanent link">&para;</a></h3>
+    A[Phase 1: Detect] --&gt; B[Phase 2: Update Metrics]
+    B --&gt; C[Phase 3: Audit]
+    C --&gt; D{--fix?}
+    D --&gt;|Yes| E[Phase 3b: Auto-Fix]
+    D --&gt;|No| F{--optimize?}
+    E --&gt; F
+    F --&gt;|Yes| G[Phase 4: Optimize]
+    F --&gt;|No| H[Report]
+    G --&gt; H</code></pre>
+<p><strong>Phase 1: Detect</strong> — Scan project for current state (version, command counts, test results)</p>
+<p><strong>Phase 2: Update Metrics</strong> — Update stale numbers in CLAUDE.md (command counts, test counts, version)</p>
+<p><strong>Phase 3: Audit</strong> — Validate completeness and accuracy (5 checks, 3 severity levels)</p>
+<p><strong>Phase 4: Optimize</strong> (optional) — Enforce line budget, classify sections (P0/P1/P2), move bloat to detail files</p>
+<h3 id="audit-checks">Audit Checks<a class="headerlink" href="#audit-checks" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Check</th>
 <th>Severity</th>
-<th>Description</th>
-<th>Auto-Fixable</th>
+<th>What It Validates</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Version sync</strong></td>
-<td>Warning</td>
-<td>CLAUDE.md version vs source file</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Command coverage</strong></td>
+<td>Version accuracy</td>
 <td>Error</td>
-<td>Missing or stale commands</td>
-<td>Partial</td>
+<td>Version matches plugin.json</td>
 </tr>
 <tr>
-<td><strong>Broken links</strong></td>
+<td>Command counts</td>
 <td>Error</td>
-<td>Dead internal/external links</td>
-<td>Yes</td>
+<td>Counts match filesystem</td>
 </tr>
 <tr>
-<td><strong>Required sections</strong></td>
+<td>Section completeness</td>
 <td>Warning</td>
-<td>Template sections missing</td>
-<td>No</td>
+<td>Required sections present</td>
 </tr>
 <tr>
-<td><strong>Progress sync</strong></td>
+<td>Link validity</td>
 <td>Warning</td>
-<td>Progress vs .STATUS mismatch</td>
-<td>Yes</td>
+<td>Internal links resolve</td>
+</tr>
+<tr>
+<td>Anti-pattern detection</td>
+<td>Info</td>
+<td>Identifies common CLAUDE.md issues</td>
 </tr>
 </tbody>
 </table>
-<h3 id="output-format">Output Format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>AUDIT RESULTS
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>File: CLAUDE.md (242 lines)
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>Last modified: 2 weeks ago
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>─── Issues Found ─────────────────────────────
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
-</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>ERRORS (2):
-</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>  Line 45: Command `/craft:old-command` no longer exists
-</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>  Line 78: Broken link to docs/removed-guide.md
-</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>
-</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>WARNINGS (3):
-</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>  Version mismatch: CLAUDE.md says v1.0.0, plugin.json says v1.2.0
-</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>  Progress drift: CLAUDE.md says 60%, .STATUS says 85%
-</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>  Missing commands: 3 new commands not documented
-</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>    - /craft:new-feature
-</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>    - /craft:validate
-</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>    - /craft:analyze
-</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>
-</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>INFO (1):
-</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>  Optimization available: file length 242 lines (consider --optimize)
-</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>
-</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>─────────────────────────────────────────────
-</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a>
-</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>Status: FAILED (2 errors, 3 warnings)
-</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>
-</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a>Next steps:
-</span><span id="__span-17-28"><a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a>  1. Fix automatically: /craft:docs:claude-md:fix
-</span><span id="__span-17-29"><a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a>  2. Update with new commands: /craft:docs:claude-md:update
-</span><span id="__span-17-30"><a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a>  3. Re-audit: /craft:docs:claude-md:audit
-</span></code></pre></div>
-<h3 id="severity-levels">Severity Levels<a class="headerlink" href="#severity-levels" title="Permanent link">&para;</a></h3>
-<p><strong>Errors (🔴):</strong></p>
+<h3 id="anti-patterns-detected">Anti-Patterns Detected<a class="headerlink" href="#anti-patterns-detected" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Break validation, should be fixed before release</li>
-<li>Exit 1 in <code>--strict</code> mode</li>
-<li>Examples: Stale commands, broken links</li>
-</ul>
-<p><strong>Warnings (⚠️):</strong></p>
-<ul>
-<li>Quality issues, recommended to fix</li>
-<li>Don't fail <code>--strict</code> mode</li>
-<li>Examples: Version mismatch, progress drift</li>
-</ul>
-<p><strong>Info (📝):</strong></p>
-<ul>
-<li>Suggestions for improvement</li>
-<li>Don't affect validation status</li>
-<li>Examples: Optimization opportunities</li>
-</ul>
-<h3 id="strict-mode-ci-integration">Strict Mode (CI Integration)<a class="headerlink" href="#strict-mode-ci-integration" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># In CI pipeline</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>/craft:docs:claude-md:audit<span class="w"> </span>--strict
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Exit codes:</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="c1">#   0 - No errors (warnings OK)</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="c1">#   1 - Has errors (fail build)</span>
-</span></code></pre></div>
-<p><strong>GitHub Actions example:</strong></p>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Validate CLAUDE.md</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="no">/craft:docs:claude-md:audit --strict</span>
-</span></code></pre></div>
-<h3 id="examples_2">Examples<a class="headerlink" href="#examples_2" title="Permanent link">&para;</a></h3>
-<p><strong>Example 1: Passing Audit</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:docs:claude-md:audit
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>AUDIT RESULTS
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>File: CLAUDE.md (242 lines)
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>Last modified: 5 minutes ago
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>Checks:
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>  Version sync
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>  Command coverage     (54/54 documented)
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>  Broken links         (0 found)
-</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>  Required sections    (8/8 present)
-</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>  Progress sync
-</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>
-</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>Results:
-</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>  🔴 Errors:   0
-</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>  ⚠️ Warnings: 0
-</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>  📝 Info:     0
-</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>
-</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>Status: PASSED
-</span></code></pre></div>
-<p><strong>Example 2: Issues Found</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>/craft:docs:claude-md:audit
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>AUDIT RESULTS
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>File: CLAUDE.md (287 lines)
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>Last modified: 3 weeks ago
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>ERRORS (1):
-</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>  Line 67: Command `/craft:deprecated` no longer exists
-</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
-</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>WARNINGS (2):
-</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>  Version: v1.0.0 vs v1.5.0 (plugin.json)
-</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>  Missing: 2 new commands not documented
-</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>
-</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>INFO (1):
-</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>  File length: 287 lines (recommend --optimize)
-</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>
-</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>Status: FAILED (1 error, 2 warnings)
-</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>
-</span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a>Next steps:
-</span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a>  1. /craft:docs:claude-md:fix
-</span><span id="__span-23-20"><a id="__codelineno-23-20" name="__codelineno-23-20" href="#__codelineno-23-20"></a>  2. /craft:docs:claude-md:update
-</span></code></pre></div>
-<h3 id="options_2">Options<a class="headerlink" href="#options_2" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Flag</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>errors\|warnings\|all</code></td>
-<td>all</td>
-<td>Scope of checks</td>
-</tr>
-<tr>
-<td><code>--strict</code></td>
-<td>false</td>
-<td>Exit 1 on errors (CI mode)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="see-also_2">See Also<a class="headerlink" href="#see-also_2" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Tutorial: <a href="../../../tutorials/claude-md-workflows/#workflow-2-maintenance--updates">Maintenance Workflow</a></li>
-<li>Command: <a href="#command-fix">fix</a> - Auto-fix issues</li>
-<li>Guide: <a href="../../../guide/check-command-mastery/">Check Command Mastery</a></li>
-</ul>
-<hr />
-<h2 id="command-fix">Command: fix<a class="headerlink" href="#command-fix" title="Permanent link">&para;</a></h2>
-<p><strong>Auto-fix common CLAUDE.md issues found by audit.</strong></p>
-<h3 id="usage_3">Usage<a class="headerlink" href="#usage_3" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Fix errors only</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>/craft:docs:claude-md:fix
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Fix errors + warnings</span>
-</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>/craft:docs:claude-md:fix<span class="w"> </span>warnings
-</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
-</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="c1"># Fix everything auto-fixable</span>
-</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>/craft:docs:claude-md:fix<span class="w"> </span>all
-</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
-</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="c1"># Preview without applying</span>
-</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>/craft:docs:claude-md:fix<span class="w"> </span>--dry-run
-</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>
-</span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="c1"># Interactive confirmation</span>
-</span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>/craft:docs:claude-md:fix<span class="w"> </span>--interactive
-</span></code></pre></div>
-<h3 id="workflow_3">Workflow<a class="headerlink" href="#workflow_3" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart TD
-    A[Start fix] --&gt; B[Run audit]
-    B --&gt; C{Issues found?}
-    C --&gt;|No| D[Already clean]
-    C --&gt;|Yes| E[Filter by scope]
-    E --&gt; F[Identify auto-fixable]
-    F --&gt; G{Mode}
-    G --&gt;|Default| H[Show fixes, ask once]
-    G --&gt;|Interactive| I[Ask per fix]
-    G --&gt;|Dry-run| J[Show preview only]
-    H --&gt; K{User confirms?}
-    I --&gt; L[User confirms each]
-    K --&gt;|Yes| M[Apply all fixes]
-    K --&gt;|No| N[Exit]
-    L --&gt; M
-    M --&gt; O[Backup original]
-    O --&gt; P[Write changes]
-    P --&gt; Q[Re-run audit]
-    Q --&gt; R[Display summary]</code></pre>
-<h3 id="auto-fixable-issues">Auto-Fixable Issues<a class="headerlink" href="#auto-fixable-issues" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Issue</th>
-<th>Fix Action</th>
-<th>Risk</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Stale command</td>
-<td>Remove from table</td>
-<td>Low</td>
-</tr>
-<tr>
-<td>Broken link</td>
-<td>Remove reference</td>
-<td>Low</td>
-</tr>
-<tr>
-<td>Version mismatch</td>
-<td>Update to source version</td>
-<td>None</td>
-</tr>
-<tr>
-<td>Progress drift</td>
-<td>Sync from .STATUS</td>
-<td>None</td>
-</tr>
-</tbody>
-</table>
-<h3 id="manual-only-issues">Manual-Only Issues<a class="headerlink" href="#manual-only-issues" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Issue</th>
-<th>Why Manual</th>
-<th>Recommended Action</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Missing sections</td>
-<td>Need content</td>
-<td>Edit or scaffold</td>
-</tr>
-<tr>
-<td>New commands</td>
-<td>Need descriptions</td>
-<td>Use <code>update</code> command</td>
-</tr>
-<tr>
-<td>Template restructure</td>
-<td>Structural change</td>
-<td>Scaffold with <code>--force</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="fix-preview">Fix Preview<a class="headerlink" href="#fix-preview" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Auto-fixing issues...
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>Fix 1/5: Remove stale command reference
-</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>  Line 45: `/craft:old-command`
-</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>  Command no longer exists in commands/
-</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>  Action: Remove from Quick Commands table
-</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>  Status: READY
-</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>
-</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>Fix 2/5: Remove broken link
-</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>  Line 78: docs/removed-guide.md
-</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>  File does not exist
-</span><span id="__span-25-12"><a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a>  Action: Remove link reference
-</span><span id="__span-25-13"><a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a>  Status: READY
-</span><span id="__span-25-14"><a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a>
-</span><span id="__span-25-15"><a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a>Fix 3/5: Update version
-</span><span id="__span-25-16"><a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a>  Current: v1.0.0
-</span><span id="__span-25-17"><a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a>  Source:  v1.2.0 (from plugin.json)
-</span><span id="__span-25-18"><a id="__codelineno-25-18" name="__codelineno-25-18" href="#__codelineno-25-18"></a>  Action: Replace version number
-</span><span id="__span-25-19"><a id="__codelineno-25-19" name="__codelineno-25-19" href="#__codelineno-25-19"></a>  Status: READY
-</span><span id="__span-25-20"><a id="__codelineno-25-20" name="__codelineno-25-20" href="#__codelineno-25-20"></a>
-</span><span id="__span-25-21"><a id="__codelineno-25-21" name="__codelineno-25-21" href="#__codelineno-25-21"></a>Fix 4/5: Sync progress
-</span><span id="__span-25-22"><a id="__codelineno-25-22" name="__codelineno-25-22" href="#__codelineno-25-22"></a>  Current: 60%
-</span><span id="__span-25-23"><a id="__codelineno-25-23" name="__codelineno-25-23" href="#__codelineno-25-23"></a>  Source:  85% (from .STATUS)
-</span><span id="__span-25-24"><a id="__codelineno-25-24" name="__codelineno-25-24" href="#__codelineno-25-24"></a>  Action: Update progress percentage
-</span><span id="__span-25-25"><a id="__codelineno-25-25" name="__codelineno-25-25" href="#__codelineno-25-25"></a>  Status: READY
-</span><span id="__span-25-26"><a id="__codelineno-25-26" name="__codelineno-25-26" href="#__codelineno-25-26"></a>
-</span><span id="__span-25-27"><a id="__codelineno-25-27" name="__codelineno-25-27" href="#__codelineno-25-27"></a>Fix 5/5: Add new commands
-</span><span id="__span-25-28"><a id="__codelineno-25-28" name="__codelineno-25-28" href="#__codelineno-25-28"></a>  Missing: 3 commands
-</span><span id="__span-25-29"><a id="__codelineno-25-29" name="__codelineno-25-29" href="#__codelineno-25-29"></a>    - /craft:new-feature
-</span><span id="__span-25-30"><a id="__codelineno-25-30" name="__codelineno-25-30" href="#__codelineno-25-30"></a>    - /craft:validate
-</span><span id="__span-25-31"><a id="__codelineno-25-31" name="__codelineno-25-31" href="#__codelineno-25-31"></a>    - /craft:analyze
-</span><span id="__span-25-32"><a id="__codelineno-25-32" name="__codelineno-25-32" href="#__codelineno-25-32"></a>  Action: MANUAL (use /craft:docs:claude-md:update)
-</span><span id="__span-25-33"><a id="__codelineno-25-33" name="__codelineno-25-33" href="#__codelineno-25-33"></a>  Status: SKIPPED
-</span><span id="__span-25-34"><a id="__codelineno-25-34" name="__codelineno-25-34" href="#__codelineno-25-34"></a>
-</span><span id="__span-25-35"><a id="__codelineno-25-35" name="__codelineno-25-35" href="#__codelineno-25-35"></a>Summary:
-</span><span id="__span-25-36"><a id="__codelineno-25-36" name="__codelineno-25-36" href="#__codelineno-25-36"></a>  4 auto-fixable
-</span><span id="__span-25-37"><a id="__codelineno-25-37" name="__codelineno-25-37" href="#__codelineno-25-37"></a>  1 requires manual action
-</span><span id="__span-25-38"><a id="__codelineno-25-38" name="__codelineno-25-38" href="#__codelineno-25-38"></a>
-</span><span id="__span-25-39"><a id="__codelineno-25-39" name="__codelineno-25-39" href="#__codelineno-25-39"></a>  Apply these 4 fixes? (y/n):
-</span></code></pre></div>
-<h3 id="interactive-mode_1">Interactive Mode<a class="headerlink" href="#interactive-mode_1" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>/craft:docs:claude-md:fix<span class="w"> </span>--interactive
-</span></code></pre></div>
-<p><strong>Prompts per fix:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>Fix 1/4: Remove stale command
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>  Line 45: `/craft:old-command`
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>  Command no longer exists
-</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>
-</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>  Apply this fix? (y/n/skip): y
-</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>  Status: APPLIED
-</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>
-</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>Fix 2/4: Update version
-</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>  v1.0.0 → v1.2.0
-</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>
-</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>  Apply this fix? (y/n/skip): y
-</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>  Status: APPLIED
-</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>
-</span><span id="__span-27-14"><a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a>Fix 3/4: Sync progress
-</span><span id="__span-27-15"><a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a>  60% → 85%
-</span><span id="__span-27-16"><a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a>
-</span><span id="__span-27-17"><a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a>  Apply this fix? (y/n/skip): skip
-</span><span id="__span-27-18"><a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a>  Status: SKIPPED
-</span><span id="__span-27-19"><a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a>
-</span><span id="__span-27-20"><a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a>Fix 4/4: Remove broken link
-</span><span id="__span-27-21"><a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a>  Line 78: docs/removed-guide.md
-</span><span id="__span-27-22"><a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a>
-</span><span id="__span-27-23"><a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a>  Apply this fix? (y/n/skip): y
-</span><span id="__span-27-24"><a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a>  Status: APPLIED
-</span><span id="__span-27-25"><a id="__codelineno-27-25" name="__codelineno-27-25" href="#__codelineno-27-25"></a>
-</span><span id="__span-27-26"><a id="__codelineno-27-26" name="__codelineno-27-26" href="#__codelineno-27-26"></a>Applied 3/4 fixes
-</span><span id="__span-27-27"><a id="__codelineno-27-27" name="__codelineno-27-27" href="#__codelineno-27-27"></a>Skipped 1 fix
-</span></code></pre></div>
-<h3 id="examples_3">Examples<a class="headerlink" href="#examples_3" title="Permanent link">&para;</a></h3>
-<p><strong>Example 1: Default Mode</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>/craft:docs:claude-md:fix
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>Auto-fixing issues...
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>Fix 1/3: Remove stale command
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>  Line 45: /craft:old-command
-</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>  Status: FIXED
-</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>
-</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>Fix 2/3: Update version
-</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>  v1.0.0 → v1.2.0
-</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>  Status: FIXED
-</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>
-</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>Fix 3/3: Remove broken link
-</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>  Line 78: docs/removed.md
-</span><span id="__span-29-13"><a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>  Status: FIXED
-</span><span id="__span-29-14"><a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>
-</span><span id="__span-29-15"><a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>Summary:
-</span><span id="__span-29-16"><a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>  3 fixed automatically
-</span><span id="__span-29-17"><a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>  0 require manual action
-</span><span id="__span-29-18"><a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>  0 skipped
-</span><span id="__span-29-19"><a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>
-</span><span id="__span-29-20"><a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>Backup: .CLAUDE.md.backup
-</span><span id="__span-29-21"><a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a>
-</span><span id="__span-29-22"><a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a>Post-Fix Validation:
-</span><span id="__span-29-23"><a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a>  0 errors
-</span><span id="__span-29-24"><a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a>  0 warnings
-</span><span id="__span-29-25"><a id="__codelineno-29-25" name="__codelineno-29-25" href="#__codelineno-29-25"></a>
-</span><span id="__span-29-26"><a id="__codelineno-29-26" name="__codelineno-29-26" href="#__codelineno-29-26"></a>CLAUDE.md is now clean!
-</span><span id="__span-29-27"><a id="__codelineno-29-27" name="__codelineno-29-27" href="#__codelineno-29-27"></a>
-</span><span id="__span-29-28"><a id="__codelineno-29-28" name="__codelineno-29-28" href="#__codelineno-29-28"></a>Next steps:
-</span><span id="__span-29-29"><a id="__codelineno-29-29" name="__codelineno-29-29" href="#__codelineno-29-29"></a>  1. Review: git diff CLAUDE.md
-</span><span id="__span-29-30"><a id="__codelineno-29-30" name="__codelineno-29-30" href="#__codelineno-29-30"></a>  2. Commit: git add CLAUDE.md &amp;&amp; git commit -m &quot;docs: fix CLAUDE.md issues&quot;
-</span></code></pre></div>
-<p><strong>Example 2: Dry-Run Mode</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>/craft:docs:claude-md:fix<span class="w"> </span>--dry-run
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>DRY RUN: /craft:docs:claude-md:fix
-</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
-</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>Would apply 3 fixes:
-</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>
-</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>1. Remove stale command (line 45)
-</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>   `/craft:old-command`
-</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>
-</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>2. Update version
-</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>   v1.0.0 → v1.2.0
-</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>
-</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>3. Remove broken link (line 78)
-</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>   docs/removed.md
-</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>
-</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>Run without --dry-run to apply
-</span></code></pre></div>
-<h3 id="backup-and-restore">Backup and Restore<a class="headerlink" href="#backup-and-restore" title="Permanent link">&para;</a></h3>
-<p><strong>Automatic backup:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># Backup created before applying fixes</span>
-</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>.CLAUDE.md.backup
-</span></code></pre></div>
-<p><strong>Manual restore:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># If something went wrong</span>
-</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>cp<span class="w"> </span>.CLAUDE.md.backup<span class="w"> </span>CLAUDE.md
-</span></code></pre></div>
-<h3 id="options_3">Options<a class="headerlink" href="#options_3" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Flag</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>errors\|warnings\|all</code></td>
-<td>errors</td>
-<td>Scope of fixes</td>
-</tr>
-<tr>
-<td><code>--dry-run</code> / <code>-n</code></td>
-<td>false</td>
-<td>Preview without applying</td>
-</tr>
-<tr>
-<td><code>--interactive</code> / <code>-i</code></td>
-<td>false</td>
-<td>Confirm each fix</td>
-</tr>
-</tbody>
-</table>
-<h3 id="see-also_3">See Also<a class="headerlink" href="#see-also_3" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Tutorial: <a href="../../../tutorials/claude-md-workflows/#workflow-2-maintenance--updates">Maintenance Workflow</a></li>
-<li>Command: <a href="#command-audit">audit</a> - Find issues</li>
-<li>Command: <a href="#command-update">update</a> - Add new content</li>
+<li>Duplicated content (same info in multiple sections)</li>
+<li>Stale release notes (old versions still in "Recent" section)</li>
+<li>Missing pointer references (detail files not linked)</li>
+<li>Over-budget sections (single section &gt; 30% of total lines)</li>
 </ul>
 <hr />
 <h2 id="command-edit">Command: edit<a class="headerlink" href="#command-edit" title="Permanent link">&para;</a></h2>
-<p><strong>Edit specific sections of CLAUDE.md interactively.</strong></p>
-<h3 id="usage_4">Usage<a class="headerlink" href="#usage_4" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Interactive section selection</span>
-</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>/craft:docs:claude-md:edit
-</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>
-</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="c1"># Edit specific section by name</span>
-</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>/craft:docs:claude-md:edit<span class="w"> </span><span class="s2">&quot;Quick Commands&quot;</span>
-</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>/craft:docs:claude-md:edit<span class="w"> </span>troubleshooting
-</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>
-</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a><span class="c1"># Replace entire section</span>
-</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>/craft:docs:claude-md:edit<span class="w"> </span><span class="s2">&quot;Testing&quot;</span><span class="w"> </span>--replace
-</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>
-</span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a><span class="c1"># Delete section</span>
-</span><span id="__span-34-12"><a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a>/craft:docs:claude-md:edit<span class="w"> </span><span class="s2">&quot;Deprecated&quot;</span><span class="w"> </span>--delete
+<p><strong>Interactive section-by-section CLAUDE.md editing with external editor.</strong></p>
+<h3 id="usage_2">Usage<a class="headerlink" href="#usage_2" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Open in default editor (iA Writer)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:docs:claude-md:edit
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Edit specific section</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>/craft:docs:claude-md:edit<span class="w"> </span>--section<span class="w"> </span><span class="s2">&quot;Git Workflow&quot;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Use different editor</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>/craft:docs:claude-md:edit<span class="w"> </span>--editor<span class="w"> </span>code
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># Edit global CLAUDE.md</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>/craft:docs:claude-md:edit<span class="w"> </span>--global
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># Open without optimization hints</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>/craft:docs:claude-md:edit<span class="w"> </span>--no-hints
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="c1"># Edit then optimize</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>/craft:docs:claude-md:edit<span class="w"> </span>--optimize
 </span></code></pre></div>
-<h3 id="workflow_4">Workflow<a class="headerlink" href="#workflow_4" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart TD
-    A[Start edit] --&gt; B[Parse CLAUDE.md sections]
-    B --&gt; C[Display section list]
-    C --&gt; D{Section selection}
-    D --&gt;|1-8| E[Extract section content]
-    D --&gt;|all| F[Edit entire file]
-    D --&gt;|cancel| G[Exit]
-    E --&gt; H[Open in editor]
-    F --&gt; H
-    H --&gt; I[User edits and saves]
-    I --&gt; J[Detect changes]
-    J --&gt; K{Changes made?}
-    K --&gt;|No| L[No changes to apply]
-    K --&gt;|Yes| M[Show diff preview]
-    M --&gt; N{User choice}
-    N --&gt;|Apply| O[Backup original]
-    N --&gt;|Edit more| H
-    N --&gt;|Discard| G
-    O --&gt; P[Replace section]
-    P --&gt; Q[Validate structure]
-    Q --&gt; R[Display summary]</code></pre>
-<h3 id="section-detection">Section Detection<a class="headerlink" href="#section-detection" title="Permanent link">&para;</a></h3>
-<p><strong>Header levels:</strong></p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="gh"># CLAUDE.md - Project Name    ← Title (ignored)</span>
-</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>
-</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="gu">## Quick Commands               ← Section 1</span>
-</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>...
-</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>
-</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="gu">## Project Structure            ← Section 2</span>
-</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>...
-</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>
-</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="gu">## Git Workflow                 ← Section 3</span>
-</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>...
-</span></code></pre></div>
-<p><strong>Section parsing:</strong></p>
-<ul>
-<li>Detects top-level headers (<code>##</code>)</li>
-<li>Subsections (<code>###</code>, <code>####</code>) included in parent</li>
-<li>Case-insensitive matching</li>
-<li>Fuzzy matching for selection</li>
-</ul>
-<h3 id="interactive-selection">Interactive Selection<a class="headerlink" href="#interactive-selection" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>CLAUDE.md sections (8 total):
-</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>
-</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>1. Quick Commands           (45 lines, 12 commands)
-</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>2. Project Structure        (38 lines, 5 directories)
-</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>3. Git Workflow             (52 lines, 3 subsections)
-</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>4. Development              (34 lines, 2 subsections)
-</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>5. Testing                  (28 lines, 1 subsection)
-</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>6. Troubleshooting          (41 lines, 5 items)
-</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>7. Integration              (29 lines, 2 subsections)
-</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>8. Links                    (15 lines, 4 links)
-</span><span id="__span-36-11"><a id="__codelineno-36-11" name="__codelineno-36-11" href="#__codelineno-36-11"></a>
-</span><span id="__span-36-12"><a id="__codelineno-36-12" name="__codelineno-36-12" href="#__codelineno-36-12"></a>Which section to edit? (1-8, all, cancel): 6
-</span></code></pre></div>
-<h3 id="edit-preview">Edit Preview<a class="headerlink" href="#edit-preview" title="Permanent link">&para;</a></h3>
-<p><strong>After editing in iA Writer:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>Changes detected in section: Troubleshooting
-</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>
-</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>Diff preview:
-</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>
-</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>  ## Troubleshooting
-</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>
-</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>  | Issue | Solution |
-</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>  |-------|----------|
-</span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a>  | Tests failing | Run /craft:test:debug |
-</span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a>  | Lint errors | Run /craft:code:lint debug |
-</span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a>+ | Slow tests | Use /craft:test:run optimize |
-</span><span id="__span-37-12"><a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a>+ | Coverage gaps | Run /craft:code:coverage |
-</span><span id="__span-37-13"><a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a>  ...
-</span><span id="__span-37-14"><a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a>
-</span><span id="__span-37-15"><a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a>Change statistics:
-</span><span id="__span-37-16"><a id="__codelineno-37-16" name="__codelineno-37-16" href="#__codelineno-37-16"></a>  Lines added: 2
-</span><span id="__span-37-17"><a id="__codelineno-37-17" name="__codelineno-37-17" href="#__codelineno-37-17"></a>  Lines removed: 0
-</span><span id="__span-37-18"><a id="__codelineno-37-18" name="__codelineno-37-18" href="#__codelineno-37-18"></a>  Net change: +2 lines
-</span><span id="__span-37-19"><a id="__codelineno-37-19" name="__codelineno-37-19" href="#__codelineno-37-19"></a>
-</span><span id="__span-37-20"><a id="__codelineno-37-20" name="__codelineno-37-20" href="#__codelineno-37-20"></a>  Apply these changes?
-</span><span id="__span-37-21"><a id="__codelineno-37-21" name="__codelineno-37-21" href="#__codelineno-37-21"></a>  &gt; Yes - Apply to CLAUDE.md
-</span><span id="__span-37-22"><a id="__codelineno-37-22" name="__codelineno-37-22" href="#__codelineno-37-22"></a>    Edit more - Continue editing
-</span><span id="__span-37-23"><a id="__codelineno-37-23" name="__codelineno-37-23" href="#__codelineno-37-23"></a>    Discard - Abandon changes
-</span><span id="__span-37-24"><a id="__codelineno-37-24" name="__codelineno-37-24" href="#__codelineno-37-24"></a>    Cancel - Exit without applying
-</span></code></pre></div>
-<h3 id="editor-selection">Editor Selection<a class="headerlink" href="#editor-selection" title="Permanent link">&para;</a></h3>
-<p><strong>Default editor:</strong> iA Writer (via AppleScript)</p>
-<p><strong>Alternative editors:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># VS Code</span>
-</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>code
-</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>
-</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="c1"># Sublime Text</span>
-</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>sublime
-</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>
-</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a><span class="c1"># Cursor</span>
-</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>cursor
-</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>
-</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a><span class="c1"># TextEdit (fallback)</span>
-</span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>textedit
-</span></code></pre></div>
-<h3 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Operation</th>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Edit</strong></td>
-<td>Default</td>
-<td>Modify section content</td>
-</tr>
-<tr>
-<td><strong>Replace</strong></td>
-<td><code>--replace</code></td>
-<td>Replace entire section</td>
-</tr>
-<tr>
-<td><strong>Delete</strong></td>
-<td><code>--delete</code></td>
-<td>Remove section completely</td>
-</tr>
-</tbody>
-</table>
-<h3 id="examples_4">Examples<a class="headerlink" href="#examples_4" title="Permanent link">&para;</a></h3>
-<p><strong>Example 1: Edit Troubleshooting</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>/craft:docs:claude-md:edit
-</span></code></pre></div>
-<p><strong>Session:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>Which section to edit? (1-8, all, cancel): 6
-</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
-</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>Selected: Section 6 - Troubleshooting (41 lines)
-</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>
-</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>Opening in iA Writer...
-</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>[User edits section]
-</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>[User saves and returns]
-</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>
-</span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>Changes detected:
-</span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>  +2 lines added
-</span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>  -0 lines removed
-</span><span id="__span-40-12"><a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a>
-</span><span id="__span-40-13"><a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a>Apply? (y/n): y
-</span><span id="__span-40-14"><a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a>
-</span><span id="__span-40-15"><a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a>Applied changes to section: Troubleshooting
-</span><span id="__span-40-16"><a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a>Updated: CLAUDE.md (257 → 259 lines)
-</span><span id="__span-40-17"><a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a>Backup: .CLAUDE.md.backup
-</span></code></pre></div>
-<p><strong>Example 2: Replace Section</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>/craft:docs:claude-md:edit<span class="w"> </span><span class="s2">&quot;Testing&quot;</span><span class="w"> </span>--replace
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>Replacing section: Testing
-</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>
-</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>Current content (28 lines) will be replaced.
-</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>
-</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>Opening in editor...
-</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>[User writes new content]
-</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>[User saves]
-</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>
-</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a>Replaced section: Testing (28 → 35 lines)
-</span></code></pre></div>
-<p><strong>Example 3: Delete Section</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>/craft:docs:claude-md:edit<span class="w"> </span><span class="s2">&quot;Deprecated&quot;</span><span class="w"> </span>--delete
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>Delete section: Deprecated?
-</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>
-</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>This will permanently remove:
-</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>  - Section header
-</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>  - All content (15 lines)
-</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>  - Cannot be undone (except via backup)
-</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>
-</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>Confirm deletion? (y/n): y
-</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a>
-</span><span id="__span-44-10"><a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a>Deleted section: Deprecated
-</span><span id="__span-44-11"><a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a>Updated: CLAUDE.md (242 → 227 lines)
-</span><span id="__span-44-12"><a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a>Backup: .CLAUDE.md.backup
-</span></code></pre></div>
-<h3 id="backup-and-restore_1">Backup and Restore<a class="headerlink" href="#backup-and-restore_1" title="Permanent link">&para;</a></h3>
-<p><strong>Automatic backup before changes:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>.CLAUDE.md.backup
-</span></code></pre></div>
-<p><strong>Restore if needed:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>cp<span class="w"> </span>.CLAUDE.md.backup<span class="w"> </span>CLAUDE.md
-</span></code></pre></div>
-<h3 id="options_4">Options<a class="headerlink" href="#options_4" title="Permanent link">&para;</a></h3>
+<h3 id="arguments_2">Arguments<a class="headerlink" href="#arguments_2" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Flag</th>
+<th>Alias</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>&lt;section&gt;</code></td>
-<td>interactive</td>
-<td>Section name or number</td>
+<td><code>--section</code></td>
+<td></td>
+<td>auto-detect</td>
+<td>Specific section to edit</td>
 </tr>
 <tr>
-<td><code>--replace</code></td>
-<td>false</td>
-<td>Replace entire section</td>
-</tr>
-<tr>
-<td><code>--delete</code></td>
-<td>false</td>
-<td>Remove section</td>
-</tr>
-<tr>
-<td><code>-e &lt;editor&gt;</code></td>
+<td><code>--editor</code></td>
+<td><code>-e</code></td>
 <td>ia</td>
-<td>Editor choice</td>
+<td>Editor: <code>ia</code>, <code>code</code>, <code>sublime</code>, <code>cursor</code></td>
+</tr>
+<tr>
+<td><code>--optimize</code></td>
+<td><code>-o</code></td>
+<td>false</td>
+<td>Suggest optimizations after editing</td>
+</tr>
+<tr>
+<td><code>--hints</code></td>
+<td></td>
+<td>true</td>
+<td>Add TODO optimization comments</td>
+</tr>
+<tr>
+<td><code>--no-hints</code></td>
+<td></td>
+<td>false</td>
+<td>Open without annotations</td>
+</tr>
+<tr>
+<td><code>--global</code></td>
+<td><code>-g</code></td>
+<td>false</td>
+<td>Target <code>~/.claude/CLAUDE.md</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="see-also_4">See Also<a class="headerlink" href="#see-also_4" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Tutorial: <a href="../../../tutorials/claude-md-workflows/#workflow-3-section-editing">Section Editing Workflow</a></li>
-<li>Command: <a href="#command-scaffold">scaffold</a> - Create from template</li>
-<li>Reference: <a href="../../../reference/REFCARD-CLAUDE-MD/">Quick Reference</a></li>
-</ul>
+<h3 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Analyze</strong> current CLAUDE.md structure</li>
+<li><strong>Annotate</strong> with optimization hints (unless <code>--no-hints</code>)</li>
+<li><strong>Open</strong> in external editor via AppleScript</li>
+<li><strong>Wait</strong> for user to save and close</li>
+<li><strong>Validate</strong> changes after editing</li>
+<li><strong>Optimize</strong> if <code>--optimize</code> flag set</li>
+</ol>
+<hr />
+<h2 id="utilities">Utilities<a class="headerlink" href="#utilities" title="Permanent link">&para;</a></h2>
+<p>The command suite is powered by these Python modules:</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Lines</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>utils/claude_md_common.py</code></td>
+<td>43</td>
+<td>Shared path resolution (<code>resolve_claude_md_path</code>)</td>
+</tr>
+<tr>
+<td><code>utils/claude_md_sync.py</code></td>
+<td>1,465</td>
+<td>4-phase sync pipeline with anti-pattern detection</td>
+</tr>
+<tr>
+<td><code>utils/claude_md_optimizer.py</code></td>
+<td>1,030</td>
+<td>Section classification (P0/P1/P2), bloat detection, budget enforcement</td>
+</tr>
+<tr>
+<td><code>utils/claude_md_auditor.py</code></td>
+<td>320</td>
+<td>5 validation checks, 3 severity levels</td>
+</tr>
+<tr>
+<td><code>utils/claude_md_fixer.py</code></td>
+<td>280</td>
+<td>4 auto-fix methods</td>
+</tr>
+<tr>
+<td><code>utils/claude_md_detector.py</code></td>
+<td>450</td>
+<td>6 project types, version extraction</td>
+</tr>
+<tr>
+<td><code>utils/claude_md_template_populator.py</code></td>
+<td>380</td>
+<td>18+ template variable substitution</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pre-commit-integration">Pre-commit Integration<a class="headerlink" href="#pre-commit-integration" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># scripts/claude-md-budget-check.sh</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># Pure shell — checks CLAUDE.md line count against budget</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Configured in .pre-commit-config.yaml</span>
+</span></code></pre></div>
 <hr />
 <h2 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h2>
-<h3 id="new-project">New Project<a class="headerlink" href="#new-project" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>/craft:docs:claude-md:scaffold
-</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>/craft:docs:claude-md:edit
-</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>/craft:docs:claude-md:audit
-</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>git<span class="w"> </span>add<span class="w"> </span>CLAUDE.md<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: add CLAUDE.md&quot;</span>
+<h3 id="new-project-setup">New Project Setup<a class="headerlink" href="#new-project-setup" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:docs:claude-md:init<span class="w">          </span><span class="c1"># Create from template</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:docs:claude-md:edit<span class="w">          </span><span class="c1"># Customize sections</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:docs:claude-md:sync<span class="w">          </span><span class="c1"># Validate</span>
 </span></code></pre></div>
-<p><strong>Time:</strong> ~5 minutes</p>
-<h3 id="weekly-maintenance">Weekly Maintenance<a class="headerlink" href="#weekly-maintenance" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>/craft:docs:claude-md:audit
-</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>/craft:docs:claude-md:fix
-</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>/craft:docs:claude-md:update
-</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>git<span class="w"> </span>add<span class="w"> </span>CLAUDE.md<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: update CLAUDE.md&quot;</span>
+<h3 id="after-feature-work">After Feature Work<a class="headerlink" href="#after-feature-work" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:docs:claude-md:sync<span class="w"> </span>--fix<span class="w">    </span><span class="c1"># Update counts, fix issues</span>
 </span></code></pre></div>
-<p><strong>Time:</strong> ~3 minutes</p>
-<h3 id="pre-release">Pre-Release<a class="headerlink" href="#pre-release" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>/craft:docs:claude-md:update<span class="w"> </span>--optimize
-</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>/craft:docs:claude-md:audit<span class="w"> </span>--strict
-</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>/craft:docs:claude-md:fix<span class="w"> </span>all
-</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>git<span class="w"> </span>add<span class="w"> </span>CLAUDE.md<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: prepare CLAUDE.md for release&quot;</span>
+<h3 id="before-release">Before Release<a class="headerlink" href="#before-release" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:docs:claude-md:sync<span class="w"> </span>--fix<span class="w"> </span>--optimize<span class="w">   </span><span class="c1"># Full pipeline</span>
 </span></code></pre></div>
-<p><strong>Time:</strong> ~2 minutes</p>
-<h3 id="quick-edit">Quick Edit<a class="headerlink" href="#quick-edit" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>/craft:docs:claude-md:edit
-</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="c1"># Select section, edit, apply</span>
-</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>git<span class="w"> </span>add<span class="w"> </span>CLAUDE.md<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: update &lt;section&gt;&quot;</span>
-</span></code></pre></div>
-<p><strong>Time:</strong> ~2 minutes</p>
-<hr />
-<h2 id="integration-with-craft">Integration with Craft<a class="headerlink" href="#integration-with-craft" title="Permanent link">&para;</a></h2>
-<h3 id="with-craftcheck">With /craft:check<a class="headerlink" href="#with-craftcheck" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="c1"># Pre-commit validation</span>
-</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>/craft:check
-</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>
-</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="c1"># Includes CLAUDE.md audit automatically</span>
-</span></code></pre></div>
-<h3 id="with-craftgitworktree">With /craft:git:worktree<a class="headerlink" href="#with-craftgitworktree" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="c1"># After creating worktree</span>
-</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/project/feature-xyz<span class="w"> </span>-b<span class="w"> </span>feature/xyz<span class="w"> </span>dev
-</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/project/feature-xyz
-</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>
-</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a><span class="c1"># Scaffold if missing</span>
-</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>/craft:docs:claude-md:scaffold
-</span></code></pre></div>
-<h3 id="with-craftdocsupdate">With /craft:docs:update<a class="headerlink" href="#with-craftdocsupdate" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="c1"># Coordinate all documentation</span>
-</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>/craft:docs:update<span class="w">          </span><span class="c1"># Update docs</span>
-</span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>/craft:docs:claude-md:update<span class="w"> </span><span class="c1"># Update CLAUDE.md</span>
+<h3 id="global-claudemd">Global CLAUDE.md<a class="headerlink" href="#global-claudemd" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:docs:claude-md:init<span class="w"> </span>--global<span class="w">           </span><span class="c1"># Create ~/.claude/CLAUDE.md</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/craft:docs:claude-md:sync<span class="w"> </span>--global<span class="w">           </span><span class="c1"># Sync global file</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>/craft:docs:claude-md:edit<span class="w"> </span>--global<span class="w">           </span><span class="c1"># Edit global file</span>
 </span></code></pre></div>
 <hr />
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<p>See the <a href="../../../reference/REFCARD-CLAUDE-MD/#troubleshooting">Quick Reference</a> for common issues and solutions.</p>
-<hr />
-<h2 id="see-also_5">See Also<a class="headerlink" href="#see-also_5" title="Permanent link">&para;</a></h2>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Tutorial:</strong> <a href="../../../tutorials/claude-md-workflows/">CLAUDE.md Workflows</a></li>
-<li><strong>Quick Reference:</strong> <a href="../../../reference/REFCARD-CLAUDE-MD/">REFCARD-CLAUDE-MD</a></li>
-<li><strong>Guide:</strong> <a href="../../../guide/interactive-commands/">Interactive Commands</a></li>
-<li><strong>Templates:</strong> <code>templates/claude-md/</code></li>
+<li><a href="../../../tutorials/claude-md-workflows/">CLAUDE.md Workflows Tutorial</a></li>
+<li><a href="../../../reference/REFCARD-CLAUDE-MD/">CLAUDE.md Quick Reference</a></li>
+<li><a href="../../../FEATURE-RELEASE-CLAUDE-MD/">Feature Release Notes</a></li>
+<li><a href="../../../specs/SPEC-claude-md-v3-optimization-2026-02-04/">Spec: v3 Optimization</a></li>
 </ul>
 <hr />
-<p><strong>Version:</strong> 1.0.0
-<strong>Last Updated:</strong> 2026-01-29
-<strong>Craft Version:</strong> v2.9.0+</p>
+<p><em>Version: v2.12.0 | Last Updated: 2026-02-05</em></p>
 
 
 
