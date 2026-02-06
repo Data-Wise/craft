@@ -2,22 +2,28 @@ status: Active
 version: 2.14.0
 release_date: 2026-02-05
 milestone: v2.14.0 - Unified Formatting Library (Released)
-last_session: 2026-02-05
+last_session: 2026-02-06
 
-progress: 100% (v2.14.0 released, CI clean)
+progress: 100% (v2.14.0 released, all docs synced, CI clean)
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                          |
 |--------|---------|------|---------------------------------|
-| main   | b0d6c5d | —    | Production (v2.14.0 + CI fix)   |
-| dev    | 025a286 | main | In sync with main               |
+| main   | 4d20c14 | —    | Production (v2.14.0 + docs sync)|
+| dev    | 4d20c14 | main | In sync with main               |
 
-✅ Just Completed (2026-02-05 session):
+✅ Just Completed (2026-02-06 session):
+- Synced version refs across README, REFCARD, CLAUDE.md (v2.12.0 → v2.14.0)
+- Updated 7 docs site pages (test counts 1171/1174 → 1248, docs 98% → 99%)
+- Synced CLAUDE.md spec count (20→23) and script count (20+→30+)
+- Updated deprecation notes for claude-md aliases (removed in v2.13.0)
+- Merged PR #55 to main (docs sync)
+
+✅ Previous session (2026-02-05):
 - Released v2.14.0 (PR #53 merged to main)
 - Fixed demo deps CI: non-blocking for local-only tools (PR #54)
 - Fixed pre-commit symlink: formatting.sh resolution via readlink
-- Verified Homebrew formula at v2.14.0 with correct SHA
 - All CI workflows green on main
 
 ✅ v2.14.0 — Unified Formatting Library (2026-02-05):
@@ -26,13 +32,6 @@ progress: 100% (v2.14.0 released, CI clean)
 - Migrated 8 box-drawing scripts to use formatting.sh
 - Migrated 15 color-only scripts to shared FMT_ color constants
 - All boxes standardized to 63 visible characters
-- Source guard prevents double-loading
-
-✅ v2.13.1 Patch (2026-02-05):
-- fix: Move claude_md_budget from plugin.json to config.json
-
-✅ v2.13.0 Released (2026-02-05):
-- 30 new documentation pages, 99% documentation coverage
 
 ---
 
