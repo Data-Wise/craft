@@ -4,8 +4,8 @@
 
 **106 commands** · **21 skills** · **8 agents** · **23 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.14.0 | **Latest Release:** v2.14.0 (2026-02-05)
-**Documentation Status:** 99% complete | **Tests:** 1248 passing (176 claude-md + 998 core + 74 formatting)
+**Current Version:** v2.15.0 | **Latest Release:** v2.15.0 (2026-02-06)
+**Documentation Status:** 99% complete | **Tests:** 1286 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context)
 
 ## Git Workflow
 
@@ -96,9 +96,9 @@ craft/
 ├── agents/             # 8 agents
 ├── scripts/            # 30+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
-├── tests/              # Comprehensive test suite (1248 tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1286 tests, 90%+ coverage)
 ├── docs/
-│   ├── specs/          # Implementation specs (23 total)
+│   ├── specs/          # Implementation specs (24 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
 │   ├── tutorials/      # Step-by-step guides
 │   └── brainstorm/     # Working drafts (gitignored)
@@ -106,6 +106,27 @@ craft/
 ```
 
 ## Recent Major Features
+
+### v2.15.0 - Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06) ✅
+
+**Part 1: Spec Simplification** — brainstorm.md reduced from 1,919 → 312 lines (84% reduction). Extracted to:
+
+- `docs/specs/SPEC-brainstorm-question-bank.md` — Full question bank + project-type extensions
+- `docs/tutorials/TUTORIAL-brainstorm-power-user.md` — Detailed examples + advanced patterns
+- `docs/reference/REFCARD-BRAINSTORM.md` — Flowcharts + quick reference card
+
+**Part 2: Context-Aware Smart Questions** — New Step 1.7 context scan before presenting questions:
+
+- `utils/brainstorm_context.py` (~280 lines) — Scans .STATUS, specs, git log, CLAUDE.md
+- Project-type question extensions: 12 new questions (2 per type: R, Python, Node, Quarto, Plugin, Teaching)
+- Dynamic questions: matching specs, prior brainstorms, failing tests
+- Pre-fills answers from project state (version, current task)
+
+**Tests:** 38 new tests (test_brainstorm_context.py), all passing
+
+**Files Changed:** 8 (+1,500/-1,600)
+
+---
 
 ### v2.14.0 - Unified Formatting Library (2026-02-05) ✅
 
@@ -453,59 +474,20 @@ python3 tests/test_integration_teaching_workflow.py
 
 **Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.14.0>
 
-#### v2.13.0 - Documentation Gap-Fill (2026-02-05) ✅
+#### v2.13.0 (2026-02-05) — 30 new doc pages, documentation 98%→99% ✅
 
-**Merged PR:** #49 (dev → main)
+#### v2.12.0 (2026-02-05) — CLAUDE.md v3 refactoring (5→3 commands), 71 new tests ✅
 
-**What Shipped:**
+#### v2.11.0 (2026-02-03) — CRAFT-001 lint rule, eliminated 236 pytest warnings ✅
 
-- 30 new documentation pages (beginner recipes, troubleshooting, command pages)
-- Documentation: 98% → 99%
-- plugin.json version bump fix
+#### v2.10.0 (2026-01-30) — Claude-MD Command Suite, 81 tests ✅
 
-**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.13.0>
+### Future Features (v2.16.0+)
 
-#### v2.12.0 - CLAUDE.md v3 Command Refactoring (2026-02-05) ✅
-
-**Merged PR:** #45 (dev → main)
-
-- CLAUDE.md v3 command refactoring (5→3 commands)
-- Pointer templates, sync pipeline, optimizer
-- 71 new tests
-
-#### v2.11.0 - Test Suite Cleanup & CRAFT-001 (2026-02-03) ✅
-
-**Merged PR:** #42 (dev → main)
-
-- CRAFT-001 emoji-attribute spacing lint rule + CI
-- Eliminated 236 pytest warnings across 13 test files
-- Test count: 847 → 1064
-
-#### v2.10.0 - Claude-MD Command Suite (2026-01-30) ✅
-
-- 5 new commands, 7 utility modules, 81 tests
-
-### Future Features (v2.15.0+)
-
-**Ideas for Next Release:**
-
-- Enhanced execution modes
 - Language detection for multi-lang projects
-- Rule expansion (30 → 42 markdownlint rules)
-- Remove deprecation aliases for old claude-md commands
+- Markdownlint rule expansion (30 → 42)
 
-### Completed Features (v2.8.0)
-
-| Feature                               | Status      |
-| ------------------------------------- | ----------- |
-| Execution layer (docs-lint.sh)        | ✅ Complete |
-| Basic linting command                 | ✅ Complete |
-| Auto-fix support                      | ✅ Complete |
-| Pre-commit hook                       | ✅ Complete |
-| Test fixes (706/706 passing)          | ✅ Complete |
-| Markdownlint expansion (3 → 24 rules) | ✅ Complete |
-
-See `docs/specs/` for detailed specifications (20 total).
+See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HISTORY.md` for full release history.
 
 ## Key Files
 
@@ -516,7 +498,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | `commands/check.md`                               | Pre-flight validation                                   |
 | `commands/orchestrate.md`                         | Multi-agent coordination                                |
 | `commands/hub.md`                                 | Zero-maintenance command discovery (v2.0)               |
-| `commands/workflow/brainstorm.md`                 | ADHD-friendly brainstorming (v2.4.0 - Question control) |
+| `commands/workflow/brainstorm.md`                 | ADHD-friendly brainstorming (v2.5.0 - Smart questions)  |
 | `docs/guide/orch-flag-usage.md`                   | --orch flag usage guide (v2.5.0, improved v2.5.1)       |
 | `docs/VERSION-HISTORY.md`                         | Complete version evolution (NEW)                        |
 | `docs/guide/complexity-scoring-algorithm.md`      | Complexity algorithm guide (NEW)                        |
@@ -528,7 +510,9 @@ See `docs/specs/` for detailed specifications (20 total).
 | `utils/complexity_scorer.py`                      | Task complexity scoring (0-10 scale)                    |
 | `utils/linkcheck_ignore_parser.py`                | Parser for .linkcheck-ignore patterns                   |
 | `scripts/dependency-manager.sh`                   | Dependency checking and installation                    |
+| `utils/brainstorm_context.py`                     | Context-aware smart questions for brainstorm (v2.15.0)  |
 | `tests/test_brainstorm_phase1.py`                 | Phase 1 unit tests (53 tests)                           |
+| `tests/test_brainstorm_context.py`                | Context scanner tests (38 tests, v2.15.0)               |
 | `tests/test_integration_brainstorm_phase1.py`     | Phase 1 integration tests (24 tests)                    |
 | `docs/guide/interactive-commands.md`              | "Show Steps First" pattern guide (v2.9.0)               |
 | `docs/tutorials/interactive-orchestration.md`     | Interactive orchestration tutorial (v2.9.0)             |
@@ -558,6 +542,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | `tests/test_craft_001_emoji_spacing.py`            | 50       | 100%     | CRAFT-001 lint rule (v2.11.0)|
 | `tests/test_claude_md_v3.py`                       | 51       | 100%     | v3 sync/optimizer (v2.12.0)  |
 | `tests/test_claude_md_audit.py`                    | 11       | 100%     | Audit module (v2.10.0)       |
+| `tests/test_brainstorm_context.py`                 | 38       | 100%     | Context scanner (v2.15.0)    |
 | **Integration & E2E Tests**                        |          |          |                              |
 | `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
@@ -568,7 +553,7 @@ See `docs/specs/` for detailed specifications (20 total).
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
 | `tests/test_formatting.sh`                         | 74       | 100%     | Formatting library (v2.14.0) |
-| **Total**                                          | **1248** | **~90%** | **All systems**              |
+| **Total**                                          | **1286** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
@@ -592,7 +577,7 @@ See `docs/specs/` for detailed specifications (20 total).
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
 - [Commands Reference](https://data-wise.github.io/craft/commands/) — All 106 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
-- [Specifications](docs/specs/) — Implementation specs (20 total)
+- [Specifications](docs/specs/) — Implementation specs (24 total)
 - [Version History](docs/VERSION-HISTORY.md) — Complete release timeline (NEW)
 - [Complexity Scoring](docs/guide/complexity-scoring-algorithm.md) — Algorithm & routing (NEW)
 - [Claude Code 2.1](docs/guide/claude-code-2.1-integration.md) — Integration guide (NEW)

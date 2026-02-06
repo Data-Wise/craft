@@ -1,45 +1,50 @@
 status: Active
-version: 2.14.0
-release_date: 2026-02-05
-milestone: v2.14.0 - Unified Formatting Library (Released)
+version: 2.15.0
+release_date: 2026-02-06
+milestone: v2.15.0 - Brainstorm v2.5.0 (Spec Simplification + Smart Questions)
 last_session: 2026-02-06
 
-progress: 100% (v2.14.0 released, all docs synced, CI clean)
+progress: 90% (implementation complete on dev, needs PR + release)
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                          |
 |--------|---------|------|---------------------------------|
 | main   | 4d20c14 | —    | Production (v2.14.0 + docs sync)|
-| dev    | 4d20c14 | main | In sync with main               |
+| dev    | pending | main | v2.15.0 implementation          |
 
 ✅ Just Completed (2026-02-06 session):
+- Brainstorm spec simplification: 1,919 → 312 lines (84% reduction)
+- Extracted to 4 reference docs (question bank, tutorial, refcard, version history)
+- New: utils/brainstorm_context.py — context-aware smart questions
+- 38 new tests (all passing) + 53+24 existing brainstorm tests verified
+- Project-type question extensions: 6 types, 12 new questions
+- Dynamic questions: matching spec, prior brainstorm, failing tests detection
+
+✅ Previous session (2026-02-06):
 - Synced version refs across README, REFCARD, CLAUDE.md (v2.12.0 → v2.14.0)
 - Updated 7 docs site pages (test counts 1171/1174 → 1248, docs 98% → 99%)
-- Synced CLAUDE.md spec count (20→23) and script count (20+→30+)
-- Updated deprecation notes for claude-md aliases (removed in v2.13.0)
 - Merged PR #55 to main (docs sync)
-
-✅ Previous session (2026-02-05):
-- Released v2.14.0 (PR #53 merged to main)
-- Fixed demo deps CI: non-blocking for local-only tools (PR #54)
-- Fixed pre-commit symlink: formatting.sh resolution via readlink
-- All CI workflows green on main
 
 ✅ v2.14.0 — Unified Formatting Library (2026-02-05):
 - New: scripts/formatting.sh — shared box-drawing, colors, ANSI-aware padding
 - 74 tests (unit, integration, edge cases) — all passing
-- Migrated 8 box-drawing scripts to use formatting.sh
-- Migrated 15 color-only scripts to shared FMT_ color constants
-- All boxes standardized to 63 visible characters
+- Migrated 23 scripts to shared formatting library
 
 ---
 
 ## Next Steps
 
-🎯 Next Action: Plan v2.15.0 features
+🎯 Next Action: Commit on dev, create PR to main, release v2.15.0
 
-**Future (v2.15.0+):**
+**v2.15.0 Deliverables:**
+- Brainstorm spec: 1,919 → 312 lines
+- New utility: utils/brainstorm_context.py (~280 lines)
+- New docs: SPEC-brainstorm-question-bank.md, TUTORIAL-brainstorm-power-user.md, REFCARD-BRAINSTORM.md
+- Updated: VERSION-HISTORY.md (brainstorm evolution table)
+- Tests: 38 new (test_brainstorm_context.py), 1286 total
+
+**Future (v2.16.0+):**
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
 - Remove deprecation aliases for old claude-md commands
