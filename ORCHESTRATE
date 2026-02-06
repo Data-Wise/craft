@@ -1,0 +1,57 @@
+# Branch Protection Hooks - Implementation Plan
+# Spec: docs/specs/SPEC-branch-protection-hooks-2026-02-06.md
+# Branch: feature/branch-protection
+# Scope: medium
+
+## Critical Path (Steps 1-4)
+
+### Step 1: Hook Script
+- [ ] Create `~/.claude/hooks/branch-guard.sh`
+- [ ] Read stdin JSON (tool_name, tool_input, cwd)
+- [ ] Detect current git branch
+- [ ] Load `.claude/branch-guard.json` if exists
+- [ ] Auto-detect if no config (check for dev branch)
+- [ ] Check bypass marker (`.claude/allow-dev-edit`)
+- [ ] Apply protection rules (main=block-all, dev=block-new-code)
+- [ ] Block Bash git commands on main (commit, push)
+- [ ] Block `git push --force` on dev
+
+### Step 2: Hook Config
+- [ ] Merge PreToolUse hooks into `~/.claude/settings.json`
+- [ ] Matcher: `Edit|Write` + `Bash`
+- [ ] Timeout: 5000ms
+- [ ] Status message: "Checking branch protection..."
+
+### Step 3: Dry-Run Test
+- [ ] Create `.claude/branch-guard-dryrun` marker
+- [ ] Verify hook logs correctly without blocking
+- [ ] Test on craft/dev, craft/main, feature/* branches
+
+### Step 4: Enable Enforcement
+- [ ] Remove dry-run flag
+- [ ] Verify blocking works end-to-end
+
+## Incremental (Steps 5-9)
+
+### Step 5: Per-Project Config
+- [ ] Create `.claude/branch-guard.json` schema
+- [ ] Add craft project config (main=block-all, dev=block-new-code)
+- [ ] Document teaching project config example
+
+### Step 6: Craft Command Enhancements
+- [ ] `/craft:check` — add Branch Context section
+- [ ] `/craft:do` — branch-aware smart routing
+- [ ] `/craft:git:worktree` — only create from dev
+- [ ] `/craft:git:status` — protection indicator
+
+### Step 7: New Commands
+- [ ] `/craft:git:unprotect` — session-scoped bypass with reason
+- [ ] `/craft:git:protect` — re-enable protection
+
+### Step 8: Tests
+- [ ] `tests/test_branch_guard.sh` — 17 hook unit tests
+- [ ] `tests/test_integration_branch_guard.py` — 4 integration tests
+
+### Step 9: Documentation
+- [ ] CLAUDE.md — add Branch Protection table
+- [ ] Teaching workflow guide — add branch-guard.json example

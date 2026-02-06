@@ -155,7 +155,22 @@ echo "Next: /craft:git:worktree create <branch-name>"
 
 ### create - Create New Worktree
 
-Creates a worktree for an existing or new branch:
+Creates a worktree for an existing or new branch.
+
+**Branch Guard (NEW in v2.16.0):** Worktrees must be created from `dev`, never from `main`. If on `main`:
+
+```
+Cannot create worktree from main.
+Worktrees must branch from dev.
+
+Switch to dev first:
+  git checkout dev
+
+Then retry:
+  /craft:git:worktree create feature/your-feature
+```
+
+No options to override. Hard block.
 
 ```bash
 /craft:git:worktree create feature/new-ui
@@ -165,6 +180,13 @@ Creates a worktree for an existing or new branch:
 **What it does:**
 
 ```bash
+# Step 0: Branch guard check
+current_branch=$(git branch --show-current)
+if [[ "$current_branch" == "main" ]]; then
+    echo "Cannot create worktree from main. Switch to dev first."
+    exit 1
+fi
+
 project=$(basename $(git rev-parse --show-toplevel))
 branch=$1
 folder_name=$(echo $branch | tr '/' '-')  # feature/new-ui → feature-new-ui

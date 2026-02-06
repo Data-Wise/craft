@@ -53,6 +53,7 @@ Preview which checks will be performed without actually executing them:
 │   - Build tool: uv                                            │
 │   - Config: pyproject.toml                                    │
 │   - Worktree: No (main repo)                                  │
+│   - Guard: Active (new code blocked on dev, all blocked main) │
 │   - Git status: Clean working tree                            │
 │                                                               │
 │ ✓ Validation Plan (5 checks):                                 │
@@ -149,6 +150,7 @@ Pre-flight Check Plan:
   Project: <project-name> (<project-type>)
   Mode: <mode>
   Branch: <current-branch>
+  Guard: <protection-status>
   Context: <for-value or "general">
 
   Checks to run:
@@ -286,6 +288,7 @@ fi
 │ 🌳 Worktree: ~/.git-worktrees/scribe/feat-hud       │
 │    Main: ~/projects/dev-tools/scribe                │
 │    Branch: feat/mission-control-hud                 │
+│    Guard: None (feature branches unrestricted)      │
 ├─────────────────────────────────────────────────────┤
 │ ✓ Lint         0 issues                             │
 │ ...                                                 │

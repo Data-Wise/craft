@@ -4,7 +4,7 @@
 
 **106 commands** · **21 skills** · **8 agents** · **23 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.15.0 | **Latest Release:** v2.15.0 (2026-02-06)
+**Current Version:** v2.16.0 | **Latest Release:** v2.15.0 (2026-02-06)
 **Documentation Status:** 99% complete | **Tests:** 1286 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context)
 
 ## Git Workflow
@@ -33,6 +33,17 @@ feature/* (worktrees) ← All implementation work
 - **Never** commit directly to `main`
 - **Never** write feature code on `dev`
 - **Always** verify branch: `git branch --show-current`
+
+### Branch Protection (Enforced by Hook)
+
+| Branch | Code Files | .md Files | Git Operations |
+|--------|-----------|-----------|----------------|
+| `main` | BLOCKED | BLOCKED | Commit/push BLOCKED |
+| `dev` | New: BLOCKED, Existing: allowed | ALLOWED | Commit/push allowed |
+| `feature/*` | ALLOWED | ALLOWED | All allowed |
+
+Override: `/craft:git:unprotect` (session-scoped, auto-expires)
+Config: `.claude/branch-guard.json` (per-project, optional)
 
 ## Quick Commands
 
@@ -107,43 +118,25 @@ craft/
 
 ## Recent Major Features
 
+### v2.16.0 - Branch Protection Hooks (2026-02-06) ✅
+
+**New Hook:** `~/.claude/hooks/branch-guard.sh` (~290 lines) — PreToolUse hook enforcing branch protection (main=block-all, dev=block-new-code, feature=unrestricted). Per-project config via `.claude/branch-guard.json`.
+
+**New Commands:** `/craft:git:unprotect` + `/craft:git:protect` (session-scoped bypass)
+**Enhanced:** `/craft:check` (branch context), `/craft:do` (branch-aware routing), `/craft:git:worktree` (main block), `/craft:git:status` (guard indicator)
+**Tests:** 42 unit + 6 integration, all passing. **Files Changed:** 12 (+2,200 lines)
+
+---
+
 ### v2.15.0 - Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06) ✅
 
-**Part 1: Spec Simplification** — brainstorm.md reduced from 1,919 → 312 lines (84% reduction). Extracted to:
-
-- `docs/specs/SPEC-brainstorm-question-bank.md` — Full question bank + project-type extensions
-- `docs/tutorials/TUTORIAL-brainstorm-power-user.md` — Detailed examples + advanced patterns
-- `docs/reference/REFCARD-BRAINSTORM.md` — Flowcharts + quick reference card
-
-**Part 2: Context-Aware Smart Questions** — New Step 1.7 context scan before presenting questions:
-
-- `utils/brainstorm_context.py` (~280 lines) — Scans .STATUS, specs, git log, CLAUDE.md
-- Project-type question extensions: 12 new questions (2 per type: R, Python, Node, Quarto, Plugin, Teaching)
-- Dynamic questions: matching specs, prior brainstorms, failing tests
-- Pre-fills answers from project state (version, current task)
-
-**Tests:** 38 new tests (test_brainstorm_context.py), all passing
-
-**Files Changed:** 8 (+1,500/-1,600)
+Brainstorm.md reduced 1,919 → 312 lines (84% reduction). New `utils/brainstorm_context.py` (~280 lines) scans .STATUS, specs, git log for context-aware smart questions. 12 project-type extensions, dynamic questions from project state. **Tests:** 38 new. **Files Changed:** 8 (+1,500/-1,600)
 
 ---
 
 ### v2.14.0 - Unified Formatting Library (2026-02-05) ✅
 
-**Branch:** `feature/styled-output`
-
-**New Library:** `scripts/formatting.sh` (~180 lines) — shared bash formatting library providing box-drawing (double/single line), `FMT_` prefixed color constants, ANSI-aware padding, table formatting, and source guard. All boxes standardized to 63 visible characters.
-
-**API:** `box_header`, `box_single`, `box_row`, `box_separator`, `box_footer`, `box_empty_row`, `box_table`, `fmt_set_width`, `fmt_divider`, `_fmt_strip_ansi`.
-
-**Migrations:**
-
-- 8 box-drawing scripts migrated (install.sh, migrate-from-workflow.sh, convert-cast.sh, health-check.sh, consent-prompt.sh, dependency-installer.sh, dependency-manager.sh)
-- 15 color-only scripts migrated (validate-counts, pre-release-check, batch-convert, repair-tools, 3 installers, tool-detector, version-check, sync-version, verify-phase1/2, install-hooks, test-fix-flag, pre-commit-markdownlint)
-
-**Tests:** 74 new tests (28 unit + 30 integration + 16 edge cases)
-
-**Files Changed:** 24 (+1,100/-300)
+`scripts/formatting.sh` (~180 lines) — shared box-drawing, `FMT_` color constants, ANSI-aware padding. 23 scripts migrated (8 box-drawing + 15 color-only). All boxes standardized to 63 visible characters. **Tests:** 74 new. **Files Changed:** 24 (+1,100/-300)
 
 ---
 
@@ -527,6 +520,11 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 | `scripts/pre-release-check.sh`                    | Pre-release validation (version, counts, clean tree)    |
 | `scripts/docs-lint-emoji.sh`                      | Standalone CRAFT-001 check for pre-commit hook          |
 | `.prettierignore`                                 | Prevents prettier from breaking emoji-attribute spacing |
+| `.claude/branch-guard.json`                       | Per-project branch protection config (optional)         |
+| `commands/git/unprotect.md`                       | Session-scoped bypass for branch protection             |
+| `commands/git/protect.md`                         | Re-enable branch protection                             |
+| `tests/test_branch_guard.sh`                      | Branch guard hook unit tests (42 tests)                 |
+| `tests/test_integration_branch_guard.py`          | Branch guard integration tests (7 tests)                |
 
 ## Test Suite
 
@@ -543,6 +541,7 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 | `tests/test_claude_md_v3.py`                       | 51       | 100%     | v3 sync/optimizer (v2.12.0)  |
 | `tests/test_claude_md_audit.py`                    | 11       | 100%     | Audit module (v2.10.0)       |
 | `tests/test_brainstorm_context.py`                 | 38       | 100%     | Context scanner (v2.15.0)    |
+| `tests/test_branch_guard.sh`                       | 42       | 100%     | Branch guard hook (v2.16.0)  |
 | **Integration & E2E Tests**                        |          |          |                              |
 | `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
@@ -550,10 +549,11 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 | `tests/test_integration_orchestrator_workflows.py` | 13       | 100%     | Task routing & scoring       |
 | `tests/test_integration_claude_md_v3.py`           | 9        | 100%     | v3 sync/optimizer integ.     |
 | `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
+| `tests/test_integration_branch_guard.py`           | 7        | 100%     | Branch guard integration     |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
 | `tests/test_formatting.sh`                         | 74       | 100%     | Formatting library (v2.14.0) |
-| **Total**                                          | **1286** | **~90%** | **All systems**              |
+| **Total**                                          | **1335** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 

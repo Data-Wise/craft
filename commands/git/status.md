@@ -65,6 +65,7 @@ When not in teaching mode, shows clean git status:
 │ 🌿 GIT STATUS                                   │
 ├─────────────────────────────────────────────────┤
 │ Branch: feature/new-feature                     │
+│ Guard: None (feature branches unrestricted)     │
 │ Status: 2 commits ahead of origin               │
 │                                                 │
 │ Changes:                                        │
@@ -347,6 +348,20 @@ else
     echo "│ 🌿 GIT STATUS                                   │"
     echo "${BOX_MID}"
     echo "│ Branch: ${CURRENT_BRANCH}                       │"
+
+    # Show branch protection status (NEW in v2.16.0)
+    PROJECT_ROOT=$(git rev-parse --show-toplevel)
+    if [[ -f "$PROJECT_ROOT/.claude/allow-dev-edit" ]]; then
+        REASON=$(grep -o '"reason": *"[^"]*"' "$PROJECT_ROOT/.claude/allow-dev-edit" 2>/dev/null | head -1 | sed 's/"reason": *"//;s/"$//')
+        printf "│ Guard: BYPASSED (reason: %-22s │\n" "${REASON})"
+    elif [[ -f "$PROJECT_ROOT/.claude/branch-guard.json" ]]; then
+        LEVEL=$(grep "\"${CURRENT_BRANCH}\"" "$PROJECT_ROOT/.claude/branch-guard.json" 2>/dev/null | grep -o '"block[^"]*"' | tr -d '"')
+        if [[ "$LEVEL" == "block-all" ]]; then
+            echo "│ Guard: Active (all edits blocked)               │"
+        elif [[ "$LEVEL" == "block-new-code" ]]; then
+            echo "│ Guard: Active (new code blocked, fixups OK)     │"
+        fi
+    fi
 
     # Show changes
     CHANGES=$(git status --short)

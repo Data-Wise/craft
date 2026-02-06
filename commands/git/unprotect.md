@@ -1,0 +1,118 @@
+---
+description: Session-scoped bypass for branch protection with reason logging
+category: git
+arguments:
+  - name: reason
+    description: Reason for bypassing protection (merge-conflict|ci-fix|maintenance)
+    required: false
+tags: [git, branch-protection, bypass]
+version: 1.0.0
+---
+
+# /craft:git:unprotect - Bypass Branch Protection
+
+Temporarily disable branch protection for the current session. The bypass auto-expires when the session ends.
+
+## Usage
+
+```bash
+# Interactive (asks for reason)
+/craft:git:unprotect
+
+# With reason
+/craft:git:unprotect merge-conflict
+/craft:git:unprotect ci-fix
+/craft:git:unprotect maintenance
+```
+
+## Execution Behavior (MANDATORY)
+
+### Step 1: Check Current Protection Status
+
+```bash
+# Get current branch
+git branch --show-current
+
+# Check if already bypassed
+if [[ -f ".claude/allow-dev-edit" ]]; then
+    # Show current bypass info and exit
+fi
+```
+
+If already bypassed, show status and exit:
+
+```
+Branch protection is already bypassed.
+
+Reason: merge conflict resolution
+Since: 2026-02-06T18:30:00Z
+
+To re-enable: /craft:git:protect
+```
+
+### Step 2: Ask for Reason (if not provided)
+
+If no reason argument was given:
+
+```json
+{
+  "questions": [{
+    "question": "Why do you need to bypass branch protection?",
+    "header": "Reason",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Merge conflict resolution",
+        "description": "Need to edit code files to resolve merge conflicts on dev."
+      },
+      {
+        "label": "CI fix",
+        "description": "Need to fix CI/CD configuration or test files directly."
+      },
+      {
+        "label": "Maintenance",
+        "description": "General maintenance task that requires direct edits."
+      }
+    ]
+  }]
+}
+```
+
+### Step 3: Create Bypass Marker
+
+```bash
+mkdir -p .claude
+
+cat > .claude/allow-dev-edit << 'MARKER'
+{
+  "reason": "<selected-reason>",
+  "timestamp": "<ISO-8601>",
+  "branch": "<current-branch>"
+}
+MARKER
+```
+
+### Step 4: Confirm
+
+```
+Branch protection BYPASSED.
+
+Branch: dev
+Reason: merge conflict resolution
+Scope: This session only (auto-expires at session end)
+
+To re-enable manually: /craft:git:protect
+```
+
+## Key Behaviors
+
+1. **Session-scoped** - bypass marker is checked by branch-guard.sh hook
+2. **Reason-logged** - always records why protection was bypassed
+3. **Auto-expires** - marker should be cleaned up at session end
+4. **Idempotent** - running twice shows current status, doesn't create duplicate
+
+## See Also
+
+- `/craft:git:protect` - Re-enable branch protection
+- `/craft:git:status` - Shows protection indicator
+- `/craft:check` - Shows branch context section
