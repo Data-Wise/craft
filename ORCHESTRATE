@@ -1,0 +1,98 @@
+# Teaching Ecosystem Coordination - Implementation Plan
+# Spec: docs/specs/SPEC-teaching-ecosystem-coordination-2026-02-06.md
+# Branch: feature/teaching-ecosystem
+# Scope: medium (craft-side only; flow-cli/scholar changes are separate repos)
+# Revised: 2026-02-06 (deep brainstorm, 10 decisions)
+
+## Design Decisions (from brainstorm)
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Schema depth | Top-level only | Craft only reads dates/course/breaks/deployment |
+| Normalize order | Before apply_defaults() | So defaults and validation work on canonical schema |
+| Field mapping | name→number, full_name→title, capitalize semester | Full compatibility with stat-545 |
+| Break validation | Allow start == end | Single-day breaks (MLK Day) are valid |
+| Conflict rule | Merge (semester_info fills gaps) | Non-destructive — craft-native keys win |
+| Deploy normalization | Yes (branches→deployment) | stat-545 uses branches.production/draft |
+| Error messages | Silent | Flow-cli owns the schema; craft is the adapter |
+| Test fixture | Hardcoded in test file | Self-contained, works without stat-545 repo |
+| Docs location | Guide only (not CLAUDE.md) | CLAUDE.md already over 150-line budget |
+| semester_progress.py | No changes needed | Reads normalized config downstream |
+
+## Step 1: Normalize Config (`teach_config.py`)
+
+**File:** `commands/utils/teach_config.py`
+
+Add `_normalize_config(raw: dict) -> dict`:
+- [ ] Course: `course.name` → `course.number` (if number missing)
+- [ ] Course: `course.full_name` → `course.title` (if title missing)
+- [ ] Course: `course.semester` capitalize (spring → Spring)
+- [ ] Dates: `semester_info.start_date` → `dates.start` (if dates.start missing)
+- [ ] Dates: `semester_info.end_date` → `dates.end` (if dates.end missing)
+- [ ] Dates: `semester_info.breaks` → `dates.breaks` (if dates.breaks missing)
+- [ ] Deploy: `branches.production` → `deployment.production_branch` (if missing)
+- [ ] Deploy: `branches.draft` → `deployment.draft_branch` (if missing)
+
+**Design:** Non-destructive, idempotent, silent. Uses `setdefault()` pattern.
+Only fills gaps — never overwrites existing craft-native keys.
+Original flow-cli keys stay in dict (other tools may read them).
+
+**Call site:** Insert `config = _normalize_config(config)` in `load_teach_config()`
+between YAML parse and `apply_defaults()`.
+
+## Step 2: Fix Break Validation
+
+**File:** `commands/utils/teach_config.py`, `validate_breaks()`
+
+- [ ] Change `break_start >= break_end` to `break_start > break_end` (line ~197)
+- [ ] Single-day breaks (start == end) become valid
+
+## Step 3: Fix Broken Test Import
+
+**File:** `tests/test_integration_teaching_workflow.py`
+
+- [ ] Line 40: Change `parse_teach_config, calculate_current_week` to `load_teach_config`
+- [ ] Remove `calculate_current_week` import (it's in `semester_progress.py`, not needed here)
+- [ ] Update `CONFIG_AVAILABLE` flag to match new import
+- [ ] Verify existing tests still pass (5 tests + 3 skipped)
+
+## Step 4: Add Normalization Tests
+
+**File:** `tests/test_integration_teaching_workflow.py` (add to existing)
+
+New test class `TestConfigNormalization`:
+- [ ] `test_flowcli_schema_loads` — stat-545-style config with semester_info loads
+- [ ] `test_craft_native_unchanged` — dates/course schema still works as before
+- [ ] `test_mixed_schema_merge` — both dates and semester_info present → dates wins, gaps filled
+- [ ] `test_semester_capitalization` — lowercase 'spring' → 'Spring'
+- [ ] `test_name_to_number_mapping` — course.name maps to course.number
+- [ ] `test_single_day_break_valid` — start == end is accepted
+- [ ] `test_branches_to_deployment` — branches.production → deployment.production_branch
+- [ ] `test_full_name_to_title` — course.full_name → course.title
+
+Hardcoded fixtures based on stat-545 structure (self-contained).
+
+## Step 5: Update Teaching Docs
+
+**File:** `docs/guide/teaching-workflow.md`
+
+- [ ] Add "Teaching Ecosystem" section near top
+- [ ] Include role boundary table (Craft vs Scholar vs Flow-CLI)
+- [ ] Add "Which tool do I use?" decision guide
+- [ ] Document config normalization behavior
+- [ ] Note: CLAUDE.md intentionally skipped (over budget)
+
+## Verification
+
+- [ ] `python3 tests/test_integration_teaching_workflow.py` — all tests pass
+- [ ] `python3 tests/test_craft_plugin.py` — no regressions
+- [ ] Normalizer handles stat-545 fixture correctly
+- [ ] Existing craft-native configs unchanged
+- [ ] No output/warnings during normalization (silent)
+
+## Out of Scope (Other Repos)
+
+- QW1: Shell aliases (`tst`, `tweek`, `tlec`, `tpublish`) → flow-cli repo
+- QW2: `teach map` ecosystem discovery → flow-cli repo
+- QW4: `teach check` unified validation → flow-cli repo
+- Scholar CLAUDE.md ecosystem section → scholar repo
