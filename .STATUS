@@ -11,7 +11,7 @@ progress: 100% ✅ Released
 | Branch | Head    | Base | Status                          |
 |--------|---------|------|---------------------------------|
 | main   | bbd6ac7 | —    | Production (v2.15.0 released)   |
-| dev    | bbd6ac7 | main | Synced with main                |
+| dev    | 453ae67 | main | Synced + site update for v2.15.0|
 
 ✅ v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06):
 - Brainstorm spec simplification: 1,919 → 312 lines (84% reduction)
@@ -22,6 +22,8 @@ progress: 100% ✅ Released
 - Dynamic questions: matching spec, prior brainstorm, failing tests detection
 - Docs health check: synced 7 stale version refs, added 3 nav entries
 - PR #56 merged, release tagged: https://github.com/Data-Wise/craft/releases/tag/v2.15.0
+- Site pages synced (7 files: REFCARD, CHANGELOG, tutorials, conventions)
+- Docs deployed to GitHub Pages
 
 ✅ v2.14.0 — Unified Formatting Library (2026-02-05):
 - New: scripts/formatting.sh — shared box-drawing, colors, ANSI-aware padding
