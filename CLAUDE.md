@@ -399,7 +399,7 @@ python3 tests/test_integration_teaching_workflow.py
 
 ## Feature Status Matrix
 
-### Implementation & Documentation Completeness (v2.9.0)
+### Implementation & Documentation Completeness (v2.15.0)
 
 | Feature                                  | Commands | Implementation | Documentation | Status      |
 | ---------------------------------------- | -------- | -------------- | ------------- | ----------- |
@@ -432,7 +432,7 @@ python3 tests/test_integration_teaching_workflow.py
 
 | Guide                        | Content                                                       | Location                                        |
 | ---------------------------- | ------------------------------------------------------------- | ----------------------------------------------- |
-| **Version History**          | Evolution from v1.0.0 → v2.14.0, feature timeline             | `docs/VERSION-HISTORY.md`                       |
+| **Version History**          | Evolution from v1.0.0 → v2.15.0, feature timeline             | `docs/VERSION-HISTORY.md`                       |
 | **Bash Formatting Library**  | Box-drawing API, color constants, migration guide (NEW)       | `docs/guide/bash-formatting-library.md`         |
 | **Check Command Mastery**    | Decision framework, scenarios, performance trade-offs (NEW)   | `docs/guide/check-command-mastery.md`           |
 | **Worktree Advanced**        | Multi-worktree management, team collaboration (NEW)           | `docs/guide/worktree-advanced-patterns.md`      |
@@ -451,13 +451,13 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Status
 
-**Branch:** `dev` (clean, planning v2.15.0)
-**Status:** v2.14.0 released, all CI green
+**Branch:** `dev` (v2.15.0 complete, PR #56 open)
+**Status:** v2.15.0 implemented, awaiting merge
 
 | Branch | Commit | Status |
 |--------|--------|--------|
-| **main** | `cc9a107` | ✅ v2.14.0 released |
-| **dev** | `c57f55c` | CI fixes post-release |
+| **main** | `4d20c14` | ✅ v2.14.0 released |
+| **dev** | pending | v2.15.0 implementation |
 
 ### Recent Releases
 

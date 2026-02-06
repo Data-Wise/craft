@@ -205,8 +205,8 @@ Complete OpenAPI-style documentation for all 106 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **106** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.14.0 — Unified Bash Formatting Library"
-    Shared box-drawing, `FMT_` color constants, ANSI-aware padding across 23 migrated scripts. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions"
+    Brainstorm spec reduced 84% (1,919 → 312 lines) with context-aware smart questions and project-type extensions. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
