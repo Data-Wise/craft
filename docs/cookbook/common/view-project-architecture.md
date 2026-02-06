@@ -42,7 +42,7 @@ I want a quick overview of my project's structure, dependencies, and key compone
      agents/      8 agent definitions
      skills/      21 skill modules
      utils/       7 Python utilities
-     tests/       16 test files (1174 tests)
+     tests/       16 test files (1248 tests)
 
    Key Entry Points:
      commands/do.md         Smart routing hub

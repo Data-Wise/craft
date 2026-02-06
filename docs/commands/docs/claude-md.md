@@ -2,7 +2,7 @@
 
 > **Complete reference** for the 3 claude-md commands that manage CLAUDE.md files.
 
-**3 Commands** · **Budget Enforcement** · **Pointer Architecture** · **v2.12.0**
+**3 Commands** · **Budget Enforcement** · **Pointer Architecture** · **v2.14.0**
 
 ---
 
@@ -34,12 +34,12 @@ flowchart LR
 3. **Show Steps First** — Preview before executing
 4. **Global Support** — All commands support `--global` for `~/.claude/CLAUDE.md`
 
-### v2.12.0 Migration (5→3 Commands)
+### Migration History (5→3 Commands)
 
 | Old Command | New Command | Notes |
 |-------------|-------------|-------|
-| `scaffold` | **`init`** | Deprecation alias available until v2.13.0 |
-| `update` | **`sync`** | Deprecation alias available until v2.13.0 |
+| `scaffold` | **`init`** | Deprecated alias removed in v2.13.0 |
+| `update` | **`sync`** | Deprecated alias removed in v2.13.0 |
 | `audit` | **`sync`** | Now phase 2 of sync pipeline |
 | `fix` | **`sync --fix`** | Now phase 3 of sync pipeline |
 | `edit` | **`edit`** | Enhanced with `--global` flag |

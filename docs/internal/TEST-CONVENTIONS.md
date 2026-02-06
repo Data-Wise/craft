@@ -1,6 +1,6 @@
 # Test Conventions
 
-Patterns used across Craft's test suite (1171 tests, 13+ test files).
+Patterns used across Craft's test suite (1248 tests, 13+ test files).
 
 ## The `_check_*` + `test_*` Pattern
 
