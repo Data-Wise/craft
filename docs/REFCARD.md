@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.12.0 (released 2026-02-05)                       │
+│  Version: 2.14.0 (released 2026-02-05)                       │
 │  Commands: 106 | Agents: 8 | Skills: 21                     │
-│  Documentation: 98% complete | Tests: 1171 passing           │
+│  Documentation: 99% complete | Tests: 1248 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.12.0: CLAUDE.md v3 Command Refactoring (5→3 commands)   │
-│           Budget enforcement, pointer architecture            │
+│  v2.14.0: Unified Formatting Library (box-drawing, colors)  │
+│           23 scripts migrated, ANSI-aware padding            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -464,7 +464,7 @@
 - Auto-fix: `/craft:docs:lint --fix` (apply safe fixes)
 - Path targeting: `/craft:docs:lint docs/guide/` (check specific directories)
 - Pre-commit integration: Auto-fix on staged markdown
-- All 1171 tests passing (100%)
+- All 1248 tests passing (100%)
 - [Release Notes](RELEASE-v2.8.0.md) | [Docs Command Reference](commands/docs.md)
 
 **Interactive Documentation Update**
@@ -1454,6 +1454,6 @@ Comprehensive guides and references:
 
 ## Links
 
-- **[Full Documentation](guide/getting-started.md)** (95% complete)
+- **[Full Documentation](guide/getting-started.md)** (99% complete)
 - **[GitHub Issues](https://github.com/Data-Wise/craft/issues)**
 - **[ROADMAP](https://github.com/Data-Wise/craft/blob/main/ROADMAP.md)**
