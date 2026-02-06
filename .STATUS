@@ -4,7 +4,7 @@ release_date: 2026-02-06
 milestone: v2.15.0 - Brainstorm v2.5.0 (Spec Simplification + Smart Questions)
 last_session: 2026-02-06
 
-progress: 90% (implementation complete on dev, needs PR + release)
+progress: 95% (PR #56 open, docs synced, awaiting merge + release tag)
 
 📊 Branch Status:
 
@@ -20,6 +20,8 @@ progress: 90% (implementation complete on dev, needs PR + release)
 - 38 new tests (all passing) + 53+24 existing brainstorm tests verified
 - Project-type question extensions: 6 types, 12 new questions
 - Dynamic questions: matching spec, prior brainstorm, failing tests detection
+- Docs health check: synced 7 stale version refs, added 3 nav entries
+- PR #56 created and pushed to dev
 
 ✅ Previous session (2026-02-06):
 - Synced version refs across README, REFCARD, CLAUDE.md (v2.12.0 → v2.14.0)
@@ -35,7 +37,7 @@ progress: 90% (implementation complete on dev, needs PR + release)
 
 ## Next Steps
 
-🎯 Next Action: Commit on dev, create PR to main, release v2.15.0
+🎯 Next Action: Merge PR #56 to main, tag v2.15.0 release
 
 **v2.15.0 Deliverables:**
 - Brainstorm spec: 1,919 → 312 lines
