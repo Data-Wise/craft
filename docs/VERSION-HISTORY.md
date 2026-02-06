@@ -2,13 +2,53 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.14.0 (2026-02-05)
-**Total Releases:** 36 versions | **Development Time:** 2+ years
-**Community:** 106 commands documented, 1248 tests passing, 90%+ coverage
+**Latest Release:** v2.15.0 (2026-02-06)
+**Total Releases:** 37 versions | **Development Time:** 2+ years
+**Community:** 106 commands documented, 1286 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.15.0 (2026-02-06) - Brainstorm v2.5.0: Spec Simplification + Smart Questions
+
+**Status:** Released ✅
+
+**Highlights:**
+
+- **Spec Simplification**: brainstorm.md reduced from 1,919 → 312 lines (84% reduction)
+- **Context-Aware Smart Questions**: New `utils/brainstorm_context.py` scans project state before asking questions
+- **Project-Type Question Extensions**: 12 new questions across 6 project types (R, Python, Node, Quarto, Plugin, Teaching)
+- **Dynamic Questions**: Auto-generated questions based on matching specs, prior brainstorms, and test failures
+- **Extracted Documentation**: 4 new reference files (question bank spec, power user tutorial, reference card, version history)
+
+**New Files:**
+
+| File | Lines | Purpose |
+|------|-------|---------|
+| `utils/brainstorm_context.py` | ~280 | Context scanning + smart question pre-filling |
+| `docs/specs/SPEC-brainstorm-question-bank.md` | ~300 | Full question bank with all Q&A text + project-type extensions |
+| `docs/tutorials/TUTORIAL-brainstorm-power-user.md` | ~230 | Advanced examples and patterns |
+| `docs/reference/REFCARD-BRAINSTORM.md` | ~160 | Flowcharts and quick reference |
+| `tests/test_brainstorm_context.py` | ~350 | 38 unit tests for context scanner |
+
+**Smart Question Features:**
+
+- `.STATUS` scanning: Pre-fills version info in technical questions
+- Spec matching: Finds relevant specs by keyword search, offers "load as context?"
+- Prior brainstorm detection: Offers to resume from previous brainstorm
+- Failing test detection: Suggests addressing test failures first
+- Project-type detection: Adds 2 specialized questions per project type
+
+**Stats:**
+
+- Brainstorm spec: 1,919 → 312 lines (-84%)
+- New tests: 38 (all passing)
+- Total tests: 1286
+- New utility: ~280 lines Python
+- Files changed: 8
+
+---
 
 ### v2.14.0 (2026-02-05) - Unified Bash Formatting Library
 
@@ -443,6 +483,17 @@ Addresses 4 of 12 gaps identified in v2.5.0 gap analysis:
 - commands/workflow/brainstorm.md (v2.4.0)
 - tests/test_brainstorm_phase1.py (53 tests)
 - tests/test_integration_brainstorm_phase1.py (24 tests)
+
+**Brainstorm Spec Internal Evolution:**
+
+| Spec Version | Changes |
+|-------------|---------|
+| v2.4.0 | Colon notation `d:5`, categories flag `-C`, milestone prompts, 8-category question bank |
+| v2.3.1 | Three-layer argument system (depth/focus/action), single-letter shortcuts |
+| v2.3.0 | Spec capture integration (`save` action), SPEC.md generation |
+| v2.2.0 | `--save-spec` flag, Step 5.5 spec capture flow |
+| v2.1.3 | AskUserQuestion compliance (two-question flow, max 4 options each) |
+| v2.1.0 | Interactive menu UX (two-step depth + focus selection) |
 
 ---
 

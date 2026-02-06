@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.14.0 adds a unified bash formatting library with box-drawing, ANSI-aware padding, and 23 migrated scripts.
+site_description: Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.15.0 adds brainstorm spec simplification (84% reduction) and context-aware smart questions.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -125,6 +125,7 @@ nav:
       - Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
       - Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
       - Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
+      - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
       - Test Wrapper Pattern Guide: guide/test-wrapper-pattern.md
@@ -225,6 +226,7 @@ nav:
       - Interactive Commands Reference: reference/REFCARD-INTERACTIVE-COMMANDS.md
       - Git Worktree Quick Reference: reference/REFCARD-GIT-WORKTREE.md
       - Claude-MD Quick Reference: reference/REFCARD-CLAUDE-MD.md
+      - Brainstorm Quick Reference: reference/REFCARD-BRAINSTORM.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
@@ -247,6 +249,7 @@ nav:
       - Interactive Docs Update: specs/_archive/SPEC-docs-update-interactive-2026-01-22.md
       - Styled Output Formatting: specs/SPEC-styled-output-v2.14.0-2026-02-05.md
       - Command Behavior Enhancements: specs/SPEC-command-enhancements-2026-01-29.md
+      - Brainstorm Question Bank: specs/SPEC-brainstorm-question-bank.md
 
   # 6. FOR CONTRIBUTORS - Development resources
   - For Contributors:
