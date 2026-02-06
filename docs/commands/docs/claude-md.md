@@ -2,7 +2,7 @@
 
 > **Complete reference** for the 3 claude-md commands that manage CLAUDE.md files.
 
-**3 Commands** · **Budget Enforcement** · **Pointer Architecture** · **v2.14.0**
+**3 Commands** · **Budget Enforcement** · **Pointer Architecture** · **v2.15.0**
 
 ---
 

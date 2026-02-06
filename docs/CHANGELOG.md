@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.15.0] - 2026-02-06
+
+### Added
+
+- **Context-aware smart questions:** New `utils/brainstorm_context.py` (~280 lines) scans `.STATUS`, specs, git log, and CLAUDE.md to pre-fill brainstorm questions
+- **Project-type question extensions:** 12 new questions across 6 project types (R, Python, Node.js, Quarto, Claude Plugin, Teaching)
+- **Dynamic questions:** Auto-generated questions based on matching specs, prior brainstorms, and failing tests
+- **38 new tests** in `tests/test_brainstorm_context.py` (all passing)
+- **Documentation:** Power user tutorial (`docs/tutorials/TUTORIAL-brainstorm-power-user.md`), brainstorm reference card (`docs/reference/REFCARD-BRAINSTORM.md`), question bank spec (`docs/specs/SPEC-brainstorm-question-bank.md`)
+
+### Changed
+
+- **Brainstorm spec simplified:** `commands/workflow/brainstorm.md` reduced from 1,919 → 312 lines (84% reduction)
+- **Version history updated:** Brainstorm evolution table added to `docs/VERSION-HISTORY.md`
+- Total tests: 1248 → 1286
+
+**Documentation:** [Power User Guide](tutorials/TUTORIAL-brainstorm-power-user.md) · [Quick Reference](reference/REFCARD-BRAINSTORM.md) · [Question Bank](specs/SPEC-brainstorm-question-bank.md)
+
+---
+
 ## [2.14.0] - 2026-02-05
 
 ### Added
