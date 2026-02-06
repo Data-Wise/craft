@@ -2,7 +2,7 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**106 commands** · **21 skills** · **8 agents** · **20 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**106 commands** · **21 skills** · **8 agents** · **23 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.14.0 | **Latest Release:** v2.14.0 (2026-02-05)
 **Documentation Status:** 99% complete | **Tests:** 1248 passing (176 claude-md + 998 core + 74 formatting)
@@ -94,11 +94,11 @@ craft/
 ├── commands/           # 106 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
-├── scripts/            # 20+ utility scripts (dependency management, converters, installers)
+├── scripts/            # 30+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
-├── tests/              # Comprehensive test suite (1174 tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1248 tests, 90%+ coverage)
 ├── docs/
-│   ├── specs/          # Implementation specs (20 total)
+│   ├── specs/          # Implementation specs (23 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
 │   ├── tutorials/      # Step-by-step guides
 │   └── brainstorm/     # Working drafts (gitignored)
@@ -411,7 +411,8 @@ python3 tests/test_integration_teaching_workflow.py
 
 | Guide                        | Content                                                       | Location                                        |
 | ---------------------------- | ------------------------------------------------------------- | ----------------------------------------------- |
-| **Version History**          | Evolution from v1.0.0 → v2.9.0, feature timeline              | `docs/VERSION-HISTORY.md`                       |
+| **Version History**          | Evolution from v1.0.0 → v2.14.0, feature timeline             | `docs/VERSION-HISTORY.md`                       |
+| **Bash Formatting Library**  | Box-drawing API, color constants, migration guide (NEW)       | `docs/guide/bash-formatting-library.md`         |
 | **Check Command Mastery**    | Decision framework, scenarios, performance trade-offs (NEW)   | `docs/guide/check-command-mastery.md`           |
 | **Worktree Advanced**        | Multi-worktree management, team collaboration (NEW)           | `docs/guide/worktree-advanced-patterns.md`      |
 | **Interactive Commands**     | "Show Steps First" pattern across all commands (NEW)          | `docs/guide/interactive-commands.md`            |
@@ -429,17 +430,28 @@ python3 tests/test_integration_teaching_workflow.py
 
 ### Current Status
 
-**Branch:** `feature/styled-output`
-**Location:** `~/.git-worktrees/craft/feature-styled-output`
-**Status:** v2.14.0 feature complete, ready for PR
+**Branch:** `dev` (clean, planning v2.15.0)
+**Status:** v2.14.0 released, all CI green
 
 | Branch | Commit | Status |
 |--------|--------|--------|
-| **main** | `9f8c0a5` | ✅ v2.13.1 released |
-| **dev** | `9f8c0a5` | In sync with main |
-| **feature/styled-output** | active | v2.14.0 formatting library |
+| **main** | `cc9a107` | ✅ v2.14.0 released |
+| **dev** | `c57f55c` | CI fixes post-release |
 
 ### Recent Releases
+
+#### v2.14.0 - Unified Formatting Library (2026-02-05) ✅
+
+**Merged PR:** #53 (dev → main)
+
+**What Shipped:**
+
+- `scripts/formatting.sh` — shared box-drawing, color constants, ANSI-aware padding
+- 23 scripts migrated (8 box-drawing + 15 color-only)
+- 74 new tests (28 unit + 30 integration + 16 edge cases)
+- All boxes standardized to 63 visible characters
+
+**Release:** <https://github.com/Data-Wise/craft/releases/tag/v2.14.0>
 
 #### v2.13.0 - Documentation Gap-Fill (2026-02-05) ✅
 

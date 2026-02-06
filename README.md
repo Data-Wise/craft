@@ -2,12 +2,12 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
 [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.12.0-blue.svg)](https://github.com/Data-Wise/craft)
-[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
+[![Version](https://img.shields.io/badge/version-2.14.0-blue.svg)](https://github.com/Data-Wise/craft)
+[![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.12.0 - CLAUDE.md v3 Command Refactoring** 🚀
-> **106 commands** | **21 skills** | **8 agents** | **1174 tests passing**
-> 5→3 command consolidation (init, sync, edit), budget enforcement, pointer templates.
+> **v2.14.0 - Unified Formatting Library** 🚀
+> **106 commands** | **21 skills** | **8 agents** | **1248 tests passing**
+> Shared box-drawing, color constants, ANSI-aware padding — 23 scripts migrated.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -130,7 +130,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 
 ## 📚 Documentation
 
-**Full documentation:** <https://data-wise.github.io/craft/> (95% complete)
+**Full documentation:** <https://data-wise.github.io/craft/> (99% complete)
 
 - [Quick Start](https://data-wise.github.io/craft/QUICK-START/) (30 seconds)
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
@@ -504,7 +504,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 ## Version
 
-- **Version:** 2.12.0
+- **Version:** 2.14.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 

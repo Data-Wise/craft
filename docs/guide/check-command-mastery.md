@@ -217,7 +217,7 @@ Pre-flight Check Plan:
   ✓ YAML: 0 issues
 
 [3/12] Unit tests (full + coverage)...
-  ✓ 1171 tests passed
+  ✓ 1248 tests passed
   ✓ Coverage: 92% (all modules > 80%)
   Report: htmlcov/index.html
 

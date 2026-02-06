@@ -36,7 +36,7 @@ Craft provides specialized commands for CLAUDE.md management:
 | `/craft:docs:claude-md:sync` | Unified sync pipeline (validate + update + fix) | Yes |
 | `/craft:docs:claude-md:edit` | Section-by-section editing | Yes |
 
-> **Note (v2.12.0):** `scaffold` -> `init`, `update`/`audit`/`fix` -> `sync`. Old names work as aliases until v2.13.0.
+> **Note:** `scaffold` -> `init`, `update`/`audit`/`fix` -> `sync` (consolidated in v2.12.0, old aliases removed in v2.13.0).
 
 All commands follow the **"Show Steps First"** pattern - preview before executing.
 
