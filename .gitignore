@@ -29,11 +29,7 @@ tests/cli/logs/
 # Brainstorm documents (working drafts)
 docs/brainstorm/
 
-# MkDocs
-site/
-.cache/
-
-# Working artifacts
+# Working artifacts (session outputs, plans, reports)
 ORCHESTRATE
 WAVE*.md
 PHASE*.md
@@ -41,6 +37,10 @@ IMPLEMENTATION*.md
 WIP*.md
 POST-MERGE-*.md
 PRE-PR-*.md
+
+# MkDocs
+site/
+.cache/
 
 # Hub discovery cache
 commands/_cache.json

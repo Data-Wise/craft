@@ -145,6 +145,23 @@ teaching:
     auto_nav_update: true
 ```
 
+## Flow-CLI Config Compatibility
+
+If your project uses flow-cli's schema, Craft reads it natively — no migration needed:
+
+| Flow-CLI | Craft reads as |
+|----------|---------------|
+| `course.name` | `course.number` |
+| `course.full_name` | `course.title` |
+| `course.semester: "spring"` | `course.semester: "Spring"` |
+| `semester_info.start_date` | `dates.start` |
+| `semester_info.end_date` | `dates.end` |
+| `branches.production` | `deployment.production_branch` |
+
+Single-day breaks (`start == end`) are supported for holidays like MLK Day.
+
+See [Config Schema](../teaching-config-schema.md#flow-cli-config-compatibility) for details.
+
 ## Flags
 
 ### `/craft:site:build`

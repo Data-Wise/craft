@@ -2,18 +2,17 @@ status: Active
 version: 2.15.0
 release_date: 2026-02-06
 milestone: v2.16.0 - Teaching Ecosystem + Branch Protection
-last_session: 2026-02-06
+last_session: 2026-02-07
 
-progress: Branch protection complete, ready for PR
+progress: Teaching ecosystem merged, branch protection complete, ready for PR
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                          |
 |--------|---------|------|---------------------------------|
 | main   | bbd6ac7 | —    | Production (v2.15.0 released)   |
-| dev    | dfe0510 | main | Specs committed (2 new)         |
-| feature/teaching-ecosystem | 1d6ae8b | dev | Spec revised, ORCHESTRATE ready |
-| feature/branch-protection  | 53a1c42 | dev | Implementation complete, PR ready |
+| dev    | 0f94d9d | main | Teaching ecosystem merged (PR #57) |
+| feature/branch-protection  | —       | dev | Implementation complete, PR ready |
 
 ✅ v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06):
 - Brainstorm spec simplification: 1,919 → 312 lines (84% reduction)
@@ -36,12 +35,8 @@ progress: Branch protection complete, ready for PR
 
 ## In Progress (v2.16.0)
 
-**feature/teaching-ecosystem** (5 steps):
-1. Add `_normalize_config()` to teach_config.py (flow-cli → craft schema adapter)
-2. Fix break validation (allow single-day breaks)
-3. Fix broken test import in test_integration_teaching_workflow.py
-4. Add 8 normalization tests
-5. Update teaching workflow guide
+**feature/teaching-ecosystem**: ✅ MERGED (PR #57, 2026-02-07)
+- Config normalizer, break validation fix, 8 new tests, Teaching docs tab
 
 **feature/branch-protection** (9/9 complete ✅):
 1. ✅ Hook script (scripts/branch-guard.sh — moved into repo)
@@ -51,7 +46,7 @@ progress: Branch protection complete, ready for PR
 5. ✅ Per-project config (.claude/branch-guard.json)
 6. ✅ Craft command enhancements (check, do, worktree, status)
 7. ✅ New commands (unprotect, protect)
-8. ✅ Tests (42 unit + 31 e2e + 6 integration = 79 total)
+8. ✅ Tests (49 unit + 31 e2e + 6 integration = 86 total)
 9. ✅ Documentation + standalone installer + Homebrew formula
 
 ## Future (v2.17.0+)

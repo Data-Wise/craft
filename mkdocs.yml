@@ -105,13 +105,6 @@ nav:
       - Release Workflow: workflows/release-workflow.md
       - Development Workflow: workflows/git-feature-workflow.md
       - Pre-commit Workflow: workflows/pre-commit-workflow.md
-    - Teaching Mode:
-      - Overview & Quick Start: TEACHING-DOCS-INDEX.md
-      - Setup Tutorial: tutorials/teaching-mode-setup.md
-      - Complete Guide: guide/teaching-workflow.md
-      - Quick Reference: reference/REFCARD-TEACHING.md
-      - Config Schema: teaching-config-schema.md
-      - Migration Guide: teaching-migration.md
     - Specialized Features:
       - Bash Formatting Library: guide/bash-formatting-library.md
       - Formatting Migration Tutorial: tutorials/TUTORIAL-formatting-migration.md
@@ -142,7 +135,22 @@ nav:
       - Markdown List Spacing: guide/markdown-list-spacing.md
       - Accessibility: ACCESSIBILITY.md
 
-  # 3. COMMANDS & REFERENCE - Command documentation
+  # 3. TEACHING - Dedicated teaching workflow section
+  - 📚 Teaching:
+    - Teaching Home: teaching/index.md
+    - Getting Started:
+      - Setup Tutorial: tutorials/teaching-mode-setup.md
+      - Config Schema: teaching-config-schema.md
+      - Migration Guide: teaching-migration.md
+    - Ecosystem & Guides:
+      - Ecosystem Overview: guide/teaching-workflow.md
+      - Documentation Index: TEACHING-DOCS-INDEX.md
+      - Quick Reference: reference/REFCARD-TEACHING.md
+    - Specifications:
+      - Teaching Workflow Spec: specs/SPEC-teaching-workflow-2026-01-16.md
+      - Ecosystem Coordination Spec: specs/SPEC-teaching-ecosystem-coordination-2026-02-06.md
+
+  # 4. COMMANDS & REFERENCE - Command documentation
   - ⚙️ Commands & Reference:
     - Command Overview: commands/overview.md
     - By Category:
@@ -179,7 +187,7 @@ nav:
       - /craft:docs:check: commands/docs/check.md
       - /craft:docs:sync: commands/docs/sync.md
 
-  # 4. COOKBOOK & EXAMPLES - Use case driven recipes
+  # 5. COOKBOOK & EXAMPLES - Use case driven recipes
   - 📚 Cookbook & Examples:
     - Cookbook Home: cookbook/index.md
     - Common Recipes:
@@ -206,7 +214,7 @@ nav:
       - CLAUDE.md Out of Sync: cookbook/troubleshooting/claude-md-out-of-sync.md
       - MkDocs Build Fails: cookbook/troubleshooting/mkdocs-build-fails.md
 
-  # 5. REFERENCE & ARCHITECTURE - Technical deep-dive
+  # 6. REFERENCE & ARCHITECTURE - Technical deep-dive
   - Reference & Architecture:
     - Configuration: reference/configuration.md
     - Design Presets: reference/presets.md
@@ -251,7 +259,7 @@ nav:
       - Command Behavior Enhancements: specs/SPEC-command-enhancements-2026-01-29.md
       - Brainstorm Question Bank: specs/SPEC-brainstorm-question-bank.md
 
-  # 6. FOR CONTRIBUTORS - Development resources
+  # 7. FOR CONTRIBUTORS - Development resources
   - For Contributors:
     - Documentation Quality Development: guide/documentation-quality-development.md
     - CI/CD Templates: CI-TEMPLATES.md
@@ -263,5 +271,5 @@ nav:
       - Python Conventions: internal/PYTHON-CONVENTIONS.md
       - Command & Spec Conventions: internal/COMMAND-SPEC-CONVENTIONS.md
 
-  # 7. QUICK REFERENCE CARD - Printable reference
+  # 8. QUICK REFERENCE CARD - Printable reference
   - 📋 Quick Reference Card: REFCARD.md

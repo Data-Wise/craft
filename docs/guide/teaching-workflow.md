@@ -4,6 +4,33 @@
 
 The Teaching Workflow System provides specialized tools for managing course websites with safety, validation, and semester tracking.
 
+## Teaching Ecosystem
+
+The teaching workflow spans three tools. Each has clear ownership:
+
+| Capability | Tool | Command/Skill |
+|---|---|---|
+| Config & setup | flow-cli | `teach init`, `teach config`, `teach doctor` |
+| Content generation | Scholar | `teach lecture`, `teach exam`, etc. (9 commands) |
+| Content validation | All three | `teach validate` / `/scholar:validate` / `/craft:site:check` |
+| Deployment | flow-cli | `teach deploy` (history, rollback) |
+| Semester tracking | flow-cli | `teach status`, `teach week` |
+| Site management | Craft | `/craft:site:publish`, `/craft:site:progress` |
+| Shell speed | flow-cli | All `teach *` commands (<10ms dispatch) |
+
+### Which tool do I use?
+
+- **"Generate a lecture/exam/quiz"** — `teach lecture` (routes to Scholar)
+- **"Deploy the course site"** — `teach deploy` (flow-cli handles rollback)
+- **"Check if my content is ready"** — `teach check` (runs all validators)
+- **"What week is it?"** — `teach status` or `tst` alias
+- **"Publish with CI safety"** — `/craft:site:publish` (5-step workflow)
+- **"See all available commands"** — `teach map` (ecosystem overview)
+
+### Config normalization
+
+Flow-cli is the canonical config owner. Its schema uses `semester_info.start_date`/`end_date` and `course.name`. Craft normalizes this silently to its internal format (`dates.start`/`end`, `course.number`) via `_normalize_config()` in `teach_config.py`. No warnings, no migration pressure — craft adapts to flow-cli, not the other way around.
+
 ## Overview
 
 Teaching mode enables:

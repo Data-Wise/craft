@@ -14,6 +14,9 @@ Teaching projects use `.flow/teach-config.yml` to configure course information, 
 !!! tip "Quick Win: Auto-Week Calculation"
     Set `progress.current_week: auto` and Craft automatically calculates which week you're in based on your semester dates and break schedule - no manual updates needed!
 
+!!! note "Flow-CLI Compatibility"
+    If your config uses flow-cli's schema (`semester_info.start_date`, `course.name`, `branches.production`), Craft normalizes it automatically — no changes needed. See [Flow-CLI Config Compatibility](#flow-cli-config-compatibility) below.
+
 ## File Location
 
 ```
@@ -64,9 +67,11 @@ Each break in `dates.breaks` includes:
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| `name` | string | ✓ | Break name | `"Spring Break"`, `"Thanksgiving"` |
+| `name` | string | ✓ | Break name | `"Spring Break"`, `"MLK Day"` |
 | `start` | date | ✓ | First day of break | `2026-03-16` |
-| `end` | date | ✓ | Last day of break | `2026-03-20` |
+| `end` | date | ✓ | Last day of break (can equal start for single-day breaks) | `2026-03-20` |
+
+Single-day breaks (where `start == end`) are valid for holidays like MLK Day or Veterans Day.
 
 **Example:**
 
@@ -75,6 +80,9 @@ dates:
   start: "2026-01-19"
   end: "2026-05-08"
   breaks:
+    - name: "MLK Day"
+      start: "2026-01-20"
+      end: "2026-01-20"        # Single-day break (start == end)
     - name: "Spring Break"
       start: "2026-03-16"
       end: "2026-03-20"
@@ -422,10 +430,12 @@ Use `/craft:teach:config` to validate your configuration:
 
 | Error | Fix |
 |-------|-----|
-| Missing required field | Add `course.number`, `course.title`, etc. |
+| Missing required field | Add `course.number`, `course.title`, etc. (or use flow-cli equivalents: `course.name`, `course.full_name`) |
 | Invalid date format | Use `YYYY-MM-DD` format |
 | Break outside semester | Adjust break dates to fall within `start`/`end` |
-| End before start | Swap `start` and `end` dates |
+| Break start after end | Swap break `start` and `end` dates (single-day breaks where `start == end` are valid) |
+| End before start | Swap semester `start` and `end` dates |
+| Invalid semester | Use `"Spring"`, `"Fall"`, `"Winter"`, or `"Summer"` (lowercase auto-capitalized) |
 | Invalid current_week | Use `"auto"` or integer 1-16 |
 
 ## Tips and Best Practices
@@ -448,10 +458,61 @@ Use `/craft:teach:config` to validate your configuration:
     - **Non-standard schedules**: Manual `current_week` override handles exam weeks, review sessions
     - **Version control**: Commit `.flow/teach-config.yml` - it's your course's source of truth
 
+## Flow-CLI Config Compatibility
+
+If your project uses [flow-cli](https://github.com/Data-Wise/flow-cli)'s `teach-config.yml` schema, Craft normalizes it automatically via `_normalize_config()` in `teach_config.py`. No migration needed — both schemas work transparently.
+
+### Field Mappings
+
+| Flow-CLI Schema | Craft-Native Schema | Behavior |
+|-----------------|---------------------|----------|
+| `course.name` | `course.number` | Mapped if `number` absent |
+| `course.full_name` | `course.title` | Mapped if `title` absent |
+| `course.semester: "spring"` | `course.semester: "Spring"` | Auto-capitalized |
+| `semester_info.start_date` | `dates.start` | Mapped if `dates.start` absent |
+| `semester_info.end_date` | `dates.end` | Mapped if `dates.end` absent |
+| `semester_info.breaks` | `dates.breaks` | Mapped if `dates.breaks` absent |
+| `branches.production` | `deployment.production_branch` | Mapped if `production_branch` absent |
+| `branches.draft` | `deployment.draft_branch` | Mapped if `draft_branch` absent |
+
+### Design Principles
+
+- **Non-destructive**: Craft-native keys always win (never overwritten)
+- **Silent**: No warnings or migration prompts
+- **Idempotent**: Safe to normalize multiple times
+- **Gap-filling**: Only adds missing fields, original keys preserved
+
+### Example: Flow-CLI Config That Works in Craft
+
+```yaml
+# This flow-cli config works in Craft without changes
+course:
+  name: "STAT 545"                    # -> course.number
+  full_name: "STAT 545 - ANOVA"      # -> course.title
+  semester: "spring"                  # -> "Spring" (capitalized)
+  year: 2026
+
+semester_info:
+  start_date: "2026-01-19"           # -> dates.start
+  end_date: "2026-05-16"             # -> dates.end
+  breaks:
+    - name: "MLK Day"
+      start: "2026-01-20"
+      end: "2026-01-20"              # Single-day break OK
+    - name: "Spring Break"
+      start: "2026-03-15"
+      end: "2026-03-22"
+
+branches:
+  production: "production"            # -> deployment.production_branch
+  draft: "draft"                      # -> deployment.draft_branch
+```
+
 ## Schema Changelog
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.1 | 2026-02-06 | Flow-CLI config normalization, single-day breaks support |
 | 1.0 | 2026-01-16 | Initial schema for teaching workflow |
 
 ## See Also

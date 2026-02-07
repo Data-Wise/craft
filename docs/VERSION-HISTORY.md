@@ -4,7 +4,7 @@
 
 **Latest Release:** v2.15.0 (2026-02-06)
 **Total Releases:** 37 versions | **Development Time:** 2+ years
-**Community:** 108 commands documented, 1286 tests passing, 90%+ coverage
+**Community:** 108 commands documented, 1380 tests passing, 90%+ coverage
 
 ---
 
@@ -44,7 +44,7 @@
 
 - Brainstorm spec: 1,919 → 312 lines (-84%)
 - New tests: 38 (all passing)
-- Total tests: 1286
+- Total tests: 1294
 - New utility: ~280 lines Python
 - Files changed: 8
 

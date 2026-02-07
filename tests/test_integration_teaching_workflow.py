@@ -37,7 +37,7 @@ except ImportError:
     DETECT_AVAILABLE = False
 
 try:
-    from commands.utils.teach_config import parse_teach_config, calculate_current_week
+    from commands.utils.teach_config import load_teach_config, _normalize_config
     CONFIG_AVAILABLE = True
 except ImportError:
     CONFIG_AVAILABLE = False
@@ -103,7 +103,8 @@ class TestTeachingWorkflowIntegration(unittest.TestCase):
         end_date = start_date + timedelta(days=105)  # 15 weeks
 
         config_content = {
-            "course": {"number": "TEST 101", "title": "Test Course"},
+            "course": {"number": "TEST 101", "title": "Test Course",
+                       "semester": "Spring", "year": 2026},
             "dates": {
                 "start": start_date.isoformat(),
                 "end": end_date.isoformat()
@@ -112,7 +113,7 @@ class TestTeachingWorkflowIntegration(unittest.TestCase):
         config_file.write_text(yaml.dump(config_content))
 
         # Act
-        config = parse_teach_config(str(self.project_dir))
+        config = load_teach_config(str(self.project_dir))
 
         # Assert
         self.assertIsNotNone(config, "Should successfully parse config")
@@ -177,6 +178,122 @@ class TestTeachingWorkflowIntegration(unittest.TestCase):
         self.assertIn("dates", content, "Should have dates section")
         self.assertIn("number", content["course"], "Course should have number")
         self.assertIn("title", content["course"], "Course should have title")
+
+
+class TestConfigNormalization(unittest.TestCase):
+    """Tests for flow-cli -> craft schema normalization.
+
+    All fixtures are hardcoded (self-contained, no dependency on stat-545 repo).
+    """
+
+    def setUp(self):
+        self.temp_dir = tempfile.mkdtemp()
+        self.project_dir = Path(self.temp_dir)
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_flowcli_schema_loads(self):
+        """Flow-cli schema (semester_info) loads through full pipeline."""
+        config_dir = self.project_dir / ".flow"
+        config_dir.mkdir(parents=True)
+        (config_dir / "teach-config.yml").write_text(yaml.dump({
+            "course": {"name": "STAT 545", "full_name": "STAT 545 - ANOVA",
+                       "semester": "spring", "year": 2026},
+            "semester_info": {
+                "start_date": "2026-01-19", "end_date": "2026-05-16",
+                "breaks": [
+                    {"name": "MLK Day", "start": "2026-01-20", "end": "2026-01-20"},
+                    {"name": "Spring Break", "start": "2026-03-15", "end": "2026-03-22"}
+                ]
+            }
+        }))
+        config = load_teach_config(str(self.project_dir))
+        self.assertIsNotNone(config)
+        self.assertEqual(config["course"]["number"], "STAT 545")
+        self.assertEqual(config["course"]["title"], "STAT 545 - ANOVA")
+        self.assertEqual(config["dates"]["start"], "2026-01-19")
+        self.assertEqual(config["course"]["semester"], "Spring")
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_craft_native_unchanged(self):
+        """Craft-native schema (dates.*) still works as before."""
+        config_dir = self.project_dir / ".flow"
+        config_dir.mkdir(parents=True)
+        (config_dir / "teach-config.yml").write_text(yaml.dump({
+            "course": {"number": "TEST 101", "title": "Test Course",
+                       "semester": "Spring", "year": 2026},
+            "dates": {"start": "2026-01-20", "end": "2026-05-15"}
+        }))
+        config = load_teach_config(str(self.project_dir))
+        self.assertIsNotNone(config)
+        self.assertEqual(config["course"]["number"], "TEST 101")
+        self.assertEqual(config["dates"]["start"], "2026-01-20")
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_mixed_schema_merge(self):
+        """Both dates and semester_info present -> dates wins, gaps filled."""
+        config = {
+            "course": {"number": "TEST 101", "title": "Test",
+                       "semester": "Spring", "year": 2026},
+            "dates": {"start": "2026-01-20"},  # has start, missing end
+            "semester_info": {
+                "start_date": "2026-01-19",  # should NOT overwrite dates.start
+                "end_date": "2026-05-16",    # should fill dates.end
+            }
+        }
+        result = _normalize_config(config)
+        self.assertEqual(result["dates"]["start"], "2026-01-20")  # craft-native wins
+        self.assertEqual(result["dates"]["end"], "2026-05-16")    # gap filled
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_semester_capitalization(self):
+        """Lowercase 'spring' -> 'Spring'."""
+        config = {"course": {"semester": "spring"}}
+        result = _normalize_config(config)
+        self.assertEqual(result["course"]["semester"], "Spring")
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_name_to_number_mapping(self):
+        """course.name -> course.number when number absent."""
+        config = {"course": {"name": "STAT 545"}}
+        result = _normalize_config(config)
+        self.assertEqual(result["course"]["number"], "STAT 545")
+        self.assertIn("name", result["course"])  # original key preserved
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_full_name_to_title(self):
+        """course.full_name -> course.title when title absent."""
+        config = {"course": {"full_name": "Analysis of Variance"}}
+        result = _normalize_config(config)
+        self.assertEqual(result["course"]["title"], "Analysis of Variance")
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_single_day_break_valid(self):
+        """Single-day break (start == end) accepted by validation."""
+        config_dir = self.project_dir / ".flow"
+        config_dir.mkdir(parents=True)
+        (config_dir / "teach-config.yml").write_text(yaml.dump({
+            "course": {"number": "TEST 101", "title": "Test",
+                       "semester": "Spring", "year": 2026},
+            "dates": {
+                "start": "2026-01-19", "end": "2026-05-16",
+                "breaks": [{"name": "MLK Day",
+                            "start": "2026-01-20", "end": "2026-01-20"}]
+            }
+        }))
+        config = load_teach_config(str(self.project_dir))
+        self.assertIsNotNone(config, "Single-day break should not cause validation error")
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_branches_to_deployment(self):
+        """branches.production -> deployment.production_branch."""
+        config = {"branches": {"production": "main", "draft": "staging"}}
+        result = _normalize_config(config)
+        self.assertEqual(result["deployment"]["production_branch"], "main")
+        self.assertEqual(result["deployment"]["draft_branch"], "staging")
 
 
 class TestTeachingEdgeCases(unittest.TestCase):

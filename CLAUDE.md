@@ -4,8 +4,8 @@
 
 **108 commands** · **21 skills** · **8 agents** · **23 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.16.0 | **Latest Release:** v2.15.0 (2026-02-06)
-**Documentation Status:** 99% complete | **Tests:** 1286 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context)
+**Current Version:** v2.15.0 | **Latest Release:** v2.15.0 (2026-02-06)
+**Documentation Status:** 99% complete | **Tests:** 1380 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context + 8 teaching-normalization + 86 branch-guard)
 
 ## Git Workflow
 
@@ -107,9 +107,9 @@ craft/
 ├── agents/             # 8 agents
 ├── scripts/            # 30+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
-├── tests/              # Comprehensive test suite (1286 tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1294 tests, 90%+ coverage)
 ├── docs/
-│   ├── specs/          # Implementation specs (24 total)
+│   ├── specs/          # Implementation specs (23 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
 │   ├── tutorials/      # Step-by-step guides
 │   └── brainstorm/     # Working drafts (gitignored)
@@ -357,7 +357,7 @@ Custom lint rule for MkDocs `attr_list` extension compatibility:
 
 ## Integration Features (v1.24.0)
 
-The v1.24.0 release includes 27 integration tests validating three critical systems:
+Integration tests validate critical systems end-to-end:
 
 ### Integration Test Categories
 
@@ -366,8 +366,8 @@ The v1.24.0 release includes 27 integration tests validating three critical syst
 | **CLAUDE.md v3 Pipeline**  | 9      | Sync pipeline, optimizer, budget enforcement    | `tests/test_integration_claude_md_v3.py`                                       |
 | **Dependency System**      | 9      | Tool detection, installation, repair            | [Dependency Management Advanced](docs/guide/dependency-management-advanced.md) |
 | **Orchestrator Workflows** | 13     | Complexity scoring, routing, agent coordination | [Claude Code 2.1.0 Guide](docs/guide/claude-code-2.1-integration.md)           |
-| **Teaching Workflow**      | 8      | Course detection, validation, publishing        | [Teaching Workflow Guide](docs/guide/teaching-workflow.md)                     |
-| **Total**                  | **36** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
+| **Teaching Workflow**      | 16     | Config normalization, detection, validation     | [Teaching Workflow Guide](docs/guide/teaching-workflow.md)                     |
+| **Total**                  | **47** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
 
 ### Running Integration Tests
 
@@ -480,7 +480,7 @@ python3 tests/test_integration_teaching_workflow.py
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
 
-See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HISTORY.md` for full release history.
+See `docs/specs/` for detailed specifications (23 total). See `docs/VERSION-HISTORY.md` for full release history.
 
 ## Key Files
 
@@ -523,8 +523,9 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 | `.claude/branch-guard.json`                       | Per-project branch protection config (optional)         |
 | `commands/git/unprotect.md`                       | Session-scoped bypass for branch protection             |
 | `commands/git/protect.md`                         | Re-enable branch protection                             |
-| `tests/test_branch_guard.sh`                      | Branch guard hook unit tests (42 tests)                 |
-| `tests/test_integration_branch_guard.py`          | Branch guard integration tests (7 tests)                |
+| `tests/test_branch_guard.sh`                      | Branch guard hook unit tests (49 tests)                 |
+| `tests/test_branch_guard_e2e.sh`                  | Branch guard e2e tests (31 tests)                       |
+| `tests/test_integration_branch_guard.py`          | Branch guard integration tests (6 tests)                |
 
 ## Test Suite
 
@@ -541,19 +542,20 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 | `tests/test_claude_md_v3.py`                       | 51       | 100%     | v3 sync/optimizer (v2.12.0)  |
 | `tests/test_claude_md_audit.py`                    | 11       | 100%     | Audit module (v2.10.0)       |
 | `tests/test_brainstorm_context.py`                 | 38       | 100%     | Context scanner (v2.15.0)    |
-| `tests/test_branch_guard.sh`                       | 42       | 100%     | Branch guard hook (v2.16.0)  |
+| `tests/test_branch_guard.sh`                       | 49       | 100%     | Branch guard hook (v2.16.0)  |
 | **Integration & E2E Tests**                        |          |          |                              |
 | `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
 | `tests/test_integration_dependency_system.py`      | 9        | 100%     | Dependency workflow          |
 | `tests/test_integration_orchestrator_workflows.py` | 13       | 100%     | Task routing & scoring       |
 | `tests/test_integration_claude_md_v3.py`           | 9        | 100%     | v3 sync/optimizer integ.     |
-| `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
-| `tests/test_integration_branch_guard.py`           | 7        | 100%     | Branch guard integration     |
+| `tests/test_integration_teaching_workflow.py`      | 16       | 100%     | Teaching mode + normalization (2 skipped) |
+| `tests/test_integration_branch_guard.py`           | 6        | 100%     | Branch guard integration     |
+| `tests/test_branch_guard_e2e.sh`                   | 31       | 100%     | Branch guard e2e (v2.16.0)   |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
 | `tests/test_formatting.sh`                         | 74       | 100%     | Formatting library (v2.14.0) |
-| **Total**                                          | **1335** | **~90%** | **All systems**              |
+| **Total**                                          | **1380** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
@@ -577,7 +579,7 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
 - [Commands Reference](https://data-wise.github.io/craft/commands/) — All 108 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
-- [Specifications](docs/specs/) — Implementation specs (24 total)
+- [Specifications](docs/specs/) — Implementation specs (23 total)
 - [Version History](docs/VERSION-HISTORY.md) — Complete release timeline (NEW)
 - [Complexity Scoring](docs/guide/complexity-scoring-algorithm.md) — Algorithm & routing (NEW)
 - [Claude Code 2.1](docs/guide/claude-code-2.1-integration.md) — Integration guide (NEW)

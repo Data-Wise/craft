@@ -1,10 +1,12 @@
 # SPEC: Teaching Ecosystem Coordination (Craft + Scholar + Flow-CLI)
 
 **Created:** 2026-02-06
-**Status:** Draft
+**Revised:** 2026-02-06 (deep brainstorm — 10 design decisions)
+**Status:** Implemented (craft-side)
 **Scope:** Cross-tool (Craft, Scholar, Flow-CLI)
-**Effort:** ~8 hours total across 5 quick wins
+**Effort:** ~8 hours total across 5 quick wins (craft-side: ~3 hours for QW3 + QW5)
 **Priority:** High (Quick Win 3 is critical — Craft teaching commands broken on real projects)
+**Branch:** `feature/teaching-ecosystem` (craft-side only)
 
 ---
 
@@ -20,9 +22,8 @@ The teaching workflow is split across three tools with no transparency about who
 
 1. Duplicate config parsing (3x) with incompatible schemas
 2. No unified discovery — users don't know which tool handles what
-3. Documented shell aliases (`tst`, `tweek`, `tlec`, `tpublish`) don't exist anywhere
-4. Isolated semester tracking (Craft and flow-cli each have their own)
-5. Config schema divergence means Craft teaching commands silently fail on real projects
+3. Isolated semester tracking (Craft and flow-cli each have their own)
+4. Config schema divergence means Craft teaching commands silently fail on real projects
 
 **Critical bug:** Craft's `teach_config.py` requires `dates.start`/`dates.end` and `course.number`, but the real teaching project (stat-545) uses flow-cli's schema: `semester_info.start_date`/`semester_info.end_date` and `course.name`. Craft's `/craft:site:progress` and `/craft:site:publish` would fail with `ValueError` on real configs.
 
@@ -38,7 +39,7 @@ The teaching workflow is split across three tools with no transparency about who
 | **Publishing/deploy** | `/craft:site:publish` (5-step safety) | None | `teach deploy` (history, rollback, partial) | 2x duplicated |
 | **AI content gen** | None | 9 commands (exam, lecture, slides, quiz, etc.) | Wraps scholar via `_teach_build_command()` | Scholar canonical, flow-cli wraps |
 | **Teaching detection** | `detect_teaching_mode.py` (3-priority) | Pre-command hook (sync check) | `_teach_require_config()` | 3x duplicated |
-| **Shell aliases** | Documented (`tst`, `tweek`, `tlec`, `tpublish`) | None | Not implemented | Documented but broken |
+| **Shell aliases** | None | None | Not implemented | Future flow-cli work |
 
 ### Unique to each tool
 
@@ -54,13 +55,19 @@ The teaching workflow is split across three tools with no transparency about who
 
 ### Real stat-545 config (`/Users/dt/projects/teaching/stat-545/.flow/teach-config.yml`)
 
-```yaml
-course:
-  name: "STAT 545"                    # flow-cli uses 'name'
-  full_name: "STAT 545 - Analysis of Variance and Experimental Design"
-  semester: "spring"                  # lowercase
-  year: 2026
+Full file is 1,032 lines. Relevant top-level sections shown below (from actual file):
 
+```yaml
+# Top-level course info
+course:
+  name: "STAT 545"                    # flow-cli uses 'name' (not 'number')
+  full_name: "STAT 545 - Analysis of Variance and Experimental Design"
+  semester: "spring"                  # lowercase (not capitalized)
+  year: 2026
+  instructor: "dt"
+  textbook: "Dean, Voss & Draguljić (2017) - ..."
+
+# Dates + lesson plans (600+ lines of week-by-week content)
 semester_info:
   start_date: "2026-01-19"           # flow-cli uses semester_info.start_date
   end_date: "2026-05-16"             # flow-cli uses semester_info.end_date
@@ -74,7 +81,28 @@ semester_info:
   finals_week:
     start: "2026-05-11"
     end: "2026-05-16"
+  weeks:                              # 14 weeks of lesson plans (NOT read by craft)
+    - number: 1
+      topic: "Introduction to Experimental Design"
+      # ... ~40 lines per week
+
+# Branch config
+branches:
+  draft: "draft"
+  production: "production"
+
+# Deployment
+deployment:
+  web:
+    type: "github-pages"
+    branch: "production"
+    url: "https://data-wise.github.io/doe"
+
+# Teaching style (~260 lines, NOT read by craft)
+# Templates (~30 lines, NOT read by craft)
 ```
+
+**Note:** Flow-cli's own config (STAT 440) uses a different structure: `git.draft_branch`/`git.production_branch` instead of `branches.*`. The normalizer handles the `branches.*` variant found in stat-545.
 
 ### What Craft expects (`commands/utils/teach_config.py`)
 
@@ -96,11 +124,12 @@ dates:
 
 ### Specific failures on real config
 
-1. **`validate_config()` line 278-280:** Requires `"course"` and `"dates"` top-level sections. The stat-545 config has `"course"` but `"semester_info"` instead of `"dates"` → `ValueError: Missing required section: 'dates'`
+1. **`validate_config()` line 278-280:** Requires `"course"` and `"dates"` top-level sections. stat-545 has `"course"` but `"semester_info"` instead of `"dates"` → `ValueError: Missing required section: 'dates'`
 2. **`validate_config()` line 288-291:** Requires `course.number` — stat-545 has `course.name` → `ValueError: Missing required field: 'course.number'`
-3. **`validate_config()` line 294-299:** Validates `semester` against `["Spring", "Fall", "Winter", "Summer"]` — stat-545 has `"spring"` (lowercase) → `ValueError: Invalid semester: 'spring'`
-4. **`validate_breaks()` line 257-258:** Rejects `break_start >= break_end` — MLK Day is a single-day break where `start == end` → `ValueError: Break 'MLK Day': start date must be before end date`
-5. **`semester_progress.py` line 72-74:** Reads `config["dates"]["start"]` / `config["dates"]["end"]` — would `KeyError` after normalization failure
+3. **`validate_config()` line 290:** Requires `course.title` — stat-545 has `course.full_name` → `ValueError: Missing required field: 'course.title'`
+4. **`validate_config()` line 294-299:** Validates `semester` against `["Spring", "Fall", "Winter", "Summer"]` — stat-545 has `"spring"` (lowercase) → `ValueError: Invalid semester: 'spring'`
+5. **`validate_breaks()` line 197:** Rejects `break_start >= break_end` — MLK Day is a single-day break where `start == end` (`2026-01-19`) → `ValueError: Break 'MLK Day': start date must be before end date`
+6. **`semester_progress.py`:** Reads `config["dates"]["start"]` — would `KeyError` after normalization failure
 
 ---
 
@@ -247,6 +276,31 @@ MAINTENANCE                            [flow-cli]
 
 **What:** Add `_normalize_config()` adapter function called before `apply_defaults()` in `load_teach_config()`.
 
+#### Design Decisions (from brainstorm revision 2026-02-06)
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Schema depth | Top-level only (dates, course, deployment) | Craft never reads weeks/teaching_style/templates |
+| Normalize order | Before `apply_defaults()` | So defaults and validation work on canonical schema |
+| Conflict rule | **Merge** (semester_info fills gaps in dates) | Non-destructive — craft-native keys always win |
+| Field mapping | name→number, full_name→title, capitalize semester | Full stat-545 compatibility |
+| Deploy normalization | Yes (branches→deployment) | stat-545 uses `branches.production`/`draft` |
+| Break validation | Allow start == end | Single-day breaks (MLK Day) are valid |
+| Error messages | **Silent** | Flow-cli owns the schema; craft is the adapter, not the authority |
+| semester_progress.py | No changes needed | Reads normalized config downstream |
+
+#### What Craft Actually Reads from Config
+
+| Utility | Fields Accessed |
+|---------|----------------|
+| `teach_config.py` | `course.number`, `.title`, `.semester`, `.year`; `dates.start`, `.end`, `.breaks[]` |
+| `semester_progress.py` | `dates.start`, `.end`, `.breaks[].start/end/name`; `progress.current_week` |
+| `teaching_validation.py` | `validation.required_sections`, `.strict_mode` (mainly scans files on disk) |
+| `detect_teaching_mode.py` | Nothing from config (detects if config EXISTS) |
+| `publish.md` | `deployment.production_branch`, `.draft_branch` |
+
+The `weeks` array (~600 lines), `teaching_style` (~260 lines), and `templates` section are **never read by craft** — they are consumed by Scholar and flow-cli only.
+
 #### Changes to `teach_config.py`
 
 **1. Add `_normalize_config()` function (after `VALID_SEMESTERS`, before `get_config_path()`):**
@@ -254,64 +308,60 @@ MAINTENANCE                            [flow-cli]
 ```python
 def _normalize_config(raw_config: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Normalize flow-cli schema (semester_info.*) to craft-native format (dates.*).
+    Normalize flow-cli schema to craft-native format.
 
-    Flow-cli's teach-config.yml uses:
-        semester_info.start_date / end_date / breaks
-        course.name (instead of course.number)
-        course.semester: "spring" (lowercase)
+    Non-destructive, idempotent, silent. Uses setdefault() merge pattern:
+    only fills gaps — never overwrites existing craft-native keys.
+    Original flow-cli keys stay in dict (other tools may read them).
 
-    Craft expects:
-        dates.start / end / breaks
-        course.number
-        course.semester: "Spring" (capitalized)
+    Pipeline: load YAML → _normalize_config() → apply_defaults() → validate()
 
-    Args:
-        raw_config: Parsed YAML dictionary (modified in-place)
-
-    Returns:
-        The same dictionary with normalized schema
+    Field mappings:
+        semester_info.start_date  → dates.start      (if dates.start missing)
+        semester_info.end_date    → dates.end         (if dates.end missing)
+        semester_info.breaks      → dates.breaks      (if dates.breaks missing)
+        course.name               → course.number     (if number missing)
+        course.full_name          → course.title      (if title missing)
+        course.semester           → capitalize         (spring → Spring)
+        branches.production       → deployment.production_branch (if missing)
+        branches.draft            → deployment.draft_branch      (if missing)
     """
-    # Translate semester_info -> dates (if flow-cli schema detected)
-    if "semester_info" in raw_config and "dates" not in raw_config:
-        si = raw_config["semester_info"]
-        raw_config["dates"] = {
-            "start": si.get("start_date"),
-            "end": si.get("end_date"),
-            "breaks": si.get("breaks", []),
-        }
+    # --- Course normalization ---
+    course = raw_config.get("course", {})
+    if "number" not in course and "name" in course:
+        course["number"] = course["name"]
+    if "title" not in course and "full_name" in course:
+        course["title"] = course["full_name"]
+    if "semester" in course and isinstance(course["semester"], str):
+        sem_word = course["semester"].split()[0] if " " in course["semester"] else course["semester"]
+        capitalized = sem_word.capitalize()
+        if capitalized in VALID_SEMESTERS:
+            course["semester"] = capitalized
 
-    # Normalize course.name -> course.number (flow-cli uses 'name')
-    if "course" in raw_config:
-        c = raw_config["course"]
-        if "number" not in c and "name" in c:
-            c["number"] = c["name"]
-        # Populate title from full_name if missing
-        if "title" not in c and "full_name" in c:
-            c["title"] = c["full_name"]
+    # --- Dates normalization (merge strategy: fill gaps only) ---
+    si = raw_config.get("semester_info", {})
+    if si:
+        dates = raw_config.setdefault("dates", {})
+        if "start" not in dates and "start_date" in si:
+            dates["start"] = si["start_date"]
+        if "end" not in dates and "end_date" in si:
+            dates["end"] = si["end_date"]
+        if "breaks" not in dates and "breaks" in si:
+            dates["breaks"] = si["breaks"]
 
-    # Normalize semester to capitalized form (flow-cli uses lowercase)
-    if "course" in raw_config and "semester" in raw_config["course"]:
-        sem = raw_config["course"]["semester"]
-        if isinstance(sem, str):
-            # Handle "spring" -> "Spring", "Spring 2026" -> "Spring"
-            sem_word = sem.split()[0] if " " in sem else sem
-            capitalized = sem_word.capitalize()
-            if capitalized in VALID_SEMESTERS:
-                raw_config["course"]["semester"] = capitalized
-
-    # Normalize deployment from flow-cli's branches structure
-    if "branches" in raw_config and "deployment" not in raw_config:
-        branches = raw_config["branches"]
-        raw_config["deployment"] = {
-            "production_branch": branches.get("production", "production"),
-            "draft_branch": branches.get("draft", "draft"),
-        }
+    # --- Deployment normalization ---
+    branches = raw_config.get("branches", {})
+    if branches:
+        deploy = raw_config.setdefault("deployment", {})
+        if "production_branch" not in deploy and "production" in branches:
+            deploy["production_branch"] = branches["production"]
+        if "draft_branch" not in deploy and "draft" in branches:
+            deploy["draft_branch"] = branches["draft"]
 
     return raw_config
 ```
 
-**2. Call normalization in `load_teach_config()` (line ~456, before `apply_defaults()`):**
+**2. Call normalization in `load_teach_config()` (between YAML parse and `apply_defaults()`):**
 
 ```python
     # Normalize flow-cli schema to craft-native format
@@ -321,7 +371,7 @@ def _normalize_config(raw_config: Dict[str, Any]) -> Dict[str, Any]:
     config = apply_defaults(config)
 ```
 
-**3. Fix single-day break validation in `validate_breaks()` (line 257):**
+**3. Fix single-day break validation in `validate_breaks()` (line ~197):**
 
 Change `>=` to `>`:
 
@@ -348,14 +398,17 @@ No changes needed. `semester_progress.py` reads from `config["dates"]` which wil
 from commands.utils.teach_config import parse_teach_config, calculate_current_week
 
 # After (actual exports):
-from commands.utils.teach_config import load_teach_config, _normalize_config, validate_config
+from commands.utils.teach_config import load_teach_config, _normalize_config
 ```
 
-**2. Add new test class `TestFlowCliSchemaNormalization`:**
+**2. Add new test class `TestConfigNormalization` (8 tests, hardcoded fixtures):**
 
 ```python
-class TestFlowCliSchemaNormalization(unittest.TestCase):
-    """Tests for flow-cli → craft schema normalization."""
+class TestConfigNormalization(unittest.TestCase):
+    """Tests for flow-cli → craft schema normalization.
+
+    All fixtures are hardcoded (self-contained, no dependency on stat-545 repo).
+    """
 
     def setUp(self):
         self.temp_dir = tempfile.mkdtemp()
@@ -366,118 +419,105 @@ class TestFlowCliSchemaNormalization(unittest.TestCase):
         shutil.rmtree(self.temp_dir, ignore_errors=True)
 
     @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
-    def test_normalize_semester_info_to_dates(self):
-        """Flow-cli's semester_info.start_date -> dates.start."""
-        config = {
+    def test_flowcli_schema_loads(self):
+        """Flow-cli schema (semester_info) loads through full pipeline."""
+        config_dir = self.project_dir / ".flow"
+        config_dir.mkdir(parents=True)
+        (config_dir / "teach-config.yml").write_text(yaml.dump({
             "course": {"name": "STAT 545", "full_name": "STAT 545 - ANOVA",
                        "semester": "spring", "year": 2026},
             "semester_info": {
-                "start_date": "2026-01-19",
-                "end_date": "2026-05-16",
-                "breaks": [{"name": "Spring Break",
-                            "start": "2026-03-15", "end": "2026-03-22"}]
-            }
-        }
-        result = _normalize_config(config)
-        self.assertEqual(result["dates"]["start"], "2026-01-19")
-        self.assertEqual(result["dates"]["end"], "2026-05-16")
-        self.assertEqual(len(result["dates"]["breaks"]), 1)
-
-    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
-    def test_normalize_course_name_to_number(self):
-        """Flow-cli's course.name -> course.number."""
-        config = {
-            "course": {"name": "STAT 545", "full_name": "ANOVA",
-                       "semester": "spring", "year": 2026},
-            "semester_info": {"start_date": "2026-01-19",
-                              "end_date": "2026-05-16"}
-        }
-        result = _normalize_config(config)
-        self.assertEqual(result["course"]["number"], "STAT 545")
-        self.assertEqual(result["course"]["title"], "ANOVA")
-
-    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
-    def test_normalize_semester_capitalization(self):
-        """Flow-cli's 'spring' -> 'Spring'."""
-        config = {
-            "course": {"name": "TEST 101", "semester": "spring", "year": 2026},
-            "semester_info": {"start_date": "2026-01-19",
-                              "end_date": "2026-05-16"}
-        }
-        result = _normalize_config(config)
-        self.assertEqual(result["course"]["semester"], "Spring")
-
-    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
-    def test_single_day_break_accepted(self):
-        """Single-day holidays (start == end) should not fail validation."""
-        config_dir = self.project_dir / ".flow"
-        config_dir.mkdir(parents=True)
-        config_file = config_dir / "teach-config.yml"
-
-        config_content = {
-            "course": {"name": "STAT 545", "full_name": "ANOVA",
-                       "semester": "spring", "year": 2026},
-            "semester_info": {
-                "start_date": "2026-01-19",
-                "end_date": "2026-05-16",
-                "breaks": [{"name": "MLK Day",
-                            "start": "2026-01-20", "end": "2026-01-20"}]
-            }
-        }
-        config_file.write_text(yaml.dump(config_content))
-        config = load_teach_config(str(self.project_dir))
-        self.assertIsNotNone(config, "Should parse flow-cli schema successfully")
-
-    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
-    def test_full_stat545_fixture(self):
-        """Full stat-545-style config loads successfully through craft pipeline."""
-        config_dir = self.project_dir / ".flow"
-        config_dir.mkdir(parents=True)
-        config_file = config_dir / "teach-config.yml"
-
-        # Minimal stat-545-style config
-        config_content = {
-            "course": {
-                "name": "STAT 545",
-                "full_name": "STAT 545 - Analysis of Variance",
-                "semester": "spring",
-                "year": 2026
-            },
-            "semester_info": {
-                "start_date": "2026-01-19",
-                "end_date": "2026-05-16",
+                "start_date": "2026-01-19", "end_date": "2026-05-16",
                 "breaks": [
-                    {"name": "MLK Day",
-                     "start": "2026-01-20", "end": "2026-01-20"},
-                    {"name": "Spring Break",
-                     "start": "2026-03-15", "end": "2026-03-22"}
+                    {"name": "MLK Day", "start": "2026-01-20", "end": "2026-01-20"},
+                    {"name": "Spring Break", "start": "2026-03-15", "end": "2026-03-22"}
                 ]
             }
-        }
-        config_file.write_text(yaml.dump(config_content))
+        }))
         config = load_teach_config(str(self.project_dir))
         self.assertIsNotNone(config)
         self.assertEqual(config["course"]["number"], "STAT 545")
+        self.assertEqual(config["course"]["title"], "STAT 545 - ANOVA")
         self.assertEqual(config["dates"]["start"], "2026-01-19")
         self.assertEqual(config["course"]["semester"], "Spring")
 
     @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
-    def test_craft_native_schema_unchanged(self):
-        """Craft-native schema (dates.start) still works as before."""
+    def test_craft_native_unchanged(self):
+        """Craft-native schema (dates.*) still works as before."""
         config_dir = self.project_dir / ".flow"
         config_dir.mkdir(parents=True)
-        config_file = config_dir / "teach-config.yml"
-
-        config_content = {
+        (config_dir / "teach-config.yml").write_text(yaml.dump({
             "course": {"number": "TEST 101", "title": "Test Course",
                        "semester": "Spring", "year": 2026},
             "dates": {"start": "2026-01-20", "end": "2026-05-15"}
-        }
-        config_file.write_text(yaml.dump(config_content))
+        }))
         config = load_teach_config(str(self.project_dir))
         self.assertIsNotNone(config)
         self.assertEqual(config["course"]["number"], "TEST 101")
         self.assertEqual(config["dates"]["start"], "2026-01-20")
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_mixed_schema_merge(self):
+        """Both dates and semester_info present → dates wins, gaps filled."""
+        config = {
+            "course": {"number": "TEST 101", "title": "Test",
+                       "semester": "Spring", "year": 2026},
+            "dates": {"start": "2026-01-20"},  # has start, missing end
+            "semester_info": {
+                "start_date": "2026-01-19",  # should NOT overwrite dates.start
+                "end_date": "2026-05-16",    # should fill dates.end
+            }
+        }
+        result = _normalize_config(config)
+        self.assertEqual(result["dates"]["start"], "2026-01-20")  # craft-native wins
+        self.assertEqual(result["dates"]["end"], "2026-05-16")    # gap filled
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_semester_capitalization(self):
+        """Lowercase 'spring' → 'Spring'."""
+        config = {"course": {"semester": "spring"}}
+        result = _normalize_config(config)
+        self.assertEqual(result["course"]["semester"], "Spring")
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_name_to_number_mapping(self):
+        """course.name → course.number when number absent."""
+        config = {"course": {"name": "STAT 545"}}
+        result = _normalize_config(config)
+        self.assertEqual(result["course"]["number"], "STAT 545")
+        self.assertIn("name", result["course"])  # original key preserved
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_full_name_to_title(self):
+        """course.full_name → course.title when title absent."""
+        config = {"course": {"full_name": "Analysis of Variance"}}
+        result = _normalize_config(config)
+        self.assertEqual(result["course"]["title"], "Analysis of Variance")
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_single_day_break_valid(self):
+        """Single-day break (start == end) accepted by validation."""
+        config_dir = self.project_dir / ".flow"
+        config_dir.mkdir(parents=True)
+        (config_dir / "teach-config.yml").write_text(yaml.dump({
+            "course": {"number": "TEST 101", "title": "Test",
+                       "semester": "Spring", "year": 2026},
+            "dates": {
+                "start": "2026-01-19", "end": "2026-05-16",
+                "breaks": [{"name": "MLK Day",
+                            "start": "2026-01-20", "end": "2026-01-20"}]
+            }
+        }))
+        config = load_teach_config(str(self.project_dir))
+        self.assertIsNotNone(config, "Single-day break should not cause validation error")
+
+    @unittest.skipIf(not CONFIG_AVAILABLE, "Config module not available")
+    def test_branches_to_deployment(self):
+        """branches.production → deployment.production_branch."""
+        config = {"branches": {"production": "main", "draft": "staging"}}
+        result = _normalize_config(config)
+        self.assertEqual(result["deployment"]["production_branch"], "main")
+        self.assertEqual(result["deployment"]["draft_branch"], "staging")
 ```
 
 ---
@@ -568,17 +608,15 @@ _teach_check() {
 
 ---
 
-### Quick Win 5: Update Craft + Scholar CLAUDE.md Teaching Docs
+### Quick Win 5: Update Teaching Workflow Guide
 
-**Effort:** 1 hour | **Tool:** craft + scholar | **Impact:** Medium (transparency)
+**Effort:** 1 hour | **Tool:** craft | **Impact:** Medium (transparency)
 
-**Where (3 files):**
+**Decision (from brainstorm):** Add ecosystem docs to `docs/guide/teaching-workflow.md` only. **Skip CLAUDE.md** — it's already 330+ lines (over the 150-line budget target). Scholar CLAUDE.md update is out of scope (separate repo).
 
-1. `/Users/dt/projects/dev-tools/craft/CLAUDE.md` — Add "Teaching Ecosystem" section after "Key Files"
-2. `/Users/dt/projects/dev-tools/scholar/CLAUDE.md` — Add equivalent section after "Configuration"
-3. `/Users/dt/projects/dev-tools/craft/docs/guide/teaching-workflow.md` — Add ecosystem overview near top
+**Where:** `/Users/dt/projects/dev-tools/craft/docs/guide/teaching-workflow.md`
 
-**Content for all three locations (adapted per context):**
+**What to add (near the top, after existing intro):**
 
 ```markdown
 ## Teaching Ecosystem
@@ -606,7 +644,7 @@ The teaching workflow spans three tools. Each has clear ownership:
 
 ### Config schema
 
-Flow-cli is the canonical config owner. Its schema uses `semester_info.start_date`/`end_date` and `course.name`. Craft normalizes this to its internal format (`dates.start`/`end`, `course.number`) via `_normalize_config()` in `teach_config.py`.
+Flow-cli is the canonical config owner. Its schema uses `semester_info.start_date`/`end_date` and `course.name`. Craft normalizes this silently to its internal format (`dates.start`/`end`, `course.number`) via `_normalize_config()` in `teach_config.py`. No warnings, no migration pressure — craft adapts to flow-cli, not the other way around.
 ```
 
 ---
@@ -625,37 +663,52 @@ Flow-cli is the canonical config owner. Its schema uses `semester_info.start_dat
 
 ## Verification Checklist
 
-- [ ] `python3 -c "from commands.utils.teach_config import load_teach_config; print(load_teach_config('/Users/dt/projects/teaching/stat-545'))"` succeeds
+### Craft-side (this branch: `feature/teaching-ecosystem`)
+
 - [ ] Existing tests still pass: `python3 tests/test_integration_teaching_workflow.py`
-- [ ] New normalization tests pass (6 tests)
+- [ ] New normalization tests pass (8 tests in `TestConfigNormalization`)
+- [ ] No regressions: `python3 tests/test_craft_plugin.py`
+- [ ] Normalizer handles stat-545 fixture: flow-cli schema → craft-native
+- [ ] Existing craft-native configs unchanged (backward compatible)
+- [ ] Single-day break (start == end) accepted by validation
+- [ ] Mixed schema (both dates and semester_info) merges correctly
+- [ ] branches→deployment normalization works
+- [ ] No output/warnings during normalization (silent)
+- [ ] `docs/guide/teaching-workflow.md` has ecosystem section
+
+### Flow-CLI (separate repo, future session)
+
 - [ ] `tst` in stat-545 project shows semester dashboard
 - [ ] `teach map` displays full ecosystem with tool attribution
-- [ ] `/craft:site:progress` in stat-545 works with `semester_info` schema
-- [ ] `teach check` in stat-545 shows unified validation from all three tools
-- [ ] Craft CLAUDE.md contains Teaching Ecosystem section
-- [ ] Scholar CLAUDE.md contains Teaching Ecosystem section
+- [ ] `teach check` shows unified validation from all three tools
 
 ---
 
 ## Files Changed (Summary)
 
-### Craft (this repo)
+### Craft (this repo — `feature/teaching-ecosystem` branch)
 
 | File | Change |
 |---|---|
-| `commands/utils/teach_config.py` | Add `_normalize_config()`, fix single-day break validation |
-| `tests/test_integration_teaching_workflow.py` | Fix broken import, add 6 normalization tests |
-| `CLAUDE.md` | Add Teaching Ecosystem section |
-| `docs/guide/teaching-workflow.md` | Add ecosystem overview |
+| `commands/utils/teach_config.py` | Add `_normalize_config()`, fix single-day break validation (`>=` → `>`) |
+| `tests/test_integration_teaching_workflow.py` | Fix broken import (line 40), add 8 normalization tests |
+| `docs/guide/teaching-workflow.md` | Add Teaching Ecosystem overview section |
 
-### Flow-CLI (separate repo)
+**Not changed (intentional):**
+
+| File | Reason |
+|---|---|
+| `commands/utils/semester_progress.py` | Reads normalized config downstream — no changes needed |
+| `CLAUDE.md` | Already over 150-line budget; ecosystem info goes to guide only |
+
+### Flow-CLI (separate repo — future session)
 
 | File | Change |
 |---|---|
 | `commands/teach-aliases.zsh` | New file: `tst`, `tweek`, `tlec`, `tpublish` |
-| `lib/dispatchers/teach-dispatcher.zsh` | Add `map` and `check` subcommands, `_teach_map()`, `_teach_check()` |
+| `lib/dispatchers/teach-dispatcher.zsh` | Add `map` and `check` subcommands |
 
-### Scholar (separate repo)
+### Scholar (separate repo — future session)
 
 | File | Change |
 |---|---|

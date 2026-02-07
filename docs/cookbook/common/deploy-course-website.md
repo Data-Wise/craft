@@ -51,6 +51,9 @@ I want to safely publish course website updates to GitHub Pages without breaking
    - Verify all pages load correctly
    - Test navigation and links
 
+!!! tip "Flow-CLI Config Compatibility"
+    If your project uses flow-cli's `teach-config.yml` (with `semester_info`, `course.name`, `branches`), Craft reads it natively — no separate config needed. See [Config Schema](../../teaching-config-schema.md#flow-cli-config-compatibility) for details.
+
 ## Explanation
 
 `/craft:site:deploy` implements a safe deployment workflow:
