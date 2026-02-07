@@ -19,7 +19,7 @@
 
 ```bash
 claude plugin install craft@local-plugins  # Install the plugin
-/craft:hub                                  # Verify 106 commands are available
+/craft:hub                                  # Verify 108 commands are available
 ```
 
 **Expected:** You'll see a categorized list of all craft commands.
@@ -66,7 +66,7 @@ claude plugin install craft@local-plugins  # Install the plugin
 
 | Question | Answer |
 |----------|--------|
-| Where are my commands? | Run `/craft:hub` to see all 106 commands |
+| Where are my commands? | Run `/craft:hub` to see all 108 commands |
 | How do I automate docs? | Use `/craft:docs:update` for smart full cycle |
 | Can I create a website? | Yes! `/craft:site:create` with 8 ADHD-friendly presets |
 | What's the universal command? | `/craft:do "task"` - AI routes automatically |
