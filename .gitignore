@@ -21,8 +21,9 @@ env/
 .DS_Store
 Thumbs.db
 
-# Test reports
+# Test reports and logs
 tests/craft_test_report.md
+tests/cli/logs/
 .coverage
 
 # Brainstorm documents (working drafts)

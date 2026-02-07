@@ -4,7 +4,7 @@ release_date: 2026-02-06
 milestone: v2.16.0 - Teaching Ecosystem + Branch Protection
 last_session: 2026-02-07
 
-progress: Teaching ecosystem merged, branch protection pending
+progress: Teaching ecosystem merged, branch protection complete, ready for PR
 
 📊 Branch Status:
 
@@ -12,7 +12,7 @@ progress: Teaching ecosystem merged, branch protection pending
 |--------|---------|------|---------------------------------|
 | main   | bbd6ac7 | —    | Production (v2.15.0 released)   |
 | dev    | 0f94d9d | main | Teaching ecosystem merged (PR #57) |
-| feature/branch-protection  | 2087a98 | dev | ORCHESTRATE ready               |
+| feature/branch-protection  | —       | dev | Implementation complete, PR ready |
 
 ✅ v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06):
 - Brainstorm spec simplification: 1,919 → 312 lines (84% reduction)
@@ -38,16 +38,16 @@ progress: Teaching ecosystem merged, branch protection pending
 **feature/teaching-ecosystem**: ✅ MERGED (PR #57, 2026-02-07)
 - Config normalizer, break validation fix, 8 new tests, Teaching docs tab
 
-**feature/branch-protection** (9 steps):
-1. Hook script (~/.claude/hooks/branch-guard.sh)
-2. Hook config (settings.json PreToolUse registration)
-3. Dry-run test
-4. Enable enforcement
-5. Per-project config (.claude/branch-guard.json)
-6. Craft command enhancements (check, do, worktree, status)
-7. New commands (unprotect, protect)
-8. Tests (17 hook + 4 integration)
-9. Documentation
+**feature/branch-protection** (9/9 complete ✅):
+1. ✅ Hook script (scripts/branch-guard.sh — moved into repo)
+2. ✅ Hook config (settings.json PreToolUse registration)
+3. ✅ Dry-run test
+4. ✅ Enable enforcement
+5. ✅ Per-project config (.claude/branch-guard.json)
+6. ✅ Craft command enhancements (check, do, worktree, status)
+7. ✅ New commands (unprotect, protect)
+8. ✅ Tests (49 unit + 31 e2e + 6 integration = 86 total)
+9. ✅ Documentation + standalone installer + Homebrew formula
 
 ## Future (v2.17.0+)
 

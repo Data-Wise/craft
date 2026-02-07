@@ -107,12 +107,58 @@ Preview which commands will be executed without actually running them:
 
 **Note**: Dry-run shows routing decision based on complexity score. Agent delegation triggers for medium (4-7) and complex (8-10) tasks.
 
+## Branch-Aware Routing (NEW in v2.16.0)
+
+Before routing, check branch protection status. When on `dev` or `main` and the task involves code changes:
+
+### On `dev` (block-new-code)
+
+If task involves creating new files or writing code:
+
+```json
+{
+  "questions": [{
+    "question": "You're on dev (protected). How should I handle this code task?",
+    "header": "Branch",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Create worktree (Recommended)",
+        "description": "Auto-create feature branch and worktree from task description."
+      },
+      {
+        "label": "Write spec only",
+        "description": "Create a spec file on dev (allowed) without code changes."
+      },
+      {
+        "label": "Analyze only",
+        "description": "Read and analyze code without making edits."
+      }
+    ]
+  }]
+}
+```
+
+### On `main` (block-all)
+
+```
+Cannot route code tasks on main. All changes go through PRs.
+
+Switch to dev: git checkout dev
+Then retry: /craft:do <task>
+```
+
+### On `feature/*`
+
+Route directly without branch intervention — no restrictions.
+
 ## How It Works
 
-1. **Check Spec** - Look for existing spec matching task (NEW in v1.1.0)
-2. **Analyze** - Parse task description for intent and category
-3. **Score Complexity** - Calculate 0-10 score based on 5 factors (NEW in v1.23.0)
-4. **Route Decision** - Choose execution strategy:
+1. **Check Branch** - Verify branch protection status (NEW in v2.16.0)
+2. **Check Spec** - Look for existing spec matching task (NEW in v1.1.0)
+3. **Analyze** - Parse task description for intent and category
+4. **Score Complexity** - Calculate 0-10 score based on 5 factors (NEW in v1.23.0)
+5. **Route Decision** - Choose execution strategy:
    - **Score 0-3**: Route to craft commands (traditional)
    - **Score 4-7**: Delegate to specialized agent (NEW)
    - **Score 8-10**: Delegate to orchestrator-v2 (NEW)
