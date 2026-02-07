@@ -5,7 +5,7 @@
 **108 commands** · **21 skills** · **8 agents** · **25 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.15.0 | **Latest Release:** v2.15.0 (2026-02-06)
-**Documentation Status:** 99% complete | **Tests:** 1380 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context + 8 teaching-normalization + 86 branch-guard)
+**Documentation Status:** 99% complete | **Tests:** 1432 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context + 8 teaching-normalization + 138 branch-guard)
 
 ## Git Workflow
 
@@ -107,7 +107,7 @@ craft/
 ├── agents/             # 8 agents
 ├── scripts/            # 30+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
-├── tests/              # Comprehensive test suite (1380 tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1432 tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (23 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
@@ -552,10 +552,11 @@ See `docs/specs/` for detailed specifications (23 total). See `docs/VERSION-HIST
 | `tests/test_integration_teaching_workflow.py`      | 16       | 100%     | Teaching mode + normalization (2 skipped) |
 | `tests/test_integration_branch_guard.py`           | 6        | 100%     | Branch guard integration     |
 | `tests/test_branch_guard_e2e.sh`                   | 31       | 100%     | Branch guard e2e (v2.16.0)   |
+| `tests/test_branch_guard_dogfood.py`               | 52       | 100%     | Branch guard dogfooding (v2.16.0) |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
 | `tests/test_formatting.sh`                         | 74       | 100%     | Formatting library (v2.14.0) |
-| **Total**                                          | **1380** | **~90%** | **All systems**              |
+| **Total**                                          | **1432** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 

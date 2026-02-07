@@ -92,7 +92,7 @@ From filesystem:
   commands: 108
   skills: 21
   agents: 8
-  tests: 1380
+  tests: 1432
 
 From git:
   repository: https://github.com/Data-Wise/craft
@@ -115,7 +115,7 @@ Generated CLAUDE.md Preview
 > **TL;DR**: Development workflow orchestration plugin
 
 **108 commands** · **21 skills** · **8 agents**
-**Version:** v2.15.0 | **Tests:** 1380 passing
+**Version:** v2.15.0 | **Tests:** 1432 passing
 
 ## Git Workflow
 [...]

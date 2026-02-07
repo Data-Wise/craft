@@ -215,11 +215,12 @@ Ran 16 tests in ~0.07 seconds (14 passed, 2 skipped)
 python3 tests/test_integration_branch_guard.py
 ```
 
-**Also: Bash test suites** (49 unit + 31 e2e):
+**Also: Bash test suites** (49 unit + 31 e2e) **and dogfooding** (52 tests):
 
 ```bash
-bash tests/test_branch_guard.sh       # Unit tests
-bash tests/test_branch_guard_e2e.sh   # End-to-end tests
+bash tests/test_branch_guard.sh            # Unit tests
+bash tests/test_branch_guard_e2e.sh        # End-to-end tests
+python3 tests/test_branch_guard_dogfood.py # Dogfooding tests (real repo)
 ```
 
 ## Running Integration Tests
@@ -379,6 +380,7 @@ The teaching workflow system enables course management and publishing. Tests ver
 | Unprotect command | `commands/git/unprotect.md` | Bypass protection |
 | Unit tests | `tests/test_branch_guard.sh` | 49 bash unit tests |
 | E2E tests | `tests/test_branch_guard_e2e.sh` | 31 end-to-end tests |
+| Dogfooding tests | `tests/test_branch_guard_dogfood.py` | 52 dogfooding tests (real repo) |
 
 ## Next Steps
 
