@@ -265,11 +265,19 @@
          <lastmod>2026-02-07</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/commands/git/protect/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/commands/git/status/</loc>
          <lastmod>2026-02-07</lastmod>
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/commands/git/sync/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/git/unprotect/</loc>
          <lastmod>2026-02-07</lastmod>
     </url>
     <url>
