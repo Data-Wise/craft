@@ -17,7 +17,7 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **106 Commands**
+- :rocket:{ .lg .middle } **108 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
 
@@ -96,7 +96,7 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 106 Craft commands:
+Complete OpenAPI-style documentation for all 108 Craft commands:
 
 <div class="grid cards" markdown>
 
@@ -120,7 +120,7 @@ Complete OpenAPI-style documentation for all 106 Craft commands:
 
 **Quick Links:**
 
-- [All 106 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 108 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -197,16 +197,16 @@ Complete OpenAPI-style documentation for all 106 Craft commands:
 | **Documentation**  | 19     | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow                                  |
 | **Site**           | 16     | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit                                                          |
 | **Code & Testing** | 12 + 7 | Code: linting, testing, debugging, refactoring, CI fixes, deps management; Tests: run, debug, watch, coverage, generation |
-| **Git**            | 11     | Repository initialization, branch management, worktrees, sync, recap, clean, learning guides                              |
+| **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, protect/unprotect, learning guides           |
 | **CI**             | 3      | Detection, generation, validation                                                                                         |
 | **Architecture**   | 4      | Analysis, diagrams, planning, reviews                                                                                     |
 | **Distribution**   | 3      | Homebrew, PyPI, curl installers                                                                                           |
 | **Planning**       | 3      | Feature planning, sprints, roadmaps                                                                                       |
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
-| **Total**          | **106** | **Complete development workflow coverage**                                                                                |
+| **Total**          | **108** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions"
-    Brainstorm spec reduced 84% (1,919 → 312 lines) with context-aware smart questions and project-type extensions. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.16.0 — Teaching Ecosystem + Branch Protection"
+    Branch protection hooks for main/dev, teaching config normalization, 138 new tests (1432 total). See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
