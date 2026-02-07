@@ -883,4 +883,4 @@ Preview what each action will do without executing it:
 - Template: `templates/dry-run-pattern.md`
 - Utility: `utils/dry_run_output.py`
 - Related: `/craft:git:clean` (branch cleanup)
-- Specification: `docs/specs/SPEC-dry-run-feature-2026-01-15.md`
+- Specification: `docs/specs/_archive/SPEC-dry-run-feature-2026-01-15.md`

@@ -2,7 +2,7 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**108 commands** · **21 skills** · **8 agents** · **23 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**108 commands** · **21 skills** · **8 agents** · **25 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.15.0 | **Latest Release:** v2.15.0 (2026-02-06)
 **Documentation Status:** 99% complete | **Tests:** 1380 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context + 8 teaching-normalization + 86 branch-guard)
@@ -497,8 +497,8 @@ See `docs/specs/` for detailed specifications (23 total). See `docs/VERSION-HIST
 | `docs/guide/complexity-scoring-algorithm.md`      | Complexity algorithm guide (NEW)                        |
 | `docs/guide/claude-code-2.1-integration.md`       | Claude Code 2.1 integration guide (NEW)                 |
 | `docs/orch/ORCH-brainstorm-phase1-2026-01-18.md`  | Phase 1 implementation plan                             |
-| `docs/specs/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec                       |
-| `docs/specs/SPEC-craft-hub-v2-2026-01-15.md`      | Hub v2.0 architecture spec                              |
+| `docs/specs/_archive/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec               |
+| `docs/specs/_archive/SPEC-craft-hub-v2-2026-01-15.md`      | Hub v2.0 architecture spec                      |
 | `.linkcheck-ignore`                               | Expected broken links (test files, brainstorm refs)     |
 | `utils/complexity_scorer.py`                      | Task complexity scoring (0-10 scale)                    |
 | `utils/linkcheck_ignore_parser.py`                | Parser for .linkcheck-ignore patterns                   |

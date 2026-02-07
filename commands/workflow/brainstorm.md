@@ -279,7 +279,7 @@ Launch in background (non-blocking), synthesize after completion.
 
 ## Question Bank Summary
 
-8 categories, 2 questions each = 16 base questions. See [full question bank](../../docs/specs/SPEC-brainstorm-question-bank.md).
+8 categories, 2 questions each = 16 base questions. See [full question bank](../../docs/specs/_archive/SPEC-brainstorm-question-bank.md).
 
 | Category | Focus | Default For |
 |----------|-------|-------------|
@@ -292,7 +292,7 @@ Launch in background (non-blocking), synthesize after completion.
 | existing | Reusable code, dependencies | arch |
 | success | Success metrics, acceptance | feat, api, ux, auto |
 
-**Project-type extensions (v2.15.0):** 6 project types, 2 questions each = 12 additional questions. Auto-detected via `utils/claude_md_detector.py`. See [question bank spec](../../docs/specs/SPEC-brainstorm-question-bank.md#project-type-question-extensions-v2150).
+**Project-type extensions (v2.15.0):** 6 project types, 2 questions each = 12 additional questions. Auto-detected via `utils/claude_md_detector.py`. See [question bank spec](../../docs/specs/_archive/SPEC-brainstorm-question-bank.md#project-type-question-extensions-v2150).
 
 ## Integration
 
@@ -308,5 +308,5 @@ Launch in background (non-blocking), synthesize after completion.
 
 - [Power User Tutorial](../../docs/tutorials/TUTORIAL-brainstorm-power-user.md) — Detailed examples and advanced patterns
 - [Reference Card](../../docs/reference/REFCARD-BRAINSTORM.md) — Flowcharts and quick reference
-- [Question Bank](../../docs/specs/SPEC-brainstorm-question-bank.md) — Full question text and selection algorithm
+- [Question Bank](../../docs/specs/_archive/SPEC-brainstorm-question-bank.md) — Full question text and selection algorithm
 - [Version History](../../docs/VERSION-HISTORY.md#v240-2026-01-18---brainstorm-question-control-phase-1) — Brainstorm spec evolution (v2.1→v2.5)

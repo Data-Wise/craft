@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Broken test import:** `test_integration_teaching_workflow.py` imported non-existent `parse_teach_config` — fixed to `load_teach_config`
 - **Break validation:** `>=` → `>` comparison allowing single-day breaks (MLK Day, Veterans Day)
 
-**Documentation:** [Teaching Home](teaching/index.md) · [Config Schema](teaching-config-schema.md) · [Ecosystem Spec](specs/SPEC-teaching-ecosystem-coordination-2026-02-06.md)
+**Documentation:** [Teaching Home](teaching/index.md) · [Config Schema](teaching-config-schema.md) · [Ecosystem Spec](specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06.md)
 
 ---
 
