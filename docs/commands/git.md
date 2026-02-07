@@ -1,6 +1,6 @@
 # Git & CI Commands
 
-Version control and continuous integration - 12 commands total.
+Version control and continuous integration - 14 commands total.
 
 ## Worktree vs Branch: When to Use What
 
@@ -26,7 +26,7 @@ Version control and continuous integration - 12 commands total.
 
 ---
 
-## Git Commands (9)
+## Git Commands (11)
 
 ### /craft:git:worktree
 
@@ -36,6 +36,22 @@ Version control and continuous integration - 12 commands total.
 /craft:git:worktree add feature-auth
 /craft:git:worktree list
 /craft:git:worktree remove feature-auth
+```
+
+### /craft:git:protect
+
+Re-enable branch protection after a temporary bypass.
+
+```bash
+/craft:git:protect
+```
+
+### /craft:git:unprotect
+
+Temporarily bypass branch protection for the current branch (creates `.claude/allow-dev-edit` marker).
+
+```bash
+/craft:git:unprotect
 ```
 
 ### /craft:git:sync

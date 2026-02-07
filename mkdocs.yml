@@ -183,6 +183,8 @@ nav:
       - /craft:git:clean: commands/git/clean.md
       - /craft:git:status: commands/git/status.md
       - /craft:git:sync: commands/git/sync.md
+      - /craft:git:protect: commands/git/protect.md
+      - /craft:git:unprotect: commands/git/unprotect.md
       - /craft:docs:changelog: commands/docs/changelog.md
       - /craft:docs:check: commands/docs/check.md
       - /craft:docs:sync: commands/docs/sync.md

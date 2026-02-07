@@ -107,7 +107,7 @@ craft/
 ├── agents/             # 8 agents
 ├── scripts/            # 30+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
-├── tests/              # Comprehensive test suite (1294 tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1380 tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (23 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)

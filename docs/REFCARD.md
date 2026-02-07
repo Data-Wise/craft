@@ -5,8 +5,8 @@
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
 │  Version: 2.15.0 (released 2026-02-06)                       │
-│  Commands: 106 | Agents: 8 | Skills: 21                     │
-│  Documentation: 99% complete | Tests: 1294 passing           │
+│  Commands: 108 | Agents: 8 | Skills: 21                     │
+│  Documentation: 99% complete | Tests: 1380 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
 │  v2.15.0: Brainstorm spec simplification (84% reduction)    │
 │           Context-aware smart questions, 38 new tests        │
@@ -464,7 +464,7 @@
 - Auto-fix: `/craft:docs:lint --fix` (apply safe fixes)
 - Path targeting: `/craft:docs:lint docs/guide/` (check specific directories)
 - Pre-commit integration: Auto-fix on staged markdown
-- All 1294 tests passing (100%)
+- All 1380 tests passing (100%)
 - [Release Notes](RELEASE-v2.8.0.md) | [Docs Command Reference](commands/docs.md)
 
 **Interactive Documentation Update**

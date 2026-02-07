@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased] - Teaching Ecosystem Coordination
+## [Unreleased] - v2.16.0: Teaching Ecosystem + Branch Protection
 
 ### Added
 
+- **Branch protection hooks:** `scripts/branch-guard.sh` — PreToolUse hook that prevents edits on protected branches (main=block-all, dev=block-new-code)
+- **New commands:** `/craft:git:protect` (re-enable protection) and `/craft:git:unprotect` (temporary bypass via marker file)
+- **Standalone installer:** `scripts/install-branch-guard.sh` — works outside Craft plugin
+- **86 branch guard tests:** 49 unit + 31 e2e + 6 integration (jq-based JSON parsing with Python/grep fallback)
 - **Config normalizer:** `_normalize_config()` in `commands/utils/teach_config.py` — adapter that maps flow-cli schema (`semester_info`, `course.name`, `branches`) to Craft-native format
 - **Single-day break support:** Break validation now accepts `start == end` for holidays like MLK Day
 - **8 normalization tests** in `tests/test_integration_teaching_workflow.py` (all passing)
@@ -19,11 +23,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Command count:** 106 → 108 (added protect + unprotect)
+- **Test count:** 1294 → 1380 (+86 branch guard tests)
+- **Craft command enhancements:** `/craft:check` shows guard status, `/craft:do` respects protection, `/craft:git:worktree` validates branch, `/craft:git:status` shows protection level
 - **Teaching config schema docs:** Added flow-cli compatibility section, single-day break docs, field mapping table
 - **Teaching tutorial:** Added flow-cli note, single-day break example, ecosystem links
 - **Teaching workflow guide:** Added ecosystem section with role boundaries and decision guide
 - **Site navigation:** Restructured mkdocs.yml with dedicated Teaching tab (was buried in Guides)
-- Total tests: 1286 → 1294
 
 ### Fixed
 

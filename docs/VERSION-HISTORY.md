@@ -44,7 +44,7 @@
 
 - Brainstorm spec: 1,919 → 312 lines (-84%)
 - New tests: 38 (all passing)
-- Total tests: 1294
+- Total tests: 1380
 - New utility: ~280 lines Python
 - Files changed: 8
 
