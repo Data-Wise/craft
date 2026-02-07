@@ -127,6 +127,36 @@ pytest tests/ --cov=craft
 - **Incremental analysis:** Only checks changed code
 - **Token-efficient:** Optimized prompts and context
 
+### 5. Branch Protection Hooks
+
+A PreToolUse hook (`scripts/branch-guard.sh`) enforces branch safety:
+
+```
+Claude Code tool call (Write, Edit, Bash)
+    ↓
+PreToolUse hook reads JSON stdin
+    ↓
+┌──────────────────────────────────┐
+│  branch-guard.sh                 │
+│  - Reads .claude/branch-guard.json│
+│  - Falls back to auto-detect     │
+│  - main → block-all              │
+│  - dev  → block-new-code         │
+│  - feature/* → allow all         │
+└──────────────────────────────────┘
+    ↓
+exit 0 (allow) or exit 2 (block)
+```
+
+**Protection levels:**
+
+| Level | Blocks | Allows |
+|-------|--------|--------|
+| `block-all` | All file writes, edits, git commits | Read-only operations |
+| `block-new-code` | New `.py`, `.sh`, `.js`, `.ts` files | Edits to existing files, docs, specs |
+
+**Bypass:** `/craft:git:unprotect` creates a marker file; `/craft:git:protect` removes it.
+
 ## Extensibility
 
 Craft is designed for easy extension:

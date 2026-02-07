@@ -628,7 +628,7 @@ Definition lists (`:` syntax) have different rules:
 
 ### Specs
 
-- **[List Spacing Spec](../specs/SPEC-markdownlint-list-spacing-2026-01-19.md)** - Technical specification
+- **[List Spacing Spec](../specs/_archive/SPEC-markdownlint-list-spacing-2026-01-19.md)** - Technical specification
 
 ### Tests
 
@@ -684,4 +684,4 @@ Definition lists (`:` syntax) have different rules:
 
 - Review [Documentation Quality Guide](documentation-quality.md) for complete workflow
 - Check [Command Reference](../commands/docs.md) for all linting options
-- See [Spec](../specs/SPEC-markdownlint-list-spacing-2026-01-19.md) for technical details
+- See [Spec](../specs/_archive/SPEC-markdownlint-list-spacing-2026-01-19.md) for technical details

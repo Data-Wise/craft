@@ -38,11 +38,11 @@ I want a quick overview of my project's structure, dependencies, and key compone
    Type: Plugin (detected from .claude-plugin/)
 
    Directory Structure:
-     commands/    106 command files across 8 categories
+     commands/    108 command files across 8 categories
      agents/      8 agent definitions
      skills/      21 skill modules
      utils/       7 Python utilities
-     tests/       16 test files (1248 tests)
+     tests/       16 test files (1432 tests)
 
    Key Entry Points:
      commands/do.md         Smart routing hub

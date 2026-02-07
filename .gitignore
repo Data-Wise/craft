@@ -21,12 +21,19 @@ env/
 .DS_Store
 Thumbs.db
 
-# Test reports
+# Test reports and logs
 tests/craft_test_report.md
+tests/cli/logs/
 .coverage
 
-# Brainstorm documents (working drafts)
-docs/brainstorm/
+# Working artifacts (session outputs, plans, reports)
+ORCHESTRATE
+WAVE*.md
+PHASE*.md
+IMPLEMENTATION*.md
+WIP*.md
+POST-MERGE-*.md
+PRE-PR-*.md
 
 # MkDocs
 site/

@@ -78,4 +78,4 @@ The command:
 
 - Template: `templates/dry-run-pattern.md`
 - Utility: `utils/dry_run_output.py`
-- Specification: `docs/specs/SPEC-dry-run-feature-2026-01-15.md`
+- Specification: `docs/specs/_archive/SPEC-dry-run-feature-2026-01-15.md`

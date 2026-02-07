@@ -15,7 +15,7 @@ tags:
 related:
   - ../guide/bash-formatting-library.md
   - ../reference/REFCARD-FORMATTING.md
-  - ../specs/SPEC-styled-output-v2.14.0-2026-02-05.md
+  - ../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05.md
 version: 2.14.0
 last_updated: 2026-02-05
 ---
@@ -375,7 +375,7 @@ echo "Looking for: $SCRIPT_DIR/formatting.sh"
 
 - [Formatting Library Guide](../guide/bash-formatting-library.md) — Full API documentation
 - [Quick Reference Card](../reference/REFCARD-FORMATTING.md) — Function cheat sheet
-- [Spec](../specs/SPEC-styled-output-v2.14.0-2026-02-05.md) — Design specification
+- [Spec](../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05.md) — Design specification
 - Test Suite: `tests/test_formatting.sh` — 74 validation tests
 
 ---

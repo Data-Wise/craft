@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 106 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.15.0 adds brainstorm spec simplification (84% reduction) and context-aware smart questions.
+site_description: Full-stack developer toolkit - 108 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.15.0 adds brainstorm spec simplification (84% reduction) and context-aware smart questions.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -105,13 +105,6 @@ nav:
       - Release Workflow: workflows/release-workflow.md
       - Development Workflow: workflows/git-feature-workflow.md
       - Pre-commit Workflow: workflows/pre-commit-workflow.md
-    - Teaching Mode:
-      - Overview & Quick Start: TEACHING-DOCS-INDEX.md
-      - Setup Tutorial: tutorials/teaching-mode-setup.md
-      - Complete Guide: guide/teaching-workflow.md
-      - Quick Reference: reference/REFCARD-TEACHING.md
-      - Config Schema: teaching-config-schema.md
-      - Migration Guide: teaching-migration.md
     - Specialized Features:
       - Bash Formatting Library: guide/bash-formatting-library.md
       - Formatting Migration Tutorial: tutorials/TUTORIAL-formatting-migration.md
@@ -142,7 +135,22 @@ nav:
       - Markdown List Spacing: guide/markdown-list-spacing.md
       - Accessibility: ACCESSIBILITY.md
 
-  # 3. COMMANDS & REFERENCE - Command documentation
+  # 3. TEACHING - Dedicated teaching workflow section
+  - 📚 Teaching:
+    - Teaching Home: teaching/index.md
+    - Getting Started:
+      - Setup Tutorial: tutorials/teaching-mode-setup.md
+      - Config Schema: teaching-config-schema.md
+      - Migration Guide: teaching-migration.md
+    - Ecosystem & Guides:
+      - Ecosystem Overview: guide/teaching-workflow.md
+      - Documentation Index: TEACHING-DOCS-INDEX.md
+      - Quick Reference: reference/REFCARD-TEACHING.md
+    - Specifications:
+      - Teaching Workflow Spec: specs/_archive/SPEC-teaching-workflow-2026-01-16.md
+      - Ecosystem Coordination Spec: specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06.md
+
+  # 4. COMMANDS & REFERENCE - Command documentation
   - ⚙️ Commands & Reference:
     - Command Overview: commands/overview.md
     - By Category:
@@ -175,11 +183,13 @@ nav:
       - /craft:git:clean: commands/git/clean.md
       - /craft:git:status: commands/git/status.md
       - /craft:git:sync: commands/git/sync.md
+      - /craft:git:protect: commands/git/protect.md
+      - /craft:git:unprotect: commands/git/unprotect.md
       - /craft:docs:changelog: commands/docs/changelog.md
       - /craft:docs:check: commands/docs/check.md
       - /craft:docs:sync: commands/docs/sync.md
 
-  # 4. COOKBOOK & EXAMPLES - Use case driven recipes
+  # 5. COOKBOOK & EXAMPLES - Use case driven recipes
   - 📚 Cookbook & Examples:
     - Cookbook Home: cookbook/index.md
     - Common Recipes:
@@ -206,7 +216,7 @@ nav:
       - CLAUDE.md Out of Sync: cookbook/troubleshooting/claude-md-out-of-sync.md
       - MkDocs Build Fails: cookbook/troubleshooting/mkdocs-build-fails.md
 
-  # 5. REFERENCE & ARCHITECTURE - Technical deep-dive
+  # 6. REFERENCE & ARCHITECTURE - Technical deep-dive
   - Reference & Architecture:
     - Configuration: reference/configuration.md
     - Design Presets: reference/presets.md
@@ -238,20 +248,22 @@ nav:
         - API Reference: API-REFERENCE.md
         - Architecture Diagrams: DEPENDENCY-ARCHITECTURE.md
         - Developer Guide: DEVELOPER-GUIDE.md
-    - Specifications:
-      - Badge Management System: specs/SPEC-badge-system-2026-01-30.md
-      - Broken Link Validation: specs/SPEC-broken-link-validation-2026-01-17.md
+    - Specifications (Archive):
+      - Badge Management System: specs/_archive/SPEC-badge-system-2026-01-30.md
+      - Broken Link Validation: specs/_archive/SPEC-broken-link-validation-2026-01-17.md
       - Hub v2.0 Discovery: specs/_archive/SPEC-craft-hub-v2-2026-01-15.md
-      - Dry-Run Feature: specs/SPEC-dry-run-feature-2026-01-15.md
-      - Teaching Workflow: specs/SPEC-teaching-workflow-2026-01-16.md
-      - Website Organization: specs/SPEC-website-organization-standard-2026-01-17.md
-      - Help Template System: specs/SPEC-help-template-menu-2026-01-16.md
+      - Dry-Run Feature: specs/_archive/SPEC-dry-run-feature-2026-01-15.md
+      - Teaching Workflow: specs/_archive/SPEC-teaching-workflow-2026-01-16.md
+      - Website Organization: specs/_archive/SPEC-website-organization-standard-2026-01-17.md
+      - Help Template System: specs/_archive/SPEC-help-template-menu-2026-01-16.md
       - Interactive Docs Update: specs/_archive/SPEC-docs-update-interactive-2026-01-22.md
-      - Styled Output Formatting: specs/SPEC-styled-output-v2.14.0-2026-02-05.md
-      - Command Behavior Enhancements: specs/SPEC-command-enhancements-2026-01-29.md
-      - Brainstorm Question Bank: specs/SPEC-brainstorm-question-bank.md
+      - Styled Output Formatting: specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05.md
+      - Command Behavior Enhancements: specs/_archive/SPEC-command-enhancements-2026-01-29.md
+      - Brainstorm Question Bank: specs/_archive/SPEC-brainstorm-question-bank.md
+      - Branch Protection Hooks: specs/_archive/SPEC-branch-protection-hooks-2026-02-06.md
+      - Teaching Ecosystem Coordination: specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06.md
 
-  # 6. FOR CONTRIBUTORS - Development resources
+  # 7. FOR CONTRIBUTORS - Development resources
   - For Contributors:
     - Documentation Quality Development: guide/documentation-quality-development.md
     - CI/CD Templates: CI-TEMPLATES.md
@@ -263,5 +275,5 @@ nav:
       - Python Conventions: internal/PYTHON-CONVENTIONS.md
       - Command & Spec Conventions: internal/COMMAND-SPEC-CONVENTIONS.md
 
-  # 7. QUICK REFERENCE CARD - Printable reference
+  # 8. QUICK REFERENCE CARD - Printable reference
   - 📋 Quick Reference Card: REFCARD.md

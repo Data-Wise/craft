@@ -203,6 +203,6 @@ your-script.sh | cat            # Verify no color leaks
 
 ## Related
 
-- [Formatting Library Spec](../specs/SPEC-styled-output-v2.14.0-2026-02-05.md)
+- [Formatting Library Spec](../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05.md)
 - [Quick Reference Card](../reference/REFCARD-FORMATTING.md)
 - [Changelog](../CHANGELOG.md)

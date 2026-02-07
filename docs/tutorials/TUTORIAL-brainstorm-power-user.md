@@ -265,4 +265,4 @@ Saves to `BRAINSTORM-[topic]-[date].md`
 
 ---
 
-*See also: [Question Bank Reference](../specs/SPEC-brainstorm-question-bank.md) | [Brainstorm Reference Card](../reference/REFCARD-BRAINSTORM.md)*
+*See also: [Question Bank Reference](../specs/_archive/SPEC-brainstorm-question-bank.md) | [Brainstorm Reference Card](../reference/REFCARD-BRAINSTORM.md)*

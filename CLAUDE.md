@@ -2,10 +2,10 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**106 commands** · **21 skills** · **8 agents** · **23 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**108 commands** · **21 skills** · **8 agents** · **25 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.15.0 | **Latest Release:** v2.15.0 (2026-02-06)
-**Documentation Status:** 99% complete | **Tests:** 1286 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context)
+**Current Version:** v2.16.0 | **Latest Release:** v2.16.0 (2026-02-07)
+**Documentation Status:** 99% complete | **Tests:** 1432 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context + 8 teaching-normalization + 138 branch-guard)
 
 ## Git Workflow
 
@@ -33,6 +33,17 @@ feature/* (worktrees) ← All implementation work
 - **Never** commit directly to `main`
 - **Never** write feature code on `dev`
 - **Always** verify branch: `git branch --show-current`
+
+### Branch Protection (Enforced by Hook)
+
+| Branch | Code Files | .md Files | Git Operations |
+|--------|-----------|-----------|----------------|
+| `main` | BLOCKED | BLOCKED | Commit/push BLOCKED |
+| `dev` | New: BLOCKED, Existing: allowed | ALLOWED | Commit/push allowed |
+| `feature/*` | ALLOWED | ALLOWED | All allowed |
+
+Override: `/craft:git:unprotect` (session-scoped, auto-expires)
+Config: `.claude/branch-guard.json` (per-project, optional)
 
 ## Quick Commands
 
@@ -91,14 +102,14 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 ```text
 craft/
 ├── .claude-plugin/     # Plugin manifest, hooks, validators
-├── commands/           # 106 commands (arch, ci, code, docs, git, site, test, workflow)
+├── commands/           # 108 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 21 specialized skills
 ├── agents/             # 8 agents
 ├── scripts/            # 30+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
-├── tests/              # Comprehensive test suite (1286 tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1432 tests, 90%+ coverage)
 ├── docs/
-│   ├── specs/          # Implementation specs (24 total)
+│   ├── specs/          # Implementation specs (23 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
 │   ├── tutorials/      # Step-by-step guides
 │   └── brainstorm/     # Working drafts (gitignored)
@@ -107,43 +118,25 @@ craft/
 
 ## Recent Major Features
 
+### v2.16.0 - Branch Protection Hooks (2026-02-06) ✅
+
+**New Hook:** `~/.claude/hooks/branch-guard.sh` (~290 lines) — PreToolUse hook enforcing branch protection (main=block-all, dev=block-new-code, feature=unrestricted). Per-project config via `.claude/branch-guard.json`.
+
+**New Commands:** `/craft:git:unprotect` + `/craft:git:protect` (session-scoped bypass)
+**Enhanced:** `/craft:check` (branch context), `/craft:do` (branch-aware routing), `/craft:git:worktree` (main block), `/craft:git:status` (guard indicator)
+**Tests:** 42 unit + 6 integration, all passing. **Files Changed:** 12 (+2,200 lines)
+
+---
+
 ### v2.15.0 - Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06) ✅
 
-**Part 1: Spec Simplification** — brainstorm.md reduced from 1,919 → 312 lines (84% reduction). Extracted to:
-
-- `docs/specs/SPEC-brainstorm-question-bank.md` — Full question bank + project-type extensions
-- `docs/tutorials/TUTORIAL-brainstorm-power-user.md` — Detailed examples + advanced patterns
-- `docs/reference/REFCARD-BRAINSTORM.md` — Flowcharts + quick reference card
-
-**Part 2: Context-Aware Smart Questions** — New Step 1.7 context scan before presenting questions:
-
-- `utils/brainstorm_context.py` (~280 lines) — Scans .STATUS, specs, git log, CLAUDE.md
-- Project-type question extensions: 12 new questions (2 per type: R, Python, Node, Quarto, Plugin, Teaching)
-- Dynamic questions: matching specs, prior brainstorms, failing tests
-- Pre-fills answers from project state (version, current task)
-
-**Tests:** 38 new tests (test_brainstorm_context.py), all passing
-
-**Files Changed:** 8 (+1,500/-1,600)
+Brainstorm.md reduced 1,919 → 312 lines (84% reduction). New `utils/brainstorm_context.py` (~280 lines) scans .STATUS, specs, git log for context-aware smart questions. 12 project-type extensions, dynamic questions from project state. **Tests:** 38 new. **Files Changed:** 8 (+1,500/-1,600)
 
 ---
 
 ### v2.14.0 - Unified Formatting Library (2026-02-05) ✅
 
-**Branch:** `feature/styled-output`
-
-**New Library:** `scripts/formatting.sh` (~180 lines) — shared bash formatting library providing box-drawing (double/single line), `FMT_` prefixed color constants, ANSI-aware padding, table formatting, and source guard. All boxes standardized to 63 visible characters.
-
-**API:** `box_header`, `box_single`, `box_row`, `box_separator`, `box_footer`, `box_empty_row`, `box_table`, `fmt_set_width`, `fmt_divider`, `_fmt_strip_ansi`.
-
-**Migrations:**
-
-- 8 box-drawing scripts migrated (install.sh, migrate-from-workflow.sh, convert-cast.sh, health-check.sh, consent-prompt.sh, dependency-installer.sh, dependency-manager.sh)
-- 15 color-only scripts migrated (validate-counts, pre-release-check, batch-convert, repair-tools, 3 installers, tool-detector, version-check, sync-version, verify-phase1/2, install-hooks, test-fix-flag, pre-commit-markdownlint)
-
-**Tests:** 74 new tests (28 unit + 30 integration + 16 edge cases)
-
-**Files Changed:** 24 (+1,100/-300)
+`scripts/formatting.sh` (~180 lines) — shared box-drawing, `FMT_` color constants, ANSI-aware padding. 23 scripts migrated (8 box-drawing + 15 color-only). All boxes standardized to 63 visible characters. **Tests:** 74 new. **Files Changed:** 24 (+1,100/-300)
 
 ---
 
@@ -364,7 +357,7 @@ Custom lint rule for MkDocs `attr_list` extension compatibility:
 
 ## Integration Features (v1.24.0)
 
-The v1.24.0 release includes 27 integration tests validating three critical systems:
+Integration tests validate critical systems end-to-end:
 
 ### Integration Test Categories
 
@@ -373,8 +366,8 @@ The v1.24.0 release includes 27 integration tests validating three critical syst
 | **CLAUDE.md v3 Pipeline**  | 9      | Sync pipeline, optimizer, budget enforcement    | `tests/test_integration_claude_md_v3.py`                                       |
 | **Dependency System**      | 9      | Tool detection, installation, repair            | [Dependency Management Advanced](docs/guide/dependency-management-advanced.md) |
 | **Orchestrator Workflows** | 13     | Complexity scoring, routing, agent coordination | [Claude Code 2.1.0 Guide](docs/guide/claude-code-2.1-integration.md)           |
-| **Teaching Workflow**      | 8      | Course detection, validation, publishing        | [Teaching Workflow Guide](docs/guide/teaching-workflow.md)                     |
-| **Total**                  | **36** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
+| **Teaching Workflow**      | 16     | Config normalization, detection, validation     | [Teaching Workflow Guide](docs/guide/teaching-workflow.md)                     |
+| **Total**                  | **47** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
 
 ### Running Integration Tests
 
@@ -487,7 +480,7 @@ python3 tests/test_integration_teaching_workflow.py
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
 
-See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HISTORY.md` for full release history.
+See `docs/specs/` for detailed specifications (23 total). See `docs/VERSION-HISTORY.md` for full release history.
 
 ## Key Files
 
@@ -504,8 +497,8 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 | `docs/guide/complexity-scoring-algorithm.md`      | Complexity algorithm guide (NEW)                        |
 | `docs/guide/claude-code-2.1-integration.md`       | Claude Code 2.1 integration guide (NEW)                 |
 | `docs/orch/ORCH-brainstorm-phase1-2026-01-18.md`  | Phase 1 implementation plan                             |
-| `docs/specs/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec                       |
-| `docs/specs/SPEC-craft-hub-v2-2026-01-15.md`      | Hub v2.0 architecture spec                              |
+| `docs/specs/_archive/SPEC-teaching-workflow-2026-01-16.md` | Teaching mode implementation spec               |
+| `docs/specs/_archive/SPEC-craft-hub-v2-2026-01-15.md`      | Hub v2.0 architecture spec                      |
 | `.linkcheck-ignore`                               | Expected broken links (test files, brainstorm refs)     |
 | `utils/complexity_scorer.py`                      | Task complexity scoring (0-10 scale)                    |
 | `utils/linkcheck_ignore_parser.py`                | Parser for .linkcheck-ignore patterns                   |
@@ -527,6 +520,12 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 | `scripts/pre-release-check.sh`                    | Pre-release validation (version, counts, clean tree)    |
 | `scripts/docs-lint-emoji.sh`                      | Standalone CRAFT-001 check for pre-commit hook          |
 | `.prettierignore`                                 | Prevents prettier from breaking emoji-attribute spacing |
+| `.claude/branch-guard.json`                       | Per-project branch protection config (optional)         |
+| `commands/git/unprotect.md`                       | Session-scoped bypass for branch protection             |
+| `commands/git/protect.md`                         | Re-enable branch protection                             |
+| `tests/test_branch_guard.sh`                      | Branch guard hook unit tests (49 tests)                 |
+| `tests/test_branch_guard_e2e.sh`                  | Branch guard e2e tests (31 tests)                       |
+| `tests/test_integration_branch_guard.py`          | Branch guard integration tests (6 tests)                |
 
 ## Test Suite
 
@@ -543,17 +542,21 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 | `tests/test_claude_md_v3.py`                       | 51       | 100%     | v3 sync/optimizer (v2.12.0)  |
 | `tests/test_claude_md_audit.py`                    | 11       | 100%     | Audit module (v2.10.0)       |
 | `tests/test_brainstorm_context.py`                 | 38       | 100%     | Context scanner (v2.15.0)    |
+| `tests/test_branch_guard.sh`                       | 49       | 100%     | Branch guard hook (v2.16.0)  |
 | **Integration & E2E Tests**                        |          |          |                              |
 | `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
 | `tests/test_integration_dependency_system.py`      | 9        | 100%     | Dependency workflow          |
 | `tests/test_integration_orchestrator_workflows.py` | 13       | 100%     | Task routing & scoring       |
 | `tests/test_integration_claude_md_v3.py`           | 9        | 100%     | v3 sync/optimizer integ.     |
-| `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
+| `tests/test_integration_teaching_workflow.py`      | 16       | 100%     | Teaching mode + normalization (2 skipped) |
+| `tests/test_integration_branch_guard.py`           | 6        | 100%     | Branch guard integration     |
+| `tests/test_branch_guard_e2e.sh`                   | 31       | 100%     | Branch guard e2e (v2.16.0)   |
+| `tests/test_branch_guard_dogfood.py`               | 52       | 100%     | Branch guard dogfooding (v2.16.0) |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
 | `tests/test_formatting.sh`                         | 74       | 100%     | Formatting library (v2.14.0) |
-| **Total**                                          | **1286** | **~90%** | **All systems**              |
+| **Total**                                          | **1432** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
@@ -575,9 +578,9 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 ## Links
 
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
-- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 106 commands
+- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 108 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
-- [Specifications](docs/specs/) — Implementation specs (24 total)
+- [Specifications](docs/specs/) — Implementation specs (23 total)
 - [Version History](docs/VERSION-HISTORY.md) — Complete release timeline (NEW)
 - [Complexity Scoring](docs/guide/complexity-scoring-algorithm.md) — Algorithm & routing (NEW)
 - [Claude Code 2.1](docs/guide/claude-code-2.1-integration.md) — Integration guide (NEW)

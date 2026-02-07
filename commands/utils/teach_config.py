@@ -51,6 +51,61 @@ DEFAULTS = {
 VALID_SEMESTERS = ["Spring", "Fall", "Winter", "Summer"]
 
 
+def _normalize_config(raw_config: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Normalize flow-cli schema to craft-native format.
+
+    Non-destructive, idempotent, silent. Uses setdefault() merge pattern:
+    only fills gaps — never overwrites existing craft-native keys.
+    Original flow-cli keys stay in dict (other tools may read them).
+
+    Pipeline: load YAML -> _normalize_config() -> apply_defaults() -> validate()
+
+    Field mappings:
+        semester_info.start_date  -> dates.start      (if dates.start missing)
+        semester_info.end_date    -> dates.end         (if dates.end missing)
+        semester_info.breaks      -> dates.breaks      (if dates.breaks missing)
+        course.name               -> course.number     (if number missing)
+        course.full_name          -> course.title      (if title missing)
+        course.semester           -> capitalize         (spring -> Spring)
+        branches.production       -> deployment.production_branch (if missing)
+        branches.draft            -> deployment.draft_branch      (if missing)
+    """
+    # --- Course normalization ---
+    course = raw_config.setdefault("course", {})
+    if "number" not in course and "name" in course:
+        course["number"] = course["name"]
+    if "title" not in course and "full_name" in course:
+        course["title"] = course["full_name"]
+    if "semester" in course and isinstance(course["semester"], str):
+        sem_word = course["semester"].split()[0] if " " in course["semester"] else course["semester"]
+        capitalized = sem_word.capitalize()
+        if capitalized in VALID_SEMESTERS:
+            course["semester"] = capitalized
+
+    # --- Dates normalization (merge strategy: fill gaps only) ---
+    si = raw_config.get("semester_info", {})
+    if si:
+        dates = raw_config.setdefault("dates", {})
+        if "start" not in dates and "start_date" in si:
+            dates["start"] = si["start_date"]
+        if "end" not in dates and "end_date" in si:
+            dates["end"] = si["end_date"]
+        if "breaks" not in dates and "breaks" in si:
+            dates["breaks"] = si["breaks"]
+
+    # --- Deployment normalization ---
+    branches = raw_config.get("branches", {})
+    if branches:
+        deploy = raw_config.setdefault("deployment", {})
+        if "production_branch" not in deploy and "production" in branches:
+            deploy["production_branch"] = branches["production"]
+        if "draft_branch" not in deploy and "draft" in branches:
+            deploy["draft_branch"] = branches["draft"]
+
+    return raw_config
+
+
 def get_config_path(cwd: str = ".") -> Optional[str]:
     """
     Find the teaching config file.
@@ -193,9 +248,9 @@ def validate_breaks(breaks: List[Dict[str, str]], start: str, end: str) -> List[
         break_start = parse_date(break_start_str)
         break_end = parse_date(break_end_str)
 
-        # Validate break start < end
-        if break_start >= break_end:
-            errors.append(f"Break '{name}': start date must be before end date")
+        # Validate break start <= end (single-day breaks like holidays are valid)
+        if break_start > break_end:
+            errors.append(f"Break '{name}': start date must be before or equal to end date")
             continue
 
         # Validate break falls within semester
@@ -393,6 +448,9 @@ def load_teach_config(cwd: str = ".") -> Optional[Dict[str, Any]]:
     if not isinstance(config, dict):
         print(f"Warning: Config must be a YAML dictionary (got {type(config).__name__})", file=sys.stderr)
         return None
+
+    # Normalize flow-cli schema to craft-native format
+    config = _normalize_config(config)
 
     # Apply defaults
     config = apply_defaults(config)

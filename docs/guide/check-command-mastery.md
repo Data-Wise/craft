@@ -217,12 +217,12 @@ Pre-flight Check Plan:
   ✓ YAML: 0 issues
 
 [3/12] Unit tests (full + coverage)...
-  ✓ 1248 tests passed
+  ✓ 1432 tests passed
   ✓ Coverage: 92% (all modules > 80%)
   Report: htmlcov/index.html
 
 [4/12] Integration tests...
-  ✓ 27 integration tests passed
+  ✓ 38 integration tests passed
   ✓ End-to-end workflows validated
 
 [5/12] Type check (strict)...
@@ -234,7 +234,7 @@ Pre-flight Check Plan:
   ✓ No known CVEs in dependencies
 
 [7/12] Documentation validation...
-  ✓ All command docs present (106 commands)
+  ✓ All command docs present (108 commands)
   ✓ All help files valid YAML
   ✓ mkdocs builds without warnings
 

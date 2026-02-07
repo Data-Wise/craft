@@ -2,12 +2,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 106 commands organized into 10 categories (Smart, Docs, Site, Code, Testing, Git, CI, Architecture, Distribution, Planning, Workflow)
+> - **What:** 108 commands organized into 10 categories (Smart, Docs, Site, Code, Testing, Git, CI, Architecture, Distribution, Planning, Workflow)
 > - **Why:** One plugin handles your entire development workflow from docs to deployment
 > - **How:** Use `/craft:hub` to discover all commands by category
 > - **Next:** Start with `/craft:do` for AI-powered task routing or `/craft:check` for pre-flight validation
 
-Craft provides **106 commands** across 10 categories for full-stack development workflows.
+Craft provides **108 commands** across 10 categories for full-stack development workflows.
 
 ## Command Categories
 
@@ -57,7 +57,7 @@ Development workflow tools:
 
 Version control and continuous integration:
 
-- Git: `worktree`, `sync`, `clean`, `recap`, `branch`, `init`
+- Git: `worktree`, `sync`, `clean`, `recap`, `branch`, `init`, `protect`, `unprotect`
 - CI: `detect`, `generate`, `validate`
 
 [Learn more →](git.md)

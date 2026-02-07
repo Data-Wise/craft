@@ -157,5 +157,5 @@ box_footer  # Resets to 63
 ## See Also
 
 - [Full Guide](../guide/bash-formatting-library.md)
-- [Spec](../specs/SPEC-styled-output-v2.14.0-2026-02-05.md)
+- [Spec](../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05.md)
 - 74 Tests: `tests/test_formatting.sh`

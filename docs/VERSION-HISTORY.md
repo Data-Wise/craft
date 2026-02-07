@@ -2,9 +2,9 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.15.0 (2026-02-06)
+**Latest Release:** v2.16.0 (2026-02-07)
 **Total Releases:** 37 versions | **Development Time:** 2+ years
-**Community:** 106 commands documented, 1286 tests passing, 90%+ coverage
+**Community:** 108 commands documented, 1432 tests passing, 90%+ coverage
 
 ---
 
@@ -44,7 +44,7 @@
 
 - Brainstorm spec: 1,919 → 312 lines (-84%)
 - New tests: 38 (all passing)
-- Total tests: 1286
+- Total tests: 1432
 - New utility: ~280 lines Python
 - Files changed: 8
 

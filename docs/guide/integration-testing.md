@@ -5,7 +5,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Craft includes 27 integration tests across 3 categories (dependency system, orchestrator workflows, teaching workflow)
+> - **What:** Craft includes 44 integration tests across 4 categories (dependency system, orchestrator workflows, teaching workflow, branch guard)
 > - **Why:** Ensure new features work end-to-end with all dependencies
 > - **How:** Run `python3 tests/test_integration_*.py` to test each category
 > - **Next:** Read about [Dependency Management](dependency-management-advanced.md) or [Claude Code 2.1.0 Integration](claude-code-2.1-guide.md)
@@ -23,6 +23,7 @@ Craft has comprehensive integration tests that validate the entire system end-to
     python3 tests/test_integration_dependency_system.py
     python3 tests/test_integration_orchestrator_workflows.py
     python3 tests/test_integration_teaching_workflow.py
+    python3 tests/test_integration_branch_guard.py
     ```
 
 ## Test Categories
@@ -132,33 +133,30 @@ test_13_agent_coordination ... ok
 Ran 13 tests in ~3-8 seconds
 ```
 
-### Category 3: Teaching Workflow (8 tests, 3 skipped)
+### Category 3: Teaching Workflow (16 tests, 2 skipped)
 
 **File:** `tests/test_integration_teaching_workflow.py`
 
-**Purpose:** Validates the end-to-end teaching workflow including detection, validation, and publish cycle.
+**Purpose:** Validates the end-to-end teaching workflow including detection, config normalization, validation, and publish cycle.
 
 **What It Tests:**
 
 - ✅ Teaching mode detection (`.flow/teach-config.yml` presence)
 - ✅ Configuration parsing and validation
-- ✅ Semester progress calculation
-- ✅ Weekly schedule alignment
-- ✅ Content validation (syllabus, assignments, schedule)
-- ✅ Publish safety checks (draft → preview → validate → deploy)
-- ✅ GitHub Pages integration
-- ⏳ Course content sync (skipped - modules not yet implemented)
-- ⏳ Grade export workflow (skipped - modules not yet implemented)
-- ⏳ Student notification system (skipped - modules not yet implemented)
+- ✅ Flow-CLI config normalization (`semester_info` → `dates`, `course.name` → `course.number`)
+- ✅ Mixed schema merge (craft-native keys win, gaps filled from flow-cli)
+- ✅ Semester capitalization (`spring` → `Spring`)
+- ✅ Single-day break validation (start == end accepted)
+- ✅ Deployment branch normalization (`branches` → `deployment`)
+- ✅ Config structure validation and edge cases
+- ⏳ Teaching detection module (skipped - requires detect_teaching_mode.py)
 
 **Components Tested:**
 
+- `commands/utils/teach_config.py` - Config parsing + `_normalize_config()`
 - `commands/utils/detect_teaching_mode.py` - Teaching detection
-- `commands/utils/teach_config.py` - Config parsing
 - `commands/utils/teaching_validation.py` - Content validation
-- `commands/site/build.md` - Build workflow
 - `commands/site/publish.md` - Publish workflow
-- `commands/site/progress.md` - Progress tracking
 
 **Run It:**
 
@@ -169,18 +167,60 @@ python3 tests/test_integration_teaching_workflow.py
 **Expected Output:**
 
 ```
-test_01_detection_with_config ... ok
-test_02_config_parsing ... ok
-test_03_progress_calculation ... ok
-test_04_schedule_alignment ... ok
-test_05_content_validation ... ok
-test_06_publish_safety_checks ... ok
-test_07_github_pages_integration ... ok
-test_08_course_content_sync ... skipped (modules not implemented)
-test_09_grade_export ... skipped (modules not implemented)
-test_10_student_notifications ... skipped (modules not implemented)
+test_01_detection_with_config ... skipped (detection module)
+test_02_detection_without_config ... skipped (detection module)
+test_03_config_parsing ... ok
+test_04_teaching_commands_exist ... ok
+test_05_teaching_utilities_exist ... ok
+test_06_config_structure_validation ... ok
+test_branches_to_deployment ... ok
+test_craft_native_unchanged ... ok
+test_flowcli_schema_loads ... ok
+test_full_name_to_title ... ok
+test_mixed_schema_merge ... ok
+test_name_to_number_mapping ... ok
+test_semester_capitalization ... ok
+test_single_day_break_valid ... ok
+test_invalid_yaml_handling ... ok
+test_missing_required_fields ... ok
 
-Ran 8 tests in ~2-4 seconds (5 executed, 3 skipped)
+Ran 16 tests in ~0.07 seconds (14 passed, 2 skipped)
+```
+
+### Category 4: Branch Guard (6 tests)
+
+**File:** `tests/test_integration_branch_guard.py`
+
+**Purpose:** Validates the branch protection hook system including config loading, protection levels, and jq-based JSON parsing.
+
+**What It Tests:**
+
+- ✅ Config file loading and validation (`.claude/branch-guard.json`)
+- ✅ Auto-detection fallback when no config exists
+- ✅ Protection level assignment (block-all vs block-new-code)
+- ✅ File extension classification (code vs docs)
+- ✅ Bypass marker detection (`.claude/allow-dev-edit`)
+- ✅ JSON parsing with jq (primary), Python (fallback), grep/sed (last resort)
+
+**Components Tested:**
+
+- `scripts/branch-guard.sh` - PreToolUse hook with `_json_get` function
+- `.claude/branch-guard.json` - Per-project config
+- `commands/git/protect.md` - Re-enable protection
+- `commands/git/unprotect.md` - Bypass protection
+
+**Run It:**
+
+```bash
+python3 tests/test_integration_branch_guard.py
+```
+
+**Also: Bash test suites** (49 unit + 31 e2e) **and dogfooding** (52 tests):
+
+```bash
+bash tests/test_branch_guard.sh            # Unit tests
+bash tests/test_branch_guard_e2e.sh        # End-to-end tests
+python3 tests/test_branch_guard_dogfood.py # Dogfooding tests (real repo)
 ```
 
 ## Running Integration Tests
@@ -209,6 +249,9 @@ python3 tests/test_integration_orchestrator_workflows.py
 
 # Teaching tests only
 python3 tests/test_integration_teaching_workflow.py
+
+# Branch guard tests only
+python3 tests/test_integration_branch_guard.py
 ```
 
 ### With Verbose Output
@@ -330,6 +373,14 @@ The teaching workflow system enables course management and publishing. Tests ver
 | Build | `commands/site/build.md` | Build command |
 | Publish | `commands/site/publish.md` | Publish workflow |
 | Progress | `commands/site/progress.md` | Progress tracking |
+| **Branch Guard** | | |
+| Hook script | `scripts/branch-guard.sh` | PreToolUse hook with jq parsing |
+| Config | `.claude/branch-guard.json` | Per-project branch protection config |
+| Protect command | `commands/git/protect.md` | Re-enable protection |
+| Unprotect command | `commands/git/unprotect.md` | Bypass protection |
+| Unit tests | `tests/test_branch_guard.sh` | 49 bash unit tests |
+| E2E tests | `tests/test_branch_guard_e2e.sh` | 31 end-to-end tests |
+| Dogfooding tests | `tests/test_branch_guard_dogfood.py` | 52 dogfooding tests (real repo) |
 
 ## Next Steps
 
@@ -342,10 +393,11 @@ The teaching workflow system enables course management and publishing. Tests ver
 
 ## Summary
 
-Craft's 27 integration tests validate three critical systems:
+Craft's 44 integration tests validate four critical systems:
 
 - **Dependency System (9 tests)** - Tool detection, installation, and repair
 - **Orchestrator (13 tests)** - Smart routing, complexity scoring, agent delegation
-- **Teaching (8 tests)** - Course detection, validation, and publishing
+- **Teaching (16 tests)** - Config normalization, detection, validation, and publishing
+- **Branch Guard (6 tests)** - Branch protection hooks, config loading, JSON parsing
 
 Run them regularly to ensure features continue working end-to-end. All tests pass with 100% success rate.

@@ -1,19 +1,19 @@
 status: Active
-version: 2.15.0
-release_date: 2026-02-06
-milestone: v2.15.0 - Brainstorm v2.5.0 (Spec Simplification + Smart Questions)
-last_session: 2026-02-06
+version: 2.16.0
+release_date: 2026-02-07
+milestone: v2.16.0 - Teaching Ecosystem + Branch Protection
+last_session: 2026-02-07
 
-progress: 95% (PR #56 open, docs synced, awaiting merge + release tag)
+progress: v2.16.0 release preparation — version bumped, pre-release checks passing
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                          |
-|--------|---------|------|---------------------------------|
-| main   | 4d20c14 | —    | Production (v2.14.0 + docs sync)|
-| dev    | pending | main | v2.15.0 implementation          |
+| Branch | Head    | Base | Status                        |
+|--------|---------|------|-------------------------------|
+| main   | bbd6ac7 | —    | Production (v2.15.0 released) |
+| dev    | pending | main | v2.16.0 ready for release PR  |
 
-✅ Just Completed (2026-02-06 session):
+✅ v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06):
 - Brainstorm spec simplification: 1,919 → 312 lines (84% reduction)
 - Extracted to 4 reference docs (question bank, tutorial, refcard, version history)
 - New: utils/brainstorm_context.py — context-aware smart questions
@@ -21,12 +21,9 @@ progress: 95% (PR #56 open, docs synced, awaiting merge + release tag)
 - Project-type question extensions: 6 types, 12 new questions
 - Dynamic questions: matching spec, prior brainstorm, failing tests detection
 - Docs health check: synced 7 stale version refs, added 3 nav entries
-- PR #56 created and pushed to dev
-
-✅ Previous session (2026-02-06):
-- Synced version refs across README, REFCARD, CLAUDE.md (v2.12.0 → v2.14.0)
-- Updated 7 docs site pages (test counts 1171/1174 → 1248, docs 98% → 99%)
-- Merged PR #55 to main (docs sync)
+- PR #56 merged, release tagged: https://github.com/Data-Wise/craft/releases/tag/v2.15.0
+- Site pages synced (7 files: REFCARD, CHANGELOG, tutorials, conventions)
+- Docs deployed to GitHub Pages
 
 ✅ v2.14.0 — Unified Formatting Library (2026-02-05):
 - New: scripts/formatting.sh — shared box-drawing, colors, ANSI-aware padding
@@ -35,18 +32,24 @@ progress: 95% (PR #56 open, docs synced, awaiting merge + release tag)
 
 ---
 
-## Next Steps
+## In Progress (v2.16.0)
 
-🎯 Next Action: Merge PR #56 to main, tag v2.15.0 release
+**feature/teaching-ecosystem**: ✅ MERGED (PR #57, 2026-02-07)
+- Config normalizer, break validation fix, 8 new tests, Teaching docs tab
 
-**v2.15.0 Deliverables:**
-- Brainstorm spec: 1,919 → 312 lines
-- New utility: utils/brainstorm_context.py (~280 lines)
-- New docs: SPEC-brainstorm-question-bank.md, TUTORIAL-brainstorm-power-user.md, REFCARD-BRAINSTORM.md
-- Updated: VERSION-HISTORY.md (brainstorm evolution table)
-- Tests: 38 new (test_brainstorm_context.py), 1286 total
+**feature/branch-protection** (9/9 complete ✅):
+1. ✅ Hook script (scripts/branch-guard.sh — moved into repo)
+2. ✅ Hook config (settings.json PreToolUse registration)
+3. ✅ Dry-run test
+4. ✅ Enable enforcement
+5. ✅ Per-project config (.claude/branch-guard.json)
+6. ✅ Craft command enhancements (check, do, worktree, status)
+7. ✅ New commands (unprotect, protect)
+8. ✅ Tests (49 unit + 31 e2e + 6 integration = 86 total)
+9. ✅ Documentation + standalone installer + Homebrew formula
 
-**Future (v2.16.0+):**
+## Future (v2.17.0+)
+
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
 - Remove deprecation aliases for old claude-md commands

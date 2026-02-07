@@ -69,7 +69,7 @@ Analyzing project structure...
 
 Detected indicators:
   ✓ .claude-plugin/plugin.json exists
-  ✓ commands/ directory (106 commands)
+  ✓ commands/ directory (108 commands)
   ✓ skills/ directory (21 skills)
   ✓ agents/ directory (8 agents)
 
@@ -89,10 +89,10 @@ From .claude-plugin/plugin.json:
   version: 2.12.0
 
 From filesystem:
-  commands: 106
+  commands: 108
   skills: 21
   agents: 8
-  tests: 1174
+  tests: 1432
 
 From git:
   repository: https://github.com/Data-Wise/craft
@@ -114,8 +114,8 @@ Generated CLAUDE.md Preview
 
 > **TL;DR**: Development workflow orchestration plugin
 
-**106 commands** · **21 skills** · **8 agents**
-**Version:** v2.12.0 | **Tests:** 1174 passing
+**108 commands** · **21 skills** · **8 agents**
+**Version:** v2.16.0 | **Tests:** 1432 passing
 
 ## Git Workflow
 [...]

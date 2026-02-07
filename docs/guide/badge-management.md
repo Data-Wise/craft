@@ -717,4 +717,4 @@ syncer.sync_badges(calculate_coverage=False)
 - [Site Management](../commands/site.md) - Site commands including badge sync
 - [Docs Update Command](../commands/docs/update.md) - Interactive category workflow
 - [CI Generate Command](../commands/ci/generate.md) - CI workflow and badge generation
-- [SPEC: Badge System](../specs/SPEC-badge-system-2026-01-30.md) - Implementation spec
+- [SPEC: Badge System](../specs/_archive/SPEC-badge-system-2026-01-30.md) - Implementation spec

@@ -2,7 +2,7 @@
 
 > **Complete reference** for the 3 claude-md commands that manage CLAUDE.md files.
 
-**3 Commands** · **Budget Enforcement** · **Pointer Architecture** · **v2.14.0**
+**3 Commands** · **Budget Enforcement** · **Pointer Architecture** · **v2.15.0**
 
 ---
 
@@ -320,7 +320,7 @@ Fallback chain: `config.json` → `package.json` (`claudeMd.budget`) → default
 - [CLAUDE.md Workflows Tutorial](../../tutorials/claude-md-workflows.md)
 - [CLAUDE.md Quick Reference](../../reference/REFCARD-CLAUDE-MD.md)
 - [Feature Release Notes](../../FEATURE-RELEASE-CLAUDE-MD.md)
-- [Spec: v3 Optimization](../../specs/SPEC-claude-md-v3-optimization-2026-02-04.md)
+- [Spec: v3 Optimization](../../specs/_archive/SPEC-claude-md-v3-optimization-2026-02-04.md)
 
 ---
 

@@ -7,6 +7,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.16.0] - 2026-02-07: Teaching Ecosystem + Branch Protection
+
+### Added
+
+- **Branch protection hooks:** `scripts/branch-guard.sh` — PreToolUse hook that prevents edits on protected branches (main=block-all, dev=block-new-code)
+- **New commands:** `/craft:git:protect` (re-enable protection) and `/craft:git:unprotect` (temporary bypass via marker file)
+- **Standalone installer:** `scripts/install-branch-guard.sh` — works outside Craft plugin
+- **138 branch guard tests:** 49 unit + 31 e2e + 6 integration + 52 dogfooding (jq-based JSON parsing with Python/grep fallback)
+- **Config normalizer:** `_normalize_config()` in `commands/utils/teach_config.py` — adapter that maps flow-cli schema (`semester_info`, `course.name`, `branches`) to Craft-native format
+- **Single-day break support:** Break validation now accepts `start == end` for holidays like MLK Day
+- **8 normalization tests** in `tests/test_integration_teaching_workflow.py` (all passing)
+- **Teaching tab:** Dedicated top-level "Teaching" tab in documentation site nav (`docs/teaching/index.md`)
+- **Ecosystem spec:** `docs/specs/SPEC-teaching-ecosystem-coordination-2026-02-06.md`
+
+### Changed
+
+- **Command count:** 106 → 108 (added protect + unprotect)
+- **Test count:** 1294 → 1432 (+138 branch guard tests)
+- **Craft command enhancements:** `/craft:check` shows guard status, `/craft:do` respects protection, `/craft:git:worktree` validates branch, `/craft:git:status` shows protection level
+- **Teaching config schema docs:** Added flow-cli compatibility section, single-day break docs, field mapping table
+- **Teaching tutorial:** Added flow-cli note, single-day break example, ecosystem links
+- **Teaching workflow guide:** Added ecosystem section with role boundaries and decision guide
+- **Site navigation:** Restructured mkdocs.yml with dedicated Teaching tab (was buried in Guides)
+
+### Fixed
+
+- **Broken test import:** `test_integration_teaching_workflow.py` imported non-existent `parse_teach_config` — fixed to `load_teach_config`
+- **Break validation:** `>=` → `>` comparison allowing single-day breaks (MLK Day, Veterans Day)
+
+**Documentation:** [Teaching Home](teaching/index.md) · [Config Schema](teaching-config-schema.md) · [Ecosystem Spec](specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06.md)
+
+---
+
+## [2.15.0] - 2026-02-06
+
+### Added
+
+- **Context-aware smart questions:** New `utils/brainstorm_context.py` (~280 lines) scans `.STATUS`, specs, git log, and CLAUDE.md to pre-fill brainstorm questions
+- **Project-type question extensions:** 12 new questions across 6 project types (R, Python, Node.js, Quarto, Claude Plugin, Teaching)
+- **Dynamic questions:** Auto-generated questions based on matching specs, prior brainstorms, and failing tests
+- **38 new tests** in `tests/test_brainstorm_context.py` (all passing)
+- **Documentation:** Power user tutorial (`docs/tutorials/TUTORIAL-brainstorm-power-user.md`), brainstorm reference card (`docs/reference/REFCARD-BRAINSTORM.md`), question bank spec (`docs/specs/_archive/SPEC-brainstorm-question-bank.md`)
+
+### Changed
+
+- **Brainstorm spec simplified:** `commands/workflow/brainstorm.md` reduced from 1,919 → 312 lines (84% reduction)
+- **Version history updated:** Brainstorm evolution table added to `docs/VERSION-HISTORY.md`
+- Total tests: 1248 → 1286
+
+**Documentation:** [Power User Guide](tutorials/TUTORIAL-brainstorm-power-user.md) · [Quick Reference](reference/REFCARD-BRAINSTORM.md) · [Question Bank](specs/_archive/SPEC-brainstorm-question-bank.md)
+
+---
+
 ## [2.14.0] - 2026-02-05
 
 ### Added

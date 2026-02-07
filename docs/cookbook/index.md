@@ -93,7 +93,7 @@ Having issues? Check the troubleshooting section:
 
 Have a useful workflow? We'd love to add it to the cookbook!
 
-1. Follow the [Cookbook Recipe Template](../specs/SPEC-website-organization-standard-2026-01-17.md#cookbook-recipe-template)
+1. Follow the [Cookbook Recipe Template](../specs/_archive/SPEC-website-organization-standard-2026-01-17.md#cookbook-recipe-template)
 2. Submit a PR with your recipe
 3. Include time estimates and difficulty level
 4. Link to relevant commands and guides

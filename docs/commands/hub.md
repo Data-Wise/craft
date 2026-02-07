@@ -62,7 +62,7 @@ Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive dis
 - **Dynamic discovery** - Scans `commands/` directory automatically
 - **Always accurate** - No hardcoded counts that drift out of sync
 - **Fast caching** - JSON cache with auto-invalidation (<2ms cached, 12ms uncached)
-- **106 commands** detected across 17 categories (v2.4.0)
+- **108 commands** detected across 17 categories (v2.4.0)
 
 ### 3-Layer Navigation
 
@@ -74,7 +74,7 @@ Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive dis
 
 - **Progressive disclosure** - Start broad, drill down as needed
 - **Visual hierarchy** - Clear sections, icons, and formatting
-- **No overwhelm** - Never show all 106 commands at once
+- **No overwhelm** - Never show all 108 commands at once
 - **Smart breadcrumbs** - Always know where you are
 
 ---

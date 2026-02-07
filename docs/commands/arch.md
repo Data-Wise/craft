@@ -63,7 +63,7 @@ The command examines:
 ```
 ╭─ Architecture Overview ─────────────────────────────╮
 │ Project: craft | Type: Claude Code Plugin          │
-│ Structure: commands/ agents/ skills/ (106 commands) │
+│ Structure: commands/ agents/ skills/ (108 commands) │
 ├─────────────────────────────────────────────────────┤
 │ Commands: 9 categories (docs, site, code, etc.)    │
 │ Agents: 8 (orchestrator-v2, docs-architect, etc.)  │

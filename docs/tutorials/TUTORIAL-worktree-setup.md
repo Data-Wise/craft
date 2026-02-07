@@ -108,6 +108,9 @@ git branch --show-current
 
 **IMPORTANT:** The main repo should always stay on `main` (or `dev` if that's your integration branch). Never do feature work in the main repo after setting up worktrees.
 
+!!! tip "Branch Protection (v2.16.0)"
+    Craft includes a `branch-guard.sh` PreToolUse hook that **automatically prevents** accidental edits on protected branches. With it enabled, `main` blocks all edits and `dev` blocks new code files — so even if you forget to switch to a worktree, the guard catches it. See `/craft:git:protect` and `/craft:git:unprotect`.
+
 ---
 
 ## Part 3: Creating Your First Worktree

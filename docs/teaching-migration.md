@@ -77,6 +77,9 @@ git push origin production
 
 ### Step 1: Add Configuration File (5 min)
 
+!!! note "Already have a flow-cli config?"
+    If your project already has `.flow/teach-config.yml` from flow-cli (with `semester_info`, `course.name`, `branches`), **skip this step** — Craft normalizes it automatically. No separate config needed.
+
 Create `.flow/teach-config.yml` with your course details:
 
 ```yaml

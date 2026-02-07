@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.14.0 (released 2026-02-05)                       │
-│  Commands: 106 | Agents: 8 | Skills: 21                     │
-│  Documentation: 99% complete | Tests: 1248 passing           │
+│  Version: 2.16.0 (released 2026-02-07)                       │
+│  Commands: 108 | Agents: 8 | Skills: 21                     │
+│  Documentation: 99% complete | Tests: 1432 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.14.0: Unified Formatting Library (box-drawing, colors)  │
-│           23 scripts migrated, ANSI-aware padding            │
+│  v2.16.0: Teaching ecosystem + branch protection hooks       │
+│           138 new tests, config normalization, bypass system  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -464,7 +464,7 @@
 - Auto-fix: `/craft:docs:lint --fix` (apply safe fixes)
 - Path targeting: `/craft:docs:lint docs/guide/` (check specific directories)
 - Pre-commit integration: Auto-fix on staged markdown
-- All 1248 tests passing (100%)
+- All 1432 tests passing (100%)
 - [Release Notes](RELEASE-v2.8.0.md) | [Docs Command Reference](commands/docs.md)
 
 **Interactive Documentation Update**
@@ -803,6 +803,8 @@ main (production branch)
 | `/craft:git:recap`    | Activity summary                                  |
 | `/craft:git:branch`   | Branch management                                 |
 | `/craft:git:status`   | Enhanced git status (teaching-aware)              |
+| `/craft:git:protect`  | Re-enable branch protection                      |
+| `/craft:git:unprotect`| Temporarily bypass branch protection              |
 
 **Worktree Subcommands:**
 
