@@ -1,52 +1,40 @@
 status: Active
 version: 2.16.0
 release_date: 2026-02-07
-milestone: v2.16.0 - Teaching Ecosystem + Branch Protection
+milestone: v2.17.0 - TBD
 last_session: 2026-02-07
 
-progress: v2.16.0 release preparation — version bumped, pre-release checks passing
+progress: v2.16.0 released, docs deployed, planning v2.17.0
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                        |
 |--------|---------|------|-------------------------------|
-| main   | bbd6ac7 | —    | Production (v2.15.0 released) |
-| dev    | pending | main | v2.16.0 ready for release PR  |
+| main   | 0032851 | —    | Production (v2.16.0 released) |
+| dev    | 37d13bf | main | Clean, ready for next feature |
+
+✅ v2.16.0 — Teaching Ecosystem + Branch Protection (2026-02-07):
+- Branch protection hooks: scripts/branch-guard.sh PreToolUse hook
+- Protection levels: block-all (main), block-new-code (dev)
+- New commands: /craft:git:protect, /craft:git:unprotect
+- Teaching config normalizer: _normalize_config(), single-day break support
+- 138 branch guard tests (49 unit + 31 e2e + 6 integration + 52 dogfooding)
+- 8 teaching normalization tests
+- Archived 23 specs to docs/specs/_archive/
+- Test count: 1294 → 1432, command count: 106 → 108
+- PR #59 merged, release tagged: https://github.com/Data-Wise/craft/releases/tag/v2.16.0
+- Docs deployed to GitHub Pages
 
 ✅ v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06):
 - Brainstorm spec simplification: 1,919 → 312 lines (84% reduction)
-- Extracted to 4 reference docs (question bank, tutorial, refcard, version history)
 - New: utils/brainstorm_context.py — context-aware smart questions
-- 38 new tests (all passing) + 53+24 existing brainstorm tests verified
-- Project-type question extensions: 6 types, 12 new questions
-- Dynamic questions: matching spec, prior brainstorm, failing tests detection
-- Docs health check: synced 7 stale version refs, added 3 nav entries
-- PR #56 merged, release tagged: https://github.com/Data-Wise/craft/releases/tag/v2.15.0
-- Site pages synced (7 files: REFCARD, CHANGELOG, tutorials, conventions)
-- Docs deployed to GitHub Pages
+- 38 new tests, project-type question extensions (6 types, 12 questions)
 
 ✅ v2.14.0 — Unified Formatting Library (2026-02-05):
 - New: scripts/formatting.sh — shared box-drawing, colors, ANSI-aware padding
-- 74 tests (unit, integration, edge cases) — all passing
-- Migrated 23 scripts to shared formatting library
+- 74 tests, 23 scripts migrated
 
 ---
-
-## In Progress (v2.16.0)
-
-**feature/teaching-ecosystem**: ✅ MERGED (PR #57, 2026-02-07)
-- Config normalizer, break validation fix, 8 new tests, Teaching docs tab
-
-**feature/branch-protection** (9/9 complete ✅):
-1. ✅ Hook script (scripts/branch-guard.sh — moved into repo)
-2. ✅ Hook config (settings.json PreToolUse registration)
-3. ✅ Dry-run test
-4. ✅ Enable enforcement
-5. ✅ Per-project config (.claude/branch-guard.json)
-6. ✅ Craft command enhancements (check, do, worktree, status)
-7. ✅ New commands (unprotect, protect)
-8. ✅ Tests (49 unit + 31 e2e + 6 integration = 86 total)
-9. ✅ Documentation + standalone installer + Homebrew formula
 
 ## Future (v2.17.0+)
 
