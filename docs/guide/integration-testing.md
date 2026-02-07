@@ -5,7 +5,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Craft includes 38 integration tests across 3 categories (dependency system, orchestrator workflows, teaching workflow)
+> - **What:** Craft includes 44 integration tests across 4 categories (dependency system, orchestrator workflows, teaching workflow, branch guard)
 > - **Why:** Ensure new features work end-to-end with all dependencies
 > - **How:** Run `python3 tests/test_integration_*.py` to test each category
 > - **Next:** Read about [Dependency Management](dependency-management-advanced.md) or [Claude Code 2.1.0 Integration](claude-code-2.1-guide.md)
@@ -23,6 +23,7 @@ Craft has comprehensive integration tests that validate the entire system end-to
     python3 tests/test_integration_dependency_system.py
     python3 tests/test_integration_orchestrator_workflows.py
     python3 tests/test_integration_teaching_workflow.py
+    python3 tests/test_integration_branch_guard.py
     ```
 
 ## Test Categories
@@ -186,6 +187,41 @@ test_missing_required_fields ... ok
 Ran 16 tests in ~0.07 seconds (14 passed, 2 skipped)
 ```
 
+### Category 4: Branch Guard (6 tests)
+
+**File:** `tests/test_integration_branch_guard.py`
+
+**Purpose:** Validates the branch protection hook system including config loading, protection levels, and jq-based JSON parsing.
+
+**What It Tests:**
+
+- ✅ Config file loading and validation (`.claude/branch-guard.json`)
+- ✅ Auto-detection fallback when no config exists
+- ✅ Protection level assignment (block-all vs block-new-code)
+- ✅ File extension classification (code vs docs)
+- ✅ Bypass marker detection (`.claude/allow-dev-edit`)
+- ✅ JSON parsing with jq (primary), Python (fallback), grep/sed (last resort)
+
+**Components Tested:**
+
+- `scripts/branch-guard.sh` - PreToolUse hook with `_json_get` function
+- `.claude/branch-guard.json` - Per-project config
+- `commands/git/protect.md` - Re-enable protection
+- `commands/git/unprotect.md` - Bypass protection
+
+**Run It:**
+
+```bash
+python3 tests/test_integration_branch_guard.py
+```
+
+**Also: Bash test suites** (49 unit + 31 e2e):
+
+```bash
+bash tests/test_branch_guard.sh       # Unit tests
+bash tests/test_branch_guard_e2e.sh   # End-to-end tests
+```
+
 ## Running Integration Tests
 
 ### Run Everything
@@ -212,6 +248,9 @@ python3 tests/test_integration_orchestrator_workflows.py
 
 # Teaching tests only
 python3 tests/test_integration_teaching_workflow.py
+
+# Branch guard tests only
+python3 tests/test_integration_branch_guard.py
 ```
 
 ### With Verbose Output
@@ -333,6 +372,13 @@ The teaching workflow system enables course management and publishing. Tests ver
 | Build | `commands/site/build.md` | Build command |
 | Publish | `commands/site/publish.md` | Publish workflow |
 | Progress | `commands/site/progress.md` | Progress tracking |
+| **Branch Guard** | | |
+| Hook script | `scripts/branch-guard.sh` | PreToolUse hook with jq parsing |
+| Config | `.claude/branch-guard.json` | Per-project branch protection config |
+| Protect command | `commands/git/protect.md` | Re-enable protection |
+| Unprotect command | `commands/git/unprotect.md` | Bypass protection |
+| Unit tests | `tests/test_branch_guard.sh` | 49 bash unit tests |
+| E2E tests | `tests/test_branch_guard_e2e.sh` | 31 end-to-end tests |
 
 ## Next Steps
 
@@ -345,10 +391,11 @@ The teaching workflow system enables course management and publishing. Tests ver
 
 ## Summary
 
-Craft's 38 integration tests validate three critical systems:
+Craft's 44 integration tests validate four critical systems:
 
 - **Dependency System (9 tests)** - Tool detection, installation, and repair
 - **Orchestrator (13 tests)** - Smart routing, complexity scoring, agent delegation
 - **Teaching (16 tests)** - Config normalization, detection, validation, and publishing
+- **Branch Guard (6 tests)** - Branch protection hooks, config loading, JSON parsing
 
 Run them regularly to ensure features continue working end-to-end. All tests pass with 100% success rate.
