@@ -57,7 +57,7 @@ Development workflow tools:
 
 Version control and continuous integration:
 
-- Git: `worktree`, `sync`, `clean`, `recap`, `branch`, `init`
+- Git: `worktree`, `sync`, `clean`, `recap`, `branch`, `init`, `protect`, `unprotect`
 - CI: `detect`, `generate`, `validate`
 
 [Learn more →](git.md)

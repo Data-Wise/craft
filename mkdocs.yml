@@ -260,6 +260,7 @@ nav:
       - Styled Output Formatting: specs/SPEC-styled-output-v2.14.0-2026-02-05.md
       - Command Behavior Enhancements: specs/SPEC-command-enhancements-2026-01-29.md
       - Brainstorm Question Bank: specs/SPEC-brainstorm-question-bank.md
+      - Branch Protection Hooks: specs/SPEC-branch-protection-hooks-2026-02-06.md
 
   # 7. FOR CONTRIBUTORS - Development resources
   - For Contributors:

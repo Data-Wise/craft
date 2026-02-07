@@ -803,6 +803,8 @@ main (production branch)
 | `/craft:git:recap`    | Activity summary                                  |
 | `/craft:git:branch`   | Branch management                                 |
 | `/craft:git:status`   | Enhanced git status (teaching-aware)              |
+| `/craft:git:protect`  | Re-enable branch protection                      |
+| `/craft:git:unprotect`| Temporarily bypass branch protection              |
 
 **Worktree Subcommands:**
 

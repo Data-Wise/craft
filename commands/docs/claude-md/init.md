@@ -89,10 +89,10 @@ From .claude-plugin/plugin.json:
   version: 2.12.0
 
 From filesystem:
-  commands: 106
+  commands: 108
   skills: 21
   agents: 8
-  tests: 1294
+  tests: 1380
 
 From git:
   repository: https://github.com/Data-Wise/craft
