@@ -98,7 +98,7 @@ craft/
 ├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
 ├── tests/              # Comprehensive test suite (1294 tests, 90%+ coverage)
 ├── docs/
-│   ├── specs/          # Implementation specs (24 total)
+│   ├── specs/          # Implementation specs (23 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
 │   ├── tutorials/      # Step-by-step guides
 │   └── brainstorm/     # Working drafts (gitignored)
@@ -487,7 +487,7 @@ python3 tests/test_integration_teaching_workflow.py
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
 
-See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HISTORY.md` for full release history.
+See `docs/specs/` for detailed specifications (23 total). See `docs/VERSION-HISTORY.md` for full release history.
 
 ## Key Files
 
@@ -577,7 +577,7 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
 - [Commands Reference](https://data-wise.github.io/craft/commands/) — All 106 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
-- [Specifications](docs/specs/) — Implementation specs (24 total)
+- [Specifications](docs/specs/) — Implementation specs (23 total)
 - [Version History](docs/VERSION-HISTORY.md) — Complete release timeline (NEW)
 - [Complexity Scoring](docs/guide/complexity-scoring-algorithm.md) — Algorithm & routing (NEW)
 - [Claude Code 2.1](docs/guide/claude-code-2.1-integration.md) — Integration guide (NEW)

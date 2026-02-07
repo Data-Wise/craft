@@ -2,17 +2,16 @@ status: Active
 version: 2.15.0
 release_date: 2026-02-06
 milestone: v2.16.0 - Teaching Ecosystem + Branch Protection
-last_session: 2026-02-06
+last_session: 2026-02-07
 
-progress: Implementation complete, docs synced, ready for PR
+progress: Teaching ecosystem merged, branch protection pending
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                          |
 |--------|---------|------|---------------------------------|
 | main   | bbd6ac7 | —    | Production (v2.15.0 released)   |
-| dev    | dfe0510 | main | Specs committed (2 new)         |
-| feature/teaching-ecosystem | 961d6a6 | dev | Implementation complete, docs synced |
+| dev    | 0f94d9d | main | Teaching ecosystem merged (PR #57) |
 | feature/branch-protection  | 2087a98 | dev | ORCHESTRATE ready               |
 
 ✅ v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06):
@@ -36,12 +35,8 @@ progress: Implementation complete, docs synced, ready for PR
 
 ## In Progress (v2.16.0)
 
-**feature/teaching-ecosystem** (5 steps): ✅ COMPLETE
-1. ✅ Add `_normalize_config()` to teach_config.py (flow-cli → craft schema adapter)
-2. ✅ Fix break validation (allow single-day breaks)
-3. ✅ Fix broken test import in test_integration_teaching_workflow.py
-4. ✅ Add 8 normalization tests (16 total, 2 skipped)
-5. ✅ Update teaching workflow guide + config schema + tutorial + teaching tab
+**feature/teaching-ecosystem**: ✅ MERGED (PR #57, 2026-02-07)
+- Config normalizer, break validation fix, 8 new tests, Teaching docs tab
 
 **feature/branch-protection** (9 steps):
 1. Hook script (~/.claude/hooks/branch-guard.sh)
