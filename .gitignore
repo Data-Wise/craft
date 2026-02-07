@@ -28,6 +28,9 @@ tests/craft_test_report.md
 # Brainstorm documents (working drafts)
 docs/brainstorm/
 
+# Orchestration plans (working documents)
+ORCHESTRATE
+
 # MkDocs
 site/
 .cache/

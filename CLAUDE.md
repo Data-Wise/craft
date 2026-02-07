@@ -5,7 +5,7 @@
 **106 commands** · **21 skills** · **8 agents** · **23 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.15.0 | **Latest Release:** v2.15.0 (2026-02-06)
-**Documentation Status:** 99% complete | **Tests:** 1286 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context)
+**Documentation Status:** 99% complete | **Tests:** 1294 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context + 8 teaching-normalization)
 
 ## Git Workflow
 
@@ -96,7 +96,7 @@ craft/
 ├── agents/             # 8 agents
 ├── scripts/            # 30+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
-├── tests/              # Comprehensive test suite (1286 tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1294 tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (24 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
@@ -549,11 +549,11 @@ See `docs/specs/` for detailed specifications (24 total). See `docs/VERSION-HIST
 | `tests/test_integration_dependency_system.py`      | 9        | 100%     | Dependency workflow          |
 | `tests/test_integration_orchestrator_workflows.py` | 13       | 100%     | Task routing & scoring       |
 | `tests/test_integration_claude_md_v3.py`           | 9        | 100%     | v3 sync/optimizer integ.     |
-| `tests/test_integration_teaching_workflow.py`      | 8        | 100%     | Teaching mode (3 skipped)    |
+| `tests/test_integration_teaching_workflow.py`      | 16       | 100%     | Teaching mode + normalization (2 skipped) |
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
 | `tests/test_formatting.sh`                         | 74       | 100%     | Formatting library (v2.14.0) |
-| **Total**                                          | **1286** | **~90%** | **All systems**              |
+| **Total**                                          | **1294** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 

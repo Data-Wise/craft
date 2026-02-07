@@ -12,6 +12,9 @@
 
 Teaching Mode transforms Craft into a comprehensive teaching workflow automation tool. This tutorial walks you through first-time setup for a Quarto-based course website.
 
+!!! note "Already using flow-cli?"
+    If your project already has a `.flow/teach-config.yml` from flow-cli (with `semester_info`, `course.name`, `branches`), Craft reads it directly — no separate config needed. See the [Config Schema Reference](../teaching-config-schema.md#flow-cli-config-compatibility) for details.
+
 !!! tip "Before You Start"
     You need:
 
@@ -65,8 +68,11 @@ dates:
   start: "2026-01-19"
   end: "2026-05-08"
 
-  # Break periods (Spring Break)
+  # Break periods (holidays + Spring Break)
   breaks:
+    - name: "MLK Day"
+      start: "2026-01-20"
+      end: "2026-01-20"        # Single-day breaks are supported
     - name: "Spring Break"
       start: "2026-03-16"
       end: "2026-03-20"
@@ -545,7 +551,8 @@ Now that teaching mode is set up:
 
 ## Additional Resources
 
-- **[Config Schema Reference](../teaching-config-schema.md)** - Complete YAML specification
+- **[Config Schema Reference](../teaching-config-schema.md)** - Complete YAML specification (includes flow-cli compatibility)
+- **[Teaching Workflow Guide](../guide/teaching-workflow.md)** - Ecosystem overview (Craft vs Scholar vs flow-cli)
 - **[Migration Guide](../teaching-migration.md)** - From manual to Craft workflows
 - **[Site Commands Reference](../commands/site.md)** - All site commands including publish, progress, and validate
 
