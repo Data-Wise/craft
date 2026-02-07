@@ -33,6 +33,15 @@ docs/brainstorm/
 site/
 .cache/
 
+# Working artifacts
+ORCHESTRATE
+WAVE*.md
+PHASE*.md
+IMPLEMENTATION*.md
+WIP*.md
+POST-MERGE-*.md
+PRE-PR-*.md
+
 # Hub discovery cache
 commands/_cache.json
 node_modules/

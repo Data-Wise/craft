@@ -173,12 +173,9 @@ class TestBranchGuardConfigLoading(unittest.TestCase):
         # Write custom config
         config_dir = os.path.join(self.repo, ".claude")
         os.makedirs(config_dir, exist_ok=True)
-        config = {"branches": {"production": "block-all"}}
-        # The hook reads keys directly from the JSON, and the branch name
-        # is looked up as a direct key. The actual format stores protection
-        # under a "branches" sub-object, but the hook uses extract_json_string
-        # which searches the whole JSON for the branch key. We write the
-        # branch name as a top-level key to match the hook's parsing.
+        # The hook reads branch names as top-level keys using jq:
+        #   _json_get '."production"' reads the protection level directly.
+        # Write branch name as top-level key to match the hook's config format.
         config_file = os.path.join(config_dir, "branch-guard.json")
         with open(config_file, "w") as f:
             json.dump({"production": "block-all"}, f)

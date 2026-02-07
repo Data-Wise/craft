@@ -3,8 +3,9 @@ set -euo pipefail
 
 # branch-guard.sh — Claude Code PreToolUse hook
 # Enforces branch protection rules for main and dev branches.
-# Reads JSON from stdin: { tool_name, tool_input, cwd }
+# Reads JSON from stdin: { tool_name, tool_input: { file_path, command, ... }, cwd }
 # Exits 0 = allow, 2 = block (message on stderr)
+# Requires: jq (preferred), python3 (fallback), or grep/sed (last resort)
 
 # ---------------------------------------------------------------------------
 # 1. Read stdin (JSON blob)
@@ -12,29 +13,46 @@ set -euo pipefail
 INPUT="$(cat)"
 
 # ---------------------------------------------------------------------------
-# 2. Extract fields with lightweight JSON parsing (no jq dependency)
+# 2. Extract fields from JSON using jq (Python fallback)
 # ---------------------------------------------------------------------------
-extract_json_string() {
-  # Extracts a string value for a given key from JSON.
-  # Returns empty string if key not found (grep failure suppressed).
-  local key="$1" json="$2"
-  local result
-  result="$(printf '%s' "$json" | grep -o "\"${key}\"[[:space:]]*:[[:space:]]*\"[^\"]*\"" | head -1 | sed "s/\"${key}\"[[:space:]]*:[[:space:]]*\"//;s/\"$//")" || true
-  printf '%s' "$result"
+_json_get() {
+  # Extract a string value from JSON. Uses jq, falls back to Python.
+  # Usage: _json_get '.tool_name' "$json"
+  local query="$1" json="$2"
+  if command -v jq &>/dev/null; then
+    printf '%s' "$json" | jq -r "$query // empty" 2>/dev/null || true
+  elif command -v python3 &>/dev/null; then
+    printf '%s' "$json" | python3 -c "
+import sys, json
+try:
+    d = json.load(sys.stdin)
+    keys = '${query}'.lstrip('.').split('.')
+    v = d
+    for k in keys:
+        v = v.get(k) if isinstance(v, dict) else None
+        if v is None: break
+    if v is not None: print(v, end='')
+except: pass
+" 2>/dev/null || true
+  else
+    # Last resort: grep/sed (extracts by the final key name in the path)
+    local key="${query##*.}"
+    printf '%s' "$json" | grep -o "\"${key}\"[[:space:]]*:[[:space:]]*\"[^\"]*\"" 2>/dev/null | head -1 | sed "s/\"${key}\"[[:space:]]*:[[:space:]]*\"//;s/\"$//" || true
+  fi
 }
 
-TOOL_NAME="$(extract_json_string 'tool_name' "$INPUT")"
-CWD="$(extract_json_string 'cwd' "$INPUT")"
+TOOL_NAME="$(_json_get '.tool_name' "$INPUT")"
+CWD="$(_json_get '.cwd' "$INPUT")"
 
 # Extract file_path from tool_input (for Edit / Write tools)
-FILE_PATH="$(extract_json_string 'file_path' "$INPUT")"
+FILE_PATH="$(_json_get '.tool_input.file_path' "$INPUT")"
 # Also try filePath variant
 if [[ -z "$FILE_PATH" ]]; then
-  FILE_PATH="$(extract_json_string 'filePath' "$INPUT")"
+  FILE_PATH="$(_json_get '.tool_input.filePath' "$INPUT")"
 fi
 
 # Extract command from tool_input (for Bash tool)
-COMMAND="$(extract_json_string 'command' "$INPUT")"
+COMMAND="$(_json_get '.tool_input.command' "$INPUT")"
 
 # ---------------------------------------------------------------------------
 # 3. Determine git context
@@ -78,20 +96,28 @@ fi
 # 6. Load config or auto-detect protection rules
 # ---------------------------------------------------------------------------
 # Protection levels: "block-all", "block-new-code", "" (none)
+PROTECTION=""
 MAIN_PROTECTION=""
 DEV_PROTECTION=""
 
 CONFIG_FILE="${PROJECT_ROOT}/.claude/branch-guard.json"
 
+USE_CONFIG=false
 if [[ -f "$CONFIG_FILE" ]]; then
-  # Parse config file for branch protection levels
-  # Look up current branch directly in the config (supports any branch name)
+  # Validate and parse config file
   CONFIG_CONTENT="$(cat "$CONFIG_FILE")"
-  PROTECTION="$(extract_json_string "$BRANCH" "$CONFIG_CONTENT")"
-
+  if command -v jq &>/dev/null && ! printf '%s' "$CONFIG_CONTENT" | jq -e . &>/dev/null; then
+    echo "[branch-guard] WARNING: Invalid JSON in $CONFIG_FILE — using auto-detect" >&2
+  else
+    USE_CONFIG=true
+    # Look up current branch directly in the config (supports any branch name)
+    PROTECTION="$(_json_get ".\"${BRANCH}\"" "$CONFIG_CONTENT")"
+  fi
   # If current branch not found in config, no protection
   # (Custom config is explicit — only listed branches are protected)
-else
+fi
+
+if [[ "$USE_CONFIG" == false ]]; then
   # Auto-detect: does 'dev' branch exist?
   MAIN_PROTECTION="block-all"
   DEV_PROTECTION=""

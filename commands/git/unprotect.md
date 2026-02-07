@@ -11,7 +11,7 @@ version: 1.0.0
 
 # /craft:git:unprotect - Bypass Branch Protection
 
-Temporarily disable branch protection for the current session. The bypass auto-expires when the session ends.
+Temporarily disable branch protection. The bypass persists until re-enabled with `/craft:git:protect`.
 
 ## Usage
 
@@ -99,16 +99,16 @@ Branch protection BYPASSED.
 
 Branch: dev
 Reason: merge conflict resolution
-Scope: This session only (auto-expires at session end)
+Scope: Until re-enabled via /craft:git:protect
 
 To re-enable manually: /craft:git:protect
 ```
 
 ## Key Behaviors
 
-1. **Session-scoped** - bypass marker is checked by branch-guard.sh hook
+1. **Marker-based** - bypass marker (`.claude/allow-dev-edit`) is checked by branch-guard.sh hook
 2. **Reason-logged** - always records why protection was bypassed
-3. **Auto-expires** - marker should be cleaned up at session end
+3. **Persists until re-enabled** - run `/craft:git:protect` to remove the marker
 4. **Idempotent** - running twice shows current status, doesn't create duplicate
 
 ## See Also

@@ -534,9 +534,7 @@ create_and_switch "$REPO_CUSTOM" "production"
 mkdir -p "$REPO_CUSTOM/.claude"
 cat > "$REPO_CUSTOM/.claude/branch-guard.json" <<'JSONEOF'
 {
-  "branches": {
-    "production": "block-all"
-  }
+  "production": "block-all"
 }
 JSONEOF
 
@@ -562,10 +560,8 @@ create_and_switch "$REPO_TEACH" "draft"
 mkdir -p "$REPO_TEACH/.claude"
 cat > "$REPO_TEACH/.claude/branch-guard.json" <<'JSONEOF'
 {
-  "branches": {
-    "production": "block-all",
-    "draft": "block-new-code"
-  }
+  "production": "block-all",
+  "draft": "block-new-code"
 }
 JSONEOF
 

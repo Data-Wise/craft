@@ -387,16 +387,17 @@ run_test \
     "$(json_edit "$REPO_CC/README.md" "$REPO_CC")" \
     "$REPO_CC"
 
-# Test 3c: Malformed config falls through gracefully
+# Test 3c: Malformed config falls through to auto-detect
 REPO_BAD=$(init_repo)
 mkdir -p "$REPO_BAD/.claude"
 echo "this is not json at all {{{" > "$REPO_BAD/.claude/branch-guard.json"
 
 switch_branch "$REPO_BAD" "main"
-# With malformed config, extract_json_string won't find the branch -> no protection
+# With malformed config, jq validation fails -> falls through to auto-detect
+# Auto-detect on main = block-all -> exit 2
 run_test \
     "e2e_config_malformed_fallthrough" \
-    0 \
+    2 \
     "$(json_edit "$REPO_BAD/README.md" "$REPO_BAD")" \
     "$REPO_BAD"
 
