@@ -320,7 +320,7 @@ Fallback chain: `config.json` → `package.json` (`claudeMd.budget`) → default
 - [CLAUDE.md Workflows Tutorial](../../tutorials/claude-md-workflows.md)
 - [CLAUDE.md Quick Reference](../../reference/REFCARD-CLAUDE-MD.md)
 - [Feature Release Notes](../../FEATURE-RELEASE-CLAUDE-MD.md)
-- [Spec: v3 Optimization](../../specs/SPEC-claude-md-v3-optimization-2026-02-04.md)
+- [Spec: v3 Optimization](../../specs/_archive/SPEC-claude-md-v3-optimization-2026-02-04.md)
 
 ---
 

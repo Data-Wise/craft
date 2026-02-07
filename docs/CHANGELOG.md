@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased] - v2.16.0: Teaching Ecosystem + Branch Protection
+## [2.16.0] - 2026-02-07: Teaching Ecosystem + Branch Protection
 
 ### Added
 
@@ -48,7 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Project-type question extensions:** 12 new questions across 6 project types (R, Python, Node.js, Quarto, Claude Plugin, Teaching)
 - **Dynamic questions:** Auto-generated questions based on matching specs, prior brainstorms, and failing tests
 - **38 new tests** in `tests/test_brainstorm_context.py` (all passing)
-- **Documentation:** Power user tutorial (`docs/tutorials/TUTORIAL-brainstorm-power-user.md`), brainstorm reference card (`docs/reference/REFCARD-BRAINSTORM.md`), question bank spec (`docs/specs/SPEC-brainstorm-question-bank.md`)
+- **Documentation:** Power user tutorial (`docs/tutorials/TUTORIAL-brainstorm-power-user.md`), brainstorm reference card (`docs/reference/REFCARD-BRAINSTORM.md`), question bank spec (`docs/specs/_archive/SPEC-brainstorm-question-bank.md`)
 
 ### Changed
 
@@ -56,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Version history updated:** Brainstorm evolution table added to `docs/VERSION-HISTORY.md`
 - Total tests: 1248 → 1286
 
-**Documentation:** [Power User Guide](tutorials/TUTORIAL-brainstorm-power-user.md) · [Quick Reference](reference/REFCARD-BRAINSTORM.md) · [Question Bank](specs/SPEC-brainstorm-question-bank.md)
+**Documentation:** [Power User Guide](tutorials/TUTORIAL-brainstorm-power-user.md) · [Quick Reference](reference/REFCARD-BRAINSTORM.md) · [Question Bank](specs/_archive/SPEC-brainstorm-question-bank.md)
 
 ---
 

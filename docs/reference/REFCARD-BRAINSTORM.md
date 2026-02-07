@@ -168,4 +168,4 @@ ColonArgs["d:5, m:12, q:3"] --> parse_depth_with_count()
 
 ---
 
-*See also: [Power User Tutorial](../tutorials/TUTORIAL-brainstorm-power-user.md) | [Question Bank](../specs/SPEC-brainstorm-question-bank.md)*
+*See also: [Power User Tutorial](../tutorials/TUTORIAL-brainstorm-power-user.md) | [Question Bank](../specs/_archive/SPEC-brainstorm-question-bank.md)*

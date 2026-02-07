@@ -62,4 +62,4 @@ The `sync` command refuses to add these:
 
 ## Source
 
-Full spec: [SPEC-claude-md-v3-optimization-2026-02-04.md](../specs/SPEC-claude-md-v3-optimization-2026-02-04.md)
+Full spec: [SPEC-claude-md-v3-optimization-2026-02-04.md](../specs/_archive/SPEC-claude-md-v3-optimization-2026-02-04.md)

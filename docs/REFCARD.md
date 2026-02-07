@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.15.0 (released 2026-02-06)                       │
+│  Version: 2.16.0 (released 2026-02-07)                       │
 │  Commands: 108 | Agents: 8 | Skills: 21                     │
 │  Documentation: 99% complete | Tests: 1432 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.15.0: Brainstorm spec simplification (84% reduction)    │
-│           Context-aware smart questions, 38 new tests        │
+│  v2.16.0: Teaching ecosystem + branch protection hooks       │
+│           138 new tests, config normalization, bypass system  │
 └─────────────────────────────────────────────────────────────┘
 ```
 

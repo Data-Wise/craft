@@ -42,11 +42,14 @@ File: `docs/test-violations.md`
 - Contains intentionally broken links to verify linting works
 - Should NOT be fixed
 
-### 2. Brainstorm Files (Gitignored)
+### 2. Archived Specs (Frozen References)
 Files with broken links:
-- `docs/specs/SPEC-craft-hub-v2-2026-01-15.md`
-- `docs/specs/SPEC-teaching-workflow-2026-01-16.md`
-- `docs/specs/_archive/SPEC-craft-hub-v2-2026-01-15.md`
+- `docs/specs/_archive/*.md`
+
+- Reason: Archived specs contain stale relative links to brainstorm files, sibling specs, and docs that moved. These are frozen historical documents and won't be updated.
+
+### 2b. Brainstorm Files (Gitignored)
+Files with broken links:
 - `docs/brainstorm/*.md` (all brainstorm files - gitignored, not published)
 
 Targets:
@@ -207,6 +210,16 @@ Targets:
 
 Reason: Spec documents contain example pointer syntax (`->`) that demonstrates the format — these resolve from project root, not from spec file location
 Fix: Not needed - these are examples of pointer syntax, not navigable links
+
+### 13. Historical Release Notes References
+Files with broken links:
+- `CHANGELOG.md`
+
+Targets:
+- `DRY-RUN-SUMMARY.md`
+
+Reason: Historical v1.20.0 changelog references a dry-run tracking document that was a working artifact, never committed
+Fix: Not needed - historical changelog entry, document was ephemeral
 
 ## Next Steps (Phase 2+)
 1. Update teaching docs to use category page anchors

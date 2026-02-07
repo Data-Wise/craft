@@ -427,4 +427,4 @@ After completing this tutorial:
 - [Badge Management Guide](../guide/badge-management.md) - Comprehensive reference
 - [Site Update Command](../../commands/site/update.md) - Step 3.5 details
 - [CI Validate Command](../../commands/ci/validate.md) - Validation reference
-- [SPEC: Badge System](../specs/SPEC-badge-system-2026-01-30.md) - Implementation spec
+- [SPEC: Badge System](../specs/_archive/SPEC-badge-system-2026-01-30.md) - Implementation spec

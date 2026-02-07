@@ -4,7 +4,7 @@
 
 **108 commands** · **21 skills** · **8 agents** · **25 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.15.0 | **Latest Release:** v2.15.0 (2026-02-06)
+**Current Version:** v2.16.0 | **Latest Release:** v2.16.0 (2026-02-07)
 **Documentation Status:** 99% complete | **Tests:** 1432 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context + 8 teaching-normalization + 138 branch-guard)
 
 ## Git Workflow

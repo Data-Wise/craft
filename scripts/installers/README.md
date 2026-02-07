@@ -140,4 +140,4 @@ scripts/
 
 - [INSTALLER-USAGE.md](../INSTALLER-USAGE.md) - High-level usage guide
 - [README-PHASE2-INSTALLER.md](../README-PHASE2-INSTALLER.md) - Phase 2 implementation guide
-- [Spec](../../docs/specs/SPEC-demo-dependency-management-2026-01-17.md) - Architecture spec
+- [Spec](../../docs/specs/_archive/SPEC-demo-dependency-management-2026-01-17.md) - Architecture spec

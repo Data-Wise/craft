@@ -135,5 +135,5 @@ See the full [Deploy Course Website recipe](../cookbook/common/deploy-course-web
 | [Config Schema](../teaching-config-schema.md) | YAML reference (flow-cli compatible) |
 | [Migration Guide](../teaching-migration.md) | From manual workflows to Craft |
 | [Quick Reference](../reference/REFCARD-TEACHING.md) | Printable cheat sheet |
-| [Teaching Spec](../specs/SPEC-teaching-workflow-2026-01-16.md) | Original implementation spec |
-| [Ecosystem Spec](../specs/SPEC-teaching-ecosystem-coordination-2026-02-06.md) | Cross-tool coordination spec |
+| [Teaching Spec](../specs/_archive/SPEC-teaching-workflow-2026-01-16.md) | Original implementation spec |
+| [Ecosystem Spec](../specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06.md) | Cross-tool coordination spec |

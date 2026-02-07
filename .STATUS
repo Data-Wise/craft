@@ -1,18 +1,17 @@
 status: Active
-version: 2.15.0
-release_date: 2026-02-06
+version: 2.16.0
+release_date: 2026-02-07
 milestone: v2.16.0 - Teaching Ecosystem + Branch Protection
 last_session: 2026-02-07
 
-progress: Teaching ecosystem merged, branch protection complete, ready for PR
+progress: v2.16.0 release preparation — version bumped, pre-release checks passing
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                          |
-|--------|---------|------|---------------------------------|
-| main   | bbd6ac7 | —    | Production (v2.15.0 released)   |
-| dev    | 0f94d9d | main | Teaching ecosystem merged (PR #57) |
-| feature/branch-protection  | —       | dev | Implementation complete, PR ready |
+| Branch | Head    | Base | Status                        |
+|--------|---------|------|-------------------------------|
+| main   | bbd6ac7 | —    | Production (v2.15.0 released) |
+| dev    | pending | main | v2.16.0 ready for release PR  |
 
 ✅ v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06):
 - Brainstorm spec simplification: 1,919 → 312 lines (84% reduction)
