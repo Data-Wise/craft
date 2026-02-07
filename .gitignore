@@ -26,9 +26,6 @@ tests/craft_test_report.md
 tests/cli/logs/
 .coverage
 
-# Brainstorm documents (working drafts)
-docs/brainstorm/
-
 # Working artifacts (session outputs, plans, reports)
 ORCHESTRATE
 WAVE*.md

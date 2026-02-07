@@ -48,18 +48,6 @@ Files with broken links:
 
 - Reason: Archived specs contain stale relative links to brainstorm files, sibling specs, and docs that moved. These are frozen historical documents and won't be updated.
 
-### 2b. Brainstorm Files (Gitignored)
-Files with broken links:
-- `docs/brainstorm/*.md` (all brainstorm files - gitignored, not published)
-
-Targets:
-- `docs/brainstorm/*.md`
-- `../../BRAINSTORM-craft-hub-update-2026-01-15.md`
-- `.markdownlint.json`
-- `../../.markdownlint.json`
-- Reason: Brainstorm files are working documents, not published
-- Fix: Update specs to reference GitHub blob URLs or remove references
-
 ### 3. README References (Outside Docs)
 Files with broken links:
 - `docs/TEACHING-DOCS-INDEX.md`
