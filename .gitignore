@@ -28,8 +28,14 @@ tests/craft_test_report.md
 # Brainstorm documents (working drafts)
 docs/brainstorm/
 
-# Orchestration plans (working documents)
+# Working artifacts (session outputs, plans, reports)
 ORCHESTRATE
+WAVE*.md
+PHASE*.md
+IMPLEMENTATION*.md
+WIP*.md
+POST-MERGE-*.md
+PRE-PR-*.md
 
 # MkDocs
 site/
