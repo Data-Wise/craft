@@ -688,6 +688,101 @@ run_test \
 
 echo ""
 
+# --------------------------------------------------------------------------
+# Group 10: Edge cases — path traversal, symlinks, special branch names,
+#            malformed config warning, git -C invocations
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Advanced Edge Cases ---${T_NC}"
+
+REPO_ADV=$(init_repo)
+
+# Path traversal with ".." — writing ../../../etc/foo.py from dev
+# The resolved path doesn't exist -> new code file -> BLOCK
+switch_branch "$REPO_ADV" "dev"
+
+run_test \
+    "test_path_traversal_new_file_blocked" \
+    2 \
+    "$(json_write "$REPO_ADV/../nonexistent/evil.py" "$REPO_ADV")" \
+    "$REPO_ADV"
+
+# Symlink: Create a symlink to an existing file (absolute target), then "write" to it
+# The symlink target exists -> -f follows symlinks -> treated as existing file -> ALLOW
+(cd "$REPO_ADV" && ln -sf "$REPO_ADV/README.md" src/link-to-readme.py 2>/dev/null)
+
+run_test \
+    "test_symlink_to_existing_file_allowed" \
+    0 \
+    "$(json_write "$REPO_ADV/src/link-to-readme.py" "$REPO_ADV")" \
+    "$REPO_ADV"
+
+# Branch name with special regex chars (e.g., "release/v2.0")
+# Custom config with that branch name -> should match via jq
+mkdir -p "$REPO_ADV/.claude"
+cat > "$REPO_ADV/.claude/branch-guard.json" <<'JSONEOF'
+{
+  "release/v2.0": "block-all",
+  "dev": "block-new-code"
+}
+JSONEOF
+
+create_and_switch "$REPO_ADV" "release/v2.0"
+
+run_test \
+    "test_special_branch_name_slash_dot" \
+    2 \
+    "$(json_edit "$REPO_ADV/README.md" "$REPO_ADV")" \
+    "$REPO_ADV"
+
+# Clean up custom config for remaining tests
+rm -f "$REPO_ADV/.claude/branch-guard.json"
+switch_branch "$REPO_ADV" "dev"
+
+# git -C <path> commit on main — current pattern doesn't catch this
+# because grep expects "git<space>commit" but sees "git -C ... commit"
+# This is a known limitation — documenting the behavior
+REPO_GIT_C=$(init_repo)
+switch_branch "$REPO_GIT_C" "main"
+
+run_test \
+    "test_bash_git_dash_c_commit_on_main_not_caught" \
+    0 \
+    "$(json_bash "git -C /some/path commit -m test" "$REPO_GIT_C")" \
+    "$REPO_GIT_C"
+
+# Malformed config: should log a WARNING to stderr and fall through to auto-detect
+REPO_WARN=$(init_repo)
+mkdir -p "$REPO_WARN/.claude"
+echo "not valid json {{" > "$REPO_WARN/.claude/branch-guard.json"
+switch_branch "$REPO_WARN" "main"
+
+run_test_with_stderr \
+    "test_malformed_config_warns_on_stderr" \
+    2 \
+    "$(json_edit "$REPO_WARN/README.md" "$REPO_WARN")" \
+    "$REPO_WARN" \
+    "WARNING.*Invalid JSON"
+
+# Write to .STATUS (dot-prefixed extension-less) on dev -> ALLOW
+REPO_DOT=$(init_repo)
+switch_branch "$REPO_DOT" "dev"
+
+run_test \
+    "test_write_dot_status_file_on_dev" \
+    0 \
+    "$(json_write "$REPO_DOT/.STATUS" "$REPO_DOT")" \
+    "$REPO_DOT"
+
+# Write new .R file on dev -> BLOCK (R is in code extensions)
+run_test \
+    "test_write_new_r_file_on_dev" \
+    2 \
+    "$(json_write "$REPO_DOT/analysis.R" "$REPO_DOT")" \
+    "$REPO_DOT"
+
+echo ""
+
 # ============================================================================
 # Summary
 # ============================================================================

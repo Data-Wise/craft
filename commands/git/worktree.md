@@ -180,7 +180,9 @@ No options to override. Hard block.
 **What it does:**
 
 ```bash
-# Step 0: Branch guard check
+# Step 0: Branch guard check (belt-and-suspenders with PreToolUse hook)
+# The branch-guard.sh hook blocks edits on main, but this command-level
+# check gives a clearer error message specific to worktree creation.
 current_branch=$(git branch --show-current)
 if [[ "$current_branch" == "main" ]]; then
     echo "Cannot create worktree from main. Switch to dev first."

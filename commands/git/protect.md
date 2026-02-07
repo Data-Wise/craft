@@ -17,16 +17,41 @@ Remove the bypass marker and restore branch protection enforcement.
 
 ## Execution Behavior (MANDATORY)
 
-### Step 1: Check Current Status
+### Step 1: Check Hook and Current Status
 
 ```bash
+# Verify hook is installed
+if [[ ! -f "$HOME/.claude/hooks/branch-guard.sh" ]]; then
+    echo "Branch guard hook is not installed."
+    echo "Install with: bash scripts/install-branch-guard.sh"
+    exit 0
+fi
+
 # Check if bypass is active
 if [[ ! -f ".claude/allow-dev-edit" ]]; then
-    # Protection is already active
+    # Protection is already active — detect level
 fi
 ```
 
-If no bypass is active:
+If no bypass is active, detect the actual protection level:
+
+```bash
+BRANCH=$(git branch --show-current)
+CONFIG=".claude/branch-guard.json"
+
+if [[ -f "$CONFIG" ]]; then
+    LEVEL=$(jq -r ".\"${BRANCH}\" // empty" "$CONFIG" 2>/dev/null)
+else
+    # Auto-detect: main/master = block-all, dev = block-new-code (if dev exists)
+    case "$BRANCH" in
+        main|master) LEVEL="block-all" ;;
+        dev|develop) LEVEL="block-new-code" ;;
+        *) LEVEL="" ;;
+    esac
+fi
+```
+
+Output (level detected dynamically):
 
 ```
 Branch protection is already active. Nothing to do.
@@ -43,15 +68,30 @@ rm -f .claude/allow-dev-edit
 
 ### Step 3: Confirm
 
+Detect current protection level (same logic as Step 1), then show:
+
 ```
 Branch protection RE-ENABLED.
 
-Branch: dev
-Protection: block-new-code
+Branch: <current-branch>
+Protection: <detected-level>
+```
+
+For `block-new-code`:
+
+```
   - New code files: BLOCKED
   - Existing file edits: allowed
   - Markdown files: allowed
   - Test files: allowed
+```
+
+For `block-all`:
+
+```
+  - All edits: BLOCKED
+  - All writes: BLOCKED
+  - Git commit/push: BLOCKED
 ```
 
 ## Key Behaviors

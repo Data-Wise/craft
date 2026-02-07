@@ -56,7 +56,7 @@ Automated end-to-end tests for the branch-guard hook that exercise full multi-st
 bash tests/test_branch_guard_e2e.sh
 ```
 
-**What it tests (8 groups, ~30 tests):**
+**What it tests (8 groups, 31 tests):**
 
 - Full workflow: dev -> feature worktree -> back to dev
 - Bypass lifecycle: create marker -> allowed -> remove -> blocked
@@ -89,8 +89,8 @@ bash tests/test_branch_guard_interactive.sh
 
 ### Related Unit Tests
 
-- `tests/test_branch_guard.sh` — 42 unit tests (automated)
-- `tests/test_integration_branch_guard.py` — 7 integration tests (automated)
+- `tests/test_branch_guard.sh` — 49 unit tests (automated)
+- `tests/test_integration_branch_guard.py` — 6 integration tests (automated)
 
 ## Logs
 

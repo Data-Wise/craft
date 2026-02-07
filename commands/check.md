@@ -53,7 +53,7 @@ Preview which checks will be performed without actually executing them:
 │   - Build tool: uv                                            │
 │   - Config: pyproject.toml                                    │
 │   - Worktree: No (main repo)                                  │
-│   - Guard: Active (new code blocked on dev, all blocked main) │
+│   - Guard: Active (block-new-code)                            │
 │   - Git status: Clean working tree                            │
 │                                                               │
 │ ✓ Validation Plan (5 checks):                                 │
