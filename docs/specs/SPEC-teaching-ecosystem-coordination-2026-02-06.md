@@ -2,7 +2,7 @@
 
 **Created:** 2026-02-06
 **Revised:** 2026-02-06 (deep brainstorm — 10 design decisions)
-**Status:** Draft
+**Status:** Implemented (craft-side)
 **Scope:** Cross-tool (Craft, Scholar, Flow-CLI)
 **Effort:** ~8 hours total across 5 quick wins (craft-side: ~3 hours for QW3 + QW5)
 **Priority:** High (Quick Win 3 is critical — Craft teaching commands broken on real projects)

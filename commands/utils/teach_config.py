@@ -72,7 +72,7 @@ def _normalize_config(raw_config: Dict[str, Any]) -> Dict[str, Any]:
         branches.draft            -> deployment.draft_branch      (if missing)
     """
     # --- Course normalization ---
-    course = raw_config.get("course", {})
+    course = raw_config.setdefault("course", {})
     if "number" not in course and "name" in course:
         course["number"] = course["name"]
     if "title" not in course and "full_name" in course:
