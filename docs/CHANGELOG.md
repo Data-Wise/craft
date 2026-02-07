@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] - Teaching Ecosystem Coordination
+
+### Added
+
+- **Config normalizer:** `_normalize_config()` in `commands/utils/teach_config.py` — adapter that maps flow-cli schema (`semester_info`, `course.name`, `branches`) to Craft-native format
+- **Single-day break support:** Break validation now accepts `start == end` for holidays like MLK Day
+- **8 normalization tests** in `tests/test_integration_teaching_workflow.py` (all passing)
+- **Teaching tab:** Dedicated top-level "Teaching" tab in documentation site nav (`docs/teaching/index.md`)
+- **Ecosystem spec:** `docs/specs/SPEC-teaching-ecosystem-coordination-2026-02-06.md`
+
+### Changed
+
+- **Teaching config schema docs:** Added flow-cli compatibility section, single-day break docs, field mapping table
+- **Teaching tutorial:** Added flow-cli note, single-day break example, ecosystem links
+- **Teaching workflow guide:** Added ecosystem section with role boundaries and decision guide
+- **Site navigation:** Restructured mkdocs.yml with dedicated Teaching tab (was buried in Guides)
+- Total tests: 1286 → 1294
+
+### Fixed
+
+- **Broken test import:** `test_integration_teaching_workflow.py` imported non-existent `parse_teach_config` — fixed to `load_teach_config`
+- **Break validation:** `>=` → `>` comparison allowing single-day breaks (MLK Day, Veterans Day)
+
+**Documentation:** [Teaching Home](teaching/index.md) · [Config Schema](teaching-config-schema.md) · [Ecosystem Spec](specs/SPEC-teaching-ecosystem-coordination-2026-02-06.md)
+
+---
+
 ## [2.15.0] - 2026-02-06
 
 ### Added

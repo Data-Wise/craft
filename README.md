@@ -6,7 +6,7 @@
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **v2.15.0 - Brainstorm v2.5.0: Spec Simplification + Smart Questions** 🚀
-> **106 commands** | **21 skills** | **8 agents** | **1286 tests passing**
+> **106 commands** | **21 skills** | **8 agents** | **1294 tests passing**
 > Brainstorm spec reduced 84% (1,919 → 312 lines) with context-aware smart questions.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
