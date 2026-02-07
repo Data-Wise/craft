@@ -222,7 +222,7 @@ Pre-flight Check Plan:
   Report: htmlcov/index.html
 
 [4/12] Integration tests...
-  ✓ 27 integration tests passed
+  ✓ 38 integration tests passed
   ✓ End-to-end workflows validated
 
 [5/12] Type check (strict)...

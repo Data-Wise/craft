@@ -364,7 +364,7 @@ Custom lint rule for MkDocs `attr_list` extension compatibility:
 
 ## Integration Features (v1.24.0)
 
-The v1.24.0 release includes 27 integration tests validating three critical systems:
+Integration tests validate critical systems end-to-end:
 
 ### Integration Test Categories
 
@@ -373,8 +373,8 @@ The v1.24.0 release includes 27 integration tests validating three critical syst
 | **CLAUDE.md v3 Pipeline**  | 9      | Sync pipeline, optimizer, budget enforcement    | `tests/test_integration_claude_md_v3.py`                                       |
 | **Dependency System**      | 9      | Tool detection, installation, repair            | [Dependency Management Advanced](docs/guide/dependency-management-advanced.md) |
 | **Orchestrator Workflows** | 13     | Complexity scoring, routing, agent coordination | [Claude Code 2.1.0 Guide](docs/guide/claude-code-2.1-integration.md)           |
-| **Teaching Workflow**      | 8      | Course detection, validation, publishing        | [Teaching Workflow Guide](docs/guide/teaching-workflow.md)                     |
-| **Total**                  | **36** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
+| **Teaching Workflow**      | 16     | Config normalization, detection, validation     | [Teaching Workflow Guide](docs/guide/teaching-workflow.md)                     |
+| **Total**                  | **47** | **End-to-end system validation**                | [Integration Testing Guide](docs/guide/integration-testing.md)                 |
 
 ### Running Integration Tests
 
