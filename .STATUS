@@ -4,14 +4,21 @@ release_date: 2026-02-07
 milestone: v2.17.0 - TBD
 last_session: 2026-02-07
 
-progress: v2.16.0 released, docs deployed, planning v2.17.0
+progress: v2.16.0 fully released, all PRs merged, docs deployed, dev synced with main
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                        |
 |--------|---------|------|-------------------------------|
-| main   | 4fbaf25 | —    | Production (v2.16.0 released) |
-| dev    | 4fbaf25 | main | Clean, synced with main       |
+| main   | 5e0283f | —    | Production (v2.16.0 released) |
+| dev    | 711e6b4 | main | Clean, synced with main       |
+
+✅ Session 2026-02-07 (post-release):
+- Released v2.16.0: PR #59 (feature) + PR #60 (release merge)
+- Created docs/commands/git/protect.md and unprotect.md
+- Updated docs/index.md for 108 commands
+- Docs site deployed 3x with all nav warnings resolved
+- Rebased dev onto main, synced hashes (PRs #62, #63)
 
 ✅ v2.16.0 — Teaching Ecosystem + Branch Protection (2026-02-07):
 - Branch protection hooks: scripts/branch-guard.sh PreToolUse hook
