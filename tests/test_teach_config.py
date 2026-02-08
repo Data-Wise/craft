@@ -167,7 +167,7 @@ class TestValidateBreaks(unittest.TestCase):
             }
         ]
         errors = validate_breaks(breaks, "2026-01-19", "2026-05-08")
-        self.assertTrue(any("start date must be before end date" in e for e in errors))
+        self.assertTrue(any("start date must be before or equal to end date" in e for e in errors))
 
     def test_break_before_semester(self):
         """Break starting before semester should fail"""
