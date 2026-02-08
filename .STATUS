@@ -2,16 +2,23 @@ status: Active
 version: 2.16.0
 release_date: 2026-02-07
 milestone: v2.17.0 - TBD
-last_session: 2026-02-07
+last_session: 2026-02-08
 
-progress: v2.16.0 fully released, all PRs merged, docs deployed, dev synced with main
+progress: v2.16.0 released, CI fixes merged (PR #65)
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                        |
 |--------|---------|------|-------------------------------|
-| main   | 5e0283f | —    | Production (v2.16.0 released) |
-| dev    | 711e6b4 | main | Clean, synced with main       |
+| main   | 9f8c0a5 | —    | Production (v2.16.0 + CI fix) |
+| dev    | b31ea52 | main | Clean, synced with main       |
+
+✅ Session 2026-02-08 (CI fix):
+- Fixed 4 failing CI tests across main and dev (PR #65)
+- Baseline report tests: converted to no-ops (file removed)
+- teach_config: aligned assertion with "before or equal to" message
+- Nav flattened: bumped limit 7→8 for Teaching section
+- Verified actual linting unaffected (runs in docs-quality.yml)
 
 ✅ Session 2026-02-07 (post-release):
 - Released v2.16.0: PR #59 (feature) + PR #60 (release merge)
