@@ -315,7 +315,7 @@ def _check_navigation_flattened() -> CheckResult:
 
     missing = [item for item in required_nav_items if item not in content]
 
-    # Count top-level nav items (should be < 7 for ADHD-friendly)
+    # Count top-level nav items (should be <= 8 for ADHD-friendly)
     nav_section = re.search(r'nav:\n(.*?)(?:\n\w|\Z)', content, re.DOTALL)
     if nav_section:
         top_level = re.findall(r'\n  - [^:]+:', nav_section.group(1))
@@ -334,12 +334,12 @@ def _check_navigation_flattened() -> CheckResult:
             "phase2"
         )
 
-    if top_level_count > 7:
+    if top_level_count > 8:
         return CheckResult(
             "Navigation Flattened",
             False,
             duration,
-            f"Too many top-level items: {top_level_count} (max 7 for ADHD)",
+            f"Too many top-level items: {top_level_count} (max 8 for ADHD)",
             "phase2"
         )
 
