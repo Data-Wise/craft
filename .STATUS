@@ -10,8 +10,8 @@ progress: v2.16.0 released, docs deployed, planning v2.17.0
 
 | Branch | Head    | Base | Status                        |
 |--------|---------|------|-------------------------------|
-| main   | 6b123c3 | —    | Production (v2.16.0 released) |
-| dev    | f1ec7d4 | main | Clean, ready for next feature |
+| main   | 4fbaf25 | —    | Production (v2.16.0 released) |
+| dev    | 4fbaf25 | main | Clean, synced with main       |
 
 ✅ v2.16.0 — Teaching Ecosystem + Branch Protection (2026-02-07):
 - Branch protection hooks: scripts/branch-guard.sh PreToolUse hook
