@@ -6,6 +6,13 @@ set -euo pipefail
 # Reads JSON from stdin: { tool_name, tool_input: { file_path, command, ... }, cwd }
 # Exits 0 = allow, 2 = block (message on stderr)
 # Requires: jq (preferred), python3 (fallback), or grep/sed (last resort)
+#
+# Protection levels:
+#   block-all       — Hard block everything (main)
+#   smart           — 3-tier: LOW (note) + MEDIUM (confirm) + HIGH (block) (dev)
+#   block-new-code  — DEPRECATED alias for smart (backward compat)
+#   confirm         — Alias for smart
+#   (empty)         — No protection (feature/*)
 
 # ---------------------------------------------------------------------------
 # 1. Read stdin (JSON blob)
@@ -95,7 +102,7 @@ fi
 # ---------------------------------------------------------------------------
 # 6. Load config or auto-detect protection rules
 # ---------------------------------------------------------------------------
-# Protection levels: "block-all", "block-new-code", "" (none)
+# Protection levels: "block-all", "smart", "block-new-code" (alias), "confirm" (alias), "" (none)
 PROTECTION=""
 MAIN_PROTECTION=""
 DEV_PROTECTION=""
@@ -122,7 +129,7 @@ if [[ "$USE_CONFIG" == false ]]; then
   MAIN_PROTECTION="block-all"
   DEV_PROTECTION=""
   if cd "$PROJECT_ROOT" && git rev-parse --verify dev &>/dev/null; then
-    DEV_PROTECTION="block-new-code"
+    DEV_PROTECTION="smart"
   fi
 
   # Determine which protection level applies to current branch
@@ -145,8 +152,68 @@ if [[ "$USE_CONFIG" == false ]]; then
   esac
 fi
 
+# ---------------------------------------------------------------------------
+# 6b. Normalize protection level aliases
+# ---------------------------------------------------------------------------
+case "$PROTECTION" in
+  block-new-code|confirm) PROTECTION="smart" ;;
+esac
+
 # No protection for this branch — allow everything
 [[ -z "$PROTECTION" ]] && exit 0
+
+# ---------------------------------------------------------------------------
+# 7. One-shot marker check (smart mode only)
+# ---------------------------------------------------------------------------
+if [[ "$PROTECTION" == "smart" ]]; then
+  ONCE_MARKER="${PROJECT_ROOT}/.claude/allow-once"
+  if [[ -f "$ONCE_MARKER" ]]; then
+    rm -f "$ONCE_MARKER"
+    exit 0
+  fi
+fi
+
+# ---------------------------------------------------------------------------
+# 7b. Session counter functions (smart mode)
+# ---------------------------------------------------------------------------
+SESSION_FILE="${PROJECT_ROOT}/.claude/guard-session-counts"
+
+_session_count() {
+  local action_type="$1"
+  [[ -f "$SESSION_FILE" ]] || { echo 0; return; }
+  # Age out: reset if older than 8 hours (28800 seconds)
+  local now mtime age
+  now=$(date +%s)
+  if mtime=$(stat -f %m "$SESSION_FILE" 2>/dev/null); then
+    : # macOS stat worked
+  elif mtime=$(stat -c %Y "$SESSION_FILE" 2>/dev/null); then
+    : # Linux stat worked
+  else
+    mtime=0
+  fi
+  age=$(( now - mtime ))
+  if (( age > 28800 )); then
+    rm -f "$SESSION_FILE"
+    echo 0; return
+  fi
+  local c=0
+  c=$(grep -c "^${action_type}$" "$SESSION_FILE" 2>/dev/null) || true
+  echo "$c"
+}
+
+_session_increment() {
+  local action_type="$1"
+  mkdir -p "$(dirname "$SESSION_FILE")"
+  echo "$action_type" >> "$SESSION_FILE"
+}
+
+_verbosity() {
+  local count="$1"
+  if (( count == 0 )); then echo "full"
+  elif (( count <= 2 )); then echo "brief"
+  else echo "minimal"
+  fi
+}
 
 # ---------------------------------------------------------------------------
 # 8. Helper: block or dry-run
@@ -205,6 +272,98 @@ _box() {
   done
   msg+="$(_hr "$_BL" "$_BR")"
   printf '%s' "$msg"
+}
+
+# ---------------------------------------------------------------------------
+# 8c. Smart mode helpers: confirm (MEDIUM) and low_note (LOW)
+# ---------------------------------------------------------------------------
+
+# _confirm: MEDIUM risk — teaching box + [CONFIRM] protocol, then exit 2
+# Usage: _confirm action_type action_desc risk_reason suggestion1 [suggestion2 ...]
+_confirm() {
+  local action_type="$1"
+  local action_desc="$2"
+  local risk_reason="$3"
+  shift 3
+  local suggestions=("$@")
+
+  local count verbosity msg
+  count=$(_session_count "$action_type") || true
+  verbosity=$(_verbosity "$count")
+  _session_increment "$action_type"
+
+  msg=""
+  case "$verbosity" in
+    full)
+      # Full teaching box
+      local box_lines=()
+      box_lines+=("${_C}${_B}BRANCH GUARD — Medium Risk${_N}")
+      box_lines+=("---")
+      box_lines+=("")
+      box_lines+=("${_D}Action:${_N}  ${action_desc}")
+      box_lines+=("")
+      box_lines+=("${_D}Why risky:${_N}")
+      box_lines+=("  ${risk_reason}")
+      box_lines+=("")
+      box_lines+=("${_D}Safe alternatives:${_N}")
+      for s in "${suggestions[@]}"; do
+        box_lines+=("  ${_Y}→${_N} ${s}")
+      done
+      box_lines+=("")
+      msg="$(_box "${box_lines[@]}")"
+      # Structured [CONFIRM] message
+      msg+=$'\n'
+      msg+="[CONFIRM] ${risk_reason}"$'\n'
+      msg+="Action:    ${action_desc}"$'\n'
+      msg+="Risk:      ${risk_reason}"$'\n'
+      for s in "${suggestions[@]}"; do
+        msg+="Suggest:   ${s}"$'\n'
+      done
+      msg+="Branch:    ${BRANCH} (smart mode)"$'\n'
+      msg+="Verbosity: full (1st encounter)"
+      ;;
+    brief)
+      # Brief box
+      msg="$(_box \
+        "${_C}${_B}BRANCH GUARD${_N}" \
+        "---" \
+        "${_D}Action:${_N}  ${action_desc}" \
+        "${_D}Risk:${_N}    ${risk_reason}" \
+        "${_D}Branch:${_N}  ${BRANCH} (smart mode)" \
+      )"
+      msg+=$'\n'
+      msg+="[CONFIRM] ${action_desc} on ${BRANCH}."$'\n'
+      msg+="Action:  ${action_desc}"$'\n'
+      msg+="Risk:    ${risk_reason}"$'\n'
+      msg+="Branch:  ${BRANCH} (smart mode)"
+      ;;
+    minimal)
+      # One-liner
+      msg="[CONFIRM] ${action_desc} on ${BRANCH}. Allow?"
+      ;;
+  esac
+
+  block "$msg"
+}
+
+# _low_note: LOW risk — brief note on first encounter, then silent
+# Usage: _low_note action_type note_message
+_low_note() {
+  local action_type="$1"
+  local note="$2"
+  local count
+  count=$(_session_count "$action_type") || true
+  if (( count == 0 )); then
+    printf '%b\n' "${_D}[guard]${_N} ${note}" >&2
+  fi
+  _session_increment "$action_type"
+  exit 0
+}
+
+# _hard_block: HIGH risk — hard block, no [CONFIRM] (not confirmable)
+# Usage: _hard_block box_lines...
+_hard_block() {
+  block "$(_box "$@")"
 }
 
 # ---------------------------------------------------------------------------
@@ -272,31 +431,33 @@ if [[ "$PROTECTION" == "block-all" ]]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 10. Apply protection: block-new-code (dev branch)
+# 10. Apply protection: smart (dev branch — 3-tier risk classification)
+#     Replaces the old block-new-code handler with teaching-first protection.
+#     LOW = allow + optional note, MEDIUM = confirm + teaching, HIGH = hard block
 # ---------------------------------------------------------------------------
-if [[ "$PROTECTION" == "block-new-code" ]]; then
+if [[ "$PROTECTION" == "smart" ]]; then
   case "$TOOL_NAME" in
     Edit|edit)
-      # Editing existing files is always allowed on dev
-      exit 0
+      # Editing existing files is always allowed on dev (LOW)
+      _low_note "edit_existing" "Editing existing file on ${BRANCH} (allowed)"
       ;;
 
     Write|write)
-      # Markdown files — always allowed
+      # Markdown files — always allowed (LOW)
       if [[ "$FILE_PATH" == *.md ]]; then
-        exit 0
+        _low_note "write_md" "New markdown on ${BRANCH} (always allowed)"
       fi
 
-      # Extension-less files (no dot in basename) — allowed
+      # Extension-less files (no dot in basename) — allowed (LOW)
       # Examples: .STATUS, Makefile, Dockerfile, LICENSE
       BASENAME="$(basename "$FILE_PATH")"
       if [[ "$BASENAME" != *.* ]] || [[ "$BASENAME" == .* && "${BASENAME#.}" != *.* ]]; then
-        exit 0
+        _low_note "write_extensionless" "Extension-less file (allowed): ${BASENAME}"
       fi
 
-      # Files in tests/ directory — allowed
+      # Files in tests/ directory — allowed (LOW)
       if echo "$FILE_PATH" | grep -qE '(^|/)tests/'; then
-        exit 0
+        _low_note "write_test" "Test files on ${BRANCH} (always allowed)"
       fi
 
       # Determine the actual file path (could be relative or absolute)
@@ -305,14 +466,14 @@ if [[ "$PROTECTION" == "block-new-code" ]]; then
         ACTUAL_PATH="${CWD}/${FILE_PATH}"
       fi
 
-      # Existing file (overwrite/fixup) — allowed
+      # Existing file (overwrite/fixup) — allowed (LOW)
       if [[ -f "$ACTUAL_PATH" ]]; then
-        exit 0
+        _low_note "write_existing" "Overwriting existing file on ${BRANCH} (allowed)"
       fi
 
       # Also check relative to project root
       if [[ -f "${PROJECT_ROOT}/${FILE_PATH}" ]]; then
-        exit 0
+        _low_note "write_existing" "Overwriting existing file on ${BRANCH} (allowed)"
       fi
 
       # New code file — determine extension
@@ -328,19 +489,13 @@ if [[ "$PROTECTION" == "block-new-code" ]]; then
       done
 
       if [[ "$IS_CODE" == true ]]; then
-        block "$(_box \
-          "${_R}${_B}BRANCH PROTECTION${_N}" \
-          "---" \
-          "Cannot create new ${_B}.${EXT}${_N} file on ${_B}${BRANCH}${_N}." \
-          "" \
-          "${_D}File:${_N}   ${_C}${FILE_PATH}${_N}" \
-          "${_D}Branch:${_N} ${BRANCH} (block-new-code)" \
-          "---" \
-          "Options:" \
-          "  ${_Y}1.${_N} Create worktree for feature work" \
-          "  ${_Y}2.${_N} Edit an EXISTING file (fixups allowed)" \
-          "  ${_Y}3.${_N} Bypass: ${_G}/craft:git:unprotect${_N}" \
-        )"
+        # MEDIUM risk — new code file on protected branch
+        _confirm "write_new_code" \
+          "Write new .${EXT} file: ${FILE_PATH}" \
+          "New code files on ${BRANCH} should go in a feature branch" \
+          "/craft:git:worktree feature/<name>" \
+          "Edit an existing file instead (fixups allowed)" \
+          "/craft:git:unprotect for bulk maintenance"
       fi
 
       # Non-code extension or unrecognized — allow
@@ -348,16 +503,14 @@ if [[ "$PROTECTION" == "block-new-code" ]]; then
       ;;
 
     Bash|bash)
-      # Block force push (--force, -f, --force-with-lease)
+      # Force push — MEDIUM risk
       if echo "$COMMAND" | grep -qE 'git[[:space:]]+push[[:space:]].*(--force|--force-with-lease|-f)([[:space:]]|$)'; then
-        block "$(_box \
-          "${_R}${_B}BRANCH PROTECTION${_N}" \
-          "---" \
-          "Cannot force push on ${_B}${BRANCH}${_N}." \
-          "" \
-          "${_D}Command:${_N} ${_C}${COMMAND}${_N}" \
-          "${_D}Branch:${_N}  ${BRANCH} (block-new-code)" \
-        )"
+        _confirm "force_push" \
+          "git push --force on ${BRANCH}" \
+          "Force push overwrites remote history for all collaborators" \
+          "git push origin ${BRANCH} (regular push)" \
+          "git push --force-with-lease (safer — checks remote)" \
+          "/craft:git:worktree feature/<name> (isolate changes)"
       fi
       # All other bash commands — allow
       exit 0
