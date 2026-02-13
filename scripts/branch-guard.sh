@@ -165,8 +165,25 @@ esac
 if [[ "$PROTECTION" == "smart" ]]; then
   ONCE_MARKER="${PROJECT_ROOT}/.claude/allow-once"
   if [[ -f "$ONCE_MARKER" ]]; then
-    rm -f "$ONCE_MARKER"
-    exit 0
+    # TTL: expire one-shot markers older than 5 minutes (300 seconds)
+    MARKER_NOW=$(date +%s)
+    MARKER_MTIME=0
+    if MARKER_MTIME=$(stat -f %m "$ONCE_MARKER" 2>/dev/null); then
+      : # macOS
+    elif MARKER_MTIME=$(stat -c %Y "$ONCE_MARKER" 2>/dev/null); then
+      : # Linux
+    else
+      MARKER_MTIME=$MARKER_NOW  # Can't stat — treat as fresh
+    fi
+    MARKER_AGE=$(( MARKER_NOW - MARKER_MTIME ))
+    if (( MARKER_AGE > 300 )); then
+      # Expired — delete without allowing
+      rm -f "$ONCE_MARKER"
+      # Fall through to normal risk classification
+    else
+      rm -f "$ONCE_MARKER"
+      exit 0
+    fi
   fi
 fi
 
@@ -193,6 +210,8 @@ _session_count() {
     rm -f "$SESSION_FILE"
     echo 0; return
   fi
+  # Re-check existence (another hook may have deleted during age-out window)
+  [[ -f "$SESSION_FILE" ]] || { echo 0; return; }
   local c=0
   c=$(grep -c "^${action_type}$" "$SESSION_FILE" 2>/dev/null) || true
   echo "$c"
@@ -201,7 +220,17 @@ _session_count() {
 _session_increment() {
   local action_type="$1"
   mkdir -p "$(dirname "$SESSION_FILE")"
-  echo "$action_type" >> "$SESSION_FILE"
+  # Use flock for atomic append (prevents corruption from concurrent hooks)
+  if command -v flock &>/dev/null; then
+    (
+      flock -x 200
+      echo "$action_type" >> "$SESSION_FILE"
+    ) 200>"${SESSION_FILE}.lock"
+  else
+    # macOS: flock not available by default, use simple append
+    # (append to a file is atomic on most filesystems for small writes)
+    echo "$action_type" >> "$SESSION_FILE"
+  fi
 }
 
 _verbosity() {
@@ -368,7 +397,8 @@ _hard_block() {
 # ---------------------------------------------------------------------------
 if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
   # rm -rf .git — HIGH risk everywhere (destroys entire repository)
-  if echo "$COMMAND" | grep -qE 'rm[[:space:]]+(-[rfRF]+[[:space:]]+)*\.git([[:space:]]|/|$)'; then
+  # Catches: rm -rf .git, rm -fr .git, rm -Rf .git, rm -r -f .git, etc.
+  if echo "$COMMAND" | grep -qE 'rm[[:space:]]+-[rfRF]*[[:space:]]*((-[rfRF]+[[:space:]]+)*)\.git([[:space:]]|/|$)'; then
     _hard_block \
       "${_R}${_B}BRANCH GUARD — CATASTROPHIC RISK${_N}" \
       "---" \

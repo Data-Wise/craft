@@ -1104,6 +1104,130 @@ run_test_with_stderr \
 
 echo ""
 
+# --------------------------------------------------------------------------
+# Group 17: One-shot marker TTL expiration (v2.17.0)
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- One-Shot Marker TTL ---${T_NC}"
+
+REPO_TTL=$(init_repo)
+switch_branch "$REPO_TTL" "dev"
+
+# Fresh marker (just created) -> ALLOW
+mkdir -p "$REPO_TTL/.claude"
+touch "$REPO_TTL/.claude/allow-once"
+
+run_test \
+    "test_oneshot_fresh_marker_allowed" \
+    0 \
+    "$(json_write "$REPO_TTL/src/fresh.py" "$REPO_TTL")" \
+    "$REPO_TTL"
+
+# Expired marker (6 minutes old) -> BLOCK
+mkdir -p "$REPO_TTL/.claude"
+touch "$REPO_TTL/.claude/allow-once"
+# Backdate the marker by 6 minutes (360 seconds) using Python (reliable cross-platform)
+python3 -c "
+import os, time
+path = '$REPO_TTL/.claude/allow-once'
+t = time.time() - 360
+os.utime(path, (t, t))
+"
+
+run_test \
+    "test_oneshot_expired_marker_blocked" \
+    2 \
+    "$(json_write "$REPO_TTL/src/expired.py" "$REPO_TTL")" \
+    "$REPO_TTL"
+
+# Verify expired marker was cleaned up
+if [[ ! -f "$REPO_TTL/.claude/allow-once" ]]; then
+    TOTAL=$((TOTAL + 1)); PASS=$((PASS + 1))
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_oneshot_expired_marker_cleaned_up  ${T_BOLD}(file removed)${T_NC}"
+else
+    TOTAL=$((TOTAL + 1)); FAIL=$((FAIL + 1))
+    FAILED_NAMES+=("test_oneshot_expired_marker_cleaned_up")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_oneshot_expired_marker_cleaned_up  ${T_BOLD}(file still exists)${T_NC}"
+fi
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 18: Broadened rm .git detection (v2.17.0)
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Broadened rm .git Detection ---${T_NC}"
+
+REPO_RM=$(init_repo)
+create_and_switch "$REPO_RM" "feature/rm-test"
+
+# rm -fr .git -> BLOCK (flag variant)
+run_test \
+    "test_rm_fr_git_blocked" \
+    2 \
+    "$(json_bash "rm -fr .git" "$REPO_RM")" \
+    "$REPO_RM"
+
+# rm -Rf .git -> BLOCK
+run_test \
+    "test_rm_Rf_git_blocked" \
+    2 \
+    "$(json_bash "rm -Rf .git" "$REPO_RM")" \
+    "$REPO_RM"
+
+# rm -fR .git -> BLOCK
+run_test \
+    "test_rm_fR_git_blocked" \
+    2 \
+    "$(json_bash "rm -fR .git" "$REPO_RM")" \
+    "$REPO_RM"
+
+# rm -f .gitignore -> ALLOW (not .git itself)
+run_test \
+    "test_rm_gitignore_allowed" \
+    0 \
+    "$(json_bash "rm -f .gitignore" "$REPO_RM")" \
+    "$REPO_RM"
+
+# rm -rf .github -> ALLOW (not .git)
+run_test \
+    "test_rm_github_dir_allowed" \
+    0 \
+    "$(json_bash "rm -rf .github" "$REPO_RM")" \
+    "$REPO_RM"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 19: TOCTOU guard in session counter (v2.17.0)
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Session Counter Edge Cases ---${T_NC}"
+
+REPO_TOCTOU=$(init_repo)
+switch_branch "$REPO_TOCTOU" "dev"
+
+# Session counter with missing file — should not error
+rm -f "$REPO_TOCTOU/.claude/guard-session-counts"
+
+run_test \
+    "test_session_counter_missing_file_no_error" \
+    2 \
+    "$(json_write "$REPO_TOCTOU/src/new.py" "$REPO_TOCTOU")" \
+    "$REPO_TOCTOU"
+
+# Session counter with empty file — should not error
+mkdir -p "$REPO_TOCTOU/.claude"
+: > "$REPO_TOCTOU/.claude/guard-session-counts"
+
+run_test \
+    "test_session_counter_empty_file_no_error" \
+    2 \
+    "$(json_write "$REPO_TOCTOU/src/new2.py" "$REPO_TOCTOU")" \
+    "$REPO_TOCTOU"
+
+echo ""
+
 # ============================================================================
 # Summary
 # ============================================================================
