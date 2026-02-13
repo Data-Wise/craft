@@ -783,6 +783,327 @@ run_test \
 
 echo ""
 
+# --------------------------------------------------------------------------
+# Group 11: Smart mode — destructive commands on dev (v2.17.0)
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Destructive Commands on Dev (Smart Mode) ---${T_NC}"
+
+REPO_DESTR=$(init_repo)
+switch_branch "$REPO_DESTR" "dev"
+
+run_test \
+    "test_git_reset_hard_on_dev" \
+    2 \
+    "$(json_bash "git reset --hard HEAD" "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+run_test \
+    "test_git_checkout_discard_on_dev" \
+    2 \
+    "$(json_bash "git checkout -- ." "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+run_test \
+    "test_git_restore_discard_on_dev" \
+    2 \
+    "$(json_bash "git restore ." "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+# git restore --staged is safe (only unstages) -> ALLOW
+run_test \
+    "test_git_restore_staged_allowed" \
+    0 \
+    "$(json_bash "git restore --staged file.py" "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+run_test \
+    "test_git_clean_fd_on_dev" \
+    2 \
+    "$(json_bash "git clean -fd" "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+run_test \
+    "test_git_clean_fx_on_dev" \
+    2 \
+    "$(json_bash "git clean -fx" "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+run_test \
+    "test_git_clean_force_flag_on_dev" \
+    2 \
+    "$(json_bash "git clean --force" "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 12: Universal catastrophic checks — all branches (v2.17.0)
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Universal Catastrophic Checks ---${T_NC}"
+
+# git branch -D on dev -> BLOCK (MEDIUM, universal)
+run_test \
+    "test_git_branch_delete_force_on_dev" \
+    2 \
+    "$(json_bash "git branch -D old-branch" "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+# git branch -D on feature -> BLOCK (universal)
+create_and_switch "$REPO_DESTR" "feature/test-univ"
+
+run_test \
+    "test_git_branch_delete_force_on_feature" \
+    2 \
+    "$(json_bash "git branch -D some-branch" "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+# git branch -d (safe delete) -> ALLOW on feature
+run_test \
+    "test_git_branch_delete_safe_allowed" \
+    0 \
+    "$(json_bash "git branch -d merged-branch" "$REPO_DESTR")" \
+    "$REPO_DESTR"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 13: Critical file protection on dev (v2.17.0)
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Critical File Protection ---${T_NC}"
+
+REPO_CRIT=$(init_repo)
+switch_branch "$REPO_CRIT" "dev"
+
+# .env write -> BLOCK
+run_test \
+    "test_write_env_on_dev" \
+    2 \
+    "$(json_write "$REPO_CRIT/.env" "$REPO_CRIT")" \
+    "$REPO_CRIT"
+
+# .env.local write -> BLOCK
+run_test \
+    "test_write_env_local_on_dev" \
+    2 \
+    "$(json_write "$REPO_CRIT/.env.local" "$REPO_CRIT")" \
+    "$REPO_CRIT"
+
+# .pem edit -> BLOCK
+run_test \
+    "test_edit_pem_on_dev" \
+    2 \
+    "$(json_edit "$REPO_CRIT/cert.pem" "$REPO_CRIT")" \
+    "$REPO_CRIT"
+
+# .key edit -> BLOCK
+run_test \
+    "test_edit_key_on_dev" \
+    2 \
+    "$(json_edit "$REPO_CRIT/server.key" "$REPO_CRIT")" \
+    "$REPO_CRIT"
+
+# .secret write -> BLOCK
+run_test \
+    "test_write_secret_on_dev" \
+    2 \
+    "$(json_write "$REPO_CRIT/data.secret" "$REPO_CRIT")" \
+    "$REPO_CRIT"
+
+# branch-guard.json write -> BLOCK
+run_test \
+    "test_write_guard_json_on_dev" \
+    2 \
+    "$(json_write "$REPO_CRIT/.claude/branch-guard.json" "$REPO_CRIT")" \
+    "$REPO_CRIT"
+
+# branch-guard.json edit -> BLOCK
+run_test \
+    "test_edit_guard_json_on_dev" \
+    2 \
+    "$(json_edit ".claude/branch-guard.json" "$REPO_CRIT")" \
+    "$REPO_CRIT"
+
+# Normal file edit still allowed
+run_test \
+    "test_edit_normal_file_on_dev" \
+    0 \
+    "$(json_edit "$REPO_CRIT/README.md" "$REPO_CRIT")" \
+    "$REPO_CRIT"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 14: Bash write-through detection on dev (v2.17.0)
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Bash Write-Through Detection ---${T_NC}"
+
+REPO_WT=$(init_repo)
+switch_branch "$REPO_WT" "dev"
+
+# echo > new.py -> BLOCK
+run_test \
+    "test_bash_redirect_new_py" \
+    2 \
+    "$(json_bash "echo 'print(1)' > new_file.py" "$REPO_WT")" \
+    "$REPO_WT"
+
+# cat > new.sh -> BLOCK
+run_test \
+    "test_bash_redirect_new_sh" \
+    2 \
+    "$(json_bash "cat > script.sh" "$REPO_WT")" \
+    "$REPO_WT"
+
+# tee new.py -> BLOCK
+run_test \
+    "test_bash_tee_new_py" \
+    2 \
+    "$(json_bash "echo x | tee new.py" "$REPO_WT")" \
+    "$REPO_WT"
+
+# cp to new.py -> BLOCK
+run_test \
+    "test_bash_cp_new_py" \
+    2 \
+    "$(json_bash "cp template.py brand_new.py" "$REPO_WT")" \
+    "$REPO_WT"
+
+# echo > notes.md -> ALLOW (markdown)
+run_test \
+    "test_bash_redirect_md_allowed" \
+    0 \
+    "$(json_bash "echo hi > notes.md" "$REPO_WT")" \
+    "$REPO_WT"
+
+# Redirect to existing file -> ALLOW (overwrite)
+echo "existing" > "$REPO_WT/existing.py"
+(cd "$REPO_WT" && git add existing.py && git commit -m "add" --quiet)
+
+run_test \
+    "test_bash_redirect_existing_allowed" \
+    0 \
+    "$(json_bash "echo updated > existing.py" "$REPO_WT")" \
+    "$REPO_WT"
+
+# Variable in path -> ALLOW (gracefully skip)
+run_test \
+    "test_bash_redirect_variable_path_allowed" \
+    0 \
+    '{"tool_name":"Bash","tool_input":{"command":"echo x > $OUTPUT_FILE"},"cwd":"'"$REPO_WT"'"}' \
+    "$REPO_WT"
+
+# Write-through on feature branch -> ALLOW (no protection)
+create_and_switch "$REPO_WT" "feature/wt-test"
+
+run_test \
+    "test_bash_redirect_feature_allowed" \
+    0 \
+    "$(json_bash "echo x > brand_new.py" "$REPO_WT")" \
+    "$REPO_WT"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 15: One-shot marker + Session counter (v2.17.0)
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- One-Shot Marker + Session Counter ---${T_NC}"
+
+REPO_ONCE=$(init_repo)
+switch_branch "$REPO_ONCE" "dev"
+
+# Without one-shot marker -> BLOCK (new code on dev)
+run_test \
+    "test_oneshot_without_marker_blocked" \
+    2 \
+    "$(json_write "$REPO_ONCE/src/app.py" "$REPO_ONCE")" \
+    "$REPO_ONCE"
+
+# Create one-shot marker -> ALLOW
+mkdir -p "$REPO_ONCE/.claude"
+touch "$REPO_ONCE/.claude/allow-once"
+
+run_test \
+    "test_oneshot_with_marker_allowed" \
+    0 \
+    "$(json_write "$REPO_ONCE/src/app.py" "$REPO_ONCE")" \
+    "$REPO_ONCE"
+
+# Marker consumed -> BLOCK again
+run_test \
+    "test_oneshot_marker_consumed" \
+    2 \
+    "$(json_write "$REPO_ONCE/src/app.py" "$REPO_ONCE")" \
+    "$REPO_ONCE"
+
+# Verify marker file is gone
+if [[ ! -f "$REPO_ONCE/.claude/allow-once" ]]; then
+    TOTAL=$((TOTAL + 1)); PASS=$((PASS + 1))
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_oneshot_marker_file_deleted  ${T_BOLD}(file removed)${T_NC}"
+else
+    TOTAL=$((TOTAL + 1)); FAIL=$((FAIL + 1))
+    FAILED_NAMES+=("test_oneshot_marker_file_deleted")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_oneshot_marker_file_deleted  ${T_BOLD}(file still exists)${T_NC}"
+fi
+
+# Session counter: verify file created after confirm
+if [[ -f "$REPO_ONCE/.claude/guard-session-counts" ]]; then
+    TOTAL=$((TOTAL + 1)); PASS=$((PASS + 1))
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_session_counter_file_created  ${T_BOLD}(file exists)${T_NC}"
+else
+    TOTAL=$((TOTAL + 1)); FAIL=$((FAIL + 1))
+    FAILED_NAMES+=("test_session_counter_file_created")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_session_counter_file_created  ${T_BOLD}(file missing)${T_NC}"
+fi
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 16: Verbosity fade (v2.17.0)
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Verbosity Fade ---${T_NC}"
+
+REPO_VERB=$(init_repo)
+switch_branch "$REPO_VERB" "dev"
+
+# 1st encounter — full verbosity (should contain "Safe alternatives" or "Why risky")
+run_test_with_stderr \
+    "test_verbosity_full_first_encounter" \
+    2 \
+    "$(json_write "$REPO_VERB/src/new1.py" "$REPO_VERB")" \
+    "$REPO_VERB" \
+    "Safe alternatives\|Why risky\|risky"
+
+# 2nd encounter — brief (should contain BRANCH GUARD but shorter)
+run_test_with_stderr \
+    "test_verbosity_brief_second_encounter" \
+    2 \
+    "$(json_write "$REPO_VERB/src/new2.py" "$REPO_VERB")" \
+    "$REPO_VERB" \
+    "BRANCH GUARD\|CONFIRM"
+
+# 4th+ encounter — minimal (should be just [CONFIRM] one-liner)
+# Need 3rd encounter first
+run_test \
+    "test_verbosity_third_encounter" \
+    2 \
+    "$(json_write "$REPO_VERB/src/new3.py" "$REPO_VERB")" \
+    "$REPO_VERB"
+
+run_test_with_stderr \
+    "test_verbosity_minimal_fourth_encounter" \
+    2 \
+    "$(json_write "$REPO_VERB/src/new4.py" "$REPO_VERB")" \
+    "$REPO_VERB" \
+    "CONFIRM.*Allow"
+
+echo ""
+
 # ============================================================================
 # Summary
 # ============================================================================
