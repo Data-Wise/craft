@@ -64,7 +64,8 @@ The release executes 8 steps sequentially:
 
 | Step | What Happens | You Need To |
 |------|-------------|-------------|
-| Pre-flight | Runs tests and validation | Fix any failures |
+| CI mirror | `/craft:check --for release` (full test suite) | Fix any failures |
+| Metadata check | `pre-release-check.sh` (version/counts) | Fix any mismatches |
 | Version bump | Updates version files | Review changes |
 | Commit and push | Creates release commit | Nothing (automatic) |
 | Release PR | Creates dev to main PR | Nothing (automatic) |

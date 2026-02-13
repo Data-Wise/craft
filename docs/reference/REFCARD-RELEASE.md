@@ -34,7 +34,8 @@ Ready to release?
 | Step | Action | Side Effects |
 |------|--------|-------------|
 | 1 | Detect version | Read-only |
-| 2 | Pre-flight checks | Read-only (runs tests) |
+| 2a | `/craft:check --for release` | Read-only (full CI mirror) |
+| 2b | `pre-release-check.sh` | Read-only (metadata) |
 | 3 | Bump version | Modifies files |
 | 4 | Commit and push | Creates commit, pushes |
 | 5 | Create release PR | Creates PR (dev to main) |

@@ -44,15 +44,16 @@ After detecting the current and next version, display:
 ├─────────────────────────────────────────────────────────────┤
 │ Actions that WOULD be taken:                                │
 │                                                             │
-│  1. ✓ Run pre-release-check.sh v2.18.0                      │
-│  2. ✓ Bump version in plugin.json, CLAUDE.md                │
-│  3. ✓ Commit: "chore: bump version to v2.18.0 for release"  │
-│  4. ✓ Push to dev                                           │
-│  5. ✓ Create PR: dev → main                                 │
-│  6. ✓ Merge PR (--merge, NO --delete-branch)                │
-│  7. ✓ Create GitHub release v2.18.0 on main                 │
-│  8. ✓ Deploy docs site (mkdocs gh-deploy)                   │
-│  9. ✓ Sync dev with main                                    │
+│  1. ✓ /craft:check --for release (full CI mirror)            │
+│  2. ✓ Run pre-release-check.sh v2.18.0 (metadata)           │
+│  3. ✓ Bump version in plugin.json, CLAUDE.md                │
+│  4. ✓ Commit: "chore: bump version to v2.18.0 for release"  │
+│  5. ✓ Push to dev                                           │
+│  6. ✓ Create PR: dev → main                                 │
+│  7. ✓ Merge PR (--merge, NO --delete-branch)                │
+│  8. ✓ Create GitHub release v2.18.0 on main                 │
+│  9. ✓ Deploy docs site (mkdocs gh-deploy)                   │
+│ 10. ✓ Sync dev with main                                    │
 ├─────────────────────────────────────────────────────────────┤
 │ ⚠ Risk: HIGH — modifies git history, creates PRs            │
 │ ⚠ No changes were made. Run without --dry-run to execute.   │
@@ -92,18 +93,36 @@ Ask the user to confirm the version before proceeding.
 
 ### Step 2: Pre-Flight Checks
 
-Run the project's pre-release validation:
+Run two complementary validations. **Both must pass** before proceeding.
+
+#### 2a: Full CI Mirror (`/craft:check --for release`)
+
+Run the full test suite, lint, and validation — the same checks CI runs:
+
+```bash
+/craft:check --for release
+```
+
+This runs: full pytest (unit + integration + e2e), strict lint, security audit, docs validation, and 90% coverage threshold. Catches test failures that would break CI after push.
+
+#### 2b: Release Metadata (`pre-release-check.sh`)
+
+Run release-specific consistency checks:
 
 ```bash
 # Craft plugin projects
 ./scripts/pre-release-check.sh <version>
 
-# General projects — run test suite
-python3 -m pytest tests/ || python3 tests/test_*.py || npm test || R CMD check .
+# General projects — skip (covered by 2a)
 ```
 
-If pre-flight fails, fix the issues and re-run. Common fixes:
+This checks: version consistency across files, command/skill/agent count accuracy, CLAUDE.md version refs, clean working tree.
 
+#### If Pre-Flight Fails
+
+Fix issues and re-run from 2a. Common fixes:
+
+- Test failure: fix the test or the code it validates
 - Version mismatch: update plugin.json/package.json
 - CLAUDE.md version refs: update version string
 - Uncommitted changes: commit or stash
@@ -198,14 +217,16 @@ Display progress using box-drawing:
 ┌─────────────────────────────────────────────────────────────┐
 │ /release v2.17.0                                            │
 ├─────────────────────────────────────────────────────────────┤
-│ [1/8] Pre-flight checks ..................... PASSED         │
-│ [2/8] Version bump ......................... DONE            │
-│ [3/8] Commit & push ....................... DONE             │
-│ [4/8] Release PR created .................. PR #70           │
-│ [5/8] PR merged ........................... DONE             │
-│ [6/8] GitHub release ....................... v2.17.0          │
-│ [7/8] Docs deployed ....................... DONE              │
-│ [8/8] Dev synced .......................... DONE              │
+│ [ 1/10] CI mirror check .................... PASSED          │
+│ [ 2/10] Release metadata check ............. PASSED          │
+│ [ 3/10] Version bump ....................... DONE             │
+│ [ 4/10] Commit & push ..................... DONE              │
+│ [ 5/10] Release PR created ................. PR #70          │
+│ [ 6/10] PR merged .......................... DONE             │
+│ [ 7/10] GitHub release ..................... v2.17.0          │
+│ [ 8/10] Docs deployed ..................... DONE              │
+│ [ 9/10] Dev synced ........................ DONE               │
+│ [10/10] Verify CI on main ................. PASSED            │
 ├─────────────────────────────────────────────────────────────┤
 │ Release URL: https://github.com/.../releases/tag/v2.17.0   │
 └─────────────────────────────────────────────────────────────┘
