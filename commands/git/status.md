@@ -65,7 +65,7 @@ When not in teaching mode, shows clean git status:
 │ 🌿 GIT STATUS                                   │
 ├─────────────────────────────────────────────────┤
 │ Branch: feature/new-feature                     │
-│ Guard: None (feature branches unrestricted)     │
+│ Guard: smart (2 confirms) · no one-shot pending │
 │ Status: 2 commits ahead of origin               │
 │                                                 │
 │ Changes:                                        │
@@ -354,12 +354,41 @@ else
     if [[ -f "$PROJECT_ROOT/.claude/allow-dev-edit" ]]; then
         REASON=$(jq -r '.reason // "unknown"' "$PROJECT_ROOT/.claude/allow-dev-edit" 2>/dev/null || echo "unknown")
         printf "│ Guard: BYPASSED (reason: %-22s │\n" "${REASON})"
-    elif [[ -f "$PROJECT_ROOT/.claude/branch-guard.json" ]]; then
-        LEVEL=$(jq -r ".\"${CURRENT_BRANCH}\" // empty" "$PROJECT_ROOT/.claude/branch-guard.json" 2>/dev/null)
+    else
+        # Detect protection level (config or auto-detect)
+        LEVEL=""
+        if [[ -f "$PROJECT_ROOT/.claude/branch-guard.json" ]]; then
+            LEVEL=$(jq -r ".\"${CURRENT_BRANCH}\" // empty" "$PROJECT_ROOT/.claude/branch-guard.json" 2>/dev/null)
+        fi
+        if [[ -z "$LEVEL" ]]; then
+            case "$CURRENT_BRANCH" in
+                main|master) LEVEL="block-all" ;;
+                dev|develop)
+                    if git rev-parse --verify dev &>/dev/null; then LEVEL="smart"; fi ;;
+            esac
+        fi
+        # Normalize aliases
+        case "$LEVEL" in block-new-code|confirm) LEVEL="smart" ;; esac
+
         if [[ "$LEVEL" == "block-all" ]]; then
-            echo "│ Guard: Active (all edits blocked)               │"
-        elif [[ "$LEVEL" == "block-new-code" ]]; then
-            echo "│ Guard: Active (new code blocked, fixups OK)     │"
+            echo "│ Guard: block-all (everything blocked)           │"
+        elif [[ "$LEVEL" == "smart" ]]; then
+            # Show session counter
+            SESSION_FILE="$PROJECT_ROOT/.claude/guard-session-counts"
+            CONFIRMS=0
+            if [[ -f "$SESSION_FILE" ]]; then
+                CONFIRMS=$(wc -l < "$SESSION_FILE" | tr -d ' ')
+            fi
+            # Check one-shot marker
+            ONESHOT="no"
+            if [[ -f "$PROJECT_ROOT/.claude/allow-once" ]]; then
+                ONESHOT="yes"
+            fi
+            printf "│ Guard: smart (%s confirms) · one-shot: %-7s │\n" "$CONFIRMS" "$ONESHOT"
+        elif [[ -n "$LEVEL" ]]; then
+            printf "│ Guard: %-40s │\n" "$LEVEL"
+        else
+            echo "│ Guard: None (unrestricted)                     │"
         fi
     fi
 

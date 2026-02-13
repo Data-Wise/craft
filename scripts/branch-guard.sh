@@ -464,6 +464,9 @@ fi
 #     LOW = allow + optional note, MEDIUM = confirm + teaching, HIGH = hard block
 # ---------------------------------------------------------------------------
 if [[ "$PROTECTION" == "smart" ]]; then
+  # Code file extensions (shared by Write handler and Bash write-through detection)
+  CODE_EXTENSIONS="py sh js ts jsx tsx json yml yaml toml cfg ini r R zsh"
+
   case "$TOOL_NAME" in
     Edit|edit)
       # Critical file check — MEDIUM risk (sensitive config/secrets)
@@ -633,6 +636,66 @@ if [[ "$PROTECTION" == "smart" ]]; then
           "Permanently removes untracked files — cannot be undone" \
           "git clean -n (dry run — see what would be removed)" \
           "git stash -u (stash including untracked files)"
+      fi
+
+      # ---------------------------------------------------------------
+      # Bash write-through detection (file creation via redirection)
+      # Catches: echo/cat/printf > file, tee file, cp src dst
+      # Skips: markdown files, variables in paths, existing files
+      # ---------------------------------------------------------------
+      BASH_TARGET=""
+
+      # Pattern 1: redirect to file (>, >>)  e.g. "echo x > file.py", "cat > file.py"
+      if echo "$COMMAND" | grep -qE '>[[:space:]]*[^>]'; then
+        # Extract the target after the last >
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE '>[[:space:]]*[^>|&;[:space:]]+' | tail -1 | sed 's/^>[[:space:]]*//')"
+      fi
+
+      # Pattern 2: tee <file>  e.g. "echo x | tee file.py"
+      if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'tee[[:space:]]+[^-]'; then
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'tee[[:space:]]+(-a[[:space:]]+)?[^|;&[:space:]]+' | head -1 | sed 's/^tee[[:space:]]*\(-a[[:space:]]*\)\{0,1\}//')"
+      fi
+
+      # Pattern 3: cp <src> <dst>  e.g. "cp template.py new.py"
+      if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'cp[[:space:]]'; then
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}')"
+      fi
+
+      # If we found a target, check if it's a new code file
+      if [[ -n "$BASH_TARGET" ]]; then
+        # Skip if target contains variables ($, backticks) — can't resolve
+        if echo "$BASH_TARGET" | grep -qE '[$`]'; then
+          : # gracefully skip — can't determine actual path
+        else
+          BASH_BASENAME="$(basename "$BASH_TARGET")"
+          BASH_EXT="${BASH_BASENAME##*.}"
+
+          # Skip markdown — always allowed
+          if [[ "$BASH_EXT" != "md" ]]; then
+            # Check if it's a code extension
+            BASH_IS_CODE=false
+            for ext in $CODE_EXTENSIONS; do
+              if [[ "$BASH_EXT" == "$ext" ]]; then
+                BASH_IS_CODE=true
+                break
+              fi
+            done
+
+            if [[ "$BASH_IS_CODE" == true ]]; then
+              # Check if file already exists (overwrite is OK)
+              BASH_ACTUAL="$BASH_TARGET"
+              [[ "$BASH_TARGET" != /* ]] && BASH_ACTUAL="${CWD}/${BASH_TARGET}"
+
+              if [[ ! -f "$BASH_ACTUAL" ]] && [[ ! -f "${PROJECT_ROOT}/${BASH_TARGET}" ]]; then
+                _confirm "bash_write_through" \
+                  "Bash creates new .${BASH_EXT} file: ${BASH_TARGET}" \
+                  "Shell redirection creates a new code file on ${BRANCH}" \
+                  "Use the Write tool instead (tracked by guard)" \
+                  "/craft:git:worktree feature/<name> (isolate changes)"
+              fi
+            fi
+          fi
+        fi
       fi
 
       # All other bash commands — allow
