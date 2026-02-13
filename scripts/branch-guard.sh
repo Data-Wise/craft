@@ -159,9 +159,6 @@ case "$PROTECTION" in
   block-new-code|confirm) PROTECTION="smart" ;;
 esac
 
-# No protection for this branch — allow everything
-[[ -z "$PROTECTION" ]] && exit 0
-
 # ---------------------------------------------------------------------------
 # 7. One-shot marker check (smart mode only)
 # ---------------------------------------------------------------------------
@@ -367,6 +364,37 @@ _hard_block() {
 }
 
 # ---------------------------------------------------------------------------
+# 8d. Universal catastrophic checks (ALL branches, before protection filter)
+# ---------------------------------------------------------------------------
+if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
+  # rm -rf .git — HIGH risk everywhere (destroys entire repository)
+  if echo "$COMMAND" | grep -qE 'rm[[:space:]]+(-[rfRF]+[[:space:]]+)*\.git([[:space:]]|/|$)'; then
+    _hard_block \
+      "${_R}${_B}BRANCH GUARD — CATASTROPHIC RISK${_N}" \
+      "---" \
+      "Cannot run ${_B}rm -rf .git${_N} — destroys entire repository." \
+      "" \
+      "${_D}Command:${_N} ${_C}${COMMAND}${_N}" \
+      "${_D}Branch:${_N}  ${BRANCH}" \
+      "---" \
+      "This action is ${_R}never${_N} allowed via the guard." \
+      "If intentional, remove the hook temporarily."
+  fi
+
+  # git branch -D — MEDIUM risk everywhere (deletes unmerged branches)
+  if echo "$COMMAND" | grep -qE 'git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
+    _confirm "branch_delete" \
+      "git branch -D (force delete)" \
+      "Force-deletes branch even if not merged — commits may be lost" \
+      "git branch -d (safe delete — only if merged)" \
+      "git log <branch> to check for unmerged work"
+  fi
+fi
+
+# No protection for this branch — allow everything
+[[ -z "$PROTECTION" ]] && exit 0
+
+# ---------------------------------------------------------------------------
 # 9. Apply protection: block-all (main branch)
 # ---------------------------------------------------------------------------
 if [[ "$PROTECTION" == "block-all" ]]; then
@@ -438,11 +466,66 @@ fi
 if [[ "$PROTECTION" == "smart" ]]; then
   case "$TOOL_NAME" in
     Edit|edit)
+      # Critical file check — MEDIUM risk (sensitive config/secrets)
+      EDIT_BASENAME="$(basename "$FILE_PATH")"
+      case "$EDIT_BASENAME" in
+        .env|.env.*)
+          _confirm "edit_env" \
+            "Edit ${EDIT_BASENAME} on ${BRANCH}" \
+            "Environment files may contain secrets — edits should be intentional" \
+            "Copy .env to .env.local for local changes" \
+            "Use a secrets manager for production values"
+          ;;
+      esac
+      case "$FILE_PATH" in
+        *.pem|*.key|*.secret)
+          _confirm "edit_secret" \
+            "Edit secret/key file: ${FILE_PATH}" \
+            "Key/secret files should rarely be edited directly" \
+            "Regenerate keys rather than editing" \
+            "Check if file is in .gitignore"
+          ;;
+        */.claude/branch-guard.json|.claude/branch-guard.json)
+          _confirm "edit_guard_config" \
+            "Edit branch-guard.json on ${BRANCH}" \
+            "Modifying guard config changes protection rules" \
+            "/craft:git:protect --level <level> (safe config update)" \
+            "/craft:git:unprotect (temporary bypass instead)"
+          ;;
+      esac
       # Editing existing files is always allowed on dev (LOW)
       _low_note "edit_existing" "Editing existing file on ${BRANCH} (allowed)"
       ;;
 
     Write|write)
+      # Critical file check — MEDIUM risk (sensitive config/secrets)
+      WRITE_BASENAME="$(basename "$FILE_PATH")"
+      case "$WRITE_BASENAME" in
+        .env|.env.*)
+          _confirm "write_env" \
+            "Write ${WRITE_BASENAME} on ${BRANCH}" \
+            "Environment files may contain secrets — writes should be intentional" \
+            "Copy .env to .env.local for local changes" \
+            "Use a secrets manager for production values"
+          ;;
+      esac
+      case "$FILE_PATH" in
+        *.pem|*.key|*.secret)
+          _confirm "write_secret" \
+            "Write secret/key file: ${FILE_PATH}" \
+            "Key/secret files should rarely be written directly" \
+            "Use a key generation tool instead" \
+            "Check if file is in .gitignore"
+          ;;
+        */.claude/branch-guard.json|.claude/branch-guard.json)
+          _confirm "write_guard_config" \
+            "Write branch-guard.json on ${BRANCH}" \
+            "Modifying guard config changes protection rules" \
+            "/craft:git:protect --level <level> (safe config update)" \
+            "/craft:git:unprotect (temporary bypass instead)"
+          ;;
+      esac
+
       # Markdown files — always allowed (LOW)
       if [[ "$FILE_PATH" == *.md ]]; then
         _low_note "write_md" "New markdown on ${BRANCH} (always allowed)"
@@ -512,6 +595,46 @@ if [[ "$PROTECTION" == "smart" ]]; then
           "git push --force-with-lease (safer — checks remote)" \
           "/craft:git:worktree feature/<name> (isolate changes)"
       fi
+
+      # git reset --hard — MEDIUM risk (discards uncommitted changes)
+      if echo "$COMMAND" | grep -qE 'git[[:space:]]+reset[[:space:]]+--hard'; then
+        _confirm "reset_hard" \
+          "git reset --hard on ${BRANCH}" \
+          "Discards all uncommitted changes — cannot be undone" \
+          "git stash (save changes for later)" \
+          "git reset --soft (keep changes staged)" \
+          "git diff to review what would be lost"
+      fi
+
+      # git checkout -- (discard working tree changes) — MEDIUM risk
+      if echo "$COMMAND" | grep -qE 'git[[:space:]]+checkout[[:space:]]+--[[:space:]]'; then
+        _confirm "checkout_discard" \
+          "git checkout -- (discard changes) on ${BRANCH}" \
+          "Discards working tree changes for specified files" \
+          "git stash (save changes for later)" \
+          "git diff <file> to review what would be lost"
+      fi
+
+      # git restore (discard working tree changes) — MEDIUM risk
+      # Excludes --staged (which only unstages, doesn't discard)
+      if echo "$COMMAND" | grep -qE 'git[[:space:]]+restore[[:space:]]' && \
+         ! echo "$COMMAND" | grep -qE 'git[[:space:]]+restore[[:space:]]+--staged'; then
+        _confirm "restore_discard" \
+          "git restore (discard changes) on ${BRANCH}" \
+          "Discards working tree changes for specified files" \
+          "git stash (save changes for later)" \
+          "git restore --staged <file> (unstage only, keeps changes)"
+      fi
+
+      # git clean -f (remove untracked files) — MEDIUM risk
+      if echo "$COMMAND" | grep -qE 'git[[:space:]]+clean[[:space:]]+(-[fdxFDX]+|--force)'; then
+        _confirm "clean_force" \
+          "git clean -f (remove untracked files) on ${BRANCH}" \
+          "Permanently removes untracked files — cannot be undone" \
+          "git clean -n (dry run — see what would be removed)" \
+          "git stash -u (stash including untracked files)"
+      fi
+
       # All other bash commands — allow
       exit 0
       ;;
