@@ -1435,6 +1435,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../guide/branch-guard-smart-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Smart Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
@@ -1698,10 +1754,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_17" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_19" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_17" id="__nav_2_4_17_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_19" id="__nav_2_4_19_label" tabindex="0">
             
   
   
@@ -1719,8 +1775,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_17_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_17">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_19">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3587,6 +3643,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#branch-guard-indicator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branch Guard Indicator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#critical-file-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5204,6 +5271,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6494,6 +6589,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#branch-guard-indicator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branch Guard Indicator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#critical-file-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6619,11 +6725,49 @@
 <h2 id="output-sections">Output Sections<a class="headerlink" href="#output-sections" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Branch Information</strong> — Current branch and tracking status</li>
+<li><strong>Branch Guard Status</strong> — Protection level, session confirms, one-shot marker</li>
 <li><strong>Staged Changes</strong> — Files ready to commit</li>
 <li><strong>Unstaged Changes</strong> — Modified but not staged</li>
 <li><strong>Untracked Files</strong> — New files not in git</li>
 <li><strong>Critical File Alerts</strong> — Teaching-specific warnings (if applicable)</li>
 </ol>
+<hr />
+<h2 id="branch-guard-indicator">Branch Guard Indicator<a class="headerlink" href="#branch-guard-indicator" title="Permanent link">&para;</a></h2>
+<p>When the branch guard hook is installed, status shows protection information:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>│ Guard: smart (3 confirms) · one-shot: inactive  │
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>smart</code></td>
+<td>Current protection level (or <code>block-all</code>, <code>bypassed</code>, <code>none</code>)</td>
+</tr>
+<tr>
+<td><code>3 confirms</code></td>
+<td>Number of MEDIUM-risk confirmations this session</td>
+</tr>
+<tr>
+<td><code>one-shot: active</code></td>
+<td>A one-shot approval marker exists (next action will be allowed)</td>
+</tr>
+<tr>
+<td><code>one-shot: inactive</code></td>
+<td>No pending one-shot marker</td>
+</tr>
+</tbody>
+</table>
+<p><strong>On feature branches:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>│ Guard: none (feature branch — unrestricted)      │
+</span></code></pre></div>
+<p><strong>When bypassed:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>│ Guard: BYPASSED (reason: maintenance)             │
+</span></code></pre></div>
 <hr />
 <h2 id="critical-file-detection">Critical File Detection<a class="headerlink" href="#critical-file-detection" title="Permanent link">&para;</a></h2>
 <p>Automatically highlights:</p>
@@ -6664,7 +6808,10 @@
 <ul>
 <li><a href="../sync/">/craft:git:sync</a> — Smart git synchronization</li>
 <li><a href="../branch/">/craft:git:branch</a> — Branch management</li>
+<li><a href="../protect/">/craft:git:protect</a> — Branch protection management</li>
+<li><a href="../unprotect/">/craft:git:unprotect</a> — Temporary bypass</li>
 <li><a href="../clean/">/craft:git:clean</a> — Remove merged branches</li>
+<li><a href="../../../guide/branch-guard-smart-mode/">Smart Mode Guide</a> — Full guard documentation</li>
 <li><a href="../../../guide/teaching-workflow/">Teaching Workflow Guide</a> — Teaching mode details</li>
 </ul>
 

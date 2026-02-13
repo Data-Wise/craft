@@ -1435,6 +1435,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guide/branch-guard-smart-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Smart Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
@@ -1698,10 +1754,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_17" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_19" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_17" id="__nav_2_4_17_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_19" id="__nav_2_4_19_label" tabindex="0">
             
   
   
@@ -1719,8 +1775,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_17_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_17">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_19">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2907,6 +2963,17 @@
     <span class="md-ellipsis">
       
         /craft:git:unprotect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftgitstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:status
       
     </span>
   </a>
@@ -5271,6 +5338,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6562,6 +6657,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#craftgitstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:git:status
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#craftgitsync" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6767,12 +6873,67 @@
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:git:worktree<span class="w"> </span>remove<span class="w"> </span>feature-auth
 </span></code></pre></div>
 <h3 id="craftgitprotect">/craft:git:protect<a class="headerlink" href="#craftgitprotect" title="Permanent link">&para;</a></h3>
-<p>Re-enable branch protection after a temporary bypass.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:git:protect
+<p>Re-enable branch protection, configure levels, view status.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:git:protect<span class="w">              </span><span class="c1"># Re-enable protection</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:git:protect<span class="w"> </span>--show<span class="w">       </span><span class="c1"># Show current level + session counters</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>/craft:git:protect<span class="w"> </span>--level<span class="w"> </span>smart<span class="w">  </span><span class="c1"># Set protection level</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>/craft:git:protect<span class="w"> </span>--reset<span class="w">      </span><span class="c1"># Reset session counters (verbosity restarts)</span>
 </span></code></pre></div>
+<p><strong>Protection levels:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Behavior</th>
+<th>Default For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>block-all</code></td>
+<td>Hard block everything</td>
+<td>main, master</td>
+</tr>
+<tr>
+<td><code>smart</code></td>
+<td>3-tier risk: LOW (allow) / MEDIUM (confirm) / HIGH (block)</td>
+<td>dev, develop</td>
+</tr>
+</tbody>
+</table>
 <h3 id="craftgitunprotect">/craft:git:unprotect<a class="headerlink" href="#craftgitunprotect" title="Permanent link">&para;</a></h3>
-<p>Temporarily bypass branch protection for the current branch (creates <code>.claude/allow-dev-edit</code> marker).</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:git:unprotect
+<p>Session-wide bypass for branch protection with reason logging.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:git:unprotect<span class="w">                 </span><span class="c1"># Interactive (asks for reason)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:git:unprotect<span class="w"> </span>merge-conflict<span class="w">  </span><span class="c1"># Bypass for merge conflicts</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:git:unprotect<span class="w"> </span>ci-fix<span class="w">          </span><span class="c1"># Bypass for CI fixes</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>/craft:git:unprotect<span class="w"> </span>maintenance<span class="w">     </span><span class="c1"># Bypass for maintenance</span>
+</span></code></pre></div>
+<p><strong>Two bypass mechanisms:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Scope</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One-shot (approve <code>[CONFIRM]</code>)</td>
+<td>Single action</td>
+<td>Consumed immediately</td>
+</tr>
+<tr>
+<td><code>/craft:git:unprotect</code></td>
+<td>All actions</td>
+<td>Until <code>/craft:git:protect</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="craftgitstatus">/craft:git:status<a class="headerlink" href="#craftgitstatus" title="Permanent link">&para;</a></h3>
+<p>Enhanced git status with branch guard indicator.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:git:status<span class="w">           </span><span class="c1"># Shows guard level, session confirms, one-shot status</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:git:status<span class="w"> </span>--verbose<span class="w"> </span><span class="c1"># Additional details</span>
 </span></code></pre></div>
 <h3 id="craftgitsync">/craft:git:sync<a class="headerlink" href="#craftgitsync" title="Permanent link">&para;</a></h3>
 <p>Smart git sync (fetch, merge, push)</p>
@@ -6788,15 +6949,15 @@
 <h2 id="ci-commands-3">CI Commands (3)<a class="headerlink" href="#ci-commands-3" title="Permanent link">&para;</a></h2>
 <h3 id="craftdetect">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />detect<a class="headerlink" href="#craftdetect" title="Permanent link">&para;</a></h3>
 <p>Smart detection of project type, build tools, and CI requirements</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:ci:detect
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:ci:detect
 </span></code></pre></div>
 <h3 id="craftgenerate">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />generate<a class="headerlink" href="#craftgenerate" title="Permanent link">&para;</a></h3>
 <p>Generate GitHub Actions workflow from detection</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:ci:generate
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:ci:generate
 </span></code></pre></div>
 <h3 id="craftvalidate">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />validate<a class="headerlink" href="#craftvalidate" title="Permanent link">&para;</a></h3>
 <p>Validate existing CI workflow against project configuration</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:ci:validate
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:ci:validate
 </span></code></pre></div>
 
 

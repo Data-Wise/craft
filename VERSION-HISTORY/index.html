@@ -1435,6 +1435,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../guide/branch-guard-smart-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Smart Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
@@ -1698,10 +1754,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_17" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_19" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_17" id="__nav_2_4_17_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_19" id="__nav_2_4_19_label" tabindex="0">
             
   
   
@@ -1719,8 +1775,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_17_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_17">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_19">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4844,6 +4900,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v2170-2026-02-13-branch-guard-v2-smart-mode-with-progressive-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.17.0 (2026-02-13) - Branch Guard v2: Smart Mode with Progressive Trust
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v2150-2026-02-06-brainstorm-v250-spec-simplification-smart-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5631,6 +5698,34 @@
     
   
     Brainstorm Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Quick Reference
   
 
     
@@ -6891,6 +6986,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v2170-2026-02-13-branch-guard-v2-smart-mode-with-progressive-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.17.0 (2026-02-13) - Branch Guard v2: Smart Mode with Progressive Trust
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v2150-2026-02-06-brainstorm-v250-spec-simplification-smart-questions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7437,11 +7543,130 @@
 <blockquote>
 <p><strong>Evolution of Craft</strong>: From command automation tool to intelligent orchestration platform</p>
 </blockquote>
-<p><strong>Latest Release:</strong> v2.16.0 (2026-02-07)
-<strong>Total Releases:</strong> 37 versions | <strong>Development Time:</strong> 2+ years
-<strong>Community:</strong> 108 commands documented, 1432 tests passing, 90%+ coverage</p>
+<p><strong>Latest Release:</strong> v2.17.0 (2026-02-13)
+<strong>Total Releases:</strong> 38 versions | <strong>Development Time:</strong> 2+ years
+<strong>Community:</strong> 108 commands documented, ~1470 tests passing, 90%+ coverage</p>
 <hr />
 <h2 id="release-timeline">Release Timeline<a class="headerlink" href="#release-timeline" title="Permanent link">&para;</a></h2>
+<h3 id="v2170-2026-02-13-branch-guard-v2-smart-mode-with-progressive-trust">v2.17.0 (2026-02-13) - Branch Guard v2: Smart Mode with Progressive Trust<a class="headerlink" href="#v2170-2026-02-13-branch-guard-v2-smart-mode-with-progressive-trust" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> In Development</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li><strong>Smart Mode</strong>: Replaces binary block/allow with 3-tier risk classification (LOW/MEDIUM/HIGH)</li>
+<li><strong>Fade-to-Brief Learning</strong>: Teaching verbosity decreases over session (full → brief → minimal)</li>
+<li><strong>One-Shot Approval</strong>: <code>[CONFIRM]</code> prompts create single-use bypass markers automatically</li>
+<li><strong>Destructive Command Detection</strong>: Catches <code>git reset --hard</code>, <code>checkout --</code>, <code>restore</code>, <code>clean -f</code></li>
+<li><strong>Critical File Protection</strong>: Guards <code>.env</code>, <code>.pem</code>, <code>.key</code>, <code>.secret</code>, <code>branch-guard.json</code></li>
+<li><strong>Bash Write-Through Detection</strong>: Catches file creation via <code>&gt;</code>, <code>tee</code>, <code>cp</code> in shell commands</li>
+<li><strong>Universal Catastrophic Checks</strong>: <code>rm -rf .git</code> blocked on ALL branches (HIGH risk)</li>
+</ul>
+<p><strong>Risk Classification:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Behavior</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LOW</strong></td>
+<td>Note on first encounter, then silent</td>
+<td>Edit existing file, write markdown</td>
+</tr>
+<tr>
+<td><strong>MEDIUM</strong></td>
+<td>Teaching box + <code>[CONFIRM]</code> prompt</td>
+<td>New code file, force push, destructive commands</td>
+</tr>
+<tr>
+<td><strong>HIGH</strong></td>
+<td>Hard block (never allowed)</td>
+<td>Repository deletion</td>
+</tr>
+</tbody>
+</table>
+<p><strong>New Files:</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Lines</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/guide/branch-guard-smart-mode.md</code></td>
+<td>~280</td>
+<td>Comprehensive smart mode guide</td>
+</tr>
+<tr>
+<td><code>docs/reference/REFCARD-BRANCH-GUARD.md</code></td>
+<td>~200</td>
+<td>Quick reference card</td>
+</tr>
+<tr>
+<td><code>docs/tutorials/TUTORIAL-branch-guard-setup.md</code></td>
+<td>~220</td>
+<td>Step-by-step setup tutorial</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Updated Files:</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scripts/branch-guard.sh</code></td>
+<td>~700 lines — complete rewrite with smart mode</td>
+</tr>
+<tr>
+<td><code>commands/git/protect.md</code></td>
+<td>Added <code>--level</code>, <code>--show</code>, <code>--reset</code> flags</td>
+</tr>
+<tr>
+<td><code>commands/git/unprotect.md</code></td>
+<td>Added one-shot relationship documentation</td>
+</tr>
+<tr>
+<td><code>commands/git/docs/safety-rails.md</code></td>
+<td>Added progressive trust cross-reference</td>
+</tr>
+<tr>
+<td><code>docs/commands/git/protect.md</code></td>
+<td>Smart mode tiers, new flags</td>
+</tr>
+<tr>
+<td><code>docs/commands/git/unprotect.md</code></td>
+<td>One-shot vs session bypass comparison</td>
+</tr>
+<tr>
+<td><code>docs/commands/git/status.md</code></td>
+<td>Guard indicator with session counter</td>
+</tr>
+<tr>
+<td><code>docs/workflows/git-feature-workflow.md</code></td>
+<td>Branch guard integration section</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Stats:</strong></p>
+<ul>
+<li>Hook: ~700 lines (up from ~290 in v2.16.0)</li>
+<li>New tests: 35 unit tests (84 total) + 31 e2e = 115 branch guard tests</li>
+<li>Total tests: ~1470</li>
+<li>New docs: 3 files (~700 lines)</li>
+<li>Updated docs: 5 files</li>
+<li>Commits: 5</li>
+</ul>
+<hr />
 <h3 id="v2150-2026-02-06-brainstorm-v250-spec-simplification-smart-questions">v2.15.0 (2026-02-06) - Brainstorm v2.5.0: Spec Simplification + Smart Questions<a class="headerlink" href="#v2150-2026-02-06-brainstorm-v250-spec-simplification-smart-questions" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released ✅</p>
 <p><strong>Highlights:</strong></p>

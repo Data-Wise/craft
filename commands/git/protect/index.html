@@ -1435,6 +1435,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../guide/branch-guard-smart-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Smart Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
@@ -1698,10 +1754,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_17" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_19" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_17" id="__nav_2_4_17_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_19" id="__nav_2_4_19_label" tabindex="0">
             
   
   
@@ -1719,8 +1775,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_17_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_17">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_19">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3621,6 +3677,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#protection-levels" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3628,6 +3695,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Protection Levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#smart-mode-risk-tiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smart Mode Risk Tiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5193,6 +5277,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6461,6 +6573,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#protection-levels" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6468,6 +6591,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Protection Levels">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#smart-mode-risk-tiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smart Mode Risk Tiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6535,7 +6675,10 @@
 </blockquote>
 <hr />
 <h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:git:protect
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:git:protect<span class="w">              </span><span class="c1"># Re-enable protection</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:git:protect<span class="w"> </span>--show<span class="w">       </span><span class="c1"># Show current level + counters</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:git:protect<span class="w"> </span>--level<span class="w"> </span>smart<span class="w">  </span><span class="c1"># Set protection level</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:git:protect<span class="w"> </span>--reset<span class="w">      </span><span class="c1"># Reset session counters</span>
 </span></code></pre></div>
 <hr />
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
@@ -6550,32 +6693,90 @@
 <li>Detects and displays the restored protection level</li>
 </ol>
 <hr />
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--show</code></td>
+<td>Display current protection level, session counters, and one-shot marker status</td>
+</tr>
+<tr>
+<td><code>--level &lt;level&gt;</code></td>
+<td>Set protection level (<code>block-all</code>, <code>smart</code>, or empty to clear)</td>
+</tr>
+<tr>
+<td><code>--reset</code></td>
+<td>Reset session counters (verbosity fade restarts from full)</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h2 id="protection-levels">Protection Levels<a class="headerlink" href="#protection-levels" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Level</th>
 <th>Branches</th>
-<th>Blocks</th>
-<th>Allows</th>
+<th>Behavior</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>block-all</code></td>
 <td>main, master</td>
-<td>All writes, edits, git commits</td>
-<td>Read-only operations</td>
+<td>Hard block all writes, edits, commits, pushes</td>
+</tr>
+<tr>
+<td><code>smart</code></td>
+<td>dev, develop</td>
+<td>3-tier risk: LOW (allow) / MEDIUM (confirm) / HIGH (block)</td>
 </tr>
 <tr>
 <td><code>block-new-code</code></td>
-<td>dev, develop</td>
-<td>New <code>.py</code>, <code>.sh</code>, <code>.js</code>, <code>.ts</code>, <code>.json</code>, <code>.yml</code> files</td>
-<td>Existing file edits, docs, specs, tests</td>
+<td>(alias)</td>
+<td>Deprecated alias for <code>smart</code> — backward compatible</td>
+</tr>
+<tr>
+<td><code>confirm</code></td>
+<td>(alias)</td>
+<td>Alias for <code>smart</code></td>
 </tr>
 </tbody>
 </table>
 <p>Protection level is determined by <code>.claude/branch-guard.json</code> if present, otherwise auto-detected from the branch name.</p>
+<h3 id="smart-mode-risk-tiers">Smart Mode Risk Tiers<a class="headerlink" href="#smart-mode-risk-tiers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Behavior</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LOW</strong></td>
+<td>Note on first encounter, then silent</td>
+<td>Edit existing file, write markdown, write tests</td>
+</tr>
+<tr>
+<td><strong>MEDIUM</strong></td>
+<td>Teaching box + <code>[CONFIRM]</code> prompt</td>
+<td>New code file, force push, destructive commands</td>
+</tr>
+<tr>
+<td><strong>HIGH</strong></td>
+<td>Hard block (never allowed)</td>
+<td><code>rm -rf .git</code> (repository deletion)</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p><strong>Re-enable after merge conflict resolution:</strong></p>
@@ -6583,13 +6784,25 @@
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:git:protect
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># → Branch protection RE-ENABLED.</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># → Branch: dev</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># → Protection: block-new-code</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># → Protection: smart (3-tier)</span>
 </span></code></pre></div>
 <p><strong>Check status when already protected:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:git:protect
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># → Branch protection is already active. Nothing to do.</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># → Current branch: dev</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># → Protection level: block-new-code</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># → Protection level: smart</span>
+</span></code></pre></div>
+<p><strong>Show detailed status:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:git:protect<span class="w"> </span>--show
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># → Protection: smart</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># → Branch: dev</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># → Session confirms: 5</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># → One-shot marker: inactive</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># → Bypass: inactive</span>
+</span></code></pre></div>
+<p><strong>Reset session counters:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:git:protect<span class="w"> </span>--reset
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># → Session counters reset. Teaching boxes will show full verbosity.</span>
 </span></code></pre></div>
 <hr />
 <h2 id="exit-codes">Exit Codes<a class="headerlink" href="#exit-codes" title="Permanent link">&para;</a></h2>
@@ -6613,6 +6826,8 @@
 <li><a href="../unprotect/">/craft:git:unprotect</a> --- Temporarily bypass branch protection</li>
 <li><a href="../status/">/craft:git:status</a> --- Shows protection indicator</li>
 <li><a href="../../check/">/craft:check</a> --- Shows branch context section</li>
+<li><a href="../../../guide/branch-guard-smart-mode/">Smart Mode Guide</a> --- Full smart mode documentation</li>
+<li><a href="../../../reference/REFCARD-BRANCH-GUARD/">Branch Guard Quick Reference</a> --- At-a-glance reference</li>
 <li><a href="../../../architecture/#5-branch-protection-hooks">Branch Protection Architecture</a> --- How the hook works</li>
 </ul>
 
