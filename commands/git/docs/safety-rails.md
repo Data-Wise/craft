@@ -652,6 +652,42 @@ Post in your learning channel if:
 
 ---
 
+## Branch Guard: Progressive Trust (v2.17.0+)
+
+The branch guard hook implements the same progressive trust philosophy automatically:
+
+### 3-Tier Risk Classification
+
+| Risk Level | Behavior | Examples |
+|------------|----------|----------|
+| **LOW** | Note on first encounter, then silent | Edit existing file, write markdown |
+| **MEDIUM** | Teaching box + confirm prompt | New code file, force push, destructive commands |
+| **HIGH** | Hard block (never allowed) | Repository deletion |
+
+### Fade-to-Brief Learning
+
+The guard teaches less as you demonstrate understanding:
+
+| Encounter | Verbosity | What You See |
+|-----------|-----------|--------------|
+| 1st | Full | Teaching box with alternatives + risk explanation |
+| 2nd-3rd | Brief | Compact box with action + risk + branch |
+| 4th+ | Minimal | One-line confirm prompt |
+
+This mirrors the weekly progression in the Safety Rails guide — maximum safety early, graduated autonomy over time.
+
+### One-Shot Approval
+
+When Claude shows a `[CONFIRM]` prompt and you approve, the guard creates a one-shot marker that allows the next action. No need to run `/craft:git:unprotect` for individual operations.
+
+### Related Commands
+
+- `/craft:git:protect --show` — See current protection level and session counter
+- `/craft:git:protect --level smart` — Explicitly set smart mode
+- `/craft:git:unprotect` — Bulk bypass for maintenance sessions
+
+---
+
 ## Summary: Safety Rails Philosophy
 
 **Week 1-2:** "Show me everything, I'll decide"

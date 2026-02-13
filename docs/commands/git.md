@@ -40,18 +40,47 @@ Version control and continuous integration - 14 commands total.
 
 ### /craft:git:protect
 
-Re-enable branch protection after a temporary bypass.
+Re-enable branch protection, configure levels, view status.
 
 ```bash
-/craft:git:protect
+/craft:git:protect              # Re-enable protection
+/craft:git:protect --show       # Show current level + session counters
+/craft:git:protect --level smart  # Set protection level
+/craft:git:protect --reset      # Reset session counters (verbosity restarts)
 ```
+
+**Protection levels:**
+
+| Level | Behavior | Default For |
+|-------|----------|-------------|
+| `block-all` | Hard block everything | main, master |
+| `smart` | 3-tier risk: LOW (allow) / MEDIUM (confirm) / HIGH (block) | dev, develop |
 
 ### /craft:git:unprotect
 
-Temporarily bypass branch protection for the current branch (creates `.claude/allow-dev-edit` marker).
+Session-wide bypass for branch protection with reason logging.
 
 ```bash
-/craft:git:unprotect
+/craft:git:unprotect                 # Interactive (asks for reason)
+/craft:git:unprotect merge-conflict  # Bypass for merge conflicts
+/craft:git:unprotect ci-fix          # Bypass for CI fixes
+/craft:git:unprotect maintenance     # Bypass for maintenance
+```
+
+**Two bypass mechanisms:**
+
+| Mechanism | Scope | Duration |
+|-----------|-------|----------|
+| One-shot (approve `[CONFIRM]`) | Single action | Consumed immediately |
+| `/craft:git:unprotect` | All actions | Until `/craft:git:protect` |
+
+### /craft:git:status
+
+Enhanced git status with branch guard indicator.
+
+```bash
+/craft:git:status           # Shows guard level, session confirms, one-shot status
+/craft:git:status --verbose # Additional details
 ```
 
 ### /craft:git:sync

@@ -1,18 +1,33 @@
 ---
-description: Re-enable branch protection after bypass
+description: Re-enable branch protection after bypass, configure protection level
 category: git
 tags: [git, branch-protection]
-version: 1.0.0
+version: 2.0.0
+arguments:
+  - name: level
+    description: Set protection level (smart|block-all|block-new-code)
+    required: false
+  - name: show
+    description: Display current protection config without changes
+    required: false
+    default: false
+  - name: reset
+    description: Remove branch from config (revert to auto-detect)
+    required: false
+    default: false
 ---
 
-# /craft:git:protect - Re-Enable Branch Protection
+# /craft:git:protect - Branch Protection Management
 
-Remove the bypass marker and restore branch protection enforcement.
+Re-enable branch protection after bypass, or configure protection levels.
 
 ## Usage
 
 ```bash
-/craft:git:protect
+/craft:git:protect                  # Re-enable after bypass
+/craft:git:protect --show           # Show current config
+/craft:git:protect --level smart    # Set protection level for current branch
+/craft:git:protect --reset          # Remove branch from config (auto-detect)
 ```
 
 ## Execution Behavior (MANDATORY)
@@ -42,10 +57,10 @@ CONFIG=".claude/branch-guard.json"
 if [[ -f "$CONFIG" ]]; then
     LEVEL=$(jq -r ".\"${BRANCH}\" // empty" "$CONFIG" 2>/dev/null)
 else
-    # Auto-detect: main/master = block-all, dev = block-new-code (if dev exists)
+    # Auto-detect: main/master = block-all, dev = smart (if dev exists)
     case "$BRANCH" in
         main|master) LEVEL="block-all" ;;
-        dev|develop) LEVEL="block-new-code" ;;
+        dev|develop) LEVEL="smart" ;;
         *) LEVEL="" ;;
     esac
 fi
@@ -57,7 +72,58 @@ Output (level detected dynamically):
 Branch protection is already active. Nothing to do.
 
 Current branch: dev
-Protection level: block-new-code (new code files blocked, fixups allowed)
+Protection level: smart (3-tier: low=note, medium=confirm, high=block)
+```
+
+### Step 1b: Handle --show Flag
+
+If `--show` is provided, display current config and exit:
+
+```
+Branch: dev
+Protection: smart (auto-detected)
+Session confirms: 3 (minimal verbosity)
+One-shot pending: no
+Bypass: inactive
+```
+
+### Step 1c: Handle --level Flag
+
+If `--level` is provided, write to config:
+
+```bash
+mkdir -p .claude
+# Read existing config or create new
+CONFIG_FILE=".claude/branch-guard.json"
+if [[ -f "$CONFIG_FILE" ]]; then
+    # Update existing config
+    jq --arg branch "$BRANCH" --arg level "$LEVEL" '.[$branch] = $level' "$CONFIG_FILE" > tmp && mv tmp "$CONFIG_FILE"
+else
+    # Create new config
+    echo "{\"$BRANCH\": \"$LEVEL\"}" | jq . > "$CONFIG_FILE"
+fi
+```
+
+Output:
+
+```
+Protection level set for dev: smart
+Config: .claude/branch-guard.json
+```
+
+### Step 1d: Handle --reset Flag
+
+If `--reset` is provided, remove branch entry from config:
+
+```bash
+jq --arg branch "$BRANCH" 'del(.[$branch])' "$CONFIG_FILE" > tmp && mv tmp "$CONFIG_FILE"
+```
+
+Output:
+
+```
+Removed dev from branch-guard.json (will use auto-detect)
+Auto-detect level: smart
 ```
 
 ### Step 2: Remove Bypass Marker
@@ -77,13 +143,13 @@ Branch: <current-branch>
 Protection: <detected-level>
 ```
 
-For `block-new-code`:
+For `smart`:
 
 ```
-  - New code files: BLOCKED
-  - Existing file edits: allowed
-  - Markdown files: allowed
-  - Test files: allowed
+  - LOW risk (existing edits, markdown, tests): allowed with note
+  - MEDIUM risk (new code, destructive commands, secrets): confirm required
+  - HIGH risk (repository deletion): hard block
+  - Session counter: fades verbosity (full → brief → minimal)
 ```
 
 For `block-all`:

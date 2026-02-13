@@ -127,8 +127,8 @@ Shows all categories with auto-detected command counts:
 │                                                                         │
 │ 🔀 GIT (11)               📖 SITE (16)             🏗️ ARCH (1)          │
 │   /craft:git:worktree       /craft:site:build        /craft:arch:analyze│
-│   /craft:git:sync           /craft:site:publish      ...                │
-│   /craft:git:clean          /craft:site:deploy                          │
+│   /craft:git:protect         /craft:site:publish      ...                │
+│   /craft:git:unprotect       /craft:site:deploy                          │
 │   ...                       ...                                         │
 │                                                                         │
 │ 🚀 CI (3)                 📦 DIST (1)              📋 PLAN (3)          │
@@ -200,7 +200,7 @@ Shows all commands in a category, grouped by subcategory:
 - `code` (12) - Code quality, linting, debugging, CI/CD
 - `test` (7) - Testing, coverage, debugging
 - `docs` (19) - Documentation generation, sync, validation
-- `git` (11) - Branch management, worktree, sync
+- `git` (11) - Branch management, worktree, sync, **branch guard** (v2.17.0)
 - `site` (16) - Documentation sites (MkDocs, Quarto, pkgdown)
 - `arch` (1) - Architecture analysis
 - `ci` (3) - CI/CD workflow generation
