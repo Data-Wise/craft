@@ -4,8 +4,8 @@
 
 **108 commands** · **21 skills** · **8 agents** · **25 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.16.0 | **Latest Release:** v2.16.0 (2026-02-07)
-**Documentation Status:** 99% complete | **Tests:** 1432 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context + 8 teaching-normalization + 138 branch-guard)
+**Current Version:** v2.17.0 | **Latest Release:** v2.17.0 (2026-02-13)
+**Documentation Status:** 99% complete | **Tests:** 1449 passing (176 claude-md + 998 core + 74 formatting + 38 brainstorm-context + 8 teaching-normalization + 155 branch-guard)
 
 ## Git Workflow
 
@@ -107,7 +107,7 @@ craft/
 ├── agents/             # 8 agents
 ├── scripts/            # 30+ utility scripts (dependency management, converters, installers)
 ├── utils/              # Python utilities (claude-md sync/optimizer, complexity scorer, validators)
-├── tests/              # Comprehensive test suite (1432 tests, 90%+ coverage)
+├── tests/              # Comprehensive test suite (1449 tests, 90%+ coverage)
 ├── docs/
 │   ├── specs/          # Implementation specs (23 total)
 │   ├── guide/          # User guides (complexity scoring, teaching, Claude Code 2.1)
@@ -523,7 +523,7 @@ See `docs/specs/` for detailed specifications (23 total). See `docs/VERSION-HIST
 | `.claude/branch-guard.json`                       | Per-project branch protection config (optional)         |
 | `commands/git/unprotect.md`                       | Session-scoped bypass for branch protection             |
 | `commands/git/protect.md`                         | Re-enable branch protection                             |
-| `tests/test_branch_guard.sh`                      | Branch guard hook unit tests (49 tests)                 |
+| `tests/test_branch_guard.sh`                      | Branch guard hook unit tests (94 tests)                 |
 | `tests/test_branch_guard_e2e.sh`                  | Branch guard e2e tests (31 tests)                       |
 | `tests/test_integration_branch_guard.py`          | Branch guard integration tests (6 tests)                |
 
@@ -542,7 +542,7 @@ See `docs/specs/` for detailed specifications (23 total). See `docs/VERSION-HIST
 | `tests/test_claude_md_v3.py`                       | 51       | 100%     | v3 sync/optimizer (v2.12.0)  |
 | `tests/test_claude_md_audit.py`                    | 11       | 100%     | Audit module (v2.10.0)       |
 | `tests/test_brainstorm_context.py`                 | 38       | 100%     | Context scanner (v2.15.0)    |
-| `tests/test_branch_guard.sh`                       | 49       | 100%     | Branch guard hook (v2.16.0)  |
+| `tests/test_branch_guard.sh`                       | 94       | 100%     | Branch guard hook (v2.17.0)  |
 | **Integration & E2E Tests**                        |          |          |                              |
 | `tests/test_command_enhancements_e2e.py`           | 93       | 100%     | Command enhancements (v2.9.0)|
 | `tests/test_integration_brainstorm_phase1.py`      | 24       | 100%     | Question control integration |
@@ -556,7 +556,7 @@ See `docs/specs/` for detailed specifications (23 total). See `docs/VERSION-HIST
 | **System Tests**                                   |          |          |                              |
 | `tests/test_dependency_management.sh`              | 79       | 100%     | Dependency system            |
 | `tests/test_formatting.sh`                         | 74       | 100%     | Formatting library (v2.14.0) |
-| **Total**                                          | **1432** | **~90%** | **All systems**              |
+| **Total**                                          | **1449** | **~90%** | **All systems**              |
 
 ## Troubleshooting
 
