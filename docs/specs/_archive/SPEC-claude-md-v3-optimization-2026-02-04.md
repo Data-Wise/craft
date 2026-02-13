@@ -112,10 +112,10 @@ Claude Code naturally understands markdown links and will `Read` the target file
 
 | Detail File | Contains | Pointer In CLAUDE.md |
 |-------------|----------|---------------------|
-| `docs/VERSION-HISTORY.md` | All release notes, changelogs, migration guides | `-> Release history: [VERSION-HISTORY.md](docs/VERSION-HISTORY.md)` |
-| `docs/ARCHITECTURE.md` | Detailed system design, component diagrams, data flows | `-> Architecture detail: [ARCHITECTURE.md](docs/ARCHITECTURE.md)` |
-| `CONTRIBUTING.md` | Dev setup, testing guide, PR process details | `-> Contributing guide: [CONTRIBUTING.md](CONTRIBUTING.md)` |
-| `docs/COMMANDS.md` | Full command/API reference with all options and examples | `-> Command reference: [COMMANDS.md](docs/COMMANDS.md)` |
+| `docs/VERSION-HISTORY.md` | All release notes, changelogs, migration guides | `-> Release history: VERSION-HISTORY.md` |
+| `docs/ARCHITECTURE.md` | Detailed system design, component diagrams, data flows | `-> Architecture detail: ARCHITECTURE.md` |
+| `CONTRIBUTING.md` | Dev setup, testing guide, PR process details | `-> Contributing guide: CONTRIBUTING.md` |
+| `docs/COMMANDS.md` | Full command/API reference with all options and examples | `-> Command reference: COMMANDS.md` |
 
 ### P0 Sections (Always in CLAUDE.md)
 
@@ -448,10 +448,12 @@ All templates redesigned for < 150 lines with pointer pattern:
 
 ## References
 
+```text
 -> Release history: [VERSION-HISTORY.md](docs/VERSION-HISTORY.md)
 -> Architecture: [ARCHITECTURE.md](docs/ARCHITECTURE.md)
 -> Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
 -> Command reference: [COMMANDS.md](docs/COMMANDS.md)
+```
 
 ```
 

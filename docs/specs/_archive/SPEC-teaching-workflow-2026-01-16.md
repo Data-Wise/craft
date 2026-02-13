@@ -4,7 +4,7 @@
 **Status:** draft
 **Created:** 2026-01-16
 **Last Updated:** 2026-01-16
-**From Brainstorm:** [BRAINSTORM-teaching-workflow-2026-01-16.md](../brainstorm/BRAINSTORM-teaching-workflow-2026-01-16.md)
+**From Brainstorm:** BRAINSTORM-teaching-workflow-2026-01-16.md (deleted)
 
 ---
 
@@ -1007,7 +1007,7 @@ Summary:
 
 ## Related Documents
 
-- [BRAINSTORM-teaching-workflow-2026-01-16.md](../brainstorm/BRAINSTORM-teaching-workflow-2026-01-16.md) - Original brainstorm session
+- BRAINSTORM-teaching-workflow-2026-01-16.md (deleted) - Original brainstorm session
 - [Craft CLAUDE.md](https://github.com/Data-Wise/craft/blob/main/CLAUDE.md) - Project overview and workflow
 - [Craft Hub v2.0 Spec](SPEC-craft-hub-v2-2026-01-15.md) - Related discovery system
 

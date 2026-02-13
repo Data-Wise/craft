@@ -2,7 +2,7 @@
 
 **Status:** draft
 **Created:** 2026-01-17
-**From Brainstorm:** [BRAINSTORM-website-organization-2026-01-17.md](../brainstorm/BRAINSTORM-website-organization-2026-01-17.md)
+**From Brainstorm:** BRAINSTORM-website-organization-2026-01-17.md (deleted)
 **Applies to:** Craft documentation site (MkDocs)
 
 ---
@@ -613,9 +613,9 @@ graph TD
 
 ## Related Documentation
 
-- [BRAINSTORM-website-organization-2026-01-17.md](../brainstorm/BRAINSTORM-website-organization-2026-01-17.md) - Original brainstorm
-- [Documentation Quality Standard](../guide/documentation-quality.md) - Content standards
-- [ADHD Guide](../ADHD-QUICK-START.md) - Accessibility principles
+- BRAINSTORM-website-organization-2026-01-17.md (deleted) - Original brainstorm
+- Documentation Quality Standard (not yet created) - Content standards
+- [ADHD Guide](../../ADHD-QUICK-START.md) - Accessibility principles
 - [MkDocs Material Documentation](https://squidfunk.github.io/mkdocs-material/) - Theme reference
 
 ---

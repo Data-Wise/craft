@@ -17,7 +17,7 @@ These capture patterns that are implicit in the codebase — the "how we do thin
 
 These topics are already documented elsewhere:
 
-- **Branch workflow** — [CLAUDE.md](../../CLAUDE.md) + [CONTRIBUTING.md](../../CONTRIBUTING.md)
-- **Commit format** — [CONTRIBUTING.md](../../CONTRIBUTING.md)
-- **PR process** — [CONTRIBUTING.md](../../CONTRIBUTING.md)
+- **Branch workflow** — CLAUDE.md (project root) + CONTRIBUTING.md (project root)
+- **Commit format** — CONTRIBUTING.md (project root)
+- **PR process** — CONTRIBUTING.md (project root)
 - **Test wrapper pattern (full guide)** — [docs/guide/test-wrapper-pattern.md](../guide/test-wrapper-pattern.md)
