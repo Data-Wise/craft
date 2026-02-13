@@ -209,4 +209,4 @@ docs/**/*.md
 
 - Run `/craft:docs:lint` for comprehensive markdown linting
 - See the [Documentation Quality Guide](../guide/documentation-quality.md) for all lint rules
-- Check the [50 CRAFT-001 tests](../../tests/test_craft_001_emoji_spacing.py) for edge case examples
+- Check the 50 CRAFT-001 tests in `tests/test_craft_001_emoji_spacing.py` for edge case examples
