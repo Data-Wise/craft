@@ -172,6 +172,46 @@ git branch -d feature/my-feature
 
 ---
 
+## Branch Guard Integration
+
+The branch guard hook enforces the workflow automatically. You don't need to remember rules — the guard teaches as you work.
+
+### What the Guard Does at Each Step
+
+| Step | Branch | Guard Behavior |
+|------|--------|---------------|
+| 1. Plan on dev | `dev` | Allows markdown edits. Blocks new code files with `[CONFIRM]` |
+| 2. Create worktree | `feature/*` | No restrictions — guard is inactive on feature branches |
+| 3. Implement | `feature/*` | Unrestricted — write, edit, commit freely |
+| 4. Test & validate | `feature/*` | Unrestricted |
+| 5. Create PR | `feature/*` | Unrestricted — push allowed |
+| 6. Cleanup | `dev` / `main` | Guard active — protects against accidental edits |
+
+### When You'll See the Guard
+
+**On dev (smart mode):**
+
+- Writing specs, plans, docs (`.md`) → Allowed silently
+- Editing existing code (fixups) → Allowed with brief note
+- Writing new code files → `[CONFIRM]` prompt (suggests using worktree)
+- Force push → `[CONFIRM]` prompt
+
+**On main (block-all):**
+
+- Any edit, write, commit, or push → Blocked with worktree suggestion
+
+### If You Need to Work Directly on Dev
+
+For merge conflicts or maintenance, bypass temporarily:
+
+```bash
+/craft:git:unprotect merge-conflict
+# ... resolve conflicts ...
+/craft:git:protect
+```
+
+---
+
 ## Variations
 
 ### Hotfix (from main)
@@ -256,3 +296,6 @@ git push --tags
 
 - **Help:** [/craft:git:worktree](../commands/git/worktree.md)
 - **Help:** [/craft:check](../commands/check.md)
+- **Guide:** [Branch Guard Smart Mode](../guide/branch-guard-smart-mode.md)
+- **Reference:** [Branch Guard Quick Reference](../reference/REFCARD-BRANCH-GUARD.md)
+- **Tutorial:** [Branch Guard Setup](../tutorials/TUTORIAL-branch-guard-setup.md)

@@ -4,16 +4,36 @@ release_date: 2026-02-07
 milestone: v2.17.0 - TBD
 last_session: 2026-02-13
 
-progress: v2.16.0 released, main fully synced, docs zero-warning deploy
+progress: v2.17.0 branch guard v2 spec complete, worktree created, ready for implementation
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
 | main   | 4626e8f | —    | Production (v2.16.0 clean) |
-| dev    | 4626e8f | main | Synced with main           |
+| dev    | 5ff5470 | main | +3 spec/brainstorm files   |
+| feature/branch-guard-v2 | 5ff5470 | dev | Worktree ready, implementation pending |
 
-✅ Session 2026-02-13 (maintenance):
+✅ Session 2026-02-13 (branch guard v2 design):
+- Deep analysis of branch guard system (proposal: 8 improvement areas, 559 lines)
+- Brainstormed smart guard with 3-tier risk, teaching boxes, fade-to-brief (deep feature mode)
+- Created full spec: SPEC-branch-guard-v2-confirmation-mode (554 lines)
+  - 3-tier risk: LOW (silent note), MEDIUM (teaching box + confirm), HIGH (hard block)
+  - `smart` protection level replaces `block-new-code` on dev
+  - Session counter with fade-to-brief learning (full → brief → minimal)
+  - One-shot marker mechanism for individual command approval
+  - Bash write-through detection for file creation via shell redirection
+  - Teaching box format with 4 suggestion types
+  - Coaching mode design (future Phase 3)
+- Analyzed all 9 craft:git commands for guard relationships
+  - Decision: "hook handles it" — commands stay simple, hook intercepts
+  - New: /craft:git:protect --level/--show/--reset for explicit guard config
+  - Status command gains session counter display
+- Created worktree: ~/.git-worktrees/craft/feature-branch-guard-v2
+- Created ORCHESTRATE-branch-guard-v2.md (3 phases, 10 increments, ~43 new tests)
+- Committed and pushed spec/brainstorm/proposal to dev
+
+✅ Session 2026-02-13 (maintenance — earlier):
 - Discovered main was stuck at v2.13.1 — release tags v2.14.0–v2.16.0 only on dev
 - Synced main via PR #66 (189 files, +9,961/-31,807 — mostly orphaned file cleanup)
 - Removed ~40 orphaned working files from main (PHASE*.md, WAVE*.md, IMPLEMENTATION*.md)
@@ -60,8 +80,17 @@ progress: v2.16.0 released, main fully synced, docs zero-warning deploy
 
 ---
 
-## Future (v2.17.0+)
+## Next: v2.17.0 — Smart Branch Guard
 
+- [ ] Phase 1: Smart protection mode (risk classifier, session counter, teaching boxes, one-shot marker)
+- [ ] Phase 2: Command updates (protect --level, status counter, init smart default, docs cross-refs)
+- [ ] Phase 3: Bash write-through detection (redirect patterns, confirm integration)
+- Worktree: `~/.git-worktrees/craft/feature-branch-guard-v2`
+- Spec: `docs/specs/SPEC-branch-guard-v2-confirmation-mode-2026-02-13.md`
+
+## Future (v2.18.0+)
+
+- Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
 - Remove deprecation aliases for old claude-md commands

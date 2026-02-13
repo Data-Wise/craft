@@ -58,10 +58,40 @@ When in a teaching repository (detected via `.flow/teach-config.yml`):
 ## Output Sections
 
 1. **Branch Information** — Current branch and tracking status
-2. **Staged Changes** — Files ready to commit
-3. **Unstaged Changes** — Modified but not staged
-4. **Untracked Files** — New files not in git
-5. **Critical File Alerts** — Teaching-specific warnings (if applicable)
+2. **Branch Guard Status** — Protection level, session confirms, one-shot marker
+3. **Staged Changes** — Files ready to commit
+4. **Unstaged Changes** — Modified but not staged
+5. **Untracked Files** — New files not in git
+6. **Critical File Alerts** — Teaching-specific warnings (if applicable)
+
+---
+
+## Branch Guard Indicator
+
+When the branch guard hook is installed, status shows protection information:
+
+```text
+│ Guard: smart (3 confirms) · one-shot: inactive  │
+```
+
+| Field | Meaning |
+|-------|---------|
+| `smart` | Current protection level (or `block-all`, `bypassed`, `none`) |
+| `3 confirms` | Number of MEDIUM-risk confirmations this session |
+| `one-shot: active` | A one-shot approval marker exists (next action will be allowed) |
+| `one-shot: inactive` | No pending one-shot marker |
+
+**On feature branches:**
+
+```text
+│ Guard: none (feature branch — unrestricted)      │
+```
+
+**When bypassed:**
+
+```text
+│ Guard: BYPASSED (reason: maintenance)             │
+```
 
 ---
 
@@ -92,5 +122,8 @@ Automatically highlights:
 
 - [/craft:git:sync](sync.md) — Smart git synchronization
 - [/craft:git:branch](branch.md) — Branch management
+- [/craft:git:protect](protect.md) — Branch protection management
+- [/craft:git:unprotect](unprotect.md) — Temporary bypass
 - [/craft:git:clean](clean.md) — Remove merged branches
+- [Smart Mode Guide](../../guide/branch-guard-smart-mode.md) — Full guard documentation
 - [Teaching Workflow Guide](../../guide/teaching-workflow.md) — Teaching mode details

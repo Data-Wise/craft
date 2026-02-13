@@ -186,6 +186,36 @@ Clean up merged branches safely.
 /craft:git:clean --force      # Auto-delete merged branches
 ```
 
+### /craft:git:protect
+
+Re-enable branch protection, configure levels, view status.
+
+```bash
+/craft:git:protect              # Re-enable protection
+/craft:git:protect --show       # Show current level + counters
+/craft:git:protect --level smart  # Set protection level
+/craft:git:protect --reset      # Reset session counters
+```
+
+### /craft:git:unprotect
+
+Session-wide bypass for branch protection with reason logging.
+
+```bash
+/craft:git:unprotect                 # Interactive
+/craft:git:unprotect merge-conflict  # For merge conflicts
+/craft:git:unprotect maintenance     # For bulk maintenance
+```
+
+### /craft:git:status
+
+Enhanced git status with branch guard indicator.
+
+```bash
+/craft:git:status           # Shows guard level + session info
+/craft:git:status --verbose # Additional details
+```
+
 ## Test Commands (test/)
 
 ### /craft:test:run

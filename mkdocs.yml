@@ -113,6 +113,8 @@ nav:
       - Interactive Commands: guide/interactive-commands.md
       - Check Command Mastery: guide/check-command-mastery.md
       - Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
+      - Branch Guard Smart Mode: guide/branch-guard-smart-mode.md
+      - Branch Guard Setup Tutorial: tutorials/TUTORIAL-branch-guard-setup.md
       - Claude-MD Workflows: tutorials/claude-md-workflows.md
       - Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
       - Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
@@ -237,6 +239,7 @@ nav:
       - Git Worktree Quick Reference: reference/REFCARD-GIT-WORKTREE.md
       - Claude-MD Quick Reference: reference/REFCARD-CLAUDE-MD.md
       - Brainstorm Quick Reference: reference/REFCARD-BRAINSTORM.md
+      - Branch Guard Quick Reference: reference/REFCARD-BRANCH-GUARD.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md

@@ -2,13 +2,67 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.16.0 (2026-02-07)
-**Total Releases:** 37 versions | **Development Time:** 2+ years
-**Community:** 108 commands documented, 1432 tests passing, 90%+ coverage
+**Latest Release:** v2.17.0 (2026-02-13)
+**Total Releases:** 38 versions | **Development Time:** 2+ years
+**Community:** 108 commands documented, ~1470 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.17.0 (2026-02-13) - Branch Guard v2: Smart Mode with Progressive Trust
+
+**Status:** In Development
+
+**Highlights:**
+
+- **Smart Mode**: Replaces binary block/allow with 3-tier risk classification (LOW/MEDIUM/HIGH)
+- **Fade-to-Brief Learning**: Teaching verbosity decreases over session (full → brief → minimal)
+- **One-Shot Approval**: `[CONFIRM]` prompts create single-use bypass markers automatically
+- **Destructive Command Detection**: Catches `git reset --hard`, `checkout --`, `restore`, `clean -f`
+- **Critical File Protection**: Guards `.env`, `.pem`, `.key`, `.secret`, `branch-guard.json`
+- **Bash Write-Through Detection**: Catches file creation via `>`, `tee`, `cp` in shell commands
+- **Universal Catastrophic Checks**: `rm -rf .git` blocked on ALL branches (HIGH risk)
+
+**Risk Classification:**
+
+| Risk | Behavior | Examples |
+|------|----------|----------|
+| **LOW** | Note on first encounter, then silent | Edit existing file, write markdown |
+| **MEDIUM** | Teaching box + `[CONFIRM]` prompt | New code file, force push, destructive commands |
+| **HIGH** | Hard block (never allowed) | Repository deletion |
+
+**New Files:**
+
+| File | Lines | Purpose |
+|------|-------|---------|
+| `docs/guide/branch-guard-smart-mode.md` | ~280 | Comprehensive smart mode guide |
+| `docs/reference/REFCARD-BRANCH-GUARD.md` | ~200 | Quick reference card |
+| `docs/tutorials/TUTORIAL-branch-guard-setup.md` | ~220 | Step-by-step setup tutorial |
+
+**Updated Files:**
+
+| File | Changes |
+|------|---------|
+| `scripts/branch-guard.sh` | ~700 lines — complete rewrite with smart mode |
+| `commands/git/protect.md` | Added `--level`, `--show`, `--reset` flags |
+| `commands/git/unprotect.md` | Added one-shot relationship documentation |
+| `commands/git/docs/safety-rails.md` | Added progressive trust cross-reference |
+| `docs/commands/git/protect.md` | Smart mode tiers, new flags |
+| `docs/commands/git/unprotect.md` | One-shot vs session bypass comparison |
+| `docs/commands/git/status.md` | Guard indicator with session counter |
+| `docs/workflows/git-feature-workflow.md` | Branch guard integration section |
+
+**Stats:**
+
+- Hook: ~700 lines (up from ~290 in v2.16.0)
+- New tests: 35 unit tests (84 total) + 31 e2e = 115 branch guard tests
+- Total tests: ~1470
+- New docs: 3 files (~700 lines)
+- Updated docs: 5 files
+- Commits: 5
+
+---
 
 ### v2.15.0 (2026-02-06) - Brainstorm v2.5.0: Spec Simplification + Smart Questions
 

@@ -111,8 +111,22 @@ To re-enable manually: /craft:git:protect
 3. **Persists until re-enabled** - run `/craft:git:protect` to remove the marker
 4. **Idempotent** - running twice shows current status, doesn't create duplicate
 
+## Relationship to One-Shot Approval
+
+The branch guard supports two bypass mechanisms:
+
+| Mechanism | Scope | Duration | Use Case |
+|-----------|-------|----------|----------|
+| `/craft:git:unprotect` | All actions | Until `/craft:git:protect` | Bulk maintenance, merge conflicts |
+| One-shot marker | Single action | Consumed after one use | Quick one-off confirm from Claude |
+
+- **One-shot** (`.claude/allow-once`): Created by Claude after user confirms a `[CONFIRM]` prompt. Auto-consumed on next tool call. No user action needed.
+- **Unprotect** (`.claude/allow-dev-edit`): Session-wide bypass. User must explicitly re-enable with `/craft:git:protect`.
+
+Use `/craft:git:unprotect` when you need to do multiple protected operations (e.g., merge conflict resolution). For single operations, just confirm the `[CONFIRM]` prompt — the one-shot marker handles it automatically.
+
 ## See Also
 
-- `/craft:git:protect` - Re-enable branch protection
-- `/craft:git:status` - Shows protection indicator
+- `/craft:git:protect` - Re-enable branch protection, configure levels
+- `/craft:git:status` - Shows protection indicator + session counter
 - `/craft:check` - Shows branch context section
