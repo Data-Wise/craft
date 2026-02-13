@@ -92,6 +92,12 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
     → [Docs update tutorial](tutorials/interactive-docs-update-tutorial.md)
 
+- :shield:{ .lg .middle } **Branch Guard v2: Smart Protection**
+
+    3-tier risk classification replaces binary block/allow. Fade-to-brief learning reduces noise over your session. One-shot approvals with 5-minute TTL, destructive command detection, and critical file protection.
+
+    → [Smart mode guide](guide/branch-guard-smart-mode.md)
+
 </div>
 
 ## API Reference
@@ -197,7 +203,7 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 | **Documentation**  | 19     | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow                                  |
 | **Site**           | 16     | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit                                                          |
 | **Code & Testing** | 12 + 7 | Code: linting, testing, debugging, refactoring, CI fixes, deps management; Tests: run, debug, watch, coverage, generation |
-| **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, protect/unprotect, learning guides           |
+| **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, smart branch protection (3-tier risk), learning guides |
 | **CI**             | 3      | Detection, generation, validation                                                                                         |
 | **Architecture**   | 4      | Analysis, diagrams, planning, reviews                                                                                     |
 | **Distribution**   | 3      | Homebrew, PyPI, curl installers                                                                                           |
@@ -205,8 +211,8 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **108** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.16.0 — Teaching Ecosystem + Branch Protection"
-    Branch protection hooks for main/dev, teaching config normalization, 138 new tests (1432 total). See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.16.0 — Branch Guard v2: Smart Protection Mode"
+    3-tier risk classification (LOW/MEDIUM/HIGH), fade-to-brief learning, one-shot approvals with TTL, destructive command detection, critical file protection, bash write-through detection. 155 new tests (1449 total). See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
