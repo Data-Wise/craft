@@ -2,16 +2,26 @@ status: Active
 version: 2.16.0
 release_date: 2026-02-07
 milestone: v2.17.0 - TBD
-last_session: 2026-02-08
+last_session: 2026-02-13
 
-progress: v2.16.0 released, CI fixes merged (PR #65)
+progress: v2.16.0 released, main fully synced, docs zero-warning deploy
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                        |
-|--------|---------|------|-------------------------------|
-| main   | 9f8c0a5 | —    | Production (v2.16.0 + CI fix) |
-| dev    | b31ea52 | main | Clean, synced with main       |
+| Branch | Head    | Base | Status                     |
+|--------|---------|------|----------------------------|
+| main   | 4626e8f | —    | Production (v2.16.0 clean) |
+| dev    | 4626e8f | main | Synced with main           |
+
+✅ Session 2026-02-13 (maintenance):
+- Discovered main was stuck at v2.13.1 — release tags v2.14.0–v2.16.0 only on dev
+- Synced main via PR #66 (189 files, +9,961/-31,807 — mostly orphaned file cleanup)
+- Removed ~40 orphaned working files from main (PHASE*.md, WAVE*.md, IMPLEMENTATION*.md)
+- Fixed broken links in 8 doc files (tutorials, archived specs, internal README)
+- MkDocs build now zero warnings (excluding intentional test-violations.md)
+- Deployed docs site clean (PR #67)
+- Full test suite: 1,076 tests passing, pre-release check green
+- Saved memory note: never use `--delete-branch` on dev→main PRs
 
 ✅ Session 2026-02-08 (CI fix):
 - Fixed 4 failing CI tests across main and dev (PR #65)
