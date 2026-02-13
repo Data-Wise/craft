@@ -110,9 +110,29 @@ The bypass marker at `.claude/allow-dev-edit` contains:
 
 ---
 
+---
+
+## Relationship to One-Shot Approval
+
+The branch guard supports two bypass mechanisms:
+
+| Mechanism | Scope | Duration | Use Case |
+|-----------|-------|----------|----------|
+| `/craft:git:unprotect` | All actions | Until `/craft:git:protect` | Bulk maintenance, merge conflicts |
+| One-shot marker (`.claude/allow-once`) | Single action | Consumed after one use | Quick one-off confirm from Claude |
+
+- **One-shot**: Created by Claude when user approves a `[CONFIRM]` prompt. Auto-consumed on next tool call. No user action needed.
+- **Unprotect**: Session-wide bypass. User must explicitly re-enable with `/craft:git:protect`.
+
+Use `/craft:git:unprotect` when you need to do multiple protected operations (e.g., merge conflict resolution). For single operations, just approve the `[CONFIRM]` prompt --- the one-shot marker handles it automatically.
+
+---
+
 ## See Also
 
 - [/craft:git:protect](protect.md) --- Re-enable branch protection
 - [/craft:git:status](status.md) --- Shows protection indicator
 - [/craft:check](../check.md) --- Shows branch context section
+- [Smart Mode Guide](../../guide/branch-guard-smart-mode.md) --- Full smart mode documentation
+- [Branch Guard Quick Reference](../../reference/REFCARD-BRANCH-GUARD.md) --- At-a-glance reference
 - [Branch Protection Architecture](../../architecture.md#5-branch-protection-hooks) --- How the hook works
