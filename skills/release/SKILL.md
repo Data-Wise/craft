@@ -116,7 +116,7 @@ Run release-specific consistency checks:
 # General projects — skip (covered by 2a)
 ```
 
-This checks: version consistency across files, command/skill/agent count accuracy, CLAUDE.md version refs, clean working tree.
+This checks: version consistency across files, command/skill/agent count accuracy, CLAUDE.md version refs, README.md and docs/index.md version refs, clean working tree.
 
 #### If Pre-Flight Fails
 
@@ -133,12 +133,12 @@ Update version in all relevant files. Project-type-specific:
 
 | Project Type | Files to Update |
 |-------------|-----------------|
-| Craft plugin | `.claude-plugin/plugin.json`, `CLAUDE.md` |
-| Python | `pyproject.toml`, `__init__.py` |
-| Node | `package.json`, `package-lock.json` |
-| R package | `DESCRIPTION`, `NEWS.md` |
+| Craft plugin | `.claude-plugin/plugin.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md` |
+| Python | `pyproject.toml`, `__init__.py`, `README.md` |
+| Node | `package.json`, `package-lock.json`, `README.md` |
+| R package | `DESCRIPTION`, `NEWS.md`, `README.md` |
 
-Also update any hardcoded version references, test counts, and date strings in CLAUDE.md.
+Also update any hardcoded version references, test counts, skill/command counts, and date strings across CLAUDE.md, README.md, docs/index.md, and docs/REFCARD.md.
 
 ### Step 4: Commit & Push
 

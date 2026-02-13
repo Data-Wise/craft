@@ -16,6 +16,9 @@
 
 - [ ] Version bumped in plugin.json
 - [ ] Version bumped in CLAUDE.md (header + test table)
+- [ ] README.md updated (version badge, skill/test counts, tagline)
+- [ ] docs/index.md updated (latest release info box)
+- [ ] docs/REFCARD.md updated (version, skill count, test count)
 - [ ] Commit: `chore: bump version to v<version> for release`
 - [ ] Push to dev
 - [ ] PR created: dev -> main

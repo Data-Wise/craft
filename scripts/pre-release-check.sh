@@ -9,7 +9,8 @@
 #   1. plugin.json version matches intended release
 #   2. Actual command/skill/agent counts match plugin.json description
 #   3. CLAUDE.md version references are current
-#   4. No uncommitted changes
+#   4. README.md and docs/index.md version references are current
+#   5. No uncommitted changes
 
 set -e
 
@@ -48,7 +49,7 @@ ERRORS=0
 # --------------------------------------------------------------------------
 # Check 1: plugin.json version matches target
 # --------------------------------------------------------------------------
-echo -e "${CYAN}[1/4] Plugin version consistency${NC}"
+echo -e "${CYAN}[1/5] Plugin version consistency${NC}"
 
 PLUGIN_JSON=".claude-plugin/plugin.json"
 if [ ! -f "$PLUGIN_JSON" ]; then
@@ -69,7 +70,7 @@ fi
 # Check 2: Actual counts match plugin.json description
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[2/4] Command/skill/agent counts${NC}"
+echo -e "${CYAN}[2/5] Command/skill/agent counts${NC}"
 
 # Count actual files (same logic as validate-counts.sh)
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
@@ -107,7 +108,7 @@ fi
 # Check 3: CLAUDE.md version references
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[3/4] CLAUDE.md version references${NC}"
+echo -e "${CYAN}[3/5] CLAUDE.md version references${NC}"
 
 if [ -f "CLAUDE.md" ]; then
     # Check "Current Version" line
@@ -123,10 +124,44 @@ else
 fi
 
 # --------------------------------------------------------------------------
-# Check 4: Uncommitted changes
+# Check 4: README.md and docs/index.md version references
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[4/4] Working tree status${NC}"
+echo -e "${CYAN}[4/5] README.md and docs/index.md version references${NC}"
+
+STALE_FILES=""
+
+if [ -f "README.md" ]; then
+    README_VERSION=$(grep -o 'version-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*' README.md | head -1 | sed 's/version-//' || echo "")
+    if [ -n "$README_VERSION" ] && [ "$README_VERSION" != "$TARGET_VERSION" ]; then
+        echo -e "${RED}  ✗ README.md version badge: v${README_VERSION} (target: v${TARGET_VERSION})${NC}"
+        STALE_FILES="$STALE_FILES README.md"
+        ERRORS=$((ERRORS + 1))
+    else
+        echo -e "${GREEN}  ✓ README.md version badge OK${NC}"
+    fi
+fi
+
+if [ -f "docs/index.md" ]; then
+    INDEX_VERSION=$(grep -o 'v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*' docs/index.md | head -1 | sed 's/^v//' || echo "")
+    if [ -n "$INDEX_VERSION" ] && [ "$INDEX_VERSION" != "$TARGET_VERSION" ]; then
+        echo -e "${RED}  ✗ docs/index.md latest version: v${INDEX_VERSION} (target: v${TARGET_VERSION})${NC}"
+        STALE_FILES="$STALE_FILES docs/index.md"
+        ERRORS=$((ERRORS + 1))
+    else
+        echo -e "${GREEN}  ✓ docs/index.md version OK${NC}"
+    fi
+fi
+
+if [ -n "$STALE_FILES" ]; then
+    echo -e "${YELLOW}    Fix: Update version references in:${STALE_FILES}${NC}"
+fi
+
+# --------------------------------------------------------------------------
+# Check 5: Uncommitted changes
+# --------------------------------------------------------------------------
+echo ""
+echo -e "${CYAN}[5/5] Working tree status${NC}"
 
 if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
     echo -e "${YELLOW}  ! Uncommitted changes detected${NC}"

@@ -211,8 +211,8 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **108** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.16.0 — Branch Guard v2: Smart Protection Mode"
-    3-tier risk classification (LOW/MEDIUM/HIGH), fade-to-brief learning, one-shot approvals with TTL, destructive command detection, critical file protection, bash write-through detection. 155 new tests (1449 total). See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.17.0 — Release Pipeline + Branch Guard v2"
+    End-to-end `/release` skill with dry-run, 10-step pipeline automation, `/craft:check --for release` CI mirror pre-flight. Branch guard smart mode with 3-tier risk classification. ~1504 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
