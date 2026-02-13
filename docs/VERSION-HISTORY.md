@@ -62,6 +62,17 @@
 - Updated docs: 5 files
 - Commits: 5
 
+**Release Skill (v2.17.0):**
+
+- **`/craft:release`**: End-to-end release pipeline automation (8-step pipeline)
+- **`--dry-run` / `-n`**: Preview release plan without side effects (HIGH risk level)
+- **Version detection**: Priority cascade (plugin.json > package.json > git tag)
+- **Semver suggestion**: Analyzes commit history (fix-only=patch, feat=minor, breaking=major)
+- **Per-project-type checklists**: Craft, Python, Node, R package support
+- **Reference files**: `release-checklist.md` with edge cases and version detection priority
+- **Tests**: E2E bash tests + dogfooding Python tests
+- **Docs**: Quick reference card, release pipeline tutorial, mkdocs navigation
+
 ---
 
 ### v2.15.0 (2026-02-06) - Brainstorm v2.5.0: Spec Simplification + Smart Questions

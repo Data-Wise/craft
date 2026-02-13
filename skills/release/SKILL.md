@@ -19,6 +19,54 @@ Orchestrate end-to-end releases with pre-flight validation, version bumping, PR 
 - All feature work merged to dev via PRs
 - Working tree clean (no uncommitted changes)
 
+## Arguments
+
+| Argument | Alias | Description | Default |
+|----------|-------|-------------|---------|
+| `--dry-run` | `-n` | Preview release plan without executing | `false` |
+
+## Dry-Run Mode
+
+When `--dry-run` or `-n` is passed, execute **only** Step 1 (version detection), then display a preview of every remaining step and exit. No mutations occur.
+
+**Risk Level:** HIGH (modifies git history, creates PRs, publishes releases)
+
+### Dry-Run Output
+
+After detecting the current and next version, display:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ /release --dry-run                                          │
+├─────────────────────────────────────────────────────────────┤
+│ Current version: v2.17.0                                    │
+│ Next version:    v2.18.0 (minor — feat: commits detected)   │
+├─────────────────────────────────────────────────────────────┤
+│ Actions that WOULD be taken:                                │
+│                                                             │
+│  1. ✓ Run pre-release-check.sh v2.18.0                      │
+│  2. ✓ Bump version in plugin.json, CLAUDE.md                │
+│  3. ✓ Commit: "chore: bump version to v2.18.0 for release"  │
+│  4. ✓ Push to dev                                           │
+│  5. ✓ Create PR: dev → main                                 │
+│  6. ✓ Merge PR (--merge, NO --delete-branch)                │
+│  7. ✓ Create GitHub release v2.18.0 on main                 │
+│  8. ✓ Deploy docs site (mkdocs gh-deploy)                   │
+│  9. ✓ Sync dev with main                                    │
+├─────────────────────────────────────────────────────────────┤
+│ ⚠ Risk: HIGH — modifies git history, creates PRs            │
+│ ⚠ No changes were made. Run without --dry-run to execute.   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Dry-Run Guarantees
+
+- No commits, tags, or pushes
+- No PRs created or merged
+- No GitHub releases published
+- No docs deployed
+- Exit code 0
+
 ## Release Pipeline
 
 Execute these steps in order. Stop and report if any step fails.
