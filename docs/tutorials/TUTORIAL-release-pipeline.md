@@ -60,19 +60,21 @@ If you already know the version:
 
 ## Step 3: Follow the Pipeline
 
-The release executes 8 steps sequentially:
+The release executes 10 steps sequentially:
 
 | Step | What Happens | You Need To |
 |------|-------------|-------------|
-| CI mirror | `/craft:check --for release` (full test suite) | Fix any failures |
-| Metadata check | `pre-release-check.sh` (version/counts) | Fix any mismatches |
-| Version bump | Updates version files | Review changes |
-| Commit and push | Creates release commit | Nothing (automatic) |
-| Release PR | Creates dev to main PR | Nothing (automatic) |
-| Merge PR | Merges the PR | Confirm if admin needed |
-| GitHub release | Creates tag and release | Nothing (automatic) |
-| Docs deploy | Publishes docs site | Nothing (automatic) |
-| Dev sync | Pulls main into dev | Nothing (automatic) |
+| 1. Detect version | Reads plugin.json/package.json/git tag | Confirm version |
+| 2a. CI mirror | `/craft:check --for release` (full test suite) | Fix any failures |
+| 2b. Metadata check | `pre-release-check.sh` (version/counts) | Fix any mismatches |
+| 3. Version bump | Updates version files | Review changes |
+| 4. Commit and push | Creates release commit | Nothing (automatic) |
+| 5. Release PR | Creates dev to main PR | Nothing (automatic) |
+| 6. Merge PR | Merges the PR | Confirm if admin needed |
+| 7. GitHub release | Creates tag and release | Nothing (automatic) |
+| 8. Docs deploy | Publishes docs site | Nothing (automatic) |
+| 9. Dev sync | Pulls main into dev | Nothing (automatic) |
+| 10. Verify CI | Checks CI passes on main | Fix if needed |
 
 If any step fails, the pipeline stops and reports the error.
 

@@ -4,8 +4,8 @@
 
 ### Pre-Release
 
-- [ ] All tests passing (unit, e2e, integration)
-- [ ] `./scripts/pre-release-check.sh <version>` passes
+- [ ] `/craft:check --for release` passes (full CI mirror: tests, lint, security, coverage)
+- [ ] `./scripts/pre-release-check.sh <version>` passes (metadata: version, counts)
 - [ ] plugin.json version matches target
 - [ ] CLAUDE.md version references updated
 - [ ] CLAUDE.md test counts accurate
