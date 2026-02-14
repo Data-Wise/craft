@@ -64,7 +64,7 @@ Generate `.claude-plugin/marketplace.json` from existing `plugin.json`.
   "plugins": [
     {
       "name": "{name from plugin.json}",
-      "source": "./",
+      "source": { "source": "github", "repo": "{owner}/{repo}" },
       "description": "{description, single line}",
       "version": "{version}",
       "author": { "name": "...", "email": "..." },
