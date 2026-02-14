@@ -113,9 +113,11 @@ echo "Auto-detected version bump: $bump (from $(echo "$commits" | wc -l | tr -d 
 
 ### Autonomous Admin Override
 
+> **WARNING:** This auto-uses `--admin` to bypass branch protection, which skips required status checks. Only use `--autonomous` when CI has already passed on the PR. For safer unattended releases, use `--autonomous --dry-run` first to preview the plan.
+
 When branch protection blocks the merge in Step 6:
 
-1. Log: "Branch protection blocking merge. Using --admin override."
+1. Log: "**WARNING:** Branch protection blocking merge. Using --admin override."
 2. Run: `gh pr merge <number> --merge --admin`
 3. Continue pipeline
 
@@ -258,7 +260,7 @@ gh pr merge <number> --merge
 
 If branch protection blocks the merge, use `--admin` only after user confirmation.
 
-**Autonomous mode:** Auto-uses `--admin` if blocked. Logs the override for audit trail.
+**Autonomous mode:** Auto-uses `--admin` if blocked. Logs a **WARNING** for audit trail. See "Autonomous Admin Override" section for safety details.
 
 ### Step 7: Create GitHub Release
 

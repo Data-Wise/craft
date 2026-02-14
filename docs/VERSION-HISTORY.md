@@ -53,7 +53,7 @@
 
 ### v2.17.0 (2026-02-13) - Branch Guard v2: Smart Mode with Progressive Trust
 
-**Status:** In Development
+**Status:** Released
 
 **Highlights:**
 

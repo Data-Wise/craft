@@ -191,7 +191,7 @@ When `--context` is passed, skip all checks and output only session context:
 
 - `implementation`: commits ahead of base, no PR exists
 - `testing`: test files modified recently
-- `pr-prep`: all tests pass, branch is clean
+- `pr-prep`: PR exists for branch, branch is clean
 - `release`: on dev branch, features merged
 
 **How to detect:**
@@ -205,7 +205,7 @@ tree_clean=$(git status --porcelain | wc -l | tr -d ' ')
 
 if [[ "$(git branch --show-current)" == "dev" ]]; then
     phase="release"
-elif [[ "$pr_exists" -gt 0 ]]; then
+elif [[ "$pr_exists" -gt 0 && "$tree_clean" -eq 0 ]]; then
     phase="pr-prep"
 elif [[ "$test_modified" -gt 0 ]]; then
     phase="testing"
