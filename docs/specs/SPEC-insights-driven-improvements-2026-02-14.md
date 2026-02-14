@@ -533,6 +533,10 @@ All outputs use existing craft box-drawing format (from `scripts/formatting.sh`)
 - [ ] All markdown passes lint
 - [ ] Command/skill counts updated in CLAUDE.md, plugin.json, README
 
+## Coordination Notes
+
+**Release skill overlap:** Both this spec (Change 2: `--autonomous`) and `SPEC-github-marketplace-distribution-2026-02-14.md` (Steps 2c, 3, 8.5) modify `skills/release/SKILL.md`. These touch different sections — no conflict — but should be coordinated to avoid merge conflicts.
+
 ## Implementation Notes
 
 ### File Changes Summary

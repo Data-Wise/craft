@@ -218,34 +218,41 @@ N/A - No API changes. These are CLI commands.
 
 ### marketplace.json (created by `init`)
 
+**Note:** The `$schema` URL (`https://anthropic.com/claude-code/marketplace.schema.json`) returns 404 — open issue [#9686](https://github.com/anthropics/claude-code/issues/9686). Omit `$schema` field.
+
 ```json
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "{org}-{plugin}",
   "owner": {
     "name": "{author.name from plugin.json}",
     "email": "{author.email from plugin.json}"
   },
   "metadata": {
-    "description": "{description from plugin.json, truncated}",
-    "version": "{version from plugin.json}"
+    "description": "{description from plugin.json, truncated}"
   },
   "plugins": [
     {
       "name": "{name from plugin.json}",
       "source": "./",
       "description": "{description, 1 line}",
-      "version": "{version}",
+      "version": "{version from plugin.json}",
       "author": { "name": "...", "email": "..." },
       "homepage": "{from repo or docs site}",
       "repository": "{git remote origin URL}",
       "license": "{from LICENSE file or plugin.json}",
       "category": "development",
-      "tags": []
+      "keywords": ["{relevant tags}"]
     }
   ]
 }
 ```
+
+**Schema notes:**
+
+- `metadata.version` not standard — version goes on each plugin entry only
+- `keywords` (not `tags`) for plugin discovery. `tags` is marketplace-level (e.g., `"community-managed"`)
+- `source: "./"` for single-plugin repos. GitHub source objects (`{ "source": "github", "repo": "..." }`) for multi-plugin marketplaces
+- Categories: `development`, `productivity`, `learning`, `testing`, `security`, `database`, `monitoring`, `deployment`, `design`
 
 ## Dependencies
 
@@ -325,7 +332,7 @@ git clone ... && ln -sf ...
 2. ~~Which branch-guard gap option?~~ **Resolved:** Option A (README instructions) for now. SessionStart hook as future enhancement.
 3. ~~Plugin formula template scope?~~ **Resolved:** Full featured (all features).
 4. ~~Validate auto-fix?~~ **Resolved:** Always auto-fix known patterns.
-5. Should the `publish` subcommand also create a GitHub release, or just push? (Probably just push — release is `/release`'s job.)
+5. ~~Should the `publish` subcommand also create a GitHub release, or just push?~~ **Resolved:** Push only. `publish` pushes + displays install command. Tagging and GitHub releases are `/release`'s responsibility.
 
 ## Review Checklist
 
@@ -338,6 +345,12 @@ git clone ... && ln -sf ...
 - [ ] `test` cleans up after itself (no leftover marketplace registrations)
 - [ ] No hardcoded paths (use `$(brew --prefix)`, `$HOME`, etc.)
 - [ ] Documentation recommends marketplace first, Homebrew second
+
+## Coordination Notes
+
+**Release skill overlap:** Both this spec and `SPEC-insights-driven-improvements-2026-02-14.md` modify `skills/release/SKILL.md`. This spec adds Steps 2c, 3 (marketplace bump), and 8.5 (tap update). The insights spec adds `--autonomous` flag. These touch different sections — no conflict — but should be implemented in the same feature branch or coordinated to avoid merge conflicts.
+
+**Homebrew audit fixes:** The 6 `brew audit --strict` fixes listed in the Architecture section were already applied to the actual formula in commit `63b11d2`. The template fixes in `commands/dist/homebrew.md` may be partially done — verify during implementation.
 
 ## Implementation Notes
 
@@ -368,3 +381,4 @@ git clone ... && ln -sf ...
 | Date | Change |
 |------|--------|
 | 2026-02-14 | Initial spec from deep brainstorm (8 questions) |
+| 2026-02-14 | Schema verified (no $schema URL, keywords not tags, version on plugin entry). Resolved Q5 (publish=push only). Added coordination notes for release skill overlap. |
