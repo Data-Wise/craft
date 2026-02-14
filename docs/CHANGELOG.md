@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.18.0] - 2026-02-14: Marketplace Distribution
+
+### Added
+
+- **Marketplace distribution:** `/craft:dist:marketplace` command with 4 subcommands (init, validate, test, publish) for Claude Code marketplace listing management
+- **marketplace.json:** New `.claude-plugin/marketplace.json` manifest for marketplace distribution with GitHub source object format
+- **Release pipeline marketplace steps:** Step 2c (marketplace validation), Step 3 (marketplace version bump), Step 8.5 (Homebrew tap auto-update)
+- **Pre-release marketplace check:** `pre-release-check.sh` expanded to 6 checks (added marketplace version consistency)
+- **Homebrew auto-detection:** Claude Code Plugin added as highest-priority entry in auto-detect table
+- **115 marketplace tests:** 57 CLI tests, 30 e2e tests, 28 dogfood tests (all passing)
+- **Documentation:** Marketplace distribution guide, updated dist commands reference, release workflow updates
+
+### Changed
+
+- **Command count:** 108 → 109 (added dist:marketplace)
+- **Install hierarchy:** README and docs now recommend Marketplace as Option 1 (Recommended), Homebrew as Option 2
+- **Distribution commands:** 3 → 4 (added marketplace)
+
+**Documentation:** [Marketplace Guide](guide/marketplace-distribution.md) · [Distribution Commands](commands/dist.md) · [Release Reference](reference/REFCARD-RELEASE.md)
+
+---
+
 ## [2.16.0] - 2026-02-07: Teaching Ecosystem + Branch Protection
 
 ### Added

@@ -180,7 +180,7 @@
 - Code (12 commands) & Testing (7 commands)
 - Git (11 commands) & CI (3 commands)
 - Architecture (4 commands)
-- Distribution (3 commands)
+- Distribution (4 commands)
 - Workflow (12 commands) & Planning (3 commands)
 
 ## Interactive Command Behavior

@@ -65,7 +65,7 @@ Version control and continuous integration:
 ### 📦 Other Categories
 
 - **Architecture** (4): System design, diagrams, planning, reviews
-- **Distribution** (3): Homebrew formulas, curl installers, PyPI
+- **Distribution** (4): Marketplace, Homebrew formulas, curl installers, PyPI
 - **Planning** (3): Feature planning, sprints, roadmaps
 - **Workflow** (12): Brainstorming, task management, spec capture
 

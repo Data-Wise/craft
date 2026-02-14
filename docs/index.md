@@ -17,9 +17,9 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **108 Commands**
+- :rocket:{ .lg .middle } **109 Commands**
 
-    Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
+    Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
 
 - :brain:{ .lg .middle } **8 Specialized Agents**
 
@@ -102,7 +102,7 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 108 Craft commands:
+Complete OpenAPI-style documentation for all 109 Craft commands:
 
 <div class="grid cards" markdown>
 
@@ -126,7 +126,7 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 
 **Quick Links:**
 
-- [All 108 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 109 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -206,10 +206,10 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 | **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, smart branch protection (3-tier risk), learning guides |
 | **CI**             | 3      | Detection, generation, validation                                                                                         |
 | **Architecture**   | 4      | Analysis, diagrams, planning, reviews                                                                                     |
-| **Distribution**   | 3      | Homebrew, PyPI, curl installers                                                                                           |
+| **Distribution**   | 4      | Marketplace, Homebrew, PyPI, curl installers                                                                              |
 | **Planning**       | 3      | Feature planning, sprints, roadmaps                                                                                       |
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
-| **Total**          | **108** | **Complete development workflow coverage**                                                                                |
+| **Total**          | **109** | **Complete development workflow coverage**                                                                                |
 
 !!! info "Latest: v2.18.0 — Release Pipeline Enhancements"
     CI mirror pre-flight (`/craft:check --for release`), README/index version validation in `pre-release-check.sh`, release command delegates to skill, comprehensive docs sync. ~1504 tests passing. See the [full changelog](CHANGELOG.md) for all releases.

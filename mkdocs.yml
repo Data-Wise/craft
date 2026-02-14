@@ -132,6 +132,7 @@ nav:
         - Documentation Index: git-init-docs-index.md
       - Orchestration & Agents: guide/orchestrator.md
       - --orch Flag Quick Start: guide/orch-flag-usage.md
+      - Marketplace Distribution: guide/marketplace-distribution.md
       - Homebrew Distribution: guide/homebrew-installation.md
       - Skills & Agents: guide/skills-agents.md
       - Integration Testing: guide/integration-testing.md
