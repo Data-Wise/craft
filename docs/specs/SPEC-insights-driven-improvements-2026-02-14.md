@@ -1,7 +1,7 @@
 # SPEC: Insights-Driven Command & Skill Improvements
 
 **Date:** 2026-02-14
-**Status:** Draft
+**Status:** Approved
 **Author:** DT + Claude
 **From Brainstorm:** `docs/brainstorm/BRAINSTORM-insights-driven-improvements-2026-02-14.md`
 
@@ -517,10 +517,11 @@ All outputs use existing craft box-drawing format (from `scripts/formatting.sh`)
 ## Open Questions
 
 1. ~~Should `--autonomous` have approval gates?~~ **Resolved:** No gates. Fully autonomous. Safety via dirty-tree/wrong-branch checks.
-2. Should `/craft:check --context` run at SessionStart automatically? **Leaning yes** — could add to SessionStart hook.
-3. Should swarm mode create PRs per agent (for review) or just merge silently?
-4. Should `/craft:guard:audit` actually modify branch-guard.sh or only change the JSON config?
+2. ~~Should `/craft:check --context` run at SessionStart automatically?~~ **Resolved:** Both — auto-run via SessionStart hook AND available manually for refresh.
+3. ~~Should swarm mode create PRs per agent or merge silently?~~ **Resolved:** Single convergence PR. Merge all agent branches into one, single PR to dev.
+4. ~~Should `/craft:guard:audit` modify branch-guard.sh or only JSON config?~~ **Resolved:** JSON config only. Never touch the script — tune via `.claude/branch-guard.json`.
 5. ~~Should insights:apply work cross-project?~~ **Resolved:** Global CLAUDE.md only (insights are cross-project).
+6. ~~Implementation scope?~~ **Resolved:** All 5 phases (full implementation including swarm mode).
 
 ## Review Checklist
 
@@ -575,3 +576,4 @@ All outputs use existing craft box-drawing format (from `scripts/formatting.sh`)
 |------|--------|
 | 2026-02-14 | Initial spec from deep brainstorm (8 questions + 2 agents) |
 | 2026-02-14 | Added Change 8: Super command updates (do.md, smart-help.md, hub.md) |
+| 2026-02-14 | Resolved all open questions (interactive review). Status → Approved. |
