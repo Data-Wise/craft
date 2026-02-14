@@ -70,7 +70,7 @@ Display template:
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  CRAFT - Full Stack Developer Toolkit v2.5.0                           │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
-│  [TOTAL] Commands | 21 Skills | 8 Agents | 4 Modes                    │
+│  [TOTAL] Commands | 25 Skills | 8 Agents | 4 Modes                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
@@ -608,7 +608,7 @@ Command                           │ Description
 ────────────────────────────────────────────────────────────────────────
 ```
 
-## Skills (8 Auto-Activated)
+## Skills (11 Auto-Activated)
 
 | Skill | Category | Triggers On |
 |-------|----------|-------------|
@@ -620,6 +620,9 @@ Command                           │ Description
 | `project-planner` | Planning | Feature planning, sprints, roadmaps |
 | `mode-controller` | Modes | Mode selection and behavior |
 | `task-analyzer` | Orchestration | Task routing for /craft:do |
+| `release` | Release | Release pipeline, version bump, deploy |
+| `guard-audit` | DevOps | Guard friction, false positives, tune guard |
+| `insights-apply` | Workflow | Insights report, CLAUDE.md rules, apply suggestions |
 
 ## Context-Aware Suggestions
 
@@ -663,7 +666,7 @@ Command                           │ Description
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│ CRAFT QUICK REFERENCE - 100 COMMANDS v2.5.0                           │
+│ CRAFT QUICK REFERENCE - 108 COMMANDS v2.18.0                          │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   → AI routes to best workflow                     │
@@ -694,6 +697,14 @@ Command                           │ Description
 │   /craft:check --for release  OR                                       │
 │   /craft:code:deps-audit → /craft:test:run release →                  │
 │   /craft:docs:changelog → /craft:code:release                          │
+│                                                                        │
+│ Insights-Driven (NEW):                                                │
+│   /craft:guard:audit              → Audit guard config                │
+│   /craft:insights:apply           → Apply insights to CLAUDE.md       │
+│   /craft:check --context          → Front-load session context        │
+│   /release --autonomous           → Fully automated release           │
+│   /craft:git:worktree validate    → Verify worktree path              │
+│   /craft:orchestrate --swarm      → Parallel agents in worktrees      │
 │                                                                        │
 │ Daily:                                                                 │
 │   /craft:git:recap → /craft:check → /craft:git:sync                   │

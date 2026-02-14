@@ -21,6 +21,10 @@ arguments:
     description: "Orchestration mode: default|debug|optimize|release (NEW in v2.5.0)"
     required: false
     default: null
+  - name: context
+    description: Output session context header only (no checks)
+    required: false
+    default: false
 ---
 
 # /craft:check - Universal Pre-flight
@@ -37,6 +41,7 @@ Run appropriate checks for your project type and context.
 /craft:check --for release      # Pre-release checks
 /craft:check --dry-run          # Preview checks
 /craft:check -n                 # Preview checks
+/craft:check --context              # Output session context only
 ```
 
 ## Dry-Run Mode
@@ -159,6 +164,57 @@ Pre-flight Check Plan:
   ...
   N. <check-name> (<tool>)
 ```
+
+### Context-Only Mode (--context)
+
+When `--context` is passed, skip all checks and output only session context:
+
+```text
+┌───────────────────────────────────────────────────────────────┐
+│ SESSION CONTEXT                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Project:   <name> (<type>)                                    │
+│ Branch:    <current-branch>                                   │
+│ Worktree:  <path or "main repo">                              │
+│ Base:      <base-branch>                                      │
+│ Guard:     <status>                                           │
+│ Phase:     <phase> (commits ahead: N)                         │
+│ Tests:     <test-command> (N passing)                         │
+│ Lint:      <lint-command>                                     │
+├───────────────────────────────────────────────────────────────┤
+│ TIP: Front-load this context in prompts to reduce wrong-      │
+│ approach friction.                                            │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Phase detection logic:**
+
+- `implementation`: commits ahead of base, no PR exists
+- `testing`: test files modified recently
+- `pr-prep`: all tests pass, branch is clean
+- `release`: on dev branch, features merged
+
+**How to detect:**
+
+```bash
+# Phase detection
+commits_ahead=$(git rev-list --count dev..HEAD 2>/dev/null || echo 0)
+pr_exists=$(gh pr list --head "$(git branch --show-current)" --json number --jq length 2>/dev/null || echo 0)
+test_modified=$(git diff --name-only HEAD~3 2>/dev/null | grep -c "test" || echo 0)
+tree_clean=$(git status --porcelain | wc -l | tr -d ' ')
+
+if [[ "$(git branch --show-current)" == "dev" ]]; then
+    phase="release"
+elif [[ "$pr_exists" -gt 0 ]]; then
+    phase="pr-prep"
+elif [[ "$test_modified" -gt 0 ]]; then
+    phase="testing"
+else
+    phase="implementation"
+fi
+```
+
+When `--context` is passed, the command exits after displaying this header. No checks are executed.
 
 ### Step 0.5: Confirm Before Running
 
