@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.17.0 (released 2026-02-13)                       │
-│  Commands: 108 | Agents: 8 | Skills: 22                     │
+│  Version: 2.18.0 (released 2026-02-14)                       │
+│  Commands: 108 | Agents: 8 | Skills: 23                     │
 │  Documentation: 99% complete | Tests: ~1504 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.17.0: Release pipeline skill, branch guard v2            │
-│           /release with dry-run, 10-step pipeline             │
+│  v2.18.0: Release pipeline enhancements, CI pre-flight       │
+│           README/index checks, command delegation             │
 └─────────────────────────────────────────────────────────────┘
 ```
 

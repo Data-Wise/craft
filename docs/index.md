@@ -6,12 +6,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 108 commands, 8 AI agents, and 21 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 108 commands, 8 AI agents, and 23 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 21 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 23 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -25,7 +25,7 @@
 
     Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators
 
-- :sparkles:{ .lg .middle } **21 Skills**
+- :sparkles:{ .lg .middle } **23 Skills**
 
     Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, and documentation automation
 
@@ -211,8 +211,8 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **108** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.17.0 — Release Pipeline + Branch Guard v2"
-    End-to-end `/release` skill with dry-run, 10-step pipeline automation, `/craft:check --for release` CI mirror pre-flight. Branch guard smart mode with 3-tier risk classification. ~1504 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.18.0 — Release Pipeline Enhancements"
+    CI mirror pre-flight (`/craft:check --for release`), README/index version validation in `pre-release-check.sh`, release command delegates to skill, comprehensive docs sync. ~1504 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
