@@ -4,16 +4,27 @@ release_date: 2026-02-14
 milestone: v2.18.0 released
 last_session: 2026-02-14
 
-progress: v2.18.0 released + 2 feature worktrees ready for implementation
+progress: v2.18.0 released + marketplace feature complete, insights worktree ready
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
 | main   | c826855 | —    | Production (v2.18.0 clean) |
-| dev    | 95086a9 | main | Specs approved, worktrees created |
-| feature/marketplace-distribution | 9136f30 | dev | WIP — ORCHESTRATE ready (6 agents, 3 groups) |
+| dev    | e935a90 | main | Specs approved, worktrees created |
+| feature/marketplace-distribution | 26649b3 | dev | DONE — 10 commits, 38 files, +2405 lines, 115 tests |
 | feature/insights-improvements | 6292e97 | dev | WIP — ORCHESTRATE ready (10 agents, 5 groups) |
+
+✅ Session 2026-02-14 (marketplace implementation — worktree):
+- Implemented all 6 ORCHESTRATE phases (10 agents across 3 groups)
+- Created .claude-plugin/marketplace.json (7bbdee6)
+- Created commands/dist/marketplace.md — 4 subcommands: init, validate, test, publish (ab0261b)
+- Updated commands/dist/homebrew.md — Claude Code plugin auto-detection (ab0261b)
+- Updated skills/release/SKILL.md — Steps 2c, 3, 8.5 for marketplace + tap (ab0261b)
+- Updated scripts/pre-release-check.sh — marketplace.json version check (ab0261b)
+- Created docs/guide/marketplace-distribution.md + updated README install section (59bdd6e)
+- Tests: 56/56 CLI + 28/28 dogfood + 30/30 e2e (8e6ebb3, 26649b3)
+- Branch ready for PR to dev
 
 ✅ Session 2026-02-14 (spec review + worktree setup):
 - Ran /insights report: 97 sessions, 153h, 236 commits over 10 days
@@ -67,17 +78,14 @@ progress: v2.18.0 released + 2 feature worktrees ready for implementation
 
 ---
 
-🎯 Next Action (pick either):
-→ cd ~/.git-worktrees/craft/feature-insights-improvements && claude
+🎯 Next Action:
+→ Create PR: feature/marketplace-distribution → dev (10 commits, 115 tests passing)
+→ Then: cd ~/.git-worktrees/craft/feature-insights-improvements && claude
 → /craft:orchestrate (Group 1: check --context, worktree validate, pretooluse hook)
-
-→ cd ~/.git-worktrees/craft/feature-marketplace-distribution && claude
-→ /craft:orchestrate (Group 1: marketplace.json + command + homebrew)
 
 ## Future (v2.19.0+)
 
 - Insights-driven improvements (in progress — feature branch, 5 phases)
-- Marketplace distribution (in progress — feature branch, 3 groups)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
