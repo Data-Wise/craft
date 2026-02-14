@@ -4,7 +4,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Complete guide to installing and using craft's 108 commands, 23 skills, and 8 agents
+> - **What:** Complete guide to installing and using craft's 109 commands, 25 skills, and 8 agents
 > - **Why:** Master the full-stack toolkit to automate your entire development workflow
 > - **How:** Install plugin → verify with `/craft:hub` → start with `/craft:do "task"`
 > - **Next:** Read about [Skills & Agents](skills-agents.md) to understand AI automation
@@ -16,7 +16,15 @@ Complete guide to using the craft plugin for Claude Code.
 !!! abstract "Progress: Step 1/5"
     Installing craft - choose your method
 
-### Method 1: Homebrew (Recommended)
+### Method 1: Marketplace (Recommended)
+
+```bash
+claude plugin add github:Data-Wise/craft
+```
+
+Works on all platforms with a single command. See [Marketplace Distribution Guide](marketplace-distribution.md) for details.
+
+### Method 2: Homebrew (macOS)
 
 ```bash
 brew tap data-wise/tap
@@ -24,12 +32,6 @@ brew install craft
 ```
 
 See [Homebrew Installation Guide](homebrew-installation.md) for details on updates and troubleshooting.
-
-### Method 2: Claude Code Plugin System
-
-```bash
-claude plugin install craft@local-plugins
-```
 
 ### Method 3: Symlink (Development)
 
@@ -46,7 +48,7 @@ ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
 /craft:hub
 ```
 
-You should see all 108 commands listed.
+You should see all 109 commands listed.
 
 ## Initialize a New Project (Optional)
 

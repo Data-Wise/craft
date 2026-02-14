@@ -24,6 +24,7 @@ Orchestrate end-to-end releases with pre-flight validation, version bumping, PR 
 | Argument | Alias | Description | Default |
 |----------|-------|-------------|---------|
 | `--dry-run` | `-n` | Preview release plan without executing | `false` |
+| `--autonomous` | `--auto` | Run without user prompts, auto-resolve where possible | `false` |
 
 ## Dry-Run Mode
 
@@ -52,6 +53,7 @@ After detecting the current and next version, display:
 │  6. ✓ Create PR: dev → main                                 │
 │  7. ✓ Merge PR (--merge, NO --delete-branch)                │
 │  8. ✓ Create GitHub release v2.18.0 on main                 │
+│  8.5 ✓ Update Homebrew tap formula                          │
 │  9. ✓ Deploy docs site (mkdocs gh-deploy)                   │
 │ 10. ✓ Sync dev with main                                    │
 ├─────────────────────────────────────────────────────────────┤
@@ -67,6 +69,85 @@ After detecting the current and next version, display:
 - No GitHub releases published
 - No docs deployed
 - Exit code 0
+
+## Autonomous Mode (--autonomous)
+
+When `--autonomous` or `--auto` is passed, the release pipeline runs without user interaction:
+
+| Step | Normal | Autonomous |
+|------|--------|------------|
+| Step 1 (version) | AskUserQuestion to confirm | Auto-select from commit analysis, show decision |
+| Step 2 (pre-flight) | Same | Same (fail = abort, no retry) |
+| Step 3-5 (bump, commit, PR) | Same | Same (deterministic) |
+| Step 6 (merge) | User confirms --admin if blocked | Auto-use --admin, log the override |
+| Step 7-8 (release, deploy) | Same | Same (deterministic) |
+| Errors | Stop and report | Retry once (step-level), then abort with report |
+
+### Autonomous Safety Checks
+
+Before starting, `--autonomous` validates:
+
+- Working tree is clean (no uncommitted changes)
+- Current branch is `dev`
+- No existing release PR is open
+
+If any check fails, abort with a clear error message. No retries on safety checks.
+
+### Autonomous Version Detection
+
+```bash
+# Analyze commits since last release
+commits=$(git log $(git describe --tags --abbrev=0 2>/dev/null || echo HEAD~10)..HEAD --oneline)
+
+# Determine version bump
+if echo "$commits" | grep -qi "breaking\|BREAKING"; then
+    bump="major"
+elif echo "$commits" | grep -q "^.*feat:"; then
+    bump="minor"
+else
+    bump="patch"
+fi
+
+# Show decision (but don't ask)
+echo "Auto-detected version bump: $bump (from $(echo "$commits" | wc -l | tr -d ' ') commits)"
+```
+
+### Autonomous Admin Override
+
+> **WARNING:** This auto-uses `--admin` to bypass branch protection, which skips required status checks. Only use `--autonomous` when CI has already passed on the PR. For safer unattended releases, use `--autonomous --dry-run` first to preview the plan.
+
+When branch protection blocks the merge in Step 6:
+
+1. Log: "**WARNING:** Branch protection blocking merge. Using --admin override."
+2. Run: `gh pr merge <number> --merge --admin`
+3. Continue pipeline
+
+### Autonomous Error Recovery
+
+On any step failure:
+
+1. Log the error with full output
+2. Retry the step once
+3. If retry fails, abort with full error report:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ /release --autonomous ABORTED                                │
+├─────────────────────────────────────────────────────────────┤
+│ Failed at: Step 6 (Merge Release PR)                        │
+│ Error: Branch protection rules not met                      │
+│ Retry: Attempted 1 retry, still failing                     │
+│ Completed: Steps 1-5                                        │
+│ Rollback: PR #71 still open, no release created             │
+├─────────────────────────────────────────────────────────────┤
+│ Manual fix needed. Resume with: /release (interactive)       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Combining Flags
+
+- `--autonomous --dry-run`: Shows what autonomous mode WOULD do, without executing
+- `--autonomous` alone: Full pipeline with no prompts
 
 ## Release Pipeline
 
@@ -90,6 +171,8 @@ If the user specified a version, use it. Otherwise, analyze commits since last r
 - **major** (X.0.0): any breaking changes or user-specified
 
 Ask the user to confirm the version before proceeding.
+
+**Autonomous mode:** Skips this confirmation. Uses auto-detected version and shows the decision in output.
 
 ### Step 2: Pre-Flight Checks
 
@@ -118,6 +201,25 @@ Run release-specific consistency checks:
 
 This checks: version consistency across files, command/skill/agent count accuracy, CLAUDE.md version refs, README.md and docs/index.md version refs, clean working tree.
 
+#### 2c: Marketplace Validation (if applicable)
+
+If `.claude-plugin/marketplace.json` exists, validate marketplace distribution:
+
+```bash
+# Run Claude plugin validator
+claude plugin validate .
+
+# Check version consistency
+MARKETPLACE_VERSION=$(python3 -c "import json; print(json.load(open('.claude-plugin/marketplace.json'))['metadata']['version'])")
+PLUGIN_VERSION=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+if [ "$MARKETPLACE_VERSION" != "$PLUGIN_VERSION" ]; then
+    echo "ERROR: marketplace.json version ($MARKETPLACE_VERSION) != plugin.json ($PLUGIN_VERSION)"
+    exit 1
+fi
+```
+
+Skip this step if marketplace.json doesn't exist (not all projects use marketplace distribution).
+
 #### If Pre-Flight Fails
 
 Fix issues and re-run from 2a. Common fixes:
@@ -133,12 +235,14 @@ Update version in all relevant files. Project-type-specific:
 
 | Project Type | Files to Update |
 |-------------|-----------------|
-| Craft plugin | `.claude-plugin/plugin.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md` |
+| Craft plugin | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` (if exists), `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md` |
 | Python | `pyproject.toml`, `__init__.py`, `README.md` |
 | Node | `package.json`, `package-lock.json`, `README.md` |
 | R package | `DESCRIPTION`, `NEWS.md`, `README.md` |
 
 Also update any hardcoded version references, test counts, skill/command counts, and date strings across CLAUDE.md, README.md, docs/index.md, and docs/REFCARD.md.
+
+For marketplace.json, bump both `metadata.version` and `plugins[0].version` to match the new version.
 
 ### Step 4: Commit & Push
 
@@ -178,6 +282,8 @@ gh pr merge <number> --merge
 
 If branch protection blocks the merge, use `--admin` only after user confirmation.
 
+**Autonomous mode:** Auto-uses `--admin` if blocked. Logs a **WARNING** for audit trail. See "Autonomous Admin Override" section for safety details.
+
 ### Step 7: Create GitHub Release
 
 ```bash
@@ -203,7 +309,51 @@ If the project has a docs site (check for `mkdocs.yml`, `_quarto.yml`, or `docs/
 mkdocs gh-deploy  # or /craft:site:deploy
 ```
 
-Sync dev with main:
+### Step 8.5: Update Homebrew Tap (if applicable)
+
+If the project has a Homebrew formula in the `data-wise/tap`, update it with the new version:
+
+```bash
+# Tap location strategy (check in priority order)
+TAP_LOCAL="$HOME/projects/dev-tools/homebrew-tap"
+TAP_BREW="$(brew --repository 2>/dev/null)/Library/Taps/data-wise/homebrew-tap"
+
+if [ -d "$TAP_LOCAL" ]; then
+    TAP_DIR="$TAP_LOCAL"
+    cd "$TAP_DIR" && git pull
+elif [ -d "$TAP_BREW" ]; then
+    TAP_DIR="$TAP_BREW"
+    cd "$TAP_DIR" && git pull
+else
+    echo "No local tap found — skip tap update (CI workflow handles this)"
+    # The homebrew-release.yml workflow will update on GitHub release trigger
+fi
+
+if [ -n "$TAP_DIR" ]; then
+    FORMULA_NAME=$(basename "$PWD" | tr '[:upper:]' '[:lower:]')
+    FORMULA="$TAP_DIR/Formula/${FORMULA_NAME}.rb"
+    if [ -f "$FORMULA" ]; then
+        # Calculate SHA256 from GitHub release tarball
+        REPO=$(git remote get-url origin | sed 's/\.git$//' | sed 's|https://github.com/||')
+        SHA256=$(curl -sL "https://github.com/${REPO}/archive/refs/tags/v${VERSION}.tar.gz" | shasum -a 256 | cut -d' ' -f1)
+
+        # Update version and sha256 in formula using sed
+        sed -i '' "s|/archive/refs/tags/v[0-9.]*\.tar\.gz|/archive/refs/tags/v${VERSION}.tar.gz|" "$FORMULA"
+        sed -i '' "s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA256}\"/" "$FORMULA"
+
+        # Commit and push
+        cd "$TAP_DIR"
+        git add "Formula/${FORMULA_NAME}.rb"
+        git commit -m "${FORMULA_NAME}: update to v${VERSION}"
+        git push
+        echo "Homebrew tap updated: ${FORMULA_NAME} v${VERSION}"
+    fi
+fi
+```
+
+Skip if no local tap exists — the GitHub Actions workflow (`homebrew-release.yml`) handles tap updates automatically on release trigger.
+
+### Step 9: Sync Dev with Main
 
 ```bash
 git checkout dev && git pull origin main

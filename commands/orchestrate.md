@@ -21,6 +21,10 @@ arguments:
     required: false
     default: false
     alias: -n
+  - name: swarm
+    description: Run agents in isolated worktrees with branch convergence
+    required: false
+    default: false
 ---
 
 # /craft:orchestrate — Launch Orchestrator Mode
@@ -32,6 +36,7 @@ arguments:
 /craft:orchestrate <task> <mode>       # Start with specific mode
 /craft:orchestrate <task> --dry-run    # Preview orchestration plan
 /craft:orchestrate <task> -n           # Preview orchestration plan
+/craft:orchestrate <task> --swarm     # Isolated worktrees per agent
 /craft:orchestrate status              # Show agent dashboard
 /craft:orchestrate timeline            # Show execution timeline
 /craft:orchestrate compress            # Force chat compression
@@ -404,6 +409,7 @@ During orchestration, say:
 | `save` | Force save session state |
 | `history` | List recent sessions |
 | `new` | Start fresh (archive current) |
+| `swarm status` | Show swarm agent worktree status |
 
 ## Session Management (NEW in v1.1.0)
 
@@ -450,6 +456,129 @@ State is automatically saved on:
 - Decision checkpoints
 - Before compression
 - User says `save` or `abort`
+
+## Swarm Mode (--swarm) — NEW
+
+Run agents in isolated git worktrees instead of forked contexts. Each agent gets its own branch and directory, eliminating file conflicts entirely.
+
+### Normal vs Swarm
+
+| Aspect | Normal | Swarm |
+|--------|--------|-------|
+| Agent isolation | Forked context (same dir) | Separate worktrees |
+| File conflicts | Possible (same files) | Impossible (isolated dirs) |
+| Convergence | Agents return results to main | Branches merged into feature branch |
+| PR | User creates manually | Auto-created from merged branch |
+| Use case | Research + small changes | Parallel feature implementation |
+
+### Swarm Execution Flow
+
+```text
+/craft:orchestrate --swarm "implement auth"
+
+Step 1: Parse ORCHESTRATE file for agent assignments
+Step 2: Create base branch: feature/swarm-auth (from dev)
+Step 3: For each agent:
+  └── git worktree add ~/.git-worktrees/<proj>/swarm-<agent> -b swarm-<agent> dev
+Step 4: Launch agents in parallel (each in its worktree)
+Step 5: Wait for all agents to complete
+Step 6: Merge all swarm-* branches into feature/swarm-auth
+Step 7: Run tests in merged branch
+Step 8: Create single PR to dev
+Step 9: Clean up swarm worktrees
+```
+
+### Swarm Branch Naming
+
+```text
+feature/swarm-auth          ← convergence branch
+  ├── swarm-auth-agent1     ← agent 1's working branch
+  ├── swarm-auth-agent2     ← agent 2's working branch
+  └── swarm-auth-agent3     ← agent 3's working branch
+```
+
+### ORCHESTRATE File for Swarm
+
+When `--swarm` is used, the ORCHESTRATE file can include file scope per agent:
+
+```markdown
+## Swarm Configuration
+
+| Agent | Worktree | Focus | Files |
+|-------|----------|-------|-------|
+| tests | swarm-tests | Write tests | tests/ |
+| impl | swarm-impl | Implementation | src/ |
+| docs | swarm-docs | Documentation | docs/, README.md |
+```
+
+### Convergence Merge
+
+After all agents complete:
+
+1. Checkout the convergence branch (`feature/swarm-auth`)
+2. Merge each agent branch in wave order:
+
+   ```bash
+   git merge swarm-auth-agent1 --no-edit
+   git merge swarm-auth-agent2 --no-edit
+   git merge swarm-auth-agent3 --no-edit
+   ```
+
+3. If merge conflicts occur:
+   - Stop and report which files conflict
+   - Show the conflicting agents
+   - Ask user to resolve manually
+4. Run full test suite on merged branch
+5. If tests pass, create PR to dev
+
+### Swarm Output
+
+```text
+┌───────────────────────────────────────────────────────────────┐
+│ SWARM MODE — ORCHESTRATOR v2.1                                │
+├───────────────────────────────────────────────────────────────┤
+│ Agents: 3 | Worktrees: 3 | Convergence: feature/swarm-auth   │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│ [1/3] swarm-agent1  ~/.git-worktrees/craft/swarm-agent1       │
+│       Branch: swarm-auth-agent1                               │
+│       Focus: tests/ (Write tests)                             │
+│       Status: ✅ Complete (4 commits)                          │
+│                                                               │
+│ [2/3] swarm-agent2  ~/.git-worktrees/craft/swarm-agent2       │
+│       Branch: swarm-auth-agent2                               │
+│       Focus: src/ (Implementation)                            │
+│       Status: 🟡 Running (2/5 files)                          │
+│                                                               │
+│ [3/3] swarm-agent3  ~/.git-worktrees/craft/swarm-agent3       │
+│       Branch: swarm-auth-agent3                               │
+│       Focus: docs/ (Documentation)                            │
+│       Status: ✅ Complete (2 commits)                          │
+│                                                               │
+├───────────────────────────────────────────────────────────────┤
+│ Convergence: Waiting for agent2                               │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### Swarm Cleanup
+
+After successful convergence and PR creation:
+
+```bash
+# Remove swarm worktrees
+git worktree remove ~/.git-worktrees/<proj>/swarm-agent1
+git worktree remove ~/.git-worktrees/<proj>/swarm-agent2
+git worktree remove ~/.git-worktrees/<proj>/swarm-agent3
+
+# Delete swarm branches
+git branch -d swarm-auth-agent1 swarm-auth-agent2 swarm-auth-agent3
+```
+
+### Combining with Other Flags
+
+- `--swarm --dry-run`: Preview swarm plan without creating worktrees
+- `--swarm optimize`: Use optimize mode within each agent's worktree
+- `--swarm` requires an ORCHESTRATE file (cannot auto-generate swarm config)
 
 ## Context Monitoring
 

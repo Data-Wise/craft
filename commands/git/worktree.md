@@ -2,7 +2,7 @@
 description: Git worktree management for parallel development workflows
 arguments:
   - name: action
-    description: Action to perform (setup|create|move|list|clean|install|finish)
+    description: Action to perform (setup|create|move|list|clean|install|finish|validate)
     required: true
   - name: branch
     description: Branch name (for create/move actions)
@@ -112,6 +112,7 @@ Show each step as it completes:
 /craft:git:worktree clean              # Remove merged worktrees
 /craft:git:worktree install            # Install deps in current worktree
 /craft:git:worktree finish             # Complete feature: tests → changelog → PR
+/craft:git:worktree validate          # Verify CWD matches expected worktree
 ```
 
 ## Actions
@@ -445,6 +446,83 @@ echo "✅ Branch moved to worktree!"
 │   claude                                            │
 ╰─────────────────────────────────────────────────────╯
 ```
+
+### validate - Verify Worktree Environment
+
+Validates that the current working directory matches the expected worktree for the active branch:
+
+```bash
+/craft:git:worktree validate
+```
+
+**What it checks:**
+
+1. Is CWD inside a git worktree? (`git rev-parse --show-toplevel`)
+2. Does the worktree path match `~/.git-worktrees/<project>/<branch>`?
+3. Is the branch name consistent with the folder name?
+4. Are there file writes targeting outside the worktree?
+
+**Detection logic:**
+
+```bash
+# Check if in a worktree
+git_dir=$(git rev-parse --git-dir 2>/dev/null)
+toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+branch=$(git branch --show-current)
+cwd=$(pwd)
+
+is_worktree=false
+if [[ "$git_dir" == *".git/worktrees/"* ]]; then
+    is_worktree=true
+fi
+
+# Check branch-folder consistency
+folder_name=$(basename "$cwd")
+expected_folder=$(echo "$branch" | tr '/' '-')
+
+# Find main repo
+if $is_worktree; then
+    main_repo=$(git worktree list | head -1 | awk '{print $1}')
+fi
+```
+
+**Output (all passing):**
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ WORKTREE VALIDATION                                           │
+├───────────────────────────────────────────────────────────────┤
+│ CWD:       ~/.git-worktrees/craft/feature-auth                │
+│ Branch:    feature/auth                                       │
+│ Toplevel:  ~/.git-worktrees/craft/feature-auth                │
+│ Main repo: ~/projects/dev-tools/craft                         │
+├───────────────────────────────────────────────────────────────┤
+│ ✅ CWD is inside expected worktree                             │
+│ ✅ Branch matches folder name                                  │
+│ ✅ No writes detected outside worktree                         │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Output (issues found):**
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│ WORKTREE VALIDATION                                           │
+├───────────────────────────────────────────────────────────────┤
+│ CWD:       ~/projects/dev-tools/craft                         │
+│ Branch:    feature/auth                                       │
+│ Toplevel:  ~/projects/dev-tools/craft                         │
+│ Main repo: ~/projects/dev-tools/craft                         │
+├───────────────────────────────────────────────────────────────┤
+│ ⚠️  CWD is the main repo, not the worktree                    │
+│ ⚠️  Expected: ~/.git-worktrees/craft/feature-auth              │
+│ ✅ Branch matches folder name                                  │
+│                                                               │
+│ FIX: cd ~/.git-worktrees/craft/feature-auth                   │
+└───────────────────────────────────────────────────────────────┘
+```
+
+**Note:** This is a read-only action — no confirmation needed, no changes made.
 
 ### list - Show All Worktrees
 
@@ -877,6 +955,7 @@ Preview what each action will do without executing it:
 | `clean` | ✅ Yes | Worktrees to remove, merge status |
 | `install` | ⊘ N/A | Read-only analysis, safe to run |
 | `finish` | ✅ Yes | Test commands, changelog, PR details |
+| `validate` | ⊘ N/A | Read-only (no preview needed) |
 
 ## See Also
 

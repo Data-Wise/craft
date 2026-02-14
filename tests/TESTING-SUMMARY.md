@@ -22,7 +22,7 @@ This document provides a comprehensive overview of all testing resources availab
 
 - Plugin structure validation (plugin.json, directories)
 - Command files (97 commands across 16 categories)
-- Skills validation (21 skills)
+- Skills validation (25 skills)
 - Agents validation (8 agents)
 - Markdown syntax checking
 - Cross-reference validation
@@ -47,7 +47,7 @@ VERBOSE=1 bash tests/cli/automated-tests.sh
 
 - All tests pass (0 failures)
 - Validates 97 commands
-- Checks 21 skills
+- Checks 25 skills
 - Verifies 8 agents
 - Markdown syntax clean
 

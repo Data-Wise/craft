@@ -162,6 +162,7 @@ Route directly without branch intervention — no restrictions.
    - **Score 0-3**: Route to craft commands (traditional)
    - **Score 4-7**: Delegate to specialized agent (NEW)
    - **Score 8-10**: Delegate to orchestrator-v2 (NEW)
+   - **Skill match**: Direct skill invocation for guard:audit, insights:apply
 5. **Execute** - Run commands or invoke agent with forked context
 6. **Synthesize** - Gather results and report to user
 7. **Report** - Summarize what was done
@@ -297,6 +298,56 @@ If agent delegation fails or is denied:
 # 1. /craft:docs:sync - Sync docs with code
 # 2. /craft:docs:validate - Check links
 # 3. /craft:docs:changelog - Update changelog
+```
+
+### Guard Audit
+
+```bash
+/craft:do audit guard config
+/craft:do guard friction
+/craft:do tune guard
+
+# Routes to:
+# 1. /craft:guard:audit - Analyze guard config, find false positives
+```
+
+### Insights Apply
+
+```bash
+/craft:do apply insights to rules
+/craft:do update rules from insights
+
+# Routes to:
+# 1. /craft:insights:apply - Apply insights suggestions to CLAUDE.md
+```
+
+### Autonomous Release
+
+```bash
+/craft:do auto release
+/craft:do release without prompts
+
+# Routes to:
+# 1. /release --autonomous - Fully automated release pipeline
+```
+
+### Session Context
+
+```bash
+/craft:do show session context
+/craft:do check context
+
+# Routes to:
+# 1. /craft:check --context - Output session context header
+```
+
+### Worktree Validation
+
+```bash
+/craft:do validate worktree
+
+# Routes to:
+# 1. /craft:git:worktree validate - Verify CWD matches expected worktree
 ```
 
 ### Release Preparation

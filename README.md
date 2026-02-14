@@ -2,12 +2,12 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
 [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.18.0-blue.svg)](https://github.com/Data-Wise/craft)
+[![Version](https://img.shields.io/badge/version-2.19.0-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.18.0 - Release Pipeline Enhancements** 🚀
-> **108 commands** | **23 skills** | **8 agents** | **~1504 tests passing**
-> CI mirror pre-flight, README/index version checks, release command delegation, docs sync.
+> **v2.19.0 - Marketplace & Insights-Driven Improvements** 🚀
+> **109 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
+> Marketplace distribution, insights-driven improvements, guard audit, autonomous releases.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -15,7 +15,16 @@ A comprehensive production-ready toolkit for Claude Code featuring smart orchest
 
 Craft works in both Claude Code CLI and Claude Desktop app. No MCP server dependencies required.
 
-### Option 1: Homebrew (Recommended - macOS)
+### Option 1: Marketplace (Recommended)
+
+```bash
+# Install from the Claude Code plugin marketplace
+claude plugin add github:Data-Wise/craft
+```
+
+Works on **all platforms** (macOS, Linux, Windows). No additional tools required.
+
+### Option 2: Homebrew (macOS)
 
 ```bash
 # Add the Data-Wise tap
@@ -31,7 +40,7 @@ The Homebrew formula automatically:
 - Makes it available in Claude Code CLI and Claude Desktop
 - No additional configuration needed
 
-### Option 2: Quick Install (curl)
+### Option 3: Quick Install (curl)
 
 ```bash
 # One-command installation
@@ -40,7 +49,7 @@ curl -fsSL https://raw.githubusercontent.com/Data-Wise/craft/main/install.sh | b
 
 **Then restart Claude Code to load the plugin.**
 
-### Option 3: npm (When published)
+### Option 4: npm (When published)
 
 ```bash
 # Install from npm (after publishing)
@@ -49,7 +58,7 @@ npm install -g @data-wise/claude-craft-plugin
 # Plugin will auto-install to ~/.claude/plugins/craft
 ```
 
-### Option 4: Manual Installation (Local Development)
+### Option 5: Manual Installation (Local Development)
 
 **For Claude Code CLI and Claude Desktop:**
 
@@ -135,8 +144,9 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [Quick Start](https://data-wise.github.io/craft/QUICK-START/) (30 seconds)
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
-- [Command Reference](https://data-wise.github.io/craft/REFCARD/) (all 108 commands)
-- [Skills & Agents](https://data-wise.github.io/craft/guide/skills-agents/) (23 skills, 8 agents)
+
+> Full-stack developer toolkit for Claude Code — 109 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
+
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
 - [Version History](https://data-wise.github.io/craft/VERSION-HISTORY/) (v1.0.0 → v1.24.0 timeline)
@@ -514,7 +524,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
 - 📖 **[Commands Reference](docs/commands.md)** - All 86 commands documented
-- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 23 skills, 8 agents
+- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 25 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards

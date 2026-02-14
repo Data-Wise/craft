@@ -68,9 +68,9 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.5.0                           │
+│  CRAFT - Full Stack Developer Toolkit v2.18.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
-│  [TOTAL] Commands | 21 Skills | 8 Agents | 4 Modes                    │
+> **109 commands** | **25 skills** | **8 agents** | **~1504 tests passing**
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
@@ -110,7 +110,10 @@ Display template:
 │   /craft:git:branch                /workflow:stuck                      │
 │   /craft:git:sync                  /workflow:done                       │
 │   /craft:git:clean                                                      │
-│   /craft:git:recap                                                      │
+│   /craft:git:recap               📦 DIST ([DIST_COUNT])                 │
+│                                    /craft:dist:marketplace              │
+│                                    /craft:dist:homebrew                 │
+│                                    /craft:dist:curl-install             │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  Quick Actions:                                                          │
@@ -577,6 +580,32 @@ Guides:
 ────────────────────────────────────────────────────────────────────────
 ```
 
+### `/craft:hub dist`
+
+```
+📦 DIST COMMANDS (7) - Distribution & Packaging
+─────────────────────────────────────────────────────────────────────────
+Command                  │ Description
+─────────────────────────┼────────────────────────────────────────────
+/craft:dist:marketplace  │ Marketplace init, validate, test, publish
+/craft:dist:package      │ Package for distribution
+/craft:dist:homebrew     │ Generate Homebrew formula
+/craft:dist:pypi         │ Package for PyPI
+/craft:dist:npm          │ Package for npm
+/craft:dist:curl-install │ Generate curl installer
+
+Recommended Install Hierarchy:
+  1. Marketplace (Recommended) — works everywhere, one command
+  2. Homebrew — macOS power users, auto-updates
+  3. Manual — contributors and developers
+
+Quick Examples:
+  /craft:dist:marketplace validate   # Check marketplace config
+  /craft:dist:marketplace init       # Generate marketplace.json
+  /craft:dist:homebrew               # Generate Homebrew formula
+─────────────────────────────────────────────────────────────────────────
+```
+
 ### `/craft:hub workflow` (NEW v2.4.0)
 
 ```
@@ -608,7 +637,7 @@ Command                           │ Description
 ────────────────────────────────────────────────────────────────────────
 ```
 
-## Skills (8 Auto-Activated)
+## Skills (11 Auto-Activated)
 
 | Skill | Category | Triggers On |
 |-------|----------|-------------|
@@ -620,6 +649,9 @@ Command                           │ Description
 | `project-planner` | Planning | Feature planning, sprints, roadmaps |
 | `mode-controller` | Modes | Mode selection and behavior |
 | `task-analyzer` | Orchestration | Task routing for /craft:do |
+| `release` | Release | Release pipeline, version bump, deploy |
+| `guard-audit` | DevOps | Guard friction, false positives, tune guard |
+| `insights-apply` | Workflow | Insights report, CLAUDE.md rules, apply suggestions |
 
 ## Context-Aware Suggestions
 
@@ -663,7 +695,7 @@ Command                           │ Description
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│ CRAFT QUICK REFERENCE - 100 COMMANDS v2.5.0                           │
+> Full-stack developer toolkit for Claude Code — 109 commands, 8 agents, 25 skills
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   → AI routes to best workflow                     │
@@ -690,10 +722,23 @@ Command                           │ Description
 │ Architecture:                                                          │
 │   /craft:arch:analyze [mode] → /craft:arch:plan → /craft:arch:diagram │
 │                                                                        │
+│ Distribution:                                                          │
+│   /craft:dist:marketplace validate  → Check marketplace config        │
+│   /craft:dist:marketplace init      → Generate marketplace.json       │
+│   /craft:dist:homebrew              → Generate Homebrew formula        │
+│                                                                        │
 │ Before Release:                                                        │
 │   /craft:check --for release  OR                                       │
 │   /craft:code:deps-audit → /craft:test:run release →                  │
 │   /craft:docs:changelog → /craft:code:release                          │
+│                                                                        │
+│ Insights-Driven (NEW):                                                │
+│   /craft:guard:audit              → Audit guard config                │
+│   /craft:insights:apply           → Apply insights to CLAUDE.md       │
+│   /craft:check --context          → Front-load session context        │
+│   /release --autonomous           → Fully automated release           │
+│   /craft:git:worktree validate    → Verify worktree path              │
+│   /craft:orchestrate --swarm      → Parallel agents in worktrees      │
 │                                                                        │
 │ Daily:                                                                 │
 │   /craft:git:recap → /craft:check → /craft:git:sync                   │
