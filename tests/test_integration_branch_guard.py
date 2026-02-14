@@ -117,7 +117,7 @@ class TestBranchGuardFullWorkflow(unittest.TestCase):
         _checkout(self.repo, "dev")
         result = _run_hook(payload)
         self.assertEqual(result.returncode, 2, "New .py should be blocked on dev")
-        self.assertIn("BRANCH PROTECTION", result.stderr)
+        self.assertIn("BRANCH GUARD", result.stderr)
 
         # Create a feature branch and switch to it
         subprocess.run(

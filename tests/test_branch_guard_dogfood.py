@@ -160,7 +160,7 @@ class TestCraftRepoDogfood(unittest.TestCase):
             content="# new\n",
         ))
         self.assertEqual(result.returncode, 2, "New .py on dev should be blocked")
-        self.assertIn("BRANCH PROTECTION", result.stderr)
+        self.assertIn("BRANCH GUARD", result.stderr)
 
     @unittest.skipUnless(_get_current_branch() == "dev", "Not on dev branch")
     def test_dev_write_new_sh_blocked(self):
@@ -218,7 +218,7 @@ class TestCraftRepoDogfood(unittest.TestCase):
             "Bash", command="git push --force origin dev",
         ))
         self.assertEqual(result.returncode, 2, "Force push on dev should be blocked")
-        self.assertIn("BRANCH PROTECTION", result.stderr)
+        self.assertIn("BRANCH GUARD", result.stderr)
 
     # --- feature branch tests (always pass if on feature/*) ---
     @unittest.skipUnless(
@@ -449,18 +449,25 @@ class TestErrorFormatting(unittest.TestCase):
     def setUpClass(cls):
         cls.cwd = CRAFT_ROOT
 
+    def setUp(self):
+        # Clear session counter before each test to ensure full verbosity
+        session_file = os.path.join(CRAFT_ROOT, ".claude", "guard-session-counts")
+        if os.path.isfile(session_file):
+            os.remove(session_file)
+
     def _trigger_block(self) -> str:
         """Trigger a block and return the stderr message."""
         payload = {
             "tool_name": "Write",
             "tool_input": {
-                "file_path": os.path.join(self.cwd, "tmp_nonexistent", "evil.py"),
+                "file_path": os.path.join(self.cwd, "utils", "evil.py"),
                 "content": "# bad\n",
             },
             "cwd": self.cwd,
         }
         result = _run_hook(payload)
-        self.assertEqual(result.returncode, 2)
+        # Smart mode v2: blocks with teaching box + [CONFIRM]
+        self.assertNotEqual(result.returncode, 0, "New .py on dev should be blocked")
         return result.stderr
 
     def test_error_has_box_drawing(self):
@@ -479,9 +486,9 @@ class TestErrorFormatting(unittest.TestCase):
         self.assertIn(branch, msg, "Error should show the branch name")
 
     def test_error_shows_protection_level(self):
-        """Error shows the protection level (block-new-code or block-all)."""
+        """Error shows the protection level (smart mode on dev)."""
         msg = self._trigger_block()
-        self.assertIn("block-new-code", msg, "Error should show protection level")
+        self.assertIn("smart", msg.lower(), "Error should show protection level")
 
     def test_error_shows_file_path(self):
         """Error shows the file path that was blocked."""

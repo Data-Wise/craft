@@ -1,94 +1,58 @@
 status: Active
-version: 2.16.0
-release_date: 2026-02-07
-milestone: v2.17.0 - TBD
-last_session: 2026-02-13
+version: 2.18.0
+release_date: 2026-02-14
+milestone: v2.18.0 released
+last_session: 2026-02-14
 
-progress: v2.17.0 branch guard v2 spec complete, worktree created, ready for implementation
+progress: v2.18.0 released + test baseline established (1575 passing, 0 failures)
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                     |
-|--------|---------|------|----------------------------|
-| main   | 4626e8f | —    | Production (v2.16.0 clean) |
-| dev    | 5ff5470 | main | +3 spec/brainstorm files   |
-| feature/branch-guard-v2 | 5ff5470 | dev | Worktree ready, implementation pending |
+| Branch | Head    | Base | Status                        |
+|--------|---------|------|-------------------------------|
+| main   | 1fa732a | —    | Production (v2.18.0 clean)    |
+| dev    | 01a8bf3 | main | +1 commit (test fixes)        |
 
-✅ Session 2026-02-13 (branch guard v2 design):
-- Deep analysis of branch guard system (proposal: 8 improvement areas, 559 lines)
-- Brainstormed smart guard with 3-tier risk, teaching boxes, fade-to-brief (deep feature mode)
-- Created full spec: SPEC-branch-guard-v2-confirmation-mode (554 lines)
-  - 3-tier risk: LOW (silent note), MEDIUM (teaching box + confirm), HIGH (hard block)
-  - `smart` protection level replaces `block-new-code` on dev
-  - Session counter with fade-to-brief learning (full → brief → minimal)
-  - One-shot marker mechanism for individual command approval
-  - Bash write-through detection for file creation via shell redirection
-  - Teaching box format with 4 suggestion types
-  - Coaching mode design (future Phase 3)
-- Analyzed all 9 craft:git commands for guard relationships
-  - Decision: "hook handles it" — commands stay simple, hook intercepts
-  - New: /craft:git:protect --level/--show/--reset for explicit guard config
-  - Status command gains session counter display
-- Created worktree: ~/.git-worktrees/craft/feature-branch-guard-v2
-- Created ORCHESTRATE-branch-guard-v2.md (3 phases, 10 increments, ~43 new tests)
-- Committed and pushed spec/brainstorm/proposal to dev
+✅ Session 2026-02-14 (test baseline + fixes):
+- Fixed 6 failing branch guard tests for v2 smart mode output format (01a8bf3)
+- Ran full test suite: 1575 passing, 0 failures, 1 skipped
+- No open GitHub issues found
+- Updated test assertions: "BRANCH PROTECTION" → "BRANCH GUARD", "block-new-code" → "smart"
+- Added session counter reset in TestErrorFormatting.setUp() for deterministic verbosity
 
-✅ Session 2026-02-13 (maintenance — earlier):
-- Discovered main was stuck at v2.13.1 — release tags v2.14.0–v2.16.0 only on dev
-- Synced main via PR #66 (189 files, +9,961/-31,807 — mostly orphaned file cleanup)
-- Removed ~40 orphaned working files from main (PHASE*.md, WAVE*.md, IMPLEMENTATION*.md)
-- Fixed broken links in 8 doc files (tutorials, archived specs, internal README)
-- MkDocs build now zero warnings (excluding intentional test-violations.md)
-- Deployed docs site clean (PR #67)
-- Full test suite: 1,076 tests passing, pre-release check green
-- Saved memory note: never use `--delete-branch` on dev→main PRs
+✅ Session 2026-02-14 (v2.18.0 release — earlier):
+- Released v2.18.0: PR #71 merged, GitHub release created, docs deployed
+- Updated /craft:code:release command to delegate to release skill for Craft projects
+- Fixed skill count 21/22 → 23 across 8 files (plugin.json, README, index, REFCARD, QUICK-START, getting-started, init command)
+- All 3 CI workflows green on main (Craft CI, Docs Quality, Deploy Docs)
 
-✅ Session 2026-02-08 (CI fix):
-- Fixed 4 failing CI tests across main and dev (PR #65)
-- Baseline report tests: converted to no-ops (file removed)
-- teach_config: aligned assertion with "before or equal to" message
-- Nav flattened: bumped limit 7→8 for Teaching section
-- Verified actual linting unaffected (runs in docs-quality.yml)
+✅ Session 2026-02-14 (release pipeline enhancements — earlier):
+- Added /craft:check --for release as CI mirror pre-flight (Step 2a)
+- Added README.md and docs/index.md version checks to pre-release-check.sh (check 4/5)
+- Synced release pipeline docs across tutorials, refcards, guides, workflows
+- Trimmed CLAUDE.md from 587 → 155 lines (74% reduction, lean pointer architecture)
+- Fixed orch-flag test to check VERSION-HISTORY.md instead of CLAUDE.md
 
-✅ Session 2026-02-07 (post-release):
-- Released v2.16.0: PR #59 (feature) + PR #60 (release merge)
-- Created docs/commands/git/protect.md and unprotect.md
-- Updated docs/index.md for 108 commands
-- Docs site deployed 3x with all nav warnings resolved
-- Rebased dev onto main, synced hashes (PRs #62, #63)
+✅ Session 2026-02-13 (v2.17.0 release + release skill):
+- Released v2.17.0: PR #70 merged, release pipeline skill + branch guard v2
+- Created /release skill: 10-step pipeline with dry-run mode
+- Added release skill tests (e2e + dogfooding), tutorial, refcard
+- Branch guard v2: 3-tier risk classification, fade-to-brief learning
 
 ✅ v2.16.0 — Teaching Ecosystem + Branch Protection (2026-02-07):
 - Branch protection hooks: scripts/branch-guard.sh PreToolUse hook
 - Protection levels: block-all (main), block-new-code (dev)
-- New commands: /craft:git:protect, /craft:git:unprotect
-- Teaching config normalizer: _normalize_config(), single-day break support
-- 138 branch guard tests (49 unit + 31 e2e + 6 integration + 52 dogfooding)
-- 8 teaching normalization tests
-- Archived 23 specs to docs/specs/_archive/
+- 138 branch guard tests, 8 teaching normalization tests
 - Test count: 1294 → 1432, command count: 106 → 108
-- PR #59 merged, release tagged: https://github.com/Data-Wise/craft/releases/tag/v2.16.0
-- Docs deployed to GitHub Pages
-
-✅ v2.15.0 — Brainstorm v2.5.0: Spec Simplification + Smart Questions (2026-02-06):
-- Brainstorm spec simplification: 1,919 → 312 lines (84% reduction)
-- New: utils/brainstorm_context.py — context-aware smart questions
-- 38 new tests, project-type question extensions (6 types, 12 questions)
-
-✅ v2.14.0 — Unified Formatting Library (2026-02-05):
-- New: scripts/formatting.sh — shared box-drawing, colors, ANSI-aware padding
-- 74 tests, 23 scripts migrated
 
 ---
 
-## Next: v2.17.0 — Smart Branch Guard
+🎯 Next Action:
+A) Start new feature work (language detection, markdownlint expansion, coaching mode) ⚡
+B) Merge test fix commit to main (dev is +1 ahead)
+C) Address any open issues on GitHub
 
-- [ ] Phase 1: Smart protection mode (risk classifier, session counter, teaching boxes, one-shot marker)
-- [ ] Phase 2: Command updates (protect --level, status counter, init smart default, docs cross-refs)
-- [ ] Phase 3: Bash write-through detection (redirect patterns, confirm integration)
-- Worktree: `~/.git-worktrees/craft/feature-branch-guard-v2`
-- Spec: `docs/specs/SPEC-branch-guard-v2-confirmation-mode-2026-02-13.md`
-
-## Future (v2.18.0+)
+## Future (v2.19.0+)
 
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
