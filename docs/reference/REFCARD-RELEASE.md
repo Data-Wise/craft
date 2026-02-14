@@ -135,7 +135,7 @@ The release pipeline automatically handles marketplace distribution:
 
 ## See Also
 
-- [Release Checklist](../../skills/release/references/release-checklist.md) - Per-project-type checklists
+- [Release Checklist](https://github.com/Data-Wise/craft/blob/dev/skills/release/references/release-checklist.md) - Per-project-type checklists
 - [Release Workflow](../workflows/release-workflow.md) - Full workflow documentation
 - [Release Pipeline Tutorial](../tutorials/TUTORIAL-release-pipeline.md) - Step-by-step guide
 - [Branch Guard Reference](REFCARD-BRANCH-GUARD.md) - Branch protection during releases

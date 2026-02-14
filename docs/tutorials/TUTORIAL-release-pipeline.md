@@ -170,5 +170,5 @@ The release skill adapts to your project type:
 ## See Also
 
 - [Release Quick Reference](../reference/REFCARD-RELEASE.md) - Compact reference card
-- [Release Checklist](../../skills/release/references/release-checklist.md) - Detailed per-project checklists
+- [Release Checklist](https://github.com/Data-Wise/craft/blob/dev/skills/release/references/release-checklist.md) - Detailed per-project checklists
 - [Release Workflow](../workflows/release-workflow.md) - Full workflow documentation

@@ -289,7 +289,7 @@ See detailed protection status:
 - Read the [Smart Mode Guide](../guide/branch-guard-smart-mode.md) for detailed risk classification
 - Check the [Quick Reference Card](../reference/REFCARD-BRANCH-GUARD.md) for at-a-glance lookup
 - Learn the [Git Feature Workflow](../workflows/git-feature-workflow.md) that the guard supports
-- Review [Safety Rails](../../commands/git/docs/safety-rails.md) for progressive trust philosophy
+- Review [Safety Rails](https://github.com/Data-Wise/craft/blob/dev/commands/git/docs/safety-rails.md) for progressive trust philosophy
 
 ---
 

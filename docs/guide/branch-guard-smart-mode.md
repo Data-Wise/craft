@@ -343,7 +343,7 @@ Files with other extensions (`.txt`, `.csv`, `.html`, etc.) are allowed without 
 
 ## Relationship to Safety Rails
 
-Smart mode implements the same progressive trust philosophy as the [Safety Rails Guide](../../commands/git/docs/safety-rails.md):
+Smart mode implements the same progressive trust philosophy as the [Safety Rails Guide](https://github.com/Data-Wise/craft/blob/dev/commands/git/docs/safety-rails.md):
 
 | Safety Rails Concept | Smart Mode Implementation |
 |---------------------|--------------------------|
@@ -360,5 +360,5 @@ Smart mode implements the same progressive trust philosophy as the [Safety Rails
 - [/craft:git:protect](../commands/git/protect.md) — Re-enable protection
 - [/craft:git:unprotect](../commands/git/unprotect.md) — Session bypass
 - [/craft:git:status](../commands/git/status.md) — Guard indicator
-- [Safety Rails Guide](../../commands/git/docs/safety-rails.md) — Progressive trust philosophy
+- [Safety Rails Guide](https://github.com/Data-Wise/craft/blob/dev/commands/git/docs/safety-rails.md) — Progressive trust philosophy
 - [Git Feature Workflow](../workflows/git-feature-workflow.md) — How guard fits in the workflow
