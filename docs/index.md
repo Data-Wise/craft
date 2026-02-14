@@ -211,8 +211,8 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **109** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.18.0 — Release Pipeline Enhancements"
-    CI mirror pre-flight (`/craft:check --for release`), README/index version validation in `pre-release-check.sh`, release command delegates to skill, comprehensive docs sync. ~1504 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.19.0 — Marketplace & Insights-Driven Improvements"
+    Marketplace distribution channel, insights-driven improvements (guard audit, insights apply, --context, --swarm, --autonomous), worktree validation. ~1575 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 

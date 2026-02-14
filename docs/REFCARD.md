@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.18.0 (released 2026-02-14)                       │
+│  Version: 2.19.0 (released 2026-02-14)                       │
 │  Commands: 109 | Agents: 8 | Skills: 25                     │
 │  Documentation: 99% complete | Tests: ~1575 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.18.0: Insights-driven improvements, guard audit,         │
-│           insights apply, --autonomous, --context, --swarm    │
+│  v2.19.0: Marketplace distribution, insights-driven          │
+│           improvements, guard audit, --autonomous, --swarm    │
 └─────────────────────────────────────────────────────────────┘
 ```
 

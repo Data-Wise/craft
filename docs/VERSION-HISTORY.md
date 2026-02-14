@@ -2,13 +2,33 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.18.0 (2026-02-14)
-**Total Releases:** 39 versions | **Development Time:** 2+ years
+**Latest Release:** v2.19.0 (2026-02-14)
+**Total Releases:** 40 versions | **Development Time:** 2+ years
 **Community:** 109 commands documented, ~1575 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.19.0 (2026-02-14) - Marketplace & Insights-Driven Improvements
+
+**Status:** Released
+
+**Highlights:**
+
+- **Marketplace Distribution**: First-class `dist:marketplace` command for publishing to Claude Code marketplace (`marketplace.json`)
+- **Insights-Driven Improvements**: Guard audit skill, insights apply skill, autonomous releases, context-only checks
+- **Guard Audit Skill**: 5-step pipeline analyzing branch-guard.sh for false positives (read-only)
+- **Insights Apply Skill**: Extracts CLAUDE.md suggestions from `/insights` reports and applies via sync pipeline
+- **Release `--autonomous` Flag**: Unattended release pipeline with `--admin` safety warnings
+- **Check `--context` Flag**: Context-only mode detecting dev phase without running validators
+- **Worktree `validate` Action**: Health checks for branch tracking, remote sync, and stale detection
+- **Orchestrate `--swarm` Flag**: Unlimited parallel agents for large-scale tasks
+- **PreToolUse Hook**: Python hook warning when file operations target paths outside current worktree
+
+**Stats:** 109 commands | 25 skills | 8 agents | ~1575 tests passing
+
+---
 
 ### v2.18.0 (2026-02-14) - Insights-Driven Improvements
 
