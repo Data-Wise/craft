@@ -4,7 +4,7 @@ Documentation Detector - Identify outdated documentation categories
 
 Detects 9 types of documentation issues:
 1. Version references (craft version in docs)
-2. Command counts (99 commands, 21 skills, etc.)
+2. Command counts (108 commands, 25 skills, etc.)
 3. Broken links (internal documentation)
 4. Stale examples (code snippets that don't match current API)
 5. Missing command documentation (commands without help)
@@ -186,7 +186,7 @@ class DocsDetector:
 
         Searches for patterns like:
         - "99 commands"
-        - "21 skills"
+        - "25 skills"
         - "8 agents"
         """
         if not self.commands_dir.exists():
