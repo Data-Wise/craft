@@ -1,0 +1,9 @@
+{
+  "name": "craft-marketplace",
+  "owner": { "name": "Data-Wise" },
+  "plugins": [{
+    "name": "craft",
+    "source": ".",
+    "description": "Full-stack developer toolkit with integrated workflow automation"
+  }]
+}

@@ -313,6 +313,18 @@ claude plugin update scholar@local-plugins
 
 ---
 
+## Alternative: GitHub Marketplace
+
+If you prefer not to use Homebrew (e.g., on Linux), you can install directly from the GitHub marketplace:
+
+```bash
+claude plugin add github:Data-Wise/craft
+```
+
+This installs the plugin directly into Claude Code without Homebrew. Updates are managed through the Claude Code plugin system instead of `brew upgrade`.
+
+---
+
 ## See Also
 
 - **Quick Start:** [Getting Started](getting-started.md)

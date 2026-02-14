@@ -31,7 +31,14 @@ The Homebrew formula automatically:
 - Makes it available in Claude Code CLI and Claude Desktop
 - No additional configuration needed
 
-### Option 2: Quick Install (curl)
+### Option 2: GitHub Marketplace
+
+```bash
+# Install from the Claude Code plugin marketplace
+claude plugin add github:Data-Wise/craft
+```
+
+### Option 3: Quick Install (curl)
 
 ```bash
 # One-command installation
@@ -40,7 +47,7 @@ curl -fsSL https://raw.githubusercontent.com/Data-Wise/craft/main/install.sh | b
 
 **Then restart Claude Code to load the plugin.**
 
-### Option 3: npm (When published)
+### Option 4: npm (When published)
 
 ```bash
 # Install from npm (after publishing)
@@ -49,7 +56,7 @@ npm install -g @data-wise/claude-craft-plugin
 # Plugin will auto-install to ~/.claude/plugins/craft
 ```
 
-### Option 4: Manual Installation (Local Development)
+### Option 5: Manual Installation (Local Development)
 
 **For Claude Code CLI and Claude Desktop:**
 

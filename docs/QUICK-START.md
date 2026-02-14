@@ -7,7 +7,7 @@
 >
 > - **What:** Get craft plugin installed and verify it works
 > - **Why:** Start automating your development workflow immediately
-> - **How:** Clone to `~/.claude/plugins/craft` then run `/craft:hub`
+> - **How:** Install via Homebrew or `claude plugin add github:Data-Wise/craft`, then run `/craft:hub`
 > - **Next:** Try `/craft:do "your first task"` to see AI routing in action
 
 **108 commands** · **23 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/)
@@ -19,17 +19,21 @@ Get craft running in 30 seconds.
 !!! abstract "Progress: Step 1 of 4"
     Installing the plugin - takes 5 seconds
 
-=== "Claude Code Plugin"
+=== "Homebrew (macOS)"
 
     ```bash
-    # From local marketplace
-    claude plugin install craft@local-plugins
+    brew tap data-wise/tap && brew install craft
     ```
 
-=== "Symlink"
+=== "GitHub Marketplace"
 
     ```bash
-    # Create symlink to development location
+    claude plugin add github:Data-Wise/craft
+    ```
+
+=== "Symlink (Development)"
+
+    ```bash
     ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
     ```
 
