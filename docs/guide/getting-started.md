@@ -16,7 +16,15 @@ Complete guide to using the craft plugin for Claude Code.
 !!! abstract "Progress: Step 1/5"
     Installing craft - choose your method
 
-### Method 1: Homebrew (Recommended - macOS)
+### Method 1: Marketplace (Recommended)
+
+```bash
+claude plugin add github:Data-Wise/craft
+```
+
+Works on all platforms with a single command. See [Marketplace Distribution Guide](marketplace-distribution.md) for details.
+
+### Method 2: Homebrew (macOS)
 
 ```bash
 brew tap data-wise/tap
@@ -24,12 +32,6 @@ brew install craft
 ```
 
 See [Homebrew Installation Guide](homebrew-installation.md) for details on updates and troubleshooting.
-
-### Method 2: GitHub Marketplace
-
-```bash
-claude plugin add github:Data-Wise/craft
-```
 
 ### Method 3: Symlink (Development)
 
