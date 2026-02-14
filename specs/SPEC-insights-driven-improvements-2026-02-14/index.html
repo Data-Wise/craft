@@ -6,11 +6,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.15.0 adds brainstorm spec simplification (84% reduction) and context-aware smart questions.">
+        <meta name="description" content="Full-stack developer toolkit - 109 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/specs/SPEC-branch-guard-v2-confirmation-mode-2026-02-13/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/specs/SPEC-insights-driven-improvements-2026-02-14/">
       
       
       
@@ -23,7 +23,7 @@
     
     
       
-        <title>SPEC: Branch Guard v2 — Smart Protection with Teaching Suggestions - Craft Plugin</title>
+        <title>SPEC: Insights-Driven Command & Skill Improvements - Craft Plugin</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#spec-branch-guard-v2-smart-protection-with-teaching-suggestions" class="md-skip">
+        <a href="#spec-insights-driven-command-skill-improvements" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              SPEC: Branch Guard v2 — Smart Protection with Teaching Suggestions
+              SPEC: Insights-Driven Command &amp; Skill Improvements
             
           </span>
         </div>
@@ -1653,6 +1653,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Insights-Driven Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/insights-improvements-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Insights Improvements Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
@@ -1776,10 +1832,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_20" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_22" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_20" id="__nav_2_4_20_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_22" id="__nav_2_4_22_label" tabindex="0">
             
   
   
@@ -1797,8 +1853,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_20_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_20">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_22">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1971,6 +2027,34 @@
     
   
     --orch Flag Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/marketplace-distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marketplace Distribution
   
 
     
@@ -6431,10 +6515,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#problem-statement" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem Statement
+        Overview
       
     </span>
   </a>
@@ -6442,453 +6526,348 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#goals" class="md-nav__link">
+  <a href="#primary-user-story" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Goals
+        Primary User Story
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#non-goals" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Non-Goals
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Design
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Design">
+    <nav class="md-nav" aria-label="Primary User Story">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#protection-levels" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Protection Levels
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-tier-risk-classification" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3-Tier Risk Classification
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3-Tier Risk Classification">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tier-1-low-risk-silent-allow-brief-note" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tier 1: LOW Risk — Silent Allow + Brief Note
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tier-2-medium-risk-teaching-box-askuserquestion" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tier 2: MEDIUM Risk — Teaching Box + AskUserQuestion
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tier-3-high-risk-hard-block" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tier 3: HIGH Risk — Hard Block
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#confirmation-flow-medium-risk" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Confirmation Flow (Medium Risk)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#teaching-box-format-medium-risk-full-verbosity" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Teaching Box Format (Medium Risk — Full Verbosity)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-suggestion-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4 Suggestion Types
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#message-protocol" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Message Protocol
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#claudes-confirmation-behavior" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Claude's Confirmation Behavior
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#one-shot-marker" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        One-Shot Marker
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#confirmed-actions-matrix" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Confirmed Actions Matrix
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bash-write-through-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bash Write-Through Detection
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#coaching-mode-tool-input-modification-future-phase" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coaching Mode (Tool Input Modification — Future Phase)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#command-relationships-integration-approach" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Command Relationships &amp; Integration Approach
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Command Relationships &amp; Integration Approach">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#integration-decision-hook-handles-it" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Integration Decision: Hook Handles It
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#command-updates-required" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Command Updates Required
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#documentation-updates" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Documentation Updates
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#explicit-guard-configuration-craftgitprotect-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Explicit Guard Configuration (/craft:git:protect --level)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#migration-path-for-existing-projects" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Migration Path for Existing Projects
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#file-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        File Changes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="File Changes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modified-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Modified Files
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#new-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        New Files
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#test-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test Changes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#estimated-test-count-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Estimated Test Count Changes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#backward-compatibility" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backward Compatibility
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Migration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Migration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#for-users-no-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Users (No Config)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#for-users-with-config" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Users (With Config)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#for-users-wanting-explicit-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Users Wanting Explicit Control
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rollout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rollout
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Rollout">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#phase-1-smart-protection-mode-this-spec" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 1: Smart Protection Mode (this spec)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-2-bash-write-through-same-feature-branch" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 2: Bash Write-Through (same feature branch)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#phase-3-coaching-mode-separate-spec-future-version" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Phase 3: Coaching Mode (separate spec, future version)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#acceptance-criteria" class="md-nav__link">
     <span class="md-ellipsis">
       
         Acceptance Criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#secondary-user-stories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Secondary User Stories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integration-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-1-craftcheck-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change 1: /craft:check --context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-2-release-autonomous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change 2: /release --autonomous
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-3-craftgitworktree-validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change 3: /craft:git:worktree --validate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-4-pretooluse-hook-worktree-path-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change 4: PreToolUse Hook — Worktree Path Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-5-craftguardaudit-new-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change 5: /craft:guard:audit (NEW SKILL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-6-craftinsightsapply-new-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change 6: /craft:insights:apply (NEW SKILL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-7-craftorchestrate-swarm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change 7: /craft:orchestrate --swarm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-8-super-command-updates-domd-smart-helpmd-hubmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change 8: Super Command Updates (do.md, smart-help.md, hub.md)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Change 8: Super Command Updates (do.md, smart-help.md, hub.md)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8a-craftdo-routing-table-updates-commandsdomd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8a: /craft:do — Routing Table Updates (commands/do.md)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8b-crafthelp-context-aware-suggestions-commandssmart-helpmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8b: /craft:help — Context-Aware Suggestions (commands/smart-help.md)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8c-crafthub-discovery-hub-updates-commandshubmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8c: /craft:hub — Discovery Hub Updates (commands/hub.md)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Design
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Models
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uiux-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UI/UX Specifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UI/UX Specifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-context-output-check-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Context Output (check --context)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordination-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordination Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Notes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-changes-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Changes Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#count-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Count Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        History
       
     </span>
   </a>
@@ -6912,7 +6891,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/specs/SPEC-branch-guard-v2-confirmation-mode-2026-02-13.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/specs/SPEC-insights-driven-improvements-2026-02-14.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6920,876 +6899,736 @@
   
 
 
-<h1 id="spec-branch-guard-v2-smart-protection-with-teaching-suggestions">SPEC: Branch Guard v2 — Smart Protection with Teaching Suggestions<a class="headerlink" href="#spec-branch-guard-v2-smart-protection-with-teaching-suggestions" title="Permanent link">&para;</a></h1>
-<p><strong>Date:</strong> 2026-02-13
-<strong>Status:</strong> Draft
-<strong>Version:</strong> v2.17.0 target
-<strong>Proposal:</strong> <code>PROPOSAL-branch-guard-improvements.md</code>
-<strong>Brainstorm:</strong> <code>BRAINSTORM-smart-branch-guard-2026-02-13.md</code></p>
-<h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
-<p>The current branch guard on dev uses hard-blocking (exit 2) for risky commands like force push and new code file creation. This creates a "wall" experience where the user must:</p>
+<h1 id="spec-insights-driven-command-skill-improvements">SPEC: Insights-Driven Command &amp; Skill Improvements<a class="headerlink" href="#spec-insights-driven-command-skill-improvements" title="Permanent link">&para;</a></h1>
+<p><strong>Date:</strong> 2026-02-14
+<strong>Status:</strong> Approved
+<strong>Author:</strong> DT + Claude
+<strong>From Brainstorm:</strong> <code>docs/brainstorm/BRAINSTORM-insights-driven-improvements-2026-02-14.md</code></p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Based on the /insights report (97 sessions, 153h, 236 commits over 10 days), update 4 existing commands/skills and create 2 new skills to reduce the top friction patterns: wrong-approach errors (21 events), branch guard false positives (6+ sessions), and repetitive release pipeline interactions (10+ sessions).</p>
+<h2 id="primary-user-story">Primary User Story<a class="headerlink" href="#primary-user-story" title="Permanent link">&para;</a></h2>
+<p><strong>As a</strong> craft user running Claude Code sessions daily,
+<strong>I want</strong> craft commands that automatically front-load context, self-correct during releases, validate worktree paths, and audit branch guard friction,
+<strong>So that</strong> I spend less time course-correcting Claude's wrong approaches and more time on actual development.</p>
+<h3 id="acceptance-criteria">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <code>/craft:check --context</code> outputs session header (worktree, branch, phase, test command)</li>
+<li>[ ] <code>/release --autonomous</code> completes without user prompts (pauses only on fatal errors)</li>
+<li>[ ] <code>/craft:git:worktree --validate</code> verifies CWD matches expected worktree</li>
+<li>[ ] PreToolUse hook warns when writes target wrong directory (main repo vs worktree)</li>
+<li>[ ] <code>/craft:guard:audit</code> generates friction report + proposed config changes</li>
+<li>[ ] <code>/craft:insights:apply</code> extracts CLAUDE.md suggestions from insights report</li>
+<li>[ ] <code>/craft:orchestrate --swarm</code> creates isolated worktrees per agent</li>
+</ul>
+<h2 id="secondary-user-stories">Secondary User Stories<a class="headerlink" href="#secondary-user-stories" title="Permanent link">&para;</a></h2>
+<p><strong>As a</strong> craft user starting a new session in a worktree,
+<strong>I want</strong> <code>/craft:check --context</code> to output the worktree path, branch, and expected test command,
+<strong>So that</strong> Claude has the right context from the start and doesn't write files to the wrong directory.</p>
+<p><strong>As a</strong> craft user releasing a new version,
+<strong>I want</strong> <code>/release --autonomous</code> to auto-detect the version, run checks, create PRs, and merge without me confirming each step,
+<strong>So that</strong> I can kick off a release and only intervene if something actually breaks.</p>
+<p><strong>As a</strong> craft user frustrated by branch guard false positives,
+<strong>I want</strong> <code>/craft:guard:audit</code> to analyze my guard config and tell me which patterns are too aggressive,
+<strong>So that</strong> I can tune the guard without manually reading 740 lines of bash.</p>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<h3 id="integration-map">Integration Map<a class="headerlink" href="#integration-map" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Existing Commands/Skills          New Additions
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>─────────────────────────         ─────────────
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:check                      /craft:guard:audit (NEW SKILL)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  └── --context (NEW FLAG)        /craft:insights:apply (NEW SKILL)
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  └── --for release (existing)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                                  PreToolUse hook update
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>/release                            └── worktree path validation
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  └── --autonomous (NEW FLAG)
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  └── --dry-run (existing)
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>/craft:git:worktree
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  └── --validate (NEW FLAG)
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>  └── create/finish (existing)
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>/craft:orchestrate
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>  └── --swarm (NEW FLAG)
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>  └── --dry-run (existing)
+</span></code></pre></div>
+<h3 id="change-1-craftcheck-context">Change 1: <code>/craft:check --context</code><a class="headerlink" href="#change-1-craftcheck-context" title="Permanent link">&para;</a></h3>
+<p><strong>Integration point:</strong> <code>commands/check.md</code> — add new argument + new behavior section</p>
+<p><strong>Current state:</strong> check.md already detects project type, build tool, worktree status, guard status, git status in Step 0. The <code>--context</code> flag would output ONLY this detection info as a session header — no checks executed.</p>
+<p><strong>What to add to check.md:</strong></p>
 <ol>
-<li>See the block error</li>
-<li>Run <code>/craft:git:unprotect</code> (blanket bypass for everything)</li>
-<li>Retry the command</li>
-<li>Remember to run <code>/craft:git:protect</code> afterward</li>
+<li>New argument in frontmatter:</li>
 </ol>
-<p>This is friction-heavy and the blanket bypass disables ALL protection, not just the specific command. During the 2026-02-13 session, the bypass was left active after maintenance and had to be manually cleaned up.</p>
-<p><strong>User request:</strong> Replace hard-blocking with a <strong>teaching-first protection system</strong> that explains risks, suggests safe alternatives, and gets briefer as the user learns. The guard becomes a coach, not a wall.</p>
-<h2 id="goals">Goals<a class="headerlink" href="#goals" title="Permanent link">&para;</a></h2>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">context</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Output session context header only (no checks)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span></code></pre></div>
 <ol>
-<li><strong>3-tier risk classification</strong> — LOW (silent note), MEDIUM (teaching box + confirm), HIGH (hard block)</li>
-<li><strong>Teaching suggestions</strong> — 4 types: worktree redirect, command rewrite, workflow guidance, risk explanation</li>
-<li><strong>Fade-to-brief learning</strong> — full teaching on first encounter, brief after 3x, minimal after 4x (session-scoped, no persistence)</li>
-<li><strong>Critical file protection</strong> — .env, secrets, .pem, .key files trigger medium-risk confirm</li>
-<li><strong>Bash write-through detection</strong> — catch file creation via shell redirection</li>
-<li><strong>One-shot approval</strong> — auto-consumed marker for individual command approval</li>
-<li>Maintain backward compatibility: <code>block-all</code> on main unchanged</li>
+<li>New section after "Step 0: Show Check Plan":</li>
 </ol>
-<h2 id="non-goals">Non-Goals<a class="headerlink" href="#non-goals" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Changing main branch behavior (stays <code>block-all</code>)</li>
-<li>Interactive prompts inside the hook (hooks can't pause for input)</li>
-<li>Removing <code>/craft:git:unprotect</code> (still available as blanket bypass)</li>
-<li>Persistent memory across sessions (fresh every session by design)</li>
-<li>Performance optimization (25ms per call is adequate)</li>
-</ul>
-<h2 id="design">Design<a class="headerlink" href="#design" title="Permanent link">&para;</a></h2>
-<h3 id="protection-levels">Protection Levels<a class="headerlink" href="#protection-levels" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Protection Levels:
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  block-all       → HIGH risk tier only, no bypass except /craft:git:unprotect (main)
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  smart           → 3-tier system: LOW notes + MEDIUM confirm + HIGH block (dev)
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  block-new-code  → DEPRECATED: alias for smart (backward compat)
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  confirm         → ALIAS: same as smart
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  (empty)         → No protection (feature/*)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>### Context-Only Mode (--context)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>When `--context` is passed, skip all checks. Output only:
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>┌───────────────────────────────────────────────────────────────┐
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│ SESSION CONTEXT                                               │
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>├───────────────────────────────────────────────────────────────┤
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│ Project:   craft (Claude Code plugin)                         │
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│ Branch:    feature/my-feature                                 │
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│ Worktree:  ~/.git-worktrees/craft/feature-my-feature          │
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│ Base:      dev                                                │
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>│ Guard:     Active (smart mode on dev)                         │
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>│ Phase:     implementation (commits ahead of dev: 3)           │
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>│ Tests:     python3 tests/test_craft_plugin.py (1504 passing)  │
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>│ Lint:      npx markdownlint-cli2 &quot;**/*.md&quot;                    │
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>├───────────────────────────────────────────────────────────────┤
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>│ TIP: Front-load this context in prompts to reduce wrong-      │
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>│ approach friction.                                            │
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>└───────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
-<h3 id="3-tier-risk-classification">3-Tier Risk Classification<a class="headerlink" href="#3-tier-risk-classification" title="Permanent link">&para;</a></h3>
-<h4 id="tier-1-low-risk-silent-allow-brief-note">Tier 1: LOW Risk — Silent Allow + Brief Note<a class="headerlink" href="#tier-1-low-risk-silent-allow-brief-note" title="Permanent link">&para;</a></h4>
-<p>Actions that are safe but worth noting. Allowed automatically with a one-line note on first encounter per session.</p>
-<table>
-<thead>
-<tr>
-<th>Action</th>
-<th>Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Edit existing file on dev</td>
-<td><code>[guard] Editing existing file on dev (allowed)</code></td>
-</tr>
-<tr>
-<td>Write new .md on dev</td>
-<td><code>[guard] New markdown on dev (always allowed)</code></td>
-</tr>
-<tr>
-<td>Write to tests/ on dev</td>
-<td><code>[guard] Test files on dev (always allowed)</code></td>
-</tr>
-<tr>
-<td>Write extension-less file</td>
-<td><code>[guard] Extension-less file (allowed): .STATUS</code></td>
-</tr>
-<tr>
-<td><code>git commit</code> on dev</td>
-<td><code>[guard] Commit on dev (allowed)</code></td>
-</tr>
-<tr>
-<td><code>git push</code> (normal) on dev</td>
-<td><code>[guard] Push to dev (allowed)</code></td>
-</tr>
-<tr>
-<td><code>git reset --soft</code></td>
-<td><code>[guard] Soft reset (safe — keeps changes staged)</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Format:</strong> Single line, <code>[guard]</code> prefix, dim color. Shows on first encounter per action type per session, then silent.</p>
-<h4 id="tier-2-medium-risk-teaching-box-askuserquestion">Tier 2: MEDIUM Risk — Teaching Box + AskUserQuestion<a class="headerlink" href="#tier-2-medium-risk-teaching-box-askuserquestion" title="Permanent link">&para;</a></h4>
-<p>Actions that could cause problems but are sometimes intentional. Block with teaching explanation + ask for approval.</p>
-<table>
-<thead>
-<tr>
-<th>Action</th>
-<th>Risk Category</th>
-<th>Teaching Message</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Write new .py/.sh/.js on dev</td>
-<td>Unplanned code</td>
-<td>"New code files on dev should go in a feature branch"</td>
-</tr>
-<tr>
-<td><code>git push --force</code> on dev</td>
-<td>History rewrite</td>
-<td>"Force push overwrites remote history for all collaborators"</td>
-</tr>
-<tr>
-<td><code>git reset --hard</code> on dev</td>
-<td>Work loss</td>
-<td>"Hard reset discards ALL uncommitted changes — no undo"</td>
-</tr>
-<tr>
-<td><code>git checkout -- .</code> on dev</td>
-<td>Work loss</td>
-<td>"Restores all files to last commit — discards all edits"</td>
-</tr>
-<tr>
-<td><code>git restore .</code> on dev</td>
-<td>Work loss</td>
-<td>"Same as checkout -- . — discards uncommitted changes"</td>
-</tr>
-<tr>
-<td><code>git clean -f</code> on dev</td>
-<td>File loss</td>
-<td>"Removes ALL untracked files permanently — no recovery"</td>
-</tr>
-<tr>
-<td><code>git branch -D</code> anywhere</td>
-<td>Branch loss</td>
-<td>"Force-deletes branch even if not merged — commits may be lost"</td>
-</tr>
-<tr>
-<td>Overwrite/delete .env, secrets</td>
-<td>Security</td>
-<td>"Environment file contains sensitive credentials"</td>
-</tr>
-<tr>
-<td>Delete config files (.pem, .key)</td>
-<td>Security</td>
-<td>"Removing credentials file may break authentication"</td>
-</tr>
-</tbody>
-</table>
-<h4 id="tier-3-high-risk-hard-block">Tier 3: HIGH Risk — Hard Block<a class="headerlink" href="#tier-3-high-risk-hard-block" title="Permanent link">&para;</a></h4>
-<p>Actions never allowed without proper workflow. No confirmation path.</p>
-<table>
-<thead>
-<tr>
-<th>Action</th>
-<th>Branch</th>
-<th>Reason</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Any Edit/Write on main</td>
-<td>main</td>
-<td>All changes via PR</td>
-</tr>
-<tr>
-<td><code>git commit</code>/<code>push</code> on main</td>
-<td>main</td>
-<td>All changes via PR</td>
-</tr>
-<tr>
-<td><code>rm -rf .git</code> anywhere</td>
-<td>all</td>
-<td>Catastrophic — destroys entire repo</td>
-</tr>
-<tr>
-<td>Delete <code>.claude/</code> directory</td>
-<td>all</td>
-<td>Destroys guard config and bypass state</td>
-</tr>
-</tbody>
-</table>
-<h3 id="confirmation-flow-medium-risk">Confirmation Flow (Medium Risk)<a class="headerlink" href="#confirmation-flow-medium-risk" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Hook invocation (Edit/Write/Bash)
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    │
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    ├── Check bypass marker (.claude/allow-dev-edit) → ALLOW
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    ├── Check one-shot marker (.claude/allow-once) → ALLOW + consume
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    │
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    ├── Classify action → LOW / MEDIUM / HIGH
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    │
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    ├── LOW:
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    │   ├── Get session counter → first time for this action type?
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    │   │   ├── Yes → stderr &quot;[guard] &lt;note&gt;&quot; (dim)
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    │   │   └── No → silent
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    │   └── Exit 0 (allow)
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    │
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    ├── MEDIUM:
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    │   ├── Get session counter → determine verbosity
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    │   │   ├── 1st time → full teaching box + AskUserQuestion (4 options)
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>    │   │   ├── 2nd-3rd → brief box + AskUserQuestion (3 options)
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>    │   │   └── 4th+ → one-liner + AskUserQuestion (2 options)
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    │   ├── Output [CONFIRM] prefix in stderr
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>    │   └── Exit 2 (block, awaiting user decision via Claude)
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    │
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    └── HIGH:
-</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>        ├── Full block box with workflow steps
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        ├── No [CONFIRM] prefix (not confirmable)
-</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        └── Exit 2 (hard block)
-</span></code></pre></div>
-<h3 id="teaching-box-format-medium-risk-full-verbosity">Teaching Box Format (Medium Risk — Full Verbosity)<a class="headerlink" href="#teaching-box-format-medium-risk-full-verbosity" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>╔═══════════════════════════════════════════════════════════════╗
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>║ BRANCH GUARD — Medium Risk                                    ║
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>╠═══════════════════════════════════════════════════════════════╣
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>║                                                               ║
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>║ Action:  git push --force origin dev                          ║
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>║                                                               ║
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>║ Why risky:                                                    ║
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>║   Force push overwrites remote history. If others have        ║
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>║   pulled from dev, their local copies will diverge.           ║
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>║                                                               ║
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>║ Safe alternatives:                                            ║
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>║   → git push origin dev          (regular push)               ║
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>║   → git push --force-with-lease  (safer — checks remote)     ║
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>║   → Create PR instead of pushing directly                     ║
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>║   → /craft:git:worktree feature/&lt;name&gt;  (isolate changes)    ║
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>║                                                               ║
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>╚═══════════════════════════════════════════════════════════════╝
-</span></code></pre></div>
-<h3 id="4-suggestion-types">4 Suggestion Types<a class="headerlink" href="#4-suggestion-types" title="Permanent link">&para;</a></h3>
-<p>Every medium-risk teaching box includes relevant suggestions from these categories:</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>When Used</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Worktree redirect</strong></td>
-<td>New code on dev</td>
-<td>"Create worktree: <code>/craft:git:worktree feature/&lt;name&gt;</code>"</td>
-</tr>
-<tr>
-<td><strong>Command rewrite</strong></td>
-<td>Risky git command</td>
-<td>"<code>git push origin dev</code> (without --force)"</td>
-</tr>
-<tr>
-<td><strong>Workflow guidance</strong></td>
-<td>Wrong workflow</td>
-<td>"<code>/craft:git:unprotect</code> for bulk maintenance"</td>
-</tr>
-<tr>
-<td><strong>Risk explanation</strong></td>
-<td>Always (first 3 times)</td>
-<td>"Force push overwrites remote history for all collaborators"</td>
-</tr>
-</tbody>
-</table>
-<h3 id="message-protocol">Message Protocol<a class="headerlink" href="#message-protocol" title="Permanent link">&para;</a></h3>
-<p>The <code>[CONFIRM]</code> prefix in stderr signals to Claude that this action is confirmable. High-risk blocks have no prefix.</p>
-<p><strong>Full verbosity (1st encounter):</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[CONFIRM] Force push on dev requires approval.
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Action:    git push --force origin dev
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Risk:      Overwrites remote commit history for all collaborators
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Suggest:   git push origin dev (regular push)
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Suggest:   git push --force-with-lease (safer)
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>Suggest:   /craft:git:worktree feature/&lt;name&gt; (isolate changes)
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>Branch:    dev (smart mode)
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>Verbosity: full (1st encounter)
-</span></code></pre></div>
-<p><strong>Brief verbosity (2nd-3rd encounter):</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[CONFIRM] Force push on dev.
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Action:  git push --force origin dev
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Risk:    Overwrites remote history
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Branch:  dev (smart mode)
-</span></code></pre></div>
-<p><strong>Minimal verbosity (4th+):</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>[CONFIRM] git push --force on dev. Allow?
-</span></code></pre></div>
-<h3 id="claudes-confirmation-behavior">Claude's Confirmation Behavior<a class="headerlink" href="#claudes-confirmation-behavior" title="Permanent link">&para;</a></h3>
-<p>When Claude sees a <code>[CONFIRM]</code> block message, it reads the verbosity level and adapts:</p>
-<p><strong>Full verbosity — 4 options:</strong></p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;questions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&quot;question&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Risk explanation&gt;. Allow &lt;Action&gt;?&quot;</span><span class="p">,</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">&quot;header&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Guard&quot;</span><span class="p">,</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">&quot;multiSelect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">      </span><span class="p">{</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Yes, allow this once&quot;</span><span class="p">,</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;One-shot approval. Guard re-engages on next risky action.&quot;</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">      </span><span class="p">},</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">      </span><span class="p">{</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Use safe alternative&quot;</span><span class="p">,</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;First suggestion from Suggest fields&gt;&quot;</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">      </span><span class="p">},</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">      </span><span class="p">{</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cancel&quot;</span><span class="p">,</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Don&#39;t execute. I&#39;ll rethink the approach.&quot;</span>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">      </span><span class="p">},</span>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">      </span><span class="p">{</span>
-</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">        </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bypass all (/craft:git:unprotect)&quot;</span><span class="p">,</span>
-</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Disable guard for this session. For heavy maintenance.&quot;</span>
-</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">      </span><span class="p">}</span>
-</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">    </span><span class="p">]</span>
-</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">  </span><span class="p">}]</span>
-</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="p">}</span>
-</span></code></pre></div>
-<p><strong>Brief verbosity — 3 options:</strong></p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;questions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">&quot;question&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Action&gt; on &lt;Branch&gt;. Allow?&quot;</span><span class="p">,</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">&quot;header&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Guard&quot;</span><span class="p">,</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">&quot;multiSelect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Yes, allow once&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;One-shot approval.&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cancel&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Don&#39;t execute.&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bypass all&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/craft:git:unprotect for session.&quot;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="p">]</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">  </span><span class="p">}]</span>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="p">}</span>
-</span></code></pre></div>
-<p><strong>Minimal verbosity — 2 options:</strong></p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;questions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">&quot;question&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Action&gt;. Allow?&quot;</span><span class="p">,</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="nt">&quot;header&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Guard&quot;</span><span class="p">,</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="nt">&quot;multiSelect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Yes&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow this one command.&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;No&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cancel.&quot;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="p">]</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">  </span><span class="p">}]</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>After user decision:</p>
-<ul>
-<li><strong>Yes/Allow</strong> → create <code>.claude/allow-once</code> marker, retry the command</li>
-<li><strong>Use safe alternative</strong> → Claude executes the suggested command instead</li>
-<li><strong>Cancel</strong> → Claude explains alternatives in natural language</li>
-<li><strong>Bypass all</strong> → Claude runs <code>/craft:git:unprotect</code></li>
-</ul>
-<h3 id="one-shot-marker">One-Shot Marker<a class="headerlink" href="#one-shot-marker" title="Permanent link">&para;</a></h3>
-<p><strong>File:</strong> <code>.claude/allow-once</code></p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;git push --force&quot;</span><span class="p">,</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;approved_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-02-13T15:00:00Z&quot;</span><span class="p">,</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc-123-def&quot;</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
-</span></code></pre></div>
-<p><strong>Hook logic (checked before <code>smart</code> tier rules):</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nv">ONCE_MARKER</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PROJECT_ROOT</span><span class="si">}</span><span class="s2">/.claude/allow-once&quot;</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ONCE_MARKER</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span>rm<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$ONCE_MARKER</span><span class="s2">&quot;</span><span class="w">   </span><span class="c1"># Consume immediately (one-shot)</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span><span class="w">                  </span><span class="c1"># Allow this single command</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">fi</span>
-</span></code></pre></div>
-<p><strong>Properties:</strong></p>
-<ul>
-<li>Created by Claude after user approval</li>
-<li>Deleted by hook on first use (auto-consumed)</li>
-<li>Contains action description for audit trail</li>
-<li>Session-scoped via session_id (optional validation)</li>
-<li>If session ends without consumption, stale marker is harmless (consumed by next risky command in any session)</li>
-</ul>
-<h3 id="confirmed-actions-matrix">Confirmed Actions Matrix<a class="headerlink" href="#confirmed-actions-matrix" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Action</th>
-<th>On Dev</th>
-<th>On Main</th>
-<th>On Feature</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Write new code file (.py/.sh/.js etc.)</td>
-<td>Confirm</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><code>git push --force</code> / <code>--force-with-lease</code></td>
-<td>Confirm</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><code>git reset --hard</code></td>
-<td>Confirm</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><code>git checkout -- .</code> / <code>git checkout -- &lt;file&gt;</code></td>
-<td>Confirm</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><code>git restore .</code> / <code>git restore &lt;file&gt;</code></td>
-<td>Confirm</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><code>git clean -f</code> / <code>-fd</code> / <code>-fx</code></td>
-<td>Confirm</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><code>git branch -D &lt;branch&gt;</code></td>
-<td>Confirm</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><code>rm -rf .git</code></td>
-<td>Confirm</td>
-<td>Block</td>
-<td>Confirm</td>
-</tr>
-<tr>
-<td>Edit existing file</td>
-<td>Allow</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td>Write new .md file</td>
-<td>Allow</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td>Write to tests/</td>
-<td>Allow</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><code>git commit</code></td>
-<td>Allow</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-<tr>
-<td><code>git push</code> (normal)</td>
-<td>Allow</td>
-<td>Block</td>
-<td>Allow</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Note:</strong> <code>rm -rf .git</code> is confirmed even on feature branches (catastrophic risk).</p>
-<h3 id="bash-write-through-detection">Bash Write-Through Detection<a class="headerlink" href="#bash-write-through-detection" title="Permanent link">&para;</a></h3>
-<p>The Bash handler gains file creation pattern detection for <code>smart</code> mode:</p>
-<p><strong>Patterns to detect:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Redirect operators creating new code files</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>path/file.py<span class="w">          </span><span class="c1"># cat with redirect</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>path/file.py<span class="w">   </span><span class="c1"># echo with redirect</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>path/file.py<span class="w"> </span><span class="c1"># printf with redirect</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>tee<span class="w"> </span>path/file.py<span class="w">            </span><span class="c1"># tee (writes to file)</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>cp<span class="w"> </span>source.py<span class="w"> </span>path/new.py<span class="w">    </span><span class="c1"># copy creating new file</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>mv<span class="w"> </span>source.py<span class="w"> </span>path/new.py<span class="w">    </span><span class="c1"># move creating new file</span>
-</span></code></pre></div>
-<p><strong>Detection regex:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Extract target file from redirect patterns</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">if</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$COMMAND</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-qoE<span class="w"> </span><span class="s1">&#39;(&gt;|tee\s+|cp\s+\S+\s+|mv\s+\S+\s+)(\S+\.(py|sh|js|ts|jsx|tsx|json|yml|yaml|toml|cfg|ini|r|R|zsh))&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="nv">TARGET_FILE</span><span class="o">=</span><span class="s2">&quot;...&quot;</span><span class="w"> </span><span class="c1"># extracted from match</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>!<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$TARGET_FILE</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="c1"># New file via Bash — trigger confirm flow</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span>confirm<span class="w"> </span><span class="s2">&quot;New code file via Bash on dev&quot;</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">  </span><span class="k">fi</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="k">fi</span>
-</span></code></pre></div>
-<p><strong>Limitations (acceptable):</strong></p>
-<ul>
-<li>Multi-line heredocs: <code>cat &lt;&lt; 'EOF' &gt; file.py</code> may not be reliably parsed</li>
-<li>Variable expansion: <code>cat &gt; "$FILE"</code> won't resolve the variable</li>
-<li>Complex pipes: <code>curl ... | python3 &gt; output.py</code> is too ambiguous</li>
-<li>Intentional bypass: someone determined to bypass can always find a way</li>
-</ul>
-<p><strong>Design choice:</strong> Catch the common patterns (80/20 rule), don't try to be exhaustive.</p>
-<h3 id="coaching-mode-tool-input-modification-future-phase">Coaching Mode (Tool Input Modification — Future Phase)<a class="headerlink" href="#coaching-mode-tool-input-modification-future-phase" title="Permanent link">&para;</a></h3>
-<p>Since Claude Code v2.0.10, PreToolUse hooks can modify tool inputs by writing JSON to stdout (exit 0). This enables a "coaching" paradigm where the hook corrects actions instead of blocking them.</p>
-<p><strong>Phase 3 scope (spec only, no implementation):</strong></p>
-<table>
-<thead>
-<tr>
-<th>Scenario</th>
-<th>Current</th>
-<th>Coaching Mode</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Force push on dev</td>
-<td>Block</td>
-<td>Strip <code>--force</code>, continue with regular push</td>
-</tr>
-<tr>
-<td>New .py on dev</td>
-<td>Block</td>
-<td>Show warning, suggest worktree path in message</td>
-</tr>
-<tr>
-<td><code>git reset --hard</code></td>
-<td>Allow (!)</td>
-<td>Strip <code>--hard</code>, continue with <code>git reset</code> (soft)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Implementation approach (future):</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Instead of:</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>block<span class="w"> </span><span class="s2">&quot;Cannot force push&quot;</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Do:</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nv">MODIFIED_COMMAND</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$COMMAND</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/--force//; s/--force-with-lease//; s/-f //&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;{\&quot;tool_input\&quot;: {\&quot;command\&quot;: \&quot;</span><span class="nv">$MODIFIED_COMMAND</span><span class="s2">\&quot;}}&quot;</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[COACHING] Stripped --force flag from push command.&quot;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
-</span></code></pre></div>
-<p><strong>Open questions for coaching mode:</strong></p>
 <ol>
-<li>Should Claude inform the user when a command is silently modified?</li>
-<li>Should coaching be opt-in (config flag) or default?</li>
-<li>Which actions should be coached vs. confirmed vs. blocked?</li>
-<li>Should coaching mode have its own protection level (<code>coach</code>)?</li>
+<li>Phase detection logic:</li>
+<li><code>implementation</code>: commits ahead of base, no PR exists</li>
+<li><code>testing</code>: test files modified recently</li>
+<li><code>pr-prep</code>: all tests pass, branch is clean</li>
+<li><code>release</code>: on dev branch, features merged</li>
 </ol>
-<p>These questions will be resolved in a separate coaching mode spec.</p>
-<h2 id="command-relationships-integration-approach">Command Relationships &amp; Integration Approach<a class="headerlink" href="#command-relationships-integration-approach" title="Permanent link">&para;</a></h2>
-<h3 id="integration-decision-hook-handles-it">Integration Decision: Hook Handles It<a class="headerlink" href="#integration-decision-hook-handles-it" title="Permanent link">&para;</a></h3>
-<p>Commands stay simple — the guard hook intercepts at the PreToolUse level independently. Commands don't need to duplicate guard logic. This means:</p>
-<ul>
-<li><code>git:branch</code> (delete with <code>-D</code>) → hook catches it, triggers confirm</li>
-<li><code>git:sync</code> (force-push for diverged branches) → hook catches <code>--force</code>, triggers confirm</li>
-<li><code>git:clean</code> → uses safe <code>-d</code> delete, no guard interaction needed</li>
-<li><code>git:git-recap</code> → read-only, no guard interaction needed</li>
-<li><code>git:worktree</code> → already has main-block awareness, minimal updates</li>
-</ul>
-<h3 id="command-updates-required">Command Updates Required<a class="headerlink" href="#command-updates-required" title="Permanent link">&para;</a></h3>
+<p><strong>Why this integrates cleanly:</strong> Step 0 already gathers all this info. <code>--context</code> just outputs it and exits early — zero overlap with existing check behavior.</p>
+<h3 id="change-2-release-autonomous">Change 2: <code>/release --autonomous</code><a class="headerlink" href="#change-2-release-autonomous" title="Permanent link">&para;</a></h3>
+<p><strong>Integration point:</strong> <code>skills/release/SKILL.md</code> — add new argument + modify interaction points</p>
+<p><strong>Current interaction points (3):</strong></p>
+<ol>
+<li>Step 1, line 92: "Ask the user to confirm the version before proceeding"</li>
+<li>Step 6, line 179: "use <code>--admin</code> only after user confirmation"</li>
+<li>Error recovery: stop and report</li>
+</ol>
+<p><strong>What <code>--autonomous</code> changes:</strong></p>
 <table>
 <thead>
 <tr>
-<th>Command</th>
-<th>Change</th>
-<th>Priority</th>
+<th>Step</th>
+<th>Normal</th>
+<th>Autonomous</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>commands/git/status.md</code></td>
-<td>Show <code>smart</code> level + session counter (e.g., "Guard: smart (3 confirms)") + pending one-shot marker</td>
-<td>High</td>
+<td>Step 1 (version)</td>
+<td>AskUserQuestion to confirm</td>
+<td>Auto-select from commit analysis, show decision</td>
 </tr>
 <tr>
-<td><code>commands/git/protect.md</code></td>
-<td>Add <code>--level &lt;level&gt;</code> flag, <code>--show</code> flag, <code>--reset</code> flag; change auto-detect <code>block-new-code</code> → <code>smart</code>; add one-shot marker cleanup on re-protect</td>
-<td>High</td>
+<td>Step 2 (pre-flight)</td>
+<td>Same</td>
+<td>Same (fail = abort, no retry)</td>
 </tr>
 <tr>
-<td><code>commands/git/unprotect.md</code></td>
-<td>Document relationship to one-shot markers (unprotect takes priority over one-shot)</td>
-<td>Medium</td>
+<td>Step 3-5 (bump, commit, PR)</td>
+<td>Same</td>
+<td>Same (deterministic)</td>
 </tr>
 <tr>
-<td><code>commands/git/init.md</code></td>
-<td>Set <code>smart</code> as default for dev on new projects; update setup messaging</td>
-<td>Medium</td>
+<td>Step 6 (merge)</td>
+<td>User confirms --admin if blocked</td>
+<td>Auto-use --admin, log the override</td>
 </tr>
 <tr>
-<td><code>commands/git/worktree.md</code></td>
-<td>Cross-reference guard's worktree redirect suggestion</td>
-<td>Low</td>
+<td>Step 7-8 (release, deploy)</td>
+<td>Same</td>
+<td>Same (deterministic)</td>
+</tr>
+<tr>
+<td>Errors</td>
+<td>Stop and report</td>
+<td>Retry once (step-level), then abort with report</td>
 </tr>
 </tbody>
 </table>
-<h3 id="documentation-updates">Documentation Updates<a class="headerlink" href="#documentation-updates" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Change</th>
-<th>Priority</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>commands/git/docs/safety-rails.md</code></td>
-<td>Add cross-reference section: guard's fade-to-brief implements the progressive trust model described in Week 1-4 graduated autonomy</td>
-<td>Medium</td>
-</tr>
-<tr>
-<td><code>commands/git/docs/undo-guide.md</code></td>
-<td>Add note that destructive commands trigger guard confirm on protected branches</td>
-<td>Low</td>
-</tr>
-</tbody>
-</table>
-<h3 id="explicit-guard-configuration-craftgitprotect-level">Explicit Guard Configuration (/craft:git:protect --level)<a class="headerlink" href="#explicit-guard-configuration-craftgitprotect-level" title="Permanent link">&para;</a></h3>
-<p>For existing projects that want to explicitly change protection levels:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># View current config per branch</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>/craft:git:protect<span class="w"> </span>--show
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Change current branch&#39;s protection level</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>/craft:git:protect<span class="w"> </span>--level<span class="w"> </span>smart
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>/craft:git:protect<span class="w"> </span>--level<span class="w"> </span>block-all
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="c1"># Set specific branch</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>/craft:git:protect<span class="w"> </span>--branch<span class="w"> </span>dev<span class="w"> </span>--level<span class="w"> </span>smart
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="c1"># Reset to auto-detect defaults (removes branch-guard.json entry)</span>
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>/craft:git:protect<span class="w"> </span>--reset
+<p><strong>What to add to SKILL.md:</strong></p>
+<ol>
+<li>New argument in frontmatter:</li>
+</ol>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autonomous</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run without user prompts, auto-resolve where possible</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--auto</span>
 </span></code></pre></div>
-<p>This writes/updates <code>.claude/branch-guard.json</code>. Most users never need this — auto-detect handles the common case.</p>
-<h3 id="migration-path-for-existing-projects">Migration Path for Existing Projects<a class="headerlink" href="#migration-path-for-existing-projects" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Scenario</th>
-<th>Mechanism</th>
-<th>User Action Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>No <code>.claude/branch-guard.json</code> (most projects)</td>
-<td>Auto-detect changes <code>block-new-code</code> → <code>smart</code></td>
-<td>None</td>
-</tr>
-<tr>
-<td>Has config with <code>"dev": "block-new-code"</code></td>
-<td>Alias treats it as <code>smart</code></td>
-<td>None</td>
-</tr>
-<tr>
-<td>Wants to change level explicitly</td>
-<td><code>/craft:git:protect --level &lt;level&gt;</code></td>
-<td>Run command</td>
-</tr>
-<tr>
-<td>Wants old hard-block behavior on dev</td>
-<td><code>/craft:git:protect --level block-all</code></td>
-<td>Run command</td>
-</tr>
-</tbody>
-</table>
-<h2 id="file-changes">File Changes<a class="headerlink" href="#file-changes" title="Permanent link">&para;</a></h2>
-<h3 id="modified-files">Modified Files<a class="headerlink" href="#modified-files" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Change</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>scripts/branch-guard.sh</code></td>
-<td>Add <code>smart</code> protection level, 3-tier classifier, session counter, one-shot marker check, expanded Bash detection, teaching box output</td>
-</tr>
-<tr>
-<td><code>scripts/install-branch-guard.sh</code></td>
-<td>Update docs to mention <code>smart</code> level</td>
-</tr>
-<tr>
-<td><code>commands/git/status.md</code></td>
-<td>Show <code>smart</code> level + session counter + pending one-shot marker</td>
-</tr>
-<tr>
-<td><code>commands/git/protect.md</code></td>
-<td>Add <code>--level</code>, <code>--show</code>, <code>--reset</code> flags; change auto-detect to <code>smart</code>; one-shot marker cleanup</td>
-</tr>
-<tr>
-<td><code>commands/git/unprotect.md</code></td>
-<td>Document relationship to one-shot markers</td>
-</tr>
-<tr>
-<td><code>commands/git/init.md</code></td>
-<td>Set <code>smart</code> as default for dev; update setup messaging</td>
-</tr>
-<tr>
-<td><code>commands/git/docs/safety-rails.md</code></td>
-<td>Add cross-reference to guard's progressive trust model</td>
-</tr>
-</tbody>
-</table>
-<h3 id="new-files">New Files<a class="headerlink" href="#new-files" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>(none — all changes are to existing files)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h3 id="test-changes">Test Changes<a class="headerlink" href="#test-changes" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Change</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>tests/test_branch_guard.sh</code></td>
-<td>Update dev tests: block → smart/confirm message format, add one-shot marker tests, add destructive command tests, add session counter tests</td>
-</tr>
-<tr>
-<td><code>tests/test_branch_guard_e2e.sh</code></td>
-<td>Add confirm flow e2e tests (block → approve → retry → allowed), teaching box format tests</td>
-</tr>
-<tr>
-<td><code>tests/test_integration_branch_guard.py</code></td>
-<td>Add confirm flow integration tests, protect --level tests</td>
-</tr>
-<tr>
-<td><code>tests/test_branch_guard_dogfood.py</code></td>
-<td>Update expectations for smart vs. block-new-code</td>
-</tr>
-</tbody>
-</table>
-<h3 id="estimated-test-count-changes">Estimated Test Count Changes<a class="headerlink" href="#estimated-test-count-changes" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Test File</th>
-<th>Current</th>
-<th>Added</th>
-<th>New Total</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Unit tests</td>
-<td>49</td>
-<td>~20 (smart + destructive + counter + teaching box)</td>
-<td>~69</td>
-</tr>
-<tr>
-<td>E2E tests</td>
-<td>31</td>
-<td>~12 (confirm flow + protect --level)</td>
-<td>~43</td>
-</tr>
-<tr>
-<td>Integration</td>
-<td>6</td>
-<td>~6 (confirm flow + config migration)</td>
-<td>~12</td>
-</tr>
-<tr>
-<td>Dogfooding</td>
-<td>52</td>
-<td>~5 (smart expectations)</td>
-<td>~57</td>
-</tr>
-<tr>
-<td><strong>Total</strong></td>
-<td><strong>138</strong></td>
-<td><strong>~43</strong></td>
-<td><strong>~181</strong></td>
-</tr>
-</tbody>
-</table>
-<h2 id="backward-compatibility">Backward Compatibility<a class="headerlink" href="#backward-compatibility" title="Permanent link">&para;</a></h2>
+<ol>
+<li>New section "Autonomous Mode":</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>### Autonomous Mode (--autonomous)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>When --autonomous is passed:
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>- Version: Auto-detect from commits (patch/minor/major). Show
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  the decision but do NOT ask for confirmation.
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>- Branch protection: Auto-use --admin if blocked. Log the override.
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>- Errors: Retry the failing step once. If it fails again, abort
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  and output a full error report.
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>- Still outputs box-drawing progress (not silent).
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>- Still respects --dry-run (--autonomous --dry-run shows what
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>  autonomous mode WOULD do).
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>Approval gates that ALWAYS pause (even in autonomous):
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>- None. Fully autonomous. User trusts the pipeline.
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>Safety: --autonomous refuses to run if working tree is dirty
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>or if the current branch is not dev.
+</span></code></pre></div>
+<p><strong>Why this integrates cleanly:</strong> The 3 interaction points are well-isolated. <code>--autonomous</code> just skips the AskUserQuestion calls and uses defaults. The pipeline structure doesn't change.</p>
+<h3 id="change-3-craftgitworktree-validate">Change 3: <code>/craft:git:worktree --validate</code><a class="headerlink" href="#change-3-craftgitworktree-validate" title="Permanent link">&para;</a></h3>
+<p><strong>Integration point:</strong> <code>commands/git/worktree.md</code> — add new action</p>
+<p><strong>Current actions:</strong> setup, create, move, list, clean, install, finish</p>
+<p><strong>What to add:</strong></p>
+<ol>
+<li>New argument (action value):</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:git:worktree validate    # Verify CWD matches expected worktree
+</span></code></pre></div>
+<ol>
+<li>Validation checks:</li>
+<li>Is CWD inside a git worktree? (<code>git rev-parse --show-toplevel</code>)</li>
+<li>Does the worktree path match <code>~/.git-worktrees/&lt;project&gt;/&lt;branch&gt;</code>?</li>
+<li>Is the branch name consistent with the folder name?</li>
+<li>
+<p>Are there file writes in this session that went outside the worktree?</p>
+</li>
+<li>
+<p>Output:</p>
+</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>┌───────────────────────────────────────────────────────────────┐
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>│ WORKTREE VALIDATION                                           │
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>├───────────────────────────────────────────────────────────────┤
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>│ CWD:       ~/.git-worktrees/craft/feature-auth                │
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>│ Branch:    feature/auth                                       │
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>│ Toplevel:  ~/.git-worktrees/craft/feature-auth                │
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>│ Main repo: ~/projects/dev-tools/craft                         │
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>├───────────────────────────────────────────────────────────────┤
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│ ✅ CWD is inside expected worktree                             │
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>│ ✅ Branch matches folder name                                  │
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>│ ✅ No writes detected outside worktree                         │
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>└───────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<p><strong>Why this integrates cleanly:</strong> It's a new action (like <code>list</code> or <code>clean</code>) that doesn't affect existing actions. Read-only, no confirmation needed.</p>
+<h3 id="change-4-pretooluse-hook-worktree-path-validation">Change 4: PreToolUse Hook — Worktree Path Validation<a class="headerlink" href="#change-4-pretooluse-hook-worktree-path-validation" title="Permanent link">&para;</a></h3>
+<p><strong>Integration point:</strong> <code>.claude-plugin/hooks/pretooluse.py</code> — add worktree check</p>
+<p><strong>Current hook behavior:</strong> The PreToolUse hook in craft runs <code>pretooluse.py</code> which currently tracks tool usage for the HUD. Adding worktree validation here means it runs on EVERY Write/Edit call.</p>
+<p><strong>Logic:</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Only check if we&#39;re in a worktree</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CLAUDE_TOOL_NAME&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;Write&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit&#39;</span><span class="p">):</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">file_path</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CLAUDE_TOOL_INPUT&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;file_path&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">worktree_root</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        <span class="p">[</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;worktree&#39;</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span> <span class="s1">&#39;--porcelain&#39;</span><span class="p">],</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="p">)</span><span class="o">.</span><span class="n">stdout</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="c1"># If current dir is a worktree, check file_path is inside it</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="n">toplevel</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        <span class="p">[</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;rev-parse&#39;</span><span class="p">,</span> <span class="s1">&#39;--show-toplevel&#39;</span><span class="p">],</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>    <span class="p">)</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="k">if</span> <span class="s1">&#39;/.git-worktrees/&#39;</span> <span class="ow">in</span> <span class="n">cwd</span> <span class="ow">and</span> <span class="n">file_path</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">toplevel</span><span class="p">):</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: Writing outside worktree. File: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected: files inside </span><span class="si">{</span><span class="n">toplevel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong>Why this integrates cleanly:</strong> PreToolUse hooks are additive — a new check doesn't break existing checks. The warning is non-blocking (stderr message, not exit code 1).</p>
+<h3 id="change-5-craftguardaudit-new-skill">Change 5: <code>/craft:guard:audit</code> (NEW SKILL)<a class="headerlink" href="#change-5-craftguardaudit-new-skill" title="Permanent link">&para;</a></h3>
+<p><strong>Integration point:</strong> <code>skills/guard-audit/SKILL.md</code> — new file</p>
+<p><strong>Builds on:</strong></p>
+<ul>
+<li><code>scripts/branch-guard.sh</code> (740 lines, the guard itself)</li>
+<li><code>tests/test_branch_guard.sh</code> (94 tests, 1256 lines)</li>
+<li><code>tests/test_branch_guard_e2e.sh</code> (31 tests, 663 lines)</li>
+<li><code>.claude/branch-guard.json</code> (per-project config)</li>
+</ul>
+<p><strong>Skill structure:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>skills/guard-audit/
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>└── SKILL.md
+</span></code></pre></div>
+<p><strong>What it does:</strong></p>
+<ol>
+<li><strong>Discovery:</strong> Read branch-guard.sh, extract all regex patterns and detection rules</li>
+<li><strong>Friction analysis:</strong> For each rule, identify scenarios where it false-positives:</li>
+<li>PR body text containing command strings as documentation</li>
+<li>Force-push on rebased feature branches (not dev/main)</li>
+<li>Write-through detection on variables in paths</li>
+<li>File extension detection on generated files</li>
+<li><strong>Test harness:</strong> Generate 10+ test scenarios and run them:</li>
+<li>Create PR with "git reset --hard" in description (should NOT trigger)</li>
+<li>Force-push a rebased feature branch (should NOT trigger on feature/*)</li>
+<li>Write config file on dev (should allow .json/.yaml)</li>
+<li>etc.</li>
+<li><strong>Report:</strong> Output friction report with proposed config changes</li>
+<li><strong>Apply:</strong> If user approves, update <code>.claude/branch-guard.json</code></li>
+</ol>
+<p><strong>Trigger words:</strong> "audit guard", "guard friction", "tune guard", "guard false positives"</p>
+<h3 id="change-6-craftinsightsapply-new-skill">Change 6: <code>/craft:insights:apply</code> (NEW SKILL)<a class="headerlink" href="#change-6-craftinsightsapply-new-skill" title="Permanent link">&para;</a></h3>
+<p><strong>Integration point:</strong> <code>skills/insights-apply/SKILL.md</code> — new file</p>
+<p><strong>Builds on:</strong></p>
+<ul>
+<li><code>~/.claude/usage-data/report.html</code> (insights report)</li>
+<li><code>~/.claude/usage-data/facets/</code> (structured data)</li>
+<li><code>utils/claude_md_sync.py</code> (4-phase CLAUDE.md sync pipeline)</li>
+<li><code>utils/claude_md_optimizer.py</code> (budget enforcement)</li>
+</ul>
+<p><strong>Skill structure:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>skills/insights-apply/
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>└── SKILL.md
+</span></code></pre></div>
+<p><strong>What it does:</strong></p>
+<ol>
+<li><strong>Parse:</strong> Read insights report, extract <code>claude_md_additions</code> array</li>
+<li><strong>Present:</strong> Show each suggestion with context:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Suggestion 1/4: Branch Guard &amp; Git Hooks
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Source: 6+ sessions with branch guard friction
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>Proposed CLAUDE.md addition:
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>│ ## Branch Guard &amp; Git Hooks                                  │
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>│ - Never include literal destructive git commands in PR        │
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>│   bodies — branch guard hooks will flag them.                │
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>│ - If a branch guard blocks an operation, don&#39;t retry.        │
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>│ - Never force-push to protected branches.                    │
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>└─────────────────────────────────────────────────────────────┘
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>[Apply] [Skip] [Edit first]
+</span></code></pre></div>
+<ol>
+<li><strong>Apply:</strong> Use claude_md_sync.py to insert approved sections</li>
+<li><strong>Budget check:</strong> Run claude_md_optimizer.py to ensure budget compliance</li>
+<li><strong>Report:</strong> Summary of applied/skipped suggestions</li>
+</ol>
+<p><strong>Trigger words:</strong> "apply insights", "insights to rules", "update rules from insights"</p>
+<h3 id="change-7-craftorchestrate-swarm">Change 7: <code>/craft:orchestrate --swarm</code><a class="headerlink" href="#change-7-craftorchestrate-swarm" title="Permanent link">&para;</a></h3>
+<p><strong>Integration point:</strong> <code>commands/orchestrate.md</code> — add new argument + new execution mode</p>
+<p><strong>Current state:</strong> Orchestrate reads ORCHESTRATE files and delegates to agents in waves (parallel groups). All agents run in the SAME directory (forked context).</p>
+<p><strong>What <code>--swarm</code> changes:</strong></p>
 <table>
 <thead>
 <tr>
 <th>Aspect</th>
-<th>Behavior</th>
+<th>Normal</th>
+<th>Swarm</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>block-all</code> on main</td>
-<td>Unchanged — hard block, no [CONFIRM]</td>
+<td>Agent isolation</td>
+<td>Forked context (same dir)</td>
+<td>Separate worktrees</td>
 </tr>
 <tr>
-<td><code>block-new-code</code> in config</td>
-<td>Treated as alias for <code>smart</code></td>
+<td>File conflicts</td>
+<td>Possible (same files)</td>
+<td>Impossible (isolated)</td>
 </tr>
 <tr>
-<td><code>confirm</code> in config</td>
-<td>Treated as alias for <code>smart</code></td>
+<td>Convergence</td>
+<td>Agents return results to main</td>
+<td>Branches merged into feature branch</td>
 </tr>
 <tr>
-<td>Auto-detect (no config)</td>
-<td>Dev gets <code>smart</code> instead of <code>block-new-code</code></td>
+<td>PR</td>
+<td>User creates manually</td>
+<td>Auto-created from merged branch</td>
 </tr>
 <tr>
-<td><code>/craft:git:unprotect</code></td>
-<td>Still works as blanket bypass</td>
-</tr>
-<tr>
-<td><code>.claude/allow-dev-edit</code></td>
-<td>Still checked first (highest priority)</td>
-</tr>
-<tr>
-<td><code>block-new-code</code> in test output</td>
-<td>Updated to <code>smart</code> in messages</td>
-</tr>
-<tr>
-<td>Feature branches</td>
-<td>Unchanged — unrestricted</td>
-</tr>
-<tr>
-<td><code>/craft:git:protect --level</code></td>
-<td>New flag for explicit config (see Command Relationships section)</td>
+<td>Use case</td>
+<td>Research + small changes</td>
+<td>Parallel feature implementation</td>
 </tr>
 </tbody>
 </table>
-<h2 id="migration">Migration<a class="headerlink" href="#migration" title="Permanent link">&para;</a></h2>
-<h3 id="for-users-no-config">For Users (No Config)<a class="headerlink" href="#for-users-no-config" title="Permanent link">&para;</a></h3>
-<p>No action required. Auto-detect changes from <code>block-new-code</code> to <code>smart</code>, which is strictly more capable (teaches + confirms instead of hard block). Applies automatically on next session.</p>
-<h3 id="for-users-with-config">For Users (With Config)<a class="headerlink" href="#for-users-with-config" title="Permanent link">&para;</a></h3>
-<p><code>block-new-code</code> in <code>.claude/branch-guard.json</code> is treated as alias for <code>smart</code>. No action required.</p>
-<h3 id="for-users-wanting-explicit-control">For Users Wanting Explicit Control<a class="headerlink" href="#for-users-wanting-explicit-control" title="Permanent link">&para;</a></h3>
-<p>Use <code>/craft:git:protect --level &lt;level&gt;</code> to explicitly set/change protection per branch. Use <code>--show</code> to view current config. Use <code>--reset</code> to return to auto-detect defaults.</p>
-<h2 id="rollout">Rollout<a class="headerlink" href="#rollout" title="Permanent link">&para;</a></h2>
-<h3 id="phase-1-smart-protection-mode-this-spec">Phase 1: Smart Protection Mode (this spec)<a class="headerlink" href="#phase-1-smart-protection-mode-this-spec" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Add <code>smart</code> protection level with 3-tier risk classification</li>
-<li>Session counter + fade-to-brief learning system</li>
-<li>Teaching box format with 4 suggestion types</li>
-<li>One-shot marker mechanism</li>
-<li>Expanded destructive command detection</li>
-<li>Updated test suite (~43 new tests)</li>
-<li>Backward-compatible <code>block-new-code</code> → <code>smart</code> alias</li>
-<li><code>/craft:git:protect --level/--show/--reset</code> for explicit configuration</li>
-<li>Command updates: status (counter display), protect (--level), init (smart default)</li>
-<li>Documentation cross-references: safety-rails.md → progressive trust</li>
-</ul>
-<h3 id="phase-2-bash-write-through-same-feature-branch">Phase 2: Bash Write-Through (same feature branch)<a class="headerlink" href="#phase-2-bash-write-through-same-feature-branch" title="Permanent link">&para;</a></h3>
-<ul>
-<li>File creation pattern detection in Bash handler</li>
-<li>Integration with confirm flow</li>
-<li>Pattern-specific tests</li>
-</ul>
-<h3 id="phase-3-coaching-mode-separate-spec-future-version">Phase 3: Coaching Mode (separate spec, future version)<a class="headerlink" href="#phase-3-coaching-mode-separate-spec-future-version" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Tool input modification design</li>
-<li>Opt-in configuration</li>
-<li>Separate spec document</li>
-</ul>
-<h2 id="acceptance-criteria">Acceptance Criteria<a class="headerlink" href="#acceptance-criteria" title="Permanent link">&para;</a></h2>
+<p><strong>What to add:</strong></p>
 <ol>
-<li>On dev, risky commands produce <code>[CONFIRM]</code> messages with teaching boxes instead of hard blocks</li>
-<li>Session counter tracks encounters per action type; verbosity fades: full (1st) → brief (2nd-3rd) → minimal (4th+)</li>
-<li>One-shot marker is created by Claude after user approval and consumed by hook on next call</li>
-<li><code>block-all</code> on main is completely unchanged</li>
-<li>All 6 destructive commands (<code>checkout --</code>, <code>restore</code>, <code>clean -f</code>, <code>reset --hard</code>, <code>branch -D</code>, <code>rm -rf .git</code>) trigger confirmation on dev</li>
-<li>Bash write-through patterns (&gt;, tee, cp) detected and routed through confirm flow</li>
-<li><code>block-new-code</code> treated as alias for <code>smart</code> (backward compat)</li>
-<li>Feature branches remain unrestricted</li>
-<li>All existing tests pass (with updated expectations)</li>
-<li>~43 new tests covering confirm flow, teaching boxes, session counter, one-shot markers, destructive commands, protect --level</li>
-<li><code>/craft:git:unprotect</code> still works as blanket bypass</li>
-<li><code>/craft:git:status</code> shows guard level + session counter (e.g., "Guard: smart (3 confirms)")</li>
-<li><code>/craft:git:protect --level</code> allows explicit guard configuration per branch</li>
-<li><code>/craft:git:init</code> uses <code>smart</code> as default for dev on new projects</li>
-<li><code>safety-rails.md</code> cross-references guard's fade-to-brief as implementation of progressive trust</li>
+<li>New argument:</li>
 </ol>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swarm</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run agents in isolated worktrees with branch convergence</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span></code></pre></div>
+<ol>
+<li>Swarm execution flow:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:orchestrate --swarm &quot;implement auth&quot;
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Step 1: Create base worktree branch: feature/swarm-auth
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>Step 2: For each agent in ORCHESTRATE file:
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>  - git worktree add ~/.git-worktrees/&lt;proj&gt;/swarm-&lt;agent&gt; -b swarm-&lt;agent&gt; dev
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>Step 3: Launch agents in parallel (each in its worktree)
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>Step 4: Wait for all agents to complete
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>Step 5: Merge all swarm-* branches into feature/swarm-auth
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>Step 6: Run tests in merged branch
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>Step 7: Create PR to dev
+</span></code></pre></div>
+<ol>
+<li>Swarm ORCHESTRATE format (extended):</li>
+</ol>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gu">## Swarm Configuration</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>| Agent | Worktree | Focus | Files |
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>|-------|----------|-------|-------|
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>| tests | swarm-tests | Write tests | tests/ |
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>| impl | swarm-impl | Implementation | src/ |
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>| docs | swarm-docs | Documentation | docs/, README.md |
+</span></code></pre></div>
+<p><strong>Why this needs careful thought:</strong> Swarm mode is fundamentally different from normal orchestration. Agents in worktrees can't see each other's changes. The convergence merge could have conflicts. This is the highest-complexity change and should be implemented last.</p>
+<h3 id="change-8-super-command-updates-domd-smart-helpmd-hubmd">Change 8: Super Command Updates (do.md, smart-help.md, hub.md)<a class="headerlink" href="#change-8-super-command-updates-domd-smart-helpmd-hubmd" title="Permanent link">&para;</a></h3>
+<p>Three "super commands" route users to other commands/skills. They need awareness of the new skills and flags.</p>
+<h4 id="8a-craftdo-routing-table-updates-commandsdomd">8a: <code>/craft:do</code> — Routing Table Updates (<code>commands/do.md</code>)<a class="headerlink" href="#8a-craftdo-routing-table-updates-commandsdomd" title="Permanent link">&para;</a></h4>
+<p><strong>New routing entries</strong> (add to Task Categories table and routing logic):</p>
+<table>
+<thead>
+<tr>
+<th>Keyword Pattern</th>
+<th>Routes To</th>
+<th>Score</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"audit guard", "guard friction", "tune guard", "guard false positives"</td>
+<td><code>/craft:guard:audit</code></td>
+<td>2 (skill)</td>
+<td>Branch guard frustration detected</td>
+</tr>
+<tr>
+<td>"apply insights", "insights to rules", "update rules from insights"</td>
+<td><code>/craft:insights:apply</code></td>
+<td>2 (skill)</td>
+<td>Insights data exists</td>
+</tr>
+<tr>
+<td>"release" + "--autonomous" or "auto release"</td>
+<td><code>/release --autonomous</code></td>
+<td>4 (skill)</td>
+<td>On dev branch, clean tree</td>
+</tr>
+<tr>
+<td>"check context", "session context"</td>
+<td><code>/craft:check --context</code></td>
+<td>0 (command)</td>
+<td>Session start</td>
+</tr>
+<tr>
+<td>"validate worktree"</td>
+<td><code>/craft:git:worktree validate</code></td>
+<td>0 (command)</td>
+<td>In worktree</td>
+</tr>
+<tr>
+<td>"swarm", "parallel agents" + orchestrate pattern</td>
+<td><code>/craft:orchestrate --swarm</code></td>
+<td>8 (orchestrator)</td>
+<td>ORCHESTRATE file exists</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Agent selection update</strong> (add to Step 3 in Implementation section):</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># New skill-based routing (score 1-3, skill invocation)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">word</span> <span class="ow">in</span> <span class="n">keywords</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;audit&quot;</span><span class="p">,</span> <span class="s2">&quot;guard&quot;</span><span class="p">,</span> <span class="s2">&quot;tune&quot;</span><span class="p">,</span> <span class="s2">&quot;friction&quot;</span><span class="p">]):</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="k">if</span> <span class="s2">&quot;guard&quot;</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">:</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>        <span class="k">return</span> <span class="s2">&quot;skill:guard-audit&quot;</span>  <span class="c1"># Direct skill invocation</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">word</span> <span class="ow">in</span> <span class="n">keywords</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;insights&quot;</span><span class="p">,</span> <span class="s2">&quot;rules&quot;</span><span class="p">]):</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">word</span> <span class="ow">in</span> <span class="n">keywords</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;apply&quot;</span><span class="p">,</span> <span class="s2">&quot;update&quot;</span><span class="p">]):</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>        <span class="k">return</span> <span class="s2">&quot;skill:insights-apply&quot;</span>  <span class="c1"># Direct skill invocation</span>
+</span></code></pre></div>
+<h4 id="8b-crafthelp-context-aware-suggestions-commandssmart-helpmd">8b: <code>/craft:help</code> — Context-Aware Suggestions (<code>commands/smart-help.md</code>)<a class="headerlink" href="#8b-crafthelp-context-aware-suggestions-commandssmart-helpmd" title="Permanent link">&para;</a></h4>
+<p><strong>New state-based suggestions:</strong></p>
+<p><strong>Branch guard friction detected</strong> (guard blocked an operation recently):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Suggested:
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  /craft:guard:audit        Analyze guard config, find false positives
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>  /craft:git:unprotect      Session-scoped bypass (temporary)
+</span></code></pre></div>
+<p><strong>Session start</strong> (new session, no prior context):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Suggested:
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>  /craft:check --context    Front-load session context (branch, worktree, phase)
+</span></code></pre></div>
+<p><strong>In a worktree</strong> (CWD is inside <code>~/.git-worktrees/</code>):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Suggested:
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  /craft:git:worktree validate   Verify worktree path is correct
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  /craft:check --context         Show session context header
+</span></code></pre></div>
+<p><strong>Insights data exists</strong> (<code>~/.claude/usage-data/report.html</code> present):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Suggested:
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  /craft:insights:apply     Apply insights suggestions to CLAUDE.md
+</span></code></pre></div>
+<p><strong>Release preparation</strong> (on dev, features merged):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Suggested:
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>  /release                  Interactive release pipeline
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>  /release --autonomous     Fully automated release (no prompts)
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>  /release -n               Dry-run preview
+</span></code></pre></div>
+<h4 id="8c-crafthub-discovery-hub-updates-commandshubmd">8c: <code>/craft:hub</code> — Discovery Hub Updates (<code>commands/hub.md</code>)<a class="headerlink" href="#8c-crafthub-discovery-hub-updates-commandshubmd" title="Permanent link">&para;</a></h4>
+<p><strong>Count updates:</strong></p>
+<ul>
+<li>Line 73: Change <code>21 Skills</code> → <code>25 Skills</code> (currently shows 21, already behind at 23, will be 25)</li>
+<li>Update Quick Reference header: <code>100 COMMANDS</code> → <code>108 COMMANDS</code></li>
+</ul>
+<p><strong>New entries in Skills section</strong> (currently at line 611):</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Category</th>
+<th>Triggers On</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>guard-audit</code></td>
+<td>DevOps</td>
+<td>Guard friction, false positives, tune guard</td>
+</tr>
+<tr>
+<td><code>insights-apply</code></td>
+<td>Workflow</td>
+<td>Insights report, CLAUDE.md rules, apply suggestions</td>
+</tr>
+<tr>
+<td><code>release</code></td>
+<td>Release</td>
+<td>Release pipeline, version bump, deploy (with <code>--autonomous</code> flag)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>New entries in Quick Reference:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Insights-Driven:
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>  /craft:guard:audit              → Audit guard config, find false positives
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>  /craft:insights:apply           → Apply insights suggestions to CLAUDE.md
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>  /craft:check --context          → Front-load session context
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>  /release --autonomous           → Fully automated release pipeline
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>  /craft:git:worktree validate    → Verify worktree path
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>  /craft:orchestrate --swarm      → Parallel agents in isolated worktrees
+</span></code></pre></div>
+<p><strong>Why these integrate cleanly:</strong> Super commands are discovery/routing layers. Adding new entries doesn't change their behavior for existing routes — it just expands what they know about.</p>
+<h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
+<p>N/A — No API changes. These are CLI commands and skills (markdown-driven).</p>
+<h2 id="data-models">Data Models<a class="headerlink" href="#data-models" title="Permanent link">&para;</a></h2>
+<p>N/A — No new data models. Existing structures (ORCHESTRATE files, branch-guard.json, CLAUDE.md) are reused.</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>git</code> (worktree operations)</li>
+<li><code>gh</code> CLI (PR creation in swarm mode)</li>
+<li><code>python3</code> (PreToolUse hook, claude_md_sync.py)</li>
+<li><code>~/.claude/usage-data/</code> (insights:apply reads this)</li>
+</ul>
+<h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
+<p>All outputs use existing craft box-drawing format (from <code>scripts/formatting.sh</code>). No new visual patterns needed.</p>
+<h3 id="session-context-output-check-context">Session Context Output (check --context)<a class="headerlink" href="#session-context-output-check-context" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>┌───────────────────────────────────────────────────────────────┐
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>│ SESSION CONTEXT                                               │
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>├───────────────────────────────────────────────────────────────┤
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>│ Project:   &lt;name&gt; (&lt;type&gt;)                                    │
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>│ Branch:    &lt;current-branch&gt;                                   │
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>│ Worktree:  &lt;path or &quot;main repo&quot;&gt;                              │
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>│ Base:      &lt;base-branch&gt;                                      │
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>│ Guard:     &lt;status&gt;                                           │
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>│ Phase:     &lt;phase&gt; (commits ahead: N)                         │
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>│ Tests:     &lt;test-command&gt; (N passing)                         │
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>│ Lint:      &lt;lint-command&gt;                                     │
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>└───────────────────────────────────────────────────────────────┘
+</span></code></pre></div>
+<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>~~Should <code>--autonomous</code> have approval gates?~~ <strong>Resolved:</strong> No gates. Fully autonomous. Safety via dirty-tree/wrong-branch checks.</li>
+<li>~~Should <code>/craft:check --context</code> run at SessionStart automatically?~~ <strong>Resolved:</strong> Both — auto-run via SessionStart hook AND available manually for refresh.</li>
+<li>~~Should swarm mode create PRs per agent or merge silently?~~ <strong>Resolved:</strong> Single convergence PR. Merge all agent branches into one, single PR to dev.</li>
+<li>~~Should <code>/craft:guard:audit</code> modify branch-guard.sh or only JSON config?~~ <strong>Resolved:</strong> JSON config only. Never touch the script — tune via <code>.claude/branch-guard.json</code>.</li>
+<li>~~Should insights:apply work cross-project?~~ <strong>Resolved:</strong> Global CLAUDE.md only (insights are cross-project).</li>
+<li>~~Implementation scope?~~ <strong>Resolved:</strong> All 5 phases (full implementation including swarm mode).</li>
+</ol>
+<h2 id="review-checklist">Review Checklist<a class="headerlink" href="#review-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] All new flags default to <code>false</code> (no behavior change for existing users)</li>
+<li>[ ] New skills follow existing SKILL.md format (frontmatter + sections)</li>
+<li>[ ] PreToolUse hook is non-blocking (warning only, not exit 1)</li>
+<li>[ ] Autonomous release still respects <code>--dry-run</code></li>
+<li>[ ] Swarm mode cleans up worktrees after convergence</li>
+<li>[ ] All markdown passes lint</li>
+<li>[ ] Command/skill counts updated in CLAUDE.md, plugin.json, README</li>
+</ul>
+<h2 id="coordination-notes">Coordination Notes<a class="headerlink" href="#coordination-notes" title="Permanent link">&para;</a></h2>
+<p><strong>Release skill overlap:</strong> Both this spec (Change 2: <code>--autonomous</code>) and <code>SPEC-github-marketplace-distribution-2026-02-14.md</code> (Steps 2c, 3, 8.5) modify <code>skills/release/SKILL.md</code>. These touch different sections — no conflict — but should be coordinated to avoid merge conflicts.</p>
+<h2 id="implementation-notes">Implementation Notes<a class="headerlink" href="#implementation-notes" title="Permanent link">&para;</a></h2>
+<h3 id="file-changes-summary">File Changes Summary<a class="headerlink" href="#file-changes-summary" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Action</th>
+<th>Complexity</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>commands/check.md</code></td>
+<td>UPDATE</td>
+<td>Low</td>
+<td>Add <code>--context</code> arg + session header section</td>
+</tr>
+<tr>
+<td><code>skills/release/SKILL.md</code></td>
+<td>UPDATE</td>
+<td>Medium</td>
+<td>Add <code>--autonomous</code> flag + auto-resolve logic</td>
+</tr>
+<tr>
+<td><code>commands/git/worktree.md</code></td>
+<td>UPDATE</td>
+<td>Low</td>
+<td>Add <code>validate</code> action</td>
+</tr>
+<tr>
+<td><code>.claude-plugin/hooks/pretooluse.py</code></td>
+<td>UPDATE</td>
+<td>Medium</td>
+<td>Add worktree path validation</td>
+</tr>
+<tr>
+<td><code>skills/guard-audit/SKILL.md</code></td>
+<td>CREATE</td>
+<td>Medium</td>
+<td>Branch guard audit + tuning</td>
+</tr>
+<tr>
+<td><code>skills/insights-apply/SKILL.md</code></td>
+<td>CREATE</td>
+<td>Medium</td>
+<td>Insights report to CLAUDE.md rules</td>
+</tr>
+<tr>
+<td><code>commands/orchestrate.md</code></td>
+<td>UPDATE</td>
+<td>High</td>
+<td>Add <code>--swarm</code> flag + worktree-per-agent</td>
+</tr>
+<tr>
+<td><code>commands/do.md</code></td>
+<td>UPDATE</td>
+<td>Low</td>
+<td>Add routing for guard:audit, insights:apply, --autonomous</td>
+</tr>
+<tr>
+<td><code>commands/smart-help.md</code></td>
+<td>UPDATE</td>
+<td>Low</td>
+<td>Add context-aware suggestions for new skills</td>
+</tr>
+<tr>
+<td><code>commands/hub.md</code></td>
+<td>UPDATE</td>
+<td>Low</td>
+<td>Update counts (21 → 25 skills), add new entries</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td>UPDATE</td>
+<td>Low</td>
+<td>Version, counts (23 → 25 skills)</td>
+</tr>
+<tr>
+<td><code>.claude-plugin/plugin.json</code></td>
+<td>UPDATE</td>
+<td>Low</td>
+<td>Version if releasing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="implementation-order">Implementation Order<a class="headerlink" href="#implementation-order" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Items</th>
+<th>Dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 (parallel)</td>
+<td>check --context, worktree --validate, worktree hook</td>
+<td>None</td>
+</tr>
+<tr>
+<td>2 (parallel)</td>
+<td>release --autonomous, guard:audit skill</td>
+<td>Phase 1 (context for testing)</td>
+</tr>
+<tr>
+<td>3 (sequential)</td>
+<td>insights:apply skill</td>
+<td>Phase 2 (needs guard:audit to test)</td>
+</tr>
+<tr>
+<td>4 (parallel)</td>
+<td>Super command updates (do.md, smart-help.md, hub.md)</td>
+<td>Phase 1-3 (needs all new skills/flags to exist)</td>
+</tr>
+<tr>
+<td>5 (sequential)</td>
+<td>orchestrate --swarm</td>
+<td>Phase 1-4 (most complex, benefits from others)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="count-impact">Count Impact<a class="headerlink" href="#count-impact" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Commands</td>
+<td>108</td>
+<td>108 (no new commands, just flags)</td>
+</tr>
+<tr>
+<td>Skills</td>
+<td>23</td>
+<td>25 (+guard:audit, +insights:apply)</td>
+</tr>
+<tr>
+<td>Agents</td>
+<td>8</td>
+<td>8 (no new agents)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="history">History<a class="headerlink" href="#history" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-02-14</td>
+<td>Initial spec from deep brainstorm (8 questions + 2 agents)</td>
+</tr>
+<tr>
+<td>2026-02-14</td>
+<td>Added Change 8: Super command updates (do.md, smart-help.md, hub.md)</td>
+</tr>
+<tr>
+<td>2026-02-14</td>
+<td>Resolved all open questions (interactive review). Status → Approved.</td>
+</tr>
+</tbody>
+</table>
 
 
 

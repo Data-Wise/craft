@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.15.0 adds brainstorm spec simplification (84% reduction) and context-aware smart questions.">
+        <meta name="description" content="Full-stack developer toolkit - 109 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
       
       
       
@@ -1653,6 +1653,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Insights-Driven Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/insights-improvements-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Insights Improvements Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
@@ -1776,10 +1832,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_20" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_22" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_20" id="__nav_2_4_20_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_22" id="__nav_2_4_22_label" tabindex="0">
             
   
   
@@ -1797,8 +1853,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_20_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_20">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_22">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1971,6 +2027,34 @@
     
   
     --orch Flag Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/marketplace-distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Marketplace Distribution
   
 
     
@@ -7763,6 +7847,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#craftdistmarketplace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:dist:marketplace
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -10648,7 +10743,7 @@
 <li><strong><a href="#code-commands">Code Commands</a></strong> (12 commands) - Development workflows</li>
 <li><strong><a href="#cicd-commands">CI/CD Commands</a></strong> (3 commands) - Continuous integration</li>
 <li><strong><a href="#check-commands">Check Commands</a></strong> (1 command) - Pre-flight validation</li>
-<li><strong><a href="#distribution-commands">Distribution Commands</a></strong> (3 commands) - Release &amp; packaging</li>
+<li><strong><a href="#distribution-commands">Distribution Commands</a></strong> (4 commands) - Release &amp; packaging</li>
 <li><strong><a href="#documentation-commands">Documentation Commands</a></strong> (19 commands) - Docs &amp; tutorials</li>
 <li><strong><a href="#git-commands">Git Commands</a></strong> (11 commands) - Version control workflows</li>
 <li><strong><a href="#plan-commands">Plan Commands</a></strong> (3 commands) - Project planning</li>
@@ -12069,6 +12164,16 @@
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/dist/curl-install.md</code></p>
 <hr />
+<h3 id="craftdistmarketplace">/craft:dist:marketplace<a class="headerlink" href="#craftdistmarketplace" title="Permanent link">&para;</a></h3>
+<p>Marketplace distribution management — init, validate, test, publish.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>/craft:dist:marketplace<span class="w">              </span><span class="c1"># Validate (default)</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>/craft:dist:marketplace<span class="w"> </span>init<span class="w">         </span><span class="c1"># Generate marketplace.json</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>/craft:dist:marketplace<span class="w"> </span><span class="nb">test</span><span class="w">         </span><span class="c1"># Local install/uninstall cycle</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>/craft:dist:marketplace<span class="w"> </span>publish<span class="w">      </span><span class="c1"># Push for marketplace availability</span>
+</span></code></pre></div>
+<p><strong>Subcommands:</strong> init, validate (default), test, publish
+<strong>Integration:</strong> <code>/release</code> auto-bumps marketplace.json version</p>
+<hr />
 <h2 id="documentation-commands">Documentation Commands<a class="headerlink" href="#documentation-commands" title="Permanent link">&para;</a></h2>
 <p>Documentation generation, maintenance, and publication.</p>
 <h3 id="craftdocsapi">/craft:docs:api<a class="headerlink" href="#craftdocsapi" title="Permanent link">&para;</a></h3>
@@ -12103,8 +12208,8 @@
 </tbody>
 </table>
 <h4 id="examples_29">Examples<a class="headerlink" href="#examples_29" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>/craft:docs:api
-</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>/craft:docs:api<span class="w"> </span>swagger<span class="w"> </span>--output<span class="w"> </span>api-spec.yaml
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>/craft:docs:api
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>/craft:docs:api<span class="w"> </span>swagger<span class="w"> </span>--output<span class="w"> </span>api-spec.yaml
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/api.md</code></p>
 <hr />
@@ -12147,9 +12252,9 @@
 </tbody>
 </table>
 <h4 id="examples_30">Examples<a class="headerlink" href="#examples_30" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>/craft:docs:changelog
-</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>/craft:docs:changelog<span class="w"> </span>--from<span class="w"> </span>v1.0.0<span class="w"> </span>--to<span class="w"> </span>v1.1.0
-</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>/craft:docs:changelog<span class="w"> </span>--format<span class="w"> </span>json
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>/craft:docs:changelog
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>/craft:docs:changelog<span class="w"> </span>--from<span class="w"> </span>v1.0.0<span class="w"> </span>--to<span class="w"> </span>v1.1.0
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>/craft:docs:changelog<span class="w"> </span>--format<span class="w"> </span>json
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/changelog.md</code></p>
 <hr />
@@ -12185,9 +12290,9 @@
 </tbody>
 </table>
 <h4 id="examples_31">Examples<a class="headerlink" href="#examples_31" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>/craft:docs:check-links
-</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>/craft:docs:check-links<span class="w"> </span>--external
-</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>/craft:docs:check-links<span class="w"> </span>--fix
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>/craft:docs:check-links
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>/craft:docs:check-links<span class="w"> </span>--external
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>/craft:docs:check-links<span class="w"> </span>--fix
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/check-links.md</code></p>
 <hr />
@@ -12216,8 +12321,8 @@
 </tbody>
 </table>
 <h4 id="examples_32">Examples<a class="headerlink" href="#examples_32" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>/craft:docs:check
-</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>/craft:docs:check<span class="w"> </span>--strict
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>/craft:docs:check
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>/craft:docs:check<span class="w"> </span>--strict
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/check.md</code></p>
 <hr />
@@ -12246,8 +12351,8 @@
 </tbody>
 </table>
 <h4 id="examples_33">Examples<a class="headerlink" href="#examples_33" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>/craft:docs:claude-md
-</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>/craft:docs:claude-md<span class="w"> </span>--sync
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>/craft:docs:claude-md
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>/craft:docs:claude-md<span class="w"> </span>--sync
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/claude-md.md</code></p>
 <hr />
@@ -12276,8 +12381,8 @@
 </tbody>
 </table>
 <h4 id="examples_34">Examples<a class="headerlink" href="#examples_34" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>/craft:docs:demo
-</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>/craft:docs:demo<span class="w"> </span>feature
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>/craft:docs:demo
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>/craft:docs:demo<span class="w"> </span>feature
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/demo.md</code></p>
 <hr />
@@ -12313,8 +12418,8 @@
 </tbody>
 </table>
 <h4 id="examples_35">Examples<a class="headerlink" href="#examples_35" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>/craft:docs:guide<span class="w"> </span><span class="s2">&quot;setting up authentication&quot;</span>
-</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>/craft:docs:guide<span class="w"> </span><span class="s2">&quot;advanced testing&quot;</span><span class="w"> </span>intermediate
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>/craft:docs:guide<span class="w"> </span><span class="s2">&quot;setting up authentication&quot;</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>/craft:docs:guide<span class="w"> </span><span class="s2">&quot;advanced testing&quot;</span><span class="w"> </span>intermediate
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/guide.md</code></p>
 <hr />
@@ -12343,8 +12448,8 @@
 </tbody>
 </table>
 <h4 id="examples_36">Examples<a class="headerlink" href="#examples_36" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>/craft:docs:help
-</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>/craft:docs:help<span class="w"> </span>--no-examples
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>/craft:docs:help
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>/craft:docs:help<span class="w"> </span>--no-examples
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/help.md</code></p>
 <hr />
@@ -12373,8 +12478,8 @@
 </tbody>
 </table>
 <h4 id="examples_37">Examples<a class="headerlink" href="#examples_37" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>/craft:docs:lint
-</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>/craft:docs:lint<span class="w"> </span>--fix
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>/craft:docs:lint
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>/craft:docs:lint<span class="w"> </span>--fix
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/lint.md</code></p>
 <hr />
@@ -12410,8 +12515,8 @@
 </tbody>
 </table>
 <h4 id="examples_38">Examples<a class="headerlink" href="#examples_38" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>/craft:docs:mermaid<span class="w"> </span>flowchart
-</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>/craft:docs:mermaid<span class="w"> </span>sequence<span class="w"> </span>--interactive
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>/craft:docs:mermaid<span class="w"> </span>flowchart
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>/craft:docs:mermaid<span class="w"> </span>sequence<span class="w"> </span>--interactive
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/mermaid.md</code></p>
 <hr />
@@ -12440,8 +12545,8 @@
 </tbody>
 </table>
 <h4 id="examples_39">Examples<a class="headerlink" href="#examples_39" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>/craft:docs:nav-update
-</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>/craft:docs:nav-update<span class="w"> </span>--manual
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>/craft:docs:nav-update
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>/craft:docs:nav-update<span class="w"> </span>--manual
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/nav-update.md</code></p>
 <hr />
@@ -12470,8 +12575,8 @@
 </tbody>
 </table>
 <h4 id="examples_40">Examples<a class="headerlink" href="#examples_40" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>/craft:docs:prompt<span class="w"> </span><span class="s2">&quot;write API reference for authentication&quot;</span>
-</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>/craft:docs:prompt<span class="w"> </span><span class="s2">&quot;create getting started guide&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>/craft:docs:prompt<span class="w"> </span><span class="s2">&quot;write API reference for authentication&quot;</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>/craft:docs:prompt<span class="w"> </span><span class="s2">&quot;create getting started guide&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/prompt.md</code></p>
 <hr />
@@ -12500,8 +12605,8 @@
 </tbody>
 </table>
 <h4 id="examples_41">Examples<a class="headerlink" href="#examples_41" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>/craft:docs:quickstart<span class="w"> </span><span class="s2">&quot;setting up a new project&quot;</span>
-</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>/craft:docs:quickstart<span class="w"> </span><span class="s2">&quot;deploying to production&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>/craft:docs:quickstart<span class="w"> </span><span class="s2">&quot;setting up a new project&quot;</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>/craft:docs:quickstart<span class="w"> </span><span class="s2">&quot;deploying to production&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/quickstart.md</code></p>
 <hr />
@@ -12530,10 +12635,10 @@
 </tbody>
 </table>
 <h4 id="examples_42">Examples<a class="headerlink" href="#examples_42" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>/craft:docs:site<span class="w"> </span>build
-</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>/craft:docs:site<span class="w"> </span>deploy
-</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>/craft:docs:site<span class="w"> </span>preview
-</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>/craft:docs:site<span class="w"> </span>serve
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>/craft:docs:site<span class="w"> </span>build
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>/craft:docs:site<span class="w"> </span>deploy
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>/craft:docs:site<span class="w"> </span>preview
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>/craft:docs:site<span class="w"> </span>serve
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/site.md</code></p>
 <hr />
@@ -12562,8 +12667,8 @@
 </tbody>
 </table>
 <h4 id="examples_43">Examples<a class="headerlink" href="#examples_43" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>/craft:docs:sync
-</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>/craft:docs:sync<span class="w"> </span>--fix
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>/craft:docs:sync
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>/craft:docs:sync<span class="w"> </span>--fix
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/sync.md</code></p>
 <hr />
@@ -12599,8 +12704,8 @@
 </tbody>
 </table>
 <h4 id="examples_44">Examples<a class="headerlink" href="#examples_44" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>/craft:docs:tutorial<span class="w"> </span><span class="s2">&quot;authentication workflow&quot;</span>
-</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>/craft:docs:tutorial<span class="w"> </span><span class="s2">&quot;testing best practices&quot;</span><span class="w"> </span>--interactive
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>/craft:docs:tutorial<span class="w"> </span><span class="s2">&quot;authentication workflow&quot;</span>
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>/craft:docs:tutorial<span class="w"> </span><span class="s2">&quot;testing best practices&quot;</span><span class="w"> </span>--interactive
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/tutorial.md</code></p>
 <hr />
@@ -12636,9 +12741,9 @@
 </tbody>
 </table>
 <h4 id="examples_45">Examples<a class="headerlink" href="#examples_45" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>/craft:docs:update
-</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>/craft:docs:update<span class="w"> </span>--all
-</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>/craft:docs:update<span class="w"> </span>--field<span class="w"> </span>version
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>/craft:docs:update
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>/craft:docs:update<span class="w"> </span>--all
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>/craft:docs:update<span class="w"> </span>--field<span class="w"> </span>version
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/update.md</code></p>
 <hr />
@@ -12667,8 +12772,8 @@
 </tbody>
 </table>
 <h4 id="examples_46">Examples<a class="headerlink" href="#examples_46" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>/craft:docs:workflow<span class="w"> </span><span class="s2">&quot;feature development&quot;</span>
-</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>/craft:docs:workflow<span class="w"> </span><span class="s2">&quot;release process&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>/craft:docs:workflow<span class="w"> </span><span class="s2">&quot;feature development&quot;</span>
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>/craft:docs:workflow<span class="w"> </span><span class="s2">&quot;release process&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/workflow.md</code></p>
 <hr />
@@ -12697,8 +12802,8 @@
 </tbody>
 </table>
 <h4 id="examples_47">Examples<a class="headerlink" href="#examples_47" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>/craft:docs:website<span class="w"> </span>init
-</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>/craft:docs:website<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;new section&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>/craft:docs:website<span class="w"> </span>init
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>/craft:docs:website<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;new section&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/docs/website.md</code></p>
 <hr />
@@ -12736,9 +12841,9 @@
 </tbody>
 </table>
 <h4 id="examples_48">Examples<a class="headerlink" href="#examples_48" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>/craft:git:init
-</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>/craft:git:init<span class="w"> </span>monorepo
-</span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>/craft:git:init<span class="w"> </span>--no-hooks
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>/craft:git:init
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>/craft:git:init<span class="w"> </span>monorepo
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>/craft:git:init<span class="w"> </span>--no-hooks
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/git/init.md</code></p>
 <hr />
@@ -12774,8 +12879,8 @@
 </tbody>
 </table>
 <h4 id="examples_49">Examples<a class="headerlink" href="#examples_49" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>/craft:git:status
-</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>/craft:git:status<span class="w"> </span>--detailed
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>/craft:git:status
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>/craft:git:status<span class="w"> </span>--detailed
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/git/status.md</code></p>
 <hr />
@@ -12818,9 +12923,9 @@
 </tbody>
 </table>
 <h4 id="examples_50">Examples<a class="headerlink" href="#examples_50" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>/craft:git:sync
-</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>/craft:git:sync<span class="w"> </span>--dry-run
-</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>/craft:git:sync<span class="w"> </span>--no-rebase
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>/craft:git:sync
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>/craft:git:sync<span class="w"> </span>--dry-run
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>/craft:git:sync<span class="w"> </span>--no-rebase
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/git/sync.md</code></p>
 <hr />
@@ -12863,9 +12968,9 @@
 </tbody>
 </table>
 <h4 id="examples_51">Examples<a class="headerlink" href="#examples_51" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>/craft:git:branch<span class="w"> </span>create<span class="w"> </span>my-feature
-</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>/craft:git:branch<span class="w"> </span>list
-</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>/craft:git:branch<span class="w"> </span>delete<span class="w"> </span>old-branch
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>/craft:git:branch<span class="w"> </span>create<span class="w"> </span>my-feature
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>/craft:git:branch<span class="w"> </span>list
+</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>/craft:git:branch<span class="w"> </span>delete<span class="w"> </span>old-branch
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/git/branch.md</code></p>
 <hr />
@@ -12908,10 +13013,10 @@
 </tbody>
 </table>
 <h4 id="examples_52">Examples<a class="headerlink" href="#examples_52" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>/craft:git:worktree<span class="w"> </span>setup
-</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/auth
-</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>/craft:git:worktree<span class="w"> </span>list
-</span><span id="__span-57-4"><a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a>/craft:git:worktree<span class="w"> </span>finish
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>/craft:git:worktree<span class="w"> </span>setup
+</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/auth
+</span><span id="__span-58-3"><a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>/craft:git:worktree<span class="w"> </span>list
+</span><span id="__span-58-4"><a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>/craft:git:worktree<span class="w"> </span>finish
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/git/worktree.md</code></p>
 <hr />
@@ -12947,9 +13052,9 @@
 </tbody>
 </table>
 <h4 id="examples_53">Examples<a class="headerlink" href="#examples_53" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>/craft:git:clean
-</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>/craft:git:clean<span class="w"> </span>--dry-run
-</span><span id="__span-58-3"><a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>/craft:git:clean<span class="w"> </span>--remote
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>/craft:git:clean
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>/craft:git:clean<span class="w"> </span>--dry-run
+</span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a>/craft:git:clean<span class="w"> </span>--remote
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/git/clean.md</code></p>
 <hr />
@@ -12985,8 +13090,8 @@
 </tbody>
 </table>
 <h4 id="examples_54">Examples<a class="headerlink" href="#examples_54" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>/craft:git:git-recap
-</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>/craft:git:git-recap<span class="w"> </span>branching<span class="w"> </span>--interactive
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>/craft:git:git-recap
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>/craft:git:git-recap<span class="w"> </span>branching<span class="w"> </span>--interactive
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/git/git-recap.md</code></p>
 <hr />
@@ -13021,10 +13126,10 @@
 </tbody>
 </table>
 <h4 id="examples_55">Examples<a class="headerlink" href="#examples_55" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>/craft:git:docs<span class="w"> </span>learning-guide
-</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>/craft:git:docs<span class="w"> </span>refcard
-</span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a>/craft:git:docs<span class="w"> </span>safety-rails
-</span><span id="__span-60-4"><a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a>/craft:git:docs<span class="w"> </span>undo-guide
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>/craft:git:docs<span class="w"> </span>learning-guide
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>/craft:git:docs<span class="w"> </span>refcard
+</span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a>/craft:git:docs<span class="w"> </span>safety-rails
+</span><span id="__span-61-4"><a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a>/craft:git:docs<span class="w"> </span>undo-guide
 </span></code></pre></div>
 <p><strong>Files</strong>: <code>commands/git/docs/*.md</code></p>
 <hr />
@@ -13069,8 +13174,8 @@
 </tbody>
 </table>
 <h4 id="examples_56">Examples<a class="headerlink" href="#examples_56" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;user authentication&quot;</span>
-</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;payment integration&quot;</span><span class="w"> </span>--timeline<span class="w"> </span>urgent<span class="w"> </span>--scope<span class="w"> </span>large
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;user authentication&quot;</span>
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;payment integration&quot;</span><span class="w"> </span>--timeline<span class="w"> </span>urgent<span class="w"> </span>--scope<span class="w"> </span>large
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/plan/feature.md</code></p>
 <hr />
@@ -13106,8 +13211,8 @@
 </tbody>
 </table>
 <h4 id="examples_57">Examples<a class="headerlink" href="#examples_57" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>/craft:plan:sprint
-</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>/craft:plan:sprint<span class="w"> </span>2w<span class="w"> </span>--capacity<span class="w"> </span><span class="m">80</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>/craft:plan:sprint
+</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>/craft:plan:sprint<span class="w"> </span>2w<span class="w"> </span>--capacity<span class="w"> </span><span class="m">80</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/plan/sprint.md</code></p>
 <hr />
@@ -13143,8 +13248,8 @@
 </tbody>
 </table>
 <h4 id="examples_58">Examples<a class="headerlink" href="#examples_58" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>/craft:plan:roadmap
-</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>/craft:plan:roadmap<span class="w"> </span>--horizon<span class="w"> </span>2y<span class="w"> </span>--format<span class="w"> </span>swimlanes
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>/craft:plan:roadmap
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>/craft:plan:roadmap<span class="w"> </span>--horizon<span class="w"> </span>2y<span class="w"> </span>--format<span class="w"> </span>swimlanes
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/plan/roadmap.md</code></p>
 <hr />
@@ -13182,9 +13287,9 @@
 </tbody>
 </table>
 <h4 id="examples_59">Examples<a class="headerlink" href="#examples_59" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>/craft:site:init
-</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>/craft:site:init<span class="w"> </span>hugo
-</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>/craft:site:init<span class="w"> </span>mkdocs<span class="w"> </span>--theme<span class="w"> </span>material
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>/craft:site:init
+</span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>/craft:site:init<span class="w"> </span>hugo
+</span><span id="__span-65-3"><a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a>/craft:site:init<span class="w"> </span>mkdocs<span class="w"> </span>--theme<span class="w"> </span>material
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/init.md</code></p>
 <hr />
@@ -13220,8 +13325,8 @@
 </tbody>
 </table>
 <h4 id="examples_60">Examples<a class="headerlink" href="#examples_60" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>/craft:site:build
-</span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>/craft:site:build<span class="w"> </span>--production<span class="w"> </span>--minify
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>/craft:site:build
+</span><span id="__span-66-2"><a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a>/craft:site:build<span class="w"> </span>--production<span class="w"> </span>--minify
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/build.md</code></p>
 <hr />
@@ -13257,9 +13362,9 @@
 </tbody>
 </table>
 <h4 id="examples_61">Examples<a class="headerlink" href="#examples_61" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>/craft:site:preview
-</span><span id="__span-66-2"><a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a>/craft:site:preview<span class="w"> </span>--port<span class="w"> </span><span class="m">3000</span>
-</span><span id="__span-66-3"><a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a>/craft:site:preview<span class="w"> </span>--no-watch
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>/craft:site:preview
+</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>/craft:site:preview<span class="w"> </span>--port<span class="w"> </span><span class="m">3000</span>
+</span><span id="__span-67-3"><a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a>/craft:site:preview<span class="w"> </span>--no-watch
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/preview.md</code></p>
 <hr />
@@ -13295,9 +13400,9 @@
 </tbody>
 </table>
 <h4 id="examples_62">Examples<a class="headerlink" href="#examples_62" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>/craft:site:deploy
-</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>/craft:site:deploy<span class="w"> </span>netlify
-</span><span id="__span-67-3"><a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a>/craft:site:deploy<span class="w"> </span>s3<span class="w"> </span>--dry-run
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>/craft:site:deploy
+</span><span id="__span-68-2"><a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a>/craft:site:deploy<span class="w"> </span>netlify
+</span><span id="__span-68-3"><a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a>/craft:site:deploy<span class="w"> </span>s3<span class="w"> </span>--dry-run
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/deploy.md</code></p>
 <hr />
@@ -13326,8 +13431,8 @@
 </tbody>
 </table>
 <h4 id="examples_63">Examples<a class="headerlink" href="#examples_63" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>/craft:site:publish
-</span><span id="__span-68-2"><a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a>/craft:site:publish<span class="w"> </span>--skip-build
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>/craft:site:publish
+</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a>/craft:site:publish<span class="w"> </span>--skip-build
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/publish.md</code></p>
 <hr />
@@ -13363,8 +13468,8 @@
 </tbody>
 </table>
 <h4 id="examples_64">Examples<a class="headerlink" href="#examples_64" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>/craft:site:add<span class="w"> </span>docs/guides/getting-started
-</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a>/craft:site:add<span class="w"> </span>blog/post<span class="w"> </span>--template<span class="w"> </span>post
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>/craft:site:add<span class="w"> </span>docs/guides/getting-started
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>/craft:site:add<span class="w"> </span>blog/post<span class="w"> </span>--template<span class="w"> </span>post
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/add.md</code></p>
 <hr />
@@ -13393,8 +13498,8 @@
 </tbody>
 </table>
 <h4 id="examples_65">Examples<a class="headerlink" href="#examples_65" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>/craft:site:check
-</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>/craft:site:check<span class="w"> </span>--strict
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>/craft:site:check
+</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>/craft:site:check<span class="w"> </span>--strict
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/check.md</code></p>
 <hr />
@@ -13423,8 +13528,8 @@
 </tbody>
 </table>
 <h4 id="examples_66">Examples<a class="headerlink" href="#examples_66" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>/craft:site:update
-</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>/craft:site:update<span class="w"> </span>--dry-run
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>/craft:site:update
+</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>/craft:site:update<span class="w"> </span>--dry-run
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/update.md</code></p>
 <hr />
@@ -13453,8 +13558,8 @@
 </tbody>
 </table>
 <h4 id="examples_67">Examples<a class="headerlink" href="#examples_67" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>/craft:site:status
-</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>/craft:site:status<span class="w"> </span>--details
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>/craft:site:status
+</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>/craft:site:status<span class="w"> </span>--details
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/status.md</code></p>
 <hr />
@@ -13483,8 +13588,8 @@
 </tbody>
 </table>
 <h4 id="examples_68">Examples<a class="headerlink" href="#examples_68" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>/craft:site:progress
-</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>/craft:site:progress<span class="w"> </span>--breakdown
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>/craft:site:progress
+</span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>/craft:site:progress<span class="w"> </span>--breakdown
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/progress.md</code></p>
 <hr />
@@ -13520,8 +13625,8 @@
 </tbody>
 </table>
 <h4 id="examples_69">Examples<a class="headerlink" href="#examples_69" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>/craft:site:audit
-</span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>/craft:site:audit<span class="w"> </span>--external<span class="w"> </span>--performance
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>/craft:site:audit
+</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>/craft:site:audit<span class="w"> </span>--external<span class="w"> </span>--performance
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/audit.md</code></p>
 <hr />
@@ -13550,8 +13655,8 @@
 </tbody>
 </table>
 <h4 id="examples_70">Examples<a class="headerlink" href="#examples_70" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>/craft:site:consolidate
-</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>/craft:site:consolidate<span class="w"> </span>--dry-run
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>/craft:site:consolidate
+</span><span id="__span-76-2"><a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a>/craft:site:consolidate<span class="w"> </span>--dry-run
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/consolidate.md</code></p>
 <hr />
@@ -13580,8 +13685,8 @@
 </tbody>
 </table>
 <h4 id="examples_71">Examples<a class="headerlink" href="#examples_71" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>/craft:site:nav
-</span><span id="__span-76-2"><a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a>/craft:site:nav<span class="w"> </span>--manual
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>/craft:site:nav
+</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>/craft:site:nav<span class="w"> </span>--manual
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/nav.md</code></p>
 <hr />
@@ -13617,8 +13722,8 @@
 </tbody>
 </table>
 <h4 id="examples_72">Examples<a class="headerlink" href="#examples_72" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>/craft:site:theme<span class="w"> </span>material
-</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>/craft:site:theme<span class="w"> </span>--custom
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>/craft:site:theme<span class="w"> </span>material
+</span><span id="__span-78-2"><a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a>/craft:site:theme<span class="w"> </span>--custom
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/theme.md</code></p>
 <hr />
@@ -13654,8 +13759,8 @@
 </tbody>
 </table>
 <h4 id="examples_73">Examples<a class="headerlink" href="#examples_73" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>/craft:site:create<span class="w"> </span>my-docs
-</span><span id="__span-78-2"><a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a>/craft:site:create<span class="w"> </span>api-reference<span class="w"> </span>--template<span class="w"> </span>api
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>/craft:site:create<span class="w"> </span>my-docs
+</span><span id="__span-79-2"><a id="__codelineno-79-2" name="__codelineno-79-2" href="#__codelineno-79-2"></a>/craft:site:create<span class="w"> </span>api-reference<span class="w"> </span>--template<span class="w"> </span>api
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/site/create.md</code></p>
 <hr />
@@ -13739,10 +13844,10 @@
 </tbody>
 </table>
 <h4 id="examples_74">Examples<a class="headerlink" href="#examples_74" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>/craft:test:run
-</span><span id="__span-79-2"><a id="__codelineno-79-2" name="__codelineno-79-2" href="#__codelineno-79-2"></a>/craft:test:run<span class="w"> </span>debug
-</span><span id="__span-79-3"><a id="__codelineno-79-3" name="__codelineno-79-3" href="#__codelineno-79-3"></a>/craft:test:run<span class="w"> </span>optimize<span class="w"> </span>tests/
-</span><span id="__span-79-4"><a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a>/craft:test:run<span class="w"> </span>--filter<span class="w"> </span>auth
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>/craft:test:run
+</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a>/craft:test:run<span class="w"> </span>debug
+</span><span id="__span-80-3"><a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a>/craft:test:run<span class="w"> </span>optimize<span class="w"> </span>tests/
+</span><span id="__span-80-4"><a id="__codelineno-80-4" name="__codelineno-80-4" href="#__codelineno-80-4"></a>/craft:test:run<span class="w"> </span>--filter<span class="w"> </span>auth
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/test/run.md</code></p>
 <hr />
@@ -13778,9 +13883,9 @@
 </tbody>
 </table>
 <h4 id="examples_75">Examples<a class="headerlink" href="#examples_75" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>/craft:test:generate
-</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a>/craft:test:generate<span class="w"> </span>src/auth.ts<span class="w"> </span>--type<span class="w"> </span>unit
-</span><span id="__span-80-3"><a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a>/craft:test:generate<span class="w"> </span>--type<span class="w"> </span>integration
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>/craft:test:generate
+</span><span id="__span-81-2"><a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a>/craft:test:generate<span class="w"> </span>src/auth.ts<span class="w"> </span>--type<span class="w"> </span>unit
+</span><span id="__span-81-3"><a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a>/craft:test:generate<span class="w"> </span>--type<span class="w"> </span>integration
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/test/generate.md</code></p>
 <hr />
@@ -13816,9 +13921,9 @@
 </tbody>
 </table>
 <h4 id="examples_76">Examples<a class="headerlink" href="#examples_76" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>/craft:test:coverage
-</span><span id="__span-81-2"><a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a>/craft:test:coverage<span class="w"> </span>--threshold<span class="w"> </span><span class="m">85</span>
-</span><span id="__span-81-3"><a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a>/craft:test:coverage<span class="w"> </span>--report<span class="w"> </span>html
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>/craft:test:coverage
+</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a>/craft:test:coverage<span class="w"> </span>--threshold<span class="w"> </span><span class="m">85</span>
+</span><span id="__span-82-3"><a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a>/craft:test:coverage<span class="w"> </span>--report<span class="w"> </span>html
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/test/coverage.md</code></p>
 <hr />
@@ -13854,9 +13959,9 @@
 </tbody>
 </table>
 <h4 id="examples_77">Examples<a class="headerlink" href="#examples_77" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>/craft:test:debug
-</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a>/craft:test:debug<span class="w"> </span>test-auth
-</span><span id="__span-82-3"><a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a>/craft:test:debug<span class="w"> </span>--breakpoint
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>/craft:test:debug
+</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>/craft:test:debug<span class="w"> </span>test-auth
+</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a>/craft:test:debug<span class="w"> </span>--breakpoint
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/test/debug.md</code></p>
 <hr />
@@ -13892,9 +13997,9 @@
 </tbody>
 </table>
 <h4 id="examples_78">Examples<a class="headerlink" href="#examples_78" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>/craft:test:watch
-</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>/craft:test:watch<span class="w"> </span>--filter<span class="w"> </span>auth
-</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a>/craft:test:watch<span class="w"> </span>--coverage
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>/craft:test:watch
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a>/craft:test:watch<span class="w"> </span>--filter<span class="w"> </span>auth
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a>/craft:test:watch<span class="w"> </span>--coverage
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/test/watch.md</code></p>
 <hr />
@@ -13923,7 +14028,7 @@
 </tbody>
 </table>
 <h4 id="examples_79">Examples<a class="headerlink" href="#examples_79" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>/craft:test:cli-gen<span class="w"> </span><span class="s2">&quot;/craft:code:lint&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>/craft:test:cli-gen<span class="w"> </span><span class="s2">&quot;/craft:code:lint&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/test/cli-gen.md</code></p>
 <hr />
@@ -13952,8 +14057,8 @@
 </tbody>
 </table>
 <h4 id="examples_80">Examples<a class="headerlink" href="#examples_80" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>/craft:test:cli-run
-</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a>/craft:test:cli-run<span class="w"> </span>--verbose
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>/craft:test:cli-run
+</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a>/craft:test:cli-run<span class="w"> </span>--verbose
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/test/cli-run.md</code></p>
 <hr />
@@ -13998,8 +14103,8 @@
 </tbody>
 </table>
 <h4 id="examples_81">Examples<a class="headerlink" href="#examples_81" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>/craft:workflow:brainstorm<span class="w"> </span><span class="s2">&quot;new authentication system&quot;</span>
-</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a>/craft:workflow:brainstorm<span class="w"> </span><span class="s2">&quot;API redesign&quot;</span><span class="w"> </span>--duration<span class="w"> </span><span class="m">30</span><span class="w"> </span>--save
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>/craft:workflow:brainstorm<span class="w"> </span><span class="s2">&quot;new authentication system&quot;</span>
+</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a>/craft:workflow:brainstorm<span class="w"> </span><span class="s2">&quot;API redesign&quot;</span><span class="w"> </span>--duration<span class="w"> </span><span class="m">30</span><span class="w"> </span>--save
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/brainstorm.md</code></p>
 <hr />
@@ -14035,8 +14140,8 @@
 </tbody>
 </table>
 <h4 id="examples_82">Examples<a class="headerlink" href="#examples_82" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>/craft:workflow:focus<span class="w"> </span><span class="m">60</span>
-</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a>/craft:workflow:focus<span class="w"> </span><span class="m">90</span><span class="w"> </span>--task<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>/craft:workflow:focus<span class="w"> </span><span class="m">60</span>
+</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a>/craft:workflow:focus<span class="w"> </span><span class="m">90</span><span class="w"> </span>--task<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/focus.md</code></p>
 <hr />
@@ -14065,8 +14170,8 @@
 </tbody>
 </table>
 <h4 id="examples_83">Examples<a class="headerlink" href="#examples_83" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>/craft:workflow:next
-</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a>/craft:workflow:next<span class="w"> </span>--context<span class="w"> </span><span class="s2">&quot;feature-auth&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>/craft:workflow:next
+</span><span id="__span-89-2"><a id="__codelineno-89-2" name="__codelineno-89-2" href="#__codelineno-89-2"></a>/craft:workflow:next<span class="w"> </span>--context<span class="w"> </span><span class="s2">&quot;feature-auth&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/next.md</code></p>
 <hr />
@@ -14095,8 +14200,8 @@
 </tbody>
 </table>
 <h4 id="examples_84">Examples<a class="headerlink" href="#examples_84" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>/craft:workflow:stuck
-</span><span id="__span-89-2"><a id="__codelineno-89-2" name="__codelineno-89-2" href="#__codelineno-89-2"></a>/craft:workflow:stuck<span class="w"> </span>--problem<span class="w"> </span><span class="s2">&quot;tests failing&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>/craft:workflow:stuck
+</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a>/craft:workflow:stuck<span class="w"> </span>--problem<span class="w"> </span><span class="s2">&quot;tests failing&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/stuck.md</code></p>
 <hr />
@@ -14132,9 +14237,9 @@
 </tbody>
 </table>
 <h4 id="examples_85">Examples<a class="headerlink" href="#examples_85" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>/craft:workflow:done
-</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a>/craft:workflow:done<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;feat: add auth&quot;</span>
-</span><span id="__span-90-3"><a id="__codelineno-90-3" name="__codelineno-90-3" href="#__codelineno-90-3"></a>/craft:workflow:done<span class="w"> </span>--no-commit
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>/craft:workflow:done
+</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2" href="#__codelineno-91-2"></a>/craft:workflow:done<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;feat: add auth&quot;</span>
+</span><span id="__span-91-3"><a id="__codelineno-91-3" name="__codelineno-91-3" href="#__codelineno-91-3"></a>/craft:workflow:done<span class="w"> </span>--no-commit
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/done.md</code></p>
 <hr />
@@ -14163,8 +14268,8 @@
 </tbody>
 </table>
 <h4 id="examples_86">Examples<a class="headerlink" href="#examples_86" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>/craft:workflow:recap
-</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2" href="#__codelineno-91-2"></a>/craft:workflow:recap<span class="w"> </span>--detail
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a>/craft:workflow:recap
+</span><span id="__span-92-2"><a id="__codelineno-92-2" name="__codelineno-92-2" href="#__codelineno-92-2"></a>/craft:workflow:recap<span class="w"> </span>--detail
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/recap.md</code></p>
 <hr />
@@ -14193,7 +14298,7 @@
 </tbody>
 </table>
 <h4 id="examples_87">Examples<a class="headerlink" href="#examples_87" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a>/craft:workflow:refine<span class="w"> </span><span class="s2">&quot;implement caching&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a>/craft:workflow:refine<span class="w"> </span><span class="s2">&quot;implement caching&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/refine.md</code></p>
 <hr />
@@ -14229,8 +14334,8 @@
 </tbody>
 </table>
 <h4 id="examples_88">Examples<a class="headerlink" href="#examples_88" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a>/craft:workflow:spec-review
-</span><span id="__span-93-2"><a id="__codelineno-93-2" name="__codelineno-93-2" href="#__codelineno-93-2"></a>/craft:workflow:spec-review<span class="w"> </span>docs/specs/AUTH.md<span class="w"> </span>--detailed
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a>/craft:workflow:spec-review
+</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2" href="#__codelineno-94-2"></a>/craft:workflow:spec-review<span class="w"> </span>docs/specs/AUTH.md<span class="w"> </span>--detailed
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/spec-review.md</code></p>
 <hr />
@@ -14259,8 +14364,8 @@
 </tbody>
 </table>
 <h4 id="examples_89">Examples<a class="headerlink" href="#examples_89" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a>/craft:workflow:adhd-guide
-</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2" href="#__codelineno-94-2"></a>/craft:workflow:adhd-guide<span class="w"> </span><span class="s2">&quot;getting started&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>/craft:workflow:adhd-guide
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a>/craft:workflow:adhd-guide<span class="w"> </span><span class="s2">&quot;getting started&quot;</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/adhd-guide.md</code></p>
 <hr />
@@ -14289,8 +14394,8 @@
 </tbody>
 </table>
 <h4 id="examples_90">Examples<a class="headerlink" href="#examples_90" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>/craft:workflow:task-status
-</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a>/craft:workflow:task-status<span class="w"> </span>--format<span class="w"> </span>detailed
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a>/craft:workflow:task-status
+</span><span id="__span-96-2"><a id="__codelineno-96-2" name="__codelineno-96-2" href="#__codelineno-96-2"></a>/craft:workflow:task-status<span class="w"> </span>--format<span class="w"> </span>detailed
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/task-status.md</code></p>
 <hr />
@@ -14326,8 +14431,8 @@
 </tbody>
 </table>
 <h4 id="examples_91">Examples<a class="headerlink" href="#examples_91" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a>/craft:workflow:task-output
-</span><span id="__span-96-2"><a id="__codelineno-96-2" name="__codelineno-96-2" href="#__codelineno-96-2"></a>/craft:workflow:task-output<span class="w"> </span>feature-auth<span class="w"> </span>--tail<span class="w"> </span><span class="m">100</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>/craft:workflow:task-output
+</span><span id="__span-97-2"><a id="__codelineno-97-2" name="__codelineno-97-2" href="#__codelineno-97-2"></a>/craft:workflow:task-output<span class="w"> </span>feature-auth<span class="w"> </span>--tail<span class="w"> </span><span class="m">100</span>
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/task-output.md</code></p>
 <hr />
@@ -14356,7 +14461,7 @@
 </tbody>
 </table>
 <h4 id="examples_92">Examples<a class="headerlink" href="#examples_92" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>/craft:workflow:task-cancel<span class="w"> </span>task-123
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a>/craft:workflow:task-cancel<span class="w"> </span>task-123
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/workflow/task-cancel.md</code></p>
 <hr />
@@ -14387,8 +14492,8 @@
 </tbody>
 </table>
 <h4 id="examples_93">Examples<a class="headerlink" href="#examples_93" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a>/craft:utils:readme-teach-config
-</span><span id="__span-98-2"><a id="__codelineno-98-2" name="__codelineno-98-2" href="#__codelineno-98-2"></a>/craft:utils:readme-teach-config<span class="w"> </span>--examples
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a>/craft:utils:readme-teach-config
+</span><span id="__span-99-2"><a id="__codelineno-99-2" name="__codelineno-99-2" href="#__codelineno-99-2"></a>/craft:utils:readme-teach-config<span class="w"> </span>--examples
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/utils/readme-teach-config.md</code></p>
 <hr />
@@ -14417,21 +14522,21 @@
 </tbody>
 </table>
 <h4 id="examples_94">Examples<a class="headerlink" href="#examples_94" title="Permanent link">&para;</a></h4>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a>/craft:utils:readme-semester-progress
-</span><span id="__span-99-2"><a id="__codelineno-99-2" name="__codelineno-99-2" href="#__codelineno-99-2"></a>/craft:utils:readme-semester-progress<span class="w"> </span>--template
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a>/craft:utils:readme-semester-progress
+</span><span id="__span-100-2"><a id="__codelineno-100-2" name="__codelineno-100-2" href="#__codelineno-100-2"></a>/craft:utils:readme-semester-progress<span class="w"> </span>--template
 </span></code></pre></div>
 <p><strong>File</strong>: <code>commands/utils/readme-semester-progress.md</code></p>
 <hr />
 <h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="error-responses">Error Responses<a class="headerlink" href="#error-responses" title="Permanent link">&para;</a></h3>
 <p>All commands follow consistent error response patterns:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a><span class="p">{</span>
-</span><span id="__span-100-2"><a id="__codelineno-100-2" name="__codelineno-100-2" href="#__codelineno-100-2"></a><span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-100-3"><a id="__codelineno-100-3" name="__codelineno-100-3" href="#__codelineno-100-3"></a><span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR_CODE&quot;</span><span class="p">,</span>
-</span><span id="__span-100-4"><a id="__codelineno-100-4" name="__codelineno-100-4" href="#__codelineno-100-4"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Human readable message&quot;</span><span class="p">,</span>
-</span><span id="__span-100-5"><a id="__codelineno-100-5" name="__codelineno-100-5" href="#__codelineno-100-5"></a><span class="w">  </span><span class="nt">&quot;suggestion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;How to fix it&quot;</span><span class="p">,</span>
-</span><span id="__span-100-6"><a id="__codelineno-100-6" name="__codelineno-100-6" href="#__codelineno-100-6"></a><span class="w">  </span><span class="nt">&quot;details&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
-</span><span id="__span-100-7"><a id="__codelineno-100-7" name="__codelineno-100-7" href="#__codelineno-100-7"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a><span class="p">{</span>
+</span><span id="__span-101-2"><a id="__codelineno-101-2" name="__codelineno-101-2" href="#__codelineno-101-2"></a><span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-101-3"><a id="__codelineno-101-3" name="__codelineno-101-3" href="#__codelineno-101-3"></a><span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ERROR_CODE&quot;</span><span class="p">,</span>
+</span><span id="__span-101-4"><a id="__codelineno-101-4" name="__codelineno-101-4" href="#__codelineno-101-4"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Human readable message&quot;</span><span class="p">,</span>
+</span><span id="__span-101-5"><a id="__codelineno-101-5" name="__codelineno-101-5" href="#__codelineno-101-5"></a><span class="w">  </span><span class="nt">&quot;suggestion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;How to fix it&quot;</span><span class="p">,</span>
+</span><span id="__span-101-6"><a id="__codelineno-101-6" name="__codelineno-101-6" href="#__codelineno-101-6"></a><span class="w">  </span><span class="nt">&quot;details&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-101-7"><a id="__codelineno-101-7" name="__codelineno-101-7" href="#__codelineno-101-7"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="mode-system">Mode System<a class="headerlink" href="#mode-system" title="Permanent link">&para;</a></h3>
 <p>All commands support execution modes:</p>
@@ -14443,9 +14548,9 @@
 </ul>
 <h3 id="dry-run-pattern">Dry-Run Pattern<a class="headerlink" href="#dry-run-pattern" title="Permanent link">&para;</a></h3>
 <p>Commands that make changes support <code>--dry-run</code> or <code>-n</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a>/craft:code:lint<span class="w"> </span>--dry-run<span class="w">        </span><span class="c1"># Preview changes</span>
-</span><span id="__span-101-2"><a id="__codelineno-101-2" name="__codelineno-101-2" href="#__codelineno-101-2"></a>/craft:git:sync<span class="w"> </span>--dry-run<span class="w">         </span><span class="c1"># Preview sync</span>
-</span><span id="__span-101-3"><a id="__codelineno-101-3" name="__codelineno-101-3" href="#__codelineno-101-3"></a>/craft:site:deploy<span class="w"> </span>--dry-run<span class="w">      </span><span class="c1"># Preview deployment</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-102-1"><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a>/craft:code:lint<span class="w"> </span>--dry-run<span class="w">        </span><span class="c1"># Preview changes</span>
+</span><span id="__span-102-2"><a id="__codelineno-102-2" name="__codelineno-102-2" href="#__codelineno-102-2"></a>/craft:git:sync<span class="w"> </span>--dry-run<span class="w">         </span><span class="c1"># Preview sync</span>
+</span><span id="__span-102-3"><a id="__codelineno-102-3" name="__codelineno-102-3" href="#__codelineno-102-3"></a>/craft:site:deploy<span class="w"> </span>--dry-run<span class="w">      </span><span class="c1"># Preview deployment</span>
 </span></code></pre></div>
 <h3 id="output-formats">Output Formats<a class="headerlink" href="#output-formats" title="Permanent link">&para;</a></h3>
 <p>Commands support multiple output formats:</p>
