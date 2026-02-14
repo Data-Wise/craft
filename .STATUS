@@ -8,13 +8,14 @@ progress: v2.18.0 released + test baseline established (1575 passing, 0 failures
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                        |
-|--------|---------|------|-------------------------------|
-| main   | 1fa732a | —    | Production (v2.18.0 clean)    |
-| dev    | 01a8bf3 | main | +1 commit (test fixes)        |
+| Branch | Head    | Base | Status                     |
+|--------|---------|------|----------------------------|
+| main   | c826855 | —    | Production (v2.18.0 clean) |
+| dev    | c826855 | main | Synced with main           |
 
 ✅ Session 2026-02-14 (test baseline + fixes):
 - Fixed 6 failing branch guard tests for v2 smart mode output format (01a8bf3)
+- Merged test fixes to main: PR #72, all CI green (c826855)
 - Ran full test suite: 1575 passing, 0 failures, 1 skipped
 - No open GitHub issues found
 - Updated test assertions: "BRANCH PROTECTION" → "BRANCH GUARD", "block-new-code" → "smart"
@@ -49,8 +50,7 @@ progress: v2.18.0 released + test baseline established (1575 passing, 0 failures
 
 🎯 Next Action:
 A) Start new feature work (language detection, markdownlint expansion, coaching mode) ⚡
-B) Merge test fix commit to main (dev is +1 ahead)
-C) Address any open issues on GitHub
+B) Address any open issues on GitHub
 
 ## Future (v2.19.0+)
 
