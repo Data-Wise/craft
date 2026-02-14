@@ -4,15 +4,24 @@ release_date: 2026-02-14
 milestone: v2.18.0 released
 last_session: 2026-02-14
 
-progress: v2.18.0 released, marketplace merged to dev (PR #73), insights worktree ready
+progress: v2.18.0 released, marketplace merged to dev (PR #73), docs updated, insights worktree ready
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
 | main   | c826855 | —    | Production (v2.18.0 clean) |
-| dev    | d39862c | main | Marketplace merged, ready for next feature |
+| dev    | 5620968 | main | Docs updated post-marketplace merge |
 | feature/insights-improvements | 6292e97 | dev | WIP — ORCHESTRATE ready (10 agents, 5 groups) |
+
+✅ Session 2026-02-14 (post-merge doc gap analysis):
+- Merged PR #73 to dev, cleaned up marketplace worktree + branch
+- Synced dev branch (fast-forward 8 commits)
+- Doc gap analysis: found 6 categories of stale docs post-marketplace
+- Updated REFCARD: 108→109 commands, ~1504→~1575 tests, added dist:marketplace (6→7 commands)
+- Updated hub command: added full DIST section (7 commands), version v2.5.0→v2.18.0, skills 21→23
+- Updated getting-started: reordered install methods (Marketplace first, Homebrew second)
+- Validated with markdownlint (0 errors)
 
 ✅ Session 2026-02-14 (PR #73 review + merge):
 - Code reviewed PR #73: found 5 issues (schema, stale counts, changelog, version-history)
