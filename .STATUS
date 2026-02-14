@@ -1,103 +1,52 @@
 status: Active
-version: 2.18.0
+version: 2.19.0
 release_date: 2026-02-14
-milestone: v2.18.0 released
+milestone: v2.19.0 released
 last_session: 2026-02-14
 
-progress: v2.18.0 released, marketplace merged to dev (PR #73), docs updated, insights worktree ready
+progress: v2.19.0 released — marketplace distribution + insights-driven improvements shipped
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
-| main   | c826855 | —    | Production (v2.18.0 clean) |
-| dev    | 5620968 | main | Docs updated post-marketplace merge |
-| feature/insights-improvements | 6292e97 | dev | WIP — ORCHESTRATE ready (10 agents, 5 groups) |
+| main   | 707fe47 | —    | Production (v2.19.0 clean) |
+| dev    | 707fe47 | main | Synced with main           |
+
+✅ Session 2026-02-14 (v2.19.0 release):
+- Released v2.19.0: PR #75 merged, GitHub release created, docs deployed
+- Version bump across 7 files (plugin.json, marketplace.json, CLAUDE.md, README, index, REFCARD, VERSION-HISTORY)
+- Pre-flight: all unit tests pass, counts validated (109/25/8), pre-release check green
+- Features: marketplace distribution (PR #73) + insights-driven improvements (PR #74)
+- Stats: 109 commands, 25 skills, 8 agents, ~1575 tests passing
+
+✅ Session 2026-02-14 (PR #74 review + merge):
+- Code reviewed PR #74: found 7 issues (ORCHESTRATE file, --autonomous --admin risk, skill count, VERSION-HISTORY status, phase detection gap, hub counts, test plan)
+- Removed ORCHESTRATE file, fixed VERSION-HISTORY v2.17.0 status, fixed phase detection in check.md
+- Added safety warnings for --autonomous --admin in release skill, tutorial, and guide
+- Resolved 14 merge conflicts (marketplace PR #73 had landed on dev)
+- All tests pass: unit 108 commands/25 skills/8 agents, dogfood 59/59, e2e 30/30, integration 98
+- Merged PR #74 to dev, cleaned up worktree
 
 ✅ Session 2026-02-14 (post-merge doc gap analysis):
 - Merged PR #73 to dev, cleaned up marketplace worktree + branch
-- Synced dev branch (fast-forward 8 commits)
-- Doc gap analysis: found 6 categories of stale docs post-marketplace
-- Updated REFCARD: 108→109 commands, ~1504→~1575 tests, added dist:marketplace (6→7 commands)
-- Updated hub command: added full DIST section (7 commands), version v2.5.0→v2.18.0, skills 21→23
-- Updated getting-started: reordered install methods (Marketplace first, Homebrew second)
+- Doc gap analysis: updated REFCARD, hub, getting-started with marketplace content
 - Validated with markdownlint (0 errors)
 
-✅ Session 2026-02-14 (PR #73 review + merge):
-- Code reviewed PR #73: found 5 issues (schema, stale counts, changelog, version-history)
-- Fixed all 5 issues: removed $schema (404), tags→keywords, 21→23 skills, changelog [Unreleased]
-- All 115 marketplace tests pass (56 CLI + 28 dogfood + 30 e2e)
-- Merged PR #73 to dev, cleaned up worktree + branch
-
-✅ Session 2026-02-14 (marketplace implementation — worktree):
-- Implemented all 6 ORCHESTRATE phases (10 agents across 3 groups)
-- Created .claude-plugin/marketplace.json (7bbdee6)
-- Created commands/dist/marketplace.md — 4 subcommands: init, validate, test, publish (ab0261b)
-- Updated commands/dist/homebrew.md — Claude Code plugin auto-detection (ab0261b)
-- Updated skills/release/SKILL.md — Steps 2c, 3, 8.5 for marketplace + tap (ab0261b)
-- Updated scripts/pre-release-check.sh — marketplace.json version check (ab0261b)
-- Created docs/guide/marketplace-distribution.md + updated README install section (59bdd6e)
-- Tests: 56/56 CLI + 28/28 dogfood + 30/30 e2e (8e6ebb3, 26649b3)
-
-✅ Session 2026-02-14 (spec review + worktree setup):
-- Ran /insights report: 97 sessions, 153h, 236 commits over 10 days
-- Deep brainstorm (max): insights-driven improvements (8 questions + 2 agents)
-- Created + approved SPEC: insights-driven improvements (8 changes, 5 phases)
-- Reviewed + approved SPEC: marketplace distribution (schema verified, Q5 resolved)
-- Archived SPEC: branch-guard-v2 (v2.17.0 shipped)
-- Created worktree: feature/insights-improvements + ORCHESTRATE (10 agents)
-- Added coordination notes to both specs (release skill overlap)
-
-✅ Session 2026-02-14 (marketplace distribution — earlier):
-- Fixed 6 `brew audit --strict` issues in homebrew-tap Formula/craft.rb (63b11d2)
-- Researched Claude Code marketplace install: `/plugin marketplace add` system
-- Created SPEC: marketplace distribution + release integration (10 design decisions)
-- Deep brainstorm: new /craft:dist:marketplace command (init/validate/test/publish)
-- Updated commands/dist/homebrew.md: validate auto-fix + audit-compliant plugin template
-- Created worktree + ORCHESTRATE file for parallel implementation (6 agents, 3 groups)
-
-✅ Session 2026-02-14 (test baseline + fixes):
-- Fixed 6 failing branch guard tests for v2 smart mode output format (01a8bf3)
-- Merged test fixes to main: PR #72, all CI green (c826855)
-- Ran full test suite: 1575 passing, 0 failures, 1 skipped
-- No open GitHub issues found
-- Updated test assertions: "BRANCH PROTECTION" → "BRANCH GUARD", "block-new-code" → "smart"
-- Added session counter reset in TestErrorFormatting.setUp() for deterministic verbosity
-
-✅ Session 2026-02-14 (v2.18.0 release — earlier):
-- Released v2.18.0: PR #71 merged, GitHub release created, docs deployed
-- Updated /craft:code:release command to delegate to release skill for Craft projects
-- Fixed skill count 21/22 → 23 across 8 files (plugin.json, README, index, REFCARD, QUICK-START, getting-started, init command)
-- All 3 CI workflows green on main (Craft CI, Docs Quality, Deploy Docs)
-
-✅ Session 2026-02-14 (release pipeline enhancements — earlier):
-- Added /craft:check --for release as CI mirror pre-flight (Step 2a)
-- Added README.md and docs/index.md version checks to pre-release-check.sh (check 4/5)
-- Synced release pipeline docs across tutorials, refcards, guides, workflows
-- Trimmed CLAUDE.md from 587 → 155 lines (74% reduction, lean pointer architecture)
-- Fixed orch-flag test to check VERSION-HISTORY.md instead of CLAUDE.md
-
-✅ Session 2026-02-13 (v2.17.0 release + release skill):
-- Released v2.17.0: PR #70 merged, release pipeline skill + branch guard v2
-- Created /release skill: 10-step pipeline with dry-run mode
-- Added release skill tests (e2e + dogfooding), tutorial, refcard
-- Branch guard v2: 3-tier risk classification, fade-to-brief learning
-
-✅ v2.16.0 — Teaching Ecosystem + Branch Protection (2026-02-07):
-- Branch protection hooks: scripts/branch-guard.sh PreToolUse hook
-- Protection levels: block-all (main), block-new-code (dev)
-- 138 branch guard tests, 8 teaching normalization tests
-- Test count: 1294 → 1432, command count: 106 → 108
+✅ Session 2026-02-14 (earlier sessions):
+- PR #73 review + merge: marketplace distribution (5 issues fixed, 115 tests pass)
+- Marketplace implementation: 6 ORCHESTRATE phases, marketplace.json, dist:marketplace command
+- Insights implementation: 10 changes across commands, skills, hooks
+- v2.18.0 release: release pipeline enhancements, CLAUDE.md trimmed 74%
+- v2.17.0 release: branch guard v2, /release skill (10-step pipeline)
 
 ---
 
 🎯 Next Action:
-→ cd ~/.git-worktrees/craft/feature-insights-improvements && claude
-→ /craft:orchestrate (Group 1: check --context, worktree validate, pretooluse hook)
+→ Plan next feature on dev
 
-## Future (v2.19.0+)
+## Future (v2.20.0+)
 
-- Insights-driven improvements (in progress — feature branch, 5 phases)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
