@@ -4,17 +4,27 @@ release_date: 2026-02-14
 milestone: v2.18.0 released
 last_session: 2026-02-14
 
-progress: v2.18.0 released + marketplace distribution in progress
+progress: v2.18.0 released + 2 feature worktrees ready for implementation
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
 | main   | c826855 | —    | Production (v2.18.0 clean) |
-| dev    | 9136f30 | main | Spec + homebrew updates    |
-| feature/marketplace-distribution | 9136f30 | dev | WIP — worktree created |
+| dev    | 95086a9 | main | Specs approved, worktrees created |
+| feature/marketplace-distribution | 9136f30 | dev | WIP — ORCHESTRATE ready (6 agents, 3 groups) |
+| feature/insights-improvements | 6292e97 | dev | WIP — ORCHESTRATE ready (10 agents, 5 groups) |
 
-✅ Session 2026-02-14 (marketplace distribution):
+✅ Session 2026-02-14 (spec review + worktree setup):
+- Ran /insights report: 97 sessions, 153h, 236 commits over 10 days
+- Deep brainstorm (max): insights-driven improvements (8 questions + 2 agents)
+- Created + approved SPEC: insights-driven improvements (8 changes, 5 phases)
+- Reviewed + approved SPEC: marketplace distribution (schema verified, Q5 resolved)
+- Archived SPEC: branch-guard-v2 (v2.17.0 shipped)
+- Created worktree: feature/insights-improvements + ORCHESTRATE (10 agents)
+- Added coordination notes to both specs (release skill overlap)
+
+✅ Session 2026-02-14 (marketplace distribution — earlier):
 - Fixed 6 `brew audit --strict` issues in homebrew-tap Formula/craft.rb (63b11d2)
 - Researched Claude Code marketplace install: `/plugin marketplace add` system
 - Created SPEC: marketplace distribution + release integration (10 design decisions)
@@ -57,13 +67,17 @@ progress: v2.18.0 released + marketplace distribution in progress
 
 ---
 
-🎯 Next Action:
+🎯 Next Action (pick either):
+→ cd ~/.git-worktrees/craft/feature-insights-improvements && claude
+→ /craft:orchestrate (Group 1: check --context, worktree validate, pretooluse hook)
+
 → cd ~/.git-worktrees/craft/feature-marketplace-distribution && claude
-→ /craft:orchestrate to run parallel agents (Group 1: marketplace.json + command + homebrew)
+→ /craft:orchestrate (Group 1: marketplace.json + command + homebrew)
 
 ## Future (v2.19.0+)
 
-- Marketplace distribution (in progress — feature branch)
+- Insights-driven improvements (in progress — feature branch, 5 phases)
+- Marketplace distribution (in progress — feature branch, 3 groups)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
