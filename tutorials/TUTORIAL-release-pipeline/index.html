@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Step-by-step guide to eliminating duplicated color definitions and hand-coded box drawing from bash scripts">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.15.0 adds brainstorm spec simplification (84% reduction) and context-aware smart questions.">
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/tutorials/TUTORIAL-formatting-migration/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/tutorials/TUTORIAL-release-pipeline/">
       
       
-        <link rel="prev" href="../../guide/bash-formatting-library/">
+        <link rel="prev" href="../orchestrator-modes-compared/">
       
       
-        <link rel="next" href="../../guide/badge-management/">
+        <link rel="next" href="../TUTORIAL-brainstorm-power-user/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Tutorial: Migrate Your Script to the Formatting Library - Craft Plugin</title>
+        <title>Release Pipeline Tutorial - Craft Plugin</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-migrate-your-script-to-the-formatting-library" class="md-skip">
+        <a href="#tutorial-release-pipeline" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tutorial: Migrate Your Script to the Formatting Library
+              Release Pipeline Tutorial
             
           </span>
         </div>
@@ -1271,37 +1271,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Formatting Migration Tutorial
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../TUTORIAL-formatting-migration/" class="md-nav__link">
         
   
   
@@ -1317,403 +1290,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What You'll Learn
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-1-assess-your-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 1: Assess Your Script
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-2-source-the-library" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 2: Source the Library
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 2: Source the Library">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scripts-in-scripts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scripts in scripts/
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scripts-in-scriptsinstallers-or-scriptshooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scripts in scripts/installers/ or scripts/hooks/
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#root-level-scripts-installsh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Root-level scripts (install.sh)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-3-replace-color-definitions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 3: Replace Color Definitions
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 3: Replace Color Definitions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#before" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Before
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#after-if-you-want-to-keep-short-names" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        After (if you want to keep short names)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#after-using-fmt_-directly" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        After (using FMT_ directly)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-4-replace-box-drawing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 4: Replace Box-Drawing
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 4: Replace Box-Drawing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-double-line-box" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Double-Line Box
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-single-line-box-with-colors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Single-Line Box with Colors
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-colored-content-rows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Colored Content Rows
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-5-replace-dividers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 5: Replace Dividers
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-6-test-your-migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 6: Test Your Migration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 6: Test Your Migration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-run-syntax-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Run syntax check
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-run-the-formatting-test-suite" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Run the formatting test suite
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-visual-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Visual check
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-width-verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Width verification
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-color-leak-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Color leak check
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checklist
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-migration-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Migration Patterns
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common Migration Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pattern-1-simple-status-box" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pattern 1: Simple Status Box
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pattern-2-multi-section-box" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pattern 2: Multi-Section Box
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pattern-3-colored-headers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pattern 3: Colored Headers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#box-width-looks-wrong" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Box width looks wrong
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#colors-bleed-into-next-line" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Colors bleed into next line
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#source-path-not-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Source path not found
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2059,10 +1635,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../TUTORIAL-release-pipeline/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Pipeline Tutorial
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2078,6 +1681,214 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-preview-with-dry-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Preview with Dry-Run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-run-your-first-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Run Your First Release
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-follow-the-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Follow the Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-dry-run-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Dry-Run Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-common-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handling Common Errors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling Common Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-flight-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-Flight Fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branch-guard-blocks-pr-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branch Guard Blocks PR Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branch-protection-blocks-merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branch Protection Blocks Merge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tag-already-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tag Already Exists
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-for-different-project-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Customizing for Different Project Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customizing for Different Project Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craft-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Craft Plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -6868,10 +6679,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What You'll Learn
+        Prerequisites
       
     </span>
   </a>
@@ -6879,10 +6690,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#part-1-assess-your-script" class="md-nav__link">
+  <a href="#step-1-preview-with-dry-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 1: Assess Your Script
+        Step 1: Preview with Dry-Run
       
     </span>
   </a>
@@ -6890,22 +6701,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#part-2-source-the-library" class="md-nav__link">
+  <a href="#step-2-run-your-first-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 2: Source the Library
+        Step 2: Run Your First Release
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Part 2: Source the Library">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-follow-the-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Follow the Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-dry-run-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Dry-Run Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-common-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Handling Common Errors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Handling Common Errors">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scripts-in-scripts" class="md-nav__link">
+  <a href="#pre-flight-fails" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scripts in scripts/
+        Pre-Flight Fails
       
     </span>
   </a>
@@ -6913,10 +6757,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#scripts-in-scriptsinstallers-or-scriptshooks" class="md-nav__link">
+  <a href="#branch-guard-blocks-pr-creation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scripts in scripts/installers/ or scripts/hooks/
+        Branch Guard Blocks PR Creation
       
     </span>
   </a>
@@ -6924,10 +6768,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#root-level-scripts-installsh" class="md-nav__link">
+  <a href="#branch-protection-blocks-merge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Root-level scripts (install.sh)
+        Branch Protection Blocks Merge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tag-already-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tag Already Exists
       
     </span>
   </a>
@@ -6940,22 +6795,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#part-3-replace-color-definitions" class="md-nav__link">
+  <a href="#customizing-for-different-project-types" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Part 3: Replace Color Definitions
+        Customizing for Different Project Types
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Part 3: Replace Color Definitions">
+    <nav class="md-nav" aria-label="Customizing for Different Project Types">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#before" class="md-nav__link">
+  <a href="#craft-plugin" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Before
+        Craft Plugin
       
     </span>
   </a>
@@ -6963,10 +6818,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#after-if-you-want-to-keep-short-names" class="md-nav__link">
+  <a href="#python-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        After (if you want to keep short names)
+        Python Package
       
     </span>
   </a>
@@ -6974,38 +6829,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#after-using-fmt_-directly" class="md-nav__link">
+  <a href="#node-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        After (using FMT_ directly)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-4-replace-box-drawing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 4: Replace Box-Drawing
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 4: Replace Box-Drawing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-double-line-box" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Double-Line Box
+        Node Package
       
     </span>
   </a>
@@ -7013,215 +6840,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#example-single-line-box-with-colors" class="md-nav__link">
+  <a href="#r-package" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example: Single-Line Box with Colors
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-colored-content-rows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Colored Content Rows
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-5-replace-dividers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 5: Replace Dividers
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-6-test-your-migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Part 6: Test Your Migration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Part 6: Test Your Migration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-run-syntax-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Run syntax check
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-run-the-formatting-test-suite" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Run the formatting test suite
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-visual-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Visual check
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-width-verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Width verification
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-color-leak-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Color leak check
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checklist
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-migration-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Migration Patterns
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common Migration Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pattern-1-simple-status-box" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pattern 1: Simple Status Box
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pattern-2-multi-section-box" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pattern 2: Multi-Section Box
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pattern-3-colored-headers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pattern 3: Colored Headers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#box-width-looks-wrong" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Box width looks wrong
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#colors-bleed-into-next-line" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Colors bleed into next line
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#source-path-not-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Source path not found
+        R Package
       
     </span>
   </a>
@@ -7261,7 +6883,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/tutorials/TUTORIAL-formatting-migration.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/tutorials/TUTORIAL-release-pipeline.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -7269,254 +6891,191 @@
   
 
 
-<h1 id="tutorial-migrate-your-script-to-the-formatting-library">Tutorial: Migrate Your Script to the Formatting Library<a class="headerlink" href="#tutorial-migrate-your-script-to-the-formatting-library" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Eliminate duplicated color definitions and hand-coded box drawing from your bash scripts in under 15 minutes.</p>
-</blockquote>
-<p><strong>Level:</strong> Intermediate | <strong>Time:</strong> 15 minutes | <strong>Prerequisites:</strong> Basic bash scripting</p>
+<h1 id="tutorial-release-pipeline">Tutorial: Release Pipeline<a class="headerlink" href="#tutorial-release-pipeline" title="Permanent link">&para;</a></h1>
+<p>Learn how to use <code>/craft:release</code> to automate the full release lifecycle.</p>
+<p><strong>Time:</strong> 10 minutes | <strong>Level:</strong> Intermediate | <strong>Skill:</strong> <code>skills/release/SKILL.md</code></p>
 <hr />
-<h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Before running a release:</p>
 <ol>
-<li>How to source <code>formatting.sh</code> from any script location</li>
-<li>Replace duplicated color variables with shared <code>FMT_</code> constants</li>
-<li>Replace hand-coded box-drawing with library functions</li>
-<li>Test your migration for width consistency</li>
+<li>You are on the <code>dev</code> branch</li>
+<li>All feature work is merged to dev via PRs</li>
+<li>Working tree is clean (<code>git status</code> shows no changes)</li>
+<li>Tests are passing</li>
 </ol>
 <hr />
-<h2 id="part-1-assess-your-script">Part 1: Assess Your Script<a class="headerlink" href="#part-1-assess-your-script" title="Permanent link">&para;</a></h2>
-<p>Before migrating, identify what your script uses:</p>
-<p><strong>Color definitions</strong> (replace with <code>FMT_</code> constants):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Look for patterns like these:</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">RED</span><span class="o">=</span><span class="s1">&#39;\033[0;31m&#39;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nv">GREEN</span><span class="o">=</span><span class="s1">&#39;\033[0;32m&#39;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nv">NC</span><span class="o">=</span><span class="s1">&#39;\033[0m&#39;</span>
+<h2 id="step-1-preview-with-dry-run">Step 1: Preview with Dry-Run<a class="headerlink" href="#step-1-preview-with-dry-run" title="Permanent link">&para;</a></h2>
+<p>Always start with a dry-run to see the full plan:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/release --dry-run
 </span></code></pre></div>
-<p><strong>Box-drawing characters</strong> (replace with library functions):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Look for echo/printf with box chars:</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╔═══════════════════════════╗&quot;</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;║  Title                   ║&quot;</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╚═══════════════════════════╝&quot;</span>
-</span></code></pre></div>
-<p><strong>Divider lines</strong> (replace with <code>fmt_divider</code>):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;==========================================&quot;</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;──────────────────────────────────────────&quot;</span>
-</span></code></pre></div>
-<hr />
-<h2 id="part-2-source-the-library">Part 2: Source the Library<a class="headerlink" href="#part-2-source-the-library" title="Permanent link">&para;</a></h2>
-<p>The source path depends on where your script lives:</p>
-<h3 id="scripts-in-scripts">Scripts in <code>scripts/</code><a class="headerlink" href="#scripts-in-scripts" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/formatting.sh&quot;</span>
-</span></code></pre></div>
-<h3 id="scripts-in-scriptsinstallers-or-scriptshooks">Scripts in <code>scripts/installers/</code> or <code>scripts/hooks/</code><a class="headerlink" href="#scripts-in-scriptsinstallers-or-scriptshooks" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">/..&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/formatting.sh&quot;</span>
-</span></code></pre></div>
-<h3 id="root-level-scripts-installsh">Root-level scripts (<code>install.sh</code>)<a class="headerlink" href="#root-level-scripts-installsh" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/scripts/formatting.sh&quot;</span>
-</span></code></pre></div>
-<hr />
-<h2 id="part-3-replace-color-definitions">Part 3: Replace Color Definitions<a class="headerlink" href="#part-3-replace-color-definitions" title="Permanent link">&para;</a></h2>
-<h3 id="before">Before<a class="headerlink" href="#before" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">RED</span><span class="o">=</span><span class="s1">&#39;\033[0;31m&#39;</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nv">GREEN</span><span class="o">=</span><span class="s1">&#39;\033[0;32m&#39;</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nv">YELLOW</span><span class="o">=</span><span class="s1">&#39;\033[1;33m&#39;</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nv">CYAN</span><span class="o">=</span><span class="s1">&#39;\033[1;36m&#39;</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nv">BOLD</span><span class="o">=</span><span class="s1">&#39;\033[1m&#39;</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nv">NC</span><span class="o">=</span><span class="s1">&#39;\033[0m&#39;</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">Success</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
-</span></code></pre></div>
-<h3 id="after-if-you-want-to-keep-short-names">After (if you want to keep short names)<a class="headerlink" href="#after-if-you-want-to-keep-short-names" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/formatting.sh&quot;</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nv">RED</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FMT_RED</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">GREEN</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FMT_GREEN</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">YELLOW</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FMT_YELLOW</span><span class="s2">&quot;</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nv">CYAN</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FMT_CYAN</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">BOLD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FMT_BOLD</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">NC</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$FMT_NC</span><span class="s2">&quot;</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">Success</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span><span class="w">  </span><span class="c1"># Works identically</span>
-</span></code></pre></div>
-<h3 id="after-using-fmt_-directly">After (using FMT_ directly)<a class="headerlink" href="#after-using-fmt_-directly" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/formatting.sh&quot;</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">FMT_GREEN</span><span class="si">}</span><span class="s2">Success</span><span class="si">${</span><span class="nv">FMT_NC</span><span class="si">}</span><span class="s2">&quot;</span>
-</span></code></pre></div>
-<hr />
-<h2 id="part-4-replace-box-drawing">Part 4: Replace Box-Drawing<a class="headerlink" href="#part-4-replace-box-drawing" title="Permanent link">&para;</a></h2>
-<h3 id="example-double-line-box">Example: Double-Line Box<a class="headerlink" href="#example-double-line-box" title="Permanent link">&para;</a></h3>
-<p><strong>Before (27 lines):</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╔═════════════════════════════════════════════════════════════╗&quot;</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;║  Craft Plugin Installer for Claude Code                   ║&quot;</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╠═════════════════════════════════════════════════════════════╣&quot;</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;║                                                           ║&quot;</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;║  📦 Installing: craft v2.14.0                             ║&quot;</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;║  📍 Location: ~/.claude/plugins/craft                     ║&quot;</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;║                                                           ║&quot;</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╚═════════════════════════════════════════════════════════════╝&quot;</span>
-</span></code></pre></div>
-<p><strong>After (7 lines):</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>box_header<span class="w"> </span><span class="s2">&quot;Craft Plugin Installer for Claude Code&quot;</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>box_empty_row
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>box_row<span class="w"> </span><span class="s2">&quot;  📦 Installing: craft v</span><span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>box_row<span class="w"> </span><span class="s2">&quot;  📍 Location: ~/.claude/plugins/craft&quot;</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>box_empty_row
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>box_footer
-</span></code></pre></div>
-<p>Benefits:</p>
+<p>This shows:</p>
 <ul>
-<li>Dynamic variables (<code>$VERSION</code>) automatically padded</li>
-<li>Width always 63 visible characters</li>
-<li>No manual alignment needed</li>
+<li>Current and suggested next version</li>
+<li>Every step that will execute</li>
+<li>Files that will be modified</li>
+<li>PRs that will be created</li>
 </ul>
-<h3 id="example-single-line-box-with-colors">Example: Single-Line Box with Colors<a class="headerlink" href="#example-single-line-box-with-colors" title="Permanent link">&para;</a></h3>
-<p><strong>Before:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;┌─────────────────────────────────────────────────────────────┐\n&#39;</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;│  %-57s  │\n&#39;</span><span class="w"> </span><span class="s2">&quot;INSTALLATION REQUIRED&quot;</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;├─────────────────────────────────────────────────────────────┤\n&#39;</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;│  Tool: %-51s  │\n&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$tool_name</span><span class="s2">&quot;</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;└─────────────────────────────────────────────────────────────┘\n&#39;</span>
+<p>No changes are made. Review the output before proceeding.</p>
+<hr />
+<h2 id="step-2-run-your-first-release">Step 2: Run Your First Release<a class="headerlink" href="#step-2-run-your-first-release" title="Permanent link">&para;</a></h2>
+<p>When you are ready:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/release
 </span></code></pre></div>
-<p><strong>After:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>box_single<span class="w"> </span><span class="s2">&quot;INSTALLATION REQUIRED&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FMT_BOLD</span><span class="s2">&quot;</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>box_row<span class="w"> </span><span class="s2">&quot;Tool: </span><span class="nv">$tool_name</span><span class="s2">&quot;</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>box_footer
-</span></code></pre></div>
-<h3 id="example-colored-content-rows">Example: Colored Content Rows<a class="headerlink" href="#example-colored-content-rows" title="Permanent link">&para;</a></h3>
-<p><strong>Before:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;║ %-55s ║\n&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;Status: </span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">OK</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># Manual visible-length calculation needed!</span>
-</span></code></pre></div>
-<p><strong>After:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>box_row<span class="w"> </span><span class="s2">&quot;Status: </span><span class="si">${</span><span class="nv">FMT_GREEN</span><span class="si">}</span><span class="s2">OK</span><span class="si">${</span><span class="nv">FMT_NC</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="c1"># ANSI-aware padding handles alignment automatically</span>
+<p>The skill will:</p>
+<ol>
+<li><strong>Detect your current version</strong> from plugin.json, package.json, or git tags</li>
+<li><strong>Suggest the next version</strong> based on commit history (patch, minor, or major)</li>
+<li><strong>Ask for confirmation</strong> before proceeding</li>
+</ol>
+<p>If you already know the version:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/release v2.18.0
 </span></code></pre></div>
 <hr />
-<h2 id="part-5-replace-dividers">Part 5: Replace Dividers<a class="headerlink" href="#part-5-replace-dividers" title="Permanent link">&para;</a></h2>
-<p><strong>Before:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;===========================================&quot;</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;──────────────────────────────────────────&quot;</span>
-</span></code></pre></div>
-<p><strong>After:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>fmt_divider<span class="w"> </span><span class="s2">&quot;=&quot;</span><span class="w"> </span><span class="m">43</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>fmt_divider<span class="w"> </span><span class="s2">&quot;─&quot;</span><span class="w"> </span><span class="m">42</span>
-</span></code></pre></div>
+<h2 id="step-3-follow-the-pipeline">Step 3: Follow the Pipeline<a class="headerlink" href="#step-3-follow-the-pipeline" title="Permanent link">&para;</a></h2>
+<p>The release executes 10 steps sequentially:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What Happens</th>
+<th>You Need To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Detect version</td>
+<td>Reads plugin.json/package.json/git tag</td>
+<td>Confirm version</td>
+</tr>
+<tr>
+<td>2a. CI mirror</td>
+<td><code>/craft:check --for release</code> (full test suite)</td>
+<td>Fix any failures</td>
+</tr>
+<tr>
+<td>2b. Metadata check</td>
+<td><code>pre-release-check.sh</code> (version/counts)</td>
+<td>Fix any mismatches</td>
+</tr>
+<tr>
+<td>3. Version bump</td>
+<td>Updates version files</td>
+<td>Review changes</td>
+</tr>
+<tr>
+<td>4. Commit and push</td>
+<td>Creates release commit</td>
+<td>Nothing (automatic)</td>
+</tr>
+<tr>
+<td>5. Release PR</td>
+<td>Creates dev to main PR</td>
+<td>Nothing (automatic)</td>
+</tr>
+<tr>
+<td>6. Merge PR</td>
+<td>Merges the PR</td>
+<td>Confirm if admin needed</td>
+</tr>
+<tr>
+<td>7. GitHub release</td>
+<td>Creates tag and release</td>
+<td>Nothing (automatic)</td>
+</tr>
+<tr>
+<td>8. Docs deploy</td>
+<td>Publishes docs site</td>
+<td>Nothing (automatic)</td>
+</tr>
+<tr>
+<td>9. Dev sync</td>
+<td>Pulls main into dev</td>
+<td>Nothing (automatic)</td>
+</tr>
+<tr>
+<td>10. Verify CI</td>
+<td>Checks CI passes on main</td>
+<td>Fix if needed</td>
+</tr>
+</tbody>
+</table>
+<p>If any step fails, the pipeline stops and reports the error.</p>
 <hr />
-<h2 id="part-6-test-your-migration">Part 6: Test Your Migration<a class="headerlink" href="#part-6-test-your-migration" title="Permanent link">&para;</a></h2>
-<h3 id="1-run-syntax-check">1. Run syntax check<a class="headerlink" href="#1-run-syntax-check" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>bash<span class="w"> </span>-n<span class="w"> </span>your-script.sh
-</span></code></pre></div>
-<h3 id="2-run-the-formatting-test-suite">2. Run the formatting test suite<a class="headerlink" href="#2-run-the-formatting-test-suite" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>bash<span class="w"> </span>tests/test_formatting.sh
-</span></code></pre></div>
-<h3 id="3-visual-check">3. Visual check<a class="headerlink" href="#3-visual-check" title="Permanent link">&para;</a></h3>
-<p>Run your script and verify boxes look correct.</p>
-<h3 id="4-width-verification">4. Width verification<a class="headerlink" href="#4-width-verification" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>your-script.sh<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/\x1b\[[0-9;]*m//g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nv">IFS</span><span class="o">=</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>line<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>*<span class="s2">&quot;║&quot;</span>*<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span>*<span class="s2">&quot;│&quot;</span>*<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${#</span><span class="nv">line</span><span class="si">}</span><span class="s2">: </span><span class="nv">$line</span><span class="s2">&quot;</span>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">  </span><span class="k">fi</span>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="k">done</span>
-</span></code></pre></div>
-<p>All box lines should be exactly 63 characters.</p>
-<h3 id="5-color-leak-check">5. Color leak check<a class="headerlink" href="#5-color-leak-check" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>your-script.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>cat
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="c1"># Should see no raw ANSI escape codes after box output</span>
-</span></code></pre></div>
-<hr />
-<h2 id="checklist">Checklist<a class="headerlink" href="#checklist" title="Permanent link">&para;</a></h2>
+<h2 id="using-dry-run-mode">Using Dry-Run Mode<a class="headerlink" href="#using-dry-run-mode" title="Permanent link">&para;</a></h2>
+<p>Dry-run is useful for:</p>
 <ul>
-<li>[ ] Source <code>formatting.sh</code> with correct path for your script location</li>
-<li>[ ] Replace all local color definitions with <code>FMT_</code> constants (or aliases)</li>
-<li>[ ] Replace echo/printf box-drawing with <code>box_header</code>/<code>box_single</code>/<code>box_row</code>/<code>box_footer</code></li>
-<li>[ ] Replace divider lines with <code>fmt_divider</code></li>
-<li>[ ] Test: syntax check passes (<code>bash -n</code>)</li>
-<li>[ ] Test: visual output looks correct</li>
-<li>[ ] Test: all box lines are 63 visible chars</li>
-<li>[ ] Test: no color leaks (<code>| cat</code>)</li>
+<li><strong>First-time releases</strong> — understand what will happen</li>
+<li><strong>Verifying version detection</strong> — confirm the right version is picked up</li>
+<li><strong>Checking prerequisites</strong> — see if anything would block the release</li>
+<li><strong>Documentation</strong> — share the release plan with teammates</li>
 </ul>
-<hr />
-<h2 id="common-migration-patterns">Common Migration Patterns<a class="headerlink" href="#common-migration-patterns" title="Permanent link">&para;</a></h2>
-<h3 id="pattern-1-simple-status-box">Pattern 1: Simple Status Box<a class="headerlink" href="#pattern-1-simple-status-box" title="Permanent link">&para;</a></h3>
-<p><strong>Before:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╔════════════════════════════╗&quot;</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;║ Status: OK                 ║&quot;</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╚════════════════════════════╝&quot;</span>
-</span></code></pre></div>
-<p><strong>After:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>box_single<span class="w"> </span><span class="s2">&quot;Status: OK&quot;</span>
-</span></code></pre></div>
-<h3 id="pattern-2-multi-section-box">Pattern 2: Multi-Section Box<a class="headerlink" href="#pattern-2-multi-section-box" title="Permanent link">&para;</a></h3>
-<p><strong>Before:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╔════════════════════════════╗&quot;</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;║ Section 1                  ║&quot;</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╠════════════════════════════╣&quot;</span>
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;║ Section 2                  ║&quot;</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;╚════════════════════════════╝&quot;</span>
-</span></code></pre></div>
-<p><strong>After:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>box_header<span class="w"> </span><span class="s2">&quot;Section 1&quot;</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>box_divider
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>box_row<span class="w"> </span><span class="s2">&quot;Section 2&quot;</span>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>box_footer
-</span></code></pre></div>
-<h3 id="pattern-3-colored-headers">Pattern 3: Colored Headers<a class="headerlink" href="#pattern-3-colored-headers" title="Permanent link">&para;</a></h3>
-<p><strong>Before:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;╔════════════════════════════╗&quot;</span>
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;║ </span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">Success</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">                 ║&quot;</span>
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;╚════════════════════════════╝&quot;</span>
-</span></code></pre></div>
-<p><strong>After:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>box_single<span class="w"> </span><span class="s2">&quot;Success&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FMT_GREEN</span><span class="s2">&quot;</span>
+<p>The <code>-n</code> alias works too:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/release -n
 </span></code></pre></div>
 <hr />
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="box-width-looks-wrong">Box width looks wrong<a class="headerlink" href="#box-width-looks-wrong" title="Permanent link">&para;</a></h3>
-<p><strong>Problem:</strong> Lines don't align or width varies</p>
-<p><strong>Solution:</strong> Verify you're using ANSI-aware padding:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Wrong - uses visible length including ANSI codes</span>
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;║ %-59s ║\n&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GREEN</span><span class="si">}</span><span class="s2">text</span><span class="si">${</span><span class="nv">NC</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
-</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Right - strips ANSI before calculating padding</span>
-</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>box_row<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">FMT_GREEN</span><span class="si">}</span><span class="s2">text</span><span class="si">${</span><span class="nv">FMT_NC</span><span class="si">}</span><span class="s2">&quot;</span>
+<h2 id="handling-common-errors">Handling Common Errors<a class="headerlink" href="#handling-common-errors" title="Permanent link">&para;</a></h2>
+<h3 id="pre-flight-fails">Pre-Flight Fails<a class="headerlink" href="#pre-flight-fails" title="Permanent link">&para;</a></h3>
+<p>The most common issue. Fix the reported problems and re-run:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># Common fixes:
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a># - Update version in plugin.json
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a># - Update version references in CLAUDE.md
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a># - Commit any uncommitted changes
 </span></code></pre></div>
-<h3 id="colors-bleed-into-next-line">Colors bleed into next line<a class="headerlink" href="#colors-bleed-into-next-line" title="Permanent link">&para;</a></h3>
-<p><strong>Problem:</strong> Text after box is still colored</p>
-<p><strong>Solution:</strong> Ensure <code>box_footer</code> is called (it includes <code>$FMT_NC</code>):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>box_header<span class="w"> </span><span class="s2">&quot;Title&quot;</span>
-</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>box_row<span class="w"> </span><span class="s2">&quot;Content&quot;</span>
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>box_footer<span class="w">  </span><span class="c1"># REQUIRED - resets color</span>
+<h3 id="branch-guard-blocks-pr-creation">Branch Guard Blocks PR Creation<a class="headerlink" href="#branch-guard-blocks-pr-creation" title="Permanent link">&para;</a></h3>
+<p>If the PR body contains literal destructive git command strings, branch guard may block PR creation. The skill already handles this by using indirect language in PR descriptions.</p>
+<h3 id="branch-protection-blocks-merge">Branch Protection Blocks Merge<a class="headerlink" href="#branch-protection-blocks-merge" title="Permanent link">&para;</a></h3>
+<p>If the repository has branch protection rules, the skill will ask for confirmation before using <code>--admin</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Branch protection is blocking the merge. Use --admin? (y/n)
 </span></code></pre></div>
-<h3 id="source-path-not-found">Source path not found<a class="headerlink" href="#source-path-not-found" title="Permanent link">&para;</a></h3>
-<p><strong>Problem:</strong> <code>formatting.sh: No such file or directory</code></p>
-<p><strong>Solution:</strong> Check your script's location and adjust the relative path:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Debug: print resolved path</span>
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Script dir: </span><span class="nv">$SCRIPT_DIR</span><span class="s2">&quot;</span>
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Looking for: </span><span class="nv">$SCRIPT_DIR</span><span class="s2">/formatting.sh&quot;</span>
+<h3 id="tag-already-exists">Tag Already Exists<a class="headerlink" href="#tag-already-exists" title="Permanent link">&para;</a></h3>
+<p>If a tag for the target version already exists:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># Verify the tag is stale
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>git tag -l &quot;v2.18.0&quot;
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a># Delete if confirmed stale
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>git tag -d v2.18.0
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>git push origin :refs/tags/v2.18.0
 </span></code></pre></div>
+<hr />
+<h2 id="customizing-for-different-project-types">Customizing for Different Project Types<a class="headerlink" href="#customizing-for-different-project-types" title="Permanent link">&para;</a></h2>
+<p>The release skill adapts to your project type:</p>
+<h3 id="craft-plugin">Craft Plugin<a class="headerlink" href="#craft-plugin" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Version source: <code>.claude-plugin/plugin.json</code></li>
+<li>Pre-flight: <code>scripts/pre-release-check.sh</code></li>
+<li>Docs deploy: <code>mkdocs gh-deploy</code></li>
+</ul>
+<h3 id="python-package">Python Package<a class="headerlink" href="#python-package" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Version source: <code>pyproject.toml</code></li>
+<li>Pre-flight: <code>pytest</code></li>
+<li>Post-release: PyPI publish via GitHub Actions</li>
+</ul>
+<h3 id="node-package">Node Package<a class="headerlink" href="#node-package" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Version source: <code>package.json</code></li>
+<li>Pre-flight: <code>npm test</code></li>
+<li>Post-release: <code>npm publish</code></li>
+</ul>
+<h3 id="r-package">R Package<a class="headerlink" href="#r-package" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Version source: <code>DESCRIPTION</code></li>
+<li>Pre-flight: <code>R CMD check</code></li>
+<li>Post-release: CRAN submission</li>
+</ul>
 <hr />
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../../guide/bash-formatting-library/">Formatting Library Guide</a> — Full API documentation</li>
-<li><a href="../../reference/REFCARD-FORMATTING/">Quick Reference Card</a> — Function cheat sheet</li>
-<li><a href="../../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05/">Spec</a> — Design specification</li>
-<li>Test Suite: <code>tests/test_formatting.sh</code> — 74 validation tests</li>
+<li><a href="../../reference/REFCARD-RELEASE/">Release Quick Reference</a> - Compact reference card</li>
+<li><a href="../../skills/release/references/release-checklist.md">Release Checklist</a> - Detailed per-project checklists</li>
+<li><a href="../../workflows/release-workflow/">Release Workflow</a> - Full workflow documentation</li>
 </ul>
-<hr />
-<p><strong>Next Steps:</strong></p>
-<ol>
-<li>Migrate your first script using this tutorial</li>
-<li>Run the test suite to validate formatting</li>
-<li>Review the <a href="../../guide/bash-formatting-library/">Formatting Library Guide</a> for advanced features</li>
-<li>Contribute improvements to the library</li>
-</ol>
 
 
 
 
 
 
-
-  
-  
 
 
 
