@@ -1,7 +1,7 @@
 # SPEC: Marketplace Distribution & Release Integration
 
 **Date:** 2026-02-14
-**Status:** Draft
+**Status:** Approved
 **Author:** DT + Claude
 **From Brainstorm:** `docs/brainstorm/BRAINSTORM-marketplace-commands-2026-02-14.md`
 
