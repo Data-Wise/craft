@@ -66,11 +66,14 @@ Detects project type and generates appropriate formula:
 
 | Project Type | Detection | Formula Pattern |
 |--------------|-----------|-----------------|
+| **Claude Code Plugin** | `.claude-plugin/plugin.json` | `libexec.install` + plugin scripts |
 | Python | `pyproject.toml` | `Language::Python::Virtualenv` |
 | Node.js | `package.json` | npm install pattern |
 | Go | `go.mod` | go build pattern |
 | Rust | `Cargo.toml` | cargo install pattern |
 | Shell | `*.sh` scripts | bin.install pattern |
+
+> **Detection priority:** Claude Code Plugin > Python > Node.js > Go > Rust > Shell. Plugin detection takes precedence because `.claude-plugin/plugin.json` is the most specific indicator.
 
 ### Example Output
 

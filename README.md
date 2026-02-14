@@ -15,7 +15,16 @@ A comprehensive production-ready toolkit for Claude Code featuring smart orchest
 
 Craft works in both Claude Code CLI and Claude Desktop app. No MCP server dependencies required.
 
-### Option 1: Homebrew (Recommended - macOS)
+### Option 1: Marketplace (Recommended)
+
+```bash
+# Install from the Claude Code plugin marketplace
+claude plugin add github:Data-Wise/craft
+```
+
+Works on **all platforms** (macOS, Linux, Windows). No additional tools required.
+
+### Option 2: Homebrew (macOS)
 
 ```bash
 # Add the Data-Wise tap
@@ -30,13 +39,6 @@ The Homebrew formula automatically:
 - Installs the plugin to `~/.claude/plugins/craft`
 - Makes it available in Claude Code CLI and Claude Desktop
 - No additional configuration needed
-
-### Option 2: GitHub Marketplace
-
-```bash
-# Install from the Claude Code plugin marketplace
-claude plugin add github:Data-Wise/craft
-```
 
 ### Option 3: Quick Install (curl)
 
