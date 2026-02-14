@@ -6,7 +6,7 @@
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **v2.18.0 - Release Pipeline Enhancements** 🚀
-> **109 commands** | **23 skills** | **8 agents** | **~1504 tests passing**
+> **109 commands** | **25 skills** | **8 agents** | **~1504 tests passing**
 > CI mirror pre-flight, README/index version checks, release command delegation, docs sync.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
@@ -144,8 +144,9 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [Quick Start](https://data-wise.github.io/craft/QUICK-START/) (30 seconds)
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
-- [Command Reference](https://data-wise.github.io/craft/REFCARD/) (all 109 commands)
-- [Skills & Agents](https://data-wise.github.io/craft/guide/skills-agents/) (23 skills, 8 agents)
+
+> Full-stack developer toolkit for Claude Code — 109 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
+
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
 - [Version History](https://data-wise.github.io/craft/VERSION-HISTORY/) (v1.0.0 → v1.24.0 timeline)
@@ -523,7 +524,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
 - 📖 **[Commands Reference](docs/commands.md)** - All 86 commands documented
-- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 23 skills, 8 agents
+- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 25 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards

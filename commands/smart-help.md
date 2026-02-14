@@ -92,6 +92,72 @@ Get intelligent help based on your project and question.
 ╰─────────────────────────────────────────────────────╯
 ```
 
+**Branch guard friction detected** (guard blocked an operation recently):
+
+```
+╭─ Guard friction detected ─────────────────────╮
+│                                                │
+│ Suggested:                                     │
+│   /craft:guard:audit     Analyze guard config, │
+│                          find false positives   │
+│   /craft:git:unprotect   Session-scoped bypass │
+│                          (temporary)            │
+│                                                │
+╰────────────────────────────────────────────────╯
+```
+
+**Session start** (new session, no prior context):
+
+```
+╭─ New session ──────────────────────────────────╮
+│                                                │
+│ Suggested:                                     │
+│   /craft:check --context  Front-load session   │
+│                           context (branch,      │
+│                           worktree, phase)      │
+│                                                │
+╰────────────────────────────────────────────────╯
+```
+
+**In a worktree** (CWD is inside `~/.git-worktrees/`):
+
+```
+╭─ Worktree detected ───────────────────────────╮
+│                                                │
+│ Suggested:                                     │
+│   /craft:git:worktree validate  Verify path    │
+│   /craft:check --context        Session context│
+│                                                │
+╰────────────────────────────────────────────────╯
+```
+
+**Insights data exists** (`~/.claude/usage-data/report.html` present):
+
+```
+╭─ Insights data available ─────────────────────╮
+│                                                │
+│ Suggested:                                     │
+│   /craft:insights:apply  Apply insights         │
+│                          suggestions to          │
+│                          CLAUDE.md              │
+│                                                │
+╰────────────────────────────────────────────────╯
+```
+
+**Release preparation** (on dev, features merged):
+
+```
+╭─ Ready for release ───────────────────────────╮
+│                                                │
+│ Suggested:                                     │
+│   /release               Interactive release   │
+│   /release --autonomous   Fully automated       │
+│                           (no prompts)          │
+│   /release -n             Dry-run preview       │
+│                                                │
+╰────────────────────────────────────────────────╯
+```
+
 ## Topic-Based Help
 
 ### Testing

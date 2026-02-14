@@ -94,8 +94,8 @@ jobs:
       - name: Check skills
         run: |
           SKILL_COUNT=$(find skills -name "*.md" -type f | wc -l | tr -d ' ')
-          if [ "$SKILL_COUNT" -lt 21 ]; then
-            echo "❌ Expected at least 21 skills, found $SKILL_COUNT"
+          if [ "$SKILL_COUNT" -lt 25 ]; then
+            echo "❌ Expected at least 25 skills, found $SKILL_COUNT"
             exit 1
           fi
           echo "✅ Found $SKILL_COUNT skill files"

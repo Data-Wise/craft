@@ -5,11 +5,11 @@
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
 │  Version: 2.18.0 (released 2026-02-14)                       │
-│  Commands: 109 | Agents: 8 | Skills: 23                     │
+│  Commands: 109 | Agents: 8 | Skills: 25                     │
 │  Documentation: 99% complete | Tests: ~1575 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.18.0: Marketplace distribution, release pipeline,        │
-│           CI pre-flight, command delegation                   │
+│  v2.18.0: Insights-driven improvements, guard audit,         │
+│           insights apply, --autonomous, --context, --swarm    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -97,6 +97,11 @@
 # Auto-fix safe issues
 /craft:check --fix
 # Fixes: formatting, markdown violations, safe updates
+
+# Context-only mode (v2.18.0)
+/craft:check --context
+# Detects: dev phase (planning/implementing/testing/integrating)
+# Shows: relevant context without running validators
 ```
 
 **When to use:**
@@ -727,6 +732,7 @@ main (production branch)
 /craft:check --mode=thorough    # Comprehensive checks (<300s)
 /craft:check --dry-run          # Preview steps without running
 /craft:check --skip=tests       # Skip specific checks
+/craft:check --context          # Context-only mode (no validators)
 ```
 
 **Mode-Specific Checks:**
@@ -816,6 +822,7 @@ main (production branch)
 /craft:git:worktree clean          # Remove merged worktrees
 /craft:git:worktree install        # Install deps in worktree
 /craft:git:worktree finish         # Complete: tests → changelog → PR
+/craft:git:worktree validate       # Check worktree health (v2.18.0)
 ```
 
 **Complete Worktree Workflow Examples:**
@@ -1067,6 +1074,7 @@ npm test
 # Interactive mode (v2.9.0) - Shows mode selection, wave plan, checkpoints
 /craft:orchestrate "add auth"           # Interactive: pick mode + confirm plan
 /craft:orchestrate "add auth" optimize  # Direct mode selection
+/craft:orchestrate "large task" --swarm # Unlimited parallel agents (v2.18.0)
 
 # Orchestrate specific commands with --orch flag (v2.5.0)
 /craft:do "add auth" --orch=optimize      # Quick orchestration
@@ -1363,13 +1371,15 @@ end tell'
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
-## Skills (22 total)
+## Skills (25 total)
 
 Auto-triggered expertise:
 
 | Skill                     | Triggers                                            |
 | ------------------------- | --------------------------------------------------- |
 | `release`                 | "release", "ship it", version publishing            |
+| `guard-audit`             | "audit guard", "review branch protection" (v2.18.0) |
+| `insights-apply`          | "apply insights", "update rules from insights" (v2.18.0) |
 | `backend-designer`        | API, database, auth                                 |
 | `frontend-designer`       | UI/UX, components                                   |
 | `test-strategist`         | Test strategy                                       |
@@ -1380,7 +1390,7 @@ Auto-triggered expertise:
 | `doc-classifier`          | Documentation type detection                        |
 | `mermaid-linter`          | Mermaid diagram validation                          |
 | `session-state`           | Orchestrator state tracking                         |
-| ...and 11 more            | See [Skills & Agents Guide](guide/skills-agents.md) |
+| ...and 12 more            | See [Skills & Agents Guide](guide/skills-agents.md) |
 
 ## Agents (8 specialized)
 
@@ -1436,6 +1446,7 @@ Comprehensive guides and references:
 | **[Interactive Commands](guide/interactive-commands.md)**                 | --------- | "Show Steps First" pattern, 4 commands with plan confirmation (170 lines)                    |
 | **[Check Command Mastery](guide/check-command-mastery.md)**               | --------- | Complete guide to pre-flight validation, mode selection, scenarios (460 lines)               |
 | **[Worktree Advanced Patterns](guide/worktree-advanced-patterns.md)**     | --------- | Multi-worktree management, complex workflows, recovery (575 lines)                           |
+| **[Insights-Driven Improvements](guide/insights-improvements-guide.md)** | 7 Mermaid | Guard audit, insights apply, --context, --swarm, --autonomous, workflows (v2.18.0)           |
 
 **Tutorials:**
 
@@ -1445,6 +1456,7 @@ Comprehensive guides and references:
 | **[Post-Merge Pipeline](tutorials/TUTORIAL-post-merge-pipeline.md)**   | 5-phase auto-fix workflow after PR merge (542 lines)                  |
 | **[Worktree Setup](tutorials/TUTORIAL-worktree-setup.md)**             | Beginner to intermediate worktree guide (795 lines)                   |
 | **[Orchestrator Modes](tutorials/orchestrator-modes-compared.md)**     | Same task in 4 modes with performance metrics (446 lines)             |
+| **[Insights Workflow](tutorials/TUTORIAL-insights-workflow.md)**      | v2.18.0 features: --context, guard-audit, insights-apply, --swarm    |
 
 **Reference Cards:**
 
