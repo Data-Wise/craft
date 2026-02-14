@@ -43,7 +43,7 @@ brew info craft
 /craft:hub
 ```
 
-You should see all 108 commands listed.
+You should see all 109 commands listed.
 
 ---
 
@@ -288,7 +288,7 @@ The same pattern applies to other Data-Wise plugins. All use Claude detection to
 
 | Plugin | Install Command | Commands |
 |--------|-----------------|----------|
-| **craft** | `brew install data-wise/tap/craft` | 108 commands |
+| **craft** | `brew install data-wise/tap/craft` | 109 commands |
 | **rforge** | `brew install data-wise/tap/rforge` | 15 commands |
 | **scholar** | `brew install data-wise/tap/scholar` | 21 commands |
 
@@ -313,15 +313,26 @@ claude plugin update scholar@local-plugins
 
 ---
 
-## Alternative: GitHub Marketplace
+## Alternative: GitHub Marketplace (Recommended for New Users)
 
-If you prefer not to use Homebrew (e.g., on Linux), you can install directly from the GitHub marketplace:
+The **recommended** installation method for new users and cross-platform setups is the Claude Code marketplace:
 
 ```bash
 claude plugin add github:Data-Wise/craft
 ```
 
-This installs the plugin directly into Claude Code without Homebrew. Updates are managed through the Claude Code plugin system instead of `brew upgrade`.
+**Advantages over Homebrew:**
+
+- Works on **all platforms** (macOS, Linux, Windows)
+- No Homebrew dependency
+- Updates managed through Claude Code's plugin system
+- Simpler setup — one command
+
+**When to use Homebrew instead:**
+
+- You already use Homebrew for package management
+- You want `brew upgrade` to handle updates
+- You prefer Homebrew's dependency management
 
 ---
 

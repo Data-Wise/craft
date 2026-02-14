@@ -6,20 +6,20 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 108 commands, 8 AI agents, and 23 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 109 commands, 8 AI agents, and 23 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 23 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 109 commands, 8 agents, 23 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **108 Commands**
+- :rocket:{ .lg .middle } **109 Commands**
 
-    Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution, planning, and workflow automation (brainstorming, task management, spec capture) - all in one toolkit
+    Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
 
 - :brain:{ .lg .middle } **8 Specialized Agents**
 
@@ -62,7 +62,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 108 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 109 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -102,13 +102,13 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 108 Craft commands:
+Complete OpenAPI-style documentation for all 109 Craft commands:
 
 <div class="grid cards" markdown>
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 108 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 109 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -126,7 +126,7 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 
 **Quick Links:**
 
-- [All 108 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 109 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -179,7 +179,7 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 108 commands organized
+    All 109 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](guide/skills-agents.md)**
 
@@ -191,7 +191,7 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 108 commands
+    Complete documentation for all 109 commands
 
 </div>
 
@@ -206,10 +206,10 @@ Complete OpenAPI-style documentation for all 108 Craft commands:
 | **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, smart branch protection (3-tier risk), learning guides |
 | **CI**             | 3      | Detection, generation, validation                                                                                         |
 | **Architecture**   | 4      | Analysis, diagrams, planning, reviews                                                                                     |
-| **Distribution**   | 3      | Homebrew, PyPI, curl installers                                                                                           |
+| **Distribution**   | 4      | Marketplace, Homebrew, PyPI, curl installers                                                                              |
 | **Planning**       | 3      | Feature planning, sprints, roadmaps                                                                                       |
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
-| **Total**          | **108** | **Complete development workflow coverage**                                                                                |
+| **Total**          | **109** | **Complete development workflow coverage**                                                                                |
 
 !!! info "Latest: v2.18.0 — Release Pipeline Enhancements"
     CI mirror pre-flight (`/craft:check --for release`), README/index version validation in `pre-release-check.sh`, release command delegates to skill, comprehensive docs sync. ~1504 tests passing. See the [full changelog](CHANGELOG.md) for all releases.

@@ -2,7 +2,7 @@
 
 **End-to-end release automation** — version detection, pre-flight checks, PR creation, merge, GitHub release.
 
-**Version:** 2.17.0 | **Skill:** `skills/release/SKILL.md`
+**Version:** 2.18.0 | **Skill:** `skills/release/SKILL.md`
 
 ---
 
@@ -36,12 +36,14 @@ Ready to release?
 | 1 | Detect version | Read-only |
 | 2a | `/craft:check --for release` | Read-only (full CI mirror) |
 | 2b | `pre-release-check.sh` | Read-only (metadata) |
+| 2c | Marketplace validation | Read-only |
 | 3 | Bump version | Modifies files |
 | 4 | Commit and push | Creates commit, pushes |
 | 5 | Create release PR | Creates PR (dev to main) |
 | 6 | Merge PR | Merges to main |
 | 7 | Create GitHub release | Creates tag and release |
 | 8 | Post-release | Deploys docs, syncs dev |
+| 8.5 | Update Homebrew tap | Modifies tap formula |
 
 ---
 
@@ -76,6 +78,27 @@ Shows the full action plan without executing anything. No commits, PRs, tags, or
 | Only `fix:`, `chore:`, `docs:` | **patch** (x.y.Z) |
 | Any `feat:` | **minor** (x.Y.0) |
 | Any `!:` or `BREAKING CHANGE` | **major** (X.0.0) |
+
+---
+
+## Marketplace Integration
+
+The release pipeline automatically handles marketplace distribution:
+
+| Step | Action | What It Does |
+|------|--------|-------------|
+| 2c | `claude plugin validate .` | Validates marketplace.json if present |
+| 3 | Version bump | Updates `metadata.version` and `plugins[0].version` |
+| 8.5 | Tap auto-update | Updates Homebrew formula with new SHA256 |
+
+**Files bumped in Step 3:**
+
+| File | Fields |
+|------|--------|
+| `plugin.json` | `version` |
+| `marketplace.json` | `metadata.version`, `plugins[0].version` |
+| `package.json` | `version` |
+| `CLAUDE.md` | Version references |
 
 ---
 

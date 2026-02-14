@@ -1,9 +1,25 @@
 {
-  "name": "craft-marketplace",
-  "owner": { "name": "Data-Wise" },
-  "plugins": [{
-    "name": "craft",
-    "source": ".",
-    "description": "Full-stack developer toolkit with integrated workflow automation"
-  }]
+  "name": "data-wise-craft",
+  "owner": {
+    "name": "Data-Wise",
+    "email": "dt@stat-wise.com"
+  },
+  "metadata": {
+    "description": "Full-stack developer toolkit for Claude Code with 109 commands, 8 agents, and 23 skills",
+    "version": "2.18.0"
+  },
+  "plugins": [
+    {
+      "name": "craft",
+      "source": { "source": "github", "repo": "Data-Wise/craft" },
+      "description": "Full-stack developer toolkit for Claude Code with 109 commands, 8 agents, and 23 skills",
+      "version": "2.18.0",
+      "author": { "name": "Data-Wise", "email": "dt@stat-wise.com" },
+      "homepage": "https://data-wise.github.io/craft/",
+      "repository": "https://github.com/Data-Wise/craft",
+      "license": "MIT",
+      "category": "development",
+      "keywords": ["workflow", "automation", "git", "testing", "documentation", "ci-cd", "release", "architecture"]
+    }
+  ]
 }
