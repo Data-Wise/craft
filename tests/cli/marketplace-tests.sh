@@ -154,7 +154,7 @@ else
 fi
 
 # Optional marketplace fields
-for field in homepage repository license category tags; do
+for field in homepage repository license category keywords; do
     if jq -e ".plugins[0].$field" "$MKT_JSON" >/dev/null 2>&1; then
         log_pass "plugins[0].$field present"
     else

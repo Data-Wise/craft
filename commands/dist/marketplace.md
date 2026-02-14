@@ -51,7 +51,6 @@ Generate `.claude-plugin/marketplace.json` from existing `plugin.json`.
 
 ```json
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "{org}-{plugin}",
   "owner": {
     "name": "{author.name from plugin.json}",
@@ -72,7 +71,7 @@ Generate `.claude-plugin/marketplace.json` from existing `plugin.json`.
       "repository": "{git remote origin URL}",
       "license": "{from LICENSE file or plugin.json}",
       "category": "development",
-      "tags": []
+      "keywords": []
     }
   ]
 }

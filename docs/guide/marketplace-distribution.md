@@ -65,7 +65,6 @@ The marketplace manifest lives at `.claude-plugin/marketplace.json`:
 
 ```json
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "data-wise-craft",
   "owner": {
     "name": "Data-Wise",
@@ -86,7 +85,7 @@ The marketplace manifest lives at `.claude-plugin/marketplace.json`:
       "repository": "https://github.com/Data-Wise/craft",
       "license": "MIT",
       "category": "development",
-      "tags": ["workflow", "automation", "git", "testing"]
+      "keywords": ["workflow", "automation", "git", "testing"]
     }
   ]
 }
@@ -102,7 +101,7 @@ The marketplace manifest lives at `.claude-plugin/marketplace.json`:
 | `plugins[].source` | Yes | GitHub source object: `{"source": "github", "repo": "Owner/Repo"}` |
 | `plugins[].version` | Yes | Must match `plugin.json` version |
 | `plugins[].category` | No | One of: development, productivity, data, etc. |
-| `plugins[].tags` | No | Searchable keywords |
+| `plugins[].keywords` | No | Searchable keywords for plugin discovery |
 
 ### Source Format
 

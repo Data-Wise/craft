@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "data-wise-craft",
   "owner": {
     "name": "Data-Wise",
@@ -20,7 +19,7 @@
       "repository": "https://github.com/Data-Wise/craft",
       "license": "MIT",
       "category": "development",
-      "tags": ["workflow", "automation", "git", "testing", "documentation", "ci-cd", "release", "architecture"]
+      "keywords": ["workflow", "automation", "git", "testing", "documentation", "ci-cd", "release", "architecture"]
     }
   ]
 }

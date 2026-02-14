@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [2.18.0] - 2026-02-14: Marketplace Distribution
+## [Unreleased] - Marketplace Distribution
 
 ### Added
 

@@ -1,7 +1,7 @@
 {
   "name": "@data-wise/claude-craft-plugin",
   "version": "2.9.0",
-  "description": "Full-stack developer toolkit - 109 commands, 8 agents, 21 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces",
+  "description": "Full-stack developer toolkit - 109 commands, 8 agents, 23 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces",
   "main": "index.js",
   "scripts": {
     "test": "python3 tests/test_craft_plugin.py",
