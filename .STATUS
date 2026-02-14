@@ -4,14 +4,23 @@ release_date: 2026-02-14
 milestone: v2.18.0 released
 last_session: 2026-02-14
 
-progress: v2.18.0 released + test baseline established (1575 passing, 0 failures)
+progress: v2.18.0 released + marketplace distribution in progress
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
 | main   | c826855 | —    | Production (v2.18.0 clean) |
-| dev    | c826855 | main | Synced with main           |
+| dev    | 9136f30 | main | Spec + homebrew updates    |
+| feature/marketplace-distribution | 9136f30 | dev | WIP — worktree created |
+
+✅ Session 2026-02-14 (marketplace distribution):
+- Fixed 6 `brew audit --strict` issues in homebrew-tap Formula/craft.rb (63b11d2)
+- Researched Claude Code marketplace install: `/plugin marketplace add` system
+- Created SPEC: marketplace distribution + release integration (10 design decisions)
+- Deep brainstorm: new /craft:dist:marketplace command (init/validate/test/publish)
+- Updated commands/dist/homebrew.md: validate auto-fix + audit-compliant plugin template
+- Created worktree + ORCHESTRATE file for parallel implementation (6 agents, 3 groups)
 
 ✅ Session 2026-02-14 (test baseline + fixes):
 - Fixed 6 failing branch guard tests for v2 smart mode output format (01a8bf3)
@@ -49,11 +58,12 @@ progress: v2.18.0 released + test baseline established (1575 passing, 0 failures
 ---
 
 🎯 Next Action:
-A) Start new feature work (language detection, markdownlint expansion, coaching mode) ⚡
-B) Address any open issues on GitHub
+→ cd ~/.git-worktrees/craft/feature-marketplace-distribution && claude
+→ /craft:orchestrate to run parallel agents (Group 1: marketplace.json + command + homebrew)
 
 ## Future (v2.19.0+)
 
+- Marketplace distribution (in progress — feature branch)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
