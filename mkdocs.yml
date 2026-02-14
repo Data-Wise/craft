@@ -120,6 +120,7 @@ nav:
       - Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
       - Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
       - Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
+      - Release Pipeline Tutorial: tutorials/TUTORIAL-release-pipeline.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
@@ -240,6 +241,7 @@ nav:
       - Claude-MD Quick Reference: reference/REFCARD-CLAUDE-MD.md
       - Brainstorm Quick Reference: reference/REFCARD-BRAINSTORM.md
       - Branch Guard Quick Reference: reference/REFCARD-BRANCH-GUARD.md
+      - Release Pipeline Reference: reference/REFCARD-RELEASE.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md

@@ -54,22 +54,31 @@ flowchart LR
 
 ### Step 1: Pre-Release Audit
 
-Run comprehensive checks before releasing.
+Run two complementary checks before releasing.
+
+**1a. Full CI mirror:**
 
 ```bash
 /craft:check --for release
 ```
 
-**What it checks:**
+**1b. Release metadata (Craft plugins):**
 
-| Check | Description |
-|-------|-------------|
-| Tests | Full test suite with coverage |
-| Lint | All rules, security checks |
-| Types | Full type checking |
-| Security | Vulnerability audit |
-| Docs | Link validation |
-| Changelog | Recent entries |
+```bash
+./scripts/pre-release-check.sh <version>
+```
+
+**What they check together:**
+
+| Check | Source | Description |
+|-------|--------|-------------|
+| Tests | `/craft:check` | Full test suite with coverage |
+| Lint | `/craft:check` | All rules, security checks |
+| Types | `/craft:check` | Full type checking |
+| Security | `/craft:check` | Vulnerability audit |
+| Docs | `/craft:check` | Link validation |
+| Version sync | `pre-release-check.sh` | Version matches across files |
+| Count accuracy | `pre-release-check.sh` | Command/skill/agent counts |
 
 **Expected output:**
 

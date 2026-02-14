@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.16.0 (released 2026-02-07)                       │
-│  Commands: 108 | Agents: 8 | Skills: 21                     │
-│  Documentation: 99% complete | Tests: 1432 passing           │
+│  Version: 2.18.0 (released 2026-02-14)                       │
+│  Commands: 108 | Agents: 8 | Skills: 23                     │
+│  Documentation: 99% complete | Tests: ~1504 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.16.0: Teaching ecosystem + branch protection hooks       │
-│           138 new tests, config normalization, bypass system  │
+│  v2.18.0: Release pipeline enhancements, CI pre-flight       │
+│           README/index checks, command delegation             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -1360,12 +1360,13 @@ end tell'
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
-## Skills (21 total)
+## Skills (22 total)
 
 Auto-triggered expertise:
 
 | Skill                     | Triggers                                            |
 | ------------------------- | --------------------------------------------------- |
+| `release`                 | "release", "ship it", version publishing            |
 | `backend-designer`        | API, database, auth                                 |
 | `frontend-designer`       | UI/UX, components                                   |
 | `test-strategist`         | Test strategy                                       |

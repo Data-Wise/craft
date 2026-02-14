@@ -219,14 +219,16 @@ class TestOrchFlagDocumentation:
         assert len(content) > 2000
 
     def test_claude_md_updated(self):
-        """Test CLAUDE.md has --orch flag documentation"""
+        """Test --orch flag is documented in VERSION-HISTORY.md (canonical source)"""
         import os
 
-        # Use project root (parent of tests directory)
+        # CLAUDE.md was trimmed to ~150 lines; version details live in VERSION-HISTORY
         project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        claude_md_path = os.path.join(project_root, "CLAUDE.md")
+        version_history_path = os.path.join(
+            project_root, "docs", "VERSION-HISTORY.md"
+        )
 
-        with open(claude_md_path, "r") as f:
+        with open(version_history_path, "r") as f:
             content = f.read()
 
         assert "--orch" in content
