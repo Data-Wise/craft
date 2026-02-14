@@ -32,6 +32,7 @@ Before starting, ensure you have:
 - [x] Version bumped in config files
 - [x] Documentation up to date
 - [x] No uncommitted changes
+- [x] Marketplace config validated (if applicable)
 
 **Quick check:**
 
@@ -96,6 +97,14 @@ Run two complementary checks before releasing.
 │ STATUS: READY FOR RELEASE ✓                          │
 ╰──────────────────────────────────────────────────────╯
 ```
+
+**1c. Marketplace validation (if marketplace.json exists):**
+
+```bash
+claude plugin validate .
+```
+
+Validates the marketplace.json structure and plugin compatibility.
 
 ### Step 2: Version Bump
 

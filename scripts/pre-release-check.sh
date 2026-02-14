@@ -10,7 +10,8 @@
 #   2. Actual command/skill/agent counts match plugin.json description
 #   3. CLAUDE.md version references are current
 #   4. README.md and docs/index.md version references are current
-#   5. No uncommitted changes
+#   5. marketplace.json version consistency (if exists)
+#   6. No uncommitted changes
 
 set -e
 
@@ -49,7 +50,7 @@ ERRORS=0
 # --------------------------------------------------------------------------
 # Check 1: plugin.json version matches target
 # --------------------------------------------------------------------------
-echo -e "${CYAN}[1/5] Plugin version consistency${NC}"
+echo -e "${CYAN}[1/6] Plugin version consistency${NC}"
 
 PLUGIN_JSON=".claude-plugin/plugin.json"
 if [ ! -f "$PLUGIN_JSON" ]; then
@@ -70,7 +71,7 @@ fi
 # Check 2: Actual counts match plugin.json description
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[2/5] Command/skill/agent counts${NC}"
+echo -e "${CYAN}[2/6] Command/skill/agent counts${NC}"
 
 # Count actual files (same logic as validate-counts.sh)
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
@@ -108,7 +109,7 @@ fi
 # Check 3: CLAUDE.md version references
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[3/5] CLAUDE.md version references${NC}"
+echo -e "${CYAN}[3/6] CLAUDE.md version references${NC}"
 
 if [ -f "CLAUDE.md" ]; then
     # Check "Current Version" line
@@ -127,7 +128,7 @@ fi
 # Check 4: README.md and docs/index.md version references
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[4/5] README.md and docs/index.md version references${NC}"
+echo -e "${CYAN}[4/6] README.md and docs/index.md version references${NC}"
 
 STALE_FILES=""
 
@@ -158,10 +159,40 @@ if [ -n "$STALE_FILES" ]; then
 fi
 
 # --------------------------------------------------------------------------
-# Check 5: Uncommitted changes
+# Check 5: marketplace.json version consistency
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[5/5] Working tree status${NC}"
+echo -e "${CYAN}[5/6] Marketplace version consistency${NC}"
+
+MARKETPLACE_JSON=".claude-plugin/marketplace.json"
+if [ -f "$MARKETPLACE_JSON" ]; then
+    MKT_META_VERSION=$(python3 -c "import json; print(json.load(open('$MARKETPLACE_JSON'))['metadata']['version'])")
+    MKT_PLUGIN_VERSION=$(python3 -c "import json; d=json.load(open('$MARKETPLACE_JSON')); print(d['plugins'][0]['version'] if d.get('plugins') else '')" 2>/dev/null || echo "")
+
+    if [ "$MKT_META_VERSION" != "$TARGET_VERSION" ]; then
+        echo -e "${RED}  ✗ marketplace.json metadata.version ($MKT_META_VERSION) != target ($TARGET_VERSION)${NC}"
+        echo -e "${YELLOW}    Fix: Update .claude-plugin/marketplace.json metadata.version to \"$TARGET_VERSION\"${NC}"
+        ERRORS=$((ERRORS + 1))
+    else
+        echo -e "${GREEN}  ✓ marketplace.json metadata.version matches: $MKT_META_VERSION${NC}"
+    fi
+
+    if [ -n "$MKT_PLUGIN_VERSION" ] && [ "$MKT_PLUGIN_VERSION" != "$TARGET_VERSION" ]; then
+        echo -e "${RED}  ✗ marketplace.json plugins[0].version ($MKT_PLUGIN_VERSION) != target ($TARGET_VERSION)${NC}"
+        echo -e "${YELLOW}    Fix: Update .claude-plugin/marketplace.json plugins[0].version to \"$TARGET_VERSION\"${NC}"
+        ERRORS=$((ERRORS + 1))
+    elif [ -n "$MKT_PLUGIN_VERSION" ]; then
+        echo -e "${GREEN}  ✓ marketplace.json plugins[0].version matches: $MKT_PLUGIN_VERSION${NC}"
+    fi
+else
+    echo -e "${YELLOW}  - marketplace.json not found (skipping — not all projects use marketplace)${NC}"
+fi
+
+# --------------------------------------------------------------------------
+# Check 6: Uncommitted changes
+# --------------------------------------------------------------------------
+echo ""
+echo -e "${CYAN}[6/6] Working tree status${NC}"
 
 if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
     echo -e "${YELLOW}  ! Uncommitted changes detected${NC}"

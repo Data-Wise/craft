@@ -4,12 +4,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 3 commands for packaging and distributing your project (Homebrew, PyPI, curl installer)
+> - **What:** 4 commands for packaging and distributing your project (Marketplace, Homebrew, PyPI, curl installer)
 > - **Why:** Automate release workflows and make your project easy to install across platforms
-> - **How:** Use `/craft:dist:homebrew setup` for macOS, `/craft:dist:pypi` for Python packages
-> - **Next:** Try `/craft:dist:homebrew setup` to create automated Homebrew releases
+> - **How:** Use `/craft:dist:marketplace` for Claude Code plugins, `/craft:dist:homebrew setup` for macOS
+> - **Next:** Try `/craft:dist:marketplace validate` to check your marketplace listing
 
-Craft's distribution commands automate packaging and distribution across Homebrew, PyPI, and curl installers.
+Craft's distribution commands automate packaging and distribution across Claude Code Marketplace, Homebrew, PyPI, and curl installers.
 
 ---
 
@@ -17,9 +17,113 @@ Craft's distribution commands automate packaging and distribution across Homebre
 
 | Command | Purpose | Platforms |
 |---------|---------|-----------|
+| `/craft:dist:marketplace` | Claude Code marketplace distribution | All platforms |
 | `/craft:dist:homebrew` | Homebrew formula automation | macOS, Linux |
 | `/craft:dist:pypi` | PyPI package publishing | Python (all platforms) |
 | `/craft:dist:curl-install` | Curl-based installer script | All platforms |
+
+---
+
+## `/craft:dist:marketplace` - Marketplace Distribution
+
+Manage Claude Code marketplace listings — generate, validate, test, and publish.
+
+### Quick Start
+
+```bash
+# Validate marketplace config (default)
+/craft:dist:marketplace
+
+# Initialize marketplace.json for first time
+/craft:dist:marketplace init
+
+# Test local install/uninstall cycle
+/craft:dist:marketplace test
+
+# Publish to marketplace
+/craft:dist:marketplace publish
+```
+
+### Subcommands
+
+| Subcommand | Purpose |
+|------------|---------|
+| `init` | Generate `marketplace.json` from `plugin.json` |
+| `validate` | Validate marketplace config and version consistency (default) |
+| `test` | Local install/uninstall cycle verification |
+| `publish` | Push to GitHub for marketplace availability |
+
+### Init: Generate marketplace.json
+
+Creates `.claude-plugin/marketplace.json` from existing `plugin.json`:
+
+```bash
+/craft:dist:marketplace init
+```
+
+**Output:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ /craft:dist:marketplace init                                │
+├─────────────────────────────────────────────────────────────┤
+│ Plugin: craft v2.18.0                                       │
+│ Author: Data-Wise <dt@stat-wise.com>                        │
+│ Marketplace: data-wise-craft                                │
+├─────────────────────────────────────────────────────────────┤
+│ Created: .claude-plugin/marketplace.json                    │
+│ Validated: claude plugin validate . ... PASSED              │
+├─────────────────────────────────────────────────────────────┤
+│ Install with:                                               │
+│   /plugin marketplace add Data-Wise/craft                   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Validate: Check Configuration
+
+Validates marketplace.json structure and version consistency:
+
+```bash
+/craft:dist:marketplace validate
+```
+
+**Checks performed:**
+
+| Check | Severity | Description |
+|-------|----------|-------------|
+| marketplace.json exists | Error | File must be present |
+| `claude plugin validate .` | Error/Warning | Plugin structure validation |
+| Version consistency | Error | marketplace.json versions must match plugin.json |
+| Owner fields | Warning | name and email should be populated |
+| Description length | Warning | Should be concise (< 100 chars) |
+
+### Test: Local Install Cycle
+
+Runs a full install/uninstall cycle to verify the plugin works:
+
+```bash
+/craft:dist:marketplace test
+```
+
+Steps: validate → install locally → verify plugin visible → verify commands → uninstall → verify cleanup.
+
+### Publish: Push to Marketplace
+
+Push to GitHub to make the plugin available via marketplace:
+
+```bash
+/craft:dist:marketplace publish
+```
+
+Checks: validate → clean working tree → correct branch → confirm → push → show install instructions.
+
+### Release Pipeline Integration
+
+The `/release` skill handles marketplace automatically:
+
+- **Step 2c:** Runs `claude plugin validate .` if marketplace.json exists
+- **Step 3:** Updates `metadata.version` and `plugins[0].version` in marketplace.json
+- **Step 8.5:** Updates Homebrew tap formula with new version and SHA256
 
 ---
 

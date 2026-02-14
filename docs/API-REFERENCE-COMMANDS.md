@@ -15,7 +15,7 @@ Complete OpenAPI-style documentation for all 97 Craft commands organized by cate
 3. **[Code Commands](#code-commands)** (12 commands) - Development workflows
 4. **[CI/CD Commands](#cicd-commands)** (3 commands) - Continuous integration
 5. **[Check Commands](#check-commands)** (1 command) - Pre-flight validation
-6. **[Distribution Commands](#distribution-commands)** (3 commands) - Release & packaging
+6. **[Distribution Commands](#distribution-commands)** (4 commands) - Release & packaging
 7. **[Documentation Commands](#documentation-commands)** (19 commands) - Docs & tutorials
 8. **[Git Commands](#git-commands)** (11 commands) - Version control workflows
 9. **[Plan Commands](#plan-commands)** (3 commands) - Project planning
@@ -869,6 +869,22 @@ Release, packaging, and distribution workflows.
 ```
 
 **File**: `commands/dist/curl-install.md`
+
+---
+
+### /craft:dist:marketplace
+
+Marketplace distribution management — init, validate, test, publish.
+
+```bash
+/craft:dist:marketplace              # Validate (default)
+/craft:dist:marketplace init         # Generate marketplace.json
+/craft:dist:marketplace test         # Local install/uninstall cycle
+/craft:dist:marketplace publish      # Push for marketplace availability
+```
+
+**Subcommands:** init, validate (default), test, publish
+**Integration:** `/release` auto-bumps marketplace.json version
 
 ---
 

@@ -80,7 +80,7 @@ if [ -f "${PLUGIN_DIR}/.claude-plugin/plugin.json" ]; then
     box_row "  • Help: /craft:help"
     box_row "  • Hub: /craft:hub"
     box_empty_row
-    box_row "  108 commands | 8 agents | 25 skills"
+    box_row "  109 commands | 8 agents | 25 skills"
     box_empty_row
     box_footer
     echo ""

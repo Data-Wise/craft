@@ -5,8 +5,8 @@
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
 │  Version: 2.18.0 (released 2026-02-14)                       │
-│  Commands: 108 | Agents: 8 | Skills: 25                     │
-│  Documentation: 99% complete | Tests: ~1504 passing          │
+│  Commands: 109 | Agents: 8 | Skills: 25                     │
+│  Documentation: 99% complete | Tests: ~1575 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
 │  v2.18.0: Insights-driven improvements, guard audit,         │
 │           insights apply, --autonomous, --context, --swarm    │
@@ -185,7 +185,7 @@
 - Code (12 commands) & Testing (7 commands)
 - Git (11 commands) & CI (3 commands)
 - Architecture (4 commands)
-- Distribution (3 commands)
+- Distribution (7 commands)
 - Workflow (12 commands) & Planning (3 commands)
 
 ## Interactive Command Behavior
@@ -1045,10 +1045,11 @@ npm test
 /craft:ci:validate              # Validate existing CI
 ```
 
-## Distribution Commands (6 commands)
+## Distribution Commands (7 commands)
 
 | Command                        | Description                            |
 | ------------------------------ | -------------------------------------- |
+| `/craft:dist:marketplace`      | Marketplace init, validate, test, publish |
 | `/craft:dist:package`          | Package for distribution               |
 | `/craft:dist:homebrew`         | Generate Homebrew formula              |
 | `/craft:dist:pypi`             | Package for PyPI                       |
@@ -1058,6 +1059,8 @@ npm test
 **Quick examples:**
 
 ```bash
+/craft:dist:marketplace         # Validate marketplace config (default)
+/craft:dist:marketplace init    # Generate marketplace.json
 /craft:dist:homebrew            # Generate Homebrew formula
 /craft:dist:pypi                # Package for PyPI
 /craft:dist:curl-install        # Generate curl installer
