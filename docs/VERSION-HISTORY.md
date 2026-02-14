@@ -4,7 +4,7 @@
 
 **Latest Release:** v2.17.0 (2026-02-13)
 **Total Releases:** 38 versions | **Development Time:** 2+ years
-**Community:** 108 commands documented, ~1470 tests passing, 90%+ coverage
+**Community:** 109 commands documented, ~1470 tests passing, 90%+ coverage
 
 ---
 
