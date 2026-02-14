@@ -2,13 +2,54 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.17.0 (2026-02-13)
-**Total Releases:** 38 versions | **Development Time:** 2+ years
-**Community:** 108 commands documented, ~1470 tests passing, 90%+ coverage
+**Latest Release:** v2.18.0 (2026-02-14)
+**Total Releases:** 39 versions | **Development Time:** 2+ years
+**Community:** 108 commands documented, ~1504 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.18.0 (2026-02-14) - Insights-Driven Improvements
+
+**Status:** Released
+
+**Highlights:**
+
+- **Guard Audit Skill**: 5-step audit pipeline for branch-guard.sh (read-only analysis, never modifies)
+- **Insights Apply Skill**: Extracts CLAUDE.md suggestions from /insights reports, applies via sync pipeline
+- **Release `--autonomous` Flag**: Full unattended release pipeline with auto-confirm checkpoints
+- **Check `--context` Flag**: Context-only mode that detects dev phase and shows relevant context without running validators
+- **Worktree `validate` Action**: Validates worktree health (branch tracking, remote sync, stale detection)
+- **PreToolUse Hook**: Python hook that warns when file operations target paths outside current worktree
+- **Orchestrate `--swarm` Flag**: Unlimited parallel agents for large-scale tasks (no concurrency cap)
+- **Smart Help Updates**: Context-aware suggestions now include guard-audit and insights-apply
+- **Do Routing Updates**: Smart router recognizes guard audit and insights apply patterns
+- **Hub Updates**: Command and skill counts updated, new entries for guard-audit and insights-apply
+
+**New Files:**
+
+| File | Purpose |
+|------|---------|
+| `skills/guard-audit/SKILL.md` | Branch guard audit skill (5-step pipeline) |
+| `skills/insights-apply/SKILL.md` | Insights-to-CLAUDE.md apply skill |
+| `.claude-plugin/hooks/pretooluse.py` | Worktree path validation hook |
+| `tests/test_insights_improvements_e2e.sh` | 30 e2e tests for new features |
+| `tests/test_insights_improvements_dogfood.py` | 59 dogfood tests for new features |
+
+**Updated Files:**
+
+| File | Changes |
+|------|---------|
+| `skills/release/SKILL.md` | Added `--autonomous` flag for unattended releases |
+| `commands/check.md` | Added `--context` flag for context-only mode |
+| `commands/git/worktree.md` | Added `validate` action for worktree health checks |
+| `commands/orchestrate.md` | Added `--swarm` flag for unlimited parallelism |
+| `commands/smart-help.md` | Added guard-audit and insights-apply suggestions |
+| `commands/do.md` | Added routing patterns for new skills |
+| `commands/hub.md` | Updated counts and added new skill entries |
+
+---
 
 ### v2.17.0 (2026-02-13) - Branch Guard v2: Smart Mode with Progressive Trust
 

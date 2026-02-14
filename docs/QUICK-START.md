@@ -10,7 +10,7 @@
 > - **How:** Install via Homebrew or `claude plugin add github:Data-Wise/craft`, then run `/craft:hub`
 > - **Next:** Try `/craft:do "your first task"` to see AI routing in action
 
-**108 commands** · **23 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/)
+**108 commands** · **25 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/)
 
 Get craft running in 30 seconds.
 
