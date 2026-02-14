@@ -4,16 +4,23 @@ release_date: 2026-02-14
 milestone: v2.18.0 released
 last_session: 2026-02-14
 
-progress: v2.18.0 released — release pipeline enhancements, CI pre-flight, skill count fix
+progress: v2.18.0 released + test baseline established (1575 passing, 0 failures)
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                     |
-|--------|---------|------|----------------------------|
-| main   | 1fa732a | —    | Production (v2.18.0 clean) |
-| dev    | 1fa732a | main | Synced with main           |
+| Branch | Head    | Base | Status                        |
+|--------|---------|------|-------------------------------|
+| main   | 1fa732a | —    | Production (v2.18.0 clean)    |
+| dev    | 01a8bf3 | main | +1 commit (test fixes)        |
 
-✅ Session 2026-02-14 (v2.18.0 release):
+✅ Session 2026-02-14 (test baseline + fixes):
+- Fixed 6 failing branch guard tests for v2 smart mode output format (01a8bf3)
+- Ran full test suite: 1575 passing, 0 failures, 1 skipped
+- No open GitHub issues found
+- Updated test assertions: "BRANCH PROTECTION" → "BRANCH GUARD", "block-new-code" → "smart"
+- Added session counter reset in TestErrorFormatting.setUp() for deterministic verbosity
+
+✅ Session 2026-02-14 (v2.18.0 release — earlier):
 - Released v2.18.0: PR #71 merged, GitHub release created, docs deployed
 - Updated /craft:code:release command to delegate to release skill for Craft projects
 - Fixed skill count 21/22 → 23 across 8 files (plugin.json, README, index, REFCARD, QUICK-START, getting-started, init command)
@@ -42,7 +49,7 @@ progress: v2.18.0 released — release pipeline enhancements, CI pre-flight, ski
 
 🎯 Next Action:
 A) Start new feature work (language detection, markdownlint expansion, coaching mode) ⚡
-B) Run full test suite to establish v2.18.0 baseline count
+B) Merge test fix commit to main (dev is +1 ahead)
 C) Address any open issues on GitHub
 
 ## Future (v2.19.0+)
