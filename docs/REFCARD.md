@@ -1453,6 +1453,7 @@ Comprehensive guides and references:
 | **[Post-Merge Pipeline](tutorials/TUTORIAL-post-merge-pipeline.md)**   | 5-phase auto-fix workflow after PR merge (542 lines)                  |
 | **[Worktree Setup](tutorials/TUTORIAL-worktree-setup.md)**             | Beginner to intermediate worktree guide (795 lines)                   |
 | **[Orchestrator Modes](tutorials/orchestrator-modes-compared.md)**     | Same task in 4 modes with performance metrics (446 lines)             |
+| **[Insights Workflow](tutorials/TUTORIAL-insights-workflow.md)**      | v2.18.0 features: --context, guard-audit, insights-apply, --swarm    |
 
 **Reference Cards:**
 
