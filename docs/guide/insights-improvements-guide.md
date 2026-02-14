@@ -242,6 +242,8 @@ Runs the full release pipeline with zero user prompts. Pre-validates safety (cle
 
 **When to use:** In CI/CD pipelines, or when you're confident the release is ready and want zero interaction.
 
+> **WARNING:** Autonomous mode auto-uses `--admin` to bypass branch protection if the merge is blocked, which skips required status checks. Always preview first with `--autonomous --dry-run`.
+
 **Tip:** Always preview first with `--autonomous --dry-run`.
 
 ```mermaid

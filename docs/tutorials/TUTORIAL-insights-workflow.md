@@ -115,7 +115,7 @@ No commands to run here — just understand that each feature feeds into the nex
 |-------|-----------|
 | `implementation` | Commits ahead of base, no PR |
 | `testing` | Test files modified recently |
-| `pr-prep` | All tests pass, branch clean |
+| `pr-prep` | PR exists for branch, branch clean |
 | `release` | On dev branch, features merged |
 
 **Try it:** Run `/craft:check --context` right now. Notice the phase it detects — does it match what you're actually doing?
@@ -341,6 +341,8 @@ If any check fails, the pipeline aborts immediately with a clear error.
 4. PR creation (auto-filled description)
 5. Merge PR
 6. Publish (Homebrew/PyPI)
+
+**Important:** Autonomous mode auto-uses `--admin` to bypass branch protection if the merge is blocked. This skips required status checks. Always preview with `--autonomous --dry-run` first.
 
 **Recovery:** If it fails mid-pipeline, state is preserved. You can fix the issue and resume.
 
