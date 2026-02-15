@@ -444,9 +444,9 @@ class TestHubConsistency(unittest.TestCase):
         if not match:
             self.skipTest("No skill count in plugin.json description")
         plugin_count = match.group(1)
-        # Check hub references same count
-        hub_content = _read_file(HUB_CMD)
-        self.assertIn(f"{plugin_count} Skill", hub_content)
+        # Check hub references same count (case-insensitive)
+        hub_content = _read_file(HUB_CMD).lower()
+        self.assertIn(f"{plugin_count} skill", hub_content)
 
     def test_claude_md_skill_count_matches(self):
         """CLAUDE.md skill count matches plugin.json."""
