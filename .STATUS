@@ -2,16 +2,20 @@ status: Active
 version: 2.19.0
 release_date: 2026-02-14
 milestone: v2.19.0 released
-last_session: 2026-02-14
+last_session: 2026-02-15
 
-progress: v2.19.0 released — marketplace distribution + insights-driven improvements shipped
+progress: v2.19.0 released — CI fix synced to main
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
-| main   | 707fe47 | —    | Production (v2.19.0 clean) |
-| dev    | 707fe47 | main | Synced with main           |
+| main   | 5c43dae | —    | Production (v2.19.0 + CI fix) |
+| dev    | a46f815 | main | Synced with main           |
+
+✅ Session 2026-02-15 (CI fix):
+- Fixed failing CI: case-sensitive skill count assertion in test_insights_improvements_dogfood.py
+- PR #76 merged to main, CI green
 
 ✅ Session 2026-02-14 (v2.19.0 release):
 - Released v2.19.0: PR #75 merged, GitHub release created, docs deployed
