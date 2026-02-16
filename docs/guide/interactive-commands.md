@@ -151,6 +151,66 @@ All commands offer consistent confirmation options:
 
 ---
 
+## End-to-End Example: Feature Pipeline
+
+This shows the full interactive flow from brainstorm to PR, demonstrating how each command's "Show Steps First" pattern connects:
+
+```bash
+# Step 1: Brainstorm the feature
+/brainstorm d:8 "real-time notifications"
+# → Asks 8 questions across categories
+# → Saves BRAINSTORM-notifications-2026-02-15.md
+# → Offers to capture spec
+
+# Step 2: Create orchestration from spec (v2.20.0)
+/craft:orchestrate:plan docs/specs/SPEC-notifications.md
+#
+# Plan:
+#   1. Parse spec for phases (found 3 phases)
+#   2. Generate ORCHESTRATE-notifications.md
+#   3. Create worktree at ~/.git-worktrees/craft/feature-notifications
+#   4. Update .STATUS with worktree entry
+#
+# ? Proceed with this plan?
+#   > Yes - Create ORCHESTRATE + worktree (Recommended)
+#     ORCHESTRATE only (no worktree)
+#     Modify phases
+#     Cancel
+
+# Step 3: Work in the worktree
+cd ~/.git-worktrees/craft/feature-notifications
+claude
+# → Read ORCHESTRATE file, implement phase by phase
+# → Each phase: implement → test → commit → checkpoint
+
+# Step 4: Pre-flight check before PR
+/craft:check --for pr
+#
+# Pre-flight Check Plan:
+#   1. Unit tests (47 tests)
+#   2. Integration tests
+#   3. Markdown lint
+#   4. Link validation
+#   5. Count validation
+#
+# ? Run these checks?
+#   > Yes - Run all (Recommended)
+#
+# Results: 5/5 passed
+
+# Step 5: Finish and create PR
+/craft:git:worktree finish
+#
+# Plan:
+#   1. Run full test suite
+#   2. Generate changelog from 12 commits
+#   3. Create PR to dev with AI-generated description
+#
+# → PR #42 created: https://github.com/user/repo/pull/42
+```
+
+---
+
 ## Tips
 
 - **First run:** Try each command once to see the preview format

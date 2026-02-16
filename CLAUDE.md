@@ -1,5 +1,11 @@
 # CLAUDE.md - Craft Plugin
 
+## Active Work
+
+**Read `ORCHESTRATE-orchestrate-pipeline.md` in this repo root for the current implementation plan.**
+
+Full spec: `docs/specs/SPEC-orchestrate-worktree-pipeline-2026-02-15.md`
+
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
 **109 commands** · **25 skills** · **8 agents** · **26 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)

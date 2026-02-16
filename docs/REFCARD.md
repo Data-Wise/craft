@@ -1123,6 +1123,49 @@ npm test
 
 **See:** [Interactive Orchestration Tutorial](tutorials/interactive-orchestration.md) | [Orchestrator Modes Compared](tutorials/orchestrator-modes-compared.md)
 
+### Orchestrate + Worktree Pipeline (v2.20.0)
+
+The full pipeline connects brainstorming through to implementation:
+
+```mermaid
+graph LR
+    A[brainstorm] --> B[spec]
+    B --> C[ORCHESTRATE]
+    C --> D[worktree]
+    D --> E[implement]
+    E --> F[PR]
+```
+
+**Pipeline steps:**
+
+| Step | Command | Output |
+|------|---------|--------|
+| 1. Brainstorm | `/brainstorm d:8 "feature"` | `BRAINSTORM-feature.md` |
+| 2. Capture spec | Brainstorm Step 5 (auto) | `docs/specs/SPEC-feature.md` |
+| 3. Create orchestration | `/craft:orchestrate:plan` | `ORCHESTRATE-feature.md` + worktree |
+| 4. Implement | Work in worktree | Commits on `feature/*` branch |
+| 5. Integrate | `/craft:git:worktree finish` | PR to `dev` |
+
+**Worktree Types:**
+
+| Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
+|------|-----------|----------|---------------|-------------|
+| **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
+| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
+| **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
+
+**When to use what:**
+
+| Scenario | Use | Why |
+|----------|-----|-----|
+| Quick feature, clear scope | Manual worktree | No orchestration overhead |
+| Multi-phase feature from spec | Pipeline | Full traceability from brainstorm → PR |
+| Parallel implementation of isolated tasks | Swarm | Agents work in separate worktrees |
+| Feature spanning multiple repos | Cross-Repo | Enforces same branch name, paired worktrees |
+
+**See:** [Getting Started — Complex Feature Workflow](guide/getting-started.md#complex-feature-workflow) | [Worktree Types Reference](reference/REFCARD-GIT-WORKTREE.md#worktree-types)
+
 ## Workflow Commands (Enhanced v2.4.0)
 
 ### /brainstorm (ADHD-Friendly Planning)
