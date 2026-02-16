@@ -2,7 +2,7 @@ status: Active
 version: 2.21.0
 release_date: 2026-02-16
 milestone: v2.21.0 released
-last_session: 2026-02-16
+last_session: 2026-02-15
 
 progress: v2.21.0 released — Orchestrate Pipeline & Insights Lifecycle
 
@@ -11,7 +11,14 @@ progress: v2.21.0 released — Orchestrate Pipeline & Insights Lifecycle
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
 | main   | 76054e4 | —    | Production (v2.21.0)       |
-| dev    | 76054e4 | main | Synced with main           |
+| dev    | 76a56e3 | main | 1 commit ahead (template)  |
+
+✅ Session 2026-02-15 (homebrew timeout hardening):
+- Added 30s timeout to post_install in all 3 plugin formulas (craft, rforge, scholar)
+- Uses Process.spawn + Timeout.timeout pattern (safe for blocking calls)
+- Updated craft dist:homebrew command template to match
+- Verified all 3 with brew reinstall — all pass cleanly (3-4s each)
+- Commits: homebrew-tap 54aa041, 8d27819 | craft 76a56e3
 
 ✅ Session 2026-02-16 (v2.21.0 release):
 - Released v2.21.0: PR #81 merged, GitHub release created, docs deployed
@@ -38,7 +45,7 @@ progress: v2.21.0 released — Orchestrate Pipeline & Insights Lifecycle
 ---
 
 🎯 Next Action:
-→ Plan v2.21.0 release (orchestrate pipeline features now on dev)
+→ Consider v2.22.0 scope (coaching mode, language detection, or markdownlint expansion)
 
 ## Future (v2.21.0+)
 
