@@ -2,13 +2,62 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.19.0 (2026-02-14)
+**Latest Release:** v2.19.0 (2026-02-14) | **In Development:** v2.20.0
 **Total Releases:** 40 versions | **Development Time:** 2+ years
 **Community:** 111 commands documented, ~1575 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.20.0 (2026-02-15) - Orchestrate Pipeline & Insights Lifecycle
+
+**Status:** In Development
+
+**Highlights:**
+
+- **`/craft:orchestrate:plan` Command**: New pipeline from spec → ORCHESTRATE → worktree. Discovers specs, parses phases, generates session-ready ORCHESTRATE files with friction prevention, and creates worktrees for isolated development.
+- **`/craft:insights` Command**: Generates usage pattern reports from session facets data. Aggregates friction patterns, goal categories, and CLAUDE.md suggestions. Supports `--format html|terminal|json` and `--since <days>` filtering.
+- **Brainstorm → Orchestrate Pipeline**: New Step 6 in brainstorm offers ORCHESTRATE + worktree creation after spec capture, connecting the full workflow: brainstorm → spec → ORCHESTRATE → worktree → implement → PR.
+- **Brainstorm Insights Integration**: New Step 1.8 checks session insights for relevant past friction patterns before brainstorming. Surfaces known risks and prior approaches. Auto-adds "Known Risks" to spec generation.
+- **Worktree Types Taxonomy**: Consistent 4-type system (Manual, Pipeline, Swarm, Cross-Repo) documented across REFCARD, orchestrate command, worktree reference, and tutorials.
+- **Swarm Clarity**: Enhanced `--swarm` documentation with practical dry-run examples, ORCHESTRATE file agent mapping, and when-to-use decision guidance.
+- **Cross-Command Integration**: Insights wired into `/craft:do` routing, `/craft:hub` discovery, and `/craft:check --context` mode.
+- **Insights Lifecycle**: Full documented flow from sessions → facets → insights → CLAUDE.md rules + ORCHESTRATE friction prevention + brainstorm context.
+
+**New Files:**
+
+| File | Purpose |
+|------|---------|
+| `commands/orchestrate/plan.md` | Spec → ORCHESTRATE → worktree pipeline command |
+| `commands/workflow/insights.md` | Session insights report command |
+
+**Updated Files:**
+
+| File | Changes |
+|------|---------|
+| `commands/workflow/brainstorm.md` | Added Step 6 (orchestration) and Step 1.8 (insights integration) |
+| `commands/orchestrate.md` | Added Worktree Types taxonomy, swarm examples, decision guidance |
+| `commands/do.md` | Added insights report routing |
+| `commands/hub.md` | Added `/craft:insights` and `/craft:orchestrate:plan` entries |
+| `commands/check.md` | Added insights integration to `--context` mode |
+| `docs/REFCARD.md` | Added pipeline section with Mermaid, worktree types, insights lifecycle |
+| `docs/guide/getting-started.md` | Added "Complex Feature Workflow" section |
+| `docs/guide/orchestrator.md` | Added "When to Use What" comparison table |
+| `docs/guide/insights-improvements-guide.md` | Added Workflows 7-9 with insights lifecycle Mermaid diagram |
+| `docs/guide/interactive-commands.md` | Added end-to-end pipeline example |
+| `docs/reference/REFCARD-GIT-WORKTREE.md` | Added "Worktree Types" section |
+| `docs/tutorials/TUTORIAL-worktree-setup.md` | Added "After Brainstorm" section |
+
+**Pipeline Flow (new end-to-end):**
+
+```text
+/brainstorm "topic" → SPEC.md → /orchestrate:plan → ORCHESTRATE.md → worktree → implement → PR
+```
+
+**Stats:** 111 commands | 25 skills | 8 agents
+
+---
 
 ### v2.19.0 (2026-02-14) - Marketplace & Insights-Driven Improvements
 

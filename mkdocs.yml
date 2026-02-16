@@ -133,6 +133,7 @@ nav:
         - Tutorial: guide/git-init-tutorial.md
         - Architecture: architecture/git-init-flow.md
         - Documentation Index: git-init-docs-index.md
+      - Orchestrate Pipeline Guide: guide/pipeline-orchestrate-guide.md
       - Orchestration & Agents: guide/orchestrator.md
       - --orch Flag Quick Start: guide/orch-flag-usage.md
       - Marketplace Distribution: guide/marketplace-distribution.md
