@@ -16,7 +16,7 @@
         <link rel="prev" href="../marketplace-distribution/">
       
       
-        <link rel="next" href="../skills-agents/">
+        <link rel="next" href="../homebrew-automation/">
       
       
         
@@ -1666,6 +1666,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
         
   
@@ -1845,10 +1873,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_22" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_23" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_22" id="__nav_2_4_22_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_23" id="__nav_2_4_23_label" tabindex="0">
             
   
   
@@ -1866,8 +1894,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_22_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_22">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_23_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_23">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2375,6 +2403,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#for-plugin-authors-crafthomebrewjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Plugin Authors: .craft/homebrew.json
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#other-homebrew-plugins" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2428,6 +2467,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../homebrew-automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -5617,6 +5684,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-HOMEBREW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7079,6 +7174,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#for-plugin-authors-crafthomebrewjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Plugin Authors: .craft/homebrew.json
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#other-homebrew-plugins" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7372,6 +7478,17 @@
 </span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>rm<span class="w"> </span>-rf<span class="w"> </span>~/.claude/plugins/cache/local-plugins/craft
 </span></code></pre></div>
 <hr />
+<h2 id="for-plugin-authors-crafthomebrewjson">For Plugin Authors: <code>.craft/homebrew.json</code><a class="headerlink" href="#for-plugin-authors-crafthomebrewjson" title="Permanent link">&para;</a></h2>
+<p>If you distribute your own plugin via Homebrew, add a <code>.craft/homebrew.json</code> to your project root:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="nt">&quot;formula_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-plugin&quot;</span><span class="p">,</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="nt">&quot;tap&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-org/tap&quot;</span><span class="p">,</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span><span class="nt">&quot;source_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github&quot;</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>This config is used by <code>/craft:dist:homebrew</code> and the <code>/release</code> skill (Step 8.5) to reliably identify the formula name and tap location. Without it, the system falls back to git remote URL parsing or directory basename.</p>
+<p>See the <a href="../homebrew-automation/">Homebrew Automation Guide</a> for full details on formula management, auditing, and workflow hardening.</p>
+<hr />
 <h2 id="other-homebrew-plugins">Other Homebrew Plugins<a class="headerlink" href="#other-homebrew-plugins" title="Permanent link">&para;</a></h2>
 <p>The same pattern applies to other Data-Wise plugins. All use Claude detection to avoid conflicts during installation.</p>
 <table>
@@ -7403,18 +7520,18 @@
 <p>All plugins will show "Claude Code is running - skipped auto-enable" if installed while Claude is running. Just run the enable command shown.</p>
 <h3 id="updating-multiple-plugins">Updating Multiple Plugins<a class="headerlink" href="#updating-multiple-plugins" title="Permanent link">&para;</a></h3>
 <p><strong>Automatic (recommended):</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>brew<span class="w"> </span>upgrade<span class="w"> </span>data-wise/tap/craft<span class="w"> </span>data-wise/tap/rforge<span class="w"> </span>data-wise/tap/scholar
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="c1"># Restart Claude Code - all plugins auto-sync!</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>brew<span class="w"> </span>upgrade<span class="w"> </span>data-wise/tap/craft<span class="w"> </span>data-wise/tap/rforge<span class="w"> </span>data-wise/tap/scholar
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1"># Restart Claude Code - all plugins auto-sync!</span>
 </span></code></pre></div>
 <p><strong>Manual sync (only if automatic fails):</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>rforge@local-plugins
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>scholar@local-plugins
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>craft@local-plugins
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>rforge@local-plugins
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>scholar@local-plugins
 </span></code></pre></div>
 <hr />
 <h2 id="alternative-github-marketplace-recommended-for-new-users">Alternative: GitHub Marketplace (Recommended for New Users)<a class="headerlink" href="#alternative-github-marketplace-recommended-for-new-users" title="Permanent link">&para;</a></h2>
 <p>The <strong>recommended</strong> installation method for new users and cross-platform setups is the Claude Code marketplace:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>add<span class="w"> </span>github:Data-Wise/craft
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>add<span class="w"> </span>github:Data-Wise/craft
 </span></code></pre></div>
 <p><strong>Advantages over Homebrew:</strong></p>
 <ul>

@@ -1657,6 +1657,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
         
   
@@ -1836,10 +1864,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_22" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_23" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_22" id="__nav_2_4_22_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_23" id="__nav_2_4_23_label" tabindex="0">
             
   
   
@@ -1857,8 +1885,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_22_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_22">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_23_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_23">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2087,6 +2115,34 @@
     
   
     Homebrew Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/homebrew-automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Automation
   
 
     
@@ -5271,6 +5327,34 @@
     
   
     Release Pipeline Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/REFCARD-HOMEBREW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Quick Reference
   
 
     
@@ -8681,7 +8765,7 @@
 </tr>
 <tr>
 <td><code>/craft:dist:homebrew</code></td>
-<td>Generate Homebrew formula</td>
+<td>Homebrew formula, audit, deps, workflow (6 subcommands)</td>
 </tr>
 <tr>
 <td><code>/craft:dist:pypi</code></td>
@@ -8697,12 +8781,15 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Homebrew subcommands:</strong> <code>formula</code> | <code>workflow</code> | <code>audit</code> | <code>setup</code> | <code>update-resources</code> | <code>deps</code></p>
 <p><strong>Quick examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>/craft:dist:marketplace<span class="w">         </span><span class="c1"># Validate marketplace config (default)</span>
 </span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>/craft:dist:marketplace<span class="w"> </span>init<span class="w">    </span><span class="c1"># Generate marketplace.json</span>
-</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>/craft:dist:homebrew<span class="w">            </span><span class="c1"># Generate Homebrew formula</span>
-</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>/craft:dist:pypi<span class="w">                </span><span class="c1"># Package for PyPI</span>
-</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>/craft:dist:curl-install<span class="w">        </span><span class="c1"># Generate curl installer</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>/craft:dist:homebrew<span class="w"> </span>setup<span class="w">      </span><span class="c1"># Full 4-step wizard</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w">      </span><span class="c1"># Audit with auto-fix</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>/craft:dist:homebrew<span class="w"> </span>deps<span class="w">       </span><span class="c1"># Dependency graph</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>/craft:dist:pypi<span class="w">                </span><span class="c1"># Package for PyPI</span>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>/craft:dist:curl-install<span class="w">        </span><span class="c1"># Generate curl installer</span>
 </span></code></pre></div>
 <h2 id="orchestrator-enhanced-v21-v250-v290">Orchestrator (Enhanced v2.1, v2.5.0, v2.9.0)<a class="headerlink" href="#orchestrator-enhanced-v21-v250-v290" title="Permanent link">&para;</a></h2>
 <p><strong>Main Commands:</strong></p>

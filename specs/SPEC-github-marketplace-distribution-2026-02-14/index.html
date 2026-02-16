@@ -1653,6 +1653,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Setup Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
         
   
@@ -1832,10 +1860,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_22" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_23" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_22" id="__nav_2_4_22_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_23" id="__nav_2_4_23_label" tabindex="0">
             
   
   
@@ -1853,8 +1881,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_22_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_22">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_23_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_23">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2083,6 +2111,34 @@
     
   
     Homebrew Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/homebrew-automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Automation
   
 
     
@@ -5280,6 +5336,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-HOMEBREW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Homebrew Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6827,10 +6911,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#homebrew-validate-auto-fix-patterns" class="md-nav__link">
+  <a href="#homebrew-audit-auto-fix-patterns" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Homebrew Validate Auto-Fix Patterns
+        Homebrew Audit Auto-Fix Patterns
       
     </span>
   </a>
@@ -7110,7 +7194,7 @@
 </span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="nv">FORMULA</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$TAP_DIR</span><span class="s2">/Formula/&lt;name&gt;.rb&quot;</span>
 </span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FORMULA</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 </span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">    </span><span class="c1"># Calculate new SHA256 from GitHub release tarball</span>
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="nv">SHA256</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-sL<span class="w"> </span><span class="s2">&quot;https://github.com/&lt;owner&gt;/&lt;repo&gt;/archive/refs/tags/v&lt;version&gt;.tar.gz&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>shasum<span class="w"> </span>-a<span class="w"> </span><span class="m">256</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="nv">SHA256</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-sL<span class="w"> </span>--retry<span class="w"> </span><span class="m">3</span><span class="w"> </span>--retry-delay<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s2">&quot;https://github.com/&lt;owner&gt;/&lt;repo&gt;/archive/refs/tags/v&lt;version&gt;.tar.gz&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>shasum<span class="w"> </span>-a<span class="w"> </span><span class="m">256</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>-f1<span class="k">)</span>
 </span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
 </span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="c1"># Update version and sha256 in formula</span>
 </span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="c1"># Use sed or python to update url and sha256 lines</span>
@@ -7300,14 +7384,14 @@
 <td>Include branch guard, marketplace registration, Claude detection, auto-enable</td>
 </tr>
 <tr>
-<td><code>/craft:dist:homebrew validate</code></td>
+<td><code>/craft:dist:homebrew audit</code></td>
 <td>Validate + auto-fix</td>
 <td>Auto-fix known <code>brew audit</code> patterns (desc, Array#include?, section order, assertions)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="homebrew-validate-auto-fix-patterns">Homebrew Validate Auto-Fix Patterns<a class="headerlink" href="#homebrew-validate-auto-fix-patterns" title="Permanent link">&para;</a></h3>
-<p><code>/craft:dist:homebrew validate</code> should detect and auto-fix these common <code>brew audit</code> issues:</p>
+<h3 id="homebrew-audit-auto-fix-patterns">Homebrew Audit Auto-Fix Patterns<a class="headerlink" href="#homebrew-audit-auto-fix-patterns" title="Permanent link">&para;</a></h3>
+<p><code>/craft:dist:homebrew audit</code> should detect and auto-fix these common <code>brew audit</code> issues:</p>
 <table>
 <thead>
 <tr>
