@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.20.0 (released 2026-02-15)                       │
-│  Commands: 109 | Agents: 8 | Skills: 25                     │
+│  Version: 2.19.0 (released 2026-02-14)                       │
+│  Commands: 110 | Agents: 8 | Skills: 25                     │
 │  Documentation: 99% complete | Tests: ~1575 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.20.0: Homebrew refactor — security hardening,            │
-│           8→6 subcommands, formula name mapping               │
+│  v2.19.0: Marketplace distribution, insights-driven          │
+│           improvements, guard audit, --autonomous, --swarm    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -1051,21 +1051,17 @@ npm test
 | ------------------------------ | -------------------------------------- |
 | `/craft:dist:marketplace`      | Marketplace init, validate, test, publish |
 | `/craft:dist:package`          | Package for distribution               |
-| `/craft:dist:homebrew`         | Homebrew formula, audit, deps, workflow (6 subcommands) |
+| `/craft:dist:homebrew`         | Generate Homebrew formula              |
 | `/craft:dist:pypi`             | Package for PyPI                       |
 | `/craft:dist:npm`              | Package for npm                        |
 | `/craft:dist:curl-install`     | Generate curl installer                |
-
-**Homebrew subcommands:** `formula` | `workflow` | `audit` | `setup` | `update-resources` | `deps`
 
 **Quick examples:**
 
 ```bash
 /craft:dist:marketplace         # Validate marketplace config (default)
 /craft:dist:marketplace init    # Generate marketplace.json
-/craft:dist:homebrew setup      # Full 4-step wizard
-/craft:dist:homebrew audit      # Audit with auto-fix
-/craft:dist:homebrew deps       # Dependency graph
+/craft:dist:homebrew            # Generate Homebrew formula
 /craft:dist:pypi                # Package for PyPI
 /craft:dist:curl-install        # Generate curl installer
 ```

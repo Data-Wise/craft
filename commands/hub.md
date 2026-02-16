@@ -68,9 +68,9 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.20.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.18.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
-> **109 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
+> **110 commands** | **25 skills** | **8 agents** | **~1504 tests passing**
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
@@ -589,18 +589,10 @@ Command                  │ Description
 ─────────────────────────┼────────────────────────────────────────────
 /craft:dist:marketplace  │ Marketplace init, validate, test, publish
 /craft:dist:package      │ Package for distribution
-/craft:dist:homebrew     │ Homebrew distribution (6 subcommands)
+/craft:dist:homebrew     │ Generate Homebrew formula
 /craft:dist:pypi         │ Package for PyPI
 /craft:dist:npm          │ Package for npm
 /craft:dist:curl-install │ Generate curl installer
-
-Homebrew Subcommands:
-  /craft:dist:homebrew formula          # Generate/update formula
-  /craft:dist:homebrew workflow         # CI workflow management
-  /craft:dist:homebrew audit            # Validate formula + workflow
-  /craft:dist:homebrew setup            # First-time tap setup
-  /craft:dist:homebrew update-resources # Sync completions/manpages
-  /craft:dist:homebrew deps             # Dependency analysis
 
 Recommended Install Hierarchy:
   1. Marketplace (Recommended) — works everywhere, one command
@@ -608,10 +600,9 @@ Recommended Install Hierarchy:
   3. Manual — contributors and developers
 
 Quick Examples:
-  /craft:dist:marketplace validate     # Check marketplace config
-  /craft:dist:marketplace init         # Generate marketplace.json
-  /craft:dist:homebrew audit           # Validate formula + workflow
-  /craft:dist:homebrew audit --check-only  # Report without fixing
+  /craft:dist:marketplace validate   # Check marketplace config
+  /craft:dist:marketplace init       # Generate marketplace.json
+  /craft:dist:homebrew               # Generate Homebrew formula
 ─────────────────────────────────────────────────────────────────────────
 ```
 
@@ -704,7 +695,7 @@ Command                           │ Description
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-> Full-stack developer toolkit for Claude Code — 109 commands, 8 agents, 25 skills
+> Full-stack developer toolkit for Claude Code — 110 commands, 8 agents, 25 skills
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   → AI routes to best workflow                     │
@@ -734,7 +725,7 @@ Command                           │ Description
 │ Distribution:                                                          │
 │   /craft:dist:marketplace validate  → Check marketplace config        │
 │   /craft:dist:marketplace init      → Generate marketplace.json       │
-│   /craft:dist:homebrew audit        → Validate formula + workflow      │
+│   /craft:dist:homebrew              → Generate Homebrew formula        │
 │                                                                        │
 │ Before Release:                                                        │
 │   /craft:check --for release  OR                                       │

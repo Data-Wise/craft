@@ -5,15 +5,15 @@
     "email": "dt@stat-wise.com"
   },
   "metadata": {
-    "description": "Full-stack developer toolkit for Claude Code with 109 commands, 8 agents, and 23 skills",
-    "version": "2.20.0"
+    "description": "Full-stack developer toolkit for Claude Code with 110 commands, 8 agents, and 23 skills",
+    "version": "2.19.0"
   },
   "plugins": [
     {
       "name": "craft",
       "source": { "source": "github", "repo": "Data-Wise/craft" },
-      "description": "Full-stack developer toolkit for Claude Code with 109 commands, 8 agents, and 25 skills",
-      "version": "2.20.0",
+      "description": "Full-stack developer toolkit for Claude Code with 110 commands, 8 agents, and 25 skills",
+      "version": "2.19.0",
       "author": { "name": "Data-Wise", "email": "dt@stat-wise.com" },
       "homepage": "https://data-wise.github.io/craft/",
       "repository": "https://github.com/Data-Wise/craft",
