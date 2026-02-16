@@ -1,5 +1,5 @@
 ---
-description: Complete Homebrew automation - formulas, workflows, tokens, and validation
+description: Complete Homebrew automation - formulas, workflows, auditing, and dependency management
 arguments:
   - name: subcommand
     description: "Subcommand: formula|workflow|audit|setup|update-resources|deps"
