@@ -457,6 +457,45 @@ State is automatically saved on:
 - Before compression
 - User says `save` or `abort`
 
+## Worktree Types (v2.20.0)
+
+The orchestrator works with four types of worktrees:
+
+| Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
+|------|-----------|----------|---------------|-------------|
+| **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
+| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
+| **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
+
+### When to Use What
+
+| Scenario | Approach | Why |
+|----------|----------|-----|
+| Quick feature, clear scope | Manual worktree | No orchestration overhead, just isolation |
+| Multi-phase feature from spec | Pipeline worktree | Full traceability from brainstorm through PR |
+| Parallel implementation of isolated tasks | Swarm worktrees | Each agent works in its own directory, no conflicts |
+| Feature spanning multiple repos | Cross-repo pipeline | Same branch name enforced, paired worktrees |
+| Quick task, no isolation needed | No worktree (orchestrator only) | Agent delegation without git overhead |
+
+### Decision Tree
+
+```text
+Need isolated development?
+│
+├─ No → /craft:orchestrate "task" (agents in forked context)
+│
+├─ Yes, single feature
+│  ├─ Have a spec? → /craft:orchestrate:plan SPEC.md (Pipeline)
+│  └─ No spec? → /craft:git:worktree create feature/name (Manual)
+│
+├─ Yes, parallel agents on separate files
+│  └─ /craft:orchestrate --swarm "task" (Swarm)
+│
+└─ Yes, spans multiple repos
+   └─ /craft:orchestrate:plan (auto-detects, Cross-Repo)
+```
+
 ## Swarm Mode (--swarm) — NEW
 
 Run agents in isolated git worktrees instead of forked contexts. Each agent gets its own branch and directory, eliminating file conflicts entirely.
@@ -499,7 +538,9 @@ feature/swarm-auth          ← convergence branch
 
 ### ORCHESTRATE File for Swarm
 
-When `--swarm` is used, the ORCHESTRATE file can include file scope per agent:
+When `--swarm` is used, the orchestrator reads the ORCHESTRATE file to map agents to phases and file scopes. If no ORCHESTRATE file exists, swarm mode requires one — it cannot auto-generate the agent-to-file mapping.
+
+**Required section in ORCHESTRATE file:**
 
 ```markdown
 ## Swarm Configuration
@@ -510,6 +551,12 @@ When `--swarm` is used, the ORCHESTRATE file can include file scope per agent:
 | impl | swarm-impl | Implementation | src/ |
 | docs | swarm-docs | Documentation | docs/, README.md |
 ```
+
+**How agents use the mapping:**
+
+1. Each agent receives only its assigned file scope
+2. Agents cannot modify files outside their scope (enforced by working directory)
+3. The convergence merge combines all scopes into the feature branch
 
 ### Convergence Merge
 
@@ -579,6 +626,46 @@ git branch -d swarm-auth-agent1 swarm-auth-agent2 swarm-auth-agent3
 - `--swarm --dry-run`: Preview swarm plan without creating worktrees
 - `--swarm optimize`: Use optimize mode within each agent's worktree
 - `--swarm` requires an ORCHESTRATE file (cannot auto-generate swarm config)
+
+### Practical Example: Swarm Dry-Run
+
+```bash
+/craft:orchestrate --swarm --dry-run "implement auth from ORCHESTRATE"
+
+# Output:
+# ┌───────────────────────────────────────────────────────────────┐
+# │ DRY RUN: SWARM MODE                                           │
+# ├───────────────────────────────────────────────────────────────┤
+# │                                                               │
+# │ ORCHESTRATE file: ORCHESTRATE-auth.md                         │
+# │ Swarm Configuration found: 3 agents                           │
+# │                                                               │
+# │ Worktree Creation Plan:                                       │
+# │                                                               │
+# │  Convergence: feature/swarm-auth (from dev)                   │
+# │                                                               │
+# │  Agent 1: tests                                               │
+# │    Worktree: ~/.git-worktrees/craft/swarm-tests               │
+# │    Branch: swarm-auth-tests                                   │
+# │    Scope: tests/ (Write tests)                                │
+# │                                                               │
+# │  Agent 2: impl                                                │
+# │    Worktree: ~/.git-worktrees/craft/swarm-impl                │
+# │    Branch: swarm-auth-impl                                    │
+# │    Scope: src/ (Implementation)                               │
+# │                                                               │
+# │  Agent 3: docs                                                │
+# │    Worktree: ~/.git-worktrees/craft/swarm-docs                │
+# │    Branch: swarm-auth-docs                                    │
+# │    Scope: docs/, README.md (Documentation)                    │
+# │                                                               │
+# │ Merge order: tests → impl → docs                              │
+# │ Post-merge: Run test suite, create PR to dev                  │
+# │                                                               │
+# ├───────────────────────────────────────────────────────────────┤
+# │ Run without --dry-run to execute                              │
+# └───────────────────────────────────────────────────────────────┘
+```
 
 ## Context Monitoring
 
