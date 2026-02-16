@@ -386,11 +386,53 @@ Before every commit.
 # commit                          # Ship it
 ```
 
+### Workflow 7: Insights Report (v2.20.0)
+
+Generate a report from session data to identify friction patterns and CLAUDE.md improvements.
+
+```bash
+/craft:insights                    # Terminal report, last 30 days
+/craft:insights --format html      # HTML report for sharing
+/craft:insights --since 7          # Last 7 days
+/craft:insights --project craft    # Filter to one project
+```
+
+### Workflow 8: Insights → ORCHESTRATE (v2.20.0)
+
+When creating an ORCHESTRATE file, insights data automatically feeds into the "Friction Prevention" section.
+
+```bash
+# 1. Generate insights to see patterns
+/craft:insights
+
+# 2. Create ORCHESTRATE — friction prevention is auto-populated
+/craft:orchestrate:plan docs/specs/SPEC-feature.md
+# → ORCHESTRATE file includes project-specific guardrails
+```
+
+### Workflow 9: Insights Lifecycle (v2.20.0)
+
+The full insights lifecycle from session data to workflow improvements:
+
+```mermaid
+graph TD
+    S[Sessions] --> F[Facets Data]
+    F --> I[/craft:insights]
+    I --> R1[CLAUDE.md Rules]
+    I --> R2[ORCHESTRATE Friction Prevention]
+    I --> R3[Brainstorm Context]
+    R1 --> B[Better Sessions]
+    R2 --> B
+    R3 --> B
+    B --> S
+```
+
 ---
 
 ## See Also
 
 - [Branch Guard Smart Mode Guide](branch-guard-smart-mode.md) — How the guard works
+- [/craft:insights Command](../../commands/workflow/insights.md) — Full command reference
 - [Check Command Mastery](check-command-mastery.md) — All check modes and flags
 - [Worktree Advanced Patterns](worktree-advanced-patterns.md) — Multi-worktree management
 - [Version History](../VERSION-HISTORY.md) — v2.18.0 release notes

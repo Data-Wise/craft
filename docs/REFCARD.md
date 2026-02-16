@@ -5,7 +5,7 @@
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
 │  Version: 2.19.0 (released 2026-02-14)                       │
-│  Commands: 110 | Agents: 8 | Skills: 25                     │
+│  Commands: 111 | Agents: 8 | Skills: 25                     │
 │  Documentation: 99% complete | Tests: ~1575 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
 │  v2.19.0: Marketplace distribution, insights-driven          │
@@ -1385,6 +1385,35 @@ end tell'
     "editor": "code"  # VS Code, Cursor, Sublime, etc.
   }
 }
+```
+
+**Insights (v2.20.0):**
+
+```bash
+# Generate session insights report
+/craft:insights
+# Aggregates: Friction patterns, goal categories, outcomes
+# Suggests: CLAUDE.md rules to prevent recurring issues
+
+# HTML report for sharing
+/craft:insights --format html
+
+# Last 7 days, specific project
+/craft:insights --since 7 --project craft
+
+# Apply suggestions to CLAUDE.md
+/craft:insights-apply
+```
+
+**Insights Lifecycle:**
+
+```mermaid
+graph LR
+    A[sessions] --> B[facets data]
+    B --> C[/craft:insights]
+    C --> D[CLAUDE.md rules]
+    C --> E[ORCHESTRATE friction prevention]
+    C --> F[brainstorm context]
 ```
 
 **Other Workflow Commands:**

@@ -214,6 +214,17 @@ else
 fi
 ```
 
+**Insights integration (v2.20.0):**
+
+If insights data exists (`~/.claude/usage-data/facets/`), append a friction summary to the context output:
+
+```text
+│ Insights: 3 friction patterns in last 30 days               │
+│   - Wrong CWD (8x) → verify worktree before editing          │
+│   - Forgot ORCHESTRATE (3x) → read on session start          │
+│   Run /craft:insights for full report                        │
+```
+
 When `--context` is passed, the command exits after displaying this header. No checks are executed.
 
 ### Step 0.5: Confirm Before Running
