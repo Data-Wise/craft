@@ -206,6 +206,40 @@ context = ctx.scan(topic)
 4. Insert dynamic questions (failing tests, matching spec, prior brainstorm)
 5. Trim to requested count
 
+### Step 1.8: Insights Integration (v2.20.0)
+
+Before brainstorming, check session insights for relevant past patterns.
+
+**Check:** Read `~/.claude/usage-data/facets/` for sessions matching the topic or project.
+
+**If relevant sessions found** (same project or similar topic keywords):
+
+```text
+Previous session insights (craft, last 30 days):
+  12 sessions on this project
+  Top friction: wrong CWD (8x), forgot ORCHESTRATE (3x)
+  Suggested guardrails applied to this brainstorm context
+```
+
+**Behavior changes:**
+
+| Scenario | Effect on Brainstorm |
+|----------|---------------------|
+| Friction patterns found for project | Add "Known Friction" section to brainstorm output |
+| Prior sessions on same topic | Show "Previous approaches" summary, offer to build on them |
+| No insights data | Skip silently (no user prompt) |
+
+**Integration with spec generation (Step 5.5):**
+
+When insights exist and a spec is being captured, auto-add a "Known Risks" section to the spec based on observed friction patterns:
+
+```markdown
+## Known Risks (from session insights)
+
+- Wrong CWD — 8 occurrences in 30 days. Add explicit CWD verification step.
+- Count drift — 2 occurrences. Add validate-counts to acceptance criteria.
+```
+
 ### Step 2: Gather Context
 
 If topic not from args, detect from project type, git branch, directory context.
