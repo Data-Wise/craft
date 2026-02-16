@@ -247,9 +247,49 @@ If capturing: ask user type → ask acceptance criteria → generate SPEC.md fro
 
 **IMPORTANT:** Generate comprehensive specs with ALL template sections. Mark N/A sections explicitly.
 
-### Step 6: Suggest Workflow Documentation
+### Step 6: Create Orchestration? (v2.20.0)
 
-After spec capture, suggest creating workflow docs. Trigger when spec was saved and focus was feat/arch/ops or depth was deep/max.
+After spec capture, offer to create an ORCHESTRATE file and worktree.
+
+**Trigger conditions:**
+
+| Condition | Behavior |
+|-----------|----------|
+| Spec was captured in Step 5.5 | Always prompt |
+| No spec captured | Skip this step |
+
+Prompt:
+
+```json
+{
+  "questions": [{
+    "question": "Create orchestration plan from this spec?",
+    "header": "Orchestrate",
+    "multiSelect": false,
+    "options": [
+      {"label": "ORCHESTRATE + worktree (Recommended)", "description": "Generate ORCHESTRATE file and create worktree for isolated development."},
+      {"label": "ORCHESTRATE only", "description": "Generate ORCHESTRATE file in docs/orchestrate/ directory."},
+      {"label": "Skip", "description": "Just keep the spec. Create orchestration later with /craft:orchestrate:plan."}
+    ]
+  }]
+}
+```
+
+**When "ORCHESTRATE + worktree" selected:**
+
+Invoke `/craft:orchestrate:plan <spec-path>` with the spec path from Step 5.5. This creates the ORCHESTRATE file and worktree in one flow.
+
+**When "ORCHESTRATE only" selected:**
+
+Invoke `/craft:orchestrate:plan <spec-path> --output orchestrate-only`. Saves ORCHESTRATE file to current directory.
+
+**When "Skip" selected:**
+
+Show reminder: "You can create orchestration later with `/craft:orchestrate:plan <spec-path>`"
+
+### Step 7: Suggest Workflow Documentation
+
+After spec capture (and optional orchestration), suggest creating workflow docs. Trigger when spec was saved and focus was feat/arch/ops or depth was deep/max.
 
 ---
 
