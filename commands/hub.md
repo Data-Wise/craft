@@ -68,9 +68,9 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.18.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.20.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
-> **111 commands** | **25 skills** | **8 agents** | **~1504 tests passing**
+> **111 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │

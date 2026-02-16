@@ -75,7 +75,7 @@
 - **Orchestrate `--swarm` Flag**: Unlimited parallel agents for large-scale tasks
 - **PreToolUse Hook**: Python hook warning when file operations target paths outside current worktree
 
-**Stats:** 111 commands | 25 skills | 8 agents | ~1575 tests passing
+**Stats:** 109 commands | 25 skills | 8 agents | ~1575 tests passing
 
 ---
 

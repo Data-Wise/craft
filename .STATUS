@@ -22,7 +22,7 @@ progress: v2.19.0 released — CI fix synced to main
 - Version bump across 7 files (plugin.json, marketplace.json, CLAUDE.md, README, index, REFCARD, VERSION-HISTORY)
 - Pre-flight: all unit tests pass, counts validated (111/25/8), pre-release check green
 - Features: marketplace distribution (PR #73) + insights-driven improvements (PR #74)
-- Stats: 111 commands, 25 skills, 8 agents, ~1575 tests passing
+- Stats: 109 commands, 25 skills, 8 agents, ~1575 tests passing
 
 ✅ Session 2026-02-14 (PR #74 review + merge):
 - Code reviewed PR #74: found 7 issues (ORCHESTRATE file, --autonomous --admin risk, skill count, VERSION-HISTORY status, phase detection gap, hub counts, test plan)
