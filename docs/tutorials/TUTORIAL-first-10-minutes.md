@@ -54,7 +54,7 @@ Open any project directory in Claude Code. Craft auto-detects your project type 
 └──────────────────────────────────────────────────────────┘
 ```
 
-**Why it matters:** The hub is your home base. If you see the listing with 110 commands, Craft is working. The project type and branch are auto-detected.
+**Why it matters:** The hub is your home base. If you see the listing with 111 commands, Craft is working. The project type and branch are auto-detected.
 
 ## Step 2: Run Your First Health Check
 
@@ -124,7 +124,7 @@ CODE & TESTING (22 commands)
 
 **Layer 3** -- Pick a specific command for full details, usage examples, and related guides.
 
-**Why it matters:** With 110 commands, you never need to memorize anything. Browse by category and the hub shows you how to use each command.
+**Why it matters:** With 111 commands, you never need to memorize anything. Browse by category and the hub shows you how to use each command.
 
 ## Step 5: Try a Real Command
 

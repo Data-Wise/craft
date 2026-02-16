@@ -4,7 +4,7 @@
 
 **Latest Release:** v2.19.0 (2026-02-14)
 **Total Releases:** 40 versions | **Development Time:** 2+ years
-**Community:** 110 commands documented, ~1575 tests passing, 90%+ coverage
+**Community:** 111 commands documented, ~1575 tests passing, 90%+ coverage
 
 ---
 
@@ -26,7 +26,7 @@
 - **Orchestrate `--swarm` Flag**: Unlimited parallel agents for large-scale tasks
 - **PreToolUse Hook**: Python hook warning when file operations target paths outside current worktree
 
-**Stats:** 110 commands | 25 skills | 8 agents | ~1575 tests passing
+**Stats:** 111 commands | 25 skills | 8 agents | ~1575 tests passing
 
 ---
 

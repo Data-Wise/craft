@@ -264,9 +264,9 @@ When issues are found, the audit command automatically applies known fixes:
 ```ruby
 # Fix 1: Description too long (> 80 chars)
 # Before:
-desc "Full-stack developer toolkit - 110 commands, 8 agents, 25 skills - Claude Code plugin"
+desc "Full-stack developer toolkit - 111 commands, 8 agents, 25 skills - Claude Code plugin"
 # After:
-desc "Full-stack developer toolkit for Claude Code with 110 commands"
+desc "Full-stack developer toolkit for Claude Code with 111 commands"
 
 # Fix 2: Array comparison (use Array#include?)
 # Before:
@@ -857,7 +857,7 @@ end
 
 | Formula | Plugin | Status |
 |---------|--------|--------|
-| `craft.rb` | 110 commands | `brew audit --strict` clean |
+| `craft.rb` | 111 commands | `brew audit --strict` clean |
 | `rforge.rb` | 15 commands | Claude detection |
 | `scholar.rb` | 21 commands | Claude detection |
 

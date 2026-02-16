@@ -6,7 +6,7 @@
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **v2.19.0 - Marketplace & Insights-Driven Improvements** 🚀
-> **110 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
+> **111 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
 > Marketplace distribution, insights-driven improvements, guard audit, autonomous releases.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
@@ -145,7 +145,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 110 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 111 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)

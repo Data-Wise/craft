@@ -6,18 +6,18 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 110 commands, 8 AI agents, and 25 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 111 commands, 8 AI agents, and 25 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 110 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 111 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **109 Commands**
+- :rocket:{ .lg .middle } **111 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
 
@@ -62,7 +62,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 110 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 111 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -108,7 +108,7 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 110 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 111 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -179,7 +179,7 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 110 commands organized
+    All 111 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](guide/skills-agents.md)**
 
@@ -191,7 +191,7 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 110 commands
+    Complete documentation for all 111 commands
 
 </div>
 

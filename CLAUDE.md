@@ -8,7 +8,7 @@ Full spec: `docs/specs/SPEC-orchestrate-worktree-pipeline-2026-02-15.md`
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**110 commands** · **25 skills** · **8 agents** · **26 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**111 commands** · **25 skills** · **8 agents** · **26 specs** · [Documentation](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.20.0 | **Latest Release:** v2.20.0 (2026-02-15)
 **Documentation Status:** 99% complete | **Tests:** ~1575 passing, 90%+ coverage
@@ -98,7 +98,7 @@ Auto-selection: debug (errors), optimize (performance), release (deploy), else d
 ```text
 craft/
 ├── .claude-plugin/     # Plugin manifest, hooks, validators
-├── commands/           # 110 commands (arch, ci, code, docs, git, site, test, workflow)
+├── commands/           # 111 commands (arch, ci, code, docs, git, site, test, workflow)
 ├── skills/             # 22 specialized skills (including /release)
 ├── agents/             # 8 agents
 ├── scripts/            # 30+ utility scripts (dependency management, converters, installers)
@@ -155,7 +155,7 @@ See [`docs/VERSION-HISTORY.md`](docs/VERSION-HISTORY.md) for full release timeli
 ## Links
 
 - [Documentation Site](https://data-wise.github.io/craft/) — Full guides and references
-- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 110 commands
+- [Commands Reference](https://data-wise.github.io/craft/commands/) — All 111 commands
 - [Architecture Guide](https://data-wise.github.io/craft/architecture/) — How Craft works
 - [Version History](docs/VERSION-HISTORY.md) — Complete release timeline
 - [GitHub Repository](https://github.com/Data-Wise/craft) — Source code and issues
