@@ -1051,17 +1051,21 @@ npm test
 | ------------------------------ | -------------------------------------- |
 | `/craft:dist:marketplace`      | Marketplace init, validate, test, publish |
 | `/craft:dist:package`          | Package for distribution               |
-| `/craft:dist:homebrew`         | Generate Homebrew formula              |
+| `/craft:dist:homebrew`         | Homebrew formula, audit, deps, workflow (6 subcommands) |
 | `/craft:dist:pypi`             | Package for PyPI                       |
 | `/craft:dist:npm`              | Package for npm                        |
 | `/craft:dist:curl-install`     | Generate curl installer                |
+
+**Homebrew subcommands:** `formula` | `workflow` | `audit` | `setup` | `update-resources` | `deps`
 
 **Quick examples:**
 
 ```bash
 /craft:dist:marketplace         # Validate marketplace config (default)
 /craft:dist:marketplace init    # Generate marketplace.json
-/craft:dist:homebrew            # Generate Homebrew formula
+/craft:dist:homebrew setup      # Full 4-step wizard
+/craft:dist:homebrew audit      # Audit with auto-fix
+/craft:dist:homebrew deps       # Dependency graph
 /craft:dist:pypi                # Package for PyPI
 /craft:dist:curl-install        # Generate curl installer
 ```

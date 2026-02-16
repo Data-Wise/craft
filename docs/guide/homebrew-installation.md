@@ -282,6 +282,24 @@ rm -rf ~/.claude/plugins/cache/local-plugins/craft
 
 ---
 
+## For Plugin Authors: `.craft/homebrew.json`
+
+If you distribute your own plugin via Homebrew, add a `.craft/homebrew.json` to your project root:
+
+```json
+{
+  "formula_name": "my-plugin",
+  "tap": "my-org/tap",
+  "source_type": "github"
+}
+```
+
+This config is used by `/craft:dist:homebrew` and the `/release` skill (Step 8.5) to reliably identify the formula name and tap location. Without it, the system falls back to git remote URL parsing or directory basename.
+
+See the [Homebrew Automation Guide](homebrew-automation.md) for full details on formula management, auditing, and workflow hardening.
+
+---
+
 ## Other Homebrew Plugins
 
 The same pattern applies to other Data-Wise plugins. All use Claude detection to avoid conflicts during installation.

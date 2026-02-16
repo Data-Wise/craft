@@ -121,6 +121,7 @@ nav:
       - Git Worktree Setup Tutorial: tutorials/TUTORIAL-worktree-setup.md
       - Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
       - Release Pipeline Tutorial: tutorials/TUTORIAL-release-pipeline.md
+      - Homebrew Setup Tutorial: tutorials/TUTORIAL-homebrew-setup.md
       - Insights-Driven Workflow: tutorials/TUTORIAL-insights-workflow.md
       - Insights Improvements Guide: guide/insights-improvements-guide.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
@@ -136,6 +137,7 @@ nav:
       - --orch Flag Quick Start: guide/orch-flag-usage.md
       - Marketplace Distribution: guide/marketplace-distribution.md
       - Homebrew Distribution: guide/homebrew-installation.md
+      - Homebrew Automation: guide/homebrew-automation.md
       - Skills & Agents: guide/skills-agents.md
       - Integration Testing: guide/integration-testing.md
       - Markdown List Spacing: guide/markdown-list-spacing.md
@@ -245,6 +247,7 @@ nav:
       - Brainstorm Quick Reference: reference/REFCARD-BRAINSTORM.md
       - Branch Guard Quick Reference: reference/REFCARD-BRANCH-GUARD.md
       - Release Pipeline Reference: reference/REFCARD-RELEASE.md
+      - Homebrew Quick Reference: reference/REFCARD-HOMEBREW.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
