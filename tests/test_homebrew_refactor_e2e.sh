@@ -439,12 +439,12 @@ else
     assert_fail "has_basename_fallback" "No basename fallback documented"
 fi
 
-# Test: Uses sha256sum (not shasum)
+# Test: Uses shasum -a 256 (macOS-portable, not sha256sum which is Linux-only)
 STEP85=$(echo "$SKILL_CONTENT" | sed -n '/Step 8.5/,/Step 9/p')
-if echo "$STEP85" | grep -q "sha256sum"; then
-    assert_pass "step85_uses_sha256sum"
+if echo "$STEP85" | grep -q "shasum -a 256"; then
+    assert_pass "step85_uses_shasum"
 else
-    assert_fail "step85_uses_sha256sum" "Step 8.5 still uses shasum"
+    assert_fail "step85_uses_shasum" "Step 8.5 should use shasum -a 256 (macOS-portable)"
 fi
 
 # Test: Has ruby -c syntax check

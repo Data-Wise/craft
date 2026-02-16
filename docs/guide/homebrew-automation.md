@@ -116,6 +116,9 @@ The `audit` subcommand replaces the old `validate` command with expanded capabil
 
 # Strict + online checks
 /craft:dist:homebrew audit --strict --online
+
+# Report only (no auto-fix)
+/craft:dist:homebrew audit --check-only
 ```
 
 ### `--build` Flag
@@ -293,7 +296,7 @@ echo '{"formula_name": "myapp", "tap": "my-org/tap", "source_type": "github"}' >
 | Problem | Solution |
 |---------|----------|
 | `brew audit` fails with "Description too long" | Keep description under 80 characters, no "A/An" prefix |
-| SHA256 mismatch | Recalculate: `curl -sL <url> \| sha256sum \| cut -d' ' -f1` |
+| SHA256 mismatch | Recalculate: `curl -sL <url> \| shasum -a 256 \| cut -d' ' -f1` |
 | Wrong formula name in worktree | Add `.craft/homebrew.json` with explicit `formula_name` |
 | `rescue StandardError` style warning | Use bare `rescue` (Homebrew convention) |
 | Stale PyPI resource URLs | Run `/craft:dist:homebrew update-resources` |

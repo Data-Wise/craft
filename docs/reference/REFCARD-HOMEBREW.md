@@ -21,6 +21,7 @@
 | `/craft:dist:homebrew workflow` | Create hardened GitHub Actions workflow |
 | `/craft:dist:homebrew audit` | Run `brew audit` + auto-fix patterns |
 | `/craft:dist:homebrew audit --build` | Audit + build from source |
+| `/craft:dist:homebrew audit --check-only` | Report issues without fixing |
 | `/craft:dist:homebrew deps` | Inter-formula dependency graph |
 | `/craft:dist:homebrew deps --system` | System dependencies matrix |
 | `/craft:dist:homebrew deps --dot` | Graphviz DOT output |
@@ -94,7 +95,7 @@ The `/release` skill auto-updates the tap formula:
 | Issue | Fix |
 |-------|-----|
 | Wrong formula name | Add `.craft/homebrew.json` |
-| SHA mismatch | `curl -sL <url> \| sha256sum \| cut -d' ' -f1` |
+| SHA mismatch | `curl -sL <url> \| shasum -a 256 \| cut -d' ' -f1` |
 | `rescue StandardError` | Use bare `rescue` |
 | Description too long | Under 80 chars, no "A/An" |
 | Script injection in workflow | Use `env:` block, not `${{ }}` in `run:` |

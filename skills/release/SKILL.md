@@ -378,7 +378,7 @@ if [ -n "$TAP_DIR" ]; then
     if [ -f "$FORMULA" ]; then
         # Calculate SHA256 from GitHub release tarball
         REPO=$(git remote get-url origin | sed 's/\.git$//' | sed 's|https://github.com/||')
-        SHA256=$(curl -sL --retry 3 --retry-delay 2 "https://github.com/${REPO}/archive/refs/tags/v${VERSION}.tar.gz" | sha256sum | cut -d' ' -f1)
+        SHA256=$(curl -sL --retry 3 --retry-delay 2 "https://github.com/${REPO}/archive/refs/tags/v${VERSION}.tar.gz" | shasum -a 256 | cut -d' ' -f1)
 
         # Validate SHA256 is not empty
         if [ -z "$SHA256" ] || [ ${#SHA256} -ne 64 ]; then

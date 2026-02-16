@@ -234,6 +234,9 @@ Runs `brew audit` validation with auto-fix patterns and optional build-from-sour
 
 # Strict + online checks
 /craft:dist:homebrew audit --strict --online
+
+# Report issues without fixing
+/craft:dist:homebrew audit --check-only
 ```
 
 **Auto-Fix Patterns** (applied automatically):
@@ -575,7 +578,7 @@ git push
 **Solution:** Keep description under 80 characters, no "A/An" prefix
 
 **Problem:** SHA256 mismatch
-**Solution:** Recalculate: `curl -sL <url> | sha256sum | cut -d' ' -f1`
+**Solution:** Recalculate: `curl -sL <url> | shasum -a 256 | cut -d' ' -f1`
 
 **Problem:** Stale PyPI resource URLs
 **Solution:** Run `/craft:dist:homebrew update-resources`

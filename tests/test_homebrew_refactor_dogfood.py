@@ -338,10 +338,10 @@ class TestReleaseSkillStep85(unittest.TestCase):
         """basename is documented as fallback only."""
         self.assertIn("fallback", self.step85.lower())
 
-    def test_uses_sha256sum(self):
-        """Step 8.5 uses sha256sum."""
-        self.assertIn("sha256sum", self.step85)
-        self.assertNotIn("shasum -a 256", self.step85)
+    def test_uses_shasum(self):
+        """Step 8.5 uses shasum -a 256 (macOS-portable, not sha256sum)."""
+        self.assertIn("shasum -a 256", self.step85)
+        self.assertNotIn("sha256sum", self.step85)
 
     def test_has_ruby_syntax_check(self):
         """Step 8.5 runs ruby -c after sed update."""
