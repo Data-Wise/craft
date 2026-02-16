@@ -1,60 +1,51 @@
 status: Active
-version: 2.19.0
-release_date: 2026-02-14
-milestone: Homebrew refactor merged (PR #78)
+version: 2.20.0
+release_date: 2026-02-15
+milestone: v2.20.0 released
 last_session: 2026-02-15
 
-progress: v2.19.0 + homebrew refactor merged to main, docs deployed
+progress: v2.20.0 released — Homebrew refactor with security hardening
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
-| main   | 8a96342 | —    | Production (v2.19.0 + homebrew refactor) |
-| dev    | 8a96342 | main | Synced with main           |
+| main   | ed8dd83 | —    | Production (v2.20.0)       |
+| dev    | ed8dd83 | main | Synced with main           |
 
-✅ Session 2026-02-15 (Homebrew refactor — merged):
-- PR #78 reviewed: security hardening, 8→6 subcommand consolidation, release skill rewrite
+✅ Session 2026-02-15 (v2.20.0 release):
+- Released v2.20.0: PR #79 merged, GitHub release created, docs deployed
+- Homebrew refactor: 8→6 subcommands, workflow security hardening, formula name mapping
 - Fixed sha256sum → shasum -a 256 for macOS portability in release skill Step 8.5
-- Added --check-only flag to audit docs (refcard, guide, dist commands)
-- Updated troubleshooting SHA commands across 4 docs + 1 spec
-- Updated tests to assert shasum -a 256 (50/50 dogfood + 47/47 e2e pass)
-- Merged PR #78 to main (--admin bypass), synced dev
-- Deployed docs site: 3 new pages (homebrew guide, tutorial, refcard)
-
-📋 Session 2026-02-15 (Homebrew refactor planning):
-- Deep brainstorm (max depth, 24 expert questions, 2 background agents)
-- Live `brew audit --strict` on all 14 formulas: only 1/14 passes (57 issues total)
-- Identified: 3 script injection vulns, bare rescue bug, missing Claude guard, SHA inconsistency
-- Created spec: `docs/specs/SPEC-homebrew-refactor-2026-02-15.md` (6 increments)
-- Created worktree + ORCHESTRATE for craft (Phases 2, 6) and homebrew-tap (Phases 1, 3, 4, 5)
-
-📋 Session 2026-02-15 (Orchestrate pipeline spec):
-- Created spec: `docs/specs/SPEC-orchestrate-worktree-pipeline-2026-02-15.md` (4 increments, 46 tasks)
-- Analyzed 82 session insights, applied 4 to global CLAUDE.md
-- Created worktree + ORCHESTRATE for orchestrate-pipeline
+- Added --check-only to audit docs, updated troubleshooting SHA commands
+- Tests: 50/50 dogfood + 47/47 e2e + main suite passing
+- Cleaned up homebrew-refactor worktree + branch (local + remote)
+- Created WIP draft PR #91 in homebrew-tap repo
 
 🔧 Active Worktrees:
 
 | Worktree | Branch | Focus |
 |----------|--------|-------|
-| `~/.git-worktrees/craft/feature-homebrew-refactor` | `feature/homebrew-refactor` | Merged — ready for cleanup |
-| `~/.git-worktrees/craft/feature-orchestrate-pipeline` | `feature/orchestrate-pipeline` | v2.20.0: doc revisions, pipeline, swarm clarity, insights |
+| `~/.git-worktrees/craft/feature-orchestrate-pipeline` | `feature/orchestrate-pipeline` | v2.21.0: doc revisions, pipeline, swarm clarity, insights |
 
 🎯 Next Action:
-→ Clean up homebrew-refactor worktree (merged)
-→ Continue tap worktree (Phases 1, 3, 4, 5 — brew audit fixes)
+→ Review and merge homebrew-tap PR #91 (draft — needs smoke test)
 → Start orchestrate-pipeline worktree (doc revisions)
 
 ## Previous Sessions
 
+✅ Session 2026-02-15 (earlier — planning):
+- Deep brainstorm on homebrew refactor (24 expert questions, 2 background agents)
+- Created specs: homebrew-refactor (6 increments) + orchestrate-pipeline (4 increments, 46 tasks)
+- Analyzed 82 session insights, applied 4 to global CLAUDE.md
+
 ✅ Session 2026-02-14 (v2.19.0 release):
-- Released v2.19.0: PR #75 merged, GitHub release created, docs deployed
-- Features: marketplace distribution (PR #73) + insights-driven improvements (PR #74)
+- Released v2.19.0: marketplace distribution + insights-driven improvements
 - Stats: 109 commands, 25 skills, 8 agents, ~1575 tests passing
 
-## Future (v2.20.0+)
+## Future (v2.21.0+)
 
+- Orchestrate pipeline improvements (doc revisions, swarm clarity, insights workflow)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
