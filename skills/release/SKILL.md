@@ -311,12 +311,57 @@ mkdocs gh-deploy  # or /craft:site:deploy
 
 ### Step 8.5: Update Homebrew Tap (if applicable)
 
-If the project has a Homebrew formula in the `data-wise/tap`, update it with the new version:
+If the project has a Homebrew formula in the `data-wise/tap`, update it with the new version.
+
+#### Formula Name Lookup Chain
+
+Determine the formula name using this priority order:
+
+1. **Config file** — `.craft/homebrew.json` (most reliable)
+2. **Git remote** — extract repo name from `origin` URL
+3. **Directory basename** — fallback (least reliable)
 
 ```bash
-# Tap location strategy (check in priority order)
-TAP_LOCAL="$HOME/projects/dev-tools/homebrew-tap"
-TAP_BREW="$(brew --repository 2>/dev/null)/Library/Taps/data-wise/homebrew-tap"
+# 1. Config file (preferred)
+if [ -f ".craft/homebrew.json" ]; then
+    FORMULA_NAME=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['formula_name'])")
+    TAP=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['tap'])")
+# 2. Git remote mapping
+elif git remote get-url origin &>/dev/null; then
+    REPO_NAME=$(git remote get-url origin | sed 's/\.git$//' | sed 's|.*/||' | tr '[:upper:]' '[:lower:]')
+    FORMULA_NAME="$REPO_NAME"
+    TAP="data-wise/tap"
+# 3. Basename fallback
+else
+    FORMULA_NAME=$(basename "$PWD" | tr '[:upper:]' '[:lower:]')
+    TAP="data-wise/tap"
+fi
+```
+
+#### `.craft/homebrew.json` Config Format
+
+```json
+{
+  "formula_name": "craft",
+  "tap": "data-wise/tap",
+  "source_type": "github"
+}
+```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `formula_name` | Yes | Name of the Homebrew formula (e.g., `craft`, `aiterm`) |
+| `tap` | Yes | Tap in `org/name` format (e.g., `data-wise/tap`) |
+| `source_type` | No | `github` (default) or `pypi` |
+
+#### Tap Update Script
+
+```bash
+# Locate tap directory
+TAP_ORG=$(echo "$TAP" | cut -d/ -f1)
+TAP_NAME=$(echo "$TAP" | cut -d/ -f2)
+TAP_LOCAL="$HOME/projects/dev-tools/homebrew-${TAP_NAME}"
+TAP_BREW="$(brew --repository 2>/dev/null)/Library/Taps/${TAP_ORG}/homebrew-${TAP_NAME}"
 
 if [ -d "$TAP_LOCAL" ]; then
     TAP_DIR="$TAP_LOCAL"
@@ -326,20 +371,27 @@ elif [ -d "$TAP_BREW" ]; then
     cd "$TAP_DIR" && git pull
 else
     echo "No local tap found — skip tap update (CI workflow handles this)"
-    # The homebrew-release.yml workflow will update on GitHub release trigger
 fi
 
 if [ -n "$TAP_DIR" ]; then
-    FORMULA_NAME=$(basename "$PWD" | tr '[:upper:]' '[:lower:]')
     FORMULA="$TAP_DIR/Formula/${FORMULA_NAME}.rb"
     if [ -f "$FORMULA" ]; then
         # Calculate SHA256 from GitHub release tarball
         REPO=$(git remote get-url origin | sed 's/\.git$//' | sed 's|https://github.com/||')
-        SHA256=$(curl -sL "https://github.com/${REPO}/archive/refs/tags/v${VERSION}.tar.gz" | shasum -a 256 | cut -d' ' -f1)
+        SHA256=$(curl -sL --retry 3 --retry-delay 2 "https://github.com/${REPO}/archive/refs/tags/v${VERSION}.tar.gz" | shasum -a 256 | cut -d' ' -f1)
 
-        # Update version and sha256 in formula using sed
+        # Validate SHA256 is not empty
+        if [ -z "$SHA256" ] || [ ${#SHA256} -ne 64 ]; then
+            echo "ERROR: SHA256 calculation failed. Got: '$SHA256'"
+            exit 1
+        fi
+
+        # Update version and sha256 in formula
         sed -i '' "s|/archive/refs/tags/v[0-9.]*\.tar\.gz|/archive/refs/tags/v${VERSION}.tar.gz|" "$FORMULA"
         sed -i '' "s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA256}\"/" "$FORMULA"
+
+        # Syntax check before committing
+        ruby -c "$FORMULA" || { echo "ERROR: Formula has syntax errors after update"; exit 1; }
 
         # Commit and push
         cd "$TAP_DIR"

@@ -1,8 +1,8 @@
 ---
-description: Complete Homebrew automation - formulas, workflows, tokens, and validation
+description: Complete Homebrew automation - formulas, workflows, auditing, and dependency management
 arguments:
   - name: subcommand
-    description: "Subcommand: formula|workflow|validate|token|setup"
+    description: "Subcommand: formula|workflow|audit|setup|update-resources|deps"
     required: false
     default: formula
   - name: tap
@@ -23,12 +23,10 @@ Complete Homebrew formula management with automated workflows.
 |---------|---------|
 | `formula` | Generate or update formula (default) |
 | `workflow` | Generate GitHub Actions release workflow |
-| `validate` | Run `brew audit` validation |
-| `token` | Guide for setting up tap access token |
+| `audit` | Run `brew audit` validation + auto-fix |
 | `setup` | Full setup wizard (formula + workflow + token) |
 | `update-resources` | Fix stale PyPI resource URLs |
-| `release-batch` | Coordinate multi-formula releases |
-| `deps` | Show formula dependency graph |
+| `deps` | Show formula dependency graph + system deps matrix |
 
 ## Quick Start
 
@@ -43,7 +41,7 @@ Complete Homebrew formula management with automated workflows.
 /craft:dist:homebrew workflow
 
 # Validate formula before release
-/craft:dist:homebrew validate
+/craft:dist:homebrew audit
 ```
 
 ---
@@ -90,18 +88,30 @@ Formula saved to: ./Formula/myapp.rb
 
 ## /craft:dist:homebrew workflow
 
-Generate GitHub Actions workflow for automated Homebrew releases.
+Generate GitHub Actions workflow for automated Homebrew releases. Auto-detects project type and generates a hardened workflow.
 
 ### Usage
 
 ```bash
-/craft:dist:homebrew workflow                   # Generate caller workflow
+/craft:dist:homebrew workflow                   # Auto-detect and generate
 /craft:dist:homebrew workflow --tap user/tap    # Specify tap repository
+/craft:dist:homebrew workflow --source pypi     # Force PyPI source type
 ```
+
+### Auto-Detection
+
+Detects project type and customizes the workflow accordingly:
+
+| Project Type | Detection | Source | Extra Steps |
+|--------------|-----------|--------|-------------|
+| **Claude Code Plugin** | `.claude-plugin/` | GitHub tarball | Plugin metadata extraction |
+| **Python** | `pyproject.toml` | PyPI or GitHub | `command_count`, `agent_count` |
+| **Node.js** | `package.json` | npm or GitHub | Standard SHA flow |
+| **Go / Rust / Shell** | `go.mod` / `Cargo.toml` / scripts | GitHub tarball | Standard SHA flow |
 
 ### Output Files
 
-Creates `.github/workflows/homebrew-release.yml`:
+Creates `.github/workflows/homebrew-release.yml` with hardened security:
 
 ```yaml
 name: Homebrew Release
@@ -123,25 +133,34 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.version.outputs.version }}
-      sha256: ${{ steps.sha256.outputs.sha256 }}
+      version: ${{ steps.release.outputs.version }}
+      sha256: ${{ steps.release.outputs.sha256 }}
     steps:
-      - name: Get version
-        id: version
+      - uses: actions/checkout@v4
+
+      - name: Get version and calculate SHA
+        id: release
+        env:
+          # Use env indirection to prevent script injection
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_VERSION: ${{ github.event.inputs.version }}
         run: |
-          if [ "${{ github.event_name }}" = "release" ]; then
-            VERSION="${{ github.event.release.tag_name }}"
-            VERSION="${VERSION#v}"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            VERSION="$INPUT_VERSION"
           else
-            VERSION="${{ github.event.inputs.version }}"
+            VERSION="${GITHUB_REF#refs/tags/}"
+            VERSION="${VERSION#v}"
           fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Calculate SHA256
-        id: sha256
-        run: |
-          TARBALL_URL="https://github.com/${{ github.repository }}/archive/refs/tags/v${{ steps.version.outputs.version }}.tar.gz"
-          SHA256=$(curl -sL "$TARBALL_URL" | shasum -a 256 | cut -d' ' -f1)
+          TARBALL_URL="https://github.com/${{ github.repository }}/archive/refs/tags/v${VERSION}.tar.gz"
+          SHA256=$(curl -sL --retry 3 --retry-delay 2 "$TARBALL_URL" | sha256sum | cut -d' ' -f1)
+
+          # Validate SHA256 is not empty (download failed)
+          if [ -z "$SHA256" ] || [ ${#SHA256} -ne 64 ]; then
+            echo "::error::SHA256 calculation failed. Got: '$SHA256'"
+            exit 1
+          fi
           echo "sha256=$SHA256" >> $GITHUB_OUTPUT
 
   update-homebrew:
@@ -157,32 +176,52 @@ jobs:
       tap_token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
 ```
 
+### Security Features
+
+| Feature | Purpose |
+|---------|---------|
+| **`env:` indirection** | Prevents script injection from `github.event.inputs.*` |
+| **`sha256sum`** | Standard tool on Ubuntu runners (not `shasum -a 256`) |
+| **`--retry 3`** | Handles transient GitHub CDN failures |
+| **64-char hex guard** | Catches empty/corrupt SHA before workflow proceeds |
+
 ### Workflow Types
 
 | Source | When to Use |
 |--------|-------------|
-| GitHub | Projects with GitHub releases |
+| GitHub | Projects with GitHub releases (default) |
 | PyPI | Python packages published to PyPI |
 
-For PyPI source, use:
+### Plugin Workflow (Extra Metadata)
 
-```bash
-/craft:dist:homebrew workflow --source pypi
+For Claude Code plugins, the workflow also extracts metadata counts:
+
+```yaml
+      - name: Extract plugin metadata
+        id: metadata
+        run: |
+          CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" | wc -l | tr -d ' ')
+          AGENT_COUNT=$(find agents -name "*.md" | wc -l | tr -d ' ')
+          SKILL_COUNT=$(find skills -name "*.md" | wc -l | tr -d ' ')
+          echo "command_count=$CMD_COUNT" >> $GITHUB_OUTPUT
+          echo "agent_count=$AGENT_COUNT" >> $GITHUB_OUTPUT
+          echo "skill_count=$SKILL_COUNT" >> $GITHUB_OUTPUT
 ```
 
 ---
 
-## /craft:dist:homebrew validate
+## /craft:dist:homebrew audit
 
 Validate and auto-fix formula using `brew audit`.
 
 ### Usage
 
 ```bash
-/craft:dist:homebrew validate                   # Validate + auto-fix
-/craft:dist:homebrew validate --strict          # Strict mode (extra checks)
-/craft:dist:homebrew validate --online          # Online checks (URL validation)
-/craft:dist:homebrew validate --check-only      # Report issues without fixing
+/craft:dist:homebrew audit                      # Validate + auto-fix
+/craft:dist:homebrew audit --strict             # Strict mode (extra checks)
+/craft:dist:homebrew audit --online             # Online checks (URL validation)
+/craft:dist:homebrew audit --check-only         # Report issues without fixing
+/craft:dist:homebrew audit --build              # Also run brew install --build-from-source
 ```
 
 ### Checks Performed
@@ -202,9 +241,25 @@ Validate and auto-fix formula using `brew audit`.
 | Assertions | Use `assert_path_exists` not `assert_predicate :exist?` | Yes |
 | Section order | `caveats` before `test` | Yes |
 
+### Build-from-Source Testing
+
+When `--build` is specified, the audit also runs a full build test:
+
+```bash
+/craft:dist:homebrew audit --build
+```
+
+This executes:
+
+1. `brew audit --strict` — style and correctness checks
+2. `brew install --build-from-source <formula>` — full build verification
+3. `brew test <formula>` — run the formula's test block
+
+Useful before releases to catch build failures that audit alone won't find.
+
 ### Auto-Fix Patterns
 
-When issues are found, the validate command automatically applies known fixes:
+When issues are found, the audit command automatically applies known fixes:
 
 ```ruby
 # Fix 1: Description too long (> 80 chars)
@@ -272,64 +327,6 @@ All 6 issues auto-fixed. Formula is ready for release!
 
 ---
 
-## /craft:dist:homebrew token
-
-Guide for setting up the Homebrew tap access token.
-
-### Usage
-
-```bash
-/craft:dist:homebrew token                      # Show token setup guide
-/craft:dist:homebrew token --check              # Check if token is configured
-/craft:dist:homebrew token --repos              # Show repos needing token
-```
-
-### Token Requirements
-
-Create a **Fine-Grained Personal Access Token**:
-
-| Setting | Value |
-|---------|-------|
-| **Name** | `homebrew-tap-updater` |
-| **Expiration** | 90 days (set rotation reminder) |
-| **Repository access** | Only select repositories |
-| **Selected repositories** | `YOUR-ORG/homebrew-tap` |
-| **Permissions** | |
-| - Contents | Read and write |
-| - Pull requests | Read and write |
-
-### Setup Steps
-
-1. **Create Token**
-   - Go to: <https://github.com/settings/tokens?type=beta>
-   - Click "Generate new token"
-   - Configure as above
-   - Copy the token immediately
-
-2. **Add to Repository**
-
-   ```bash
-   gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo YOUR-ORG/your-repo
-   # Paste token when prompted
-   ```
-
-3. **Verify**
-
-   ```bash
-   gh secret list --repo YOUR-ORG/your-repo
-   # Should show: HOMEBREW_TAP_GITHUB_TOKEN
-   ```
-
-### Token Rotation
-
-Set a calendar reminder for 80 days after creation:
-
-1. Create new token with same settings
-2. Update in all repos: `gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo ...`
-3. Delete old token from GitHub settings
-
----
-
 ## /craft:dist:homebrew setup
 
 Full guided setup for Homebrew automation.
@@ -364,12 +361,17 @@ Full guided setup for Homebrew automation.
 ║  ✓ Created: .github/workflows/homebrew-release.yml            ║
 ║  ✓ Configured for: Data-Wise/homebrew-tap                     ║
 ║                                                               ║
-║  Step 4: Token Check                                          ║
+║  Step 4: Token Setup                                          ║
 ║  ───────────────────────────────────────                      ║
 ║  ⚠ HOMEBREW_TAP_GITHUB_TOKEN not found                        ║
 ║                                                               ║
+║  Creating Fine-Grained PAT...                                 ║
+║  → URL: github.com/settings/tokens?type=beta                  ║
+║  → Repos: YOUR-ORG/homebrew-tap only                          ║
+║  → Permissions: Contents (RW) + Pull requests (RW)            ║
+║  → Expiration: 90 days (set rotation reminder)                ║
+║                                                               ║
 ║  Run: gh secret set HOMEBREW_TAP_GITHUB_TOKEN                 ║
-║  (See /craft:dist:homebrew token for guide)                   ║
 ║                                                               ║
 ║  Step 5: Commit Changes                                       ║
 ║  ───────────────────────────────────────                      ║
@@ -387,7 +389,7 @@ Full guided setup for Homebrew automation.
 2. **Generates** Homebrew formula
 3. **Validates** formula with `brew audit`
 4. **Creates** GitHub Actions workflow
-5. **Checks** if token is configured
+5. **Sets up token** — checks for `HOMEBREW_TAP_GITHUB_TOKEN`, guides creation of Fine-Grained PAT if missing (repos: tap only, permissions: Contents RW + PRs RW, 90-day expiry)
 6. **Commits** all changes (with confirmation)
 
 ### Post-Setup
@@ -603,6 +605,65 @@ Only wheel distributions available
 
 ---
 
+## /craft:dist:homebrew deps
+
+Show formula dependency graph and system dependency matrix.
+
+### Usage
+
+```bash
+/craft:dist:homebrew deps                       # All formulas in tap
+/craft:dist:homebrew deps --formula craft       # Single formula
+/craft:dist:homebrew deps --system              # Include system deps
+/craft:dist:homebrew deps --dot                 # Output in Graphviz DOT format
+```
+
+### Inter-Formula Dependencies
+
+Shows how formulas in the tap depend on each other and on shared system packages:
+
+```
+Inter-Formula Dependency Graph (data-wise/tap):
+
+  craft ─────────── jq (optional)
+  rforge ────────── jq (optional)
+  scholar ────────── jq (optional)
+  himalaya-mcp ──── himalaya, node, jq (optional)
+  atlas ─────────── python@3.12 (build), node@20
+  aiterm ────────── python@3.12
+  nexus-cli ────── python@3.12, libyaml
+  mcp-bridge ───── node
+  examark ─────── node
+  examify ─────── node
+  flow-cli ────── (none)
+  scribe-cli ──── xcode (build), macos
+
+Shared Dependencies:
+  python@3.12 ← aiterm, atlas, nexus-cli
+  node ────── ← himalaya-mcp, mcp-bridge, examark, examify
+  jq ──────── ← craft, rforge, scholar, himalaya-mcp (all optional)
+```
+
+### System Dependencies Matrix
+
+With `--system`, also shows runtime requirements:
+
+```
+System Dependencies Matrix:
+
+| Formula | python | node | jq | swift | himalaya |
+|---------|--------|------|----|-------|----------|
+| craft | - | - | opt | - | - |
+| atlas | build | ✓ | - | - | - |
+| aiterm | ✓ | - | - | - | - |
+| nexus-cli | ✓ | - | - | - | - |
+| himalaya-mcp | - | ✓ | opt | - | ✓ |
+| mcp-bridge | - | ✓ | - | - | - |
+| scribe-cli | - | - | - | build | - |
+```
+
+---
+
 ## Integration
 
 | Command | Use With |
@@ -610,7 +671,7 @@ Only wheel distributions available
 | `/craft:check --for release` | Pre-release validation |
 | `/craft:git:tag` | Create version tag |
 | `/craft:docs:changelog` | Update changelog |
-| `/craft:ci:generate` | Full CI/CD setup |
+| `/craft:ci:generate` | Full CI/CD setup (see also `ci:generate homebrew`) |
 
 ## Skills Used
 
@@ -820,7 +881,7 @@ brew audit --strict --formula data-wise/tap/craft
 
 ## Tips
 
-- Always run `validate` before creating releases
+- Always run `audit` before creating releases
 - Use semantic versioning for clean formulas
 - Set token rotation reminders (90-day expiry recommended)
 - Test locally: `brew install --build-from-source ./Formula/myapp.rb`
