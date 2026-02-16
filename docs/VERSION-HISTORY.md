@@ -2,13 +2,29 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.19.0 (2026-02-14)
-**Total Releases:** 40 versions | **Development Time:** 2+ years
+**Latest Release:** v2.20.0 (2026-02-15)
+**Total Releases:** 41 versions | **Development Time:** 2+ years
 **Community:** 109 commands documented, ~1575 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.20.0 (2026-02-15) - Homebrew Refactor: Security, Subcommands & Release Hardening
+
+**Status:** Released
+
+**Highlights:**
+
+- **Workflow Security Hardening**: Env indirection for script injection prevention, `sha256sum` on CI, `--retry 3`, 64-char SHA guard in `homebrew-release.yml`
+- **Subcommand Consolidation**: 8 → 6 subcommands — renamed `validate` → `audit` (with `--build` flag), folded `token` into setup Step 4, dropped `release-batch`, expanded `deps` with inter-formula graph and system deps matrix
+- **Formula Name Mapping**: `.craft/homebrew.json` config with 3-priority lookup chain (config → git remote → basename fallback)
+- **Release Skill Hardening**: Step 8.5 rewrite with config lookup, `shasum -a 256` (macOS-portable), `ruby -c` syntax validation, SHA guard
+- **New Documentation**: Homebrew Automation Guide (310 lines), Homebrew Setup Tutorial, Homebrew Quick Reference Card
+
+**Stats:** 109 commands | 25 skills | 8 agents | ~1575 tests passing
+
+---
 
 ### v2.19.0 (2026-02-14) - Marketplace & Insights-Driven Improvements
 
