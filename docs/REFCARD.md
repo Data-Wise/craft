@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.20.0 (released 2026-02-15)                       │
-│  Commands: 109 | Agents: 8 | Skills: 25                     │
+│  Version: 2.21.0 (released 2026-02-16)                       │
+│  Commands: 111 | Agents: 8 | Skills: 25                     │
 │  Documentation: 99% complete | Tests: ~1575 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.20.0: Homebrew refactor — security hardening,            │
-│           8→6 subcommands, formula name mapping               │
+│  v2.21.0: Orchestrate pipeline, insights lifecycle,          │
+│           brainstorm integration, worktree types taxonomy     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -1051,21 +1051,17 @@ npm test
 | ------------------------------ | -------------------------------------- |
 | `/craft:dist:marketplace`      | Marketplace init, validate, test, publish |
 | `/craft:dist:package`          | Package for distribution               |
-| `/craft:dist:homebrew`         | Homebrew formula, audit, deps, workflow (6 subcommands) |
+| `/craft:dist:homebrew`         | Generate Homebrew formula              |
 | `/craft:dist:pypi`             | Package for PyPI                       |
 | `/craft:dist:npm`              | Package for npm                        |
 | `/craft:dist:curl-install`     | Generate curl installer                |
-
-**Homebrew subcommands:** `formula` | `workflow` | `audit` | `setup` | `update-resources` | `deps`
 
 **Quick examples:**
 
 ```bash
 /craft:dist:marketplace         # Validate marketplace config (default)
 /craft:dist:marketplace init    # Generate marketplace.json
-/craft:dist:homebrew setup      # Full 4-step wizard
-/craft:dist:homebrew audit      # Audit with auto-fix
-/craft:dist:homebrew deps       # Dependency graph
+/craft:dist:homebrew            # Generate Homebrew formula
 /craft:dist:pypi                # Package for PyPI
 /craft:dist:curl-install        # Generate curl installer
 ```
@@ -1122,6 +1118,49 @@ npm test
 - **NEW (v2.9.0)** - Interactive mode selection and checkpoints
 
 **See:** [Interactive Orchestration Tutorial](tutorials/interactive-orchestration.md) | [Orchestrator Modes Compared](tutorials/orchestrator-modes-compared.md)
+
+### Orchestrate + Worktree Pipeline (v2.21.0)
+
+The full pipeline connects brainstorming through to implementation:
+
+```mermaid
+graph LR
+    A[brainstorm] --> B[spec]
+    B --> C[ORCHESTRATE]
+    C --> D[worktree]
+    D --> E[implement]
+    E --> F[PR]
+```
+
+**Pipeline steps:**
+
+| Step | Command | Output |
+|------|---------|--------|
+| 1. Brainstorm | `/brainstorm d:8 "feature"` | `BRAINSTORM-feature.md` |
+| 2. Capture spec | Brainstorm Step 5 (auto) | `docs/specs/SPEC-feature.md` |
+| 3. Create orchestration | `/craft:orchestrate:plan` | `ORCHESTRATE-feature.md` + worktree |
+| 4. Implement | Work in worktree | Commits on `feature/*` branch |
+| 5. Integrate | `/craft:git:worktree finish` | PR to `dev` |
+
+**Worktree Types:**
+
+| Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
+|------|-----------|----------|---------------|-------------|
+| **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
+| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
+| **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
+
+**When to use what:**
+
+| Scenario | Use | Why |
+|----------|-----|-----|
+| Quick feature, clear scope | Manual worktree | No orchestration overhead |
+| Multi-phase feature from spec | Pipeline | Full traceability from brainstorm → PR |
+| Parallel implementation of isolated tasks | Swarm | Agents work in separate worktrees |
+| Feature spanning multiple repos | Cross-Repo | Enforces same branch name, paired worktrees |
+
+**See:** [Getting Started — Complex Feature Workflow](guide/getting-started.md#complex-feature-workflow) | [Worktree Types Reference](reference/REFCARD-GIT-WORKTREE.md#worktree-types)
 
 ## Workflow Commands (Enhanced v2.4.0)
 
@@ -1346,6 +1385,35 @@ end tell'
     "editor": "code"  # VS Code, Cursor, Sublime, etc.
   }
 }
+```
+
+**Insights (v2.21.0):**
+
+```bash
+# Generate session insights report
+/craft:insights
+# Aggregates: Friction patterns, goal categories, outcomes
+# Suggests: CLAUDE.md rules to prevent recurring issues
+
+# HTML report for sharing
+/craft:insights --format html
+
+# Last 7 days, specific project
+/craft:insights --since 7 --project craft
+
+# Apply suggestions to CLAUDE.md
+/craft:insights-apply
+```
+
+**Insights Lifecycle:**
+
+```mermaid
+graph LR
+    A[sessions] --> B[facets data]
+    B --> C[/craft:insights]
+    C --> D[CLAUDE.md rules]
+    C --> E[ORCHESTRATE friction prevention]
+    C --> F[brainstorm context]
 ```
 
 **Other Workflow Commands:**

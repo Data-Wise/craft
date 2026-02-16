@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 109 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.
+site_description: Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -133,6 +133,7 @@ nav:
         - Tutorial: guide/git-init-tutorial.md
         - Architecture: architecture/git-init-flow.md
         - Documentation Index: git-init-docs-index.md
+      - Orchestrate Pipeline Guide: guide/pipeline-orchestrate-guide.md
       - Orchestration & Agents: guide/orchestrator.md
       - --orch Flag Quick Start: guide/orch-flag-usage.md
       - Marketplace Distribution: guide/marketplace-distribution.md

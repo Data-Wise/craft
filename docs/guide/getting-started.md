@@ -4,7 +4,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Complete guide to installing and using craft's 109 commands, 25 skills, and 8 agents
+> - **What:** Complete guide to installing and using craft's 111 commands, 25 skills, and 8 agents
 > - **Why:** Master the full-stack toolkit to automate your entire development workflow
 > - **How:** Install plugin → verify with `/craft:hub` → start with `/craft:do "task"`
 > - **Next:** Read about [Skills & Agents](skills-agents.md) to understand AI automation
@@ -48,7 +48,7 @@ ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
 /craft:hub
 ```
 
-You should see all 109 commands listed.
+You should see all 111 commands listed.
 
 ## Initialize a New Project (Optional)
 
@@ -147,9 +147,48 @@ Check for stale docs:
 /craft:site:create --preset data-wise --quick
 ```
 
+## Complex Feature Workflow
+
+!!! abstract "Progress: Step 4/6"
+    Learn the full pipeline for multi-phase features
+
+For features that need planning, orchestration, and isolated development:
+
+```mermaid
+graph LR
+    A[brainstorm] --> B[spec]
+    B --> C[ORCHESTRATE]
+    C --> D[worktree]
+    D --> E[implement]
+    E --> F[PR]
+```
+
+**Step-by-step:**
+
+```bash
+# 1. Brainstorm the feature
+/brainstorm d:8 "user authentication with OAuth"
+# → Saves BRAINSTORM-auth.md, optionally captures spec
+
+# 2. Create orchestration + worktree from spec
+/craft:orchestrate:plan docs/specs/SPEC-auth.md
+# → Generates ORCHESTRATE-auth.md
+# → Creates worktree at ~/.git-worktrees/<project>/feature-auth
+
+# 3. Work in the worktree
+cd ~/.git-worktrees/<project>/feature-auth
+claude  # Read ORCHESTRATE file, implement phase by phase
+
+# 4. Finish and create PR
+/craft:git:worktree finish
+```
+
+!!! tip "When to Use This Pipeline"
+    Use the full pipeline for multi-phase features with specs. For quick features, just create a worktree directly with `/craft:git:worktree create feature/name`.
+
 ## Understanding the System
 
-!!! abstract "Progress: Step 4/5"
+!!! abstract "Progress: Step 5/6"
     Learn the 3-layer architecture
 
 Craft has three levels of automation:
@@ -162,7 +201,7 @@ When you use `/craft:do`, the system determines which combination to use.
 
 ## Next Steps
 
-!!! abstract "Progress: Step 5/5 - Complete! 🎉"
+!!! abstract "Progress: Step 6/6 - Complete!"
     Continue your journey
 
 - [Skills & Agents](skills-agents.md) - Understanding the AI system

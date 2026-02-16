@@ -68,9 +68,9 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.18.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.20.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
-> **109 commands** | **25 skills** | **8 agents** | **~1504 tests passing**
+> **111 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
@@ -511,6 +511,10 @@ Command                           │ Description
 /brainstorm "API design" --orch=optimize   │ Fast parallel context gathering
 /brainstorm "complex feature" --orch=release │ Comprehensive analysis
 
+/craft:insights                   │ Generate session insights report (v2.21.0)
+/craft:insights --format html    │ HTML report for sharing
+/craft:insights --since 7        │ Last 7 days only
+
 /workflow:focus                   │ Start focused work session
 /workflow:next                    │ Get next step
 /workflow:stuck                   │ Get unstuck help
@@ -695,7 +699,7 @@ Command                           │ Description
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-> Full-stack developer toolkit for Claude Code — 109 commands, 8 agents, 25 skills
+> Full-stack developer toolkit for Claude Code — 111 commands, 8 agents, 25 skills
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   → AI routes to best workflow                     │

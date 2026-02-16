@@ -3,7 +3,7 @@
 > **Date:** 2026-02-15
 > **Branch:** `feature/orchestrate-pipeline` (from `dev`)
 > **Status:** Draft
-> **Version Target:** v2.20.0
+> **Version Target:** v2.21.0
 > **From Brainstorm:** N/A (direct user request during homebrew refactor session)
 
 ## Summary

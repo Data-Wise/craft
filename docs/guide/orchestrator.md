@@ -234,6 +234,28 @@ If interrupted, resume with:
 
 The orchestrator maintains state and continues from where it left off.
 
+## When to Use What
+
+Choosing the right approach depends on your task scope and need for isolation:
+
+| Scenario | Approach | Command | Why |
+|----------|----------|---------|-----|
+| Quick task, clear scope | Direct command | `/craft:do "task"` | No orchestration overhead |
+| Multi-step task, single session | Orchestrator | `/craft:orchestrate "task"` | Agent delegation + monitoring |
+| Multi-phase feature from spec | Pipeline | `/craft:orchestrate:plan SPEC.md` | Full brainstorm → PR traceability |
+| Parallel isolated implementation | Swarm | `/craft:orchestrate --swarm "task"` | Each agent gets own worktree |
+| Feature spanning multiple repos | Cross-repo pipeline | `/craft:orchestrate:plan` (auto-detects) | Same branch name, paired worktrees |
+| Quick feature, no spec | Manual worktree | `/craft:git:worktree create feature/name` | Simple isolation without orchestration |
+
+### Worktree Types
+
+| Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
+|------|-----------|----------|---------------|-------------|
+| **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
+| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
+| **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
+
 ## Performance Tips
 
 ### Choose the Right Mode

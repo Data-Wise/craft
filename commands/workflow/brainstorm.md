@@ -117,12 +117,14 @@ CATEGORY_MAP = {
 
 **Decision logic:**
 
-| Input Pattern | Behavior |
-|---------------|----------|
-| Full args (depth + focus + topic) | Execute directly |
-| Topic only | Show Q1: Depth → Q2: Focus → execute |
-| No arguments | Smart context detection (Step 0.5) |
-| `--orch` flag | Delegate to orchestrator (Step 0-orch) |
+| Input Pattern | Menus Skipped | Expert Questions | "Ask More?" |
+|---------------|---------------|------------------|-------------|
+| Full args (depth + focus + topic) | Q1 Depth, Q2 Focus | **MANDATORY** (per depth) | **MANDATORY** |
+| Topic only | None | **MANDATORY** | **MANDATORY** |
+| No arguments | None | **MANDATORY** | **MANDATORY** |
+| `--orch` flag | All — delegate to orchestrator | N/A | N/A |
+
+**CRITICAL:** "Full args" only skips the depth/focus *selection menus*. It does NOT skip expert questions or "Ask More?". Every brainstorm MUST use AskUserQuestion for interactive steps. Never jump straight to generating content.
 
 ### Step 0-orch: Check for --orch Flag (v2.5.0)
 
@@ -152,22 +154,121 @@ If `--orch` present, delegate to `utils/orch_flag_handler.py`:
 
 ### Step 1: Interactive Menu (Topic Provided, No Mode)
 
-**Q1: Depth** → AskUserQuestion with options: default (Recommended), quick, thorough
+**MANDATORY: Use the AskUserQuestion tool for these steps. Do NOT skip them.**
 
-**Q2: Focus** → AskUserQuestion with options: auto-detect (Recommended), feature, architecture, backend
+**Q1: Depth** — Call `AskUserQuestion` with:
 
-Users wanting frontend/design/devops select "Other".
+```json
+{
+  "questions": [{
+    "question": "How deep should the analysis be?",
+    "header": "Depth",
+    "multiSelect": false,
+    "options": [
+      {"label": "default (Recommended)", "description": "< 5 min, 2 questions + ask more"},
+      {"label": "quick", "description": "< 1 min, 0 questions + ask more"},
+      {"label": "deep", "description": "< 10 min, 8 expert questions"},
+      {"label": "max", "description": "< 30 min, 8 questions + 2 agents"}
+    ]
+  }]
+}
+```
 
-### Step 1.5: "Ask More?" (All Depths)
+**Q2: Focus** — Call `AskUserQuestion` with:
 
-After base questions, offer escape hatch:
+```json
+{
+  "questions": [{
+    "question": "What's the focus area?",
+    "header": "Focus",
+    "multiSelect": false,
+    "options": [
+      {"label": "auto-detect (Recommended)", "description": "Detect from project context"},
+      {"label": "feature", "description": "User stories, MVP scope"},
+      {"label": "architecture", "description": "System design, diagrams"},
+      {"label": "backend", "description": "API, database, auth"}
+    ]
+  }]
+}
+```
 
-| Depth | Options |
-|-------|---------|
-| quick (0 Qs) | Go! / Ask 2 first / Switch to deep / Switch to max |
-| default (2 Qs) | Start brainstorming / 2 more / Switch to deep / Switch to max |
-| deep (8 Qs) | Start brainstorming / 2 more / Switch to max |
-| max (8 Qs + agents) | Generate plan / 2 more / Re-run agents |
+Users wanting frontend/design/devops select "Other" and type the mode name.
+
+**Skip Q1/Q2 ONLY if depth AND focus were provided as arguments.** Even then, proceed to Step 1.5.
+
+### Step 1.5: "Ask More?" (All Depths) — MANDATORY
+
+**CRITICAL: This step is NEVER skipped, even when all args are provided.** After asking the depth-appropriate expert questions (0 for quick, 2 for default, 8 for deep/max), you MUST call `AskUserQuestion` with the appropriate escape hatch:
+
+**For quick (0 questions asked):**
+
+```json
+{
+  "questions": [{
+    "question": "Dive straight in or gather context first?",
+    "header": "Start",
+    "multiSelect": false,
+    "options": [
+      {"label": "Go! (Recommended)", "description": "Generate ideas immediately"},
+      {"label": "Ask 2 questions first", "description": "Quick context gathering"},
+      {"label": "Switch to deep (8 questions)", "description": "Detailed requirements gathering"},
+      {"label": "Switch to max (8 + agents)", "description": "Comprehensive analysis with agents"}
+    ]
+  }]
+}
+```
+
+**For default (2 questions asked):**
+
+```json
+{
+  "questions": [{
+    "question": "Need more detail before brainstorming?",
+    "header": "Continue",
+    "multiSelect": false,
+    "options": [
+      {"label": "Start brainstorming (Recommended)", "description": "Proceed with current context"},
+      {"label": "2 more questions", "description": "Gather a bit more context"},
+      {"label": "Switch to deep (8 questions)", "description": "Full requirements gathering"},
+      {"label": "Switch to max (8 + agents)", "description": "Comprehensive with agents"}
+    ]
+  }]
+}
+```
+
+**For deep (8 questions asked):**
+
+```json
+{
+  "questions": [{
+    "question": "Ready to brainstorm or need more?",
+    "header": "Continue",
+    "multiSelect": false,
+    "options": [
+      {"label": "Start brainstorming (Recommended)", "description": "Proceed with detailed context"},
+      {"label": "2 more questions", "description": "Clarify specific points"},
+      {"label": "Switch to max (add agents)", "description": "Add expert agent analysis"}
+    ]
+  }]
+}
+```
+
+**For max (8 questions + agent analysis):**
+
+```json
+{
+  "questions": [{
+    "question": "Proceed with brainstorm?",
+    "header": "Continue",
+    "multiSelect": false,
+    "options": [
+      {"label": "Generate plan (Recommended)", "description": "Synthesize all findings"},
+      {"label": "2 more questions first", "description": "Clarify before generating"},
+      {"label": "Re-run agents with different focus", "description": "Try different agent perspectives"}
+    ]
+  }]
+}
+```
 
 **Milestone prompts (v2.4.0):** For counts > 8, prompt every 8 questions. Options: Done, +4 more, +8 more, Keep going (unlimited mode prompts every 4).
 
@@ -205,6 +306,40 @@ context = ctx.scan(topic)
 3. Pre-fill from context (mark skippable)
 4. Insert dynamic questions (failing tests, matching spec, prior brainstorm)
 5. Trim to requested count
+
+### Step 1.8: Insights Integration (v2.21.0)
+
+Before brainstorming, check session insights for relevant past patterns.
+
+**Check:** Read `~/.claude/usage-data/facets/` for sessions matching the topic or project.
+
+**If relevant sessions found** (same project or similar topic keywords):
+
+```text
+Previous session insights (craft, last 30 days):
+  12 sessions on this project
+  Top friction: wrong CWD (8x), forgot ORCHESTRATE (3x)
+  Suggested guardrails applied to this brainstorm context
+```
+
+**Behavior changes:**
+
+| Scenario | Effect on Brainstorm |
+|----------|---------------------|
+| Friction patterns found for project | Add "Known Friction" section to brainstorm output |
+| Prior sessions on same topic | Show "Previous approaches" summary, offer to build on them |
+| No insights data | Skip silently (no user prompt) |
+
+**Integration with spec generation (Step 5.5):**
+
+When insights exist and a spec is being captured, auto-add a "Known Risks" section to the spec based on observed friction patterns:
+
+```markdown
+## Known Risks (from session insights)
+
+- Wrong CWD — 8 occurrences in 30 days. Add explicit CWD verification step.
+- Count drift — 2 occurrences. Add validate-counts to acceptance criteria.
+```
 
 ### Step 2: Gather Context
 
@@ -247,9 +382,49 @@ If capturing: ask user type → ask acceptance criteria → generate SPEC.md fro
 
 **IMPORTANT:** Generate comprehensive specs with ALL template sections. Mark N/A sections explicitly.
 
-### Step 6: Suggest Workflow Documentation
+### Step 6: Create Orchestration? (v2.21.0)
 
-After spec capture, suggest creating workflow docs. Trigger when spec was saved and focus was feat/arch/ops or depth was deep/max.
+After spec capture, offer to create an ORCHESTRATE file and worktree.
+
+**Trigger conditions:**
+
+| Condition | Behavior |
+|-----------|----------|
+| Spec was captured in Step 5.5 | Always prompt |
+| No spec captured | Skip this step |
+
+Prompt:
+
+```json
+{
+  "questions": [{
+    "question": "Create orchestration plan from this spec?",
+    "header": "Orchestrate",
+    "multiSelect": false,
+    "options": [
+      {"label": "ORCHESTRATE + worktree (Recommended)", "description": "Generate ORCHESTRATE file and create worktree for isolated development."},
+      {"label": "ORCHESTRATE only", "description": "Generate ORCHESTRATE file in docs/orchestrate/ directory."},
+      {"label": "Skip", "description": "Just keep the spec. Create orchestration later with /craft:orchestrate:plan."}
+    ]
+  }]
+}
+```
+
+**When "ORCHESTRATE + worktree" selected:**
+
+Invoke `/craft:orchestrate:plan <spec-path>` with the spec path from Step 5.5. This creates the ORCHESTRATE file and worktree in one flow.
+
+**When "ORCHESTRATE only" selected:**
+
+Invoke `/craft:orchestrate:plan <spec-path> --output orchestrate-only`. Saves ORCHESTRATE file to current directory.
+
+**When "Skip" selected:**
+
+Show reminder: "You can create orchestration later with `/craft:orchestrate:plan <spec-path>`"
+
+### Step 7: Suggest Workflow Documentation
+
+After spec capture (and optional orchestration), suggest creating workflow docs. Trigger when spec was saved and focus was feat/arch/ops or depth was deep/max.
 
 ---
 
