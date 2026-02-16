@@ -681,6 +681,77 @@ git add . && git commit -m "WIP"
 
 ---
 
+## After Brainstorm: Creating ORCHESTRATE Files
+
+If you used `/brainstorm` to plan a feature and captured a spec, you can create an ORCHESTRATE file and worktree in one step:
+
+### From Brainstorm to Worktree
+
+```bash
+# 1. Brainstorm produces a spec
+/brainstorm d:8 f "user notifications"
+# → BRAINSTORM-notifications-2026-02-15.md saved
+# → "Capture as spec?" → Yes
+# → docs/specs/SPEC-notifications-2026-02-15.md saved
+
+# 2. Create ORCHESTRATE + worktree from the spec
+/craft:orchestrate:plan docs/specs/SPEC-notifications-2026-02-15.md
+
+# Output:
+# Orchestration Plan:
+#   Spec: SPEC-notifications-2026-02-15.md
+#   Phases found: 3 (setup, implementation, integration)
+#   Branch: feature/notifications
+#   Worktree: ~/.git-worktrees/craft/feature-notifications
+#
+# ? Proceed?
+#   > Yes - Create ORCHESTRATE + worktree (Recommended)
+#     ORCHESTRATE only (no worktree)
+#     Modify phases
+#     Cancel
+#
+# Created:
+#   ✅ ORCHESTRATE-notifications.md (in worktree root)
+#   ✅ Worktree at ~/.git-worktrees/craft/feature-notifications
+#   ✅ .STATUS updated with worktree entry
+
+# 3. Start working
+cd ~/.git-worktrees/craft/feature-notifications
+claude
+# → "Read ORCHESTRATE-notifications.md and start Phase 1"
+```
+
+### What the ORCHESTRATE File Contains
+
+The generated ORCHESTRATE file includes:
+
+- **Objective** — pulled from spec summary
+- **Phase breakdown** — with tasks, priorities, and effort estimates
+- **Friction prevention** — based on insights from past sessions
+- **Acceptance criteria** — from the spec
+- **Verification commands** — test and validation commands for the project
+- **Session instructions** — how to start, what to read first, phase-by-phase guidance
+
+### Without a Spec
+
+If you don't have a spec, `/craft:orchestrate:plan` will scan for available specs and brainstorms:
+
+```bash
+/craft:orchestrate:plan
+
+# Output:
+# Available specs:
+#   1. SPEC-auth-2026-02-10.md (no ORCHESTRATE yet)
+#   2. SPEC-dashboard-2026-02-12.md (has ORCHESTRATE)
+#
+# Brainstorms without specs:
+#   3. BRAINSTORM-caching-2026-02-14.md (offer to create spec first)
+#
+# ? Which one?
+```
+
+---
+
 ## Summary
 
 You've learned:

@@ -311,9 +311,15 @@ If agent delegation fails or is denied:
 # 1. /craft:guard:audit - Analyze guard config, find false positives
 ```
 
-### Insights Apply
+### Insights
 
 ```bash
+/craft:do show session insights
+/craft:do generate insights report
+
+# Routes to:
+# 1. /craft:insights - Generate insights report from session data
+
 /craft:do apply insights to rules
 /craft:do update rules from insights
 

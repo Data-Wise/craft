@@ -1,51 +1,56 @@
 status: Active
-version: 2.20.0
-release_date: 2026-02-15
-milestone: v2.20.0 released
+version: 2.19.0
+release_date: 2026-02-14
+milestone: v2.19.0 released
 last_session: 2026-02-15
 
-progress: v2.20.0 released — Homebrew refactor with security hardening
+progress: v2.19.0 released — CI fix synced to main
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
-| main   | ed8dd83 | —    | Production (v2.20.0)       |
-| dev    | ed8dd83 | main | Synced with main           |
+| main   | 5c43dae | —    | Production (v2.19.0 + CI fix) |
+| dev    | a46f815 | main | Synced with main           |
 
-✅ Session 2026-02-15 (v2.20.0 release):
-- Released v2.20.0: PR #79 merged, GitHub release created, docs deployed
-- Homebrew refactor: 8→6 subcommands, workflow security hardening, formula name mapping
-- Fixed sha256sum → shasum -a 256 for macOS portability in release skill Step 8.5
-- Added --check-only to audit docs, updated troubleshooting SHA commands
-- Tests: 50/50 dogfood + 47/47 e2e + main suite passing
-- Cleaned up homebrew-refactor worktree + branch (local + remote)
-- Created WIP draft PR #91 in homebrew-tap repo
-
-🔧 Active Worktrees:
-
-| Worktree | Branch | Focus |
-|----------|--------|-------|
-| `~/.git-worktrees/craft/feature-orchestrate-pipeline` | `feature/orchestrate-pipeline` | v2.21.0: doc revisions, pipeline, swarm clarity, insights |
-
-🎯 Next Action:
-→ Review and merge homebrew-tap PR #91 (draft — needs smoke test)
-→ Start orchestrate-pipeline worktree (doc revisions)
-
-## Previous Sessions
-
-✅ Session 2026-02-15 (earlier — planning):
-- Deep brainstorm on homebrew refactor (24 expert questions, 2 background agents)
-- Created specs: homebrew-refactor (6 increments) + orchestrate-pipeline (4 increments, 46 tasks)
-- Analyzed 82 session insights, applied 4 to global CLAUDE.md
+✅ Session 2026-02-15 (CI fix):
+- Fixed failing CI: case-sensitive skill count assertion in test_insights_improvements_dogfood.py
+- PR #76 merged to main, CI green
 
 ✅ Session 2026-02-14 (v2.19.0 release):
-- Released v2.19.0: marketplace distribution + insights-driven improvements
+- Released v2.19.0: PR #75 merged, GitHub release created, docs deployed
+- Version bump across 7 files (plugin.json, marketplace.json, CLAUDE.md, README, index, REFCARD, VERSION-HISTORY)
+- Pre-flight: all unit tests pass, counts validated (111/25/8), pre-release check green
+- Features: marketplace distribution (PR #73) + insights-driven improvements (PR #74)
 - Stats: 109 commands, 25 skills, 8 agents, ~1575 tests passing
+
+✅ Session 2026-02-14 (PR #74 review + merge):
+- Code reviewed PR #74: found 7 issues (ORCHESTRATE file, --autonomous --admin risk, skill count, VERSION-HISTORY status, phase detection gap, hub counts, test plan)
+- Removed ORCHESTRATE file, fixed VERSION-HISTORY v2.17.0 status, fixed phase detection in check.md
+- Added safety warnings for --autonomous --admin in release skill, tutorial, and guide
+- Resolved 14 merge conflicts (marketplace PR #73 had landed on dev)
+- All tests pass: unit 108 commands/25 skills/8 agents, dogfood 59/59, e2e 30/30, integration 98
+- Merged PR #74 to dev, cleaned up worktree
+
+✅ Session 2026-02-14 (post-merge doc gap analysis):
+- Merged PR #73 to dev, cleaned up marketplace worktree + branch
+- Doc gap analysis: updated REFCARD, hub, getting-started with marketplace content
+- Validated with markdownlint (0 errors)
+
+✅ Session 2026-02-14 (earlier sessions):
+- PR #73 review + merge: marketplace distribution (5 issues fixed, 115 tests pass)
+- Marketplace implementation: 6 ORCHESTRATE phases, marketplace.json, dist:marketplace command
+- Insights implementation: 10 changes across commands, skills, hooks
+- v2.18.0 release: release pipeline enhancements, CLAUDE.md trimmed 74%
+- v2.17.0 release: branch guard v2, /release skill (10-step pipeline)
+
+---
+
+🎯 Next Action:
+→ Plan next feature on dev
 
 ## Future (v2.21.0+)
 
-- Orchestrate pipeline improvements (doc revisions, swarm clarity, insights workflow)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
