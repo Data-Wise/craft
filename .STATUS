@@ -1,28 +1,25 @@
 status: Active
-version: 2.20.0
-release_date: 2026-02-15
-milestone: v2.21.0 in development
+version: 2.21.0
+release_date: 2026-02-16
+milestone: v2.21.0 released
 last_session: 2026-02-16
 
-progress: v2.20.0 released — PR #80 merged (orchestrate pipeline + insights lifecycle)
+progress: v2.21.0 released — Orchestrate Pipeline & Insights Lifecycle
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
-| main   | ed8dd83 | —    | Production (v2.20.0)       |
-| dev    | 3550284 | main | Ahead of main (PR #80)     |
+| main   | 76054e4 | —    | Production (v2.21.0)       |
+| dev    | 76054e4 | main | Synced with main           |
 
-✅ Session 2026-02-16 (PR #80 merge):
+✅ Session 2026-02-16 (v2.21.0 release):
+- Released v2.21.0: PR #81 merged, GitHub release created, docs deployed
 - Merged PR #80: orchestrate pipeline + insights lifecycle (42 files, +1510/-137)
 - Rebased onto dev, resolved 12 file conflicts from v2.20.0 homebrew refactor
 - Fixed version refs: feature-specific v2.20.0 → v2.21.0 across 11 files
-- Restored v2.20.0 Homebrew Refactor entry in VERSION-HISTORY
-- Fixed brainstorm AskUserQuestion enforcement (exact JSON tool call syntax)
-- Reverted retroactive v2.19.0 stats (109 commands, not 111)
-- Removed ORCHESTRATE file from git tracking
-- Cleaned up worktree + branch
-- Stats: 111 commands, 25 skills, 8 agents
+- Homebrew tap updated: craft v2.21.0
+- Stats: 111 commands, 25 skills, 8 agents, ~1575 tests passing
 
 ✅ Session 2026-02-15 (v2.20.0 release):
 - Released v2.20.0: PR #79 merged, GitHub release created, docs deployed
