@@ -2,17 +2,17 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.20.0 (2026-02-15) | **In Development:** v2.21.0
-**Total Releases:** 41 versions | **Development Time:** 2+ years
+**Latest Release:** v2.21.0 (2026-02-16)
+**Total Releases:** 42 versions | **Development Time:** 2+ years
 **Community:** 111 commands documented, ~1575 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
 
-### v2.21.0 (2026-02-15) - Orchestrate Pipeline & Insights Lifecycle
+### v2.21.0 (2026-02-16) - Orchestrate Pipeline & Insights Lifecycle
 
-**Status:** In Development
+**Status:** Released
 
 **Highlights:**
 

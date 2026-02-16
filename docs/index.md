@@ -211,8 +211,8 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **109** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.20.0 — Homebrew Refactor"
-    Homebrew 8→6 subcommand consolidation, workflow security hardening (env indirection, SHA guard), `.craft/homebrew.json` config, macOS-portable release skill. ~1575 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.21.0 — Orchestrate Pipeline & Insights Lifecycle"
+    Spec-to-worktree pipeline (`/craft:orchestrate:plan`), session insights (`/craft:insights`), brainstorm integration, worktree types taxonomy. 111 commands, ~1575 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
