@@ -6,13 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Beginner-friendly step-by-step guide to validating code before commits">
+        <meta name="description" content="Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/tutorials/check-tutorial-beginner/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/guide/pipeline-orchestrate-guide/">
       
       
+        <link rel="prev" href="../../git-init-docs-index/">
+      
+      
+        <link rel="next" href="../orchestrator/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Tutorial: Pre-Flight Checks with /craft:check - Craft Plugin</title>
+        <title>Orchestrate Pipeline Guide - Craft Plugin</title>
       
     
     
@@ -76,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-pre-flight-checks-with-craftcheck" class="md-skip">
+        <a href="#orchestrate-pipeline-guide-v2210" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tutorial: Pre-Flight Checks with /craft:check
+              Orchestrate Pipeline Guide
             
           </span>
         </div>
@@ -241,11 +245,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../guide/getting-started/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../getting-started/" class="md-tabs__link">
           
   
   
@@ -345,7 +351,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../guide/documentation-quality-development/" class="md-tabs__link">
+        <a href="../documentation-quality-development/" class="md-tabs__link">
           
   
   
@@ -650,24 +656,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -685,7 +696,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -703,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/getting-started/" class="md-nav__link">
+      <a href="../getting-started/" class="md-nav__link">
         
   
   
@@ -781,7 +792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -809,7 +820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/claude-code-2.1-integration/" class="md-nav__link">
+      <a href="../claude-code-2.1-integration/" class="md-nav__link">
         
   
   
@@ -837,7 +848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/complexity-scoring-algorithm/" class="md-nav__link">
+      <a href="../complexity-scoring-algorithm/" class="md-nav__link">
         
   
   
@@ -1007,7 +1018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/documentation-quality/" class="md-nav__link">
+      <a href="../documentation-quality/" class="md-nav__link">
         
   
   
@@ -1035,7 +1046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../interactive-docs-update-tutorial/" class="md-nav__link">
+      <a href="../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
         
   
   
@@ -1063,7 +1074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/getting-started/" class="md-nav__link">
+      <a href="../getting-started/" class="md-nav__link">
         
   
   
@@ -1180,6 +1191,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1190,11 +1203,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
         
           
           <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
@@ -1215,7 +1228,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1233,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/bash-formatting-library/" class="md-nav__link">
+      <a href="../bash-formatting-library/" class="md-nav__link">
         
   
   
@@ -1261,7 +1274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-formatting-migration/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
         
   
   
@@ -1289,7 +1302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/badge-management/" class="md-nav__link">
+      <a href="../badge-management/" class="md-nav__link">
         
   
   
@@ -1317,7 +1330,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-badge-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-badge-workflow/" class="md-nav__link">
         
   
   
@@ -1345,7 +1358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/interactive-commands/" class="md-nav__link">
+      <a href="../interactive-commands/" class="md-nav__link">
         
   
   
@@ -1373,7 +1386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/check-command-mastery/" class="md-nav__link">
+      <a href="../check-command-mastery/" class="md-nav__link">
         
   
   
@@ -1401,7 +1414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
+      <a href="../worktree-advanced-patterns/" class="md-nav__link">
         
   
   
@@ -1429,7 +1442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/branch-guard-smart-mode/" class="md-nav__link">
+      <a href="../branch-guard-smart-mode/" class="md-nav__link">
         
   
   
@@ -1457,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-branch-guard-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
         
   
   
@@ -1485,7 +1498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../claude-md-workflows/" class="md-nav__link">
+      <a href="../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
   
@@ -1513,7 +1526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../interactive-orchestration/" class="md-nav__link">
+      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -1541,7 +1554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
         
   
   
@@ -1569,7 +1582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-worktree-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
         
   
   
@@ -1597,7 +1610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../orchestrator-modes-compared/" class="md-nav__link">
+      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
         
   
   
@@ -1625,7 +1638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-release-pipeline/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-release-pipeline/" class="md-nav__link">
         
   
   
@@ -1653,7 +1666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-homebrew-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
         
   
   
@@ -1681,7 +1694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-insights-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
         
   
   
@@ -1709,7 +1722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/insights-improvements-guide/" class="md-nav__link">
+      <a href="../insights-improvements-guide/" class="md-nav__link">
         
   
   
@@ -1737,7 +1750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-brainstorm-power-user/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
   
@@ -1765,7 +1778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
         
   
   
@@ -1793,7 +1806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-first-10-minutes/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-first-10-minutes/" class="md-nav__link">
         
   
   
@@ -1821,7 +1834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/test-wrapper-pattern/" class="md-nav__link">
+      <a href="../test-wrapper-pattern/" class="md-nav__link">
         
   
   
@@ -1927,7 +1940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/git-init-tutorial/" class="md-nav__link">
+      <a href="../git-init-tutorial/" class="md-nav__link">
         
   
   
@@ -2016,10 +2029,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrate Pipeline Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2035,6 +2075,198 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="New Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#craftorchestrateplan-spec-to-worktree-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:orchestrate:plan — Spec to Worktree Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#craftinsights-session-insights-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:insights — Session Insights Report
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#brainstorm-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Brainstorm Enhancements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Brainstorm Enhancements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-6-create-orchestration-after-spec-capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Create Orchestration? (after spec capture)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-18-insights-integration-before-brainstorming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1.8: Insights Integration (before brainstorming)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worktree-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worktree Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insights-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insights Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suggested-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suggested Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Suggested Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-1-full-pipeline-brainstorm-to-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 1: Full Pipeline (Brainstorm to PR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-2-from-existing-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 2: From Existing Spec
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-3-insights-driven-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 3: Insights-Driven Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2047,7 +2279,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/orchestrator/" class="md-nav__link">
+      <a href="../orchestrator/" class="md-nav__link">
         
   
   
@@ -2075,7 +2307,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/orch-flag-usage/" class="md-nav__link">
+      <a href="../orch-flag-usage/" class="md-nav__link">
         
   
   
@@ -2103,7 +2335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/marketplace-distribution/" class="md-nav__link">
+      <a href="../marketplace-distribution/" class="md-nav__link">
         
   
   
@@ -2131,7 +2363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/homebrew-installation/" class="md-nav__link">
+      <a href="../homebrew-installation/" class="md-nav__link">
         
   
   
@@ -2159,7 +2391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/homebrew-automation/" class="md-nav__link">
+      <a href="../homebrew-automation/" class="md-nav__link">
         
   
   
@@ -2187,7 +2419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/skills-agents/" class="md-nav__link">
+      <a href="../skills-agents/" class="md-nav__link">
         
   
   
@@ -2215,7 +2447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/integration-testing/" class="md-nav__link">
+      <a href="../integration-testing/" class="md-nav__link">
         
   
   
@@ -2243,7 +2475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/markdown-list-spacing/" class="md-nav__link">
+      <a href="../markdown-list-spacing/" class="md-nav__link">
         
   
   
@@ -2442,7 +2674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../teaching-mode-setup/" class="md-nav__link">
+      <a href="../../tutorials/teaching-mode-setup/" class="md-nav__link">
         
   
   
@@ -2584,7 +2816,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/teaching-workflow/" class="md-nav__link">
+      <a href="../teaching-workflow/" class="md-nav__link">
         
   
   
@@ -5641,7 +5873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../tutorials/" class="md-nav__link">
         
   
   
@@ -5669,7 +5901,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dependency-management-getting-started/" class="md-nav__link">
+      <a href="../../tutorials/dependency-management-getting-started/" class="md-nav__link">
         
   
   
@@ -6291,7 +6523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/documentation-quality-development/" class="md-nav__link">
+      <a href="../documentation-quality-development/" class="md-nav__link">
         
   
   
@@ -6627,17 +6859,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-youll-learn" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What You'll Learn
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6649,33 +6870,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-your-first-check" class="md-nav__link">
+  <a href="#new-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Your First Check
+        New Commands
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-understanding-the-output" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Understanding the Output
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step 2: Understanding the Output">
+    <nav class="md-nav" aria-label="New Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#successful-check" class="md-nav__link">
+  <a href="#craftorchestrateplan-spec-to-worktree-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ✅ Successful Check
+        /craft:orchestrate:plan — Spec to Worktree Pipeline
       
     </span>
   </a>
@@ -6683,10 +6893,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#failed-check" class="md-nav__link">
+  <a href="#craftinsights-session-insights-report" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❌ Failed Check
+        /craft:insights — Session Insights Report
       
     </span>
   </a>
@@ -6699,33 +6909,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-preview-mode-dry-run" class="md-nav__link">
+  <a href="#brainstorm-enhancements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Preview Mode (Dry Run)
+        Brainstorm Enhancements
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-mode-selection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Mode Selection
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step 4: Mode Selection">
+    <nav class="md-nav" aria-label="Brainstorm Enhancements">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-mode-fast-5-10-seconds" class="md-nav__link">
+  <a href="#step-6-create-orchestration-after-spec-capture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Default Mode (Fast - 5-10 seconds)
+        Step 6: Create Orchestration? (after spec capture)
       
     </span>
   </a>
@@ -6733,21 +6932,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#thorough-mode-comprehensive-2-5-minutes" class="md-nav__link">
+  <a href="#step-18-insights-integration-before-brainstorming" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Thorough Mode (Comprehensive - 2-5 minutes)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mode-comparison" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mode Comparison
+        Step 1.8: Insights Integration (before brainstorming)
       
     </span>
   </a>
@@ -6760,22 +6948,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-skipping-checks" class="md-nav__link">
+  <a href="#worktree-types" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Skipping Checks
+        Worktree Types
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Step 5: Skipping Checks">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insights-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insights Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suggested-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suggested Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Suggested Workflows">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#skip-tests-docs-only-changes" class="md-nav__link">
+  <a href="#workflow-1-full-pipeline-brainstorm-to-pr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Skip Tests (Docs-Only Changes)
+        Workflow 1: Full Pipeline (Brainstorm to PR)
       
     </span>
   </a>
@@ -6783,10 +6993,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#skip-multiple-checks" class="md-nav__link">
+  <a href="#workflow-2-from-existing-spec" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Skip Multiple Checks
+        Workflow 2: From Existing Spec
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-3-insights-driven-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 3: Insights-Driven Planning
       
     </span>
   </a>
@@ -6799,324 +7020,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-6-common-scenarios" class="md-nav__link">
+  <a href="#see-also" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 6: Common Scenarios
+        See Also
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Step 6: Common Scenarios">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scenario-1-quick-commit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario 1: Quick Commit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-2-before-pr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario 2: Before PR
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenario-3-docs-only-change" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario 3: Docs-Only Change
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-7-troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 7: Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step 7: Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#issue-1-markdown-lint-failed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Issue 1: "Markdown lint failed"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#issue-2-tests-failed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Issue 2: "Tests failed"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#issue-3-coverage-below-threshold" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Issue 3: "Coverage below threshold"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#issue-4-check-takes-too-long" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Issue 4: "Check takes too long"
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-8-best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 8: Best Practices
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step 8: Best Practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#do" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ DO
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dont" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ❌ DON'T
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#workflow-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workflow Integration
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-9-interactive-practice" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 9: Interactive Practice
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step 9: Interactive Practice">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#exercise-1-first-check" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Exercise 1: First Check
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#exercise-2-dry-run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Exercise 2: Dry Run
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#exercise-3-mode-comparison" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Exercise 3: Mode Comparison
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#exercise-4-skip-practice" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Exercise 4: Skip Practice
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-10-next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 10: Next Steps
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step 10: Next Steps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#immediate-next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Immediate Next Steps
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#further-learning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Further Learning
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#advanced-topics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Advanced Topics
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-reference-card" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Reference Card
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Quick Reference Card">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#essential-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Essential Commands
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#decision-tree" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Decision Tree
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#troubleshooting-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting Cheat Sheet
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -7137,7 +7047,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/tutorials/check-tutorial-beginner.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/guide/pipeline-orchestrate-guide.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -7145,599 +7055,303 @@
   
 
 
-<h1 id="tutorial-pre-flight-checks-with-craftcheck">Tutorial: Pre-Flight Checks with /craft:check<a class="headerlink" href="#tutorial-pre-flight-checks-with-craftcheck" title="Permanent link">&para;</a></h1>
-<p><strong>Level:</strong> Beginner
-<strong>Time:</strong> 10 minutes
-<strong>Prerequisites:</strong> Craft plugin installed
-<strong>Version:</strong> 2.9.0+ (includes "Show Steps First" pattern)</p>
-<h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
-<p>By the end of this tutorial, you'll know how to:</p>
-<ol>
-<li>Run pre-flight checks before committing</li>
-<li>Understand the check output</li>
-<li>Use different modes (default vs thorough)</li>
-<li>Skip specific checks when needed</li>
-<li>Troubleshoot common failures</li>
-</ol>
+<h1 id="orchestrate-pipeline-guide-v2210">Orchestrate Pipeline Guide (v2.21.0)<a class="headerlink" href="#orchestrate-pipeline-guide-v2210" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>TL;DR</strong>: 2 new commands, 2 brainstorm enhancements, consistent worktree types across all docs — connecting the full workflow from brainstorm to PR.</p>
+</blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p><code>/craft:check</code> is your safety net before committing code. It runs appropriate validation checks for your project type and tells you if something's wrong <strong>before</strong> you push broken code.</p>
-<p><strong>Think of it as:</strong></p>
-<ul>
-<li>✈️ Pre-flight checklist for pilots</li>
-<li>🏥 Pre-surgery checklist for doctors</li>
-<li>✅ Pre-commit checklist for developers</li>
-</ul>
-<h2 id="step-1-your-first-check">Step 1: Your First Check<a class="headerlink" href="#step-1-your-first-check" title="Permanent link">&para;</a></h2>
-<p>Let's start with the simplest usage.</p>
-<p><strong>Run this command:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:check
+<p>v2.21.0 adds the missing pipeline connecting brainstorming to implementation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>brainstorm → spec → ORCHESTRATE → worktree → implement → PR
 </span></code></pre></div>
-<p><strong>What happens (v2.9.0 "Show Steps First"):</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>╭─ Pre-Flight Validation Plan ─────────────────╮
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│ Mode: default                                 │
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│ Estimated time: 5-10 seconds                  │
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├───────────────────────────────────────────────┤
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│                                               │
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│ Steps to run:                                 │
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│                                               │
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│ 1. Code Quality (2s)                          │
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│    • markdownlint (24 rules)                  │
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│    • python linting (ruff)                    │
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│                                               │
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│ 2. Quick Tests (3s)                           │
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│    • Unit tests (fast subset, ~200 tests)     │
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│                                               │
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│ 3. Basic Validation (2s)                      │
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│    • Config files                             │
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>│    • Required files                           │
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│                                               │
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>├───────────────────────────────────────────────┤
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>│ Proceed with these checks? (y/n/switch-mode)  │
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>╰───────────────────────────────────────────────╯
-</span></code></pre></div>
-<p><strong>What you see:</strong></p>
-<ul>
-<li><strong>Mode:</strong> Which mode is running (default = quick checks)</li>
-<li><strong>Time estimate:</strong> How long it will take</li>
-<li><strong>Steps:</strong> What will be checked</li>
-<li><strong>Prompt:</strong> Choice to proceed, cancel, or switch modes</li>
-</ul>
-<p><strong>Your options:</strong></p>
-<ul>
-<li>Type <code>y</code> to proceed</li>
-<li>Type <code>n</code> to cancel</li>
-<li>Type <code>switch-mode</code> to use thorough mode instead</li>
-</ul>
-<p><strong>Try it:</strong> Type <code>y</code> and press Enter.</p>
-<h2 id="step-2-understanding-the-output">Step 2: Understanding the Output<a class="headerlink" href="#step-2-understanding-the-output" title="Permanent link">&para;</a></h2>
-<p>After running, you'll see results like this:</p>
-<h3 id="successful-check">✅ Successful Check<a class="headerlink" href="#successful-check" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>╭─ Pre-Flight Check Results ───────────────────╮
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│                                               │
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│ ✓ Code Quality (2.1s)                         │
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│   • markdownlint: 45 files, 0 issues          │
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│   • python linting: 12 files, 0 issues        │
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│                                               │
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│ ✓ Quick Tests (3.4s)                          │
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│   • Unit tests: 203 passed, 0 failed          │
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│                                               │
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│ ✓ Basic Validation (1.8s)                     │
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│   • Config files: valid                       │
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>│   • Required files: all present               │
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>│                                               │
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>├───────────────────────────────────────────────┤
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>│ Results: 3/3 checks passed                    │
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>│ Issues: 0 warnings, 0 errors                  │
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>│ Next steps: Ready to commit ✓                 │
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>╰───────────────────────────────────────────────╯
-</span></code></pre></div>
-<p><strong>What this means:</strong></p>
-<ul>
-<li>✓ Green checkmarks = everything passed</li>
-<li>Ready to commit safely</li>
-<li>All checks completed in ~7 seconds</li>
-</ul>
-<p><strong>What to do next:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>add<span class="w"> </span>.
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add new feature&quot;</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>git<span class="w"> </span>push
-</span></code></pre></div>
-<h3 id="failed-check">❌ Failed Check<a class="headerlink" href="#failed-check" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>╭─ Pre-Flight Check Results ───────────────────╮
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│                                               │
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>│ ✓ Code Quality (2.1s)                         │
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>│   • markdownlint: 44 files ok, 1 file failed  │
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│   • python linting: 12 files, 0 issues        │
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│                                               │
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│ ✗ Quick Tests (2.8s)                          │
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│   • Unit tests: 202 passed, 1 failed          │
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>│     Failed: test_auth_flow (line 45)          │
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>│     Error: AssertionError: Expected 200, got 401│
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>│                                               │
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>│ ✓ Basic Validation (1.8s)                     │
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>│   • Config files: valid                       │
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>│   • Required files: all present               │
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>│                                               │
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>├───────────────────────────────────────────────┤
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>│ Results: 2/3 checks passed                    │
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>│ Issues: 0 warnings, 2 errors                  │
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>│ Next steps: Fix errors before committing ✗    │
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>╰───────────────────────────────────────────────╯
-</span></code></pre></div>
-<p><strong>What this means:</strong></p>
-<ul>
-<li>✗ Red X = something failed</li>
-<li>2 errors found (1 markdown issue, 1 test failure)</li>
-<li><strong>DO NOT commit</strong> until fixed</li>
-</ul>
-<p><strong>What to do:</strong></p>
-<ol>
-<li><strong>Fix the markdown issue:</strong></li>
-<li>See which file failed: check output</li>
-<li>
-<p>Run auto-fix: <code>npx markdownlint-cli2 --fix "**/*.md"</code></p>
-</li>
-<li>
-<p><strong>Fix the test failure:</strong></p>
-</li>
-<li>Open the test file</li>
-<li>Check line 45 (test_auth_flow)</li>
-<li>
-<p>Fix the assertion or the code being tested</p>
-</li>
-<li>
-<p><strong>Re-run check:</strong></p>
-</li>
-</ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:check
-</span></code></pre></div>
-<ol>
-<li><strong>Commit only when all checks pass</strong></li>
-</ol>
-<h2 id="step-3-preview-mode-dry-run">Step 3: Preview Mode (Dry Run)<a class="headerlink" href="#step-3-preview-mode-dry-run" title="Permanent link">&para;</a></h2>
-<p>Want to see what will be checked <strong>without</strong> actually running it?</p>
-<p><strong>Use dry-run mode:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:check<span class="w"> </span>--dry-run
-</span></code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>╭─ Pre-Flight Validation Plan (DRY RUN) ───────╮
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>│ Mode: default                                 │
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>│ Estimated time: 5-10 seconds                  │
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>├───────────────────────────────────────────────┤
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│                                               │
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│ Would run these steps:                        │
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>│                                               │
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>│ 1. Code Quality (2s)                          │
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>│    • markdownlint (24 rules)                  │
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>│    • python linting (ruff)                    │
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>│                                               │
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>│ 2. Quick Tests (3s)                           │
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>│    • Unit tests (fast subset, ~200 tests)     │
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>│                                               │
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>│ 3. Basic Validation (2s)                      │
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>│    • Config files                             │
-</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>│    • Required files                           │
-</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>│                                               │
-</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>├───────────────────────────────────────────────┤
-</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>│ DRY RUN - No checks executed                  │
-</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>╰───────────────────────────────────────────────╯
-</span></code></pre></div>
-<p><strong>When to use:</strong></p>
-<ul>
-<li>First time using <code>/craft:check</code> (learn what it does)</li>
-<li>Checking what mode will do</li>
-<li>Planning your commit workflow</li>
-</ul>
-<h2 id="step-4-mode-selection">Step 4: Mode Selection<a class="headerlink" href="#step-4-mode-selection" title="Permanent link">&para;</a></h2>
-<p>There are 2 modes available:</p>
-<h3 id="default-mode-fast-5-10-seconds">Default Mode (Fast - 5-10 seconds)<a class="headerlink" href="#default-mode-fast-5-10-seconds" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:check
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># or explicitly:</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>/craft:check<span class="w"> </span>--mode<span class="o">=</span>default
-</span></code></pre></div>
-<p><strong>What it checks:</strong></p>
-<ul>
-<li>✓ Basic code linting</li>
-<li>✓ Fast subset of tests</li>
-<li>✓ Config file syntax</li>
-<li>✓ Required files exist</li>
-</ul>
-<p><strong>Use for:</strong> Before every commit</p>
-<h3 id="thorough-mode-comprehensive-2-5-minutes">Thorough Mode (Comprehensive - 2-5 minutes)<a class="headerlink" href="#thorough-mode-comprehensive-2-5-minutes" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:check<span class="w"> </span>--mode<span class="o">=</span>thorough
-</span></code></pre></div>
-<p><strong>What it checks:</strong></p>
-<ul>
-<li>✓ All linters with strict rules</li>
-<li>✓ Full test suite</li>
-<li>✓ Coverage analysis (85%+ threshold)</li>
-<li>✓ Broken link detection</li>
-<li>✓ Dependency security audit</li>
-<li>✓ Build verification</li>
-</ul>
-<p><strong>Use for:</strong></p>
-<ul>
-<li>Before creating PR</li>
-<li>Before merging to main</li>
-<li>Before releases</li>
-<li>After major refactoring</li>
-</ul>
-<h3 id="mode-comparison">Mode Comparison<a class="headerlink" href="#mode-comparison" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>Feature</th>
-<th>Default</th>
-<th>Thorough</th>
+<th>Type</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Time</td>
-<td>5-10s</td>
-<td>2-5 min</td>
+<td><code>/craft:orchestrate:plan</code></td>
+<td>New command</td>
+<td>Spec → ORCHESTRATE → worktree pipeline</td>
 </tr>
 <tr>
-<td>Lint rules</td>
-<td>Basic</td>
-<td>Strict</td>
+<td><code>/craft:insights</code></td>
+<td>New command</td>
+<td>Session friction reports from facets data</td>
 </tr>
 <tr>
-<td>Tests</td>
-<td>Fast subset</td>
-<td>Full suite</td>
+<td>Brainstorm Step 6</td>
+<td>Enhancement</td>
+<td>Offer ORCHESTRATE creation after spec capture</td>
 </tr>
 <tr>
-<td>Coverage</td>
-<td>No</td>
-<td>Yes (85%+)</td>
+<td>Brainstorm Step 1.8</td>
+<td>Enhancement</td>
+<td>Surface insights before brainstorming</td>
 </tr>
 <tr>
-<td>Links</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Dependencies</td>
-<td>No</td>
-<td>Yes (security audit)</td>
-</tr>
-<tr>
-<td>Build</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Use case</strong></td>
-<td><strong>Every commit</strong></td>
-<td><strong>PR/Release</strong></td>
-</tr>
-</tbody>
-</table>
-<h2 id="step-5-skipping-checks">Step 5: Skipping Checks<a class="headerlink" href="#step-5-skipping-checks" title="Permanent link">&para;</a></h2>
-<p>Sometimes you want to skip specific checks.</p>
-<h3 id="skip-tests-docs-only-changes">Skip Tests (Docs-Only Changes)<a class="headerlink" href="#skip-tests-docs-only-changes" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:check<span class="w"> </span>--skip<span class="o">=</span>tests
-</span></code></pre></div>
-<p><strong>Use when:</strong></p>
-<ul>
-<li>Only changed documentation</li>
-<li>Changed README or markdown files</li>
-<li>No code changes</li>
-</ul>
-<p><strong>What runs:</strong></p>
-<ul>
-<li>✓ Linting</li>
-<li>✗ Tests (skipped)</li>
-<li>✓ Validation</li>
-</ul>
-<h3 id="skip-multiple-checks">Skip Multiple Checks<a class="headerlink" href="#skip-multiple-checks" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:check<span class="w"> </span>--skip<span class="o">=</span>lint,docs
-</span></code></pre></div>
-<p><strong>Available skip options:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Flag</th>
-<th>Skips</th>
-<th>When to use</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>--skip=lint</code></td>
-<td>Code/markdown linting</td>
-<td>Already ran linter manually</td>
-</tr>
-<tr>
-<td><code>--skip=tests</code></td>
-<td>Test execution</td>
-<td>Docs-only changes</td>
-</tr>
-<tr>
-<td><code>--skip=docs</code></td>
-<td>Documentation validation</td>
-<td>Code-only changes</td>
-</tr>
-<tr>
-<td><code>--skip=build</code></td>
-<td>Build verification</td>
-<td>Not ready to build yet</td>
-</tr>
-<tr>
-<td><code>--skip=deps</code></td>
-<td>Dependency audit</td>
-<td>No dependency changes</td>
-</tr>
-</tbody>
-</table>
-<p>⚠️ <strong>Warning:</strong> Only skip checks when you're <strong>certain</strong> they're not needed. When in doubt, run all checks.</p>
-<h2 id="step-6-common-scenarios">Step 6: Common Scenarios<a class="headerlink" href="#step-6-common-scenarios" title="Permanent link">&para;</a></h2>
-<h3 id="scenario-1-quick-commit">Scenario 1: Quick Commit<a class="headerlink" href="#scenario-1-quick-commit" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Make some changes</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;# New Section&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>README.md
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Check</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>/craft:check
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># If passes, commit</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>git<span class="w"> </span>add<span class="w"> </span>README.md
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: add new section to README&quot;</span>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>git<span class="w"> </span>push
-</span></code></pre></div>
-<p><strong>Time:</strong> 6-10 seconds total</p>
-<h3 id="scenario-2-before-pr">Scenario 2: Before PR<a class="headerlink" href="#scenario-2-before-pr" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Feature complete, ready for review</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>feature/new-auth
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Run thorough check</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>/craft:check<span class="w"> </span>--mode<span class="o">=</span>thorough
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># If passes, create PR</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--base<span class="w"> </span>dev<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Add JWT authentication&quot;</span>
-</span></code></pre></div>
-<p><strong>Time:</strong> 2-5 minutes</p>
-<h3 id="scenario-3-docs-only-change">Scenario 3: Docs-Only Change<a class="headerlink" href="#scenario-3-docs-only-change" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Updated tutorials</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>git<span class="w"> </span>status
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1"># modified: docs/tutorials/new-tutorial.md</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1"># Check (skip tests since no code changed)</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>/craft:check<span class="w"> </span>--skip<span class="o">=</span>tests
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="c1"># Commit</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>git<span class="w"> </span>add<span class="w"> </span>docs/
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: add new tutorial&quot;</span>
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>git<span class="w"> </span>push
-</span></code></pre></div>
-<p><strong>Time:</strong> 3-5 seconds</p>
-<h2 id="step-7-troubleshooting">Step 7: Troubleshooting<a class="headerlink" href="#step-7-troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="issue-1-markdown-lint-failed">Issue 1: "Markdown lint failed"<a class="headerlink" href="#issue-1-markdown-lint-failed" title="Permanent link">&para;</a></h3>
-<p><strong>Error:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>✗ Code Quality
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  • markdownlint: 1 file failed
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    docs/guide.md:15:1 MD022 Headings should be surrounded by blank lines
-</span></code></pre></div>
-<p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Auto-fix markdown issues</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>npx<span class="w"> </span>markdownlint-cli2<span class="w"> </span>--fix<span class="w"> </span><span class="s2">&quot;docs/guide.md&quot;</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Re-run check</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>/craft:check
-</span></code></pre></div>
-<h3 id="issue-2-tests-failed">Issue 2: "Tests failed"<a class="headerlink" href="#issue-2-tests-failed" title="Permanent link">&para;</a></h3>
-<p><strong>Error:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>✗ Quick Tests
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  • Unit tests: 1 failed
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    test_api_auth: Expected 200, got 401
-</span></code></pre></div>
-<p><strong>Solution:</strong></p>
-<ol>
-<li>Open the test file</li>
-<li>Look at the failing test</li>
-<li>Fix either:</li>
-<li>The test (if test is wrong)</li>
-<li>The code (if code is wrong)</li>
-<li>Re-run: <code>/craft:check</code></li>
-</ol>
-<h3 id="issue-3-coverage-below-threshold">Issue 3: "Coverage below threshold"<a class="headerlink" href="#issue-3-coverage-below-threshold" title="Permanent link">&para;</a></h3>
-<p><strong>Error (thorough mode only):</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>✗ Coverage Analysis
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>  • Current: 82%
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>  • Threshold: 85%
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  • Missing coverage in: src/auth.py
-</span></code></pre></div>
-<p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Add tests for uncovered code</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="c1"># Then re-run</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>/craft:check<span class="w"> </span>--mode<span class="o">=</span>thorough
-</span></code></pre></div>
-<h3 id="issue-4-check-takes-too-long">Issue 4: "Check takes too long"<a class="headerlink" href="#issue-4-check-takes-too-long" title="Permanent link">&para;</a></h3>
-<p><strong>Problem:</strong> Thorough mode takes 5+ minutes</p>
-<p><strong>Solutions:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Option 1: Use default mode for quick feedback</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>/craft:check
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># Option 2: Skip heavy checks</span>
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>/craft:check<span class="w"> </span>--mode<span class="o">=</span>thorough<span class="w"> </span>--skip<span class="o">=</span>tests
-</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>
-</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="c1"># Option 3: Run only specific checks later</span>
-</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>/craft:test:run<span class="w">              </span><span class="c1"># Just tests</span>
-</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>/craft:docs:check-links<span class="w">      </span><span class="c1"># Just link validation</span>
-</span></code></pre></div>
-<h2 id="step-8-best-practices">Step 8: Best Practices<a class="headerlink" href="#step-8-best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="do">✅ DO<a class="headerlink" href="#do" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Run <code>/craft:check</code> before every commit</strong></li>
-<li><strong>Use default mode for commits, thorough for PRs</strong></li>
-<li><strong>Fix all errors before committing</strong></li>
-<li><strong>Read the error messages</strong> (they tell you what's wrong)</li>
-<li><strong>Re-run after fixing issues</strong></li>
-</ul>
-<h3 id="dont">❌ DON'T<a class="headerlink" href="#dont" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Skip checks to save time</strong> (you'll regret it later)</li>
-<li><strong>Commit when checks fail</strong> (breaks the build)</li>
-<li><strong>Ignore warnings</strong> (they often become errors)</li>
-<li><strong>Use --skip unless you're sure</strong> (easy to miss issues)</li>
-</ul>
-<h3 id="workflow-integration">Workflow Integration<a class="headerlink" href="#workflow-integration" title="Permanent link">&para;</a></h3>
-<p><strong>Good workflow:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># 1. Make changes</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>&lt;edit<span class="w"> </span>files&gt;
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># 2. Check</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>/craft:check
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="c1"># 3. If fails, fix and repeat</span>
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>&lt;fix<span class="w"> </span>issues&gt;
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>/craft:check
-</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>
-</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="c1"># 4. When passes, commit</span>
-</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>git<span class="w"> </span>add<span class="w"> </span>.
-</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;message&quot;</span>
-</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>git<span class="w"> </span>push
-</span></code></pre></div>
-<p><strong>Bad workflow:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># ❌ Don&#39;t do this</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>git<span class="w"> </span>add<span class="w"> </span>.
-</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;message&quot;</span>
-</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>git<span class="w"> </span>push
-</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="c1"># &lt;build breaks, CI fails, teammates angry&gt;</span>
-</span></code></pre></div>
-<h2 id="step-9-interactive-practice">Step 9: Interactive Practice<a class="headerlink" href="#step-9-interactive-practice" title="Permanent link">&para;</a></h2>
-<p>Try these exercises to build muscle memory:</p>
-<h3 id="exercise-1-first-check">Exercise 1: First Check<a class="headerlink" href="#exercise-1-first-check" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Run your first check</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>/craft:check
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># Questions:</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="c1"># - What mode ran?</span>
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="c1"># - How long did it take?</span>
-</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># - Did it pass?</span>
-</span></code></pre></div>
-<h3 id="exercise-2-dry-run">Exercise 2: Dry Run<a class="headerlink" href="#exercise-2-dry-run" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># See the plan without running</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>/craft:check<span class="w"> </span>--dry-run
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Questions:</span>
-</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1"># - How many steps would run?</span>
-</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="c1"># - What&#39;s the estimated time?</span>
-</span></code></pre></div>
-<h3 id="exercise-3-mode-comparison">Exercise 3: Mode Comparison<a class="headerlink" href="#exercise-3-mode-comparison" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Run both modes</span>
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>/craft:check<span class="w"> </span>--mode<span class="o">=</span>default
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>/craft:check<span class="w"> </span>--mode<span class="o">=</span>thorough<span class="w"> </span>--dry-run
-</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>
-</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="c1"># Questions:</span>
-</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="c1"># - What&#39;s the time difference?</span>
-</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1"># - What extra checks does thorough include?</span>
-</span></code></pre></div>
-<h3 id="exercise-4-skip-practice">Exercise 4: Skip Practice<a class="headerlink" href="#exercise-4-skip-practice" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Skip tests</span>
-</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>/craft:check<span class="w"> </span>--skip<span class="o">=</span>tests
-</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
-</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Questions:</span>
-</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="c1"># - Did it run faster?</span>
-</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="c1"># - What still ran?</span>
-</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="c1"># - When would you use this?</span>
-</span></code></pre></div>
-<h2 id="step-10-next-steps">Step 10: Next Steps<a class="headerlink" href="#step-10-next-steps" title="Permanent link">&para;</a></h2>
-<p>You now know how to use <code>/craft:check</code>! Here's what to learn next:</p>
-<h3 id="immediate-next-steps">Immediate Next Steps<a class="headerlink" href="#immediate-next-steps" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>Add to workflow:</strong> Run <code>/craft:check</code> before your next commit</li>
-<li><strong>Set up automation:</strong> Add pre-commit hook (optional)</li>
-<li><strong>Explore modes:</strong> Try thorough mode before your next PR</li>
-</ol>
-<h3 id="further-learning">Further Learning<a class="headerlink" href="#further-learning" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Command mastery:</strong> <a href="../../guide/check-command-mastery/">Check Command Mastery Guide</a></li>
-<li><strong>Quick reference:</strong> <a href="../../reference/REFCARD-CHECK/">Check Command Reference</a></li>
-<li><strong>Cookbook recipe:</strong> <a href="../../cookbook/common/check-code-quality-before-commit/">Check Before Commit</a></li>
-<li><strong>All commands:</strong> <a href="../../commands/overview/">Commands Overview</a></li>
-</ul>
-<h3 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Custom validators:</strong> Add project-specific checks</li>
-<li><strong>CI integration:</strong> Use in GitHub Actions</li>
-<li><strong>Mode customization:</strong> Configure coverage thresholds</li>
-<li><strong>Auto-fix workflows:</strong> Automate common fixes</li>
-</ul>
-<h2 id="quick-reference-card">Quick Reference Card<a class="headerlink" href="#quick-reference-card" title="Permanent link">&para;</a></h2>
-<h3 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Basic usage</span>
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>/craft:check<span class="w">                     </span><span class="c1"># Run default mode</span>
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
-</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Preview mode</span>
-</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>/craft:check<span class="w"> </span>--dry-run<span class="w">           </span><span class="c1"># Show plan without running</span>
-</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>
-</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="c1"># Mode selection</span>
-</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>/craft:check<span class="w"> </span>--mode<span class="o">=</span>default<span class="w">      </span><span class="c1"># Fast (5-10s)</span>
-</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>/craft:check<span class="w"> </span>--mode<span class="o">=</span>thorough<span class="w">     </span><span class="c1"># Comprehensive (2-5min)</span>
-</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>
-</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="c1"># Skip checks</span>
-</span><span id="__span-27-12"><a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a>/craft:check<span class="w"> </span>--skip<span class="o">=</span>tests<span class="w">        </span><span class="c1"># Skip test execution</span>
-</span><span id="__span-27-13"><a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a>/craft:check<span class="w"> </span>--skip<span class="o">=</span>lint,docs<span class="w">    </span><span class="c1"># Skip multiple</span>
-</span></code></pre></div>
-<h3 id="decision-tree">Decision Tree<a class="headerlink" href="#decision-tree" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Before committing?
-</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>  → /craft:check
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>Before PR?
-</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>  → /craft:check --mode=thorough
-</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>
-</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>Docs only?
-</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>  → /craft:check --skip=tests
-</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>
-</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>Want to preview?
-</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>  → /craft:check --dry-run
-</span></code></pre></div>
-<h3 id="troubleshooting-cheat-sheet">Troubleshooting Cheat Sheet<a class="headerlink" href="#troubleshooting-cheat-sheet" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Error</th>
-<th>Solution</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Markdown lint failed</td>
-<td><code>npx markdownlint-cli2 --fix "**/*.md"</code></td>
-</tr>
-<tr>
-<td>Tests failed</td>
-<td>Fix the test or code, re-run check</td>
-</tr>
-<tr>
-<td>Coverage too low</td>
-<td>Add more tests</td>
-</tr>
-<tr>
-<td>Checks too slow</td>
-<td>Use --skip or default mode</td>
+<td>Worktree Types</td>
+<td>Documentation</td>
+<td>Consistent 4-type taxonomy everywhere</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<p><strong>Congratulations!</strong> You've completed the <code>/craft:check</code> beginner tutorial. You're now ready to validate your code before committing.</p>
-<p><strong>Time to complete:</strong> ~10 minutes
-<strong>Commands learned:</strong> 5
-<strong>Next tutorial:</strong> <a href="../smart-routing-tutorial/">Smart Routing with /craft:do</a></p>
+<h2 id="new-commands">New Commands<a class="headerlink" href="#new-commands" title="Permanent link">&para;</a></h2>
+<h3 id="craftorchestrateplan-spec-to-worktree-pipeline"><code>/craft:orchestrate:plan</code> — Spec to Worktree Pipeline<a class="headerlink" href="#craftorchestrateplan-spec-to-worktree-pipeline" title="Permanent link">&para;</a></h3>
+<p>Discovers specs, parses phases, generates ORCHESTRATE files, and creates worktrees — all in one flow.</p>
+<p><strong>When to use:</strong> After brainstorming produces a spec, or when you have a spec and want to start implementation.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Interactive: scan for specs and choose</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:orchestrate:plan
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Direct: specify spec path</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth-2026-02-15.md
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># ORCHESTRATE only (no worktree)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth.md<span class="w"> </span>--output<span class="w"> </span>orchestrate-only
+</span></code></pre></div>
+<p><strong>8-Step Execution:</strong></p>
+<pre class="mermaid"><code>flowchart TD
+    Start(["/craft:orchestrate:plan"]) --&gt; D[Step 1: Discover Specs]
+    D --&gt; D1{Specs found?}
+    D1 --&gt;|Yes| Choose[User picks spec]
+    D1 --&gt;|No brainstorms| Err[Suggest /brainstorm first]
+
+    Choose --&gt; Parse[Step 2: Parse Spec]
+    Parse --&gt; P1[Extract phases, tasks, criteria]
+
+    P1 --&gt; Cross[Step 3: Cross-Repo Detection]
+    Cross --&gt; C1{Multi-repo paths found?}
+    C1 --&gt;|Yes| Paired[Plan paired worktrees]
+    C1 --&gt;|No| Single[Single repo]
+
+    Paired --&gt; Confirm[Step 4: Confirm Plan]
+    Single --&gt; Confirm
+
+    Confirm --&gt; Gen[Step 5: Generate ORCHESTRATE]
+    Gen --&gt; WT{Step 6: Create Worktree?}
+    WT --&gt;|Yes| Create[git worktree add]
+    WT --&gt;|No| Skip[Save to current dir]
+
+    Create --&gt; Track[Step 7: Update .STATUS]
+    Skip --&gt; Track
+    Track --&gt; Done([Step 8: Summary + next steps])
+
+    style Start fill:#4A90D9,color:#fff
+    style Done fill:#27AE60,color:#fff
+    style Err fill:#E74C3C,color:#fff</code></pre>
+<p><strong>Generated ORCHESTRATE files include:</strong></p>
+<ul>
+<li>Phase overview with effort estimates</li>
+<li>Per-phase task checklists</li>
+<li>Friction Prevention section (auto-populated from insights if available)</li>
+<li>Acceptance criteria from the spec</li>
+<li>Commit strategy</li>
+<li>Verification commands (auto-detected from project type)</li>
+<li>Session instructions for starting work</li>
+</ul>
 <hr />
-<p><strong>Last Updated:</strong> 2026-01-29 (v2.9.0)
-<strong>Tutorial Version:</strong> 1.0
-<strong>Prerequisites:</strong> Craft v2.9.0+</p>
+<h3 id="craftinsights-session-insights-report"><code>/craft:insights</code> — Session Insights Report<a class="headerlink" href="#craftinsights-session-insights-report" title="Permanent link">&para;</a></h3>
+<p>Aggregates session data from <code>~/.claude/usage-data/facets/</code> to identify friction patterns and suggest improvements.</p>
+<p><strong>When to use:</strong> Periodically to review usage patterns, or before creating ORCHESTRATE files.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Default: terminal report, last 30 days</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:insights
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># HTML report for sharing</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:insights<span class="w"> </span>--format<span class="w"> </span>html
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Last 7 days, specific project</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:insights<span class="w"> </span>--since<span class="w"> </span><span class="m">7</span><span class="w"> </span>--project<span class="w"> </span>craft
+</span></code></pre></div>
+<p><strong>Report includes:</strong></p>
+<ul>
+<li>Session count and date range</li>
+<li>Goal categories (feature dev, bug fix, docs, etc.)</li>
+<li>Friction patterns with counts and types</li>
+<li>Top friction details</li>
+<li>Outcome distribution (success/partial/abandoned)</li>
+<li>CLAUDE.md suggestions with priority levels</li>
+</ul>
+<p><strong>Friction Type Mapping:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Friction Type</th>
+<th>Guardrail Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wrong_approach</code></td>
+<td>Verify CWD is the worktree before starting</td>
+</tr>
+<tr>
+<td><code>context_loss</code></td>
+<td>Read ORCHESTRATE file on session start</td>
+</tr>
+<tr>
+<td><code>tool_misuse</code></td>
+<td>Use /craft:do for routing, not manual commands</td>
+</tr>
+<tr>
+<td><code>test_failure</code></td>
+<td>Run tests after each phase, not just at the end</td>
+</tr>
+<tr>
+<td><code>config_drift</code></td>
+<td>Run validate-counts after structural changes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="brainstorm-enhancements">Brainstorm Enhancements<a class="headerlink" href="#brainstorm-enhancements" title="Permanent link">&para;</a></h2>
+<h3 id="step-6-create-orchestration-after-spec-capture">Step 6: Create Orchestration? (after spec capture)<a class="headerlink" href="#step-6-create-orchestration-after-spec-capture" title="Permanent link">&para;</a></h3>
+<p>After brainstorming produces a spec (Step 5.5), you're now offered:</p>
+<ol>
+<li><strong>ORCHESTRATE + worktree</strong> — Full pipeline: generate ORCHESTRATE file and create worktree</li>
+<li><strong>ORCHESTRATE only</strong> — Generate file in current directory</li>
+<li><strong>Skip</strong> — Keep the spec, orchestrate later</li>
+</ol>
+<p>This connects the brainstorm output directly to the implementation workflow.</p>
+<h3 id="step-18-insights-integration-before-brainstorming">Step 1.8: Insights Integration (before brainstorming)<a class="headerlink" href="#step-18-insights-integration-before-brainstorming" title="Permanent link">&para;</a></h3>
+<p>Before questions begin, insights are checked for relevant past patterns:</p>
+<ul>
+<li>Shows friction summary if related sessions exist</li>
+<li>Surfaces prior approaches on the same topic</li>
+<li>Auto-adds "Known Risks" to spec generation</li>
+</ul>
+<p>Skips silently when no insights data exists.</p>
+<hr />
+<h2 id="worktree-types">Worktree Types<a class="headerlink" href="#worktree-types" title="Permanent link">&para;</a></h2>
+<p>A consistent 4-type taxonomy used across all documentation:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Created By</th>
+<th>Lifetime</th>
+<th>Branch Pattern</th>
+<th>ORCHESTRATE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manual</strong></td>
+<td><code>/craft:git:worktree create</code></td>
+<td>Long-lived</td>
+<td><code>feature/*</code></td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><strong>Pipeline</strong></td>
+<td><code>/craft:orchestrate:plan</code> or brainstorm</td>
+<td>Long-lived</td>
+<td><code>feature/*</code></td>
+<td>Always</td>
+</tr>
+<tr>
+<td><strong>Swarm</strong></td>
+<td><code>/craft:orchestrate --swarm</code></td>
+<td>Short-lived</td>
+<td><code>swarm-*</code></td>
+<td>Reads existing</td>
+</tr>
+<tr>
+<td><strong>Cross-Repo</strong></td>
+<td>Pipeline (multi-repo spec)</td>
+<td>Long-lived</td>
+<td><code>feature/*</code> (same name)</td>
+<td>Scoped per-repo</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Decision guide:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quick fix, single file</td>
+<td>Manual worktree</td>
+</tr>
+<tr>
+<td>Feature with spec and phases</td>
+<td>Pipeline worktree</td>
+</tr>
+<tr>
+<td>Parallel implementation, file conflicts</td>
+<td>Swarm worktrees</td>
+</tr>
+<tr>
+<td>Changes spanning multiple repos</td>
+<td>Cross-repo worktrees</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="insights-lifecycle">Insights Lifecycle<a class="headerlink" href="#insights-lifecycle" title="Permanent link">&para;</a></h2>
+<p>The full flow from sessions to workflow improvements:</p>
+<pre class="mermaid"><code>graph TD
+    S[Sessions] --&gt; F[Facets Data]
+    F --&gt; I[/craft:insights]
+    I --&gt; R1[CLAUDE.md Rules]
+    I --&gt; R2[ORCHESTRATE Friction Prevention]
+    I --&gt; R3[Brainstorm Context]
+    R1 --&gt; B[Better Sessions]
+    R2 --&gt; B
+    R3 --&gt; B
+    B --&gt; S</code></pre>
+<hr />
+<h2 id="suggested-workflows">Suggested Workflows<a class="headerlink" href="#suggested-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="workflow-1-full-pipeline-brainstorm-to-pr">Workflow 1: Full Pipeline (Brainstorm to PR)<a class="headerlink" href="#workflow-1-full-pipeline-brainstorm-to-pr" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 1. Brainstorm the feature</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:workflow:brainstorm<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># 2. Save as spec (prompted automatically)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># → Saves to docs/specs/SPEC-auth-2026-02-15.md</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># 3. Create orchestration (prompted in Step 6)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># → Generates ORCHESTRATE-auth.md + creates worktree</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># 4. Start implementation</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-auth
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>claude
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># → &quot;Read ORCHESTRATE-auth.md and start Phase 1&quot;</span>
+</span></code></pre></div>
+<h3 id="workflow-2-from-existing-spec">Workflow 2: From Existing Spec<a class="headerlink" href="#workflow-2-from-existing-spec" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Already have a spec? Go directly to orchestration</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-dashboard.md
+</span></code></pre></div>
+<h3 id="workflow-3-insights-driven-planning">Workflow 3: Insights-Driven Planning<a class="headerlink" href="#workflow-3-insights-driven-planning" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 1. Check friction patterns</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:insights<span class="w"> </span>--project<span class="w"> </span>craft
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># 2. Create ORCHESTRATE — friction prevention auto-populated</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-feature.md
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># → ORCHESTRATE includes guardrails from insights</span>
+</span></code></pre></div>
+<hr />
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../REFCARD/">Quick Reference</a> — All commands at a glance</li>
+<li><a href="../insights-improvements-guide/">Insights Improvements Guide</a> — v2.18.0 insights features</li>
+<li><a href="../../tutorials/TUTORIAL-worktree-setup/">Worktree Tutorial</a> — Step-by-step worktree guide</li>
+<li><a href="../orchestrator/">Orchestrator Guide</a> — Multi-agent orchestration</li>
+<li><a href="../../VERSION-HISTORY/">Version History</a> — v2.21.0 release notes</li>
+</ul>
 
 
 
 
 
 
-
-  
-  
 
 
 

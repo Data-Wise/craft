@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 109 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
+        <meta name="description" content="Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
       
       
       
@@ -2070,6 +2070,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#after-brainstorm-creating-orchestrate-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After Brainstorm: Creating ORCHESTRATE Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="After Brainstorm: Creating ORCHESTRATE Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-brainstorm-to-worktree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Brainstorm to Worktree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-orchestrate-file-contains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the ORCHESTRATE File Contains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#without-a-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Without a Spec
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2517,6 +2567,34 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrate Pipeline Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -7537,6 +7615,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#after-brainstorm-creating-orchestrate-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After Brainstorm: Creating ORCHESTRATE Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="After Brainstorm: Creating ORCHESTRATE Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#from-brainstorm-to-worktree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Brainstorm to Worktree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-orchestrate-file-contains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the ORCHESTRATE File Contains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#without-a-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Without a Spec
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8176,6 +8304,66 @@
 </span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
 </span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="c1"># Solution: Use shorter location</span>
 </span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/short-name
+</span></code></pre></div>
+<hr />
+<h2 id="after-brainstorm-creating-orchestrate-files">After Brainstorm: Creating ORCHESTRATE Files<a class="headerlink" href="#after-brainstorm-creating-orchestrate-files" title="Permanent link">&para;</a></h2>
+<p>If you used <code>/brainstorm</code> to plan a feature and captured a spec, you can create an ORCHESTRATE file and worktree in one step:</p>
+<h3 id="from-brainstorm-to-worktree">From Brainstorm to Worktree<a class="headerlink" href="#from-brainstorm-to-worktree" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># 1. Brainstorm produces a spec</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;user notifications&quot;</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="c1"># → BRAINSTORM-notifications-2026-02-15.md saved</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="c1"># → &quot;Capture as spec?&quot; → Yes</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="c1"># → docs/specs/SPEC-notifications-2026-02-15.md saved</span>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="c1"># 2. Create ORCHESTRATE + worktree from the spec</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-notifications-2026-02-15.md
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="c1"># Output:</span>
+</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="c1"># Orchestration Plan:</span>
+</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a><span class="c1">#   Spec: SPEC-notifications-2026-02-15.md</span>
+</span><span id="__span-33-13"><a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a><span class="c1">#   Phases found: 3 (setup, implementation, integration)</span>
+</span><span id="__span-33-14"><a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a><span class="c1">#   Branch: feature/notifications</span>
+</span><span id="__span-33-15"><a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a><span class="c1">#   Worktree: ~/.git-worktrees/craft/feature-notifications</span>
+</span><span id="__span-33-16"><a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a><span class="c1">#</span>
+</span><span id="__span-33-17"><a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a><span class="c1"># ? Proceed?</span>
+</span><span id="__span-33-18"><a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a><span class="c1">#   &gt; Yes - Create ORCHESTRATE + worktree (Recommended)</span>
+</span><span id="__span-33-19"><a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a><span class="c1">#     ORCHESTRATE only (no worktree)</span>
+</span><span id="__span-33-20"><a id="__codelineno-33-20" name="__codelineno-33-20" href="#__codelineno-33-20"></a><span class="c1">#     Modify phases</span>
+</span><span id="__span-33-21"><a id="__codelineno-33-21" name="__codelineno-33-21" href="#__codelineno-33-21"></a><span class="c1">#     Cancel</span>
+</span><span id="__span-33-22"><a id="__codelineno-33-22" name="__codelineno-33-22" href="#__codelineno-33-22"></a><span class="c1">#</span>
+</span><span id="__span-33-23"><a id="__codelineno-33-23" name="__codelineno-33-23" href="#__codelineno-33-23"></a><span class="c1"># Created:</span>
+</span><span id="__span-33-24"><a id="__codelineno-33-24" name="__codelineno-33-24" href="#__codelineno-33-24"></a><span class="c1">#   ✅ ORCHESTRATE-notifications.md (in worktree root)</span>
+</span><span id="__span-33-25"><a id="__codelineno-33-25" name="__codelineno-33-25" href="#__codelineno-33-25"></a><span class="c1">#   ✅ Worktree at ~/.git-worktrees/craft/feature-notifications</span>
+</span><span id="__span-33-26"><a id="__codelineno-33-26" name="__codelineno-33-26" href="#__codelineno-33-26"></a><span class="c1">#   ✅ .STATUS updated with worktree entry</span>
+</span><span id="__span-33-27"><a id="__codelineno-33-27" name="__codelineno-33-27" href="#__codelineno-33-27"></a>
+</span><span id="__span-33-28"><a id="__codelineno-33-28" name="__codelineno-33-28" href="#__codelineno-33-28"></a><span class="c1"># 3. Start working</span>
+</span><span id="__span-33-29"><a id="__codelineno-33-29" name="__codelineno-33-29" href="#__codelineno-33-29"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-notifications
+</span><span id="__span-33-30"><a id="__codelineno-33-30" name="__codelineno-33-30" href="#__codelineno-33-30"></a>claude
+</span><span id="__span-33-31"><a id="__codelineno-33-31" name="__codelineno-33-31" href="#__codelineno-33-31"></a><span class="c1"># → &quot;Read ORCHESTRATE-notifications.md and start Phase 1&quot;</span>
+</span></code></pre></div>
+<h3 id="what-the-orchestrate-file-contains">What the ORCHESTRATE File Contains<a class="headerlink" href="#what-the-orchestrate-file-contains" title="Permanent link">&para;</a></h3>
+<p>The generated ORCHESTRATE file includes:</p>
+<ul>
+<li><strong>Objective</strong> — pulled from spec summary</li>
+<li><strong>Phase breakdown</strong> — with tasks, priorities, and effort estimates</li>
+<li><strong>Friction prevention</strong> — based on insights from past sessions</li>
+<li><strong>Acceptance criteria</strong> — from the spec</li>
+<li><strong>Verification commands</strong> — test and validation commands for the project</li>
+<li><strong>Session instructions</strong> — how to start, what to read first, phase-by-phase guidance</li>
+</ul>
+<h3 id="without-a-spec">Without a Spec<a class="headerlink" href="#without-a-spec" title="Permanent link">&para;</a></h3>
+<p>If you don't have a spec, <code>/craft:orchestrate:plan</code> will scan for available specs and brainstorms:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>/craft:orchestrate:plan
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="c1"># Output:</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="c1"># Available specs:</span>
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a><span class="c1">#   1. SPEC-auth-2026-02-10.md (no ORCHESTRATE yet)</span>
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="c1">#   2. SPEC-dashboard-2026-02-12.md (has ORCHESTRATE)</span>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="c1">#</span>
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a><span class="c1"># Brainstorms without specs:</span>
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a><span class="c1">#   3. BRAINSTORM-caching-2026-02-14.md (offer to create spec first)</span>
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a><span class="c1">#</span>
+</span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a><span class="c1"># ? Which one?</span>
 </span></code></pre></div>
 <hr />
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>

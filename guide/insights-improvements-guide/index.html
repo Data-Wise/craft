@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 109 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
+        <meta name="description" content="Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
       
       
       
@@ -1998,6 +1998,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#workflow-7-insights-report-v2210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 7: Insights Report (v2.21.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-8-insights-orchestrate-v2210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 8: Insights → ORCHESTRATE (v2.21.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-9-insights-lifecycle-v2210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 9: Insights Lifecycle (v2.21.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2300,6 +2333,34 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pipeline-orchestrate-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrate Pipeline Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -7108,6 +7169,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#workflow-7-insights-report-v2210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 7: Insights Report (v2.21.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-8-insights-orchestrate-v2210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 8: Insights → ORCHESTRATE (v2.21.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-9-insights-lifecycle-v2210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow 9: Insights Lifecycle (v2.21.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7489,10 +7583,39 @@
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:check<span class="w">                      </span><span class="c1"># All green?</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># commit                          # Ship it</span>
 </span></code></pre></div>
+<h3 id="workflow-7-insights-report-v2210">Workflow 7: Insights Report (v2.21.0)<a class="headerlink" href="#workflow-7-insights-report-v2210" title="Permanent link">&para;</a></h3>
+<p>Generate a report from session data to identify friction patterns and CLAUDE.md improvements.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:insights<span class="w">                    </span><span class="c1"># Terminal report, last 30 days</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:insights<span class="w"> </span>--format<span class="w"> </span>html<span class="w">      </span><span class="c1"># HTML report for sharing</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/craft:insights<span class="w"> </span>--since<span class="w"> </span><span class="m">7</span><span class="w">          </span><span class="c1"># Last 7 days</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/craft:insights<span class="w"> </span>--project<span class="w"> </span>craft<span class="w">    </span><span class="c1"># Filter to one project</span>
+</span></code></pre></div>
+<h3 id="workflow-8-insights-orchestrate-v2210">Workflow 8: Insights → ORCHESTRATE (v2.21.0)<a class="headerlink" href="#workflow-8-insights-orchestrate-v2210" title="Permanent link">&para;</a></h3>
+<p>When creating an ORCHESTRATE file, insights data automatically feeds into the "Friction Prevention" section.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 1. Generate insights to see patterns</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:insights
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># 2. Create ORCHESTRATE — friction prevention is auto-populated</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-feature.md
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># → ORCHESTRATE file includes project-specific guardrails</span>
+</span></code></pre></div>
+<h3 id="workflow-9-insights-lifecycle-v2210">Workflow 9: Insights Lifecycle (v2.21.0)<a class="headerlink" href="#workflow-9-insights-lifecycle-v2210" title="Permanent link">&para;</a></h3>
+<p>The full insights lifecycle from session data to workflow improvements:</p>
+<pre class="mermaid"><code>graph TD
+    S[Sessions] --&gt; F[Facets Data]
+    F --&gt; I[/craft:insights]
+    I --&gt; R1[CLAUDE.md Rules]
+    I --&gt; R2[ORCHESTRATE Friction Prevention]
+    I --&gt; R3[Brainstorm Context]
+    R1 --&gt; B[Better Sessions]
+    R2 --&gt; B
+    R3 --&gt; B
+    B --&gt; S</code></pre>
 <hr />
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../branch-guard-smart-mode/">Branch Guard Smart Mode Guide</a> — How the guard works</li>
+<li><a href="../../commands/workflow/insights.md">/craft:insights Command</a> — Full command reference</li>
 <li><a href="../check-command-mastery/">Check Command Mastery</a> — All check modes and flags</li>
 <li><a href="../worktree-advanced-patterns/">Worktree Advanced Patterns</a> — Multi-worktree management</li>
 <li><a href="../../VERSION-HISTORY/">Version History</a> — v2.18.0 release notes</li>

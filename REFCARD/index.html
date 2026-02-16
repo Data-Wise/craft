@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 109 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
+        <meta name="description" content="Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
       
       
       
@@ -2011,6 +2011,34 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/pipeline-orchestrate-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrate Pipeline Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -6940,6 +6968,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Orchestrator (Enhanced v2.1, v2.5.0, v2.9.0)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestrate-worktree-pipeline-v2210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrate + Worktree Pipeline (v2.21.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -7423,6 +7468,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Orchestrator (Enhanced v2.1, v2.5.0, v2.9.0)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestrate-worktree-pipeline-v2210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrate + Worktree Pipeline (v2.21.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -7576,12 +7638,12 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  CRAFT PLUGIN QUICK REFERENCE                               │
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.20.0 (released 2026-02-15)                       │
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 109 | Agents: 8 | Skills: 25                     │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.21.0 (released 2026-02-16)                       │
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 111 | Agents: 8 | Skills: 25                     │
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Documentation: 99% complete | Tests: ~1575 passing          │
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  Docs: https://data-wise.github.io/craft/                   │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.20.0: Homebrew refactor — security hardening,            │
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│           8→6 subcommands, formula name mapping               │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.21.0: Orchestrate pipeline, insights lifecycle,          │
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│           brainstorm integration, worktree types taxonomy     │
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>└─────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permanent link">&para;</a></h2>
@@ -8765,7 +8827,7 @@
 </tr>
 <tr>
 <td><code>/craft:dist:homebrew</code></td>
-<td>Homebrew formula, audit, deps, workflow (6 subcommands)</td>
+<td>Generate Homebrew formula</td>
 </tr>
 <tr>
 <td><code>/craft:dist:pypi</code></td>
@@ -8781,15 +8843,12 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Homebrew subcommands:</strong> <code>formula</code> | <code>workflow</code> | <code>audit</code> | <code>setup</code> | <code>update-resources</code> | <code>deps</code></p>
 <p><strong>Quick examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>/craft:dist:marketplace<span class="w">         </span><span class="c1"># Validate marketplace config (default)</span>
 </span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>/craft:dist:marketplace<span class="w"> </span>init<span class="w">    </span><span class="c1"># Generate marketplace.json</span>
-</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>/craft:dist:homebrew<span class="w"> </span>setup<span class="w">      </span><span class="c1"># Full 4-step wizard</span>
-</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w">      </span><span class="c1"># Audit with auto-fix</span>
-</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>/craft:dist:homebrew<span class="w"> </span>deps<span class="w">       </span><span class="c1"># Dependency graph</span>
-</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>/craft:dist:pypi<span class="w">                </span><span class="c1"># Package for PyPI</span>
-</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>/craft:dist:curl-install<span class="w">        </span><span class="c1"># Generate curl installer</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>/craft:dist:homebrew<span class="w">            </span><span class="c1"># Generate Homebrew formula</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>/craft:dist:pypi<span class="w">                </span><span class="c1"># Package for PyPI</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>/craft:dist:curl-install<span class="w">        </span><span class="c1"># Generate curl installer</span>
 </span></code></pre></div>
 <h2 id="orchestrator-enhanced-v21-v250-v290">Orchestrator (Enhanced v2.1, v2.5.0, v2.9.0)<a class="headerlink" href="#orchestrator-enhanced-v21-v250-v290" title="Permanent link">&para;</a></h2>
 <p><strong>Main Commands:</strong></p>
@@ -8872,6 +8931,126 @@
 <li><strong>NEW (v2.9.0)</strong> - Interactive mode selection and checkpoints</li>
 </ul>
 <p><strong>See:</strong> <a href="../tutorials/interactive-orchestration/">Interactive Orchestration Tutorial</a> | <a href="../tutorials/orchestrator-modes-compared/">Orchestrator Modes Compared</a></p>
+<h3 id="orchestrate-worktree-pipeline-v2210">Orchestrate + Worktree Pipeline (v2.21.0)<a class="headerlink" href="#orchestrate-worktree-pipeline-v2210" title="Permanent link">&para;</a></h3>
+<p>The full pipeline connects brainstorming through to implementation:</p>
+<pre class="mermaid"><code>graph LR
+    A[brainstorm] --&gt; B[spec]
+    B --&gt; C[ORCHESTRATE]
+    C --&gt; D[worktree]
+    D --&gt; E[implement]
+    E --&gt; F[PR]</code></pre>
+<p><strong>Pipeline steps:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Command</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Brainstorm</td>
+<td><code>/brainstorm d:8 "feature"</code></td>
+<td><code>BRAINSTORM-feature.md</code></td>
+</tr>
+<tr>
+<td>2. Capture spec</td>
+<td>Brainstorm Step 5 (auto)</td>
+<td><code>docs/specs/SPEC-feature.md</code></td>
+</tr>
+<tr>
+<td>3. Create orchestration</td>
+<td><code>/craft:orchestrate:plan</code></td>
+<td><code>ORCHESTRATE-feature.md</code> + worktree</td>
+</tr>
+<tr>
+<td>4. Implement</td>
+<td>Work in worktree</td>
+<td>Commits on <code>feature/*</code> branch</td>
+</tr>
+<tr>
+<td>5. Integrate</td>
+<td><code>/craft:git:worktree finish</code></td>
+<td>PR to <code>dev</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Worktree Types:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Created By</th>
+<th>Lifetime</th>
+<th>Branch Pattern</th>
+<th>ORCHESTRATE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manual</strong></td>
+<td><code>/craft:git:worktree create</code></td>
+<td>Long-lived</td>
+<td><code>feature/*</code></td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><strong>Pipeline</strong></td>
+<td><code>/craft:orchestrate:plan</code> or brainstorm</td>
+<td>Long-lived</td>
+<td><code>feature/*</code></td>
+<td>Always</td>
+</tr>
+<tr>
+<td><strong>Swarm</strong></td>
+<td><code>/craft:orchestrate --swarm</code></td>
+<td>Short-lived</td>
+<td><code>swarm-*</code></td>
+<td>Reads existing</td>
+</tr>
+<tr>
+<td><strong>Cross-Repo</strong></td>
+<td>Pipeline (multi-repo spec)</td>
+<td>Long-lived</td>
+<td><code>feature/*</code> (same name)</td>
+<td>Scoped per-repo</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use what:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Use</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quick feature, clear scope</td>
+<td>Manual worktree</td>
+<td>No orchestration overhead</td>
+</tr>
+<tr>
+<td>Multi-phase feature from spec</td>
+<td>Pipeline</td>
+<td>Full traceability from brainstorm → PR</td>
+</tr>
+<tr>
+<td>Parallel implementation of isolated tasks</td>
+<td>Swarm</td>
+<td>Agents work in separate worktrees</td>
+</tr>
+<tr>
+<td>Feature spanning multiple repos</td>
+<td>Cross-Repo</td>
+<td>Enforces same branch name, paired worktrees</td>
+</tr>
+</tbody>
+</table>
+<p><strong>See:</strong> <a href="../guide/getting-started/#complex-feature-workflow">Getting Started — Complex Feature Workflow</a> | <a href="../reference/REFCARD-GIT-WORKTREE/#worktree-types">Worktree Types Reference</a></p>
 <h2 id="workflow-commands-enhanced-v240">Workflow Commands (Enhanced v2.4.0)<a class="headerlink" href="#workflow-commands-enhanced-v240" title="Permanent link">&para;</a></h2>
 <h3 id="brainstorm-adhd-friendly-planning">/brainstorm (ADHD-Friendly Planning)<a class="headerlink" href="#brainstorm-adhd-friendly-planning" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose:</strong> Structured brainstorming with question control and automatic file saving.</p>
@@ -9107,27 +9286,49 @@
 </span><span id="__span-39-12"><a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a><span class="w">  </span><span class="o">}</span>
 </span><span id="__span-39-13"><a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a><span class="o">}</span>
 </span></code></pre></div>
-<p><strong>Other Workflow Commands:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># Start focused work session</span>
-</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>/workflow:focus
-</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="c1"># Sets: Timer, goal, distraction blocking</span>
-</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Prompts: Every 25 minutes (Pomodoro)</span>
+<p><strong>Insights (v2.21.0):</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># Generate session insights report</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>/craft:insights
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="c1"># Aggregates: Friction patterns, goal categories, outcomes</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Suggests: CLAUDE.md rules to prevent recurring issues</span>
 </span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>
-</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="c1"># Get next step</span>
-</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>/workflow:next
-</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="c1"># Analyzes: Current state, recent changes</span>
-</span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="c1"># Suggests: Next logical step</span>
-</span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>
-</span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="c1"># Get unstuck</span>
-</span><span id="__span-40-12"><a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a>/workflow:stuck
-</span><span id="__span-40-13"><a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a><span class="c1"># Asks: What&#39;s blocking you?</span>
-</span><span id="__span-40-14"><a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="c1"># Provides: 3-5 concrete solutions</span>
-</span><span id="__span-40-15"><a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a>
-</span><span id="__span-40-16"><a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="c1"># Complete session</span>
-</span><span id="__span-40-17"><a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a>/workflow:done
-</span><span id="__span-40-18"><a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a><span class="c1"># Summarizes: What you accomplished</span>
-</span><span id="__span-40-19"><a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="c1"># Saves: Session notes</span>
-</span><span id="__span-40-20"><a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a><span class="c1"># Prompts: Next session goal</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="c1"># HTML report for sharing</span>
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>/craft:insights<span class="w"> </span>--format<span class="w"> </span>html
+</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>
+</span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="c1"># Last 7 days, specific project</span>
+</span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a>/craft:insights<span class="w"> </span>--since<span class="w"> </span><span class="m">7</span><span class="w"> </span>--project<span class="w"> </span>craft
+</span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>
+</span><span id="__span-40-12"><a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="c1"># Apply suggestions to CLAUDE.md</span>
+</span><span id="__span-40-13"><a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a>/craft:insights-apply
+</span></code></pre></div>
+<p><strong>Insights Lifecycle:</strong></p>
+<pre class="mermaid"><code>graph LR
+    A[sessions] --&gt; B[facets data]
+    B --&gt; C[/craft:insights]
+    C --&gt; D[CLAUDE.md rules]
+    C --&gt; E[ORCHESTRATE friction prevention]
+    C --&gt; F[brainstorm context]</code></pre>
+<p><strong>Other Workflow Commands:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Start focused work session</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>/workflow:focus
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="c1"># Sets: Timer, goal, distraction blocking</span>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="c1"># Prompts: Every 25 minutes (Pomodoro)</span>
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="c1"># Get next step</span>
+</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>/workflow:next
+</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a><span class="c1"># Analyzes: Current state, recent changes</span>
+</span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a><span class="c1"># Suggests: Next logical step</span>
+</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>
+</span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a><span class="c1"># Get unstuck</span>
+</span><span id="__span-41-12"><a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a>/workflow:stuck
+</span><span id="__span-41-13"><a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a><span class="c1"># Asks: What&#39;s blocking you?</span>
+</span><span id="__span-41-14"><a id="__codelineno-41-14" name="__codelineno-41-14" href="#__codelineno-41-14"></a><span class="c1"># Provides: 3-5 concrete solutions</span>
+</span><span id="__span-41-15"><a id="__codelineno-41-15" name="__codelineno-41-15" href="#__codelineno-41-15"></a>
+</span><span id="__span-41-16"><a id="__codelineno-41-16" name="__codelineno-41-16" href="#__codelineno-41-16"></a><span class="c1"># Complete session</span>
+</span><span id="__span-41-17"><a id="__codelineno-41-17" name="__codelineno-41-17" href="#__codelineno-41-17"></a>/workflow:done
+</span><span id="__span-41-18"><a id="__codelineno-41-18" name="__codelineno-41-18" href="#__codelineno-41-18"></a><span class="c1"># Summarizes: What you accomplished</span>
+</span><span id="__span-41-19"><a id="__codelineno-41-19" name="__codelineno-41-19" href="#__codelineno-41-19"></a><span class="c1"># Saves: Session notes</span>
+</span><span id="__span-41-20"><a id="__codelineno-41-20" name="__codelineno-41-20" href="#__codelineno-41-20"></a><span class="c1"># Prompts: Next session goal</span>
 </span></code></pre></div>
 <p><strong>See:</strong> <a href="../commands/workflow/brainstorm/">Brainstorm Documentation</a> for complete guide</p>
 <h2 id="skills-25-total">Skills (25 total)<a class="headerlink" href="#skills-25-total" title="Permanent link">&para;</a></h2>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 109 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
+        <meta name="description" content="Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
       
       
       
@@ -2013,6 +2013,34 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrate Pipeline Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -5287,6 +5315,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#worktree-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worktree Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7042,6 +7081,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#worktree-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worktree Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7447,6 +7497,49 @@
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>└─ Already working on feature in main repo?
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    └─ Use /craft:git:worktree move
 </span></code></pre></div>
+<h2 id="worktree-types">Worktree Types<a class="headerlink" href="#worktree-types" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Created By</th>
+<th>Lifetime</th>
+<th>Branch Pattern</th>
+<th>ORCHESTRATE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manual</strong></td>
+<td><code>/craft:git:worktree create</code></td>
+<td>Long-lived</td>
+<td><code>feature/*</code></td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><strong>Pipeline</strong></td>
+<td><code>/craft:orchestrate:plan</code> or brainstorm</td>
+<td>Long-lived</td>
+<td><code>feature/*</code></td>
+<td>Always</td>
+</tr>
+<tr>
+<td><strong>Swarm</strong></td>
+<td><code>/craft:orchestrate --swarm</code></td>
+<td>Short-lived</td>
+<td><code>swarm-*</code></td>
+<td>Reads existing</td>
+</tr>
+<tr>
+<td><strong>Cross-Repo</strong></td>
+<td>Pipeline (multi-repo spec)</td>
+<td>Long-lived</td>
+<td><code>feature/*</code> (same name)</td>
+<td>Scoped per-repo</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Manual</strong> worktrees are for quick features where you know the scope. <strong>Pipeline</strong> worktrees are created as part of the brainstorm → spec → ORCHESTRATE flow and always include an ORCHESTRATE file with phases. <strong>Swarm</strong> worktrees are ephemeral — created by the orchestrator for parallel agent execution and cleaned up after convergence. <strong>Cross-Repo</strong> worktrees enforce the same branch name across repositories for coordinated multi-repo features.</p>
 <h2 id="common-commands">Common Commands<a class="headerlink" href="#common-commands" title="Permanent link">&para;</a></h2>
 <h3 id="setup-and-create">Setup and Create<a class="headerlink" href="#setup-and-create" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># First-time setup (once per project)</span>

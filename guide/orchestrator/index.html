@@ -6,14 +6,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 109 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
+        <meta name="description" content="Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
       
       
       
         <link rel="canonical" href="https://data-wise.github.io/craft/guide/orchestrator/">
       
       
-        <link rel="prev" href="../../git-init-docs-index/">
+        <link rel="prev" href="../pipeline-orchestrate-guide/">
       
       
         <link rel="next" href="../orch-flag-usage/">
@@ -2029,6 +2029,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../pipeline-orchestrate-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrate Pipeline Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -2321,6 +2349,34 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use What
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use What">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#worktree-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worktree Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -7186,6 +7242,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#when-to-use-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use What
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When to Use What">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#worktree-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worktree Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#performance-tips" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7496,6 +7580,98 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:orchestrate<span class="w"> </span><span class="k">continue</span>
 </span></code></pre></div>
 <p>The orchestrator maintains state and continues from where it left off.</p>
+<h2 id="when-to-use-what">When to Use What<a class="headerlink" href="#when-to-use-what" title="Permanent link">&para;</a></h2>
+<p>Choosing the right approach depends on your task scope and need for isolation:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Approach</th>
+<th>Command</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quick task, clear scope</td>
+<td>Direct command</td>
+<td><code>/craft:do "task"</code></td>
+<td>No orchestration overhead</td>
+</tr>
+<tr>
+<td>Multi-step task, single session</td>
+<td>Orchestrator</td>
+<td><code>/craft:orchestrate "task"</code></td>
+<td>Agent delegation + monitoring</td>
+</tr>
+<tr>
+<td>Multi-phase feature from spec</td>
+<td>Pipeline</td>
+<td><code>/craft:orchestrate:plan SPEC.md</code></td>
+<td>Full brainstorm → PR traceability</td>
+</tr>
+<tr>
+<td>Parallel isolated implementation</td>
+<td>Swarm</td>
+<td><code>/craft:orchestrate --swarm "task"</code></td>
+<td>Each agent gets own worktree</td>
+</tr>
+<tr>
+<td>Feature spanning multiple repos</td>
+<td>Cross-repo pipeline</td>
+<td><code>/craft:orchestrate:plan</code> (auto-detects)</td>
+<td>Same branch name, paired worktrees</td>
+</tr>
+<tr>
+<td>Quick feature, no spec</td>
+<td>Manual worktree</td>
+<td><code>/craft:git:worktree create feature/name</code></td>
+<td>Simple isolation without orchestration</td>
+</tr>
+</tbody>
+</table>
+<h3 id="worktree-types">Worktree Types<a class="headerlink" href="#worktree-types" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Created By</th>
+<th>Lifetime</th>
+<th>Branch Pattern</th>
+<th>ORCHESTRATE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Manual</strong></td>
+<td><code>/craft:git:worktree create</code></td>
+<td>Long-lived</td>
+<td><code>feature/*</code></td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><strong>Pipeline</strong></td>
+<td><code>/craft:orchestrate:plan</code> or brainstorm</td>
+<td>Long-lived</td>
+<td><code>feature/*</code></td>
+<td>Always</td>
+</tr>
+<tr>
+<td><strong>Swarm</strong></td>
+<td><code>/craft:orchestrate --swarm</code></td>
+<td>Short-lived</td>
+<td><code>swarm-*</code></td>
+<td>Reads existing</td>
+</tr>
+<tr>
+<td><strong>Cross-Repo</strong></td>
+<td>Pipeline (multi-repo spec)</td>
+<td>Long-lived</td>
+<td><code>feature/*</code> (same name)</td>
+<td>Scoped per-repo</td>
+</tr>
+</tbody>
+</table>
 <h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
 <h3 id="choose-the-right-mode">Choose the Right Mode<a class="headerlink" href="#choose-the-right-mode" title="Permanent link">&para;</a></h3>
 <table>
