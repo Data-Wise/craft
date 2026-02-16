@@ -159,7 +159,7 @@ fi
 FORMULA="$TAP_DIR/Formula/<name>.rb"
 if [ -f "$FORMULA" ]; then
     # Calculate new SHA256 from GitHub release tarball
-    SHA256=$(curl -sL "https://github.com/<owner>/<repo>/archive/refs/tags/v<version>.tar.gz" | shasum -a 256 | cut -d' ' -f1)
+    SHA256=$(curl -sL --retry 3 --retry-delay 2 "https://github.com/<owner>/<repo>/archive/refs/tags/v<version>.tar.gz" | sha256sum | cut -d' ' -f1)
 
     # Update version and sha256 in formula
     # Use sed or python to update url and sha256 lines
@@ -259,7 +259,7 @@ N/A - No API changes. These are CLI commands.
 - `claude` CLI (for `claude plugin validate .`)
 - `git` (for publish subcommand)
 - `gh` CLI (for release skill tap update)
-- `curl` + `shasum` (for SHA256 calculation in tap update)
+- `curl` + `sha256sum` (for SHA256 calculation in tap update)
 - `jq` (optional, for JSON manipulation)
 
 ## UI/UX Specifications
@@ -311,11 +311,11 @@ git clone ... && ln -sf ...
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
 | Plugin formula template | Full featured | Include branch guard, marketplace registration, Claude detection, auto-enable |
-| `/craft:dist:homebrew validate` | Validate + auto-fix | Auto-fix known `brew audit` patterns (desc, Array#include?, section order, assertions) |
+| `/craft:dist:homebrew audit` | Validate + auto-fix | Auto-fix known `brew audit` patterns (desc, Array#include?, section order, assertions) |
 
-### Homebrew Validate Auto-Fix Patterns
+### Homebrew Audit Auto-Fix Patterns
 
-`/craft:dist:homebrew validate` should detect and auto-fix these common `brew audit` issues:
+`/craft:dist:homebrew audit` should detect and auto-fix these common `brew audit` issues:
 
 | Pattern | Detection | Fix |
 |---------|-----------|-----|

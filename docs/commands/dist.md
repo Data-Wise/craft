@@ -7,7 +7,7 @@
 > - **What:** 4 commands for packaging and distributing your project (Marketplace, Homebrew, PyPI, curl installer)
 > - **Why:** Automate release workflows and make your project easy to install across platforms
 > - **How:** Use `/craft:dist:marketplace` for Claude Code plugins, `/craft:dist:homebrew setup` for macOS
-> - **Next:** Try `/craft:dist:marketplace validate` to check your marketplace listing
+> - **Next:** Try `/craft:dist:marketplace validate` or `/craft:dist:homebrew audit` to validate your distribution
 
 Craft's distribution commands automate packaging and distribution across Claude Code Marketplace, Homebrew, PyPI, and curl installers.
 
@@ -129,7 +129,7 @@ The `/release` skill handles marketplace automatically:
 
 ## `/craft:dist:homebrew` - Homebrew Automation
 
-Complete Homebrew formula management with automated GitHub Actions workflows.
+Complete Homebrew formula management with automated GitHub Actions workflows, security-hardened release automation, and dependency analysis.
 
 ### Quick Start
 
@@ -143,8 +143,11 @@ Complete Homebrew formula management with automated GitHub Actions workflows.
 # Generate GitHub Actions workflow
 /craft:dist:homebrew workflow
 
-# Validate formula
-/craft:dist:homebrew validate
+# Audit formula (replaces old validate)
+/craft:dist:homebrew audit
+
+# Analyze formula dependencies
+/craft:dist:homebrew deps
 ```
 
 ### Subcommands
@@ -152,11 +155,31 @@ Complete Homebrew formula management with automated GitHub Actions workflows.
 | Subcommand | Purpose |
 |------------|---------|
 | `formula` | Generate or update Homebrew formula |
-| `workflow` | Create GitHub Actions release automation |
-| `validate` | Run `brew audit` validation |
-| `token` | Guide for setting up tap access token |
-| `setup` | Full wizard (formula + workflow + token) |
+| `workflow` | Create security-hardened GitHub Actions release automation |
+| `audit` | Run `brew audit` validation with auto-fix and `--build` support |
+| `setup` | Full wizard (formula + workflow + token in 4 steps) |
 | `update-resources` | Fix stale PyPI resource URLs |
+| `deps` | Analyze inter-formula and system dependency graphs |
+
+### Configuration: `.craft/homebrew.json`
+
+Each project can define its Homebrew config in `.craft/homebrew.json`:
+
+```json
+{
+  "formula_name": "craft",
+  "tap": "data-wise/tap",
+  "source_type": "github"
+}
+```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `formula_name` | Yes | Name of the Homebrew formula (e.g., `craft`, `aiterm`) |
+| `tap` | Yes | Tap in `org/name` format (e.g., `data-wise/tap`) |
+| `source_type` | No | `github` (default) or `pypi` |
+
+This config is used by the `/release` skill (Step 8.5) for formula name lookup, avoiding reliance on `basename $PWD`.
 
 ### Example: Full Setup
 
@@ -170,17 +193,21 @@ Complete Homebrew formula management with automated GitHub Actions workflows.
 ╔═══════════════════════════════════════════════════════════╗
 ║       HOMEBREW AUTOMATION SETUP WIZARD                     ║
 ╠═══════════════════════════════════════════════════════════╣
+║  Step 1: Detect project type                              ║
+║    ✓ Detected: Python (pyproject.toml)                    ║
+║    ✓ Name: aiterm | Version: 0.6.0                       ║
 ║                                                           ║
-║  ✓ Detected: Python (pyproject.toml)                      ║
-║  ✓ Name: aiterm | Version: 0.6.0                         ║
-║  ✓ Created: Formula/aiterm.rb                            ║
-║  ✓ Validated: brew audit passed                          ║
-║  ✓ Created: .github/workflows/homebrew-release.yml       ║
-║  ✓ Configured for: Data-Wise/homebrew-tap               ║
+║  Step 2: Generate formula                                 ║
+║    ✓ Created: Formula/aiterm.rb                          ║
+║    ✓ Validated: brew audit passed                        ║
 ║                                                           ║
-║  ⚠ HOMEBREW_TAP_GITHUB_TOKEN not found                   ║
-║  Run: gh secret set HOMEBREW_TAP_GITHUB_TOKEN            ║
+║  Step 3: Generate workflow                                ║
+║    ✓ Created: .github/workflows/homebrew-release.yml     ║
+║    ✓ Security: env indirection, sha256sum, --retry       ║
 ║                                                           ║
+║  Step 4: Token configuration                              ║
+║    ⚠ HOMEBREW_TAP_GITHUB_TOKEN not found                 ║
+║    Run: gh secret set HOMEBREW_TAP_GITHUB_TOKEN          ║
 ╚═══════════════════════════════════════════════════════════╝
 ```
 
@@ -194,9 +221,59 @@ Complete Homebrew formula management with automated GitHub Actions workflows.
 | Rust | `Cargo.toml` | cargo install |
 | Shell | `*.sh` scripts | bin.install |
 
-### Automated Workflow
+### Audit Subcommand
 
-Creates `.github/workflows/homebrew-release.yml`:
+Runs `brew audit` validation with auto-fix patterns and optional build-from-source testing:
+
+```bash
+# Standard audit
+/craft:dist:homebrew audit
+
+# Build from source (catches runtime issues)
+/craft:dist:homebrew audit --build
+
+# Strict + online checks
+/craft:dist:homebrew audit --strict --online
+```
+
+**Auto-Fix Patterns** (applied automatically):
+
+| Pattern | Fix |
+|---------|-----|
+| `Array#include?` deprecation | Replace with `.include?` |
+| `assert_equal path` | Use `assert_path_exists` |
+| `rescue StandardError` | Use bare `rescue` |
+| Caveats after test block | Move caveats before test |
+| Description too long | Truncate to 80 chars |
+
+### Deps Subcommand
+
+Analyze inter-formula and system dependencies:
+
+```bash
+# Show inter-formula dependency graph
+/craft:dist:homebrew deps
+
+# Show system dependencies matrix
+/craft:dist:homebrew deps --system
+
+# Generate Graphviz DOT output
+/craft:dist:homebrew deps --dot
+```
+
+**Inter-Formula Graph** shows which formulas depend on others within your tap. **System Dependencies Matrix** maps each formula to its system-level requirements (python, node, ruby, etc.).
+
+### Automated Workflow (Hardened)
+
+Creates `.github/workflows/homebrew-release.yml` with security hardening:
+
+| Feature | Description |
+|---------|-------------|
+| **Env indirection** | GitHub context values go through `env:` block (prevents script injection) |
+| **`sha256sum`** | Uses `sha256sum` (not `shasum -a 256`) for Ubuntu CI runners |
+| **`--retry`** | `curl --retry 3 --retry-delay 2` for resilient downloads |
+| **SHA guard** | Validates SHA256 is exactly 64 hex characters before proceeding |
+| **Ruby syntax check** | `ruby -c` validates formula after sed updates |
 
 - **Triggers:** On GitHub release published or manual dispatch
 - **Auto-merge:** Optional PR auto-merge
@@ -407,7 +484,7 @@ curl -fsSL https://raw.githubusercontent.com/user/repo/main/install.sh | bash -s
 /craft:dist:curl-install --add-readme
 
 # Step 2: Validate everything
-/craft:dist:homebrew validate
+/craft:dist:homebrew audit
 /craft:dist:pypi validate
 
 # Step 3: Create first release
@@ -439,7 +516,10 @@ gh run watch
 /craft:dist:homebrew update-resources myapp
 
 # Validate
-/craft:dist:homebrew validate --strict --online
+/craft:dist:homebrew audit --strict --online
+
+# Analyze dependencies
+/craft:dist:homebrew deps --system
 
 # Commit and push to tap
 cd ~/homebrew-tap
@@ -495,7 +575,7 @@ git push
 **Solution:** Keep description under 80 characters, no "A/An" prefix
 
 **Problem:** SHA256 mismatch
-**Solution:** Recalculate: `curl -sL <url> | shasum -a 256`
+**Solution:** Recalculate: `curl -sL <url> | sha256sum | cut -d' ' -f1`
 
 **Problem:** Stale PyPI resource URLs
 **Solution:** Run `/craft:dist:homebrew update-resources`

@@ -264,7 +264,7 @@ if [ "$TOKEN_EXISTS" = "0" ]; then
     echo "To add the token:"
     echo "  gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo ${ORG}/${REPO}"
     echo ""
-    echo "See: /craft:dist:homebrew token for setup guide"
+    echo "See: /craft:dist:homebrew setup for token configuration"
 else
     echo "✓ HOMEBREW_TAP_GITHUB_TOKEN configured"
 fi
@@ -280,7 +280,7 @@ Step 6: Check Token
 To add the token:
   gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo Data-Wise/aiterm
 
-See: /craft:dist:homebrew token for setup guide
+See: /craft:dist:homebrew setup for token configuration
 ```
 
 **Output (token present):**

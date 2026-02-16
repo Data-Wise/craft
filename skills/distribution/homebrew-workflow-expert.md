@@ -454,5 +454,5 @@ Use with:
 
 - `/craft:dist:homebrew workflow` - Generate caller workflow
 - `/craft:dist:homebrew setup` - Full setup wizard
-- `/craft:dist:homebrew validate` - Pre-release validation
+- `/craft:dist:homebrew audit` - Pre-release validation
 - `homebrew-formula-expert` skill - Formula syntax and patterns

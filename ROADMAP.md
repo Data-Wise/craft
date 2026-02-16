@@ -444,12 +444,12 @@ Standard pages with consistent structure:
 # Formula management
 /craft:dist:homebrew formula       # Generate formula (existing, enhanced)
 /craft:dist:homebrew workflow      # Generate release workflow
-/craft:dist:homebrew validate      # Run brew audit
+/craft:dist:homebrew audit        # Run brew audit
 /craft:dist:homebrew setup         # Full setup wizard
 
 # Updates
 /craft:dist:homebrew update-resources  # Fix PyPI URLs
-/craft:dist:homebrew release-batch     # Multi-formula release
+/craft:dist:homebrew deps              # Formula dependency graph
 ```
 
 ### New Skill
