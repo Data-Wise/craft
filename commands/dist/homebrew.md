@@ -807,8 +807,18 @@ class MyPlugin < Formula
       nil
     end
 
-    # Step 2: Run install script
-    system bin/"my-plugin-install"
+    # Step 2: Run install script with 30s timeout
+    begin
+      require "timeout"
+      pid = Process.spawn("#{bin}/my-plugin-install")
+      Timeout.timeout(30) { Process.waitpid(pid) }
+    rescue Timeout::Error
+      Process.kill("TERM", pid) rescue nil
+      Process.waitpid(pid) rescue nil
+      opoo "my-plugin-install timed out after 30 seconds (skipping)"
+    rescue
+      nil
+    end
 
     # Step 3: Sync registry (optional)
     begin
