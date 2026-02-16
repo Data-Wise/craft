@@ -216,7 +216,7 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 
 ## Links
 
-- [GitHub Repository](https://github.com/Data-Wise/claude-plugins)
-- [Issue Tracker](https://github.com/Data-Wise/claude-plugins/issues)
+- [GitHub Repository](https://github.com/Data-Wise/craft)
+- [Issue Tracker](https://github.com/Data-Wise/craft/issues)
 - [Changelog](CHANGELOG.md)
-- [ROADMAP](https://github.com/Data-Wise/claude-plugins/blob/main/craft/ROADMAP.md)
+- [ROADMAP](https://github.com/Data-Wise/craft/blob/main/ROADMAP.md)
