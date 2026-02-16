@@ -144,7 +144,7 @@ Complete Homebrew formula management with automated GitHub Actions workflows.
 /craft:dist:homebrew workflow
 
 # Validate formula
-/craft:dist:homebrew validate
+/craft:dist:homebrew audit
 ```
 
 ### Subcommands
@@ -407,7 +407,7 @@ curl -fsSL https://raw.githubusercontent.com/user/repo/main/install.sh | bash -s
 /craft:dist:curl-install --add-readme
 
 # Step 2: Validate everything
-/craft:dist:homebrew validate
+/craft:dist:homebrew audit
 /craft:dist:pypi validate
 
 # Step 3: Create first release
@@ -439,7 +439,7 @@ gh run watch
 /craft:dist:homebrew update-resources myapp
 
 # Validate
-/craft:dist:homebrew validate --strict --online
+/craft:dist:homebrew audit --strict --online
 
 # Commit and push to tap
 cd ~/homebrew-tap

@@ -311,11 +311,11 @@ git clone ... && ln -sf ...
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
 | Plugin formula template | Full featured | Include branch guard, marketplace registration, Claude detection, auto-enable |
-| `/craft:dist:homebrew validate` | Validate + auto-fix | Auto-fix known `brew audit` patterns (desc, Array#include?, section order, assertions) |
+| `/craft:dist:homebrew audit` | Validate + auto-fix | Auto-fix known `brew audit` patterns (desc, Array#include?, section order, assertions) |
 
-### Homebrew Validate Auto-Fix Patterns
+### Homebrew Audit Auto-Fix Patterns
 
-`/craft:dist:homebrew validate` should detect and auto-fix these common `brew audit` issues:
+`/craft:dist:homebrew audit` should detect and auto-fix these common `brew audit` issues:
 
 | Pattern | Detection | Fix |
 |---------|-----------|-----|

@@ -226,9 +226,10 @@ jobs:
 ### Usage
 
 ```bash
-/craft:dist:homebrew release-batch                 # Interactive mode
-/craft:dist:homebrew release-batch --manifest .homebrew-batch.yml
-/craft:dist:homebrew release-batch --formulas "core,cli,plugin"
+# Multi-formula coordination workflow:
+/craft:dist:homebrew deps                          # Show dependency order
+/craft:dist:homebrew audit --all                   # Validate all formulas
+# Then release in dependency order using /release per-project
 ```
 
 ### Interactive Flow
@@ -332,9 +333,8 @@ Choice: _
 
 | Command | Purpose |
 |---------|---------|
-| `/craft:dist:homebrew release-batch` | Run batch release |
 | `/craft:dist:homebrew deps` | Show dependency graph |
-| `/craft:dist:homebrew validate --all` | Validate all formulas |
+| `/craft:dist:homebrew audit --all` | Validate all formulas |
 
 ## Best Practices
 

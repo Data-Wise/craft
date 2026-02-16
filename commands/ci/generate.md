@@ -723,6 +723,7 @@ For more templates and best practices, see **[CI-TEMPLATES.md](../../docs/CI-TEM
 
 - `/craft:ci:validate` - Validate existing CI workflows
 - `/craft:ci:detect` - Detect project configuration
+- `/craft:dist:homebrew workflow` - Generate Homebrew-specific release workflows (includes hardened SHA calculation, env indirection, and plugin metadata extraction)
 - Template: `templates/dry-run-pattern.md`
 - Utility: `utils/dry_run_output.py`
 - Specification: `docs/specs/SPEC-dry-run-feature-2026-01-15.md`
