@@ -1,10 +1,10 @@
-# Orchestrate Pipeline Guide (v2.20.0)
+# Orchestrate Pipeline Guide (v2.21.0)
 
 > **TL;DR**: 2 new commands, 2 brainstorm enhancements, consistent worktree types across all docs — connecting the full workflow from brainstorm to PR.
 
 ## Overview
 
-v2.20.0 adds the missing pipeline connecting brainstorming to implementation:
+v2.21.0 adds the missing pipeline connecting brainstorming to implementation:
 
 ```text
 brainstorm → spec → ORCHESTRATE → worktree → implement → PR
@@ -234,4 +234,4 @@ claude
 - [Insights Improvements Guide](insights-improvements-guide.md) — v2.18.0 insights features
 - [Worktree Tutorial](../tutorials/TUTORIAL-worktree-setup.md) — Step-by-step worktree guide
 - [Orchestrator Guide](orchestrator.md) — Multi-agent orchestration
-- [Version History](../VERSION-HISTORY.md) — v2.20.0 release notes
+- [Version History](../VERSION-HISTORY.md) — v2.21.0 release notes

@@ -162,7 +162,7 @@ This shows the full interactive flow from brainstorm to PR, demonstrating how ea
 # → Saves BRAINSTORM-notifications-2026-02-15.md
 # → Offers to capture spec
 
-# Step 2: Create orchestration from spec (v2.20.0)
+# Step 2: Create orchestration from spec (v2.21.0)
 /craft:orchestrate:plan docs/specs/SPEC-notifications.md
 #
 # Plan:

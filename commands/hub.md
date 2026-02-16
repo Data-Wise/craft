@@ -511,7 +511,7 @@ Command                           │ Description
 /brainstorm "API design" --orch=optimize   │ Fast parallel context gathering
 /brainstorm "complex feature" --orch=release │ Comprehensive analysis
 
-/craft:insights                   │ Generate session insights report (v2.20.0)
+/craft:insights                   │ Generate session insights report (v2.21.0)
 /craft:insights --format html    │ HTML report for sharing
 /craft:insights --since 7        │ Last 7 days only
 

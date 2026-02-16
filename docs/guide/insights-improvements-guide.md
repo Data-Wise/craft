@@ -386,7 +386,7 @@ Before every commit.
 # commit                          # Ship it
 ```
 
-### Workflow 7: Insights Report (v2.20.0)
+### Workflow 7: Insights Report (v2.21.0)
 
 Generate a report from session data to identify friction patterns and CLAUDE.md improvements.
 
@@ -397,7 +397,7 @@ Generate a report from session data to identify friction patterns and CLAUDE.md 
 /craft:insights --project craft    # Filter to one project
 ```
 
-### Workflow 8: Insights → ORCHESTRATE (v2.20.0)
+### Workflow 8: Insights → ORCHESTRATE (v2.21.0)
 
 When creating an ORCHESTRATE file, insights data automatically feeds into the "Friction Prevention" section.
 
@@ -410,7 +410,7 @@ When creating an ORCHESTRATE file, insights data automatically feeds into the "F
 # → ORCHESTRATE file includes project-specific guardrails
 ```
 
-### Workflow 9: Insights Lifecycle (v2.20.0)
+### Workflow 9: Insights Lifecycle (v2.21.0)
 
 The full insights lifecycle from session data to workflow improvements:
 

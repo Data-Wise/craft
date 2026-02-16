@@ -1119,7 +1119,7 @@ npm test
 
 **See:** [Interactive Orchestration Tutorial](tutorials/interactive-orchestration.md) | [Orchestrator Modes Compared](tutorials/orchestrator-modes-compared.md)
 
-### Orchestrate + Worktree Pipeline (v2.20.0)
+### Orchestrate + Worktree Pipeline (v2.21.0)
 
 The full pipeline connects brainstorming through to implementation:
 
@@ -1387,7 +1387,7 @@ end tell'
 }
 ```
 
-**Insights (v2.20.0):**
+**Insights (v2.21.0):**
 
 ```bash
 # Generate session insights report

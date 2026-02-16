@@ -457,7 +457,7 @@ State is automatically saved on:
 - Before compression
 - User says `save` or `abort`
 
-## Worktree Types (v2.20.0)
+## Worktree Types (v2.21.0)
 
 The orchestrator works with four types of worktrees:
 

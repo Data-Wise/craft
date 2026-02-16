@@ -307,7 +307,7 @@ context = ctx.scan(topic)
 4. Insert dynamic questions (failing tests, matching spec, prior brainstorm)
 5. Trim to requested count
 
-### Step 1.8: Insights Integration (v2.20.0)
+### Step 1.8: Insights Integration (v2.21.0)
 
 Before brainstorming, check session insights for relevant past patterns.
 
@@ -382,7 +382,7 @@ If capturing: ask user type → ask acceptance criteria → generate SPEC.md fro
 
 **IMPORTANT:** Generate comprehensive specs with ALL template sections. Mark N/A sections explicitly.
 
-### Step 6: Create Orchestration? (v2.20.0)
+### Step 6: Create Orchestration? (v2.21.0)
 
 After spec capture, offer to create an ORCHESTRATE file and worktree.
 

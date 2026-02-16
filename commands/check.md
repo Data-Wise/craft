@@ -214,7 +214,7 @@ else
 fi
 ```
 
-**Insights integration (v2.20.0):**
+**Insights integration (v2.21.0):**
 
 If insights data exists (`~/.claude/usage-data/facets/`), append a friction summary to the context output:
 
