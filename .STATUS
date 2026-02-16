@@ -41,7 +41,6 @@ progress: v2.20.0 released — PR #80 merged (orchestrate pipeline + insights li
 ---
 
 🎯 Next Action:
-→ Review and merge homebrew-tap PR #91 (draft — needs smoke test)
 → Plan v2.21.0 release (orchestrate pipeline features now on dev)
 
 ## Future (v2.21.0+)
