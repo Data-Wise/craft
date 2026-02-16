@@ -5068,6 +5068,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v2200-2026-02-15-homebrew-refactor-security-subcommands-release-hardening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.20.0 (2026-02-15) - Homebrew Refactor: Security, Subcommands &amp; Release Hardening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v2190-2026-02-14-marketplace-insights-driven-improvements" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7232,6 +7243,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v2200-2026-02-15-homebrew-refactor-security-subcommands-release-hardening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.20.0 (2026-02-15) - Homebrew Refactor: Security, Subcommands &amp; Release Hardening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v2190-2026-02-14-marketplace-insights-driven-improvements" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7811,11 +7833,23 @@
 <blockquote>
 <p><strong>Evolution of Craft</strong>: From command automation tool to intelligent orchestration platform</p>
 </blockquote>
-<p><strong>Latest Release:</strong> v2.19.0 (2026-02-14)
-<strong>Total Releases:</strong> 40 versions | <strong>Development Time:</strong> 2+ years
+<p><strong>Latest Release:</strong> v2.20.0 (2026-02-15)
+<strong>Total Releases:</strong> 41 versions | <strong>Development Time:</strong> 2+ years
 <strong>Community:</strong> 109 commands documented, ~1575 tests passing, 90%+ coverage</p>
 <hr />
 <h2 id="release-timeline">Release Timeline<a class="headerlink" href="#release-timeline" title="Permanent link">&para;</a></h2>
+<h3 id="v2200-2026-02-15-homebrew-refactor-security-subcommands-release-hardening">v2.20.0 (2026-02-15) - Homebrew Refactor: Security, Subcommands &amp; Release Hardening<a class="headerlink" href="#v2200-2026-02-15-homebrew-refactor-security-subcommands-release-hardening" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Released</p>
+<p><strong>Highlights:</strong></p>
+<ul>
+<li><strong>Workflow Security Hardening</strong>: Env indirection for script injection prevention, <code>sha256sum</code> on CI, <code>--retry 3</code>, 64-char SHA guard in <code>homebrew-release.yml</code></li>
+<li><strong>Subcommand Consolidation</strong>: 8 → 6 subcommands — renamed <code>validate</code> → <code>audit</code> (with <code>--build</code> flag), folded <code>token</code> into setup Step 4, dropped <code>release-batch</code>, expanded <code>deps</code> with inter-formula graph and system deps matrix</li>
+<li><strong>Formula Name Mapping</strong>: <code>.craft/homebrew.json</code> config with 3-priority lookup chain (config → git remote → basename fallback)</li>
+<li><strong>Release Skill Hardening</strong>: Step 8.5 rewrite with config lookup, <code>shasum -a 256</code> (macOS-portable), <code>ruby -c</code> syntax validation, SHA guard</li>
+<li><strong>New Documentation</strong>: Homebrew Automation Guide (310 lines), Homebrew Setup Tutorial, Homebrew Quick Reference Card</li>
+</ul>
+<p><strong>Stats:</strong> 109 commands | 25 skills | 8 agents | ~1575 tests passing</p>
+<hr />
 <h3 id="v2190-2026-02-14-marketplace-insights-driven-improvements">v2.19.0 (2026-02-14) - Marketplace &amp; Insights-Driven Improvements<a class="headerlink" href="#v2190-2026-02-14-marketplace-insights-driven-improvements" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released</p>
 <p><strong>Highlights:</strong></p>

@@ -7357,9 +7357,11 @@
 <h3 id="24-audit-build-flag">2.4 <code>audit --build</code> Flag<a class="headerlink" href="#24-audit-build-flag" title="Permanent link">&para;</a></h3>
 <p>Runs <code>brew install --build-from-source ./Formula/NAME.rb</code> locally. Warnings about env-specific results.</p>
 <h3 id="25-deps-expanded-scope">2.5 <code>deps</code> Expanded Scope<a class="headerlink" href="#25-deps-expanded-scope" title="Permanent link">&para;</a></h3>
-<p>Two views:
-1. <strong>Inter-formula:</strong> Which formulas depend on others (e.g., rforge-orchestrator → rforge)
-2. <strong>System deps:</strong> Matrix of what each formula needs (node, python, jq, etc.)</p>
+<p>Two views:</p>
+<ol>
+<li><strong>Inter-formula:</strong> Which formulas depend on others (e.g., rforge-orchestrator → rforge)</li>
+<li><strong>System deps:</strong> Matrix of what each formula needs (node, python, jq, etc.)</li>
+</ol>
 <p>Output: table + optional Mermaid diagram (<code>--mermaid</code>).</p>
 <hr />
 <h2 id="increment-3-python-formula-generator">Increment 3: Python Formula Generator<a class="headerlink" href="#increment-3-python-formula-generator" title="Permanent link">&para;</a></h2>
@@ -7476,9 +7478,11 @@
 <li><strong><code>--diff</code>:</strong> If formula exists, show diff; if new, generate full file</li>
 </ul>
 <h3 id="35-validation">3.5 Validation<a class="headerlink" href="#35-validation" title="Permanent link">&para;</a></h3>
-<p>Generator includes self-validation:
-- <code>ruby -c Formula/*.rb</code> (syntax check on all generated files)
-- Manifest-vs-formula drift detection (hash comparison)</p>
+<p>Generator includes self-validation:</p>
+<ul>
+<li><code>ruby -c Formula/*.rb</code> (syntax check on all generated files)</li>
+<li>Manifest-vs-formula drift detection (hash comparison)</li>
+</ul>
 <hr />
 <h2 id="increment-4-ci-workflow-expansion">Increment 4: CI Workflow Expansion<a class="headerlink" href="#increment-4-ci-workflow-expansion" title="Permanent link">&para;</a></h2>
 <p><strong>Effort:</strong> 4-6 hours | <strong>Risk:</strong> Medium | <strong>Requires:</strong> Edits to tap repo + 4 project repos</p>
@@ -7542,11 +7546,13 @@
 <h2 id="increment-5-retrofit-plugin-formulas">Increment 5: Retrofit Plugin Formulas<a class="headerlink" href="#increment-5-retrofit-plugin-formulas" title="Permanent link">&para;</a></h2>
 <p><strong>Effort:</strong> 2-4 hours | <strong>Risk:</strong> Medium | <strong>Requires:</strong> Generator from Increment 3</p>
 <h3 id="51-retrofit-scope">5.1 Retrofit Scope<a class="headerlink" href="#51-retrofit-scope" title="Permanent link">&para;</a></h3>
-<p>Only the 4 Claude Code plugin formulas:
-1. <strong>craft.rb</strong> — Add retry to caller, update install script patterns
-2. <strong>scholar.rb</strong> — Fix bare rescue, add schema cleanup, update marketplace
-3. <strong>rforge.rb</strong> — Add Claude-running guard, add marketplace registration (currently head-only, update when tagged)
-4. <strong>workflow.rb</strong> — Full rewrite from <code>cp -r</code> to symlink pattern</p>
+<p>Only the 4 Claude Code plugin formulas:</p>
+<ol>
+<li><strong>craft.rb</strong> — Add retry to caller, update install script patterns</li>
+<li><strong>scholar.rb</strong> — Fix bare rescue, add schema cleanup, update marketplace</li>
+<li><strong>rforge.rb</strong> — Add Claude-running guard, add marketplace registration (currently head-only, update when tagged)</li>
+<li><strong>workflow.rb</strong> — Full rewrite from <code>cp -r</code> to symlink pattern</li>
+</ol>
 <p>himalaya-mcp.rb is already the most hardened — use as reference.</p>
 <h3 id="52-retrofit-process">5.2 Retrofit Process<a class="headerlink" href="#52-retrofit-process" title="Permanent link">&para;</a></h3>
 <ol>

@@ -7319,28 +7319,32 @@
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="c1"># If &gt;5 automated commits in 30 days, add rebase section</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="k">return</span> <span class="n">automated_count</span> <span class="o">&gt;</span> <span class="mi">5</span>
 </span></code></pre></div>
-<p>If detected, the ORCHESTRATE file gets a "Rebase Strategy" section with:
-- Pre-session rebase commands
-- Conflict resolution rules (CI owns version/SHA, feature owns structure)
-- "Never drift more than a few days" rule</p>
+<p>If detected, the ORCHESTRATE file gets a "Rebase Strategy" section with:</p>
+<ul>
+<li>Pre-session rebase commands</li>
+<li>Conflict resolution rules (CI owns version/SHA, feature owns structure)</li>
+<li>"Never drift more than a few days" rule</li>
+</ul>
 <h3 id="orchestrate-file-generation">ORCHESTRATE File Generation<a class="headerlink" href="#orchestrate-file-generation" title="Permanent link">&para;</a></h3>
 <p>Parse spec for phases, generate with full session instructions:</p>
-<p><strong>Template sections:</strong>
-1. Header (branch, base, worktree, companion, spec)
-2. Objective (from spec summary)
-3. Phase Overview table (from spec increments)
-4. Phase details with checklists (from spec tasks)
-5. Codified patterns (if applicable)
-6. Acceptance criteria (from spec)
-7. Rebase strategy (if auto-detected)
-8. Session instructions with:
-   - Context (what repo, what phases, where companion lives)
-   - Startup prompt (copy-paste ready)
-   - Phase-by-phase step-by-step instructions
-   - Commit strategy
-   - Verification commands
-9. How to Resume section
-10. Companion worktree reference (if cross-repo)</p>
+<p><strong>Template sections:</strong></p>
+<ol>
+<li>Header (branch, base, worktree, companion, spec)</li>
+<li>Objective (from spec summary)</li>
+<li>Phase Overview table (from spec increments)</li>
+<li>Phase details with checklists (from spec tasks)</li>
+<li>Codified patterns (if applicable)</li>
+<li>Acceptance criteria (from spec)</li>
+<li>Rebase strategy (if auto-detected)</li>
+<li>Session instructions with:</li>
+<li>Context (what repo, what phases, where companion lives)</li>
+<li>Startup prompt (copy-paste ready)</li>
+<li>Phase-by-phase step-by-step instructions</li>
+<li>Commit strategy</li>
+<li>Verification commands</li>
+<li>How to Resume section</li>
+<li>Companion worktree reference (if cross-repo)</li>
+</ol>
 <h3 id="craftorchestrateplan-standalone-command"><code>/craft:orchestrate:plan</code> Standalone Command<a class="headerlink" href="#craftorchestrateplan-standalone-command" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># No arguments: scan and discover</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:orchestrate:plan
@@ -7481,7 +7485,7 @@
 </span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>/craft:insights<span class="w"> </span>--format<span class="w"> </span>json
 </span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="c1"># Machine-readable output</span>
 </span></code></pre></div>
-<p>Output format:
+<p>Output format:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>┌───────────────────────────────────────────────────────────────┐
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│ INSIGHTS REPORT (82 sessions, last 30 days)                   │
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├───────────────────────────────────────────────────────────────┤
@@ -7502,7 +7506,7 @@
 </span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>│ Next: /craft:insights:apply  → Apply suggestions to CLAUDE.md │
 </span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>│       /craft:orchestrate:plan → Generate guardrails in ORCH   │
 </span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>└───────────────────────────────────────────────────────────────┘
-</span></code></pre></div></p>
+</span></code></pre></div>
 <h3 id="git-tracking">Git Tracking<a class="headerlink" href="#git-tracking" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Main repo</strong>: Add <code>ORCHESTRATE-*.md</code> to <code>.gitignore</code></li>

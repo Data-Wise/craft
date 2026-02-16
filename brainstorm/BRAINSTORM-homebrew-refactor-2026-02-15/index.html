@@ -7482,20 +7482,24 @@
 </tbody>
 </table>
 <h3 id="4-weekly-validation-workflow-new-in-tap-repo">4. Weekly Validation Workflow (new in tap repo)<a class="headerlink" href="#4-weekly-validation-workflow-new-in-tap-repo" title="Permanent link">&para;</a></h3>
-<p><code>validate-formulas.yml</code>:
-- Runs on <code>macos-latest</code> (needed for brew build)
-- Discovers all formulas
-- Runs <code>brew audit --strict</code>
-- Verifies URLs are reachable
-- SHA256 verification
-- <code>brew install --build-from-source</code> for testable formulas
-- Summary report</p>
+<p><code>validate-formulas.yml</code>:</p>
+<ul>
+<li>Runs on <code>macos-latest</code> (needed for brew build)</li>
+<li>Discovers all formulas</li>
+<li>Runs <code>brew audit --strict</code></li>
+<li>Verifies URLs are reachable</li>
+<li>SHA256 verification</li>
+<li><code>brew install --build-from-source</code> for testable formulas</li>
+<li>Summary report</li>
+</ul>
 <h3 id="5-auth-migration-future">5. Auth Migration (future)<a class="headerlink" href="#5-auth-migration-future" title="Permanent link">&para;</a></h3>
 <p>Current: Fine-grained PAT (90-day rotation, manual)
-Recommended: GitHub App (<code>actions/create-github-app-token@v1</code>)
-- Auto-rotating
-- No manual rotation
-- Properly scoped</p>
+Recommended: GitHub App (<code>actions/create-github-app-token@v1</code>)</p>
+<ul>
+<li>Auto-rotating</li>
+<li>No manual rotation</li>
+<li>Properly scoped</li>
+</ul>
 <hr />
 <h2 id="release-skill-updates">Release Skill Updates<a class="headerlink" href="#release-skill-updates" title="Permanent link">&para;</a></h2>
 <h3 id="step-85-improvements">Step 8.5 Improvements<a class="headerlink" href="#step-85-improvements" title="Permanent link">&para;</a></h3>
@@ -7518,17 +7522,19 @@ Recommended: GitHub App (<code>actions/create-github-app-token@v1</code>)
 <h3 id="pattern-1-macos-sandbox-workaround">Pattern 1: macOS Sandbox Workaround<a class="headerlink" href="#pattern-1-macos-sandbox-workaround" title="Permanent link">&para;</a></h3>
 <p><code>post_install</code> CANNOT write to <code>$HOME</code>. All symlink/registration logic goes in the install script (bash heredoc), invoked manually via <code>{name}-install</code>.</p>
 <h3 id="pattern-2-pluginjson-schema-cleanup">Pattern 2: plugin.json Schema Cleanup<a class="headerlink" href="#pattern-2-pluginjson-schema-cleanup" title="Permanent link">&para;</a></h3>
-<p>Dual defense:
-1. Ruby <code>JSON.parse</code> + <code>slice(*allowed_keys)</code> in <code>post_install</code> (works during build)
-2. Python one-liner fallback in install script (works at user runtime)</p>
+<p>Dual defense:</p>
+<ol>
+<li>Ruby <code>JSON.parse</code> + <code>slice(*allowed_keys)</code> in <code>post_install</code> (works during build)</li>
+<li>Python one-liner fallback in install script (works at user runtime)</li>
+</ol>
 <h3 id="pattern-3-claude-detection">Pattern 3: Claude Detection<a class="headerlink" href="#pattern-3-claude-detection" title="Permanent link">&para;</a></h3>
-<p>Before modifying <code>settings.json</code>:
+<p>Before modifying <code>settings.json</code>:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">CLAUDE_RUNNING</span><span class="o">=</span><span class="nb">false</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">if</span><span class="w"> </span>pgrep<span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;claude&quot;</span><span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nv">CLAUDE_RUNNING</span><span class="o">=</span><span class="nb">true</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">fi</span>
 </span></code></pre></div>
-Skip auto-enable if Claude is running (avoids file lock conflicts).</p>
+<p>Skip auto-enable if Claude is running (avoids file lock conflicts).</p>
 <h3 id="pattern-4-marketplace-registration">Pattern 4: Marketplace Registration<a class="headerlink" href="#pattern-4-marketplace-registration" title="Permanent link">&para;</a></h3>
 <p>Full: symlink to <code>local-marketplace/</code> + update <code>marketplace.json</code> manifest + auto-enable in <code>settings.json</code></p>
 <h3 id="pattern-5-retry-sha-guard-ci">Pattern 5: Retry + SHA Guard (CI)<a class="headerlink" href="#pattern-5-retry-sha-guard-ci" title="Permanent link">&para;</a></h3>
