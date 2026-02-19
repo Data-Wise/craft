@@ -236,14 +236,25 @@ Update version in all relevant files. Project-type-specific:
 
 | Project Type | Files to Update |
 |-------------|-----------------|
-| Craft plugin | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` (if exists), `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md` |
+| Craft plugin | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` (if exists), `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, `.STATUS` |
 | Python | `pyproject.toml`, `__init__.py`, `README.md` |
 | Node | `package.json`, `package-lock.json`, `README.md` |
 | R package | `DESCRIPTION`, `NEWS.md`, `README.md` |
 
 Also update any hardcoded version references, test counts, skill/command counts, and date strings across CLAUDE.md, README.md, docs/index.md, and docs/REFCARD.md.
 
-For marketplace.json, bump both `metadata.version` and `plugins[0].version` to match the new version.
+**MANDATORY version bump checklist** (verify each before committing):
+
+```bash
+# Run this verification after bumping — ALL must show the new version
+python3 -c "import json; print('plugin.json:', json.load(open('.claude-plugin/plugin.json'))['version'])"
+python3 -c "import json; d=json.load(open('.claude-plugin/marketplace.json')); print('marketplace meta:', d['metadata']['version']); print('marketplace plugin:', d['plugins'][0]['version'])" 2>/dev/null
+grep -m1 'Current Version' CLAUDE.md
+grep 'version-' README.md | head -1
+grep 'Version:' docs/REFCARD.md | head -1
+```
+
+If any file shows the old version, fix it before proceeding. The `marketplace.json` has TWO version fields (`metadata.version` AND `plugins[0].version`) — both must be bumped.
 
 ### Step 4: Commit & Push
 
@@ -273,7 +284,33 @@ gh pr create --base main --head dev \
   - DON'T: Include the actual command strings that branch guard detects
 - Include a test plan checklist with results
 
-### Step 6: Merge Release PR
+### Step 6: Monitor CI on PR (MANDATORY)
+
+**Do NOT skip this step.** After the PR is created, poll CI before merging:
+
+```bash
+# Poll until CI completes (max 5 min)
+for i in $(seq 1 10); do
+    STATUS=$(gh run list --branch dev --limit 1 --json status,conclusion --jq '.[0].status + " " + (.[0].conclusion // "pending")')
+    echo "[Poll $i] $STATUS"
+    if [[ "$STATUS" == "completed success" ]]; then
+        echo "✅ CI passed — proceeding to merge"
+        break
+    elif [[ "$STATUS" == "completed failure" ]]; then
+        echo "❌ CI failed — diagnose before merging"
+        gh run view $(gh run list --branch dev --limit 1 --json databaseId --jq '.[0].databaseId') --log-failed 2>&1 | tail -20
+        # Ask user before proceeding
+        break
+    fi
+    sleep 30
+done
+```
+
+**If CI fails:** Diagnose the failure, fix on dev, push, and wait for the new run to pass. Only use `--admin` merge as a last resort after user confirmation.
+
+**If CI takes too long (>5 min):** Ask user whether to wait or merge with `--admin`.
+
+### Step 7: Merge Release PR
 
 ```bash
 gh pr merge <number> --merge
@@ -476,7 +513,26 @@ Skip if no local tap exists — the GitHub Actions workflow (`homebrew-release.y
 
 ```bash
 git checkout dev && git pull origin main
+git push  # sync origin/dev
 ```
+
+### Step 10: Verify CI on Main (MANDATORY)
+
+After merge, verify CI passes on main. This catches issues like missing CI dependencies.
+
+```bash
+# Wait for CI to start on main
+sleep 10
+
+# Poll CI on main
+gh run list --branch main --limit 1 --json status,conclusion,databaseId \
+  --jq '.[0] | .status + " " + (.conclusion // "pending") + " (run " + (.databaseId|tostring) + ")"'
+
+# If failed, check logs
+gh run view <run-id> --log-failed 2>&1 | tail -30
+```
+
+**If CI fails on main:** This is critical — the release tag points to broken code. Fix immediately on dev, then merge to main (patch release if needed).
 
 ## Output Format
 
