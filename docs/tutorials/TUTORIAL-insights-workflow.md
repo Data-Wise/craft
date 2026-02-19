@@ -1,6 +1,6 @@
 ---
 title: "Tutorial: Insights-Driven Workflow"
-description: "Learn all v2.18.0 features — from session kickoff to guard tuning to unattended releases"
+description: "Learn insights-driven features — from session kickoff to guard tuning to unattended releases (updated for v2.22.0)"
 category: "tutorial"
 level: "intermediate"
 time_estimate: "15 minutes"
@@ -22,7 +22,7 @@ related:
 3. Audit the branch guard to reduce false positives
 4. Generate and apply insights to your CLAUDE.md
 5. Understand the pretooluse safety hook
-6. Run unattended releases with `--autonomous`
+6. Run unattended releases with `--autonomous` (with CI monitoring in v2.22.0)
 7. Use swarm mode for parallel agent isolation
 
 ## Learning Path
@@ -57,7 +57,7 @@ flowchart LR
 
 ## Step 1: Understand the Feedback Loop
 
-v2.18.0 is built around one idea: **your usage patterns should improve your workflow automatically**.
+The insights system (introduced in v2.18.0, enhanced in v2.22.0) is built around one idea: **your usage patterns should improve your workflow automatically**.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -405,7 +405,7 @@ For large features where multiple agents would conflict on the same files, swarm
 
 ## Workflow Map
 
-Here's how all v2.18.0 features connect:
+Here's how insights-driven features connect:
 
 ```mermaid
 flowchart TD
@@ -465,5 +465,5 @@ flowchart TD
 
 ---
 
-**Last Updated**: 2026-02-14
-**Craft Version**: v2.18.0
+**Last Updated**: 2026-02-19
+**Craft Version**: v2.22.0

@@ -41,9 +41,9 @@ Open any project directory in Claude Code. Craft auto-detects your project type 
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.15.0            │
+│  CRAFT - Full Stack Developer Toolkit v2.22.0            │
 │  my-project (Python Package) on main                     │
-│  106 Commands | 21 Skills | 8 Agents | 4 Modes          │
+│  107 Commands | 25 Skills | 8 Agents | 4 Modes          │
 ├──────────────────────────────────────────────────────────┤
 │ SMART COMMANDS (Start Here):                             │
 │    /craft:do <task>     AI routes to best workflow        │
