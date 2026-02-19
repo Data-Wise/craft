@@ -821,7 +821,7 @@ main (production branch)
 /craft:git:worktree list           # Show all worktrees
 /craft:git:worktree clean          # Remove merged worktrees
 /craft:git:worktree install        # Install deps in worktree
-/craft:git:worktree finish         # Complete: tests → changelog → PR
+/craft:git:worktree finish         # Complete: tests → changelog → cleanup ORCHESTRATE → PR
 /craft:git:worktree validate       # Check worktree health (v2.18.0)
 ```
 
@@ -869,6 +869,7 @@ git commit -m "test: add auth integration tests"
 # What happens:
 # - Runs tests (auto-detected: pytest/jest/etc)
 # - Generates changelog entry from commits
+# - Removes ORCHESTRATE-*.md files (merge cleanup)
 # - Creates PR with AI-generated description
 # - Output: PR URL
 

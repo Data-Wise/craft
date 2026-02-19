@@ -111,7 +111,7 @@ Show each step as it completes:
 /craft:git:worktree list               # Show all worktrees
 /craft:git:worktree clean              # Remove merged worktrees
 /craft:git:worktree install            # Install deps in current worktree
-/craft:git:worktree finish             # Complete feature: tests → changelog → PR
+/craft:git:worktree finish             # Complete feature: tests → changelog → cleanup ORCHESTRATE → PR
 /craft:git:worktree validate          # Verify CWD matches expected worktree
 ```
 
@@ -702,6 +702,21 @@ $section
 "
 ```
 
+#### Step 2.5: Remove ORCHESTRATE Files
+
+```bash
+# Check for ORCHESTRATE files in the worktree
+orchestrate_files=$(ls ORCHESTRATE-*.md 2>/dev/null)
+
+if [ -n "$orchestrate_files" ]; then
+    echo "📋 Found ORCHESTRATE files (working artifacts):"
+    echo "   $orchestrate_files"
+    echo "   These are feature-branch artifacts and should not merge to dev."
+    git rm $orchestrate_files
+    git commit -m "chore: remove ORCHESTRATE file (merge cleanup)"
+fi
+```
+
 #### Step 3: Create PR
 
 ```bash
@@ -726,12 +741,12 @@ gh pr create \
 │ Commits: 7 since branching from main                │
 ├─────────────────────────────────────────────────────┤
 │                                                     │
-│ Step 1/3: Running Tests                             │
+│ Step 1/4: Running Tests                             │
 │   📦 Detected: Python (pyproject.toml)              │
 │   🧪 Running: pytest -v                             │
 │   ✅ 47 tests passed                                │
 │                                                     │
-│ Step 2/3: Generating Changelog                      │
+│ Step 2/4: Generating Changelog                      │
 │   📝 Branch type: feat/* → "Added" section          │
 │   📝 Entry generated:                               │
 │                                                     │
@@ -742,7 +757,11 @@ gh pr create \
 │                                                     │
 │   ✏️  Review and edit CHANGELOG.md? [Y/n]           │
 │                                                     │
-│ Step 3/3: Creating PR                               │
+│ Step 3/4: Removing ORCHESTRATE files                │
+│   📋 Found: ORCHESTRATE-user-auth.md                │
+│   ✅ Removed (merge cleanup)                        │
+│                                                     │
+│ Step 4/4: Creating PR                               │
 │   🎯 Target: dev                                    │
 │   📋 Title: feat: Add user authentication system    │
 │   📋 Body: (AI-generated from 7 commits)            │
@@ -877,7 +896,7 @@ Need to work on something else?
         ↓
    [do your work]
         ↓
-/craft:git:worktree finish                   # Complete: tests → changelog → PR
+/craft:git:worktree finish                   # Complete: tests → changelog → cleanup ORCHESTRATE → PR
         ↓
 /craft:git:worktree clean                    # Cleanup after merge
 ```

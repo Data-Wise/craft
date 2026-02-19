@@ -455,7 +455,8 @@ Finish Feature Workflow:
   Steps:
   1. Run tests
   2. Generate changelog entry
-  3. Create pull request
+  3. Remove ORCHESTRATE files (merge cleanup)
+  4. Create pull request
 
 ? Proceed with finish workflow?
   > Yes - Complete feature (Recommended)
@@ -463,16 +464,20 @@ Finish Feature Workflow:
     Draft PR (don't notify reviewers)
     Cancel
 
-[1/3] Running tests... ✅
+[1/4] Running tests... ✅
   Detected: Python (pytest)
   Ran: pytest -v
   Result: 47/47 passed
 
-[2/3] Generating changelog... ✅
+[2/4] Generating changelog... ✅
   Branch type: feature/* → "Added" section
   Entry: "Add OAuth 2.0 authentication system"
 
-[3/3] Creating pull request... ✅
+[3/4] Removing ORCHESTRATE files... ✅
+  Found: ORCHESTRATE-add-auth.md
+  Removed (merge cleanup)
+
+[4/4] Creating pull request... ✅
   Title: feat: Add OAuth 2.0 authentication
   Base: dev
   PR: https://github.com/Data-Wise/craft/pull/42

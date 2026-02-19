@@ -209,7 +209,7 @@ Ready! Start working:
 /craft:git:worktree finish
 ```
 
-Runs tests, generates changelog, and creates PR:
+Runs tests, generates changelog, removes ORCHESTRATE files, and creates PR:
 
 ```
 ╭─ Finish Feature ────────────────────────────────────╮
@@ -217,16 +217,20 @@ Runs tests, generates changelog, and creates PR:
 │ Commits: 7 since branching from main                │
 ├─────────────────────────────────────────────────────┤
 │                                                     │
-│ Step 1/3: Running Tests                             │
+│ Step 1/4: Running Tests                             │
 │   📦 Detected: Python (pyproject.toml)              │
 │   🧪 Running: pytest -v                             │
 │   ✅ 47 tests passed                                │
 │                                                     │
-│ Step 2/3: Generating Changelog                      │
+│ Step 2/4: Generating Changelog                      │
 │   📝 Branch type: feat/* → "Added" section          │
 │   📝 Entry generated                                │
 │                                                     │
-│ Step 3/3: Creating PR                               │
+│ Step 3/4: Removing ORCHESTRATE files                │
+│   📋 Found: ORCHESTRATE-user-auth.md                │
+│   ✅ Removed (merge cleanup)                        │
+│                                                     │
+│ Step 4/4: Creating PR                               │
 │   🎯 Target: dev                                    │
 │   📋 Title: feat: Add user authentication system    │
 │   ✅ PR created: https://github.com/.../pull/42     │

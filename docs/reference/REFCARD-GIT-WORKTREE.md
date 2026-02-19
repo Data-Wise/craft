@@ -74,7 +74,7 @@ git worktree prune
 ### Complete Feature
 
 ```bash
-# Run tests, generate changelog, create PR
+# Run tests, generate changelog, remove ORCHESTRATE files, create PR
 /craft:git:worktree finish
 
 # Skip tests (faster)
