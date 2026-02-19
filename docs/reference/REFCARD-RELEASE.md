@@ -46,6 +46,44 @@ Ready to release?
 | 8 | Post-release | Deploys docs, syncs dev |
 | 8.5 | Update Homebrew tap | Modifies tap formula |
 
+### Release Pipeline Flow
+
+```mermaid
+flowchart TD
+    A["/release"] --> B{Version Detection}
+    B --> C[Pre-flight Checks]
+    C --> C1["/craft:check --for release"]
+    C --> C2["pre-release-check.sh"]
+    C --> C3{"marketplace.json?"}
+    C3 -->|Yes| C4["Validate marketplace"]
+    C3 -->|No| D
+    C1 --> D{All Passed?}
+    C2 --> D
+    C4 --> D
+    D -->|No| E["Fix & Re-run"]
+    E --> C
+    D -->|Yes| F["Version Bump"]
+    F --> G["Commit & Push"]
+    G --> H["Create PR dev → main"]
+    H --> I["Merge PR"]
+    I --> J["CI Monitoring Loop"]
+    J --> K{CI Green?}
+    K -->|No| L{"Auto-fixable?"}
+    L -->|Yes| M["Auto-fix & Retry"]
+    M --> J
+    L -->|No| N["Ask User"]
+    K -->|Yes| O["Create GitHub Release"]
+    O --> P["Deploy Docs"]
+    P --> Q["Update Homebrew Tap"]
+    Q --> R["Sync dev with main"]
+    R --> S["Verify CI on main"]
+
+    style A fill:#4a9eff,color:#fff
+    style D fill:#ffa94d,color:#fff
+    style K fill:#ffa94d,color:#fff
+    style S fill:#51cf66,color:#fff
+```
+
 ---
 
 ## Dry-Run Mode

@@ -189,6 +189,7 @@ nav:
       - /craft:docs:claude-md: commands/docs/claude-md.md
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
+      - /craft:workflow:insights: commands/workflow/insights.md
       - /craft:arch:analyze: commands/arch/analyze.md
       - /craft:code:lint: commands/code/lint.md
       - /craft:code:deps-audit: commands/code/deps-audit.md
