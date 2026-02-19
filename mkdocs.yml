@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.
+site_description: Full-stack developer toolkit - 107 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -127,6 +127,11 @@ nav:
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
+      - Testing:
+        - Testing Quickstart: tutorials/testing-quickstart.md
+        - Test Commands Reference: guide/test-commands.md
+        - Test Architecture: guide/test-architecture.md
+        - Test Migration Guide: guide/test-migration.md
       - Test Wrapper Pattern Guide: guide/test-wrapper-pattern.md
       - Git Repository Init:
         - Command Reference: commands/git-init-reference.md
@@ -186,8 +191,9 @@ nav:
       - /craft:code:lint: commands/code/lint.md
       - /craft:code:deps-audit: commands/code/deps-audit.md
       - /craft:code:ci-local: commands/code/ci-local.md
-      - /craft:test:run: commands/test/run.md
-      - /craft:test:cli-run: commands/test/cli-run.md
+      - /craft:test: commands/test.md
+      - /craft:test:gen: commands/test/gen.md
+      - /craft:test:template: commands/test/template.md
       - /craft:git:branch: commands/git/branch.md
       - /craft:git:clean: commands/git/clean.md
       - /craft:git:status: commands/git/status.md

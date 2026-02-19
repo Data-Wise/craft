@@ -145,7 +145,7 @@ If checks fail, fix the issues and re-run.
 /craft:code:lint --fix
 
 # Re-run tests to see failures
-/craft:test:run debug
+/craft:test debug
 
 # Re-run checks
 /craft:check
@@ -271,7 +271,7 @@ git commit --amend -m "feat: better description"
 | Issue | Solution |
 |-------|----------|
 | Lint errors | Run `/craft:code:lint --fix` |
-| Test failures | Run `/craft:test:run debug` for details |
+| Test failures | Run `/craft:test debug` for details |
 | Large file warning | Add to .gitignore or use Git LFS |
 | Sensitive data | Remove and add to .gitignore |
 | Wrong branch | `git stash && git checkout correct-branch && git stash pop` |

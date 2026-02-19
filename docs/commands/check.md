@@ -238,7 +238,7 @@ cd ~/.git-worktrees/craft/feature-x
 |-------|----------|
 | "No project detected" | Ensure marker file exists (package.json, pyproject.toml, etc.) |
 | Lint errors | Run `/craft:code:lint --fix` to auto-fix |
-| Test failures | Run `/craft:test:run` for detailed output |
+| Test failures | Run `/craft:test` for detailed output |
 | Security issues | Run `npm audit fix` or `pip-audit --fix` |
 | Slow checks | Use `default` mode for quick validation |
 
@@ -247,7 +247,7 @@ cd ~/.git-worktrees/craft/feature-x
 ## See Also
 
 - **Detailed lint:** `/craft:code:lint`
-- **Detailed tests:** `/craft:test:run`
+- **Detailed tests:** `/craft:test`
 - **Auto-fix issues:** `/craft:code:ci-fix`
 - **Full CI simulation:** `/craft:code:ci-local`
 - **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md)

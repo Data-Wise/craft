@@ -120,10 +120,10 @@ Shows all categories with auto-detected command counts:
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │ 💻 CODE (12)              🧪 TEST (7)              📄 DOCS (19)         │
-│   /craft:code:lint          /craft:test:run          /craft:docs:sync   │
-│   /craft:code:coverage      /craft:test:watch        /craft:docs:check  │
-│   /craft:code:deps-audit    /craft:test:coverage     /craft:docs:lint   │
-│   /craft:code:ci-local      /craft:test:debug        ...                │
+│   /craft:code:lint          /craft:test          /craft:docs:sync   │
+│   /craft:code:coverage      /craft:test --watch        /craft:docs:check  │
+│   /craft:code:deps-audit    /craft:test --coverage     /craft:docs:lint   │
+│   /craft:code:ci-local      /craft:test debug        ...                │
 │                                                                         │
 │ 🔀 GIT (11)               📖 SITE (16)             🏗️ ARCH (1)          │
 │   /craft:git:worktree       /craft:site:build        /craft:arch:analyze│
@@ -364,7 +364,7 @@ Shows full command tutorial with step-by-step instructions:
 │                                                                         │
 │ Pre-Commit Workflow:                                                    │
 │   1. /craft:code:lint                                                   │
-│   2. /craft:test:run                                                    │
+│   2. /craft:test                                                    │
 │   3. git commit -m "..."                                                │
 │                                                                         │
 │ Debug Workflow:                                                         │
@@ -374,7 +374,7 @@ Shows full command tutorial with step-by-step instructions:
 │                                                                         │
 │ RELATED COMMANDS                                                        │
 │ ────────────────                                                        │
-│   /craft:test:run        Run tests                                     │
+│   /craft:test        Run tests                                     │
 │   /craft:code:ci-local   Full CI checks locally                        │
 │   /craft:check           Universal validation                          │
 │                                                                         │

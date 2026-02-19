@@ -152,7 +152,7 @@ The AI routes your task to the best workflow automatically.
 /craft:git:worktree add feature-name
 
 # 2. Run tests in watch mode
-/craft:test:run debug
+/craft:test debug
 
 # 3. Lint with auto-fix
 /craft:code:lint optimize

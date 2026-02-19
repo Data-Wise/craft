@@ -127,7 +127,7 @@ Task Analysis:
 
 # Routes to:
 # 1. /craft:code:debug - Analyze the issue
-# 2. /craft:test:run - Run related tests
+# 2. /craft:test - Run related tests
 # 3. /craft:git:sync - Commit fix
 ```
 
@@ -138,7 +138,7 @@ Task Analysis:
 
 # Routes to:
 # 1. /craft:code:deps-audit - Security scan
-# 2. /craft:test:run release - Full tests
+# 2. /craft:test release - Full tests
 # 3. /craft:code:lint release - Full lint
 # 4. /craft:docs:changelog - Update changelog
 # 5. /craft:code:release - Release workflow

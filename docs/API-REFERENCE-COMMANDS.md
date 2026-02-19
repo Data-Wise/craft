@@ -1947,7 +1947,7 @@ Static site generation and website management.
 
 Testing, quality assurance, and verification tools.
 
-### /craft:test:run
+### /craft:test
 
 **Category**: Execution | **Complexity**: Simple | **Time**: < 60s
 **Description**: Unified test runner with mode support
@@ -1973,152 +1973,66 @@ Testing, quality assurance, and verification tools.
 #### Examples
 
 ```bash
-/craft:test:run
-/craft:test:run debug
-/craft:test:run optimize tests/
-/craft:test:run --filter auth
+/craft:test
+/craft:test debug
+/craft:test optimize tests/
+/craft:test --filter auth
 ```
 
-**File**: `commands/test/run.md`
+**File**: `commands/test.md`
 
 ---
 
-### /craft:test:generate
+### /craft:test:gen
 
 **Category**: Development | **Complexity**: Simple | **Time**: 1-3 min
-**Description**: Generate test stubs and fixtures
+**Description**: Generate test suites with project-type detection
 
 #### Arguments
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
-| `source` | string | No | `.` | Source file for tests |
-| `--type` | enum | No | `unit` | Test type: `unit`, `integration`, `e2e` |
+| `project-type` | enum | No | auto | `plugin`, `zsh`, `cli`, `mcp` |
+| `--tier` | enum | No | `all` | `smoke`, `unit`, `integration`, `e2e`, `all` |
+| `--output` | string | No | `tests/` | Output directory |
+| `--force` | boolean | No | false | Overwrite existing |
+| `--dry-run` | boolean | No | false | Preview generation plan |
 
 #### Examples
 
 ```bash
-/craft:test:generate
-/craft:test:generate src/auth.ts --type unit
-/craft:test:generate --type integration
+/craft:test:gen
+/craft:test:gen plugin
+/craft:test:gen --tier unit
+/craft:test:gen --dry-run
 ```
 
-**File**: `commands/test/generate.md`
+**File**: `commands/test/gen.md`
 
 ---
 
-### /craft:test:coverage
-
-**Category**: Metrics | **Complexity**: Simple | **Time**: 1-3 min
-**Description**: Analyze test coverage
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--threshold` | number | No | 80 | Minimum threshold % |
-| `--report` | enum | No | `text` | Format: `text`, `html`, `json` |
-
-#### Examples
-
-```bash
-/craft:test:coverage
-/craft:test:coverage --threshold 85
-/craft:test:coverage --report html
-```
-
-**File**: `commands/test/coverage.md`
-
----
-
-### /craft:test:debug
-
-**Category**: Development | **Complexity**: Moderate | **Time**: 2-5 min
-**Description**: Debug failing tests
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `test` | string | No | - | Specific test to debug |
-| `--breakpoint` | boolean | No | false | Enable breakpoint |
-
-#### Examples
-
-```bash
-/craft:test:debug
-/craft:test:debug test-auth
-/craft:test:debug --breakpoint
-```
-
-**File**: `commands/test/debug.md`
-
----
-
-### /craft:test:watch
-
-**Category**: Development | **Complexity**: Simple | **Time**: Continuous
-**Description**: Watch mode for tests (re-run on file changes)
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--filter` | string | No | - | Filter tests |
-| `--coverage` | boolean | No | false | Show coverage |
-
-#### Examples
-
-```bash
-/craft:test:watch
-/craft:test:watch --filter auth
-/craft:test:watch --coverage
-```
-
-**File**: `commands/test/watch.md`
-
----
-
-### /craft:test:cli-gen
+### /craft:test:template
 
 **Category**: Development | **Complexity**: Simple | **Time**: < 30s
-**Description**: Generate CLI test commands
+**Description**: Manage Jinja2 templates for test generation
 
 #### Arguments
 
 | Name | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
-| `command` | string | Yes | - | Command to test |
+| `action` | enum | Yes | - | `list`, `show`, `validate`, `render`, `create`, `edit`, `delete` |
+| `template` | string | No | - | Template path (e.g., `plugin/test_structure`) |
+| `--type` | enum | No | - | `plugin`, `zsh`, `cli`, `mcp`, `_base` |
 
 #### Examples
 
 ```bash
-/craft:test:cli-gen "/craft:code:lint"
+/craft:test:template list
+/craft:test:template show plugin/test_structure
+/craft:test:template validate
 ```
 
-**File**: `commands/test/cli-gen.md`
-
----
-
-### /craft:test:cli-run
-
-**Category**: Execution | **Complexity**: Simple | **Time**: Variable
-**Description**: Run CLI command tests
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--verbose` | boolean | No | false | Verbose output |
-
-#### Examples
-
-```bash
-/craft:test:cli-run
-/craft:test:cli-run --verbose
-```
-
-**File**: `commands/test/cli-run.md`
+**File**: `commands/test/template.md`
 
 ---
 
@@ -2497,9 +2411,9 @@ Commands support multiple output formats:
 |------|---|
 | Setup a new project | `/craft:git:init` → `/craft:site:init` → `/craft:docs:claude-md` |
 | Create a feature | `/craft:plan:feature` → `/craft:git:worktree` → `/craft:code:test-gen` |
-| Release a project | `/craft:code:lint` → `/craft:test:run release` → `/craft:code:release` |
+| Release a project | `/craft:code:lint` → `/craft:test release` → `/craft:code:release` |
 | Document code | `/craft:docs:api` → `/craft:docs:guide` → `/craft:docs:site publish` |
-| Debug issues | `/craft:workflow:stuck` → `/craft:code:debug` → `/craft:test:debug` |
+| Debug issues | `/craft:workflow:stuck` → `/craft:code:debug` → `/craft:test debug` |
 
 ---
 
@@ -2510,7 +2424,7 @@ Commands support multiple output formats:
 | Complexity | Typical Time | Example |
 |-----------|--------------|---------|
 | Simple | < 30s | `/craft:git:status`, `/craft:code:lint` |
-| Moderate | 1-5 min | `/craft:test:run`, `/craft:docs:api` |
+| Moderate | 1-5 min | `/craft:test`, `/craft:docs:api` |
 | Complex | 5-30 min | `/craft:plan:feature`, `/craft:orchestrate` |
 
 ### Optimization Tips

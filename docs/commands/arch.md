@@ -325,7 +325,7 @@ Architecture commands work well with:
 |---------|----------|
 | `/craft:code:refactor` | Implement architecture changes |
 | `/craft:docs:api` | Document architecture decisions |
-| `/craft:test:run` | Validate architecture changes |
+| `/craft:test` | Validate architecture changes |
 | `/craft:check` | Pre-flight before major refactors |
 | `/craft:do` | AI routes architecture tasks |
 

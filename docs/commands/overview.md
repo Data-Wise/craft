@@ -47,7 +47,7 @@ Full documentation site management:
 Development workflow tools:
 
 - Linting: `/craft:code:lint [mode]`
-- Testing: `/craft:test:run [mode]`
+- Testing: `/craft:test [mode]`
 - Debugging: `/craft:code:debug`
 - Refactoring: `/craft:code:refactor`
 
@@ -84,7 +84,7 @@ Many commands support execution modes:
 
 ```bash
 /craft:code:lint optimize    # Fast parallel linting
-/craft:test:run debug        # Verbose test output
+/craft:test debug        # Verbose test output
 ```
 
 ## Quick Navigation
@@ -93,7 +93,7 @@ Many commands support execution modes:
 |--------------|------------------|
 | Generate docs | `/craft:docs:update` |
 | Create a site | `/craft:site:create` |
-| Run tests | `/craft:test:run` |
+| Run tests | `/craft:test` |
 | Manage git worktrees | `/craft:git:worktree` |
 | Check before commit | `/craft:check` |
 | Get help | `/craft:help` |
@@ -205,7 +205,7 @@ Four key commands use the **"Show Steps First" pattern**:
 ### Level 2: Workflows (Next 2 hours)
 
 1. **Documentation:** `/craft:docs:update`
-2. **Testing:** `/craft:test:run`
+2. **Testing:** `/craft:test`
 3. **Git worktrees:** `/craft:git:worktree setup`
 4. **Orchestration:** `/craft:orchestrate "multi-step task"`
 

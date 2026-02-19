@@ -117,8 +117,8 @@ CODE & TESTING (22 commands)
   /craft:code:lint [mode]     Lint code with auto-fix
   /craft:code:debug           Debug with traces
   /craft:code:refactor        AI-assisted refactoring
-  /craft:test:run [mode]      Run test suite
-  /craft:test:coverage        Coverage report
+  /craft:test [mode]          Run test suite
+  /craft:test --coverage      Coverage report
   ...
 ```
 

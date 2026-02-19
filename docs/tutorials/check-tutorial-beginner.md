@@ -445,7 +445,7 @@ npx markdownlint-cli2 --fix "docs/guide.md"
 /craft:check --mode=thorough --skip=tests
 
 # Option 3: Run only specific checks later
-/craft:test:run              # Just tests
+/craft:test              # Just tests
 /craft:docs:check-links      # Just link validation
 ```
 
