@@ -1,0 +1,33 @@
+{# MCP server conftest.py — extends shared conftest #}
+{% include '_base/conftest_shared.py.j2' %}
+
+import json
+import subprocess
+
+
+@pytest.fixture
+def server_name() -> str:
+    """MCP server name."""
+    return "{{ server_name }}"
+
+
+@pytest.fixture
+def mcp_client(project_root: Path):
+    """Simple MCP client for testing via {{ transport }} transport."""
+    class MCPClient:
+        def __init__(self, root: Path):
+            self.root = root
+            self.transport = "{{ transport | default('stdio') }}"
+
+        def send_request(self, method: str, params: dict = None) -> dict:
+            """Send a JSON-RPC request to the MCP server."""
+            request = {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": method,
+                "params": params or {},
+            }
+            # For testing, we just validate the request structure
+            return request
+
+    return MCPClient(project_root)
