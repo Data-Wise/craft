@@ -119,12 +119,102 @@ templates/
 
 ### Template Rendering Flow
 
-```text
-1. Detect project type (registry.json detection rules)
-2. Scan project for variable values (commands, skills, agents, etc.)
-3. Select templates matching requested tier
-4. Render Jinja2 templates with variables
-5. Write output files to tests/ directory
+```mermaid
+flowchart TD
+    A["/craft:test:gen"] --> B{Detect Project Type}
+    B -->|plugin.json| C[Plugin]
+    B -->|*.plugin.zsh| D[ZSH]
+    B -->|pyproject.toml scripts| E[CLI]
+    B -->|mcp-server/| F[MCP]
+
+    C --> G[Gather Variables]
+    D --> G
+    E --> G
+    F --> G
+
+    G --> H[Load registry.json]
+    H --> I[Select Templates]
+    I --> J[Render Jinja2]
+    J --> K{File Exists?}
+    K -->|No| L[Write to tests/]
+    K -->|Yes| M[Skip]
+    K -->|--force| L
+```
+
+### Variable Gathering per Type
+
+```mermaid
+flowchart LR
+    subgraph Plugin
+        P1[plugin.json] --> PV[name, version]
+        P2["glob commands/**/*.md"] --> PV
+        P3["glob skills/**/SKILL.md"] --> PV
+        P4["glob agents/**/*.md"] --> PV
+    end
+
+    subgraph CLI
+        C1[pyproject.toml] --> CV[name, entry_points]
+        C2["cli --help"] --> CV
+    end
+
+    subgraph MCP
+        M1[manifest] --> MV[tools, resources]
+        M2["scan @server.tool()"] --> MV
+    end
+
+    subgraph ZSH
+        Z1["*.plugin.zsh"] --> ZV[functions, aliases]
+        Z2["grep compdef"] --> ZV
+    end
+```
+
+### Template Include Chain
+
+```mermaid
+flowchart TD
+    subgraph "templates/plugin/"
+        CT["conftest.py.j2"]
+        TS["test_structure.py.j2"]
+        TC["test_commands.py.j2"]
+    end
+
+    subgraph "templates/_base/"
+        CS["conftest_shared.py.j2"]
+        HP["helpers.py.j2"]
+    end
+
+    CT -->|"{% include %}"| CS
+    TS -.->|"from helpers import"| HP
+    TC -.->|"from helpers import"| HP
+```
+
+---
+
+## Rendering Engine
+
+The rendering engine lives in `utils/test_generator.py` and exposes 4 public functions:
+
+```python
+from utils.test_generator import generate_tests
+
+# Full generation with dry-run
+result = generate_tests(Path("."), dry_run=True)
+# Returns: {project_type, variables, files, output_dir, written, skipped}
+
+# Force project type
+result = generate_tests(Path("."), project_type="plugin")
+
+# Custom output directory
+result = generate_tests(Path("."), output_dir=Path("my-tests/"))
+```
+
+The engine uses a dual-path `FileSystemLoader` so templates can include shared partials:
+
+```python
+loader = FileSystemLoader([
+    "templates/plugin/",  # Type-specific templates
+    "templates/",         # Shared _base/ partials
+])
 ```
 
 ---

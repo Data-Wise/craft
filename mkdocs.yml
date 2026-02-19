@@ -220,6 +220,8 @@ nav:
       - Set Up Parallel Worktrees: cookbook/common/setup-parallel-worktrees.md
       - Use Interactive Orchestration: cookbook/common/use-interactive-orchestration.md
       - Post-Merge Documentation: cookbook/common/post-merge-documentation.md
+      - Generate Tests for a Project: cookbook/common/generate-tests-for-project.md
+      - Run Tests by Category: cookbook/common/run-tests-by-category.md
     - Troubleshooting:
       - Command Not Found: cookbook/troubleshooting/command-not-found.md
       - Command Times Out: cookbook/troubleshooting/command-times-out.md
@@ -254,6 +256,7 @@ nav:
       - Brainstorm Quick Reference: reference/REFCARD-BRAINSTORM.md
       - Branch Guard Quick Reference: reference/REFCARD-BRANCH-GUARD.md
       - Release Pipeline Reference: reference/REFCARD-RELEASE.md
+      - Testing Quick Reference: reference/REFCARD-TESTING.md
       - Homebrew Quick Reference: reference/REFCARD-HOMEBREW.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
