@@ -839,7 +839,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 Works with:
 
 - `/craft:code:lint` - Detailed code lint results
-- `/craft:test:run` - Detailed test results
+- `/craft:test` - Detailed test results
 - `/craft:docs:lint` - Markdown quality validation
 - `/craft:docs:check-links` - Documentation link validation
 - `/craft:code:ci-fix` - Auto-fix issues

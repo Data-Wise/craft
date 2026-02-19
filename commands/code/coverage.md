@@ -75,6 +75,6 @@ Uncovered lines:
 
 Works with:
 
-- `/craft:test:run` - Run tests
+- `/craft:test` - Run tests
 - `/craft:code:ci-local` - Pre-commit checks
 - `/craft:code:release` - Release validation

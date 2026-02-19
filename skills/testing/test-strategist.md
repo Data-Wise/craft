@@ -65,7 +65,7 @@ Use this skill when:
 
 Works with:
 
-- `/craft:test:run` - Execute tests
-- `/craft:test:coverage` - Coverage reports
-- `/craft:test:debug` - Debug failures
+- `/craft:test` - Execute tests
+- `/craft:test --coverage` - Coverage reports
+- `/craft:test debug` - Debug failures
 - `/craft:code:ci-local` - CI validation

@@ -179,7 +179,7 @@ Current content (16 lines):
 
 | Task | Command |
 |------|---------|
-| Run tests | `/craft:test:run` |
+| Run tests | `/craft:test` |
 | Validate | `/craft:check` |
 | Build docs | `/craft:docs:update` |
 | Lint code | `/craft:code:lint` |
@@ -223,7 +223,7 @@ BEFORE (16 lines):
 
 | Task | Command |
 |------|---------|
-| Run tests | `/craft:test:run` |
+| Run tests | `/craft:test` |
 [... rest of before content ...]
 ─────────────────────────────────────────
 
@@ -233,7 +233,7 @@ AFTER (20 lines, +4):
 
 | Task | Command | Description |
 |------|---------|-------------|
-| Run tests | `/craft:test:run` | Execute test suite |
+| Run tests | `/craft:test` | Execute test suite |
 | Validate | `/craft:check` | Pre-commit validation |
 [... rest of after content ...]
 ─────────────────────────────────────────
@@ -262,11 +262,11 @@ Claude's analysis:
 
    BEFORE:
    | Task | Command | Description |
-   | Run tests | `/craft:test:run` | Execute test suite |
+   | Run tests | `/craft:test` | Execute test suite |
 
    AFTER:
    | Task | Command |
-   | Run tests | `/craft:test:run` |
+   | Run tests | `/craft:test` |
 
    Saves: 15 characters per row
    Readability: Improved (less noise)
@@ -367,12 +367,12 @@ When `--optimize` flag is set, Claude analyzes your edits and suggests:
 BEFORE:
 | Command | Full Description of What It Does |
 |---------|----------------------------------|
-| `/craft:test:run` | Executes the full test suite with coverage |
+| `/craft:test` | Executes the full test suite with coverage |
 
 AFTER:
 | Command | Description |
 |---------|-------------|
-| `/craft:test:run` | Run tests with coverage |
+| `/craft:test` | Run tests with coverage |
 ```
 
 **2. List Simplification:**

@@ -85,5 +85,5 @@ Apply auto-fixes? [y/N]
 Works with:
 
 - `/craft:code:ci-local` - Run CI locally
-- `/craft:test:debug` - Debug failing tests
+- `/craft:test debug` - Debug failing tests
 - `/craft:code:lint --fix` - Fix lint issues

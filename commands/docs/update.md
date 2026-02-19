@@ -980,7 +980,7 @@ Generate ADHD-friendly summary:
 │                                                             │
 │ Next Steps:                                                 │
 │   1. Review changes: git diff                               │
-│   2. Run tests: /craft:test:run                             │
+│   2. Run tests: /craft:test                                  │
 │   3. Commit: git add . && git commit                        │
 │                                                             │
 ╰─────────────────────────────────────────────────────────────╯

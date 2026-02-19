@@ -36,7 +36,7 @@ Identifies affected domain from context:
 | **UI** | ui, component, page, view | frontend-designer skill |
 | **Database** | db, database, model, schema | backend-designer skill |
 | **Auth** | auth, login, permission | arch:plan, code:test-gen |
-| **Testing** | test, coverage, spec | test:run, test:coverage |
+| **Testing** | test, coverage, spec | test, test --coverage |
 | **Docs** | docs, readme, changelog | docs:sync, docs:validate |
 
 ### Workflow Selection
@@ -49,19 +49,19 @@ Feature Workflow:
   2. /craft:code:test-gen - Generate tests (TDD)
   3. /craft:git:branch    - Create feature branch
   4. → Implementation     - User implements
-  5. /craft:test:run      - Verify tests pass
+  5. /craft:test          - Verify tests pass
   6. /craft:git:sync      - Commit changes
 
 Bug Fix Workflow:
   1. /craft:code:debug    - Analyze the issue
-  2. /craft:test:debug    - Isolate in tests
+  2. /craft:test debug    - Isolate in tests
   3. → Fix               - User implements fix
-  4. /craft:test:run      - Verify fix
+  4. /craft:test          - Verify fix
   5. /craft:git:sync      - Commit fix
 
 Release Workflow:
   1. /craft:code:deps-audit  - Security scan
-  2. /craft:test:run release - Full test suite
+  2. /craft:test release     - Full test suite
   3. /craft:code:lint release - Comprehensive lint
   4. /craft:docs:changelog   - Update changelog
   5. /craft:code:release     - Release workflow

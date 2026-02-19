@@ -56,7 +56,7 @@ progress: v2.21.0 released — CLAUDE.md refactor complete (Phases 1-4), two mor
 - Rebased onto dev, resolved 12 file conflicts from v2.20.0 homebrew refactor
 - Fixed version refs: feature-specific v2.20.0 → v2.21.0 across 11 files
 - Homebrew tap updated: craft v2.21.0
-- Stats: 111 commands, 25 skills, 8 agents, ~1575 tests passing
+- Stats: 107 commands, 25 skills, 8 agents, ~1575 tests passing
 
 ✅ Session 2026-02-15 (homebrew timeout hardening):
 - Added 30s timeout to post_install in all 3 plugin formulas (craft, rforge, scholar)

@@ -4,7 +4,7 @@
 
 **Latest Release:** v2.21.0 (2026-02-16)
 **Total Releases:** 42 versions | **Development Time:** 2+ years
-**Community:** 111 commands documented, ~1575 tests passing, 90%+ coverage
+**Community:** 107 commands documented, ~1575 tests passing, 90%+ coverage
 
 ---
 
@@ -90,7 +90,7 @@
 /brainstorm "topic" → SPEC.md → /orchestrate:plan → ORCHESTRATE.md → worktree → implement → PR
 ```
 
-**Stats:** 111 commands | 25 skills | 8 agents
+**Stats:** 107 commands | 25 skills | 8 agents
 
 ---
 
