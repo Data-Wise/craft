@@ -60,9 +60,9 @@ def test_lint_command_has_mode_support():
 
 
 def test_test_run_command_has_mode_support():
-    """Check that test:run command supports modes."""
-    test_path = PLUGIN_DIR / "commands" / "test" / "run.md"
-    assert test_path.exists(), "Missing commands/test/run.md"
+    """Check that unified test command supports modes."""
+    test_path = PLUGIN_DIR / "commands" / "test.md"
+    assert test_path.exists(), "Missing commands/test.md"
 
     content = test_path.read_text()
 

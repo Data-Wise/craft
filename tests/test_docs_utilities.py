@@ -80,14 +80,14 @@ class TestDocsUtilities(unittest.TestCase):
             self.assertIn(issue_type, issues)
             self.assertIsInstance(issues[issue_type], list)
 
-    def test_help_validator_finds_missing_help(self):
-        """Test that validator finds missing help files"""
+    def test_help_validator_finds_no_missing_help(self):
+        """Test that validator confirms all help files exist"""
         issues = self.validator.validate_all()
 
         missing_help = issues[IssueType.MISSING_HELP]
 
-        # We know there are 60 missing help files
-        self.assertGreater(len(missing_help), 0, "Should find missing help files")
+        # All help files should now exist after test-gen-refactor
+        self.assertEqual(len(missing_help), 0, f"Found unexpected missing help files: {missing_help}")
 
     def test_utilities_agree_on_missing_help(self):
         """Test that both utilities agree on missing help count"""
@@ -97,6 +97,10 @@ class TestDocsUtilities(unittest.TestCase):
         # Both should find similar number of missing help files
         detector_count = detector_results["missing_help"].count
         validator_count = len(validator_issues[IssueType.MISSING_HELP])
+
+        # If both are zero, they agree perfectly
+        if detector_count == 0 and validator_count == 0:
+            return
 
         # They should match closely (within 10% tolerance for different detection methods)
         diff_percentage = abs(detector_count - validator_count) / max(detector_count, validator_count)

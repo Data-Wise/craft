@@ -332,7 +332,7 @@ def test_progress_indicators():
     tutorial_pages = {
         "QUICK-START.md": 4,  # Expected number of progress indicators
         "ADHD-QUICK-START.md": 3,
-        "guide/getting-started.md": 5,
+        "guide/getting-started.md": 6,
     }
 
     missing_or_wrong = []
