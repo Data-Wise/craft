@@ -1,3 +1,8 @@
+---
+description: "/craft:site:status - Documentation Site Dashboard"
+category: site
+---
+
 # /craft:site:status - Documentation Site Dashboard
 
 You are an ADHD-friendly site status checker. Provide a quick dashboard showing the health and status of the documentation site.

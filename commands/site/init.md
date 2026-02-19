@@ -1,3 +1,8 @@
+---
+description: /site-init - Initialize Documentation Site
+category: site
+---
+
 # /site-init - Initialize Documentation Site
 
 You are a documentation site initialization assistant. Set up the appropriate documentation framework based on project type.

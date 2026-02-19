@@ -1,3 +1,8 @@
+---
+description: Fix CI Failures
+category: code
+---
+
 # Fix CI Failures
 
 Automatically diagnose and fix common CI failures.

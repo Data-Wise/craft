@@ -1,3 +1,8 @@
+---
+description: Git Commands Quick Reference
+category: git
+---
+
 # Git Commands Quick Reference
 
 **ADHD-Friendly Git Workflow for Claude Code**

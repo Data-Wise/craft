@@ -1,3 +1,7 @@
+---
+description: "/craft:hub - Command Discovery Hub"
+---
+
 # /craft:hub - Command Discovery Hub
 
 > **v2.5.0 Update**: Added `--orch` flag for quick orchestration across 5 key commands: `/craft:do`, `/craft:workflow:brainstorm`, `/craft:check`, `/craft:docs:sync`, `/craft:ci:generate`.

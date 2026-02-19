@@ -1,3 +1,8 @@
+---
+description: Git Safety Rails Guide
+category: git
+---
+
 # Git Safety Rails Guide
 
 **Learning Git Commands with Confidence on Real Work**

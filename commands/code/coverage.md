@@ -1,3 +1,8 @@
+---
+description: Test Coverage Report
+category: code
+---
+
 # Test Coverage Report
 
 Generate and analyze test coverage for your project.

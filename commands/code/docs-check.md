@@ -1,3 +1,8 @@
+---
+description: Documentation & Website Pre-flight Check
+category: code
+---
+
 # Documentation & Website Pre-flight Check
 
 Perform comprehensive documentation validation before deployment for any project in `~/projects/`.

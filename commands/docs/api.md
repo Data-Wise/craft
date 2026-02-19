@@ -1,3 +1,8 @@
+---
+description: "/craft:docs:api - OpenAPI/Swagger Documentation"
+category: docs
+---
+
 # /craft:docs:api - OpenAPI/Swagger Documentation
 
 You are an API documentation specialist. Generate OpenAPI 3.1 specifications and interactive documentation.

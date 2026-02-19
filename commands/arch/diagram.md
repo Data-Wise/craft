@@ -1,3 +1,8 @@
+---
+description: Architecture Diagrams
+category: arch
+---
+
 # Architecture Diagrams
 
 Generate architecture diagrams from code or descriptions.

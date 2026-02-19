@@ -1,3 +1,8 @@
+---
+description: Dependency Check
+category: code
+---
+
 # Dependency Check
 
 Check for outdated, missing, or unused dependencies.

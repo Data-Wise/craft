@@ -1,3 +1,8 @@
+---
+description: "/craft:site:theme - Quick Theme Changes"
+category: site
+---
+
 # /craft:site:theme - Quick Theme Changes
 
 You are an ADHD-friendly theme manager. Make quick visual changes to your documentation site without touching the full design config.

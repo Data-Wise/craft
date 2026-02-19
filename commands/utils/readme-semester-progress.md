@@ -1,3 +1,8 @@
+---
+description: Semester Progress Calculation Utilities
+category: utils
+---
+
 # Semester Progress Calculation Utilities
 
 **Module**: `commands/utils/semester_progress.py`
