@@ -15,8 +15,12 @@ import tempfile
 from pathlib import Path
 import sys
 
+import pytest
+
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+pytestmark = [pytest.mark.unit, pytest.mark.claude_md]
 
 from utils.claude_md_section_editor import (
     SectionParser, SectionEditor, Section,

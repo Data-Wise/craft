@@ -11,6 +11,8 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from commands._discovery import (
     load_cached_commands,
@@ -19,6 +21,8 @@ from commands._discovery import (
     get_command_detail,
     generate_command_tutorial
 )
+
+pytestmark = [pytest.mark.e2e, pytest.mark.hub]
 
 
 class E2EWorkflows:

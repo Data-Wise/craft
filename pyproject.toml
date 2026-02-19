@@ -1,0 +1,61 @@
+# Optional dependency groups for advanced testing
+# Install: pip install "craft[testing]" or "craft[testing-advanced]"
+[project.optional-dependencies]
+testing = [
+    "pytest>=7.0",
+    "jinja2>=3.1",
+]
+testing-advanced = [
+    "syrupy>=4.0",
+    "hypothesis>=6.0",
+    "pytest-xdist>=3.0",
+    "pytest-cov>=4.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+# Marker definitions — used for tiered test execution
+# Usage: pytest -m "unit" or pytest -m "not slow"
+markers = [
+    # --- Test tiers (mutually exclusive) ---
+    "unit: Pure function/class tests, no subprocess or I/O (< 1s each)",
+    "integration: Tests that use subprocess, filesystem, or external tools (< 10s each)",
+    "e2e: End-to-end dogfooding tests against real project (< 60s each)",
+
+    # --- Speed modifiers (combinable with tiers) ---
+    "smoke: Fast subset for quick validation (< 2 min total)",
+    "slow: Tests that take > 10s individually",
+
+    # --- Domain categories (combinable with tiers) ---
+    "structure: Plugin structure validation (plugin.json, directories, counts)",
+    "commands: Command file parsing, frontmatter, discovery",
+    "skills: Skill file validation and behavior",
+    "agents: Agent configuration and hooks",
+    "docs: Documentation link checking, content validation",
+    "teaching: Teaching workflow and config validation",
+    "claude_md: CLAUDE.md sync, audit, fix, edit operations",
+    "branch_guard: Branch protection hook behavior",
+    "orchestrator: Orchestrator v2.1 features and workflows",
+    "hub: Hub discovery, display, and layer tests",
+    "formatting: Box-drawing, colors, ANSI formatting",
+    "dependency: Dependency management and tool detection",
+    "badge: Badge detection and syncing",
+    "brainstorm: Brainstorm context and phase tests",
+    "release: Release skill and pipeline tests",
+    "marketplace: Marketplace distribution tests",
+    "site: Site publishing and building tests",
+    "snapshot: Snapshot comparison tests (requires syrupy)",
+    "property: Property-based tests (requires hypothesis)",
+    "contract: Contract validation tests for strict schemas",
+]
+
+# Default: show short test summary, no header noise
+addopts = [
+    "--strict-markers",
+    "-ra",
+    "--tb=short",
+]

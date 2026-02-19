@@ -1,3 +1,8 @@
+---
+description: "/craft:docs:help - Help Page Generator"
+category: docs
+---
+
 # /craft:docs:help - Help Page Generator
 
 Generate comprehensive help documentation for commands using ADHD-friendly templates.

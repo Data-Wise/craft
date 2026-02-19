@@ -1,3 +1,8 @@
+---
+description: /refine - Prompt Optimizer
+category: workflow
+---
+
 # /refine - Prompt Optimizer
 
 Optimize vague or unclear prompts into specific, well-structured requests that get better results from Claude.

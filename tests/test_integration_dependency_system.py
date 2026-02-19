@@ -20,6 +20,10 @@ import tempfile
 import os
 from pathlib import Path
 
+import pytest
+
+pytestmark = [pytest.mark.integration, pytest.mark.dependency]
+
 
 class TestDependencySystemIntegration(unittest.TestCase):
     """Integration tests for dependency management system."""

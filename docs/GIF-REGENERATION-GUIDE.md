@@ -137,7 +137,7 @@ open docs/demos/*.gif docs/gifs/*.gif
 | 02 | `/craft:site:create --preset adhd-focus --quick` | Interactive prompts, preset output |
 | 03 | `/craft:check --for release` | Validation results, checklist format |
 | 04 | `/craft:do add user authentication with JWT` | Task breakdown, agent spawning |
-| 05 | `/craft:test:run debug` | Test output, pass/fail format |
+| 05 | `/craft:test debug` | Test output, pass/fail format |
 | 06 | `/craft:code:lint optimize` | Lint results, file list format |
 | 07 | `/craft:git:worktree add feature-auth` | Worktree creation, path output |
 | 08 | `/craft:dist:homebrew setup` | Setup steps, formula generation |

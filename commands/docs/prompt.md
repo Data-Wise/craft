@@ -1,3 +1,8 @@
+---
+description: "/craft:docs:prompt - Generate Documentation Prompts"
+category: docs
+---
+
 # /craft:docs:prompt - Generate Documentation Prompts
 
 You are a prompt engineer specializing in documentation maintenance. Generate reusable prompts for common documentation tasks.

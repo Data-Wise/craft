@@ -157,7 +157,9 @@ gh pr create --base dev --title "feat: add authentication" --body "## Summary
 
 ### Step 6: Cleanup
 
-After PR is merged, clean up the worktree.
+The `finish` action automatically removes `ORCHESTRATE-*.md` files before creating the PR — these are working artifacts that should not merge to `dev`.
+
+After the PR is merged, clean up the worktree:
 
 ```bash
 # Remove worktree

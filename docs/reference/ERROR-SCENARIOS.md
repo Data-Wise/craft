@@ -429,14 +429,14 @@ Supported patterns:
 Error: Refactoring would break code
 Test failures detected
 
-Run: /craft:test:run to see failures
+Run: /craft:test to see failures
 ```
 
 **Recovery**:
 
 ```bash
 # Option 1: Fix tests first, then refactor
-/craft:test:debug
+/craft:test debug
 # Fix the failing tests manually
 /craft:code:refactor "your pattern"
 
@@ -761,7 +761,7 @@ export function myFunction() {}
 
 ## Test Commands Error Scenarios
 
-### /craft:test:run
+### /craft:test
 
 #### Error: Tests Failed
 
@@ -777,20 +777,20 @@ Failing tests:
   ✗ DB tests (1 failure)
     - Should connect to database (connection refused)
 
-Run: /craft:test:debug to debug
+Run: /craft:test debug to debug
 ```
 
 **Recovery**:
 
 ```bash
 # Option 1: Debug specific test
-/craft:test:debug "Should authenticate user"
+/craft:test debug --filter="Should authenticate user"
 
 # Option 2: Run in debug mode for more info
-/craft:test:run debug
+/craft:test debug
 
 # Option 3: Run with detailed output
-/craft:test:run debug --verbose
+/craft:test debug
 ```
 
 ---
@@ -810,7 +810,7 @@ Error: Test file not found: tests/auth.test.ts
 /craft:code:test-gen unit src/auth.ts
 
 # Option 2: Check correct path
-/craft:test:run tests/
+/craft:test --path tests/
 
 # Option 3: List test files
 find tests -name "*.test.*" -o -name "*.spec.*"
@@ -844,7 +844,7 @@ npm install --save-dev jest
 
 ---
 
-### /craft:test:watch
+### /craft:test --watch
 
 #### Error: Watch Mode Crashed
 
@@ -867,7 +867,7 @@ df -h
 echo 65536 | sudo tee /proc/sys/fs/inotify/max_user_watches
 
 # Option 3: Run tests without watch
-/craft:test:run
+/craft:test
 ```
 
 ---
@@ -1190,7 +1190,7 @@ grep "code:lint" ~/.craft/logs/craft.log
 /craft:command --dry-run
 
 # Use test mode
-/craft:test:run debug
+/craft:test debug
 ```
 
 ---

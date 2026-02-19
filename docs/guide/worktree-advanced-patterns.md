@@ -241,6 +241,8 @@ npm run test:e2e
 
 ```bash
 # Merge order (reverse dependency)
+# Each `finish` runs tests, generates changelog, removes ORCHESTRATE files, creates PR
+
 # 1. Backend first
 cd ~/.git-worktrees/craft/feature-auth-backend
 /craft:git:worktree finish  # Creates PR #1

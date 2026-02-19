@@ -1,3 +1,8 @@
+---
+description: "/craft:site:audit - Content Inventory & Audit"
+category: site
+---
+
 # /craft:site:audit - Content Inventory & Audit
 
 You are an ADHD-friendly documentation auditor. Analyze documentation content for quality, currency, duplicates, and gaps.

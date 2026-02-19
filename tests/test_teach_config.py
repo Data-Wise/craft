@@ -24,8 +24,12 @@ import unittest
 from datetime import datetime
 from pathlib import Path
 
+import pytest
+
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+pytestmark = [pytest.mark.unit, pytest.mark.teaching]
 
 from commands.utils.teach_config import (
     get_config_path,

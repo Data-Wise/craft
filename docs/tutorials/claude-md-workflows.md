@@ -9,8 +9,9 @@
 3. [Workflow 2: Maintenance & Updates](#workflow-2-maintenance--updates)
 4. [Workflow 3: Section Editing](#workflow-3-section-editing)
 5. [Workflow 4: Template Customization](#workflow-4-template-customization)
-6. [Advanced Patterns](#advanced-patterns)
-7. [Troubleshooting](#troubleshooting)
+6. [Workflow 5: Layered Architecture](#workflow-5-layered-architecture)
+7. [Advanced Patterns](#advanced-patterns)
+8. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -115,7 +116,7 @@ Preview: CLAUDE.md (242 lines)
 
 | Task | Shell | Craft |
 |------|-------|-------|
-| Run tests | `python3 -m pytest` | `/craft:test:run` |
+| Run tests | `python3 -m pytest` | `/craft:test` |
 | Lint code | `ruff check .` | `/craft:code:lint` |
 ...
 
@@ -433,7 +434,7 @@ Current content preview:
 
   | Issue | Solution |
   |-------|----------|
-  | Tests failing | Run /craft:test:debug |
+  | Tests failing | Run /craft:test debug |
   | Lint errors | Run /craft:code:lint debug |
   | Build issues | Check dependencies with /craft:code:deps-check |
   ...
@@ -462,10 +463,10 @@ Diff preview:
 
   | Issue | Solution |
   |-------|----------|
-  | Tests failing | Run /craft:test:debug |
+  | Tests failing | Run /craft:test debug |
   | Lint errors | Run /craft:code:lint debug |
   | Build issues | Check dependencies with /craft:code:deps-check |
-+ | Slow tests | Use /craft:test:run optimize for parallel execution |
++ | Slow tests | Use /craft:test optimize for parallel execution |
 + | Coverage gaps | Run /craft:code:coverage to identify untested code |
   ...
 
@@ -616,6 +617,65 @@ cat CLAUDE.md
 ```
 
 **Complete workflow time:** ~15-30 minutes (one-time setup)
+
+---
+
+## Workflow 5: Layered Architecture
+
+**Goal:** Keep CLAUDE.md lean (~80 lines) by separating behavioral rules from reference material.
+
+> **v2.22.0:** CLAUDE.md now uses a layered system that loads only behavioral rules every session. Reference material lives in `.claude/reference/` and loads on-demand.
+
+### The Principle
+
+| Layer | Loads | Contains | Budget |
+|-------|-------|----------|--------|
+| CLAUDE.md | Every session | Behavioral rules, workflow, troubleshooting | < 100 lines |
+| `.claude/rules/` | Every session | Imperatives (spec-only, brainstorm) | As needed |
+| `.claude/reference/` | On-demand | Agents, tests, project structure | Unlimited |
+
+### Step 1: Generate Reference Files
+
+```bash
+# Auto-generate from filesystem state
+PYTHONPATH=. python3 utils/claude_md_sync.py --generate-reference
+```
+
+This creates:
+
+- `.claude/reference/agents.md` — Agent inventory with model and description
+- `.claude/reference/test-suite.md` — Test files with type classification
+- `.claude/reference/project-structure.md` — Directory tree, counts, version
+
+### Step 2: Keep CLAUDE.md Behavioral
+
+CLAUDE.md should answer "how should Claude behave?" not "what tools exist?"
+
+**Keep in CLAUDE.md:**
+
+- Git workflow rules and constraints
+- Quick command reference (what to run)
+- Execution modes
+- Troubleshooting
+
+**Move to `.claude/reference/`:**
+
+- Agent tables with descriptions
+- Full test file listings
+- Project structure trees
+- Version history
+
+### Step 3: Auto-Maintain with Workflow
+
+```bash
+# Session end: auto-syncs counts and timestamps
+/workflow:done
+
+# Pre-flight: validates instruction health
+/craft:check
+```
+
+Both commands now include CLAUDE.md accuracy checks automatically.
 
 ---
 

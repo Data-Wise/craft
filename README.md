@@ -2,12 +2,12 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
 [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.21.0-blue.svg)](https://github.com/Data-Wise/craft)
+[![Version](https://img.shields.io/badge/version-2.22.0-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.21.0 - Orchestrate Pipeline & Insights Lifecycle** 🚀
-> **111 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
-> Spec-to-worktree pipeline, session insights, brainstorm integration, worktree types taxonomy.
+> **v2.22.0 - Unified Test System, CLAUDE.md Refactor & Insights Prevention** 🚀
+> **107 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
+> Test consolidation (7→3 commands), layered instruction system, friction-driven prevention.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -113,7 +113,7 @@ claude
 # Use craft commands
 /craft:do "add user authentication"
 /craft:check
-/craft:test:run
+/craft:test unit
 ```
 
 ### Using in Claude Desktop App
@@ -145,7 +145,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 111 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 107 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -184,7 +184,7 @@ Commands support execution modes for different use cases:
 ```bash
 /craft:code:lint                # Quick check
 /craft:code:lint debug          # Verbose with suggestions
-/craft:test:run release         # Full suite with coverage
+/craft:test release             # Full suite with coverage
 /craft:arch:analyze optimize    # Performance analysis
 ```
 
@@ -287,16 +287,13 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:code:ci-local`   | CI checks locally     | ----- |
 | `/craft:code:ci-fix`     | Fix CI failures       | ----- |
 
-### Test Commands (6)
+### Test Commands (3)
 
-| Command                | Description              | Modes |
-| ---------------------- | ------------------------ | ----- |
-| `/craft:test:run`      | Unified test runner      | ✓    |
-| `/craft:test:watch`    | Watch mode               | ----- |
-| `/craft:test:coverage` | Coverage analysis        | ✓    |
-| `/craft:test:debug`    | Debug failing tests      | ----- |
-| `/craft:test:cli-gen`  | Generate CLI test suites | ----- |
-| `/craft:test:cli-run`  | Run CLI test suites      | ----- |
+| Command                  | Description                | Modes |
+| ------------------------ | -------------------------- | ----- |
+| `/craft:test`            | Unified test runner        | ✓    |
+| `/craft:test:gen`        | Generate test suites       | ----- |
+| `/craft:test:template`   | Manage test templates      | ----- |
 
 ### Architecture Commands (4)
 
@@ -451,7 +448,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ### Daily Development
 
 ```
-/craft:check → /craft:test:run → /craft:git:sync
+/craft:check → /craft:test unit → /craft:git:sync
 ```
 
 ### Release Preparation
@@ -459,7 +456,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ```
 /craft:check --for release
 # OR
-/craft:code:deps-audit → /craft:test:run release → /craft:code:release
+/craft:code:deps-audit → /craft:test release → /craft:code:release
 ```
 
 ### Feature Development

@@ -12,6 +12,10 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.docs]
+
 from utils.linkcheck_ignore_parser import parse_linkcheck_ignore, IgnoreRules, IgnorePattern
 
 

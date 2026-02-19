@@ -16,9 +16,10 @@ This command safely removes branches that have been merged.
 ## What I'll do
 
 1. **Analyze merged branches** - Identify branches that have been merged
-2. **Check for issues** - Detect uncommitted changes or other blockers
-3. **Preview or execute** - Show what will be deleted (dry-run) or delete branches
-4. **Confirm deletion** - Ask before deleting (unless --dry-run)
+2. **Check for ORCHESTRATE files** - Warn if any `ORCHESTRATE-*.md` files remain on `dev` after merge (working artifacts that should have been removed by `/craft:git:worktree finish`)
+3. **Check for issues** - Detect uncommitted changes or other blockers
+4. **Preview or execute** - Show what will be deleted (dry-run) or delete branches
+5. **Confirm deletion** - Ask before deleting (unless --dry-run)
 
 ## Safety
 

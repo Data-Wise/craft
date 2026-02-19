@@ -1,3 +1,8 @@
+---
+description: "/craft:docs:site - Website Documentation Focus"
+category: docs
+---
+
 # /craft:docs:site - Website Documentation Focus
 
 You are a documentation site specialist. Update all website-related docs and optionally deploy.

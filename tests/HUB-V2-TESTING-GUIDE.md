@@ -226,7 +226,7 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 - [ ] **Invoke command detail**
 
   ```
-  Say to Claude: "/craft:hub test:run"
+  Say to Claude: "/craft:hub test"
   ```
 
   - [ ] Shows command tutorial
@@ -281,7 +281,7 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
 - [ ] **Jump directly to command**
 
   ```
-  Say to Claude: "/craft:hub test:coverage"
+  Say to Claude: "/craft:hub test --coverage"
   ```
 
   - [ ] Goes directly to Layer 3 (command detail)

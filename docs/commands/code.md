@@ -9,8 +9,8 @@ Development workflow tools with mode support - 17 commands.
 | Quick style check before commit | `/craft:code:lint` | Fast default mode (< 10s) |
 | Full pre-flight validation | `/craft:check` | Runs lint + tests + links together |
 | Deep debugging with traces | `/craft:code:lint debug` | Verbose output with fix suggestions |
-| Run unit tests | `/craft:test:run` | Auto-detects framework (pytest, jest) |
-| Test CLI tool behavior | `/craft:test:cli-run` | Validates stdin/stdout/exit codes |
+| Run unit tests | `/craft:test` | Auto-detects framework (pytest, jest) |
+| Test CLI tool behavior | `/craft:test` | Validates stdin/stdout/exit codes |
 | Run CI checks locally | `/craft:code:ci-local` | Full CI pipeline without pushing |
 | Check for vulnerabilities | `/craft:code:deps-audit` | Security-focused dependency scan |
 | Pre-release validation | `/craft:code:lint release` | Comprehensive + types + security |
@@ -18,7 +18,7 @@ Development workflow tools with mode support - 17 commands.
 **Common confusion:**
 
 - **lint vs check** — `lint` checks code style only; `check` validates docs, links, and counts too
-- **test:run vs test:cli-run** — `test:run` is for unit/integration tests; `test:cli-run` tests CLI tools via subprocess
+- **test vs test:gen** — `test` runs tests; `test:gen` generates test suites from templates
 - **lint vs ci-local** — `lint` checks one thing fast; `ci-local` runs the full CI pipeline locally
 
 ---
@@ -35,12 +35,12 @@ Development workflow tools with mode support - 17 commands.
 
 ## Testing
 
-### /craft:test:run
+### /craft:test
 
 ```bash
-/craft:test:run                 # default mode
-/craft:test:run debug           # Verbose test output
-/craft:test:run release         # Full suite with coverage
+/craft:test                 # default mode
+/craft:test debug           # Verbose test output
+/craft:test release         # Full suite with coverage
 ```
 
 ## CI/CD Commands
@@ -77,15 +77,15 @@ Complete release checklist (tests, docs, changelog, version bump).
 
 ## Advanced Testing
 
-### /craft:test:cli-gen
+### /craft:test:gen cli
 
 Generate CLI test suites with comprehensive coverage.
 
-### /craft:test:cli-run
+### /craft:test
 
 Run CLI-specific tests with output validation.
 
-### /craft:test:watch
+### /craft:test --watch
 
 Watch mode for continuous testing during development.
 
@@ -95,5 +95,5 @@ Watch mode for continuous testing during development.
 - `/craft:code:demo` - Create demonstrations
 - `/craft:code:refactor` - Refactoring guidance
 - `/craft:code:review` - Code review assistance
-- `/craft:test:generate` - Test generation
+- `/craft:test:gen` - Test generation
 - `/craft:test:strategy` - Testing strategy

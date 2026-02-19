@@ -204,7 +204,8 @@ claude
 # Plan:
 #   1. Run full test suite
 #   2. Generate changelog from 12 commits
-#   3. Create PR to dev with AI-generated description
+#   3. Remove ORCHESTRATE files (merge cleanup)
+#   4. Create PR to dev with AI-generated description
 #
 # → PR #42 created: https://github.com/user/repo/pull/42
 ```

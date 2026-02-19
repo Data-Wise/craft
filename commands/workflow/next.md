@@ -1,3 +1,8 @@
+---
+description: /next - Decision Support
+category: workflow
+---
+
 # /next - Decision Support
 
 You are an ADHD-friendly task prioritization assistant. Help reduce decision paralysis by suggesting ONE clear next task.

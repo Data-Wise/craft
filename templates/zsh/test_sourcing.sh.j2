@@ -1,0 +1,33 @@
+{% include '_base/bash_header.sh.j2' %}
+
+echo "=== {{ project_name }} Sourcing Tests ==="
+
+# Test: Plugin file exists
+if [[ -f "${PROJECT_DIR}/{{ plugin_file }}" ]]; then
+    pass_test "Plugin file exists"
+else
+    fail_test "Plugin file exists" "Missing {{ plugin_file }}"
+fi
+
+# Test: Plugin can be sourced without errors
+if source "${PROJECT_DIR}/{{ plugin_file }}" 2>/dev/null; then
+    pass_test "Plugin sources without errors"
+else
+    fail_test "Plugin sources without errors" "Source failed with exit code $?"
+fi
+
+# Test: No syntax errors
+if bash -n "${PROJECT_DIR}/{{ plugin_file }}" 2>/dev/null; then
+    pass_test "No syntax errors"
+else
+    fail_test "No syntax errors" "Syntax check failed"
+fi
+
+# Test: File is not empty
+if [[ -s "${PROJECT_DIR}/{{ plugin_file }}" ]]; then
+    pass_test "Plugin file is not empty"
+else
+    fail_test "Plugin file is not empty" "File is empty"
+fi
+
+summary

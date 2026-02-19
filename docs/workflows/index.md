@@ -243,7 +243,7 @@ flowchart TD
 
     SWITCH --> LOOP{💻 Development Loop}
     LOOP -->|Write code| CODE["Implement feature"]
-    LOOP -->|Run tests| TEST["/craft:test:run debug"]
+    LOOP -->|Run tests| TEST["/craft:test debug"]
     LOOP -->|Check quality| LINT["/craft:code:lint optimize"]
 
     CODE --> CHECK["/craft:check"]
@@ -307,7 +307,7 @@ flowchart TD
     ROUTE1 -->|Complex| AGENT1["backend-architect<br/>agent"]
 
     TEST --> ROUTE2{Choose<br/>Tool}
-    ROUTE2 -->|Unit tests| CMD2["/craft:test:run"]
+    ROUTE2 -->|Unit tests| CMD2["/craft:test"]
     ROUTE2 -->|Strategy| AGENT2["test-strategist<br/>skill"]
 
     DOCS --> ROUTE3{Choose<br/>Tool}
@@ -350,7 +350,7 @@ flowchart TD
 
 2. **Commands** (69 total) - Direct actions
    - `/craft:docs:update` - Documentation automation
-   - `/craft:test:run` - Test execution
+   - `/craft:test` - Test execution
    - `/craft:code:lint` - Code quality checks
 
 3. **Agents** (7 specialized) - Long-running complex tasks

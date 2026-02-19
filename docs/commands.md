@@ -5,7 +5,7 @@ Complete reference for all 97 Craft commands organized by category. Craft provid
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 111 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 107 commands support `--dry-run` / `-n` preview mode
 **16 Categories:** arch, check, ci, code, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
 Use `/craft:hub` to discover all available commands interactively.
@@ -218,30 +218,35 @@ Enhanced git status with branch guard indicator.
 
 ## Test Commands (test/)
 
-### /craft:test:run
+### /craft:test
 
-Unified test runner with mode support.
+Unified test runner with category filtering and modes.
 
 ```bash
-/craft:test:run                   # Quick tests
-/craft:test:run release           # Full suite with coverage
+/craft:test                       # Quick tests (default mode)
+/craft:test unit                  # Unit tests only
+/craft:test release               # Full suite with coverage
+/craft:test --coverage            # Coverage report
+/craft:test --watch               # Watch mode
 ```
 
-### /craft:test:cli-gen
+### /craft:test:gen
 
-Generate CLI test suites (interactive and automated).
+Generate test suites with project-type detection.
 
 ```bash
-/craft:test:cli-gen
+/craft:test:gen                   # Auto-detect and generate
+/craft:test:gen plugin            # Force plugin type
+/craft:test:gen --tier unit       # Unit tests only
 ```
 
-### /craft:test:cli-run
+### /craft:test:template
 
-Run CLI test suites.
+Manage Jinja2 templates for test generation.
 
 ```bash
-/craft:test:cli-run              # Run all CLI tests
-/craft:test:cli-run --suite e2e  # Specific suite
+/craft:test:template list         # List all templates
+/craft:test:template validate     # Validate templates
 ```
 
 ## Mode System
@@ -259,7 +264,7 @@ All applicable commands support 4 execution modes:
 
 ```bash
 /craft:code:lint debug
-/craft:test:run release
+/craft:test release
 /craft:arch:analyze optimize
 ```
 
@@ -276,7 +281,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 111 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 107 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 
@@ -314,10 +319,9 @@ All applicable commands support 4 execution modes:
 - `code:deps-audit` - Preview security vulnerability scanning
 - `code:lint` - Preview linting plan (mode-aware)
 
-### Test Commands (2/6) — 33%
+### Test Commands (1/3) — 33%
 
-- `test:cli-run` - Preview CLI test execution
-- `test:run` - Preview test execution (mode-aware)
+- `test` - Preview test execution plan (mode-aware)
 
 ### Distribution Commands (1/4) — 25%
 

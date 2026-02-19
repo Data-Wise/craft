@@ -1,3 +1,8 @@
+---
+description: "/craft:docs:tutorial - Interactive Tutorial Generator"
+category: docs
+---
+
 # /craft:docs:tutorial - Interactive Tutorial Generator
 
 You are a tutorial orchestrator. Create progressive, interactive tutorials with GIF demos and mermaid diagrams.

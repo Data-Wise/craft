@@ -178,7 +178,7 @@ Results:
 
 Next steps:
   1. Review generated code
-  2. Run tests: /craft:test:run
+  2. Run tests: /craft:test
   3. Commit changes
 ```
 

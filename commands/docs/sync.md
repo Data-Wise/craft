@@ -18,6 +18,10 @@ arguments:
     required: false
     default: false
     alias: -n
+  - name: headless
+    description: Non-interactive mode - auto-approve all changes and commit (NEW in v2.22.0)
+    required: false
+    default: false
   - name: orch
     description: Enable orchestration mode (NEW in v2.5.0)
     required: false
@@ -62,6 +66,10 @@ Quick by default. Run it often. Get a summary of doc status.
 # Preview detection plan
 /craft:docs:sync --dry-run
 /craft:docs:sync -n
+
+# Non-interactive (NEW in v2.22.0)
+/craft:docs:sync --headless           # Auto-approve all, commit changes
+/craft:docs:sync --headless --dry-run # Show what would change without modifying
 ```
 
 ## Dry-Run Mode
@@ -92,6 +100,71 @@ Preview what files will be analyzed without reading them:
 ```
 
 **Note**: This is a read-only command, so dry-run mainly shows what will be analyzed.
+
+## Headless Mode (NEW in v2.22.0)
+
+Non-interactive mode for CI automation and scripted workflows.
+
+### Behavior
+
+| Flag | Behavior |
+|------|----------|
+| (none) | Interactive — shows changes, asks for approval before each update |
+| `--headless` | Auto-approve all changes, commit with standard message |
+| `--headless --dry-run` | Show what would change without modifying any files |
+
+### When `--headless` is passed
+
+1. Run Steps 1-3 (gather, classify, detect stale) silently
+2. For each recommended action, **auto-approve** without prompting
+3. Apply all documentation updates
+4. Commit changes with: `docs: auto-sync documentation`
+5. Output summary of what was updated
+
+```text
+┌───────────────────────────────────────────────────────────────┐
+│ /craft:docs:sync --headless                                   │
+├───────────────────────────────────────────────────────────────┤
+│ Mode: Headless (non-interactive)                              │
+│                                                               │
+│ Updated:                                                      │
+│   ✅ docs/commands/check.md (version sync section added)      │
+│   ✅ docs/REFCARD.md (3 new entries)                           │
+│   ✅ docs/guide/version-sync.md (created)                     │
+│                                                               │
+│ Skipped (no changes needed):                                  │
+│   ─ docs/commands/workflow/done.md                            │
+│   ─ docs/tutorials/getting-started.md                        │
+│                                                               │
+│ Committed: "docs: auto-sync documentation"                   │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### When `--headless --dry-run` is passed
+
+Shows what would be updated without modifying files:
+
+```text
+┌───────────────────────────────────────────────────────────────┐
+│ /craft:docs:sync --headless --dry-run                         │
+├───────────────────────────────────────────────────────────────┤
+│ Mode: Headless DRY RUN (no changes)                           │
+│                                                               │
+│ Would update:                                                 │
+│   → docs/commands/check.md (version sync section)             │
+│   → docs/REFCARD.md (3 new entries)                           │
+│   → docs/guide/version-sync.md (create new)                  │
+│                                                               │
+│ No changes needed:                                            │
+│   ─ docs/commands/workflow/done.md                            │
+│                                                               │
+│ Run without --dry-run to apply changes.                       │
+└───────────────────────────────────────────────────────────────┘
+```
+
+### CI Usage
+
+The `--headless` flag enables CI automation via GitHub Actions. See `.github/workflows/docs-sync.yml`.
 
 ## Orchestration Mode (NEW in v2.5.0)
 

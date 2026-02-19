@@ -21,6 +21,8 @@ import pytest
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+pytestmark = [pytest.mark.unit, pytest.mark.teaching]
+
 from utils.detect_teaching_mode import detect_teaching_mode
 
 

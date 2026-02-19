@@ -245,7 +245,7 @@ Post-Merge Complete:
 │                                                 │
 │ Next Steps:                                     │
 │   1. Review: git diff                           │
-│   2. Test: /craft:test:run                      │
+│   2. Test: /craft:test                      │
 │   3. Commit: git commit                         │
 │                                                 │
 ╰─────────────────────────────────────────────────╯

@@ -23,6 +23,8 @@ from pathlib import Path
 from datetime import date, timedelta
 import sys
 
+import pytest
+
 # Add plugin directory to path
 plugin_dir = Path(__file__).parent.parent
 utils_dir = plugin_dir / "commands" / "utils"
@@ -41,6 +43,8 @@ try:
     CONFIG_AVAILABLE = True
 except ImportError:
     CONFIG_AVAILABLE = False
+
+pytestmark = [pytest.mark.integration, pytest.mark.teaching]
 
 
 class TestTeachingWorkflowIntegration(unittest.TestCase):

@@ -344,7 +344,7 @@ graph TD
     B --> D["One Category"]
     B --> E["No Planning"]
 
-    C --> F["/craft:code:lint<br/>/craft:test:run<br/>/craft:docs:update"]
+    C --> F["/craft:code:lint<br/>/craft:test<br/>/craft:docs:update"]
     D --> F
     E --> F
 

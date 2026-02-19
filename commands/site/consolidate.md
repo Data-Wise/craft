@@ -1,3 +1,8 @@
+---
+description: "/craft:site:consolidate - Merge Duplicate Content"
+category: site
+---
+
 # /craft:site:consolidate - Merge Duplicate Content
 
 You are an ADHD-friendly documentation consolidator. Merge duplicate or overlapping documentation files while preserving all valuable content.

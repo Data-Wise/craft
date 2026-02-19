@@ -63,7 +63,7 @@ The command examines:
 ```
 ╭─ Architecture Overview ─────────────────────────────╮
 │ Project: craft | Type: Claude Code Plugin          │
-│ Structure: commands/ agents/ skills/ (111 commands) │
+│ Structure: commands/ agents/ skills/ (107 commands) │
 ├─────────────────────────────────────────────────────┤
 │ Commands: 9 categories (docs, site, code, etc.)    │
 │ Agents: 8 (orchestrator-v2, docs-architect, etc.)  │
@@ -325,7 +325,7 @@ Architecture commands work well with:
 |---------|----------|
 | `/craft:code:refactor` | Implement architecture changes |
 | `/craft:docs:api` | Document architecture decisions |
-| `/craft:test:run` | Validate architecture changes |
+| `/craft:test` | Validate architecture changes |
 | `/craft:check` | Pre-flight before major refactors |
 | `/craft:do` | AI routes architecture tasks |
 

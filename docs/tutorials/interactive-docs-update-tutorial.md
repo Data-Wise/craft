@@ -198,7 +198,7 @@ As each category is applied, you'll see progress:
 │                                                 │
 │ Next Steps:                                     │
 │   1. Review: git diff                           │
-│   2. Test: /craft:test:run                      │
+│   2. Test: /craft:test                      │
 │   3. Commit: git add . && git commit            │
 │                                                 │
 ╰─────────────────────────────────────────────────╯

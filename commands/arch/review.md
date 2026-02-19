@@ -1,3 +1,8 @@
+---
+description: Architecture Review
+category: arch
+---
+
 # Architecture Review
 
 Review code changes for architectural consistency and quality.

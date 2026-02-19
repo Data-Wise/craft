@@ -6,10 +6,10 @@ arguments:
     required: false
     default: formula
   - name: tap
-    description: Homebrew tap repository (e.g., user/tap)
+    description: "Homebrew tap repository (e.g., user/tap)"
     required: false
   - name: version
-    description: Specific version to use (default: latest tag)
+    description: "Specific version to use (default: latest tag)"
     required: false
 ---
 
@@ -264,9 +264,9 @@ When issues are found, the audit command automatically applies known fixes:
 ```ruby
 # Fix 1: Description too long (> 80 chars)
 # Before:
-desc "Full-stack developer toolkit - 111 commands, 8 agents, 25 skills - Claude Code plugin"
+desc "Full-stack developer toolkit - 107 commands, 8 agents, 25 skills - Claude Code plugin"
 # After:
-desc "Full-stack developer toolkit for Claude Code with 111 commands"
+desc "Full-stack developer toolkit for Claude Code with 107 commands"
 
 # Fix 2: Array comparison (use Array#include?)
 # Before:
@@ -807,8 +807,18 @@ class MyPlugin < Formula
       nil
     end
 
-    # Step 2: Run install script
-    system bin/"my-plugin-install"
+    # Step 2: Run install script with 30s timeout
+    begin
+      require "timeout"
+      pid = Process.spawn("#{bin}/my-plugin-install")
+      Timeout.timeout(30) { Process.waitpid(pid) }
+    rescue Timeout::Error
+      Process.kill("TERM", pid) rescue nil
+      Process.waitpid(pid) rescue nil
+      opoo "my-plugin-install timed out after 30 seconds (skipping)"
+    rescue
+      nil
+    end
 
     # Step 3: Sync registry (optional)
     begin
@@ -857,7 +867,7 @@ end
 
 | Formula | Plugin | Status |
 |---------|--------|--------|
-| `craft.rb` | 111 commands | `brew audit --strict` clean |
+| `craft.rb` | 107 commands | `brew audit --strict` clean |
 | `rforge.rb` | 15 commands | Claude detection |
 | `scholar.rb` | 21 commands | Claude detection |
 

@@ -2,7 +2,7 @@
 
 **End-to-end release automation** — version detection, pre-flight checks, PR creation, merge, GitHub release.
 
-**Version:** 2.18.0 | **Skill:** `skills/release/SKILL.md`
+**Version:** 2.22.0 | **Skill:** `skills/release/SKILL.md` | **NEW:** CI monitoring loop (Step 6.5)
 
 ---
 
@@ -41,6 +41,7 @@ Ready to release?
 | 4 | Commit and push | Creates commit, pushes |
 | 5 | Create release PR | Creates PR (dev to main) |
 | 6 | Merge PR | Merges to main |
+| **6.5** | **CI monitoring loop** | **Polls, diagnoses, retries (NEW v2.22.0)** |
 | 7 | Create GitHub release | Creates tag and release |
 | 8 | Post-release | Deploys docs, syncs dev |
 | 8.5 | Update Homebrew tap | Modifies tap formula |
@@ -99,6 +100,37 @@ The release pipeline automatically handles marketplace distribution:
 | `marketplace.json` | `metadata.version`, `plugins[0].version` |
 | `package.json` | `version` |
 | `CLAUDE.md` | Version references |
+
+---
+
+## CI Monitoring Loop (NEW v2.22.0)
+
+After merge (Step 6.5), the release pipeline automatically monitors CI:
+
+```text
+Poll → Diagnose → Fix/Ask → Retry (up to 3x)
+```
+
+**Two-Tier Fix Strategy:**
+
+| Category | Action | Examples |
+|----------|--------|---------|
+| Auto-fix | Fix and retry silently | version_mismatch, lint_failure, changelog_format |
+| Ask-first | Pause and ask user | test_failure, security_audit, build_failure |
+
+**Configuration:** `.claude/release-config.json`
+
+```json
+{
+  "ci_timeout": 600,
+  "ci_max_retries": 3,
+  "ci_poll_interval": 30,
+  "ci_auto_fix_categories": ["version_mismatch", "lint_failure", "changelog_format"],
+  "ci_ask_before_fix": ["test_failure", "security_audit", "build_failure"]
+}
+```
+
+**Script:** `scripts/ci-monitor.sh` — Returns structured JSON on stdout, progress on stderr.
 
 ---
 

@@ -12,6 +12,10 @@ import sys
 import re
 from pathlib import Path
 
+import pytest
+
+pytestmark = [pytest.mark.integration, pytest.mark.commands]
+
 # Color codes for output
 GREEN = '\033[0;32m'
 RED = '\033[0;31m'

@@ -1,3 +1,8 @@
+---
+description: /site-preview - Preview Documentation Locally
+category: site
+---
+
 # /site-preview - Preview Documentation Locally
 
 You are a documentation preview assistant. Start a local server to preview the documentation site.

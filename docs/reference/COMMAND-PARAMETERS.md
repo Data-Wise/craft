@@ -802,66 +802,41 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Test Commands Parameters
 
-### /craft:test:run
+### /craft:test
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
+| category | string | No | - | - | Category filter (unit, integration, e2e, smoke, or domain) |
 | mode | enum | No | `default` | - | `default`, `debug`, `optimize`, `release` |
-| path | string | No | `.` | - | Test file/dir |
-| filter | string | No | - | `--match` | Filter pattern |
-| dry-run | boolean | No | false | `-n` | Preview |
+| path | string | No | `tests/` | - | Test file/dir |
+| filter | string | No | - | `-k` | Test name filter pattern |
+| coverage | boolean | No | false | - | Enable coverage reporting |
+| watch | boolean | No | false | - | Re-run on file changes |
+| dry-run | boolean | No | false | `-n` | Preview execution plan |
 
 ---
 
-### /craft:test:generate
+### /craft:test:gen
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
-| source | string | No | `.` | - | Source file |
-| type | enum | No | `unit` | - | `unit`, `integration`, `e2e` |
+| project-type | enum | No | auto | - | `plugin`, `zsh`, `cli`, `mcp` |
+| tier | enum | No | `all` | - | `smoke`, `unit`, `integration`, `e2e`, `all` |
+| output | string | No | `tests/` | - | Output directory |
+| force | boolean | No | false | - | Overwrite existing |
+| diff | boolean | No | false | - | Show diff preview |
+| dry-run | boolean | No | false | `-n` | Preview generation plan |
 
 ---
 
-### /craft:test:coverage
+### /craft:test:template
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
-| threshold | number | No | 80 | - | Minimum % |
-| report | enum | No | `text` | - | `text`, `html`, `json`, `xml` |
-
----
-
-### /craft:test:debug
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| test | string | No | - | - | Test name |
-| breakpoint | boolean | No | false | `-b` | Enable breakpoint |
-
----
-
-### /craft:test:watch
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| filter | string | No | - | - | Filter pattern |
-| coverage | boolean | No | false | `-c` | Show coverage |
-
----
-
-### /craft:test:cli-gen
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| command | string | Yes | - | - | Command to test |
-
----
-
-### /craft:test:cli-run
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| verbose | boolean | No | false | `-v` | Verbose |
+| action | enum | Yes | - | - | `list`, `show`, `validate`, `render`, `create`, `edit`, `delete` |
+| template | string | No | - | - | Template path (e.g., `plugin/test_structure`) |
+| type | enum | No | - | - | `plugin`, `zsh`, `cli`, `mcp`, `_base` |
+| output | string | No | - | - | Output path for render action |
 
 ---
 

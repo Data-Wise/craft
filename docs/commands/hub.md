@@ -62,7 +62,7 @@ Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive dis
 - **Dynamic discovery** - Scans `commands/` directory automatically
 - **Always accurate** - No hardcoded counts that drift out of sync
 - **Fast caching** - JSON cache with auto-invalidation (<2ms cached, 12ms uncached)
-- **111 commands** detected across 17 categories (v2.4.0)
+- **107 commands** detected across 17 categories (v2.4.0)
 
 ### 3-Layer Navigation
 
@@ -74,7 +74,7 @@ Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive dis
 
 - **Progressive disclosure** - Start broad, drill down as needed
 - **Visual hierarchy** - Clear sections, icons, and formatting
-- **No overwhelm** - Never show all 111 commands at once
+- **No overwhelm** - Never show all 107 commands at once
 - **Smart breadcrumbs** - Always know where you are
 
 ---
@@ -120,10 +120,10 @@ Shows all categories with auto-detected command counts:
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │ 💻 CODE (12)              🧪 TEST (7)              📄 DOCS (19)         │
-│   /craft:code:lint          /craft:test:run          /craft:docs:sync   │
-│   /craft:code:coverage      /craft:test:watch        /craft:docs:check  │
-│   /craft:code:deps-audit    /craft:test:coverage     /craft:docs:lint   │
-│   /craft:code:ci-local      /craft:test:debug        ...                │
+│   /craft:code:lint          /craft:test          /craft:docs:sync   │
+│   /craft:code:coverage      /craft:test --watch        /craft:docs:check  │
+│   /craft:code:deps-audit    /craft:test --coverage     /craft:docs:lint   │
+│   /craft:code:ci-local      /craft:test debug        ...                │
 │                                                                         │
 │ 🔀 GIT (11)               📖 SITE (16)             🏗️ ARCH (1)          │
 │   /craft:git:worktree       /craft:site:build        /craft:arch:analyze│
@@ -178,9 +178,9 @@ Shows all commands in a category, grouped by subcategory:
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ 💡 Common Workflows:                                                    │
-│   • Pre-commit: lint → test:run → ci-local                             │
-│   • Debug: debug → test:debug → coverage                               │
-│   • Release: deps-audit → test:run release → release                   │
+│   • Pre-commit: lint → test → ci-local                                 │
+│   • Debug: debug → test debug → coverage                               │
+│   • Release: deps-audit → test release → release                       │
 │                                                                         │
 │ 🔙 Back to hub: /craft:hub                                              │
 │ 📚 Learn more: /craft:hub code:[command]                                │
@@ -364,7 +364,7 @@ Shows full command tutorial with step-by-step instructions:
 │                                                                         │
 │ Pre-Commit Workflow:                                                    │
 │   1. /craft:code:lint                                                   │
-│   2. /craft:test:run                                                    │
+│   2. /craft:test                                                    │
 │   3. git commit -m "..."                                                │
 │                                                                         │
 │ Debug Workflow:                                                         │
@@ -374,7 +374,7 @@ Shows full command tutorial with step-by-step instructions:
 │                                                                         │
 │ RELATED COMMANDS                                                        │
 │ ────────────────                                                        │
-│   /craft:test:run        Run tests                                     │
+│   /craft:test        Run tests                                     │
 │   /craft:code:ci-local   Full CI checks locally                        │
 │   /craft:check           Universal validation                          │
 │                                                                         │
@@ -416,7 +416,7 @@ Shows full command tutorial with step-by-step instructions:
 
 ```bash
 # Jump directly to command detail
-/craft:hub test:run
+/craft:hub test
 /craft:hub docs:sync
 /craft:hub code:lint
 ```
@@ -428,10 +428,10 @@ Shows full command tutorial with step-by-step instructions:
 /craft:hub test
 
 # Learn about specific test command
-/craft:hub test:coverage
+/craft:hub test:gen
 
 # Check related command
-/craft:hub test:debug
+/craft:hub test:template
 ```
 
 ---
@@ -498,12 +498,12 @@ time_budgets:                        # Time estimates per mode
   debug: "< 120s"
   release: "< 300s"
 related_commands:                    # Navigation suggestions
-  - "test:run"
+  - "test"
   - "code:ci-local"
   - "check"
 common_workflows:                    # Usage patterns
   - name: "Pre-commit"
-    steps: ["code:lint", "test:run", "git commit"]
+    steps: ["code:lint", "test", "git commit"]
 ---
 ```
 

@@ -4,11 +4,34 @@
 
 **Latest Release:** v2.21.0 (2026-02-16)
 **Total Releases:** 42 versions | **Development Time:** 2+ years
-**Community:** 111 commands documented, ~1575 tests passing, 90%+ coverage
+**Community:** 107 commands documented, ~1575 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.22.0 (Unreleased) - Unified Test System, CLAUDE.md Refactor & Friction Prevention
+
+**Status:** In development
+
+**Highlights:**
+
+- **Unified test commands:** 7 old commands → 3: `/craft:test` (runner), `/craft:test:gen` (generator), `/craft:test:template` (manager)
+- **Jinja2 template engine:** `utils/test_generator.py` auto-detects project type and renders test suites from 27 templates across 4 project types (plugin, zsh, cli, mcp)
+- **Pytest infrastructure:** 25 markers for two-dimensional filtering (tier + domain), shared conftest.py fixtures, shared helpers.py utilities
+- **Layered CLAUDE.md Architecture**: Restructured from flat ~8300 tokens/session to layered ~4000 tokens/session. Reference material loads on-demand from `.claude/reference/`.
+- **ReferenceFileGenerator**: New class in `claude_md_sync.py` with `--generate-reference` flag.
+- **Instruction Health Check**: New check in `/craft:check` validates count accuracy, line budget, reference file freshness.
+- **Session-End Sync**: `/workflow:done` now runs CLAUDE.md staleness check and .STATUS auto-refresh at session completion.
+- **Version Sync**: Three-layer protection (PreToolUse hook, pre-commit hook, `/craft:check`) prevents version drift across project files.
+- **Friction Detection in `/craft:check`**: Four new checks — stale reference scan, hook conflict audit, CLAUDE.md health, version consistency.
+- **CI Monitoring Loop**: New Step 6.5 in `/release` pipeline polls CI, diagnoses failures, and auto-fixes safe categories.
+- **Doc Sync Automation**: `/workflow:done` drift detection, `--headless` flag for CI, GitHub Actions safety net after merge.
+- **Codebase cleanup:** 52 commands got YAML frontmatter, 66 test files got pytest markers, 9 test files migrated from CheckResult to native assertions
+
+**Stats:** 107 commands | 25 skills | 8 agents | 27 templates | 4 project types
+
+---
 
 ### v2.21.0 (2026-02-16) - Orchestrate Pipeline & Insights Lifecycle
 
@@ -55,7 +78,7 @@
 /brainstorm "topic" → SPEC.md → /orchestrate:plan → ORCHESTRATE.md → worktree → implement → PR
 ```
 
-**Stats:** 111 commands | 25 skills | 8 agents
+**Stats:** 107 commands | 25 skills | 8 agents
 
 ---
 

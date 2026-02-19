@@ -9,8 +9,8 @@ Run with: python tests/test_hub_layer3.py
 
 import sys
 from pathlib import Path
-from dataclasses import dataclass
-from datetime import datetime
+
+import pytest
 
 # Add plugin directory to path
 plugin_dir = Path(__file__).parent.parent
@@ -23,133 +23,45 @@ from commands._discovery import (
     get_command_stats
 )
 
-
-@dataclass
-class CheckResult:
-    name: str
-    passed: bool
-    duration_ms: float
-    details: str
-    category: str = "general"
-
-
-def log(msg: str) -> None:
-    """Print with timestamp."""
-    ts = datetime.now().strftime("%H:%M:%S.%f")[:-3]
-    print(f"[{ts}] {msg}")
+pytestmark = [pytest.mark.integration, pytest.mark.hub]
 
 
 # ─── Layer 3 Tests ───────────────────────────────────────────────────────────
 
 
-def _check_get_command_detail_exact_match():
+def test_get_command_detail_exact_match():
     """Test getting command detail with exact match."""
-    import time
-    start = time.time()
-
     # Test with exact command name
     command = get_command_detail('code:lint')
 
-    duration = (time.time() - start) * 1000
-
-    if not command:
-        return CheckResult(
-            "Get Command Detail - Exact Match",
-            False,
-            duration,
-            "Failed to find 'code:lint' command",
-            "layer3"
-        )
+    assert command, "Failed to find 'code:lint' command"
 
     # Verify required fields
     required_fields = ['name', 'category', 'description', 'file']
     missing = [f for f in required_fields if f not in command]
-
-    if missing:
-        return CheckResult(
-            "Get Command Detail - Exact Match",
-            False,
-            duration,
-            f"Missing fields: {missing}",
-            "layer3"
-        )
+    assert not missing, f"Missing fields: {missing}"
 
     # Verify data
-    if command['name'] != 'code:lint':
-        return CheckResult(
-            "Get Command Detail - Exact Match",
-            False,
-            duration,
-            f"Wrong name: {command['name']} != 'code:lint'",
-            "layer3"
-        )
-
-    if command['category'] != 'code':
-        return CheckResult(
-            "Get Command Detail - Exact Match",
-            False,
-            duration,
-            f"Wrong category: {command['category']} != 'code'",
-            "layer3"
-        )
-
-    return CheckResult(
-        "Get Command Detail - Exact Match",
-        True,
-        duration,
-        f"Found command: {command['name']} in {command['category']}",
-        "layer3"
-    )
-
-
-def test_get_command_detail_exact_match():
-    """Test getting command detail with exact match."""
-    result = _check_get_command_detail_exact_match()
-    assert result.passed, result.details
-
-
-def _check_get_command_detail_not_found():
-    """Test handling of non-existent command."""
-    import time
-    start = time.time()
-
-    command = get_command_detail('nonexistent:command')
-
-    duration = (time.time() - start) * 1000
-
-    if command is not None:
-        return CheckResult(
-            "Get Command Detail - Not Found",
-            False,
-            duration,
-            f"Expected None, got command: {command.get('name')}",
-            "layer3"
-        )
-
-    return CheckResult(
-        "Get Command Detail - Not Found",
-        True,
-        duration,
-        "Correctly returns None for non-existent command",
-        "layer3"
-    )
+    assert command['name'] == 'code:lint', \
+        f"Wrong name: {command['name']} != 'code:lint'"
+    assert command['category'] == 'code', \
+        f"Wrong category: {command['category']} != 'code'"
 
 
 def test_get_command_detail_not_found():
     """Test handling of non-existent command."""
-    result = _check_get_command_detail_not_found()
-    assert result.passed, result.details
+    command = get_command_detail('nonexistent:command')
+
+    assert command is None, \
+        f"Expected None, got command: {command.get('name') if command else None}"
 
 
-def _check_get_command_detail_all_categories():
+def test_get_command_detail_all_categories():
     """Test get_command_detail for commands across all categories."""
-    import time
-    start = time.time()
-
     # Test one command from each major category
     test_commands = [
         'code:lint',
-        'test:run',
+        'test',
         'docs:sync',
         'git:worktree',
         'site:build'
@@ -170,63 +82,21 @@ def _check_get_command_detail_all_categories():
         if not cmd.get('description'):
             errors.append(f"{cmd_name}: missing description")
 
-    duration = (time.time() - start) * 1000
-
-    if errors:
-        return CheckResult(
-            "Get Command Detail All Categories",
-            False,
-            duration,
-            f"Errors: {'; '.join(errors)}",
-            "layer3"
-        )
-
-    return CheckResult(
-        "Get Command Detail All Categories",
-        True,
-        duration,
-        f"Validated {len(test_commands)} commands across categories",
-        "layer3"
-    )
+    assert not errors, f"Errors: {'; '.join(errors)}"
 
 
-def test_get_command_detail_all_categories():
-    """Test get_command_detail for commands across all categories."""
-    result = _check_get_command_detail_all_categories()
-    assert result.passed, result.details
-
-
-def _check_generate_command_tutorial_basic():
+def test_generate_command_tutorial_basic():
     """Test generating basic tutorial for a command."""
-    import time
-    start = time.time()
-
     # Get a command
     command = get_command_detail('code:lint')
-
-    if not command:
-        return CheckResult(
-            "Generate Tutorial - Basic",
-            False,
-            0,
-            "Failed to find test command",
-            "layer3"
-        )
+    assert command, "Failed to find test command"
 
     # Generate tutorial
     tutorial = generate_command_tutorial(command)
 
-    duration = (time.time() - start) * 1000
-
     # Verify tutorial has content
-    if not tutorial or len(tutorial) < 100:
-        return CheckResult(
-            "Generate Tutorial - Basic",
-            False,
-            duration,
-            f"Tutorial too short: {len(tutorial)} chars",
-            "layer3"
-        )
+    assert tutorial and len(tutorial) >= 100, \
+        f"Tutorial too short: {len(tutorial) if tutorial else 0} chars"
 
     # Verify contains key sections
     required_sections = [
@@ -238,96 +108,32 @@ def _check_generate_command_tutorial_basic():
     ]
 
     missing = [s for s in required_sections if s not in tutorial]
-
-    if missing:
-        return CheckResult(
-            "Generate Tutorial - Basic",
-            False,
-            duration,
-            f"Missing sections: {missing}",
-            "layer3"
-        )
-
-    return CheckResult(
-        "Generate Tutorial - Basic",
-        True,
-        duration,
-        f"Generated {len(tutorial)} char tutorial with all sections",
-        "layer3"
-    )
-
-
-def test_generate_command_tutorial_basic():
-    """Test generating basic tutorial for a command."""
-    result = _check_generate_command_tutorial_basic()
-    assert result.passed, result.details
-
-
-def _check_generate_command_tutorial_with_modes():
-    """Test tutorial generation for command with modes."""
-    import time
-    start = time.time()
-
-    # Get a command with modes
-    command = get_command_detail('code:lint')
-
-    if not command:
-        return CheckResult(
-            "Generate Tutorial - With Modes",
-            False,
-            0,
-            "Failed to find test command",
-            "layer3"
-        )
-
-    # Generate tutorial
-    tutorial = generate_command_tutorial(command)
-
-    duration = (time.time() - start) * 1000
-
-    # If command has modes, tutorial should show them
-    if command.get('modes'):
-        if 'MODES' not in tutorial:
-            return CheckResult(
-                "Generate Tutorial - With Modes",
-                False,
-                duration,
-                "Command has modes but tutorial doesn't show MODES section",
-                "layer3"
-            )
-
-        # Check for mode names
-        modes_shown = sum(1 for mode in command['modes'] if mode in tutorial)
-        if modes_shown == 0:
-            return CheckResult(
-                "Generate Tutorial - With Modes",
-                False,
-                duration,
-                "MODES section present but no mode names found",
-                "layer3"
-            )
-
-    return CheckResult(
-        "Generate Tutorial - With Modes",
-        True,
-        duration,
-        f"Tutorial correctly shows {len(command.get('modes', []))} modes",
-        "layer3"
-    )
+    assert not missing, f"Missing sections: {missing}"
 
 
 def test_generate_command_tutorial_with_modes():
     """Test tutorial generation for command with modes."""
-    result = _check_generate_command_tutorial_with_modes()
-    assert result.passed, result.details
+    # Get a command with modes
+    command = get_command_detail('code:lint')
+    assert command, "Failed to find test command"
+
+    # Generate tutorial
+    tutorial = generate_command_tutorial(command)
+
+    # If command has modes, tutorial should show them
+    if command.get('modes'):
+        assert 'MODES' in tutorial, \
+            "Command has modes but tutorial doesn't show MODES section"
+
+        # Check for mode names
+        modes_shown = sum(1 for mode in command['modes'] if mode in tutorial)
+        assert modes_shown > 0, \
+            "MODES section present but no mode names found"
 
 
-def _check_generate_tutorial_multiple_commands():
+def test_generate_tutorial_multiple_commands():
     """Test generating tutorials for multiple commands."""
-    import time
-    start = time.time()
-
-    test_commands = ['code:lint', 'test:run', 'docs:sync']
+    test_commands = ['code:lint', 'test', 'docs:sync']
     errors = []
 
     for cmd_name in test_commands:
@@ -351,81 +157,27 @@ def _check_generate_tutorial_multiple_commands():
         if cmd.get('description') and cmd['description'] not in tutorial:
             errors.append(f"{cmd_name}: description not in tutorial")
 
-    duration = (time.time() - start) * 1000
-
-    if errors:
-        return CheckResult(
-            "Generate Tutorial Multiple Commands",
-            False,
-            duration,
-            f"Errors: {'; '.join(errors[:3])}{'...' if len(errors) > 3 else ''}",
-            "layer3"
-        )
-
-    return CheckResult(
-        "Generate Tutorial Multiple Commands",
-        True,
-        duration,
-        f"Generated tutorials for {len(test_commands)} commands",
-        "layer3"
-    )
+    assert not errors, \
+        f"Errors: {'; '.join(errors[:3])}{'...' if len(errors) > 3 else ''}"
 
 
-def test_generate_tutorial_multiple_commands():
-    """Test generating tutorials for multiple commands."""
-    result = _check_generate_tutorial_multiple_commands()
-    assert result.passed, result.details
-
-
-def _check_layer3_display_format():
+def test_layer3_display_format():
     """Test that tutorial display follows correct format."""
-    import time
-    start = time.time()
-
     command = get_command_detail('code:lint')
-
-    if not command:
-        return CheckResult(
-            "Layer 3 Display Format",
-            False,
-            0,
-            "Failed to find test command",
-            "layer3"
-        )
+    assert command, "Failed to find test command"
 
     tutorial = generate_command_tutorial(command)
 
-    duration = (time.time() - start) * 1000
-
     # Verify box drawing characters (ASCII art border)
-    if not tutorial.startswith('┌'):
-        return CheckResult(
-            "Layer 3 Display Format",
-            False,
-            duration,
-            "Tutorial doesn't start with box border",
-            "layer3"
-        )
+    assert tutorial.startswith('┌'), \
+        "Tutorial doesn't start with box border"
 
-    if not tutorial.endswith('┘'):
-        return CheckResult(
-            "Layer 3 Display Format",
-            False,
-            duration,
-            "Tutorial doesn't end with box border",
-            "layer3"
-        )
+    assert tutorial.endswith('┘'), \
+        "Tutorial doesn't end with box border"
 
     # Count lines
     lines = tutorial.split('\n')
-    if len(lines) < 10:
-        return CheckResult(
-            "Layer 3 Display Format",
-            False,
-            duration,
-            f"Tutorial too short: {len(lines)} lines",
-            "layer3"
-        )
+    assert len(lines) >= 10, f"Tutorial too short: {len(lines)} lines"
 
     # Verify navigation footer exists
     footer_found = False
@@ -434,224 +186,29 @@ def _check_layer3_display_format():
             footer_found = True
             break
 
-    if not footer_found:
-        return CheckResult(
-            "Layer 3 Display Format",
-            False,
-            duration,
-            "Navigation footer not found",
-            "layer3"
-        )
-
-    return CheckResult(
-        "Layer 3 Display Format",
-        True,
-        duration,
-        f"Tutorial follows format: {len(lines)} lines, proper borders, navigation",
-        "layer3"
-    )
+    assert footer_found, "Navigation footer not found"
 
 
-def test_layer3_display_format():
-    """Test that tutorial display follows correct format."""
-    result = _check_layer3_display_format()
-    assert result.passed, result.details
-
-
-def _check_related_commands_lookup():
+def test_related_commands_lookup():
     """Test that related commands are looked up correctly."""
-    import time
-    start = time.time()
-
-    # Find a command with related_commands field
-    stats = get_command_stats()
-    command = None
-
-    # Try to find a command with related commands
-    # For now, test with code:lint (we'll add related_commands to frontmatter)
     command = get_command_detail('code:lint')
-
-    if not command:
-        return CheckResult(
-            "Related Commands Lookup",
-            False,
-            0,
-            "Failed to find test command",
-            "layer3"
-        )
+    assert command, "Failed to find test command"
 
     tutorial = generate_command_tutorial(command)
-
-    duration = (time.time() - start) * 1000
 
     # If command has related_commands, they should appear in tutorial
     related = command.get('related_commands', [])
 
     if related:
         # Check if RELATED COMMANDS section exists
-        if 'RELATED COMMANDS' not in tutorial:
-            return CheckResult(
-                "Related Commands Lookup",
-                False,
-                duration,
-                "Command has related_commands but section not in tutorial",
-                "layer3"
-            )
+        assert 'RELATED COMMANDS' in tutorial, \
+            "Command has related_commands but section not in tutorial"
 
         # Check if at least one related command appears
         found_count = sum(1 for rel in related if rel in tutorial)
-
-        if found_count == 0:
-            return CheckResult(
-                "Related Commands Lookup",
-                False,
-                duration,
-                "RELATED COMMANDS section exists but no commands found",
-                "layer3"
-            )
-
-        return CheckResult(
-            "Related Commands Lookup",
-            True,
-            duration,
-            f"Found {found_count}/{len(related)} related commands in tutorial",
-            "layer3"
-        )
+        assert found_count > 0, \
+            "RELATED COMMANDS section exists but no commands found"
     else:
         # No related commands, tutorial shouldn't have section
-        if 'RELATED COMMANDS' in tutorial:
-            return CheckResult(
-                "Related Commands Lookup",
-                False,
-                duration,
-                "Command has no related_commands but section appears",
-                "layer3"
-            )
-
-        return CheckResult(
-            "Related Commands Lookup",
-            True,
-            duration,
-            "Command has no related_commands, section correctly omitted",
-            "layer3"
-        )
-
-
-def test_related_commands_lookup():
-    """Test that related commands are looked up correctly."""
-    result = _check_related_commands_lookup()
-    assert result.passed, result.details
-
-
-# ─── Test Runner ──────────────────────────────────────────────────────────────
-
-
-def run_all_tests():
-    """Run all Layer 3 tests."""
-    tests = [
-        _check_get_command_detail_exact_match,
-        _check_get_command_detail_not_found,
-        _check_get_command_detail_all_categories,
-        _check_generate_command_tutorial_basic,
-        _check_generate_command_tutorial_with_modes,
-        _check_generate_tutorial_multiple_commands,
-        _check_layer3_display_format,
-        _check_related_commands_lookup,
-    ]
-
-    results = []
-    for test_fn in tests:
-        log(f"Running: {test_fn.__doc__}")
-        result = test_fn()
-        results.append(result)
-
-        status = "✅ PASS" if result.passed else "❌ FAIL"
-        log(f"  {status} ({result.duration_ms:.1f}ms) - {result.details}")
-
-    return results
-
-
-def generate_report(results):
-    """Generate test report."""
-    total = len(results)
-    passed = sum(1 for r in results if r.passed)
-    failed = total - passed
-    total_duration = sum(r.duration_ms for r in results)
-
-    # Group by category
-    by_category = {}
-    for result in results:
-        cat = result.category
-        if cat not in by_category:
-            by_category[cat] = []
-        by_category[cat].append(result)
-
-    # Generate report
-    lines = []
-    lines.append("=" * 70)
-    lines.append("📊 Layer 3 Test Report")
-    lines.append("=" * 70)
-    lines.append("")
-    lines.append(f"Total Tests: {total}")
-    lines.append(f"Passed: {passed}/{total} ({100 * passed // total if total > 0 else 0}%)")
-
-    if failed > 0:
-        lines.append(f"Failed: {failed}/{total}")
-
-    lines.append(f"Total Duration: {total_duration:.0f}ms")
-    lines.append("")
-
-    # Category breakdown
-    lines.append("Category Breakdown:")
-    for cat, cat_results in by_category.items():
-        cat_passed = sum(1 for r in cat_results if r.passed)
-        cat_total = len(cat_results)
-        avg_duration = sum(r.duration_ms for r in cat_results) / cat_total if cat_total > 0 else 0
-        lines.append(f"  {cat}: {cat_passed}/{cat_total} pass (~{avg_duration:.0f}ms avg)")
-
-    lines.append("")
-
-    if failed > 0:
-        lines.append("Failed Tests:")
-        for result in results:
-            if not result.passed:
-                lines.append(f"  ❌ {result.name}")
-                lines.append(f"     {result.details}")
-        lines.append("")
-
-    if passed == total:
-        lines.append("🎉 All tests passed! Layer 3 is ready.")
-    else:
-        lines.append("⚠️  Some tests failed. Review failures above.")
-
-    report = "\n".join(lines)
-    print("")
-    print(report)
-
-    # Save report
-    report_file = Path(__file__).parent / "hub_layer3_test_report.md"
-    with open(report_file, "w") as f:
-        f.write(report)
-
-    print(f"\n📄 Report saved to: {report_file}")
-
-    return passed == total
-
-
-def main():
-    """Main test entry point."""
-    print("=" * 70)
-    print("🔧 Hub v2.0 Layer 3 Test Suite")
-    print("=" * 70)
-    print()
-
-    results = run_all_tests()
-
-    print()
-    success = generate_report(results)
-
-    return 0 if success else 1
-
-
-if __name__ == "__main__":
-    exit(main())
+        assert 'RELATED COMMANDS' not in tutorial, \
+            "Command has no related_commands but section appears"

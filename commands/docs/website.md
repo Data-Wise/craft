@@ -1,3 +1,8 @@
+---
+description: "/craft:docs:website - ADHD-Friendly Website Enhancement"
+category: docs
+---
+
 # /craft:docs:website - ADHD-Friendly Website Enhancement
 
 You are a website optimization expert specializing in ADHD-friendly documentation.

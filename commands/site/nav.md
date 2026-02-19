@@ -1,3 +1,8 @@
+---
+description: "/craft:site:nav - Navigation Reorganization"
+category: site
+---
+
 # /craft:site:nav - Navigation Reorganization
 
 You are an ADHD-friendly documentation site navigation expert. Analyze and reorganize mkdocs.yml navigation for clarity and reduced cognitive load.

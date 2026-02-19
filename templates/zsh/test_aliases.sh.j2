@@ -1,0 +1,26 @@
+{% include '_base/bash_header.sh.j2' %}
+
+echo "=== {{ project_name }} Alias Tests ==="
+
+# Source the plugin
+source "${PROJECT_DIR}/{{ plugin_file }}" 2>/dev/null || {
+    echo "ERROR: Cannot source {{ plugin_file }}"
+    exit 1
+}
+{% if aliases | length > 0 %}
+{% for alias_name in aliases %}
+
+# Test: alias {{ alias_name }} is defined
+if alias {{ alias_name }} &>/dev/null 2>&1; then
+    pass_test "{{ alias_name }} alias defined"
+else
+    fail_test "{{ alias_name }} alias defined" "alias not found"
+fi
+{% endfor %}
+{% else %}
+
+# No aliases detected
+pass_test "No aliases expected"
+{% endif %}
+
+summary

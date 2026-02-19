@@ -1,3 +1,8 @@
+---
+description: /task-output - View Background Task Results
+category: workflow
+---
+
 # /task-output - View Background Task Results
 
 Retrieve and display results from completed (or running) background tasks.

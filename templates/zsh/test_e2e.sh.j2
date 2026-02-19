@@ -1,0 +1,40 @@
+{% include '_base/bash_header.sh.j2' %}
+
+echo "=== {{ project_name }} End-to-End Tests ==="
+
+# Test: Plugin file is valid shell
+if bash -n "${PROJECT_DIR}/{{ plugin_file }}"; then
+    pass_test "Plugin is valid shell"
+else
+    fail_test "Plugin is valid shell" "Syntax errors detected"
+fi
+
+# Test: Source and verify no side effects on PATH
+OLD_PATH="$PATH"
+source "${PROJECT_DIR}/{{ plugin_file }}" 2>/dev/null
+if [[ "$PATH" == *"${PROJECT_DIR}"* ]] || [[ "$PATH" == "$OLD_PATH" ]]; then
+    pass_test "PATH handling is safe"
+else
+    fail_test "PATH handling is safe" "PATH was unexpectedly modified"
+fi
+{% if functions | length > 0 %}
+
+# Test: Functions are callable after sourcing
+{% for func in functions[:3] %}
+if type {{ func }} &>/dev/null; then
+    pass_test "{{ func }} callable after sourcing"
+else
+    fail_test "{{ func }} callable after sourcing" "not found"
+fi
+{% endfor %}
+{% endif %}
+
+# Test: Plugin does not output to stdout on source
+OUTPUT=$(source "${PROJECT_DIR}/{{ plugin_file }}" 2>/dev/null)
+if [[ -z "$OUTPUT" ]]; then
+    pass_test "No stdout on source"
+else
+    fail_test "No stdout on source" "Plugin produced output: ${OUTPUT:0:50}"
+fi
+
+summary

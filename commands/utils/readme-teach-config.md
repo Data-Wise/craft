@@ -1,3 +1,8 @@
+---
+description: Teaching Configuration Parser
+category: utils
+---
+
 # Teaching Configuration Parser
 
 Python utility for parsing and validating `.flow/teach-config.yml` files in teaching projects.

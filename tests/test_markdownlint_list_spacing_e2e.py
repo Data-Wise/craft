@@ -13,6 +13,8 @@ import shutil
 from pathlib import Path
 import pytest
 
+pytestmark = [pytest.mark.e2e, pytest.mark.docs]
+
 
 class TestFullLintingWorkflow:
     """End-to-end tests for complete linting workflow."""

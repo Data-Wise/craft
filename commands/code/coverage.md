@@ -1,3 +1,8 @@
+---
+description: Test Coverage Report
+category: code
+---
+
 # Test Coverage Report
 
 Generate and analyze test coverage for your project.
@@ -70,6 +75,6 @@ Uncovered lines:
 
 Works with:
 
-- `/craft:test:run` - Run tests
+- `/craft:test` - Run tests
 - `/craft:code:ci-local` - Pre-commit checks
 - `/craft:code:release` - Release validation

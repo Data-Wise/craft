@@ -21,6 +21,8 @@ import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+pytestmark = [pytest.mark.unit, pytest.mark.brainstorm]
+
 from utils.brainstorm_context import (
     BrainstormContext,
     ContextScanResult,

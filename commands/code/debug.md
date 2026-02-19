@@ -1,3 +1,8 @@
+---
+description: Debug Assistance
+category: code
+---
+
 # Debug Assistance
 
 Help diagnose and fix bugs in code.

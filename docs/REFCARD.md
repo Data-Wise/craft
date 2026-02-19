@@ -4,12 +4,12 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.21.0 (released 2026-02-16)                       │
-│  Commands: 111 | Agents: 8 | Skills: 25                     │
+│  Version: 2.22.0 (released 2026-02-19)                       │
+│  Commands: 107 | Agents: 8 | Skills: 25                     │
 │  Documentation: 99% complete | Tests: ~1575 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.21.0: Orchestrate pipeline, insights lifecycle,          │
-│           brainstorm integration, worktree types taxonomy     │
+│  v2.22.0: Unified test system, CLAUDE.md layered instructions│
+│           insights-driven friction prevention                 │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -398,6 +398,28 @@
    - Medium: Examples outdated
    - Low: Links need updating
 
+**Headless Mode (NEW in v2.22.0):**
+
+```bash
+# Non-interactive (for CI/automation)
+/craft:docs:sync --headless
+# Auto-approves all changes, commits with standard message
+
+# Preview what would change
+/craft:docs:sync --headless --dry-run
+
+# CI automation via GitHub Actions
+# See: .github/workflows/docs-sync.yml
+```
+
+**Three-Layer Doc Sync:**
+
+```text
+Layer 1: /workflow:done     → catches drift at session end
+Layer 2: --headless         → on-demand bulk sync
+Layer 3: GitHub Actions     → safety net after merge to main
+```
+
 #### /craft:docs:check
 
 **Purpose:** Comprehensive documentation validation.
@@ -752,12 +774,30 @@ main (production branch)
 | `/craft:check:deps`    | Dependency validation        |
 | `/craft:check:docs`    | Documentation validation     |
 
+**Friction Detection (NEW in v2.22.0):**
+
+| Check | Script | What It Catches |
+| ----- | ------ | --------------- |
+| Version consistency | `scripts/version-sync.sh` | Manifest/docs/code version drift |
+| Stale references | `scripts/stale-ref-scan.sh` | Renamed files still referenced in docs |
+| Hook conflict audit | `scripts/hook-conflict-audit.sh` | Git hooks that block CI or releases |
+| CLAUDE.md health | `scripts/claude-md-health.sh` | Stale counts, missing versions, line bloat |
+
+**Belt-and-Suspenders (Version Sync):**
+
+```text
+Layer 1: PreToolUse hook  → warns during editing (soft)
+Layer 2: pre-commit hook  → blocks commits with drift (hard)
+Layer 3: /craft:check     → catches anything that slipped through
+```
+
 **Quick Examples:**
 
 ```bash
-/craft:check                    # Before commit
+/craft:check                    # Before commit (includes friction detection)
 /craft:check --mode=thorough    # Before PR
 /craft:check --dry-run          # See what would run
+/craft:check --for pr           # PR-specific checks (stale refs, hook conflicts)
 ```
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
@@ -769,7 +809,7 @@ main (production branch)
 | Command                | Modes | Description                 |
 | ---------------------- | ----- | --------------------------- |
 | `/craft:code:lint`     | all   | Linting with auto-fix       |
-| `/craft:test:run`      | all   | Test runner with watch mode |
+| `/craft:test`          | all   | Test runner with categories |
 | `/craft:code:debug`    | ----- | Systematic debugging        |
 | `/craft:code:refactor` | ----- | Refactoring guidance        |
 | `/craft:code:review`   | ----- | Code review automation      |
@@ -780,11 +820,9 @@ main (production branch)
 
 | Command                  | Description                        |
 | ------------------------ | ---------------------------------- |
-| `/craft:test:run`        | Run tests with mode support        |
-| `/craft:test:watch`      | Watch mode for continuous testing  |
-| `/craft:test:coverage`   | Coverage analysis                  |
-| `/craft:test:cli-gen`    | Generate CLI test suites           |
-| `/craft:test:cli-run`    | Run CLI test suites                |
+| `/craft:test`            | Unified runner with categories     |
+| `/craft:test:gen`        | Generate test suites (type-aware)  |
+| `/craft:test:template`   | Manage Jinja2 test templates       |
 
 **Modes:** `default` (<10s) | `debug` (<120s) | `optimize` (<180s) | `release` (<300s)
 
@@ -792,8 +830,8 @@ main (production branch)
 
 ```bash
 /craft:code:lint optimize       # Parallel, fast
-/craft:test:run debug           # Verbose with suggestions
-/craft:test:coverage release    # Full coverage analysis
+/craft:test debug               # Verbose with suggestions
+/craft:test release --coverage  # Full coverage analysis
 ```
 
 ## Git Commands (10+ commands)
@@ -821,7 +859,7 @@ main (production branch)
 /craft:git:worktree list           # Show all worktrees
 /craft:git:worktree clean          # Remove merged worktrees
 /craft:git:worktree install        # Install deps in worktree
-/craft:git:worktree finish         # Complete: tests → changelog → PR
+/craft:git:worktree finish         # Complete: tests → changelog → cleanup ORCHESTRATE → PR
 /craft:git:worktree validate       # Check worktree health (v2.18.0)
 ```
 
@@ -869,6 +907,7 @@ git commit -m "test: add auth integration tests"
 # What happens:
 # - Runs tests (auto-detected: pytest/jest/etc)
 # - Generates changelog entry from commits
+# - Removes ORCHESTRATE-*.md files (merge cleanup)
 # - Creates PR with AI-generated description
 # - Output: PR URL
 
@@ -1439,6 +1478,9 @@ graph LR
 # Summarizes: What you accomplished
 # Saves: Session notes
 # Prompts: Next session goal
+# NEW in v2.22.0: Doc drift detection
+#   Cross-references changed files against docs
+#   Offers to run /craft:docs:sync if drift found
 ```
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
@@ -1449,7 +1491,7 @@ Auto-triggered expertise:
 
 | Skill                     | Triggers                                            |
 | ------------------------- | --------------------------------------------------- |
-| `release`                 | "release", "ship it", version publishing            |
+| `release`                 | "release", "ship it", version publishing (CI monitoring in v2.22.0) |
 | `guard-audit`             | "audit guard", "review branch protection" (v2.18.0) |
 | `insights-apply`          | "apply insights", "update rules from insights" (v2.18.0) |
 | `backend-designer`        | API, database, auth                                 |

@@ -31,8 +31,8 @@ Practical examples and real-world usage patterns for all Craft commands.
 | **Find next action** | `/craft:workflow:next` | Smart suggestions |
 | **Add a feature** | `/craft:plan:feature "name"` then `/craft:git:worktree create` | Planned approach |
 | **Quick linting** | `/craft:code:lint` | Default mode |
-| **Run tests** | `/craft:test:run` | Quick smoke tests |
-| **Detailed testing** | `/craft:test:run release` | Full suite with coverage |
+| **Run tests** | `/craft:test` | Quick smoke tests |
+| **Detailed testing** | `/craft:test release` | Full suite with coverage |
 | **Publish docs** | `/craft:site:publish` | Build + deploy |
 | **Release new version** | `/craft:code:release` | Full workflow |
 | **Get unstuck** | `/craft:workflow:stuck --problem "..."` | Guided help |
@@ -828,26 +828,26 @@ paths:
 
 ## Testing Examples
 
-### /craft:test:run - Run Tests
+### /craft:test - Run Tests
 
 ```bash
 # Quick smoke tests
-/craft:test:run
+/craft:test
 
 # Full test suite
-/craft:test:run release
+/craft:test release
 
 # Debug mode
-/craft:test:run debug
+/craft:test debug
 
 # Specific test file
-/craft:test:run tests/auth.test.ts
+/craft:test tests/auth.test.ts
 
 # Filter by test name
-/craft:test:run --filter "authentication"
+/craft:test --filter "authentication"
 
 # Parallel execution
-/craft:test:run optimize
+/craft:test optimize
 ```
 
 **Output Example**:
@@ -878,17 +878,17 @@ SUMMARY: 156/156 passing (2.4s)
 
 ---
 
-### /craft:test:watch - Watch Mode
+### /craft:test --watch - Watch Mode
 
 ```bash
 # Watch all tests
-/craft:test:watch
+/craft:test --watch
 
 # Watch specific pattern
-/craft:test:watch --filter auth
+/craft:test --watch --filter auth
 
 # With coverage
-/craft:test:watch --coverage
+/craft:test --watch --coverage
 ```
 
 ---
@@ -976,7 +976,7 @@ SUMMARY: 156/156 passing (2.4s)
 /craft:check
 
 # 6. Run all tests
-/craft:test:run release
+/craft:test release
 
 # 7. Validate code
 /craft:code:lint release
@@ -995,7 +995,7 @@ SUMMARY: 156/156 passing (2.4s)
 ```bash
 # 1. Plan release
 /craft:check
-/craft:test:run release
+/craft:test release
 
 # 2. Validate everything
 /craft:code:lint release
@@ -1026,7 +1026,7 @@ SUMMARY: 156/156 passing (2.4s)
 /craft:workflow:stuck --problem "Tests failing intermittently"
 
 # 2. Debug specific test
-/craft:test:debug "should process payment"
+/craft:test debug "should process payment"
 
 # 3. Check code quality
 /craft:code:debug "npm start"
@@ -1047,7 +1047,7 @@ SUMMARY: 156/156 passing (2.4s)
 ```bash
 # Add to ~/.zshrc or ~/.bashrc
 alias cc='/craft:check'
-alias ct='/craft:test:run'
+alias ct='/craft:test'
 alias cl='/craft:code:lint'
 alias cs='/craft:git:status'
 alias cw='cd ~/.git-worktrees/craft'
@@ -1057,7 +1057,7 @@ Usage:
 
 ```bash
 cc          # Run /craft:check
-ct release  # Run /craft:test:run release
+ct release  # Run /craft:test release
 cl --fix    # Run /craft:code:lint --fix
 cs          # Run /craft:git:status
 ```
@@ -1077,7 +1077,7 @@ cs          # Run /craft:git:status
 ### Normal Development (1-5 min)
 
 ```bash
-/craft:test:run                 # ~2 min
+/craft:test                 # ~2 min
 /craft:code:coverage            # ~1 min
 /craft:docs:check-links         # ~2 min
 ```
@@ -1085,7 +1085,7 @@ cs          # Run /craft:git:status
 ### Full Pre-Release (5-30 min)
 
 ```bash
-/craft:test:run release         # ~5 min
+/craft:test release         # ~5 min
 /craft:code:lint release        # ~3 min
 /craft:code:coverage --threshold 90  # ~1 min
 /craft:site:build --production  # ~5 min

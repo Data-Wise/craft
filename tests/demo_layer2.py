@@ -10,12 +10,16 @@ Run with: python tests/demo_layer2.py
 import sys
 from pathlib import Path
 
+import pytest
+
 # Add plugin directory to path
 plugin_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(plugin_dir))
 
 # Import discovery engine
 from commands._discovery import get_category_info, get_command_stats
+
+pytestmark = [pytest.mark.e2e, pytest.mark.hub]
 
 
 def display_category_view(category: str):

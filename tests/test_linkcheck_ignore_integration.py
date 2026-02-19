@@ -14,11 +14,15 @@ import tempfile
 import os
 from pathlib import Path
 
+import pytest
+
 # Add parent directory to path to import the parser
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from utils.linkcheck_ignore_parser import parse_linkcheck_ignore
+
+pytestmark = [pytest.mark.integration, pytest.mark.docs]
 
 
 class TestLinkcheckIgnoreIntegration(unittest.TestCase):

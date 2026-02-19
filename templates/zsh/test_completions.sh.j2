@@ -1,0 +1,26 @@
+{% include '_base/bash_header.sh.j2' %}
+
+echo "=== {{ project_name }} Completion Tests ==="
+
+# Source the plugin
+source "${PROJECT_DIR}/{{ plugin_file }}" 2>/dev/null || {
+    echo "ERROR: Cannot source {{ plugin_file }}"
+    exit 1
+}
+{% if completions | length > 0 %}
+{% for comp in completions %}
+
+# Test: Completion for {{ comp }} is registered
+if type _{{ comp }} &>/dev/null 2>&1 || compdef -l {{ comp }} &>/dev/null 2>&1; then
+    pass_test "{{ comp }} completion registered"
+else
+    skip_test "{{ comp }} completion registered (may require zsh)"
+fi
+{% endfor %}
+{% else %}
+
+# No completions detected
+pass_test "No completions expected"
+{% endif %}
+
+summary

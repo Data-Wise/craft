@@ -154,7 +154,7 @@ Based on the complexity score, tasks are routed to different handlers:
 **Examples:**
 
 - Lint markdown files → `/craft:docs:lint`
-- Run tests → `/craft:test:run`
+- Run tests → `/craft:test`
 - Check code → `/craft:check`
 
 **Why this zone:**
@@ -392,7 +392,7 @@ Based on the complexity score, tasks are routed to different handlers:
 /craft:do "run tests"
 
 # ✅ Better:
-/craft:test:run
+/craft:test
 ```
 
 **It's a single, simple action:**
@@ -525,7 +525,7 @@ For each scenario, decide: `/craft:do` or direct command?
 <details>
 <summary>Click for answer</summary>
 
-**Direct command:** `/craft:test:run`
+**Direct command:** `/craft:test`
 
 **Why:** You know the exact command, it's a single action, no routing needed.
 </details>
@@ -614,7 +614,7 @@ You now understand smart routing! Here's what to practice:
 
 ```bash
 # Known, simple → Direct command
-/craft:test:run
+/craft:test
 
 # Unknown, multi-step → Smart routing
 /craft:do "prepare deployment"

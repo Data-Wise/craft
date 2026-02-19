@@ -10,6 +10,8 @@ Run with: python tests/demo_layer3.py
 import sys
 from pathlib import Path
 
+import pytest
+
 # Add plugin directory to path
 plugin_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(plugin_dir))
@@ -20,6 +22,8 @@ from commands._discovery import (
     generate_command_tutorial,
     get_command_stats
 )
+
+pytestmark = [pytest.mark.e2e, pytest.mark.hub]
 
 
 def display_command_detail(command_name: str):

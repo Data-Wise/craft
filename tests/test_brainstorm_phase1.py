@@ -17,6 +17,8 @@ import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "commands"))
 
+pytestmark = [pytest.mark.unit, pytest.mark.brainstorm]
+
 DEPTH_MAP = {
     "q": "quick",
     "quick": "quick",

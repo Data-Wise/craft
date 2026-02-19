@@ -68,7 +68,7 @@ Preview CI checks that will be performed:
 │       Estimated: ~45 seconds                                  │
 │                                                               │
 │   [3/6] Tests                                                 │
-│       Command: /craft:test:run                                │
+│       Command: /craft:test                                    │
 │       Tool: pytest                                            │
 │       Threshold: 100% pass (135 tests)                        │
 │       Estimated: ~15 seconds                                  │
@@ -150,7 +150,7 @@ Preview CI checks that will be performed:
 | Check | Command | Threshold |
 |-------|---------|-----------|
 | Lint | `/craft:code:lint --strict` | 0 errors |
-| Tests | `/craft:test:run` | 100% pass |
+| Tests | `/craft:test` | 100% pass |
 | Coverage | `/craft:code:coverage` | 80% minimum |
 | Security | `/craft:code:deps-audit` | No critical |
 | Types | mypy/tsc/etc. | 0 errors |

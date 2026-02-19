@@ -17,11 +17,15 @@ import shutil
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
+import pytest
+
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from utils.docs_detector import DocsDetector, DetectionResult
 from utils.help_file_validator import HelpFileValidator, IssueType, HelpIssue
+
+pytestmark = [pytest.mark.integration, pytest.mark.docs]
 
 
 class TestDocsDetectorErrorHandling(unittest.TestCase):

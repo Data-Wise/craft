@@ -1,3 +1,8 @@
+---
+description: Git Undo Guide - Emergency Reference
+category: git
+---
+
 # Git Undo Guide - Emergency Reference
 
 **Quick fixes for "Oh no!" moments**

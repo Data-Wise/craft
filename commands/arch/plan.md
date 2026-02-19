@@ -1,3 +1,8 @@
+---
+description: Architecture Planning
+category: arch
+---
+
 # Architecture Planning
 
 Design and plan system architecture for new features or refactoring.

@@ -19,6 +19,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import Mock, patch, MagicMock, call
 
+import pytest
+
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -27,6 +29,8 @@ from commands.utils.teaching_validation import (
     ValidationResult,
     validate_teaching_content,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.site]
 
 
 class TestSitePublishValidation(unittest.TestCase):

@@ -55,11 +55,11 @@ Analyzes your natural language task description and automatically routes to the 
 | Category | Keywords | Commands Used |
 |----------|----------|---------------|
 | **Feature** | add, create, implement, build | arch:plan, code:test-gen, git:branch |
-| **Bug** | fix, debug, issue, error | code:debug, test:run, test:debug |
-| **Quality** | lint, quality, clean, improve | code:lint, test:coverage, code:refactor |
+| **Bug** | fix, debug, issue, error | code:debug, test, test debug |
+| **Quality** | lint, quality, clean, improve | code:lint, test --coverage, code:refactor |
 | **Docs** | document, update docs, readme | docs:sync, docs:validate, docs:changelog |
-| **Test** | test, coverage, verify | test:run, test:coverage, test:debug |
-| **Release** | release, deploy, publish | deps-audit, lint, test:run, code:release |
+| **Test** | test, coverage, verify | test, test --coverage, test debug |
+| **Release** | release, deploy, publish | deps-audit, lint, test release, code:release |
 | **Architecture** | design, refactor, restructure | arch:analyze, arch:plan, arch:diagram |
 
 ---
@@ -127,7 +127,7 @@ Task Analysis:
 
 # Routes to:
 # 1. /craft:code:debug - Analyze the issue
-# 2. /craft:test:run - Run related tests
+# 2. /craft:test - Run related tests
 # 3. /craft:git:sync - Commit fix
 ```
 
@@ -138,7 +138,7 @@ Task Analysis:
 
 # Routes to:
 # 1. /craft:code:deps-audit - Security scan
-# 2. /craft:test:run release - Full tests
+# 2. /craft:test release - Full tests
 # 3. /craft:code:lint release - Full lint
 # 4. /craft:docs:changelog - Update changelog
 # 5. /craft:code:release - Release workflow

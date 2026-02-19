@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.22.0] - 2026-02-19
+
+### Added
+
+- **Insights-driven friction prevention** (PR #84) — 6 new scripts for session friction detection, pattern tracking, and prevention recommendations
+- **Unified test system** (PR #82) — consolidated 7 test commands into 3 (`test:run`, `test:cli-gen`, `test:cli-run`), added Jinja2 template engine with 27 templates across 4 project types, pytest markers (25 markers), and 865-line test generator
+
+### Changed
+
+- **CLAUDE.md layered instruction system** (PR #83) — extracted verbose reference material to `~/.claude/reference/` and `.claude/reference/`, reducing global CLAUDE.md from 206→85 lines and project CLAUDE.md from 162→82 lines
+- Command count: 111→107 (removed 7 deprecated test commands, added 3 unified)
+
+### Fixed
+
+- 52 command files missing YAML frontmatter metadata
+- 3 duplicate nav entries in mkdocs.yml
+- 7 stale test assertions after command restructuring
+- Stale test command references across 4 documentation files
+
+---
+
 ## [Unreleased] - 2.10.0-dev
 
 ### Added - Claude-MD Command Suite
