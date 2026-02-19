@@ -306,6 +306,224 @@ This runs the EXACT commands from `.github/workflows/ci.yml` in the same order, 
 
 ---
 
+## Friction Detection (NEW in v2.22.0)
+
+Version 2.22.0 introduces four structural health checks that surface low-signal friction before it becomes a blocker. These checks run automatically when you use `--for pr` or `--for release` contexts. They do not replace lint or tests — they catch the category of problems that lint and tests are blind to: version drift, stale doc references, hook conflicts, and CLAUDE.md decay.
+
+### Version Consistency (`scripts/version-sync.sh`)
+
+**What it does:**
+
+Rather than requiring you to name a canonical version file, `version-sync.sh` uses convention-based source-of-truth (SOT) discovery. It inspects known locations in priority order and determines the authoritative version from whichever source is present:
+
+```
+SOT resolution order:
+  1. pyproject.toml → [project] version
+  2. package.json  → version field
+  3. .STATUS       → "Current Version:" line
+  4. CHANGELOG.md  → Most recent ## [x.y.z] heading
+```
+
+Once the SOT version is established, it cross-checks four layers:
+
+| Layer | What is checked |
+|-------|-----------------|
+| Plugin manifest | `.claude-plugin/plugin.json` `version` field |
+| CLAUDE.md | `**Current Version:**` line |
+| Source constants | `__version__` in Python, `VERSION` in shell scripts |
+| Test expectations | Hardcoded version strings in test files |
+
+**Belt-and-suspenders enforcement — three layers run in order:**
+
+```
+1. Branch guard hook    → Blocks commits on version-only file edits that
+                          don't propagate to other SOT locations
+2. Pre-commit hook      → Warns if version in CLAUDE.md does not match SOT
+3. /craft:check         → Comprehensive cross-file audit at PR/release time
+```
+
+Each layer catches a different failure mode. The hook catches accidental single-file bumps immediately. The pre-commit catches drift introduced during a session. The check audit catches propagation gaps that slipped through both.
+
+### Stale Reference Scan (`scripts/stale-ref-scan.sh`)
+
+**What it does:**
+
+When files are renamed or moved, documentation that references the old path silently breaks. `stale-ref-scan.sh` uses `git diff --name-status` to detect renames in the current branch's diff and then greps all doc files for the old names:
+
+```bash
+# Internal logic (simplified)
+git diff --name-status origin/dev...HEAD \
+  | grep '^R' \
+  | while read status old_name new_name; do
+      grep -rl "$old_name" docs/ scripts/ *.md
+    done
+```
+
+**Why it matters for `--for pr` context:**
+
+A rename inside a PR is the highest-risk moment for stale references — the rename is visible in the diff but doc updates are easy to forget. The scan runs with heightened sensitivity in `--for pr` context, checking a wider set of patterns including partial path matches (e.g., if `scripts/check.sh` becomes `scripts/preflight.sh`, it also checks for `check.sh` alone).
+
+**Example output when stale references are found:**
+
+```
+[stale-ref] Renamed: scripts/version-check.sh → scripts/version-sync.sh
+  Stale references found in:
+    docs/guide/check-command-mastery.md:312  (scripts/version-check.sh)
+    docs/reference/REFCARD-INTERACTIVE-COMMANDS.md:47  (version-check.sh)
+
+  Fix: Update 2 references or run /craft:docs:update --stale-refs
+```
+
+### Hook Conflict Audit (`scripts/hook-conflict-audit.sh`)
+
+**What it does:**
+
+Projects accumulate hooks over time from multiple sources: Craft's branch guard, Husky from npm toolchains, legacy hooks committed directly to `.git/hooks/`, and pre-commit framework configs. When hooks from different sources manage the same event (e.g., `pre-push`), they can conflict — one overwriting the other silently.
+
+`hook-conflict-audit.sh` scans three locations and correlates what it finds:
+
+```
+Locations scanned:
+  .githooks/       ← Craft-managed, committed to repo
+  .husky/          ← Husky-managed, npm-based projects
+  .git/hooks/      ← Directly installed (may be stale or overridden)
+```
+
+**Context-aware detection — what each context checks:**
+
+| Context | Additional patterns checked |
+|---------|----------------------------|
+| `--for pr` | Duplicate `pre-push` handlers, conflicting lint rules across hook sources |
+| `--for release` | All `--for pr` checks plus: conflicting `post-merge` hooks, strict linting hooks that block tag operations |
+
+**Specific patterns it detects:**
+
+- Branch guard registered in `.githooks/pre-push` but `.git/hooks/pre-push` contains an older version (symlink drift)
+- Husky `pre-push` that runs a full test suite, conflicting with Craft's branch guard `pre-push` which also runs tests
+- `.githooks/pre-commit` that enforces lint, plus a `.husky/pre-commit` with different lint rules
+
+### CLAUDE.md Health (`scripts/claude-md-health.sh`)
+
+**What it does:**
+
+`CLAUDE.md` is load-bearing context for Claude Code sessions. When it goes stale or grows too large, every session in the project starts with degraded context. The health check runs four targeted tests:
+
+| Test | Threshold | Why it matters |
+|------|-----------|----------------|
+| Line count | Warning at > 200 lines | Large CLAUDE.md degrades context quality; use progressive disclosure |
+| Version presence | Must contain current version string | Sessions otherwise operate with wrong version assumptions |
+| Count accuracy | Command/skill/agent counts must match actual | Stale counts mislead Claude about project scope |
+| Staleness detection | Compares key sections to source files | Detects when commands change but CLAUDE.md Quick Commands table does not update |
+
+**Staleness detection detail:**
+
+The staleness check does not do a full diff. It extracts fingerprints from key sections — the Quick Commands table, the Project Structure block, and the Agents table — and compares them against the actual files they describe. If a command's description in CLAUDE.md differs from the command's frontmatter `description` field, it is flagged.
+
+---
+
+### Scenario 5: Friction Detection — Pre-PR Check
+
+**Workflow:**
+
+```bash
+# Feature branch complete, 9 commits since branching from dev
+# Files changed include a script rename and a version bump
+git log origin/dev..HEAD --oneline
+# a3f91c2 feat: rename version-check.sh to version-sync.sh
+# b7e204d feat: add stale-ref-scan.sh
+# c12df44 feat: add hook-conflict-audit.sh
+# d88a301 feat: add claude-md-health.sh
+# ... 5 more commits
+
+# Run pre-PR check with friction detection active
+/craft:check --for pr
+```
+
+**What runs (PR context, v2.22.0+):**
+
+```
+Pre-flight Check Plan:
+  Project: craft (Claude Plugin)
+  Mode: default
+  Context: pr (pre-PR validation)
+  Branch: feature/insights-integration (9 commits ahead of dev)
+
+  Checks to run (12 for PR context):
+  1. Git status (ahead of dev?)
+  2. Lint (all files)
+  3. Unit tests (full suite)
+  4. Type check
+  5. Security advisory
+  6. Internal link validation
+  7. Merge conflict detection
+  8. Coverage threshold (80% minimum)
+  9. Version consistency    ← NEW in v2.22.0
+  10. Stale reference scan  ← NEW in v2.22.0
+  11. Hook conflict audit   ← NEW in v2.22.0
+  12. CLAUDE.md health      ← NEW in v2.22.0
+
+? Run these pre-flight checks?
+  › Yes - Run all (Recommended)
+```
+
+**Execution:**
+
+```
+[1/12] Git status... 9 commits ahead of dev ✓
+[2/12] Lint (all 54 files)... 0 issues ✓
+[3/12] Unit tests... 1575/1575 passed ✓
+[4/12] Type check... no type errors ✓
+[5/12] Security... 0 vulnerabilities ✓
+[6/12] Internal links... 851 links checked, 0 broken ✓
+[7/12] Merge conflicts... none detected ✓
+[8/12] Coverage... 91% (target: 80%) ✓
+
+[9/12] Version consistency...
+  SOT: .STATUS → v2.22.0
+  ✓ .claude-plugin/plugin.json: v2.22.0
+  ✓ CLAUDE.md: v2.22.0
+  ✓ utils/version.py __version__: v2.22.0
+  ⚠ tests/test_craft_plugin.py: found hardcoded "v2.21.0" at line 847
+  PARTIAL PASS (1 warning)
+
+[10/12] Stale reference scan...
+  Renames detected in branch diff: 1
+    scripts/version-check.sh → scripts/version-sync.sh
+  Scanning docs for stale references...
+  ❌ FAILED
+    docs/guide/check-command-mastery.md:312  (scripts/version-check.sh)
+    docs/reference/REFCARD-INTERACTIVE-COMMANDS.md:47  (version-check.sh)
+
+[11/12] Hook conflict audit...
+  Scanning .githooks/, .husky/, .git/hooks/...
+  ✓ No conflicts detected (branch guard is sole pre-push handler)
+
+[12/12] CLAUDE.md health...
+  ✓ Line count: 187 lines (under 200 limit)
+  ✓ Version present: v2.22.0
+  ⚠ Count accuracy: CLAUDE.md shows "111 commands" — actual count is 113
+  ✓ Staleness: Quick Commands table matches command frontmatter
+
+Results: 10/12 checks passed, 3 warnings, 1 failure
+Time: 31.4s
+
+Issues requiring attention:
+  ❌ [stale-ref] 2 doc files reference renamed script (scripts/version-check.sh)
+  ⚠ [version] tests/test_craft_plugin.py has hardcoded v2.21.0 at line 847
+  ⚠ [claude-md] Command count (111) does not match actual (113)
+
+Suggested fixes:
+  1. Update stale refs: /craft:docs:update --stale-refs
+  2. Update test expectation: tests/test_craft_plugin.py line 847
+  3. Sync CLAUDE.md counts: /craft:docs:claude-md:sync
+
+Next steps: Fix 1 failure and 2 warnings, then re-run /craft:check --for pr
+```
+
+**Why this matters:** The renamed script would have created a broken reference that passed lint, passed tests, and passed link validation (internal links check file targets, not script name strings in prose). The version drift in the test file would have caused a test regression on the next version bump. Both would have reached CI and required a second PR round-trip. The friction checks caught them in 31 seconds.
+
+---
+
 ## Mode Combinations Deep Dive
 
 ### Understanding Mode × Context Matrix

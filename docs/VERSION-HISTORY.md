@@ -23,6 +23,10 @@
 - **ReferenceFileGenerator**: New class in `claude_md_sync.py` with `--generate-reference` flag.
 - **Instruction Health Check**: New check in `/craft:check` validates count accuracy, line budget, reference file freshness.
 - **Session-End Sync**: `/workflow:done` now runs CLAUDE.md staleness check and .STATUS auto-refresh at session completion.
+- **Version Sync**: Three-layer protection (PreToolUse hook, pre-commit hook, `/craft:check`) prevents version drift across project files.
+- **Friction Detection in `/craft:check`**: Four new checks — stale reference scan, hook conflict audit, CLAUDE.md health, version consistency.
+- **CI Monitoring Loop**: New Step 6.5 in `/release` pipeline polls CI, diagnoses failures, and auto-fixes safe categories.
+- **Doc Sync Automation**: `/workflow:done` drift detection, `--headless` flag for CI, GitHub Actions safety net after merge.
 - **Codebase cleanup:** 52 commands got YAML frontmatter, 66 test files got pytest markers, 9 test files migrated from CheckResult to native assertions
 
 **Stats:** 107 commands | 25 skills | 8 agents | 27 templates | 4 project types

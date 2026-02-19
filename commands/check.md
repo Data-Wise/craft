@@ -285,6 +285,9 @@ Run each check and display results as they complete:
 | Markdown lint | Changed files only | All files | All files + strict rules |
 | Link validation | Skip external | Internal links only | All links (internal + external) |
 | Version sync | Basic check | Show all version refs | Full audit with diff |
+| Stale refs | Skip | Verbose scan | Full scan |
+| Hook conflict | Skip | Verbose audit | Full audit |
+| CLAUDE.md health | Line count only | All checks | All checks + fix suggestions |
 | Git status | Summary | Detailed | Full diff + ahead/behind |
 
 ## Orchestration Mode (NEW in v2.5.0)
@@ -410,6 +413,105 @@ Checks:
   └── go mod verify             (dependencies)
 ```
 
+## Version Consistency Check (NEW in v2.22.0)
+
+Validates that all version references in the project match the source of truth.
+
+**Script:** `scripts/version-sync.sh`
+
+**How it works:**
+
+1. Discovers source of truth (priority: `.claude-plugin/plugin.json` → `package.json` → `pyproject.toml` → `DESCRIPTION` → `Cargo.toml`)
+2. Checks all version files (manifests, CLAUDE.md, .STATUS)
+3. Scans source code for version constants (`VERSION =`, `__version__`)
+4. Reports mismatches with fix suggestions
+
+**When it runs:**
+
+| Context | Behavior |
+|---------|----------|
+| `--for commit` | Basic check — run `version-sync.sh --quiet` |
+| `--for pr` | Full check — show all version references |
+| `--for release` | Full audit — show all references + fix suggestions |
+
+**Integration:**
+
+```bash
+# Called internally by /craft:check
+bash scripts/version-sync.sh           # Full output
+bash scripts/version-sync.sh --quiet   # Exit code only (for hooks)
+bash scripts/version-sync.sh --fix     # Show fix commands
+```
+
+**Belt-and-suspenders protection:**
+
+| Layer | When | Behavior |
+|-------|------|----------|
+| PreToolUse hook | During editing | Warning (non-blocking) |
+| Pre-commit hook | At commit time | Blocking |
+| `/craft:check` | On demand | Informational report |
+
+## Stale Reference Scan (NEW in v2.22.0)
+
+Detects file renames that leave stale references in documentation.
+
+**Script:** `scripts/stale-ref-scan.sh`
+
+**How it works:**
+
+1. Runs `git diff --name-status` between base branch and HEAD to find renames
+2. Extracts old file names from rename entries (R100, R090, etc.)
+3. Greps `docs/`, `README.md`, `CLAUDE.md`, and `tutorials/` for old names
+4. Reports files that still reference the old name
+
+**When it runs:** `--for pr` and `--for release`
+
+```bash
+bash scripts/stale-ref-scan.sh dev      # Compare against dev
+bash scripts/stale-ref-scan.sh --quiet  # Exit code only
+```
+
+## Hook Conflict Audit (NEW in v2.22.0)
+
+Audits git hooks for rules that might block Claude Code operations.
+
+**Script:** `scripts/hook-conflict-audit.sh`
+
+**What it checks:**
+
+- `.githooks/`, `.husky/`, `.git/hooks/` for branch protection rules
+- Pre-commit hooks with strict linting that may reject auto-generated changes
+- Pre-push hooks with test suites that may slow or block pushes
+- Commit-msg hooks with conventional commit enforcement
+- lint-staged configuration
+
+**When it runs:** `--for pr` and `--for release`
+
+```bash
+bash scripts/hook-conflict-audit.sh --for pr       # PR-specific audit
+bash scripts/hook-conflict-audit.sh --for release   # Release-specific audit
+```
+
+## CLAUDE.md Health Check (NEW in v2.22.0)
+
+Basic health check for CLAUDE.md files.
+
+**Script:** `scripts/claude-md-health.sh`
+
+**What it checks:**
+
+- Line count (warns if >200, since system prompt truncates)
+- Version reference presence
+- Staleness (days since last update vs latest commit)
+- Count accuracy (e.g., "111 commands" claim vs actual count)
+
+**When it runs:** `--for pr` and `--for release`
+
+```bash
+bash scripts/claude-md-health.sh           # Full check
+bash scripts/claude-md-health.sh --quiet   # Exit code only
+```
+
 ## Documentation Checks
 
 **Conditional checking** - Runs only when needed:
@@ -532,7 +634,10 @@ The `--for` flag adjusts which checks run based on what you're preparing for:
 | Type check | Skip | Run | Run | Run |
 | Security | Skip | Advisory | Full audit | Full audit |
 | Links | Skip | Internal | All links | All links |
-| Version sync | Skip | Check | Full audit | Full audit |
+| Version sync | Basic check | Check | Full audit | Full audit |
+| Stale refs | Skip | Scan | Scan | Scan |
+| Hook conflict | Skip | Audit | Audit | Audit |
+| CLAUDE.md health | Skip | Basic | Full | Full |
 | Merge conflicts | Skip | Detect | N/A | N/A |
 | Coverage threshold | Skip | 80% min | 90% min | 90% min |
 | Instruction health | Counts only | Full check | Full check | Full + auto-fix |
@@ -758,6 +863,7 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 │ ✓ Tests: 45/45 passed                              │
 │ ✓ Types: No errors                                 │
 │ ✓ No secrets detected                              │
+│ ✓ Version sync: All match v2.21.0                  │
 ├─────────────────────────────────────────────────────┤
 │ READY TO COMMIT                                    │
 ╰─────────────────────────────────────────────────────╯
@@ -773,6 +879,10 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 │ ✓ Types: No errors                                 │
 │ ✓ No merge conflicts                               │
 │ ✓ Branch up to date with main                      │
+│ ✓ Version sync: All match v2.21.0                  │
+│ ✓ Stale refs: No renames with stale docs           │
+│ ✓ Hook audit: No conflicts detected                │
+│ ✓ CLAUDE.md: Healthy (161 lines)                   │
 ├─────────────────────────────────────────────────────┤
 │ READY FOR PR                                       │
 ╰─────────────────────────────────────────────────────╯
@@ -789,7 +899,10 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 │ ✓ Security: No vulnerabilities                     │
 │ ✓ Docs: Valid and up-to-date                       │
 │ ✓ CHANGELOG: Updated                               │
-│ ✓ Version: Bumped correctly                        │
+│ ✓ Version: Bumped correctly (full audit)           │
+│ ✓ Stale refs: No renames with stale docs           │
+│ ✓ Hook audit: No conflicts for release             │
+│ ✓ CLAUDE.md: Healthy (161 lines, counts accurate)  │
 ├─────────────────────────────────────────────────────┤
 │ READY FOR RELEASE                                  │
 ╰─────────────────────────────────────────────────────╯

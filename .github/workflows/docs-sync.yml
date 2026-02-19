@@ -1,0 +1,31 @@
+name: Doc Sync
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sync-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run doc sync
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude -p "Run /craft:docs:sync --headless. Update any stale version numbers, command references, and feature descriptions to match the current project state. Commit with message 'docs: auto-sync documentation after merge'." \
+            --allowedTools "Read,Edit,Write,Bash,Grep"
+
+      - name: Push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git push

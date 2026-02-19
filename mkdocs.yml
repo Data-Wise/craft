@@ -123,6 +123,9 @@ nav:
       - Homebrew Setup Tutorial: tutorials/TUTORIAL-homebrew-setup.md
       - Insights-Driven Workflow: tutorials/TUTORIAL-insights-workflow.md
       - Insights Improvements Guide: guide/insights-improvements-guide.md
+      - Version Sync Setup: tutorials/TUTORIAL-version-sync-setup.md
+      - CI Monitoring Architecture: architecture/ci-monitoring.md
+      - Version Sync Architecture: architecture/version-sync.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md

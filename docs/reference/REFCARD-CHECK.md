@@ -2,7 +2,7 @@
 
 **One command for all pre-flight validation** - Smart mode selection, comprehensive checks, ADHD-friendly output.
 
-**Version:** 2.9.0 | **Status:** Production Ready | **NEW:** "Show Steps First" pattern with plan preview
+**Version:** 2.22.0 | **Status:** Production Ready | **NEW:** Friction detection (version sync, stale refs, hook audit, CLAUDE.md health)
 
 ---
 
@@ -452,6 +452,40 @@ Auto-fix available:
 
 - Build system (specific to project)
 - Package validators
+
+### Friction Detection (NEW v2.22.0)
+
+**Checks:**
+
+- Version consistency across all project files
+- Stale references to renamed/moved files
+- Git hook conflicts that could block CI or releases
+- CLAUDE.md health (line count, version presence, count accuracy)
+
+**Scripts:**
+
+| Check | Script | Time |
+|-------|--------|------|
+| Version sync | `scripts/version-sync.sh` | ~1s |
+| Stale references | `scripts/stale-ref-scan.sh` | ~2s |
+| Hook conflicts | `scripts/hook-conflict-audit.sh` | ~1s |
+| CLAUDE.md health | `scripts/claude-md-health.sh` | <1s |
+
+**Belt-and-Suspenders (Version Sync):**
+
+```text
+Layer 1: PreToolUse hook  → warns during editing (soft)
+Layer 2: pre-commit hook  → blocks commits with drift (hard)
+Layer 3: /craft:check     → catches anything that slipped through
+```
+
+**Context-Aware Behavior:**
+
+| Context | Version Sync | Stale Refs | Hook Audit | CLAUDE.md |
+|---------|-------------|------------|------------|-----------|
+| `--for commit` | Yes | No | No | No |
+| `--for pr` | Yes | Yes | Yes | Yes |
+| `--for release` | Yes | Yes | Yes | Yes |
 
 ---
 
