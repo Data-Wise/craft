@@ -483,7 +483,7 @@ Pre-flight Check Plan:
   ✓ .claude-plugin/plugin.json: v2.22.0
   ✓ CLAUDE.md: v2.22.0
   ✓ utils/version.py __version__: v2.22.0
-  ⚠ tests/test_craft_plugin.py: found hardcoded "v2.21.0" at line 847
+  ⚠ tests/test_craft_plugin.py: found hardcoded "v2.22.0" at line 847
   PARTIAL PASS (1 warning)
 
 [10/12] Stale reference scan...
@@ -501,7 +501,7 @@ Pre-flight Check Plan:
 [12/12] CLAUDE.md health...
   ✓ Line count: 187 lines (under 200 limit)
   ✓ Version present: v2.22.0
-  ⚠ Count accuracy: CLAUDE.md shows "111 commands" — actual count is 113
+  ⚠ Count accuracy: CLAUDE.md shows "107 commands" — actual count is 107
   ✓ Staleness: Quick Commands table matches command frontmatter
 
 Results: 10/12 checks passed, 3 warnings, 1 failure
@@ -509,8 +509,8 @@ Time: 31.4s
 
 Issues requiring attention:
   ❌ [stale-ref] 2 doc files reference renamed script (scripts/version-check.sh)
-  ⚠ [version] tests/test_craft_plugin.py has hardcoded v2.21.0 at line 847
-  ⚠ [claude-md] Command count (111) does not match actual (113)
+  ⚠ [version] tests/test_craft_plugin.py has hardcoded v2.22.0 at line 847
+  ⚠ [claude-md] Command count (107) matches actual (107)
 
 Suggested fixes:
   1. Update stale refs: /craft:docs:update --stale-refs

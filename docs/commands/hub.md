@@ -103,9 +103,9 @@ Shows all categories with auto-detected command counts:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 🛠️ CRAFT - Full Stack Developer Toolkit v2.4.0                          │
-│ 📍 craft (Claude Plugin) on feature/brainstorm-question-control         │
-│ 📊 100 Commands | 21 Skills | 8 Agents | 4 Modes                         │
+│ 🛠️ CRAFT - Full Stack Developer Toolkit v2.22.0                         │
+│ 📍 craft (Claude Plugin) on dev                                         │
+│ 📊 107 Commands | 25 Skills | 8 Agents | 4 Modes                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
