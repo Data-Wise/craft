@@ -51,6 +51,7 @@ After detecting the current and next version, display:
 │  4. ✓ Commit: "chore: bump version to v2.18.0 for release"  │
 │  5. ✓ Push to dev                                           │
 │  6. ✓ Create PR: dev → main                                 │
+│  6.5 ✓ CI monitoring (poll → diagnose → fix → retry)        │
 │  7. ✓ Merge PR (--merge, NO --delete-branch)                │
 │  8. ✓ Create GitHub release v2.18.0 on main                 │
 │  8.5 ✓ Update Homebrew tap formula                          │
@@ -284,6 +285,72 @@ If branch protection blocks the merge, use `--admin` only after user confirmatio
 
 **Autonomous mode:** Auto-uses `--admin` if blocked. Logs a **WARNING** for audit trail. See "Autonomous Admin Override" section for safety details.
 
+### Step 6.5: CI Monitoring (NEW in v2.22.0)
+
+After creating the PR (Step 5) but before merging (Step 6), monitor CI status and auto-fix safe failures.
+
+**Script:** `scripts/ci-monitor.sh`
+
+```bash
+# Poll CI status for the release PR
+bash scripts/ci-monitor.sh <pr-number>
+```
+
+**Behavior:**
+
+1. Poll `gh run list` every 30s (configurable via `.claude/release-config.json`)
+2. On **success**: proceed to Step 6 (merge)
+3. On **failure**: diagnose, categorize, and attempt fix
+4. Max 3 retry cycles before reporting to user
+
+**Auto-fix categories** (applied without asking):
+
+| Category | Fix Strategy |
+|----------|-------------|
+| `version_mismatch` | Run `scripts/version-sync.sh --fix`, update files, commit + push |
+| `lint_failure` | Run linter with `--fix` flag, commit + push |
+| `changelog_format` | Reformat CHANGELOG entries, commit + push |
+
+**Ask-before-fix categories** (require user approval):
+
+| Category | Why |
+|----------|-----|
+| `test_failure` | May indicate real bugs, not just formatting |
+| `security_audit` | Vulnerability fixes need careful review |
+| `build_failure` | Root cause may be complex |
+
+**Configuration:** `.claude/release-config.json`
+
+```json
+{
+    "ci_timeout": 600,
+    "ci_max_retries": 3,
+    "ci_poll_interval": 30,
+    "ci_auto_fix_categories": ["version_mismatch", "lint_failure", "changelog_format"],
+    "ci_ask_before_fix": ["test_failure", "security_audit", "build_failure"]
+}
+```
+
+**Output format:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 6.5: CI Monitoring                                     │
+├─────────────────────────────────────────────────────────────┤
+│ Polling CI status for PR #85...                             │
+│                                                             │
+│ [Poll 1] ⏳ In progress (30s elapsed)                       │
+│ [Poll 2] ⏳ In progress (60s elapsed)                       │
+│ [Poll 3] ✅ All checks passed (90s elapsed)                  │
+│                                                             │
+│ Proceeding to Step 6: Merge PR                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Autonomous mode:** Auto-fixes are applied without prompts. Ask-before-fix categories abort with a report.
+
+**Timeout:** If CI doesn't complete within `ci_timeout` seconds, report to user and ask whether to wait longer or merge with `--admin`.
+
 ### Step 7: Create GitHub Release
 
 ```bash
@@ -419,16 +486,17 @@ Display progress using box-drawing:
 ┌─────────────────────────────────────────────────────────────┐
 │ /release v2.17.0                                            │
 ├─────────────────────────────────────────────────────────────┤
-│ [ 1/10] CI mirror check .................... PASSED          │
-│ [ 2/10] Release metadata check ............. PASSED          │
-│ [ 3/10] Version bump ....................... DONE             │
-│ [ 4/10] Commit & push ..................... DONE              │
-│ [ 5/10] Release PR created ................. PR #70          │
-│ [ 6/10] PR merged .......................... DONE             │
-│ [ 7/10] GitHub release ..................... v2.17.0          │
-│ [ 8/10] Docs deployed ..................... DONE              │
-│ [ 9/10] Dev synced ........................ DONE               │
-│ [10/10] Verify CI on main ................. PASSED            │
+│ [ 1/11] CI mirror check .................... PASSED          │
+│ [ 2/11] Release metadata check ............. PASSED          │
+│ [ 3/11] Version bump ....................... DONE             │
+│ [ 4/11] Commit & push ..................... DONE              │
+│ [ 5/11] Release PR created ................. PR #70          │
+│ [ 6/11] CI monitoring ..................... GREEN (90s)       │
+│ [ 7/11] PR merged .......................... DONE             │
+│ [ 8/11] GitHub release ..................... v2.17.0          │
+│ [ 9/11] Docs deployed ..................... DONE              │
+│ [10/11] Dev synced ........................ DONE               │
+│ [11/11] Verify CI on main ................. PASSED            │
 ├─────────────────────────────────────────────────────────────┤
 │ Release URL: https://github.com/.../releases/tag/v2.17.0   │
 └─────────────────────────────────────────────────────────────┘

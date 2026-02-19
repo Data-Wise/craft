@@ -141,7 +141,7 @@ PYTHONPATH=. python3 utils/claude_md_sync.py 2>/dev/null
 ```
 🔍 Checking CLAUDE.md accuracy...
 
-  Commands: 111 ✅ (matches)
+  Commands: 107 ✅ (matches)
   Skills:   25 ✅ (matches)
   Agents:   8 ✅ (matches)
   Specs:    30 ✅ (matches)
@@ -179,6 +179,44 @@ today=$(date +%Y-%m-%d)
 3. `🎯 Next Action` → derived from session context (prompted in Step 2)
 
 **Note:** Full .STATUS rewrite happens in Step 3 (Option A). This step only refreshes the timestamp and branch metadata.
+
+### Step 1.9: Doc Drift Detection (NEW in v2.22.0)
+
+Check if files changed this session have documentation that may need updating:
+
+```bash
+# Get files changed this session (uncommitted + recent commits)
+changed_files=$(git diff --name-only 2>/dev/null; git log --oneline --since="4 hours ago" --name-only --format="" 2>/dev/null)
+
+# Cross-reference against documentation
+for file in $changed_files; do
+    basename=$(basename "$file" .md)
+    # Check if a matching doc page exists
+    if [ -d "docs/" ]; then
+        doc_matches=$(find docs/ -name "*${basename}*" -o -name "*.md" -exec grep -l "$basename" {} \; 2>/dev/null)
+        if [ -n "$doc_matches" ]; then
+            echo "⚠  $file changed → docs may need update: $doc_matches"
+        fi
+    fi
+done
+```
+
+**Output format (integrated into session summary):**
+
+```
+📖 DOC DRIFT CHECK:
+  ⚠  commands/check.md changed → docs/commands/check.md may need update
+  ⚠  scripts/version-sync.sh added → consider adding docs reference
+  ✅ commands/workflow/done.md → docs already up to date
+
+  Run /craft:docs:sync to update? [Y/n]
+```
+
+**Behavior:**
+
+- If drift detected: offer to run `/craft:docs:sync` before committing
+- If no drift: show green checkmark, proceed normally
+- Skippable with `SKIP_DOC_DRIFT=1` environment variable
 
 ### Step 2: Interactive Session Summary
 

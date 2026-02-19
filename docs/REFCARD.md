@@ -398,6 +398,28 @@
    - Medium: Examples outdated
    - Low: Links need updating
 
+**Headless Mode (NEW in v2.22.0):**
+
+```bash
+# Non-interactive (for CI/automation)
+/craft:docs:sync --headless
+# Auto-approves all changes, commits with standard message
+
+# Preview what would change
+/craft:docs:sync --headless --dry-run
+
+# CI automation via GitHub Actions
+# See: .github/workflows/docs-sync.yml
+```
+
+**Three-Layer Doc Sync:**
+
+```text
+Layer 1: /workflow:done     → catches drift at session end
+Layer 2: --headless         → on-demand bulk sync
+Layer 3: GitHub Actions     → safety net after merge to main
+```
+
 #### /craft:docs:check
 
 **Purpose:** Comprehensive documentation validation.
@@ -752,12 +774,30 @@ main (production branch)
 | `/craft:check:deps`    | Dependency validation        |
 | `/craft:check:docs`    | Documentation validation     |
 
+**Friction Detection (NEW in v2.22.0):**
+
+| Check | Script | What It Catches |
+| ----- | ------ | --------------- |
+| Version consistency | `scripts/version-sync.sh` | Manifest/docs/code version drift |
+| Stale references | `scripts/stale-ref-scan.sh` | Renamed files still referenced in docs |
+| Hook conflict audit | `scripts/hook-conflict-audit.sh` | Git hooks that block CI or releases |
+| CLAUDE.md health | `scripts/claude-md-health.sh` | Stale counts, missing versions, line bloat |
+
+**Belt-and-Suspenders (Version Sync):**
+
+```text
+Layer 1: PreToolUse hook  → warns during editing (soft)
+Layer 2: pre-commit hook  → blocks commits with drift (hard)
+Layer 3: /craft:check     → catches anything that slipped through
+```
+
 **Quick Examples:**
 
 ```bash
-/craft:check                    # Before commit
+/craft:check                    # Before commit (includes friction detection)
 /craft:check --mode=thorough    # Before PR
 /craft:check --dry-run          # See what would run
+/craft:check --for pr           # PR-specific checks (stale refs, hook conflicts)
 ```
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
@@ -1438,6 +1478,9 @@ graph LR
 # Summarizes: What you accomplished
 # Saves: Session notes
 # Prompts: Next session goal
+# NEW in v2.22.0: Doc drift detection
+#   Cross-references changed files against docs
+#   Offers to run /craft:docs:sync if drift found
 ```
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
@@ -1448,7 +1491,7 @@ Auto-triggered expertise:
 
 | Skill                     | Triggers                                            |
 | ------------------------- | --------------------------------------------------- |
-| `release`                 | "release", "ship it", version publishing            |
+| `release`                 | "release", "ship it", version publishing (CI monitoring in v2.22.0) |
 | `guard-audit`             | "audit guard", "review branch protection" (v2.18.0) |
 | `insights-apply`          | "apply insights", "update rules from insights" (v2.18.0) |
 | `backend-designer`        | API, database, auth                                 |
