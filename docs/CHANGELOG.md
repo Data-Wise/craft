@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased] - Unified Test System
+
+### Added
+
+- **Unified test commands:** 7 old commands (`test:run`, `test:watch`, `test:coverage`, `test:debug`, `test:cli-gen`, `test:cli-run`, `test:generate`) consolidated into 3: `/craft:test`, `/craft:test:gen`, `/craft:test:template`
+- **Jinja2 template engine:** `utils/test_generator.py` (865 lines) — auto-detects project type (plugin, zsh, cli, mcp) and renders test suites from 27 templates
+- **Template registry:** `templates/registry.json` with detection rules, variable schemas, and tier assignments for all 4 project types
+- **27 Jinja2 templates:** `templates/` directory covering `_base/` (shared), `plugin/` (7), `zsh/` (5), `cli/` (7), `mcp/` (5) with conftest + helpers
+- **Pytest infrastructure:** `pyproject.toml` markers (25 total), `tests/conftest.py` shared fixtures, `tests/helpers.py` shared utilities
+- **Advanced testing markers:** `snapshot`, `property`, `contract` markers with optional dependency groups
+- **Testing documentation:** REFCARD-TESTING.md, test-architecture.md (3 Mermaid diagrams), test-commands.md, test-migration.md, testing-quickstart.md
+- **Cookbook recipes:** "Generate Tests for a Project" and "Run Tests by Category"
+- **YAML frontmatter:** Added to 52 command files that were missing metadata
+
+### Changed
+
+- **Command count:** 111 → 107 (removed 7 old test commands, added 3 unified, net -4)
+- **All test files:** 66 test files now have module-level `pytestmark` assignments for tier + domain filtering
+- **9 test files:** Migrated from `CheckResult` dataclass to native pytest assertions
+- **40+ files:** Updated old test command references (`test:run` → `test`, `test:coverage` → `test --coverage`, etc.)
+- **mkdocs.yml:** Fixed 3 duplicate nav entries, updated site description to v2.21.0
+
+### Documentation
+
+- [Testing Quick Reference](reference/REFCARD-TESTING.md) · [Test Architecture](guide/test-architecture.md) · [Migration Guide](guide/test-migration.md) · [Testing Quickstart](tutorials/testing-quickstart.md)
+
+---
+
 ## [Unreleased] - Marketplace Distribution
 
 ### Added
