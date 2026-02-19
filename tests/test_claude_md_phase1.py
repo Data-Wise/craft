@@ -18,11 +18,15 @@ import threading
 from pathlib import Path
 import sys
 
+import pytest
+
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from utils.claude_md_detector import CLAUDEMDDetector, ProjectInfo
 from utils.claude_md_updater_simple import SimpleCLAUDEMDUpdater, MetricChange
+
+pytestmark = [pytest.mark.integration, pytest.mark.claude_md]
 
 
 class TestCLAUDEMDDetector(unittest.TestCase):

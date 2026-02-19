@@ -6,6 +6,8 @@ Integration tests for --orch flag across commands
 import pytest
 from unittest.mock import Mock, patch, MagicMock
 
+pytestmark = [pytest.mark.integration, pytest.mark.orchestrator]
+
 
 class TestOrchFlagIntegration:
     """Test --orch flag integration with commands"""

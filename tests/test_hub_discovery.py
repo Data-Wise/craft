@@ -25,6 +25,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional, Dict, List, Any
 
+import pytest
+
+pytestmark = [pytest.mark.integration, pytest.mark.hub]
+
 
 @dataclass
 class CheckResult:

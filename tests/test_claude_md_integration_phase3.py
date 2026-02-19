@@ -15,6 +15,8 @@ import json
 from pathlib import Path
 import sys
 
+import pytest
+
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -22,6 +24,8 @@ from utils.claude_md_detector import CLAUDEMDDetector
 from utils.claude_md_template_populator import TemplatePopulator, populate_template
 from utils.claude_md_section_editor import SectionParser, SectionEditor
 from utils.claude_md_auditor import CLAUDEMDAuditor
+
+pytestmark = [pytest.mark.integration, pytest.mark.claude_md]
 
 
 class TestScaffoldEditWorkflow(unittest.TestCase):

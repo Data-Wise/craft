@@ -16,6 +16,10 @@ from pathlib import Path
 from typing import Optional
 import time
 
+import pytest
+
+pytestmark = [pytest.mark.integration, pytest.mark.structure]
+
 
 @dataclass
 class CheckResult:

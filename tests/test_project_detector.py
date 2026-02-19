@@ -17,6 +17,10 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import Optional
 
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.commands]
+
 
 # ============================================================================
 # Implementation (extracted from skill for testing)

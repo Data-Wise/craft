@@ -25,6 +25,8 @@ import sys
 # Add utils to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+pytestmark = [pytest.mark.unit, pytest.mark.claude_md]
+
 from utils.claude_md_detector import detect_project, ProjectInfo
 from utils.claude_md_template_populator import TemplatePopulator, populate_template
 from utils.claude_md_auditor import CLAUDEMDAuditor, Severity

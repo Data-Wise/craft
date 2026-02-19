@@ -22,6 +22,8 @@ from unittest.mock import patch, mock_open, MagicMock
 import tempfile
 import shutil
 
+pytestmark = [pytest.mark.unit, pytest.mark.structure]
+
 
 # ============================================================================
 # Test: detect_teaching_mode.py Coverage Gaps

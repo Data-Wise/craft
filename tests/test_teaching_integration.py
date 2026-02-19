@@ -25,6 +25,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List, Optional, Dict, Any
 
+import pytest
+
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -32,6 +34,8 @@ from commands.utils.teach_config import load_teach_config, validate_config
 from commands.utils.teaching_validation import validate_teaching_content
 from commands.utils.semester_progress import calculate_current_week as _calculate_current_week
 from utils.detect_teaching_mode import detect_teaching_mode
+
+pytestmark = [pytest.mark.integration, pytest.mark.teaching]
 
 
 @dataclass

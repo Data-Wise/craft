@@ -15,6 +15,8 @@ import re
 import pytest
 import yaml
 
+pytestmark = [pytest.mark.e2e, pytest.mark.commands]
+
 # Base path for the feature branch worktree
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

@@ -18,8 +18,12 @@ import os
 import subprocess
 from pathlib import Path
 
+import pytest
+
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+pytestmark = [pytest.mark.integration, pytest.mark.agents]
 
 
 class TestAgentHooks:

@@ -19,6 +19,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import pytest
+
+pytestmark = [pytest.mark.integration, pytest.mark.branch_guard]
+
 
 # Hook path
 HOOK_PATH = os.path.expanduser("~/.claude/hooks/branch-guard.sh")

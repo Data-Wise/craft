@@ -12,6 +12,8 @@ from pathlib import Path
 from dataclasses import dataclass
 from datetime import datetime
 
+import pytest
+
 # Add plugin directory to path
 plugin_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(plugin_dir))
@@ -23,6 +25,8 @@ from commands._discovery import (
     get_category_info,
     get_command_stats
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.hub]
 
 
 @dataclass

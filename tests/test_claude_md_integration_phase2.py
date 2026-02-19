@@ -14,11 +14,15 @@ import json
 from pathlib import Path
 import sys
 
+import pytest
+
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from utils.claude_md_auditor import CLAUDEMDAuditor, Severity
 from utils.claude_md_fixer import CLAUDEMDFixer
+
+pytestmark = [pytest.mark.integration, pytest.mark.claude_md]
 
 
 class TestAuditFixWorkflow(unittest.TestCase):

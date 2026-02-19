@@ -9,11 +9,15 @@ import unittest
 import sys
 from pathlib import Path
 
+import pytest
+
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from utils.docs_detector import DocsDetector
 from utils.help_file_validator import HelpFileValidator, IssueType
+
+pytestmark = [pytest.mark.integration, pytest.mark.docs]
 
 
 class TestDocsUtilities(unittest.TestCase):

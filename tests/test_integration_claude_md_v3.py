@@ -26,6 +26,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import pytest
+
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -35,6 +37,8 @@ from utils.claude_md_optimizer import (
     OptimizeResult,
     POINTER_PREFIX,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.claude_md]
 
 
 # ---------------------------------------------------------------------------

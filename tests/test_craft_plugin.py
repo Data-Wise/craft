@@ -16,8 +16,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+import pytest
+
 # Add utils directory to path for linkcheck_ignore_parser
 sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
+
+pytestmark = [pytest.mark.integration, pytest.mark.structure]
 
 
 @dataclass

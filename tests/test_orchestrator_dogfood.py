@@ -20,6 +20,10 @@ from typing import Optional
 import time
 import os
 
+import pytest
+
+pytestmark = [pytest.mark.e2e, pytest.mark.orchestrator]
+
 
 @dataclass
 class CheckResult:

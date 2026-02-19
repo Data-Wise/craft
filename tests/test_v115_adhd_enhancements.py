@@ -27,6 +27,8 @@ from pathlib import Path
 import pytest
 from typing import List, Optional, Tuple
 
+pytestmark = [pytest.mark.integration, pytest.mark.orchestrator]
+
 
 @dataclass
 class CheckResult:

@@ -10,12 +10,16 @@ Run with: python tests/test_hub_integration.py
 import sys
 from pathlib import Path
 
+import pytest
+
 # Add plugin directory to path
 plugin_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(plugin_dir))
 
 # Import discovery engine
 from commands._discovery import get_command_stats, load_cached_commands
+
+pytestmark = [pytest.mark.integration, pytest.mark.hub]
 
 def _check_hub_display():
     """Test that hub can generate display with discovery data."""
