@@ -1,6 +1,6 @@
 # SPEC: Test Generation & Execution Refactor
 
-**Status:** reviewed
+**Status:** WIP
 **Created:** 2026-02-18
 **From Brainstorm:** `BRAINSTORM-test-gen-refactor-2026-02-18.md`
 **Author:** DT + Claude
