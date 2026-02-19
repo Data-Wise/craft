@@ -3719,6 +3719,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../commands/workflow/insights/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:workflow:insights
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../commands/arch/analyze/" class="md-nav__link">
         
   
@@ -5745,6 +5773,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Pipeline Steps at a Glance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-pipeline-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release Pipeline Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -7109,6 +7154,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Pipeline Steps at a Glance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#release-pipeline-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release Pipeline Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -7330,6 +7392,40 @@
 </tr>
 </tbody>
 </table>
+<h3 id="release-pipeline-flow">Release Pipeline Flow<a class="headerlink" href="#release-pipeline-flow" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    A["/release"] --&gt; B{Version Detection}
+    B --&gt; C[Pre-flight Checks]
+    C --&gt; C1["/craft:check --for release"]
+    C --&gt; C2["pre-release-check.sh"]
+    C --&gt; C3{"marketplace.json?"}
+    C3 --&gt;|Yes| C4["Validate marketplace"]
+    C3 --&gt;|No| D
+    C1 --&gt; D{All Passed?}
+    C2 --&gt; D
+    C4 --&gt; D
+    D --&gt;|No| E["Fix &amp; Re-run"]
+    E --&gt; C
+    D --&gt;|Yes| F["Version Bump"]
+    F --&gt; G["Commit &amp; Push"]
+    G --&gt; H["Create PR dev → main"]
+    H --&gt; I["Merge PR"]
+    I --&gt; J["CI Monitoring Loop"]
+    J --&gt; K{CI Green?}
+    K --&gt;|No| L{"Auto-fixable?"}
+    L --&gt;|Yes| M["Auto-fix &amp; Retry"]
+    M --&gt; J
+    L --&gt;|No| N["Ask User"]
+    K --&gt;|Yes| O["Create GitHub Release"]
+    O --&gt; P["Deploy Docs"]
+    P --&gt; Q["Update Homebrew Tap"]
+    Q --&gt; R["Sync dev with main"]
+    R --&gt; S["Verify CI on main"]
+
+    style A fill:#4a9eff,color:#fff
+    style D fill:#ffa94d,color:#fff
+    style K fill:#ffa94d,color:#fff
+    style S fill:#51cf66,color:#fff</code></pre>
 <hr />
 <h2 id="dry-run-mode">Dry-Run Mode<a class="headerlink" href="#dry-run-mode" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/release --dry-run    # or: /release -n
