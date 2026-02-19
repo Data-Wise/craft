@@ -1,19 +1,20 @@
 status: Active
 version: 2.21.0
 release_date: 2026-02-16
-milestone: Two feature branches WIP
+milestone: Three feature branches WIP
 last_session: 2026-02-18
 
-progress: v2.21.0 released — Two feature branches in progress
+progress: v2.21.0 released — Three feature branches in progress
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
 | main   | 76054e4 | —    | Production (v2.21.0)       |
-| dev    | 46c155c | main | 2 commits ahead            |
+| dev    | 6c5ffd2 | main | 5 commits ahead            |
 | feature/test-gen-refactor | 950dc5a | dev | WIP — worktree at ~/.git-worktrees/craft/feature-test-gen-refactor |
 | feature/claude-md-refactor | d95cba8 | dev | WIP — worktree at ~/.git-worktrees/craft/feature-claude-md-refactor |
+| feature/insights-integration | fb43ff0 | dev | WIP — worktree at ~/.git-worktrees/craft/feature-insights-integration |
 
 🔧 WIP: feature/test-gen-refactor
 - Spec: approved (SPEC-test-gen-refactor-2026-02-18.md)
@@ -26,6 +27,12 @@ progress: v2.21.0 released — Two feature branches in progress
 - Status: Not started — ORCHESTRATE committed, awaiting implementation
 - Goal: Reduce context budget from ~8300 to ~4000 tokens/session
 
+🔧 WIP: feature/insights-integration
+- Spec: draft (SPEC-insights-integration-2026-02-18.md)
+- ORCHESTRATE: 6 phases (action-verb rule, version sync, check enhancements, CI monitoring, doc-sync, documentation)
+- Status: Not started — ORCHESTRATE committed, awaiting implementation
+- Source: Claude Code Insights report (341 sessions analyzed)
+
 ✅ Session 2026-02-18 (brainstorm + planning):
 - Deep brainstorm on test gen refactor (spec approved, worktree created)
 - Max brainstorm on CLAUDE.md & memory refactor (2 background agents: tasks API research + instruction audit)
@@ -33,6 +40,8 @@ progress: v2.21.0 released — Two feature branches in progress
 - Created worktrees + ORCHESTRATE files for both features
 - Added ORCHESTRATE cleanup to worktree finish workflow (9 doc files updated)
 - Unignored ORCHESTRATE-*.md in .gitignore
+- Deep brainstorm on insights-driven command updates (16 expert questions)
+- Created spec + worktree + ORCHESTRATE for insights-integration
 
 ✅ Session 2026-02-16 (v2.21.0 release):
 - Released v2.21.0: PR #81 merged, GitHub release created, docs deployed
