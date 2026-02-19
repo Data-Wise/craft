@@ -2,17 +2,17 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.21.0 (2026-02-16)
-**Total Releases:** 42 versions | **Development Time:** 2+ years
+**Latest Release:** v2.22.0 (2026-02-19)
+**Total Releases:** 43 versions | **Development Time:** 2+ years
 **Community:** 107 commands documented, ~1575 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
 
-### v2.22.0 (Unreleased) - Unified Test System, CLAUDE.md Refactor & Friction Prevention
+### v2.22.0 (2026-02-19) - Unified Test System, CLAUDE.md Refactor & Friction Prevention
 
-**Status:** In development
+**Status:** Released
 
 **Highlights:**
 
