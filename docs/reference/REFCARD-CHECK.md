@@ -641,6 +641,37 @@ In project `.craft-config.json`:
 
 ---
 
+## Instruction Health Check (v2.22.0)
+
+New check category validates CLAUDE.md accuracy:
+
+```bash
+# Included automatically in all check modes
+/craft:check                    # Counts only (default)
+/craft:check --mode=thorough    # Full instruction health check
+```
+
+**What it validates:**
+
+| Check | default | thorough |
+|-------|---------|----------|
+| Command/skill/agent/spec counts | ✅ | ✅ |
+| Line budget (< 100 lines) | - | ✅ |
+| Reference file freshness | - | ✅ |
+| CLAUDE.md lint | - | ✅ |
+
+**Auto-fix:** Stale counts are auto-fixed in `--for release` mode.
+
+**Generate reference files:**
+
+```bash
+PYTHONPATH=. python3 utils/claude_md_sync.py --generate-reference
+```
+
+Creates `.claude/reference/` files (agents.md, test-suite.md, project-structure.md) from filesystem state.
+
+---
+
 ## See Also
 
 - [Check Command Mastery Guide](../guide/check-command-mastery.md) - Complete guide with scenarios
@@ -650,6 +681,6 @@ In project `.craft-config.json`:
 
 ---
 
-**Version:** 2.9.0
+**Version:** 2.22.0
 **Status:** Production Ready
-**Last Updated:** 2026-01-29
+**Last Updated:** 2026-02-18

@@ -68,7 +68,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.20.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.21.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 > **111 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -546,6 +546,14 @@ Command                  │ Description
 /craft:docs:validate     │ Validate links, code, structure
 /craft:docs:nav-update   │ Update mkdocs.yml navigation
 ─────────────────────────────────────────────────────────────────────────
+
+Reference Files (v2.22.0):
+  .claude/reference/agents.md           │ Agent inventory (model, description)
+  .claude/reference/test-suite.md       │ Test files with type classification
+  .claude/reference/project-structure.md │ Directory tree, counts, version
+
+  Generate/refresh: PYTHONPATH=. python3 utils/claude_md_sync.py --generate-reference
+─────────────────────────────────────────────────────────────────────────
 ```
 
 ### `/craft:hub site`
@@ -736,7 +744,12 @@ Command                           │ Description
 │   /craft:code:deps-audit → /craft:test:run release →                  │
 │   /craft:docs:changelog → /craft:code:release                          │
 │                                                                        │
-│ Insights-Driven (NEW):                                                │
+│ Instruction System (v2.22.0):                                         │
+│   /craft:check                    → Includes instruction health check │
+│   /workflow:done                  → Auto-syncs CLAUDE.md counts       │
+│   --generate-reference            → Refresh .claude/reference/ files  │
+│                                                                        │
+│ Insights-Driven:                                                      │
 │   /craft:guard:audit              → Audit guard config                │
 │   /craft:insights:apply           → Apply insights to CLAUDE.md       │
 │   /craft:check --context          → Front-load session context        │

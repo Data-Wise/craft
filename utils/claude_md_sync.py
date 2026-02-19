@@ -1303,6 +1303,187 @@ class CLAUDEMDSync:
 
 
 # ---------------------------------------------------------------------------
+# Reference File Generation
+# ---------------------------------------------------------------------------
+
+class ReferenceFileGenerator:
+    """Generates .claude/reference/ files from project state.
+
+    Produces on-demand reference files that complement the lean CLAUDE.md:
+      - agents.md    — Agent table from agents/ directory
+      - test-suite.md — Test file inventory with counts
+      - project-structure.md — Directory tree, key files, version history
+    """
+
+    def __init__(self, project_root: Path):
+        self.project_root = Path(project_root)
+        self.reference_dir = self.project_root / ".claude" / "reference"
+
+    def generate_all(self) -> List[str]:
+        """Generate all reference files. Returns list of files written."""
+        self.reference_dir.mkdir(parents=True, exist_ok=True)
+        written: List[str] = []
+
+        for gen_func in (
+            self._generate_agents,
+            self._generate_test_suite,
+            self._generate_project_structure,
+        ):
+            path = gen_func()
+            if path:
+                written.append(str(path))
+
+        return written
+
+    def _generate_agents(self) -> Optional[Path]:
+        """Generate agents.md from agents/ directory."""
+        agents_dir = self.project_root / "agents"
+        if not agents_dir.exists():
+            return None
+
+        agents: List[dict] = []
+        for md_file in sorted(agents_dir.rglob("*.md")):
+            name = md_file.stem
+            model = "—"
+            description = ""
+
+            content = md_file.read_text()
+            for line in content.split("\n")[:30]:
+                if line.strip().startswith("model:"):
+                    model = line.split(":", 1)[1].strip().strip('"\'')
+                elif line.strip().startswith("description:"):
+                    desc = line.split(":", 1)[1].strip()
+                    # Truncate long descriptions
+                    description = desc[:80] + "..." if len(desc) > 80 else desc
+
+            agents.append({"name": name, "model": model, "description": description})
+
+        # Deduplicate by name (rglob may find duplicates)
+        seen: set = set()
+        unique_agents: List[dict] = []
+        for a in agents:
+            if a["name"] not in seen:
+                seen.add(a["name"])
+                unique_agents.append(a)
+
+        lines = [
+            f"# Craft Agents\n",
+            f"{len(unique_agents)} agents in `agents/` directory.\n",
+            "| Agent | Model | Use For |",
+            "|-------|-------|---------|",
+        ]
+        for a in unique_agents:
+            lines.append(f"| **{a['name']}** | {a['model']} | {a['description']} |")
+        lines.append("")
+
+        out = self.reference_dir / "agents.md"
+        out.write_text("\n".join(lines))
+        return out
+
+    def _generate_test_suite(self) -> Optional[Path]:
+        """Generate test-suite.md from test files."""
+        tests_dir = self.project_root / "tests"
+        if not tests_dir.exists():
+            return None
+
+        test_files: List[dict] = []
+        for tf in sorted(tests_dir.glob("test_*")):
+            name = tf.name
+            # Classify test type
+            if "e2e" in name:
+                test_type = "E2E"
+            elif "integration" in name:
+                test_type = "Integration"
+            elif "dogfood" in name:
+                test_type = "Dogfood"
+            else:
+                test_type = "Unit"
+            test_files.append({"name": name, "type": test_type})
+
+        lines = [
+            "# Craft Test Suite\n",
+            "## Test Files\n",
+            "| File | Type |",
+            "|------|------|",
+        ]
+        for tf in test_files:
+            lines.append(f"| `{tf['name']}` | {tf['type']} |")
+
+        lines.extend([
+            "",
+            "## Run All Tests\n",
+            "```bash",
+            "python3 tests/test_craft_plugin.py && \\",
+            "python3 tests/test_integration_*.py && \\",
+            "bash tests/test_dependency_management.sh && \\",
+            "bash tests/test_formatting.sh && \\",
+            "bash tests/test_branch_guard.sh && \\",
+            "bash tests/test_branch_guard_e2e.sh && \\",
+            "bash tests/test_release_skill_e2e.sh",
+            "```",
+            "",
+        ])
+
+        out = self.reference_dir / "test-suite.md"
+        out.write_text("\n".join(lines))
+        return out
+
+    def _generate_project_structure(self) -> Optional[Path]:
+        """Generate project-structure.md from filesystem."""
+        # Count items
+        commands_dir = self.project_root / "commands"
+        skills_dir = self.project_root / "skills"
+        agents_dir = self.project_root / "agents"
+        specs_dir = self.project_root / "docs" / "specs"
+
+        cmd_count = len(list(commands_dir.rglob("*.md"))) if commands_dir.exists() else 0
+        skill_count = len(list(skills_dir.rglob("*.md"))) if skills_dir.exists() else 0
+        agent_count = len(list(agents_dir.rglob("*.md"))) if agents_dir.exists() else 0
+        spec_count = len(list(
+            specs_dir.rglob("SPEC-*.md")
+        )) if specs_dir.exists() else 0
+
+        # Read version from plugin.json or .STATUS
+        version = "unknown"
+        plugin_json = self.project_root / ".claude-plugin" / "plugin.json"
+        if plugin_json.exists():
+            try:
+                data = json.loads(plugin_json.read_text())
+                version = data.get("version", version)
+            except (json.JSONDecodeError, OSError):
+                pass
+
+        lines = [
+            "# Craft Project Structure\n",
+            f"**{cmd_count} commands** . **{skill_count} skills** . "
+            f"**{agent_count} agents** . **{spec_count} specs**\n",
+            f"**Version:** v{version}\n",
+            "## Directory Layout\n",
+            "```text",
+            "craft/",
+            f"├── .claude-plugin/     # Plugin manifest, hooks, validators",
+            f"├── commands/           # {cmd_count} commands",
+            f"├── skills/             # {skill_count} skills",
+            f"├── agents/             # {agent_count} agents",
+            f"├── scripts/            # Utility scripts",
+            f"├── utils/              # Python utilities",
+            f"├── tests/              # Test suite",
+            "├── docs/",
+            f"│   ├── specs/          # {spec_count} specs",
+            "│   ├── guide/          # User guides",
+            "│   ├── tutorials/      # Step-by-step guides",
+            "│   └── brainstorm/     # Working drafts (gitignored)",
+            "└── .STATUS             # Current milestone and progress",
+            "```",
+            "",
+        ]
+
+        out = self.reference_dir / "project-structure.md"
+        out.write_text("\n".join(lines))
+        return out
+
+
+# ---------------------------------------------------------------------------
 # Convenience Function
 # ---------------------------------------------------------------------------
 
@@ -1409,8 +1590,28 @@ if __name__ == "__main__":
         action="store_true",
         help="Exit with error code if issues found",
     )
+    parser.add_argument(
+        "--generate-reference",
+        action="store_true",
+        help="Generate .claude/reference/ files from project state",
+    )
 
     args = parser.parse_args()
+
+    # Handle --generate-reference
+    if args.generate_reference:
+        project_root = Path(args.file).parent if args.file else Path.cwd()
+        if args.file and Path(args.file).is_file():
+            project_root = Path(args.file).parent
+        gen = ReferenceFileGenerator(project_root)
+        written = gen.generate_all()
+        if written:
+            print(f"Generated {len(written)} reference file(s):")
+            for f in written:
+                print(f"  {f}")
+        else:
+            print("No reference files generated (missing source directories)")
+        sys.exit(0)
 
     # Resolve path: explicit file > --global > auto-detect
     if args.file:

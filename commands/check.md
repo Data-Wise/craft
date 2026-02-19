@@ -443,6 +443,64 @@ fi
 - Critical errors cause pre-flight to fail
 - Prevents deploying broken documentation
 
+## Instruction Health Check (NEW in v2.22.0)
+
+Validates CLAUDE.md accuracy and instruction system health:
+
+```bash
+# Run as part of /craft:check (auto-included in all modes)
+PYTHONPATH=. python3 utils/claude_md_sync.py --check-only
+```
+
+### What Gets Checked
+
+1. **Count accuracy** — Commands, skills, agents, specs, tests match filesystem
+2. **Line budget** — Global CLAUDE.md < 100 lines, project CLAUDE.md < 100 lines
+3. **Reference file freshness** — `.claude/reference/` files exist and are current
+4. **CLAUDE.md lint** — No broken internal links, no stale version references
+
+### Output Format
+
+```
+╭─ Instruction Health ────────────────────────────╮
+│ CLAUDE.md Counts:                                │
+│   Commands: 111 ✅    Skills: 25 ✅               │
+│   Agents:   8 ✅      Specs:  30 ✅               │
+│   Tests:    ~1575 ✅                              │
+│                                                   │
+│ Line Budget:                                      │
+│   Global CLAUDE.md:  85 lines ✅ (< 100)          │
+│   Project CLAUDE.md: 82 lines ✅ (< 100)          │
+│                                                   │
+│ Reference Files:                                  │
+│   .claude/reference/agents.md ✅                  │
+│   .claude/reference/test-suite.md ✅              │
+│   .claude/reference/project-structure.md ✅       │
+│                                                   │
+│ CLAUDE.md Lint: No issues ✅                      │
+╰─────────────────────────────────────────────────╯
+```
+
+### Severity Levels
+
+| Issue | Severity | Action |
+|-------|----------|--------|
+| Stale count (off by > 5%) | 🔴 ERROR | Auto-fix with `claude_md_sync.py` |
+| Line budget exceeded | 🟡 WARNING | Suggest extracting sections to reference/ |
+| Missing reference file | 🟡 WARNING | Suggest running `--generate-reference` |
+| Stale version reference | 🟡 WARNING | Show current vs documented version |
+| Broken CLAUDE.md link | 🔴 ERROR | Show broken path and suggest fix |
+
+### Mode-Specific Behavior
+
+| Check | default | thorough | `--for pr` | `--for release` |
+|-------|---------|----------|------------|-----------------|
+| Count accuracy | ✅ | ✅ | ✅ | ✅ |
+| Line budget | Skip | ✅ | ✅ | ✅ |
+| Reference files | Skip | ✅ | ✅ | ✅ |
+| CLAUDE.md lint | Skip | ✅ | ✅ | ✅ |
+| Auto-fix stale | No | No | No | Yes |
+
 ## Check Modes
 
 ### Default Mode (Quick)
@@ -451,6 +509,7 @@ fi
 - Test run (fail-fast)
 - Git status
 - Docs quality (if docs/ changed: lint + links)
+- Instruction health (count accuracy only)
 
 ### Thorough Mode
 
@@ -459,6 +518,7 @@ fi
 - Type checking
 - Security audit
 - Doc validation (lint + links + anchors)
+- Instruction health (full check)
 
 ### Context-Specific Check Lists (`--for` flag)
 
@@ -475,6 +535,7 @@ The `--for` flag adjusts which checks run based on what you're preparing for:
 | Version sync | Skip | Check | Full audit | Full audit |
 | Merge conflicts | Skip | Detect | N/A | N/A |
 | Coverage threshold | Skip | 80% min | 90% min | 90% min |
+| Instruction health | Counts only | Full check | Full check | Full + auto-fix |
 
 When `--for` is specified, the Step 0 preview shows this context:
 

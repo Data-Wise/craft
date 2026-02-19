@@ -4,7 +4,7 @@ release_date: 2026-02-16
 milestone: Three feature branches WIP
 last_session: 2026-02-18
 
-progress: v2.21.0 released — Three feature branches in progress
+progress: v2.21.0 released — CLAUDE.md refactor complete (Phases 1-4), two more features WIP
 
 📊 Branch Status:
 
@@ -13,7 +13,7 @@ progress: v2.21.0 released — Three feature branches in progress
 | main   | 76054e4 | —    | Production (v2.21.0)       |
 | dev    | 6c5ffd2 | main | 5 commits ahead            |
 | feature/test-gen-refactor | 950dc5a | dev | WIP — worktree at ~/.git-worktrees/craft/feature-test-gen-refactor |
-| feature/claude-md-refactor | d95cba8 | dev | WIP — worktree at ~/.git-worktrees/craft/feature-claude-md-refactor |
+| feature/claude-md-refactor | accda99 | dev | PR ready — CLAUDE.md refactor (Phases 1-4 complete) |
 | feature/insights-integration | fb43ff0 | dev | WIP — worktree at ~/.git-worktrees/craft/feature-insights-integration |
 
 🔧 WIP: feature/test-gen-refactor
@@ -24,14 +24,21 @@ progress: v2.21.0 released — Three feature branches in progress
 🔧 WIP: feature/claude-md-refactor
 - Spec: approved (SPEC-claude-md-refactor-2026-02-18.md)
 - ORCHESTRATE: 5 phases (quick wins, global layering, craft layering, workflow integration, per-project rules)
-- Status: Not started — ORCHESTRATE committed, awaiting implementation
-- Goal: Reduce context budget from ~8300 to ~4000 tokens/session
+- Status: Phases 1-4 complete, Phase 5 deferred (LOW priority)
+- Result: Context budget reduced from ~8300 to ~4000 tokens/session
 
 🔧 WIP: feature/insights-integration
 - Spec: draft (SPEC-insights-integration-2026-02-18.md)
 - ORCHESTRATE: 6 phases (action-verb rule, version sync, check enhancements, CI monitoring, doc-sync, documentation)
 - Status: Not started — ORCHESTRATE committed, awaiting implementation
 - Source: Claude Code Insights report (341 sessions analyzed)
+
+✅ Session 2026-02-18 (CLAUDE.md refactor Phases 1-4):
+- Phase 1: Fixed stale counts, archived enforcement doc, promoted rules to spec-only-mode.md
+- Phase 2: Extracted ~120 lines from global CLAUDE.md to ~/.claude/reference/ (206→85 lines)
+- Phase 3: Extracted agents/tests/structure from craft CLAUDE.md + ReferenceFileGenerator (162→82 lines)
+- Phase 4: Wired staleness checks into /workflow:done and /craft:check, updated hub
+- Docs: Updated index, refcards, tutorials, guides, VERSION-HISTORY for v2.22.0
 
 ✅ Session 2026-02-18 (brainstorm + planning):
 - Deep brainstorm on test gen refactor (spec approved, worktree created)
@@ -61,7 +68,7 @@ progress: v2.21.0 released — Three feature branches in progress
 ---
 
 🎯 Next Action:
-→ Start Phase 1 of claude-md-refactor (quick wins: fix stale counts, archive enforcement doc, promote memory rules)
+→ Create PR for feature/claude-md-refactor to dev
 → Or start Increment 1 of test-gen-refactor (test consolidation)
 
 ## Future (v2.22.0+)
