@@ -17,7 +17,7 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **111 Commands**
+- :rocket:{ .lg .middle } **107 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
 
@@ -126,7 +126,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 
 **Quick Links:**
 
-- [All 111 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 107 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
