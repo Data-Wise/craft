@@ -1,24 +1,38 @@
 status: Active
 version: 2.21.0
 release_date: 2026-02-16
-milestone: v2.21.0 released
-last_session: 2026-02-15
+milestone: Two feature branches WIP
+last_session: 2026-02-18
 
-progress: v2.21.0 released — Orchestrate Pipeline & Insights Lifecycle
+progress: v2.21.0 released — Two feature branches in progress
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                     |
 |--------|---------|------|----------------------------|
 | main   | 76054e4 | —    | Production (v2.21.0)       |
-| dev    | 76a56e3 | main | 1 commit ahead (template)  |
+| dev    | 46c155c | main | 2 commits ahead            |
+| feature/test-gen-refactor | 950dc5a | dev | WIP — worktree at ~/.git-worktrees/craft/feature-test-gen-refactor |
+| feature/claude-md-refactor | d95cba8 | dev | WIP — worktree at ~/.git-worktrees/craft/feature-claude-md-refactor |
 
-✅ Session 2026-02-15 (homebrew timeout hardening):
-- Added 30s timeout to post_install in all 3 plugin formulas (craft, rforge, scholar)
-- Uses Process.spawn + Timeout.timeout pattern (safe for blocking calls)
-- Updated craft dist:homebrew command template to match
-- Verified all 3 with brew reinstall — all pass cleanly (3-4s each)
-- Commits: homebrew-tap 54aa041, 8d27819 | craft 76a56e3
+🔧 WIP: feature/test-gen-refactor
+- Spec: approved (SPEC-test-gen-refactor-2026-02-18.md)
+- ORCHESTRATE: 5 increments (test consolidation, command unification, project templates, CI integration, dogfood)
+- Status: Not started — ORCHESTRATE committed, awaiting implementation
+
+🔧 WIP: feature/claude-md-refactor
+- Spec: approved (SPEC-claude-md-refactor-2026-02-18.md)
+- ORCHESTRATE: 5 phases (quick wins, global layering, craft layering, workflow integration, per-project rules)
+- Status: Not started — ORCHESTRATE committed, awaiting implementation
+- Goal: Reduce context budget from ~8300 to ~4000 tokens/session
+
+✅ Session 2026-02-18 (brainstorm + planning):
+- Deep brainstorm on test gen refactor (spec approved, worktree created)
+- Max brainstorm on CLAUDE.md & memory refactor (2 background agents: tasks API research + instruction audit)
+- Created specs: test-gen-refactor + claude-md-refactor (both approved)
+- Created worktrees + ORCHESTRATE files for both features
+- Added ORCHESTRATE cleanup to worktree finish workflow (9 doc files updated)
+- Unignored ORCHESTRATE-*.md in .gitignore
 
 ✅ Session 2026-02-16 (v2.21.0 release):
 - Released v2.21.0: PR #81 merged, GitHub release created, docs deployed
@@ -28,27 +42,23 @@ progress: v2.21.0 released — Orchestrate Pipeline & Insights Lifecycle
 - Homebrew tap updated: craft v2.21.0
 - Stats: 111 commands, 25 skills, 8 agents, ~1575 tests passing
 
-✅ Session 2026-02-15 (v2.20.0 release):
-- Released v2.20.0: PR #79 merged, GitHub release created, docs deployed
-- Homebrew refactor: 8→6 subcommands, workflow security hardening, formula name mapping
-- Fixed sha256sum → shasum -a 256 for macOS portability in release skill Step 8.5
-- Created WIP draft PR #91 in homebrew-tap repo
-
-✅ Session 2026-02-15 (earlier — planning):
-- Deep brainstorm on homebrew refactor (24 expert questions, 2 background agents)
-- Created specs: homebrew-refactor (6 increments) + orchestrate-pipeline (4 increments, 46 tasks)
-
-✅ Session 2026-02-14 (v2.19.0 release):
-- Released v2.19.0: marketplace distribution + insights-driven improvements
-- Stats: 109 commands, 25 skills, 8 agents, ~1575 tests passing
+✅ Session 2026-02-15 (homebrew timeout hardening):
+- Added 30s timeout to post_install in all 3 plugin formulas (craft, rforge, scholar)
+- Uses Process.spawn + Timeout.timeout pattern (safe for blocking calls)
+- Updated craft dist:homebrew command template to match
+- Verified all 3 with brew reinstall — all pass cleanly (3-4s each)
+- Commits: homebrew-tap 54aa041, 8d27819 | craft 76a56e3
 
 ---
 
 🎯 Next Action:
-→ Consider v2.22.0 scope (coaching mode, language detection, or markdownlint expansion)
+→ Start Phase 1 of claude-md-refactor (quick wins: fix stale counts, archive enforcement doc, promote memory rules)
+→ Or start Increment 1 of test-gen-refactor (test consolidation)
 
-## Future (v2.21.0+)
+## Future (v2.22.0+)
 
+- CLAUDE.md & memory refactor (feature/claude-md-refactor)
+- Test gen refactor (feature/test-gen-refactor)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
