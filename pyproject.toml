@@ -1,3 +1,17 @@
+# Optional dependency groups for advanced testing
+# Install: pip install "craft[testing]" or "craft[testing-advanced]"
+[project.optional-dependencies]
+testing = [
+    "pytest>=7.0",
+    "jinja2>=3.1",
+]
+testing-advanced = [
+    "syrupy>=4.0",
+    "hypothesis>=6.0",
+    "pytest-xdist>=3.0",
+    "pytest-cov>=4.0",
+]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
@@ -34,6 +48,9 @@ markers = [
     "release: Release skill and pipeline tests",
     "marketplace: Marketplace distribution tests",
     "site: Site publishing and building tests",
+    "snapshot: Snapshot comparison tests (requires syrupy)",
+    "property: Property-based tests (requires hypothesis)",
+    "contract: Contract validation tests for strict schemas",
 ]
 
 # Default: show short test summary, no header noise
