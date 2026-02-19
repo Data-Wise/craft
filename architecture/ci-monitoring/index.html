@@ -6,35 +6,35 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.22.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/commands/test/cli-run/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/architecture/ci-monitoring/">
       
       
-        <link rel="prev" href="../run/">
+        <link rel="prev" href="../../tutorials/TUTORIAL-version-sync-setup/">
       
       
-        <link rel="next" href="../../git/branch/">
+        <link rel="next" href="../version-sync/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>/craft:test:cli-run - Craft Plugin</title>
+        <title>CI Monitoring Architecture - Craft Plugin</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +53,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#crafttestcli-run" class="md-skip">
+        <a href="#ci-monitoring-architecture" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              /craft:test:cli-run
+              CI Monitoring Architecture
             
           </span>
         </div>
@@ -229,7 +229,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../.." class="md-tabs__link">
+        <a href="../.." class="md-tabs__link">
           
   
   
@@ -245,11 +245,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../guide/getting-started/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../guide/getting-started/" class="md-tabs__link">
           
   
   
@@ -269,7 +271,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../teaching/" class="md-tabs__link">
+        <a href="../../teaching/" class="md-tabs__link">
           
   
   
@@ -285,13 +287,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../overview/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../commands/overview/" class="md-tabs__link">
           
   
   
@@ -311,7 +311,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../cookbook/" class="md-tabs__link">
+        <a href="../../cookbook/" class="md-tabs__link">
           
   
   
@@ -331,7 +331,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../reference/configuration/" class="md-tabs__link">
+        <a href="../../reference/configuration/" class="md-tabs__link">
           
   
   
@@ -351,7 +351,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../guide/documentation-quality-development/" class="md-tabs__link">
+        <a href="../../guide/documentation-quality-development/" class="md-tabs__link">
           
   
   
@@ -369,7 +369,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../REFCARD/" class="md-tabs__link">
+      <a href="../../REFCARD/" class="md-tabs__link">
         
   
   
@@ -404,7 +404,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -484,7 +484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -512,7 +512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../QUICK-START/" class="md-nav__link">
+      <a href="../../QUICK-START/" class="md-nav__link">
         
   
   
@@ -540,7 +540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ADHD-QUICK-START/" class="md-nav__link">
+      <a href="../../ADHD-QUICK-START/" class="md-nav__link">
         
   
   
@@ -568,7 +568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/choose-path/" class="md-nav__link">
+      <a href="../../getting-started/choose-path/" class="md-nav__link">
         
   
   
@@ -596,7 +596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../workflows/" class="md-nav__link">
+      <a href="../../workflows/" class="md-nav__link">
         
   
   
@@ -624,7 +624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../PLAYGROUND/" class="md-nav__link">
+      <a href="../../PLAYGROUND/" class="md-nav__link">
         
   
   
@@ -656,24 +656,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -691,7 +696,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -709,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/getting-started/" class="md-nav__link">
+      <a href="../../guide/getting-started/" class="md-nav__link">
         
   
   
@@ -787,7 +792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -815,7 +820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/claude-code-2.1-integration/" class="md-nav__link">
+      <a href="../../guide/claude-code-2.1-integration/" class="md-nav__link">
         
   
   
@@ -843,7 +848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/complexity-scoring-algorithm/" class="md-nav__link">
+      <a href="../../guide/complexity-scoring-algorithm/" class="md-nav__link">
         
   
   
@@ -871,7 +876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -899,7 +904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -927,7 +932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -1013,7 +1018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/documentation-quality/" class="md-nav__link">
+      <a href="../../guide/documentation-quality/" class="md-nav__link">
         
   
   
@@ -1041,7 +1046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+      <a href="../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
         
   
   
@@ -1069,35 +1074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/getting-started/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Getting Started
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../workflows/release-workflow/" class="md-nav__link">
+      <a href="../../workflows/release-workflow/" class="md-nav__link">
         
   
   
@@ -1125,7 +1102,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../workflows/git-feature-workflow/" class="md-nav__link">
+      <a href="../../workflows/git-feature-workflow/" class="md-nav__link">
         
   
   
@@ -1153,7 +1130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../workflows/pre-commit-workflow/" class="md-nav__link">
+      <a href="../../workflows/pre-commit-workflow/" class="md-nav__link">
         
   
   
@@ -1186,6 +1163,8 @@
                 
   
   
+    
+  
   
   
     
@@ -1196,11 +1175,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
         
           
           <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
@@ -1221,7 +1200,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1239,7 +1218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/bash-formatting-library/" class="md-nav__link">
+      <a href="../../guide/bash-formatting-library/" class="md-nav__link">
         
   
   
@@ -1267,7 +1246,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
         
   
   
@@ -1295,7 +1274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/badge-management/" class="md-nav__link">
+      <a href="../../guide/badge-management/" class="md-nav__link">
         
   
   
@@ -1323,7 +1302,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-badge-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-badge-workflow/" class="md-nav__link">
         
   
   
@@ -1351,7 +1330,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/interactive-commands/" class="md-nav__link">
+      <a href="../../guide/interactive-commands/" class="md-nav__link">
         
   
   
@@ -1379,7 +1358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/check-command-mastery/" class="md-nav__link">
+      <a href="../../guide/check-command-mastery/" class="md-nav__link">
         
   
   
@@ -1407,7 +1386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/worktree-advanced-patterns/" class="md-nav__link">
+      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
         
   
   
@@ -1435,7 +1414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/branch-guard-smart-mode/" class="md-nav__link">
+      <a href="../../guide/branch-guard-smart-mode/" class="md-nav__link">
         
   
   
@@ -1463,7 +1442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
         
   
   
@@ -1491,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/claude-md-workflows/" class="md-nav__link">
+      <a href="../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
   
@@ -1519,7 +1498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/interactive-orchestration/" class="md-nav__link">
+      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -1547,7 +1526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
         
   
   
@@ -1575,7 +1554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
         
   
   
@@ -1603,7 +1582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
         
   
   
@@ -1631,7 +1610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-release-pipeline/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-release-pipeline/" class="md-nav__link">
         
   
   
@@ -1659,7 +1638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
         
   
   
@@ -1687,7 +1666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
         
   
   
@@ -1715,7 +1694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/insights-improvements-guide/" class="md-nav__link">
+      <a href="../../guide/insights-improvements-guide/" class="md-nav__link">
         
   
   
@@ -1743,7 +1722,409 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-version-sync-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version Sync Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Monitoring Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Monitoring Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Goals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polling-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polling Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fix-strategy-two-tier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fix Strategy (Two-Tier)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fix Strategy (Two-Tier)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-fixable-applied-without-approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-Fixable (Applied Without Approval)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ask-before-fix-require-user-approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ask-Before-Fix (Require User Approval)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with /release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-failure-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known Failure Patterns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extending
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extending">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-pattern-to-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Add Pattern to Diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-to-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Add to Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implement-fix-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implement Fix Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-wire-into-retry-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Wire Into Retry Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-add-unit-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Add Unit Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-document-failure-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Document Failure Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../version-sync/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version Sync Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
   
@@ -1771,7 +2152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
         
   
   
@@ -1799,7 +2180,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-first-10-minutes/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-first-10-minutes/" class="md-nav__link">
         
   
   
@@ -1826,8 +2207,178 @@
   
   
   
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_25" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4_25" id="__nav_2_4_25_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_25_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_25">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../../../guide/test-wrapper-pattern/" class="md-nav__link">
+      <a href="../../tutorials/testing-quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/test-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Commands Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/test-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/test-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/test-wrapper-pattern/" class="md-nav__link">
         
   
   
@@ -1866,10 +2417,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_23" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_27" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_23" id="__nav_2_4_23_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_27" id="__nav_2_4_27_label" tabindex="0">
             
   
   
@@ -1887,8 +2438,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_23_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_23">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_27_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_27">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1905,7 +2456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git-init-reference/" class="md-nav__link">
+      <a href="../../commands/git-init-reference/" class="md-nav__link">
         
   
   
@@ -1933,7 +2484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/git-init-tutorial/" class="md-nav__link">
+      <a href="../../guide/git-init-tutorial/" class="md-nav__link">
         
   
   
@@ -1961,7 +2512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/git-init-flow/" class="md-nav__link">
+      <a href="../git-init-flow/" class="md-nav__link">
         
   
   
@@ -1989,7 +2540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../git-init-docs-index/" class="md-nav__link">
+      <a href="../../git-init-docs-index/" class="md-nav__link">
         
   
   
@@ -2025,7 +2576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
+      <a href="../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
         
   
   
@@ -2053,7 +2604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/orchestrator/" class="md-nav__link">
+      <a href="../../guide/orchestrator/" class="md-nav__link">
         
   
   
@@ -2081,7 +2632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/orch-flag-usage/" class="md-nav__link">
+      <a href="../../guide/orch-flag-usage/" class="md-nav__link">
         
   
   
@@ -2109,7 +2660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/marketplace-distribution/" class="md-nav__link">
+      <a href="../../guide/marketplace-distribution/" class="md-nav__link">
         
   
   
@@ -2137,7 +2688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/homebrew-installation/" class="md-nav__link">
+      <a href="../../guide/homebrew-installation/" class="md-nav__link">
         
   
   
@@ -2165,7 +2716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/homebrew-automation/" class="md-nav__link">
+      <a href="../../guide/homebrew-automation/" class="md-nav__link">
         
   
   
@@ -2193,7 +2744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/skills-agents/" class="md-nav__link">
+      <a href="../../guide/skills-agents/" class="md-nav__link">
         
   
   
@@ -2221,7 +2772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/integration-testing/" class="md-nav__link">
+      <a href="../../guide/integration-testing/" class="md-nav__link">
         
   
   
@@ -2249,7 +2800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/markdown-list-spacing/" class="md-nav__link">
+      <a href="../../guide/markdown-list-spacing/" class="md-nav__link">
         
   
   
@@ -2277,7 +2828,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ACCESSIBILITY/" class="md-nav__link">
+      <a href="../../ACCESSIBILITY/" class="md-nav__link">
         
   
   
@@ -2370,7 +2921,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../teaching/" class="md-nav__link">
+      <a href="../../teaching/" class="md-nav__link">
         
   
   
@@ -2448,7 +2999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/teaching-mode-setup/" class="md-nav__link">
+      <a href="../../tutorials/teaching-mode-setup/" class="md-nav__link">
         
   
   
@@ -2476,7 +3027,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../teaching-config-schema/" class="md-nav__link">
+      <a href="../../teaching-config-schema/" class="md-nav__link">
         
   
   
@@ -2504,7 +3055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../teaching-migration/" class="md-nav__link">
+      <a href="../../teaching-migration/" class="md-nav__link">
         
   
   
@@ -2590,7 +3141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/teaching-workflow/" class="md-nav__link">
+      <a href="../../guide/teaching-workflow/" class="md-nav__link">
         
   
   
@@ -2618,7 +3169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../TEACHING-DOCS-INDEX/" class="md-nav__link">
+      <a href="../../TEACHING-DOCS-INDEX/" class="md-nav__link">
         
   
   
@@ -2646,7 +3197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-TEACHING/" class="md-nav__link">
+      <a href="../../reference/REFCARD-TEACHING/" class="md-nav__link">
         
   
   
@@ -2732,7 +3283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
         
   
   
@@ -2760,7 +3311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06/" class="md-nav__link">
         
   
   
@@ -2800,29 +3351,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -2840,7 +3386,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2858,7 +3404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../overview/" class="md-nav__link">
+      <a href="../../commands/overview/" class="md-nav__link">
         
   
   
@@ -2936,7 +3482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../smart/" class="md-nav__link">
+      <a href="../../commands/smart/" class="md-nav__link">
         
   
   
@@ -2964,7 +3510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/" class="md-nav__link">
+      <a href="../../commands/docs/" class="md-nav__link">
         
   
   
@@ -2992,7 +3538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../site/" class="md-nav__link">
+      <a href="../../commands/site/" class="md-nav__link">
         
   
   
@@ -3020,7 +3566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/" class="md-nav__link">
+      <a href="../../commands/code/" class="md-nav__link">
         
   
   
@@ -3048,7 +3594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/" class="md-nav__link">
+      <a href="../../commands/git/" class="md-nav__link">
         
   
   
@@ -3076,7 +3622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arch/" class="md-nav__link">
+      <a href="../../commands/arch/" class="md-nav__link">
         
   
   
@@ -3104,7 +3650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dist/" class="md-nav__link">
+      <a href="../../commands/dist/" class="md-nav__link">
         
   
   
@@ -3132,7 +3678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plan/" class="md-nav__link">
+      <a href="../../commands/plan/" class="md-nav__link">
         
   
   
@@ -3168,7 +3714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../commands/" class="md-nav__link">
         
   
   
@@ -3193,8 +3739,6 @@
                 
   
   
-    
-  
   
   
     
@@ -3205,11 +3749,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
           <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
@@ -3230,7 +3774,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3248,7 +3792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../check/" class="md-nav__link">
+      <a href="../../commands/check/" class="md-nav__link">
         
   
   
@@ -3276,7 +3820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../do/" class="md-nav__link">
+      <a href="../../commands/do/" class="md-nav__link">
         
   
   
@@ -3304,7 +3848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hub/" class="md-nav__link">
+      <a href="../../commands/hub/" class="md-nav__link">
         
   
   
@@ -3332,7 +3876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../orchestrate/" class="md-nav__link">
+      <a href="../../commands/orchestrate/" class="md-nav__link">
         
   
   
@@ -3360,7 +3904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ci/generate/" class="md-nav__link">
+      <a href="../../commands/ci/generate/" class="md-nav__link">
         
   
   
@@ -3388,7 +3932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/update/" class="md-nav__link">
+      <a href="../../commands/docs/update/" class="md-nav__link">
         
   
   
@@ -3416,7 +3960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/claude-md/" class="md-nav__link">
+      <a href="../../commands/docs/claude-md/" class="md-nav__link">
         
   
   
@@ -3444,7 +3988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/worktree/" class="md-nav__link">
+      <a href="../../commands/git/worktree/" class="md-nav__link">
         
   
   
@@ -3472,7 +4016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/brainstorm/" class="md-nav__link">
+      <a href="../../commands/workflow/brainstorm/" class="md-nav__link">
         
   
   
@@ -3500,7 +4044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arch/analyze/" class="md-nav__link">
+      <a href="../../commands/arch/analyze/" class="md-nav__link">
         
   
   
@@ -3528,7 +4072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/lint/" class="md-nav__link">
+      <a href="../../commands/code/lint/" class="md-nav__link">
         
   
   
@@ -3556,7 +4100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/deps-audit/" class="md-nav__link">
+      <a href="../../commands/code/deps-audit/" class="md-nav__link">
         
   
   
@@ -3584,7 +4128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/ci-local/" class="md-nav__link">
+      <a href="../../commands/code/ci-local/" class="md-nav__link">
         
   
   
@@ -3612,14 +4156,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../run/" class="md-nav__link">
+      <a href="../../commands/test/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:test:run
+    /craft:test
   
 
     
@@ -3628,147 +4172,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:test:cli-run
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:test:cli-run
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#synopsis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Synopsis
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Description
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Options
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#modes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Modes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3781,7 +4184,63 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/branch/" class="md-nav__link">
+      <a href="../../commands/test/gen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:test:gen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/test/template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:test:template
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/git/branch/" class="md-nav__link">
         
   
   
@@ -3809,7 +4268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/clean/" class="md-nav__link">
+      <a href="../../commands/git/clean/" class="md-nav__link">
         
   
   
@@ -3837,7 +4296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/status/" class="md-nav__link">
+      <a href="../../commands/git/status/" class="md-nav__link">
         
   
   
@@ -3865,7 +4324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/sync/" class="md-nav__link">
+      <a href="../../commands/git/sync/" class="md-nav__link">
         
   
   
@@ -3893,7 +4352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/protect/" class="md-nav__link">
+      <a href="../../commands/git/protect/" class="md-nav__link">
         
   
   
@@ -3921,7 +4380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/unprotect/" class="md-nav__link">
+      <a href="../../commands/git/unprotect/" class="md-nav__link">
         
   
   
@@ -3949,7 +4408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/changelog/" class="md-nav__link">
+      <a href="../../commands/docs/changelog/" class="md-nav__link">
         
   
   
@@ -3977,7 +4436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/check/" class="md-nav__link">
+      <a href="../../commands/docs/check/" class="md-nav__link">
         
   
   
@@ -4005,7 +4464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/sync/" class="md-nav__link">
+      <a href="../../commands/docs/sync/" class="md-nav__link">
         
   
   
@@ -4098,7 +4557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/" class="md-nav__link">
+      <a href="../../cookbook/" class="md-nav__link">
         
   
   
@@ -4176,7 +4635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/setup-new-project/" class="md-nav__link">
+      <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
         
   
   
@@ -4204,7 +4663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/deploy-course-website/" class="md-nav__link">
+      <a href="../../cookbook/common/deploy-course-website/" class="md-nav__link">
         
   
   
@@ -4232,7 +4691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/automate-release-workflow/" class="md-nav__link">
+      <a href="../../cookbook/common/automate-release-workflow/" class="md-nav__link">
         
   
   
@@ -4260,7 +4719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
+      <a href="../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
         
   
   
@@ -4288,7 +4747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/find-the-right-command/" class="md-nav__link">
+      <a href="../../cookbook/common/find-the-right-command/" class="md-nav__link">
         
   
   
@@ -4316,7 +4775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/update-single-doc/" class="md-nav__link">
+      <a href="../../cookbook/common/update-single-doc/" class="md-nav__link">
         
   
   
@@ -4344,7 +4803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/quick-code-checks/" class="md-nav__link">
+      <a href="../../cookbook/common/quick-code-checks/" class="md-nav__link">
         
   
   
@@ -4372,7 +4831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/create-git-branch/" class="md-nav__link">
+      <a href="../../cookbook/common/create-git-branch/" class="md-nav__link">
         
   
   
@@ -4400,7 +4859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/view-project-architecture/" class="md-nav__link">
+      <a href="../../cookbook/common/view-project-architecture/" class="md-nav__link">
         
   
   
@@ -4428,7 +4887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/setup-parallel-worktrees/" class="md-nav__link">
+      <a href="../../cookbook/common/setup-parallel-worktrees/" class="md-nav__link">
         
   
   
@@ -4456,7 +4915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/use-interactive-orchestration/" class="md-nav__link">
+      <a href="../../cookbook/common/use-interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -4484,7 +4943,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/post-merge-documentation/" class="md-nav__link">
+      <a href="../../cookbook/common/post-merge-documentation/" class="md-nav__link">
         
   
   
@@ -4492,6 +4951,62 @@
     
   
     Post-Merge Documentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/generate-tests-for-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generate Tests for a Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/run-tests-by-category/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run Tests by Category
   
 
     
@@ -4570,7 +5085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
         
   
   
@@ -4598,7 +5113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/command-times-out/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/command-times-out/" class="md-nav__link">
         
   
   
@@ -4626,7 +5141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/wrong-command-output/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/wrong-command-output/" class="md-nav__link">
         
   
   
@@ -4654,7 +5169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/ci-workflow-fails/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/ci-workflow-fails/" class="md-nav__link">
         
   
   
@@ -4682,7 +5197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/pre-commit-blocks-commit/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/pre-commit-blocks-commit/" class="md-nav__link">
         
   
   
@@ -4710,7 +5225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/worktree-wont-create/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/worktree-wont-create/" class="md-nav__link">
         
   
   
@@ -4738,7 +5253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/broken-links-after-update/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/broken-links-after-update/" class="md-nav__link">
         
   
   
@@ -4766,7 +5281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/claude-md-out-of-sync/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/claude-md-out-of-sync/" class="md-nav__link">
         
   
   
@@ -4794,7 +5309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/mkdocs-build-fails/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/mkdocs-build-fails/" class="md-nav__link">
         
   
   
@@ -4887,7 +5402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/configuration/" class="md-nav__link">
+      <a href="../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -4915,7 +5430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/presets/" class="md-nav__link">
+      <a href="../../reference/presets/" class="md-nav__link">
         
   
   
@@ -4943,7 +5458,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../skills-agents/" class="md-nav__link">
+      <a href="../../skills-agents/" class="md-nav__link">
         
   
   
@@ -4971,7 +5486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../orchestrator/" class="md-nav__link">
+      <a href="../../orchestrator/" class="md-nav__link">
         
   
   
@@ -4999,7 +5514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -5027,7 +5542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
+      <a href="../HUB-V2-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -5055,7 +5570,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../api/DISCOVERY-API/" class="md-nav__link">
+      <a href="../../api/DISCOVERY-API/" class="md-nav__link">
         
   
   
@@ -5083,7 +5598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/documentation-quality/" class="md-nav__link">
+      <a href="../../reference/documentation-quality/" class="md-nav__link">
         
   
   
@@ -5111,7 +5626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../CHANGELOG/" class="md-nav__link">
+      <a href="../../CHANGELOG/" class="md-nav__link">
         
   
   
@@ -5139,7 +5654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../VERSION-HISTORY/" class="md-nav__link">
+      <a href="../../VERSION-HISTORY/" class="md-nav__link">
         
   
   
@@ -5167,7 +5682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../RELEASE-v2.8.0/" class="md-nav__link">
+      <a href="../../RELEASE-v2.8.0/" class="md-nav__link">
         
   
   
@@ -5245,7 +5760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-FORMATTING/" class="md-nav__link">
+      <a href="../../reference/REFCARD-FORMATTING/" class="md-nav__link">
         
   
   
@@ -5273,7 +5788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -5301,7 +5816,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
         
   
   
@@ -5329,7 +5844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+      <a href="../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
         
   
   
@@ -5357,7 +5872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
         
   
   
@@ -5385,7 +5900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-CLAUDE-MD/" class="md-nav__link">
+      <a href="../../reference/REFCARD-CLAUDE-MD/" class="md-nav__link">
         
   
   
@@ -5413,7 +5928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-BRAINSTORM/" class="md-nav__link">
+      <a href="../../reference/REFCARD-BRAINSTORM/" class="md-nav__link">
         
   
   
@@ -5441,7 +5956,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
+      <a href="../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
         
   
   
@@ -5469,7 +5984,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-RELEASE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-RELEASE/" class="md-nav__link">
         
   
   
@@ -5497,7 +6012,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-HOMEBREW/" class="md-nav__link">
+      <a href="../../reference/REFCARD-TESTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-HOMEBREW/" class="md-nav__link">
         
   
   
@@ -5583,7 +6126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
+      <a href="../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
         
   
   
@@ -5611,7 +6154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
+      <a href="../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
         
   
   
@@ -5689,7 +6232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
+      <a href="../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
         
   
   
@@ -5767,7 +6310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/" class="md-nav__link">
+      <a href="../../tutorials/" class="md-nav__link">
         
   
   
@@ -5795,7 +6338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/dependency-management-getting-started/" class="md-nav__link">
+      <a href="../../tutorials/dependency-management-getting-started/" class="md-nav__link">
         
   
   
@@ -5831,7 +6374,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../API-REFERENCE/" class="md-nav__link">
+      <a href="../../API-REFERENCE/" class="md-nav__link">
         
   
   
@@ -5859,7 +6402,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -5887,7 +6430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../DEVELOPER-GUIDE/" class="md-nav__link">
+      <a href="../../DEVELOPER-GUIDE/" class="md-nav__link">
         
   
   
@@ -5981,7 +6524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-badge-system-2026-01-30/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-badge-system-2026-01-30/" class="md-nav__link">
         
   
   
@@ -6016,7 +6559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
         
   
   
@@ -6044,7 +6587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
         
   
   
@@ -6072,7 +6615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
         
   
   
@@ -6100,35 +6643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Teaching Workflow Spec
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
         
   
   
@@ -6156,7 +6671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
         
   
   
@@ -6184,7 +6699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
         
   
   
@@ -6212,7 +6727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05/" class="md-nav__link">
         
   
   
@@ -6240,7 +6755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
         
   
   
@@ -6268,7 +6783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-brainstorm-question-bank/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-brainstorm-question-bank/" class="md-nav__link">
         
   
   
@@ -6296,7 +6811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-branch-protection-hooks-2026-02-06/" class="md-nav__link">
+      <a href="../../specs/_archive/SPEC-branch-protection-hooks-2026-02-06/" class="md-nav__link">
         
   
   
@@ -6304,34 +6819,6 @@
     
   
     Branch Protection Hooks
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ecosystem Coordination Spec
   
 
     
@@ -6417,7 +6904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/documentation-quality-development/" class="md-nav__link">
+      <a href="../../guide/documentation-quality-development/" class="md-nav__link">
         
   
   
@@ -6445,7 +6932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../CI-TEMPLATES/" class="md-nav__link">
+      <a href="../../CI-TEMPLATES/" class="md-nav__link">
         
   
   
@@ -6473,7 +6960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+      <a href="../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
         
   
   
@@ -6551,7 +7038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/" class="md-nav__link">
+      <a href="../../internal/" class="md-nav__link">
         
   
   
@@ -6579,7 +7066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/CLAUDE-MD-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/CLAUDE-MD-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -6607,7 +7094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/TEST-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/TEST-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -6635,7 +7122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/PYTHON-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/PYTHON-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -6663,7 +7150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/COMMAND-SPEC-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/COMMAND-SPEC-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -6706,7 +7193,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../REFCARD/" class="md-nav__link">
+      <a href="../../REFCARD/" class="md-nav__link">
         
   
   
@@ -6753,10 +7240,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#synopsis" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Synopsis
+        Overview
       
     </span>
   </a>
@@ -6764,10 +7251,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
+  <a href="#design-goals" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Description
+        Design Goals
       
     </span>
   </a>
@@ -6775,10 +7262,110 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#options" class="md-nav__link">
+  <a href="#architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Options
+        Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#polling-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polling Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fix-strategy-two-tier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fix Strategy (Two-Tier)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fix Strategy (Two-Tier)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auto-fixable-applied-without-approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-Fixable (Applied Without Approval)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ask-before-fix-require-user-approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ask-Before-Fix (Require User Approval)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with /release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Diagram
       
     </span>
   </a>
@@ -6786,10 +7373,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#modes" class="md-nav__link">
+  <a href="#known-failure-patterns" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Modes
+        Known Failure Patterns
       
     </span>
   </a>
@@ -6797,10 +7384,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
+  <a href="#security-considerations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Examples
+        Security Considerations
       
     </span>
   </a>
@@ -6808,10 +7395,115 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#extending" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See Also
+        Extending
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extending">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-add-pattern-to-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Add Pattern to Diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-add-to-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Add to Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-implement-fix-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Implement Fix Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-wire-into-retry-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Wire Into Retry Loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-add-unit-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Add Unit Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-document-failure-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Document Failure Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tuning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Documentation
       
     </span>
   </a>
@@ -6835,7 +7527,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/commands/test/cli-run.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/architecture/ci-monitoring.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6843,108 +7535,507 @@
   
 
 
-<h1 id="crafttestcli-run">/craft:test:cli-run<a class="headerlink" href="#crafttestcli-run" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p><strong>CLI test suite runner with interactive and automated modes</strong></p>
-</blockquote>
-<hr />
-<h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:test:cli-run<span class="w"> </span><span class="o">[</span>mode<span class="o">]</span><span class="w"> </span><span class="o">[</span>--path<span class="w"> </span>PATH<span class="o">]</span><span class="w"> </span><span class="o">[</span>--dry-run<span class="o">]</span>
-</span></code></pre></div>
-<p><strong>Quick examples:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Interactive guided mode</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:test:cli-run
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># CI-ready automated mode</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/craft:test:cli-run<span class="w"> </span>automated
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Auto-detect from test files</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:test:cli-run<span class="w"> </span>auto<span class="w"> </span>--path<span class="w"> </span>tests/cli/
-</span></code></pre></div>
-<hr />
-<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
-<p>Runs CLI test suites with mode-specific execution strategies. Interactive mode provides guided test selection and real-time feedback. Automated mode runs all tests with CI-friendly exit codes (0 for success, 1 for failure). Auto mode detects execution context from test file patterns.</p>
-<p>Designed for command-line tool testing with support for subprocess execution, stdin/stdout validation, and exit code verification.</p>
-<hr />
-<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>mode</code></td>
-<td>Execution mode: <code>interactive</code>, <code>automated</code>, <code>auto</code></td>
-<td><code>interactive</code></td>
-</tr>
-<tr>
-<td><code>--path PATH</code></td>
-<td>CLI test file or directory</td>
-<td><code>tests/cli/</code></td>
-</tr>
-<tr>
-<td><code>--dry-run</code>, <code>-n</code></td>
-<td>Preview test execution plan</td>
-<td><code>false</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="modes">Modes<a class="headerlink" href="#modes" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Mode</th>
-<th>Behavior</th>
-<th>Exit Codes</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>interactive</code></td>
-<td>Guided test selection with real-time feedback</td>
-<td>Always 0</td>
-<td>Local development</td>
-</tr>
-<tr>
-<td><code>automated</code></td>
-<td>Run all tests, fail fast on errors</td>
-<td>0/1</td>
-<td>CI/CD pipelines</td>
-</tr>
-<tr>
-<td><code>auto</code></td>
-<td>Detect mode from test file patterns</td>
-<td>Context-dependent</td>
-<td>Mixed workflows</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Interactive mode for local development</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:test:cli-run
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Automated mode for CI</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:test:cli-run<span class="w"> </span>automated
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Test specific CLI command</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:test:cli-run<span class="w"> </span>--path<span class="w"> </span>tests/cli/test_deploy.sh
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Preview automated run</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>/craft:test:cli-run<span class="w"> </span>automated<span class="w"> </span>--dry-run
-</span></code></pre></div>
-<hr />
-<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h1 id="ci-monitoring-architecture">CI Monitoring Architecture<a class="headerlink" href="#ci-monitoring-architecture" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The CI monitoring loop (<code>scripts/ci-monitor.sh</code>) enables fully autonomous releases by polling GitHub Actions CI status after PR creation, diagnosing failures, and coordinating fix-retry cycles. The system operates between PR creation and merge, automatically detecting common failure patterns and applying known fixes without manual intervention.</p>
+<p><strong>Key capability:</strong> Fire-and-forget releases with smart diagnosis and conditional auto-remediation.</p>
+<h2 id="design-goals">Design Goals<a class="headerlink" href="#design-goals" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../run/">/craft:test:run</a> — Unified test runner</li>
-<li><a href="../../ci/generate/">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />generate</a> — CI workflow generation</li>
-<li><a href="../../code/">Code &amp; Testing Commands</a> — All testing commands</li>
+<li><strong>Fire-and-forget releases</strong> - No manual CI back-and-forth after release trigger</li>
+<li><strong>Safe auto-fixes</strong> - Apply only to well-understood failure categories</li>
+<li><strong>User approval gates</strong> - Require explicit approval for risky or complex fixes</li>
+<li><strong>Configurable timeouts</strong> - Per-project CI timing and retry limits</li>
+<li><strong>Programmatic output</strong> - JSON reports for automation pipelines</li>
+<li><strong>Audit trail</strong> - Log all decisions and actions for review</li>
+</ul>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<h3 id="polling-loop">Polling Loop<a class="headerlink" href="#polling-loop" title="Permanent link">&para;</a></h3>
+<p>The CI monitor implements a poll → check → diagnose → fix → retry cycle:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Start monitoring
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    ↓
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Poll gh run list (every N seconds)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    ↓
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Parse status (success|failure|in_progress|pending|unknown)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ↓
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Status check
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  ├─ success → stop polling, return to release pipeline
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  ├─ in_progress → wait, re-poll
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  ├─ failure → diagnose, attempt fix, re-poll
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  └─ pending → wait, re-poll
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    ↓
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Retry with backoff until timeout or success
+</span></code></pre></div>
+<p><strong>Polling parameters:</strong></p>
+<ul>
+<li><code>ci_poll_interval</code>: Time between polls (default: 30 seconds)</li>
+<li><code>ci_timeout</code>: Maximum wait time before giving up (default: 600 seconds / 10 minutes)</li>
+<li><code>ci_max_retries</code>: Maximum auto-fix attempts before asking user (default: 3)</li>
+</ul>
+<p><strong>Status determination:</strong></p>
+<ul>
+<li>Query: <code>gh run list --repo &lt;owner&gt;/&lt;repo&gt; --branch &lt;branch&gt; --limit 1</code></li>
+<li>Parse conclusion field: <code>success</code>, <code>failure</code>, <code>cancelled</code>, <code>skipped</code>, <code>timed_out</code>, <code>action_required</code></li>
+<li>On success: all checks passed, safe to merge</li>
+<li>On failure: retrieve detailed logs and diagnose</li>
+</ul>
+<h3 id="failure-diagnosis">Failure Diagnosis<a class="headerlink" href="#failure-diagnosis" title="Permanent link">&para;</a></h3>
+<p>When CI returns failure status, the monitor retrieves logs and applies pattern matching:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gh<span class="w"> </span>run<span class="w"> </span>view<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>--log-failed<span class="w"> </span>&gt;<span class="w"> </span>logs.txt
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>diagnose_failure<span class="w"> </span>logs.txt
+</span></code></pre></div>
+<p><strong>Failure categories and detection patterns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Pattern</th>
+<th>Severity</th>
+<th>Auto-fixable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>version_mismatch</td>
+<td><code>version.*mismatch\|expected.*v[0-9]</code></td>
+<td>High</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>lint_failure</td>
+<td><code>lint.*error\|eslint.*error\|ruff.*error</code></td>
+<td>Medium</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>changelog_format</td>
+<td><code>changelog.*invalid\|CHANGELOG.*format</code></td>
+<td>Medium</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>test_failure</td>
+<td><code>test.*fail\|FAILED\|AssertionError</code></td>
+<td>High</td>
+<td>No</td>
+</tr>
+<tr>
+<td>security_audit</td>
+<td><code>vulnerabilit\|CVE-</code></td>
+<td>Critical</td>
+<td>No</td>
+</tr>
+<tr>
+<td>build_failure</td>
+<td><code>build.*fail\|compilation.*error</code></td>
+<td>High</td>
+<td>No</td>
+</tr>
+<tr>
+<td>dependency_mismatch</td>
+<td><code>dependency.*not.*found\|package.*missing</code></td>
+<td>Medium</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>cache_stale</td>
+<td><code>cache.*invalid\|outdated.*artifacts</code></td>
+<td>Low</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>Pattern matching is grepped against full CI log output to identify root cause. Multiple patterns may match; first match wins.</p>
+<h3 id="fix-strategy-two-tier">Fix Strategy (Two-Tier)<a class="headerlink" href="#fix-strategy-two-tier" title="Permanent link">&para;</a></h3>
+<p>The monitor applies different strategies based on risk level:</p>
+<h4 id="auto-fixable-applied-without-approval">Auto-Fixable (Applied Without Approval)<a class="headerlink" href="#auto-fixable-applied-without-approval" title="Permanent link">&para;</a></h4>
+<p>These are low-risk, deterministic fixes with high success rates:</p>
+<p><strong>version_mismatch</strong></p>
+<ul>
+<li>Trigger: <code>scripts/version-sync.sh --fix</code></li>
+<li>Update all version files to match expected tag</li>
+<li>Commit message: <code>chore: sync version to {version}</code></li>
+<li>Push and re-poll CI</li>
+</ul>
+<p><strong>lint_failure</strong></p>
+<ul>
+<li>Trigger: <code>npm run lint -- --fix</code> or language-specific linter with <code>--fix</code> flag</li>
+<li>Auto-fix formatting issues (spacing, trailing commas, etc.)</li>
+<li>Commit message: <code>style: auto-fix linting errors</code></li>
+<li>Push and re-poll CI</li>
+</ul>
+<p><strong>changelog_format</strong></p>
+<ul>
+<li>Trigger: <code>scripts/format-changelog.sh</code></li>
+<li>Reformat CHANGELOG.md to match project schema</li>
+<li>Validate with <code>scripts/validate-changelog.sh</code></li>
+<li>Commit message: <code>docs: reformat CHANGELOG</code></li>
+<li>Push and re-poll CI</li>
+</ul>
+<p><strong>dependency_mismatch</strong></p>
+<ul>
+<li>Trigger: <code>npm install</code> or <code>pip install --upgrade</code></li>
+<li>Resolve missing dependencies</li>
+<li>Commit message: <code>chore: resolve dependency versions</code></li>
+<li>Push and re-poll CI</li>
+</ul>
+<p><strong>cache_stale</strong></p>
+<ul>
+<li>Trigger: <code>rm -rf .cache/</code> and re-run build</li>
+<li>Clear workflow cache artifacts</li>
+<li>Push empty commit to trigger fresh build</li>
+<li>Commit message: <code>chore: invalidate build cache</code></li>
+</ul>
+<h4 id="ask-before-fix-require-user-approval">Ask-Before-Fix (Require User Approval)<a class="headerlink" href="#ask-before-fix-require-user-approval" title="Permanent link">&para;</a></h4>
+<p>These failures indicate potential real issues that need human judgment:</p>
+<p><strong>test_failure</strong></p>
+<ul>
+<li>Indicates failing unit or integration tests</li>
+<li>May reflect real bugs or environment issues</li>
+<li>Fix: User reviews logs, determines if test is legitimate or flaky</li>
+<li>If flaky: isolate test and report</li>
+<li>If legitimate: user fixes code, we re-poll</li>
+</ul>
+<p><strong>security_audit</strong></p>
+<ul>
+<li>Indicates vulnerability scan found issues</li>
+<li>CVEs need review before auto-patching</li>
+<li>Fix: User reviews CVE details, approves version bump</li>
+<li>Dangerous to auto-patch without understanding impact</li>
+</ul>
+<p><strong>build_failure</strong></p>
+<ul>
+<li>Indicates compilation or bundling errors</li>
+<li>Root cause may be complex or environment-dependent</li>
+<li>Fix: User reviews build logs, determines if environment or code issue</li>
+<li>Usually requires manual debugging</li>
+</ul>
+<p>When these occur, the monitor:</p>
+<ol>
+<li>Logs failure details to JSON report</li>
+<li>Prints human-readable summary</li>
+<li>Returns control to release pipeline with <code>--needs-approval</code> flag</li>
+<li>/release command prompts user for decision</li>
+</ol>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
+<p><strong>File:</strong> <code>.claude/release-config.json</code></p>
+<p><strong>Schema:</strong></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;ci_monitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&quot;ci_poll_interval&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">&quot;ci_timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">&quot;ci_max_retries&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;ci_auto_fix_categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="s2">&quot;version_mismatch&quot;</span><span class="p">,</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="s2">&quot;lint_failure&quot;</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="s2">&quot;changelog_format&quot;</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="s2">&quot;dependency_mismatch&quot;</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="s2">&quot;cache_stale&quot;</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="p">],</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="nt">&quot;ci_ask_before_fix&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">      </span><span class="s2">&quot;test_failure&quot;</span><span class="p">,</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">      </span><span class="s2">&quot;security_audit&quot;</span><span class="p">,</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">      </span><span class="s2">&quot;build_failure&quot;</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Configuration fields:</strong></p>
+<ul>
+<li><code>enabled</code> (bool): Enable/disable CI monitoring</li>
+<li><code>ci_poll_interval</code> (int): Seconds between status checks</li>
+<li><code>ci_timeout</code> (int): Maximum seconds to wait for CI</li>
+<li><code>ci_max_retries</code> (int): Maximum auto-fix attempts before asking user</li>
+<li><code>ci_auto_fix_categories</code> (array): Categories to fix without asking</li>
+<li><code>ci_ask_before_fix</code> (array): Categories requiring user approval</li>
+</ul>
+<p>Projects can override defaults by creating <code>.claude/release-config.json</code> in repo root.</p>
+<h3 id="integration-with-release">Integration with /release<a class="headerlink" href="#integration-with-release" title="Permanent link">&para;</a></h3>
+<p>The CI monitor is called in Step 6.5 of the release pipeline:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Step 5: Create PR
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>   ↓
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Step 6: Run pre-merge checks
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>   6.1: Lint &amp; format
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>   6.2: Run test suite
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>   6.3: Update CHANGELOG
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>   6.4: Commit &amp; push
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>   6.5: [CI MONITORING] Poll CI status ← You are here
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>         ├─ Success → continue to Step 7
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>         ├─ Auto-fixable → apply fix, re-poll, continue to Step 7
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>         └─ Needs approval → return to user with options
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>   ↓
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>Step 7: Merge PR
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>   ↓
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>Step 8: Tag release
+</span></code></pre></div>
+<p>Flow control:</p>
+<ul>
+<li>If CI succeeds: continue to merge</li>
+<li>If auto-fixable: apply fix, push, re-poll (up to <code>ci_max_retries</code>)</li>
+<li>If retry limit exceeded: return to user with diagnostic report</li>
+<li>If needs approval: pause and ask user for fix decision</li>
+</ul>
+<h2 id="sequence-diagram">Sequence Diagram<a class="headerlink" href="#sequence-diagram" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    actor User
+    participant Release as /release Skill
+    participant Monitor as ci-monitor.sh
+    participant GitHub as GitHub Actions
+    participant Repo as Repository
+
+    User-&gt;&gt;Release: /release --new-version v2.18.0
+    Release-&gt;&gt;Repo: Create PR on dev
+    Release-&gt;&gt;Monitor: Start CI monitoring
+
+    Monitor-&gt;&gt;GitHub: Poll gh run list
+    GitHub--&gt;&gt;Monitor: in_progress
+    Monitor-&gt;&gt;Monitor: Wait 30s
+
+    Monitor-&gt;&gt;GitHub: Poll gh run list
+    GitHub--&gt;&gt;Monitor: failure (lint_failure)
+    Monitor-&gt;&gt;Monitor: Diagnose failure
+    Monitor-&gt;&gt;Monitor: In auto-fix list? Yes
+
+    Monitor-&gt;&gt;Repo: Run lint --fix
+    Repo--&gt;&gt;Monitor: Linting complete
+    Monitor-&gt;&gt;Repo: Commit + Push
+
+    Monitor-&gt;&gt;GitHub: Poll gh run list (new run)
+    GitHub--&gt;&gt;Monitor: in_progress
+    Monitor-&gt;&gt;Monitor: Wait 30s
+
+    Monitor-&gt;&gt;GitHub: Poll gh run list
+    GitHub--&gt;&gt;Monitor: success
+    Monitor--&gt;&gt;Release: CI passed
+
+    Release-&gt;&gt;Repo: Merge PR
+    Release-&gt;&gt;Repo: Tag v2.18.0
+    Release--&gt;&gt;User: Release complete</code></pre>
+<h2 id="known-failure-patterns">Known Failure Patterns<a class="headerlink" href="#known-failure-patterns" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Root Cause</th>
+<th>Detection</th>
+<th>Auto-fix</th>
+<th>Fix Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version mismatch</td>
+<td>CHANGELOG/package.json doesn't match tag</td>
+<td>grep <code>version.*mismatch</code></td>
+<td>Yes</td>
+<td>Run version-sync.sh</td>
+</tr>
+<tr>
+<td>ESLint errors</td>
+<td>Formatting inconsistencies</td>
+<td>grep <code>eslint.*error</code></td>
+<td>Yes</td>
+<td>npm run lint -- --fix</td>
+</tr>
+<tr>
+<td>Python ruff errors</td>
+<td>Formatting inconsistencies</td>
+<td>grep <code>ruff.*error</code></td>
+<td>Yes</td>
+<td>ruff check --fix</td>
+</tr>
+<tr>
+<td>CHANGELOG format</td>
+<td>Schema validation failed</td>
+<td>grep <code>changelog.*invalid</code></td>
+<td>Yes</td>
+<td>Reformat and validate</td>
+</tr>
+<tr>
+<td>Missing dependencies</td>
+<td>npm/pip install didn't complete</td>
+<td>grep <code>dependency.*not.*found</code></td>
+<td>Yes</td>
+<td>npm install / pip install</td>
+</tr>
+<tr>
+<td>Test timeout</td>
+<td>CI runner OOM or slow tests</td>
+<td>grep <code>timeout\|TIMEOUT</code></td>
+<td>No</td>
+<td>User reviews &amp; optimizes</td>
+</tr>
+<tr>
+<td>CVE found</td>
+<td>Security vulnerability</td>
+<td>grep <code>CVE-[0-9]</code></td>
+<td>No</td>
+<td>User approves patch</td>
+</tr>
+<tr>
+<td>Compilation error</td>
+<td>Type errors or syntax</td>
+<td>grep <code>error TS[0-9]\|SyntaxError</code></td>
+<td>No</td>
+<td>User fixes code</td>
+</tr>
+<tr>
+<td>Build cache stale</td>
+<td>Build artifacts corrupted</td>
+<td>grep <code>cache.*invalid</code></td>
+<td>Yes</td>
+<td>Clear cache directory</td>
+</tr>
+<tr>
+<td>Permission denied</td>
+<td>File permissions issue</td>
+<td>grep <code>permission denied</code></td>
+<td>No</td>
+<td>User checks branch guard</td>
+</tr>
+</tbody>
+</table>
+<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
+<p><strong>Zero-trust for high-risk failures:</strong></p>
+<ul>
+<li>Security audit failures are NEVER auto-fixed</li>
+<li>CVE vulnerabilities require user review before patching</li>
+<li>No auto-acceptance of breaking version changes</li>
+</ul>
+<p><strong>API key scope:</strong></p>
+<ul>
+<li>GitHub token used for CI monitoring should be read-only where possible</li>
+<li>If write access needed (pushing fixes), use personal token with narrowest scope</li>
+<li>Token rotation recommended quarterly</li>
+</ul>
+<p><strong>Audit trail:</strong></p>
+<ul>
+<li>All auto-fixes logged to <code>.ci-monitor-log.json</code> with timestamp and diagnosis</li>
+<li>User decisions logged with rationale</li>
+<li>Merge override (<code>--admin</code>) recorded for compliance review</li>
+</ul>
+<p><strong>Destructive operations:</strong></p>
+<ul>
+<li>Never auto-fix test failures (might mask real bugs)</li>
+<li>Never auto-fix build failures (might hide environment issues)</li>
+<li>Never auto-fix security issues (might introduce vulnerabilities)</li>
+</ul>
+<h2 id="extending">Extending<a class="headerlink" href="#extending" title="Permanent link">&para;</a></h2>
+<p>To add support for new failure categories:</p>
+<h3 id="1-add-pattern-to-diagnosis">1. Add Pattern to Diagnosis<a class="headerlink" href="#1-add-pattern-to-diagnosis" title="Permanent link">&para;</a></h3>
+<p>Edit <code>scripts/ci-monitor.sh</code>, function <code>diagnose_failure()</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>diagnose_failure<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">log_file</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;your_pattern_here&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$log_file</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;your_new_category&quot;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="m">0</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="k">fi</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="o">}</span>
+</span></code></pre></div>
+<h3 id="2-add-to-configuration">2. Add to Configuration<a class="headerlink" href="#2-add-to-configuration" title="Permanent link">&para;</a></h3>
+<p>Add to <code>.claude/release-config.json</code>:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;ci_auto_fix_categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="s2">&quot;your_new_category&quot;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Or <code>ci_ask_before_fix</code> if it requires user review.</p>
+<h3 id="3-implement-fix-strategy">3. Implement Fix Strategy<a class="headerlink" href="#3-implement-fix-strategy" title="Permanent link">&para;</a></h3>
+<p>Add function to <code>scripts/ci-monitor.sh</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>fix_your_new_category<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">repo</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="c1"># Your fix logic here</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="c1"># Commands to remediate issue</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: fix your_new_category&quot;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span>git<span class="w"> </span>push
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nv">$?</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="o">}</span>
+</span></code></pre></div>
+<h3 id="4-wire-into-retry-loop">4. Wire Into Retry Loop<a class="headerlink" href="#4-wire-into-retry-loop" title="Permanent link">&para;</a></h3>
+<p>In <code>scripts/ci-monitor.sh</code>, main polling loop:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">case</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$failure_category</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="s2">&quot;your_new_category&quot;</span><span class="o">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">        </span>fix_your_new_category<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$repo</span><span class="s2">&quot;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="p">;;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">esac</span>
+</span></code></pre></div>
+<h3 id="5-add-unit-test">5. Add Unit Test<a class="headerlink" href="#5-add-unit-test" title="Permanent link">&para;</a></h3>
+<p>Create test in <code>tests/test_ci_monitor.sh</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>test_diagnose_your_new_category<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;your_pattern_here&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>test_log.txt
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nb">local</span><span class="w"> </span><span class="nv">result</span><span class="o">=</span><span class="k">$(</span>diagnose_failure<span class="w"> </span>test_log.txt<span class="k">)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span>assert_equals<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$result</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;your_new_category&quot;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="o">}</span>
+</span></code></pre></div>
+<h3 id="6-document-failure-pattern">6. Document Failure Pattern<a class="headerlink" href="#6-document-failure-pattern" title="Permanent link">&para;</a></h3>
+<p>Update the known failures table in this document with detection logic and fix strategy.</p>
+<h2 id="performance-tuning">Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permanent link">&para;</a></h2>
+<p><strong>Timeout vs. CI speed:</strong></p>
+<ul>
+<li>Default 600s assumes ~5 min CI run + buffer</li>
+<li>If CI typically takes 10+ min, increase <code>ci_timeout</code> to 720</li>
+<li>If CI is fast (&lt; 2 min), reduce to 300</li>
+</ul>
+<p><strong>Poll frequency:</strong></p>
+<ul>
+<li>Default 30s balances responsiveness with API rate limits</li>
+<li>GitHub Actions API allows 5000 requests/hour per user</li>
+<li>For multiple releases: space them 2+ minutes apart</li>
+</ul>
+<p><strong>Retry backoff:</strong></p>
+<ul>
+<li>Linear retry currently: wait 30s between polls always</li>
+<li>For long-running tests: consider exponential backoff or jitter</li>
+<li>Configure max retries to prevent infinite loops</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Diagnosis</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monitor hangs indefinitely</td>
+<td>Check <code>ci_timeout</code> setting</td>
+<td>Increase timeout or cancel with Ctrl+C</td>
+</tr>
+<tr>
+<td>False positive diagnosis</td>
+<td>Pattern too broad</td>
+<td>Refine grep pattern to be more specific</td>
+</tr>
+<tr>
+<td>Auto-fix broke something</td>
+<td>Fix strategy incomplete</td>
+<td>Review logs, revert commit, improve fix logic</td>
+</tr>
+<tr>
+<td>GitHub API rate limit</td>
+<td>Too many quick releases</td>
+<td>Space releases 2+ min apart, batch monitor calls</td>
+</tr>
+<tr>
+<td>Monitor not starting</td>
+<td>Check script permissions</td>
+<td><code>chmod +x scripts/ci-monitor.sh</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>/release</code> skill: <code>skills/release/SKILL.md</code></li>
+<li>Branch guard: <code>docs/architecture/branch-guard.md</code></li>
+<li>Release pipeline: <code>ORCHESTRATE-release-pipeline.md</code></li>
+<li>Configuration: <code>.claude/release-config.json</code> schema</li>
 </ul>
 
 
@@ -7001,10 +8092,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
