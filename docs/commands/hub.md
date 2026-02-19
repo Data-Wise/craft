@@ -178,9 +178,9 @@ Shows all commands in a category, grouped by subcategory:
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ 💡 Common Workflows:                                                    │
-│   • Pre-commit: lint → test:run → ci-local                             │
-│   • Debug: debug → test:debug → coverage                               │
-│   • Release: deps-audit → test:run release → release                   │
+│   • Pre-commit: lint → test → ci-local                                 │
+│   • Debug: debug → test debug → coverage                               │
+│   • Release: deps-audit → test release → release                       │
 │                                                                         │
 │ 🔙 Back to hub: /craft:hub                                              │
 │ 📚 Learn more: /craft:hub code:[command]                                │
@@ -416,7 +416,7 @@ Shows full command tutorial with step-by-step instructions:
 
 ```bash
 # Jump directly to command detail
-/craft:hub test:run
+/craft:hub test
 /craft:hub docs:sync
 /craft:hub code:lint
 ```
@@ -428,10 +428,10 @@ Shows full command tutorial with step-by-step instructions:
 /craft:hub test
 
 # Learn about specific test command
-/craft:hub test:coverage
+/craft:hub test:gen
 
 # Check related command
-/craft:hub test:debug
+/craft:hub test:template
 ```
 
 ---
@@ -498,12 +498,12 @@ time_budgets:                        # Time estimates per mode
   debug: "< 120s"
   release: "< 300s"
 related_commands:                    # Navigation suggestions
-  - "test:run"
+  - "test"
   - "code:ci-local"
   - "check"
 common_workflows:                    # Usage patterns
   - name: "Pre-commit"
-    steps: ["code:lint", "test:run", "git commit"]
+    steps: ["code:lint", "test", "git commit"]
 ---
 ```
 

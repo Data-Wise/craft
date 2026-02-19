@@ -247,7 +247,7 @@ Monitor with: /craft:orchestrate status
 /craft:smart-help
 /craft:smart-help code:lint
 /craft:smart-help code:lint --examples
-/craft:smart-help test:run --related
+/craft:smart-help test --related
 ```
 
 **File**: `commands/smart-help.md`
