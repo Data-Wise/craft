@@ -101,7 +101,6 @@ nav:
     - Core Workflows:
       - Documentation Automation: guide/documentation-quality.md
       - Interactive Docs Update: tutorials/interactive-docs-update-tutorial.md
-      - Site Creation & Management: guide/getting-started.md
       - Release Workflow: workflows/release-workflow.md
       - Development Workflow: workflows/git-feature-workflow.md
       - Pre-commit Workflow: workflows/pre-commit-workflow.md
@@ -274,7 +273,6 @@ nav:
       - Broken Link Validation: specs/_archive/SPEC-broken-link-validation-2026-01-17.md
       - Hub v2.0 Discovery: specs/_archive/SPEC-craft-hub-v2-2026-01-15.md
       - Dry-Run Feature: specs/_archive/SPEC-dry-run-feature-2026-01-15.md
-      - Teaching Workflow: specs/_archive/SPEC-teaching-workflow-2026-01-16.md
       - Website Organization: specs/_archive/SPEC-website-organization-standard-2026-01-17.md
       - Help Template System: specs/_archive/SPEC-help-template-menu-2026-01-16.md
       - Interactive Docs Update: specs/_archive/SPEC-docs-update-interactive-2026-01-22.md
@@ -282,7 +280,6 @@ nav:
       - Command Behavior Enhancements: specs/_archive/SPEC-command-enhancements-2026-01-29.md
       - Brainstorm Question Bank: specs/_archive/SPEC-brainstorm-question-bank.md
       - Branch Protection Hooks: specs/_archive/SPEC-branch-protection-hooks-2026-02-06.md
-      - Teaching Ecosystem Coordination: specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06.md
 
   # 7. FOR CONTRIBUTORS - Development resources
   - For Contributors:
