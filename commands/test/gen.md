@@ -2,7 +2,7 @@
 description: Auto-detect project type and generate test suite
 arguments:
   - name: project_path
-    description: Path to project (default: current directory)
+    description: "Path to project (default: current directory)"
     required: false
   - name: type
     description: "Project type override: plugin, zsh, cli, mcp"

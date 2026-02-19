@@ -6,10 +6,10 @@ arguments:
     required: false
     default: formula
   - name: tap
-    description: Homebrew tap repository (e.g., user/tap)
+    description: "Homebrew tap repository (e.g., user/tap)"
     required: false
   - name: version
-    description: Specific version to use (default: latest tag)
+    description: "Specific version to use (default: latest tag)"
     required: false
 ---
 

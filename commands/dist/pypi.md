@@ -6,7 +6,7 @@ arguments:
     required: false
     default: publish
   - name: version
-    description: Specific version to publish (default: from pyproject.toml)
+    description: "Specific version to publish (default: from pyproject.toml)"
     required: false
   - name: dry-run
     description: Preview actions without executing (build, publish, file creation)

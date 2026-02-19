@@ -7,15 +7,15 @@ arguments:
     required: false
     default: smart
   - name: preview
-    description: Preview changes without writing (alias: --dry-run)
+    description: "Preview changes without writing (alias: --dry-run)"
     required: false
     default: false
   - name: validate
-    description: Validate links after update
+    description: "Validate links after update"
     required: false
     default: false
   - name: dry-run
-    description: Preview changes without writing (alias for --preview)
+    description: "Preview changes without writing (alias for --preview)"
     required: false
     default: false
     alias: -n

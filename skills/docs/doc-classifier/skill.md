@@ -1,3 +1,8 @@
+---
+name: doc-classifier
+description: Classify documentation needs based on code changes
+---
+
 # doc-classifier Skill
 
 Classify documentation needs based on code changes.
