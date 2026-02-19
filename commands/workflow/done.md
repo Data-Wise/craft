@@ -111,6 +111,70 @@ doc_warnings=$(run_all_detectors)
 - Actionable suggestions
 - Optional - can skip with environment variable: `SKIP_DOC_CHECK=1`
 
+### Step 1.7: CLAUDE.md Staleness Check
+
+Run the sync pipeline to detect and fix stale counts in CLAUDE.md:
+
+```bash
+# Run staleness check (detect + report only)
+PYTHONPATH=. python3 utils/claude_md_sync.py --check-only 2>/dev/null
+
+# If stale counts found, auto-fix
+PYTHONPATH=. python3 utils/claude_md_sync.py 2>/dev/null
+```
+
+**What gets checked:**
+
+1. Command count matches filesystem (`commands/` directory)
+2. Skill count matches filesystem (`skills/` directory)
+3. Agent count matches filesystem (`agents/` directory)
+4. Spec count matches filesystem (`docs/specs/` directory, including `_archive/`)
+5. Test count matches latest test run output
+
+**Output format:**
+
+```
+🔍 Checking CLAUDE.md accuracy...
+
+  Commands: 111 ✅ (matches)
+  Skills:   25 ✅ (matches)
+  Agents:   8 ✅ (matches)
+  Specs:    30 ✅ (matches)
+  Tests:    ~1575 ⚠️ (CLAUDE.md says ~1504, actual ~1575)
+
+Auto-fixing stale counts...
+  ✅ Updated test count: ~1504 → ~1575
+```
+
+**Behavior:**
+
+- Runs silently if all counts match (no output unless stale)
+- Auto-fixes stale counts in-place (no user prompt needed)
+- Reports fixes in session summary (Step 2)
+
+### Step 1.8: .STATUS Auto-Refresh
+
+Update `.STATUS` with current session data:
+
+```bash
+# Read current branch
+current_branch=$(git branch --show-current 2>/dev/null)
+
+# Read current version from source of truth
+current_version=$(grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' .STATUS 2>/dev/null | head -1)
+
+# Update last_session timestamp
+today=$(date +%Y-%m-%d)
+```
+
+**Auto-updates:**
+
+1. `last_session` → today's date
+2. Branch status table → current branch and status
+3. `🎯 Next Action` → derived from session context (prompted in Step 2)
+
+**Note:** Full .STATUS rewrite happens in Step 3 (Option A). This step only refreshes the timestamp and branch metadata.
+
 ### Step 2: Interactive Session Summary
 
 Present findings and ask user to confirm/edit:
