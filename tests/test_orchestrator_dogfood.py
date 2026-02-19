@@ -10,34 +10,12 @@ Run with: python tests/test_orchestrator_dogfood.py
 
 import json
 import re
-import subprocess
-import sys
 import tempfile
-from dataclasses import dataclass
-from datetime import datetime
 from pathlib import Path
-from typing import Optional
-import time
-import os
 
 import pytest
 
 pytestmark = [pytest.mark.e2e, pytest.mark.orchestrator]
-
-
-@dataclass
-class CheckResult:
-    name: str
-    passed: bool
-    duration_ms: float
-    details: str
-    category: str = "dogfood"
-
-
-def log(msg: str) -> None:
-    """Print with timestamp."""
-    ts = datetime.now().strftime("%H:%M:%S.%f")[:-3]
-    print(f"[{ts}] {msg}")
 
 
 PLUGIN_DIR = Path(__file__).parent.parent
@@ -46,10 +24,8 @@ PLUGIN_DIR = Path(__file__).parent.parent
 # ─── Mode Parsing Tests ──────────────────────────────────────────────────────
 
 
-def _check_mode_regex_parsing() -> CheckResult:
+def test_mode_regex_parsing():
     """Test that mode can be parsed from orchestrate command."""
-    start = time.time()
-
     test_cases = [
         ('orchestrate "add auth" optimize', "optimize"),
         ('orchestrate "fix bug" debug', "debug"),
@@ -76,30 +52,11 @@ def _check_mode_regex_parsing() -> CheckResult:
         if actual != expected:
             failures.append(f"{cmd}: expected {expected}, got {actual}")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Mode Regex Parsing", False, duration,
-            f"Failed: {failures[0]}", "parsing"
-        )
-
-    return CheckResult(
-        "Mode Regex Parsing", True, duration,
-        f"All {len(test_cases)} patterns parsed correctly", "parsing"
-    )
+    assert not failures, f"Failed: {failures[0]}"
 
 
-def test_mode_regex_parsing():
-    """Test that mode can be parsed from orchestrate command."""
-    result = _check_mode_regex_parsing()
-    assert result.passed, result.details
-
-
-def _check_context_threshold_values() -> CheckResult:
+def test_context_threshold_values():
     """Test that context thresholds are valid percentages."""
-    start = time.time()
-
     agent_path = PLUGIN_DIR / "agents" / "orchestrator-v2.md"
     content = agent_path.read_text()
 
@@ -113,30 +70,11 @@ def _check_context_threshold_values() -> CheckResult:
         if val < 0 or val > 150:
             invalid.append(p)
 
-    duration = (time.time() - start) * 1000
-
-    if invalid:
-        return CheckResult(
-            "Context Threshold Values", False, duration,
-            f"Invalid percentages: {invalid}", "validation"
-        )
-
-    return CheckResult(
-        "Context Threshold Values", True, duration,
-        f"All {len(percentages)} percentages valid (0-150)", "validation"
-    )
+    assert not invalid, f"Invalid percentages: {invalid}"
 
 
-def test_context_threshold_values():
-    """Test that context thresholds are valid percentages."""
-    result = _check_context_threshold_values()
-    assert result.passed, result.details
-
-
-def _check_agent_types_match_craft_commands() -> CheckResult:
+def test_agent_types_match_craft_commands():
     """Test that agent types map to real craft commands."""
-    start = time.time()
-
     agent_path = PLUGIN_DIR / "agents" / "orchestrator-v2.md"
     content = agent_path.read_text()
 
@@ -155,33 +93,14 @@ def _check_agent_types_match_craft_commands() -> CheckResult:
         if pattern not in content:
             missing.append(pattern)
 
-    duration = (time.time() - start) * 1000
-
-    if missing:
-        return CheckResult(
-            "Agent Types Match Commands", False, duration,
-            f"Missing mappings: {missing}", "integration"
-        )
-
-    return CheckResult(
-        "Agent Types Match Commands", True, duration,
-        f"All {len(craft_patterns)} command patterns mapped", "integration"
-    )
-
-
-def test_agent_types_match_craft_commands():
-    """Test that agent types map to real craft commands."""
-    result = _check_agent_types_match_craft_commands()
-    assert result.passed, result.details
+    assert not missing, f"Missing mappings: {missing}"
 
 
 # ─── Token Estimation Tests ──────────────────────────────────────────────────
 
 
-def _check_token_estimation_heuristics() -> CheckResult:
+def test_token_estimation_heuristics():
     """Test token estimation logic with sample inputs."""
-    start = time.time()
-
     # Simulated token estimation (matches BEHAVIOR 8 heuristics)
     def estimate_tokens(text: str) -> int:
         """Rough token estimate: ~4 chars per token."""
@@ -200,30 +119,11 @@ def _check_token_estimation_heuristics() -> CheckResult:
         if not (min_expected <= estimated <= max_expected):
             failures.append(f"len={len(text)}: {estimated} not in [{min_expected}, {max_expected}]")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Token Estimation Heuristics", False, duration,
-            f"Failed: {failures[0]}", "estimation"
-        )
-
-    return CheckResult(
-        "Token Estimation Heuristics", True, duration,
-        f"All {len(test_cases)} estimates within range", "estimation"
-    )
+    assert not failures, f"Failed: {failures[0]}"
 
 
-def test_token_estimation_heuristics():
-    """Test token estimation logic with sample inputs."""
-    result = _check_token_estimation_heuristics()
-    assert result.passed, result.details
-
-
-def _check_context_budget_calculation() -> CheckResult:
+def test_context_budget_calculation():
     """Test context budget math (15% per agent of 128K)."""
-    start = time.time()
-
     total_context = 128000  # ~128K tokens
     agent_budget_pct = 0.15
     expected_budget = int(total_context * agent_budget_pct)  # 19200
@@ -244,33 +144,14 @@ def _check_context_budget_calculation() -> CheckResult:
         elif expected_per_agent < 10000:
             failures.append(f"Budget too small: {expected_per_agent}")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Context Budget Calculation", False, duration,
-            f"Failed: {failures[0]}", "estimation"
-        )
-
-    return CheckResult(
-        "Context Budget Calculation", True, duration,
-        f"Budget: {expected_budget} tokens/agent (15% of 128K)", "estimation"
-    )
-
-
-def test_context_budget_calculation():
-    """Test context budget math (15% per agent of 128K)."""
-    result = _check_context_budget_calculation()
-    assert result.passed, result.details
+    assert not failures, f"Failed: {failures[0]}"
 
 
 # ─── Mode Configuration Tests ────────────────────────────────────────────────
 
 
-def _check_mode_agent_limits() -> CheckResult:
+def test_mode_agent_limits():
     """Test that mode agent limits are logical."""
-    start = time.time()
-
     modes = {
         "default": {"max_agents": 2, "compression": 70},
         "debug": {"max_agents": 1, "compression": 90},
@@ -288,30 +169,11 @@ def _check_mode_agent_limits() -> CheckResult:
         if not (50 <= config["compression"] <= 95):
             failures.append(f"{mode}: invalid compression {config['compression']}%")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Mode Agent Limits", False, duration,
-            f"Failed: {failures[0]}", "modes"
-        )
-
-    return CheckResult(
-        "Mode Agent Limits", True, duration,
-        f"All {len(modes)} modes have valid limits", "modes"
-    )
+    assert not failures, f"Failed: {failures[0]}"
 
 
-def test_mode_agent_limits():
-    """Test that mode agent limits are logical."""
-    result = _check_mode_agent_limits()
-    assert result.passed, result.details
-
-
-def _check_mode_verbosity_levels() -> CheckResult:
+def test_mode_verbosity_levels():
     """Test that modes have appropriate verbosity."""
-    start = time.time()
-
     agent_path = PLUGIN_DIR / "agents" / "orchestrator-v2.md"
     content = agent_path.read_text()
 
@@ -334,44 +196,25 @@ def _check_mode_verbosity_levels() -> CheckResult:
         elif expected_verbosity.lower() not in content.lower():
             failures.append(f"{mode}: missing verbosity '{expected_verbosity}'")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Mode Verbosity Levels", False, duration,
-            f"Failed: {failures[0]}", "modes"
-        )
-
-    return CheckResult(
-        "Mode Verbosity Levels", True, duration,
-        f"All {len(verbosity_checks)} verbosity levels documented", "modes"
-    )
-
-
-def test_mode_verbosity_levels():
-    """Test that modes have appropriate verbosity."""
-    result = _check_mode_verbosity_levels()
-    assert result.passed, result.details
+    assert not failures, f"Failed: {failures[0]}"
 
 
 # ─── Timeline Rendering Tests ────────────────────────────────────────────────
 
 
-def _check_timeline_ascii_rendering() -> CheckResult:
+def test_timeline_ascii_rendering():
     """Test that timeline can be rendered in ASCII."""
-    start = time.time()
-
     def render_progress_bar(progress: float, width: int = 20) -> str:
         """Render ASCII progress bar."""
         filled = int(progress * width)
         empty = width - filled
-        return "█" * filled + "░" * empty
+        return "\u2588" * filled + "\u2591" * empty
 
     test_cases = [
-        (0.0, "░" * 20),
-        (0.5, "█" * 10 + "░" * 10),
-        (1.0, "█" * 20),
-        (0.25, "█" * 5 + "░" * 15),
+        (0.0, "\u2591" * 20),
+        (0.5, "\u2588" * 10 + "\u2591" * 10),
+        (1.0, "\u2588" * 20),
+        (0.25, "\u2588" * 5 + "\u2591" * 15),
     ]
 
     failures = []
@@ -380,30 +223,11 @@ def _check_timeline_ascii_rendering() -> CheckResult:
         if actual != expected:
             failures.append(f"{progress}: got '{actual[:10]}...'")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Timeline ASCII Rendering", False, duration,
-            f"Failed: {failures[0]}", "timeline"
-        )
-
-    return CheckResult(
-        "Timeline ASCII Rendering", True, duration,
-        f"All {len(test_cases)} progress bars rendered", "timeline"
-    )
+    assert not failures, f"Failed: {failures[0]}"
 
 
-def test_timeline_ascii_rendering():
-    """Test that timeline can be rendered in ASCII."""
-    result = _check_timeline_ascii_rendering()
-    assert result.passed, result.details
-
-
-def _check_timeline_time_formatting() -> CheckResult:
+def test_timeline_time_formatting():
     """Test timeline time formatting."""
-    start = time.time()
-
     def format_duration(seconds: float) -> str:
         """Format duration for timeline."""
         if seconds < 60:
@@ -426,33 +250,14 @@ def _check_timeline_time_formatting() -> CheckResult:
         if actual != expected:
             failures.append(f"{seconds}s: expected '{expected}', got '{actual}'")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Timeline Time Formatting", False, duration,
-            f"Failed: {failures[0]}", "timeline"
-        )
-
-    return CheckResult(
-        "Timeline Time Formatting", True, duration,
-        f"All {len(test_cases)} durations formatted", "timeline"
-    )
-
-
-def test_timeline_time_formatting():
-    """Test timeline time formatting."""
-    result = _check_timeline_time_formatting()
-    assert result.passed, result.details
+    assert not failures, f"Failed: {failures[0]}"
 
 
 # ─── Compression Logic Tests ─────────────────────────────────────────────────
 
 
-def _check_compression_trigger_logic() -> CheckResult:
+def test_compression_trigger_logic():
     """Test compression trigger conditions."""
-    start = time.time()
-
     def should_compress(
         exchange_count: int,
         estimated_tokens: int,
@@ -488,38 +293,19 @@ def _check_compression_trigger_logic() -> CheckResult:
         if actual_compress != expected_compress:
             failures.append(f"({exchanges}, {tokens}): expected {expected_compress}, got {actual_compress}")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Compression Trigger Logic", False, duration,
-            f"Failed: {failures[0]}", "compression"
-        )
-
-    return CheckResult(
-        "Compression Trigger Logic", True, duration,
-        f"All {len(test_cases)} trigger conditions correct", "compression"
-    )
+    assert not failures, f"Failed: {failures[0]}"
 
 
-def test_compression_trigger_logic():
-    """Test compression trigger conditions."""
-    result = _check_compression_trigger_logic()
-    assert result.passed, result.details
-
-
-def _check_compression_ratio() -> CheckResult:
+def test_compression_ratio():
     """Test that compression achieves reasonable ratio."""
-    start = time.time()
-
     def simulate_compression(original_tokens: int) -> int:
         """Simulate compression (target: 60% reduction)."""
         return int(original_tokens * 0.4)  # Keep 40%
 
     test_cases = [
-        (10000, 3500, 4500),   # 10K -> 4K (±500)
-        (50000, 18000, 22000), # 50K -> 20K (±2K)
-        (100000, 38000, 42000), # 100K -> 40K (±2K)
+        (10000, 3500, 4500),   # 10K -> 4K (+-500)
+        (50000, 18000, 22000), # 50K -> 20K (+-2K)
+        (100000, 38000, 42000), # 100K -> 40K (+-2K)
     ]
 
     failures = []
@@ -528,33 +314,14 @@ def _check_compression_ratio() -> CheckResult:
         if not (min_expected <= compressed <= max_expected):
             failures.append(f"{original} -> {compressed}, expected [{min_expected}, {max_expected}]")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Compression Ratio", False, duration,
-            f"Failed: {failures[0]}", "compression"
-        )
-
-    return CheckResult(
-        "Compression Ratio", True, duration,
-        f"All {len(test_cases)} compressions achieve ~60% reduction", "compression"
-    )
-
-
-def test_compression_ratio():
-    """Test that compression achieves reasonable ratio."""
-    result = _check_compression_ratio()
-    assert result.passed, result.details
+    assert not failures, f"Failed: {failures[0]}"
 
 
 # ─── Session State Tests ─────────────────────────────────────────────────────
 
 
-def _check_session_state_schema() -> CheckResult:
+def test_session_state_schema():
     """Test session state JSON schema."""
-    start = time.time()
-
     # Expected session state structure
     sample_state = {
         "session_id": "2025-12-27-abc123",
@@ -601,30 +368,11 @@ def _check_session_state_schema() -> CheckResult:
     except Exception as e:
         failures.append(f"JSON error: {e}")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Session State Schema", False, duration,
-            f"Failed: {failures[0]}", "session"
-        )
-
-    return CheckResult(
-        "Session State Schema", True, duration,
-        f"Schema valid with {len(required_keys)} required fields", "session"
-    )
+    assert not failures, f"Failed: {failures[0]}"
 
 
-def test_session_state_schema():
-    """Test session state JSON schema."""
-    result = _check_session_state_schema()
-    assert result.passed, result.details
-
-
-def _check_session_file_operations() -> CheckResult:
+def test_session_file_operations():
     """Test session state file read/write."""
-    start = time.time()
-
     with tempfile.TemporaryDirectory() as tmpdir:
         session_file = Path(tmpdir) / "orchestrator-session.json"
 
@@ -635,51 +383,17 @@ def _check_session_file_operations() -> CheckResult:
             "agents": []
         }
 
-        try:
-            session_file.write_text(json.dumps(state, indent=2))
+        session_file.write_text(json.dumps(state, indent=2))
 
-            # Read back
-            loaded = json.loads(session_file.read_text())
-
-            if loaded != state:
-                duration = (time.time() - start) * 1000
-                return CheckResult(
-                    "Session File Operations", False, duration,
-                    "Read/write mismatch", "session"
-                )
-
-        except Exception as e:
-            duration = (time.time() - start) * 1000
-            return CheckResult(
-                "Session File Operations", False, duration,
-                f"Error: {e}", "session"
-            )
-
-    duration = (time.time() - start) * 1000
-    return CheckResult(
-        "Session File Operations", True, duration,
-        "Read/write/delete successful", "session"
-    )
+        # Read back
+        loaded = json.loads(session_file.read_text())
+        assert loaded == state, "Read/write mismatch"
 
 
-def test_session_file_operations():
-    """Test session state file read/write."""
-    result = _check_session_file_operations()
-    assert result.passed, result.details
-
-
-def _check_session_persistence_skill_exists() -> CheckResult:
+def test_session_persistence_skill_exists():
     """Test that session-state skill file exists and is valid."""
-    start = time.time()
-
     skill_path = PLUGIN_DIR / "skills" / "orchestration" / "session-state.md"
-
-    if not skill_path.exists():
-        duration = (time.time() - start) * 1000
-        return CheckResult(
-            "Session Persistence Skill", False, duration,
-            "session-state.md not found", "session"
-        )
+    assert skill_path.exists(), "session-state.md not found"
 
     content = skill_path.read_text()
 
@@ -692,31 +406,11 @@ def _check_session_persistence_skill_exists() -> CheckResult:
     ]
 
     missing = [s for s in required if s not in content]
-
-    duration = (time.time() - start) * 1000
-
-    if missing:
-        return CheckResult(
-            "Session Persistence Skill", False, duration,
-            f"Missing sections: {missing}", "session"
-        )
-
-    return CheckResult(
-        "Session Persistence Skill", True, duration,
-        f"Skill valid with {len(required)} sections", "session"
-    )
+    assert not missing, f"Missing sections: {missing}"
 
 
-def test_session_persistence_skill_exists():
-    """Test that session-state skill file exists and is valid."""
-    result = _check_session_persistence_skill_exists()
-    assert result.passed, result.details
-
-
-def _check_session_state_lifecycle() -> CheckResult:
+def test_session_state_lifecycle():
     """Test session state transitions."""
-    start = time.time()
-
     # Valid state transitions
     valid_transitions = [
         ("created", "in_progress"),
@@ -751,30 +445,11 @@ def _check_session_state_lifecycle() -> CheckResult:
         if can_transition(from_s, to_s):
             failures.append(f"{from_s} -> {to_s} should be invalid")
 
-    duration = (time.time() - start) * 1000
-
-    if failures:
-        return CheckResult(
-            "Session State Lifecycle", False, duration,
-            f"Failed: {failures[0]}", "session"
-        )
-
-    return CheckResult(
-        "Session State Lifecycle", True, duration,
-        f"All {len(valid_transitions) + len(invalid_transitions)} transitions validated", "session"
-    )
+    assert not failures, f"Failed: {failures[0]}"
 
 
-def test_session_state_lifecycle():
-    """Test session state transitions."""
-    result = _check_session_state_lifecycle()
-    assert result.passed, result.details
-
-
-def _check_session_history_archiving() -> CheckResult:
+def test_session_history_archiving():
     """Test session archiving to history directory."""
-    start = time.time()
-
     with tempfile.TemporaryDirectory() as tmpdir:
         tmpdir = Path(tmpdir)
 
@@ -788,64 +463,33 @@ def _check_session_history_archiving() -> CheckResult:
             "status": "complete"
         }
 
-        try:
-            # Save session
-            session_file.write_text(json.dumps(state, indent=2))
+        # Save session
+        session_file.write_text(json.dumps(state, indent=2))
 
-            # Archive it
-            history_dir.mkdir(exist_ok=True)
-            archive_file = history_dir / f"{state['session_id']}.json"
-            archive_file.write_text(json.dumps(state, indent=2))
-            session_file.unlink()
+        # Archive it
+        history_dir.mkdir(exist_ok=True)
+        archive_file = history_dir / f"{state['session_id']}.json"
+        archive_file.write_text(json.dumps(state, indent=2))
+        session_file.unlink()
 
-            # Verify archive exists
-            if not archive_file.exists():
-                raise Exception("Archive file not created")
+        # Verify archive exists
+        assert archive_file.exists(), "Archive file not created"
 
-            # Verify session file removed
-            if session_file.exists():
-                raise Exception("Session file not removed")
+        # Verify session file removed
+        assert not session_file.exists(), "Session file not removed"
 
-            # Verify archive content
-            archived = json.loads(archive_file.read_text())
-            if archived["session_id"] != state["session_id"]:
-                raise Exception("Archive content mismatch")
-
-        except Exception as e:
-            duration = (time.time() - start) * 1000
-            return CheckResult(
-                "Session History Archiving", False, duration,
-                f"Error: {e}", "session"
-            )
-
-    duration = (time.time() - start) * 1000
-    return CheckResult(
-        "Session History Archiving", True, duration,
-        "Archive create/verify successful", "session"
-    )
-
-
-def test_session_history_archiving():
-    """Test session archiving to history directory."""
-    result = _check_session_history_archiving()
-    assert result.passed, result.details
+        # Verify archive content
+        archived = json.loads(archive_file.read_text())
+        assert archived["session_id"] == state["session_id"], "Archive content mismatch"
 
 
 # ─── Integration Tests ───────────────────────────────────────────────────────
 
 
-def _check_craft_command_structure() -> CheckResult:
+def test_craft_command_structure():
     """Test that craft commands follow expected structure."""
-    start = time.time()
-
     commands_dir = PLUGIN_DIR / "commands"
-
-    if not commands_dir.exists():
-        duration = (time.time() - start) * 1000
-        return CheckResult(
-            "Craft Command Structure", False, duration,
-            "commands/ directory not found", "integration"
-        )
+    assert commands_dir.exists(), "commands/ directory not found"
 
     # Check orchestrate.md has required sections
     orchestrate = commands_dir / "orchestrate.md"
@@ -859,40 +503,14 @@ def _check_craft_command_structure() -> CheckResult:
     ]
 
     missing = [s for s in required_sections if s not in content]
-
-    duration = (time.time() - start) * 1000
-
-    if missing:
-        return CheckResult(
-            "Craft Command Structure", False, duration,
-            f"Missing sections: {missing}", "integration"
-        )
-
-    return CheckResult(
-        "Craft Command Structure", True, duration,
-        f"All {len(required_sections)} sections present", "integration"
-    )
+    assert not missing, f"Missing sections: {missing}"
 
 
-def test_craft_command_structure():
-    """Test that craft commands follow expected structure."""
-    result = _check_craft_command_structure()
-    assert result.passed, result.details
-
-
-def _check_agent_skill_consistency() -> CheckResult:
+def test_agent_skill_consistency():
     """Test that agent references skills correctly."""
-    start = time.time()
-
     agent_path = PLUGIN_DIR / "agents" / "orchestrator-v2.md"
     skills_dir = PLUGIN_DIR / "skills"
-
-    if not skills_dir.exists():
-        duration = (time.time() - start) * 1000
-        return CheckResult(
-            "Agent-Skill Consistency", False, duration,
-            "skills/ directory not found", "integration"
-        )
+    assert skills_dir.exists(), "skills/ directory not found"
 
     content = agent_path.read_text()
 
@@ -901,169 +519,4 @@ def _check_agent_skill_consistency() -> CheckResult:
 
     # Just verify the mappings exist in the orchestrator
     found = sum(1 for t in agent_types if t in content)
-
-    duration = (time.time() - start) * 1000
-
-    if found < len(agent_types) // 2:
-        return CheckResult(
-            "Agent-Skill Consistency", False, duration,
-            f"Only {found}/{len(agent_types)} agent types found", "integration"
-        )
-
-    return CheckResult(
-        "Agent-Skill Consistency", True, duration,
-        f"{found}/{len(agent_types)} agent types mapped", "integration"
-    )
-
-
-def test_agent_skill_consistency():
-    """Test that agent references skills correctly."""
-    result = _check_agent_skill_consistency()
-    assert result.passed, result.details
-
-
-# ─── Test Runner ─────────────────────────────────────────────────────────────
-
-
-def run_all_tests() -> tuple[list[CheckResult], int, int]:
-    """Run all dogfooding tests."""
-    tests = [
-        # Parsing tests
-        _check_mode_regex_parsing,
-        _check_context_threshold_values,
-        _check_agent_types_match_craft_commands,
-        # Estimation tests
-        _check_token_estimation_heuristics,
-        _check_context_budget_calculation,
-        # Mode tests
-        _check_mode_agent_limits,
-        _check_mode_verbosity_levels,
-        # Timeline tests
-        _check_timeline_ascii_rendering,
-        _check_timeline_time_formatting,
-        # Compression tests
-        _check_compression_trigger_logic,
-        _check_compression_ratio,
-        # Session tests
-        _check_session_state_schema,
-        _check_session_file_operations,
-        _check_session_persistence_skill_exists,
-        _check_session_state_lifecycle,
-        _check_session_history_archiving,
-        # Integration tests
-        _check_craft_command_structure,
-        _check_agent_skill_consistency,
-    ]
-
-    results = []
-    passed = 0
-    failed = 0
-
-    print("\n" + "=" * 60)
-    print("CRAFT ORCHESTRATOR v2.1 DOGFOODING TESTS")
-    print("=" * 60 + "\n")
-
-    for test_fn in tests:
-        try:
-            result = test_fn()
-        except Exception as e:
-            result = CheckResult(
-                test_fn.__name__, False, 0,
-                f"Exception: {e}", "error"
-            )
-
-        results.append(result)
-
-        status = "PASS" if result.passed else "FAIL"
-        symbol = "✓" if result.passed else "✗"
-
-        if result.passed:
-            passed += 1
-        else:
-            failed += 1
-
-        print(f"  {symbol} [{status}] {result.name}")
-        print(f"         {result.details} ({result.duration_ms:.1f}ms)")
-
-    return results, passed, failed
-
-
-def generate_report(results: list[CheckResult], passed: int, failed: int) -> str:
-    """Generate markdown test report."""
-    total = passed + failed
-
-    report = f"""# Orchestrator v2.1 Dogfooding Test Report
-
-**Generated:** {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-**Plugin:** Craft v1.4.0-dev
-**Test Type:** Functional/Dogfooding
-**Tests:** {total} total, {passed} passed, {failed} failed
-
-## Summary
-
-| Metric | Value |
-|--------|-------|
-| Total Tests | {total} |
-| Passed | {passed} ({100*passed//total if total > 0 else 0}%) |
-| Failed | {failed} ({100*failed//total if total > 0 else 0}%) |
-
-## Results by Category
-
-"""
-
-    # Group by category
-    categories = {}
-    for r in results:
-        if r.category not in categories:
-            categories[r.category] = []
-        categories[r.category].append(r)
-
-    for cat, cat_results in sorted(categories.items()):
-        cat_passed = sum(1 for r in cat_results if r.passed)
-        report += f"### {cat.replace('_', ' ').title()} ({cat_passed}/{len(cat_results)})\n\n"
-        report += "| Test | Status | Details | Time |\n"
-        report += "|------|--------|---------|------|\n"
-
-        for r in cat_results:
-            status = "✓ PASS" if r.passed else "✗ FAIL"
-            report += f"| {r.name} | {status} | {r.details} | {r.duration_ms:.1f}ms |\n"
-
-        report += "\n"
-
-    if failed > 0:
-        report += "## Failed Tests\n\n"
-        for r in results:
-            if not r.passed:
-                report += f"- **{r.name}**: {r.details}\n"
-
-    return report
-
-
-def main() -> int:
-    """Main entry point."""
-    log("Starting Orchestrator v2.1 dogfooding tests...")
-
-    results, passed, failed = run_all_tests()
-
-    total = passed + failed
-
-    print("\n" + "=" * 60)
-    print(f"RESULTS: {passed}/{total} passed ({100*passed//total if total > 0 else 0}%)")
-    print("=" * 60)
-
-    # Generate report
-    report = generate_report(results, passed, failed)
-    report_path = PLUGIN_DIR / "tests" / "orchestrator_dogfood_report.md"
-    report_path.write_text(report)
-    log(f"Report saved to: {report_path}")
-
-    if failed > 0:
-        print(f"\n{failed} test(s) failed!")
-        return 1
-    else:
-        print("\nAll tests passed!")
-        return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
+    assert found >= len(agent_types) // 2, f"Only {found}/{len(agent_types)} agent types found"

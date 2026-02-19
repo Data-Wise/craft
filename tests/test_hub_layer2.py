@@ -9,8 +9,6 @@ Run with: python tests/test_hub_layer2.py
 
 import sys
 from pathlib import Path
-from dataclasses import dataclass
-from datetime import datetime
 
 import pytest
 
@@ -29,74 +27,25 @@ from commands._discovery import (
 pytestmark = [pytest.mark.integration, pytest.mark.hub]
 
 
-@dataclass
-class CheckResult:
-    name: str
-    passed: bool
-    duration_ms: float
-    details: str
-    category: str = "general"
-
-
-def log(msg: str) -> None:
-    """Print with timestamp."""
-    ts = datetime.now().strftime("%H:%M:%S.%f")[:-3]
-    print(f"[{ts}] {msg}")
-
-
 # ─── Layer 2 Tests ───────────────────────────────────────────────────────────
-
-
-def _check_get_commands_by_category():
-    """Test filtering commands by category."""
-    import time
-    start = time.time()
-
-    # Test with 'code' category (should have 12 commands)
-    code_commands = get_commands_by_category('code')
-
-    duration = (time.time() - start) * 1000
-
-    if len(code_commands) != 12:
-        return CheckResult(
-            "Get Commands By Category",
-            False,
-            duration,
-            f"Expected 12 code commands, found {len(code_commands)}",
-            "layer2"
-        )
-
-    # Verify all commands are in 'code' category
-    non_code = [cmd for cmd in code_commands if cmd['category'] != 'code']
-    if non_code:
-        return CheckResult(
-            "Get Commands By Category",
-            False,
-            duration,
-            f"Found {len(non_code)} commands not in 'code' category",
-            "layer2"
-        )
-
-    return CheckResult(
-        "Get Commands By Category",
-        True,
-        duration,
-        f"Found {len(code_commands)} code commands, all in correct category",
-        "layer2"
-    )
 
 
 def test_get_commands_by_category():
     """Test filtering commands by category."""
-    result = _check_get_commands_by_category()
-    assert result.passed, result.details
+    # Test with 'code' category (should have 12 commands)
+    code_commands = get_commands_by_category('code')
+
+    assert len(code_commands) == 12, \
+        f"Expected 12 code commands, found {len(code_commands)}"
+
+    # Verify all commands are in 'code' category
+    non_code = [cmd for cmd in code_commands if cmd['category'] != 'code']
+    assert not non_code, \
+        f"Found {len(non_code)} commands not in 'code' category"
 
 
-def _check_all_categories_have_commands():
+def test_all_categories_have_commands():
     """Test that all expected categories return commands."""
-    import time
-    start = time.time()
-
     stats = get_command_stats()
     expected_categories = list(stats['categories'].keys())
 
@@ -110,149 +59,41 @@ def _check_all_categories_have_commands():
                 f"{category}: expected {expected_count}, got {len(commands)}"
             )
 
-    duration = (time.time() - start) * 1000
-
-    if errors:
-        return CheckResult(
-            "All Categories Have Commands",
-            False,
-            duration,
-            f"Mismatches: {'; '.join(errors)}",
-            "layer2"
-        )
-
-    return CheckResult(
-        "All Categories Have Commands",
-        True,
-        duration,
-        f"Validated {len(expected_categories)} categories",
-        "layer2"
-    )
-
-
-def test_all_categories_have_commands():
-    """Test that all expected categories return commands."""
-    result = _check_all_categories_have_commands()
-    assert result.passed, result.details
-
-
-def _check_group_commands_by_subcategory():
-    """Test grouping commands by subcategory."""
-    import time
-    start = time.time()
-
-    # Get code commands and group by subcategory
-    code_commands = get_commands_by_category('code')
-    grouped = group_commands_by_subcategory(code_commands)
-
-    duration = (time.time() - start) * 1000
-
-    # Should have at least 'general' group
-    if not grouped:
-        return CheckResult(
-            "Group By Subcategory",
-            False,
-            duration,
-            "No groups created",
-            "layer2"
-        )
-
-    # Verify all commands are in a group
-    total_in_groups = sum(len(cmds) for cmds in grouped.values())
-    if total_in_groups != len(code_commands):
-        return CheckResult(
-            "Group By Subcategory",
-            False,
-            duration,
-            f"Lost commands: {len(code_commands)} total, {total_in_groups} in groups",
-            "layer2"
-        )
-
-    return CheckResult(
-        "Group By Subcategory",
-        True,
-        duration,
-        f"Created {len(grouped)} groups with {total_in_groups} commands",
-        "layer2"
-    )
+    assert not errors, f"Mismatches: {'; '.join(errors)}"
 
 
 def test_group_commands_by_subcategory():
     """Test grouping commands by subcategory."""
-    result = _check_group_commands_by_subcategory()
-    assert result.passed, result.details
+    # Get code commands and group by subcategory
+    code_commands = get_commands_by_category('code')
+    grouped = group_commands_by_subcategory(code_commands)
 
+    # Should have at least 'general' group
+    assert grouped, "No groups created"
 
-def _check_get_category_info():
-    """Test getting complete category information."""
-    import time
-    start = time.time()
-
-    info = get_category_info('code')
-
-    duration = (time.time() - start) * 1000
-
-    # Verify required fields
-    required_fields = ['name', 'count', 'commands', 'subcategories', 'icon']
-    missing = [f for f in required_fields if f not in info]
-
-    if missing:
-        return CheckResult(
-            "Get Category Info",
-            False,
-            duration,
-            f"Missing fields: {missing}",
-            "layer2"
-        )
-
-    # Verify data
-    if info['name'] != 'code':
-        return CheckResult(
-            "Get Category Info",
-            False,
-            duration,
-            f"Wrong name: {info['name']} != 'code'",
-            "layer2"
-        )
-
-    if info['count'] != 12:
-        return CheckResult(
-            "Get Category Info",
-            False,
-            duration,
-            f"Wrong count: {info['count']} != 12",
-            "layer2"
-        )
-
-    if not info['icon']:
-        return CheckResult(
-            "Get Category Info",
-            False,
-            duration,
-            "Missing icon",
-            "layer2"
-        )
-
-    return CheckResult(
-        "Get Category Info",
-        True,
-        duration,
-        f"Complete info: {info['count']} commands, {len(info['subcategories'])} groups, icon={info['icon']}",
-        "layer2"
-    )
+    # Verify all commands are in a group
+    total_in_groups = sum(len(cmds) for cmds in grouped.values())
+    assert total_in_groups == len(code_commands), \
+        f"Lost commands: {len(code_commands)} total, {total_in_groups} in groups"
 
 
 def test_get_category_info():
     """Test getting complete category information."""
-    result = _check_get_category_info()
-    assert result.passed, result.details
+    info = get_category_info('code')
+
+    # Verify required fields
+    required_fields = ['name', 'count', 'commands', 'subcategories', 'icon']
+    missing = [f for f in required_fields if f not in info]
+    assert not missing, f"Missing fields: {missing}"
+
+    # Verify data
+    assert info['name'] == 'code', f"Wrong name: {info['name']} != 'code'"
+    assert info['count'] == 12, f"Wrong count: {info['count']} != 12"
+    assert info['icon'], "Missing icon"
 
 
-def _check_category_info_all_categories():
+def test_category_info_all_categories():
     """Test get_category_info for all categories."""
-    import time
-    start = time.time()
-
     stats = get_command_stats()
     categories = list(stats['categories'].keys())
 
@@ -274,84 +115,28 @@ def _check_category_info_all_categories():
         except Exception as e:
             errors.append(f"{category}: {str(e)}")
 
-    duration = (time.time() - start) * 1000
-
-    if errors:
-        return CheckResult(
-            "Category Info All Categories",
-            False,
-            duration,
-            f"Errors: {'; '.join(errors[:3])}{'...' if len(errors) > 3 else ''}",
-            "layer2"
-        )
-
-    return CheckResult(
-        "Category Info All Categories",
-        True,
-        duration,
-        f"Validated {len(categories)} categories",
-        "layer2"
-    )
-
-
-def test_category_info_all_categories():
-    """Test get_category_info for all categories."""
-    result = _check_category_info_all_categories()
-    assert result.passed, result.details
-
-
-def _check_invalid_category():
-    """Test handling of invalid category."""
-    import time
-    start = time.time()
-
-    # Test with non-existent category
-    commands = get_commands_by_category('nonexistent')
-
-    duration = (time.time() - start) * 1000
-
-    # Should return empty list, not error
-    if commands != []:
-        return CheckResult(
-            "Invalid Category Handling",
-            False,
-            duration,
-            f"Expected empty list, got {len(commands)} commands",
-            "layer2"
-        )
-
-    # Test get_category_info with invalid category
-    info = get_category_info('nonexistent')
-
-    if info['count'] != 0:
-        return CheckResult(
-            "Invalid Category Handling",
-            False,
-            duration,
-            f"Expected count=0, got {info['count']}",
-            "layer2"
-        )
-
-    return CheckResult(
-        "Invalid Category Handling",
-        True,
-        duration,
-        "Gracefully returns empty results for invalid category",
-        "layer2"
-    )
+    assert not errors, \
+        f"Errors: {'; '.join(errors[:3])}{'...' if len(errors) > 3 else ''}"
 
 
 def test_invalid_category():
     """Test handling of invalid category."""
-    result = _check_invalid_category()
-    assert result.passed, result.details
+    # Test with non-existent category
+    commands = get_commands_by_category('nonexistent')
+
+    # Should return empty list, not error
+    assert commands == [], \
+        f"Expected empty list, got {len(commands)} commands"
+
+    # Test get_category_info with invalid category
+    info = get_category_info('nonexistent')
+
+    assert info['count'] == 0, \
+        f"Expected count=0, got {info['count']}"
 
 
-def _check_layer2_display_generation():
+def test_layer2_display_generation():
     """Test generating Layer 2 display for a category."""
-    import time
-    start = time.time()
-
     # Generate display for 'test' category (smaller than 'code')
     info = get_category_info('test')
 
@@ -377,151 +162,9 @@ def _check_layer2_display_generation():
 
     display = "\n".join(lines)
 
-    duration = (time.time() - start) * 1000
-
     # Verify display was generated
-    if not display or len(lines) < 5:
-        return CheckResult(
-            "Layer 2 Display Generation",
-            False,
-            duration,
-            "Failed to generate display",
-            "layer2"
-        )
+    assert display and len(lines) >= 5, "Failed to generate display"
 
     # Verify all commands appear
-    if cmd_num - 1 != info['count']:
-        return CheckResult(
-            "Layer 2 Display Generation",
-            False,
-            duration,
-            f"Display shows {cmd_num - 1} commands, expected {info['count']}",
-            "layer2"
-        )
-
-    return CheckResult(
-        "Layer 2 Display Generation",
-        True,
-        duration,
-        f"Generated display with {len(lines)} lines for {info['count']} commands",
-        "layer2"
-    )
-
-
-def test_layer2_display_generation():
-    """Test generating Layer 2 display for a category."""
-    result = _check_layer2_display_generation()
-    assert result.passed, result.details
-
-
-# ─── Test Runner ──────────────────────────────────────────────────────────────
-
-
-def run_all_tests():
-    """Run all Layer 2 tests."""
-    tests = [
-        _check_get_commands_by_category,
-        _check_all_categories_have_commands,
-        _check_group_commands_by_subcategory,
-        _check_get_category_info,
-        _check_category_info_all_categories,
-        _check_invalid_category,
-        _check_layer2_display_generation,
-    ]
-
-    results = []
-    for test_fn in tests:
-        log(f"Running: {test_fn.__doc__}")
-        result = test_fn()
-        results.append(result)
-
-        status = "✅ PASS" if result.passed else "❌ FAIL"
-        log(f"  {status} ({result.duration_ms:.1f}ms) - {result.details}")
-
-    return results
-
-
-def generate_report(results):
-    """Generate test report."""
-    total = len(results)
-    passed = sum(1 for r in results if r.passed)
-    failed = total - passed
-    total_duration = sum(r.duration_ms for r in results)
-
-    # Group by category
-    by_category = {}
-    for result in results:
-        cat = result.category
-        if cat not in by_category:
-            by_category[cat] = []
-        by_category[cat].append(result)
-
-    # Generate report
-    lines = []
-    lines.append("=" * 70)
-    lines.append("📊 Layer 2 Test Report")
-    lines.append("=" * 70)
-    lines.append("")
-    lines.append(f"Total Tests: {total}")
-    lines.append(f"Passed: {passed}/{total} ({100 * passed // total if total > 0 else 0}%)")
-
-    if failed > 0:
-        lines.append(f"Failed: {failed}/{total}")
-
-    lines.append(f"Total Duration: {total_duration:.0f}ms")
-    lines.append("")
-
-    # Category breakdown
-    lines.append("Category Breakdown:")
-    for cat, cat_results in by_category.items():
-        cat_passed = sum(1 for r in cat_results if r.passed)
-        cat_total = len(cat_results)
-        avg_duration = sum(r.duration_ms for r in cat_results) / cat_total if cat_total > 0 else 0
-        lines.append(f"  {cat}: {cat_passed}/{cat_total} pass (~{avg_duration:.0f}ms avg)")
-
-    lines.append("")
-
-    if failed > 0:
-        lines.append("Failed Tests:")
-        for result in results:
-            if not result.passed:
-                lines.append(f"  ❌ {result.name}")
-                lines.append(f"     {result.details}")
-        lines.append("")
-
-    if passed == total:
-        lines.append("🎉 All tests passed! Layer 2 is ready.")
-    else:
-        lines.append("⚠️  Some tests failed. Review failures above.")
-
-    report = "\n".join(lines)
-    print("")
-    print(report)
-
-    # Save report
-    report_file = Path(__file__).parent / "hub_layer2_test_report.md"
-    with open(report_file, "w") as f:
-        f.write(report)
-
-    print(f"\n📄 Report saved to: {report_file}")
-
-    return passed == total
-
-
-def main():
-    """Main test entry point."""
-    print("=" * 70)
-    print("🔧 Hub v2.0 Layer 2 Test Suite")
-    print("=" * 70)
-    print()
-
-    results = run_all_tests()
-
-    print()
-    success = generate_report(results)
-
-    return 0 if success else 1
-
-
-if __name__ == "__main__":
-    exit(main())
+    assert cmd_num - 1 == info['count'], \
+        f"Display shows {cmd_num - 1} commands, expected {info['count']}"
