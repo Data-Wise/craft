@@ -116,7 +116,7 @@ Preview: CLAUDE.md (242 lines)
 
 | Task | Shell | Craft |
 |------|-------|-------|
-| Run tests | `python3 -m pytest` | `/craft:test:run` |
+| Run tests | `python3 -m pytest` | `/craft:test` |
 | Lint code | `ruff check .` | `/craft:code:lint` |
 ...
 
@@ -434,7 +434,7 @@ Current content preview:
 
   | Issue | Solution |
   |-------|----------|
-  | Tests failing | Run /craft:test:debug |
+  | Tests failing | Run /craft:test debug |
   | Lint errors | Run /craft:code:lint debug |
   | Build issues | Check dependencies with /craft:code:deps-check |
   ...
@@ -463,10 +463,10 @@ Diff preview:
 
   | Issue | Solution |
   |-------|----------|
-  | Tests failing | Run /craft:test:debug |
+  | Tests failing | Run /craft:test debug |
   | Lint errors | Run /craft:code:lint debug |
   | Build issues | Check dependencies with /craft:code:deps-check |
-+ | Slow tests | Use /craft:test:run optimize for parallel execution |
++ | Slow tests | Use /craft:test optimize for parallel execution |
 + | Coverage gaps | Run /craft:code:coverage to identify untested code |
   ...
 

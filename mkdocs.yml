@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 111 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.18.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.
+site_description: Full-stack developer toolkit - 107 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.21.0 adds insights-driven improvements, guard audit, insights apply, and swarm orchestration.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -101,7 +101,6 @@ nav:
     - Core Workflows:
       - Documentation Automation: guide/documentation-quality.md
       - Interactive Docs Update: tutorials/interactive-docs-update-tutorial.md
-      - Site Creation & Management: guide/getting-started.md
       - Release Workflow: workflows/release-workflow.md
       - Development Workflow: workflows/git-feature-workflow.md
       - Pre-commit Workflow: workflows/pre-commit-workflow.md
@@ -127,6 +126,11 @@ nav:
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
+      - Testing:
+        - Testing Quickstart: tutorials/testing-quickstart.md
+        - Test Commands Reference: guide/test-commands.md
+        - Test Architecture: guide/test-architecture.md
+        - Test Migration Guide: guide/test-migration.md
       - Test Wrapper Pattern Guide: guide/test-wrapper-pattern.md
       - Git Repository Init:
         - Command Reference: commands/git-init-reference.md
@@ -186,8 +190,9 @@ nav:
       - /craft:code:lint: commands/code/lint.md
       - /craft:code:deps-audit: commands/code/deps-audit.md
       - /craft:code:ci-local: commands/code/ci-local.md
-      - /craft:test:run: commands/test/run.md
-      - /craft:test:cli-run: commands/test/cli-run.md
+      - /craft:test: commands/test.md
+      - /craft:test:gen: commands/test/gen.md
+      - /craft:test:template: commands/test/template.md
       - /craft:git:branch: commands/git/branch.md
       - /craft:git:clean: commands/git/clean.md
       - /craft:git:status: commands/git/status.md
@@ -214,6 +219,8 @@ nav:
       - Set Up Parallel Worktrees: cookbook/common/setup-parallel-worktrees.md
       - Use Interactive Orchestration: cookbook/common/use-interactive-orchestration.md
       - Post-Merge Documentation: cookbook/common/post-merge-documentation.md
+      - Generate Tests for a Project: cookbook/common/generate-tests-for-project.md
+      - Run Tests by Category: cookbook/common/run-tests-by-category.md
     - Troubleshooting:
       - Command Not Found: cookbook/troubleshooting/command-not-found.md
       - Command Times Out: cookbook/troubleshooting/command-times-out.md
@@ -248,6 +255,7 @@ nav:
       - Brainstorm Quick Reference: reference/REFCARD-BRAINSTORM.md
       - Branch Guard Quick Reference: reference/REFCARD-BRANCH-GUARD.md
       - Release Pipeline Reference: reference/REFCARD-RELEASE.md
+      - Testing Quick Reference: reference/REFCARD-TESTING.md
       - Homebrew Quick Reference: reference/REFCARD-HOMEBREW.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
@@ -265,7 +273,6 @@ nav:
       - Broken Link Validation: specs/_archive/SPEC-broken-link-validation-2026-01-17.md
       - Hub v2.0 Discovery: specs/_archive/SPEC-craft-hub-v2-2026-01-15.md
       - Dry-Run Feature: specs/_archive/SPEC-dry-run-feature-2026-01-15.md
-      - Teaching Workflow: specs/_archive/SPEC-teaching-workflow-2026-01-16.md
       - Website Organization: specs/_archive/SPEC-website-organization-standard-2026-01-17.md
       - Help Template System: specs/_archive/SPEC-help-template-menu-2026-01-16.md
       - Interactive Docs Update: specs/_archive/SPEC-docs-update-interactive-2026-01-22.md
@@ -273,7 +280,6 @@ nav:
       - Command Behavior Enhancements: specs/_archive/SPEC-command-enhancements-2026-01-29.md
       - Brainstorm Question Bank: specs/_archive/SPEC-brainstorm-question-bank.md
       - Branch Protection Hooks: specs/_archive/SPEC-branch-protection-hooks-2026-02-06.md
-      - Teaching Ecosystem Coordination: specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06.md
 
   # 7. FOR CONTRIBUTORS - Development resources
   - For Contributors:

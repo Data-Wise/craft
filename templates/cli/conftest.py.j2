@@ -1,0 +1,29 @@
+{# CLI-specific conftest.py — extends shared conftest #}
+{% include '_base/conftest_shared.py.j2' %}
+
+import subprocess
+
+
+@pytest.fixture
+def cli_runner():
+    """Run CLI commands and capture output."""
+    def run(*args, input_text=None, expect_fail=False):
+        result = subprocess.run(
+            ["{{ cli_name }}", *args],
+            capture_output=True,
+            text=True,
+            input=input_text,
+            timeout=30,
+        )
+        if not expect_fail:
+            assert result.returncode == 0, \
+                f"Command failed (exit {result.returncode}):\n{result.stderr}"
+        return result
+    return run
+
+
+@pytest.fixture
+def cli_version(cli_runner):
+    """Get CLI version string."""
+    result = cli_runner("--version")
+    return result.stdout.strip()

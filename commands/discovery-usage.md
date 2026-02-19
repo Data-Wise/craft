@@ -1,3 +1,7 @@
+---
+description: Discovery Engine Usage Guide
+---
+
 # Discovery Engine Usage Guide
 
 ## Overview

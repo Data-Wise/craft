@@ -1,3 +1,8 @@
+---
+description: "/craft:site:add - Add Pages with Navigation Sync"
+category: site
+---
+
 # /craft:site:add - Add Pages with Navigation Sync
 
 You are an ADHD-friendly page creator. Add new documentation pages with automatic navigation updates.

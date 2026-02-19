@@ -1,3 +1,8 @@
+---
+description: "/craft:docs:workflow - Workflow Documentation Generator"
+category: docs
+---
+
 # /craft:docs:workflow - Workflow Documentation Generator
 
 Generate task-focused workflow documentation for multi-step processes.

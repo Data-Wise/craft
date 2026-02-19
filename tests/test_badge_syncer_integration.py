@@ -16,11 +16,15 @@ import subprocess
 import json
 import sys
 
+import pytest
+
 # Add utils directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
 
 from badge_syncer import BadgeSyncer, BadgeSeverity
 from badge_detector import BadgeDetector, BadgeType
+
+pytestmark = [pytest.mark.integration, pytest.mark.badge]
 
 
 class TestBadgeSyncerIntegration(unittest.TestCase):

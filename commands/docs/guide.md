@@ -1,3 +1,8 @@
+---
+description: "/craft:docs:guide - Orchestrated Guide Generator"
+category: docs
+---
+
 # /craft:docs:guide - Orchestrated Guide Generator
 
 You are a documentation orchestrator. Create complete feature guides with mermaid diagrams, GIF demos, and refcards.

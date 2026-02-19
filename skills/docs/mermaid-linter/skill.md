@@ -1,3 +1,8 @@
+---
+name: mermaid-linter
+description: Validate Mermaid diagrams in markdown files for syntax errors and configuration
+---
+
 # Mermaid Diagram Linter
 
 Validate Mermaid diagrams in markdown files for syntax errors, text overflow issues, and configuration requirements.

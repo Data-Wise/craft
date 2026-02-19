@@ -10,12 +10,16 @@ Run with: python tests/test_hub_integration.py
 import sys
 from pathlib import Path
 
+import pytest
+
 # Add plugin directory to path
 plugin_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(plugin_dir))
 
 # Import discovery engine
 from commands._discovery import get_command_stats, load_cached_commands
+
+pytestmark = [pytest.mark.integration, pytest.mark.hub]
 
 def _check_hub_display():
     """Test that hub can generate display with discovery data."""
@@ -66,10 +70,10 @@ def _check_hub_display():
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │ 💻 CODE ({stats['categories'].get('code', 0)})              🧪 TEST ({stats['categories'].get('test', 0)})             │
-│   /craft:code:lint [mode]          /craft:test:run [mode]               │
-│   /craft:code:coverage             /craft:test:watch                    │
-│   /craft:code:deps-audit           /craft:test:coverage                 │
-│   /craft:code:ci-local             /craft:test:debug                    │
+│   /craft:code:lint [mode]          /craft:test [mode]                   │
+│   /craft:code:coverage             /craft:test:gen                      │
+│   /craft:code:deps-audit           /craft:test:template                 │
+│   /craft:code:ci-local                                                  │
 │                                                                         │
 │ 📄 DOCS ({stats['categories'].get('docs', 0)})             🏗️ ARCH ({stats['categories'].get('arch', 0)})            │
 │   /craft:docs:sync                 /craft:arch:analyze [mode]           │
@@ -109,7 +113,7 @@ def _check_hub_display():
     checks = [
         (f"Total commands: {stats['total']}", stats['total'] >= 100),
         (f"CODE category: {stats['categories'].get('code', 0)}", stats['categories'].get('code', 0) >= 12),
-        (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) >= 7),
+        (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) >= 3),
         (f"DOCS category: {stats['categories'].get('docs', 0)}", stats['categories'].get('docs', 0) >= 19),
         (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) >= 11),
         (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) >= 16),

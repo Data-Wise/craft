@@ -566,7 +566,7 @@ Creates interactive HTML roadmap with:
 # (implement, test, review)
 
 # Step 5: Verify against acceptance criteria
-/craft:test:run
+/craft:test
 
 # Step 6: Merge and celebrate
 git merge feature/search
@@ -583,7 +583,7 @@ git merge feature/search
 
 # Friday: Review
 git log --oneline | head -20
-/craft:test:run --summary
+/craft:test --summary
 
 # Next Monday: Retro and replan
 /craft:plan:sprint --duration 7  # Next sprint
@@ -632,7 +632,7 @@ Planning commands work best with:
 | `/craft:do` | AI routes planning tasks with task suggestions |
 | `/craft:arch:plan` | Architecture needed before feature planning |
 | `/craft:code:refactor` | Implement planned features |
-| `/craft:test:run` | Validate task completion |
+| `/craft:test` | Validate task completion |
 | `/craft:docs:sync` | Keep documentation aligned with roadmap |
 | `/craft:git:branch` | Create feature branches from plans |
 | `/craft:check` | Verify sprint goals before delivery |

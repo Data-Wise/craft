@@ -17,6 +17,8 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
+
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -44,6 +46,8 @@ from utils.claude_md_optimizer import (
     P2_SECTION_NAMES,
     POINTER_PREFIX,
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.claude_md]
 
 
 # ---------------------------------------------------------------------------

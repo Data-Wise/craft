@@ -184,6 +184,6 @@ This skill is automatically detected and loaded when `/craft:check` runs:
 
 ## See Also
 
-- `/craft:test:run` - Run test suite
-- `/craft:test:coverage` - Detailed coverage report
+- `/craft:test` - Run test suite
+- `/craft:test --coverage` - Detailed coverage report
 - `/craft:check` - Run all validators

@@ -1,3 +1,8 @@
+---
+description: Release Workflow
+category: code
+---
+
 # Release Workflow
 
 Guide through the package/project release process. For Craft plugin projects, delegates to the `/release` skill which provides a comprehensive 10-step pipeline.

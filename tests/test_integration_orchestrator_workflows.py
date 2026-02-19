@@ -20,11 +20,15 @@ import unittest
 import sys
 from pathlib import Path
 
+import pytest
+
 # Add plugin directory to path
 plugin_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(plugin_dir))
 
 from utils.complexity_scorer import calculate_complexity_score, get_routing_decision
+
+pytestmark = [pytest.mark.integration, pytest.mark.orchestrator]
 
 
 class TestOrchestratorIntegration(unittest.TestCase):

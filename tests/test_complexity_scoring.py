@@ -11,8 +11,12 @@ Tests the scoring logic that determines whether tasks should be:
 import sys
 from pathlib import Path
 
+import pytest
+
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+pytestmark = [pytest.mark.unit, pytest.mark.commands]
 
 from utils.complexity_scorer import (
     calculate_complexity_score,

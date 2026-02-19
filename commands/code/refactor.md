@@ -1,3 +1,8 @@
+---
+description: Refactoring Guidance
+category: code
+---
+
 # Refactoring Guidance
 
 Improve code structure without changing behavior.

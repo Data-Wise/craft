@@ -92,7 +92,7 @@ Task: "run tests"
   ✓ Single action: +0
   ✓ Single category (test): +0
 
-Score: 0-1 → ROUTE TO COMMANDS (/craft:test:run)
+Score: 0-1 → ROUTE TO COMMANDS (/craft:test)
 ```
 
 ```

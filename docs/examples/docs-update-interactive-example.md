@@ -106,8 +106,8 @@ Claude uses `AskUserQuestion`:
 │                                                             │
 │ Should I add help documentation?                            │
 │   Commands without help:                                    │
-│   • /craft:test:debug                                       │
-│   • /craft:test:watch                                       │
+│   • /craft:test:gen                                         │
+│   • /craft:test:template                                    │
 │   • /craft:git:worktree                                     │
 │   • /craft:hub                                              │
 │   • /craft:discovery-usage                                  │
@@ -187,7 +187,7 @@ Claude applies selected updates:
 │    git diff                                                 │
 │                                                             │
 │ 2. Run tests:                                               │
-│    /craft:test:run                                          │
+│    /craft:test                                              │
 │                                                             │
 │ 3. Commit:                                                  │
 │    git add .                                                │

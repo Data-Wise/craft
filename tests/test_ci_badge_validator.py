@@ -14,10 +14,14 @@ import shutil
 import subprocess
 import sys
 
+import pytest
+
 # Add utils directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
 
 from ci_badge_validator import CIBadgeValidator, CIBadgeIssue, format_issues_report
+
+pytestmark = [pytest.mark.integration, pytest.mark.badge]
 
 
 class TestCIBadgeValidator(unittest.TestCase):

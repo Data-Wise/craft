@@ -234,7 +234,7 @@ Pre-flight Check Plan:
   ✓ No known CVEs in dependencies
 
 [7/12] Documentation validation...
-  ✓ All command docs present (111 commands)
+  ✓ All command docs present (107 commands)
   ✓ All help files valid YAML
   ✓ mkdocs builds without warnings
 
@@ -406,7 +406,7 @@ Total: 15s (39% faster)
 /craft:code:lint &
 
 # Terminal 2
-/craft:test:run &
+/craft:test &
 
 # Terminal 3
 mypy . &
@@ -574,7 +574,7 @@ Auto-fixing lint issues...
 
 ```bash
 # Run tests with verbose output
-/craft:test:run --verbose tests/test_auth.py::test_login_success
+/craft:test --verbose tests/test_auth.py::test_login_success
 
 # Or use debug mode for full output
 /craft:check debug

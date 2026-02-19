@@ -78,7 +78,7 @@ gifsicle -O3 --colors 128 --lossy=80 \
 
 ## 6. Workflow 05 (docs/gifs/workflow-05-*.gif)
 
-**Command:** `/craft:test:run debug`
+**Command:** `/craft:test debug`
 
 ---
 

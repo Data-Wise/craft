@@ -151,7 +151,7 @@ tool version 1.0.0
 
 Works with:
 
-- `/craft:test:run` - Execute generated tests
+- `/craft:test` - Execute generated tests
 - `/craft:code:ci-local` - Add to CI pipeline
 - `test-strategist` skill - Test strategy guidance
 

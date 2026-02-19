@@ -1,3 +1,8 @@
+---
+description: /task-cancel - Cancel Background Task
+category: workflow
+---
+
 # /task-cancel - Cancel Background Task
 
 Cancel a running background task.

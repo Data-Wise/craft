@@ -16,6 +16,8 @@ from pathlib import Path
 
 import pytest
 
+pytestmark = [pytest.mark.integration, pytest.mark.docs]
+
 
 SCRIPT_PATH = Path(__file__).parent.parent / "scripts" / "docs-lint-emoji.sh"
 PROJECT_ROOT = Path(__file__).parent.parent

@@ -121,7 +121,7 @@ Tasks are scored on 7 factors (each 0-2 points):
 ```bash
 # ❌ Don't use /craft:do for simple, known actions:
 /craft:do "run tests"              # Overkill
-/craft:test:run                    # Better
+/craft:test                        # Better
 
 # ✅ Use /craft:do for multi-step or unclear tasks:
 /craft:do "prepare code review"    # Good - complex workflow
@@ -461,7 +461,7 @@ gh pr create --base dev
 # Context detected: Python project with pytest
 
 Suggested Commands:
-  /craft:test:run              # Run your pytest suite
+  /craft:test                  # Run your pytest suite
   /craft:code:lint             # Check with ruff + black
   /craft:check                 # Pre-commit validation
 

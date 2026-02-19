@@ -1,0 +1,35 @@
+{# Plugin-specific conftest.py — extends shared conftest #}
+{% include '_base/conftest_shared.py.j2' %}
+
+
+@pytest.fixture
+def plugin_dir(project_root: Path) -> Path:
+    """Path to the .claude-plugin/ directory."""
+    return project_root / ".claude-plugin"
+
+
+@pytest.fixture
+def commands_dir(project_root: Path) -> Path:
+    """Path to the commands/ directory."""
+    return project_root / "commands"
+
+
+@pytest.fixture
+def plugin_json(plugin_dir: Path) -> dict:
+    """Parsed plugin.json manifest."""
+    import json
+    return json.loads((plugin_dir / "plugin.json").read_text())
+
+
+@pytest.fixture
+def temp_plugin_dir(tmp_path: Path) -> Path:
+    """Temporary directory with minimal plugin structure."""
+    plugin_dir = tmp_path / "test-plugin"
+    plugin_dir.mkdir()
+    (plugin_dir / ".claude-plugin").mkdir()
+    (plugin_dir / ".claude-plugin" / "plugin.json").write_text(
+        '{"name": "test-plugin", "description": "Test", "version": "1.0.0"}'
+    )
+    (plugin_dir / "commands").mkdir()
+    (plugin_dir / "CLAUDE.md").write_text("# Test Plugin\n")
+    return plugin_dir

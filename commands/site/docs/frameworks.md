@@ -1,3 +1,8 @@
+---
+description: Documentation Framework Comparison
+category: site
+---
+
 # Documentation Framework Comparison
 
 Choosing between MkDocs, Quarto, and pkgdown for your project.

@@ -94,4 +94,4 @@ Recommendations:
 
 - [/craft:check](../check.md) — Pre-flight validation
 - [/craft:code:lint](../code/lint.md) — Code quality checks
-- [/craft:test:run](../test/run.md) — Run test suite
+- [/craft:test](../test.md) — Run test suite

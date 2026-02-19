@@ -10,6 +10,8 @@ import pytest
 import subprocess
 import sys
 
+pytestmark = [pytest.mark.e2e, pytest.mark.orchestrator]
+
 
 class TestOrchFlagE2E:
     """End-to-end tests for --orch flag functionality"""

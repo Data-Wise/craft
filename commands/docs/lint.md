@@ -4,11 +4,11 @@ category: docs
 trigger: bash "${CRAFT_PLUGIN_ROOT}/scripts/docs-lint.sh"
 arguments:
   - name: path
-    description: Specific file or directory to lint (default: .)
+    description: "Specific file or directory to lint (default: .)"
     required: false
     default: .
   - name: fix
-    description: Auto-fix safe issues (--fix flag)
+    description: "Auto-fix safe issues (--fix flag)"
     required: false
     default: false
     alias: --fix

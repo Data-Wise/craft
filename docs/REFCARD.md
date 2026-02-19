@@ -769,7 +769,7 @@ main (production branch)
 | Command                | Modes | Description                 |
 | ---------------------- | ----- | --------------------------- |
 | `/craft:code:lint`     | all   | Linting with auto-fix       |
-| `/craft:test:run`      | all   | Test runner with watch mode |
+| `/craft:test`          | all   | Test runner with categories |
 | `/craft:code:debug`    | ----- | Systematic debugging        |
 | `/craft:code:refactor` | ----- | Refactoring guidance        |
 | `/craft:code:review`   | ----- | Code review automation      |
@@ -780,11 +780,9 @@ main (production branch)
 
 | Command                  | Description                        |
 | ------------------------ | ---------------------------------- |
-| `/craft:test:run`        | Run tests with mode support        |
-| `/craft:test:watch`      | Watch mode for continuous testing  |
-| `/craft:test:coverage`   | Coverage analysis                  |
-| `/craft:test:cli-gen`    | Generate CLI test suites           |
-| `/craft:test:cli-run`    | Run CLI test suites                |
+| `/craft:test`            | Unified runner with categories     |
+| `/craft:test:gen`        | Generate test suites (type-aware)  |
+| `/craft:test:template`   | Manage Jinja2 test templates       |
 
 **Modes:** `default` (<10s) | `debug` (<120s) | `optimize` (<180s) | `release` (<300s)
 
@@ -792,8 +790,8 @@ main (production branch)
 
 ```bash
 /craft:code:lint optimize       # Parallel, fast
-/craft:test:run debug           # Verbose with suggestions
-/craft:test:coverage release    # Full coverage analysis
+/craft:test debug               # Verbose with suggestions
+/craft:test release --coverage  # Full coverage analysis
 ```
 
 ## Git Commands (10+ commands)

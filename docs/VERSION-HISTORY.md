@@ -4,44 +4,28 @@
 
 **Latest Release:** v2.21.0 (2026-02-16)
 **Total Releases:** 42 versions | **Development Time:** 2+ years
-**Community:** 111 commands documented, ~1575 tests passing, 90%+ coverage
+**Community:** 107 commands documented, ~1575 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
 
-### v2.22.0 (2026-02-18) - CLAUDE.md Layered Instruction System
+### v2.22.0 (Unreleased) - Unified Test System, CLAUDE.md Refactor & Friction Prevention
 
-**Status:** In Development
+**Status:** In development
 
 **Highlights:**
 
-- **Layered CLAUDE.md Architecture**: Restructured from flat ~8300 tokens/session to layered ~4000 tokens/session. Behavioral rules load every session; reference material loads on-demand from `.claude/reference/`.
-- **Global CLAUDE.md Lean**: Reduced from 206 to 85 lines. Extracted MCP servers, plugins, shell workflow, email/neovim, and release automation to `~/.claude/reference/`.
-- **Project CLAUDE.md Lean**: Reduced from 162 to 82 lines. Extracted agents, test suite, and project structure to `.claude/reference/`.
-- **ReferenceFileGenerator**: New class in `claude_md_sync.py` with `--generate-reference` flag. Auto-generates `.claude/reference/` files from filesystem state (agents, tests, project structure).
-- **Instruction Health Check**: New check in `/craft:check` validates count accuracy, line budget, reference file freshness, and CLAUDE.md lint.
-- **Session-End Sync**: `/workflow:done` now runs CLAUDE.md staleness check (Step 1.7) and .STATUS auto-refresh (Step 1.8) at session completion.
-- **Rules Promotion**: Behavioral rules extracted from MEMORY.md to `~/.claude/rules/spec-only-mode.md`.
+- **Unified test commands:** 7 old commands → 3: `/craft:test` (runner), `/craft:test:gen` (generator), `/craft:test:template` (manager)
+- **Jinja2 template engine:** `utils/test_generator.py` auto-detects project type and renders test suites from 27 templates across 4 project types (plugin, zsh, cli, mcp)
+- **Pytest infrastructure:** 25 markers for two-dimensional filtering (tier + domain), shared conftest.py fixtures, shared helpers.py utilities
+- **Layered CLAUDE.md Architecture**: Restructured from flat ~8300 tokens/session to layered ~4000 tokens/session. Reference material loads on-demand from `.claude/reference/`.
+- **ReferenceFileGenerator**: New class in `claude_md_sync.py` with `--generate-reference` flag.
+- **Instruction Health Check**: New check in `/craft:check` validates count accuracy, line budget, reference file freshness.
+- **Session-End Sync**: `/workflow:done` now runs CLAUDE.md staleness check and .STATUS auto-refresh at session completion.
+- **Codebase cleanup:** 52 commands got YAML frontmatter, 66 test files got pytest markers, 9 test files migrated from CheckResult to native assertions
 
-**New Files:**
-
-| File | Purpose |
-|------|---------|
-| `.claude/reference/agents.md` | Agent inventory (generated, gitignored) |
-| `.claude/reference/test-suite.md` | Test file classification (generated, gitignored) |
-| `.claude/reference/project-structure.md` | Directory tree and counts (generated, gitignored) |
-| `docs/reference/claude-code-instruction-enforcement.md` | Archived research document |
-
-**Modified Files:**
-
-| File | Change |
-|------|--------|
-| `CLAUDE.md` | Reduced from 162 to 82 lines (behavioral rules only) |
-| `utils/claude_md_sync.py` | Added ReferenceFileGenerator class (+130 lines) |
-| `commands/check.md` | Added instruction health check section |
-| `commands/hub.md` | Added reference file info and instruction system section |
-| `commands/workflow/done.md` | Added Steps 1.7 (staleness) and 1.8 (.STATUS refresh) |
+**Stats:** 107 commands | 25 skills | 8 agents | 27 templates | 4 project types
 
 ---
 
@@ -90,7 +74,7 @@
 /brainstorm "topic" → SPEC.md → /orchestrate:plan → ORCHESTRATE.md → worktree → implement → PR
 ```
 
-**Stats:** 111 commands | 25 skills | 8 agents
+**Stats:** 107 commands | 25 skills | 8 agents
 
 ---
 

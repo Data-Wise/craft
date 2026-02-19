@@ -1,3 +1,8 @@
+---
+description: ADHD-Friendly Workflow Guide
+category: workflow
+---
+
 # ADHD-Friendly Workflow Guide
 
 Strategies for staying focused and productive with ADHD.

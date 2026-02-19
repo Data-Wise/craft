@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Template registry for /craft:test:gen — maps project types to templates and detection rules",
+  "version": "1.0.0",
+  "types": {
+    "plugin": {
+      "name": "Claude Code Plugin",
+      "detect": [".claude-plugin/plugin.json"],
+      "templates": [
+        "test_structure.py.j2",
+        "test_commands.py.j2",
+        "test_skills.py.j2",
+        "test_agents.py.j2",
+        "test_content.py.j2",
+        "test_lifecycle.py.j2",
+        "conftest.py.j2"
+      ],
+      "variables": {
+        "project_name": {
+          "source": "plugin.json:name",
+          "description": "Plugin name from manifest",
+          "required": true
+        },
+        "project_version": {
+          "source": "plugin.json:version",
+          "description": "Plugin version string",
+          "required": false
+        },
+        "commands": {
+          "source": "glob:commands/**/*.md",
+          "description": "List of command file paths",
+          "required": true
+        },
+        "skills": {
+          "source": "glob:skills/**/SKILL.md",
+          "description": "List of skill file paths",
+          "required": false
+        },
+        "agents": {
+          "source": "glob:agents/**/*.md",
+          "description": "List of agent file paths",
+          "required": false
+        },
+        "plugin_json": {
+          "source": "read:.claude-plugin/plugin.json",
+          "description": "Parsed plugin.json contents",
+          "required": true
+        }
+      },
+      "markers": ["structure", "commands", "skills", "agents", "docs"]
+    },
+    "zsh": {
+      "name": "ZSH Plugin",
+      "detect": ["*.plugin.zsh", "*.zsh"],
+      "detect_exclude": ["node_modules", ".git"],
+      "templates": [
+        "test_sourcing.sh.j2",
+        "test_functions.sh.j2",
+        "test_completions.sh.j2",
+        "test_aliases.sh.j2",
+        "test_e2e.sh.j2"
+      ],
+      "variables": {
+        "project_name": {
+          "source": "directory_name",
+          "description": "Plugin name from directory",
+          "required": true
+        },
+        "plugin_file": {
+          "source": "glob:*.plugin.zsh",
+          "description": "Main plugin file",
+          "required": true
+        },
+        "functions": {
+          "source": "grep:^[a-z_]+\\(\\)",
+          "description": "Defined shell functions",
+          "required": true
+        },
+        "aliases": {
+          "source": "grep:^alias ",
+          "description": "Defined aliases",
+          "required": false
+        },
+        "completions": {
+          "source": "grep:compdef|_comps",
+          "description": "Completion definitions",
+          "required": false
+        }
+      },
+      "markers": []
+    },
+    "cli": {
+      "name": "CLI Application",
+      "detect": [
+        "pyproject.toml:[project.scripts]",
+        "package.json:bin",
+        "Cargo.toml:[[bin]]",
+        "go.mod+main.go"
+      ],
+      "templates": [
+        "test_smoke.py.j2",
+        "test_commands.py.j2",
+        "test_args.py.j2",
+        "test_errors.py.j2",
+        "test_output.py.j2",
+        "test_e2e.py.j2",
+        "conftest.py.j2"
+      ],
+      "variables": {
+        "project_name": {
+          "source": "manifest:name",
+          "description": "CLI application name",
+          "required": true
+        },
+        "cli_name": {
+          "source": "manifest:scripts|bin",
+          "description": "CLI entry point command name",
+          "required": true
+        },
+        "entry_points": {
+          "source": "manifest:scripts",
+          "description": "Map of command name to module path",
+          "required": true
+        },
+        "commands": {
+          "source": "cli:--help",
+          "description": "Discovered subcommands from --help",
+          "required": true
+        },
+        "subcommands": {
+          "source": "cli:<cmd> --help",
+          "description": "Nested subcommands per command group",
+          "required": false
+        },
+        "flags": {
+          "source": "cli:--help",
+          "description": "Global flags/options",
+          "required": false
+        }
+      },
+      "markers": ["commands"]
+    },
+    "mcp": {
+      "name": "MCP Server",
+      "detect": [
+        "mcp-server/",
+        "src/mcp_server.py",
+        "package.json:mcp"
+      ],
+      "templates": [
+        "test_protocol.py.j2",
+        "test_tools.py.j2",
+        "test_resources.py.j2",
+        "test_errors.py.j2",
+        "conftest.py.j2"
+      ],
+      "variables": {
+        "server_name": {
+          "source": "manifest:name",
+          "description": "MCP server name",
+          "required": true
+        },
+        "tools": {
+          "source": "manifest:tools",
+          "description": "List of MCP tools exposed",
+          "required": true
+        },
+        "resources": {
+          "source": "manifest:resources",
+          "description": "List of MCP resources",
+          "required": false
+        },
+        "transport": {
+          "source": "config:transport",
+          "description": "Transport type (stdio, http)",
+          "required": false,
+          "default": "stdio"
+        }
+      },
+      "markers": []
+    }
+  },
+  "shared": {
+    "templates": [
+      "_base/conftest_shared.py.j2",
+      "_base/helpers.py.j2",
+      "_base/bash_header.sh.j2"
+    ],
+    "variables": {
+      "project_name": {
+        "description": "Project name (available to all templates)",
+        "required": true
+      },
+      "project_type": {
+        "description": "Detected project type",
+        "required": true
+      },
+      "test_dir": {
+        "description": "Output directory for generated tests",
+        "required": true,
+        "default": "tests/"
+      },
+      "markers": {
+        "description": "Available pytest markers from pyproject.toml",
+        "required": false
+      }
+    }
+  }
+}

@@ -1,3 +1,7 @@
+---
+description: "/craft:hub - Command Discovery Hub"
+---
+
 # /craft:hub - Command Discovery Hub
 
 > **v2.5.0 Update**: Added `--orch` flag for quick orchestration across 5 key commands: `/craft:do`, `/craft:workflow:brainstorm`, `/craft:check`, `/craft:docs:sync`, `/craft:ci:generate`.
@@ -70,7 +74,7 @@ Display template:
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  CRAFT - Full Stack Developer Toolkit v2.21.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
-> **111 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
+> **107 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
 ├─────────────────────────────────────────────────────────────────────────┤
 │ ⚡ SMART COMMANDS (Start Here):                                         │
 │    /craft:do <task>     Universal command - AI routes to best workflow │
@@ -85,10 +89,10 @@ Display template:
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │ 💻 CODE ([CODE_COUNT])              🧪 TEST ([TEST_COUNT])             │
-│   /craft:code:debug                /craft:test:run [mode]               │
-│   /craft:code:demo                 /craft:test:watch                    │
-│   /craft:code:docs-check           /craft:test:coverage                 │
-│   /craft:code:refactor             /craft:test:debug                    │
+│   /craft:code:debug                /craft:test [mode]                   │
+│   /craft:code:demo                 /craft:test --watch                  │
+│   /craft:code:docs-check           /craft:test --coverage               │
+│   /craft:code:refactor             /craft:test debug                    │
 │   /craft:code:release                                                   │
 │   /craft:code:test-gen           🏗️ ARCH ([ARCH_COUNT])                 │
 │   /craft:code:lint [mode]          /craft:arch:analyze [mode]           │
@@ -120,7 +124,7 @@ Display template:
 │    /craft:do "fix bug"          /craft:check --for pr                    │
 │    /craft:do "add auth" --orch=optimize  NEW (v2.5.0) Quick orchestration│
 │    /brainstorm d:5 "auth"       /craft:help testing                      │
-│    /craft:test:run debug        /craft:arch:analyze                      │
+│    /craft:test debug            /craft:arch:analyze                      │
 │    /craft:git:sync                                                        │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -239,9 +243,9 @@ Display template:
 │                                                                 │
 ├─────────────────────────────────────────────────────────────────┤
 │ 💡 Common Workflows:                                            │
-│   • Pre-commit: lint → test:run → ci-local                     │
-│   • Debug: debug → test:debug → coverage                       │
-│   • Release: deps-audit → test:run release → release           │
+│   • Pre-commit: lint → test → ci-local                         │
+│   • Debug: debug → test debug → coverage                       │
+│   • Release: deps-audit → test release → release               │
 │                                                                 │
 │ 🔙 Back to hub: /craft:hub                                      │
 │ 📚 Learn more: /craft:hub code:[command]                        │
@@ -324,7 +328,7 @@ The `generate_command_tutorial()` function creates a formatted display with:
 │                                                                 │
 │ Pre-Commit:                                                     │
 │   1. /craft:code:lint                                           │
-│   2. /craft:test:run                                            │
+│   2. /craft:test                                                │
 │   3. git commit                                                 │
 │                                                                 │
 │ Debug Workflow:                                                 │
@@ -334,7 +338,7 @@ The `generate_command_tutorial()` function creates a formatted display with:
 │                                                                 │
 │ RELATED COMMANDS                                                │
 │ ────────────────                                                │
-│   /craft:test:run        Run tests                             │
+│   /craft:test            Run tests                             │
 │   /craft:code:ci-local   Full CI checks                        │
 │   /craft:check           Universal validation                  │
 │                                                                 │
@@ -362,9 +366,9 @@ Intelligently routes your task to the right workflow:
 # Traditional routing (complexity-based)
  /craft:do initialize project    → git:init (interactive wizard)
  /craft:do add authentication    → arch:plan + code:test-gen + git:branch
- /craft:do fix login bug         → code:debug + test:run + test:debug
- /craft:do improve quality       → code:lint + test:coverage + code:refactor
- /craft:do prepare release       → deps-audit + test:run release + code:release
+ /craft:do fix login bug         → code:debug + test + test debug
+ /craft:do improve quality       → code:lint + test --coverage + code:refactor
+ /craft:do prepare release       → deps-audit + test release + code:release
 
 # NEW (v2.5.0) - Quick orchestration with --orch flag
 /craft:do "add feature X" --orch           # Orchestrate with mode prompt
@@ -417,10 +421,10 @@ Many commands support modes for different use cases:
 /craft:code:lint debug          # verbose with fix suggestions
 /craft:code:lint release        # comprehensive with security
 
-/craft:test:run                 # quick smoke tests
-/craft:test:run debug           # verbose with traces
-/craft:test:run optimize        # parallel execution
-/craft:test:run release         # full suite with coverage
+/craft:test                     # quick smoke tests
+/craft:test debug               # verbose with traces
+/craft:test optimize            # parallel execution
+/craft:test release             # full suite with coverage
 
 /craft:arch:analyze             # quick overview
 /craft:arch:analyze debug       # deep pattern analysis
@@ -454,14 +458,16 @@ Command                  │ Description                    │ Modes
 ### `/craft:hub test`
 
 ```
-🧪 TEST COMMANDS (4) - Testing & Quality
+🧪 TEST COMMANDS - Testing & Quality
 ─────────────────────────────────────────────────────────────────────────
 Command                  │ Description                    │ Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
-/craft:test:run          │ Unified test runner            │ ✓
-/craft:test:watch        │ Watch mode (re-run on change)  │ -
-/craft:test:coverage     │ Coverage analysis              │ ✓
-/craft:test:debug        │ Debug failing tests            │ -
+/craft:test              │ Unified test runner            │ ✓
+/craft:test --watch      │ Watch mode (re-run on change)  │ -
+/craft:test --coverage   │ Coverage analysis              │ ✓
+/craft:test debug        │ Debug failing tests            │ -
+/craft:test:gen          │ Generate test files            │ -
+/craft:test:gen cli      │ CLI-driven test generation     │ -
 ─────────────────────────────────────────────────────────────────────────
 ```
 
@@ -674,7 +680,7 @@ Command                           │ Description
 
   /craft:do "run all checks"  Smart workflow
   /craft:code:lint            Run ruff/flake8
-  /craft:test:run             Run pytest
+  /craft:test                 Run pytest
   /craft:code:ci-local        Pre-push validation
   /craft:code:release         PyPI release workflow
 ```
@@ -685,7 +691,7 @@ Command                           │ Description
 💡 SUGGESTED FOR R PACKAGE:
 
   /craft:do "check package"   Smart workflow
-  /craft:test:run             Run testthat
+  /craft:test                 Run testthat
   /craft:code:release         CRAN submission prep
   /craft:site:init            Setup pkgdown/altdoc
   /craft:arch:analyze         Check package structure
@@ -698,7 +704,7 @@ Command                           │ Description
 
   /craft:do "validate all"    Smart workflow
   /craft:code:lint            Run ESLint/Prettier
-  /craft:test:run             Run Jest/Vitest
+  /craft:test                 Run Jest/Vitest
   /craft:code:deps-audit      Security scan
   /craft:code:release         npm publish workflow
 ```
@@ -707,7 +713,7 @@ Command                           │ Description
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-> Full-stack developer toolkit for Claude Code — 111 commands, 8 agents, 25 skills
+> Full-stack developer toolkit for Claude Code — 107 commands, 8 agents, 25 skills
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   → AI routes to best workflow                     │
@@ -728,7 +734,7 @@ Command                           │ Description
 │   /brainstorm d:20 "complex"       → Unlimited with milestone prompts │
 │                                                                        │
 │ Development Workflow:                                                  │
-│   /craft:code:lint [mode] → /craft:test:run [mode] →                  │
+│   /craft:code:lint [mode] → /craft:test [mode] →                      │
 │   /craft:code:coverage → /craft:code:ci-local → /craft:git:sync       │
 │                                                                        │
 │ Architecture:                                                          │
@@ -741,7 +747,7 @@ Command                           │ Description
 │                                                                        │
 │ Before Release:                                                        │
 │   /craft:check --for release  OR                                       │
-│   /craft:code:deps-audit → /craft:test:run release →                  │
+│   /craft:code:deps-audit → /craft:test release →                      │
 │   /craft:docs:changelog → /craft:code:release                          │
 │                                                                        │
 │ Instruction System (v2.22.0):                                         │

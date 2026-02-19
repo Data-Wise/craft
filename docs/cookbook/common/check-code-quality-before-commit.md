@@ -165,7 +165,7 @@ The command is smart about what to run and fails fast if critical issues are fou
 - **Run only tests:**
 
   ```bash
-  /craft:test:run
+  /craft:test
   ```
 
   Use when you want to run tests without linting
@@ -199,7 +199,7 @@ The command is smart about what to run and fails fast if critical issues are fou
 | Issue | Solution |
 |-------|----------|
 | "Linter not found" | Install project-specific linter (eslint, flake8, lintr) |
-| "Tests failed" | Fix failing tests before committing; use `/craft:test:run` to run tests only |
+| "Tests failed" | Fix failing tests before committing; use `/craft:test` to run tests only |
 | "Broken links detected" | Fix or remove broken links; use `/craft:site:check` for detailed link report |
 | "Command runs too slowly" | Use `optimize` mode: `/craft:check optimize` |
 | "Check passes but CI fails" | CI might run additional checks; use `/craft:code:ci-local` to match CI environment |

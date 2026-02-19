@@ -12,10 +12,14 @@ import sys
 import tempfile
 from pathlib import Path
 
+import pytest
+
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from commands.utils.teaching_validation import validate_teaching_content
+
+pytestmark = [pytest.mark.e2e, pytest.mark.teaching]
 
 
 def create_demo_course(scenario: str) -> Path:

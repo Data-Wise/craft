@@ -1,3 +1,8 @@
+---
+description: Sprint Planning
+category: plan
+---
+
 # Sprint Planning
 
 Plan and organize work for upcoming sprint.

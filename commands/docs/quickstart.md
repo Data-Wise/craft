@@ -1,3 +1,8 @@
+---
+description: "/craft:docs:quickstart - Quick Start Generator"
+category: docs
+---
+
 # /craft:docs:quickstart - Quick Start Generator
 
 Generate a 5-minute quickstart guide for any project.

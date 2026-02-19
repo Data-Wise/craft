@@ -16,6 +16,8 @@ import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+pytestmark = [pytest.mark.integration, pytest.mark.brainstorm]
+
 
 class TestBrainstormPhase1Integration:
     """End-to-end tests for Phase 1 features."""

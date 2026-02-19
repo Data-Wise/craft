@@ -1,3 +1,8 @@
+---
+description: Git Commands Learning Guide
+category: git
+---
+
 # Git Commands Learning Guide
 
 **ADHD-Optimized Learning System for Claude Code Git Workflow**

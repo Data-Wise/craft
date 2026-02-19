@@ -11,6 +11,8 @@ import tempfile
 from pathlib import Path
 import pytest
 
+pytestmark = [pytest.mark.integration, pytest.mark.docs]
+
 
 class TestMD030ListSpacing:
     """Tests for MD030 rule (spaces after list markers)."""

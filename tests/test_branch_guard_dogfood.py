@@ -17,6 +17,10 @@ import time
 import unittest
 from pathlib import Path
 
+import pytest
+
+pytestmark = [pytest.mark.e2e, pytest.mark.branch_guard]
+
 
 # ---------------------------------------------------------------------------
 # Constants

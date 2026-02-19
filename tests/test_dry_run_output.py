@@ -8,6 +8,8 @@ Tests the dry-run output utility functions, data models, and formatting.
 import sys
 import os
 
+import pytest
+
 # Add parent directory to path to import utils
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
@@ -22,6 +24,8 @@ from utils.dry_run_output import (
     OperationPlan,
     _wrap_text
 )
+
+pytestmark = [pytest.mark.integration, pytest.mark.orchestrator]
 
 
 def test_render_basic_preview():

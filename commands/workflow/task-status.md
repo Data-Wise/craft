@@ -1,3 +1,8 @@
+---
+description: /task-status - Background Task Status
+category: workflow
+---
+
 # /task-status - Background Task Status
 
 Check status of background tasks launched by workflow commands.

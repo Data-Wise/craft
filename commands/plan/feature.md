@@ -1,3 +1,8 @@
+---
+description: Feature Planning
+category: plan
+---
+
 # Feature Planning
 
 Plan and scope new features with structured breakdown.

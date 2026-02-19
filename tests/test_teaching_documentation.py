@@ -10,6 +10,10 @@ import os
 import re
 from pathlib import Path
 
+import pytest
+
+pytestmark = [pytest.mark.unit, pytest.mark.teaching]
+
 # Test configuration
 DOCS_DIR = Path(__file__).parent.parent / "docs"
 COMMANDS_DIR = Path(__file__).parent.parent / "commands"

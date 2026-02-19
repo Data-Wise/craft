@@ -8,7 +8,7 @@ Full spec: `docs/specs/SPEC-claude-md-refactor-2026-02-18.md`
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**111 commands** · **25 skills** · **8 agents** · **30 specs** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**107 commands** · **25 skills** · **8 agents** · **30 specs** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 **Current Version:** v2.21.0 | **Tests:** ~1575 passing, 90%+ coverage
 
@@ -45,7 +45,7 @@ Override: `/craft:git:unprotect` (session-scoped, auto-expires)
 
 | Task | Command |
 |------|---------|
-| Run unit tests | `python3 tests/test_craft_plugin.py` |
+| Run unit tests | `python3 tests/test_craft_plugin.py` or `/craft:test unit` |
 | Integration tests | `python3 tests/test_integration_*.py` |
 | Dependency tests | `bash tests/test_dependency_management.sh` |
 | Validate counts | `./scripts/validate-counts.sh` |

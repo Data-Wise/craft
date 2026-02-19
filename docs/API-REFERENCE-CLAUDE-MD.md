@@ -577,7 +577,7 @@ new_content = """
 
 | Task | Command |
 |------|---------|
-| Test | /craft:test:run |
+| Test | /craft:test |
 | Lint | /craft:code:lint |
 """
 

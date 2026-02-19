@@ -247,7 +247,7 @@ Run a local install/uninstall cycle to verify the plugin works via marketplace.
 │ Step 2: Install (local) .................. PASSED            │
 │ Step 3: Plugin visible ................... PASSED            │
 │ Step 4: Commands discoverable ............ FAILED            │
-│   Expected 111 commands, found 0                            │
+│   Expected 107 commands, found 0                            │
 │   Check plugin.json and command file paths                  │
 ├─────────────────────────────────────────────────────────────┤
 │ Step 5: Uninstall ........................ PASSED            │

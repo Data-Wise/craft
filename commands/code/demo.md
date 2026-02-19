@@ -1,3 +1,8 @@
+---
+description: Code Demonstration
+category: code
+---
+
 # Code Demonstration
 
 Create working code demonstrations and examples.

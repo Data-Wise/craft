@@ -603,7 +603,7 @@ Thorough mode automatically parallelizes:
 | Command                 | Purpose                                   |
 | ----------------------- | ----------------------------------------- |
 | `/craft:code:lint`      | Code quality only                         |
-| `/craft:test:run`       | Testing only                              |
+| `/craft:test`       | Testing only                              |
 | `/craft:docs:check`     | Documentation only                        |
 | `/craft:check:deps`     | Dependencies only                         |
 | `/craft:check --fix`    | Auto-fix safe issues                      |

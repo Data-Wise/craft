@@ -1272,9 +1272,9 @@ If the session disconnects mid-orchestration:
 
 | User Says | Route To |
 |-----------|----------|
-| "test this" | `/craft:test:run` |
+| "test this" | `/craft:test` |
 | "check before commit" | `/craft:check` |
-| "add tests for X" | `/craft:test:gen` → `/craft:test:run` |
+| "add tests for X" | `/craft:test:gen` → `/craft:test` |
 | "review architecture" | `/craft:arch:analyze` |
 | "plan feature X" | `/craft:plan:feature` |
 | "document this" | `/craft:docs:sync` |

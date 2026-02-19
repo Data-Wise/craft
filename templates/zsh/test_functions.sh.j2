@@ -1,0 +1,25 @@
+{% include '_base/bash_header.sh.j2' %}
+
+echo "=== {{ project_name }} Function Tests ==="
+
+# Source the plugin
+source "${PROJECT_DIR}/{{ plugin_file }}" 2>/dev/null || {
+    echo "ERROR: Cannot source {{ plugin_file }}"
+    exit 1
+}
+{% for func in functions %}
+
+# Test: {{ func }} is defined
+if type {{ func }} &>/dev/null; then
+    pass_test "{{ func }} is defined"
+else
+    fail_test "{{ func }} is defined" "function not found after sourcing"
+fi
+{% endfor %}
+{% if functions | length == 0 %}
+
+# No functions detected — verify plugin sources cleanly
+pass_test "Plugin sources without defining functions (expected)"
+{% endif %}
+
+summary

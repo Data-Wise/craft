@@ -29,8 +29,8 @@ Get intelligent help based on your project and question.
 │                                                     │
 │ Development:                                        │
 │   /craft:code:lint         ruff, flake8 checks     │
-│   /craft:test:run          pytest runner           │
-│   /craft:test:coverage     coverage report         │
+│   /craft:test          pytest runner           │
+│   /craft:test --coverage     coverage report         │
 │                                                     │
 │ Quality:                                            │
 │   /craft:code:deps-audit   pip-audit security      │
@@ -49,7 +49,7 @@ Get intelligent help based on your project and question.
 ╭─ Suggested Commands for R Package ──────────────────╮
 │                                                     │
 │ Development:                                        │
-│   /craft:test:run          testthat runner         │
+│   /craft:test          testthat runner         │
 │   /craft:code:lint         lintr checks            │
 │   /craft:code:docs-check   roxygen2 validation     │
 │                                                     │
@@ -85,9 +85,9 @@ Get intelligent help based on your project and question.
 ╭─ Tests are failing ─────────────────────────────────╮
 │                                                     │
 │ Suggested:                                          │
-│   /craft:test:debug        Debug the failures      │
+│   /craft:test debug        Debug the failures      │
 │   /craft:code:debug        Investigate root cause  │
-│   /craft:test:run debug    Verbose test output     │
+│   /craft:test --coverage   Check test coverage     │
 │                                                     │
 ╰─────────────────────────────────────────────────────╯
 ```
@@ -167,20 +167,20 @@ Get intelligent help based on your project and question.
 
 ╭─ Testing Commands ──────────────────────────────────╮
 │                                                     │
-│ /craft:test:run [mode]     Run tests               │
+│ /craft:test [mode]     Run tests               │
 │   Modes: default, debug, optimize, release         │
 │                                                     │
-│ /craft:test:watch          Watch mode              │
+│ /craft:test --watch        Watch mode              │
 │   Re-runs tests when files change                  │
 │                                                     │
-│ /craft:test:coverage       Coverage analysis       │
+│ /craft:test --coverage     Coverage analysis       │
 │   Shows untested code paths                        │
 │                                                     │
-│ /craft:test:debug          Debug failures          │
+│ /craft:test debug          Debug failures          │
 │   Step through failing tests                       │
 │                                                     │
 │ Related:                                            │
-│   /craft:code:test-gen     Generate test files     │
+│   /craft:test:gen          Generate test files     │
 │   /craft:code:ci-local     Run full CI checks      │
 │                                                     │
 ╰─────────────────────────────────────────────────────╯
@@ -212,7 +212,7 @@ Get intelligent help based on your project and question.
 
 ```bash
 /craft:help "how do I run tests?"
-→ Use /craft:test:run to run your test suite
+→ Use /craft:test to run your test suite
 
 /craft:help "how do I prepare a release?"
 → Use /craft:code:release for the full release workflow

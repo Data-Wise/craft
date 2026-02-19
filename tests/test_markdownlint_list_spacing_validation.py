@@ -11,6 +11,10 @@ import sys
 import tempfile
 from pathlib import Path
 
+import pytest
+
+pytestmark = [pytest.mark.integration, pytest.mark.docs]
+
 
 class TestConfigValidity:
     """Tests for .markdownlint.json validity."""

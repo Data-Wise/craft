@@ -21,6 +21,8 @@ from utils.orch_flag_handler import (
     MODE_DESCRIPTIONS,
 )
 
+pytestmark = [pytest.mark.integration, pytest.mark.orchestrator]
+
 
 def test_orch_flag_disabled():
     """Test --orch not present"""

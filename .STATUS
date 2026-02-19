@@ -1,37 +1,37 @@
 status: Active
 version: 2.21.0
 release_date: 2026-02-16
-milestone: Three feature branches WIP
-last_session: 2026-02-18
+milestone: v2.22.0 in progress — Unified Test System + CLAUDE.md Refactor
+last_session: 2026-02-19
 
-progress: v2.21.0 released — CLAUDE.md refactor complete (Phases 1-4), two more features WIP
+progress: v2.22.0 in progress — Test consolidation (7→3 commands), CLAUDE.md layered architecture, insights-driven friction prevention
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                     |
-|--------|---------|------|----------------------------|
-| main   | 76054e4 | —    | Production (v2.21.0)       |
-| dev    | 6c5ffd2 | main | 5 commits ahead            |
-| feature/test-gen-refactor | 950dc5a | dev | WIP — worktree at ~/.git-worktrees/craft/feature-test-gen-refactor |
-| feature/claude-md-refactor | accda99 | dev | PR ready — CLAUDE.md refactor (Phases 1-4 complete) |
-| feature/insights-integration | fb43ff0 | dev | WIP — worktree at ~/.git-worktrees/craft/feature-insights-integration |
+| Branch | Head    | Base | Status                               |
+|--------|---------|------|--------------------------------------|
+| main   | 76054e4 | —    | Production (v2.21.0)                 |
+| dev    | merging | main | PR #83 merged, #82 and #84 in progress |
+| feature/test-gen-refactor | rebasing | dev | Increments 1-3 complete, docs updated |
+| feature/insights-integration | pending | dev | 6 new scripts, friction detection |
 
-🔧 WIP: feature/test-gen-refactor
-- Spec: approved (SPEC-test-gen-refactor-2026-02-18.md)
-- ORCHESTRATE: 5 increments (test consolidation, command unification, project templates, CI integration, dogfood)
-- Status: Not started — ORCHESTRATE committed, awaiting implementation
+✅ Session 2026-02-19 (merging 3 feature branches to dev):
+- PR #83 merged: CLAUDE.md layered instruction system (Phases 1-4)
+- PR #82 rebasing: test consolidation (7→3 commands, Jinja2 templates)
+- PR #84 pending: insights-driven friction prevention (6 scripts)
 
-🔧 WIP: feature/claude-md-refactor
-- Spec: approved (SPEC-claude-md-refactor-2026-02-18.md)
-- ORCHESTRATE: 5 phases (quick wins, global layering, craft layering, workflow integration, per-project rules)
-- Status: Phases 1-4 complete, Phase 5 deferred (LOW priority)
-- Result: Context budget reduced from ~8300 to ~4000 tokens/session
+✅ Session 2026-02-19 (test-gen-refactor docs update):
+- Bulk updated 40+ files: 111→107 commands, old test command refs, CLAUDE.md, README
+- Fixed 3 duplicate mkdocs.yml nav entries (176 unique entries)
+- Added CHANGELOG.md and VERSION-HISTORY.md entries for v2.22.0
+- Verified: 107 commands, 25 skills, 8 agents via validate-counts.sh
 
-🔧 WIP: feature/insights-integration
-- Spec: draft (SPEC-insights-integration-2026-02-18.md)
-- ORCHESTRATE: 6 phases (action-verb rule, version sync, check enhancements, CI monitoring, doc-sync, documentation)
-- Status: Not started — ORCHESTRATE committed, awaiting implementation
-- Source: Claude Code Insights report (341 sessions analyzed)
+✅ Session 2026-02-18 (test-gen-refactor increments 1-3):
+- Increment 1: pytest markers (25 markers, two-dimensional filtering)
+- Increment 2: CheckResult dataclass migration across all test files
+- Increment 3: Jinja2 template engine (27 templates, 4 project types, 865-line generator)
+- Dogfooded test:gen templates against craft's own test suite
+- PR #82 open targeting dev (15 commits)
 
 ✅ Session 2026-02-18 (CLAUDE.md refactor Phases 1-4):
 - Phase 1: Fixed stale counts, archived enforcement doc, promoted rules to spec-only-mode.md
@@ -46,7 +46,6 @@ progress: v2.21.0 released — CLAUDE.md refactor complete (Phases 1-4), two mor
 - Created specs: test-gen-refactor + claude-md-refactor (both approved)
 - Created worktrees + ORCHESTRATE files for both features
 - Added ORCHESTRATE cleanup to worktree finish workflow (9 doc files updated)
-- Unignored ORCHESTRATE-*.md in .gitignore
 - Deep brainstorm on insights-driven command updates (16 expert questions)
 - Created spec + worktree + ORCHESTRATE for insights-integration
 
@@ -56,7 +55,7 @@ progress: v2.21.0 released — CLAUDE.md refactor complete (Phases 1-4), two mor
 - Rebased onto dev, resolved 12 file conflicts from v2.20.0 homebrew refactor
 - Fixed version refs: feature-specific v2.20.0 → v2.21.0 across 11 files
 - Homebrew tap updated: craft v2.21.0
-- Stats: 111 commands, 25 skills, 8 agents, ~1575 tests passing
+- Stats: 107 commands, 25 skills, 8 agents, ~1575 tests passing
 
 ✅ Session 2026-02-15 (homebrew timeout hardening):
 - Added 30s timeout to post_install in all 3 plugin formulas (craft, rforge, scholar)
@@ -68,13 +67,10 @@ progress: v2.21.0 released — CLAUDE.md refactor complete (Phases 1-4), two mor
 ---
 
 🎯 Next Action:
-→ Create PR for feature/claude-md-refactor to dev
-→ Or start Increment 1 of test-gen-refactor (test consolidation)
+→ Finish merging PR #82 and #84 to dev, then prepare v2.22.0 release
 
 ## Future (v2.22.0+)
 
-- CLAUDE.md & memory refactor (feature/claude-md-refactor)
-- Test gen refactor (feature/test-gen-refactor)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)

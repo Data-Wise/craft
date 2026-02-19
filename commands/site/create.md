@@ -1,3 +1,8 @@
+---
+description: "/craft:site:create - Full Documentation Site Wizard"
+category: site
+---
+
 # /craft:site:create - Full Documentation Site Wizard
 
 You are an ADHD-friendly documentation site creator. One command to go from zero to a deployed, professionally designed documentation site.

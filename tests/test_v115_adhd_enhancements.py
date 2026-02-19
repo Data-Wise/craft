@@ -20,37 +20,19 @@ Run with: python tests/test_v115_adhd_enhancements.py
 import json
 import os
 import re
-from dataclasses import dataclass
-from datetime import datetime
 from pathlib import Path
 
 import pytest
 from typing import List, Optional, Tuple
 
-
-@dataclass
-class CheckResult:
-    name: str
-    passed: bool
-    duration_ms: float
-    details: str
-    category: str = "adhd"
-
-
-def log(msg: str) -> None:
-    """Print with timestamp."""
-    ts = datetime.now().strftime("%H:%M:%S.%f")[:-3]
-    print(f"[{ts}] {msg}")
+pytestmark = [pytest.mark.integration, pytest.mark.orchestrator]
 
 
 # ─── Phase 1 Tests: Quick Wins ───────────────────────────────────────────────
 
 
-def _check_tldr_boxes_present() -> CheckResult:
+def test_tldr_boxes_present():
     """Test that TL;DR boxes are present on major pages."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     docs_dir = plugin_dir / "docs"
 
@@ -87,36 +69,16 @@ def _check_tldr_boxes_present() -> CheckResult:
         if not re.search(tldr_pattern, content):
             invalid_format.append(page_path)
 
-    duration = (time.time() - start) * 1000
-
-    if missing or invalid_format:
-        details = []
-        if missing:
-            details.append(f"Missing pages: {', '.join(missing)}")
-        if invalid_format:
-            details.append(f"Invalid TL;DR format: {', '.join(invalid_format)}")
-        return CheckResult(
-            "TL;DR Boxes Present",
-            False,
-            duration,
-            "; ".join(details),
-            "phase1"
-        )
-
-    return CheckResult(
-        "TL;DR Boxes Present",
-        True,
-        duration,
-        f"{len(required_pages)} pages with valid TL;DR boxes",
-        "phase1"
-    )
+    details = []
+    if missing:
+        details.append(f"Missing pages: {', '.join(missing)}")
+    if invalid_format:
+        details.append(f"Invalid TL;DR format: {', '.join(invalid_format)}")
+    assert not (missing or invalid_format), "; ".join(details)
 
 
-def _check_time_estimates_in_tutorials() -> CheckResult:
+def test_time_estimates_in_tutorials():
     """Test that tutorials have time estimates."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     docs_dir = plugin_dir / "docs"
 
@@ -146,31 +108,11 @@ def _check_time_estimates_in_tutorials() -> CheckResult:
         if not re.search(time_pattern, content):
             missing_estimate.append(page_path)
 
-    duration = (time.time() - start) * 1000
-
-    if missing_estimate:
-        return CheckResult(
-            "Time Estimates in Tutorials",
-            False,
-            duration,
-            f"Missing time estimates: {', '.join(missing_estimate)}",
-            "phase1"
-        )
-
-    return CheckResult(
-        "Time Estimates in Tutorials",
-        True,
-        duration,
-        f"{len(tutorial_pages) - len(missing_estimate)} tutorials with time estimates",
-        "phase1"
-    )
+    assert not missing_estimate, f"Missing time estimates: {', '.join(missing_estimate)}"
 
 
-def _check_mermaid_syntax_valid() -> CheckResult:
+def test_mermaid_syntax_valid():
     """Test that all mermaid diagrams have valid syntax."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     docs_dir = plugin_dir / "docs"
 
@@ -199,45 +141,18 @@ def _check_mermaid_syntax_valid() -> CheckResult:
                     # This is good - interactive diagrams
                     pass
 
-    duration = (time.time() - start) * 1000
-
-    if errors:
-        return CheckResult(
-            "Mermaid Syntax Valid",
-            False,
-            duration,
-            "; ".join(errors[:5]),  # Limit to first 5 errors
-            "phase1"
-        )
-
-    return CheckResult(
-        "Mermaid Syntax Valid",
-        True,
-        duration,
-        "All mermaid diagrams have valid syntax",
-        "phase1"
-    )
+    assert not errors, "; ".join(errors[:5])
 
 
 # ─── Phase 2 Tests: Structure ────────────────────────────────────────────────
 
 
-def _check_visual_workflows_page_exists() -> CheckResult:
+def test_visual_workflows_page_exists():
     """Test that workflows/index.md exists with 5 diagrams."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     workflows_page = plugin_dir / "docs" / "workflows" / "index.md"
 
-    if not workflows_page.exists():
-        return CheckResult(
-            "Visual Workflows Page Exists",
-            False,
-            0,
-            "workflows/index.md not found",
-            "phase2"
-        )
+    assert workflows_page.exists(), "workflows/index.md not found"
 
     content = workflows_page.read_text()
 
@@ -255,51 +170,16 @@ def _check_visual_workflows_page_exists() -> CheckResult:
 
     missing_workflows = [w for w in expected_workflows if w not in content]
 
-    duration = (time.time() - start) * 1000
-
-    if diagram_count < 5:
-        return CheckResult(
-            "Visual Workflows Page Exists",
-            False,
-            duration,
-            f"Only {diagram_count} diagrams found, expected 5+",
-            "phase2"
-        )
-
-    if missing_workflows:
-        return CheckResult(
-            "Visual Workflows Page Exists",
-            False,
-            duration,
-            f"Missing workflows: {', '.join(missing_workflows)}",
-            "phase2"
-        )
-
-    return CheckResult(
-        "Visual Workflows Page Exists",
-        True,
-        duration,
-        f"Found {diagram_count} workflow diagrams",
-        "phase2"
-    )
+    assert diagram_count >= 5, f"Only {diagram_count} diagrams found, expected 5+"
+    assert not missing_workflows, f"Missing workflows: {', '.join(missing_workflows)}"
 
 
-def _check_navigation_flattened() -> CheckResult:
+def test_navigation_flattened():
     """Test that navigation has ADHD features promoted to top-level."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     mkdocs_yml = plugin_dir / "mkdocs.yml"
 
-    if not mkdocs_yml.exists():
-        return CheckResult(
-            "Navigation Flattened",
-            False,
-            0,
-            "mkdocs.yml not found",
-            "phase2"
-        )
+    assert mkdocs_yml.exists(), "mkdocs.yml not found"
 
     content = mkdocs_yml.read_text()
 
@@ -323,40 +203,12 @@ def _check_navigation_flattened() -> CheckResult:
     else:
         top_level_count = 0
 
-    duration = (time.time() - start) * 1000
-
-    if missing:
-        return CheckResult(
-            "Navigation Flattened",
-            False,
-            duration,
-            f"Missing nav items: {', '.join(missing)}",
-            "phase2"
-        )
-
-    if top_level_count > 8:
-        return CheckResult(
-            "Navigation Flattened",
-            False,
-            duration,
-            f"Too many top-level items: {top_level_count} (max 8 for ADHD)",
-            "phase2"
-        )
-
-    return CheckResult(
-        "Navigation Flattened",
-        True,
-        duration,
-        f"ADHD-friendly nav with {top_level_count} top-level items",
-        "phase2"
-    )
+    assert not missing, f"Missing nav items: {', '.join(missing)}"
+    assert top_level_count <= 8, f"Too many top-level items: {top_level_count} (max 8 for ADHD)"
 
 
-def _check_callout_boxes_present() -> CheckResult:
+def test_callout_boxes_present():
     """Test that visual callout boxes are present."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     docs_dir = plugin_dir / "docs"
 
@@ -392,54 +244,20 @@ def _check_callout_boxes_present() -> CheckResult:
             pages_with_callouts += 1
             total_callouts += page_callouts
 
-    duration = (time.time() - start) * 1000
-
-    if total_callouts < 10:
-        return CheckResult(
-            "Callout Boxes Present",
-            False,
-            duration,
-            f"Only {total_callouts} callouts found, expected 10+",
-            "phase2"
-        )
-
-    return CheckResult(
-        "Callout Boxes Present",
-        True,
-        duration,
-        f"{total_callouts} callout boxes across {pages_with_callouts} pages",
-        "phase2"
-    )
+    assert total_callouts >= 10, f"Only {total_callouts} callouts found, expected 10+"
 
 
-def _check_homepage_card_layout() -> CheckResult:
+def test_homepage_card_layout():
     """Test that homepage uses card-based layout."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     index_page = plugin_dir / "docs" / "index.md"
 
-    if not index_page.exists():
-        return CheckResult(
-            "Homepage Card Layout",
-            False,
-            0,
-            "index.md not found",
-            "phase2"
-        )
+    assert index_page.exists(), "index.md not found"
 
     content = index_page.read_text()
 
     # Check for card grid markup
-    if '<div class="grid cards" markdown>' not in content:
-        return CheckResult(
-            "Homepage Card Layout",
-            False,
-            0,
-            "Card grid markup not found",
-            "phase2"
-        )
+    assert '<div class="grid cards" markdown>' in content, "Card grid markup not found"
 
     # Count card sections
     card_sections = len(re.findall(r'<div class="grid cards" markdown>', content))
@@ -452,43 +270,15 @@ def _check_homepage_card_layout() -> CheckResult:
     ]
 
     missing_sections = [s for s in expected_sections if s not in content]
-
-    duration = (time.time() - start) * 1000
-
-    if missing_sections:
-        return CheckResult(
-            "Homepage Card Layout",
-            False,
-            duration,
-            f"Missing sections: {', '.join(missing_sections)}",
-            "phase2"
-        )
-
-    return CheckResult(
-        "Homepage Card Layout",
-        True,
-        duration,
-        f"{card_sections} card grid sections with all expected content",
-        "phase2"
-    )
+    assert not missing_sections, f"Missing sections: {', '.join(missing_sections)}"
 
 
-def _check_interactive_mermaid_diagrams() -> CheckResult:
+def test_interactive_mermaid_diagrams():
     """Test that mermaid diagrams have clickable nodes."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     workflows_page = plugin_dir / "docs" / "workflows" / "index.md"
 
-    if not workflows_page.exists():
-        return CheckResult(
-            "Interactive Mermaid Diagrams",
-            False,
-            0,
-            "workflows/index.md not found",
-            "phase2"
-        )
+    assert workflows_page.exists(), "workflows/index.md not found"
 
     content = workflows_page.read_text()
 
@@ -498,45 +288,18 @@ def _check_interactive_mermaid_diagrams() -> CheckResult:
     # Count click statements (interactive nodes)
     total_clicks = sum(len(re.findall(r'click \w+', block)) for block in mermaid_blocks)
 
-    duration = (time.time() - start) * 1000
-
-    if total_clicks < 10:
-        return CheckResult(
-            "Interactive Mermaid Diagrams",
-            False,
-            duration,
-            f"Only {total_clicks} clickable nodes found, expected 10+",
-            "phase2"
-        )
-
-    return CheckResult(
-        "Interactive Mermaid Diagrams",
-        True,
-        duration,
-        f"{total_clicks} clickable nodes across {len(mermaid_blocks)} diagrams",
-        "phase2"
-    )
+    assert total_clicks >= 10, f"Only {total_clicks} clickable nodes found, expected 10+"
 
 
 # ─── Phase 3 Tests: Polish ───────────────────────────────────────────────────
 
 
-def _check_mobile_responsive_css() -> CheckResult:
+def test_mobile_responsive_css():
     """Test that mobile responsive CSS is present."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     css_file = plugin_dir / "docs" / "stylesheets" / "extra.css"
 
-    if not css_file.exists():
-        return CheckResult(
-            "Mobile Responsive CSS",
-            False,
-            0,
-            "extra.css not found",
-            "phase3"
-        )
+    assert css_file.exists(), "extra.css not found"
 
     content = css_file.read_text()
 
@@ -557,34 +320,11 @@ def _check_mobile_responsive_css() -> CheckResult:
         if not re.search(pattern, content, re.DOTALL):
             missing_features.append(feature_name)
 
-    duration = (time.time() - start) * 1000
-
-    if missing_features:
-        return CheckResult(
-            "Mobile Responsive CSS",
-            False,
-            duration,
-            f"Missing features: {', '.join(missing_features)}",
-            "phase3"
-        )
-
-    # Count total CSS lines added
-    css_lines = len(content.split('\n'))
-
-    return CheckResult(
-        "Mobile Responsive CSS",
-        True,
-        duration,
-        f"All responsive features present ({css_lines} total lines)",
-        "phase3"
-    )
+    assert not missing_features, f"Missing features: {', '.join(missing_features)}"
 
 
-def _check_progress_indicators() -> CheckResult:
+def test_progress_indicators():
     """Test that tutorials have progress indicators."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     docs_dir = plugin_dir / "docs"
 
@@ -592,7 +332,7 @@ def _check_progress_indicators() -> CheckResult:
     tutorial_pages = {
         "QUICK-START.md": 4,  # Expected number of progress indicators
         "ADHD-QUICK-START.md": 3,
-        "guide/getting-started.md": 5,
+        "guide/getting-started.md": 6,
     }
 
     missing_or_wrong = []
@@ -612,44 +352,15 @@ def _check_progress_indicators() -> CheckResult:
         if progress_count != expected_count:
             missing_or_wrong.append(f"{page_path} (has {progress_count}, expected {expected_count})")
 
-    duration = (time.time() - start) * 1000
-
-    if missing_or_wrong:
-        return CheckResult(
-            "Progress Indicators",
-            False,
-            duration,
-            "; ".join(missing_or_wrong),
-            "phase3"
-        )
-
-    total_indicators = sum(tutorial_pages.values())
-
-    return CheckResult(
-        "Progress Indicators",
-        True,
-        duration,
-        f"{total_indicators} progress indicators across {len(tutorial_pages)} tutorials",
-        "phase3"
-    )
+    assert not missing_or_wrong, "; ".join(missing_or_wrong)
 
 
-def _check_command_playground_exists() -> CheckResult:
+def test_command_playground_exists():
     """Test that PLAYGROUND.md exists with interactive scenarios."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     playground_page = plugin_dir / "docs" / "PLAYGROUND.md"
 
-    if not playground_page.exists():
-        return CheckResult(
-            "Command Playground Exists",
-            False,
-            0,
-            "PLAYGROUND.md not found",
-            "phase3"
-        )
+    assert playground_page.exists(), "PLAYGROUND.md not found"
 
     content = playground_page.read_text()
 
@@ -677,47 +388,20 @@ def _check_command_playground_exists() -> CheckResult:
         if element not in content:
             missing_elements.append(description)
 
-    duration = (time.time() - start) * 1000
-
-    if missing_scenarios or missing_elements:
-        errors = []
-        if missing_scenarios:
-            errors.append(f"Missing: {', '.join(missing_scenarios)}")
-        if missing_elements:
-            errors.append(f"Missing elements: {', '.join(missing_elements)}")
-        return CheckResult(
-            "Command Playground Exists",
-            False,
-            duration,
-            "; ".join(errors),
-            "phase3"
-        )
-
-    return CheckResult(
-        "Command Playground Exists",
-        True,
-        duration,
-        f"{len(expected_scenarios)} interactive scenarios with all required elements",
-        "phase3"
-    )
+    errors = []
+    if missing_scenarios:
+        errors.append(f"Missing: {', '.join(missing_scenarios)}")
+    if missing_elements:
+        errors.append(f"Missing elements: {', '.join(missing_elements)}")
+    assert not (missing_scenarios or missing_elements), "; ".join(errors)
 
 
-def _check_accessibility_documentation() -> CheckResult:
+def test_accessibility_documentation():
     """Test that ACCESSIBILITY.md exists and covers WCAG AA."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     accessibility_page = plugin_dir / "docs" / "ACCESSIBILITY.md"
 
-    if not accessibility_page.exists():
-        return CheckResult(
-            "Accessibility Documentation",
-            False,
-            0,
-            "ACCESSIBILITY.md not found",
-            "phase3"
-        )
+    assert accessibility_page.exists(), "ACCESSIBILITY.md not found"
 
     content = accessibility_page.read_text()
 
@@ -746,39 +430,19 @@ def _check_accessibility_documentation() -> CheckResult:
 
     missing_criteria = [c for c in wcag_criteria if c not in content]
 
-    duration = (time.time() - start) * 1000
-
-    if missing_sections or missing_criteria:
-        errors = []
-        if missing_sections:
-            errors.append(f"Missing sections: {', '.join(missing_sections[:3])}")
-        if missing_criteria:
-            errors.append(f"Missing WCAG criteria: {', '.join(missing_criteria)}")
-        return CheckResult(
-            "Accessibility Documentation",
-            False,
-            duration,
-            "; ".join(errors),
-            "phase3"
-        )
-
-    return CheckResult(
-        "Accessibility Documentation",
-        True,
-        duration,
-        f"Complete WCAG AA documentation with {len(required_sections)} sections",
-        "phase3"
-    )
+    errors = []
+    if missing_sections:
+        errors.append(f"Missing sections: {', '.join(missing_sections[:3])}")
+    if missing_criteria:
+        errors.append(f"Missing WCAG criteria: {', '.join(missing_criteria)}")
+    assert not (missing_sections or missing_criteria), "; ".join(errors)
 
 
 # ─── Integration Tests ───────────────────────────────────────────────────────
 
 
-def _check_adhd_score_algorithm() -> CheckResult:
+def test_adhd_score_algorithm():
     """Test ADHD score algorithm components are present."""
-    import time
-    start = time.time()
-
     plugin_dir = Path(__file__).parent.parent
     docs_dir = plugin_dir / "docs"
 
@@ -851,8 +515,6 @@ def _check_adhd_score_algorithm() -> CheckResult:
         emojis = len(re.findall(r'- [🚀🧠📊🎮📚]', nav_content))
         score_components["Visual Hierarchy (25%)"]["emojis_in_nav"] = emojis
 
-    duration = (time.time() - start) * 1000
-
     # Calculate simple pass/fail (all components should have values > 0)
     issues = []
     for category, metrics in score_components.items():
@@ -862,29 +524,12 @@ def _check_adhd_score_algorithm() -> CheckResult:
             elif isinstance(value, int) and value == 0:
                 issues.append(f"{category}: {metric} is 0")
 
-    if issues:
-        return CheckResult(
-            "ADHD Score Algorithm",
-            False,
-            duration,
-            "; ".join(issues[:3]),
-            "integration"
-        )
-
-    return CheckResult(
-        "ADHD Score Algorithm",
-        True,
-        duration,
-        f"All 5 score components have positive values",
-        "integration"
-    )
+    assert not issues, "; ".join(issues[:3])
 
 
-def _check_mkdocs_build_succeeds() -> CheckResult:
+def test_mkdocs_build_succeeds():
     """Test that mkdocs build --strict succeeds."""
-    import time
     import subprocess
-    start = time.time()
 
     plugin_dir = Path(__file__).parent.parent
 
@@ -896,228 +541,14 @@ def _check_mkdocs_build_succeeds() -> CheckResult:
             text=True,
             timeout=30
         )
-
-        duration = (time.time() - start) * 1000
-
-        if result.returncode != 0:
-            return CheckResult(
-                "MkDocs Build Succeeds",
-                False,
-                duration,
-                f"Build failed: {result.stderr[:200]}",
-                "integration"
-            )
-
-        # Check for ERROR-level issues (mkdocs format: "ERROR   -")
-        # Warnings are expected for unlisted pages and README.md conflicts
-        combined_output = result.stdout + result.stderr
-        if "ERROR   -" in combined_output:
-            return CheckResult(
-                "MkDocs Build Succeeds",
-                False,
-                duration,
-                f"Build has errors: {combined_output[:200]}",
-                "integration"
-            )
-
-        return CheckResult(
-            "MkDocs Build Succeeds",
-            True,
-            duration,
-            "Build succeeded",
-            "integration"
-        )
-
     except subprocess.TimeoutExpired:
-        return CheckResult(
-            "MkDocs Build Succeeds",
-            False,
-            30000,
-            "Build timeout after 30s",
-            "integration"
-        )
+        assert False, "Build timeout after 30s"
     except FileNotFoundError:
-        return CheckResult(
-            "MkDocs Build Succeeds",
-            False,
-            0,
-            "mkdocs command not found (skipping)",
-            "integration"
-        )
+        pytest.skip("mkdocs command not found (skipping)")
 
+    assert result.returncode == 0, f"Build failed: {result.stderr[:200]}"
 
-# ─── Pytest Wrappers ────────────────────────────────────────────────────────
-
-
-def test_tldr_boxes_present():
-    result = _check_tldr_boxes_present()
-    assert result.passed, result.details
-
-
-def test_time_estimates_in_tutorials():
-    result = _check_time_estimates_in_tutorials()
-    assert result.passed, result.details
-
-
-def test_mermaid_syntax_valid():
-    result = _check_mermaid_syntax_valid()
-    assert result.passed, result.details
-
-
-def test_visual_workflows_page_exists():
-    result = _check_visual_workflows_page_exists()
-    assert result.passed, result.details
-
-
-def test_navigation_flattened():
-    result = _check_navigation_flattened()
-    assert result.passed, result.details
-
-
-def test_callout_boxes_present():
-    result = _check_callout_boxes_present()
-    assert result.passed, result.details
-
-
-def test_homepage_card_layout():
-    result = _check_homepage_card_layout()
-    assert result.passed, result.details
-
-
-def test_interactive_mermaid_diagrams():
-    result = _check_interactive_mermaid_diagrams()
-    assert result.passed, result.details
-
-
-def test_mobile_responsive_css():
-    result = _check_mobile_responsive_css()
-    assert result.passed, result.details
-
-
-def test_progress_indicators():
-    result = _check_progress_indicators()
-    assert result.passed, result.details
-
-
-def test_command_playground_exists():
-    result = _check_command_playground_exists()
-    assert result.passed, result.details
-
-
-def test_accessibility_documentation():
-    result = _check_accessibility_documentation()
-    assert result.passed, result.details
-
-
-def test_adhd_score_algorithm():
-    result = _check_adhd_score_algorithm()
-    assert result.passed, result.details
-
-
-def test_mkdocs_build_succeeds():
-    result = _check_mkdocs_build_succeeds()
-    if 'not found' in result.details:
-        pytest.skip(result.details)
-    assert result.passed, result.details
-
-
-# ─── Test Runner ─────────────────────────────────────────────────────────────
-
-
-def run_all_tests() -> Tuple[List[CheckResult], int, int]:
-    """Run all v1.15.0 ADHD enhancement tests."""
-    tests = [
-        # Phase 1: Quick Wins
-        _check_tldr_boxes_present,
-        _check_time_estimates_in_tutorials,
-        _check_mermaid_syntax_valid,
-        # Phase 2: Structure
-        _check_visual_workflows_page_exists,
-        _check_navigation_flattened,
-        _check_callout_boxes_present,
-        _check_homepage_card_layout,
-        _check_interactive_mermaid_diagrams,
-        # Phase 3: Polish
-        _check_mobile_responsive_css,
-        _check_progress_indicators,
-        _check_command_playground_exists,
-        _check_accessibility_documentation,
-        # Integration
-        _check_adhd_score_algorithm,
-        _check_mkdocs_build_succeeds,
-    ]
-
-    results = []
-    passed = 0
-    failed = 0
-
-    log("=" * 80)
-    log("Craft Plugin v1.15.0 ADHD Enhancement Tests")
-    log("=" * 80)
-
-    for test_func in tests:
-        log(f"Running: {test_func.__name__}...")
-        result = test_func()
-        results.append(result)
-
-        if result.passed:
-            passed += 1
-            log(f"  ✅ PASS ({result.duration_ms:.1f}ms): {result.details}")
-        else:
-            failed += 1
-            log(f"  ❌ FAIL ({result.duration_ms:.1f}ms): {result.details}")
-
-    return results, passed, failed
-
-
-def print_summary(results: List[CheckResult], passed: int, failed: int) -> None:
-    """Print test summary by category."""
-    print("\n" + "=" * 80)
-    print("TEST SUMMARY")
-    print("=" * 80)
-
-    # Group by category
-    by_category = {}
-    for result in results:
-        if result.category not in by_category:
-            by_category[result.category] = []
-        by_category[result.category].append(result)
-
-    for category in ["phase1", "phase2", "phase3", "integration"]:
-        if category not in by_category:
-            continue
-
-        cat_results = by_category[category]
-        cat_passed = sum(1 for r in cat_results if r.passed)
-        cat_failed = sum(1 for r in cat_results if not r.passed)
-
-        print(f"\n{category.upper()}:")
-        print(f"  Passed: {cat_passed}/{len(cat_results)}")
-        print(f"  Failed: {cat_failed}/{len(cat_results)}")
-
-        if cat_failed > 0:
-            print("  Failed tests:")
-            for result in cat_results:
-                if not result.passed:
-                    print(f"    - {result.name}: {result.details}")
-
-    print("\n" + "=" * 80)
-    print(f"OVERALL: {passed} passed, {failed} failed, {passed + failed} total")
-    print("=" * 80)
-
-    if failed == 0:
-        print("✅ All v1.15.0 ADHD enhancement tests passed!")
-    else:
-        print(f"❌ {failed} test(s) failed")
-
-
-def main() -> int:
-    """Main test runner."""
-    results, passed, failed = run_all_tests()
-    print_summary(results, passed, failed)
-    return 0 if failed == 0 else 1
-
-
-if __name__ == "__main__":
-    import sys
-    sys.exit(main())
+    # Check for ERROR-level issues (mkdocs format: "ERROR   -")
+    # Warnings are expected for unlisted pages and README.md conflicts
+    combined_output = result.stdout + result.stderr
+    assert "ERROR   -" not in combined_output, f"Build has errors: {combined_output[:200]}"
