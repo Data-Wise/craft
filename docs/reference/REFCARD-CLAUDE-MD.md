@@ -400,6 +400,40 @@ git commit -m "docs: update troubleshooting section"
 
 ---
 
+## Layered Architecture (v2.22.0)
+
+CLAUDE.md uses a layered system to minimize token usage:
+
+```text
+Always loaded (~4000 tokens/session):
+  CLAUDE.md          ← Behavioral rules only (< 100 lines)
+  ~/.claude/rules/   ← Imperatives (spec-only-mode, brainstorm-mode)
+  MEMORY.md          ← Learnings (< 200 lines)
+
+Loaded on-demand (0 tokens unless requested):
+  .claude/reference/ ← agents.md, test-suite.md, project-structure.md
+  ~/.claude/reference/ ← mcp-servers.md, plugins.md, shell-workflow.md
+```
+
+### Generate Reference Files
+
+```bash
+# Auto-generate from filesystem state
+PYTHONPATH=. python3 utils/claude_md_sync.py --generate-reference
+```
+
+Creates/refreshes `.claude/reference/` with current agent inventory, test file classification, and project structure counts.
+
+### Session-End Auto-Sync
+
+`/workflow:done` automatically:
+
+1. Checks CLAUDE.md count accuracy (Step 1.7)
+2. Auto-fixes stale counts in-place
+3. Refreshes .STATUS timestamps (Step 1.8)
+
+---
+
 ## Integration Points
 
 ### With craft:check
@@ -490,6 +524,6 @@ cd ~/.git-worktrees/project/feature-xyz
 
 ---
 
-**Version:** 1.0.0
-**Last Updated:** 2026-01-29
-**Craft Version:** v2.9.0+
+**Version:** 1.1.0
+**Last Updated:** 2026-02-18
+**Craft Version:** v2.22.0+

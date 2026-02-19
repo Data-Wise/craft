@@ -10,6 +10,41 @@
 
 ## Release Timeline
 
+### v2.22.0 (2026-02-18) - CLAUDE.md Layered Instruction System
+
+**Status:** In Development
+
+**Highlights:**
+
+- **Layered CLAUDE.md Architecture**: Restructured from flat ~8300 tokens/session to layered ~4000 tokens/session. Behavioral rules load every session; reference material loads on-demand from `.claude/reference/`.
+- **Global CLAUDE.md Lean**: Reduced from 206 to 85 lines. Extracted MCP servers, plugins, shell workflow, email/neovim, and release automation to `~/.claude/reference/`.
+- **Project CLAUDE.md Lean**: Reduced from 162 to 82 lines. Extracted agents, test suite, and project structure to `.claude/reference/`.
+- **ReferenceFileGenerator**: New class in `claude_md_sync.py` with `--generate-reference` flag. Auto-generates `.claude/reference/` files from filesystem state (agents, tests, project structure).
+- **Instruction Health Check**: New check in `/craft:check` validates count accuracy, line budget, reference file freshness, and CLAUDE.md lint.
+- **Session-End Sync**: `/workflow:done` now runs CLAUDE.md staleness check (Step 1.7) and .STATUS auto-refresh (Step 1.8) at session completion.
+- **Rules Promotion**: Behavioral rules extracted from MEMORY.md to `~/.claude/rules/spec-only-mode.md`.
+
+**New Files:**
+
+| File | Purpose |
+|------|---------|
+| `.claude/reference/agents.md` | Agent inventory (generated, gitignored) |
+| `.claude/reference/test-suite.md` | Test file classification (generated, gitignored) |
+| `.claude/reference/project-structure.md` | Directory tree and counts (generated, gitignored) |
+| `docs/reference/claude-code-instruction-enforcement.md` | Archived research document |
+
+**Modified Files:**
+
+| File | Change |
+|------|--------|
+| `CLAUDE.md` | Reduced from 162 to 82 lines (behavioral rules only) |
+| `utils/claude_md_sync.py` | Added ReferenceFileGenerator class (+130 lines) |
+| `commands/check.md` | Added instruction health check section |
+| `commands/hub.md` | Added reference file info and instruction system section |
+| `commands/workflow/done.md` | Added Steps 1.7 (staleness) and 1.8 (.STATUS refresh) |
+
+---
+
 ### v2.21.0 (2026-02-16) - Orchestrate Pipeline & Insights Lifecycle
 
 **Status:** Released

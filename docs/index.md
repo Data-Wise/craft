@@ -102,7 +102,7 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 109 Craft commands:
+Complete OpenAPI-style documentation for all 111 Craft commands:
 
 <div class="grid cards" markdown>
 
@@ -126,7 +126,7 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 
 **Quick Links:**
 
-- [All 109 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 111 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -209,10 +209,10 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 | **Distribution**   | 4      | Marketplace, Homebrew, PyPI, curl installers                                                                              |
 | **Planning**       | 3      | Feature planning, sprints, roadmaps                                                                                       |
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
-| **Total**          | **109** | **Complete development workflow coverage**                                                                                |
+| **Total**          | **111** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.21.0 — Orchestrate Pipeline & Insights Lifecycle"
-    Spec-to-worktree pipeline (`/craft:orchestrate:plan`), session insights (`/craft:insights`), brainstorm integration, worktree types taxonomy. 111 commands, ~1575 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.22.0 — CLAUDE.md Layered Instruction System"
+    Layered CLAUDE.md architecture (~4000 tokens/session), instruction health check in `/craft:check`, session-end auto-sync in `/workflow:done`, `--generate-reference` for `.claude/reference/` files. 111 commands, ~1575 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
