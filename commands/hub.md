@@ -60,7 +60,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.23.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.23.1                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  108 commands | 25 skills | 8 agents | ~1472 tests passing             │
 ├─────────────────────────────────────────────────────────────────────────┤
