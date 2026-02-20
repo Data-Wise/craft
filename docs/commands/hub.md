@@ -1,670 +1,683 @@
-# /craft:hub — Command Discovery Hub v2.0
-
-> **Smart 3-layer navigation system with auto-detection and progressive disclosure.** v2.4.0 adds workflow commands with brainstorm question control.
-
+---
+description: "/craft:hub - Command Discovery Hub"
 ---
 
-## Synopsis
+# /craft:hub - Command Discovery Hub
 
-```bash
-# Layer 1: Main menu (browse all categories)
-/craft:hub
+You are a command discovery assistant for the craft plugin. Help users find the right command.
 
-# Layer 2: Category view (browse commands in a category)
-/craft:hub <category>
+## When Invoked (`/craft:hub`)
 
-# Layer 3: Command detail (view full tutorial for a command)
-/craft:hub <category>:<command>
+### Step 0: Load Command Data (Auto-Detection)
+
+**IMPORTANT**: Before displaying the hub, load command data from the discovery engine:
+
+```python
+import sys
+from pathlib import Path
+
+# Add commands directory to path
+plugin_dir = Path.cwd()
+sys.path.insert(0, str(plugin_dir))
+
+# Import discovery engine
+from commands._discovery import get_command_stats, load_cached_commands
+
+# Get current command statistics
+stats = get_command_stats()
+commands = load_cached_commands()
+
+# Available data:
+# - stats['total']: Total command count (e.g., 108)
+# - stats['categories']: Dict of category counts (e.g., {'code': 12, 'test': 2, ...})
+# - stats['with_modes']: Commands supporting modes
+# - stats['with_dry_run']: Commands with dry-run support
+# - commands: Full list of command objects with metadata
 ```
 
-**Quick examples:**
+**Use this data** to populate the hub display below with accurate, auto-detected counts.
 
-```bash
-# Show full hub (Layer 1)
-/craft:hub
+### Step 1: Detect Project Context
 
-# Browse CODE category (Layer 2)
-/craft:hub code
-
-# View code:lint tutorial (Layer 3)
-/craft:hub code:lint
-
-# v2.4.0 Brainstorm with colon notation
-/brainstorm d:5 "auth" -C req,tech
+```
+Detection Rules (check in order):
+1. .claude-plugin/plugin.json → Claude Code Plugin
+2. DESCRIPTION file → R Package
+3. pyproject.toml → Python Package
+4. package.json → Node.js Project
+5. _quarto.yml → Quarto Project
+6. mkdocs.yml → MkDocs Project
+7. Otherwise → Generic Project
 ```
 
----
+### Step 2: Display Hub (Layer 1 - Main Menu)
 
-## What's New in v2.4.0
+**Generate this display dynamically** using stats and commands data loaded in Step 0.
 
-### Brainstorm Question Control
+Replace placeholders with actual data from `stats`.
 
-- **Colon notation** - `d:5`, `m:12`, `q:3` for custom question counts
-- **Categories flag** - Filter questions by type (`-C req,tech,success`)
-- **8-category question bank** - 16 questions total
-- **Milestone prompts** - Every 8 questions for unlimited exploration
-
-```bash
-# Examples
-/brainstorm d:5 "auth"              # Deep with exactly 5 questions
-/brainstorm m:12 "api"              # Max with 12 questions
-/brainstorm q:0 "quick"             # Quick with 0 questions
-/brainstorm d:5 "auth" -C req,tech  # Filter to requirements + technical
-/brainstorm d:20 "complex"          # Unlimited with milestones
-```
-
-### Hub v2.0 Core Features
-
-Hub v2.0 introduces **intelligent auto-detection** and **3-layer progressive disclosure**:
-
-### Auto-Detection Engine
-
-- **Dynamic discovery** - Scans `commands/` directory automatically
-- **Always accurate** - No hardcoded counts that drift out of sync
-- **Fast caching** - JSON cache with auto-invalidation (<2ms cached, 12ms uncached)
-- **108 commands** detected across 17 categories (v2.4.0)
-
-### 3-Layer Navigation
-
-1. **Layer 1 (Main Menu)** - Browse categories with counts
-2. **Layer 2 (Category View)** - Browse commands by subcategory
-3. **Layer 3 (Command Detail)** - View full tutorials
-
-### ADHD-Friendly Design
-
-- **Progressive disclosure** - Start broad, drill down as needed
-- **Visual hierarchy** - Clear sections, icons, and formatting
-- **No overwhelm** - Never show all 108 commands at once
-- **Smart breadcrumbs** - Always know where you are
-
----
-
-## Description
-
-Central command discovery hub that shows all available craft commands organized by category. The v2.0 hub uses an auto-detection engine to dynamically discover commands and provides a 3-layer navigation system for exploring the toolkit.
-
-**Key Features:**
-
-- **Auto-detection** - Discovers commands from filesystem, always accurate
-- **3-layer navigation** - Main Menu → Category View → Command Detail
-- **Subcategory grouping** - Commands organized by purpose within categories
-- **Auto-generated tutorials** - Command details from frontmatter metadata
-- **Smart navigation** - Breadcrumbs maintain hierarchy
-- **Mode system** - Execution modes with time budgets
-- **Related commands** - Discover similar/complementary commands
-
----
-
-## Layer 1: Main Menu
-
-**Invocation:** `/craft:hub`
-
-Shows all categories with auto-detected command counts:
+Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│ 🛠️ CRAFT - Full Stack Developer Toolkit v2.22.0                         │
-│ 📍 craft (Claude Plugin) on dev                                         │
-│ 📊 107 Commands | 25 Skills | 8 Agents | 4 Modes                         │
+│  CRAFT - Full Stack Developer Toolkit v2.23.0                          │
+│  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
+│  108 commands | 24 skills | 8 agents | ~1472 tests passing             │
 ├─────────────────────────────────────────────────────────────────────────┤
-│ ⚡ SMART COMMANDS (Start Here):                                         │
-│    /craft:do <task>     Universal command - AI routes to best workflow │
-│    /craft:check         Pre-flight checks for commit/pr/release        │
-│    /craft:smart-help    Context-aware help and suggestions             │
+│ SMART COMMANDS (Start Here):                                            │
+│    /craft:do <task>     Universal command - AI routes to best workflow  │
+│    /craft:check         Pre-flight checks for commit/pr/release         │
+│    /craft:smart-help    Context-aware help and suggestions              │
 ├─────────────────────────────────────────────────────────────────────────┤
-│ 🎚️ MODES (default|debug|optimize|release):                             │
-│    default  < 10s   Quick analysis, minimal output                     │
-│    debug    < 120s  Verbose traces, detailed fixes                     │
-│    optimize < 180s  Performance focus, parallel execution              │
-│    release  < 300s  Comprehensive checks, full audit                   │
+│ MODES (default|debug|optimize|release):                                 │
+│    default  < 10s   Quick analysis, minimal output                      │
+│    debug    < 120s  Verbose traces, detailed fixes                      │
+│    optimize < 180s  Performance focus, parallel execution               │
+│    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ 💻 CODE (12)              🧪 TEST (7)              📄 DOCS (19)         │
-│   /craft:code:lint          /craft:test          /craft:docs:sync   │
-│   /craft:code:coverage      /craft:test --watch        /craft:docs:check  │
-│   /craft:code:deps-audit    /craft:test --coverage     /craft:docs:lint   │
-│   /craft:code:ci-local      /craft:test debug        ...                │
+│ CODE (12)                         TEST (2)                              │
+│   /craft:code:lint [mode]          /craft:test [mode]                   │
+│   /craft:code:coverage [mode]      /craft:test:gen                      │
+│   /craft:code:debug                                                     │
+│   /craft:code:refactor           ARCH (4)                               │
+│   /craft:code:deps-audit           /craft:arch:analyze [mode]           │
+│   /craft:code:ci-local             /craft:arch:plan                     │
+│   /craft:code:ci-fix               /craft:arch:review                   │
+│                                    /craft:arch:diagram                  │
+│ DOCS (25)                                                               │
+│   /craft:docs:update             PLAN (3)                               │
+│   /craft:docs:sync                 /craft:plan:feature                  │
+│   /craft:docs:lint                 /craft:plan:sprint                   │
+│   /craft:docs:check                /craft:plan:roadmap                  │
+│   /craft:docs:changelog                                                 │
+│   /craft:docs:claude-md          CI (4)                                 │
+│   /craft:docs:nav-update           /craft:ci:detect                    │
+│   /craft:docs:demo                 /craft:ci:generate                  │
+│   /craft:docs:mermaid              /craft:ci:validate                  │
+│   /craft:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ 🔀 GIT (11)               📖 SITE (16)             🏗️ ARCH (1)          │
-│   /craft:git:worktree       /craft:site:build        /craft:arch:analyze│
-│   /craft:git:protect         /craft:site:publish      ...                │
-│   /craft:git:unprotect       /craft:site:deploy                          │
-│   ...                       ...                                         │
+│ GIT (13 incl. 4 guides)          WORKFLOW (13)                          │
+│   /craft:git:worktree              /brainstorm [d|f|s] "topic"         │
+│   /craft:git:sync                  /workflow:focus                     │
+│   /craft:git:branch                /workflow:done                      │
+│   /craft:git:clean                 /workflow:spec-review               │
+│   /craft:git:recap                 /craft:insights                     │
+│   /craft:git:status                                                     │
+│   /craft:git:protect             DIST (4)                               │
+│   /craft:git:unprotect             /craft:dist:marketplace             │
+│                                    /craft:dist:homebrew                 │
+│ SITE (16)                          /craft:dist:curl-install             │
+│   /craft:site:build                /craft:dist:pypi                    │
+│   /craft:site:deploy                                                    │
+│   /craft:site:check              ORCHESTRATE (2)                        │
+│   /craft:site:update               /craft:orchestrate [mode]           │
+│   /craft:site:publish              /craft:orchestrate:resume           │
 │                                                                         │
-│ 🚀 CI (3)                 📦 DIST (1)              📋 PLAN (3)          │
-│ 🔄 WORKFLOW (2)           🎯 MORE...                                    │
-│                                                                         │
-│ 💡 TIP: Say "/craft:hub <category>" to explore a category              │
-│         Example: /craft:hub code                                        │
+├─────────────────────────────────────────────────────────────────────────┤
+│  Quick Actions:                                                          │
+│    /craft:do "fix bug"          /craft:check --for pr                    │
+│    /brainstorm d f s "auth"     /craft:git:worktree create feat/x       │
+│    /craft:test debug            /release --dry-run                       │
+│    /craft:git:sync              /craft:insights --since 7                │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Navigation:**
+**Category Navigation:**
 
-- Select any category to view Layer 2 (Category View)
-- Example: `/craft:hub code` → Browse all CODE commands
+- User can say `/craft:hub <category>` to see all commands in that category (Layer 2)
+- User can say `/craft:hub <category>:<command>` for command details (Layer 3)
 
 ---
 
 ## Layer 2: Category View
 
-**Invocation:** `/craft:hub <category>`
+When invoked with `/craft:hub <category>` (e.g., `/craft:hub code`):
 
-Shows all commands in a category, grouped by subcategory:
+### Step 1: Parse Category Argument
 
-### Example: `/craft:hub code`
+```python
+# Check if user provided a category argument
+import sys
+category_arg = None  # Extract from user input
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│ 💻 CODE COMMANDS (12 total)                                             │
-│ Code Quality & Development Tools                                       │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│ 🔍 ANALYSIS (6 commands)                                                │
-│   1. /craft:code:lint [mode]        Code style & quality checks        │
-│   2. /craft:code:coverage [mode]    Test coverage analysis             │
-│   3. /craft:code:deps-check         Dependency health checks           │
-│   4. /craft:code:deps-audit         Security vulnerability scan        │
-│   5. /craft:code:ci-local           Run CI checks locally              │
-│   6. /craft:code:ci-fix             Fix CI failures                    │
-│                                                                         │
-│ 🏗️ DEVELOPMENT (6 commands)                                             │
-│   7. /craft:code:debug              Systematic debugging               │
-│   8. /craft:code:demo               Create demonstrations              │
-│   9. /craft:code:test-gen           Generate test files                │
-│  10. /craft:code:refactor           Refactoring guidance               │
-│  11. /craft:code:release            Release workflow                   │
-│  12. /craft:code:docs-check         Documentation pre-flight           │
-│                                                                         │
-├─────────────────────────────────────────────────────────────────────────┤
-│ 💡 Common Workflows:                                                    │
-│   • Pre-commit: lint → test → ci-local                                 │
-│   • Debug: debug → test debug → coverage                               │
-│   • Release: deps-audit → test release → release                       │
-│                                                                         │
-│ 🔙 Back to hub: /craft:hub                                              │
-│ 📚 Learn more: /craft:hub code:[command]                                │
-└─────────────────────────────────────────────────────────────────────────┘
+if category_arg:
+    # User wants to see specific category
+    from commands._discovery import get_category_info
+
+    category_info = get_category_info(category_arg)
+
+    if category_info['count'] == 0:
+        print(f"Category '{category_arg}' not found or has no commands.")
+        print(f"Try: /craft:hub to see all categories")
+    else:
+        # Display Layer 2: Category View
+        display_category_view(category_info)
+else:
+    # No category specified, show Layer 1 (Main Menu)
+    display_main_menu()
 ```
 
-**Features:**
+### Step 2: Display Category View
 
-- **Subcategory grouping** - Commands organized by purpose
-- **Mode indicators** - `[mode]` shows mode support
-- **Command descriptions** - Short summaries for quick scanning
-- **Common workflows** - Real-world usage patterns
-- **Navigation breadcrumbs** - Back to hub, drill down to command detail
-
-**All Categories:**
-
-- `code` (12) - Code quality, linting, debugging, CI/CD
-- `test` (7) - Testing, coverage, debugging
-- `docs` (19) - Documentation generation, sync, validation
-- `git` (11) - Branch management, worktree, sync, **branch guard** (v2.17.0)
-- `site` (16) - Documentation sites (MkDocs, Quarto, pkgdown)
-- `arch` (1) - Architecture analysis
-- `ci` (3) - CI/CD workflow generation
-- `dist` (1) - Distribution and packaging
-- `plan` (3) - Planning and project management
-- `workflow` (4) - Workflow automation, brainstorming (v2.4.0)
-
----
-
-## Layer 2: WORKFLOW Category (NEW v2.4.0)
-
-**Invocation:** `/craft:hub workflow`
-
-The WORKFLOW category contains commands for ADHD-friendly workflow management and brainstorming:
+**Generate this display using category_info data:**
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│ 🔄 WORKFLOW COMMANDS (4)                                                │
-│ ADHD-Friendly Workflow Management & Brainstorming                       │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│ 🧠 BRAINSTORMING (3 commands)                                           │
-│   1. /brainstorm [depth:count] "topic"  Brainstorm with question control│
-│   2. /brainstorm d:5 "auth"             Deep mode with 5 questions      │
-│   3. /brainstorm m:12 "api"             Max mode with 12 questions      │
-│                                                                         │
-│ 🎯 WORKFLOW MANAGEMENT (1 command)                                      │
-│   4. /workflow:focus                     Start focused work session     │
-│                                                                         │
-├─────────────────────────────────────────────────────────────────────────┤
-│ 💡 v2.4.0 Brainstorm Features:                                         │
-│   • Colon notation: d:5, m:12, q:3 for custom question counts          │
-│   • Categories flag: -C req,tech,success to filter question types      │
-│   • 8 categories: requirements, users, scope, technical, timeline,     │
-│     risks, existing, success (16 questions total)                       │
-│   • Milestone prompts every 8 questions for unlimited exploration       │
-│                                                                         │
-│ 💡 Common Workflows:                                                    │
-│   • Quick context: brainstorm q "topic"                                │
-│   • Deep analysis: brainstorm d:8 "topic"                              │
-│   • Focused categories: brainstorm d:5 "topic" -C req,tech             │
-│   • Unlimited: brainstorm d:20 "topic"                                 │
-│                                                                         │
-│ 🔙 Back to hub: /craft:hub                                              │
-│ 📚 Learn more: /craft:hub workflow:brainstorm                           │
-└─────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│ [ICON] [CATEGORY] COMMANDS ([COUNT] total)                      │
+│ [Category Description]                                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ [SUBCATEGORY 1] ([count] commands)                              │
+│   1. /craft:[category]:[command1] [mode]   [description]       │
+│   2. /craft:[category]:[command2]          [description]       │
+│   ...                                                           │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│ Common Workflows:                                               │
+│   [Workflow 1 name]: [steps]                                    │
+│   [Workflow 2 name]: [steps]                                    │
+│                                                                 │
+│ Back to hub: /craft:hub                                         │
+│ Learn more: /craft:hub [category]:[command]                     │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-### Example: `/craft:hub workflow`
+**Implementation notes:**
 
-```
-🔄 WORKFLOW COMMANDS (4)
-🧠 BRAINSTORMING (3 commands):
-  1. /brainstorm d:5 "auth"           Deep with 5 questions
-  2. /brainstorm m:12 "api"           Max with 12 questions
-  3. /brainstorm q:0 "quick"          Quick with 0 questions
-
-🎯 WORKFLOW MANAGEMENT (1 command):
-  4. /workflow:focus                  Start focused work session
-
-💡 Common:
-  /brainstorm d:5 "auth" -C req,tech  # Filtered categories
-  /brainstorm d:20 "complex"          # Unlimited with milestones
-```
+1. Group commands by subcategory using `category_info['subcategories']`
+2. For commands without subcategory, use 'general' group
+3. Show mode indicator `[mode]` for commands that support modes
+4. Keep descriptions under 40 characters
+5. Number commands sequentially across all subcategories
 
 ---
 
 ## Layer 3: Command Detail + Tutorial
 
-**Invocation:** `/craft:hub <category>:<command>`
+When invoked with `/craft:hub <category>:<command>` (e.g., `/craft:hub code:lint`):
 
-Shows detailed documentation for a specific command:
+Display:
 
-### Example: `/craft:hub workflow:brainstorm`
-
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│ 📚 COMMAND: /brainstorm                                                 │
-│ ADHD-friendly brainstorming with question control (v2.4.0)             │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│ SYNTAX                                                                 │
-│ ──────                                                                 │
-│   /brainstorm [depth:count] [focus] [action] [-C|--categories] "topic"│
-│                                                                         │
-│ ARGUMENTS                                                              │
-│ ──────────                                                             │
-│   depth:count  Question count (q:0, d:5, m:12, etc.)                   │
-│   focus       feat|arch|api|ux|ops (default: auto-detect)              │
-│   action      save|s (capture as spec)                                 │
-│   -C categories  req,users,scope,technical,timeline,risks,existing,success│
-│   topic       What to brainstorm (quoted string)                       │
-│                                                                         │
-│ MODES                                                                 │
-│ ─────                                                                 │
-│   default  2 questions + "ask more?"                                   │
-│   quick    0 questions + "ask more?"                                   │
-│   deep     8 questions + "ask more?"                                   │
-│   max      8 questions + agents + "ask more?"                          │
-│   custom   d:5, m:12, etc. (v2.4.0)                                    │
-│                                                                         │
-│ EXAMPLES                                                               │
-│ ─────────                                                              │
-│   /brainstorm "auth"                           Default mode            │
-│   /brainstorm d:5 "auth"                       Deep with 5 questions   │
-│   /brainstorm m:12 "api"                       Max with 12 questions   │
-│   /brainstorm q:0 "quick"                      Quick with 0 questions  │
-│   /brainstorm d:5 "auth" -C req,tech           Filtered categories     │
-│   /brainstorm d:20 "complex"                   Unlimited with milestones│
-│   /brainstorm d:5 f s "auth"                   Deep + feature + spec   │
-│                                                                         │
-│ QUESTIONS BANK (v2.4.0)                                                │
-│ ────────────────                                                       │
-│   8 categories × 2 questions = 16 total                                │
-│   requirements, users, scope, technical, timeline, risks, existing,    │
-│   success                                                               │
-│                                                                         │
-│ 🔙 Back to WORKFLOW: /craft:hub workflow                               │
-│ 🏠 Back to Hub: /craft:hub                                             │
-└─────────────────────────────────────────────────────────────────────────┘
-```
+1. **Header** - Command name and short description
+2. **Description** - Detailed explanation of what the command does
+3. **Modes** - Execution modes with time budgets (if applicable)
+4. **Basic Usage** - Syntax examples with mode variations
+5. **Common Workflows** - Real-world usage patterns
+6. **Related Commands** - Similar/complementary commands for navigation
+7. **Navigation Footer** - Links back to category and hub
 
 ---
 
-<!-- markdownlint-disable-next-line MD024 -->
-## Layer 3: Command Detail + Tutorial
+## Smart Commands
 
-**Invocation:** `/craft:hub <category>:<command>`
-
-Shows full command tutorial with step-by-step instructions:
-
-### Example: `/craft:hub code:lint`
+### `/craft:do <task>` - Universal Command
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│ 📚 COMMAND: /craft:code:lint                                            │
-│ Code style and quality checks with mode support                        │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│ DESCRIPTION                                                             │
-│ ───────────                                                             │
-│ Runs project-specific linters (ruff, flake8, eslint, etc.) to check    │
-│ code style and quality. Supports 4 execution modes for different use   │
-│ cases from quick checks to comprehensive audits.                       │
-│                                                                         │
-│ MODES                                                                   │
-│ ─────                                                                   │
-│   default    (< 10s)      Quick checks, minimal output                 │
-│   debug      (< 120s)     Verbose with fix suggestions                 │
-│   optimize   (< 180s)     Performance focus, parallel execution        │
-│   release    (< 300s)     Comprehensive with security audit            │
-│                                                                         │
-│ BASIC USAGE                                                             │
-│ ───────────                                                             │
-│   /craft:code:lint                 # Default mode (quick)              │
-│   /craft:code:lint debug           # Debug mode (verbose)              │
-│   /craft:code:lint release         # Release mode (thorough)           │
-│                                                                         │
-│ COMMON WORKFLOWS                                                        │
-│ ────────────────                                                        │
-│                                                                         │
-│ Pre-Commit Workflow:                                                    │
-│   1. /craft:code:lint                                                   │
-│   2. /craft:test                                                    │
-│   3. git commit -m "..."                                                │
-│                                                                         │
-│ Debug Workflow:                                                         │
-│   1. /craft:code:lint debug                                             │
-│   2. Fix issues based on suggestions                                   │
-│   3. /craft:code:lint  (verify fixes)                                   │
-│                                                                         │
-│ RELATED COMMANDS                                                        │
-│ ────────────────                                                        │
-│   /craft:test        Run tests                                     │
-│   /craft:code:ci-local   Full CI checks locally                        │
-│   /craft:check           Universal validation                          │
-│                                                                         │
-│ 💡 TIP: Use /craft:check for automated lint + test + CI workflow       │
-│                                                                         │
-│ 🔙 Back to CODE: /craft:hub code                                        │
-│ 🏠 Back to Hub: /craft:hub                                              │
-└─────────────────────────────────────────────────────────────────────────┘
+Intelligently routes your task to the right workflow:
+
+ /craft:do initialize project    -> git:init (interactive wizard)
+ /craft:do add authentication    -> arch:plan + code:test-gen + git:branch
+ /craft:do fix login bug         -> code:debug + test + test debug
+ /craft:do improve quality       -> code:lint + test --coverage + code:refactor
+ /craft:do prepare release       -> deps-audit + test release + code:release
+
+With orchestration:
+ /craft:do "add feature X" --orch           # Orchestrate with mode prompt
+ /craft:do "implement auth" --orch=optimize # Fast parallel orchestration
+ /craft:do "debug issue" --orch=debug       # Sequential troubleshooting
+ /craft:do "task" --orch --dry-run          # Preview orchestration plan
 ```
 
-**Tutorial Sections:**
+### `/craft:check` - Universal Pre-flight
 
-1. **Description** - Detailed explanation of what the command does
-2. **Modes** - Execution modes with time budgets (if applicable)
-3. **Basic Usage** - Syntax examples with mode variations
-4. **Common Workflows** - Real-world usage patterns
-5. **Related Commands** - Similar/complementary commands
-6. **Tips** - Pro user hints
-7. **Navigation** - Breadcrumbs back to category and hub
+```
+Auto-detects project type and runs appropriate checks:
 
----
+/craft:check                   Quick validation (lint + tests + types)
+/craft:check --for commit      Pre-commit checks
+/craft:check --for pr          Pre-PR validation (+ coverage + conflicts)
+/craft:check --for release     Full release audit (+ security + docs)
+/craft:check --context         Output session context only (no checks)
+/craft:check --dry-run         Preview which checks will run
 
-## Navigation Examples
-
-### Browsing by Category
-
-```bash
-# Start at main menu
-/craft:hub
-
-# Select GIT category
-/craft:hub git
-
-# View worktree command tutorial
-/craft:hub git:worktree
+Orchestrated:
+/craft:check --orch=optimize   Fast parallel validation
+/craft:check --orch=release    Comprehensive pre-release audit
 ```
 
-### Quick Command Lookup
+### `/craft:smart-help` - Context-Aware Help
 
-```bash
-# Jump directly to command detail
-/craft:hub test
-/craft:hub docs:sync
-/craft:hub code:lint
 ```
-
-### Category Deep Dive
-
-```bash
-# Explore all TEST commands
-/craft:hub test
-
-# Learn about specific test command
-/craft:hub test:gen
-
-# Check related command
-/craft:hub test:template
+/craft:smart-help              Shows relevant commands for your project
+/craft:smart-help testing      Deep dive into testing commands
+/craft:smart-help "how do I..."  Answer workflow questions
 ```
-
----
 
 ## Mode System
 
-Many commands support execution modes for different use cases:
+Many commands support modes for different use cases:
 
-| Mode | Time Budget | Use Case | Example |
-|------|-------------|----------|---------|
-| **default** | < 10s | Day-to-day quick checks | `/craft:code:lint` |
-| **debug** | < 120s | Investigating issues | `/craft:code:lint debug` |
-| **optimize** | < 180s | Performance focus | `/craft:code:lint optimize` |
-| **release** | < 300s | Pre-release comprehensive | `/craft:code:lint release` |
-
-**Mode indicators in hub:**
-
-- Commands supporting modes show `[mode]` in Layer 2 (Category View)
-- Layer 3 (Command Detail) shows all available modes with time budgets
-- Use modes to balance speed vs. thoroughness
+| Mode | Time Budget | Use Case |
+|------|-------------|----------|
+| **default** | < 10-30s | Day-to-day quick checks |
+| **debug** | < 120s | Investigating issues, verbose output |
+| **optimize** | < 180s | Performance focus, parallel execution |
+| **release** | < 300s | Pre-release comprehensive checks |
 
 ---
 
-## Auto-Detection System
+## Category Deep Dive
 
-### How It Works
+### `/craft:hub code`
 
-Hub v2.0 uses an auto-detection engine to discover commands:
-
-1. **Scan** - Recursively scans `commands/` directory for `*.md` files
-2. **Parse** - Extracts YAML frontmatter metadata from each file
-3. **Infer** - Derives category from directory structure (`code/lint.md` → "code")
-4. **Cache** - Stores discovered commands in JSON cache
-5. **Invalidate** - Auto-invalidates cache when files change
-
-### Performance
-
-- **First run:** ~12ms (well under 200ms target, 94% faster)
-- **Cached run:** <2ms (well under 10ms target, 80% faster)
-- **Cache location:** `commands/_cache.json` (gitignored)
-
-### Benefits
-
-- **Always accurate** - Counts auto-update when commands added/removed
-- **No maintenance** - No hardcoded lists to keep in sync
-- **Fast** - JSON cache provides instant results
-- **Reliable** - Auto-invalidation ensures freshness
-
----
-
-## Command Frontmatter
-
-Commands use YAML frontmatter for metadata discovery:
-
-```yaml
----
-name: "code:lint"                    # Command identifier
-category: "code"                     # Primary category
-subcategory: "analysis"              # Subcategory for grouping
-description: "Code style & quality"  # One-line summary
-modes: ["default", "debug", "optimize", "release"]  # Supported modes
-time_budgets:                        # Time estimates per mode
-  default: "< 10s"
-  debug: "< 120s"
-  release: "< 300s"
-related_commands:                    # Navigation suggestions
-  - "test"
-  - "code:ci-local"
-  - "check"
-common_workflows:                    # Usage patterns
-  - name: "Pre-commit"
-    steps: ["code:lint", "test", "git commit"]
----
+```
+CODE COMMANDS (12) - Code Quality & Development
+─────────────────────────────────────────────────────────────────────────
+Command                  | Description                    | Modes
+─────────────────────────┼────────────────────────────────┼─────────────
+/craft:code:lint         | Code style & quality checks    | yes
+/craft:code:coverage     | Test coverage report           | yes
+/craft:code:deps-check   | Check dependency health        | -
+/craft:code:deps-audit   | Security vulnerability scan    | -
+/craft:code:ci-local     | Run CI checks locally          | -
+/craft:code:ci-fix       | Fix CI failures                | -
+/craft:code:debug        | Systematic debugging           | -
+/craft:code:demo         | Create demonstrations          | -
+/craft:code:test-gen     | Generate test files            | -
+/craft:code:refactor     | Refactoring guidance           | -
+/craft:code:release      | Release workflow               | -
+/craft:code:docs-check   | Pre-flight doc check           | -
+─────────────────────────────────────────────────────────────────────────
 ```
 
-**Required fields:**
+### `/craft:hub test`
 
-- `name` - Command identifier
-- `category` - Primary category
-- `description` - One-line summary
+```
+TEST COMMANDS (2) - Unified Testing
+─────────────────────────────────────────────────────────────────────────
+Command                  | Description                    | Modes
+─────────────────────────┼────────────────────────────────┼─────────────
+/craft:test [mode]       | Unified test runner            | yes
+/craft:test:gen          | Generate test suites (Jinja2)  | -
+─────────────────────────────────────────────────────────────────────────
 
-**Optional fields:**
-
-- `subcategory` - For Layer 2 grouping
-- `modes` - Execution modes
-- `time_budgets` - Time estimates
-- `related_commands` - Navigation
-- `common_workflows` - Usage patterns
-- `examples` - Usage examples
-
----
-
-## Implementation Details
-
-### Discovery Engine
-
-**Location:** `commands/_discovery.py`
-
-**Key Functions:**
-
-```python
-discover_commands()              # Scan and discover all commands
-load_cached_commands()           # Load with auto-invalidation
-get_command_stats()              # Get statistics
-
-# Layer 2
-get_commands_by_category(cat)    # Filter by category
-group_commands_by_subcategory()  # Group by subcategory
-get_category_info(cat)           # Complete category info
-
-# Layer 3
-get_command_detail(name)         # Lookup command by name
-generate_command_tutorial(cmd)   # Auto-generate tutorial
+Usage:
+  /craft:test                     # Quick smoke tests
+  /craft:test debug               # Verbose with traces
+  /craft:test --coverage          # Coverage analysis
+  /craft:test release             # Full suite + coverage report
+  /craft:test:gen                 # Auto-detect project, generate tests
+─────────────────────────────────────────────────────────────────────────
 ```
 
-### Cache Format
+### `/craft:hub docs`
 
-```json
-{
-  "generated": "2026-01-17T11:30:00Z",
-  "count": 97,
-  "commands": [
-    {
-      "name": "code:lint",
-      "category": "code",
-      "subcategory": "analysis",
-      "description": "Code style & quality checks",
-      "file": "code/lint.md",
-      "modes": ["default", "debug", "optimize", "release"],
-      "time_budgets": { "default": "< 10s", "debug": "< 120s" }
-    }
-  ]
-}
+```
+DOCS COMMANDS (25) - Documentation Automation
+─────────────────────────────────────────────────────────────────────────
+Command                        | Description
+───────────────────────────────┼─────────────────────────────────────
+/craft:docs:update             | Smart doc generator (detect + generate)
+/craft:docs:sync               | Detect changes, classify doc needs
+/craft:docs:lint               | Markdown quality checks
+/craft:docs:check              | Documentation health check
+/craft:docs:check-links        | Internal link validation
+/craft:docs:changelog          | Auto-update CHANGELOG.md
+/craft:docs:nav-update         | Update mkdocs.yml navigation
+/craft:docs:demo               | Terminal recording & GIF generator
+/craft:docs:mermaid            | Generate Mermaid diagram templates
+/craft:docs:guide              | Generate feature guides
+/craft:docs:tutorial           | Generate step-by-step tutorials
+/craft:docs:api                | Generate API documentation
+/craft:docs:quickstart         | Generate quickstart guides
+
+CLAUDE.md Management:
+  /craft:docs:claude-md:init   | Create from lean template (< 150 lines)
+  /craft:docs:claude-md:sync   | 4-phase pipeline (detect/audit/fix/optimize)
+  /craft:docs:claude-md:edit   | Interactive section editing
+
+Reference Files (.claude/reference/):
+  agents.md              | Agent inventory (model, description)
+  test-suite.md          | Test files with type classification
+  project-structure.md   | Directory tree, counts, version
+
+  Refresh: PYTHONPATH=. python3 utils/claude_md_sync.py --generate-reference
+─────────────────────────────────────────────────────────────────────────
 ```
 
-### Test Coverage
+### `/craft:hub git`
 
-- **34 tests** across 4 test suites
-- **100% passing** (207ms total duration)
-- Tests: discovery, integration, Layer 2, Layer 3
-- Validation: accuracy, performance, format, navigation
+```
+GIT COMMANDS (13: 9 commands + 4 guides)
+────────────────────────────────────────────────────────────────────────
+Commands:
+  /craft:git:worktree     Parallel development (create/move/finish/clean)
+  /craft:git:sync         Smart sync with remote (pull, rebase, push)
+  /craft:git:branch       Branch management (create, switch, delete)
+  /craft:git:clean        Clean up merged branches safely
+  /craft:git:recap        Git activity summary (what changed?)
+  /craft:git:status       Enhanced status with protection level
+  /craft:git:protect      Re-enable branch protection
+  /craft:git:unprotect    Session-scoped bypass (auto-expires)
+  /craft:git:init         Initialize repo with craft workflow
 
----
+Guides:
+  /craft:git:refcard        Quick reference card
+  /craft:git:undo-guide     Emergency undo guide
+  /craft:git:safety-rails   Safety rails guide
+  /craft:git:learning-guide Learning guide
 
-## Tips & Best Practices
-
-### For Quick Tasks
-
-- Start with `/craft:do <task>` for smart routing
-- Use default mode for fast checks
-- Use `/craft:check` for comprehensive validation
-
-### For Learning
-
-- Start at Layer 1 (Main Menu) to browse categories
-- Use Layer 2 (Category View) to scan available commands
-- Use Layer 3 (Command Detail) for step-by-step tutorials
-
-### For Power Users
-
-- Jump directly to Layer 3: `/craft:hub code:lint`
-- Use debug mode for verbose output
-- Use release mode before deployments
-- Check related commands for complementary tools
-
-### For Plugin Developers
-
-- Add frontmatter to new commands
-- Run `python3 commands/_discovery.py` to regenerate cache
-- Test with `python3 tests/test_hub_*.py`
-
----
-
-## Troubleshooting
-
-### Cache Issues
-
-**Problem:** Counts seem wrong or outdated
-**Solution:** Delete cache and regenerate:
-
-```bash
-rm commands/_cache.json
-python3 commands/_discovery.py
+Branch Protection (v2.16.0):
+  main   = block all (code + docs + commits)
+  dev    = block new code files, allow edits + docs
+  feat/* = unrestricted
+────────────────────────────────────────────────────────────────────────
 ```
 
-### Command Not Found
+### `/craft:hub workflow`
 
-**Problem:** `/craft:hub code:lint` says "not found"
-**Solution:** Check command name format:
+```
+WORKFLOW COMMANDS (13) - ADHD-Friendly Workflow Management
+────────────────────────────────────────────────────────────────────────
+Brainstorming:
+  /brainstorm "topic"                | Quick brainstorm (default depth)
+  /brainstorm d f s "auth"           | Deep + feature + save as spec
+  /brainstorm q "quick idea"         | Quick (< 1 min, no questions)
+  /brainstorm m a "architecture"     | Max depth + architecture focus
 
-- Use `category:command` format (e.g., `code:lint`)
-- Browse Layer 2 to find correct name: `/craft:hub code`
+  Depth: q(uick) | d(eep) | m(ax)
+  Focus: f(eat) | a(rch) | x(ux) | b(api) | u(i) | o(ps)
+  Action: s(ave) — capture as SPEC file
 
-### Performance Issues
+Session Management:
+  /workflow:focus                    | Start focused work session
+  /workflow:next                     | Get next step
+  /workflow:stuck                    | Get unstuck help
+  /workflow:done                     | Complete session + capture context
 
-**Problem:** Hub seems slow
-**Solution:** Check cache file exists:
+Spec Management:
+  /workflow:spec-review              | List, review, approve, archive specs
+  /workflow:spec-review approve X    | Quick approval
 
-```bash
-ls -lh commands/_cache.json
-# Should be < 100KB and recent timestamp
+Insights (v2.21.0):
+  /craft:insights                    | Generate session insights report
+  /craft:insights --format html      | HTML report for sharing
+  /craft:insights --since 7          | Last 7 days only
+────────────────────────────────────────────────────────────────────────
+```
+
+### `/craft:hub site`
+
+```
+SITE COMMANDS (16) - Documentation Sites
+─────────────────────────────────────────────────────────────────────────
+Command                  | R Package        | Other (MkDocs)
+─────────────────────────┼──────────────────┼─────────────────────
+/craft:site:build        | pkgdown::build   | mkdocs build
+/craft:site:deploy       | gh-pages push    | mkdocs gh-deploy
+/craft:site:check        | validate site    | validate site
+/craft:site:update       | sync code->docs  | sync code->docs
+/craft:site:preview      | preview locally  | mkdocs serve
+/craft:site:publish      | teaching site    | teaching site
+/craft:site:init         | pkgdown/altdoc   | mkdocs init
+/craft:site:create       | new site wizard  | new site wizard
+/craft:site:status       | site health      | site health
+/craft:site:progress     | semester dash    | semester dash
+─────────────────────────────────────────────────────────────────────────
+```
+
+### `/craft:hub arch`
+
+```
+ARCH COMMANDS (4) - Architecture & Design
+─────────────────────────────────────────────────────────────────────────
+Command                  | Description                    | Modes
+─────────────────────────┼────────────────────────────────┼─────────────
+/craft:arch:analyze      | Analyze architecture patterns  | yes
+/craft:arch:plan         | Design architecture            | -
+/craft:arch:review       | Review architecture changes    | -
+/craft:arch:diagram      | Generate Mermaid diagrams      | -
+─────────────────────────────────────────────────────────────────────────
+```
+
+### `/craft:hub ci`
+
+```
+CI COMMANDS (4) - CI/CD Management
+─────────────────────────────────────────────────────────────────────────
+Command                  | Description
+─────────────────────────┼────────────────────────────────────────────
+/craft:ci:detect         | Detect project type and build tools
+/craft:ci:generate       | Generate GitHub Actions workflow
+/craft:ci:validate       | Validate existing CI workflow
+/craft:ci:status         | Cross-repo CI status dashboard
+─────────────────────────────────────────────────────────────────────────
+```
+
+### `/craft:hub dist`
+
+```
+DIST COMMANDS (4) - Distribution & Packaging
+─────────────────────────────────────────────────────────────────────────
+Command                  | Description
+─────────────────────────┼────────────────────────────────────────────
+/craft:dist:marketplace  | Marketplace init, validate, test, publish
+/craft:dist:homebrew     | Generate Homebrew formula
+/craft:dist:curl-install | Generate curl installer
+/craft:dist:pypi         | Package for PyPI
+
+Recommended Install Hierarchy:
+  1. Marketplace (Recommended) — works everywhere, one command
+  2. Homebrew — macOS power users, auto-updates
+  3. Manual — contributors and developers
+─────────────────────────────────────────────────────────────────────────
+```
+
+### `/craft:hub plan`
+
+```
+PLAN COMMANDS (3) - Planning & Project Management
+─────────────────────────────────────────────────────────────────────────
+Command                  | Description
+─────────────────────────┼────────────────────────────────────────────
+/craft:plan:feature      | Plan features with tasks and estimates
+/craft:plan:sprint       | Sprint planning with capacity
+/craft:plan:roadmap      | Generate project roadmaps
+─────────────────────────────────────────────────────────────────────────
+```
+
+### `/craft:hub orchestrate`
+
+```
+ORCHESTRATE COMMANDS (2) - Multi-Agent Coordination
+────────────────────────────────────────────────────────────────────────
+/craft:orchestrate "task" [mode]     | Launch orchestrator
+/craft:orchestrate:resume            | Resume previous session
+/craft:orchestrate:plan              | Generate ORCHESTRATE file from spec
+
+Modes:
+  default   — 2 agents max, quick tasks
+  debug     — 1 agent, sequential troubleshooting
+  optimize  — 4 agents, fast parallel work
+  release   — 4 agents, comprehensive audit
+
+Quick orchestration (--orch flag on any command):
+  /craft:do "add auth" --orch=optimize
+  /craft:check --orch=release
+  /brainstorm "API" --orch
+────────────────────────────────────────────────────────────────────────
 ```
 
 ---
 
-## Migration from v1.x
+## Skills (24 Auto-Activated)
 
-### Breaking Changes
+| Skill | Category | Triggers On |
+|-------|----------|-------------|
+| `backend-designer` | Design | API design, database, auth discussions |
+| `frontend-designer` | Design | UI/UX, components, accessibility |
+| `devops-helper` | Design | CI/CD, deployment, Docker |
+| `test-strategist` | Testing | Test strategy, coverage, flaky tests |
+| `test-generator` | Testing | Test file generation |
+| `system-architect` | Architecture | System design, patterns, trade-offs |
+| `project-planner` | Planning | Feature planning, sprints, roadmaps |
+| `mode-controller` | Modes | Mode selection and behavior |
+| `task-analyzer` | Orchestration | Task routing for /craft:do |
+| `session-state` | Orchestration | Session persistence and resumption |
+| `release` | Release | Release pipeline, version bump, deploy |
+| `guard-audit` | DevOps | Guard friction, false positives, tune guard |
+| `insights-apply` | Workflow | Insights report, CLAUDE.md rules |
+| `doc-classifier` | Docs | Documentation needs classification |
+| `mermaid-linter` | Docs | Mermaid diagram validation |
+| `distribution-strategist` | Distribution | Packaging strategy selection |
+| `homebrew-formula-expert` | Distribution | Homebrew formula generation |
+| `homebrew-workflow-expert` | Distribution | Homebrew tap management |
+| `homebrew-multi-formula` | Distribution | Multi-formula taps |
+| `homebrew-setup-wizard` | Distribution | First-time Homebrew setup |
+| `project-detector` | CI | Project type detection |
+| `architecture-decision-records` | Docs | ADR generation |
+| `changelog-automation` | Docs | Changelog from commits |
+| `openapi-spec-generation` | Docs | OpenAPI spec generation |
 
-- None - Hub v2.0 is fully backward compatible
-- Old usage (`/craft:hub`, `/craft:hub code`) still works
+## Agents (8 Specialized)
 
-### New Features
-
-- Layer 3 command detail views
-- Auto-detection (no hardcoded counts)
-- Subcategory grouping
-- Auto-generated tutorials
-- Related commands navigation
-
-### What to Update
-
-- Add frontmatter to custom commands
-- Regenerate cache after upgrade
-- Update documentation if referencing command counts
+| Agent | Specialty | Triggers |
+|-------|-----------|----------|
+| `orchestrator-v2` | Complex multi-step tasks with parallel execution | `/craft:orchestrate` |
+| `orchestrator` | Legacy orchestrator | Direct invocation |
+| `docs-architect` | Technical documentation, architecture guides | Docs requests |
+| `api-documenter` | OpenAPI specs, developer portals | API documentation |
+| `reference-builder` | Exhaustive technical references | Reference docs |
+| `tutorial-engineer` | Step-by-step tutorials | Tutorial creation |
+| `demo-engineer` | Interactive demos | Demo creation |
+| `mermaid-expert` | Flowcharts, diagrams, visualizations | Diagram requests |
 
 ---
 
-## See Also
+## Release Pipeline
 
-- **Smart routing:** `/craft:do` - Universal task command
-- **Pre-flight:** `/craft:check` - Validation before commit/PR/release
-- **Help:** `/craft:smart-help` - Context-aware suggestions
-- **Orchestrator:** `/craft:orchestrate` - Multi-agent workflows
-- **Discovery engine:** `commands/_discovery.py` - Implementation details
-- **Test suite:** `tests/test_hub_*.py` - Validation tests
+```
+/release                  Interactive release pipeline (10 steps)
+/release --dry-run        Preview release plan without executing
+/release --autonomous     Fully automated (no prompts, auto-admin)
+
+Pipeline: pre-flight -> bump -> commit -> PR -> merge ->
+          GitHub release -> Homebrew tap -> docs deploy -> sync dev
+
+Version bump: bump-version.sh syncs version across 11 files atomically
+```
+
+---
+
+## Context-Aware Suggestions
+
+### Claude Code Plugin (.claude-plugin/plugin.json detected)
+
+```
+SUGGESTED FOR CLAUDE CODE PLUGIN:
+
+  /craft:check --for release  Full pre-release audit
+  /craft:test                 Run pytest suite
+  /release --dry-run          Preview release plan
+  /craft:dist:marketplace     Marketplace distribution
+  /craft:docs:claude-md:sync  Sync CLAUDE.md with project state
+```
+
+### Python Package (pyproject.toml detected)
+
+```
+SUGGESTED FOR PYTHON PROJECT:
+
+  /craft:do "run all checks"  Smart workflow
+  /craft:code:lint            Run ruff/flake8
+  /craft:test                 Run pytest
+  /craft:code:ci-local        Pre-push validation
+  /craft:code:release         PyPI release workflow
+```
+
+### R Package (DESCRIPTION detected)
+
+```
+SUGGESTED FOR R PACKAGE:
+
+  /craft:do "check package"   Smart workflow
+  /craft:test                 Run testthat
+  /craft:code:release         CRAN submission prep
+  /craft:site:init            Setup pkgdown/altdoc
+  /craft:arch:analyze         Check package structure
+```
+
+### Node.js Project (package.json detected)
+
+```
+SUGGESTED FOR NODE PROJECT:
+
+  /craft:do "validate all"    Smart workflow
+  /craft:code:lint            Run ESLint/Prettier
+  /craft:test                 Run Jest/Vitest
+  /craft:code:deps-audit      Security scan
+  /craft:code:release         npm publish workflow
+```
+
+## Quick Reference
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ Full-stack developer toolkit for Claude Code                           │
+│ 108 commands | 24 skills | 8 agents | ~1472 tests passing              │
+├────────────────────────────────────────────────────────────────────────┤
+│ Start Here:                                                            │
+│   /craft:do <task>   -> AI routes to best workflow                     │
+│   /craft:check       -> Quick validation                               │
+│   /craft:smart-help  -> Context-aware suggestions                      │
+│                                                                        │
+│ Development Workflow:                                                  │
+│   /craft:code:lint [mode] -> /craft:test [mode] ->                     │
+│   /craft:code:coverage -> /craft:code:ci-local -> /craft:git:sync      │
+│                                                                        │
+│ Feature Development:                                                   │
+│   /craft:git:worktree create feat/x -> [develop] ->                    │
+│   /craft:git:worktree finish -> /craft:git:worktree clean              │
+│                                                                        │
+│ Branch Protection:                                                     │
+│   /craft:git:protect       -> Re-enable guard                         │
+│   /craft:git:unprotect     -> Temporary bypass (auto-expires)         │
+│   /craft:git:status        -> Show protection level                   │
+│                                                                        │
+│ Release Pipeline:                                                      │
+│   /release                 -> Full 10-step pipeline                   │
+│   /release --dry-run       -> Preview without executing               │
+│   /release --autonomous    -> Fully automated release                 │
+│                                                                        │
+│ Orchestration:                                                         │
+│   /craft:orchestrate "task" optimize -> 4 parallel agents              │
+│   /craft:do "task" --orch=optimize   -> Quick orchestration            │
+│   /craft:orchestrate:resume          -> Resume previous session        │
+│                                                                        │
+│ Documentation:                                                         │
+│   /craft:docs:update       -> Smart detection + generation             │
+│   /craft:docs:claude-md:sync -> 4-phase CLAUDE.md pipeline            │
+│   /craft:docs:lint         -> Markdown quality checks                  │
+│   /craft:docs:check-links  -> Internal link validation                 │
+│                                                                        │
+│ Brainstorming:                                                         │
+│   /brainstorm "topic"              -> Default depth                   │
+│   /brainstorm d f s "auth"         -> Deep + feature + save spec      │
+│   /brainstorm m a "architecture"   -> Max + architecture focus        │
+│                                                                        │
+│ Insights & Guard:                                                      │
+│   /craft:insights          -> Session friction report                  │
+│   /craft:guard:audit       -> Audit guard config                       │
+│   /craft:insights:apply    -> Apply insights to CLAUDE.md              │
+│   /craft:check --context   -> Front-load session context               │
+│                                                                        │
+│ CI/CD:                                                                 │
+│   /craft:ci:status         -> Cross-repo CI dashboard                  │
+│   /craft:ci:generate       -> Generate GitHub Actions workflow         │
+│   /craft:ci:detect         -> Detect project type + build tools        │
+│                                                                        │
+│ Daily:                                                                 │
+│   /craft:git:recap -> /craft:check -> /craft:git:sync                  │
+└────────────────────────────────────────────────────────────────────────┘
+```
