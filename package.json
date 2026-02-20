@@ -1,6 +1,6 @@
 {
   "name": "@data-wise/claude-craft-plugin",
-  "version": "2.23.1",
+  "version": "2.24.0",
   "description": "Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces",
   "main": "index.js",
   "scripts": {

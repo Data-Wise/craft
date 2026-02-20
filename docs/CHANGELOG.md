@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.24.0] - 2026-02-20: Claude Code v2.1.49 Integration
+
+### Added
+
+- **Agent platform features:** `background: true` on doc agents (docs-architect, reference-builder, tutorial-engineer), `memory: project` and `skills` on orchestrator-v2
+- **E2E test suite:** 21 tests validating cross-component wiring, version consistency, frontmatter, and docs alignment (`test_plugin_e2e.py`)
+- **Dogfood test suite:** 28 tests running craft's own scripts against the live repo with CI-aware performance budgets (`test_plugin_dogfood.py`)
+- **Multi-repo workflow guide:** 484-line guide for cross-repo worktree coordination (`docs/guide/multi-repo-workflow.md`)
+- **Worktree path comparison:** Craft vs Claude Code native isolation documented in command, refcard, and advanced patterns
+
+### Changed
+
+- **Test count:** 13 unit tests → 62 tests (13 unit + 21 e2e + 28 dogfood)
+- **Agent cleanup:** Removed undocumented `version` field from all agent frontmatter
+- **Test docs rewrite:** QUICK-TEST-REFERENCE.md and TESTING-SUMMARY.md rewritten for current test architecture
+
+### Fixed
+
+- Skill count drift: 24 → 25 in docs/skills-agents.md, docs/guide/skills-agents.md, docs/commands/hub.md
+- Doc agents heading: "(5)" → "(6)" to match actual table in skills-agents.md
+
+---
+
 ## [2.23.1] - 2026-02-19: Hub Rewrite & Cleanup
 
 ### Changed
