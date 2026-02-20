@@ -1,17 +1,25 @@
 status: Active
-version: 2.23.0
+version: 2.23.1
 release_date: 2026-02-19
-milestone: v2.22.2 releasing — Bump-Version Feature & Documentation Overhaul
+milestone: v2.23.0 released — Extended Version Sync & Test Suite
 last_session: 2026-02-19
 
-progress: v2.22.2 releasing. Bump-version feature, documentation overhaul.
+progress: v2.23.0 released. Clean slate for next feature work.
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                               |
 |--------|---------|------|--------------------------------------|
-| main   | a2acd2c | —    | Production (v2.22.1 released)        |
-| dev    | pending | main | v2.22.2 release in progress          |
+| main   | b6d8f49 | —    | Production (v2.23.0 released)        |
+| dev    | 5763b10 | main | Synced with main                     |
+
+✅ Session 2026-02-19c (v2.23.0 release):
+- Addressed PR #95 code review: added FILE_COUNT variable to bump-version.sh
+- Merged PR #95 to dev, archived bump-version-docs spec, removed ORCHESTRATE file, cleaned worktree
+- Fixed spec count (8→7), added Unreleased CHANGELOG section
+- Released v2.23.0: bump across 11 files, PR #96, merge (--admin), GitHub release, docs deploy, Homebrew tap (already current)
+- Archived CLAUDE.md refactor spec (done), updated spec count (7→6)
+- Stats: 108 commands, 25 skills, 8 agents, 6 specs, ~1472 tests
 
 ✅ Session 2026-02-19b (docs cleanup & CLAUDE.md sync):
 - Synced CLAUDE.md: removed stale ORCHESTRATE ref, fixed spec count (8→7), test count (~1496→~1472)
@@ -20,7 +28,6 @@ progress: v2.22.2 releasing. Bump-version feature, documentation overhaul.
 - Updated REFCARD, A-Z reference, CHANGELOG with new features
 - Fixed stale version/count refs across site, rebuilt skills-agents pages
 - Added bump-version refcard, CI status command page, version-sync Layer 4
-- Stats: 108 commands, 25 skills, 8 agents, 7 specs, ~1472 tests
 
 ✅ Session 2026-02-19a (v2.22.1 release prep):
 - Reviewed and merged 3 old PRs (#82, #83, #84) to dev
@@ -28,16 +35,14 @@ progress: v2.22.2 releasing. Bump-version feature, documentation overhaul.
 - Rebuilt tutorials/index.md (1→23 tutorials)
 - Expanded REFCARD.md tables (tutorials 5→15, refcards 5→14)
 - Created REFCARD-INSIGHTS.md (new consolidated refcard)
-- Expanded CLAUDE.md layered architecture docs (token budget, loading triggers)
-- Fixed stale footers, command counts, mkdocs nav, worktree syntax
 - Version bumped to v2.22.1 across all files
 
 ---
 
 🎯 Next Action:
-→ Create release PR (dev → main), merge, tag, deploy
+→ Pick next feature (CLAUDE.md refactor is done, clean slate)
 
-## Future (v2.23.0+)
+## Future (v2.24.0+)
 
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects

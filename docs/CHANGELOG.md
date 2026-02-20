@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.23.1] - 2026-02-19: Hub Rewrite & Cleanup
+
+### Changed
+
+- **Hub command:** Complete rewrite of `/craft:hub` with all features through v2.23.0 — corrected stats (108 commands, 25 skills, 8 agents), added missing categories (CI, Orchestrate), expanded git/docs/workflow sections, removed phantom agents and duplicate sections
+- **Spec archival:** Archived completed CLAUDE.md refactor spec, updated spec count (7→6)
+- **Branch cleanup:** Deleted 10 merged remote feature branches, 1 stale local branch
+
+### Fixed
+
+- Skill count in hub corrected from 24 to 25 (matching actual filesystem)
+
+---
+
 ## [2.23.0] - 2026-02-19: Extended Version Sync & Test Suite
 
 ### Added

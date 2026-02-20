@@ -2,13 +2,11 @@
 
 ## Active Work
 
-Full spec: `docs/specs/SPEC-claude-md-refactor-2026-02-18.md`
-
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**108 commands** · **25 skills** · **8 agents** · **7 specs** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**108 commands** · **25 skills** · **8 agents** · **6 specs** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.23.0 | **Tests:** ~1472 passing, 90%+ coverage
+**Current Version:** v2.23.1 | **Tests:** ~1472 passing, 90%+ coverage
 
 > For project details (agents, test suite, structure, key files, version history), see `.claude/reference/`
 
