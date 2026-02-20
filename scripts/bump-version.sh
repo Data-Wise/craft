@@ -75,6 +75,10 @@ SKILL_COUNT=$(find skills -name "*.md" -o -name "SKILL.md" 2>/dev/null | wc -l |
 AGENT_COUNT=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 SPEC_COUNT=$(find docs/specs -name "SPEC-*.md" ! -path "*/archive/*" ! -path "*/_archive/*" 2>/dev/null | wc -l | tr -d ' ')
 
+# Count of files this script manages (3 JSON + 8 text = 11)
+# Update this if you add new file handlers below
+FILE_COUNT=11
+
 # ---------------------------------------------------------------------------
 # VERIFY mode
 # ---------------------------------------------------------------------------
@@ -303,7 +307,7 @@ if [ -f "docs/reference/configuration.md" ]; then
         if [ "$COUNTS_ONLY" = false ]; then
             sed -i '' "s|bump-version\.sh [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|bump-version.sh ${TARGET_VERSION}|g" docs/reference/configuration.md
         fi
-        sed -i '' "s|across [0-9][0-9]* files|across 11 files|g" docs/reference/configuration.md
+        sed -i '' "s|across [0-9][0-9]* files|across ${FILE_COUNT} files|g" docs/reference/configuration.md
         echo -e "  ${GREEN}✓${NC} docs/reference/configuration.md"; UPDATED=$((UPDATED + 1))
     fi
 fi
