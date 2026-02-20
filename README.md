@@ -2,7 +2,7 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
 [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.22.2-blue.svg)](https://github.com/Data-Wise/craft)
+[![Version](https://img.shields.io/badge/version-2.23.0-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **v2.22.2 - Bump-Version Feature & Documentation Overhaul** 🚀

@@ -8,7 +8,7 @@ Full spec: `docs/specs/SPEC-claude-md-refactor-2026-02-18.md`
 
 **108 commands** · **25 skills** · **8 agents** · **7 specs** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.22.2 | **Tests:** ~1472 passing, 90%+ coverage
+**Current Version:** v2.23.0 | **Tests:** ~1472 passing, 90%+ coverage
 
 > For project details (agents, test suite, structure, key files, version history), see `.claude/reference/`
 
