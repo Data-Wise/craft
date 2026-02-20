@@ -6,7 +6,7 @@
 
 **108 commands** · **25 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.23.1 | **Tests:** 13 unit tests passing
+**Current Version:** v2.24.0 | **Tests:** 62 tests passing (13 unit + 21 e2e + 28 dogfood)
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
@@ -42,6 +42,8 @@ Override: `/craft:git:unprotect` (session-scoped, auto-expires)
 | Task | Command |
 |------|---------|
 | Run unit tests | `python3 tests/test_craft_plugin.py` or `/craft:test unit` |
+| E2E tests | `python3 -m pytest tests/test_plugin_e2e.py -v` |
+| Dogfood tests | `python3 -m pytest tests/test_plugin_dogfood.py -v` |
 | Integration tests | `python3 tests/test_integration_*.py` |
 | Dependency tests | `bash tests/test_dependency_management.sh` |
 | Validate counts | `./scripts/validate-counts.sh` |

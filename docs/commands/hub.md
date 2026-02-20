@@ -511,7 +511,7 @@ Quick orchestration (--orch flag on any command):
 
 ---
 
-## Skills (24 Auto-Activated)
+## Skills (25 Auto-Activated)
 
 | Skill | Category | Triggers On |
 |-------|----------|-------------|

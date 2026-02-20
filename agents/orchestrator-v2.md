@@ -4,7 +4,6 @@ description: >
   Enhanced orchestrator with subagent monitoring, mode-aware execution, resilient
   error handling, and ADHD-optimized status tracking. Use proactively for complex
   multi-step tasks requiring parallel agent delegation.
-version: 2.4.0
 model: inherit
 permissionMode: default
 tools:
@@ -18,6 +17,10 @@ tools:
   - Grep
 disallowedTools:
   - NotebookEdit
+memory: project
+skills:
+  - session-state
+  - task-analyzer
 ---
 
 # Orchestrator v2 — Enhanced Agent Coordinator

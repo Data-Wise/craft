@@ -515,9 +515,13 @@ secrets:
 - Version selector for multi-version docs
 - Academic preset (citation-friendly)
 
+### Worktree & Orchestration
+
+- **Cross-repo worktree coordination** — ✅ BUILT (v2.15.0+). Specs referencing multiple `~/projects/` paths trigger paired worktree creation with bidirectional ORCHESTRATE files. See [Multi-Repo Workflow Guide](docs/guide/multi-repo-workflow.md).
+
 ### Distribution
 
-- Monorepo support for distribution commands
+- **Monorepo distribution** — 📋 PLANNED (not yet implemented). Support for distributing packages from a monorepo structure where multiple packages share a single git repository. Distinct from cross-repo coordination, which handles multiple independent repositories.
 - Version bumping automation
 - Changelog-to-release-notes conversion
 - Installation verification tests

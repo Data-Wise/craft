@@ -923,6 +923,88 @@ op inject -i .env.template -o .env
 
 ---
 
+## Cross-Repo Worktree Patterns
+
+Some features span multiple repositories. The patterns in this section extend standard worktrees to cover that case.
+
+For a complete walkthrough, see the **[Multi-Repo Workflow Guide](multi-repo-workflow.md)** — the canonical reference for cross-repo coordination.
+
+### When to Go Cross-Repo
+
+Use cross-repo worktrees when:
+
+- A feature requires changes in a library repo **and** in a consuming app repo
+- Two repos must release together (one depends on the other's new API)
+- You need to develop and test the integration end-to-end before either PR is merged
+
+For independent changes in separate repos, create standard worktrees in each repo separately. Cross-repo coordination adds overhead — use it only when the changes are genuinely coupled.
+
+### Naming Convention: Same Branch in Every Repo
+
+The branch name must be **identical across all repos**. This enables the CI dashboard and PR linking to work.
+
+```bash
+# Both repos get the same branch name
+cd ~/projects/dev-tools/auth-core
+git worktree add ~/.git-worktrees/auth-core/feature-oauth2 -b feature/oauth2
+
+cd ~/projects/dev-tools/web-app
+git worktree add ~/.git-worktrees/web-app/feature-oauth2 -b feature/oauth2
+```
+
+### Paired ORCHESTRATE Files
+
+Each repo's worktree gets its own ORCHESTRATE file, scoped to that repo's work but referencing the paired repo:
+
+```
+~/.git-worktrees/auth-core/feature-oauth2/
+  ORCHESTRATE-oauth2.md   ← describes auth-core work, refs web-app worktree
+
+~/.git-worktrees/web-app/feature-oauth2/
+  ORCHESTRATE-oauth2.md   ← describes web-app work, refs auth-core worktree
+```
+
+When `/craft:orchestrate:plan` detects cross-repo paths in a spec, it creates both worktrees and writes both ORCHESTRATE files automatically.
+
+### Development Order
+
+Work in dependency order. Complete (or at least stabilize) the library repo before writing integration code in the consuming repo:
+
+```bash
+# Session 1: Library (auth-core)
+cd ~/.git-worktrees/auth-core/feature-oauth2
+# Implement the new API
+git push origin feature/oauth2
+
+# Session 2: Consumer (web-app) — after auth-core API is stable
+cd ~/.git-worktrees/web-app/feature-oauth2
+# Integrate the new API
+git push origin feature/oauth2
+```
+
+### Monitoring CI Across Repos
+
+Run `/craft:ci:status` from either worktree — craft reads the ORCHESTRATE file to find paired repos and aggregates their CI status into a single dashboard.
+
+### PR Coordination
+
+Create PRs in dependency order and link them:
+
+```bash
+# 1. Library PR first
+cd ~/.git-worktrees/auth-core/feature-oauth2
+gh pr create --base dev --title "feat: add OAuth2 provider"
+
+# 2. Consumer PR second, with explicit dependency note
+cd ~/.git-worktrees/web-app/feature-oauth2
+gh pr create --base dev --title "feat: integrate OAuth2 provider" \
+  --body "Depends on: Data-Wise/auth-core#<PR number>"
+```
+
+Merge library first, consumer second. See [Multi-Repo Workflow Guide](multi-repo-workflow.md) for the full step-by-step procedure.
+
+---
+
 ## Summary
 
 **Key takeaways:**
@@ -937,6 +1019,7 @@ op inject -i .env.template -o .env
 8. **Performance optimization** via shared dependencies and build caches
 9. **Monitoring scripts** keep worktrees healthy over time
 10. **Security** requires careful secret management across worktrees
+11. **Cross-repo patterns** use identical branch names and paired ORCHESTRATE files — see the [Multi-Repo Workflow Guide](multi-repo-workflow.md)
 
 ---
 
@@ -946,3 +1029,4 @@ op inject -i .env.template -o .env
 - **Quick reference:** [Worktree Refcard](../reference/REFCARD-GIT-WORKTREE.md) — Common commands
 - **Command docs:** [/craft:git:worktree](../commands/git/worktree.md) — Full documentation
 - **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — Complete git workflow
+- **Cross-repo:** [Multi-Repo Workflow Guide](multi-repo-workflow.md) — Features spanning multiple repositories

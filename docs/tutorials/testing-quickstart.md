@@ -1,13 +1,13 @@
 <!-- markdownlint-disable MD046 -->
 # Testing Quickstart
 
-⏱️ **10 minutes** · 🟢 Beginner · ✓ Complete guide
+⏱️ **12 minutes** · 🟢 Beginner · ✓ Complete guide
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Three unified test commands replace seven old ones
+> - **What:** Unified test commands + 62-test validation suite (unit, e2e, dogfood)
 > - **Why:** One command to remember, with category filtering and execution modes
-> - **How:** `/craft:test unit` runs unit tests, `/craft:test:gen` generates test suites
+> - **How:** `/craft:test unit` runs unit tests, `pytest -m "e2e"` runs cross-component validation
 > - **Next:** Read the [full reference](../guide/test-commands.md) or [architecture guide](../guide/test-architecture.md)
 
 ---
@@ -114,6 +114,54 @@ Inspect and customize the Jinja2 templates that power test generation:
 # Validate all templates
 /craft:test:template validate
 ```
+
+---
+
+## Step 7: Run the E2E and Dogfood Suites
+
+Beyond `/craft:test`, craft has dedicated test suites that validate the plugin against itself:
+
+```bash
+# E2E: validates cross-component wiring (21 tests, ~0.6s)
+python3 -m pytest tests/test_plugin_e2e.py -v
+
+# Dogfood: runs craft's own scripts against the live repo (28 tests, ~1.9s)
+python3 -m pytest tests/test_plugin_dogfood.py -v
+
+# Both together with the unit suite (62 tests, ~2.5s)
+python3 -m pytest tests/test_craft_plugin.py tests/test_plugin_e2e.py tests/test_plugin_dogfood.py -v
+```
+
+**What each suite catches:**
+
+| Suite | Catches |
+|-------|---------|
+| Unit (`test_craft_plugin.py`) | Missing files, broken links, wrong counts |
+| E2E (`test_plugin_e2e.py`) | Version drift, stale frontmatter, orphan references |
+| Dogfood (`test_plugin_dogfood.py`) | Script regressions, performance budget violations, schema drift |
+
+---
+
+## Step 8: Filter by Pytest Marker
+
+Every test file uses pytest markers for selective execution:
+
+```bash
+# By tier
+python3 -m pytest -m "structure"     # 13 unit tests
+python3 -m pytest -m "e2e"           # 49 e2e + dogfood tests
+python3 -m pytest -m "dogfood"       # 28 dogfood-only tests
+
+# By domain
+python3 -m pytest -m "branch_guard"  # Branch protection hook tests
+python3 -m pytest -m "hub"           # Hub discovery tests
+python3 -m pytest -m "orchestrator"  # Orchestrator feature tests
+
+# Combine markers
+python3 -m pytest -m "e2e and not dogfood"  # E2E without dogfood
+```
+
+Available markers are defined in `pyproject.toml` under `[tool.pytest.ini_options]`.
 
 ---
 

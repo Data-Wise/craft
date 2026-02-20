@@ -1,17 +1,37 @@
 status: Active
-version: 2.23.1
+version: 2.24.0
 release_date: 2026-02-19
 milestone: v2.23.1 released — Hub Rewrite & Cleanup
-last_session: 2026-02-19
+last_session: 2026-02-20
 
-progress: v2.23.1 released. Clean slate for next feature work.
+progress: Brainstormed Claude Code v2.1.49 integration. Spec + orchestration plan ready. Worktree created for implementation.
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                               |
 |--------|---------|------|--------------------------------------|
-| main   | a60c95c | —    | Production (v2.23.1 released)        |
-| dev    | d666c06 | main | Synced with main                     |
+| main   | 4c807c8 | —    | Production (v2.23.1 + docs fixes)    |
+| dev    | 4d7cbe3 | main | Synced with main                     |
+| feature/claude-code-integration | ca39e9c | dev | Orchestration plan committed, ready to implement |
+
+✅ Session 2026-02-20b (Claude Code v2.1.49 integration planning):
+- Researched Claude Code v2.1.49 release (worktree flag, agent isolation/background/memory/skills, plugin settings.json)
+- Reviewed all 108 craft commands for integration opportunities
+- Audited multi-repo docs: found 5 gaps (no standalone guide, hidden detection logic, missing cross-repo in advanced patterns, no nav grouping, roadmap confusion)
+- Created brainstorm: BRAINSTORM-claude-code-integration-2026-02-20.md
+- Created spec: SPEC-claude-code-integration-2026-02-20.md (5 increments, 14 acceptance criteria)
+- Created worktree: ~/.git-worktrees/craft/feature-claude-code-integration
+- Committed orchestration plan (ORCHESTRATE-claude-code-integration.md) to feature branch
+- Updated memory with dev session workflow rule (brainstorm -> worktree -> ORCHESTRATE -> STOP)
+
+✅ Session 2026-02-20a (mkdocs site cleanup & deploy):
+- Reviewed mkdocs site — identified 5 issues (broken links, orphaned pages, stale counts, stale badge tagline)
+- Fixed 4 broken relative links (directory-style URLs, .STATUS refs outside docs/)
+- Fixed 44 orphaned pages: 22 excluded via exclude_docs globs, 22 added to nav
+- Fixed stale docs command count (17→25) and README tagline (v2.22.2→v2.23.1)
+- Fixed /README.md exclude pattern to stop matching internal/README.md
+- Merged dev→main (PR #98, --admin), deployed docs site to GitHub Pages
+- Build now produces zero warnings with mkdocs build --strict
 
 ✅ Session 2026-02-19d (v2.23.1 release — hub rewrite & cleanup):
 - Rewrote /craft:hub with all features through v2.23.0 (corrected stats, added missing categories, fixed skills/agents tables)
@@ -48,10 +68,14 @@ progress: v2.23.1 released. Clean slate for next feature work.
 ---
 
 🎯 Next Action:
-→ Pick next feature (clean slate for v2.24.0)
+→ cd ~/.git-worktrees/craft/feature-claude-code-integration && claude
+→ Implement 5 increments from ORCHESTRATE-claude-code-integration.md
+→ Increments 1-3 (code) and 4-5 (docs) can be parallelized
 
 ## Future (v2.24.0+)
 
+- Claude Code v2.1.49 integration (in progress — feature/claude-code-integration)
+- Missing docs help pages for 14 docs sub-commands
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)

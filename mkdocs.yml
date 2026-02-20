@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.23.1 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.
+site_description: Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.24.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -128,6 +128,7 @@ nav:
       - Interactive Commands: guide/interactive-commands.md
       - Check Command Mastery: guide/check-command-mastery.md
       - Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
+      - Multi-Repo Workflow: guide/multi-repo-workflow.md
       - Branch Guard Smart Mode: guide/branch-guard-smart-mode.md
       - Branch Guard Setup Tutorial: tutorials/TUTORIAL-branch-guard-setup.md
       - Claude-MD Workflows: tutorials/claude-md-workflows.md

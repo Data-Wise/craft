@@ -4,12 +4,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 24 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture
+> - **What:** 25 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture
 > - **Why:** AI automatically selects the right expertise for your task without manual intervention
 > - **How:** Skills trigger on context (e.g., "API" activates backend-designer), agents handle long-running tasks
 > - **Next:** Read [Orchestrator](orchestrator.md) to learn how they work together
 
-## Skills (24 total)
+## Skills (25 total)
 
 Skills are auto-triggered expertise modules that activate based on conversation context.
 
