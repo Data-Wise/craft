@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.22.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.22.2 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -2015,6 +2015,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#layer-4-atomic-version-bump-bump-versionsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 4: Atomic Version Bump (bump-version.sh)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#related-documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3829,6 +3840,34 @@
     
   
     /craft:ci:generate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/ci/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:status
   
 
     
@@ -6062,6 +6101,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-BUMP-VERSION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bump Version Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -7418,6 +7485,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#layer-4-atomic-version-bump-bump-versionsh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer 4: Atomic Version Bump (bump-version.sh)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#related-documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7772,6 +7850,57 @@
 </tr>
 </tbody>
 </table>
+<h2 id="layer-4-atomic-version-bump-bump-versionsh">Layer 4: Atomic Version Bump (bump-version.sh)<a class="headerlink" href="#layer-4-atomic-version-bump-bump-versionsh" title="Permanent link">&para;</a></h2>
+<p><strong>File:</strong> <code>scripts/bump-version.sh</code> + <code>scripts/bump-version-helper.py</code></p>
+<p><strong>Role:</strong> The <em>fix</em> layer — while Layers 1-3 detect drift, Layer 4 prevents it by updating all 9 version-bearing files atomically in a single invocation.</p>
+<p><strong>Modes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Command</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full bump</td>
+<td><code>./scripts/bump-version.sh 2.23.0</code></td>
+<td>Version + counts across all files</td>
+</tr>
+<tr>
+<td>Dry run</td>
+<td><code>./scripts/bump-version.sh 2.23.0 --dry-run</code></td>
+<td>Preview only</td>
+</tr>
+<tr>
+<td>Counts only</td>
+<td><code>./scripts/bump-version.sh --counts-only</code></td>
+<td>Sync counts without version change</td>
+</tr>
+<tr>
+<td>Verify</td>
+<td><code>./scripts/bump-version.sh --verify</code></td>
+<td>Check consistency (exit 0/1)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Architecture:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>bump-version.sh
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    |
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    +-- bump-version-helper.py (JSON: plugin.json, marketplace.json, package.json)
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    |
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    +-- sed (text: CLAUDE.md, README.md, docs/index.md, docs/REFCARD.md, mkdocs.yml, .STATUS)
+</span></code></pre></div>
+<p><strong>Integration with release pipeline:</strong> Step 3 of <code>/release</code> calls <code>bump-version.sh &lt;version&gt;</code> instead of manual file-by-file edits. The <code>--verify</code> mode is used by <code>pre-release-check.sh</code> as an additional consistency gate.</p>
+<p><strong>Scoped replacements:</strong> To avoid rewriting historical references (e.g., "NEW in v2.22.0"), text file updates use targeted patterns:</p>
+<ul>
+<li><code>docs/index.md</code>: Only <code>version-X.Y.Z</code> badges and <code>Current version:</code> lines</li>
+<li><code>docs/REFCARD.md</code>: Only version badge and first 5 lines (header)</li>
+<li><code>CLAUDE.md</code>: Only <code>Current Version:** vX.Y.Z</code> pattern</li>
+<li><code>README.md</code>: Only <code>version-X.Y.Z</code> badge pattern</li>
+</ul>
+<hr />
 <h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
 <ul>
 <li>CI monitoring: <code>docs/architecture/ci-monitoring.md</code></li>
@@ -7780,6 +7909,8 @@
 <li>Configuration schema: <code>.claude/release-config.json</code></li>
 <li>Version sync script: <code>scripts/version-sync.sh</code></li>
 <li>Pre-commit hook: <code>scripts/version-sync-precommit.sh</code></li>
+<li>Bump version script: <code>scripts/bump-version.sh</code></li>
+<li>Bump version reference: <code>docs/reference/REFCARD-BUMP-VERSION.md</code></li>
 </ul>
 
 

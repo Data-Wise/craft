@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.22.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.22.2 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -3607,6 +3607,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../commands/ci/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../commands/docs/update/" class="md-nav__link">
         
   
@@ -5203,6 +5231,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#crafthomebrewjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .craft/homebrew.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clauderelease-configjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .claude/release-config.json
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5213,6 +5263,17 @@
     <span class="md-ellipsis">
       
         Mode Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Sync
       
     </span>
   </a>
@@ -5942,6 +6003,34 @@
     
   
     Insights Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REFCARD-BUMP-VERSION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bump Version Reference
   
 
     
@@ -7167,6 +7256,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#crafthomebrewjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .craft/homebrew.json
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clauderelease-configjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .claude/release-config.json
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7177,6 +7288,17 @@
     <span class="md-ellipsis">
       
         Mode Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Sync
       
     </span>
   </a>
@@ -7247,6 +7369,52 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~/.claude/plugins/craft/
 </span></code></pre></div>
 <h2 id="configuration-files">Configuration Files<a class="headerlink" href="#configuration-files" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+<th>Created By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.craft/site-design.yaml</code></td>
+<td>Site design preferences</td>
+<td><code>/craft:site:create</code></td>
+</tr>
+<tr>
+<td><code>.craft/homebrew.json</code></td>
+<td>Homebrew formula name and tap</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td><code>.claude-plugin/plugin.json</code></td>
+<td>Plugin manifest (version, name)</td>
+<td>Plugin init</td>
+</tr>
+<tr>
+<td><code>.claude-plugin/marketplace.json</code></td>
+<td>Marketplace distribution metadata</td>
+<td><code>/craft:dist:marketplace init</code></td>
+</tr>
+<tr>
+<td><code>.claude-plugin/config.json</code></td>
+<td>Plugin custom config (budget, etc.)</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td><code>.claude/release-config.json</code></td>
+<td>Release pipeline + version sync config</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td><code>package.json</code></td>
+<td>Version source (Node projects)</td>
+<td><code>npm init</code></td>
+</tr>
+</tbody>
+</table>
 <h3 id="craftsite-designyaml">.craft/site-design.yaml<a class="headerlink" href="#craftsite-designyaml" title="Permanent link">&para;</a></h3>
 <p>Created by <code>/craft:site:create</code>, stores site design preferences:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">preset</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;data-wise&quot;</span>
@@ -7271,6 +7439,27 @@
 </span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="nt">code_copy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">  </span><span class="nt">edit_on_github</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </span></code></pre></div>
+<h3 id="crafthomebrewjson">.craft/homebrew.json<a class="headerlink" href="#crafthomebrewjson" title="Permanent link">&para;</a></h3>
+<p>Maps project to Homebrew formula and tap:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;formula_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;craft&quot;</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;tap&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data-wise/tap&quot;</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;source_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="clauderelease-configjson">.claude/release-config.json<a class="headerlink" href="#clauderelease-configjson" title="Permanent link">&para;</a></h3>
+<p>Controls version sync and CI monitoring behavior:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;version_sync&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">&quot;source_of_truth&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auto&quot;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nt">&quot;ci_timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nt">&quot;ci_max_retries&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="nt">&quot;ci_poll_interval&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>See <a href="../../architecture/version-sync/">Version Sync Architecture</a> for full schema.</p>
 <h2 id="mode-configuration">Mode Configuration<a class="headerlink" href="#mode-configuration" title="Permanent link">&para;</a></h2>
 <p>Execution modes can be customized per project.</p>
 <p><strong>Default mode settings:</strong></p>
@@ -7305,6 +7494,13 @@
 </tr>
 </tbody>
 </table>
+<h2 id="version-sync">Version Sync<a class="headerlink" href="#version-sync" title="Permanent link">&para;</a></h2>
+<p>Version is managed across 9 files atomically using <code>bump-version.sh</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./scripts/bump-version.sh<span class="w"> </span><span class="m">2</span>.22.2<span class="w">        </span><span class="c1"># Full bump</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./scripts/bump-version.sh<span class="w"> </span>--verify<span class="w">       </span><span class="c1"># Check for drift</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>./scripts/bump-version.sh<span class="w"> </span>--counts-only<span class="w">  </span><span class="c1"># Sync counts only</span>
+</span></code></pre></div>
+<p>See <a href="../REFCARD-BUMP-VERSION/">Bump Version Reference</a> for details.</p>
 <h2 id="adhd-score-thresholds">ADHD Score Thresholds<a class="headerlink" href="#adhd-score-thresholds" title="Permanent link">&para;</a></h2>
 <p>Website enhancement scoring:</p>
 <table>
@@ -7350,6 +7546,8 @@
 <ul>
 <li><a href="../presets/">Presets Reference</a> - Design preset details</li>
 <li><a href="../../REFCARD/">Quick Reference</a> - Command cheat sheet</li>
+<li><a href="../REFCARD-BUMP-VERSION/">Bump Version Reference</a> - Version management</li>
+<li><a href="../../architecture/version-sync/">Version Sync Architecture</a> - Three-layer drift prevention</li>
 </ul>
 
 
