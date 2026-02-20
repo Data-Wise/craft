@@ -17,6 +17,10 @@ tools:
   - Grep
 disallowedTools:
   - NotebookEdit
+memory: project
+skills:
+  - session-state
+  - task-analyzer
 ---
 
 # Orchestrator v2 — Enhanced Agent Coordinator
