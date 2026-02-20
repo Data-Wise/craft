@@ -48,7 +48,7 @@ Need to update version numbers?
 
 ---
 
-## Files Updated (9)
+## Files Updated (11)
 
 | Category | File | What Changes |
 |----------|------|-------------|
@@ -57,8 +57,10 @@ Need to update version numbers?
 | JSON | `package.json` | `version`, description counts |
 | Text | `CLAUDE.md` | `Current Version: vX.Y.Z`, bold counts |
 | Text | `README.md` | `version-X.Y.Z` badge, bold counts |
-| Text | `docs/index.md` | Version badge, count strings |
-| Text | `docs/REFCARD.md` | Header version (first 5 lines only) |
+| Text | `docs/index.md` | Version badge, `Latest: vX.Y.Z` info box, count strings |
+| Text | `docs/REFCARD.md` | Header version, box interior `Version: X.Y.Z` + `vX.Y.Z:` summary |
+| Text | `docs/DEPENDENCY-ARCHITECTURE.md` | `**Version**: X.Y.Z` footer |
+| Text | `docs/reference/configuration.md` | `bump-version.sh X.Y.Z` example, file count |
 | Text | `mkdocs.yml` | `site_description` version + counts |
 | Text | `.STATUS` | `version:` line, count string |
 
@@ -110,6 +112,10 @@ Counts are auto-detected from the filesystem:
 | README.md | `version-{version}` badge | Present |
 | mkdocs.yml | `v{version}` pattern | Present |
 | .STATUS | `version: {version}` line | Present |
+| docs/DEPENDENCY-ARCHITECTURE.md | `**Version**: {version}` footer | Present |
+| docs/reference/configuration.md | `bump-version.sh {version}` example | Present |
+| docs/REFCARD.md | `Version: {version}` box interior | Present |
+| docs/index.md | `Latest: v{version}` info box | Present |
 
 ---
 
@@ -143,6 +149,7 @@ bump-version.sh (orchestrator)
     |
     +-- sed (text file updates)
             Handles: CLAUDE.md, README.md, docs/index.md, docs/REFCARD.md,
+                     docs/DEPENDENCY-ARCHITECTURE.md, docs/reference/configuration.md,
                      mkdocs.yml, .STATUS
             Uses targeted patterns to avoid rewriting historical references
 ```

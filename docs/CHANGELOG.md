@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **bump-version.sh:** Automated version bumping across all 9 project files with `--dry-run`, `--verify`, and `--counts-only` modes
+- **bump-version.sh:** Automated version bumping across all 11 project files with `--dry-run`, `--verify`, and `--counts-only` modes
 - **CI status dashboard:** New command page and reference card for cross-repo CI monitoring
 
 ### Fixed
@@ -41,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **bump-version.sh:** Atomic version + count sync across all 9 project files — prevents version drift between releases
+- **bump-version.sh:** Atomic version + count sync across all 11 project files — prevents version drift between releases
 - **bump-version-helper.py:** Python helper for JSON file updates (plugin.json, marketplace.json, package.json)
 - **/craft:ci:status:** Cross-repo CI status dashboard — see all workflow statuses in one view with `--json` and `--repo` filters
 - **REFCARD-BUMP-VERSION.md:** Quick reference card for bump-version.sh

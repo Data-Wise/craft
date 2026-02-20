@@ -302,7 +302,7 @@ Multi-step extraction (extract field, then extract number from field) is preferr
 
 **File:** `scripts/bump-version.sh` + `scripts/bump-version-helper.py`
 
-**Role:** The *fix* layer — while Layers 1-3 detect drift, Layer 4 prevents it by updating all 9 version-bearing files atomically in a single invocation.
+**Role:** The *fix* layer — while Layers 1-3 detect drift, Layer 4 prevents it by updating all 11 version-bearing files atomically in a single invocation.
 
 **Modes:**
 
@@ -320,15 +320,17 @@ bump-version.sh
     |
     +-- bump-version-helper.py (JSON: plugin.json, marketplace.json, package.json)
     |
-    +-- sed (text: CLAUDE.md, README.md, docs/index.md, docs/REFCARD.md, mkdocs.yml, .STATUS)
+    +-- sed (text: CLAUDE.md, README.md, docs/index.md, docs/REFCARD.md,
+    |         docs/DEPENDENCY-ARCHITECTURE.md, docs/reference/configuration.md,
+    |         mkdocs.yml, .STATUS)
 ```
 
 **Integration with release pipeline:** Step 3 of `/release` calls `bump-version.sh <version>` instead of manual file-by-file edits. The `--verify` mode is used by `pre-release-check.sh` as an additional consistency gate.
 
 **Scoped replacements:** To avoid rewriting historical references (e.g., "NEW in v2.22.0"), text file updates use targeted patterns:
 
-- `docs/index.md`: Only `version-X.Y.Z` badges and `Current version:` lines
-- `docs/REFCARD.md`: Only version badge and first 5 lines (header)
+- `docs/index.md`: Only `version-X.Y.Z` badges, `Current version:` lines, and `Latest: vX.Y.Z` info box
+- `docs/REFCARD.md`: Version badge, header lines, box interior `Version: X.Y.Z` and `vX.Y.Z:` summary
 - `CLAUDE.md`: Only `Current Version:** vX.Y.Z` pattern
 - `README.md`: Only `version-X.Y.Z` badge pattern
 
