@@ -211,8 +211,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.23.1 — Bump-Version Feature & Documentation Overhaul"
-    Rebuilt tutorials index (23 tutorials), expanded REFCARD tables (14 refcards), new REFCARD-INSIGHTS, fixed dogfood test assertions, expanded CLAUDE.md layered architecture docs. 108 commands, ~1496 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.23.1 — Hub Rewrite & Cleanup"
+    Complete rewrite of `/craft:hub` with all features through v2.23.0, corrected stats (108 commands, 25 skills, 8 agents), archived completed specs, cleaned up stale branches. ~1496 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
