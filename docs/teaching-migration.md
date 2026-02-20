@@ -450,7 +450,7 @@ Update your teaching team's workflow documentation:
 
 **After:**
 
-```markdown
+````markdown
 ## Publishing to Production
 
 Run the publish command:
@@ -465,12 +465,12 @@ The command will:
 - Ask for confirmation
 - Deploy with rollback on failure
 - Verify site is live
-
-```
+````
 
 ### Notify Your Team
 
 **Email template:**
+
 ```
 
 Subject: New Teaching Site Workflow - Craft Automation
@@ -509,6 +509,7 @@ Questions? Reply to this email.
 **Problem:** Old content doesn't meet Craft's validation rules
 
 **Solution:**
+
 ```bash
 # See what's wrong
 /craft:site:validate
@@ -595,7 +596,7 @@ curl -fsSL https://raw.githubusercontent.com/Data-Wise/craft/main/install.sh | b
 
 **Document in team README:**
 
-```markdown
+````markdown
 ## Setup
 
 Install Craft:
@@ -610,20 +611,21 @@ Then use teaching workflows:
 /craft:site:progress
 /craft:site:validate
 ```
-
-```
+````
 
 ## Migration Checklist
 
 Use this checklist to track migration progress:
 
 **Pre-migration:**
+
 - [ ] Review old deployment scripts
 - [ ] Document current workflow
 - [ ] Identify custom validation logic
 - [ ] List all team members who deploy
 
 **Configuration:**
+
 - [ ] Create `.flow/teach-config.yml`
 - [ ] Set course info (number, title, semester)
 - [ ] Add semester dates (start, end, breaks)
@@ -632,12 +634,14 @@ Use this checklist to track migration progress:
 - [ ] Test config with `/craft:site:status`
 
 **Validation:**
+
 - [ ] Run `/craft:site:validate`
 - [ ] Fix all validation errors
 - [ ] Test with incomplete content (intentionally break validation)
 - [ ] Verify error messages are clear
 
 **Publishing:**
+
 - [ ] Test `/craft:site:publish` on draft branch
 - [ ] Review preview output carefully
 - [ ] Confirm publish and monitor deployment
@@ -645,12 +649,14 @@ Use this checklist to track migration progress:
 - [ ] Test rollback (create a failure scenario)
 
 **Progress Tracking:**
+
 - [ ] Run `/craft:site:progress`
 - [ ] Verify current week calculation
 - [ ] Check break countdown accuracy
 - [ ] Test `--week` manual override
 
 **Team Migration:**
+
 - [ ] Install Craft for all team members
 - [ ] Update team workflow documentation
 - [ ] Send migration announcement email
@@ -658,6 +664,7 @@ Use this checklist to track migration progress:
 - [ ] Archive old deployment scripts
 
 **Post-migration:**
+
 - [ ] Monitor first 3 publishes for issues
 - [ ] Collect team feedback
 - [ ] Adjust validation rules if needed
@@ -668,12 +675,14 @@ Use this checklist to track migration progress:
 Track these to measure migration success:
 
 **Before Craft (baseline):**
+
 - Time to publish: ~15 minutes (manual steps)
 - Publishing errors: ~20% of publishes have issues
 - Broken link incidents: ~2 per semester
 - Rollback required: ~10% of publishes
 
 **After Craft (target):**
+
 - Time to publish: ~3 minutes (one command)
 - Publishing errors: <5% (caught by validation)
 - Broken link incidents: 0 (validation catches them)
@@ -709,13 +718,14 @@ After successful migration:
 
 - **[Teaching Mode Setup Tutorial](tutorials/teaching-mode-setup.md)** - First-time setup guide
 - **[Config Schema](teaching-config-schema.md)** - Complete YAML reference
-- **[Command Reference: `/craft:site:publish`](commands/site.md#publish)** - Publishing workflow with validation
-- **[Command Reference: `/craft:site:progress`](commands/site.md#progress)** - Progress dashboard
+- **[Command Reference: `/craft:site:publish`](commands/site.md)** - Publishing workflow with validation
+- **[Command Reference: `/craft:site:progress`](commands/site.md)** - Progress dashboard
 - **[GitHub Issues](https://github.com/Data-Wise/craft/issues)** - Report problems or suggest features
 
 ## Get Help
 
 **Questions during migration?**
+
 - Review troubleshooting section above
 - Check [Teaching Config Schema](teaching-config-schema.md)
 - Open an issue: [GitHub Issues](https://github.com/Data-Wise/craft/issues)

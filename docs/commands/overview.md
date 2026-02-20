@@ -219,7 +219,7 @@ Four key commands use the **"Show Steps First" pattern**:
 **Resources:**
 
 - [Cookbook & Examples](../cookbook/index.md) - Task-focused recipes
-- [Tutorials](../tutorials/) - Step-by-step guides
-- [Guides](../guide/) - Comprehensive documentation
+- [Tutorials](../tutorials/index.md) - Step-by-step guides
+- [Guides](../guide/getting-started.md) - Comprehensive documentation
 
 ---

@@ -9,6 +9,73 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.23.1] - 2026-02-19
+
+### Fixed
+
+- Correct skill count in hub (24→25)
+- Stale release taglines in index and REFCARD
+
+### Changed
+
+- Updated .STATUS for v2.23.1 release session
+
+---
+
+## [2.23.0] - 2026-02-19
+
+### Added
+
+- **bump-version.sh** — extended to cover 4 additional doc files (11 total), with `FILE_COUNT` variable replacing hardcoded values
+- **Comprehensive bump-version test suite** — 45 tests covering version replacement, file discovery, and edge cases
+- **CI status dashboard** and release pipeline improvements
+- REFCARD-CHECK and REFCARD-INSIGHTS added to mkdocs nav
+
+### Fixed
+
+- Hardcoded file count replaced with `FILE_COUNT` variable in bump-version.sh
+- ORCHESTRATE files no longer gitignored — tracked on feature branches as intended
+- Code review issues in bump-version scripts
+
+### Changed
+
+- Hub command rewritten with all features through v2.23.0
+- CLAUDE.md layered architecture section expanded in refcard
+- Archived completed CLAUDE.md refactor spec
+
+---
+
+## [2.22.2] - 2026-02-19
+
+### Fixed
+
+- Stale pages: config, dependency arch, choose-path, doc-quality docs
+- Stale version/count refs across site
+- CLAUDE.md synced — fixed stale ORCHESTRATE ref, updated spec/test counts
+
+### Added
+
+- bump-version reference card, CI status command page, version-sync Layer 4
+- Updated REFCARD and A-Z reference with new features
+
+---
+
+## [2.22.1] - 2026-02-19
+
+### Fixed
+
+- Dogfood test assertions for branch guard verbosity
+- Strengthened release skill with mandatory CI monitoring and version checklist
+- Added jinja2 to CI deps, bumped marketplace.json to v2.22.0
+
+### Added
+
+- Rebuilt tutorial index, updated REFCARD tables, added insights refcard
+- Synced documentation gaps found by /craft:docs:sync
+- Fixed stale tutorials for v2.22.0
+
+---
+
 ## [2.22.0] - 2026-02-19
 
 ### Added

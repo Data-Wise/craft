@@ -8,7 +8,7 @@
 │  Commands: 108 | Agents: 8 | Skills: 25                     │
 │  Documentation: 99% complete | Tests: ~1472 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.23.1: Bump-version feature, doc overhaul, test fixes     │
+│  v2.23.1: Hub rewrite, spec archival, branch cleanup         │
 └─────────────────────────────────────────────────────────────┘
 ```
 

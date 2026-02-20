@@ -1,17 +1,25 @@
 status: Active
 version: 2.23.1
 release_date: 2026-02-19
-milestone: v2.23.0 released — Extended Version Sync & Test Suite
+milestone: v2.23.1 released — Hub Rewrite & Cleanup
 last_session: 2026-02-19
 
-progress: v2.23.0 released. Clean slate for next feature work.
+progress: v2.23.1 released. Clean slate for next feature work.
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                               |
 |--------|---------|------|--------------------------------------|
-| main   | b6d8f49 | —    | Production (v2.23.0 released)        |
-| dev    | 5763b10 | main | Synced with main                     |
+| main   | a60c95c | —    | Production (v2.23.1 released)        |
+| dev    | d666c06 | main | Synced with main                     |
+
+✅ Session 2026-02-19d (v2.23.1 release — hub rewrite & cleanup):
+- Rewrote /craft:hub with all features through v2.23.0 (corrected stats, added missing categories, fixed skills/agents tables)
+- Fixed skill count 24→25 to match filesystem
+- Released v2.23.1: bump across 14 files, PR #97, merge (--admin), GitHub release, docs deploy, Homebrew tap
+- Fixed stale release taglines in index.md and REFCARD.md
+- Deleted 10 merged remote feature branches + 1 stale local branch
+- Stats: 108 commands, 25 skills, 8 agents, 6 specs, ~1496 tests
 
 ✅ Session 2026-02-19c (v2.23.0 release):
 - Addressed PR #95 code review: added FILE_COUNT variable to bump-version.sh
@@ -40,7 +48,7 @@ progress: v2.23.0 released. Clean slate for next feature work.
 ---
 
 🎯 Next Action:
-→ Pick next feature (CLAUDE.md refactor is done, clean slate)
+→ Pick next feature (clean slate for v2.24.0)
 
 ## Future (v2.24.0+)
 

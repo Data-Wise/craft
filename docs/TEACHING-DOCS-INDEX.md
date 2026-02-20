@@ -74,10 +74,10 @@ Complete documentation for Craft's teaching mode feature.
 
 | Command | Description | Link |
 |---------|-------------|------|
-| `/craft:site:publish` | Publish draft → production with preview | [Documentation](commands/site.md#publish) |
-| `/craft:site:progress` | Semester progress dashboard | [Documentation](commands/site.md#progress) |
-| `/craft:site:validate` | Content validation (syllabus, schedule) | [Documentation](commands/site.md#validate) |
-| `/craft:site:build` | Build site with teaching mode support | [Documentation](commands/site.md#build) |
+| `/craft:site:publish` | Publish draft → production with preview | [Documentation](commands/site.md) |
+| `/craft:site:progress` | Semester progress dashboard | [Documentation](commands/site.md) |
+| `/craft:site:validate` | Content validation (syllabus, schedule) | [Documentation](commands/site.md) |
+| `/craft:site:build` | Build site with teaching mode support | [Documentation](commands/site.md#craftsitebuild) |
 
 ## Documentation by Use Case
 
@@ -169,11 +169,11 @@ validation:
    - Fix missing sections or incomplete content
 
 3. **Publish failures**
-   - See: [Publish Command - Error Handling](commands/site.md#publish)
+   - See: [Publish Command - Error Handling](commands/site.md)
    - Review merge conflicts, network errors
 
 4. **Progress calculation wrong**
-   - See: [Progress Command - Troubleshooting](commands/site.md#progress)
+   - See: [Progress Command - Troubleshooting](commands/site.md)
    - Verify dates and breaks in config
 
 5. **Migration issues**
@@ -308,12 +308,12 @@ validation:
 
 **Site commands:**
 
-- [Site Create](commands/site.md#create) - Documentation site wizard
-- [Site Deploy](commands/site.md#deploy) - Direct GitHub Pages deployment
-- [Site Check](commands/site.md#check) - Health validation
+- [Site Create](commands/site.md#craftsitecreate) - Documentation site wizard
+- [Site Deploy](commands/site.md#craftsitedeploy) - Direct GitHub Pages deployment
+- [Site Check](commands/site.md#craftsitecheck) - Health validation
 
 **Git workflows:**
 
-- [Git Worktree](commands/git.md#worktree) - Parallel development
-- [Git Branch](commands/git.md#branch) - Branch management
-- [Git Sync](commands/git.md#sync) - Smart synchronization
+- [Git Worktree](commands/git.md#craftgitworktree) - Parallel development
+- [Git Branch](commands/git.md) - Branch management
+- [Git Sync](commands/git.md#craftgitsync) - Smart synchronization

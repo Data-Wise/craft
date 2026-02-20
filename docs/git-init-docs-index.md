@@ -102,7 +102,7 @@ docs/
 **Documents:**
 
 1. [Tutorial - Section 1](guide/git-init-tutorial.md#section-1-brand-new-project) - Step-by-step walkthrough
-2. [Command Reference - Quick Start](commands/git-init-reference.md#quick-start) - Command examples
+2. [Command Reference - Usage Examples](commands/git-init-reference.md#usage-examples) - Command examples
 
 **Estimated Time:** 5-10 minutes
 

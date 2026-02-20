@@ -832,7 +832,6 @@ except Exception as e:
 
 ## References
 
-- [Feature Release Documentation](FEATURE-RELEASE-CLAUDE-MD.md)
 - [Command Reference](commands/docs/claude-md.md)
 - [Tutorial Guide](tutorials/claude-md-workflows.md)
 - [Quick Reference](reference/REFCARD-CLAUDE-MD.md)
