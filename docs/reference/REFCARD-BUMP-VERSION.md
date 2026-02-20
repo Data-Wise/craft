@@ -33,7 +33,7 @@ Need to update version numbers?
 ## Usage
 
 ```bash
-# Full bump: version + counts across all 9 files
+# Full bump: version + counts across all 11 files
 ./scripts/bump-version.sh 2.23.0
 
 # Preview without writing

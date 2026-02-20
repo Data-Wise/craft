@@ -238,14 +238,28 @@ For **Craft plugin projects**, use the automated bump script:
 # Preview what will change
 ./scripts/bump-version.sh <version> --dry-run
 
-# Apply version bump + count sync across all 9 files
+# Apply version bump + count sync across all 11 files
 ./scripts/bump-version.sh <version>
 
 # Verify consistency
 ./scripts/bump-version.sh --verify
 ```
 
-This atomically updates: `plugin.json`, `marketplace.json`, `package.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, and `.STATUS`.
+This atomically updates 11 files: `plugin.json`, `marketplace.json`, `package.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, `.STATUS`, `docs/DEPENDENCY-ARCHITECTURE.md`, `docs/reference/configuration.md` (version in example + file count).
+
+### Step 3b: Semantic Doc Updates
+
+After `bump-version.sh` handles mechanical version substitution, update these files with **release-specific content** (title, summary, changelog entry). The release title comes from Step 1.
+
+| File | What to Update |
+|------|---------------|
+| `CHANGELOG.md` | Insert new version entry with summary from commit analysis |
+| `VERSION-HISTORY.md` | Insert new version section with highlights |
+| `README.md` | Update release title line (if present) |
+| `docs/index.md` | Update `!!! info` box title text (after the version) |
+| `docs/REFCARD.md` | Update summary line ~11 title text (after the version) |
+
+**Key distinction:** Step 3 handles mechanical `X.Y.Z` substitution. Step 3b handles semantic content that requires the release title and human judgment.
 
 For **other project types**, update manually:
 

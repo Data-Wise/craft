@@ -93,7 +93,7 @@ Execution modes can be customized per project.
 
 ## Version Sync
 
-Version is managed across 9 files atomically using `bump-version.sh`:
+Version is managed across 11 files atomically using `bump-version.sh`:
 
 ```bash
 ./scripts/bump-version.sh 2.22.2        # Full bump
