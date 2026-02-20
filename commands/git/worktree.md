@@ -25,6 +25,25 @@ Manage git worktrees for working on multiple branches simultaneously without swi
 - **Claude Code friendly** - Each terminal/session stays on its branch
 - **No stash juggling** - Uncommitted work stays put
 
+## Craft Worktrees vs Claude Code Native Isolation
+
+Both craft and Claude Code use git worktrees under the hood, but for different purposes. Understanding the difference helps you choose the right tool.
+
+| Aspect | Craft (`/craft:git:worktree`) | Claude Code Native (`isolation: worktree`) |
+|--------|-------------------------------|-------------------------------------------|
+| Location | `~/.git-worktrees/<project>/<branch>` | `.claude/worktrees/<hash>/` |
+| Lifetime | Persistent until manually removed | Temporary, auto-cleaned after agent finishes |
+| Branch naming | `feature/<name>` from `dev` | Agent-generated temporary branch |
+| Visibility | User-managed, listed with `git worktree list` | Transparent to user |
+| Use case | Feature development workflow | Agent isolation during subagent execution |
+| Sharing | Other sessions can `cd` into it | Single agent session only |
+
+**Craft's approach** is recommended for feature development: worktrees are persistent, clearly named, visible to all your tools and sessions, and integrated into the `dev → feature/* → PR` workflow. You navigate into them, run Claude Code inside them, and manage their lifecycle explicitly.
+
+**Claude Code's `isolation: worktree`** serves a different purpose: when a Claude Code subagent needs to be isolated during execution (e.g., in swarm/parallel agent scenarios), it creates a temporary worktree for that agent's session and cleans it up automatically. This is agent-level isolation, not a development workflow tool.
+
+These two approaches are complementary. A craft worktree (long-lived, feature-scoped) can itself host subagent execution with `isolation: worktree` if needed. They operate at different levels of the development stack.
+
 ## Execution Behavior (MANDATORY)
 
 When this command runs, Claude MUST follow these steps in order. Do NOT skip
