@@ -1,83 +1,33 @@
 status: Active
-version: 2.22.0
+version: 2.22.1
 release_date: 2026-02-19
-milestone: v2.22.0 released — Unified Test System + CLAUDE.md Refactor + Insights
+milestone: v2.22.1 released — Documentation Overhaul & Test Fixes
 last_session: 2026-02-19
 
-progress: v2.22.0 released and deployed. Dev and main in sync.
+progress: v2.22.1 released. Documentation comprehensively updated.
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                               |
 |--------|---------|------|--------------------------------------|
-| main   | ae44f03 | —    | Production (v2.22.0)                 |
-| dev    | ae44f03 | main | In sync with main                    |
+| main   | pending | —    | Production (v2.22.0, PR pending)     |
+| dev    | 0f78a3a | main | v2.22.1 ready for release PR         |
 
-✅ Session 2026-02-19 (v2.22.0 release + post-release cleanup):
-- Released v2.22.0: PR #85 merged, GitHub release created, Homebrew tap updated
-- Fixed CI: added jinja2 to CI deps, bumped marketplace.json (PR #86)
-- Hardened release skill: mandatory CI monitoring loop + version checklist
-- Created docs/commands/workflow/insights.md (new command page)
-- Added release pipeline Mermaid flowchart to REFCARD-RELEASE.md
-- Fixed stale tutorials (first-10-minutes, insights-workflow) for v2.22.0
-- Fixed VERSION-HISTORY (marked released), hub.md and check-command-mastery
-- Deployed docs site 3x, synced to main via PRs #86, #87, #88
-- Stats: 107 commands, 25 skills, 8 agents, ~1575 tests, 13/13 unit tests
-
-✅ Session 2026-02-19 (post-merge cleanup):
-- All 3 feature PRs merged to dev (#82, #83, #84)
-- Version bumped: 2.21.0 → 2.22.0 (plugin.json, CLAUDE.md)
-- CHANGELOG updated with v2.22.0 section
-- .STATUS updated: stale branch table and next action cleaned up
-
-✅ Session 2026-02-19 (test-gen-refactor docs update):
-- Bulk updated 40+ files: 111→107 commands, old test command refs, CLAUDE.md, README
-- Fixed 3 duplicate mkdocs.yml nav entries (176 unique entries)
-- Added CHANGELOG.md and VERSION-HISTORY.md entries for v2.22.0
-- Verified: 107 commands, 25 skills, 8 agents via validate-counts.sh
-
-✅ Session 2026-02-18 (test-gen-refactor increments 1-3):
-- Increment 1: pytest markers (25 markers, two-dimensional filtering)
-- Increment 2: CheckResult dataclass migration across all test files
-- Increment 3: Jinja2 template engine (27 templates, 4 project types, 865-line generator)
-- Dogfooded test:gen templates against craft's own test suite
-- PR #82 open targeting dev (15 commits)
-
-✅ Session 2026-02-18 (CLAUDE.md refactor Phases 1-4):
-- Phase 1: Fixed stale counts, archived enforcement doc, promoted rules to spec-only-mode.md
-- Phase 2: Extracted ~120 lines from global CLAUDE.md to ~/.claude/reference/ (206→85 lines)
-- Phase 3: Extracted agents/tests/structure from craft CLAUDE.md + ReferenceFileGenerator (162→82 lines)
-- Phase 4: Wired staleness checks into /workflow:done and /craft:check, updated hub
-- Docs: Updated index, refcards, tutorials, guides, VERSION-HISTORY for v2.22.0
-
-✅ Session 2026-02-18 (brainstorm + planning):
-- Deep brainstorm on test gen refactor (spec approved, worktree created)
-- Max brainstorm on CLAUDE.md & memory refactor (2 background agents: tasks API research + instruction audit)
-- Created specs: test-gen-refactor + claude-md-refactor (both approved)
-- Created worktrees + ORCHESTRATE files for both features
-- Added ORCHESTRATE cleanup to worktree finish workflow (9 doc files updated)
-- Deep brainstorm on insights-driven command updates (16 expert questions)
-- Created spec + worktree + ORCHESTRATE for insights-integration
-
-✅ Session 2026-02-16 (v2.21.0 release):
-- Released v2.21.0: PR #81 merged, GitHub release created, docs deployed
-- Merged PR #80: orchestrate pipeline + insights lifecycle (42 files, +1510/-137)
-- Rebased onto dev, resolved 12 file conflicts from v2.20.0 homebrew refactor
-- Fixed version refs: feature-specific v2.20.0 → v2.21.0 across 11 files
-- Homebrew tap updated: craft v2.21.0
-- Stats: 107 commands, 25 skills, 8 agents, ~1575 tests passing
-
-✅ Session 2026-02-15 (homebrew timeout hardening):
-- Added 30s timeout to post_install in all 3 plugin formulas (craft, rforge, scholar)
-- Uses Process.spawn + Timeout.timeout pattern (safe for blocking calls)
-- Updated craft dist:homebrew command template to match
-- Verified all 3 with brew reinstall — all pass cleanly (3-4s each)
-- Commits: homebrew-tap 54aa041, 8d27819 | craft 76a56e3
+✅ Session 2026-02-19 (v2.22.1 release prep):
+- Reviewed and merged 3 old PRs (#82, #83, #84) to dev
+- Fixed dogfood test assertions (PR #90 merged)
+- Rebuilt tutorials/index.md (1→23 tutorials)
+- Expanded REFCARD.md tables (tutorials 5→15, refcards 5→14)
+- Created REFCARD-INSIGHTS.md (new consolidated refcard)
+- Expanded CLAUDE.md layered architecture docs (token budget, loading triggers)
+- Fixed stale footers, command counts, mkdocs nav, worktree syntax
+- Version bumped to v2.22.1 across all files
+- Stats: 107 commands, 25 skills, 8 agents, ~1496 tests, 15 refcards, 23 tutorials
 
 ---
 
 🎯 Next Action:
-→ Plan v2.23.0 features (coaching mode, language detection, markdownlint expansion)
+→ Create release PR (dev → main), merge, tag, deploy
 
 ## Future (v2.23.0+)
 

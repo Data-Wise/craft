@@ -4,12 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.22.0 (released 2026-02-19)                       │
+│  Version: 2.22.1 (released 2026-02-19)                       │
 │  Commands: 107 | Agents: 8 | Skills: 25                     │
-│  Documentation: 99% complete | Tests: ~1575 passing          │
+│  Documentation: 99% complete | Tests: ~1496 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.22.0: Unified test system, CLAUDE.md layered instructions│
-│           insights-driven friction prevention                 │
+│  v2.22.1: Doc overhaul, test fixes, insights refcard         │
 └─────────────────────────────────────────────────────────────┘
 ```
 

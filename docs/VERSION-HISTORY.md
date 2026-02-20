@@ -2,13 +2,30 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.22.0 (2026-02-19)
-**Total Releases:** 43 versions | **Development Time:** 2+ years
-**Community:** 107 commands documented, ~1575 tests passing, 90%+ coverage
+**Latest Release:** v2.22.1 (2026-02-19)
+**Total Releases:** 44 versions | **Development Time:** 2+ years
+**Community:** 107 commands documented, ~1496 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.22.1 (2026-02-19) - Documentation Overhaul & Test Fixes
+
+**Status:** Released
+
+**Highlights:**
+
+- **Tutorials index rebuilt:** 1 listed → 23, organized into 7 categories (Getting Started, Git, Testing, Documentation, Orchestration, Release, Infrastructure)
+- **REFCARD tables expanded:** Tutorials 5→15, reference cards 5→14 with line counts
+- **New REFCARD-INSIGHTS:** Consolidated quick-reference for insights, friction prevention, version sync
+- **Dogfood test fix:** Branch guard verbosity-level assertions now handle full/brief/minimal encounter modes
+- **CLAUDE.md layered docs:** Token budget breakdown, on-demand loading trigger explanation, budget enforcement
+- **Stale fixes:** Footer versions, command counts, mkdocs nav, worktree syntax
+
+**Stats:** 107 commands | 25 skills | 8 agents | 15 reference cards | 23 tutorials
+
+---
 
 ### v2.22.0 (2026-02-19) - Unified Test System, CLAUDE.md Refactor & Friction Prevention
 
