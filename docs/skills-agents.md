@@ -1,298 +1,136 @@
 # Craft Skills & Agents
 
-Craft includes 17 auto-activating skills and 7 specialized agents for comprehensive development support.
+Craft includes 24 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills
+## Skills (24 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
-### 17 Built-in Skills
+### Architecture (1)
 
-#### Backend Development (3)
+| Name | Description | Path |
+|------|-------------|------|
+| system-architect | Software architecture, system design, and technical decision-making | `skills/architecture/system-architect.md` |
 
-- `api-architect` - REST/GraphQL API design, authentication, data modeling
-- `database-architect` - Schema design, query optimization, indexing
-- `backend-patterns` - Clean architecture, microservices, event-driven systems
+### CI (1)
 
-#### Frontend Development (2)
+| Name | Description | Path |
+|------|-------------|------|
+| project-detector | Smart detection of project types, build tools, and CI requirements | `skills/ci/project-detector.md` |
 
-- `frontend-architect` - Component design, state management, performance
-- `ux-designer` - User experience, accessibility, responsive design
+### Design (3)
 
-#### DevOps & Infrastructure (3)
+| Name | Description | Path |
+|------|-------------|------|
+| backend-designer | Backend architecture, API design, database decisions, and authentication patterns | `skills/design/backend-designer.md` |
+| devops-helper | CI/CD, deployment, Docker, testing automation, and infrastructure decisions | `skills/design/devops-helper.md` |
+| frontend-designer | UI/UX design, component architecture, accessibility, and frontend performance | `skills/design/frontend-designer.md` |
 
-- `devops-engineer` - CI/CD, Docker, Kubernetes, cloud infrastructure
-- `performance-engineer` - Profiling, optimization, load testing
-- `security-specialist` - OWASP, authentication, secure coding
+### Distribution (5)
 
-#### Code Quality (3)
+| Name | Description | Path |
+|------|-------------|------|
+| distribution-strategist | Recommends optimal distribution channels based on project type and target audience | `skills/distribution/distribution-strategist.md` |
+| homebrew-formula-expert | Homebrew formula creation, best practices, and troubleshooting | `skills/distribution/homebrew-formula-expert.md` |
+| homebrew-multi-formula | Coordinate releases across multiple Homebrew formulas with dependency ordering | `skills/distribution/homebrew-multi-formula.md` |
+| homebrew-setup-wizard | Implementation logic for the Homebrew automation setup wizard | `skills/distribution/homebrew-setup-wizard.md` |
+| homebrew-workflow-expert | GitHub Actions workflows for automated Homebrew formula updates and releases | `skills/distribution/homebrew-workflow-expert.md` |
 
-- `code-reviewer` - Code review, best practices, clean code
-- `testing-specialist` - Test strategy, TDD/BDD, coverage
-- `refactoring-expert` - Code smells, design patterns, technical debt
+### Documentation (5)
 
-#### Documentation & Communication (3)
+| Name | Description | Path |
+|------|-------------|------|
+| architecture-decision-records | Write and maintain ADRs following best practices for technical decision documentation | `skills/docs/architecture-decision-records/SKILL.md` |
+| changelog-automation | Automate changelog generation from commits, PRs, and releases (Keep a Changelog format) | `skills/docs/changelog-automation/SKILL.md` |
+| doc-classifier | Classify documentation needs based on code changes | `skills/docs/doc-classifier/skill.md` |
+| mermaid-linter | Validate Mermaid diagrams in markdown files for syntax errors and configuration | `skills/docs/mermaid-linter/skill.md` |
+| openapi-spec-generation | Generate and maintain OpenAPI 3.1 specifications from code and design-first specs | `skills/docs/openapi-spec-generation/SKILL.md` |
 
-- `documentation-writer` - API docs, README, architecture docs
-- `technical-writer` - Clear communication, tutorials, guides
-- `api-documenter` - OpenAPI, interactive docs, SDK generation
+### Guard & Insights (2)
 
-#### Leadership & Strategy (3)
+| Name | Description | Path |
+|------|-------------|------|
+| guard-audit | Analyze branch-guard.sh rules and propose config changes to reduce false positives | `skills/guard-audit/SKILL.md` |
+| insights-apply | Extract suggestions from insights report and apply them to global CLAUDE.md via sync pipeline | `skills/insights-apply/SKILL.md` |
 
-- `tech-lead` - Architecture decisions, technical strategy, team coordination
-- `product-strategist` - Feature prioritization, roadmapping, user research
-- `agile-coach` - Sprint planning, retrospectives, team dynamics
+### Modes (1)
 
-### Skill Activation
+| Name | Description | Path |
+|------|-------------|------|
+| mode-controller | Manages craft plugin execution modes (default, debug, optimize, release) | `skills/modes/mode-controller.md` |
 
-Skills trigger automatically based on keywords:
+### Orchestration (2)
 
-#### Example
+| Name | Description | Path |
+|------|-------------|------|
+| session-state | Manages orchestrator session state persistence - save, load, resume, and history | `skills/orchestration/session-state.md` |
+| task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer.md` |
 
-```
-User: "How should I design the authentication API?"
-→ Activates: api-architect, security-specialist
-→ Provides: API design patterns, OAuth2 guidance, security best practices
-```
+### Planning (1)
 
-## Agents
+| Name | Description | Path |
+|------|-------------|------|
+| project-planner | Project planning, estimation, and delivery management | `skills/planning/project-planner.md` |
+
+### Release (1)
+
+| Name | Description | Path |
+|------|-------------|------|
+| release | Orchestrates the full release pipeline from pre-flight checks through GitHub release creation | `skills/release/SKILL.md` |
+
+### Testing (2)
+
+| Name | Description | Path |
+|------|-------------|------|
+| test-generator | Generates dogfooding test suites (automated + interactive) for any project type | `skills/testing/test-generator.md` |
+| test-strategist | Test strategy, coverage optimization, and quality assurance | `skills/testing/test-strategist.md` |
+
+## Agents (8 total)
 
 Specialized agents can be invoked explicitly or delegated to by the orchestrator.
 
-### 7 Specialized Agents
+### Documentation Agents (5)
 
-#### backend-architect
+| Name | Description | Path |
+|------|-------------|------|
+| api-documenter | OpenAPI 3.1 documentation, SDK generation, and developer portal creation | `agents/docs/api-documenter.md` |
+| demo-engineer | VHS tape file generation for terminal GIF demos | `agents/docs/demo-engineer.md` |
+| docs-architect | Comprehensive technical documentation from existing codebases - architecture guides and technical manuals | `agents/docs/docs-architect.md` |
+| mermaid-expert | Mermaid diagrams for flowcharts, sequences, ERDs, and architecture visualizations | `agents/docs/mermaid-expert.md` |
+| reference-builder | Exhaustive technical references, API documentation, and configuration guides | `agents/docs/reference-builder.md` |
+| tutorial-engineer | Step-by-step tutorials and progressive learning experiences from code | `agents/docs/tutorial-engineer.md` |
 
-**Purpose:** Server-side design, API architecture, database design
+### Orchestration Agents (2)
 
-**Use cases:**
+| Name | Description | Path |
+|------|-------------|------|
+| orchestrator | Manages background agent delegation, task parallelization, and result synthesis | `agents/orchestrator.md` |
+| orchestrator-v2 | Enhanced orchestrator with subagent monitoring, mode-aware execution, and ADHD-optimized status tracking | `agents/orchestrator-v2.md` |
 
-- Designing RESTful or GraphQL APIs
-- Database schema optimization
-- Authentication/authorization systems
-- Scalable backend architecture
+*Note: `orchestrator-v2` is the recommended version (v1.1.0+). The original `orchestrator` exists for backward compatibility.*
 
-**Invoke:**
+## Skill Activation
 
-```bash
-# Via orchestrator
-/craft:orchestrate "design authentication API" optimize
+Skills trigger automatically based on keywords in conversation context. For example:
 
-# Via Task tool (background)
-@backend-architect "design user authentication system"
-```
-
-#### performance-engineer
-
-**Purpose:** Application performance optimization
-
-**Use cases:**
-
-- Identifying bottlenecks
-- Load testing strategies
-- Caching implementation
-- Query optimization
-
-**Invoke:**
-
-```bash
-/craft:orchestrate "optimize database queries" optimize
-```
-
-#### testing-specialist
-
-**Purpose:** Comprehensive testing strategies
-
-**Use cases:**
-
-- Test strategy development
-- Unit/integration/e2e testing
-- Test coverage improvement
-- TDD/BDD implementation
-
-**Invoke:**
-
-```bash
-/craft:orchestrate "improve test coverage" release
-```
-
-#### security-specialist
-
-**Purpose:** Security audits and secure coding
-
-**Use cases:**
-
-- OWASP vulnerability assessment
-- Authentication/authorization review
-- Secure coding practices
-- Security audit preparation
-
-**Invoke:**
-
-```bash
-/craft:orchestrate "security audit" release
-```
-
-#### devops-engineer
-
-**Purpose:** CI/CD and deployment automation
-
-**Use cases:**
-
-- Pipeline setup and optimization
-- Docker/Kubernetes configuration
-- Cloud infrastructure (AWS/GCP/Azure)
-- Deployment strategies
-
-**Invoke:**
-
-```bash
-/craft:orchestrate "setup CI/CD pipeline" optimize
-```
-
-#### tech-lead
-
-**Purpose:** Technical leadership and coordination
-
-**Use cases:**
-
-- Architectural decisions
-- Technical strategy
-- Team coordination
-- Technical debt management
-
-**Invoke:**
-
-```bash
-/craft:orchestrate "plan technical roadmap" release
-```
-
-#### code-quality-reviewer
-
-**Purpose:** Code quality standards and best practices
-
-**Use cases:**
-
-- Code review automation
-- Refactoring guidance
-- Design pattern application
-- Clean code principles
-
-**Invoke:**
-
-```bash
-/craft:orchestrate "code review" debug
-```
-
-## Orchestrator Integration
-
-The orchestrator intelligently selects and coordinates agents based on task requirements.
-
-### Multi-Agent Coordination
-
-#### Example workflow
-
-```
-User: "Prepare application for production release"
-
-Orchestrator analyzes request
-→ Pattern: PRODUCTION_RELEASE
-→ Mode: release (comprehensive)
-
-Launches agents in parallel:
-1. security-specialist    - Security audit
-2. performance-engineer   - Performance check
-3. testing-specialist     - Full test suite
-4. devops-engineer        - Deployment readiness
-
-Waits for all agents to complete (5-10 minutes)
-
-Synthesizes results:
-✅ Security: No critical vulnerabilities
-⚠️  Performance: 2 slow queries identified
-✅ Tests: 245/245 passing, 85% coverage
-✅ DevOps: CI/CD pipeline ready
-
-Recommendations:
-1. Optimize identified slow queries (priority)
-2. Increase test coverage to 90% (recommended)
-3. Ready for production deployment
-```
-
-### Agent Communication
-
-Agents can communicate and coordinate:
-
-```
-security-specialist: "Found potential SQL injection in login endpoint"
-→ Notifies backend-architect
-→ backend-architect: "Refactoring with parameterized queries"
-→ Notifies testing-specialist
-→ testing-specialist: "Adding security test cases"
-```
+- Mention "API design" or "database" to activate **backend-designer**
+- Mention "CI/CD" or "deployment" to activate **devops-helper**
+- Mention "release" or "ship it" to activate **release**
+- Mention "test strategy" to activate **test-strategist**
 
 ## Mode-Aware Behavior
 
-Agents adapt their behavior based on mode:
+Both skills and agents adapt behavior based on execution mode:
 
-| Mode | Agent Behavior |
-|------|----------------|
+| Mode | Behavior |
+|------|----------|
 | **default** | Quick analysis, high-level recommendations |
 | **debug** | Verbose output, detailed traces, step-by-step |
 | **optimize** | Parallel execution, focus on performance |
 | **release** | Comprehensive audit, production-ready checks |
 
-#### Example
-
-```bash
-# Quick check
-/craft:orchestrate "check code quality"
-→ Agents: [code-quality-reviewer]
-→ Time: <10s
-→ Output: High-level summary
-
-# Comprehensive audit
-/craft:orchestrate "check code quality" release
-→ Agents: [code-quality-reviewer, security-specialist, performance-engineer]
-→ Time: <5 minutes
-→ Output: Detailed report with actionable items
-```
-
-## Best Practices
-
-### When to Use Skills vs Agents
-
-#### Use Skills (automatic)
-
-- Conversational guidance
-- Just-in-time expertise
-- No explicit invocation needed
-
-#### Use Agents (explicit)
-
-- Complex multi-step tasks
-- Background processing
-- Coordinated multi-agent workflows
-- Production-ready deliverables
-
-### Combining Skills and Agents
-
-#### Optimal workflow
-
-1. Start conversation (skills activate automatically)
-2. Get general guidance from skills
-3. When ready to implement, invoke agents via orchestrator
-4. Agents execute in parallel with skills providing context
-
-### Agent Selection Tips
-
-- **Single focus:** Use specific agent (`@backend-architect`)
-- **Multiple concerns:** Use orchestrator to coordinate agents
-- **Quick tasks:** Let orchestrator choose (default mode)
-- **Complex projects:** Specify release mode for comprehensive coverage
-
 ## See Also
 
-- **[Commands Reference](commands.md)** - All 67 commands
+- **[Commands Reference](commands.md)** - All available commands
 - **[Architecture Guide](architecture.md)** - How Craft works
 - **[Orchestrator Guide](orchestrator.md)** - Multi-agent coordination

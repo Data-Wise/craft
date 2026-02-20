@@ -272,7 +272,7 @@ if [ -f "mkdocs.yml" ]; then
         echo -e "  ${CYAN}would update${NC} mkdocs.yml"
     else
         sed -i '' "s|[0-9][0-9]* commands, [0-9][0-9]* agents, [0-9][0-9]* skills|${CMD_COUNT} commands, ${AGENT_COUNT} agents, ${SKILL_COUNT} skills|g" mkdocs.yml
-        [ "$COUNTS_ONLY" = false ] && sed -i '' "s|v${CURRENT_VERSION}|v${TARGET_VERSION}|g" mkdocs.yml
+        [ "$COUNTS_ONLY" = false ] && sed -i '' "s|v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]* adds|v${TARGET_VERSION} adds|" mkdocs.yml
         echo -e "  ${GREEN}✓${NC} mkdocs.yml"; UPDATED=$((UPDATED + 1))
     fi
 fi

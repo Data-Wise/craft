@@ -23,7 +23,7 @@ Your `CLAUDE.md` contains outdated information -- wrong command counts, missing 
 **Current Version:** v2.8.0
 ```
 
-When the project is actually at v2.18.0 with 107 commands, 25 skills, and 8 agents.
+When the project is actually at v2.18.0 with 108 commands, 25 skills, and 8 agents.
 
 ## Common Causes & Solutions
 

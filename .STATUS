@@ -22,7 +22,7 @@ progress: v2.22.1 released. Documentation comprehensively updated.
 - Expanded CLAUDE.md layered architecture docs (token budget, loading triggers)
 - Fixed stale footers, command counts, mkdocs nav, worktree syntax
 - Version bumped to v2.22.1 across all files
-- Stats: 107 commands, 25 skills, 8 agents, ~1496 tests, 15 refcards, 23 tutorials
+- Stats: 108 commands, 25 skills, 8 agents, ~1496 tests, 15 refcards, 23 tutorials
 
 ---
 

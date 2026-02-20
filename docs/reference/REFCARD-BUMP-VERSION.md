@@ -160,4 +160,4 @@ Uses BSD `sed -i ''` (macOS). For GNU/Linux, change to `sed -i` (no empty string
 - [Version Sync Architecture](../architecture/version-sync.md) — Three-layer drift prevention
 - [Version Sync Setup Tutorial](../tutorials/TUTORIAL-version-sync-setup.md) — Hook installation
 - [Release Pipeline Reference](REFCARD-RELEASE.md) — Full release workflow
-- [pre-release-check.sh](../../scripts/pre-release-check.sh) — Release metadata validation
+- [pre-release-check.sh](https://github.com/Data-Wise/craft/blob/dev/scripts/pre-release-check.sh) — Release metadata validation
