@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -6104,6 +6104,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#token-budget-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Token Budget Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#budget-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Budget Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#generate-reference-files" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6388,6 +6410,62 @@
     
   
     Homebrew Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REFCARD-CHECK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Check Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REFCARD-INSIGHTS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Insights Quick Reference
   
 
     
@@ -8014,6 +8092,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#token-budget-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Token Budget Breakdown
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#budget-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Budget Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#generate-reference-files" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8729,19 +8829,75 @@
 </span></code></pre></div>
 <hr />
 <h2 id="layered-architecture-v2220">Layered Architecture (v2.22.0)<a class="headerlink" href="#layered-architecture-v2220" title="Permanent link">&para;</a></h2>
-<p>CLAUDE.md uses a layered system to minimize token usage:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Always loaded (~4000 tokens/session):
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>  CLAUDE.md          ← Behavioral rules only (&lt; 100 lines)
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  ~/.claude/rules/   ← Imperatives (spec-only-mode, brainstorm-mode)
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  MEMORY.md          ← Learnings (&lt; 200 lines)
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>Loaded on-demand (0 tokens unless requested):
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  .claude/reference/ ← agents.md, test-suite.md, project-structure.md
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>  ~/.claude/reference/ ← mcp-servers.md, plugins.md, shell-workflow.md
-</span></code></pre></div>
+<p>CLAUDE.md uses a layered system to minimize per-session token cost.</p>
+<h3 id="token-budget-breakdown">Token Budget Breakdown<a class="headerlink" href="#token-budget-breakdown" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Loaded</th>
+<th>Lines</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td>Always</td>
+<td>~82</td>
+<td>Quick commands, workflow constraints, troubleshooting</td>
+</tr>
+<tr>
+<td><code>~/.claude/rules/*.md</code></td>
+<td>Always</td>
+<td>~221</td>
+<td>Behavioral imperatives (spec-only-mode, brainstorm-mode, etc.)</td>
+</tr>
+<tr>
+<td><code>MEMORY.md</code></td>
+<td>Always</td>
+<td>~28</td>
+<td>Cross-session learnings (capped at 200 lines)</td>
+</tr>
+<tr>
+<td><strong>Total always-loaded</strong></td>
+<td></td>
+<td><strong>~330 lines</strong></td>
+<td><strong>~4000 tokens/session</strong></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Loaded</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>~/.claude/reference/</code></td>
+<td>On-demand</td>
+<td>Global: MCP servers, plugins, shell workflow, release automation</td>
+</tr>
+<tr>
+<td><code>.claude/reference/</code></td>
+<td>On-demand</td>
+<td>Project: agents, test suite, project structure</td>
+</tr>
+</tbody>
+</table>
+<p><strong>On-demand loading trigger:</strong> Claude Code loads reference files when it encounters a pointer in CLAUDE.md (e.g., "see <code>.claude/reference/</code>") and the user's question relates to that topic. The files are NOT loaded every session — only when contextually relevant.</p>
+<h3 id="budget-enforcement">Budget Enforcement<a class="headerlink" href="#budget-enforcement" title="Permanent link">&para;</a></h3>
+<p>The <code>scripts/claude-md-budget-check.sh</code> script (also runs as a pre-commit hook) enforces:</p>
+<ul>
+<li>CLAUDE.md stays under the configured line budget (default: 150 lines)</li>
+<li>Budget reads from <code>.claude-plugin/config.json</code> &gt; <code>package.json</code> &gt; default 150</li>
+</ul>
 <h3 id="generate-reference-files">Generate Reference Files<a class="headerlink" href="#generate-reference-files" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Auto-generate from filesystem state</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>python3<span class="w"> </span>utils/claude_md_sync.py<span class="w"> </span>--generate-reference
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Auto-generate from filesystem state</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nv">PYTHONPATH</span><span class="o">=</span>.<span class="w"> </span>python3<span class="w"> </span>utils/claude_md_sync.py<span class="w"> </span>--generate-reference
 </span></code></pre></div>
 <p>Creates/refreshes <code>.claude/reference/</code> with current agent inventory, test file classification, and project structure counts.</p>
 <h3 id="session-end-auto-sync">Session-End Auto-Sync<a class="headerlink" href="#session-end-auto-sync" title="Permanent link">&para;</a></h3>
@@ -8754,21 +8910,21 @@
 <hr />
 <h2 id="integration-points">Integration Points<a class="headerlink" href="#integration-points" title="Permanent link">&para;</a></h2>
 <h3 id="with-craftcheck">With craft:check<a class="headerlink" href="#with-craftcheck" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Includes CLAUDE.md validation</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>/craft:check
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Includes CLAUDE.md validation</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>/craft:check
 </span></code></pre></div>
 <h3 id="with-craftgitworktree">With craft:git:worktree<a class="headerlink" href="#with-craftgitworktree" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># After creating worktree</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/project/feature-xyz<span class="w"> </span>-b<span class="w"> </span>feature/xyz<span class="w"> </span>dev
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/project/feature-xyz
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># Init if missing</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>/craft:docs:claude-md:init
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># After creating worktree</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>~/.git-worktrees/project/feature-xyz<span class="w"> </span>-b<span class="w"> </span>feature/xyz<span class="w"> </span>dev
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/project/feature-xyz
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># Init if missing</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>/craft:docs:claude-md:init
 </span></code></pre></div>
 <h3 id="with-craftdocsupdate">With craft:docs:update<a class="headerlink" href="#with-craftdocsupdate" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Coordinate documentation updates</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>/craft:docs:update
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>/craft:docs:claude-md:sync
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Coordinate documentation updates</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>/craft:docs:update
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>/craft:docs:claude-md:sync
 </span></code></pre></div>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
@@ -8836,14 +8992,14 @@
 </tbody>
 </table>
 <h3 id="alternative-editors">Alternative Editors<a class="headerlink" href="#alternative-editors" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># VS Code</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>code
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># Sublime Text</span>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>sublime
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="c1"># Cursor</span>
-</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>cursor
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># VS Code</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>code
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Sublime Text</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>sublime
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Cursor</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>/craft:docs:claude-md:edit<span class="w"> </span>-e<span class="w"> </span>cursor
 </span></code></pre></div>
 <hr />
 <h2 id="tips-best-practices">Tips &amp; Best Practices<a class="headerlink" href="#tips-best-practices" title="Permanent link">&para;</a></h2>
