@@ -149,7 +149,7 @@ The AI routes your task to the best workflow automatically.
 
 ```bash
 # 1. Create feature branch with worktree
-/craft:git:worktree add feature-name
+/craft:git:worktree create feature-name
 
 # 2. Run tests in watch mode
 /craft:test debug

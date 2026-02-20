@@ -211,8 +211,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.22.0 — CLAUDE.md Layered Instruction System"
-    Layered CLAUDE.md architecture (~4000 tokens/session), instruction health check in `/craft:check`, session-end auto-sync in `/workflow:done`, `--generate-reference` for `.claude/reference/` files. 107 commands, ~1575 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.22.1 — Documentation Overhaul & Test Fixes"
+    Rebuilt tutorials index (23 tutorials), expanded REFCARD tables (14 refcards), new REFCARD-INSIGHTS, fixed dogfood test assertions, expanded CLAUDE.md layered architecture docs. 107 commands, ~1496 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 

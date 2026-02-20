@@ -4,12 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.22.0 (released 2026-02-19)                       │
+│  Version: 2.22.1 (released 2026-02-19)                       │
 │  Commands: 107 | Agents: 8 | Skills: 25                     │
-│  Documentation: 99% complete | Tests: ~1575 passing          │
+│  Documentation: 99% complete | Tests: ~1496 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.22.0: Unified test system, CLAUDE.md layered instructions│
-│           insights-driven friction prevention                 │
+│  v2.22.1: Doc overhaul, test fixes, insights refcard         │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -182,7 +181,7 @@
 - Smart Commands (do, check, orchestrate, hub)
 - Documentation (25 commands)
 - Site Management (16 commands)
-- Code (12 commands) & Testing (7 commands)
+- Code (12 commands) & Testing (2 commands)
 - Git (11 commands) & CI (3 commands)
 - Architecture (4 commands)
 - Distribution (7 commands)
@@ -802,7 +801,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
 
-## Code & Testing (17 commands)
+## Code & Testing (14 commands)
 
 **Core Commands:**
 
@@ -1562,27 +1561,46 @@ Comprehensive guides and references:
 | **[Worktree Advanced Patterns](guide/worktree-advanced-patterns.md)**     | --------- | Multi-worktree management, complex workflows, recovery (575 lines)                           |
 | **[Insights-Driven Improvements](guide/insights-improvements-guide.md)** | 7 Mermaid | Guard audit, insights apply, --context, --swarm, --autonomous, workflows (v2.18.0)           |
 
-**Tutorials:**
+**Tutorials** (23 total — [full index](tutorials/index.md)):
 
-| Tutorial                                                                | Content                                                               |
-| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| **[Interactive Orchestration](tutorials/interactive-orchestration.md)** | Mode selection, wave checkpoints, plan confirmation (222 lines)       |
-| **[Post-Merge Pipeline](tutorials/TUTORIAL-post-merge-pipeline.md)**   | 5-phase auto-fix workflow after PR merge (542 lines)                  |
-| **[Worktree Setup](tutorials/TUTORIAL-worktree-setup.md)**             | Beginner to intermediate worktree guide (795 lines)                   |
-| **[Orchestrator Modes](tutorials/orchestrator-modes-compared.md)**     | Same task in 4 modes with performance metrics (446 lines)             |
-| **[Insights Workflow](tutorials/TUTORIAL-insights-workflow.md)**      | v2.18.0 features: --context, guard-audit, insights-apply, --swarm    |
+| Tutorial | Content |
+| --- | --- |
+| **[First 10 Minutes](tutorials/TUTORIAL-first-10-minutes.md)** | Beginner walkthrough of craft essentials |
+| **[Pre-Flight Checks](tutorials/check-tutorial-beginner.md)** | Step-by-step `/craft:check` validation guide |
+| **[Smart Routing](tutorials/smart-routing-tutorial.md)** | AI-powered task routing with `/craft:do` |
+| **[Worktree Setup](tutorials/TUTORIAL-worktree-setup.md)** | Beginner to intermediate worktree guide (795 lines) |
+| **[Branch Guard](tutorials/TUTORIAL-branch-guard-setup.md)** | Teaching-first branch protection in 5 minutes |
+| **[Version Sync](tutorials/TUTORIAL-version-sync-setup.md)** | Three-layer version drift protection |
+| **[Testing Quickstart](tutorials/testing-quickstart.md)** | Unified test system — markers, generation, templates |
+| **[CLAUDE.md Workflows](tutorials/claude-md-workflows.md)** | Create, maintain, audit, and sync CLAUDE.md files |
+| **[Interactive Orchestration](tutorials/interactive-orchestration.md)** | Mode selection, wave checkpoints, plan confirmation |
+| **[Orchestrator Modes](tutorials/orchestrator-modes-compared.md)** | Same task in 4 modes with performance metrics |
+| **[Brainstorm Power User](tutorials/TUTORIAL-brainstorm-power-user.md)** | Advanced brainstorming patterns and expert workflows |
+| **[Insights Workflow](tutorials/TUTORIAL-insights-workflow.md)** | v2.22.0: session insights, friction prevention, CI monitoring |
+| **[Release Pipeline](tutorials/TUTORIAL-release-pipeline.md)** | End-to-end release from version bump to Homebrew |
+| **[Homebrew Setup](tutorials/TUTORIAL-homebrew-setup.md)** | Automated Homebrew distribution setup |
+| **[Post-Merge Pipeline](tutorials/TUTORIAL-post-merge-pipeline.md)** | 5-phase auto-fix workflow after PR merge |
 
-**Reference Cards:**
+**Reference Cards** (13 total):
 
-| Reference Card                                                        | Focus                                          |
-| --------------------------------------------------------------------- | ---------------------------------------------- |
-| **[Main Reference](REFCARD.md)**                                      | This document - all commands overview          |
-| **[Interactive Commands](reference/REFCARD-INTERACTIVE-COMMANDS.md)** | Quick ref for "Show Steps First" pattern       |
-| **[Git Worktree](reference/REFCARD-GIT-WORKTREE.md)**                 | Complete worktree command reference (484 lines)|
-| **[Docs Update](reference/REFCARD-DOCS-UPDATE.md)**                   | Documentation update workflows (330 lines)     |
-| **[Teaching](reference/REFCARD-TEACHING.md)**                         | Teaching mode workflows (230 lines)            |
+| Reference Card | Focus |
+| --- | --- |
+| **[Main Reference](REFCARD.md)** | This document — all commands overview |
+| **[Check](reference/REFCARD-CHECK.md)** | Pre-flight validation, modes, validators (720 lines) |
+| **[CLAUDE.md](reference/REFCARD-CLAUDE-MD.md)** | CLAUDE.md management, layered architecture (529 lines) |
+| **[Git Worktree](reference/REFCARD-GIT-WORKTREE.md)** | Worktree command reference (373 lines) |
+| **[Claude Code 2.1](reference/REFCARD-claude-code-2.1-enhancements.md)** | Smart routing, orchestration hooks (341 lines) |
+| **[Docs Update](reference/REFCARD-DOCS-UPDATE.md)** | Documentation update workflows (330 lines) |
+| **[Interactive Commands](reference/REFCARD-INTERACTIVE-COMMANDS.md)** | "Show Steps First" pattern (261 lines) |
+| **[Teaching](reference/REFCARD-TEACHING.md)** | Teaching mode workflows (247 lines) |
+| **[Branch Guard](reference/REFCARD-BRANCH-GUARD.md)** | Branch protection rules and bypass (231 lines) |
+| **[Release](reference/REFCARD-RELEASE.md)** | Release pipeline reference (211 lines) |
+| **[Testing](reference/REFCARD-TESTING.md)** | Unified test system, markers, templates (183 lines) |
+| **[Brainstorm](reference/REFCARD-BRAINSTORM.md)** | Brainstorming workflows (171 lines) |
+| **[Formatting](reference/REFCARD-FORMATTING.md)** | Formatting library reference (161 lines) |
+| **[Homebrew](reference/REFCARD-HOMEBREW.md)** | Homebrew distribution (108 lines) |
 
-**Total:** 17 Mermaid diagrams, 6 comprehensive guides, 4 step-by-step tutorials, 5 quick reference cards
+**Total:** 17+ Mermaid diagrams, 6 comprehensive guides, 23 step-by-step tutorials, 14 quick reference cards
 
 ## Links
 

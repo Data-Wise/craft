@@ -7,7 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased] - Unified Test System
+## [2.22.1] - 2026-02-19: Documentation Overhaul & Test Fixes
+
+### Fixed
+
+- **Dogfood test assertions:** Branch guard verbosity levels (full/brief/minimal) caused test failures in full suite — accept either "BRANCH GUARD" or "[CONFIRM]" format
+- **Tutorials index:** Rebuilt from 1 listed tutorial to all 23, organized by category
+- **REFCARD.md tables:** Expanded tutorials table (5→15) and refcards table (5→14)
+- **Stale footers:** Fixed version labels in claude-md-workflows.md, pipeline-orchestrate-guide.md, insights guide
+- **mkdocs nav:** Added REFCARD-CHECK and REFCARD-INSIGHTS to navigation
+- **QUICK-START.md:** Fixed worktree command syntax (`add`→`create`)
+- **REFCARD.md command count:** Code & Testing 17→14 (accurate)
+
+### Added
+
+- **REFCARD-INSIGHTS.md:** New consolidated quick-reference for insights, friction prevention, and version sync
+- **CLAUDE.md layered architecture:** Expanded REFCARD-CLAUDE-MD with per-layer token budget, loading triggers, budget enforcement
+
+---
+
+## [2.22.0] - 2026-02-19: Unified Test System, CLAUDE.md Refactor & Insights Prevention
+
+### Added (Unified Test System)
 
 ### Added
 
@@ -35,9 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased] - Marketplace Distribution
-
-### Added
+### Added (Marketplace Distribution)
 
 - **Marketplace distribution:** `/craft:dist:marketplace` command with 4 subcommands (init, validate, test, publish) for Claude Code marketplace listing management
 - **marketplace.json:** New `.claude-plugin/marketplace.json` manifest for marketplace distribution with GitHub source object format
@@ -47,7 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **115 marketplace tests:** 57 CLI tests, 30 e2e tests, 28 dogfood tests (all passing)
 - **Documentation:** Marketplace distribution guide, updated dist commands reference, release workflow updates
 
-### Changed
+### Changed (Marketplace Distribution)
 
 - **Command count:** 108 → 109 (added dist:marketplace)
 - **Install hierarchy:** README and docs now recommend Marketplace as Option 1 (Recommended), Homebrew as Option 2

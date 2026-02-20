@@ -2,11 +2,11 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
 [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.22.0-blue.svg)](https://github.com/Data-Wise/craft)
+[![Version](https://img.shields.io/badge/version-2.22.1-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.22.0 - Unified Test System, CLAUDE.md Refactor & Insights Prevention** 🚀
-> **107 commands** | **25 skills** | **8 agents** | **~1575 tests passing**
+> **v2.22.1 - Documentation Overhaul & Test Fixes** 🚀
+> **107 commands** | **25 skills** | **8 agents** | **~1496 tests passing**
 > Test consolidation (7→3 commands), layered instruction system, friction-driven prevention.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
