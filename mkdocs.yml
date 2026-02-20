@@ -261,6 +261,8 @@ nav:
       - Release Pipeline Reference: reference/REFCARD-RELEASE.md
       - Testing Quick Reference: reference/REFCARD-TESTING.md
       - Homebrew Quick Reference: reference/REFCARD-HOMEBREW.md
+      - Check Quick Reference: reference/REFCARD-CHECK.md
+      - Insights Quick Reference: reference/REFCARD-INSIGHTS.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
