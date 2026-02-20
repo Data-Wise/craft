@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/guide/branch-guard-smart-mode/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/guide/multi-repo-workflow/">
       
       
-        <link rel="prev" href="../multi-repo-workflow/">
+        <link rel="prev" href="../worktree-advanced-patterns/">
       
       
-        <link rel="next" href="../../tutorials/TUTORIAL-branch-guard-setup/">
+        <link rel="next" href="../branch-guard-smart-mode/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Branch Guard Smart Mode - Craft Plugin</title>
+        <title>Multi-Repo Workflow - Craft Plugin</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#branch-guard-smart-mode-guide" class="md-skip">
+        <a href="#multi-repo-workflow-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Branch Guard Smart Mode
+              Multi-Repo Workflow
             
           </span>
         </div>
@@ -1439,34 +1439,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../multi-repo-workflow/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Multi-Repo Workflow
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -1486,7 +1458,7 @@
   <span class="md-ellipsis">
     
   
-    Branch Guard Smart Mode
+    Multi-Repo Workflow
   
 
     
@@ -1504,7 +1476,7 @@
   <span class="md-ellipsis">
     
   
-    Branch Guard Smart Mode
+    Multi-Repo Workflow
   
 
     
@@ -1541,22 +1513,132 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#when-to-use-cross-repo-coordination" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How It Works
+        When to Use Cross-Repo Coordination
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How It Works">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec-syntax-for-auto-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spec Syntax for Auto-Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-orchestrateplan-does-on-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What orchestrate:plan Does on Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paired-worktrees-with-bidirectional-orchestrate-refs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paired Worktrees with Bidirectional ORCHESTRATE Refs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branch-name-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branch Name Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cistatus-cross-repo-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ci:status Cross-Repo Dashboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordinating-prs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordinating PRs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-example-end-to-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Example: End-to-End
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cleaning Up
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#protection-by-branch" class="md-nav__link">
+  <a href="#craft-did-not-detect-cross-repo-paths" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Protection by Branch
+        Craft did not detect cross-repo paths
       
     </span>
   </a>
@@ -1564,10 +1646,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-smart-mode-flow" class="md-nav__link">
+  <a href="#worktree-creation-failed-in-one-repo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Smart Mode Flow
+        Worktree creation failed in one repo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ci-status-shows-wrong-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI status shows wrong branch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-repos-tests-depend-on-the-other-repos-unreleased-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One repo's tests depend on the other repo's unreleased code
       
     </span>
   </a>
@@ -1580,194 +1684,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-tier-risk-classification" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3-Tier Risk Classification
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3-Tier Risk Classification">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#low-risk-note-allow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LOW Risk — Note + Allow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#medium-risk-teaching-confirm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MEDIUM Risk — Teaching + Confirm
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#high-risk-hard-block" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HIGH Risk — Hard Block
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fade-to-brief-learning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fade-to-Brief Learning
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Fade-to-Brief Learning">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-action-types-are-tracked" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How Action Types Are Tracked
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#one-shot-approval" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        One-Shot Approval
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="One-Shot Approval">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It Works
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#one-shot-vs-session-bypass" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        One-Shot vs Session Bypass
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bash-write-through-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bash Write-Through Detection
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Bash Write-Through Detection">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#detected-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Detected Patterns
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#what-gets-skipped" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Gets Skipped
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#destructive-command-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Destructive Command Detection
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Destructive Command Detection">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#safe-alternatives-suggested" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Safe Alternatives Suggested
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#critical-file-protection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Critical File Protection
+        Summary
       
     </span>
   </a>
@@ -1775,82 +1695,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#universal-catastrophic-checks" class="md-nav__link">
+  <a href="#related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Universal Catastrophic Checks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#per-project-config-claudebranch-guardjson" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Per-Project Config (.claude/branch-guard.json)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-extensions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Code Extensions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#session-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Session Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#relationship-to-safety-rails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Relationship to Safety Rails
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Related
       
     </span>
   </a>
@@ -1861,6 +1709,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../branch-guard-smart-mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard Smart Mode
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -8239,22 +8115,132 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#when-to-use-cross-repo-coordination" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How It Works
+        When to Use Cross-Repo Coordination
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="How It Works">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec-syntax-for-auto-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spec Syntax for Auto-Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-orchestrateplan-does-on-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What orchestrate:plan Does on Detection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paired-worktrees-with-bidirectional-orchestrate-refs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paired Worktrees with Bidirectional ORCHESTRATE Refs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branch-name-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branch Name Enforcement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cistatus-cross-repo-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ci:status Cross-Repo Dashboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordinating-prs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordinating PRs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-example-end-to-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Example: End-to-End
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cleaning Up
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#protection-by-branch" class="md-nav__link">
+  <a href="#craft-did-not-detect-cross-repo-paths" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Protection by Branch
+        Craft did not detect cross-repo paths
       
     </span>
   </a>
@@ -8262,10 +8248,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-smart-mode-flow" class="md-nav__link">
+  <a href="#worktree-creation-failed-in-one-repo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Smart Mode Flow
+        Worktree creation failed in one repo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ci-status-shows-wrong-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI status shows wrong branch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-repos-tests-depend-on-the-other-repos-unreleased-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One repo's tests depend on the other repo's unreleased code
       
     </span>
   </a>
@@ -8278,194 +8286,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-tier-risk-classification" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3-Tier Risk Classification
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3-Tier Risk Classification">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#low-risk-note-allow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LOW Risk — Note + Allow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#medium-risk-teaching-confirm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MEDIUM Risk — Teaching + Confirm
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#high-risk-hard-block" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HIGH Risk — Hard Block
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#fade-to-brief-learning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fade-to-Brief Learning
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Fade-to-Brief Learning">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-action-types-are-tracked" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How Action Types Are Tracked
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#one-shot-approval" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        One-Shot Approval
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="One-Shot Approval">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It Works
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#one-shot-vs-session-bypass" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        One-Shot vs Session Bypass
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bash-write-through-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bash Write-Through Detection
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Bash Write-Through Detection">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#detected-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Detected Patterns
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#what-gets-skipped" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Gets Skipped
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#destructive-command-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Destructive Command Detection
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Destructive Command Detection">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#safe-alternatives-suggested" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Safe Alternatives Suggested
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#critical-file-protection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Critical File Protection
+        Summary
       
     </span>
   </a>
@@ -8473,82 +8297,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#universal-catastrophic-checks" class="md-nav__link">
+  <a href="#related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Universal Catastrophic Checks
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#per-project-config-claudebranch-guardjson" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Per-Project Config (.claude/branch-guard.json)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-extensions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Code Extensions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#session-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Session Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#relationship-to-safety-rails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Relationship to Safety Rails
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
+        Related
       
     </span>
   </a>
@@ -8572,7 +8324,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/guide/branch-guard-smart-mode.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/guide/multi-repo-workflow.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -8580,587 +8332,396 @@
   
 
 
-<h1 id="branch-guard-smart-mode-guide">Branch Guard: Smart Mode Guide<a class="headerlink" href="#branch-guard-smart-mode-guide" title="Permanent link">&para;</a></h1>
+<h1 id="multi-repo-workflow-guide">Multi-Repo Workflow Guide<a class="headerlink" href="#multi-repo-workflow-guide" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>Teaching-first branch protection with progressive trust</strong></p>
+<p><strong>TL;DR</strong> — When a feature spans multiple repositories, craft detects cross-repo paths in your spec and creates paired worktrees automatically. Each repo gets a scoped ORCHESTRATE file. You develop in parallel, monitor with <code>/craft:ci:status</code>, and create linked PRs in each repo.</p>
 </blockquote>
-<p><strong>Version:</strong> 2.17.0 | <strong>Hook:</strong> <code>~/.claude/hooks/branch-guard.sh</code> | <strong>Config:</strong> <code>.claude/branch-guard.json</code></p>
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Smart mode replaces the binary block/allow system with a <strong>3-tier risk classification</strong> that teaches while protecting. Instead of hard-blocking every action on <code>dev</code>, the guard classifies each action by risk level and responds proportionally:</p>
-<table>
-<thead>
-<tr>
-<th>Risk</th>
-<th>Behavior</th>
-<th>Recovery</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>LOW</strong></td>
-<td>Note on first encounter, then silent</td>
-<td>Automatic — action proceeds</td>
-<td>Edit existing file, write markdown</td>
-</tr>
-<tr>
-<td><strong>MEDIUM</strong></td>
-<td>Teaching box + <code>[CONFIRM]</code> prompt</td>
-<td>Approve once → one-shot marker</td>
-<td>New code file, force push, destructive commands</td>
-</tr>
-<tr>
-<td><strong>HIGH</strong></td>
-<td>Hard block (never allowed)</td>
-<td>Remove hook temporarily</td>
-<td><code>rm -rf .git</code> (repository deletion)</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<h3 id="protection-by-branch">Protection by Branch<a class="headerlink" href="#protection-by-branch" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Branch</th>
-<th>Mode</th>
-<th>What Happens</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>main</code> / <code>master</code></td>
-<td><code>block-all</code></td>
-<td>Hard block on all writes, edits, commits, pushes</td>
-</tr>
-<tr>
-<td><code>dev</code> / <code>develop</code></td>
-<td><code>smart</code></td>
-<td>3-tier risk classification (LOW/MEDIUM/HIGH)</td>
-</tr>
-<tr>
-<td><code>feature/*</code>, <code>fix/*</code>, etc.</td>
-<td>None</td>
-<td>Unrestricted — all operations allowed</td>
-</tr>
-</tbody>
-</table>
-<h3 id="the-smart-mode-flow">The Smart Mode Flow<a class="headerlink" href="#the-smart-mode-flow" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Tool call arrives (Edit, Write, or Bash)
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  │
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  ├─ Universal catastrophic check (ALL branches)
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  │   ├─ rm -rf .git → HIGH (hard block)
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  │   └─ git branch -D → MEDIUM (confirm)
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  │
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  ├─ Check bypass marker (.claude/allow-dev-edit) → allow if present
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  ├─ Check one-shot marker (.claude/allow-once) → consume + allow
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  │
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  └─ Apply risk classification:
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>      ├─ Critical file? (.env, .pem, .key, guard config) → MEDIUM
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>      ├─ Markdown file? → LOW (always allowed)
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>      ├─ Test file? → LOW (always allowed)
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>      ├─ Existing file? → LOW (allowed)
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>      ├─ New code file? → MEDIUM (confirm)
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>      ├─ Force push? → MEDIUM (confirm)
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>      ├─ Destructive git? (reset --hard, checkout --, clean -f) → MEDIUM
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>      ├─ Bash write-through? (redirect/tee/cp creating new code) → MEDIUM
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>      └─ Everything else → allow
-</span></code></pre></div>
-<hr />
-<h2 id="3-tier-risk-classification">3-Tier Risk Classification<a class="headerlink" href="#3-tier-risk-classification" title="Permanent link">&para;</a></h2>
-<h3 id="low-risk-note-allow">LOW Risk — Note + Allow<a class="headerlink" href="#low-risk-note-allow" title="Permanent link">&para;</a></h3>
-<p>The guard prints a brief note on the <strong>first encounter</strong> of each action type, then stays silent for the rest of the session. The action always proceeds.</p>
-<p><strong>What triggers LOW:</strong></p>
-<ul>
-<li>Editing an existing file on dev</li>
-<li>Writing a markdown file (<code>.md</code>)</li>
-<li>Writing extension-less files (<code>.STATUS</code>, <code>Makefile</code>, <code>Dockerfile</code>)</li>
-<li>Writing files in <code>tests/</code> directory</li>
-<li>Overwriting an existing file</li>
-</ul>
-<p><strong>What you see (first time only):</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[guard] Editing existing file on dev (allowed)
-</span></code></pre></div>
-<p>After the first encounter of each type, the guard is completely silent.</p>
-<h3 id="medium-risk-teaching-confirm">MEDIUM Risk — Teaching + Confirm<a class="headerlink" href="#medium-risk-teaching-confirm" title="Permanent link">&para;</a></h3>
-<p>The guard shows a teaching box explaining the risk, suggests alternatives, and presents a <code>[CONFIRM]</code> prompt. The verbosity of the teaching box decreases over the session (fade-to-brief).</p>
-<p><strong>What triggers MEDIUM:</strong></p>
-<ul>
-<li>Writing a new code file (<code>.py</code>, <code>.sh</code>, <code>.js</code>, <code>.ts</code>, <code>.json</code>, <code>.yml</code>, etc.)</li>
-<li>Force pushing (<code>git push --force</code>, <code>--force-with-lease</code>)</li>
-<li>Destructive git commands (<code>git reset --hard</code>, <code>git checkout --</code>, <code>git restore</code>, <code>git clean -f</code>)</li>
-<li>Editing/writing critical files (<code>.env</code>, <code>.pem</code>, <code>.key</code>, <code>.secret</code>, <code>branch-guard.json</code>)</li>
-<li>Force-deleting branches (<code>git branch -D</code>)</li>
-<li>Bash write-through creating new code files (redirect, tee, cp)</li>
-</ul>
-<p><strong>What you see (1st encounter — full teaching):</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>╔═════════════════════════════════════════════════════════════╗
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>║ BRANCH GUARD — Medium Risk                                  ║
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>╠═════════════════════════════════════════════════════════════╣
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>║                                                             ║
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>║ Action:  Write new .py file: utils/helper.py                ║
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>║                                                             ║
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>║ Why risky:                                                  ║
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>║   New code files on dev should go in a feature branch       ║
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>║                                                             ║
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>║ Safe alternatives:                                          ║
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>║   → /craft:git:worktree feature/&lt;name&gt;                      ║
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>║   → Edit an existing file instead (fixups allowed)          ║
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>║   → /craft:git:unprotect for bulk maintenance               ║
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>║                                                             ║
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>╚═════════════════════════════════════════════════════════════╝
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>[CONFIRM] New code files on dev should go in a feature branch
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>Action:    Write new .py file: utils/helper.py
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>Risk:      New code files on dev should go in a feature branch
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>Suggest:   /craft:git:worktree feature/&lt;name&gt;
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>Suggest:   Edit an existing file instead (fixups allowed)
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>Suggest:   /craft:git:unprotect for bulk maintenance
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>Branch:    dev (smart mode)
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>Verbosity: full (1st encounter)
-</span></code></pre></div>
-<p><strong>2nd-3rd encounter — brief:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>╔═════════════════════════════════════════════════════════════╗
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>║ BRANCH GUARD                                                ║
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>╠═════════════════════════════════════════════════════════════╣
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>║ Action:  Write new .py file: utils/other.py                 ║
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>║ Risk:    New code files on dev should go in feature branch   ║
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>║ Branch:  dev (smart mode)                                   ║
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>╚═════════════════════════════════════════════════════════════╝
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>[CONFIRM] Write new .py file: utils/other.py on dev.
-</span></code></pre></div>
-<p><strong>4th+ encounter — minimal:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[CONFIRM] Write new .py file: utils/third.py on dev. Allow?
-</span></code></pre></div>
-<h3 id="high-risk-hard-block">HIGH Risk — Hard Block<a class="headerlink" href="#high-risk-hard-block" title="Permanent link">&para;</a></h3>
-<p>The guard blocks the action completely. No <code>[CONFIRM]</code> prompt is offered — the action cannot be approved through the guard.</p>
-<p><strong>What triggers HIGH:</strong></p>
-<ul>
-<li><code>rm -rf .git</code> (repository deletion) — blocked on ALL branches</li>
-</ul>
-<p><strong>What you see:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>╔═════════════════════════════════════════════════════════════╗
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>║ BRANCH GUARD — CATASTROPHIC RISK                            ║
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>╠═════════════════════════════════════════════════════════════╣
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>║ Cannot run rm -rf .git — destroys entire repository.        ║
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>║                                                             ║
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>║ Command: rm -rf .git                                        ║
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>║ Branch:  dev                                                ║
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>╠═════════════════════════════════════════════════════════════╣
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>║ This action is never allowed via the guard.                 ║
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>║ If intentional, remove the hook temporarily.                ║
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>╚═════════════════════════════════════════════════════════════╝
-</span></code></pre></div>
-<hr />
-<h2 id="fade-to-brief-learning">Fade-to-Brief Learning<a class="headerlink" href="#fade-to-brief-learning" title="Permanent link">&para;</a></h2>
-<p>The guard tracks how many times each action type has been encountered in the current session using a counter file (<code>.claude/guard-session-counts</code>). Teaching verbosity decreases as you demonstrate understanding:</p>
-<table>
-<thead>
-<tr>
-<th>Encounter</th>
-<th>Verbosity</th>
-<th>What You See</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1st</td>
-<td>Full</td>
-<td>Teaching box with risk explanation + alternatives</td>
-</tr>
-<tr>
-<td>2nd-3rd</td>
-<td>Brief</td>
-<td>Compact box with action + risk + branch</td>
-</tr>
-<tr>
-<td>4th+</td>
-<td>Minimal</td>
-<td>One-line <code>[CONFIRM]</code> prompt</td>
-</tr>
-</tbody>
-</table>
-<p>The session counter automatically resets after <strong>8 hours</strong> of inactivity (the file's mtime is checked).</p>
-<h3 id="how-action-types-are-tracked">How Action Types Are Tracked<a class="headerlink" href="#how-action-types-are-tracked" title="Permanent link">&para;</a></h3>
-<p>Each action type has its own counter. For example, <code>write_new_code</code> and <code>force_push</code> are tracked independently — getting brief on new code files doesn't affect force push verbosity.</p>
-<p>Action types tracked:</p>
-<table>
-<thead>
-<tr>
-<th>Action Type</th>
-<th>Trigger</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>edit_existing</code></td>
-<td>Edit any existing file</td>
-</tr>
-<tr>
-<td><code>edit_env</code></td>
-<td>Edit <code>.env</code> files</td>
-</tr>
-<tr>
-<td><code>edit_secret</code></td>
-<td>Edit <code>.pem</code>, <code>.key</code>, <code>.secret</code></td>
-</tr>
-<tr>
-<td><code>edit_guard_config</code></td>
-<td>Edit <code>branch-guard.json</code></td>
-</tr>
-<tr>
-<td><code>write_md</code></td>
-<td>Write markdown files</td>
-</tr>
-<tr>
-<td><code>write_extensionless</code></td>
-<td>Write extension-less files</td>
-</tr>
-<tr>
-<td><code>write_test</code></td>
-<td>Write test files</td>
-</tr>
-<tr>
-<td><code>write_existing</code></td>
-<td>Overwrite existing files</td>
-</tr>
-<tr>
-<td><code>write_new_code</code></td>
-<td>Write new code files</td>
-</tr>
-<tr>
-<td><code>write_env</code></td>
-<td>Write <code>.env</code> files</td>
-</tr>
-<tr>
-<td><code>write_secret</code></td>
-<td>Write secret/key files</td>
-</tr>
-<tr>
-<td><code>write_guard_config</code></td>
-<td>Write <code>branch-guard.json</code></td>
-</tr>
-<tr>
-<td><code>force_push</code></td>
-<td><code>git push --force</code></td>
-</tr>
-<tr>
-<td><code>reset_hard</code></td>
-<td><code>git reset --hard</code></td>
-</tr>
-<tr>
-<td><code>checkout_discard</code></td>
-<td><code>git checkout --</code></td>
-</tr>
-<tr>
-<td><code>restore_discard</code></td>
-<td><code>git restore</code> (not <code>--staged</code>)</td>
-</tr>
-<tr>
-<td><code>clean_force</code></td>
-<td><code>git clean -f</code></td>
-</tr>
-<tr>
-<td><code>bash_write_through</code></td>
-<td>Bash redirect/tee/cp creating new code</td>
-</tr>
-<tr>
-<td><code>branch_delete</code></td>
-<td><code>git branch -D</code></td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="one-shot-approval">One-Shot Approval<a class="headerlink" href="#one-shot-approval" title="Permanent link">&para;</a></h2>
-<p>When Claude shows a <code>[CONFIRM]</code> prompt and the user approves, Claude creates a one-shot marker file (<code>.claude/allow-once</code>) that the guard consumes on the next tool call. This allows the approved action to proceed without requiring <code>/craft:git:unprotect</code>.</p>
-<h3 id="how-it-works_1">How It Works<a class="headerlink" href="#how-it-works_1" title="Permanent link">&para;</a></h3>
+<p>Most features live in a single repository. But when you maintain a plugin that integrates with a dependent library, a shared configuration package, or a companion CLI tool, you often need synchronized changes across repos — and keeping them in sync manually is error-prone.</p>
+<p>Craft's cross-repo coordination workflow handles this automatically:</p>
 <ol>
-<li>Guard blocks action with <code>[CONFIRM]</code> message (exit 2)</li>
-<li>User approves in Claude's UI</li>
-<li>Claude writes <code>.claude/allow-once</code> marker</li>
-<li>Claude retries the tool call</li>
-<li>Guard sees marker → consumes it (deletes file) → allows action</li>
-<li>Next tool call has no marker → normal protection resumes</li>
+<li>Write a spec that references paths in multiple repos</li>
+<li>Run <code>/craft:orchestrate:plan SPEC.md</code> — craft detects the cross-repo paths and creates paired worktrees</li>
+<li>Develop in each worktree in parallel, with ORCHESTRATE files that reference each other</li>
+<li>Monitor CI across all repos with <code>/craft:ci:status</code></li>
+<li>Create PRs in each repo, linking them to each other</li>
 </ol>
-<h3 id="one-shot-vs-session-bypass">One-Shot vs Session Bypass<a class="headerlink" href="#one-shot-vs-session-bypass" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Mechanism</th>
-<th>Scope</th>
-<th>Duration</th>
-<th>Use Case</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>One-shot (<code>.claude/allow-once</code>)</td>
-<td>Single action</td>
-<td>Consumed immediately</td>
-<td>Quick one-off confirm</td>
-</tr>
-<tr>
-<td><code>/craft:git:unprotect</code> (<code>.claude/allow-dev-edit</code>)</td>
-<td>All actions</td>
-<td>Until <code>/craft:git:protect</code></td>
-<td>Bulk maintenance, merge conflicts</td>
-</tr>
-</tbody>
-</table>
+<p><strong>What this is NOT:</strong> This is not a monorepo tool. Each repository remains independent with its own git history, CI pipelines, and release cadence. Craft only coordinates the development workflow across them.</p>
 <hr />
-<h2 id="bash-write-through-detection">Bash Write-Through Detection<a class="headerlink" href="#bash-write-through-detection" title="Permanent link">&para;</a></h2>
-<p>The guard detects when Bash commands create new code files through shell redirection, even though the <code>Write</code> tool isn't used directly.</p>
-<h3 id="detected-patterns">Detected Patterns<a class="headerlink" href="#detected-patterns" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Pattern</th>
-<th>Example</th>
-<th>Detection</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Redirect (<code>&gt;</code>, <code>&gt;&gt;</code>)</td>
-<td><code>echo "print(1)" &gt; new.py</code></td>
-<td>Extracts target after <code>&gt;</code></td>
-</tr>
-<tr>
-<td>Tee</td>
-<td><code>echo x \| tee new.py</code></td>
-<td>Extracts tee argument</td>
-</tr>
-<tr>
-<td>Copy</td>
-<td><code>cp template.py new.py</code></td>
-<td>Extracts destination</td>
-</tr>
-</tbody>
-</table>
-<h3 id="what-gets-skipped">What Gets Skipped<a class="headerlink" href="#what-gets-skipped" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Scenario</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Target is markdown (<code>.md</code>)</td>
-<td>Always allowed on dev</td>
-</tr>
-<tr>
-<td>Target contains variables (<code>$VAR</code>, backticks)</td>
-<td>Can't resolve — gracefully skip</td>
-</tr>
-<tr>
-<td>Target file already exists</td>
-<td>Overwrite is LOW risk</td>
-</tr>
-<tr>
-<td>On feature branch</td>
-<td>No protection</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="destructive-command-detection">Destructive Command Detection<a class="headerlink" href="#destructive-command-detection" title="Permanent link">&para;</a></h2>
-<p>These git commands are detected and classified as MEDIUM risk on <code>dev</code>:</p>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Risk</th>
-<th>Why</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>git reset --hard</code></td>
-<td>MEDIUM</td>
-<td>Discards all uncommitted changes permanently</td>
-</tr>
-<tr>
-<td><code>git checkout -- &lt;file&gt;</code></td>
-<td>MEDIUM</td>
-<td>Discards working tree changes for files</td>
-</tr>
-<tr>
-<td><code>git restore &lt;file&gt;</code></td>
-<td>MEDIUM</td>
-<td>Discards working tree changes (excludes <code>--staged</code>)</td>
-</tr>
-<tr>
-<td><code>git clean -f</code> / <code>-fd</code> / <code>-fx</code></td>
-<td>MEDIUM</td>
-<td>Permanently removes untracked files</td>
-</tr>
-<tr>
-<td><code>git push --force</code></td>
-<td>MEDIUM</td>
-<td>Overwrites remote history</td>
-</tr>
-<tr>
-<td><code>git branch -D</code></td>
-<td>MEDIUM</td>
-<td>Force-deletes branch even if not merged</td>
-</tr>
-</tbody>
-</table>
-<h3 id="safe-alternatives-suggested">Safe Alternatives Suggested<a class="headerlink" href="#safe-alternatives-suggested" title="Permanent link">&para;</a></h3>
-<p>Each destructive command includes teaching suggestions:</p>
+<h2 id="when-to-use-cross-repo-coordination">When to Use Cross-Repo Coordination<a class="headerlink" href="#when-to-use-cross-repo-coordination" title="Permanent link">&para;</a></h2>
+<p>Use this workflow when:</p>
 <ul>
-<li><code>git reset --hard</code> → <code>git stash</code>, <code>git reset --soft</code>, <code>git diff</code></li>
-<li><code>git checkout --</code> → <code>git stash</code>, <code>git diff &lt;file&gt;</code></li>
-<li><code>git restore</code> → <code>git stash</code>, <code>git restore --staged</code> (unstage only)</li>
-<li><code>git clean -f</code> → <code>git clean -n</code> (dry run), <code>git stash -u</code></li>
-<li><code>git push --force</code> → regular push, <code>--force-with-lease</code></li>
+<li><strong>A feature requires API changes in a library AND consuming updates in the app</strong> — e.g., adding a new auth provider requires changes to <code>auth-core</code> and <code>web-app</code></li>
+<li><strong>Multiple repos share a common interface</strong> — e.g., a plugin spec changes in <code>craft</code> and must be implemented in <code>craft-extensions</code></li>
+<li><strong>Synchronized releases are required</strong> — the changes must ship together or neither ships</li>
+<li><strong>One repo is a dependency of another</strong> — version pinning means you need changes in both before either is testable end-to-end</li>
+</ul>
+<p><strong>You do NOT need this workflow when:</strong></p>
+<ul>
+<li>Changes are in one repo only (use the standard worktree workflow)</li>
+<li>Repos are related but changes are independent (create separate features per repo)</li>
+<li>Repos are already in a monorepo (use multi-worktree patterns instead — see <a href="../worktree-advanced-patterns/">Worktree Advanced Patterns</a>)</li>
 </ul>
 <hr />
-<h2 id="critical-file-protection">Critical File Protection<a class="headerlink" href="#critical-file-protection" title="Permanent link">&para;</a></h2>
-<p>Certain files trigger MEDIUM risk regardless of whether they're new or existing:</p>
-<table>
-<thead>
-<tr>
-<th>Pattern</th>
-<th>Files Matched</th>
-<th>Why Protected</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>.env</code>, <code>.env.*</code></td>
-<td><code>.env</code>, <code>.env.local</code>, <code>.env.production</code></td>
-<td>May contain secrets</td>
-</tr>
-<tr>
-<td><code>*.pem</code>, <code>*.key</code>, <code>*.secret</code></td>
-<td><code>server.pem</code>, <code>api.key</code>, <code>auth.secret</code></td>
-<td>Cryptographic material</td>
-</tr>
-<tr>
-<td><code>branch-guard.json</code></td>
-<td><code>.claude/branch-guard.json</code></td>
-<td>Modifying changes protection rules</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="universal-catastrophic-checks">Universal Catastrophic Checks<a class="headerlink" href="#universal-catastrophic-checks" title="Permanent link">&para;</a></h2>
-<p>These checks run on <strong>ALL branches</strong> (including feature branches) before any protection filtering:</p>
-<table>
-<thead>
-<tr>
-<th>Pattern</th>
-<th>Risk</th>
-<th>Branch Scope</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>rm -rf .git</code></td>
-<td>HIGH (hard block)</td>
-<td>All branches</td>
-</tr>
-<tr>
-<td><code>git branch -D</code></td>
-<td>MEDIUM (confirm)</td>
-<td>All branches</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<h3 id="per-project-config-claudebranch-guardjson">Per-Project Config (<code>.claude/branch-guard.json</code>)<a class="headerlink" href="#per-project-config-claudebranch-guardjson" title="Permanent link">&para;</a></h3>
-<p>Override auto-detection with explicit branch → protection mappings:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;main&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;block-all&quot;</span><span class="p">,</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span><span class="p">,</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">&quot;staging&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span><span class="p">,</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">&quot;production&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;block-all&quot;</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">}</span>
+<h2 id="spec-syntax-for-auto-detection">Spec Syntax for Auto-Detection<a class="headerlink" href="#spec-syntax-for-auto-detection" title="Permanent link">&para;</a></h2>
+<p>Craft detects cross-repo coordination intent when your spec references paths in multiple project directories. Use standard filesystem paths in the spec body — craft scans for <code>~/projects/</code> path patterns.</p>
+<p><strong>Single-repo spec (no detection):</strong></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gu">## Files to modify</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">-</span><span class="w"> </span><span class="sb">`src/auth/login.py`</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">-</span><span class="w"> </span><span class="sb">`tests/test_auth.py`</span>
 </span></code></pre></div>
-<p><strong>Rules:</strong></p>
+<p><strong>Cross-repo spec (detected):</strong></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gu">## Repos affected</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">-</span><span class="w"> </span><span class="sb">`~/projects/dev-tools/auth-core/`</span> — Add OAuth2 provider support
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">-</span><span class="w"> </span><span class="sb">`~/projects/dev-tools/web-app/`</span> — Consume new OAuth2 provider
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="gu">## Files to modify</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="gu">### auth-core</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">-</span><span class="w"> </span><span class="sb">`src/providers/oauth2.py`</span> — New provider class
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="k">-</span><span class="w"> </span><span class="sb">`tests/test_oauth2.py`</span> — Provider tests
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="gu">### web-app</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">-</span><span class="w"> </span><span class="sb">`src/auth/config.py`</span> — Register OAuth2 provider
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="k">-</span><span class="w"> </span><span class="sb">`src/views/login.html`</span> — Add OAuth2 button
+</span></code></pre></div>
+<p>When craft sees two or more <code>~/projects/&lt;owner&gt;/&lt;repo&gt;/</code> paths, it switches to cross-repo mode.</p>
+<p><strong>Naming convention for the feature branch:</strong></p>
+<p>The branch name must be identical across all repos. Use a descriptive feature name without repo-specific prefixes:</p>
 <ul>
-<li>Only listed branches are protected</li>
-<li>Unlisted branches have no protection</li>
-<li>Valid levels: <code>block-all</code>, <code>smart</code>, <code>block-new-code</code> (alias for smart), <code>confirm</code> (alias for smart)</li>
+<li><code>feature/oauth2-provider</code> — correct: same name in both repos</li>
+<li><code>feature/auth-core-oauth2-provider</code> — wrong: repo-specific prefix prevents coordination</li>
 </ul>
-<h3 id="code-extensions">Code Extensions<a class="headerlink" href="#code-extensions" title="Permanent link">&para;</a></h3>
-<p>The following extensions are classified as "code files" for new-file detection:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>py sh js ts jsx tsx json yml yaml toml cfg ini r R zsh
+<hr />
+<h2 id="what-orchestrateplan-does-on-detection">What <code>orchestrate:plan</code> Does on Detection<a class="headerlink" href="#what-orchestrateplan-does-on-detection" title="Permanent link">&para;</a></h2>
+<p>When <code>/craft:orchestrate:plan SPEC.md</code> detects cross-repo paths, it runs this sequence:</p>
+<ol>
+<li><strong>Identifies all repos</strong> referenced in the spec</li>
+<li><strong>Verifies each repo exists</strong> at the referenced path (exits with an error if not)</li>
+<li><strong>Creates a worktree in each repo</strong> at <code>~/.git-worktrees/&lt;repo&gt;/&lt;feature-name&gt;</code> branching from <code>dev</code></li>
+<li><strong>Writes a scoped ORCHESTRATE file</strong> to each worktree — each file describes only that repo's work, but references the other repos</li>
+<li><strong>Reports the worktree paths</strong> — you get a list of directories to open, one per repo</li>
+<li><strong>Stops</strong> — implementation happens in separate sessions, one per repo</li>
+</ol>
+<p>Example output:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Cross-repo coordination detected: 2 repositories
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Repo A: auth-core
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  Worktree: ~/.git-worktrees/auth-core/feature-oauth2-provider
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  Branch:   feature/oauth2-provider
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  ORCHESTRATE: ORCHESTRATE-oauth2-provider.md ✓
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Repo B: web-app
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  Worktree: ~/.git-worktrees/web-app/feature-oauth2-provider
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  Branch:   feature/oauth2-provider
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  ORCHESTRATE: ORCHESTRATE-oauth2-provider.md ✓
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>Next steps:
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  Session 1: cd ~/.git-worktrees/auth-core/feature-oauth2-provider
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>  Session 2: cd ~/.git-worktrees/web-app/feature-oauth2-provider
 </span></code></pre></div>
-<p>Files with other extensions (<code>.txt</code>, <code>.csv</code>, <code>.html</code>, etc.) are allowed without confirmation.</p>
 <hr />
-<h2 id="session-files">Session Files<a class="headerlink" href="#session-files" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Purpose</th>
-<th>Lifecycle</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>.claude/allow-dev-edit</code></td>
-<td>Session bypass marker</td>
-<td>Created by <code>/craft:git:unprotect</code>, removed by <code>/craft:git:protect</code></td>
-</tr>
-<tr>
-<td><code>.claude/allow-once</code></td>
-<td>One-shot approval marker</td>
-<td>Created by Claude on confirm, consumed on next tool call</td>
-</tr>
-<tr>
-<td><code>.claude/guard-session-counts</code></td>
-<td>Verbosity fade counter</td>
-<td>Auto-created, resets after 8h inactivity</td>
-</tr>
-<tr>
-<td><code>.claude/branch-guard-dryrun</code></td>
-<td>Dry-run mode marker</td>
-<td>Created manually, logs blocks without enforcing</td>
-</tr>
-</tbody>
-</table>
+<h2 id="paired-worktrees-with-bidirectional-orchestrate-refs">Paired Worktrees with Bidirectional ORCHESTRATE Refs<a class="headerlink" href="#paired-worktrees-with-bidirectional-orchestrate-refs" title="Permanent link">&para;</a></h2>
+<p>Each worktree gets its own ORCHESTRATE file. The files are scoped — they describe only the work for that repo — but include a cross-reference section so you always know what's happening in the paired repo.</p>
+<p><strong>ORCHESTRATE-oauth2-provider.md in <code>auth-core</code>:</strong></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gh"># ORCHESTRATE: oauth2-provider (auth-core)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gu">## This repo: auth-core</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Branch: feature/oauth2-provider
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Worktree: ~/.git-worktrees/auth-core/feature-oauth2-provider
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="gu">## Paired repo: web-app</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>Branch: feature/oauth2-provider
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>Worktree: ~/.git-worktrees/web-app/feature-oauth2-provider
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>ORCHESTRATE: ORCHESTRATE-oauth2-provider.md
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="gu">## Implementation plan (auth-core scope)</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>...auth-core-specific tasks...
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="gu">## Coordination notes</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="k">-</span><span class="w"> </span>Complete auth-core implementation first
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="k">-</span><span class="w"> </span>web-app depends on the OAuth2Provider class being stable before integration
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="k">-</span><span class="w"> </span>PR in auth-core should be merged to dev before web-app PR is created
+</span></code></pre></div>
+<p><strong>ORCHESTRATE-oauth2-provider.md in <code>web-app</code>:</strong></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gh"># ORCHESTRATE: oauth2-provider (web-app)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="gu">## This repo: web-app</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Branch: feature/oauth2-provider
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Worktree: ~/.git-worktrees/web-app/feature-oauth2-provider
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="gu">## Paired repo: auth-core</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>Branch: feature/oauth2-provider
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>Worktree: ~/.git-worktrees/auth-core/feature-oauth2-provider
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>ORCHESTRATE: ORCHESTRATE-oauth2-provider.md
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="gu">## Implementation plan (web-app scope)</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>...web-app-specific tasks...
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="gu">## Coordination notes</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="k">-</span><span class="w"> </span>Depends on auth-core PR being merged first
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="k">-</span><span class="w"> </span>Once auth-core&#39;s OAuth2Provider is on dev, update pyproject.toml dependency
+</span></code></pre></div>
+<p>The cross-reference means you never have to remember where the paired worktree is — it is always in the ORCHESTRATE file.</p>
 <hr />
-<h2 id="relationship-to-safety-rails">Relationship to Safety Rails<a class="headerlink" href="#relationship-to-safety-rails" title="Permanent link">&para;</a></h2>
-<p>Smart mode implements the same progressive trust philosophy as the <a href="https://github.com/Data-Wise/craft/blob/dev/commands/git/docs/safety-rails.md">Safety Rails Guide</a>:</p>
-<table>
-<thead>
-<tr>
-<th>Safety Rails Concept</th>
-<th>Smart Mode Implementation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>"Show me everything first" (Week 1)</td>
-<td>Full teaching box on 1st encounter</td>
-</tr>
-<tr>
-<td>"I trust you, but I'm watching" (Week 3)</td>
-<td>Brief box on 2nd-3rd encounter</td>
-</tr>
-<tr>
-<td>"I trust you, tell me if wrong" (Week 4+)</td>
-<td>Minimal one-liner on 4th+ encounter</td>
-</tr>
-</tbody>
-</table>
+<h2 id="branch-name-enforcement">Branch Name Enforcement<a class="headerlink" href="#branch-name-enforcement" title="Permanent link">&para;</a></h2>
+<p>All repos in a cross-repo feature must use <strong>the same branch name</strong>. This is enforced at worktree creation time.</p>
+<p>Craft derives the branch name from the spec filename. <code>SPEC-oauth2-provider-2026-02-20.md</code> produces <code>feature/oauth2-provider</code>.</p>
+<p>If you try to create a worktree with a different branch name in a repo that already has a paired worktree registered, craft will warn you:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Warning: Repo web-app already has a paired worktree for this feature
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  Registered branch: feature/oauth2-provider
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  Requested branch:  feature/web-app-oauth2
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Use the same branch name to maintain cross-repo coordination.
+</span></code></pre></div>
+<p><strong>Why this matters:</strong> When you run <code>/craft:ci:status</code> or link PRs, craft uses the branch name to identify which PRs across repos belong to the same feature. Inconsistent names break the cross-repo dashboard.</p>
 <hr />
-<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h2 id="sequence-diagram">Sequence Diagram<a class="headerlink" href="#sequence-diagram" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant Craft as craft:orchestrate:plan
+    participant RepoA as Repo A (main)
+    participant RepoB as Repo B (dependency)
+
+    User-&gt;&gt;Craft: /craft:orchestrate:plan SPEC.md
+    Craft-&gt;&gt;Craft: Detect cross-repo paths in spec
+    Craft-&gt;&gt;RepoA: git worktree add feature/auth
+    Craft-&gt;&gt;RepoB: git worktree add feature/auth
+    Craft-&gt;&gt;RepoA: Write ORCHESTRATE-auth.md (refs RepoB)
+    Craft-&gt;&gt;RepoB: Write ORCHESTRATE-auth.md (refs RepoA)
+    User-&gt;&gt;RepoA: Implement in worktree A
+    User-&gt;&gt;RepoB: Implement in worktree B
+    User-&gt;&gt;Craft: /craft:ci:status
+    Craft--&gt;&gt;User: Cross-repo CI dashboard
+    User-&gt;&gt;RepoA: gh pr create --base dev
+    User-&gt;&gt;RepoB: gh pr create --base dev</code></pre>
+<hr />
+<h2 id="cistatus-cross-repo-dashboard"><code>ci:status</code> Cross-Repo Dashboard<a class="headerlink" href="#cistatus-cross-repo-dashboard" title="Permanent link">&para;</a></h2>
+<p>Once you have worktrees open and pushes in flight, <code>/craft:ci:status</code> can show a cross-repo view.</p>
+<p>Run it from either worktree — craft detects paired repos from the ORCHESTRATE file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:ci:status
+</span></code></pre></div>
+<p><strong>Example output:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>CI Status — feature/oauth2-provider
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>auth-core  (feature/oauth2-provider)
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  ✅ Tests       passed 2m ago   (3 workflows)
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  ✅ Lint        passed 2m ago
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  🔄 Build       running...
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>web-app  (feature/oauth2-provider)
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  ✅ Tests       passed 5m ago   (2 workflows)
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  ⚠️  Type Check  1 warning       src/auth/config.py:42
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  ✅ Build       passed 5m ago
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>Overall: 1 workflow still running — check back in ~1 minute
+</span></code></pre></div>
+<p>The dashboard aggregates CI from both repos. You do not need to switch browser tabs or remember repo URLs.</p>
+<p><strong>Filtering to a single repo:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:ci:status<span class="w"> </span>--repo<span class="w"> </span>auth-core
+</span></code></pre></div>
+<hr />
+<h2 id="coordinating-prs">Coordinating PRs<a class="headerlink" href="#coordinating-prs" title="Permanent link">&para;</a></h2>
+<p>When you are ready to open PRs, create one per repo. The key is linking them so reviewers understand the dependency relationship.</p>
+<p><strong>Step 1: Create the PR in the dependency repo first</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/auth-core/feature-oauth2-provider
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--base<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span>--title<span class="w"> </span><span class="s2">&quot;feat: add OAuth2 provider support&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span>--body<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="s">## Summary</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="s">- New `OAuth2Provider` class in `src/providers/oauth2.py`</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="s">- Provider registration hook in auth config</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="s">## Cross-repo coordination</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="s">This PR is part of a paired feature with **web-app**.</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="s">- web-app PR: (link once created)</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="s">- Merge order: auth-core → web-app</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="s">## Test plan</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="s">- [ ] Unit tests for OAuth2Provider</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="s">- [ ] Integration test with mock OAuth server</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="s">EOF</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p><strong>Step 2: Create the PR in the consuming repo, link back</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/web-app/feature-oauth2-provider
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># Get the auth-core PR number</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nv">AUTH_CORE_PR</span><span class="o">=</span><span class="k">$(</span>gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span>--repo<span class="w"> </span>Data-Wise/auth-core<span class="w"> </span>--json<span class="w"> </span>number<span class="w"> </span>-q<span class="w"> </span>.number<span class="k">)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--base<span class="w"> </span>dev<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span>--title<span class="w"> </span><span class="s2">&quot;feat: integrate OAuth2 provider&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span>--body<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="s">## Summary</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="s">- Register OAuth2 provider from auth-core</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="s">- Add OAuth2 button to login view</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="s">## Cross-repo coordination</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="s">Depends on: Data-Wise/auth-core#${AUTH_CORE_PR}</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="s">Merge order: auth-core PR must be merged first.</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="s">## Test plan</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="s">- [ ] Update auth-core dependency to include OAuth2Provider</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="s">- [ ] End-to-end login flow with OAuth2</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="s">EOF</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p><strong>Step 3: Update the auth-core PR with the web-app link</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">AUTH_CORE_PR</span><span class="o">=</span>&lt;number&gt;
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nv">WEB_APP_PR</span><span class="o">=</span>&lt;number&gt;
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>gh<span class="w"> </span>pr<span class="w"> </span>edit<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$AUTH_CORE_PR</span><span class="s2">&quot;</span><span class="w"> </span>--repo<span class="w"> </span>Data-Wise/auth-core<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span>--body<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$AUTH_CORE_PR</span><span class="s2">&quot;</span><span class="w"> </span>--repo<span class="w"> </span>Data-Wise/auth-core<span class="w"> </span>--json<span class="w"> </span>body<span class="w"> </span>-q<span class="w"> </span>.body<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span>sed<span class="w"> </span><span class="s2">&quot;s|(link once created)|Data-Wise/web-app#</span><span class="si">${</span><span class="nv">WEB_APP_PR</span><span class="si">}</span><span class="s2">|&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p><strong>Merge order:</strong></p>
+<p>Always merge in dependency order. The library/provider repo merges first. The consuming repo merges second, after updating its dependency version if applicable:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># After auth-core PR merges to dev:</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/web-app/feature-oauth2-provider
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># If version-pinned: bump auth-core version in pyproject.toml / package.json / etc.</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Then push the update</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>git<span class="w"> </span>add<span class="w"> </span>pyproject.toml
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;chore: bump auth-core to include OAuth2Provider&quot;</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/oauth2-provider
+</span></code></pre></div>
+<hr />
+<h2 id="practical-example-end-to-end">Practical Example: End-to-End<a class="headerlink" href="#practical-example-end-to-end" title="Permanent link">&para;</a></h2>
+<p>Here is a complete walkthrough for adding a new data export format to a plugin ecosystem with two repos: <code>craft</code> (the plugin) and <code>craft-formats</code> (format library).</p>
+<p><strong>Spec file: <code>SPEC-csv-export-2026-02-20.md</code></strong></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gu">## Repos affected</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">-</span><span class="w"> </span><span class="sb">`~/projects/dev-tools/craft/`</span> — Add /craft:export:csv command
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="k">-</span><span class="w"> </span><span class="sb">`~/projects/dev-tools/craft-formats/`</span> — Add CSV format handler
+</span></code></pre></div>
+<p><strong>Step 1: Plan</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/craft
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>/craft:orchestrate:plan<span class="w"> </span>specs/SPEC-csv-export-2026-02-20.md
+</span></code></pre></div>
+<p>Craft creates:</p>
 <ul>
-<li><a href="../../reference/REFCARD-BRANCH-GUARD/">Branch Guard Quick Reference</a> — At-a-glance reference card</li>
-<li><a href="../../tutorials/TUTORIAL-branch-guard-setup/">Branch Guard Setup Tutorial</a> — Step-by-step setup</li>
-<li><a href="../../commands/git/protect/">/craft:git:protect</a> — Re-enable protection</li>
-<li><a href="../../commands/git/unprotect/">/craft:git:unprotect</a> — Session bypass</li>
-<li><a href="../../commands/git/status/">/craft:git:status</a> — Guard indicator</li>
-<li><a href="https://github.com/Data-Wise/craft/blob/dev/commands/git/docs/safety-rails.md">Safety Rails Guide</a> — Progressive trust philosophy</li>
-<li><a href="../../workflows/git-feature-workflow/">Git Feature Workflow</a> — How guard fits in the workflow</li>
+<li><code>~/.git-worktrees/craft/feature-csv-export/</code> — branch <code>feature/csv-export</code></li>
+<li><code>~/.git-worktrees/craft-formats/feature-csv-export/</code> — branch <code>feature/csv-export</code></li>
+</ul>
+<p><strong>Step 2: Implement in craft-formats (Session 1)</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># New terminal session</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft-formats/feature-csv-export
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># Implement CSVHandler class</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add CSV format handler&quot;</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/csv-export
+</span></code></pre></div>
+<p><strong>Step 3: Implement in craft (Session 2)</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># New terminal session</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-csv-export
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1"># Implement /craft:export:csv command using CSVHandler</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add /craft:export:csv command&quot;</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/csv-export
+</span></code></pre></div>
+<p><strong>Step 4: Monitor CI</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-csv-export
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>/craft:ci:status
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># Shows CI for both repos</span>
+</span></code></pre></div>
+<p><strong>Step 5: Create PRs</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># craft-formats first</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft-formats/feature-csv-export
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--base<span class="w"> </span>dev<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;feat: add CSV format handler&quot;</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="c1"># craft second, with cross-link</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-csv-export
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--base<span class="w"> </span>dev<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;feat: add /craft:export:csv command&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">  </span>--body<span class="w"> </span><span class="s2">&quot;Depends on: Data-Wise/craft-formats#&lt;PR number&gt;&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="cleaning-up">Cleaning Up<a class="headerlink" href="#cleaning-up" title="Permanent link">&para;</a></h2>
+<p>After both PRs are merged:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Remove worktrees</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>~/.git-worktrees/craft/feature-csv-export
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>~/.git-worktrees/craft-formats/feature-csv-export
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1"># Delete remote branches (from each repo)</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/craft
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>feature/csv-export
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/craft-formats
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>feature/csv-export
+</span></code></pre></div>
+<p>Or use craft's worktree cleanup command from each repo:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:git:worktree<span class="w"> </span>clean
+</span></code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="craft-did-not-detect-cross-repo-paths">Craft did not detect cross-repo paths<a class="headerlink" href="#craft-did-not-detect-cross-repo-paths" title="Permanent link">&para;</a></h3>
+<p>Check that your spec uses <code>~/projects/&lt;name&gt;/</code> path format. Relative paths like <code>../other-repo/</code> are not detected.</p>
+<h3 id="worktree-creation-failed-in-one-repo">Worktree creation failed in one repo<a class="headerlink" href="#worktree-creation-failed-in-one-repo" title="Permanent link">&para;</a></h3>
+<p>If <code>dev</code> branch is out of date in one repo:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/&lt;repo&gt;
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>git<span class="w"> </span>fetch<span class="w"> </span>origin<span class="w"> </span>dev
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>dev
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="c1"># Then re-run orchestrate:plan</span>
+</span></code></pre></div>
+<h3 id="ci-status-shows-wrong-branch">CI status shows wrong branch<a class="headerlink" href="#ci-status-shows-wrong-branch" title="Permanent link">&para;</a></h3>
+<p>Verify the branch name is identical in both repos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/auth-core/feature-oauth2-provider
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="w">  </span><span class="c1"># Should match:</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/web-app/feature-oauth2-provider
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>git<span class="w"> </span>branch<span class="w"> </span>--show-current
+</span></code></pre></div>
+<h3 id="one-repos-tests-depend-on-the-other-repos-unreleased-code">One repo's tests depend on the other repo's unreleased code<a class="headerlink" href="#one-repos-tests-depend-on-the-other-repos-unreleased-code" title="Permanent link">&para;</a></h3>
+<p>This is the hardest case. Options:</p>
+<ol>
+<li><strong>Mock the dependency</strong> in tests — use a mock/stub for the unreleased interface</li>
+<li><strong>Publish a pre-release</strong> — tag a beta on the dependency repo and pin to it during development</li>
+<li><strong>Use path dependencies</strong> — if the package manager supports it (e.g., <code>pip install -e ../auth-core/</code>)</li>
+</ol>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cross-repo detection</td>
+<td>Spec contains <code>~/projects/</code> paths to 2+ repos</td>
+</tr>
+<tr>
+<td>Paired worktrees</td>
+<td>One worktree per repo, same branch name</td>
+</tr>
+<tr>
+<td>ORCHESTRATE files</td>
+<td>Scoped per repo, reference each other</td>
+</tr>
+<tr>
+<td>Branch enforcement</td>
+<td>All repos use <code>feature/&lt;name&gt;</code> — identical</td>
+</tr>
+<tr>
+<td>CI dashboard</td>
+<td><code>/craft:ci:status</code> aggregates across repos</td>
+</tr>
+<tr>
+<td>PR coordination</td>
+<td>Create in dependency order, link PRs to each other</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../worktree-advanced-patterns/">Worktree Advanced Patterns</a> — Parallel worktrees within a single repo</li>
+<li><a href="../../tutorials/TUTORIAL-worktree-setup/">Git Worktree Setup Tutorial</a> — Getting started with worktrees</li>
+<li><a href="../pipeline-orchestrate-guide/">Orchestrate Pipeline Guide</a> — Full orchestration reference</li>
+<li><a href="../../commands/ci/status/">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />status</a> — CI status command reference</li>
+<li><a href="../../commands/git/worktree/">/craft:git:worktree</a> — Worktree command reference</li>
 </ul>
 
 

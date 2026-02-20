@@ -1435,6 +1435,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guide/multi-repo-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Repo Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guide/branch-guard-smart-mode/" class="md-nav__link">
         
   
@@ -1978,10 +2006,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_27" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_28" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_27" id="__nav_2_4_27_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_28" id="__nav_2_4_28_label" tabindex="0">
             
   
   
@@ -1999,8 +2027,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_27_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_27">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_28_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_28">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2176,10 +2204,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_29" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_30" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_29" id="__nav_2_4_29_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_30" id="__nav_2_4_30_label" tabindex="0">
             
   
   
@@ -2197,8 +2225,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_29_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_29">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_30_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_30">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5916,6 +5944,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#craft-vs-claude-code-native-worktrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Craft vs Claude Code Native Worktrees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8277,6 +8316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#craft-vs-claude-code-native-worktrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Craft vs Claude Code Native Worktrees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8725,6 +8775,44 @@
 </tbody>
 </table>
 <p><strong>Manual</strong> worktrees are for quick features where you know the scope. <strong>Pipeline</strong> worktrees are created as part of the brainstorm → spec → ORCHESTRATE flow and always include an ORCHESTRATE file with phases. <strong>Swarm</strong> worktrees are ephemeral — created by the orchestrator for parallel agent execution and cleaned up after convergence. <strong>Cross-Repo</strong> worktrees enforce the same branch name across repositories for coordinated multi-repo features.</p>
+<h2 id="craft-vs-claude-code-native-worktrees">Craft vs Claude Code Native Worktrees<a class="headerlink" href="#craft-vs-claude-code-native-worktrees" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Craft (<code>/craft:git:worktree</code>)</th>
+<th>Claude Code (<code>isolation: worktree</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Location</td>
+<td><code>~/.git-worktrees/&lt;project&gt;/&lt;branch&gt;</code></td>
+<td><code>.claude/worktrees/&lt;hash&gt;/</code></td>
+</tr>
+<tr>
+<td>Lifetime</td>
+<td>Persistent, user-managed</td>
+<td>Temporary, auto-cleaned</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td><code>feature/&lt;name&gt;</code> from <code>dev</code></td>
+<td>Agent-generated</td>
+</tr>
+<tr>
+<td>Use case</td>
+<td>Feature development workflow</td>
+<td>Agent-level execution isolation</td>
+</tr>
+<tr>
+<td>Sharing</td>
+<td>Any session can <code>cd</code> into it</td>
+<td>Single agent session only</td>
+</tr>
+</tbody>
+</table>
+<p>Craft worktrees are the right tool for feature development. Claude Code's native isolation is for subagent execution safety — a lower-level mechanism. They are complementary; run <code>/craft:git:worktree</code> for the full comparison.</p>
 <h2 id="common-commands">Common Commands<a class="headerlink" href="#common-commands" title="Permanent link">&para;</a></h2>
 <h3 id="setup-and-create">Setup and Create<a class="headerlink" href="#setup-and-create" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># First-time setup (once per project)</span>

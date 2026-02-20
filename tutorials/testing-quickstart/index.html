@@ -1442,6 +1442,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../guide/multi-repo-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Repo Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guide/branch-guard-smart-mode/" class="md-nav__link">
         
   
@@ -1987,10 +2015,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_27" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_28" checked>
         
           
-          <label class="md-nav__link" for="__nav_2_4_27" id="__nav_2_4_27_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_28" id="__nav_2_4_28_label" tabindex="0">
             
   
   
@@ -2008,8 +2036,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_27_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_4_27">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_28_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4_28">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2145,6 +2173,28 @@
     <span class="md-ellipsis">
       
         Step 6: Manage Templates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-run-the-e2e-and-dogfood-suites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Run the E2E and Dogfood Suites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-filter-by-pytest-marker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: Filter by Pytest Marker
       
     </span>
   </a>
@@ -2320,10 +2370,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_29" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_30" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_29" id="__nav_2_4_29_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_30" id="__nav_2_4_30_label" tabindex="0">
             
   
   
@@ -2341,8 +2391,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_29_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_29">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_30_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_30">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -8028,6 +8078,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#step-7-run-the-e2e-and-dogfood-suites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Run the E2E and Dogfood Suites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-filter-by-pytest-marker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: Filter by Pytest Marker
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#migration-from-old-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8076,13 +8148,13 @@
 
 <!-- markdownlint-disable MD046 -->
 <h1 id="testing-quickstart">Testing Quickstart<a class="headerlink" href="#testing-quickstart" title="Permanent link">&para;</a></h1>
-<p>⏱️ <strong>10 minutes</strong> · 🟢 Beginner · ✓ Complete guide</p>
+<p>⏱️ <strong>12 minutes</strong> · 🟢 Beginner · ✓ Complete guide</p>
 <blockquote>
 <p><strong>TL;DR</strong> (30 seconds)</p>
 <ul>
-<li><strong>What:</strong> Three unified test commands replace seven old ones</li>
+<li><strong>What:</strong> Unified test commands + 62-test validation suite (unit, e2e, dogfood)</li>
 <li><strong>Why:</strong> One command to remember, with category filtering and execution modes</li>
-<li><strong>How:</strong> <code>/craft:test unit</code> runs unit tests, <code>/craft:test:gen</code> generates test suites</li>
+<li><strong>How:</strong> <code>/craft:test unit</code> runs unit tests, <code>pytest -m "e2e"</code> runs cross-component validation</li>
 <li><strong>Next:</strong> Read the <a href="../../guide/test-commands/">full reference</a> or <a href="../../guide/test-architecture/">architecture guide</a></li>
 </ul>
 </blockquote>
@@ -8158,6 +8230,58 @@
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Validate all templates</span>
 </span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>/craft:test:template<span class="w"> </span>validate
 </span></code></pre></div>
+<hr />
+<h2 id="step-7-run-the-e2e-and-dogfood-suites">Step 7: Run the E2E and Dogfood Suites<a class="headerlink" href="#step-7-run-the-e2e-and-dogfood-suites" title="Permanent link">&para;</a></h2>
+<p>Beyond <code>/craft:test</code>, craft has dedicated test suites that validate the plugin against itself:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># E2E: validates cross-component wiring (21 tests, ~0.6s)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/test_plugin_e2e.py<span class="w"> </span>-v
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Dogfood: runs craft&#39;s own scripts against the live repo (28 tests, ~1.9s)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/test_plugin_dogfood.py<span class="w"> </span>-v
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Both together with the unit suite (62 tests, ~2.5s)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/test_craft_plugin.py<span class="w"> </span>tests/test_plugin_e2e.py<span class="w"> </span>tests/test_plugin_dogfood.py<span class="w"> </span>-v
+</span></code></pre></div>
+<p><strong>What each suite catches:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Suite</th>
+<th>Catches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit (<code>test_craft_plugin.py</code>)</td>
+<td>Missing files, broken links, wrong counts</td>
+</tr>
+<tr>
+<td>E2E (<code>test_plugin_e2e.py</code>)</td>
+<td>Version drift, stale frontmatter, orphan references</td>
+</tr>
+<tr>
+<td>Dogfood (<code>test_plugin_dogfood.py</code>)</td>
+<td>Script regressions, performance budget violations, schema drift</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="step-8-filter-by-pytest-marker">Step 8: Filter by Pytest Marker<a class="headerlink" href="#step-8-filter-by-pytest-marker" title="Permanent link">&para;</a></h2>
+<p>Every test file uses pytest markers for selective execution:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># By tier</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;structure&quot;</span><span class="w">     </span><span class="c1"># 13 unit tests</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;e2e&quot;</span><span class="w">           </span><span class="c1"># 49 e2e + dogfood tests</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;dogfood&quot;</span><span class="w">       </span><span class="c1"># 28 dogfood-only tests</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1"># By domain</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;branch_guard&quot;</span><span class="w">  </span><span class="c1"># Branch protection hook tests</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;hub&quot;</span><span class="w">           </span><span class="c1"># Hub discovery tests</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;orchestrator&quot;</span><span class="w">  </span><span class="c1"># Orchestrator feature tests</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="c1"># Combine markers</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;e2e and not dogfood&quot;</span><span class="w">  </span><span class="c1"># E2E without dogfood</span>
+</span></code></pre></div>
+<p>Available markers are defined in <code>pyproject.toml</code> under <code>[tool.pytest.ini_options]</code>.</p>
 <hr />
 <h2 id="migration-from-old-commands">Migration from Old Commands<a class="headerlink" href="#migration-from-old-commands" title="Permanent link">&para;</a></h2>
 <table>
