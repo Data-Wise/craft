@@ -1,4 +1,4 @@
-# Insights-Driven Improvements Guide (v2.18.0)
+# Insights-Driven Improvements Guide (v2.18.0+)
 
 > **TL;DR**: 2 new skills, 4 enhanced commands, 1 safety hook — all designed to close the feedback loop between usage patterns and workflow configuration.
 

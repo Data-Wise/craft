@@ -1032,6 +1032,6 @@ cat DESCRIPTION
 
 ---
 
-**Tutorial Version:** 1.0.0
-**Last Updated:** 2026-01-29
-**Craft Version:** v2.9.0+
+**Tutorial Version:** 1.1.0
+**Last Updated:** 2026-02-19
+**Craft Version:** v2.22.0+

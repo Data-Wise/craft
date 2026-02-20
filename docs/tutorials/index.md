@@ -1,170 +1,72 @@
-# Dependency Management Tutorials
+# Craft Tutorials
 
-Step-by-step interactive tutorials for learning the dependency management system.
-
----
-
-## Available Tutorials
-
-### 🟢 Level 1: Getting Started
-
-**Tutorial**: [Getting Started with Dependency Management](dependency-management-getting-started.md)
-
-**What you'll learn:**
-
-- Check which tools are installed
-- Understand dependency status
-- Install missing tools automatically
-- Convert .cast files to GIFs
-- Batch process recordings
-- Troubleshoot common issues
-
-**Time**: ~10 minutes
-**Prerequisites**: None
-**Interactive steps**: 10
-
-[Start Tutorial →](dependency-management-getting-started.md)
+> **23 step-by-step tutorials** organized by topic. Start with [Your First 10 Minutes](TUTORIAL-first-10-minutes.md) if you're new.
 
 ---
 
-## Tutorial Structure
+## Getting Started
 
-Each tutorial follows this structure:
+| Tutorial | Time | What You'll Learn |
+|----------|------|-------------------|
+| [Your First 10 Minutes](TUTORIAL-first-10-minutes.md) | 10 min | Craft essentials — install, run commands, understand output |
+| [Pre-Flight Checks](check-tutorial-beginner.md) | 10 min | Validate code before commits with `/craft:check` |
+| [Smart Routing](smart-routing-tutorial.md) | 15 min | AI-powered task routing with `/craft:do` |
 
-```mermaid
-flowchart LR
-    A[Overview] --> B[Prerequisites]
-    B --> C[Learning Path]
-    C --> D[Interactive Steps]
-    D --> E[Troubleshooting]
-    E --> F[Next Steps]
-    F --> G[Quick Reference]
+## Git & Branching
 
-    style A fill:#4CAF50
-    style D fill:#2196F3
-    style G fill:#FF9800
-```
+| Tutorial | Time | What You'll Learn |
+|----------|------|-------------------|
+| [Git Worktree Setup](TUTORIAL-worktree-setup.md) | 15 min | Parallel development with worktrees and `/craft:git:worktree` |
+| [Branch Guard Setup](TUTORIAL-branch-guard-setup.md) | 5 min | Teaching-first branch protection for safe git operations |
+| [Version Sync Setup](TUTORIAL-version-sync-setup.md) | 10 min | Three-layer version drift protection (hook + pre-commit + check) |
 
----
+## Testing
 
-## Learning Path
+| Tutorial | Time | What You'll Learn |
+|----------|------|-------------------|
+| [Testing Quickstart](testing-quickstart.md) | 15 min | Unified test system — `/craft:test`, markers, generation, templates |
 
-### Recommended Progression
+## Documentation
 
-```mermaid
-flowchart TD
-    subgraph L1["Level 1: Getting Started"]
-        A1[Check Dependencies]
-        A2[Install Tools]
-        A3[Basic Conversion]
-        A1 --> A2 --> A3
-    end
+| Tutorial | Time | What You'll Learn |
+|----------|------|-------------------|
+| [CLAUDE.md Workflows](claude-md-workflows.md) | 20 min | Create, maintain, audit, and sync CLAUDE.md files (layered architecture) |
+| [Interactive Docs Update](interactive-docs-update-tutorial.md) | 15 min | Interactive documentation update workflow |
+| [Post-Merge Pipeline](TUTORIAL-post-merge-pipeline.md) | 10 min | Auto-update docs after PR merges with `--post-merge` |
+| [CRAFT-001 Emoji Spacing](TUTORIAL-craft-001-emoji-spacing.md) | 5 min | Fix emoji-attribute spacing that breaks MkDocs rendering |
 
-    subgraph L2["Level 2: Intermediate"]
-        B1[Batch Processing]
-        B2[CI/CD Integration]
-        B3[Custom Workflows]
-        B1 --> B2 --> B3
-    end
+## Orchestration & Workflow
 
-    subgraph L3["Level 3: Advanced"]
-        C1[Tool Development]
-        C2[Architecture]
-        C3[Contributing]
-        C1 --> C2 --> C3
-    end
+| Tutorial | Time | What You'll Learn |
+|----------|------|-------------------|
+| [Interactive Orchestration](interactive-orchestration.md) | 20 min | Plan confirmation, wave checkpoints, and mode selection |
+| [Orchestrator Modes Compared](orchestrator-modes-compared.md) | 15 min | Same task in 4 modes — performance metrics and decision guidance |
+| [Brainstorm Power User](TUTORIAL-brainstorm-power-user.md) | 20 min | Advanced brainstorming patterns and expert workflows |
+| [Insights-Driven Workflow](TUTORIAL-insights-workflow.md) | 20 min | Session insights, friction prevention, guard tuning, CI monitoring |
 
-    L1 --> L2 --> L3
+## Release & Distribution
 
-    style L1 fill:#E3F2FD
-    style L2 fill:#FFF3E0
-    style L3 fill:#FCE4EC
-```
+| Tutorial | Time | What You'll Learn |
+|----------|------|-------------------|
+| [Release Pipeline](TUTORIAL-release-pipeline.md) | 15 min | End-to-end release from version bump to Homebrew |
+| [Homebrew Setup](TUTORIAL-homebrew-setup.md) | 15 min | Automated Homebrew distribution for your project |
+| [Badge Workflow](TUTORIAL-badge-workflow.md) | 10 min | Badge management for CI, coverage, and version display |
 
----
+## Infrastructure
 
-## Tutorial Features
+| Tutorial | Time | What You'll Learn |
+|----------|------|-------------------|
+| [Dependency Management](dependency-management-getting-started.md) | 10 min | Check, install, and manage tool dependencies |
+| [Formatting Migration](TUTORIAL-formatting-migration.md) | 15 min | Migrate scripts to the shared formatting library |
+| [Teaching Mode Setup](teaching-mode-setup.md) | 15 min | Configure teaching-specific features and workflows |
 
-✅ **Progressive Learning** - Each level builds on the previous
-✅ **Interactive Steps** - Learn by doing with real commands
-✅ **Visual Guides** - Mermaid diagrams for workflows
-✅ **Troubleshooting** - Common issues with solutions
-✅ **Quick Reference** - Handy command tables
-✅ **Clear Next Steps** - Always know where to go next
+## What's New
+
+| Tutorial | Version | What You'll Learn |
+|----------|---------|-------------------|
+| [Craft 2.1 Enhancements](TUTORIAL-claude-code-2.1-enhancements.md) | v2.1.0 | Smart routing, interactive modes, workflow improvements |
 
 ---
 
-## Quick Start Guide
-
-**New to the system?**
-
-1. Start with [Getting Started](dependency-management-getting-started.md)
-2. Follow all 10 steps (~10 minutes)
-3. Complete the hands-on exercises
-4. Check out Next Steps for advanced topics
-
-**Specific goal?**
-Jump to the relevant section:
-
-- **Installation issues** → [Step 4](dependency-management-getting-started.md#step-4-install-missing-dependencies)
-- **Converting recordings** → [Step 7](dependency-management-getting-started.md#step-7-convert-recording-to-gif)
-- **Batch processing** → [Step 8](dependency-management-getting-started.md#step-8-batch-convert-multiple-files)
-- **Troubleshooting** → [Step 9](dependency-management-getting-started.md#step-9-troubleshooting)
-
----
-
-## Additional Resources
-
-### Documentation
-
-- [User Guide](../DEPENDENCY-MANAGEMENT.md) - Complete reference
-- [API Reference](../API-REFERENCE.md) - Function documentation
-- [Architecture](../DEPENDENCY-ARCHITECTURE.md) - System design with diagrams
-- [Developer Guide](../DEVELOPER-GUIDE.md) - Contributing guide
-
-### External Tools
-
-- [asciinema](https://asciinema.org/) - Terminal recording
-- [agg](https://github.com/asciinema/agg) - Cast to GIF converter
-- [gifsicle](https://www.lcdf.org/gifsicle/) - GIF optimizer
-- [VHS](https://github.com/charmbracelet/vhs) - Scripted demos
-
----
-
-## Tutorial Metrics
-
-| Metric | Target | Current |
-|--------|--------|---------|
-| Completion Rate | 80% | New |
-| Average Duration | ~10 min | 10 min |
-| Success Rate | 95% | New |
-| User Satisfaction | 4.5/5 | New |
-
----
-
-## Feedback
-
-Help us improve these tutorials:
-
-**Found an issue?**
-
-- Report on [GitHub Issues](https://github.com/Data-Wise/craft/issues)
-- Tag with `documentation` and `tutorial`
-
-**Have suggestions?**
-
-- Open a discussion on GitHub
-- Submit a PR with improvements
-- Share your experience
-
-**Tutorial requests?**
-
-- Request new tutorial topics
-- Vote on planned tutorials
-- Contribute your own
-
----
-
-**Last Updated**: 2026-01-17
-**Total Tutorials**: 1
-**Planned**: 2 more levels (Intermediate, Advanced)
+**Last Updated**: 2026-02-19
+**Total Tutorials**: 23
