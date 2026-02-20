@@ -2,12 +2,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 17 smart documentation commands from generation to ADHD-friendly enhancement
+> - **What:** 25 smart documentation commands from generation to ADHD-friendly enhancement
 > - **Why:** Automate docs updates, validation, and website optimization with one command
 > - **How:** Use `/craft:docs:update --interactive` for category-level prompts (NEW v2.7.0)
 > - **Next:** Try `/craft:docs:update --interactive --dry-run` to preview what would change
 
-Smart documentation generation, validation, and enhancement - 17 commands.
+Smart documentation generation, validation, and enhancement - 25 commands.
 
 ## Which Docs Command for What
 
