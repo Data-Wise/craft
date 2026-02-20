@@ -7,8 +7,19 @@ repo_url: https://github.com/Data-Wise/craft
 edit_uri: edit/main/docs/
 
 exclude_docs: |
-  archive/test-violations.md
-  README.md
+  /README.md
+  # Working artifacts - not published content
+  archive/
+  brainstorm/
+  orch/
+  dev/
+  # Active specs are working documents
+  specs/SPEC-*.md
+  # Stale standalone docs
+  FEATURE-RELEASE-CLAUDE-MD.md
+  GIF-REGENERATION-CHECKLIST.md
+  PHASE2-CONSOLIDATION.md
+  VALIDATOR-BEST-PRACTICES.md
 
 theme:
   name: material
@@ -102,6 +113,7 @@ nav:
       - Testing Guide: TESTING-CLAUDE-CODE-2.1.md
       - API Reference: API-REFERENCE-CLAUDE-CODE-2.1.md
       - Architecture: ARCHITECTURE-CLAUDE-CODE-2.1.md
+      - Claude Code 2.1 Guide: guide/claude-code-2.1-guide.md
     - Core Workflows:
       - Documentation Automation: guide/documentation-quality.md
       - Interactive Docs Update: tutorials/interactive-docs-update-tutorial.md
@@ -133,6 +145,8 @@ nav:
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
+      - Check Command Beginner Tutorial: tutorials/check-tutorial-beginner.md
+      - Smart Routing Tutorial: tutorials/smart-routing-tutorial.md
       - Testing:
         - Testing Quickstart: tutorials/testing-quickstart.md
         - Test Commands Reference: guide/test-commands.md
@@ -153,6 +167,7 @@ nav:
       - Skills & Agents: guide/skills-agents.md
       - Integration Testing: guide/integration-testing.md
       - Markdown List Spacing: guide/markdown-list-spacing.md
+      - Dependency Management Advanced: guide/dependency-management-advanced.md
       - Accessibility: ACCESSIBILITY.md
 
   # 3. TEACHING - Dedicated teaching workflow section
@@ -230,6 +245,7 @@ nav:
       - Post-Merge Documentation: cookbook/common/post-merge-documentation.md
       - Generate Tests for a Project: cookbook/common/generate-tests-for-project.md
       - Run Tests by Category: cookbook/common/run-tests-by-category.md
+      - Interactive Docs Update Example: examples/docs-update-interactive-example.md
     - Troubleshooting:
       - Command Not Found: cookbook/troubleshooting/command-not-found.md
       - Command Times Out: cookbook/troubleshooting/command-times-out.md
@@ -251,6 +267,9 @@ nav:
     - Hub v2.0 Architecture: architecture/HUB-V2-ARCHITECTURE.md
     - Discovery API: api/DISCOVERY-API.md
     - Documentation Quality: reference/documentation-quality.md
+    - CLAUDE.md API Reference: API-REFERENCE-CLAUDE-MD.md
+    - Commands API Reference: API-REFERENCE-COMMANDS.md
+    - Instruction Enforcement: reference/claude-code-instruction-enforcement.md
     - Changelog: CHANGELOG.md
     - Version History: VERSION-HISTORY.md
     - Release Notes v2.8.0: RELEASE-v2.8.0.md
@@ -269,6 +288,9 @@ nav:
       - Check Quick Reference: reference/REFCARD-CHECK.md
       - Insights Quick Reference: reference/REFCARD-INSIGHTS.md
       - Bump Version Reference: reference/REFCARD-BUMP-VERSION.md
+      - Command Examples: reference/COMMAND-EXAMPLES.md
+      - Command Parameters: reference/COMMAND-PARAMETERS.md
+      - Error Scenarios: reference/ERROR-SCENARIOS.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
@@ -292,6 +314,22 @@ nav:
       - Command Behavior Enhancements: specs/_archive/SPEC-command-enhancements-2026-01-29.md
       - Brainstorm Question Bank: specs/_archive/SPEC-brainstorm-question-bank.md
       - Branch Protection Hooks: specs/_archive/SPEC-branch-protection-hooks-2026-02-06.md
+      - Branch Guard v2 Confirmation: specs/_archive/SPEC-branch-guard-v2-confirmation-mode-2026-02-13.md
+      - Bump Version CI Status: specs/_archive/SPEC-bump-version-ci-status-2026-02-19.md
+      - Bump Version Docs: specs/_archive/SPEC-bump-version-docs-2026-02-19.md
+      - CLAUDE.md Refactor: specs/_archive/SPEC-claude-md-refactor-2026-02-18.md
+      - CLAUDE.md v3 Optimization: specs/_archive/SPEC-claude-md-v3-optimization-2026-02-04.md
+      - Demo Dependency Management: specs/_archive/SPEC-demo-dependency-management-2026-01-17.md
+      - Docs Gap Fill: specs/_archive/SPEC-docs-gap-fill-2026-02-05.md
+      - Docs Improvement: specs/_archive/SPEC-docs-improvement-2026-01-14.md
+      - Docs Sync/Update Integration: specs/_archive/SPEC-docs-sync-update-integration-2026-01-22.md
+      - Engineering Improvements v2.8.0: specs/_archive/SPEC-engineering-improvements-v2.8.0.md
+      - Full Markdown Linting: specs/_archive/SPEC-full-markdown-linting-2026-01-25.md
+      - Markdownlint List Spacing: specs/_archive/SPEC-markdownlint-list-spacing-2026-01-19.md
+      - Orch Flag Integration: specs/_archive/SPEC-orch-flag-integration-2026-01-19.md
+      - Orch Flag v2.5.1 Improvements: specs/_archive/SPEC-orch-flag-v2.5.1-improvements-2026-01-19.md
+      - Spec Integration: specs/_archive/SPEC-spec-integration-2026-01-16.md
+      - Testing Enhancements: specs/_archive/SPEC-testing-enhancements-2025-12-30.md
 
   # 7. FOR CONTRIBUTORS - Development resources
   - For Contributors:
