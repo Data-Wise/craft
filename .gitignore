@@ -27,7 +27,6 @@ tests/cli/logs/
 .coverage
 
 # Working artifacts (session outputs, plans, reports)
-ORCHESTRATE-*.md
 WAVE*.md
 PHASE*.md
 IMPLEMENTATION*.md

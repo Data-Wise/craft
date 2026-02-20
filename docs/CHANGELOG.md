@@ -7,11 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.23.0] - 2026-02-19: Extended Version Sync & Test Suite
+
+### Added
+
+- **bump-version.sh:** Extended from 9 to 11 files — now covers `docs/DEPENDENCY-ARCHITECTURE.md`, `docs/reference/configuration.md`, REFCARD box interior lines, and `docs/index.md` info box
+- **test_bump_version.sh:** Comprehensive 45-test bash test suite with sandbox isolation (CLI args, dry-run, verify, per-file integration tests)
+- **Release skill Step 3b:** Semantic doc updates for CHANGELOG, VERSION-HISTORY, README title, index.md info box, and REFCARD summary line
+
+### Changed
+
+- `FILE_COUNT` variable replaces hardcoded file count in configuration.md handler
+- `.gitignore` no longer ignores `ORCHESTRATE-*.md` files (they should be tracked on feature branches)
+
+---
+
 ## [2.22.2] - 2026-02-19: Bump-Version Feature & Documentation Overhaul
 
 ### Added
 
-- **bump-version.sh:** Automated version bumping across all 9 project files with `--dry-run`, `--verify`, and `--counts-only` modes
+- **bump-version.sh:** Automated version bumping across all 11 project files with `--dry-run`, `--verify`, and `--counts-only` modes
 - **CI status dashboard:** New command page and reference card for cross-repo CI monitoring
 
 ### Fixed
@@ -41,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **bump-version.sh:** Atomic version + count sync across all 9 project files — prevents version drift between releases
+- **bump-version.sh:** Atomic version + count sync across all 11 project files — prevents version drift between releases
 - **bump-version-helper.py:** Python helper for JSON file updates (plugin.json, marketplace.json, package.json)
 - **/craft:ci:status:** Cross-repo CI status dashboard — see all workflow statuses in one view with `--json` and `--repo` filters
 - **REFCARD-BUMP-VERSION.md:** Quick reference card for bump-version.sh

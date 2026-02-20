@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Full-stack developer toolkit for Claude Code with 108 commands, 8 agents, and 25 skills",
-    "version": "2.22.2"
+    "version": "2.23.0"
   },
   "plugins": [
     {
@@ -16,7 +16,7 @@
         "repo": "Data-Wise/craft"
       },
       "description": "Full-stack developer toolkit for Claude Code with 108 commands, 8 agents, and 25 skills",
-      "version": "2.22.2",
+      "version": "2.23.0",
       "author": {
         "name": "Data-Wise",
         "email": "dt@stat-wise.com"
