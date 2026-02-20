@@ -12,7 +12,7 @@
 2. [Module Constants](#module-constants)
 3. [Core Functions](#core-functions)
 4. [YAML Parsing](#yaml-parsing)
-5. [Category & Name Inference](#category--name-inference)
+5. [Category & Name Inference](#category-and-name-inference)
 6. [Cache Management](#cache-management)
 7. [Query Functions](#query-functions)
 8. [Data Structures](#data-structures)
@@ -349,7 +349,7 @@ print(para)  # Output: This is the first paragraph with some description.
 
 ---
 
-## Category & Name Inference
+## Category and Name Inference
 
 ### `infer_category()`
 

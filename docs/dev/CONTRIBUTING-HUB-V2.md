@@ -14,7 +14,7 @@
 4. [Adding New Commands](#adding-new-commands)
 5. [Modifying the Discovery Engine](#modifying-the-discovery-engine)
 6. [Testing Your Changes](#testing-your-changes)
-7. [Code Style & Best Practices](#code-style--best-practices)
+7. [Code Style & Best Practices](#code-style-and-best-practices)
 8. [Submitting Changes](#submitting-changes)
 9. [Troubleshooting](#troubleshooting)
 
@@ -469,7 +469,7 @@ if __name__ == '__main__':
 
 ---
 
-## Code Style & Best Practices
+## Code Style and Best Practices
 
 ### Python Style
 

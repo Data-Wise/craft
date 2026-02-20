@@ -6,7 +6,7 @@
 
 1. [Getting Started](#getting-started)
 2. [Workflow 1: New Project Setup](#workflow-1-new-project-setup)
-3. [Workflow 2: Maintenance & Updates](#workflow-2-maintenance--updates)
+3. [Workflow 2: Maintenance & Updates](#workflow-2-maintenance-and-updates)
 4. [Workflow 3: Section Editing](#workflow-3-section-editing)
 5. [Workflow 4: Template Customization](#workflow-4-template-customization)
 6. [Workflow 5: Layered Architecture](#workflow-5-layered-architecture)
@@ -222,7 +222,7 @@ git commit -m "docs: add CLAUDE.md with auto-populated template"
 
 ---
 
-## Workflow 2: Maintenance & Updates
+## Workflow 2: Maintenance and Updates
 
 **Goal:** Keep CLAUDE.md current as project evolves.
 

@@ -6,6 +6,10 @@ repo_name: Data-Wise/craft
 repo_url: https://github.com/Data-Wise/craft
 edit_uri: edit/main/docs/
 
+exclude_docs: |
+  archive/test-violations.md
+  README.md
+
 theme:
   name: material
   palette:

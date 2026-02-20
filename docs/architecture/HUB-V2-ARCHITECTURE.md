@@ -16,8 +16,8 @@
 5. [Performance Architecture](#performance-architecture)
 6. [Security Considerations](#security-considerations)
 7. [Scalability](#scalability)
-8. [Migration & Deployment](#migration--deployment)
-9. [Monitoring & Observability](#monitoring--observability)
+8. [Migration & Deployment](#migration-and-deployment)
+9. [Monitoring & Observability](#monitoring-and-observability)
 10. [Future Enhancements](#future-enhancements)
 
 ---
@@ -526,7 +526,7 @@ All scenarios remain well within performance targets.
 
 ---
 
-## Migration & Deployment
+## Migration and Deployment
 
 ### Migration from Hub v1.x
 
@@ -570,7 +570,7 @@ If issues discovered after merge:
 
 ---
 
-## Monitoring & Observability
+## Monitoring and Observability
 
 ### Performance Monitoring
 
