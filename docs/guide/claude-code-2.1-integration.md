@@ -598,7 +598,7 @@ Result aggregation: < 1 minute
 - [Complexity Scoring Algorithm](complexity-scoring-algorithm.md) - Deep dive into 7 factors
 - [Teaching Workflow Guide](teaching-workflow.md) - Specialized workflow for courses
 - [Orchestrator Documentation](orchestrator.md) - Advanced multi-agent features
-- [Commands Reference](../commands/) - All 99 commands
+- [Commands Reference](../commands.md) - All 108 commands
 
 ---
 
