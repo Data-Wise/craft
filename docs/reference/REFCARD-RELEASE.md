@@ -134,7 +134,7 @@ The release pipeline automatically handles marketplace distribution:
 
 ```bash
 ./scripts/bump-version.sh <version>
-# Updates all 9 files atomically: 3 JSON + 6 text
+# Updates all 11 files atomically: 3 JSON + 8 text
 # See: docs/reference/REFCARD-BUMP-VERSION.md
 ```
 
@@ -147,8 +147,10 @@ The release pipeline automatically handles marketplace distribution:
 | `package.json` | `version`, description counts |
 | `CLAUDE.md` | Version string, bold counts |
 | `README.md` | Version badge, bold counts |
-| `docs/index.md` | Version badge, count strings |
-| `docs/REFCARD.md` | Header version |
+| `docs/index.md` | Version badge, `Latest: vX.Y.Z` info box, count strings |
+| `docs/REFCARD.md` | Header version, box interior version + summary |
+| `docs/DEPENDENCY-ARCHITECTURE.md` | `**Version**: X.Y.Z` footer |
+| `docs/reference/configuration.md` | `bump-version.sh X.Y.Z` example, file count |
 | `mkdocs.yml` | Version + counts in site_description |
 | `.STATUS` | Version line, count string |
 
