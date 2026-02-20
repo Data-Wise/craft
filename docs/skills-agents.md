@@ -1,8 +1,8 @@
 # Craft Skills & Agents
 
-Craft includes 24 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 25 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (24 total)
+## Skills (25 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -89,7 +89,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 Specialized agents can be invoked explicitly or delegated to by the orchestrator.
 
-### Documentation Agents (5)
+### Documentation Agents (6)
 
 | Name | Description | Path |
 |------|-------------|------|
@@ -107,7 +107,17 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 | orchestrator | Manages background agent delegation, task parallelization, and result synthesis | `agents/orchestrator.md` |
 | orchestrator-v2 | Enhanced orchestrator with subagent monitoring, mode-aware execution, and ADHD-optimized status tracking | `agents/orchestrator-v2.md` |
 
-*Note: `orchestrator-v2` is the recommended version (v1.1.0+). The original `orchestrator` exists for backward compatibility.*
+*Note: `orchestrator-v2` is the recommended version. The original `orchestrator` exists for backward compatibility.*
+
+### Agent Platform Features
+
+Some agents use Claude Code platform features for enhanced behavior:
+
+| Feature | Agents | Effect |
+|---------|--------|--------|
+| `background: true` | docs-architect, reference-builder, tutorial-engineer | Run as non-blocking background tasks |
+| `memory: project` | orchestrator-v2 | Persistent project-scoped memory across sessions |
+| `skills` | orchestrator-v2 (session-state, task-analyzer) | Preloaded skill context at agent startup |
 
 ## Skill Activation
 
