@@ -1,0 +1,6 @@
+{
+  "agent": {
+    "defaultModel": "sonnet",
+    "defaultPermissionMode": "default"
+  }
+}
