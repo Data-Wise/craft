@@ -1,18 +1,26 @@
 status: Active
 version: 2.24.0
-release_date: 2026-02-19
-milestone: v2.23.1 released — Hub Rewrite & Cleanup
+release_date: 2026-02-20
+milestone: v2.24.0 released — Claude Code v2.1.49 Integration
 last_session: 2026-02-20
 
-progress: Brainstormed Claude Code v2.1.49 integration. Spec + orchestration plan ready. Worktree created for implementation.
+progress: Released v2.24.0 with agent platform features, 49 new tests, and multi-repo workflow docs.
 
 📊 Branch Status:
 
 | Branch | Head    | Base | Status                               |
 |--------|---------|------|--------------------------------------|
-| main   | 4c807c8 | —    | Production (v2.23.1 + docs fixes)    |
-| dev    | 4d7cbe3 | main | Synced with main                     |
-| feature/claude-code-integration | ca39e9c | dev | Orchestration plan committed, ready to implement |
+| main   | d6e8838 | —    | Production (v2.24.0)                 |
+| dev    | d6e8838 | main | Synced with main                     |
+
+✅ Session 2026-02-20c (v2.24.0 release — Claude Code v2.1.49 integration):
+- Reviewed PR #99: identified ORCHESTRATE cleanup + verified skill references
+- Removed ORCHESTRATE file from feature branch, pushed cleanup commit
+- Merged PR #99 to dev (squash), removed worktree
+- Fixed stale skill counts (24→25) in 3 docs files, deployed site
+- Released v2.24.0: bump across 12 files, PR #100, merge (--admin), GitHub release, Homebrew tap, docs deploy
+- Post-release verification: all counts consistent, mkdocs strict clean, CI green on main
+- Stats: 108 commands, 25 skills, 8 agents, 62 core tests
 
 ✅ Session 2026-02-20b (Claude Code v2.1.49 integration planning):
 - Researched Claude Code v2.1.49 release (worktree flag, agent isolation/background/memory/skills, plugin settings.json)
@@ -68,13 +76,12 @@ progress: Brainstormed Claude Code v2.1.49 integration. Spec + orchestration pla
 ---
 
 🎯 Next Action:
-→ cd ~/.git-worktrees/craft/feature-claude-code-integration && claude
-→ Implement 5 increments from ORCHESTRATE-claude-code-integration.md
-→ Increments 1-3 (code) and 4-5 (docs) can be parallelized
+→ No urgent tasks — v2.24.0 shipped and deployed
+→ Consider: docs help pages for 14 docs sub-commands
+→ Consider: coaching mode (Phase 3 of guard design)
 
-## Future (v2.24.0+)
+## Future (v2.25.0+)
 
-- Claude Code v2.1.49 integration (in progress — feature/claude-code-integration)
 - Missing docs help pages for 14 docs sub-commands
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
