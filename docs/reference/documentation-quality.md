@@ -667,4 +667,4 @@ Add `.github/workflows/docs-quality.yml` to catch issues in PRs.
 - [User Guide: Documentation Quality](../guide/documentation-quality.md) - Step-by-step tutorial
 - [Developer Guide: Extending Documentation Quality](../guide/documentation-quality-development.md) - Customization guide
 - [Commands: Documentation](../commands/docs.md) - All docs commands
-- [Pre-commit Hook Integration](../guide/git-init-tutorial.md#pre-commit-hooks) - Setup guide
+- [Pre-commit Hook Integration](../guide/git-init-tutorial.md) - Setup guide

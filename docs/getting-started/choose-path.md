@@ -49,12 +49,12 @@ Welcome to Craft! Find the path that matches your experience level and goals.
 ### Recommended Resources
 
 - **[Command Overview](../commands/overview.md)**
-  Browse all 97 commands organized by category
+  Browse all 108 commands organized by category
 
 - **[Quick Reference Card](../REFCARD.md)**
   Printable cheatsheet with the most common commands
 
-- **[Core Workflows](../guide/getting-started.md#workflows)**
+- **[Core Workflows](../guide/getting-started.md)**
   Best practices for documentation, site creation, releases, and development
 
 - **[Teaching Mode](../TEACHING-DOCS-INDEX.md)**
