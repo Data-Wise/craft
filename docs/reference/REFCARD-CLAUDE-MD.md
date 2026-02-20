@@ -402,18 +402,30 @@ git commit -m "docs: update troubleshooting section"
 
 ## Layered Architecture (v2.22.0)
 
-CLAUDE.md uses a layered system to minimize token usage:
+CLAUDE.md uses a layered system to minimize per-session token cost.
 
-```text
-Always loaded (~4000 tokens/session):
-  CLAUDE.md          ← Behavioral rules only (< 100 lines)
-  ~/.claude/rules/   ← Imperatives (spec-only-mode, brainstorm-mode)
-  MEMORY.md          ← Learnings (< 200 lines)
+### Token Budget Breakdown
 
-Loaded on-demand (0 tokens unless requested):
-  .claude/reference/ ← agents.md, test-suite.md, project-structure.md
-  ~/.claude/reference/ ← mcp-servers.md, plugins.md, shell-workflow.md
-```
+| Layer | Loaded | Lines | Purpose |
+|-------|--------|-------|---------|
+| `CLAUDE.md` | Always | ~82 | Quick commands, workflow constraints, troubleshooting |
+| `~/.claude/rules/*.md` | Always | ~221 | Behavioral imperatives (spec-only-mode, brainstorm-mode, etc.) |
+| `MEMORY.md` | Always | ~28 | Cross-session learnings (capped at 200 lines) |
+| **Total always-loaded** | | **~330 lines** | **~4000 tokens/session** |
+
+| Layer | Loaded | Purpose |
+|-------|--------|---------|
+| `~/.claude/reference/` | On-demand | Global: MCP servers, plugins, shell workflow, release automation |
+| `.claude/reference/` | On-demand | Project: agents, test suite, project structure |
+
+**On-demand loading trigger:** Claude Code loads reference files when it encounters a pointer in CLAUDE.md (e.g., "see `.claude/reference/`") and the user's question relates to that topic. The files are NOT loaded every session — only when contextually relevant.
+
+### Budget Enforcement
+
+The `scripts/claude-md-budget-check.sh` script (also runs as a pre-commit hook) enforces:
+
+- CLAUDE.md stays under the configured line budget (default: 150 lines)
+- Budget reads from `.claude-plugin/config.json` > `package.json` > default 150
 
 ### Generate Reference Files
 

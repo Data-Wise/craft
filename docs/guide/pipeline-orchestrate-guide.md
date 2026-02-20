@@ -1,4 +1,4 @@
-# Orchestrate Pipeline Guide (v2.21.0)
+# Orchestrate Pipeline Guide (v2.21.0+)
 
 > **TL;DR**: 2 new commands, 2 brainstorm enhancements, consistent worktree types across all docs — connecting the full workflow from brainstorm to PR.
 
