@@ -44,7 +44,7 @@ Need to work on something else?
 | Use case | Feature development workflow | Agent-level execution isolation |
 | Sharing | Any session can `cd` into it | Single agent session only |
 
-Craft worktrees are the right tool for feature development. Claude Code's native isolation is for subagent execution safety — a lower-level mechanism. They are complementary; see [/craft:git:worktree](../../commands/git/worktree.md) for the full comparison.
+Craft worktrees are the right tool for feature development. Claude Code's native isolation is for subagent execution safety — a lower-level mechanism. They are complementary; run `/craft:git:worktree` for the full comparison.
 
 ## Common Commands
 
