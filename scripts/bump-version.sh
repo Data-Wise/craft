@@ -8,6 +8,8 @@
 #   ./scripts/bump-version.sh --verify             # Check consistency (exit 0/1)
 #
 # Exit codes: 0 = success, 1 = drift found (--verify), 2 = usage error
+#
+# Note: Uses BSD sed (macOS). For GNU/Linux, change `sed -i ''` to `sed -i`.
 
 set -e
 
@@ -109,6 +111,12 @@ if [ "$VERIFY_ONLY" = true ]; then
     fi
     if [ -f "README.md" ] && ! grep -q "version-${CURRENT_VERSION}" README.md; then
         echo -e "  ${RED}✗${NC} README.md badge missing ${CURRENT_VERSION}"; ERRORS=$((ERRORS + 1))
+    fi
+    if [ -f "mkdocs.yml" ] && ! grep -q "v${CURRENT_VERSION}" mkdocs.yml; then
+        echo -e "  ${RED}✗${NC} mkdocs.yml missing v${CURRENT_VERSION}"; ERRORS=$((ERRORS + 1))
+    fi
+    if [ -f ".STATUS" ] && ! grep -q "version: ${CURRENT_VERSION}" .STATUS; then
+        echo -e "  ${RED}✗${NC} .STATUS version missing ${CURRENT_VERSION}"; ERRORS=$((ERRORS + 1))
     fi
 
     echo ""
@@ -228,24 +236,32 @@ if [ -f "README.md" ]; then
     fi
 fi
 
-# docs/index.md
+# docs/index.md — only update header/badge version, not historical "NEW in vX.Y.Z" refs
 if [ -f "docs/index.md" ]; then
     if [ "$DRY_RUN" = true ]; then
         echo -e "  ${CYAN}would update${NC} docs/index.md"
     else
-        [ "$COUNTS_ONLY" = false ] && sed -i '' "s|v${CURRENT_VERSION}|v${TARGET_VERSION}|g" docs/index.md
+        if [ "$COUNTS_ONLY" = false ]; then
+            # Target specific version patterns (badges, headers), not prose mentions
+            sed -i '' "s|version-${CURRENT_VERSION}|version-${TARGET_VERSION}|g" docs/index.md
+            sed -i '' "s|Current version: v${CURRENT_VERSION}|Current version: v${TARGET_VERSION}|g" docs/index.md
+        fi
         sed -i '' "s|[0-9][0-9]* commands, [0-9][0-9]* AI agents, and [0-9][0-9]* auto-triggered skills|${CMD_COUNT} commands, ${AGENT_COUNT} AI agents, and ${SKILL_COUNT} auto-triggered skills|g" docs/index.md
         sed -i '' "s|[0-9][0-9]* commands, [0-9][0-9]* agents, [0-9][0-9]* skills|${CMD_COUNT} commands, ${AGENT_COUNT} agents, ${SKILL_COUNT} skills|g" docs/index.md
         echo -e "  ${GREEN}✓${NC} docs/index.md"; UPDATED=$((UPDATED + 1))
     fi
 fi
 
-# docs/REFCARD.md
+# docs/REFCARD.md — only update header version line, not historical refs
 if [ -f "docs/REFCARD.md" ]; then
     if [ "$DRY_RUN" = true ]; then
         echo -e "  ${CYAN}would update${NC} docs/REFCARD.md"
     else
-        [ "$COUNTS_ONLY" = false ] && sed -i '' "s|v${CURRENT_VERSION}|v${TARGET_VERSION}|g" docs/REFCARD.md
+        if [ "$COUNTS_ONLY" = false ]; then
+            # Target the version badge/header line only
+            sed -i '' "s|version-${CURRENT_VERSION}|version-${TARGET_VERSION}|g" docs/REFCARD.md
+            sed -i '' "1,5s|v${CURRENT_VERSION}|v${TARGET_VERSION}|g" docs/REFCARD.md
+        fi
         echo -e "  ${GREEN}✓${NC} docs/REFCARD.md"; UPDATED=$((UPDATED + 1))
     fi
 fi

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Helper for bump-version.sh JSON updates"""
-import json, re, sys
+import json
+import re
+import sys
 
 def main():
     if len(sys.argv) < 3:
