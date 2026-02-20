@@ -34,6 +34,18 @@ Need to work on something else?
 
 **Manual** worktrees are for quick features where you know the scope. **Pipeline** worktrees are created as part of the brainstorm → spec → ORCHESTRATE flow and always include an ORCHESTRATE file with phases. **Swarm** worktrees are ephemeral — created by the orchestrator for parallel agent execution and cleaned up after convergence. **Cross-Repo** worktrees enforce the same branch name across repositories for coordinated multi-repo features.
 
+## Craft vs Claude Code Native Worktrees
+
+| Aspect | Craft (`/craft:git:worktree`) | Claude Code (`isolation: worktree`) |
+|--------|-------------------------------|-------------------------------------|
+| Location | `~/.git-worktrees/<project>/<branch>` | `.claude/worktrees/<hash>/` |
+| Lifetime | Persistent, user-managed | Temporary, auto-cleaned |
+| Branch | `feature/<name>` from `dev` | Agent-generated |
+| Use case | Feature development workflow | Agent-level execution isolation |
+| Sharing | Any session can `cd` into it | Single agent session only |
+
+Craft worktrees are the right tool for feature development. Claude Code's native isolation is for subagent execution safety — a lower-level mechanism. They are complementary; see [/craft:git:worktree](../../commands/git/worktree.md) for the full comparison.
+
 ## Common Commands
 
 ### Setup and Create
