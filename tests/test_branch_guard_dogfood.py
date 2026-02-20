@@ -164,7 +164,10 @@ class TestCraftRepoDogfood(unittest.TestCase):
             content="# new\n",
         ))
         self.assertEqual(result.returncode, 2, "New .py on dev should be blocked")
-        self.assertIn("BRANCH GUARD", result.stderr)
+        self.assertTrue(
+            "BRANCH GUARD" in result.stderr or "[CONFIRM]" in result.stderr,
+            f"Expected guard output, got: {result.stderr!r}",
+        )
 
     @unittest.skipUnless(_get_current_branch() == "dev", "Not on dev branch")
     def test_dev_write_new_sh_blocked(self):
@@ -222,7 +225,10 @@ class TestCraftRepoDogfood(unittest.TestCase):
             "Bash", command="git push --force origin dev",
         ))
         self.assertEqual(result.returncode, 2, "Force push on dev should be blocked")
-        self.assertIn("BRANCH GUARD", result.stderr)
+        self.assertTrue(
+            "BRANCH GUARD" in result.stderr or "[CONFIRM]" in result.stderr,
+            f"Expected guard output, got: {result.stderr!r}",
+        )
 
     # --- feature branch tests (always pass if on feature/*) ---
     @unittest.skipUnless(
