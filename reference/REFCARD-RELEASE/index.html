@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.22.2 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.23.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -7637,7 +7637,7 @@
 </table>
 <p><strong>Step 3 uses <code>bump-version.sh</code></strong> (single command replaces manual edits):</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./scripts/bump-version.sh<span class="w"> </span>&lt;version&gt;
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Updates all 9 files atomically: 3 JSON + 6 text</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Updates all 11 files atomically: 3 JSON + 8 text</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># See: docs/reference/REFCARD-BUMP-VERSION.md</span>
 </span></code></pre></div>
 <p><strong>Files bumped in Step 3:</strong></p>
@@ -7671,11 +7671,19 @@
 </tr>
 <tr>
 <td><code>docs/index.md</code></td>
-<td>Version badge, count strings</td>
+<td>Version badge, <code>Latest: vX.Y.Z</code> info box, count strings</td>
 </tr>
 <tr>
 <td><code>docs/REFCARD.md</code></td>
-<td>Header version</td>
+<td>Header version, box interior version + summary</td>
+</tr>
+<tr>
+<td><code>docs/DEPENDENCY-ARCHITECTURE.md</code></td>
+<td><code>**Version**: X.Y.Z</code> footer</td>
+</tr>
+<tr>
+<td><code>docs/reference/configuration.md</code></td>
+<td><code>bump-version.sh X.Y.Z</code> example, file count</td>
 </tr>
 <tr>
 <td><code>mkdocs.yml</code></td>

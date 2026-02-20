@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.22.2 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.23.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -7852,7 +7852,7 @@
 </table>
 <h2 id="layer-4-atomic-version-bump-bump-versionsh">Layer 4: Atomic Version Bump (bump-version.sh)<a class="headerlink" href="#layer-4-atomic-version-bump-bump-versionsh" title="Permanent link">&para;</a></h2>
 <p><strong>File:</strong> <code>scripts/bump-version.sh</code> + <code>scripts/bump-version-helper.py</code></p>
-<p><strong>Role:</strong> The <em>fix</em> layer — while Layers 1-3 detect drift, Layer 4 prevents it by updating all 9 version-bearing files atomically in a single invocation.</p>
+<p><strong>Role:</strong> The <em>fix</em> layer — while Layers 1-3 detect drift, Layer 4 prevents it by updating all 11 version-bearing files atomically in a single invocation.</p>
 <p><strong>Modes:</strong></p>
 <table>
 <thead>
@@ -7890,13 +7890,15 @@
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    |
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    +-- bump-version-helper.py (JSON: plugin.json, marketplace.json, package.json)
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    |
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    +-- sed (text: CLAUDE.md, README.md, docs/index.md, docs/REFCARD.md, mkdocs.yml, .STATUS)
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    +-- sed (text: CLAUDE.md, README.md, docs/index.md, docs/REFCARD.md,
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    |         docs/DEPENDENCY-ARCHITECTURE.md, docs/reference/configuration.md,
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    |         mkdocs.yml, .STATUS)
 </span></code></pre></div>
 <p><strong>Integration with release pipeline:</strong> Step 3 of <code>/release</code> calls <code>bump-version.sh &lt;version&gt;</code> instead of manual file-by-file edits. The <code>--verify</code> mode is used by <code>pre-release-check.sh</code> as an additional consistency gate.</p>
 <p><strong>Scoped replacements:</strong> To avoid rewriting historical references (e.g., "NEW in v2.22.0"), text file updates use targeted patterns:</p>
 <ul>
-<li><code>docs/index.md</code>: Only <code>version-X.Y.Z</code> badges and <code>Current version:</code> lines</li>
-<li><code>docs/REFCARD.md</code>: Only version badge and first 5 lines (header)</li>
+<li><code>docs/index.md</code>: Only <code>version-X.Y.Z</code> badges, <code>Current version:</code> lines, and <code>Latest: vX.Y.Z</code> info box</li>
+<li><code>docs/REFCARD.md</code>: Version badge, header lines, box interior <code>Version: X.Y.Z</code> and <code>vX.Y.Z:</code> summary</li>
 <li><code>CLAUDE.md</code>: Only <code>Current Version:** vX.Y.Z</code> pattern</li>
 <li><code>README.md</code>: Only <code>version-X.Y.Z</code> badge pattern</li>
 </ul>
