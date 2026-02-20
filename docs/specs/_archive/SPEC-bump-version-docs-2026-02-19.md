@@ -1,6 +1,6 @@
 # SPEC: Extend bump-version.sh & Release Skill for Full Doc Coverage
 
-**Status:** draft
+**Status:** done
 **Created:** 2026-02-19
 **From Brainstorm:** Inline session analysis during v2.22.2 release
 **Scope:** `scripts/bump-version.sh`, release skill (Step 3b)
