@@ -5,7 +5,7 @@ Complete reference for all 97 Craft commands organized by category. Craft provid
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 107 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 108 commands support `--dry-run` / `-n` preview mode
 **16 Categories:** arch, check, ci, code, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
 Use `/craft:hub` to discover all available commands interactively.
@@ -97,6 +97,18 @@ Generate GitHub Actions workflow from project detection.
 ```
 
 **Generates:** .github/workflows/ci.yml with tests, linting, build steps
+
+### /craft:ci:status
+
+Cross-repo CI status dashboard — see all workflow statuses in one view.
+
+```bash
+/craft:ci:status
+/craft:ci:status --json
+/craft:ci:status --repo craft
+```
+
+**See:** [Command Reference](commands/ci/status.md)
 
 ### /craft:ci:validate
 
@@ -281,7 +293,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 107 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 108 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 
@@ -296,6 +308,7 @@ All applicable commands support 4 execution modes:
 
 - `ci:detect` - Preview project type detection
 - `ci:generate` - Preview workflow generation (CRITICAL)
+- `ci:status` - CI dashboard (read-only, no dry-run needed)
 - `ci:validate` - Preview CI validation
 
 ### Site Commands (4/6) — 67%

@@ -21,8 +21,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **bump-version.sh:** Atomic version + count sync across all 9 project files — prevents version drift between releases
+- **bump-version-helper.py:** Python helper for JSON file updates (plugin.json, marketplace.json, package.json)
+- **/craft:ci:status:** Cross-repo CI status dashboard — see all workflow statuses in one view with `--json` and `--repo` filters
+- **REFCARD-BUMP-VERSION.md:** Quick reference card for bump-version.sh
+- **docs/commands/ci/status.md:** Command help page for /craft:ci:status
+- **Version sync Layer 4:** Added atomic version bump documentation to architecture/version-sync.md
 - **REFCARD-INSIGHTS.md:** New consolidated quick-reference for insights, friction prevention, and version sync
 - **CLAUDE.md layered architecture:** Expanded REFCARD-CLAUDE-MD with per-layer token budget, loading triggers, budget enforcement
+
+### Changed
+
+- **Release skill (SKILL.md):** Step 3 now uses `bump-version.sh` instead of manual file-by-file edits; Step 8.5 adds Homebrew post-update verification
+- **skills-agents.md:** Rebuilt both reference and guide pages from actual filesystem inventory (removed 17 phantom skills, 7 phantom agents)
+- **Command count:** 107→108 across 19 documentation files
+- **bump-version.sh mkdocs.yml pattern:** Fixed sed to handle drifted versions (not just current→target replacement)
 
 ---
 

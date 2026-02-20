@@ -232,29 +232,34 @@ Fix issues and re-run from 2a. Common fixes:
 
 ### Step 3: Version Bump
 
-Update version in all relevant files. Project-type-specific:
+For **Craft plugin projects**, use the automated bump script:
+
+```bash
+# Preview what will change
+./scripts/bump-version.sh <version> --dry-run
+
+# Apply version bump + count sync across all 9 files
+./scripts/bump-version.sh <version>
+
+# Verify consistency
+./scripts/bump-version.sh --verify
+```
+
+This atomically updates: `plugin.json`, `marketplace.json`, `package.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, and `.STATUS`.
+
+For **other project types**, update manually:
 
 | Project Type | Files to Update |
 |-------------|-----------------|
-| Craft plugin | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` (if exists), `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, `.STATUS` |
 | Python | `pyproject.toml`, `__init__.py`, `README.md` |
 | Node | `package.json`, `package-lock.json`, `README.md` |
 | R package | `DESCRIPTION`, `NEWS.md`, `README.md` |
 
-Also update any hardcoded version references, test counts, skill/command counts, and date strings across CLAUDE.md, README.md, docs/index.md, and docs/REFCARD.md.
-
-**MANDATORY version bump checklist** (verify each before committing):
+**Verification** (run after bump):
 
 ```bash
-# Run this verification after bumping — ALL must show the new version
-python3 -c "import json; print('plugin.json:', json.load(open('.claude-plugin/plugin.json'))['version'])"
-python3 -c "import json; d=json.load(open('.claude-plugin/marketplace.json')); print('marketplace meta:', d['metadata']['version']); print('marketplace plugin:', d['plugins'][0]['version'])" 2>/dev/null
-grep -m1 'Current Version' CLAUDE.md
-grep 'version-' README.md | head -1
-grep 'Version:' docs/REFCARD.md | head -1
+./scripts/bump-version.sh --verify
 ```
-
-If any file shows the old version, fix it before proceeding. The `marketplace.json` has TWO version fields (`metadata.version` AND `plugins[0].version`) — both must be bumped.
 
 ### Step 4: Commit & Push
 
@@ -508,6 +513,21 @@ fi
 ```
 
 Skip if no local tap exists — the GitHub Actions workflow (`homebrew-release.yml`) handles tap updates automatically on release trigger.
+
+#### Verify Homebrew Release Workflow
+
+After the GitHub release is created, verify the `homebrew-release` workflow succeeded:
+
+```bash
+# Wait for workflow to trigger
+sleep 30
+
+# Check homebrew-release workflow status
+gh run list --repo Data-Wise/craft --workflow=homebrew-release.yml --limit 1 \
+  --json status,conclusion --jq '.[0]'
+```
+
+If the workflow failed, check with `/craft:ci:status` for diagnosis.
 
 ### Step 9: Sync Dev with Main
 

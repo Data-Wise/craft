@@ -5,7 +5,7 @@
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
 │  Version: 2.22.1 (released 2026-02-19)                       │
-│  Commands: 107 | Agents: 8 | Skills: 25                     │
+│  Commands: 108 | Agents: 8 | Skills: 25                     │
 │  Documentation: 99% complete | Tests: ~1496 passing          │
 │  Docs: https://data-wise.github.io/craft/                   │
 │  v2.22.1: Doc overhaul, test fixes, insights refcard         │
@@ -1069,6 +1069,7 @@ npm test
 | Command                  | Description                                   |
 | ------------------------ | --------------------------------------------- |
 | `/craft:ci:generate`     | **v2.9.0** Generate GitHub Actions CI workflow |
+| `/craft:ci:status`       | **v2.22.1** Cross-repo CI status dashboard    |
 | `/craft:ci:detect`       | Smart project type detection                  |
 | `/craft:ci:validate`     | Validate existing CI workflow                 |
 | `/craft:ci:update`       | Update CI configuration                       |
@@ -1079,6 +1080,8 @@ npm test
 ```bash
 /craft:ci:generate              # Interactive CI generation
 /craft:ci:generate --dry-run    # Preview workflow
+/craft:ci:status                # Cross-repo CI dashboard
+/craft:ci:status --json         # Machine-readable output
 /craft:ci:detect                # Detect project type
 /craft:ci:validate              # Validate existing CI
 ```

@@ -11,9 +11,18 @@ progress: v2.22.1 released. Documentation comprehensively updated.
 | Branch | Head    | Base | Status                               |
 |--------|---------|------|--------------------------------------|
 | main   | pending | —    | Production (v2.22.0, PR pending)     |
-| dev    | 0f78a3a | main | v2.22.1 ready for release PR         |
+| dev    | 27f3c50 | main | v2.22.1 docs cleanup complete        |
 
-✅ Session 2026-02-19 (v2.22.1 release prep):
+✅ Session 2026-02-19b (docs cleanup & CLAUDE.md sync):
+- Synced CLAUDE.md: removed stale ORCHESTRATE ref, fixed spec count (8→7), test count (~1496→~1472)
+- Fixed stale doc pages: config, dependency arch, choose-path, doc-quality
+- Archived implemented spec, removed stale brainstorm
+- Updated REFCARD, A-Z reference, CHANGELOG with new features
+- Fixed stale version/count refs across site, rebuilt skills-agents pages
+- Added bump-version refcard, CI status command page, version-sync Layer 4
+- Stats: 108 commands, 25 skills, 8 agents, 7 specs, ~1472 tests
+
+✅ Session 2026-02-19a (v2.22.1 release prep):
 - Reviewed and merged 3 old PRs (#82, #83, #84) to dev
 - Fixed dogfood test assertions (PR #90 merged)
 - Rebuilt tutorials/index.md (1→23 tutorials)
@@ -22,7 +31,6 @@ progress: v2.22.1 released. Documentation comprehensively updated.
 - Expanded CLAUDE.md layered architecture docs (token budget, loading triggers)
 - Fixed stale footers, command counts, mkdocs nav, worktree syntax
 - Version bumped to v2.22.1 across all files
-- Stats: 107 commands, 25 skills, 8 agents, ~1496 tests, 15 refcards, 23 tutorials
 
 ---
 

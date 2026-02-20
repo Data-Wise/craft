@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 107 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.22.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.
+site_description: Full-stack developer toolkit - 108 commands, 8 agents, 25 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.22.1 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -185,6 +185,7 @@ nav:
       - /craft:hub: commands/hub.md
       - /craft:orchestrate: commands/orchestrate.md
       - /craft:ci:generate: commands/ci/generate.md
+      - /craft:ci:status: commands/ci/status.md
       - /craft:docs:update: commands/docs/update.md
       - /craft:docs:claude-md: commands/docs/claude-md.md
       - /craft:git:worktree: commands/git/worktree.md
@@ -263,6 +264,7 @@ nav:
       - Homebrew Quick Reference: reference/REFCARD-HOMEBREW.md
       - Check Quick Reference: reference/REFCARD-CHECK.md
       - Insights Quick Reference: reference/REFCARD-INSIGHTS.md
+      - Bump Version Reference: reference/REFCARD-BUMP-VERSION.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md
