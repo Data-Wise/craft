@@ -298,6 +298,42 @@ Multi-step extraction (extract field, then extract number from field) is preferr
 | Hook not running in Claude Code | Hook not installed | Run `scripts/install-hooks.sh` |
 | Pre-commit hook not running | Hook not symlinked | `ln -s ../../scripts/version-sync-precommit.sh .git/hooks/pre-commit` |
 
+## Layer 4: Atomic Version Bump (bump-version.sh)
+
+**File:** `scripts/bump-version.sh` + `scripts/bump-version-helper.py`
+
+**Role:** The *fix* layer — while Layers 1-3 detect drift, Layer 4 prevents it by updating all 9 version-bearing files atomically in a single invocation.
+
+**Modes:**
+
+| Mode | Command | Effect |
+|------|---------|--------|
+| Full bump | `./scripts/bump-version.sh 2.23.0` | Version + counts across all files |
+| Dry run | `./scripts/bump-version.sh 2.23.0 --dry-run` | Preview only |
+| Counts only | `./scripts/bump-version.sh --counts-only` | Sync counts without version change |
+| Verify | `./scripts/bump-version.sh --verify` | Check consistency (exit 0/1) |
+
+**Architecture:**
+
+```text
+bump-version.sh
+    |
+    +-- bump-version-helper.py (JSON: plugin.json, marketplace.json, package.json)
+    |
+    +-- sed (text: CLAUDE.md, README.md, docs/index.md, docs/REFCARD.md, mkdocs.yml, .STATUS)
+```
+
+**Integration with release pipeline:** Step 3 of `/release` calls `bump-version.sh <version>` instead of manual file-by-file edits. The `--verify` mode is used by `pre-release-check.sh` as an additional consistency gate.
+
+**Scoped replacements:** To avoid rewriting historical references (e.g., "NEW in v2.22.0"), text file updates use targeted patterns:
+
+- `docs/index.md`: Only `version-X.Y.Z` badges and `Current version:` lines
+- `docs/REFCARD.md`: Only version badge and first 5 lines (header)
+- `CLAUDE.md`: Only `Current Version:** vX.Y.Z` pattern
+- `README.md`: Only `version-X.Y.Z` badge pattern
+
+---
+
 ## Related Documentation
 
 - CI monitoring: `docs/architecture/ci-monitoring.md`
@@ -306,3 +342,5 @@ Multi-step extraction (extract field, then extract number from field) is preferr
 - Configuration schema: `.claude/release-config.json`
 - Version sync script: `scripts/version-sync.sh`
 - Pre-commit hook: `scripts/version-sync-precommit.sh`
+- Bump version script: `scripts/bump-version.sh`
+- Bump version reference: `docs/reference/REFCARD-BUMP-VERSION.md`

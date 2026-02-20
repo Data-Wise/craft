@@ -130,14 +130,27 @@ The release pipeline automatically handles marketplace distribution:
 | 3 | Version bump | Updates `metadata.version` and `plugins[0].version` |
 | 8.5 | Tap auto-update | Updates Homebrew formula with new SHA256 |
 
+**Step 3 uses `bump-version.sh`** (single command replaces manual edits):
+
+```bash
+./scripts/bump-version.sh <version>
+# Updates all 9 files atomically: 3 JSON + 6 text
+# See: docs/reference/REFCARD-BUMP-VERSION.md
+```
+
 **Files bumped in Step 3:**
 
 | File | Fields |
 |------|--------|
-| `plugin.json` | `version` |
-| `marketplace.json` | `metadata.version`, `plugins[0].version` |
-| `package.json` | `version` |
-| `CLAUDE.md` | Version references |
+| `plugin.json` | `version`, description counts |
+| `marketplace.json` | `metadata.version`, `plugins[0].version`, description counts |
+| `package.json` | `version`, description counts |
+| `CLAUDE.md` | Version string, bold counts |
+| `README.md` | Version badge, bold counts |
+| `docs/index.md` | Version badge, count strings |
+| `docs/REFCARD.md` | Header version |
+| `mkdocs.yml` | Version + counts in site_description |
+| `.STATUS` | Version line, count string |
 
 ---
 
