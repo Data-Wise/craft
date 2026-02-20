@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.22.2] - 2026-02-19: Bump-Version Feature & Documentation Overhaul
+
+### Added
+
+- **bump-version.sh:** Automated version bumping across all 9 project files with `--dry-run`, `--verify`, and `--counts-only` modes
+- **CI status dashboard:** New command page and reference card for cross-repo CI monitoring
+
+### Fixed
+
+- CLAUDE.md stale ORCHESTRATE reference removed, spec/test counts corrected
+- Stale doc pages fixed (config, dependency arch, choose-path, doc-quality)
+
+### Changed
+
+- Archived implemented spec, removed stale brainstorm
+- Updated REFCARD, A-Z reference, and CHANGELOG with new features
+- Rebuilt skills-agents pages with correct version/count refs
+
+---
+
 ## [2.22.1] - 2026-02-19: Documentation Overhaul & Test Fixes
 
 ### Fixed

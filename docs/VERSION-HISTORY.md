@@ -2,13 +2,25 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.22.1 (2026-02-19)
-**Total Releases:** 44 versions | **Development Time:** 2+ years
-**Community:** 107 commands documented, ~1496 tests passing, 90%+ coverage
+**Latest Release:** v2.22.2 (2026-02-19)
+**Total Releases:** 45 versions | **Development Time:** 2+ years
+**Community:** 108 commands documented, ~1472 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.22.2 (2026-02-19) - Bump-Version Feature & Documentation Overhaul
+
+**Status:** Released
+
+**Highlights:**
+
+- **bump-version.sh:** Automated version bumping across 9 files with dry-run, verify, and counts-only modes
+- **CI status dashboard:** Cross-repo CI monitoring command and reference card
+- **Documentation cleanup:** Fixed stale ORCHESTRATE reference, corrected spec/test counts, rebuilt skills-agents pages
+
+---
 
 ### v2.22.1 (2026-02-19) - Documentation Overhaul & Test Fixes
 
