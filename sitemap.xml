@@ -57,23 +57,11 @@
          <lastmod>2026-02-20</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/craft/FEATURE-RELEASE-CLAUDE-MD/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/craft/GIF-RECORDING-WORKFLOW-2026/</loc>
          <lastmod>2026-02-20</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/craft/GIF-REGENERATION-CHECKLIST/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/craft/GIF-REGENERATION-GUIDE/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/PHASE2-CONSOLIDATION/</loc>
          <lastmod>2026-02-20</lastmod>
     </url>
     <url>
@@ -98,10 +86,6 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/TESTING-CLAUDE-CODE-2.1/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/VALIDATOR-BEST-PRACTICES/</loc>
          <lastmod>2026-02-20</lastmod>
     </url>
     <url>
@@ -154,30 +138,6 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/architecture/version-sync/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/archive/ORCHESTRATOR-ENHANCEMENTS-v1.3.0/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/archive/TEST-VALIDATION/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/archive/test-violations/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-homebrew-refactor-2026-02-15/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-insights-driven-improvements-2026-02-14/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/brainstorm/BRAINSTORM-marketplace-commands-2026-02-14/</loc>
          <lastmod>2026-02-20</lastmod>
     </url>
     <url>
@@ -425,10 +385,6 @@
          <lastmod>2026-02-20</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/craft/dev/CONTRIBUTING-HUB-V2/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/craft/examples/docs-update-interactive-example/</loc>
          <lastmod>2026-02-20</lastmod>
     </url>
@@ -573,10 +529,6 @@
          <lastmod>2026-02-20</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/craft/orch/ORCH-brainstorm-phase1-2026-01-18/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/craft/reference/COMMAND-EXAMPLES/</loc>
          <lastmod>2026-02-20</lastmod>
     </url>
@@ -662,30 +614,6 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/reference/presets/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/specs/SPEC-github-marketplace-distribution-2026-02-14/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/specs/SPEC-homebrew-refactor-2026-02-15/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/specs/SPEC-insights-driven-improvements-2026-02-14/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/specs/SPEC-insights-integration-2026-02-18/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/specs/SPEC-orchestrate-worktree-pipeline-2026-02-15/</loc>
-         <lastmod>2026-02-20</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/specs/SPEC-test-gen-refactor-2026-02-18/</loc>
          <lastmod>2026-02-20</lastmod>
     </url>
     <url>

@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://data-wise.github.io/craft/guide/claude-code-2.1-guide/">
       
       
+        <link rel="prev" href="../../ARCHITECTURE-CLAUDE-CODE-2.1/">
+      
+      
+        <link rel="next" href="../documentation-quality/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Claude code 2.1 guide - Craft Plugin</title>
+        <title>Claude Code 2.1 Guide - Craft Plugin</title>
       
     
     
@@ -110,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Claude code 2.1 guide
+              Claude Code 2.1 Guide
             
           </span>
         </div>
@@ -241,10 +245,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../getting-started/" class="md-tabs__link">
           
   
@@ -650,24 +656,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -685,7 +696,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -728,6 +739,8 @@
                 
   
   
+    
+  
   
   
     
@@ -738,11 +751,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
@@ -763,7 +776,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -937,6 +950,759 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1 Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Claude Code 2.1 Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-it-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem It Solves
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works-three-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works: Three Levels
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complexity-scoring-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complexity Scoring Algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complexity Scoring Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-7-factors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The 7 Factors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scoring-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scoring Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scoring Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simple-tasks-score-0-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Tasks (Score 0-3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moderate-tasks-score-4-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moderate Tasks (Score 4-7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complex-tasks-score-8-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complex Tasks (Score 8-10)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Routing Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#routing-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing-decision-flowchart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing Decision Flowchart
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hot-reload-validators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hot-Reload Validators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hot-Reload Validators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-they-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What They Do
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validator-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validator Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-validators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Validators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Validators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-validators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable Validators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validator-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validator Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-custom-validators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Custom Validators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#built-in-validators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in Validators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Built-in Validators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-coverage-validator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        test-coverage Validator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broken-links-validator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        broken-links Validator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lint-check-validator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lint-check Validator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hot-reload-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hot-Reload System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hot-Reload System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What It Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabling-hot-reload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enabling Hot-Reload
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hot-reload-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hot-Reload Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Hooks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-they-are" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What They Are
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hook Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session State Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Session State Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Persistence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session-teleportation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Teleportation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-resilience" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Resilience
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent Resilience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9-recovery-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9 Recovery Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resilience-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resilience in Action
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Characteristics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Characteristics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scoring-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scoring Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing-overhead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing Overhead
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-let-system-route-your-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Let System Route Your Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-be-specific-in-task-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Be Specific in Task Descriptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-use-score-to-understand-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Use Score to Understand Complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-enable-validators-for-important-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Enable Validators for Important Work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-use-session-resumption-for-long-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Use Session Resumption for Long Tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-simple-task-routes-to-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Simple Task Routes to Orchestrator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-complex-task-routes-to-agent-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Complex Task Routes to Agent Only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-validator-fails-blocking-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Issue: Validator Fails, Blocking Work
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1876,6 +2642,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../tutorials/check-tutorial-beginner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Check Command Beginner Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/smart-routing-tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Routing Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -1888,10 +2710,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_25" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_27" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_25" id="__nav_2_4_25_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_27" id="__nav_2_4_27_label" tabindex="0">
             
   
   
@@ -1909,8 +2731,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_25_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_25">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_27_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_27">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2086,10 +2908,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_27" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_29" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_27" id="__nav_2_4_27_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_29" id="__nav_2_4_29_label" tabindex="0">
             
   
   
@@ -2107,8 +2929,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_27_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_27">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_29_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_29">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2477,6 +3299,34 @@
     
   
     Markdown List Spacing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dependency-management-advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dependency Management Advanced
   
 
     
@@ -4745,6 +5595,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/docs-update-interactive-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interactive Docs Update Example
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5351,6 +6229,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../../API-REFERENCE-CLAUDE-MD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLAUDE.md API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API-REFERENCE-COMMANDS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commands API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/claude-code-instruction-enforcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instruction Enforcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../CHANGELOG/" class="md-nav__link">
         
   
@@ -5446,10 +6408,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_12" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_15" >
         
           
-          <label class="md-nav__link" for="__nav_6_12" id="__nav_6_12_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_15" id="__nav_6_15_label" tabindex="0">
             
   
   
@@ -5467,8 +6429,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_12_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_12">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_15">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5870,6 +6832,90 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/COMMAND-EXAMPLES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/COMMAND-PARAMETERS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Parameters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/ERROR-SCENARIOS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Scenarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5896,10 +6942,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_16" >
         
           
-          <label class="md-nav__link" for="__nav_6_13" id="__nav_6_13_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_16" id="__nav_6_16_label" tabindex="0">
             
   
   
@@ -5917,8 +6963,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_13_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_13">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_16">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6002,10 +7048,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_13_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_16_3" >
         
           
-          <label class="md-nav__link" for="__nav_6_13_3" id="__nav_6_13_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_16_3" id="__nav_6_16_3_label" tabindex="0">
             
   
   
@@ -6023,8 +7069,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_13_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_13_3">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_16_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_16_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6080,10 +7126,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_13_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_16_3_2" >
         
           
-          <label class="md-nav__link" for="__nav_6_13_3_2" id="__nav_6_13_3_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_16_3_2" id="__nav_6_16_3_2_label" tabindex="0">
             
   
   
@@ -6101,8 +7147,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_6_13_3_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_13_3_2">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_6_16_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_16_3_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6294,10 +7340,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_14" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_17" >
         
           
-          <label class="md-nav__link" for="__nav_6_14" id="__nav_6_14_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_17" id="__nav_6_17_label" tabindex="0">
             
   
   
@@ -6315,8 +7361,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_14">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_17">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -6628,6 +7674,461 @@
     
   
     Branch Protection Hooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-branch-guard-v2-confirmation-mode-2026-02-13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branch Guard v2 Confirmation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-bump-version-ci-status-2026-02-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bump Version CI Status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-bump-version-docs-2026-02-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bump Version Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-claude-md-refactor-2026-02-18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLAUDE.md Refactor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-claude-md-v3-optimization-2026-02-04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLAUDE.md v3 Optimization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-demo-dependency-management-2026-01-17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Demo Dependency Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-docs-gap-fill-2026-02-05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Gap Fill
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-docs-improvement-2026-01-14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Improvement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-docs-sync-update-integration-2026-01-22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Sync/Update Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-engineering-improvements-v2.8.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineering Improvements v2.8.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-full-markdown-linting-2026-01-25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Full Markdown Linting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-markdownlint-list-spacing-2026-01-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Markdownlint List Spacing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-orch-flag-integration-2026-01-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orch Flag Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-orch-flag-v2.5.1-improvements-2026-01-19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orch Flag v2.5.1 Improvements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-spec-integration-2026-01-16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec Integration
+  
+
+    
+  </span>
+  
+  
+    
+  
+  
+    <span class="md-status md-status--draft"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../specs/_archive/SPEC-testing-enhancements-2025-12-30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing Enhancements
   
 
     
