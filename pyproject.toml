@@ -51,6 +51,7 @@ markers = [
     "snapshot: Snapshot comparison tests (requires syrupy)",
     "property: Property-based tests (requires hypothesis)",
     "contract: Contract validation tests for strict schemas",
+    "dogfood: Self-dogfooding tests that run craft's own tools against itself",
 ]
 
 # Default: show short test summary, no header noise
