@@ -98,6 +98,18 @@ Generate GitHub Actions workflow from project detection.
 
 **Generates:** .github/workflows/ci.yml with tests, linting, build steps
 
+### /craft:ci:status
+
+Cross-repo CI status dashboard — see all workflow statuses in one view.
+
+```bash
+/craft:ci:status
+/craft:ci:status --json
+/craft:ci:status --repo craft
+```
+
+**See:** [Command Reference](commands/ci/status.md)
+
 ### /craft:ci:validate
 
 Validate existing CI workflow against project configuration.
@@ -296,6 +308,7 @@ All applicable commands support 4 execution modes:
 
 - `ci:detect` - Preview project type detection
 - `ci:generate` - Preview workflow generation (CRITICAL)
+- `ci:status` - CI dashboard (read-only, no dry-run needed)
 - `ci:validate` - Preview CI validation
 
 ### Site Commands (4/6) — 67%
