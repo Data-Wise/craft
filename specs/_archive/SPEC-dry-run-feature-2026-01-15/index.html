@@ -8787,7 +8787,7 @@
 <hr />
 <h2 id="technical-requirements">Technical Requirements<a class="headerlink" href="#technical-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     User["User invokes command"] --&gt; Parse["Parse arguments"]
     Parse --&gt; DryRun{--dry-run flag?}
 
@@ -8805,9 +8805,9 @@
     ShowPlan --&gt; Display["Display bordered preview"]
     Display --&gt; Exit["Exit (code 0)"]
 
-    Execute --&gt; Normal["Normal execution flow"]</div>
+    Execute --&gt; Normal["Normal execution flow"]</code></pre>
 <h3 id="component-diagram">Component Diagram<a class="headerlink" href="#component-diagram" title="Permanent link">&para;</a></h3>
-<div class="mermaid">classDiagram
+<pre class="mermaid"><code>classDiagram
     class Command {
         +arguments: List~Argument~
         +execute()
@@ -8842,7 +8842,7 @@
     Command --&gt; OperationPlan : generates
     OperationPlan --&gt; Operation : contains
     OperationPlan --&gt; Warning : contains
-    DryRunFormatter --&gt; OperationPlan : formats</div>
+    DryRunFormatter --&gt; OperationPlan : formats</code></pre>
 <hr />
 <h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
 <h3 id="command-frontmatter-standard">Command Frontmatter Standard<a class="headerlink" href="#command-frontmatter-standard" title="Permanent link">&para;</a></h3>
@@ -8994,7 +8994,7 @@
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow">User Flow<a class="headerlink" href="#user-flow" title="Permanent link">&para;</a></h3>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     actor User
     participant CLI
     participant Command
@@ -9011,7 +9011,7 @@
     Output-&gt;&gt;User: Display bordered output
     User-&gt;&gt;User: Review preview
     User-&gt;&gt;CLI: /craft:git:clean (execute)
-    CLI-&gt;&gt;Command: Execute normally</div>
+    CLI-&gt;&gt;Command: Execute normally</code></pre>
 <h3 id="wireframes-ascii">Wireframes (ASCII)<a class="headerlink" href="#wireframes-ascii" title="Permanent link">&para;</a></h3>
 <p><strong>Main Dry-Run Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>┌─────────────────────────────────────────────────────────────┐

@@ -8589,7 +8589,7 @@
 <p><strong>Why this matters:</strong> When you run <code>/craft:ci:status</code> or link PRs, craft uses the branch name to identify which PRs across repos belong to the same feature. Inconsistent names break the cross-repo dashboard.</p>
 <hr />
 <h2 id="sequence-diagram">Sequence Diagram<a class="headerlink" href="#sequence-diagram" title="Permanent link">&para;</a></h2>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant Craft as craft:orchestrate:plan
     participant RepoA as Repo A (main)
@@ -8606,7 +8606,7 @@
     User-&gt;&gt;Craft: /craft:ci:status
     Craft--&gt;&gt;User: Cross-repo CI dashboard
     User-&gt;&gt;RepoA: gh pr create --base dev
-    User-&gt;&gt;RepoB: gh pr create --base dev</div>
+    User-&gt;&gt;RepoB: gh pr create --base dev</code></pre>
 <hr />
 <h2 id="cistatus-cross-repo-dashboard"><code>ci:status</code> Cross-Repo Dashboard<a class="headerlink" href="#cistatus-cross-repo-dashboard" title="Permanent link">&para;</a></h2>
 <p>Once you have worktrees open and pushes in flight, <code>/craft:ci:status</code> can show a cross-repo view.</p>

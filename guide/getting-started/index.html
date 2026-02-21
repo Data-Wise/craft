@@ -8475,12 +8475,12 @@
 <p>Learn the full pipeline for multi-phase features</p>
 </div>
 <p>For features that need planning, orchestration, and isolated development:</p>
-<div class="mermaid">graph LR
+<pre class="mermaid"><code>graph LR
     A[brainstorm] --&gt; B[spec]
     B --&gt; C[ORCHESTRATE]
     C --&gt; D[worktree]
     D --&gt; E[implement]
-    E --&gt; F[PR]</div>
+    E --&gt; F[PR]</code></pre>
 <p><strong>Step-by-step:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># 1. Brainstorm the feature</span>
 </span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span><span class="s2">&quot;user authentication with OAuth&quot;</span>

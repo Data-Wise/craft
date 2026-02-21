@@ -9521,7 +9521,7 @@
 <hr />
 <h2 id="architecture-before-vs-after-merge">Architecture: Before vs After Merge<a class="headerlink" href="#architecture-before-vs-after-merge" title="Permanent link">&para;</a></h2>
 <h3 id="before-separate-commands-current">Before: Separate Commands (Current)<a class="headerlink" href="#before-separate-commands-current" title="Permanent link">&para;</a></h3>
-<div class="mermaid">graph TD
+<pre class="mermaid"><code>graph TD
     User[User] --&gt;|runs| Sync[/craft:docs:sync]
     Sync --&gt;|scans| Git[Git History]
     Sync --&gt;|outputs| Report[Report: "3 docs stale, guide score: 7"]
@@ -9536,7 +9536,7 @@
 
     style Sync fill:#e1f5ff
     style Update fill:#fff4e1
-    style Report fill:#f0f0f0</div>
+    style Report fill:#f0f0f0</code></pre>
 <p><strong>Issues:</strong></p>
 <ul>
 <li>Two separate commands (confusing UX)</li>
@@ -9545,7 +9545,7 @@
 <li>Sync scores don't influence update priorities</li>
 </ul>
 <h3 id="after-merged-command-proposed">After: Merged Command (Proposed)<a class="headerlink" href="#after-merged-command-proposed" title="Permanent link">&para;</a></h3>
-<div class="mermaid">graph TD
+<pre class="mermaid"><code>graph TD
     User[User] --&gt;|runs| Update[/craft:docs:update]
 
     Update --&gt;|Step 1| Detect[Auto-detect changes]
@@ -9573,7 +9573,7 @@
 
     style Update fill:#e1ffe1
     style Detect fill:#e1f5ff
-    style Report fill:#ffe1f5</div>
+    style Report fill:#ffe1f5</code></pre>
 <p><strong>Benefits:</strong></p>
 <ul>
 <li><strong>Single command</strong> - No need to know about sync</li>
@@ -9902,7 +9902,7 @@
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-sync-update-handoff">Workflow: Sync → Update Handoff<a class="headerlink" href="#workflow-sync-update-handoff" title="Permanent link">&para;</a></h3>
 <p><strong>User Flow:</strong></p>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant Sync as docs:sync
     participant Cache as .craft-sync-cache.json
@@ -9928,7 +9928,7 @@
     else User declines
         Sync-&gt;&gt;User: Report saved to .craft-sync-cache.json
         User-&gt;&gt;User: Run manually later
-    end</div>
+    end</code></pre>
 <h3 id="sync-report-with-handoff-option">Sync Report with Handoff Option<a class="headerlink" href="#sync-report-with-handoff-option" title="Permanent link">&para;</a></h3>
 <p><strong>Terminal Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>┌─────────────────────────────────────────────────────────────┐

@@ -9373,7 +9373,7 @@
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-phases">Workflow Phases<a class="headerlink" href="#workflow-phases" title="Permanent link">&para;</a></h3>
-<div class="mermaid">graph TD
+<pre class="mermaid"><code>graph TD
     Start["/craft:docs:update"] --&gt; DryRun{--dry-run?}
 
     DryRun --&gt;|Yes| Preview[Show all changes]
@@ -9421,7 +9421,7 @@
     MoreFeatures --&gt;|Yes| TutorialPrompt
     MoreFeatures --&gt;|No| Summary
 
-    Summary --&gt; Done</div>
+    Summary --&gt; Done</code></pre>
 <h3 id="update-categories">Update Categories<a class="headerlink" href="#update-categories" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9480,7 +9480,7 @@
 </tbody>
 </table>
 <h3 id="gif-workflow-integration">GIF Workflow Integration<a class="headerlink" href="#gif-workflow-integration" title="Permanent link">&para;</a></h3>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant DocsUpdate as docs:update
     participant GIFDetector as GIF Detector
@@ -9502,9 +9502,9 @@
     Demo--&gt;&gt;User: Recording... (asciinema)
     Demo--&gt;&gt;DocsUpdate: GIF saved
 
-    DocsUpdate-&gt;&gt;User: Next GIF? (2 remaining)</div>
+    DocsUpdate-&gt;&gt;User: Next GIF? (2 remaining)</code></pre>
 <h3 id="lint-integration">Lint Integration<a class="headerlink" href="#lint-integration" title="Permanent link">&para;</a></h3>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant DocsUpdate as docs:update
     participant Lint as docs:lint
@@ -9523,9 +9523,9 @@
     DocsUpdate-&gt;&gt;DocsUpdate: Skip README.md
 
     DocsUpdate-&gt;&gt;User: (3 more files...)
-    DocsUpdate-&gt;&gt;User: Summary: Fixed 3/5 files</div>
+    DocsUpdate-&gt;&gt;User: Summary: Fixed 3/5 files</code></pre>
 <h3 id="tutorial-integration">Tutorial Integration<a class="headerlink" href="#tutorial-integration" title="Permanent link">&para;</a></h3>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant DocsUpdate as docs:update
     participant TutorialDetector as Tutorial Detector
@@ -9546,9 +9546,9 @@
     DocsUpdate-&gt;&gt;TutorialEngineer: Create tutorial for --orch flag
     TutorialEngineer--&gt;&gt;DocsUpdate: Created orch-flag-tutorial.md
 
-    DocsUpdate-&gt;&gt;User: Summary: Updated 1, created 1 tutorial</div>
+    DocsUpdate-&gt;&gt;User: Summary: Updated 1, created 1 tutorial</code></pre>
 <h3 id="help-file-integration">Help File Integration<a class="headerlink" href="#help-file-integration" title="Permanent link">&para;</a></h3>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant DocsUpdate as docs:update
     participant HelpScanner as Help Scanner
@@ -9580,7 +9580,7 @@
     DocsUpdate-&gt;&gt;YAML: Generate from template
     YAML--&gt;&gt;DocsUpdate: Created
 
-    DocsUpdate-&gt;&gt;User: Next command? (8 remaining)</div>
+    DocsUpdate-&gt;&gt;User: Next command? (8 remaining)</code></pre>
 <p><strong>Comprehensive Help File Validation:</strong></p>
 <h4 id="1-command-discovery-recursive">1. Command Discovery (Recursive)<a class="headerlink" href="#1-command-discovery-recursive" title="Permanent link">&para;</a></h4>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Scan all command files (main + subcommands)</span>
@@ -10425,7 +10425,7 @@
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow">User Flow<a class="headerlink" href="#user-flow" title="Permanent link">&para;</a></h3>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     Start["User: /craft:docs:update"] --&gt; Scan[Scan for updates]
     Scan --&gt; FoundChanges{Changes found?}
 
@@ -10489,7 +10489,7 @@
 
     Summary["Summary:&lt;br/&gt;✅ Updated 12 version refs&lt;br/&gt;✅ Regenerated 2 GIFs&lt;br/&gt;✅ Fixed 47 links&lt;br/&gt;✅ Lint: fixed 3/5 files&lt;br/&gt;✅ Tutorials: updated 1, created 1"]
     Summary --&gt; End[Complete]
-    NoUpdates --&gt; End</div>
+    NoUpdates --&gt; End</code></pre>
 <h3 id="category-prompt-format">Category Prompt Format<a class="headerlink" href="#category-prompt-format" title="Permanent link">&para;</a></h3>
 <p><strong>AskUserQuestion Template:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>question: &quot;Update 12 version references to v2.6.0?&quot;

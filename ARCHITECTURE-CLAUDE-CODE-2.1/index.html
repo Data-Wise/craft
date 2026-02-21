@@ -8965,7 +8965,7 @@
 <strong>Last Updated</strong>: 2026-01-17</p>
 <h2 id="system-overview">System Overview<a class="headerlink" href="#system-overview" title="Permanent link">&para;</a></h2>
 <p>The Claude Code 2.1.0 integration enhances the Craft plugin with intelligent task routing, hot-reload validation, and agent orchestration capabilities across 4 implementation waves.</p>
-<div class="mermaid">graph TB
+<pre class="mermaid"><code>graph TB
     subgraph "User Interface"
         User[User Task]
     end
@@ -9022,13 +9022,13 @@
 
     style Wave1 fill:#e1f5ff
     style Wave2 fill:#fff4e1
-    style Wave3 fill:#e8f5e9</div>
+    style Wave3 fill:#e8f5e9</code></pre>
 <hr />
 <h2 id="component-architecture">Component Architecture<a class="headerlink" href="#component-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="wave-1-foundation-layer">Wave 1: Foundation Layer<a class="headerlink" href="#wave-1-foundation-layer" title="Permanent link">&para;</a></h3>
 <h4 id="1-complexity-scoring-engine">1. Complexity Scoring Engine<a class="headerlink" href="#1-complexity-scoring-engine" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Analyze task complexity and recommend routing strategy</p>
-<div class="mermaid">flowchart LR
+<pre class="mermaid"><code>flowchart LR
     Task[Task Description] --&gt; Parse[Text Parser]
     Parse --&gt; F1[Multi-step?]
     Parse --&gt; F2[Cross-category?]
@@ -9053,7 +9053,7 @@
     Route --&gt;|8-10| Orch[Orchestrator]
 
     style Score fill:#bbdefb
-    style Route fill:#fff9c4</div>
+    style Route fill:#fff9c4</code></pre>
 <p><strong>Implementation</strong>: <code>utils/complexity_scorer.py</code></p>
 <p><strong>Key Functions</strong>:</p>
 <ul>
@@ -9064,7 +9064,7 @@
 <hr />
 <h4 id="2-hot-reload-validation-system">2. Hot-Reload Validation System<a class="headerlink" href="#2-hot-reload-validation-system" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Auto-discover and execute validators without restart</p>
-<div class="mermaid">graph TB
+<pre class="mermaid"><code>graph TB
     subgraph "Discovery Phase"
         Scan[Scan .claude-plugin/skills/validation/]
         Parse[Parse YAML Frontmatter]
@@ -9094,7 +9094,7 @@
     Run --&gt; Collect
 
     style Filter fill:#c8e6c9
-    style Fork fill:#ffe0b2</div>
+    style Fork fill:#ffe0b2</code></pre>
 <p><strong>Features</strong>:</p>
 <ul>
 <li><strong>Auto-discovery</strong>: Scans <code>validation/</code> directory</li>
@@ -9105,7 +9105,7 @@
 <hr />
 <h4 id="3-orchestration-hooks">3. Orchestration Hooks<a class="headerlink" href="#3-orchestration-hooks" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Lifecycle management for agent orchestration</p>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant Orchestrator
     participant Hook
@@ -9126,7 +9126,7 @@
     end
     Orchestrator-&gt;&gt;Hook: Stop event
     Hook-&gt;&gt;Cache: Save session state
-    Hook-&gt;&gt;Logs: Archive old logs</div>
+    Hook-&gt;&gt;Logs: Archive old logs</code></pre>
 <p><strong>Events</strong>:</p>
 <ul>
 <li><strong>PreToolUse</strong>: Resource limit checking</li>
@@ -9143,7 +9143,7 @@
 <h3 id="wave-2-intelligence-layer">Wave 2: Intelligence Layer<a class="headerlink" href="#wave-2-intelligence-layer" title="Permanent link">&para;</a></h3>
 <h4 id="4-smart-routing-system">4. Smart Routing System<a class="headerlink" href="#4-smart-routing-system" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Route tasks to optimal execution strategy</p>
-<div class="mermaid">graph TB
+<pre class="mermaid"><code>graph TB
     Task[User Task] --&gt; Score[Complexity Scorer]
 
     Score --&gt; R0_3{Score 0-3}
@@ -9166,7 +9166,7 @@
 
     style R0_3 fill:#c8e6c9
     style R4_7 fill:#fff9c4
-    style R8_10 fill:#ffccbc</div>
+    style R8_10 fill:#ffccbc</code></pre>
 <p><strong>Routing Table</strong>:</p>
 <table>
 <thead>
@@ -9197,7 +9197,7 @@
 <hr />
 <h4 id="5-validator-discovery-engine">5. Validator Discovery Engine<a class="headerlink" href="#5-validator-discovery-engine" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Dynamic validator loading without restart</p>
-<div class="mermaid">graph LR
+<pre class="mermaid"><code>graph LR
     subgraph "Scan Phase"
         S1[List files in validation/]
         S2[Read frontmatter]
@@ -9223,7 +9223,7 @@
     R1 --&gt; R2
 
     style F1 fill:#c8e6c9
-    style R1 fill:#bbdefb</div>
+    style R1 fill:#bbdefb</code></pre>
 <p><strong>Discovery Criteria</strong>:</p>
 <ol>
 <li>Location: <code>.claude-plugin/skills/validation/*.md</code></li>
@@ -9235,7 +9235,7 @@
 <h3 id="wave-3-scale-layer">Wave 3: Scale Layer<a class="headerlink" href="#wave-3-scale-layer" title="Permanent link">&para;</a></h3>
 <h4 id="6-agent-resilience-patterns">6. Agent Resilience Patterns<a class="headerlink" href="#6-agent-resilience-patterns" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Ensure reliable agent execution with auto-recovery</p>
-<div class="mermaid">stateDiagram-v2
+<pre class="mermaid"><code>stateDiagram-v2
     [*] --&gt; CLOSED: Initial State
 
     CLOSED --&gt; Executing: Agent Start
@@ -9262,7 +9262,7 @@
     note right of OPEN
         Circuit Breaker
         Prevents cascading failures
-    end note</div>
+    end note</code></pre>
 <p><strong>Recovery Strategies</strong>:</p>
 <ol>
 <li><strong>Retry with Backoff</strong>: Exponential delay (2s, 4s, 8s, 16s)</li>
@@ -9274,7 +9274,7 @@
 <hr />
 <h4 id="7-validator-ecosystem">7. Validator Ecosystem<a class="headerlink" href="#7-validator-ecosystem" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Community-contributed validators marketplace</p>
-<div class="mermaid">graph TB
+<pre class="mermaid"><code>graph TB
     subgraph "Developer"
         D1[Write Validator]
         D2[Test Locally]
@@ -9312,7 +9312,7 @@
     C2 --&gt; C3
 
     style M2 fill:#e1bee7
-    style C2 fill:#c8e6c9</div>
+    style C2 fill:#c8e6c9</code></pre>
 <p><strong>Features</strong>:</p>
 <ul>
 <li><code>/craft:check:gen-validator</code> - Template generator</li>
@@ -9324,7 +9324,7 @@
 <hr />
 <h4 id="8-session-teleportation">8. Session Teleportation<a class="headerlink" href="#8-session-teleportation" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose</strong>: Resume orchestration sessions across devices</p>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant Device1
     participant CloudSync
     participant Device2
@@ -9341,7 +9341,7 @@
     Device2-&gt;&gt;CloudSync: Download state
     CloudSync--&gt;&gt;Device2: Decrypted state
     Device2-&gt;&gt;Device2: Restore context
-    Device2-&gt;&gt;Device2: Continue execution</div>
+    Device2-&gt;&gt;Device2: Continue execution</code></pre>
 <p><strong>Session State Schema</strong> (JSON v1.0.0):</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid&quot;</span><span class="p">,</span>
@@ -9360,7 +9360,7 @@
 <hr />
 <h2 id="data-flow-architecture">Data Flow Architecture<a class="headerlink" href="#data-flow-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="task-routing-flow">Task Routing Flow<a class="headerlink" href="#task-routing-flow" title="Permanent link">&para;</a></h3>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     Start([User Task]) --&gt; Parse[Parse Task]
     Parse --&gt; Score[Calculate Complexity]
 
@@ -9391,10 +9391,10 @@
     style D1 fill:#fff9c4
     style Strategy1 fill:#c8e6c9
     style Strategy2 fill:#bbdefb
-    style Strategy3 fill:#ffccbc</div>
+    style Strategy3 fill:#ffccbc</code></pre>
 <hr />
 <h3 id="validator-execution-flow">Validator Execution Flow<a class="headerlink" href="#validator-execution-flow" title="Permanent link">&para;</a></h3>
-<div class="mermaid">flowchart LR
+<pre class="mermaid"><code>flowchart LR
     subgraph "Discovery"
         A1[Scan validation/]
         A2[Parse Frontmatter]
@@ -9426,7 +9426,7 @@
     D1 --&gt; D2 --&gt; D3
 
     style B2 fill:#fff9c4
-    style B3 fill:#e1bee7</div>
+    style B3 fill:#e1bee7</code></pre>
 <hr />
 <h2 id="deployment-architecture">Deployment Architecture<a class="headerlink" href="#deployment-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="file-structure">File Structure<a class="headerlink" href="#file-structure" title="Permanent link">&para;</a></h3>

@@ -8525,13 +8525,13 @@
 </span></code></pre></div>
 <hr />
 <h2 id="basic-workflow">Basic Workflow<a class="headerlink" href="#basic-workflow" title="Permanent link">&para;</a></h2>
-<div class="mermaid">flowchart LR
+<pre class="mermaid"><code>flowchart LR
     A[1. Review changes] --&gt; B[2. Run checks]
     B --&gt; C{Pass?}
     C --&gt;|Yes| D[3. Commit]
     C --&gt;|No| E[4. Fix issues]
     E --&gt; B
-    D --&gt; F[5. Push]</div>
+    D --&gt; F[5. Push]</code></pre>
 <h3 id="step-1-review-changes">Step 1: Review Changes<a class="headerlink" href="#step-1-review-changes" title="Permanent link">&para;</a></h3>
 <p>See what you're about to commit.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Check status</span>

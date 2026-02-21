@@ -9177,7 +9177,7 @@
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <h3 id="component-diagram">Component Diagram<a class="headerlink" href="#component-diagram" title="Permanent link">&para;</a></h3>
-<div class="mermaid">graph TB
+<pre class="mermaid"><code>graph TB
     subgraph "Command Layer"
         Demo["/craft:docs:demo"]
         Check["--check flag"]
@@ -9244,9 +9244,9 @@
 
     style DM fill:#4CAF50
     style Checker fill:#2196F3
-    style Installer fill:#FF9800</div>
+    style Installer fill:#FF9800</code></pre>
 <h3 id="data-flow-dependency-check-on-command-invocation">Data Flow: Dependency Check on Command Invocation<a class="headerlink" href="#data-flow-dependency-check-on-command-invocation" title="Permanent link">&para;</a></h3>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant Demo as /craft:docs:demo
     participant DM as DependencyManager
@@ -9295,7 +9295,7 @@
         end
     end
 
-    Demo-&gt;&gt;User: Start recording workflow</div>
+    Demo-&gt;&gt;User: Start recording workflow</code></pre>
 <hr />
 <h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
 <h3 id="command-frontmatter-extension">Command Frontmatter Extension<a class="headerlink" href="#command-frontmatter-extension" title="Permanent link">&para;</a></h3>
@@ -9630,7 +9630,7 @@
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow-first-time-recording-with-missing-dependencies">User Flow: First-Time Recording with Missing Dependencies<a class="headerlink" href="#user-flow-first-time-recording-with-missing-dependencies" title="Permanent link">&para;</a></h3>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     Start[User runs:&lt;br/&gt;/craft:docs:demo 'feature'] --&gt; CheckCache{Cache&lt;br/&gt;exists?}
 
     CheckCache --&gt;|No| RunCheck[Run dependency check]
@@ -9662,7 +9662,7 @@
     style ShowTable fill:#FFC107
     style AskConsent fill:#2196F3
     style Proceed fill:#4CAF50
-    style End fill:#4CAF50</div>
+    style End fill:#4CAF50</code></pre>
 <h3 id="wireframes-ascii">Wireframes (ASCII)<a class="headerlink" href="#wireframes-ascii" title="Permanent link">&para;</a></h3>
 <h4 id="dependency-status-table-check">Dependency Status Table (<code>--check</code>)<a class="headerlink" href="#dependency-status-table-check" title="Permanent link">&para;</a></h4>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>┌─────────────────────────────────────────────────────────────┐

@@ -8610,7 +8610,7 @@
 <strong>So that</strong> I can start working immediately with proper documentation structure.</p>
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     subgraph "Cross-Cutting: Show Steps First"
         SP["Step 0: Print plan"]
         SC["Step 0.5: AskUserQuestion confirm"]
@@ -8644,7 +8644,7 @@
         W2["Auto-create ORCHESTRATE"]
         W3["Auto-create SPEC"]
         W4["Auto-update .STATUS + CLAUDE.md"]
-    end</div>
+    end</code></pre>
 <hr />
 <h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
 <p>N/A -- CLI command enhancements, no API changes.</p>
@@ -8657,7 +8657,7 @@
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow-orchestrate-with-step-preview">User Flow: Orchestrate with Step Preview<a class="headerlink" href="#user-flow-orchestrate-with-step-preview" title="Permanent link">&para;</a></h3>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant User
     participant Orchestrate
     participant Agent1
@@ -8676,7 +8676,7 @@
     User--&gt;&gt;Orchestrate: "Yes"
     Orchestrate-&gt;&gt;Agent1: Spawn test agent
     Agent1--&gt;&gt;Orchestrate: Tests written
-    Orchestrate-&gt;&gt;User: Summary + next steps</div>
+    Orchestrate-&gt;&gt;User: Summary + next steps</code></pre>
 <h3 id="wireframe-step-preview">Wireframe: Step Preview<a class="headerlink" href="#wireframe-step-preview" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orchestrate &quot;implement auth&quot;
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>

@@ -8408,7 +8408,7 @@
 </tbody>
 </table>
 <h3 id="release-pipeline-flow">Release Pipeline Flow<a class="headerlink" href="#release-pipeline-flow" title="Permanent link">&para;</a></h3>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A["/release"] --&gt; B{Version Detection}
     B --&gt; C[Pre-flight Checks]
     C --&gt; C1["/craft:check --for release"]
@@ -8440,7 +8440,7 @@
     style A fill:#4a9eff,color:#fff
     style D fill:#ffa94d,color:#fff
     style K fill:#ffa94d,color:#fff
-    style S fill:#51cf66,color:#fff</div>
+    style S fill:#51cf66,color:#fff</code></pre>
 <hr />
 <h2 id="dry-run-mode">Dry-Run Mode<a class="headerlink" href="#dry-run-mode" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/release --dry-run    # or: /release -n

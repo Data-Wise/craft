@@ -9686,7 +9686,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 <h2 id="technical-requirements">Technical Requirements<a class="headerlink" href="#technical-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
 <h4 id="teaching-mode-detection">Teaching Mode Detection<a class="headerlink" href="#teaching-mode-detection" title="Permanent link">&para;</a></h4>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     Start[Command invoked] --&gt; Detect{detect_teaching_mode}
 
     Detect --&gt;|Check 1| Config[.flow/teach-config.yml exists?]
@@ -9703,7 +9703,7 @@ Solo instructors currently manage course sites through manual git branch switchi
     LoadConfig --&gt; Validate[Run teaching validation]
     Validate --&gt; Execute[Execute command with teaching context]
 
-    TeachingOff --&gt; NormalExec[Execute command normally]</div>
+    TeachingOff --&gt; NormalExec[Execute command normally]</code></pre>
 <p><strong>Detection Priority:</strong></p>
 <ol>
 <li><code>.flow/teach-config.yml</code> exists → Teaching ON</li>
@@ -9713,7 +9713,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 </ol>
 <hr />
 <h4 id="publish-workflow">Publish Workflow<a class="headerlink" href="#publish-workflow" title="Permanent link">&para;</a></h4>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     Start[/craft:site:publish] --&gt; ValidateDraft[Validate draft branch]
     ValidateDraft --&gt;|Fails| ShowErrors[Show validation errors]
     ShowErrors --&gt; AskFix{Continue anyway?}
@@ -9743,7 +9743,7 @@ Solo instructors currently manage course sites through manual git branch switchi
     Cleanup --&gt; Success[Show success + URL]
 
     Verify --&gt;|Fail| Rollback[git reset --hard backup]
-    Rollback --&gt; ShowError[Show deployment error]</div>
+    Rollback --&gt; ShowError[Show deployment error]</code></pre>
 <hr />
 <h3 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h3>
 <h4 id="teaching-mode-detection-api">Teaching Mode Detection API<a class="headerlink" href="#teaching-mode-detection-api" title="Permanent link">&para;</a></h4>

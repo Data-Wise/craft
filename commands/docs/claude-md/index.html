@@ -8754,12 +8754,12 @@
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>The claude-md command suite provides complete lifecycle management for CLAUDE.md files with a lean 3-command design:</p>
-<div class="mermaid">flowchart LR
+<pre class="mermaid"><code>flowchart LR
     A[init] --&gt; B[edit]
     B --&gt; C[sync]
     C --&gt; D{Issues?}
     D --&gt;|Yes| C
-    D --&gt;|No| E[Done]</div>
+    D --&gt;|No| E[Done]</code></pre>
 <h3 id="command-summary">Command Summary<a class="headerlink" href="#command-summary" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9010,7 +9010,7 @@
 </tbody>
 </table>
 <h3 id="4-phase-pipeline">4-Phase Pipeline<a class="headerlink" href="#4-phase-pipeline" title="Permanent link">&para;</a></h3>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A[Phase 1: Detect] --&gt; B[Phase 2: Update Metrics]
     B --&gt; C[Phase 3: Audit]
     C --&gt; D{--fix?}
@@ -9019,7 +9019,7 @@
     E --&gt; F
     F --&gt;|Yes| G[Phase 4: Optimize]
     F --&gt;|No| H[Report]
-    G --&gt; H</div>
+    G --&gt; H</code></pre>
 <p><strong>Phase 1: Detect</strong> — Scan project for current state (version, command counts, test results)</p>
 <p><strong>Phase 2: Update Metrics</strong> — Update stale numbers in CLAUDE.md (command counts, test counts, version)</p>
 <p><strong>Phase 3: Audit</strong> — Validate completeness and accuracy (5 checks, 3 severity levels)</p>

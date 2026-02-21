@@ -9111,7 +9111,7 @@
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <h3 id="integration-points">Integration Points<a class="headerlink" href="#integration-points" title="Permanent link">&para;</a></h3>
-<div class="mermaid">graph TB
+<pre class="mermaid"><code>graph TB
     A[User Action] --&gt; B{Which Command?}
 
     B --&gt;|/craft:site:update| C[Site Update Flow]
@@ -9151,7 +9151,7 @@
     Y --&gt;|No| AA[Skip Badge Updates]
 
     Z --&gt; X
-    AA --&gt; X</div>
+    AA --&gt; X</code></pre>
 <hr />
 <h2 id="technical-requirements">Technical Requirements<a class="headerlink" href="#technical-requirements" title="Permanent link">&para;</a></h2>
 <h3 id="1-integration-with-craftsiteupdate">1. Integration with <code>/craft:site:update</code><a class="headerlink" href="#1-integration-with-craftsiteupdate" title="Permanent link">&para;</a></h3>
@@ -9561,7 +9561,7 @@
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow-integrated-badge-sync">User Flow: Integrated Badge Sync<a class="headerlink" href="#user-flow-integrated-badge-sync" title="Permanent link">&para;</a></h3>
-<div class="mermaid">sequenceDiagram
+<pre class="mermaid"><code>sequenceDiagram
     participant U as User
     participant C as /craft:site:update
     participant B as Badge Syncer
@@ -9591,7 +9591,7 @@
             B-&gt;&gt;C: ⏭️ Skipped badge updates
             C-&gt;&gt;U: Site updated (badges unchanged)
         end
-    end</div>
+    end</code></pre>
 <h3 id="wireframe-badge-diff-display">Wireframe: Badge Diff Display<a class="headerlink" href="#wireframe-badge-diff-display" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>╭─────────────────────────────────────────────────────────────╮
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>│ 📛 Badge Sync Needed                                        │

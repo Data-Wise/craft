@@ -8829,7 +8829,7 @@
 <hr />
 <h2 id="algorithm-architecture">Algorithm Architecture<a class="headerlink" href="#algorithm-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="visual-flow-task-routing-decision-tree">Visual Flow: Task Routing Decision Tree<a class="headerlink" href="#visual-flow-task-routing-decision-tree" title="Permanent link">&para;</a></h3>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A["Task Input"] --&gt;|Parse &amp; Analyze| B["Calculate Score&lt;br/&gt;7 Factors"]
     B --&gt;|0-3 Points| C["Route: Commands"]
     B --&gt;|4-7 Points| D["Route: Single Agent"]
@@ -8851,7 +8851,7 @@
     style F fill:#dcedc8
     style G fill:#b2dfdb
     style H fill:#f0f4c3
-    style I fill:#f1f8e9</div>
+    style I fill:#f1f8e9</code></pre>
 <hr />
 <h2 id="7-factor-scoring-system">7-Factor Scoring System<a class="headerlink" href="#7-factor-scoring-system" title="Permanent link">&para;</a></h2>
 <p>Each factor adds <strong>+2 points</strong> (max 10, factors are independent):</p>
@@ -8976,7 +8976,7 @@
 <li>No architectural pattern → No architecture</li>
 </ul>
 <h3 id="score-010-route-commands">Score: 0/10 → Route: Commands<a class="headerlink" href="#score-010-route-commands" title="Permanent link">&para;</a></h3>
-<div class="mermaid">graph LR
+<pre class="mermaid"><code>graph LR
     A["Fix typo in README"] --&gt;|Factor 1| B["Multi-step? No"]
     A --&gt;|Factor 2| C["Cross-cat? No"]
     A --&gt;|Factor 3| D["Planning? No"]
@@ -8997,7 +8997,7 @@
 
     style A fill:#e1f5ff
     style I fill:#fff3e0
-    style J fill:#c8e6c9</div>
+    style J fill:#c8e6c9</code></pre>
 <h3 id="example-2-moderate-task-score-4">Example 2: Moderate Task (Score: 4)<a class="headerlink" href="#example-2-moderate-task-score-4" title="Permanent link">&para;</a></h3>
 <p><strong>Task:</strong> "Add feature with comprehensive tests and documentation"</p>
 <p><strong>Analysis:</strong></p>
@@ -9011,7 +9011,7 @@
 <li>No architectural pattern → 0</li>
 </ul>
 <h3 id="score-610-route-agent">Score: 6/10 → Route: Agent<a class="headerlink" href="#score-610-route-agent" title="Permanent link">&para;</a></h3>
-<div class="mermaid">graph LR
+<pre class="mermaid"><code>graph LR
     A["Add feature with comprehensive tests and documentation"] --&gt;|Factor 1| B["✓ Multi-step: +2"]
     A --&gt;|Factor 2| C["✓ 3 categories: +2"]
     A --&gt;|Factor 3| D["Planning? No"]
@@ -9031,7 +9031,7 @@
     style C fill:#fff9c4
     style G fill:#fff9c4
     style I fill:#fff3e0
-    style J fill:#b3e5fc</div>
+    style J fill:#b3e5fc</code></pre>
 <h3 id="example-3-complex-task-score-9">Example 3: Complex Task (Score: 9)<a class="headerlink" href="#example-3-complex-task-score-9" title="Permanent link">&para;</a></h3>
 <p><strong>Task:</strong> "Design and implement comprehensive authentication system with OAuth2, PKCE, session management, error handling, extensive tests, and full documentation"</p>
 <p><strong>Analysis:</strong></p>
@@ -9045,7 +9045,7 @@
 <li>"design" + "system" pattern → +2 architecture</li>
 </ul>
 <h3 id="score-1010-capped-route-orchestrator">Score: 10/10 (capped) → Route: Orchestrator<a class="headerlink" href="#score-1010-capped-route-orchestrator" title="Permanent link">&para;</a></h3>
-<div class="mermaid">graph LR
+<pre class="mermaid"><code>graph LR
     A["Design comprehensive auth system with OAuth2, sessions,&lt;br/&gt;error handling, tests, and documentation"]
 
     A --&gt;|Factor 1| B["✓ Multi-step: +2"]
@@ -9073,7 +9073,7 @@
     style G fill:#fff9c4
     style H fill:#fff9c4
     style I fill:#fff3e0
-    style J fill:#ffccbc</div>
+    style J fill:#ffccbc</code></pre>
 <hr />
 <h2 id="routing-zones-explained">Routing Zones Explained<a class="headerlink" href="#routing-zones-explained" title="Permanent link">&para;</a></h2>
 <h3 id="zone-1-commands-0-3-points">Zone 1: Commands (0-3 points)<a class="headerlink" href="#zone-1-commands-0-3-points" title="Permanent link">&para;</a></h3>
@@ -9094,7 +9094,7 @@
 <li>"fix typo"</li>
 </ul>
 <p><strong>Time:</strong> &lt; 30 seconds</p>
-<div class="mermaid">graph TD
+<pre class="mermaid"><code>graph TD
     A["0-3 Points"] --&gt; B["Simple Task"]
     B --&gt; C["Single Operation"]
     B --&gt; D["One Category"]
@@ -9108,7 +9108,7 @@
 
     style A fill:#c8e6c9
     style F fill:#dcedc8
-    style G fill:#f1f8e9</div>
+    style G fill:#f1f8e9</code></pre>
 <h3 id="zone-2-agent-4-7-points">Zone 2: Agent (4-7 points)<a class="headerlink" href="#zone-2-agent-4-7-points" title="Permanent link">&para;</a></h3>
 <p><strong>When to Use:</strong> Moderate tasks with multiple components</p>
 <p><strong>Characteristics:</strong></p>
@@ -9128,7 +9128,7 @@
 </ul>
 <p><strong>Time:</strong> 5-30 minutes
 <strong>Reasoning:</strong> Single agent can handle multiple aspects better than individual commands, but not complex enough for full orchestration</p>
-<div class="mermaid">graph TD
+<pre class="mermaid"><code>graph TD
     A["4-7 Points"] --&gt; B["Moderate Task"]
     B --&gt; C["2-3 Operations"]
     B --&gt; D["2-3 Categories"]
@@ -9142,7 +9142,7 @@
 
     style A fill:#b3e5fc
     style F fill:#b2dfdb
-    style G fill:#b2dfdb</div>
+    style G fill:#b2dfdb</code></pre>
 <h3 id="zone-3-orchestrator-8-10-points">Zone 3: Orchestrator (8-10 points)<a class="headerlink" href="#zone-3-orchestrator-8-10-points" title="Permanent link">&para;</a></h3>
 <p><strong>When to Use:</strong> Complex, multi-phase tasks</p>
 <p><strong>Characteristics:</strong></p>
@@ -9161,7 +9161,7 @@
 </ul>
 <p><strong>Time:</strong> 30 minutes - several hours
 <strong>Reasoning:</strong> Requires parallel multi-agent coordination with tight integration</p>
-<div class="mermaid">graph TD
+<pre class="mermaid"><code>graph TD
     A["8-10 Points"] --&gt; B["Complex Task"]
     B --&gt; C["4+ Operations"]
     B --&gt; D["4+ Categories"]
@@ -9177,11 +9177,11 @@
     style A fill:#ffccbc
     style F fill:#f0f4c3
     style G fill:#f0f4c3
-    style H fill:#f1f8e9</div>
+    style H fill:#f1f8e9</code></pre>
 <hr />
 <h2 id="factor-decision-flow">Factor Decision Flow<a class="headerlink" href="#factor-decision-flow" title="Permanent link">&para;</a></h2>
 <h3 id="quick-decision-guide">Quick Decision Guide<a class="headerlink" href="#quick-decision-guide" title="Permanent link">&para;</a></h3>
-<div class="mermaid">flowchart TD
+<pre class="mermaid"><code>flowchart TD
     A["Analyzing Task..."] --&gt;|Q1| B{"Multi-step task?&lt;br/&gt;2+ verbs or and/then"}
     B --&gt;|Yes| C["+2 to score"]
     B --&gt;|No| D{" "}
@@ -9232,7 +9232,7 @@
     style R fill:#fff9c4
     style T fill:#c8e6c9
     style U fill:#b3e5fc
-    style V fill:#ffccbc</div>
+    style V fill:#ffccbc</code></pre>
 <hr />
 <h2 id="integration-with-craftdo">Integration with /craft:do<a class="headerlink" href="#integration-with-craftdo" title="Permanent link">&para;</a></h2>
 <p>The complexity scorer is integrated into <code>/craft:do</code> to automate routing:</p>
