@@ -8886,7 +8886,7 @@
 </ul>
 <p><strong>Error Handling:</strong> Block and prompt to fix (strict mode)</p>
 <h3 id="command-integration-map">Command Integration Map<a class="headerlink" href="#command-integration-map" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart LR
+<div class="mermaid">flowchart LR
     Brainstorm["/brainstorm d f s"] --&gt;|creates| Spec["SPEC-*.md"]
     Spec --&gt;|validates| Hook["pre-commit hook"]
     Spec --&gt;|searches| Do["/craft:do"]
@@ -8894,7 +8894,7 @@
     Spec --&gt;|checks| Check["/craft:check"]
     Spec --&gt;|generates| Help["help pages"]
     Spec --&gt;|publishes| Site["site:update"]
-    Site --&gt;|deploys| Web["website"]</code></pre>
+    Site --&gt;|deploys| Web["website"]</div>
 <h3 id="website-structure">Website Structure<a class="headerlink" href="#website-structure" title="Permanent link">&para;</a></h3>
 <p><strong>Navigation Addition:</strong></p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Specifications</span><span class="p">:</span>

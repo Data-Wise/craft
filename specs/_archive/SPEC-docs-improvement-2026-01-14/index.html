@@ -8692,7 +8692,7 @@
 <strong>So that</strong> I can create consistent, scannable documentation</p>
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     subgraph Orchestrator
         UPDATE["/craft:docs:update"]
     end
@@ -8725,7 +8725,7 @@
     HELP --&gt; T4
     WORKFLOW --&gt; T3
     QUICKSTART --&gt; T1
-    TUTORIAL --&gt; T2</code></pre>
+    TUTORIAL --&gt; T2</div>
 <hr />
 <h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
 <h3 id="new-commands">New Commands<a class="headerlink" href="#new-commands" title="Permanent link">&para;</a></h3>
@@ -8859,13 +8859,13 @@
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow">User Flow<a class="headerlink" href="#user-flow" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart LR
+<div class="mermaid">flowchart LR
     A[Add Feature] --&gt; B{Run /craft:docs:update}
     B --&gt; C{Auto-detect?}
     C --&gt;|Yes| D[Generate Docs]
     C --&gt;|No| E[Use --with-* flag]
     E --&gt; D
-    D --&gt; F[Review &amp; Commit]</code></pre>
+    D --&gt; F[Review &amp; Commit]</div>
 <h3 id="wireframes-ascii">Wireframes (ASCII)<a class="headerlink" href="#wireframes-ascii" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│ /craft:docs:update --with-tutorial                          │

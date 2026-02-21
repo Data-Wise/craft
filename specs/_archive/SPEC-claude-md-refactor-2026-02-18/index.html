@@ -8674,7 +8674,7 @@
 <strong>So that</strong> brainstorm formatting rules don't load for R packages and spec-only rules apply everywhere.</p>
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A["Session Start"] --&gt; B["Load System Prompt"]
     B --&gt; C["Load Global CLAUDE.md (~80 lines)"]
     B --&gt; D["Load Project CLAUDE.md (~80 lines)"]
@@ -8688,7 +8688,7 @@
     J --&gt; K["Update counts from filesystem"]
     J --&gt; L["Update .STATUS dashboard"]
     J --&gt; M["Flag contradictions"]
-    J --&gt; N["Report changes"]</code></pre>
+    J --&gt; N["Report changes"]</div>
 <h3 id="file-hierarchy-after-refactor">File Hierarchy (After Refactor)<a class="headerlink" href="#file-hierarchy-after-refactor" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>~/.claude/
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── CLAUDE.md                  # ~80 lines: git workflow, safety rules, commit standards

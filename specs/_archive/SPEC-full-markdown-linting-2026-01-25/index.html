@@ -8578,7 +8578,7 @@
 <strong>So that</strong> builds fail consistently on markdown quality issues.</p>
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     subgraph "User Commands"
         A["/craft:docs:lint"]
         B["/craft:code:lint"]
@@ -8607,7 +8607,7 @@
     E --&gt; G
     E --&gt; H
     E --&gt; I
-    E --&gt; J</code></pre>
+    E --&gt; J</div>
 <hr />
 <h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
 <p>N/A - This is a CLI command enhancement, not an API.</p>
@@ -8650,7 +8650,7 @@
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow">User Flow<a class="headerlink" href="#user-flow" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>sequenceDiagram
+<div class="mermaid">sequenceDiagram
     participant User
     participant docs:lint
     participant markdownlint
@@ -8662,7 +8662,7 @@
     markdownlint--&gt;&gt;docs:lint: Issues found (15)
     docs:lint-&gt;&gt;docs:lint: Categorize (auto-fix vs manual)
     docs:lint-&gt;&gt;FileSystem: Apply auto-fixes (12)
-    docs:lint--&gt;&gt;User: Report (12 fixed, 3 manual)</code></pre>
+    docs:lint--&gt;&gt;User: Report (12 fixed, 3 manual)</div>
 <h3 id="wireframe-ascii">Wireframe (ASCII)<a class="headerlink" href="#wireframe-ascii" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│ /craft:docs:lint (release mode)                             │

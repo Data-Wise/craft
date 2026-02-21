@@ -8819,7 +8819,7 @@
 <li>If needs approval: pause and ask user for fix decision</li>
 </ul>
 <h2 id="sequence-diagram">Sequence Diagram<a class="headerlink" href="#sequence-diagram" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>sequenceDiagram
+<div class="mermaid">sequenceDiagram
     actor User
     participant Release as /release Skill
     participant Monitor as ci-monitor.sh
@@ -8853,7 +8853,7 @@
 
     Release-&gt;&gt;Repo: Merge PR
     Release-&gt;&gt;Repo: Tag v2.18.0
-    Release--&gt;&gt;User: Release complete</code></pre>
+    Release--&gt;&gt;User: Release complete</div>
 <h2 id="known-failure-patterns">Known Failure Patterns<a class="headerlink" href="#known-failure-patterns" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

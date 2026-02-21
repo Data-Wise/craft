@@ -10310,12 +10310,12 @@
 <p><strong>See:</strong> <a href="../tutorials/interactive-orchestration/">Interactive Orchestration Tutorial</a> | <a href="../tutorials/orchestrator-modes-compared/">Orchestrator Modes Compared</a></p>
 <h3 id="orchestrate-worktree-pipeline-v2210">Orchestrate + Worktree Pipeline (v2.21.0)<a class="headerlink" href="#orchestrate-worktree-pipeline-v2210" title="Permanent link">&para;</a></h3>
 <p>The full pipeline connects brainstorming through to implementation:</p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     A[brainstorm] --&gt; B[spec]
     B --&gt; C[ORCHESTRATE]
     C --&gt; D[worktree]
     D --&gt; E[implement]
-    E --&gt; F[PR]</code></pre>
+    E --&gt; F[PR]</div>
 <p><strong>Pipeline steps:</strong></p>
 <table>
 <thead>
@@ -10679,12 +10679,12 @@
 </span><span id="__span-43-13"><a id="__codelineno-43-13" name="__codelineno-43-13" href="#__codelineno-43-13"></a>/craft:insights-apply
 </span></code></pre></div>
 <p><strong>Insights Lifecycle:</strong></p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     A[sessions] --&gt; B[facets data]
     B --&gt; C[/craft:insights]
     C --&gt; D[CLAUDE.md rules]
     C --&gt; E[ORCHESTRATE friction prevention]
-    C --&gt; F[brainstorm context]</code></pre>
+    C --&gt; F[brainstorm context]</div>
 <p><strong>Other Workflow Commands:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1"># Start focused work session</span>
 </span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>/workflow:focus

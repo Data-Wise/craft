@@ -8628,7 +8628,7 @@
 <hr />
 <h2 id="integration-points">Integration Points<a class="headerlink" href="#integration-points" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-diagram">Workflow Diagram<a class="headerlink" href="#workflow-diagram" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>sequenceDiagram
+<div class="mermaid">sequenceDiagram
     actor Dev
     participant Hook as PreToolUse Hook&lt;br/&gt;(~/.claude/hooks/)
     participant Script as version-sync.sh
@@ -8660,7 +8660,7 @@
     Dev-&gt;&gt;Check: /craft:check
     Check-&gt;&gt;Script: full validation
     Script--&gt;&gt;Check: clean
-    Check--&gt;&gt;Dev: all checks passed</code></pre>
+    Check--&gt;&gt;Dev: all checks passed</div>
 <h3 id="release-integration">/release Integration<a class="headerlink" href="#release-integration" title="Permanent link">&para;</a></h3>
 <p>Version sync runs at two points in the release pipeline:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Step 1: Pre-release validation

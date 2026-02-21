@@ -9276,7 +9276,7 @@
 <hr />
 <h2 id="architecture-diagrams">Architecture Diagrams<a class="headerlink" href="#architecture-diagrams" title="Permanent link">&para;</a></h2>
 <h3 id="system-architecture">System Architecture<a class="headerlink" href="#system-architecture" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TB
+<div class="mermaid">graph TB
     subgraph "User Interface Layer"
         U[User Invokes /craft:hub]
     end
@@ -9321,9 +9321,9 @@
     style H fill:#fff3e0
     style D fill:#f3e5f5
     style FS fill:#e8f5e9
-    style CACHE fill:#fff9c4</code></pre>
+    style CACHE fill:#fff9c4</div>
 <h3 id="discovery-flow">Discovery Flow<a class="headerlink" href="#discovery-flow" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>sequenceDiagram
+<div class="mermaid">sequenceDiagram
     participant User
     participant Hub
     participant Discovery
@@ -9350,9 +9350,9 @@
     Discovery--&gt;&gt;Hub: Grouped commands
     Hub-&gt;&gt;Discovery: get_category_info('code')
     Discovery--&gt;&gt;Hub: Category metadata
-    Hub--&gt;&gt;User: Display Layer 2 view</code></pre>
+    Hub--&gt;&gt;User: Display Layer 2 view</div>
 <h3 id="navigation-flow">Navigation Flow<a class="headerlink" href="#navigation-flow" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>stateDiagram-v2
+<div class="mermaid">stateDiagram-v2
     [*] --&gt; Layer1: /craft:hub
 
     Layer1 --&gt; Layer2: /craft:hub &lt;category&gt;
@@ -9366,9 +9366,9 @@
 
     Layer1: Main Menu&lt;br/&gt;16 categories&lt;br/&gt;97 commands total
     Layer2: Category View&lt;br/&gt;Filtered commands&lt;br/&gt;Subcategory groups
-    Layer3: Command Detail&lt;br/&gt;Auto-generated tutorial&lt;br/&gt;Related commands</code></pre>
+    Layer3: Command Detail&lt;br/&gt;Auto-generated tutorial&lt;br/&gt;Related commands</div>
 <h3 id="data-model">Data Model<a class="headerlink" href="#data-model" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>erDiagram
+<div class="mermaid">erDiagram
     COMMAND ||--o{ SUBCATEGORY : "belongs to"
     COMMAND ||--o{ MODE : "supports"
     COMMAND ||--o{ WORKFLOW : "part of"
@@ -9405,7 +9405,7 @@
     RELATED {
         string command_name
         string reason
-    }</code></pre>
+    }</div>
 <hr />
 <h2 id="component-details">Component Details<a class="headerlink" href="#component-details" title="Permanent link">&para;</a></h2>
 <h3 id="1-discovery-engine-commands_discoverypy">1. Discovery Engine (<code>commands/_discovery.py</code>)<a class="headerlink" href="#1-discovery-engine-commands_discoverypy" title="Permanent link">&para;</a></h3>

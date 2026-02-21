@@ -8316,7 +8316,7 @@
 
 <h1 id="craftgitinit-architecture-flow-diagrams">/craft:git:init - Architecture &amp; Flow Diagrams<a class="headerlink" href="#craftgitinit-architecture-flow-diagrams" title="Permanent link">&para;</a></h1>
 <h2 id="command-execution-flow">Command Execution Flow<a class="headerlink" href="#command-execution-flow" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start([User invokes /craft:git:init]) --&gt; ParseArgs[Parse Arguments]
     ParseArgs --&gt; DryRun{Dry-run mode?}
 
@@ -8425,10 +8425,10 @@
     style Success fill:#c8e6c9
     style ErrorEnd fill:#ffcdd2
     style Error1 fill:#ffcdd2
-    style Warning fill:#fff9c4</code></pre>
+    style Warning fill:#fff9c4</div>
 <h2 id="workflow-patterns-architecture">Workflow Patterns Architecture<a class="headerlink" href="#workflow-patterns-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="pattern-1-main-dev-default">Pattern 1: Main + Dev (Default)<a class="headerlink" href="#pattern-1-main-dev-default" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>gitGraph
+<div class="mermaid">gitGraph
     commit id: "Initial commit"
     branch dev
     checkout dev
@@ -8445,9 +8445,9 @@
     checkout dev
     merge feature/api tag: "PR #2"
     checkout main
-    merge dev tag: "Release v1.0"</code></pre>
+    merge dev tag: "Release v1.0"</div>
 <p><strong>Branch Flow:</strong></p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     Feature[feature/*] --&gt;|PR| Dev[dev]
     Dev --&gt;|PR| Main[main]
     Main --&gt;|Deploy| Production[Production]
@@ -8455,23 +8455,23 @@
     style Main fill:#ff6b6b
     style Dev fill:#4ecdc4
     style Feature fill:#95e1d3
-    style Production fill:#f38181</code></pre>
+    style Production fill:#f38181</div>
 <h3 id="pattern-2-simple">Pattern 2: Simple<a class="headerlink" href="#pattern-2-simple" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>gitGraph
+<div class="mermaid">gitGraph
     commit id: "Initial commit"
     commit id: "Add feature A"
     commit id: "Add feature B"
     commit id: "Fix bug"
-    commit id: "Release v1.0" tag: "v1.0"</code></pre>
+    commit id: "Release v1.0" tag: "v1.0"</div>
 <p><strong>Branch Flow:</strong></p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     Main[main] --&gt;|Direct commits| Main
     Main --&gt;|Deploy| Production[Production]
 
     style Main fill:#ff6b6b
-    style Production fill:#f38181</code></pre>
+    style Production fill:#f38181</div>
 <h3 id="pattern-3-gitflow">Pattern 3: GitFlow<a class="headerlink" href="#pattern-3-gitflow" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>gitGraph
+<div class="mermaid">gitGraph
     commit id: "Initial"
     branch develop
     checkout develop
@@ -8495,9 +8495,9 @@
     checkout main
     merge hotfix/critical-bug tag: "v1.0.1"
     checkout develop
-    merge hotfix/critical-bug</code></pre>
+    merge hotfix/critical-bug</div>
 <p><strong>Branch Flow:</strong></p>
-<pre class="mermaid"><code>graph TB
+<div class="mermaid">graph TB
     Feature[feature/*] --&gt;|PR| Develop[develop]
     Develop --&gt;|PR| Release[release/*]
     Release --&gt;|PR| Main[main]
@@ -8511,9 +8511,9 @@
     style Develop fill:#4ecdc4
     style Feature fill:#95e1d3
     style Release fill:#ffd93d
-    style Hotfix fill:#ff8787</code></pre>
+    style Hotfix fill:#ff8787</div>
 <h2 id="component-architecture">Component Architecture<a class="headerlink" href="#component-architecture" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph TB
+<div class="mermaid">graph TB
     subgraph "User Interface"
         CLI["/craft:git:init CLI"]
         SmartRouter["/craft:do Smart Router"]
@@ -8569,9 +8569,9 @@
     style SmartRouter fill:#e3f2fd
     style StepController fill:#fff3e0
     style Rollback fill:#ffebee
-    style Check fill:#e8f5e9</code></pre>
+    style Check fill:#e8f5e9</div>
 <h2 id="data-flow">Data Flow<a class="headerlink" href="#data-flow" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>sequenceDiagram
+<div class="mermaid">sequenceDiagram
     participant User
     participant Wizard
     participant Git
@@ -8646,9 +8646,9 @@
     Wizard-&gt;&gt;CI: Execute /craft:check
     CI--&gt;&gt;Wizard: Validation results
 
-    Wizard-&gt;&gt;User: ✓ Setup complete!</code></pre>
+    Wizard-&gt;&gt;User: ✓ Setup complete!</div>
 <h2 id="error-handling-flow">Error Handling Flow<a class="headerlink" href="#error-handling-flow" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Operation[Execute Operation] --&gt; Success{Success?}
 
     Success --&gt;|Yes| RecordState[Record State]
@@ -8686,9 +8686,9 @@
     style Operation fill:#e3f2fd
     style Success fill:#fff3e0
     style NotifyUser fill:#ffebee
-    style Exit fill:#ffcdd2</code></pre>
+    style Exit fill:#ffcdd2</div>
 <h2 id="template-processing">Template Processing<a class="headerlink" href="#template-processing" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart LR
+<div class="mermaid">flowchart LR
     subgraph "Input"
         Repo[Repository Info]
         User[User Data]
@@ -8733,9 +8733,9 @@
     style Load fill:#e3f2fd
     style Parse fill:#fff3e0
     style Replace fill:#e8f5e9
-    style Validate fill:#fff9c4</code></pre>
+    style Validate fill:#fff9c4</div>
 <h2 id="integration-points">Integration Points<a class="headerlink" href="#integration-points" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph TB
+<div class="mermaid">graph TB
     subgraph "Command Entry"
         DirectCall["/craft:git:init"]
         SmartDo["/craft:do 'initialize project'"]
@@ -8779,9 +8779,9 @@
     style DirectCall fill:#e3f2fd
     style Check fill:#e8f5e9
     style Git fill:#ffebee
-    style GH fill:#ffebee</code></pre>
+    style GH fill:#ffebee</div>
 <h2 id="state-machine">State Machine<a class="headerlink" href="#state-machine" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>stateDiagram-v2
+<div class="mermaid">stateDiagram-v2
     [*] --&gt; Idle
     Idle --&gt; CheckingRepo: Command invoked
     CheckingRepo --&gt; InitializingNew: No .git found
@@ -8826,9 +8826,9 @@
     note right of Validating
         Runs /craft:check
         Reports status
-    end note</code></pre>
+    end note</div>
 <h2 id="file-system-operations">File System Operations<a class="headerlink" href="#file-system-operations" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph TB
+<div class="mermaid">graph TB
     Start[Start] --&gt; CheckCWD{Current dir writable?}
 
     CheckCWD --&gt;|No| Error[Error: Permission denied]
@@ -8855,7 +8855,7 @@
     style Start fill:#e3f2fd
     style Success fill:#e8f5e9
     style Error fill:#ffebee
-    style End fill:#fff3e0</code></pre>
+    style End fill:#fff3e0</div>
 <hr />
 <p><strong>Document Version:</strong> 1.0
 <strong>Generated:</strong> 2025-01-15

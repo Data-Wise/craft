@@ -9020,7 +9020,7 @@
 <li>🔀 Traffic controller for your development workflow</li>
 </ul>
 <h2 id="how-it-works-the-routing-pipeline">How It Works: The Routing Pipeline<a class="headerlink" href="#how-it-works-the-routing-pipeline" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart LR
+<div class="mermaid">flowchart LR
     A[Task Description] --&gt; B[Analyze]
     B --&gt; C[Score 0-10]
     C --&gt; D{Complexity?}
@@ -9034,7 +9034,7 @@
     style D fill:#4CAF50
     style E fill:#2196F3
     style F fill:#FF9800
-    style G fill:#F44336</code></pre>
+    style G fill:#F44336</div>
 <h2 id="the-complexity-scoring-system">The Complexity Scoring System<a class="headerlink" href="#the-complexity-scoring-system" title="Permanent link">&para;</a></h2>
 <p>Tasks are scored on <strong>7 factors</strong>, each rated 0-2:</p>
 <h3 id="factor-1-scope-0-2-points">Factor 1: Scope (0-2 points)<a class="headerlink" href="#factor-1-scope-0-2-points" title="Permanent link">&para;</a></h3>
@@ -9624,7 +9624,7 @@
 </span></code></pre></div>
 <h2 id="decision-tree">Decision Tree<a class="headerlink" href="#decision-tree" title="Permanent link">&para;</a></h2>
 <p>Use this to decide between <code>/craft:do</code> and direct commands:</p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     A[I need to...] --&gt; B{Know exact command?}
     B --&gt;|Yes| C{Single step?}
     B --&gt;|No| D[Use /craft:do]
@@ -9642,7 +9642,7 @@
     E --&gt; I[Execute directly]
 
     style D fill:#4CAF50
-    style E fill:#2196F3</code></pre>
+    style E fill:#2196F3</div>
 <h2 id="interactive-practice">Interactive Practice<a class="headerlink" href="#interactive-practice" title="Permanent link">&para;</a></h2>
 <h3 id="exercise-1-score-these-tasks">Exercise 1: Score These Tasks<a class="headerlink" href="#exercise-1-score-these-tasks" title="Permanent link">&para;</a></h3>
 <p>Try scoring these tasks yourself before checking the answers:</p>

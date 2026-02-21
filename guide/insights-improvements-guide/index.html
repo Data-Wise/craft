@@ -8626,7 +8626,7 @@
 <p>A read-only 5-step pipeline that analyzes your <code>branch-guard.sh</code> for false positives — rules that block legitimate work. It discovers all protection rules, tests them against realistic scenarios, generates a friction report, and proposes JSON config changes. It never modifies the guard script itself.</p>
 <p><strong>When to use:</strong> After the guard blocks something it shouldn't, or periodically to tune sensitivity.</p>
 <p><strong>Key principle:</strong> The guard script is the "engine" and <code>.claude/branch-guard.json</code> is the "tuning knobs." This skill only adjusts the knobs.</p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start(["/guard-audit"]) --&gt; D[Step 1: Discovery]
     D --&gt; D1[Read branch-guard.sh]
     D1 --&gt; D2[Extract protection rules]
@@ -8658,13 +8658,13 @@
     style Done fill:#27AE60,color:#fff
     style Clean fill:#27AE60,color:#fff
     style F2 fill:#F39C12,color:#fff
-    style A1 fill:#F39C12,color:#fff</code></pre>
+    style A1 fill:#F39C12,color:#fff</div>
 <hr />
 <h3 id="insights-apply-insights-apply">Insights Apply (<code>/insights-apply</code>)<a class="headerlink" href="#insights-apply-insights-apply" title="Permanent link">&para;</a></h3>
 <p>Bridges the gap between <code>/insights</code> (which analyzes your usage patterns) and your global <code>~/.claude/CLAUDE.md</code>. Parses the insights report, extracts <code>claude_md_additions</code> suggestions, presents each for review (apply/skip/edit), applies via the sync pipeline, and enforces the 200-line budget.</p>
 <p><strong>When to use:</strong> After running <code>/insights</code> and seeing suggestions you want to persist.</p>
 <p><strong>Key principle:</strong> Targets global CLAUDE.md only — insights are cross-project patterns, not project-specific.</p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start(["/insights-apply"]) --&gt; P[Step 1: Parse Insights]
     P --&gt; P1{report.html exists?}
     P1 --&gt;|Yes| P3[Extract claude_md_additions]
@@ -8700,13 +8700,13 @@
     style Done fill:#27AE60,color:#fff
     style Err fill:#E74C3C,color:#fff
     style Ask fill:#F39C12,color:#fff
-    style B1 fill:#F39C12,color:#fff</code></pre>
+    style B1 fill:#F39C12,color:#fff</div>
 <hr />
 <h2 id="new-hook">New Hook<a class="headerlink" href="#new-hook" title="Permanent link">&para;</a></h2>
 <h3 id="pretooluse-hook-pretoolusepy">PreToolUse Hook (<code>pretooluse.py</code>)<a class="headerlink" href="#pretooluse-hook-pretoolusepy" title="Permanent link">&para;</a></h3>
 <p>A non-blocking safety net that runs on every Write/Edit call. If you're working in a git worktree and a file operation targets a path outside that worktree, it prints a stderr warning. Always exits 0 — it warns but never blocks.</p>
 <p><strong>Key principle:</strong> The fast-path (not in worktree or not Write/Edit) returns immediately with zero overhead. Only calls <code>git rev-parse</code> when actually in a worktree.</p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start([Write/Edit tool call]) --&gt; T1{Tool is Write or Edit?}
     T1 --&gt;|No| Pass1[Exit 0 — skip]
     T1 --&gt;|Yes| T2{CWD contains /.git-worktrees/?}
@@ -8727,14 +8727,14 @@
     style Pass2 fill:#95A5A6,color:#fff
     style Pass3 fill:#95A5A6,color:#fff
     style Pass4 fill:#95A5A6,color:#fff
-    style Pass5 fill:#27AE60,color:#fff</code></pre>
+    style Pass5 fill:#27AE60,color:#fff</div>
 <p><strong>Performance:</strong> Fast path ~45ms, worktree path ~60ms.</p>
 <hr />
 <h2 id="enhanced-commands">Enhanced Commands<a class="headerlink" href="#enhanced-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftcheck-context-context-only-mode"><code>/craft:check --context</code> — Context-Only Mode<a class="headerlink" href="#craftcheck-context-context-only-mode" title="Permanent link">&para;</a></h3>
 <p>Skips all validators and outputs a session context summary instead. Auto-detects your dev phase (implementation/testing/pr-prep/release) based on commits ahead, PR existence, and test file recency.</p>
 <p><strong>When to use:</strong> At the start of a session to understand where you left off, or to front-load context into prompts.</p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start(["/craft:check --context"]) --&gt; Detect[Detect project type and branch]
     Detect --&gt; Phase[Phase Detection]
 
@@ -8761,12 +8761,12 @@
     style Display fill:#8E44AD,color:#fff
     style P1 fill:#F39C12,color:#fff
     style P2 fill:#F39C12,color:#fff
-    style P3 fill:#F39C12,color:#fff</code></pre>
+    style P3 fill:#F39C12,color:#fff</div>
 <hr />
 <h3 id="craftgitworktree-validate-worktree-health-check"><code>/craft:git:worktree validate</code> — Worktree Health Check<a class="headerlink" href="#craftgitworktree-validate-worktree-health-check" title="Permanent link">&para;</a></h3>
 <p>Verifies your current worktree environment is healthy: you're actually in a worktree, the path matches conventions, the branch name matches the folder name, and no writes are targeting outside the worktree.</p>
 <p><strong>When to use:</strong> After switching to a worktree, or when something feels "off" about the environment.</p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start(["/craft:git:worktree validate"]) --&gt; C1{CWD inside git worktree?}
     C1 --&gt;|No| Fail1["Not in a worktree\nSuggest: cd to worktree path"]
     C1 --&gt;|Yes| C2[Get branch name + toplevel]
@@ -8796,7 +8796,7 @@
     style Fail1 fill:#E74C3C,color:#fff
     style Warn1 fill:#E67E22,color:#fff
     style Warn2 fill:#E67E22,color:#fff
-    style Warn3 fill:#E67E22,color:#fff</code></pre>
+    style Warn3 fill:#E67E22,color:#fff</div>
 <hr />
 <h3 id="release-autonomous-unattended-release-pipeline"><code>/release --autonomous</code> — Unattended Release Pipeline<a class="headerlink" href="#release-autonomous-unattended-release-pipeline" title="Permanent link">&para;</a></h3>
 <p>Runs the full release pipeline with zero user prompts. Pre-validates safety (clean tree, on dev, tests pass, no blockers), then auto-confirms every checkpoint. If any step fails, it aborts and preserves state for recovery.</p>
@@ -8805,7 +8805,7 @@
 <p><strong>WARNING:</strong> Autonomous mode auto-uses <code>--admin</code> to bypass branch protection if the merge is blocked, which skips required status checks. Always preview first with <code>--autonomous --dry-run</code>.</p>
 </blockquote>
 <p><strong>Tip:</strong> Always preview first with <code>--autonomous --dry-run</code>.</p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start(["/release --autonomous"]) --&gt; Safety[Safety Pre-checks]
     Safety --&gt; S1{Working tree clean?}
     S1 --&gt;|No| Abort1["ABORTED: Uncommitted changes"]
@@ -8837,13 +8837,13 @@
     style Failed fill:#E74C3C,color:#fff
     style AbortM fill:#E74C3C,color:#fff
     style Safety fill:#8E44AD,color:#fff
-    style Pipeline fill:#2ECC71,color:#fff</code></pre>
+    style Pipeline fill:#2ECC71,color:#fff</div>
 <hr />
 <h3 id="craftorchestrate-swarm-isolated-worktree-agents"><code>/craft:orchestrate --swarm</code> — Isolated Worktree Agents<a class="headerlink" href="#craftorchestrate-swarm-isolated-worktree-agents" title="Permanent link">&para;</a></h3>
 <p>Instead of forking agent contexts in the same directory (risking file conflicts), creates a separate git worktree per agent with its own branch. Agents work in parallel with complete isolation, then branches merge into a convergence branch.</p>
 <p><strong>When to use:</strong> Parallel feature implementation where agents would conflict on the same files.</p>
 <p><strong>Requirement:</strong> An ORCHESTRATE file with per-agent file scopes.</p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start(["/craft:orchestrate --swarm"]) --&gt; Parse[Step 1: Parse ORCHESTRATE file]
     Parse --&gt; Plan[Extract agent assignments + file scopes]
     Plan --&gt; Base["Step 2: Create convergence branch\nfeature/swarm-task"]
@@ -8873,7 +8873,7 @@
     style Conflict fill:#E67E22,color:#fff
     style Fix fill:#E67E22,color:#fff
     style Launch fill:#8E44AD,color:#fff
-    style Converge fill:#2ECC71,color:#fff</code></pre>
+    style Converge fill:#2ECC71,color:#fff</div>
 <hr />
 <h2 id="suggested-workflows">Suggested Workflows<a class="headerlink" href="#suggested-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-1-new-session-kickoff">Workflow 1: New Session Kickoff<a class="headerlink" href="#workflow-1-new-session-kickoff" title="Permanent link">&para;</a></h3>
@@ -8926,7 +8926,7 @@
 </span></code></pre></div>
 <h3 id="workflow-9-insights-lifecycle-v2210">Workflow 9: Insights Lifecycle (v2.21.0)<a class="headerlink" href="#workflow-9-insights-lifecycle-v2210" title="Permanent link">&para;</a></h3>
 <p>The full insights lifecycle from session data to workflow improvements:</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     S[Sessions] --&gt; F[Facets Data]
     F --&gt; I[/craft:insights]
     I --&gt; R1[CLAUDE.md Rules]
@@ -8935,7 +8935,7 @@
     R1 --&gt; B[Better Sessions]
     R2 --&gt; B
     R3 --&gt; B
-    B --&gt; S</code></pre>
+    B --&gt; S</div>
 <hr />
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>

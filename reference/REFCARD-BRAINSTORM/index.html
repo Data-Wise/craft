@@ -8432,7 +8432,7 @@
 </table>
 <hr />
 <h2 id="mode-selection-flowchart">Mode Selection Flowchart<a class="headerlink" href="#mode-selection-flowchart" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start["/brainstorm"] --&gt; HasArgs{Arguments?}
 
     HasArgs --&gt;|None| NewSession{New session?}
@@ -8469,9 +8469,9 @@
     SpecQ --&gt;|feat/arch/api| SpecPrompt["Q: Capture as spec?"]
     SpecQ --&gt;|quick/no| Done["Report + Next Steps"]
     SpecPrompt --&gt; Done
-    SpecCapture --&gt; Done</code></pre>
+    SpecCapture --&gt; Done</div>
 <h2 id="milestone-flow-d20-example">Milestone Flow (d:20 example)<a class="headerlink" href="#milestone-flow-d20-example" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A["Start: d:20"] --&gt; B["Ask questions 1-8"]
     B --&gt; C{"Milestone: Continue?"}
     C --&gt;|Done| F["Generate brainstorm"]
@@ -8482,7 +8482,7 @@
     E --&gt; C
     G --&gt; H{"Every 4: Continue?"}
     H --&gt;|Yes| G
-    H --&gt;|No| F</code></pre>
+    H --&gt;|No| F</div>
 <h2 id="v240-colon-notation-flow">v2.4.0 Colon Notation Flow<a class="headerlink" href="#v240-colon-notation-flow" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ColonArgs[&quot;d:5, m:12, q:3&quot;] --&gt; parse_depth_with_count()
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  --&gt; (depth_mode, question_count)

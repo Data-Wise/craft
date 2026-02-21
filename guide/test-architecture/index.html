@@ -8627,7 +8627,7 @@
 </span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="template-rendering-flow">Template Rendering Flow<a class="headerlink" href="#template-rendering-flow" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     A["/craft:test:gen"] --&gt; B{Detect Project Type}
     B --&gt;|plugin.json| C[Plugin]
     B --&gt;|*.plugin.zsh| D[ZSH]
@@ -8645,9 +8645,9 @@
     J --&gt; K{File Exists?}
     K --&gt;|No| L[Write to tests/]
     K --&gt;|Yes| M[Skip]
-    K --&gt;|--force| L</code></pre>
+    K --&gt;|--force| L</div>
 <h3 id="variable-gathering-per-type">Variable Gathering per Type<a class="headerlink" href="#variable-gathering-per-type" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart LR
+<div class="mermaid">flowchart LR
     subgraph Plugin
         P1[plugin.json] --&gt; PV[name, version]
         P2["glob commands/**/*.md"] --&gt; PV
@@ -8668,9 +8668,9 @@
     subgraph ZSH
         Z1["*.plugin.zsh"] --&gt; ZV[functions, aliases]
         Z2["grep compdef"] --&gt; ZV
-    end</code></pre>
+    end</div>
 <h3 id="template-include-chain">Template Include Chain<a class="headerlink" href="#template-include-chain" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     subgraph "templates/plugin/"
         CT["conftest.py.j2"]
         TS["test_structure.py.j2"]
@@ -8684,7 +8684,7 @@
 
     CT --&gt;|"{% include %}"| CS
     TS -.-&gt;|"from helpers import"| HP
-    TC -.-&gt;|"from helpers import"| HP</code></pre>
+    TC -.-&gt;|"from helpers import"| HP</div>
 <hr />
 <h2 id="rendering-engine">Rendering Engine<a class="headerlink" href="#rendering-engine" title="Permanent link">&para;</a></h2>
 <p>The rendering engine lives in <code>utils/test_generator.py</code> and exposes 4 public functions:</p>

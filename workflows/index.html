@@ -8247,7 +8247,7 @@
 <hr />
 <h2 id="workflow-selector">Workflow Selector<a class="headerlink" href="#workflow-selector" title="Permanent link">&para;</a></h2>
 <p>Not sure where to start? This decision tree shows you the right workflow for your task.</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     Start["🎯 What do you need to do?"] --&gt; Goal{Choose Your Goal}
 
     Goal --&gt;|"📚 Update docs"| Docs["Documentation Workflow"]
@@ -8274,7 +8274,7 @@
     style Site fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
     style Release fill:#fce4ec,stroke:#c2185b,stroke-width:2px
     style Dev fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style Route fill:#ede7f6,stroke:#512da8,stroke-width:2px</code></pre>
+    style Route fill:#ede7f6,stroke:#512da8,stroke-width:2px</div>
 <div class="admonition tip">
 <p class="admonition-title">Pro Tip: Start with Documentation</p>
 <p>New to craft? The Documentation Workflow is the easiest starting point - just run <code>/craft:docs:update</code> and watch it detect and fix everything automatically.</p>
@@ -8282,7 +8282,7 @@
 <hr />
 <h2 id="documentation-workflow">Documentation Workflow<a class="headerlink" href="#documentation-workflow" title="Permanent link">&para;</a></h2>
 <p><strong>From code changes to deployed docs in one command.</strong></p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     START([📝 Code Changes]) --&gt; UPDATE["/craft:docs:update"]
 
     UPDATE --&gt; DETECT{🔍 Detect Changes}
@@ -8317,7 +8317,7 @@
     style UPDATE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     style CHECK fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style DEPLOY fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</code></pre>
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</div>
 <p><strong>Key Commands:</strong></p>
 <ul>
 <li><code>/craft:docs:update</code> - Smart detection → full execution</li>
@@ -8333,7 +8333,7 @@
 <hr />
 <h2 id="site-creation-workflow">Site Creation Workflow<a class="headerlink" href="#site-creation-workflow" title="Permanent link">&para;</a></h2>
 <p><strong>Zero to deployed documentation site in under 5 minutes.</strong></p>
-<pre class="mermaid"><code>flowchart LR
+<div class="mermaid">flowchart LR
     START(["🌐 Need Docs Site"]) --&gt; CREATE["/craft:site:create"]
 
     CREATE --&gt; DETECT["🔍 Detect&lt;br/&gt;project type"]
@@ -8369,7 +8369,7 @@
     style WIZARD fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style FILES fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     style DEPLOY fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</code></pre>
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</div>
 <p><strong>8 ADHD-Friendly Presets:</strong></p>
 <ul>
 <li><code>adhd-focus</code> - Calm forest green</li>
@@ -8389,7 +8389,7 @@
 <hr />
 <h2 id="release-workflow">Release Workflow<a class="headerlink" href="#release-workflow" title="Permanent link">&para;</a></h2>
 <p><strong>From pre-release checks to published release with safety gates.</strong></p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     START(["📦 Ready to Release"]) --&gt; CHECK["/craft:check&lt;br/&gt;--for release"]
 
     CHECK --&gt; AUDIT{🔍 Full Audit}
@@ -8425,7 +8425,7 @@
     style AUDIT fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style RESULTS fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style GHRELEASE fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</code></pre>
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</div>
 <p><strong>Automation:</strong></p>
 <ul>
 <li>GitHub Actions triggers PyPI publish (trusted publisher)</li>
@@ -8441,7 +8441,7 @@
 <hr />
 <h2 id="development-workflow">Development Workflow<a class="headerlink" href="#development-workflow" title="Permanent link">&para;</a></h2>
 <p><strong>Feature branch to merged PR with git worktrees.</strong></p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     START(["✨ New Feature"]) --&gt; WORKTREE["/craft:git:worktree&lt;br/&gt;add feature-name"]
 
     WORKTREE --&gt; CLONE["Create isolated&lt;br/&gt;worktree at&lt;br/&gt;~/.git-wt/project/"]
@@ -8475,7 +8475,7 @@
     style LOOP fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style CHECK fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style MERGE fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</code></pre>
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</div>
 <p><strong>Worktree Benefits:</strong></p>
 <ul>
 <li>Work on multiple features in parallel</li>
@@ -8492,7 +8492,7 @@
 <hr />
 <h2 id="ai-routing-workflow">AI Routing Workflow<a class="headerlink" href="#ai-routing-workflow" title="Permanent link">&para;</a></h2>
 <p><strong>How /craft:do intelligently routes tasks to the right tools.</strong></p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     START(["🤖 /craft:do&lt;br/&gt;'add auth'"]) --&gt; ANALYZE["task-analyzer&lt;br/&gt;skill"]
 
     ANALYZE --&gt; CLASSIFY{🎯 Classify&lt;br/&gt;Task Type}
@@ -8538,7 +8538,7 @@
     style ANALYZE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     style CLASSIFY fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style ORCHESTRATE fill:#ffe0b2,stroke:#e65100,stroke-width:2px
-    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</code></pre>
+    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px</div>
 <p><strong>Three Layers:</strong></p>
 <ol>
 <li><strong>Skills</strong> (17 total) - Auto-triggered expertise</li>
@@ -8573,7 +8573,7 @@
 <hr />
 <h2 id="workflow-comparison-overview">Workflow Comparison Overview<a class="headerlink" href="#workflow-comparison-overview" title="Permanent link">&para;</a></h2>
 <p>High-level comparison of all five workflows - choose based on your task type.</p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     subgraph docs["📚 Documentation Workflow"]
         d1["Code Changes&lt;br/&gt;↓&lt;br/&gt;Detect &amp; Fix&lt;br/&gt;↓&lt;br/&gt;Deploy"]
     end
@@ -8598,7 +8598,7 @@
     style site fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
     style release fill:#fce4ec,stroke:#c2185b,stroke-width:2px
     style dev fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style route fill:#ede7f6,stroke:#512da8,stroke-width:2px</code></pre>
+    style route fill:#ede7f6,stroke:#512da8,stroke-width:2px</div>
 <table>
 <thead>
 <tr>

@@ -8439,7 +8439,7 @@
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth.md<span class="w"> </span>--output<span class="w"> </span>orchestrate-only
 </span></code></pre></div>
 <p><strong>8-Step Execution:</strong></p>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     Start(["/craft:orchestrate:plan"]) --&gt; D[Step 1: Discover Specs]
     D --&gt; D1{Specs found?}
     D1 --&gt;|Yes| Choose[User picks spec]
@@ -8467,7 +8467,7 @@
 
     style Start fill:#4A90D9,color:#fff
     style Done fill:#27AE60,color:#fff
-    style Err fill:#E74C3C,color:#fff</code></pre>
+    style Err fill:#E74C3C,color:#fff</div>
 <p><strong>Generated ORCHESTRATE files include:</strong></p>
 <ul>
 <li>Phase overview with effort estimates</li>
@@ -8623,7 +8623,7 @@
 <hr />
 <h2 id="insights-lifecycle">Insights Lifecycle<a class="headerlink" href="#insights-lifecycle" title="Permanent link">&para;</a></h2>
 <p>The full flow from sessions to workflow improvements:</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     S[Sessions] --&gt; F[Facets Data]
     F --&gt; I[/craft:insights]
     I --&gt; R1[CLAUDE.md Rules]
@@ -8632,7 +8632,7 @@
     R1 --&gt; B[Better Sessions]
     R2 --&gt; B
     R3 --&gt; B
-    B --&gt; S</code></pre>
+    B --&gt; S</div>
 <hr />
 <h2 id="suggested-workflows">Suggested Workflows<a class="headerlink" href="#suggested-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-1-full-pipeline-brainstorm-to-pr">Workflow 1: Full Pipeline (Brainstorm to PR)<a class="headerlink" href="#workflow-1-full-pipeline-brainstorm-to-pr" title="Permanent link">&para;</a></h3>

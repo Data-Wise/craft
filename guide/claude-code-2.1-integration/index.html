@@ -9178,7 +9178,7 @@
 <h2 id="complexity-scoring-algorithm">Complexity Scoring Algorithm<a class="headerlink" href="#complexity-scoring-algorithm" title="Permanent link">&para;</a></h2>
 <p>The heart of smart routing is the 7-factor complexity scoring system.</p>
 <h3 id="algorithm-at-a-glance">Algorithm at a Glance<a class="headerlink" href="#algorithm-at-a-glance" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     A["Task Input&lt;br/&gt;e.g. 'add feature with tests and docs'"] --&gt;|Analyze| B["Score: 0-10"]
     B --&gt;|0-3| C["Commands&lt;br/&gt;Specific tools&lt;br/&gt;&lt; 30 sec"]
     B --&gt;|4-7| D["Agent&lt;br/&gt;Specialist agent&lt;br/&gt;5-30 min"]
@@ -9188,7 +9188,7 @@
     style B fill:#fff3e0
     style C fill:#c8e6c9
     style D fill:#b3e5fc
-    style E fill:#ffccbc</code></pre>
+    style E fill:#ffccbc</div>
 <h3 id="the-7-factors-each-2-points-max-10">The 7 Factors (each +2 points, max 10)<a class="headerlink" href="#the-7-factors-each-2-points-max-10" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -9243,7 +9243,7 @@
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Time: &lt; 30 sec
 </span></code></pre></div>
 <p><strong>Analysis:</strong></p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     A["Fix typo"] --&gt;|Multi-step?| B["No"]
     A --&gt;|Cross-category?| C["No"]
     A --&gt;|Planning?| D["No"]
@@ -9264,14 +9264,14 @@
 
     style A fill:#e1f5ff
     style I fill:#fff3e0
-    style J fill:#c8e6c9</code></pre>
+    style J fill:#c8e6c9</div>
 <h4 id="example-2-moderate-task-6-points">Example 2: Moderate Task (6 points)<a class="headerlink" href="#example-2-moderate-task-6-points" title="Permanent link">&para;</a></h4>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Task: &quot;Add feature with comprehensive tests and documentation&quot;
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Score: 6/10 → Agent
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Time: 5-30 min
 </span></code></pre></div>
 <p><strong>Analysis:</strong></p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     A["Add feature with&lt;br/&gt;comprehensive tests&lt;br/&gt;and documentation"]
     A --&gt;|Multi-step?| B["✓ Yes +2"]
     A --&gt;|Cross-category?| C["✓ 3 areas +2"]
@@ -9292,7 +9292,7 @@
     style C fill:#fff9c4
     style G fill:#fff9c4
     style I fill:#fff3e0
-    style J fill:#b3e5fc</code></pre>
+    style J fill:#b3e5fc</div>
 <h4 id="example-3-complex-task-10-points-capped">Example 3: Complex Task (10 points, capped)<a class="headerlink" href="#example-3-complex-task-10-points-capped" title="Permanent link">&para;</a></h4>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Task: &quot;Design and implement comprehensive authentication system with OAuth2,
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>       PKCE, session management, error handling, extensive tests, and full docs&quot;
@@ -9300,7 +9300,7 @@
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Time: 30 min - several hours
 </span></code></pre></div>
 <p><strong>Analysis:</strong></p>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     A["Design &amp; implement&lt;br/&gt;comprehensive auth&lt;br/&gt;with OAuth2, sessions,&lt;br/&gt;errors, tests, docs"]
 
     A --&gt;|Multi-step?| B["✓ Yes +2"]
@@ -9328,11 +9328,11 @@
     style G fill:#fff9c4
     style H fill:#fff9c4
     style I fill:#fff3e0
-    style J fill:#ffccbc</code></pre>
+    style J fill:#ffccbc</div>
 <hr />
 <h2 id="routing-decision-flow">Routing Decision Flow<a class="headerlink" href="#routing-decision-flow" title="Permanent link">&para;</a></h2>
 <h3 id="full-decision-tree">Full Decision Tree<a class="headerlink" href="#full-decision-tree" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     A["Start"] --&gt; B{{"Analyze task&lt;br/&gt;Calculate score"}}
 
     B --&gt;|0-3 Points| C["Route: Commands"]
@@ -9362,7 +9362,7 @@
     style I fill:#f1f8e9
     style J fill:#f1f8e9
     style K fill:#f1f8e9
-    style L fill:#f1f8e9</code></pre>
+    style L fill:#f1f8e9</div>
 <hr />
 <h2 id="agent-delegation-system">Agent Delegation System<a class="headerlink" href="#agent-delegation-system" title="Permanent link">&para;</a></h2>
 <p>When a task scores 4-7 points, /craft:do delegates to a specialist agent.</p>
@@ -9410,7 +9410,7 @@
 </tbody>
 </table>
 <h3 id="agent-selection-logic">Agent Selection Logic<a class="headerlink" href="#agent-selection-logic" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A["Task Routed to Agent&lt;br/&gt;Score 4-7"] --&gt; B{{"Analyze keywords&lt;br/&gt;and task type"}}
 
     B --&gt;|"add", "feature", "implement"| C["→ feature-developer"]
@@ -9438,7 +9438,7 @@
     style G fill:#dcedc8
     style H fill:#dcedc8
     style I fill:#c8e6c9
-    style J fill:#f1f8e9</code></pre>
+    style J fill:#f1f8e9</div>
 <hr />
 <h2 id="hot-reload-validators">Hot-Reload Validators<a class="headerlink" href="#hot-reload-validators" title="Permanent link">&para;</a></h2>
 <p><code>/craft:check</code> discovers and runs validation skills dynamically without restart.</p>
@@ -9470,7 +9470,7 @@
 </tbody>
 </table>
 <h3 id="how-hot-reload-works">How Hot-Reload Works<a class="headerlink" href="#how-hot-reload-works" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     A["/craft:check command"] --&gt; B["Scan for validators&lt;br/&gt;with hot_reload: true"]
     B --&gt; C["Load validator metadata&lt;br/&gt;from frontmatter YAML"]
     C --&gt; D["Discover 3 validators"]
@@ -9482,7 +9482,7 @@
     style C fill:#fff3e0
     style D fill:#fff3e0
     style E fill:#c8e6c9
-    style F fill:#f1f8e9</code></pre>
+    style F fill:#f1f8e9</div>
 <h3 id="creating-custom-validators">Creating Custom Validators<a class="headerlink" href="#creating-custom-validators" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Generate validator template</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:check:gen-validator<span class="w"> </span>my-validator
@@ -9508,7 +9508,7 @@
 <h2 id="orchestrator-v2-features">Orchestrator v2 Features<a class="headerlink" href="#orchestrator-v2-features" title="Permanent link">&para;</a></h2>
 <p>When a task scores 8-10 points, /craft:orchestrate v2 coordinates multiple agents.</p>
 <h3 id="multi-agent-coordination">Multi-Agent Coordination<a class="headerlink" href="#multi-agent-coordination" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A["Complex Task&lt;br/&gt;Score: 8-10"] --&gt;|"Plan phases"| B["Wave 1&lt;br/&gt;Architecture&lt;br/&gt;Planning"]
 
     B --&gt; C["Spawn parallel&lt;br/&gt;agents"]
@@ -9550,7 +9550,7 @@
     style L fill:#f0f4c3
     style M fill:#b2dfdb
     style N fill:#b2dfdb
-    style O fill:#f1f8e9</code></pre>
+    style O fill:#f1f8e9</div>
 <h3 id="resilience-patterns">Resilience Patterns<a class="headerlink" href="#resilience-patterns" title="Permanent link">&para;</a></h3>
 <p>Orchestrator v2 handles failures with 9 recovery strategies:</p>
 <table>
@@ -9613,7 +9613,7 @@
 <h2 id="session-teleportation">Session Teleportation<a class="headerlink" href="#session-teleportation" title="Permanent link">&para;</a></h2>
 <p>Resume work across devices with <code>/craft:orchestrate:resume</code></p>
 <h3 id="session-state-tracking">Session State Tracking<a class="headerlink" href="#session-state-tracking" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph LR
+<div class="mermaid">graph LR
     A["Session Start&lt;br/&gt;Device A"] --&gt; B["Auto-save&lt;br/&gt;Session State"]
     B --&gt; C["Encrypted Cloud&lt;br/&gt;Sync"]
     C --&gt; D["Device B&lt;br/&gt;Available"]
@@ -9627,7 +9627,7 @@
     style D fill:#b3e5fc
     style E fill:#c8e6c9
     style F fill:#dcedc8
-    style G fill:#f1f8e9</code></pre>
+    style G fill:#f1f8e9</div>
 <h3 id="using-session-teleportation">Using Session Teleportation<a class="headerlink" href="#using-session-teleportation" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Start work on Device A</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement feature X&quot;</span>

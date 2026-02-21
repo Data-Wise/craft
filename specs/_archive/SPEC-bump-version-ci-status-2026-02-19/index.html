@@ -8704,7 +8704,7 @@
 <h3 id="count-drift-prevention">Count Drift Prevention<a class="headerlink" href="#count-drift-prevention" title="Permanent link">&para;</a></h3>
 <p>As a <strong>maintainer</strong>, I want command/skill/agent counts auto-synced during version bump so "111 commands" vs "107 commands" drift never recurs.</p>
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
+<div class="mermaid">flowchart TD
     A["/release skill Step 3"] --&gt; B["scripts/bump-version.sh VERSION"]
     B --&gt; C["Detect actual counts"]
     C --&gt; D["Update version files"]
@@ -8715,7 +8715,7 @@
     H["/craft:ci:status"] --&gt; I["gh run list (craft repo)"]
     H --&gt; J["gh run list (homebrew-tap)"]
     I --&gt; K["Formatted dashboard output"]
-    J --&gt; K</code></pre>
+    J --&gt; K</div>
 <h2 id="component-a-scriptsbump-versionsh">Component A: <code>scripts/bump-version.sh</code><a class="headerlink" href="#component-a-scriptsbump-versionsh" title="Permanent link">&para;</a></h2>
 <h3 id="files-to-update">Files to Update<a class="headerlink" href="#files-to-update" title="Permanent link">&para;</a></h3>
 <table>

@@ -9646,7 +9646,7 @@
 <hr />
 <h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h2>
 <h3 id="system-components">System Components<a class="headerlink" href="#system-components" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TB
+<div class="mermaid">graph TB
     A[User Command] --&gt; B{Command Router}
     B --&gt;|lint| C[/craft:docs:lint]
     B --&gt;|check-links| D[/craft:docs:check-links]
@@ -9656,7 +9656,7 @@
     G --&gt; H[Language Detector]
     C --&gt; I[Exit Code Handler]
     D --&gt; I
-    I --&gt; J[VS Code Output]</code></pre>
+    I --&gt; J[VS Code Output]</div>
 <h3 id="file-structure">File Structure<a class="headerlink" href="#file-structure" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>craft/
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── commands/docs/

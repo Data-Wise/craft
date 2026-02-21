@@ -9065,7 +9065,7 @@
 <hr />
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
 <h3 id="current-state">Current State<a class="headerlink" href="#current-state" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     User[User runs /craft:docs:lint] --&gt; CLI[Command Parser]
     CLI --&gt; Detect[Detect Scope&lt;br/&gt;docs/*.md]
     Detect --&gt; MLint[markdownlint-cli2]
@@ -9080,10 +9080,10 @@
     Report --&gt; Output[Terminal Output]
 
     style Check2 fill:#ff9999
-    style Config fill:#ffee99</code></pre>
+    style Config fill:#ffee99</div>
 <p><strong>Problem:</strong> MD030 not explicitly configured - relies on <code>"default": true</code> which may not enforce strict spacing.</p>
 <h3 id="proposed-state">Proposed State<a class="headerlink" href="#proposed-state" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     User[User runs /craft:docs:lint] --&gt; CLI[Command Parser]
     CLI --&gt; Detect[Detect Scope&lt;br/&gt;docs/*.md]
     Detect --&gt; MLint[markdownlint-cli2]
@@ -9104,7 +9104,7 @@
 
     style Check2 fill:#99ff99
     style AutoFix fill:#99ccff
-    style Config fill:#99ff99</code></pre>
+    style Config fill:#99ff99</div>
 <p><strong>Solution:</strong> Explicit MD030 configuration with auto-fix integration.</p>
 <hr />
 <h2 id="technical-requirements">Technical Requirements<a class="headerlink" href="#technical-requirements" title="Permanent link">&para;</a></h2>
@@ -9291,7 +9291,7 @@
 <hr />
 <h2 id="uiux-specifications">UI/UX Specifications<a class="headerlink" href="#uiux-specifications" title="Permanent link">&para;</a></h2>
 <h3 id="user-flow-detecting-violations">User Flow: Detecting Violations<a class="headerlink" href="#user-flow-detecting-violations" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>sequenceDiagram
+<div class="mermaid">sequenceDiagram
     participant Dev as Developer
     participant CLI as /craft:docs:lint
     participant ML as markdownlint-cli2
@@ -9322,7 +9322,7 @@
     Out-&gt;&gt;Dev: ✓ Fixed 8 MD004 (markers)
     Out-&gt;&gt;Dev: ✓ Fixed 3 MD032 (blank lines)
     Out-&gt;&gt;Dev:
-    Out-&gt;&gt;Dev: Review with: git diff</code></pre>
+    Out-&gt;&gt;Dev: Review with: git diff</div>
 <h3 id="terminal-output-examples">Terminal Output Examples<a class="headerlink" href="#terminal-output-examples" title="Permanent link">&para;</a></h3>
 <h4 id="violation-report-no-fix">Violation Report (No --fix)<a class="headerlink" href="#violation-report-no-fix" title="Permanent link">&para;</a></h4>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>┌─────────────────────────────────────────────────────────────┐
