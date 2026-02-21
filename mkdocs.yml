@@ -53,6 +53,9 @@ theme:
 extra_css:
   - stylesheets/extra.css
 
+extra_javascript:
+  - javascripts/mermaid-init.js
+
 plugins:
   - search
   # TODO: Add mkdocs-redirects plugin (requires: pip install mkdocs-redirects)
