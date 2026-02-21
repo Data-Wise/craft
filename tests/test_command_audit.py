@@ -54,13 +54,15 @@ class TestCommandAudit:
         score = data["health_score"]
         assert 0 <= score <= 100, f"Health score {score} is out of range [0, 100]"
 
-    def test_audit_detects_known_issues(self):
-        """Audit detects at least some issues in the codebase."""
+    def test_audit_produces_consistent_counts(self):
+        """Error and warning counts match the length of their arrays."""
         result = _run_audit("--format", "json")
         data = json.loads(result.stdout)
-        total_issues = data["error_count"] + data["warning_count"]
-        assert total_issues > 0, (
-            "Expected at least some errors or warnings from the audit"
+        assert data["error_count"] == len(data["errors"]), (
+            f"error_count ({data['error_count']}) != len(errors) ({len(data['errors'])})"
+        )
+        assert data["warning_count"] == len(data["warnings"]), (
+            f"warning_count ({data['warning_count']}) != len(warnings) ({len(data['warnings'])})"
         )
 
     def test_audit_strict_mode(self):

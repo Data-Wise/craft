@@ -144,24 +144,40 @@ def fetch_releases(count, since=None):
     try:
         releases = json.loads(result.stdout)
     except json.JSONDecodeError:
-        # --paginate may produce concatenated JSON arrays
+        # --paginate may produce concatenated JSON arrays like [...][\n...]
+        # Split on boundaries and merge safely instead of string replace
         raw = result.stdout.strip()
-        # Try to handle multiple JSON arrays concatenated
-        if raw.startswith("[") and "][" in raw:
-            raw = raw.replace("][", ",")
         try:
-            releases = json.loads(raw)
+            decoder = json.JSONDecoder()
+            releases = []
+            idx = 0
+            while idx < len(raw):
+                # Skip whitespace between chunks
+                while idx < len(raw) and raw[idx] in " \t\n\r":
+                    idx += 1
+                if idx >= len(raw):
+                    break
+                obj, end_idx = decoder.raw_decode(raw, idx)
+                if isinstance(obj, list):
+                    releases.extend(obj)
+                else:
+                    releases.append(obj)
+                idx = end_idx
         except json.JSONDecodeError as e:
             print(f"Error: Failed to parse release data: {e}", file=sys.stderr)
             sys.exit(1)
+        return _filter_and_sort(releases, count, since)
 
     if not isinstance(releases, list):
         releases = [releases]
 
-    # Sort by published_at descending
+    return _filter_and_sort(releases, count, since)
+
+
+def _filter_and_sort(releases, count, since=None):
+    """Sort releases by date descending, apply --since filter, and limit to count."""
     releases.sort(key=lambda r: r.get("published_at", ""), reverse=True)
 
-    # Filter by --since
     if since:
         since_clean = since.lstrip("v")
         filtered = []

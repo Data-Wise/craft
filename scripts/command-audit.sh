@@ -6,6 +6,11 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+
+if [[ ! -f "$SCRIPT_DIR/formatting.sh" ]]; then
+    echo "Error: formatting.sh not found in $SCRIPT_DIR" >&2
+    exit 2
+fi
 source "$SCRIPT_DIR/formatting.sh"
 
 # ============================================================================
