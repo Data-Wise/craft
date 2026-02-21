@@ -308,12 +308,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Comprehensive CLAUDE.md management tools ported from local Claude Code (PR #39).
 
-**Commands (5 new):**
+**Commands (originally 5, now 3 active):**
 
-- `/craft:docs:claude-md:update` — Sync CLAUDE.md with project state
-- `/craft:docs:claude-md:audit` — Validate completeness and accuracy (5 checks, 3 severity levels)
-- `/craft:docs:claude-md:fix` — Auto-fix common issues (4 fix methods)
-- `/craft:docs:claude-md:scaffold` — Create from template (3 project types)
+- `/craft:docs:claude-md:init` — Create CLAUDE.md from lean template
+- `/craft:docs:claude-md:sync` — 4-phase pipeline (replaces update, audit, fix)
 - `/craft:docs:claude-md:edit` — Interactive section editing
 
 **Implementation:** 7 utility modules (2,713 lines Python), 3 project templates, 81 tests (100% passing, 0.024s), 3,304 lines documentation.
