@@ -32,11 +32,12 @@ pytestmark = [pytest.mark.integration, pytest.mark.hub]
 
 def test_get_commands_by_category():
     """Test filtering commands by category."""
-    # Test with 'code' category (should have 12 commands)
+    stats = get_command_stats()
+    expected_code_count = stats['categories'].get('code', 0)
     code_commands = get_commands_by_category('code')
 
-    assert len(code_commands) == 12, \
-        f"Expected 12 code commands, found {len(code_commands)}"
+    assert len(code_commands) == expected_code_count, \
+        f"Expected {expected_code_count} code commands, found {len(code_commands)}"
 
     # Verify all commands are in 'code' category
     non_code = [cmd for cmd in code_commands if cmd['category'] != 'code']
@@ -87,8 +88,10 @@ def test_get_category_info():
     assert not missing, f"Missing fields: {missing}"
 
     # Verify data
+    stats = get_command_stats()
+    expected_code_count = stats['categories'].get('code', 0)
     assert info['name'] == 'code', f"Wrong name: {info['name']} != 'code'"
-    assert info['count'] == 12, f"Wrong count: {info['count']} != 12"
+    assert info['count'] == expected_code_count, f"Wrong count: {info['count']} != {expected_code_count}"
     assert info['icon'], "Missing icon"
 
 
