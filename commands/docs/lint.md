@@ -1,7 +1,7 @@
 ---
 description: Markdown quality and error detection with auto-fix
 category: docs
-trigger: bash "${CRAFT_PLUGIN_ROOT}/scripts/docs-lint.sh"
+trigger: bash "${CLAUDE_PLUGIN_ROOT}/scripts/docs-lint.sh"
 arguments:
   - name: path
     description: "Specific file or directory to lint (default: .)"
