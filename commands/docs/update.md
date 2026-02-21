@@ -12,12 +12,12 @@ flags:
     description: Preview changes without writing
     default: "false"
   - name: category
-    description: Update only a specific category (e.g., version_refs, commands, features)
+    description: Update only a specific category
   - name: auto-yes
     description: Apply all updates without prompts
     default: "false"
   - name: post-merge
-    description: Post-merge pipeline — auto-fix safe categories, prompt for manual ones
+    description: Post-merge pipeline
     default: "false"
 examples:
   - command: /craft:docs:update --interactive
