@@ -1,8 +1,7 @@
 ---
 name: brainstorm
 description: Enhanced brainstorming with smart detection, design modes, time budgets, agent delegation, context-aware questions, and spec capture
-version: 2.5.0
-args:
+arguments:
   - name: depth
     description: "Analysis depth: q|quick|d|deep|m|max (default: balanced, shows menu if omitted)"
     required: false
