@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.25.0] - 2026-02-21: Release Watcher & Command Sync
+
+### Added
+
+- **`/craft:code:command-audit`** — Shell script validating all command/skill/agent frontmatter against schema, reports health score (0-100), supports `--fix`, `--strict`, and `--format json`
+- **`/craft:code:release-watch`** — Python script fetching Claude Code releases via GitHub API, identifies plugin-relevant changes by keyword categories, cross-references against craft state
+- **`/craft:code:desktop-watch`** — Instruction-driven command using web search to track Claude Desktop releases and integration opportunities
+- **`/craft:code:sync-features`** — Interactive skill chaining all three tools into a prioritized action plan with `AskUserQuestion` multiSelect
+- **12 new tests:** 7 command-audit tests + 5 release-watch tests
+
+### Removed
+
+- 4 deprecated claude-md commands (`audit`, `fix`, `scaffold`, `update`) — folded into `sync` and `init`
+
+### Changed
+
+- **Test count:** 62 tests → 74 tests (13 unit + 21 e2e + 28 dogfood + 12 watcher)
+- **Command count:** 108 → 107 (net: +3 new commands, -4 deprecated)
+- **Skill count:** 25 → 26 (+1 sync-features)
+- Cleaned invalid frontmatter fields from 24 files (agents, skills, commands)
+- Synced stale counts across 17 documentation files
+
+### Fixed
+
+- Shell injection vulnerability in command-audit `--fix` mode (pass values via sys.argv)
+- Fragile JSON pagination handling in release-watch (use JSONDecoder chunked parsing)
+
+---
+
 ## [2.24.0] - 2026-02-20: Claude Code v2.1.49 Integration
 
 ### Added

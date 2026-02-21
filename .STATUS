@@ -1,5 +1,5 @@
 status: Active
-version: 2.24.0
+version: 2.25.0
 release_date: 2026-02-20
 milestone: v2.24.0 released — Release Watcher feature planned
 last_session: 2026-02-21
@@ -34,7 +34,7 @@ progress: Fixed frontmatter bugs, planned release watcher system (4 new commands
 - Fixed stale skill counts (24→25) in 3 docs files, deployed site
 - Released v2.24.0: bump across 12 files, PR #100, merge (--admin), GitHub release, Homebrew tap, docs deploy
 - Post-release verification: all counts consistent, mkdocs strict clean, CI green on main
-- Stats: 108 commands, 25 skills, 8 agents, 62 core tests
+- Stats: 107 commands, 26 skills, 8 agents, 62 core tests
 
 ✅ Session 2026-02-20b (Claude Code v2.1.49 integration planning):
 - Researched Claude Code v2.1.49 release (worktree flag, agent isolation/background/memory/skills, plugin settings.json)
@@ -61,7 +61,7 @@ progress: Fixed frontmatter bugs, planned release watcher system (4 new commands
 - Released v2.23.1: bump across 14 files, PR #97, merge (--admin), GitHub release, docs deploy, Homebrew tap
 - Fixed stale release taglines in index.md and REFCARD.md
 - Deleted 10 merged remote feature branches + 1 stale local branch
-- Stats: 108 commands, 25 skills, 8 agents, 6 specs, ~1496 tests
+- Stats: 107 commands, 26 skills, 8 agents, 6 specs, ~1496 tests
 
 ✅ Session 2026-02-19c (v2.23.0 release):
 - Addressed PR #95 code review: added FILE_COUNT variable to bump-version.sh
@@ -69,7 +69,7 @@ progress: Fixed frontmatter bugs, planned release watcher system (4 new commands
 - Fixed spec count (8→7), added Unreleased CHANGELOG section
 - Released v2.23.0: bump across 11 files, PR #96, merge (--admin), GitHub release, docs deploy, Homebrew tap (already current)
 - Archived CLAUDE.md refactor spec (done), updated spec count (7→6)
-- Stats: 108 commands, 25 skills, 8 agents, 6 specs, ~1472 tests
+- Stats: 107 commands, 26 skills, 8 agents, 6 specs, ~1472 tests
 
 ✅ Session 2026-02-19b (docs cleanup & CLAUDE.md sync):
 - Synced CLAUDE.md: removed stale ORCHESTRATE ref, fixed spec count (8→7), test count (~1496→~1472)
