@@ -234,7 +234,7 @@ Pre-flight Check Plan:
   ✓ No known CVEs in dependencies
 
 [7/12] Documentation validation...
-  ✓ All command docs present (108 commands)
+  ✓ All command docs present (107 commands)
   ✓ All help files valid YAML
   ✓ mkdocs builds without warnings
 
@@ -501,7 +501,7 @@ Pre-flight Check Plan:
 [12/12] CLAUDE.md health...
   ✓ Line count: 187 lines (under 200 limit)
   ✓ Version present: v2.22.0
-  ⚠ Count accuracy: CLAUDE.md shows "108 commands" — actual count is 107
+  ⚠ Count accuracy: CLAUDE.md shows "107 commands" — actual count is 107
   ✓ Staleness: Quick Commands table matches command frontmatter
 
 Results: 10/12 checks passed, 3 warnings, 1 failure
