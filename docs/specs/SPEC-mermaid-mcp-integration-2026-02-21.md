@@ -168,6 +168,68 @@ Workflow:
 - [ ] Live browser preview functional during authoring
 - [ ] No regression in existing mermaid template functionality
 
+## Documentation Requirements
+
+| Document | Location | Content |
+|----------|----------|---------|
+| Command update | `commands/docs/mermaid.md` | Add NL creation usage, MCP validation flag, `--preview` |
+| Skill update | `skills/docs/mermaid-linter/skill.md` | Add MCP validation rules, health score output format |
+| Docs check update | `commands/docs/check.md` | Document new Mermaid Validation phase |
+| Guide page | `docs/guide/mermaid-authoring.md` | End-to-end guide: create, validate, preview, deploy |
+| REFCARD entry | `docs/REFCARD.md` | Quick reference for mermaid health score and lint rules |
+| CHANGELOG | `CHANGELOG.md` | Feature entry for Mermaid MCP integration |
+| mkdocs nav | `mkdocs.yml` | Add guide page to navigation |
+
+## Test Plan
+
+### Unit Tests (`tests/test_mermaid_validation.py`)
+
+| Test | Description | Marker |
+|------|-------------|--------|
+| `test_regex_detects_leading_slash` | `[/text]` detected in mermaid blocks | `@pytest.mark.unit` |
+| `test_regex_detects_lowercase_end` | Lowercase `end` in node labels detected | `@pytest.mark.unit` |
+| `test_regex_detects_unquoted_special_chars` | Colons/brackets without quotes detected | `@pytest.mark.unit` |
+| `test_regex_detects_br_tags` | `<br/>` in mermaid blocks detected | `@pytest.mark.unit` |
+| `test_regex_detects_deprecated_graph` | `graph TB` flagged, `flowchart TD` passes | `@pytest.mark.unit` |
+| `test_autofix_quotes_slash_labels` | `[/text]` -> `["/text"]` | `@pytest.mark.unit` |
+| `test_autofix_capitalizes_end` | `[end]` -> `[End]` | `@pytest.mark.unit` |
+| `test_autofix_quotes_special_chars` | `[a:b]` -> `["a:b"]` | `@pytest.mark.unit` |
+| `test_autofix_replaces_br_tags` | `<br/>` -> markdown strings | `@pytest.mark.unit` |
+| `test_autofix_graph_to_flowchart` | `graph TB` -> `flowchart TB` | `@pytest.mark.unit` |
+| `test_autofix_preserves_valid_diagrams` | Clean diagrams unchanged | `@pytest.mark.unit` |
+| `test_health_score_calculation` | Score = 0.5*validity + 0.3*practices + 0.2*rendering | `@pytest.mark.unit` |
+| `test_health_score_thresholds` | >= 80 pass, < 80 fail gate | `@pytest.mark.unit` |
+| `test_block_extraction_from_markdown` | Correctly extracts mermaid fenced blocks | `@pytest.mark.unit` |
+| `test_block_extraction_ignores_non_mermaid` | Doesn't match ```python or```bash blocks | `@pytest.mark.unit` |
+
+### E2E Tests (`tests/test_mermaid_e2e.py`)
+
+| Test | Description | Marker |
+|------|-------------|--------|
+| `test_mcp_mermaid_validates_good_diagram` | MCP returns valid for clean diagram | `@pytest.mark.e2e, @pytest.mark.mermaid` |
+| `test_mcp_mermaid_rejects_bad_diagram` | MCP returns error for `[/text]` syntax | `@pytest.mark.e2e, @pytest.mark.mermaid` |
+| `test_docs_check_includes_mermaid_phase` | `/craft:docs:check` output includes mermaid section | `@pytest.mark.e2e, @pytest.mark.docs` |
+| `test_all_existing_blocks_pass_validation` | Every mermaid block in docs/ passes local regex | `@pytest.mark.e2e, @pytest.mark.mermaid` |
+| `test_autofix_produces_valid_output` | Auto-fixed files pass MCP validation | `@pytest.mark.e2e, @pytest.mark.mermaid` |
+| `test_health_score_reports_in_docs_check` | Health score appears in check output | `@pytest.mark.e2e, @pytest.mark.docs` |
+| `test_precommit_catches_bad_mermaid` | Pre-commit hook blocks commit with broken diagram | `@pytest.mark.e2e, @pytest.mark.mermaid` |
+| `test_mermaid_linter_skill_updated` | Skill references MCP validation | `@pytest.mark.e2e, @pytest.mark.structure` |
+
+### Dogfood Tests (`tests/test_mermaid_dogfood.py`)
+
+| Test | Description | Marker |
+|------|-------------|--------|
+| `test_all_docs_mermaid_blocks_have_valid_syntax` | Every block in docs/ passes regex lint | `@pytest.mark.dogfood, @pytest.mark.mermaid` |
+| `test_no_leading_slash_in_mermaid_labels` | Zero `[/` patterns in any mermaid block | `@pytest.mark.dogfood, @pytest.mark.mermaid` |
+| `test_no_lowercase_end_in_mermaid` | Zero lowercase `end` in mermaid node labels | `@pytest.mark.dogfood, @pytest.mark.mermaid` |
+| `test_no_br_tags_in_mermaid` | Zero `<br/>` in mermaid blocks | `@pytest.mark.dogfood, @pytest.mark.mermaid` |
+| `test_mermaid_health_score_above_threshold` | Health score >= 80 for entire docs/ | `@pytest.mark.dogfood, @pytest.mark.mermaid` |
+| `test_mermaid_command_has_mcp_docs` | `/craft:docs:mermaid` documents MCP validation | `@pytest.mark.dogfood, @pytest.mark.structure` |
+| `test_mermaid_linter_skill_has_mcp_rules` | Skill file includes MCP validation rules | `@pytest.mark.dogfood, @pytest.mark.structure` |
+| `test_mkdocs_yml_has_mermaid_init_js` | `extra_javascript` includes `mermaid-init.js` | `@pytest.mark.dogfood, @pytest.mark.structure` |
+| `test_mermaid_init_js_exists` | `docs/javascripts/mermaid-init.js` exists | `@pytest.mark.dogfood, @pytest.mark.structure` |
+| `test_docs_check_command_mentions_mermaid` | Check command docs include mermaid phase | `@pytest.mark.dogfood, @pytest.mark.docs` |
+
 ## Known Risks (from session insights)
 
 - **CDN cache propagation** — deployed fixes may not be visible for 5-10 minutes. Add cache-busting to deploy verification.
