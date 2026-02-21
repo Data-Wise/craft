@@ -6,12 +6,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 108 commands, 8 AI agents, and 25 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 107 commands, 8 AI agents, and 26 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 107 commands, 8 agents, 26 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -62,7 +62,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 108 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 107 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -108,7 +108,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 108 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 107 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -179,7 +179,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 108 commands organized
+    All 107 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](guide/skills-agents.md)**
 
@@ -191,7 +191,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 108 commands
+    Complete documentation for all 107 commands
 
 </div>
 
@@ -211,7 +211,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.24.0 — Claude Code v2.1.49 Integration"
+!!! info "Latest: v2.25.0 — Claude Code v2.1.49 Integration"
     Agent platform features (background, memory, skills), 49 new e2e/dogfood tests (62 core tests total), multi-repo workflow guide, worktree path comparison docs. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links

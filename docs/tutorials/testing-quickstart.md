@@ -128,7 +128,7 @@ python3 -m pytest tests/test_plugin_e2e.py -v
 # Dogfood: runs craft's own scripts against the live repo (28 tests, ~1.9s)
 python3 -m pytest tests/test_plugin_dogfood.py -v
 
-# Both together with the unit suite (62 tests, ~2.5s)
+# Both together with the unit suite (74 tests, ~2.5s)
 python3 -m pytest tests/test_craft_plugin.py tests/test_plugin_e2e.py tests/test_plugin_dogfood.py -v
 ```
 

@@ -1,14 +1,7 @@
 ---
 name: homebrew-formula-expert
 description: Expert knowledge of Homebrew formula creation, best practices, and troubleshooting
-version: 1.0.0
 category: distribution
-triggers:
-  - homebrew formula
-  - brew formula
-  - homebrew tap
-  - formula syntax
-  - brew audit
 ---
 
 # Homebrew Formula Expert

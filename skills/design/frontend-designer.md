@@ -1,18 +1,6 @@
 ---
 name: frontend-designer
 description: Auto-activates for UI/UX design, component architecture, accessibility, and frontend performance. Provides pragmatic design guidance with ADHD-friendly patterns.
-triggers:
-  - UI design
-  - UX design
-  - component architecture
-  - accessibility
-  - responsive design
-  - frontend performance
-  - React component
-  - Vue component
-  - state management
-  - form design
-  - layout design
 ---
 
 # Frontend Designer Skill

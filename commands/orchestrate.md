@@ -2,13 +2,6 @@
 name: orchestrate
 description: Launch orchestrator mode with subagent delegation, monitoring, mode-aware execution, and chat compression
 category: smart
-agent: orchestrator-v2
-version: 1.1.0
-triggers:
-  - /craft:orchestrate
-  - orchestrate
-  - spawn agents
-  - delegate tasks
 arguments:
   - name: task
     description: Task description

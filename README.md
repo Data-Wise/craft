@@ -2,12 +2,12 @@
 
 [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml)
 [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.24.0-blue.svg)](https://github.com/Data-Wise/craft)
+[![Version](https://img.shields.io/badge/version-2.25.0-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.24.0 - Claude Code v2.1.49 Integration** 🚀
-> **108 commands** | **25 skills** | **8 agents** | **62 core tests + ~1496 total**
-> Agent platform features (background, memory, skills), 49 new e2e/dogfood tests, multi-repo workflow guide.
+> **v2.25.0 - Release Watcher & Command Sync** 🚀
+> **107 commands** | **26 skills** | **8 agents** | **74 core tests + ~1496 total**
+> Release tracking, command audit, frontmatter cleanup, 12 new watcher tests.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -145,7 +145,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 25 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 107 commands, 8 agents, 26 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -521,7 +521,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
 - 📖 **[Commands Reference](docs/commands.md)** - All 86 commands documented
-- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 25 skills, 8 agents
+- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 26 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards

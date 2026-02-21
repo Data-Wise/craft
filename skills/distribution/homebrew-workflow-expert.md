@@ -1,14 +1,7 @@
 ---
 name: homebrew-workflow-expert
 description: Expert knowledge of GitHub Actions workflows for automated Homebrew formula updates and releases
-version: 1.0.0
 category: distribution
-triggers:
-  - homebrew workflow
-  - homebrew release automation
-  - homebrew github actions
-  - formula auto-update
-  - homebrew tap workflow
 ---
 
 # Homebrew Workflow Expert

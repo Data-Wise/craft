@@ -27,7 +27,6 @@ arguments:
     default: all
     alias: -s
 tags: [documentation, claude-md, sync, audit, fix, optimize]
-version: 2.0.0
 ---
 
 # /craft:docs:claude-md:sync - Unified CLAUDE.md Sync

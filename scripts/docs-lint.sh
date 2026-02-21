@@ -9,7 +9,7 @@
 #   ./scripts/docs-lint.sh --fix --dry  # Preview fixes without applying
 #
 # Environment:
-#   CRAFT_PLUGIN_ROOT: Root of craft plugin (auto-detected)
+#   CLAUDE_PLUGIN_ROOT: Root of craft plugin (auto-detected)
 #   MARKDOWNLINT_CONFIG: Path to config file (default: .markdownlint.json)
 
 set -euo pipefail

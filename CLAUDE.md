@@ -4,9 +4,9 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**108 commands** · **25 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**107 commands** · **26 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.24.0 | **Tests:** 62 tests passing (13 unit + 21 e2e + 28 dogfood)
+**Current Version:** v2.25.0 | **Tests:** 74 tests passing (13 unit + 21 e2e + 28 dogfood + 12 watcher)
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 

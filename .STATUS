@@ -1,18 +1,40 @@
 status: Active
-version: 2.24.0
-release_date: 2026-02-19
-milestone: v2.23.1 released — Hub Rewrite & Cleanup
-last_session: 2026-02-20
+version: 2.25.0
+release_date: 2026-02-20
+milestone: v2.24.0 released — Release Watcher feature planned
+last_session: 2026-02-21
 
-progress: Brainstormed Claude Code v2.1.49 integration. Spec + orchestration plan ready. Worktree created for implementation.
+progress: Fixed frontmatter bugs, planned release watcher system (4 new commands), created worktree for implementation.
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                               |
-|--------|---------|------|--------------------------------------|
-| main   | 4c807c8 | —    | Production (v2.23.1 + docs fixes)    |
-| dev    | 4d7cbe3 | main | Synced with main                     |
-| feature/claude-code-integration | ca39e9c | dev | Orchestration plan committed, ready to implement |
+| Branch | Head     | Base | Status                               |
+|--------|----------|------|--------------------------------------|
+| main   | d6e8838  | —    | Production (v2.24.0)                 |
+| dev    | 9a78731  | main | 3 commits ahead (frontmatter fixes)  |
+| feature/release-watcher | dfe800e | dev | Worktree: ~/.git-worktrees/craft/feature-release-watcher |
+
+✅ Session 2026-02-21 (debug, frontmatter cleanup, release watcher brainstorm):
+- Debugged `/craft:docs:lint` exit 127: `CRAFT_PLUGIN_ROOT` not a real variable, fixed to `CLAUDE_PLUGIN_ROOT`
+- Discovered `trigger:` frontmatter field not in schema, removed from `docs/lint.md`
+- Audited all 108 commands for invalid frontmatter: found 3 files with violations
+- Fixed: `orchestrate.md` (removed `agent`, `version`, `triggers`), `brainstorm.md` (renamed `args` → `arguments`, removed `version`), `claude-md/sync.md` (removed `version`)
+- Confirmed `trigger` is not a valid command schema field (`additionalProperties: false`)
+- Confirmed no other commands use `trigger:` or `CLAUDE_PLUGIN_ROOT` in triggers
+- Max brainstorm: researched Claude Code v2.1.50 + Claude Desktop releases (3 parallel agents)
+- Created BRAINSTORM-release-watcher-2026-02-21.md (4 new commands proposed)
+- Created SPEC-release-watcher-2026-02-21.md (7 increments, 12 acceptance criteria)
+- Created worktree: ~/.git-worktrees/craft/feature-release-watcher
+- Committed ORCHESTRATE-release-watcher.md (7-phase plan) to feature branch
+
+✅ Session 2026-02-20c (v2.24.0 release — Claude Code v2.1.49 integration):
+- Reviewed PR #99: identified ORCHESTRATE cleanup + verified skill references
+- Removed ORCHESTRATE file from feature branch, pushed cleanup commit
+- Merged PR #99 to dev (squash), removed worktree
+- Fixed stale skill counts (24→25) in 3 docs files, deployed site
+- Released v2.24.0: bump across 12 files, PR #100, merge (--admin), GitHub release, Homebrew tap, docs deploy
+- Post-release verification: all counts consistent, mkdocs strict clean, CI green on main
+- Stats: 107 commands, 26 skills, 8 agents, 62 core tests
 
 ✅ Session 2026-02-20b (Claude Code v2.1.49 integration planning):
 - Researched Claude Code v2.1.49 release (worktree flag, agent isolation/background/memory/skills, plugin settings.json)
@@ -39,7 +61,7 @@ progress: Brainstormed Claude Code v2.1.49 integration. Spec + orchestration pla
 - Released v2.23.1: bump across 14 files, PR #97, merge (--admin), GitHub release, docs deploy, Homebrew tap
 - Fixed stale release taglines in index.md and REFCARD.md
 - Deleted 10 merged remote feature branches + 1 stale local branch
-- Stats: 108 commands, 25 skills, 8 agents, 6 specs, ~1496 tests
+- Stats: 107 commands, 26 skills, 8 agents, 6 specs, ~1496 tests
 
 ✅ Session 2026-02-19c (v2.23.0 release):
 - Addressed PR #95 code review: added FILE_COUNT variable to bump-version.sh
@@ -47,7 +69,7 @@ progress: Brainstormed Claude Code v2.1.49 integration. Spec + orchestration pla
 - Fixed spec count (8→7), added Unreleased CHANGELOG section
 - Released v2.23.0: bump across 11 files, PR #96, merge (--admin), GitHub release, docs deploy, Homebrew tap (already current)
 - Archived CLAUDE.md refactor spec (done), updated spec count (7→6)
-- Stats: 108 commands, 25 skills, 8 agents, 6 specs, ~1472 tests
+- Stats: 107 commands, 26 skills, 8 agents, 6 specs, ~1472 tests
 
 ✅ Session 2026-02-19b (docs cleanup & CLAUDE.md sync):
 - Synced CLAUDE.md: removed stale ORCHESTRATE ref, fixed spec count (8→7), test count (~1496→~1472)
@@ -68,15 +90,14 @@ progress: Brainstormed Claude Code v2.1.49 integration. Spec + orchestration pla
 ---
 
 🎯 Next Action:
-→ cd ~/.git-worktrees/craft/feature-claude-code-integration && claude
-→ Implement 5 increments from ORCHESTRATE-claude-code-integration.md
-→ Increments 1-3 (code) and 4-5 (docs) can be parallelized
+→ Implement release watcher: `cd ~/.git-worktrees/craft/feature-release-watcher && claude`
+→ Start with Phase 1 (command-audit shell script) from ORCHESTRATE plan
 
-## Future (v2.24.0+)
+## Future (v2.25.0+)
 
-- Claude Code v2.1.49 integration (in progress — feature/claude-code-integration)
+- Release watcher system (4 commands — in progress on feature branch)
+- Remove 4 deprecated claude-md commands (part of release watcher Phase 2)
 - Missing docs help pages for 14 docs sub-commands
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
-- Remove deprecation aliases for old claude-md commands

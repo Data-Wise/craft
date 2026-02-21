@@ -1,19 +1,6 @@
 ---
 name: devops-helper
 description: Auto-activates for CI/CD, deployment, Docker, testing automation, and infrastructure decisions. Provides pragmatic DevOps guidance for indie developers.
-triggers:
-  - CI/CD
-  - deployment
-  - Docker
-  - GitHub Actions
-  - testing automation
-  - infrastructure
-  - deployment pipeline
-  - continuous integration
-  - container
-  - Kubernetes
-  - hosting
-  - environment variables
 ---
 
 # DevOps Helper Skill

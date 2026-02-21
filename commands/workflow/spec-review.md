@@ -1,8 +1,7 @@
 ---
 name: spec-review
 description: Interactive review of spec documents with validation, status updates, and archival
-version: 1.0.0
-args:
+arguments:
   - name: topic
     description: "Topic/name of spec to review (optional, lists specs if omitted)"
     required: false
