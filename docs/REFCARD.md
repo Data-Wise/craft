@@ -1451,7 +1451,7 @@ end tell'
 ```mermaid
 graph LR
     A[sessions] --> B[facets data]
-    B --> C[/craft:insights]
+    B --> C["/craft:insights"]
     C --> D[CLAUDE.md rules]
     C --> E[ORCHESTRATE friction prevention]
     C --> F[brainstorm context]

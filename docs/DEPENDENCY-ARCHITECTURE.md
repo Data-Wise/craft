@@ -19,7 +19,7 @@ Visual architecture diagrams and system design documentation.
 ```mermaid
 graph TB
     subgraph "User Interface"
-        CMD[/craft:docs:demo]
+        CMD["/craft:docs:demo"]
         CLI["CLI Flags<br/>--check, --fix, --convert, --batch"]
     end
 

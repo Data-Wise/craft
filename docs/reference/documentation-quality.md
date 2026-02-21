@@ -499,8 +499,8 @@ GitHub Actions workflow:
 ```mermaid
 graph LR
     A[Edit Docs] --> B{Run /craft:check}
-    B -->|Docs Changed| C[/craft:docs:lint --fix]
-    C --> D[/craft:docs:check-links]
+    B -->|Docs Changed| C["/craft:docs:lint --fix"]
+    C --> D["/craft:docs:check-links"]
     D -->|Pass| E[Commit]
     D -->|Fail| F[Fix Issues]
     F --> A

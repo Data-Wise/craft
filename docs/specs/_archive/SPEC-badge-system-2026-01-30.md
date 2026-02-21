@@ -114,7 +114,7 @@ graph TB
     B -->|/craft:site:update| C[Site Update Flow]
     B -->|/craft:docs:update| D[Docs Update Flow]
     B -->|git push| E[Pre-Push Hook]
-    B -->|Manual| F[/craft:badges:sync]
+    B -->|Manual| F["/craft:badges:sync"]
 
     C --> G[Update Site Content]
     G --> H[Sync Badges]

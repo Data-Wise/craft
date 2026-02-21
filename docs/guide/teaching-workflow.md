@@ -122,7 +122,7 @@ graph TD
     A[Working on dev] -->|/craft:site:build| B[Preview Build]
     B --> C{Looks good?}
     C -->|No| A
-    C -->|Yes| D[/craft:site:publish]
+    C -->|Yes| D["/craft:site:publish"]
     D --> E[Run Validation]
     E --> F{Valid?}
     F -->|No| G[Show Errors]
