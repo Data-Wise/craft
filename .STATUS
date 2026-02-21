@@ -1,17 +1,31 @@
 status: Active
 version: 2.24.0
 release_date: 2026-02-20
-milestone: v2.24.0 released — Claude Code v2.1.49 Integration
-last_session: 2026-02-20
+milestone: v2.24.0 released — Release Watcher feature planned
+last_session: 2026-02-21
 
-progress: Released v2.24.0 with agent platform features, 49 new tests, and multi-repo workflow docs.
+progress: Fixed frontmatter bugs, planned release watcher system (4 new commands), created worktree for implementation.
 
 📊 Branch Status:
 
-| Branch | Head    | Base | Status                               |
-|--------|---------|------|--------------------------------------|
-| main   | d6e8838 | —    | Production (v2.24.0)                 |
-| dev    | d6e8838 | main | Synced with main                     |
+| Branch | Head     | Base | Status                               |
+|--------|----------|------|--------------------------------------|
+| main   | d6e8838  | —    | Production (v2.24.0)                 |
+| dev    | 9a78731  | main | 3 commits ahead (frontmatter fixes)  |
+| feature/release-watcher | dfe800e | dev | Worktree: ~/.git-worktrees/craft/feature-release-watcher |
+
+✅ Session 2026-02-21 (debug, frontmatter cleanup, release watcher brainstorm):
+- Debugged `/craft:docs:lint` exit 127: `CRAFT_PLUGIN_ROOT` not a real variable, fixed to `CLAUDE_PLUGIN_ROOT`
+- Discovered `trigger:` frontmatter field not in schema, removed from `docs/lint.md`
+- Audited all 108 commands for invalid frontmatter: found 3 files with violations
+- Fixed: `orchestrate.md` (removed `agent`, `version`, `triggers`), `brainstorm.md` (renamed `args` → `arguments`, removed `version`), `claude-md/sync.md` (removed `version`)
+- Confirmed `trigger` is not a valid command schema field (`additionalProperties: false`)
+- Confirmed no other commands use `trigger:` or `CLAUDE_PLUGIN_ROOT` in triggers
+- Max brainstorm: researched Claude Code v2.1.50 + Claude Desktop releases (3 parallel agents)
+- Created BRAINSTORM-release-watcher-2026-02-21.md (4 new commands proposed)
+- Created SPEC-release-watcher-2026-02-21.md (7 increments, 12 acceptance criteria)
+- Created worktree: ~/.git-worktrees/craft/feature-release-watcher
+- Committed ORCHESTRATE-release-watcher.md (7-phase plan) to feature branch
 
 ✅ Session 2026-02-20c (v2.24.0 release — Claude Code v2.1.49 integration):
 - Reviewed PR #99: identified ORCHESTRATE cleanup + verified skill references
@@ -76,14 +90,14 @@ progress: Released v2.24.0 with agent platform features, 49 new tests, and multi
 ---
 
 🎯 Next Action:
-→ No urgent tasks — v2.24.0 shipped and deployed
-→ Consider: docs help pages for 14 docs sub-commands
-→ Consider: coaching mode (Phase 3 of guard design)
+→ Implement release watcher: `cd ~/.git-worktrees/craft/feature-release-watcher && claude`
+→ Start with Phase 1 (command-audit shell script) from ORCHESTRATE plan
 
 ## Future (v2.25.0+)
 
+- Release watcher system (4 commands — in progress on feature branch)
+- Remove 4 deprecated claude-md commands (part of release watcher Phase 2)
 - Missing docs help pages for 14 docs sub-commands
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
-- Remove deprecation aliases for old claude-md commands
