@@ -9522,13 +9522,13 @@
 <h2 id="architecture-before-vs-after-merge">Architecture: Before vs After Merge<a class="headerlink" href="#architecture-before-vs-after-merge" title="Permanent link">&para;</a></h2>
 <h3 id="before-separate-commands-current">Before: Separate Commands (Current)<a class="headerlink" href="#before-separate-commands-current" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph TD
-    User[User] --&gt;|runs| Sync[/craft:docs:sync]
+    User[User] --&gt;|runs| Sync["/craft:docs:sync"]
     Sync --&gt;|scans| Git[Git History]
     Sync --&gt;|outputs| Report[Report: "3 docs stale, guide score: 7"]
 
     Report --&gt;|user sees| Recommendation["Suggested: /craft:docs:update"]
 
-    User --&gt;|manually runs| Update[/craft:docs:update]
+    User --&gt;|manually runs| Update["/craft:docs:update"]
     Update --&gt;|prompts| UserPrompts[Category prompts]
     UserPrompts --&gt;|approves| Changes[Apply changes]
 
@@ -9546,7 +9546,7 @@
 </ul>
 <h3 id="after-merged-command-proposed">After: Merged Command (Proposed)<a class="headerlink" href="#after-merged-command-proposed" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph TD
-    User[User] --&gt;|runs| Update[/craft:docs:update]
+    User[User] --&gt;|runs| Update["/craft:docs:update"]
 
     Update --&gt;|Step 1| Detect[Auto-detect changes]
     Detect --&gt;|scans| Git[Git History]

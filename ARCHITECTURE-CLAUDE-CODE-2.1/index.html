@@ -8971,9 +8971,9 @@
     end
 
     subgraph "Wave 1: Foundation"
-        Do[/craft:do Command]
+        Do["/craft:do Command"]
         Scorer[Complexity Scorer]
-        Check[/craft:check Command]
+        Check["/craft:check Command"]
         Validators[Hot-Reload Validators]
         Hooks[Orchestration Hooks]
     end
@@ -9151,9 +9151,9 @@
     Score --&gt; R8_10{Score 8-10}
 
     R0_3 --&gt;|Simple| Map1[Map to Command]
-    Map1 --&gt; Exec1[/craft:code:lint]
-    Map1 --&gt; Exec2[/craft:test]
-    Map1 --&gt; Exec3[/craft:git:status]
+    Map1 --&gt; Exec1["/craft:code:lint"]
+    Map1 --&gt; Exec2["/craft:test"]
+    Map1 --&gt; Exec3["/craft:git:status"]
 
     R4_7 --&gt;|Medium| Map2[Select Agent]
     Map2 --&gt; A1[code-quality agent]

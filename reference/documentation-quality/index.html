@@ -10384,8 +10384,8 @@ code here</p>
 <h3 id="development-cycle">Development Cycle<a class="headerlink" href="#development-cycle" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph LR
     A[Edit Docs] --&gt; B{Run /craft:check}
-    B --&gt;|Docs Changed| C[/craft:docs:lint --fix]
-    C --&gt; D[/craft:docs:check-links]
+    B --&gt;|Docs Changed| C["/craft:docs:lint --fix"]
+    C --&gt; D["/craft:docs:check-links"]
     D --&gt;|Pass| E[Commit]
     D --&gt;|Fail| F[Fix Issues]
     F --&gt; A

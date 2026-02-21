@@ -9648,8 +9648,8 @@
 <h3 id="system-components">System Components<a class="headerlink" href="#system-components" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph TB
     A[User Command] --&gt; B{Command Router}
-    B --&gt;|lint| C[/craft:docs:lint]
-    B --&gt;|check-links| D[/craft:docs:check-links]
+    B --&gt;|lint| C["craft:docs:lint"]
+    B --&gt;|check-links| D["craft:docs:check-links"]
     C --&gt; E[markdownlint-cli2]
     D --&gt; F[markdown-link-check]
     E --&gt; G[Auto-fix Engine]

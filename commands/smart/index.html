@@ -9064,12 +9064,12 @@
 <h3 id="decision-flow">Decision Flow<a class="headerlink" href="#decision-flow" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>flowchart TD
     A[I need to...] --&gt; B{Know which command?}
-    B --&gt;|No| C[/craft:help]
+    B --&gt;|No| C["/craft:help"]
     B --&gt;|Yes| D{Single action?}
     D --&gt;|Yes| E[Use specific command]
     D --&gt;|No| F{Complexity?}
-    F --&gt;|Unknown| G[/craft:do]
-    F --&gt;|High 8-10| H[/craft:orchestrate]
+    F --&gt;|Unknown| G["/craft:do"]
+    F --&gt;|High 8-10| H["/craft:orchestrate"]
     F --&gt;|Medium 4-7| G
     F --&gt;|Low 0-3| E
 
@@ -9078,7 +9078,7 @@
     I --&gt;|No| E
 
     E --&gt; J[Before commit?]
-    J --&gt;|Yes| K[/craft:check]
+    J --&gt;|Yes| K["/craft:check"]
     J --&gt;|No| L[Done]
 
     style G fill:#4CAF50

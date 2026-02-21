@@ -9714,7 +9714,7 @@ Solo instructors currently manage course sites through manual git branch switchi
 <hr />
 <h4 id="publish-workflow">Publish Workflow<a class="headerlink" href="#publish-workflow" title="Permanent link">&para;</a></h4>
 <pre class="mermaid"><code>flowchart TD
-    Start[/craft:site:publish] --&gt; ValidateDraft[Validate draft branch]
+    Start["/craft:site:publish"] --&gt; ValidateDraft[Validate draft branch]
     ValidateDraft --&gt;|Fails| ShowErrors[Show validation errors]
     ShowErrors --&gt; AskFix{Continue anyway?}
     AskFix --&gt;|No| Abort[Abort publish]
