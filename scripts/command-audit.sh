@@ -184,12 +184,12 @@ except:
             else
                 if [[ $FIX_MODE -eq 1 ]]; then
                     # Auto-fix: remove invalid field (only top-level simple fields)
-                    # Use python to safely remove the field
+                    # Pass file and key as sys.argv to avoid shell injection
                     python3 -c "
-import re, sys
-with open('$file', 'r') as f:
+import sys
+filepath, field_key = sys.argv[1], sys.argv[2]
+with open(filepath, 'r') as f:
     content = f.read()
-# Remove the field line from frontmatter
 lines = content.split('\n')
 new_lines = []
 in_fm = False
@@ -203,16 +203,16 @@ for line in lines:
         new_lines.append(line)
         continue
     if in_fm and fm_count == 1:
-        if line.startswith('$key:'):
+        if line.startswith(field_key + ':'):
             skip_indent = True
             continue
         if skip_indent and line.startswith('  '):
             continue
         skip_indent = False
     new_lines.append(line)
-with open('$file', 'w') as f:
+with open(filepath, 'w') as f:
     f.write('\n'.join(new_lines))
-" 2>/dev/null && {
+" "$file" "$key" 2>/dev/null && {
                         FIXES_APPLIED=$((FIXES_APPLIED + 1))
                         add_suggestion "$file" "auto-fixed: removed invalid field '$key'"
                     } || {
