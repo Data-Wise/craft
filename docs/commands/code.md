@@ -1,6 +1,6 @@
 # Code & Testing Commands
 
-Development workflow tools with mode support - 17 commands.
+Development workflow tools with mode support - 21 commands.
 
 ## When to Use What
 
@@ -88,6 +88,24 @@ Run CLI-specific tests with output validation.
 ### /craft:test --watch
 
 Watch mode for continuous testing during development.
+
+## Release & Compatibility
+
+### /craft:code:command-audit
+
+Validate command frontmatter, find deprecated patterns, report health score.
+
+### /craft:code:release-watch
+
+Track Claude Code releases and identify plugin-relevant changes.
+
+### /craft:code:desktop-watch
+
+Track Claude Desktop releases and identify integration opportunities.
+
+### /craft:code:sync-features
+
+Interactive wizard that chains command-audit, release-watch, and desktop-watch into a prioritized action plan.
 
 ## Other Commands
 

@@ -1,17 +1,6 @@
 ---
 name: backend-designer
 description: Auto-activates for backend architecture, API design, database decisions, and authentication patterns. Provides pragmatic design guidance following "solid indie" principles.
-triggers:
-  - API design
-  - backend architecture
-  - database schema
-  - authentication
-  - REST API
-  - GraphQL
-  - authentication flow
-  - session management
-  - rate limiting
-  - caching strategy
 ---
 
 # Backend Designer Skill

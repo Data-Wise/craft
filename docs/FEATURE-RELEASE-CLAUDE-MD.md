@@ -67,7 +67,7 @@ The Claude-MD Command Suite is a comprehensive set of tools for managing CLAUDE.
 
 ### 2. Validation (now part of `sync`)
 
-> **Deprecation:** The standalone `/craft:docs:claude-md:audit` command has been folded into `sync`. Use `/craft:docs:claude-md:sync` which runs validation as part of its pipeline. The `audit` name remains as an alias until v2.13.0.
+> **Note:** The standalone `/craft:docs:claude-md:audit` command has been removed. Use `/craft:docs:claude-md:sync` which runs validation as part of its pipeline.
 
 **Validation Checks (run during sync):**
 
@@ -91,7 +91,7 @@ The Claude-MD Command Suite is a comprehensive set of tools for managing CLAUDE.
 
 ### 3. Auto-fix (now `sync --fix`)
 
-> **Deprecation:** The standalone `/craft:docs:claude-md:fix` command has been folded into `sync --fix`. The `fix` name remains as an alias until v2.13.0.
+> **Note:** The standalone `/craft:docs:claude-md:fix` command has been removed. Use `/craft:docs:claude-md:sync --fix` instead.
 
 **Fix Methods (available via `--fix` flag):**
 
@@ -721,12 +721,9 @@ We welcome contributions! Priority areas:
 ```
 38 files changed (+15,997/-271)
 
-Commands (5):
-  commands/docs/claude-md/update.md       (556 lines)
-  commands/docs/claude-md/audit.md        (278 lines)
-  commands/docs/claude-md/fix.md          (368 lines)
-  commands/docs/claude-md/scaffold.md     (443 lines)
+Commands (1 remaining, 4 removed):
   commands/docs/claude-md/edit.md         (526 lines)
+  # Removed: update.md, audit.md, fix.md, scaffold.md (deprecated, folded into sync/init)
 
 Utilities (7):
   utils/claude_md_detector.py             (483 lines)

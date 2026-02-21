@@ -1,14 +1,7 @@
 ---
 name: session-state
 description: Manages orchestrator session state persistence - save, load, resume, and history
-version: 1.0.0
 category: orchestration
-triggers:
-  - session state
-  - save session
-  - load session
-  - resume session
-  - session history
 ---
 
 # Session State Manager

@@ -2,7 +2,6 @@
 description: Re-enable branch protection after bypass, configure protection level
 category: git
 tags: [git, branch-protection]
-version: 2.0.0
 arguments:
   - name: level
     description: Set protection level (smart|block-all|block-new-code)

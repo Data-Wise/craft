@@ -3,41 +3,6 @@ name: docs:update
 description: Smart documentation generator with interactive category-level updates
 category: docs
 tags: [documentation, interactive, automation, validation]
-version: 2.6.0
-features:
-  - Interactive mode with category-level prompts
-  - 9-category detection system (version refs, counts, links, etc.)
-  - 8-type help file validation
-  - Dry-run preview mode
-  - Category-specific updates
-  - Auto-yes mode for batch operations
-flags:
-  - name: --interactive
-    short: -i
-    description: Category-level prompts for each update type
-    type: boolean
-  - name: --category
-    short: -C
-    description: Update only specific category (version_refs, command_counts, etc.)
-    type: string
-  - name: --auto-yes
-    description: Non-interactive mode, auto-approve all updates
-    type: boolean
-  - name: --dry-run
-    description: Preview what would be updated without applying changes
-    type: boolean
-  - name: --force
-    description: Full cycle regardless of detection
-    type: boolean
-  - name: --no-check
-    description: Skip validation phase
-    type: boolean
-  - name: --no-changelog
-    description: Skip changelog update
-    type: boolean
-  - name: --post-merge
-    description: Post-merge pipeline — auto-detect and fix documentation after PR merge
-    type: boolean
 examples:
   - command: /craft:docs:update --interactive
     description: Interactive mode with category-level prompts
@@ -49,11 +14,6 @@ examples:
     description: Apply all updates without prompts
   - command: /craft:docs:update --post-merge
     description: Post-merge pipeline — auto-fix safe categories, prompt for manual ones
-see_also:
-  - /craft:docs:sync
-  - /craft:docs:check
-  - /craft:docs:lint
-  - /craft:check
 ---
 
 # /craft:docs:update - Smart Documentation Generator

@@ -37,7 +37,6 @@ arguments:
     required: false
     default: false
 tags: [documentation, claude-md, editing, interactive]
-version: 2.0.0
 ---
 
 # /craft:docs:claude-md:edit - Interactive CLAUDE.md Editing

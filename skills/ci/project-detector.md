@@ -1,15 +1,7 @@
 ---
 name: project-detector
 description: Smart detection of project types, build tools, and CI requirements for automated workflow generation
-version: 1.0.0
 category: ci
-triggers:
-  - detect project
-  - project type
-  - ci detection
-  - what kind of project
-  - analyze project
-  - ci setup
 ---
 
 # Project Detector Skill

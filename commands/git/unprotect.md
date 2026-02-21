@@ -6,7 +6,6 @@ arguments:
     description: Reason for bypassing protection (merge-conflict|ci-fix|maintenance)
     required: false
 tags: [git, branch-protection, bypass]
-version: 1.0.0
 ---
 
 # /craft:git:unprotect - Bypass Branch Protection
