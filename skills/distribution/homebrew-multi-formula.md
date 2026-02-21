@@ -1,13 +1,7 @@
 ---
 name: homebrew-multi-formula
 description: Coordinate releases across multiple Homebrew formulas with dependency ordering
-version: 1.0.0
 category: distribution
-triggers:
-  - multi-formula release
-  - batch homebrew release
-  - formula dependency order
-  - coordinated release
 ---
 
 # Multi-Formula Coordinator

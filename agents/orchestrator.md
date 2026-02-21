@@ -1,15 +1,6 @@
 ---
 name: workflow-orchestrator
 description: Manages background agent delegation, task parallelization, and result synthesis for workflow automation
-tools:
-  - Task
-  - TaskOutput
-  - Read
-  - Write
-  - Bash
-  - TodoWrite
-deprecated: true
-successor: orchestrator-v2
 ---
 
 > **DEPRECATED:** This agent is superseded by `orchestrator-v2` which adds mode-aware execution, context tracking, timeline visualization, and session persistence. Use `/craft:orchestrate` instead. This agent is preserved for backwards compatibility but will be removed in v2.0.0.

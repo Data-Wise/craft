@@ -1,20 +1,5 @@
 ---
 description: Terminal Recording & GIF Generator with dependency management
-dependencies:
-  asciinema:
-    required: true
-    purpose: "Record real terminal sessions"
-    methods: ["asciinema"]
-    install:
-      brew: "asciinema"
-      apt: "asciinema"
-      yum: "asciinema"
-    version:
-      min: "2.0.0"
-      check_cmd: "asciinema --version | grep -oE '[0-9.]+' | head -1"
-    health:
-      check_cmd: "asciinema --help"
-      expect_exit: 0
 
   agg:
     required: true

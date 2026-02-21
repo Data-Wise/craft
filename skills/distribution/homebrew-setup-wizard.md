@@ -1,12 +1,7 @@
 ---
 name: homebrew-setup-wizard
 description: Implementation logic for the Homebrew automation setup wizard
-version: 1.0.0
 category: distribution
-triggers:
-  - homebrew setup
-  - craft:dist:homebrew setup
-  - homebrew automation setup
 ---
 
 # Homebrew Setup Wizard Implementation

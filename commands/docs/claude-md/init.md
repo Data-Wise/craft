@@ -21,7 +21,6 @@ arguments:
     default: false
     alias: -g
 tags: [documentation, claude-md, scaffolding, templates]
-version: 2.0.0
 ---
 
 # /craft:docs:claude-md:init - Create Lean CLAUDE.md

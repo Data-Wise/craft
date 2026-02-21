@@ -1,14 +1,7 @@
 ---
 name: distribution-strategist
 description: Recommends optimal distribution channels and strategies based on project type and target audience
-version: 1.0.0
 category: distribution
-triggers:
-  - distribution strategy
-  - how to distribute
-  - release channels
-  - publish project
-  - distribution plan
 ---
 
 # Distribution Strategist
