@@ -277,8 +277,16 @@ For **other project types**, update manually:
 **Verification** (run after bump):
 
 ```bash
+# Verify automated files (13 files)
 ./scripts/bump-version.sh --verify
+
+# Sweep for stale refs in long-tail files (comments, CI, examples, brainstorms)
+grep -rn "OLD_VERSION\|OLD_CMD_COUNT commands\|OLD_SKILL_COUNT skills" \
+  --include="*.md" --include="*.sh" --include="*.yml" --include="*.py" \
+  | grep -v CHANGELOG | grep -v archive/ | grep -v node_modules/
 ```
+
+Replace `OLD_VERSION`, `OLD_CMD_COUNT`, `OLD_SKILL_COUNT` with the previous release values. Fix any hits before committing.
 
 ### Step 4: Commit & Push
 
