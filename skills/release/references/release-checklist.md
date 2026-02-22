@@ -31,6 +31,13 @@
 - [ ] Docs site deployed (mkdocs gh-deploy)
 - [ ] Dev synced with main
 - [ ] .STATUS file updated (optional)
+- [ ] CI passes on main
+- [ ] Deploy Documentation workflow succeeds
+- [ ] Homebrew Release workflow succeeds
+- [ ] Live site shows new version
+- [ ] Formula content verified (version, SHA, desc counts)
+- [ ] `brew info` shows new version
+- [ ] Main and dev CI badges show passing
 
 ## Python Package Release Checklist
 
