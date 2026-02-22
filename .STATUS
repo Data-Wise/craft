@@ -2,16 +2,24 @@ status: Active
 version: 2.27.0
 release_date: 2026-02-21
 milestone: v2.27.0 released — Release Pipeline Hardening
-last_session: 2026-02-21
+last_session: 2026-02-22
 
-progress: v2.27.0 released. 13-step pipeline with downstream verification. All green.
+progress: v2.27.0 post-release. Stale refs fixed, all CI green, docs site verified.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
-| main   | 4869567  | —    | Production (v2.27.0)                 |
-| dev    | 4869567  | main | In sync with main                    |
+| main   | b7ab949  | —    | Production (v2.27.0, PR #107 merged) |
+| dev    | 20ac035  | main | In sync with main                    |
+
+✅ Session 2026-02-22a (post-release verification and cleanup):
+- Checked CI dashboard: all craft workflows green, homebrew-tap update-formula failures are phantom (workflow file issue on push)
+- Verified Homebrew tap has v2.27.0 with correct SHA256
+- Verified docs site shows v2.27.0 (browser cache was showing old version)
+- Fixed 4 stale v2.26.0 refs in REFCARD-RELEASE, homebrew-automation, badge-management
+- Merged dev → main (PR #107, admin merge)
+- Updated memory: added GitHub Actions phantom failure insight + Tier 2 drift file list
 
 ✅ Session 2026-02-21d (v2.27.0 release — Release Pipeline Hardening):
 - Reviewed PR #105: found 5 issues (ORCHESTRATE file, grep -oP, tutorial step numbering, stale Step 8.5 refs, ci:status docs)
