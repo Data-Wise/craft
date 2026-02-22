@@ -261,6 +261,8 @@ After `bump-version.sh` handles mechanical version substitution, update these fi
 | `docs/index.md` | Update `!!! info` box title and description text |
 | `docs/REFCARD.md` | Update summary line ~11 title text (after the version) |
 | `mkdocs.yml` | Update `site_description` tagline after "adds" to describe new release |
+| `commands/hub.md` | Update version in banner template, test count, skill count |
+| `docs/commands/hub.md` | Same updates as `commands/hub.md` (published copy) |
 
 **Key distinction:** Step 3 handles mechanical `X.Y.Z` substitution. Step 3b handles semantic content that requires the release title and human judgment.
 
