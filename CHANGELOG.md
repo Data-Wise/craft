@@ -9,6 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **Mermaid MCP Integration** — mcp-mermaid server for diagram validation and SVG rendering
+- **mermaid-validate.py** — block extraction, 5 regex pre-checks (2 error, 3 warning), health score metric
+- **mermaid-autofix.py** — 5 safe auto-fixes + 3 report-only rules with 12 built-in self-tests
+- **Pre-commit hook** for mermaid syntax errors (errors-only, fast)
+- **Health score** composite metric (0-100) with configurable release gate (`--gate`)
+- **NL diagram creation** in `/craft:docs:mermaid` with `--validate` and `--preview` flags
+- **Mermaid Authoring Guide** at `docs/guide/mermaid-authoring.md`
+- **Mermaid test suite** — unit, e2e, and dogfood tests for validation pipeline
+
+### Changed
+
+- `/craft:docs:check` Phase 5 now includes Mermaid Validation with health score
+- `mermaid-linter` skill updated with MCP validation and health score sections
+- `mermaid-expert` agent updated with MCP-powered validation workflow
+- Hub documentation updated with MCP integration details
+
+---
+
 ## [2.23.1] - 2026-02-19
 
 ### Fixed
