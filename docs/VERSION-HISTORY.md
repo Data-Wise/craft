@@ -288,7 +288,7 @@
 
 **Release Skill (v2.17.0):**
 
-- **`/craft:release`**: End-to-end release pipeline automation (10-step pipeline)
+- **`/craft:release`**: End-to-end release pipeline automation (13-step pipeline)
 - **`--dry-run` / `-n`**: Preview release plan without side effects (HIGH risk level)
 - **Version detection**: Priority cascade (plugin.json > package.json > git tag)
 - **Semver suggestion**: Analyzes commit history (fix-only=patch, feat=minor, breaking=major)

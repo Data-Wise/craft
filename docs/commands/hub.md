@@ -558,7 +558,7 @@ Quick orchestration (--orch flag on any command):
 ## Release Pipeline
 
 ```
-/release                  Interactive release pipeline (10 steps)
+/release                  Interactive release pipeline (13 steps)
 /release --dry-run        Preview release plan without executing
 /release --autonomous     Fully automated (no prompts, auto-admin)
 
@@ -646,7 +646,7 @@ SUGGESTED FOR NODE PROJECT:
 │   /craft:git:status        -> Show protection level                   │
 │                                                                        │
 │ Release Pipeline:                                                      │
-│   /release                 -> Full 10-step pipeline                   │
+│   /release                 -> Full 13-step pipeline                   │
 │   /release --dry-run       -> Preview without executing               │
 │   /release --autonomous    -> Fully automated release                 │
 │                                                                        │
