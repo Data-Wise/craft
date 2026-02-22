@@ -143,14 +143,36 @@ Running local regex pre-checks on all mermaid blocks...
   ✓ 0 errors (leading-slash, lowercase-end)
   ⚠ 73 warnings (deprecated graph, br-tags, unquoted-colons)
 
-Mermaid: PASS (0 errors)
+  Mermaid Health Score: 82/100 (Warning)
+    Syntax validity:    100.0%
+    Best practices:     40.8%
+    Rendering success:  100.0%
+
+Mermaid: PASS (0 errors, health score >= 80)
 ```
+
+**Health score thresholds:**
+
+| Score | Level | Release Gate |
+|-------|-------|-------------|
+| >= 90 | Good | Pass |
+| >= 80 | Warning | Pass (default threshold) |
+| < 80 | Fail | Blocked |
 
 **How to run this phase:**
 
 ```bash
 # Extract and validate all mermaid blocks
 python3 scripts/mermaid-validate.py docs/ commands/ skills/
+
+# With health score
+python3 scripts/mermaid-validate.py docs/ --health-score
+
+# Release gate check (exit 1 if score < 80)
+python3 scripts/mermaid-validate.py docs/ --gate
+
+# Custom threshold
+python3 scripts/mermaid-validate.py docs/ --gate 90
 
 # Errors-only mode (for CI)
 python3 scripts/mermaid-validate.py docs/ --errors-only
@@ -282,6 +304,7 @@ Exit code: 1
 |------|--------|
 | (none) | Full check: links + stale + nav + mermaid + auto-fix |
 | `--no-mermaid` | Skip mermaid validation |
+| `--mermaid-gate N` | Fail if mermaid health score < N (default 80) |
 | `--report-only` | No auto-fix, just report (CI-safe) |
 | `--links-only` | Just broken links (fast) |
 | `--no-stale` | Skip stale detection |
@@ -300,6 +323,8 @@ Exit code: 1
 - `/craft:docs:sync` - Detection pairs with check
 - `/craft:docs:guide` - Validate generated guides
 - `/craft:ci:validate` - Part of CI pipeline
+- `/craft:site:deploy` - Health score gates deployment (>= 80)
+- `/craft:check --for release` - Includes mermaid health in pre-flight
 
 ## CI Pipeline Usage
 
