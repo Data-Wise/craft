@@ -16,6 +16,10 @@ on:
       - 'CLAUDE.md'
       - 'CHANGELOG.md'
 
+concurrency:
+  group: docs-quality-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   markdown-lint:
     name: Markdown Linting
