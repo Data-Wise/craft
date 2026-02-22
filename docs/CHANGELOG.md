@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]: Mermaid MCP Validation Pipeline
+
+### Added
+
+- **Mermaid validation pipeline:** `mermaid-validate.py` with 12 regex pre-checks, `mermaid-autofix.py` with reverse-order block processing, health score metric (`syntax*0.5 + practices*0.3 + rendering*0.2`)
+- **Pre-commit hook:** `pre-commit-mermaid.sh` for automatic mermaid syntax validation on commit
+- **MCP integration:** `.mcp.json` config for `mcp-mermaid` server (validate, render, create diagrams)
+- **Documentation:** Mermaid Authoring Guide, Troubleshooting Guide, Validation Pipeline Architecture
+- **35 new tests:** 15 unit (`test_mermaid_validation.py`) + 10 e2e (`test_mermaid_e2e.py`) + 10 dogfood (`test_mermaid_dogfood.py`)
+
+### Changed
+
+- **Test count:** 74 tests → 109 tests (28 unit + 31 e2e + 38 dogfood + 12 watcher)
+- `/craft:docs:check` Phase 5 now includes mermaid validation gate
+- `mermaid-linter` skill and `mermaid-expert` agent updated with MCP capabilities
+- Hub documentation updated with `/craft:docs:mermaid` command
+
+### Fixed
+
+- Line-drift bug in `mermaid-autofix.py` — process blocks in reverse order to prevent stale indices
+- Indentation bug in `check_lowercase_end` after removing redundant regex wrapper
+- Brittle `SCRIPT_DIR` resolution in pre-commit hook — now uses `git rev-parse --show-toplevel`
+- Reverted marketing filler from `docs/index.md`
+
+---
+
 ## [2.25.0] - 2026-02-21: Release Watcher & Command Sync
 
 ### Added
