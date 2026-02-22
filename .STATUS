@@ -4,14 +4,15 @@ release_date: 2026-02-21
 milestone: v2.26.0 released — Mermaid MCP Validation Pipeline
 last_session: 2026-02-21
 
-progress: Released v2.26.0 with mermaid validation pipeline, auto-fix engine, health scores, pre-commit hook, and MCP integration. All worktrees cleaned up.
+progress: Release pipeline hardening in progress — concurrency, dual badges, downstream verification, pre-release checks.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | 6577a69  | —    | Production (v2.26.0)                 |
-| dev    | 6577a69  | main | In sync with main                    |
+| dev    | 1cefdd09 | main | Planning hub                         |
+| feature/release-pipeline-hardening | dfbdf51 | dev | WIP — orchestration plan committed |
 
 ✅ Session 2026-02-21c (v2.26.0 release — Mermaid MCP Validation Pipeline):
 - Reviewed PR #103: identified 10 code issues (line-drift bug, unused imports, stale counts, marketing filler)
@@ -44,8 +45,8 @@ progress: Released v2.26.0 with mermaid validation pipeline, auto-fix engine, he
 ---
 
 🎯 Next Action:
-→ Start a new feature (brainstorm or pick from backlog)
-→ Or address remaining backlog items below
+→ cd ~/.git-worktrees/craft/feature-release-pipeline-hardening && claude
+→ Implement 6 increments: CI hardening, badges, pre-release checks, release skill, commands, docs
 
 ## Future (v2.27.0+)
 
