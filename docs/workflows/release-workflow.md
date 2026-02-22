@@ -238,6 +238,67 @@ mkdocs gh-deploy
 
 ---
 
+## Post-Release Verification
+
+After publishing, verify that all downstream systems have updated correctly. These steps (11-13) are part of the hardened release pipeline and ensure nothing was missed.
+
+### Step 11: Dev Synced with Main
+
+Ensure the `dev` branch contains all changes from the release:
+
+```bash
+git checkout dev
+git pull origin dev
+
+# Verify dev is not behind main
+git log main..dev --oneline   # should show dev-only commits (if any)
+git log dev..main --oneline   # should be empty (dev has everything from main)
+```
+
+If dev is behind main, pull main into dev:
+
+```bash
+git merge main
+git push origin dev
+```
+
+### Step 12: Verify CI on Main (MANDATORY)
+
+Check that CI passes on the main branch after the merge. This is a mandatory gate -- do not proceed if CI is red.
+
+```bash
+# Check CI status on main
+gh run list --branch main --limit 3
+
+# Or use craft command
+/craft:ci:status --post-release
+```
+
+If CI fails on main, treat it as a release blocker and fix immediately.
+
+### Step 13: Downstream Verification
+
+Verify that all downstream artifacts were updated correctly:
+
+| Check | Command | What to Verify |
+|-------|---------|----------------|
+| **Docs deploy** | `gh run list --workflow deploy-docs.yml --limit 1` | Deploy docs workflow ran successfully |
+| **Homebrew release** | `gh run list --workflow homebrew-release.yml --limit 1` | Homebrew release workflow ran successfully |
+| **Live site version** | Visit docs site, check version in footer/banner | Version matches the release |
+| **Formula content** | `brew info <formula>` or check tap repo | Formula URL and SHA256 point to new release |
+| **Badge validation** | Check README.md badges resolve correctly | Version badge shows new version, CI badge is green |
+
+```bash
+# Quick downstream check sequence
+gh run list --branch main --limit 5
+brew update && brew info craft
+curl -s https://data-wise.github.io/craft/ | grep -o 'v[0-9]*\.[0-9]*\.[0-9]*' | head -1
+```
+
+If any downstream check fails, investigate and fix before announcing the release.
+
+---
+
 ## Variations
 
 ### Hotfix Release

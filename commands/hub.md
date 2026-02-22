@@ -451,7 +451,7 @@ Command                  | Description
 /craft:ci:detect         | Detect project type and build tools
 /craft:ci:generate       | Generate GitHub Actions workflow
 /craft:ci:validate       | Validate existing CI workflow
-/craft:ci:status         | Cross-repo CI status dashboard
+/craft:ci:status         | Cross-repo CI status dashboard (--post-release mode)
 ─────────────────────────────────────────────────────────────────────────
 ```
 
@@ -558,12 +558,13 @@ Quick orchestration (--orch flag on any command):
 ## Release Pipeline
 
 ```
-/release                  Interactive release pipeline (10 steps)
+/release                  Interactive release pipeline (13 steps)
 /release --dry-run        Preview release plan without executing
 /release --autonomous     Fully automated (no prompts, auto-admin)
 
 Pipeline: pre-flight -> bump -> commit -> PR -> merge ->
-          GitHub release -> Homebrew tap -> docs deploy -> sync dev
+          GitHub release -> Homebrew tap -> docs deploy -> sync dev ->
+          verify CI on main -> downstream verification
 
 Version bump: bump-version.sh syncs version across 11 files atomically
 ```
@@ -646,7 +647,7 @@ SUGGESTED FOR NODE PROJECT:
 │   /craft:git:status        -> Show protection level                   │
 │                                                                        │
 │ Release Pipeline:                                                      │
-│   /release                 -> Full 10-step pipeline                   │
+│   /release                 -> Full 13-step pipeline                   │
 │   /release --dry-run       -> Preview without executing               │
 │   /release --autonomous    -> Fully automated release                 │
 │                                                                        │
