@@ -12,12 +12,10 @@ Usage:
 
 import argparse
 import json
-import os
 import re
 import sys
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
 
 @dataclass
@@ -113,18 +111,16 @@ def check_lowercase_end(block: MermaidBlock) -> list[Issue]:
         stripped = line.strip()
         if stripped == "end" or stripped.startswith("%%"):
             continue
-        # Look for unquoted 'end' as a node label
-        if re.search(r'\[\s*end\s*\]', line, re.IGNORECASE):
-            # Only flag if it's actually lowercase
-            if re.search(r'\[\s*end\s*\]', line) and not re.search(r'\[\s*End\s*\]', line):
-                issues.append(Issue(
-                    file=block.file,
-                    line_number=block.line_number + i + 1,
-                    rule="lowercase-end",
-                    message="Lowercase 'end' in node label conflicts with Mermaid keyword",
-                    severity="error",
-                    context=line.strip(),
-                ))
+        # Look for unquoted lowercase 'end' as a node label
+        if re.search(r'\[\s*end\s*\]', line) and not re.search(r'\[\s*End\s*\]', line):
+            issues.append(Issue(
+                file=block.file,
+                line_number=block.line_number + i + 1,
+                rule="lowercase-end",
+                message="Lowercase 'end' in node label conflicts with Mermaid keyword",
+                severity="error",
+                context=line.strip(),
+            ))
     return issues
 
 
@@ -165,7 +161,7 @@ def check_br_tags(block: MermaidBlock) -> list[Issue]:
                 file=block.file,
                 line_number=block.line_number + i + 1,
                 rule="br-tag",
-                message="<br/> tag in mermaid block — use Mermaid line break syntax instead",
+                message="<br/> tag in unquoted label — wrap label in quotes for consistent rendering",
                 severity="warning",
                 context=line.strip(),
             ))

@@ -256,7 +256,9 @@ def process_file(filepath: str, apply_fixes: bool = False) -> tuple[list[Fix], l
 
     modified = False
 
-    for block_start, block_end, content in blocks:
+    # Process blocks in reverse order to prevent line-index drift
+    # when fixes change the number of lines in earlier blocks
+    for block_start, block_end, content in reversed(blocks):
         original = content
         block_line = block_start + 1  # 1-indexed for display
 

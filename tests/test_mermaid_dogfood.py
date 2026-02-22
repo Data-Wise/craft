@@ -83,15 +83,15 @@ class TestSyntaxValidation:
             + "\n".join(f"  {e.file}:{e.line_number} {e.context}" for e in end_errors[:5])
         )
 
+    @pytest.mark.xfail(reason="br-tag cleanup tracked for gradual removal", strict=False)
     def test_no_br_tags_in_mermaid(self):
         """Zero <br/> in mermaid blocks (warning-level, tracked for gradual cleanup)."""
         blocks = _collect_all_blocks()
         issues = validate_blocks(blocks)
         br_warnings = [i for i in issues if i.rule == "br-tag"]
-        # This is a tracking test — br-tags are warnings, not errors
-        # Log the count for visibility but don't fail
-        if br_warnings:
-            pytest.skip(f"Found {len(br_warnings)} br-tag warnings (tracked for cleanup)")
+        assert len(br_warnings) == 0, (
+            f"Found {len(br_warnings)} br-tag warnings (tracked for cleanup)"
+        )
 
 
 # ─── Health Score ────────────────────────────────────────────────────────────

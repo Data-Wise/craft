@@ -6,7 +6,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 107 commands, 8 AI agents, and 26 auto-triggered skills (including mermaid validation)
+> - **What:** Full-stack developer toolkit with 107 commands, 8 AI agents, and 26 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
@@ -27,7 +27,7 @@
 
 - :sparkles:{ .lg .middle } **26 Skills**
 
-    Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, mermaid validation, and documentation automation
+    Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation
 
 - :zap:{ .lg .middle } **Smart Orchestration**
 

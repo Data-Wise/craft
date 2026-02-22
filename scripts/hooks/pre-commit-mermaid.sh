@@ -17,9 +17,9 @@
 
 set -e
 
-# Resolve script directory (works through symlinks)
-SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || realpath "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")")" && cd .. && pwd)"
-source "$SCRIPT_DIR/formatting.sh"
+# Resolve repo root via git
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+source "$REPO_ROOT/scripts/formatting.sh"
 
 # Get staged markdown files
 STAGED_MD_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' || true)
