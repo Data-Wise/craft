@@ -6,7 +6,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 107 commands, 8 AI agents, and 26 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 107 commands, 8 AI agents, and 26 auto-triggered skills (including mermaid validation)
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
@@ -25,9 +25,9 @@
 
     Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators
 
-- :sparkles:{ .lg .middle } **25 Skills**
+- :sparkles:{ .lg .middle } **26 Skills**
 
-    Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation
+    Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, mermaid validation, and documentation automation
 
 - :zap:{ .lg .middle } **Smart Orchestration**
 
@@ -39,7 +39,7 @@
 
 - :books:{ .lg .middle } **Documentation Excellence**
 
-    99% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation
+    99% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation pipeline with health score
 
 </div>
 

@@ -6,7 +6,7 @@
 
 **107 commands** · **26 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.25.0 | **Tests:** 74 tests passing (13 unit + 21 e2e + 28 dogfood + 12 watcher)
+**Current Version:** v2.25.0 | **Tests:** 106 tests passing (28 unit + 29 e2e + 37 dogfood + 12 watcher)
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
