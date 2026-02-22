@@ -1,19 +1,27 @@
 status: Active
-version: 2.26.0-dev
-release_date: 2026-02-20
-milestone: v2.24.0 released — Release Watcher + Mermaid MCP planned
+version: 2.26.0
+release_date: 2026-02-21
+milestone: v2.26.0 released — Mermaid MCP Validation Pipeline
 last_session: 2026-02-21
 
-progress: Fixed Mermaid rendering on live site (4-layer fix), brainstormed MCP integration, created spec + orchestration plan. Two feature worktrees active.
+progress: Released v2.26.0 with mermaid validation pipeline, auto-fix engine, health scores, pre-commit hook, and MCP integration. All worktrees cleaned up.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
-| main   | b6d8f49  | —    | Production (v2.24.0)                 |
-| dev    | 5e7a8b4  | main | 43 commits ahead (mermaid fixes + specs) |
-| feature/release-watcher | dfe800e | dev | Worktree: ~/.git-worktrees/craft/feature-release-watcher |
-| feature/mermaid-mcp | d7db3c0 | dev | Worktree: ~/.git-worktrees/craft/feature-mermaid-mcp |
+| main   | 6577a69  | —    | Production (v2.26.0)                 |
+| dev    | 6577a69  | main | In sync with main                    |
+
+✅ Session 2026-02-21c (v2.26.0 release — Mermaid MCP Validation Pipeline):
+- Reviewed PR #103: identified 10 code issues (line-drift bug, unused imports, stale counts, marketing filler)
+- Orchestrated parallel fixes for all 10 issues, all tests passing
+- Merged PR #103 to dev (squash), cleaned up worktree + feature branch
+- Ran /craft:docs:sync: fixed CHANGELOG (added [Unreleased] entry) and testing-quickstart (74→109 tests)
+- Updated site index banner with mermaid feature highlights
+- Released v2.26.0: bump across 13 files, PR #104, merge, GitHub release, Homebrew tap, docs deploy
+- Post-release verification: all CI green on main, all counts consistent
+- Stats: 107 commands, 26 skills, 8 agents, 109 core tests, ~1595 total
 
 ✅ Session 2026-02-21b (Mermaid fix + MCP integration brainstorm):
 - Fixed Mermaid rendering on live docs site (4-layer debug: config → HTML → JS → syntax)
@@ -22,93 +30,25 @@ progress: Fixed Mermaid rendering on live site (4-layer fix), brainstormed MCP i
 - Max brainstorm: researched MCP options (V1 working, V2 broken, open-source alternatives)
 - Chose mcp-mermaid (hustcc) via npx for validation backbone
 - Created SPEC-mermaid-mcp-integration-2026-02-21.md (9 acceptance criteria, 33 tests)
-- Created worktree: ~/.git-worktrees/craft/feature-mermaid-mcp
-- Committed ORCHESTRATE-mermaid-mcp.md (6-phase plan) to feature branch
+- Created worktree + committed ORCHESTRATE-mermaid-mcp.md to feature branch
 
-✅ Session 2026-02-21 (debug, frontmatter cleanup, release watcher brainstorm):
-- Debugged `/craft:docs:lint` exit 127: `CRAFT_PLUGIN_ROOT` not a real variable, fixed to `CLAUDE_PLUGIN_ROOT`
-- Discovered `trigger:` frontmatter field not in schema, removed from `docs/lint.md`
-- Audited all 108 commands for invalid frontmatter: found 3 files with violations
-- Fixed: `orchestrate.md` (removed `agent`, `version`, `triggers`), `brainstorm.md` (renamed `args` → `arguments`, removed `version`), `claude-md/sync.md` (removed `version`)
-- Confirmed `trigger` is not a valid command schema field (`additionalProperties: false`)
-- Confirmed no other commands use `trigger:` or `CLAUDE_PLUGIN_ROOT` in triggers
-- Max brainstorm: researched Claude Code v2.1.50 + Claude Desktop releases (3 parallel agents)
-- Created BRAINSTORM-release-watcher-2026-02-21.md (4 new commands proposed)
-- Created SPEC-release-watcher-2026-02-21.md (7 increments, 12 acceptance criteria)
-- Created worktree: ~/.git-worktrees/craft/feature-release-watcher
-- Committed ORCHESTRATE-release-watcher.md (7-phase plan) to feature branch
+✅ Session 2026-02-21a (debug, frontmatter cleanup, release watcher brainstorm):
+- Debugged `/craft:docs:lint` exit 127, fixed trigger/frontmatter violations
+- Max brainstorm: researched Claude Code v2.1.50 + Claude Desktop releases
+- Created spec + worktree for release watcher system
 
 ✅ Session 2026-02-20c (v2.24.0 release — Claude Code v2.1.49 integration):
-- Reviewed PR #99: identified ORCHESTRATE cleanup + verified skill references
-- Removed ORCHESTRATE file from feature branch, pushed cleanup commit
-- Merged PR #99 to dev (squash), removed worktree
-- Fixed stale skill counts (24→25) in 3 docs files, deployed site
-- Released v2.24.0: bump across 12 files, PR #100, merge (--admin), GitHub release, Homebrew tap, docs deploy
-- Post-release verification: all counts consistent, mkdocs strict clean, CI green on main
+- Released v2.24.0: PR #100, merge, GitHub release, Homebrew tap, docs deploy
 - Stats: 107 commands, 26 skills, 8 agents, 62 core tests
-
-✅ Session 2026-02-20b (Claude Code v2.1.49 integration planning):
-- Researched Claude Code v2.1.49 release (worktree flag, agent isolation/background/memory/skills, plugin settings.json)
-- Reviewed all 108 craft commands for integration opportunities
-- Audited multi-repo docs: found 5 gaps (no standalone guide, hidden detection logic, missing cross-repo in advanced patterns, no nav grouping, roadmap confusion)
-- Created brainstorm: BRAINSTORM-claude-code-integration-2026-02-20.md
-- Created spec: SPEC-claude-code-integration-2026-02-20.md (5 increments, 14 acceptance criteria)
-- Created worktree: ~/.git-worktrees/craft/feature-claude-code-integration
-- Committed orchestration plan (ORCHESTRATE-claude-code-integration.md) to feature branch
-- Updated memory with dev session workflow rule (brainstorm -> worktree -> ORCHESTRATE -> STOP)
-
-✅ Session 2026-02-20a (mkdocs site cleanup & deploy):
-- Reviewed mkdocs site — identified 5 issues (broken links, orphaned pages, stale counts, stale badge tagline)
-- Fixed 4 broken relative links (directory-style URLs, .STATUS refs outside docs/)
-- Fixed 44 orphaned pages: 22 excluded via exclude_docs globs, 22 added to nav
-- Fixed stale docs command count (17→25) and README tagline (v2.22.2→v2.23.1)
-- Fixed /README.md exclude pattern to stop matching internal/README.md
-- Merged dev→main (PR #98, --admin), deployed docs site to GitHub Pages
-- Build now produces zero warnings with mkdocs build --strict
-
-✅ Session 2026-02-19d (v2.23.1 release — hub rewrite & cleanup):
-- Rewrote /craft:hub with all features through v2.23.0 (corrected stats, added missing categories, fixed skills/agents tables)
-- Fixed skill count 24→25 to match filesystem
-- Released v2.23.1: bump across 14 files, PR #97, merge (--admin), GitHub release, docs deploy, Homebrew tap
-- Fixed stale release taglines in index.md and REFCARD.md
-- Deleted 10 merged remote feature branches + 1 stale local branch
-- Stats: 107 commands, 26 skills, 8 agents, 6 specs, ~1496 tests
-
-✅ Session 2026-02-19c (v2.23.0 release):
-- Addressed PR #95 code review: added FILE_COUNT variable to bump-version.sh
-- Merged PR #95 to dev, archived bump-version-docs spec, removed ORCHESTRATE file, cleaned worktree
-- Fixed spec count (8→7), added Unreleased CHANGELOG section
-- Released v2.23.0: bump across 11 files, PR #96, merge (--admin), GitHub release, docs deploy, Homebrew tap (already current)
-- Archived CLAUDE.md refactor spec (done), updated spec count (7→6)
-- Stats: 107 commands, 26 skills, 8 agents, 6 specs, ~1472 tests
-
-✅ Session 2026-02-19b (docs cleanup & CLAUDE.md sync):
-- Synced CLAUDE.md: removed stale ORCHESTRATE ref, fixed spec count (8→7), test count (~1496→~1472)
-- Fixed stale doc pages: config, dependency arch, choose-path, doc-quality
-- Archived implemented spec, removed stale brainstorm
-- Updated REFCARD, A-Z reference, CHANGELOG with new features
-- Fixed stale version/count refs across site, rebuilt skills-agents pages
-- Added bump-version refcard, CI status command page, version-sync Layer 4
-
-✅ Session 2026-02-19a (v2.22.1 release prep):
-- Reviewed and merged 3 old PRs (#82, #83, #84) to dev
-- Fixed dogfood test assertions (PR #90 merged)
-- Rebuilt tutorials/index.md (1→23 tutorials)
-- Expanded REFCARD.md tables (tutorials 5→15, refcards 5→14)
-- Created REFCARD-INSIGHTS.md (new consolidated refcard)
-- Version bumped to v2.22.1 across all files
 
 ---
 
 🎯 Next Action:
-→ Implement Mermaid MCP: `cd ~/.git-worktrees/craft/feature-mermaid-mcp && claude`
-→ Or implement release watcher: `cd ~/.git-worktrees/craft/feature-release-watcher && claude`
+→ Start a new feature (brainstorm or pick from backlog)
+→ Or address remaining backlog items below
 
-## Future (v2.25.0+)
+## Future (v2.27.0+)
 
-- Mermaid MCP integration (6 phases — in progress on feature branch)
-- Release watcher system (4 commands — in progress on feature branch)
-- Remove 4 deprecated claude-md commands (part of release watcher Phase 2)
 - Missing docs help pages for 14 docs sub-commands
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
