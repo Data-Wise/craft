@@ -145,7 +145,7 @@ The release pipeline automatically handles marketplace distribution:
 
 ```bash
 ./scripts/bump-version.sh <version>
-# Updates all 11 files atomically: 3 JSON + 8 text
+# Updates all 13 files atomically: 3 JSON + 10 text
 # See: docs/reference/REFCARD-BUMP-VERSION.md
 ```
 

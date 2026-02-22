@@ -70,7 +70,7 @@
 
 **Highlights:**
 
-- **bump-version.sh:** Automated version bumping across 11 files with dry-run, verify, and counts-only modes
+- **bump-version.sh:** Automated version bumping across 13 files with dry-run, verify, and counts-only modes
 - **CI status dashboard:** Cross-repo CI monitoring command and reference card
 - **Documentation cleanup:** Fixed stale ORCHESTRATE reference, corrected spec/test counts, rebuilt skills-agents pages
 

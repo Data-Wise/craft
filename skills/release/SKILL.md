@@ -240,14 +240,14 @@ For **Craft plugin projects**, use the automated bump script:
 # Preview what will change
 ./scripts/bump-version.sh <version> --dry-run
 
-# Apply version bump + count sync across all 11 files
+# Apply version bump + count sync across all 13 files
 ./scripts/bump-version.sh <version>
 
 # Verify consistency
 ./scripts/bump-version.sh --verify
 ```
 
-This atomically updates 11 files: `plugin.json`, `marketplace.json`, `package.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, `.STATUS`, `docs/DEPENDENCY-ARCHITECTURE.md`, `docs/reference/configuration.md` (version in example + file count).
+This atomically updates 13 files: `plugin.json`, `marketplace.json`, `package.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, `.STATUS`, `docs/DEPENDENCY-ARCHITECTURE.md`, `docs/reference/configuration.md`, `commands/hub.md`, `docs/commands/hub.md`.
 
 ### Step 3b: Semantic Doc Updates
 

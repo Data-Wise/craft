@@ -566,7 +566,7 @@ Pipeline: pre-flight -> bump -> commit -> PR -> CI monitor -> merge ->
           GitHub release -> docs deploy -> Homebrew tap -> sync dev ->
           verify CI on main -> downstream verification
 
-Version bump: bump-version.sh syncs version across 11 files atomically
+Version bump: bump-version.sh syncs version across 13 files atomically
 ```
 
 ---
