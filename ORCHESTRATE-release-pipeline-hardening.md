@@ -1,4 +1,4 @@
-# ORCHESTRATE: Release Pipeline Hardening and Post-Release Verification
+# ORCHESTRATE: Release Pipeline Hardening & Post-Release Verification
 
 **Branch:** `feature/release-pipeline-hardening`
 **Base:** `dev`
@@ -16,29 +16,82 @@ Harden the release pipeline with concurrency controls, dual-badge layout, expand
 
 ## Increment 1: GitHub Actions Workflow Fixes (Phase 1)
 
-### 1A. `.github/workflows/docs.yml` -- Full hardening
+### 1A. `.github/workflows/docs.yml` — Full hardening
 
 Current state: bare `mkdocs gh-deploy --force`, `python-version: 3.x`, no concurrency, no path filter.
 
-**Change 1:** Add concurrency group (queue, don't cancel) -- `group: deploy-docs`, `cancel-in-progress: false`
+**Changes:**
 
-**Change 2:** Add path filter to `push` trigger -- `paths: ['docs/**', 'mkdocs.yml', '.github/workflows/docs.yml']`
+1. Add concurrency group (queue, don't cancel):
 
-**Change 3:** Pin Python to `'3.12'` (replace `3.x`)
+   ```yaml
+   concurrency:
+     group: deploy-docs
+     cancel-in-progress: false
+   ```
 
-**Change 4:** Replace bare `mkdocs gh-deploy --force` with bash retry loop: 3 attempts, `git fetch origin gh-pages` + sleep 5 between retries, exit 0 on success, exit 1 after 3 failures.
+2. Add path filter to `push` trigger:
 
-### 1B. `.github/workflows/ci.yml` -- Add concurrency
+   ```yaml
+   on:
+     push:
+       branches: [ main ]
+       paths:
+         - 'docs/**'
+         - 'mkdocs.yml'
+         - '.github/workflows/docs.yml'
+     workflow_dispatch:
+   ```
 
-Add after `on:` block (before `jobs:`): `concurrency: { group: ci-${{ github.ref }}, cancel-in-progress: true }`
+3. Pin Python to `'3.12'` (replace `3.x`)
 
-### 1C. `.github/workflows/docs-quality.yml` -- Add concurrency
+4. Replace bare `mkdocs gh-deploy --force` with retry loop:
 
-Add after `on:` block (before `jobs:`): `concurrency: { group: docs-quality-${{ github.ref }}, cancel-in-progress: true }`
+   ```yaml
+   - name: Deploy docs with retry
+     run: |
+       for attempt in 1 2 3; do
+         echo "Attempt $attempt of 3..."
+         if mkdocs gh-deploy --force; then
+           echo "Deploy succeeded on attempt $attempt"
+           exit 0
+         fi
+         echo "Deploy failed, fetching latest gh-pages and retrying..."
+         git fetch origin gh-pages
+         sleep 5
+       done
+       echo "Deploy failed after 3 attempts"
+       exit 1
+   ```
+
+### 1B. `.github/workflows/ci.yml` — Add concurrency
+
+Add after `on:` block (before `jobs:`):
+
+```yaml
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+```
+
+### 1C. `.github/workflows/docs-quality.yml` — Add concurrency
+
+Add after `on:` block (before `jobs:`):
+
+```yaml
+concurrency:
+  group: docs-quality-${{ github.ref }}
+  cancel-in-progress: true
+```
 
 ### Verification
 
-Validate YAML syntax with `python3 -c "import yaml; yaml.safe_load(open(...))"` for all three files.
+```bash
+# Validate YAML syntax
+python3 -c "import yaml; yaml.safe_load(open('.github/workflows/docs.yml'))"
+python3 -c "import yaml; yaml.safe_load(open('.github/workflows/ci.yml'))"
+python3 -c "import yaml; yaml.safe_load(open('.github/workflows/docs-quality.yml'))"
+```
 
 **Commit:** `fix: harden GitHub Actions workflows with concurrency and retry`
 
@@ -48,19 +101,23 @@ Validate YAML syntax with `python3 -c "import yaml; yaml.safe_load(open(...))"` 
 
 ### 2A. `docs/index.md` lines 3-5
 
-Replace current dev-only badges with dual main+dev layout:
+Replace the existing dev-only CI badges with dual main+dev layout. The new layout has two lines:
 
-- **main:** CI badge (`?branch=main`) + Deploy Docs badge (`docs.yml/badge.svg`)
-- **dev:** CI badge (`?branch=dev`) + Documentation Quality badge (`?branch=dev`)
-- Keep existing Documentation completeness badge
+- **main:** line with Craft CI `?branch=main` badge and Deploy Docs badge (no branch param, defaults to main)
+- **dev:** line with Craft CI `?branch=dev` badge and Documentation Quality `?branch=dev` badge
+- Keep the existing Documentation completeness badge on its own line
 
 ### 2B. `README.md` lines 3-6
 
-Same dual main+dev badge pattern. Keep existing Version and Documentation badges.
+Same dual main+dev badge pattern as 2A. Keep existing Version and Documentation badges.
 
 ### Verification
 
-Verify both files contain `badge.svg?branch=main` and `badge.svg?branch=dev`.
+```bash
+# Verify both main and dev badges present
+grep -c 'branch=main' docs/index.md README.md
+grep -c 'branch=dev' docs/index.md README.md
+```
 
 **Commit:** `feat: add dual main+dev CI badge layout`
 
@@ -72,25 +129,76 @@ Verify both files contain `badge.svg?branch=main` and `badge.svg?branch=dev`.
 
 **Update total check count** from `/6` to `/8` in all headers.
 
-**Add Check 7: Badge URL branch validation** (after Check 6, before Summary)
+**Add Check 7** (after Check 6, before Summary):
 
-- For both `README.md` and `docs/index.md`:
-  - Verify contains `badge.svg?branch=main`
-  - Verify contains `badge.svg?branch=dev`
-- Fail (increment ERRORS) if either is missing
+```bash
+# --------------------------------------------------------------------------
+# Check 7: Badge URL branch validation
+# --------------------------------------------------------------------------
+echo ""
+echo -e "${CYAN}[7/8] Badge URL branch validation${NC}"
 
-**Add Check 8: Homebrew formula desc consistency**
+BADGE_ERRORS=0
+for file in README.md docs/index.md; do
+    if [ -f "$file" ]; then
+        if ! grep -q 'badge.svg?branch=main' "$file"; then
+            echo -e "${RED}  ✗ $file missing main branch badge${NC}"
+            BADGE_ERRORS=$((BADGE_ERRORS + 1))
+        fi
+        if ! grep -q 'badge.svg?branch=dev' "$file"; then
+            echo -e "${RED}  ✗ $file missing dev branch badge${NC}"
+            BADGE_ERRORS=$((BADGE_ERRORS + 1))
+        fi
+    fi
+done
 
-- Locate formula locally (`~/projects/dev-tools/homebrew-tap/Formula/craft.rb` or brew tap path)
-- Extract `desc` field, check command count vs actual `CMD_COUNT`
-- Warn (not fail) if agents/skills not mentioned
-- Skip gracefully if formula not found locally
+if [ $BADGE_ERRORS -gt 0 ]; then
+    echo -e "${RED}  ✗ $BADGE_ERRORS badge URL issues found${NC}"
+    echo -e "${YELLOW}    Fix: Add main and dev badges to README.md and docs/index.md${NC}"
+    ERRORS=$((ERRORS + BADGE_ERRORS))
+else
+    echo -e "${GREEN}  ✓ Both main and dev badges present${NC}"
+fi
+```
 
-**Update Summary** counts line to include check count.
+**Add Check 8:**
+
+```bash
+# --------------------------------------------------------------------------
+# Check 8: Homebrew formula desc consistency
+# --------------------------------------------------------------------------
+echo ""
+echo -e "${CYAN}[8/8] Homebrew formula desc consistency${NC}"
+
+FORMULA_PATH=""
+for candidate in \
+    "$HOME/projects/dev-tools/homebrew-tap/Formula/craft.rb" \
+    "$(brew --repository 2>/dev/null)/Library/Taps/data-wise/homebrew-tap/Formula/craft.rb"; do
+    if [ -f "$candidate" ]; then
+        FORMULA_PATH="$candidate"
+        break
+    fi
+done
+
+if [ -n "$FORMULA_PATH" ]; then
+    FORMULA_DESC=$(grep '^  desc ' "$FORMULA_PATH" | head -1 | sed 's/.*desc "\(.*\)"/\1/')
+    FORMULA_CMD_COUNT=$(echo "$FORMULA_DESC" | grep -o '[0-9]* commands' | grep -o '[0-9]*' || echo "")
+    if [ -n "$FORMULA_CMD_COUNT" ] && [ "$FORMULA_CMD_COUNT" != "$CMD_COUNT" ]; then
+        echo -e "${YELLOW}  ! Formula desc says $FORMULA_CMD_COUNT commands, actual is $CMD_COUNT${NC}"
+    elif [ -n "$FORMULA_CMD_COUNT" ]; then
+        echo -e "${GREEN}  ✓ Formula command count matches: $FORMULA_CMD_COUNT${NC}"
+    fi
+    echo -e "${GREEN}  ✓ Formula desc: \"$FORMULA_DESC\"${NC}"
+else
+    echo -e "${YELLOW}  - Homebrew formula not found locally (skipping)${NC}"
+fi
+```
 
 ### Verification
 
-Run `./scripts/pre-release-check.sh 2.26.0` -- should show 8 checks.
+```bash
+./scripts/pre-release-check.sh 2.26.0
+```
 
 **Commit:** `feat: add badge URL and formula desc checks to pre-release script`
 
@@ -102,15 +210,15 @@ Run `./scripts/pre-release-check.sh 2.26.0` -- should show 8 checks.
 
 **Expand Step 10 title** from "Verify CI on Main" to "Verify CI on Main (MANDATORY)".
 
-**Add Step 11: Verify Downstream Workflows (NEW)** after Step 10, with five subsections:
+**Add Step 11: Verify Downstream Workflows (NEW)** after Step 10. This section adds five verification subsections:
 
-- **11a: Deploy Documentation Workflow** -- `gh run list --workflow=docs.yml --limit 1`
-- **11b: Homebrew Release Workflow** -- `gh run list --workflow=homebrew-release.yml --limit 1`
-- **11c: Live Site Version** -- `curl` the docs site, extract version string
-- **11d: Formula Content Verification** -- `gh api` for formula content + `brew info`
-- **11e: Badge Validation** -- `curl` main CI badge SVG, check for "passing"
+- **11a: Deploy Documentation Workflow** — run `gh run list --workflow=docs.yml --limit 1` and check conclusion
+- **11b: Homebrew Release Workflow** — run `gh run list --workflow=homebrew-release.yml --limit 1` and check conclusion
+- **11c: Live Site Version** — `curl` the docs site and extract version string with grep
+- **11d: Formula Content Verification** — use `gh api` to fetch formula from homebrew-tap, plus `brew info`
+- **11e: Badge Validation** — `curl` the main CI badge SVG, check for "passing" string
 
-**Update Output Format table** -- change `11/11` to `13/13`:
+**Update Output Format table** — change step counts from `11/11` to `13/13`:
 
 ```text
 │ [ 1/13] CI mirror check .................... PASSED          │
@@ -154,7 +262,11 @@ Add to **Post-Release** section (after existing items):
 
 ### Verification
 
-Verify step references are consistent: `grep -c '/13' skills/release/SKILL.md`
+```bash
+# Verify step references are consistent
+grep -c '/13' skills/release/SKILL.md
+grep 'Step 1[1-3]' skills/release/SKILL.md
+```
 
 **Commit:** `feat: add post-release downstream verification to release skill`
 
@@ -162,39 +274,54 @@ Verify step references are consistent: `grep -c '/13' skills/release/SKILL.md`
 
 ## Increment 5: Command Updates (Phase 5)
 
-### 5A. `commands/ci/status.md` -- Add `--post-release` argument
+### 5A. `commands/ci/status.md` — Add `--post-release` argument
 
-Add to frontmatter `arguments:` section: `name: post-release`, `description: Run post-release verification`, `required: false`, `default: false`.
+Add to frontmatter `arguments:` section:
 
-Add new section after "Failure Summary" -- **Post-Release Mode (--post-release)**:
+```yaml
+  - name: post-release
+    description: Run post-release verification (downstream workflows, live site, formula)
+    required: false
+    default: false
+```
 
-When `--post-release` is passed, run extended verification:
+Add new **Post-Release Mode** section after "Failure Summary". When `--post-release` is passed, run extended verification checking:
 
-1. All release-triggered workflows: ci.yml, docs.yml, homebrew-release.yml
-2. Homebrew tap workflows: Data-Wise/homebrew-tap
-3. Live site version: `curl` the docs site and verify version string
-4. Badge URL validation: Verify main and dev badges resolve
-5. Brew info: Verify `brew info data-wise/tap/craft` shows new version
+1. All release-triggered workflows (ci.yml, docs.yml, homebrew-release.yml)
+2. Homebrew tap workflows (Data-Wise/homebrew-tap)
+3. Live site version via `curl` the docs site
+4. Badge URL validation (main and dev badges resolve)
+5. `brew info` output for version confirmation
 
-Include output format with box-drawing characters showing post-release status.
+Use the standard box-drawing output format showing each check with pass/fail status.
 
-### 5B. `commands/check.md` -- Add badge/formula checks
+### 5B. `commands/check.md` — Add badge/formula checks
 
-Add two rows to the **Context-Specific Check Lists** table:
+Add two rows to the **Context-Specific Check Lists** table (the `--for` flag table):
 
-| Check | commit | pr | release | deploy |
-|-------|--------|-----|---------|--------|
+| Check | `--for commit` | `--for pr` | `--for release` | `--for deploy` |
+|-------|---------------|-----------|----------------|---------------|
 | Badge URLs | Skip | Skip | Validate both branches | Validate both branches |
 | Formula desc | Skip | Skip | Check counts match | Skip |
 
-Add documentation sections:
+Add two new documentation sections after "Hook Conflict Audit":
 
-- **Badge URL Validation (NEW in v2.27.0)** -- validates `?branch=main` and `?branch=dev` in both files
-- **Homebrew Formula Desc Validation (NEW in v2.27.0)** -- checks formula desc counts match actual
+**Badge URL Validation (NEW in v2.27.0)** — validates that CI badge URLs in README.md and docs/index.md include both `?branch=main` and `?branch=dev` variants. Runs for `--for release` and `--for deploy`.
+
+**Homebrew Formula Desc Validation (NEW in v2.27.0)** — checks that the Homebrew formula `desc` field command counts match actual counts. Runs for `--for release`. Severity: warning (not blocking).
 
 ### Verification
 
-Validate frontmatter YAML for `commands/ci/status.md`.
+```bash
+python3 -c "
+import yaml
+with open('commands/ci/status.md') as f:
+    content = f.read()
+    front = content.split('---')[1]
+    yaml.safe_load(front)
+    print('ci/status.md frontmatter OK')
+"
+```
 
 **Commit:** `feat: add post-release mode and badge/formula checks to commands`
 
@@ -237,7 +364,7 @@ Check for entries, update with new arguments if present.
 
 ### 6H. `CHANGELOG.md`
 
-Add entry under `## [Unreleased]` or `## [2.27.0]`:
+Add entry under `## [Unreleased]` or `## [2.27.0]` with these items under `### Added`:
 
 - GitHub Actions concurrency groups and docs deploy retry logic
 - Dual main+dev CI badge layout in README.md and docs/index.md
@@ -249,8 +376,13 @@ Add entry under `## [Unreleased]` or `## [2.27.0]`:
 ### Verification
 
 ```bash
+# Run unit tests
 python3 tests/test_craft_plugin.py
+
+# Run broken link check
 python3 tests/test_craft_plugin.py -k "broken_links"
+
+# Validate counts
 ./scripts/validate-counts.sh
 ```
 
@@ -262,7 +394,7 @@ python3 tests/test_craft_plugin.py -k "broken_links"
 
 ### 7A. `~/projects/dev-tools/homebrew-tap/Formula/craft.rb` line 6
 
-Change `desc "Full-stack developer toolkit for Claude Code with 107 commands"` to `desc "Full-stack developer toolkit for Claude Code"`.
+Change desc from `"Full-stack developer toolkit for Claude Code with 107 commands"` to `"Full-stack developer toolkit for Claude Code"`.
 
 This removes counts from desc to avoid the 80-char Homebrew limit and count drift. Counts exist elsewhere in the formula (caveats block).
 
@@ -274,7 +406,11 @@ This removes counts from desc to avoid the 80-char Homebrew limit and count drif
 
 ## Phase 8: Homebrew Local Upgrade
 
-Run `brew update && brew upgrade data-wise/tap/craft` after Phase 7 changes are pushed. This is a manual step, not committed.
+```bash
+brew update && brew upgrade data-wise/tap/craft
+```
+
+This is a manual step — not committed. Run after Phase 7 changes are pushed.
 
 ---
 
@@ -308,10 +444,11 @@ Run `brew update && brew upgrade data-wise/tap/craft` after Phase 7 changes are 
 
 - [ ] YAML valid for all 3 workflow files
 - [ ] `./scripts/pre-release-check.sh 2.26.0` shows 8 checks
-- [ ] `python3 tests/test_craft_plugin.py` -- unit tests pass
-- [ ] `python3 -m pytest tests/test_plugin_e2e.py -v` -- e2e tests pass
-- [ ] `./scripts/validate-counts.sh` -- counts match
-- [ ] Both files have `branch=main` and `branch=dev` badges
+- [ ] `python3 tests/test_craft_plugin.py` unit tests pass
+- [ ] `python3 -m pytest tests/test_plugin_e2e.py -v` e2e tests pass
+- [ ] `./scripts/validate-counts.sh` counts match
+- [ ] Both `docs/index.md` and `README.md` contain `branch=main` badges
+- [ ] Both `docs/index.md` and `README.md` contain `branch=dev` badges
 
 ---
 
