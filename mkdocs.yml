@@ -152,6 +152,8 @@ nav:
       - Check Command Beginner Tutorial: tutorials/check-tutorial-beginner.md
       - Smart Routing Tutorial: tutorials/smart-routing-tutorial.md
       - Mermaid Authoring Guide: guide/mermaid-authoring.md
+      - Mermaid Troubleshooting: guide/mermaid-troubleshooting.md
+      - Mermaid Pipeline Architecture: architecture/mermaid-validation-pipeline.md
       - Testing:
         - Testing Quickstart: tutorials/testing-quickstart.md
         - Test Commands Reference: guide/test-commands.md
