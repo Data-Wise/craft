@@ -30,7 +30,7 @@
 
 **Status:** Superseded by v2.27.0
 
-**Stats:** 107 commands | 26 skills | 8 agents | ~1595 tests passing
+**Stats:** 107 commands | 26 skills | 8 agents | 109 tests passing
 
 ---
 

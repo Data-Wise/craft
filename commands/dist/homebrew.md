@@ -266,7 +266,7 @@ When issues are found, the audit command automatically applies known fixes:
 # Before:
 desc "Full-stack developer toolkit - 107 commands, 8 agents, 26 skills - Claude Code plugin"
 # After:
-desc "Full-stack developer toolkit for Claude Code with 108 commands"
+desc "Full-stack developer toolkit for Claude Code with 107 commands"
 
 # Fix 2: Array comparison (use Array#include?)
 # Before:
@@ -867,7 +867,7 @@ end
 
 | Formula | Plugin | Status |
 |---------|--------|--------|
-| `craft.rb` | 108 commands | `brew audit --strict` clean |
+| `craft.rb` | 107 commands | `brew audit --strict` clean |
 | `rforge.rb` | 15 commands | Claude detection |
 | `scholar.rb` | 21 commands | Claude detection |
 
