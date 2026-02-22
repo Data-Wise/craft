@@ -18,7 +18,7 @@ source "$SCRIPT_DIR/formatting.sh"
 # ============================================================================
 
 VALID_FIELDS=(
-    name category subcategory description file modes arguments
+    name category subcategory description file modes arguments flags
     tutorial tutorial_level tutorial_file related_commands tags
     project_types common_workflows time_budgets examples
 )

@@ -148,7 +148,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    Start[/craft:site:publish] --> ValidateDraft[Validate draft branch]
+    Start["/craft:site:publish"] --> ValidateDraft[Validate draft branch]
     ValidateDraft -->|Fails| ShowErrors[Show validation errors]
     ShowErrors --> AskFix{Continue anyway?}
     AskFix -->|No| Abort[Abort publish]

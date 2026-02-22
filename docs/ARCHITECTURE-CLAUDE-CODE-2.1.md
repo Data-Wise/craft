@@ -14,9 +14,9 @@ graph TB
     end
 
     subgraph "Wave 1: Foundation"
-        Do[/craft:do Command]
+        Do["/craft:do Command"]
         Scorer[Complexity Scorer]
-        Check[/craft:check Command]
+        Check["/craft:check Command"]
         Validators[Hot-Reload Validators]
         Hooks[Orchestration Hooks]
     end
@@ -225,9 +225,9 @@ graph TB
     Score --> R8_10{Score 8-10}
 
     R0_3 -->|Simple| Map1[Map to Command]
-    Map1 --> Exec1[/craft:code:lint]
-    Map1 --> Exec2[/craft:test]
-    Map1 --> Exec3[/craft:git:status]
+    Map1 --> Exec1["/craft:code:lint"]
+    Map1 --> Exec2["/craft:test"]
+    Map1 --> Exec3["/craft:git:status"]
 
     R4_7 -->|Medium| Map2[Select Agent]
     Map2 --> A1[code-quality agent]

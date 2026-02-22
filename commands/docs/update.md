@@ -3,6 +3,22 @@ name: docs:update
 description: Smart documentation generator with interactive category-level updates
 category: docs
 tags: [documentation, interactive, automation, validation]
+flags:
+  - name: interactive
+    description: Interactive mode with category-level prompts
+    default: "false"
+  - name: dry-run
+    alias: -n
+    description: Preview changes without writing
+    default: "false"
+  - name: category
+    description: Update only a specific category
+  - name: auto-yes
+    description: Apply all updates without prompts
+    default: "false"
+  - name: post-merge
+    description: Post-merge pipeline
+    default: "false"
 examples:
   - command: /craft:docs:update --interactive
     description: Interactive mode with category-level prompts

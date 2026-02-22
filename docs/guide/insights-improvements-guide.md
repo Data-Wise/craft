@@ -417,7 +417,7 @@ The full insights lifecycle from session data to workflow improvements:
 ```mermaid
 graph TD
     S[Sessions] --> F[Facets Data]
-    F --> I[/craft:insights]
+    F --> I["/craft:insights"]
     I --> R1[CLAUDE.md Rules]
     I --> R2[ORCHESTRATE Friction Prevention]
     I --> R3[Brainstorm Context]

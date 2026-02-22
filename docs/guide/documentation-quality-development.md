@@ -35,8 +35,8 @@ By the end of this guide, you'll know how to:
 ```mermaid
 graph TB
     A[User Command] --> B{Command Router}
-    B -->|lint| C[/craft:docs:lint]
-    B -->|check-links| D[/craft:docs:check-links]
+    B -->|lint| C["craft:docs:lint"]
+    B -->|check-links| D["craft:docs:check-links"]
     C --> E[markdownlint-cli2]
     D --> F[markdown-link-check]
     E --> G[Auto-fix Engine]

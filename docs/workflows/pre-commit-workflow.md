@@ -94,6 +94,9 @@ Use craft to validate everything.
 | Tests | Run test suite |
 | Types | Type checking (if applicable) |
 | Git status | Working tree status |
+| Mermaid | Diagram syntax in `.md` files (errors only) |
+
+**Mermaid validation** runs automatically via the pre-commit hook on any staged `.md` files containing mermaid blocks. It checks for two error-level rules (leading-slash, lowercase-end) that cause visible rendering failures. Warnings are skipped for speed. See [Mermaid Authoring Guide](../guide/mermaid-authoring.md).
 
 **Expected output:**
 

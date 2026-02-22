@@ -497,12 +497,12 @@ Learn More:
 ```mermaid
 flowchart TD
     A[I need to...] --> B{Know which command?}
-    B -->|No| C[/craft:help]
+    B -->|No| C["/craft:help"]
     B -->|Yes| D{Single action?}
     D -->|Yes| E[Use specific command]
     D -->|No| F{Complexity?}
-    F -->|Unknown| G[/craft:do]
-    F -->|High 8-10| H[/craft:orchestrate]
+    F -->|Unknown| G["/craft:do"]
+    F -->|High 8-10| H["/craft:orchestrate"]
     F -->|Medium 4-7| G
     F -->|Low 0-3| E
 
@@ -511,7 +511,7 @@ flowchart TD
     I -->|No| E
 
     E --> J[Before commit?]
-    J -->|Yes| K[/craft:check]
+    J -->|Yes| K["/craft:check"]
     J -->|No| L[Done]
 
     style G fill:#4CAF50

@@ -364,10 +364,11 @@ class TestDocsSiteAlignment:
         """mkdocs.yml is parseable YAML (may use !!python tags for mkdocs)."""
         mkdocs = PLUGIN_DIR / "mkdocs.yml"
         content = mkdocs.read_text()
+        # Strip !!python/name: tags that require mkdocs-material to resolve
+        import re
+        stripped = re.sub(r'!!python/name:\S+', '""', content)
         try:
-            # mkdocs uses !!python/name: tags which require the material
-            # package to be importable. Use unsafe_load to skip resolution.
-            yaml.unsafe_load(content)
+            yaml.safe_load(stripped)
         except yaml.YAMLError as e:
             pytest.fail(f"mkdocs.yml is invalid YAML: {e}")
 

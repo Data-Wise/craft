@@ -2,13 +2,59 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.22.2 (2026-02-19)
-**Total Releases:** 45 versions | **Development Time:** 2+ years
-**Community:** 108 commands documented, ~1472 tests passing, 90%+ coverage
+**Latest Release:** v2.26.0 (2026-02-21)
+**Total Releases:** 47 versions | **Development Time:** 2+ years
+**Community:** 107 commands documented, ~1595 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.26.0 (2026-02-21) - Mermaid MCP Validation Pipeline
+
+**Status:** Released
+
+**Highlights:**
+
+- **Mermaid validation pipeline:** `mermaid-validate.py` with 12 regex pre-checks, `mermaid-autofix.py` with reverse-order block processing, health score metric
+- **Pre-commit hook:** `pre-commit-mermaid.sh` for automatic mermaid syntax validation on commit
+- **MCP integration:** `.mcp.json` config for `mcp-mermaid` server (validate, render, create diagrams)
+- **Documentation:** Mermaid Authoring Guide, Troubleshooting Guide, Validation Pipeline Architecture
+- **35 new tests:** 15 unit + 10 e2e + 10 dogfood
+
+**Stats:** 107 commands | 26 skills | 8 agents | ~1595 tests passing
+
+---
+
+### v2.25.0 (2026-02-21) - Release Watcher & Command Sync
+
+**Status:** Released
+
+**Highlights:**
+
+- **Release watcher:** `/craft:code:release-watch` fetches Claude Code releases via GitHub API
+- **Command audit:** `/craft:code:command-audit` validates all frontmatter against schema
+- **Desktop watch:** `/craft:code:desktop-watch` tracks Claude Desktop releases
+- **Sync features:** `/craft:code:sync-features` chains tools into prioritized action plan
+
+**Stats:** 107 commands | 26 skills | 8 agents | 74 core tests
+
+---
+
+### v2.24.0 (2026-02-20) - Claude Code v2.1.49 Integration
+
+**Status:** Released
+
+**Highlights:**
+
+- **Agent platform features:** `background: true` on doc agents, `memory: project` and `skills` on orchestrator-v2
+- **E2E test suite:** 21 tests validating cross-component wiring
+- **Dogfood test suite:** 28 tests running craft's own scripts against the live repo
+- **Multi-repo workflow guide:** 484-line guide for cross-repo worktree coordination
+
+**Stats:** 107 commands | 26 skills | 8 agents | 62 core tests
+
+---
 
 ### v2.22.2 (2026-02-19) - Bump-Version Feature & Documentation Overhaul
 

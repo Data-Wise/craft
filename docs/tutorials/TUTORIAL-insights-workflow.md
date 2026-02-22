@@ -38,7 +38,7 @@ flowchart LR
     end
 
     subgraph Learning["Learning Loop"]
-        C1[/insights] --> C2[insights-apply]
+        C1["/insights"] --> C2[insights-apply]
     end
 
     subgraph Advanced["Advanced"]

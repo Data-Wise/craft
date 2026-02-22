@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.25.0 (released 2026-02-21)                       │
+│  Version: 2.26.0 (released 2026-02-21)                       │
 │  Commands: 107 | Agents: 8 | Skills: 26                     │
-│  Documentation: 99% complete | Tests: 74 passing             │
+│  Documentation: 99% complete | Tests: 109 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.25.0: Release watcher, command audit, sync features      │
+│  v2.26.0: Mermaid MCP validation pipeline, health scores      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -452,27 +452,30 @@ Layer 3: GitHub Actions     → safety net after merge to main
 - Required frontmatter (description, category)
 - Cross-references consistency
 - Code block syntax highlighting
+- **Mermaid diagram validation** (Phase 5) — regex pre-checks + health score
 
 #### /craft:docs:mermaid
 
-**Purpose:** Generate Mermaid diagram templates (6 types).
+**Purpose:** Mermaid diagrams — templates, NL creation, MCP validation, live preview.
 
 **Examples:**
 
 ```bash
-# Interactive selection
-/craft:docs:mermaid
-# Prompts: Choose diagram type
-# Generates: Template with examples
-
-# Specific diagram type
-/craft:docs:mermaid flowchart
+# Template selection
+/craft:docs:mermaid workflow
 /craft:docs:mermaid sequence
-/craft:docs:mermaid er
-/craft:docs:mermaid class
-/craft:docs:mermaid gantt
-/craft:docs:mermaid state
+
+# NL creation (NEW)
+/craft:docs:mermaid "show release pipeline from dev to main"
+/craft:docs:mermaid "auth flow with OAuth2" --validate --preview
+
+# Validation scripts
+python3 scripts/mermaid-validate.py docs/ --health-score
+python3 scripts/mermaid-validate.py docs/ --gate          # Release gate (>= 80)
+python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patterns
 ```
+
+**Mermaid health score:** `syntax*0.5 + practices*0.3 + rendering*0.2` (>= 80 to pass gate)
 
 **Diagram types:**
 
@@ -1451,7 +1454,7 @@ end tell'
 ```mermaid
 graph LR
     A[sessions] --> B[facets data]
-    B --> C[/craft:insights]
+    B --> C["/craft:insights"]
     C --> D[CLAUDE.md rules]
     C --> E[ORCHESTRATE friction prevention]
     C --> F[brainstorm context]

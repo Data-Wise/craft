@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.25.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.
+site_description: Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -52,6 +52,9 @@ theme:
 
 extra_css:
   - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mermaid-init.js
 
 plugins:
   - search
@@ -143,11 +146,14 @@ nav:
       - Version Sync Setup: tutorials/TUTORIAL-version-sync-setup.md
       - CI Monitoring Architecture: architecture/ci-monitoring.md
       - Version Sync Architecture: architecture/version-sync.md
+      - Mermaid Pipeline Architecture: architecture/mermaid-validation-pipeline.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
       - Check Command Beginner Tutorial: tutorials/check-tutorial-beginner.md
       - Smart Routing Tutorial: tutorials/smart-routing-tutorial.md
+      - Mermaid Authoring Guide: guide/mermaid-authoring.md
+      - Mermaid Troubleshooting: guide/mermaid-troubleshooting.md
       - Testing:
         - Testing Quickstart: tutorials/testing-quickstart.md
         - Test Commands Reference: guide/test-commands.md

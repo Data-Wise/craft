@@ -1,18 +1,29 @@
 status: Active
-version: 2.25.0
+version: 2.26.0-dev
 release_date: 2026-02-20
-milestone: v2.24.0 released — Release Watcher feature planned
+milestone: v2.24.0 released — Release Watcher + Mermaid MCP planned
 last_session: 2026-02-21
 
-progress: Fixed frontmatter bugs, planned release watcher system (4 new commands), created worktree for implementation.
+progress: Fixed Mermaid rendering on live site (4-layer fix), brainstormed MCP integration, created spec + orchestration plan. Two feature worktrees active.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
-| main   | d6e8838  | —    | Production (v2.24.0)                 |
-| dev    | 9a78731  | main | 3 commits ahead (frontmatter fixes)  |
+| main   | b6d8f49  | —    | Production (v2.24.0)                 |
+| dev    | 5e7a8b4  | main | 43 commits ahead (mermaid fixes + specs) |
 | feature/release-watcher | dfe800e | dev | Worktree: ~/.git-worktrees/craft/feature-release-watcher |
+| feature/mermaid-mcp | d7db3c0 | dev | Worktree: ~/.git-worktrees/craft/feature-mermaid-mcp |
+
+✅ Session 2026-02-21b (Mermaid fix + MCP integration brainstorm):
+- Fixed Mermaid rendering on live docs site (4-layer debug: config → HTML → JS → syntax)
+- Created mermaid-init.js for instant navigation re-initialization
+- Fixed 14 docs files with `[/text]` parallelogram misparse (quoting fix)
+- Max brainstorm: researched MCP options (V1 working, V2 broken, open-source alternatives)
+- Chose mcp-mermaid (hustcc) via npx for validation backbone
+- Created SPEC-mermaid-mcp-integration-2026-02-21.md (9 acceptance criteria, 33 tests)
+- Created worktree: ~/.git-worktrees/craft/feature-mermaid-mcp
+- Committed ORCHESTRATE-mermaid-mcp.md (6-phase plan) to feature branch
 
 ✅ Session 2026-02-21 (debug, frontmatter cleanup, release watcher brainstorm):
 - Debugged `/craft:docs:lint` exit 127: `CRAFT_PLUGIN_ROOT` not a real variable, fixed to `CLAUDE_PLUGIN_ROOT`
@@ -90,11 +101,12 @@ progress: Fixed frontmatter bugs, planned release watcher system (4 new commands
 ---
 
 🎯 Next Action:
-→ Implement release watcher: `cd ~/.git-worktrees/craft/feature-release-watcher && claude`
-→ Start with Phase 1 (command-audit shell script) from ORCHESTRATE plan
+→ Implement Mermaid MCP: `cd ~/.git-worktrees/craft/feature-mermaid-mcp && claude`
+→ Or implement release watcher: `cd ~/.git-worktrees/craft/feature-release-watcher && claude`
 
 ## Future (v2.25.0+)
 
+- Mermaid MCP integration (6 phases — in progress on feature branch)
 - Release watcher system (4 commands — in progress on feature branch)
 - Remove 4 deprecated claude-md commands (part of release watcher Phase 2)
 - Missing docs help pages for 14 docs sub-commands

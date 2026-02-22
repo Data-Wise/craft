@@ -1,18 +1,19 @@
 ---
 name: mermaid-linter
-description: Validate Mermaid diagrams in markdown files for syntax errors and configuration
+description: Validate Mermaid diagrams in markdown files for syntax errors, configuration, and health score. Uses mcp-mermaid for full validation and local regex for fast pre-checks.
 ---
 
 # Mermaid Diagram Linter
 
-Validate Mermaid diagrams in markdown files for syntax errors, text overflow issues, and configuration requirements.
+Validate Mermaid diagrams in markdown files for syntax errors, text overflow issues, configuration requirements, and health score. Integrates with mcp-mermaid MCP server for full syntax validation and local regex pre-checks for fast CI/pre-commit use.
 
 ## When to Use
 
 - Before deploying documentation sites
 - When diagrams appear as raw code instead of rendered
 - To validate diagram text length (prevents overflow)
-- Part of documentation quality checks
+- Part of documentation quality checks (`/craft:docs:check` Phase 5)
+- Release gating via health score
 
 ## Validation Checks
 
@@ -142,7 +143,7 @@ Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), check
 
 1. **Reserved "end" keyword** - Must capitalize to avoid breaking diagram:
 
-   ```mermaid
+   ```text
    flowchart TD
        A[Start] --> B[End]      ✅ Capitalized "End"
        A[Start] --> B[end]      ❌ BREAKS diagram
@@ -150,7 +151,7 @@ Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), check
 
 2. **First letter 'o' or 'x'** - Add space or capitalize:
 
-   ```mermaid
+   ```text
    flowchart LR
        A --> oNode    ❌ Treated as circle edge
        A --> O_Node   ✅ Capitalize or use underscore
@@ -160,7 +161,7 @@ Per [official Mermaid docs](https://mermaid.js.org/syntax/flowchart.html), check
 
 4. **All nodes must be connected** - Orphaned nodes cause syntax errors:
 
-   ```mermaid
+   ```text
    flowchart TD
        A --> B
        C[Orphan]      ❌ Not connected to anything
@@ -271,23 +272,64 @@ Report all mermaid diagrams found:
 - Files with most diagrams
 - Diagrams using `<br/>` tags (flag for modernization)
 
+### 7. MCP Validation (via mcp-mermaid)
+
+When the mcp-mermaid MCP server is available, use it for full syntax validation beyond regex pre-checks:
+
+- **Syntax validation** — catches errors regex cannot detect
+- **Rendering test** — confirms diagram renders to SVG
+- **Error reporting** — detailed error messages with fix suggestions
+
+The MCP server is configured in `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "mcp-mermaid": {
+      "command": "npx",
+      "args": ["-y", "mcp-mermaid"]
+    }
+  }
+}
+```
+
+### 8. Health Score
+
+Composite quality metric (0-100) for release gating:
+
+```
+health_score = syntax_validity*0.5 + best_practices*0.3 + rendering_success*0.2
+```
+
+| Score | Level | Release Gate |
+|-------|-------|-------------|
+| >= 90 | Good | Pass |
+| >= 80 | Warning | Pass (default threshold) |
+| < 80 | Fail | Blocked |
+
 ## Validation Commands
 
 ```bash
-# Check all docs
+# Automated validation (recommended)
+python3 scripts/mermaid-validate.py docs/ commands/ skills/
+
+# With health score
+python3 scripts/mermaid-validate.py docs/ --health-score
+
+# Release gate check
+python3 scripts/mermaid-validate.py docs/ --gate
+
+# Errors only (fast, for CI)
+python3 scripts/mermaid-validate.py docs/ --errors-only
+
+# Auto-fix safe patterns (dry-run)
+python3 scripts/mermaid-autofix.py docs/
+
+# Auto-fix (apply changes)
+python3 scripts/mermaid-autofix.py docs/ --fix
+
+# Manual grep checks
 grep -r "^\`\`\`mermaid" docs/ | wc -l
-
-# Find diagrams using <br/> tags (should use markdown strings instead)
-grep -r "<br/>" docs/**/*.md | grep -B5 mermaid
-
-# Find long node text (> 20 chars between quotes)
-grep -E '\["[^"]{20,}"\]' docs/**/*.md
-
-# Check for custom_fences config
-grep -A5 "superfences" mkdocs.yml | grep -q "custom_fences"
-
-# Check for unnecessary extra_javascript (native integration doesn't need it)
-grep -A3 "extra_javascript" mkdocs.yml | grep -q "mermaid"
 
 # Find diagrams using deprecated 'graph' keyword
 grep -A1 "^\`\`\`mermaid" docs/**/*.md | grep -c "^graph "
@@ -316,11 +358,17 @@ Text Length Issues:
       Node text "~/.git-worktrees/aiterm/feature-mcp/" is 38 chars (max 15)
       Suggestion: Use "~/.git-worktrees/.../feature-mcp"
 
+Health Score: 92/100 (Good)
+  Syntax validity:    100.0%
+  Best practices:     80.0%
+  Rendering success:  100.0%
+
 Summary:
   Passed: 14/15
   Warnings: 1 (text length)
   Errors: 0 (syntax)
   Config: 2/3 (missing CSS)
+  Release gate: PASS (>= 80)
 
 Recommendations:
   1. Add Mermaid CSS to docs/stylesheets/extra.css
@@ -331,14 +379,27 @@ Recommendations:
 
 **Called by:**
 
+- `/craft:docs:check` - Phase 5: Mermaid Validation
 - `/craft:site:status --check` - Site health check
 - `/craft:docs:validate` - Documentation validation
 - `/craft:check commit` - Pre-commit checks
+- `/craft:site:deploy` - Health score gate (>= 80)
 
 **Related:**
 
+- `/craft:docs:mermaid` - Diagram templates, NL creation, MCP validation
 - `/craft:site:status` - Quick Mermaid config check
 - `/craft:docs:generate` - Includes Mermaid guidelines
+- `mermaid-expert` agent - MCP-powered diagram generation
+
+**Scripts:**
+
+- `scripts/mermaid-validate.py` - Extraction + regex pre-checks + health score
+- `scripts/mermaid-autofix.py` - Safe auto-fix engine
+
+**MCP Server:**
+
+- `mcp-mermaid` - Full syntax validation and SVG/PNG rendering
 
 ## Best Practices
 

@@ -153,13 +153,13 @@
 
 ```mermaid
 graph TD
-    User[User] -->|runs| Sync[/craft:docs:sync]
+    User[User] -->|runs| Sync["/craft:docs:sync"]
     Sync -->|scans| Git[Git History]
     Sync -->|outputs| Report[Report: "3 docs stale, guide score: 7"]
 
     Report -->|user sees| Recommendation["Suggested: /craft:docs:update"]
 
-    User -->|manually runs| Update[/craft:docs:update]
+    User -->|manually runs| Update["/craft:docs:update"]
     Update -->|prompts| UserPrompts[Category prompts]
     UserPrompts -->|approves| Changes[Apply changes]
 
@@ -181,7 +181,7 @@ graph TD
 
 ```mermaid
 graph TD
-    User[User] -->|runs| Update[/craft:docs:update]
+    User[User] -->|runs| Update["/craft:docs:update"]
 
     Update -->|Step 1| Detect[Auto-detect changes]
     Detect -->|scans| Git[Git History]

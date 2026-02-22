@@ -25,7 +25,7 @@
 
     Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators
 
-- :sparkles:{ .lg .middle } **25 Skills**
+- :sparkles:{ .lg .middle } **26 Skills**
 
     Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation
 
@@ -39,7 +39,7 @@
 
 - :books:{ .lg .middle } **Documentation Excellence**
 
-    99% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation
+    99% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation pipeline with health score
 
 </div>
 
@@ -211,8 +211,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.25.0 — Claude Code v2.1.49 Integration"
-    Agent platform features (background, memory, skills), 49 new e2e/dogfood tests (62 core tests total), multi-repo workflow guide, worktree path comparison docs. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.26.0 — Mermaid MCP Validation Pipeline"
+    12-rule validation engine, auto-fix with reverse-order processing, health score metric, pre-commit hook, MCP integration for diagram creation. 35 new tests (109 core tests total). See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 

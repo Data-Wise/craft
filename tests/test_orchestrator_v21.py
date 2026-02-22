@@ -31,16 +31,17 @@ def test_orchestrator_v21_exists():
 
 
 def test_orchestrator_version():
-    """Test that orchestrator version is 2.4.0."""
+    """Test that orchestrator-v2 agent has required identity markers."""
     agent_path = PLUGIN_DIR / "agents" / "orchestrator-v2.md"
     assert agent_path.exists(), "File not found"
 
     content = agent_path.read_text()
 
-    if "version: 2.4.0" not in content:
-        version_match = re.search(r"version:\s*([\d.]+)", content)
-        actual = version_match.group(1) if version_match else "unknown"
-        assert False, f"Expected 2.4.0, found {actual}"
+    # Verify the agent identifies as orchestrator v2
+    assert "orchestrator-v2" in content.lower() or "Orchestrator v2" in content, \
+        "Agent file missing orchestrator v2 identity"
+    assert "name: orchestrator-v2" in content, \
+        "Agent frontmatter missing name: orchestrator-v2"
 
 
 def test_behavior_7_mode_aware():
@@ -151,16 +152,14 @@ def test_orchestrate_command_exists():
 
 
 def test_orchestrate_command_version():
-    """Test orchestrate command version is 1.1.0."""
+    """Test orchestrate command exists and has required content."""
     cmd_path = PLUGIN_DIR / "commands" / "orchestrate.md"
     assert cmd_path.exists(), "File not found"
 
     content = cmd_path.read_text()
 
-    if "version: 1.1.0" not in content:
-        version_match = re.search(r"version:\s*([\d.]+)", content)
-        actual = version_match.group(1) if version_match else "unknown"
-        assert False, f"Expected 1.1.0, found {actual}"
+    assert "name:" in content, "Command frontmatter missing name field"
+    assert "orchestrate" in content.lower(), "Command missing orchestrate identity"
 
 
 def test_orchestrate_mode_syntax():

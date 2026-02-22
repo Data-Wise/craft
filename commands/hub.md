@@ -62,7 +62,7 @@ Display template:
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  CRAFT - Full Stack Developer Toolkit v2.23.1                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
-│  108 commands | 25 skills | 8 agents | ~1472 tests passing             │
+│  107 commands | 26 skills | 8 agents | ~1472 tests passing             │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ SMART COMMANDS (Start Here):                                            │
 │    /craft:do <task>     Universal command - AI routes to best workflow  │
@@ -321,12 +321,12 @@ Command                        | Description
 /craft:docs:update             | Smart doc generator (detect + generate)
 /craft:docs:sync               | Detect changes, classify doc needs
 /craft:docs:lint               | Markdown quality checks
-/craft:docs:check              | Documentation health check
+/craft:docs:check              | Documentation health check (links, stale, nav, mermaid)
 /craft:docs:check-links        | Internal link validation
 /craft:docs:changelog          | Auto-update CHANGELOG.md
 /craft:docs:nav-update         | Update mkdocs.yml navigation
 /craft:docs:demo               | Terminal recording & GIF generator
-/craft:docs:mermaid            | Generate Mermaid diagram templates
+/craft:docs:mermaid            | Mermaid diagrams: templates, NL creation, MCP validation
 /craft:docs:guide              | Generate feature guides
 /craft:docs:tutorial           | Generate step-by-step tutorials
 /craft:docs:api                | Generate API documentation
@@ -529,7 +529,7 @@ Quick orchestration (--orch flag on any command):
 | `guard-audit` | DevOps | Guard friction, false positives, tune guard |
 | `insights-apply` | Workflow | Insights report, CLAUDE.md rules |
 | `doc-classifier` | Docs | Documentation needs classification |
-| `mermaid-linter` | Docs | Mermaid diagram validation |
+| `mermaid-linter` | Docs | Mermaid validation, auto-fix, health score |
 | `distribution-strategist` | Distribution | Packaging strategy selection |
 | `homebrew-formula-expert` | Distribution | Homebrew formula generation |
 | `homebrew-workflow-expert` | Distribution | Homebrew tap management |
@@ -551,7 +551,7 @@ Quick orchestration (--orch flag on any command):
 | `reference-builder` | Exhaustive technical references | Reference docs |
 | `tutorial-engineer` | Step-by-step tutorials | Tutorial creation |
 | `demo-engineer` | Interactive demos | Demo creation |
-| `mermaid-expert` | Flowcharts, diagrams, visualizations | Diagram requests |
+| `mermaid-expert` | Flowcharts, diagrams, MCP validation + rendering | Diagram requests |
 
 ---
 
@@ -625,7 +625,7 @@ SUGGESTED FOR NODE PROJECT:
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Full-stack developer toolkit for Claude Code                           │
-│ 108 commands | 25 skills | 8 agents | ~1472 tests passing              │
+│ 107 commands | 26 skills | 8 agents | ~1472 tests passing              │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   -> AI routes to best workflow                     │

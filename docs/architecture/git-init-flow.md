@@ -257,7 +257,7 @@ graph TB
 
     subgraph "Validation"
         DryRun[Dry-run Validator]
-        Check[/craft:check Integration]
+        Check["/craft:check Integration"]
         Rollback[Rollback Engine]
     end
 
