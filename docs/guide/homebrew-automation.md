@@ -248,6 +248,51 @@ If no local tap is found, the CI workflow handles it automatically on release pu
 
 ---
 
+## Formula Description Consistency (Check 8)
+
+The `pre-release-check.sh` script includes **Check 8: Homebrew formula desc consistency**, which validates that the `desc` field in your Homebrew formula stays in sync with the actual command counts in the project.
+
+### What It Checks
+
+The check extracts the command count from the formula's `desc` string (e.g., `"Full-stack developer toolkit for Claude Code with 107 commands"`) and compares it against the actual count detected by `validate-counts.sh`. If they differ, a warning is raised.
+
+```bash
+# Run Check 8 standalone
+./scripts/pre-release-check.sh v2.26.0
+# Look for: [8/8] Homebrew formula desc consistency
+```
+
+### Formula Lookup Chain
+
+Check 8 searches for the formula file in this order:
+
+1. Local Homebrew tap checkout (e.g., `$(brew --repository)/Library/Taps/<tap>/Formula/<name>.rb`)
+2. Common worktree/clone locations for the tap repo
+3. Falls back with a skip message if no formula is found locally
+
+### Keeping Desc in Sync
+
+When adding new commands to the plugin, update the formula description to reflect the new count:
+
+```ruby
+# In your formula .rb file
+class Craft < Formula
+  desc "Full-stack developer toolkit for Claude Code with 107 commands"
+  #                                                      ^^^ update this
+```
+
+The release pipeline will warn you if this number drifts. To fix:
+
+1. Run `./scripts/validate-counts.sh` to get the actual command count
+2. Update the `desc` line in your formula file
+3. Commit and push to the tap repo
+
+### Why This Matters
+
+Homebrew formula descriptions are user-facing -- they appear in `brew search`, `brew info`, and the Homebrew Formulae website. Stale command counts erode trust and confuse users who see a different number in the formula vs. the documentation site.
+
+---
+
 ## Common Workflows
 
 ### New Project Setup

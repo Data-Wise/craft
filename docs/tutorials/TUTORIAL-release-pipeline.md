@@ -60,7 +60,7 @@ If you already know the version:
 
 ## Step 3: Follow the Pipeline
 
-The release executes 10 steps sequentially:
+The release executes 13 steps sequentially:
 
 | Step | What Happens | You Need To |
 |------|-------------|-------------|
@@ -75,6 +75,9 @@ The release executes 10 steps sequentially:
 | 8. Docs deploy | Publishes docs site | Nothing (automatic) |
 | 9. Dev sync | Pulls main into dev | Nothing (automatic) |
 | 10. Verify CI | Checks CI passes on main | Fix if needed |
+| 11. Dev synced with main | Confirms dev has all release changes | Nothing (automatic) |
+| 12. Verify CI on main | MANDATORY gate -- CI must be green on main | Fix if red |
+| 13. Downstream verification | Checks deploy docs, homebrew, live site, formula, badges | Investigate failures |
 
 If any step fails, the pipeline stops and reports the error.
 

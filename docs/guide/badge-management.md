@@ -162,6 +162,28 @@ After creating a workflow, offer to add CI badge:
 ╰─────────────────────────────────────────────────╯
 ```
 
+## Pre-Release Badge URL Validation (Check 7)
+
+The `pre-release-check.sh` script includes **Check 7: Badge URL branch validation**, which runs as part of every release pre-flight. This check scans `README.md` and `docs/index.md` for badge URLs and validates:
+
+1. **Branch parameter exists** -- CI badges must include `?branch=main` or `?branch=dev`
+2. **Both branches covered** -- The dual main+dev layout pattern requires badges for both branches
+3. **URLs resolve** -- Badge URLs point to actual workflow files in `.github/workflows/`
+
+```bash
+# Run Check 7 standalone
+./scripts/pre-release-check.sh v2.26.0
+# Look for: [7/8] Badge URL branch validation
+```
+
+If Check 7 fails, fix the badge URLs before proceeding with the release. Common fixes:
+
+- Add missing `?branch=main` parameter to CI badge URLs
+- Add a second CI badge row for the `dev` branch
+- Remove badges pointing to deleted or renamed workflow files
+
+---
+
 ## Command Reference
 
 ### Manual Badge Sync
@@ -640,18 +662,26 @@ if issues:
 
 ### Badge Placement
 
-Recommended order in README.md:
+Recommended order in README.md using the **dual main+dev layout pattern**:
 
 ```markdown
 # Project Title
 
-[![Version](...))](...)
-[![CI Status](...))](...)
+<!-- Main branch badges (stable/production) -->
+[![Version](https://img.shields.io/badge/version-2.26.0-brightgreen.svg)](...)
+[![CI (main)](https://github.com/user/repo/actions/workflows/ci.yml/badge.svg?branch=main)](...)
+
+<!-- Dev branch badges (development status) -->
+[![CI (dev)](https://github.com/user/repo/actions/workflows/ci.yml/badge.svg?branch=dev)](...)
+
+<!-- Coverage and docs (branch-independent) -->
 [![Documentation Quality](...))](...)
 [![Documentation](...))](...)
 
 > Project description
 ```
+
+The dual layout shows both production stability (main) and development progress (dev) at a glance. During pre-release checks (Check 7 in `pre-release-check.sh`), both main and dev badge URLs are validated to ensure they reference existing workflow files and use correct branch parameters.
 
 ### Version Badge Colors
 

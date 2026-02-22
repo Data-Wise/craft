@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **GitHub Actions concurrency groups** and docs deploy retry logic
+- **Dual main+dev CI badge layout** in README.md and docs/index.md
+- **Pre-release checks 7-8:** badge URL validation and formula desc consistency
+- **Post-release downstream verification** (Steps 11-13 in release pipeline)
+- `/craft:ci:status --post-release` mode for downstream workflow checks
+- Badge URL and formula desc validation in `/craft:check --for release`
 - **Mermaid MCP Integration** — mcp-mermaid server for diagram validation and SVG rendering
 - **mermaid-validate.py** — block extraction, 5 regex pre-checks (2 error, 3 warning), health score metric
 - **mermaid-autofix.py** — 5 safe auto-fixes + 3 report-only rules with 12 built-in self-tests

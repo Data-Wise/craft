@@ -54,9 +54,11 @@ After detecting the current and next version, display:
 │  6.5 ✓ CI monitoring (poll → diagnose → fix → retry)        │
 │  7. ✓ Merge PR (--merge, NO --delete-branch)                │
 │  8. ✓ Create GitHub release v2.18.0 on main                 │
-│  8.5 ✓ Update Homebrew tap formula                          │
 │  9. ✓ Deploy docs site (mkdocs gh-deploy)                   │
-│ 10. ✓ Sync dev with main                                    │
+│ 10. ✓ Update Homebrew tap formula                           │
+│ 11. ✓ Sync dev with main                                    │
+│ 12. ✓ Verify CI on main                                     │
+│ 13. ✓ Verify downstream (docs, brew, badges)                │
 ├─────────────────────────────────────────────────────────────┤
 │ ⚠ Risk: HIGH — modifies git history, creates PRs            │
 │ ⚠ No changes were made. Run without --dry-run to execute.   │
@@ -80,8 +82,8 @@ When `--autonomous` or `--auto` is passed, the release pipeline runs without use
 | Step 1 (version) | AskUserQuestion to confirm | Auto-select from commit analysis, show decision |
 | Step 2 (pre-flight) | Same | Same (fail = abort, no retry) |
 | Step 3-5 (bump, commit, PR) | Same | Same (deterministic) |
-| Step 6 (merge) | User confirms --admin if blocked | Auto-use --admin, log the override |
-| Step 7-8 (release, deploy) | Same | Same (deterministic) |
+| Step 7 (merge) | User confirms --admin if blocked | Auto-use --admin, log the override |
+| Step 8-13 (release, deploy, verify) | Same | Same (deterministic) |
 | Errors | Stop and report | Retry once (step-level), then abort with report |
 
 ### Autonomous Safety Checks
@@ -117,7 +119,7 @@ echo "Auto-detected version bump: $bump (from $(echo "$commits" | wc -l | tr -d 
 
 > **WARNING:** This auto-uses `--admin` to bypass branch protection, which skips required status checks. Only use `--autonomous` when CI has already passed on the PR. For safer unattended releases, use `--autonomous --dry-run` first to preview the plan.
 
-When branch protection blocks the merge in Step 6:
+When branch protection blocks the merge in Step 7:
 
 1. Log: "**WARNING:** Branch protection blocking merge. Using --admin override."
 2. Run: `gh pr merge <number> --merge --admin`
@@ -135,10 +137,10 @@ On any step failure:
 ┌─────────────────────────────────────────────────────────────┐
 │ /release --autonomous ABORTED                                │
 ├─────────────────────────────────────────────────────────────┤
-│ Failed at: Step 6 (Merge Release PR)                        │
+│ Failed at: Step 7 (Merge Release PR)                        │
 │ Error: Branch protection rules not met                      │
 │ Retry: Attempted 1 retry, still failing                     │
-│ Completed: Steps 1-5                                        │
+│ Completed: Steps 1-6                                        │
 │ Rollback: PR #71 still open, no release created             │
 ├─────────────────────────────────────────────────────────────┤
 │ Manual fix needed. Resume with: /release (interactive)       │
@@ -343,7 +345,7 @@ If branch protection blocks the merge, use `--admin` only after user confirmatio
 
 ### Step 6.5: CI Monitoring (NEW in v2.22.0)
 
-After creating the PR (Step 5) but before merging (Step 6), monitor CI status and auto-fix safe failures.
+After creating the PR (Step 5) but before merging (Step 7), monitor CI status and auto-fix safe failures.
 
 **Script:** `scripts/ci-monitor.sh`
 
@@ -355,7 +357,7 @@ bash scripts/ci-monitor.sh <pr-number>
 **Behavior:**
 
 1. Poll `gh run list` every 30s (configurable via `.claude/release-config.json`)
-2. On **success**: proceed to Step 6 (merge)
+2. On **success**: proceed to Step 7 (merge)
 3. On **failure**: diagnose, categorize, and attempt fix
 4. Max 3 retry cycles before reporting to user
 
@@ -399,7 +401,7 @@ bash scripts/ci-monitor.sh <pr-number>
 │ [Poll 2] ⏳ In progress (60s elapsed)                       │
 │ [Poll 3] ✅ All checks passed (90s elapsed)                  │
 │                                                             │
-│ Proceeding to Step 6: Merge PR                              │
+│ Proceeding to Step 7: Merge PR                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -407,7 +409,7 @@ bash scripts/ci-monitor.sh <pr-number>
 
 **Timeout:** If CI doesn't complete within `ci_timeout` seconds, report to user and ask whether to wait longer or merge with `--admin`.
 
-### Step 7: Create GitHub Release
+### Step 8: Create GitHub Release
 
 ```bash
 git pull origin main
@@ -424,7 +426,7 @@ Generate release notes by analyzing commits since last release (`git log <last-t
 - Test count and stats
 - Link to full changelog comparison
 
-### Step 8: Post-Release (if applicable)
+### Step 9: Post-Release (if applicable)
 
 If the project has a docs site (check for `mkdocs.yml`, `_quarto.yml`, or `docs/` directory):
 
@@ -432,7 +434,7 @@ If the project has a docs site (check for `mkdocs.yml`, `_quarto.yml`, or `docs/
 mkdocs gh-deploy  # or /craft:site:deploy
 ```
 
-### Step 8.5: Update Homebrew Tap (if applicable)
+### Step 10: Update Homebrew Tap (if applicable)
 
 If the project has a Homebrew formula in the `data-wise/tap`, update it with the new version.
 
@@ -543,14 +545,14 @@ gh run list --repo Data-Wise/craft --workflow=homebrew-release.yml --limit 1 \
 
 If the workflow failed, check with `/craft:ci:status` for diagnosis.
 
-### Step 9: Sync Dev with Main
+### Step 11: Sync Dev with Main
 
 ```bash
 git checkout dev && git pull origin main
 git push  # sync origin/dev
 ```
 
-### Step 10: Verify CI on Main (MANDATORY)
+### Step 12: Verify CI on Main (MANDATORY)
 
 After merge, verify CI passes on main. This catches issues like missing CI dependencies.
 
@@ -568,6 +570,62 @@ gh run view <run-id> --log-failed 2>&1 | tail -30
 
 **If CI fails on main:** This is critical — the release tag points to broken code. Fix immediately on dev, then merge to main (patch release if needed).
 
+### Step 13: Verify Downstream Workflows (MANDATORY)
+
+After CI passes on main, verify all downstream workflows and artifacts are correct. This catches silent failures in deploy pipelines, Homebrew distribution, and badge rendering.
+
+#### 13a: Deploy Documentation Workflow
+
+```bash
+# Check the latest docs deploy workflow run
+gh run list --workflow=docs.yml --limit 1 \
+  --json status,conclusion,createdAt --jq '.[0]'
+```
+
+If `conclusion` is not `success`, check logs with `gh run view <id> --log-failed`.
+
+#### 13b: Homebrew Release Workflow
+
+```bash
+# Check the latest homebrew-release workflow run
+gh run list --workflow=homebrew-release.yml --limit 1 \
+  --json status,conclusion,createdAt --jq '.[0]'
+```
+
+If `conclusion` is not `success`, check with `/craft:ci:status` for diagnosis.
+
+#### 13c: Live Site Version
+
+```bash
+# Verify the live docs site shows the new version
+curl -sL https://data-wise.github.io/craft/ | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+'
+```
+
+Compare the extracted version string against the release version. If stale, the docs workflow may have failed silently.
+
+#### 13d: Formula Content Verification
+
+```bash
+# Fetch formula from the tap repo and verify version + SHA
+gh api repos/Data-Wise/homebrew-tap/contents/Formula/craft.rb \
+  --jq '.content' | base64 -d | grep -E '(version|sha256|desc)'
+
+# Also verify via brew info
+brew info data-wise/tap/craft
+```
+
+Confirm: version matches release, SHA256 is non-empty and 64 chars, description is present.
+
+#### 13e: Badge Validation
+
+```bash
+# Fetch the main CI badge and check for "passing"
+curl -sL "https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg" | grep -q "passing" \
+  && echo "Badge: PASSING" || echo "Badge: NOT PASSING"
+```
+
+If the badge does not show "passing", CI may still be running or may have failed. Wait and re-check.
+
 ## Output Format
 
 Display progress using box-drawing:
@@ -576,17 +634,19 @@ Display progress using box-drawing:
 ┌─────────────────────────────────────────────────────────────┐
 │ /release v2.17.0                                            │
 ├─────────────────────────────────────────────────────────────┤
-│ [ 1/11] CI mirror check .................... PASSED          │
-│ [ 2/11] Release metadata check ............. PASSED          │
-│ [ 3/11] Version bump ....................... DONE             │
-│ [ 4/11] Commit & push ..................... DONE              │
-│ [ 5/11] Release PR created ................. PR #70          │
-│ [ 6/11] CI monitoring ..................... GREEN (90s)       │
-│ [ 7/11] PR merged .......................... DONE             │
-│ [ 8/11] GitHub release ..................... v2.17.0          │
-│ [ 9/11] Docs deployed ..................... DONE              │
-│ [10/11] Dev synced ........................ DONE               │
-│ [11/11] Verify CI on main ................. PASSED            │
+│ [ 1/13] CI mirror check .................... PASSED          │
+│ [ 2/13] Release metadata check ............. PASSED          │
+│ [ 3/13] Version bump ....................... DONE             │
+│ [ 4/13] Commit and push ................... DONE              │
+│ [ 5/13] Release PR created ................. PR #70          │
+│ [ 6/13] CI monitoring ..................... GREEN (90s)       │
+│ [ 7/13] PR merged .......................... DONE             │
+│ [ 8/13] GitHub release ..................... v2.17.0          │
+│ [ 9/13] Docs deployed ..................... DONE              │
+│ [10/13] Homebrew tap updated .............. DONE              │
+│ [11/13] Dev synced ........................ DONE               │
+│ [12/13] Verify CI on main ................. PASSED            │
+│ [13/13] Downstream verification ........... ALL GREEN         │
 ├─────────────────────────────────────────────────────────────┤
 │ Release URL: https://github.com/.../releases/tag/v2.17.0   │
 └─────────────────────────────────────────────────────────────┘

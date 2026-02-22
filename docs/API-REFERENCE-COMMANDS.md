@@ -112,6 +112,7 @@ Root-level commands that provide universal functionality.
 | `fix` | boolean | No | false | Auto-fix fixable issues |
 | `--dry-run` | boolean | No | false | Preview fixes without applying |
 | `-n` | boolean | No | false | Alias for `--dry-run` |
+| `--for` | enum | No | - | Context-specific checks: `pr`, `release`. When `release`, validates badge URLs (main+dev) and Homebrew formula desc consistency |
 
 #### Examples
 
@@ -121,6 +122,7 @@ Root-level commands that provide universal functionality.
 /craft:check tests           # Only test coverage
 /craft:check code --fix      # Auto-fix code issues
 /craft:check --dry-run       # Preview all fixes
+/craft:check --for release   # Release checks: badge URLs, formula desc, full CI mirror
 ```
 
 #### Output Format

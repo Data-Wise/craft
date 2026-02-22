@@ -3,7 +3,15 @@ name: Deploy Documentation
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/docs.yml'
   workflow_dispatch:
+
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -18,8 +26,21 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.x
+          python-version: '3.12'
 
       - run: pip install mkdocs-material
 
-      - run: mkdocs gh-deploy --force
+      - name: Deploy docs with retry
+        run: |
+          for attempt in 1 2 3; do
+            echo "Attempt $attempt of 3..."
+            if mkdocs gh-deploy --force; then
+              echo "Deploy succeeded on attempt $attempt"
+              exit 0
+            fi
+            echo "Deploy failed, fetching latest gh-pages and retrying..."
+            git fetch origin gh-pages
+            sleep 5
+          done
+          echo "Deploy failed after 3 attempts"
+          exit 1

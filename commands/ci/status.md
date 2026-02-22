@@ -8,6 +8,10 @@ arguments:
   - name: repo
     description: Filter to a specific repo (e.g. craft, homebrew-tap)
     required: false
+  - name: post-release
+    description: Run post-release verification (downstream workflows, live site, formula)
+    required: false
+    default: false
 ---
 
 # /craft:ci:status - CI Status Dashboard
@@ -112,6 +116,34 @@ When `--json` is passed, output machine-readable format:
   },
   "summary": {"total": 7, "passed": 7, "failed": 0}
 }
+```
+
+## Post-Release Mode
+
+When invoked with `--post-release`, runs extended downstream verification:
+
+1. **Release-triggered workflows** — checks ci.yml, docs.yml, homebrew-release.yml ran successfully on latest main push
+2. **Homebrew tap workflows** — checks Data-Wise/homebrew-tap CI for successful formula update
+3. **Live site version** — curls the docs site to confirm new version string appears
+4. **Badge URL validation** — confirms main and dev CI badges resolve and show "passing"
+5. **Brew info** — runs `brew info data-wise/tap/craft` to verify version
+
+### Output Format
+
+Uses standard box-drawing output:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│  POST-RELEASE VERIFICATION                                   │
+├─────────────────────────────────────────────────────────────┤
+│  [1/5] ci.yml on main ..................... PASSED            │
+│  [2/5] docs.yml deployment ............... PASSED             │
+│  [3/5] homebrew-release.yml .............. PASSED             │
+│  [4/5] Live site version ................. v2.27.0            │
+│  [5/5] Badge validation .................. ALL PASSING        │
+├─────────────────────────────────────────────────────────────┤
+│  Result: ALL GREEN                                           │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ## Repos Monitored

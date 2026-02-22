@@ -5,13 +5,13 @@ category: code
 
 # Release Workflow
 
-Guide through the package/project release process. For Craft plugin projects, delegates to the `/release` skill which provides a comprehensive 10-step pipeline.
+Guide through the package/project release process. For Craft plugin projects, delegates to the `/release` skill which provides a comprehensive 13-step pipeline.
 
 ## Craft Plugin Projects
 
 For Craft plugins (detected by `.claude-plugin/plugin.json`), invoke the **release skill** which provides:
 
-- 10-step automated pipeline (version detect → CI mirror → metadata check → bump → commit → PR → merge → GitHub release → docs deploy → dev sync)
+- 13-step automated pipeline (version detect → CI mirror → metadata check → bump → commit → PR → merge → GitHub release → docs deploy → Homebrew tap → dev sync → verify CI → downstream verification)
 - `--dry-run` mode for previewing actions
 - Pre-flight validation via `/craft:check --for release` + `pre-release-check.sh`
 

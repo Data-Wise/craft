@@ -492,6 +492,50 @@ bash scripts/hook-conflict-audit.sh --for pr       # PR-specific audit
 bash scripts/hook-conflict-audit.sh --for release   # Release-specific audit
 ```
 
+## Badge URL Validation (NEW in v2.27.0)
+
+Validates that CI badge URLs in README.md and docs/index.md include both `?branch=main` and `?branch=dev` variants. Ensures badges are not hardcoded to a single branch.
+
+**When it runs:** `--for release` and `--for deploy`
+
+**What it checks:**
+
+- README.md badge URLs include `?branch=main` variant
+- README.md badge URLs include `?branch=dev` variant
+- docs/index.md badge URLs include `?branch=main` variant
+- docs/index.md badge URLs include `?branch=dev` variant
+- All badge URLs resolve (HTTP 200)
+
+**Severity:** error (blocking)
+
+```bash
+# Example validation
+grep -E 'badge.*\?branch=' README.md docs/index.md
+# Expect both ?branch=main and ?branch=dev for each workflow badge
+```
+
+## Homebrew Formula Desc Validation (NEW in v2.27.0)
+
+Checks that the Homebrew formula `desc` field command counts match actual counts from the project. Prevents the formula description from drifting out of sync after adding or removing commands.
+
+**When it runs:** `--for release`
+
+**What it checks:**
+
+- Parses `desc` field from the Homebrew formula (`homebrew-tap/Formula/craft.rb`)
+- Extracts any numeric counts mentioned (e.g., "107 commands")
+- Compares against actual command count from `scripts/validate-counts.sh`
+- Reports mismatch if counts differ
+
+**Severity:** warning (not blocking)
+
+```bash
+# Example check
+formula_desc=$(grep 'desc "' ../homebrew-tap/Formula/craft.rb | sed 's/.*desc "//;s/"//')
+actual_count=$(find commands/ -name '*.md' | wc -l | tr -d ' ')
+# Compare counts extracted from desc vs actual
+```
+
 ## CLAUDE.md Health Check (NEW in v2.22.0)
 
 Basic health check for CLAUDE.md files.
@@ -641,6 +685,8 @@ The `--for` flag adjusts which checks run based on what you're preparing for:
 | Merge conflicts | Skip | Detect | N/A | N/A |
 | Coverage threshold | Skip | 80% min | 90% min | 90% min |
 | Instruction health | Counts only | Full check | Full check | Full + auto-fix |
+| Badge URLs | Skip | Skip | Validate both branches | Validate both branches |
+| Formula desc | Skip | Skip | Check counts match | Skip |
 
 When `--for` is specified, the Step 0 preview shows this context:
 
