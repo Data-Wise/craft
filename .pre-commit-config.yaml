@@ -49,6 +49,12 @@ repos:
         language: system
         files: '\.md$'
         pass_filenames: false
+      - id: mermaid-validate
+        name: Validate Mermaid diagrams in markdown
+        entry: bash -c 'scripts/hooks/pre-commit-mermaid.sh'
+        language: system
+        files: '\.md$'
+        pass_filenames: false
       - id: claude-md-budget
         name: Check CLAUDE.md budget (< 150 lines)
         entry: bash -c 'scripts/claude-md-budget-check.sh'
