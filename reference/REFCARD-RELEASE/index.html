@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds Mermaid MCP validation pipeline, auto-fix engine, health score metric, and pre-commit hook.">
       
       
       
@@ -8398,7 +8398,7 @@
 
 <h1 id="quick-reference-release-pipeline">Quick Reference: Release Pipeline<a class="headerlink" href="#quick-reference-release-pipeline" title="Permanent link">&para;</a></h1>
 <p><strong>End-to-end release automation</strong> — version detection, pre-flight checks, PR creation, merge, GitHub release, downstream verification.</p>
-<p><strong>Version:</strong> 2.26.0 | <strong>Skill:</strong> <code>skills/release/SKILL.md</code> | <strong>13-step pipeline</strong> with downstream CI verification</p>
+<p><strong>Version:</strong> 2.27.0 | <strong>Skill:</strong> <code>skills/release/SKILL.md</code> | <strong>13-step pipeline</strong> with downstream CI verification</p>
 <hr />
 <h2 id="quick-decision-tree">Quick Decision Tree<a class="headerlink" href="#quick-decision-tree" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Ready to release?
@@ -8647,7 +8647,7 @@
 </table>
 <p><strong>Step 3 uses <code>bump-version.sh</code></strong> (single command replaces manual edits):</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./scripts/bump-version.sh<span class="w"> </span>&lt;version&gt;
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Updates all 11 files atomically: 3 JSON + 8 text</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Updates all 13 files atomically: 3 JSON + 10 text</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># See: docs/reference/REFCARD-BUMP-VERSION.md</span>
 </span></code></pre></div>
 <p><strong>Files bumped in Step 3:</strong></p>

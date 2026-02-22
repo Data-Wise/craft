@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds Mermaid MCP validation pipeline, auto-fix engine, health score metric, and pre-commit hook.">
       
       
       
@@ -5910,10 +5910,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v2260-2026-02-21-mermaid-mcp-validation-pipeline" class="md-nav__link">
+  <a href="#v2270-2026-02-21-mermaid-mcp-validation-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v2.26.0 (2026-02-21) - Mermaid MCP Validation Pipeline
+        v2.27.0 (2026-02-21) - Mermaid MCP Validation Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2260-2026-02-21-mermaid-mcp-validation-pipeline-pre-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.26.0 (2026-02-21) - Mermaid MCP Validation Pipeline (Pre-release)
       
     </span>
   </a>
@@ -8757,10 +8768,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#v2260-2026-02-21-mermaid-mcp-validation-pipeline" class="md-nav__link">
+  <a href="#v2270-2026-02-21-mermaid-mcp-validation-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v2.26.0 (2026-02-21) - Mermaid MCP Validation Pipeline
+        v2.27.0 (2026-02-21) - Mermaid MCP Validation Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2260-2026-02-21-mermaid-mcp-validation-pipeline-pre-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.26.0 (2026-02-21) - Mermaid MCP Validation Pipeline (Pre-release)
       
     </span>
   </a>
@@ -9424,22 +9446,26 @@
 <blockquote>
 <p><strong>Evolution of Craft</strong>: From command automation tool to intelligent orchestration platform</p>
 </blockquote>
-<p><strong>Latest Release:</strong> v2.26.0 (2026-02-21)
-<strong>Total Releases:</strong> 47 versions | <strong>Development Time:</strong> 2+ years
-<strong>Community:</strong> 107 commands documented, ~1595 tests passing, 90%+ coverage</p>
+<p><strong>Latest Release:</strong> v2.27.0 (2026-02-21)
+<strong>Total Releases:</strong> 48 versions | <strong>Development Time:</strong> 2+ years
+<strong>Community:</strong> 107 commands documented, 109 tests passing, 90%+ coverage</p>
 <hr />
 <h2 id="release-timeline">Release Timeline<a class="headerlink" href="#release-timeline" title="Permanent link">&para;</a></h2>
-<h3 id="v2260-2026-02-21-mermaid-mcp-validation-pipeline">v2.26.0 (2026-02-21) - Mermaid MCP Validation Pipeline<a class="headerlink" href="#v2260-2026-02-21-mermaid-mcp-validation-pipeline" title="Permanent link">&para;</a></h3>
+<h3 id="v2270-2026-02-21-mermaid-mcp-validation-pipeline">v2.27.0 (2026-02-21) - Mermaid MCP Validation Pipeline<a class="headerlink" href="#v2270-2026-02-21-mermaid-mcp-validation-pipeline" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released</p>
 <p><strong>Highlights:</strong></p>
 <ul>
-<li><strong>Mermaid validation pipeline:</strong> <code>mermaid-validate.py</code> with 12 regex pre-checks, <code>mermaid-autofix.py</code> with reverse-order block processing, health score metric</li>
-<li><strong>Pre-commit hook:</strong> <code>pre-commit-mermaid.sh</code> for automatic mermaid syntax validation on commit</li>
-<li><strong>MCP integration:</strong> <code>.mcp.json</code> config for <code>mcp-mermaid</code> server (validate, render, create diagrams)</li>
-<li><strong>Documentation:</strong> Mermaid Authoring Guide, Troubleshooting Guide, Validation Pipeline Architecture</li>
-<li><strong>35 new tests:</strong> 15 unit + 10 e2e + 10 dogfood</li>
+<li><strong>Mermaid MCP validation pipeline:</strong> 12-rule validation engine, auto-fix with reverse-order processing, health score metric (0-100)</li>
+<li><strong>Pre-commit hook:</strong> Mermaid syntax errors caught automatically on commit</li>
+<li><strong>MCP integration:</strong> mcp-mermaid server for diagram validation, SVG rendering, and NL creation</li>
+<li><strong>Release pipeline hardening:</strong> CI concurrency groups, badge validation, formula desc checks, downstream verification (Steps 11-13)</li>
+<li><strong>Documentation:</strong> Mermaid Authoring Guide, updated release workflow docs</li>
 </ul>
-<p><strong>Stats:</strong> 107 commands | 26 skills | 8 agents | ~1595 tests passing</p>
+<p><strong>Stats:</strong> 107 commands | 26 skills | 8 agents | 109 tests passing</p>
+<hr />
+<h3 id="v2260-2026-02-21-mermaid-mcp-validation-pipeline-pre-release">v2.26.0 (2026-02-21) - Mermaid MCP Validation Pipeline (Pre-release)<a class="headerlink" href="#v2260-2026-02-21-mermaid-mcp-validation-pipeline-pre-release" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Superseded by v2.27.0</p>
+<p><strong>Stats:</strong> 107 commands | 26 skills | 8 agents | 109 tests passing</p>
 <hr />
 <h3 id="v2250-2026-02-21-release-watcher-command-sync">v2.25.0 (2026-02-21) - Release Watcher &amp; Command Sync<a class="headerlink" href="#v2250-2026-02-21-release-watcher-command-sync" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released</p>
@@ -9467,7 +9493,7 @@
 <p><strong>Status:</strong> Released</p>
 <p><strong>Highlights:</strong></p>
 <ul>
-<li><strong>bump-version.sh:</strong> Automated version bumping across 11 files with dry-run, verify, and counts-only modes</li>
+<li><strong>bump-version.sh:</strong> Automated version bumping across 13 files with dry-run, verify, and counts-only modes</li>
 <li><strong>CI status dashboard:</strong> Cross-repo CI monitoring command and reference card</li>
 <li><strong>Documentation cleanup:</strong> Fixed stale ORCHESTRATE reference, corrected spec/test counts, rebuilt skills-agents pages</li>
 </ul>
