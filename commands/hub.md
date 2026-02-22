@@ -60,9 +60,9 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.23.1                          │
+│  CRAFT - Full Stack Developer Toolkit v2.27.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
-│  107 commands | 26 skills | 8 agents | ~1472 tests passing             │
+│  107 commands | 26 skills | 8 agents | 109 tests passing               │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ SMART COMMANDS (Start Here):                                            │
 │    /craft:do <task>     Universal command - AI routes to best workflow  │
@@ -511,7 +511,7 @@ Quick orchestration (--orch flag on any command):
 
 ---
 
-## Skills (24 Auto-Activated)
+## Skills (26 Auto-Activated)
 
 | Skill | Category | Triggers On |
 |-------|----------|-------------|
@@ -626,7 +626,7 @@ SUGGESTED FOR NODE PROJECT:
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Full-stack developer toolkit for Claude Code                           │
-│ 107 commands | 26 skills | 8 agents | ~1472 tests passing              │
+│ 107 commands | 26 skills | 8 agents | 109 tests passing                │
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   -> AI routes to best workflow                     │
