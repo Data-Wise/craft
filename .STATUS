@@ -16,7 +16,7 @@ progress: v2.27.0 released. 13-step pipeline with downstream verification. All g
 ✅ Session 2026-02-21d (v2.27.0 release — Release Pipeline Hardening):
 - Reviewed PR #105: found 5 issues (ORCHESTRATE file, grep -oP, tutorial step numbering, stale Step 8.5 refs, ci:status docs)
 - Fixed ORCHESTRATE file + grep -oP portability, merged PR #105
-- Post-merge doc update: 11 files updated (Step 8.5 → Step 10), fixed 15 failing tests
+- Post-merge doc update: 13 files updated (Step 8.5 → Step 10), fixed 15 failing tests
 - Site validation: clean build, 0 broken links, all counts match
 - Released v2.27.0: first release using 13-step pipeline with downstream verification
 - All 13 steps passed: PR #106, GitHub release, Homebrew 2.27.0, docs deploy, all downstream green

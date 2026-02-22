@@ -12,7 +12,7 @@ Claude Code v2.1.49 introduces several features that craft should integrate:
 - Agent `memory` and `skills` fields
 - Native `claude -w` worktree flag
 
-Craft currently has 108 commands, 25 skills, 8 agents. The multi-repo coordination workflow exists but is poorly documented.
+Craft currently has 107 commands, 26 skills, 8 agents. The multi-repo coordination workflow exists but is poorly documented.
 
 ---
 

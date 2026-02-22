@@ -130,7 +130,7 @@ Generated quickstart follows this structure:
 ```markdown
 # Craft
 
-> **TL;DR:** Claude Code plugin with 108 commands, 25 skills, 8 agents for ADHD-friendly development workflows.
+> **TL;DR:** Claude Code plugin with 107 commands, 26 skills, 8 agents for ADHD-friendly development workflows.
 
 ## 30-Second Setup
 
