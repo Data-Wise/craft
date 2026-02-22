@@ -258,7 +258,7 @@ The check extracts the command count from the formula's `desc` string (e.g., `"F
 
 ```bash
 # Run Check 8 standalone
-./scripts/pre-release-check.sh v2.26.0
+./scripts/pre-release-check.sh v2.27.0
 # Look for: [8/8] Homebrew formula desc consistency
 ```
 
