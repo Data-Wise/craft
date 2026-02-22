@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.25.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -1855,6 +1855,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../architecture/mermaid-validation-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermaid Pipeline Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
@@ -1994,6 +2022,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../guide/mermaid-authoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermaid Authoring Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/mermaid-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermaid Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -2006,10 +2090,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_28" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_31" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_28" id="__nav_2_4_28_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_31" id="__nav_2_4_31_label" tabindex="0">
             
   
   
@@ -2027,8 +2111,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_28_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_28">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_31_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_31">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2204,10 +2288,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_30" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_33" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_30" id="__nav_2_4_30_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_33" id="__nav_2_4_33_label" tabindex="0">
             
   
   
@@ -2225,8 +2309,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_30_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_30">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_33_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_33">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3447,6 +3531,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#craftdocsmermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:mermaid
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3554,7 +3649,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#craftdocsmermaid" class="md-nav__link">
+  <a href="#craftdocsmermaid_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         /craft:docs:mermaid
@@ -8345,6 +8440,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#craftdocsmermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:docs:mermaid
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8452,7 +8558,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#craftdocsmermaid" class="md-nav__link">
+  <a href="#craftdocsmermaid_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         /craft:docs:mermaid
@@ -8626,7 +8732,7 @@
 <tr>
 <td>"Are my docs valid?"</td>
 <td><code>/craft:docs:check</code></td>
-<td>Validates links + nav + staleness, auto-fixes</td>
+<td>Validates links + nav + staleness + mermaid, auto-fixes</td>
 </tr>
 <tr>
 <td>"Fix markdown formatting"</td>
@@ -8694,17 +8800,27 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:docs:sync<span class="w">                      </span><span class="c1"># Quick: &quot;3 stale, guide recommended&quot;</span>
 </span></code></pre></div>
 <h3 id="craftdocscheck">/craft:docs:check<a class="headerlink" href="#craftdocscheck" title="Permanent link">&para;</a></h3>
-<p><strong>Validation:</strong> Links + stale + nav + auto-fix (full by default)</p>
+<p><strong>Validation:</strong> Links + stale + nav + mermaid + auto-fix (full by default)</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:docs:check<span class="w">                     </span><span class="c1"># Full check cycle, auto-fixes</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:docs:check<span class="w"> </span>--report-only<span class="w">       </span><span class="c1"># CI-safe mode (no modifications)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:docs:check<span class="w"> </span>--no-mermaid<span class="w">        </span><span class="c1"># Skip mermaid validation phase</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>/craft:docs:check<span class="w"> </span>--mermaid-gate<span class="w"> </span><span class="m">90</span><span class="w">   </span><span class="c1"># Custom health score threshold</span>
 </span></code></pre></div>
+<p><strong>Phase 5: Mermaid Validation</strong> runs 5 regex pre-checks on all mermaid blocks, calculates a health score (0-100), and reports errors/warnings. See <a href="../../guide/mermaid-authoring/">Mermaid Authoring Guide</a>.</p>
+<h3 id="craftdocsmermaid">/craft:docs:mermaid<a class="headerlink" href="#craftdocsmermaid" title="Permanent link">&para;</a></h3>
+<p><strong>Diagram creation:</strong> Templates, natural language, MCP validation, browser preview</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:docs:mermaid<span class="w"> </span>workflow<span class="w">                           </span><span class="c1"># Get workflow template</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:docs:mermaid<span class="w"> </span><span class="s2">&quot;auth flow with OAuth2&quot;</span><span class="w"> </span>--validate<span class="w"> </span><span class="c1"># NL creation + validation</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/craft:docs:mermaid<span class="w"> </span><span class="s2">&quot;CI pipeline&quot;</span><span class="w"> </span>--preview<span class="w">            </span><span class="c1"># Render SVG in browser</span>
+</span></code></pre></div>
+<p>See <a href="../../guide/mermaid-authoring/">Mermaid Authoring Guide</a> for templates and syntax rules.</p>
 <h2 id="quality-automation">Quality Automation<a class="headerlink" href="#quality-automation" title="Permanent link">&para;</a></h2>
 <h3 id="craftdocslint">/craft:docs:lint<a class="headerlink" href="#craftdocslint" title="Permanent link">&para;</a></h3>
 <p><strong>Markdown quality validation with auto-fix</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:docs:lint<span class="w">                      </span><span class="c1"># Quick quality check</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:docs:lint<span class="w"> </span>--fix<span class="w">                </span><span class="c1"># Auto-fix safe issues</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/craft:docs:lint<span class="w"> </span>release<span class="w">              </span><span class="c1"># Comprehensive validation</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>/craft:docs:lint<span class="w"> </span>--dry-run<span class="w">            </span><span class="c1"># Preview checks</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:docs:lint<span class="w">                      </span><span class="c1"># Quick quality check</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:docs:lint<span class="w"> </span>--fix<span class="w">                </span><span class="c1"># Auto-fix safe issues</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/craft:docs:lint<span class="w"> </span>release<span class="w">              </span><span class="c1"># Comprehensive validation</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>/craft:docs:lint<span class="w"> </span>--dry-run<span class="w">            </span><span class="c1"># Preview checks</span>
 </span></code></pre></div>
 <p><strong>Features:</strong></p>
 <ul>
@@ -8721,10 +8837,10 @@
 </ul>
 <h3 id="craftdocscheck-links">/craft:docs:check-links<a class="headerlink" href="#craftdocscheck-links" title="Permanent link">&para;</a></h3>
 <p><strong>Internal link validation with .linkcheck-ignore support</strong> ⭐ NEW</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:docs:check-links<span class="w">               </span><span class="c1"># Validate all internal links</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:docs:check-links<span class="w"> </span>release<span class="w">       </span><span class="c1"># Include anchor validation</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/craft:docs:check-links<span class="w"> </span>docs/guide/<span class="w">   </span><span class="c1"># Check specific directory</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>/craft:docs:check-links<span class="w"> </span>--dry-run<span class="w">     </span><span class="c1"># Preview checks</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:docs:check-links<span class="w">               </span><span class="c1"># Validate all internal links</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:docs:check-links<span class="w"> </span>release<span class="w">       </span><span class="c1"># Include anchor validation</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:docs:check-links<span class="w"> </span>docs/guide/<span class="w">   </span><span class="c1"># Check specific directory</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>/craft:docs:check-links<span class="w"> </span>--dry-run<span class="w">     </span><span class="c1"># Preview checks</span>
 </span></code></pre></div>
 <p><strong>Features:</strong></p>
 <ul>
@@ -8743,15 +8859,15 @@
 </ul>
 <p><strong>NEW: .linkcheck-ignore Support</strong></p>
 <p>Create a <code>.linkcheck-ignore</code> file to document expected broken links:</p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gh"># Known Broken Links</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="gu">### Test Files</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>File: <span class="sb">`docs/test-violations.md`</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">-</span><span class="w"> </span>Purpose: Test data for validation
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="gu">### Brainstorm References</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Files: <span class="sb">`docs/specs/*.md`</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>Targets: <span class="sb">`docs/brainstorm/*.md`</span>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gh"># Known Broken Links</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="gu">### Test Files</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>File: <span class="sb">`docs/test-violations.md`</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">-</span><span class="w"> </span>Purpose: Test data for validation
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="gu">### Brainstorm References</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>Files: <span class="sb">`docs/specs/*.md`</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>Targets: <span class="sb">`docs/brainstorm/*.md`</span>
 </span></code></pre></div>
 <p><strong>Benefits:</strong></p>
 <ul>
@@ -8773,12 +8889,12 @@
 <li>ADHD Quick Start page creation</li>
 </ul>
 <p><strong>Usage:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:docs:website<span class="w">                   </span><span class="c1"># Full enhancement (all 3 phases)</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:docs:website<span class="w"> </span>--analyze<span class="w">         </span><span class="c1"># Show ADHD score only</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">1</span><span class="w">         </span><span class="c1"># Quick wins: TL;DR, mermaid fixes</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">2</span><span class="w">         </span><span class="c1"># Structure: Visual workflows</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">3</span><span class="w">         </span><span class="c1"># Polish: Mobile responsive</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>/craft:docs:website<span class="w"> </span>--dry-run<span class="w">         </span><span class="c1"># Preview changes without writing</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:docs:website<span class="w">                   </span><span class="c1"># Full enhancement (all 3 phases)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:docs:website<span class="w"> </span>--analyze<span class="w">         </span><span class="c1"># Show ADHD score only</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">1</span><span class="w">         </span><span class="c1"># Quick wins: TL;DR, mermaid fixes</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">2</span><span class="w">         </span><span class="c1"># Structure: Visual workflows</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>/craft:docs:website<span class="w"> </span>--phase<span class="w"> </span><span class="m">3</span><span class="w">         </span><span class="c1"># Polish: Mobile responsive</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>/craft:docs:website<span class="w"> </span>--dry-run<span class="w">         </span><span class="c1"># Preview changes without writing</span>
 </span></code></pre></div>
 <p><strong>ADHD Scoring Categories:</strong></p>
 <ul>
@@ -8791,16 +8907,16 @@
 <h2 id="specialized-commands">Specialized Commands<a class="headerlink" href="#specialized-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftdocsguide">/craft:docs:guide<a class="headerlink" href="#craftdocsguide" title="Permanent link">&para;</a></h3>
 <p>Feature guide + demo + refcard generator</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:docs:guide<span class="w"> </span><span class="s2">&quot;authentication&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:docs:guide<span class="w"> </span><span class="s2">&quot;authentication&quot;</span>
 </span></code></pre></div>
 <h3 id="craftdocsdemo">/craft:docs:demo<a class="headerlink" href="#craftdocsdemo" title="Permanent link">&para;</a></h3>
 <p>VHS tape generator for GIF demos</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:docs:demo<span class="w"> </span><span class="s2">&quot;quick-start&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:docs:demo<span class="w"> </span><span class="s2">&quot;quick-start&quot;</span>
 </span></code></pre></div>
-<h3 id="craftdocsmermaid">/craft:docs:mermaid<a class="headerlink" href="#craftdocsmermaid" title="Permanent link">&para;</a></h3>
+<h3 id="craftdocsmermaid_1">/craft:docs:mermaid<a class="headerlink" href="#craftdocsmermaid_1" title="Permanent link">&para;</a></h3>
 <p>Mermaid diagram templates (6 types)</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:docs:mermaid<span class="w"> </span>flowchart
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:docs:mermaid<span class="w"> </span>sequence
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:docs:mermaid<span class="w"> </span>flowchart
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>/craft:docs:mermaid<span class="w"> </span>sequence
 </span></code></pre></div>
 <h3 id="craftdocsapi">/craft:docs:api<a class="headerlink" href="#craftdocsapi" title="Permanent link">&para;</a></h3>
 <p>OpenAPI/Swagger documentation</p>
@@ -8813,7 +8929,7 @@
 <h2 id="integration-commands">Integration Commands<a class="headerlink" href="#integration-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftdocssite">/craft:docs:site<a class="headerlink" href="#craftdocssite" title="Permanent link">&para;</a></h3>
 <p>Site-wide documentation updates (integrates with site commands)</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:docs:site<span class="w"> </span>sync<span class="w">    </span><span class="c1"># Sync docs with site structure</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:docs:site<span class="w"> </span>sync<span class="w">    </span><span class="c1"># Sync docs with site structure</span>
 </span></code></pre></div>
 <h2 id="internal-commands">Internal Commands<a class="headerlink" href="#internal-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftdocsclaude-md">/craft:docs:claude-md<a class="headerlink" href="#craftdocsclaude-md" title="Permanent link">&para;</a></h3>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.25.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -2136,6 +2136,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../architecture/mermaid-validation-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermaid Pipeline Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
@@ -2275,6 +2303,62 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../guide/mermaid-authoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermaid Authoring Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/mermaid-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mermaid Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
     
@@ -2287,10 +2371,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_28" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_31" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_28" id="__nav_2_4_28_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_31" id="__nav_2_4_31_label" tabindex="0">
             
   
   
@@ -2308,8 +2392,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_28_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_28">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_31_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_31">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2485,10 +2569,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_30" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_33" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_30" id="__nav_2_4_30_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_33" id="__nav_2_4_33_label" tabindex="0">
             
   
   
@@ -2506,8 +2590,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_30_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_30">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_33_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_33">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -8583,8 +8667,13 @@
 <td>Git status</td>
 <td>Working tree status</td>
 </tr>
+<tr>
+<td>Mermaid</td>
+<td>Diagram syntax in <code>.md</code> files (errors only)</td>
+</tr>
 </tbody>
 </table>
+<p><strong>Mermaid validation</strong> runs automatically via the pre-commit hook on any staged <code>.md</code> files containing mermaid blocks. It checks for two error-level rules (leading-slash, lowercase-end) that cause visible rendering failures. Warnings are skipped for speed. See <a href="../../guide/mermaid-authoring/">Mermaid Authoring Guide</a>.</p>
 <p><strong>Expected output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>╭─ /craft:check ───────────────────────────────────────╮
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│ Project: craft (Claude Plugin)                       │
