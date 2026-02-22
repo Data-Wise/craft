@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -9255,10 +9255,11 @@
 </span></code></pre></div>
 <p><strong>Generates:</strong> .github/workflows/ci.yml with tests, linting, build steps</p>
 <h3 id="craftstatus">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />status<a class="headerlink" href="#craftstatus" title="Permanent link">&para;</a></h3>
-<p>Cross-repo CI status dashboard — see all workflow statuses in one view.</p>
+<p>Cross-repo CI status dashboard — see all workflow statuses in one view. Supports <code>--post-release</code> mode for downstream verification.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:ci:status
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:ci:status<span class="w"> </span>--json
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>/craft:ci:status<span class="w"> </span>--repo<span class="w"> </span>craft
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>/craft:ci:status<span class="w"> </span>--post-release
 </span></code></pre></div>
 <p><strong>See:</strong> <a href="ci/status/">Command Reference</a></p>
 <h3 id="craftvalidate">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />validate<a class="headerlink" href="#craftvalidate" title="Permanent link">&para;</a></h3>

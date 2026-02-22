@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -8668,13 +8668,13 @@
 </table>
 <hr />
 <h2 id="step-7-release">Step 7: Release<a class="headerlink" href="#step-7-release" title="Permanent link">&para;</a></h2>
-<p>With everything configured, the <code>/release</code> skill handles formula updates automatically at Step 8.5:</p>
+<p>With everything configured, the <code>/release</code> skill handles formula updates automatically at Step 10:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/release
 </span></code></pre></div>
 <p>What happens behind the scenes:</p>
 <ol>
 <li>Release is created on GitHub</li>
-<li>Step 8.5 reads <code>.craft/homebrew.json</code></li>
+<li>Step 10 reads <code>.craft/homebrew.json</code></li>
 <li>Downloads the release tarball</li>
 <li>Calculates SHA256 with validation</li>
 <li>Updates the formula via <code>sed</code></li>

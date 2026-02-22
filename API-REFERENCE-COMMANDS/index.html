@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -16392,6 +16392,13 @@
 <td>false</td>
 <td>Alias for <code>--dry-run</code></td>
 </tr>
+<tr>
+<td><code>--for</code></td>
+<td>enum</td>
+<td>No</td>
+<td>-</td>
+<td>Context-specific checks: <code>pr</code>, <code>release</code>. When <code>release</code>, validates badge URLs (main+dev) and Homebrew formula desc consistency</td>
+</tr>
 </tbody>
 </table>
 <h4 id="examples_1">Examples<a class="headerlink" href="#examples_1" title="Permanent link">&para;</a></h4>
@@ -16400,6 +16407,7 @@
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:check<span class="w"> </span>tests<span class="w">           </span><span class="c1"># Only test coverage</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>/craft:check<span class="w"> </span>code<span class="w"> </span>--fix<span class="w">      </span><span class="c1"># Auto-fix code issues</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:check<span class="w"> </span>--dry-run<span class="w">       </span><span class="c1"># Preview all fixes</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>release<span class="w">   </span><span class="c1"># Release checks: badge URLs, formula desc, full CI mirror</span>
 </span></code></pre></div>
 <h4 id="output-format_1">Output Format<a class="headerlink" href="#output-format_1" title="Permanent link">&para;</a></h4>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>✅ CODE QUALITY

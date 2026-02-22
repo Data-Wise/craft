@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -9607,7 +9607,7 @@
 <li><strong>Workflow Security Hardening</strong>: Env indirection for script injection prevention, <code>sha256sum</code> on CI, <code>--retry 3</code>, 64-char SHA guard in <code>homebrew-release.yml</code></li>
 <li><strong>Subcommand Consolidation</strong>: 8 → 6 subcommands — renamed <code>validate</code> → <code>audit</code> (with <code>--build</code> flag), folded <code>token</code> into setup Step 4, dropped <code>release-batch</code>, expanded <code>deps</code> with inter-formula graph and system deps matrix</li>
 <li><strong>Formula Name Mapping</strong>: <code>.craft/homebrew.json</code> config with 3-priority lookup chain (config → git remote → basename fallback)</li>
-<li><strong>Release Skill Hardening</strong>: Step 8.5 rewrite with config lookup, <code>shasum -a 256</code> (macOS-portable), <code>ruby -c</code> syntax validation, SHA guard</li>
+<li><strong>Release Skill Hardening</strong>: Step 10 (Homebrew tap update) with config lookup, <code>shasum -a 256</code> (macOS-portable), <code>ruby -c</code> syntax validation, SHA guard</li>
 <li><strong>New Documentation</strong>: Homebrew Automation Guide (310 lines), Homebrew Setup Tutorial, Homebrew Quick Reference Card</li>
 </ul>
 <p><strong>Stats:</strong> 109 commands | 25 skills | 8 agents | ~1575 tests passing</p>
@@ -9834,7 +9834,7 @@
 </ul>
 <p><strong>Release Skill (v2.17.0):</strong></p>
 <ul>
-<li><strong><code>/craft:release</code></strong>: End-to-end release pipeline automation (10-step pipeline)</li>
+<li><strong><code>/craft:release</code></strong>: End-to-end release pipeline automation (13-step pipeline)</li>
 <li><strong><code>--dry-run</code> / <code>-n</code></strong>: Preview release plan without side effects (HIGH risk level)</li>
 <li><strong>Version detection</strong>: Priority cascade (plugin.json &gt; package.json &gt; git tag)</li>
 <li><strong>Semver suggestion</strong>: Analyzes commit history (fix-only=patch, feat=minor, breaking=major)</li>

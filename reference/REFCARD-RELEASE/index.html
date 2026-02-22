@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -8397,8 +8397,8 @@
 
 
 <h1 id="quick-reference-release-pipeline">Quick Reference: Release Pipeline<a class="headerlink" href="#quick-reference-release-pipeline" title="Permanent link">&para;</a></h1>
-<p><strong>End-to-end release automation</strong> — version detection, pre-flight checks, PR creation, merge, GitHub release.</p>
-<p><strong>Version:</strong> 2.22.0 | <strong>Skill:</strong> <code>skills/release/SKILL.md</code> | <strong>NEW:</strong> CI monitoring loop (Step 6.5)</p>
+<p><strong>End-to-end release automation</strong> — version detection, pre-flight checks, PR creation, merge, GitHub release, downstream verification.</p>
+<p><strong>Version:</strong> 2.26.0 | <strong>Skill:</strong> <code>skills/release/SKILL.md</code> | <strong>13-step pipeline</strong> with downstream CI verification</p>
 <hr />
 <h2 id="quick-decision-tree">Quick Decision Tree<a class="headerlink" href="#quick-decision-tree" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Ready to release?
@@ -8437,12 +8437,12 @@
 <tr>
 <td>2a</td>
 <td><code>/craft:check --for release</code></td>
-<td>Read-only (full CI mirror)</td>
+<td>Read-only (full CI mirror, badge URLs, formula desc)</td>
 </tr>
 <tr>
 <td>2b</td>
 <td><code>pre-release-check.sh</code></td>
-<td>Read-only (metadata)</td>
+<td>Read-only (metadata, badge URLs, formula desc)</td>
 </tr>
 <tr>
 <td>2c</td>
@@ -8470,24 +8470,39 @@
 <td>Merges to main</td>
 </tr>
 <tr>
-<td><strong>6.5</strong></td>
-<td><strong>CI monitoring loop</strong></td>
-<td><strong>Polls, diagnoses, retries (NEW v2.22.0)</strong></td>
+<td>7</td>
+<td>CI monitoring loop</td>
+<td>Polls, diagnoses, retries (v2.22.0)</td>
 </tr>
 <tr>
-<td>7</td>
+<td>8</td>
 <td>Create GitHub release</td>
 <td>Creates tag and release</td>
 </tr>
 <tr>
-<td>8</td>
+<td>9</td>
 <td>Post-release</td>
 <td>Deploys docs, syncs dev</td>
 </tr>
 <tr>
-<td>8.5</td>
+<td>10</td>
 <td>Update Homebrew tap</td>
 <td>Modifies tap formula</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Verify downstream CI (main)</td>
+<td>Read-only (polls main branch workflows)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Verify downstream CI (docs)</td>
+<td>Read-only (polls docs deploy workflow)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Verify downstream CI (Homebrew)</td>
+<td>Read-only (polls tap CI)</td>
 </tr>
 </tbody>
 </table>
@@ -8519,12 +8534,20 @@
     O --&gt; P["Deploy Docs"]
     P --&gt; Q["Update Homebrew Tap"]
     Q --&gt; R["Sync dev with main"]
-    R --&gt; S["Verify CI on main"]
+    R --&gt; S["Downstream Verification"]
+    S --&gt; S1["Verify main CI"]
+    S --&gt; S2["Verify docs deploy"]
+    S --&gt; S3["Verify Homebrew tap CI"]
+    S1 --&gt; T{All Green?}
+    S2 --&gt; T
+    S3 --&gt; T
+    T --&gt;|Yes| U["Release Complete"]
+    T --&gt;|No| V["Report failures"]
 
     style A fill:#4a9eff,color:#fff
     style D fill:#ffa94d,color:#fff
     style K fill:#ffa94d,color:#fff
-    style S fill:#51cf66,color:#fff</code></pre>
+    style U fill:#51cf66,color:#fff</code></pre>
 <hr />
 <h2 id="dry-run-mode">Dry-Run Mode<a class="headerlink" href="#dry-run-mode" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/release --dry-run    # or: /release -n

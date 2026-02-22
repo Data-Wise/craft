@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -8537,7 +8537,7 @@
 </span></code></pre></div>
 <hr />
 <h2 id="step-3-follow-the-pipeline">Step 3: Follow the Pipeline<a class="headerlink" href="#step-3-follow-the-pipeline" title="Permanent link">&para;</a></h2>
-<p>The release executes 10 steps sequentially:</p>
+<p>The release executes 13 steps sequentially:</p>
 <table>
 <thead>
 <tr>
@@ -8601,6 +8601,21 @@
 <td>10. Verify CI</td>
 <td>Checks CI passes on main</td>
 <td>Fix if needed</td>
+</tr>
+<tr>
+<td>11. Dev synced with main</td>
+<td>Confirms dev has all release changes</td>
+<td>Nothing (automatic)</td>
+</tr>
+<tr>
+<td>12. Verify CI on main</td>
+<td>MANDATORY gate -- CI must be green on main</td>
+<td>Fix if red</td>
+</tr>
+<tr>
+<td>13. Downstream verification</td>
+<td>Checks deploy docs, homebrew, live site, formula, badges</td>
+<td>Investigate failures</td>
 </tr>
 </tbody>
 </table>

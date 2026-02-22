@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.26.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
+        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.27.0 adds unified test system, CLAUDE.md layered instructions, and insights-driven friction prevention.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -2911,6 +2911,67 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formula-description-consistency-check-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formula Description Consistency (Check 8)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Formula Description Consistency (Check 8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What It Checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formula-lookup-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formula Lookup Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keeping-desc-in-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keeping Desc in Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-matters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -8690,6 +8751,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#formula-description-consistency-check-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formula Description Consistency (Check 8)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Formula Description Consistency (Check 8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-it-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What It Checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formula-lookup-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formula Lookup Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keeping-desc-in-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keeping Desc in Sync
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-this-matters_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-workflows" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8881,7 +9003,7 @@
 </tbody>
 </table>
 <h3 id="why-this-matters">Why This Matters<a class="headerlink" href="#why-this-matters" title="Permanent link">&para;</a></h3>
-<p>The <code>/release</code> skill (Step 8.5) uses a 3-priority lookup chain to find the formula name:</p>
+<p>The <code>/release</code> skill (Step 10) uses a 3-priority lookup chain to find the formula name:</p>
 <ol>
 <li><strong><code>.craft/homebrew.json</code></strong> — most reliable, explicit config</li>
 <li><strong>Git remote URL</strong> — extracted from <code>origin</code>, works for most repos</li>
@@ -9094,7 +9216,7 @@
 </table>
 <hr />
 <h2 id="release-integration">Release Integration<a class="headerlink" href="#release-integration" title="Permanent link">&para;</a></h2>
-<p>The <code>/release</code> skill Step 8.5 automatically updates your Homebrew tap formula:</p>
+<p>The <code>/release</code> skill Step 10 automatically updates your Homebrew tap formula:</p>
 <ol>
 <li>Looks up formula name via <code>.craft/homebrew.json</code> &gt; git remote &gt; basename</li>
 <li>Locates the tap directory (local checkout or brew tap cache)</li>
@@ -9105,36 +9227,67 @@
 </ol>
 <p>If no local tap is found, the CI workflow handles it automatically on release publish.</p>
 <hr />
+<h2 id="formula-description-consistency-check-8">Formula Description Consistency (Check 8)<a class="headerlink" href="#formula-description-consistency-check-8" title="Permanent link">&para;</a></h2>
+<p>The <code>pre-release-check.sh</code> script includes <strong>Check 8: Homebrew formula desc consistency</strong>, which validates that the <code>desc</code> field in your Homebrew formula stays in sync with the actual command counts in the project.</p>
+<h3 id="what-it-checks">What It Checks<a class="headerlink" href="#what-it-checks" title="Permanent link">&para;</a></h3>
+<p>The check extracts the command count from the formula's <code>desc</code> string (e.g., <code>"Full-stack developer toolkit for Claude Code with 107 commands"</code>) and compares it against the actual count detected by <code>validate-counts.sh</code>. If they differ, a warning is raised.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Run Check 8 standalone</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>./scripts/pre-release-check.sh<span class="w"> </span>v2.26.0
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Look for: [8/8] Homebrew formula desc consistency</span>
+</span></code></pre></div>
+<h3 id="formula-lookup-chain">Formula Lookup Chain<a class="headerlink" href="#formula-lookup-chain" title="Permanent link">&para;</a></h3>
+<p>Check 8 searches for the formula file in this order:</p>
+<ol>
+<li>Local Homebrew tap checkout (e.g., <code>$(brew --repository)/Library/Taps/&lt;tap&gt;/Formula/&lt;name&gt;.rb</code>)</li>
+<li>Common worktree/clone locations for the tap repo</li>
+<li>Falls back with a skip message if no formula is found locally</li>
+</ol>
+<h3 id="keeping-desc-in-sync">Keeping Desc in Sync<a class="headerlink" href="#keeping-desc-in-sync" title="Permanent link">&para;</a></h3>
+<p>When adding new commands to the plugin, update the formula description to reflect the new count:</p>
+<div class="language-ruby highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># In your formula .rb file</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Craft</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Formula</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="n">desc</span><span class="w"> </span><span class="s2">&quot;Full-stack developer toolkit for Claude Code with 107 commands&quot;</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="c1">#                                                      ^^^ update this</span>
+</span></code></pre></div>
+<p>The release pipeline will warn you if this number drifts. To fix:</p>
+<ol>
+<li>Run <code>./scripts/validate-counts.sh</code> to get the actual command count</li>
+<li>Update the <code>desc</code> line in your formula file</li>
+<li>Commit and push to the tap repo</li>
+</ol>
+<h3 id="why-this-matters_1">Why This Matters<a class="headerlink" href="#why-this-matters_1" title="Permanent link">&para;</a></h3>
+<p>Homebrew formula descriptions are user-facing -- they appear in <code>brew search</code>, <code>brew info</code>, and the Homebrew Formulae website. Stale command counts erode trust and confuse users who see a different number in the formula vs. the documentation site.</p>
+<hr />
 <h2 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="new-project-setup">New Project Setup<a class="headerlink" href="#new-project-setup" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># 1. Create config</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;formula_name&quot;: &quot;myapp&quot;, &quot;tap&quot;: &quot;my-org/tap&quot;, &quot;source_type&quot;: &quot;github&quot;}&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>.craft/homebrew.json
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># 2. Run setup wizard</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>/craft:dist:homebrew<span class="w"> </span>setup
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># 3. Audit the generated formula</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w"> </span>--build
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="c1"># 4. Create first release — workflow handles tap update</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>/release
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># 1. Create config</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;formula_name&quot;: &quot;myapp&quot;, &quot;tap&quot;: &quot;my-org/tap&quot;, &quot;source_type&quot;: &quot;github&quot;}&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>.craft/homebrew.json
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># 2. Run setup wizard</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>/craft:dist:homebrew<span class="w"> </span>setup
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># 3. Audit the generated formula</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w"> </span>--build
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># 4. Create first release — workflow handles tap update</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>/release
 </span></code></pre></div>
 <h3 id="pre-release-validation">Pre-Release Validation<a class="headerlink" href="#pre-release-validation" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Audit all formulas in tap</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w"> </span>--strict<span class="w"> </span>--online
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Check dependency graph for conflicts</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>/craft:dist:homebrew<span class="w"> </span>deps
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># Build from source to catch runtime issues</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w"> </span>--build
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Audit all formulas in tap</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w"> </span>--strict<span class="w"> </span>--online
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Check dependency graph for conflicts</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>/craft:dist:homebrew<span class="w"> </span>deps
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Build from source to catch runtime issues</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w"> </span>--build
 </span></code></pre></div>
 <h3 id="fix-stale-pypi-resources">Fix Stale PyPI Resources<a class="headerlink" href="#fix-stale-pypi-resources" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Update resource URLs for Python formula</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:dist:homebrew<span class="w"> </span>update-resources<span class="w"> </span>aiterm
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Verify fix</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>/craft:dist:homebrew<span class="w"> </span>audit
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Update resource URLs for Python formula</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>/craft:dist:homebrew<span class="w"> </span>update-resources<span class="w"> </span>aiterm
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Verify fix</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>/craft:dist:homebrew<span class="w"> </span>audit
 </span></code></pre></div>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
