@@ -1,8 +1,8 @@
 # Craft Skills & Agents
 
-Craft includes 25 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 26 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (25 total)
+## Skills (26 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -43,7 +43,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 | architecture-decision-records | Write and maintain ADRs following best practices for technical decision documentation | `skills/docs/architecture-decision-records/SKILL.md` |
 | changelog-automation | Automate changelog generation from commits, PRs, and releases (Keep a Changelog format) | `skills/docs/changelog-automation/SKILL.md` |
 | doc-classifier | Classify documentation needs based on code changes | `skills/docs/doc-classifier/skill.md` |
-| mermaid-linter | Validate Mermaid diagrams in markdown files for syntax errors and configuration | `skills/docs/mermaid-linter/skill.md` |
+| mermaid-linter | Mermaid validation, auto-fix, health score with MCP-powered syntax checking | `skills/docs/mermaid-linter/skill.md` |
 | openapi-spec-generation | Generate and maintain OpenAPI 3.1 specifications from code and design-first specs | `skills/docs/openapi-spec-generation/SKILL.md` |
 
 ### Guard & Insights (2)
@@ -96,7 +96,7 @@ Specialized agents can be invoked explicitly or delegated to by the orchestrator
 | api-documenter | OpenAPI 3.1 documentation, SDK generation, and developer portal creation | `agents/docs/api-documenter.md` |
 | demo-engineer | VHS tape file generation for terminal GIF demos | `agents/docs/demo-engineer.md` |
 | docs-architect | Comprehensive technical documentation from existing codebases - architecture guides and technical manuals | `agents/docs/docs-architect.md` |
-| mermaid-expert | Mermaid diagrams for flowcharts, sequences, ERDs, and architecture visualizations | `agents/docs/mermaid-expert.md` |
+| mermaid-expert | Flowcharts, diagrams, MCP validation + SVG rendering | `agents/docs/mermaid-expert.md` |
 | reference-builder | Exhaustive technical references, API documentation, and configuration guides | `agents/docs/reference-builder.md` |
 | tutorial-engineer | Step-by-step tutorials and progressive learning experiences from code | `agents/docs/tutorial-engineer.md` |
 

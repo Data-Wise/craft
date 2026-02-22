@@ -25,7 +25,7 @@
 
     Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators
 
-- :sparkles:{ .lg .middle } **25 Skills**
+- :sparkles:{ .lg .middle } **26 Skills**
 
     Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation
 
@@ -39,7 +39,7 @@
 
 - :books:{ .lg .middle } **Documentation Excellence**
 
-    99% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation
+    99% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation pipeline with health score
 
 </div>
 

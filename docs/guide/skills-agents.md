@@ -50,7 +50,7 @@ Skills are auto-triggered expertise modules that activate based on conversation 
 | architecture-decision-records | ADR generation and maintenance | `skills/docs/architecture-decision-records/SKILL.md` |
 | changelog-automation | Changelog generation from commits and PRs | `skills/docs/changelog-automation/SKILL.md` |
 | doc-classifier | Documentation type detection (guide, reference, tutorial, etc.) | `skills/docs/doc-classifier/skill.md` |
-| mermaid-linter | Mermaid diagram syntax validation and fixing | `skills/docs/mermaid-linter/skill.md` |
+| mermaid-linter | Mermaid validation, auto-fix, health score (MCP-powered) | `skills/docs/mermaid-linter/skill.md` |
 | openapi-spec-generation | OpenAPI 3.1 spec generation and maintenance | `skills/docs/openapi-spec-generation/SKILL.md` |
 
 ### Guard & Insights
@@ -103,7 +103,7 @@ Agents are long-running AI assistants for complex, multi-step tasks.
 | api-documenter | OpenAPI 3.1 docs, SDK generation, developer portals | `agents/docs/api-documenter.md` |
 | demo-engineer | VHS tape file generation for terminal GIF demos | `agents/docs/demo-engineer.md` |
 | docs-architect | Technical documentation, architecture guides, manuals | `agents/docs/docs-architect.md` |
-| mermaid-expert | Flowcharts, sequence diagrams, ERDs, architecture diagrams | `agents/docs/mermaid-expert.md` |
+| mermaid-expert | Flowcharts, diagrams, MCP validation + SVG rendering | `agents/docs/mermaid-expert.md` |
 | reference-builder | API references, configuration guides, searchable docs | `agents/docs/reference-builder.md` |
 | tutorial-engineer | Step-by-step tutorials, progressive learning experiences | `agents/docs/tutorial-engineer.md` |
 
@@ -125,6 +125,34 @@ When you run `/craft:do "add authentication"`:
 3. **test-strategist** skill suggests testing approach
 4. Agents are invoked if the task requires long-running work
 
+### Mermaid Integration Across Commands
+
+The mermaid validation system integrates with multiple craft workflows:
+
+| Trigger | What Runs | Severity |
+|---------|-----------|----------|
+| `git commit` (any `.md` file) | Pre-commit hook → regex pre-checks | Errors only (fast) |
+| `/craft:docs:check` | Phase 5: Mermaid Validation + health score | Errors + warnings |
+| `/craft:site:deploy` | Health score gate (>= 80 required) | Blocks deploy |
+| `/craft:docs:mermaid "description"` | NL creation → MCP validation → optional preview | Interactive |
+| `/craft:check --for release` | Includes mermaid health score in pre-flight | Release gate |
+
+**How mermaid-linter and mermaid-expert work together:**
+
+- **mermaid-linter** (skill) — Auto-triggered during validation. Runs 5 regex pre-checks locally (< 1s). Used by `/craft:docs:check` and pre-commit hooks.
+- **mermaid-expert** (agent) — Invoked for diagram creation. Uses mcp-mermaid MCP server for full syntax validation and SVG rendering. Used by `/craft:docs:mermaid` for NL diagram creation.
+- **mcp-mermaid** (MCP server) — Backbone for both. Provides syntax validation and rendering that regex cannot.
+
+```text
+Author diagram → mermaid-expert creates → mcp-mermaid validates
+                                           ↓
+Commit .md file → pre-commit hook → mermaid-linter checks
+                                           ↓
+/craft:docs:check → Phase 5 → regex + health score
+                                           ↓
+/craft:site:deploy → gate check → score >= 80 → deploy
+```
+
 ## Triggering Specific Agents
 
 Use the Task tool directly:
@@ -132,9 +160,12 @@ Use the Task tool directly:
 ```bash
 # In your prompt to Claude
 "Use the docs-architect agent to document the system"
+"Use the mermaid-expert agent to create a sequence diagram"
 ```
 
 ## Next Steps
 
+- [Mermaid Authoring Guide](mermaid-authoring.md) - Creating and validating diagrams
+- [Mermaid Troubleshooting](mermaid-troubleshooting.md) - Common issues and fixes
 - [Orchestrator](orchestrator.md) - Advanced orchestration
 - [Getting Started](getting-started.md) - Basic usage

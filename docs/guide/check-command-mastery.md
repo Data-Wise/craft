@@ -187,7 +187,7 @@ Pre-flight Check Plan:
   Context: release (pre-release audit)
   Target version: v2.9.0
 
-  Checks to run (12 for release context):
+  Checks to run (13 for release context):
   1. Git status (clean + tagged?)
   2. Lint (all files, strict rules)
   3. Unit tests (full suite + coverage report)
@@ -196,10 +196,11 @@ Pre-flight Check Plan:
   6. Security audit (full)
   7. Documentation validation
   8. Internal + external link validation
-  9. Version sync audit (v2.9.0 across all files)
-  10. Changelog entry exists
-  11. Release notes present
-  12. Tag existence check
+  9. Mermaid validation + health score gate
+  10. Version sync audit (v2.9.0 across all files)
+  11. Changelog entry exists
+  12. Release notes present
+  13. Tag existence check
 ```
 
 **Execution with detailed output:**
@@ -657,6 +658,19 @@ fi
 echo "✅ Pre-commit checks passed."
 exit 0
 ```
+
+#### Mermaid Pre-Commit Hook
+
+In addition to `/craft:check`, a dedicated mermaid pre-commit hook validates diagram syntax in staged `.md` files:
+
+```bash
+# Configured in .pre-commit-config.yaml
+# Runs: python3 scripts/mermaid-validate.py <files> --errors-only
+# Only checks errors (leading-slash, lowercase-end) — fast, no MCP dependency
+# Skips files without mermaid blocks (zero overhead)
+```
+
+This catches broken diagrams before they ship. See [Mermaid Authoring Guide](mermaid-authoring.md) for the full validation pipeline.
 
 #### Pre-Push Hook
 

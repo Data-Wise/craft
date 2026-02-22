@@ -24,6 +24,7 @@ You are a documentation health checker. Validate, fix, and report on documentati
 - Broken links (internal and external)
 - Stale docs (not updated when code changed)
 - Navigation consistency (mkdocs.yml)
+- Mermaid diagram validation (syntax pre-checks)
 - Auto-fix safe issues
 - Report what needs human attention
 
@@ -34,7 +35,7 @@ You are a documentation health checker. Validate, fix, and report on documentati
 ## Usage
 
 ```bash
-# DEFAULT: Full check cycle (links + stale + nav + auto-fix)
+# DEFAULT: Full check cycle (links + stale + nav + mermaid + auto-fix)
 /craft:docs:check
 
 # LIMIT SCOPE
@@ -131,6 +132,70 @@ Summary: 1 missing, 1 orphan
 Auto-fixed: 2 issues
 ```
 
+**Phase 5: Mermaid Validation**
+
+```
+🔷 CHECKING MERMAID DIAGRAMS...
+
+Running local regex pre-checks on all mermaid blocks...
+
+  ✓ 184 blocks scanned across 95 files
+  ✓ 0 errors (leading-slash, lowercase-end)
+  ⚠ 73 warnings (deprecated graph, br-tags, unquoted-colons)
+
+  Mermaid Health Score: 82/100 (Warning)
+    Syntax validity:    100.0%
+    Best practices:     40.8%
+    Rendering success:  100.0%
+
+Mermaid: PASS (0 errors, health score >= 80)
+```
+
+**Health score thresholds:**
+
+| Score | Level | Release Gate |
+|-------|-------|-------------|
+| >= 90 | Good | Pass |
+| >= 80 | Warning | Pass (default threshold) |
+| < 80 | Fail | Blocked |
+
+**How to run this phase:**
+
+```bash
+# Extract and validate all mermaid blocks
+python3 scripts/mermaid-validate.py docs/ commands/ skills/
+
+# With health score
+python3 scripts/mermaid-validate.py docs/ --health-score
+
+# Release gate check (exit 1 if score < 80)
+python3 scripts/mermaid-validate.py docs/ --gate
+
+# Custom threshold
+python3 scripts/mermaid-validate.py docs/ --gate 90
+
+# Errors-only mode (for CI)
+python3 scripts/mermaid-validate.py docs/ --errors-only
+
+# JSON output for parsing
+python3 scripts/mermaid-validate.py docs/ --json
+```
+
+**Error-level rules** (block commit/deploy):
+
+| Rule | Pattern | Why |
+|------|---------|-----|
+| `leading-slash` | `[/text]` in labels | Misinterpreted as parallelogram shape |
+| `lowercase-end` | `[end]` in labels | Conflicts with Mermaid `end` keyword |
+
+**Warning-level rules** (reported, don't block):
+
+| Rule | Pattern | Why |
+|------|---------|-----|
+| `unquoted-colon` | `[a:b]` in labels | May cause parsing issues |
+| `br-tag` | `<br/>` in blocks | Style: prefer Mermaid line break syntax |
+| `deprecated-graph` | `graph TB` directive | Style: prefer `flowchart` |
+
 ### Step 3: Show Summary Report
 
 ```
@@ -151,6 +216,7 @@ Auto-fixed: 2 issues
 │                                                             │
 │ ─────────────────────────────────────────────────────────── │
 │                                                             │
+│ Mermaid: 184 blocks OK, 0 errors                             │
 │ Summary: 3 fixed, 2 stale, 1 manual                         │
 │                                                             │
 │ Next steps:                                                 │
@@ -236,7 +302,9 @@ Exit code: 1
 
 | Flag | Effect |
 |------|--------|
-| (none) | Full check: links + stale + nav + auto-fix |
+| (none) | Full check: links + stale + nav + mermaid + auto-fix |
+| `--no-mermaid` | Skip mermaid validation |
+| `--mermaid-gate N` | Fail if mermaid health score < N (default 80) |
 | `--report-only` | No auto-fix, just report (CI-safe) |
 | `--links-only` | Just broken links (fast) |
 | `--no-stale` | Skip stale detection |
@@ -255,6 +323,8 @@ Exit code: 1
 - `/craft:docs:sync` - Detection pairs with check
 - `/craft:docs:guide` - Validate generated guides
 - `/craft:ci:validate` - Part of CI pipeline
+- `/craft:site:deploy` - Health score gates deployment (>= 80)
+- `/craft:check --for release` - Includes mermaid health in pre-flight
 
 ## CI Pipeline Usage
 
