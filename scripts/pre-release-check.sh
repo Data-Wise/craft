@@ -12,6 +12,8 @@
 #   4. README.md and docs/index.md version references are current
 #   5. marketplace.json version consistency (if exists)
 #   6. No uncommitted changes
+#   7. Badge URL branch validation (main + dev)
+#   8. Homebrew formula desc consistency
 
 set -e
 
@@ -50,7 +52,7 @@ ERRORS=0
 # --------------------------------------------------------------------------
 # Check 1: plugin.json version matches target
 # --------------------------------------------------------------------------
-echo -e "${CYAN}[1/6] Plugin version consistency${NC}"
+echo -e "${CYAN}[1/8] Plugin version consistency${NC}"
 
 PLUGIN_JSON=".claude-plugin/plugin.json"
 if [ ! -f "$PLUGIN_JSON" ]; then
@@ -71,7 +73,7 @@ fi
 # Check 2: Actual counts match plugin.json description
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[2/6] Command/skill/agent counts${NC}"
+echo -e "${CYAN}[2/8] Command/skill/agent counts${NC}"
 
 # Count actual files (same logic as validate-counts.sh)
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
@@ -109,7 +111,7 @@ fi
 # Check 3: CLAUDE.md version references
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[3/6] CLAUDE.md version references${NC}"
+echo -e "${CYAN}[3/8] CLAUDE.md version references${NC}"
 
 if [ -f "CLAUDE.md" ]; then
     # Check "Current Version" line
@@ -128,7 +130,7 @@ fi
 # Check 4: README.md and docs/index.md version references
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[4/6] README.md and docs/index.md version references${NC}"
+echo -e "${CYAN}[4/8] README.md and docs/index.md version references${NC}"
 
 STALE_FILES=""
 
@@ -162,7 +164,7 @@ fi
 # Check 5: marketplace.json version consistency
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[5/6] Marketplace version consistency${NC}"
+echo -e "${CYAN}[5/8] Marketplace version consistency${NC}"
 
 MARKETPLACE_JSON=".claude-plugin/marketplace.json"
 if [ -f "$MARKETPLACE_JSON" ]; then
@@ -192,7 +194,7 @@ fi
 # Check 6: Uncommitted changes
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[6/6] Working tree status${NC}"
+echo -e "${CYAN}[6/8] Working tree status${NC}"
 
 if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
     echo -e "${YELLOW}  ! Uncommitted changes detected${NC}"
@@ -202,6 +204,63 @@ if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; th
     echo -e "${YELLOW}    Warning: Release tag should be on a clean commit${NC}"
 else
     echo -e "${GREEN}  ✓ Working tree clean${NC}"
+fi
+
+# --------------------------------------------------------------------------
+# Check 7: Badge URL branch validation
+# --------------------------------------------------------------------------
+echo ""
+echo -e "${CYAN}[7/8] Badge URL branch validation${NC}"
+
+BADGE_ERRORS=0
+for file in README.md docs/index.md; do
+    if [ -f "$file" ]; then
+        if ! grep -q 'badge.svg?branch=main' "$file"; then
+            echo -e "${RED}  ✗ $file missing main branch badge${NC}"
+            BADGE_ERRORS=$((BADGE_ERRORS + 1))
+        fi
+        if ! grep -q 'badge.svg?branch=dev' "$file"; then
+            echo -e "${RED}  ✗ $file missing dev branch badge${NC}"
+            BADGE_ERRORS=$((BADGE_ERRORS + 1))
+        fi
+    fi
+done
+
+if [ $BADGE_ERRORS -gt 0 ]; then
+    echo -e "${RED}  ✗ $BADGE_ERRORS badge URL issues found${NC}"
+    echo -e "${YELLOW}    Fix: Add main and dev badges to README.md and docs/index.md${NC}"
+    ERRORS=$((ERRORS + BADGE_ERRORS))
+else
+    echo -e "${GREEN}  ✓ Both main and dev badges present${NC}"
+fi
+
+# --------------------------------------------------------------------------
+# Check 8: Homebrew formula desc consistency
+# --------------------------------------------------------------------------
+echo ""
+echo -e "${CYAN}[8/8] Homebrew formula desc consistency${NC}"
+
+FORMULA_PATH=""
+for candidate in \
+    "$HOME/projects/dev-tools/homebrew-tap/Formula/craft.rb" \
+    "$(brew --repository 2>/dev/null)/Library/Taps/data-wise/homebrew-tap/Formula/craft.rb"; do
+    if [ -f "$candidate" ]; then
+        FORMULA_PATH="$candidate"
+        break
+    fi
+done
+
+if [ -n "$FORMULA_PATH" ]; then
+    FORMULA_DESC=$(grep '^  desc ' "$FORMULA_PATH" | head -1 | sed 's/.*desc "\(.*\)"/\1/')
+    FORMULA_CMD_COUNT=$(echo "$FORMULA_DESC" | grep -o '[0-9]* commands' | grep -o '[0-9]*' || echo "")
+    if [ -n "$FORMULA_CMD_COUNT" ] && [ "$FORMULA_CMD_COUNT" != "$CMD_COUNT" ]; then
+        echo -e "${YELLOW}  ! Formula desc says $FORMULA_CMD_COUNT commands, actual is $CMD_COUNT${NC}"
+    elif [ -n "$FORMULA_CMD_COUNT" ]; then
+        echo -e "${GREEN}  ✓ Formula command count matches: $FORMULA_CMD_COUNT${NC}"
+    fi
+    echo -e "${GREEN}  ✓ Formula desc: \"$FORMULA_DESC\"${NC}"
+else
+    echo -e "${YELLOW}  - Homebrew formula not found locally (skipping)${NC}"
 fi
 
 # --------------------------------------------------------------------------
