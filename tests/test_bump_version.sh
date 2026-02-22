@@ -240,7 +240,7 @@ DEP
 
 ## Version Sync
 
-Version is managed across 11 files atomically using `bump-version.sh`:
+Version is managed across 13 files atomically using `bump-version.sh`:
 
 ```bash
 ./scripts/bump-version.sh 1.0.0        # Full bump
@@ -323,7 +323,7 @@ test_cli_conflicting_flags() {
 }
 
 test_dry_run_lists_all_files() {
-    log_test "DRY-RUN" "lists all 11 files"
+    log_test "DRY-RUN" "lists all 13 files"
     local output
     output=$(cd "$PROJECT_ROOT" && bash "$BUMP_SCRIPT" 99.99.99 --dry-run 2>&1)
     local stripped
@@ -364,9 +364,10 @@ test_verify_passes_on_clean() {
 }
 
 test_verify_file_count() {
-    log_test "VERIFY" "checks all 11 files"
+    log_test "VERIFY" "checks all 13 files"
     # Verify mode checks: 3 JSON loop + CLAUDE.md + README.md + mkdocs.yml + .STATUS
-    #   + DEPENDENCY-ARCHITECTURE.md + configuration.md + REFCARD.md + index.md = 11
+    #   + DEPENDENCY-ARCHITECTURE.md + configuration.md + REFCARD.md + index.md
+    #   + commands/hub.md + docs/commands/hub.md = 13
     # We can't easily count checks from output on a clean project,
     # but we can verify the script contains all the grep patterns
     local script_content
@@ -580,10 +581,10 @@ test_configuration_example_updated() {
     fi
 
     ((TOTAL_TESTS++))
-    if grep -q 'across 11 files' "$SANDBOX/docs/reference/configuration.md"; then
-        pass "configuration.md file count is 11"
+    if grep -q 'across 13 files' "$SANDBOX/docs/reference/configuration.md"; then
+        pass "configuration.md file count is 13"
     else
-        fail "configuration.md file count is 11" "File count not found or wrong"
+        fail "configuration.md file count is 13" "File count not found or wrong"
     fi
 
     destroy_sandbox

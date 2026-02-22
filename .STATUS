@@ -1,18 +1,26 @@
 status: Active
 version: 2.27.0
 release_date: 2026-02-21
-milestone: v2.26.0 released — Mermaid MCP Validation Pipeline
+milestone: v2.27.0 released — Release Pipeline Hardening
 last_session: 2026-02-21
 
-progress: Release pipeline hardening in progress — concurrency, dual badges, downstream verification, pre-release checks.
+progress: v2.27.0 released. 13-step pipeline with downstream verification. All green.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
-| main   | 6577a69  | —    | Production (v2.26.0)                 |
-| dev    | 1cefdd09 | main | Planning hub                         |
-| feature/release-pipeline-hardening | dfbdf51 | dev | WIP — orchestration plan committed |
+| main   | 4869567  | —    | Production (v2.27.0)                 |
+| dev    | 4869567  | main | In sync with main                    |
+
+✅ Session 2026-02-21d (v2.27.0 release — Release Pipeline Hardening):
+- Reviewed PR #105: found 5 issues (ORCHESTRATE file, grep -oP, tutorial step numbering, stale Step 8.5 refs, ci:status docs)
+- Fixed ORCHESTRATE file + grep -oP portability, merged PR #105
+- Post-merge doc update: 13 files updated (Step 8.5 → Step 10), fixed 15 failing tests
+- Site validation: clean build, 0 broken links, all counts match
+- Released v2.27.0: first release using 13-step pipeline with downstream verification
+- All 13 steps passed: PR #106, GitHub release, Homebrew 2.27.0, docs deploy, all downstream green
+- Stats: 107 commands, 26 skills, 8 agents, 174+ tests passing
 
 ✅ Session 2026-02-21c (v2.26.0 release — Mermaid MCP Validation Pipeline):
 - Reviewed PR #103: identified 10 code issues (line-drift bug, unused imports, stale counts, marketing filler)
@@ -45,10 +53,9 @@ progress: Release pipeline hardening in progress — concurrency, dual badges, d
 ---
 
 🎯 Next Action:
-→ cd ~/.git-worktrees/craft/feature-release-pipeline-hardening && claude
-→ Implement 6 increments: CI hardening, badges, pre-release checks, release skill, commands, docs
+→ Pick next feature or improvement from backlog
 
-## Future (v2.27.0+)
+## Future (v2.28.0+)
 
 - Missing docs help pages for 14 docs sub-commands
 - Coaching mode (tool input modification — Phase 3 of guard design)

@@ -2,27 +2,35 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.26.0 (2026-02-21)
-**Total Releases:** 47 versions | **Development Time:** 2+ years
-**Community:** 107 commands documented, ~1595 tests passing, 90%+ coverage
+**Latest Release:** v2.27.0 (2026-02-21)
+**Total Releases:** 48 versions | **Development Time:** 2+ years
+**Community:** 107 commands documented, 109 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
 
-### v2.26.0 (2026-02-21) - Mermaid MCP Validation Pipeline
+### v2.27.0 (2026-02-21) - Mermaid MCP Validation Pipeline
 
 **Status:** Released
 
 **Highlights:**
 
-- **Mermaid validation pipeline:** `mermaid-validate.py` with 12 regex pre-checks, `mermaid-autofix.py` with reverse-order block processing, health score metric
-- **Pre-commit hook:** `pre-commit-mermaid.sh` for automatic mermaid syntax validation on commit
-- **MCP integration:** `.mcp.json` config for `mcp-mermaid` server (validate, render, create diagrams)
-- **Documentation:** Mermaid Authoring Guide, Troubleshooting Guide, Validation Pipeline Architecture
-- **35 new tests:** 15 unit + 10 e2e + 10 dogfood
+- **Mermaid MCP validation pipeline:** 12-rule validation engine, auto-fix with reverse-order processing, health score metric (0-100)
+- **Pre-commit hook:** Mermaid syntax errors caught automatically on commit
+- **MCP integration:** mcp-mermaid server for diagram validation, SVG rendering, and NL creation
+- **Release pipeline hardening:** CI concurrency groups, badge validation, formula desc checks, downstream verification (Steps 11-13)
+- **Documentation:** Mermaid Authoring Guide, updated release workflow docs
 
-**Stats:** 107 commands | 26 skills | 8 agents | ~1595 tests passing
+**Stats:** 107 commands | 26 skills | 8 agents | 109 tests passing
+
+---
+
+### v2.26.0 (2026-02-21) - Mermaid MCP Validation Pipeline (Pre-release)
+
+**Status:** Superseded by v2.27.0
+
+**Stats:** 107 commands | 26 skills | 8 agents | 109 tests passing
 
 ---
 
@@ -62,7 +70,7 @@
 
 **Highlights:**
 
-- **bump-version.sh:** Automated version bumping across 11 files with dry-run, verify, and counts-only modes
+- **bump-version.sh:** Automated version bumping across 13 files with dry-run, verify, and counts-only modes
 - **CI status dashboard:** Cross-repo CI monitoring command and reference card
 - **Documentation cleanup:** Fixed stale ORCHESTRATE reference, corrected spec/test counts, rebuilt skills-agents pages
 

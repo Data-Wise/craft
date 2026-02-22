@@ -8,7 +8,7 @@
 
 ## Problem Statement
 
-Claude Code and Claude Desktop evolve rapidly. Craft's 108 commands, 25 skills, and 8 agents need to stay aligned with:
+Claude Code and Claude Desktop evolve rapidly. Craft's 107 commands, 26 skills, and 8 agents need to stay aligned with:
 
 - New plugin capabilities (hooks, agent features, environment variables)
 - Deprecated features (models, APIs, CLI flags)
@@ -125,7 +125,7 @@ Currently this is manual — someone reads changelogs and cross-references craft
 
 ```
 ╭─ Command Audit ───────────────────────────────────────────╮
-│ Scanned: 108 commands, 25 skills, 8 agents                │
+│ Scanned: 107 commands, 26 skills, 8 agents                │
 ├───────────────────────────────────────────────────────────┤
 │                                                           │
 │ 🔴 ERRORS (3):                                            │

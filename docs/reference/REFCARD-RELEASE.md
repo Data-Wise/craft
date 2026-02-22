@@ -2,7 +2,7 @@
 
 **End-to-end release automation** — version detection, pre-flight checks, PR creation, merge, GitHub release, downstream verification.
 
-**Version:** 2.26.0 | **Skill:** `skills/release/SKILL.md` | **13-step pipeline** with downstream CI verification
+**Version:** 2.27.0 | **Skill:** `skills/release/SKILL.md` | **13-step pipeline** with downstream CI verification
 
 ---
 
@@ -145,7 +145,7 @@ The release pipeline automatically handles marketplace distribution:
 
 ```bash
 ./scripts/bump-version.sh <version>
-# Updates all 11 files atomically: 3 JSON + 8 text
+# Updates all 13 files atomically: 3 JSON + 10 text
 # See: docs/reference/REFCARD-BUMP-VERSION.md
 ```
 

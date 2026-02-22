@@ -17,8 +17,12 @@
 - [ ] Version bumped in plugin.json
 - [ ] Version bumped in CLAUDE.md (header + test table)
 - [ ] README.md updated (version badge, skill/test counts, tagline)
-- [ ] docs/index.md updated (latest release info box)
+- [ ] docs/index.md updated (latest release info box title and description)
+- [ ] mkdocs.yml updated (site_description tagline for new release)
 - [ ] docs/REFCARD.md updated (version, skill count, test count)
+- [ ] commands/hub.md updated (version, test count, skill count in banner)
+- [ ] docs/commands/hub.md updated (same as commands/hub.md)
+- [ ] docs/VERSION-HISTORY.md updated (new version entry, latest release header)
 - [ ] Commit: `chore: bump version to v<version> for release`
 - [ ] Push to dev
 - [ ] PR created: dev -> main

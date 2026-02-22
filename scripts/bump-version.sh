@@ -2,8 +2,8 @@
 # bump-version.sh - Atomically bump version AND sync counts across all project files
 #
 # Usage:
-#   ./scripts/bump-version.sh 2.23.0              # Full bump (version + counts)
-#   ./scripts/bump-version.sh 2.23.0 --dry-run    # Preview changes without writing
+#   ./scripts/bump-version.sh 2.27.0              # Full bump (version + counts)
+#   ./scripts/bump-version.sh 2.27.0 --dry-run    # Preview changes without writing
 #   ./scripts/bump-version.sh --counts-only        # Sync counts without version bump
 #   ./scripts/bump-version.sh --verify             # Check consistency (exit 0/1)
 #
@@ -75,9 +75,9 @@ SKILL_COUNT=$(find skills -name "*.md" -o -name "SKILL.md" 2>/dev/null | wc -l |
 AGENT_COUNT=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 SPEC_COUNT=$(find docs/specs -name "SPEC-*.md" ! -path "*/archive/*" ! -path "*/_archive/*" 2>/dev/null | wc -l | tr -d ' ')
 
-# Count of files this script manages (3 JSON + 8 text = 11)
+# Count of files this script manages (3 JSON + 10 text = 13)
 # Update this if you add new file handlers below
-FILE_COUNT=11
+FILE_COUNT=13
 
 # ---------------------------------------------------------------------------
 # VERIFY mode
@@ -134,6 +134,11 @@ if [ "$VERIFY_ONLY" = true ]; then
     if [ -f "docs/index.md" ] && ! grep -q "Latest: v${CURRENT_VERSION}" docs/index.md; then
         echo -e "  ${RED}✗${NC} docs/index.md info box missing v${CURRENT_VERSION}"; ERRORS=$((ERRORS + 1))
     fi
+    for hub_file in commands/hub.md docs/commands/hub.md; do
+        if [ -f "$hub_file" ] && ! grep -q "Toolkit v${CURRENT_VERSION}" "$hub_file"; then
+            echo -e "  ${RED}✗${NC} $hub_file banner missing v${CURRENT_VERSION}"; ERRORS=$((ERRORS + 1))
+        fi
+    done
 
     echo ""
     if [ $ERRORS -gt 0 ]; then
@@ -333,6 +338,23 @@ if [ -f ".STATUS" ]; then
         echo -e "  ${GREEN}✓${NC} .STATUS"; UPDATED=$((UPDATED + 1))
     fi
 fi
+
+# commands/hub.md + docs/commands/hub.md — version in banner, test/skill counts
+for hub_file in commands/hub.md docs/commands/hub.md; do
+    if [ -f "$hub_file" ]; then
+        if [ "$DRY_RUN" = true ]; then
+            echo -e "  ${CYAN}would update${NC} $hub_file"
+        else
+            if [ "$COUNTS_ONLY" = false ]; then
+                # Banner version: "Toolkit v2.23.1"
+                sed -i '' "s|Toolkit v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|Toolkit v${TARGET_VERSION}|g" "$hub_file"
+            fi
+            # Counts in banner and quick reference: "N commands | N skills | N agents"
+            sed -i '' "s|[0-9][0-9]* commands | [0-9][0-9]* skills | [0-9][0-9]* agents|${CMD_COUNT} commands | ${SKILL_COUNT} skills | ${AGENT_COUNT} agents|g" "$hub_file"
+            echo -e "  ${GREEN}✓${NC} $hub_file"; UPDATED=$((UPDATED + 1))
+        fi
+    fi
+done
 
 echo ""
 

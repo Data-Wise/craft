@@ -240,14 +240,14 @@ For **Craft plugin projects**, use the automated bump script:
 # Preview what will change
 ./scripts/bump-version.sh <version> --dry-run
 
-# Apply version bump + count sync across all 11 files
+# Apply version bump + count sync across all 13 files
 ./scripts/bump-version.sh <version>
 
 # Verify consistency
 ./scripts/bump-version.sh --verify
 ```
 
-This atomically updates 11 files: `plugin.json`, `marketplace.json`, `package.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, `.STATUS`, `docs/DEPENDENCY-ARCHITECTURE.md`, `docs/reference/configuration.md` (version in example + file count).
+This atomically updates 13 files: `plugin.json`, `marketplace.json`, `package.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, `.STATUS`, `docs/DEPENDENCY-ARCHITECTURE.md`, `docs/reference/configuration.md`, `commands/hub.md`, `docs/commands/hub.md`.
 
 ### Step 3b: Semantic Doc Updates
 
@@ -258,8 +258,11 @@ After `bump-version.sh` handles mechanical version substitution, update these fi
 | `CHANGELOG.md` | Insert new version entry with summary from commit analysis |
 | `VERSION-HISTORY.md` | Insert new version section with highlights |
 | `README.md` | Update release title line (if present) |
-| `docs/index.md` | Update `!!! info` box title text (after the version) |
+| `docs/index.md` | Update `!!! info` box title and description text |
 | `docs/REFCARD.md` | Update summary line ~11 title text (after the version) |
+| `mkdocs.yml` | Update `site_description` tagline after "adds" to describe new release |
+| `commands/hub.md` | Update version in banner template, test count, skill count |
+| `docs/commands/hub.md` | Same updates as `commands/hub.md` (published copy) |
 
 **Key distinction:** Step 3 handles mechanical `X.Y.Z` substitution. Step 3b handles semantic content that requires the release title and human judgment.
 
@@ -274,8 +277,16 @@ For **other project types**, update manually:
 **Verification** (run after bump):
 
 ```bash
+# Verify automated files (13 files)
 ./scripts/bump-version.sh --verify
+
+# Sweep for stale refs in long-tail files (comments, CI, examples, brainstorms)
+grep -rn "OLD_VERSION\|OLD_CMD_COUNT commands\|OLD_SKILL_COUNT skills" \
+  --include="*.md" --include="*.sh" --include="*.yml" --include="*.py" \
+  | grep -v CHANGELOG | grep -v archive/ | grep -v node_modules/
 ```
+
+Replace `OLD_VERSION`, `OLD_CMD_COUNT`, `OLD_SKILL_COUNT` with the previous release values. Fix any hits before committing.
 
 ### Step 4: Commit & Push
 

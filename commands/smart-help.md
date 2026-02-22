@@ -222,7 +222,7 @@ Get intelligent help based on your project and question.
 → Use /craft:code:ci-local for full CI simulation
 
 /craft:help "what commands are available?"
-→ Use /craft:hub to see all 42+ commands
+→ Use /craft:hub to see all 107 commands
 ```
 
 ## Quick Reference

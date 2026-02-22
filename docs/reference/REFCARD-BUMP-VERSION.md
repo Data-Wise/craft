@@ -12,10 +12,10 @@
 Need to update version numbers?
 |
 +-- Releasing a new version?
-|   +-- ./scripts/bump-version.sh 2.23.0
+|   +-- ./scripts/bump-version.sh 2.27.0
 |
 +-- Just want to preview changes?
-|   +-- ./scripts/bump-version.sh 2.23.0 --dry-run
+|   +-- ./scripts/bump-version.sh 2.27.0 --dry-run
 |
 +-- Added new commands/skills/agents?
 |   +-- ./scripts/bump-version.sh --counts-only
@@ -33,11 +33,11 @@ Need to update version numbers?
 ## Usage
 
 ```bash
-# Full bump: version + counts across all 11 files
-./scripts/bump-version.sh 2.23.0
+# Full bump: version + counts across all 13 files
+./scripts/bump-version.sh 2.27.0
 
 # Preview without writing
-./scripts/bump-version.sh 2.23.0 --dry-run
+./scripts/bump-version.sh 2.27.0 --dry-run
 
 # Sync counts only (after adding commands/skills/agents)
 ./scripts/bump-version.sh --counts-only
@@ -48,7 +48,7 @@ Need to update version numbers?
 
 ---
 
-## Files Updated (11)
+## Files Updated (13)
 
 | Category | File | What Changes |
 |----------|------|-------------|
@@ -63,6 +63,8 @@ Need to update version numbers?
 | Text | `docs/reference/configuration.md` | `bump-version.sh X.Y.Z` example, file count |
 | Text | `mkdocs.yml` | `site_description` version + counts |
 | Text | `.STATUS` | `version:` line, count string |
+| Text | `commands/hub.md` | Banner `Toolkit vX.Y.Z`, count strings |
+| Text | `docs/commands/hub.md` | Banner `Toolkit vX.Y.Z`, count strings |
 
 ---
 
@@ -116,6 +118,8 @@ Counts are auto-detected from the filesystem:
 | docs/reference/configuration.md | `bump-version.sh {version}` example | Present |
 | docs/REFCARD.md | `Version: {version}` box interior | Present |
 | docs/index.md | `Latest: v{version}` info box | Present |
+| commands/hub.md | `Toolkit v{version}` banner | Present |
+| docs/commands/hub.md | `Toolkit v{version}` banner | Present |
 
 ---
 
@@ -150,7 +154,7 @@ bump-version.sh (orchestrator)
     +-- sed (text file updates)
             Handles: CLAUDE.md, README.md, docs/index.md, docs/REFCARD.md,
                      docs/DEPENDENCY-ARCHITECTURE.md, docs/reference/configuration.md,
-                     mkdocs.yml, .STATUS
+                     mkdocs.yml, .STATUS, commands/hub.md, docs/commands/hub.md
             Uses targeted patterns to avoid rewriting historical references
 ```
 
