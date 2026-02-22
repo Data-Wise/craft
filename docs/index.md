@@ -211,7 +211,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: Mermaid MCP Validation Pipeline"
+!!! info "Latest: v2.26.0 — Mermaid MCP Validation Pipeline"
     12-rule validation engine, auto-fix with reverse-order processing, health score metric, pre-commit hook, MCP integration for diagram creation. 35 new tests (109 core tests total). See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links

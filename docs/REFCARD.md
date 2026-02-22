@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.25.0 (released 2026-02-21)                       │
+│  Version: 2.26.0 (released 2026-02-21)                       │
 │  Commands: 107 | Agents: 8 | Skills: 26                     │
 │  Documentation: 99% complete | Tests: 109 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.25.0: Release watcher, command audit, sync features      │
+│  v2.26.0: Mermaid MCP validation pipeline, health scores      │
 └─────────────────────────────────────────────────────────────┘
 ```
 

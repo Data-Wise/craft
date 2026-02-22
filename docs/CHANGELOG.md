@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]: Mermaid MCP Validation Pipeline
+## [2.26.0] - 2026-02-21: Mermaid MCP Validation Pipeline
 
 ### Added
 
