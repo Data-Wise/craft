@@ -598,7 +598,7 @@ If `conclusion` is not `success`, check with `/craft:ci:status` for diagnosis.
 
 ```bash
 # Verify the live docs site shows the new version
-curl -sL https://data-wise.github.io/craft/ | grep -oP 'v[0-9]+\.[0-9]+\.[0-9]+'
+curl -sL https://data-wise.github.io/craft/ | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+'
 ```
 
 Compare the extracted version string against the release version. If stale, the docs workflow may have failed silently.
