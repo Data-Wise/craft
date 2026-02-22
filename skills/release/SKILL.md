@@ -258,8 +258,9 @@ After `bump-version.sh` handles mechanical version substitution, update these fi
 | `CHANGELOG.md` | Insert new version entry with summary from commit analysis |
 | `VERSION-HISTORY.md` | Insert new version section with highlights |
 | `README.md` | Update release title line (if present) |
-| `docs/index.md` | Update `!!! info` box title text (after the version) |
+| `docs/index.md` | Update `!!! info` box title and description text |
 | `docs/REFCARD.md` | Update summary line ~11 title text (after the version) |
+| `mkdocs.yml` | Update `site_description` tagline after "adds" to describe new release |
 
 **Key distinction:** Step 3 handles mechanical `X.Y.Z` substitution. Step 3b handles semantic content that requires the release title and human judgment.
 
