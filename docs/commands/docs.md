@@ -15,7 +15,7 @@ Smart documentation generation, validation, and enhancement - 25 commands.
 |----------|---------|--------------|
 | "Update everything after changes" | `/craft:docs:update` | Full cycle: detect → generate → validate → changelog |
 | "What docs need updating?" | `/craft:docs:sync` | Detection only — reports what's stale |
-| "Are my docs valid?" | `/craft:docs:check` | Validates links + nav + staleness, auto-fixes |
+| "Are my docs valid?" | `/craft:docs:check` | Validates links + nav + staleness + mermaid, auto-fixes |
 | "Fix markdown formatting" | `/craft:docs:lint` | Markdownlint with auto-fix |
 | "Check only broken links" | `/craft:docs:check-links` | Internal link validation with .linkcheck-ignore |
 | "Update CLAUDE.md" | `/craft:docs:claude-md` | Sync CLAUDE.md with project state |
@@ -72,12 +72,28 @@ Smart documentation generation, validation, and enhancement - 25 commands.
 
 ### /craft:docs:check
 
-**Validation:** Links + stale + nav + auto-fix (full by default)
+**Validation:** Links + stale + nav + mermaid + auto-fix (full by default)
 
 ```bash
 /craft:docs:check                     # Full check cycle, auto-fixes
 /craft:docs:check --report-only       # CI-safe mode (no modifications)
+/craft:docs:check --no-mermaid        # Skip mermaid validation phase
+/craft:docs:check --mermaid-gate 90   # Custom health score threshold
 ```
+
+**Phase 5: Mermaid Validation** runs 5 regex pre-checks on all mermaid blocks, calculates a health score (0-100), and reports errors/warnings. See [Mermaid Authoring Guide](../guide/mermaid-authoring.md).
+
+### /craft:docs:mermaid
+
+**Diagram creation:** Templates, natural language, MCP validation, browser preview
+
+```bash
+/craft:docs:mermaid workflow                           # Get workflow template
+/craft:docs:mermaid "auth flow with OAuth2" --validate # NL creation + validation
+/craft:docs:mermaid "CI pipeline" --preview            # Render SVG in browser
+```
+
+See [Mermaid Authoring Guide](../guide/mermaid-authoring.md) for templates and syntax rules.
 
 ## Quality Automation
 
