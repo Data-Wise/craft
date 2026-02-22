@@ -1,29 +1,39 @@
 ---
-description: Generate Mermaid diagram templates for documentation
+description: Mermaid diagrams — templates, NL creation, MCP validation, and live preview
 arguments:
-  - name: type
-    description: Template type (dependency|workflow|architecture|comparison|sequence|state|all)
+  - name: input
+    description: Template type (dependency|workflow|architecture|comparison|sequence|state|all) OR natural language description in quotes
     required: false
     default: all
   - name: output
     description: Output file path (optional, defaults to stdout)
     required: false
+  - name: validate
+    description: Validate diagram via mcp-mermaid after generation
+    required: false
+    default: false
+  - name: preview
+    description: Render to SVG and open in browser for visual inspection
+    required: false
+    default: false
 ---
 
-# /craft:docs:mermaid - Mermaid Diagram Templates
+# /craft:docs:mermaid - Mermaid Diagrams
 
-Generate production-ready Mermaid diagram templates following best practices.
+Generate, validate, and preview Mermaid diagrams. Supports templates, natural language creation, and MCP-powered validation.
 
-## Why Templates?
+## Why This Command?
 
-- **Consistent styling** across all documentation
-- **Proper text lengths** to prevent overflow
-- **Tested patterns** that render correctly
-- **Quick start** for common diagram types
+- **Templates** — production-ready patterns for common diagram types
+- **NL creation** — describe a diagram in plain English, get validated Mermaid code
+- **MCP validation** — syntax checking via mcp-mermaid server
+- **Live preview** — render to SVG and open in browser for iteration
+- **Health score** — composite quality metric for release gating
 
 ## Usage
 
 ```bash
+# TEMPLATES (existing)
 /craft:docs:mermaid                    # Show all templates
 /craft:docs:mermaid dependency         # Dependency graph template
 /craft:docs:mermaid workflow           # Workflow/process template
@@ -32,7 +42,63 @@ Generate production-ready Mermaid diagram templates following best practices.
 /craft:docs:mermaid sequence           # Sequence diagram template
 /craft:docs:mermaid state              # State machine template
 /craft:docs:mermaid all --output docs/diagrams/templates.md
+
+# NL CREATION (NEW)
+/craft:docs:mermaid "show the release pipeline from dev to main"
+/craft:docs:mermaid "auth flow with OAuth2 showing token refresh"
+/craft:docs:mermaid "CI pipeline: lint, test, build, deploy"
+
+# VALIDATION (NEW)
+/craft:docs:mermaid "simple flowchart" --validate
+/craft:docs:mermaid workflow --validate
+
+# LIVE PREVIEW (NEW)
+/craft:docs:mermaid "auth flow" --preview
 ```
+
+## NL Creation Workflow
+
+When the input is a quoted string (not a template type), Claude generates Mermaid code from the description:
+
+1. **Generate** — Claude creates Mermaid code matching the description
+2. **Validate** — mcp-mermaid checks syntax (if `--validate` or `--preview`)
+3. **Preview** — Opens rendered SVG in browser (if `--preview`)
+4. **Iterate** — User refines via conversation until satisfied
+5. **Save** — Output to specified file or display in conversation
+
+### When Invoked with NL Input
+
+**Step 1:** Analyze the description and choose the best diagram type:
+
+- Process/workflow descriptions → `flowchart TD`
+- Interaction/API descriptions → `sequenceDiagram`
+- State/lifecycle descriptions → `stateDiagram-v2`
+- Relationship/structure descriptions → `flowchart LR` or `erDiagram`
+
+**Step 2:** Generate Mermaid code following all best practices from the templates section below (quoted labels, proper text lengths, vertical layouts for complex diagrams).
+
+**Step 3:** If `--validate` is set, validate the generated code:
+
+```bash
+# Use mcp-mermaid MCP server for full syntax validation
+# The MCP server provides detailed error messages and fix suggestions
+```
+
+**Step 4:** If `--preview` is set, render and open in browser:
+
+```bash
+# Render via mcp-mermaid to SVG
+# Open the rendered diagram for visual inspection
+# User can request changes via conversation
+```
+
+**Step 5:** Present the diagram and offer refinement options:
+
+- "Make it more detailed"
+- "Simplify — too many nodes"
+- "Change to sequence diagram"
+- "Add error handling paths"
+- "Save to docs/diagrams/filename.md"
 
 ## Templates
 
@@ -469,11 +535,21 @@ graph TB
 **Related commands:**
 
 - `/craft:docs:generate diagram` - Routes to mermaid-expert agent
+- `/craft:docs:check` - Phase 5: Mermaid Validation (health score)
 - `/craft:site:status` - Validates Mermaid configuration
 
 **Uses skill:**
 
-- `mermaid-linter` - Validates diagram syntax and text length
+- `mermaid-linter` - Validates diagram syntax, text length, and MCP rules
+
+**Uses MCP server:**
+
+- `mcp-mermaid` - Syntax validation and SVG/PNG rendering
+
+**Validation scripts:**
+
+- `scripts/mermaid-validate.py` - Extract + regex pre-check all mermaid blocks
+- `scripts/mermaid-autofix.py` - Auto-fix known safe patterns
 
 **mkdocs.yml requirements:**
 
