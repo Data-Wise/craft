@@ -299,27 +299,27 @@ class TestHomebrewJsonConfig(unittest.TestCase):
 
 
 # ============================================================================
-# Group 7: Release Skill Step 8.5
+# Group 7: Release Skill Step 10 (Homebrew Tap Update)
 # ============================================================================
-class TestReleaseSkillStep85(unittest.TestCase):
-    """Verify Step 8.5 uses config lookup chain and hardened patterns."""
+class TestReleaseSkillStep10(unittest.TestCase):
+    """Verify Step 10 uses config lookup chain and hardened patterns."""
 
     @classmethod
     def setUpClass(cls):
         cls.content = _read_file(RELEASE_SKILL)
-        # Extract Step 8.5 section
-        match = re.search(r"(### Step 8\.5.*?)(?=### Step 9|## Output Format)",
+        # Extract Step 10 section
+        match = re.search(r"(### Step 10.*?)(?=### Step 11|## Output Format)",
                          cls.content, re.DOTALL)
-        cls.step85 = match.group(1) if match else ""
+        cls.step10 = match.group(1) if match else ""
 
-    def test_step85_exists(self):
-        """Step 8.5 section exists in SKILL.md."""
-        self.assertIn("Step 8.5", self.content)
+    def test_step10_exists(self):
+        """Step 10 section exists in SKILL.md."""
+        self.assertIn("Step 10", self.content)
 
     def test_no_basename_pwd_as_primary(self):
         """basename $PWD is not the primary lookup — config file comes first."""
-        config_idx = self.step85.find(".craft/homebrew.json")
-        basename_idx = self.step85.find("basename")
+        config_idx = self.step10.find(".craft/homebrew.json")
+        basename_idx = self.step10.find("basename")
         self.assertGreater(config_idx, -1, "Config file should be referenced")
         self.assertGreater(basename_idx, -1, "basename should exist as fallback")
         self.assertLess(config_idx, basename_idx,
@@ -327,8 +327,8 @@ class TestReleaseSkillStep85(unittest.TestCase):
 
     def test_config_lookup_first(self):
         """Config file (.craft/homebrew.json) is checked first."""
-        config_idx = self.step85.find(".craft/homebrew.json")
-        remote_idx = self.step85.find("git remote")
+        config_idx = self.step10.find(".craft/homebrew.json")
+        remote_idx = self.step10.find("git remote")
         self.assertGreater(config_idx, -1, ".craft/homebrew.json not referenced")
         self.assertGreater(remote_idx, -1, "git remote not referenced")
         self.assertLess(config_idx, remote_idx,
@@ -336,34 +336,34 @@ class TestReleaseSkillStep85(unittest.TestCase):
 
     def test_git_remote_fallback(self):
         """Git remote is second lookup priority."""
-        self.assertIn("git remote", self.step85)
+        self.assertIn("git remote", self.step10)
 
     def test_basename_is_last_resort(self):
         """basename is documented as fallback only."""
-        self.assertIn("fallback", self.step85.lower())
+        self.assertIn("fallback", self.step10.lower())
 
     def test_uses_shasum(self):
-        """Step 8.5 uses shasum -a 256 (macOS-portable, not sha256sum)."""
-        self.assertIn("shasum -a 256", self.step85)
-        self.assertNotIn("sha256sum", self.step85)
+        """Step 10 uses shasum -a 256 (macOS-portable, not sha256sum)."""
+        self.assertIn("shasum -a 256", self.step10)
+        self.assertNotIn("sha256sum", self.step10)
 
     def test_has_ruby_syntax_check(self):
-        """Step 8.5 runs ruby -c after sed update."""
-        self.assertIn("ruby -c", self.step85)
+        """Step 10 runs ruby -c after sed update."""
+        self.assertIn("ruby -c", self.step10)
 
     def test_has_sha_guard(self):
-        """Step 8.5 validates SHA256 is 64 chars."""
-        self.assertIn("64", self.step85)
+        """Step 10 validates SHA256 is 64 chars."""
+        self.assertIn("64", self.step10)
 
     def test_has_curl_retry(self):
-        """Step 8.5 has --retry on curl."""
-        self.assertIn("--retry", self.step85)
+        """Step 10 has --retry on curl."""
+        self.assertIn("--retry", self.step10)
 
     def test_documents_config_format(self):
-        """Step 8.5 documents .craft/homebrew.json fields."""
-        self.assertIn("formula_name", self.step85)
-        self.assertIn("tap", self.step85)
-        self.assertIn("source_type", self.step85)
+        """Step 10 documents .craft/homebrew.json fields."""
+        self.assertIn("formula_name", self.step10)
+        self.assertIn("tap", self.step10)
+        self.assertIn("source_type", self.step10)
 
 
 # ============================================================================

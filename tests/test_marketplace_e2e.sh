@@ -396,11 +396,11 @@ else
     assert_fail "pre_release_has_marketplace_check" "No mention of 'marketplace' in pre-release-check.sh"
 fi
 
-# Test: Script has 6 checks
-if grep -q "\[./6\]" "$PRE_RELEASE_SCRIPT"; then
-    assert_pass "pre_release_has_6_checks"
+# Test: Script has 8 checks
+if grep -q "\[./8\]" "$PRE_RELEASE_SCRIPT"; then
+    assert_pass "pre_release_has_8_checks"
 else
-    assert_fail "pre_release_has_6_checks" "Expected [N/6] check numbering"
+    assert_fail "pre_release_has_8_checks" "Expected [N/8] check numbering"
 fi
 
 # Test: Script syntax is valid

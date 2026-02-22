@@ -394,18 +394,18 @@ fi
 echo ""
 
 # ============================================================================
-# Group 7: Release Skill Step 8.5 Updates
+# Group 7: Release Skill Step 10 (Homebrew Tap Update)
 # ============================================================================
 
-echo -e "${T_BLUE}--- Group 7: Release Skill Step 8.5 ---${T_NC}"
+echo -e "${T_BLUE}--- Group 7: Release Skill Step 10 ---${T_NC}"
 
 SKILL_CONTENT=$(cat "$RELEASE_SKILL")
 
-# Test: Step 8.5 exists
-if echo "$SKILL_CONTENT" | grep -q "Step 8.5"; then
-    assert_pass "step_8_5_exists"
+# Test: Step 10 exists
+if echo "$SKILL_CONTENT" | grep -q "Step 10"; then
+    assert_pass "step_10_exists"
 else
-    assert_fail "step_8_5_exists" "Step 8.5 not found in SKILL.md"
+    assert_fail "step_10_exists" "Step 10 not found in SKILL.md"
 fi
 
 # Test: basename $PWD is not the primary formula name lookup
@@ -440,32 +440,32 @@ else
 fi
 
 # Test: Uses shasum -a 256 (macOS-portable, not sha256sum which is Linux-only)
-STEP85=$(echo "$SKILL_CONTENT" | sed -n '/Step 8.5/,/Step 9/p')
-if echo "$STEP85" | grep -q "shasum -a 256"; then
-    assert_pass "step85_uses_shasum"
+STEP10=$(echo "$SKILL_CONTENT" | sed -n '/Step 10/,/Step 11/p')
+if echo "$STEP10" | grep -q "shasum -a 256"; then
+    assert_pass "step10_uses_shasum"
 else
-    assert_fail "step85_uses_shasum" "Step 8.5 should use shasum -a 256 (macOS-portable)"
+    assert_fail "step10_uses_shasum" "Step 10 should use shasum -a 256 (macOS-portable)"
 fi
 
 # Test: Has ruby -c syntax check
-if echo "$STEP85" | grep -q "ruby -c"; then
-    assert_pass "step85_has_ruby_syntax_check"
+if echo "$STEP10" | grep -q "ruby -c"; then
+    assert_pass "step10_has_ruby_syntax_check"
 else
-    assert_fail "step85_has_ruby_syntax_check" "No ruby -c syntax check after sed update"
+    assert_fail "step10_has_ruby_syntax_check" "No ruby -c syntax check after sed update"
 fi
 
 # Test: Has SHA validation guard
-if echo "$STEP85" | grep -q '${#SHA256}'; then
-    assert_pass "step85_has_sha_guard"
+if echo "$STEP10" | grep -q '${#SHA256}'; then
+    assert_pass "step10_has_sha_guard"
 else
-    assert_fail "step85_has_sha_guard" "No SHA256 validation guard in Step 8.5"
+    assert_fail "step10_has_sha_guard" "No SHA256 validation guard in Step 10"
 fi
 
 # Test: Has curl retry
-if echo "$STEP85" | grep -q "\-\-retry"; then
-    assert_pass "step85_has_curl_retry"
+if echo "$STEP10" | grep -q "\-\-retry"; then
+    assert_pass "step10_has_curl_retry"
 else
-    assert_fail "step85_has_curl_retry" "No --retry on curl in Step 8.5"
+    assert_fail "step10_has_curl_retry" "No --retry on curl in Step 10"
 fi
 
 echo ""

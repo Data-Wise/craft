@@ -1,8 +1,8 @@
 # Quick Reference: Release Pipeline
 
-**End-to-end release automation** — version detection, pre-flight checks, PR creation, merge, GitHub release.
+**End-to-end release automation** — version detection, pre-flight checks, PR creation, merge, GitHub release, downstream verification.
 
-**Version:** 2.22.0 | **Skill:** `skills/release/SKILL.md` | **NEW:** CI monitoring loop (Step 6.5)
+**Version:** 2.26.0 | **Skill:** `skills/release/SKILL.md` | **13-step pipeline** with downstream CI verification
 
 ---
 
@@ -34,17 +34,20 @@ Ready to release?
 | Step | Action | Side Effects |
 |------|--------|-------------|
 | 1 | Detect version | Read-only |
-| 2a | `/craft:check --for release` | Read-only (full CI mirror) |
-| 2b | `pre-release-check.sh` | Read-only (metadata) |
+| 2a | `/craft:check --for release` | Read-only (full CI mirror, badge URLs, formula desc) |
+| 2b | `pre-release-check.sh` | Read-only (metadata, badge URLs, formula desc) |
 | 2c | Marketplace validation | Read-only |
 | 3 | Bump version | Modifies files |
 | 4 | Commit and push | Creates commit, pushes |
 | 5 | Create release PR | Creates PR (dev to main) |
 | 6 | Merge PR | Merges to main |
-| **6.5** | **CI monitoring loop** | **Polls, diagnoses, retries (NEW v2.22.0)** |
-| 7 | Create GitHub release | Creates tag and release |
-| 8 | Post-release | Deploys docs, syncs dev |
-| 8.5 | Update Homebrew tap | Modifies tap formula |
+| 7 | CI monitoring loop | Polls, diagnoses, retries (v2.22.0) |
+| 8 | Create GitHub release | Creates tag and release |
+| 9 | Post-release | Deploys docs, syncs dev |
+| 10 | Update Homebrew tap | Modifies tap formula |
+| 11 | Verify downstream CI (main) | Read-only (polls main branch workflows) |
+| 12 | Verify downstream CI (docs) | Read-only (polls docs deploy workflow) |
+| 13 | Verify downstream CI (Homebrew) | Read-only (polls tap CI) |
 
 ### Release Pipeline Flow
 
@@ -76,12 +79,20 @@ flowchart TD
     O --> P["Deploy Docs"]
     P --> Q["Update Homebrew Tap"]
     Q --> R["Sync dev with main"]
-    R --> S["Verify CI on main"]
+    R --> S["Downstream Verification"]
+    S --> S1["Verify main CI"]
+    S --> S2["Verify docs deploy"]
+    S --> S3["Verify Homebrew tap CI"]
+    S1 --> T{All Green?}
+    S2 --> T
+    S3 --> T
+    T -->|Yes| U["Release Complete"]
+    T -->|No| V["Report failures"]
 
     style A fill:#4a9eff,color:#fff
     style D fill:#ffa94d,color:#fff
     style K fill:#ffa94d,color:#fff
-    style S fill:#51cf66,color:#fff
+    style U fill:#51cf66,color:#fff
 ```
 
 ---

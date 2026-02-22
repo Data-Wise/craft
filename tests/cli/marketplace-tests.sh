@@ -319,11 +319,11 @@ else
     log_fail "marketplace.json not referenced in release skill"
 fi
 
-# Step 8.5: Tap auto-update
-if grep -q '8\.5\|[Tt]ap.*[Uu]pdate\|[Hh]omebrew.*[Tt]ap' "$RELEASE_SKILL"; then
-    log_pass "Step 8.5: tap auto-update present"
+# Step 10: Tap auto-update (formerly Step 8.5)
+if grep -q 'Step 10\|[Tt]ap.*[Uu]pdate\|[Hh]omebrew.*[Tt]ap' "$RELEASE_SKILL"; then
+    log_pass "Step 10: tap auto-update present"
 else
-    log_fail "Step 8.5: tap auto-update missing"
+    log_fail "Step 10: tap auto-update missing"
 fi
 
 # Dry-run output includes tap update
@@ -353,11 +353,11 @@ else
     log_fail "pre-release-check.sh missing marketplace check"
 fi
 
-# Check count is 6
-if grep -q '\[.\+/6\]' "$PRE_CHECK"; then
-    log_pass "Check count is /6 (includes marketplace)"
+# Check count is 8
+if grep -q '\[.\+/8\]' "$PRE_CHECK"; then
+    log_pass "Check count is /8 (includes badge + formula checks)"
 else
-    log_fail "Check count not /6" "Expected 6 checks including marketplace"
+    log_fail "Check count not /8" "Expected 8 checks including badge + formula"
 fi
 
 # Validates metadata.version

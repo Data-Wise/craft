@@ -123,7 +123,7 @@ The `/release` skill handles marketplace automatically:
 
 - **Step 2c:** Runs `claude plugin validate .` if marketplace.json exists
 - **Step 3:** Updates `metadata.version` and `plugins[0].version` in marketplace.json
-- **Step 8.5:** Updates Homebrew tap formula with new version and SHA256
+- **Step 10:** Updates Homebrew tap formula with new version and SHA256
 
 ---
 
@@ -179,7 +179,7 @@ Each project can define its Homebrew config in `.craft/homebrew.json`:
 | `tap` | Yes | Tap in `org/name` format (e.g., `data-wise/tap`) |
 | `source_type` | No | `github` (default) or `pypi` |
 
-This config is used by the `/release` skill (Step 8.5) for formula name lookup, avoiding reliance on `basename $PWD`.
+This config is used by the `/release` skill (Step 10) for formula name lookup, avoiding reliance on `basename $PWD`.
 
 ### Example: Full Setup
 
