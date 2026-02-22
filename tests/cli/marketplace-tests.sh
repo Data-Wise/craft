@@ -319,11 +319,11 @@ else
     log_fail "marketplace.json not referenced in release skill"
 fi
 
-# Step 8.5: Tap auto-update
-if grep -q '8\.5\|[Tt]ap.*[Uu]pdate\|[Hh]omebrew.*[Tt]ap' "$RELEASE_SKILL"; then
-    log_pass "Step 8.5: tap auto-update present"
+# Step 10: Tap auto-update (formerly Step 8.5)
+if grep -q 'Step 10\|[Tt]ap.*[Uu]pdate\|[Hh]omebrew.*[Tt]ap' "$RELEASE_SKILL"; then
+    log_pass "Step 10: tap auto-update present"
 else
-    log_fail "Step 8.5: tap auto-update missing"
+    log_fail "Step 10: tap auto-update missing"
 fi
 
 # Dry-run output includes tap update

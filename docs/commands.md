@@ -100,12 +100,13 @@ Generate GitHub Actions workflow from project detection.
 
 ### /craft:ci:status
 
-Cross-repo CI status dashboard — see all workflow statuses in one view.
+Cross-repo CI status dashboard — see all workflow statuses in one view. Supports `--post-release` mode for downstream verification.
 
 ```bash
 /craft:ci:status
 /craft:ci:status --json
 /craft:ci:status --repo craft
+/craft:ci:status --post-release
 ```
 
 **See:** [Command Reference](commands/ci/status.md)

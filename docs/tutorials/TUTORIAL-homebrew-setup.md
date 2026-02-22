@@ -168,7 +168,7 @@ Common issues the audit catches:
 
 ## Step 7: Release
 
-With everything configured, the `/release` skill handles formula updates automatically at Step 8.5:
+With everything configured, the `/release` skill handles formula updates automatically at Step 10:
 
 ```bash
 /release
@@ -177,7 +177,7 @@ With everything configured, the `/release` skill handles formula updates automat
 What happens behind the scenes:
 
 1. Release is created on GitHub
-2. Step 8.5 reads `.craft/homebrew.json`
+2. Step 10 reads `.craft/homebrew.json`
 3. Downloads the release tarball
 4. Calculates SHA256 with validation
 5. Updates the formula via `sed`

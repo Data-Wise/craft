@@ -380,7 +380,7 @@ The `/release` skill handles marketplace automatically:
 
 - **Step 2 (Pre-Flight):** Runs `claude plugin validate .` if marketplace.json exists
 - **Step 3 (Version Bump):** Updates `metadata.version` and `plugins[0].version` in marketplace.json
-- **Step 8.5 (Tap Update):** Updates Homebrew tap formula with new version and SHA256
+- **Step 10 (Tap Update):** Updates Homebrew tap formula with new version and SHA256
 
 ### Recommended Distribution Strategy
 

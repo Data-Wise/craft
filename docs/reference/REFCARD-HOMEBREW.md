@@ -79,7 +79,7 @@
 /release
 ```
 
-## Release Integration (Step 8.5)
+## Release Integration (Step 10)
 
 The `/release` skill auto-updates the tap formula:
 

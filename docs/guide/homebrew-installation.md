@@ -294,7 +294,7 @@ If you distribute your own plugin via Homebrew, add a `.craft/homebrew.json` to 
 }
 ```
 
-This config is used by `/craft:dist:homebrew` and the `/release` skill (Step 8.5) to reliably identify the formula name and tap location. Without it, the system falls back to git remote URL parsing or directory basename.
+This config is used by `/craft:dist:homebrew` and the `/release` skill (Step 10) to reliably identify the formula name and tap location. Without it, the system falls back to git remote URL parsing or directory basename.
 
 See the [Homebrew Automation Guide](homebrew-automation.md) for full details on formula management, auditing, and workflow hardening.
 

@@ -166,7 +166,7 @@
 - **Workflow Security Hardening**: Env indirection for script injection prevention, `sha256sum` on CI, `--retry 3`, 64-char SHA guard in `homebrew-release.yml`
 - **Subcommand Consolidation**: 8 → 6 subcommands — renamed `validate` → `audit` (with `--build` flag), folded `token` into setup Step 4, dropped `release-batch`, expanded `deps` with inter-formula graph and system deps matrix
 - **Formula Name Mapping**: `.craft/homebrew.json` config with 3-priority lookup chain (config → git remote → basename fallback)
-- **Release Skill Hardening**: Step 8.5 rewrite with config lookup, `shasum -a 256` (macOS-portable), `ruby -c` syntax validation, SHA guard
+- **Release Skill Hardening**: Step 10 (Homebrew tap update) with config lookup, `shasum -a 256` (macOS-portable), `ruby -c` syntax validation, SHA guard
 - **New Documentation**: Homebrew Automation Guide (310 lines), Homebrew Setup Tutorial, Homebrew Quick Reference Card
 
 **Stats:** 109 commands | 25 skills | 8 agents | ~1575 tests passing

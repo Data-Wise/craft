@@ -46,7 +46,7 @@ Every project that distributes via Homebrew should have a `.craft/homebrew.json`
 
 ### Why This Matters
 
-The `/release` skill (Step 8.5) uses a 3-priority lookup chain to find the formula name:
+The `/release` skill (Step 10) uses a 3-priority lookup chain to find the formula name:
 
 1. **`.craft/homebrew.json`** — most reliable, explicit config
 2. **Git remote URL** — extracted from `origin`, works for most repos
@@ -235,7 +235,7 @@ ruby -c "$FORMULA" || { echo "ERROR: Formula syntax error"; exit 1; }
 
 ## Release Integration
 
-The `/release` skill Step 8.5 automatically updates your Homebrew tap formula:
+The `/release` skill Step 10 automatically updates your Homebrew tap formula:
 
 1. Looks up formula name via `.craft/homebrew.json` > git remote > basename
 2. Locates the tap directory (local checkout or brew tap cache)
