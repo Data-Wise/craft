@@ -2,16 +2,25 @@ status: Active
 version: 2.27.0
 release_date: 2026-02-21
 milestone: v2.27.0 released — Release Pipeline Hardening
-last_session: 2026-02-22
+last_session: 2026-02-23
 
-progress: v2.27.0 post-release. Stale refs fixed, all CI green, docs site verified.
+progress: v2.28.0 planning. Release hardening v2 spec + worktree ready for implementation.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | b7ab949  | —    | Production (v2.27.0, PR #107 merged) |
-| dev    | 20ac035  | main | In sync with main                    |
+| dev    | 43f6e60  | main | In sync with main                    |
+| feature/release-hardening-v2 | dc54bb1 | dev | Worktree ready, plan committed |
+
+✅ Session 2026-02-23a (release hardening v2 planning):
+- Deep brainstorm (8 expert Qs + 4 follow-up): post-release sweep, ORCHESTRATE guard, docs:sync drift
+- Created comprehensive spec: SPEC-release-hardening-v2-2026-02-23.md (all sections filled)
+- Created 6-increment orchestration plan: ORCHESTRATE-release-hardening-v2.md
+- Created worktree at ~/.git-worktrees/craft/feature-release-hardening-v2
+- Committed plan to feature branch (dc54bb11)
+- Scope: sweep script + branch guard + git clean upgrade + Step 13.5 + docs:sync + docs update
 
 ✅ Session 2026-02-22a (post-release verification and cleanup):
 - Checked CI dashboard: all craft workflows green, homebrew-tap update-formula failures are phantom (workflow file issue on push)
@@ -61,7 +70,8 @@ progress: v2.27.0 post-release. Stale refs fixed, all CI green, docs site verifi
 ---
 
 🎯 Next Action:
-→ Pick next feature or improvement from backlog
+→ cd ~/.git-worktrees/craft/feature-release-hardening-v2 && claude
+→ Implement Increment 1: post-release sweep script
 
 ## Future (v2.28.0+)
 
