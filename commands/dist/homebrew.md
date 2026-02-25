@@ -920,19 +920,33 @@ For Claude Code plugins, the workflow also extracts metadata counts:
 
 ## /craft:dist:homebrew audit
 
-Validate and auto-fix formula using `brew audit`.
+Validate and auto-fix formulas and casks using `brew audit`. Auto-detects whether the project uses a formula or cask.
 
 ### Usage
 
 ```bash
-/craft:dist:homebrew audit                      # Validate + auto-fix
+/craft:dist:homebrew audit                      # Auto-detect formula or cask, validate + auto-fix
 /craft:dist:homebrew audit --strict             # Strict mode (extra checks)
 /craft:dist:homebrew audit --online             # Online checks (URL validation)
 /craft:dist:homebrew audit --check-only         # Report issues without fixing
 /craft:dist:homebrew audit --build              # Also run brew install --build-from-source
+/craft:dist:homebrew audit --cask               # Force cask audit mode
 ```
 
-### Checks Performed
+### Auto-Detection (Formula vs Cask)
+
+The audit command auto-detects whether to run formula or cask audit:
+
+```bash
+# Detection priority:
+# 1. --cask flag → cask audit
+# 2. .craft/homebrew.json type == "cask" → cask audit
+# 3. src-tauri/tauri.conf.json exists → cask audit
+# 4. Casks/ directory in tap → cask audit
+# 5. Default → formula audit
+```
+
+### Formula Checks
 
 | Check | Description | Auto-Fix |
 |-------|-------------|----------|
@@ -948,6 +962,62 @@ Validate and auto-fix formula using `brew audit`.
 | Modifier `if` | Single-line body should use modifier | Yes |
 | Assertions | Use `assert_path_exists` not `assert_predicate :exist?` | Yes |
 | Section order | `caveats` before `test` | Yes |
+
+### Cask Checks
+
+| Check | Description | Auto-Fix |
+|-------|-------------|----------|
+| Syntax | Ruby syntax validation (`ruby -c`) | No |
+| `desc` | < 80 chars, no 'A/An' prefix | Yes - truncate |
+| `version` | Present and valid | No |
+| `sha256` | Present in both `on_arm`/`on_intel` blocks, 64-char hex | No |
+| `url` | Accessible in both architecture blocks (with --online) | No |
+| `livecheck` | Block present with valid strategy | No |
+| `app` | `.app` bundle name matches productName | No |
+| `uninstall` | `quit:` with valid bundle identifier | No |
+| `zap` | `trash:` paths use correct identifier | No |
+| `depends_on` | Valid macOS codename | No |
+| `postflight` | Block present (if cask has install-time content) | No |
+
+### Cask Audit Workflow
+
+```bash
+# 1. Auto-detect cask
+FORMULA_NAME=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['formula_name'])" 2>/dev/null)
+
+# 2. Run brew audit --cask
+brew audit --cask "$TAP/$FORMULA_NAME" 2>&1
+
+# 3. Check SHA256 matches actual release assets (cross-verify)
+CASK_FILE=$(brew --repository)/Library/Taps/${TAP_ORG}/homebrew-${TAP_NAME}/Casks/${FORMULA_NAME}.rb
+CASK_SHA=$(grep -A1 'on_arm' "$CASK_FILE" | grep sha256 | grep -oE '[a-f0-9]{64}')
+# Compare with actual DMG SHA if available
+
+# 4. Validate livecheck
+brew livecheck --cask "$TAP/$FORMULA_NAME" 2>&1
+
+# 5. Report results
+```
+
+### Cask Audit Example Output
+
+```
+Running: brew audit --cask data-wise/tap/scribe
+
+Cask audit results:
+  ✓ Ruby syntax ........................ PASSED
+  ✓ desc length ........................ 62 chars (max 80)
+  ✓ version ............................ 1.20.0
+  ✓ SHA256 (on_arm) ................... 64 chars, valid hex
+  ✓ SHA256 (on_intel) ................. 64 chars, valid hex
+  ✓ livecheck .......................... configured (github_releases)
+  ✓ app ................................ Scribe.app
+  ✓ uninstall .......................... quit: com.scribe.app
+  ✓ zap ................................ 5 trash paths
+  ✓ depends_on ........................ macos: >= :catalina
+
+All checks passed. Cask is ready for release!
+```
 
 ### Build-from-Source Testing
 

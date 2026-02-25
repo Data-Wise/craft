@@ -55,10 +55,11 @@ After detecting the current and next version, display:
 │  7. ✓ Merge PR (--merge, NO --delete-branch)                │
 │  8. ✓ Create GitHub release v2.18.0 on main                 │
 │  9. ✓ Deploy docs site (mkdocs gh-deploy)                   │
-│ 10. ✓ Update Homebrew tap formula                           │
+│ 10. ✓ Update Homebrew tap (formula or cask)                 │
+│      (10b if Tauri: build → upload → SHA256 → cask → tap)   │
 │ 11. ✓ Sync dev with main                                    │
 │ 12. ✓ Verify CI on main                                     │
-│ 13. ✓ Verify downstream (docs, brew, badges)                │
+│ 13. ✓ Verify downstream (docs, brew, badges, cask)          │
 │ 13.5 ✓ Post-release sweep (Tier 2+ drift detection)        │
 ├─────────────────────────────────────────────────────────────┤
 │ ⚠ Risk: HIGH — modifies git history, creates PRs            │
@@ -1037,6 +1038,53 @@ curl -sL "https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg"
 
 If the badge does not show "passing", CI may still be running or may have failed. Wait and re-check.
 
+#### 13f: Cask Verification (Tauri projects only)
+
+If Step 10b was executed (desktop app release), verify the cask was updated correctly:
+
+```bash
+# Refresh tap data
+brew update
+
+# Verify cask version matches release
+CASK_VERSION=$(brew info --cask "$TAP/$FORMULA_NAME" 2>/dev/null | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+if [ "$CASK_VERSION" = "$VERSION" ]; then
+    echo "Cask version: CORRECT ($CASK_VERSION)"
+else
+    echo "Cask version: MISMATCH (expected $VERSION, got $CASK_VERSION)"
+fi
+
+# Verify SHA256 in cask file matches what we computed
+CASK_FILE_CONTENT=$(gh api "repos/${TAP_ORG}/homebrew-${TAP_NAME}/contents/Casks/${FORMULA_NAME}.rb" \
+  --jq '.content' | base64 -d)
+
+# Check ARM SHA256
+if echo "$CASK_FILE_CONTENT" | grep -q "$SHA256_ARM"; then
+    echo "SHA256 (ARM): CORRECT"
+else
+    echo "SHA256 (ARM): MISMATCH — cask may have stale hash"
+fi
+
+# Check Intel SHA256
+if echo "$CASK_FILE_CONTENT" | grep -q "$SHA256_INTEL"; then
+    echo "SHA256 (Intel): CORRECT"
+else
+    echo "SHA256 (Intel): MISMATCH — cask may have stale hash"
+fi
+
+# Report install command for manual verification
+echo ""
+echo "Manual verification:"
+echo "  brew install --cask $TAP/$FORMULA_NAME"
+echo "  brew upgrade --cask $TAP/$FORMULA_NAME"
+```
+
+**What this catches:**
+
+- Tap push failed silently (version mismatch)
+- SHA256 was overwritten by a conflicting push (hash mismatch)
+- `brew update` cache issues (stale version)
+
 ### Step 13.5: Post-Release Sweep (RECOMMENDED)
 
 After downstream verification passes, run the post-release sweep to catch Tier 2+ drift — secondary version references, stale counts, and content staleness that `bump-version.sh` doesn't manage.
@@ -1103,6 +1151,64 @@ Display progress using box-drawing:
 | Branch protection blocks merge | Use `--admin` with user confirmation |
 | Tag already exists | Verify correct version, delete stale tag if needed |
 | Docs deploy fails | Run `mkdocs build` first to check for errors |
+
+### Step 10b Error Recovery (Desktop App)
+
+| Error | Substep | Recovery |
+|-------|---------|----------|
+| Missing Rust target | 10b-2 | `rustup target add <target>` (offer auto-install) |
+| Missing Tauri CLI | 10b-2 | `cargo install tauri-cli` or `npm install @tauri-apps/cli` |
+| Build fails (native) | 10b-3 | Check `src-tauri/` for Rust compilation errors |
+| Build fails (cross-compile) | 10b-3 | Verify Xcode SDK, check for platform-specific code |
+| DMG not found after build | 10b-3 | Run fallback search: `find src-tauri/target -name "*.dmg"` |
+| Architecture mismatch | 10b-4 | Wrong build target used — rebuild with correct `--target` |
+| SHA256 validation fails | 10b-5 | DMG file corrupt — rebuild |
+| `gh release upload` fails | 10b-6 | Check `gh auth status`, verify release exists |
+| Cask syntax error | 10b-7 | Check `ruby -c` output, fix regex replacement |
+| Tap push conflict | 10b-8 | Auto-resolved with "ours" strategy, retry once |
+| Tap push auth failure | 10b-8 | Check git credentials for tap repo |
+| Cask version mismatch (13f) | 13f | Re-run `brew update`, check tap repo directly |
+| SHA256 mismatch (13f) | 13f | Conflicting push overwrote cask — re-push from local |
+
+### Dry-Run Support
+
+When `/release --dry-run` detects a Tauri project, the Step 10 line expands:
+
+```text
+│ 10. ✓ Update Homebrew Cask (desktop app detected)           │
+│      10b-1. Read tauri.conf.json (Scribe, v1.21.0)          │
+│      10b-2. Validate build environment (6 checks)            │
+│      10b-3. Build aarch64 (native)                           │
+│      10b-4. Build x86_64 (cross-compile)                     │
+│      10b-5. Compute SHA256 from local DMGs                   │
+│      10b-6. Upload DMGs to GitHub release                    │
+│      10b-7. Update Casks/scribe.rb (version + SHA256 +       │
+│             content from CHANGELOG)                          │
+│      10b-8. Push tap (data-wise/tap)                         │
+```
+
+`/craft:dist:homebrew cask --dry-run` shows what would change without building or writing:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ /craft:dist:homebrew cask --dry-run                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Cask: scribe (Casks/scribe.rb)                             │
+│  Tap:  data-wise/tap                                        │
+│                                                             │
+│  Changes:                                                   │
+│    version:     1.20.0 -> 1.21.0                            │
+│    sha256 ARM:  440b3b83... -> (will compute from build)    │
+│    sha256 x64:  2bdf8914... -> (will compute from build)    │
+│    postflight:  Updated (3 items from CHANGELOG)            │
+│    caveats:     Updated (version + "New in" section)        │
+│    desc:        (unchanged)                                 │
+│    static:      (unchanged)                                 │
+│                                                             │
+│  No changes were made. Run without --dry-run to execute.    │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## Additional Resources
 
