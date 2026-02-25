@@ -591,44 +591,225 @@ For desktop apps distributed as Homebrew Casks. Triggered when detection finds `
 
 **Overview:** Build multi-arch DMGs → upload to GitHub release → compute SHA256 from local artifacts → update cask file → push tap.
 
+**Progress display:**
+
 ```
-[1/8] Detecting project type ............ Tauri ({productName})
-[2/8] Checking Rust targets ............. checking...
-[3/8] Building aarch64 (native) ......... pending
-[4/8] Building x86_64 (cross-compile) ... pending
-[5/8] Verifying architectures ........... pending
-[6/8] Computing SHA256 .................. pending
-[7/8] Uploading to GitHub release ....... pending
-[8/8] Updating cask + pushing tap ....... pending
+┌─────────────────────────────────────────────────────────────┐
+│ Step 10b: Desktop App Release (Tauri)                        │
+├─────────────────────────────────────────────────────────────┤
+│  [1/8] Detecting project type ............ Tauri (Scribe)   │
+│  [2/8] Checking build environment ........ 6/6 passed       │
+│  [3/8] Building aarch64 (native) ......... DONE (2m 14s)    │
+│  [4/8] Building x86_64 (cross-compile) ... DONE (4m 31s)    │
+│  [5/8] Verifying architectures ........... PASSED            │
+│  [6/8] Computing SHA256 .................. DONE              │
+│  [7/8] Uploading to GitHub release ....... DONE              │
+│  [8/8] Updating cask + pushing tap ....... DONE              │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-**Detection reads:**
+##### 10b-1: Read Project Config
 
 ```bash
-# From tauri.conf.json
-PRODUCT_NAME=$(python3 -c "import json; c=json.load(open('src-tauri/tauri.conf.json')); print(c.get('productName', c.get('package', {}).get('productName', 'unknown')))")
-IDENTIFIER=$(python3 -c "import json; c=json.load(open('src-tauri/tauri.conf.json')); print(c.get('identifier', c.get('tauri', {}).get('bundle', {}).get('identifier', 'unknown')))")
-MIN_MACOS=$(python3 -c "import json; c=json.load(open('src-tauri/tauri.conf.json')); print(c.get('bundle', {}).get('macOS', {}).get('minimumSystemVersion', '10.15'))")
+# Read from tauri.conf.json
+TAURI_CONF="src-tauri/tauri.conf.json"
+PRODUCT_NAME=$(python3 -c "import json; c=json.load(open('$TAURI_CONF')); print(c.get('productName', c.get('package', {}).get('productName', 'unknown')))")
+VERSION=$(python3 -c "import json; c=json.load(open('$TAURI_CONF')); print(c.get('version', 'unknown'))")
+IDENTIFIER=$(python3 -c "import json; c=json.load(open('$TAURI_CONF')); print(c.get('identifier', c.get('tauri', {}).get('bundle', {}).get('identifier', 'unknown')))")
 
 # Override from .craft/homebrew.json if present
 if [ -f ".craft/homebrew.json" ]; then
+    FORMULA_NAME=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['formula_name'])")
+    TAP=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['tap'])")
+    # Read cask-specific overrides
     CASK_CONFIG=$(python3 -c "import json; print(json.dumps(json.load(open('.craft/homebrew.json')).get('cask', {})))")
-    # Parse overrides: app_name, identifier, min_macos, architectures, etc.
+else
+    FORMULA_NAME=$(echo "$PRODUCT_NAME" | tr '[:upper:]' '[:lower:]')
+    TAP="data-wise/tap"
 fi
 ```
 
-**Substeps (full implementation in Increment 2-5):**
+##### 10b-2: Build Environment Validation
 
-1. **Environment validation** — Check Rust targets, Tauri CLI, node_modules, Xcode SDK, disk space
-2. **Multi-arch build** — Native arch first, then cross-compile (serial, not parallel)
-3. **Architecture verification** — `file` command on binary inside DMG
-4. **SHA256 computation** — `shasum -a 256` on local DMG files (no network)
-5. **Asset upload** — `gh release upload` with `--clobber`
-6. **Cask file update** — Version, both arch SHA256 blocks, postflight, caveats
-7. **Validation** — `ruby -c` + `brew audit --cask`
-8. **Tap push** — `git pull --rebase` + commit + push (with conflict resolution)
+```bash
+ERRORS=0
 
-**Key design decision:** SHA256 is computed from **local build artifacts**, not downloaded from GitHub. This eliminates the race condition where GitHub CDN hasn't propagated the asset yet, which caused tap conflicts during earlier Scribe releases.
+# Check Rust targets
+NATIVE_TARGET="aarch64-apple-darwin"
+CROSS_TARGET="x86_64-apple-darwin"
+for TARGET in "$NATIVE_TARGET" "$CROSS_TARGET"; do
+    if ! rustup target list --installed | grep -q "$TARGET"; then
+        echo "MISSING: Rust target $TARGET"
+        echo "  Fix: rustup target add $TARGET"
+        echo "  Or:  Install now and continue? (y/n)"
+        ERRORS=$((ERRORS + 1))
+    fi
+done
+
+# Check Tauri CLI
+if ! npx tauri --version &>/dev/null 2>&1 && ! command -v cargo-tauri &>/dev/null; then
+    echo "MISSING: Tauri CLI (fix: cargo install tauri-cli)"
+    ERRORS=$((ERRORS + 1))
+fi
+
+# Check Node.js + node_modules
+if ! command -v node &>/dev/null; then
+    echo "MISSING: Node.js (fix: brew install node)"
+    ERRORS=$((ERRORS + 1))
+fi
+if [ ! -d "node_modules" ]; then
+    echo "MISSING: node_modules (fix: npm install)"
+    ERRORS=$((ERRORS + 1))
+fi
+
+# Check Xcode SDK
+if ! xcrun --show-sdk-path &>/dev/null 2>&1; then
+    echo "MISSING: Xcode SDK (fix: xcode-select --install)"
+    ERRORS=$((ERRORS + 1))
+fi
+
+# Check disk space (>= 2GB free)
+FREE_KB=$(df -k . | tail -1 | awk '{print $4}')
+if [ "$FREE_KB" -lt 2097152 ]; then
+    echo "WARNING: Less than 2GB free disk space"
+    ERRORS=$((ERRORS + 1))
+fi
+
+if [ "$ERRORS" -gt 0 ]; then
+    echo "ERROR: $ERRORS pre-build checks failed. Fix and retry."
+    exit 1
+fi
+```
+
+##### 10b-3: Multi-Architecture Build (Serial)
+
+Build native architecture first (fast, catches errors early), then cross-compile:
+
+```bash
+# Build 1: Native arch (aarch64 on Apple Silicon)
+echo "[3/8] Building aarch64 (native)..."
+BUILD_START=$(date +%s)
+npx tauri build --target "$NATIVE_TARGET"
+BUILD_END=$(date +%s)
+echo "  DONE ($((BUILD_END - BUILD_START))s)"
+
+# Locate DMG (primary path with fallback)
+DMG_ARM="src-tauri/target/$NATIVE_TARGET/release/bundle/dmg/${PRODUCT_NAME}_${VERSION}_aarch64.dmg"
+if [ ! -f "$DMG_ARM" ]; then
+    DMG_ARM=$(find "src-tauri/target/$NATIVE_TARGET/release/bundle" -name "*.dmg" -type f | head -1)
+fi
+if [ ! -f "$DMG_ARM" ]; then
+    echo "ERROR: ARM DMG not found after build"
+    exit 1
+fi
+
+# Build 2: Cross-compile (x86_64)
+echo "[4/8] Building x86_64 (cross-compile)..."
+BUILD_START=$(date +%s)
+npx tauri build --target "$CROSS_TARGET"
+BUILD_END=$(date +%s)
+echo "  DONE ($((BUILD_END - BUILD_START))s)"
+
+# Locate DMG
+DMG_INTEL="src-tauri/target/$CROSS_TARGET/release/bundle/dmg/${PRODUCT_NAME}_${VERSION}_x64.dmg"
+if [ ! -f "$DMG_INTEL" ]; then
+    DMG_INTEL=$(find "src-tauri/target/$CROSS_TARGET/release/bundle" -name "*.dmg" -type f | head -1)
+fi
+if [ ! -f "$DMG_INTEL" ]; then
+    echo "ERROR: Intel DMG not found after build"
+    exit 1
+fi
+```
+
+##### 10b-4: Architecture Verification
+
+Verify each DMG contains the correct architecture binary:
+
+```bash
+echo "[5/8] Verifying architectures..."
+verify_arch() {
+    local DMG_PATH="$1"
+    local EXPECTED="$2"
+    local MOUNT_POINT="/Volumes/${PRODUCT_NAME}_verify_$$"
+
+    hdiutil attach "$DMG_PATH" -nobrowse -quiet -mountpoint "$MOUNT_POINT"
+    BINARY=$(find "$MOUNT_POINT" -name "$PRODUCT_NAME" -type f -perm +111 | head -1)
+    ARCH=$(file "$BINARY" | grep -oE 'arm64|x86_64')
+    hdiutil detach "$MOUNT_POINT" -quiet
+
+    if [ "$ARCH" != "$EXPECTED" ]; then
+        echo "ERROR: DMG contains $ARCH binary, expected $EXPECTED"
+        return 1
+    fi
+    echo "  ✓ $DMG_PATH → $ARCH"
+}
+
+verify_arch "$DMG_ARM" "arm64"
+verify_arch "$DMG_INTEL" "x86_64"
+```
+
+##### 10b-5: SHA256 Computation (Local Artifacts)
+
+Compute SHA256 from local build artifacts — no network involved:
+
+```bash
+echo "[6/8] Computing SHA256..."
+SHA256_ARM=$(shasum -a 256 "$DMG_ARM" | cut -d' ' -f1)
+SHA256_INTEL=$(shasum -a 256 "$DMG_INTEL" | cut -d' ' -f1)
+
+# Validate both are 64-char hex strings
+for SHA in "$SHA256_ARM" "$SHA256_INTEL"; do
+    if [ -z "$SHA" ] || [ ${#SHA} -ne 64 ]; then
+        echo "ERROR: SHA256 calculation failed. Got: '$SHA'"
+        exit 1
+    fi
+done
+
+echo "  ARM:   $SHA256_ARM"
+echo "  Intel: $SHA256_INTEL"
+```
+
+**Key design decision:** Computing SHA256 from local artifacts eliminates the race condition where GitHub CDN hasn't propagated uploaded assets yet. This was the root cause of tap conflicts during earlier Scribe releases.
+
+##### 10b-6: Asset Upload to GitHub Release
+
+```bash
+echo "[7/8] Uploading to GitHub release..."
+REPO=$(git remote get-url origin | sed 's/\.git$//' | sed 's|https://github.com/||')
+
+# Upload DMGs (--clobber handles re-uploads)
+gh release upload "v${VERSION}" "$DMG_ARM" "$DMG_INTEL" --clobber
+
+# Generate and upload CHECKSUMS.txt
+echo "${SHA256_ARM}  ${PRODUCT_NAME}_${VERSION}_aarch64.dmg" > CHECKSUMS.txt
+echo "${SHA256_INTEL}  ${PRODUCT_NAME}_${VERSION}_x64.dmg" >> CHECKSUMS.txt
+gh release upload "v${VERSION}" CHECKSUMS.txt --clobber
+
+# Verify upload (check URLs return 200)
+for ARCH in "aarch64" "x64"; do
+    URL="https://github.com/${REPO}/releases/download/v${VERSION}/${PRODUCT_NAME}_${VERSION}_${ARCH}.dmg"
+    STATUS=$(curl -sI -o /dev/null -w "%{http_code}" -L "$URL")
+    if [ "$STATUS" != "200" ]; then
+        echo "WARNING: Asset URL returned $STATUS (CDN may need propagation time)"
+    fi
+done
+```
+
+##### 10b-7 and 10b-8: Cask Update + Tap Push
+
+Update the cask file with new version, SHA256 hashes, and content. Push to tap.
+
+*Full implementation in Increment 3 (Cask Generator/Updater) and Increment 5 (Pipeline Integration).*
+
+Skeleton:
+
+```bash
+echo "[8/8] Updating cask + pushing tap..."
+# 1. Locate tap directory
+# 2. Update cask file: version, SHA256 (on_arm + on_intel), postflight, caveats
+# 3. Validate: ruby -c && brew audit --cask
+# 4. Push: git pull --rebase && git commit && git push
+```
 
 **Skip to Step 11 after Step 10b completes.**
 

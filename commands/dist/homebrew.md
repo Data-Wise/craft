@@ -197,6 +197,148 @@ When auto-detecting from `tauri.conf.json`, the `minimumSystemVersion` is mapped
 | `14.0` | `:sonoma` |
 | `15.0` | `:sequoia` |
 
+### Build Environment Validation
+
+Before building, the `cask` subcommand validates the environment. This runs as a pre-flight check and offers to auto-install missing components.
+
+| Check | What | Fix |
+|-------|------|-----|
+| Rust targets | `aarch64-apple-darwin` + `x86_64-apple-darwin` installed | `rustup target add <target>` |
+| Tauri CLI | `npx tauri --version` or `cargo-tauri` available | `cargo install tauri-cli` |
+| Node.js | `node` in PATH | `brew install node` |
+| node_modules | `node_modules/` directory exists | `npm install` |
+| Xcode SDK | `xcrun --show-sdk-path` succeeds | `xcode-select --install` |
+| Disk space | >= 2GB free in project directory | Manual cleanup |
+
+```
+Pre-build validation:
+  ✓ Rust target aarch64-apple-darwin .......... installed
+  ✓ Rust target x86_64-apple-darwin ........... installed
+  ✓ Tauri CLI .................................. v2.1.0 (npx)
+  ✓ Node.js .................................... v22.5.0
+  ✓ node_modules ............................... present
+  ✓ Xcode SDK .................................. /Applications/Xcode.app/...
+  ✓ Disk space ................................. 45GB free
+
+All checks passed. Ready to build.
+```
+
+If a Rust target is missing, the user is offered:
+
+```
+WARNING: Rust target x86_64-apple-darwin not installed.
+
+Options:
+  1. Install target and continue (Recommended)
+     → rustup target add x86_64-apple-darwin
+  2. Skip cross-compile (ARM-only release)
+  3. Abort
+```
+
+### Multi-Architecture Build Sequence
+
+Builds are executed **serially** (not parallel) to avoid memory exhaustion on developer machines. Native architecture builds first for faster error detection.
+
+```bash
+# Step 1: Build native arch (fast, catches errors early)
+npx tauri build --target aarch64-apple-darwin
+
+# Step 2: Build cross-compile (slower)
+npx tauri build --target x86_64-apple-darwin
+```
+
+#### DMG Location Discovery
+
+Tauri places DMGs at predictable paths. The build locates them using a primary path with fallback search:
+
+```bash
+# Primary path (Tauri v2)
+src-tauri/target/{target}/release/bundle/dmg/{ProductName}_{version}_{arch}.dmg
+
+# Fallback: search for any DMG in the target directory
+find "src-tauri/target/${TARGET}/release/bundle" -name "*.dmg" -type f
+```
+
+#### Architecture Verification
+
+After building, verify each DMG contains the correct architecture binary:
+
+```bash
+# Mount DMG and check binary architecture
+hdiutil attach "$DMG_PATH" -nobrowse -quiet
+BINARY=$(find /Volumes/"${PRODUCT_NAME}" -name "${PRODUCT_NAME}" -type f | head -1)
+ARCH=$(file "$BINARY" | grep -oE 'arm64|x86_64')
+hdiutil detach /Volumes/"${PRODUCT_NAME}" -quiet
+
+# Verify expected architecture
+if [ "$ARCH" != "$EXPECTED_ARCH" ]; then
+    echo "ERROR: DMG contains $ARCH binary, expected $EXPECTED_ARCH"
+    exit 1
+fi
+```
+
+### SHA256 Computation (Local Artifacts)
+
+SHA256 is computed from **local build artifacts**, not downloaded from GitHub. This eliminates the race condition where GitHub CDN hasn't propagated the asset yet.
+
+```bash
+# Compute SHA256 from local DMG files
+SHA256_ARM=$(shasum -a 256 "$DMG_ARM" | cut -d' ' -f1)
+SHA256_INTEL=$(shasum -a 256 "$DMG_INTEL" | cut -d' ' -f1)
+
+# Validate both are 64-char hex strings
+for SHA in "$SHA256_ARM" "$SHA256_INTEL"; do
+    if [ -z "$SHA" ] || [ ${#SHA} -ne 64 ]; then
+        echo "ERROR: SHA256 calculation failed. Got: '$SHA'"
+        exit 1
+    fi
+done
+```
+
+### Asset Upload to GitHub Release
+
+Upload DMGs and a CHECKSUMS.txt file to the GitHub release:
+
+```bash
+# Upload DMGs (--clobber handles re-uploads if assets already exist)
+gh release upload "v${VERSION}" "$DMG_ARM" "$DMG_INTEL" --clobber
+
+# Generate and upload CHECKSUMS.txt
+echo "${SHA256_ARM}  ${PRODUCT_NAME}_${VERSION}_aarch64.dmg" > CHECKSUMS.txt
+echo "${SHA256_INTEL}  ${PRODUCT_NAME}_${VERSION}_x64.dmg" >> CHECKSUMS.txt
+gh release upload "v${VERSION}" CHECKSUMS.txt --clobber
+
+# Verify both DMG URLs return 200
+for ARCH in "aarch64" "x64"; do
+    URL="https://github.com/${REPO}/releases/download/v${VERSION}/${PRODUCT_NAME}_${VERSION}_${ARCH}.dmg"
+    STATUS=$(curl -sI -o /dev/null -w "%{http_code}" -L "$URL")
+    if [ "$STATUS" != "200" ]; then
+        echo "WARNING: Asset URL returned $STATUS (may need CDN propagation time)"
+    fi
+done
+```
+
+### Build Progress Display
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 10b: Desktop App Release (Tauri)                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  [1/8] Detecting project type .............. Tauri (Scribe) │
+│  [2/8] Checking Rust targets ............... 2/2 installed  │
+│  [3/8] Building aarch64 (native) ........... DONE (2m 14s)  │
+│  [4/8] Building x86_64 (cross-compile) ..... BUILDING...    │
+│        └─ Progress: Compiling scribe v1.21.0                │
+│  [5/8] Verifying architectures ............. pending         │
+│  [6/8] Computing SHA256 .................... pending         │
+│  [7/8] Uploading to GitHub release ......... pending         │
+│  [8/8] Updating cask + pushing tap ......... pending         │
+│                                                             │
+│  Elapsed: 3m 42s                                            │
+└─────────────────────────────────────────────────────────────┘
+```
+
 ### Example Output
 
 ```
@@ -206,6 +348,20 @@ When auto-detecting from `tauri.conf.json`, the `minimumSystemVersion` is mapped
 ✓ Architectures: aarch64, x64
 ✓ Config: .craft/homebrew.json (type: cask)
 ✓ Tap: data-wise/tap
+
+Build:
+  ✓ aarch64 (native) ............. DONE (2m 14s)
+  ✓ x86_64 (cross-compile) ....... DONE (4m 31s)
+  ✓ Architecture verification ..... PASSED (arm64, x86_64)
+
+SHA256:
+  ARM:   440b3b83e7f29a2b...
+  Intel: 2bdf8914a1c7e6d3...
+
+Upload:
+  ✓ Scribe_1.20.0_aarch64.dmg .... uploaded
+  ✓ Scribe_1.20.0_x64.dmg ........ uploaded
+  ✓ CHECKSUMS.txt ................. uploaded
 
 Cask file: Casks/scribe.rb
 ```
