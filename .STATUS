@@ -1,32 +1,29 @@
 status: Active
 version: 2.28.0
-release_date: 2026-02-21
-milestone: v2.28.0 planning — Docs Staleness Detection
+release_date: 2026-02-25
+milestone: v2.28.0 released — Docs Staleness Detection next
 last_session: 2026-02-25
 
-progress: v2.28.0 in progress. PR #110 (post-release sweep) and PR #109 (desktop release pipeline) both merged to dev. New feature planned: docs staleness detection system. Worktree ready.
+progress: v2.28.0 released. Desktop release pipeline, post-release sweep, docs improvements. Post-release Tier 2 sweep done (16 files). Docs staleness detection worktree ready.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
-| main   | b7ab949  | —    | Production (v2.27.0, PR #107 merged) |
-| dev    | 0c5a444  | main | 3 features merged, brainstorm for staleness detection |
+| main   | b5e2b6b  | —    | Production (v2.28.0, PR #111 merged) |
+| dev    | 4dd256a  | main | Post-release sweep committed         |
 | feature/docs-staleness-detection | 07399a3 | dev | Worktree ready, ORCHESTRATE committed |
 
-✅ Session 2026-02-25 (PR reviews, merges, docs health, staleness brainstorm):
-- Reviewed PR #110 (post-release sweep): found 4 issues, fixed, merged (squash)
-- Reviewed PR #109 (desktop release pipeline): found 5 issues, fixed, merged (squash)
-- Ran post-release sweep against live repo — all clean
-- Full docs health check: found 2 missing nav entries, 4 broken links, stale counts
-- Fixed all docs issues: nav entries, broken links, command flowchart, skills docs
-- Added mermaid command routing flowchart to commands overview
-- Fixed stale "17 skills, 7 agents" → "26 skills, 8 agents" in 2 files
-- Added missing skills (sync-features, release-checklist) to both skills docs
-- Full test suite: 96+ tests passing across 4 suites
-- Brainstormed docs staleness detection system (8 expert Qs, all decisions resolved)
-- Created worktree + ORCHESTRATE plan for feature/docs-staleness-detection (12 steps)
-- Saved 5 memory entries: macOS shell gotchas, 3-zone cask model, local-first SHA256
+✅ Session 2026-02-25 (release v2.28.0 + post-release sweep):
+- Released v2.28.0: desktop release pipeline, post-release sweep, docs improvements
+- Release pipeline: 13 steps completed (CI flake on main resolved by re-run — npm 403)
+- Homebrew tap auto-updated to v2.28.0, brew upgrade confirmed locally
+- Docs deployed to GitHub Pages, badge green
+- Post-release Tier 2 sweep: found and fixed 16 files with stale v2.27.0 refs
+- Tier 2 offenders: 3 REFCARDs, 3 guides, 2 commands, 2 scripts, hub.md, testing docs
+- Key learning: "NEW in vX.Y.Z" markers are historical annotations, not stale refs
+- Key learning: npm registry 403 in CI is transient flake, re-run resolves
+- Memory updated: Version drift (expanded Tier 2 list), npm CI flakiness
 
 ---
 
@@ -34,13 +31,13 @@ progress: v2.28.0 in progress. PR #110 (post-release sweep) and PR #109 (desktop
 → cd ~/.git-worktrees/craft/feature-docs-staleness && claude
 → Implement docs-staleness-check.sh (12-step ORCHESTRATE plan)
 OR
-→ Release v2.28.0 (merge dev to main) — 2 features ready
-OR
 → Work on missing docs help pages (14 docs sub-commands)
 
-## Future (v2.28.0+)
+## Future (v2.29.0+)
 
+- Docs staleness detection system (worktree ready, 12-step plan)
 - Missing docs help pages for 14 docs sub-commands
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
+- Pin markdownlint-cli2 in CI to avoid npm 403 flakes
