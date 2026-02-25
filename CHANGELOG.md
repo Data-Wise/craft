@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [2.28.0] — 2026-02-25
 
 ### Added
 
@@ -42,6 +42,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto-detection table updated: Tauri Desktop App added above Claude Code Plugin
 - Dry-run output expanded to show Step 10b substeps for Tauri projects
 - REFCARD-HOMEBREW updated with cask commands and desktop distribution section
+- Commands overview: added mermaid command routing flowchart and fixed category counts
+- Skills docs: added missing skills (sync-features, release-checklist), fixed count 25 to 26
+- Fixed stale "17 skills, 7 agents" references in commands.md and architecture.md
+- Desktop release docs added to mkdocs.yml nav, broken links fixed
 
 ---
 

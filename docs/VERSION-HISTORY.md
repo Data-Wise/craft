@@ -2,13 +2,28 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.27.0 (2026-02-21)
-**Total Releases:** 48 versions | **Development Time:** 2+ years
-**Community:** 107 commands documented, 109 tests passing, 90%+ coverage
+**Latest Release:** v2.28.0 (2026-02-25)
+**Total Releases:** 49 versions | **Development Time:** 2+ years
+**Community:** 107 commands documented, 112 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.28.0 (2026-02-25) - Desktop Release Pipeline and Post-Release Sweep
+
+**Status:** Released
+
+**Highlights:**
+
+- **Desktop app release pipeline:** Homebrew Cask distribution for Tauri desktop apps with multi-arch DMG builds, local-first SHA256, and 3-zone cask update model
+- **Post-release sweep script:** Tier 2+ drift detection for stale version strings, counts, and content in secondary docs
+- **`/craft:dist:homebrew cask`** subcommand: auto-detect Tauri projects, build serial multi-arch, generate and update cask files
+- **Documentation improvements:** command routing flowchart, skills coverage fixes, nav completeness, broken link fixes
+
+**Stats:** 107 commands | 26 skills | 8 agents | 112 tests passing
+
+---
 
 ### v2.27.0 (2026-02-21) - Mermaid MCP Validation Pipeline
 
