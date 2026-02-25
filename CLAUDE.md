@@ -49,6 +49,7 @@ Override: `/craft:git:unprotect` (session-scoped, auto-expires)
 | Validate counts | `./scripts/validate-counts.sh` |
 | Pre-release check | `./scripts/pre-release-check.sh <version>` |
 | Post-release sweep | `./scripts/post-release-sweep.sh` or `--fix` |
+| Docs staleness check | `./scripts/docs-staleness-check.sh` or `--fix` |
 | Build docs | `mkdocs build` |
 | Smart routing | `/craft:do <task>` |
 | Pre-flight check | `/craft:check` |
@@ -76,6 +77,7 @@ Override: `/craft:git:unprotect` (session-scoped, auto-expires)
 | Integration tests failing | `python3 tests/test_integration_<name>.py` |
 | Broken links | `python3 tests/test_craft_plugin.py -k "broken_links"` |
 | Outdated counts | `./scripts/validate-counts.sh` |
+| Stale docs | `./scripts/docs-staleness-check.sh` or `--fix` |
 | Stale worktree | `git worktree remove <path> --force` |
 | Plugin not loading | Check `.claude-plugin/plugin.json` — no unrecognized keys (strict schema) |
 | Command not found | Verify file in `commands/` with valid frontmatter |

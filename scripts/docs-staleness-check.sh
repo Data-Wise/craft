@@ -333,14 +333,55 @@ phase7_count_consistency() {
 # ---------------------------------------------------------------------------
 phase8_skill_agent_coverage() {
     if [[ "$JSON_MODE" != "true" ]]; then
-        echo -ne "  Phase 8: Skill/Agent Coverage ........ "
+        echo -ne "  Phase 8: Skill/Agent/Cmd Coverage .... "
     fi
 
     local issues=0
 
-    # Check skills
+    # --- Commands coverage ---
+    # Check that each command file appears in EITHER:
+    #   1. docs/commands.md (A-Z reference)
+    #   2. docs/commands/ help pages (category pages + individual)
+    #   3. docs/commands/overview.md (overview page)
+    # A command is "documented" if its name appears in any of these locations.
+    local commands_az="docs/commands.md"
+    local commands_dir="docs/commands"
+    local commands_overview="docs/commands/overview.md"
+    while IFS= read -r cmd_file; do
+        [[ -z "$cmd_file" ]] && continue
+        # Derive the craft command name from path:
+        #   commands/docs/check.md -> docs:check -> /craft:docs:check
+        #   commands/do.md -> do -> /craft:do
+        local rel="${cmd_file#commands/}"
+        rel="${rel%.md}"
+        local cmd_name
+        cmd_name=$(echo "$rel" | tr '/' ':')
+
+        # Check across all command documentation locations
+        local documented=false
+
+        # Check A-Z reference
+        if [[ -f "$commands_az" ]] && grep -qF "$cmd_name" "$commands_az" 2>/dev/null; then
+            documented=true
+        fi
+
+        # Check docs/commands/ help pages (category + individual)
+        if ! $documented && [[ -d "$commands_dir" ]]; then
+            if grep -rqF "$cmd_name" "$commands_dir" --include="*.md" 2>/dev/null; then
+                documented=true
+            fi
+        fi
+
+        if ! $documented; then
+            add_finding 8 "warning" "$cmd_file" \
+                "Command '${cmd_name}' not in docs (commands.md, docs/commands/)" \
+                "uncertain" "command:${cmd_file}"
+            issues=$((issues + 1))
+        fi
+    done < <(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | sort)
+
+    # --- Skills coverage ---
     local skills_doc="docs/skills-agents.md"
-    local skills_guide="docs/guide/skills-agents.md"
 
     if [[ -f "$skills_doc" ]]; then
         while IFS= read -r skill_file; do
@@ -362,7 +403,7 @@ phase8_skill_agent_coverage() {
         done < <(find skills -name "*.md" -not -path "*/references/*" 2>/dev/null | sort)
     fi
 
-    # Check agents
+    # --- Agents coverage ---
     if [[ -f "$skills_doc" ]]; then
         while IFS= read -r agent_file; do
             [[ -z "$agent_file" ]] && continue

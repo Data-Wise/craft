@@ -226,6 +226,38 @@ python3 scripts/mermaid-validate.py docs/ --json
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## Deep Staleness Check (`--deep`)
+
+The `--deep` flag triggers Phases 6-9 of the staleness detection system, running `scripts/docs-staleness-check.sh` as part of the check cycle.
+
+```bash
+# Run full check with deep staleness detection
+/craft:docs:check --deep
+
+# Deep check in CI mode (no interactive prompts)
+/craft:docs:check --deep --report-only
+
+# Deep check with auto-fix
+/craft:docs:check --deep --fix
+```
+
+**Phases triggered by `--deep`:**
+
+| Phase | Name | What It Checks |
+|-------|------|---------------|
+| 6 | Nav Completeness | Files missing from `mkdocs.yml` nav; nav entries pointing to missing files |
+| 7 | Count Consistency | Stale command/skill/agent counts across all docs |
+| 8 | Skill/Agent Coverage | Undocumented skills and agents |
+| 9 | Cross-Doc Freshness | Stale version strings, count drift in cross-references |
+
+**Traffic light output:** GREEN (clean), YELLOW (warnings), RED (errors). RED blocks releases; YELLOW is reported but non-blocking.
+
+**Exclusion config:** `scripts/config/exclusions.txt` -- shared with `post-release-sweep.sh`. Supports whole-file, directory, and pattern-level exclusions.
+
+See [Docs Staleness Quick Reference](../../docs/reference/REFCARD-DOCS-STALENESS.md) for full details.
+
+---
+
 ## Check Types
 
 ### Link Validation
