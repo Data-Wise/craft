@@ -112,7 +112,7 @@ is_pattern_excluded() {
     for excl in "${EXCLUDED_PATTERNS[@]+"${EXCLUDED_PATTERNS[@]}"}"; do
         local excl_file="${excl%%:*}"
         local excl_pattern="${excl#*:}"
-        if [[ "$file" == "$excl_file" && "$pattern" == *"$excl_pattern"* ]]; then
+        if [[ "$file" == "$excl_file" && "$pattern" == "$excl_pattern" ]]; then
             return 0
         fi
     done
@@ -559,7 +559,11 @@ pass1_auto_fix() {
 
         if [[ -f "$file" ]]; then
             # Apply sed fix on the specific line
-            sed -i '' "${lineno}${sed_cmd}" "$file" 2>/dev/null && {
+            if [[ "$(uname)" == "Darwin" ]]; then
+                sed -i '' "${lineno}${sed_cmd}" "$file" 2>/dev/null
+            else
+                sed -i "${lineno}${sed_cmd}" "$file" 2>/dev/null
+            fi && {
                 TOTAL_FIXED=$((TOTAL_FIXED + 1))
                 if [[ "$JSON_MODE" != "true" ]]; then
                     echo -e "  ${GREEN}Fixed:${NC} ${file}:${lineno}"
@@ -726,7 +730,11 @@ maybe_remove_exclusion() {
         # Escape special chars for sed
         local escaped
         escaped=$(printf '%s\n' "$entry" | sed 's/[\/&]/\\&/g')
-        sed -i '' "/^${escaped}$/d" "$EXCLUSIONS_FILE"
+        if [[ "$(uname)" == "Darwin" ]]; then
+            sed -i '' "/^${escaped}$/d" "$EXCLUSIONS_FILE"
+        else
+            sed -i "/^${escaped}$/d" "$EXCLUSIONS_FILE"
+        fi
         echo "    -> Removed"
     fi
 }

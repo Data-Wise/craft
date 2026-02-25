@@ -2,7 +2,7 @@
 
 **4-phase documentation staleness detector** -- nav gaps, count drift, skill/agent coverage, cross-doc freshness. Two-pass interactive fix mode with shared exclusion config.
 
-**Version:** 2.27.0 | **Script:** `scripts/docs-staleness-check.sh` | **Config:** `scripts/config/exclusions.txt`
+**Version:** 2.28.0 | **Script:** `scripts/docs-staleness-check.sh` | **Config:** `scripts/config/exclusions.txt`
 
 ---
 
@@ -150,5 +150,5 @@ In release mode, RED status blocks the release. YELLOW status is reported but do
 
 ---
 
-**Version:** 2.27.0
+**Version:** 2.28.0
 **Last Updated:** 2026-02-25

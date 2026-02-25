@@ -83,12 +83,18 @@ jobs:
           python-version: '3.12'
 
       - name: Run docs staleness check
-        run: bash scripts/docs-staleness-check.sh --non-interactive
+        run: |
+          bash scripts/docs-staleness-check.sh --non-interactive
+          bash scripts/docs-staleness-check.sh --json > staleness-report.json || true
         continue-on-error: true
 
-      - name: Staleness JSON report
+      - name: Upload staleness report
         if: always()
-        run: bash scripts/docs-staleness-check.sh --json || true
+        uses: actions/upload-artifact@v4
+        with:
+          name: staleness-report
+          path: staleness-report.json
+          if-no-files-found: ignore
 
   summary:
     name: Summary
