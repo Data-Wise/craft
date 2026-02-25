@@ -2,8 +2,8 @@
 # bump-version.sh - Atomically bump version AND sync counts across all project files
 #
 # Usage:
-#   ./scripts/bump-version.sh 2.27.0              # Full bump (version + counts)
-#   ./scripts/bump-version.sh 2.27.0 --dry-run    # Preview changes without writing
+#   ./scripts/bump-version.sh 2.28.0              # Full bump (version + counts)
+#   ./scripts/bump-version.sh 2.28.0 --dry-run    # Preview changes without writing
 #   ./scripts/bump-version.sh --counts-only        # Sync counts without version bump
 #   ./scripts/bump-version.sh --verify             # Check consistency (exit 0/1)
 #

@@ -2,7 +2,7 @@
 
 **End-to-end release automation** — version detection, pre-flight checks, PR creation, merge, GitHub release, downstream verification.
 
-**Version:** 2.27.0 | **Skill:** `skills/release/SKILL.md` | **13-step pipeline** with downstream CI verification
+**Version:** 2.28.0 | **Skill:** `skills/release/SKILL.md` | **13-step pipeline** with downstream CI verification
 
 ---
 

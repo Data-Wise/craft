@@ -7,7 +7,7 @@
 # Usage:
 #   ./scripts/post-release-sweep.sh                    # Dry-run (default)
 #   ./scripts/post-release-sweep.sh --fix              # Auto-fix mechanical items
-#   ./scripts/post-release-sweep.sh --version 2.27.0   # Check against specific version
+#   ./scripts/post-release-sweep.sh --version 2.28.0   # Check against specific version
 #   ./scripts/post-release-sweep.sh --json             # JSON output
 #   ./scripts/post-release-sweep.sh --dry-run          # Explicit dry-run
 #

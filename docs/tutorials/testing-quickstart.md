@@ -128,7 +128,7 @@ python3 -m pytest tests/test_plugin_e2e.py tests/test_mermaid_e2e.py -v
 # Dogfood: runs craft's own scripts against the live repo (38 tests, ~1.9s)
 python3 -m pytest tests/test_plugin_dogfood.py tests/test_mermaid_dogfood.py -v
 
-# Both together with the unit suite (109 tests, ~3s)
+# Both together with the unit suite (112 tests, ~3s)
 python3 -m pytest tests/test_craft_plugin.py tests/test_plugin_e2e.py tests/test_plugin_dogfood.py tests/test_mermaid_validation.py tests/test_mermaid_e2e.py tests/test_mermaid_dogfood.py -v
 ```
 

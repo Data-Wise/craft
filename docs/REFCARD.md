@@ -8,7 +8,7 @@
 │  Commands: 107 | Agents: 8 | Skills: 26                     │
 │  Documentation: 99% complete | Tests: 109 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.28.0: Mermaid MCP validation, auto-fix, pre-commit hook   │
+│  v2.28.0: Desktop release pipeline, post-release sweep        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
