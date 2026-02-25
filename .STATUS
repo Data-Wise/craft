@@ -4,22 +4,26 @@ release_date: 2026-02-25
 milestone: v2.28.0 released — Docs Help Pages next
 last_session: 2026-02-25
 
-progress: v2.28.0 released. Docs staleness detection merged (PR #112). Docs help pages worktree ready (17 pages planned).
+progress: v2.28.0 released. Docs staleness merged (PR #112). Cookbook/examples/index updated. Docs help pages worktree ready (17 pages planned).
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | b5e2b6b  | —    | Production (v2.28.0, PR #111 merged) |
-| dev    | f82f958  | main | Docs staleness merged (PR #112)      |
+| dev    | da6f860  | main | Cookbook + staleness updates          |
 | feature/docs-help-pages | c5fa315 | dev | Worktree ready, ORCHESTRATE committed |
 
-✅ Session 2026-02-25 (continued — PR #112 fixes + merge):
-- Fixed 6 PR review issues: ORCHESTRATE cleanup, stale version, pattern matching, sed portability, CI optimization
-- All 46 docs-staleness tests pass
-- Merged PR #112 (--admin: "Validate Plugin Structure" check stuck pending)
-- Synced dev with merge
-- Memory updated: glob substring pitfall, sed portability pattern, stuck CI checks
+✅ Session 2026-02-25 (continued — docs updates + PR #112 merge):
+- Merged PR #112 (docs staleness detection) after fixing 6 review issues
+- Updated cookbook index: added 7 missing recipes + 8 troubleshooting pages
+- Created release workflow example page
+- Organized index badges into table layout (main/dev rows)
+- Added cookbook/, examples/, index.md to staleness exclusions
+- Fixed pattern matching: word-boundary match (exact was too strict)
+- Fixed broken link in REFCARD-DOCS-STALENESS
+- Deployed docs site (2x)
+- Memory updated: glob pitfall, sed portability, stuck CI checks
 
 ✅ Session 2026-02-25 (release v2.28.0 + post-release sweep):
 - Released v2.28.0: desktop release pipeline, post-release sweep, docs improvements
