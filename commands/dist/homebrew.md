@@ -1,8 +1,8 @@
 ---
-description: Complete Homebrew automation - formulas, workflows, auditing, and dependency management
+description: Complete Homebrew automation - formulas, casks, workflows, auditing, and dependency management
 arguments:
   - name: subcommand
-    description: "Subcommand: formula|workflow|audit|setup|update-resources|deps"
+    description: "Subcommand: formula|cask|workflow|audit|setup|update-resources|deps"
     required: false
     default: formula
   - name: tap
@@ -22,9 +22,10 @@ Complete Homebrew formula management with automated workflows.
 | Command | Purpose |
 |---------|---------|
 | `formula` | Generate or update formula (default) |
+| `cask` | Generate or update Homebrew Cask for desktop apps (Tauri) |
 | `workflow` | Generate GitHub Actions release workflow |
-| `audit` | Run `brew audit` validation + auto-fix |
-| `setup` | Full setup wizard (formula + workflow + token) |
+| `audit` | Run `brew audit` validation + auto-fix (formula or cask) |
+| `setup` | Full setup wizard (formula/cask + workflow + token) |
 | `update-resources` | Fix stale PyPI resource URLs |
 | `deps` | Show formula dependency graph + system deps matrix |
 
@@ -34,13 +35,16 @@ Complete Homebrew formula management with automated workflows.
 # Generate formula for current project
 /craft:dist:homebrew
 
+# Generate or update cask for Tauri desktop app
+/craft:dist:homebrew cask
+
 # Full automated setup (recommended for new projects)
 /craft:dist:homebrew setup
 
 # Generate release workflow
 /craft:dist:homebrew workflow
 
-# Validate formula before release
+# Validate formula or cask before release
 /craft:dist:homebrew audit
 ```
 
@@ -60,18 +64,19 @@ Generate or update a Homebrew formula.
 
 ### Auto-Detection
 
-Detects project type and generates appropriate formula:
+Detects project type and generates appropriate formula or cask:
 
-| Project Type | Detection | Formula Pattern |
-|--------------|-----------|-----------------|
-| **Claude Code Plugin** | `.claude-plugin/plugin.json` | `libexec.install` + plugin scripts |
-| Python | `pyproject.toml` | `Language::Python::Virtualenv` |
-| Node.js | `package.json` | npm install pattern |
-| Go | `go.mod` | go build pattern |
-| Rust | `Cargo.toml` | cargo install pattern |
-| Shell | `*.sh` scripts | bin.install pattern |
+| Project Type | Detection | Distribution |
+|--------------|-----------|--------------|
+| **Tauri Desktop App** | `src-tauri/tauri.conf.json` | Cask (DMG, dual-arch) |
+| **Claude Code Plugin** | `.claude-plugin/plugin.json` | Formula (`libexec.install` + plugin scripts) |
+| Python | `pyproject.toml` | Formula (`Language::Python::Virtualenv`) |
+| Node.js | `package.json` | Formula (npm install pattern) |
+| Go | `go.mod` | Formula (go build pattern) |
+| Rust | `Cargo.toml` | Formula (cargo install pattern) |
+| Shell | `*.sh` scripts | Formula (bin.install pattern) |
 
-> **Detection priority:** Claude Code Plugin > Python > Node.js > Go > Rust > Shell. Plugin detection takes precedence because `.claude-plugin/plugin.json` is the most specific indicator.
+> **Detection priority:** `.craft/homebrew.json` config (explicit) > Tauri Desktop App > Claude Code Plugin > Python > Node.js > Go > Rust > Shell. Config file always wins. Tauri takes precedence over Plugin because desktop apps require fundamentally different distribution (Cask with DMGs vs Formula with source tarballs).
 
 ### Example Output
 
@@ -82,6 +87,711 @@ Detects project type and generates appropriate formula:
 ✓ Generated: Formula/myapp.rb
 
 Formula saved to: ./Formula/myapp.rb
+```
+
+---
+
+## /craft:dist:homebrew cask
+
+Generate or update a Homebrew Cask for desktop apps (Tauri). Handles multi-architecture DMGs, SHA256 computation from local artifacts, and release-specific content (postflight, caveats).
+
+### Usage
+
+```bash
+/craft:dist:homebrew cask                          # Auto-detect and create/update
+/craft:dist:homebrew cask --tap user/tap           # Specify target tap
+/craft:dist:homebrew cask --version 1.2.0          # Use specific version
+/craft:dist:homebrew cask --skip-build             # Update cask from existing release assets
+/craft:dist:homebrew cask --update-content         # Update postflight/caveats from CHANGELOG
+/craft:dist:homebrew cask --content-only           # Update content only (skip version/SHA256)
+/craft:dist:homebrew cask --dry-run                # Preview changes without writing
+```
+
+### Auto-Detection
+
+Detects Tauri desktop app projects and extracts metadata:
+
+```
+Detection Chain:
+1. .craft/homebrew.json  →  { "type": "cask" }     (explicit config, highest priority)
+2. src-tauri/tauri.conf.json  →  productName, version, identifier  (auto-detect)
+3. Casks/ in tap repo  →  existing cask file      (tap structure)
+```
+
+When `src-tauri/tauri.conf.json` is found, the following fields are extracted:
+
+| tauri.conf.json Field | Used For |
+|-----------------------|----------|
+| `productName` | Cask `app` name, DMG naming |
+| `version` | Cask `version` field |
+| `identifier` | macOS bundle identifier |
+| `bundle.macOS.minimumSystemVersion` | Cask `depends_on macos:` |
+
+### Flags
+
+| Flag | Description |
+|------|-------------|
+| `--tap` | Target tap repository (e.g., `data-wise/tap`) |
+| `--version` | Specific version (default: from tauri.conf.json or latest tag) |
+| `--skip-build` | Skip build, use existing DMGs (from release assets or local paths) |
+| `--update-content` | Update postflight/caveats from CHANGELOG (all dynamic zones) |
+| `--content-only` | Same as `--update-content` but skip version/SHA256 changes |
+| `--desc "text"` | Override cask `desc` field (validates <= 80 chars, no "A/An" prefix) |
+| `--postflight "text"` | Override "What's New" bullets in postflight zone |
+| `--caveats-new "text"` | Override "New in" bullets in caveats zone |
+| `--update-static` | Update static sections (Features, Shortcuts) with confirmation |
+| `--dry-run` | Preview all changes without writing files |
+
+### Extended `.craft/homebrew.json` Schema
+
+The existing config file supports a new `"type": "cask"` field and a `"cask"` nested object for desktop app projects:
+
+```json
+{
+  "formula_name": "scribe",
+  "tap": "data-wise/tap",
+  "type": "cask",
+  "cask": {
+    "app_name": "Scribe.app",
+    "identifier": "com.scribe.app",
+    "min_macos": "catalina",
+    "architectures": ["aarch64", "x64"],
+    "artifact_pattern": "{name}_{version}_{arch}.dmg",
+    "build_command": "npx tauri build --target {target}",
+    "targets": {
+      "aarch64": "aarch64-apple-darwin",
+      "x64": "x86_64-apple-darwin"
+    },
+    "postflight_template": "changelog",
+    "caveats_template": "full"
+  }
+}
+```
+
+| Field | Required | Default | Description |
+|-------|----------|---------|-------------|
+| `formula_name` | Yes | — | Name in tap (used for both formula and cask) |
+| `tap` | Yes | — | Tap in `org/name` format |
+| `type` | No | `"formula"` | `"formula"` or `"cask"` |
+| `cask.app_name` | No | from `tauri.conf.json` productName + `.app` | `.app` bundle name |
+| `cask.identifier` | No | from `tauri.conf.json` identifier | macOS bundle identifier |
+| `cask.min_macos` | No | from `tauri.conf.json` minimumSystemVersion | Homebrew macOS codename |
+| `cask.architectures` | No | `["aarch64", "x64"]` | Architectures to build |
+| `cask.artifact_pattern` | No | `"{name}_{version}_{arch}.dmg"` | DMG naming pattern |
+| `cask.build_command` | No | `"npx tauri build --target {target}"` | Build command template |
+| `cask.targets` | No | `{"aarch64": "aarch64-apple-darwin", "x64": "x86_64-apple-darwin"}` | Rust target triple mapping |
+| `cask.postflight_template` | No | `"changelog"` | `"changelog"` or `"none"` |
+| `cask.caveats_template` | No | `"full"` | `"full"`, `"minimal"`, or `"none"` |
+
+> **Backward compatibility:** Existing `.craft/homebrew.json` files without a `"type"` field default to `"formula"`. No changes needed for existing formula-based projects.
+
+### macOS Version Mapping
+
+When auto-detecting from `tauri.conf.json`, the `minimumSystemVersion` is mapped to Homebrew codenames:
+
+| macOS Version | Homebrew Codename |
+|---------------|-------------------|
+| `10.13` | `:high_sierra` |
+| `10.14` | `:mojave` |
+| `10.15` | `:catalina` |
+| `11.0` | `:big_sur` |
+| `12.0` | `:monterey` |
+| `13.0` | `:ventura` |
+| `14.0` | `:sonoma` |
+| `15.0` | `:sequoia` |
+
+### Build Environment Validation
+
+Before building, the `cask` subcommand validates the environment. This runs as a pre-flight check and offers to auto-install missing components.
+
+| Check | What | Fix |
+|-------|------|-----|
+| Rust targets | `aarch64-apple-darwin` + `x86_64-apple-darwin` installed | `rustup target add <target>` |
+| Tauri CLI | `npx tauri --version` or `cargo-tauri` available | `cargo install tauri-cli` |
+| Node.js | `node` in PATH | `brew install node` |
+| node_modules | `node_modules/` directory exists | `npm install` |
+| Xcode SDK | `xcrun --show-sdk-path` succeeds | `xcode-select --install` |
+| Disk space | >= 2GB free in project directory | Manual cleanup |
+
+```
+Pre-build validation:
+  ✓ Rust target aarch64-apple-darwin .......... installed
+  ✓ Rust target x86_64-apple-darwin ........... installed
+  ✓ Tauri CLI .................................. v2.1.0 (npx)
+  ✓ Node.js .................................... v22.5.0
+  ✓ node_modules ............................... present
+  ✓ Xcode SDK .................................. /Applications/Xcode.app/...
+  ✓ Disk space ................................. 45GB free
+
+All checks passed. Ready to build.
+```
+
+If a Rust target is missing, the user is offered:
+
+```
+WARNING: Rust target x86_64-apple-darwin not installed.
+
+Options:
+  1. Install target and continue (Recommended)
+     → rustup target add x86_64-apple-darwin
+  2. Skip cross-compile (ARM-only release)
+  3. Abort
+```
+
+### Multi-Architecture Build Sequence
+
+Builds are executed **serially** (not parallel) to avoid memory exhaustion on developer machines. Native architecture builds first for faster error detection.
+
+```bash
+# Step 1: Build native arch (fast, catches errors early)
+npx tauri build --target aarch64-apple-darwin
+
+# Step 2: Build cross-compile (slower)
+npx tauri build --target x86_64-apple-darwin
+```
+
+#### DMG Location Discovery
+
+Tauri places DMGs at predictable paths. The build locates them using a primary path with fallback search:
+
+```bash
+# Primary path (Tauri v2)
+src-tauri/target/{target}/release/bundle/dmg/{ProductName}_{version}_{arch}.dmg
+
+# Fallback: search for any DMG in the target directory
+find "src-tauri/target/${TARGET}/release/bundle" -name "*.dmg" -type f
+```
+
+#### Architecture Verification
+
+After building, verify each DMG contains the correct architecture binary:
+
+```bash
+# Mount DMG and check binary architecture
+hdiutil attach "$DMG_PATH" -nobrowse -quiet
+BINARY=$(find /Volumes/"${PRODUCT_NAME}" -name "${PRODUCT_NAME}" -type f | head -1)
+ARCH=$(file "$BINARY" | grep -oE 'arm64|x86_64')
+hdiutil detach /Volumes/"${PRODUCT_NAME}" -quiet
+
+# Verify expected architecture
+if [ "$ARCH" != "$EXPECTED_ARCH" ]; then
+    echo "ERROR: DMG contains $ARCH binary, expected $EXPECTED_ARCH"
+    exit 1
+fi
+```
+
+### SHA256 Computation (Local Artifacts)
+
+SHA256 is computed from **local build artifacts**, not downloaded from GitHub. This eliminates the race condition where GitHub CDN hasn't propagated the asset yet.
+
+```bash
+# Compute SHA256 from local DMG files
+SHA256_ARM=$(shasum -a 256 "$DMG_ARM" | cut -d' ' -f1)
+SHA256_INTEL=$(shasum -a 256 "$DMG_INTEL" | cut -d' ' -f1)
+
+# Validate both are 64-char hex strings
+for SHA in "$SHA256_ARM" "$SHA256_INTEL"; do
+    if [ -z "$SHA" ] || [ ${#SHA} -ne 64 ]; then
+        echo "ERROR: SHA256 calculation failed. Got: '$SHA'"
+        exit 1
+    fi
+done
+```
+
+### Asset Upload to GitHub Release
+
+Upload DMGs and a CHECKSUMS.txt file to the GitHub release:
+
+```bash
+# Upload DMGs (--clobber handles re-uploads if assets already exist)
+gh release upload "v${VERSION}" "$DMG_ARM" "$DMG_INTEL" --clobber
+
+# Generate and upload CHECKSUMS.txt (use temp file to avoid polluting project root)
+CHECKSUMS_TMP=$(mktemp)
+echo "${SHA256_ARM}  ${PRODUCT_NAME}_${VERSION}_aarch64.dmg" > "$CHECKSUMS_TMP"
+echo "${SHA256_INTEL}  ${PRODUCT_NAME}_${VERSION}_x64.dmg" >> "$CHECKSUMS_TMP"
+gh release upload "v${VERSION}" "$CHECKSUMS_TMP#CHECKSUMS.txt" --clobber
+rm -f "$CHECKSUMS_TMP"
+
+# Verify both DMG URLs return 200
+for ARCH in "aarch64" "x64"; do
+    URL="https://github.com/${REPO}/releases/download/v${VERSION}/${PRODUCT_NAME}_${VERSION}_${ARCH}.dmg"
+    STATUS=$(curl -sI -o /dev/null -w "%{http_code}" -L "$URL")
+    if [ "$STATUS" != "200" ]; then
+        echo "WARNING: Asset URL returned $STATUS (may need CDN propagation time)"
+    fi
+done
+```
+
+### Build Progress Display
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 10b: Desktop App Release (Tauri)                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  [1/8] Detecting project type .............. Tauri (Scribe) │
+│  [2/8] Checking Rust targets ............... 2/2 installed  │
+│  [3/8] Building aarch64 (native) ........... DONE (2m 14s)  │
+│  [4/8] Building x86_64 (cross-compile) ..... BUILDING...    │
+│        └─ Progress: Compiling scribe v1.21.0                │
+│  [5/8] Verifying architectures ............. pending         │
+│  [6/8] Computing SHA256 .................... pending         │
+│  [7/8] Uploading to GitHub release ......... pending         │
+│  [8/8] Updating cask + pushing tap ......... pending         │
+│                                                             │
+│  Elapsed: 3m 42s                                            │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Cask Template (New Cask Generation)
+
+When no cask file exists, generate one from the Tauri project. The template includes all zones: architecture, livecheck, postflight, uninstall, zap, and caveats.
+
+```ruby
+cask "{name}" do
+  version "{version}"
+
+  # ZONE: architecture (auto-generated, updated every release)
+  on_arm do
+    sha256 "{sha256_arm}"
+    url "https://github.com/{repo}/releases/download/v#{version}/{name}_{arch_arm}.dmg"
+  end
+  on_intel do
+    sha256 "{sha256_intel}"
+    url "https://github.com/{repo}/releases/download/v#{version}/{name}_{arch_intel}.dmg"
+  end
+
+  name "{display_name}"
+  desc "{description}"
+  homepage "https://github.com/{repo}"
+
+  # ZONE: livecheck (static, generated once)
+  livecheck do
+    url "https://github.com/{repo}/releases"
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    strategy :github_releases do |json, regex|
+      json.filter_map do |release|
+        match = release["tag_name"]&.match(regex)
+        next unless match
+        next if release["draft"] || release["prerelease"]
+        match[1]
+      end
+    end
+  end
+
+  depends_on macos: ">= :{min_macos}"
+
+  app "{app_name}"
+
+  # ZONE: postflight (dynamic — auto-generated from CHANGELOG)
+  postflight do
+    ohai "{display_name} v#{version} installed successfully!"
+    ohai ""
+    ohai "What's New in v#{version}:"
+    # --- dynamic bullets (replaced by --update-content) ---
+    ohai "  - Initial release"
+    # --- end dynamic bullets ---
+    ohai ""
+    ohai "Report issues: https://github.com/{repo}/issues"
+  end
+
+  uninstall quit: "{identifier}"
+
+  # ZONE: zap (static, generated once)
+  zap trash: [
+    "~/Library/Application Support/{identifier}",
+    "~/Library/Caches/{identifier}",
+    "~/Library/Logs/{identifier}",
+    "~/Library/Preferences/{identifier}.plist",
+    "~/Library/Saved Application State/{identifier}.savedState",
+  ]
+
+  # ZONE: caveats (dynamic + static — auto-generated)
+  caveats <<~EOS
+    {display_name} v#{version} — {description}
+
+    New in v#{version}:
+    - Initial release
+
+    Report issues: https://github.com/{repo}/issues
+  EOS
+end
+```
+
+#### Template Variables
+
+| Variable | Source | Example |
+|----------|--------|---------|
+| `{name}` | config `formula_name` or repo name | `scribe` |
+| `{version}` | tauri.conf.json or `--version` | `1.20.0` |
+| `{sha256_arm}` | `shasum -a 256` of ARM DMG | `440b3b83...` |
+| `{sha256_intel}` | `shasum -a 256` of Intel DMG | `2bdf8914...` |
+| `{repo}` | git remote origin | `Data-Wise/scribe` |
+| `{display_name}` | tauri.conf.json `productName` | `Scribe` |
+| `{description}` | `--desc` flag or preserved from existing | `ADHD-friendly writer` |
+| `{app_name}` | productName + `.app` | `Scribe.app` |
+| `{identifier}` | tauri.conf.json `identifier` | `com.scribe.app` |
+| `{min_macos}` | mapped from `minimumSystemVersion` | `catalina` |
+
+### Cask File Updater (Existing Cask)
+
+When a cask file already exists, the updater modifies specific zones without regenerating the entire file. This preserves customizations in static sections.
+
+#### Update Algorithm
+
+The updater operates on 3 independent zones:
+
+```
+1. Version + SHA256 (always updated)
+   ├─ version "X.Y.Z"
+   ├─ on_arm { sha256 "..." }
+   └─ on_intel { sha256 "..." }
+
+2. Dynamic content (updated with --update-content or during /release)
+   ├─ postflight "What's New" bullets
+   └─ caveats "New in" bullets
+
+3. Static content (updated only with --update-static)
+   ├─ postflight "Quick Start" section
+   ├─ caveats "Features" list
+   └─ caveats "Keyboard Shortcuts" list
+```
+
+#### Zone 1: Version and SHA256 Update
+
+```bash
+# Update version field
+sed -i '' 's/version ".*"/version "'"$VERSION"'"/' "$CASK_FILE"
+
+# Update SHA256 in on_arm block (regex targets the block structure)
+# Match: on_arm do\n    sha256 "..." → replace hash only
+python3 -c "
+import re, sys
+content = open(sys.argv[1]).read()
+
+# Update on_arm SHA256
+content = re.sub(
+    r'(on_arm do\s+sha256 \")[a-f0-9]{64}(\")',
+    r'\g<1>${SHA256_ARM}\2',
+    content
+)
+
+# Update on_intel SHA256
+content = re.sub(
+    r'(on_intel do\s+sha256 \")[a-f0-9]{64}(\")',
+    r'\g<1>${SHA256_INTEL}\2',
+    content
+)
+
+open(sys.argv[1], 'w').write(content)
+" "$CASK_FILE"
+```
+
+#### Zone 2: Version String Migration
+
+On first run, migrate hardcoded version strings to Ruby `#{version}` interpolation:
+
+```bash
+# Before: ohai "What's New in v1.20.0:"
+# After:  ohai "What's New in v#{version}:"
+sed -i '' "s/What's New in v[0-9.]*:/What's New in v#{version}:/" "$CASK_FILE"
+
+# Before: New in v1.20.0:
+# After:  New in v#{version}:
+sed -i '' "s/New in v[0-9.]*:/New in v#{version}:/" "$CASK_FILE"
+```
+
+After migration, Homebrew handles version display automatically during `brew install`/`brew upgrade`.
+
+#### Cask Validation
+
+After any modification, validate the cask file:
+
+```bash
+# Ruby syntax check (fast, catches missing quotes/brackets)
+ruby -c "$CASK_FILE" || { echo "ERROR: Cask has syntax errors"; exit 1; }
+
+# Homebrew audit (thorough, checks field lengths, livecheck, etc.)
+brew audit --cask "$FORMULA_NAME" 2>&1
+```
+
+### Tap Push with Conflict Resolution
+
+After updating the cask file, push to the tap repository with rebase-based conflict resolution:
+
+```bash
+TAP_ORG=$(echo "$TAP" | cut -d/ -f1)
+TAP_NAME=$(echo "$TAP" | cut -d/ -f2)
+TAP_LOCAL="$HOME/projects/dev-tools/homebrew-${TAP_NAME}"
+TAP_BREW="$(brew --repository 2>/dev/null)/Library/Taps/${TAP_ORG}/homebrew-${TAP_NAME}"
+
+# Find tap directory
+if [ -d "$TAP_LOCAL" ]; then
+    TAP_DIR="$TAP_LOCAL"
+elif [ -d "$TAP_BREW" ]; then
+    TAP_DIR="$TAP_BREW"
+else
+    echo "No local tap found — skip (CI workflow handles this)"
+    exit 0
+fi
+
+cd "$TAP_DIR"
+
+# Pull latest with rebase (avoid merge commits)
+git pull --rebase origin main || {
+    echo "Rebase conflict — resolving with ours (freshly computed SHA256 wins)"
+    git checkout --ours "Casks/${FORMULA_NAME}.rb"
+    git add "Casks/${FORMULA_NAME}.rb"
+    GIT_EDITOR=true git rebase --continue
+}
+
+# Stage, commit, and push
+git add "Casks/${FORMULA_NAME}.rb"
+git commit -m "${FORMULA_NAME}: update to v${VERSION}"
+git push origin main || {
+    echo "Push failed — retrying after pull"
+    git pull --rebase origin main
+    git push origin main
+}
+
+echo "Tap updated: ${TAP}/${FORMULA_NAME} v${VERSION}"
+```
+
+> **Why "ours" wins on conflict:** During a release, the local cask file has freshly computed SHA256 hashes from local build artifacts. Any remote changes to SHA256 are stale by definition. Content conflicts (postflight/caveats) are also resolved with "ours" since we just generated them from the latest CHANGELOG.
+
+### Content Update (`--update-content`)
+
+The `--update-content` flag updates all dynamic install-time content from CHANGELOG.md. This is the mechanism that keeps postflight "What's New" and caveats "New in" sections current across releases.
+
+#### How It Works
+
+```
+--update-content pipeline:
+
+1. Parse CHANGELOG.md → extract bullets for current version
+2. Extract test count (if present in CHANGELOG)
+3. Generate postflight bullets (max 5 items + test count)
+4. Generate caveats bullets (all items + test count)
+5. Show preview of all changes
+6. Write on confirmation (or automatically during /release)
+```
+
+#### CHANGELOG Parsing
+
+Extracts bullet points from the latest version entry:
+
+```bash
+# Extract items from CHANGELOG.md for a given version
+extract_changelog_items() {
+    local VERSION="$1"
+    local CHANGELOG="${2:-CHANGELOG.md}"
+
+    # Find version header, collect lines until next version header
+    awk -v ver="$VERSION" '
+        /^## / { if (found) exit; if ($0 ~ ver) found=1; next }
+        found && /^- / { sub(/^- /, ""); print }
+    ' "$CHANGELOG"
+}
+
+# Extract test count from CHANGELOG pattern like "X,XXX tests passing"
+extract_test_count() {
+    local VERSION="$1"
+    local CHANGELOG="${2:-CHANGELOG.md}"
+
+    awk -v ver="$VERSION" '
+        /^## / { if (found) exit; if ($0 ~ ver) found=1; next }
+        found && /[0-9,]+ tests? passing/ {
+            match($0, /[0-9,]+[ ]+tests? passing/)
+            print substr($0, RSTART, RLENGTH)
+            exit
+        }
+    ' "$CHANGELOG"
+}
+```
+
+#### Postflight Bullet Generation
+
+Postflight is shown **during** `brew install`/`brew upgrade`. Keep it short (max 5 items):
+
+```bash
+# Generate ohai lines for the postflight block
+generate_postflight() {
+    local VERSION="$1"
+    local ITEMS=($(extract_changelog_items "$VERSION"))
+    local TEST_COUNT=$(extract_test_count "$VERSION")
+    local COUNT=0
+
+    for ITEM in "${ITEMS[@]}"; do
+        [ $COUNT -ge 5 ] && break
+        echo "    ohai \"  - $ITEM\""
+        COUNT=$((COUNT + 1))
+    done
+
+    if [ -n "$TEST_COUNT" ]; then
+        echo "    ohai \"  - $TEST_COUNT\""
+    fi
+}
+```
+
+#### Caveats Bullet Generation
+
+Caveats are shown **after** install. Can include all items (no limit):
+
+```bash
+# Generate bullet lines for the caveats "New in" section
+generate_caveats() {
+    local VERSION="$1"
+    local ITEMS=($(extract_changelog_items "$VERSION"))
+    local TEST_COUNT=$(extract_test_count "$VERSION")
+
+    for ITEM in "${ITEMS[@]}"; do
+        echo "    - $ITEM"
+    done
+
+    if [ -n "$TEST_COUNT" ]; then
+        echo "    - $TEST_COUNT"
+    fi
+}
+```
+
+#### Content Replacement Algorithm
+
+Replace dynamic bullets between known markers in the cask file:
+
+```python
+# Postflight: replace between "What's New" and the next empty ohai line
+import re
+
+def replace_postflight_bullets(content, new_bullets):
+    """Replace release-specific bullets in postflight block."""
+    # Match: ohai "What's New..." through the next ohai "" (before Quick Start or Report)
+    pattern = r'(ohai "What\'s New in v[^"]*:"\n)(.*?)(    ohai ""\n    ohai "(?:Quick Start|Report))'
+    replacement = r'\1' + new_bullets + r'\n\3'
+    return re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+def replace_caveats_bullets(content, new_bullets):
+    """Replace release-specific bullets in caveats block."""
+    # Match: "New in v..." through the next blank line or "Features:" marker
+    pattern = r'(New in v[^\n]*:\n)(.*?)(\n\s*(?:Features:|Report|$))'
+    replacement = r'\1' + new_bullets + r'\n\3'
+    return re.sub(pattern, replacement, content, flags=re.DOTALL)
+```
+
+#### Content Source Chain
+
+| Content | Primary Source | Fallback |
+|---------|---------------|----------|
+| "What's New" bullets | CHANGELOG.md latest entry | `--postflight` flag override |
+| "New in" bullets | CHANGELOG.md latest entry | `--caveats-new` flag override |
+| Test count | Parsed from CHANGELOG (e.g., "2,500 tests passing") | Omitted if not found |
+| `desc` field | Existing cask (preserved) | `--desc` flag or `.craft/homebrew.json` |
+| Static sections | Existing cask (preserved) | `--update-static` regenerates |
+
+#### Flag Reference
+
+| Flag | What it Updates | When to Use |
+|------|----------------|-------------|
+| `--update-content` | All dynamic zones from CHANGELOG | Standalone content update |
+| (automatic during `/release`) | Same as `--update-content` | Every release (Step 10b) |
+| `--content-only` | Same + skip version/SHA256 bump | Fix content post-release |
+| `--desc "text"` | `desc` field only (max 80 chars) | Change app description |
+| `--postflight "text"` | Override "What's New" bullets | Custom postflight |
+| `--caveats-new "text"` | Override "New in" bullets | Custom caveats |
+| `--update-static` | Static sections with confirmation | When features/shortcuts change |
+
+#### Content Preview (during `/release`)
+
+During `/release`, the content update runs automatically but shows a preview for confirmation:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 10b: Cask Content Preview                               │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ postflight "What's New in v1.21.0:"                         │
+│   - Dark mode with 3 new themes                             │
+│   - PDF export with custom headers                          │
+│   - 2,500 tests passing                                     │
+│                                                             │
+│ caveats "New in v1.21.0:"                                   │
+│   - Dark mode with 3 new themes                             │
+│   - PDF export with custom headers and footers              │
+│   - Inline code highlighting in preview mode                │
+│   - 2,500 tests passing                                     │
+│                                                             │
+│ desc: (unchanged) "ADHD-friendly distraction-free writer..."│
+│                                                             │
+│ Static sections: (unchanged)                                │
+│   - Features: 10 items                                      │
+│   - Keyboard Shortcuts: 6 items                             │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│ Looks good?                                                 │
+│   1. Yes - write to cask (Recommended)                      │
+│   2. Edit - let me modify before writing                    │
+│   3. Skip - don't update content this release               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Static Section Update (`--update-static`)
+
+Static sections (Features, Keyboard Shortcuts, Optional Dependencies) rarely change. When `--update-static` is used, changes are shown as a diff with confirmation:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Static section changes detected:                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Features (2 changes):                                       │
+│   + NEW: Dark mode with 3 new themes                        │
+│   ~ CHANGED: "10 ADHD-friendly themes" -> "13 themes"       │
+│                                                             │
+│ Keyboard Shortcuts (1 change):                              │
+│   + NEW: Cmd+D    Toggle dark mode                          │
+│                                                             │
+│ Optional Dependencies: (no changes)                         │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│ Apply static section updates?                               │
+│   1. Yes - update static sections                           │
+│   2. No - keep current static sections                      │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Example Output
+
+```
+✓ Detected: Tauri Desktop App (src-tauri/tauri.conf.json)
+✓ Product: Scribe (com.scribe.app)
+✓ Version: 1.20.0
+✓ Architectures: aarch64, x64
+✓ Config: .craft/homebrew.json (type: cask)
+✓ Tap: data-wise/tap
+
+Build:
+  ✓ aarch64 (native) ............. DONE (2m 14s)
+  ✓ x86_64 (cross-compile) ....... DONE (4m 31s)
+  ✓ Architecture verification ..... PASSED (arm64, x86_64)
+
+SHA256:
+  ARM:   440b3b83e7f29a2b...
+  Intel: 2bdf8914a1c7e6d3...
+
+Upload:
+  ✓ Scribe_1.20.0_aarch64.dmg .... uploaded
+  ✓ Scribe_1.20.0_x64.dmg ........ uploaded
+  ✓ CHECKSUMS.txt ................. uploaded
+
+Cask update:
+  ✓ Version ....................... 1.19.0 → 1.20.0
+  ✓ SHA256 (on_arm) .............. updated
+  ✓ SHA256 (on_intel) ............ updated
+  ✓ Version strings .............. migrated to #{version}
+  ✓ ruby -c ...................... PASSED
+  ✓ Tap push ..................... data-wise/tap updated
+
+Cask file: Casks/scribe.rb
 ```
 
 ---
@@ -212,19 +922,33 @@ For Claude Code plugins, the workflow also extracts metadata counts:
 
 ## /craft:dist:homebrew audit
 
-Validate and auto-fix formula using `brew audit`.
+Validate and auto-fix formulas and casks using `brew audit`. Auto-detects whether the project uses a formula or cask.
 
 ### Usage
 
 ```bash
-/craft:dist:homebrew audit                      # Validate + auto-fix
+/craft:dist:homebrew audit                      # Auto-detect formula or cask, validate + auto-fix
 /craft:dist:homebrew audit --strict             # Strict mode (extra checks)
 /craft:dist:homebrew audit --online             # Online checks (URL validation)
 /craft:dist:homebrew audit --check-only         # Report issues without fixing
 /craft:dist:homebrew audit --build              # Also run brew install --build-from-source
+/craft:dist:homebrew audit --cask               # Force cask audit mode
 ```
 
-### Checks Performed
+### Auto-Detection (Formula vs Cask)
+
+The audit command auto-detects whether to run formula or cask audit:
+
+```bash
+# Detection priority:
+# 1. --cask flag → cask audit
+# 2. .craft/homebrew.json type == "cask" → cask audit
+# 3. src-tauri/tauri.conf.json exists → cask audit
+# 4. Casks/ directory in tap → cask audit
+# 5. Default → formula audit
+```
+
+### Formula Checks
 
 | Check | Description | Auto-Fix |
 |-------|-------------|----------|
@@ -240,6 +964,62 @@ Validate and auto-fix formula using `brew audit`.
 | Modifier `if` | Single-line body should use modifier | Yes |
 | Assertions | Use `assert_path_exists` not `assert_predicate :exist?` | Yes |
 | Section order | `caveats` before `test` | Yes |
+
+### Cask Checks
+
+| Check | Description | Auto-Fix |
+|-------|-------------|----------|
+| Syntax | Ruby syntax validation (`ruby -c`) | No |
+| `desc` | < 80 chars, no 'A/An' prefix | Yes - truncate |
+| `version` | Present and valid | No |
+| `sha256` | Present in both `on_arm`/`on_intel` blocks, 64-char hex | No |
+| `url` | Accessible in both architecture blocks (with --online) | No |
+| `livecheck` | Block present with valid strategy | No |
+| `app` | `.app` bundle name matches productName | No |
+| `uninstall` | `quit:` with valid bundle identifier | No |
+| `zap` | `trash:` paths use correct identifier | No |
+| `depends_on` | Valid macOS codename | No |
+| `postflight` | Block present (if cask has install-time content) | No |
+
+### Cask Audit Workflow
+
+```bash
+# 1. Auto-detect cask
+FORMULA_NAME=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['formula_name'])" 2>/dev/null)
+
+# 2. Run brew audit --cask
+brew audit --cask "$TAP/$FORMULA_NAME" 2>&1
+
+# 3. Check SHA256 matches actual release assets (cross-verify)
+CASK_FILE=$(brew --repository)/Library/Taps/${TAP_ORG}/homebrew-${TAP_NAME}/Casks/${FORMULA_NAME}.rb
+CASK_SHA=$(grep -A1 'on_arm' "$CASK_FILE" | grep sha256 | grep -oE '[a-f0-9]{64}')
+# Compare with actual DMG SHA if available
+
+# 4. Validate livecheck
+brew livecheck --cask "$TAP/$FORMULA_NAME" 2>&1
+
+# 5. Report results
+```
+
+### Cask Audit Example Output
+
+```
+Running: brew audit --cask data-wise/tap/scribe
+
+Cask audit results:
+  ✓ Ruby syntax ........................ PASSED
+  ✓ desc length ........................ 62 chars (max 80)
+  ✓ version ............................ 1.20.0
+  ✓ SHA256 (on_arm) ................... 64 chars, valid hex
+  ✓ SHA256 (on_intel) ................. 64 chars, valid hex
+  ✓ livecheck .......................... configured (github_releases)
+  ✓ app ................................ Scribe.app
+  ✓ uninstall .......................... quit: com.scribe.app
+  ✓ zap ................................ 5 trash paths
+  ✓ depends_on ........................ macos: >= :catalina
+
+All checks passed. Cask is ready for release!
+```
 
 ### Build-from-Source Testing
 

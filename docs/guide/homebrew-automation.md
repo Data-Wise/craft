@@ -15,10 +15,11 @@ The `/craft:dist:homebrew` command manages the full Homebrew formula lifecycle w
 
 | Subcommand | Purpose | When to Use |
 |------------|---------|-------------|
-| `setup` | 4-step wizard (formula + workflow + token) | First time setting up Homebrew distribution |
+| `setup` | 4-step wizard (formula/cask + workflow + token) | First time setting up Homebrew distribution |
 | `formula` | Generate or update Ruby formula | Adding new formula or changing install method |
+| `cask` | Generate or update Homebrew Cask for desktop apps | Tauri desktop app distribution |
 | `workflow` | Create hardened GitHub Actions automation | Setting up CI-based formula updates |
-| `audit` | Run `brew audit` with auto-fix and `--build` | Before releasing, after formula changes |
+| `audit` | Run `brew audit` with auto-fix and `--build` (formula or cask) | Before releasing, after formula/cask changes |
 | `deps` | Inter-formula and system dependency analysis | Understanding formula relationships |
 | `update-resources` | Fix stale PyPI resource URLs | When `brew audit` reports URL mismatches |
 
@@ -38,11 +39,28 @@ Every project that distributes via Homebrew should have a `.craft/homebrew.json`
 }
 ```
 
+For **desktop apps** (Tauri), add `"type": "cask"` and a `"cask"` section:
+
+```json
+{
+  "formula_name": "scribe",
+  "tap": "data-wise/tap",
+  "type": "cask",
+  "cask": {
+    "app_name": "Scribe.app",
+    "identifier": "com.scribe.app",
+    "min_macos": "catalina"
+  }
+}
+```
+
 | Field | Required | Description | Example |
 |-------|----------|-------------|---------|
-| `formula_name` | Yes | Homebrew formula name (lowercase) | `craft`, `aiterm`, `scholar` |
+| `formula_name` | Yes | Homebrew formula/cask name (lowercase) | `craft`, `scribe` |
 | `tap` | Yes | Tap in `org/name` format | `data-wise/tap` |
 | `source_type` | No | `github` (default) or `pypi` | `github` |
+| `type` | No | `formula` (default) or `cask` | `cask` |
+| `cask` | No | Cask-specific config (see [Desktop Release Guide](desktop-release.md)) | — |
 
 ### Why This Matters
 

@@ -12,6 +12,7 @@ Use this workflow when you need to:
 
 - Release a new version to production
 - Publish to package registries (npm, PyPI, CRAN)
+- Build and distribute desktop apps (Tauri/Homebrew Cask)
 - Create GitHub releases with changelogs
 - Deploy documentation updates
 
@@ -286,6 +287,7 @@ Verify that all downstream artifacts were updated correctly:
 | **Homebrew release** | `gh run list --workflow homebrew-release.yml --limit 1` | Homebrew release workflow ran successfully |
 | **Live site version** | Visit docs site, check version in footer/banner | Version matches the release |
 | **Formula content** | `brew info <formula>` or check tap repo | Formula URL and SHA256 point to new release |
+| **Cask content** | `brew info --cask <cask>` or check tap repo | Cask version + SHA256 match for both architectures |
 | **Badge validation** | Check README.md badges resolve correctly | Version badge shows new version, CI badge is green |
 
 ```bash
@@ -422,5 +424,6 @@ jobs:
 
 - **Help:** [/craft:check](../commands/check.md)
 - **Help:** [/craft:docs:update](../commands/docs/update.md)
+- **Guide:** [Desktop Release Guide](../guide/desktop-release.md) — Tauri desktop app releases
 - **Workflow:** [Git Feature Workflow](git-feature-workflow.md)
 - **Workflow:** [Pre-commit Workflow](pre-commit-workflow.md)
