@@ -8,6 +8,8 @@ on:
       - 'CLAUDE.md'
       - 'CHANGELOG.md'
       - '.github/workflows/docs-quality.yml'
+      - 'scripts/docs-staleness-check.sh'
+      - 'scripts/config/exclusions.txt'
   push:
     branches: [main, dev]
     paths:
@@ -15,6 +17,8 @@ on:
       - 'README.md'
       - 'CLAUDE.md'
       - 'CHANGELOG.md'
+      - 'scripts/docs-staleness-check.sh'
+      - 'scripts/config/exclusions.txt'
 
 concurrency:
   group: docs-quality-${{ github.ref }}
@@ -66,13 +70,34 @@ jobs:
           format: markdown
           output: lychee-output.md
 
+  staleness-check:
+    name: Docs Staleness
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run docs staleness check
+        run: bash scripts/docs-staleness-check.sh --non-interactive
+        continue-on-error: true
+
+      - name: Staleness JSON report
+        if: always()
+        run: bash scripts/docs-staleness-check.sh --json || true
+
   summary:
     name: Summary
     runs-on: ubuntu-latest
-    needs: [markdown-lint, link-check]
+    needs: [markdown-lint, link-check, staleness-check]
     if: always()
     steps:
       - name: Report status
         run: |
           echo "Markdown lint: ${{ needs.markdown-lint.result }}"
           echo "Link check: ${{ needs.link-check.result }}"
+          echo "Staleness check: ${{ needs.staleness-check.result }}"

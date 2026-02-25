@@ -471,6 +471,27 @@ After all updates applied:
   [3/3] Count validation... ✅ matches
 ```
 
+### Phase 4.5: Staleness Check
+
+After validation, run the docs staleness check to report remaining drift:
+
+```bash
+./scripts/docs-staleness-check.sh --non-interactive
+```
+
+Display the traffic light summary inline:
+
+```text
+  Staleness:
+  Phase 6: Nav Completeness ............ GREEN (0 issues)
+  Phase 7: Count Consistency ........... GREEN (0 issues)
+  Phase 8: Skill/Agent/Cmd Coverage .... GREEN (0 issues)
+  Phase 9: Cross-Doc Freshness ......... GREEN (0 issues)
+  Status: GREEN
+```
+
+If any phases are YELLOW or RED, mention them in the summary as items needing attention.
+
 ### Phase 5: Summary
 
 ```text

@@ -244,6 +244,18 @@ Apply scoring algorithm to determine what docs are needed:
 
 ### Step 3: Check Stale Docs
 
+Run the docs staleness check script for structured staleness data:
+
+```bash
+# Get staleness findings as JSON for classification enrichment
+STALENESS=$(./scripts/docs-staleness-check.sh --json 2>/dev/null)
+```
+
+Extract findings from all 4 phases (nav, counts, skill/agent/cmd coverage, cross-doc freshness)
+and merge them into the classification output. Include the traffic light status in the summary.
+
+Also check file-level staleness by timestamp:
+
 ```bash
 # Find docs not updated recently
 find docs/ -name "*.md" -mtime +30
@@ -275,6 +287,10 @@ find docs/ -name "*.md" -mtime +30
 │ Stale docs: 2                                               │
 │   - docs/guide/auth.md (45 days)                            │
 │   - docs/reference/api.md (32 days)                         │
+│                                                             │
+│ Staleness: YELLOW (5 warnings)                              │
+│   Phase 7: 3 stale counts                                   │
+│   Phase 8: 2 undocumented commands                          │
 │                                                             │
 │ Suggested: /craft:docs:update "session tracking"            │
 │                                                             │

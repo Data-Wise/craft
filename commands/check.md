@@ -181,6 +181,7 @@ When `--context` is passed, skip all checks and output only session context:
 │ Phase:     <phase> (commits ahead: N)                         │
 │ Tests:     <test-command> (N passing)                         │
 │ Lint:      <lint-command>                                     │
+│ Docs:      <GREEN|YELLOW|RED> (<N> issues)                    │
 ├───────────────────────────────────────────────────────────────┤
 │ TIP: Front-load this context in prompts to reduce wrong-      │
 │ approach friction.                                            │
@@ -212,6 +213,11 @@ elif [[ "$test_modified" -gt 0 ]]; then
 else
     phase="implementation"
 fi
+
+# Docs staleness one-liner for context header
+docs_status=$(./scripts/docs-staleness-check.sh --json 2>/dev/null \
+    | python3 -c "import json,sys; d=json.load(sys.stdin); print(f'{d[\"status\"]} ({d[\"total_issues\"]} issues)')" 2>/dev/null \
+    || echo "N/A")
 ```
 
 **Insights integration (v2.21.0):**
@@ -375,7 +381,8 @@ Checks:
   ├── mypy .                    (type checking)
   ├── pytest                    (tests)
   ├── pip-audit                 (security)
-  └── /craft:docs:check-links   (if docs/ exists and changed)
+  ├── /craft:docs:check-links   (if docs/ exists and changed)
+  └── docs-staleness-check.sh   (if scripts/ exists)
 ```
 
 ### JavaScript/TypeScript Projects
