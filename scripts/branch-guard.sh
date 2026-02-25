@@ -81,6 +81,24 @@ BRANCH="$(cd "$CWD" 2>/dev/null && git branch --show-current 2>/dev/null)" || {
 # If branch is empty (detached HEAD), allow
 [[ -z "$BRANCH" ]] && exit 0
 
+# ---------------------------------------------------------------------------
+# 3b. Allow writes to paths outside the repository
+# ---------------------------------------------------------------------------
+# If the tool provides a file_path, resolve it and check if it is outside
+# the project root. Non-repo paths (memory files, /tmp, etc.) are always
+# allowed regardless of branch protection level.
+if [[ -n "$FILE_PATH" ]]; then
+  FILE_PATH_ABS="$FILE_PATH"
+  if [[ "$FILE_PATH" != /* ]]; then
+    FILE_PATH_ABS="${CWD}/${FILE_PATH}"
+  fi
+  # Resolve to canonical path (follow symlinks, normalize ..)
+  FILE_PATH_ABS="$(cd "$(dirname "$FILE_PATH_ABS")" 2>/dev/null && pwd -P)/$(basename "$FILE_PATH_ABS")" 2>/dev/null || FILE_PATH_ABS="$FILE_PATH"
+  if [[ "$FILE_PATH_ABS" != "$PROJECT_ROOT"/* && "$FILE_PATH_ABS" != "$PROJECT_ROOT" ]]; then
+    exit 0
+  fi
+fi
+
 # Project short name (basename of repo root)
 PROJECT_NAME="$(basename "$PROJECT_ROOT")"
 
@@ -412,7 +430,7 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
   fi
 
   # git branch -D — MEDIUM risk everywhere (deletes unmerged branches)
-  if echo "$COMMAND" | grep -qE 'git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
+  if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
     _confirm "branch_delete" \
       "git branch -D (force delete)" \
       "Force-deletes branch even if not merged — commits may be lost" \
@@ -457,7 +475,7 @@ if [[ "$PROTECTION" == "block-all" ]]; then
 
     Bash|bash)
       # Check for destructive git commands
-      if echo "$COMMAND" | grep -qE 'git[[:space:]]+commit|git[[:space:]]+push'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(commit|push)'; then
         block "$(_box \
           "${_R}${_B}BRANCH PROTECTION${_N}" \
           "---" \
@@ -469,7 +487,7 @@ if [[ "$PROTECTION" == "block-all" ]]; then
           "  ${_Y}3.${_N} PR: feature → dev → main" \
         )"
       fi
-      if echo "$COMMAND" | grep -qE 'git[[:space:]]+reset[[:space:]]+--hard'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+reset[[:space:]]+--hard'; then
         block "$(_box \
           "${_R}${_B}BRANCH PROTECTION${_N}" \
           "---" \
@@ -620,7 +638,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
 
     Bash|bash)
       # Force push — MEDIUM risk
-      if echo "$COMMAND" | grep -qE 'git[[:space:]]+push[[:space:]].*(--force|--force-with-lease|-f)([[:space:]]|$)'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+push[[:space:]].*(--force|--force-with-lease|-f)([[:space:]]|$)'; then
         _confirm "force_push" \
           "git push --force on ${BRANCH}" \
           "Force push overwrites remote history for all collaborators" \
@@ -630,7 +648,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # git reset --hard — MEDIUM risk (discards uncommitted changes)
-      if echo "$COMMAND" | grep -qE 'git[[:space:]]+reset[[:space:]]+--hard'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+reset[[:space:]]+--hard'; then
         _confirm "reset_hard" \
           "git reset --hard on ${BRANCH}" \
           "Discards all uncommitted changes — cannot be undone" \
@@ -640,7 +658,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # git checkout -- (discard working tree changes) — MEDIUM risk
-      if echo "$COMMAND" | grep -qE 'git[[:space:]]+checkout[[:space:]]+--[[:space:]]'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+checkout[[:space:]]+--[[:space:]]'; then
         _confirm "checkout_discard" \
           "git checkout -- (discard changes) on ${BRANCH}" \
           "Discards working tree changes for specified files" \
@@ -650,8 +668,8 @@ if [[ "$PROTECTION" == "smart" ]]; then
 
       # git restore (discard working tree changes) — MEDIUM risk
       # Excludes --staged (which only unstages, doesn't discard)
-      if echo "$COMMAND" | grep -qE 'git[[:space:]]+restore[[:space:]]' && \
-         ! echo "$COMMAND" | grep -qE 'git[[:space:]]+restore[[:space:]]+--staged'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+restore[[:space:]]' && \
+         ! echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+restore[[:space:]]+--staged'; then
         _confirm "restore_discard" \
           "git restore (discard changes) on ${BRANCH}" \
           "Discards working tree changes for specified files" \
@@ -660,7 +678,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # git clean -f (remove untracked files) — MEDIUM risk
-      if echo "$COMMAND" | grep -qE 'git[[:space:]]+clean[[:space:]]+(-[fdxFDX]+|--force)'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+clean[[:space:]]+(-[fdxFDX]+|--force)'; then
         _confirm "clean_force" \
           "git clean -f (remove untracked files) on ${BRANCH}" \
           "Permanently removes untracked files — cannot be undone" \
