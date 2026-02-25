@@ -246,6 +246,7 @@ nav:
       - Set Up New Project: cookbook/common/setup-new-project.md
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
+      - Distribute Plugin via Homebrew: cookbook/common/distribute-plugin-via-homebrew.md
       - Check Code Quality Before Commit: cookbook/common/check-code-quality-before-commit.md
       - Find the Right Command: cookbook/common/find-the-right-command.md
       - Update a Single Doc: cookbook/common/update-single-doc.md
