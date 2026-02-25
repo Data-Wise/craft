@@ -37,6 +37,8 @@ echo "  Skills:   $SKILL_COUNT"
 echo "  Agents:   $AGENT_COUNT"
 echo ""
 
+ERRORS=0
+
 # Extract documented counts from plugin.json
 PLUGIN_JSON=".claude-plugin/plugin.json"
 if [ -f "$PLUGIN_JSON" ]; then
@@ -52,9 +54,6 @@ if [ -f "$PLUGIN_JSON" ]; then
     echo "  Skills:   $DOC_SKILLS"
     echo "  Agents:   $DOC_AGENTS"
     echo ""
-
-    # Compare
-    ERRORS=0
 
     if [ "$CMD_COUNT" != "$DOC_CMDS" ]; then
         echo -e "${RED}✗ Commands mismatch: $CMD_COUNT files vs $DOC_CMDS documented${NC}"
@@ -91,6 +90,40 @@ if [ -f "$PLUGIN_JSON" ]; then
 else
     echo -e "${RED}Error: plugin.json not found${NC}"
     exit 1
+fi
+
+# Validate plugin formula count in homebrew.md
+HOMEBREW_MD="commands/dist/homebrew.md"
+if [ -f "$HOMEBREW_MD" ]; then
+    DOC_FORMULA_COUNT=$(grep -o 'All [0-9]* plugin formulas' "$HOMEBREW_MD" | grep -o '[0-9]*' || echo "0")
+    # Try to get actual count from homebrew-tap manifest
+    TAP_MANIFEST=""
+    for candidate in \
+        "$(brew --repository 2>/dev/null)/Library/Taps/data-wise/homebrew-tap/generator/manifest.json" \
+        "$HOME/projects/dev-tools/homebrew-tap/generator/manifest.json"; do
+        if [ -f "$candidate" ]; then
+            TAP_MANIFEST="$candidate"
+            break
+        fi
+    done
+
+    if [ -n "$TAP_MANIFEST" ]; then
+        ACTUAL_FORMULA_COUNT=$(python3 -c "
+import json
+m = json.load(open('$TAP_MANIFEST'))
+formulas = m.get('formulas', m)  # Support nested or flat manifest
+print(sum(1 for v in formulas.values() if isinstance(v, dict) and v.get('type') == 'claude-plugin'))
+")
+        if [ "$DOC_FORMULA_COUNT" != "$ACTUAL_FORMULA_COUNT" ]; then
+            echo -e "${RED}✗ Plugin formula count mismatch: homebrew.md says $DOC_FORMULA_COUNT, manifest has $ACTUAL_FORMULA_COUNT${NC}"
+            ERRORS=$((ERRORS + 1))
+        else
+            echo -e "${GREEN}✓ Plugin formula count matches: $DOC_FORMULA_COUNT${NC}"
+        fi
+    elif [ -n "$DOC_FORMULA_COUNT" ]; then
+        echo -e "${YELLOW}⚠ Cannot validate plugin formula count (homebrew-tap manifest not found)${NC}"
+    fi
+    echo ""
 fi
 
 # Bonus: Show breakdown by category

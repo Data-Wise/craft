@@ -1466,197 +1466,124 @@ System Dependencies Matrix:
 
 ## Claude Code Plugin Formulas
 
-For Claude Code plugins distributed via Homebrew, use the special plugin pattern.
+For Claude Code plugins distributed via Homebrew, **use the tap formula generator** instead of writing formulas by hand. The generator produces consistent, `brew audit --strict` compliant formulas from a single manifest.
 
-### Plugin Formula Pattern
+### Generator-First Workflow (Recommended)
 
-Auto-detected when `.claude-plugin/plugin.json` exists. Generates a `brew audit --strict` compliant formula.
+When `/craft:dist:homebrew formula` detects `.claude-plugin/plugin.json`, it routes to the tap generator:
 
-```ruby
-class MyPlugin < Formula
-  desc "Short description under 80 chars for Claude Code"
-  homepage "https://github.com/user/my-plugin"
-  url "https://github.com/user/my-plugin/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "..."
-  license "MIT"
+**Step 1: Locate the tap generator**
 
-  depends_on "jq" => :optional
+```bash
+# Find local tap checkout
+TAP_DIR=$(brew --repository)/Library/Taps/data-wise/homebrew-tap
 
-  def install
-    # Use Array#include? (brew audit compliant)
-    libexec.install Dir["*", ".*"].reject { |f| %w[. .. .git].include?(f) }
-
-    (bin/"my-plugin-install").write <<~EOS
-      #!/bin/bash
-      PLUGIN_NAME="my-plugin"
-      TARGET_DIR="$HOME/.claude/plugins/$PLUGIN_NAME"
-      SOURCE_DIR="$(brew --prefix)/opt/my-plugin/libexec"
-
-      # Strip unrecognized keys from plugin.json (Claude Code strict schema)
-      PLUGIN_JSON="$SOURCE_DIR/.claude-plugin/plugin.json"
-      if grep -q 'claude_md_budget' "$PLUGIN_JSON" 2>/dev/null; then
-          python3 -c "import json,sys;p=sys.argv[1];d=json.load(open(p));c={k:v for k,v in d.items() if k in('name','version','description','author')};f=open(p,'w');json.dump(c,f,indent=2);f.write(chr(10));f.close()" "$PLUGIN_JSON" 2>/dev/null || true
-      fi
-
-      echo "Installing plugin to Claude Code..."
-      mkdir -p "$HOME/.claude/plugins" 2>/dev/null || true
-
-      # Remove existing and create symlink
-      if [ -L "$TARGET_DIR" ] || [ -d "$TARGET_DIR" ]; then
-          rm -rf "$TARGET_DIR" 2>/dev/null || rm -f "$TARGET_DIR" 2>/dev/null || true
-      fi
-      ln -sf "$SOURCE_DIR" "$TARGET_DIR" 2>/dev/null || \
-          ln -sfh "$SOURCE_DIR" "$TARGET_DIR" 2>/dev/null
-
-      if [ -L "$TARGET_DIR" ]; then
-          # Marketplace registration
-          MARKETPLACE_DIR="$HOME/.claude/local-marketplace"
-          mkdir -p "$MARKETPLACE_DIR" 2>/dev/null || true
-          ln -sfh "$TARGET_DIR" "$MARKETPLACE_DIR/$PLUGIN_NAME" 2>/dev/null || true
-
-          # Claude detection - skip auto-enable if Claude is running
-          SETTINGS_FILE="$HOME/.claude/settings.json"
-          AUTO_ENABLED=false
-          CLAUDE_RUNNING=false
-
-          if command -v lsof &>/dev/null; then
-              if lsof "$SETTINGS_FILE" 2>/dev/null | grep -q "claude"; then
-                  CLAUDE_RUNNING=true
-              fi
-          elif pgrep -x "claude" >/dev/null 2>&1; then
-              CLAUDE_RUNNING=true
-          fi
-
-          if [ "$CLAUDE_RUNNING" = false ] && command -v jq &>/dev/null && [ -f "$SETTINGS_FILE" ]; then
-              TEMP_FILE=$(mktemp)
-              if jq --arg plugin "${PLUGIN_NAME}@local-plugins" '.enabledPlugins[$plugin] = true' "$SETTINGS_FILE" > "$TEMP_FILE" 2>/dev/null; then
-                  mv "$TEMP_FILE" "$SETTINGS_FILE" 2>/dev/null && AUTO_ENABLED=true
-              fi
-              [ -f "$TEMP_FILE" ] && rm -f "$TEMP_FILE" 2>/dev/null
-          fi
-
-          # Branch guard hook (optional - copy if scripts/branch-guard.sh exists)
-          HOOK_SRC="$SOURCE_DIR/scripts/branch-guard.sh"
-          if [ -f "$HOOK_SRC" ] && [ ! -L "$HOME/.claude/hooks/branch-guard.sh" ]; then
-              mkdir -p "$HOME/.claude/hooks" 2>/dev/null || true
-              cp "$HOOK_SRC" "$HOME/.claude/hooks/branch-guard.sh" 2>/dev/null
-              chmod +x "$HOME/.claude/hooks/branch-guard.sh" 2>/dev/null
-          fi
-
-          echo "Plugin installed successfully!"
-          if [ "$AUTO_ENABLED" = true ]; then
-              echo "Plugin auto-enabled in Claude Code."
-          elif [ "$CLAUDE_RUNNING" = true ]; then
-              echo "Claude Code is running - skipped auto-enable."
-              echo "Run: claude plugin install ${PLUGIN_NAME}@local-plugins"
-          else
-              echo "Run: claude plugin install ${PLUGIN_NAME}@local-plugins"
-          fi
-      else
-          echo "Automatic symlink failed. Run manually:"
-          echo "  ln -sf $SOURCE_DIR $TARGET_DIR"
-      fi
-    EOS
-
-    (bin/"my-plugin-uninstall").write <<~EOS
-      #!/bin/bash
-      PLUGIN_NAME="my-plugin"
-      TARGET_DIR="$HOME/.claude/plugins/$PLUGIN_NAME"
-      if [ -L "$TARGET_DIR" ] || [ -d "$TARGET_DIR" ]; then
-          rm -rf "$TARGET_DIR"
-          echo "Plugin uninstalled"
-      else
-          echo "Plugin not found at $TARGET_DIR"
-      fi
-    EOS
-
-    chmod "+x", bin/"my-plugin-install"
-    chmod "+x", bin/"my-plugin-uninstall"
-  end
-
-  def post_install
-    # Step 1: Strip unrecognized keys from plugin.json
-    begin
-      require "json"
-      plugin_json = libexec/".claude-plugin/plugin.json"
-      if plugin_json.exist?
-        allowed_keys = %w[name version description author]
-        data = JSON.parse(plugin_json.read)
-        cleaned = data.slice(*allowed_keys)
-        plugin_json.write(JSON.pretty_generate(cleaned) + "\n") if cleaned.size < data.size
-      end
-    rescue
-      nil
-    end
-
-    # Step 2: Run install script with 30s timeout
-    begin
-      require "timeout"
-      pid = Process.spawn("#{bin}/my-plugin-install")
-      Timeout.timeout(30) { Process.waitpid(pid) }
-    rescue Timeout::Error
-      Process.kill("TERM", pid) rescue nil
-      Process.waitpid(pid) rescue nil
-      opoo "my-plugin-install timed out after 30 seconds (skipping)"
-    rescue
-      nil
-    end
-
-    # Step 3: Sync registry (optional)
-    begin
-      system "claude", "plugin", "update", "my-plugin@local-plugins" if which("claude")
-    rescue
-      nil
-    end
-  end
-
-  def post_uninstall
-    system bin/"my-plugin-uninstall" if (bin/"my-plugin-uninstall").exist?
-  end
-
-  # caveats BEFORE test (brew audit requirement)
-  def caveats
-    <<~EOS
-      Plugin installed to ~/.claude/plugins/my-plugin
-
-      If not auto-enabled, run:
-        claude plugin install my-plugin@local-plugins
-    EOS
-  end
-
-  test do
-    # Use assert_path_exists (brew audit compliant)
-    assert_path_exists libexec/".claude-plugin/plugin.json"
-    assert_predicate libexec/"commands", :directory?
-  end
-end
+# Or use a worktree/clone
+TAP_DIR=~/projects/dev-tools/homebrew-tap
 ```
 
-### Key Features
+**Step 2: Add or update manifest entry**
 
-| Feature | Purpose |
-|---------|---------|
-| **`brew audit --strict` compliant** | Uses `Array#include?`, `Hash#slice`, modifier `if`, `assert_path_exists`, correct section order |
-| **Claude detection** | Uses `lsof` to check if Claude has settings.json open |
-| **Skip auto-enable** | Avoids file lock conflicts when Claude is running |
-| **plugin.json cleanup** | Ruby `JSON` + bash fallback to strip unrecognized keys |
-| **Branch guard hook** | Auto-installs if `scripts/branch-guard.sh` exists |
-| **Marketplace registration** | Creates symlink in `local-marketplace/` for discovery |
-| **Uninstall script** | Cleanup on `brew uninstall` via `post_uninstall` |
-| **Registry sync** | Runs `claude plugin update` in post_install |
+Edit `$TAP_DIR/generator/manifest.json`:
+
+```json
+"my-plugin": {
+  "type": "claude-plugin",
+  "desc": "Short description under 80 chars",
+  "homepage": "https://github.com/Data-Wise/my-plugin",
+  "source": "github",
+  "repo": "Data-Wise/my-plugin",
+  "version": "1.0.0",
+  "sha256": "...",
+  "generated": true,
+  "features": {
+    "schema_cleanup": true,
+    "marketplace": true
+  },
+  "libexec_paths": [".claude-plugin", "dist"],
+  "test_paths": [
+    {"path": ".claude-plugin/plugin.json", "type": "file"}
+  ]
+}
+```
+
+**Step 3: Handle nested directories** (if skills/agents are in a subdirectory)
+
+```json
+"libexec_copy_map": {
+  "my-plugin/skills": "skills",
+  "my-plugin/agents": "agents"
+},
+"libexec_copy_map_optional": {
+  "my-plugin/hooks": "hooks"
+}
+```
+
+This flattens `my-plugin/skills/` to `libexec/skills/` (what Claude Code expects).
+
+**Step 4: Generate, validate, and test**
+
+```bash
+cd $TAP_DIR
+python3 generator/generate.py my-plugin --diff      # Preview
+python3 generator/generate.py my-plugin --validate   # Check syntax
+python3 generator/generate.py my-plugin              # Write formula
+
+# Test locally
+cp Formula/my-plugin.rb /opt/homebrew/Library/Taps/data-wise/homebrew-tap/Formula/
+brew install --build-from-source data-wise/tap/my-plugin
+brew test data-wise/tap/my-plugin
+brew audit --strict data-wise/tap/my-plugin
+```
+
+### What the Generator Produces
+
+The generator assembles a complete formula with:
+
+| Component | Source | Description |
+|-----------|--------|-------------|
+| **Install method** | `manifest.json` libexec_paths + copy_map | Files to install, directory flattening |
+| **Install script** | `blocks/*.sh` (composable fragments) | Symlink, marketplace, Claude detection, branch guard |
+| **Uninstall script** | `blocks/uninstall.sh` | Reverse of install |
+| **3-step post_install** | `generate.py` | Each in own `begin/rescue/end`: |
+| | | 1. JSON schema cleanup (strip unrecognized plugin.json keys) |
+| | | 2. Auto-install with 30s timeout (`Process.spawn` + `Timeout`) |
+| | | 3. Registry sync (`claude plugin update`) |
+| **Test block** | `manifest.json` test_paths | Verify expected files/dirs exist |
+| **Caveats** | `manifest.json` caveats_extra | Custom install notes |
+
+### Manifest Fields for Plugins
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `libexec_paths` | array | Direct paths to install to libexec |
+| `libexec_copy_map` | object | Directory copy with path mapping (src → dest) |
+| `libexec_copy_map_optional` | object | Conditional copy (only if source exists) |
+| `libexec_mkdir` | array | Directories to pre-create in libexec |
+| `extra_scripts` | array | CLI wrapper scripts (name + body) |
+| `features.schema_cleanup` | boolean | Strip unrecognized plugin.json keys |
+| `features.branch_guard` | boolean | Install git hook (craft only) |
+| `features.marketplace` | boolean | Register in local-marketplace |
+| `features.claude_detection` | boolean | Check if Claude is running |
+| `build_steps` | array | Build commands (e.g., `npm install`) |
 
 ### Existing Plugin Formulas
 
-| Formula | Plugin | Status |
-|---------|--------|--------|
-| `craft.rb` | 107 commands | `brew audit --strict` clean |
-| `rforge.rb` | 15 commands | Claude detection |
-| `scholar.rb` | 21 commands | Claude detection |
+All 6 plugin formulas are generated from the manifest:
+
+| Formula | Features | Status |
+|---------|----------|--------|
+| `craft.rb` | 107 commands, branch-guard, schema-cleanup | `brew audit --strict` clean |
+| `himalaya-mcp.rb` | copy_map layout, CLI wrapper, npm build | `brew audit --strict` clean |
+| `scholar.rb` | 28 commands | `brew audit --strict` clean |
+| `rforge.rb` | head-only (no releases) | `brew audit --strict` clean |
+| `rforge-orchestrator.rb` | monorepo URL pattern | `brew audit --strict` clean |
+| `workflow.rb` | ADHD workflow automation | `brew audit --strict` clean |
 
 ### Testing Plugin Installation
 
 ```bash
-# Reinstall and verify speed
+# Reinstall and verify
 time brew reinstall data-wise/tap/craft
 
 # Check detection message
@@ -1667,7 +1594,19 @@ claude plugin list | grep craft
 
 # Validate formula
 brew audit --strict --formula data-wise/tap/craft
+
+# Verify skills at correct path (for plugins with copy_map)
+ls /opt/homebrew/opt/himalaya-mcp/libexec/skills/
 ```
+
+### Generator Documentation
+
+For full generator documentation, see:
+
+- [Generator Overview](https://github.com/Data-Wise/homebrew-tap/blob/main/docs/generator/index.md)
+- [Manifest Schema](https://github.com/Data-Wise/homebrew-tap/blob/main/docs/generator/manifest.md)
+- [Block Templates](https://github.com/Data-Wise/homebrew-tap/blob/main/docs/generator/blocks.md)
+- [Cookbook: Distribute Plugin via Homebrew](../cookbook/common/distribute-plugin-via-homebrew.md)
 
 ---
 
