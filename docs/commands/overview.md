@@ -2,31 +2,58 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 107 commands organized into 10 categories (Smart, Docs, Site, Code, Testing, Git, CI, Architecture, Distribution, Planning, Workflow)
+> - **What:** 107 commands organized into 17 categories covering the full development lifecycle
 > - **Why:** One plugin handles your entire development workflow from docs to deployment
 > - **How:** Use `/craft:hub` to discover all commands by category
 > - **Next:** Start with `/craft:do` for AI-powered task routing or `/craft:check` for pre-flight validation
 
-Craft provides **107 commands** across 10 categories for full-stack development workflows.
+Craft provides **107 commands** for full-stack development workflows.
+
+## Command Routing
+
+```mermaid
+flowchart TD
+    User["User Task"] --> Do["/craft:do"]
+    Do --> |"docs/writing"| Docs["📚 Docs (21)"]
+    Do --> |"code/debug"| Code["💻 Code (15)"]
+    Do --> |"site/deploy"| Site["🌐 Site (16)"]
+    Do --> |"git/branch"| Git["🔀 Git (13)"]
+    Do --> |"test/coverage"| Test["🧪 Test (3)"]
+    Do --> |"ci/deploy"| CI["⚙️ CI (4)"]
+    Do --> |"architecture"| Arch["🏗️ Arch (4)"]
+    Do --> |"distribute"| Dist["📦 Dist (4)"]
+    Do --> |"plan/sprint"| Plan["📋 Plan (3)"]
+    Do --> |"workflow"| WF["🔄 Workflow (13)"]
+    Do --> |"complex task"| Orch["/craft:orchestrate (3)"]
+
+    Hub["/craft:hub"] -.-> |"discover"| Do
+    Check["/craft:check (2)"] -.-> |"validate"| Do
+    Smart["/craft:smart-help"] -.-> |"guide"| Do
+
+    style Do fill:#4a9eff,color:#fff
+    style Hub fill:#6c757d,color:#fff
+    style Check fill:#6c757d,color:#fff
+    style Smart fill:#6c757d,color:#fff
+```
 
 ## Command Categories
 
-### 🎯 Smart Commands (4)
+### 🎯 Smart and Discovery (8)
 
 Universal commands with AI-powered routing:
 
-- `/craft:do <task>` - Universal task router
-- `/craft:orchestrate <task> [mode]` - Enhanced orchestrator v2.1
-- `/craft:check [--for]` - Pre-flight checks
-- `/craft:help [topic]` - Context-aware help
+- `/craft:do <task>` — Universal task router
+- `/craft:check [--for]` — Pre-flight checks (+`gen-validator`)
+- `/craft:orchestrate <task> [mode]` — Enhanced orchestrator (+`plan`, `resume`)
+- `/craft:hub` — Command discovery
+- `/craft:smart-help` — Context-aware help
+- `/craft:discovery-usage` — Discovery engine guide
 
-[Learn more →](smart.md)
-
-### 📚 Documentation Commands (25)
+### 📚 Documentation Commands (21)
 
 Smart documentation generation and validation:
 
-- Super Commands: `update`, `sync`, `check`
+- Super Commands: `update`, `sync`, `check`, `check-links`
 - CLAUDE.md: `init`, `sync`, `edit`
 - Specialized: `api`, `changelog`, `guide`, `demo`, `mermaid`, `website`
 
@@ -36,38 +63,60 @@ Smart documentation generation and validation:
 
 Full documentation site management:
 
-- `/craft:site:create` - Wizard with 8 ADHD-friendly presets
-- Navigation & audit: `nav`, `audit`, `consolidate`
+- `/craft:site:create` — Wizard with 8 ADHD-friendly presets
+- Navigation and audit: `nav`, `audit`, `consolidate`
 - Management: `status`, `update`, `deploy`, `build`, `publish`
 
 [Learn more →](site.md)
 
-### 💻 Code Commands (12) & Testing Commands (7)
+### 💻 Code Commands (15)
 
 Development workflow tools:
 
 - Linting: `/craft:code:lint [mode]`
-- Testing: `/craft:test [mode]`
 - Debugging: `/craft:code:debug`
 - Refactoring: `/craft:code:refactor`
+- CI: `ci-local`, `ci-fix`
+- Analysis: `deps-check`, `deps-audit`, `coverage`, `command-audit`
+- Monitoring: `release-watch`, `desktop-watch`
 
 [Learn more →](code.md)
 
-### 🔀 Git Commands (11) & CI Commands (3)
+### 🧪 Testing Commands (3)
 
-Version control and continuous integration:
+- `/craft:test [category]` — Unified test runner
+- `/craft:test:gen` — Auto-detect project and generate tests
+- `/craft:test:template` — Manage Jinja2 test templates
 
-- Git: `worktree`, `sync`, `clean`, `recap`, `branch`, `init`, `protect`, `unprotect`
-- CI: `detect`, `generate`, `validate`
+[Learn more →](test.md)
+
+### 🔀 Git Commands (13)
+
+Version control and worktree management:
+
+- Worktrees: `worktree`, `branch`, `clean`
+- Sync: `sync`, `git-recap`, `status`
+- Safety: `protect`, `unprotect`, `init`
+- Docs: `safety-rails`, `undo-guide`, `learning-guide`, `refcard`
 
 [Learn more →](git.md)
 
+### ⚙️ CI Commands (4)
+
+Continuous integration automation:
+
+- `/craft:ci:detect` — Smart project type detection
+- `/craft:ci:generate` — Generate GitHub Actions workflows
+- `/craft:ci:validate` — Validate existing workflows
+- `/craft:ci:status` — Cross-repo CI dashboard
+
 ### 📦 Other Categories
 
-- **Architecture** (4): System design, diagrams, planning, reviews
-- **Distribution** (4): Marketplace, Homebrew formulas, curl installers, PyPI
-- **Planning** (3): Feature planning, sprints, roadmaps
-- **Workflow** (12): Brainstorming, task management, spec capture
+- **Architecture** (4): `analyze`, `diagram`, `plan`, `review`
+- **Distribution** (4): Marketplace, Homebrew (formula+cask), PyPI, curl installers — [Learn more →](dist.md)
+- **Planning** (3): `feature`, `sprint`, `roadmap`
+- **Workflow** (13): Brainstorming, task management, focus mode, spec review
+- **Utilities** (2): Teaching config parser, semester progress
 
 ## Mode System
 

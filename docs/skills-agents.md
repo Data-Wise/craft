@@ -18,6 +18,12 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | project-detector | Smart detection of project types, build tools, and CI requirements | `skills/ci/project-detector.md` |
 
+### Code (1)
+
+| Name | Description | Path |
+|------|-------------|------|
+| sync-features | Chain command-audit, release-watch, and desktop-watch into a prioritized action plan | `skills/code/sync-features.md` |
+
 ### Design (3)
 
 | Name | Description | Path |
@@ -72,11 +78,12 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | project-planner | Project planning, estimation, and delivery management | `skills/planning/project-planner.md` |
 
-### Release (1)
+### Release (2)
 
 | Name | Description | Path |
 |------|-------------|------|
 | release | Orchestrates the full release pipeline from pre-flight checks through GitHub release creation | `skills/release/SKILL.md` |
+| release-checklist | Pre-release, release day, and post-release checklists | `skills/release/references/release-checklist.md` |
 
 ### Testing (2)
 

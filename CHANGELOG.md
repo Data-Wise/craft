@@ -9,6 +9,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.28.0] — 2026-02-25
+
+### Added
+
+- **Post-release sweep script** (`scripts/post-release-sweep.sh`) — Tier 2+ drift detection with `--fix`, `--dry-run`, and `--json` modes
+- **Step 13.5** in release pipeline — automated post-release sweep after downstream verification
+- Test suite for post-release sweep (19 tests: CLI, detection, fix, dry-run, JSON)
+- **Desktop App Release Pipeline** — Homebrew Cask distribution for Tauri desktop apps (#108)
+  - `/craft:dist:homebrew cask` subcommand for generating and updating cask files
+  - Auto-detection of Tauri projects via `src-tauri/tauri.conf.json`
+  - Multi-architecture build orchestration (aarch64 + x86_64, serial)
+  - SHA256 computation from local build artifacts (eliminates CDN race conditions)
+  - DMG upload to GitHub releases with `--clobber` and CHECKSUMS.txt
+  - Cask template generator with all zones: architecture, livecheck, postflight, zap, caveats
+  - Zone-based cask updater (version+SHA256 / dynamic content / static content)
+  - `--update-content` flag with CHANGELOG parsing for postflight and caveats
+  - `--content-only`, `--skip-build`, `--dry-run` flags for flexible cask management
+  - Extended `.craft/homebrew.json` schema with `"type": "cask"` support
+  - Build environment validation (Rust targets, Tauri CLI, Xcode, disk space)
+  - Architecture verification via `file` command on mounted DMG binaries
+  - Tap push with `git pull --rebase` and "ours" conflict resolution
+  - `brew audit --cask` support with auto-detection in audit command
+  - Step 10b in `/release` pipeline with full end-to-end orchestration
+  - Step 13f: Cask verification (version + SHA256 cross-check after tap push)
+  - Desktop Release Guide at `docs/guide/desktop-release.md`
+
+### Changed
+
+- `/craft:dist:homebrew` now supports 7 subcommands (added `cask`)
+- `/craft:dist:homebrew audit` auto-detects formula vs cask
+- Auto-detection table updated: Tauri Desktop App added above Claude Code Plugin
+- Dry-run output expanded to show Step 10b substeps for Tauri projects
+- REFCARD-HOMEBREW updated with cask commands and desktop distribution section
+- Commands overview: added mermaid command routing flowchart and fixed category counts
+- Skills docs: added missing skills (sync-features, release-checklist), fixed count 25 to 26
+- Fixed stale "17 skills, 7 agents" references in commands.md and architecture.md
+- Desktop release docs added to mkdocs.yml nav, broken links fixed
+
+---
+
 ## [2.27.0] — 2026-02-21
 
 ### Added

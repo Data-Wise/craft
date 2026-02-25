@@ -205,9 +205,51 @@ myapp --version
 
 ---
 
+## Desktop Apps (Tauri/Cask)
+
+If your project is a **Tauri desktop app** instead of a CLI tool, use Homebrew Cask instead of Formula.
+
+### Cask Config
+
+```json
+{
+  "formula_name": "scribe",
+  "tap": "my-org/tap",
+  "type": "cask",
+  "cask": {
+    "app_name": "Scribe.app",
+    "identifier": "com.scribe.app",
+    "min_macos": "catalina"
+  }
+}
+```
+
+### Generate the Cask
+
+```bash
+/craft:dist:homebrew cask
+```
+
+This auto-detects `src-tauri/tauri.conf.json`, builds multi-arch DMGs, and generates a Homebrew Cask file.
+
+### Key Differences from Formula Setup
+
+| Aspect | Formula (this tutorial) | Cask (desktop apps) |
+|--------|------------------------|---------------------|
+| Artifact | Source tarball | Pre-built DMGs |
+| Install location | `/opt/homebrew/bin/` | `/Applications/` |
+| Build | User builds from source | Built during release |
+| Architecture | Single (source) | Dual (aarch64 + x86_64) |
+| Tap file | `Formula/{name}.rb` | `Casks/{name}.rb` |
+
+For the full desktop app release walkthrough, see the **[Desktop Release Guide](../guide/desktop-release.md)**.
+
+---
+
 ## Next Steps
 
 - **[Homebrew Automation Guide](../guide/homebrew-automation.md)** — Deep dive into all subcommands
+- **[Desktop Release Guide](../guide/desktop-release.md)** — Tauri desktop app distribution
 - **[Homebrew Quick Reference](../reference/REFCARD-HOMEBREW.md)** — Cheat sheet
 - **[Distribution Commands](../commands/dist.md)** — All distribution options
 - **[Release Pipeline Tutorial](TUTORIAL-release-pipeline.md)** — Full release workflow

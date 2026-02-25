@@ -12,6 +12,7 @@ Use this workflow when you need to:
 
 - Release a new version to production
 - Publish to package registries (npm, PyPI, CRAN)
+- Build and distribute desktop apps (Tauri/Homebrew Cask)
 - Create GitHub releases with changelogs
 - Deploy documentation updates
 
@@ -286,6 +287,7 @@ Verify that all downstream artifacts were updated correctly:
 | **Homebrew release** | `gh run list --workflow homebrew-release.yml --limit 1` | Homebrew release workflow ran successfully |
 | **Live site version** | Visit docs site, check version in footer/banner | Version matches the release |
 | **Formula content** | `brew info <formula>` or check tap repo | Formula URL and SHA256 point to new release |
+| **Cask content** | `brew info --cask <cask>` or check tap repo | Cask version + SHA256 match for both architectures |
 | **Badge validation** | Check README.md badges resolve correctly | Version badge shows new version, CI badge is green |
 
 ```bash
@@ -296,6 +298,37 @@ curl -s https://data-wise.github.io/craft/ | grep -o 'v[0-9]*\.[0-9]*\.[0-9]*' |
 ```
 
 If any downstream check fails, investigate and fix before announcing the release.
+
+### Step 13.5: Post-Release Sweep
+
+After downstream verification passes, run the post-release sweep to catch long-tail drift in secondary documentation:
+
+```bash
+# Report drift without changes (default)
+./scripts/post-release-sweep.sh
+
+# Auto-fix Tier 2 version refs, report everything else
+./scripts/post-release-sweep.sh --fix
+
+# JSON output for scripting
+./scripts/post-release-sweep.sh --json
+```
+
+The sweep uses a three-tier detection model:
+
+| Tier | What It Catches | Action |
+|------|----------------|--------|
+| 1 | Core file drift (13 files) | Delegates to `bump-version.sh --verify` |
+| 2 | Stale version refs in secondary docs | `--fix` auto-corrects |
+| 3 | Content staleness (CHANGELOG vs index.md) | Manual review |
+
+If fixes are applied, commit them before announcing the release:
+
+```bash
+git add -u && git commit -m "chore: fix post-release drift detected by sweep"
+```
+
+See [Post-Release Sweep Reference](../reference/REFCARD-POST-RELEASE-SWEEP.md) for details.
 
 ---
 
@@ -391,5 +424,6 @@ jobs:
 
 - **Help:** [/craft:check](../commands/check.md)
 - **Help:** [/craft:docs:update](../commands/docs/update.md)
+- **Guide:** [Desktop Release Guide](../guide/desktop-release.md) — Tauri desktop app releases
 - **Workflow:** [Git Feature Workflow](git-feature-workflow.md)
 - **Workflow:** [Pre-commit Workflow](pre-commit-workflow.md)

@@ -44,10 +44,12 @@ Ready to release?
 | 7 | CI monitoring loop | Polls, diagnoses, retries (v2.22.0) |
 | 8 | Create GitHub release | Creates tag and release |
 | 9 | Post-release | Deploys docs, syncs dev |
-| 10 | Update Homebrew tap | Modifies tap formula |
+| 10a | Update Homebrew formula | Modifies tap formula (CLI tools) |
+| 10b | Build + publish cask | Multi-arch DMGs + cask update (Tauri desktop apps) |
 | 11 | Verify downstream CI (main) | Read-only (polls main branch workflows) |
 | 12 | Verify downstream CI (docs) | Read-only (polls docs deploy workflow) |
 | 13 | Verify downstream CI (Homebrew) | Read-only (polls tap CI) |
+| 13.5 | Post-release sweep | Auto-fixes Tier 2 drift, reports Tier 3 |
 
 ### Release Pipeline Flow
 
