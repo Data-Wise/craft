@@ -1,8 +1,8 @@
 ---
-description: Complete Homebrew automation - formulas, workflows, auditing, and dependency management
+description: Complete Homebrew automation - formulas, casks, workflows, auditing, and dependency management
 arguments:
   - name: subcommand
-    description: "Subcommand: formula|workflow|audit|setup|update-resources|deps"
+    description: "Subcommand: formula|cask|workflow|audit|setup|update-resources|deps"
     required: false
     default: formula
   - name: tap
@@ -22,9 +22,10 @@ Complete Homebrew formula management with automated workflows.
 | Command | Purpose |
 |---------|---------|
 | `formula` | Generate or update formula (default) |
+| `cask` | Generate or update Homebrew Cask for desktop apps (Tauri) |
 | `workflow` | Generate GitHub Actions release workflow |
-| `audit` | Run `brew audit` validation + auto-fix |
-| `setup` | Full setup wizard (formula + workflow + token) |
+| `audit` | Run `brew audit` validation + auto-fix (formula or cask) |
+| `setup` | Full setup wizard (formula/cask + workflow + token) |
 | `update-resources` | Fix stale PyPI resource URLs |
 | `deps` | Show formula dependency graph + system deps matrix |
 
@@ -34,13 +35,16 @@ Complete Homebrew formula management with automated workflows.
 # Generate formula for current project
 /craft:dist:homebrew
 
+# Generate or update cask for Tauri desktop app
+/craft:dist:homebrew cask
+
 # Full automated setup (recommended for new projects)
 /craft:dist:homebrew setup
 
 # Generate release workflow
 /craft:dist:homebrew workflow
 
-# Validate formula before release
+# Validate formula or cask before release
 /craft:dist:homebrew audit
 ```
 
@@ -60,18 +64,19 @@ Generate or update a Homebrew formula.
 
 ### Auto-Detection
 
-Detects project type and generates appropriate formula:
+Detects project type and generates appropriate formula or cask:
 
-| Project Type | Detection | Formula Pattern |
-|--------------|-----------|-----------------|
-| **Claude Code Plugin** | `.claude-plugin/plugin.json` | `libexec.install` + plugin scripts |
-| Python | `pyproject.toml` | `Language::Python::Virtualenv` |
-| Node.js | `package.json` | npm install pattern |
-| Go | `go.mod` | go build pattern |
-| Rust | `Cargo.toml` | cargo install pattern |
-| Shell | `*.sh` scripts | bin.install pattern |
+| Project Type | Detection | Distribution |
+|--------------|-----------|--------------|
+| **Tauri Desktop App** | `src-tauri/tauri.conf.json` | Cask (DMG, dual-arch) |
+| **Claude Code Plugin** | `.claude-plugin/plugin.json` | Formula (`libexec.install` + plugin scripts) |
+| Python | `pyproject.toml` | Formula (`Language::Python::Virtualenv`) |
+| Node.js | `package.json` | Formula (npm install pattern) |
+| Go | `go.mod` | Formula (go build pattern) |
+| Rust | `Cargo.toml` | Formula (cargo install pattern) |
+| Shell | `*.sh` scripts | Formula (bin.install pattern) |
 
-> **Detection priority:** Claude Code Plugin > Python > Node.js > Go > Rust > Shell. Plugin detection takes precedence because `.claude-plugin/plugin.json` is the most specific indicator.
+> **Detection priority:** `.craft/homebrew.json` config (explicit) > Tauri Desktop App > Claude Code Plugin > Python > Node.js > Go > Rust > Shell. Config file always wins. Tauri takes precedence over Plugin because desktop apps require fundamentally different distribution (Cask with DMGs vs Formula with source tarballs).
 
 ### Example Output
 
@@ -82,6 +87,127 @@ Detects project type and generates appropriate formula:
 ✓ Generated: Formula/myapp.rb
 
 Formula saved to: ./Formula/myapp.rb
+```
+
+---
+
+## /craft:dist:homebrew cask
+
+Generate or update a Homebrew Cask for desktop apps (Tauri). Handles multi-architecture DMGs, SHA256 computation from local artifacts, and release-specific content (postflight, caveats).
+
+### Usage
+
+```bash
+/craft:dist:homebrew cask                          # Auto-detect and create/update
+/craft:dist:homebrew cask --tap user/tap           # Specify target tap
+/craft:dist:homebrew cask --version 1.2.0          # Use specific version
+/craft:dist:homebrew cask --skip-build             # Update cask from existing release assets
+/craft:dist:homebrew cask --update-content         # Update postflight/caveats from CHANGELOG
+/craft:dist:homebrew cask --content-only           # Update content only (skip version/SHA256)
+/craft:dist:homebrew cask --dry-run                # Preview changes without writing
+```
+
+### Auto-Detection
+
+Detects Tauri desktop app projects and extracts metadata:
+
+```
+Detection Chain:
+1. .craft/homebrew.json  →  { "type": "cask" }     (explicit config, highest priority)
+2. src-tauri/tauri.conf.json  →  productName, version, identifier  (auto-detect)
+3. Casks/ in tap repo  →  existing cask file      (tap structure)
+```
+
+When `src-tauri/tauri.conf.json` is found, the following fields are extracted:
+
+| tauri.conf.json Field | Used For |
+|-----------------------|----------|
+| `productName` | Cask `app` name, DMG naming |
+| `version` | Cask `version` field |
+| `identifier` | macOS bundle identifier |
+| `bundle.macOS.minimumSystemVersion` | Cask `depends_on macos:` |
+
+### Flags
+
+| Flag | Description |
+|------|-------------|
+| `--tap` | Target tap repository (e.g., `data-wise/tap`) |
+| `--version` | Specific version (default: from tauri.conf.json or latest tag) |
+| `--skip-build` | Skip build, use existing DMGs (from release assets or local paths) |
+| `--update-content` | Update postflight/caveats from CHANGELOG (see Increment 4) |
+| `--content-only` | Same as `--update-content` but skip version/SHA256 changes |
+| `--desc "text"` | Override cask `desc` field (validates <= 80 chars) |
+| `--dry-run` | Preview all changes without writing files |
+
+### Extended `.craft/homebrew.json` Schema
+
+The existing config file supports a new `"type": "cask"` field and a `"cask"` nested object for desktop app projects:
+
+```json
+{
+  "formula_name": "scribe",
+  "tap": "data-wise/tap",
+  "type": "cask",
+  "cask": {
+    "app_name": "Scribe.app",
+    "identifier": "com.scribe.app",
+    "min_macos": "catalina",
+    "architectures": ["aarch64", "x64"],
+    "artifact_pattern": "{name}_{version}_{arch}.dmg",
+    "build_command": "npx tauri build --target {target}",
+    "targets": {
+      "aarch64": "aarch64-apple-darwin",
+      "x64": "x86_64-apple-darwin"
+    },
+    "postflight_template": "changelog",
+    "caveats_template": "full"
+  }
+}
+```
+
+| Field | Required | Default | Description |
+|-------|----------|---------|-------------|
+| `formula_name` | Yes | — | Name in tap (used for both formula and cask) |
+| `tap` | Yes | — | Tap in `org/name` format |
+| `type` | No | `"formula"` | `"formula"` or `"cask"` |
+| `cask.app_name` | No | from `tauri.conf.json` productName + `.app` | `.app` bundle name |
+| `cask.identifier` | No | from `tauri.conf.json` identifier | macOS bundle identifier |
+| `cask.min_macos` | No | from `tauri.conf.json` minimumSystemVersion | Homebrew macOS codename |
+| `cask.architectures` | No | `["aarch64", "x64"]` | Architectures to build |
+| `cask.artifact_pattern` | No | `"{name}_{version}_{arch}.dmg"` | DMG naming pattern |
+| `cask.build_command` | No | `"npx tauri build --target {target}"` | Build command template |
+| `cask.targets` | No | `{"aarch64": "aarch64-apple-darwin", "x64": "x86_64-apple-darwin"}` | Rust target triple mapping |
+| `cask.postflight_template` | No | `"changelog"` | `"changelog"` or `"none"` |
+| `cask.caveats_template` | No | `"full"` | `"full"`, `"minimal"`, or `"none"` |
+
+> **Backward compatibility:** Existing `.craft/homebrew.json` files without a `"type"` field default to `"formula"`. No changes needed for existing formula-based projects.
+
+### macOS Version Mapping
+
+When auto-detecting from `tauri.conf.json`, the `minimumSystemVersion` is mapped to Homebrew codenames:
+
+| macOS Version | Homebrew Codename |
+|---------------|-------------------|
+| `10.13` | `:high_sierra` |
+| `10.14` | `:mojave` |
+| `10.15` | `:catalina` |
+| `11.0` | `:big_sur` |
+| `12.0` | `:monterey` |
+| `13.0` | `:ventura` |
+| `14.0` | `:sonoma` |
+| `15.0` | `:sequoia` |
+
+### Example Output
+
+```
+✓ Detected: Tauri Desktop App (src-tauri/tauri.conf.json)
+✓ Product: Scribe (com.scribe.app)
+✓ Version: 1.20.0
+✓ Architectures: aarch64, x64
+✓ Config: .craft/homebrew.json (type: cask)
+✓ Tap: data-wise/tap
+
+Cask file: Casks/scribe.rb
 ```
 
 ---

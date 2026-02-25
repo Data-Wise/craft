@@ -448,32 +448,60 @@ mkdocs gh-deploy  # or /craft:site:deploy
 
 ### Step 10: Update Homebrew Tap (if applicable)
 
-If the project has a Homebrew formula in the `data-wise/tap`, update it with the new version.
+If the project has a Homebrew formula or cask in the `data-wise/tap`, update it with the new version.
 
-#### Formula Name Lookup Chain
+#### Distribution Type Detection
+
+Determine whether this is a Formula (CLI tool) or Cask (desktop app) release:
+
+```bash
+# 1. Explicit config (highest priority)
+if [ -f ".craft/homebrew.json" ]; then
+    DIST_TYPE=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json')).get('type', 'formula'))")
+    FORMULA_NAME=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['formula_name'])")
+    TAP=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['tap'])")
+
+# 2. Tauri project auto-detection
+elif [ -f "src-tauri/tauri.conf.json" ]; then
+    DIST_TYPE="cask"
+    FORMULA_NAME=$(python3 -c "import json; c=json.load(open('src-tauri/tauri.conf.json')); print(c.get('productName', c.get('package', {}).get('productName', 'unknown')).lower())")
+    TAP="data-wise/tap"
+
+# 3. Git remote mapping (formula default)
+elif git remote get-url origin &>/dev/null; then
+    DIST_TYPE="formula"
+    REPO_NAME=$(git remote get-url origin | sed 's/\.git$//' | sed 's|.*/||' | tr '[:upper:]' '[:lower:]')
+    FORMULA_NAME="$REPO_NAME"
+    TAP="data-wise/tap"
+
+# 4. Basename fallback (formula default)
+else
+    DIST_TYPE="formula"
+    FORMULA_NAME=$(basename "$PWD" | tr '[:upper:]' '[:lower:]')
+    TAP="data-wise/tap"
+fi
+
+# Route to appropriate step
+if [ "$DIST_TYPE" = "cask" ]; then
+    echo "Detected: Cask distribution (desktop app) → Step 10b"
+    # Proceed to Step 10b (Cask release pipeline)
+else
+    echo "Detected: Formula distribution (CLI tool) → Step 10a"
+    # Proceed to Step 10a (existing formula update)
+fi
+```
+
+#### Step 10a: Update Formula (existing behavior)
+
+For CLI tools distributed as Homebrew Formulas. This is the existing formula update path, unchanged.
+
+##### Formula Name Lookup Chain
 
 Determine the formula name using this priority order:
 
 1. **Config file** — `.craft/homebrew.json` (most reliable)
 2. **Git remote** — extract repo name from `origin` URL
 3. **Directory basename** — fallback (least reliable)
-
-```bash
-# 1. Config file (preferred)
-if [ -f ".craft/homebrew.json" ]; then
-    FORMULA_NAME=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['formula_name'])")
-    TAP=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['tap'])")
-# 2. Git remote mapping
-elif git remote get-url origin &>/dev/null; then
-    REPO_NAME=$(git remote get-url origin | sed 's/\.git$//' | sed 's|.*/||' | tr '[:upper:]' '[:lower:]')
-    FORMULA_NAME="$REPO_NAME"
-    TAP="data-wise/tap"
-# 3. Basename fallback
-else
-    FORMULA_NAME=$(basename "$PWD" | tr '[:upper:]' '[:lower:]')
-    TAP="data-wise/tap"
-fi
-```
 
 #### `.craft/homebrew.json` Config Format
 
@@ -556,6 +584,53 @@ gh run list --repo Data-Wise/craft --workflow=homebrew-release.yml --limit 1 \
 ```
 
 If the workflow failed, check with `/craft:ci:status` for diagnosis.
+
+#### Step 10b: Desktop App Cask Release (Tauri)
+
+For desktop apps distributed as Homebrew Casks. Triggered when detection finds `src-tauri/tauri.conf.json` or `.craft/homebrew.json` has `"type": "cask"`.
+
+**Overview:** Build multi-arch DMGs → upload to GitHub release → compute SHA256 from local artifacts → update cask file → push tap.
+
+```
+[1/8] Detecting project type ............ Tauri ({productName})
+[2/8] Checking Rust targets ............. checking...
+[3/8] Building aarch64 (native) ......... pending
+[4/8] Building x86_64 (cross-compile) ... pending
+[5/8] Verifying architectures ........... pending
+[6/8] Computing SHA256 .................. pending
+[7/8] Uploading to GitHub release ....... pending
+[8/8] Updating cask + pushing tap ....... pending
+```
+
+**Detection reads:**
+
+```bash
+# From tauri.conf.json
+PRODUCT_NAME=$(python3 -c "import json; c=json.load(open('src-tauri/tauri.conf.json')); print(c.get('productName', c.get('package', {}).get('productName', 'unknown')))")
+IDENTIFIER=$(python3 -c "import json; c=json.load(open('src-tauri/tauri.conf.json')); print(c.get('identifier', c.get('tauri', {}).get('bundle', {}).get('identifier', 'unknown')))")
+MIN_MACOS=$(python3 -c "import json; c=json.load(open('src-tauri/tauri.conf.json')); print(c.get('bundle', {}).get('macOS', {}).get('minimumSystemVersion', '10.15'))")
+
+# Override from .craft/homebrew.json if present
+if [ -f ".craft/homebrew.json" ]; then
+    CASK_CONFIG=$(python3 -c "import json; print(json.dumps(json.load(open('.craft/homebrew.json')).get('cask', {})))")
+    # Parse overrides: app_name, identifier, min_macos, architectures, etc.
+fi
+```
+
+**Substeps (full implementation in Increment 2-5):**
+
+1. **Environment validation** — Check Rust targets, Tauri CLI, node_modules, Xcode SDK, disk space
+2. **Multi-arch build** — Native arch first, then cross-compile (serial, not parallel)
+3. **Architecture verification** — `file` command on binary inside DMG
+4. **SHA256 computation** — `shasum -a 256` on local DMG files (no network)
+5. **Asset upload** — `gh release upload` with `--clobber`
+6. **Cask file update** — Version, both arch SHA256 blocks, postflight, caveats
+7. **Validation** — `ruby -c` + `brew audit --cask`
+8. **Tap push** — `git pull --rebase` + commit + push (with conflict resolution)
+
+**Key design decision:** SHA256 is computed from **local build artifacts**, not downloaded from GitHub. This eliminates the race condition where GitHub CDN hasn't propagated the asset yet, which caused tap conflicts during earlier Scribe releases.
+
+**Skip to Step 11 after Step 10b completes.**
 
 ### Step 11: Sync Dev with Main
 
