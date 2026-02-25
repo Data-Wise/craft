@@ -48,6 +48,7 @@ Override: `/craft:git:unprotect` (session-scoped, auto-expires)
 | Dependency tests | `bash tests/test_dependency_management.sh` |
 | Validate counts | `./scripts/validate-counts.sh` |
 | Pre-release check | `./scripts/pre-release-check.sh <version>` |
+| Post-release sweep | `./scripts/post-release-sweep.sh` or `--fix` |
 | Build docs | `mkdocs build` |
 | Smart routing | `/craft:do <task>` |
 | Pre-flight check | `/craft:check` |
