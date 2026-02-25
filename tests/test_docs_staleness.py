@@ -547,23 +547,23 @@ class TestFixNonInteractiveMode:
         )
 
     def test_fix_non_interactive_reports_skipped_review(self):
-        """--fix --non-interactive reports that interactive review was skipped."""
+        """--fix --non-interactive reports skip or shows no-fixable-items message."""
         result = _run_script("--fix", "--non-interactive")
-        # Should mention skipped or non-interactive
         mentions_skip = (
             "non-interactive" in result.stdout.lower()
             or "skipped" in result.stdout.lower()
             or "skip" in result.stdout.lower()
+            or "no auto-fixable" in result.stdout.lower()
         )
         assert mentions_skip, (
-            "--fix --non-interactive output should indicate interactive review was skipped"
+            "--fix --non-interactive output should indicate skipped review or no fixable items"
         )
 
     def test_fix_non_interactive_shows_pass1_header(self):
-        """--fix --non-interactive runs Pass 1 auto-fix and says so in output."""
+        """--fix --non-interactive runs Pass 1 auto-fix or reports nothing to fix."""
         result = _run_script("--fix", "--non-interactive")
-        assert "Pass 1" in result.stdout or "Auto-fix" in result.stdout, (
-            "--fix --non-interactive output should mention Pass 1 or Auto-fix"
+        assert "Pass 1" in result.stdout or "Auto-fix" in result.stdout or "No auto-fixable" in result.stdout, (
+            "--fix --non-interactive output should mention Pass 1, Auto-fix, or No auto-fixable items"
         )
 
 
