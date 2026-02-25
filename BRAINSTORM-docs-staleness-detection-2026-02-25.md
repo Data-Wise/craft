@@ -357,6 +357,26 @@ All 4 phases ship together since decisions are resolved:
 - Verify `--fix` mode actually fixes counts
 - Verify `--audit-exclusions` prunes deleted files
 
-**Refcard:**
+**Documentation deliverables:**
 
-- `docs/reference/REFCARD-DOCS-STALENESS.md` -- usage, phases, exclusion format
+- `docs/reference/REFCARD-DOCS-STALENESS.md` -- quick reference: usage, phases, exclusion format, traffic light meanings
+- `docs/commands/overview.md` -- already updated with mermaid command routing flowchart (this session)
+- `docs/guide/skills-agents.md` -- already updated with missing skills (this session)
+- `docs/skills-agents.md` -- already updated with missing skills (this session)
+- `docs/commands/dist.md` -- already has cask subcommand docs (from PR #109)
+- `commands/docs/check.md` -- add `--deep` flag documentation
+- `skills/release/SKILL.md` -- add Step 2d to pre-flight checks section
+- `docs/reference/REFCARD-RELEASE.md` -- add Step 2d to pipeline table
+- `CLAUDE.md` -- add `docs-staleness-check.sh` to Quick Commands table
+- Update CHANGELOG with new script
+
+**Already completed this session (docs updates):**
+
+| Commit | What |
+|--------|------|
+| `3a9c0d61` | Added desktop-release.md + desktop-release-pipeline.md to mkdocs.yml nav |
+| `3a9c0d61` | Fixed 4 broken links pointing outside docs/ |
+| `e9e4680e` | Added mermaid command routing flowchart to commands overview |
+| `e9e4680e` | Fixed command category counts (17 categories, 107 total) |
+| `e9e4680e` | Added missing skills (sync-features, release-checklist) to both skills docs |
+| `bee64eca` | Fixed "17 skills, 7 agents" -> "26 skills, 8 agents" in commands.md + architecture.md |
