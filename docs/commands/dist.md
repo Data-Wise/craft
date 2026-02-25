@@ -4,7 +4,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 4 commands for packaging and distributing your project (Marketplace, Homebrew, PyPI, curl installer)
+> - **What:** 4 commands for packaging and distributing your project (Marketplace, Homebrew/Cask, PyPI, curl installer)
 > - **Why:** Automate release workflows and make your project easy to install across platforms
 > - **How:** Use `/craft:dist:marketplace` for Claude Code plugins, `/craft:dist:homebrew setup` for macOS
 > - **Next:** Try `/craft:dist:marketplace validate` or `/craft:dist:homebrew audit` to validate your distribution
@@ -123,13 +123,14 @@ The `/release` skill handles marketplace automatically:
 
 - **Step 2c:** Runs `claude plugin validate .` if marketplace.json exists
 - **Step 3:** Updates `metadata.version` and `plugins[0].version` in marketplace.json
-- **Step 10:** Updates Homebrew tap formula with new version and SHA256
+- **Step 10a:** Updates Homebrew tap formula with new version and SHA256 (CLI tools)
+- **Step 10b:** Builds multi-arch DMGs, uploads to release, updates Homebrew Cask (desktop apps)
 
 ---
 
 ## `/craft:dist:homebrew` - Homebrew Automation
 
-Complete Homebrew formula management with automated GitHub Actions workflows, security-hardened release automation, and dependency analysis.
+Complete Homebrew formula and cask management with automated GitHub Actions workflows, security-hardened release automation, and dependency analysis. Supports both CLI tools (Formula) and desktop apps (Cask).
 
 ### Quick Start
 
@@ -140,10 +141,13 @@ Complete Homebrew formula management with automated GitHub Actions workflows, se
 # Generate formula only
 /craft:dist:homebrew formula
 
+# Generate or update Homebrew Cask (Tauri desktop apps)
+/craft:dist:homebrew cask
+
 # Generate GitHub Actions workflow
 /craft:dist:homebrew workflow
 
-# Audit formula (replaces old validate)
+# Audit formula or cask
 /craft:dist:homebrew audit
 
 # Analyze formula dependencies
@@ -155,6 +159,7 @@ Complete Homebrew formula management with automated GitHub Actions workflows, se
 | Subcommand | Purpose |
 |------------|---------|
 | `formula` | Generate or update Homebrew formula |
+| `cask` | Generate or update Homebrew Cask for Tauri desktop apps |
 | `workflow` | Create security-hardened GitHub Actions release automation |
 | `audit` | Run `brew audit` validation with auto-fix and `--build` support |
 | `setup` | Full wizard (formula + workflow + token in 4 steps) |
@@ -175,11 +180,28 @@ Each project can define its Homebrew config in `.craft/homebrew.json`:
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `formula_name` | Yes | Name of the Homebrew formula (e.g., `craft`, `aiterm`) |
+| `formula_name` | Yes | Name of the Homebrew formula/cask (e.g., `craft`, `scribe`) |
 | `tap` | Yes | Tap in `org/name` format (e.g., `data-wise/tap`) |
 | `source_type` | No | `github` (default) or `pypi` |
+| `type` | No | `formula` (default) or `cask` |
+| `cask` | No | Cask-specific config: `app_name`, `identifier`, `min_macos` |
 
-This config is used by the `/release` skill (Step 10) for formula name lookup, avoiding reliance on `basename $PWD`.
+For **desktop apps** (Tauri), add `"type": "cask"`:
+
+```json
+{
+  "formula_name": "scribe",
+  "tap": "data-wise/tap",
+  "type": "cask",
+  "cask": {
+    "app_name": "Scribe.app",
+    "identifier": "com.scribe.app",
+    "min_macos": "catalina"
+  }
+}
+```
+
+This config is used by the `/release` skill (Step 10a/10b) for formula/cask name lookup, avoiding reliance on `basename $PWD`.
 
 ### Example: Full Setup
 
@@ -213,13 +235,34 @@ This config is used by the `/release` skill (Step 10) for formula name lookup, a
 
 ### Supported Project Types
 
-| Type | Detection | Formula Pattern |
-|------|-----------|-----------------|
+| Type | Detection | Formula/Cask Pattern |
+|------|-----------|----------------------|
 | Python | `pyproject.toml` | `Language::Python::Virtualenv` |
 | Node.js | `package.json` | npm install |
 | Go | `go.mod` | go build |
 | Rust | `Cargo.toml` | cargo install |
 | Shell | `*.sh` scripts | bin.install |
+| Tauri Desktop | `src-tauri/tauri.conf.json` | Homebrew Cask (multi-arch DMGs) |
+
+### Cask Subcommand (Desktop Apps)
+
+Generate or update Homebrew Cask for Tauri desktop apps:
+
+```bash
+# Auto-detect Tauri project, build, and generate cask
+/craft:dist:homebrew cask
+
+# Update cask from existing release assets (no build)
+/craft:dist:homebrew cask --skip-build
+
+# Update only postflight/caveats from CHANGELOG
+/craft:dist:homebrew cask --update-content
+
+# Preview changes without writing
+/craft:dist:homebrew cask --dry-run
+```
+
+The cask subcommand handles the full lifecycle: detect `tauri.conf.json` → build aarch64 + x86_64 DMGs → compute SHA256 from local artifacts → generate cask file → push to tap. See the [Desktop Release Guide](../guide/desktop-release.md) for the complete walkthrough.
 
 ### Audit Subcommand
 
@@ -234,6 +277,9 @@ Runs `brew audit` validation with auto-fix patterns and optional build-from-sour
 
 # Strict + online checks
 /craft:dist:homebrew audit --strict --online
+
+# Audit a cask (auto-detected or forced)
+/craft:dist:homebrew audit --cask
 
 # Report issues without fixing
 /craft:dist:homebrew audit --check-only
@@ -603,6 +649,8 @@ git push
 
 ## Learn More
 
+- [Desktop Release Guide](../guide/desktop-release.md) - Tauri desktop app distribution
+- [Homebrew Automation Guide](../guide/homebrew-automation.md) - Full Homebrew lifecycle
 - [Architecture Commands](arch.md) - System design for distribution
 - [CI Commands](git.md#ci-commands-3) - Automated testing before release
 - [Visual Workflows](../workflows/index.md) - See distribution in action

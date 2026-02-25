@@ -66,6 +66,38 @@
 - [ ] Verify PyPI page shows new version
 - [ ] Update Homebrew formula if applicable
 
+## Tauri Desktop App Release Checklist
+
+### Pre-Release
+
+- [ ] All tests passing
+- [ ] `src-tauri/tauri.conf.json` version matches target
+- [ ] CHANGELOG.md updated
+- [ ] Rust targets installed: `aarch64-apple-darwin`, `x86_64-apple-darwin`
+- [ ] Tauri CLI available (`npx tauri --version` or `cargo tauri --version`)
+- [ ] Xcode SDK installed (`xcode-select -p`)
+
+### Release
+
+- [ ] Version bumped in `tauri.conf.json`
+- [ ] Version bumped in `package.json` (if applicable)
+- [ ] Commit and push
+- [ ] PR merged to main
+- [ ] GitHub release created
+- [ ] Step 10b: Multi-arch DMGs built (aarch64 + x86_64)
+- [ ] Architecture verified via `file` command on DMG contents
+- [ ] SHA256 computed from local artifacts (not CDN)
+- [ ] DMGs + CHECKSUMS.txt uploaded to GitHub release
+- [ ] Cask file updated (version, SHA256, postflight, caveats)
+- [ ] Tap pushed with conflict resolution
+
+### Post-Release
+
+- [ ] `brew info --cask <name>` shows new version
+- [ ] SHA256 in cask file matches local computation
+- [ ] Install test: `brew install --cask <tap>/<name>`
+- [ ] App launches from `/Applications/`
+
 ## Node Package Release Checklist
 
 ### Pre-Release

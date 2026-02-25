@@ -74,7 +74,8 @@ The release executes 13 steps sequentially:
 | 7. GitHub release | Creates tag and release | Nothing (automatic) |
 | 8. Docs deploy | Publishes docs site | Nothing (automatic) |
 | 9. Dev sync | Pulls main into dev | Nothing (automatic) |
-| 10. Verify CI | Checks CI passes on main | Fix if needed |
+| 10a. Update Homebrew formula | Downloads tarball, updates SHA256 in tap formula | Nothing (automatic) |
+| 10b. Build + publish cask | Tauri desktop apps: multi-arch build, upload DMGs, update cask | Nothing (automatic) |
 | 11. Dev synced with main | Confirms dev has all release changes | Nothing (automatic) |
 | 12. Verify CI on main | MANDATORY gate -- CI must be green on main | Fix if red |
 | 13. Downstream verification | Checks deploy docs, homebrew, live site, formula, badges | Investigate failures |
@@ -190,6 +191,14 @@ The release skill adapts to your project type:
 - Version source: `DESCRIPTION`
 - Pre-flight: `R CMD check`
 - Post-release: CRAN submission
+
+### Tauri Desktop App
+
+- Version source: `src-tauri/tauri.conf.json`
+- Pre-flight: Rust targets, Tauri CLI, Xcode SDK
+- Build: Multi-arch DMGs (aarch64 native + x86_64 cross-compile)
+- Post-release: Upload DMGs to GitHub release, update Homebrew Cask
+- See: [Desktop Release Guide](../guide/desktop-release.md)
 
 ---
 

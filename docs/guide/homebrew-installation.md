@@ -331,6 +331,25 @@ claude plugin update scholar@local-plugins
 
 ---
 
+## Desktop Apps via Homebrew Cask
+
+Some Data-Wise projects distribute as **Homebrew Casks** (pre-built desktop apps) rather than formulas:
+
+```bash
+# Install a desktop app via cask
+brew install --cask data-wise/tap/scribe
+```
+
+Cask installs go to `/Applications/` instead of `/opt/homebrew/bin/`. Updates work the same:
+
+```bash
+brew upgrade --cask data-wise/tap/scribe
+```
+
+For details on building and releasing desktop apps, see the [Desktop Release Guide](desktop-release.md).
+
+---
+
 ## Alternative: GitHub Marketplace (Recommended for New Users)
 
 The **recommended** installation method for new users and cross-platform setups is the Claude Code marketplace:
