@@ -2,17 +2,29 @@ status: Active
 version: 2.27.0
 release_date: 2026-02-21
 milestone: v2.27.0 released — Release Pipeline Hardening
-last_session: 2026-02-23
+last_session: 2026-02-24
 
-progress: v2.28.0 planning. Release hardening v2 spec + worktree ready for implementation.
+progress: v2.28.0 planning. Two features planned — release hardening v2 + desktop release pipeline (issue #108). Both worktrees ready.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | b7ab949  | —    | Production (v2.27.0, PR #107 merged) |
-| dev    | 43f6e60  | main | In sync with main                    |
+| dev    | 974a951  | main | Spec + brainstorm for issue #108     |
 | feature/release-hardening-v2 | dc54bb1 | dev | Worktree ready, plan committed |
+| feature/desktop-release-pipeline | 5dadd5b | dev | Worktree ready, plan committed |
+
+✅ Session 2026-02-24a (desktop release pipeline brainstorm — issue #108):
+- Deep/max brainstorm: 8 expert Qs + 2 background agents (backend-architect + codebase-explorer)
+- Reviewed GitHub issue #108, real Scribe cask file, tauri.conf.json, release SKILL.md
+- Key design decisions: local-first, auto-detect from tauri.conf.json, SHA256 from local artifacts
+- Created comprehensive spec: SPEC-desktop-release-pipeline-2026-02-24.md (all sections + detailed help/docs)
+- Refined --update-content flag design: CHANGELOG parsing, content preview, #{version} migration
+- Created 6-increment orchestration plan: ORCHESTRATE-desktop-release-pipeline.md
+- Created worktree at ~/.git-worktrees/craft/feature-desktop-release
+- Committed plan to feature branch (5dadd5be)
+- Saved 3 memory entries: cask vs formula architecture, Tauri key files, serial build requirement
 
 ✅ Session 2026-02-23a (release hardening v2 planning):
 - Deep brainstorm (8 expert Qs + 4 follow-up): post-release sweep, ORCHESTRATE guard, docs:sync drift
@@ -70,6 +82,9 @@ progress: v2.28.0 planning. Release hardening v2 spec + worktree ready for imple
 ---
 
 🎯 Next Action:
+→ cd ~/.git-worktrees/craft/feature-desktop-release && claude
+→ Implement Increment 1: detection and config
+OR
 → cd ~/.git-worktrees/craft/feature-release-hardening-v2 && claude
 → Implement Increment 1: post-release sweep script
 
