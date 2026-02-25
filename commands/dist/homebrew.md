@@ -134,9 +134,12 @@ When `src-tauri/tauri.conf.json` is found, the following fields are extracted:
 | `--tap` | Target tap repository (e.g., `data-wise/tap`) |
 | `--version` | Specific version (default: from tauri.conf.json or latest tag) |
 | `--skip-build` | Skip build, use existing DMGs (from release assets or local paths) |
-| `--update-content` | Update postflight/caveats from CHANGELOG (see Increment 4) |
+| `--update-content` | Update postflight/caveats from CHANGELOG (all dynamic zones) |
 | `--content-only` | Same as `--update-content` but skip version/SHA256 changes |
-| `--desc "text"` | Override cask `desc` field (validates <= 80 chars) |
+| `--desc "text"` | Override cask `desc` field (validates <= 80 chars, no "A/An" prefix) |
+| `--postflight "text"` | Override "What's New" bullets in postflight zone |
+| `--caveats-new "text"` | Override "New in" bullets in caveats zone |
+| `--update-static` | Update static sections (Features, Shortcuts) with confirmation |
 | `--dry-run` | Preview all changes without writing files |
 
 ### Extended `.craft/homebrew.json` Schema
@@ -554,6 +557,205 @@ echo "Tap updated: ${TAP}/${FORMULA_NAME} v${VERSION}"
 ```
 
 > **Why "ours" wins on conflict:** During a release, the local cask file has freshly computed SHA256 hashes from local build artifacts. Any remote changes to SHA256 are stale by definition. Content conflicts (postflight/caveats) are also resolved with "ours" since we just generated them from the latest CHANGELOG.
+
+### Content Update (`--update-content`)
+
+The `--update-content` flag updates all dynamic install-time content from CHANGELOG.md. This is the mechanism that keeps postflight "What's New" and caveats "New in" sections current across releases.
+
+#### How It Works
+
+```
+--update-content pipeline:
+
+1. Parse CHANGELOG.md → extract bullets for current version
+2. Extract test count (if present in CHANGELOG)
+3. Generate postflight bullets (max 5 items + test count)
+4. Generate caveats bullets (all items + test count)
+5. Show preview of all changes
+6. Write on confirmation (or automatically during /release)
+```
+
+#### CHANGELOG Parsing
+
+Extracts bullet points from the latest version entry:
+
+```bash
+# Extract items from CHANGELOG.md for a given version
+extract_changelog_items() {
+    local VERSION="$1"
+    local CHANGELOG="${2:-CHANGELOG.md}"
+
+    # Find version header, collect lines until next version header
+    awk -v ver="$VERSION" '
+        /^## / { if (found) exit; if ($0 ~ ver) found=1; next }
+        found && /^- / { sub(/^- /, ""); print }
+    ' "$CHANGELOG"
+}
+
+# Extract test count from CHANGELOG pattern like "X,XXX tests passing"
+extract_test_count() {
+    local VERSION="$1"
+    local CHANGELOG="${2:-CHANGELOG.md}"
+
+    awk -v ver="$VERSION" '
+        /^## / { if (found) exit; if ($0 ~ ver) found=1; next }
+        found && /[0-9,]+ tests? passing/ {
+            match($0, /[0-9,]+[ ]+tests? passing/)
+            print substr($0, RSTART, RLENGTH)
+            exit
+        }
+    ' "$CHANGELOG"
+}
+```
+
+#### Postflight Bullet Generation
+
+Postflight is shown **during** `brew install`/`brew upgrade`. Keep it short (max 5 items):
+
+```bash
+# Generate ohai lines for the postflight block
+generate_postflight() {
+    local VERSION="$1"
+    local ITEMS=($(extract_changelog_items "$VERSION"))
+    local TEST_COUNT=$(extract_test_count "$VERSION")
+    local COUNT=0
+
+    for ITEM in "${ITEMS[@]}"; do
+        [ $COUNT -ge 5 ] && break
+        echo "    ohai \"  - $ITEM\""
+        COUNT=$((COUNT + 1))
+    done
+
+    if [ -n "$TEST_COUNT" ]; then
+        echo "    ohai \"  - $TEST_COUNT\""
+    fi
+}
+```
+
+#### Caveats Bullet Generation
+
+Caveats are shown **after** install. Can include all items (no limit):
+
+```bash
+# Generate bullet lines for the caveats "New in" section
+generate_caveats() {
+    local VERSION="$1"
+    local ITEMS=($(extract_changelog_items "$VERSION"))
+    local TEST_COUNT=$(extract_test_count "$VERSION")
+
+    for ITEM in "${ITEMS[@]}"; do
+        echo "    - $ITEM"
+    done
+
+    if [ -n "$TEST_COUNT" ]; then
+        echo "    - $TEST_COUNT"
+    fi
+}
+```
+
+#### Content Replacement Algorithm
+
+Replace dynamic bullets between known markers in the cask file:
+
+```python
+# Postflight: replace between "What's New" and the next empty ohai line
+import re
+
+def replace_postflight_bullets(content, new_bullets):
+    """Replace release-specific bullets in postflight block."""
+    # Match: ohai "What's New..." through the next ohai "" (before Quick Start or Report)
+    pattern = r'(ohai "What\'s New in v[^"]*:"\n)(.*?)(    ohai ""\n    ohai "(?:Quick Start|Report))'
+    replacement = r'\1' + new_bullets + r'\n\3'
+    return re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+def replace_caveats_bullets(content, new_bullets):
+    """Replace release-specific bullets in caveats block."""
+    # Match: "New in v..." through the next blank line or "Features:" marker
+    pattern = r'(New in v[^\n]*:\n)(.*?)(\n\s*(?:Features:|Report|$))'
+    replacement = r'\1' + new_bullets + r'\n\3'
+    return re.sub(pattern, replacement, content, flags=re.DOTALL)
+```
+
+#### Content Source Chain
+
+| Content | Primary Source | Fallback |
+|---------|---------------|----------|
+| "What's New" bullets | CHANGELOG.md latest entry | `--postflight` flag override |
+| "New in" bullets | CHANGELOG.md latest entry | `--caveats-new` flag override |
+| Test count | Parsed from CHANGELOG (e.g., "2,500 tests passing") | Omitted if not found |
+| `desc` field | Existing cask (preserved) | `--desc` flag or `.craft/homebrew.json` |
+| Static sections | Existing cask (preserved) | `--update-static` regenerates |
+
+#### Flag Reference
+
+| Flag | What it Updates | When to Use |
+|------|----------------|-------------|
+| `--update-content` | All dynamic zones from CHANGELOG | Standalone content update |
+| (automatic during `/release`) | Same as `--update-content` | Every release (Step 10b) |
+| `--content-only` | Same + skip version/SHA256 bump | Fix content post-release |
+| `--desc "text"` | `desc` field only (max 80 chars) | Change app description |
+| `--postflight "text"` | Override "What's New" bullets | Custom postflight |
+| `--caveats-new "text"` | Override "New in" bullets | Custom caveats |
+| `--update-static` | Static sections with confirmation | When features/shortcuts change |
+
+#### Content Preview (during `/release`)
+
+During `/release`, the content update runs automatically but shows a preview for confirmation:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 10b: Cask Content Preview                               │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ postflight "What's New in v1.21.0:"                         │
+│   - Dark mode with 3 new themes                             │
+│   - PDF export with custom headers                          │
+│   - 2,500 tests passing                                     │
+│                                                             │
+│ caveats "New in v1.21.0:"                                   │
+│   - Dark mode with 3 new themes                             │
+│   - PDF export with custom headers and footers              │
+│   - Inline code highlighting in preview mode                │
+│   - 2,500 tests passing                                     │
+│                                                             │
+│ desc: (unchanged) "ADHD-friendly distraction-free writer..."│
+│                                                             │
+│ Static sections: (unchanged)                                │
+│   - Features: 10 items                                      │
+│   - Keyboard Shortcuts: 6 items                             │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│ Looks good?                                                 │
+│   1. Yes - write to cask (Recommended)                      │
+│   2. Edit - let me modify before writing                    │
+│   3. Skip - don't update content this release               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### Static Section Update (`--update-static`)
+
+Static sections (Features, Keyboard Shortcuts, Optional Dependencies) rarely change. When `--update-static` is used, changes are shown as a diff with confirmation:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Static section changes detected:                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ Features (2 changes):                                       │
+│   + NEW: Dark mode with 3 new themes                        │
+│   ~ CHANGED: "10 ADHD-friendly themes" -> "13 themes"       │
+│                                                             │
+│ Keyboard Shortcuts (1 change):                              │
+│   + NEW: Cmd+D    Toggle dark mode                          │
+│                                                             │
+│ Optional Dependencies: (no changes)                         │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│ Apply static section updates?                               │
+│   1. Yes - update static sections                           │
+│   2. No - keep current static sections                      │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ### Example Output
 

@@ -843,8 +843,73 @@ open(sys.argv[1], 'w').write(content)
     sed -i '' "s/New in v[0-9.]*:/New in v#{version}:/" "$CASK_FILE"
 
     # --- Zone 3: Dynamic content (postflight/caveats bullets) ---
-    # Updated by --update-content flag (see Increment 4)
-    # During /release, content update runs automatically with preview
+    # During /release, auto-generate from CHANGELOG with preview
+
+    # Extract changelog items for this version
+    CHANGELOG_ITEMS=$(awk -v ver="$VERSION" '
+        /^## / { if (found) exit; if ($0 ~ ver) found=1; next }
+        found && /^- / { sub(/^- /, ""); print }
+    ' CHANGELOG.md)
+
+    TEST_COUNT=$(echo "$CHANGELOG_ITEMS" | grep -oE '[0-9,]+ tests? passing' | head -1)
+
+    # Generate postflight bullets (max 5 items)
+    POSTFLIGHT_LINES=""
+    COUNT=0
+    while IFS= read -r ITEM; do
+        [ -z "$ITEM" ] && continue
+        [ $COUNT -ge 5 ] && break
+        POSTFLIGHT_LINES="${POSTFLIGHT_LINES}    ohai \"  - ${ITEM}\"\n"
+        COUNT=$((COUNT + 1))
+    done <<< "$CHANGELOG_ITEMS"
+    if [ -n "$TEST_COUNT" ]; then
+        POSTFLIGHT_LINES="${POSTFLIGHT_LINES}    ohai \"  - ${TEST_COUNT}\"\n"
+    fi
+
+    # Generate caveats bullets (all items)
+    CAVEATS_LINES=""
+    while IFS= read -r ITEM; do
+        [ -z "$ITEM" ] && continue
+        CAVEATS_LINES="${CAVEATS_LINES}    - ${ITEM}\n"
+    done <<< "$CHANGELOG_ITEMS"
+    if [ -n "$TEST_COUNT" ]; then
+        CAVEATS_LINES="${CAVEATS_LINES}    - ${TEST_COUNT}\n"
+    fi
+
+    # Show preview and ask for confirmation
+    echo ""
+    echo "Content preview:"
+    echo "  postflight \"What's New in v${VERSION}:\""
+    echo "$POSTFLIGHT_LINES" | head -6
+    echo "  caveats \"New in v${VERSION}:\""
+    echo "$CAVEATS_LINES" | head -10
+    echo ""
+    echo "Options: (1) Yes - write to cask  (2) Edit  (3) Skip"
+
+    # Apply content update using Python regex replacement
+    python3 -c "
+import re, sys
+
+content = open(sys.argv[1]).read()
+postflight = sys.argv[2]
+caveats = sys.argv[3]
+
+# Replace postflight bullets (between What's New and next empty ohai)
+content = re.sub(
+    r'(ohai \"What.s New in v[^\"]*:\"\n)(.*?)(    ohai \"\"\n    ohai \"(?:Quick Start|Report))',
+    r'\1' + postflight + r'\3',
+    content, flags=re.DOTALL)
+
+# Replace caveats bullets (between New in and Features:/Report)
+content = re.sub(
+    r'(New in v[^\n]*:\n)(.*?)(\n\s*(?:Features:|Report))',
+    r'\1' + caveats + r'\3',
+    content, flags=re.DOTALL)
+
+open(sys.argv[1], 'w').write(content)
+" "$CASK_FILE" "$POSTFLIGHT_LINES" "$CAVEATS_LINES"
+
+    echo "  ✓ Content: postflight + caveats updated from CHANGELOG"
 
     # --- Validate ---
     ruby -c "$CASK_FILE" || { echo "ERROR: Cask has syntax errors after update"; exit 1; }
