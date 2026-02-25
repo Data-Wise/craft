@@ -13,6 +13,8 @@
 #
 # Exit codes: 0 = clean, 1 = drift found, 2 = usage error
 
+# Note: no `set -e` — script uses explicit exit code checks (|| exit_code=$?)
+# for controlled flow through each phase rather than failing on first error.
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -33,12 +35,19 @@ DRY_RUN=true
 JSON_MODE=false
 TARGET_VERSION=""
 
-for arg in "$@"; do
-    case "$arg" in
+while [[ $# -gt 0 ]]; do
+    case "$1" in
         --fix)       FIX_MODE=true; DRY_RUN=false ;;
         --dry-run|-n) DRY_RUN=true; FIX_MODE=false ;;
         --json)      JSON_MODE=true ;;
-        --version)   ;; # handled below
+        --version)
+            if [[ $# -lt 2 ]] || [[ ! "$2" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                echo -e "${RED}Error: --version requires a version argument (X.Y.Z)${NC}"
+                exit 2
+            fi
+            TARGET_VERSION="$2"
+            shift
+            ;;
         --help|-h)
             echo "Usage: $0 [--fix] [--dry-run] [--version X.Y.Z] [--json]"
             echo ""
@@ -49,18 +58,12 @@ for arg in "$@"; do
             exit 0
             ;;
         *)
-            if [[ "$arg" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-                TARGET_VERSION="$arg"
-            elif [[ "${PREV_ARG:-}" == "--version" ]]; then
-                TARGET_VERSION="$arg"
-            else
-                echo -e "${RED}Error: Unknown argument '$arg'${NC}"
-                echo "Usage: $0 [--fix] [--dry-run] [--version X.Y.Z] [--json]"
-                exit 2
-            fi
+            echo -e "${RED}Error: Unknown argument '$1'${NC}"
+            echo "Usage: $0 [--fix] [--dry-run] [--version X.Y.Z] [--json]"
+            exit 2
             ;;
     esac
-    PREV_ARG="$arg"
+    shift
 done
 
 cd "$PLUGIN_DIR"
@@ -253,7 +256,7 @@ done
 
 # Check for stale command/skill/agent counts in docs
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
-SKILL_COUNT=$(find skills -name "*.md" -o -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
+SKILL_COUNT=$(find skills -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 AGENT_COUNT=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 
 COUNT_CHECK_FILES=(
@@ -353,6 +356,9 @@ if [[ "$JSON_MODE" == true ]]; then
         else
             printf ',\n'
         fi
+        # Escape double quotes in fields to produce valid JSON
+        file="${file//\"/\\\"}"
+        detail="${detail//\"/\\\"}"
         printf '    {"tier": %s, "file": "%s", "detail": "%s", "fixable": "%s"}' "$tier" "$file" "$detail" "$fixable"
     done
     [[ "$FIRST_FINDING" == false ]] && echo ""

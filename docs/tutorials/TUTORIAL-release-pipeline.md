@@ -99,7 +99,7 @@ The sweep catches things `bump-version.sh` doesn't manage — stale version stri
 If `--fix` makes changes, commit them:
 
 ```bash
-git add -A && git commit -m "chore: fix post-release drift detected by sweep"
+git add -u && git commit -m "chore: fix post-release drift detected by sweep"
 ```
 
 See the [Post-Release Sweep Reference](../reference/REFCARD-POST-RELEASE-SWEEP.md) for the full three-tier detection model.

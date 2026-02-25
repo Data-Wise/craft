@@ -323,7 +323,7 @@ The sweep uses a three-tier detection model:
 If fixes are applied, commit them before announcing the release:
 
 ```bash
-git add -A && git commit -m "chore: fix post-release drift detected by sweep"
+git add -u && git commit -m "chore: fix post-release drift detected by sweep"
 ```
 
 See [Post-Release Sweep Reference](../reference/REFCARD-POST-RELEASE-SWEEP.md) for details.

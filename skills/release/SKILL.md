@@ -646,7 +646,7 @@ After downstream verification passes, run the post-release sweep to catch Tier 2
 # Normal mode: auto-fix mechanical items, commit if changes made
 ./scripts/post-release-sweep.sh --fix
 # If fixes were applied:
-git add -A && git commit -m "chore: fix post-release drift detected by sweep"
+git add -u && git commit -m "chore: fix post-release drift detected by sweep"
 git push
 ```
 
