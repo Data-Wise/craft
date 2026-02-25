@@ -1,42 +1,40 @@
 status: Active
 version: 2.28.0
 release_date: 2026-02-25
-milestone: v2.28.0 released — Docs Staleness Detection next
+milestone: v2.28.0 released — Docs Help Pages next
 last_session: 2026-02-25
 
-progress: v2.28.0 released. Desktop release pipeline, post-release sweep, docs improvements. Post-release Tier 2 sweep done (16 files). Docs staleness detection worktree ready.
+progress: v2.28.0 released. Docs staleness detection merged (PR #112). Docs help pages worktree ready (17 pages planned).
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | b5e2b6b  | —    | Production (v2.28.0, PR #111 merged) |
-| dev    | 4dd256a  | main | Post-release sweep committed         |
-| feature/docs-staleness-detection | 07399a3 | dev | Worktree ready, ORCHESTRATE committed |
+| dev    | f82f958  | main | Docs staleness merged (PR #112)      |
+| feature/docs-help-pages | c5fa315 | dev | Worktree ready, ORCHESTRATE committed |
+
+✅ Session 2026-02-25 (continued — PR #112 fixes + merge):
+- Fixed 6 PR review issues: ORCHESTRATE cleanup, stale version, pattern matching, sed portability, CI optimization
+- All 46 docs-staleness tests pass
+- Merged PR #112 (--admin: "Validate Plugin Structure" check stuck pending)
+- Synced dev with merge
+- Memory updated: glob substring pitfall, sed portability pattern, stuck CI checks
 
 ✅ Session 2026-02-25 (release v2.28.0 + post-release sweep):
 - Released v2.28.0: desktop release pipeline, post-release sweep, docs improvements
-- Release pipeline: 13 steps completed (CI flake on main resolved by re-run — npm 403)
-- Homebrew tap auto-updated to v2.28.0, brew upgrade confirmed locally
-- Docs deployed to GitHub Pages, badge green
-- Post-release Tier 2 sweep: found and fixed 16 files with stale v2.27.0 refs
-- Tier 2 offenders: 3 REFCARDs, 3 guides, 2 commands, 2 scripts, hub.md, testing docs
-- Key learning: "NEW in vX.Y.Z" markers are historical annotations, not stale refs
-- Key learning: npm registry 403 in CI is transient flake, re-run resolves
-- Memory updated: Version drift (expanded Tier 2 list), npm CI flakiness
+- Post-release Tier 2 sweep: 16 files with stale v2.27.0 refs fixed
+- Docs staleness detection worktree created and implemented
 
 ---
 
 🎯 Next Action:
-→ cd ~/.git-worktrees/craft/feature-docs-staleness && claude
-→ Implement docs-staleness-check.sh (12-step ORCHESTRATE plan)
-OR
-→ Work on missing docs help pages (14 docs sub-commands)
+→ cd ~/.git-worktrees/craft/feature-docs-help-pages && claude
+→ Implement 17 docs help pages (7-step ORCHESTRATE plan)
 
 ## Future (v2.29.0+)
 
-- Docs staleness detection system (worktree ready, 12-step plan)
-- Missing docs help pages for 14 docs sub-commands
+- Missing docs help pages for 14 docs sub-commands + 3 claude-md (worktree ready)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
