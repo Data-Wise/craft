@@ -48,6 +48,7 @@ Ready to release?
 | 11 | Verify downstream CI (main) | Read-only (polls main branch workflows) |
 | 12 | Verify downstream CI (docs) | Read-only (polls docs deploy workflow) |
 | 13 | Verify downstream CI (Homebrew) | Read-only (polls tap CI) |
+| 13.5 | Post-release sweep | Auto-fixes Tier 2 drift, reports Tier 3 |
 
 ### Release Pipeline Flow
 

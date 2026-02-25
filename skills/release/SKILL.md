@@ -59,6 +59,7 @@ After detecting the current and next version, display:
 │ 11. ✓ Sync dev with main                                    │
 │ 12. ✓ Verify CI on main                                     │
 │ 13. ✓ Verify downstream (docs, brew, badges)                │
+│ 13.5 ✓ Post-release sweep (Tier 2+ drift detection)        │
 ├─────────────────────────────────────────────────────────────┤
 │ ⚠ Risk: HIGH — modifies git history, creates PRs            │
 │ ⚠ No changes were made. Run without --dry-run to execute.   │
@@ -636,6 +637,37 @@ curl -sL "https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg"
 ```
 
 If the badge does not show "passing", CI may still be running or may have failed. Wait and re-check.
+
+### Step 13.5: Post-Release Sweep (RECOMMENDED)
+
+After downstream verification passes, run the post-release sweep to catch Tier 2+ drift — secondary version references, stale counts, and content staleness that `bump-version.sh` doesn't manage.
+
+```bash
+# Normal mode: auto-fix mechanical items, commit if changes made
+./scripts/post-release-sweep.sh --fix
+# If fixes were applied:
+git add -u && git commit -m "chore: fix post-release drift detected by sweep"
+git push
+```
+
+**Dry-run mode:** Run report-only (no changes):
+
+```bash
+./scripts/post-release-sweep.sh
+```
+
+**Autonomous mode:** Same as normal mode — auto-fix is safe for mechanical items (version string replacements in secondary docs).
+
+**What it catches:**
+
+| Tier | Scope | Fix Mode |
+|------|-------|----------|
+| 1 | Core files (via `bump-version.sh --verify`) | Auto |
+| 2 | Secondary docs (REFCARD-RELEASE, guides, etc.) | Auto (`--fix`) |
+| 2 | Stale test/command counts in docs | Manual review |
+| 3 | Content staleness (CHANGELOG vs index.md) | Manual review |
+
+If `--fix` makes changes, commit them before completing the release.
 
 ## Output Format
 

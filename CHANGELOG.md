@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **Post-release sweep script** (`scripts/post-release-sweep.sh`) — Tier 2+ drift detection with `--fix`, `--dry-run`, and `--json` modes
+- **Step 13.5** in release pipeline — automated post-release sweep after downstream verification
+- Test suite for post-release sweep (19 tests: CLI, detection, fix, dry-run, JSON)
+
+---
+
 ## [2.27.0] — 2026-02-21
 
 ### Added
