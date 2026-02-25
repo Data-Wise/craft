@@ -1,100 +1,42 @@
 status: Active
 version: 2.27.0
 release_date: 2026-02-21
-milestone: v2.27.0 released — Release Pipeline Hardening
-last_session: 2026-02-24
+milestone: v2.28.0 planning — Docs Staleness Detection
+last_session: 2026-02-25
 
-progress: v2.28.0 planning. Two features planned — release hardening v2 + desktop release pipeline (issue #108). Both worktrees ready.
+progress: v2.28.0 in progress. PR #110 (post-release sweep) and PR #109 (desktop release pipeline) both merged to dev. New feature planned: docs staleness detection system. Worktree ready.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | b7ab949  | —    | Production (v2.27.0, PR #107 merged) |
-| dev    | 974a951  | main | Spec + brainstorm for issue #108     |
-| feature/release-hardening-v2 | ed15290 | dev | Trimmed to 2 increments (sweep + Step 13.5) |
-| feature/desktop-release-pipeline | 5dadd5b | dev | Worktree ready, plan committed |
+| dev    | 0c5a444  | main | 3 features merged, brainstorm for staleness detection |
+| feature/docs-staleness-detection | 07399a3 | dev | Worktree ready, ORCHESTRATE committed |
 
-✅ Session 2026-02-24b (release hardening v2 review + trim):
-- Reviewed full spec and ORCHESTRATE plan for release-hardening-v2
-- Assessed necessity: sweep script (high value), other 4 increments (marginal/overlapping)
-- Trimmed from 6 increments (~540 lines) to 2 increments (~350 lines)
-- Dropped: ORCHESTRATE guard, git clean upgrade, docs:sync drift, standalone docs
-- Kept: post-release-sweep.sh + Step 13.5 pipeline wiring
-- Updated and pushed trimmed ORCHESTRATE plan (ed152900)
-
-✅ Session 2026-02-24a (desktop release pipeline brainstorm — issue #108):
-- Deep/max brainstorm: 8 expert Qs + 2 background agents (backend-architect + codebase-explorer)
-- Reviewed GitHub issue #108, real Scribe cask file, tauri.conf.json, release SKILL.md
-- Key design decisions: local-first, auto-detect from tauri.conf.json, SHA256 from local artifacts
-- Created comprehensive spec: SPEC-desktop-release-pipeline-2026-02-24.md (all sections + detailed help/docs)
-- Refined --update-content flag design: CHANGELOG parsing, content preview, #{version} migration
-- Created 6-increment orchestration plan: ORCHESTRATE-desktop-release-pipeline.md
-- Created worktree at ~/.git-worktrees/craft/feature-desktop-release
-- Committed plan to feature branch (5dadd5be)
-- Saved 3 memory entries: cask vs formula architecture, Tauri key files, serial build requirement
-
-✅ Session 2026-02-23a (release hardening v2 planning):
-- Deep brainstorm (8 expert Qs + 4 follow-up): post-release sweep, ORCHESTRATE guard, docs:sync drift
-- Created comprehensive spec: SPEC-release-hardening-v2-2026-02-23.md (all sections filled)
-- Created 6-increment orchestration plan: ORCHESTRATE-release-hardening-v2.md
-- Created worktree at ~/.git-worktrees/craft/feature-release-hardening-v2
-- Committed plan to feature branch (dc54bb11)
-- Scope: sweep script + branch guard + git clean upgrade + Step 13.5 + docs:sync + docs update
-
-✅ Session 2026-02-22a (post-release verification and cleanup):
-- Checked CI dashboard: all craft workflows green, homebrew-tap update-formula failures are phantom (workflow file issue on push)
-- Verified Homebrew tap has v2.27.0 with correct SHA256
-- Verified docs site shows v2.27.0 (browser cache was showing old version)
-- Fixed 4 stale v2.26.0 refs in REFCARD-RELEASE, homebrew-automation, badge-management
-- Merged dev → main (PR #107, admin merge)
-- Updated memory: added GitHub Actions phantom failure insight + Tier 2 drift file list
-
-✅ Session 2026-02-21d (v2.27.0 release — Release Pipeline Hardening):
-- Reviewed PR #105: found 5 issues (ORCHESTRATE file, grep -oP, tutorial step numbering, stale Step 8.5 refs, ci:status docs)
-- Fixed ORCHESTRATE file + grep -oP portability, merged PR #105
-- Post-merge doc update: 13 files updated (Step 8.5 → Step 10), fixed 15 failing tests
-- Site validation: clean build, 0 broken links, all counts match
-- Released v2.27.0: first release using 13-step pipeline with downstream verification
-- All 13 steps passed: PR #106, GitHub release, Homebrew 2.27.0, docs deploy, all downstream green
-- Stats: 107 commands, 26 skills, 8 agents, 174+ tests passing
-
-✅ Session 2026-02-21c (v2.26.0 release — Mermaid MCP Validation Pipeline):
-- Reviewed PR #103: identified 10 code issues (line-drift bug, unused imports, stale counts, marketing filler)
-- Orchestrated parallel fixes for all 10 issues, all tests passing
-- Merged PR #103 to dev (squash), cleaned up worktree + feature branch
-- Ran /craft:docs:sync: fixed CHANGELOG (added [Unreleased] entry) and testing-quickstart (74→109 tests)
-- Updated site index banner with mermaid feature highlights
-- Released v2.26.0: bump across 13 files, PR #104, merge, GitHub release, Homebrew tap, docs deploy
-- Post-release verification: all CI green on main, all counts consistent
-- Stats: 107 commands, 26 skills, 8 agents, 109 core tests, ~1595 total
-
-✅ Session 2026-02-21b (Mermaid fix + MCP integration brainstorm):
-- Fixed Mermaid rendering on live docs site (4-layer debug: config → HTML → JS → syntax)
-- Created mermaid-init.js for instant navigation re-initialization
-- Fixed 14 docs files with `[/text]` parallelogram misparse (quoting fix)
-- Max brainstorm: researched MCP options (V1 working, V2 broken, open-source alternatives)
-- Chose mcp-mermaid (hustcc) via npx for validation backbone
-- Created SPEC-mermaid-mcp-integration-2026-02-21.md (9 acceptance criteria, 33 tests)
-- Created worktree + committed ORCHESTRATE-mermaid-mcp.md to feature branch
-
-✅ Session 2026-02-21a (debug, frontmatter cleanup, release watcher brainstorm):
-- Debugged `/craft:docs:lint` exit 127, fixed trigger/frontmatter violations
-- Max brainstorm: researched Claude Code v2.1.50 + Claude Desktop releases
-- Created spec + worktree for release watcher system
-
-✅ Session 2026-02-20c (v2.24.0 release — Claude Code v2.1.49 integration):
-- Released v2.24.0: PR #100, merge, GitHub release, Homebrew tap, docs deploy
-- Stats: 107 commands, 26 skills, 8 agents, 62 core tests
+✅ Session 2026-02-25 (PR reviews, merges, docs health, staleness brainstorm):
+- Reviewed PR #110 (post-release sweep): found 4 issues, fixed, merged (squash)
+- Reviewed PR #109 (desktop release pipeline): found 5 issues, fixed, merged (squash)
+- Ran post-release sweep against live repo — all clean
+- Full docs health check: found 2 missing nav entries, 4 broken links, stale counts
+- Fixed all docs issues: nav entries, broken links, command flowchart, skills docs
+- Added mermaid command routing flowchart to commands overview
+- Fixed stale "17 skills, 7 agents" → "26 skills, 8 agents" in 2 files
+- Added missing skills (sync-features, release-checklist) to both skills docs
+- Full test suite: 96+ tests passing across 4 suites
+- Brainstormed docs staleness detection system (8 expert Qs, all decisions resolved)
+- Created worktree + ORCHESTRATE plan for feature/docs-staleness-detection (12 steps)
+- Saved 5 memory entries: macOS shell gotchas, 3-zone cask model, local-first SHA256
 
 ---
 
 🎯 Next Action:
-→ cd ~/.git-worktrees/craft/feature-desktop-release && claude
-→ Implement Increment 1: detection and config
+→ cd ~/.git-worktrees/craft/feature-docs-staleness && claude
+→ Implement docs-staleness-check.sh (12-step ORCHESTRATE plan)
 OR
-→ cd ~/.git-worktrees/craft/feature-release-hardening-v2 && claude
-→ Implement Increment 1: post-release sweep script
+→ Release v2.28.0 (merge dev to main) — 2 features ready
+OR
+→ Work on missing docs help pages (14 docs sub-commands)
 
 ## Future (v2.28.0+)
 
