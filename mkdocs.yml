@@ -171,6 +171,7 @@ nav:
       - Marketplace Distribution: guide/marketplace-distribution.md
       - Homebrew Distribution: guide/homebrew-installation.md
       - Homebrew Automation: guide/homebrew-automation.md
+      - Desktop Release Guide: guide/desktop-release.md
       - Skills & Agents: guide/skills-agents.md
       - Integration Testing: guide/integration-testing.md
       - Markdown List Spacing: guide/markdown-list-spacing.md
@@ -276,6 +277,7 @@ nav:
     - Orchestrator Deep Dive: orchestrator.md
     - Architecture Overview: architecture.md
     - Hub v2.0 Architecture: architecture/HUB-V2-ARCHITECTURE.md
+    - Desktop Release Pipeline: architecture/desktop-release-pipeline.md
     - Discovery API: api/DISCOVERY-API.md
     - Documentation Quality: reference/documentation-quality.md
     - CLAUDE.md API Reference: API-REFERENCE-CLAUDE-MD.md

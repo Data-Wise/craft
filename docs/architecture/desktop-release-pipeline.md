@@ -333,5 +333,5 @@ Fields not present in `.craft/homebrew.json` fall back to auto-detection from `s
 
 - [Desktop Release Guide](../guide/desktop-release.md) — Step-by-step usage walkthrough
 - [Homebrew Quick Reference](../reference/REFCARD-HOMEBREW.md) — Command syntax and flags
-- [`/craft:dist:homebrew` command](../../commands/dist/homebrew.md) — Full command specification
-- [Release Skill](../../skills/release/SKILL.md) — Complete `/release` pipeline specification
+- `/craft:dist:homebrew` command — Full command specification (see `commands/dist/homebrew.md`)
+- `/release` skill — Complete pipeline specification (see `skills/release/SKILL.md`)

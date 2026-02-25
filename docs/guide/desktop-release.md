@@ -195,5 +195,5 @@ Check if the DMG naming pattern in `.craft/homebrew.json` matches.
 
 - [Homebrew Automation Guide](homebrew-automation.md) — Formula distribution for CLI tools
 - [Homebrew Quick Reference](../reference/REFCARD-HOMEBREW.md) — Command quick reference
-- [`/craft:dist:homebrew` command](../../commands/dist/homebrew.md) — Full command documentation
-- [Release Pipeline](../../skills/release/SKILL.md) — Complete release skill specification
+- `/craft:dist:homebrew` command — Full command documentation (see `commands/dist/homebrew.md`)
+- `/release` skill — Complete release pipeline specification (see `skills/release/SKILL.md`)
