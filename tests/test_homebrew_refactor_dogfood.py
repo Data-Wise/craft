@@ -50,21 +50,21 @@ def _extract_subcommand_table(content: str) -> list[str]:
 # Group 1: Subcommand Consolidation
 # ============================================================================
 class TestSubcommandConsolidation(unittest.TestCase):
-    """Verify 8 → 6 subcommand consolidation."""
+    """Verify subcommand consolidation (8 → 6, then +1 cask = 7)."""
 
     @classmethod
     def setUpClass(cls):
         cls.content = _read_file(HOMEBREW_CMD)
         cls.subcommands = _extract_subcommand_table(cls.content)
 
-    def test_exactly_6_subcommands(self):
-        """Subcommand table has exactly 6 entries."""
-        self.assertEqual(len(self.subcommands), 6,
-                         f"Expected 6 subcommands, found {len(self.subcommands)}: {self.subcommands}")
+    def test_exactly_7_subcommands(self):
+        """Subcommand table has exactly 7 entries (6 original + cask)."""
+        self.assertEqual(len(self.subcommands), 7,
+                         f"Expected 7 subcommands, found {len(self.subcommands)}: {self.subcommands}")
 
     def test_expected_subcommands_present(self):
-        """All 6 expected subcommands are in the table."""
-        expected = {"formula", "workflow", "audit", "setup", "update-resources", "deps"}
+        """All 7 expected subcommands are in the table."""
+        expected = {"formula", "cask", "workflow", "audit", "setup", "update-resources", "deps"}
         actual = set(self.subcommands)
         self.assertEqual(expected, actual,
                          f"Missing: {expected - actual}, Extra: {actual - expected}")
