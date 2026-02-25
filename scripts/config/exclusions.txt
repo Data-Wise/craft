@@ -1,0 +1,47 @@
+# scripts/config/exclusions.txt
+# Shared exclusion config for docs-staleness-check.sh and post-release-sweep.sh
+#
+# Format:
+#   filepath            — exclude entire file from all checks
+#   filepath:pattern    — exclude specific pattern matches in that file
+#   dir/                — exclude entire directory (trailing slash)
+#   # comment           — ignored
+#   blank lines         — ignored
+
+# ---------------------------------------------------------------------------
+# Whole-file exclusions (historical/changelog — counts are snapshots)
+# ---------------------------------------------------------------------------
+docs/VERSION-HISTORY.md
+docs/CHANGELOG.md
+
+# ---------------------------------------------------------------------------
+# Directory exclusions (working artifacts or excluded from mkdocs site)
+# ---------------------------------------------------------------------------
+docs/specs/
+docs/demos/
+docs/archive/
+docs/brainstorm/
+docs/dev/
+
+# ---------------------------------------------------------------------------
+# Pattern exclusions (file:pattern — skip specific stale counts)
+# These are architecture snapshots or illustrative examples where the count
+# was correct at time of writing and should not be auto-updated.
+# ---------------------------------------------------------------------------
+docs/architecture/HUB-V2-ARCHITECTURE.md:97 commands
+docs/tutorials/TUTORIAL-post-merge-pipeline.md:97 commands
+docs/demos/hub-v2.tape:97 commands
+docs/api/DISCOVERY-API.md:97 commands
+docs/API-REFERENCE-COMMANDS.md:97 commands
+docs/reference/ERROR-SCENARIOS.md:97 commands
+docs/dev/CONTRIBUTING-HUB-V2.md:97 commands
+docs/REFCARD.md:99 commands
+docs/reference/REFCARD-DOCS-UPDATE.md:99 commands
+docs/tutorials/interactive-docs-update-tutorial.md:99 commands
+
+# Architecture scalability projections (not stale counts)
+docs/architecture/HUB-V2-ARCHITECTURE.md:200 commands
+docs/architecture/HUB-V2-ARCHITECTURE.md:500 commands
+
+# Excluded from mkdocs site (working artifacts)
+docs/FEATURE-RELEASE-CLAUDE-MD.md
