@@ -99,7 +99,7 @@ claude
 
 ```
 Craft v1.17.0 loaded
-86 commands available
+107 commands available
 ```
 
 ### Using in Claude Code CLI
@@ -223,7 +223,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 **[Full Tutorial](https://data-wise.github.io/craft/tutorials/teaching-mode-setup/)** • **[Config Schema](https://data-wise.github.io/craft/teaching-config-schema/)**
 
-## Commands (86 total)
+## Commands (107 total)
 
 ### Workflow Commands (12)
 
@@ -520,11 +520,12 @@ Specialized workflows for teaching projects with automated validation, semester 
 **For plugin development and contributions:**
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
-- 📖 **[Commands Reference](docs/commands.md)** - All 86 commands documented
+- 📖 **[Commands Reference](docs/commands.md)** - All 107 commands documented
 - 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 26 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards
+- Documentation staleness detection (4-phase checks with traffic light output)
 
 See the [documentation site](https://data-wise.github.io/craft/) for comprehensive guides.
 

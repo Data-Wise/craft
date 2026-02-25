@@ -13,6 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Docs staleness detection** (`scripts/docs-staleness-check.sh`) — 4-phase documentation quality checks
+  - Phase 6: Nav completeness (mkdocs.yml vs docs files)
+  - Phase 7: Count consistency (command/skill/agent counts across docs)
+  - Phase 8: Skill/agent/command coverage (undocumented items)
+  - Phase 9: Cross-doc freshness (stale summary lines)
+  - Traffic light output (GREEN/YELLOW/RED) with `--json` for CI
+  - Two-pass `--fix` mode: auto-fix safe items, interactive review for uncertain
+  - Shared exclusion config (`scripts/config/exclusions.txt`)
+  - Integrated into `/craft:check`, `pre-release-check.sh`, CI workflow, and docs commands
+  - 46 tests covering all phases, modes, and edge cases
 - **Post-release sweep script** (`scripts/post-release-sweep.sh`) — Tier 2+ drift detection with `--fix`, `--dry-run`, and `--json` modes
 - **Step 13.5** in release pipeline — automated post-release sweep after downstream verification
 - Test suite for post-release sweep (19 tests: CLI, detection, fix, dry-run, JSON)
