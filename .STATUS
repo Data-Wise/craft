@@ -12,8 +12,16 @@ progress: v2.28.0 planning. Two features planned — release hardening v2 + desk
 |--------|----------|------|--------------------------------------|
 | main   | b7ab949  | —    | Production (v2.27.0, PR #107 merged) |
 | dev    | 974a951  | main | Spec + brainstorm for issue #108     |
-| feature/release-hardening-v2 | dc54bb1 | dev | Worktree ready, plan committed |
+| feature/release-hardening-v2 | ed15290 | dev | Trimmed to 2 increments (sweep + Step 13.5) |
 | feature/desktop-release-pipeline | 5dadd5b | dev | Worktree ready, plan committed |
+
+✅ Session 2026-02-24b (release hardening v2 review + trim):
+- Reviewed full spec and ORCHESTRATE plan for release-hardening-v2
+- Assessed necessity: sweep script (high value), other 4 increments (marginal/overlapping)
+- Trimmed from 6 increments (~540 lines) to 2 increments (~350 lines)
+- Dropped: ORCHESTRATE guard, git clean upgrade, docs:sync drift, standalone docs
+- Kept: post-release-sweep.sh + Step 13.5 pipeline wiring
+- Updated and pushed trimmed ORCHESTRATE plan (ed152900)
 
 ✅ Session 2026-02-24a (desktop release pipeline brainstorm — issue #108):
 - Deep/max brainstorm: 8 expert Qs + 2 background agents (backend-architect + codebase-explorer)
