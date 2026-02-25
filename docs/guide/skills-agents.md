@@ -4,12 +4,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 25 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture
+> - **What:** 26 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture
 > - **Why:** AI automatically selects the right expertise for your task without manual intervention
 > - **How:** Skills trigger on context (e.g., "API" activates backend-designer), agents handle long-running tasks
 > - **Next:** Read [Orchestrator](orchestrator.md) to learn how they work together
 
-## Skills (25 total)
+## Skills (26 total)
 
 Skills are auto-triggered expertise modules that activate based on conversation context.
 
@@ -24,6 +24,12 @@ Skills are auto-triggered expertise modules that activate based on conversation 
 | Name | Description | Path |
 |------|-------------|------|
 | project-detector | Auto-detect project type, build tools, and CI requirements | `skills/ci/project-detector.md` |
+
+### Code
+
+| Name | Description | Path |
+|------|-------------|------|
+| sync-features | Chain command-audit, release-watch, and desktop-watch into a prioritized action plan | `skills/code/sync-features.md` |
 
 ### Design
 
@@ -84,6 +90,7 @@ Skills are auto-triggered expertise modules that activate based on conversation 
 | Name | Description | Path |
 |------|-------------|------|
 | release | Full release pipeline orchestration | `skills/release/SKILL.md` |
+| release-checklist | Pre-release, release day, and post-release checklists | `skills/release/references/release-checklist.md` |
 
 ### Testing
 
