@@ -400,7 +400,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 | Command                    | Description                       |
 | -------------------------- | --------------------------------- |
-| `/craft:dist:homebrew`     | Generate/update Homebrew formula  |
+| `/craft:dist:homebrew`     | Generate/update Homebrew formula or cask  |
 | `/craft:dist:curl-install` | Create curl-based install scripts |
 
 ### Discovery
