@@ -302,6 +302,7 @@ nav:
       - Insights Quick Reference: reference/REFCARD-INSIGHTS.md
       - Bump Version Reference: reference/REFCARD-BUMP-VERSION.md
       - Post-Release Sweep Reference: reference/REFCARD-POST-RELEASE-SWEEP.md
+      - Docs Staleness Quick Reference: reference/REFCARD-DOCS-STALENESS.md
       - Command Examples: reference/COMMAND-EXAMPLES.md
       - Command Parameters: reference/COMMAND-PARAMETERS.md
       - Error Scenarios: reference/ERROR-SCENARIOS.md

@@ -1,6 +1,6 @@
 # Craft Commands Reference
 
-Complete reference for all 97 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
+Complete reference for all 107 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
 
 ## Quick Reference
 
@@ -62,6 +62,14 @@ Context-aware help and suggestions.
 ```bash
 /craft:help                   # Project-specific suggestions
 /craft:help testing           # Deep dive into testing
+```
+
+### /craft:check:gen-validator
+
+Generate a new custom validator template for `/craft:check`.
+
+```bash
+/craft:check:gen-validator "my-validator"
 ```
 
 ## Architecture Commands (arch/)
@@ -229,6 +237,31 @@ Enhanced git status with branch guard indicator.
 /craft:git:status --verbose # Additional details
 ```
 
+### /craft:git:git-recap
+
+Git activity summary — recent commits, branch status, and productivity insights.
+
+```bash
+/craft:git:git-recap
+/craft:git:git-recap --since "3 days ago"
+```
+
+### /craft:git:docs:learning-guide
+
+Interactive Git commands learning guide.
+
+### /craft:git:docs:refcard
+
+Git commands quick reference card.
+
+### /craft:git:docs:safety-rails
+
+Git safety rails guide — guardrails for safe operations.
+
+### /craft:git:docs:undo-guide
+
+Git undo guide — emergency reference for reverting mistakes.
+
 ## Test Commands (test/)
 
 ### /craft:test
@@ -261,6 +294,68 @@ Manage Jinja2 templates for test generation.
 /craft:test:template list         # List all templates
 /craft:test:template validate     # Validate templates
 ```
+
+## Workflow Commands (workflow/)
+
+### /craft:workflow:adhd-guide
+
+ADHD-friendly workflow guide — structured approaches for maintaining focus.
+
+### /craft:workflow:recap
+
+Context restoration — summarize what happened in the current or previous session.
+
+```bash
+/craft:workflow:recap
+```
+
+### /craft:workflow:refine
+
+Prompt optimizer — improve and refine prompts interactively.
+
+```bash
+/craft:workflow:refine "my prompt text"
+```
+
+### /craft:workflow:task-status
+
+Show status of background tasks launched by the orchestrator.
+
+```bash
+/craft:workflow:task-status
+```
+
+### /craft:workflow:task-output
+
+View results from completed background tasks.
+
+```bash
+/craft:workflow:task-output <task-id>
+```
+
+### /craft:workflow:task-cancel
+
+Cancel a running background task.
+
+```bash
+/craft:workflow:task-cancel <task-id>
+```
+
+## Utility Commands (utils/)
+
+### /craft:utils:readme-teach-config
+
+Teaching configuration parser — parse and validate teaching YAML configs.
+
+### /craft:utils:readme-semester-progress
+
+Semester progress calculation utilities.
+
+## Site Documentation Commands (site/docs/)
+
+### /craft:site:docs:frameworks
+
+Documentation framework comparison — evaluate MkDocs, Quarto, Docusaurus, etc.
 
 ## Mode System
 
