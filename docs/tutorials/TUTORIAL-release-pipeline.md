@@ -78,8 +78,31 @@ The release executes 13 steps sequentially:
 | 11. Dev synced with main | Confirms dev has all release changes | Nothing (automatic) |
 | 12. Verify CI on main | MANDATORY gate -- CI must be green on main | Fix if red |
 | 13. Downstream verification | Checks deploy docs, homebrew, live site, formula, badges | Investigate failures |
+| 13.5. Post-release sweep | Detects stale version refs, counts, content drift | Review report, commit fixes |
 
 If any step fails, the pipeline stops and reports the error.
+
+### Step 13.5: Post-Release Sweep (Recommended)
+
+After downstream verification, run the sweep to catch long-tail drift:
+
+```bash
+# Dry-run first (safe, default)
+./scripts/post-release-sweep.sh
+
+# Auto-fix mechanical issues (Tier 2 version refs)
+./scripts/post-release-sweep.sh --fix
+```
+
+The sweep catches things `bump-version.sh` doesn't manage — stale version strings in secondary docs, outdated test counts, and content staleness between CHANGELOG and index.md.
+
+If `--fix` makes changes, commit them:
+
+```bash
+git add -A && git commit -m "chore: fix post-release drift detected by sweep"
+```
+
+See the [Post-Release Sweep Reference](../reference/REFCARD-POST-RELEASE-SWEEP.md) for the full three-tier detection model.
 
 ---
 

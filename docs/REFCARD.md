@@ -784,6 +784,7 @@ main (production branch)
 | Stale references | `scripts/stale-ref-scan.sh` | Renamed files still referenced in docs |
 | Hook conflict audit | `scripts/hook-conflict-audit.sh` | Git hooks that block CI or releases |
 | CLAUDE.md health | `scripts/claude-md-health.sh` | Stale counts, missing versions, line bloat |
+| Post-release sweep | `scripts/post-release-sweep.sh` | Tier 2+ drift after release (`--fix` auto-corrects) |
 
 **Belt-and-Suspenders (Version Sync):**
 

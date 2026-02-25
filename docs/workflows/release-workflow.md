@@ -297,6 +297,37 @@ curl -s https://data-wise.github.io/craft/ | grep -o 'v[0-9]*\.[0-9]*\.[0-9]*' |
 
 If any downstream check fails, investigate and fix before announcing the release.
 
+### Step 13.5: Post-Release Sweep
+
+After downstream verification passes, run the post-release sweep to catch long-tail drift in secondary documentation:
+
+```bash
+# Report drift without changes (default)
+./scripts/post-release-sweep.sh
+
+# Auto-fix Tier 2 version refs, report everything else
+./scripts/post-release-sweep.sh --fix
+
+# JSON output for scripting
+./scripts/post-release-sweep.sh --json
+```
+
+The sweep uses a three-tier detection model:
+
+| Tier | What It Catches | Action |
+|------|----------------|--------|
+| 1 | Core file drift (13 files) | Delegates to `bump-version.sh --verify` |
+| 2 | Stale version refs in secondary docs | `--fix` auto-corrects |
+| 3 | Content staleness (CHANGELOG vs index.md) | Manual review |
+
+If fixes are applied, commit them before announcing the release:
+
+```bash
+git add -A && git commit -m "chore: fix post-release drift detected by sweep"
+```
+
+See [Post-Release Sweep Reference](../reference/REFCARD-POST-RELEASE-SWEEP.md) for details.
+
 ---
 
 ## Variations
