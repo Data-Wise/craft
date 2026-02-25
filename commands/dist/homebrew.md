@@ -306,10 +306,12 @@ Upload DMGs and a CHECKSUMS.txt file to the GitHub release:
 # Upload DMGs (--clobber handles re-uploads if assets already exist)
 gh release upload "v${VERSION}" "$DMG_ARM" "$DMG_INTEL" --clobber
 
-# Generate and upload CHECKSUMS.txt
-echo "${SHA256_ARM}  ${PRODUCT_NAME}_${VERSION}_aarch64.dmg" > CHECKSUMS.txt
-echo "${SHA256_INTEL}  ${PRODUCT_NAME}_${VERSION}_x64.dmg" >> CHECKSUMS.txt
-gh release upload "v${VERSION}" CHECKSUMS.txt --clobber
+# Generate and upload CHECKSUMS.txt (use temp file to avoid polluting project root)
+CHECKSUMS_TMP=$(mktemp)
+echo "${SHA256_ARM}  ${PRODUCT_NAME}_${VERSION}_aarch64.dmg" > "$CHECKSUMS_TMP"
+echo "${SHA256_INTEL}  ${PRODUCT_NAME}_${VERSION}_x64.dmg" >> "$CHECKSUMS_TMP"
+gh release upload "v${VERSION}" "$CHECKSUMS_TMP#CHECKSUMS.txt" --clobber
+rm -f "$CHECKSUMS_TMP"
 
 # Verify both DMG URLs return 200
 for ARCH in "aarch64" "x64"; do
@@ -541,7 +543,7 @@ git pull --rebase origin main || {
     echo "Rebase conflict — resolving with ours (freshly computed SHA256 wins)"
     git checkout --ours "Casks/${FORMULA_NAME}.rb"
     git add "Casks/${FORMULA_NAME}.rb"
-    git rebase --continue
+    GIT_EDITOR=true git rebase --continue
 }
 
 # Stage, commit, and push

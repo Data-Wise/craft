@@ -781,10 +781,12 @@ REPO=$(git remote get-url origin | sed 's/\.git$//' | sed 's|https://github.com/
 # Upload DMGs (--clobber handles re-uploads)
 gh release upload "v${VERSION}" "$DMG_ARM" "$DMG_INTEL" --clobber
 
-# Generate and upload CHECKSUMS.txt
-echo "${SHA256_ARM}  ${PRODUCT_NAME}_${VERSION}_aarch64.dmg" > CHECKSUMS.txt
-echo "${SHA256_INTEL}  ${PRODUCT_NAME}_${VERSION}_x64.dmg" >> CHECKSUMS.txt
-gh release upload "v${VERSION}" CHECKSUMS.txt --clobber
+# Generate and upload CHECKSUMS.txt (use temp file to avoid polluting project root)
+CHECKSUMS_TMP=$(mktemp)
+echo "${SHA256_ARM}  ${PRODUCT_NAME}_${VERSION}_aarch64.dmg" > "$CHECKSUMS_TMP"
+echo "${SHA256_INTEL}  ${PRODUCT_NAME}_${VERSION}_x64.dmg" >> "$CHECKSUMS_TMP"
+gh release upload "v${VERSION}" "$CHECKSUMS_TMP#CHECKSUMS.txt" --clobber
+rm -f "$CHECKSUMS_TMP"
 
 # Verify upload (check URLs return 200)
 for ARCH in "aarch64" "x64"; do
@@ -937,7 +939,7 @@ if [ -n "$TAP_DIR" ] && [ -f "$CASK_FILE" ]; then
         echo "Rebase conflict — resolving with ours (fresh SHA256 wins)"
         git checkout --ours "Casks/${FORMULA_NAME}.rb"
         git add "Casks/${FORMULA_NAME}.rb"
-        git rebase --continue
+        GIT_EDITOR=true git rebase --continue
     }
 
     # Commit and push
@@ -1020,7 +1022,7 @@ Compare the extracted version string against the release version. If stale, the 
 ```bash
 # Fetch formula from the tap repo and verify version + SHA
 gh api repos/Data-Wise/homebrew-tap/contents/Formula/craft.rb \
-  --jq '.content' | base64 -d | grep -E '(version|sha256|desc)'
+  --jq '.content' | base64 -D | grep -E '(version|sha256|desc)'
 
 # Also verify via brew info
 brew info data-wise/tap/craft
@@ -1056,7 +1058,7 @@ fi
 
 # Verify SHA256 in cask file matches what we computed
 CASK_FILE_CONTENT=$(gh api "repos/${TAP_ORG}/homebrew-${TAP_NAME}/contents/Casks/${FORMULA_NAME}.rb" \
-  --jq '.content' | base64 -d)
+  --jq '.content' | base64 -D)
 
 # Check ARM SHA256
 if echo "$CASK_FILE_CONTENT" | grep -q "$SHA256_ARM"; then
