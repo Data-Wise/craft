@@ -81,6 +81,26 @@
 /release
 ```
 
+## Tap Formula Generator
+
+Plugin formulas are generated from the [homebrew-tap generator](https://github.com/Data-Wise/homebrew-tap/tree/main/docs/generator):
+
+```bash
+python3 generator/generate.py              # Generate all 6 plugin formulas
+python3 generator/generate.py --diff       # Preview changes
+python3 generator/generate.py --validate   # Validate with ruby -c
+```
+
+**Generated formulas:** craft, himalaya-mcp, scholar, rforge, rforge-orchestrator, workflow
+
+**post_install pattern** (all plugin formulas):
+
+1. Schema cleanup (strip unrecognized plugin.json keys)
+2. Auto-install with 30s timeout (symlink, marketplace, auto-enable)
+3. Registry sync (`claude plugin update`)
+
+Each step in independent `begin/rescue/end` — if one fails, others still run.
+
 ## Desktop App Distribution (Cask)
 
 | Command | What It Does |

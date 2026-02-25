@@ -56,6 +56,7 @@ Recipes are categorized by difficulty level (Beginner, Intermediate, Advanced) a
 ### CI/CD and Automation (10 minutes)
 
 - [Automate Release Workflow](common/automate-release-workflow.md) — Set up GitHub Actions CI in 10 minutes
+- [Distribute Plugin via Homebrew](common/distribute-plugin-via-homebrew.md) — Set up Homebrew formula for a Claude Code plugin in 10 minutes
 
 ## Browse by Time Available
 
@@ -84,6 +85,7 @@ Great for focused work sessions or getting familiar with Craft.
 - **5-7 min:** [Use Interactive Orchestration](common/use-interactive-orchestration.md)
 - **8-10 min:** [Setup Parallel Worktrees](common/setup-parallel-worktrees.md)
 - **10 min:** [Automate Release Workflow](common/automate-release-workflow.md)
+- **10 min:** [Distribute Plugin via Homebrew](common/distribute-plugin-via-homebrew.md)
 
 !!! tip "ADHD-Friendly"
     All recipes include clear time estimates. Start with the 1-minute tasks to build momentum!

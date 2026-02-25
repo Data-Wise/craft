@@ -266,6 +266,32 @@ If no local tap is found, the CI workflow handles it automatically on release pu
 
 ---
 
+## Tap Formula Generator
+
+For Claude Code plugin formulas, the `data-wise/homebrew-tap` repository includes a **formula generator** that produces consistent formulas from a single manifest.
+
+### Why Use the Generator
+
+- **6 plugin formulas** are generated from `generator/manifest.json`
+- Ensures consistent install patterns, post_install behavior, and caveats
+- Supports `libexec_copy_map` for plugins with nested source directories
+- Generates the 3-step `post_install` pattern (schema cleanup, timed install, registry sync)
+
+### Generator Commands
+
+```bash
+python3 generator/generate.py              # Generate all 6 plugin formulas
+python3 generator/generate.py craft        # Generate one formula
+python3 generator/generate.py --diff       # Preview changes without overwriting
+python3 generator/generate.py --validate   # Validate with ruby -c
+```
+
+> **Important:** When modifying a plugin formula, edit `manifest.json` then regenerate — do NOT edit `.rb` files directly. CI's `update-formula.yml` updates version/SHA via sed, but structural changes go through the generator.
+
+For full generator documentation, see the [homebrew-tap generator docs](https://github.com/Data-Wise/homebrew-tap/tree/main/docs/generator).
+
+---
+
 ## Formula Description Consistency (Check 8)
 
 The `pre-release-check.sh` script includes **Check 8: Homebrew formula desc consistency**, which validates that the `desc` field in your Homebrew formula stays in sync with the actual command counts in the project.
