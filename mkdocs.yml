@@ -258,6 +258,7 @@ nav:
       - Generate Tests for a Project: cookbook/common/generate-tests-for-project.md
       - Run Tests by Category: cookbook/common/run-tests-by-category.md
       - Interactive Docs Update Example: examples/docs-update-interactive-example.md
+      - Release Workflow Example: examples/release-workflow-example.md
     - Troubleshooting:
       - Command Not Found: cookbook/troubleshooting/command-not-found.md
       - Command Times Out: cookbook/troubleshooting/command-times-out.md

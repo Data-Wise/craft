@@ -22,6 +22,14 @@ docs/demos/
 docs/archive/
 docs/brainstorm/
 docs/dev/
+docs/cookbook/
+docs/examples/
+
+# ---------------------------------------------------------------------------
+# Hub/index pages (contain curated descriptions, not auto-updatable counts)
+# ---------------------------------------------------------------------------
+docs/index.md
+docs/cookbook/index.md
 
 # ---------------------------------------------------------------------------
 # Pattern exclusions (file:pattern — skip specific stale counts)

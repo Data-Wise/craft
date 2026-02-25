@@ -144,7 +144,7 @@ In release mode, RED status blocks the release. YELLOW status is reported but do
 
 ## See Also
 
-- [/craft:docs:check](../../commands/docs/check.md) -- Full documentation health check (includes staleness via `--deep`)
+- [/craft:docs:check](../commands/docs/check.md) -- Full documentation health check (includes staleness via `--deep`)
 - [Release Pipeline Reference](REFCARD-RELEASE.md) -- Step 2d integration
 - [Post-Release Sweep Reference](REFCARD-POST-RELEASE-SWEEP.md) -- Shares exclusion config
 

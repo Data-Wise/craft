@@ -112,7 +112,10 @@ is_pattern_excluded() {
     for excl in "${EXCLUDED_PATTERNS[@]+"${EXCLUDED_PATTERNS[@]}"}"; do
         local excl_file="${excl%%:*}"
         local excl_pattern="${excl#*:}"
-        if [[ "$file" == "$excl_file" && "$pattern" == "$excl_pattern" ]]; then
+        # Word-boundary match: excl_pattern must appear as a whole word/phrase in pattern
+        # Prevents "97 commands" matching "197 commands" while allowing "18 skills" to match
+        # inside a line like "**94 commands** · **18 skills** · **6 agents**"
+        if [[ "$file" == "$excl_file" ]] && echo "$pattern" | grep -qE "(^|[^0-9])${excl_pattern}([^0-9]|$)"; then
             return 0
         fi
     done
