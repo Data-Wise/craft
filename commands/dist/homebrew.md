@@ -339,6 +339,222 @@ done
 └─────────────────────────────────────────────────────────────┘
 ```
 
+### Cask Template (New Cask Generation)
+
+When no cask file exists, generate one from the Tauri project. The template includes all zones: architecture, livecheck, postflight, uninstall, zap, and caveats.
+
+```ruby
+cask "{name}" do
+  version "{version}"
+
+  # ZONE: architecture (auto-generated, updated every release)
+  on_arm do
+    sha256 "{sha256_arm}"
+    url "https://github.com/{repo}/releases/download/v#{version}/{name}_{arch_arm}.dmg"
+  end
+  on_intel do
+    sha256 "{sha256_intel}"
+    url "https://github.com/{repo}/releases/download/v#{version}/{name}_{arch_intel}.dmg"
+  end
+
+  name "{display_name}"
+  desc "{description}"
+  homepage "https://github.com/{repo}"
+
+  # ZONE: livecheck (static, generated once)
+  livecheck do
+    url "https://github.com/{repo}/releases"
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+    strategy :github_releases do |json, regex|
+      json.filter_map do |release|
+        match = release["tag_name"]&.match(regex)
+        next unless match
+        next if release["draft"] || release["prerelease"]
+        match[1]
+      end
+    end
+  end
+
+  depends_on macos: ">= :{min_macos}"
+
+  app "{app_name}"
+
+  # ZONE: postflight (dynamic — auto-generated from CHANGELOG)
+  postflight do
+    ohai "{display_name} v#{version} installed successfully!"
+    ohai ""
+    ohai "What's New in v#{version}:"
+    # --- dynamic bullets (replaced by --update-content) ---
+    ohai "  - Initial release"
+    # --- end dynamic bullets ---
+    ohai ""
+    ohai "Report issues: https://github.com/{repo}/issues"
+  end
+
+  uninstall quit: "{identifier}"
+
+  # ZONE: zap (static, generated once)
+  zap trash: [
+    "~/Library/Application Support/{identifier}",
+    "~/Library/Caches/{identifier}",
+    "~/Library/Logs/{identifier}",
+    "~/Library/Preferences/{identifier}.plist",
+    "~/Library/Saved Application State/{identifier}.savedState",
+  ]
+
+  # ZONE: caveats (dynamic + static — auto-generated)
+  caveats <<~EOS
+    {display_name} v#{version} — {description}
+
+    New in v#{version}:
+    - Initial release
+
+    Report issues: https://github.com/{repo}/issues
+  EOS
+end
+```
+
+#### Template Variables
+
+| Variable | Source | Example |
+|----------|--------|---------|
+| `{name}` | config `formula_name` or repo name | `scribe` |
+| `{version}` | tauri.conf.json or `--version` | `1.20.0` |
+| `{sha256_arm}` | `shasum -a 256` of ARM DMG | `440b3b83...` |
+| `{sha256_intel}` | `shasum -a 256` of Intel DMG | `2bdf8914...` |
+| `{repo}` | git remote origin | `Data-Wise/scribe` |
+| `{display_name}` | tauri.conf.json `productName` | `Scribe` |
+| `{description}` | `--desc` flag or preserved from existing | `ADHD-friendly writer` |
+| `{app_name}` | productName + `.app` | `Scribe.app` |
+| `{identifier}` | tauri.conf.json `identifier` | `com.scribe.app` |
+| `{min_macos}` | mapped from `minimumSystemVersion` | `catalina` |
+
+### Cask File Updater (Existing Cask)
+
+When a cask file already exists, the updater modifies specific zones without regenerating the entire file. This preserves customizations in static sections.
+
+#### Update Algorithm
+
+The updater operates on 3 independent zones:
+
+```
+1. Version + SHA256 (always updated)
+   ├─ version "X.Y.Z"
+   ├─ on_arm { sha256 "..." }
+   └─ on_intel { sha256 "..." }
+
+2. Dynamic content (updated with --update-content or during /release)
+   ├─ postflight "What's New" bullets
+   └─ caveats "New in" bullets
+
+3. Static content (updated only with --update-static)
+   ├─ postflight "Quick Start" section
+   ├─ caveats "Features" list
+   └─ caveats "Keyboard Shortcuts" list
+```
+
+#### Zone 1: Version and SHA256 Update
+
+```bash
+# Update version field
+sed -i '' 's/version ".*"/version "'"$VERSION"'"/' "$CASK_FILE"
+
+# Update SHA256 in on_arm block (regex targets the block structure)
+# Match: on_arm do\n    sha256 "..." → replace hash only
+python3 -c "
+import re, sys
+content = open(sys.argv[1]).read()
+
+# Update on_arm SHA256
+content = re.sub(
+    r'(on_arm do\s+sha256 \")[a-f0-9]{64}(\")',
+    r'\g<1>${SHA256_ARM}\2',
+    content
+)
+
+# Update on_intel SHA256
+content = re.sub(
+    r'(on_intel do\s+sha256 \")[a-f0-9]{64}(\")',
+    r'\g<1>${SHA256_INTEL}\2',
+    content
+)
+
+open(sys.argv[1], 'w').write(content)
+" "$CASK_FILE"
+```
+
+#### Zone 2: Version String Migration
+
+On first run, migrate hardcoded version strings to Ruby `#{version}` interpolation:
+
+```bash
+# Before: ohai "What's New in v1.20.0:"
+# After:  ohai "What's New in v#{version}:"
+sed -i '' "s/What's New in v[0-9.]*:/What's New in v#{version}:/" "$CASK_FILE"
+
+# Before: New in v1.20.0:
+# After:  New in v#{version}:
+sed -i '' "s/New in v[0-9.]*:/New in v#{version}:/" "$CASK_FILE"
+```
+
+After migration, Homebrew handles version display automatically during `brew install`/`brew upgrade`.
+
+#### Cask Validation
+
+After any modification, validate the cask file:
+
+```bash
+# Ruby syntax check (fast, catches missing quotes/brackets)
+ruby -c "$CASK_FILE" || { echo "ERROR: Cask has syntax errors"; exit 1; }
+
+# Homebrew audit (thorough, checks field lengths, livecheck, etc.)
+brew audit --cask "$FORMULA_NAME" 2>&1
+```
+
+### Tap Push with Conflict Resolution
+
+After updating the cask file, push to the tap repository with rebase-based conflict resolution:
+
+```bash
+TAP_ORG=$(echo "$TAP" | cut -d/ -f1)
+TAP_NAME=$(echo "$TAP" | cut -d/ -f2)
+TAP_LOCAL="$HOME/projects/dev-tools/homebrew-${TAP_NAME}"
+TAP_BREW="$(brew --repository 2>/dev/null)/Library/Taps/${TAP_ORG}/homebrew-${TAP_NAME}"
+
+# Find tap directory
+if [ -d "$TAP_LOCAL" ]; then
+    TAP_DIR="$TAP_LOCAL"
+elif [ -d "$TAP_BREW" ]; then
+    TAP_DIR="$TAP_BREW"
+else
+    echo "No local tap found — skip (CI workflow handles this)"
+    exit 0
+fi
+
+cd "$TAP_DIR"
+
+# Pull latest with rebase (avoid merge commits)
+git pull --rebase origin main || {
+    echo "Rebase conflict — resolving with ours (freshly computed SHA256 wins)"
+    git checkout --ours "Casks/${FORMULA_NAME}.rb"
+    git add "Casks/${FORMULA_NAME}.rb"
+    git rebase --continue
+}
+
+# Stage, commit, and push
+git add "Casks/${FORMULA_NAME}.rb"
+git commit -m "${FORMULA_NAME}: update to v${VERSION}"
+git push origin main || {
+    echo "Push failed — retrying after pull"
+    git pull --rebase origin main
+    git push origin main
+}
+
+echo "Tap updated: ${TAP}/${FORMULA_NAME} v${VERSION}"
+```
+
+> **Why "ours" wins on conflict:** During a release, the local cask file has freshly computed SHA256 hashes from local build artifacts. Any remote changes to SHA256 are stale by definition. Content conflicts (postflight/caveats) are also resolved with "ours" since we just generated them from the latest CHANGELOG.
+
 ### Example Output
 
 ```
@@ -362,6 +578,14 @@ Upload:
   ✓ Scribe_1.20.0_aarch64.dmg .... uploaded
   ✓ Scribe_1.20.0_x64.dmg ........ uploaded
   ✓ CHECKSUMS.txt ................. uploaded
+
+Cask update:
+  ✓ Version ....................... 1.19.0 → 1.20.0
+  ✓ SHA256 (on_arm) .............. updated
+  ✓ SHA256 (on_intel) ............ updated
+  ✓ Version strings .............. migrated to #{version}
+  ✓ ruby -c ...................... PASSED
+  ✓ Tap push ..................... data-wise/tap updated
 
 Cask file: Casks/scribe.rb
 ```

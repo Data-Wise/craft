@@ -795,21 +795,99 @@ for ARCH in "aarch64" "x64"; do
 done
 ```
 
-##### 10b-7 and 10b-8: Cask Update + Tap Push
+##### 10b-7: Cask File Update
 
-Update the cask file with new version, SHA256 hashes, and content. Push to tap.
-
-*Full implementation in Increment 3 (Cask Generator/Updater) and Increment 5 (Pipeline Integration).*
-
-Skeleton:
+Update the cask file with new version, SHA256 hashes, and content:
 
 ```bash
 echo "[8/8] Updating cask + pushing tap..."
-# 1. Locate tap directory
-# 2. Update cask file: version, SHA256 (on_arm + on_intel), postflight, caveats
-# 3. Validate: ruby -c && brew audit --cask
-# 4. Push: git pull --rebase && git commit && git push
+
+# Locate tap directory
+TAP_ORG=$(echo "$TAP" | cut -d/ -f1)
+TAP_NAME=$(echo "$TAP" | cut -d/ -f2)
+TAP_LOCAL="$HOME/projects/dev-tools/homebrew-${TAP_NAME}"
+TAP_BREW="$(brew --repository 2>/dev/null)/Library/Taps/${TAP_ORG}/homebrew-${TAP_NAME}"
+
+if [ -d "$TAP_LOCAL" ]; then
+    TAP_DIR="$TAP_LOCAL"
+elif [ -d "$TAP_BREW" ]; then
+    TAP_DIR="$TAP_BREW"
+else
+    echo "No local tap found — skip tap update (CI workflow handles this)"
+    # Skip to Step 11
+fi
+
+CASK_FILE="$TAP_DIR/Casks/${FORMULA_NAME}.rb"
+
+if [ -f "$CASK_FILE" ]; then
+    # --- Zone 1: Update version and SHA256 ---
+
+    # Update version field
+    sed -i '' 's/version ".*"/version "'"$VERSION"'"/' "$CASK_FILE"
+
+    # Update SHA256 in architecture blocks (regex targets block structure)
+    python3 -c "
+import re, sys
+content = open(sys.argv[1]).read()
+content = re.sub(
+    r'(on_arm do\s+sha256 \")[a-f0-9]{64}(\")',
+    r'\g<1>$SHA256_ARM\2', content)
+content = re.sub(
+    r'(on_intel do\s+sha256 \")[a-f0-9]{64}(\")',
+    r'\g<1>$SHA256_INTEL\2', content)
+open(sys.argv[1], 'w').write(content)
+" "$CASK_FILE"
+
+    # --- Zone 2: Migrate hardcoded version strings to #{version} ---
+    sed -i '' "s/What's New in v[0-9.]*:/What's New in v#{version}:/" "$CASK_FILE"
+    sed -i '' "s/New in v[0-9.]*:/New in v#{version}:/" "$CASK_FILE"
+
+    # --- Zone 3: Dynamic content (postflight/caveats bullets) ---
+    # Updated by --update-content flag (see Increment 4)
+    # During /release, content update runs automatically with preview
+
+    # --- Validate ---
+    ruby -c "$CASK_FILE" || { echo "ERROR: Cask has syntax errors after update"; exit 1; }
+    echo "  ✓ Version: updated to $VERSION"
+    echo "  ✓ SHA256 (on_arm): updated"
+    echo "  ✓ SHA256 (on_intel): updated"
+    echo "  ✓ ruby -c: PASSED"
+
+else
+    echo "Cask file not found at $CASK_FILE"
+    echo "Generate a new cask with: /craft:dist:homebrew cask"
+    # Skip tap push if no cask file exists
+fi
 ```
+
+##### 10b-8: Tap Push with Conflict Resolution
+
+```bash
+if [ -n "$TAP_DIR" ] && [ -f "$CASK_FILE" ]; then
+    cd "$TAP_DIR"
+
+    # Pull latest with rebase (avoid merge commits in tap)
+    git pull --rebase origin main || {
+        echo "Rebase conflict — resolving with ours (fresh SHA256 wins)"
+        git checkout --ours "Casks/${FORMULA_NAME}.rb"
+        git add "Casks/${FORMULA_NAME}.rb"
+        git rebase --continue
+    }
+
+    # Commit and push
+    git add "Casks/${FORMULA_NAME}.rb"
+    git commit -m "${FORMULA_NAME}: update to v${VERSION}"
+    git push origin main || {
+        echo "Push failed — retrying after pull"
+        git pull --rebase origin main
+        git push origin main
+    }
+
+    echo "  ✓ Tap push: ${TAP}/${FORMULA_NAME} v${VERSION}"
+fi
+```
+
+> **Conflict resolution strategy:** "Ours" always wins because the local cask has freshly computed SHA256 hashes from local build artifacts. Any remote SHA256 values are stale by definition.
 
 **Skip to Step 11 after Step 10b completes.**
 
