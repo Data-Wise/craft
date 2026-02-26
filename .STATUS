@@ -4,16 +4,17 @@ release_date: 2026-02-26
 milestone: v2.29.0 released — sed bug fixed, ready for next cycle
 last_session: 2026-02-26
 
-progress: v2.29.0 released. Both feature worktrees in progress: pin-markdownlint ~90% done (10 files changed, uncommitted), unified release-watch Session 1 complete (increments 1-4 done, 4 commits + uncommitted WIP).
+progress: v2.29.0 released. Three feature worktrees active: pin-markdownlint ~90% done, unified release-watch Session 1 complete, workflow-enhancements planned (ORCHESTRATE committed).
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | 2a32569  | —    | Production (v2.29.0, PR #115 merged) |
-| dev    | 20e49f6  | main | Brainstorms + specs committed (4 ahead) |
-| feature/pin-markdownlint | 0247ec5 | dev | ~90% done: 10 files modified, not yet committed (increments 1-4 done, needs verify + PR) |
-| feature/unified-release-watch | 23c89f4 | dev | Session 1 done: increments 1-4 complete (4 commits), increment 5 WIP uncommitted |
+| dev    | 71dde90  | main | Brainstorms + specs committed (6 ahead) |
+| feature/pin-markdownlint | 0247ec5 | dev | ~90% done: 10 files modified, not yet committed (needs verify + PR) |
+| feature/unified-release-watch | 23c89f4 | dev | Session 1 done: increments 1-4 complete, increment 5 WIP |
+| feature/workflow-enhancements | 7e2240b | dev | ORCHESTRATE committed, ready for Session 1 (15 increments, 3 phases) |
 
 ✅ Session 2026-02-26 (worktree implementation progress):
 - pin-markdownlint: All code changes made across 10 files (package.json, lockfile, CI workflows, hook, script, 3 test files, troubleshooting doc). Needs: commit, test run, PR creation.
@@ -68,7 +69,8 @@ A) cd ~/.git-worktrees/craft/feature-pin-markdownlint && claude
    → Finish: commit changes, run tests, create PR (~15 min)
 B) cd ~/.git-worktrees/craft/feature-unified-release-watch && claude
    → Session 2: increments 5-8 (Desktop fetcher, auto-fix, unified output, tests ~2 hrs)
-C) Start next feature cycle (brainstorm v2.30.0)
+C) cd ~/.git-worktrees/craft/feature-workflow-enhancements && claude
+   → Session 1: Phase 1 quick wins — hub counts, .STATUS, worktree routing (~2-3 hrs)
 
 ## Future (v2.30.0+)
 
