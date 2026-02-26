@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Release Watch — Track Claude Code releases and identify plugin-relevant changes.
+"""Release Watch v2 — Track Claude Code + Desktop releases.
 
-Fetches releases from the anthropics/claude-code GitHub repository and scans
-release notes for changes that may affect the Craft plugin system. Cross-references
-findings against current craft state (agents, hooks, hardcoded models).
+Fetches releases from GitHub (Code) and Anthropic docs (Desktop), parses
+CHANGELOG.md for structured categorization, and scans for plugin-relevant
+changes. Cross-references findings against current craft state.
 
-Requires: gh CLI (authenticated)
+Requires: gh CLI (authenticated), curl (for Desktop)
 """
 
 import argparse
@@ -396,6 +396,180 @@ def merge_changelog_with_releases(releases, changelog_versions):
 
 
 # ---------------------------------------------------------------------------
+# Desktop release fetcher (from Anthropic support docs)
+# ---------------------------------------------------------------------------
+
+DESKTOP_RELEASE_URL = "https://docs.anthropic.com/en/release-notes/claude-apps"
+
+
+def fetch_desktop_releases(cache=None, refresh=False, no_cache=False):
+    """Fetch Claude Desktop/Apps release notes from Anthropic docs.
+
+    Returns a list of release dicts with date, title, and body fields,
+    or an empty list on failure (graceful degradation).
+    """
+    if cache is None:
+        cache = {}
+
+    cached = get_cached("desktop_releases", cache, refresh=refresh, no_cache=no_cache)
+    if cached is not None:
+        return cached
+
+    # Fetch with curl (follows redirects, 10s timeout)
+    result = subprocess.run(
+        ["curl", "-sL", "--max-time", "10", DESKTOP_RELEASE_URL],
+        capture_output=True, text=True, timeout=15,
+    )
+    if result.returncode != 0 or not result.stdout.strip():
+        stale = cache.get("desktop_releases", {}).get("data")
+        if stale and not no_cache:
+            print("Warning: Desktop fetch failed, using stale cache.", file=sys.stderr)
+            return stale
+        print("Warning: Failed to fetch Desktop releases, continuing without them.",
+              file=sys.stderr)
+        return []
+
+    releases = _parse_desktop_html(result.stdout)
+    if releases:
+        set_cached("desktop_releases", releases, cache)
+    return releases
+
+
+def _parse_desktop_html(html):
+    """Parse Desktop release entries from the support page HTML.
+
+    Extracts date-based entries with their feature descriptions.
+    Returns a list of dicts: [{"date": "...", "title": "...", "body": "...", "source": "anthropic-docs"}]
+    """
+    from html.parser import HTMLParser
+
+    class _DesktopParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.entries = []
+            self._in_heading = False
+            self._heading_level = 0
+            self._current_text = []
+            self._current_entry = None
+            self._body_parts = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag in ("h2", "h3"):
+                self._in_heading = True
+                self._heading_level = int(tag[1])
+                self._current_text = []
+
+        def handle_endtag(self, tag):
+            if tag in ("h2", "h3") and self._in_heading:
+                self._in_heading = False
+                heading_text = "".join(self._current_text).strip()
+                # Check if heading looks like a date (e.g., "February 25, 2026")
+                date_match = re.match(
+                    r"((?:January|February|March|April|May|June|July|August|"
+                    r"September|October|November|December)\s+\d{1,2},?\s+\d{4})",
+                    heading_text,
+                )
+                if date_match:
+                    # Save previous entry
+                    if self._current_entry:
+                        self._current_entry["body"] = " ".join(self._body_parts).strip()
+                        if self._current_entry["body"] or self._current_entry["title"]:
+                            self.entries.append(self._current_entry)
+                    self._current_entry = {
+                        "date": date_match.group(1),
+                        "title": "",
+                        "body": "",
+                        "source": "anthropic-docs",
+                    }
+                    self._body_parts = []
+
+            if tag == "strong" and self._current_entry and not self._current_entry["title"]:
+                title_text = "".join(self._current_text).strip()
+                if title_text and len(title_text) > 3:
+                    self._current_entry["title"] = title_text
+
+        def handle_data(self, data):
+            if self._in_heading:
+                self._current_text.append(data)
+            elif self._current_entry:
+                cleaned = data.strip()
+                if cleaned:
+                    self._body_parts.append(cleaned)
+                    self._current_text = [data]
+
+        def finalize(self):
+            if self._current_entry:
+                self._current_entry["body"] = " ".join(self._body_parts).strip()
+                if self._current_entry["body"] or self._current_entry["title"]:
+                    self.entries.append(self._current_entry)
+
+    parser = _DesktopParser()
+    try:
+        parser.feed(html)
+        parser.finalize()
+    except Exception:
+        return []
+
+    return parser.entries[:20]  # Cap at 20 most recent entries
+
+
+def scan_desktop_releases(desktop_releases):
+    """Scan Desktop releases for plugin-relevant findings.
+
+    Returns findings in the same format as scan_releases().
+    All entries source-tagged as 'anthropic-docs'.
+    """
+    findings = {"NEW": [], "DEPRECATED": [], "BREAKING": [], "FIXED": []}
+
+    for entry in desktop_releases:
+        date = entry.get("date", "unknown")
+        title = entry.get("title", "")
+        body = entry.get("body", "")
+        combined = f"{title} {body}".lower()
+
+        # Check for plugin-relevant keywords
+        matched_keywords = []
+        for cat_name, keywords in KEYWORD_CATEGORIES.items():
+            for kw in keywords:
+                if re.search(rf'\b{re.escape(kw.lower())}\b', combined):
+                    matched_keywords.append(kw)
+
+        if not matched_keywords:
+            continue
+
+        # Categorize
+        category = "NEW"
+        if any(re.search(rf'\b{re.escape(kw)}\b', combined)
+               for kw in ["breaking", "removed", "migration"]):
+            category = "BREAKING"
+        elif any(re.search(rf'\b{re.escape(kw)}\b', combined)
+                 for kw in ["deprecated"]):
+            category = "DEPRECATED"
+        elif any(re.search(rf'\b{re.escape(kw)}\b', combined)
+                 for kw in ["fix", "fixed", "bug fix"]):
+            category = "FIXED"
+
+        display = title if title else body[:47] + "..." if len(body) > 50 else body
+        if len(display) > 50:
+            display = display[:47] + "..."
+
+        finding = {
+            "version": date,
+            "category": category,
+            "summary": display,
+            "keywords": list(set(matched_keywords)),
+            "raw_line": f"{title}: {body[:100]}",
+            "source": "anthropic-docs",
+            "changelog_enriched": False,
+        }
+        existing = [f["summary"] for f in findings[category]]
+        if display not in existing:
+            findings[category].append(finding)
+
+    return findings
+
+
+# ---------------------------------------------------------------------------
 # Scan release bodies for keywords
 # ---------------------------------------------------------------------------
 
@@ -582,30 +756,8 @@ def generate_action_items(findings, craft_state):
 # Output formatters
 # ---------------------------------------------------------------------------
 
-def format_terminal(releases, findings, craft_state, action_items):
-    """Render output using box-drawing characters."""
-    lines = []
-
-    latest_tag = releases[0]["tag_name"] if releases else "unknown"
-    latest_date = ""
-    if releases and releases[0].get("published_at"):
-        latest_date = releases[0]["published_at"][:10]
-
-    # Header
-    lines.append(box_top())
-    lines.append(box_line("RELEASE WATCH — Claude Code"))
-    lines.append(box_separator())
-    lines.append(box_blank())
-    date_str = f" ({latest_date})" if latest_date else ""
-    lines.append(box_line(f"Latest: {latest_tag}{date_str}"))
-    lines.append(box_line(f"Releases checked: {len(releases)}"))
-    lines.append(box_blank())
-
-    # Findings
-    lines.append(box_separator())
-    lines.append(box_line("PLUGIN-RELEVANT CHANGES"))
-    lines.append(box_blank())
-
+def _format_findings_block(findings, lines):
+    """Render findings categories into box lines."""
     has_findings = False
     for category in ["NEW", "DEPRECATED", "BREAKING", "FIXED"]:
         items = findings[category]
@@ -614,16 +766,65 @@ def format_terminal(releases, findings, craft_state, action_items):
             lines.append(box_line(category))
             for item in items:
                 text = f"- {item['version']}: {item['summary']}"
-                # Truncate to fit in box
                 max_len = BOX_WIDTH - 6
                 if len(text) > max_len:
                     text = text[: max_len - 3] + "..."
                 lines.append(box_line(text))
             lines.append(box_blank())
+    return has_findings
 
-    if not has_findings:
-        lines.append(box_line("No plugin-relevant changes detected"))
+
+def format_terminal(releases, findings, craft_state, action_items,
+                    desktop_releases=None, desktop_findings=None,
+                    product="all"):
+    """Render output using box-drawing characters."""
+    lines = []
+
+    # Header
+    lines.append(box_top())
+    if product == "all":
+        lines.append(box_line("RELEASE WATCH — Claude Code + Desktop"))
+    elif product == "desktop":
+        lines.append(box_line("RELEASE WATCH — Claude Desktop"))
+    else:
+        lines.append(box_line("RELEASE WATCH — Claude Code"))
+    lines.append(box_separator())
+    lines.append(box_blank())
+
+    # Sources status
+    if product in ("all", "code") and releases:
+        latest_tag = releases[0]["tag_name"] if releases else "unknown"
+        latest_date = ""
+        if releases and releases[0].get("published_at"):
+            latest_date = releases[0]["published_at"][:10]
+        date_str = f" ({latest_date})" if latest_date else ""
+        lines.append(box_line(f"Code: {latest_tag}{date_str}"))
+        lines.append(box_line(f"  Releases checked: {len(releases)}"))
+
+    if product in ("all", "desktop") and desktop_releases:
+        latest_desktop = desktop_releases[0].get("date", "unknown") if desktop_releases else "none"
+        lines.append(box_line(f"Desktop: {latest_desktop}"))
+        lines.append(box_line(f"  Entries checked: {len(desktop_releases)}"))
+
+    lines.append(box_blank())
+
+    # Code findings
+    if product in ("all", "code") and releases:
+        lines.append(box_separator())
+        lines.append(box_line("CLAUDE CODE"))
         lines.append(box_blank())
+        if not _format_findings_block(findings, lines):
+            lines.append(box_line("No plugin-relevant changes detected"))
+            lines.append(box_blank())
+
+    # Desktop findings
+    if product in ("all", "desktop") and desktop_findings:
+        lines.append(box_separator())
+        lines.append(box_line("CLAUDE DESKTOP"))
+        lines.append(box_blank())
+        if not _format_findings_block(desktop_findings, lines):
+            lines.append(box_line("No plugin-relevant changes detected"))
+            lines.append(box_blank())
 
     # Craft state
     lines.append(box_separator())
@@ -678,10 +879,15 @@ def format_terminal(releases, findings, craft_state, action_items):
     return "\n".join(lines)
 
 
-def format_json(releases, findings, craft_state, action_items):
-    """Render output as JSON."""
+def format_json(releases, findings, craft_state, action_items,
+                desktop_releases=None, desktop_findings=None,
+                product="all"):
+    """Render output as JSON v2 schema."""
     latest_tag = releases[0]["tag_name"] if releases else "unknown"
+
     output = {
+        "version": 2,
+        "product": product,
         "releases_checked": len(releases),
         "latest_version": latest_tag,
         "findings": {
@@ -693,41 +899,83 @@ def format_json(releases, findings, craft_state, action_items):
         "craft_state": craft_state,
         "action_items": action_items,
     }
+
+    # Add Desktop data when present
+    if product in ("all", "desktop") and desktop_findings:
+        output["desktop"] = {
+            "entries_checked": len(desktop_releases or []),
+            "latest_date": desktop_releases[0]["date"] if desktop_releases else None,
+            "findings": {
+                "new": desktop_findings["NEW"],
+                "deprecated": desktop_findings["DEPRECATED"],
+                "breaking": desktop_findings["BREAKING"],
+                "fixed": desktop_findings["FIXED"],
+            },
+        }
+
     return json.dumps(output, indent=2)
 
 
-def format_markdown(releases, findings, craft_state, action_items):
-    """Render output as Markdown."""
-    lines = []
-    latest_tag = releases[0]["tag_name"] if releases else "unknown"
-    latest_date = ""
-    if releases and releases[0].get("published_at"):
-        latest_date = releases[0]["published_at"][:10]
-
-    lines.append("# Release Watch -- Claude Code")
-    lines.append("")
-    date_str = f" ({latest_date})" if latest_date else ""
-    lines.append(f"**Latest:** {latest_tag}{date_str}  ")
-    lines.append(f"**Releases checked:** {len(releases)}")
-    lines.append("")
-
-    lines.append("## Plugin-Relevant Changes")
-    lines.append("")
-
-    has_findings = False
+def _format_findings_markdown(findings, lines):
+    """Render findings categories into markdown lines."""
+    has = False
     for category in ["NEW", "DEPRECATED", "BREAKING", "FIXED"]:
         items = findings[category]
         if items:
-            has_findings = True
+            has = True
             lines.append(f"### {category}")
             lines.append("")
             for item in items:
                 lines.append(f"- **{item['version']}**: {item['summary']}")
             lines.append("")
+    return has
 
-    if not has_findings:
-        lines.append("No plugin-relevant changes detected.")
+
+def format_markdown(releases, findings, craft_state, action_items,
+                    desktop_releases=None, desktop_findings=None,
+                    product="all"):
+    """Render output as Markdown."""
+    lines = []
+
+    if product == "all":
+        lines.append("# Release Watch -- Claude Code + Desktop")
+    elif product == "desktop":
+        lines.append("# Release Watch -- Claude Desktop")
+    else:
+        lines.append("# Release Watch -- Claude Code")
+    lines.append("")
+
+    if product in ("all", "code") and releases:
+        latest_tag = releases[0]["tag_name"] if releases else "unknown"
+        latest_date = ""
+        if releases and releases[0].get("published_at"):
+            latest_date = releases[0]["published_at"][:10]
+        date_str = f" ({latest_date})" if latest_date else ""
+        lines.append(f"**Code Latest:** {latest_tag}{date_str}  ")
+        lines.append(f"**Releases checked:** {len(releases)}")
         lines.append("")
+
+    if product in ("all", "desktop") and desktop_releases:
+        latest_desktop = desktop_releases[0].get("date", "unknown")
+        lines.append(f"**Desktop Latest:** {latest_desktop}  ")
+        lines.append(f"**Desktop entries:** {len(desktop_releases)}")
+        lines.append("")
+
+    # Code findings
+    if product in ("all", "code"):
+        lines.append("## Claude Code Changes")
+        lines.append("")
+        if not _format_findings_markdown(findings, lines):
+            lines.append("No plugin-relevant changes detected.")
+            lines.append("")
+
+    # Desktop findings
+    if product in ("all", "desktop") and desktop_findings:
+        lines.append("## Claude Desktop Changes")
+        lines.append("")
+        if not _format_findings_markdown(desktop_findings, lines):
+            lines.append("No plugin-relevant changes detected.")
+            lines.append("")
 
     lines.append("## Craft State")
     lines.append("")
@@ -766,15 +1014,17 @@ def format_markdown(releases, findings, craft_state, action_items):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Track Claude Code releases and identify plugin-relevant changes.",
+        description="Track Claude Code + Desktop releases and identify plugin-relevant changes.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""\
 examples:
-  %(prog)s                       # Check latest 3 releases (terminal)
-  %(prog)s --count 5             # Check latest 5 releases
+  %(prog)s                       # Check Code + Desktop (terminal)
+  %(prog)s --product code        # Code only (backward compatible)
+  %(prog)s --product desktop     # Desktop only
+  %(prog)s --count 5             # Check latest 5 Code releases
   %(prog)s --since v1.0.25       # Only releases after v1.0.25
-  %(prog)s --format json         # Output as JSON
-  %(prog)s --format markdown     # Output as Markdown
+  %(prog)s --format json         # Output as JSON v2
+  %(prog)s --refresh             # Force refresh cached data
 """,
     )
     parser.add_argument(
@@ -789,6 +1039,11 @@ examples:
         "--format", "-f", dest="fmt", type=str, default="terminal",
         choices=["terminal", "json", "markdown"],
         help="Output format (default: terminal)",
+    )
+    parser.add_argument(
+        "--product", "-p", type=str, default="all",
+        choices=["all", "code", "desktop"],
+        help="Product to track: all (default), code, desktop",
     )
     parser.add_argument(
         "--refresh", action="store_true",
@@ -808,39 +1063,64 @@ examples:
     # Load cache
     cache = {} if args.no_cache else load_cache()
 
-    # Fetch releases
-    releases = fetch_releases(
-        args.count, since=args.since,
-        cache=cache, refresh=args.refresh, no_cache=args.no_cache,
-    )
+    # Fetch Code releases
+    releases = []
+    desktop_releases = []
 
-    if not releases:
+    if args.product in ("all", "code"):
+        releases = fetch_releases(
+            args.count, since=args.since,
+            cache=cache, refresh=args.refresh, no_cache=args.no_cache,
+        )
+        # Fetch and merge CHANGELOG (enriches releases with structured categories)
+        changelog_content = fetch_changelog(
+            cache=cache, refresh=args.refresh, no_cache=args.no_cache,
+        )
+        if changelog_content:
+            changelog_versions = parse_changelog(changelog_content)
+            releases = merge_changelog_with_releases(releases, changelog_versions)
+
+    if args.product in ("all", "desktop"):
+        desktop_releases = fetch_desktop_releases(
+            cache=cache, refresh=args.refresh, no_cache=args.no_cache,
+        )
+
+    if not releases and not desktop_releases:
         if args.fmt == "json":
             print(json.dumps({"releases_checked": 0, "message": "No releases found"}, indent=2))
         else:
             print("No releases found matching the criteria.")
         sys.exit(0)
 
-    # Fetch and merge CHANGELOG (enriches releases with structured categories)
-    changelog_content = fetch_changelog(
-        cache=cache, refresh=args.refresh, no_cache=args.no_cache,
-    )
-    if changelog_content:
-        changelog_versions = parse_changelog(changelog_content)
-        releases = merge_changelog_with_releases(releases, changelog_versions)
+    # Analyze Code findings
+    findings = scan_releases(releases) if releases else {
+        "NEW": [], "DEPRECATED": [], "BREAKING": [], "FIXED": [],
+    }
 
-    # Analyze
-    findings = scan_releases(releases)
+    # Analyze Desktop findings and merge
+    desktop_findings = scan_desktop_releases(desktop_releases) if desktop_releases else {
+        "NEW": [], "DEPRECATED": [], "BREAKING": [], "FIXED": [],
+    }
+
     craft_state = analyze_craft_state()
     action_items = generate_action_items(findings, craft_state)
 
     # Output
     if args.fmt == "terminal":
-        print(format_terminal(releases, findings, craft_state, action_items))
+        print(format_terminal(releases, findings, craft_state, action_items,
+                              desktop_releases=desktop_releases,
+                              desktop_findings=desktop_findings,
+                              product=args.product))
     elif args.fmt == "json":
-        print(format_json(releases, findings, craft_state, action_items))
+        print(format_json(releases, findings, craft_state, action_items,
+                          desktop_releases=desktop_releases,
+                          desktop_findings=desktop_findings,
+                          product=args.product))
     elif args.fmt == "markdown":
-        print(format_markdown(releases, findings, craft_state, action_items))
+        print(format_markdown(releases, findings, craft_state, action_items,
+                              desktop_releases=desktop_releases,
+                              desktop_findings=desktop_findings,
+                              product=args.product))
 
 
 if __name__ == "__main__":
