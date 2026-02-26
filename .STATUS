@@ -1,18 +1,26 @@
 status: Active
 version: 2.29.0
-release_date: 2026-02-25
-milestone: v2.28.0 released — Docs Help Pages next
+release_date: 2026-02-26
+milestone: v2.29.0 released — sed bug fixed, ready for next cycle
 last_session: 2026-02-26
 
-progress: v2.28.0 released. Homebrew skill updated to generator-first workflow. himalaya-mcp enhancement gaps brainstormed + worktree ready. Docs help pages worktree still pending.
+progress: v2.29.0 released. 17 docs help pages merged, full docs command reference table, branch guard fix, bump-version.sh sed delimiter fix. All downstream verified green.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
-| main   | b5e2b6b  | —    | Production (v2.28.0, PR #111 merged) |
-| dev    | 17b9ac6  | main | Homebrew skill + validate-counts     |
-| feature/docs-help-pages | c5fa315 | dev | Worktree ready, ORCHESTRATE committed |
+| main   | 2a32569  | —    | Production (v2.29.0, PR #115 merged) |
+| dev    | 24e09ed  | main | sed delimiter fix (1 ahead)          |
+
+✅ Session 2026-02-26 (v2.29.0 release + bug fix):
+- Reviewed & merged PR #114: 17 docs help pages, dash normalization, ORCHESTRATE cleanup
+- Updated docs/commands.md with complete 22-command docs reference table
+- Released v2.29.0: full 13-step pipeline, all downstream verified green
+- Fixed CI failure: broken cross-tree link in homebrew command (site URL fix)
+- Post-release sweep: 6 stale Tier 2 refs auto-fixed
+- Fixed bump-version.sh line 353 sed delimiter collision (| → # for hub.md counts)
+- Saved 3 CI learnings to persistent memory (cross-tree links, sed delimiter, CI divergence)
 
 ✅ Session 2026-02-26 (homebrew skill + himalaya-mcp brainstorm):
 - Replaced inline Ruby template in homebrew skill with generator-first workflow
@@ -21,18 +29,12 @@ progress: v2.28.0 released. Homebrew skill updated to generator-first workflow. 
 - Created SPEC + BRAINSTORM specs in himalaya-mcp/docs/specs/
 - Created worktree + ORCHESTRATE for feature/enhancement-gaps (8 items)
 - Cleaned up himalaya-mcp feature/install-docs worktree (PR merged)
-- Cross-repo: craft (2 commits), himalaya-mcp dev (1), himalaya-mcp feature (1)
 
 ✅ Session 2026-02-25 (continued — docs updates + PR #112 merge):
 - Merged PR #112 (docs staleness detection) after fixing 6 review issues
 - Updated cookbook index: added 7 missing recipes + 8 troubleshooting pages
 - Created release workflow example page
 - Organized index badges into table layout (main/dev rows)
-- Added cookbook/, examples/, index.md to staleness exclusions
-- Fixed pattern matching: word-boundary match (exact was too strict)
-- Fixed broken link in REFCARD-DOCS-STALENESS
-- Deployed docs site (2x)
-- Memory updated: glob pitfall, sed portability, stuck CI checks
 
 ✅ Session 2026-02-25 (release v2.28.0 + post-release sweep):
 - Released v2.28.0: desktop release pipeline, post-release sweep, docs improvements
@@ -44,14 +46,13 @@ progress: v2.28.0 released. Homebrew skill updated to generator-first workflow. 
 🎯 Next Action:
 A) cd ~/.git-worktrees/himalaya-mcp/feature-enhancement-gaps && claude
    → Implement 8 enhancements: 4 skills, 3 hooks, .craft/homebrew.json
-B) cd ~/.git-worktrees/craft/feature-docs-help-pages && claude
-   → Implement 17 docs help pages (7-step ORCHESTRATE plan)
+B) Pin markdownlint-cli2 in CI to avoid npm 403 flakes
+C) Start next feature cycle (brainstorm v2.30.0)
 
-## Future (v2.29.0+)
+## Future (v2.30.0+)
 
 - himalaya-mcp enhancement gaps: Tier 2 items (config wizard, stats, session-start hook)
 - himalaya-mcp release automation: version bump + changelog scripts
-- Missing docs help pages for 14 docs sub-commands + 3 claude-md (worktree ready)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
