@@ -14,6 +14,8 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
+import time
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -22,6 +24,11 @@ from pathlib import Path
 
 BOX_WIDTH = 63
 PLUGIN_ROOT = Path(__file__).resolve().parent.parent  # scripts/ -> project root
+
+# Cache configuration
+CACHE_DIR = Path.home() / ".claude"
+CACHE_FILE = CACHE_DIR / "release-watch-cache.json"
+CACHE_TTL = 86400  # 24 hours
 
 KEYWORD_CATEGORIES = {
     "plugin_system": [
@@ -103,6 +110,73 @@ def box_blank():
 
 
 # ---------------------------------------------------------------------------
+# Cache layer
+# ---------------------------------------------------------------------------
+
+def load_cache():
+    """Load cache from disk. Returns dict with per-source entries."""
+    if not CACHE_FILE.exists():
+        return {}
+    try:
+        return json.loads(CACHE_FILE.read_text())
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def save_cache(data):
+    """Atomic write cache to disk (tmp + rename). Sets secure permissions."""
+    CACHE_DIR.mkdir(mode=0o700, parents=True, exist_ok=True)
+    fd, tmp_path = tempfile.mkstemp(dir=CACHE_DIR, suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w") as f:
+            json.dump(data, f, indent=2)
+        os.chmod(tmp_path, 0o600)
+        os.rename(tmp_path, CACHE_FILE)
+    except OSError:
+        # Clean up temp file on failure
+        try:
+            os.unlink(tmp_path)
+        except OSError:
+            pass
+
+
+def is_fresh(cache_entry, source):
+    """Check if a cache entry is within TTL."""
+    if not cache_entry or "timestamp" not in cache_entry:
+        return False
+    age = time.time() - cache_entry["timestamp"]
+    return age < CACHE_TTL
+
+
+def get_cached(source, cache, refresh=False, no_cache=False):
+    """Get data from cache if fresh, or None if stale/missing.
+
+    Args:
+        source: Cache key (e.g. "github_releases", "changelog", "releasebot")
+        cache: The loaded cache dict
+        refresh: If True, treat all entries as stale
+        no_cache: If True, skip cache entirely
+    Returns:
+        Cached data or None
+    """
+    if no_cache:
+        return None
+    entry = cache.get(source)
+    if entry and not refresh and is_fresh(entry, source):
+        return entry.get("data")
+    return None
+
+
+def set_cached(source, data, cache):
+    """Update a source entry in the cache dict and save to disk."""
+    cache[source] = {
+        "timestamp": time.time(),
+        "data": data,
+    }
+    save_cache(cache)
+
+
+# ---------------------------------------------------------------------------
 # Prerequisites
 # ---------------------------------------------------------------------------
 
@@ -138,12 +212,20 @@ def check_gh_auth():
 # Fetch releases
 # ---------------------------------------------------------------------------
 
-def fetch_releases(count, since=None):
+def fetch_releases(count, since=None, cache=None, refresh=False, no_cache=False):
     """Fetch releases from GitHub via gh CLI.
 
     Uses ?per_page=N to request only the needed releases in a single API call
-    instead of --paginate which fetches all pages.
+    instead of --paginate which fetches all pages. Results are cached for 24h.
     """
+    if cache is None:
+        cache = {}
+
+    # Check cache first
+    cached = get_cached("github_releases", cache, refresh=refresh, no_cache=no_cache)
+    if cached is not None:
+        return _filter_and_sort(cached, count, since)
+
     # Request more than count when using --since, as we filter afterward
     per_page = min(count * 2, 30) if since else min(count, 30)
     result = subprocess.run(
@@ -154,6 +236,11 @@ def fetch_releases(count, since=None):
         capture_output=True, text=True, timeout=30,
     )
     if result.returncode != 0:
+        # Stale fallback: if live fetch fails and stale cache exists, use it
+        stale = cache.get("github_releases", {}).get("data")
+        if stale and not no_cache:
+            print("Warning: Live fetch failed, using stale cache.", file=sys.stderr)
+            return _filter_and_sort(stale, count, since)
         print(f"Error: Failed to fetch releases.", file=sys.stderr)
         print(f"Details: {result.stderr.strip()}", file=sys.stderr)
         sys.exit(1)
@@ -166,6 +253,9 @@ def fetch_releases(count, since=None):
 
     if not isinstance(releases, list):
         releases = [releases]
+
+    # Cache the raw releases (before filtering)
+    set_cached("github_releases", releases, cache)
 
     return _filter_and_sort(releases, count, since)
 
@@ -574,6 +664,14 @@ examples:
         choices=["terminal", "json", "markdown"],
         help="Output format (default: terminal)",
     )
+    parser.add_argument(
+        "--refresh", action="store_true",
+        help="Force refresh all cached data",
+    )
+    parser.add_argument(
+        "--no-cache", dest="no_cache", action="store_true",
+        help="Skip cache entirely (don't read or write)",
+    )
 
     args = parser.parse_args()
 
@@ -581,8 +679,14 @@ examples:
     check_gh_installed()
     check_gh_auth()
 
+    # Load cache
+    cache = {} if args.no_cache else load_cache()
+
     # Fetch
-    releases = fetch_releases(args.count, since=args.since)
+    releases = fetch_releases(
+        args.count, since=args.since,
+        cache=cache, refresh=args.refresh, no_cache=args.no_cache,
+    )
 
     if not releases:
         if args.fmt == "json":
