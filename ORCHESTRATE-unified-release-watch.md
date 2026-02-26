@@ -219,20 +219,20 @@ python3 scripts/release-watch.py --format json | python3 -c "import json,sys; d=
 
 Tasks:
 
-- [ ] Add cache tests
+- [x] Add cache tests (8 tests)
   - `test_cache_creation` — verify file created with correct permissions
   - `test_cache_freshness` — verify TTL check logic
   - `test_cache_stale_fallback` — verify stale data used when fetch fails
-- [ ] Add CHANGELOG parser tests
+- [x] Add CHANGELOG parser tests (8 tests)
   - `test_parse_changelog_added` — Added items map to NEW
   - `test_parse_changelog_fixed` — Fixed items map to FIXED
   - `test_parse_changelog_format_error` — graceful degradation on bad format
-- [ ] Add Desktop source tests
+- [x] Add Desktop source tests (5 tests)
   - `test_releasebot_source_tag` — all entries tagged with source
   - `test_releasebot_excluded_from_autofix` — security constraint
-- [ ] Add backward compatibility test
+- [x] Add backward compatibility test (3 tests)
   - `test_v1_json_compat` — `--product code --format json` output parseable by v1 consumers
-- [ ] Add word-boundary matching tests
+- [x] Add word-boundary matching tests (5 tests)
   - `test_word_boundary_no_false_positive` — "new" doesn't match "renewable"
   - `test_word_boundary_matches` — "new" matches "new feature"
 
