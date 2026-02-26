@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Branch guard false positives on `--force-with-lease` for feature branches (#113)
+- CI flakiness from npm registry 403 errors — pinned `markdownlint-cli2` (0.14.0) and `markdown-link-check` (3.12.2) as exact-version devDependencies, committed `package-lock.json`, switched CI to `npm ci` with npm cache
 
 ---
 

@@ -38,7 +38,10 @@ By the end of this guide, you'll know how to:
 ### Installation
 
 ```bash
-# Install markdown dependencies
+# Install pinned markdown dependencies from lockfile (recommended)
+npm ci
+
+# Or install manually
 npm install --save-dev markdown-link-check markdownlint-cli2
 
 # Or let Craft install them when first used
@@ -695,7 +698,8 @@ docs/test-violations.md:27:3: Broken anchor → commands.md#invalid-section
 **Solution:**
 
 ```bash
-npm install --save-dev markdownlint-cli2
+npm ci  # Install from lockfile (recommended)
+# Or: npm install --save-dev markdownlint-cli2
 ```
 
 #### "Link validation passing locally but failing in CI"
