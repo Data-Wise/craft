@@ -39,18 +39,10 @@ scripts/release-watch.py
 
 Tasks:
 
-- [ ] Fix `--paginate` to `?per_page=N` (line ~137)
-  - Replace `gh api ... --paginate` with `gh api ... -f per_page=10`
-  - Accept `--count N` to set per_page (default 10, max 30)
-- [ ] Add word-boundary matching (line ~239)
-  - Replace `kw.lower() in line_lower` with `re.search(rf'\b{re.escape(kw)}\b', line_lower)`
-  - Import `re` at top if not already imported
-- [ ] Update MODEL_PATTERNS (lines 58-68)
-  - Add: `claude-sonnet-4-6`, `claude-haiku-4-5`, `claude-opus-4-6`
-  - Add pattern: `claude-{family}-{version}` regex for future-proofing
-- [ ] Fix FIXED category bug (lines 48-55)
-  - Add `"fixed"`, `"bug fix"`, `"patch"`, `"resolved"` to CATEGORY_MAP → FIXED
-  - Add `"FIXED"` to the finding categories
+- [x] Fix `--paginate` to `?per_page=N` — uses URL query param (not -f flag)
+- [x] Add word-boundary matching — `re.search(rf'\b...\b', ...)`
+- [x] Update MODEL_PATTERNS — added sonnet-4-6, haiku-4-5, future-proof regex
+- [x] Fix FIXED category bug — added "fixed" keyword category + CATEGORY_MAP entry
 
 **Verify:**
 
@@ -76,12 +68,12 @@ Tasks:
   CACHE_TTL = 86400  # 24 hours
   ```
 
-- [ ] Implement `load_cache()` — read JSON, return dict with per-source entries
-- [ ] Implement `save_cache(data)` — atomic write (tmp + rename), `0o700` dir, `0o600` file
-- [ ] Implement `is_fresh(cache_entry, source)` — check timestamp vs TTL
-- [ ] Add `--refresh` flag — force all sources stale
-- [ ] Add `--no-cache` flag — skip cache entirely
-- [ ] Stale fallback: if live fetch fails and stale cache exists, use it with warning
+- [x] Implement `load_cache()` — read JSON, return dict with per-source entries
+- [x] Implement `save_cache(data)` — atomic write (tmp + rename), `0o700` dir, `0o600` file
+- [x] Implement `is_fresh(cache_entry, source)` — check timestamp vs TTL
+- [x] Add `--refresh` flag — force all sources stale
+- [x] Add `--no-cache` flag — skip cache entirely
+- [x] Stale fallback: if live fetch fails and stale cache exists, use it with warning
 
 **Verify:**
 
@@ -101,20 +93,11 @@ ls -la ~/.claude/release-watch-cache.json    # Exists with correct permissions
 
 Tasks:
 
-- [ ] Implement `fetch_changelog()` — fetch raw CHANGELOG.md from GitHub
-
-  ```bash
-  gh api repos/anthropics/claude-code/contents/CHANGELOG.md --jq '.content' | base64 -D
-  ```
-
-- [ ] Implement `parse_changelog(content)` — extract version sections
-  - Parse `## version` headers
-  - Categorize items by prefix: Added→NEW, Fixed→FIXED, Improved→NEW, Deprecated→DEPRECATED, Removed/Breaking→BREAKING
-  - Handle both explicit prefix format and implicit (indented bullets under version)
-- [ ] Implement merge logic — match CHANGELOG entries to GitHub releases by version
-  - CHANGELOG categories take precedence over keyword matching
-  - Populate `body_changelog` field on UnifiedRelease dataclass
-- [ ] Graceful degradation: if CHANGELOG fetch fails or format unrecognized, warn and continue with releases-only
+- [x] Implement `fetch_changelog()` — fetch via gh API + base64 decode, cached
+- [x] Implement `parse_changelog(content)` — `## version` headers, prefix categorization
+- [x] Implement `merge_changelog_with_releases()` — adds `body_changelog` field
+- [x] CHANGELOG categories take precedence in `scan_releases()` via lookup table
+- [x] Graceful degradation: warns and continues if fetch fails
 
 **Verify:**
 
@@ -131,22 +114,29 @@ python3 scripts/release-watch.py --count 5 --format json | python3 -m json.tool
 
 Tasks:
 
-- [ ] Check JSON endpoint: `curl -s https://releasebot.io/updates/anthropic/claude.json`
-- [ ] Check apps endpoint: `curl -s https://releasebot.io/updates/anthropic/claude-apps.json`
-- [ ] Check RSS fallback: `curl -s https://releasebot.io/updates/anthropic/claude.rss`
-- [ ] Document response format, fields available, rate limits
-- [ ] Determine which endpoint has Desktop-specific releases
-- [ ] Note: If no JSON endpoint exists, use RSS with xml.etree parser
+- [x] Check JSON endpoint — all return 404
+- [x] Check apps endpoint — 404
+- [x] Check RSS fallback — 404 (all feeds require auth)
+- [x] Document response format — no public API exists
+- [x] Determine Desktop endpoint — "claude-apps" slug, upstream at docs.anthropic.com
+- [x] Decision: fetch docs.anthropic.com directly instead of releasebot.io
 
-**Document findings here:**
+**Findings (completed 2026-02-26):**
 
 ```
 Releasebot.io API:
-  JSON endpoint: [TBD]
-  Fields: [TBD]
-  Desktop releases: [TBD]
-  Rate limits: [TBD]
-  Fallback: RSS at [TBD]
+  JSON endpoint: DOES NOT EXIST (all .json URLs return 404)
+  RSS endpoint:  DOES NOT EXIST (all .rss URLs return 404)
+  Feed access:   Authenticated only — requires account at /notifications
+
+  Desktop releases: Use product slug "claude-apps" (63 entries)
+  Upstream source:  https://docs.anthropic.com/en/release-notes/claude-apps
+
+  Rate limits: Not publicly documented
+  Authentication: Account token required for any feed format
+
+  DECISION: Fetch upstream source directly (docs.anthropic.com)
+  instead of releasebot.io. Source tag: "anthropic-docs"
 ```
 
 ---
