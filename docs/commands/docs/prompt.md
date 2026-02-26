@@ -37,12 +37,12 @@ Designed for use with Claude Code or any AI assistant. The generated prompts fol
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| `full` | Complete maintenance prompt covering all doc tasks | -- |
-| `reorganize` | Navigation restructuring prompt | -- |
-| `audit` | Content quality and inventory prompt | -- |
-| `edit FILE` | Editing prompt for a specific file | -- |
-| `cancel` | Exit without action | -- |
-| *(none)* | Show interactive prompt type menu | -- |
+| `full` | Complete maintenance prompt covering all doc tasks | — |
+| `reorganize` | Navigation restructuring prompt | — |
+| `audit` | Content quality and inventory prompt | — |
+| `edit FILE` | Editing prompt for a specific file | — |
+| `cancel` | Exit without action | — |
+| *(none)* | Show interactive prompt type menu | — |
 
 ---
 
@@ -50,10 +50,10 @@ Designed for use with Claude Code or any AI assistant. The generated prompts fol
 
 Each prompt type produces a different focus:
 
-- **Full Maintenance** -- Covers navigation, content audit, editing, consolidation, gap analysis, and style consistency. Includes content health criteria and action codes.
-- **Reorganize** -- Focused on navigation restructuring with ADHD-friendly design constraints (max 7 top-level sections, progressive disclosure).
-- **Audit** -- Content inventory with status tracking: checks for outdated versions, duplicates, missing docs, broken links, and formatting issues.
-- **Edit** -- File-specific editing prompt with clarity standards (tables over paragraphs, copy-paste examples, bullet points over prose).
+- **Full Maintenance** — Covers navigation, content audit, editing, consolidation, gap analysis, and style consistency. Includes content health criteria and action codes.
+- **Reorganize** — Focused on navigation restructuring with ADHD-friendly design constraints (max 7 top-level sections, progressive disclosure).
+- **Audit** — Content inventory with status tracking: checks for outdated versions, duplicates, missing docs, broken links, and formatting issues.
+- **Edit** — File-specific editing prompt with clarity standards (tables over paragraphs, copy-paste examples, bullet points over prose).
 
 Generated prompts are saved as `PROMPT-DOCS-<TYPE>.md` in the project root.
 
@@ -61,6 +61,6 @@ Generated prompts are saved as `PROMPT-DOCS-<TYPE>.md` in the project root.
 
 ## See Also
 
-- [/craft:docs:check](check.md) -- Full documentation health check
-- [/craft:docs:update](update.md) -- Update documentation
-- [/craft:docs:sync](sync.md) -- Smart documentation detection
+- [/craft:docs:check](check.md) — Full documentation health check
+- [/craft:docs:update](update.md) — Update documentation
+- [/craft:docs:sync](sync.md) — Smart documentation detection

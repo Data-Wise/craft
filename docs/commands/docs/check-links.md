@@ -62,11 +62,11 @@ Philosophy: "Find broken links before they break production."
 ## How It Works
 
 1. **Load ignore rules** from `.linkcheck-ignore` (if present)
-2. **Detect scope** -- target path or all `docs/` and root markdown files
-3. **Parse links** -- extracts inline links, reference links, and link definitions
-4. **Validate targets** -- resolves relative and absolute paths, checks file existence
-5. **Categorize results** -- critical (must fix) vs. expected (documented in `.linkcheck-ignore`)
-6. **Report** -- VS Code-clickable `file:line:col` format with summary
+2. **Detect scope** — target path or all `docs/` and root markdown files
+3. **Parse links** — extracts inline links, reference links, and link definitions
+4. **Validate targets** — resolves relative and absolute paths, checks file existence
+5. **Categorize results** — critical (must fix) vs. expected (documented in `.linkcheck-ignore`)
+6. **Report** — VS Code-clickable `file:line:col` format with summary
 
 In **release** mode, an additional anchor validation phase checks that `file.md#heading` targets resolve to actual headings in the target file.
 
@@ -84,6 +84,6 @@ In **release** mode, an additional anchor validation phase checks that `file.md#
 
 ## See Also
 
-- [/craft:docs:check](check.md) -- Full documentation health check
-- [/craft:docs:lint](lint.md) -- Markdown style and quality checks
-- [/craft:docs:update](update.md) -- Update documentation
+- [/craft:docs:check](check.md) — Full documentation health check
+- [/craft:docs:lint](lint.md) — Markdown style and quality checks
+- [/craft:docs:update](update.md) — Update documentation

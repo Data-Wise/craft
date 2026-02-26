@@ -48,10 +48,10 @@ The output includes a TL;DR, 30-second setup commands, a common-tasks table, a p
 
 ## How It Works
 
-1. **Detect project type** -- checks for `package.json`, `pyproject.toml`, `DESCRIPTION`, `go.mod`, `Cargo.toml`, `.claude-plugin/`, or `mkdocs.yml`.
-2. **Extract setup steps** -- reads README, CLAUDE.md, package manifests, and CI workflows to find install and verify commands.
-3. **Generate quickstart** -- fills the `QUICK-START-TEMPLATE.md` template with TL;DR, 30-second setup, common tasks, project layout, and status sections.
-4. **Validate** -- verifies that all listed commands are runnable and all paths exist.
+1. **Detect project type** — checks for `package.json`, `pyproject.toml`, `DESCRIPTION`, `go.mod`, `Cargo.toml`, `.claude-plugin/`, or `mkdocs.yml`.
+2. **Extract setup steps** — reads README, CLAUDE.md, package manifests, and CI workflows to find install and verify commands.
+3. **Generate quickstart** — fills the `QUICK-START-TEMPLATE.md` template with TL;DR, 30-second setup, common tasks, project layout, and status sections.
+4. **Validate** — verifies that all listed commands are runnable and all paths exist.
 
 ### Called By
 
@@ -62,6 +62,6 @@ The output includes a TL;DR, 30-second setup commands, a common-tasks table, a p
 
 ## See Also
 
-- [/craft:docs:help](help.md) -- Help page generator
-- [/craft:docs:check](check.md) -- Documentation health check
-- [/craft:docs:update](update.md) -- Update documentation
+- [/craft:docs:help](help.md) — Help page generator
+- [/craft:docs:check](check.md) — Documentation health check
+- [/craft:docs:update](update.md) — Update documentation

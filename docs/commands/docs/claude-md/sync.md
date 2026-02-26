@@ -1,6 +1,6 @@
 # /craft:docs:claude-md:sync
 
-> **Sync CLAUDE.md with project state -- update metrics, audit, fix, optimize.**
+> **Sync CLAUDE.md with project state — update metrics, audit, fix, optimize.**
 
 ---
 
@@ -51,11 +51,11 @@ The sync command also detects and blocks common anti-patterns such as release no
 
 ### 4-Phase Pipeline
 
-**Phase 1: Detect** -- Scans the project for current state (type, version source, filesystem counts).
+**Phase 1: Detect** — Scans the project for current state (type, version source, filesystem counts).
 
-**Phase 2: Update Metrics** -- Refreshes stale numbers in CLAUDE.md: version, command/skill/agent counts, test count, documentation percentage.
+**Phase 2: Update Metrics** — Refreshes stale numbers in CLAUDE.md: version, command/skill/agent counts, test count, documentation percentage.
 
-**Phase 3: Audit** -- Validates completeness and accuracy with 5 checks:
+**Phase 3: Audit** — Validates completeness and accuracy with 5 checks:
 
 | Check | Severity | What It Validates |
 |-------|----------|-------------------|
@@ -65,16 +65,16 @@ The sync command also detects and blocks common anti-patterns such as release no
 | Link validity | Warning | Internal links resolve |
 | Anti-pattern detection | Info | Common CLAUDE.md bloat patterns |
 
-**Phase 4: Fix / Optimize** (flag-controlled) -- `--fix` auto-corrects fixable issues (version mismatches, stale references). `--optimize` enforces the line budget by classifying sections as P0/P1/P2 and moving bloat to detail files, replacing it with pointer lines.
+**Phase 4: Fix / Optimize** (flag-controlled) — `--fix` auto-corrects fixable issues (version mismatches, stale references). `--optimize` enforces the line budget by classifying sections as P0/P1/P2 and moving bloat to detail files, replacing it with pointer lines.
 
 ### Budget Enforcement
 
-The line budget defaults to 150 and is resolved from: `.claude-plugin/config.json` (`claude_md_budget`), then `package.json` (`claudeMd.budget`), then the default. Do not place `claude_md_budget` in `plugin.json` -- Claude Code's strict schema rejects unrecognized keys.
+The line budget defaults to 150 and is resolved from: `.claude-plugin/config.json` (`claude_md_budget`), then `package.json` (`claudeMd.budget`), then the default. Do not place `claude_md_budget` in `plugin.json` — Claude Code's strict schema rejects unrecognized keys.
 
 ---
 
 ## See Also
 
-- [claude-md command suite](../claude-md.md) -- Hub page for all claude-md commands
-- [/craft:docs:claude-md:init](init.md) -- Create new CLAUDE.md from template
-- [/craft:docs:claude-md:edit](edit.md) -- Interactive section editing
+- [claude-md command suite](../claude-md.md) — Hub page for all claude-md commands
+- [/craft:docs:claude-md:init](init.md) — Create new CLAUDE.md from template
+- [/craft:docs:claude-md:edit](edit.md) — Interactive section editing

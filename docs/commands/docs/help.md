@@ -29,7 +29,7 @@
 
 Reads a command definition file, extracts its synopsis, flags, examples, and integration points, then generates a structured help page using the `HELP-PAGE-TEMPLATE.md` template. The output is consistent across all commands: quick examples up front, options in tables, and cross-references at the bottom.
 
-Designed for one-command operation -- no manual template filling required. Supports glob patterns to generate help pages for entire command categories at once.
+Designed for one-command operation — no manual template filling required. Supports glob patterns to generate help pages for entire command categories at once.
 
 ---
 
@@ -49,10 +49,10 @@ Designed for one-command operation -- no manual template filling required. Suppo
 
 ## How It Works
 
-1. **Locate** -- finds the command file under `commands/` and reads its definition.
-2. **Extract** -- pulls synopsis, description, flags, arguments, examples, and integration points from the source.
-3. **Generate** -- fills the `HELP-PAGE-TEMPLATE.md` template with extracted content, producing sections for synopsis, quick examples, options table, detailed examples, troubleshooting, and see-also links.
-4. **Validate** -- checks internal links, verifies example syntax, and optionally adds the page to mkdocs.yml navigation.
+1. **Locate** — finds the command file under `commands/` and reads its definition.
+2. **Extract** — pulls synopsis, description, flags, arguments, examples, and integration points from the source.
+3. **Generate** — fills the `HELP-PAGE-TEMPLATE.md` template with extracted content, producing sections for synopsis, quick examples, options table, detailed examples, troubleshooting, and see-also links.
+4. **Validate** — checks internal links, verifies example syntax, and optionally adds the page to mkdocs.yml navigation.
 
 ### Called By
 
@@ -63,6 +63,6 @@ Designed for one-command operation -- no manual template filling required. Suppo
 
 ## See Also
 
-- [/craft:docs:quickstart](quickstart.md) -- Quick start guide generator
-- [/craft:docs:check](check.md) -- Documentation health check
-- [/craft:docs:update](update.md) -- Update documentation
+- [/craft:docs:quickstart](quickstart.md) — Quick start guide generator
+- [/craft:docs:check](check.md) — Documentation health check
+- [/craft:docs:update](update.md) — Update documentation

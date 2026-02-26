@@ -31,7 +31,7 @@ Generates a new CLAUDE.md file tailored to your project type. The command detect
 
 All generated files enforce a less-than-150-line budget using pointer architecture. Instead of embedding full details (release history, architecture docs), the template ends with a References section containing links to detail files that Claude can follow on demand.
 
-This command follows the "Show Steps First" pattern -- it always previews the generated content and asks for confirmation before creating the file. If a CLAUDE.md already exists, the command refuses unless `--force` is set.
+This command follows the "Show Steps First" pattern — it always previews the generated content and asks for confirmation before creating the file. If a CLAUDE.md already exists, the command refuses unless `--force` is set.
 
 ---
 
@@ -48,12 +48,12 @@ This command follows the "Show Steps First" pattern -- it always previews the ge
 
 ## What It Does
 
-1. **Detect** -- Identifies project type from filesystem indicators (e.g., `.claude-plugin/plugin.json`, `_quarto.yml`, `DESCRIPTION`)
-2. **Scan** -- Gathers metadata from project files and git (version, counts, repo URL)
-3. **Populate** -- Fills lean template with discovered values, targeting less than 150 lines
-4. **Preview** -- Shows generated CLAUDE.md with line count and population percentage
-5. **Confirm** -- Waits for approval (`y`, `n`, `edit`, or `preview-full`)
-6. **Create** -- Writes the file and runs post-creation audit to validate
+1. **Detect** — Identifies project type from filesystem indicators (e.g., `.claude-plugin/plugin.json`, `_quarto.yml`, `DESCRIPTION`)
+2. **Scan** — Gathers metadata from project files and git (version, counts, repo URL)
+3. **Populate** — Fills lean template with discovered values, targeting less than 150 lines
+4. **Preview** — Shows generated CLAUDE.md with line count and population percentage
+5. **Confirm** — Waits for approval (`y`, `n`, `edit`, or `preview-full`)
+6. **Create** — Writes the file and runs post-creation audit to validate
 
 ### Available Templates
 
@@ -69,6 +69,6 @@ If multiple project types are detected, the highest-confidence match is used. Yo
 
 ## See Also
 
-- [claude-md command suite](../claude-md.md) -- Hub page for all claude-md commands
-- [/craft:docs:claude-md:edit](edit.md) -- Interactive section editing
-- [/craft:docs:claude-md:sync](sync.md) -- Update, audit, fix, and optimize CLAUDE.md
+- [claude-md command suite](../claude-md.md) — Hub page for all claude-md commands
+- [/craft:docs:claude-md:edit](edit.md) — Interactive section editing
+- [/craft:docs:claude-md:sync](sync.md) — Update, audit, fix, and optimize CLAUDE.md

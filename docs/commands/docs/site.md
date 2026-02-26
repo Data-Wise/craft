@@ -47,12 +47,12 @@ Use `--preview` to start a local server after updates, or `--deploy` to publish 
 
 ## How It Works
 
-1. **Detect framework** -- Checks for `mkdocs.yml`, `docusaurus.config.js`, or `.vitepress/config.js`.
-2. **Analyze state** -- Counts doc files, finds orphans not in nav, checks for broken internal links.
-3. **Show update plan** -- Displays which files will be updated and prompts for confirmation.
-4. **Execute updates** -- Updates index, quick-start, reference cards, guides, and navigation.
-5. **Validate** -- Checks structure, links, and content (titles, empty files, meta descriptions).
-6. **Preview/Deploy** -- Optionally serves locally or deploys via `mkdocs gh-deploy`.
+1. **Detect framework** — Checks for `mkdocs.yml`, `docusaurus.config.js`, or `.vitepress/config.js`.
+2. **Analyze state** — Counts doc files, finds orphans not in nav, checks for broken internal links.
+3. **Show update plan** — Displays which files will be updated and prompts for confirmation.
+4. **Execute updates** — Updates index, quick-start, reference cards, guides, and navigation.
+5. **Validate** — Checks structure, links, and content (titles, empty files, meta descriptions).
+6. **Preview/Deploy** — Optionally serves locally or deploys via `mkdocs gh-deploy`.
 
 ### What Gets Updated
 
@@ -70,6 +70,6 @@ Use `--preview` to start a local server after updates, or `--deploy` to publish 
 
 ## See Also
 
-- [/craft:docs:nav-update](nav-update.md) -- Update navigation from directory structure
-- [/craft:docs:check](check.md) -- Full documentation health check
-- [/craft:docs:update](update.md) -- Update all docs including non-website
+- [/craft:docs:nav-update](nav-update.md) — Update navigation from directory structure
+- [/craft:docs:check](check.md) — Full documentation health check
+- [/craft:docs:update](update.md) — Update all docs including non-website

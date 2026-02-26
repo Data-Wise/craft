@@ -40,10 +40,10 @@ The command infers page titles from H1 headings, YAML frontmatter, or filename c
 
 ## How It Works
 
-1. **Scan** -- Finds all `.md` files under `docs/` and reads the current `nav:` from `mkdocs.yml`.
-2. **Compare** -- Identifies new files not in nav, dead entries pointing to deleted files, and orphan files that exist but are excluded.
-3. **Plan** -- Displays a structured update plan with proposed additions, removals, and the resulting nav structure. Prompts for confirmation before applying.
-4. **Update** -- Writes the updated `nav:` section to `mkdocs.yml`.
+1. **Scan** — Finds all `.md` files under `docs/` and reads the current `nav:` from `mkdocs.yml`.
+2. **Compare** — Identifies new files not in nav, dead entries pointing to deleted files, and orphan files that exist but are excluded.
+3. **Plan** — Displays a structured update plan with proposed additions, removals, and the resulting nav structure. Prompts for confirmation before applying.
+4. **Update** — Writes the updated `nav:` section to `mkdocs.yml`.
 
 ### Smart Features
 
@@ -56,6 +56,6 @@ The command infers page titles from H1 headings, YAML frontmatter, or filename c
 
 ## See Also
 
-- [/craft:docs:check](check.md) -- Full documentation health check
-- [/craft:docs:site](site.md) -- Website documentation focus
-- [/craft:docs:sync](sync.md) -- Smart documentation detection
+- [/craft:docs:check](check.md) — Full documentation health check
+- [/craft:docs:site](site.md) — Website documentation focus
+- [/craft:docs:sync](sync.md) — Smart documentation detection

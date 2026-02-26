@@ -50,11 +50,11 @@ When run without arguments, it scans the project, reports detected endpoints and
 
 ## How It Works
 
-1. **Detect framework** -- scans for FastAPI, Flask, Express, Hono, Gin, or plumber markers in project files.
-2. **Generate spec** -- extracts routes, parameters, response schemas, and security schemes into an OpenAPI 3.1 YAML file.
-3. **Interactive docs** (optional) -- offers Swagger UI, Redoc, Stoplight Elements, or RapiDoc setup.
-4. **Validate** -- runs Spectral linting, reports errors and warnings, offers to fix issues.
-5. **SDK generation** (optional) -- uses openapi-generator-cli to produce typed clients in the target language.
+1. **Detect framework** — scans for FastAPI, Flask, Express, Hono, Gin, or plumber markers in project files.
+2. **Generate spec** — extracts routes, parameters, response schemas, and security schemes into an OpenAPI 3.1 YAML file.
+3. **Interactive docs** (optional) — offers Swagger UI, Redoc, Stoplight Elements, or RapiDoc setup.
+4. **Validate** — runs Spectral linting, reports errors and warnings, offers to fix issues.
+5. **SDK generation** (optional) — uses openapi-generator-cli to produce typed clients in the target language.
 
 ### Supported Frameworks
 
@@ -71,6 +71,6 @@ When run without arguments, it scans the project, reports detected endpoints and
 
 ## See Also
 
-- [/craft:docs:check](check.md) -- Documentation health check
-- [/craft:docs:update](update.md) -- Update documentation
-- [/craft:docs:sync](sync.md) -- Smart documentation detection
+- [/craft:docs:check](check.md) — Documentation health check
+- [/craft:docs:update](update.md) — Update documentation
+- [/craft:docs:sync](sync.md) — Smart documentation detection

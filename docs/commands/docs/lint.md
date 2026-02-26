@@ -48,18 +48,18 @@ The command detects whether `markdownlint-cli2` is installed globally (faster) o
 
 **Critical rules (always enabled):**
 
-- **List formatting** -- Blank lines around lists (MD032), consistent markers (MD004), spacing after markers (MD030)
-- **Code fences** -- Language tag required (MD040), fenced style (MD046), backtick style (MD048)
-- **Whitespace** -- Trailing spaces (MD009), hard tabs (MD010), multiple blank lines (MD012)
-- **Links** -- Reversed syntax (MD011), empty links (MD042), image alt text (MD045)
-- **Headings** -- ATX style (MD003), blank lines around headings (MD022)
+- **List formatting** — Blank lines around lists (MD032), consistent markers (MD004), spacing after markers (MD030)
+- **Code fences** — Language tag required (MD040), fenced style (MD046), backtick style (MD048)
+- **Whitespace** — Trailing spaces (MD009), hard tabs (MD010), multiple blank lines (MD012)
+- **Links** — Reversed syntax (MD011), empty links (MD042), image alt text (MD045)
+- **Headings** — ATX style (MD003), blank lines around headings (MD022)
 
 **Relaxed rules (Craft-specific):**
 
-- Line length (MD013) disabled -- long command examples are common
-- Inline HTML (MD033) allowed -- skill/agent tags need HTML elements
-- First-line heading (MD041) disabled -- files use frontmatter
-- Duplicate headings (MD024) allowed for siblings -- multiple "Examples" sections are valid
+- Line length (MD013) disabled — long command examples are common
+- Inline HTML (MD033) allowed — skill/agent tags need HTML elements
+- First-line heading (MD041) disabled — files use frontmatter
+- Duplicate headings (MD024) allowed for siblings — multiple "Examples" sections are valid
 
 ---
 
@@ -85,5 +85,5 @@ When `--fix` is used, a preview of all changes is shown before applying. Fixes a
 
 ## See Also
 
-- [/craft:docs:check](check.md) -- Full documentation health check
-- [/craft:docs:mermaid](mermaid.md) -- Mermaid diagram generation and validation
+- [/craft:docs:check](check.md) — Full documentation health check
+- [/craft:docs:mermaid](mermaid.md) — Mermaid diagram generation and validation

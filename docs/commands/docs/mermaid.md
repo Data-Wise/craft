@@ -1,6 +1,6 @@
 # /craft:docs:mermaid
 
-> **Mermaid diagrams -- templates, NL creation, MCP validation, and live preview**
+> **Mermaid diagrams — templates, NL creation, MCP validation, and live preview**
 
 ---
 
@@ -52,11 +52,11 @@ Validation and preview are powered by the `mcp-mermaid` MCP server. Use `--valid
 
 **Natural language mode** (quoted string): Follows a five-step workflow:
 
-1. **Generate** -- Analyzes description and creates Mermaid code
-2. **Validate** -- Checks syntax via mcp-mermaid (if `--validate` or `--preview`)
-3. **Preview** -- Opens rendered SVG in browser (if `--preview`)
-4. **Iterate** -- Refine via conversation until satisfied
-5. **Save** -- Output to specified file or display inline
+1. **Generate** — Analyzes description and creates Mermaid code
+2. **Validate** — Checks syntax via mcp-mermaid (if `--validate` or `--preview`)
+3. **Preview** — Opens rendered SVG in browser (if `--preview`)
+4. **Iterate** — Refine via conversation until satisfied
+5. **Save** — Output to specified file or display inline
 
 **Built-in best practices** enforced in all generated diagrams:
 
@@ -74,12 +74,12 @@ Validation and preview are powered by the `mcp-mermaid` MCP server. Use `--valid
 | `workflow` | TD | Process flows with decisions |
 | `architecture` | TB | System component diagrams |
 | `comparison` | LR | Before/after, option A vs B |
-| `sequence` | -- | Time-based API interactions |
-| `state` | -- | State machine transitions |
+| `sequence` | — | Time-based API interactions |
+| `state` | — | State machine transitions |
 
 ---
 
 ## See Also
 
-- [/craft:docs:check](check.md) -- Full documentation health check (includes Mermaid validation)
-- [/craft:docs:lint](lint.md) -- Markdown quality checks
+- [/craft:docs:check](check.md) — Full documentation health check (includes Mermaid validation)
+- [/craft:docs:lint](lint.md) — Markdown quality checks

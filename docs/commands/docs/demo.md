@@ -31,7 +31,7 @@ Creates GIF demos of CLI features for documentation. Supports two recording meth
 
 Before generating any demo, the command expects you to test commands first, capture real output, and verify correctness. This ensures GIFs show actual, working behavior with realistic timing.
 
-Philosophy: "Show, don't tell -- but only show what actually works."
+Philosophy: "Show, don't tell — but only show what actually works."
 
 ---
 
@@ -47,7 +47,7 @@ Philosophy: "Show, don't tell -- but only show what actually works."
 | `--check` | Validate all required dependencies | `false` |
 | `--fix` | Auto-install missing dependencies | `false` |
 | `--json` | Machine-readable JSON output (with `--check`) | `false` |
-| `--convert` | Convert a single `.cast` file to `.gif` | -- |
+| `--convert` | Convert a single `.cast` file to `.gif` | — |
 | `--batch` | Convert all `.cast` files in docs/ | `false` |
 | `--force` | Overwrite existing GIF files | `false` |
 | `--list-templates` | Show available VHS templates | `false` |
@@ -87,6 +87,6 @@ Philosophy: "Show, don't tell -- but only show what actually works."
 
 ## See Also
 
-- [/craft:docs:mermaid](mermaid.md) -- Complementary visual documentation
-- [/craft:docs:check](check.md) -- Documentation health check
-- [/craft:docs:update](update.md) -- Update documentation
+- [/craft:docs:mermaid](mermaid.md) — Complementary visual documentation
+- [/craft:docs:check](check.md) — Documentation health check
+- [/craft:docs:update](update.md) — Update documentation

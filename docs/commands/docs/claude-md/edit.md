@@ -31,7 +31,7 @@ Opens CLAUDE.md in an external editor with section-by-section navigation, TODO o
 
 Before opening the file, the command inserts HTML comment hints showing optimization guidance (e.g., which sections are over budget). After you finish editing, it strips those comments, runs a validation audit, and reports the results including line budget status.
 
-This command follows the "Show Steps First" pattern -- it always shows available sections and lets you choose what to edit before opening the editor.
+This command follows the "Show Steps First" pattern — it always shows available sections and lets you choose what to edit before opening the editor.
 
 ---
 
@@ -52,16 +52,16 @@ This command follows the "Show Steps First" pattern -- it always shows available
 
 ## How It Works
 
-1. **Parse** -- Reads CLAUDE.md and detects sections by top-level headers and horizontal rules
-2. **Show sections** -- Displays numbered list of detected sections with line counts
-3. **Select** -- You choose a section number, `all` for sequential editing, or `cancel`
-4. **Annotate** -- Inserts TODO hint comments unless `--no-hints` is set
-5. **Open** -- Launches the file in your editor via AppleScript
-6. **Wait** -- Prompts "Type 'done' when finished editing"
-7. **Clean up** -- Strips all TODO comments from the file
-8. **Validate** -- Runs 5-check audit with budget status (unless `--no-validate`)
-9. **Preview** -- Shows before/after diff with line count changes
-10. **Apply** -- Writes changes after your confirmation
+1. **Parse** — Reads CLAUDE.md and detects sections by top-level headers and horizontal rules
+2. **Show sections** — Displays numbered list of detected sections with line counts
+3. **Select** — You choose a section number, `all` for sequential editing, or `cancel`
+4. **Annotate** — Inserts TODO hint comments unless `--no-hints` is set
+5. **Open** — Launches the file in your editor via AppleScript
+6. **Wait** — Prompts "Type 'done' when finished editing"
+7. **Clean up** — Strips all TODO comments from the file
+8. **Validate** — Runs 5-check audit with budget status (unless `--no-validate`)
+9. **Preview** — Shows before/after diff with line count changes
+10. **Apply** — Writes changes after your confirmation
 
 The original file is backed up to `.CLAUDE.md.bak` before any changes are applied.
 
@@ -69,6 +69,6 @@ The original file is backed up to `.CLAUDE.md.bak` before any changes are applie
 
 ## See Also
 
-- [claude-md command suite](../claude-md.md) -- Hub page for all claude-md commands
-- [/craft:docs:claude-md:init](init.md) -- Create new CLAUDE.md from template
-- [/craft:docs:claude-md:sync](sync.md) -- Update, audit, fix, and optimize CLAUDE.md
+- [claude-md command suite](../claude-md.md) — Hub page for all claude-md commands
+- [/craft:docs:claude-md:init](init.md) — Create new CLAUDE.md from template
+- [/craft:docs:claude-md:sync](sync.md) — Update, audit, fix, and optimize CLAUDE.md

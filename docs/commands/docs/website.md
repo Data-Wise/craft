@@ -79,6 +79,6 @@ After each phase, the command rebuilds the site with `mkdocs build --strict`, re
 
 ## See Also
 
-- [/craft:docs:check](check.md) -- Documentation health check
-- [/craft:docs:mermaid](mermaid.md) -- Mermaid diagram generation
-- [/craft:docs:update](update.md) -- Update documentation
+- [/craft:docs:check](check.md) — Documentation health check
+- [/craft:docs:mermaid](mermaid.md) — Mermaid diagram generation
+- [/craft:docs:update](update.md) — Update documentation
