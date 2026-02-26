@@ -42,6 +42,9 @@ KEYWORD_CATEGORIES = {
     "environment": [
         "environment", "variable", "CLAUDE_",
     ],
+    "fixed": [
+        "fixed", "bug fix", "patch", "resolved",
+    ],
 }
 
 # Map keyword categories to finding categories
@@ -52,6 +55,7 @@ CATEGORY_MAP = {
     "schema": "BREAKING",
     "models": "NEW",
     "environment": "NEW",
+    "fixed": "FIXED",
 }
 
 # Known model name patterns to scan for in the codebase
@@ -64,7 +68,11 @@ MODEL_PATTERNS = [
     r"claude-opus-4",
     r"claude-sonnet-4",
     r"claude-sonnet-4-5",
+    r"claude-sonnet-4-6",
+    r"claude-haiku-4-5",
     r"claude-opus-4-6",
+    # Future-proofing: catch claude-{family}-{version} patterns
+    r"claude-(?:opus|sonnet|haiku)-\d+(?:-\d+)*",
 ]
 
 
@@ -131,10 +139,19 @@ def check_gh_auth():
 # ---------------------------------------------------------------------------
 
 def fetch_releases(count, since=None):
-    """Fetch releases from GitHub via gh CLI."""
+    """Fetch releases from GitHub via gh CLI.
+
+    Uses ?per_page=N to request only the needed releases in a single API call
+    instead of --paginate which fetches all pages.
+    """
+    # Request more than count when using --since, as we filter afterward
+    per_page = min(count * 2, 30) if since else min(count, 30)
     result = subprocess.run(
-        ["gh", "api", "repos/anthropics/claude-code/releases", "--paginate"],
-        capture_output=True, text=True,
+        [
+            "gh", "api",
+            f"repos/anthropics/claude-code/releases?per_page={per_page}",
+        ],
+        capture_output=True, text=True, timeout=30,
     )
     if result.returncode != 0:
         print(f"Error: Failed to fetch releases.", file=sys.stderr)
@@ -143,30 +160,9 @@ def fetch_releases(count, since=None):
 
     try:
         releases = json.loads(result.stdout)
-    except json.JSONDecodeError:
-        # --paginate may produce concatenated JSON arrays like [...][\n...]
-        # Split on boundaries and merge safely instead of string replace
-        raw = result.stdout.strip()
-        try:
-            decoder = json.JSONDecoder()
-            releases = []
-            idx = 0
-            while idx < len(raw):
-                # Skip whitespace between chunks
-                while idx < len(raw) and raw[idx] in " \t\n\r":
-                    idx += 1
-                if idx >= len(raw):
-                    break
-                obj, end_idx = decoder.raw_decode(raw, idx)
-                if isinstance(obj, list):
-                    releases.extend(obj)
-                else:
-                    releases.append(obj)
-                idx = end_idx
-        except json.JSONDecodeError as e:
-            print(f"Error: Failed to parse release data: {e}", file=sys.stderr)
-            sys.exit(1)
-        return _filter_and_sort(releases, count, since)
+    except json.JSONDecodeError as e:
+        print(f"Error: Failed to parse release data: {e}", file=sys.stderr)
+        sys.exit(1)
 
     if not isinstance(releases, list):
         releases = [releases]
@@ -223,20 +219,23 @@ def scan_releases(releases):
 
             line_lower = line_stripped.lower()
 
-            # Check for explicit breaking/deprecation signals first
+            # Check for explicit breaking/deprecation signals first (word-boundary)
             category = None
-            if any(kw in line_lower for kw in ["breaking", "removed", "migration"]):
+            if any(re.search(rf'\b{re.escape(kw)}\b', line_lower)
+                   for kw in ["breaking", "removed", "migration"]):
                 category = "BREAKING"
-            elif any(kw in line_lower for kw in ["deprecated"]):
+            elif any(re.search(rf'\b{re.escape(kw)}\b', line_lower)
+                     for kw in ["deprecated"]):
                 category = "DEPRECATED"
-            elif any(kw in line_lower for kw in ["fix", "fixed", "bug"]):
+            elif any(re.search(rf'\b{re.escape(kw)}\b', line_lower)
+                     for kw in ["fix", "fixed", "bug fix", "patch", "resolved"]):
                 category = "FIXED"
 
-            # Check if line contains any plugin-relevant keywords
+            # Check if line contains any plugin-relevant keywords (word-boundary)
             matched_keywords = []
             for cat_name, keywords in KEYWORD_CATEGORIES.items():
                 for kw in keywords:
-                    if kw.lower() in line_lower:
+                    if re.search(rf'\b{re.escape(kw.lower())}\b', line_lower):
                         matched_keywords.append(kw)
                         if category is None:
                             category = CATEGORY_MAP.get(cat_name, "NEW")
