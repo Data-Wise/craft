@@ -4,16 +4,20 @@ release_date: 2026-02-26
 milestone: v2.29.0 released — sed bug fixed, ready for next cycle
 last_session: 2026-02-26
 
-progress: v2.29.0 released. Two feature worktrees ready for implementation: unified release-watch v2 (~5 hrs) and pin-markdownlint (~60 min). Branch cleanup done. himalaya-mcp enhancement-gaps completed.
+progress: v2.29.0 released. Both feature worktrees in progress: pin-markdownlint ~90% done (10 files changed, uncommitted), unified release-watch Session 1 complete (increments 1-4 done, 4 commits + uncommitted WIP).
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | 2a32569  | —    | Production (v2.29.0, PR #115 merged) |
-| dev    | c9fa913  | main | .STATUS update (2 ahead)             |
-| feature/unified-release-watch | 4f293fc | dev | ORCHESTRATE plan committed, ready for implementation |
-| feature/pin-markdownlint | 0247ec5 | dev | ORCHESTRATE plan committed, ready for implementation |
+| dev    | 20e49f6  | main | Brainstorms + specs committed (4 ahead) |
+| feature/pin-markdownlint | 0247ec5 | dev | ~90% done: 10 files modified, not yet committed (increments 1-4 done, needs verify + PR) |
+| feature/unified-release-watch | 23c89f4 | dev | Session 1 done: increments 1-4 complete (4 commits), increment 5 WIP uncommitted |
+
+✅ Session 2026-02-26 (worktree implementation progress):
+- pin-markdownlint: All code changes made across 10 files (package.json, lockfile, CI workflows, hook, script, 3 test files, troubleshooting doc). Needs: commit, test run, PR creation.
+- unified-release-watch: Session 1 complete — quick wins, cache layer, CHANGELOG parser, releasebot research. 351 lines added to release-watch.py. Session 2 needed for increments 5-8.
 
 ✅ Session 2026-02-26 (pin-markdownlint brainstorm + worktree):
 - Deep brainstorm (10 questions): pin markdownlint-cli2 to eliminate npm 403 CI flakes
@@ -61,9 +65,9 @@ progress: v2.29.0 released. Two feature worktrees ready for implementation: unif
 
 🎯 Next Action:
 A) cd ~/.git-worktrees/craft/feature-pin-markdownlint && claude
-   → Pin markdownlint-cli2 (5 increments, ~60 min, quick win)
+   → Finish: commit changes, run tests, create PR (~15 min)
 B) cd ~/.git-worktrees/craft/feature-unified-release-watch && claude
-   → Implement unified release-watch v2 (8 increments, Session 1: ~2.5 hrs)
+   → Session 2: increments 5-8 (Desktop fetcher, auto-fix, unified output, tests ~2 hrs)
 C) Start next feature cycle (brainstorm v2.30.0)
 
 ## Future (v2.30.0+)
