@@ -38,8 +38,8 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install --save-dev markdownlint-cli2
+      - name: Install npm dependencies
+        run: npm ci
 
       - name: Run markdown linting
         run: npx markdownlint-cli2 "docs/**/*.md" "README.md" "CLAUDE.md" --config .markdownlint.json

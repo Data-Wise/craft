@@ -64,7 +64,7 @@ class TestMD030ListSpacing:
 
         try:
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -83,7 +83,7 @@ class TestMD030ListSpacing:
         try:
             # Run auto-fix
             subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", "--fix", temp_path],
+                ["npx", "markdownlint-cli2", "--fix", temp_path],
                 capture_output=True,
             )
 
@@ -97,7 +97,7 @@ class TestMD030ListSpacing:
 
             # Verify no violations remain
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -140,7 +140,7 @@ class TestMD004MarkerStyle:
 
         try:
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -158,7 +158,7 @@ class TestMD004MarkerStyle:
 
         try:
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -177,7 +177,7 @@ class TestMD004MarkerStyle:
         try:
             # Run auto-fix
             subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", "--fix", temp_path],
+                ["npx", "markdownlint-cli2", "--fix", temp_path],
                 capture_output=True,
             )
 
@@ -191,7 +191,7 @@ class TestMD004MarkerStyle:
 
             # Verify no violations remain
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -210,7 +210,7 @@ class TestMD004MarkerStyle:
         try:
             # Run auto-fix
             subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", "--fix", temp_path],
+                ["npx", "markdownlint-cli2", "--fix", temp_path],
                 capture_output=True,
             )
 
@@ -224,7 +224,7 @@ class TestMD004MarkerStyle:
 
             # Verify no violations remain
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -264,7 +264,7 @@ class TestMD032BlankLines:
 
         try:
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -283,7 +283,7 @@ class TestMD032BlankLines:
         try:
             # Run auto-fix
             subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", "--fix", temp_path],
+                ["npx", "markdownlint-cli2", "--fix", temp_path],
                 capture_output=True,
             )
 
@@ -297,7 +297,7 @@ class TestMD032BlankLines:
 
             # Verify no violations remain
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -319,7 +319,7 @@ class TestNestedLists:
 
         try:
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -338,7 +338,7 @@ class TestNestedLists:
         try:
             # Run auto-fix
             subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", "--fix", temp_path],
+                ["npx", "markdownlint-cli2", "--fix", temp_path],
                 capture_output=True,
             )
 
@@ -352,7 +352,7 @@ class TestNestedLists:
 
             # Verify no violations remain
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -374,7 +374,7 @@ class TestOrderedLists:
 
         try:
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )
@@ -393,7 +393,7 @@ class TestOrderedLists:
         try:
             # Run auto-fix
             subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", "--fix", temp_path],
+                ["npx", "markdownlint-cli2", "--fix", temp_path],
                 capture_output=True,
             )
 
@@ -407,7 +407,7 @@ class TestOrderedLists:
 
             # Verify no violations remain
             result = subprocess.run(
-                ["npx", "-y", "markdownlint-cli2", temp_path],
+                ["npx", "markdownlint-cli2", temp_path],
                 capture_output=True,
                 text=True,
             )

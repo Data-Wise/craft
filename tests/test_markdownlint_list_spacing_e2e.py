@@ -37,7 +37,6 @@ class TestFullLintingWorkflow:
             result = subprocess.run(
                 [
                     "npx",
-                    "-y",
                     "markdownlint-cli2",
                     "--config",
                     str(self.get_config_path()),
@@ -69,7 +68,6 @@ class TestFullLintingWorkflow:
             subprocess.run(
                 [
                     "npx",
-                    "-y",
                     "markdownlint-cli2",
                     "--config",
                     str(self.get_config_path()),
@@ -87,7 +85,6 @@ class TestFullLintingWorkflow:
                 result = subprocess.run(
                     [
                         "npx",
-                        "-y",
                         "markdownlint-cli2",
                         "--config",
                         str(self.get_config_path()),
@@ -128,7 +125,6 @@ Text before list
             subprocess.run(
                 [
                     "npx",
-                    "-y",
                     "markdownlint-cli2",
                     "--config",
                     str(self.get_config_path()),
@@ -154,7 +150,6 @@ Text before list
             result = subprocess.run(
                 [
                     "npx",
-                    "-y",
                     "markdownlint-cli2",
                     "--config",
                     str(self.get_config_path()),
@@ -264,7 +259,6 @@ class TestBaselineReport:
         result = subprocess.run(
             [
                 "npx",
-                "-y",
                 "markdownlint-cli2",
                 "--config",
                 str(config_path),
@@ -336,7 +330,6 @@ class TestDocumentationIntegration:
         result = subprocess.run(
             [
                 "npx",
-                "-y",
                 "markdownlint-cli2",
                 "--config",
                 str(self.get_config_path()),
@@ -376,7 +369,6 @@ class TestRealWorldScenarios:
             result = subprocess.run(
                 [
                     "npx",
-                    "-y",
                     "markdownlint-cli2",
                     "--config",
                     str(self.get_config_path()),
@@ -397,7 +389,6 @@ class TestRealWorldScenarios:
             subprocess.run(
                 [
                     "npx",
-                    "-y",
                     "markdownlint-cli2",
                     "--config",
                     str(self.get_config_path()),
@@ -442,7 +433,6 @@ Nested:
             result = subprocess.run(
                 [
                     "npx",
-                    "-y",
                     "markdownlint-cli2",
                     "--config",
                     str(self.get_config_path()),
@@ -486,7 +476,6 @@ Regular list:
             result = subprocess.run(
                 [
                     "npx",
-                    "-y",
                     "markdownlint-cli2",
                     "--config",
                     str(self.get_config_path()),
