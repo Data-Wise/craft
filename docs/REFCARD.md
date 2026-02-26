@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.28.0 (released 2026-02-21)                       │
+│  Version: 2.29.0 (released 2026-02-26)                       │
 │  Commands: 107 | Agents: 8 | Skills: 26                     │
-│  Documentation: 99% complete | Tests: 109 passing            │
+│  Documentation: 99% complete | Tests: 112 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.28.0: Desktop release pipeline, post-release sweep        │
+│  v2.29.0: 17 docs help pages, branch guard fix               │
 └─────────────────────────────────────────────────────────────┘
 ```
 

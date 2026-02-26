@@ -214,8 +214,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.28.0 — Desktop Release Pipeline, Docs Staleness Detection & Post-Release Sweep"
-    Desktop app release pipeline (Tauri/Cask) with multi-arch builds, 4-phase docs staleness detection system with traffic light output and interactive fix mode, post-release sweep automation for version drift detection, and comprehensive documentation improvements. 112 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.29.0 — Complete Docs Help Pages & Branch Guard Fix"
+    17 new help pages for all `/craft:docs:*` sub-commands with consolidated navigation, complete reference table in docs hub, updated commands.md with full 22-command docs reference, and branch guard false positive fix for feature branches. 112 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 

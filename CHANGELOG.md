@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [2.29.0] — 2026-02-26
 
 ### Added
 
@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Claude-MD sub-commands: edit, init, sync
 - Consolidated docs nav in mkdocs.yml (22 entries, alphabetically sorted)
 - Complete reference table in docs hub page (`docs/commands/docs.md`)
+- Updated commands.md with full 22-command docs reference table
+
+### Fixed
+
+- Branch guard false positives on `--force-with-lease` for feature branches (#113)
 
 ---
 
