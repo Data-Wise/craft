@@ -1606,7 +1606,7 @@ For full generator documentation, see:
 - [Generator Overview](https://github.com/Data-Wise/homebrew-tap/blob/main/docs/generator/index.md)
 - [Manifest Schema](https://github.com/Data-Wise/homebrew-tap/blob/main/docs/generator/manifest.md)
 - [Block Templates](https://github.com/Data-Wise/homebrew-tap/blob/main/docs/generator/blocks.md)
-- [Cookbook: Distribute Plugin via Homebrew](../cookbook/common/distribute-plugin-via-homebrew.md)
+- [Cookbook: Distribute Plugin via Homebrew](https://data-wise.github.io/craft/cookbook/common/distribute-plugin-via-homebrew/)
 
 ---
 
