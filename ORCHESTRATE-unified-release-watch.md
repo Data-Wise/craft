@@ -1,0 +1,332 @@
+# ORCHESTRATE: Unified Release Watch v2
+
+**Feature Branch:** `feature/unified-release-watch`
+**Spec:** `docs/specs/SPEC-unified-release-watch-2026-02-26.md`
+**Brainstorm:** `BRAINSTORM-unified-release-watch-2026-02-26.md`
+**Created:** 2026-02-26
+**Estimated:** ~5 hours across 2-3 sessions
+
+---
+
+## Goal
+
+Redesign `scripts/release-watch.py` to track both Claude Code CLI and Claude Desktop releases in a single unified tool. Replace noisy keyword-only scanning with structured CHANGELOG parsing, add a 24h cache, integrate releasebot.io for Desktop tracking, and introduce propose-only auto-fix.
+
+## Architecture
+
+Single-file layout (matches craft convention):
+
+```
+scripts/release-watch.py
+  ├── Constants & Config (MODEL_PATTERNS, KEYWORD_CATEGORIES, CATEGORY_MAP)
+  ├── Cache Layer (load, save, freshness check)
+  ├── Source: GitHub Releases API (?per_page=N)
+  ├── Source: GitHub CHANGELOG.md (parser)
+  ├── Source: Releasebot.io (Desktop)
+  ├── Merge & Deduplicate
+  ├── Analyzer (word-boundary keyword scan + craft state)
+  ├── Auto-Fix Classifier (safe=patch, review=report)
+  ├── Formatters (terminal, json, markdown)
+  └── Main (CLI + orchestration)
+```
+
+## Increments
+
+### Increment 1: Quick Wins (30 min) — Session 1
+
+**Files:** `scripts/release-watch.py`
+**Risk:** Low
+
+Tasks:
+
+- [ ] Fix `--paginate` to `?per_page=N` (line ~137)
+  - Replace `gh api ... --paginate` with `gh api ... -f per_page=10`
+  - Accept `--count N` to set per_page (default 10, max 30)
+- [ ] Add word-boundary matching (line ~239)
+  - Replace `kw.lower() in line_lower` with `re.search(rf'\b{re.escape(kw)}\b', line_lower)`
+  - Import `re` at top if not already imported
+- [ ] Update MODEL_PATTERNS (lines 58-68)
+  - Add: `claude-sonnet-4-6`, `claude-haiku-4-5`, `claude-opus-4-6`
+  - Add pattern: `claude-{family}-{version}` regex for future-proofing
+- [ ] Fix FIXED category bug (lines 48-55)
+  - Add `"fixed"`, `"bug fix"`, `"patch"`, `"resolved"` to CATEGORY_MAP → FIXED
+  - Add `"FIXED"` to the finding categories
+
+**Verify:**
+
+```bash
+python3 tests/test_release_watch.py  # All existing tests pass
+python3 scripts/release-watch.py --product code --count 3 --format json  # Fewer API calls, word-boundary matches
+```
+
+---
+
+### Increment 2: Cache Layer (30 min) — Session 1
+
+**Files:** `scripts/release-watch.py`
+**Risk:** Low
+
+Tasks:
+
+- [ ] Add cache constants
+
+  ```python
+  CACHE_DIR = Path.home() / ".claude"
+  CACHE_FILE = CACHE_DIR / "release-watch-cache.json"
+  CACHE_TTL = 86400  # 24 hours
+  ```
+
+- [ ] Implement `load_cache()` — read JSON, return dict with per-source entries
+- [ ] Implement `save_cache(data)` — atomic write (tmp + rename), `0o700` dir, `0o600` file
+- [ ] Implement `is_fresh(cache_entry, source)` — check timestamp vs TTL
+- [ ] Add `--refresh` flag — force all sources stale
+- [ ] Add `--no-cache` flag — skip cache entirely
+- [ ] Stale fallback: if live fetch fails and stale cache exists, use it with warning
+
+**Verify:**
+
+```bash
+python3 scripts/release-watch.py --count 3  # Creates cache
+python3 scripts/release-watch.py --count 3  # Uses cache (faster)
+python3 scripts/release-watch.py --refresh   # Bypasses cache
+ls -la ~/.claude/release-watch-cache.json    # Exists with correct permissions
+```
+
+---
+
+### Increment 3: CHANGELOG.md Parser (1 hour) — Session 1 or 2
+
+**Files:** `scripts/release-watch.py`
+**Risk:** Medium (CHANGELOG format may vary)
+
+Tasks:
+
+- [ ] Implement `fetch_changelog()` — fetch raw CHANGELOG.md from GitHub
+
+  ```bash
+  gh api repos/anthropics/claude-code/contents/CHANGELOG.md --jq '.content' | base64 -D
+  ```
+
+- [ ] Implement `parse_changelog(content)` — extract version sections
+  - Parse `## version` headers
+  - Categorize items by prefix: Added→NEW, Fixed→FIXED, Improved→NEW, Deprecated→DEPRECATED, Removed/Breaking→BREAKING
+  - Handle both explicit prefix format and implicit (indented bullets under version)
+- [ ] Implement merge logic — match CHANGELOG entries to GitHub releases by version
+  - CHANGELOG categories take precedence over keyword matching
+  - Populate `body_changelog` field on UnifiedRelease dataclass
+- [ ] Graceful degradation: if CHANGELOG fetch fails or format unrecognized, warn and continue with releases-only
+
+**Verify:**
+
+```bash
+python3 scripts/release-watch.py --count 5 --format json | python3 -m json.tool
+# Check that findings have CHANGELOG-enriched categories
+```
+
+---
+
+### Increment 4: Verify Releasebot.io API (15 min) — Session 1 (parallel research)
+
+**Files:** None (research only, document findings in this file)
+
+Tasks:
+
+- [ ] Check JSON endpoint: `curl -s https://releasebot.io/updates/anthropic/claude.json`
+- [ ] Check apps endpoint: `curl -s https://releasebot.io/updates/anthropic/claude-apps.json`
+- [ ] Check RSS fallback: `curl -s https://releasebot.io/updates/anthropic/claude.rss`
+- [ ] Document response format, fields available, rate limits
+- [ ] Determine which endpoint has Desktop-specific releases
+- [ ] Note: If no JSON endpoint exists, use RSS with xml.etree parser
+
+**Document findings here:**
+
+```
+Releasebot.io API:
+  JSON endpoint: [TBD]
+  Fields: [TBD]
+  Desktop releases: [TBD]
+  Rate limits: [TBD]
+  Fallback: RSS at [TBD]
+```
+
+---
+
+### Increment 5: Releasebot.io Fetcher + --product Flag (1 hour) — Session 2
+
+**Files:** `scripts/release-watch.py`, `commands/code/release-watch.md`
+**Risk:** Medium (depends on Increment 4 research)
+**Depends on:** Increment 2 (cache), Increment 4 (API verification)
+
+Tasks:
+
+- [ ] Implement `fetch_releasebot(product)` — fetch Desktop releases from releasebot.io
+  - Use `subprocess.run(["curl", ...], timeout=10)` with list-form args
+  - Parse JSON or RSS response based on Increment 4 findings
+  - Source-tag all entries as `source: "releasebot"`
+- [ ] Add `--product` flag: `all` (default), `code`, `desktop`
+  - `--product code` reproduces exact v1 behavior (backward compatible)
+  - `--product desktop` fetches releasebot.io only
+  - `--product all` fetches both
+- [ ] Integrate with cache layer (per-source TTL)
+- [ ] Security: NEVER use releasebot data for auto-fix proposals
+
+**Verify:**
+
+```bash
+python3 scripts/release-watch.py --product desktop  # Desktop releases shown
+python3 scripts/release-watch.py --product code     # Backward compatible
+python3 scripts/release-watch.py                     # Both products
+```
+
+---
+
+### Increment 6: Auto-Fix Propose Mode (45 min) — Session 2
+
+**Files:** `scripts/release-watch.py`
+**Risk:** Low
+**Depends on:** Increment 3 (analyzer)
+
+Tasks:
+
+- [ ] Implement `classify_action_items(findings)` — categorize as safe vs review
+  - Safe: MODEL_PATTERNS updates, KEYWORD_CATEGORIES additions
+  - Review: breaking changes, deprecations, schema changes, anything from releasebot
+- [ ] Implement `generate_patch(safe_items)` — create unified diff
+  - Only from GitHub API data, NEVER releasebot.io
+  - Generate valid `git apply` input
+  - Write to `.claude/release-watch-fixes.patch`
+- [ ] Add `--auto-fix` flag — triggers patch generation
+- [ ] Report all items (safe proposed as patch, review items listed)
+
+**Verify:**
+
+```bash
+python3 scripts/release-watch.py --auto-fix
+cat .claude/release-watch-fixes.patch  # Valid patch
+git apply --check .claude/release-watch-fixes.patch  # Validates
+```
+
+---
+
+### Increment 7: Unified Output + Command Updates (30 min) — Session 2
+
+**Files:** `scripts/release-watch.py`, `commands/code/release-watch.md`, `commands/code/desktop-watch.md`
+**Risk:** Low
+**Depends on:** Increment 5
+
+Tasks:
+
+- [ ] Update terminal formatter for unified output (per spec UI section)
+
+  ```
+  RELEASE WATCH -- Claude Code + Desktop
+
+    Sources:
+      GitHub Releases: fresh (5 releases)
+      CHANGELOG.md: fresh (enriched 5 versions)
+      Releasebot.io: fresh (3 Desktop entries)
+
+    CLAUDE CODE (latest: v2.1.59)
+    ...
+    CLAUDE DESKTOP (latest: 2026-02-25)
+    ...
+  ```
+
+- [ ] Update JSON output to v2 schema (per spec)
+  - Add `version: 2` field
+  - Add `products` dict with per-product findings
+  - Add `source_status` dict
+- [ ] Update `commands/code/release-watch.md` — document new flags
+- [ ] Update `commands/code/desktop-watch.md` — redirect to `release-watch --product desktop`
+- [ ] Update `skills/code/sync-features.md` — simplify to use unified command
+
+**Verify:**
+
+```bash
+python3 scripts/release-watch.py --format json | python3 -c "import json,sys; d=json.load(sys.stdin); assert d['version']==2"
+```
+
+---
+
+### Increment 8: Tests (30 min) — Session 2 or 3
+
+**Files:** `tests/test_release_watch.py`
+**Risk:** Low
+**Depends on:** All above
+
+Tasks:
+
+- [ ] Add cache tests
+  - `test_cache_creation` — verify file created with correct permissions
+  - `test_cache_freshness` — verify TTL check logic
+  - `test_cache_stale_fallback` — verify stale data used when fetch fails
+- [ ] Add CHANGELOG parser tests
+  - `test_parse_changelog_added` — Added items map to NEW
+  - `test_parse_changelog_fixed` — Fixed items map to FIXED
+  - `test_parse_changelog_format_error` — graceful degradation on bad format
+- [ ] Add Desktop source tests
+  - `test_releasebot_source_tag` — all entries tagged with source
+  - `test_releasebot_excluded_from_autofix` — security constraint
+- [ ] Add backward compatibility test
+  - `test_v1_json_compat` — `--product code --format json` output parseable by v1 consumers
+- [ ] Add word-boundary matching tests
+  - `test_word_boundary_no_false_positive` — "new" doesn't match "renewable"
+  - `test_word_boundary_matches` — "new" matches "new feature"
+
+**Verify:**
+
+```bash
+python3 -m pytest tests/test_release_watch.py -v  # All tests pass
+```
+
+---
+
+## Session Plan
+
+### Session 1 (~2.5 hours)
+
+1. Increment 1: Quick wins
+2. Increment 4: Releasebot research (can do early, informs later work)
+3. Increment 2: Cache layer
+4. Increment 3: CHANGELOG parser (start, may continue into Session 2)
+
+### Session 2 (~2 hours)
+
+5. Increment 5: Releasebot fetcher + --product flag
+6. Increment 6: Auto-fix propose mode
+7. Increment 7: Unified output + command updates
+
+### Session 3 (~30 min)
+
+8. Increment 8: Tests
+9. Final integration test: run full `python3 scripts/release-watch.py --format json`
+10. PR creation: `gh pr create --base dev`
+
+---
+
+## Security Checklist
+
+- [ ] Releasebot.io data source-tagged on all findings
+- [ ] Auto-fix NEVER uses releasebot.io data
+- [ ] Auto-fix generates .patch file only (propose-only, never modifies files)
+- [ ] Cache file permissions: `0o700` dir, `0o600` files
+- [ ] All subprocess calls use list-form `subprocess.run()` (no shell injection)
+- [ ] Subprocess timeouts: 30s GitHub API, 10s releasebot.io
+- [ ] Exit code always 0 (advisory tool, not a gate)
+
+## Backward Compatibility
+
+- [ ] `--product code` produces identical output to current v1
+- [ ] `--count N` still works
+- [ ] `--format json` with `--product code` is parseable by existing consumers
+- [ ] All existing tests in `test_release_watch.py` pass unchanged
+
+## Done Criteria
+
+- [ ] All acceptance criteria from spec met
+- [ ] All existing tests pass + new tests added
+- [ ] `python3 scripts/release-watch.py` shows both Code and Desktop
+- [ ] `python3 scripts/release-watch.py --product code` backward compatible
+- [ ] Cache working with correct permissions
+- [ ] Auto-fix generates valid patch file
+- [ ] PR created to dev
