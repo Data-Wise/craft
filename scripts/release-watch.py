@@ -9,6 +9,7 @@ Requires: gh CLI (authenticated)
 """
 
 import argparse
+import base64
 import json
 import os
 import re
@@ -287,11 +288,122 @@ def _version_gt(a, b):
 
 
 # ---------------------------------------------------------------------------
+# CHANGELOG.md parser
+# ---------------------------------------------------------------------------
+
+# Map CHANGELOG item prefixes to finding categories
+_CHANGELOG_PREFIX_MAP = {
+    "added": "NEW",
+    "new": "NEW",
+    "improved": "NEW",
+    "updated": "NEW",
+    "support": "NEW",
+    "fixed": "FIXED",
+    "fix": "FIXED",
+    "deprecated": "DEPRECATED",
+    "removed": "BREAKING",
+    "breaking": "BREAKING",
+}
+
+
+def fetch_changelog(cache=None, refresh=False, no_cache=False):
+    """Fetch raw CHANGELOG.md content from GitHub.
+
+    Returns the text content, or None on failure (graceful degradation).
+    """
+    if cache is None:
+        cache = {}
+
+    cached = get_cached("changelog", cache, refresh=refresh, no_cache=no_cache)
+    if cached is not None:
+        return cached
+
+    result = subprocess.run(
+        ["gh", "api", "repos/anthropics/claude-code/contents/CHANGELOG.md",
+         "--jq", ".content"],
+        capture_output=True, text=True, timeout=30,
+    )
+    if result.returncode != 0:
+        print("Warning: Failed to fetch CHANGELOG.md, continuing without it.",
+              file=sys.stderr)
+        return None
+
+    # Decode base64 content
+    try:
+        content = base64.b64decode(result.stdout.strip()).decode("utf-8")
+    except Exception:
+        print("Warning: Failed to decode CHANGELOG.md content.", file=sys.stderr)
+        return None
+
+    set_cached("changelog", content, cache)
+    return content
+
+
+def parse_changelog(content):
+    """Parse CHANGELOG.md into version-keyed sections with categorized items.
+
+    Returns dict: { "2.1.59": [{"text": "...", "category": "NEW"}, ...], ... }
+    """
+    if not content:
+        return {}
+
+    versions = {}
+    current_version = None
+
+    for line in content.split("\n"):
+        line_stripped = line.strip()
+
+        # Version headers: ## 2.1.59 or ## v2.1.59
+        version_match = re.match(r"^##\s+v?(\d+\.\d+\.\d+)", line_stripped)
+        if version_match:
+            current_version = version_match.group(1)
+            versions[current_version] = []
+            continue
+
+        # Bullet items under a version
+        if current_version and line_stripped.startswith("-"):
+            text = line_stripped.lstrip("- ").strip()
+            if not text:
+                continue
+
+            # Categorize by first word
+            first_word = text.split()[0].lower().rstrip(":")
+            category = _CHANGELOG_PREFIX_MAP.get(first_word, "NEW")
+
+            versions[current_version].append({
+                "text": text,
+                "category": category,
+            })
+
+    return versions
+
+
+def merge_changelog_with_releases(releases, changelog_versions):
+    """Enrich release findings with CHANGELOG categorization.
+
+    Adds a 'body_changelog' field to each release dict with parsed items.
+    CHANGELOG categories take precedence over keyword matching.
+    """
+    if not changelog_versions:
+        return releases
+
+    for release in releases:
+        tag = release.get("tag_name", "").lstrip("v")
+        items = changelog_versions.get(tag, [])
+        release["body_changelog"] = items
+
+    return releases
+
+
+# ---------------------------------------------------------------------------
 # Scan release bodies for keywords
 # ---------------------------------------------------------------------------
 
 def scan_releases(releases):
     """Scan release bodies for plugin-relevant keywords.
+
+    When CHANGELOG data is available (body_changelog field), uses those
+    categories as the primary source. Falls back to keyword matching.
 
     Returns a dict of category -> list of finding dicts.
     """
@@ -300,6 +412,14 @@ def scan_releases(releases):
     for release in releases:
         tag = release.get("tag_name", "unknown")
         body = release.get("body", "") or ""
+
+        # Build a lookup from CHANGELOG items for category precedence
+        changelog_items = release.get("body_changelog", [])
+        changelog_categories = {}
+        for item in changelog_items:
+            # Map CHANGELOG text to its category for line matching
+            changelog_categories[item["text"].lower()[:40]] = item["category"]
+
         lines = body.split("\n")
 
         for line in lines:
@@ -309,17 +429,21 @@ def scan_releases(releases):
 
             line_lower = line_stripped.lower()
 
-            # Check for explicit breaking/deprecation signals first (word-boundary)
-            category = None
-            if any(re.search(rf'\b{re.escape(kw)}\b', line_lower)
-                   for kw in ["breaking", "removed", "migration"]):
-                category = "BREAKING"
-            elif any(re.search(rf'\b{re.escape(kw)}\b', line_lower)
-                     for kw in ["deprecated"]):
-                category = "DEPRECATED"
-            elif any(re.search(rf'\b{re.escape(kw)}\b', line_lower)
-                     for kw in ["fix", "fixed", "bug fix", "patch", "resolved"]):
-                category = "FIXED"
+            # CHANGELOG category takes precedence if available
+            cl_key = line_stripped.lstrip("-* ").strip().lower()[:40]
+            category = changelog_categories.get(cl_key)
+
+            # Otherwise, check explicit breaking/deprecation signals (word-boundary)
+            if category is None:
+                if any(re.search(rf'\b{re.escape(kw)}\b', line_lower)
+                       for kw in ["breaking", "removed", "migration"]):
+                    category = "BREAKING"
+                elif any(re.search(rf'\b{re.escape(kw)}\b', line_lower)
+                         for kw in ["deprecated"]):
+                    category = "DEPRECATED"
+                elif any(re.search(rf'\b{re.escape(kw)}\b', line_lower)
+                         for kw in ["fix", "fixed", "bug fix", "patch", "resolved"]):
+                    category = "FIXED"
 
             # Check if line contains any plugin-relevant keywords (word-boundary)
             matched_keywords = []
@@ -342,6 +466,8 @@ def scan_releases(releases):
                     "summary": display,
                     "keywords": list(set(matched_keywords)),
                     "raw_line": line_stripped,
+                    "source": "github",
+                    "changelog_enriched": cl_key in changelog_categories,
                 }
                 # Avoid duplicate summaries in the same category
                 existing = [f["summary"] for f in findings[category]]
@@ -682,7 +808,7 @@ examples:
     # Load cache
     cache = {} if args.no_cache else load_cache()
 
-    # Fetch
+    # Fetch releases
     releases = fetch_releases(
         args.count, since=args.since,
         cache=cache, refresh=args.refresh, no_cache=args.no_cache,
@@ -694,6 +820,14 @@ examples:
         else:
             print("No releases found matching the criteria.")
         sys.exit(0)
+
+    # Fetch and merge CHANGELOG (enriches releases with structured categories)
+    changelog_content = fetch_changelog(
+        cache=cache, refresh=args.refresh, no_cache=args.no_cache,
+    )
+    if changelog_content:
+        changelog_versions = parse_changelog(changelog_content)
+        releases = merge_changelog_with_releases(releases, changelog_versions)
 
     # Analyze
     findings = scan_releases(releases)
