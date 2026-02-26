@@ -4,14 +4,30 @@ release_date: 2026-02-26
 milestone: v2.29.0 released — sed bug fixed, ready for next cycle
 last_session: 2026-02-26
 
-progress: v2.29.0 released. 17 docs help pages merged, full docs command reference table, branch guard fix, bump-version.sh sed delimiter fix. All downstream verified green.
+progress: v2.29.0 released. Two feature worktrees ready for implementation: unified release-watch v2 (~5 hrs) and pin-markdownlint (~60 min). Branch cleanup done. himalaya-mcp enhancement-gaps completed.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | 2a32569  | —    | Production (v2.29.0, PR #115 merged) |
-| dev    | 24e09ed  | main | sed delimiter fix (1 ahead)          |
+| dev    | c9fa913  | main | .STATUS update (2 ahead)             |
+| feature/unified-release-watch | 4f293fc | dev | ORCHESTRATE plan committed, ready for implementation |
+| feature/pin-markdownlint | 0247ec5 | dev | ORCHESTRATE plan committed, ready for implementation |
+
+✅ Session 2026-02-26 (pin-markdownlint brainstorm + worktree):
+- Deep brainstorm (10 questions): pin markdownlint-cli2 to eliminate npm 403 CI flakes
+- Saved spec: docs/specs/SPEC-pin-markdownlint-ci-2026-02-26.md (comprehensive docs)
+- Created worktree + ORCHESTRATE for feature/pin-markdownlint (5 increments, ~60 min)
+- 10 files affected, 28+ npx -y calls to update, exact version pin + lockfile commit
+
+✅ Session 2026-02-26 (release-watch brainstorm + orchestration):
+- Code review of release-watch.py: identified 5 issues (stale models, noisy keywords, paginate, FIXED bug, no Desktop)
+- Max brainstorm with 2 agents (backend architect + security specialist): unified release-watch v2 design
+- Saved spec: docs/specs/SPEC-unified-release-watch-2026-02-26.md
+- Created worktree + ORCHESTRATE for feature/unified-release-watch (8 increments, ~5 hours)
+- Cleaned 13 merged branches (3 local + 9 remote craft, 1 remote himalaya-mcp)
+- himalaya-mcp feature/enhancement-gaps: completed and cleaned up
 
 ✅ Session 2026-02-26 (v2.29.0 release + bug fix):
 - Reviewed & merged PR #114: 17 docs help pages, dash normalization, ORCHESTRATE cleanup
@@ -44,16 +60,16 @@ progress: v2.29.0 released. 17 docs help pages merged, full docs command referen
 ---
 
 🎯 Next Action:
-A) cd ~/.git-worktrees/himalaya-mcp/feature-enhancement-gaps && claude
-   → Implement 8 enhancements: 4 skills, 3 hooks, .craft/homebrew.json
-B) Pin markdownlint-cli2 in CI to avoid npm 403 flakes
+A) cd ~/.git-worktrees/craft/feature-pin-markdownlint && claude
+   → Pin markdownlint-cli2 (5 increments, ~60 min, quick win)
+B) cd ~/.git-worktrees/craft/feature-unified-release-watch && claude
+   → Implement unified release-watch v2 (8 increments, Session 1: ~2.5 hrs)
 C) Start next feature cycle (brainstorm v2.30.0)
 
 ## Future (v2.30.0+)
 
-- himalaya-mcp enhancement gaps: Tier 2 items (config wizard, stats, session-start hook)
+- himalaya-mcp: Tier 2 items (config wizard, stats, session-start hook)
 - himalaya-mcp release automation: version bump + changelog scripts
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
-- Pin markdownlint-cli2 in CI to avoid npm 403 flakes
