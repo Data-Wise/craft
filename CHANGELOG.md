@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **17 new docs help pages** — Complete help coverage for all `/craft:docs:*` sub-commands
+  - Simple: api, help, quickstart, nav-update, prompt, site
+  - Medium: tutorial, workflow, guide, mermaid, lint
+  - Complex: check-links, demo, website
+  - Claude-MD sub-commands: edit, init, sync
+- Consolidated docs nav in mkdocs.yml (22 entries, alphabetically sorted)
+- Complete reference table in docs hub page (`docs/commands/docs.md`)
+
+---
+
 ## [2.28.0] — 2026-02-25
 
 ### Added

@@ -213,8 +213,28 @@ nav:
       - /craft:orchestrate: commands/orchestrate.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:ci:status: commands/ci/status.md
-      - /craft:docs:update: commands/docs/update.md
+      - /craft:docs:api: commands/docs/api.md
+      - /craft:docs:changelog: commands/docs/changelog.md
+      - /craft:docs:check: commands/docs/check.md
+      - /craft:docs:check-links: commands/docs/check-links.md
       - /craft:docs:claude-md: commands/docs/claude-md.md
+      - /craft:docs:claude-md:edit: commands/docs/claude-md/edit.md
+      - /craft:docs:claude-md:init: commands/docs/claude-md/init.md
+      - /craft:docs:claude-md:sync: commands/docs/claude-md/sync.md
+      - /craft:docs:demo: commands/docs/demo.md
+      - /craft:docs:guide: commands/docs/guide.md
+      - /craft:docs:help: commands/docs/help.md
+      - /craft:docs:lint: commands/docs/lint.md
+      - /craft:docs:mermaid: commands/docs/mermaid.md
+      - /craft:docs:nav-update: commands/docs/nav-update.md
+      - /craft:docs:prompt: commands/docs/prompt.md
+      - /craft:docs:quickstart: commands/docs/quickstart.md
+      - /craft:docs:site: commands/docs/site.md
+      - /craft:docs:sync: commands/docs/sync.md
+      - /craft:docs:tutorial: commands/docs/tutorial.md
+      - /craft:docs:update: commands/docs/update.md
+      - /craft:docs:website: commands/docs/website.md
+      - /craft:docs:workflow: commands/docs/workflow.md
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
       - /craft:workflow:insights: commands/workflow/insights.md
@@ -235,9 +255,6 @@ nav:
       - /craft:git:sync: commands/git/sync.md
       - /craft:git:protect: commands/git/protect.md
       - /craft:git:unprotect: commands/git/unprotect.md
-      - /craft:docs:changelog: commands/docs/changelog.md
-      - /craft:docs:check: commands/docs/check.md
-      - /craft:docs:sync: commands/docs/sync.md
 
   # 5. COOKBOOK & EXAMPLES - Use case driven recipes
   - 📚 Cookbook & Examples:
