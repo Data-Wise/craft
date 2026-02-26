@@ -149,16 +149,11 @@ Releasebot.io API:
 
 Tasks:
 
-- [ ] Implement `fetch_releasebot(product)` — fetch Desktop releases from releasebot.io
-  - Use `subprocess.run(["curl", ...], timeout=10)` with list-form args
-  - Parse JSON or RSS response based on Increment 4 findings
-  - Source-tag all entries as `source: "releasebot"`
-- [ ] Add `--product` flag: `all` (default), `code`, `desktop`
-  - `--product code` reproduces exact v1 behavior (backward compatible)
-  - `--product desktop` fetches releasebot.io only
-  - `--product all` fetches both
-- [ ] Integrate with cache layer (per-source TTL)
-- [ ] Security: NEVER use releasebot data for auto-fix proposals
+- [x] Implement `fetch_desktop_releases()` — fetches from docs.anthropic.com (not releasebot)
+- [x] HTML parser extracts date-based entries with feature descriptions
+- [x] Add `--product` flag: all/code/desktop with backward compat
+- [x] Integrate with cache layer (per-source TTL)
+- [x] Security: Desktop data source-tagged, NEVER used for auto-fix
 
 **Verify:**
 
@@ -178,15 +173,10 @@ python3 scripts/release-watch.py                     # Both products
 
 Tasks:
 
-- [ ] Implement `classify_action_items(findings)` — categorize as safe vs review
-  - Safe: MODEL_PATTERNS updates, KEYWORD_CATEGORIES additions
-  - Review: breaking changes, deprecations, schema changes, anything from releasebot
-- [ ] Implement `generate_patch(safe_items)` — create unified diff
-  - Only from GitHub API data, NEVER releasebot.io
-  - Generate valid `git apply` input
-  - Write to `.claude/release-watch-fixes.patch`
-- [ ] Add `--auto-fix` flag — triggers patch generation
-- [ ] Report all items (safe proposed as patch, review items listed)
+- [x] Implement `classify_action_items(findings)` — safe vs review classification
+- [x] Implement `generate_patch(safe_items)` — unified diff for MODEL_PATTERNS
+- [x] Add `--auto-fix` flag — triggers patch generation
+- [x] Report all items (safe proposed as patch, review items listed)
 
 **Verify:**
 
@@ -206,29 +196,12 @@ git apply --check .claude/release-watch-fixes.patch  # Validates
 
 Tasks:
 
-- [ ] Update terminal formatter for unified output (per spec UI section)
-
-  ```
-  RELEASE WATCH -- Claude Code + Desktop
-
-    Sources:
-      GitHub Releases: fresh (5 releases)
-      CHANGELOG.md: fresh (enriched 5 versions)
-      Releasebot.io: fresh (3 Desktop entries)
-
-    CLAUDE CODE (latest: v2.1.59)
-    ...
-    CLAUDE DESKTOP (latest: 2026-02-25)
-    ...
-  ```
-
-- [ ] Update JSON output to v2 schema (per spec)
-  - Add `version: 2` field
-  - Add `products` dict with per-product findings
-  - Add `source_status` dict
-- [ ] Update `commands/code/release-watch.md` — document new flags
-- [ ] Update `commands/code/desktop-watch.md` — redirect to `release-watch --product desktop`
-- [ ] Update `skills/code/sync-features.md` — simplify to use unified command
+- [x] Update terminal formatter — unified Code + Desktop sections
+- [x] JSON v2 schema — version field, desktop findings, product-aware
+- [x] Markdown formatter — per-product sections
+- [x] Update `commands/code/release-watch.md` — new flags, JSON v2 schema
+- [x] Update `commands/code/desktop-watch.md` — redirects to --product desktop
+- [x] Update `skills/code/sync-features.md` — simplified to unified command
 
 **Verify:**
 
