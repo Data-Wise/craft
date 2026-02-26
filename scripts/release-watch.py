@@ -753,6 +753,103 @@ def generate_action_items(findings, craft_state):
 
 
 # ---------------------------------------------------------------------------
+# Auto-fix propose mode
+# ---------------------------------------------------------------------------
+
+PATCH_FILE = CACHE_DIR / "release-watch-fixes.patch"
+
+
+def classify_action_items(findings):
+    """Classify findings as safe (auto-patchable) vs review (manual).
+
+    Safe: model pattern updates, keyword additions (from GitHub only)
+    Review: breaking changes, deprecations, schema changes, anything from Desktop
+    """
+    safe = []
+    review = []
+
+    for category, items in findings.items():
+        for item in items:
+            # NEVER auto-fix from Desktop/external sources
+            if item.get("source") != "github":
+                review.append(item)
+                continue
+
+            if category in ("BREAKING", "DEPRECATED"):
+                review.append(item)
+            elif category == "NEW" and any(
+                kw in item.get("keywords", [])
+                for kw in ["model", "sonnet", "opus", "haiku"]
+            ):
+                safe.append(item)
+            else:
+                # Default: items needing human review
+                review.append(item)
+
+    return safe, review
+
+
+def generate_patch(safe_items, craft_state):
+    """Generate a unified diff patch for safe auto-fix items.
+
+    Currently handles: new model pattern additions to MODEL_PATTERNS.
+    Writes to .claude/release-watch-fixes.patch.
+    Returns the patch content string, or empty string if nothing to patch.
+    """
+    patch_lines = []
+
+    # Extract model names mentioned in safe findings that aren't already tracked
+    existing_patterns = set()
+    for p in MODEL_PATTERNS:
+        # Extract literal model names from patterns
+        clean = p.replace(r"\.", ".").replace(r"\d+", "").replace("(?:", "").replace(")", "")
+        existing_patterns.add(clean)
+
+    new_models = set()
+    for item in safe_items:
+        for kw in item.get("keywords", []):
+            if kw.lower() in ("model", "sonnet", "opus", "haiku"):
+                continue
+            # Look for model-like strings in the raw line
+            matches = re.findall(
+                r"claude-(?:opus|sonnet|haiku)-\d+(?:[.-]\d+)*",
+                item.get("raw_line", ""),
+            )
+            for m in matches:
+                escaped = m.replace(".", r"\.")
+                if escaped not in MODEL_PATTERNS and m not in [
+                    e.replace(r"\.", ".") for e in MODEL_PATTERNS
+                ]:
+                    new_models.add(m)
+
+    if not new_models:
+        return ""
+
+    # Generate patch for release-watch.py MODEL_PATTERNS
+    script_path = "scripts/release-watch.py"
+    patch_lines.append(f"--- a/{script_path}")
+    patch_lines.append(f"+++ b/{script_path}")
+
+    # Find the last model pattern line and add after it
+    last_pattern = MODEL_PATTERNS[-2] if len(MODEL_PATTERNS) > 1 else MODEL_PATTERNS[-1]
+    patch_lines.append(f"@@ MODEL_PATTERNS additions @@")
+    patch_lines.append(f'     r"{last_pattern}",')
+    for model in sorted(new_models):
+        escaped = model.replace(".", r"\.")
+        patch_lines.append(f'+    r"{escaped}",')
+    patch_lines.append(f'     # Future-proofing: catch claude-{{family}}-{{version}} patterns')
+
+    patch_content = "\n".join(patch_lines) + "\n"
+
+    # Write patch file
+    CACHE_DIR.mkdir(mode=0o700, parents=True, exist_ok=True)
+    PATCH_FILE.write_text(patch_content)
+    os.chmod(PATCH_FILE, 0o600)
+
+    return patch_content
+
+
+# ---------------------------------------------------------------------------
 # Output formatters
 # ---------------------------------------------------------------------------
 
@@ -1053,6 +1150,10 @@ examples:
         "--no-cache", dest="no_cache", action="store_true",
         help="Skip cache entirely (don't read or write)",
     )
+    parser.add_argument(
+        "--auto-fix", dest="auto_fix", action="store_true",
+        help="Generate a .patch file for safe auto-fix items",
+    )
 
     args = parser.parse_args()
 
@@ -1104,6 +1205,23 @@ examples:
 
     craft_state = analyze_craft_state()
     action_items = generate_action_items(findings, craft_state)
+
+    # Auto-fix mode
+    if args.auto_fix:
+        safe, review = classify_action_items(findings)
+        patch = generate_patch(safe, craft_state)
+        if patch:
+            print(f"Patch written to: {PATCH_FILE}", file=sys.stderr)
+            print(f"  Safe items: {len(safe)}", file=sys.stderr)
+            print(f"  Review items: {len(review)}", file=sys.stderr)
+            print(f"  Apply with: git apply {PATCH_FILE}", file=sys.stderr)
+        else:
+            print("No safe auto-fix items found.", file=sys.stderr)
+        if review:
+            print(f"\nItems requiring manual review ({len(review)}):", file=sys.stderr)
+            for item in review:
+                print(f"  - [{item['category']}] {item['version']}: {item['summary']}",
+                      file=sys.stderr)
 
     # Output
     if args.fmt == "terminal":
