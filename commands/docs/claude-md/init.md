@@ -114,7 +114,7 @@ Generated CLAUDE.md Preview
 > **TL;DR**: Development workflow orchestration plugin
 
 **107 commands** · **26 skills** · **8 agents**
-**Version:** v2.27.0 | **Tests:** 109 passing
+**Version:** v2.28.0 | **Tests:** 112 passing
 
 ## Git Workflow
 [...]

@@ -2,12 +2,12 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.28.0-blue.svg)](https://github.com/Data-Wise/craft)
+[![Version](https://img.shields.io/badge/version-2.29.0-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.27.0 - Mermaid MCP Validation Pipeline** 🚀
-> **107 commands** | **26 skills** | **8 agents** | **109 tests passing**
-> Mermaid MCP validation pipeline, auto-fix engine, health score metric, pre-commit hook, and SVG rendering.
+> **v2.29.0 - Complete Docs Help Pages & Branch Guard Fix** 🚀
+> **107 commands** | **26 skills** | **8 agents** | **112 tests passing**
+> 17 new docs help pages, complete docs command reference, consolidated navigation, and branch guard false positive fix.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -99,7 +99,7 @@ claude
 
 ```
 Craft v1.17.0 loaded
-86 commands available
+107 commands available
 ```
 
 ### Using in Claude Code CLI
@@ -223,7 +223,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 **[Full Tutorial](https://data-wise.github.io/craft/tutorials/teaching-mode-setup/)** • **[Config Schema](https://data-wise.github.io/craft/teaching-config-schema/)**
 
-## Commands (86 total)
+## Commands (107 total)
 
 ### Workflow Commands (12)
 
@@ -520,11 +520,12 @@ Specialized workflows for teaching projects with automated validation, semester 
 **For plugin development and contributions:**
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
-- 📖 **[Commands Reference](docs/commands.md)** - All 86 commands documented
+- 📖 **[Commands Reference](docs/commands.md)** - All 107 commands documented
 - 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 26 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards
+- Documentation staleness detection (4-phase checks with traffic light output)
 
 See the [documentation site](https://data-wise.github.io/craft/) for comprehensive guides.
 

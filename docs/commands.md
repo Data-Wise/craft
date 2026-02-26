@@ -1,6 +1,6 @@
 # Craft Commands Reference
 
-Complete reference for all 97 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
+Complete reference for all 107 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
 
 ## Quick Reference
 
@@ -62,6 +62,14 @@ Context-aware help and suggestions.
 ```bash
 /craft:help                   # Project-specific suggestions
 /craft:help testing           # Deep dive into testing
+```
+
+### /craft:check:gen-validator
+
+Generate a new custom validator template for `/craft:check`.
+
+```bash
+/craft:check:gen-validator "my-validator"
 ```
 
 ## Architecture Commands (arch/)
@@ -144,38 +152,38 @@ Generate curl-based installation scripts for GitHub releases.
 
 ## Documentation Commands (docs/)
 
-### /craft:docs:mermaid
+22 commands for documentation generation, validation, and site management.
 
-Generate Mermaid diagram templates.
-
-```bash
-/craft:docs:mermaid flowchart
-/craft:docs:mermaid sequence
-/craft:docs:mermaid er
-```
-
-### /craft:docs:api-documenter
-
-Create API documentation with OpenAPI support.
-
-```bash
-/craft:docs:api-documenter
-```
-
-### /craft:docs:tutorial-engineer
-
-Build step-by-step tutorials from code.
-
-```bash
-/craft:docs:tutorial-engineer "Getting started guide"
-```
-
-### /craft:docs:reference-builder
-
-Generate technical references and API docs.
+| Command | Description | Help |
+|---------|-------------|------|
+| `/craft:docs:update` | Smart full-cycle documentation generator | [Ref](commands/docs/update.md) |
+| `/craft:docs:sync` | Change detection and classification | [Ref](commands/docs/sync.md) |
+| `/craft:docs:check` | Documentation health check with auto-fix | [Ref](commands/docs/check.md) |
+| `/craft:docs:lint` | Markdown quality validation with auto-fix | [Ref](commands/docs/lint.md) |
+| `/craft:docs:check-links` | Internal link validation | [Ref](commands/docs/check-links.md) |
+| `/craft:docs:changelog` | Auto-update CHANGELOG from commits | [Ref](commands/docs/changelog.md) |
+| `/craft:docs:nav-update` | Update mkdocs.yml navigation | [Ref](commands/docs/nav-update.md) |
+| `/craft:docs:guide` | Feature guide + demo + refcard generator | [Ref](commands/docs/guide.md) |
+| `/craft:docs:tutorial` | Interactive tutorial generator | [Ref](commands/docs/tutorial.md) |
+| `/craft:docs:workflow` | Workflow documentation generator | [Ref](commands/docs/workflow.md) |
+| `/craft:docs:demo` | Terminal recording and GIF generator | [Ref](commands/docs/demo.md) |
+| `/craft:docs:mermaid` | Mermaid diagram templates and NL creation | [Ref](commands/docs/mermaid.md) |
+| `/craft:docs:website` | ADHD-friendly website enhancement | [Ref](commands/docs/website.md) |
+| `/craft:docs:api` | OpenAPI/Swagger documentation | [Ref](commands/docs/api.md) |
+| `/craft:docs:help` | Help page generator | [Ref](commands/docs/help.md) |
+| `/craft:docs:prompt` | Generate reusable maintenance prompts | [Ref](commands/docs/prompt.md) |
+| `/craft:docs:quickstart` | Quick start guide generator | [Ref](commands/docs/quickstart.md) |
+| `/craft:docs:site` | Site-wide documentation updates | [Ref](commands/docs/site.md) |
+| `/craft:docs:claude-md` | CLAUDE.md management hub | [Ref](commands/docs/claude-md.md) |
+| `/craft:docs:claude-md:edit` | Interactive CLAUDE.md editing | [Ref](commands/docs/claude-md/edit.md) |
+| `/craft:docs:claude-md:init` | Create CLAUDE.md from template | [Ref](commands/docs/claude-md/init.md) |
+| `/craft:docs:claude-md:sync` | Sync CLAUDE.md with project state | [Ref](commands/docs/claude-md/sync.md) |
 
 ```bash
-/craft:docs:reference-builder
+/craft:docs:update              # Full-cycle doc generation
+/craft:docs:lint --fix          # Auto-fix markdown issues
+/craft:docs:mermaid "show the release pipeline"  # NL diagram
+/craft:docs:check               # Health check with auto-fix
 ```
 
 ## Git Commands (git/)
@@ -229,6 +237,31 @@ Enhanced git status with branch guard indicator.
 /craft:git:status --verbose # Additional details
 ```
 
+### /craft:git:git-recap
+
+Git activity summary — recent commits, branch status, and productivity insights.
+
+```bash
+/craft:git:git-recap
+/craft:git:git-recap --since "3 days ago"
+```
+
+### /craft:git:docs:learning-guide
+
+Interactive Git commands learning guide.
+
+### /craft:git:docs:refcard
+
+Git commands quick reference card.
+
+### /craft:git:docs:safety-rails
+
+Git safety rails guide — guardrails for safe operations.
+
+### /craft:git:docs:undo-guide
+
+Git undo guide — emergency reference for reverting mistakes.
+
 ## Test Commands (test/)
 
 ### /craft:test
@@ -262,6 +295,68 @@ Manage Jinja2 templates for test generation.
 /craft:test:template validate     # Validate templates
 ```
 
+## Workflow Commands (workflow/)
+
+### /craft:workflow:adhd-guide
+
+ADHD-friendly workflow guide — structured approaches for maintaining focus.
+
+### /craft:workflow:recap
+
+Context restoration — summarize what happened in the current or previous session.
+
+```bash
+/craft:workflow:recap
+```
+
+### /craft:workflow:refine
+
+Prompt optimizer — improve and refine prompts interactively.
+
+```bash
+/craft:workflow:refine "my prompt text"
+```
+
+### /craft:workflow:task-status
+
+Show status of background tasks launched by the orchestrator.
+
+```bash
+/craft:workflow:task-status
+```
+
+### /craft:workflow:task-output
+
+View results from completed background tasks.
+
+```bash
+/craft:workflow:task-output <task-id>
+```
+
+### /craft:workflow:task-cancel
+
+Cancel a running background task.
+
+```bash
+/craft:workflow:task-cancel <task-id>
+```
+
+## Utility Commands (utils/)
+
+### /craft:utils:readme-teach-config
+
+Teaching configuration parser — parse and validate teaching YAML configs.
+
+### /craft:utils:readme-semester-progress
+
+Semester progress calculation utilities.
+
+## Site Documentation Commands (site/docs/)
+
+### /craft:site:docs:frameworks
+
+Documentation framework comparison — evaluate MkDocs, Quarto, Docusaurus, etc.
+
 ## Mode System
 
 All applicable commands support 4 execution modes:
@@ -288,7 +383,7 @@ All applicable commands support 4 execution modes:
 - **CI/CD (3):** detect, generate, validate
 - **Code (1):** lint
 - **Distribution (1):** curl-install
-- **Documentation (4):** mermaid, api-documenter, tutorial-engineer, reference-builder
+- **Documentation (22):** update, sync, check, lint, check-links, changelog, nav-update, guide, tutorial, workflow, demo, mermaid, website, api, help, prompt, quickstart, site, claude-md (+ edit, init, sync)
 - **Git (2):** worktree, clean
 - **Test (3):** run, cli-gen, cli-run
 

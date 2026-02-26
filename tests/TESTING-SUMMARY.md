@@ -1,6 +1,6 @@
 # Craft Plugin Testing Summary
 
-**Version:** v2.27.0
+**Version:** v2.28.0
 **Date:** 2026-02-21
 **Branch:** feature/claude-code-integration
 

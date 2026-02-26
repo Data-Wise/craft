@@ -1,46 +1,58 @@
 status: Active
-version: 2.28.0
-release_date: 2026-02-21
-milestone: v2.28.0 planning — Docs Staleness Detection
-last_session: 2026-02-25
+version: 2.29.0
+release_date: 2026-02-25
+milestone: v2.28.0 released — Docs Help Pages next
+last_session: 2026-02-26
 
-progress: v2.28.0 in progress. PR #110 (post-release sweep) and PR #109 (desktop release pipeline) both merged to dev. New feature planned: docs staleness detection system. Worktree ready.
+progress: v2.28.0 released. Homebrew skill updated to generator-first workflow. himalaya-mcp enhancement gaps brainstormed + worktree ready. Docs help pages worktree still pending.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
-| main   | b7ab949  | —    | Production (v2.27.0, PR #107 merged) |
-| dev    | 0c5a444  | main | 3 features merged, brainstorm for staleness detection |
-| feature/docs-staleness-detection | 07399a3 | dev | Worktree ready, ORCHESTRATE committed |
+| main   | b5e2b6b  | —    | Production (v2.28.0, PR #111 merged) |
+| dev    | 17b9ac6  | main | Homebrew skill + validate-counts     |
+| feature/docs-help-pages | c5fa315 | dev | Worktree ready, ORCHESTRATE committed |
 
-✅ Session 2026-02-25 (PR reviews, merges, docs health, staleness brainstorm):
-- Reviewed PR #110 (post-release sweep): found 4 issues, fixed, merged (squash)
-- Reviewed PR #109 (desktop release pipeline): found 5 issues, fixed, merged (squash)
-- Ran post-release sweep against live repo — all clean
-- Full docs health check: found 2 missing nav entries, 4 broken links, stale counts
-- Fixed all docs issues: nav entries, broken links, command flowchart, skills docs
-- Added mermaid command routing flowchart to commands overview
-- Fixed stale "17 skills, 7 agents" → "26 skills, 8 agents" in 2 files
-- Added missing skills (sync-features, release-checklist) to both skills docs
-- Full test suite: 96+ tests passing across 4 suites
-- Brainstormed docs staleness detection system (8 expert Qs, all decisions resolved)
-- Created worktree + ORCHESTRATE plan for feature/docs-staleness-detection (12 steps)
-- Saved 5 memory entries: macOS shell gotchas, 3-zone cask model, local-first SHA256
+✅ Session 2026-02-26 (homebrew skill + himalaya-mcp brainstorm):
+- Replaced inline Ruby template in homebrew skill with generator-first workflow
+- Added plugin formula count validation to validate-counts.sh
+- Deep brainstorm: himalaya-mcp enhancement gaps (11 items, 3 tiers)
+- Created SPEC + BRAINSTORM specs in himalaya-mcp/docs/specs/
+- Created worktree + ORCHESTRATE for feature/enhancement-gaps (8 items)
+- Cleaned up himalaya-mcp feature/install-docs worktree (PR merged)
+- Cross-repo: craft (2 commits), himalaya-mcp dev (1), himalaya-mcp feature (1)
+
+✅ Session 2026-02-25 (continued — docs updates + PR #112 merge):
+- Merged PR #112 (docs staleness detection) after fixing 6 review issues
+- Updated cookbook index: added 7 missing recipes + 8 troubleshooting pages
+- Created release workflow example page
+- Organized index badges into table layout (main/dev rows)
+- Added cookbook/, examples/, index.md to staleness exclusions
+- Fixed pattern matching: word-boundary match (exact was too strict)
+- Fixed broken link in REFCARD-DOCS-STALENESS
+- Deployed docs site (2x)
+- Memory updated: glob pitfall, sed portability, stuck CI checks
+
+✅ Session 2026-02-25 (release v2.28.0 + post-release sweep):
+- Released v2.28.0: desktop release pipeline, post-release sweep, docs improvements
+- Post-release Tier 2 sweep: 16 files with stale v2.27.0 refs fixed
+- Docs staleness detection worktree created and implemented
 
 ---
 
 🎯 Next Action:
-→ cd ~/.git-worktrees/craft/feature-docs-staleness && claude
-→ Implement docs-staleness-check.sh (12-step ORCHESTRATE plan)
-OR
-→ Release v2.28.0 (merge dev to main) — 2 features ready
-OR
-→ Work on missing docs help pages (14 docs sub-commands)
+A) cd ~/.git-worktrees/himalaya-mcp/feature-enhancement-gaps && claude
+   → Implement 8 enhancements: 4 skills, 3 hooks, .craft/homebrew.json
+B) cd ~/.git-worktrees/craft/feature-docs-help-pages && claude
+   → Implement 17 docs help pages (7-step ORCHESTRATE plan)
 
-## Future (v2.28.0+)
+## Future (v2.29.0+)
 
-- Missing docs help pages for 14 docs sub-commands
+- himalaya-mcp enhancement gaps: Tier 2 items (config wizard, stats, session-start hook)
+- himalaya-mcp release automation: version bump + changelog scripts
+- Missing docs help pages for 14 docs sub-commands + 3 claude-md (worktree ready)
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
 - Markdownlint rule expansion (30 → 42)
+- Pin markdownlint-cli2 in CI to avoid npm 403 flakes

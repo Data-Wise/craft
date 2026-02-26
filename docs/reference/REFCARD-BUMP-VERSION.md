@@ -12,10 +12,10 @@
 Need to update version numbers?
 |
 +-- Releasing a new version?
-|   +-- ./scripts/bump-version.sh 2.27.0
+|   +-- ./scripts/bump-version.sh 2.28.0
 |
 +-- Just want to preview changes?
-|   +-- ./scripts/bump-version.sh 2.27.0 --dry-run
+|   +-- ./scripts/bump-version.sh 2.28.0 --dry-run
 |
 +-- Added new commands/skills/agents?
 |   +-- ./scripts/bump-version.sh --counts-only
@@ -34,10 +34,10 @@ Need to update version numbers?
 
 ```bash
 # Full bump: version + counts across all 13 files
-./scripts/bump-version.sh 2.27.0
+./scripts/bump-version.sh 2.28.0
 
 # Preview without writing
-./scripts/bump-version.sh 2.27.0 --dry-run
+./scripts/bump-version.sh 2.28.0 --dry-run
 
 # Sync counts only (after adding commands/skills/agents)
 ./scripts/bump-version.sh --counts-only

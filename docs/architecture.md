@@ -157,6 +157,24 @@ exit 0 (allow) or exit 2 (block)
 
 **Bypass:** `/craft:git:unprotect` creates a marker file; `/craft:git:protect` removes it.
 
+### 6. Documentation Quality Toolchain
+
+Automated detection of documentation drift across 4 phases:
+
+```
+scripts/docs-staleness-check.sh
+    ↓
+Phase 6: Nav Completeness    → mkdocs.yml vs docs/ files
+Phase 7: Count Consistency   → "107 commands" refs match reality
+Phase 8: Coverage            → skills/agents/commands in docs
+Phase 9: Cross-Doc Freshness → stale summary lines
+    ↓
+Traffic light: GREEN | YELLOW | RED
+```
+
+Integrated into `/craft:check`, `pre-release-check.sh`, and CI (`docs-quality.yml`).
+Shared exclusion config at `scripts/config/exclusions.txt` for orchestrator mode descriptions and tutorial examples.
+
 ## Extensibility
 
 Craft is designed for easy extension:

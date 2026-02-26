@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.28.0 (released 2026-02-21)                       │
+│  Version: 2.29.0 (released 2026-02-26)                       │
 │  Commands: 107 | Agents: 8 | Skills: 26                     │
-│  Documentation: 99% complete | Tests: 109 passing            │
+│  Documentation: 99% complete | Tests: 112 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.28.0: Mermaid MCP validation, auto-fix, pre-commit hook   │
+│  v2.29.0: 17 docs help pages, branch guard fix               │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -784,6 +784,7 @@ main (production branch)
 | Stale references | `scripts/stale-ref-scan.sh` | Renamed files still referenced in docs |
 | Hook conflict audit | `scripts/hook-conflict-audit.sh` | Git hooks that block CI or releases |
 | CLAUDE.md health | `scripts/claude-md-health.sh` | Stale counts, missing versions, line bloat |
+| Docs staleness | `scripts/docs-staleness-check.sh` | Nav gaps, stale counts, undocumented items, cross-doc freshness |
 | Post-release sweep | `scripts/post-release-sweep.sh` | Tier 2+ drift after release (`--fix` auto-corrects) |
 
 **Belt-and-Suspenders (Version Sync):**

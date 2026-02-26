@@ -139,7 +139,7 @@ Uses standard box-drawing output:
 │  [1/5] ci.yml on main ..................... PASSED            │
 │  [2/5] docs.yml deployment ............... PASSED             │
 │  [3/5] homebrew-release.yml .............. PASSED             │
-│  [4/5] Live site version ................. v2.27.0            │
+│  [4/5] Live site version ................. v2.28.0            │
 │  [5/5] Badge validation .................. ALL PASSING        │
 ├─────────────────────────────────────────────────────────────┤
 │  Result: ALL GREEN                                           │

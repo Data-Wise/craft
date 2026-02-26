@@ -21,7 +21,7 @@ Just finished a release?
 |   +-- ./scripts/post-release-sweep.sh --json
 |
 +-- Checking against a specific version?
-|   +-- ./scripts/post-release-sweep.sh --version 2.27.0
+|   +-- ./scripts/post-release-sweep.sh --version 2.28.0
 |
 +-- Not sure what's stale?
     +-- Run without flags (dry-run is default)
@@ -40,7 +40,7 @@ Just finished a release?
 ./scripts/post-release-sweep.sh --fix
 
 # Check against a specific version (instead of reading plugin.json)
-./scripts/post-release-sweep.sh --version 2.27.0
+./scripts/post-release-sweep.sh --version 2.28.0
 
 # JSON output for CI or scripting
 ./scripts/post-release-sweep.sh --json
@@ -109,7 +109,7 @@ These files are NOT managed by `bump-version.sh` but commonly contain version re
 
 ```json
 {
-  "version": "2.27.0",
+  "version": "2.28.0",
   "previous_version": "2.26.0",
   "mode": "dry-run",
   "tier1_issues": 0,
@@ -137,7 +137,7 @@ The script automatically derives the previous version to search for:
 
 | Current Version | Derived Previous | Logic |
 |----------------|-----------------|-------|
-| `2.27.0` | `2.26.0` | Decrement patch |
+| `2.28.0` | `2.26.0` | Decrement patch |
 | `2.1.0` | `2.0.0` | Decrement patch |
 | `3.0.0` | `2.0.0` | Patch=0, decrement minor... minor=0, decrement major |
 | `1.0.0` | (empty) | Cannot derive — Tier 2 scan skipped |

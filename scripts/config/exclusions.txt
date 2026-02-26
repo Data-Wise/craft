@@ -1,0 +1,106 @@
+# scripts/config/exclusions.txt
+# Shared exclusion config for docs-staleness-check.sh and post-release-sweep.sh
+#
+# Format:
+#   filepath            — exclude entire file from all checks
+#   filepath:pattern    — exclude specific pattern matches in that file
+#   dir/                — exclude entire directory (trailing slash)
+#   # comment           — ignored
+#   blank lines         — ignored
+
+# ---------------------------------------------------------------------------
+# Whole-file exclusions (historical/changelog — counts are snapshots)
+# ---------------------------------------------------------------------------
+docs/VERSION-HISTORY.md
+docs/CHANGELOG.md
+
+# ---------------------------------------------------------------------------
+# Directory exclusions (working artifacts or excluded from mkdocs site)
+# ---------------------------------------------------------------------------
+docs/specs/
+docs/demos/
+docs/archive/
+docs/brainstorm/
+docs/dev/
+docs/cookbook/
+docs/examples/
+
+# ---------------------------------------------------------------------------
+# Hub/index pages (contain curated descriptions, not auto-updatable counts)
+# ---------------------------------------------------------------------------
+docs/index.md
+docs/cookbook/index.md
+
+# ---------------------------------------------------------------------------
+# Pattern exclusions (file:pattern — skip specific stale counts)
+# These are architecture snapshots or illustrative examples where the count
+# was correct at time of writing and should not be auto-updated.
+# ---------------------------------------------------------------------------
+docs/architecture/HUB-V2-ARCHITECTURE.md:97 commands
+docs/tutorials/TUTORIAL-post-merge-pipeline.md:97 commands
+docs/demos/hub-v2.tape:97 commands
+docs/api/DISCOVERY-API.md:97 commands
+docs/API-REFERENCE-COMMANDS.md:97 commands
+docs/reference/ERROR-SCENARIOS.md:97 commands
+docs/dev/CONTRIBUTING-HUB-V2.md:97 commands
+docs/REFCARD.md:99 commands
+docs/reference/REFCARD-DOCS-UPDATE.md:99 commands
+docs/tutorials/interactive-docs-update-tutorial.md:99 commands
+
+# Architecture scalability projections (not stale counts)
+docs/architecture/HUB-V2-ARCHITECTURE.md:200 commands
+docs/architecture/HUB-V2-ARCHITECTURE.md:500 commands
+
+# ---------------------------------------------------------------------------
+# Orchestrator mode descriptions (agent counts = mode limits, not totals)
+# ---------------------------------------------------------------------------
+docs/guide/orchestrator.md:4 agents
+docs/guide/orch-flag-usage.md:4 agents
+docs/orchestrator.md:4 agents
+docs/orchestrator.md:6 agents
+docs/commands.md:4 agents
+docs/commands/orchestrate.md:4 agents
+docs/commands/hub.md:4 agents
+docs/commands/smart.md:4 agents
+docs/workflows/index.md:4 agents
+docs/reference/COMMAND-PARAMETERS.md:4 agents
+docs/cookbook/common/use-interactive-orchestration.md:4 agents
+docs/tutorials/interactive-orchestration.md:4 agents
+docs/tutorials/orchestrator-modes-compared.md:3 agents
+docs/tutorials/orchestrator-modes-compared.md:4 agents
+docs/tutorials/orchestrator-modes-compared.md:5 agents
+docs/tutorials/TUTORIAL-claude-code-2.1-enhancements.md:4 agents
+
+# ---------------------------------------------------------------------------
+# Tutorial/example counts (historical snapshots, not current totals)
+# ---------------------------------------------------------------------------
+# "Stale CLAUDE.md" troubleshooting example (intentionally stale)
+docs/cookbook/troubleshooting/claude-md-out-of-sync.md:94 commands
+docs/cookbook/troubleshooting/claude-md-out-of-sync.md:18 skills
+docs/cookbook/troubleshooting/claude-md-out-of-sync.md:6 agents
+
+# Tutorial showing a hypothetical plugin (different plugin, not craft)
+docs/tutorials/claude-md-workflows.md:51 commands
+docs/tutorials/claude-md-workflows.md:8 skills
+docs/tutorials/claude-md-workflows.md:3 agents
+
+# Post-merge pipeline tutorial (output example, shows 97→100 update)
+docs/tutorials/TUTORIAL-post-merge-pipeline.md:100 commands
+
+# Interactive docs-update tutorial (shows diff example 99→101)
+docs/tutorials/interactive-docs-update-tutorial.md:101 commands
+docs/tutorials/interactive-docs-update-tutorial.md:99 commands
+
+# Docs-update interactive example (shows option preview 99→101)
+docs/examples/docs-update-interactive-example.md:101 commands
+docs/examples/docs-update-interactive-example.md:99 commands
+
+# REFCARD-DOCS-UPDATE (describes a check type, not actual count)
+docs/reference/REFCARD-DOCS-UPDATE.md:60 commands
+
+# REFCARD-DOCS-STALENESS (exclusion format examples in the docs itself)
+docs/reference/REFCARD-DOCS-STALENESS.md:97 commands
+docs/reference/REFCARD-DOCS-STALENESS.md:99 commands
+
+# Excluded from mkdocs site (working artifacts)
+docs/FEATURE-RELEASE-CLAUDE-MD.md

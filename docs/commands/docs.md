@@ -204,61 +204,29 @@ Targets: `docs/brainstorm/*.md`
 - Mobile Responsive (15%): Overflow fixes, touch targets
 - Content Density (20%): Paragraph length, callout boxes
 
-## Specialized Commands
+## All Docs Commands
 
-### /craft:docs:guide
-
-Feature guide + demo + refcard generator
-
-```bash
-/craft:docs:guide "authentication"
-```
-
-### /craft:docs:demo
-
-VHS tape generator for GIF demos
-
-```bash
-/craft:docs:demo "quick-start"
-```
-
-### /craft:docs:mermaid
-
-Mermaid diagram templates (6 types)
-
-```bash
-/craft:docs:mermaid flowchart
-/craft:docs:mermaid sequence
-```
-
-### /craft:docs:api
-
-OpenAPI/Swagger documentation
-
-### /craft:docs:changelog
-
-Auto-update CHANGELOG from commits
-
-### /craft:docs:nav-update
-
-Update mkdocs.yml navigation
-
-### /craft:docs:prompt
-
-Generate reusable maintenance prompts
-
-## Integration Commands
-
-### /craft:docs:site
-
-Site-wide documentation updates (integrates with site commands)
-
-```bash
-/craft:docs:site sync    # Sync docs with site structure
-```
-
-## Internal Commands
-
-### /craft:docs:claude-md
-
-Update CLAUDE.md (called by other commands)
+| Command | Description | Help Page |
+|---------|-------------|-----------|
+| `/craft:docs:update` | Smart full-cycle documentation generator | [Help](docs/update.md) |
+| `/craft:docs:sync` | Change detection and classification | [Help](docs/sync.md) |
+| `/craft:docs:check` | Documentation health check with auto-fix | [Help](docs/check.md) |
+| `/craft:docs:lint` | Markdown quality validation with auto-fix | [Help](docs/lint.md) |
+| `/craft:docs:check-links` | Internal link validation | [Help](docs/check-links.md) |
+| `/craft:docs:changelog` | Auto-update CHANGELOG from commits | [Help](docs/changelog.md) |
+| `/craft:docs:nav-update` | Update mkdocs.yml navigation | [Help](docs/nav-update.md) |
+| `/craft:docs:guide` | Feature guide + demo + refcard generator | [Help](docs/guide.md) |
+| `/craft:docs:tutorial` | Interactive tutorial generator | [Help](docs/tutorial.md) |
+| `/craft:docs:workflow` | Workflow documentation generator | [Help](docs/workflow.md) |
+| `/craft:docs:demo` | Terminal recording & GIF generator | [Help](docs/demo.md) |
+| `/craft:docs:mermaid` | Mermaid diagram templates & NL creation | [Help](docs/mermaid.md) |
+| `/craft:docs:website` | ADHD-friendly website enhancement | [Help](docs/website.md) |
+| `/craft:docs:api` | OpenAPI/Swagger documentation | [Help](docs/api.md) |
+| `/craft:docs:help` | Help page generator | [Help](docs/help.md) |
+| `/craft:docs:prompt` | Generate reusable maintenance prompts | [Help](docs/prompt.md) |
+| `/craft:docs:quickstart` | Quick start guide generator | [Help](docs/quickstart.md) |
+| `/craft:docs:site` | Site-wide documentation updates | [Help](docs/site.md) |
+| `/craft:docs:claude-md` | CLAUDE.md management hub | [Help](docs/claude-md.md) |
+| `/craft:docs:claude-md:edit` | Interactive CLAUDE.md editing | [Help](docs/claude-md/edit.md) |
+| `/craft:docs:claude-md:init` | Create CLAUDE.md from template | [Help](docs/claude-md/init.md) |
+| `/craft:docs:claude-md:sync` | Sync CLAUDE.md with project state | [Help](docs/claude-md/sync.md) |

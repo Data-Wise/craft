@@ -92,9 +92,11 @@ That's it! The post-install hook automatically syncs the plugin registry. **No m
 
 When you run `brew upgrade craft`, the Homebrew formula's `post_install` hook automatically:
 
-1. ✅ Updates symlinks to new version
-2. ✅ Runs `claude plugin update craft@local-plugins`
-3. ✅ Syncs Claude Code's plugin registry
+1. ✅ Strips unrecognized plugin.json keys (schema cleanup)
+2. ✅ Runs install script with 30s timeout (symlinks, marketplace, auto-enable)
+3. ✅ Syncs Claude Code plugin registry via `claude plugin update`
+
+Each step is independently error-isolated — if one fails, the others still run.
 
 **Result:** Next time you restart Claude Code, it loads the new version.
 
@@ -309,6 +311,8 @@ The same pattern applies to other Data-Wise plugins. All use Claude detection to
 | **craft** | `brew install data-wise/tap/craft` | 107 commands |
 | **rforge** | `brew install data-wise/tap/rforge` | 15 commands |
 | **scholar** | `brew install data-wise/tap/scholar` | 21 commands |
+| **himalaya-mcp** | `brew install data-wise/tap/himalaya-mcp` | 7 email skills, 19 MCP tools |
+| **workflow** | `brew install data-wise/tap/workflow` | ADHD workflow automation |
 
 All plugins will show "Claude Code is running - skipped auto-enable" if installed while Claude is running. Just run the enable command shown.
 

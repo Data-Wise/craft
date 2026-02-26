@@ -308,8 +308,8 @@ Multi-step extraction (extract field, then extract number from field) is preferr
 
 | Mode | Command | Effect |
 |------|---------|--------|
-| Full bump | `./scripts/bump-version.sh 2.27.0` | Version + counts across all files |
-| Dry run | `./scripts/bump-version.sh 2.27.0 --dry-run` | Preview only |
+| Full bump | `./scripts/bump-version.sh 2.28.0` | Version + counts across all files |
+| Dry run | `./scripts/bump-version.sh 2.28.0 --dry-run` | Preview only |
 | Counts only | `./scripts/bump-version.sh --counts-only` | Sync counts without version change |
 | Verify | `./scripts/bump-version.sh --verify` | Check consistency (exit 0/1) |
 
