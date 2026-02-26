@@ -350,7 +350,7 @@ for hub_file in commands/hub.md docs/commands/hub.md; do
                 sed -i '' "s|Toolkit v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|Toolkit v${TARGET_VERSION}|g" "$hub_file"
             fi
             # Counts in banner and quick reference: "N commands | N skills | N agents"
-            sed -i '' "s|[0-9][0-9]* commands | [0-9][0-9]* skills | [0-9][0-9]* agents|${CMD_COUNT} commands | ${SKILL_COUNT} skills | ${AGENT_COUNT} agents|g" "$hub_file"
+            sed -i '' "s#[0-9][0-9]* commands | [0-9][0-9]* skills | [0-9][0-9]* agents#${CMD_COUNT} commands | ${SKILL_COUNT} skills | ${AGENT_COUNT} agents#g" "$hub_file"
             echo -e "  ${GREEN}✓${NC} $hub_file"; UPDATED=$((UPDATED + 1))
         fi
     fi
