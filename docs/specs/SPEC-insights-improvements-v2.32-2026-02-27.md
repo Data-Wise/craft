@@ -1,6 +1,6 @@
 # SPEC: Insights-Driven Improvements v2.32.0
 
-**Status:** draft
+**Status:** approved
 **Created:** 2026-02-27
 **From Brainstorm:** BRAINSTORM-craft-insights-2026-02-27.md
 **Source Data:** 327 sessions, 6 weeks of insights analysis
@@ -288,20 +288,22 @@ find "$(dirname "$TARGET_DIR")" -maxdepth 1 -iname "$(basename "$TARGET_DIR")" 2
 
 ## Open Questions
 
-1. **CI version check on PRs:** Should the `--version` check in `--for pr` mode fail the check or just warn? (Recommendation: warn only, since feature branches haven't bumped versions yet)
-2. **Worktree pre-flight auto-run:** Should checks run automatically on every `create`, or require an explicit "Run pre-flight checks first" selection? (Recommendation: auto-run, show results in Step 0)
+All resolved.
+
+1. ~~**CI version check on PRs:**~~ **Resolved: Warn only.** Feature branches haven't bumped versions yet, so Tier 1 mismatch is expected. Show drift info but don't fail the check.
+2. ~~**Worktree pre-flight auto-run:**~~ **Resolved: Auto-run, show in Step 0.** Checks run silently on every `create`, results appear in the setup plan display. No extra user action required.
 
 ---
 
 ## Review Checklist
 
-- [ ] All 4 features scoped to extend existing infrastructure (no new scripts/commands)
-- [ ] Version validator follows hot-reload pattern (`.claude-plugin/skills/validation/`)
-- [ ] Worktree pre-flight uses soft warnings, not hard blocks
-- [ ] Homebrew SHA fix addresses race condition with 45s window
-- [ ] Sweep --fix separates mechanical (auto) from semantic (manual) fixes
-- [ ] No breaking changes to existing commands or scripts
-- [ ] Effort estimates reviewed against agent analysis
+- [x] All 4 features scoped to extend existing infrastructure (no new scripts/commands)
+- [x] Version validator follows hot-reload pattern (`.claude-plugin/skills/validation/`)
+- [x] Worktree pre-flight uses soft warnings, not hard blocks
+- [x] Homebrew SHA fix addresses race condition with 45s window
+- [x] Sweep --fix separates mechanical (auto) from semantic (manual) fixes
+- [x] No breaking changes to existing commands or scripts
+- [x] Effort estimates reviewed against agent analysis
 
 ---
 
@@ -322,6 +324,7 @@ find "$(dirname "$TARGET_DIR")" -maxdepth 1 -iname "$(basename "$TARGET_DIR")" 2
 | 2026-02-27 | Brainstorm created from 327-session insights analysis |
 | 2026-02-27 | Brainstorm reviewed: 5 features → 4 selected for v2.32.0, 1 deferred, 1 deprioritized |
 | 2026-02-27 | Spec captured with agent-validated integration points |
+| 2026-02-27 | Open questions resolved, spec approved |
 
 ---
 
