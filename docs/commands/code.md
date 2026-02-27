@@ -97,11 +97,11 @@ Validate command frontmatter, find deprecated patterns, report health score.
 
 ### /craft:code:release-watch
 
-Track Claude Code releases and identify plugin-relevant changes.
+Unified release tracker for Claude Code CLI and Claude Desktop — structured CHANGELOG parsing, 24h cache, auto-fix proposals, and `--product` flag for scoped tracking.
 
 ### /craft:code:desktop-watch
 
-Track Claude Desktop releases and identify integration opportunities.
+Track Claude Desktop releases (delegates to unified release-watch with `--product desktop`).
 
 ### /craft:code:sync-features
 

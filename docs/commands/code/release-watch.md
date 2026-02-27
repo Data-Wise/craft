@@ -1,6 +1,6 @@
 # /craft:code:release-watch
 
-> **Track Claude Code releases and identify plugin-relevant changes**
+> **Unified release tracker for Claude Code CLI and Claude Desktop — structured CHANGELOG parsing, 24h cache, auto-fix proposals**
 
 ---
 
