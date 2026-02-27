@@ -141,25 +141,18 @@ class TestCache:
         assert rw.is_fresh({}, "test") is False
         assert rw.is_fresh(None, "test") is False
 
-    def test_cache_creation(self, tmp_path):
+    def test_cache_creation(self, tmp_path, monkeypatch):
         """save_cache creates file with correct permissions."""
-        # Temporarily override cache path
-        original_dir = rw.CACHE_DIR
-        original_file = rw.CACHE_FILE
-        rw.CACHE_DIR = tmp_path / "test-cache"
-        rw.CACHE_FILE = rw.CACHE_DIR / "cache.json"
-        try:
-            rw.save_cache({"test": {"timestamp": time.time(), "data": "hello"}})
-            assert rw.CACHE_FILE.exists()
-            # Check permissions (owner read/write only)
-            mode = oct(rw.CACHE_FILE.stat().st_mode & 0o777)
-            assert mode == "0o600", f"Expected 0o600, got {mode}"
-            # Verify content
-            data = json.loads(rw.CACHE_FILE.read_text())
-            assert data["test"]["data"] == "hello"
-        finally:
-            rw.CACHE_DIR = original_dir
-            rw.CACHE_FILE = original_file
+        monkeypatch.setattr(rw, "CACHE_DIR", tmp_path / "test-cache")
+        monkeypatch.setattr(rw, "CACHE_FILE", rw.CACHE_DIR / "cache.json")
+        rw.save_cache({"test": {"timestamp": time.time(), "data": "hello"}})
+        assert rw.CACHE_FILE.exists()
+        # Check permissions (owner read/write only)
+        mode = oct(rw.CACHE_FILE.stat().st_mode & 0o777)
+        assert mode == "0o600", f"Expected 0o600, got {mode}"
+        # Verify content
+        data = json.loads(rw.CACHE_FILE.read_text())
+        assert data["test"]["data"] == "hello"
 
     def test_get_cached_returns_data_when_fresh(self):
         """get_cached returns data for fresh entries."""
