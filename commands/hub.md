@@ -120,6 +120,39 @@ done
 
 **If no worktrees exist (only main working tree):** Skip the WORKTREES section entirely (graceful degradation).
 
+### Step 1.7: Load Recent Usage from Facets (NEW in v2.30.0)
+
+Read recent session facets to populate the "Recently Used" footer:
+
+```python
+import json, glob, os
+from collections import Counter
+
+facets_dir = os.path.expanduser("~/.claude/usage-data/facets/")
+recent_commands = Counter()
+
+# Read last 10 facet files (most recent first)
+facet_files = sorted(glob.glob(f"{facets_dir}/session-*.json"), reverse=True)[:10]
+
+for fpath in facet_files:
+    try:
+        with open(fpath) as f:
+            facet = json.load(f)
+        # Extract command invocations if tracked in facet
+        for cmd in facet.get("commands_used", []):
+            recent_commands[cmd] += 1
+    except (json.JSONDecodeError, KeyError):
+        continue
+
+# Format: "/craft:do (3x) · /craft:check (2x) · /workflow:done (2x)"
+# Show top 3-5 commands by frequency, with recency tiebreaker
+recent_usage_line = " · ".join(
+    f"{cmd} ({count}x)" for cmd, count in recent_commands.most_common(5)
+)
+```
+
+**If no facets directory or no facet files exist:** Skip the "Recently Used" row entirely (graceful degradation).
+
 ### Step 2: Display Hub (Layer 1 - Main Menu)
 
 **Generate this display dynamically** using stats and commands data loaded in Step 0.
@@ -198,6 +231,9 @@ Display template:
 │    /brainstorm d f s "auth"     /craft:git:worktree create feat/x       │
 │    /craft:test debug            /release --dry-run                       │
 │    /craft:git:sync              /craft:insights --since 7                │
+│                                                                         │
+│  Recently Used: [if facets data exists — omit section if no data]       │
+│    /craft:do (3x) · /craft:check (2x) · /workflow:done (2x)           │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 

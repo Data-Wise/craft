@@ -684,6 +684,88 @@ fi
 
 **If not in worktree:** Proceed normally (existing behavior unchanged).
 
+### Step 1.0: Memory Lookup (NEW in v2.30.0)
+
+Check MEMORY.md for relevant learnings before routing:
+
+```python
+# Extract key terms from task description
+task_terms = extract_keywords(task)  # 3-5 key terms
+
+# Locate project memory file
+import os
+cwd_slug = os.getcwd().replace("/", "_")
+memory_file = os.path.expanduser(f"~/.claude/projects/{cwd_slug}/memory/MEMORY.md")
+
+if os.path.exists(memory_file):
+    with open(memory_file) as f:
+        memory_content = f.read()
+
+    # Search Key Learnings section for matching headings (case-insensitive)
+    import re
+    headings = re.findall(r'^### (.+)$', memory_content, re.MULTILINE)
+    for heading in headings:
+        heading_lower = heading.lower()
+        if any(term in heading_lower for term in task_terms):
+            # Extract the 1-2 sentences following the heading
+            pattern = rf'### {re.escape(heading)}\n(.+?)(?=\n### |\n## |\Z)'
+            match = re.search(pattern, memory_content, re.DOTALL)
+            if match:
+                first_sentence = match.group(1).strip().split('\n')[0]
+                # Display: "Memory note: {heading} — {first_sentence}"
+                # Adjust routing hints if the learning suggests a specific approach
+```
+
+**Behavior:**
+
+- If match found: show `"Memory note: [title] — [first sentence]"` before routing
+- If no match: zero overhead, proceed normally (no output)
+- Read-only: never modifies MEMORY.md
+- Surfaced as a note, not a forced override
+
+### Step 1.5: Insights Check (NEW in v2.30.0)
+
+Check recent session facets for friction patterns relevant to this task:
+
+```python
+import json, glob, os
+
+facets_dir = os.path.expanduser("~/.claude/usage-data/facets/")
+project_name = os.path.basename(os.getcwd())
+
+# Read last 5 facet files (most recent first)
+facet_files = sorted(glob.glob(f"{facets_dir}/session-*.json"), reverse=True)[:5]
+
+relevant_friction = []
+for fpath in facet_files:
+    with open(fpath) as f:
+        facet = json.load(f)
+
+    # Filter for current project
+    if facet.get("project") != project_name:
+        continue
+
+    # Check if friction events match task type
+    task_category = determine_category(task)  # from Step 1
+    for event in facet.get("friction_events", []):
+        if event.get("type") in ["wrong_approach", "buggy_code"]:
+            relevant_friction.append(event)
+
+if relevant_friction:
+    # Show: "Recent friction: {description} — consider: {resolution}"
+    # Add guardrail to routing: e.g., "Previous session had lint failures
+    # with this type of change. Run /craft:code:lint before committing."
+    pass
+```
+
+**Behavior:**
+
+- If relevant friction found: show note and add guardrail hint to routing context
+- If no relevant friction: zero overhead, proceed normally (no output)
+- If no facets directory exists: skip silently (graceful degradation)
+- Read-only: never modifies facet data
+- Both steps are **advisory only** — surface as notes, not forced overrides
+
 ### Step 1: Analyze Task and Calculate Complexity
 
 ```

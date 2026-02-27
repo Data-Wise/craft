@@ -288,15 +288,15 @@ mkdocs build --strict 2>&1 | grep -E "(WARNING|ERROR)" | head -10
 
 Tasks:
 
-- [ ] Add Step 1.13: Insights Capture
+- [x] Add Step 1.13: Insights Capture
   - Analyze session for friction signals (wrong branch, undone commands, test-then-fix cycles)
   - Write facet JSON to `~/.claude/usage-data/facets/session-<timestamp>.json`
   - Schema: session_id, project, branch, duration, goal_category, outcome, friction_events, learnings_captured, commits, files_changed
   - If 3+ friction events: show one-line summary and suggest `/craft:insights`
   - If no friction: silent (no output)
-- [ ] Create `~/.claude/usage-data/facets/` directory if missing
-- [ ] Add cleanup: delete facets older than 90 days
-- [ ] Add `SKIP_INSIGHTS` env var opt-out
+- [x] Create `~/.claude/usage-data/facets/` directory if missing
+- [x] Add cleanup: delete facets older than 90 days
+- [x] Add `SKIP_INSIGHTS` env var opt-out
 
 **Verify:**
 
@@ -313,16 +313,16 @@ grep -n "1.13\|facets\|SKIP_INSIGHTS\|friction" commands/workflow/done.md
 
 Tasks:
 
-- [ ] Add Step 1.11: Memory Capture
+- [x] Add Step 1.11: Memory Capture
   - Scan session for: errors with workarounds, repeated friction (2+), user-stated learnings ("remember", "always", "never")
   - For each candidate: check MEMORY.md for existing similar heading (>60% word overlap)
   - If duplicate: skip with note "Similar learning already captured"
   - If new: format as `### [Title] ([date])` + 2-3 sentence explanation
   - Show user list of candidates, accept with Enter (multiSelect for exclusion)
   - Append confirmed entries to "## Key Learnings" section
-- [ ] Add size check: if Key Learnings exceeds 200 lines, suggest archiving
-- [ ] Add `SKIP_MEMORY_UPDATE` env var opt-out
-- [ ] Memory is append-only: never delete/modify existing entries programmatically
+- [x] Add size check: if Key Learnings exceeds 200 lines, suggest archiving
+- [x] Add `SKIP_MEMORY_UPDATE` env var opt-out
+- [x] Memory is append-only: never delete/modify existing entries programmatically
 
 **Verify:**
 
@@ -340,17 +340,17 @@ grep -n "1.11\|MEMORY\|SKIP_MEMORY_UPDATE\|append" commands/workflow/done.md
 
 Tasks:
 
-- [ ] Add Step 1.0: Memory Lookup
+- [x] Add Step 1.0: Memory Lookup
   - Extract key terms from task description
   - Search MEMORY.md Key Learnings for matching headings (case-insensitive substring)
   - If match: show "Memory note: [title] — [first sentence]" and adjust routing hints
   - If no match: zero overhead, proceed normally
-- [ ] Add Step 1.5: Insights Check
+- [x] Add Step 1.5: Insights Check
   - Read last 5 facet files from `~/.claude/usage-data/facets/`
   - Filter for current project
   - If recent friction matches task type: show note and add guardrail to routing
   - If no relevant friction: proceed normally
-- [ ] Both steps are read-only; surface as notes, not forced overrides
+- [x] Both steps are read-only; surface as notes, not forced overrides
 
 **Verify:**
 
@@ -368,12 +368,12 @@ grep -n "Memory Lookup\|Insights Check\|Step 1.0\|Step 1.5" commands/do.md
 
 Tasks:
 
-- [ ] Add "RECENTLY USED" section in hub footer
+- [x] Add "RECENTLY USED" section in hub footer
   - Read last 10 facet files from `~/.claude/usage-data/facets/`
   - Extract command invocations (if tracked)
   - Show command frequency with recency: `/craft:do (3x) · /craft:check (2x)`
   - Section hidden if no facets data exists
-- [ ] Fallback: if no facets, skip section silently (graceful degradation)
+- [x] Fallback: if no facets, skip section silently (graceful degradation)
 
 **Verify:**
 
@@ -391,12 +391,12 @@ grep -n "RECENTLY\|facets\|recent usage" commands/hub.md
 
 Tasks:
 
-- [ ] Copy all Phase 3 changes to published docs
-- [ ] Update CLAUDE.md with full new capability list
-- [ ] Update REFCARD.md workflow section
-- [ ] Run full test suite: `python3 -m pytest tests/ -v`
-- [ ] Run `mkdocs build --strict`
-- [ ] Run `./scripts/validate-counts.sh`
+- [x] Copy all Phase 3 changes to published docs
+- [x] Update CLAUDE.md with full new capability list
+- [x] Update REFCARD.md workflow section
+- [x] Run full test suite: `python3 -m pytest tests/ -v`
+- [x] Run `mkdocs build --strict`
+- [x] Run `./scripts/validate-counts.sh`
 - [ ] Create PR: `gh pr create --base dev`
 
 **Verify:**
@@ -439,20 +439,20 @@ mkdocs build --strict
 
 ## Security Checklist
 
-- [ ] Auto-git never force-pushes (regular `git push` only)
-- [ ] Auto-git skips main branch entirely
-- [ ] Memory append-only (never delete/modify existing entries)
-- [ ] Facets contain no secrets (only session metadata)
-- [ ] CLAUDE.md sync is mechanical only (counts + version, never prose)
-- [ ] All subprocess calls use list-form (no shell injection)
+- [x] Auto-git never force-pushes (regular `git push` only)
+- [x] Auto-git skips main branch entirely
+- [x] Memory append-only (never delete/modify existing entries)
+- [x] Facets contain no secrets (only session metadata)
+- [x] CLAUDE.md sync is mechanical only (counts + version, never prose)
+- [x] All subprocess calls use list-form (no shell injection)
 
 ## Backward Compatibility
 
-- [ ] All existing command invocations produce identical output when new data sources missing
-- [ ] No new required arguments (all features auto-detected)
-- [ ] No schema changes to existing files (.STATUS, CLAUDE.md, plugin.json)
-- [ ] New files are additive (facets JSON, MEMORY.md append)
-- [ ] All 112 existing tests pass unchanged
+- [x] All existing command invocations produce identical output when new data sources missing
+- [x] No new required arguments (all features auto-detected)
+- [x] No schema changes to existing files (.STATUS, CLAUDE.md, plugin.json)
+- [x] New files are additive (facets JSON, MEMORY.md append)
+- [x] All 112 existing tests pass unchanged
 
 ## Env Var Opt-Outs
 
@@ -466,13 +466,13 @@ mkdocs build --strict
 
 ## Done Criteria
 
-- [ ] All acceptance criteria from spec met
-- [ ] All existing tests pass + docs build clean
-- [ ] `/workflow:done` auto-commits, pushes, and syncs
-- [ ] `/workflow:done` syncs CLAUDE.md counts silently
-- [ ] `/craft:do` skips worktree prompts when already in worktree
-- [ ] `/craft:do` suggests pipeline for complexity 6+ features
-- [ ] `/craft:hub` shows live counts (no hardcoded numbers)
-- [ ] `/craft:hub` shows Next Action and worktree status
-- [ ] Emergency exit path completes in less than 30s
+- [x] All acceptance criteria from spec met
+- [x] All existing tests pass + docs build clean
+- [x] `/workflow:done` auto-commits, pushes, and syncs
+- [x] `/workflow:done` syncs CLAUDE.md counts silently
+- [x] `/craft:do` skips worktree prompts when already in worktree
+- [x] `/craft:do` suggests pipeline for complexity 6+ features
+- [x] `/craft:hub` shows live counts (no hardcoded numbers)
+- [x] `/craft:hub` shows Next Action and worktree status
+- [x] Emergency exit path completes in less than 30s
 - [ ] PR created to dev

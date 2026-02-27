@@ -183,6 +183,9 @@ Display template:
 │    /brainstorm d f s "auth"     /craft:git:worktree create feat/x       │
 │    /craft:test debug            /release --dry-run                       │
 │    /craft:git:sync              /craft:insights --since 7                │
+│                                                                         │
+│  Recently Used: [if facets data exists — omit section if no data]       │
+│    /craft:do (3x) · /craft:check (2x) · /workflow:done (2x)           │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 

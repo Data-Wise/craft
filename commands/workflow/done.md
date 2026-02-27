@@ -255,6 +255,143 @@ fi
 
 If nothing changed, omit the SYNCED section entirely.
 
+### Step 1.11: Memory Capture (NEW in v2.30.0)
+
+Scan the session for learnings worth persisting to MEMORY.md:
+
+**Opt-out:** Set `SKIP_MEMORY_UPDATE=1` to skip this step.
+
+**What to scan for:**
+
+1. **Errors with workarounds** — commands that failed then succeeded with a different approach
+2. **Repeated friction** (2+ occurrences) — same mistake made twice in one session
+3. **User-stated learnings** — phrases like "remember", "always", "never", "note to self"
+
+**Deduplication check:**
+
+```bash
+# Read existing MEMORY.md Key Learnings section
+memory_file="$HOME/.claude/projects/$(pwd | sed 's|/|_|g')/memory/MEMORY.md"
+if [ -f "$memory_file" ]; then
+    existing_headings=$(grep '^### ' "$memory_file" | tr '[:upper:]' '[:lower:]')
+fi
+
+# For each candidate learning:
+# 1. Extract key terms (3-5 words)
+# 2. Check if any existing heading shares >60% word overlap
+# 3. If duplicate: skip with note "Similar learning already captured"
+# 4. If new: format as candidate
+```
+
+**Candidate format:**
+
+```
+### [Title] ([date])
+[2-3 sentence explanation of what was learned and why it matters]
+```
+
+**User confirmation:**
+
+```
+AskUserQuestion:
+  question: "Save these learnings to MEMORY.md?"
+  header: "Memory"
+  multiSelect: true
+  options:
+    - label: "[Learning 1 title]"
+      description: "[First sentence of explanation]"
+    - label: "[Learning 2 title]"
+      description: "[First sentence of explanation]"
+    - label: "Skip all"
+      description: "Don't save any learnings this session"
+```
+
+**After confirmation:**
+
+- Append confirmed entries to `## Key Learnings` section in MEMORY.md
+- If `## Key Learnings` section doesn't exist, create it
+- Memory is **append-only**: never delete or modify existing entries programmatically
+
+**Size guard:**
+
+```bash
+# Check Key Learnings section length
+learnings_lines=$(sed -n '/^## Key Learnings/,/^## /p' "$memory_file" | wc -l)
+if [ "$learnings_lines" -gt 200 ]; then
+    echo "⚠️  Key Learnings exceeds 200 lines. Consider archiving older entries."
+fi
+```
+
+**If no learnings detected:** Skip silently (zero output, zero overhead).
+
+### Step 1.13: Insights Capture (NEW in v2.30.0)
+
+Analyze the session for friction signals and write a facet JSON file:
+
+**Opt-out:** Set `SKIP_INSIGHTS=1` to skip this step.
+
+**Friction signals to detect:**
+
+1. **Wrong branch/directory** — git operations on unexpected branch
+2. **Undo-then-redo** — commands that were reverted and retried differently
+3. **Test-then-fix cycles** — test failures followed by code edits (3+ cycles = friction)
+4. **Tool limitations** — commands that errored due to environment constraints
+5. **Misunderstood requests** — user corrections like "no, I meant..." or "that's wrong"
+
+**Facet JSON schema:**
+
+```json
+{
+  "session_id": "<uuid>",
+  "timestamp": "<ISO-8601>",
+  "project": "<repo-name>",
+  "branch": "<current-branch>",
+  "duration_minutes": "<estimated-from-git-timestamps>",
+  "goal_category": "<feature|bugfix|docs|refactor|release|other>",
+  "outcome": "<completed|partial|blocked|abandoned>",
+  "friction_events": [
+    {
+      "type": "<wrong_approach|buggy_code|tool_limitation|misunderstood_request>",
+      "description": "<1-sentence summary>",
+      "resolution": "<how it was resolved>"
+    }
+  ],
+  "learnings_captured": "<count-from-step-1.11>",
+  "commits": "<count>",
+  "files_changed": "<count>"
+}
+```
+
+**Write facet file:**
+
+```bash
+# Ensure directory exists
+mkdir -p ~/.claude/usage-data/facets/
+
+# Write facet JSON
+cat > ~/.claude/usage-data/facets/session-$(date +%Y%m%d-%H%M%S).json << 'FACET'
+{...facet data...}
+FACET
+```
+
+**Cleanup (run after write):**
+
+```bash
+# Delete facets older than 90 days
+find ~/.claude/usage-data/facets/ -name "session-*.json" -mtime +90 -delete 2>/dev/null
+```
+
+**Friction summary (only if 3+ friction events):**
+
+```
+│ ⚠️  FRICTION: 4 events detected this session                  │
+│    • wrong_approach (2): pushed to wrong branch, wrong file   │
+│    • buggy_code (2): lint failures, missing import            │
+│    → Run /craft:workflow:insights for full analysis            │
+```
+
+**If fewer than 3 friction events:** Silent (no output in summary). Facet is still written for aggregate analysis.
+
 ### Step 1.14: Worktree Status Summary (NEW in v2.30.0)
 
 Detect if the session is in a git worktree and gather worktree context:
@@ -337,6 +474,13 @@ Present findings and ask user to confirm/edit:
 │ SYNCED: [if CLAUDE.md counts changed — omit if no changes]  │
 │    • CLAUDE.md: commands 106→107, tests 109→112             │
 │                                                             │
+│ 🧠 MEMORY: [if learnings captured — omit if none]            │
+│    • Saved 2 learnings to MEMORY.md                          │
+│                                                               │
+│ ⚠️  FRICTION: [if 3+ events — omit if fewer]                  │
+│    • wrong_approach (2), buggy_code (1), tool_limitation (1) │
+│    → Run /craft:workflow:insights for full analysis           │
+│                                                               │
 │ 🌳 WORKTREE: [if in worktree — omit if not]                 │
 │    • Branch: feature/my-feature (+12 ahead, -0 behind dev) │
 │    • ORCHESTRATE: 8/15 increments complete                  │
