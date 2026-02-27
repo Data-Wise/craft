@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`/workflow:done` learning loop** — Memory capture (Step 1.11), insights capture (Step 1.13), auto-git (Step 3.5), CLAUDE.md sync (Step 1.10), worktree status (Step 1.14)
+- **`/craft:do` memory-aware routing** — Memory lookup (Step 1.0), insights check (Step 1.5), worktree detection (Step 0.5), pipeline suggestion (Step 2.5), spec auto-load (Step 2.6)
+- **`/craft:hub` live dashboard** — Dynamic counts from discovery engine, .STATUS next action, active worktree status, recently used commands from facets
+- **Facet JSON system** — Session metadata written to `~/.claude/usage-data/facets/` for friction analysis and usage tracking
+- **Published docs** for `/workflow:done` command
+- 5 new env var opt-outs: `SKIP_CLAUDE_MD_SYNC`, `SKIP_MEMORY_UPDATE`, `SKIP_GIT_SYNC`, `SKIP_INSIGHTS`, `SKIP_WORKTREE_STATUS`
+
+---
+
 ## [2.30.0] — 2026-02-26
 
 ### Added

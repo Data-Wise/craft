@@ -7,590 +7,1009 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [2.26.0] - 2026-02-21: Mermaid MCP Validation Pipeline
+## [Unreleased]
 
 ### Added
 
-- **Mermaid validation pipeline:** `mermaid-validate.py` with 12 regex pre-checks, `mermaid-autofix.py` with reverse-order block processing, health score metric (`syntax*0.5 + practices*0.3 + rendering*0.2`)
-- **Pre-commit hook:** `pre-commit-mermaid.sh` for automatic mermaid syntax validation on commit
-- **MCP integration:** `.mcp.json` config for `mcp-mermaid` server (validate, render, create diagrams)
-- **Documentation:** Mermaid Authoring Guide, Troubleshooting Guide, Validation Pipeline Architecture
-- **35 new tests:** 15 unit (`test_mermaid_validation.py`) + 10 e2e (`test_mermaid_e2e.py`) + 10 dogfood (`test_mermaid_dogfood.py`)
+- **`/workflow:done` learning loop** — Memory capture (Step 1.11), insights capture (Step 1.13), auto-git (Step 3.5), CLAUDE.md sync (Step 1.10), worktree status (Step 1.14)
+- **`/craft:do` memory-aware routing** — Memory lookup (Step 1.0), insights check (Step 1.5), worktree detection (Step 0.5), pipeline suggestion (Step 2.5), spec auto-load (Step 2.6)
+- **`/craft:hub` live dashboard** — Dynamic counts from discovery engine, .STATUS next action, active worktree status, recently used commands from facets
+- **Facet JSON system** — Session metadata written to `~/.claude/usage-data/facets/` for friction analysis and usage tracking
+- **Published docs** for `/workflow:done` command
+- 5 new env var opt-outs: `SKIP_CLAUDE_MD_SYNC`, `SKIP_MEMORY_UPDATE`, `SKIP_GIT_SYNC`, `SKIP_INSIGHTS`, `SKIP_WORKTREE_STATUS`
 
-### Changed
+---
 
-- **Test count:** 74 tests → 109 tests (28 unit + 31 e2e + 38 dogfood + 12 watcher)
-- `/craft:docs:check` Phase 5 now includes mermaid validation gate
-- `mermaid-linter` skill and `mermaid-expert` agent updated with MCP capabilities
-- Hub documentation updated with `/craft:docs:mermaid` command
+## [2.29.0] — 2026-02-26
+
+### Added
+
+- **17 new docs help pages** — Complete help coverage for all `/craft:docs:*` sub-commands
+  - Simple: api, help, quickstart, nav-update, prompt, site
+  - Medium: tutorial, workflow, guide, mermaid, lint
+  - Complex: check-links, demo, website
+  - Claude-MD sub-commands: edit, init, sync
+- Consolidated docs nav in mkdocs.yml (22 entries, alphabetically sorted)
+- Complete reference table in docs hub page (`docs/commands/docs.md`)
+- Updated commands.md with full 22-command docs reference table
 
 ### Fixed
 
-- Line-drift bug in `mermaid-autofix.py` — process blocks in reverse order to prevent stale indices
-- Indentation bug in `check_lowercase_end` after removing redundant regex wrapper
-- Brittle `SCRIPT_DIR` resolution in pre-commit hook — now uses `git rev-parse --show-toplevel`
-- Reverted marketing filler from `docs/index.md`
+- Branch guard false positives on `--force-with-lease` for feature branches (#113)
 
 ---
 
-## [2.25.0] - 2026-02-21: Release Watcher & Command Sync
+## [2.28.0] — 2026-02-25
 
 ### Added
 
-- **`/craft:code:command-audit`** — Shell script validating all command/skill/agent frontmatter against schema, reports health score (0-100), supports `--fix`, `--strict`, and `--format json`
-- **`/craft:code:release-watch`** — Python script fetching Claude Code releases via GitHub API, identifies plugin-relevant changes by keyword categories, cross-references against craft state
-- **`/craft:code:desktop-watch`** — Instruction-driven command using web search to track Claude Desktop releases and integration opportunities
-- **`/craft:code:sync-features`** — Interactive skill chaining all three tools into a prioritized action plan with `AskUserQuestion` multiSelect
-- **12 new tests:** 7 command-audit tests + 5 release-watch tests
-
-### Removed
-
-- 4 deprecated claude-md commands (`audit`, `fix`, `scaffold`, `update`) — folded into `sync` and `init`
+- **Docs staleness detection** (`scripts/docs-staleness-check.sh`) — 4-phase documentation quality checks
+  - Phase 6: Nav completeness (mkdocs.yml vs docs files)
+  - Phase 7: Count consistency (command/skill/agent counts across docs)
+  - Phase 8: Skill/agent/command coverage (undocumented items)
+  - Phase 9: Cross-doc freshness (stale summary lines)
+  - Traffic light output (GREEN/YELLOW/RED) with `--json` for CI
+  - Two-pass `--fix` mode: auto-fix safe items, interactive review for uncertain
+  - Shared exclusion config (`scripts/config/exclusions.txt`)
+  - Integrated into `/craft:check`, `pre-release-check.sh`, CI workflow, and docs commands
+  - 46 tests covering all phases, modes, and edge cases
+- **Post-release sweep script** (`scripts/post-release-sweep.sh`) — Tier 2+ drift detection with `--fix`, `--dry-run`, and `--json` modes
+- **Step 13.5** in release pipeline — automated post-release sweep after downstream verification
+- Test suite for post-release sweep (19 tests: CLI, detection, fix, dry-run, JSON)
+- **Desktop App Release Pipeline** — Homebrew Cask distribution for Tauri desktop apps (#108)
+  - `/craft:dist:homebrew cask` subcommand for generating and updating cask files
+  - Auto-detection of Tauri projects via `src-tauri/tauri.conf.json`
+  - Multi-architecture build orchestration (aarch64 + x86_64, serial)
+  - SHA256 computation from local build artifacts (eliminates CDN race conditions)
+  - DMG upload to GitHub releases with `--clobber` and CHECKSUMS.txt
+  - Cask template generator with all zones: architecture, livecheck, postflight, zap, caveats
+  - Zone-based cask updater (version+SHA256 / dynamic content / static content)
+  - `--update-content` flag with CHANGELOG parsing for postflight and caveats
+  - `--content-only`, `--skip-build`, `--dry-run` flags for flexible cask management
+  - Extended `.craft/homebrew.json` schema with `"type": "cask"` support
+  - Build environment validation (Rust targets, Tauri CLI, Xcode, disk space)
+  - Architecture verification via `file` command on mounted DMG binaries
+  - Tap push with `git pull --rebase` and "ours" conflict resolution
+  - `brew audit --cask` support with auto-detection in audit command
+  - Step 10b in `/release` pipeline with full end-to-end orchestration
+  - Step 13f: Cask verification (version + SHA256 cross-check after tap push)
+  - Desktop Release Guide at `docs/guide/desktop-release.md`
 
 ### Changed
 
-- **Test count:** 62 tests → 74 tests (13 unit + 21 e2e + 28 dogfood + 12 watcher)
-- **Command count:** 108 → 107 (net: +3 new commands, -4 deprecated)
-- **Skill count:** 25 → 26 (+1 sync-features)
-- Cleaned invalid frontmatter fields from 24 files (agents, skills, commands)
-- Synced stale counts across 17 documentation files
+- `/craft:dist:homebrew` now supports 7 subcommands (added `cask`)
+- `/craft:dist:homebrew audit` auto-detects formula vs cask
+- Auto-detection table updated: Tauri Desktop App added above Claude Code Plugin
+- Dry-run output expanded to show Step 10b substeps for Tauri projects
+- REFCARD-HOMEBREW updated with cask commands and desktop distribution section
+- Commands overview: added mermaid command routing flowchart and fixed category counts
+- Skills docs: added missing skills (sync-features, release-checklist), fixed count 25 to 26
+- Fixed stale "17 skills, 7 agents" references in commands.md and architecture.md
+- Desktop release docs added to mkdocs.yml nav, broken links fixed
+
+---
+
+## [2.27.0] — 2026-02-21
+
+### Added
+
+- **GitHub Actions concurrency groups** and docs deploy retry logic
+- **Dual main+dev CI badge layout** in README.md and docs/index.md
+- **Pre-release checks 7-8:** badge URL validation and formula desc consistency
+- **Post-release downstream verification** (Steps 11-13 in release pipeline)
+- `/craft:ci:status --post-release` mode for downstream workflow checks
+- Badge URL and formula desc validation in `/craft:check --for release`
+- **Mermaid MCP Integration** — mcp-mermaid server for diagram validation and SVG rendering
+- **mermaid-validate.py** — block extraction, 5 regex pre-checks (2 error, 3 warning), health score metric
+- **mermaid-autofix.py** — 5 safe auto-fixes + 3 report-only rules with 12 built-in self-tests
+- **Pre-commit hook** for mermaid syntax errors (errors-only, fast)
+- **Health score** composite metric (0-100) with configurable release gate (`--gate`)
+- **NL diagram creation** in `/craft:docs:mermaid` with `--validate` and `--preview` flags
+- **Mermaid Authoring Guide** at `docs/guide/mermaid-authoring.md`
+- **Mermaid test suite** — unit, e2e, and dogfood tests for validation pipeline
+
+### Changed
+
+- `/craft:docs:check` Phase 5 now includes Mermaid Validation with health score
+- `mermaid-linter` skill updated with MCP validation and health score sections
+- `mermaid-expert` agent updated with MCP-powered validation workflow
+- Hub documentation updated with MCP integration details
+
+---
+
+## [2.23.1] - 2026-02-19
 
 ### Fixed
 
-- Shell injection vulnerability in command-audit `--fix` mode (pass values via sys.argv)
-- Fragile JSON pagination handling in release-watch (use JSONDecoder chunked parsing)
-
----
-
-## [2.24.0] - 2026-02-20: Claude Code v2.1.49 Integration
-
-### Added
-
-- **Agent platform features:** `background: true` on doc agents (docs-architect, reference-builder, tutorial-engineer), `memory: project` and `skills` on orchestrator-v2
-- **E2E test suite:** 21 tests validating cross-component wiring, version consistency, frontmatter, and docs alignment (`test_plugin_e2e.py`)
-- **Dogfood test suite:** 28 tests running craft's own scripts against the live repo with CI-aware performance budgets (`test_plugin_dogfood.py`)
-- **Multi-repo workflow guide:** 484-line guide for cross-repo worktree coordination (`docs/guide/multi-repo-workflow.md`)
-- **Worktree path comparison:** Craft vs Claude Code native isolation documented in command, refcard, and advanced patterns
+- Correct skill count in hub (24→25)
+- Stale release taglines in index and REFCARD
 
 ### Changed
 
-- **Test count:** 13 unit tests → 62 tests (13 unit + 21 e2e + 28 dogfood)
-- **Agent cleanup:** Removed undocumented `version` field from all agent frontmatter
-- **Test docs rewrite:** QUICK-TEST-REFERENCE.md and TESTING-SUMMARY.md rewritten for current test architecture
+- Updated .STATUS for v2.23.1 release session
+
+---
+
+## [2.23.0] - 2026-02-19
+
+### Added
+
+- **bump-version.sh** — extended to cover 4 additional doc files (11 total), with `FILE_COUNT` variable replacing hardcoded values
+- **Comprehensive bump-version test suite** — 45 tests covering version replacement, file discovery, and edge cases
+- **CI status dashboard** and release pipeline improvements
+- REFCARD-CHECK and REFCARD-INSIGHTS added to mkdocs nav
 
 ### Fixed
 
-- Skill count drift: 24 → 25 in docs/skills-agents.md, docs/guide/skills-agents.md, docs/commands/hub.md
-- Doc agents heading: "(5)" → "(6)" to match actual table in skills-agents.md
-
----
-
-## [2.23.1] - 2026-02-19: Hub Rewrite & Cleanup
+- Hardcoded file count replaced with `FILE_COUNT` variable in bump-version.sh
+- ORCHESTRATE files no longer gitignored — tracked on feature branches as intended
+- Code review issues in bump-version scripts
 
 ### Changed
 
-- **Hub command:** Complete rewrite of `/craft:hub` with all features through v2.23.0 — corrected stats (108 commands, 25 skills, 8 agents), added missing categories (CI, Orchestrate), expanded git/docs/workflow sections, removed phantom agents and duplicate sections
-- **Spec archival:** Archived completed CLAUDE.md refactor spec, updated spec count (7→6)
-- **Branch cleanup:** Deleted 10 merged remote feature branches, 1 stale local branch
+- Hub command rewritten with all features through v2.23.0
+- CLAUDE.md layered architecture section expanded in refcard
+- Archived completed CLAUDE.md refactor spec
+
+---
+
+## [2.22.2] - 2026-02-19
 
 ### Fixed
 
-- Skill count in hub corrected from 24 to 25 (matching actual filesystem)
-
----
-
-## [2.23.0] - 2026-02-19: Extended Version Sync & Test Suite
+- Stale pages: config, dependency arch, choose-path, doc-quality docs
+- Stale version/count refs across site
+- CLAUDE.md synced — fixed stale ORCHESTRATE ref, updated spec/test counts
 
 ### Added
 
-- **bump-version.sh:** Extended from 9 to 11 files — now covers `docs/DEPENDENCY-ARCHITECTURE.md`, `docs/reference/configuration.md`, REFCARD box interior lines, and `docs/index.md` info box
-- **test_bump_version.sh:** Comprehensive 45-test bash test suite with sandbox isolation (CLI args, dry-run, verify, per-file integration tests)
-- **Release skill Step 3b:** Semantic doc updates for CHANGELOG, VERSION-HISTORY, README title, index.md info box, and REFCARD summary line
-
-### Changed
-
-- `FILE_COUNT` variable replaces hardcoded file count in configuration.md handler
-- `.gitignore` no longer ignores `ORCHESTRATE-*.md` files (they should be tracked on feature branches)
+- bump-version reference card, CI status command page, version-sync Layer 4
+- Updated REFCARD and A-Z reference with new features
 
 ---
 
-## [2.22.2] - 2026-02-19: Bump-Version Feature & Documentation Overhaul
-
-### Added
-
-- **bump-version.sh:** Automated version bumping across all 11 project files with `--dry-run`, `--verify`, and `--counts-only` modes
-- **CI status dashboard:** New command page and reference card for cross-repo CI monitoring
+## [2.22.1] - 2026-02-19
 
 ### Fixed
 
-- CLAUDE.md stale ORCHESTRATE reference removed, spec/test counts corrected
-- Stale doc pages fixed (config, dependency arch, choose-path, doc-quality)
+- Dogfood test assertions for branch guard verbosity
+- Strengthened release skill with mandatory CI monitoring and version checklist
+- Added jinja2 to CI deps, bumped marketplace.json to v2.22.0
 
-### Changed
+### Added
 
-- Archived implemented spec, removed stale brainstorm
-- Updated REFCARD, A-Z reference, and CHANGELOG with new features
-- Rebuilt skills-agents pages with correct version/count refs
+- Rebuilt tutorial index, updated REFCARD tables, added insights refcard
+- Synced documentation gaps found by /craft:docs:sync
+- Fixed stale tutorials for v2.22.0
 
 ---
 
-## [2.22.1] - 2026-02-19: Documentation Overhaul & Test Fixes
+## [2.22.0] - 2026-02-19
+
+### Added
+
+- **Insights-driven friction prevention** (PR #84) — 6 new scripts for session friction detection, pattern tracking, and prevention recommendations
+- **Unified test system** (PR #82) — consolidated 7 test commands into 3 (`test:run`, `test:cli-gen`, `test:cli-run`), added Jinja2 template engine with 27 templates across 4 project types, pytest markers (25 markers), and 865-line test generator
+
+### Changed
+
+- **CLAUDE.md layered instruction system** (PR #83) — extracted verbose reference material to `~/.claude/reference/` and `.claude/reference/`, reducing global CLAUDE.md from 206→85 lines and project CLAUDE.md from 162→82 lines
+- Command count: 111→107 (removed 7 deprecated test commands, added 3 unified)
 
 ### Fixed
 
-- **Dogfood test assertions:** Branch guard verbosity levels (full/brief/minimal) caused test failures in full suite — accept either "BRANCH GUARD" or "[CONFIRM]" format
-- **Tutorials index:** Rebuilt from 1 listed tutorial to all 23, organized by category
-- **REFCARD.md tables:** Expanded tutorials table (5→15) and refcards table (5→14)
-- **Stale footers:** Fixed version labels in claude-md-workflows.md, pipeline-orchestrate-guide.md, insights guide
-- **mkdocs nav:** Added REFCARD-CHECK and REFCARD-INSIGHTS to navigation
-- **QUICK-START.md:** Fixed worktree command syntax (`add`→`create`)
-- **REFCARD.md command count:** Code & Testing 17→14 (accurate)
+- 52 command files missing YAML frontmatter metadata
+- 3 duplicate nav entries in mkdocs.yml
+- 7 stale test assertions after command restructuring
+- Stale test command references across 4 documentation files
 
-### Added
+---
 
-- **bump-version.sh:** Atomic version + count sync across all 11 project files — prevents version drift between releases
-- **bump-version-helper.py:** Python helper for JSON file updates (plugin.json, marketplace.json, package.json)
-- **/craft:ci:status:** Cross-repo CI status dashboard — see all workflow statuses in one view with `--json` and `--repo` filters
-- **REFCARD-BUMP-VERSION.md:** Quick reference card for bump-version.sh
-- **docs/commands/ci/status.md:** Command help page for /craft:ci:status
-- **Version sync Layer 4:** Added atomic version bump documentation to architecture/version-sync.md
-- **REFCARD-INSIGHTS.md:** New consolidated quick-reference for insights, friction prevention, and version sync
-- **CLAUDE.md layered architecture:** Expanded REFCARD-CLAUDE-MD with per-layer token budget, loading triggers, budget enforcement
+## [Unreleased] - 2.10.0-dev
+
+### Added - Claude-MD Command Suite
+
+**PR #39** - Comprehensive CLAUDE.md management tools ported from local Claude Code
+
+#### Commands (5 new)
+
+- `/craft:docs:claude-md:update` - Sync CLAUDE.md with project state
+  - Detects version mismatches, new commands, test count changes
+  - "Show Steps First" pattern with preview and confirmation
+  - Supports dry-run, interactive, and section-specific modes
+- `/craft:docs:claude-md:audit` - Validate completeness and accuracy
+  - 5 validation checks: version sync, command coverage, broken links, required sections, status sync
+  - 3 severity levels: ERROR, WARNING, INFO
+  - Fixability flags for auto-fix coordination
+- `/craft:docs:claude-md:fix` - Auto-fix common issues
+  - 4 fix methods: update version, remove stale commands, fix broken links, add missing sections
+  - Dry-run support with detailed preview
+- `/craft:docs:claude-md:scaffold` - Create from template
+  - 3 project templates: craft-plugin, teaching-site, r-package
+  - 18+ template variables with auto-population
+  - Detects project type automatically
+- `/craft:docs:claude-md:edit` - Interactive section editing
+  - Section-based editing workflow
+  - Preview before applying changes
+
+#### Implementation (7 utilities, 2,713 lines)
+
+- `utils/claude_md_detector.py` (483 lines)
+  - 6 project types: craft-plugin, teaching-site, r-package, mcp-server, python-package, generic
+  - Version extraction from multiple sources
+  - Auto-discovery of commands, skills, agents
+- `utils/claude_md_auditor.py` (599 lines)
+  - 5 validation checks with severity levels
+  - Fixability detection
+  - Line number tracking for precise error reporting
+- `utils/claude_md_fixer.py` (442 lines)
+  - 4 auto-fix methods
+  - Dry-run mode with detailed preview
+  - Safe file operations with backups
+- `utils/claude_md_template_populator.py` (485 lines)
+  - 18+ template variables
+  - Project-specific auto-population
+  - Mermaid diagram generation
+- `utils/claude_md_section_editor.py` (299 lines)
+  - Interactive section editing
+  - Preview before applying
+- `utils/claude_md_updater.py` (534 lines)
+  - Comprehensive metric updates
+- `utils/claude_md_updater_simple.py` (371 lines)
+  - Simple metric-based updates
+
+#### Templates (3 project types)
+
+- `templates/claude-md/plugin-template.md` - For craft plugins
+- `templates/claude-md/teaching-template.md` - For Quarto course sites
+- `templates/claude-md/r-package-template.md` - For R packages
+
+#### Testing (81 tests, 100% passing)
+
+**Test Distribution:**
+
+- Phase 1 (Update): 13 tests (was 10, +3 enhancements)
+  - 10 original: detector, version extraction, command counting, metric updates
+  - 3 new: concurrent detection, symlink handling, performance benchmarks
+- Phase 2 (Audit): 11 tests
+- Phase 2 (Fix): 8 tests
+- Phase 2 (Integration): 6 tests
+- Phase 3 (Scaffold): 19 tests
+- Phase 3 (Edit): 14 tests
+- Phase 3 (Integration): 10 tests
+
+**Test Enhancements:**
+
+- Concurrent detection: 10 parallel threads, thread-safety verification
+- Symlink handling: Graceful fallback on unsupported systems
+- Performance benchmarks:
+  - Full detection: 0.003s (166x faster than 0.5s target)
+  - Command scanning: 0.002s (50x faster than 0.1s target)
+  - Version extraction: 0.001s per 100 calls (100x faster)
+
+**Runtime:** 0.024s total (1.8ms per test)
+
+#### Documentation (3,304 lines)
+
+- Tutorial guide: `docs/tutorials/claude-md-workflows.md` (681 lines)
+  - 12 real-world examples
+  - 6 workflow patterns
+- Quick reference: `docs/reference/REFCARD-CLAUDE-MD.md` (339 lines)
+  - 10 comparison tables
+  - Fast command lookup
+- Command reference: `docs/commands/docs/claude-md.md` (1,084 lines)
+  - 27 examples
+  - 5 Mermaid diagrams
+- Test plan: `TEST-PLAN-COMPREHENSIVE.md` (800+ lines)
+  - 60+ test scenarios
 
 ### Changed
 
-- **Release skill (SKILL.md):** Step 3 now uses `bump-version.sh` instead of manual file-by-file edits; Step 8.5 adds Homebrew post-update verification
-- **skills-agents.md:** Rebuilt both reference and guide pages from actual filesystem inventory (removed 17 phantom skills, 7 phantom agents)
-- **Command count:** 107→108 across 19 documentation files
-- **bump-version.sh mkdocs.yml pattern:** Fixed sed to handle drifted versions (not just current→target replacement)
+- Command count: 100 → 105 (+5 claude-md commands)
+- Test count: 770 → 847 (+77 tests)
+- Test suite runtime: Improved per-test performance (2.0ms → 1.8ms)
+- Edge case coverage: +50% (concurrent, symlink, performance scenarios)
 
----
+### Performance
 
-## [2.22.0] - 2026-02-19: Unified Test System, CLAUDE.md Refactor & Insights Prevention
+All operations meet or exceed targets:
 
-### Added (Unified Test System)
+- Project detection: 0.003s (166x faster than 0.5s target)
+- Command scanning: 0.002s (50x faster than 0.1s target)
+- Version extraction: 0.001s per 100 calls (100x faster)
+- Thread-safe under concurrent access (10 parallel threads verified)
 
-### Added
+### Files Changed
 
-- **Unified test commands:** 7 old commands (`test:run`, `test:watch`, `test:coverage`, `test:debug`, `test:cli-gen`, `test:cli-run`, `test:generate`) consolidated into 3: `/craft:test`, `/craft:test:gen`, `/craft:test:template`
-- **Jinja2 template engine:** `utils/test_generator.py` (865 lines) — auto-detects project type (plugin, zsh, cli, mcp) and renders test suites from 27 templates
-- **Template registry:** `templates/registry.json` with detection rules, variable schemas, and tier assignments for all 4 project types
-- **27 Jinja2 templates:** `templates/` directory covering `_base/` (shared), `plugin/` (7), `zsh/` (5), `cli/` (7), `mcp/` (5) with conftest + helpers
-- **Pytest infrastructure:** `pyproject.toml` markers (25 total), `tests/conftest.py` shared fixtures, `tests/helpers.py` shared utilities
-- **Advanced testing markers:** `snapshot`, `property`, `contract` markers with optional dependency groups
-- **Testing documentation:** REFCARD-TESTING.md, test-architecture.md (3 Mermaid diagrams), test-commands.md, test-migration.md, testing-quickstart.md
-- **Cookbook recipes:** "Generate Tests for a Project" and "Run Tests by Category"
-- **YAML frontmatter:** Added to 52 command files that were missing metadata
-
-### Changed
-
-- **Command count:** 111 → 107 (removed 7 old test commands, added 3 unified, net -4)
-- **All test files:** 66 test files now have module-level `pytestmark` assignments for tier + domain filtering
-- **9 test files:** Migrated from `CheckResult` dataclass to native pytest assertions
-- **40+ files:** Updated old test command references (`test:run` → `test`, `test:coverage` → `test --coverage`, etc.)
-- **mkdocs.yml:** Fixed 3 duplicate nav entries, updated site description to v2.21.0
-
-### Documentation
-
-- [Testing Quick Reference](reference/REFCARD-TESTING.md) · [Test Architecture](guide/test-architecture.md) · [Migration Guide](guide/test-migration.md) · [Testing Quickstart](tutorials/testing-quickstart.md)
-
----
-
-### Added (Marketplace Distribution)
-
-- **Marketplace distribution:** `/craft:dist:marketplace` command with 4 subcommands (init, validate, test, publish) for Claude Code marketplace listing management
-- **marketplace.json:** New `.claude-plugin/marketplace.json` manifest for marketplace distribution with GitHub source object format
-- **Release pipeline marketplace steps:** Step 2c (marketplace validation), Step 3 (marketplace version bump), Step 8.5 (Homebrew tap auto-update)
-- **Pre-release marketplace check:** `pre-release-check.sh` expanded to 6 checks (added marketplace version consistency)
-- **Homebrew auto-detection:** Claude Code Plugin added as highest-priority entry in auto-detect table
-- **115 marketplace tests:** 57 CLI tests, 30 e2e tests, 28 dogfood tests (all passing)
-- **Documentation:** Marketplace distribution guide, updated dist commands reference, release workflow updates
-
-### Changed (Marketplace Distribution)
-
-- **Command count:** 108 → 109 (added dist:marketplace)
-- **Install hierarchy:** README and docs now recommend Marketplace as Option 1 (Recommended), Homebrew as Option 2
-- **Distribution commands:** 3 → 4 (added marketplace)
-
-**Documentation:** [Marketplace Guide](guide/marketplace-distribution.md) · [Distribution Commands](commands/dist.md) · [Release Reference](reference/REFCARD-RELEASE.md)
-
----
-
-## [2.16.0] - 2026-02-07: Teaching Ecosystem + Branch Protection
-
-### Added
-
-- **Branch protection hooks:** `scripts/branch-guard.sh` — PreToolUse hook that prevents edits on protected branches (main=block-all, dev=block-new-code)
-- **New commands:** `/craft:git:protect` (re-enable protection) and `/craft:git:unprotect` (temporary bypass via marker file)
-- **Standalone installer:** `scripts/install-branch-guard.sh` — works outside Craft plugin
-- **138 branch guard tests:** 49 unit + 31 e2e + 6 integration + 52 dogfooding (jq-based JSON parsing with Python/grep fallback)
-- **Config normalizer:** `_normalize_config()` in `commands/utils/teach_config.py` — adapter that maps flow-cli schema (`semester_info`, `course.name`, `branches`) to Craft-native format
-- **Single-day break support:** Break validation now accepts `start == end` for holidays like MLK Day
-- **8 normalization tests** in `tests/test_integration_teaching_workflow.py` (all passing)
-- **Teaching tab:** Dedicated top-level "Teaching" tab in documentation site nav (`docs/teaching/index.md`)
-- **Ecosystem spec:** `docs/specs/SPEC-teaching-ecosystem-coordination-2026-02-06.md`
-
-### Changed
-
-- **Command count:** 106 → 108 (added protect + unprotect)
-- **Test count:** 1294 → 1432 (+138 branch guard tests)
-- **Craft command enhancements:** `/craft:check` shows guard status, `/craft:do` respects protection, `/craft:git:worktree` validates branch, `/craft:git:status` shows protection level
-- **Teaching config schema docs:** Added flow-cli compatibility section, single-day break docs, field mapping table
-- **Teaching tutorial:** Added flow-cli note, single-day break example, ecosystem links
-- **Teaching workflow guide:** Added ecosystem section with role boundaries and decision guide
-- **Site navigation:** Restructured mkdocs.yml with dedicated Teaching tab (was buried in Guides)
-
-### Fixed
-
-- **Broken test import:** `test_integration_teaching_workflow.py` imported non-existent `parse_teach_config` — fixed to `load_teach_config`
-- **Break validation:** `>=` → `>` comparison allowing single-day breaks (MLK Day, Veterans Day)
-
-**Documentation:** [Teaching Home](teaching/index.md) · [Config Schema](teaching-config-schema.md) · [Ecosystem Spec](specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06.md)
-
----
-
-## [2.15.0] - 2026-02-06
-
-### Added
-
-- **Context-aware smart questions:** New `utils/brainstorm_context.py` (~280 lines) scans `.STATUS`, specs, git log, and CLAUDE.md to pre-fill brainstorm questions
-- **Project-type question extensions:** 12 new questions across 6 project types (R, Python, Node.js, Quarto, Claude Plugin, Teaching)
-- **Dynamic questions:** Auto-generated questions based on matching specs, prior brainstorms, and failing tests
-- **38 new tests** in `tests/test_brainstorm_context.py` (all passing)
-- **Documentation:** Power user tutorial (`docs/tutorials/TUTORIAL-brainstorm-power-user.md`), brainstorm reference card (`docs/reference/REFCARD-BRAINSTORM.md`), question bank spec (`docs/specs/_archive/SPEC-brainstorm-question-bank.md`)
-
-### Changed
-
-- **Brainstorm spec simplified:** `commands/workflow/brainstorm.md` reduced from 1,919 → 312 lines (84% reduction)
-- **Version history updated:** Brainstorm evolution table added to `docs/VERSION-HISTORY.md`
-- Total tests: 1248 → 1286
-
-**Documentation:** [Power User Guide](tutorials/TUTORIAL-brainstorm-power-user.md) · [Quick Reference](reference/REFCARD-BRAINSTORM.md) · [Question Bank](specs/_archive/SPEC-brainstorm-question-bank.md)
-
----
-
-## [2.14.0] - 2026-02-05
-
-### Added
-
-- **Formatting library:** `scripts/formatting.sh` — unified box-drawing, `FMT_` color constants, ANSI-aware padding, source guard
-- **Box-drawing API:** `box_header`, `box_single`, `box_row`, `box_separator`, `box_footer`, `box_empty_row`, `box_table`
-- **Utility functions:** `fmt_set_width`, `fmt_divider`, `_fmt_strip_ansi`, `_fmt_visible_len`
-- **74 tests:** 28 unit + 30 integration + 16 edge cases in `tests/test_formatting.sh`
-- **Documentation:** Guide (`docs/guide/bash-formatting-library.md`), tutorial (`docs/tutorials/TUTORIAL-formatting-migration.md`), reference card (`docs/reference/REFCARD-FORMATTING.md`)
-
-### Changed
-
-- **8 scripts migrated to box-drawing:** install.sh, migrate-from-workflow.sh, convert-cast.sh, health-check.sh, consent-prompt.sh, dependency-installer.sh, dependency-manager.sh
-- **15 scripts migrated to shared colors:** validate-counts.sh, pre-release-check.sh, batch-convert.sh, repair-tools.sh, 3 installers, tool-detector.sh, version-check.sh, sync-version.sh, verify-phase1/2.sh, install-hooks.sh, test-fix-flag.sh, pre-commit-markdownlint hook
-- **Box width standardized:** All boxes now render at exactly 63 visible characters (previously 61-63 inconsistently)
-
-**Documentation:** [Guide](guide/bash-formatting-library.md) · [Quick Reference](reference/REFCARD-FORMATTING.md) · [Migration Tutorial](tutorials/TUTORIAL-formatting-migration.md)
-
----
-
-## [2.13.1] - 2026-02-05
-
-### Fixed
-
-- **Plugin loading:** Moved `claude_md_budget` from `plugin.json` to `.claude-plugin/config.json` — Claude Code's strict schema rejects unrecognized keys, silently breaking plugin loading ([#20415](https://github.com/anthropics/claude-code/issues/20415))
-- **Budget utilities:** Updated `claude_md_optimizer.py`, `claude_md_sync.py`, and `claude-md-budget-check.sh` to read budget from `config.json` instead of `plugin.json`
-- **Homebrew formula:** Added dual-protection JSON cleanup in `post_install` (Ruby allowlist + Python fallback) to strip unrecognized keys from immutable v2.13.0 tarball
-
-### Changed
-
-- Budget config fallback chain: `.claude-plugin/config.json` → `package.json` (`claudeMd.budget`) → default 150
-- Updated docs, sync command, conventions, and troubleshooting to reference `config.json`
-
----
-
-## [2.13.0] - 2026-02-05
-
-### Documentation Gap-Fill & Release Automation
-
-- 30 new documentation pages (PR #47)
-- Documentation status: 98% → 99%
-- Pre-release validation script (`scripts/pre-release-check.sh`)
-- CI version-tag consistency check
-- Dynamic formula metadata in homebrew-release workflow
-
----
-
-## [2.12.0] - 2026-02-05
-
-### CLAUDE.md v3 Command Refactoring
-
-**PR #45** — 5 commands consolidated to 3 lean commands with budget enforcement and pointer architecture.
-
-**Commands (3 — replaces 5):**
-
-- `/craft:docs:claude-md:init` — Create from lean template (< 150 lines), replaces `scaffold`
-- `/craft:docs:claude-md:sync` — 4-phase pipeline (detect → audit → fix → optimize), replaces `update`, `audit`, `fix`
-- `/craft:docs:claude-md:edit` — Interactive editing with `--global` support
-
-**Key Changes:**
-
-- Budget enforcement: < 150 line target for new CLAUDE.md files
-- Pointer architecture: reference detail files instead of duplicating content
-- 4-phase sync pipeline with `--fix` and `--optimize` flags
-- Deprecation aliases for old commands (available until v2.13.0)
-- New utilities: `claude_md_common.py`, `claude_md_sync.py`, `claude_md_optimizer.py`
-- Pre-commit budget check script
-
-**Documentation:** [Command Reference](commands/docs/claude-md.md) · [Quick Reference](reference/REFCARD-CLAUDE-MD.md) · [Tutorial](tutorials/claude-md-workflows.md)
-
----
-
-## [2.11.0] - 2026-02-03
-
-### Test Suite Cleanup & CRAFT-001
-
-- Eliminated all **236 pytest warnings** across 13 test files using `_check_*` + `test_*` wrapper pattern
-- Fixed **21 hidden test failures** that were silently passing
-- Added **CRAFT-001** emoji-attribute spacing lint rule with CI integration
-- **50 new tests** for CRAFT-001 across 9 categories
-- Test count: **847 → 1111 → 1171** (all passing, 0 warnings)
-
-**Documentation:** [CRAFT-001 Tutorial](tutorials/TUTORIAL-craft-001-emoji-spacing.md) · [Test Wrapper Pattern Guide](guide/test-wrapper-pattern.md)
-
-**Release:** [v2.11.0 on GitHub](https://github.com/Data-Wise/craft/releases/tag/v2.11.0)
-
----
-
-## [2.10.0] - 2026-01-30
-
-### Claude-MD Command Suite
-
-Comprehensive CLAUDE.md management tools ported from local Claude Code (PR #39).
-
-**Commands (originally 5, now 3 active):**
-
-- `/craft:docs:claude-md:init` — Create CLAUDE.md from lean template
-- `/craft:docs:claude-md:sync` — 4-phase pipeline (replaces update, audit, fix)
-- `/craft:docs:claude-md:edit` — Interactive section editing
-
-**Implementation:** 7 utility modules (2,713 lines Python), 3 project templates, 81 tests (100% passing, 0.024s), 3,304 lines documentation.
-
-**Performance:**
-
-- Full detection: **0.003s** (166x faster than 0.5s target)
-- Command scanning: **0.002s** (50x faster than 0.1s target)
-- Thread-safe concurrent detection verified (10 parallel threads)
-
-**Release:** [v2.10.0 on GitHub](https://github.com/Data-Wise/craft/releases/tag/v2.10.0)
-
----
-
-## [2.9.0] - 2026-01-29
-
-### Command Behavior Enhancements
-
-Major interactive workflow improvements and comprehensive test infrastructure fixes.
-
-- **"Show Steps First" Pattern**: 4 most-used commands now preview execution plan before running
-  - `/craft:orchestrate` — Mode selection, plan confirmation, wave checkpoints
-  - `/craft:check` — Step preview with mode-specific check lists
-  - `/craft:docs:update` — `--post-merge` flag with 5-phase safe pipeline
-  - `/craft:git:worktree` — Scope detection, auto-creates ORCHESTRATE/SPEC files
-- **Interactive Orchestration**: Mode selection via `AskUserQuestion`, wave checkpoints, decision points
-- **Git Worktree Auto-Setup**: Detects scope from branch patterns, auto-creates workflow files
-- **CI Test Infrastructure**: Fixed 15 failing tests, 145 new tests (93 e2e + 52 orch handler)
-- **Total: 1171 tests passing** (was 847)
-
-**Documentation:** 3 new guides (650+ lines total) · [Release on GitHub](https://github.com/Data-Wise/craft/releases/tag/v2.9.0)
+- 38 files (+15,997/-271)
+- Net addition: +15,726 lines
 
 ---
 
 ## [2.8.1] - 2026-01-28
 
-### Markdown Lint Style Fixes
+### 🎨 Style: Markdown Lint Auto-Fix
 
-Comprehensive cleanup of markdown formatting across 191 files.
+Applied comprehensive markdown linting fixes across 191 files.
 
-- **Auto-Fixed**: MD031 (blank lines around code blocks), MD032 (blank lines around lists), MD034 (bare URLs), MD003 (setext → atx headings)
-- **MD025 Fixes**: 6 files with duplicate H1 headings, added `front_matter_title` config
-- **MD060 Fixes**: Table alignment in CLAUDE.md, README.md, commands/do.md
+#### Auto-Fixed Issues
 
-**Release:** [v2.8.1 on GitHub](https://github.com/Data-Wise/craft/releases/tag/v2.8.1)
+- **MD031**: Added blank lines around fenced code blocks
+- **MD032**: Added blank lines around lists
+- **MD034**: Wrapped bare URLs with angle brackets
+- **MD003**: Converted setext headings (`===`) to atx style (`#`)
 
----
+#### MD025 Fixes (Duplicate H1 Headings)
 
-## [2.8.0] - 2026-01-28
+- `commands/git/status.md`: Convert duplicate H1 → `## Implementation`
+- `commands/git/sync.md`: Convert duplicate H1 → `## Implementation`
+- `templates/git-init/pull_request_template.md`: Fixed setext heading
+- `tests/hub_layer2_test_report.md`: `===` → `#`
+- `tests/hub_layer3_test_report.md`: `===` → `#`
+- `.markdownlint.json`: Added `"MD025": {"front_matter_title": ""}` to ignore YAML title
 
-### Markdown Linting Execution Layer
+#### MD060 Fixes (Table Alignment) - Critical Files
 
-Implementation of the execution layer for `/craft:docs:lint` (PR #34).
+- `CLAUDE.md`: 13 tables formatted with emoji-aware padding
+- `README.md`: 17 tables formatted
+- `commands/do.md`: 8 tables formatted
+- `commands/git/status.md`: 1 table formatted
+- `commands/git/sync.md`: 1 table formatted
 
-- `scripts/docs-lint.sh`: Bash execution script for markdown linting
-- MVP features: Basic linting (30+ rules), auto-fix, path targeting, pre-commit integration
-
-**Documentation:** [RELEASE-v2.8.0.md](RELEASE-v2.8.0.md)
-
----
-
-## [2.7.0] - 2026-01-22
-
-### Interactive Documentation Update System
-
-Smart documentation maintenance with 9-category detection and interactive prompts (PR #32).
-
-- **9-category detection**: Version refs, command counts, broken links, stale examples, missing help, outdated status, inconsistent terminology, missing cross-references, outdated diagrams
-- **Interactive prompts**: Category-level approval with AskUserQuestion integration
-- **Real issues found**: 1,331 documentation problems detected across the project
-- **Production-ready error handling**: 22 tests for corrupted files, unicode, edge cases
-- **29/29 tests passing** (7 integration + 22 error handling)
-
-```bash
-/craft:docs:update --interactive              # Category-level prompts
-/craft:docs:update --interactive --dry-run    # Preview without changes
-/craft:docs:update --category=version_refs    # Update only version references
-```
-
-**Documentation:** [Tutorial](tutorials/interactive-docs-update-tutorial.md) · [Reference Card](reference/REFCARD-DOCS-UPDATE.md)
+**Files Changed:** 191
+**Impact:** Improved markdown consistency and portability
 
 ---
 
-## [2.5.1] - 2026-01-20
+## [Unreleased] - Hub v2.0
 
-### UX Enhancements for --orch Flag
+### 📝 Documentation: Markdownlint List Spacing Enforcement
 
-Enhanced orchestration with better prompts, error handling, and guidance (PR #28).
+**Impact:** Consistent rendering, portable documentation, auto-fix capability
 
-- Interactive mode prompt with fallback behavior
-- Mode recommendations based on complexity (0-10 scale)
-- 15 new tests, 100% coverage
+Enhanced `/craft:docs:lint` to strictly enforce list formatting rules for consistent markdown rendering across GitHub, MkDocs, and VS Code.
 
-**Documentation:** [--orch Flag Usage Guide](guide/orch-flag-usage.md)
+#### List Spacing Rules (MD030, MD004, MD032)
 
----
+- **MD030: Spaces after list markers**
+  - Enforce exactly 1 space after list markers (`- Item`, not `-  Item`)
+  - Applies to unordered lists (`-`) and ordered lists (`1.`)
+  - Single-line and multi-line lists
+  - **Auto-fix:** Normalizes spacing to 1 space
 
-## [2.5.0] - 2026-01-19
+- **MD004: Consistent list marker style**
+  - Enforce dash (`-`) style consistently across all lists
+  - No mixing with asterisk (`*`) or plus (`+`) markers
+  - **Auto-fix:** Changes all markers to `-`
 
-### Markdownlint List Spacing Enforcement
+- **MD032: Blank lines around lists** (already enabled, now explicit)
+  - Add blank line before and after lists
+  - **Auto-fix:** Adds missing blank lines
 
-Strict enforcement of list formatting rules (MD030, MD004, MD032) for consistent rendering.
+#### Configuration
 
-- 78 comprehensive tests (21 unit + 42 validation + 15 e2e)
-- Pre-commit hook for staged `.md` files
-- Baseline report: 6,398 violations cataloged for gradual migration
+- Updated `.markdownlint.json` with explicit MD030/MD004/MD032 rules:
 
----
+  ```json
+  "MD030": {
+    "ul_single": 1,
+    "ol_single": 1,
+    "ul_multi": 1,
+    "ol_multi": 1
+  },
+  "MD004": {
+    "style": "dash"
+  },
+  "MD032": true
+  ```
 
-## [1.24.0] - 2026-01-18
+#### Testing
 
-### Hub v2.0 — Zero-Maintenance Command Discovery
+- **78 comprehensive tests** (21 unit + 42 validation + 15 e2e)
+- **100% test coverage** of new rules
+- Tests validate: configuration, auto-fix, integration, real-world scenarios
+- Test files: `tests/test_markdownlint_list_spacing_*.py`
 
-Smart command discovery with 3-layer progressive disclosure (PR #17, #20).
+#### Documentation
 
-- **Auto-detection engine**: Scans filesystem for commands, zero manual maintenance (680 lines)
-- **3-layer navigation**: Main Menu → Category View (16 categories) → Command Detail + Tutorial
-- **Performance**: 94% faster than target (12ms uncached, <2ms cached vs 200ms/10ms targets)
-- **52 comprehensive tests** (98% coverage), all passing in ~1 second
+- Updated `commands/docs/lint.md` with:
+  - New rules in Critical Rules section
+  - Auto-fix table entries
+  - "List Spacing Enforcement (v2.5.1)" section with before/after examples
 
-```bash
-/craft:hub              # Browse all commands by category
-/craft:hub code         # View code category
-/craft:hub code:lint    # Get detailed tutorial for code:lint
-```
+- Updated `docs/guide/documentation-quality.md` with:
+  - MD030: List marker spacing examples
+  - MD004: Consistent marker style examples
 
-**Architecture:** [Hub v2.0 Architecture](architecture/HUB-V2-ARCHITECTURE.md)
+#### Baseline Report
 
----
+- Generated `docs/LINT-BASELINE-2026-01-19.txt` (6398 violations)
+- **Current compliance analysis:**
+  - MD030: 3 violations (99% compliant!)
+  - MD004: 0 violations (100% compliant!)
+  - MD032: 2112 violations (main migration target)
 
-## [1.23.0] - 2026-01-17
+#### Pre-commit Hook
 
-### Documentation Link Validation Enhancement
+- Added `.git/hooks/pre-commit` in main repo
+- Interactive auto-fix prompt (`y/n`)
+- Only checks staged `.md` files
+- Prevents new violations before commit
 
-`.linkcheck-ignore` parser system eliminates CI noise from expected broken links.
+#### Benefits
 
-- **100% reduction in CI false positives** (30 expected links → 0 failures)
-- Smart categorization: Critical vs Expected broken links
-- Parser utility: `utils/linkcheck_ignore_parser.py` with glob pattern support
-- 21/21 tests passing (13 unit + 8 integration)
+- ✅ Consistent rendering across GitHub, MkDocs, VS Code
+- ✅ Portable documentation (works everywhere)
+- ✅ Auto-fix capability (no manual cleanup)
+- ✅ Pre-commit prevention (catch issues early)
+- ✅ Gradual migration (fix as you edit)
 
----
+#### Migration Strategy
+
+- **No bulk fix needed** - project already 99% compliant
+- Fix MD032 violations gradually as files are edited
+- Monthly baseline reports to track progress
+- CI/CD integration planned after migration complete
+
+**Related:**
+
+- Spec: `docs/specs/SPEC-markdownlint-list-spacing-2026-01-19.md`
+- Implementation: `IMPLEMENTATION-MARKDOWNLINT-LIST-SPACING.md`
+- Tests: `tests/README.md` (full test catalog)
+
+### 🎉 Major Feature: Hub v2.0 - Smart Command Discovery
+
+**Impact:** Zero maintenance, 100% accuracy, ADHD-friendly navigation
+
+A complete rewrite of the command hub with auto-detection engine, 3-layer progressive disclosure, and zero-maintenance command discovery.
+
+### Added
+
+#### Hub v2.0 Implementation (feature/hub-v2)
+
+- **Auto-Detection Engine (Phase 1):**
+  - `commands/_discovery.py` (680 lines) - Command discovery and caching system
+  - Recursive directory scanning for `*.md` command files
+  - YAML frontmatter parsing with nested structure support
+  - JSON cache with auto-invalidation (<2ms cached, 12ms uncached)
+  - Performance: 94% faster than 200ms target (12ms uncached)
+  - 12 comprehensive tests, 100% passing
+
+- **3-Layer Navigation System:**
+  - **Layer 1 (Main Menu)** - Browse 16 categories with auto-detected counts
+  - **Layer 2 (Category View)** - Explore commands grouped by subcategory
+  - **Layer 3 (Command Detail)** - Auto-generated tutorials from frontmatter
+  - Progressive disclosure prevents overwhelming users (never shows all 97 commands at once)
+
+- **Layer 2: Category View:**
+  - `get_commands_by_category()` - Filter commands by category
+  - `group_commands_by_subcategory()` - Organize by subcategory
+  - `get_category_info()` - Complete category information with icons
+  - Subcategory grouping (e.g., CODE → Analysis, Development)
+  - Common workflows section per category
+  - 7 comprehensive tests, 100% passing
+
+- **Layer 3: Command Detail + Tutorial:**
+  - `get_command_detail()` - Lookup command by name (exact/partial match)
+  - `generate_command_tutorial()` - Auto-generate formatted tutorials
+  - Tutorial sections: Description, Modes, Usage, Workflows, Related Commands
+  - Smart navigation breadcrumbs (Hub → Category → Command)
+  - Related commands lookup and display
+  - 8 comprehensive tests, 100% passing
+
+- **Command Frontmatter Schema:**
+  - Required fields: `name`, `category`, `description`
+  - Optional fields: `subcategory`, `modes`, `time_budgets`, `related_commands`, `common_workflows`
+  - Documentation: `commands/_schema.json`, `commands/_discovery_usage.md`
+
+- **Documentation:**
+  - Updated `/craft:hub` help page (`docs/help/hub.md`) - Complete v2.0 guide
+  - Layer 1, 2, 3 navigation examples
+  - Auto-detection system documentation
+  - Troubleshooting guide
+  - Migration guide from v1.x (fully backward compatible)
+
+- **Tests (34 tests across 4 suites, 207ms total):**
+  - `tests/test_hub_discovery.py` (12 tests) - Discovery engine validation
+  - `tests/test_hub_integration.py` (7 tests) - Hub integration
+  - `tests/test_hub_layer2.py` (7 tests) - Category view navigation
+  - `tests/test_hub_layer3.py` (8 tests) - Command detail generation
+  - Test coverage: 100% passing
+
+- **Demos:**
+  - `tests/demo_layer2.py` - Category view demonstrations
+  - `tests/demo_layer3.py` - Command detail demonstrations
+
+### Changed
+
+- **Hub command (`commands/hub.md`):**
+  - Added Step 0: Load command data from discovery engine
+  - Added Layer 2 section with category view template
+  - Added Layer 3 section with command detail generation
+  - Updated to use dynamic counts (97 commands across 16 categories)
+
+- **Documentation site (`docs/help/hub.md`):**
+  - Complete rewrite for v2.0
+  - Added "What's New in v2.0" section
+  - Documented all 3 layers with examples
+  - Added auto-detection system explanation
+  - Added troubleshooting and migration guides
+
+### Technical Details
+
+- **Performance:**
+  - First run: 12ms (94% under 200ms target)
+  - Cached run: <2ms (80% under 10ms target)
+  - Cache invalidation: Automatic on file modification
+
+- **Discovery Algorithm:**
+  1. Scan `commands/` directory recursively
+  2. Parse YAML frontmatter from each `*.md` file
+  3. Infer category from directory structure
+  4. Generate unique command names
+  5. Cache results with timestamp
+  6. Auto-invalidate when files change
+
+- **Cache Format:**
+  - Location: `commands/_cache.json` (gitignored)
+  - Structure: `{generated, count, commands[]}`
+  - Size: < 100KB for 97 commands
+
+### Benefits
+
+- **Zero maintenance:** Command counts auto-update, no hardcoded lists
+- **Always accurate:** Discovery engine always reflects current state
+- **ADHD-friendly:** Progressive disclosure, never overwhelming
+- **Fast:** Sub-2ms cached performance
+- **Scalable:** Handles 97 commands across 16 categories effortlessly
+- **Discoverable:** 3-layer navigation makes exploration intuitive
+
+### Impact Metrics
+
+- **Maintenance time:** Reduced to zero (auto-detection eliminates manual updates)
+- **Accuracy:** 100% (no drift between code and documentation)
+- **Discoverability:** 3x improvement (3-layer navigation vs. flat list)
+- **Test coverage:** 34 tests, 100% passing
+- **Performance:** 94% faster than target (<2ms cached)
+
+## [Unreleased] - v1.23.1
+
+### Changed
+
+#### GIF Recording Method: asciinema as Default
+
+**Impact:** Improved accuracy and quality of workflow GIF demonstrations
+
+Changed the default GIF recording method from VHS (scripted simulations) to asciinema (real terminal recordings) for better accuracy when documenting Claude Code plugin commands.
+
+- **Recording Method Changes:**
+  - asciinema now default for all GIF demos (works for bash AND plugin commands)
+  - VHS available as alternative via `--method vhs` flag
+  - Real terminal recordings replace simulated output
+  - Higher quality GIF conversion via agg + gifski
+
+- **Command Updates:**
+  - `/craft:docs:demo` - Added `--method` flag (asciinema default, vhs optional)
+  - Updated usage examples and workflows
+  - Complete asciinema workflow documentation
+  - Installation instructions for asciinema + agg + gifsicle
+
+- **Documentation Updates:**
+  - `templates/docs/GIF-GUIDELINES.md` - asciinema as standard method
+  - `docs/GIF-RECORDING-WORKFLOW-2026.md` - Complete asciinema workflow
+  - `docs/GIF-REGENERATION-GUIDE.md` - Updated regeneration process
+  - `commands/docs/demo.md` - New --method flag documentation
+
+- **Tooling:**
+  - `scripts/regenerate-gifs.sh` - Automated GIF regeneration
+  - `scripts/capture-craft-output.sh` - Command output capture framework
+
+**Files Changed:**
+
+- `commands/docs/demo.md` - Added asciinema method support
+- `templates/docs/GIF-GUIDELINES.md` - Updated to asciinema standard
+- `docs/GIF-RECORDING-WORKFLOW-2026.md` - New workflow guide
+- `docs/GIF-REGENERATION-GUIDE.md` - Updated regeneration process
+- `scripts/regenerate-gifs.sh` - New automation script
+- `scripts/capture-craft-output.sh` - New capture framework
+- `README.md` - Updated command descriptions
+
+**Rationale:** asciinema records REAL output for all command types, while VHS requires manual simulation. This ensures GIFs show actual Claude Code plugin behavior instead of approximations.
+
+**Migration:** Existing VHS tapes remain functional. Use asciinema for new GIFs or when accuracy is critical.
+
+### Added
+
+#### Documentation Navigation & Organization
+
+**Impact:** Enhanced discoverability, reduced broken link warnings, better content organization
+
+Comprehensive documentation navigation improvements including spec file organization, command reference standardization, and working document archival.
+
+- **Navigation Enhancements:**
+  - Added Specifications section to Reference & Architecture (6 spec files)
+  - Added Help & Examples section to Commands & Reference (8 command files)
+  - Added Troubleshooting section to Cookbook (1 troubleshooting guide)
+  - Organized specs by version and priority
+  - Improved progressive disclosure of command documentation
+
+- **Link Standardization:**
+  - Updated 13 command references in teaching docs to use category page anchors
+  - Pattern: `commands/site/publish.md` → `commands/site.md#publish`
+  - Files updated: TEACHING-DOCS-INDEX.md, teaching-migration.md
+  - Consistent with website organization standard (SPEC-website-organization-standard-2026-01-17)
+
+- **Working Document Management:**
+  - Archived PRESET-GALLERY.md (superseded by reference/presets.md)
+  - Retained ORCHESTRATOR-ENHANCEMENTS.md and PHASE2-CONSOLIDATION.md as historical context
+  - Documented orphaned files in .linkcheck-ignore
+
+- **Documentation Health:**
+  - Build validation: 31 warnings (all expected and documented)
+  - Navigation completeness: All active docs included
+  - Broken link tracking: All expected broken links cataloged in .linkcheck-ignore
+
+**Files Changed:**
+
+- `mkdocs.yml` - Navigation structure updates
+- `docs/TEACHING-DOCS-INDEX.md` - Command reference links standardized
+- `docs/teaching-migration.md` - Command reference links standardized
+- `docs/.archive/PRESET-GALLERY.md` - Archived (superseded)
+
+**Success Metrics:**
+
+- ✅ 6 spec files added to navigation
+- ✅ 9 command/cookbook files added to navigation
+- ✅ 13 teaching doc links standardized
+- ✅ Build passes with --strict mode
+- ✅ All warnings expected and documented
+
+#### Test Coverage Improvements
+
+**Impact:** 75% → 84% coverage (+9%), production code at 91%
+
+Comprehensive test suite targeting coverage gaps in utility modules, achieving 90%+ production code coverage through systematic gap analysis.
+
+- **New Test Suite:**
+  - `tests/test_coverage_gaps.py` (514 lines, 17 comprehensive tests)
+  - Coverage improvements:
+    - `detect_teaching_mode.py`: 65% → 75% (+10%)
+    - `linkcheck_ignore_parser.py`: 71% → 87% (+16%)
+    - `dry_run_output.py`: 86% (maintained)
+  - Total tests: 353 → 370 (+17 tests)
+
+- **Test Coverage:**
+  - YAML import fallback scenarios
+  - Error handling branches (permission errors, missing files)
+  - Path normalization logic
+  - Main execution blocks
+  - Cross-module integration tests
+
+- **Documentation:**
+  - `TEST-COVERAGE-REPORT.md` - Detailed coverage analysis
+  - Before/after comparisons
+  - Remaining gaps analysis
+  - Recommendations for .coveragerc configuration
+  - Test execution commands
+
+**Success Metrics:**
+
+- ✅ Overall coverage: 75% → 84% (+9%)
+- ✅ Production code coverage: ~91% (excluding demo blocks)
+- ✅ Coverage gaps reduced: 74 lines → 46 lines (-38%)
+- ✅ Modules at 85%+: 1/3 → 2/3 (67% improvement)
+- ✅ 17 new comprehensive tests
+
+## [Unreleased] - v1.23.0
+
+### Added
+
+#### Documentation Link Validation Enhancement
+
+**Impact:** 100% reduction in CI false positives (30 → 0), zero manual filtering
+
+A comprehensive `.linkcheck-ignore` parser system that distinguishes between critical and expected broken links in documentation, eliminating CI noise while maintaining strict validation for genuine issues.
+
+- **Parser Utility:**
+  - `utils/linkcheck_ignore_parser.py` (270 lines) - Markdown parser for ignore patterns
+  - Exact path matching: `File: docs/test.md`
+  - Glob pattern support: `Files: docs/specs/*.md`
+  - Path normalization: `docs/path` ↔ `../path`
+  - Category organization for reporting
+  - API: `parse_linkcheck_ignore()` → `IgnoreRules` object
+
+- **Command Integration:**
+  - `/craft:docs:check-links` (enhanced) - Categorize links as critical vs expected
+  - `/craft:docs:check` (enhanced) - Show categorized broken links
+  - Updated exit code logic: 0 for expected links, 1 for critical only
+  - Visual distinction in output: ✗ Critical vs ⚠ Expected
+
+- **Testing:**
+  - `tests/test_linkcheck_ignore_parser.py` (13 unit tests, 100% passing)
+  - `tests/test_linkcheck_ignore_integration.py` (8 integration tests, 100% passing)
+  - Real-world .linkcheck-ignore format validation
+  - Edge case handling (missing file, invalid format, case sensitivity)
+
+- **Documentation:**
+  - `.linkcheck-ignore` - Usage instructions and pattern support
+  - `docs/CI-TEMPLATES.md` - GitHub Actions workflow example
+  - `IMPLEMENTATION-SUMMARY.md` - Complete implementation guide
+  - Updated command documentation with .linkcheck-ignore support
+
+- **CI/CD Integration:**
+  - Expected broken links don't block CI (exit code 0)
+  - Critical broken links still fail CI (exit code 1)
+  - GitHub Actions workflow template with PR comments
+  - Backward compatible (opt-in via .linkcheck-ignore file)
+
+**Success Metrics:**
+
+- ✅ 100% reduction in CI false positives (30 expected links → 0 failures)
+- ✅ Clear distinction between critical and expected broken links
+- ✅ Zero manual filtering required
+- ✅ Correct exit codes (0 for expected, 1 for critical)
+- ✅ 21/21 tests passing (100% coverage)
 
 ## [1.22.0] - 2026-01-17
 
-### Teaching Workflow System
+### 🎉 Major Feature: Teaching Workflow System
 
-Comprehensive teaching workflow for course website management (PR #12).
+**Impact:** 80% time reduction (15 min → 3 min), zero production bugs
 
-- 5 new commands: `site:publish`, `site:progress`, enhanced `git:status`, `site:build`
-- Preview-before-publish safety workflow
-- Content validation (schedule, syllabus, assignments)
-- Semester progress tracking
-- 139 tests, 100% passing
+A comprehensive teaching workflow system for course website management with preview-before-publish workflow, content validation, and semester tracking.
+
+### Added
+
+#### Core Teaching Workflow (PR #12)
+
+- **Commands (5 new/enhanced):**
+  - `/craft:site:publish` - Preview → Validate → Switch to main → Deploy workflow
+  - `/craft:site:progress` - Semester progress dashboard with week tracking
+  - `/craft:git:status` (enhanced) - Teaching-aware git status with deployment context
+  - `/craft:site:build` (enhanced) - Teaching mode detection and branch validation
+  - 44 files changed (+12,241 lines)
+
+- **Python Utilities (4 new modules):**
+  - `utils/detect_teaching_mode.py` (167 lines) - Auto-detect teaching mode from config
+  - `commands/utils/teach_config.py` (418 lines) - Configuration parsing and validation
+  - `commands/utils/teaching_validation.py` (379 lines) - Content validation suite
+  - `commands/utils/semester_progress.py` (385 lines) - Progress tracking and dashboard
+
+- **Features:**
+  - Teaching mode auto-detection via `.flow/teach-config.yml`
+  - Branch-aware builds (preview on dev, production on main)
+  - Content validation (schedule, syllabus, assignments)
+  - Preview-before-publish safety workflow
+  - Semester progress tracking with week calculation
+  - Auto-branch switching with safety checks
+
+- **Documentation (8 files):**
+  - `docs/TEACHING-DOCS-INDEX.md` - Complete documentation index
+  - `docs/teaching-config-schema.md` - Full configuration reference
+  - `docs/teaching-migration.md` - Migration guide from manual workflows
+  - `docs/tutorials/teaching-mode-setup.md` - Step-by-step setup tutorial
+  - `docs/guide/teaching-workflow.md` - Complete feature guide
+  - `docs/reference/REFCARD-TEACHING.md` - Quick reference card
+  - `docs/demos/teaching-workflow.tape` - VHS demo tape
+  - `commands/utils/readme-*.md` - Utility documentation
+
+- **Tests (139 tests across 7 files):**
+  - `tests/test_teaching_mode.py` - Teaching mode detection
+  - `tests/test_teach_config.py` - Configuration parsing
+  - `tests/test_teaching_validation.py` - Content validation
+  - `tests/test_semester_progress.py` - Progress tracking
+  - `tests/test_site_publish.py` - Publish workflow
+  - `tests/test_teaching_integration.py` - End-to-end integration
+  - `tests/demo_teaching_validation.py` - Interactive demo
+  - Test coverage: 100% passing
+
+- **Test Fixtures (3 realistic scenarios):**
+  - `tests/fixtures/teaching/minimal/` - Minimal config (quick testing)
+  - `tests/fixtures/teaching/stat-545/` - Full course example (15 weeks)
+  - `tests/fixtures/teaching/summer/` - Summer semester (8 weeks)
+
+- **Configuration:**
+  - `.flow/teach-config.yml` schema with YAML validation
+  - Semester configuration (dates, weeks, breaks)
+  - Branch configuration (preview/production)
+  - Content paths (schedule, syllabus, assignments)
+  - Validation settings (strict mode, date checking, link validation)
+  - Publishing automation (nav updates, changelog, backups)
+
+### Changed
+
+- Enhanced `/craft:site:build` with teaching mode awareness
+- Enhanced `/craft:git:status` with deployment context display
+- Updated CLAUDE.md: 92 → 97 commands, added teaching workflow
+- Updated README.md with teaching mode quick start
+
+### Impact Metrics
+
 - **Time savings:** 80% reduction in publish time (15 min → 3 min)
-
----
+- **Production bugs:** Reduced to zero (validation catches all issues)
+- **User confidence:** 100% (preview-before-publish eliminates anxiety)
+- **Test coverage:** 139 tests, 100% passing
 
 ## [1.20.0] - 2026-01-16
 
-### Standardized Dry-Run Feature
+### 🎉 Milestone: Standardized Dry-Run Feature - Target Exceeded
 
-27 commands now support `--dry-run` / `-n` preview mode (57% of target commands).
+**Target:** 47 commands (52% coverage)
+**Achieved:** 27 commands (57% coverage)
+**Status:** ✅ Target exceeded by 5%
 
-- **Phase 1**: Git infrastructure (4 commands)
-- **Phase 2**: CI/Site/Docs (9 commands)
-- **Phase 3**: Smart routing + Code/Test (10 commands)
-- All CRITICAL, HIGH, P0, and Smart Routing priorities complete (100%)
-- Shared utilities (`utils/dry_run_output.py`), 30 passing tests
+### Added
+
+#### Phase 1: Infrastructure + Git Commands (PR #6)
+
+- **Infrastructure:**
+  - `utils/dry_run_output.py` (324 lines) - Shared dry-run output utilities
+  - `templates/dry-run-pattern.md` (306 lines) - Implementation template
+  - 17 comprehensive tests (all passing)
+  - Standardized bordered box format (65-character width)
+  - Risk level indicators (LOW, MEDIUM, HIGH, CRITICAL)
+
+- **Git Commands (4):**
+  - `/craft:git:clean` - Preview merged branch deletion (CRITICAL priority)
+  - `/craft:git:worktree` - Preview worktree operations (HIGH priority)
+  - `/craft:git:branch` - Preview branch operations
+  - `/craft:git:sync` - Preview sync operations
+
+#### Phase 2: CI/Site/Docs Commands (PR #7)
+
+- **CI/CD Commands (3):**
+  - `/craft:ci:detect` - Preview project type detection (60+ patterns)
+  - `/craft:ci:generate` - Preview workflow generation (CRITICAL priority)
+  - `/craft:ci:validate` - Preview CI validation
+
+- **Site Commands (4):**
+  - `/craft:site:build` - Preview site build
+  - `/craft:site:check` - Preview validation checks
+  - `/craft:site:deploy` - Preview GitHub Pages deployment (CRITICAL priority)
+  - `/craft:site:update` - Preview site content updates
+
+- **Documentation Commands (5):**
+  - `/craft:docs:changelog` - Preview changelog generation
+  - `/craft:docs:check` - Preview health check
+  - `/craft:docs:claude-md` - Preview CLAUDE.md generation
+  - `/craft:docs:nav-update` - Preview navigation updates
+  - `/craft:docs:sync` - Preview documentation sync
+
+#### Phase 3: Smart Routing + Code/Test Commands (PR #8, #9)
+
+- **Smart Routing Commands (3):**
+  - `/craft:do` - Preview routing plan with time estimates
+  - `/craft:orchestrate` - Preview agent allocation and parallelization
+  - `/craft:check` - Preview validation plan (context-aware)
+
+- **P0 Commands (2):**
+  - `/craft:git:recap` - Preview git activity summary (7 git commands)
+  - `/craft:dist:pypi` - Preview PyPI publishing (IRREVERSIBLE warnings)
+
+- **Code Quality Commands (3):**
+  - `/craft:code:lint` - Preview linting plan (mode-aware: default/debug/optimize/release)
+  - `/craft:code:ci-local` - Preview local CI checks (6 checks)
+  - `/craft:code:deps-audit` - Preview security vulnerability scanning
+
+- **Test Commands (2):**
+  - `/craft:test:run` - Preview test execution (mode-aware)
+  - `/craft:test:cli-run` - Preview CLI test suite execution
+
+- **Git Commands (2 additional):**
+  - `/craft:git:init` - Preview repository initialization
+  - `/craft:git:recap` - Preview git activity summary
+
+### Coverage by Priority
+
+| Priority | Coverage | Status |
+|----------|----------|--------|
+| CRITICAL | 100% (3/3) | ✅ Complete |
+| HIGH | 100% (1/1) | ✅ Complete |
+| P0 | 100% (6/6) | ✅ Complete |
+| Smart Routing | 100% (3/3) | ✅ Complete |
+| MEDIUM | ~40% (17/43) | 🟡 In Progress |
+
+### Coverage by Category
+
+- **Git:** 100% (6/6) ✅
+- **CI/CD:** 100% (3/3) ✅
+- **Smart Routing:** 100% (3/3) ✅
+- **Site:** 67% (4/6) 🟢
+- **Docs:** 50% (5/10) 🟡
+- **Code:** 25% (3/12) 🟡
+- **Test:** 33% (2/6) 🟡
+- **Distribution:** 25% (1/4) 🟡
+
+### Usage Examples
 
 ```bash
-/craft:git:clean --dry-run      # Preview branch cleanup
-/craft:code:lint release -n     # Preview comprehensive linting
-/craft:do "add auth" --dry-run  # Preview smart routing plan
+# Preview branch cleanup
+/craft:git:clean --dry-run
+
+# Preview comprehensive linting (release mode)
+/craft:code:lint release -n
+
+# Preview smart routing plan
+/craft:do "add user authentication" --dry-run
+
+# Preview orchestration with agent allocation
+/craft:orchestrate "refactor auth" --dry-run
+
+# Preview PyPI publishing (CRITICAL - shows IRREVERSIBLE warnings)
+/craft:dist:pypi publish --dry-run
 ```
+
+### Documentation
+
+- Added comprehensive dry-run feature documentation
+- Updated homepage with v1.20.0 announcement
+- Created [DRY-RUN-SUMMARY.md](DRY-RUN-SUMMARY.md) tracking document
+- Added dry-run section to commands reference
+- Added 🔍 indicators to dry-run enabled commands
+
+### Testing
+
+- 30 tests total (13 plugin structure + 17 dry-run utilities)
+- All tests passing
+- Test coverage for all dry-run output functions
+- Real-world example tests
+
+### Infrastructure
+
+- Shared utilities reduce code duplication
+- Consistent 65-character bordered box format
+- Risk level system (LOW → MEDIUM → HIGH → CRITICAL)
+- Warning and summary sections
+- Text wrapping and edge case handling
 
 ---
 
 ## [1.19.0] - 2026-01-08
 
-### Git Repository Initialization
+### Added
 
-`/craft:git:init` command bootstraps repositories with craft workflow patterns.
+- `/craft:git:init` command for repository initialization
+  - Interactive 9-step wizard
+  - 3 workflow patterns (Main+Dev, Simple, GitFlow)
+  - Template system (.STATUS, CLAUDE.md, PR templates)
+  - GitHub integration (create repos, branch protection, CI workflows)
+  - Rollback on error with transaction-based operations
+  - Dry-run mode
 
-- Interactive 9-step wizard
-- 3 workflow patterns: Main+Dev (collaborative), Simple (solo), GitFlow (complex releases)
-- Template system (.STATUS, CLAUDE.md, PR templates)
-- GitHub integration (create repos, branch protection, CI workflows)
-- Rollback on error, dry-run mode
+### Documentation
 
----
-
-## [1.17.0] - 2025-12
-
-### Workflow Automation Integration
-
-Integrated 12 ADHD-friendly workflow commands from standalone workflow plugin.
-
-- `/brainstorm` — Smart brainstorming with delegation
-- Task management: `/focus`, `/next`, `/done`, `/recap`
-- `/stuck` — Guided problem solving
-- Background task monitoring
+- Git init reference guide
+- Architecture flow diagrams
+- Tutorial for repository setup
 
 ---
 
-## [1.15.0] - 2025-12
+## [1.17.0] - 2025-12-XX
 
-### ADHD-Friendly Website Enhancement
+### Added
 
-`/craft:docs:website` command with ADHD scoring algorithm (0-100) across 5 categories.
+- Workflow automation integration (12 commands)
+  - `/brainstorm` - Smart brainstorming with delegation
+  - Task management: `/focus`, `/next`, `/done`, `/recap`
+  - `/stuck` - Guided problem solving
+  - Background task monitoring
 
-- Visual Hierarchy (25%), Time Estimates (20%), Workflow Diagrams (20%), Mobile Responsive (15%), Content Density (20%)
-- 3-phase enhancement: Quick Wins (<2h), Structure (<4h), Polish (<8h)
+### Changed
+
+- Migrated workflow commands from standalone plugin
+- Updated command count: 90 total (78 craft + 12 workflow)
 
 ---
 
 ## Earlier Versions
 
-See [git history](https://github.com/Data-Wise/craft/commits/main) for versions prior to 1.15.0.
+See git history for versions prior to 1.17.0.
 
 ---
 
 ## Links
 
-- [Documentation Site](https://data-wise.github.io/craft/)
-- [GitHub Repository](https://github.com/Data-Wise/craft)
-- [Version History](VERSION-HISTORY.md)
+- **Homepage:** <https://Data-Wise.github.io/craft/>
+- **Repository:** <https://github.com/Data-Wise/craft>
+- **Documentation:** <https://Data-Wise.github.io/craft/>
+- **Dry-Run Summary:** [DRY-RUN-SUMMARY.md](DRY-RUN-SUMMARY.md)

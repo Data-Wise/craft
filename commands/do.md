@@ -107,9 +107,9 @@ Preview which commands will be executed without actually running them:
 
 **Note**: Dry-run shows routing decision based on complexity score. Agent delegation triggers for medium (4-7) and complex (8-10) tasks.
 
-## Branch-Aware Routing (NEW in v2.16.0)
+## Branch-Aware Routing (NEW in v2.16.0, UPDATED in v2.31.0)
 
-Before routing, check branch protection status. When on `dev` or `main` and the task involves code changes:
+Before routing, check branch protection status. **Skip this step entirely if `skip_branch_protection=true`** (worktree on feature/* detected in Step 0.5). When on `dev` or `main` and the task involves code changes:
 
 ### On `dev` (block-new-code)
 
@@ -148,9 +148,9 @@ Switch to dev: git checkout dev
 Then retry: /craft:do <task>
 ```
 
-### On `feature/*`
+### On `feature/*` (including worktrees)
 
-Route directly without branch intervention — no restrictions.
+Route directly without branch intervention — no restrictions. If in a worktree with an `ORCHESTRATE-*.md` file, include the orchestration context in routing decisions (e.g., route to the relevant increment).
 
 ## How It Works
 
@@ -654,6 +654,118 @@ if orch_flag:
 # Otherwise, continue with complexity-based routing...
 ```
 
+### Step 0.5: Worktree Detection (NEW in v2.31.0)
+
+Before analyzing the task, detect if we're inside a git worktree:
+
+```bash
+# Check if CWD is inside a worktree (not the main working tree)
+main_worktree=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/worktree //')
+current_toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+current_branch=$(git branch --show-current 2>/dev/null)
+
+in_worktree=false
+if [ -n "$main_worktree" ] && [ "$main_worktree" != "$current_toplevel" ]; then
+    in_worktree=true
+fi
+```
+
+**If in worktree on `feature/*` branch:**
+
+1. Set `skip_branch_protection=true` — do NOT show the "You're on dev" or "create worktree" prompts in Step 2
+2. Check for `ORCHESTRATE-*.md` in CWD:
+
+   ```bash
+   orchestrate_file=$(ls ORCHESTRATE-*.md 2>/dev/null | head -1)
+   ```
+
+   If found, load it as additional routing context — the orchestrate file contains the implementation plan and can inform which increment or phase the task relates to.
+3. Do NOT suggest "Create worktree" as a routing option (already in one)
+
+**If not in worktree:** Proceed normally (existing behavior unchanged).
+
+### Step 1.0: Memory Lookup (NEW in v2.31.0)
+
+Check MEMORY.md for relevant learnings before routing:
+
+```python
+# Extract key terms from task description
+task_terms = extract_keywords(task)  # 3-5 key terms
+
+# Locate project memory file
+import os
+cwd_slug = os.getcwd().replace("/", "-")  # Claude uses hyphens: -Users-dt-projects-...
+memory_file = os.path.expanduser(f"~/.claude/projects/{cwd_slug}/memory/MEMORY.md")
+
+if os.path.exists(memory_file):
+    with open(memory_file) as f:
+        memory_content = f.read()
+
+    # Search Key Learnings section for matching headings (case-insensitive)
+    import re
+    headings = re.findall(r'^### (.+)$', memory_content, re.MULTILINE)
+    for heading in headings:
+        heading_lower = heading.lower()
+        if any(term in heading_lower for term in task_terms):
+            # Extract the 1-2 sentences following the heading
+            pattern = rf'### {re.escape(heading)}\n(.+?)(?=\n### |\n## |\Z)'
+            match = re.search(pattern, memory_content, re.DOTALL)
+            if match:
+                first_sentence = match.group(1).strip().split('\n')[0]
+                # Display: "Memory note: {heading} — {first_sentence}"
+                # Adjust routing hints if the learning suggests a specific approach
+```
+
+**Behavior:**
+
+- If match found: show `"Memory note: [title] — [first sentence]"` before routing
+- If no match: zero overhead, proceed normally (no output)
+- Read-only: never modifies MEMORY.md
+- Surfaced as a note, not a forced override
+
+### Step 1.5: Insights Check (NEW in v2.31.0)
+
+Check recent session facets for friction patterns relevant to this task:
+
+```python
+import json, glob, os
+
+facets_dir = os.path.expanduser("~/.claude/usage-data/facets/")
+project_name = os.path.basename(os.getcwd())
+
+# Read last 5 facet files (most recent first)
+facet_files = sorted(glob.glob(f"{facets_dir}/session-*.json"), reverse=True)[:5]
+
+relevant_friction = []
+for fpath in facet_files:
+    with open(fpath) as f:
+        facet = json.load(f)
+
+    # Filter for current project
+    if facet.get("project") != project_name:
+        continue
+
+    # Check if friction events match task type
+    task_category = determine_category(task)  # from Step 1
+    for event in facet.get("friction_events", []):
+        if event.get("type") in ["wrong_approach", "buggy_code"]:
+            relevant_friction.append(event)
+
+if relevant_friction:
+    # Show: "Recent friction: {description} — consider: {resolution}"
+    # Add guardrail to routing: e.g., "Previous session had lint failures
+    # with this type of change. Run /craft:code:lint before committing."
+    pass
+```
+
+**Behavior:**
+
+- If relevant friction found: show note and add guardrail hint to routing context
+- If no relevant friction: zero overhead, proceed normally (no output)
+- If no facets directory exists: skip silently (graceful degradation)
+- Read-only: never modifies facet data
+- Both steps are **advisory only** — surface as notes, not forced overrides
+
 ### Step 1: Analyze Task and Calculate Complexity
 
 ```
@@ -692,6 +804,75 @@ else:  # score >= 8
     # Complex task - delegate to orchestrator
     delegate_to_agent("orchestrator-v2", task)
 ```
+
+### Step 2.5: Pipeline Suggestion (NEW in v2.31.0)
+
+Before delegating to an agent, check if the task warrants the full brainstorm→spec→worktree pipeline:
+
+```python
+# Pipeline suggestion triggers
+if score >= 6 and category == "feature":
+    # Check for existing spec
+    import glob
+    task_keywords = extract_keywords(task)  # e.g., ["auth", "login"]
+    matching_specs = []
+    for spec in glob.glob("docs/specs/SPEC-*.md"):
+        topic = os.path.basename(spec).replace("SPEC-", "").split("-20")[0]
+        if any(kw in topic.lower() for kw in task_keywords):
+            matching_specs.append(spec)
+
+    if not matching_specs:
+        # No spec exists — suggest full pipeline
+        # Display:
+        #   "Substantial feature detected (complexity: {score}/10)."
+        #   "Recommended: /brainstorm → spec → worktree"
+        #
+        # AskUserQuestion:
+        #   "This looks like a substantial feature. Start with brainstorm pipeline?"
+        #   Options:
+        #     - "Yes — brainstorm first" → redirect to /brainstorm f s "{task}"
+        #     - "No — proceed directly" → continue to Step 3
+        pass
+
+    elif matching_specs:
+        # Spec exists — suggest worktree with ORCHESTRATE
+        # Display:
+        #   "Found SPEC-{topic}.md. Create worktree with ORCHESTRATE plan?"
+        #
+        # AskUserQuestion:
+        #   Options:
+        #     - "Yes — create worktree + ORCHESTRATE" → /craft:orchestrate:plan {spec}
+        #     - "No — proceed with spec context" → load spec, continue to Step 3
+        pass
+```
+
+**Key rules:**
+
+- Pipeline suggestion is **advisory only** — user can always decline
+- If user declines: proceed normally with agent routing (Step 3)
+- Only trigger for `category == "feature"` with `score >= 6`
+- Never auto-redirect without user confirmation
+
+### Step 2.6: Spec Auto-Load for Agent Delegation (NEW in v2.31.0)
+
+When routing to an agent (Step 4), check `docs/specs/` for a matching spec:
+
+```python
+# Auto-load spec context for agent delegation
+spec_context = ""
+if matching_specs:  # From Step 2.5
+    spec_path = matching_specs[0]
+    spec_context = open(spec_path).read()
+    # Include in agent prompt: "Spec context: {spec_context}"
+
+# Also check for ORCHESTRATE file (from Step 0.5 worktree detection)
+orchestrate_context = ""
+if orchestrate_file:
+    orchestrate_context = open(orchestrate_file).read()
+    # Include in agent prompt: "ORCHESTRATE context: {orchestrate_context}"
+```
+
+**Behavior:** Spec and ORCHESTRATE context are passed to agents as additional input — they don't change routing, only enrich the agent's context.
 
 ### Step 3: Agent Selection Logic
 

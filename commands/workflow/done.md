@@ -218,6 +218,236 @@ done
 - If no drift: show green checkmark, proceed normally
 - Skippable with `SKIP_DOC_DRIFT=1` environment variable
 
+### Step 1.10: CLAUDE.md Auto-Sync (NEW in v2.31.0)
+
+Automatically sync CLAUDE.md counts and version before committing:
+
+**Opt-out:** Set `SKIP_CLAUDE_MD_SYNC=1` to skip this step.
+
+```bash
+# Guard: skip if SKIP_CLAUDE_MD_SYNC is set
+if [ -z "$SKIP_CLAUDE_MD_SYNC" ]; then
+    # Run sync pipeline (fix mode — updates counts in-place)
+    PYTHONPATH=. python3 utils/claude_md_sync.py --fix 2>/dev/null
+fi
+```
+
+**What gets synced (mechanical only — never rewrite prose):**
+
+1. **Command count** — matches `commands/` directory discovery
+2. **Skill count** — matches `skills/` directory
+3. **Agent count** — matches `agents/` directory
+4. **Test count** — matches latest test run output
+5. **Version** — matches `.STATUS` version if different
+
+**Behavior:**
+
+- Runs silently if all counts already match (zero output)
+- If counts were updated: include CLAUDE.md in the session commit (Step 3.5), NOT as a separate commit
+- Reports synced items in the Step 2 interactive summary under "SYNCED" section
+
+**Display in Step 2 summary (only if changes made):**
+
+```
+│ SYNCED:                                                     │
+│    • CLAUDE.md: commands 106→107, tests 109→112             │
+```
+
+If nothing changed, omit the SYNCED section entirely.
+
+### Step 1.11: Memory Capture (NEW in v2.31.0)
+
+Scan the session for learnings worth persisting to MEMORY.md:
+
+**Opt-out:** Set `SKIP_MEMORY_UPDATE=1` to skip this step.
+
+**What to scan for:**
+
+1. **Errors with workarounds** — commands that failed then succeeded with a different approach
+2. **Repeated friction** (2+ occurrences) — same mistake made twice in one session
+3. **User-stated learnings** — phrases like "remember", "always", "never", "note to self"
+
+**Deduplication check:**
+
+```bash
+# Read existing MEMORY.md Key Learnings section
+memory_file="$HOME/.claude/projects/$(pwd | sed 's|/|_|g')/memory/MEMORY.md"
+if [ -f "$memory_file" ]; then
+    existing_headings=$(grep '^### ' "$memory_file" | tr '[:upper:]' '[:lower:]')
+fi
+
+# For each candidate learning:
+# 1. Extract key terms (3-5 words)
+# 2. Check if any existing heading shares >60% word overlap
+# 3. If duplicate: skip with note "Similar learning already captured"
+# 4. If new: format as candidate
+```
+
+**Candidate format:**
+
+```
+### [Title] ([date])
+[2-3 sentence explanation of what was learned and why it matters]
+```
+
+**User confirmation:**
+
+```
+AskUserQuestion:
+  question: "Save these learnings to MEMORY.md?"
+  header: "Memory"
+  multiSelect: true
+  options:
+    - label: "[Learning 1 title]"
+      description: "[First sentence of explanation]"
+    - label: "[Learning 2 title]"
+      description: "[First sentence of explanation]"
+    - label: "Skip all"
+      description: "Don't save any learnings this session"
+```
+
+**After confirmation:**
+
+- Append confirmed entries to `## Key Learnings` section in MEMORY.md
+- If `## Key Learnings` section doesn't exist, create it
+- Memory is **append-only**: never delete or modify existing entries programmatically
+
+**Size guard:**
+
+```bash
+# Check Key Learnings section length
+learnings_lines=$(sed -n '/^## Key Learnings/,/^## /p' "$memory_file" | wc -l)
+if [ "$learnings_lines" -gt 200 ]; then
+    echo "⚠️  Key Learnings exceeds 200 lines. Consider archiving older entries."
+fi
+```
+
+**If no learnings detected:** Skip silently (zero output, zero overhead).
+
+### Step 1.13: Insights Capture (NEW in v2.31.0)
+
+Analyze the session for friction signals and write a facet JSON file:
+
+**Opt-out:** Set `SKIP_INSIGHTS=1` to skip this step.
+
+**Friction signals to detect:**
+
+1. **Wrong branch/directory** — git operations on unexpected branch
+2. **Undo-then-redo** — commands that were reverted and retried differently
+3. **Test-then-fix cycles** — test failures followed by code edits (3+ cycles = friction)
+4. **Tool limitations** — commands that errored due to environment constraints
+5. **Misunderstood requests** — user corrections like "no, I meant..." or "that's wrong"
+
+**Facet JSON schema:**
+
+```json
+{
+  "session_id": "<uuid>",
+  "timestamp": "<ISO-8601>",
+  "project": "<repo-name>",
+  "branch": "<current-branch>",
+  "duration_minutes": "<estimated-from-git-timestamps>",
+  "goal_category": "<feature|bugfix|docs|refactor|release|other>",
+  "outcome": "<completed|partial|blocked|abandoned>",
+  "friction_events": [
+    {
+      "type": "<wrong_approach|buggy_code|tool_limitation|misunderstood_request>",
+      "description": "<1-sentence summary>",
+      "resolution": "<how it was resolved>"
+    }
+  ],
+  "learnings_captured": "<count-from-step-1.11>",
+  "commits": "<count>",
+  "files_changed": "<count>"
+}
+```
+
+**Write facet file:**
+
+```bash
+# Ensure directory exists
+mkdir -p ~/.claude/usage-data/facets/
+
+# Write facet JSON
+cat > ~/.claude/usage-data/facets/session-$(date +%Y%m%d-%H%M%S).json << 'FACET'
+{...facet data...}
+FACET
+```
+
+**Cleanup (run after write):**
+
+```bash
+# Delete facets older than 90 days
+find ~/.claude/usage-data/facets/ -name "session-*.json" -mtime +90 -delete 2>/dev/null
+```
+
+**Friction summary (only if 3+ friction events):**
+
+```
+│ ⚠️  FRICTION: 4 events detected this session                  │
+│    • wrong_approach (2): pushed to wrong branch, wrong file   │
+│    • buggy_code (2): lint failures, missing import            │
+│    → Run /craft:workflow:insights for full analysis            │
+```
+
+**If fewer than 3 friction events:** Silent (no output in summary). Facet is still written for aggregate analysis.
+
+### Step 1.14: Worktree Status Summary (NEW in v2.31.0)
+
+Detect if the session is in a git worktree and gather worktree context:
+
+```bash
+# Detect worktree vs main working tree
+main_worktree=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/worktree //')
+current_toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+current_branch=$(git branch --show-current 2>/dev/null)
+
+in_worktree=false
+if [ -n "$main_worktree" ] && [ "$main_worktree" != "$current_toplevel" ]; then
+    in_worktree=true
+fi
+```
+
+**If in worktree:**
+
+```bash
+# Show branch and distance from dev
+ahead=$(git rev-list --count dev..HEAD 2>/dev/null || echo "?")
+behind=$(git rev-list --count HEAD..dev 2>/dev/null || echo "?")
+
+# List other active worktrees
+git worktree list 2>/dev/null
+```
+
+**If in worktree and ORCHESTRATE-*.md exists:**
+
+```bash
+# Check how many increments are marked done
+orchestrate_file=$(ls ORCHESTRATE-*.md 2>/dev/null | head -1)
+if [ -n "$orchestrate_file" ]; then
+    total_tasks=$(grep -c '^\- \[ \]' "$orchestrate_file" 2>/dev/null || echo 0)
+    # If total_tasks == 0 (all checked off), suggest PR creation
+fi
+```
+
+- If all ORCHESTRATE increments are complete (`- [ ]` count is 0): suggest `gh pr create --base dev`
+- If some remain: show progress (e.g., "8/15 increments complete")
+
+**If not in worktree but worktrees exist:**
+
+```bash
+# List worktrees with staleness (last commit date)
+git worktree list --porcelain 2>/dev/null | grep "^worktree " | while read _ path; do
+    last_commit=$(git -C "$path" log -1 --format="%cr" 2>/dev/null || echo "unknown")
+    branch=$(git -C "$path" branch --show-current 2>/dev/null || echo "detached")
+    echo "$path ($branch) — last commit: $last_commit"
+done
+```
+
+**If not a git repo or no worktrees:** Skip silently (graceful degradation).
+
+**Opt-out:** Set `SKIP_WORKTREE_STATUS=1` to skip this step.
+
 ### Step 2: Interactive Session Summary
 
 Present findings and ask user to confirm/edit:
@@ -241,6 +471,22 @@ Present findings and ask user to confirm/edit:
 │    • 🔴 7 orphaned docs not in mkdocs.yml                  │
 │    • 🟡 README/docs divergence (version mismatch)           │
 │                                                             │
+│ SYNCED: [if CLAUDE.md counts changed — omit if no changes]  │
+│    • CLAUDE.md: commands 106→107, tests 109→112             │
+│                                                             │
+│ 🧠 MEMORY: [if learnings captured — omit if none]            │
+│    • Saved 2 learnings to MEMORY.md                          │
+│                                                               │
+│ ⚠️  FRICTION: [if 3+ events — omit if fewer]                  │
+│    • wrong_approach (2), buggy_code (1), tool_limitation (1) │
+│    → Run /craft:workflow:insights for full analysis           │
+│                                                               │
+│ 🌳 WORKTREE: [if in worktree — omit if not]                 │
+│    • Branch: feature/my-feature (+12 ahead, -0 behind dev) │
+│    • ORCHESTRATE: 8/15 increments complete                  │
+│    • Other worktrees: [list if any]                         │
+│    → Ready for PR? (shown if all increments done)           │
+│                                                             │
 │ 📋 SPECS: [if implementing specs found]                     │
 │    • SPEC-auth-system-2025-12-30.md (status: implementing)  │
 │      → Archive as complete?                                 │
@@ -254,7 +500,7 @@ Present findings and ask user to confirm/edit:
 ├─────────────────────────────────────────────────────────────┤
 │ Does this look right?                                       │
 │                                                             │
-│ A) Yes - update .STATUS and suggest commit                 │
+│ A) Yes - Full auto: .STATUS + commit + push + sync         │
 │ B) Let me edit what was completed                          │
 │ C) Skip .STATUS update (just suggest commit)               │
 │ D) Cancel (don't save anything)                            │
@@ -334,6 +580,83 @@ Present findings and ask user to confirm/edit:
    │    To restore this context                                 │
    └─────────────────────────────────────────────────────────────┘
    ```
+
+#### Step 3.5: Auto-Git (NEW in v2.31.0)
+
+After Option A completes (summary confirmed, .STATUS updated), automatically commit and push:
+
+**Safety constraints (MANDATORY):**
+
+- Never force-push (`git push` only, never `--force`)
+- Skip entirely if on `main` branch (protected)
+- Only `git add` specific changed files (never `git add -A` or `git add .`)
+- Only push current branch (never push to other branches)
+
+**Opt-out:** Set `SKIP_GIT_SYNC=1` to skip this step entirely.
+
+```bash
+# Guard: skip if SKIP_GIT_SYNC is set
+if [ -n "$SKIP_GIT_SYNC" ]; then
+    echo "Skipping auto-git (SKIP_GIT_SYNC set)"
+    # Continue to next steps
+fi
+
+# Guard: skip if on main
+current_branch=$(git branch --show-current 2>/dev/null)
+if [ "$current_branch" = "main" ]; then
+    echo "Skipping auto-git (on main, protected)"
+    # Continue to next steps
+fi
+
+# Stage specific changed files (from Step 1 detection)
+git add <list-of-changed-files> .STATUS
+
+# If behind remote, attempt rebase first
+behind=$(git rev-list --count HEAD..origin/$current_branch 2>/dev/null || echo 0)
+if [ "$behind" -gt 0 ]; then
+    git pull --rebase origin "$current_branch" || {
+        echo "⚠️  Rebase conflicts detected. Skipping push."
+        echo "   Resolve manually: git rebase --continue"
+        # Continue without pushing
+    }
+fi
+
+# Commit with generated session message
+git commit -m "<generated-session-summary>"
+
+# Push (set upstream if needed)
+git push origin "$current_branch" -u 2>/dev/null || {
+    echo "⚠️  Push failed. Changes are committed locally."
+    echo "   Try: git push origin $current_branch"
+    # Continue with .STATUS update regardless
+}
+```
+
+**Update Option A label:**
+
+```
+A) Yes - Full auto: .STATUS + commit + push + sync
+```
+
+**Output in SESSION CAPTURED:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ ✅ SESSION CAPTURED                                         │
+├─────────────────────────────────────────────────────────────┤
+│ Updated: .STATUS                                            │
+│ Committed: feat: [session summary] (abc1234)               │
+│ Pushed: origin/feature/my-feature                          │
+│ Next action: [what you said is next]                       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+If push fails, show committed hash but note push status:
+
+```
+│ Committed: feat: [session summary] (abc1234)               │
+│ Push: ⚠️  Failed (changes saved locally)                    │
+```
 
 #### Option B: Edit Accomplishments
 
