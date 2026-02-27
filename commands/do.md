@@ -723,6 +723,75 @@ else:  # score >= 8
     delegate_to_agent("orchestrator-v2", task)
 ```
 
+### Step 2.5: Pipeline Suggestion (NEW in v2.30.0)
+
+Before delegating to an agent, check if the task warrants the full brainstorm→spec→worktree pipeline:
+
+```python
+# Pipeline suggestion triggers
+if score >= 6 and category == "feature":
+    # Check for existing spec
+    import glob
+    task_keywords = extract_keywords(task)  # e.g., ["auth", "login"]
+    matching_specs = []
+    for spec in glob.glob("docs/specs/SPEC-*.md"):
+        topic = os.path.basename(spec).replace("SPEC-", "").split("-20")[0]
+        if any(kw in topic.lower() for kw in task_keywords):
+            matching_specs.append(spec)
+
+    if not matching_specs:
+        # No spec exists — suggest full pipeline
+        # Display:
+        #   "Substantial feature detected (complexity: {score}/10)."
+        #   "Recommended: /brainstorm → spec → worktree"
+        #
+        # AskUserQuestion:
+        #   "This looks like a substantial feature. Start with brainstorm pipeline?"
+        #   Options:
+        #     - "Yes — brainstorm first" → redirect to /brainstorm f s "{task}"
+        #     - "No — proceed directly" → continue to Step 3
+        pass
+
+    elif matching_specs:
+        # Spec exists — suggest worktree with ORCHESTRATE
+        # Display:
+        #   "Found SPEC-{topic}.md. Create worktree with ORCHESTRATE plan?"
+        #
+        # AskUserQuestion:
+        #   Options:
+        #     - "Yes — create worktree + ORCHESTRATE" → /craft:orchestrate:plan {spec}
+        #     - "No — proceed with spec context" → load spec, continue to Step 3
+        pass
+```
+
+**Key rules:**
+
+- Pipeline suggestion is **advisory only** — user can always decline
+- If user declines: proceed normally with agent routing (Step 3)
+- Only trigger for `category == "feature"` with `score >= 6`
+- Never auto-redirect without user confirmation
+
+### Step 2.6: Spec Auto-Load for Agent Delegation (NEW in v2.30.0)
+
+When routing to an agent (Step 4), check `docs/specs/` for a matching spec:
+
+```python
+# Auto-load spec context for agent delegation
+spec_context = ""
+if matching_specs:  # From Step 2.5
+    spec_path = matching_specs[0]
+    spec_context = open(spec_path).read()
+    # Include in agent prompt: "Spec context: {spec_context}"
+
+# Also check for ORCHESTRATE file (from Step 0.5 worktree detection)
+orchestrate_context = ""
+if orchestrate_file:
+    orchestrate_context = open(orchestrate_file).read()
+    # Include in agent prompt: "ORCHESTRATE context: {orchestrate_context}"
+```
+
+**Behavior:** Spec and ORCHESTRATE context are passed to agents as additional input — they don't change routing, only enrich the agent's context.
+
 ### Step 3: Agent Selection Logic
 
 ```python

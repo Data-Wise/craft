@@ -164,16 +164,16 @@ mkdocs build --strict 2>&1 | grep -E "(WARNING|ERROR)" | head -10
 
 Tasks:
 
-- [ ] Add Step 3.5: Auto-Git after Option A
+- [x] Add Step 3.5: Auto-Git after Option A
   - `git add <changed-files>` (specific files, never -A)
   - `git commit -m "<generated-msg>"` with session summary
   - `git push origin <branch>` (set upstream with -u if needed)
   - If on main: SKIP (protected, never push)
   - If behind remote: attempt `git pull --rebase` first, report if conflicts
   - If push fails: report error, continue with .STATUS update
-- [ ] Update Option A label: "Full auto: .STATUS + commit + push + sync"
-- [ ] Add `SKIP_GIT_SYNC` env var opt-out
-- [ ] Document safety constraints: never force-push, skip main, only current branch
+- [x] Update Option A label: "Full auto: .STATUS + commit + push + sync"
+- [x] Add `SKIP_GIT_SYNC` env var opt-out
+- [x] Document safety constraints: never force-push, skip main, only current branch
 
 **Verify:**
 
@@ -190,14 +190,14 @@ grep -n "3.5\|auto-git\|SKIP_GIT_SYNC\|git push" commands/workflow/done.md
 
 Tasks:
 
-- [ ] Add Step 1.10: CLAUDE.md Auto-Sync
+- [x] Add Step 1.10: CLAUDE.md Auto-Sync
   - Run `utils/claude_md_sync.py --fix` silently
   - Update counts (commands, skills, agents, tests) if changed
   - Update version in Active Work section if .STATUS version differs
   - Include CLAUDE.md in session commit (not separate commit)
-- [ ] Add "SYNCED" section to Step 2 interactive summary
-- [ ] Add `SKIP_CLAUDE_MD_SYNC` env var opt-out
-- [ ] Mechanical only: never rewrite prose, only counts and version
+- [x] Add "SYNCED" section to Step 2 interactive summary
+- [x] Add `SKIP_CLAUDE_MD_SYNC` env var opt-out
+- [x] Mechanical only: never rewrite prose, only counts and version
 
 **Verify:**
 
@@ -214,12 +214,12 @@ grep -n "1.10\|claude_md_sync\|SKIP_CLAUDE_MD_SYNC" commands/workflow/done.md
 
 Tasks:
 
-- [ ] Add "WORKTREES" section after "NEXT ACTION" in hub layout
+- [x] Add "WORKTREES" section after "NEXT ACTION" in hub layout
   - Parse `git worktree list --porcelain` for paths and branches
   - Show commits ahead/behind dev for each worktree
   - Show uncommitted file count from `git -C <path> status --short | wc -l`
   - Flag stale worktrees (no commits in 3+ days)
-- [ ] Section hidden if no worktrees exist (graceful degradation)
+- [x] Section hidden if no worktrees exist (graceful degradation)
 
 **Verify:**
 
@@ -237,14 +237,14 @@ grep -n "WORKTREE\|worktree list" commands/hub.md
 
 Tasks:
 
-- [ ] Add pipeline detection in Step 5 (routing decision):
+- [x] Add pipeline detection in Step 5 (routing decision):
   - If complexity >= 6 AND category = feature AND no existing spec:
     - Suggest: "Substantial feature detected. Recommended: /brainstorm → spec → worktree"
     - User confirms or declines (suggest only, don't auto-route)
   - If complexity >= 6 AND spec exists for topic:
     - Suggest: "Found SPEC-TOPIC.md. Create worktree with ORCHESTRATE plan?"
   - If user declines: proceed with normal agent routing
-- [ ] Add spec auto-load for agent delegation:
+- [x] Add spec auto-load for agent delegation:
   - When routing to an agent, check `docs/specs/` for matching spec
   - If found, include spec contents in agent prompt
 
@@ -264,10 +264,10 @@ grep -n "pipeline\|brainstorm.*spec.*worktree\|auto-load" commands/do.md
 
 Tasks:
 
-- [ ] Copy Phase 2 changes to published docs
-- [ ] Update CLAUDE.md Active Work section with new capabilities
-- [ ] Update REFCARD.md workflow command descriptions
-- [ ] Run `mkdocs build --strict` to verify
+- [x] Copy Phase 2 changes to published docs
+- [x] Update CLAUDE.md Active Work section with new capabilities (deferred to Phase 3 final)
+- [x] Update REFCARD.md workflow command descriptions
+- [x] Run `mkdocs build --strict` to verify
 
 **Verify:**
 

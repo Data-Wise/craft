@@ -20,12 +20,15 @@
 
 **How it works:**
 
-1. Analyzes your task description
-2. Scores complexity (0-10 scale)
-3. Routes to appropriate handler:
+1. Detects worktree context — skips branch prompts if in worktree (v2.30.0)
+2. Analyzes your task description
+3. Scores complexity (0-10 scale)
+4. Pipeline suggestion — for features score >= 6, suggests brainstorm→spec→worktree (v2.30.0)
+5. Routes to appropriate handler:
    - Simple (0-3): Direct command execution
    - Medium (4-7): Single specialized agent
    - Complex (8-10): Multi-agent orchestration
+6. Auto-loads matching spec from `docs/specs/` as agent context (v2.30.0)
 
 **Examples:**
 
@@ -155,6 +158,9 @@
 - Search and filtering
 - Example commands
 - Tutorial links
+- Live counts from discovery engine (v2.30.0)
+- .STATUS Next Action at top of hub (v2.30.0)
+- Active worktree status with ahead/behind (v2.30.0)
 
 **Examples:**
 
@@ -1488,6 +1494,11 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
+# NEW in v2.30.0: Auto-git, CLAUDE.md sync, worktree status
+#   Option A auto-commits + pushes (skip on main, never force-push)
+#   CLAUDE.md counts synced silently before commit
+#   Worktree branch ahead/behind shown in summary
+#   SKIP_GIT_SYNC=1 / SKIP_CLAUDE_MD_SYNC=1 to opt out
 ```
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide

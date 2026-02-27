@@ -218,6 +218,43 @@ done
 - If no drift: show green checkmark, proceed normally
 - Skippable with `SKIP_DOC_DRIFT=1` environment variable
 
+### Step 1.10: CLAUDE.md Auto-Sync (NEW in v2.30.0)
+
+Automatically sync CLAUDE.md counts and version before committing:
+
+**Opt-out:** Set `SKIP_CLAUDE_MD_SYNC=1` to skip this step.
+
+```bash
+# Guard: skip if SKIP_CLAUDE_MD_SYNC is set
+if [ -z "$SKIP_CLAUDE_MD_SYNC" ]; then
+    # Run sync pipeline (fix mode — updates counts in-place)
+    PYTHONPATH=. python3 utils/claude_md_sync.py --fix 2>/dev/null
+fi
+```
+
+**What gets synced (mechanical only — never rewrite prose):**
+
+1. **Command count** — matches `commands/` directory discovery
+2. **Skill count** — matches `skills/` directory
+3. **Agent count** — matches `agents/` directory
+4. **Test count** — matches latest test run output
+5. **Version** — matches `.STATUS` version if different
+
+**Behavior:**
+
+- Runs silently if all counts already match (zero output)
+- If counts were updated: include CLAUDE.md in the session commit (Step 3.5), NOT as a separate commit
+- Reports synced items in the Step 2 interactive summary under "SYNCED" section
+
+**Display in Step 2 summary (only if changes made):**
+
+```
+│ SYNCED:                                                     │
+│    • CLAUDE.md: commands 106→107, tests 109→112             │
+```
+
+If nothing changed, omit the SYNCED section entirely.
+
 ### Step 1.14: Worktree Status Summary (NEW in v2.30.0)
 
 Detect if the session is in a git worktree and gather worktree context:
@@ -297,6 +334,9 @@ Present findings and ask user to confirm/edit:
 │    • 🔴 7 orphaned docs not in mkdocs.yml                  │
 │    • 🟡 README/docs divergence (version mismatch)           │
 │                                                             │
+│ SYNCED: [if CLAUDE.md counts changed — omit if no changes]  │
+│    • CLAUDE.md: commands 106→107, tests 109→112             │
+│                                                             │
 │ 🌳 WORKTREE: [if in worktree — omit if not]                 │
 │    • Branch: feature/my-feature (+12 ahead, -0 behind dev) │
 │    • ORCHESTRATE: 8/15 increments complete                  │
@@ -316,7 +356,7 @@ Present findings and ask user to confirm/edit:
 ├─────────────────────────────────────────────────────────────┤
 │ Does this look right?                                       │
 │                                                             │
-│ A) Yes - update .STATUS and suggest commit                 │
+│ A) Yes - Full auto: .STATUS + commit + push + sync         │
 │ B) Let me edit what was completed                          │
 │ C) Skip .STATUS update (just suggest commit)               │
 │ D) Cancel (don't save anything)                            │
@@ -396,6 +436,83 @@ Present findings and ask user to confirm/edit:
    │    To restore this context                                 │
    └─────────────────────────────────────────────────────────────┘
    ```
+
+#### Step 3.5: Auto-Git (NEW in v2.30.0)
+
+After Option A completes (summary confirmed, .STATUS updated), automatically commit and push:
+
+**Safety constraints (MANDATORY):**
+
+- Never force-push (`git push` only, never `--force`)
+- Skip entirely if on `main` branch (protected)
+- Only `git add` specific changed files (never `git add -A` or `git add .`)
+- Only push current branch (never push to other branches)
+
+**Opt-out:** Set `SKIP_GIT_SYNC=1` to skip this step entirely.
+
+```bash
+# Guard: skip if SKIP_GIT_SYNC is set
+if [ -n "$SKIP_GIT_SYNC" ]; then
+    echo "Skipping auto-git (SKIP_GIT_SYNC set)"
+    # Continue to next steps
+fi
+
+# Guard: skip if on main
+current_branch=$(git branch --show-current 2>/dev/null)
+if [ "$current_branch" = "main" ]; then
+    echo "Skipping auto-git (on main, protected)"
+    # Continue to next steps
+fi
+
+# Stage specific changed files (from Step 1 detection)
+git add <list-of-changed-files> .STATUS
+
+# If behind remote, attempt rebase first
+behind=$(git rev-list --count HEAD..origin/$current_branch 2>/dev/null || echo 0)
+if [ "$behind" -gt 0 ]; then
+    git pull --rebase origin "$current_branch" || {
+        echo "⚠️  Rebase conflicts detected. Skipping push."
+        echo "   Resolve manually: git rebase --continue"
+        # Continue without pushing
+    }
+fi
+
+# Commit with generated session message
+git commit -m "<generated-session-summary>"
+
+# Push (set upstream if needed)
+git push origin "$current_branch" -u 2>/dev/null || {
+    echo "⚠️  Push failed. Changes are committed locally."
+    echo "   Try: git push origin $current_branch"
+    # Continue with .STATUS update regardless
+}
+```
+
+**Update Option A label:**
+
+```
+A) Yes - Full auto: .STATUS + commit + push + sync
+```
+
+**Output in SESSION CAPTURED:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ ✅ SESSION CAPTURED                                         │
+├─────────────────────────────────────────────────────────────┤
+│ Updated: .STATUS                                            │
+│ Committed: feat: [session summary] (abc1234)               │
+│ Pushed: origin/feature/my-feature                          │
+│ Next action: [what you said is next]                       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+If push fails, show committed hash but note push status:
+
+```
+│ Committed: feat: [session summary] (abc1234)               │
+│ Push: ⚠️  Failed (changes saved locally)                    │
+```
 
 #### Option B: Edit Accomplishments
 

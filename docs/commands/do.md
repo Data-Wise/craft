@@ -51,6 +51,8 @@ Analyzes your natural language task description and automatically routes to the 
 
 **Worktree-aware (v2.30.0):** When running inside a git worktree on a `feature/*` branch, branch protection prompts are automatically skipped. If an `ORCHESTRATE-*.md` file is present, it's loaded as routing context.
 
+**Pipeline suggestion (v2.30.0):** For complex features (score >= 6) with no existing spec, suggests the full pipeline: `/brainstorm` → spec → worktree. If a matching spec exists, offers to create a worktree with ORCHESTRATE plan. Suggestions are advisory — user can always decline.
+
 ---
 
 ## Task Categories

@@ -93,6 +93,33 @@ if status_path.exists():
 
 **Display**: If `next_action_lines` is non-empty, show a `NEXT ACTION` section at the top of the hub (see Step 2 template below). If `.STATUS` doesn't exist or has no Next Action, skip this section silently.
 
+### Step 1.6: Detect Active Worktrees (NEW in v2.30.0)
+
+Parse `git worktree list` to detect active worktrees for the WORKTREES section:
+
+```bash
+# Get all worktrees (porcelain format for reliable parsing)
+worktree_data=$(git worktree list --porcelain 2>/dev/null)
+
+# Parse each worktree entry
+# Format: worktree <path>\nHEAD <sha>\nbranch refs/heads/<name>\n\n
+# Skip the first entry (main working tree)
+worktrees=()
+while IFS= read -r path; do
+    branch=$(git -C "$path" branch --show-current 2>/dev/null || echo "detached")
+    ahead=$(git rev-list --count dev.."$branch" 2>/dev/null || echo "?")
+    behind=$(git rev-list --count "$branch"..dev 2>/dev/null || echo "?")
+    uncommitted=$(git -C "$path" status --short 2>/dev/null | wc -l | tr -d ' ')
+    last_commit=$(git -C "$path" log -1 --format="%cr" 2>/dev/null || echo "unknown")
+
+    # Flag stale: no commits in 3+ days
+    days_since=$(git -C "$path" log -1 --format="%ct" 2>/dev/null)
+    # Compare with current epoch to determine staleness
+done
+```
+
+**If no worktrees exist (only main working tree):** Skip the WORKTREES section entirely (graceful degradation).
+
 ### Step 2: Display Hub (Layer 1 - Main Menu)
 
 **Generate this display dynamically** using stats and commands data loaded in Step 0.
@@ -110,6 +137,10 @@ Display template:
 │ NEXT ACTION:  (from .STATUS — omit section if no .STATUS or no action) │
 │    {next_action_lines[0]}                                              │
 │    {next_action_lines[1]}  (show all parsed A/B/C entries)             │ enhancements — live counts, .STATUS, worktree awareness)
+├─────────────────────────────────────────────────────────────────────────┤
+│ WORKTREES:  (omit section if no worktrees besides main working tree)   │
+│    feature/auth    +5/-0 dev  2 uncommitted  3 hours ago              │
+│    feature/docs    +12/-3 dev  0 uncommitted  ⚠ STALE (5 days)        │
 ├─────────────────────────────────────────────────────────────────────────┤
 │ SMART COMMANDS (Start Here):                                            │
 │    /craft:do <task>     Universal command - AI routes to best workflow  │
