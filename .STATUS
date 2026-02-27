@@ -4,21 +4,22 @@ release_date: 2026-02-27
 milestone: v2.32.0 planning — Insights-Driven Improvements
 last_session: 2026-02-27
 
-progress: v2.31.0 stable. Brainstormed and spec'd v2.32.0 improvements from 327-session insights analysis. 4 features scoped: version sync validator, worktree pre-flight, Homebrew SHA race fix, sweep --fix. Spec captured as draft.
+progress: v2.31.0 stable. v2.32.0 spec approved — 4 features from insights analysis, all open questions resolved, review checklist 7/7. Ready for implementation.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | b045ebaa | —    | Production (v2.31.0, PR #120 merged) |
-| dev    | 837e0892 | main | Brainstorm + spec added, dogfood test fixed |
+| dev    | 1e2f8f30 | main | Spec approved, ready for worktree |
 
-✅ Session 2026-02-27 (v2.32.0 planning):
+✅ Session 2026-02-27 (v2.32.0 planning + spec approval):
 - Reviewed BRAINSTORM-craft-insights-2026-02-27.md (5 features, P1-P4)
-- Max-depth brainstorm with 2 agents: version-sync integration + worktree/homebrew analysis
-- Refined to 4 features for v2.32.0, deferred 3a (CI auto-diagnosis), deprioritized 5 (parallel agents)
-- Key decisions: extend /craft:check (not new command), soft warnings (not hard blocks), CI SHA fix
-- Captured spec: SPEC-insights-improvements-v2.32-2026-02-27.md (~2.75h total effort)
+- Max-depth brainstorm: 2 agents, 8 expert questions, integration analysis
+- Refined 5→4 features, deferred CI auto-diagnosis, deprioritized parallel agents
+- Key decisions: extend /craft:check (not new command), soft warnings, CI SHA fix
+- Captured + approved spec: SPEC-insights-improvements-v2.32-2026-02-27.md
+- Resolved OQ1 (PR mode: warn only) + OQ2 (pre-flight: auto-run in Step 0)
 
 ✅ Session 2026-02-27 (v2.31.0 release):
 - Completed v2.31.0 release pipeline, all downstream green
@@ -28,11 +29,10 @@ progress: v2.31.0 stable. Brainstormed and spec'd v2.32.0 improvements from 327-
 ---
 
 🎯 Next Action:
-A) Review spec: /workflow:spec-review (2 open questions to resolve)
-B) Create worktree for v2.32.0 implementation (4 increments, ~2.75h)
-C) himalaya-mcp: Tier 2 items (config wizard, stats, session-start hook)
+A) Create worktree for v2.32.0 implementation (4 increments, ~2.75h)
+B) himalaya-mcp: Tier 2 items (config wizard, stats, session-start hook)
 
-## v2.32.0 Scope (spec: draft)
+## v2.32.0 Scope (spec: approved)
 
 - Version sync validator (/craft:check --version) ~30 min
 - Worktree pre-flight (4 checks, soft warnings) ~1.5h
