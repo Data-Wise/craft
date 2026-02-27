@@ -50,7 +50,7 @@ fi
 echo -e "${BLUE}🔍${NC} Checking markdown quality (24 rules)..."
 
 # Run markdownlint on staged files
-VIOLATIONS=$(npx -y markdownlint-cli2 $STAGED_MD_FILES 2>&1 || true)
+VIOLATIONS=$(npx markdownlint-cli2 $STAGED_MD_FILES 2>&1 || true)
 
 if echo "$VIOLATIONS" | grep -E "($MD_RULES)"; then
   echo ""
@@ -73,7 +73,7 @@ if echo "$VIOLATIONS" | grep -E "($MD_RULES)"; then
 
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo -e "${BLUE}🔧${NC} Auto-fixing..."
-    npx -y markdownlint-cli2 --fix $STAGED_MD_FILES
+    npx markdownlint-cli2 --fix $STAGED_MD_FILES
 
     echo ""
     echo -e "${GREEN}✅${NC} Auto-fix complete!"
@@ -87,7 +87,7 @@ if echo "$VIOLATIONS" | grep -E "($MD_RULES)"; then
   else
     echo ""
     echo -e "${YELLOW}⚠️${NC}  Commit blocked. Fix manually with:"
-    echo "  npx -y markdownlint-cli2 --fix $STAGED_MD_FILES"
+    echo "  npx markdownlint-cli2 --fix $STAGED_MD_FILES"
     echo ""
     echo "Or bypass this hook (not recommended):"
     echo "  git commit --no-verify"
