@@ -1,18 +1,17 @@
 status: Active
 version: 2.29.0
 release_date: 2026-02-26
-milestone: v2.29.0 released — unified release-watch v2 merged to dev
+milestone: v2.29.0 released — release-watch v2 + pin-markdownlint merged to dev
 last_session: 2026-02-26
 
-progress: v2.29.0 released. PR #117 (unified-release-watch v2) merged to dev. Two feature worktrees active: pin-markdownlint ~90% done, workflow-enhancements planned.
+progress: v2.29.0 released. PR #117 (release-watch v2) and PR #116 (pin-markdownlint) merged to dev. One feature worktree active: workflow-enhancements planned.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | 2a32569  | —    | Production (v2.29.0, PR #115 merged) |
-| dev    | 2e3236e  | main | PR #117 merged, release-watch v2 on dev |
-| feature/pin-markdownlint | 0247ec5 | dev | ~90% done: 10 files modified, not yet committed (needs verify + PR) |
+| dev    | 4ca4676  | main | PRs #116 + #117 merged |
 | feature/workflow-enhancements | 7e2240b | dev | ORCHESTRATE committed, ready for Session 1 (15 increments, 3 phases) |
 
 ✅ Session 2026-02-26 (worktree implementation progress):
