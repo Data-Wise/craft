@@ -218,6 +218,62 @@ done
 - If no drift: show green checkmark, proceed normally
 - Skippable with `SKIP_DOC_DRIFT=1` environment variable
 
+### Step 1.14: Worktree Status Summary (NEW in v2.30.0)
+
+Detect if the session is in a git worktree and gather worktree context:
+
+```bash
+# Detect worktree vs main working tree
+main_worktree=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/worktree //')
+current_toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+current_branch=$(git branch --show-current 2>/dev/null)
+
+in_worktree=false
+if [ -n "$main_worktree" ] && [ "$main_worktree" != "$current_toplevel" ]; then
+    in_worktree=true
+fi
+```
+
+**If in worktree:**
+
+```bash
+# Show branch and distance from dev
+ahead=$(git rev-list --count dev..HEAD 2>/dev/null || echo "?")
+behind=$(git rev-list --count HEAD..dev 2>/dev/null || echo "?")
+
+# List other active worktrees
+git worktree list 2>/dev/null
+```
+
+**If in worktree and ORCHESTRATE-*.md exists:**
+
+```bash
+# Check how many increments are marked done
+orchestrate_file=$(ls ORCHESTRATE-*.md 2>/dev/null | head -1)
+if [ -n "$orchestrate_file" ]; then
+    total_tasks=$(grep -c '^\- \[ \]' "$orchestrate_file" 2>/dev/null || echo 0)
+    # If total_tasks == 0 (all checked off), suggest PR creation
+fi
+```
+
+- If all ORCHESTRATE increments are complete (`- [ ]` count is 0): suggest `gh pr create --base dev`
+- If some remain: show progress (e.g., "8/15 increments complete")
+
+**If not in worktree but worktrees exist:**
+
+```bash
+# List worktrees with staleness (last commit date)
+git worktree list --porcelain 2>/dev/null | grep "^worktree " | while read _ path; do
+    last_commit=$(git -C "$path" log -1 --format="%cr" 2>/dev/null || echo "unknown")
+    branch=$(git -C "$path" branch --show-current 2>/dev/null || echo "detached")
+    echo "$path ($branch) — last commit: $last_commit"
+done
+```
+
+**If not a git repo or no worktrees:** Skip silently (graceful degradation).
+
+**Opt-out:** Set `SKIP_WORKTREE_STATUS=1` to skip this step.
+
 ### Step 2: Interactive Session Summary
 
 Present findings and ask user to confirm/edit:
@@ -240,6 +296,12 @@ Present findings and ask user to confirm/edit:
 │    • 🔴 CLAUDE.md outdated (3 features since last update)   │
 │    • 🔴 7 orphaned docs not in mkdocs.yml                  │
 │    • 🟡 README/docs divergence (version mismatch)           │
+│                                                             │
+│ 🌳 WORKTREE: [if in worktree — omit if not]                 │
+│    • Branch: feature/my-feature (+12 ahead, -0 behind dev) │
+│    • ORCHESTRATE: 8/15 increments complete                  │
+│    • Other worktrees: [list if any]                         │
+│    → Ready for PR? (shown if all increments done)           │
 │                                                             │
 │ 📋 SPECS: [if implementing specs found]                     │
 │    • SPEC-auth-system-2025-12-30.md (status: implementing)  │

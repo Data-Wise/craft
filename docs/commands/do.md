@@ -42,11 +42,14 @@ Analyzes your natural language task description and automatically routes to the 
 
 **How it works:**
 
-1. **Check Spec** - Look for existing spec matching task
-2. **Analyze** - Parse task description for intent
-3. **Route** - Select appropriate craft commands
-4. **Execute** - Run commands in optimal order
-5. **Report** - Summarize what was done
+1. **Worktree Detection** - Skip branch prompts if already in a worktree (v2.30.0)
+2. **Check Spec** - Look for existing spec matching task
+3. **Analyze** - Parse task description for intent
+4. **Route** - Select appropriate craft commands
+5. **Execute** - Run commands in optimal order
+6. **Report** - Summarize what was done
+
+**Worktree-aware (v2.30.0):** When running inside a git worktree on a `feature/*` branch, branch protection prompts are automatically skipped. If an `ORCHESTRATE-*.md` file is present, it's loaded as routing context.
 
 ---
 

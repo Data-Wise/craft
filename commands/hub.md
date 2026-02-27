@@ -33,6 +33,22 @@ commands = load_cached_commands()
 # - stats['with_modes']: Commands supporting modes
 # - stats['with_dry_run']: Commands with dry-run support
 # - commands: Full list of command objects with metadata
+
+# Count skills, agents, and tests for banner
+from pathlib import Path
+skill_count = len(list((plugin_dir / 'skills').glob('*.md'))) if (plugin_dir / 'skills').exists() else 0
+agent_count = len(list((plugin_dir / 'agents').glob('*.md'))) if (plugin_dir / 'agents').exists() else 0
+
+# Read test count from CLAUDE.md or .STATUS (extract number from "N tests passing")
+import re
+test_count = "?"
+for source in [plugin_dir / 'CLAUDE.md', plugin_dir / '.STATUS']:
+    if source.exists():
+        content = source.read_text()
+        m = re.search(r'(\d+)\s+tests?\s+pass', content)
+        if m:
+            test_count = m.group(1)
+            break
 ```
 
 **Use this data** to populate the hub display below with accurate, auto-detected counts.
@@ -50,6 +66,33 @@ Detection Rules (check in order):
 7. Otherwise → Generic Project
 ```
 
+### Step 1.5: Read .STATUS Next Action
+
+If a `.STATUS` file exists in the project root, extract the "Next Action" section:
+
+```python
+status_path = plugin_dir / '.STATUS'
+next_action_lines = []
+
+if status_path.exists():
+    in_next_action = False
+    for line in status_path.read_text().splitlines():
+        if '🎯 Next Action' in line or 'Next Action' in line:
+            in_next_action = True
+            continue
+        elif in_next_action:
+            # Stop at next section header (emoji + title or blank line after content)
+            if line.strip() and (line.strip()[0] in '🔴✅🔄📋⚠️' or line.startswith('##')):
+                break
+            if line.strip():
+                next_action_lines.append(line.strip())
+
+# next_action_lines contains the parsed next action entries (A/B/C options)
+# If empty, skip the NEXT ACTION display section gracefully
+```
+
+**Display**: If `next_action_lines` is non-empty, show a `NEXT ACTION` section at the top of the hub (see Step 2 template below). If `.STATUS` doesn't exist or has no Next Action, skip this section silently.
+
 ### Step 2: Display Hub (Layer 1 - Main Menu)
 
 **Generate this display dynamically** using stats and commands data loaded in Step 0.
@@ -62,7 +105,11 @@ Display template:
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  CRAFT - Full Stack Developer Toolkit v2.30.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
-│  107 commands | 26 skills | 8 agents | 112 tests passing               │
+│  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
+├─────────────────────────────────────────────────────────────────────────┤
+│ NEXT ACTION:  (from .STATUS — omit section if no .STATUS or no action) │
+│    {next_action_lines[0]}                                              │
+│    {next_action_lines[1]}  (show all parsed A/B/C entries)             │ enhancements — live counts, .STATUS, worktree awareness)
 ├─────────────────────────────────────────────────────────────────────────┤
 │ SMART COMMANDS (Start Here):                                            │
 │    /craft:do <task>     Universal command - AI routes to best workflow  │
@@ -626,7 +673,7 @@ SUGGESTED FOR NODE PROJECT:
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │ Full-stack developer toolkit for Claude Code                           │
-│ 107 commands | 26 skills | 8 agents | 112 tests passing                │
+│ {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │ enhancements — live counts, .STATUS, worktree awareness)
 ├────────────────────────────────────────────────────────────────────────┤
 │ Start Here:                                                            │
 │   /craft:do <task>   -> AI routes to best workflow                     │

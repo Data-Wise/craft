@@ -49,10 +49,10 @@ Three commands form a unidirectional data flow:
 
 Tasks:
 
-- [ ] Replace all hardcoded count literals in hub.md banner template
-- [ ] Change "107 commands | 26 skills | 8 agents" to instruction: "Populate from `stats['total']`, skill count, and agent count loaded in Step 0"
-- [ ] Replace hardcoded test count with instruction to read from CLAUDE.md or .STATUS
-- [ ] Verify Step 0 discovery engine load still works correctly
+- [x] Replace all hardcoded count literals in hub.md banner template
+- [x] Change "107 commands | 26 skills | 8 agents" to instruction: "Populate from `stats['total']`, skill count, and agent count loaded in Step 0"
+- [x] Replace hardcoded test count with instruction to read from CLAUDE.md or .STATUS
+- [x] Verify Step 0 discovery engine load still works correctly
 
 **Verify:**
 
@@ -71,10 +71,10 @@ grep -n "107\|26 skills\|8 agents" commands/hub.md
 
 Tasks:
 
-- [ ] Add Step 1.5: Read .STATUS file and extract "Next Action" section
-- [ ] Display "NEXT ACTION" section at top of hub layout (above command grid)
-- [ ] Parse multi-option format (A/B/C entries with descriptions)
-- [ ] Graceful skip if .STATUS doesn't exist or has no Next Action
+- [x] Add Step 1.5: Read .STATUS file and extract "Next Action" section
+- [x] Display "NEXT ACTION" section at top of hub layout (above command grid)
+- [x] Parse multi-option format (A/B/C entries with descriptions)
+- [x] Graceful skip if .STATUS doesn't exist or has no Next Action
 
 **Verify:**
 
@@ -92,12 +92,12 @@ grep -n "STATUS\|Next Action" commands/hub.md
 
 Tasks:
 
-- [ ] Add Step 0.5: Worktree Detection
+- [x] Add Step 0.5: Worktree Detection
   - Run `git worktree list` and check if CWD is inside a worktree
   - If in worktree on feature/* branch: skip branch protection prompts
   - If ORCHESTRATE-*.md exists in CWD: load as routing context
-- [ ] Update Step 2 (branch check) to skip if worktree already detected
-- [ ] Update routing decision to not suggest "create worktree" when already in one
+- [x] Update Step 2 (branch check) to skip if worktree already detected
+- [x] Update routing decision to not suggest "create worktree" when already in one
 
 **Verify:**
 
@@ -115,13 +115,13 @@ grep -n "worktree\|Step 0.5" commands/do.md
 
 Tasks:
 
-- [ ] Add Step 1.14: Worktree Status Summary
+- [x] Add Step 1.14: Worktree Status Summary
   - Detect if session is in a worktree via `git rev-parse --show-toplevel` vs `git worktree list`
   - If in worktree: show branch, distance from dev (ahead/behind), other active worktrees
   - If not in worktree but worktrees exist: list them with staleness
-- [ ] Add "WORKTREE" section to Step 2 interactive summary template
-- [ ] If in worktree and all ORCHESTRATE increments done: suggest PR creation
-- [ ] Graceful skip if not a git repo or no worktrees
+- [x] Add "WORKTREE" section to Step 2 interactive summary template
+- [x] If in worktree and all ORCHESTRATE increments done: suggest PR creation
+- [x] Graceful skip if not a git repo or no worktrees
 
 **Verify:**
 
@@ -139,10 +139,10 @@ grep -n "1.14\|worktree\|WORKTREE" commands/workflow/done.md
 
 Tasks:
 
-- [ ] Copy hub.md changes to docs/commands/hub.md
-- [ ] Copy do.md changes to docs/commands/do.md
-- [ ] Copy done.md changes to docs/commands/done.md
-- [ ] Run `mkdocs build` to verify no broken links
+- [x] Copy hub.md changes to docs/commands/hub.md
+- [x] Copy do.md changes to docs/commands/do.md
+- [x] Copy done.md changes to docs/commands/done.md (no published done.md exists yet — skipped)
+- [x] Run `mkdocs build` to verify no broken links
 
 **Verify:**
 

@@ -107,9 +107,9 @@ Preview which commands will be executed without actually running them:
 
 **Note**: Dry-run shows routing decision based on complexity score. Agent delegation triggers for medium (4-7) and complex (8-10) tasks.
 
-## Branch-Aware Routing (NEW in v2.16.0)
+## Branch-Aware Routing (NEW in v2.16.0, UPDATED in v2.30.0)
 
-Before routing, check branch protection status. When on `dev` or `main` and the task involves code changes:
+Before routing, check branch protection status. **Skip this step entirely if `skip_branch_protection=true`** (worktree on feature/* detected in Step 0.5). When on `dev` or `main` and the task involves code changes:
 
 ### On `dev` (block-new-code)
 
@@ -148,9 +148,9 @@ Switch to dev: git checkout dev
 Then retry: /craft:do <task>
 ```
 
-### On `feature/*`
+### On `feature/*` (including worktrees)
 
-Route directly without branch intervention — no restrictions.
+Route directly without branch intervention — no restrictions. If in a worktree with an `ORCHESTRATE-*.md` file, include the orchestration context in routing decisions (e.g., route to the relevant increment).
 
 ## How It Works
 
@@ -653,6 +653,36 @@ if orch_flag:
 
 # Otherwise, continue with complexity-based routing...
 ```
+
+### Step 0.5: Worktree Detection (NEW in v2.30.0)
+
+Before analyzing the task, detect if we're inside a git worktree:
+
+```bash
+# Check if CWD is inside a worktree (not the main working tree)
+main_worktree=$(git worktree list --porcelain 2>/dev/null | head -1 | sed 's/worktree //')
+current_toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+current_branch=$(git branch --show-current 2>/dev/null)
+
+in_worktree=false
+if [ -n "$main_worktree" ] && [ "$main_worktree" != "$current_toplevel" ]; then
+    in_worktree=true
+fi
+```
+
+**If in worktree on `feature/*` branch:**
+
+1. Set `skip_branch_protection=true` — do NOT show the "You're on dev" or "create worktree" prompts in Step 2
+2. Check for `ORCHESTRATE-*.md` in CWD:
+
+   ```bash
+   orchestrate_file=$(ls ORCHESTRATE-*.md 2>/dev/null | head -1)
+   ```
+
+   If found, load it as additional routing context — the orchestrate file contains the implementation plan and can inform which increment or phase the task relates to.
+3. Do NOT suggest "Create worktree" as a routing option (already in one)
+
+**If not in worktree:** Proceed normally (existing behavior unchanged).
 
 ### Step 1: Analyze Task and Calculate Complexity
 
