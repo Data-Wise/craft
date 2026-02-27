@@ -1,43 +1,48 @@
 status: Active
 version: 2.31.0
 release_date: 2026-02-27
-milestone: v2.31.0 released — Workflow Learning Loop & Live Dashboard
+milestone: v2.32.0 planning — Insights-Driven Improvements
 last_session: 2026-02-27
 
-progress: v2.31.0 released. Workflow enhancements (PR #119) merged — /workflow:done learning loop, /craft:do memory-aware routing, /craft:hub live dashboard. All downstream verified green.
+progress: v2.31.0 stable. Brainstormed and spec'd v2.32.0 improvements from 327-session insights analysis. 4 features scoped: version sync validator, worktree pre-flight, Homebrew SHA race fix, sweep --fix. Spec captured as draft.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                               |
 |--------|----------|------|--------------------------------------|
 | main   | b045ebaa | —    | Production (v2.31.0, PR #120 merged) |
-| dev    | 00c53596 | main | Post-release sweep applied |
+| dev    | 837e0892 | main | Brainstorm + spec added, dogfood test fixed |
+
+✅ Session 2026-02-27 (v2.32.0 planning):
+- Reviewed BRAINSTORM-craft-insights-2026-02-27.md (5 features, P1-P4)
+- Max-depth brainstorm with 2 agents: version-sync integration + worktree/homebrew analysis
+- Refined to 4 features for v2.32.0, deferred 3a (CI auto-diagnosis), deprioritized 5 (parallel agents)
+- Key decisions: extend /craft:check (not new command), soft warnings (not hard blocks), CI SHA fix
+- Captured spec: SPEC-insights-improvements-v2.32-2026-02-27.md (~2.75h total effort)
 
 ✅ Session 2026-02-27 (v2.31.0 release):
-- Continued release from previous session (bump-version.sh done)
-- Semantic doc updates: CHANGELOG, README, REFCARD, mkdocs.yml, docs/CHANGELOG
-- Synced docs/CHANGELOG.md (was missing v2.30.0 entry)
-- Created release PR #120, CI green (1595 passed, 1 pre-existing failure)
-- Merged, created GitHub release, deployed docs, verified Homebrew tap
+- Completed v2.31.0 release pipeline, all downstream green
 - Post-release sweep: 3 Tier 2 stale refs auto-fixed
-- Known: test_skill_count_matches_plugin_json fails (hub.md now uses dynamic templates)
-
-✅ Session 2026-02-26 (v2.30.0 release + PR #119 merge):
-- Released v2.30.0: release-watch v2, pinned markdownlint
-- Merged PR #119 (workflow-enhancements): rebased on dev, resolved 2 conflicts, admin merge
-- Post-merge docs: cleaned 10 BRAINSTORM files, fixed CHANGELOG sync, updated CLAUDE.md
+- Fixed dogfood test for dynamic hub.md skill count template
 
 ---
 
 🎯 Next Action:
-A) Fix test_skill_count_matches_plugin_json dogfood test (hub.md dynamic template)
-B) himalaya-mcp: Tier 2 items (config wizard, stats, session-start hook)
-C) Continue brainstorm: optimize /workflow:done, /craft:do, /craft:hub (saved as spec)
+A) Review spec: /workflow:spec-review (2 open questions to resolve)
+B) Create worktree for v2.32.0 implementation (4 increments, ~2.75h)
+C) himalaya-mcp: Tier 2 items (config wizard, stats, session-start hook)
 
-## Future (v2.32.0+)
+## v2.32.0 Scope (spec: draft)
 
-- Fix dogfood test for dynamic hub.md counts
+- Version sync validator (/craft:check --version) ~30 min
+- Worktree pre-flight (4 checks, soft warnings) ~1.5h
+- Homebrew SHA race fix (verify-tarball CI job) ~30 min
+- Post-release sweep --fix (unified diff, mechanical auto-apply) ~30 min
+
+## Future (v2.33.0+)
+
+- CI Failure Auto-Diagnosis (pattern matching, deferred from v2.32.0)
+- Headless Doc Sync (version refs only, prototype)
 - himalaya-mcp release automation: version bump + changelog scripts
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
-- Markdownlint rule expansion (30 → 42)
