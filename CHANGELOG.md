@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [2.30.0] — 2026-02-26
 
 ### Added
 
@@ -23,6 +23,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - JSON v2 schema (backward-compatible with v1 consumers)
 - **5 new documentation files** for release-watch v2: architecture doc, tutorial, refcard, cookbook (10 recipes), user guide
 - **37 new tests** across 7 test classes for release-watch v2
+- Pinned `markdownlint-cli2` (0.14.0) and `markdown-link-check` (3.12.2) as exact-version devDependencies to eliminate CI flakiness from npm registry 403 errors
+- Committed `package-lock.json` and switched CI to `npm ci` with npm cache
+
+### Fixed
+
+- `bump-version.sh` sed delimiter collision on hub.md count updates (line 353: `|` → `#`)
 
 ---
 

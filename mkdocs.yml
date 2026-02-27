@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. Latest: unified release-watch v2 with Code + Desktop tracking, 24h cache, and auto-fix proposals."
+site_description: "Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.30.0 adds unified release-watch v2 with Code + Desktop tracking, pinned markdownlint-cli2, and 37 new tests."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft

@@ -2,13 +2,32 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.28.0 (2026-02-25)
-**Total Releases:** 49 versions | **Development Time:** 2+ years
+**Latest Release:** v2.30.0 (2026-02-26)
+**Total Releases:** 51 versions | **Development Time:** 2+ years
 **Community:** 107 commands documented, 112 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.30.0 (2026-02-26) - Unified Release Watch v2 & CI Stability
+
+**Status:** Released
+**Stats:** 107 commands | 26 skills | 8 agents | 112 tests passing
+
+- Unified release-watch v2 — Code + Desktop tracking with `--product` flag, CHANGELOG parser, 24h cache, auto-fix proposals
+- Pinned markdownlint-cli2 (0.14.0) and markdown-link-check (3.12.2) to eliminate CI flakiness
+- 37 new tests across 7 test classes, 5 new documentation files
+- Fixed bump-version.sh sed delimiter collision on hub.md count updates
+
+### v2.29.0 (2026-02-26) - Complete Docs Help Pages & Branch Guard Fix
+
+**Status:** Released
+**Stats:** 107 commands | 26 skills | 8 agents | 112 tests passing
+
+- 17 new docs help pages for all `/craft:docs:*` sub-commands
+- Complete reference table in docs hub, consolidated navigation
+- Branch guard false positive fix for feature branches
 
 ### v2.28.0 (2026-02-25) - Desktop Release Pipeline and Post-Release Sweep
 

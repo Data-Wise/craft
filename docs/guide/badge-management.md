@@ -172,7 +172,7 @@ The `pre-release-check.sh` script includes **Check 7: Badge URL branch validatio
 
 ```bash
 # Run Check 7 standalone
-./scripts/pre-release-check.sh v2.29.0
+./scripts/pre-release-check.sh v2.30.0
 # Look for: [7/8] Badge URL branch validation
 ```
 
@@ -668,7 +668,7 @@ Recommended order in README.md using the **dual main+dev layout pattern**:
 # Project Title
 
 <!-- Main branch badges (stable/production) -->
-[![Version](https://img.shields.io/badge/version-2.29.0-brightgreen.svg)](...)
+[![Version](https://img.shields.io/badge/version-2.30.0-brightgreen.svg)](...)
 [![CI (main)](https://github.com/user/repo/actions/workflows/ci.yml/badge.svg?branch=main)](...)
 
 <!-- Dev branch badges (development status) -->
