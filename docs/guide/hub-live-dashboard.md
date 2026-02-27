@@ -6,7 +6,7 @@
 
 ## Overview
 
-Since v2.30.0, `/craft:hub` displays a live dashboard that pulls data from multiple sources. No hardcoded numbers — everything is computed at display time.
+Since v2.31.0, `/craft:hub` displays a live dashboard that pulls data from multiple sources. No hardcoded numbers — everything is computed at display time.
 
 ---
 

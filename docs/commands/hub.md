@@ -89,7 +89,7 @@ if status_path.exists():
 
 **Display**: If `next_action_lines` is non-empty, show a `NEXT ACTION` section at the top of the hub. If `.STATUS` doesn't exist or has no Next Action, skip silently.
 
-### Step 1.6: Detect Active Worktrees (NEW in v2.30.0)
+### Step 1.6: Detect Active Worktrees (NEW in v2.31.0)
 
 Parse `git worktree list` to detect active worktrees for the WORKTREES section:
 

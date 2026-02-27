@@ -107,7 +107,7 @@ Preview which commands will be executed without actually running them:
 
 **Note**: Dry-run shows routing decision based on complexity score. Agent delegation triggers for medium (4-7) and complex (8-10) tasks.
 
-## Branch-Aware Routing (NEW in v2.16.0, UPDATED in v2.30.0)
+## Branch-Aware Routing (NEW in v2.16.0, UPDATED in v2.31.0)
 
 Before routing, check branch protection status. **Skip this step entirely if `skip_branch_protection=true`** (worktree on feature/* detected in Step 0.5). When on `dev` or `main` and the task involves code changes:
 
@@ -654,7 +654,7 @@ if orch_flag:
 # Otherwise, continue with complexity-based routing...
 ```
 
-### Step 0.5: Worktree Detection (NEW in v2.30.0)
+### Step 0.5: Worktree Detection (NEW in v2.31.0)
 
 Before analyzing the task, detect if we're inside a git worktree:
 
@@ -684,7 +684,7 @@ fi
 
 **If not in worktree:** Proceed normally (existing behavior unchanged).
 
-### Step 1.0: Memory Lookup (NEW in v2.30.0)
+### Step 1.0: Memory Lookup (NEW in v2.31.0)
 
 Check MEMORY.md for relevant learnings before routing:
 
@@ -694,7 +694,7 @@ task_terms = extract_keywords(task)  # 3-5 key terms
 
 # Locate project memory file
 import os
-cwd_slug = os.getcwd().replace("/", "_")
+cwd_slug = os.getcwd().replace("/", "-")  # Claude uses hyphens: -Users-dt-projects-...
 memory_file = os.path.expanduser(f"~/.claude/projects/{cwd_slug}/memory/MEMORY.md")
 
 if os.path.exists(memory_file):
@@ -723,7 +723,7 @@ if os.path.exists(memory_file):
 - Read-only: never modifies MEMORY.md
 - Surfaced as a note, not a forced override
 
-### Step 1.5: Insights Check (NEW in v2.30.0)
+### Step 1.5: Insights Check (NEW in v2.31.0)
 
 Check recent session facets for friction patterns relevant to this task:
 
@@ -805,7 +805,7 @@ else:  # score >= 8
     delegate_to_agent("orchestrator-v2", task)
 ```
 
-### Step 2.5: Pipeline Suggestion (NEW in v2.30.0)
+### Step 2.5: Pipeline Suggestion (NEW in v2.31.0)
 
 Before delegating to an agent, check if the task warrants the full brainstorm→spec→worktree pipeline:
 
@@ -853,7 +853,7 @@ if score >= 6 and category == "feature":
 - Only trigger for `category == "feature"` with `score >= 6`
 - Never auto-redirect without user confirmation
 
-### Step 2.6: Spec Auto-Load for Agent Delegation (NEW in v2.30.0)
+### Step 2.6: Spec Auto-Load for Agent Delegation (NEW in v2.31.0)
 
 When routing to an agent (Step 4), check `docs/specs/` for a matching spec:
 

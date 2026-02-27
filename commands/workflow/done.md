@@ -218,7 +218,7 @@ done
 - If no drift: show green checkmark, proceed normally
 - Skippable with `SKIP_DOC_DRIFT=1` environment variable
 
-### Step 1.10: CLAUDE.md Auto-Sync (NEW in v2.30.0)
+### Step 1.10: CLAUDE.md Auto-Sync (NEW in v2.31.0)
 
 Automatically sync CLAUDE.md counts and version before committing:
 
@@ -255,7 +255,7 @@ fi
 
 If nothing changed, omit the SYNCED section entirely.
 
-### Step 1.11: Memory Capture (NEW in v2.30.0)
+### Step 1.11: Memory Capture (NEW in v2.31.0)
 
 Scan the session for learnings worth persisting to MEMORY.md:
 
@@ -324,7 +324,7 @@ fi
 
 **If no learnings detected:** Skip silently (zero output, zero overhead).
 
-### Step 1.13: Insights Capture (NEW in v2.30.0)
+### Step 1.13: Insights Capture (NEW in v2.31.0)
 
 Analyze the session for friction signals and write a facet JSON file:
 
@@ -392,7 +392,7 @@ find ~/.claude/usage-data/facets/ -name "session-*.json" -mtime +90 -delete 2>/d
 
 **If fewer than 3 friction events:** Silent (no output in summary). Facet is still written for aggregate analysis.
 
-### Step 1.14: Worktree Status Summary (NEW in v2.30.0)
+### Step 1.14: Worktree Status Summary (NEW in v2.31.0)
 
 Detect if the session is in a git worktree and gather worktree context:
 
@@ -581,7 +581,7 @@ Present findings and ask user to confirm/edit:
    └─────────────────────────────────────────────────────────────┘
    ```
 
-#### Step 3.5: Auto-Git (NEW in v2.30.0)
+#### Step 3.5: Auto-Git (NEW in v2.31.0)
 
 After Option A completes (summary confirmed, .STATUS updated), automatically commit and push:
 

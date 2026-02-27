@@ -20,17 +20,17 @@
 
 **How it works:**
 
-1. Detects worktree context — skips branch prompts if in worktree (v2.30.0)
-2. Memory lookup — checks MEMORY.md for relevant past learnings (v2.30.0)
-3. Insights check — reviews recent friction patterns from facets (v2.30.0)
+1. Detects worktree context — skips branch prompts if in worktree (v2.31.0)
+2. Memory lookup — checks MEMORY.md for relevant past learnings (v2.31.0)
+3. Insights check — reviews recent friction patterns from facets (v2.31.0)
 4. Analyzes your task description
 5. Scores complexity (0-10 scale)
-6. Pipeline suggestion — for features score >= 6, suggests brainstorm→spec→worktree (v2.30.0)
+6. Pipeline suggestion — for features score >= 6, suggests brainstorm→spec→worktree (v2.31.0)
 7. Routes to appropriate handler:
    - Simple (0-3): Direct command execution
    - Medium (4-7): Single specialized agent
    - Complex (8-10): Multi-agent orchestration
-8. Auto-loads matching spec from `docs/specs/` as agent context (v2.30.0)
+8. Auto-loads matching spec from `docs/specs/` as agent context (v2.31.0)
 
 **Examples:**
 
@@ -160,10 +160,10 @@
 - Search and filtering
 - Example commands
 - Tutorial links
-- Live counts from discovery engine (v2.30.0)
-- .STATUS Next Action at top of hub (v2.30.0)
-- Active worktree status with ahead/behind (v2.30.0)
-- Recently used commands from session facets (v2.30.0)
+- Live counts from discovery engine (v2.31.0)
+- .STATUS Next Action at top of hub (v2.31.0)
+- Active worktree status with ahead/behind (v2.31.0)
+- Recently used commands from session facets (v2.31.0)
 
 **Examples:**
 
@@ -1497,7 +1497,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.30.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.31.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary

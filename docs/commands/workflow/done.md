@@ -21,12 +21,12 @@ ADHD-friendly session completion command that captures what you accomplished bef
 1. **Gather Activity** - Detect commits, changed files, current .STATUS
 2. **Spec Check** - Find implementing specs for archival
 3. **Doc Health** - Run documentation detectors for staleness
-4. **CLAUDE.md Sync** - Auto-update counts and version (v2.30.0)
-5. **Memory Capture** - Save session learnings to MEMORY.md (v2.30.0)
-6. **Insights Capture** - Write friction facet JSON for analysis (v2.30.0)
-7. **Worktree Status** - Show branch ahead/behind, ORCHESTRATE progress (v2.30.0)
+4. **CLAUDE.md Sync** - Auto-update counts and version (v2.31.0)
+5. **Memory Capture** - Save session learnings to MEMORY.md (v2.31.0)
+6. **Insights Capture** - Write friction facet JSON for analysis (v2.31.0)
+7. **Worktree Status** - Show branch ahead/behind, ORCHESTRATE progress (v2.31.0)
 8. **Interactive Summary** - Present findings, confirm with user
-9. **Auto-Git** - Commit + push after confirmation (v2.30.0)
+9. **Auto-Git** - Commit + push after confirmation (v2.31.0)
 
 **ADHD Insight:** Most context loss happens at session boundaries. This command prevents that.
 
@@ -83,7 +83,7 @@ ADHD-friendly session completion command that captures what you accomplished bef
 
 ---
 
-## Auto-Git (v2.30.0)
+## Auto-Git (v2.31.0)
 
 After Option A, automatically commits and pushes:
 
@@ -101,7 +101,7 @@ After Option A, automatically commits and pushes:
 
 ---
 
-## Learning Loop (v2.30.0)
+## Learning Loop (v2.31.0)
 
 ### Memory Capture (Step 1.11)
 

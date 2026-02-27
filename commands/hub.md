@@ -93,7 +93,7 @@ if status_path.exists():
 
 **Display**: If `next_action_lines` is non-empty, show a `NEXT ACTION` section at the top of the hub (see Step 2 template below). If `.STATUS` doesn't exist or has no Next Action, skip this section silently.
 
-### Step 1.6: Detect Active Worktrees (NEW in v2.30.0)
+### Step 1.6: Detect Active Worktrees (NEW in v2.31.0)
 
 Parse `git worktree list` to detect active worktrees for the WORKTREES section:
 
@@ -120,7 +120,7 @@ done
 
 **If no worktrees exist (only main working tree):** Skip the WORKTREES section entirely (graceful degradation).
 
-### Step 1.7: Load Recent Usage from Facets (NEW in v2.30.0)
+### Step 1.7: Load Recent Usage from Facets (NEW in v2.31.0)
 
 Read recent session facets to populate the "Recently Used" footer:
 
