@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **Unified release-watch v2** — Track both Claude Code CLI and Claude Desktop releases in a single command
+  - `--product` flag (all/code/desktop) replaces separate tools
+  - Structured CHANGELOG parsing with prefix-based categorization (Added→NEW, Fixed→FIXED)
+  - 24h cache layer with atomic write, stale fallback, `--refresh` and `--no-cache` flags
+  - Desktop tracking via Anthropic support docs HTML parsing
+  - Auto-fix propose mode (`--auto-fix`) with safe/review classification and `.patch` generation
+  - Word-boundary regex matching to prevent false positives
+  - JSON v2 schema (backward-compatible with v1 consumers)
+- **5 new documentation files** for release-watch v2: architecture doc, tutorial, refcard, cookbook (10 recipes), user guide
+- **37 new tests** across 7 test classes for release-watch v2
+
+---
+
 ## [2.29.0] — 2026-02-26
 
 ### Added
