@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.30.0] — 2026-02-26
+
+### Added
+
+- **Unified release-watch v2** — Track both Claude Code CLI and Claude Desktop releases in a single command
+  - `--product` flag (all/code/desktop) replaces separate tools
+  - Structured CHANGELOG parsing with prefix-based categorization (Added→NEW, Fixed→FIXED)
+  - 24h cache layer with atomic write, stale fallback, `--refresh` and `--no-cache` flags
+  - Desktop tracking via Anthropic support docs HTML parsing
+  - Auto-fix propose mode (`--auto-fix`) with safe/review classification and `.patch` generation
+  - Word-boundary regex matching to prevent false positives
+  - JSON v2 schema (backward-compatible with v1 consumers)
+- **5 new documentation files** for release-watch v2: architecture doc, tutorial, refcard, cookbook (10 recipes), user guide
+- **37 new tests** across 7 test classes for release-watch v2
+- Pinned `markdownlint-cli2` (0.14.0) and `markdown-link-check` (3.12.2) as exact-version devDependencies to eliminate CI flakiness from npm registry 403 errors
+- Committed `package-lock.json` and switched CI to `npm ci` with npm cache
+
+### Fixed
+
+- `bump-version.sh` sed delimiter collision on hub.md count updates (line 353: `|` → `#`)
+
+---
+
 ## [2.29.0] — 2026-02-26
 
 ### Added
@@ -25,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Branch guard false positives on `--force-with-lease` for feature branches (#113)
+- CI flakiness from npm registry 403 errors — pinned `markdownlint-cli2` (0.14.0) and `markdown-link-check` (3.12.2) as exact-version devDependencies, committed `package-lock.json`, switched CI to `npm ci` with npm cache
 
 ---
 

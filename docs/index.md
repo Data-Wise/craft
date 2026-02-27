@@ -214,8 +214,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.29.0 — Complete Docs Help Pages & Branch Guard Fix"
-    17 new help pages for all `/craft:docs:*` sub-commands with consolidated navigation, complete reference table in docs hub, updated commands.md with full 22-command docs reference, and branch guard false positive fix for feature branches. 112 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.30.0 — Unified Release Watch v2 & CI Stability"
+    Unified release-watch v2 with Code + Desktop tracking, 24h cache, auto-fix proposals, and pinned markdownlint-cli2 for CI stability. 37 new tests, 5 new docs files. 112 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 

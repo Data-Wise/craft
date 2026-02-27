@@ -1,8 +1,8 @@
 ---
-description: Track Claude Code releases and identify plugin-relevant changes
+description: Track Claude Code + Desktop releases and identify plugin-relevant changes
 arguments:
   - name: count
-    description: Number of releases to check
+    description: Number of Code releases to check
     required: false
     default: 3
   - name: since
@@ -12,11 +12,15 @@ arguments:
     description: "Output format: terminal, json, markdown"
     required: false
     default: terminal
+  - name: product
+    description: "Product to track: all, code, desktop"
+    required: false
+    default: all
 ---
 
-# Release Watch
+# Release Watch v2
 
-Monitor Claude Code releases for changes that affect the Craft plugin system.
+Unified tool for monitoring Claude Code and Desktop releases for changes that affect the Craft plugin system.
 
 ## Usage
 
@@ -26,94 +30,88 @@ Monitor Claude Code releases for changes that affect the Craft plugin system.
 
 ## What This Does
 
-1. **Fetches releases** from `anthropics/claude-code` via the GitHub API
-2. **Scans release notes** for plugin-relevant keywords (plugin, schema, deprecation, model changes, environment variables)
-3. **Categorizes findings** as NEW / DEPRECATED / BREAKING / FIXED
-4. **Cross-references craft state** — checks agents for special frontmatter fields, scans for hardcoded model names, audits hook patterns
-5. **Generates action items** when attention is needed
+1. **Fetches Code releases** from `anthropics/claude-code` via the GitHub API
+2. **Parses CHANGELOG.md** for structured categorization (Added, Fixed, etc.)
+3. **Fetches Desktop releases** from Anthropic support docs
+4. **Scans for plugin-relevant keywords** with word-boundary matching
+5. **Categorizes findings** as NEW / DEPRECATED / BREAKING / FIXED
+6. **Cross-references craft state** — hardcoded models, agent features, hook patterns
+7. **Caches results** for 24 hours to avoid repeated API calls
+8. **Proposes auto-fixes** for safe changes (model pattern updates)
 
 ## Requirements
 
 - **gh CLI** — must be installed and authenticated (`gh auth login`)
-
-## Keyword Categories
-
-| Category | Keywords Scanned |
-|----------|-----------------|
-| Plugin system | `plugin`, `skill`, `command`, `agent`, `hook`, `frontmatter` |
-| Schema | `schema`, `field`, `property`, `validation` |
-| Deprecation | `deprecated`, `removed`, `breaking`, `migration` |
-| New features | `new`, `added`, `support`, `feature`, `capability` |
-| Models | `sonnet`, `opus`, `haiku`, `model` |
-| Environment | `environment`, `variable`, `CLAUDE_` |
+- **curl** — for Desktop release fetching
 
 ## Examples
 
 ```bash
-# Check latest 3 releases (default)
+# Check Code + Desktop (default)
 /craft:code:release-watch
 
-# Check latest 5 releases
+# Code only (backward compatible with v1)
+/craft:code:release-watch --product code
+
+# Desktop only
+/craft:code:release-watch --product desktop
+
+# Check latest 5 Code releases
 /craft:code:release-watch --count 5
 
-# Only releases after a specific version
-/craft:code:release-watch --since v1.0.25
-
-# JSON output (for CI or piping)
+# JSON v2 output
 /craft:code:release-watch --format json
 
-# Markdown output (for reports)
-/craft:code:release-watch --format markdown
+# Force refresh cached data
+/craft:code:release-watch --refresh
+
+# Generate auto-fix patch
+/craft:code:release-watch --auto-fix
 ```
 
-## Output Formats
+## Flags
 
-### Terminal (default)
+| Flag | Description |
+|------|-------------|
+| `--count N` | Number of Code releases to check (default: 3) |
+| `--since VERSION` | Only releases after this version |
+| `--format FORMAT` | Output: terminal, json, markdown |
+| `--product PRODUCT` | all (default), code, desktop |
+| `--refresh` | Force refresh all cached data |
+| `--no-cache` | Skip cache entirely |
+| `--auto-fix` | Generate .patch for safe fixes |
 
-Box-drawing display with sections for release summary, plugin-relevant changes, craft state analysis, and action items.
-
-### JSON
-
-Structured output suitable for CI pipelines and automation:
+## JSON v2 Schema
 
 ```json
 {
+  "version": 2,
+  "product": "all",
   "releases_checked": 3,
-  "latest_version": "v1.0.30",
+  "latest_version": "v2.1.59",
   "findings": { "new": [], "deprecated": [], "breaking": [], "fixed": [] },
+  "desktop": {
+    "entries_checked": 20,
+    "latest_date": "February 25, 2026",
+    "findings": { "new": [], "deprecated": [], "breaking": [], "fixed": [] }
+  },
   "craft_state": { "hardcoded_models": [], "agent_features": {}, "hook_events": [] },
   "action_items": []
 }
 ```
 
-### Markdown
+## Data Sources
 
-Human-readable report with checkboxes for action items.
-
-## Craft State Analysis
-
-The tool inspects the current codebase for potential compatibility issues:
-
-- **Hardcoded models** — scans for model name strings (e.g., `claude-3-opus`, `claude-sonnet-4`) across all project files
-- **Agent features** — reads agent frontmatter for `memory`, `isolation`, `background` fields that may be affected by upstream changes
-- **Hook patterns** — checks command files for `hooks`, `trigger`, `event` fields
-
-## CI Usage
-
-```bash
-# Run in CI and fail if breaking changes detected
-output=$(python3 scripts/release-watch.py --format json --count 5)
-breaking=$(echo "$output" | python3 -c "import sys,json; print(len(json.load(sys.stdin)['findings']['breaking']))")
-if [ "$breaking" -gt 0 ]; then
-  echo "Breaking changes detected in Claude Code releases"
-  echo "$output" | python3 -m json.tool
-  exit 1
-fi
-```
+| Source | Product | Caching | Auto-Fix |
+|--------|---------|---------|----------|
+| GitHub Releases API | Code | 24h | Yes |
+| CHANGELOG.md | Code | 24h | Yes |
+| Anthropic support docs | Desktop | 24h | Never |
 
 ## Integration
 
 Works with:
 
 - `/craft:code:release` — Release preparation
+- `/craft:code:desktop-watch` — Redirects to `--product desktop`
 - `/craft:code:deps-check` — Dependency auditing

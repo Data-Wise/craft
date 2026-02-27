@@ -1,6 +1,6 @@
 {
   "name": "@data-wise/claude-craft-plugin",
-  "version": "2.29.0",
+  "version": "2.30.0",
   "description": "Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces",
   "main": "index.js",
   "scripts": {
@@ -48,7 +48,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "markdown-link-check": "^3.12.2",
-    "markdownlint-cli2": "^0.14.0"
+    "markdown-link-check": "3.12.2",
+    "markdownlint-cli2": "0.14.0"
   }
 }

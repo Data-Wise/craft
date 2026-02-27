@@ -41,12 +41,13 @@ bash scripts/docs-lint.sh --fix
 bash scripts/docs-lint.sh docs/guide/
 ```
 
-**Tool Detection:**
+**Tool Detection (resolution order):**
 
+- Local install: `./node_modules/.bin/markdownlint-cli2` (preferred, from `npm ci`)
 - Global install: `markdownlint-cli2` (fast)
 - Fallback: `npx markdownlint-cli2` (auto-downloads, slower first run)
 
-**Installation:** `npm install -g markdownlint-cli2`
+**Installation:** `npm ci` (uses pinned version from `package-lock.json`)
 
 ## Philosophy
 

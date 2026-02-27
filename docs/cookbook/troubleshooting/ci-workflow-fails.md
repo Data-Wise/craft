@@ -28,16 +28,21 @@ Error: Cannot find module 'markdownlint-cli2'
 
 **Issue:** The workflow references tools not installed in the CI runner.
 
-**Solution:** Add installation steps before the command:
+**Solution:** Use `npm ci` to install from the lockfile (preferred), or install globally:
 
 ```yaml
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+    node-version: '20'
+    cache: 'npm'
 - name: Install dependencies
-  run: npm install -g markdownlint-cli2
+  run: npm ci
 - name: Lint markdown
   run: npx markdownlint-cli2 "**/*.md"
 ```
 
-**Why:** CI runners start clean. Local dependencies must be explicitly installed.
+**Why:** CI runners start clean. Using `npm ci` with a committed `package-lock.json` ensures reproducible, cached installs.
 
 ### 2. Wrong Node or Python Version
 

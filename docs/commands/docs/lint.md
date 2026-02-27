@@ -31,7 +31,7 @@ Detects and fixes markdown formatting errors using `markdownlint-cli2` with 30 e
 
 Philosophy: "Auto-fix what's safe, prompt for what matters." Safe issues like trailing spaces and missing blank lines before lists are fixed automatically. Complex issues like heading hierarchy skips or ambiguous code fence languages prompt for a decision.
 
-The command detects whether `markdownlint-cli2` is installed globally (faster) or falls back to `npx` (auto-downloads). Install globally with `npm install -g markdownlint-cli2` for best performance.
+The command checks for a local `node_modules` install first (from `npm ci`), then falls back to a global install or `npx`. Run `npm ci` to install the pinned version from `package-lock.json`.
 
 ---
 

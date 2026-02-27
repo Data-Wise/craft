@@ -38,7 +38,9 @@ done
 
 # Detect markdownlint-cli2 installation
 detect_linter() {
-    if command -v markdownlint-cli2 &>/dev/null; then
+    if [ -x "./node_modules/.bin/markdownlint-cli2" ]; then
+        echo "./node_modules/.bin/markdownlint-cli2"
+    elif command -v markdownlint-cli2 &>/dev/null; then
         echo "markdownlint-cli2"
     else
         echo "npx markdownlint-cli2"

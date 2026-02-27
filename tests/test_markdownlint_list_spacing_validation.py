@@ -78,7 +78,6 @@ class TestConfigValidity:
             result = subprocess.run(
                 [
                     "npx",
-                    "-y",
                     "markdownlint-cli2",
                     "--config",
                     str(config_path),
@@ -387,7 +386,7 @@ class TestMarkdownlintCLI2Availability:
     def test_markdownlint_cli2_available(self):
         """markdownlint-cli2 should be available via npx."""
         result = subprocess.run(
-            ["npx", "-y", "markdownlint-cli2", "--version"],
+            ["npx", "markdownlint-cli2", "--version"],
             capture_output=True,
             text=True,
         )
@@ -398,7 +397,7 @@ class TestMarkdownlintCLI2Availability:
     def test_markdownlint_cli2_version_output(self):
         """markdownlint-cli2 should output version information."""
         result = subprocess.run(
-            ["npx", "-y", "markdownlint-cli2", "--version"],
+            ["npx", "markdownlint-cli2", "--version"],
             capture_output=True,
             text=True,
         )
