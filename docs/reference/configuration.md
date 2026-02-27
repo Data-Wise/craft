@@ -96,7 +96,7 @@ Execution modes can be customized per project.
 Version is managed across 13 files atomically using `bump-version.sh`:
 
 ```bash
-./scripts/bump-version.sh 2.30.0        # Full bump
+./scripts/bump-version.sh 2.31.0        # Full bump
 ./scripts/bump-version.sh --verify       # Check for drift
 ./scripts/bump-version.sh --counts-only  # Sync counts only
 ```

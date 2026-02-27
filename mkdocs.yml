@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.30.0 adds unified release-watch v2 with Code + Desktop tracking, pinned markdownlint-cli2, and 37 new tests."
+site_description: "Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.31.0 adds workflow learning loop with memory and insights capture, memory-aware routing, and live dashboard with dynamic counts."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -145,6 +145,8 @@ nav:
       - Homebrew Setup Tutorial: tutorials/TUTORIAL-homebrew-setup.md
       - Insights-Driven Workflow: tutorials/TUTORIAL-insights-workflow.md
       - Insights Improvements Guide: guide/insights-improvements-guide.md
+      - Learning Loop & Session Completion: guide/learning-loop-session-completion.md
+      - Hub Live Dashboard: guide/hub-live-dashboard.md
       - Version Sync Setup: tutorials/TUTORIAL-version-sync-setup.md
       - CI Monitoring Architecture: architecture/ci-monitoring.md
       - Version Sync Architecture: architecture/version-sync.md
@@ -240,6 +242,7 @@ nav:
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
       - /craft:workflow:insights: commands/workflow/insights.md
+      - /workflow:done: commands/workflow/done.md
       - /craft:arch:analyze: commands/arch/analyze.md
       - /craft:code:lint: commands/code/lint.md
       - /craft:code:deps-audit: commands/code/deps-audit.md
@@ -278,6 +281,8 @@ nav:
       - Post-Merge Documentation: cookbook/common/post-merge-documentation.md
       - Generate Tests for a Project: cookbook/common/generate-tests-for-project.md
       - Run Tests by Category: cookbook/common/run-tests-by-category.md
+      - Session Wrap-Up Workflow: cookbook/common/session-wrap-up.md
+      - Memory-Aware Task Routing: cookbook/common/memory-aware-routing.md
       - Interactive Docs Update Example: examples/docs-update-interactive-example.md
       - Release Workflow Example: examples/release-workflow-example.md
     - Troubleshooting:

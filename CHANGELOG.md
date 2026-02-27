@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.31.0] — 2026-02-26
+
+### Added
+
+- **`/workflow:done` learning loop** — Memory capture (Step 1.11), insights capture (Step 1.13), auto-git (Step 3.5), CLAUDE.md sync (Step 1.10), worktree status (Step 1.14)
+- **`/craft:do` memory-aware routing** — Memory lookup (Step 1.0), insights check (Step 1.5), worktree detection (Step 0.5), pipeline suggestion (Step 2.5), spec auto-load (Step 2.6)
+- **`/craft:hub` live dashboard** — Dynamic counts from discovery engine, .STATUS next action, active worktree status, recently used commands from facets
+- **Facet JSON system** — Session metadata written to `~/.claude/usage-data/facets/` for friction analysis and usage tracking
+- **Published docs** for `/workflow:done` command
+- 5 new env var opt-outs: `SKIP_CLAUDE_MD_SYNC`, `SKIP_MEMORY_UPDATE`, `SKIP_GIT_SYNC`, `SKIP_INSIGHTS`, `SKIP_WORKTREE_STATUS`
+
+---
+
 ## [2.30.0] — 2026-02-26
 
 ### Added
@@ -956,7 +969,7 @@ A comprehensive teaching workflow system for course website management with prev
 
 - Added comprehensive dry-run feature documentation
 - Updated homepage with v1.20.0 announcement
-- Created [DRY-RUN-SUMMARY.md](DRY-RUN-SUMMARY.md) tracking document
+- Created `DRY-RUN-SUMMARY.md` (archived) tracking document
 - Added dry-run section to commands reference
 - Added 🔍 indicators to dry-run enabled commands
 
@@ -1025,4 +1038,4 @@ See git history for versions prior to 1.17.0.
 - **Homepage:** <https://Data-Wise.github.io/craft/>
 - **Repository:** <https://github.com/Data-Wise/craft>
 - **Documentation:** <https://Data-Wise.github.io/craft/>
-- **Dry-Run Summary:** [DRY-RUN-SUMMARY.md](DRY-RUN-SUMMARY.md)
+- **Dry-Run Summary:** `DRY-RUN-SUMMARY.md` (archived)

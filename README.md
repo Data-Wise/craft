@@ -2,12 +2,12 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.30.0-blue.svg)](https://github.com/Data-Wise/craft)
+[![Version](https://img.shields.io/badge/version-2.31.0-blue.svg)](https://github.com/Data-Wise/craft)
 [![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
-> **v2.30.0 - Unified Release Watch v2 & CI Stability** 🚀
+> **v2.31.0 - Workflow Learning Loop & Live Dashboard** 🚀
 > **107 commands** | **26 skills** | **8 agents** | **112 tests passing**
-> Unified release-watch v2 with Code + Desktop tracking, 24h cache, auto-fix proposals, pinned markdownlint-cli2, and 37 new tests.
+> `/workflow:done` learning loop with memory + insights capture, `/craft:do` memory-aware routing with worktree detection, `/craft:hub` live dashboard with dynamic counts and .STATUS integration.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 

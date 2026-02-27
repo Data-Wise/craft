@@ -42,11 +42,20 @@ Analyzes your natural language task description and automatically routes to the 
 
 **How it works:**
 
-1. **Check Spec** - Look for existing spec matching task
-2. **Analyze** - Parse task description for intent
-3. **Route** - Select appropriate craft commands
-4. **Execute** - Run commands in optimal order
-5. **Report** - Summarize what was done
+1. **Worktree Detection** - Skip branch prompts if already in a worktree (v2.31.0)
+2. **Memory Lookup** - Check MEMORY.md for relevant past learnings (v2.31.0)
+3. **Insights Check** - Review recent friction patterns from facets (v2.31.0)
+4. **Check Spec** - Look for existing spec matching task
+5. **Analyze** - Parse task description for intent
+6. **Route** - Select appropriate craft commands
+7. **Execute** - Run commands in optimal order
+8. **Report** - Summarize what was done
+
+**Worktree-aware (v2.31.0):** When running inside a git worktree on a `feature/*` branch, branch protection prompts are automatically skipped. If an `ORCHESTRATE-*.md` file is present, it's loaded as routing context.
+
+**Memory + Insights aware (v2.31.0):** Before routing, checks MEMORY.md for relevant learnings and recent session facets for friction patterns. Both are advisory notes — they inform routing but never override user intent. Zero overhead when no data exists.
+
+**Pipeline suggestion (v2.31.0):** For complex features (score >= 6) with no existing spec, suggests the full pipeline: `/brainstorm` → spec → worktree. If a matching spec exists, offers to create a worktree with ORCHESTRATE plan. Suggestions are advisory — user can always decline.
 
 ---
 
