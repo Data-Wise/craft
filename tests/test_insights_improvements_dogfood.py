@@ -448,9 +448,15 @@ class TestHubConsistency(unittest.TestCase):
         if not match:
             self.skipTest("No skill count in plugin.json description")
         plugin_count = match.group(1)
-        # Check hub references same count (case-insensitive)
-        hub_content = _read_file(HUB_CMD).lower()
-        self.assertIn(f"{plugin_count} skill", hub_content)
+        # Check hub references same count — either literal or dynamic template
+        hub_content = _read_file(HUB_CMD)
+        hub_lower = hub_content.lower()
+        has_literal = f"{plugin_count} skill" in hub_lower
+        has_dynamic = "{skill_count}" in hub_content
+        self.assertTrue(
+            has_literal or has_dynamic,
+            f"hub.md has neither literal '{plugin_count} skill' nor dynamic '{{skill_count}}' template"
+        )
 
     def test_claude_md_skill_count_matches(self):
         """CLAUDE.md skill count matches plugin.json."""
