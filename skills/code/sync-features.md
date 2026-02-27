@@ -1,6 +1,6 @@
 ---
 name: sync-features
-description: This skill should be used when the user asks to "sync features", "check for new Claude features", "update craft for latest Claude", "what's new in Claude Code", or wants to ensure craft is up-to-date with Claude Code/Desktop capabilities. Chains command-audit, release-watch, and desktop-watch into a prioritized action plan.
+description: This skill should be used when the user asks to "sync features", "check for new Claude features", "update craft for latest Claude", "what's new in Claude Code", or wants to ensure craft is up-to-date with Claude Code/Desktop capabilities. Chains command-audit and unified release-watch into a prioritized action plan.
 ---
 
 # Sync Features
@@ -53,17 +53,18 @@ Display summary:
 └───────────────────────────────────────────────────────────────┘
 ```
 
-### Step 2: Release Watch
+### Step 2: Unified Release Watch
 
-Fetch latest Claude Code releases and identify plugin-relevant changes:
+Fetch Code + Desktop releases using the unified release-watch tool:
 
 ```bash
 python3 scripts/release-watch.py --format json --count 3
 ```
 
-Parse the JSON output and extract:
+This single command now covers both Code and Desktop. Parse the JSON v2 output:
 
-- `findings` — categorized as NEW / DEPRECATED / BREAKING / FIXED
+- `findings` — Code findings categorized as NEW / DEPRECATED / BREAKING / FIXED
+- `desktop.findings` — Desktop findings (same categories)
 - `craft_state` — hardcoded models, agent features, hook events
 - `action_items` — items needing attention
 
@@ -71,43 +72,21 @@ Display summary:
 
 ```text
 ┌───────────────────────────────────────────────────────────────┐
-│  STEP 2/3: RELEASE WATCH                                      │
+│  STEP 2/2: UNIFIED RELEASE WATCH                              │
 ├───────────────────────────────────────────────────────────────┤
-│  Releases checked: 3 (latest: v2.1.50)                        │
-│  Plugin-relevant changes: 12                                  │
+│  Code: 3 releases (latest: v2.1.59)                           │
+│  Desktop: 20 entries (latest: February 25, 2026)              │
 │                                                               │
-│  NEW: 8 | BREAKING: 1 | DEPRECATED: 0 | FIXED: 3             │
+│  Code: NEW 4 | BREAKING 0 | DEPRECATED 0 | FIXED 2           │
+│  Desktop: NEW 12 | BREAKING 1 | DEPRECATED 0 | FIXED 1       │
 │                                                               │
 │  Highlights:                                                  │
-│  - WorktreeCreate/WorktreeRemove hook events added            │
-│  - isolation: worktree support for agents                     │
-│  - 9 hardcoded model references in craft                      │
+│  - Cowork plugins and admin controls                          │
+│  - 11 hardcoded model references in craft                     │
 └───────────────────────────────────────────────────────────────┘
 ```
 
-### Step 3: Desktop Watch (Optional)
-
-Ask the user if they want to include Desktop watch:
-
-```json
-{
-  "questions": [{
-    "question": "Include Claude Desktop release check? (requires web search)",
-    "header": "Desktop",
-    "multiSelect": false,
-    "options": [
-      {"label": "Yes", "description": "Search for Claude Desktop updates and integration opportunities"},
-      {"label": "Skip", "description": "Only check Claude Code CLI releases"}
-    ]
-  }]
-}
-```
-
-If "Yes": Execute the desktop-watch command instructions (WebSearch + WebFetch as defined in the command file). Parse results for integration opportunities.
-
-If "Skip": Move to Step 4.
-
-### Step 4: Merge and Prioritize
+### Step 3: Merge and Prioritize
 
 Combine all findings into a single prioritized action list. Assign priorities:
 
@@ -118,7 +97,7 @@ Combine all findings into a single prioritized action list. Assign priorities:
 | P2 (Medium) | Warnings from audit, FIXED items to verify |
 | P3 (Low) | Desktop integration opportunities, suggestions |
 
-### Step 5: Present Interactive Selection
+### Step 4: Present Interactive Selection
 
 Use AskUserQuestion with multiSelect to let the user choose which items to act on:
 
@@ -140,7 +119,7 @@ Use AskUserQuestion with multiSelect to let the user choose which items to act o
 
 Note: AskUserQuestion supports maximum 4 options. If there are more items, group by priority and present the top 4 most impactful. Mention remaining items in the description of the last option or in a follow-up message.
 
-### Step 6: Execute Selected Actions
+### Step 5: Execute Selected Actions
 
 For each selected item, take appropriate action:
 
@@ -151,7 +130,7 @@ For each selected item, take appropriate action:
 
 After each action, report what was done and verify the fix.
 
-### Step 7: Summary Report
+### Step 6: Summary Report
 
 Display final summary:
 
@@ -184,6 +163,5 @@ Display final summary:
 ## Integration
 
 - `/craft:code:command-audit` — Frontmatter validation (Step 1)
-- `/craft:code:release-watch` — Release tracking (Step 2)
-- `/craft:code:desktop-watch` — Desktop monitoring (Step 3)
+- `/craft:code:release-watch` — Unified Code + Desktop tracking (Step 2)
 - `/craft:check` — General pre-flight checks

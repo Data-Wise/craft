@@ -120,6 +120,8 @@ nav:
     - Core Workflows:
       - Documentation Automation: guide/documentation-quality.md
       - Interactive Docs Update: tutorials/interactive-docs-update-tutorial.md
+      - Release Watch Guide: guide/release-watch.md
+      - Release Watch Tutorial: tutorials/TUTORIAL-release-watch-v2.md
       - Release Workflow: workflows/release-workflow.md
       - Development Workflow: workflows/git-feature-workflow.md
       - Pre-commit Workflow: workflows/pre-commit-workflow.md
@@ -260,6 +262,7 @@ nav:
   - 📚 Cookbook & Examples:
     - Cookbook Home: cookbook/index.md
     - Common Recipes:
+      - Release Watch Recipes: cookbook/release-watch-recipes.md
       - Set Up New Project: cookbook/common/setup-new-project.md
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
@@ -296,6 +299,7 @@ nav:
     - Orchestrator Deep Dive: orchestrator.md
     - Architecture Overview: architecture.md
     - Hub v2.0 Architecture: architecture/HUB-V2-ARCHITECTURE.md
+    - Release Watch v2 Architecture: architecture/release-watch-v2.md
     - Desktop Release Pipeline: architecture/desktop-release-pipeline.md
     - Discovery API: api/DISCOVERY-API.md
     - Documentation Quality: reference/documentation-quality.md
@@ -321,6 +325,7 @@ nav:
       - Insights Quick Reference: reference/REFCARD-INSIGHTS.md
       - Bump Version Reference: reference/REFCARD-BUMP-VERSION.md
       - Post-Release Sweep Reference: reference/REFCARD-POST-RELEASE-SWEEP.md
+      - Release Watch Quick Reference: reference/REFCARD-RELEASE-WATCH.md
       - Docs Staleness Quick Reference: reference/REFCARD-DOCS-STALENESS.md
       - Command Examples: reference/COMMAND-EXAMPLES.md
       - Command Parameters: reference/COMMAND-PARAMETERS.md
