@@ -969,7 +969,7 @@ A comprehensive teaching workflow system for course website management with prev
 
 - Added comprehensive dry-run feature documentation
 - Updated homepage with v1.20.0 announcement
-- Created [DRY-RUN-SUMMARY.md](DRY-RUN-SUMMARY.md) tracking document
+- Created `DRY-RUN-SUMMARY.md` (archived) tracking document
 - Added dry-run section to commands reference
 - Added 🔍 indicators to dry-run enabled commands
 
@@ -1038,4 +1038,4 @@ See git history for versions prior to 1.17.0.
 - **Homepage:** <https://Data-Wise.github.io/craft/>
 - **Repository:** <https://github.com/Data-Wise/craft>
 - **Documentation:** <https://Data-Wise.github.io/craft/>
-- **Dry-Run Summary:** [DRY-RUN-SUMMARY.md](DRY-RUN-SUMMARY.md)
+- **Dry-Run Summary:** `DRY-RUN-SUMMARY.md` (archived)

@@ -10,6 +10,8 @@
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
+**Recent on dev (unreleased):** `/workflow:done` learning loop (memory + insights capture, auto-git, CLAUDE.md sync) · `/craft:do` memory-aware routing (worktree detection, spec auto-load) · `/craft:hub` live dashboard (dynamic counts, .STATUS integration)
+
 ## Git Workflow
 
 ```text
