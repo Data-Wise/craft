@@ -139,7 +139,7 @@ class TestStructure:
 
     def test_mermaid_linter_skill_updated(self):
         """Skill references MCP validation."""
-        skill_path = SKILLS_DIR / "docs" / "mermaid-linter" / "skill.md"
+        skill_path = SKILLS_DIR / "docs" / "mermaid-linter" / "SKILL.md"
         assert skill_path.exists(), f"Missing: {skill_path}"
         content = skill_path.read_text()
         assert "mcp-mermaid" in content.lower() or "MCP" in content, "Skill should reference MCP validation"

@@ -392,8 +392,8 @@ def test_session_file_operations():
 
 def test_session_persistence_skill_exists():
     """Test that session-state skill file exists and is valid."""
-    skill_path = PLUGIN_DIR / "skills" / "orchestration" / "session-state.md"
-    assert skill_path.exists(), "session-state.md not found"
+    skill_path = PLUGIN_DIR / "skills" / "orchestration" / "session-state" / "SKILL.md"
+    assert skill_path.exists(), "session-state/SKILL.md not found"
 
     content = skill_path.read_text()
 
