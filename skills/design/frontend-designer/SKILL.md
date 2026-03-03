@@ -1,6 +1,6 @@
 ---
 name: frontend-designer
-description: Auto-activates for UI/UX design, component architecture, accessibility, and frontend performance. Provides pragmatic design guidance with ADHD-friendly patterns.
+description: This skill should be used when the user asks to "design a UI", "plan component architecture", "improve accessibility", "optimize frontend performance", or discusses UI/UX patterns. Provides pragmatic frontend design guidance with ADHD-friendly patterns.
 ---
 
 # Frontend Designer Skill

@@ -1,6 +1,6 @@
 ---
 name: session-state
-description: Manages orchestrator session state persistence - save, load, resume, and history
+description: This skill should be used when the user asks to "save session", "resume session", "continue where I left off", "session history", or needs orchestrator session state persistence including save, load, resume, and history management.
 category: orchestration
 ---
 

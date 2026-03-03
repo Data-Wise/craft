@@ -1,6 +1,6 @@
 ---
 name: homebrew-workflow-expert
-description: Expert knowledge of GitHub Actions workflows for automated Homebrew formula updates and releases
+description: This skill should be used when the user asks to "create Homebrew release workflow", "automate formula updates with GitHub Actions", "configure tap CI", or needs GitHub Actions workflows for automated Homebrew formula updates and releases.
 category: distribution
 ---
 

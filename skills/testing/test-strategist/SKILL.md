@@ -1,3 +1,8 @@
+---
+name: test-strategist
+description: This skill should be used when the user asks to "plan test strategy", "improve test coverage", "fix flaky tests", "optimize test performance", or needs guidance on testing infrastructure and quality assurance. Provides expert guidance on test strategy design, coverage analysis, and test quality improvement.
+---
+
 # Test Strategist Skill
 
 Expert in test strategy, coverage optimization, and quality assurance.

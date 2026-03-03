@@ -169,11 +169,11 @@ def test_design_skills():
     plugin_dir = Path(__file__).parent.parent
     design_dir = plugin_dir / "skills" / "design"
 
-    expected = ["backend-designer.md", "frontend-designer.md", "devops-helper.md"]
+    expected = ["backend-designer", "frontend-designer", "devops-helper"]
     missing = []
 
     for skill in expected:
-        if not (design_dir / skill).exists():
+        if not (design_dir / skill / "SKILL.md").exists():
             missing.append(skill)
 
     assert not missing, f"Missing: {missing}"

@@ -1,3 +1,8 @@
+---
+name: project-planner
+description: This skill should be used when the user asks to "plan a project", "break down a feature", "estimate effort", "create a roadmap", "plan a sprint", or needs help with task breakdown and project management. Provides expert guidance on feature planning, estimation, and delivery management.
+---
+
 # Project Planner Skill
 
 Expert in project planning, estimation, and delivery management.

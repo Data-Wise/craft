@@ -1,6 +1,6 @@
 ---
 name: mermaid-linter
-description: Validate Mermaid diagrams in markdown files for syntax errors, configuration, and health score. Uses mcp-mermaid for full validation and local regex for fast pre-checks.
+description: This skill should be used when the user asks to "validate Mermaid diagrams", "lint diagrams", "check diagram syntax", "mermaid health score", or needs to validate Mermaid diagrams in markdown files for syntax errors, configuration, and rendering quality. Uses mcp-mermaid for full validation and local regex for fast pre-checks.
 ---
 
 # Mermaid Diagram Linter

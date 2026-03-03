@@ -1,6 +1,6 @@
 ---
 name: backend-designer
-description: Auto-activates for backend architecture, API design, database decisions, and authentication patterns. Provides pragmatic design guidance following "solid indie" principles.
+description: This skill should be used when the user asks to "design an API", "plan database schema", "set up authentication", "design backend architecture", or discusses backend patterns and infrastructure. Provides pragmatic backend design guidance following "solid indie" principles.
 ---
 
 # Backend Designer Skill
