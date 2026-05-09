@@ -218,4 +218,13 @@ SUMMARY: 4 passed, 2 warnings, 2 errors
 - `/craft:docs:check-links` - Internal link validation (integrated)
 - `/craft:site:build` - Build site locally
 - `/craft:site:deploy` - Deploy to GitHub Pages
+- `/craft:site:add` - Add Pages with Navigation Sync
+- `/craft:site:audit` - Content Inventory & Audit
+- `/craft:site:consolidate` - Merge Duplicate Content
+- `/craft:site:create` - Full Documentation Site Wizard
+- `/craft:site:nav` - Navigation Reorganization
+- `/craft:site:progress` - Display comprehensive semester progress dashboard
+- `/craft:site:publish` - Publish teaching site with preview workflow
+- `/craft:site:status` - Documentation Site Dashboard
+- `/craft:site:theme` - Quick Theme Changes
 - Template: `templates/dry-run-pattern.md`

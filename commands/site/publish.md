@@ -348,6 +348,14 @@ The backup branch 'production-backup-20260116-143022' was preserved.
 - `/craft:site:deploy` - Direct GitHub Pages deployment (no draft/production workflow)
 - `/craft:site:build` - Build site locally
 - `/craft:site:check` - Validate site health
+- `/craft:site:add` - Add Pages with Navigation Sync
+- `/craft:site:audit` - Content Inventory & Audit
+- `/craft:site:consolidate` - Merge Duplicate Content
+- `/craft:site:create` - Full Documentation Site Wizard
+- `/craft:site:nav` - Navigation Reorganization
+- `/craft:site:progress` - Display comprehensive semester progress dashboard
+- `/craft:site:status` - Documentation Site Dashboard
+- `/craft:site:theme` - Quick Theme Changes
 - `/craft:git:worktree` - Manage worktrees for draft/production
 - Utility: `utils/detect_teaching_mode.py` - Teaching mode detection
 - Utility: `commands/utils/teaching_validation.py` - Content validation

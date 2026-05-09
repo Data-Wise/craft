@@ -243,3 +243,7 @@ Works with other craft commands:
 - Include checksums for security-conscious users
 - Consider adding `--version` flag to specify version
 - Use GitHub Actions to auto-generate on release
+
+## See Also
+
+- `/craft:dist:marketplace` - Claude Code marketplace distribution - init, validate, test, and publish

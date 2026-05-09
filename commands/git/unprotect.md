@@ -129,3 +129,6 @@ Use `/craft:git:unprotect` when you need to do multiple protected operations (e.
 - `/craft:git:protect` - Re-enable branch protection, configure levels
 - `/craft:git:status` - Shows protection indicator + session counter
 - `/craft:check` - Shows branch context section
+- `/craft:git:branch` - Interactive git branch management assistant
+- `/craft:git:sync` - Smart git synchronization with remote repositories
+- `/craft:git:worktree` - Git worktree management for parallel development workflows

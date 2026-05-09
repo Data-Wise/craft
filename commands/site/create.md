@@ -722,6 +722,13 @@ This command is **Phase 1** of the site command redesign.
 - `/craft:site:status` - Dashboard and health check
 - `/craft:site:theme` - Quick theme changes
 - `/craft:site:deploy` - Deploy to GitHub Pages
+- `/craft:site:add` - Add Pages with Navigation Sync
+- `/craft:site:audit` - Content Inventory & Audit
+- `/craft:site:check` - Validate documentation site for broken links
+- `/craft:site:consolidate` - Merge Duplicate Content
+- `/craft:site:nav` - Navigation Reorganization
+- `/craft:site:progress` - Display comprehensive semester progress dashboard
+- `/craft:site:publish` - Publish teaching site with preview workflow
 
 ## ADHD-Friendly Features
 

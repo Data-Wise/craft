@@ -702,3 +702,15 @@ The parser automatically normalizes paths:
 - `/craft:site:check` - Site validation (includes external links)
 - Template: `templates/dry-run-pattern.md`
 - `.linkcheck-ignore` - Ignore pattern file (create in project root)
+- `/craft:docs:api` - OpenAPI/Swagger documentation generator
+- `/craft:docs:changelog` - Auto-update CHANGELOG.md based on git commits
+- `/craft:docs:demo` - Terminal recording and GIF generator with dependency management
+- `/craft:docs:guide` - Orchestrated guide generator
+- `/craft:docs:help` - Help page generator
+- `/craft:docs:nav-update` - Update mkdocs.yml navigation from directory structure
+- `/craft:docs:prompt` - Generate documentation prompts
+- `/craft:docs:quickstart` - Quick start generator
+- `/craft:docs:site` - Website documentation focus
+- `/craft:docs:tutorial` - Interactive tutorial generator
+- `/craft:docs:website` - ADHD-friendly website enhancement
+- `/craft:docs:workflow` - Workflow documentation generator

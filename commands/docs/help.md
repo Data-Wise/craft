@@ -140,7 +140,7 @@ Load template and fill sections:
 
 Generated help page follows this structure:
 
-```markdown
+````markdown
 # /craft:docs:update
 
 > **Smart documentation generator - detect changes and generate all needed docs.**
@@ -205,7 +205,7 @@ Generated help page follows this structure:
 - [Workflow: Feature Documentation](../workflows/feature-docs.md)
 - Related: /craft:docs:sync, /craft:docs:guide, /craft:docs:check
 
-```
+````
 
 ## Flags Reference
 
@@ -224,10 +224,12 @@ Generated help page follows this structure:
 **Uses template:** `templates/docs/HELP-PAGE-TEMPLATE.md`
 
 **Called by:**
+
 - `/craft:docs:update --with-help`
 - `/craft:docs:update` (when score >= 2 for help type)
 
 **Outputs to:**
+
 - `docs/help/[command-name].md` (default)
 - Custom path with `--output`
 
@@ -238,3 +240,18 @@ Generated help page follows this structure:
 3. **Tables for scanning** - Options and troubleshooting in tables
 4. **Cross-references** - Links to related content
 5. **One command** - No manual template filling
+
+## See Also
+
+- `/craft:docs:api` - OpenAPI/Swagger documentation generator
+- `/craft:docs:changelog` - Auto-update CHANGELOG.md based on git commits
+- `/craft:docs:check-links` - Internal link validation for documentation
+- `/craft:docs:demo` - Terminal recording and GIF generator with dependency management
+- `/craft:docs:lint` - Markdown quality and error detection with auto-fix
+- `/craft:docs:nav-update` - Update mkdocs.yml navigation from directory structure
+- `/craft:docs:prompt` - Generate documentation prompts
+- `/craft:docs:quickstart` - Quick start generator
+- `/craft:docs:site` - Website documentation focus
+- `/craft:docs:tutorial` - Interactive tutorial generator
+- `/craft:docs:website` - ADHD-friendly website enhancement
+- `/craft:docs:workflow` - Workflow documentation generator

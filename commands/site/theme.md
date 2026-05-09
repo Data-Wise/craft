@@ -280,6 +280,14 @@ Happy with the changes?
 - `/craft:site:create` - Full site creation with design
 - `/craft:site:status` - Check current configuration
 - `/craft:site:update` - Update content
+- `/craft:site:add` - Add Pages with Navigation Sync
+- `/craft:site:audit` - Content Inventory & Audit
+- `/craft:site:build` - Build documentation site (Quarto, pkgdown, MkDocs)
+- `/craft:site:check` - Validate documentation site for broken links
+- `/craft:site:consolidate` - Merge Duplicate Content
+- `/craft:site:nav` - Navigation Reorganization
+- `/craft:site:progress` - Display comprehensive semester progress dashboard
+- `/craft:site:publish` - Publish teaching site with preview workflow
 
 **Preset files:**
 

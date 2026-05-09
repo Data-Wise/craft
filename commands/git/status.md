@@ -445,4 +445,6 @@ fi
 - `/craft:git:branch` - Branch management
 - `/craft:git:sync` - Sync with remote
 - `/craft:site:publish` - Publish to production
+- `/craft:git:unprotect` - Session-scoped bypass for branch protection with reason logging
+- `/craft:git:worktree` - Git worktree management for parallel development workflows
 - Utility: `utils/detect_teaching_mode.py`

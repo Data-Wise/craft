@@ -262,7 +262,7 @@ Generate domain-specific quick reference (if 3+ commands):
 
 **Refcard Template:**
 
-```markdown
+````markdown
 # [Feature Name] Quick Reference
 
 > One-page reference for [feature] commands
@@ -311,7 +311,7 @@ Generate domain-specific quick reference (if 3+ commands):
 - [Full Guide](../guide/[feature].md)
 - [Commands Reference](./commands.md)
 
-```
+````
 
 ### Phase 6: UPDATE NAVIGATION
 
@@ -460,3 +460,18 @@ sequenceDiagram
 | `--dry-run` | Preview without writing files |
 | `--template TYPE` | Guide template (default, api, cli) |
 | `--output PATH` | Custom output path |
+
+## See Also
+
+- `/craft:docs:api` - OpenAPI/Swagger documentation generator
+- `/craft:docs:changelog` - Auto-update CHANGELOG.md based on git commits
+- `/craft:docs:check` - Documentation health check (links, staleness, navigation)
+- `/craft:docs:check-links` - Internal link validation for documentation
+- `/craft:docs:help` - Help page generator
+- `/craft:docs:lint` - Markdown quality and error detection with auto-fix
+- `/craft:docs:prompt` - Generate documentation prompts
+- `/craft:docs:quickstart` - Quick start generator
+- `/craft:docs:site` - Website documentation focus
+- `/craft:docs:tutorial` - Interactive tutorial generator
+- `/craft:docs:website` - ADHD-friendly website enhancement
+- `/craft:docs:workflow` - Workflow documentation generator
