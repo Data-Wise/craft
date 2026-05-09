@@ -127,5 +127,6 @@ Use `/craft:git:unprotect` when you need to do multiple protected operations (e.
 ## See Also
 
 - `/craft:git:protect` - Re-enable branch protection, configure levels
+- `/craft:git:protect-baseline` - GitHub-side branch protection (PR required, no force-push). Note: `unprotect` only bypasses the local hook — GitHub-side protection set by `protect-baseline` is unaffected and must be removed via `protect-baseline --remove`.
 - `/craft:git:status` - Shows protection indicator + session counter
 - `/craft:check` - Shows branch context section

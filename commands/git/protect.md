@@ -167,5 +167,6 @@ For `block-all`:
 
 ## See Also
 
+- `/craft:git:protect-baseline` - Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo. Companion to this command — `/craft:git:protect` manages the local hook, `protect-baseline` manages GitHub-side rules.
 - `/craft:git:unprotect` - Bypass branch protection
 - `/craft:git:status` - Shows protection indicator
