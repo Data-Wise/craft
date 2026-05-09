@@ -34,7 +34,7 @@ while [[ $# -gt 0 ]]; do
     --remove)       REMOVE="true"; shift ;;
     --show)         SHOW="true"; shift ;;
     -h|--help)
-      sed -n '1,/^set -euo/p' "$0" | head -n -2 | sed 's/^# \{0,1\}//'
+      awk 'NR==1{next} /^set -euo/{exit} {sub(/^# ?/,""); print}' "$0"
       exit 0 ;;
     *) echo "Unknown arg: $1" >&2; exit 2 ;;
   esac
@@ -66,13 +66,13 @@ if [[ -z "$BRANCH" ]]; then
   fi
 fi
 
-echo "Repo:   $REPO"
-echo "Branch: $BRANCH"
+echo "Repo:   $REPO" >&2
+echo "Branch: $BRANCH" >&2
 
 if [[ "$SHOW" == "true" ]]; then
   result=$(gh api "repos/$REPO/branches/$BRANCH/protection" 2>&1 || true)
   if echo "$result" | grep -q "Branch not protected"; then
-    echo "Status: NONE (unprotected)"
+    echo "Status: NONE (unprotected)" >&2
     exit 0
   fi
   echo "$result" | python3 -m json.tool
