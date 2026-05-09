@@ -376,15 +376,20 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:site:deploy`      | Deploy to GitHub Pages                                                   |
 | `/craft:site:init`        | Basic initialization (use `create` for full wizard)                      |
 
-### Git Commands (5 + 4 guides)
+### Git Commands (10 + 4 guides)
 
-| Command               | Description                                            |
-| --------------------- | ------------------------------------------------------ |
-| `/craft:git:branch`   | Branch management                                      |
-| `/craft:git:sync`     | Smart git sync                                         |
-| `/craft:git:clean`    | Clean merged branches                                  |
-| `/craft:git:recap`    | Activity summary                                       |
-| `/craft:git:worktree` | **NEW v1.8.0** Parallel development with git worktrees |
+| Command                       | Description                                                                                  |
+| ----------------------------- | -------------------------------------------------------------------------------------------- |
+| `/craft:git:init`             | Initialize repository with craft workflow                                                    |
+| `/craft:git:branch`           | Branch management                                                                            |
+| `/craft:git:status`           | Enhanced git status (teaching-aware)                                                         |
+| `/craft:git:sync`             | Smart git sync                                                                               |
+| `/craft:git:clean`            | Clean merged branches                                                                        |
+| `/craft:git:recap`            | Activity summary                                                                             |
+| `/craft:git:worktree`         | **NEW v1.8.0** Parallel development with git worktrees                                       |
+| `/craft:git:protect`          | Manage local hook (`branch-guard.sh`) — 3-tier risk classification                           |
+| `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side branch protection (PR required, no force-push, no delete)        |
+| `/craft:git:unprotect`        | Session-scoped bypass for the local hook                                                     |
 
 **Git Guides:** refcard, undo-guide, safety-rails, learning-guide
 

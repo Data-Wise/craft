@@ -847,21 +847,22 @@ Layer 3: /craft:check     → catches anything that slipped through
 /craft:test release --coverage  # Full coverage analysis
 ```
 
-## Git Commands (10+ commands)
+## Git Commands (10 commands)
 
 **Core Git Commands:**
 
-| Command               | Description                                       |
-| --------------------- | ------------------------------------------------- |
-| `/craft:git:init`     | **NEW** Initialize repository with craft workflow |
-| `/craft:git:worktree` | Parallel development with git worktrees           |
-| `/craft:git:sync`     | Smart git sync                                    |
-| `/craft:git:clean`    | Clean merged branches                             |
-| `/craft:git:recap`    | Activity summary                                  |
-| `/craft:git:branch`   | Branch management                                 |
-| `/craft:git:status`   | Enhanced git status (teaching-aware)              |
-| `/craft:git:protect`  | Re-enable branch protection                      |
-| `/craft:git:unprotect`| Temporarily bypass branch protection              |
+| Command                       | Description                                                                  |
+| ----------------------------- | ---------------------------------------------------------------------------- |
+| `/craft:git:init`             | Initialize repository with craft workflow                                    |
+| `/craft:git:worktree`         | Parallel development with git worktrees                                      |
+| `/craft:git:sync`             | Smart git sync                                                               |
+| `/craft:git:clean`            | Clean merged branches                                                        |
+| `/craft:git:recap`            | Activity summary                                                             |
+| `/craft:git:branch`           | Branch management                                                            |
+| `/craft:git:status`           | Enhanced git status (teaching-aware)                                         |
+| `/craft:git:protect`          | Re-enable local hook (branch-guard) protection                               |
+| `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side protection (PR required, no force-push, no delete) |
+| `/craft:git:unprotect`        | Temporarily bypass local hook                                                |
 
 **Worktree Subcommands:**
 

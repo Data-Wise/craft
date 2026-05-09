@@ -206,7 +206,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Documentation**  | 19     | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow                                  |
 | **Site**           | 16     | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit                                                          |
 | **Code & Testing** | 12 + 7 | Code: linting, testing, debugging, refactoring, CI fixes, deps management; Tests: run, debug, watch, coverage, generation |
-| **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, smart branch protection (3-tier risk), learning guides |
+| **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, two-layer branch protection (local hook + GitHub-side baseline), learning guides |
 | **CI**             | 3      | Detection, generation, validation                                                                                         |
 | **Architecture**   | 4      | Analysis, diagrams, planning, reviews                                                                                     |
 | **Distribution**   | 4      | Marketplace, Homebrew, PyPI, curl installers                                                                              |
