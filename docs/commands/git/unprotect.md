@@ -131,6 +131,7 @@ Use `/craft:git:unprotect` when you need to do multiple protected operations (e.
 ## See Also
 
 - [/craft:git:protect](protect.md) --- Re-enable branch protection
+- [/craft:git:protect-baseline](protect-baseline.md) --- GitHub-side branch protection (note: `unprotect` only affects the local hook, not GitHub rules)
 - [/craft:git:status](status.md) --- Shows protection indicator
 - [/craft:check](../check.md) --- Shows branch context section
 - [Smart Mode Guide](../../guide/branch-guard-smart-mode.md) --- Full smart mode documentation

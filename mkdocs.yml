@@ -136,6 +136,7 @@ nav:
       - Multi-Repo Workflow: guide/multi-repo-workflow.md
       - Branch Guard Smart Mode: guide/branch-guard-smart-mode.md
       - Branch Guard Setup Tutorial: tutorials/TUTORIAL-branch-guard-setup.md
+      - Protect a New Repo Tutorial: tutorials/TUTORIAL-protect-new-repo.md
       - Claude-MD Workflows: tutorials/claude-md-workflows.md
       - Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
       - Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
@@ -276,6 +277,7 @@ nav:
       - Update a Single Doc: cookbook/common/update-single-doc.md
       - Quick Code Checks: cookbook/common/quick-code-checks.md
       - Create a Git Branch: cookbook/common/create-git-branch.md
+      - Bulk Branch Protection: cookbook/common/bulk-branch-protection.md
       - View Project Architecture: cookbook/common/view-project-architecture.md
       - Set Up Parallel Worktrees: cookbook/common/setup-parallel-worktrees.md
       - Use Interactive Orchestration: cookbook/common/use-interactive-orchestration.md
@@ -324,6 +326,7 @@ nav:
       - Claude-MD Quick Reference: reference/REFCARD-CLAUDE-MD.md
       - Brainstorm Quick Reference: reference/REFCARD-BRAINSTORM.md
       - Branch Guard Quick Reference: reference/REFCARD-BRANCH-GUARD.md
+      - Protect-Baseline Quick Reference: reference/REFCARD-PROTECT-BASELINE.md
       - Release Pipeline Reference: reference/REFCARD-RELEASE.md
       - Testing Quick Reference: reference/REFCARD-TESTING.md
       - Homebrew Quick Reference: reference/REFCARD-HOMEBREW.md

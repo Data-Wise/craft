@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`/craft:git:protect-baseline`** — New git subcommand applies craft's standard GitHub-side branch protection (PR required with 0 reviews, no force-push, no delete) to any repo via the GitHub REST API
+  - Repeatable `--check NAME` flag handles status check names containing commas (e.g. `test (ubuntu-latest, 3.12)`)
+  - `--strict`, `--dry-run`, `--show`, `--remove` flags for safety and inspection
+  - Default repo derived from `origin` remote, default branch from GitHub API
+  - Companion to `/craft:git:protect` (local hook) — together they form defense-in-depth
+- **REFCARD-PROTECT-BASELINE** — Quick-reference card for the new command
+- **Cookbook recipe** — Bulk-apply protection across many repos (`docs/cookbook/common/bulk-branch-protection.md`)
+- **Tutorial** — Step-by-step "Protect a new repo with craft" (`docs/tutorials/TUTORIAL-protect-new-repo.md`)
+- **Architecture doc** — New section on local-hook + GitHub-side defense-in-depth
+
+### Changed
+
+- **REFCARD-BRANCH-GUARD** updated with GitHub-side companion section and split commands table (local hook vs GitHub-side)
+- Cross-references added to `/craft:git:protect`, `/craft:git:unprotect` so users discover the GitHub-side companion
+
+---
+
 ## [2.31.0] — 2026-02-26
 
 ### Added
