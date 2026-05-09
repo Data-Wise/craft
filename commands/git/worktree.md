@@ -1001,3 +1001,6 @@ Preview what each action will do without executing it:
 - Utility: `utils/dry_run_output.py`
 - Related: `/craft:git:clean` (branch cleanup)
 - Specification: `docs/specs/_archive/SPEC-dry-run-feature-2026-01-15.md`
+- `/craft:git:branch` - Interactive git branch management assistant
+- `/craft:git:status` - Enhanced git status with teaching-specific context
+- `/craft:git:unprotect` - Session-scoped bypass for branch protection with reason logging

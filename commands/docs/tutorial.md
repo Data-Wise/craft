@@ -306,3 +306,18 @@ This skill works with:
 | Time to productivity | <30 min |
 | GIF coverage | 100% of tutorials |
 | Step count accuracy | ±10% of estimate |
+
+## See Also
+
+- `/craft:docs:api` - OpenAPI/Swagger documentation generator
+- `/craft:docs:changelog` - Auto-update CHANGELOG.md based on git commits
+- `/craft:docs:check` - Documentation health check (links, staleness, navigation)
+- `/craft:docs:check-links` - Internal link validation for documentation
+- `/craft:docs:help` - Help page generator
+- `/craft:docs:lint` - Markdown quality and error detection with auto-fix
+- `/craft:docs:nav-update` - Update mkdocs.yml navigation from directory structure
+- `/craft:docs:prompt` - Generate documentation prompts
+- `/craft:docs:quickstart` - Quick start generator
+- `/craft:docs:site` - Website documentation focus
+- `/craft:docs:website` - ADHD-friendly website enhancement
+- `/craft:docs:workflow` - Workflow documentation generator

@@ -387,4 +387,11 @@ For non-teaching projects, the command behaves exactly as before with no changes
 - `/craft:site:deploy` - Deploy to GitHub Pages
 - `/craft:site:check` - Check site for issues
 - `/craft:site:progress` - Show semester progress (teaching mode)
+- `/craft:site:add` - Add Pages with Navigation Sync
+- `/craft:site:audit` - Content Inventory & Audit
+- `/craft:site:consolidate` - Merge Duplicate Content
+- `/craft:site:create` - Full Documentation Site Wizard
+- `/craft:site:nav` - Navigation Reorganization
+- `/craft:site:status` - Documentation Site Dashboard
+- `/craft:site:theme` - Quick Theme Changes
 - Template: `templates/dry-run-pattern.md`

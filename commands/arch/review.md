@@ -102,3 +102,8 @@ Works with:
 - `/craft:arch:analyze` - Full analysis
 - `/craft:code:ci-local` - CI checks
 - `/craft:git:sync` - Pre-push validation
+
+## See Also
+
+- `/craft:arch:diagram` - Architecture Diagrams
+- `/craft:arch:plan` - Architecture Planning

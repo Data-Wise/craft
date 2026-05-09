@@ -330,6 +330,14 @@ Add multiple pages at once:
 - `/craft:site:create` - Create new site
 - `/craft:site:update` - Update existing content
 - `/craft:site:status` - Check site health
+- `/craft:site:audit` - Content Inventory & Audit
+- `/craft:site:build` - Build documentation site (Quarto, pkgdown, MkDocs)
+- `/craft:site:consolidate` - Merge Duplicate Content
+- `/craft:site:deploy` - Deploy documentation site to GitHub Pages
+- `/craft:site:nav` - Navigation Reorganization
+- `/craft:site:progress` - Display comprehensive semester progress dashboard
+- `/craft:site:publish` - Publish teaching site with preview workflow
+- `/craft:site:theme` - Quick Theme Changes
 
 **Uses templates from:**
 

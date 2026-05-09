@@ -158,3 +158,7 @@ Uses standard box-drawing output:
 - If `gh` CLI is not authenticated, show: "Run `gh auth login` first"
 - If a repo is not accessible, skip it with a warning
 - Network errors: show cached data if available, or error message
+
+## See Also
+
+- `/craft:ci:validate` - Validate existing CI workflow against project configuration

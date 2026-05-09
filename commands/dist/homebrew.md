@@ -1618,3 +1618,8 @@ For full generator documentation, see:
 - Test locally: `brew install --build-from-source ./Formula/myapp.rb`
 - Auto-merge is safe for personal taps; disable for team taps
 - For Claude Code plugins, always include Claude detection to avoid install hangs
+
+## See Also
+
+- `/craft:dist:curl-install` - Generate curl-based installation scripts for GitHub releases
+- `/craft:dist:marketplace` - Claude Code marketplace distribution - init, validate, test, and publish

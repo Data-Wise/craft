@@ -516,5 +516,6 @@ Sessions can trigger CI builds:
 - `/craft:orchestrate:sessions` - List sessions
 - `/craft:orchestrate:sync` - Force sync
 - `/craft:orchestrate:archive` - Archive sessions
+- `/craft:orchestrate:plan` - Generate ORCHESTRATE file from spec, with optional worktree creation
 - [Session State Schema](../docs/SESSION-STATE-SCHEMA.md)
 - [Teleportation Guide](../docs/SESSION-TELEPORTATION.md)

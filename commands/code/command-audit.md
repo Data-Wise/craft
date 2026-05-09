@@ -122,3 +122,10 @@ Works with:
 - `/craft:code:lint` - Code quality checks
 - `/craft:check` - Pre-flight validation
 - `/craft:code:release` - Release validation
+
+## See Also
+
+- `/craft:code:ci-fix` - Fix CI Failures
+- `/craft:code:coverage` - Test Coverage Report
+- `/craft:code:deps-check` - Dependency Check
+- `/craft:code:desktop-watch` - Track Claude Desktop releases and identify plugin integration opportunities

@@ -387,6 +387,15 @@ Use `--json` flag for programmatic access:
 - `/craft:site:validate` - Validate course content before publishing
 - `/craft:site:publish` - Deploy content to production
 - `/craft:site:build` - Build site with teaching context
+- `/craft:site:add` - Add Pages with Navigation Sync
+- `/craft:site:audit` - Content Inventory & Audit
+- `/craft:site:check` - Validate documentation site for broken links
+- `/craft:site:consolidate` - Merge Duplicate Content
+- `/craft:site:create` - Full Documentation Site Wizard
+- `/craft:site:deploy` - Deploy documentation site to GitHub Pages
+- `/craft:site:nav` - Navigation Reorganization
+- `/craft:site:status` - Documentation Site Dashboard
+- `/craft:site:theme` - Quick Theme Changes
 
 **Use cases:**
 

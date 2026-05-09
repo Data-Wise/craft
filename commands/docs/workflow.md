@@ -327,3 +327,20 @@ When using `--detect`, analyzes:
 3. **Copy-paste ready** - Actual commands to run
 4. **Multiple paths** - Variations for different scenarios
 5. **Troubleshooting** - Common issues right there
+
+## See Also
+
+- `/craft:docs:api` - OpenAPI/Swagger documentation generator
+- `/craft:docs:changelog` - Auto-update CHANGELOG.md based on git commits
+- `/craft:docs:check` - Documentation health check (links, staleness, navigation)
+- `/craft:docs:check-links` - Internal link validation for documentation
+- `/craft:docs:demo` - Terminal recording and GIF generator with dependency management
+- `/craft:docs:guide` - Orchestrated guide generator
+- `/craft:docs:help` - Help page generator
+- `/craft:docs:lint` - Markdown quality and error detection with auto-fix
+- `/craft:docs:nav-update` - Update mkdocs.yml navigation from directory structure
+- `/craft:docs:prompt` - Generate documentation prompts
+- `/craft:docs:quickstart` - Quick start generator
+- `/craft:docs:site` - Website documentation focus
+- `/craft:docs:tutorial` - Interactive tutorial generator
+- `/craft:docs:website` - ADHD-friendly website enhancement

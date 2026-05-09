@@ -240,6 +240,15 @@ Compares code changes to docs updates:
 - `/craft:site:update` - Update site content
 - `/craft:site:check` - Detailed validation
 - `/craft:site:deploy` - Deploy to hosting
+- `/craft:site:add` - Add Pages with Navigation Sync
+- `/craft:site:audit` - Content Inventory & Audit
+- `/craft:site:build` - Build documentation site (Quarto, pkgdown, MkDocs)
+- `/craft:site:consolidate` - Merge Duplicate Content
+- `/craft:site:create` - Full Documentation Site Wizard
+- `/craft:site:nav` - Navigation Reorganization
+- `/craft:site:progress` - Display comprehensive semester progress dashboard
+- `/craft:site:publish` - Publish teaching site with preview workflow
+- `/craft:site:theme` - Quick Theme Changes
 
 **Called by:**
 

@@ -107,3 +107,7 @@ Works with:
 - `/craft:arch:analyze` - Current architecture
 - `/craft:arch:diagram` - Visualize plan
 - `/craft:plan:feature` - Feature planning
+
+## See Also
+
+- `/craft:arch:review` - Architecture Review
