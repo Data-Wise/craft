@@ -59,11 +59,17 @@ if [[ -z "$REPO" ]]; then
 fi
 
 if [[ -z "$BRANCH" ]]; then
-  BRANCH=$(gh api "repos/$REPO" --jq '.default_branch' 2>/dev/null || true)
+  default_err=$(mktemp -t protect-baseline-err.XXXXXX)
+  BRANCH=$(gh api "repos/$REPO" --jq '.default_branch' 2>"$default_err" || true)
   if [[ -z "$BRANCH" ]]; then
     echo "ERROR: Could not detect default branch for $REPO. Pass --branch NAME." >&2
+    if [[ -s "$default_err" ]]; then
+      sed 's/^/  gh: /' "$default_err" >&2
+    fi
+    rm -f "$default_err"
     exit 1
   fi
+  rm -f "$default_err"
 fi
 
 echo "Repo:   $REPO" >&2
@@ -85,7 +91,10 @@ if [[ "$REMOVE" == "true" ]]; then
     exit 0
   fi
   echo "Action: REMOVE protection"
-  gh api -X DELETE "repos/$REPO/branches/$BRANCH/protection" 2>&1
+  if ! gh api -X DELETE "repos/$REPO/branches/$BRANCH/protection"; then
+    echo "FAILED to remove protection on $REPO@$BRANCH" >&2
+    exit 1
+  fi
   echo "Removed protection on $REPO@$BRANCH"
   exit 0
 fi
@@ -148,11 +157,8 @@ PAYLOAD_FILE=$(mktemp -t protect-baseline.XXXXXX.json)
 trap 'rm -f "$PAYLOAD_FILE"' EXIT
 echo "$PAYLOAD" > "$PAYLOAD_FILE"
 
-result=$(gh api -X PUT "repos/$REPO/branches/$BRANCH/protection" --input "$PAYLOAD_FILE" 2>&1)
-if echo "$result" | grep -q '"url"'; then
-  echo "Applied successfully."
-else
-  echo "FAILED:" >&2
-  echo "$result" >&2
+if ! gh api -X PUT "repos/$REPO/branches/$BRANCH/protection" --input "$PAYLOAD_FILE" >/dev/null; then
+  echo "FAILED to apply protection on $REPO@$BRANCH" >&2
   exit 1
 fi
+echo "Applied successfully."

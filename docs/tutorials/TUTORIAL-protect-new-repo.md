@@ -126,6 +126,8 @@ git -c commit.gpgsign=false commit -m "test: direct push attempt"
 git push origin main
 ```
 
+> **Note:** If you have craft's local hook (`branch-guard.sh`) installed, it may block the commit on `main` before you reach the push — you'll see the hook's `[CONFIRM]` prompt instead of GitHub's rejection. To exercise the GitHub-side rule specifically, run `/craft:git:unprotect maintenance` first to bypass the local hook (then re-enable with `/craft:git:protect` when done).
+
 You should see GitHub reject the push:
 
 ```text

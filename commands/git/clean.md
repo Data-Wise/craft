@@ -80,3 +80,4 @@ The command:
 - Template: `templates/dry-run-pattern.md`
 - Utility: `utils/dry_run_output.py`
 - Specification: `docs/specs/_archive/SPEC-dry-run-feature-2026-01-15.md`
+- `/craft:git:protect-baseline` - Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo

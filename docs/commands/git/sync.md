@@ -74,3 +74,4 @@ This is safer than manual git operations because it validates the state before s
 - [/craft:git:branch](branch.md) — Branch management
 - [/craft:git:worktree](worktree.md) — Worktree management
 - [/craft:git:clean](clean.md) — Remove merged branches
+- [/craft:git:protect-baseline](protect-baseline.md) --- Apply GitHub-side branch protection (PR required, no force-push, no delete)

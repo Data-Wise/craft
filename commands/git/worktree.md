@@ -1004,3 +1004,4 @@ Preview what each action will do without executing it:
 - `/craft:git:branch` - Interactive git branch management assistant
 - `/craft:git:status` - Enhanced git status with teaching-specific context
 - `/craft:git:unprotect` - Session-scoped bypass for branch protection with reason logging
+- `/craft:git:protect-baseline` - Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo

@@ -448,3 +448,4 @@ fi
 - `/craft:git:unprotect` - Session-scoped bypass for branch protection with reason logging
 - `/craft:git:worktree` - Git worktree management for parallel development workflows
 - Utility: `utils/detect_teaching_mode.py`
+- `/craft:git:protect-baseline` - Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo

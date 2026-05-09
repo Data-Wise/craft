@@ -127,3 +127,4 @@ Automatically highlights:
 - [/craft:git:clean](clean.md) — Remove merged branches
 - [Smart Mode Guide](../../guide/branch-guard-smart-mode.md) — Full guard documentation
 - [Teaching Workflow Guide](../../guide/teaching-workflow.md) — Teaching mode details
+- [/craft:git:protect-baseline](protect-baseline.md) --- Apply GitHub-side branch protection (PR required, no force-push, no delete)
