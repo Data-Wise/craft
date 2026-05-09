@@ -228,6 +228,20 @@ Session-wide bypass for branch protection with reason logging.
 /craft:git:unprotect maintenance     # For bulk maintenance
 ```
 
+### /craft:git:protect-baseline
+
+Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo.
+
+```bash
+/craft:git:protect-baseline                                   # Current repo, default branch
+/craft:git:protect-baseline --repo OWNER/REPO                 # Explicit repo
+/craft:git:protect-baseline --check "test" --check "lint"     # Add status checks (repeatable)
+/craft:git:protect-baseline --strict                          # Require up-to-date branches
+/craft:git:protect-baseline --show                            # Display current protection
+/craft:git:protect-baseline --dry-run                         # Preview payload, no API call
+/craft:git:protect-baseline --remove                          # Remove protection
+```
+
 ### /craft:git:status
 
 Enhanced git status with branch guard indicator.
