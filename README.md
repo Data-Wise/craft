@@ -8,11 +8,11 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.31.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.32.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
-> **v2.31.0 - Workflow Learning Loop & Live Dashboard** 🚀
+> **v2.32.0 — GitHub-side branch protection + hook contract fix** 🚀
 > **108 commands** | **26 skills** | **8 agents** | **112 tests passing**
-> `/workflow:done` learning loop with memory + insights capture, `/craft:do` memory-aware routing with worktree detection, `/craft:hub` live dashboard with dynamic counts and .STATUS integration.
+> New `/craft:git:protect-baseline` for GitHub-side branch protection (defense-in-depth with the local hook), fixed `pretooluse.py` silent no-op (env-var contract → stdin JSON), and a 348-ref cross-reference sweep across 49 command files.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 

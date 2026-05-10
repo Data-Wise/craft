@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.31.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.32.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -219,8 +219,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.31.0 — Unified Release Watch v2 & CI Stability"
-    Unified release-watch v2 with Code + Desktop tracking, 24h cache, auto-fix proposals, and pinned markdownlint-cli2 for CI stability. 37 new tests, 5 new docs files. 112 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.32.0 — GitHub-side branch protection + hook contract fix"
+    New `/craft:git:protect-baseline` command applies GitHub branch protection rules (PR required, no force-push, no delete) to any repo as a defense-in-depth companion to the local `branch-guard.sh` hook. Fixes a silent `pretooluse.py` no-op (hook was reading env vars Claude Code never sets — now reads stdin JSON). Sweeps 348 missing cross-references across 49 command files via 4 parallel agents. 112 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
