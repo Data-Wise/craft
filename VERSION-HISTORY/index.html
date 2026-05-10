@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.0 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.1 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -6834,6 +6834,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v2321-2026-05-10-infrastructure-durable-homebrew-release-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.32.1 (2026-05-10) — Infrastructure: durable Homebrew release auth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v2320-2026-05-09-github-side-branch-protection-hook-contract-fix" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9848,6 +9859,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v2321-2026-05-10-infrastructure-durable-homebrew-release-auth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.32.1 (2026-05-10) — Infrastructure: durable Homebrew release auth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v2320-2026-05-09-github-side-branch-protection-hook-contract-fix" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10570,11 +10592,21 @@
 <blockquote>
 <p><strong>Evolution of Craft</strong>: From command automation tool to intelligent orchestration platform</p>
 </blockquote>
-<p><strong>Latest Release:</strong> v2.32.0 (2026-05-09)
-<strong>Total Releases:</strong> 53 versions | <strong>Development Time:</strong> 2+ years
+<p><strong>Latest Release:</strong> v2.32.1 (2026-05-10)
+<strong>Total Releases:</strong> 54 versions | <strong>Development Time:</strong> 2+ years
 <strong>Community:</strong> 108 commands documented, 112 tests passing, 90%+ coverage</p>
 <hr />
 <h2 id="release-timeline">Release Timeline<a class="headerlink" href="#release-timeline" title="Permanent link">&para;</a></h2>
+<h3 id="v2321-2026-05-10-infrastructure-durable-homebrew-release-auth">v2.32.1 (2026-05-10) — Infrastructure: durable Homebrew release auth<a class="headerlink" href="#v2321-2026-05-10-infrastructure-durable-homebrew-release-auth" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Released
+<strong>Stats:</strong> 108 commands | 26 skills | 8 agents | 112 tests passing</p>
+<ul>
+<li>Migrated <code>homebrew-release.yml</code> from PAT (HOMEBREW_TAP_GITHUB_TOKEN, expired) to GitHub App auth via <code>actions/create-github-app-token@v1</code></li>
+<li>Inlined the <code>update-homebrew</code> job (replaces <code>workflow_call</code> to homebrew-tap reusable workflow); always uses canonical manifest+regen pattern</li>
+<li>4 sibling-plugin migration PRs opened (aiterm, flow-cli, atlas, mcp-bridge) for the same App-auth pattern; issue #130 tracks deferred himalaya-mcp + nexus-cli</li>
+<li>Updated <code>commands/dist/homebrew.md</code> setup guide to recommend GitHub App over PAT</li>
+<li>Removed unused <code>auto_merge</code> workflow_dispatch input</li>
+</ul>
 <h3 id="v2320-2026-05-09-github-side-branch-protection-hook-contract-fix">v2.32.0 (2026-05-09) — GitHub-side branch protection + hook contract fix<a class="headerlink" href="#v2320-2026-05-09-github-side-branch-protection-hook-contract-fix" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released
 <strong>Stats:</strong> 108 commands | 26 skills | 8 agents | 112 tests passing</p>
