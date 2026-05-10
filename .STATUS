@@ -44,7 +44,6 @@ progress: v2.31.0 stable. Today (2026-05-09 / 2026-05-10): shipped 4 PRs — /cr
 🎯 Next Action:
 A) Start v2.32.0 Increment 1: Version sync validator (/craft:check --version) ~30 min
 B) v2.32.0 Increment 2: Worktree pre-flight (4 checks, soft warnings) ~1.5h
-C) himalaya-mcp: Tier 2 items (config wizard, stats, session-start hook)
 
 ## v2.32.0 Scope (spec: approved, untouched today)
 
