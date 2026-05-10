@@ -25,6 +25,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **REFCARD-BRANCH-GUARD** updated with GitHub-side companion section and split commands table (local hook vs GitHub-side)
 - Cross-references added to `/craft:git:protect`, `/craft:git:unprotect` so users discover the GitHub-side companion
+- **`/craft:git:protect-baseline` cross-references** added to See Also sections of all other git commands (`branch`, `clean`, `init`, `status`, `sync`, `worktree`)
+- **`scripts/protect-baseline.sh` polish** — default-branch detection now surfaces real `gh` API errors (was swallowed by `2>/dev/null`); APPLY uses exit-code success detection instead of brittle `grep '"url"'`; REMOVE checks DELETE exit code symmetrically (was unconditionally printing success on failure)
+- **Tutorial** clarification — Step 4 now warns that craft's local hook fires before reaching GitHub's rejection, with `/craft:git:unprotect maintenance` workaround
+
+### Fixed
+
+- **macOS portability** — `--help` dispatcher used `head -n -2` (GNU-only) which errored on BSD/macOS with `illegal line count: -2`. Replaced with portable `awk`
+- **`--show` output** — moved human-readable `Repo:`/`Branch:` headers to stderr so stdout is JSON-only; the documented `--show | jq` pattern in the cookbook and refcard now works as written
 
 ### Fixed
 

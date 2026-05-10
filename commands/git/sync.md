@@ -534,3 +534,4 @@ Continuing rebase... ✅
 - `/craft:git:status` - Enhanced git status with teaching-specific context
 - `/craft:git:unprotect` - Session-scoped bypass for branch protection with reason logging
 - `/craft:git:worktree` - Git worktree management for parallel development workflows
+- `/craft:git:protect-baseline` - Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo
