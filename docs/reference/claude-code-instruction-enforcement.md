@@ -53,12 +53,28 @@
 }
 ```
 
-**Environment variables available:**
+**Hook input (JSON on stdin):**
 
-- `CLAUDE_TOOL_NAME` — e.g., `Edit`, `Write`, `Bash`
-- `CLAUDE_TOOL_INPUT` — JSON of tool parameters
-- `CLAUDE_SESSION_ID`
-- `CLAUDE_CWD`
+Claude Code passes the hook payload as JSON on stdin. Parse it once at
+the top of the script:
+
+```bash
+INPUT="$(cat)"
+TOOL=$(printf '%s' "$INPUT" | jq -r '.tool_name // ""')
+FILE=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // ""')
+CWD=$(printf '%s'  "$INPUT" | jq -r '.cwd // ""')
+SESSION_ID=$(printf '%s' "$INPUT" | jq -r '.session_id // ""')
+```
+
+Top-level fields in the payload: `session_id`, `tool_name`, `tool_input`,
+`tool_response` (PostToolUse only), `cwd`. See
+`~/.claude/hooks/branch-guard.sh:6` for the canonical reference
+implementation.
+
+> ⚠️ **Note:** earlier versions of this doc claimed `CLAUDE_TOOL_NAME`,
+> `CLAUDE_TOOL_INPUT`, etc. were available as environment variables.
+> That was incorrect — Claude Code does not set those env vars. Hooks
+> reading from `$CLAUDE_TOOL_NAME` silently no-op in production.
 
 ### Guard-Branch Pattern
 
@@ -69,7 +85,9 @@ The specific hook pattern for preventing code edits on protected branches:
 # .claude/hooks/guard-branch.sh
 # PreToolUse hook: Block Edit/Write on dev branch
 
-TOOL="$CLAUDE_TOOL_NAME"
+INPUT="$(cat)"
+TOOL=$(printf '%s' "$INPUT" | jq -r '.tool_name // ""')
+FILE=$(printf '%s' "$INPUT" | jq -r '.tool_input.file_path // ""')
 BRANCH=$(git branch --show-current 2>/dev/null)
 
 # Only guard Edit and Write tools
@@ -83,7 +101,6 @@ if [[ "$BRANCH" == feature/* ]]; then
 fi
 
 # Allow spec/doc files on dev
-FILE=$(echo "$CLAUDE_TOOL_INPUT" | python3 -c "import json,sys; print(json.load(sys.stdin).get('file_path',''))" 2>/dev/null)
 if [[ "$FILE" == */docs/* || "$FILE" == */specs/* || "$FILE" == *.md ]]; then
   exit 0
 fi
