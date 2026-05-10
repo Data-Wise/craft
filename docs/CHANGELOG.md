@@ -7,7 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [2.32.1] — 2026-05-10
+
+**Theme:** Infrastructure — durable Homebrew release auth
+
+### Fixed
+
+- **`homebrew-release.yml` PAT auth failure** ([#129](https://github.com/Data-Wise/craft/issues/129)) — the `update-homebrew` job depended on `HOMEBREW_TAP_GITHUB_TOKEN`, a fine-grained PAT that expired ~10 weeks after creation. v2.32.0's release surfaced the auth failure (`fatal: could not read Username for github.com`). Migrated to GitHub App auth via `actions/create-github-app-token@v1` using existing `APP_ID` + `APP_PRIVATE_KEY` secrets. App tokens are minted per-run, scoped to `homebrew-tap` only, and never expire on a calendar.
+
+### Changed
+
+- **`homebrew-release.yml`** — `update-homebrew` job now runs inline (replaces the `workflow_call` to `Data-Wise/homebrew-tap/.github/workflows/update-formula.yml@main`). Always uses the canonical `manifest.json` + `generate.py` pattern, eliminating the manifest drift risk where CI would patch `.rb` files via sed without updating the manifest. Removed the unused `auto_merge` workflow_dispatch input. Deleted the stale `HOMEBREW_TAP_GITHUB_TOKEN` secret from craft.
+- **`commands/dist/homebrew.md`** — updated example workflow snippet and Step 4 setup guide to recommend GitHub App auth (durable, no calendar expiration) instead of PAT (90-day rotation).
+- **Sibling-plugin migrations in flight** — 4 PRs opened to migrate downstream plugins to the same App-auth pattern: `aiterm` ([#10](https://github.com/Data-Wise/aiterm/pull/10)), `flow-cli` ([#443](https://github.com/Data-Wise/flow-cli/pull/443)), `atlas` ([#15](https://github.com/Data-Wise/atlas/pull/15)), `mcp-bridge` ([#1](https://github.com/Data-Wise/mcp-bridge/pull/1)). [#130](https://github.com/Data-Wise/craft/issues/130) tracks `himalaya-mcp` + `nexus-cli` which need App secrets configured first.
+- **`docs/guide/getting-started.md`** — fixed remaining `107 commands` → `108 commands` references (2 spots).
+
+---
+
+## [2.32.0] — 2026-05-09
+
+**Theme:** GitHub-side branch protection + hook contract fix
 
 ### Added
 
@@ -31,13 +50,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **macOS portability** — `--help` dispatcher used `head -n -2` (GNU-only) which errored on BSD/macOS with `illegal line count: -2`. Replaced with portable `awk`
-- **`--show` output** — moved human-readable `Repo:`/`Branch:` headers to stderr so stdout is JSON-only; the documented `--show | jq` pattern in the cookbook and refcard now works as written
-
-### Fixed
-
+- **macOS portability** in `protect-baseline.sh` — `--help` dispatcher used `head -n -2` (GNU-only) which errored on BSD/macOS with `illegal line count: -2`. Replaced with portable `awk`
+- **`protect-baseline.sh --show` output** — moved human-readable `Repo:`/`Branch:` headers to stderr so stdout is JSON-only; the documented `--show | jq` pattern in the cookbook and refcard now works as written
 - **`pretooluse.py` hook contract** — hook was reading `CLAUDE_TOOL_NAME` / `CLAUDE_TOOL_INPUT` env vars that Claude Code never sets. The hook silently no-op'd in production: every `Write`/`Edit` invocation hit the early return because `tool_name` was always empty. Replaced with `json.load(sys.stdin)` matching the canonical contract used by `branch-guard.sh` and other working hooks. Worktree warnings now actually fire. Includes regression test that runs the hook as a real subprocess. Discovered via downstream rforge fork code review (rforge#1).
 - **Tutorial example** (`docs/tutorials/TUTORIAL-insights-workflow.md`) and **e2e test script** (`tests/test_insights_improvements_e2e.sh`) — updated to use the correct stdin JSON invocation; previous `CLAUDE_TOOL_NAME=...` examples no-op'd silently.
+- **`docs/tutorials/smart-routing-tutorial.md`** — replaced retired `/craft:docs:generate` with `/craft:docs:check` in the routing example.
 
 ---
 

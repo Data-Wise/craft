@@ -2,13 +2,24 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.32.0 (2026-05-09)
-**Total Releases:** 53 versions | **Development Time:** 2+ years
+**Latest Release:** v2.32.1 (2026-05-10)
+**Total Releases:** 54 versions | **Development Time:** 2+ years
 **Community:** 108 commands documented, 112 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.32.1 (2026-05-10) — Infrastructure: durable Homebrew release auth
+
+**Status:** Released
+**Stats:** 108 commands | 26 skills | 8 agents | 112 tests passing
+
+- Migrated `homebrew-release.yml` from PAT (HOMEBREW_TAP_GITHUB_TOKEN, expired) to GitHub App auth via `actions/create-github-app-token@v1`
+- Inlined the `update-homebrew` job (replaces `workflow_call` to homebrew-tap reusable workflow); always uses canonical manifest+regen pattern
+- 4 sibling-plugin migration PRs opened (aiterm, flow-cli, atlas, mcp-bridge) for the same App-auth pattern; issue #130 tracks deferred himalaya-mcp + nexus-cli
+- Updated `commands/dist/homebrew.md` setup guide to recommend GitHub App over PAT
+- Removed unused `auto_merge` workflow_dispatch input
 
 ### v2.32.0 (2026-05-09) — GitHub-side branch protection + hook contract fix
 

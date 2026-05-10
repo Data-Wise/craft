@@ -878,15 +878,26 @@ jobs:
 
   update-homebrew:
     needs: prepare
-    uses: YOUR-ORG/homebrew-tap/.github/workflows/update-formula.yml@main
-    with:
-      formula_name: YOUR-FORMULA-NAME
-      version: ${{ needs.prepare.outputs.version }}
-      sha256: ${{ needs.prepare.outputs.sha256 }}
-      source_type: github
-      auto_merge: ${{ github.event.inputs.auto_merge == 'true' || github.event_name == 'release' }}
-    secrets:
-      tap_token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mint GitHub App token (cross-repo push to tap)
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: YOUR-ORG
+          repositories: homebrew-tap
+
+      - name: Checkout homebrew-tap
+        uses: actions/checkout@v4
+        with:
+          repository: YOUR-ORG/homebrew-tap
+          token: ${{ steps.app-token.outputs.token }}
+          path: homebrew-tap
+
+      # ... regenerate formula via manifest, commit + push to tap
+      # See craft's homebrew-release.yml for full inline pattern.
 ```
 
 ### Security Features
@@ -1144,17 +1155,18 @@ Full guided setup for Homebrew automation.
 ║  ✓ Created: .github/workflows/homebrew-release.yml            ║
 ║  ✓ Configured for: Data-Wise/homebrew-tap                     ║
 ║                                                               ║
-║  Step 4: Token Setup                                          ║
+║  Step 4: Auth Setup (GitHub App, recommended)                 ║
 ║  ───────────────────────────────────────                      ║
-║  ⚠ HOMEBREW_TAP_GITHUB_TOKEN not found                        ║
+║  ⚠ APP_ID / APP_PRIVATE_KEY not found                         ║
 ║                                                               ║
-║  Creating Fine-Grained PAT...                                 ║
-║  → URL: github.com/settings/tokens?type=beta                  ║
-║  → Repos: YOUR-ORG/homebrew-tap only                          ║
-║  → Permissions: Contents (RW) + Pull requests (RW)            ║
-║  → Expiration: 90 days (set rotation reminder)                ║
+║  Set up a GitHub App with cross-repo write access:            ║
+║  → Create App: github.com/settings/apps/new                   ║
+║  → Permissions: Contents (RW) on YOUR-ORG/homebrew-tap        ║
+║  → Install on YOUR-ORG/homebrew-tap                           ║
+║  → No expiration (per-run tokens are short-lived)             ║
 ║                                                               ║
-║  Run: gh secret set HOMEBREW_TAP_GITHUB_TOKEN                 ║
+║  Run: gh secret set APP_ID --body "<app-id>"                  ║
+║       gh secret set APP_PRIVATE_KEY < private-key.pem         ║
 ║                                                               ║
 ║  Step 5: Commit Changes                                       ║
 ║  ───────────────────────────────────────                      ║
@@ -1172,7 +1184,7 @@ Full guided setup for Homebrew automation.
 2. **Generates** Homebrew formula
 3. **Validates** formula with `brew audit`
 4. **Creates** GitHub Actions workflow
-5. **Sets up token** — checks for `HOMEBREW_TAP_GITHUB_TOKEN`, guides creation of Fine-Grained PAT if missing (repos: tap only, permissions: Contents RW + PRs RW, 90-day expiry)
+5. **Sets up auth** — checks for `APP_ID` / `APP_PRIVATE_KEY`, guides GitHub App creation if missing (recommended over PAT — short-lived per-run tokens, no calendar expiration, scoped to tap-only). See craft's `homebrew-release.yml` for the inline `actions/create-github-app-token@v1` pattern.
 6. **Commits** all changes (with confirmation)
 
 ### Post-Setup

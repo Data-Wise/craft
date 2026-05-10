@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.32.1] — 2026-05-10
+
+**Theme:** Infrastructure — durable Homebrew release auth
+
+### Fixed
+
+- **`homebrew-release.yml` PAT auth failure** ([#129](https://github.com/Data-Wise/craft/issues/129)) — the `update-homebrew` job depended on `HOMEBREW_TAP_GITHUB_TOKEN`, a fine-grained PAT that expired ~10 weeks after creation. v2.32.0's release surfaced the auth failure (`fatal: could not read Username for github.com`). Migrated to GitHub App auth via `actions/create-github-app-token@v1` using existing `APP_ID` + `APP_PRIVATE_KEY` secrets. App tokens are minted per-run, scoped to `homebrew-tap` only, and never expire on a calendar.
+
+### Changed
+
+- **`homebrew-release.yml`** — `update-homebrew` job now runs inline (replaces the `workflow_call` to `Data-Wise/homebrew-tap/.github/workflows/update-formula.yml@main`). Always uses the canonical `manifest.json` + `generate.py` pattern, eliminating the manifest drift risk where CI would patch `.rb` files via sed without updating the manifest. Removed the unused `auto_merge` workflow_dispatch input. Deleted the stale `HOMEBREW_TAP_GITHUB_TOKEN` secret from craft.
+- **`commands/dist/homebrew.md`** — updated example workflow snippet and Step 4 setup guide to recommend GitHub App auth (durable, no calendar expiration) instead of PAT (90-day rotation).
+- **Sibling-plugin migrations in flight** — 4 PRs opened to migrate downstream plugins to the same App-auth pattern: `aiterm` ([#10](https://github.com/Data-Wise/aiterm/pull/10)), `flow-cli` ([#443](https://github.com/Data-Wise/flow-cli/pull/443)), `atlas` ([#15](https://github.com/Data-Wise/atlas/pull/15)), `mcp-bridge` ([#1](https://github.com/Data-Wise/mcp-bridge/pull/1)). [#130](https://github.com/Data-Wise/craft/issues/130) tracks `himalaya-mcp` + `nexus-cli` which need App secrets configured first.
+- **`docs/guide/getting-started.md`** — fixed remaining `107 commands` → `108 commands` references (2 spots).
+
+---
+
 ## [2.32.0] — 2026-05-09
 
 **Theme:** GitHub-side branch protection + hook contract fix

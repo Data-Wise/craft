@@ -1,10 +1,10 @@
 status: Active
-version: 2.32.0
-release_date: 2026-02-27
-milestone: v2.32.0 planning — Insights-Driven Improvements
-last_session: 2026-05-09
+version: 2.32.1
+release_date: 2026-05-10
+milestone: v2.33.0 planning — Insights-Driven Improvements (renumbered from original v2.32 spec)
+last_session: 2026-05-10
 
-progress: v2.31.0 stable. Today (2026-05-09 / 2026-05-10): shipped 4 PRs — /craft:git:protect-baseline (#122), 348-ref cross-ref sweep (#123), polish + xref follow-up (#124), pretooluse.py hook stdin contract fix (#125). All merged. v2.32.0 spec still approved, ready for implementation (untouched by today's work).
+progress: v2.32.0 + v2.32.1 shipped. v2.32.0 (2026-05-09): /craft:git:protect-baseline (#122), 348-ref cross-ref sweep (#123), polish + xref follow-up (#124), pretooluse.py hook stdin contract fix (#125). v2.32.1 (2026-05-10): infrastructure patch — homebrew-release.yml PAT → GitHub App auth migration (#129), inlined update-homebrew job, removed unused auto_merge input, updated commands/dist/homebrew.md to recommend App auth. v2.33.0 spec (originally v2.32.0 Insights-Driven Improvements, renumbered) still approved, ready for implementation.
 
 📊 Branch Status:
 
