@@ -109,4 +109,4 @@ Recommended patterns:
 - [/craft:git:clean](clean.md) — Remove merged branches
 - [/craft:git:sync](sync.md) — Smart git synchronization
 - [Git Workflow Guide](../../guide/worktree-advanced-patterns.md) — Branch workflow patterns
-- [/craft:git:protect-baseline](protect-baseline.md) --- Apply GitHub-side branch protection (PR required, no force-push, no delete)
+- [/craft:git:protect-baseline](protect-baseline.md) — Apply GitHub-side branch protection (PR required, no force-push, no delete)

@@ -87,4 +87,4 @@ The following branches are **never** deleted:
 - [/craft:git:status](status.md) — Enhanced git status
 - [/craft:git:sync](sync.md) — Smart git synchronization
 - [/craft:git:worktree](worktree.md) — Worktree management
-- [/craft:git:protect-baseline](protect-baseline.md) --- Apply GitHub-side branch protection (PR required, no force-push, no delete)
+- [/craft:git:protect-baseline](protect-baseline.md) — Apply GitHub-side branch protection (PR required, no force-push, no delete)

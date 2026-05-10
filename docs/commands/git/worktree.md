@@ -357,4 +357,4 @@ alias craft-wt='cd ~/.git-worktrees/craft'
 - **Pre-flight check:** `/craft:check` - Validates before commit/PR
 - **Branch cleanup:** `/craft:git:clean` - Clean merged branches
 - **Workflow:** [Git Feature Workflow](../../workflows/git-feature-workflow.md)
-- [/craft:git:protect-baseline](protect-baseline.md) --- Apply GitHub-side branch protection (PR required, no force-push, no delete)
+- [/craft:git:protect-baseline](protect-baseline.md) — Apply GitHub-side branch protection (PR required, no force-push, no delete)
