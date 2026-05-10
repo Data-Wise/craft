@@ -287,6 +287,14 @@ Always end with:
 - `/craft:site:consolidate` - Merge duplicates
 - `/craft:site:update` - Update from code
 - `/craft:site:deploy` - Deploy to GitHub Pages
+- `/craft:site:add` - Add Pages with Navigation Sync
+- `/craft:site:build` - Build documentation site (Quarto, pkgdown, MkDocs)
+- `/craft:site:check` - Validate documentation site for broken links
+- `/craft:site:create` - Full Documentation Site Wizard
+- `/craft:site:progress` - Display comprehensive semester progress dashboard
+- `/craft:site:publish` - Publish teaching site with preview workflow
+- `/craft:site:status` - Documentation Site Dashboard
+- `/craft:site:theme` - Quick Theme Changes
 
 **Uses:**
 

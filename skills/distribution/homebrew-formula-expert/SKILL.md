@@ -1,6 +1,6 @@
 ---
 name: homebrew-formula-expert
-description: Expert knowledge of Homebrew formula creation, best practices, and troubleshooting
+description: This skill should be used when the user asks to "create a Homebrew formula", "fix brew audit errors", "write a formula", "Homebrew best practices", or needs help with Homebrew formula syntax, dependencies, and troubleshooting. Expert knowledge of Homebrew formula creation and maintenance.
 category: distribution
 ---
 

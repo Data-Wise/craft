@@ -1,6 +1,6 @@
 ---
 name: homebrew-multi-formula
-description: Coordinate releases across multiple Homebrew formulas with dependency ordering
+description: This skill should be used when the user asks to "release multiple formulas", "batch Homebrew update", "coordinate formula releases", "formula dependencies", or needs to manage releases across multiple Homebrew formulas with dependency ordering.
 category: distribution
 ---
 

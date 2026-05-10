@@ -1,3 +1,8 @@
+---
+name: mode-controller
+description: This skill should be used when the user asks to "switch mode", "use debug mode", "optimize mode", "release mode", or mentions execution modes for craft commands. Manages craft plugin execution modes (default, debug, optimize, release) for different use cases.
+---
+
 # Mode Controller Skill
 
 Expert in managing craft plugin execution modes for different use cases.

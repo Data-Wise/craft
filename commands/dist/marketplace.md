@@ -1,5 +1,6 @@
 ---
 description: Claude Code marketplace distribution - init, validate, test, and publish
+category: dist
 arguments:
   - name: subcommand
     description: "Subcommand: init|validate|test|publish"
@@ -403,3 +404,4 @@ The `/release` skill handles marketplace automatically:
 - `/craft:dist:homebrew` - Homebrew formula automation
 - `/craft:check` - Pre-flight validation
 - `/release` - End-to-end release pipeline
+- `/craft:dist:curl-install` - Generate curl-based installation scripts for GitHub releases

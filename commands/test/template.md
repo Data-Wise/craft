@@ -1,5 +1,6 @@
 ---
 description: Manage Jinja2 templates for test generation
+category: test
 arguments:
   - name: action
     description: "Action: list, show, validate, render, create, edit, delete"

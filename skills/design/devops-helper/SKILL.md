@@ -1,6 +1,6 @@
 ---
 name: devops-helper
-description: Auto-activates for CI/CD, deployment, Docker, testing automation, and infrastructure decisions. Provides pragmatic DevOps guidance for indie developers.
+description: This skill should be used when the user asks to "set up deployment", "configure CI/CD", "create a Dockerfile", "choose a hosting platform", or discusses deployment and infrastructure decisions. Provides pragmatic DevOps guidance for indie developers.
 ---
 
 # DevOps Helper Skill

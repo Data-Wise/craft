@@ -291,13 +291,12 @@ This hook runs silently in the background. You don't invoke it — it protects y
 - **Fast** — 45ms on the fast path, 60ms when checking worktree
 - **Targeted** — only fires for Write/Edit, only in worktrees
 
-**Try it:** You can test it manually:
+**Try it:** You can test it manually by piping a JSON payload on stdin (Claude Code's actual contract — earlier versions of this doc incorrectly described env vars):
 
 ```bash
 cd ~/.git-worktrees/<project>/<branch>
-CLAUDE_TOOL_NAME="Write" \
-CLAUDE_TOOL_INPUT='{"file_path":"/tmp/outside.txt"}' \
-python3 .claude-plugin/hooks/pretooluse.py 2>&1
+echo '{"tool_name":"Write","tool_input":{"file_path":"/tmp/outside.txt"}}' \
+  | python3 .claude-plugin/hooks/pretooluse.py 2>&1
 ```
 
 You should see the warning since `/tmp/outside.txt` is outside the worktree.

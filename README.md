@@ -1,13 +1,18 @@
 # Craft - Full Stack Developer Toolkit Plugin
 
+[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
+[![Docs Sync](https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml)
+[![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
+[![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
+[![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
+
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.31.0-blue.svg)](https://github.com/Data-Wise/craft)
-[![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
+[![Version](https://img.shields.io/badge/version-2.32.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
-> **v2.31.0 - Workflow Learning Loop & Live Dashboard** 🚀
-> **107 commands** | **26 skills** | **8 agents** | **112 tests passing**
-> `/workflow:done` learning loop with memory + insights capture, `/craft:do` memory-aware routing with worktree detection, `/craft:hub` live dashboard with dynamic counts and .STATUS integration.
+> **v2.32.0 — GitHub-side branch protection + hook contract fix** 🚀
+> **108 commands** | **26 skills** | **8 agents** | **112 tests passing**
+> New `/craft:git:protect-baseline` for GitHub-side branch protection (defense-in-depth with the local hook), fixed `pretooluse.py` silent no-op (env-var contract → stdin JSON), and a 348-ref cross-reference sweep across 49 command files.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -145,7 +150,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 107 commands, 8 agents, 26 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 26 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -376,15 +381,20 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:site:deploy`      | Deploy to GitHub Pages                                                   |
 | `/craft:site:init`        | Basic initialization (use `create` for full wizard)                      |
 
-### Git Commands (5 + 4 guides)
+### Git Commands (10 + 4 guides)
 
-| Command               | Description                                            |
-| --------------------- | ------------------------------------------------------ |
-| `/craft:git:branch`   | Branch management                                      |
-| `/craft:git:sync`     | Smart git sync                                         |
-| `/craft:git:clean`    | Clean merged branches                                  |
-| `/craft:git:recap`    | Activity summary                                       |
-| `/craft:git:worktree` | **NEW v1.8.0** Parallel development with git worktrees |
+| Command                       | Description                                                                                  |
+| ----------------------------- | -------------------------------------------------------------------------------------------- |
+| `/craft:git:init`             | Initialize repository with craft workflow                                                    |
+| `/craft:git:branch`           | Branch management                                                                            |
+| `/craft:git:status`           | Enhanced git status (teaching-aware)                                                         |
+| `/craft:git:sync`             | Smart git sync                                                                               |
+| `/craft:git:clean`            | Clean merged branches                                                                        |
+| `/craft:git:recap`            | Activity summary                                                                             |
+| `/craft:git:worktree`         | **NEW v1.8.0** Parallel development with git worktrees                                       |
+| `/craft:git:protect`          | Manage local hook (`branch-guard.sh`) — 3-tier risk classification                           |
+| `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side branch protection (PR required, no force-push, no delete)        |
+| `/craft:git:unprotect`        | Session-scoped bypass for the local hook                                                     |
 
 **Git Guides:** refcard, undo-guide, safety-rails, learning-guide
 

@@ -4,9 +4,9 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**107 commands** · **26 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**108 commands** · **26 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-**Current Version:** v2.31.0 | **Tests:** 112 tests passing (13 unit + 21 e2e + 28 dogfood + 50 homebrew)
+**Current Version:** v2.32.0 | **Tests:** 112 tests passing (13 unit + 21 e2e + 28 dogfood + 50 homebrew)
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
@@ -27,7 +27,9 @@ feature/* (worktrees) ← All implementation work
 - **Never** write feature code on `dev`
 - **Always** verify branch: `git branch --show-current`
 
-### Branch Protection (Enforced by Hook)
+### Branch Protection (Two Layers)
+
+**Local hook** (`branch-guard.sh`) — enforces table below before edits/writes leave this machine:
 
 | Branch | Code Files | .md Files | Git Operations |
 |--------|-----------|-----------|----------------|
@@ -35,7 +37,9 @@ feature/* (worktrees) ← All implementation work
 | `dev` | New: BLOCKED, Existing: allowed | ALLOWED | Commit/push allowed |
 | `feature/*` | ALLOWED | ALLOWED | All allowed |
 
-Override: `/craft:git:unprotect` (session-scoped, auto-expires)
+Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
+
+**GitHub-side** (`branch protection API`) — applied per-repo via `/craft:git:protect-baseline` (PR required, no force-push, no delete). Independent of local hook; `unprotect` does NOT remove it.
 
 ## Quick Commands
 
@@ -51,6 +55,7 @@ Override: `/craft:git:unprotect` (session-scoped, auto-expires)
 | Post-release sweep | `./scripts/post-release-sweep.sh` or `--fix` |
 | Docs staleness check | `./scripts/docs-staleness-check.sh` or `--fix` |
 | Build docs | `mkdocs build` |
+| Apply GitHub-side protection | `/craft:git:protect-baseline [--repo OWNER/REPO]` |
 | Smart routing | `/craft:do <task>` |
 | Pre-flight check | `/craft:check` |
 | Lint code | `/craft:code:lint` |

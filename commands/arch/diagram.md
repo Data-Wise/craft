@@ -124,3 +124,7 @@ Works with:
 - `/craft:arch:analyze` - Analysis data
 - `/craft:arch:plan` - Visualize plans
 - `/craft:docs:sync` - Embed in docs
+
+## See Also
+
+- `/craft:arch:review` - Architecture Review

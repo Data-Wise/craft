@@ -2,13 +2,25 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.30.0 (2026-02-26)
-**Total Releases:** 51 versions | **Development Time:** 2+ years
-**Community:** 107 commands documented, 112 tests passing, 90%+ coverage
+**Latest Release:** v2.32.0 (2026-05-09)
+**Total Releases:** 53 versions | **Development Time:** 2+ years
+**Community:** 108 commands documented, 112 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.32.0 (2026-05-09) — GitHub-side branch protection + hook contract fix
+
+**Status:** Released
+**Stats:** 108 commands | 26 skills | 8 agents | 112 tests passing
+
+- New `/craft:git:protect-baseline` — GitHub-side branch protection (PR required, no force-push, no delete) as defense-in-depth companion to local hook
+- Fixed `pretooluse.py` silent no-op — hook was reading env vars Claude Code never sets; now reads stdin JSON contract
+- 348-ref cross-reference sweep — 4 parallel agents added missing See Also entries across 49 command files
+- macOS portability fix — `protect-baseline.sh --help` (GNU-only `head -n -2` replaced with portable `awk`)
+- Site refresh — git command tables expanded 5→10, added 5 missing CI badges, two-layer protection model documented
+- 25 command help files — added missing `category:` frontmatter
 
 ### v2.30.0 (2026-02-26) - Unified Release Watch v2 & CI Stability
 

@@ -1,5 +1,6 @@
 ---
 description: Track Claude Code + Desktop releases and identify plugin-relevant changes
+category: code
 arguments:
   - name: count
     description: Number of Code releases to check

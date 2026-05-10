@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`/craft:git:protect-baseline`** — New git subcommand applies craft's standard GitHub-side branch protection (PR required with 0 reviews, no force-push, no delete) to any repo via the GitHub REST API
+  - Repeatable `--check NAME` flag handles status check names containing commas (e.g. `test (ubuntu-latest, 3.12)`)
+  - `--strict`, `--dry-run`, `--show`, `--remove` flags for safety and inspection
+  - Default repo derived from `origin` remote, default branch from GitHub API
+  - Companion to `/craft:git:protect` (local hook) — together they form defense-in-depth
+- **REFCARD-PROTECT-BASELINE** — Quick-reference card for the new command
+- **Cookbook recipe** — Bulk-apply protection across many repos (`docs/cookbook/common/bulk-branch-protection.md`)
+- **Tutorial** — Step-by-step "Protect a new repo with craft" (`docs/tutorials/TUTORIAL-protect-new-repo.md`)
+- **Architecture doc** — New section on local-hook + GitHub-side defense-in-depth
+
+### Changed
+
+- **REFCARD-BRANCH-GUARD** updated with GitHub-side companion section and split commands table (local hook vs GitHub-side)
+- Cross-references added to `/craft:git:protect`, `/craft:git:unprotect` so users discover the GitHub-side companion
+- **`/craft:git:protect-baseline` cross-references** added to See Also sections of all other git commands (`branch`, `clean`, `init`, `status`, `sync`, `worktree`)
+- **`scripts/protect-baseline.sh` polish** — default-branch detection now surfaces real `gh` API errors (was swallowed by `2>/dev/null`); APPLY uses exit-code success detection instead of brittle `grep '"url"'`; REMOVE checks DELETE exit code symmetrically (was unconditionally printing success on failure)
+- **Tutorial** clarification — Step 4 now warns that craft's local hook fires before reaching GitHub's rejection, with `/craft:git:unprotect maintenance` workaround
+
+### Fixed
+
+- **macOS portability** — `--help` dispatcher used `head -n -2` (GNU-only) which errored on BSD/macOS with `illegal line count: -2`. Replaced with portable `awk`
+- **`--show` output** — moved human-readable `Repo:`/`Branch:` headers to stderr so stdout is JSON-only; the documented `--show | jq` pattern in the cookbook and refcard now works as written
+
+### Fixed
+
+- **`pretooluse.py` hook contract** — hook was reading `CLAUDE_TOOL_NAME` / `CLAUDE_TOOL_INPUT` env vars that Claude Code never sets. The hook silently no-op'd in production: every `Write`/`Edit` invocation hit the early return because `tool_name` was always empty. Replaced with `json.load(sys.stdin)` matching the canonical contract used by `branch-guard.sh` and other working hooks. Worktree warnings now actually fire. Includes regression test that runs the hook as a real subprocess. Discovered via downstream rforge fork code review (rforge#1).
+- **Tutorial example** (`docs/tutorials/TUTORIAL-insights-workflow.md`) and **e2e test script** (`tests/test_insights_improvements_e2e.sh`) — updated to use the correct stdin JSON invocation; previous `CLAUDE_TOOL_NAME=...` examples no-op'd silently.
+
+---
+
 ## [2.31.0] — 2026-02-26
 
 ### Added

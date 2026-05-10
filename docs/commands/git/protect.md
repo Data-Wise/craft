@@ -114,6 +114,7 @@ Protection level is determined by `.claude/branch-guard.json` if present, otherw
 
 ## See Also
 
+- [/craft:git:protect-baseline](protect-baseline.md) --- GitHub-side branch protection (companion to this local-hook command)
 - [/craft:git:unprotect](unprotect.md) --- Temporarily bypass branch protection
 - [/craft:git:status](status.md) --- Shows protection indicator
 - [/craft:check](../check.md) --- Shows branch context section

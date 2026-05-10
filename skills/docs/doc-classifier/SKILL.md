@@ -1,6 +1,6 @@
 ---
 name: doc-classifier
-description: Classify documentation needs based on code changes
+description: This skill should be used when the user asks to "classify docs", "what documentation do I need", "analyze doc needs", "documentation audit", or needs to determine what documentation types are needed based on code changes. Analyzes git commits and feature scope to return structured classification data.
 ---
 
 # doc-classifier Skill

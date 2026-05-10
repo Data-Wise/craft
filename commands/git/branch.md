@@ -471,6 +471,10 @@ Examples:
 
 - `/craft:git:clean` - Clean merged branches
 - `/craft:git:worktree` - Worktree management
+- `/craft:git:status` - Enhanced git status with teaching-specific context
+- `/craft:git:sync` - Smart git synchronization with remote repositories
+- `/craft:git:unprotect` - Session-scoped bypass for branch protection with reason logging
 - Template: `templates/dry-run-pattern.md`
 - Utility: `utils/dry_run_output.py`
 - Specification: `docs/specs/_archive/SPEC-dry-run-feature-2026-01-15.md`
+- `/craft:git:protect-baseline` - Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo

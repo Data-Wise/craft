@@ -1,6 +1,6 @@
 ---
 name: project-detector
-description: Smart detection of project types, build tools, and CI requirements for automated workflow generation
+description: This skill should be used when the user asks to "detect project type", "what kind of project is this", "generate CI workflow", "set up CI", or needs to identify build tools, test frameworks, and CI requirements. Smart detection of project types, build tools, and CI requirements for automated workflow generation.
 category: ci
 ---
 

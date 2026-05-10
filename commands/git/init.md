@@ -1,5 +1,6 @@
 ---
 description: Initialize git repository with craft workflow patterns
+category: git
 arguments:
   - name: remote
     description: GitHub repository (user/repo or full URL)
@@ -591,3 +592,4 @@ ls -la .git/hooks/pre-commit
 - [CI/CD Setup](../../docs/help/ci-generate.md)
 - `/craft:docs:lint` - Markdown quality validation
 - `/craft:docs:check-links` - Link validation
+- `/craft:git:protect-baseline` - Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo

@@ -1,5 +1,6 @@
 ---
 description: Complete PyPI automation - build, publish, and workflow generation
+category: dist
 arguments:
   - name: subcommand
     description: "Subcommand: publish|workflow|validate|setup|check"

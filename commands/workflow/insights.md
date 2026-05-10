@@ -1,5 +1,6 @@
 ---
 description: Generate insights report from session facets data with friction patterns, goal categories, and CLAUDE.md suggestions
+category: workflow
 arguments:
   - name: format
     description: "Output format: terminal (default), html, json"

@@ -87,3 +87,10 @@ Works with:
 - `/craft:code:ci-local` - Run CI locally
 - `/craft:test debug` - Debug failing tests
 - `/craft:code:lint --fix` - Fix lint issues
+
+## See Also
+
+- `/craft:code:command-audit` - Validate command frontmatter, find deprecated patterns, report health score
+- `/craft:code:coverage` - Test Coverage Report
+- `/craft:code:deps-check` - Dependency Check
+- `/craft:code:desktop-watch` - Track Claude Desktop releases and identify plugin integration opportunities

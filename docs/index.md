@@ -1,20 +1,25 @@
 # Craft Plugin
 
+[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
+[![Docs Sync](https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml)
+[![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
+[![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
+[![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
+[![Version](https://img.shields.io/badge/version-2.32.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+
 | Branch | CI | Docs |
 |--------|----|----- |
 | **main** | [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) | [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml) |
 | **dev** | [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) | [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml) |
 
-[![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
-
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 107 commands, 8 AI agents, and 26 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 108 commands, 8 AI agents, and 26 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 107 commands, 8 agents, 26 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 26 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -206,7 +211,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Documentation**  | 19     | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow                                  |
 | **Site**           | 16     | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit                                                          |
 | **Code & Testing** | 12 + 7 | Code: linting, testing, debugging, refactoring, CI fixes, deps management; Tests: run, debug, watch, coverage, generation |
-| **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, smart branch protection (3-tier risk), learning guides |
+| **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, two-layer branch protection (local hook + GitHub-side baseline), learning guides |
 | **CI**             | 3      | Detection, generation, validation                                                                                         |
 | **Architecture**   | 4      | Analysis, diagrams, planning, reviews                                                                                     |
 | **Distribution**   | 4      | Marketplace, Homebrew, PyPI, curl installers                                                                              |
@@ -214,8 +219,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.31.0 — Unified Release Watch v2 & CI Stability"
-    Unified release-watch v2 with Code + Desktop tracking, 24h cache, auto-fix proposals, and pinned markdownlint-cli2 for CI stability. 37 new tests, 5 new docs files. 112 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.32.0 — GitHub-side branch protection + hook contract fix"
+    New `/craft:git:protect-baseline` command applies GitHub branch protection rules (PR required, no force-push, no delete) to any repo as a defense-in-depth companion to the local `branch-guard.sh` hook. Fixes a silent `pretooluse.py` no-op (hook was reading env vars Claude Code never sets — now reads stdin JSON). Sweeps 348 missing cross-references across 49 command files via 4 parallel agents. 112 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 

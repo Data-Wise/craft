@@ -1,5 +1,6 @@
 ---
 description: Auto-detect project type and generate test suite
+category: test
 arguments:
   - name: project_path
     description: "Path to project (default: current directory)"

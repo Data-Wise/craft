@@ -1,3 +1,8 @@
+---
+name: task-analyzer
+description: This skill should be used when the user asks to "analyze a task", "route a command", "what craft command should I use", or describes a development task that needs routing to the appropriate craft workflow. Analyzes natural language task descriptions and maps them to optimal craft command sequences.
+---
+
 # Task Analyzer Skill
 
 Expert in analyzing natural language task descriptions and routing to appropriate craft commands.

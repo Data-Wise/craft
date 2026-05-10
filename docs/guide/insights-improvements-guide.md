@@ -130,7 +130,7 @@ flowchart TD
     T1 -->|No| Pass1[Exit 0 — skip]
     T1 -->|Yes| T2{CWD contains /.git-worktrees/?}
     T2 -->|No| Pass2[Exit 0 — not in worktree]
-    T2 -->|Yes| T3[Parse CLAUDE_TOOL_INPUT JSON]
+    T2 -->|Yes| T3[Parse stdin JSON payload]
     T3 --> T4{file_path present?}
     T4 -->|No| Pass3[Exit 0 — no path]
     T4 -->|Yes| T5[Get git toplevel]

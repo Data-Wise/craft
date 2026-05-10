@@ -1,6 +1,6 @@
 ---
 name: distribution-strategist
-description: Recommends optimal distribution channels and strategies based on project type and target audience
+description: This skill should be used when the user asks to "plan distribution", "how should I distribute this", "choose a package manager", "distribution strategy", or needs to select and prioritize distribution channels for a software project. Recommends optimal distribution channels based on project type and target audience.
 category: distribution
 ---
 

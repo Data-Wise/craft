@@ -25,8 +25,8 @@ PLUGIN_DIR = Path(__file__).parent.parent
 
 def test_mode_controller_skill_exists():
     """Check that mode-controller skill exists."""
-    skill_path = PLUGIN_DIR / "skills" / "modes" / "mode-controller.md"
-    assert skill_path.exists(), "Missing skills/modes/mode-controller.md"
+    skill_path = PLUGIN_DIR / "skills" / "modes" / "SKILL.md"
+    assert skill_path.exists(), "Missing skills/modes/SKILL.md"
 
     content = skill_path.read_text()
 
@@ -151,8 +151,8 @@ def test_smart_help_command_exists():
 
 def test_task_analyzer_skill_exists():
     """Check that task-analyzer skill exists."""
-    skill_path = PLUGIN_DIR / "skills" / "orchestration" / "task-analyzer.md"
-    assert skill_path.exists(), "Missing skills/orchestration/task-analyzer.md"
+    skill_path = PLUGIN_DIR / "skills" / "orchestration" / "task-analyzer" / "SKILL.md"
+    assert skill_path.exists(), "Missing skills/orchestration/task-analyzer/SKILL.md"
 
     content = skill_path.read_text()
 

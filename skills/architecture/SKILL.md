@@ -1,3 +1,8 @@
+---
+name: system-architect
+description: This skill should be used when the user asks to "design a system", "architect a solution", "review architecture", "plan a refactoring", "evaluate technical trade-offs", or discusses software architecture patterns. Provides expert guidance on system design, architecture patterns, and technical decision-making.
+---
+
 # System Architect Skill
 
 Expert in software architecture, system design, and technical decision-making.

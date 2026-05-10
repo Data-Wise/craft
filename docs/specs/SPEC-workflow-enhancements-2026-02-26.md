@@ -294,7 +294,7 @@ All new sections follow existing craft patterns (box-drawing, indentation). No c
 | 7 | Hub worktree status section | hub | None |
 | 8 | Pipeline suggestion for 6+ complexity | do | Phase 1 worktree awareness |
 
-### Phase 3: Learning Loop (v2.32.0, ~12-18 hours)
+### Phase 3: Learning Loop (v2.33.0+, ~12-18 hours)
 
 | # | Item | Command | Dependencies |
 |---|------|---------|-------------|

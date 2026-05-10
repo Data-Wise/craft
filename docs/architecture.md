@@ -157,6 +157,23 @@ exit 0 (allow) or exit 2 (block)
 
 **Bypass:** `/craft:git:unprotect` creates a marker file; `/craft:git:protect` removes it.
 
+#### Defense-in-Depth: Local Hook + GitHub-Side
+
+The `branch-guard.sh` hook is one of two layers that protect branches. The second layer lives on GitHub itself, applied via `gh api -X PUT repos/OWNER/REPO/branches/main/protection`. They cover different failure modes:
+
+| Layer | Catches | Misses |
+|-------|---------|--------|
+| **Local hook** (`branch-guard.sh`) | Accidental edits, writes, force-pushes from this machine | Pushes from other machines, web UI commits, CI bots, hook bypass via `--no-verify` |
+| **GitHub-side** (branch protection API) | Direct pushes from any source, force-pushes, deletions, missing PR | Anything that happens before the push (hook is the earlier shield) |
+
+`/craft:git:protect-baseline` provides a one-step way to apply the GitHub-side layer to any repo with craft's standard baseline (PR required with 0 reviews, no force-push, no delete, optional status checks). The command is deliberately separate from `/craft:git:protect` because:
+
+1. **Different scope** — local hook is per-machine and stateful; GitHub protection is per-repo and persistent
+2. **Different invocation** — local hook needs no API; GitHub-side requires authenticated `gh` CLI
+3. **Different bypass semantics** — `unprotect` only affects the local hook; GitHub-side rules require explicit `protect-baseline --remove`
+
+The two layers are complementary, not redundant: the local hook is the fast, opinionated, teaching-oriented shield; GitHub-side protection is the immutable backstop.
+
 ### 6. Documentation Quality Toolchain
 
 Automated detection of documentation drift across 4 phases:

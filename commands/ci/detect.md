@@ -1,5 +1,6 @@
 ---
 description: Smart detection of project type, build tools, test frameworks, and CI requirements
+category: ci
 arguments:
   - name: path
     description: Project directory to analyze (defaults to current directory)
@@ -285,3 +286,7 @@ For production-ready CI examples, see **[CI-TEMPLATES.md](../../docs/CI-TEMPLATE
 - `project-detector` - Core detection logic
 - `test-strategist` - Test framework recommendations
 - `devops-helper` - CI/CD best practices
+
+## See Also
+
+- `/craft:ci:status` - Cross-repo CI status dashboard showing all workflow runs

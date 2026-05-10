@@ -1,5 +1,6 @@
 ---
 description: Validate existing CI workflow against project configuration
+category: ci
 arguments:
   - name: path
     description: Path to workflow file (defaults to .github/workflows/*.yml)
@@ -297,5 +298,6 @@ Works with:
 - `/craft:ci:generate` - Generate new CI workflow
 - `/craft:ci:detect` - Detect project configuration
 - `/craft:check` - Pre-flight validation
+- `/craft:ci:status` - Cross-repo CI status dashboard showing all workflow runs
 - Template: `templates/dry-run-pattern.md`
 - Utility: `utils/dry_run_output.py`

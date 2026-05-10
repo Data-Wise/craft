@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.31.0 (released 2026-02-26)                       │
+│  Version: 2.32.0 (released 2026-02-26)                       │
 │  Commands: 107 | Agents: 8 | Skills: 26                     │
 │  Documentation: 99% complete | Tests: 112 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.31.0: Workflow learning loop & live dashboard            │
+│  v2.32.0: GitHub-side branch protection + hook contract fix  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -847,21 +847,22 @@ Layer 3: /craft:check     → catches anything that slipped through
 /craft:test release --coverage  # Full coverage analysis
 ```
 
-## Git Commands (10+ commands)
+## Git Commands (10 commands)
 
 **Core Git Commands:**
 
-| Command               | Description                                       |
-| --------------------- | ------------------------------------------------- |
-| `/craft:git:init`     | **NEW** Initialize repository with craft workflow |
-| `/craft:git:worktree` | Parallel development with git worktrees           |
-| `/craft:git:sync`     | Smart git sync                                    |
-| `/craft:git:clean`    | Clean merged branches                             |
-| `/craft:git:recap`    | Activity summary                                  |
-| `/craft:git:branch`   | Branch management                                 |
-| `/craft:git:status`   | Enhanced git status (teaching-aware)              |
-| `/craft:git:protect`  | Re-enable branch protection                      |
-| `/craft:git:unprotect`| Temporarily bypass branch protection              |
+| Command                       | Description                                                                  |
+| ----------------------------- | ---------------------------------------------------------------------------- |
+| `/craft:git:init`             | Initialize repository with craft workflow                                    |
+| `/craft:git:worktree`         | Parallel development with git worktrees                                      |
+| `/craft:git:sync`             | Smart git sync                                                               |
+| `/craft:git:clean`            | Clean merged branches                                                        |
+| `/craft:git:recap`            | Activity summary                                                             |
+| `/craft:git:branch`           | Branch management                                                            |
+| `/craft:git:status`           | Enhanced git status (teaching-aware)                                         |
+| `/craft:git:protect`          | Re-enable local hook (branch-guard) protection                               |
+| `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side protection (PR required, no force-push, no delete) |
+| `/craft:git:unprotect`        | Temporarily bypass local hook                                                |
 
 **Worktree Subcommands:**
 
@@ -1497,7 +1498,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.31.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.32.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary

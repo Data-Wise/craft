@@ -1,3 +1,8 @@
+---
+name: test-generator
+description: This skill should be used when the user asks to "generate tests", "create CLI tests", "add dogfooding tests", "create plugin validation tests", or needs automated and interactive test suites for a project. Generates dogfooding test suites (automated + interactive) for any project type.
+---
+
 # Test Generator Skill
 
 Generates dogfooding test suites (automated + interactive) for any project type.

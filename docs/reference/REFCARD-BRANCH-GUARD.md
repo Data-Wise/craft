@@ -128,6 +128,33 @@ Resets after **8 hours** of inactivity.
 | `feature/*` | None | Allowed | Allowed | Allowed |
 | `fix/*` | None | Allowed | Allowed | Allowed |
 
+> **Note:** This table covers the **local hook** (`branch-guard.sh`). GitHub-side branch protection is a separate layer — see [GitHub-Side Companion](#github-side-companion) below.
+
+---
+
+## GitHub-Side Companion
+
+The local hook stops accidents on your machine; GitHub-side branch protection stops anything that slips through. Together they form defense-in-depth:
+
+| Layer | Lives at | Manages | Command |
+|-------|----------|---------|---------|
+| **Local hook** | `~/.claude/hooks/branch-guard.sh` | Edits/writes/bash before they leave your machine | `/craft:git:protect`, `/craft:git:unprotect` |
+| **GitHub-side** | Repo settings → Branches | Pushes/PRs/deletions at the remote | `/craft:git:protect-baseline` |
+
+Apply both for full coverage:
+
+```bash
+# Local hook (per-machine, automatic on craft installs)
+/craft:git:protect
+
+# GitHub-side (per-repo, one-time setup)
+/craft:git:protect-baseline                          # Current repo
+/craft:git:protect-baseline --repo OWNER/REPO        # Any repo
+/craft:git:protect-baseline --check "test" --strict  # With status checks
+```
+
+**Important:** `/craft:git:unprotect` only bypasses the local hook. GitHub-side protection set by `protect-baseline` is independent and must be removed via `protect-baseline --remove`.
+
 ---
 
 ## Common Scenarios
@@ -202,6 +229,8 @@ Only listed branches are protected. Unlisted = unrestricted.
 
 ## Commands
 
+### Local hook
+
 | Command | Purpose |
 |---------|---------|
 | `/craft:git:protect` | Re-enable protection |
@@ -210,6 +239,17 @@ Only listed branches are protected. Unlisted = unrestricted.
 | `/craft:git:protect --reset` | Reset session counters |
 | `/craft:git:unprotect` | Session-wide bypass |
 | `/craft:git:status` | Shows guard indicator |
+
+### GitHub-side
+
+| Command | Purpose |
+|---------|---------|
+| `/craft:git:protect-baseline` | Apply baseline protection (PR required, no force, no delete) |
+| `/craft:git:protect-baseline --show` | Display current GitHub protection |
+| `/craft:git:protect-baseline --check NAME` | Add required status check (repeatable) |
+| `/craft:git:protect-baseline --strict` | Require branches to be up-to-date with base |
+| `/craft:git:protect-baseline --dry-run` | Preview JSON payload, no API call |
+| `/craft:git:protect-baseline --remove` | Remove protection from branch |
 
 ---
 
@@ -228,4 +268,5 @@ Everything else (`.txt`, `.csv`, `.html`, `.md`) — allowed without confirm.
 - **Guide:** [Smart Mode Guide](../guide/branch-guard-smart-mode.md) — Full documentation
 - **Tutorial:** [Branch Guard Setup](../tutorials/TUTORIAL-branch-guard-setup.md) — Step-by-step
 - **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — How guard fits in
-- **Commands:** [/craft:git:protect](../commands/git/protect.md) | [/craft:git:unprotect](../commands/git/unprotect.md)
+- **Commands:** [/craft:git:protect](../commands/git/protect.md) | [/craft:git:protect-baseline](../commands/git/protect-baseline.md) | [/craft:git:unprotect](../commands/git/unprotect.md)
+- **Refcard:** [REFCARD-PROTECT-BASELINE](REFCARD-PROTECT-BASELINE.md) — GitHub-side companion quick reference

@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.31.0 adds workflow learning loop with memory and insights capture, memory-aware routing, and live dashboard with dynamic counts."
+site_description: "Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.0 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -136,6 +136,7 @@ nav:
       - Multi-Repo Workflow: guide/multi-repo-workflow.md
       - Branch Guard Smart Mode: guide/branch-guard-smart-mode.md
       - Branch Guard Setup Tutorial: tutorials/TUTORIAL-branch-guard-setup.md
+      - Protect a New Repo Tutorial: tutorials/TUTORIAL-protect-new-repo.md
       - Claude-MD Workflows: tutorials/claude-md-workflows.md
       - Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
       - Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
@@ -259,6 +260,7 @@ nav:
       - /craft:git:status: commands/git/status.md
       - /craft:git:sync: commands/git/sync.md
       - /craft:git:protect: commands/git/protect.md
+      - /craft:git:protect-baseline: commands/git/protect-baseline.md
       - /craft:git:unprotect: commands/git/unprotect.md
 
   # 5. COOKBOOK & EXAMPLES - Use case driven recipes
@@ -275,6 +277,7 @@ nav:
       - Update a Single Doc: cookbook/common/update-single-doc.md
       - Quick Code Checks: cookbook/common/quick-code-checks.md
       - Create a Git Branch: cookbook/common/create-git-branch.md
+      - Bulk Branch Protection: cookbook/common/bulk-branch-protection.md
       - View Project Architecture: cookbook/common/view-project-architecture.md
       - Set Up Parallel Worktrees: cookbook/common/setup-parallel-worktrees.md
       - Use Interactive Orchestration: cookbook/common/use-interactive-orchestration.md
@@ -323,6 +326,7 @@ nav:
       - Claude-MD Quick Reference: reference/REFCARD-CLAUDE-MD.md
       - Brainstorm Quick Reference: reference/REFCARD-BRAINSTORM.md
       - Branch Guard Quick Reference: reference/REFCARD-BRANCH-GUARD.md
+      - Protect-Baseline Quick Reference: reference/REFCARD-PROTECT-BASELINE.md
       - Release Pipeline Reference: reference/REFCARD-RELEASE.md
       - Testing Quick Reference: reference/REFCARD-TESTING.md
       - Homebrew Quick Reference: reference/REFCARD-HOMEBREW.md

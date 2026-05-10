@@ -1,5 +1,6 @@
 ---
 description: Generate ORCHESTRATE file from spec, with optional worktree creation and cross-repo detection
+category: orchestrate
 arguments:
   - name: spec-path
     description: Path to SPEC-*.md file (if omitted, scans docs/specs/ for available specs)

@@ -1,6 +1,6 @@
 ---
 name: homebrew-setup-wizard
-description: Implementation logic for the Homebrew automation setup wizard
+description: This skill should be used when the user asks to "set up Homebrew automation", "homebrew setup", "automate formula updates", "configure Homebrew workflow", or needs end-to-end Homebrew formula automation from detection through workflow generation.
 category: distribution
 ---
 
