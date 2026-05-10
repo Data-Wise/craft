@@ -144,8 +144,15 @@ class TestAuditSubcommand(unittest.TestCase):
 # ============================================================================
 # Group 3: Token Folded into Setup
 # ============================================================================
-class TestTokenFoldedIntoSetup(unittest.TestCase):
-    """Verify token guidance moved into setup wizard."""
+class TestAuthSetupInWizard(unittest.TestCase):
+    """Verify auth setup guidance is folded into the setup wizard.
+
+    Renamed from TestTokenFoldedIntoSetup after v2.32.1's PAT → GitHub App
+    auth migration (issue #129). The setup wizard now guides users through
+    GitHub App creation (durable, no calendar expiration) instead of PAT
+    creation (90-day rotation). Tests assert the App-based content is
+    present and PAT references are absent.
+    """
 
     @classmethod
     def setUpClass(cls):
@@ -161,23 +168,31 @@ class TestTokenFoldedIntoSetup(unittest.TestCase):
         """No ## /craft:dist:homebrew token section."""
         self.assertNotIn("## /craft:dist:homebrew token", self.content)
 
-    def test_setup_mentions_token(self):
-        """Setup section mentions token configuration."""
-        self.assertIn("Token", self.setup_section,
-                       "Setup section should mention token")
+    def test_setup_mentions_auth(self):
+        """Setup section mentions auth configuration."""
+        self.assertIn("Auth", self.setup_section,
+                       "Setup section should mention auth setup")
 
-    def test_setup_mentions_homebrew_tap_token(self):
-        """Setup section mentions HOMEBREW_TAP_GITHUB_TOKEN."""
-        self.assertIn("HOMEBREW_TAP_GITHUB_TOKEN", self.setup_section)
+    def test_setup_mentions_github_app_secrets(self):
+        """Setup section mentions APP_ID / APP_PRIVATE_KEY (App auth pattern)."""
+        self.assertIn("APP_ID", self.setup_section,
+                      "Setup section should mention APP_ID secret")
+        self.assertIn("APP_PRIVATE_KEY", self.setup_section,
+                      "Setup section should mention APP_PRIVATE_KEY secret")
 
-    def test_setup_has_token_in_step4(self):
-        """Setup wizard Step 4 covers token."""
+    def test_setup_does_not_recommend_pat(self):
+        """Setup section no longer recommends HOMEBREW_TAP_GITHUB_TOKEN PAT."""
+        self.assertNotIn("HOMEBREW_TAP_GITHUB_TOKEN", self.setup_section,
+                         "Setup section should not recommend the deprecated PAT (use GitHub App instead)")
+
+    def test_setup_has_auth_in_step4(self):
+        """Setup wizard Step 4 covers auth setup."""
         self.assertIn("Step 4", self.setup_section)
-        # Token should be near Step 4
+        # APP_ID should appear after Step 4 header
         step4_idx = self.setup_section.find("Step 4")
-        token_idx = self.setup_section.find("TOKEN", step4_idx)
-        self.assertGreater(token_idx, step4_idx,
-                          "Token should appear after Step 4 header")
+        app_id_idx = self.setup_section.find("APP_ID", step4_idx)
+        self.assertGreater(app_id_idx, step4_idx,
+                          "APP_ID should appear after Step 4 header")
 
 
 # ============================================================================
