@@ -1,11 +1,16 @@
 # Craft Plugin
 
+[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
+[![Docs Sync](https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml)
+[![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
+[![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
+[![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
+[![Version](https://img.shields.io/badge/version-2.31.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+
 | Branch | CI | Docs |
 |--------|----|----- |
 | **main** | [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) | [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml) |
 | **dev** | [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) | [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml) |
-
-[![Documentation](https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
 
 > **TL;DR** (30 seconds)
 >
