@@ -1,5 +1,6 @@
 ---
 description: Validate existing CI workflow against project configuration
+category: ci
 arguments:
   - name: path
     description: Path to workflow file (defaults to .github/workflows/*.yml)

@@ -1,5 +1,6 @@
 ---
 description: Complete Homebrew automation - formulas, casks, workflows, auditing, and dependency management
+category: dist
 arguments:
   - name: subcommand
     description: "Subcommand: formula|cask|workflow|audit|setup|update-resources|deps"

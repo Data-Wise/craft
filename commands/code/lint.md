@@ -1,5 +1,6 @@
 ---
 description: Code style and quality checks with mode support
+category: code
 arguments:
   - name: mode
     description: Execution mode (default|debug|optimize|release)

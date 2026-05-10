@@ -356,7 +356,7 @@ Based on the complexity score, tasks are routed to different handlers:
 
 ```bash
 # Instead of guessing:
-/craft:docs:update? /craft:docs:sync? /craft:docs:generate?
+/craft:docs:update? /craft:docs:sync? /craft:docs:check?
 
 # Just describe the goal:
 /craft:do "update documentation for new API endpoints"

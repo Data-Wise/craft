@@ -1,5 +1,6 @@
 ---
 description: Generate GitHub Actions CI workflow from project detection
+category: ci
 arguments:
   - name: template
     description: Template to use (auto|python|node|r|rust|go|plugin)

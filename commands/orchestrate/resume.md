@@ -1,5 +1,6 @@
 ---
 description: Resume orchestration session across devices using Claude Desktop session teleportation
+category: orchestrate
 arguments:
   - name: session-id
     description: Session ID to resume (from /craft:orchestrate:sessions)

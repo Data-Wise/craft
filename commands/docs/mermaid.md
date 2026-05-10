@@ -1,5 +1,6 @@
 ---
 description: Mermaid diagrams — templates, NL creation, MCP validation, and live preview
+category: docs
 arguments:
   - name: input
     description: Template type (dependency|workflow|architecture|comparison|sequence|state|all) OR natural language description in quotes

@@ -1,5 +1,6 @@
 ---
 description: Generate curl-based installation scripts for GitHub releases
+category: dist
 arguments:
   - name: action
     description: Action to perform (create|update|preview)

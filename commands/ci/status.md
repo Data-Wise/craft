@@ -1,5 +1,6 @@
 ---
 description: Cross-repo CI status dashboard showing all workflow runs
+category: ci
 arguments:
   - name: json
     description: Output as JSON for scripting

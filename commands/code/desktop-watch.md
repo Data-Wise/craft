@@ -1,5 +1,6 @@
 ---
 description: Track Claude Desktop releases and identify plugin integration opportunities
+category: code
 arguments:
   - name: format
     description: "Output format: terminal, json, markdown"

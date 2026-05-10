@@ -1,5 +1,6 @@
 ---
 description: Initialize git repository with craft workflow patterns
+category: git
 arguments:
   - name: remote
     description: GitHub repository (user/repo or full URL)

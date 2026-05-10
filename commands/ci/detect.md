@@ -1,5 +1,6 @@
 ---
 description: Smart detection of project type, build tools, test frameworks, and CI requirements
+category: ci
 arguments:
   - name: path
     description: Project directory to analyze (defaults to current directory)

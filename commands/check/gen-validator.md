@@ -1,5 +1,6 @@
 ---
 description: Generate a new custom validator template for /craft:check
+category: check
 arguments:
   - name: name
     description: Validator name (e.g., security-audit, performance-check)

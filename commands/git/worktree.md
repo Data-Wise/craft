@@ -1,5 +1,6 @@
 ---
 description: Git worktree management for parallel development workflows
+category: git
 arguments:
   - name: action
     description: Action to perform (setup|create|move|list|clean|install|finish|validate)

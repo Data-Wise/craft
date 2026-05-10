@@ -1,5 +1,6 @@
 ---
 description: Terminal Recording & GIF Generator with dependency management
+category: docs
 ---
 
 # /craft:docs:demo - Terminal Recording & GIF Generator

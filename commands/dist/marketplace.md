@@ -1,5 +1,6 @@
 ---
 description: Claude Code marketplace distribution - init, validate, test, and publish
+category: dist
 arguments:
   - name: subcommand
     description: "Subcommand: init|validate|test|publish"

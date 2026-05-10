@@ -1,5 +1,6 @@
 ---
 description: Validate command frontmatter, find deprecated patterns, report health score
+category: code
 arguments:
   - name: format
     description: "Output format: terminal, json, markdown"

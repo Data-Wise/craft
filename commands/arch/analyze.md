@@ -1,5 +1,6 @@
 ---
 description: Analyze codebase architecture with mode support
+category: arch
 arguments:
   - name: mode
     description: Execution mode (default|debug|optimize|release)
