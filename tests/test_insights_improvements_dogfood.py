@@ -323,10 +323,81 @@ class TestPreToolUseHook(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, f"Syntax error: {result.stderr}")
 
-    def test_hook_checks_tool_name(self):
-        """Hook checks CLAUDE_TOOL_NAME environment variable."""
+    def test_hook_reads_stdin_json(self):
+        """Hook reads JSON payload from stdin (Claude Code's actual contract).
+
+        Earlier versions asserted the presence of CLAUDE_TOOL_NAME — that
+        was wrong: Claude Code passes hook input via stdin, not env vars.
+        See ~/.claude/hooks/branch-guard.sh:6 for the canonical contract.
+        This assertion locks in the correct API.
+        """
         content = _read_file(PRETOOLUSE_HOOK)
-        self.assertIn("CLAUDE_TOOL_NAME", content)
+        self.assertIn("json.load(sys.stdin)", content)
+        self.assertIn('"tool_name"', content)
+        # Bare strings can appear in comments (explaining the bug fix).
+        # What we forbid is the actual env-var read, which is the bug.
+        self.assertNotIn('os.environ.get("CLAUDE_TOOL_NAME"', content,
+                         "Hook reverted to env-var contract — silently no-ops in production")
+        self.assertNotIn('os.environ.get("CLAUDE_TOOL_INPUT"', content,
+                         "Hook reverted to env-var contract — silently no-ops in production")
+        # Broader catch: any os.environ read of a CLAUDE_TOOL_* var would be wrong,
+        # including typos like CLAUDE_TOOLNAME or future variants.
+        self.assertNotIn('os.environ.get("CLAUDE_TOOL_', content,
+                         "Hook reads a CLAUDE_TOOL_* env var — Claude Code never sets these; payload is on stdin")
+
+    def test_hook_actually_fires_on_stdin(self):
+        """Integration test: pipe a real payload, confirm the hook executes.
+
+        Catches the original bug class — a hook that silently no-ops because
+        it reads from the wrong input source. We invoke the hook with a
+        well-formed payload from a fake worktree CWD (a real git repo so
+        `git rev-parse --show-toplevel` works) and assert that the
+        outside-worktree warning fires (writes to stderr).
+        """
+        import subprocess
+        import tempfile
+        with tempfile.TemporaryDirectory() as fake_wt:
+            # CWD path must contain "/.git-worktrees/" AND be inside a real
+            # git repo (the hook calls `git rev-parse --show-toplevel`).
+            cwd = os.path.join(fake_wt, ".git-worktrees", "stub")
+            os.makedirs(cwd)
+            subprocess.run(["git", "init", "--quiet", cwd],
+                           check=True, capture_output=True)
+            payload = (
+                '{"tool_name":"Write","tool_input":'
+                '{"file_path":"/tmp/definitely-outside-the-worktree.txt"}}'
+            )
+            result = subprocess.run(
+                ["python3", PRETOOLUSE_HOOK],
+                input=payload, capture_output=True, text=True,
+                cwd=cwd, timeout=5,
+            )
+            self.assertEqual(result.returncode, 0,
+                             f"Hook crashed: {result.stderr}")
+            # If hook is wired to env vars, stderr would be empty (silent no-op).
+            # The stdin contract produces the warning.
+            self.assertIn("WARNING", result.stderr,
+                          "Hook silently no-op'd — likely reading wrong input source")
+
+    def test_hook_handles_empty_stdin(self):
+        """Empty stdin must not crash the hook (graceful no-op)."""
+        import subprocess
+        result = subprocess.run(
+            ["python3", PRETOOLUSE_HOOK],
+            input="", capture_output=True, text=True, timeout=5,
+        )
+        self.assertEqual(result.returncode, 0,
+                         f"Hook crashed on empty stdin: {result.stderr}")
+
+    def test_hook_handles_garbage_stdin(self):
+        """Malformed JSON on stdin must not crash the hook."""
+        import subprocess
+        result = subprocess.run(
+            ["python3", PRETOOLUSE_HOOK],
+            input="not json at all", capture_output=True, text=True, timeout=5,
+        )
+        self.assertEqual(result.returncode, 0,
+                         f"Hook crashed on garbage stdin: {result.stderr}")
 
     def test_hook_checks_write_and_edit(self):
         """Hook filters for Write and Edit tool operations."""

@@ -25,7 +25,20 @@ def get_git_toplevel():
 
 
 def main():
-    tool_name = os.environ.get("CLAUDE_TOOL_NAME", "")
+    # Claude Code passes the hook payload as JSON on stdin:
+    #   { "session_id": "...", "tool_name": "Write",
+    #     "tool_input": { "file_path": "...", "content": "..." }, "cwd": "..." }
+    # See ~/.claude/hooks/branch-guard.sh:6 for the canonical contract
+    # documentation. Earlier versions of this hook read CLAUDE_TOOL_NAME
+    # / CLAUDE_TOOL_INPUT from os.environ — that's not the actual API,
+    # so the hook silently no-op'd in production (every Write/Edit hit
+    # the early return because the env vars were never set).
+    try:
+        payload = json.load(sys.stdin)
+    except (json.JSONDecodeError, ValueError):
+        return
+
+    tool_name = payload.get("tool_name", "")
 
     # Only check Write and Edit operations
     if tool_name not in ("Write", "Edit"):
@@ -37,11 +50,7 @@ def main():
         return
 
     # Get the file path from tool input
-    tool_input = os.environ.get("CLAUDE_TOOL_INPUT", "{}")
-    try:
-        parsed = json.loads(tool_input)
-    except json.JSONDecodeError:
-        return
+    parsed = payload.get("tool_input", {}) or {}
 
     file_path = parsed.get("file_path", "")
     if not file_path:
