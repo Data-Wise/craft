@@ -4,20 +4,16 @@ release_date: 2026-02-27
 milestone: v2.32.0 planning — Insights-Driven Improvements
 last_session: 2026-05-09
 
-progress: v2.31.0 stable. Today (2026-05-09 / 2026-05-10): shipped 4 PRs — /craft:git:protect-baseline (#122), 348-ref cross-ref sweep (#123), pretooluse.py hook stdin contract fix (#125). 1 polish PR still open (#124). v2.32.0 spec still approved, ready for implementation (untouched by today's work).
+progress: v2.31.0 stable. Today (2026-05-09 / 2026-05-10): shipped 4 PRs — /craft:git:protect-baseline (#122), 348-ref cross-ref sweep (#123), polish + xref follow-up (#124), pretooluse.py hook stdin contract fix (#125). All merged. v2.32.0 spec still approved, ready for implementation (untouched by today's work).
 
 📊 Branch Status:
 
-| Branch | Head     | Base | Status                                                              |
-|--------|----------|------|---------------------------------------------------------------------|
-| main   | b045ebaa | —    | Production (v2.31.0, PR #120 merged)                                |
-| dev    | 07088959 | main | +9 commits since v2.31.0 (PRs #121, #122, #123, #125 + 4 doc syncs) |
+| Branch | Head     | Base | Status                                                                    |
+|--------|----------|------|---------------------------------------------------------------------------|
+| main   | b045ebaa | —    | Production (v2.31.0, PR #120 merged)                                      |
+| dev    | 3245993a | main | +11 commits since v2.31.0 (PRs #121, #122, #123, #124, #125 + 4 doc syncs) |
 
-📂 Active Worktrees:
-
-| Worktree                          | Branch                          | PR    | State |
-|-----------------------------------|----------------------------------|-------|-------|
-| feature-protect-baseline-polish   | feature/protect-baseline-polish  | #124  | OPEN  |
+📂 Active Worktrees: none (all PRs merged).
 
 ✅ Session 2026-05-09 → 2026-05-10 (protect-baseline + ecosystem audit + hook fix):
 - Audited GitHub branch protection across all Data-Wise repos: applied baseline (PR(0)+no force+no delete) to 47 repos (dev-tools + mediation + teaching forks); only homebrew-tap intentionally bare
