@@ -105,15 +105,68 @@ jobs:
   update-homebrew:
     name: Update Homebrew Formula
     needs: prepare
-    uses: Data-Wise/homebrew-tap/.github/workflows/update-formula.yml@main
-    with:
-      formula_name: craft
-      version: ${{ needs.prepare.outputs.version }}
-      sha256: ${{ needs.prepare.outputs.sha256 }}
-      source_type: github
-      auto_merge: ${{ github.event.inputs.auto_merge == 'true' || github.event_name == 'release' }}
-      command_count: ${{ needs.prepare.outputs.command_count }}
-      agent_count: ${{ needs.prepare.outputs.agent_count }}
-      skill_count: ${{ needs.prepare.outputs.skill_count }}
-    secrets:
-      tap_token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    # Inlines the formula update against the homebrew-tap manifest+regen pattern.
+    # Replaces a previous workflow_call which depended on HOMEBREW_TAP_GITHUB_TOKEN
+    # — an expiring PAT that broke the v2.32.0 release. Now uses GitHub App auth
+    # (APP_ID + APP_PRIVATE_KEY) which mints short-lived tokens per run.
+    # See issue #129 for context.
+    steps:
+      - name: Mint GitHub App token (for cross-repo push to homebrew-tap)
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: Data-Wise
+          repositories: homebrew-tap
+
+      - name: Checkout homebrew-tap
+        uses: actions/checkout@v4
+        with:
+          repository: Data-Wise/homebrew-tap
+          token: ${{ steps.app-token.outputs.token }}
+          path: homebrew-tap
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Update manifest and regenerate craft formula
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+          SHA256: ${{ needs.prepare.outputs.sha256 }}
+          CMD_COUNT: ${{ needs.prepare.outputs.command_count }}
+        working-directory: homebrew-tap
+        run: |
+          python3 - <<'PY'
+          import json, os
+          m = json.load(open('generator/manifest.json'))
+          formulas = m.get('formulas', m)
+          craft = formulas['craft']
+          craft['version'] = os.environ['VERSION']
+          craft['sha256'] = os.environ['SHA256']
+          craft['desc'] = f"Full-stack developer toolkit for Claude Code with {os.environ['CMD_COUNT']} commands"
+          with open('generator/manifest.json', 'w') as f:
+              json.dump(m, f, indent=2)
+              f.write('\n')
+          print(f"manifest updated: craft -> v{craft['version']}")
+          PY
+          python3 generator/generate.py craft
+          ruby -c Formula/craft.rb
+
+      - name: Commit and push to tap
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        working-directory: homebrew-tap
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Formula/craft.rb generator/manifest.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit (formula already at v${VERSION})"
+            exit 0
+          fi
+          git commit -m "craft: update to v${VERSION}"
+          git push origin main
