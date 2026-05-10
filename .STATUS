@@ -4,30 +4,31 @@ release_date: 2026-02-27
 milestone: v2.32.0 planning — Insights-Driven Improvements
 last_session: 2026-05-09
 
-progress: v2.31.0 stable. Today (2026-05-09): shipped /craft:git:protect-baseline (PR #122) + 348-ref cross-ref sweep (PR #123) + 1 polish PR open (#124). v2.32.0 spec still approved, ready for implementation (untouched by today's work).
+progress: v2.31.0 stable. Today (2026-05-09 / 2026-05-10): shipped 4 PRs — /craft:git:protect-baseline (#122), 348-ref cross-ref sweep (#123), pretooluse.py hook stdin contract fix (#125). 1 polish PR still open (#124). v2.32.0 spec still approved, ready for implementation (untouched by today's work).
 
 📊 Branch Status:
 
-| Branch | Head     | Base | Status                                                       |
-|--------|----------|------|--------------------------------------------------------------|
-| main   | b045ebaa | —    | Production (v2.31.0, PR #120 merged)                         |
-| dev    | 42dfff7f | main | +5 commits since v2.31.0 (PRs #121, #122, #123 + 2 docs)     |
+| Branch | Head     | Base | Status                                                              |
+|--------|----------|------|---------------------------------------------------------------------|
+| main   | b045ebaa | —    | Production (v2.31.0, PR #120 merged)                                |
+| dev    | 07088959 | main | +9 commits since v2.31.0 (PRs #121, #122, #123, #125 + 4 doc syncs) |
 
 📂 Active Worktrees:
 
 | Worktree                          | Branch                          | PR    | State |
 |-----------------------------------|----------------------------------|-------|-------|
 | feature-protect-baseline-polish   | feature/protect-baseline-polish  | #124  | OPEN  |
-| feature-fix-hook-stdin-contract   | feature/fix-hook-stdin-contract  | —     | WIP   |
 
-✅ Session 2026-05-09 (protect-baseline + ecosystem audit):
+✅ Session 2026-05-09 → 2026-05-10 (protect-baseline + ecosystem audit + hook fix):
 - Audited GitHub branch protection across all Data-Wise repos: applied baseline (PR(0)+no force+no delete) to 47 repos (dev-tools + mediation + teaching forks); only homebrew-tap intentionally bare
 - Built /craft:git:protect-baseline command (PR #122): script + slash command + reference docs + REFCARD + cookbook recipe + tutorial + cross-refs + CHANGELOG
 - 348-ref cross-ref sweep (PR #123): 4 parallel agents, 49 files, naive sibling detection → 348 missing-refs reduced to 1 (legitimate skip)
 - Code review on PR #122 caught 2 should-fix bugs (macOS head -n -2, --show stdout pollution); both fixed pre-merge
-- Polish PR #124 OPEN: 4 deferred review nice-to-haves + protect-baseline xref to other 7 git commands
+- Polish PR #124 OPEN: 4 deferred review nice-to-haves + protect-baseline xref to other 7 git commands + em-dash consistency + CHANGELOG entries
+- Hook contract fix (PR #125, MERGED): pretooluse.py was reading CLAUDE_TOOL_NAME env vars that Claude Code never sets — silently no-op'd in production. Fixed to read stdin JSON; migrated orphan e2e script + tutorial example + Mermaid diagram + added Fixed CHANGELOG entry; broadened regression assertion. Discovered via downstream rforge#1 code review.
 - Updated global CLAUDE.md branch architecture (multi-branch craft-style vs single-integration everywhere-else patterns) + craft CLAUDE.md two-layer protection model
-- Cleanup: removed feature-fix-skill-structure worktree (PR #121 merged 2026-03-03), pruned 4 stale remote tracking refs
+- MEMORY.md: added 9 entries (macOS head portability, pre-commit Python interpreter, GitHub branch protection JSON quirks, CLI stderr-headers pattern, cross-branch parallel work pitfall, categorical subtotal drift, Claude Code hook contract, grep-all-callers lesson, behavioral vs source-presence tests, GitHub self-approve block, pre-commit auto-fix rollback)
+- Cleanup: removed feature-fix-skill-structure + feature-fix-hook-stdin-contract worktrees, pruned 5 stale remote tracking refs
 
 ✅ Session 2026-02-27 (v2.32.0 planning + spec approval):
 - Reviewed BRAINSTORM-craft-insights-2026-02-27.md (5 features, P1-P4)
