@@ -1,4 +1,4 @@
-# SPEC: Insights-Driven Improvements v2.32.0
+# SPEC: Insights-Driven Improvements v2.33.0
 
 **Status:** approved
 **Created:** 2026-02-27
@@ -9,7 +9,7 @@
 
 ## Overview
 
-Four targeted improvements to Craft's release and development workflow, driven by insights data showing version drift as the #1 CI failure cause (48 wrong_approach events) and worktree friction as the #2 pain point (40+ git friction events). The improvements extend existing infrastructure — no new scripts, commands, or major architectural changes. Total estimated effort: ~2.75h across 4 features shipping together in v2.32.0.
+Four targeted improvements to Craft's release and development workflow, driven by insights data showing version drift as the #1 CI failure cause (48 wrong_approach events) and worktree friction as the #2 pain point (40+ git friction events). The improvements extend existing infrastructure — no new scripts, commands, or major architectural changes. Total estimated effort: ~2.75h across 4 features shipping together in v2.33.0.
 
 ---
 
@@ -137,13 +137,13 @@ N/A — No new data models. Version validator uses existing script output format
 │ Mode: default                                   │
 ├─────────────────────────────────────────────────┤
 │ Source of Truth:                                │
-│   .claude-plugin/plugin.json → v2.32.0          │
+│   .claude-plugin/plugin.json → v2.33.0          │
 │                                                 │
 │ Tier 1 Files (13):                              │
-│ ✓ plugin.json            v2.32.0                │
-│ ✓ package.json           v2.32.0                │
-│ ✓ CLAUDE.md              v2.32.0                │
-│ ✓ README.md              v2.32.0                │
+│ ✓ plugin.json            v2.33.0                │
+│ ✓ package.json           v2.33.0                │
+│ ✓ CLAUDE.md              v2.33.0                │
+│ ✓ README.md              v2.33.0                │
 │ ... (9 more)                                    │
 │                                                 │
 │ STATUS: ALL CONSISTENT ✓                        │
@@ -194,7 +194,7 @@ AskUserQuestion:
 
 ```
 ╭─ post-release-sweep.sh --fix ───────────────────╮
-│ Version: v2.32.0                                │
+│ Version: v2.33.0                                │
 │ Tier 2 stale refs: 8 files                      │
 ├─────────────────────────────────────────────────┤
 │ Unified Diff Preview:                           │
@@ -209,7 +209,7 @@ AskUserQuestion:
 │ +++ docs/REFCARD.md                             │
 │ @@ -3,1 +3,1 @@                                 │
 │ -Craft Toolkit v2.31.0                          │
-│ +Craft Toolkit v2.32.0                          │
+│ +Craft Toolkit v2.33.0                          │
 │                                                 │
 │ ... (6 more files)                              │
 │                                                 │
@@ -313,7 +313,7 @@ All resolved.
 - **Worktree pre-flight** checks are 4 one-liner shell commands. The complexity is in the UX (Step 0 display + Step 0.5 soft-warning flow), not the detection logic.
 - **Homebrew SHA** fix is a new CI job, not a script change. The SHA computation itself is correct; the issue is timing.
 - **Sweep --fix** already has the detection logic in `post-release-sweep.sh`. Adding `--fix` means collecting detected items into a diff and applying via `sed` (which the script already uses for detection).
-- All 4 features are independent and can be developed in parallel worktrees if desired, though shipping as one release (v2.32.0) is the plan.
+- All 4 features are independent and can be developed in parallel worktrees if desired, though shipping as one release (v2.33.0) is the plan.
 
 ---
 
@@ -322,7 +322,7 @@ All resolved.
 | Date | Event |
 |------|-------|
 | 2026-02-27 | Brainstorm created from 327-session insights analysis |
-| 2026-02-27 | Brainstorm reviewed: 5 features → 4 selected for v2.32.0, 1 deferred, 1 deprioritized |
+| 2026-02-27 | Brainstorm reviewed: 5 features → 4 selected for v2.33.0, 1 deferred, 1 deprioritized |
 | 2026-02-27 | Spec captured with agent-validated integration points |
 | 2026-02-27 | Open questions resolved, spec approved |
 
