@@ -9,11 +9,6 @@ on:
         description: 'Version to release (e.g., 1.17.0)'
         required: true
         type: string
-      auto_merge:
-        description: 'Auto-merge the formula PR'
-        required: false
-        type: boolean
-        default: true
 
 jobs:
   validate:
