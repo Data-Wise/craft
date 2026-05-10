@@ -104,7 +104,9 @@ skip() {
     echo -e "  ${T_YELLOW}SKIP${T_NC}  $name  ($reason)"
 }
 
-# Run the pretooluse hook with environment variables
+# Run the pretooluse hook by piping a JSON payload on stdin (Claude Code's
+# actual contract). Earlier versions of this function passed env vars, which
+# the hook silently ignored — see PR #125 for context.
 # Args: tool_name tool_input cwd
 # Returns: exit code. Captures stderr in $HOOK_STDERR
 run_hook() {
@@ -112,11 +114,11 @@ run_hook() {
     local tool_input="$2"
     local cwd="$3"
 
+    # tool_input is already valid JSON from the caller; embed directly.
     HOOK_STDERR=$(
         cd "$cwd" && \
-        CLAUDE_TOOL_NAME="$tool_name" \
-        CLAUDE_TOOL_INPUT="$tool_input" \
-        python3 "$HOOK_PATH" 2>&1
+        echo "{\"tool_name\":\"$tool_name\",\"tool_input\":$tool_input}" \
+        | python3 "$HOOK_PATH" 2>&1
     )
     return $?
 }

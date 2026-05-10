@@ -340,6 +340,10 @@ class TestPreToolUseHook(unittest.TestCase):
                          "Hook reverted to env-var contract — silently no-ops in production")
         self.assertNotIn('os.environ.get("CLAUDE_TOOL_INPUT"', content,
                          "Hook reverted to env-var contract — silently no-ops in production")
+        # Broader catch: any os.environ read of a CLAUDE_TOOL_* var would be wrong,
+        # including typos like CLAUDE_TOOLNAME or future variants.
+        self.assertNotIn('os.environ.get("CLAUDE_TOOL_', content,
+                         "Hook reads a CLAUDE_TOOL_* env var — Claude Code never sets these; payload is on stdin")
 
     def test_hook_actually_fires_on_stdin(self):
         """Integration test: pipe a real payload, confirm the hook executes.

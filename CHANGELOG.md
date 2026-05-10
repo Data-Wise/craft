@@ -28,6 +28,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **REFCARD-BRANCH-GUARD** updated with GitHub-side companion section and split commands table (local hook vs GitHub-side)
 - Cross-references added to `/craft:git:protect`, `/craft:git:unprotect` so users discover the GitHub-side companion
 
+### Fixed
+
+- **`pretooluse.py` hook contract** — hook was reading `CLAUDE_TOOL_NAME` / `CLAUDE_TOOL_INPUT` env vars that Claude Code never sets. The hook silently no-op'd in production: every `Write`/`Edit` invocation hit the early return because `tool_name` was always empty. Replaced with `json.load(sys.stdin)` matching the canonical contract used by `branch-guard.sh` and other working hooks. Worktree warnings now actually fire. Includes regression test that runs the hook as a real subprocess. Discovered via downstream rforge fork code review (rforge#1).
+- **Tutorial example** (`docs/tutorials/TUTORIAL-insights-workflow.md`) and **e2e test script** (`tests/test_insights_improvements_e2e.sh`) — updated to use the correct stdin JSON invocation; previous `CLAUDE_TOOL_NAME=...` examples no-op'd silently.
+
 ---
 
 ## [2.31.0] — 2026-02-26
