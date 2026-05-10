@@ -18,6 +18,7 @@ progress: v2.31.0 stable. Today (2026-05-09): shipped /craft:git:protect-baselin
 | Worktree                          | Branch                          | PR    | State |
 |-----------------------------------|----------------------------------|-------|-------|
 | feature-protect-baseline-polish   | feature/protect-baseline-polish  | #124  | OPEN  |
+| feature-fix-hook-stdin-contract   | feature/fix-hook-stdin-contract  | —     | WIP   |
 
 ✅ Session 2026-05-09 (protect-baseline + ecosystem audit):
 - Audited GitHub branch protection across all Data-Wise repos: applied baseline (PR(0)+no force+no delete) to 47 repos (dev-tools + mediation + teaching forks); only homebrew-tap intentionally bare
