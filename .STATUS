@@ -8,23 +8,51 @@ progress: v2.32.0 + v2.32.1 shipped. v2.32.0 (2026-05-09): /craft:git:protect-ba
 
 📊 Branch Status:
 
-| Branch | Head     | Base | Status                                                                    |
-|--------|----------|------|---------------------------------------------------------------------------|
-| main   | b045ebaa | —    | Production (v2.31.0, PR #120 merged)                                      |
-| dev    | 3245993a | main | +11 commits since v2.31.0 (PRs #121, #122, #123, #124, #125 + 4 doc syncs) |
+| Branch | Head     | Base | Status                                                                          |
+|--------|----------|------|---------------------------------------------------------------------------------|
+| main   | 7082f2c2 | —    | Production (v2.32.1 tagged, PR #131 merged)                                     |
+| dev    | c239c388 | main | Up to date with main (post-release sweep applied)                                |
 
 📂 Active Worktrees: none (all PRs merged).
 
-✅ Session 2026-05-09 → 2026-05-10 (protect-baseline + ecosystem audit + hook fix):
+🔄 Sibling-plugin migration PRs (open in OTHER repos, deferred for review):
+
+| Repo | PR | Status |
+|------|-----|--------|
+| Data-Wise/aiterm | [#10](https://github.com/Data-Wise/aiterm/pull/10) | Inline migration; CI BLOCKED on pre-existing docs deploy issue (unrelated) |
+| Data-Wise/flow-cli | [#443](https://github.com/Data-Wise/flow-cli/pull/443) | Inline (generated:false-aware); CI green |
+| Data-Wise/atlas | [#15](https://github.com/Data-Wise/atlas/pull/15) | Inline (sed-patch hand-crafted); CI green |
+| Data-Wise/mcp-bridge | [#1](https://github.com/Data-Wise/mcp-bridge/pull/1) | Minimal swap (kept reusable workflow); no required checks |
+
+✅ Session 2026-05-09 → 2026-05-10 (epic: 2 releases + ecosystem migration):
+
+Releases shipped:
+- v2.32.0 (2026-05-09) — GitHub-side branch protection + hook contract fix; 4 PRs bundled (#122 protect-baseline, #123 xref sweep, #124 polish, #125 hook fix)
+- v2.32.1 (2026-05-10) — Infrastructure patch: durable Homebrew release auth (PAT → GitHub App migration; closes #129)
+
+Major work:
 - Audited GitHub branch protection across all Data-Wise repos: applied baseline (PR(0)+no force+no delete) to 47 repos (dev-tools + mediation + teaching forks); only homebrew-tap intentionally bare
-- Built /craft:git:protect-baseline command (PR #122): script + slash command + reference docs + REFCARD + cookbook recipe + tutorial + cross-refs + CHANGELOG
-- 348-ref cross-ref sweep (PR #123): 4 parallel agents, 49 files, naive sibling detection → 348 missing-refs reduced to 1 (legitimate skip)
-- Code review on PR #122 caught 2 should-fix bugs (macOS head -n -2, --show stdout pollution); both fixed pre-merge
-- Polish PR #124 OPEN: 4 deferred review nice-to-haves + protect-baseline xref to other 7 git commands + em-dash consistency + CHANGELOG entries
-- Hook contract fix (PR #125, MERGED): pretooluse.py was reading CLAUDE_TOOL_NAME env vars that Claude Code never sets — silently no-op'd in production. Fixed to read stdin JSON; migrated orphan e2e script + tutorial example + Mermaid diagram + added Fixed CHANGELOG entry; broadened regression assertion. Discovered via downstream rforge#1 code review.
-- Updated global CLAUDE.md branch architecture (multi-branch craft-style vs single-integration everywhere-else patterns) + craft CLAUDE.md two-layer protection model
-- MEMORY.md: added 9 entries (macOS head portability, pre-commit Python interpreter, GitHub branch protection JSON quirks, CLI stderr-headers pattern, cross-branch parallel work pitfall, categorical subtotal drift, Claude Code hook contract, grep-all-callers lesson, behavioral vs source-presence tests, GitHub self-approve block, pre-commit auto-fix rollback)
-- Cleanup: removed feature-fix-skill-structure + feature-fix-hook-stdin-contract worktrees, pruned 5 stale remote tracking refs
+- Built /craft:git:protect-baseline (script + slash command + reference docs + REFCARD + cookbook recipe + tutorial + cross-refs + CHANGELOG)
+- 348-ref cross-ref sweep: 4 parallel agents, 49 files, naive sibling detection → 348 missing-refs reduced to 1 (legitimate skip)
+- Hook contract fix (#125): pretooluse.py was reading CLAUDE_TOOL_NAME env vars Claude Code never sets — silently no-op'd in production. Fixed to read stdin JSON; migrated orphan e2e script + tutorial + Mermaid diagram. Discovered via rforge#1 code review.
+- homebrew-release.yml PAT → GitHub App auth migration (#129). Validated end-to-end on real `release: published` event during v2.32.1 release.
+- 4 sibling-plugin migration PRs in flight: aiterm #10, flow-cli #443, atlas #15, mcp-bridge #1 (deferred for review)
+
+Issues filed:
+- #126 docs: env-var follow-up to #125 (open)
+- #127 badge_syncer false positives (open)
+- #129 homebrew-release auth (CLOSED — fixed in v2.32.1)
+- #130 himalaya-mcp + nexus-cli need App secrets configured (open)
+
+Knowledge captured:
+- MEMORY.md: 16 new entries across 2 batches (141 → 200 lines): macOS head portability, pre-commit Python interpreter, GitHub branch protection JSON quirks, CLI stderr-headers pattern, cross-branch parallel work pitfall, categorical subtotal drift, Claude Code hook contract, grep-all-callers lesson, behavioral vs source-presence tests, GitHub self-approve block, pre-commit auto-fix rollback, PAT expiration date-math, reusable workflows with App auth, same-App-across-repos, branch protection strict-mode false positive, release: published vs workflow_dispatch, asserting OLD pattern locks in deprecation, CHANGELOG [Unreleased] conversion gap, persistent post-release sweep files
+- Updated global CLAUDE.md branch architecture (multi-branch craft-style vs single-integration patterns) + craft CLAUDE.md two-layer protection model
+- Renamed v2.32.0 spec → v2.33.0 (Insights-Driven Improvements; today's v2.32.0 shipped a different scope)
+
+Cleanup:
+- Removed feature-fix-skill-structure + feature-fix-hook-stdin-contract + feature-protect-baseline + feature-protect-baseline-polish + feature-xref-sweep worktrees
+- Pruned ~7 stale remote tracking refs across 2 sessions
+- Deleted unused HOMEBREW_TAP_GITHUB_TOKEN secret from craft
 
 ✅ Session 2026-02-27 (v2.32.0 planning + spec approval):
 - Reviewed BRAINSTORM-craft-insights-2026-02-27.md (5 features, P1-P4)
@@ -42,15 +70,18 @@ progress: v2.32.0 + v2.32.1 shipped. v2.32.0 (2026-05-09): /craft:git:protect-ba
 ---
 
 🎯 Next Action:
-A) Start v2.32.0 Increment 1: Version sync validator (/craft:check --version) ~30 min
-B) v2.32.0 Increment 2: Worktree pre-flight (4 checks, soft warnings) ~1.5h
+A) Start v2.33.0 Increment 1: Version sync validator (/craft:check --version) ~30 min
+B) v2.33.0 Increment 2: Worktree pre-flight (4 checks, soft warnings) ~1.5h
+C) Triage 4 sibling-plugin migration PRs (aiterm/flow-cli/atlas/mcp-bridge) — review and merge as appropriate
 
-## v2.32.0 Scope (spec: approved, untouched today)
+## v2.33.0 Scope (spec: approved, untouched this session)
 
 - Version sync validator (/craft:check --version) ~30 min
 - Worktree pre-flight (4 checks, soft warnings) ~1.5h
 - Homebrew SHA race fix (verify-tarball CI job) ~30 min
 - Post-release sweep --fix (unified diff, mechanical auto-apply) ~30 min
+
+Spec: docs/specs/SPEC-insights-improvements-v2.33-2026-02-27.md
 
 ## Future (v2.33.0+)
 
