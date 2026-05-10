@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.31.0 adds workflow learning loop with memory and insights capture, memory-aware routing, and live dashboard with dynamic counts.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.0 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
       
       
       
@@ -1575,6 +1575,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-protect-new-repo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protect a New Repo Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
@@ -2202,10 +2230,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_33" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_34" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_33" id="__nav_2_4_33_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_34" id="__nav_2_4_34_label" tabindex="0">
             
   
   
@@ -2223,8 +2251,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_33_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_33">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_34_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_34">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2400,10 +2428,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_35" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_36" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_35" id="__nav_2_4_35_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_36" id="__nav_2_4_36_label" tabindex="0">
             
   
   
@@ -2421,8 +2449,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_35_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_35">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_36_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_36">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5175,6 +5203,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../commands/git/protect-baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:protect-baseline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../commands/git/unprotect/" class="md-nav__link">
         
   
@@ -5606,6 +5662,34 @@
     
   
     Create a Git Branch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cookbook/common/bulk-branch-protection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk Branch Protection
   
 
     
@@ -6572,6 +6656,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="5. Branch Protection Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defense-in-depth-local-hook-github-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defense-in-Depth: Local Hook + GitHub-Side
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -7190,6 +7291,34 @@
     
   
     Branch Guard Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/REFCARD-PROTECT-BASELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protect-Baseline Quick Reference
   
 
     
@@ -9287,6 +9416,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="5. Branch Protection Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defense-in-depth-local-hook-github-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defense-in-Depth: Local Hook + GitHub-Side
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -9522,6 +9668,36 @@
 </tbody>
 </table>
 <p><strong>Bypass:</strong> <code>/craft:git:unprotect</code> creates a marker file; <code>/craft:git:protect</code> removes it.</p>
+<h4 id="defense-in-depth-local-hook-github-side">Defense-in-Depth: Local Hook + GitHub-Side<a class="headerlink" href="#defense-in-depth-local-hook-github-side" title="Permanent link">&para;</a></h4>
+<p>The <code>branch-guard.sh</code> hook is one of two layers that protect branches. The second layer lives on GitHub itself, applied via <code>gh api -X PUT repos/OWNER/REPO/branches/main/protection</code>. They cover different failure modes:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Catches</th>
+<th>Misses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Local hook</strong> (<code>branch-guard.sh</code>)</td>
+<td>Accidental edits, writes, force-pushes from this machine</td>
+<td>Pushes from other machines, web UI commits, CI bots, hook bypass via <code>--no-verify</code></td>
+</tr>
+<tr>
+<td><strong>GitHub-side</strong> (branch protection API)</td>
+<td>Direct pushes from any source, force-pushes, deletions, missing PR</td>
+<td>Anything that happens before the push (hook is the earlier shield)</td>
+</tr>
+</tbody>
+</table>
+<p><code>/craft:git:protect-baseline</code> provides a one-step way to apply the GitHub-side layer to any repo with craft's standard baseline (PR required with 0 reviews, no force-push, no delete, optional status checks). The command is deliberately separate from <code>/craft:git:protect</code> because:</p>
+<ol>
+<li><strong>Different scope</strong> — local hook is per-machine and stateful; GitHub protection is per-repo and persistent</li>
+<li><strong>Different invocation</strong> — local hook needs no API; GitHub-side requires authenticated <code>gh</code> CLI</li>
+<li><strong>Different bypass semantics</strong> — <code>unprotect</code> only affects the local hook; GitHub-side rules require explicit <code>protect-baseline --remove</code></li>
+</ol>
+<p>The two layers are complementary, not redundant: the local hook is the fast, opinionated, teaching-oriented shield; GitHub-side protection is the immutable backstop.</p>
 <h3 id="6-documentation-quality-toolchain">6. Documentation Quality Toolchain<a class="headerlink" href="#6-documentation-quality-toolchain" title="Permanent link">&para;</a></h3>
 <p>Automated detection of documentation drift across 4 phases:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>scripts/docs-staleness-check.sh

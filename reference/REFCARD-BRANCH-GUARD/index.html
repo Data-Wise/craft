@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.31.0 adds workflow learning loop with memory and insights capture, memory-aware routing, and live dashboard with dynamic counts.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.0 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
       
       
       
@@ -16,7 +16,7 @@
         <link rel="prev" href="../REFCARD-BRAINSTORM/">
       
       
-        <link rel="next" href="../REFCARD-RELEASE/">
+        <link rel="next" href="../REFCARD-PROTECT-BASELINE/">
       
       
         
@@ -1575,6 +1575,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-protect-new-repo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protect a New Repo Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
@@ -2202,10 +2230,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_33" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_34" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_33" id="__nav_2_4_33_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_34" id="__nav_2_4_34_label" tabindex="0">
             
   
   
@@ -2223,8 +2251,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_33_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_33">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_34_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_34">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2400,10 +2428,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_35" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_36" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_35" id="__nav_2_4_35_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_36" id="__nav_2_4_36_label" tabindex="0">
             
   
   
@@ -2421,8 +2449,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_35_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_35">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_36_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_36">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5175,6 +5203,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../commands/git/protect-baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:protect-baseline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../commands/git/unprotect/" class="md-nav__link">
         
   
@@ -5606,6 +5662,34 @@
     
   
     Create a Git Branch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/bulk-branch-protection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk Branch Protection
   
 
     
@@ -7175,6 +7259,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#github-side-companion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub-Side Companion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-scenarios" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7277,6 +7372,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local hook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub-side
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -7305,6 +7428,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../REFCARD-PROTECT-BASELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protect-Baseline Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -9413,6 +9564,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#github-side-companion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub-Side Companion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-scenarios" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9514,6 +9676,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local hook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#github-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub-side
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -9811,40 +10001,80 @@
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p><strong>Note:</strong> This table covers the <strong>local hook</strong> (<code>branch-guard.sh</code>). GitHub-side branch protection is a separate layer — see <a href="#github-side-companion">GitHub-Side Companion</a> below.</p>
+</blockquote>
+<hr />
+<h2 id="github-side-companion">GitHub-Side Companion<a class="headerlink" href="#github-side-companion" title="Permanent link">&para;</a></h2>
+<p>The local hook stops accidents on your machine; GitHub-side branch protection stops anything that slips through. Together they form defense-in-depth:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Lives at</th>
+<th>Manages</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Local hook</strong></td>
+<td><code>~/.claude/hooks/branch-guard.sh</code></td>
+<td>Edits/writes/bash before they leave your machine</td>
+<td><code>/craft:git:protect</code>, <code>/craft:git:unprotect</code></td>
+</tr>
+<tr>
+<td><strong>GitHub-side</strong></td>
+<td>Repo settings → Branches</td>
+<td>Pushes/PRs/deletions at the remote</td>
+<td><code>/craft:git:protect-baseline</code></td>
+</tr>
+</tbody>
+</table>
+<p>Apply both for full coverage:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Local hook (per-machine, automatic on craft installs)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:git:protect
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># GitHub-side (per-repo, one-time setup)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>/craft:git:protect-baseline<span class="w">                          </span><span class="c1"># Current repo</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>/craft:git:protect-baseline<span class="w"> </span>--repo<span class="w"> </span>OWNER/REPO<span class="w">        </span><span class="c1"># Any repo</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>/craft:git:protect-baseline<span class="w"> </span>--check<span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="w"> </span>--strict<span class="w">  </span><span class="c1"># With status checks</span>
+</span></code></pre></div>
+<p><strong>Important:</strong> <code>/craft:git:unprotect</code> only bypasses the local hook. GitHub-side protection set by <code>protect-baseline</code> is independent and must be removed via <code>protect-baseline --remove</code>.</p>
 <hr />
 <h2 id="common-scenarios">Common Scenarios<a class="headerlink" href="#common-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="i-need-to-fix-a-typo-in-existing-code-on-dev">"I need to fix a typo in existing code on dev"<a class="headerlink" href="#i-need-to-fix-a-typo-in-existing-code-on-dev" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>→ Guard: LOW (allowed, brief note first time)
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>→ No action needed — just edit
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>→ Guard: LOW (allowed, brief note first time)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>→ No action needed — just edit
 </span></code></pre></div>
 <h3 id="i-need-to-add-a-new-python-file-on-dev">"I need to add a new Python file on dev"<a class="headerlink" href="#i-need-to-add-a-new-python-file-on-dev" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>→ Guard: MEDIUM [CONFIRM]
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>→ Options:
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  a) Approve the confirm prompt (one-shot)
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  b) /craft:git:worktree feature/&lt;name&gt; (recommended)
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  c) /craft:git:unprotect maintenance (bulk bypass)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>→ Guard: MEDIUM [CONFIRM]
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>→ Options:
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  a) Approve the confirm prompt (one-shot)
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  b) /craft:git:worktree feature/&lt;name&gt; (recommended)
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  c) /craft:git:unprotect maintenance (bulk bypass)
 </span></code></pre></div>
 <h3 id="im-resolving-merge-conflicts-on-dev">"I'm resolving merge conflicts on dev"<a class="headerlink" href="#im-resolving-merge-conflicts-on-dev" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:git:unprotect<span class="w"> </span>merge-conflict
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># Resolve conflicts freely</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:git:protect
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:git:unprotect<span class="w"> </span>merge-conflict
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># Resolve conflicts freely</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/craft:git:protect
 </span></code></pre></div>
 <h3 id="i-need-to-update-documentation-on-dev">"I need to update documentation on dev"<a class="headerlink" href="#i-need-to-update-documentation-on-dev" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>→ Guard: LOW (markdown always allowed)
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>→ No action needed — just write
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>→ Guard: LOW (markdown always allowed)
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>→ No action needed — just write
 </span></code></pre></div>
 <h3 id="i-accidentally-force-pushed">"I accidentally force-pushed"<a class="headerlink" href="#i-accidentally-force-pushed" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Guard would have shown [CONFIRM] first.
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>If you approved, use git reflog to recover.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Guard would have shown [CONFIRM] first.
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>If you approved, use git reflog to recover.
 </span></code></pre></div>
 <hr />
 <h2 id="config-file-optional">Config File (Optional)<a class="headerlink" href="#config-file-optional" title="Permanent link">&para;</a></h2>
 <p><code>.claude/branch-guard.json</code> — override auto-detection:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;main&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;block-all&quot;</span><span class="p">,</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span><span class="p">,</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">&quot;staging&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;main&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;block-all&quot;</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;staging&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Only listed branches are protected. Unlisted = unrestricted.</p>
 <hr />
@@ -9877,6 +10107,7 @@
 </table>
 <hr />
 <h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">&para;</a></h2>
+<h3 id="local-hook">Local hook<a class="headerlink" href="#local-hook" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -9911,9 +10142,44 @@
 </tr>
 </tbody>
 </table>
+<h3 id="github-side">GitHub-side<a class="headerlink" href="#github-side" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:git:protect-baseline</code></td>
+<td>Apply baseline protection (PR required, no force, no delete)</td>
+</tr>
+<tr>
+<td><code>/craft:git:protect-baseline --show</code></td>
+<td>Display current GitHub protection</td>
+</tr>
+<tr>
+<td><code>/craft:git:protect-baseline --check NAME</code></td>
+<td>Add required status check (repeatable)</td>
+</tr>
+<tr>
+<td><code>/craft:git:protect-baseline --strict</code></td>
+<td>Require branches to be up-to-date with base</td>
+</tr>
+<tr>
+<td><code>/craft:git:protect-baseline --dry-run</code></td>
+<td>Preview JSON payload, no API call</td>
+</tr>
+<tr>
+<td><code>/craft:git:protect-baseline --remove</code></td>
+<td>Remove protection from branch</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="code-extensions-trigger-medium-on-new-file">Code Extensions (Trigger MEDIUM on New File)<a class="headerlink" href="#code-extensions-trigger-medium-on-new-file" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>py sh js ts jsx tsx json yml yaml toml cfg ini r R zsh
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>py sh js ts jsx tsx json yml yaml toml cfg ini r R zsh
 </span></code></pre></div>
 <p>Everything else (<code>.txt</code>, <code>.csv</code>, <code>.html</code>, <code>.md</code>) — allowed without confirm.</p>
 <hr />
@@ -9922,7 +10188,8 @@
 <li><strong>Guide:</strong> <a href="../../guide/branch-guard-smart-mode/">Smart Mode Guide</a> — Full documentation</li>
 <li><strong>Tutorial:</strong> <a href="../../tutorials/TUTORIAL-branch-guard-setup/">Branch Guard Setup</a> — Step-by-step</li>
 <li><strong>Workflow:</strong> <a href="../../workflows/git-feature-workflow/">Git Feature Workflow</a> — How guard fits in</li>
-<li><strong>Commands:</strong> <a href="../../commands/git/protect/">/craft:git:protect</a> | <a href="../../commands/git/unprotect/">/craft:git:unprotect</a></li>
+<li><strong>Commands:</strong> <a href="../../commands/git/protect/">/craft:git:protect</a> | <a href="../../commands/git/protect-baseline/">/craft:git:protect-baseline</a> | <a href="../../commands/git/unprotect/">/craft:git:unprotect</a></li>
+<li><strong>Refcard:</strong> <a href="../REFCARD-PROTECT-BASELINE/">REFCARD-PROTECT-BASELINE</a> — GitHub-side companion quick reference</li>
 </ul>
 
 

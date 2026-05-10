@@ -1582,6 +1582,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../TUTORIAL-protect-new-repo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protect a New Repo Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../claude-md-workflows/" class="md-nav__link">
         
   
@@ -2410,10 +2438,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_33" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_34" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_33" id="__nav_2_4_33_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_34" id="__nav_2_4_34_label" tabindex="0">
             
   
   
@@ -2431,8 +2459,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_33_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_33">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_34_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_34">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2608,10 +2636,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_35" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_36" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_35" id="__nav_2_4_35_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_36" id="__nav_2_4_36_label" tabindex="0">
             
   
   
@@ -2629,8 +2657,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_35_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_35">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_36_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_36">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5383,6 +5411,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../commands/git/protect-baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:protect-baseline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../commands/git/unprotect/" class="md-nav__link">
         
   
@@ -5814,6 +5870,34 @@
     
   
     Create a Git Branch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/common/bulk-branch-protection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk Branch Protection
   
 
     
@@ -7191,6 +7275,34 @@
     
   
     Branch Guard Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-PROTECT-BASELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protect-Baseline Quick Reference
   
 
     
@@ -9588,11 +9700,10 @@
 <li><strong>Fast</strong> — 45ms on the fast path, 60ms when checking worktree</li>
 <li><strong>Targeted</strong> — only fires for Write/Edit, only in worktrees</li>
 </ul>
-<p><strong>Try it:</strong> You can test it manually:</p>
+<p><strong>Try it:</strong> You can test it manually by piping a JSON payload on stdin (Claude Code's actual contract — earlier versions of this doc incorrectly described env vars):</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/&lt;project&gt;/&lt;branch&gt;
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nv">CLAUDE_TOOL_NAME</span><span class="o">=</span><span class="s2">&quot;Write&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nv">CLAUDE_TOOL_INPUT</span><span class="o">=</span><span class="s1">&#39;{&quot;file_path&quot;:&quot;/tmp/outside.txt&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>python3<span class="w"> </span>.claude-plugin/hooks/pretooluse.py<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;tool_name&quot;:&quot;Write&quot;,&quot;tool_input&quot;:{&quot;file_path&quot;:&quot;/tmp/outside.txt&quot;}}&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>.claude-plugin/hooks/pretooluse.py<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </span></code></pre></div>
 <p>You should see the warning since <code>/tmp/outside.txt</code> is outside the worktree.</p>
 <hr />

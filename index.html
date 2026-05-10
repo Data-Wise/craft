@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 107 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.31.0 adds workflow learning loop with memory and insights capture, memory-aware routing, and live dashboard with dynamic counts.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.0 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
       
       
       
@@ -1713,6 +1713,34 @@
   
   
     <li class="md-nav__item">
+      <a href="tutorials/TUTORIAL-protect-new-repo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protect a New Repo Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="tutorials/claude-md-workflows/" class="md-nav__link">
         
   
@@ -2340,10 +2368,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_33" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_34" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_33" id="__nav_2_4_33_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_34" id="__nav_2_4_34_label" tabindex="0">
             
   
   
@@ -2361,8 +2389,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_33_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_33">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_34_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_34">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2538,10 +2566,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_35" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_36" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_35" id="__nav_2_4_35_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_36" id="__nav_2_4_36_label" tabindex="0">
             
   
   
@@ -2559,8 +2587,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_35_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_35">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_36_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_36">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5313,6 +5341,34 @@
   
   
     <li class="md-nav__item">
+      <a href="commands/git/protect-baseline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:protect-baseline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="commands/git/unprotect/" class="md-nav__link">
         
   
@@ -5744,6 +5800,34 @@
     
   
     Create a Git Branch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cookbook/common/bulk-branch-protection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bulk Branch Protection
   
 
     
@@ -7121,6 +7205,34 @@
     
   
     Branch Guard Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/REFCARD-PROTECT-BASELINE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protect-Baseline Quick Reference
   
 
     
@@ -9217,6 +9329,12 @@
 
 
 <h1 id="craft-plugin">Craft Plugin<a class="headerlink" href="#craft-plugin" title="Permanent link">&para;</a></h1>
+<p><a href="https://data-wise.github.io/craft/"><img alt="Documentation" src="https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg" /></a>
+<a href="https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml"><img alt="Docs Sync" src="https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml/badge.svg?branch=dev" /></a>
+<a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
+<a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
+<a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-2.32.0-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -9238,16 +9356,15 @@
 </tr>
 </tbody>
 </table>
-<p><a href="https://data-wise.github.io/craft/"><img alt="Documentation" src="https://img.shields.io/badge/docs-99%25%20complete-brightgreen.svg" /></a></p>
 <blockquote>
 <p><strong>TL;DR</strong> (30 seconds)</p>
 <ul>
-<li><strong>What:</strong> Full-stack developer toolkit with 107 commands, 8 AI agents, and 26 auto-triggered skills</li>
+<li><strong>What:</strong> Full-stack developer toolkit with 108 commands, 8 AI agents, and 26 auto-triggered skills</li>
 <li><strong>Why:</strong> Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command</li>
 <li><strong>How:</strong> Install via <code>claude plugin install craft@local-plugins</code></li>
 <li><strong>Next:</strong> Run <code>/craft:do "your task"</code> and let AI route to the best workflow</li>
 </ul>
-<p>Full-stack developer toolkit for Claude Code — 107 commands, 8 agents, 26 skills with smart orchestration and ADHD-friendly workflows</p>
+<p>Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 26 skills with smart orchestration and ADHD-friendly workflows</p>
 </blockquote>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <div class="grid cards">
@@ -9443,7 +9560,7 @@
 <tr>
 <td><strong>Git</strong></td>
 <td>13</td>
-<td>Repository initialization, branch management, worktrees, sync, recap, clean, smart branch protection (3-tier risk), learning guides</td>
+<td>Repository initialization, branch management, worktrees, sync, recap, clean, two-layer branch protection (local hook + GitHub-side baseline), learning guides</td>
 </tr>
 <tr>
 <td><strong>CI</strong></td>
@@ -9478,8 +9595,8 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v2.31.0 — Unified Release Watch v2 &amp; CI Stability</p>
-<p>Unified release-watch v2 with Code + Desktop tracking, 24h cache, auto-fix proposals, and pinned markdownlint-cli2 for CI stability. 37 new tests, 5 new docs files. 112 tests passing. See the <a href="CHANGELOG/">full changelog</a> for all releases.</p>
+<p class="admonition-title">Latest: v2.32.0 — GitHub-side branch protection + hook contract fix</p>
+<p>New <code>/craft:git:protect-baseline</code> command applies GitHub branch protection rules (PR required, no force-push, no delete) to any repo as a defense-in-depth companion to the local <code>branch-guard.sh</code> hook. Fixes a silent <code>pretooluse.py</code> no-op (hook was reading env vars Claude Code never sets — now reads stdin JSON). Sweeps 348 missing cross-references across 49 command files via 4 parallel agents. 112 tests passing. See the <a href="CHANGELOG/">full changelog</a> for all releases.</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
 <ul>
