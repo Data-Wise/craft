@@ -2,16 +2,31 @@ status: Active
 version: 2.31.0
 release_date: 2026-02-27
 milestone: v2.32.0 planning — Insights-Driven Improvements
-last_session: 2026-02-27
+last_session: 2026-05-09
 
-progress: v2.31.0 stable. v2.32.0 spec approved — 4 features from insights analysis, all open questions resolved, review checklist 7/7. Ready for implementation.
+progress: v2.31.0 stable. Today (2026-05-09): shipped /craft:git:protect-baseline (PR #122) + 348-ref cross-ref sweep (PR #123) + 1 polish PR open (#124). v2.32.0 spec still approved, ready for implementation (untouched by today's work).
 
 📊 Branch Status:
 
-| Branch | Head     | Base | Status                               |
-|--------|----------|------|--------------------------------------|
-| main   | b045ebaa | —    | Production (v2.31.0, PR #120 merged) |
-| dev    | 1e2f8f30 | main | Spec approved, ready for worktree |
+| Branch | Head     | Base | Status                                                       |
+|--------|----------|------|--------------------------------------------------------------|
+| main   | b045ebaa | —    | Production (v2.31.0, PR #120 merged)                         |
+| dev    | 42dfff7f | main | +5 commits since v2.31.0 (PRs #121, #122, #123 + 2 docs)     |
+
+📂 Active Worktrees:
+
+| Worktree                          | Branch                          | PR    | State |
+|-----------------------------------|----------------------------------|-------|-------|
+| feature-protect-baseline-polish   | feature/protect-baseline-polish  | #124  | OPEN  |
+
+✅ Session 2026-05-09 (protect-baseline + ecosystem audit):
+- Audited GitHub branch protection across all Data-Wise repos: applied baseline (PR(0)+no force+no delete) to 47 repos (dev-tools + mediation + teaching forks); only homebrew-tap intentionally bare
+- Built /craft:git:protect-baseline command (PR #122): script + slash command + reference docs + REFCARD + cookbook recipe + tutorial + cross-refs + CHANGELOG
+- 348-ref cross-ref sweep (PR #123): 4 parallel agents, 49 files, naive sibling detection → 348 missing-refs reduced to 1 (legitimate skip)
+- Code review on PR #122 caught 2 should-fix bugs (macOS head -n -2, --show stdout pollution); both fixed pre-merge
+- Polish PR #124 OPEN: 4 deferred review nice-to-haves + protect-baseline xref to other 7 git commands
+- Updated global CLAUDE.md branch architecture (multi-branch craft-style vs single-integration everywhere-else patterns) + craft CLAUDE.md two-layer protection model
+- Cleanup: removed feature-fix-skill-structure worktree (PR #121 merged 2026-03-03), pruned 4 stale remote tracking refs
 
 ✅ Session 2026-02-27 (v2.32.0 planning + spec approval):
 - Reviewed BRAINSTORM-craft-insights-2026-02-27.md (5 features, P1-P4)
@@ -29,10 +44,11 @@ progress: v2.31.0 stable. v2.32.0 spec approved — 4 features from insights ana
 ---
 
 🎯 Next Action:
-A) Create worktree for v2.32.0 implementation (4 increments, ~2.75h)
-B) himalaya-mcp: Tier 2 items (config wizard, stats, session-start hook)
+A) Start v2.32.0 Increment 1: Version sync validator (/craft:check --version) ~30 min
+B) v2.32.0 Increment 2: Worktree pre-flight (4 checks, soft warnings) ~1.5h
+C) himalaya-mcp: Tier 2 items (config wizard, stats, session-start hook)
 
-## v2.32.0 Scope (spec: approved)
+## v2.32.0 Scope (spec: approved, untouched today)
 
 - Version sync validator (/craft:check --version) ~30 min
 - Worktree pre-flight (4 checks, soft warnings) ~1.5h
