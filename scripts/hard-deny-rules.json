@@ -1,0 +1,84 @@
+{
+  "$schema_note": "Craft hard_deny rule catalog. The 'rules' array is the canonical source; 'category' filters which entries get installed into ~/.claude/settings.json autoMode.hard_deny by /craft:git:protect. Only entries with category == 'hard_deny' are installed. Entries with category == 'branch-guard-smart' are documented here so we have one place that records WHY they were not promoted to unconditional blocks — they remain protected by branch-guard.sh smart-mode instead. Schema verified against Claude Code auto-mode docs 2026-05-10 (Phase 0).",
+  "version": "v2.33.0",
+  "applies_to": "~/.claude/settings.json -> autoMode.hard_deny (personal global scope)",
+  "inherits_defaults": true,
+  "defaults_marker": "$defaults",
+  "rules": [
+    {
+      "id": "force-push-main",
+      "rule": "Never force-push to main branch. git push --force or git push --force-with-lease that targets origin/main, origin/master, or the protected primary branch destroys shared history and silently overwrites collaborator commits. Refuse even when a session bypass is active.",
+      "category": "hard_deny",
+      "rationale": "No legitimate solo-or-team workflow force-pushes to main. The 'protected primary branch' is GitHub-protected and craft-protected; this rule closes the local-machine escape hatch where a user might `touch .claude/allow-once` and then accidentally force-push. Spec acceptance criterion #5 explicitly requires this rule to survive .claude/allow-once.",
+      "patterns_caught": [
+        "git push --force origin main",
+        "git push -f origin main",
+        "git push --force-with-lease origin main",
+        "git push --force-with-lease=main origin main",
+        "git push --force origin master"
+      ]
+    },
+    {
+      "id": "delete-git-dir",
+      "rule": "Never remove the .git directory. rm -rf .git, rm -r .git, find .git -delete, or any operation that recursively deletes the .git directory destroys all local history, refs, hooks, and stash. The action is irreversible without a remote backup.",
+      "category": "hard_deny",
+      "rationale": "Deleting .git is never the right answer to a git problem. Even legitimate 'start over' workflows clone fresh into a new directory rather than wiping .git in place. This is the canonical catastrophic Bash operation.",
+      "patterns_caught": [
+        "rm -rf .git",
+        "rm -r .git",
+        "find .git -delete",
+        "find . -name .git -type d -exec rm -rf {} +"
+      ]
+    },
+    {
+      "id": "delete-github-repo",
+      "rule": "Never delete a GitHub repository. gh repo delete, gh api -X DELETE /repos/..., or any GitHub API call that removes a repository is publicly visible, breaks every fork and clone, and cannot be undone (only restored within a short grace window via support).",
+      "category": "hard_deny",
+      "rationale": "Repository deletion has external blast radius — open issues, PRs, forks, and CI integrations all break. Even when intentional, it should never happen via an automated tool flow; the user must run it manually with full awareness.",
+      "patterns_caught": [
+        "gh repo delete <owner>/<repo>",
+        "gh repo delete <owner>/<repo> --yes",
+        "gh api -X DELETE /repos/<owner>/<repo>"
+      ]
+    },
+    {
+      "id": "destroy-claude-config",
+      "rule": "Never recursively delete the user's Claude configuration directory. rm -rf ~/.claude, rm -rf $HOME/.claude, or equivalent destroys all settings, hooks, skills, memory, usage-data facets, and worktree state. The action loses unrecoverable session history and breaks every craft command.",
+      "category": "hard_deny",
+      "rationale": "Recovering ~/.claude requires re-cloning plugins, re-installing hooks, and accepting permanent loss of usage-data/facets and memory. Some of that state is per-machine and cannot be regenerated. Targeted deletion (rm ~/.claude/settings.local.json) is fine; the recursive form is what's blocked.",
+      "patterns_caught": [
+        "rm -rf ~/.claude",
+        "rm -rf $HOME/.claude",
+        "rm -r ~/.claude",
+        "find ~/.claude -delete"
+      ]
+    }
+  ],
+  "left_to_branch_guard_smart_mode": [
+    {
+      "id": "git-reset-hard-origin-main",
+      "category": "branch-guard-smart",
+      "rationale": "git reset --hard origin/main silently discards local commits, but on a feature branch this is a legitimate 'I want to throw away my work and restart from main' operation. branch-guard.sh already blocks it when the current branch is main itself (where it would destroy unpushed local work on main). Promoting it to hard_deny would block legitimate feature-branch workflows.",
+      "patterns_caught": ["git reset --hard origin/main"]
+    },
+    {
+      "id": "find-delete",
+      "category": "branch-guard-smart",
+      "rationale": "find . -delete is a real tool used legitimately with -name, -mtime, and -path filters. Promoting it to hard_deny would block legitimate cleanup operations. Branch-guard catches the bare 'find . -delete' (no filter) variant in smart mode and asks for confirmation.",
+      "patterns_caught": ["find . -delete"]
+    },
+    {
+      "id": "xargs-rm",
+      "category": "branch-guard-smart",
+      "rationale": "xargs rm is fully dependent on upstream input. Hard_deny cannot evaluate the upstream pipeline. The branch-guard smart-mode classifier sees the full command string and can reason about whether the upstream is dangerous; hard_deny would either over-block (catching legitimate xargs cleanups) or under-block.",
+      "patterns_caught": ["find ... | xargs rm", "ls ... | xargs rm"]
+    },
+    {
+      "id": "git-checkout-discard-all",
+      "category": "branch-guard-smart",
+      "rationale": "git checkout . / git restore . discards uncommitted changes — frustrating to recover but not catastrophic (no remote impact, no history loss). branch-guard smart-mode warns; hard_deny would over-block legitimate 'discard WIP and start over' moments.",
+      "patterns_caught": ["git checkout .", "git restore ."]
+    }
+  ],
+  "install_target_note": "On install, /craft:git:protect filters to category == 'hard_deny', collects the 'rule' strings, ensures '$defaults' is the first array entry if absent, and merges the result into ~/.claude/settings.json under autoMode.hard_deny — preserving any user-added entries already present."
+}
