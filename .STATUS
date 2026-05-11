@@ -19,13 +19,16 @@ progress: v2.32.0 + v2.32.1 shipped. v2.32.0 (2026-05-09): /craft:git:protect-ba
 |----------|--------|-------------|--------|
 | feature-safety-hardening | feature/safety-hardening | [ORCHESTRATE-safety-hardening.md](https://github.com/Data-Wise/craft/blob/feature/safety-hardening/ORCHESTRATE-safety-hardening.md) | Created 2026-05-10; awaiting fresh session for Phase 0 |
 
-🔄 Sibling-plugin migration PRs (open in OTHER repos, deferred for review):
+✅ Sibling-plugin migration PRs (all MERGED 2026-05-10):
 
-| Repo | PR | Status |
-|------|-----|--------|
-| Data-Wise/aiterm | [#10](https://github.com/Data-Wise/aiterm/pull/10) | Inline migration; CI BLOCKED on pre-existing docs deploy issue (unrelated) |
-| Data-Wise/flow-cli | [#443](https://github.com/Data-Wise/flow-cli/pull/443) | Inline (generated:false-aware); CI green |
-| Data-Wise/atlas | [#15](https://github.com/Data-Wise/atlas/pull/15) | Inline (sed-patch hand-crafted); CI green |
+| Repo | PR | Merge commit | Notes |
+|------|-----|--------------|-------|
+| Data-Wise/aiterm | #10 | `09fa8f55` | Merged with `--admin` (pre-existing docs deploy failure unrelated) |
+| Data-Wise/flow-cli | #443 | `111e8c8c` | CI green |
+| Data-Wise/atlas | #15 | `8b15f643` | CI green |
+| Data-Wise/mcp-bridge | #1 | `9b9cd233` | No required checks |
+
+PAT → GitHub App auth migration ecosystem-complete: craft + 4 sibling plugins all on App auth. `HOMEBREW_TAP_GITHUB_TOKEN` secrets in those 4 repos can be deleted as cleanup. himalaya-mcp + nexus-cli (#130) still need App secrets configured first.
 | Data-Wise/mcp-bridge | [#1](https://github.com/Data-Wise/mcp-bridge/pull/1) | Minimal swap (kept reusable workflow); no required checks |
 
 ✅ Session 2026-05-09 → 2026-05-10 (epic: 2 releases + ecosystem migration):
