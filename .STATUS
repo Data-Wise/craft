@@ -13,7 +13,11 @@ progress: v2.32.0 + v2.32.1 shipped. v2.32.0 (2026-05-09): /craft:git:protect-ba
 | main   | 7082f2c2 | —    | Production (v2.32.1 tagged, PR #131 merged)                                     |
 | dev    | c239c388 | main | Up to date with main (post-release sweep applied)                                |
 
-📂 Active Worktrees: none (all PRs merged).
+📂 Active Worktrees:
+
+| Worktree | Branch | ORCHESTRATE | Status |
+|----------|--------|-------------|--------|
+| feature-safety-hardening | feature/safety-hardening | [ORCHESTRATE-safety-hardening.md](https://github.com/Data-Wise/craft/blob/feature/safety-hardening/ORCHESTRATE-safety-hardening.md) | Created 2026-05-10; awaiting fresh session for Phase 0 |
 
 🔄 Sibling-plugin migration PRs (open in OTHER repos, deferred for review):
 
@@ -70,9 +74,10 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) Start v2.33.0 Increment 1: Version sync validator (/craft:check --version) ~30 min
-B) v2.33.0 Increment 2: Worktree pre-flight (4 checks, soft warnings) ~1.5h
-C) Triage 4 sibling-plugin migration PRs (aiterm/flow-cli/atlas/mcp-bridge) — review and merge as appropriate
+A) Resume safety-hardening worktree: `cd ~/.git-worktrees/craft/feature-safety-hardening && claude` — start Phase 0 (schema verification) per ORCHESTRATE-safety-hardening.md
+B) Start v2.33.0 Increment 1: Version sync validator (/craft:check --version) ~30 min
+C) v2.33.0 Increment 2: Worktree pre-flight (4 checks, soft warnings) ~1.5h
+D) Triage 4 sibling-plugin migration PRs (aiterm/flow-cli/atlas/mcp-bridge) — review and merge as appropriate
 
 ## v2.33.0 Scope (spec: approved, untouched this session)
 
