@@ -36,11 +36,18 @@ class Badge:
     raw_markdown: str             # Original markdown text
     file_path: Path               # Source file
     line_number: int              # Line location (1-indexed)
+    # Branch label extracted from line context (e.g. "main" / "dev") when the
+    # badge appears in a labeled row like "**main:** [![CI](...)]" or a
+    # markdown table cell `| **main** | [![CI](...)] |`. None for unlabeled
+    # rows. The syncer uses this to suppress "update branch" mismatches when
+    # the row label intentionally pins the badge to a specific branch.
+    branch_label: Optional[str] = None
 
     def __repr__(self) -> str:
         """String representation for debugging."""
         link_info = f" -> {self.link_url}" if self.link_url else ""
-        return f"<Badge {self.type.value}: {self.label!r} at {self.file_path.name}:{self.line_number}{link_info}>"
+        label_info = f" [{self.branch_label}-row]" if self.branch_label else ""
+        return f"<Badge {self.type.value}: {self.label!r} at {self.file_path.name}:{self.line_number}{label_info}{link_info}>"
 
 
 class BadgeDetector:
@@ -53,6 +60,13 @@ class BadgeDetector:
     BADGE_UNLINKED = re.compile(
         r'!\[([^\]]*)\]\(([^\)]+)\)'  # ![label](img)
     )
+    # Row labels that explicitly pin a row of badges to a specific branch.
+    # Two forms supported:
+    #   - prose prefix:    `**main:** [![CI](...)]...`
+    #   - table cell:      `| **main** | [![CI](...)] |`
+    # Captures the branch name in group 1.
+    BRANCH_LABEL_PROSE = re.compile(r'^\s*\*\*([A-Za-z0-9_./-]+):\*\*')
+    BRANCH_LABEL_TABLE = re.compile(r'^\s*\|\s*\*\*([A-Za-z0-9_./-]+)\*\*\s*\|')
 
     def __init__(self, project_root: Path = None):
         """Initialize badge detector.
@@ -104,6 +118,8 @@ class BadgeDetector:
 
         badges = []
         for line_num, line in enumerate(content.splitlines(), start=1):
+            branch_label = self._extract_branch_label(line)
+
             # Try linked badges first (more specific pattern)
             for match in self.BADGE_LINKED.finditer(line):
                 label = match.group(1)
@@ -119,7 +135,8 @@ class BadgeDetector:
                     link_url=link_url,
                     raw_markdown=raw_md,
                     file_path=file_path,
-                    line_number=line_num
+                    line_number=line_num,
+                    branch_label=branch_label,
                 ))
 
             # Try unlinked badges (simpler pattern)
@@ -138,10 +155,23 @@ class BadgeDetector:
                         link_url=None,
                         raw_markdown=raw_md,
                         file_path=file_path,
-                        line_number=line_num
+                        line_number=line_num,
+                        branch_label=branch_label,
                     ))
 
         return badges
+
+    def _extract_branch_label(self, line: str) -> Optional[str]:
+        """Return the branch name pinning this line of badges, if any.
+
+        Recognizes two forms (see BRANCH_LABEL_PROSE / BRANCH_LABEL_TABLE):
+            **main:** [![CI](...)]...
+            | **main** | [![CI](...)] |
+
+        Returns the captured branch name (e.g. "main", "dev") or None.
+        """
+        m = self.BRANCH_LABEL_PROSE.match(line) or self.BRANCH_LABEL_TABLE.match(line)
+        return m.group(1) if m else None
 
     def _classify_badge(self, label: str, url: str) -> BadgeType:
         """Classify badge by type based on label and URL.
@@ -191,6 +221,13 @@ class BadgeDetector:
                     return BadgeType.DOCS_COVERAGE
                 else:
                     return BadgeType.TEST_COVERAGE
+
+            # Docs coverage shortcut: badge/docs-XX%-color (matches the URL
+            # shape badge_syncer._generate_coverage_badges produces). Without
+            # this, /badge/docs- badges fall through to CUSTOM and the syncer
+            # flags them as a missing Documentation badge.
+            if '/badge/docs-' in url_lower:
+                return BadgeType.DOCS_COVERAGE
 
         # Default: custom badge
         return BadgeType.CUSTOM
