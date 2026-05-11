@@ -125,7 +125,7 @@ done
 Read recent session facets to populate the "Recently Used" footer:
 
 ```python
-import json, glob, os
+import json, glob, os, sys
 from collections import Counter
 
 facets_dir = os.path.expanduser("~/.claude/usage-data/facets/")
@@ -136,12 +136,19 @@ facet_files = sorted(glob.glob(f"{facets_dir}/session-*.json"), reverse=True)[:1
 
 for fpath in facet_files:
     try:
-        with open(fpath) as f:
+        with open(fpath, encoding="utf-8") as f:
             facet = json.load(f)
         # Extract command invocations if tracked in facet
         for cmd in facet.get("commands_used", []):
             recent_commands[cmd] += 1
-    except (json.JSONDecodeError, KeyError):
+    except (json.JSONDecodeError, KeyError, TypeError,
+            FileNotFoundError, UnicodeDecodeError, OSError) as exc:
+        # Defensive parsing contract — see commands/workflow/insights.md.
+        print(
+            f"warning: skipping malformed facet {fpath}: "
+            f"{type(exc).__name__}: {exc}",
+            file=sys.stderr,
+        )
         continue
 
 # Format: "/craft:do (3x) · /craft:check (2x) · /workflow:done (2x)"

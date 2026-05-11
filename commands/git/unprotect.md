@@ -109,15 +109,16 @@ To re-enable manually: /craft:git:protect
 2. **Reason-logged** - always records why protection was bypassed
 3. **Persists until re-enabled** - run `/craft:git:protect` to remove the marker
 4. **Idempotent** - running twice shows current status, doesn't create duplicate
+5. **Does NOT bypass hard_deny** (NEW in v2.33.0) — the hard_deny layer in `~/.claude/settings.json` `autoMode.hard_deny` is enforced by the Claude Code auto-mode classifier *before* branch-guard runs, and is unconditional. Operations like force-push to main, recursive deletion of `.git`, or `gh repo delete` stay blocked even after `/craft:git:unprotect`. To work around hard_deny intentionally, the user must edit `~/.claude/settings.json` directly. This is by design: criterion #5 of the safety-hardening spec.
 
-## Relationship to One-Shot Approval
+## Relationship to One-Shot Approval and Hard_deny
 
-The branch guard supports two bypass mechanisms:
+The local layer supports two bypass mechanisms (both subordinate to the unconditional hard_deny tier):
 
-| Mechanism | Scope | Duration | Use Case |
-|-----------|-------|----------|----------|
-| `/craft:git:unprotect` | All actions | Until `/craft:git:protect` | Bulk maintenance, merge conflicts |
-| One-shot marker | Single action | Consumed after one use | Quick one-off confirm from Claude |
+| Mechanism | Scope | Duration | Use Case | Bypasses hard_deny? |
+|-----------|-------|----------|----------|---------------------|
+| `/craft:git:unprotect` | All branch-guard actions | Until `/craft:git:protect` | Bulk maintenance, merge conflicts | **No** |
+| One-shot marker | Single branch-guard action | Consumed after one use | Quick one-off confirm from Claude | **No** |
 
 - **One-shot** (`.claude/allow-once`): Created by Claude after user confirms a `[CONFIRM]` prompt. Auto-consumed on next tool call. No user action needed.
 - **Unprotect** (`.claude/allow-dev-edit`): Session-wide bypass. User must explicitly re-enable with `/craft:git:protect`.

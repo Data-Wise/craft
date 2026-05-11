@@ -145,15 +145,35 @@ do this, do it intentionally by editing settings.json.
 
 ## Open Questions
 
-1. **Hard_deny schema details** — Need to verify the exact JSON shape and matching semantics of `settings.autoMode.hard_deny`. Is it pattern-based (regex) or rule-based (named conditions)? Does it work on the Bash tool only, or all tools? Action: read Claude Code docs/source before implementation begins.
+### Resolved during Phase 0 (2026-05-10, orchestrator session)
 
-2. **Auto-install vs opt-in** — Should `/craft:git:protect` offer to install hard_deny rules automatically (with `--no-hard-deny` flag to skip), or should it be a separate explicit command like `/craft:git:harden`? **Recommendation:** auto-detect-and-offer, with a clear preview of what will be added and a `--no-hard-deny` opt-out.
+1. **Hard_deny schema details** — ✅ **RESOLVED.** `settings.autoMode.hard_deny` is a **prose-based array of natural-language rules**, NOT regex/glob patterns. The classifier semantically evaluates each tool call against the rules. Use the literal string `"$defaults"` as the first array entry to inherit Claude Code's built-in catastrophic-pattern protections; otherwise the user's list replaces the defaults entirely. Example shape:
 
-3. **Per-project vs global settings** — Hard_deny in `~/.claude/settings.json` (global) vs `.claude/settings.local.json` (per-project). **Recommendation:** install in global by default for catastrophic patterns; use project-local for project-specific patterns.
+   ```json
+   {
+     "autoMode": {
+       "hard_deny": [
+         "$defaults",
+         "Never force push to main branch: git push --force* to origin/main destroys history",
+         "Never delete repository: gh repo delete, rm -rf .git, or similar destructive ops"
+       ]
+     }
+   }
+   ```
 
-4. **Version target** — Ship as v2.32.2 patch (just these 2 items) or as part of v2.33.0 increment work? **Recommendation:** v2.33.0 increment so it can sit alongside the planned insights-driven improvements; both are "safety/observability" themed.
+   Applies to **all tools**, not just Bash (the classifier sees every tool call). Lives in `~/.claude/settings.json` (personal), `.claude/settings.local.json` (project, gitignored), or org-managed settings — cumulative across scopes (org > project > personal, with higher scopes unable to be weakened by lower). **Important caveat:** the classifier does NOT read `autoMode` from the checked-in `.claude/settings.json` — only from `.local.json`, user home, and managed settings. Hard_deny is **unconditional**: it survives `.claude/allow-once`, `allow` exceptions, and any user intent. Only direct manual edits to settings.json can override it. ✅ Matches spec acceptance criterion #5.
 
-5. **Pattern catalog completeness** — Initial proposed list (`git push --force` on main, `rm -rf .git`, `gh repo delete`) may need expansion. What about `git reset --hard origin/main` (loses local commits silently)? `find . -delete`? Need a focused review of which patterns truly belong in hard_deny vs branch-guard.
+2. **Auto-install vs opt-in** — ✅ **CONFIRMED recommendation.** Auto-detect-and-offer with `--no-hard-deny` opt-out, installing to `~/.claude/settings.json` (personal global scope) since craft is solo-dev tooling. Phase 3 implements this.
+
+3. **Per-project vs global settings** — ✅ **DECIDED.** `~/.claude/settings.json` (personal global) is the install target. Project-local `.claude/settings.local.json` is reserved for users to extend further with their own per-project rules.
+
+4. **Version target** — ✅ **DECIDED.** v2.33.0 increment, paired with insights-driven improvements.
+
+5. **Pattern catalog completeness** — Deferred to Phase 2. The prose-rule schema means the catalog is a list of natural-language descriptions, not a regex table. Phase 2 will draft them and classify each as `hard_deny` vs "leave to branch-guard smart-mode" based on whether the pattern has legitimate uses.
+
+### Phase 0 implication for downstream phases
+
+The original ORCHESTRATE Phase 2 expected `scripts/hard-deny-patterns.json` with regex entries. Revised: Phase 2 delivers prose rule strings (one per catastrophic pattern) plus an install helper that merges them into `~/.claude/settings.json` while preserving any existing user entries and prepending `"$defaults"` when missing.
 
 ---
 

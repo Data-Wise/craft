@@ -1,8 +1,8 @@
 # Quick Reference: Branch Guard
 
-**Teaching-first branch protection** — 3-tier risk classification with progressive trust.
+**Teaching-first branch protection** — 3-tier risk classification with progressive trust, layered with an unconditional hard_deny tier (NEW in v2.33.0) and GitHub-side server protection.
 
-**Version:** 2.17.0 | **Hook:** `~/.claude/hooks/branch-guard.sh`
+**Version:** 2.33.0 | **Hook:** `~/.claude/hooks/branch-guard.sh` | **Catalog:** `scripts/hard-deny-rules.json`
 
 ---
 
@@ -76,6 +76,44 @@ What do you need to do?
 | Action | Trigger | Scope |
 |--------|---------|-------|
 | Repository deletion | `rm -rf .git` | All branches |
+
+---
+
+## Hard_deny Layer (NEW in v2.33.0)
+
+A fourth tier sits **above** the LOW/MEDIUM/HIGH classification — `autoMode.hard_deny` in `~/.claude/settings.json`, enforced by the Claude Code auto-mode classifier *before* any tool call runs.
+
+| Property | Value |
+|----------|-------|
+| Enforcement | Claude Code classifier, before branch-guard.sh runs |
+| Scope | All tools (Bash, Write, Edit, MCP), not just Bash |
+| Bypass | **None.** Survives `.claude/allow-once`, `/craft:git:unprotect`, and user intent |
+| Install | `/craft:git:protect` offers it; `bash scripts/install-hard-deny.sh --install` is the direct command |
+| Opt out | `/craft:git:protect --no-hard-deny` |
+| Inspect | `bash scripts/install-hard-deny.sh --show` |
+| Remove | Edit `~/.claude/settings.json` directly, or `bash scripts/install-hard-deny.sh --uninstall` (removes only craft rules) |
+
+### What craft installs
+
+| Rule ID | Blocks |
+|---------|--------|
+| `force-push-main` | Force pushes to `main`/`master`/protected primary branch |
+| `delete-git-dir` | Recursive deletion of the `.git` directory |
+| `delete-github-repo` | `gh repo delete` and GitHub API equivalents |
+| `destroy-claude-config` | Recursive deletion of `~/.claude` |
+
+The installer also prepends `"$defaults"` so Claude Code's built-in catastrophic protections are inherited, not replaced.
+
+### What craft deliberately does NOT install in hard_deny
+
+| Pattern | Why left in branch-guard smart-mode |
+|---------|-------------------------------------|
+| Hard reset to `origin/main` | Legitimate on feature branches (throw-away-and-restart) |
+| `find . -delete` | Legitimate with filters; classifier can't see filter args |
+| Pipeline-driven removal (`... \| xargs rm`) | Decision depends on upstream pipeline, classifier can't see it |
+| Discard uncommitted (`git checkout .`, `git restore .`) | Annoying but recoverable from local stash/reflog |
+
+See `scripts/hard-deny-rules.json` for full rationale per rule.
 
 ---
 
