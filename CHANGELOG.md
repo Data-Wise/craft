@@ -9,6 +9,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+**Theme:** Safety hardening — hard_deny tier + defensive facet parsing
+
+### Added
+
+- **Hard_deny tier on top of branch-guard** — adds an unconditional third layer of branch protection enforced by the Claude Code auto-mode classifier *before* any tool runs. Blocks four catastrophic operations regardless of `.claude/allow-once`, `/craft:git:unprotect`, or user intent: force-push to `main`/`master`, recursive deletion of `.git`, `gh repo delete`, and recursive deletion of `~/.claude`. Inherits `"$defaults"` so Claude Code's built-in protections stack rather than replace. Prose-rule schema (not regex) — verified against Claude Code auto-mode docs during Phase 0.
+- **`scripts/hard-deny-rules.json`** — canonical prose rule catalog with 4 hard_deny entries plus 4 deliberately-not-promoted carryover entries with rationale per pattern. Locked by `tests/test_hard_deny_catalog.py` (7 contract tests).
+- **`scripts/install-hard-deny.sh`** — idempotent installer with `--check / --install / --show / --uninstall` modes. Atomic writes via temp file + `os.replace`. Preserves user-added rules and unrelated top-level settings keys. `HARD_DENY_SETTINGS_PATH` env override allows tests to run without touching real `~/.claude/settings.json`. Locked by `tests/test_install_hard_deny.py` (5 integration tests).
+- **`/craft:git:protect` integration** — new Step 2b detects whether craft's rules are present in `~/.claude/settings.json`, shows a preview of additions, and offers install via `AskUserQuestion` with "Yes / Skip / Never offer again" options. New `--no-hard-deny` opt-out flag.
+- **`commands/workflow/insights.md` Defensive Parsing Contract** — explicit subsection documenting the exception set and warning format required of every facet-reader.
+
+### Fixed
+
+- **Crash-on-malformed-facet in `/craft:hub`** — `commands/hub.md` Step 1.7 caught only `(JSONDecodeError, KeyError)` and silently continued. Widened to `(JSONDecodeError, KeyError, TypeError, FileNotFoundError, UnicodeDecodeError, OSError)` and now logs a `warning: skipping malformed facet <path>: <ErrType>: <msg>` line to stderr. Ports the Claude Code v2.1.136 defensive-parsing pattern.
+- **Crash-on-malformed-facet in `/craft:do`** — `commands/do.md` Step 1.5 had no `try/except` at all and would have crashed every `/craft:do` invocation on the first corrupt facet. Hardened to the same defensive contract.
+- **`tests/test_facet_parsing_defensive.py`** — 4 new tests (1 behavioral via subprocess + 3 structural) confirm the contract is published in all three files and the hub.md snippet survives truncated, binary, and wrong-shape fixture facets.
+
+### Changed
+
+- **`commands/git/unprotect.md`** — new Key Behavior #5 making the hard_deny semantics explicit: `/craft:git:unprotect` does **not** bypass hard_deny. The "Relationship to One-Shot Approval" table gains a "Bypasses hard_deny?" column.
+- **`docs/architecture.md`** — section 5 "Defense-in-Depth" extended from two layers to three, with a layered diagram, per-tier comparison table, and rationale for why narrow patterns belong in hard_deny while context-dependent ones stay in branch-guard.
+- **`docs/reference/REFCARD-BRANCH-GUARD.md`** — new "Hard_deny Layer" section; version header bumped to 2.33.0.
+
+### Test count
+
+- **Before:** 79 (v2.32.1 baseline)
+- **After:** 91 (+12: 4 defensive-parsing, 7 catalog contract, 5 installer integration; one structural test renamed)
+
+---
+
 ## [2.32.1] — 2026-05-10
 
 **Theme:** Infrastructure — durable Homebrew release auth

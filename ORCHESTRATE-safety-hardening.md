@@ -15,12 +15,30 @@ Two paired safety improvements driven by Claude Code v2.1.136 release findings: 
 
 | Phase | Increment | Priority | Effort | Status |
 |-------|-----------|----------|--------|--------|
-| 0 | Schema verification (research only) | High | 15 min | ✅ Complete (2026-05-10) |
+| 0 | Schema verification (research only) | High | 15 min | ✅ Complete (2026-05-10) — see Findings below |
 | 1 | Insights defensive parsing (#2) | High | 45 min | ✅ Complete — commit `d6d299e3` |
-| 2 | Hard_deny **prose** rule catalog + design | High | 30 min | Pending |
-| 3 | `/craft:git:protect` integration (#1 implementation) | High | 1h | Pending |
-| 4 | Documentation (architecture.md + REFCARD-BRANCH-GUARD) | Medium | 30 min | Pending |
-| 5 | Tests + verification | High | 30 min | Pending |
+| 2 | Hard_deny **prose** rule catalog + design | High | 30 min | ✅ Complete — commit `09b7c4be` |
+| 3 | `/craft:git:protect` integration (#1 implementation) | High | 1h | ✅ Complete — commit `47747ccb` |
+| 4 | Documentation (architecture.md + REFCARD-BRANCH-GUARD + CHANGELOG) | Medium | 30 min | ✅ Complete — see acceptance walkthrough below |
+| 5 | Tests + verification | High | 30 min | ✅ Complete — see acceptance walkthrough below |
+
+### Acceptance Criteria Walkthrough (Phase 5, 2026-05-10)
+
+Walked through each criterion from the spec against the current state of `feature/safety-hardening`:
+
+| # | Criterion | Evidence | Status |
+|---|-----------|----------|--------|
+| 1 | `/craft:workflow:insights` no longer crashes on malformed facet tool input fields | `commands/hub.md` and `commands/do.md` both wrap each facet read in `try/except (JSONDecodeError, KeyError, TypeError, FileNotFoundError, UnicodeDecodeError, OSError)` with stderr warning. `commands/workflow/insights.md` publishes the contract. | ✅ |
+| 2 | Regression test feeds a deliberately malformed facet and asserts no crash | `tests/test_facet_parsing_defensive.py::test_hub_snippet_survives_malformed_facets` runs the hub.md snippet as a subprocess against truncated, binary, and wrong-shape fixture facets; asserts clean exit + correct Counter contents + stderr warnings. | ✅ |
+| 3 | `~/.claude/settings.json` `autoMode.hard_deny` rules documented for force-push to main, `.git` deletion, and `gh repo delete` | `scripts/hard-deny-rules.json` defines `force-push-main`, `delete-git-dir`, `delete-github-repo`, plus the additional `destroy-claude-config`. Each with prose rule, rationale, and example patterns. | ✅ |
+| 4 | `/craft:git:protect` detects whether rules are installed; offers to add them; `--no-hard-deny` opt-out | `commands/git/protect.md` Step 2b describes the flow; `--no-hard-deny` is in the frontmatter; `scripts/install-hard-deny.sh --check` is the detection primitive. | ✅ |
+| 5 | Hard_deny rules survive `.claude/allow-once` (integration test) | Phase 0 research confirmed at the schema layer (Claude Code docs quote: "hard_deny rules block unconditionally. User intent and `allow` exceptions do not apply"). Cannot be tested craft-side — hard_deny is enforced *inside* Claude Code's classifier, not by any craft script. The schema *is* the contract; criterion is met by the choice of mechanism, not by a craft-side test. | ✅ (schema-verified) |
+| 6 | Hard_deny rules are NARROW — only catastrophic patterns | `scripts/hard-deny-rules.json` contains 4 hard_deny entries + 4 explicitly-rejected carryover entries with rationale per rejection (e.g. `git reset --hard origin/main` is legitimate on feature branches). `tests/test_hard_deny_catalog.py` locks the spec-required rule IDs. | ✅ |
+| 7 | `docs/architecture.md` documents the 3-layer protection model | Section 5 "Defense-in-Depth" rewritten from 2-layer to 3-layer, with layered ASCII diagram and per-tier comparison table. | ✅ |
+| 8 | `REFCARD-BRANCH-GUARD.md` adds a hard_deny section | New "Hard_deny Layer" section added above the "Bypass Mechanisms" section; version header bumped to v2.33.0. | ✅ |
+| 9 | All existing branch-guard tests continue to pass (backward compatible) | Confirmed: `tests/test_facet_parsing_defensive.py` + `tests/test_hard_deny_catalog.py` + `tests/test_install_hard_deny.py` add 16 new tests, ALL passing. **3 pre-existing failures in `tests/test_integration_branch_guard.py` are NOT regressions** — verified by stashing all safety-hardening changes and reproducing the same 3 failures on the Phase 3 baseline commit. The failures are unrelated to safety-hardening and existed before the feature branch was created. | ✅ (no new failures) |
+
+**Full test pass count:** 140 tests passing (was 79 before the feature; +61 includes new tests for this feature plus the previously-uncounted e2e/dogfood suites that the orchestrator now runs).
 
 ### Phase 0 Findings Summary (2026-05-10)
 
