@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.1 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.33.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -9519,7 +9519,7 @@
 </table>
 <h2 id="version-sync">Version Sync<a class="headerlink" href="#version-sync" title="Permanent link">&para;</a></h2>
 <p>Version is managed across 13 files atomically using <code>bump-version.sh</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./scripts/bump-version.sh<span class="w"> </span><span class="m">2</span>.32.1<span class="w">        </span><span class="c1"># Full bump</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./scripts/bump-version.sh<span class="w"> </span><span class="m">2</span>.33.0<span class="w">        </span><span class="c1"># Full bump</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./scripts/bump-version.sh<span class="w"> </span>--verify<span class="w">       </span><span class="c1"># Check for drift</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>./scripts/bump-version.sh<span class="w"> </span>--counts-only<span class="w">  </span><span class="c1"># Sync counts only</span>
 </span></code></pre></div>

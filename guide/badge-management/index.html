@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.1 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.33.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -10840,7 +10840,7 @@
 <li><strong>URLs resolve</strong> -- Badge URLs point to actual workflow files in <code>.github/workflows/</code></li>
 </ol>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Run Check 7 standalone</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>./scripts/pre-release-check.sh<span class="w"> </span>v2.32.0
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>./scripts/pre-release-check.sh<span class="w"> </span>v2.32.1
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># Look for: [7/8] Badge URL branch validation</span>
 </span></code></pre></div>
 <p>If Check 7 fails, fix the badge URLs before proceeding with the release. Common fixes:</p>
@@ -11255,7 +11255,7 @@
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="gh"># Project Title</span>
 </span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>
 </span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>&lt;!-- Main branch badges (stable/production) --&gt;
-</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>[<span class="nt">![Version</span>](<span class="na">https://img.shields.io/badge/version-2.32.0-brightgreen.svg</span>)](...)
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>[<span class="nt">![Version</span>](<span class="na">https://img.shields.io/badge/version-2.32.1-brightgreen.svg</span>)](...)
 </span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>[<span class="nt">![CI (main)</span>](<span class="na">https://github.com/user/repo/actions/workflows/ci.yml/badge.svg?branch=main</span>)](...)
 </span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>
 </span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>&lt;!-- Dev branch badges (development status) --&gt;

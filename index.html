@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.1 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.33.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -9334,7 +9334,7 @@
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
-<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-2.32.1-brightgreen.svg" /></a></p>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-2.33.0-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -9595,8 +9595,8 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v2.32.1 — GitHub-side branch protection + hook contract fix</p>
-<p>New <code>/craft:git:protect-baseline</code> command applies GitHub branch protection rules (PR required, no force-push, no delete) to any repo as a defense-in-depth companion to the local <code>branch-guard.sh</code> hook. Fixes a silent <code>pretooluse.py</code> no-op (hook was reading env vars Claude Code never sets — now reads stdin JSON). Sweeps 348 missing cross-references across 49 command files via 4 parallel agents. 112 tests passing. See the <a href="CHANGELOG/">full changelog</a> for all releases.</p>
+<p class="admonition-title">Latest: v2.33.0 — Safety hardening + drift cleanup</p>
+<p>Adds an unconditional <strong>hard_deny</strong> third tier of branch protection enforced by Claude Code's auto-mode classifier (blocks force-push to main, <code>.git</code> deletion, <code>gh repo delete</code>, <code>~/.claude</code> wipe regardless of session bypasses). Adds <strong>defensive parsing</strong> to <code>/craft:hub</code> and <code>/craft:do</code> so corrupt facet files no longer crash the commands. Fixes a real <strong>production leak</strong> in <code>branch-guard.sh</code> path canonicalization where new files under non-existent dirs silently bypassed protection. Eliminates <code>badge_syncer</code> false positives that surfaced 4 phantom mismatches on every site update. Ships the new <code>/craft:check --version</code> validator (Insights-Driven Improvements Increment 1). 1638 tests passing. See the <a href="CHANGELOG/">full changelog</a> for all releases.</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
 <ul>

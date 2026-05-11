@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.1 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.33.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -6660,10 +6660,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#defense-in-depth-local-hook-github-side" class="md-nav__link">
+  <a href="#defense-in-depth-three-layers-hard_deny-local-hook-github-side" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Defense-in-Depth: Local Hook + GitHub-Side
+        Defense-in-Depth: Three Layers (Hard_deny + Local Hook + GitHub-Side)
       
     </span>
   </a>
@@ -9420,10 +9420,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#defense-in-depth-local-hook-github-side" class="md-nav__link">
+  <a href="#defense-in-depth-three-layers-hard_deny-local-hook-github-side" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Defense-in-Depth: Local Hook + GitHub-Side
+        Defense-in-Depth: Three Layers (Hard_deny + Local Hook + GitHub-Side)
       
     </span>
   </a>
@@ -9668,46 +9668,91 @@
 </tbody>
 </table>
 <p><strong>Bypass:</strong> <code>/craft:git:unprotect</code> creates a marker file; <code>/craft:git:protect</code> removes it.</p>
-<h4 id="defense-in-depth-local-hook-github-side">Defense-in-Depth: Local Hook + GitHub-Side<a class="headerlink" href="#defense-in-depth-local-hook-github-side" title="Permanent link">&para;</a></h4>
-<p>The <code>branch-guard.sh</code> hook is one of two layers that protect branches. The second layer lives on GitHub itself, applied via <code>gh api -X PUT repos/OWNER/REPO/branches/main/protection</code>. They cover different failure modes:</p>
+<h4 id="defense-in-depth-three-layers-hard_deny-local-hook-github-side">Defense-in-Depth: Three Layers (Hard_deny + Local Hook + GitHub-Side)<a class="headerlink" href="#defense-in-depth-three-layers-hard_deny-local-hook-github-side" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p><strong>NEW in v2.33.0.</strong> Added the <code>hard_deny</code> tier on top of the existing two-layer model. The hook + GitHub-side layers remain unchanged; the new tier is unconditional and runs <em>before</em> either of them.</p>
+</blockquote>
+<p>The branch-guard model has three layers, each catching a different class of failure:</p>
 <table>
 <thead>
 <tr>
+<th>Tier</th>
 <th>Layer</th>
+<th>Enforcement point</th>
 <th>Catches</th>
 <th>Misses</th>
+<th>Bypass</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Local hook</strong> (<code>branch-guard.sh</code>)</td>
-<td>Accidental edits, writes, force-pushes from this machine</td>
-<td>Pushes from other machines, web UI commits, CI bots, hook bypass via <code>--no-verify</code></td>
+<td>1</td>
+<td><strong>Hard_deny</strong> (<code>~/.claude/settings.json</code> <code>autoMode.hard_deny</code>)</td>
+<td>Claude Code auto-mode classifier, <em>before</em> any tool runs</td>
+<td>Catastrophic, irreversible operations: force-push to main, recursive deletion of <code>.git</code>, <code>gh repo delete</code>, recursive deletion of <code>~/.claude</code></td>
+<td>Anything not in the catalog; Bash commands that compose patterns at runtime</td>
+<td><strong>None.</strong> Unconditional. Survives <code>.claude/allow-once</code>, <code>/craft:git:unprotect</code>, and user intent. Only direct edits to <code>settings.json</code> can remove.</td>
 </tr>
 <tr>
-<td><strong>GitHub-side</strong> (branch protection API)</td>
+<td>2</td>
+<td><strong>Local hook</strong> (<code>scripts/branch-guard.sh</code>)</td>
+<td>PreToolUse, per-tool-call, on this machine</td>
+<td>Accidental edits to protected branches, new code on <code>dev</code>, sensitive paths</td>
+<td>Pushes from other machines, web UI commits, CI bots, hook bypass via <code>--no-verify</code></td>
+<td><code>/craft:git:unprotect</code> (session-scoped, marker-based) or <code>.claude/allow-once</code> (one-shot)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>GitHub-side</strong> (<code>repos/.../branches/.../protection</code>)</td>
+<td>Server-side, on push</td>
 <td>Direct pushes from any source, force-pushes, deletions, missing PR</td>
-<td>Anything that happens before the push (hook is the earlier shield)</td>
+<td>Anything that happens before the push reaches GitHub</td>
+<td>Admin override via <code>--admin</code> or removing the protection rule</td>
 </tr>
 </tbody>
 </table>
-<p><code>/craft:git:protect-baseline</code> provides a one-step way to apply the GitHub-side layer to any repo with craft's standard baseline (PR required with 0 reviews, no force-push, no delete, optional status checks). The command is deliberately separate from <code>/craft:git:protect</code> because:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Claude Code tool call (Write, Edit, Bash, MCP, ...)
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    ↓
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>│  Tier 1: hard_deny classifier (UNCONDITIONAL)               │
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>│  ~/.claude/settings.json → autoMode.hard_deny prose rules   │
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>│  Inherits &quot;$defaults&quot; + craft catalog from                  │
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>│  scripts/hard-deny-rules.json                               │
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>└─────────────────────────────────────────────────────────────┘
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    ↓  (passes hard_deny — proceed)
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>│  Tier 2: PreToolUse hook (branch-aware, bypassable)         │
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>│  scripts/branch-guard.sh                                    │
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>│  Reads .claude/branch-guard.json + auto-detect              │
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>└─────────────────────────────────────────────────────────────┘
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    ↓  (allowed locally — git push)
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>│  Tier 3: GitHub-side branch protection (push-time)          │
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>│  Applied via /craft:git:protect-baseline                    │
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>└─────────────────────────────────────────────────────────────┘
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>    ↓
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>operation completes
+</span></code></pre></div>
+<p><strong>Why three tiers, not two?</strong> Tier 1 closes the escape hatch where a user creates <code>.claude/allow-once</code> (or runs <code>/craft:git:unprotect</code>) and then types a catastrophic command — Tier 2 would correctly honor the bypass, but Tier 1 refuses regardless. This matches the spec's safety criterion #5: hard_deny must survive session bypasses.</p>
+<p><strong>Why the catalog is narrow.</strong> Tier 1 is a prose-rule classifier — it cannot evaluate upstream pipelines or context-dependent commands (<code>xargs rm</code>, <code>find . -delete</code> with filters, <code>git reset --hard origin/main</code> on a feature branch). Those remain in Tier 2's smart-mode where the full command string and current branch are visible. The catalog at <code>scripts/hard-deny-rules.json</code> documents which patterns were considered and rejected for Tier 1, with rationale per entry.</p>
+<p><strong>Installation.</strong> <code>/craft:git:protect</code> runs an idempotent check and offers to merge craft's rules into <code>~/.claude/settings.json</code>, prepending <code>"$defaults"</code> so Claude Code's built-in catastrophic protections are inherited. The installer (<code>scripts/install-hard-deny.sh</code>) preserves any user-added entries and writes atomically. Opt out with <code>--no-hard-deny</code>.</p>
+<p><code>/craft:git:protect-baseline</code> provides a one-step way to apply the GitHub-side layer (Tier 3) to any repo with craft's standard baseline (PR required with 0 reviews, no force-push, no delete, optional status checks). The three install commands are deliberately separate because:</p>
 <ol>
-<li><strong>Different scope</strong> — local hook is per-machine and stateful; GitHub protection is per-repo and persistent</li>
-<li><strong>Different invocation</strong> — local hook needs no API; GitHub-side requires authenticated <code>gh</code> CLI</li>
-<li><strong>Different bypass semantics</strong> — <code>unprotect</code> only affects the local hook; GitHub-side rules require explicit <code>protect-baseline --remove</code></li>
+<li><strong>Different scope</strong> — Tier 1 is global (<code>~/.claude/</code>), Tier 2 is per-machine + stateful, Tier 3 is per-repo + persistent</li>
+<li><strong>Different invocation</strong> — Tier 1 needs no API, Tier 2 needs no API, Tier 3 requires authenticated <code>gh</code> CLI</li>
+<li><strong>Different bypass semantics</strong> — <code>/craft:git:unprotect</code> only affects Tier 2; Tier 1 is unconditional; Tier 3 requires <code>protect-baseline --remove</code></li>
 </ol>
-<p>The two layers are complementary, not redundant: the local hook is the fast, opinionated, teaching-oriented shield; GitHub-side protection is the immutable backstop.</p>
+<p>The three layers are complementary, not redundant: Tier 1 is the unconditional catastrophe-prevention shield, Tier 2 is the fast, opinionated, teaching-oriented branch shield, and Tier 3 is the immutable server-side backstop.</p>
 <h3 id="6-documentation-quality-toolchain">6. Documentation Quality Toolchain<a class="headerlink" href="#6-documentation-quality-toolchain" title="Permanent link">&para;</a></h3>
 <p>Automated detection of documentation drift across 4 phases:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>scripts/docs-staleness-check.sh
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    ↓
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Phase 6: Nav Completeness    → mkdocs.yml vs docs/ files
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Phase 7: Count Consistency   → &quot;107 commands&quot; refs match reality
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Phase 8: Coverage            → skills/agents/commands in docs
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>Phase 9: Cross-Doc Freshness → stale summary lines
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    ↓
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>Traffic light: GREEN | YELLOW | RED
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>scripts/docs-staleness-check.sh
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    ↓
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Phase 6: Nav Completeness    → mkdocs.yml vs docs/ files
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Phase 7: Count Consistency   → &quot;108 commands&quot; refs match reality
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Phase 8: Coverage            → skills/agents/commands in docs
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>Phase 9: Cross-Doc Freshness → stale summary lines
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    ↓
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>Traffic light: GREEN | YELLOW | RED
 </span></code></pre></div>
 <p>Integrated into <code>/craft:check</code>, <code>pre-release-check.sh</code>, and CI (<code>docs-quality.yml</code>).
 Shared exclusion config at <code>scripts/config/exclusions.txt</code> for orchestrator mode descriptions and tutorial examples.</p>

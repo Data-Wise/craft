@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.1 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.33.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -7198,6 +7198,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hard_deny-layer-new-in-v2330" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hard_deny Layer (NEW in v2.33.0)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hard_deny Layer (NEW in v2.33.0)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-craft-installs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What craft installs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-craft-deliberately-does-not-install-in-hard_deny" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What craft deliberately does NOT install in hard_deny
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bypass-mechanisms" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9503,6 +9542,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#hard_deny-layer-new-in-v2330" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hard_deny Layer (NEW in v2.33.0)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hard_deny Layer (NEW in v2.33.0)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-craft-installs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What craft installs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-craft-deliberately-does-not-install-in-hard_deny" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What craft deliberately does NOT install in hard_deny
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bypass-mechanisms" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9755,8 +9833,8 @@
 
 
 <h1 id="quick-reference-branch-guard">Quick Reference: Branch Guard<a class="headerlink" href="#quick-reference-branch-guard" title="Permanent link">&para;</a></h1>
-<p><strong>Teaching-first branch protection</strong> — 3-tier risk classification with progressive trust.</p>
-<p><strong>Version:</strong> 2.17.0 | <strong>Hook:</strong> <code>~/.claude/hooks/branch-guard.sh</code></p>
+<p><strong>Teaching-first branch protection</strong> — 3-tier risk classification with progressive trust, layered with an unconditional hard_deny tier (NEW in v2.33.0) and GitHub-side server protection.</p>
+<p><strong>Version:</strong> 2.33.0 | <strong>Hook:</strong> <code>~/.claude/hooks/branch-guard.sh</code> | <strong>Catalog:</strong> <code>scripts/hard-deny-rules.json</code></p>
 <hr />
 <h2 id="quick-decision-tree">Quick Decision Tree<a class="headerlink" href="#quick-decision-tree" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>What do you need to do?
@@ -9911,6 +9989,103 @@
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="hard_deny-layer-new-in-v2330">Hard_deny Layer (NEW in v2.33.0)<a class="headerlink" href="#hard_deny-layer-new-in-v2330" title="Permanent link">&para;</a></h2>
+<p>A fourth tier sits <strong>above</strong> the LOW/MEDIUM/HIGH classification — <code>autoMode.hard_deny</code> in <code>~/.claude/settings.json</code>, enforced by the Claude Code auto-mode classifier <em>before</em> any tool call runs.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enforcement</td>
+<td>Claude Code classifier, before branch-guard.sh runs</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>All tools (Bash, Write, Edit, MCP), not just Bash</td>
+</tr>
+<tr>
+<td>Bypass</td>
+<td><strong>None.</strong> Survives <code>.claude/allow-once</code>, <code>/craft:git:unprotect</code>, and user intent</td>
+</tr>
+<tr>
+<td>Install</td>
+<td><code>/craft:git:protect</code> offers it; <code>bash scripts/install-hard-deny.sh --install</code> is the direct command</td>
+</tr>
+<tr>
+<td>Opt out</td>
+<td><code>/craft:git:protect --no-hard-deny</code></td>
+</tr>
+<tr>
+<td>Inspect</td>
+<td><code>bash scripts/install-hard-deny.sh --show</code></td>
+</tr>
+<tr>
+<td>Remove</td>
+<td>Edit <code>~/.claude/settings.json</code> directly, or <code>bash scripts/install-hard-deny.sh --uninstall</code> (removes only craft rules)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-craft-installs">What craft installs<a class="headerlink" href="#what-craft-installs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Rule ID</th>
+<th>Blocks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>force-push-main</code></td>
+<td>Force pushes to <code>main</code>/<code>master</code>/protected primary branch</td>
+</tr>
+<tr>
+<td><code>delete-git-dir</code></td>
+<td>Recursive deletion of the <code>.git</code> directory</td>
+</tr>
+<tr>
+<td><code>delete-github-repo</code></td>
+<td><code>gh repo delete</code> and GitHub API equivalents</td>
+</tr>
+<tr>
+<td><code>destroy-claude-config</code></td>
+<td>Recursive deletion of <code>~/.claude</code></td>
+</tr>
+</tbody>
+</table>
+<p>The installer also prepends <code>"$defaults"</code> so Claude Code's built-in catastrophic protections are inherited, not replaced.</p>
+<h3 id="what-craft-deliberately-does-not-install-in-hard_deny">What craft deliberately does NOT install in hard_deny<a class="headerlink" href="#what-craft-deliberately-does-not-install-in-hard_deny" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Why left in branch-guard smart-mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hard reset to <code>origin/main</code></td>
+<td>Legitimate on feature branches (throw-away-and-restart)</td>
+</tr>
+<tr>
+<td><code>find . -delete</code></td>
+<td>Legitimate with filters; classifier can't see filter args</td>
+</tr>
+<tr>
+<td>Pipeline-driven removal (<code>... \| xargs rm</code>)</td>
+<td>Decision depends on upstream pipeline, classifier can't see it</td>
+</tr>
+<tr>
+<td>Discard uncommitted (<code>git checkout .</code>, <code>git restore .</code>)</td>
+<td>Annoying but recoverable from local stash/reflog</td>
+</tr>
+</tbody>
+</table>
+<p>See <code>scripts/hard-deny-rules.json</code> for full rationale per rule.</p>
 <hr />
 <h2 id="bypass-mechanisms">Bypass Mechanisms<a class="headerlink" href="#bypass-mechanisms" title="Permanent link">&para;</a></h2>
 <h3 id="one-shot-single-action">One-Shot (Single Action)<a class="headerlink" href="#one-shot-single-action" title="Permanent link">&para;</a></h3>

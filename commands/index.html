@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.1 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.33.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -10588,7 +10588,7 @@
 <p>Complete reference for all 107 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.</p>
 <h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
 <p><strong>Smart Commands:</strong> <code>/craft:do</code>, <code>/craft:check</code>, <code>/craft:help</code>, <code>/craft:hub</code>
-<strong>Dry-Run Support:</strong> 27 of 107 commands support <code>--dry-run</code> / <code>-n</code> preview mode
+<strong>Dry-Run Support:</strong> 27 of 108 commands support <code>--dry-run</code> / <code>-n</code> preview mode
 <strong>16 Categories:</strong> arch, check, ci, code, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow</p>
 <p>Use <code>/craft:hub</code> to discover all available commands interactively.</p>
 <div class="admonition tip">
@@ -10954,7 +10954,7 @@
 <li><strong>Test (3):</strong> run, cli-gen, cli-run</li>
 </ul>
 <h2 id="dry-run-commands">Dry-Run Commands<a class="headerlink" href="#dry-run-commands" title="Permanent link">&para;</a></h2>
-<p>27 of 107 commands support <code>--dry-run</code> / <code>-n</code> preview mode. <strong>Target exceeded:</strong> 57% of target commands vs 52% goal.</p>
+<p>27 of 108 commands support <code>--dry-run</code> / <code>-n</code> preview mode. <strong>Target exceeded:</strong> 57% of target commands vs 52% goal.</p>
 <h3 id="git-commands-66-100">Git Commands (6/6) — 100% ✅<a class="headerlink" href="#git-commands-66-100" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>git:branch</code> - Preview branch operations</li>

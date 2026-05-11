@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.32.1 adds GitHub-side branch protection (/craft:git:protect-baseline) as defense-in-depth companion to the local hook, fixes the pretooluse.py hook contract that was silently no-op'ing in production, and sweeps 348 missing cross-references across 49 command files.">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.33.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -9635,7 +9635,7 @@
 <tr>
 <td>system-architect</td>
 <td>Software architecture, system design, and technical decision-making</td>
-<td><code>skills/architecture/system-architect.md</code></td>
+<td><code>skills/architecture/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -9652,7 +9652,7 @@
 <tr>
 <td>project-detector</td>
 <td>Smart detection of project types, build tools, and CI requirements</td>
-<td><code>skills/ci/project-detector.md</code></td>
+<td><code>skills/ci/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -9669,7 +9669,7 @@
 <tr>
 <td>sync-features</td>
 <td>Chain command-audit, release-watch, and desktop-watch into a prioritized action plan</td>
-<td><code>skills/code/sync-features.md</code></td>
+<td><code>skills/code/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -9686,17 +9686,17 @@
 <tr>
 <td>backend-designer</td>
 <td>Backend architecture, API design, database decisions, and authentication patterns</td>
-<td><code>skills/design/backend-designer.md</code></td>
+<td><code>skills/design/backend-designer/SKILL.md</code></td>
 </tr>
 <tr>
 <td>devops-helper</td>
 <td>CI/CD, deployment, Docker, testing automation, and infrastructure decisions</td>
-<td><code>skills/design/devops-helper.md</code></td>
+<td><code>skills/design/devops-helper/SKILL.md</code></td>
 </tr>
 <tr>
 <td>frontend-designer</td>
 <td>UI/UX design, component architecture, accessibility, and frontend performance</td>
-<td><code>skills/design/frontend-designer.md</code></td>
+<td><code>skills/design/frontend-designer/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -9713,27 +9713,27 @@
 <tr>
 <td>distribution-strategist</td>
 <td>Recommends optimal distribution channels based on project type and target audience</td>
-<td><code>skills/distribution/distribution-strategist.md</code></td>
+<td><code>skills/distribution/distribution-strategist/SKILL.md</code></td>
 </tr>
 <tr>
 <td>homebrew-formula-expert</td>
 <td>Homebrew formula creation, best practices, and troubleshooting</td>
-<td><code>skills/distribution/homebrew-formula-expert.md</code></td>
+<td><code>skills/distribution/homebrew-formula-expert/SKILL.md</code></td>
 </tr>
 <tr>
 <td>homebrew-multi-formula</td>
 <td>Coordinate releases across multiple Homebrew formulas with dependency ordering</td>
-<td><code>skills/distribution/homebrew-multi-formula.md</code></td>
+<td><code>skills/distribution/homebrew-multi-formula/SKILL.md</code></td>
 </tr>
 <tr>
 <td>homebrew-setup-wizard</td>
 <td>Implementation logic for the Homebrew automation setup wizard</td>
-<td><code>skills/distribution/homebrew-setup-wizard.md</code></td>
+<td><code>skills/distribution/homebrew-setup-wizard/SKILL.md</code></td>
 </tr>
 <tr>
 <td>homebrew-workflow-expert</td>
 <td>GitHub Actions workflows for automated Homebrew formula updates and releases</td>
-<td><code>skills/distribution/homebrew-workflow-expert.md</code></td>
+<td><code>skills/distribution/homebrew-workflow-expert/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -9760,12 +9760,12 @@
 <tr>
 <td>doc-classifier</td>
 <td>Classify documentation needs based on code changes</td>
-<td><code>skills/docs/doc-classifier/skill.md</code></td>
+<td><code>skills/docs/doc-classifier/SKILL.md</code></td>
 </tr>
 <tr>
 <td>mermaid-linter</td>
 <td>Mermaid validation, auto-fix, health score with MCP-powered syntax checking</td>
-<td><code>skills/docs/mermaid-linter/skill.md</code></td>
+<td><code>skills/docs/mermaid-linter/SKILL.md</code></td>
 </tr>
 <tr>
 <td>openapi-spec-generation</td>
@@ -9809,7 +9809,7 @@
 <tr>
 <td>mode-controller</td>
 <td>Manages craft plugin execution modes (default, debug, optimize, release)</td>
-<td><code>skills/modes/mode-controller.md</code></td>
+<td><code>skills/modes/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -9826,12 +9826,12 @@
 <tr>
 <td>session-state</td>
 <td>Manages orchestrator session state persistence - save, load, resume, and history</td>
-<td><code>skills/orchestration/session-state.md</code></td>
+<td><code>skills/orchestration/session-state/SKILL.md</code></td>
 </tr>
 <tr>
 <td>task-analyzer</td>
 <td>Analyzes natural language task descriptions and routes to appropriate craft commands</td>
-<td><code>skills/orchestration/task-analyzer.md</code></td>
+<td><code>skills/orchestration/task-analyzer/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -9848,7 +9848,7 @@
 <tr>
 <td>project-planner</td>
 <td>Project planning, estimation, and delivery management</td>
-<td><code>skills/planning/project-planner.md</code></td>
+<td><code>skills/planning/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>
@@ -9887,12 +9887,12 @@
 <tr>
 <td>test-generator</td>
 <td>Generates dogfooding test suites (automated + interactive) for any project type</td>
-<td><code>skills/testing/test-generator.md</code></td>
+<td><code>skills/testing/test-generator/SKILL.md</code></td>
 </tr>
 <tr>
 <td>test-strategist</td>
 <td>Test strategy, coverage optimization, and quality assurance</td>
-<td><code>skills/testing/test-strategist.md</code></td>
+<td><code>skills/testing/test-strategist/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>
