@@ -728,7 +728,7 @@ if os.path.exists(memory_file):
 Check recent session facets for friction patterns relevant to this task:
 
 ```python
-import json, glob, os
+import json, glob, os, sys
 
 facets_dir = os.path.expanduser("~/.claude/usage-data/facets/")
 project_name = os.path.basename(os.getcwd())
@@ -738,8 +738,18 @@ facet_files = sorted(glob.glob(f"{facets_dir}/session-*.json"), reverse=True)[:5
 
 relevant_friction = []
 for fpath in facet_files:
-    with open(fpath) as f:
-        facet = json.load(f)
+    try:
+        with open(fpath, encoding="utf-8") as f:
+            facet = json.load(f)
+    except (json.JSONDecodeError, KeyError, TypeError,
+            FileNotFoundError, UnicodeDecodeError, OSError) as exc:
+        # Defensive parsing contract — see commands/workflow/insights.md.
+        print(
+            f"warning: skipping malformed facet {fpath}: "
+            f"{type(exc).__name__}: {exc}",
+            file=sys.stderr,
+        )
+        continue
 
     # Filter for current project
     if facet.get("project") != project_name:
