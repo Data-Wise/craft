@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`scripts/install-hard-deny.sh`** — idempotent installer with `--check / --install / --show / --uninstall` modes. Atomic writes via temp file + `os.replace`. Preserves user-added rules and unrelated top-level settings keys. `HARD_DENY_SETTINGS_PATH` env override allows tests to run without touching real `~/.claude/settings.json`. Locked by `tests/test_install_hard_deny.py` (5 integration tests).
 - **`/craft:git:protect` integration** — new Step 2b detects whether craft's rules are present in `~/.claude/settings.json`, shows a preview of additions, and offers install via `AskUserQuestion` with "Yes / Skip / Never offer again" options. New `--no-hard-deny` opt-out flag.
 - **`commands/workflow/insights.md` Defensive Parsing Contract** — explicit subsection documenting the exception set and warning format required of every facet-reader.
+- **`/craft:check --version` validator** (v2.33.0 Increment 1) — new hot-reload validator wraps `scripts/bump-version.sh --verify` and presents per-tier consistency status. Auto-included by `--for pr` / `--for release`; mode-aware (release exits 1 on drift). Catches drift before release.
 
 ### Fixed
 

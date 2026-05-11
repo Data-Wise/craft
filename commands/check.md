@@ -25,6 +25,10 @@ arguments:
     description: Output session context header only (no checks)
     required: false
     default: false
+  - name: version
+    description: "Run version sync validator only (Tier 1 files: plugin.json + 12 mechanically-synced refs). Use mode=thorough for Tier 2 sweep, mode=release for fatal-on-drift (NEW in v2.33.0)"
+    required: false
+    default: false
 ---
 
 # /craft:check - Universal Pre-flight
@@ -457,6 +461,24 @@ bash scripts/version-sync.sh --fix     # Show fix commands
 | PreToolUse hook | During editing | Warning (non-blocking) |
 | Pre-commit hook | At commit time | Blocking |
 | `/craft:check` | On demand | Informational report |
+
+### `--version` flag (NEW in v2.33.0)
+
+Run **only** the version validator (no other checks):
+
+```bash
+/craft:check --version              # Tier 1 files only (default), warn on drift
+/craft:check --version thorough     # Tier 1 + Tier 2 long-tail sweep
+/craft:check --version release      # Strict — exit 1 on any drift (CI gating)
+```
+
+Routes to the hot-reload validator at `.claude-plugin/skills/validation/version-check.md`, which wraps `scripts/bump-version.sh --verify`. The output uses the standard box-drawing format showing source-of-truth resolution, per-tier status, and a fix suggestion when drift is detected. See the validator skill for the exact output format.
+
+**Auto-included when:**
+
+- `--for pr` (the release PR would fail on version drift)
+- `--for release` (drift is fatal in release context)
+- `--version` (explicit invocation)
 
 ## Stale Reference Scan (NEW in v2.22.0)
 
