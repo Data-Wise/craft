@@ -216,10 +216,14 @@ Existing Commands/Skills          New Additions
 
 **Logic:**
 
+> **Note (2026-05-10, corrected in PR #125):** the original draft of this spec used `os.environ.get('CLAUDE_TOOL_NAME')` / `CLAUDE_TOOL_INPUT`. Those env vars are never set by Claude Code — the actual hook contract is `json.load(sys.stdin)` with a `{"tool_name": ..., "tool_input": {...}}` payload. The corrected sample below is what shipped. See `docs/reference/claude-code-instruction-enforcement.md` for the authoritative contract.
+
 ```python
 # Only check if we're in a worktree
-if os.environ.get('CLAUDE_TOOL_NAME') in ('Write', 'Edit'):
-    file_path = json.loads(os.environ.get('CLAUDE_TOOL_INPUT', '{}')).get('file_path', '')
+import json, sys
+payload = json.load(sys.stdin)
+if payload.get('tool_name') in ('Write', 'Edit'):
+    file_path = payload.get('tool_input', {}).get('file_path', '')
     worktree_root = subprocess.run(
         ['git', 'worktree', 'list', '--porcelain'],
         capture_output=True, text=True
