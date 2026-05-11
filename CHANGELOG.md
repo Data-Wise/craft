@@ -11,7 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-**Theme:** Safety hardening — hard_deny tier + defensive facet parsing
+_(no unreleased changes — see v2.33.0 below)_
+
+---
+
+## [2.33.0] — 2026-05-11
+
+**Theme:** Safety hardening — hard_deny tier + defensive facet parsing + drift cleanup
 
 ### Added
 
@@ -40,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Test count
 
 - **Before:** 79 (v2.32.1 baseline)
-- **After:** 93 (+14: 4 defensive-parsing, 7 catalog contract, 5 installer integration from PR #132; +2 badge labeled-row regression from [#127](https://github.com/Data-Wise/craft/issues/127); 1 structural test renamed; 1 path-traversal test renamed when [#134](https://github.com/Data-Wise/craft/issues/134) corrected the assertion direction). Full suite: 1636 passed, 5 skipped (env-conditional), 1 xfail — zero regressions across all v2.33.0 work.
+- **After:** 93 (+14: 4 defensive-parsing, 7 catalog contract, 5 installer integration from PR #132; +2 badge labeled-row regression from [#127](https://github.com/Data-Wise/craft/issues/127); 1 structural test renamed; 1 path-traversal test renamed when [#134](https://github.com/Data-Wise/craft/issues/134) corrected the assertion direction). Full suite: 1638 passed, 5 skipped (env-conditional), 1 xfail — zero regressions across all v2.33.0 work.
 
 ---
 

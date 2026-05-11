@@ -8,11 +8,11 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.32.1-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.33.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
-> **v2.32.0 — GitHub-side branch protection + hook contract fix** 🚀
-> **108 commands** | **26 skills** | **8 agents** | **112 tests passing**
-> New `/craft:git:protect-baseline` for GitHub-side branch protection (defense-in-depth with the local hook), fixed `pretooluse.py` silent no-op (env-var contract → stdin JSON), and a 348-ref cross-reference sweep across 49 command files.
+> **v2.33.0 — Safety hardening + drift cleanup** 🚀
+> **108 commands** | **26 skills** | **8 agents** | **1638 tests passing**
+> Adds an unconditional **hard_deny** third tier of branch protection (force-push to main, `.git` deletion, `gh repo delete`, `~/.claude` wipe — survives all session bypasses), defensive parsing for `/craft:hub` and `/craft:do` so corrupt facets no longer crash, fixes a real production leak in `branch-guard.sh` path canonicalization, eliminates `badge_syncer` false positives, and ships the new `/craft:check --version` validator (Insights-Driven Improvements Increment 1).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 

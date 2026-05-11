@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-**Theme:** Safety hardening — hard_deny tier + defensive facet parsing
+_(no unreleased changes — see v2.33.0 below)_
+
+---
+
+## [2.33.0] — 2026-05-11
+
+**Theme:** Safety hardening — hard_deny tier + defensive facet parsing + drift cleanup
 
 ### Added
 
