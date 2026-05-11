@@ -647,6 +647,73 @@ class TestBadgeSyncerIntegration(unittest.TestCase):
         self.assertGreaterEqual(len(ci_mismatches), 1)
 
 
+class TestLabeledRowFalsePositives(unittest.TestCase):
+    """Regression tests for issue #127 — badge_syncer false positives.
+
+    Two failure modes caused `/craft:site:update` to produce 4 phantom
+    "fixes" on every run:
+
+    Mode 1: dual-row CI badges (`**main:** [![CI](...?branch=main)]...` and
+    `**dev:** [![CI](...?branch=dev)]...`) had their branch param rewritten
+    to match the active branch, breaking the layout's purpose.
+
+    Mode 2: shields.io `[![Documentation](.../badge/docs-XX%-...)]` was
+    classified as CUSTOM (not DOCS_COVERAGE), so the syncer thought the
+    Documentation badge was missing and offered to add a duplicate.
+    """
+
+    def setUp(self):
+        import textwrap as _tw
+        self._textwrap = _tw
+        self.test_dir = Path(tempfile.mkdtemp())
+
+    def tearDown(self):
+        shutil.rmtree(self.test_dir)
+
+    def _make_readme_with_labeled_rows(self):
+        """Write a README that exhibits the exact layout from #127."""
+        readme = self.test_dir / "README.md"
+        readme.write_text(self._textwrap.dedent("""\
+            # Test Plugin
+
+            [![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://example.com/docs)
+
+            **main:** [![Test CI](https://github.com/test/repo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/test/repo/actions/workflows/ci.yml)
+            **dev:** [![Test CI](https://github.com/test/repo/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/test/repo/actions/workflows/ci.yml)
+        """))
+        return readme
+
+    def test_labeled_rows_detected_with_branch_label(self):
+        """`**main:** [![CI](...)]` lines populate badge.branch_label."""
+        from badge_detector import BadgeDetector
+        self._make_readme_with_labeled_rows()
+        det = BadgeDetector(project_root=self.test_dir)
+        badges_by_file = det.detect_all(['README.md'])
+        labeled = [b for badges in badges_by_file.values() for b in badges
+                   if b.branch_label is not None]
+        labels = sorted(b.branch_label for b in labeled)
+        self.assertEqual(labels, ['dev', 'main'],
+                         f"expected both main/dev row labels, got {labels}")
+        for b in labeled:
+            self.assertIn(f"branch={b.branch_label}", b.url,
+                          f"row {b.branch_label!r} should pin to ?branch={b.branch_label}")
+
+    def test_docs_shields_badge_classified_as_docs_coverage(self):
+        """`/badge/docs-XX%25%20complete-` URLs must classify as DOCS_COVERAGE.
+
+        Without this, the syncer flags the existing Documentation badge as
+        missing and offers to add a duplicate on every run.
+        """
+        from badge_detector import BadgeDetector
+        self._make_readme_with_labeled_rows()
+        det = BadgeDetector(project_root=self.test_dir)
+        badges_by_file = det.detect_all(['README.md'])
+        docs_badges = [b for badges in badges_by_file.values() for b in badges
+                       if b.label == "Documentation"]
+        self.assertEqual(len(docs_badges), 1)
+        self.assertEqual(docs_badges[0].type, BadgeType.DOCS_COVERAGE)
+
+
 if __name__ == '__main__':
     # Import subprocess for tests
     import subprocess

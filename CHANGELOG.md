@@ -9,6 +9,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+_(no unreleased changes — see v2.33.0 below)_
+
+---
+
+## [2.33.0] — 2026-05-11
+
+**Theme:** Safety hardening — hard_deny tier + defensive facet parsing + drift cleanup
+
+### Added
+
+- **Hard_deny tier on top of branch-guard** — adds an unconditional third layer of branch protection enforced by the Claude Code auto-mode classifier *before* any tool runs. Blocks four catastrophic operations regardless of `.claude/allow-once`, `/craft:git:unprotect`, or user intent: force-push to `main`/`master`, recursive deletion of `.git`, `gh repo delete`, and recursive deletion of `~/.claude`. Inherits `"$defaults"` so Claude Code's built-in protections stack rather than replace. Prose-rule schema (not regex) — verified against Claude Code auto-mode docs during Phase 0.
+- **`scripts/hard-deny-rules.json`** — canonical prose rule catalog with 4 hard_deny entries plus 4 deliberately-not-promoted carryover entries with rationale per pattern. Locked by `tests/test_hard_deny_catalog.py` (7 contract tests).
+- **`scripts/install-hard-deny.sh`** — idempotent installer with `--check / --install / --show / --uninstall` modes. Atomic writes via temp file + `os.replace`. Preserves user-added rules and unrelated top-level settings keys. `HARD_DENY_SETTINGS_PATH` env override allows tests to run without touching real `~/.claude/settings.json`. Locked by `tests/test_install_hard_deny.py` (5 integration tests).
+- **`/craft:git:protect` integration** — new Step 2b detects whether craft's rules are present in `~/.claude/settings.json`, shows a preview of additions, and offers install via `AskUserQuestion` with "Yes / Skip / Never offer again" options. New `--no-hard-deny` opt-out flag.
+- **`commands/workflow/insights.md` Defensive Parsing Contract** — explicit subsection documenting the exception set and warning format required of every facet-reader.
+- **`/craft:check --version` validator** (v2.33.0 Insights-Driven Improvements Increment 1) — new hot-reload validator at `.claude-plugin/skills/validation/version-check.md` wraps `scripts/bump-version.sh --verify` and presents per-tier consistency status in the standard box-drawing format. Auto-included by `--for pr` and `--for release`; mode-aware (`default`/`debug`/`thorough` warn on drift; `release` exits 1). Adds the `version` argument to `commands/check.md`. Catches drift before release that would otherwise surface in `post-release-sweep`.
+
+### Fixed
+
+- **Crash-on-malformed-facet in `/craft:hub`** — `commands/hub.md` Step 1.7 caught only `(JSONDecodeError, KeyError)` and silently continued. Widened to `(JSONDecodeError, KeyError, TypeError, FileNotFoundError, UnicodeDecodeError, OSError)` and now logs a `warning: skipping malformed facet <path>: <ErrType>: <msg>` line to stderr. Ports the Claude Code v2.1.136 defensive-parsing pattern.
+- **Crash-on-malformed-facet in `/craft:do`** — `commands/do.md` Step 1.5 had no `try/except` at all and would have crashed every `/craft:do` invocation on the first corrupt facet. Hardened to the same defensive contract.
+- **`tests/test_facet_parsing_defensive.py`** — 4 new tests (1 behavioral via subprocess + 3 structural) confirm the contract is published in all three files and the hub.md snippet survives truncated, binary, and wrong-shape fixture facets.
+- **`branch-guard.sh` path canonicalization production leak** ([#134](https://github.com/Data-Wise/craft/issues/134)) — hook used `cd "$(dirname FILE_PATH_ABS)"` to canonicalize, which silently fails when the parent directory doesn't exist. That's the Write tool's exact case: every new file under a new subdir got through with exit 0 because the failed `cd` triggered the `||` fallback to the bare relative path, which then failed the PROJECT_ROOT membership check. Production leak — any user creating a new file under a new directory on `main` or `dev` was bypassing protection. Fix pre-resolves CWD via `cd && pwd -P` (CWD always exists, can't fail) and falls back to `python3 os.path.realpath` only for `..` segments. Fast path skips the python3 spawn so the 50-invocation perf budget still passes. 3 stale integration tests now correctly assert the documented behavior; 1 test that was locking in buggy behavior renamed to `test_path_traversal_resolves_outside_repo_allowed`.
+- **`badge_syncer` dual-row + docs-shields false positives** ([#127](https://github.com/Data-Wise/craft/issues/127)) — every `/craft:site:update` run surfaced 4 phantom mismatches that had to be manually rejected. Mode 1: the syncer rewrote `?branch=main` → `?branch=dev` on rows intentionally pinned with `**main:**` prefixes, breaking the dual-row CI layout. Mode 2: shields badges with the `Documentation` label and URL containing `/badge/docs-XX%25%20complete-` classified as CUSTOM, so the generator's `DOCS_COVERAGE` expectation didn't match and the syncer offered to add a duplicate. Fix: `Badge` dataclass gains a `branch_label` field, extracted from `**main:**` prose prefix or `| **main** |` table cells, and the mismatch finder skips CI rewrites when the row's pinned branch already matches its URL. Classifier adds a `/badge/docs-` shields.io rule. Real-repo verification: 4 mismatches → 0. Two regression tests in `TestLabeledRowFalsePositives`.
+- **Insights spec env-var → stdin contract drift** ([#126](https://github.com/Data-Wise/craft/issues/126)) — the PreToolUse hook code sample in `docs/specs/SPEC-insights-driven-improvements-2026-02-14.md` still used `os.environ.get('CLAUDE_TOOL_NAME')` / `'CLAUDE_TOOL_INPUT'` after PR #125 deprecated that contract. Updated to the actual stdin JSON form with an inline `Note (2026-05-10, corrected in PR #125)` footnote — keeps the spec usable as a reference for future implementers (option a from the issue). Also fixed an orphan `tests/test_insights_improvements_e2e.sh` test case that still invoked the hook with empty env vars and no stdin pipe (would have hung).
+
+### Changed
+
+- **`commands/git/unprotect.md`** — new Key Behavior #5 making the hard_deny semantics explicit: `/craft:git:unprotect` does **not** bypass hard_deny. The "Relationship to One-Shot Approval" table gains a "Bypasses hard_deny?" column.
+- **`docs/architecture.md`** — section 5 "Defense-in-Depth" extended from two layers to three, with a layered diagram, per-tier comparison table, and rationale for why narrow patterns belong in hard_deny while context-dependent ones stay in branch-guard.
+- **`docs/reference/REFCARD-BRANCH-GUARD.md`** — new "Hard_deny Layer" section; version header bumped to 2.33.0.
+
+### Test count
+
+- **Before:** 79 (v2.32.1 baseline)
+- **After:** 93 (+14: 4 defensive-parsing, 7 catalog contract, 5 installer integration from PR #132; +2 badge labeled-row regression from [#127](https://github.com/Data-Wise/craft/issues/127); 1 structural test renamed; 1 path-traversal test renamed when [#134](https://github.com/Data-Wise/craft/issues/134) corrected the assertion direction). Full suite: 1638 passed, 5 skipped (env-conditional), 1 xfail — zero regressions across all v2.33.0 work.
+
+---
+
 ## [2.32.1] — 2026-05-10
 
 **Theme:** Infrastructure — durable Homebrew release auth

@@ -697,13 +697,20 @@ echo -e "${T_BLUE}--- Advanced Edge Cases ---${T_NC}"
 
 REPO_ADV=$(init_repo)
 
-# Path traversal with ".." — writing ../../../etc/foo.py from dev
-# The resolved path doesn't exist -> new code file -> BLOCK
+# Path traversal with ".." — writing ../nonexistent/evil.py from dev
+# After canonicalization the path resolves OUTSIDE the repo. Per the
+# documented "non-repo paths are always allowed" semantic (memory files,
+# /tmp, etc.), traversal that lands outside the repo is allowed — branch
+# protection only enforces against the protected branch's own tree.
+# (Earlier behavior here was accidental: pre-canonicalization, the un-
+# resolved path stayed inside the repo and got the new-code block. That
+# was a leak: it allowed writes that DID resolve outside via cd canonical-
+# ization to escape protection, and blocked writes that didn't.)
 switch_branch "$REPO_ADV" "dev"
 
 run_test \
-    "test_path_traversal_new_file_blocked" \
-    2 \
+    "test_path_traversal_resolves_outside_repo_allowed" \
+    0 \
     "$(json_write "$REPO_ADV/../nonexistent/evil.py" "$REPO_ADV")" \
     "$REPO_ADV"
 

@@ -88,12 +88,40 @@ BRANCH="$(cd "$CWD" 2>/dev/null && git branch --show-current 2>/dev/null)" || {
 # the project root. Non-repo paths (memory files, /tmp, etc.) are always
 # allowed regardless of branch protection level.
 if [[ -n "$FILE_PATH" ]]; then
+  # CWD-from-payload may differ in symlink-resolution from PROJECT_ROOT
+  # (e.g. macOS: CWD=/tmp/x, git rev-parse=/private/tmp/x). Resolve CWD once
+  # via cd/pwd -P — CWD always exists by definition, so this can't fail like
+  # the per-call canonicalization in earlier versions of this hook did.
+  CWD_RESOLVED="$(cd "$CWD" 2>/dev/null && pwd -P)" || CWD_RESOLVED="$CWD"
+
   FILE_PATH_ABS="$FILE_PATH"
   if [[ "$FILE_PATH" != /* ]]; then
-    FILE_PATH_ABS="${CWD}/${FILE_PATH}"
+    FILE_PATH_ABS="${CWD_RESOLVED}/${FILE_PATH}"
+  elif [[ "$CWD" != "$CWD_RESOLVED" && "$FILE_PATH" == "$CWD"/* ]]; then
+    # Absolute path supplied via the un-resolved CWD form (e.g. /tmp/x/foo
+    # while CWD_RESOLVED is /private/tmp/x). Rewrite the prefix so the
+    # membership check below matches PROJECT_ROOT without a python3 spawn.
+    FILE_PATH_ABS="${CWD_RESOLVED}${FILE_PATH#$CWD}"
   fi
-  # Resolve to canonical path (follow symlinks, normalize ..)
-  FILE_PATH_ABS="$(cd "$(dirname "$FILE_PATH_ABS")" 2>/dev/null && pwd -P)/$(basename "$FILE_PATH_ABS")" 2>/dev/null || FILE_PATH_ABS="$FILE_PATH"
+
+  # Canonicalize further only if the path contains `..` segments OR the
+  # absolute form doesn't yet share the PROJECT_ROOT prefix (which means
+  # either a different symlink path that needs resolving, or a real outside-
+  # repo write that should fall through to the exit-0 below).
+  #
+  # The Write tool creates new files in possibly-new subdirs — using `cd`
+  # to canonicalize would fail (silently) and leak unprotected writes
+  # through. os.path.realpath walks the path and resolves what exists,
+  # leaving any missing tail un-resolved — exactly the contract we need.
+  # Python3 costs ~30ms per spawn; the fast path here skips it for the
+  # common case where the user's tool already produced a clean absolute path
+  # under PROJECT_ROOT.
+  if { [[ "$FILE_PATH_ABS" == *"/../"* ]] || [[ "$FILE_PATH_ABS" == */.. ]] \
+       || [[ "$FILE_PATH_ABS" != "$PROJECT_ROOT"/* && "$FILE_PATH_ABS" != "$PROJECT_ROOT" ]]; } \
+     && command -v python3 &>/dev/null; then
+    FILE_PATH_ABS="$(python3 -c "import os, sys; print(os.path.realpath(sys.argv[1]))" "$FILE_PATH_ABS" 2>/dev/null || printf '%s' "$FILE_PATH_ABS")"
+  fi
+
   if [[ "$FILE_PATH_ABS" != "$PROJECT_ROOT"/* && "$FILE_PATH_ABS" != "$PROJECT_ROOT" ]]; then
     exit 0
   fi

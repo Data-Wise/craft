@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.32.1 (released 2026-02-26)                       │
-│  Commands: 107 | Agents: 8 | Skills: 26                     │
-│  Documentation: 99% complete | Tests: 112 passing            │
+│  Version: 2.33.0 (released 2026-05-11)                       │
+│  Commands: 108 | Agents: 8 | Skills: 26                     │
+│  Documentation: 99% complete | Tests: 1638 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.32.1: GitHub-side branch protection + hook contract fix  │
+│  v2.33.0: Safety hardening + drift cleanup                   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -1498,7 +1498,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.32.1: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.33.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary

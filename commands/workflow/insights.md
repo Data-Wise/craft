@@ -64,6 +64,8 @@ Check back after a few sessions, or verify data at:
 
 ### Step 2: Aggregate Facets
 
+> **Defensive Parsing Contract (v2.33.0).** Facet files are written by `/craft:workflow:done`, but disk corruption, interrupted writes, or hand-edits can leave malformed entries. Every command that reads facets — including this one, `/craft:hub` Step 1.7, and `/craft:do` Step 1.5 — MUST wrap each per-file read in a `try / except` that catches `(json.JSONDecodeError, KeyError, TypeError, FileNotFoundError, UnicodeDecodeError, OSError)`, log a `warning: skipping malformed facet <path>: <ErrType>: <msg>` line to stderr, and `continue` to the next file. Never abort the whole report on a single bad facet. The regression test lives at `tests/test_facet_parsing_defensive.py` and runs both `commands/hub.md` and `commands/do.md` snippets against deliberately corrupt fixtures.
+
 Read all facet JSON files within the `--since` window. Extract and aggregate:
 
 1. **Session count** — total sessions analyzed

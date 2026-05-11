@@ -274,16 +274,17 @@ else
     assert_fail "hook_handles_empty_file_path" "Should exit 0 with empty file_path"
 fi
 
-# Test: Hook handles missing environment variable
+# Test: Hook handles empty stdin payload (per stdin contract from PR #125)
+# The hook should exit 0 when given an empty/minimal JSON payload — the env-var
+# contract was never real (Claude Code never sets CLAUDE_TOOL_NAME); the actual
+# contract is JSON on stdin.
 HOOK_STDERR=$(
-    CLAUDE_TOOL_NAME="" \
-    CLAUDE_TOOL_INPUT="" \
-    python3 "$HOOK_PATH" 2>&1
+    echo '{}' | python3 "$HOOK_PATH" 2>&1
 )
 if [[ $? -eq 0 ]]; then
-    assert_pass "hook_handles_missing_env_vars"
+    assert_pass "hook_handles_empty_stdin_payload"
 else
-    assert_fail "hook_handles_missing_env_vars" "Should exit 0 with missing env vars"
+    assert_fail "hook_handles_empty_stdin_payload" "Should exit 0 with empty JSON payload"
 fi
 
 echo ""

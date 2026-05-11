@@ -157,22 +157,55 @@ exit 0 (allow) or exit 2 (block)
 
 **Bypass:** `/craft:git:unprotect` creates a marker file; `/craft:git:protect` removes it.
 
-#### Defense-in-Depth: Local Hook + GitHub-Side
+#### Defense-in-Depth: Three Layers (Hard_deny + Local Hook + GitHub-Side)
 
-The `branch-guard.sh` hook is one of two layers that protect branches. The second layer lives on GitHub itself, applied via `gh api -X PUT repos/OWNER/REPO/branches/main/protection`. They cover different failure modes:
+> **NEW in v2.33.0.** Added the `hard_deny` tier on top of the existing two-layer model. The hook + GitHub-side layers remain unchanged; the new tier is unconditional and runs *before* either of them.
 
-| Layer | Catches | Misses |
-|-------|---------|--------|
-| **Local hook** (`branch-guard.sh`) | Accidental edits, writes, force-pushes from this machine | Pushes from other machines, web UI commits, CI bots, hook bypass via `--no-verify` |
-| **GitHub-side** (branch protection API) | Direct pushes from any source, force-pushes, deletions, missing PR | Anything that happens before the push (hook is the earlier shield) |
+The branch-guard model has three layers, each catching a different class of failure:
 
-`/craft:git:protect-baseline` provides a one-step way to apply the GitHub-side layer to any repo with craft's standard baseline (PR required with 0 reviews, no force-push, no delete, optional status checks). The command is deliberately separate from `/craft:git:protect` because:
+| Tier | Layer | Enforcement point | Catches | Misses | Bypass |
+|------|-------|-------------------|---------|--------|--------|
+| 1 | **Hard_deny** (`~/.claude/settings.json` `autoMode.hard_deny`) | Claude Code auto-mode classifier, *before* any tool runs | Catastrophic, irreversible operations: force-push to main, recursive deletion of `.git`, `gh repo delete`, recursive deletion of `~/.claude` | Anything not in the catalog; Bash commands that compose patterns at runtime | **None.** Unconditional. Survives `.claude/allow-once`, `/craft:git:unprotect`, and user intent. Only direct edits to `settings.json` can remove. |
+| 2 | **Local hook** (`scripts/branch-guard.sh`) | PreToolUse, per-tool-call, on this machine | Accidental edits to protected branches, new code on `dev`, sensitive paths | Pushes from other machines, web UI commits, CI bots, hook bypass via `--no-verify` | `/craft:git:unprotect` (session-scoped, marker-based) or `.claude/allow-once` (one-shot) |
+| 3 | **GitHub-side** (`repos/.../branches/.../protection`) | Server-side, on push | Direct pushes from any source, force-pushes, deletions, missing PR | Anything that happens before the push reaches GitHub | Admin override via `--admin` or removing the protection rule |
 
-1. **Different scope** — local hook is per-machine and stateful; GitHub protection is per-repo and persistent
-2. **Different invocation** — local hook needs no API; GitHub-side requires authenticated `gh` CLI
-3. **Different bypass semantics** — `unprotect` only affects the local hook; GitHub-side rules require explicit `protect-baseline --remove`
+```
+Claude Code tool call (Write, Edit, Bash, MCP, ...)
+    ↓
+┌─────────────────────────────────────────────────────────────┐
+│  Tier 1: hard_deny classifier (UNCONDITIONAL)               │
+│  ~/.claude/settings.json → autoMode.hard_deny prose rules   │
+│  Inherits "$defaults" + craft catalog from                  │
+│  scripts/hard-deny-rules.json                               │
+└─────────────────────────────────────────────────────────────┘
+    ↓  (passes hard_deny — proceed)
+┌─────────────────────────────────────────────────────────────┐
+│  Tier 2: PreToolUse hook (branch-aware, bypassable)         │
+│  scripts/branch-guard.sh                                    │
+│  Reads .claude/branch-guard.json + auto-detect              │
+└─────────────────────────────────────────────────────────────┘
+    ↓  (allowed locally — git push)
+┌─────────────────────────────────────────────────────────────┐
+│  Tier 3: GitHub-side branch protection (push-time)          │
+│  Applied via /craft:git:protect-baseline                    │
+└─────────────────────────────────────────────────────────────┘
+    ↓
+operation completes
+```
 
-The two layers are complementary, not redundant: the local hook is the fast, opinionated, teaching-oriented shield; GitHub-side protection is the immutable backstop.
+**Why three tiers, not two?** Tier 1 closes the escape hatch where a user creates `.claude/allow-once` (or runs `/craft:git:unprotect`) and then types a catastrophic command — Tier 2 would correctly honor the bypass, but Tier 1 refuses regardless. This matches the spec's safety criterion #5: hard_deny must survive session bypasses.
+
+**Why the catalog is narrow.** Tier 1 is a prose-rule classifier — it cannot evaluate upstream pipelines or context-dependent commands (`xargs rm`, `find . -delete` with filters, `git reset --hard origin/main` on a feature branch). Those remain in Tier 2's smart-mode where the full command string and current branch are visible. The catalog at `scripts/hard-deny-rules.json` documents which patterns were considered and rejected for Tier 1, with rationale per entry.
+
+**Installation.** `/craft:git:protect` runs an idempotent check and offers to merge craft's rules into `~/.claude/settings.json`, prepending `"$defaults"` so Claude Code's built-in catastrophic protections are inherited. The installer (`scripts/install-hard-deny.sh`) preserves any user-added entries and writes atomically. Opt out with `--no-hard-deny`.
+
+`/craft:git:protect-baseline` provides a one-step way to apply the GitHub-side layer (Tier 3) to any repo with craft's standard baseline (PR required with 0 reviews, no force-push, no delete, optional status checks). The three install commands are deliberately separate because:
+
+1. **Different scope** — Tier 1 is global (`~/.claude/`), Tier 2 is per-machine + stateful, Tier 3 is per-repo + persistent
+2. **Different invocation** — Tier 1 needs no API, Tier 2 needs no API, Tier 3 requires authenticated `gh` CLI
+3. **Different bypass semantics** — `/craft:git:unprotect` only affects Tier 2; Tier 1 is unconditional; Tier 3 requires `protect-baseline --remove`
+
+The three layers are complementary, not redundant: Tier 1 is the unconditional catastrophe-prevention shield, Tier 2 is the fast, opinionated, teaching-oriented branch shield, and Tier 3 is the immutable server-side backstop.
 
 ### 6. Documentation Quality Toolchain
 
@@ -182,7 +215,7 @@ Automated detection of documentation drift across 4 phases:
 scripts/docs-staleness-check.sh
     ↓
 Phase 6: Nav Completeness    → mkdocs.yml vs docs/ files
-Phase 7: Count Consistency   → "107 commands" refs match reality
+Phase 7: Count Consistency   → "108 commands" refs match reality
 Phase 8: Coverage            → skills/agents/commands in docs
 Phase 9: Cross-Doc Freshness → stale summary lines
     ↓

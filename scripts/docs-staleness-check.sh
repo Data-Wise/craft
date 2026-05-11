@@ -561,17 +561,60 @@ pass1_auto_fix() {
         local sed_cmd="${rest#*:}"
 
         if [[ -f "$file" ]]; then
-            # Apply sed fix on the specific line
-            if [[ "$(uname)" == "Darwin" ]]; then
-                sed -i '' "${lineno}${sed_cmd}" "$file" 2>/dev/null
-            else
-                sed -i "${lineno}${sed_cmd}" "$file" 2>/dev/null
-            fi && {
+            # Apply the fix via python3 instead of `sed -i`.
+            # Why: the sed patterns built in count_consistency use `\b` word
+            # boundaries, which GNU sed honors but BSD sed (macOS default)
+            # treats as literal `b`. The sed call previously returned exit 0
+            # even when nothing matched, so the script reported "Fixed: N
+            # items" while no file was actually modified — silent no-op on
+            # every macOS run. Python's re.sub gets the contract right on
+            # every platform and lets us also detect "nothing actually
+            # changed" via a proper before/after comparison.
+            local fixed_one=false
+            fixed_one="$(python3 - "$file" "$lineno" "$sed_cmd" <<'PYEOF' 2>/dev/null || echo "false"
+import re, sys
+
+file_path, lineno_str, sed_cmd = sys.argv[1], sys.argv[2], sys.argv[3]
+# sed_cmd looks like: s/PATTERN/REPLACEMENT/g
+# Parse it. The delimiter is `/` (we never use anything else when constructing).
+if not sed_cmd.startswith("s/"):
+    print("false")
+    sys.exit(0)
+parts = sed_cmd[2:].rsplit("/", 2)
+if len(parts) != 3:
+    print("false")
+    sys.exit(0)
+pattern, replacement, flags = parts
+# Translate `\b` (GNU sed word boundary) into Python regex's equivalent.
+# Python's re already supports \b, so the pattern is mostly portable as-is.
+try:
+    with open(file_path, encoding="utf-8") as f:
+        lines = f.readlines()
+except OSError:
+    print("false")
+    sys.exit(0)
+
+idx = int(lineno_str) - 1
+if idx < 0 or idx >= len(lines):
+    print("false")
+    sys.exit(0)
+old = lines[idx]
+new = re.sub(pattern, replacement, old)
+if new == old:
+    print("false")
+    sys.exit(0)
+lines[idx] = new
+with open(file_path, "w", encoding="utf-8") as f:
+    f.writelines(lines)
+print("true")
+PYEOF
+)"
+            if [[ "$fixed_one" == "true" ]]; then
                 TOTAL_FIXED=$((TOTAL_FIXED + 1))
                 if [[ "$JSON_MODE" != "true" ]]; then
                     echo -e "  ${GREEN}Fixed:${NC} ${file}:${lineno}"
                 fi
-            }
+            fi
         fi
     done
 

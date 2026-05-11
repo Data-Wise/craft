@@ -325,6 +325,17 @@ class BadgeSyncer:
                         badge.label.lower() == expected_badge.label.lower()):
                         files_with_badge.add(file_path)
 
+                        # Skip "update branch" mismatches when the badge sits
+                        # in a labeled row that intentionally pins it to a
+                        # specific branch (e.g. **main:** [![CI](...?branch=main)]).
+                        # Without this, the syncer rewrites every per-branch row
+                        # to the active branch on every run — corrupting the
+                        # dual-row layout and producing persistent false positives.
+                        if (badge.branch_label
+                                and badge.type == BadgeType.CI_STATUS
+                                and self._url_branch(badge.url) == badge.branch_label):
+                            continue
+
                         # Check if badge matches expected
                         if not self._badges_match(badge, expected_badge):
                             severity = self._determine_severity(badge, expected_badge)
@@ -376,6 +387,18 @@ class BadgeSyncer:
                 if badge.type == badge_type and badge.label.lower() == label.lower():
                     return badge
         return None
+
+    @staticmethod
+    def _url_branch(url: str) -> Optional[str]:
+        """Extract the `?branch=NAME` value from a GitHub Actions badge URL.
+
+        Returns the branch name or None when the parameter is absent.
+        Used to decide whether a labeled-row badge already targets the
+        branch its row label declares — in which case the row is
+        intentionally pinned and the syncer must not rewrite it.
+        """
+        m = re.search(r'[?&]branch=([^&\s]+)', url)
+        return m.group(1) if m else None
 
     def _badges_match(self, current: Badge, expected: Badge) -> bool:
         """Check if current badge matches expected.

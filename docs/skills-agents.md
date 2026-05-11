@@ -10,37 +10,37 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 | Name | Description | Path |
 |------|-------------|------|
-| system-architect | Software architecture, system design, and technical decision-making | `skills/architecture/system-architect.md` |
+| system-architect | Software architecture, system design, and technical decision-making | `skills/architecture/SKILL.md` |
 
 ### CI (1)
 
 | Name | Description | Path |
 |------|-------------|------|
-| project-detector | Smart detection of project types, build tools, and CI requirements | `skills/ci/project-detector.md` |
+| project-detector | Smart detection of project types, build tools, and CI requirements | `skills/ci/SKILL.md` |
 
 ### Code (1)
 
 | Name | Description | Path |
 |------|-------------|------|
-| sync-features | Chain command-audit, release-watch, and desktop-watch into a prioritized action plan | `skills/code/sync-features.md` |
+| sync-features | Chain command-audit, release-watch, and desktop-watch into a prioritized action plan | `skills/code/SKILL.md` |
 
 ### Design (3)
 
 | Name | Description | Path |
 |------|-------------|------|
-| backend-designer | Backend architecture, API design, database decisions, and authentication patterns | `skills/design/backend-designer.md` |
-| devops-helper | CI/CD, deployment, Docker, testing automation, and infrastructure decisions | `skills/design/devops-helper.md` |
-| frontend-designer | UI/UX design, component architecture, accessibility, and frontend performance | `skills/design/frontend-designer.md` |
+| backend-designer | Backend architecture, API design, database decisions, and authentication patterns | `skills/design/backend-designer/SKILL.md` |
+| devops-helper | CI/CD, deployment, Docker, testing automation, and infrastructure decisions | `skills/design/devops-helper/SKILL.md` |
+| frontend-designer | UI/UX design, component architecture, accessibility, and frontend performance | `skills/design/frontend-designer/SKILL.md` |
 
 ### Distribution (5)
 
 | Name | Description | Path |
 |------|-------------|------|
-| distribution-strategist | Recommends optimal distribution channels based on project type and target audience | `skills/distribution/distribution-strategist.md` |
-| homebrew-formula-expert | Homebrew formula creation, best practices, and troubleshooting | `skills/distribution/homebrew-formula-expert.md` |
-| homebrew-multi-formula | Coordinate releases across multiple Homebrew formulas with dependency ordering | `skills/distribution/homebrew-multi-formula.md` |
-| homebrew-setup-wizard | Implementation logic for the Homebrew automation setup wizard | `skills/distribution/homebrew-setup-wizard.md` |
-| homebrew-workflow-expert | GitHub Actions workflows for automated Homebrew formula updates and releases | `skills/distribution/homebrew-workflow-expert.md` |
+| distribution-strategist | Recommends optimal distribution channels based on project type and target audience | `skills/distribution/distribution-strategist/SKILL.md` |
+| homebrew-formula-expert | Homebrew formula creation, best practices, and troubleshooting | `skills/distribution/homebrew-formula-expert/SKILL.md` |
+| homebrew-multi-formula | Coordinate releases across multiple Homebrew formulas with dependency ordering | `skills/distribution/homebrew-multi-formula/SKILL.md` |
+| homebrew-setup-wizard | Implementation logic for the Homebrew automation setup wizard | `skills/distribution/homebrew-setup-wizard/SKILL.md` |
+| homebrew-workflow-expert | GitHub Actions workflows for automated Homebrew formula updates and releases | `skills/distribution/homebrew-workflow-expert/SKILL.md` |
 
 ### Documentation (5)
 
@@ -48,8 +48,8 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | architecture-decision-records | Write and maintain ADRs following best practices for technical decision documentation | `skills/docs/architecture-decision-records/SKILL.md` |
 | changelog-automation | Automate changelog generation from commits, PRs, and releases (Keep a Changelog format) | `skills/docs/changelog-automation/SKILL.md` |
-| doc-classifier | Classify documentation needs based on code changes | `skills/docs/doc-classifier/skill.md` |
-| mermaid-linter | Mermaid validation, auto-fix, health score with MCP-powered syntax checking | `skills/docs/mermaid-linter/skill.md` |
+| doc-classifier | Classify documentation needs based on code changes | `skills/docs/doc-classifier/SKILL.md` |
+| mermaid-linter | Mermaid validation, auto-fix, health score with MCP-powered syntax checking | `skills/docs/mermaid-linter/SKILL.md` |
 | openapi-spec-generation | Generate and maintain OpenAPI 3.1 specifications from code and design-first specs | `skills/docs/openapi-spec-generation/SKILL.md` |
 
 ### Guard & Insights (2)
@@ -63,20 +63,20 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 | Name | Description | Path |
 |------|-------------|------|
-| mode-controller | Manages craft plugin execution modes (default, debug, optimize, release) | `skills/modes/mode-controller.md` |
+| mode-controller | Manages craft plugin execution modes (default, debug, optimize, release) | `skills/modes/SKILL.md` |
 
 ### Orchestration (2)
 
 | Name | Description | Path |
 |------|-------------|------|
-| session-state | Manages orchestrator session state persistence - save, load, resume, and history | `skills/orchestration/session-state.md` |
-| task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer.md` |
+| session-state | Manages orchestrator session state persistence - save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
+| task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer/SKILL.md` |
 
 ### Planning (1)
 
 | Name | Description | Path |
 |------|-------------|------|
-| project-planner | Project planning, estimation, and delivery management | `skills/planning/project-planner.md` |
+| project-planner | Project planning, estimation, and delivery management | `skills/planning/SKILL.md` |
 
 ### Release (2)
 
@@ -89,8 +89,8 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 | Name | Description | Path |
 |------|-------------|------|
-| test-generator | Generates dogfooding test suites (automated + interactive) for any project type | `skills/testing/test-generator.md` |
-| test-strategist | Test strategy, coverage optimization, and quality assurance | `skills/testing/test-strategist.md` |
+| test-generator | Generates dogfooding test suites (automated + interactive) for any project type | `skills/testing/test-generator/SKILL.md` |
+| test-strategist | Test strategy, coverage optimization, and quality assurance | `skills/testing/test-strategist/SKILL.md` |
 
 ## Agents (8 total)
 
