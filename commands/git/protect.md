@@ -140,6 +140,12 @@ rm -f .claude/allow-dev-edit
 
 Skip this step entirely when `--no-hard-deny` was passed.
 
+**Precondition:** if `~/.claude/.craft-hard-deny-declined` exists, the user previously chose "Never offer again". Skip the offer silently and report `Hard_deny: declined` in Step 3. Do not run the check pass below.
+
+```bash
+[[ -f "$HOME/.claude/.craft-hard-deny-declined" ]] && skip Step 2b offer
+```
+
 The hard_deny layer is a third tier of unconditional protection enforced by the Claude Code auto-mode classifier. It blocks catastrophic operations (force-push to main, recursive deletion of `.git`, GitHub repo deletion, recursive deletion of `~/.claude`) regardless of `.claude/allow-once`, `.claude/allow-dev-edit`, or any user intent. See `scripts/hard-deny-rules.json` for the canonical catalog and rationale per rule.
 
 Run a check pass against `~/.claude/settings.json`:
@@ -151,7 +157,7 @@ bash scripts/install-hard-deny.sh --check --json
 The script emits a JSON report on stdout (`would_add`, `craft_rules_already_present`, `defaults_present`) plus a human-readable summary on stderr. Interpretation:
 
 - **`would_add == []`** — already installed. Show one line acknowledging it, continue.
-- **`would_add` non-empty** — offer to install. Show a preview of each rule that will be added (truncate at ~80 chars per line for readability), then `AskUserQuestion` with three options: "Yes — install", "Skip this time", "Never offer again". The "Never" option writes a marker (`~/.claude/.craft-hard-deny-declined`) that future `/craft:git:protect` invocations honor.
+- **`would_add` non-empty** — offer to install. Show a preview of each rule that will be added (truncate at ~80 chars per line for readability), then `AskUserQuestion` with three options: "Yes — install", "Skip this time", "Never offer again". The "Never" option writes a marker (`~/.claude/.craft-hard-deny-declined`) that future `/craft:git:protect` invocations honor (see precondition above). To re-enable the offer after declining, delete the marker: `rm ~/.claude/.craft-hard-deny-declined`.
 
 On "Yes":
 

@@ -117,8 +117,11 @@ class TestHubFacetParserBehavior(unittest.TestCase):
             self.assertIn("warning: skipping malformed facet", warnings)
             self.assertIn("session-002-truncated.json", warnings)
             self.assertIn("session-003-binary.json", warnings)
-            # Bad-shape file fails inside the inner for-loop (TypeError on int) —
-            # must be caught by the same except block, not crash the snippet.
+            # Bad-shape file (commands_used=42) parses as valid JSON, so the
+            # outer json.load succeeds. The TypeError fires inside the inner
+            # `for cmd in facet.get("commands_used", []):` when Python tries to
+            # iterate an int. The defensive contract requires the same except
+            # block to cover both failure modes, not just JSONDecodeError.
             self.assertIn("session-004-shape.json", warnings)
 
 
