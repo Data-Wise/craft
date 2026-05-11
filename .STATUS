@@ -75,10 +75,20 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) Start v2.33.0 Increment 2 (Version sync validator: /craft:check --version) ~30 min — first remaining increment per spec
-B) Start v2.33.0 Increment 3 (Worktree pre-flight: 4 checks, soft warnings) ~1.5h
-C) Address follow-up issues from PR #132: #133 (criterion #5 e2e gap, schema-only blocker until Claude Code exposes a hook), #134 (3 pre-existing test_integration_branch_guard failures)
-D) Run /craft:docs:update --post-merge to sync docs after #132 merge before next release pipeline run
+A) Run /craft:docs:update --post-merge to sync docs after PR #132 + 3 issue fixes — recommended before next release
+B) Start v2.33.0 Increment 2 (Version sync validator: /craft:check --version) ~30 min
+C) Start v2.33.0 Increment 3 (Worktree pre-flight: 4 checks, soft warnings) ~1.5h
+D) Ship v2.33.0 (safety-hardening + issue fixes are substantial — could ship as a standalone v2.33.0 patch release now, or bundle with remaining increments)
+
+Issues resolved this session (2026-05-11):
+- #126 closed (e30ba371) — env-var → stdin contract corrected in insights spec + e2e shell test
+- #127 closed (0e207c01) — badge_syncer false positives: branch_label awareness + shields.io /badge/docs- classification
+- #134 closed (c1cbb976) — branch-guard.sh path canonicalization bug (production leak): new files under non-existent dirs were silently allowed on protected branches
+
+Issues remaining open (blocked on externals, intentionally not addressed):
+- #108 (Tauri/cask workflow revamp) — large feature scope, future release
+- #130 (himalaya-mcp + nexus-cli App secrets) — requires user UI to set GitHub secrets
+- #133 (hard_deny criterion #5 e2e gap) — blocked on Claude Code exposing classifier hook
 
 ## v2.33.0 Scope (spec: approved, untouched this session)
 
