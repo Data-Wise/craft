@@ -1,17 +1,17 @@
 status: Active
 version: 2.33.0
-release_date: 2026-05-10
-milestone: v2.33.0 planning — Insights-Driven Improvements (renumbered from original v2.32 spec)
+release_date: 2026-05-11
+milestone: v2.33.0 SHIPPED — safety hardening + drift cleanup + 5 issues closed
 last_session: 2026-05-11
 
-progress: v2.32.0 + v2.32.1 shipped. v2.32.0 (2026-05-09): /craft:git:protect-baseline (#122), 348-ref cross-ref sweep (#123), polish + xref follow-up (#124), pretooluse.py hook stdin contract fix (#125). v2.32.1 (2026-05-10): infrastructure patch — homebrew-release.yml PAT → GitHub App auth migration (#129), inlined update-homebrew job, removed unused auto_merge input, updated commands/dist/homebrew.md to recommend App auth. v2.33.0 in progress: safety-hardening (#132) MERGED 2026-05-11 — hard_deny tier + defensive facet parsing + 16 new tests. Remaining v2.33.0 increments per spec (version sync validator, worktree pre-flight, Homebrew SHA fix, post-release sweep --fix) still queued.
+progress: v2.33.0 SHIPPED 2026-05-11 (PR #137 → main as 7f6ac796, release tag v2.33.0). Bundled: PR #132 safety-hardening (hard_deny tier + defensive facet parsing + 16 new tests), 5 issue fixes (#126 insights spec, #127 badge_syncer, #134 branch-guard production leak, #135 docs-staleness BSD sed, #136 skill paths), 25 Tier-2 count drift fixes, Increment 1 of v2.33.0 spec (/craft:check --version validator). Tests: 1638 passed, 5 skipped, 1 xfail. Spec Increments 2-4 (worktree pre-flight, Homebrew SHA fix, sweep --fix) deferred to v2.34.0 or v2.33.1.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                                                                          |
 |--------|----------|------|---------------------------------------------------------------------------------|
-| main   | 7082f2c2 | —    | Production (v2.32.1 tagged, PR #131 merged)                                     |
-| dev    | 15706445 | main | 2 commits ahead: PR #132 merge + ORCHESTRATE cleanup (v2.33.0 increment 1 done)  |
+| main   | 7f6ac796 | —    | Production (v2.33.0 tagged, PR #137 merged 2026-05-11)                          |
+| dev    | 7f6ac796 | main | Fast-forwarded to main after v2.33.0 release                                    |
 
 📂 Active Worktrees:
 
@@ -75,17 +75,21 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) Run /craft:docs:update --post-merge to sync docs after PR #132 + 3 issue fixes — recommended before next release
-B) Start v2.33.0 Increment 2 (Version sync validator: /craft:check --version) ~30 min
-C) Start v2.33.0 Increment 3 (Worktree pre-flight: 4 checks, soft warnings) ~1.5h
-D) Ship v2.33.0 (safety-hardening + issue fixes are substantial — could ship as a standalone v2.33.0 patch release now, or bundle with remaining increments)
+A) Verify v2.33.0 downstream: Homebrew tap auto-update + docs deploy + mkdocs gh-pages
+B) Run post-release-sweep to catch any Tier 2 drift introduced by the release
+C) Start v2.33.0 Increment 2 (Worktree pre-flight checks) ~1.5h — defer to fresh worktree session
+D) Brainstorm v2.34.0 scope (could bundle remaining 3 spec increments + nice-to-haves)
 
-Issues resolved this session (2026-05-11):
-- #126 closed (e30ba371) — env-var → stdin contract corrected in insights spec + e2e shell test
-- #127 closed (0e207c01) — badge_syncer false positives: branch_label awareness + shields.io /badge/docs- classification
-- #134 closed (c1cbb976) — branch-guard.sh path canonicalization bug (production leak): new files under non-existent dirs were silently allowed on protected branches
+Issues closed this session (2026-05-11):
+- #126 (e30ba371) — env-var → stdin contract corrected in insights spec
+- #127 (0e207c01) — badge_syncer false positives: branch_label + /badge/docs- classification
+- #134 (c1cbb976) — branch-guard.sh path canonicalization production leak
+- #135 (15a28409) — docs-staleness-check.sh BSD-sed bug (silent no-op on macOS)
+- #136 (15a28409) — 19 stale skill paths in skills-agents.md
 
-Issues remaining open (blocked on externals, intentionally not addressed):
+v2.33.0 Increment 1 (69778f59): /craft:check --version validator shipped
+
+Issues remaining open (blocked on externals):
 - #108 (Tauri/cask workflow revamp) — large feature scope, future release
 - #130 (himalaya-mcp + nexus-cli App secrets) — requires user UI to set GitHub secrets
 - #133 (hard_deny criterion #5 e2e gap) — blocked on Claude Code exposing classifier hook
