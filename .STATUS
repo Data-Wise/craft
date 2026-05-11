@@ -2,22 +2,20 @@ status: Active
 version: 2.32.1
 release_date: 2026-05-10
 milestone: v2.33.0 planning — Insights-Driven Improvements (renumbered from original v2.32 spec)
-last_session: 2026-05-10
+last_session: 2026-05-11
 
-progress: v2.32.0 + v2.32.1 shipped. v2.32.0 (2026-05-09): /craft:git:protect-baseline (#122), 348-ref cross-ref sweep (#123), polish + xref follow-up (#124), pretooluse.py hook stdin contract fix (#125). v2.32.1 (2026-05-10): infrastructure patch — homebrew-release.yml PAT → GitHub App auth migration (#129), inlined update-homebrew job, removed unused auto_merge input, updated commands/dist/homebrew.md to recommend App auth. v2.33.0 spec (originally v2.32.0 Insights-Driven Improvements, renumbered) still approved, ready for implementation.
+progress: v2.32.0 + v2.32.1 shipped. v2.32.0 (2026-05-09): /craft:git:protect-baseline (#122), 348-ref cross-ref sweep (#123), polish + xref follow-up (#124), pretooluse.py hook stdin contract fix (#125). v2.32.1 (2026-05-10): infrastructure patch — homebrew-release.yml PAT → GitHub App auth migration (#129), inlined update-homebrew job, removed unused auto_merge input, updated commands/dist/homebrew.md to recommend App auth. v2.33.0 in progress: safety-hardening (#132) MERGED 2026-05-11 — hard_deny tier + defensive facet parsing + 16 new tests. Remaining v2.33.0 increments per spec (version sync validator, worktree pre-flight, Homebrew SHA fix, post-release sweep --fix) still queued.
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                                                                          |
 |--------|----------|------|---------------------------------------------------------------------------------|
 | main   | 7082f2c2 | —    | Production (v2.32.1 tagged, PR #131 merged)                                     |
-| dev    | c239c388 | main | Up to date with main (post-release sweep applied)                                |
+| dev    | 15706445 | main | 2 commits ahead: PR #132 merge + ORCHESTRATE cleanup (v2.33.0 increment 1 done)  |
 
 📂 Active Worktrees:
 
-| Worktree | Branch | ORCHESTRATE | Status |
-|----------|--------|-------------|--------|
-| feature-safety-hardening | feature/safety-hardening | [ORCHESTRATE-safety-hardening.md](https://github.com/Data-Wise/craft/blob/feature/safety-hardening/ORCHESTRATE-safety-hardening.md) | Created 2026-05-10; awaiting fresh session for Phase 0 |
+_None — feature-safety-hardening removed after PR #132 merge._
 
 ✅ Sibling-plugin migration PRs (all MERGED 2026-05-10):
 
@@ -77,10 +75,10 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) Resume safety-hardening worktree: `cd ~/.git-worktrees/craft/feature-safety-hardening && claude` — start Phase 0 (schema verification) per ORCHESTRATE-safety-hardening.md
-B) Start v2.33.0 Increment 1: Version sync validator (/craft:check --version) ~30 min
-C) v2.33.0 Increment 2: Worktree pre-flight (4 checks, soft warnings) ~1.5h
-D) Triage 4 sibling-plugin migration PRs (aiterm/flow-cli/atlas/mcp-bridge) — review and merge as appropriate
+A) Start v2.33.0 Increment 2 (Version sync validator: /craft:check --version) ~30 min — first remaining increment per spec
+B) Start v2.33.0 Increment 3 (Worktree pre-flight: 4 checks, soft warnings) ~1.5h
+C) Address follow-up issues from PR #132: #133 (criterion #5 e2e gap, schema-only blocker until Claude Code exposes a hook), #134 (3 pre-existing test_integration_branch_guard failures)
+D) Run /craft:docs:update --post-merge to sync docs after #132 merge before next release pipeline run
 
 ## v2.33.0 Scope (spec: approved, untouched this session)
 
