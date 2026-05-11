@@ -15,12 +15,20 @@ Two paired safety improvements driven by Claude Code v2.1.136 release findings: 
 
 | Phase | Increment | Priority | Effort | Status |
 |-------|-----------|----------|--------|--------|
-| 0 | Schema verification (research only) | High | 15 min | |
-| 1 | Insights defensive parsing (#2) | High | 45 min | |
-| 2 | Hard_deny pattern catalog + design | High | 30 min | |
-| 3 | `/craft:git:protect` integration (#1 implementation) | High | 1h | |
-| 4 | Documentation (architecture.md + REFCARD-BRANCH-GUARD) | Medium | 30 min | |
-| 5 | Tests + verification | High | 30 min | |
+| 0 | Schema verification (research only) | High | 15 min | ✅ Complete (2026-05-10) |
+| 1 | Insights defensive parsing (#2) | High | 45 min | ✅ Complete — commit `d6d299e3` |
+| 2 | Hard_deny **prose** rule catalog + design | High | 30 min | Pending |
+| 3 | `/craft:git:protect` integration (#1 implementation) | High | 1h | Pending |
+| 4 | Documentation (architecture.md + REFCARD-BRANCH-GUARD) | Medium | 30 min | Pending |
+| 5 | Tests + verification | High | 30 min | Pending |
+
+### Phase 0 Findings Summary (2026-05-10)
+
+Hard_deny is **prose-based**, not regex. Use `"$defaults"` to inherit Claude Code built-ins. Lives in `~/.claude/settings.json` (personal), `.local.json` (project), or org-managed — cumulative. Applies to **all tools**. **Unconditional** — survives `.claude/allow-once`. See SPEC Open Questions section for full resolution and the revised Phase 2 deliverable (prose strings instead of regex JSON).
+
+### Phase 1 Re-scope Note (2026-05-10)
+
+ORCHESTRATE originally targeted `commands/workflow/insights.md`, but that file is markdown-only — Claude is its runtime, not Python. The real facet parsers are inline Python snippets in `commands/hub.md` (Step 1.7) and `commands/do.md` (Step 1.5). Both hardened to the same defensive contract. The `insights.md` file now publishes the contract as a v2.33.0 subsection so future facet-readers follow it. Test: `tests/test_facet_parsing_defensive.py` (4 tests, both behavioral and structural).
 
 **Total estimated effort:** ~3h.
 
