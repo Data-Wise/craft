@@ -26,6 +26,9 @@ from typing import Optional
 COMMANDS_DIR = os.path.dirname(os.path.abspath(__file__))
 CACHE_FILE = os.path.join(COMMANDS_DIR, "_cache.json")
 
+# Skills live as a sibling tree to commands/ (../skills/<name>/SKILL.md)
+SKILLS_DIR = os.path.join(os.path.dirname(COMMANDS_DIR), "skills")
+
 
 def parse_yaml_frontmatter(content: str) -> dict:
     """
@@ -423,13 +426,102 @@ def discover_commands() -> list[dict]:
     return commands
 
 
-def cache_commands(commands: list[dict]) -> None:
+def discover_skills() -> list[dict]:
     """
-    Save commands to cache file for performance.
+    Auto-detect all skills from filesystem.
+
+    Walks `skills/**/SKILL.md` recursively, parses YAML frontmatter, and infers
+    a category (top-level directory under `skills/`) plus a kebab-case `slug`
+    (immediate parent directory of the SKILL.md file).
+
+    Returns:
+        List of skill metadata dictionaries with at minimum:
+            - name: frontmatter `name`, else slug
+            - slug: kebab-case directory name (e.g. "workflow", "frontend-designer")
+            - description: frontmatter `description`, else first heading/paragraph
+            - category: top-level dir under skills/ (e.g. "design", "release")
+                        For flat skills (skills/<name>/SKILL.md), category == slug.
+            - path: relative path from project root (e.g. "skills/workflow/SKILL.md")
+            - file: alias of path (mirrors command record shape)
+    """
+    skills = []
+
+    if not os.path.isdir(SKILLS_DIR):
+        return skills
+
+    pattern = os.path.join(SKILLS_DIR, '**', 'SKILL.md')
+    skill_files = glob.glob(pattern, recursive=True)
+
+    for filepath in skill_files:
+        rel_from_skills = os.path.relpath(filepath, SKILLS_DIR).replace('\\', '/')
+        # Path relative to project root, for stable references
+        project_root = os.path.dirname(COMMANDS_DIR)
+        rel_from_root = os.path.relpath(filepath, project_root).replace('\\', '/')
+
+        parts = rel_from_skills.split('/')
+        # parts[-1] == 'SKILL.md'; parts[-2] is the skill slug dir
+        if len(parts) < 2:
+            continue
+
+        slug = parts[-2]
+        # Category: top-level dir under skills/. For flat skills
+        # (skills/<slug>/SKILL.md, len(parts)==2), category mirrors slug.
+        category = parts[0] if len(parts) > 2 else slug
+
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            metadata = parse_yaml_frontmatter(content)
+
+            name = metadata.get('name') or slug
+
+            description = metadata.get('description')
+            if not description:
+                description = extract_first_heading(content)
+            if not description:
+                description = extract_first_paragraph(content)
+            if not description:
+                description = "No description available"
+
+            skill = {
+                'name': name,
+                'slug': slug,
+                'category': category,
+                'description': description,
+                'path': rel_from_root,
+                'file': rel_from_root,
+            }
+
+            # Mirror optional command-record fields when present.
+            for opt in ('tags', 'related_commands', 'project_types'):
+                if opt in metadata:
+                    val = metadata[opt]
+                    if isinstance(val, str):
+                        val = [v.strip() for v in val.split(',')]
+                    skill[opt] = val
+
+            skills.append(skill)
+
+        except Exception as e:
+            print(f"Warning: Failed to parse {filepath}: {e}")
+            continue
+
+    return skills
+
+
+def cache_commands(commands: list[dict], skills: list[dict] | None = None) -> None:
+    """
+    Save commands (and optionally skills) to cache file for performance.
 
     Args:
         commands: List of command metadata dictionaries
+        skills: Optional list of skill metadata dictionaries. If None, skills
+                are auto-discovered via `discover_skills()` so callers that
+                pre-date the skills extension keep working.
     """
+    if skills is None:
+        skills = discover_skills()
     # Build category counts
     categories = {}
     for cmd in commands:
@@ -456,6 +548,12 @@ def cache_commands(commands: list[dict]) -> None:
                         with_dry_run += 1
                         break
 
+    # Build skill category counts (top-level dir under skills/)
+    skill_categories = {}
+    for sk in skills:
+        cat = sk.get('category', 'general')
+        skill_categories[cat] = skill_categories.get(cat, 0) + 1
+
     # Build cache object
     cache = {
         'generated': datetime.now().isoformat(),
@@ -464,9 +562,13 @@ def cache_commands(commands: list[dict]) -> None:
         'stats': {
             'total': len(commands),
             'with_modes': with_modes,
-            'with_dry_run': with_dry_run
+            'with_dry_run': with_dry_run,
+            'skills_total': len(skills),
         },
-        'commands': commands
+        'commands': commands,
+        'skills_count': len(skills),
+        'skills_categories': skill_categories,
+        'skills': skills,
     }
 
     # Write to cache file
@@ -495,9 +597,11 @@ def load_cached_commands() -> list[dict]:
     # Get cache modification time
     cache_mtime = os.path.getmtime(CACHE_FILE)
 
-    # Find all .md files
+    # Find all .md files (commands + skills)
     pattern = os.path.join(COMMANDS_DIR, '**', '*.md')
     md_files = glob.glob(pattern, recursive=True)
+    skill_pattern = os.path.join(SKILLS_DIR, '**', 'SKILL.md')
+    md_files.extend(glob.glob(skill_pattern, recursive=True))
 
     # Check if any .md file is newer than cache
     for filepath in md_files:
@@ -522,6 +626,37 @@ def load_cached_commands() -> list[dict]:
         commands = discover_commands()
         cache_commands(commands)
         return commands
+
+
+def load_cached_skills() -> list[dict]:
+    """
+    Load skills from cache if present, else regenerate.
+
+    Mirrors `load_cached_commands` but for the `skills` cache key. Safe to call
+    even if an older cache file (pre-skills) exists — falls back to a fresh
+    discovery in that case.
+
+    Returns:
+        List of skill metadata dictionaries
+    """
+    if not os.path.exists(CACHE_FILE):
+        commands = discover_commands()
+        cache_commands(commands)
+
+    try:
+        with open(CACHE_FILE, 'r', encoding='utf-8') as f:
+            cache = json.load(f)
+        if 'skills' in cache:
+            return cache['skills']
+    except Exception as e:
+        print(f"Warning: Failed to load cache: {e}")
+
+    # Cache exists but lacks `skills` key (legacy) — regenerate.
+    commands = discover_commands()
+    cache_commands(commands)
+    with open(CACHE_FILE, 'r', encoding='utf-8') as f:
+        cache = json.load(f)
+    return cache.get('skills', [])
 
 
 def get_command_stats() -> dict:
@@ -799,10 +934,11 @@ if __name__ == '__main__':
     """
     import sys
 
-    print("Discovering commands...")
+    print("Discovering commands and skills...")
     commands = discover_commands()
+    skills = discover_skills()
 
-    print(f"\nFound {len(commands)} commands")
+    print(f"\nFound {len(commands)} commands, {len(skills)} skills")
 
     # Print category breakdown
     categories = {}
@@ -810,18 +946,28 @@ if __name__ == '__main__':
         cat = cmd['category']
         categories[cat] = categories.get(cat, 0) + 1
 
-    print("\nCategories:")
+    print("\nCommand categories:")
     for cat, count in sorted(categories.items()):
+        print(f"  {cat}: {count}")
+
+    skill_categories = {}
+    for sk in skills:
+        cat = sk.get('category', 'general')
+        skill_categories[cat] = skill_categories.get(cat, 0) + 1
+
+    print("\nSkill categories:")
+    for cat, count in sorted(skill_categories.items()):
         print(f"  {cat}: {count}")
 
     # Cache results
     print(f"\nCaching to {CACHE_FILE}...")
-    cache_commands(commands)
+    cache_commands(commands, skills)
 
     # Print stats
     stats = get_command_stats()
     print(f"\nStatistics:")
-    print(f"  Total: {stats['total']}")
+    print(f"  Commands total: {stats['total']}")
+    print(f"  Skills total: {len(skills)}")
     print(f"  With modes: {stats['with_modes']}")
     print(f"  With dry-run: {stats['with_dry_run']}")
     print(f"  Generated: {stats['generated']}")

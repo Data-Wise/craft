@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Optional
 
 import pytest
+import yaml
 
 # Add utils directory to path for linkcheck_ignore_parser
 sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
@@ -177,6 +178,97 @@ def test_design_skills():
             missing.append(skill)
 
     assert not missing, f"Missing: {missing}"
+
+
+KEBAB_CASE_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+
+
+def find_all_skill_md() -> list[Path]:
+    """Find all SKILL.md files under skills/ (any depth)."""
+    plugin_dir = Path(__file__).parent.parent
+    skills_dir = plugin_dir / "skills"
+    return list(skills_dir.rglob("SKILL.md"))
+
+
+def _parse_skill_frontmatter(skill_path: Path) -> Optional[dict]:
+    """Parse YAML frontmatter from a SKILL.md file. Returns dict or None."""
+    content = skill_path.read_text()
+    if not content.startswith("---"):
+        return None
+    # Split on the closing --- marker
+    parts = content.split("---", 2)
+    if len(parts) < 3:
+        return None
+    try:
+        data = yaml.safe_load(parts[1])
+    except yaml.YAMLError:
+        return None
+    if not isinstance(data, dict):
+        return None
+    return data
+
+
+def test_all_skills_have_valid_frontmatter():
+    """Every SKILL.md must have YAML frontmatter with name + description."""
+    plugin_dir = Path(__file__).parent.parent
+    skills = find_all_skill_md()
+    assert skills, "No SKILL.md files found under skills/"
+
+    errors = []
+    for skill_path in skills:
+        rel = skill_path.relative_to(plugin_dir)
+        fm = _parse_skill_frontmatter(skill_path)
+        if fm is None:
+            errors.append(f"{rel}: missing or unparseable YAML frontmatter")
+            continue
+
+        name = fm.get("name")
+        description = fm.get("description")
+
+        if not isinstance(name, str) or not name.strip():
+            errors.append(f"{rel}: missing or empty 'name' field")
+        elif not KEBAB_CASE_RE.match(name):
+            errors.append(f"{rel}: 'name' is not kebab-case: {name!r}")
+
+        if not isinstance(description, str) or not description.strip():
+            errors.append(f"{rel}: missing or empty 'description' field")
+
+    assert not errors, "Invalid skill frontmatter:\n  " + "\n  ".join(errors)
+
+
+def test_skill_trigger_phrases_unique():
+    """Quoted trigger phrases in skill descriptions must not collide across skills."""
+    plugin_dir = Path(__file__).parent.parent
+    skills = find_all_skill_md()
+    assert skills, "No SKILL.md files found under skills/"
+
+    # Extract phrases inside single or double quotes
+    quote_pattern = re.compile(r'"([^"]+)"|\'([^\']+)\'')
+
+    phrase_to_skills: dict[str, list[str]] = {}
+    for skill_path in skills:
+        rel = str(skill_path.relative_to(plugin_dir))
+        fm = _parse_skill_frontmatter(skill_path)
+        if fm is None:
+            continue
+        description = fm.get("description", "")
+        if not isinstance(description, str):
+            continue
+        for m in quote_pattern.finditer(description):
+            phrase = (m.group(1) or m.group(2) or "").strip().lower()
+            if not phrase:
+                continue
+            phrase_to_skills.setdefault(phrase, []).append(rel)
+
+    collisions = {
+        phrase: sorted(set(owners))
+        for phrase, owners in phrase_to_skills.items()
+        if len(set(owners)) >= 2
+    }
+
+    if collisions:
+        lines = [f"  {phrase!r} claimed by: {owners}" for phrase, owners in collisions.items()]
+        raise AssertionError("Duplicate trigger phrases across skills:\n" + "\n".join(lines))
 
 
 # ─── Agents Tests ────────────────────────────────────────────────────────────
