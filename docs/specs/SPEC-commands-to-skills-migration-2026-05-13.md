@@ -2,23 +2,40 @@
 
 **Status:** draft
 **Created:** 2026-05-13
+**Revised:** 2026-05-13 (v2 — post-spike, post-re-audit against full 26-skill tree)
 **From Brainstorm:** `/workflow:brainstorm -d -s` (deep + save) session, 2026-05-13
-**Related plan:** [migration-plan.md](../migration-plan.md) (v2 — gap-analysis-corrected)
+**Related plan:** [migration-plan.md](../migration-plan.md) (v3 — synced to this revision)
 **Estimated effort:** ~3 release cycles (v2.34.0, v2.35.0, v2.36.0) + final cleanup at v3.0.0
 **Target versions:** v2.34.0 (Batch 1) → v2.35.0 (Batch 2) → v2.36.0 (Batch 3) → v3.0.0 (cleanup)
 
 ---
 
+## Revision history (v1 → v2)
+
+| Change | Why |
+|---|---|
+| 13-skill baseline → **26-skill baseline** | The original audit counted top-level dirs only; the actual tree has nested sub-skills under `design/`, `distribution/`, `docs/`, `orchestration/`, `testing/`. |
+| 47% covered → **39% covered** | The original % was based on an under-counted skill tree; full audit reduced coverage estimate. |
+| Flat path convention (`skills/git/`) → **Nested category convention** | Per user direction: new skills nest under thematic category dirs (matches `skills/design/<sub>`, `skills/docs/<sub>` pattern). |
+| Spike at `skills/workflow/SKILL.md` → `skills/workflow/adhd-workflow/SKILL.md` | Restructured to fit nested convention. Already done; tests pass. |
+| Proposed `skills/task-dispatcher/` | **REMOVED** — `skills/orchestration/task-analyzer/` already covers `/do` routing. |
+| `refactor` classified as GAP | **Flipped to COVERED** — nested `skills/design/{backend,frontend,devops}-*` cover refactoring guidance. |
+| Generic `skills/docs-*` (3 proposed) | **Replaced** with specific gaps: `skills/docs/claude-md/`, `skills/docs/navigation/`, `skills/docs/site-management/`, possibly more. Docs gaps are bigger than the v1 audit suggested. |
+| Missing: `skills/check/` | **ADDED** — pre-flight validation (commit/PR/release/deploy) is broader than `skills/ci/` (project-detector only). |
+| Missing: planning sub-skill | **ADDED** — `skills/planning/SKILL.md` (project-planner) is high-level; feature/roadmap/sprint commands need a dedicated sub-skill. |
+
+---
+
 ## Overview
 
-Craft has 108 commands at `commands/` and 13 thematic skills at `skills/`. A gap analysis (6 parallel Explore agents, 2026-05-13) showed:
+Craft has 108 commands at `commands/` and **26 SKILL.md files** under `skills/` (some categories nest sub-skills). A full re-audit (6 parallel Explore agents, 2026-05-13, against the corrected 26-skill baseline) shows:
 
-- **~47%** of commands are already covered by existing skills
-- **~29%** are genuine gaps with no skill equivalent
-- **~23%** are partially covered (skills touch the concern but miss specifics)
+- **~39%** of commands are already covered by existing skills
+- **~49%** are real GAPs with no skill equivalent
+- **~11%** are partially covered (skills touch the concern but miss specifics)
 - **1** internal-doc command should be deleted
 
-This spec captures the migration approach: build **~11 new consolidated skills** (not 108 1:1 ports), with explicit deprecation of redundant commands, phased over 3 minor releases plus a major-version cleanup.
+This spec captures the migration approach: build **~10-12 new consolidated skills**, all nested under thematic category dirs, with explicit deprecation of redundant commands, phased over 3 minor releases plus a major-version cleanup.
 
 ---
 
@@ -30,12 +47,23 @@ This spec captures the migration approach: build **~11 new consolidated skills**
 
 ### Acceptance Criteria
 
-1. ✅ 3 new skills exist in `skills/` covering the 24 commands in Batch 1 (`git/`, `workflow/`, `task-management/`).
-2. ✅ 4 new skills exist covering Batch 2 (`task-dispatcher/`, `spec-orchestration/`, `code-quality/`, `testing-coverage/`).
-3. ✅ 4 new skills exist covering Batch 3 (`docs-media/`, `docs-navigation/`, `docs-claude-md/`, `dist-extras/`).
+1. ✅ Batch 1 ships 3 new skills covering the highest-leverage gaps:
+   - `skills/workflow/adhd-workflow/SKILL.md` (DONE — spike commit c2aaa18d, moved to nested path)
+   - `skills/dev/git/SKILL.md` (14 commands consolidated; git is a real gap, no skill exists today)
+   - `skills/workflow/task-management/SKILL.md` (3 commands; currently PARTIAL by `task-analyzer`)
+2. ✅ Batch 2 ships ~4 new skills:
+   - `skills/check/SKILL.md` (pre-flight validation across commit/PR/release/deploy)
+   - `skills/orchestration/plan-orchestrator/SKILL.md` (`commands/orchestrate/plan` + `commands/plan/{feature,roadmap,sprint}`)
+   - `skills/workflow/brainstorm-insights/SKILL.md` (`commands/workflow/{brainstorm,insights}`)
+   - `skills/code/coverage-metrics/SKILL.md` (`commands/code/coverage` + `commands/code/demo` instructional concern)
+3. ✅ Batch 3 ships ~4 new skills (docs/site/dist gaps):
+   - `skills/docs/claude-md/SKILL.md` (`commands/docs/claude-md/{edit,init,sync}`)
+   - `skills/docs/navigation/SKILL.md` (`commands/docs/nav-update` + `commands/site/{add,nav}`)
+   - `skills/docs/site-management/SKILL.md` (`commands/site/{build,deploy,publish,theme,status,update,...}`)
+   - `skills/distribution/dist-extras/SKILL.md` (`commands/dist/{pypi,curl-install,marketplace}`)
 4. ✅ All deprecated commands carry a `deprecated: true` frontmatter flag and a one-line notice pointing to their replacement skill.
-5. ✅ `tests/test_craft_plugin.py` enumerates skills and validates: (a) YAML frontmatter parses, (b) `name` is unique, (c) **no two skills' `description:` trigger phrases collide**.
-6. ✅ `commands/_discovery.py` indexes both `commands/` and `skills/` so `/craft:hub` shows a single unified surface.
+5. ✅ `tests/test_craft_plugin.py` enumerates skills and validates: (a) YAML frontmatter parses, (b) `name` is unique, (c) **no two skills' `description:` trigger phrases collide** (already implemented as of c2aaa18d).
+6. ✅ `commands/_discovery.py` indexes both `commands/` and `skills/` (already implemented; cache walks nested dirs via rglob).
 7. ✅ `commands/discovery-usage.md` is deleted (it's internal documentation, not a user-facing command).
 8. ✅ Each batch ships in its own minor-version release with a CHANGELOG entry.
 9. ✅ Final cleanup PR (v3.0.0) removes all deprecated commands.
@@ -45,8 +73,8 @@ This spec captures the migration approach: build **~11 new consolidated skills**
 ## Secondary User Stories
 
 **As a** craft contributor,
-**I want** the migration to follow the existing 13-skill mega-skill pattern (one skill per concern, not sub-split),
-**so that** new skills are visually consistent with the established convention and onboarding stays cheap.
+**I want** the migration to follow the existing **nested-category convention** (e.g., `skills/orchestration/<sub>/SKILL.md`, `skills/docs/<sub>/SKILL.md`),
+**so that** new skills are visually consistent with the established structure and discoverability stays predictable.
 
 **As a** downstream consumer of `/craft:foo:bar` invocation paths (homebrew tap, marketplace listing, external scripts),
 **I want** existing commands to keep working through a deprecation cycle of at least 1 minor release,
@@ -60,40 +88,69 @@ This spec captures the migration approach: build **~11 new consolidated skills**
 
 ## Architecture
 
+### The 26-skill baseline
+
+```text
+skills/
+├── architecture/SKILL.md          (system-architect)
+├── ci/SKILL.md                    (project-detector)
+├── code/SKILL.md                  (sync-features)
+├── design/
+│   ├── backend-designer/SKILL.md
+│   ├── frontend-designer/SKILL.md
+│   └── devops-helper/SKILL.md
+├── distribution/
+│   ├── distribution-strategist/SKILL.md
+│   ├── homebrew-formula-expert/SKILL.md
+│   ├── homebrew-multi-formula/SKILL.md
+│   ├── homebrew-setup-wizard/SKILL.md
+│   └── homebrew-workflow-expert/SKILL.md
+├── docs/
+│   ├── architecture-decision-records/SKILL.md
+│   ├── changelog-automation/SKILL.md
+│   ├── doc-classifier/SKILL.md
+│   ├── mermaid-linter/SKILL.md
+│   └── openapi-spec-generation/SKILL.md
+├── guard-audit/SKILL.md
+├── insights-apply/SKILL.md
+├── modes/SKILL.md                 (mode-controller)
+├── orchestration/
+│   ├── session-state/SKILL.md
+│   └── task-analyzer/SKILL.md
+├── planning/SKILL.md              (project-planner)
+├── release/SKILL.md
+├── testing/
+│   ├── test-generator/SKILL.md
+│   └── test-strategist/SKILL.md
+└── workflow/
+    └── adhd-workflow/SKILL.md     (NEW from spike c2aaa18d)
+```
+
 ### Migration phases
 
 ```mermaid
 flowchart TD
-    Spike["Spike: skills/workflow/<br/>(7 cmds consolidated)<br/>v2.34.0-rc"] --> B1Rest
-    B1Rest["Batch 1 rest:<br/>skills/git/ (14 cmds)<br/>skills/task-management/ (3 cmds)<br/>v2.34.0"]
-    B1Rest --> B2["Batch 2:<br/>task-dispatcher (3)<br/>spec-orchestration (3)<br/>code-quality (2)<br/>testing-coverage (4)<br/>v2.35.0"]
-    B2 --> B3["Batch 3:<br/>docs-media (1)<br/>docs-navigation (3)<br/>docs-claude-md (2)<br/>dist-extras (2)<br/>v2.36.0"]
+    Spike["✅ Spike (done):<br/>skills/workflow/adhd-workflow/<br/>7 cmds, c2aaa18d"] --> B1Rest
+    B1Rest["Batch 1 wave 2:<br/>skills/dev/git/ (14 cmds)<br/>skills/workflow/task-management/ (3 cmds)<br/>v2.34.0"]
+    B1Rest --> B2["Batch 2:<br/>skills/check/<br/>skills/orchestration/plan-orchestrator/<br/>skills/workflow/brainstorm-insights/<br/>skills/code/coverage-metrics/<br/>v2.35.0"]
+    B2 --> B3["Batch 3:<br/>skills/docs/claude-md/<br/>skills/docs/navigation/<br/>skills/docs/site-management/<br/>skills/distribution/dist-extras/<br/>v2.36.0"]
     B3 --> Cleanup["Cleanup PR:<br/>Remove ~30 deprecated commands<br/>Delete discovery-usage.md<br/>v3.0.0"]
 ```
 
 ### Coexistence model during transition
 
-```
+```text
 commands/foo.md  ─┐
-                  ├──► /craft:hub displays both ──► user invokes
-skills/bar/      ─┘                                 ─ /craft:foo (explicit)
+                  ├──► /craft:hub displays both ──► user invokes:
+skills/<cat>/bar/─┘                                 ─ /craft:foo (explicit)
                                                     ─ skill auto-fires on phrase match
 ```
 
-Both invocation paths work during the transition. Commands marked `deprecated: true` show a notice but continue to function.
+Both invocation paths work during transition. Commands marked `deprecated: true` show a notice but continue to function.
 
-### Discovery integration
+### Discovery integration (DONE in c2aaa18d)
 
-`_discovery.py` extends to walk both trees:
-
-```python
-def discover():
-    commands = walk("commands/", filter="*.md")
-    skills = walk("skills/", filter="**/SKILL.md")
-    return {"commands": commands, "skills": skills, "total": len(commands) + len(skills)}
-```
-
-`_cache.json` schema gains a `skills` key alongside the existing `commands` key. `/craft:hub` renders both sections.
+`_discovery.py` walks `skills/**/SKILL.md` via `rglob` — already supports nested paths. `_cache.json` has top-level keys `skills`, `skills_count`, `skills_categories`. No further work needed for nested skills.
 
 ---
 
@@ -105,7 +162,7 @@ def discover():
 
 ## Data Models
 
-**N/A** — no persistent data model changes. Frontmatter schema for skills already exists in `skills/<name>/SKILL.md` files:
+**N/A** — no persistent data model changes. Skill frontmatter schema:
 
 ```yaml
 ---
@@ -120,7 +177,7 @@ For deprecated commands, add one new optional frontmatter field:
 ---
 # existing fields...
 deprecated: true
-replaced-by: "skills/<name>/"
+replaced-by: "skills/<category>/<name>/"
 ---
 ```
 
@@ -128,84 +185,78 @@ replaced-by: "skills/<name>/"
 
 ## Dependencies
 
-- Existing `commands/_discovery.py` — extend to index skills
-- Existing `tests/test_craft_plugin.py` — extend to enumerate skills and check trigger uniqueness
-- Existing `bump-version.sh` — already syncs version refs; need to add skill-count to the substitution list (currently does command-count)
-- No new external dependencies (no new npm/pip packages)
+- ✅ `commands/_discovery.py` — extended to index nested skills (c2aaa18d)
+- ✅ `tests/test_craft_plugin.py` — frontmatter + trigger-phrase tests added (c2aaa18d)
+- `bump-version.sh` — needs `skills_count` substitution added (currently only does `commands_count`)
+- `commands/hub.md` — template needs `skills` section
+- No new external dependencies
 
 ---
 
 ## UI/UX Specifications
 
-**N/A** — backend/structure migration, no UI changes. The user-visible change is in `/craft:hub` output:
-
-```text
-Craft Plugin v2.34.0 — 108 commands | 14 skills | 8 agents
-                                       ^^^^^^^^^
-                                       +1 from spike (workflow)
-```
-
-Hub progression across batches:
+**N/A** — backend/structure migration. The user-visible change is in `/craft:hub` output:
 
 | Version | Commands | Skills | Notes |
 |---|---|---|---|
-| v2.33.0 (current) | 108 | 13 | starting state |
-| v2.34.0 (Batch 1 done) | 108 | 16 | 3 new skills, commands stay |
-| v2.35.0 (Batch 2 done) | 108 | 20 | 4 more skills |
-| v2.36.0 (Batch 3 done) | 108 | 24 | 4 more skills |
-| v3.0.0 (cleanup) | ~58 | 24 | ~50 deprecated commands removed |
+| v2.33.0 (pre-migration) | 108 | 25 | starting state (per re-audit count) |
+| v2.34.0 (Batch 1 done) | 108 | 28 | +3 new skills, commands stay |
+| v2.35.0 (Batch 2 done) | 108 | 32 | +4 more skills |
+| v2.36.0 (Batch 3 done) | 108 | 36 | +4 more skills |
+| v3.0.0 (cleanup) | ~58 | 36 | ~50 deprecated commands removed |
+
+(Note: spike already added 1 skill to take baseline from 25 → 26. v2.34.0 adds 2 more = 28 total.)
 
 ---
 
 ## Open Questions
 
-1. **Trigger-phrase test threshold:** what counts as a "collision"? Exact phrase match, or fuzzy similarity? Fuzzy is harder to implement; exact-match is the conservative pick. **Tentative: exact-match for v1, revisit if real collisions emerge.**
-2. **`skills/sync-features` reference:** two agents in the gap analysis referenced `skills/sync-features` as covering several commands, but I haven't verified it exists. Confirm before Batch 2 (where `task-dispatcher` lands) since it overlaps. **Action:** grep `skills/` for `sync-features` before starting Batch 2.
-3. **Deprecation notice rendering:** where does the user see the deprecation warning — at command invocation time, in `/craft:hub` listing, or both? **Tentative: both, with the notice in the command body itself so it appears on invocation.**
-4. **Cleanup PR scope:** v3.0.0 is a major bump; should it bundle other breaking changes (orchestrator-v2 rollout? other deferred breakage?) or stay narrowly scoped to migration cleanup? **Defer decision to v2.36.0 release planning.**
+1. **`skills/dev/` as a new category** — does git warrant its own new category dir, or should it nest under an existing one (e.g., `skills/release/dev-tools/git/`)? **Tentative:** create `skills/dev/` as a new top-level category because git is foundational, not a release sub-concern.
+2. **Trigger-phrase test threshold** — exact-match collision only, or fuzzy similarity? Currently exact-match. Revisit if real collisions emerge.
+3. **Cleanup PR scope** — v3.0.0 is a major bump; should it bundle other breaking changes or stay narrowly scoped to migration cleanup? **Defer decision to v2.36.0 release planning.**
+4. **`skills/check/` vs extending `skills/ci/`** — is pre-flight validation a new skill or a section in `project-detector`? **Tentative:** new skill, because `project-detector` is purely detection (no validation orchestration).
 
 ---
 
 ## Review Checklist
 
-- [ ] All 8 decisions from the brainstorm reflected accurately (coexistence, spike pick, granularity, tests, refs, discovery, docs, cutover)
-- [ ] Phasing aligns with craft's release discipline (CHANGELOG per batch, minor bump per batch, major bump for cleanup)
-- [ ] Acceptance criteria are testable (each maps to a specific check)
-- [ ] Trigger-phrase uniqueness test is feasible (existing test infrastructure can express it)
-- [ ] Open questions don't block Batch 1 spike (only #2 might surface in Batch 2)
-- [ ] No external API breakage (verified: `/craft:foo:bar` paths preserved through deprecation)
-- [ ] Memory entries about discovery cache + manifest patterns are honored (this plan keeps `_discovery.py` as source of truth)
+- [x] All 8 brainstorm decisions reflected
+- [x] Re-audit findings (26-skill baseline) integrated
+- [x] Nested-category placement convention applied to all new skills
+- [x] Spike restructured to match convention (skills/workflow/adhd-workflow/)
+- [x] task-dispatcher removed; task-analyzer recognized as existing coverage
+- [x] Acceptance criteria updated with specific skill paths
+- [x] Discovery & tests already verified working with nested paths
+- [ ] migration-plan.md updated to v3 to match (in progress)
 
 ---
 
 ## Implementation Notes
 
-### Order of operations (Batch 1 — first release cycle)
+### Batch 1 wave 2 (next dispatch)
 
-1. **Spike:** Build `skills/workflow/SKILL.md` consolidating workflow commands (done, focus, next, recap, refine, spec-review, stuck). Single agent dispatch. Review the resulting skill carefully — this is the pattern reference for the next 10.
-2. **Extend tests:** Add `test_skill_frontmatter_valid` and `test_skill_trigger_phrases_unique` to `tests/test_craft_plugin.py`. Run them against the spike to confirm they fire.
-3. **Extend discovery:** Update `_discovery.py` to walk `skills/`. Regenerate `_cache.json`. Verify `/craft:hub` displays the new skill.
-4. **Parallel-dispatch the rest of Batch 1:** Two agents in one message — one for `skills/git/SKILL.md` (14 cmds consolidated), one for `skills/task-management/SKILL.md` (3 cmds).
-5. **Deprecate Batch 1 source commands:** Add `deprecated: true` + `replaced-by:` to frontmatter of the 24 source commands. Do NOT delete yet.
-6. **Update docs:** CLAUDE.md (Quick Commands table), REFCARD-RELEASE.md (skill count line), `docs/index.md` (info box). Standard Tier-2 sweep per memory note on version drift.
-7. **CHANGELOG entry + version bump:** v2.34.0 with "commands → skills migration begins (Batch 1: workflow, git, task-management)".
-8. **Release:** Standard craft release pipeline (`/release`).
+1. Parallel agents (single message):
+   - **Agent A:** `skills/dev/git/SKILL.md` consolidating 10 git commands + 4 git docs (14 total)
+   - **Agent B:** `skills/workflow/task-management/SKILL.md` consolidating 3 task-* commands
+2. Both agents: read existing skills as pattern reference (`skills/release/SKILL.md`, `skills/workflow/adhd-workflow/SKILL.md`, `skills/orchestration/task-analyzer/SKILL.md` for git's safety-rail overlap).
+3. Validate: re-run skill tests, regenerate cache, smoke-check `/craft:hub`.
+4. Commit. Update CLAUDE.md + REFCARD totals. Version bump to v2.34.0. CHANGELOG entry.
 
-### Order for Batches 2 and 3
+### Batch 2 (after Batch 1 ships)
 
-Same shape as Batch 1: spike-or-smallest first if unsure, then parallel-dispatch the rest, then deprecate sources, then docs sweep, then CHANGELOG + bump + release.
+Same shape. Most important parallel dispatch: `skills/check/` and `skills/orchestration/plan-orchestrator/` first (foundational), then `skills/workflow/brainstorm-insights/` and `skills/code/coverage-metrics/`.
+
+### Batch 3 (after Batch 2 ships)
+
+Most complex — docs/site has 28 GAP commands but only ~3-4 new skills will cover them (consolidation ratio ~7:1). Agents will need careful prompting to consolidate without over-fragmentation.
 
 ### Cleanup PR (v3.0.0)
 
-- Remove ~50 commands that have been deprecated for at least one full minor cycle (Batch 1 deprecations have been live since v2.34.0, so by v3.0.0 they've had 2-3 minor cycles of notice).
-- Delete `commands/discovery-usage.md` (internal doc).
-- Update `_discovery.py` to no longer expect deleted files; regenerate cache.
-- Update tests to drop assertions about removed commands.
-- CHANGELOG entry highlighting BREAKING CHANGE: removed commands. List replacements per removed item.
+Remove all `deprecated: true` commands. Delete `commands/discovery-usage.md`. Update `_discovery.py` and tests to drop assertions. CHANGELOG: BREAKING CHANGE with per-removed-command replacement map.
 
 ### Rollback path
 
-If a batch lands and turns out to be wrong (e.g., trigger-phrase collisions discovered post-release), the deprecated commands are still in place — rollback is just removing the new skill files and reverting `_discovery.py`. No data loss.
+Each batch is reversible: deprecated commands are still in place, and new skills can be deleted without affecting command flow. Only the cleanup PR is destructive.
 
 ---
 
@@ -213,4 +264,5 @@ If a batch lands and turns out to be wrong (e.g., trigger-phrase collisions disc
 
 | Date | Change |
 |------|--------|
-| 2026-05-13 | Initial draft from `/workflow:brainstorm -d -s` session. 8 expert questions answered with recommendations. Plan v2 (migration-plan.md) reflects same scope. |
+| 2026-05-13 | v1 draft from `/workflow:brainstorm -d -s` session. 8 expert questions answered. |
+| 2026-05-13 | v2 revision after Batch 1 spike + re-audit against full 26-skill tree. Coverage estimate refined (47%→39%). Path convention switched to nested. task-dispatcher removed; check + plan-orchestrator added. |
