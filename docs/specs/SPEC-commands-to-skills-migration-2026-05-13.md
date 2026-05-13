@@ -1,8 +1,9 @@
 # SPEC: Commands → Skills Migration
 
-**Status:** draft
+**Status:** implemented — Batches 1+2+3 complete, 11 new skills built, 56 commands consolidated. Pending: v3.0.0 cleanup PR (delete deprecated commands).
 **Created:** 2026-05-13
 **Revised:** 2026-05-13 (v2 — post-spike, post-re-audit against full 26-skill tree)
+**Implementation:** Complete in 11 commits on `worktree-migration-plan-doc` (e3eabd39 → 011b4d33). Skills tree expanded from 25 → 36 SKILL.md files.
 **From Brainstorm:** `/workflow:brainstorm -d -s` (deep + save) session, 2026-05-13
 **Related plan:** [migration-plan.md](../migration-plan.md) (v3 — synced to this revision)
 **Estimated effort:** ~3 release cycles (v2.34.0, v2.35.0, v2.36.0) + final cleanup at v3.0.0
