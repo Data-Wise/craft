@@ -19,6 +19,8 @@ arguments:
     required: false
     default: false
     alias: -n
+deprecated: true
+replaced-by: "skills/docs/site-management/"
 ---
 
 # /craft:site:update - Update Site Content from Code

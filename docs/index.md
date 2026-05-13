@@ -19,7 +19,7 @@
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 32 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 36 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 

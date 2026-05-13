@@ -4,12 +4,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 32 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture
+> - **What:** 36 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture
 > - **Why:** AI automatically selects the right expertise for your task without manual intervention
 > - **How:** Skills trigger on context (e.g., "API" activates backend-designer), agents handle long-running tasks
 > - **Next:** Read [Orchestrator](orchestrator.md) to learn how they work together
 
-## Skills (32 total)
+## Skills (36 total)
 
 Skills are auto-triggered expertise modules that activate based on conversation context.
 
@@ -130,6 +130,20 @@ Skills are auto-triggered expertise modules that activate based on conversation 
 | Name | Description | Path |
 |------|-------------|------|
 | plan-orchestrator | Spec → ORCHESTRATE planning artifacts; feature breakdowns, sprint backlogs, roadmaps | `skills/orchestration/plan-orchestrator/SKILL.md` |
+
+### Documentation (extended in v2.36.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| claude-md-lifecycle | CLAUDE.md init/sync/edit lifecycle | `skills/docs/claude-md/SKILL.md` |
+| nav-sync | mkdocs nav synchronization, page additions, navigation reorg | `skills/docs/navigation/SKILL.md` |
+| site-lifecycle | Documentation site setup/build/deploy/publish (MkDocs, Quarto, pkgdown) | `skills/docs/site-management/SKILL.md` |
+
+### Distribution (extended in v2.36.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| dist-extras | PyPI publishing, curl install scripts, Claude Code marketplace distribution | `skills/distribution/dist-extras/SKILL.md` |
 
 ## Agents (8 total)
 

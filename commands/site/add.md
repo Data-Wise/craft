@@ -1,6 +1,8 @@
 ---
 description: "/craft:site:add - Add Pages with Navigation Sync"
 category: site
+deprecated: true
+replaced-by: "skills/docs/navigation/"
 ---
 
 # /craft:site:add - Add Pages with Navigation Sync

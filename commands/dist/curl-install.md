@@ -13,6 +13,8 @@ arguments:
   - name: update-readme
     description: Add installation instructions to README
     required: false
+deprecated: true
+replaced-by: "skills/distribution/dist-extras/"
 ---
 
 # /craft:dist:curl-install - Installation Script Generator

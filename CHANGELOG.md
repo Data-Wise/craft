@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added — Commands → Skills Migration, Batch 3
+
+- **4 new skills** consolidating 22 source commands:
+  - `skills/docs/claude-md/SKILL.md` (claude-md-lifecycle) — consolidates docs/claude-md/{init, sync, edit}; boundary with insights-apply made explicit
+  - `skills/docs/navigation/SKILL.md` (nav-sync) — consolidates docs/nav-update + site/{add, nav}; merges previously-separate site/*and docs/* nav concerns
+  - `skills/docs/site-management/SKILL.md` (site-lifecycle) — consolidates 13 site/* commands (audit, build, check, consolidate, create, deploy, init, preview, progress, publish, status, theme, update); largest batch-3 skill
+  - `skills/distribution/dist-extras/SKILL.md` — consolidates dist/{pypi, curl-install, marketplace}; non-Homebrew distribution channels
+- **`scripts/deprecate-batch3-commands.py`** — applies `deprecated: true` to all 22 source commands
+
+### Changed (Batch 3)
+
+- Skill count: 32 → 36 across 9 Tier-2 doc files
+- docs/guide/skills-agents.md: added Documentation (extended) + Distribution (extended) sections for the 4 new skills
+
 ### Added — Commands → Skills Migration, Batch 2
 
 - **4 new skills** consolidating 9 source commands + 1 deprecation to existing skill:
