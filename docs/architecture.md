@@ -237,5 +237,5 @@ Craft is designed for easy extension:
 ## See Also
 
 - **[Commands Reference](commands.md)** - All commands
-- **[Skills & Agents](skills-agents.md)** - 28 skills, 8 agents
+- **[Skills & Agents](skills-agents.md)** - 32 skills, 8 agents
 - **[Orchestrator Guide](orchestrator.md)** - Coordination details

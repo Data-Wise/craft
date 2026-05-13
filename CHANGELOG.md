@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added — Commands → Skills Migration, Batch 2
+
+- **4 new skills** consolidating 9 source commands + 1 deprecation to existing skill:
+  - `skills/check/SKILL.md` (preflight-check) — consolidates check.md + check/gen-validator.md; new top-level `skills/check/` category for universal pre-flight validation
+  - `skills/orchestration/plan-orchestrator/SKILL.md` — consolidates orchestrate/plan + plan/{feature, roadmap, sprint}; nests in existing `skills/orchestration/`
+  - `skills/workflow/brainstorm-insights/SKILL.md` — consolidates workflow/{brainstorm, insights}
+  - `skills/code/demonstration-builder/SKILL.md` — consolidates code/demo (renamed from proposed `coverage-metrics` after audit: test-strategist already covers coverage)
+- **`scripts/deprecate-batch2-commands.py`** — applies `deprecated: true` to the 10 Batch 2 source commands
+- **commands/code/coverage.md** → marked deprecated with `replaced-by: skills/testing/test-strategist/` (no new skill needed; existing skill covers it)
+
+### Changed (Batch 2)
+
+- Skill count: 28 → 32 across CLAUDE.md, README.md, docs/index.md, docs/architecture.md, install.sh, package.json, `.claude-plugin/{plugin,marketplace}.json`, docs/guide/skills-agents.md
+- docs/guide/skills-agents.md: added Check + Orchestration extension + Workflow expansion + Code extension sections
+
 ### Added — Commands → Skills Migration, Batch 1
 
 - **3 new skills** consolidating 24 source commands:

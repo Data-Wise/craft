@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added — Commands → Skills Migration, Batch 2
+
+- **4 new skills** consolidating 9 commands + 1 deprecation to existing skill:
+  - `skills/check/SKILL.md` (preflight-check) — universal pre-flight validation
+  - `skills/orchestration/plan-orchestrator/SKILL.md` — spec→ORCHESTRATE + feature/sprint/roadmap planning artifacts
+  - `skills/workflow/brainstorm-insights/SKILL.md` — ideation + session insights reports
+  - `skills/code/demonstration-builder/SKILL.md` — code demonstrations (refocused from proposed `coverage-metrics` after audit found `test-strategist` already covers coverage analysis)
+- **`scripts/deprecate-batch2-commands.py`** — applies `deprecated: true` to 10 source commands
+- **commands/code/coverage.md** marked deprecated → `skills/testing/test-strategist/` (existing skill, no new file)
+
+### Changed (Batch 2)
+
+- Skill count: 28 → 32 across 9 Tier-2 doc files
+- docs/guide/skills-agents.md: 4 new sections for Batch 2 skills
+
 ### Added — Commands → Skills Migration, Batch 1
 
 - **3 new skills** consolidating 24 source commands:
