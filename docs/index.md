@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.33.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.34.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -14,7 +14,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 108 commands, 8 AI agents, and 26 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 108 commands, 8 AI agents, and 36 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
@@ -219,7 +219,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.33.0 — Safety hardening + drift cleanup"
+!!! info "Latest: v2.34.0 — Safety hardening + drift cleanup"
     Adds an unconditional **hard_deny** third tier of branch protection enforced by Claude Code's auto-mode classifier (blocks force-push to main, `.git` deletion, `gh repo delete`, `~/.claude` wipe regardless of session bypasses). Adds **defensive parsing** to `/craft:hub` and `/craft:do` so corrupt facet files no longer crash the commands. Fixes a real **production leak** in `branch-guard.sh` path canonicalization where new files under non-existent dirs silently bypassed protection. Eliminates `badge_syncer` false positives that surfaced 4 phantom mismatches on every site update. Ships the new `/craft:check --version` validator (Insights-Driven Improvements Increment 1). 1638 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links

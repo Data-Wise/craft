@@ -25,8 +25,8 @@ cd "$PLUGIN_DIR"
 # Commands: count all .md files in commands/ (excluding index files)
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
 
-# Skills: count all .md and SKILL.md files in skills/
-SKILL_COUNT=$(find skills -name "*.md" -o -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
+# Skills: count SKILL.md files in skills/ (not supporting reference .md files)
+SKILL_COUNT=$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
 
 # Agents: count all .md files in agents/ (including subdirs)
 AGENT_COUNT=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
