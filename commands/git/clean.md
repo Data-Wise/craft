@@ -7,6 +7,8 @@ arguments:
     required: false
     default: false
     alias: -n
+deprecated: true
+replaced-by: "skills/dev/git/"
 ---
 
 # Git Clean - Remove merged branches

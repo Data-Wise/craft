@@ -71,7 +71,7 @@ cd "$PLUGIN_DIR"
 CURRENT_VERSION=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])" 2>/dev/null || echo "unknown")
 
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
-SKILL_COUNT=$(find skills -name "*.md" -o -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
+SKILL_COUNT=$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
 AGENT_COUNT=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 SPEC_COUNT=$(find docs/specs -name "SPEC-*.md" ! -path "*/archive/*" ! -path "*/_archive/*" 2>/dev/null | wc -l | tr -d ' ')
 

@@ -1,6 +1,8 @@
 ---
 description: /next - Decision Support
 category: workflow
+deprecated: true
+replaced-by: "skills/workflow/adhd-workflow/"
 ---
 
 # /next - Decision Support

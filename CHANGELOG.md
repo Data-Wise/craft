@@ -11,7 +11,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_(no unreleased changes — see v2.33.0 below)_
+### Added — Commands → Skills Migration, Batch 1
+
+- **3 new skills** consolidating 24 source commands:
+  - `skills/workflow/adhd-workflow/SKILL.md` — consolidates 7 workflow commands (done, focus, next, recap, refine, spec-review, stuck)
+  - `skills/dev/git/SKILL.md` — consolidates 14 git commands + reference docs; new top-level `skills/dev/` category
+  - `skills/workflow/task-management/SKILL.md` — consolidates 3 background-task commands (task-cancel, task-output, task-status)
+- **`_discovery.py` extended** to index `skills/**/SKILL.md` alongside commands; `_cache.json` gains `skills`, `skills_count`, `skills_categories` keys
+- **5 new skill tests** in `tests/test_craft_plugin.py`:
+  - `test_all_skills_have_valid_frontmatter` — YAML + required fields
+  - `test_skill_trigger_phrases_unique` — exact-match collision check across all skills
+  - `test_skill_bodies_non_trivial` — body ≥ 200 chars after frontmatter
+  - `test_skill_referenced_commands_exist` — backtick-quoted `commands/X.md` refs must resolve
+  - `test_deprecated_commands_have_replacement` — `deprecated: true` requires `replaced-by:` pointing to a real `skills/` dir
+- **`scripts/deprecate-batch1-commands.py`** — idempotent script that adds `deprecated: true` + `replaced-by:` frontmatter to the 24 source commands consolidated by Batch 1
+- **Migration plan + spec** committed to `docs/migration-plan.md` (v3) and `docs/specs/SPEC-commands-to-skills-migration-2026-05-13.md` (v2). 11-skill migration scope across 3 batches plus v3.0.0 cleanup.
+
+### Changed
+
+- **Tier-2 doc counts** synced 26 → 28 skills across CLAUDE.md, README.md (3 places), docs/index.md, docs/architecture.md, install.sh, package.json, `.claude-plugin/{plugin,marketplace}.json`
+- **`scripts/bump-version.sh`** — `SKILL_COUNT` now uses `find skills -name SKILL.md` only (was `-name "*.md" -o -name "SKILL.md"` which over-counted supporting files like `release/references/release-checklist.md`)
+- **`commands/hub.md`** — fixed `skill_count` computation: uses `rglob('SKILL.md')` (was `glob('*.md')` which returned 0 because all skills are in subdirs)
+- **`docs/guide/skills-agents.md`** — added Dev and Workflow sections listing the 3 new skills
+
+### Deprecated
+
+- 24 source commands now carry `deprecated: true` frontmatter pointing to their replacement skills. They continue to function during the deprecation cycle and will be removed in a future major version cleanup PR (target: v3.0.0).
 
 ---
 

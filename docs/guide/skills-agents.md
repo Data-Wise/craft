@@ -9,7 +9,7 @@
 > - **How:** Skills trigger on context (e.g., "API" activates backend-designer), agents handle long-running tasks
 > - **Next:** Read [Orchestrator](orchestrator.md) to learn how they work together
 
-## Skills (26 total)
+## Skills (28 total)
 
 Skills are auto-triggered expertise modules that activate based on conversation context.
 
@@ -98,6 +98,19 @@ Skills are auto-triggered expertise modules that activate based on conversation 
 |------|-------------|------|
 | test-generator | Dogfooding test suite generation (automated + interactive) | `skills/testing/test-generator.md` |
 | test-strategist | Test strategy, coverage optimization, QA | `skills/testing/test-strategist.md` |
+
+### Dev (NEW in v2.34.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| git-workflow | Full git lifecycle: init, branch, status, recap, worktree, sync, protection layers, plus learning/reference materials | `skills/dev/git/SKILL.md` |
+
+### Workflow (NEW in v2.34.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| adhd-workflow | Session boundaries, task focus, decision support, blocker resolution, spec review, prompt refinement | `skills/workflow/adhd-workflow/SKILL.md` |
+| background-task-manager | Status, output retrieval, and cancellation of background tasks launched via `--background` | `skills/workflow/task-management/SKILL.md` |
 
 ## Agents (8 total)
 

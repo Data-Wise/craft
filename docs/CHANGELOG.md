@@ -9,7 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_(no unreleased changes — see v2.33.0 below)_
+### Added — Commands → Skills Migration, Batch 1
+
+- **3 new skills** consolidating 24 source commands:
+  - `skills/workflow/adhd-workflow/SKILL.md` — consolidates 7 workflow commands (done, focus, next, recap, refine, spec-review, stuck)
+  - `skills/dev/git/SKILL.md` — consolidates 14 git commands + reference docs; new top-level `skills/dev/` category
+  - `skills/workflow/task-management/SKILL.md` — consolidates 3 background-task commands (task-cancel, task-output, task-status)
+- **`_discovery.py` extended** to index `skills/**/SKILL.md` alongside commands; `_cache.json` gains `skills`, `skills_count`, `skills_categories` keys
+- **5 new skill tests** in `tests/test_craft_plugin.py`: frontmatter validity, trigger-phrase uniqueness, non-trivial bodies, referenced-commands-exist, deprecated-commands-have-replacement
+- **`scripts/deprecate-batch1-commands.py`** — idempotent deprecation script
+- **Migration plan + spec** committed (`docs/migration-plan.md` v3, `docs/specs/SPEC-commands-to-skills-migration-2026-05-13.md` v2)
+
+### Changed
+
+- **Tier-2 doc counts** synced 26 → 28 skills across 8 files
+- **`scripts/bump-version.sh`** SKILL_COUNT uses `find skills -name SKILL.md` only (was over-counting supporting files)
+- **`commands/hub.md`** skill count uses `rglob('SKILL.md')` (was `glob('*.md')` returning 0)
+- **`docs/guide/skills-agents.md`** added Dev and Workflow sections for the 3 new skills
+
+### Deprecated
+
+- 24 source commands now carry `deprecated: true` frontmatter pointing to replacement skills. They continue to function and will be removed at v3.0.0 cleanup.
 
 ---
 

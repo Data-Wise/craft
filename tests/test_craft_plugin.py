@@ -291,6 +291,40 @@ def test_skill_bodies_non_trivial():
     assert not errors, "Trivial skill bodies:\n  " + "\n  ".join(errors)
 
 
+def test_deprecated_commands_have_replacement():
+    """Commands with `deprecated: true` must also declare `replaced-by:` pointing to a real skill dir."""
+    plugin_dir = Path(__file__).parent.parent
+    commands_dir = plugin_dir / "commands"
+    if not commands_dir.exists():
+        pytest.skip("No commands directory")
+    errors = []
+    for cmd_path in commands_dir.rglob("*.md"):
+        text = cmd_path.read_text()
+        if not text.startswith("---"):
+            continue
+        end = text.find("\n---", 3)
+        if end == -1:
+            continue
+        try:
+            fm = yaml.safe_load(text[3:end])
+        except yaml.YAMLError:
+            continue
+        if not isinstance(fm, dict) or not fm.get("deprecated"):
+            continue
+        replaced_by = fm.get("replaced-by")
+        rel = str(cmd_path.relative_to(plugin_dir))
+        if not replaced_by:
+            errors.append(f"{rel}: deprecated but missing replaced-by")
+            continue
+        if not isinstance(replaced_by, str) or not replaced_by.startswith("skills/"):
+            errors.append(f"{rel}: replaced-by must point under skills/ (got: {replaced_by!r})")
+            continue
+        target = plugin_dir / replaced_by.rstrip("/")
+        if not target.exists():
+            errors.append(f"{rel}: replaced-by target does not exist: {replaced_by}")
+    assert not errors, "Deprecated command issues:\n  " + "\n  ".join(errors)
+
+
 def test_skill_referenced_commands_exist():
     """Commands referenced by SKILL.md as `commands/X.md` paths must exist on disk."""
     plugin_dir = Path(__file__).parent.parent

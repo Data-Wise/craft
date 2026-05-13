@@ -11,6 +11,8 @@ arguments:
     required: false
     default: false
     alias: -n
+deprecated: true
+replaced-by: "skills/dev/git/"
 ---
 
 # /git-recap - Git Activity Summary

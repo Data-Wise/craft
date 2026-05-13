@@ -1,6 +1,8 @@
 ---
 description: /refine - Prompt Optimizer
 category: workflow
+deprecated: true
+replaced-by: "skills/workflow/adhd-workflow/"
 ---
 
 # /refine - Prompt Optimizer

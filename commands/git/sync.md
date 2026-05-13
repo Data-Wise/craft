@@ -7,6 +7,8 @@ arguments:
     required: false
     default: false
     alias: -n
+deprecated: true
+replaced-by: "skills/dev/git/"
 ---
 
 # /craft:git:sync - Smart Git Sync
