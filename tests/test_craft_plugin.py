@@ -271,6 +271,47 @@ def test_skill_trigger_phrases_unique():
         raise AssertionError("Duplicate trigger phrases across skills:\n" + "\n".join(lines))
 
 
+def test_skill_bodies_non_trivial():
+    """Every SKILL.md must have a non-trivial body after the frontmatter."""
+    plugin_dir = Path(__file__).parent.parent
+    skills = find_all_skill_md()
+    errors = []
+    for skill_path in skills:
+        rel = str(skill_path.relative_to(plugin_dir))
+        text = skill_path.read_text()
+        # Strip frontmatter block
+        if text.startswith("---"):
+            end = text.find("\n---", 3)
+            body = text[end + 4:] if end != -1 else ""
+        else:
+            body = text
+        # Body must have at least 200 non-whitespace chars (heuristic for "real content")
+        if len(body.strip()) < 200:
+            errors.append(f"{rel}: body too short ({len(body.strip())} chars; need >= 200)")
+    assert not errors, "Trivial skill bodies:\n  " + "\n  ".join(errors)
+
+
+def test_skill_referenced_commands_exist():
+    """Commands referenced by SKILL.md as `commands/X.md` paths must exist on disk."""
+    plugin_dir = Path(__file__).parent.parent
+    skills = find_all_skill_md()
+    # Match `commands/<path>.md` references in skill bodies (code or prose).
+    # Skip glob patterns (containing `*`) — those are shorthand for sets.
+    cmd_ref_pattern = re.compile(r"`(commands/[^`\s]+\.md)`")
+    errors = []
+    for skill_path in skills:
+        rel = str(skill_path.relative_to(plugin_dir))
+        text = skill_path.read_text()
+        for match in cmd_ref_pattern.finditer(text):
+            ref = match.group(1)
+            if "*" in ref:
+                continue
+            target = plugin_dir / ref
+            if not target.exists():
+                errors.append(f"{rel} references missing: {ref}")
+    assert not errors, "Skills reference non-existent commands:\n  " + "\n  ".join(errors)
+
+
 # ─── Agents Tests ────────────────────────────────────────────────────────────
 
 
