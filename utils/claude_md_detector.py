@@ -349,7 +349,8 @@ class CLAUDEMDDetector:
             return []
 
         skills = []
-        for skill_file in skills_dir.rglob("*.md"):
+        # Count SKILL.md files only — supporting reference .md files (e.g. release/references/*) don't count.
+        for skill_file in skills_dir.rglob("SKILL.md"):
             # Relative path from skills/
             rel_path = skill_file.relative_to(skills_dir)
             skills.append(str(rel_path))

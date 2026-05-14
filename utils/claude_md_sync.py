@@ -1437,7 +1437,7 @@ class ReferenceFileGenerator:
         specs_dir = self.project_root / "docs" / "specs"
 
         cmd_count = len(list(commands_dir.rglob("*.md"))) if commands_dir.exists() else 0
-        skill_count = len(list(skills_dir.rglob("*.md"))) if skills_dir.exists() else 0
+        skill_count = len(list(skills_dir.rglob("SKILL.md"))) if skills_dir.exists() else 0
         agent_count = len(list(agents_dir.rglob("*.md"))) if agents_dir.exists() else 0
         spec_count = len(list(
             specs_dir.rglob("SPEC-*.md")
