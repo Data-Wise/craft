@@ -1,6 +1,8 @@
 ---
 description: Git Commands Quick Reference
 category: git
+deprecated: true
+replaced-by: "skills/dev/git/"
 ---
 
 # Git Commands Quick Reference

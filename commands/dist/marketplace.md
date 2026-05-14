@@ -6,6 +6,8 @@ arguments:
     description: "Subcommand: init|validate|test|publish"
     required: false
     default: validate
+deprecated: true
+replaced-by: "skills/distribution/dist-extras/"
 ---
 
 # /craft:dist:marketplace - Marketplace Distribution

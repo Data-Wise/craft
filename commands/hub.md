@@ -36,7 +36,7 @@ commands = load_cached_commands()
 
 # Count skills, agents, and tests for banner
 from pathlib import Path
-skill_count = len(list((plugin_dir / 'skills').glob('*.md'))) if (plugin_dir / 'skills').exists() else 0
+skill_count = len(list((plugin_dir / 'skills').rglob('SKILL.md'))) if (plugin_dir / 'skills').exists() else 0
 agent_count = len(list((plugin_dir / 'agents').glob('*.md'))) if (plugin_dir / 'agents').exists() else 0
 
 # Read test count from CLAUDE.md or .STATUS (extract number from "N tests passing")
@@ -170,7 +170,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.33.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.34.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤

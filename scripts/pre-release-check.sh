@@ -77,7 +77,7 @@ echo -e "${CYAN}[2/9] Command/skill/agent counts${NC}"
 
 # Count actual files (same logic as validate-counts.sh)
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
-SKILL_COUNT=$(find skills -name "*.md" -o -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
+SKILL_COUNT=$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
 AGENT_COUNT=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 
 # Extract documented counts from plugin.json description

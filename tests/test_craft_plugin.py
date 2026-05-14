@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Optional
 
 import pytest
+import yaml
 
 # Add utils directory to path for linkcheck_ignore_parser
 sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
@@ -177,6 +178,172 @@ def test_design_skills():
             missing.append(skill)
 
     assert not missing, f"Missing: {missing}"
+
+
+KEBAB_CASE_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+
+
+def find_all_skill_md() -> list[Path]:
+    """Find all SKILL.md files under skills/ (any depth)."""
+    plugin_dir = Path(__file__).parent.parent
+    skills_dir = plugin_dir / "skills"
+    return list(skills_dir.rglob("SKILL.md"))
+
+
+def _parse_skill_frontmatter(skill_path: Path) -> Optional[dict]:
+    """Parse YAML frontmatter from a SKILL.md file. Returns dict or None."""
+    content = skill_path.read_text()
+    if not content.startswith("---"):
+        return None
+    # Split on the closing --- marker
+    parts = content.split("---", 2)
+    if len(parts) < 3:
+        return None
+    try:
+        data = yaml.safe_load(parts[1])
+    except yaml.YAMLError:
+        return None
+    if not isinstance(data, dict):
+        return None
+    return data
+
+
+def test_all_skills_have_valid_frontmatter():
+    """Every SKILL.md must have YAML frontmatter with name + description."""
+    plugin_dir = Path(__file__).parent.parent
+    skills = find_all_skill_md()
+    assert skills, "No SKILL.md files found under skills/"
+
+    errors = []
+    for skill_path in skills:
+        rel = skill_path.relative_to(plugin_dir)
+        fm = _parse_skill_frontmatter(skill_path)
+        if fm is None:
+            errors.append(f"{rel}: missing or unparseable YAML frontmatter")
+            continue
+
+        name = fm.get("name")
+        description = fm.get("description")
+
+        if not isinstance(name, str) or not name.strip():
+            errors.append(f"{rel}: missing or empty 'name' field")
+        elif not KEBAB_CASE_RE.match(name):
+            errors.append(f"{rel}: 'name' is not kebab-case: {name!r}")
+
+        if not isinstance(description, str) or not description.strip():
+            errors.append(f"{rel}: missing or empty 'description' field")
+
+    assert not errors, "Invalid skill frontmatter:\n  " + "\n  ".join(errors)
+
+
+def test_skill_trigger_phrases_unique():
+    """Quoted trigger phrases in skill descriptions must not collide across skills."""
+    plugin_dir = Path(__file__).parent.parent
+    skills = find_all_skill_md()
+    assert skills, "No SKILL.md files found under skills/"
+
+    # Extract phrases inside single or double quotes
+    quote_pattern = re.compile(r'"([^"]+)"|\'([^\']+)\'')
+
+    phrase_to_skills: dict[str, list[str]] = {}
+    for skill_path in skills:
+        rel = str(skill_path.relative_to(plugin_dir))
+        fm = _parse_skill_frontmatter(skill_path)
+        if fm is None:
+            continue
+        description = fm.get("description", "")
+        if not isinstance(description, str):
+            continue
+        for m in quote_pattern.finditer(description):
+            phrase = (m.group(1) or m.group(2) or "").strip().lower()
+            if not phrase:
+                continue
+            phrase_to_skills.setdefault(phrase, []).append(rel)
+
+    collisions = {
+        phrase: sorted(set(owners))
+        for phrase, owners in phrase_to_skills.items()
+        if len(set(owners)) >= 2
+    }
+
+    if collisions:
+        lines = [f"  {phrase!r} claimed by: {owners}" for phrase, owners in collisions.items()]
+        raise AssertionError("Duplicate trigger phrases across skills:\n" + "\n".join(lines))
+
+
+def test_skill_bodies_non_trivial():
+    """Every SKILL.md must have a non-trivial body after the frontmatter."""
+    plugin_dir = Path(__file__).parent.parent
+    skills = find_all_skill_md()
+    errors = []
+    for skill_path in skills:
+        rel = str(skill_path.relative_to(plugin_dir))
+        text = skill_path.read_text()
+        # Strip frontmatter block
+        if text.startswith("---"):
+            end = text.find("\n---", 3)
+            body = text[end + 4:] if end != -1 else ""
+        else:
+            body = text
+        # Body must have at least 200 non-whitespace chars (heuristic for "real content")
+        if len(body.strip()) < 200:
+            errors.append(f"{rel}: body too short ({len(body.strip())} chars; need >= 200)")
+    assert not errors, "Trivial skill bodies:\n  " + "\n  ".join(errors)
+
+
+def test_deprecated_commands_have_replacement():
+    """Commands with `deprecated: true` must also declare `replaced-by:` pointing to a real skill dir."""
+    plugin_dir = Path(__file__).parent.parent
+    commands_dir = plugin_dir / "commands"
+    if not commands_dir.exists():
+        pytest.skip("No commands directory")
+    errors = []
+    for cmd_path in commands_dir.rglob("*.md"):
+        text = cmd_path.read_text()
+        if not text.startswith("---"):
+            continue
+        end = text.find("\n---", 3)
+        if end == -1:
+            continue
+        try:
+            fm = yaml.safe_load(text[3:end])
+        except yaml.YAMLError:
+            continue
+        if not isinstance(fm, dict) or not fm.get("deprecated"):
+            continue
+        replaced_by = fm.get("replaced-by")
+        rel = str(cmd_path.relative_to(plugin_dir))
+        if not replaced_by:
+            errors.append(f"{rel}: deprecated but missing replaced-by")
+            continue
+        if not isinstance(replaced_by, str) or not replaced_by.startswith("skills/"):
+            errors.append(f"{rel}: replaced-by must point under skills/ (got: {replaced_by!r})")
+            continue
+        target = plugin_dir / replaced_by.rstrip("/")
+        if not target.exists():
+            errors.append(f"{rel}: replaced-by target does not exist: {replaced_by}")
+    assert not errors, "Deprecated command issues:\n  " + "\n  ".join(errors)
+
+
+def test_skill_referenced_commands_exist():
+    """Commands referenced by SKILL.md as `commands/X.md` paths must exist on disk."""
+    plugin_dir = Path(__file__).parent.parent
+    skills = find_all_skill_md()
+    # Match `commands/<path>.md` references in skill bodies (code or prose).
+    # Skip glob patterns (containing `*`) — those are shorthand for sets.
+    cmd_ref_pattern = re.compile(r"`(commands/[^`\s]+\.md)`")
+    errors = []
+    for skill_path in skills:
+        rel = str(skill_path.relative_to(plugin_dir))
+        text = skill_path.read_text()
+        for match in cmd_ref_pattern.finditer(text):
+            ref = match.group(1)
+            if "*" in ref:
+                continue
+            target = plugin_dir / ref
+            if not target.exists():
+                errors.append(f"{rel} references missing: {ref}")
+    assert not errors, "Skills reference non-existent commands:\n  " + "\n  ".join(errors)
 
 
 # ─── Agents Tests ────────────────────────────────────────────────────────────

@@ -1,0 +1,165 @@
+---
+name: plan-orchestrator
+description: This skill should be used when the user asks to "generate an ORCHESTRATE file", "turn a spec into a plan", "scaffold a feature breakdown", "scaffold a sprint backlog", "generate roadmap artifacts", "create an implementation plan from SPEC", or needs to produce concrete planning artifacts (ORCHESTRATE-*.md, feature breakdowns with task estimates, sprint backlogs, milestone roadmaps). Differs from `project-planner` (high-level strategy/advice) by producing committed, actionable artifacts tied to specs and worktrees.
+category: orchestration
+---
+
+# Plan Orchestrator Skill
+
+Produces **concrete planning artifacts** from specs and feature requests. Where `project-planner` advises on strategy ("how should we estimate?"), this skill emits files and structured backlogs ready to drive implementation: `ORCHESTRATE-<topic>.md`, feature task trees, sprint commitments, and visual roadmaps.
+
+## When to Use
+
+Activate when the user wants a **deliverable** (file, backlog, milestone list), not just guidance:
+
+- "Generate ORCHESTRATE from `docs/specs/SPEC-auth-*.md`"
+- "Break this feature into tasks with estimates"
+- "Plan next sprint, 80 hours capacity"
+- "Generate a 6-month roadmap as mermaid"
+- "Turn this brainstorm into a planning doc"
+
+Do **not** use for: routing a single task to a command (use `task-analyzer`), saving session state (use `session-state`), or general "how do I plan?" advice (use `project-planner`).
+
+## Differentiation Map
+
+| Need | Skill |
+|------|-------|
+| "What command should I run for X?" | `task-analyzer` |
+| "Save / resume my orchestrator session" | `session-state` |
+| "Coach me on estimation / agile practices" | `project-planner` |
+| "**Generate the actual plan file**" | **`plan-orchestrator`** (this) |
+
+## Four Planning Modes
+
+This skill consolidates four commands. The user's phrasing selects the mode:
+
+### 1. Spec → ORCHESTRATE (`orchestrate:plan`)
+
+**Trigger:** spec file mentioned, or "implementation plan from SPEC".
+
+**Flow:**
+
+1. Discover specs in `docs/specs/SPEC-*.md` (and `BRAINSTORM-*.md` lacking specs).
+2. Parse selected spec: title, phases/increments, acceptance criteria, key files, cross-repo references.
+3. Detect cross-repo work (paths under `~/projects/<other>/`); enforce same branch name across repos.
+4. Confirm plan with user (ORCHESTRATE+worktree / ORCHESTRATE-only / modify / cancel).
+5. Generate `ORCHESTRATE-<topic>.md` with sections: Objective, Phase Overview, Phase 1..N, Friction Prevention, Acceptance Criteria, Commit Strategy, Verification, Session Instructions.
+6. Create worktree at `~/.git-worktrees/<project>/feature-<topic>` from `dev` if selected.
+7. Update `.STATUS` and `.gitignore`.
+
+**Key constraint:** ORCHESTRATE file lives in the **worktree root**, never the main repo. After generation, instruct the user to `cd` into the worktree and start a new session — do NOT begin implementation.
+
+### 2. Feature Plan (`plan:feature`)
+
+**Trigger:** "plan feature", "break down", "scope this feature".
+
+**Output:** user stories → task tree grouped by layer (backend/frontend/infra) → time estimates → dependencies → risks → acceptance criteria → total estimate.
+
+**Options:** `--scope mvp|full|enterprise`, `--format markdown|jira|github`, `--include-tests`, `--output <file>`.
+
+### 3. Sprint Plan (`plan:sprint`)
+
+**Trigger:** "plan sprint", "next sprint", capacity/duration mentions.
+
+**Flow:** gather backlog → prioritize → fit to capacity → name sprint goal → commit + stretch items → highlight dependencies and risks.
+
+**Options:** `--duration <days>` (default 14), `--capacity <hours>`, `--goal <text>`, `--from github|jira`.
+
+### 4. Roadmap (`plan:roadmap`)
+
+**Trigger:** "roadmap", "quarterly plan", "milestone view".
+
+**Output:** phased milestones with progress bars, dependency callouts, timeline gantt-style strip.
+
+**Options:** `--horizon <months>` (default 6), `--format mermaid|markdown|html`, `--output <file>`, `--update` to refresh existing roadmap.
+
+## ORCHESTRATE Template (Canonical)
+
+```markdown
+# <Topic> — Orchestration Plan
+
+> **Branch:** `feature/<topic>`
+> **Base:** `dev`
+> **Worktree:** `~/.git-worktrees/<project>/feature-<topic>`
+> **Spec:** `<spec-path>`
+
+## Objective
+<1-2 sentences from spec>
+
+## Phase Overview
+| Phase | Increment | Priority | Effort | Status |
+
+## Phase 1..N: <Name>
+**Scope:** ...
+- [ ] 1.1 <task>
+**Key files:** `<file>` (NEW or update)
+
+## Friction Prevention
+- Context first, verify CWD, no autonomous starts, test per phase.
+
+## Acceptance Criteria
+- [ ] <from spec>
+
+## Commit Strategy
+Conventional commits per phase.
+
+## Verification
+<auto-detected test command>
+
+## Session Instructions
+cd <worktree-path> && claude
+> "Read ORCHESTRATE-<topic>.md and start Phase 1."
+```
+
+## Auto-Detection
+
+| Detection | Verification Command |
+|-----------|---------------------|
+| `tests/test_craft_plugin.py` | `python3 tests/test_craft_plugin.py` |
+| `package.json` test script | `npm test` |
+| `pytest.ini` / `pyproject.toml` | `pytest` |
+| `Cargo.toml` | `cargo test` |
+| `DESCRIPTION` (R) | `R CMD check` |
+
+## Cross-Repo Detection
+
+Scan spec for paths under `~/projects/dev-tools/<other>/`. If detected:
+
+- Primary repo + secondary repo(s) listed.
+- Same branch name (`feature/<topic>`) enforced across all worktrees.
+- Generate paired worktrees on confirmation.
+
+## ADHD-Friendly Outputs
+
+- Visual hierarchy: headers, tables, progress bars, checkboxes.
+- Quick-wins vs long-term clearly labeled.
+- Numbered next steps at end of every artifact.
+- Total estimate always surfaced (no "TBD" without a placeholder).
+
+## Integration
+
+| With | How |
+|------|-----|
+| `task-analyzer` | Receives a routed task that needs a plan artifact. |
+| `session-state` | Plans persist into orchestrator session state. |
+| `project-planner` | Strategic advice upstream; this skill writes the file. |
+| `/craft:git:worktree` | Creates the worktree for ORCHESTRATE mode. |
+| `/craft:orchestrate` | Launches orchestrator after plan exists. |
+| `/craft:docs:sync` | Refreshes roadmap docs on `--update`. |
+
+## Common Pitfalls
+
+- **Writing ORCHESTRATE to the main repo** — always worktree root.
+- **Auto-starting implementation** after generating ORCHESTRATE — STOP; new session required.
+- **Generating spec from brainstorm silently** — offer `/brainstorm s` instead; let user capture spec interactively.
+- **Overwriting existing ORCHESTRATE without confirmation** — detect and ask before regenerating.
+- **Cross-repo branch name drift** — enforce identical `feature/<topic>` across paired worktrees.
+
+## Example Invocations
+
+```
+"Generate ORCHESTRATE from docs/specs/SPEC-auth-2026-02-15.md"
+"Break down 'avatar upload' as MVP-scope feature plan"
+"Plan a 7-day sprint, 40 hours capacity, goal: ship OAuth"
+"Generate quarterly roadmap as mermaid, save to ROADMAP.md"
+```

@@ -1,6 +1,8 @@
 ---
 description: /recap - Context Restoration
 category: workflow
+deprecated: true
+replaced-by: "skills/workflow/adhd-workflow/"
 ---
 
 # /recap - Context Restoration

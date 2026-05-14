@@ -1,6 +1,8 @@
 ---
 description: /done - Session Completion & Context Capture
 category: workflow
+deprecated: true
+replaced-by: "skills/workflow/adhd-workflow/"
 ---
 
 # /done - Session Completion & Context Capture

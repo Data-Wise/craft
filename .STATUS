@@ -1,7 +1,7 @@
 status: Active
-version: 2.33.0
-release_date: 2026-05-11
-milestone: v2.33.0 SHIPPED — safety hardening + drift cleanup + 5 issues closed
+version: 2.34.0
+release_date: 2026-05-14
+milestone: v2.34.0 commands→skills migration — 11 new skills, 56 commands consolidated
 last_session: 2026-05-11
 
 progress: v2.33.0 SHIPPED 2026-05-11 (PR #137 → main as 7f6ac796, release tag v2.33.0). Bundled: PR #132 safety-hardening (hard_deny tier + defensive facet parsing + 16 new tests), 5 issue fixes (#126 insights spec, #127 badge_syncer, #134 branch-guard production leak, #135 docs-staleness BSD sed, #136 skill paths), 25 Tier-2 count drift fixes, Increment 1 of v2.33.0 spec (/craft:check --version validator). Tests: 1638 passed, 5 skipped, 1 xfail. Spec Increments 2-4 (worktree pre-flight, Homebrew SHA fix, sweep --fix) deferred to v2.34.0 or v2.33.1.

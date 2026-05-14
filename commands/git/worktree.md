@@ -13,6 +13,8 @@ arguments:
     required: false
     default: false
     alias: -n
+deprecated: true
+replaced-by: "skills/dev/git/"
 ---
 
 # /craft:git:worktree - Parallel Development with Git Worktrees

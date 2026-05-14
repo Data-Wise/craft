@@ -1,6 +1,8 @@
 ---
 description: Git Commands Learning Guide
 category: git
+deprecated: true
+replaced-by: "skills/dev/git/"
 ---
 
 # Git Commands Learning Guide
