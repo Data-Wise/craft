@@ -13,8 +13,6 @@ arguments:
   - name: project
     description: "Filter to specific project (default: all projects)"
     required: false
-deprecated: true
-replaced-by: "skills/workflow/brainstorm-insights/"
 ---
 
 # /craft:insights — Session Insights Report

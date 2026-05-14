@@ -1,8 +1,6 @@
 ---
 description: "/craft:site:nav - Navigation Reorganization"
 category: site
-deprecated: true
-replaced-by: "skills/docs/navigation/"
 ---
 
 # /craft:site:nav - Navigation Reorganization

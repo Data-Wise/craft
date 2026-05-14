@@ -1,8 +1,6 @@
 ---
 description: Roadmap Generation
 category: plan
-deprecated: true
-replaced-by: "skills/orchestration/plan-orchestrator/"
 ---
 
 # Roadmap Generation

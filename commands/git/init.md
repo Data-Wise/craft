@@ -17,8 +17,6 @@ arguments:
     description: Skip interactive prompts, use defaults
     required: false
     default: false
-deprecated: true
-replaced-by: "skills/dev/git/"
 ---
 
 # /craft:git:init - Initialize Repository

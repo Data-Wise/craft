@@ -27,8 +27,6 @@ arguments:
   - name: orch-mode
     description: "Orchestration mode: default|debug|optimize|release (v2.5.0)"
     required: false
-deprecated: true
-replaced-by: "skills/workflow/brainstorm-insights/"
 ---
 
 # /workflow:brainstorm - Enhanced Brainstorm

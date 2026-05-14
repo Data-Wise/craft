@@ -1,8 +1,6 @@
 ---
 description: Git Undo Guide - Emergency Reference
 category: git
-deprecated: true
-replaced-by: "skills/dev/git/"
 ---
 
 # Git Undo Guide - Emergency Reference

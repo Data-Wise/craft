@@ -1,8 +1,6 @@
 ---
 description: /task-cancel - Cancel Background Task
 category: workflow
-deprecated: true
-replaced-by: "skills/workflow/task-management/"
 ---
 
 # /task-cancel - Cancel Background Task

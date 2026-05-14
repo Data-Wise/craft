@@ -21,8 +21,6 @@ arguments:
     default: false
     alias: -g
 tags: [documentation, claude-md, scaffolding, templates]
-deprecated: true
-replaced-by: "skills/docs/claude-md/"
 ---
 
 # /craft:docs:claude-md:init - Create Lean CLAUDE.md

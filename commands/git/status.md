@@ -12,8 +12,6 @@ arguments:
     required: false
     default: false
     alias: -c
-deprecated: true
-replaced-by: "skills/dev/git/"
 ---
 
 # /craft:git:status - Enhanced Git Status

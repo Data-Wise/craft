@@ -1,8 +1,6 @@
 ---
 description: /stuck - Unblock Helper
 category: workflow
-deprecated: true
-replaced-by: "skills/workflow/adhd-workflow/"
 ---
 
 # /stuck - Unblock Helper

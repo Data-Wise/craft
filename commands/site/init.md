@@ -1,8 +1,6 @@
 ---
 description: /site-init - Initialize Documentation Site
 category: site
-deprecated: true
-replaced-by: "skills/docs/site-management/"
 ---
 
 # /site-init - Initialize Documentation Site

@@ -10,8 +10,6 @@ arguments:
     description: Output JSON for scripting
     required: false
     default: false
-deprecated: true
-replaced-by: "skills/docs/site-management/"
 ---
 
 # /craft:site:progress - Semester Progress Dashboard

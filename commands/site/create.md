@@ -1,8 +1,6 @@
 ---
 description: "/craft:site:create - Full Documentation Site Wizard"
 category: site
-deprecated: true
-replaced-by: "skills/docs/site-management/"
 ---
 
 # /craft:site:create - Full Documentation Site Wizard

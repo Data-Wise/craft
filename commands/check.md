@@ -29,8 +29,6 @@ arguments:
     description: "Run version sync validator only (Tier 1 files: plugin.json + 12 mechanically-synced refs). Use mode=thorough for Tier 2 sweep, mode=release for fatal-on-drift (NEW in v2.33.0)"
     required: false
     default: false
-deprecated: true
-replaced-by: "skills/check/"
 ---
 
 # /craft:check - Universal Pre-flight

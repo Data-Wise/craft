@@ -1,8 +1,6 @@
 ---
 description: "/craft:site:consolidate - Merge Duplicate Content"
 category: site
-deprecated: true
-replaced-by: "skills/docs/site-management/"
 ---
 
 # /craft:site:consolidate - Merge Duplicate Content

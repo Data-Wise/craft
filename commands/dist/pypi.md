@@ -14,8 +14,6 @@ arguments:
     required: false
     default: false
     alias: -n
-deprecated: true
-replaced-by: "skills/distribution/dist-extras/"
 ---
 
 # /craft:dist:pypi - PyPI Automation Hub

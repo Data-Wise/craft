@@ -1,8 +1,6 @@
 ---
 description: /task-output - View Background Task Results
 category: workflow
-deprecated: true
-replaced-by: "skills/workflow/task-management/"
 ---
 
 # /task-output - View Background Task Results

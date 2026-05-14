@@ -1,8 +1,6 @@
 ---
 description: Test Coverage Report
 category: code
-deprecated: true
-replaced-by: "skills/testing/test-strategist/"
 ---
 
 # Test Coverage Report

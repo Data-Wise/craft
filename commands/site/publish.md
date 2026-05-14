@@ -7,8 +7,6 @@ arguments:
     required: false
     default: false
     alias: -s
-deprecated: true
-replaced-by: "skills/docs/site-management/"
 ---
 
 # /craft:site:publish - Publish Teaching Site

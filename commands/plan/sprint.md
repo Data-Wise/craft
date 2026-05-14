@@ -1,8 +1,6 @@
 ---
 description: Sprint Planning
 category: plan
-deprecated: true
-replaced-by: "skills/orchestration/plan-orchestrator/"
 ---
 
 # Sprint Planning

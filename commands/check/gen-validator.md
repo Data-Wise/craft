@@ -12,8 +12,6 @@ arguments:
     description: Interactive mode with guided prompts
     required: false
     default: false
-deprecated: true
-replaced-by: "skills/check/"
 ---
 
 # /craft:check:gen-validator - Validator Template Generator
