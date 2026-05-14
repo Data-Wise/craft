@@ -18,6 +18,8 @@ arguments:
     description: Skip the hard_deny layer detection step (v2.33.0)
     required: false
     default: false
+deprecated: true
+replaced-by: "skills/dev/git/"
 ---
 
 # /craft:git:protect - Branch Protection Management

@@ -9,6 +9,8 @@ arguments:
     description: "Output mode: orchestrate-worktree (default), orchestrate-only"
     required: false
     default: orchestrate-worktree
+deprecated: true
+replaced-by: "skills/orchestration/plan-orchestrator/"
 ---
 
 # /craft:orchestrate:plan — Spec → ORCHESTRATE → Worktree Pipeline

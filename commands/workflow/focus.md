@@ -1,6 +1,8 @@
 ---
 description: /focus - Single-Task Mode
 category: workflow
+deprecated: true
+replaced-by: "skills/workflow/adhd-workflow/"
 ---
 
 # /focus - Single-Task Mode

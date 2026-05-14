@@ -4,7 +4,7 @@
 **Target:** `skills/` (26 existing + ~10-12 new, all nested under thematic category dirs)
 **Created:** 2026-05-13 · **Revised:** 2026-05-13 (v3 — post-spike, post-re-audit)
 **Spec:** [`docs/specs/SPEC-commands-to-skills-migration-2026-05-13.md`](specs/SPEC-commands-to-skills-migration-2026-05-13.md) (authoritative; this doc is the summary)
-**Status:** **IMPLEMENTED** — Batches 1+2+3 complete (11 new skills, 56 commands consolidated, 011b4d33 latest). Only v3.0.0 cleanup PR remains.
+**Status:** **IMPLEMENTED** — Batches 1+2+3 complete (11 new skills, 108 commands consolidated, 011b4d33 latest). Only v3.0.0 cleanup PR remains.
 
 ## What this is
 

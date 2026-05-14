@@ -28,6 +28,8 @@ arguments:
     description: Display current protection config without changes
     required: false
     default: false
+deprecated: true
+replaced-by: "skills/dev/git/"
 ---
 
 # /craft:git:protect-baseline - GitHub-side Branch Protection

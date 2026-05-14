@@ -1,6 +1,8 @@
 ---
 description: Code Demonstration
 category: code
+deprecated: true
+replaced-by: "skills/code/demonstration-builder/"
 ---
 
 # Code Demonstration

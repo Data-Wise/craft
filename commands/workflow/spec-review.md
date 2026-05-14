@@ -9,6 +9,8 @@ arguments:
   - name: action
     description: "Action: list|show|review|approve|archive (default: review)"
     required: false
+deprecated: true
+replaced-by: "skills/workflow/adhd-workflow/"
 ---
 
 # /spec:review - Spec Review & Management
