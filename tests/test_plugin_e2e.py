@@ -59,8 +59,8 @@ def _find_all_commands() -> list[Path]:
 
 
 def _find_all_skill_files() -> list[Path]:
-    """Find all skill markdown files (SKILL.md and individual .md skills)."""
-    return list(SKILLS_DIR.rglob("*.md"))
+    """Find all skill markdown files (SKILL.md only — supporting .md reference files don't count)."""
+    return list(SKILLS_DIR.rglob("SKILL.md"))
 
 
 def _find_all_agents() -> list[Path]:
