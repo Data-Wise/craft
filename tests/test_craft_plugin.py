@@ -165,6 +165,33 @@ def test_skills_exist():
     assert len(skills) > 0, "No skills found"
 
 
+def test_skill_count_predicates_use_canonical_marker():
+    """Regression: utilities counting skills must use `find skills -name SKILL.md`.
+
+    The pattern `find skills -name "*.md" -o -name "SKILL.md"` (or just `*.md`)
+    over-counts because every SKILL.md matches `*.md` and any non-canonical .md
+    in skill subtrees (references, NOTES) leaks in. This bug recurred 11 times
+    across utilities. Lock the canonical predicate in.
+
+    Exempts docs-staleness-check.sh:406 which intentionally lists ALL .md files
+    in skills/ for coverage analysis (not a count).
+    """
+    plugin_dir = Path(__file__).parent.parent
+    bad_pattern = re.compile(r'SKILL_COUNT=.*find\s+skills\s+-name\s+"\*\.md"')
+    offenders: list[str] = []
+    for path in [*plugin_dir.glob("scripts/*.sh"), *plugin_dir.rglob("commands/**/*.md")]:
+        try:
+            for i, line in enumerate(path.read_text().splitlines(), 1):
+                if bad_pattern.search(line):
+                    offenders.append(f"{path.relative_to(plugin_dir)}:{i}: {line.strip()}")
+        except (OSError, UnicodeDecodeError):
+            continue
+    assert not offenders, (
+        "Found utilities counting skills with `*.md` instead of `SKILL.md` "
+        "(over-counts non-canonical files):\n  " + "\n  ".join(offenders)
+    )
+
+
 def test_design_skills():
     """Test that design skills are present."""
     plugin_dir = Path(__file__).parent.parent

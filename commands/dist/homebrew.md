@@ -926,7 +926,7 @@ For Claude Code plugins, the workflow also extracts metadata counts:
         run: |
           CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" | wc -l | tr -d ' ')
           AGENT_COUNT=$(find agents -name "*.md" | wc -l | tr -d ' ')
-          SKILL_COUNT=$(find skills -name "*.md" | wc -l | tr -d ' ')
+          SKILL_COUNT=$(find skills -name "SKILL.md" | wc -l | tr -d ' ')
           echo "command_count=$CMD_COUNT" >> $GITHUB_OUTPUT
           echo "agent_count=$AGENT_COUNT" >> $GITHUB_OUTPUT
           echo "skill_count=$SKILL_COUNT" >> $GITHUB_OUTPUT
