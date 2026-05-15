@@ -256,7 +256,7 @@ done
 
 # Check for stale command/skill/agent counts in docs
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
-SKILL_COUNT=$(find skills -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+SKILL_COUNT=$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
 AGENT_COUNT=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 
 COUNT_CHECK_FILES=(
