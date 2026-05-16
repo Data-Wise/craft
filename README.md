@@ -10,9 +10,9 @@
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
 [![Version](https://img.shields.io/badge/version-2.34.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
-> **v2.33.0 — Safety hardening + drift cleanup** 🚀
+> **v2.34.0 (in development) — Commands → Skills Migration** 🚀
 > **108 commands** | **36 skills** | **8 agents** | **1638 tests passing**
-> Adds an unconditional **hard_deny** third tier of branch protection (force-push to main, `.git` deletion, `gh repo delete`, `~/.claude` wipe — survives all session bypasses), defensive parsing for `/craft:hub` and `/craft:do` so corrupt facets no longer crash, fixes a real production leak in `branch-guard.sh` path canonicalization, eliminates `badge_syncer` false positives, and ships the new `/craft:check --version` validator (Insights-Driven Improvements Increment 1).
+> 11 new skills (`preflight-check`, `git-workflow`, `claude-md-lifecycle`, `nav-sync`, `site-lifecycle`, `dist-extras`, `plan-orchestrator`, `demonstration-builder`, `adhd-workflow`, `brainstorm-insights`, `background-task-manager`) consolidating 53 source commands across 3 batches. Skills auto-activate from conversation context — no command memorization required.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 

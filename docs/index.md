@@ -219,8 +219,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.34.0 — Safety hardening + drift cleanup"
-    Adds an unconditional **hard_deny** third tier of branch protection enforced by Claude Code's auto-mode classifier (blocks force-push to main, `.git` deletion, `gh repo delete`, `~/.claude` wipe regardless of session bypasses). Adds **defensive parsing** to `/craft:hub` and `/craft:do` so corrupt facet files no longer crash the commands. Fixes a real **production leak** in `branch-guard.sh` path canonicalization where new files under non-existent dirs silently bypassed protection. Eliminates `badge_syncer` false positives that surfaced 4 phantom mismatches on every site update. Ships the new `/craft:check --version` validator (Insights-Driven Improvements Increment 1). 1638 tests passing. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "In development: v2.34.0 — Commands → Skills Migration"
+    11 new skills consolidating 53 source commands across 3 batches: `preflight-check`, `git-workflow`, `claude-md-lifecycle`, `nav-sync`, `site-lifecycle`, `dist-extras`, `plan-orchestrator`, `demonstration-builder`, `adhd-workflow`, `brainstorm-insights`, `background-task-manager`. Skills auto-activate from conversation context — no command memorization required. Last shipped release: **v2.33.0** (safety hardening + drift cleanup). See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
