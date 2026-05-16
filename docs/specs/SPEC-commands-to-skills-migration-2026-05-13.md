@@ -5,7 +5,7 @@
 **Revised:** 2026-05-13 (v2 — post-spike, post-re-audit against full 26-skill tree)
 **Implementation:** Complete in 11 commits on `worktree-migration-plan-doc` (e3eabd39 → 011b4d33). Skills tree expanded from 25 → 36 SKILL.md files.
 **From Brainstorm:** `/workflow:brainstorm -d -s` (deep + save) session, 2026-05-13
-**Related plan:** [migration-plan.md](../migration-plan.md) (v3 — synced to this revision)
+**Related plan:** `docs/migration-plan.md` (v3) — deleted post-implementation; this SPEC is now the single source of truth.
 **Estimated effort:** ~3 release cycles (v2.34.0, v2.35.0, v2.36.0) + final cleanup at v3.0.0
 **Target versions:** v2.34.0 (Batch 1) → v2.35.0 (Batch 2) → v2.36.0 (Batch 3) → v3.0.0 (cleanup)
 

@@ -317,6 +317,18 @@ if [ -f "docs/reference/configuration.md" ]; then
     fi
 fi
 
+# docs/skills-agents.md — header sentence + "## Skills (N total)" + intro count
+if [ -f "docs/skills-agents.md" ]; then
+    if [ "$DRY_RUN" = true ]; then
+        echo -e "  ${CYAN}would update${NC} docs/skills-agents.md"
+    else
+        sed -i '' "s|^Craft includes [0-9][0-9]* auto-activating skills and [0-9][0-9]* specialized agents|Craft includes ${SKILL_COUNT} auto-activating skills and ${AGENT_COUNT} specialized agents|" docs/skills-agents.md
+        sed -i '' "s|^## Skills ([0-9][0-9]* total)|## Skills (${SKILL_COUNT} total)|" docs/skills-agents.md
+        sed -i '' "s|^## Agents ([0-9][0-9]* total)|## Agents (${AGENT_COUNT} total)|" docs/skills-agents.md
+        echo -e "  ${GREEN}✓${NC} docs/skills-agents.md"; UPDATED=$((UPDATED + 1))
+    fi
+fi
+
 # mkdocs.yml
 if [ -f "mkdocs.yml" ]; then
     if [ "$DRY_RUN" = true ]; then
