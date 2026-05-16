@@ -10,7 +10,7 @@
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
 [![Version](https://img.shields.io/badge/version-2.34.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
-> **v2.34.0 (in development) — Commands → Skills Migration** 🚀
+> **v2.34.0 — Commands → Skills Migration** 🚀
 > **108 commands** | **36 skills** | **8 agents** | **1638 tests passing**
 > 11 new skills (`preflight-check`, `git-workflow`, `claude-md-lifecycle`, `nav-sync`, `site-lifecycle`, `dist-extras`, `plan-orchestrator`, `demonstration-builder`, `adhd-workflow`, `brainstorm-insights`, `background-task-manager`) consolidating 53 source commands across 3 batches. Skills auto-activate from conversation context — no command memorization required.
 

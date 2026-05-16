@@ -219,8 +219,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "In development: v2.34.0 — Commands → Skills Migration"
-    11 new skills consolidating 53 source commands across 3 batches: `preflight-check`, `git-workflow`, `claude-md-lifecycle`, `nav-sync`, `site-lifecycle`, `dist-extras`, `plan-orchestrator`, `demonstration-builder`, `adhd-workflow`, `brainstorm-insights`, `background-task-manager`. Skills auto-activate from conversation context — no command memorization required. Last shipped release: **v2.33.0** (safety hardening + drift cleanup). See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.34.0 — Commands → Skills Migration"
+    11 new skills consolidating 53 source commands across 3 batches: `preflight-check`, `git-workflow`, `claude-md-lifecycle`, `nav-sync`, `site-lifecycle`, `dist-extras`, `plan-orchestrator`, `demonstration-builder`, `adhd-workflow`, `brainstorm-insights`, `background-task-manager`. Skills auto-activate from conversation context — no command memorization required. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 

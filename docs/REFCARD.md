@@ -4,7 +4,7 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.34.0 (in development)                            │
+│  Version: 2.34.0 (released 2026-05-15)                       │
 │  Commands: 108 | Agents: 8 | Skills: 36                     │
 │  Documentation: 99% complete | Tests: 1638 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
