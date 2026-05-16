@@ -4,12 +4,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 26 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture
+> - **What:** 36 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture
 > - **Why:** AI automatically selects the right expertise for your task without manual intervention
 > - **How:** Skills trigger on context (e.g., "API" activates backend-designer), agents handle long-running tasks
 > - **Next:** Read [Orchestrator](orchestrator.md) to learn how they work together
 
-## Skills (26 total)
+## Skills (36 total)
 
 Skills are auto-triggered expertise modules that activate based on conversation context.
 
@@ -98,6 +98,52 @@ Skills are auto-triggered expertise modules that activate based on conversation 
 |------|-------------|------|
 | test-generator | Dogfooding test suite generation (automated + interactive) | `skills/testing/test-generator.md` |
 | test-strategist | Test strategy, coverage optimization, QA | `skills/testing/test-strategist.md` |
+
+### Dev (NEW in v2.34.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| git-workflow | Full git lifecycle: init, branch, status, recap, worktree, sync, protection layers, plus learning/reference materials | `skills/dev/git/SKILL.md` |
+
+### Workflow (NEW in v2.34.0, expanded in v2.35.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| adhd-workflow | Session boundaries, task focus, decision support, blocker resolution, spec review, prompt refinement | `skills/workflow/adhd-workflow/SKILL.md` |
+| background-task-manager | Status, output retrieval, and cancellation of background tasks launched via `--background` | `skills/workflow/task-management/SKILL.md` |
+| brainstorm-insights | Ideation (BRAINSTORM/SPEC generation) + session-facet insights reports | `skills/workflow/brainstorm-insights/SKILL.md` |
+
+### Check (NEW in v2.35.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| preflight-check | Universal pre-flight validation across commit / PR / release / deploy contexts | `skills/check/SKILL.md` |
+
+### Code (extended in v2.35.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| demonstration-builder | Code demonstrations, vignettes, instructional examples | `skills/code/demonstration-builder/SKILL.md` |
+
+### Orchestration (extended in v2.35.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| plan-orchestrator | Spec → ORCHESTRATE planning artifacts; feature breakdowns, sprint backlogs, roadmaps | `skills/orchestration/plan-orchestrator/SKILL.md` |
+
+### Documentation (extended in v2.36.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| claude-md-lifecycle | CLAUDE.md init/sync/edit lifecycle | `skills/docs/claude-md/SKILL.md` |
+| nav-sync | mkdocs nav synchronization, page additions, navigation reorg | `skills/docs/navigation/SKILL.md` |
+| site-lifecycle | Documentation site setup/build/deploy/publish (MkDocs, Quarto, pkgdown) | `skills/docs/site-management/SKILL.md` |
+
+### Distribution (extended in v2.36.0)
+
+| Name | Description | Path |
+|------|-------------|------|
+| dist-extras | PyPI publishing, curl install scripts, Claude Code marketplace distribution | `skills/distribution/dist-extras/SKILL.md` |
 
 ## Agents (8 total)
 

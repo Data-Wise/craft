@@ -1,6 +1,8 @@
 ---
 description: Feature Planning
 category: plan
+deprecated: true
+replaced-by: "skills/orchestration/plan-orchestrator/"
 ---
 
 # Feature Planning

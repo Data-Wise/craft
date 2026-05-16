@@ -132,7 +132,7 @@ CURRENT_VERSION=""
 
 load_counts() {
     EXPECTED_CMDS=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
-    EXPECTED_SKILLS=$(find skills -name "*.md" -o -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
+    EXPECTED_SKILLS=$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
     EXPECTED_AGENTS=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
     CURRENT_VERSION=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
 }

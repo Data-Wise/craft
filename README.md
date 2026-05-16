@@ -8,11 +8,11 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.33.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.34.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
-> **v2.33.0 — Safety hardening + drift cleanup** 🚀
-> **108 commands** | **26 skills** | **8 agents** | **1638 tests passing**
-> Adds an unconditional **hard_deny** third tier of branch protection (force-push to main, `.git` deletion, `gh repo delete`, `~/.claude` wipe — survives all session bypasses), defensive parsing for `/craft:hub` and `/craft:do` so corrupt facets no longer crash, fixes a real production leak in `branch-guard.sh` path canonicalization, eliminates `badge_syncer` false positives, and ships the new `/craft:check --version` validator (Insights-Driven Improvements Increment 1).
+> **v2.34.0 — Commands → Skills Migration** 🚀
+> **108 commands** | **36 skills** | **8 agents** | **1638 tests passing**
+> 11 new skills (`preflight-check`, `git-workflow`, `claude-md-lifecycle`, `nav-sync`, `site-lifecycle`, `dist-extras`, `plan-orchestrator`, `demonstration-builder`, `adhd-workflow`, `brainstorm-insights`, `background-task-manager`) consolidating 53 source commands across 3 batches. Skills auto-activate from conversation context — no command memorization required.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -150,7 +150,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 26 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 36 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -531,7 +531,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
 - 📖 **[Commands Reference](docs/commands.md)** - All 107 commands documented
-- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 26 skills, 8 agents
+- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 36 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards

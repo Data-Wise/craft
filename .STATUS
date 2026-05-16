@@ -1,21 +1,39 @@
 status: Active
-version: 2.33.0
-release_date: 2026-05-10
-milestone: v2.33.0 planning — Insights-Driven Improvements (renumbered from original v2.32 spec)
-last_session: 2026-05-11
+version: 2.34.0
+release_date: 2026-05-14
+milestone: v2.34.0 in development on dev — commands→skills migration (11 new skills, 53 commands consolidated) merged via PR #139; not yet tagged/released to GitHub
+last_session: 2026-05-15
 
-progress: v2.32.0 + v2.32.1 shipped. v2.32.0 (2026-05-09): /craft:git:protect-baseline (#122), 348-ref cross-ref sweep (#123), polish + xref follow-up (#124), pretooluse.py hook stdin contract fix (#125). v2.32.1 (2026-05-10): infrastructure patch — homebrew-release.yml PAT → GitHub App auth migration (#129), inlined update-homebrew job, removed unused auto_merge input, updated commands/dist/homebrew.md to recommend App auth. v2.33.0 in progress: safety-hardening (#132) MERGED 2026-05-11 — hard_deny tier + defensive facet parsing + 16 new tests. Remaining v2.33.0 increments per spec (version sync validator, worktree pre-flight, Homebrew SHA fix, post-release sweep --fix) still queued.
+progress: v2.34.0 work merged to dev across PR #139 (commands→skills migration, batches 1-3, 46dfd5dc on 2026-05-14), PR #140 (post-merge drift sweep + 9th over-counter fix, 35d170f4 on 2026-05-15), PR #141 (11-skill docs in skills-agents.md + dropped migration-plan.md + bump-version sweep for `(N total)` headers, 52a58e49 on 2026-05-15), and a direct dev commit (4c7a44bd on 2026-05-15) refreshing in-development tagline + REFCARD skill count. **NOT YET RELEASED** — no v2.34.0 tag, no GitHub release. CHANGELOG content still under [Unreleased]. Latest shipped release remains v2.33.0 (2026-05-11). Test suite: 19 unit tests on test_craft_plugin.py (added test_skill_count_predicates_use_canonical_marker as a regression net for the recurring SKILL.md-vs-`*.md` over-counting bug — now fixed in 11 utilities total).
 
 📊 Branch Status:
 
 | Branch | Head     | Base | Status                                                                          |
 |--------|----------|------|---------------------------------------------------------------------------------|
-| main   | 7082f2c2 | —    | Production (v2.32.1 tagged, PR #131 merged)                                     |
-| dev    | 15706445 | main | 2 commits ahead: PR #132 merge + ORCHESTRATE cleanup (v2.33.0 increment 1 done)  |
+| main   | 7f6ac796 | —    | Production (v2.33.0 tagged, PR #137 merged 2026-05-11)                          |
+| dev    | 4c7a44bd | main | v2.34.0 work merged (PR #139/#140/#141 + 1 direct doc commit), awaiting release |
 
 📂 Active Worktrees:
 
-_None — feature-safety-hardening removed after PR #132 merge._
+_None — `worktree-migration-plan-doc` removed 2026-05-15 after PR #141 merge._
+
+✅ Session 2026-05-15 (post-merge cleanup of v2.34.0 migration):
+
+PRs shipped:
+- #140 (35d170f4) — Post-merge drift sweep: 6 stale "37 skills" doc strings + `docs-staleness-check.sh` SKILL_COUNT over-counter (9th instance)
+- #141 (52a58e49) — Skill coverage: documented 11 new skills in `docs/skills-agents.md` (3 new sections: Check, Dev, Workflow), removed spurious `release-checklist` reference-doc row that was inflating count by 1, dropped completed `docs/migration-plan.md`, fixed live SPEC link, swept 2 more over-counter instances (`post-release-sweep.sh` + workflow YAML in `commands/dist/homebrew.md` — 10th + 11th), added `bump-version.sh` block for `docs/skills-agents.md` `(N total)` header drift class
+- Direct to dev (4c7a44bd) — Site refresh: README/index.md/REFCARD taglines updated from stale v2.33.0 carry-over to v2.34.0 in-development; REFCARD skill count 26→36, removed false 2026-05-11 release date
+
+Knowledge captured:
+- 6 new MEMORY.md entries: `(N total)` header drift class, spurious reference-docs-as-skills, review-loop PR pattern, squash-merge ahead/behind footgun, worktree cleanup from inside worktree, .STATUS Active Worktrees silent drift
+
+Workflow observation: `/review` of merged PR uncovered next 1-3 follow-up bugs each cycle — this session's three commits (PR #140 → #141 → site update) all originated from review/sync feedback on the prior step.
+
+Issues remaining open:
+- #108 (Tauri/cask workflow revamp)
+- #130 (himalaya-mcp + nexus-cli App secrets)
+- #133 (hard_deny criterion #5 e2e gap)
+- CHANGELOG curation gap: v2.34.0 content still under [Unreleased] — release pipeline will promote it when /release runs
 
 ✅ Sibling-plugin migration PRs (all MERGED 2026-05-10):
 
@@ -75,17 +93,21 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) Run /craft:docs:update --post-merge to sync docs after PR #132 + 3 issue fixes — recommended before next release
-B) Start v2.33.0 Increment 2 (Version sync validator: /craft:check --version) ~30 min
-C) Start v2.33.0 Increment 3 (Worktree pre-flight: 4 checks, soft warnings) ~1.5h
-D) Ship v2.33.0 (safety-hardening + issue fixes are substantial — could ship as a standalone v2.33.0 patch release now, or bundle with remaining increments)
+A) Run /release for v2.34.0 — promotes [Unreleased] → [2.34.0] in CHANGELOG, tags, drops "(in development)" suffixes, triggers Homebrew tap auto-update
+B) Brainstorm v2.35.0 scope — remaining v2.33.0 spec increments (worktree pre-flight, Homebrew SHA fix, sweep --fix) + new ideas
+C) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
+D) Skip the release pipeline and keep merging features to dev (v2.34.0 grows in scope)
 
-Issues resolved this session (2026-05-11):
-- #126 closed (e30ba371) — env-var → stdin contract corrected in insights spec + e2e shell test
-- #127 closed (0e207c01) — badge_syncer false positives: branch_label awareness + shields.io /badge/docs- classification
-- #134 closed (c1cbb976) — branch-guard.sh path canonicalization bug (production leak): new files under non-existent dirs were silently allowed on protected branches
+Issues closed this session (2026-05-11):
+- #126 (e30ba371) — env-var → stdin contract corrected in insights spec
+- #127 (0e207c01) — badge_syncer false positives: branch_label + /badge/docs- classification
+- #134 (c1cbb976) — branch-guard.sh path canonicalization production leak
+- #135 (15a28409) — docs-staleness-check.sh BSD-sed bug (silent no-op on macOS)
+- #136 (15a28409) — 19 stale skill paths in skills-agents.md
 
-Issues remaining open (blocked on externals, intentionally not addressed):
+v2.33.0 Increment 1 (69778f59): /craft:check --version validator shipped
+
+Issues remaining open (blocked on externals):
 - #108 (Tauri/cask workflow revamp) — large feature scope, future release
 - #130 (himalaya-mcp + nexus-cli App secrets) — requires user UI to set GitHub secrets
 - #133 (hard_deny criterion #5 e2e gap) — blocked on Claude Code exposing classifier hook

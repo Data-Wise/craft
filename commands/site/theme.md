@@ -1,6 +1,8 @@
 ---
 description: "/craft:site:theme - Quick Theme Changes"
 category: site
+deprecated: true
+replaced-by: "skills/docs/site-management/"
 ---
 
 # /craft:site:theme - Quick Theme Changes

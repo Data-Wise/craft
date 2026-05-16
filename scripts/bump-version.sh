@@ -71,7 +71,7 @@ cd "$PLUGIN_DIR"
 CURRENT_VERSION=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])" 2>/dev/null || echo "unknown")
 
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
-SKILL_COUNT=$(find skills -name "*.md" -o -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
+SKILL_COUNT=$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
 AGENT_COUNT=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 SPEC_COUNT=$(find docs/specs -name "SPEC-*.md" ! -path "*/archive/*" ! -path "*/_archive/*" 2>/dev/null | wc -l | tr -d ' ')
 
@@ -314,6 +314,18 @@ if [ -f "docs/reference/configuration.md" ]; then
         fi
         sed -i '' "s|across [0-9][0-9]* files|across ${FILE_COUNT} files|g" docs/reference/configuration.md
         echo -e "  ${GREEN}✓${NC} docs/reference/configuration.md"; UPDATED=$((UPDATED + 1))
+    fi
+fi
+
+# docs/skills-agents.md — header sentence + "## Skills (N total)" + intro count
+if [ -f "docs/skills-agents.md" ]; then
+    if [ "$DRY_RUN" = true ]; then
+        echo -e "  ${CYAN}would update${NC} docs/skills-agents.md"
+    else
+        sed -i '' "s|^Craft includes [0-9][0-9]* auto-activating skills and [0-9][0-9]* specialized agents|Craft includes ${SKILL_COUNT} auto-activating skills and ${AGENT_COUNT} specialized agents|" docs/skills-agents.md
+        sed -i '' "s|^## Skills ([0-9][0-9]* total)|## Skills (${SKILL_COUNT} total)|" docs/skills-agents.md
+        sed -i '' "s|^## Agents ([0-9][0-9]* total)|## Agents (${AGENT_COUNT} total)|" docs/skills-agents.md
+        echo -e "  ${GREEN}✓${NC} docs/skills-agents.md"; UPDATED=$((UPDATED + 1))
     fi
 fi
 

@@ -1,6 +1,8 @@
 ---
 description: "/craft:site:status - Documentation Site Dashboard"
 category: site
+deprecated: true
+replaced-by: "skills/docs/site-management/"
 ---
 
 # /craft:site:status - Documentation Site Dashboard

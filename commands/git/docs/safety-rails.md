@@ -1,6 +1,8 @@
 ---
 description: Git Safety Rails Guide
 category: git
+deprecated: true
+replaced-by: "skills/dev/git/"
 ---
 
 # Git Safety Rails Guide

@@ -21,6 +21,8 @@ arguments:
     default: false
     alias: -g
 tags: [documentation, claude-md, scaffolding, templates]
+deprecated: true
+replaced-by: "skills/docs/claude-md/"
 ---
 
 # /craft:docs:claude-md:init - Create Lean CLAUDE.md
@@ -69,7 +71,7 @@ Analyzing project structure...
 Detected indicators:
   ✓ .claude-plugin/plugin.json exists
   ✓ commands/ directory (107 commands)
-  ✓ skills/ directory (26 skills)
+  ✓ skills/ directory (36 skills)
   ✓ agents/ directory (8 agents)
 
 Project type: Craft Plugin
@@ -113,7 +115,7 @@ Generated CLAUDE.md Preview
 
 > **TL;DR**: Development workflow orchestration plugin
 
-**107 commands** · **26 skills** · **8 agents**
+**107 commands** · **36 skills** · **8 agents**
 **Version:** v2.28.0 | **Tests:** 112 passing
 
 ## Git Workflow

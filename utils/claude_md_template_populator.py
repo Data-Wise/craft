@@ -229,11 +229,13 @@ class TemplatePopulator:
         return len(list(commands_dir.rglob("*.md")))
 
     def _count_skills(self) -> int:
-        """Count skill files."""
+        """Count skill files: SKILL.md entries (nested) + top-level .md files (legacy/flat layout)."""
         skills_dir = self.path / "skills"
         if not skills_dir.exists():
             return 0
-        return len(list(skills_dir.rglob("*.md")))
+        nested = list(skills_dir.rglob("SKILL.md"))
+        top_level = [p for p in skills_dir.glob("*.md")]
+        return len(nested) + len(top_level)
 
     def _count_agents(self) -> int:
         """Count agent files."""

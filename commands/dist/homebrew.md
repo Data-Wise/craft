@@ -926,7 +926,7 @@ For Claude Code plugins, the workflow also extracts metadata counts:
         run: |
           CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" | wc -l | tr -d ' ')
           AGENT_COUNT=$(find agents -name "*.md" | wc -l | tr -d ' ')
-          SKILL_COUNT=$(find skills -name "*.md" | wc -l | tr -d ' ')
+          SKILL_COUNT=$(find skills -name "SKILL.md" | wc -l | tr -d ' ')
           echo "command_count=$CMD_COUNT" >> $GITHUB_OUTPUT
           echo "agent_count=$AGENT_COUNT" >> $GITHUB_OUTPUT
           echo "skill_count=$SKILL_COUNT" >> $GITHUB_OUTPUT
@@ -1058,7 +1058,7 @@ When issues are found, the audit command automatically applies known fixes:
 ```ruby
 # Fix 1: Description too long (> 80 chars)
 # Before:
-desc "Full-stack developer toolkit - 107 commands, 8 agents, 26 skills - Claude Code plugin"
+desc "Full-stack developer toolkit - 107 commands, 8 agents, 36 skills - Claude Code plugin"
 # After:
 desc "Full-stack developer toolkit for Claude Code with 107 commands"
 

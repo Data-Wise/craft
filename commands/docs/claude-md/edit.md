@@ -37,6 +37,8 @@ arguments:
     required: false
     default: false
 tags: [documentation, claude-md, editing, interactive]
+deprecated: true
+replaced-by: "skills/docs/claude-md/"
 ---
 
 # /craft:docs:claude-md:edit - Interactive CLAUDE.md Editing

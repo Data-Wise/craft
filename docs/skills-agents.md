@@ -1,8 +1,8 @@
 # Craft Skills & Agents
 
-Craft includes 26 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 36 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (26 total)
+## Skills (36 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -12,17 +12,24 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | system-architect | Software architecture, system design, and technical decision-making | `skills/architecture/SKILL.md` |
 
+### Check (1)
+
+| Name | Description | Path |
+|------|-------------|------|
+| preflight-check | Context-aware pre-flight validation (commit/PR/release/deploy) — orchestrates lint, tests, types, version sync, stale refs, docs, hook conflicts | `skills/check/SKILL.md` |
+
 ### CI (1)
 
 | Name | Description | Path |
 |------|-------------|------|
 | project-detector | Smart detection of project types, build tools, and CI requirements | `skills/ci/SKILL.md` |
 
-### Code (1)
+### Code (2)
 
 | Name | Description | Path |
 |------|-------------|------|
 | sync-features | Chain command-audit, release-watch, and desktop-watch into a prioritized action plan | `skills/code/SKILL.md` |
+| demonstration-builder | Designs progressive runnable code examples for tutorials, vignettes, presentations, and documentation | `skills/code/demonstration-builder/SKILL.md` |
 
 ### Design (3)
 
@@ -32,25 +39,35 @@ Skills automatically activate based on conversation context, providing just-in-t
 | devops-helper | CI/CD, deployment, Docker, testing automation, and infrastructure decisions | `skills/design/devops-helper/SKILL.md` |
 | frontend-designer | UI/UX design, component architecture, accessibility, and frontend performance | `skills/design/frontend-designer/SKILL.md` |
 
-### Distribution (5)
+### Dev (1)
 
 | Name | Description | Path |
 |------|-------------|------|
+| git-workflow | Full git lifecycle — repo init, branches, worktrees, remote sync, status/recap, local + GitHub-side branch protection, undo/safety reference docs | `skills/dev/git/SKILL.md` |
+
+### Distribution (6)
+
+| Name | Description | Path |
+|------|-------------|------|
+| dist-extras | Non-Homebrew distribution channels — PyPI publishing, GitHub-release curl installers, Claude Code plugin marketplace listings | `skills/distribution/dist-extras/SKILL.md` |
 | distribution-strategist | Recommends optimal distribution channels based on project type and target audience | `skills/distribution/distribution-strategist/SKILL.md` |
 | homebrew-formula-expert | Homebrew formula creation, best practices, and troubleshooting | `skills/distribution/homebrew-formula-expert/SKILL.md` |
 | homebrew-multi-formula | Coordinate releases across multiple Homebrew formulas with dependency ordering | `skills/distribution/homebrew-multi-formula/SKILL.md` |
 | homebrew-setup-wizard | Implementation logic for the Homebrew automation setup wizard | `skills/distribution/homebrew-setup-wizard/SKILL.md` |
 | homebrew-workflow-expert | GitHub Actions workflows for automated Homebrew formula updates and releases | `skills/distribution/homebrew-workflow-expert/SKILL.md` |
 
-### Documentation (5)
+### Documentation (8)
 
 | Name | Description | Path |
 |------|-------------|------|
 | architecture-decision-records | Write and maintain ADRs following best practices for technical decision documentation | `skills/docs/architecture-decision-records/SKILL.md` |
 | changelog-automation | Automate changelog generation from commits, PRs, and releases (Keep a Changelog format) | `skills/docs/changelog-automation/SKILL.md` |
+| claude-md-lifecycle | Manage CLAUDE.md lifecycle (init, sync, audit, fix, optimize, edit) — project-local and global `~/.claude/CLAUDE.md` | `skills/docs/claude-md/SKILL.md` |
 | doc-classifier | Classify documentation needs based on code changes | `skills/docs/doc-classifier/SKILL.md` |
 | mermaid-linter | Mermaid validation, auto-fix, health score with MCP-powered syntax checking | `skills/docs/mermaid-linter/SKILL.md` |
+| nav-sync | Keep mkdocs.yml in sync with docs/ — directory-driven nav updates, new-page scaffolding, ADHD-friendly nav reorganization | `skills/docs/navigation/SKILL.md` |
 | openapi-spec-generation | Generate and maintain OpenAPI 3.1 specifications from code and design-first specs | `skills/docs/openapi-spec-generation/SKILL.md` |
+| site-lifecycle | Manage docs site lifecycle (MkDocs, Quarto, pkgdown) — init/create/theme through build/preview/audit through deploy/publish/update | `skills/docs/site-management/SKILL.md` |
 
 ### Guard & Insights (2)
 
@@ -65,11 +82,12 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | mode-controller | Manages craft plugin execution modes (default, debug, optimize, release) | `skills/modes/SKILL.md` |
 
-### Orchestration (2)
+### Orchestration (3)
 
 | Name | Description | Path |
 |------|-------------|------|
-| session-state | Manages orchestrator session state persistence - save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
+| plan-orchestrator | Produce concrete planning artifacts (ORCHESTRATE files, feature breakdowns, sprint backlogs, roadmaps) from specs | `skills/orchestration/plan-orchestrator/SKILL.md` |
+| session-state | Manages orchestrator session state persistence — save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
 | task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer/SKILL.md` |
 
 ### Planning (1)
@@ -78,12 +96,11 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | project-planner | Project planning, estimation, and delivery management | `skills/planning/SKILL.md` |
 
-### Release (2)
+### Release (1)
 
 | Name | Description | Path |
 |------|-------------|------|
 | release | Orchestrates the full release pipeline from pre-flight checks through GitHub release creation | `skills/release/SKILL.md` |
-| release-checklist | Pre-release, release day, and post-release checklists | `skills/release/references/release-checklist.md` |
 
 ### Testing (2)
 
@@ -91,6 +108,14 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | test-generator | Generates dogfooding test suites (automated + interactive) for any project type | `skills/testing/test-generator/SKILL.md` |
 | test-strategist | Test strategy, coverage optimization, and quality assurance | `skills/testing/test-strategist/SKILL.md` |
+
+### Workflow (3)
+
+| Name | Description | Path |
+|------|-------------|------|
+| adhd-workflow | Session and task workflow support — done/recap/next/focus/stuck/spec-review/refine for ADHD-friendly flow | `skills/workflow/adhd-workflow/SKILL.md` |
+| brainstorm-insights | Generate BRAINSTORM/SPEC documents from project context, and INSIGHTS reports from session facet history | `skills/workflow/brainstorm-insights/SKILL.md` |
+| background-task-manager | Manage already-launched background tasks — status inspection, output retrieval, cancellation | `skills/workflow/task-management/SKILL.md` |
 
 ## Agents (8 total)
 

@@ -1,6 +1,8 @@
 ---
 description: /site-preview - Preview Documentation Locally
 category: site
+deprecated: true
+replaced-by: "skills/docs/site-management/"
 ---
 
 # /site-preview - Preview Documentation Locally

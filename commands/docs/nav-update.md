@@ -7,6 +7,8 @@ arguments:
     required: false
     default: false
     alias: -n
+deprecated: true
+replaced-by: "skills/docs/navigation/"
 ---
 
 # /craft:docs:nav-update - Update MkDocs Navigation

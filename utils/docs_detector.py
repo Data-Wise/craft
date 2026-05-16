@@ -257,7 +257,7 @@ class DocsDetector:
         # Count skills (check skills/ directory)
         skills_dir = self.project_root / "skills"
         if skills_dir.exists():
-            counts['skills'] = len(list(skills_dir.glob("*.md")))
+            counts['skills'] = len(list(skills_dir.rglob("SKILL.md")))
 
         # Count agents (check agents/ directory)
         agents_dir = self.project_root / "agents"

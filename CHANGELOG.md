@@ -11,7 +11,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_(no unreleased changes — see v2.33.0 below)_
+## [2.34.0] — 2026-05-15
+
+**Highlights:** Commands → Skills migration — 11 new skills consolidating 53 source commands across 3 batches. Skills auto-activate from conversation context, removing command-name memorization friction. Plus 2 follow-up cleanup PRs (#140 post-merge drift sweep + #141 skill coverage docs in `docs/skills-agents.md` + `bump-version.sh` extension for `(N total)` header drift class). Regression test locked the canonical `find skills -name SKILL.md` predicate after the over-counting bug recurred for the 11th time.
+
+### Added — Commands → Skills Migration, Batch 3
+
+- **4 new skills** consolidating 22 source commands:
+  - `skills/docs/claude-md/SKILL.md` (claude-md-lifecycle) — consolidates docs/claude-md/{init, sync, edit}; boundary with insights-apply made explicit
+  - `skills/docs/navigation/SKILL.md` (nav-sync) — consolidates docs/nav-update + site/{add, nav}; merges previously-separate site/*and docs/* nav concerns
+  - `skills/docs/site-management/SKILL.md` (site-lifecycle) — consolidates 13 site/* commands (audit, build, check, consolidate, create, deploy, init, preview, progress, publish, status, theme, update); largest batch-3 skill
+  - `skills/distribution/dist-extras/SKILL.md` — consolidates dist/{pypi, curl-install, marketplace}; non-Homebrew distribution channels
+- **`scripts/deprecate-batch3-commands.py`** — applies `deprecated: true` to all 22 source commands
+
+### Changed (Batch 3)
+
+- Skill count: 32 → 36 across 9 Tier-2 doc files
+- docs/guide/skills-agents.md: added Documentation (extended) + Distribution (extended) sections for the 4 new skills
+
+### Added — Commands → Skills Migration, Batch 2
+
+- **4 new skills** consolidating 9 source commands + 1 deprecation to existing skill:
+  - `skills/check/SKILL.md` (preflight-check) — consolidates check.md + check/gen-validator.md; new top-level `skills/check/` category for universal pre-flight validation
+  - `skills/orchestration/plan-orchestrator/SKILL.md` — consolidates orchestrate/plan + plan/{feature, roadmap, sprint}; nests in existing `skills/orchestration/`
+  - `skills/workflow/brainstorm-insights/SKILL.md` — consolidates workflow/{brainstorm, insights}
+  - `skills/code/demonstration-builder/SKILL.md` — consolidates code/demo (renamed from proposed `coverage-metrics` after audit: test-strategist already covers coverage)
+- **`scripts/deprecate-batch2-commands.py`** — applies `deprecated: true` to the 10 Batch 2 source commands
+- **commands/code/coverage.md** → marked deprecated with `replaced-by: skills/testing/test-strategist/` (no new skill needed; existing skill covers it)
+
+### Changed (Batch 2)
+
+- Skill count: 28 → 32 across CLAUDE.md, README.md, docs/index.md, docs/architecture.md, install.sh, package.json, `.claude-plugin/{plugin,marketplace}.json`, docs/guide/skills-agents.md
+- docs/guide/skills-agents.md: added Check + Orchestration extension + Workflow expansion + Code extension sections
+
+### Added — Commands → Skills Migration, Batch 1
+
+- **3 new skills** consolidating 24 source commands:
+  - `skills/workflow/adhd-workflow/SKILL.md` — consolidates 7 workflow commands (done, focus, next, recap, refine, spec-review, stuck)
+  - `skills/dev/git/SKILL.md` — consolidates 14 git commands + reference docs; new top-level `skills/dev/` category
+  - `skills/workflow/task-management/SKILL.md` — consolidates 3 background-task commands (task-cancel, task-output, task-status)
+- **`_discovery.py` extended** to index `skills/**/SKILL.md` alongside commands; `_cache.json` gains `skills`, `skills_count`, `skills_categories` keys
+- **5 new skill tests** in `tests/test_craft_plugin.py`:
+  - `test_all_skills_have_valid_frontmatter` — YAML + required fields
+  - `test_skill_trigger_phrases_unique` — exact-match collision check across all skills
+  - `test_skill_bodies_non_trivial` — body ≥ 200 chars after frontmatter
+  - `test_skill_referenced_commands_exist` — backtick-quoted `commands/X.md` refs must resolve
+  - `test_deprecated_commands_have_replacement` — `deprecated: true` requires `replaced-by:` pointing to a real `skills/` dir
+- **`scripts/deprecate-batch1-commands.py`** — idempotent script that adds `deprecated: true` + `replaced-by:` frontmatter to the 24 source commands consolidated by Batch 1
+- **Migration plan + spec** committed to `docs/migration-plan.md` (v3) and `docs/specs/SPEC-commands-to-skills-migration-2026-05-13.md` (v2). 11-skill migration scope across 3 batches plus v3.0.0 cleanup.
+
+### Changed
+
+- **Tier-2 doc counts** synced 26 → 28 skills across CLAUDE.md, README.md (3 places), docs/index.md, docs/architecture.md, install.sh, package.json, `.claude-plugin/{plugin,marketplace}.json`
+- **`scripts/bump-version.sh`** — `SKILL_COUNT` now uses `find skills -name SKILL.md` only (was `-name "*.md" -o -name "SKILL.md"` which over-counted supporting files like `release/references/release-checklist.md`)
+- **`commands/hub.md`** — fixed `skill_count` computation: uses `rglob('SKILL.md')` (was `glob('*.md')` which returned 0 because all skills are in subdirs)
+- **`docs/guide/skills-agents.md`** — added Dev and Workflow sections listing the 3 new skills
+
+### Deprecated
+
+- 24 source commands now carry `deprecated: true` frontmatter pointing to their replacement skills. They continue to function during the deprecation cycle and will be removed in a future major version cleanup PR (target: v3.0.0).
 
 ---
 
