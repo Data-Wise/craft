@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.33.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 36 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.34.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -2850,15 +2850,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#skills-26-total" class="md-nav__link">
+  <a href="#skills-36-total" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Skills (26 total)
+        Skills (36 total)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Skills (26 total)">
+    <nav class="md-nav" aria-label="Skills (36 total)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2987,6 +2987,83 @@
     <span class="md-ellipsis">
       
         Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-new-in-v2340" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dev (NEW in v2.34.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-new-in-v2340-expanded-in-v2350" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow (NEW in v2.34.0, expanded in v2.35.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-new-in-v2350" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check (NEW in v2.35.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-extended-in-v2350" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code (extended in v2.35.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orchestration-extended-in-v2350" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration (extended in v2.35.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-extended-in-v2360" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation (extended in v2.36.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution-extended-in-v2360" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution (extended in v2.36.0)
       
     </span>
   </a>
@@ -9370,15 +9447,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#skills-26-total" class="md-nav__link">
+  <a href="#skills-36-total" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Skills (26 total)
+        Skills (36 total)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Skills (26 total)">
+    <nav class="md-nav" aria-label="Skills (36 total)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9513,6 +9590,83 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#dev-new-in-v2340" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dev (NEW in v2.34.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-new-in-v2340-expanded-in-v2350" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow (NEW in v2.34.0, expanded in v2.35.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-new-in-v2350" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check (NEW in v2.35.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-extended-in-v2350" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code (extended in v2.35.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orchestration-extended-in-v2350" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestration (extended in v2.35.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-extended-in-v2360" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation (extended in v2.36.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution-extended-in-v2360" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution (extended in v2.36.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -9637,13 +9791,13 @@
 <blockquote>
 <p><strong>TL;DR</strong> (30 seconds)</p>
 <ul>
-<li><strong>What:</strong> 26 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture</li>
+<li><strong>What:</strong> 36 auto-triggered skills + 8 specialized agents for backend, docs, testing, distribution, and architecture</li>
 <li><strong>Why:</strong> AI automatically selects the right expertise for your task without manual intervention</li>
 <li><strong>How:</strong> Skills trigger on context (e.g., "API" activates backend-designer), agents handle long-running tasks</li>
 <li><strong>Next:</strong> Read <a href="../orchestrator/">Orchestrator</a> to learn how they work together</li>
 </ul>
 </blockquote>
-<h2 id="skills-26-total">Skills (26 total)<a class="headerlink" href="#skills-26-total" title="Permanent link">&para;</a></h2>
+<h2 id="skills-36-total">Skills (36 total)<a class="headerlink" href="#skills-36-total" title="Permanent link">&para;</a></h2>
 <p>Skills are auto-triggered expertise modules that activate based on conversation context.</p>
 <h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
 <table>
@@ -9916,6 +10070,145 @@
 <td>test-strategist</td>
 <td>Test strategy, coverage optimization, QA</td>
 <td><code>skills/testing/test-strategist.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dev-new-in-v2340">Dev (NEW in v2.34.0)<a class="headerlink" href="#dev-new-in-v2340" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>git-workflow</td>
+<td>Full git lifecycle: init, branch, status, recap, worktree, sync, protection layers, plus learning/reference materials</td>
+<td><code>skills/dev/git/SKILL.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="workflow-new-in-v2340-expanded-in-v2350">Workflow (NEW in v2.34.0, expanded in v2.35.0)<a class="headerlink" href="#workflow-new-in-v2340-expanded-in-v2350" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>adhd-workflow</td>
+<td>Session boundaries, task focus, decision support, blocker resolution, spec review, prompt refinement</td>
+<td><code>skills/workflow/adhd-workflow/SKILL.md</code></td>
+</tr>
+<tr>
+<td>background-task-manager</td>
+<td>Status, output retrieval, and cancellation of background tasks launched via <code>--background</code></td>
+<td><code>skills/workflow/task-management/SKILL.md</code></td>
+</tr>
+<tr>
+<td>brainstorm-insights</td>
+<td>Ideation (BRAINSTORM/SPEC generation) + session-facet insights reports</td>
+<td><code>skills/workflow/brainstorm-insights/SKILL.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="check-new-in-v2350">Check (NEW in v2.35.0)<a class="headerlink" href="#check-new-in-v2350" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>preflight-check</td>
+<td>Universal pre-flight validation across commit / PR / release / deploy contexts</td>
+<td><code>skills/check/SKILL.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="code-extended-in-v2350">Code (extended in v2.35.0)<a class="headerlink" href="#code-extended-in-v2350" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>demonstration-builder</td>
+<td>Code demonstrations, vignettes, instructional examples</td>
+<td><code>skills/code/demonstration-builder/SKILL.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="orchestration-extended-in-v2350">Orchestration (extended in v2.35.0)<a class="headerlink" href="#orchestration-extended-in-v2350" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>plan-orchestrator</td>
+<td>Spec → ORCHESTRATE planning artifacts; feature breakdowns, sprint backlogs, roadmaps</td>
+<td><code>skills/orchestration/plan-orchestrator/SKILL.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="documentation-extended-in-v2360">Documentation (extended in v2.36.0)<a class="headerlink" href="#documentation-extended-in-v2360" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>claude-md-lifecycle</td>
+<td>CLAUDE.md init/sync/edit lifecycle</td>
+<td><code>skills/docs/claude-md/SKILL.md</code></td>
+</tr>
+<tr>
+<td>nav-sync</td>
+<td>mkdocs nav synchronization, page additions, navigation reorg</td>
+<td><code>skills/docs/navigation/SKILL.md</code></td>
+</tr>
+<tr>
+<td>site-lifecycle</td>
+<td>Documentation site setup/build/deploy/publish (MkDocs, Quarto, pkgdown)</td>
+<td><code>skills/docs/site-management/SKILL.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="distribution-extended-in-v2360">Distribution (extended in v2.36.0)<a class="headerlink" href="#distribution-extended-in-v2360" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dist-extras</td>
+<td>PyPI publishing, curl install scripts, Claude Code marketplace distribution</td>
+<td><code>skills/distribution/dist-extras/SKILL.md</code></td>
 </tr>
 </tbody>
 </table>

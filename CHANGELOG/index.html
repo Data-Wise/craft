@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 26 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.33.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 108 commands, 8 agents, 36 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.34.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -6805,6 +6805,100 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2340-2026-05-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.34.0] — 2026-05-15
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.34.0] — 2026-05-15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added-commands-skills-migration-batch-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added — Commands → Skills Migration, Batch 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed-batch-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed (Batch 3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added-commands-skills-migration-batch-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added — Commands → Skills Migration, Batch 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed-batch-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed (Batch 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added-commands-skills-migration-batch-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added — Commands → Skills Migration, Batch 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2330-2026-05-11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6839,7 +6933,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
+  <a href="#changed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -6889,7 +6983,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_1" class="md-nav__link">
+  <a href="#changed_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -6928,7 +7022,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_2" class="md-nav__link">
+  <a href="#changed_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -7084,7 +7178,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_3" class="md-nav__link">
+  <a href="#changed_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -7123,7 +7217,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_4" class="md-nav__link">
+  <a href="#changed_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -7162,7 +7256,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_5" class="md-nav__link">
+  <a href="#changed_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -7212,7 +7306,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_6" class="md-nav__link">
+  <a href="#changed_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -7329,7 +7423,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_7" class="md-nav__link">
+  <a href="#changed_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -7440,7 +7534,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_8" class="md-nav__link">
+  <a href="#changed_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -7701,7 +7795,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_9" class="md-nav__link">
+  <a href="#changed_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -7762,7 +7856,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#changed_10" class="md-nav__link">
+  <a href="#changed_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -7930,7 +8024,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_11" class="md-nav__link">
+  <a href="#changed_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -8163,7 +8257,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_12" class="md-nav__link">
+  <a href="#changed_13" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10548,6 +10642,100 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2340-2026-05-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.34.0] — 2026-05-15
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.34.0] — 2026-05-15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added-commands-skills-migration-batch-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added — Commands → Skills Migration, Batch 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed-batch-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed (Batch 3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added-commands-skills-migration-batch-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added — Commands → Skills Migration, Batch 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed-batch-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed (Batch 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added-commands-skills-migration-batch-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added — Commands → Skills Migration, Batch 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2330-2026-05-11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10582,7 +10770,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
+  <a href="#changed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10632,7 +10820,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_1" class="md-nav__link">
+  <a href="#changed_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10671,7 +10859,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_2" class="md-nav__link">
+  <a href="#changed_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10827,7 +11015,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_3" class="md-nav__link">
+  <a href="#changed_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10866,7 +11054,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_4" class="md-nav__link">
+  <a href="#changed_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10905,7 +11093,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_5" class="md-nav__link">
+  <a href="#changed_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10955,7 +11143,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_6" class="md-nav__link">
+  <a href="#changed_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -11072,7 +11260,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_7" class="md-nav__link">
+  <a href="#changed_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -11183,7 +11371,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_8" class="md-nav__link">
+  <a href="#changed_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -11444,7 +11632,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_9" class="md-nav__link">
+  <a href="#changed_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -11505,7 +11693,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#changed_10" class="md-nav__link">
+  <a href="#changed_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -11673,7 +11861,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_11" class="md-nav__link">
+  <a href="#changed_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -11906,7 +12094,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_12" class="md-nav__link">
+  <a href="#changed_13" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -11974,7 +12162,59 @@
 and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <hr />
 <h2 id="unreleased">[Unreleased]<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
-<p><em>(no unreleased changes — see v2.33.0 below)</em></p>
+<h2 id="2340-2026-05-15">[2.34.0] — 2026-05-15<a class="headerlink" href="#2340-2026-05-15" title="Permanent link">&para;</a></h2>
+<p><strong>Highlights:</strong> Commands → Skills migration — 11 new skills consolidating 53 source commands across 3 batches. Skills auto-activate from conversation context, removing command-name memorization friction. Plus 2 follow-up cleanup PRs (#140 post-merge drift sweep + #141 skill coverage docs in <code>docs/skills-agents.md</code> + <code>bump-version.sh</code> extension for <code>(N total)</code> header drift class). Regression test locked the canonical <code>find skills -name SKILL.md</code> predicate after the over-counting bug recurred for the 11th time.</p>
+<h3 id="added-commands-skills-migration-batch-3">Added — Commands → Skills Migration, Batch 3<a class="headerlink" href="#added-commands-skills-migration-batch-3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>4 new skills</strong> consolidating 22 source commands:</li>
+<li><code>skills/docs/claude-md/SKILL.md</code> (claude-md-lifecycle) — CLAUDE.md init/sync/edit</li>
+<li><code>skills/docs/navigation/SKILL.md</code> (nav-sync) — mkdocs nav + page adds + reorg</li>
+<li><code>skills/docs/site-management/SKILL.md</code> (site-lifecycle) — 13 site/* commands consolidated (largest batch-3 skill)</li>
+<li><code>skills/distribution/dist-extras/SKILL.md</code> — PyPI, curl-install, marketplace</li>
+<li><strong><code>scripts/deprecate-batch3-commands.py</code></strong> — deprecates 22 source commands</li>
+</ul>
+<h3 id="changed-batch-3">Changed (Batch 3)<a class="headerlink" href="#changed-batch-3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Skill count: 32 → 36 across 9 Tier-2 doc files</li>
+<li>docs/guide/skills-agents.md: added 2 new sections (Documentation/Distribution extensions)</li>
+</ul>
+<h3 id="added-commands-skills-migration-batch-2">Added — Commands → Skills Migration, Batch 2<a class="headerlink" href="#added-commands-skills-migration-batch-2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>4 new skills</strong> consolidating 9 commands + 1 deprecation to existing skill:</li>
+<li><code>skills/check/SKILL.md</code> (preflight-check) — universal pre-flight validation</li>
+<li><code>skills/orchestration/plan-orchestrator/SKILL.md</code> — spec→ORCHESTRATE + feature/sprint/roadmap planning artifacts</li>
+<li><code>skills/workflow/brainstorm-insights/SKILL.md</code> — ideation + session insights reports</li>
+<li><code>skills/code/demonstration-builder/SKILL.md</code> — code demonstrations (refocused from proposed <code>coverage-metrics</code> after audit found <code>test-strategist</code> already covers coverage analysis)</li>
+<li><strong><code>scripts/deprecate-batch2-commands.py</code></strong> — applies <code>deprecated: true</code> to 10 source commands</li>
+<li><strong>commands/code/coverage.md</strong> marked deprecated → <code>skills/testing/test-strategist/</code> (existing skill, no new file)</li>
+</ul>
+<h3 id="changed-batch-2">Changed (Batch 2)<a class="headerlink" href="#changed-batch-2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Skill count: 28 → 32 across 9 Tier-2 doc files</li>
+<li>docs/guide/skills-agents.md: 4 new sections for Batch 2 skills</li>
+</ul>
+<h3 id="added-commands-skills-migration-batch-1">Added — Commands → Skills Migration, Batch 1<a class="headerlink" href="#added-commands-skills-migration-batch-1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>3 new skills</strong> consolidating 24 source commands:</li>
+<li><code>skills/workflow/adhd-workflow/SKILL.md</code> — consolidates 7 workflow commands (done, focus, next, recap, refine, spec-review, stuck)</li>
+<li><code>skills/dev/git/SKILL.md</code> — consolidates 14 git commands + reference docs; new top-level <code>skills/dev/</code> category</li>
+<li><code>skills/workflow/task-management/SKILL.md</code> — consolidates 3 background-task commands (task-cancel, task-output, task-status)</li>
+<li><strong><code>_discovery.py</code> extended</strong> to index <code>skills/**/SKILL.md</code> alongside commands; <code>_cache.json</code> gains <code>skills</code>, <code>skills_count</code>, <code>skills_categories</code> keys</li>
+<li><strong>5 new skill tests</strong> in <code>tests/test_craft_plugin.py</code>: frontmatter validity, trigger-phrase uniqueness, non-trivial bodies, referenced-commands-exist, deprecated-commands-have-replacement</li>
+<li><strong><code>scripts/deprecate-batch1-commands.py</code></strong> — idempotent deprecation script</li>
+<li><strong>Migration plan + spec</strong> committed (<code>docs/migration-plan.md</code> v3, <code>docs/specs/SPEC-commands-to-skills-migration-2026-05-13.md</code> v2)</li>
+</ul>
+<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Tier-2 doc counts</strong> synced 26 → 28 skills across 8 files</li>
+<li><strong><code>scripts/bump-version.sh</code></strong> SKILL_COUNT uses <code>find skills -name SKILL.md</code> only (was over-counting supporting files)</li>
+<li><strong><code>commands/hub.md</code></strong> skill count uses <code>rglob('SKILL.md')</code> (was <code>glob('*.md')</code> returning 0)</li>
+<li><strong><code>docs/guide/skills-agents.md</code></strong> added Dev and Workflow sections for the 3 new skills</li>
+</ul>
+<h3 id="deprecated">Deprecated<a class="headerlink" href="#deprecated" title="Permanent link">&para;</a></h3>
+<ul>
+<li>24 source commands now carry <code>deprecated: true</code> frontmatter pointing to replacement skills. They continue to function and will be removed at v3.0.0 cleanup.</li>
+</ul>
 <hr />
 <h2 id="2330-2026-05-11">[2.33.0] — 2026-05-11<a class="headerlink" href="#2330-2026-05-11" title="Permanent link">&para;</a></h2>
 <p><strong>Theme:</strong> Safety hardening — hard_deny tier + defensive facet parsing + drift cleanup</p>
@@ -11996,7 +12236,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong><code>badge_syncer</code> dual-row + docs-shields false positives</strong> (<a href="https://github.com/Data-Wise/craft/issues/127">#127</a>) — syncer rewrote <code>?branch=main</code> → <code>?branch=dev</code> on <code>**main:**</code>-labeled rows, and classified shields.io <code>/badge/docs-</code> URLs as CUSTOM (causing duplicate Documentation badges). Fix: <code>Badge.branch_label</code> field extracted from <code>**main:**</code> prose prefix or <code>| **main** |</code> table cells; classifier adds <code>/badge/docs-</code> rule. 4 phantom mismatches → 0.</li>
 <li><strong>Insights spec env-var → stdin contract drift</strong> (<a href="https://github.com/Data-Wise/craft/issues/126">#126</a>) — SPEC-insights-driven-improvements-2026-02-14.md still showed the deprecated <code>CLAUDE_TOOL_NAME</code> env-var contract. Updated to stdin JSON with inline <code>Note (2026-05-10, corrected in PR #125)</code> footnote. Orphan e2e test case also fixed.</li>
 </ul>
-<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>commands/git/unprotect.md</code></strong> — new Key Behavior #5 making the hard_deny semantics explicit: <code>/craft:git:unprotect</code> does <strong>not</strong> bypass hard_deny.</li>
 <li><strong><code>docs/architecture.md</code></strong> — section 5 "Defense-in-Depth" extended from two layers to three.</li>
@@ -12014,7 +12254,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li><strong><code>homebrew-release.yml</code> PAT auth failure</strong> (<a href="https://github.com/Data-Wise/craft/issues/129">#129</a>) — the <code>update-homebrew</code> job depended on <code>HOMEBREW_TAP_GITHUB_TOKEN</code>, a fine-grained PAT that expired ~10 weeks after creation. v2.32.0's release surfaced the auth failure (<code>fatal: could not read Username for github.com</code>). Migrated to GitHub App auth via <code>actions/create-github-app-token@v1</code> using existing <code>APP_ID</code> + <code>APP_PRIVATE_KEY</code> secrets. App tokens are minted per-run, scoped to <code>homebrew-tap</code> only, and never expire on a calendar.</li>
 </ul>
-<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">&para;</a></h3>
+<h3 id="changed_2">Changed<a class="headerlink" href="#changed_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>homebrew-release.yml</code></strong> — <code>update-homebrew</code> job now runs inline (replaces the <code>workflow_call</code> to <code>Data-Wise/homebrew-tap/.github/workflows/update-formula.yml@main</code>). Always uses the canonical <code>manifest.json</code> + <code>generate.py</code> pattern, eliminating the manifest drift risk where CI would patch <code>.rb</code> files via sed without updating the manifest. Removed the unused <code>auto_merge</code> workflow_dispatch input. Deleted the stale <code>HOMEBREW_TAP_GITHUB_TOKEN</code> secret from craft.</li>
 <li><strong><code>commands/dist/homebrew.md</code></strong> — updated example workflow snippet and Step 4 setup guide to recommend GitHub App auth (durable, no calendar expiration) instead of PAT (90-day rotation).</li>
@@ -12036,7 +12276,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Tutorial</strong> — Step-by-step "Protect a new repo with craft" (<code>docs/tutorials/TUTORIAL-protect-new-repo.md</code>)</li>
 <li><strong>Architecture doc</strong> — New section on local-hook + GitHub-side defense-in-depth</li>
 </ul>
-<h3 id="changed_2">Changed<a class="headerlink" href="#changed_2" title="Permanent link">&para;</a></h3>
+<h3 id="changed_3">Changed<a class="headerlink" href="#changed_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>REFCARD-BRANCH-GUARD</strong> updated with GitHub-side companion section and split commands table (local hook vs GitHub-side)</li>
 <li>Cross-references added to <code>/craft:git:protect</code>, <code>/craft:git:unprotect</code> so users discover the GitHub-side companion</li>
@@ -12137,7 +12377,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Step 13f: Cask verification (version + SHA256 cross-check after tap push)</li>
 <li>Desktop Release Guide at <code>docs/guide/desktop-release.md</code></li>
 </ul>
-<h3 id="changed_3">Changed<a class="headerlink" href="#changed_3" title="Permanent link">&para;</a></h3>
+<h3 id="changed_4">Changed<a class="headerlink" href="#changed_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>/craft:dist:homebrew</code> now supports 7 subcommands (added <code>cask</code>)</li>
 <li><code>/craft:dist:homebrew audit</code> auto-detects formula vs cask</li>
@@ -12168,7 +12408,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Mermaid Authoring Guide</strong> at <code>docs/guide/mermaid-authoring.md</code></li>
 <li><strong>Mermaid test suite</strong> — unit, e2e, and dogfood tests for validation pipeline</li>
 </ul>
-<h3 id="changed_4">Changed<a class="headerlink" href="#changed_4" title="Permanent link">&para;</a></h3>
+<h3 id="changed_5">Changed<a class="headerlink" href="#changed_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>/craft:docs:check</code> Phase 5 now includes Mermaid Validation with health score</li>
 <li><code>mermaid-linter</code> skill updated with MCP validation and health score sections</li>
@@ -12182,7 +12422,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Correct skill count in hub (24→25)</li>
 <li>Stale release taglines in index and REFCARD</li>
 </ul>
-<h3 id="changed_5">Changed<a class="headerlink" href="#changed_5" title="Permanent link">&para;</a></h3>
+<h3 id="changed_6">Changed<a class="headerlink" href="#changed_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Updated .STATUS for v2.23.1 release session</li>
 </ul>
@@ -12201,7 +12441,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>ORCHESTRATE files no longer gitignored — tracked on feature branches as intended</li>
 <li>Code review issues in bump-version scripts</li>
 </ul>
-<h3 id="changed_6">Changed<a class="headerlink" href="#changed_6" title="Permanent link">&para;</a></h3>
+<h3 id="changed_7">Changed<a class="headerlink" href="#changed_7" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Hub command rewritten with all features through v2.23.0</li>
 <li>CLAUDE.md layered architecture section expanded in refcard</li>
@@ -12241,7 +12481,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Insights-driven friction prevention</strong> (PR #84) — 6 new scripts for session friction detection, pattern tracking, and prevention recommendations</li>
 <li><strong>Unified test system</strong> (PR #82) — consolidated 7 test commands into 3 (<code>test:run</code>, <code>test:cli-gen</code>, <code>test:cli-run</code>), added Jinja2 template engine with 27 templates across 4 project types, pytest markers (25 markers), and 865-line test generator</li>
 </ul>
-<h3 id="changed_7">Changed<a class="headerlink" href="#changed_7" title="Permanent link">&para;</a></h3>
+<h3 id="changed_8">Changed<a class="headerlink" href="#changed_8" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>CLAUDE.md layered instruction system</strong> (PR #83) — extracted verbose reference material to <code>~/.claude/reference/</code> and <code>.claude/reference/</code>, reducing global CLAUDE.md from 206→85 lines and project CLAUDE.md from 162→82 lines</li>
 <li>Command count: 111→107 (removed 7 deprecated test commands, added 3 unified)</li>
@@ -12347,7 +12587,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Test plan: <code>TEST-PLAN-COMPREHENSIVE.md</code> (800+ lines)</li>
 <li>60+ test scenarios</li>
 </ul>
-<h3 id="changed_8">Changed<a class="headerlink" href="#changed_8" title="Permanent link">&para;</a></h3>
+<h3 id="changed_9">Changed<a class="headerlink" href="#changed_9" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Command count: 100 → 105 (+5 claude-md commands)</li>
 <li>Test count: 770 → 847 (+77 tests)</li>
@@ -12577,7 +12817,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>tests/demo_layer2.py</code> - Category view demonstrations</li>
 <li><code>tests/demo_layer3.py</code> - Command detail demonstrations</li>
 </ul>
-<h3 id="changed_9">Changed<a class="headerlink" href="#changed_9" title="Permanent link">&para;</a></h3>
+<h3 id="changed_10">Changed<a class="headerlink" href="#changed_10" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Hub command (<code>commands/hub.md</code>):</strong></li>
 <li>Added Step 0: Load command data from discovery engine</li>
@@ -12639,7 +12879,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Performance:</strong> 94% faster than target (&lt;2ms cached)</li>
 </ul>
 <h2 id="unreleased-v1231">[Unreleased] - v1.23.1<a class="headerlink" href="#unreleased-v1231" title="Permanent link">&para;</a></h2>
-<h3 id="changed_10">Changed<a class="headerlink" href="#changed_10" title="Permanent link">&para;</a></h3>
+<h3 id="changed_11">Changed<a class="headerlink" href="#changed_11" title="Permanent link">&para;</a></h3>
 <h4 id="gif-recording-method-asciinema-as-default">GIF Recording Method: asciinema as Default<a class="headerlink" href="#gif-recording-method-asciinema-as-default" title="Permanent link">&para;</a></h4>
 <p><strong>Impact:</strong> Improved accuracy and quality of workflow GIF demonstrations</p>
 <p>Changed the default GIF recording method from VHS (scripted simulations) to asciinema (real terminal recordings) for better accuracy when documenting Claude Code plugin commands.</p>
@@ -12918,7 +13158,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Validation settings (strict mode, date checking, link validation)</li>
 <li>Publishing automation (nav updates, changelog, backups)</li>
 </ul>
-<h3 id="changed_11">Changed<a class="headerlink" href="#changed_11" title="Permanent link">&para;</a></h3>
+<h3 id="changed_12">Changed<a class="headerlink" href="#changed_12" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Enhanced <code>/craft:site:build</code> with teaching mode awareness</li>
 <li>Enhanced <code>/craft:git:status</code> with deployment context display</li>
@@ -13133,7 +13373,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>/stuck</code> - Guided problem solving</li>
 <li>Background task monitoring</li>
 </ul>
-<h3 id="changed_12">Changed<a class="headerlink" href="#changed_12" title="Permanent link">&para;</a></h3>
+<h3 id="changed_13">Changed<a class="headerlink" href="#changed_13" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Migrated workflow commands from standalone plugin</li>
 <li>Updated command count: 90 total (78 craft + 12 workflow)</li>
