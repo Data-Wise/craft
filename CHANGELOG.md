@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- /craft:orchestrate:drive — spec-driven autonomous implementation loop (native /goal + drive-engine skill + real verify gate).
+
 ## [2.34.0] — 2026-05-15
 
 **Highlights:** Commands → Skills migration — 11 new skills consolidating 53 source commands across 3 batches. Skills auto-activate from conversation context, removing command-name memorization friction. Plus 2 follow-up cleanup PRs (#140 post-merge drift sweep + #141 skill coverage docs in `docs/skills-agents.md` + `bump-version.sh` extension for `(N total)` header drift class). Regression test locked the canonical `find skills -name SKILL.md` predicate after the over-counting bug recurred for the 11th time.
