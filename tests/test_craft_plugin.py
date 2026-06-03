@@ -525,3 +525,20 @@ def test_consistent_naming():
             bad_names.append(str(relative))
 
     assert not bad_names, f"Non-kebab-case names: {bad_names[:3]}"
+
+
+def test_refine_flag_documented():
+    """The 5 target commands must declare --refine and delegate to the skill."""
+    targets = [
+        "commands/workflow/brainstorm.md",
+        "commands/do.md",
+        "commands/orchestrate.md",
+        "commands/plan/feature.md",
+        "commands/arch/plan.md",
+    ]
+    missing = []
+    for rel in targets:
+        text = (PLUGIN_DIR / rel).read_text(encoding="utf-8")
+        if "--refine" not in text or "prompt-refiner" not in text:
+            missing.append(rel)
+    assert not missing, f"--refine/prompt-refiner missing in: {missing}"

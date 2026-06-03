@@ -18,6 +18,10 @@ arguments:
     description: Run agents in isolated worktrees with branch convergence
     required: false
     default: false
+  - name: refine
+    description: Refine the prompt via the prompt-refiner skill before acting
+    required: false
+    default: false
 ---
 
 # /craft:orchestrate — Launch Orchestrator Mode
@@ -36,6 +40,15 @@ arguments:
 /craft:orchestrate continue            # Resume previous session
 /craft:orchestrate abort               # Stop all agents
 ```
+
+## --refine (prompt pre-processing)
+
+When `--refine` is set, do NOT act on the raw argument. First invoke the
+`prompt-refiner` skill with the argument and project context. Follow that
+skill's canonical flow (before/after → Accept/Edit/Use-original; `--yes`
+or auto mode auto-accepts). Then proceed using the prompt the skill
+returns. On no-argument interactive commands, refine AFTER the topic is
+captured.
 
 ## Dry-Run Mode
 
