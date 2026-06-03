@@ -42,6 +42,16 @@ Multi-agent orchestrator with mode-aware execution.
 **Modes:** optimize (4 agents), release (comprehensive), debug (verbose)
 **Dry-run:** Preview agent allocation, parallelization waves, and execution time.
 
+### /craft:orchestrate:drive
+
+Drive an approved SPEC to completion via the native `/goal` turn-loop, with a real verify gate; stops at verified green and prints the PR command.
+
+```bash
+/craft:orchestrate:drive --dry-run        # Preview the derived /goal condition + preconditions
+```
+
+**Dry-run:** Print the derived condition + dispatch plan + precondition report; zero side effects.
+
 ### /craft:check 🔍
 
 Pre-flight validation for commits, PRs, and releases.

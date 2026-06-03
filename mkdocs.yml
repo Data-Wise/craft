@@ -216,6 +216,7 @@ nav:
       - /craft:do: commands/do.md
       - /craft:hub: commands/hub.md
       - /craft:orchestrate: commands/orchestrate.md
+      - /craft:orchestrate:drive: commands/orchestrate-drive.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:ci:status: commands/ci/status.md
       - /craft:docs:api: commands/docs/api.md
