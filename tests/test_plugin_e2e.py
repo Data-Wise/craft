@@ -389,6 +389,13 @@ class TestDocsSiteAlignment:
         ]
         assert len(entry_lines) > 0, "nav should have at least one entry"
 
+    def test_drive_command_in_nav(self):
+        """The orchestrate:drive site page must be wired into mkdocs nav."""
+        nav_text = (PLUGIN_DIR / "mkdocs.yml").read_text(encoding="utf-8")
+        assert "commands/orchestrate-drive.md" in nav_text, (
+            "orchestrate-drive.md not referenced in mkdocs.yml nav"
+        )
+
 
 # ============================================================================
 # 8. Script Syntax Validation

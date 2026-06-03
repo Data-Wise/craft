@@ -3,7 +3,7 @@ description: Drive an approved SPEC to completion via the native /goal turn-loop
 category: orchestrate
 arguments:
   - name: spec
-    description: Path to SPEC-*.md (default: newest docs/specs/SPEC-*.md or the one referenced by the worktree's ORCHESTRATE-*.md)
+    description: "Path to SPEC-*.md (default: newest docs/specs/SPEC-*.md or the one referenced by the worktree's ORCHESTRATE-*.md)"
     required: false
   - name: dry-run
     description: Print derived condition + dispatch plan + precondition report; zero side effects
