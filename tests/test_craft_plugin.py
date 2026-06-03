@@ -22,6 +22,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
 
 pytestmark = [pytest.mark.integration, pytest.mark.structure]
 
+PLUGIN_DIR = Path(__file__).parent.parent
+
 
 # ─── Plugin Structure Tests ──────────────────────────────────────────────────
 
@@ -205,6 +207,16 @@ def test_design_skills():
             missing.append(skill)
 
     assert not missing, f"Missing: {missing}"
+
+
+def test_prompt_refiner_skill_exists():
+    """The shared prompt-refiner skill must exist with valid frontmatter."""
+    skill = PLUGIN_DIR / "skills" / "workflow" / "prompt-refiner" / "SKILL.md"
+    assert skill.exists(), "skills/workflow/prompt-refiner/SKILL.md missing"
+    fm = _parse_skill_frontmatter(skill)
+    assert fm is not None, "prompt-refiner SKILL.md has no parseable frontmatter"
+    assert fm.get("name") == "prompt-refiner"
+    assert "description" in fm
 
 
 KEBAB_CASE_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
