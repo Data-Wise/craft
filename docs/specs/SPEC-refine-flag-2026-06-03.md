@@ -234,16 +234,16 @@ Then `AskUserQuestion`:
 
 ---
 
-## Open Questions
+## Resolved Decisions (brainstorm 2026-06-03)
 
-1. **Skill home** — new `skills/workflow/prompt-refiner/` vs fold into
-   `skills/workflow/adhd-workflow/`. *Recommendation: separate skill —
-   single responsibility, cleaner to call from 5 commands.*
-2. **Edit UX** — inline edit via a follow-up text prompt vs open `$EDITOR`.
-   *Recommendation: inline text prompt (works in all harness contexts).*
-3. **Refine on no-arg interactive commands** — when `/brainstorm --refine`
-   has no topic yet, refine the topic the user then provides.
-   *Recommendation: yes — refine after topic capture.*
+1. **Skill home** → **new `skills/workflow/prompt-refiner/`** (not folded
+   into `adhd-workflow`). Single responsibility, isolated tests, clean to
+   call from 5 commands. Skill count +1.
+2. **Edit UX** → **inline text prompt** (not `$EDITOR`). Works in every
+   harness context (terminal, web, IDE headless); no interactive
+   dependency the harness can't satisfy.
+3. **Refine on no-arg interactive commands** → when `/brainstorm --refine`
+   has no topic yet, refine the topic **after** the user provides it.
 
 ---
 
@@ -283,3 +283,4 @@ Then `AskUserQuestion`:
 | Date | Event |
 |---|---|
 | 2026-06-03 | Initial draft from interactive brainstorm. Decisions: refine the input pre-run; one shared `prompt-refiner` skill (rescues deprecated `/refine`); before/after + Accept/Edit/Use-original confirm with `--yes` auto-accept; rollout to brainstorm/do/orchestrate/plan:feature/arch:plan. Added Documentation Deliverables + Testing (unit/e2e/dogfood) + help files per request. |
+| 2026-06-03 | Resolved open questions: separate `prompt-refiner` skill (not folded into adhd-workflow); inline-text edit (not `$EDITOR`); refine after topic capture on no-arg interactive commands. |
