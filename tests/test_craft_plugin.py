@@ -485,6 +485,18 @@ def test_drive_engine_skill_exists():
     assert fm["name"] == "drive-engine"
 
 
+def test_drive_command_exists():
+    """The orchestrate:drive command must exist with valid frontmatter."""
+    plugin_dir = Path(__file__).parent.parent
+    cmd = plugin_dir / "commands" / "orchestrate" / "drive.md"
+    assert cmd.exists(), "commands/orchestrate/drive.md missing"
+    text = cmd.read_text(encoding="utf-8")
+    assert text.startswith("---"), "drive.md missing frontmatter block"
+    assert "description:" in text.split("---")[1], "drive.md frontmatter missing description"
+    # Must not silently auto-open a PR (human publish gate).
+    assert "gh pr create" in text, "drive.md must print the PR command, not open it"
+
+
 def test_consistent_naming():
     """Test that files follow naming conventions."""
     plugin_dir = Path(__file__).parent.parent
