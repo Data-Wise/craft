@@ -15,7 +15,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-- `feature/orchestrate-drive` — `~/.git-worktrees/craft/feature-orchestrate-drive` (created 2026-06-03, off dev @ 4414bd91). Implements `/craft:orchestrate:drive` per SPEC + PLAN (2026-06-03). Status: not started — awaiting fresh session in worktree.
+- `feature/orchestrate-drive` — `~/.git-worktrees/craft/feature-orchestrate-drive` (created 2026-06-03, off dev @ 4414bd91). Implements `/craft:orchestrate:drive` per SPEC + PLAN (2026-06-03). **Status: WIP — active session in worktree.** Task 1 done (drive-engine skill, commit 4741f87f, pushed to origin). Plan is 10 tasks; remaining: thin command, count sync, website update, help/tutorial/cookbook, e2e, verify+PR handoff. Working tree dirty (next task in progress) — do NOT commit from the dev session.
 
 ✅ Session 2026-05-15 (post-merge cleanup of v2.34.0 migration):
 
