@@ -63,7 +63,7 @@ flowchart LR
     F --> C
     E -->|yes| G["craft:orchestrate:drive (confirm gate: enable auto mode?)"]
     G --> H[Autonomous /goal loop runs]
-    H --> I[Real verify gate: tests + git status]
+    H --> I["Real verify gate: tests + git status"]
     I -->|red| H
     I -->|green| J[drive prints gh pr create]
     J --> K[You review + open the PR]
