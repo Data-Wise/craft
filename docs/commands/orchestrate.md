@@ -32,6 +32,8 @@
 
 Activates Orchestrator v2.1 mode which decomposes complex tasks into subtasks, spawns background subagents to work in parallel, monitors progress, and manages context compression.
 
+> **`--refine` flag:** Add `--refine` to sharpen your prompt via the `prompt-refiner` skill before acting. See [the --refine flag guide](../help/refine-flag.md).
+
 **What it does:**
 
 1. **Selects mode** — prompts interactively if no mode specified (NEW)

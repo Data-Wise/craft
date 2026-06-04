@@ -1,6 +1,11 @@
 ---
 description: Feature Planning
 category: plan
+arguments:
+  - name: refine
+    description: Refine the prompt via the prompt-refiner skill before acting
+    required: false
+    default: false
 deprecated: true
 replaced-by: "skills/orchestration/plan-orchestrator/"
 ---
@@ -14,6 +19,15 @@ Plan and scope new features with structured breakdown.
 ```bash
 /craft:plan:feature <feature_description>
 ```
+
+## --refine (prompt pre-processing)
+
+When `--refine` is set, do NOT act on the raw argument. First invoke the
+`prompt-refiner` skill with the argument and project context. Follow that
+skill's canonical flow (before/after → Accept/Edit/Use-original; `--yes`
+or auto mode auto-accepts). Then proceed using the prompt the skill
+returns. On no-argument interactive commands, refine AFTER the topic is
+captured.
 
 ## What This Does
 

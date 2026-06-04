@@ -22,6 +22,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
 
 pytestmark = [pytest.mark.integration, pytest.mark.structure]
 
+PLUGIN_DIR = Path(__file__).parent.parent
+
 
 # ─── Plugin Structure Tests ──────────────────────────────────────────────────
 
@@ -205,6 +207,16 @@ def test_design_skills():
             missing.append(skill)
 
     assert not missing, f"Missing: {missing}"
+
+
+def test_prompt_refiner_skill_exists():
+    """The shared prompt-refiner skill must exist with valid frontmatter."""
+    skill = PLUGIN_DIR / "skills" / "workflow" / "prompt-refiner" / "SKILL.md"
+    assert skill.exists(), "skills/workflow/prompt-refiner/SKILL.md missing"
+    fm = _parse_skill_frontmatter(skill)
+    assert fm is not None, "prompt-refiner SKILL.md has no parseable frontmatter"
+    assert fm.get("name") == "prompt-refiner"
+    assert "description" in fm
 
 
 KEBAB_CASE_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
@@ -474,6 +486,29 @@ def test_no_broken_links():
         f"Broken links: {broken[:3]}{'...' if len(broken) > 3 else ''}"
 
 
+def test_drive_engine_skill_exists():
+    """The shared drive-engine skill must exist with valid frontmatter."""
+    plugin_dir = Path(__file__).parent.parent
+    skill = plugin_dir / "skills" / "orchestration" / "drive-engine" / "SKILL.md"
+    assert skill.exists(), "skills/orchestration/drive-engine/SKILL.md missing"
+    fm = _parse_skill_frontmatter(skill)
+    assert fm is not None, "drive-engine SKILL.md has no parseable frontmatter"
+    assert "name" in fm and "description" in fm, "drive-engine missing name/description"
+    assert fm["name"] == "drive-engine"
+
+
+def test_drive_command_exists():
+    """The orchestrate:drive command must exist with valid frontmatter."""
+    plugin_dir = Path(__file__).parent.parent
+    cmd = plugin_dir / "commands" / "orchestrate" / "drive.md"
+    assert cmd.exists(), "commands/orchestrate/drive.md missing"
+    text = cmd.read_text(encoding="utf-8")
+    assert text.startswith("---"), "drive.md missing frontmatter block"
+    assert "description:" in text.split("---")[1], "drive.md frontmatter missing description"
+    # Must not silently auto-open a PR (human publish gate).
+    assert "gh pr create" in text, "drive.md must print the PR command, not open it"
+
+
 def test_consistent_naming():
     """Test that files follow naming conventions."""
     plugin_dir = Path(__file__).parent.parent
@@ -490,3 +525,20 @@ def test_consistent_naming():
             bad_names.append(str(relative))
 
     assert not bad_names, f"Non-kebab-case names: {bad_names[:3]}"
+
+
+def test_refine_flag_documented():
+    """The 5 target commands must declare --refine and delegate to the skill."""
+    targets = [
+        "commands/workflow/brainstorm.md",
+        "commands/do.md",
+        "commands/orchestrate.md",
+        "commands/plan/feature.md",
+        "commands/arch/plan.md",
+    ]
+    missing = []
+    for rel in targets:
+        text = (PLUGIN_DIR / rel).read_text(encoding="utf-8")
+        if "--refine" not in text or "prompt-refiner" not in text:
+            missing.append(rel)
+    assert not missing, f"--refine/prompt-refiner missing in: {missing}"

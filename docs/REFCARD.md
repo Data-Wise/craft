@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.34.0 (released 2026-05-15)                       │
-│  Commands: 108 | Agents: 8 | Skills: 36                     │
+│  Version: 2.35.0 (released 2026-06-03)                       │
+│  Commands: 109 | Agents: 8 | Skills: 38                     │
 │  Documentation: 99% complete | Tests: 1638 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.34.0: Commands → Skills Migration (11 new skills)        │
+│  v2.35.0: Spec-Driven Drive + --refine flag                  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -113,7 +113,7 @@
 - ✅ Always before `git commit` (catches issues early)
 - ✅ Before creating PR (ensures quality)
 - ✅ Before merging to main (final validation)
-- ✅ In CI/CD pipelines (use `/craft:check:ci`)
+- ✅ In CI/CD pipelines (use `/craft:code:ci-local` or `/craft:check --for release`)
 
 **See:** [REFCARD-CHECK.md](reference/REFCARD-CHECK.md) for complete reference
 
@@ -174,7 +174,7 @@
 
 # Filter by category
 /craft:hub docs
-# Shows: All 17 documentation commands
+# Shows: All 21 documentation commands
 
 # Search for commands
 /craft:hub "worktree"
@@ -188,13 +188,19 @@
 **Categories:**
 
 - Smart Commands (do, check, orchestrate, hub)
-- Documentation (25 commands)
+- Documentation (21 commands)
 - Site Management (16 commands)
-- Code (12 commands) & Testing (2 commands)
-- Git (11 commands) & CI (3 commands)
+- Code (15 commands) & Testing (3 commands)
+- Git (14 commands incl. guides) & CI (4 commands)
 - Architecture (4 commands)
-- Distribution (7 commands)
-- Workflow (12 commands) & Planning (3 commands)
+- Distribution (4 commands)
+- Workflow (13 commands) & Planning (3 commands)
+
+## Global Flags
+
+| Flag | Description |
+| ---- | ----------- |
+| --refine | Refine the prompt before running (brainstorm/do/orchestrate/plan:feature/arch:plan) |
 
 ## Interactive Command Behavior
 
@@ -514,7 +520,7 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 - Dry-run preview mode
 - [Tutorial](tutorials/interactive-docs-update-tutorial.md) | [Reference](reference/REFCARD-DOCS-UPDATE.md)
 
-## Site Commands (15 commands)
+## Site Commands (16 commands)
 
 ### Core Site Commands
 
@@ -775,15 +781,16 @@ main (production branch)
 | `default`  | Lint, quick tests, basic validation                      | <10s  |
 | `thorough` | Full test suite, coverage, links, docs, dependencies      | <300s |
 
-**Subcommands:**
+**Flags & modes** (`/craft:check` is one command — no subcommands except `check:gen-validator`):
 
-| Command                | Description                  |
-| ---------------------- | ---------------------------- |
-| `/craft:check:quick`   | Essential checks only        |
-| `/craft:check:full`    | All validation steps         |
-| `/craft:check:ci`      | CI-optimized checks          |
-| `/craft:check:deps`    | Dependency validation        |
-| `/craft:check:docs`    | Documentation validation     |
+| Flag / mode            | Description                       |
+| ---------------------- | -------------------------------- |
+| `default` / `release`  | quick (<10s) vs full audit       |
+| `--for pr` / `--for release` | context-specific checks    |
+| `--only lint,docs`     | run only specific checks         |
+| `--skip tests`         | skip specific checks             |
+| `--fix`                | auto-fix safe issues             |
+| `--dry-run`            | preview the checklist, run nothing |
 
 **Friction Detection (NEW in v2.22.0):**
 
@@ -815,19 +822,19 @@ Layer 3: /craft:check     → catches anything that slipped through
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
 
-## Code & Testing (14 commands)
+## Code & Testing (17 commands)
 
-**Core Commands:**
+**Core Commands** (15 code + 2 test; core subset shown):
 
-| Command                | Modes | Description                 |
-| ---------------------- | ----- | --------------------------- |
-| `/craft:code:lint`     | all   | Linting with auto-fix       |
-| `/craft:test`          | all   | Test runner with categories |
-| `/craft:code:debug`    | ----- | Systematic debugging        |
-| `/craft:code:refactor` | ----- | Refactoring guidance        |
-| `/craft:code:review`   | ----- | Code review automation      |
-| `/craft:code:format`   | ----- | Code formatting             |
-| `/craft:code:deps`     | ----- | Dependency management       |
+| Command                  | Modes | Description                 |
+| ------------------------ | ----- | --------------------------- |
+| `/craft:code:lint`       | all   | Linting with auto-fix       |
+| `/craft:test`            | all   | Test runner with categories |
+| `/craft:code:debug`      | ----- | Systematic debugging        |
+| `/craft:code:refactor`   | ----- | Refactoring guidance        |
+| `/craft:code:deps-check` | ----- | Dependency health check     |
+| `/craft:code:deps-audit` | ----- | Security vulnerability scan |
+| `/craft:code:ci-local`   | ----- | Run CI checks locally       |
 
 **Test Commands:**
 
@@ -857,7 +864,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:git:worktree`         | Parallel development with git worktrees                                      |
 | `/craft:git:sync`             | Smart git sync                                                               |
 | `/craft:git:clean`            | Clean merged branches                                                        |
-| `/craft:git:recap`            | Activity summary                                                             |
+| `/craft:git:git-recap`            | Activity summary                                                             |
 | `/craft:git:branch`           | Branch management                                                            |
 | `/craft:git:status`           | Enhanced git status (teaching-aware)                                         |
 | `/craft:git:protect`          | Re-enable local hook (branch-guard) protection                               |
@@ -1060,35 +1067,31 @@ npm test
 
 **See:** [Git Worktree Reference](reference/REFCARD-GIT-WORKTREE.md) | [Advanced Patterns](guide/worktree-advanced-patterns.md)
 
-## Architecture Commands (12 commands)
+## Architecture Commands (4 commands)
 
-| Command                    | Description                          |
-| -------------------------- | ------------------------------------ |
-| `/craft:arch:analyze`      | Analyze codebase architecture        |
-| `/craft:arch:diagram`      | Generate architecture diagrams       |
-| `/craft:arch:dependencies` | Dependency analysis                  |
-| `/craft:arch:layers`       | Layer visualization                  |
-| `/craft:arch:modules`      | Module structure analysis            |
-| `/craft:arch:review`       | Architecture review                  |
+| Command                | Description                    |
+| ---------------------- | ----------------------------- |
+| `/craft:arch:analyze`  | Analyze codebase architecture |
+| `/craft:arch:diagram`  | Generate architecture diagrams |
+| `/craft:arch:plan`     | Architecture planning          |
+| `/craft:arch:review`   | Architecture review            |
 
 **Quick examples:**
 
 ```bash
 /craft:arch:analyze optimize     # Fast architecture analysis
 /craft:arch:diagram             # Generate Mermaid diagrams
-/craft:arch:dependencies        # Analyze dependencies
+/craft:arch:plan                # Plan an architecture change
 ```
 
-## CI/CD Commands (8 commands)
+## CI/CD Commands (4 commands)
 
 | Command                  | Description                                   |
 | ------------------------ | --------------------------------------------- |
-| `/craft:ci:generate`     | **v2.9.0** Generate GitHub Actions CI workflow |
-| `/craft:ci:status`       | **v2.22.1** Cross-repo CI status dashboard    |
 | `/craft:ci:detect`       | Smart project type detection                  |
+| `/craft:ci:generate`     | **v2.9.0** Generate GitHub Actions CI workflow |
 | `/craft:ci:validate`     | Validate existing CI workflow                 |
-| `/craft:ci:update`       | Update CI configuration                       |
-| `/craft:ci:test`         | Test CI locally                               |
+| `/craft:ci:status`       | **v2.22.1** Cross-repo CI status dashboard    |
 
 **Quick examples:**
 
@@ -1101,15 +1104,13 @@ npm test
 /craft:ci:validate              # Validate existing CI
 ```
 
-## Distribution Commands (7 commands)
+## Distribution Commands (4 commands)
 
 | Command                        | Description                            |
 | ------------------------------ | -------------------------------------- |
 | `/craft:dist:marketplace`      | Marketplace init, validate, test, publish |
-| `/craft:dist:package`          | Package for distribution               |
 | `/craft:dist:homebrew`         | Generate Homebrew formula              |
 | `/craft:dist:pypi`             | Package for PyPI                       |
-| `/craft:dist:npm`              | Package for npm                        |
 | `/craft:dist:curl-install`     | Generate curl installer                |
 
 **Quick examples:**
@@ -1144,6 +1145,12 @@ npm test
 /craft:orchestrate timeline               # Execution timeline
 /craft:orchestrate continue               # Resume session
 ```
+
+**Spec-driven drive:**
+
+| Command | Purpose |
+|---------|---------|
+| `/craft:orchestrate:drive` | Spec → autonomous /goal loop → verified green |
 
 **Modes:**
 
@@ -1498,7 +1505,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.34.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.35.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary
@@ -1509,12 +1516,14 @@ graph LR
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
-## Skills (25 total)
+## Skills (38 total)
 
 Auto-triggered expertise:
 
 | Skill                     | Triggers                                            |
 | ------------------------- | --------------------------------------------------- |
+| `drive-engine`            | `/craft:orchestrate:drive` — dispatch + real verify gate (NEW) |
+| `prompt-refiner`          | the `--refine` flag — sharpen a prompt before running (NEW) |
 | `release`                 | "release", "ship it", version publishing (CI monitoring in v2.22.0) |
 | `guard-audit`             | "audit guard", "review branch protection" (v2.18.0) |
 | `insights-apply`          | "apply insights", "update rules from insights" (v2.18.0) |
@@ -1528,7 +1537,7 @@ Auto-triggered expertise:
 | `doc-classifier`          | Documentation type detection                        |
 | `mermaid-linter`          | Mermaid diagram validation                          |
 | `session-state`           | Orchestrator state tracking                         |
-| ...and 12 more            | See [Skills & Agents Guide](guide/skills-agents.md) |
+| ...and 23 more            | See [Skills & Agents Guide](skills-agents.md) |
 
 ## Agents (8 specialized)
 

@@ -63,7 +63,7 @@ The command examines:
 ```
 ╭─ Architecture Overview ─────────────────────────────╮
 │ Project: craft | Type: Claude Code Plugin          │
-│ Structure: commands/ agents/ skills/ (108 commands) │
+│ Structure: commands/ agents/ skills/ (109 commands) │
 ├─────────────────────────────────────────────────────┤
 │ Commands: 9 categories (docs, site, code, etc.)    │
 │ Agents: 8 (orchestrator-v2, docs-architect, etc.)  │
@@ -157,6 +157,8 @@ graph TB
 ## `/craft:arch:plan` - Plan Architectural Changes
 
 Plan and design architectural improvements with AI guidance.
+
+> **`--refine` flag:** Add `--refine` to sharpen your prompt via the `prompt-refiner` skill before acting. See [the --refine flag guide](../help/refine-flag.md).
 
 ### Quick Start
 

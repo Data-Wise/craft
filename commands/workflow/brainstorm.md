@@ -27,6 +27,10 @@ arguments:
   - name: orch-mode
     description: "Orchestration mode: default|debug|optimize|release (v2.5.0)"
     required: false
+  - name: refine
+    description: Refine the prompt via the prompt-refiner skill before acting
+    required: false
+    default: false
 deprecated: true
 replaced-by: "skills/workflow/brainstorm-insights/"
 ---
@@ -40,6 +44,15 @@ ADHD-friendly brainstorming with smart mode detection, time budgets, agent deleg
 ```
 /brainstorm [depth:count] [focus] [action] [-C|--categories "cat1,cat2"] "topic"
 ```
+
+## --refine (prompt pre-processing)
+
+When `--refine` is set, do NOT act on the raw argument. First invoke the
+`prompt-refiner` skill with the argument and project context. Follow that
+skill's canonical flow (before/after → Accept/Edit/Use-original; `--yes`
+or auto mode auto-accepts). Then proceed using the prompt the skill
+returns. On no-argument interactive commands, refine AFTER the topic is
+captured.
 
 ### Depth
 

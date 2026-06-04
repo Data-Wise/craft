@@ -285,7 +285,7 @@ Choosing the right approach depends on your task scope and need for isolation:
 
 ## Next Steps
 
-- [Skills & Agents](skills-agents.md) - Understanding the system
+- [Skills & Agents](../skills-agents.md) - Understanding the system
 - [Getting Started](getting-started.md) - Basic usage
 - [Brainstorm Command](../commands/workflow/brainstorm.md) - Context gathering (v2.4.0)
 - [**NEW** --orch Flag Guide](orch-flag-usage.md) - Quick orchestration (v2.5.0)

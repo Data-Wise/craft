@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.34.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.35.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -14,12 +14,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 108 commands, 8 AI agents, and 36 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 109 commands, 8 AI agents, and 38 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 36 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 109 commands, 8 agents, 38 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -70,7 +70,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 107 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 109 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -110,13 +110,13 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 107 Craft commands:
+Complete OpenAPI-style documentation for all 109 Craft commands:
 
 <div class="grid cards" markdown>
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 107 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 109 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -187,9 +187,9 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 107 commands organized
+    All 109 commands organized
 
-- :sparkles:{ .lg .middle } **[Skills & Agents](guide/skills-agents.md)**
+- :sparkles:{ .lg .middle } **[Skills & Agents](skills-agents.md)**
 
     Understanding the AI system
 
@@ -199,7 +199,7 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 107 commands
+    Complete documentation for all 109 commands
 
 </div>
 
@@ -219,8 +219,8 @@ Complete OpenAPI-style documentation for all 107 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.34.0 — Commands → Skills Migration"
-    11 new skills consolidating 53 source commands across 3 batches: `preflight-check`, `git-workflow`, `claude-md-lifecycle`, `nav-sync`, `site-lifecycle`, `dist-extras`, `plan-orchestrator`, `demonstration-builder`, `adhd-workflow`, `brainstorm-insights`, `background-task-manager`. Skills auto-activate from conversation context — no command memorization required. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.35.0 — Spec-Driven Drive + Prompt Refinement"
+    `/craft:orchestrate:drive` drives an approved spec to completion via a native `/goal` loop with a real verify gate — stopping at verified-green for a human-opened PR. The new `--refine` flag sharpens your prompt before `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, and `/craft:arch:plan` act on it (via the `prompt-refiner` skill, replacing the deprecated `/refine`). See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 

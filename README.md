@@ -8,10 +8,10 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.34.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.35.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 > **v2.34.0 — Commands → Skills Migration** 🚀
-> **108 commands** | **36 skills** | **8 agents** | **1638 tests passing**
+> **109 commands** | **38 skills** | **8 agents** | **1638 tests passing**
 > 11 new skills (`preflight-check`, `git-workflow`, `claude-md-lifecycle`, `nav-sync`, `site-lifecycle`, `dist-extras`, `plan-orchestrator`, `demonstration-builder`, `adhd-workflow`, `brainstorm-insights`, `background-task-manager`) consolidating 53 source commands across 3 batches. Skills auto-activate from conversation context — no command memorization required.
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
@@ -104,7 +104,7 @@ claude
 
 ```
 Craft v1.17.0 loaded
-107 commands available
+109 commands available
 ```
 
 ### Using in Claude Code CLI
@@ -150,7 +150,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 108 commands, 8 agents, 36 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 109 commands, 8 agents, 38 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -228,7 +228,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 **[Full Tutorial](https://data-wise.github.io/craft/tutorials/teaching-mode-setup/)** • **[Config Schema](https://data-wise.github.io/craft/teaching-config-schema/)**
 
-## Commands (107 total)
+## Commands (109 total)
 
 ### Workflow Commands (12)
 
@@ -530,8 +530,8 @@ Specialized workflows for teaching projects with automated validation, semester 
 **For plugin development and contributions:**
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
-- 📖 **[Commands Reference](docs/commands.md)** - All 107 commands documented
-- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 36 skills, 8 agents
+- 📖 **[Commands Reference](docs/commands.md)** - All 109 commands documented
+- 📖 **[Skills & Agents](docs/skills-agents.md)** - 38 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards

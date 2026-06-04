@@ -28,8 +28,8 @@ stats = get_command_stats()
 commands = load_cached_commands()
 
 # Available data:
-# - stats['total']: Total command count (e.g., 108)
-# - stats['categories']: Dict of category counts (e.g., {'code': 12, 'test': 2, ...})
+# - stats['total']: Total command count (e.g., 109)
+# - stats['categories']: Dict of category counts (e.g., {'code': 15, 'test': 3, ...})
 # - stats['with_modes']: Commands supporting modes
 # - stats['with_dry_run']: Commands with dry-run support
 # - commands: Full list of command objects with metadata
@@ -115,7 +115,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.34.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.35.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -139,7 +139,7 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (12)                         TEST (2)                              │
+│ CODE (15)                         TEST (3)                              │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
 │   /craft:code:coverage [mode]      /craft:test:gen                      │
 │   /craft:code:debug                                                     │
@@ -148,7 +148,7 @@ Display template:
 │   /craft:code:ci-local             /craft:arch:plan                     │
 │   /craft:code:ci-fix               /craft:arch:review                   │
 │                                    /craft:arch:diagram                  │
-│ DOCS (25)                                                               │
+│ DOCS (21)                                                               │
 │   /craft:docs:update             PLAN (3)                               │
 │   /craft:docs:sync                 /craft:plan:feature                  │
 │   /craft:docs:lint                 /craft:plan:sprint                   │
@@ -160,12 +160,12 @@ Display template:
 │   /craft:docs:mermaid              /craft:ci:validate                  │
 │   /craft:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ GIT (13 incl. 4 guides)          WORKFLOW (13)                          │
+│ GIT (14 incl. 4 guides)          WORKFLOW (13)                          │
 │   /craft:git:worktree              /brainstorm [d|f|s] "topic"         │
 │   /craft:git:sync                  /workflow:focus                     │
 │   /craft:git:branch                /workflow:done                      │
 │   /craft:git:clean                 /workflow:spec-review               │
-│   /craft:git:recap                 /craft:insights                     │
+│   /craft:git:git-recap                 /craft:insights                     │
 │   /craft:git:status                                                     │
 │   /craft:git:protect             DIST (4)                               │
 │   /craft:git:unprotect             /craft:dist:marketplace             │
@@ -173,7 +173,7 @@ Display template:
 │ SITE (16)                          /craft:dist:curl-install             │
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
-│   /craft:site:check              ORCHESTRATE (2)                        │
+│   /craft:site:check              ORCHESTRATE (4)                        │
 │   /craft:site:update               /craft:orchestrate [mode]           │
 │   /craft:site:publish              /craft:orchestrate:resume           │
 │                                                                         │
@@ -338,7 +338,7 @@ Many commands support modes for different use cases:
 ### `/craft:hub code`
 
 ```
-CODE COMMANDS (12) - Code Quality & Development
+CODE COMMANDS (15) - Code Quality & Development
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
@@ -354,18 +354,22 @@ Command                  | Description                    | Modes
 /craft:code:refactor     | Refactoring guidance           | -
 /craft:code:release      | Release workflow               | -
 /craft:code:docs-check   | Pre-flight doc check           | -
+/craft:code:command-audit| Audit command frontmatter      | -
+/craft:code:release-watch| Track Claude Code/Desktop rels | -
+/craft:code:desktop-watch| Track Claude Desktop releases  | -
 ─────────────────────────────────────────────────────────────────────────
 ```
 
 ### `/craft:hub test`
 
 ```
-TEST COMMANDS (2) - Unified Testing
+TEST COMMANDS (3) - Unified Testing
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
 /craft:test [mode]       | Unified test runner            | yes
 /craft:test:gen          | Generate test suites (Jinja2)  | -
+/craft:test:template     | Manage Jinja2 test templates   | -
 ─────────────────────────────────────────────────────────────────────────
 
 Usage:
@@ -380,7 +384,7 @@ Usage:
 ### `/craft:hub docs`
 
 ```
-DOCS COMMANDS (25) - Documentation Automation
+DOCS COMMANDS (21) - Documentation Automation
 ─────────────────────────────────────────────────────────────────────────
 Command                        | Description
 ───────────────────────────────┼─────────────────────────────────────
@@ -397,6 +401,11 @@ Command                        | Description
 /craft:docs:tutorial           | Generate step-by-step tutorials
 /craft:docs:api                | Generate API documentation
 /craft:docs:quickstart         | Generate quickstart guides
+/craft:docs:help               | Generate help pages
+/craft:docs:prompt             | Generate documentation prompts
+/craft:docs:site               | Website documentation focus
+/craft:docs:website            | ADHD-friendly website enhancement
+/craft:docs:workflow           | Workflow documentation generator
 
 CLAUDE.md Management:
   /craft:docs:claude-md:init   | Create from lean template (< 150 lines)
@@ -415,17 +424,18 @@ Reference Files (.claude/reference/):
 ### `/craft:hub git`
 
 ```
-GIT COMMANDS (13: 9 commands + 4 guides)
+GIT COMMANDS (14: 10 commands + 4 guides)
 ────────────────────────────────────────────────────────────────────────
 Commands:
   /craft:git:worktree     Parallel development (create/move/finish/clean)
   /craft:git:sync         Smart sync with remote (pull, rebase, push)
   /craft:git:branch       Branch management (create, switch, delete)
   /craft:git:clean        Clean up merged branches safely
-  /craft:git:recap        Git activity summary (what changed?)
+  /craft:git:git-recap        Git activity summary (what changed?)
   /craft:git:status       Enhanced status with protection level
   /craft:git:protect      Re-enable branch protection
   /craft:git:unprotect    Session-scoped bypass (auto-expires)
+  /craft:git:protect-baseline  Apply GitHub-side baseline protection (any repo)
   /craft:git:init         Initialize repo with craft workflow
 
 Guides:
@@ -556,11 +566,12 @@ Command                  | Description
 ### `/craft:hub orchestrate`
 
 ```
-ORCHESTRATE COMMANDS (2) - Multi-Agent Coordination
+ORCHESTRATE COMMANDS (4) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
-/craft:orchestrate "task" [mode]     | Launch orchestrator
+/craft:orchestrate "task" [mode]     | Launch orchestrator (free-form, fan-out)
+/craft:orchestrate:drive [spec]      | Spec-driven autonomous /goal loop → verified green
 /craft:orchestrate:resume            | Resume previous session
-/craft:orchestrate:plan              | Generate ORCHESTRATE file from spec
+/craft:orchestrate:plan              | (deprecated → plan-orchestrator skill)
 
 Modes:
   default   — 2 agents max, quick tasks
@@ -577,34 +588,23 @@ Quick orchestration (--orch flag on any command):
 
 ---
 
-## Skills (26 Auto-Activated)
+## Skills (38 Auto-Activated)
 
-| Skill | Category | Triggers On |
-|-------|----------|-------------|
-| `backend-designer` | Design | API design, database, auth discussions |
-| `frontend-designer` | Design | UI/UX, components, accessibility |
-| `devops-helper` | Design | CI/CD, deployment, Docker |
-| `test-strategist` | Testing | Test strategy, coverage, flaky tests |
-| `test-generator` | Testing | Test file generation |
-| `system-architect` | Architecture | System design, patterns, trade-offs |
-| `project-planner` | Planning | Feature planning, sprints, roadmaps |
-| `mode-controller` | Modes | Mode selection and behavior |
-| `task-analyzer` | Orchestration | Task routing for /craft:do |
-| `session-state` | Orchestration | Session persistence and resumption |
-| `release` | Release | Release pipeline, version bump, deploy |
-| `guard-audit` | DevOps | Guard friction, false positives, tune guard |
-| `insights-apply` | Workflow | Insights report, CLAUDE.md rules |
-| `doc-classifier` | Docs | Documentation needs classification |
-| `mermaid-linter` | Docs | Mermaid validation, auto-fix, health score |
-| `distribution-strategist` | Distribution | Packaging strategy selection |
-| `homebrew-formula-expert` | Distribution | Homebrew formula generation |
-| `homebrew-workflow-expert` | Distribution | Homebrew tap management |
-| `homebrew-multi-formula` | Distribution | Multi-formula taps |
-| `homebrew-setup-wizard` | Distribution | First-time Homebrew setup |
-| `project-detector` | CI | Project type detection |
-| `architecture-decision-records` | Docs | ADR generation |
-| `changelog-automation` | Docs | Changelog from commits |
-| `openapi-spec-generation` | Docs | OpenAPI spec generation |
+Skills activate automatically from conversation context — no command needed.
+Full catalog with trigger phrases: **[Skills & Agents](../skills-agents.md)**.
+
+| Category | Count | Notable skills |
+|----------|-------|----------------|
+| Documentation | 8 | doc-classifier, mermaid-linter, changelog-automation, openapi-spec |
+| Distribution | 6 | homebrew-formula/workflow/multi-formula/setup, pypi, marketplace |
+| Orchestration | 4 | **drive-engine** (NEW), plan-orchestrator, task-analyzer, session-state |
+| Workflow | 4 | **prompt-refiner** (NEW — `--refine`), adhd-workflow, brainstorm-insights |
+| Design | 3 | backend / frontend / devops designers |
+| Code · Testing · Guard&Insights | 2 each | lint/refactor, test-strategist/generator, guard-audit/insights-apply |
+| Architecture · Check · CI · Dev · Modes · Planning · Release | 1 each | architecture, preflight-check, project-detector, git-workflow, mode-controller, project-planner, release |
+
+> Newest: `drive-engine` (powers `/craft:orchestrate:drive`) and `prompt-refiner`
+> (powers the `--refine` flag, replacing the deprecated `/refine`).
 
 ## Agents (8 Specialized)
 
@@ -745,6 +745,6 @@ SUGGESTED FOR NODE PROJECT:
 │   /craft:ci:detect         -> Detect project type + build tools        │
 │                                                                        │
 │ Daily:                                                                 │
-│   /craft:git:recap -> /craft:check -> /craft:git:sync                  │
+│   /craft:git:git-recap -> /craft:check -> /craft:git:sync                  │
 └────────────────────────────────────────────────────────────────────────┘
 ```

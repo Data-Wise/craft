@@ -2,13 +2,22 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.32.1 (2026-05-10)
-**Total Releases:** 54 versions | **Development Time:** 2+ years
-**Community:** 108 commands documented, 112 tests passing, 90%+ coverage
+**Latest Release:** v2.35.0 (2026-06-03)
+**Total Releases:** 57 versions | **Development Time:** 2+ years
+**Community:** 109 commands documented, 130 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.35.0 (2026-06-03) — Spec-Driven Drive + Prompt Refinement
+
+**Status:** Released
+**Stats:** 109 commands | 38 skills | 8 agents | 130 tests passing
+
+- `/craft:orchestrate:drive` — spec-driven autonomous implementation loop wrapping the native `/goal` turn-loop + `drive-engine` skill (file-scoped dispatch) with a **real verify gate** as the authoritative "done"; stops at verified-green and prints the PR command (never auto-opens).
+- `--refine` flag on `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, `/craft:arch:plan` — sharpens the prompt before the command acts, via the new `prompt-refiner` skill (replaces the deprecated `/refine`).
+- Docs/drift cleanup: regenerated hub + REFCARD command tables from `_discovery.py` (removed fabricated commands), consolidated the dual skills-agents catalog, swept stale counts site-wide.
 
 ### v2.32.1 (2026-05-10) — Infrastructure: durable Homebrew release auth
 
