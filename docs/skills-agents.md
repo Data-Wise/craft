@@ -1,6 +1,6 @@
 # Craft Skills & Agents
 
-Craft includes 36 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 38 auto-activating skills and 8 specialized agents for comprehensive development support.
 
 ## Skills (38 total)
 
