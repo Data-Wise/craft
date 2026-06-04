@@ -228,7 +228,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 **[Full Tutorial](https://data-wise.github.io/craft/tutorials/teaching-mode-setup/)** • **[Config Schema](https://data-wise.github.io/craft/teaching-config-schema/)**
 
-## Commands (107 total)
+## Commands (109 total)
 
 ### Workflow Commands (12)
 

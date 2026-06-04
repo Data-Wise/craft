@@ -9,7 +9,7 @@
 > - **How:** Skills trigger on context (e.g., "API" activates backend-designer), agents handle long-running tasks
 > - **Next:** Read [Orchestrator](orchestrator.md) to learn how they work together
 
-## Skills (36 total)
+## Skills (38 total)
 
 Skills are auto-triggered expertise modules that activate based on conversation context.
 
@@ -112,6 +112,7 @@ Skills are auto-triggered expertise modules that activate based on conversation 
 | adhd-workflow | Session boundaries, task focus, decision support, blocker resolution, spec review, prompt refinement | `skills/workflow/adhd-workflow/SKILL.md` |
 | background-task-manager | Status, output retrieval, and cancellation of background tasks launched via `--background` | `skills/workflow/task-management/SKILL.md` |
 | brainstorm-insights | Ideation (BRAINSTORM/SPEC generation) + session-facet insights reports | `skills/workflow/brainstorm-insights/SKILL.md` |
+| prompt-refiner | Refine a vague request into a sharp prompt (before/after + Accept/Edit/Use-original) — engine behind the `--refine` flag; replaces deprecated `/refine` | `skills/workflow/prompt-refiner/SKILL.md` |
 
 ### Check (NEW in v2.35.0)
 
@@ -129,6 +130,7 @@ Skills are auto-triggered expertise modules that activate based on conversation 
 
 | Name | Description | Path |
 |------|-------------|------|
+| drive-engine | Reusable body behind `/craft:orchestrate:drive` — parse-or-derive ORCHESTRATE phases, file-scoped dispatch, authoritative real verify gate | `skills/orchestration/drive-engine/SKILL.md` |
 | plan-orchestrator | Spec → ORCHESTRATE planning artifacts; feature breakdowns, sprint backlogs, roadmaps | `skills/orchestration/plan-orchestrator/SKILL.md` |
 
 ### Documentation (extended in v2.36.0)

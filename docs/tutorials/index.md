@@ -41,7 +41,9 @@
 |----------|------|-------------------|
 | [Interactive Orchestration](interactive-orchestration.md) | 20 min | Plan confirmation, wave checkpoints, and mode selection |
 | [Orchestrator Modes Compared](orchestrator-modes-compared.md) | 15 min | Same task in 4 modes — performance metrics and decision guidance |
+| [Orchestrate Drive](TUTORIAL-orchestrate-drive.md) | 15 min | Spec → autonomous /goal loop → verified-green PR handoff |
 | [Brainstorm Power User](TUTORIAL-brainstorm-power-user.md) | 20 min | Advanced brainstorming patterns and expert workflows |
+| [Refine Flag](TUTORIAL-refine-flag.md) | 10 min | Sharpen a vague prompt before any command runs (`--refine`) |
 | [Insights-Driven Workflow](TUTORIAL-insights-workflow.md) | 20 min | Session insights, friction prevention, guard tuning, CI monitoring |
 
 ## Release & Distribution

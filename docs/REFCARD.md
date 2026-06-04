@@ -5,7 +5,7 @@
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
 │  Version: 2.34.0 (released 2026-05-15)                       │
-│  Commands: 108 | Agents: 8 | Skills: 36                     │
+│  Commands: 109 | Agents: 8 | Skills: 38                     │
 │  Documentation: 99% complete | Tests: 1638 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
 │  v2.34.0: Commands → Skills Migration (11 new skills)        │
@@ -1521,12 +1521,14 @@ graph LR
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
-## Skills (25 total)
+## Skills (38 total)
 
 Auto-triggered expertise:
 
 | Skill                     | Triggers                                            |
 | ------------------------- | --------------------------------------------------- |
+| `drive-engine`            | `/craft:orchestrate:drive` — dispatch + real verify gate (NEW) |
+| `prompt-refiner`          | the `--refine` flag — sharpen a prompt before running (NEW) |
 | `release`                 | "release", "ship it", version publishing (CI monitoring in v2.22.0) |
 | `guard-audit`             | "audit guard", "review branch protection" (v2.18.0) |
 | `insights-apply`          | "apply insights", "update rules from insights" (v2.18.0) |
@@ -1540,7 +1542,7 @@ Auto-triggered expertise:
 | `doc-classifier`          | Documentation type detection                        |
 | `mermaid-linter`          | Mermaid diagram validation                          |
 | `session-state`           | Orchestrator state tracking                         |
-| ...and 12 more            | See [Skills & Agents Guide](guide/skills-agents.md) |
+| ...and 23 more            | See [Skills & Agents Guide](guide/skills-agents.md) |
 
 ## Agents (8 specialized)
 
