@@ -5,7 +5,7 @@ Complete reference for all 107 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 108 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 109 commands support `--dry-run` / `-n` preview mode
 **16 Categories:** arch, check, ci, code, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
 Use `/craft:hub` to discover all available commands interactively.
@@ -413,7 +413,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 108 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 109 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 
@@ -478,7 +478,7 @@ See [DRY-RUN-SUMMARY.md](https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUM
 
 ## See Also
 
-- **[Skills & Agents Guide](skills-agents.md)** - 36 skills, 8 agents
+- **[Skills & Agents Guide](skills-agents.md)** - 38 skills, 8 agents
 - **[Architecture Guide](architecture.md)** - How Craft works
 - **[Orchestrator Guide](orchestrator.md)** - Multi-agent coordination
 - **[Mode System](skills-agents.md#mode-aware-behavior)** - Mode system (default/debug/optimize/release)

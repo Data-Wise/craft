@@ -2,7 +2,7 @@
 
 Craft includes 36 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (36 total)
+## Skills (38 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -82,10 +82,11 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | mode-controller | Manages craft plugin execution modes (default, debug, optimize, release) | `skills/modes/SKILL.md` |
 
-### Orchestration (3)
+### Orchestration (4)
 
 | Name | Description | Path |
 |------|-------------|------|
+| drive-engine | Reusable execution body behind `/craft:orchestrate:drive` — parse-or-derive ORCHESTRATE phases, dispatch file-scoped subagents, and run the authoritative real verify gate | `skills/orchestration/drive-engine/SKILL.md` |
 | plan-orchestrator | Produce concrete planning artifacts (ORCHESTRATE files, feature breakdowns, sprint backlogs, roadmaps) from specs | `skills/orchestration/plan-orchestrator/SKILL.md` |
 | session-state | Manages orchestrator session state persistence — save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
 | task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer/SKILL.md` |
@@ -109,13 +110,14 @@ Skills automatically activate based on conversation context, providing just-in-t
 | test-generator | Generates dogfooding test suites (automated + interactive) for any project type | `skills/testing/test-generator/SKILL.md` |
 | test-strategist | Test strategy, coverage optimization, and quality assurance | `skills/testing/test-strategist/SKILL.md` |
 
-### Workflow (3)
+### Workflow (4)
 
 | Name | Description | Path |
 |------|-------------|------|
 | adhd-workflow | Session and task workflow support — done/recap/next/focus/stuck/spec-review/refine for ADHD-friendly flow | `skills/workflow/adhd-workflow/SKILL.md` |
 | brainstorm-insights | Generate BRAINSTORM/SPEC documents from project context, and INSIGHTS reports from session facet history | `skills/workflow/brainstorm-insights/SKILL.md` |
 | background-task-manager | Manage already-launched background tasks — status inspection, output retrieval, cancellation | `skills/workflow/task-management/SKILL.md` |
+| prompt-refiner | Refine a vague request into a sharp prompt using project context (before/after + Accept/Edit/Use-original) — the engine behind the `--refine` flag; replaces the deprecated `/refine` | `skills/workflow/prompt-refiner/SKILL.md` |
 
 ## Agents (8 total)
 
