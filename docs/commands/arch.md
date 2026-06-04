@@ -158,6 +158,8 @@ graph TB
 
 Plan and design architectural improvements with AI guidance.
 
+> **`--refine` flag:** Add `--refine` to sharpen your prompt via the `prompt-refiner` skill before acting. See [the --refine flag guide](../help/refine-flag.md).
+
 ### Quick Start
 
 ```bash

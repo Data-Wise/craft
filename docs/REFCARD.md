@@ -196,6 +196,12 @@
 - Distribution (7 commands)
 - Workflow (12 commands) & Planning (3 commands)
 
+## Global Flags
+
+| Flag | Description |
+| ---- | ----------- |
+| --refine | Refine the prompt before running (brainstorm/do/orchestrate/plan:feature/arch:plan) |
+
 ## Interactive Command Behavior
 
 **"Show Steps First" Pattern** - All 4 most-used commands now show plan before executing:
