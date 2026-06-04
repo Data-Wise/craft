@@ -157,6 +157,8 @@ nav:
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
       - Check Command Beginner Tutorial: tutorials/check-tutorial-beginner.md
       - Smart Routing Tutorial: tutorials/smart-routing-tutorial.md
+      - Refine Flag Tutorial: tutorials/TUTORIAL-refine-flag.md
+      - Refine Flag Help: help/refine-flag.md
       - Mermaid Authoring Guide: guide/mermaid-authoring.md
       - Mermaid Troubleshooting: guide/mermaid-troubleshooting.md
       - Testing:
@@ -269,6 +271,7 @@ nav:
     - Cookbook Home: cookbook/index.md
     - Common Recipes:
       - Release Watch Recipes: cookbook/release-watch-recipes.md
+      - Refine a Prompt Before Running: cookbook/recipes/refine-before-running.md
       - Set Up New Project: cookbook/common/setup-new-project.md
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
