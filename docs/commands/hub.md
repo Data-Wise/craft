@@ -160,7 +160,7 @@ Display template:
 │   /craft:docs:mermaid              /craft:ci:validate                  │
 │   /craft:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ GIT (13 incl. 4 guides)          WORKFLOW (13)                          │
+│ GIT (14 incl. 4 guides)          WORKFLOW (13)                          │
 │   /craft:git:worktree              /brainstorm [d|f|s] "topic"         │
 │   /craft:git:sync                  /workflow:focus                     │
 │   /craft:git:branch                /workflow:done                      │
@@ -173,7 +173,7 @@ Display template:
 │ SITE (16)                          /craft:dist:curl-install             │
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
-│   /craft:site:check              ORCHESTRATE (2)                        │
+│   /craft:site:check              ORCHESTRATE (3)                        │
 │   /craft:site:update               /craft:orchestrate [mode]           │
 │   /craft:site:publish              /craft:orchestrate:resume           │
 │                                                                         │
@@ -415,7 +415,7 @@ Reference Files (.claude/reference/):
 ### `/craft:hub git`
 
 ```
-GIT COMMANDS (13: 9 commands + 4 guides)
+GIT COMMANDS (14: 10 commands + 4 guides)
 ────────────────────────────────────────────────────────────────────────
 Commands:
   /craft:git:worktree     Parallel development (create/move/finish/clean)
@@ -426,6 +426,7 @@ Commands:
   /craft:git:status       Enhanced status with protection level
   /craft:git:protect      Re-enable branch protection
   /craft:git:unprotect    Session-scoped bypass (auto-expires)
+  /craft:git:protect-baseline  Apply GitHub-side baseline protection (any repo)
   /craft:git:init         Initialize repo with craft workflow
 
 Guides:
@@ -556,11 +557,12 @@ Command                  | Description
 ### `/craft:hub orchestrate`
 
 ```
-ORCHESTRATE COMMANDS (2) - Multi-Agent Coordination
+ORCHESTRATE COMMANDS (3) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
-/craft:orchestrate "task" [mode]     | Launch orchestrator
+/craft:orchestrate "task" [mode]     | Launch orchestrator (free-form, fan-out)
+/craft:orchestrate:drive [spec]      | Spec-driven autonomous /goal loop → verified green
 /craft:orchestrate:resume            | Resume previous session
-/craft:orchestrate:plan              | Generate ORCHESTRATE file from spec
+/craft:orchestrate:plan              | (deprecated → plan-orchestrator skill)
 
 Modes:
   default   — 2 agents max, quick tasks
@@ -577,34 +579,23 @@ Quick orchestration (--orch flag on any command):
 
 ---
 
-## Skills (26 Auto-Activated)
+## Skills (38 Auto-Activated)
 
-| Skill | Category | Triggers On |
-|-------|----------|-------------|
-| `backend-designer` | Design | API design, database, auth discussions |
-| `frontend-designer` | Design | UI/UX, components, accessibility |
-| `devops-helper` | Design | CI/CD, deployment, Docker |
-| `test-strategist` | Testing | Test strategy, coverage, flaky tests |
-| `test-generator` | Testing | Test file generation |
-| `system-architect` | Architecture | System design, patterns, trade-offs |
-| `project-planner` | Planning | Feature planning, sprints, roadmaps |
-| `mode-controller` | Modes | Mode selection and behavior |
-| `task-analyzer` | Orchestration | Task routing for /craft:do |
-| `session-state` | Orchestration | Session persistence and resumption |
-| `release` | Release | Release pipeline, version bump, deploy |
-| `guard-audit` | DevOps | Guard friction, false positives, tune guard |
-| `insights-apply` | Workflow | Insights report, CLAUDE.md rules |
-| `doc-classifier` | Docs | Documentation needs classification |
-| `mermaid-linter` | Docs | Mermaid validation, auto-fix, health score |
-| `distribution-strategist` | Distribution | Packaging strategy selection |
-| `homebrew-formula-expert` | Distribution | Homebrew formula generation |
-| `homebrew-workflow-expert` | Distribution | Homebrew tap management |
-| `homebrew-multi-formula` | Distribution | Multi-formula taps |
-| `homebrew-setup-wizard` | Distribution | First-time Homebrew setup |
-| `project-detector` | CI | Project type detection |
-| `architecture-decision-records` | Docs | ADR generation |
-| `changelog-automation` | Docs | Changelog from commits |
-| `openapi-spec-generation` | Docs | OpenAPI spec generation |
+Skills activate automatically from conversation context — no command needed.
+Full catalog with trigger phrases: **[Skills & Agents](../skills-agents.md)**.
+
+| Category | Count | Notable skills |
+|----------|-------|----------------|
+| Documentation | 8 | doc-classifier, mermaid-linter, changelog-automation, openapi-spec |
+| Distribution | 6 | homebrew-formula/workflow/multi-formula/setup, pypi, marketplace |
+| Orchestration | 4 | **drive-engine** (NEW), plan-orchestrator, task-analyzer, session-state |
+| Workflow | 4 | **prompt-refiner** (NEW — `--refine`), adhd-workflow, brainstorm-insights |
+| Design | 3 | backend / frontend / devops designers |
+| Code · Testing · Guard&Insights | 2 each | lint/refactor, test-strategist/generator, guard-audit/insights-apply |
+| Architecture · Check · CI · Dev · Modes · Planning · Release | 1 each | architecture, preflight-check, project-detector, git-workflow, mode-controller, project-planner, release |
+
+> Newest: `drive-engine` (powers `/craft:orchestrate:drive`) and `prompt-refiner`
+> (powers the `--refine` flag, replacing the deprecated `/refine`).
 
 ## Agents (8 Specialized)
 
