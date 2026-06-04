@@ -110,7 +110,7 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 107 Craft commands:
+Complete OpenAPI-style documentation for all 109 Craft commands:
 
 <div class="grid cards" markdown>
 
