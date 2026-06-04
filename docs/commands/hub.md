@@ -165,7 +165,7 @@ Display template:
 │   /craft:git:sync                  /workflow:focus                     │
 │   /craft:git:branch                /workflow:done                      │
 │   /craft:git:clean                 /workflow:spec-review               │
-│   /craft:git:recap                 /craft:insights                     │
+│   /craft:git:git-recap                 /craft:insights                     │
 │   /craft:git:status                                                     │
 │   /craft:git:protect             DIST (4)                               │
 │   /craft:git:unprotect             /craft:dist:marketplace             │
@@ -431,7 +431,7 @@ Commands:
   /craft:git:sync         Smart sync with remote (pull, rebase, push)
   /craft:git:branch       Branch management (create, switch, delete)
   /craft:git:clean        Clean up merged branches safely
-  /craft:git:recap        Git activity summary (what changed?)
+  /craft:git:git-recap        Git activity summary (what changed?)
   /craft:git:status       Enhanced status with protection level
   /craft:git:protect      Re-enable branch protection
   /craft:git:unprotect    Session-scoped bypass (auto-expires)
@@ -745,6 +745,6 @@ SUGGESTED FOR NODE PROJECT:
 │   /craft:ci:detect         -> Detect project type + build tools        │
 │                                                                        │
 │ Daily:                                                                 │
-│   /craft:git:recap -> /craft:check -> /craft:git:sync                  │
+│   /craft:git:git-recap -> /craft:check -> /craft:git:sync                  │
 └────────────────────────────────────────────────────────────────────────┘
 ```

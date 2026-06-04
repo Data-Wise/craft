@@ -113,7 +113,7 @@
 - ✅ Always before `git commit` (catches issues early)
 - ✅ Before creating PR (ensures quality)
 - ✅ Before merging to main (final validation)
-- ✅ In CI/CD pipelines (use `/craft:check:ci`)
+- ✅ In CI/CD pipelines (use `/craft:code:ci-local` or `/craft:check --for release`)
 
 **See:** [REFCARD-CHECK.md](reference/REFCARD-CHECK.md) for complete reference
 
@@ -520,7 +520,7 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 - Dry-run preview mode
 - [Tutorial](tutorials/interactive-docs-update-tutorial.md) | [Reference](reference/REFCARD-DOCS-UPDATE.md)
 
-## Site Commands (15 commands)
+## Site Commands (16 commands)
 
 ### Core Site Commands
 
@@ -781,15 +781,16 @@ main (production branch)
 | `default`  | Lint, quick tests, basic validation                      | <10s  |
 | `thorough` | Full test suite, coverage, links, docs, dependencies      | <300s |
 
-**Subcommands:**
+**Flags & modes** (`/craft:check` is one command — no subcommands except `check:gen-validator`):
 
-| Command                | Description                  |
-| ---------------------- | ---------------------------- |
-| `/craft:check:quick`   | Essential checks only        |
-| `/craft:check:full`    | All validation steps         |
-| `/craft:check:ci`      | CI-optimized checks          |
-| `/craft:check:deps`    | Dependency validation        |
-| `/craft:check:docs`    | Documentation validation     |
+| Flag / mode            | Description                       |
+| ---------------------- | -------------------------------- |
+| `default` / `release`  | quick (<10s) vs full audit       |
+| `--for pr` / `--for release` | context-specific checks    |
+| `--only lint,docs`     | run only specific checks         |
+| `--skip tests`         | skip specific checks             |
+| `--fix`                | auto-fix safe issues             |
+| `--dry-run`            | preview the checklist, run nothing |
 
 **Friction Detection (NEW in v2.22.0):**
 
@@ -821,19 +822,19 @@ Layer 3: /craft:check     → catches anything that slipped through
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
 
-## Code & Testing (14 commands)
+## Code & Testing (17 commands)
 
-**Core Commands:**
+**Core Commands** (15 code + 2 test; core subset shown):
 
-| Command                | Modes | Description                 |
-| ---------------------- | ----- | --------------------------- |
-| `/craft:code:lint`     | all   | Linting with auto-fix       |
-| `/craft:test`          | all   | Test runner with categories |
-| `/craft:code:debug`    | ----- | Systematic debugging        |
-| `/craft:code:refactor` | ----- | Refactoring guidance        |
-| `/craft:code:review`   | ----- | Code review automation      |
-| `/craft:code:format`   | ----- | Code formatting             |
-| `/craft:code:deps`     | ----- | Dependency management       |
+| Command                  | Modes | Description                 |
+| ------------------------ | ----- | --------------------------- |
+| `/craft:code:lint`       | all   | Linting with auto-fix       |
+| `/craft:test`            | all   | Test runner with categories |
+| `/craft:code:debug`      | ----- | Systematic debugging        |
+| `/craft:code:refactor`   | ----- | Refactoring guidance        |
+| `/craft:code:deps-check` | ----- | Dependency health check     |
+| `/craft:code:deps-audit` | ----- | Security vulnerability scan |
+| `/craft:code:ci-local`   | ----- | Run CI checks locally       |
 
 **Test Commands:**
 
@@ -863,7 +864,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:git:worktree`         | Parallel development with git worktrees                                      |
 | `/craft:git:sync`             | Smart git sync                                                               |
 | `/craft:git:clean`            | Clean merged branches                                                        |
-| `/craft:git:recap`            | Activity summary                                                             |
+| `/craft:git:git-recap`            | Activity summary                                                             |
 | `/craft:git:branch`           | Branch management                                                            |
 | `/craft:git:status`           | Enhanced git status (teaching-aware)                                         |
 | `/craft:git:protect`          | Re-enable local hook (branch-guard) protection                               |
@@ -1066,35 +1067,31 @@ npm test
 
 **See:** [Git Worktree Reference](reference/REFCARD-GIT-WORKTREE.md) | [Advanced Patterns](guide/worktree-advanced-patterns.md)
 
-## Architecture Commands (12 commands)
+## Architecture Commands (4 commands)
 
-| Command                    | Description                          |
-| -------------------------- | ------------------------------------ |
-| `/craft:arch:analyze`      | Analyze codebase architecture        |
-| `/craft:arch:diagram`      | Generate architecture diagrams       |
-| `/craft:arch:dependencies` | Dependency analysis                  |
-| `/craft:arch:layers`       | Layer visualization                  |
-| `/craft:arch:modules`      | Module structure analysis            |
-| `/craft:arch:review`       | Architecture review                  |
+| Command                | Description                    |
+| ---------------------- | ----------------------------- |
+| `/craft:arch:analyze`  | Analyze codebase architecture |
+| `/craft:arch:diagram`  | Generate architecture diagrams |
+| `/craft:arch:plan`     | Architecture planning          |
+| `/craft:arch:review`   | Architecture review            |
 
 **Quick examples:**
 
 ```bash
 /craft:arch:analyze optimize     # Fast architecture analysis
 /craft:arch:diagram             # Generate Mermaid diagrams
-/craft:arch:dependencies        # Analyze dependencies
+/craft:arch:plan                # Plan an architecture change
 ```
 
-## CI/CD Commands (8 commands)
+## CI/CD Commands (4 commands)
 
 | Command                  | Description                                   |
 | ------------------------ | --------------------------------------------- |
-| `/craft:ci:generate`     | **v2.9.0** Generate GitHub Actions CI workflow |
-| `/craft:ci:status`       | **v2.22.1** Cross-repo CI status dashboard    |
 | `/craft:ci:detect`       | Smart project type detection                  |
+| `/craft:ci:generate`     | **v2.9.0** Generate GitHub Actions CI workflow |
 | `/craft:ci:validate`     | Validate existing CI workflow                 |
-| `/craft:ci:update`       | Update CI configuration                       |
-| `/craft:ci:test`         | Test CI locally                               |
+| `/craft:ci:status`       | **v2.22.1** Cross-repo CI status dashboard    |
 
 **Quick examples:**
 
@@ -1107,15 +1104,13 @@ npm test
 /craft:ci:validate              # Validate existing CI
 ```
 
-## Distribution Commands (7 commands)
+## Distribution Commands (4 commands)
 
 | Command                        | Description                            |
 | ------------------------------ | -------------------------------------- |
 | `/craft:dist:marketplace`      | Marketplace init, validate, test, publish |
-| `/craft:dist:package`          | Package for distribution               |
 | `/craft:dist:homebrew`         | Generate Homebrew formula              |
 | `/craft:dist:pypi`             | Package for PyPI                       |
-| `/craft:dist:npm`              | Package for npm                        |
 | `/craft:dist:curl-install`     | Generate curl installer                |
 
 **Quick examples:**
