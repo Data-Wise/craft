@@ -78,21 +78,21 @@ discover_sot() {
 
     # Priority 4: pyproject.toml (Python)
     if [[ -f pyproject.toml ]]; then
-        SOT_VERSION=$(grep -m1 '^version' pyproject.toml | sed 's/.*"\(.*\)"/\1/' 2>/dev/null)
+        SOT_VERSION=$(grep -m1 '^version' pyproject.toml 2>/dev/null | sed 's/.*"\(.*\)"/\1/' || true)
         SOT_FILE="pyproject.toml"
         return
     fi
 
     # Priority 5: DESCRIPTION (R package)
     if [[ -f DESCRIPTION ]]; then
-        SOT_VERSION=$(grep -m1 '^Version:' DESCRIPTION | awk '{print $2}' 2>/dev/null)
+        SOT_VERSION=$(grep -m1 '^Version:' DESCRIPTION 2>/dev/null | awk '{print $2}' || true)
         SOT_FILE="DESCRIPTION"
         return
     fi
 
     # Priority 6: Cargo.toml (Rust)
     if [[ -f Cargo.toml ]]; then
-        SOT_VERSION=$(grep -m1 '^version' Cargo.toml | sed 's/.*"\(.*\)"/\1/' 2>/dev/null)
+        SOT_VERSION=$(grep -m1 '^version' Cargo.toml 2>/dev/null | sed 's/.*"\(.*\)"/\1/' || true)
         SOT_FILE="Cargo.toml"
         return
     fi
@@ -118,13 +118,13 @@ check_file() {
             version=$(jq -r '.version // empty' "$file" 2>/dev/null)
             ;;
         CLAUDE.md)
-            version=$(grep -oE 'Current Version:.*v?[0-9]+\.[0-9]+\.[0-9]+' "$file" 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+            version=$(grep -oE 'Current Version:.*v?[0-9]+\.[0-9]+\.[0-9]+' "$file" 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1 || true)
             ;;
         DESCRIPTION)
-            version=$(grep -m1 '^Version:' "$file" 2>/dev/null | awk '{print $2}')
+            version=$(grep -m1 '^Version:' "$file" 2>/dev/null | awk '{print $2}' || true)
             ;;
         *.toml)
-            version=$(grep -m1 '^version' "$file" 2>/dev/null | sed 's/.*"\(.*\)"/\1/')
+            version=$(grep -m1 '^version' "$file" 2>/dev/null | sed 's/.*"\(.*\)"/\1/' || true)
             ;;
     esac
 
@@ -140,6 +140,10 @@ check_file() {
         MISMATCHES+=("$file:$version")
         [[ "$QUIET" == false ]] && echo -e "  ${RED}⚠${NC}  ${file} (v${version}) — ${RED}MISMATCH${NC}"
     fi
+
+    # Explicit success return: a trailing `[[ cond ]] && echo` returns 1 when the
+    # condition is false (e.g. --quiet), which under `set -e` would abort the script.
+    return 0
 }
 
 check_source_constants() {
@@ -149,7 +153,7 @@ check_source_constants() {
     while IFS= read -r match; do
         local file version
         file=$(echo "$match" | cut -d: -f1)
-        version=$(echo "$match" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+        version=$(echo "$match" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1 || true)
 
         # Skip the SOT file itself
         [[ "$file" == "$SOT_FILE" ]] && continue
@@ -176,7 +180,7 @@ check_test_expectations() {
     while IFS= read -r match; do
         local file version
         file=$(echo "$match" | cut -d: -f1)
-        version=$(echo "$match" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+        version=$(echo "$match" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1 || true)
 
         [[ -z "$version" ]] && continue
         CHECKED=$((CHECKED + 1))
