@@ -189,7 +189,7 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 
     All 109 commands organized
 
-- :sparkles:{ .lg .middle } **[Skills & Agents](guide/skills-agents.md)**
+- :sparkles:{ .lg .middle } **[Skills & Agents](skills-agents.md)**
 
     Understanding the AI system
 

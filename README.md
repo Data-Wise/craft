@@ -531,7 +531,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
 - 📖 **[Commands Reference](docs/commands.md)** - All 109 commands documented
-- 📖 **[Skills & Agents](docs/guide/skills-agents.md)** - 38 skills, 8 agents
+- 📖 **[Skills & Agents](docs/skills-agents.md)** - 38 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards

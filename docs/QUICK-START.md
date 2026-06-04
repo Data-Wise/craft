@@ -113,7 +113,7 @@ The AI routes your task to the best workflow automatically.
     Choose your learning path
 
 - **[Commands Overview](commands/overview.md)** - Explore all 109 commands
-- **[Skills & Agents](guide/skills-agents.md)** - Understand the AI system
+- **[Skills & Agents](skills-agents.md)** - Understand the AI system
 - **[Orchestrator](guide/orchestrator.md)** - Advanced mode-aware execution
 - **[Quick Reference](REFCARD.md)** - Command cheat sheet
 

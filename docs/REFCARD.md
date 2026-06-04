@@ -174,7 +174,7 @@
 
 # Filter by category
 /craft:hub docs
-# Shows: All 17 documentation commands
+# Shows: All 21 documentation commands
 
 # Search for commands
 /craft:hub "worktree"
@@ -188,13 +188,13 @@
 **Categories:**
 
 - Smart Commands (do, check, orchestrate, hub)
-- Documentation (25 commands)
+- Documentation (21 commands)
 - Site Management (16 commands)
-- Code (12 commands) & Testing (2 commands)
-- Git (11 commands) & CI (3 commands)
+- Code (15 commands) & Testing (3 commands)
+- Git (14 commands incl. guides) & CI (4 commands)
 - Architecture (4 commands)
-- Distribution (7 commands)
-- Workflow (12 commands) & Planning (3 commands)
+- Distribution (4 commands)
+- Workflow (13 commands) & Planning (3 commands)
 
 ## Global Flags
 
@@ -1542,7 +1542,7 @@ Auto-triggered expertise:
 | `doc-classifier`          | Documentation type detection                        |
 | `mermaid-linter`          | Mermaid diagram validation                          |
 | `session-state`           | Orchestrator state tracking                         |
-| ...and 23 more            | See [Skills & Agents Guide](guide/skills-agents.md) |
+| ...and 23 more            | See [Skills & Agents Guide](skills-agents.md) |
 
 ## Agents (8 specialized)
 

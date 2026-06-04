@@ -46,7 +46,7 @@
 |-------|------|---------------|
 | 6 | Nav Completeness | Files in `docs/` missing from `mkdocs.yml` nav; nav entries pointing to missing files |
 | 7 | Count Consistency | Stale `N commands`, `N skills`, `N agents` strings across all docs |
-| 8 | Skill/Agent Coverage | Skills and agents not listed in `docs/skills-agents.md` or `docs/guide/skills-agents.md` |
+| 8 | Skill/Agent Coverage | Skills and agents not listed in `docs/skills-agents.md` |
 | 9 | Cross-Doc Freshness | Stale version strings in REFCARDs, stale counts in "See Also" sections, `site_description` drift |
 
 ---

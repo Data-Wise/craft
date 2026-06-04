@@ -7,7 +7,7 @@
 > - **What:** Complete guide to installing and using craft's 109 commands, 38 skills, and 8 agents
 > - **Why:** Master the full-stack toolkit to automate your entire development workflow
 > - **How:** Install plugin → verify with `/craft:hub` → start with `/craft:do "task"`
-> - **Next:** Read about [Skills & Agents](skills-agents.md) to understand AI automation
+> - **Next:** Read about [Skills & Agents](../skills-agents.md) to understand AI automation
 
 Complete guide to using the craft plugin for Claude Code.
 
@@ -204,6 +204,6 @@ When you use `/craft:do`, the system determines which combination to use.
 !!! abstract "Progress: Step 6/6 - Complete!"
     Continue your journey
 
-- [Skills & Agents](skills-agents.md) - Understanding the AI system
+- [Skills & Agents](../skills-agents.md) - Understanding the AI system
 - [Orchestrator](orchestrator.md) - Advanced mode-aware execution
 - [Commands Overview](../commands/overview.md) - Explore all commands
