@@ -1145,6 +1145,12 @@ npm test
 /craft:orchestrate continue               # Resume session
 ```
 
+**Spec-driven drive:**
+
+| Command | Purpose |
+|---------|---------|
+| `/craft:orchestrate:drive` | Spec → autonomous /goal loop → verified green |
+
 **Modes:**
 
 | Mode         | Waves | Parallelism | Use Case                   |

@@ -758,6 +758,7 @@ Works with all craft commands:
 
 ## See Also
 
+- `/craft:orchestrate:drive` — spec-anchored /goal turn-loop (vs --swarm fan-out)
 - `/craft:do` — Simpler task routing (no monitoring)
 - `/craft:check` — Pre-flight validation
 - `/craft:hub` — Discover all commands

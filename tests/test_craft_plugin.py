@@ -474,6 +474,29 @@ def test_no_broken_links():
         f"Broken links: {broken[:3]}{'...' if len(broken) > 3 else ''}"
 
 
+def test_drive_engine_skill_exists():
+    """The shared drive-engine skill must exist with valid frontmatter."""
+    plugin_dir = Path(__file__).parent.parent
+    skill = plugin_dir / "skills" / "orchestration" / "drive-engine" / "SKILL.md"
+    assert skill.exists(), "skills/orchestration/drive-engine/SKILL.md missing"
+    fm = _parse_skill_frontmatter(skill)
+    assert fm is not None, "drive-engine SKILL.md has no parseable frontmatter"
+    assert "name" in fm and "description" in fm, "drive-engine missing name/description"
+    assert fm["name"] == "drive-engine"
+
+
+def test_drive_command_exists():
+    """The orchestrate:drive command must exist with valid frontmatter."""
+    plugin_dir = Path(__file__).parent.parent
+    cmd = plugin_dir / "commands" / "orchestrate" / "drive.md"
+    assert cmd.exists(), "commands/orchestrate/drive.md missing"
+    text = cmd.read_text(encoding="utf-8")
+    assert text.startswith("---"), "drive.md missing frontmatter block"
+    assert "description:" in text.split("---")[1], "drive.md frontmatter missing description"
+    # Must not silently auto-open a PR (human publish gate).
+    assert "gh pr create" in text, "drive.md must print the PR command, not open it"
+
+
 def test_consistent_naming():
     """Test that files follow naming conventions."""
     plugin_dir = Path(__file__).parent.parent
