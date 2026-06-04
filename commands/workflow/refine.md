@@ -7,7 +7,7 @@ replaced-by: "skills/workflow/adhd-workflow/"
 
 # /refine - Prompt Optimizer
 
-> **Deprecated.** Superseded by the `refine` flag (the prompt pre-processing option on brainstorm/do/orchestrate/plan:feature/arch:plan) plus the prompt-refiner skill. Standalone "refine and print" behavior preserved by the skill.
+> **Deprecated.** Superseded by the `--refine` flag (the prompt pre-processing option on brainstorm/do/orchestrate/plan:feature/arch:plan) plus the prompt-refiner skill. Standalone "refine and print" behavior preserved by the skill.
 
 Optimize vague or unclear prompts into specific, well-structured requests that get better results from Claude.
 
