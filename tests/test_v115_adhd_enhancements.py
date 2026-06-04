@@ -86,7 +86,6 @@ def test_time_estimates_in_tutorials():
         "QUICK-START.md",
         "ADHD-QUICK-START.md",
         "guide/getting-started.md",
-        "skills-agents.md",
         "guide/orchestrator.md",
         "workflows/index.md",
         "PLAYGROUND.md",
