@@ -104,10 +104,10 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) Brainstorm v2.35.0 scope — remaining v2.33.0 spec increments (worktree pre-flight, Homebrew SHA fix, sweep --fix) + new ideas
+A) Investigate the CI-invisible deprecation drift — 56 command files had `deprecated: true` removed in the working tree mid-session (cause unknown; stashed as stash@{0}, NOT committed). Find what strips deprecation frontmatter; the release was unaffected (explicit git-add kept it out). ⚡ (recommended — silent un-deprecation is a latent bug)
 B) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
 C) Audit deprecated source commands from migration — schedule removal for v3.0.0
-D) Take a break — v2.34.0 ships clean, no urgent follow-ups
+D) Take a break — v2.35.0 shipped clean, downstream all green
 
 Issues closed this session (2026-05-11):
 - #126 (e30ba371) — env-var → stdin contract corrected in insights spec
