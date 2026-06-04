@@ -145,6 +145,17 @@ class TestCommandFrontmatter:
             seen[key] = cmd
         assert not dupes, f"Duplicate command names: {dupes}"
 
+    def test_refine_flag_scope(self):
+        """--refine must appear in exactly the 5 sanctioned commands, no others."""
+        allowed = {
+            "brainstorm.md", "do.md", "orchestrate.md", "feature.md", "plan.md",
+        }
+        offenders = []
+        for cmd in _find_all_commands():
+            if "--refine" in cmd.read_text(encoding="utf-8") and cmd.name not in allowed:
+                offenders.append(str(cmd))
+        assert not offenders, f"--refine leaked into non-sanctioned commands: {offenders}"
+
 
 # ============================================================================
 # 3. Skill Registration Integrity
