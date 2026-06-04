@@ -416,5 +416,24 @@ class TestPluginJsonSchema:
         )
 
 
+def test_refine_delegates_to_skill():
+    """Every --refine command must delegate to the skill, not restate the flow."""
+    targets = [
+        "commands/workflow/brainstorm.md",
+        "commands/do.md",
+        "commands/orchestrate.md",
+        "commands/plan/feature.md",
+        "commands/arch/plan.md",
+    ]
+    bad = []
+    for rel in targets:
+        text = (PLUGIN_DIR / rel).read_text(encoding="utf-8")
+        delegates = "prompt-refiner" in text
+        restates = "Accept/Edit/Use original" in text or "Accept / Edit / Use original" in text
+        if not delegates or restates:
+            bad.append(rel)
+    assert not bad, f"commands must delegate to prompt-refiner, not restate the flow: {bad}"
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
