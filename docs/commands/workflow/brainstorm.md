@@ -35,6 +35,8 @@
 
 Enhanced brainstorming with smart mode detection, time budgets, agent delegation, and spec capture for implementation. Designed to be ADHD-friendly with escape hatches at every step.
 
+> **`--refine` flag:** Add `--refine` to sharpen your prompt via the `prompt-refiner` skill before acting. See [the --refine flag guide](../../help/refine-flag.md).
+
 **v2.4.0 Features:**
 
 - **Colon notation** - `d:5`, `m:12`, `q:3` for custom question counts

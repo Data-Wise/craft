@@ -145,6 +145,32 @@ class TestCommandFrontmatter:
             seen[key] = cmd
         assert not dupes, f"Duplicate command names: {dupes}"
 
+    def test_refine_flag_scope(self):
+        """The --refine flag must be DECLARED in exactly the 5 sanctioned commands.
+
+        Keys on the frontmatter argument declaration (``- name: refine``), not a
+        substring of ``--refine`` — so prose mentions (e.g. the deprecated
+        /refine command's sunset note) are correctly ignored. Enforces both
+        bounds: no extra declarers AND none missing. Uses relative paths so a
+        future filename collision can't produce a false pass.
+        """
+        expected = {
+            "commands/workflow/brainstorm.md",
+            "commands/do.md",
+            "commands/orchestrate.md",
+            "commands/plan/feature.md",
+            "commands/arch/plan.md",
+        }
+        declarers = set()
+        for cmd in _find_all_commands():
+            if "- name: refine" in cmd.read_text(encoding="utf-8"):
+                declarers.add(str(cmd.relative_to(PLUGIN_DIR)))
+        assert declarers == expected, (
+            "--refine flag declared in the wrong set of commands.\n"
+            f"  unexpected: {sorted(declarers - expected)}\n"
+            f"  missing:    {sorted(expected - declarers)}"
+        )
+
 
 # ============================================================================
 # 3. Skill Registration Integrity

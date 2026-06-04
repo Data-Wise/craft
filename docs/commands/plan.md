@@ -29,6 +29,8 @@ All commands support flexible scoping (MVP/full/enterprise) and multiple output 
 
 Break down features into actionable tasks with estimates, dependencies, and acceptance criteria.
 
+> **`--refine` flag:** Add `--refine` to sharpen your prompt via the `prompt-refiner` skill before acting. See [the --refine flag guide](../help/refine-flag.md).
+
 ### Quick Start
 
 ```bash

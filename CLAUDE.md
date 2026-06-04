@@ -4,9 +4,9 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**109 commands** · **37 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**109 commands** · **38 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-> `orchestrate:drive` — spec-driven autonomous /goal loop
+> `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (5 commands)
 
 **Current Version:** v2.34.0 | **Tests:** 112 tests passing (13 unit + 21 e2e + 28 dogfood + 50 homebrew)
 

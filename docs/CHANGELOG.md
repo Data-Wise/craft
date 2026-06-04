@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - /craft:orchestrate:drive — spec-driven autonomous implementation loop (native /goal + drive-engine skill + real verify gate).
+- --refine flag on brainstorm/do/orchestrate/plan:feature/arch:plan — refines the prompt via the new prompt-refiner skill before acting.
 
 ## [2.34.0] — 2026-05-15
 
