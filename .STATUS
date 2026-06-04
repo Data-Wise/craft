@@ -15,8 +15,18 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-- `feature/orchestrate-drive` — `~/.git-worktrees/craft/feature-orchestrate-drive` (created 2026-06-03, off dev @ 4414bd91). Implements `/craft:orchestrate:drive` per SPEC + PLAN (2026-06-03). **Status: WIP — active session in worktree.** Task 1 done (drive-engine skill, commit 4741f87f, pushed to origin). Plan is 10 tasks; remaining: thin command, count sync, website update, help/tutorial/cookbook, e2e, verify+PR handoff. Working tree dirty (next task in progress) — do NOT commit from the dev session.
-- `feature/refine-flag` — `~/.git-worktrees/craft/feature-refine-flag` (created 2026-06-03, off dev @ a4861cfc). Implements `--refine` flag + `prompt-refiner` skill per SPEC + PLAN (2026-06-03). **Status: not started** — START-HERE staged, awaiting fresh session in worktree. Plan is 8 tasks.
+_None — `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` all merged to dev 2026-06-03 (PRs #143, #144, #145); worktrees + branches removed._
+
+✅ Session 2026-06-03 (three features shipped to dev):
+
+PRs merged (all to dev):
+- #143 (orchestrate:drive) — thin command + `skills/orchestration/drive-engine/` skill, two-stage termination (real verify gate), stop-at-green/no-auto-PR. +463/−2, 16 files.
+- #144 (--refine flag) — `skills/workflow/prompt-refiner/` skill + `--refine` on brainstorm/do/orchestrate/plan:feature/arch:plan; rebased onto dev (plugin.json/CLAUDE.md/CHANGELOG count+entry conflicts resolved → 109 cmds / 38 skills). Scope-guard test hardened to key on `- name: refine` declaration (was false-flagging the /refine sunset-note prose). +396/−2, 24 files.
+- #145 (version-sync set -e false-fail) — `|| true` on grep|head pipelines + `return 0` on trailing conditional; added `tests/test_version_sync.sh` regression (red/green proven). +12/−8 + test.
+
+Post-merge dev state: 109 commands · 38 skills · 8 agents; validate-counts ✓; unit suite 23 passed. CHANGELOG `[Unreleased]` carries both feature entries (promote at next release).
+
+Key learning: two parallel feature branches both bumping `plugin.json`/`CLAUDE.md` counts → the second to merge MUST rebase; both sides naively wrote "+1" so the resolved count is base+2 (37→38, not 37). Confirmed with validate-counts before continuing the rebase.
 
 ✅ Session 2026-05-15 (post-merge cleanup of v2.34.0 migration):
 
