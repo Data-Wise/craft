@@ -28,8 +28,8 @@ stats = get_command_stats()
 commands = load_cached_commands()
 
 # Available data:
-# - stats['total']: Total command count (e.g., 108)
-# - stats['categories']: Dict of category counts (e.g., {'code': 12, 'test': 2, ...})
+# - stats['total']: Total command count (e.g., 109)
+# - stats['categories']: Dict of category counts (e.g., {'code': 15, 'test': 3, ...})
 # - stats['with_modes']: Commands supporting modes
 # - stats['with_dry_run']: Commands with dry-run support
 # - commands: Full list of command objects with metadata
@@ -139,7 +139,7 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (12)                         TEST (2)                              │
+│ CODE (15)                         TEST (3)                              │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
 │   /craft:code:coverage [mode]      /craft:test:gen                      │
 │   /craft:code:debug                                                     │
@@ -148,7 +148,7 @@ Display template:
 │   /craft:code:ci-local             /craft:arch:plan                     │
 │   /craft:code:ci-fix               /craft:arch:review                   │
 │                                    /craft:arch:diagram                  │
-│ DOCS (25)                                                               │
+│ DOCS (21)                                                               │
 │   /craft:docs:update             PLAN (3)                               │
 │   /craft:docs:sync                 /craft:plan:feature                  │
 │   /craft:docs:lint                 /craft:plan:sprint                   │
@@ -173,7 +173,7 @@ Display template:
 │ SITE (16)                          /craft:dist:curl-install             │
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
-│   /craft:site:check              ORCHESTRATE (3)                        │
+│   /craft:site:check              ORCHESTRATE (4)                        │
 │   /craft:site:update               /craft:orchestrate [mode]           │
 │   /craft:site:publish              /craft:orchestrate:resume           │
 │                                                                         │
@@ -338,7 +338,7 @@ Many commands support modes for different use cases:
 ### `/craft:hub code`
 
 ```
-CODE COMMANDS (12) - Code Quality & Development
+CODE COMMANDS (15) - Code Quality & Development
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
@@ -354,18 +354,22 @@ Command                  | Description                    | Modes
 /craft:code:refactor     | Refactoring guidance           | -
 /craft:code:release      | Release workflow               | -
 /craft:code:docs-check   | Pre-flight doc check           | -
+/craft:code:command-audit| Audit command frontmatter      | -
+/craft:code:release-watch| Track Claude Code/Desktop rels | -
+/craft:code:desktop-watch| Track Claude Desktop releases  | -
 ─────────────────────────────────────────────────────────────────────────
 ```
 
 ### `/craft:hub test`
 
 ```
-TEST COMMANDS (2) - Unified Testing
+TEST COMMANDS (3) - Unified Testing
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
 /craft:test [mode]       | Unified test runner            | yes
 /craft:test:gen          | Generate test suites (Jinja2)  | -
+/craft:test:template     | Manage Jinja2 test templates   | -
 ─────────────────────────────────────────────────────────────────────────
 
 Usage:
@@ -380,7 +384,7 @@ Usage:
 ### `/craft:hub docs`
 
 ```
-DOCS COMMANDS (25) - Documentation Automation
+DOCS COMMANDS (21) - Documentation Automation
 ─────────────────────────────────────────────────────────────────────────
 Command                        | Description
 ───────────────────────────────┼─────────────────────────────────────
@@ -397,6 +401,11 @@ Command                        | Description
 /craft:docs:tutorial           | Generate step-by-step tutorials
 /craft:docs:api                | Generate API documentation
 /craft:docs:quickstart         | Generate quickstart guides
+/craft:docs:help               | Generate help pages
+/craft:docs:prompt             | Generate documentation prompts
+/craft:docs:site               | Website documentation focus
+/craft:docs:website            | ADHD-friendly website enhancement
+/craft:docs:workflow           | Workflow documentation generator
 
 CLAUDE.md Management:
   /craft:docs:claude-md:init   | Create from lean template (< 150 lines)
@@ -557,7 +566,7 @@ Command                  | Description
 ### `/craft:hub orchestrate`
 
 ```
-ORCHESTRATE COMMANDS (3) - Multi-Agent Coordination
+ORCHESTRATE COMMANDS (4) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
 /craft:orchestrate "task" [mode]     | Launch orchestrator (free-form, fan-out)
 /craft:orchestrate:drive [spec]      | Spec-driven autonomous /goal loop → verified green
