@@ -17,6 +17,10 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 _None — `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` all merged to dev 2026-06-03 (PRs #143, #144, #145); worktrees + branches removed._
 
+✅ Session 2026-06-10 (homebrew generator deprecation fix — on dev, UNRELEASED):
+- `commands/dist/homebrew.md` cask generator emitted deprecated `depends_on macos: ">= :{min_macos}"`; switched to bare-symbol form `depends_on macos: :{min_macos}` (min_macos is always a macOS codename, so the symbol is valid). Also fixed the reference SPEC-desktop-release-pipeline. Commit 6087ede1 on dev.
+- Root cause for the warning that surfaced in Data-Wise/homebrew-tap (fixed there in PR #112/#113). Promote/ship on next craft release so regenerated casks stop reintroducing the warning.
+
 ✅ Session 2026-06-03 (three features shipped to dev):
 
 PRs merged (all to dev):
