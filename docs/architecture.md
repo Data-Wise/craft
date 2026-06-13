@@ -215,7 +215,7 @@ Automated detection of documentation drift across 4 phases:
 scripts/docs-staleness-check.sh
     ↓
 Phase 6: Nav Completeness    → mkdocs.yml vs docs/ files
-Phase 7: Count Consistency   → "108 commands" refs match reality
+Phase 7: Count Consistency   → "109 commands" refs match reality
 Phase 8: Coverage            → skills/agents/commands in docs
 Phase 9: Cross-Doc Freshness → stale summary lines
     ↓
