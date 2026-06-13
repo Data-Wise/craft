@@ -486,6 +486,10 @@ def _resolve_binding(over, upstream_outputs):
                 pos += 1 + len(field)
                 flattened = []
                 for item in value:
+                    if not isinstance(item, dict) or field not in item:
+                        raise WorkflowError(
+                            f"binding {over!r}: element missing field {field!r}"
+                        )
                     flattened.extend(item[field])
                 value = flattened
             else:
@@ -496,6 +500,10 @@ def _resolve_binding(over, upstream_outputs):
                 raise WorkflowError(f"invalid binding segment in {over!r}")
             field = field_match.group(1)
             pos += 1 + len(field)
+            if not isinstance(value, dict) or field not in value:
+                raise WorkflowError(
+                    f"binding {over!r}: missing field {field!r}"
+                )
             value = value[field]
         else:
             raise WorkflowError(f"invalid binding segment in {over!r}")

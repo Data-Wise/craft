@@ -225,6 +225,25 @@ def test_empty_flatten_fanout_also_hard_aborts():
     assert "cover" in str(exc.value)
 
 
+def test_heterogeneous_flatten_missing_field_is_a_workflow_error():
+    # Agents returned different shapes: one {findings:[]}, one {notes:[]}.
+    # Binding cover[].findings must fail as a structured WorkflowError,
+    # not a bare KeyError/TypeError that aborts the whole resolver.
+    upstream = {"cover": [{"findings": [1]}, {"notes": [2]}]}
+    with pytest.raises(wp.WorkflowError) as exc:
+        wp.resolve_fanout("cover[].findings", upstream)
+    assert "findings" in str(exc.value)
+
+
+def test_dot_field_missing_on_object_is_a_workflow_error():
+    # A .field walk over an object that lacks the field (or a scalar)
+    # must raise WorkflowError, not a bare KeyError/TypeError.
+    upstream = {"decompose": {"dimensions": [1]}}
+    with pytest.raises(wp.WorkflowError) as exc:
+        wp.resolve_fanout("decompose.missing", upstream)
+    assert "missing" in str(exc.value)
+
+
 # ---------------------------------------------------------------------------
 # D4 — cache-key hash (content hash of the three components)
 # ---------------------------------------------------------------------------
