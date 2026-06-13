@@ -130,10 +130,10 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) ✅ DONE (2026-06-13) — mermaid-marker CI fragility FIXED + MERGED (PR #149 → dev `d21a1e4a`): registered `mermaid`/`mermaid_mcp` in `pyproject.toml` so `--strict-markers` no longer hard-errors when the env plugin install flakes. No more `--admin` bypasses needed for this class. Workflow-engine doc gaps also closed (`88544709`). ⚡ NEXT: delete 2 leftover local branches (`git branch -D feature/workflow-engine fix/mermaid-markers` — guard-blocked, needs manual run or `/craft:git:unprotect`); optional doc enhancements (2nd cookbook recipe, deeper `orchestrator-modes-compared.md` workflow walk-through).
+A) ✅ v2.36.0 SHIPPED + verified 2026-06-13 (release tag, GitHub release, Homebrew tap all GREEN). This session also closed out: deleted the 2 leftover local branches; closed workflow-engine doc gaps (counts→110/39, hub orchestrate row, 2 mermaid flowcharts); refreshed stale landing cosmetics (index.md cards 107→110/26→39, README banner → v2.36.0); added 6 engine error-path negative tests (`workflow_parse.py` coverage 92%→94%, suite 57→63); added a 2nd cookbook recipe (`fan-a-workflow-across-files.md`) + a workflow walk-through in `orchestrator-modes-compared.md`. ⚡ NEXT: run `./scripts/post-release-sweep.sh` to confirm no Tier-2 drift after the release; then re-sync `dev` with `main` (currently 1 merge-commit behind).
 B) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
 C) Audit deprecated source commands from migration — schedule removal for v3.0.0
-D) Take a break — v2.35.0 shipped clean, downstream all green
+D) Take a break — v2.36.0 shipped clean, downstream all green
 
 Issues closed this session (2026-05-11):
 - #126 (e30ba371) — env-var → stdin contract corrected in insights spec

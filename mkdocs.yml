@@ -279,6 +279,7 @@ nav:
       - Refine a Prompt Before Running: cookbook/recipes/refine-before-running.md
       - Drive a Spec to Green: cookbook/recipes/drive-a-spec-to-green.md
       - Run a Coded Workflow: cookbook/recipes/run-a-coded-workflow.md
+      - Fan a Workflow Across Files: cookbook/recipes/fan-a-workflow-across-files.md
       - Set Up New Project: cookbook/common/setup-new-project.md
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
