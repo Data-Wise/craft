@@ -17,9 +17,13 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
-| `feature/workflow-engine` | `~/.git-worktrees/craft/feature-workflow-engine` | dev @ `107ec13f` | Deterministic workflow engine (`/craft:orchestrate:workflow`); spec `SPEC-workflow-engine-2026-06-12.md`, plan `ORCHESTRATE-workflow-engine.md`. Scaffolded 2026-06-13, implementation pending (new session). |
+| `feature/workflow-engine` | `~/.git-worktrees/craft/feature-workflow-engine` | dev @ `107ec13f` | Deterministic workflow engine (`/craft:orchestrate:workflow`); spec `SPEC-workflow-engine-2026-06-12.md`, plan `ORCHESTRATE-workflow-engine.md`. **In progress 2026-06-13** — Increments 1–5a committed (parser+schema, skill executor, CLI/gate hooks, example+verify, FR6 `--refine` scope), HEAD `c6bde3ee`, clean tree. ⚠️ 2 behind `dev` — needs `git rebase origin/dev` to inherit the command-audit fix (#147). |
 
 _Prior: `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` all merged to dev 2026-06-03 (PRs #143–#145); worktrees + branches removed._
+
+✅ Session 2026-06-13 (deprecation-drift fix SHIPPED + sibling bug found/fixed):
+- **PR #147 MERGED → dev `1215e802`** (squash). Fixed the CI-invisible deprecation drift (`command-audit.sh --fix` stripping `deprecated`/`replaced-by`) AND a SECOND test-mutates-source bug found during verification: `test_docs_staleness.py` ran `docs-staleness-check.sh --fix` against the real tree, rewriting `108→109` count refs in 3 docs. Both fixed via isolated-copy helpers + structural guard `test_no_fix_invocation_targets_real_tree`; also fixed `test_on_expected_branch_type` to accept `fix/*`. Full `pytest tests/`: **1672 passed / 0 failed**, tree clean.
+- `stash@{0}` (the combined 56-file + 3-doc drift fingerprint) dropped; fix worktree + branch removed. Bug class eliminated on dev. Closes Next-Action item A.
 
 ✅ Session 2026-06-13 (workflow-engine scaffold + deprecation-drift root cause + spec-docs mandate):
 - **Workflow-engine spec** committed (`107ec13f`) + **FR9** (docs/tutorial/refcard/help-hub made ship-blocking). Worktree `feature/workflow-engine` scaffolded with ORCHESTRATE plan (5 increments); rebased onto dev `9ba88a6c` → at `e42afb06`. Implementation pending (new session).
@@ -118,7 +122,7 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) ✅ ROOT CAUSE CONFIRMED (2026-06-13) — CI-invisible deprecation drift = `command-audit.sh --fix` strips frontmatter keys missing from `VALID_FIELDS` (deprecated/replaced-by), triggered by `test_audit_fix_mode_dry` running `--fix` against the real tree. Fix spec ready: `docs/specs/SPEC-command-audit-deprecated-fields-2026-06-13.md`. ⚡ NEXT: implement in `fix/command-audit-deprecated-fields` worktree (2-file fix + TDD; new session).
+A) ✅ DONE (2026-06-13) — CI-invisible deprecation drift FIXED + MERGED (PR #147 → dev `1215e802`), plus a sibling docs-staleness `--fix` mutation bug found & fixed in the same PR. Bug class eliminated on dev. ⚡ NEXT: engine session runs `git rebase origin/dev` in `feature/workflow-engine` (2 behind) to inherit the fix, then finishes the remaining workflow-engine increments.
 B) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
 C) Audit deprecated source commands from migration — schedule removal for v3.0.0
 D) Take a break — v2.35.0 shipped clean, downstream all green
