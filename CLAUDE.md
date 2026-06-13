@@ -6,7 +6,7 @@
 
 **110 commands** · **39 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-> `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (5 commands)
+> `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (6 commands)
 
 **Current Version:** v2.35.0 | **Tests:** 130 passing (23 unit + 23 e2e + 29 dogfood + 55 homebrew)
 
