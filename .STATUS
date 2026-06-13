@@ -21,6 +21,12 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 _Prior: `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` all merged to dev 2026-06-03 (PRs #143–#145); worktrees + branches removed._
 
+✅ Session 2026-06-13 (workflow-engine scaffold + deprecation-drift root cause + spec-docs mandate):
+- **Workflow-engine spec** committed (`107ec13f`) + **FR9** (docs/tutorial/refcard/help-hub made ship-blocking). Worktree `feature/workflow-engine` scaffolded with ORCHESTRATE plan (5 increments); rebased onto dev `9ba88a6c` → at `e42afb06`. Implementation pending (new session).
+- **Spec-docs mandate** (`d6de5070`): `brainstorm` Step 5.5 + `orchestrate:plan` template now REQUIRE a "Documentation & Discoverability" section in every captured spec/plan.
+- **Deprecation-drift ROOT CAUSE CONFIRMED** via 15-agent workflow + manual code verify: `command-audit.sh --fix` (run by `test_audit_fix_mode_dry` against real tree) strips keys not in `VALID_FIELDS`. Fix spec written (`SPEC-command-audit-deprecated-fields-2026-06-13.md`); 2-file fix pending in `fix/command-audit-deprecated-fields` worktree. Memory `ci-invisible-deprecation-drift` upgraded to confirmed cause.
+- `stash@{0}` (the 56-file drift) still parked — drop it once the fix lands.
+
 ✅ Session 2026-06-10 (homebrew generator deprecation fix — on dev, UNRELEASED):
 - `commands/dist/homebrew.md` cask generator emitted deprecated `depends_on macos: ">= :{min_macos}"`; switched to bare-symbol form `depends_on macos: :{min_macos}` (min_macos is always a macOS codename, so the symbol is valid). Also fixed the reference SPEC-desktop-release-pipeline. Commit 6087ede1 on dev.
 - Root cause for the warning that surfaced in Data-Wise/homebrew-tap (fixed there in PR #112/#113). Promote/ship on next craft release so regenerated casks stop reintroducing the warning.
@@ -112,7 +118,7 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) Investigate the CI-invisible deprecation drift — 56 command files had `deprecated: true` removed in the working tree mid-session (cause unknown; stashed as stash@{0}, NOT committed). Find what strips deprecation frontmatter; the release was unaffected (explicit git-add kept it out). ⚡ (recommended — silent un-deprecation is a latent bug)
+A) ✅ ROOT CAUSE CONFIRMED (2026-06-13) — CI-invisible deprecation drift = `command-audit.sh --fix` strips frontmatter keys missing from `VALID_FIELDS` (deprecated/replaced-by), triggered by `test_audit_fix_mode_dry` running `--fix` against the real tree. Fix spec ready: `docs/specs/SPEC-command-audit-deprecated-fields-2026-06-13.md`. ⚡ NEXT: implement in `fix/command-audit-deprecated-fields` worktree (2-file fix + TDD; new session).
 B) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
 C) Audit deprecated source commands from migration — schedule removal for v3.0.0
 D) Take a break — v2.35.0 shipped clean, downstream all green
