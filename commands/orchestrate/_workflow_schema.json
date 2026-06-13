@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Craft Workflow Definition Schema (constrained dialect, v1)",
+  "description": "Reference dialect for WORKFLOW-*.yaml definitions consumed by /craft:orchestrate:workflow. Documented for reference only; enforcement is the deterministic stdlib structural validator in scripts/workflow_parse.py (D2). v1 dialect is DELIBERATELY constrained — required keys, primitive types, and homogeneous arrays only. NO oneOf, regex pattern, or conditional subschemas, so the stdlib validator never needs jsonschema.",
+  "type": "object",
+  "required": ["name", "stages"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Workflow identifier",
+      "examples": ["code-review-sweep"]
+    },
+    "version": {
+      "type": "integer",
+      "description": "Definition schema version",
+      "default": 1
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Named workflow inputs. Each value is a primitive type spec with optional required flag.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": {"type": "string", "enum": ["string", "number", "boolean"]},
+          "required": {"type": "boolean", "default": false}
+        }
+      }
+    },
+    "max_concurrent": {
+      "type": "integer",
+      "description": "Run-wide semaphore ceiling: max simultaneously-live agents across all waves (D5/FR7). Defaults to 16 if omitted. A per-parallel-stage max_concurrent caps that wave's width and may not exceed this ceiling.",
+      "default": 16
+    },
+    "stages": {
+      "type": "array",
+      "description": "Ordered pipeline stages. Control flow is fixed in the definition; only parallel fan-out volume flexes to upstream data.",
+      "items": {
+        "type": "object",
+        "required": ["id", "type"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique stage identifier, referenced by downstream ${id.field} bindings"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["agent", "parallel", "pipeline", "loop", "verify"],
+            "description": "Control-flow primitive (FR2)"
+          },
+          "role": {
+            "type": "string",
+            "description": "Agent role for type=agent stages"
+          },
+          "agent": {
+            "type": "object",
+            "description": "Per-fan-out agent spec for type=parallel stages",
+            "properties": {
+              "role": {"type": "string"},
+              "output_schema": {"$ref": "#/$defs/output_schema"}
+            }
+          },
+          "output_schema": {"$ref": "#/$defs/output_schema"},
+          "over": {
+            "type": "string",
+            "description": "Data-driven fan-out binding for type=parallel: ${stage.field} (one array) or ${stage.*.field} (flatten one level across the upstream collection). Empty resolved array is a HARD ERROR naming the upstream stage (D6/FR8)."
+          },
+          "fan": {
+            "type": "integer",
+            "description": "Replicas per bound element (e.g. fan: 2 = 2 verifiers per finding). Default 1.",
+            "default": 1
+          },
+          "max_concurrent": {
+            "type": "integer",
+            "description": "Per-stage wave-width cap; must not exceed the run-wide ceiling"
+          },
+          "input": {
+            "type": "string",
+            "description": "Input binding for the stage: ${stage.field} or ${stage.*} (all outputs of an upstream stage)"
+          },
+          "command": {
+            "type": "string",
+            "description": "For type=verify (D8): a real project command whose exit status is the authoritative pass/fail. A green transcript is not sufficient."
+          },
+          "max_iter": {
+            "type": "integer",
+            "description": "For type=loop: bound on iterations"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "output_schema": {
+      "type": "object",
+      "description": "Constrained structural contract for an agent's JSON output (D2 dialect). Shorthand form: each key maps to a type spec string. All declared keys are required.",
+      "additionalProperties": {
+        "type": "string",
+        "enum": [
+          "string", "number", "boolean",
+          "string[]", "number[]", "boolean[]", "object[]"
+        ]
+      },
+      "examples": [
+        {"dimensions": "string[]"},
+        {"findings": "object[]"},
+        {"confirmed": "boolean"}
+      ]
+    }
+  }
+}
