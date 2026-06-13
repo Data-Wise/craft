@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 109 commands, 8 agents, 38 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.35.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 110 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.36.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -1782,6 +1782,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#first-orchestration-mode-vs-execution-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First: orchestration mode vs execution mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First: orchestration mode vs execution mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-three-orchestration-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three orchestration modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-youll-learn" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2867,6 +2895,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../TUTORIAL-orchestrate-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrate Workflow Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/orchestrate-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Orchestrate Workflow Help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../guide/mermaid-authoring/" class="md-nav__link">
         
   
@@ -2934,10 +3018,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_38" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_40" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_38" id="__nav_2_4_38_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_40" id="__nav_2_4_40_label" tabindex="0">
             
   
   
@@ -2955,8 +3039,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_38_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_38">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_40_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_40">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3132,10 +3216,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_40" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_42" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_40" id="__nav_2_4_40_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_42" id="__nav_2_4_42_label" tabindex="0">
             
   
   
@@ -3153,8 +3237,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_40_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_40">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_42_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_42">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4703,6 +4787,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../commands/orchestrate-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:orchestrate:workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../commands/ci/generate/" class="md-nav__link">
         
   
@@ -6198,6 +6310,34 @@
     
   
     Drive a Spec to Green
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/recipes/run-a-coded-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run a Coded Workflow
   
 
     
@@ -7855,6 +7995,34 @@
     
   
     Protect-Baseline Quick Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/REFCARD-WORKFLOW/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow Engine Quick Reference
   
 
     
@@ -9838,6 +10006,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#first-orchestration-mode-vs-execution-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First: orchestration mode vs execution mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First: orchestration mode vs execution mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-three-orchestration-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The three orchestration modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-youll-learn" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10407,6 +10603,46 @@
 <p><strong>Level:</strong> Intermediate
 <strong>Time:</strong> 20-30 minutes
 <strong>Prerequisites:</strong> Basic understanding of <code>/craft:orchestrate</code></p>
+<hr />
+<h2 id="first-orchestration-mode-vs-execution-mode">First: orchestration mode vs execution mode<a class="headerlink" href="#first-orchestration-mode-vs-execution-mode" title="Permanent link">&para;</a></h2>
+<p>Two different axes share the word "mode":</p>
+<ul>
+<li><strong>Orchestration mode</strong> = <em>which command</em> (what control model) — there are
+  <strong>three</strong>.</li>
+<li><strong>Execution mode</strong> = <em>how intensely</em> <code>/craft:orchestrate</code> runs (default /
+  debug / optimize / release) — there are <strong>four</strong>, covered in depth below.</li>
+</ul>
+<h3 id="the-three-orchestration-modes">The three orchestration modes<a class="headerlink" href="#the-three-orchestration-modes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Control model</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:orchestrate</code></td>
+<td>LLM <strong>improvises</strong> "what next" each turn</td>
+<td>exploratory work; you can't predict the steps</td>
+</tr>
+<tr>
+<td><code>/craft:orchestrate:drive</code></td>
+<td>drives an approved <strong>SPEC</strong> to green via a <code>/goal</code> loop</td>
+<td>one spec → autonomous completion</td>
+</tr>
+<tr>
+<td><code>/craft:orchestrate:workflow</code></td>
+<td>executes a <strong>fixed coded program</strong>; only fan-out <em>volume</em> flexes to data</td>
+<td>known shapes: decompose → cover N → verify M → synthesize</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule of thumb:</strong> improvise when the path is unknown (<code>orchestrate</code>), drive
+when you have an approved spec (<code>drive</code>), code it when the shape repeats and you
+want determinism + resumable replay (<code>workflow</code>). The four <strong>execution</strong> modes
+below apply to <code>/craft:orchestrate</code>.</p>
 <hr />
 <h2 id="what-youll-learn">What You'll Learn<a class="headerlink" href="#what-youll-learn" title="Permanent link">&para;</a></h2>
 <ol>
