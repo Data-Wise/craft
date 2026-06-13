@@ -19,7 +19,11 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 |--------|------|------|---------|
 | _(none active)_ | — | — | — |
 
-_Prior: `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash, 2026-06-13); worktree + remote branch removed (local `feature/workflow-engine` branch leftover — guard blocked `-D`, needs manual delete). `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
+_Prior: `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash, 2026-06-13); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash). Both worktrees + remote branches removed. **2 local branches leftover** (`feature/workflow-engine`, `fix/mermaid-markers`) — guard blocks `-D`; need manual delete (or `/craft:git:unprotect` then `-D`). `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
+
+✅ Session 2026-06-13 (mermaid-marker CI fix + workflow-engine doc-gap closure):
+- **PR #149 MERGED → dev `d21a1e4a`** (squash, normal — no `--admin`). Registered `mermaid`/`mermaid_mcp` in `pyproject.toml` markers, killing the `--strict-markers` collection-flake that was red-listing ALL craft CI when the env plugin install flaked. Full suite: **1729 passed / 38 skipped / 1 xfailed**. Resolves Next Action A.
+- **Doc-gap closure → dev `88544709`** (workflow-engine documentation gap analysis): count drift fixed to 110/39 across README (6 refs), `docs/index.md`, cookbook, + categorical subtotals bump-version.sh misses (`hub.md` ORCHESTRATE 4→5 + Skills 38→39; `skills-agents.md` Orchestration 4→5); added the missing `/craft:orchestrate:workflow` hub row; added 2 mermaid flowcharts (mode-selection in help, execution-pipeline in command ref). Debunked a false agent finding (no `slug:` frontmatter exists in craft).
 
 ✅ Session 2026-06-13 (workflow-engine SHIPPED + PR-review fixes + CI infra bug surfaced):
 - **PR #148 MERGED → dev `caadd8db`** (squash, `--admin`). Deterministic workflow engine (`/craft:orchestrate:workflow`, 3rd mode). Before merge, applied 2 review findings in the worktree (`d1d05880`): **B1** — `_resolve_binding` now fails closed as `WorkflowError` (not bare `KeyError`/`TypeError`) on missing/non-dict fields in both `[]`-flatten and `.field` paths (+2 regression tests, engine suite 55→57); **B2** — count drift (`package.json` 109→110/38→39; `plugin.json` breakdown `96+13`→`96+14`). Counts now 110 commands / 39 skills / 8 agents.
@@ -126,8 +130,7 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) 🔴 NEW (2026-06-13) — **dev CI is RED**: `pytest --strict-markers` hard-errors collecting `tests/test_mermaid_dogfood.py` (`@pytest.mark.mermaid`) + `tests/test_mermaid_e2e.py` (`@pytest.mark.mermaid_mcp`) because those 2 markers are NOT registered in `pyproject.toml`'s `markers` list. Latent: normally an env pytest plugin registers them, but its install is flaking → all craft CI fails when it does. **Fix (tiny, root-cause):** add `mermaid` + `mermaid_mcp` to the `markers = [...]` block in `pyproject.toml` (~line 23–53). Do via worktree → PR to dev. Closes the fragility for good; no more `--admin` bypasses needed.
-   - _Done this session:_ PR #148 (workflow engine) shipped → dev `caadd8db` with B1/B2 review fixes; leftover local branch `feature/workflow-engine` needs a manual `git branch -D` (guard blocked it).
+A) ✅ DONE (2026-06-13) — mermaid-marker CI fragility FIXED + MERGED (PR #149 → dev `d21a1e4a`): registered `mermaid`/`mermaid_mcp` in `pyproject.toml` so `--strict-markers` no longer hard-errors when the env plugin install flakes. No more `--admin` bypasses needed for this class. Workflow-engine doc gaps also closed (`88544709`). ⚡ NEXT: delete 2 leftover local branches (`git branch -D feature/workflow-engine fix/mermaid-markers` — guard-blocked, needs manual run or `/craft:git:unprotect`); optional doc enhancements (2nd cookbook recipe, deeper `orchestrator-modes-compared.md` workflow walk-through).
 B) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
 C) Audit deprecated source commands from migration — schedule removal for v3.0.0
 D) Take a break — v2.35.0 shipped clean, downstream all green
