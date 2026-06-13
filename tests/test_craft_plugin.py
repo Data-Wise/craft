@@ -60,6 +60,53 @@ def test_directory_structure():
     assert not missing, f"Missing directories: {missing}"
 
 
+def test_all_pytest_marks_are_registered():
+    """Every ``pytest.mark.<name>`` used in tests/ must be registered in pyproject.toml.
+
+    Guards against the unregistered-marker class of CI failure: pytest runs
+    with --strict-markers, so a mark that exists in a test file but not in
+    pyproject's markers list hard-errors at collection time (CI-only flake,
+    e.g. the mermaid markers that forced an --admin merge in v2.36.0).
+    """
+    try:
+        import tomllib  # Python 3.11+ stdlib
+    except ModuleNotFoundError:  # pragma: no cover - older interpreters only
+        import tomli as tomllib
+
+    # Built-in pytest marks are never listed in pyproject's markers list.
+    BUILTIN_MARKS = {
+        "parametrize", "skipif", "xfail", "skip", "filterwarnings", "usefixtures",
+    }
+
+    pyproject = PLUGIN_DIR / "pyproject.toml"
+    assert pyproject.exists(), f"Missing: {pyproject}"
+    with open(pyproject, "rb") as fh:
+        config = tomllib.load(fh)
+    raw_markers = config["tool"]["pytest"]["ini_options"]["markers"]
+    # Each entry is "name: description"; the canonical name is before the colon.
+    registered = {entry.split(":", 1)[0].strip() for entry in raw_markers}
+
+    tests_dir = PLUGIN_DIR / "tests"
+    used: dict[str, list[str]] = {}
+    for py_file in sorted(tests_dir.glob("*.py")):
+        text = py_file.read_text(encoding="utf-8")
+        for mark in re.findall(r"pytest\.mark\.(\w+)", text):
+            if mark in BUILTIN_MARKS:
+                continue
+            used.setdefault(mark, []).append(py_file.name)
+
+    unregistered = {m: files for m, files in used.items() if m not in registered}
+    if unregistered:
+        detail = "\n".join(
+            f"  - {mark!r} used in: {', '.join(sorted(set(files)))}"
+            for mark, files in sorted(unregistered.items())
+        )
+        raise AssertionError(
+            "Unregistered pytest marks (add to pyproject.toml [tool.pytest.ini_options].markers, "
+            "or CI --strict-markers will hard-error at collection):\n" + detail
+        )
+
+
 def test_readme_exists():
     """Test that README.md exists."""
     plugin_dir = Path(__file__).parent.parent

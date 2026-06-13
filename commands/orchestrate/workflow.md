@@ -17,6 +17,9 @@ arguments:
     description: Pre-process a natural-language workflow request through prompt-refiner before synthesizing a definition
     required: false
     default: false
+related_commands: orchestrate, orchestrate:drive
+tutorial_file: docs/cookbook/recipes/run-a-coded-workflow.md
+tags: workflow, orchestration, parallel, fan-out, yaml
 ---
 
 # /craft:orchestrate:workflow — Coded Orchestration
@@ -99,3 +102,5 @@ human-readable `manifest.json`, and `semaphore.count`.
 - `/craft:orchestrate` — free-form multi-agent orchestration
 - `/craft:orchestrate:drive` — drive an approved SPEC to green
 - `workflow-engine` skill — the compile + dispatch + verify body this command calls
+- [Run a coded workflow](../../docs/cookbook/recipes/run-a-coded-workflow.md) — cookbook: write a `WORKFLOW-*.yaml`, dry-run preview, execute, resume
+- [Fan a workflow across files](../../docs/cookbook/recipes/fan-a-workflow-across-files.md) — cookbook: list → parallel-per-file → gate → summarize pattern
