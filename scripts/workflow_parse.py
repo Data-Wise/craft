@@ -261,6 +261,7 @@ def parse_yaml(text):
                 "fan": fan,
                 "input": _canon_path(s.get("input")),
                 "command": s.get("command"),  # for type=verify (D8)
+                "max_iter": s.get("max_iter"),  # for type=loop
             }
         )
     return {
@@ -369,11 +370,11 @@ class _DSLReader:
         flatten_path = "[]" in path
         if operator == "map" and flatten_path:
             raise WorkflowError(
-                "map() binds a single array; a [] (flatten) path requires flatMap()"
+                "map() binds a single array; a [] (flatten) path requires flatMap()/flatten()"
             )
-        if operator == "flatMap" and not flatten_path:
-            raise WorkflowError("flatMap() requires a [] (flatten) path")
-        if operator not in ("map", "flatMap"):
+        if operator in ("flatMap", "flatten") and not flatten_path:
+            raise WorkflowError(f"{operator}() requires a [] (flatten) path")
+        if operator not in ("map", "flatMap", "flatten"):
             raise WorkflowError(f"unknown fan-out operator {operator!r}")
         return {
             "id": inner["id"],
@@ -580,6 +581,26 @@ def cache_key(stage_block, resolved_input, role_prompt_version):
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+def build_deps(plan):
+    """Derive the stage dependency graph from a wave plan's bindings (D4).
+
+    A wave depends on the upstream stage(s) its fan-out (``over``) and ``input``
+    bindings read from. This is the bridge that lets ``cascade_invalidate`` run
+    on a real plan — without it the cascade is untethered from the definition.
+    Returns ``{stage_id: [upstream_ids]}``.
+    """
+    deps = {}
+    for wave in plan["waves"]:
+        upstream = set()
+        fanout = wave.get("fanout", {})
+        if fanout.get("kind") == "dynamic" and fanout.get("over"):
+            upstream.add(_binding_source(fanout["over"]))
+        if wave.get("input"):
+            upstream.add(_binding_source(wave["input"]))
+        deps[wave["id"]] = sorted(upstream)
+    return deps
+
+
 def cascade_invalidate(stages, changed, deps):
     """Given directly-changed stages, return the FULL invalidation set (D4).
 
@@ -617,7 +638,18 @@ def compile_plan(definition):
     outputs) produce identical waves.
     """
     waves = []
+    seen = set()
     for stage in definition["stages"]:
+        # Fail fast: every binding must reference an EARLIER stage. A typo or a
+        # forward reference is a definition bug, not a runtime surprise (E).
+        for binding in (stage.get("over"), stage.get("input")):
+            if binding:
+                source = _binding_source(binding)
+                if source not in seen:
+                    raise WorkflowError(
+                        f"stage '{stage['id']}' binds to '{binding}' but upstream "
+                        f"stage '{source}' is not defined before it"
+                    )
         if stage["type"] == "parallel":
             over = stage["over"]
             if over is None:
@@ -641,8 +673,10 @@ def compile_plan(definition):
                 "output_schema": stage.get("output_schema"),
                 "input": stage.get("input"),
                 "command": stage.get("command"),  # set only for type=verify (D8)
+                "max_iter": stage.get("max_iter"),  # set only for type=loop
             }
         )
+        seen.add(stage["id"])
     return {
         "name": definition.get("name"),
         "max_concurrent": definition.get("max_concurrent", DEFAULT_CEILING),

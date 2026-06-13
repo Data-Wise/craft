@@ -518,3 +518,58 @@ def test_example_workflow_file_parses_to_the_canonical_five_stage_shape():
     assert ids == ["decompose", "cover", "verify", "synthesize"]
     cover = [w for w in plan["waves"] if w["id"] == "cover"][0]
     assert cover["fanout"]["kind"] == "dynamic"
+
+
+# ---------------------------------------------------------------------------
+# Adversarial hardening (post-review): close real gaps the probes found
+# ---------------------------------------------------------------------------
+
+def test_dsl_flatten_operator_is_accepted_as_a_flatten_fanout():
+    # D3 vocabulary lists map/flatMap/FLATTEN; flatten requires a [] path.
+    plan = wp.parse(
+        'pipeline('
+        'agent("cover", { role: "reviewer" }), '
+        'parallel(flatten("cover[].findings", agent("v", { role: "r" }))))'
+    )
+    wave = [w for w in plan["waves"] if w["id"] == "v"][0]
+    assert wave["fanout"]["over"] == "cover[].findings"
+    assert wave["fanout"]["flatten"] is True
+
+
+def test_dsl_flatten_without_bracket_path_is_a_grammar_error():
+    with pytest.raises(wp.WorkflowError):
+        wp.parse('pipeline(parallel(flatten("decompose.dimensions", agent("v", { role: "r" }))))')
+
+
+def test_build_deps_extracts_the_dependency_graph_from_bindings():
+    # The missing link that makes the D4 cascade usable on a real plan.
+    deps = wp.build_deps(wp.parse(YAML_FORM))
+    assert deps == {
+        "decompose": [],
+        "cover": ["decompose"],
+        "verify": ["cover"],
+        "synthesize": ["verify"],
+    }
+
+
+def test_cascade_runs_end_to_end_from_a_plan():
+    plan = wp.parse(YAML_FORM)
+    deps = wp.build_deps(plan)
+    order = [w["id"] for w in plan["waves"]]
+    # editing 'cover' must re-run cover + verify + synthesize, not decompose
+    invalid = wp.cascade_invalidate(order, {"cover"}, deps)
+    assert invalid == {"cover", "verify", "synthesize"}
+
+
+def test_binding_to_unknown_or_forward_stage_is_rejected_at_compile_time():
+    bad = "name: b\nstages:\n  - id: cover\n    type: parallel\n    over: ${nope.items}\n    agent: { role: r }"
+    with pytest.raises(wp.WorkflowError) as exc:
+        wp.parse(bad)
+    assert "nope" in str(exc.value)
+
+
+def test_loop_stage_carries_max_iter_into_the_wave():
+    plan = wp.parse("name: l\nstages:\n  - id: fix\n    type: loop\n    role: coder\n    max_iter: 5")
+    wave = plan["waves"][0]
+    assert wave["type"] == "loop"
+    assert wave["max_iter"] == 5

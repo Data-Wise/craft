@@ -24,7 +24,7 @@ Never eyeball these. Always shell out to the core:
 | Compile plan | `python3 scripts/workflow_parse.py <file>` | wave order + fan-out shape (D1/D3) |
 | Structural gate | `gate_output(data, schema, stage)` | pass/fail per agent output (D2 layer 1) |
 | Cache key | `cache_key(stage_block, resolved_input, role_version)` | replay vs re-run (D4) |
-| Cascade | `cascade_invalidate(stages, changed, deps)` | downstream invalidation (D4) |
+| Cascade | `cascade_invalidate(stages, changed, build_deps(plan))` | downstream invalidation (D4) |
 | Fan-out | `resolve_fanout(over, upstream_outputs)` | bound items; empty → hard abort (D6) |
 | Semaphore | `sem_acquire/sem_release/sem_reconcile` | live-agent ceiling (D5) |
 
@@ -50,7 +50,8 @@ Never eyeball these. Always shell out to the core:
 5. **Cache / replay (D4)** — write each agent output under
    `.craft/workflow-runs/<run-id>/` keyed by `cache_key`. On `--resume`,
    recompute keys; reuse unchanged stages, and `cascade_invalidate` the
-   downstream of any changed stage. Replay reuses cached outputs — it does
+   downstream of any changed stage (derive the dependency graph from the plan
+   with `build_deps(plan)` — never hand-trace it). Replay reuses cached outputs — it does
    **not** re-invoke the model for unchanged stages (a fresh `agent` run is not
    byte-identical; the spec never claims otherwise).
 6. **Reconcile at each wave boundary** — before opening the next wave, count the

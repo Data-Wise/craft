@@ -111,6 +111,18 @@ it does **not** re-invoke the model for unchanged stages.
 
 ---
 
+## v1 limitations
+
+- **Concurrency is enforced at runtime, not predicted.** The run-wide semaphore
+  (D5) throttles live agents during execution; the dry-run does **not** yet warn
+  when a statically-knowable max could exceed the ceiling (v1 fan-out is always
+  data-driven, so width is unknown until runtime).
+- **`loop` is represented, not yet executed.** A `loop` stage compiles and
+  carries its `max_iter`, but iterate-until-condition semantics live in the
+  skill prose; full loop execution is future work.
+- **Shape-DSL `agent("id")` requires an options object** (e.g.
+  `agent("id", { role: "…" })`); a bare `agent("id")` is a grammar error.
+
 ## See Also
 
 - `/craft:orchestrate` — free-form multi-agent orchestration
