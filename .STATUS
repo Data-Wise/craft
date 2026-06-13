@@ -1,5 +1,5 @@
 status: Active
-version: 2.35.0
+version: 2.36.0
 release_date: 2026-06-03
 milestone: v2.35.0 SHIPPED 2026-06-03 — Spec-Driven Drive (/craft:orchestrate:drive) + Prompt Refinement (--refine flag) + docs/drift cleanup (PR #146 → main 8a6684fa, release tag v2.35.0). Downstream all GREEN: docs.yml deployed, homebrew-release updated tap to v2.35.0, post-release sweep CLEAN. CI caught 2 self-inflicted test failures from the dual-catalog deletion (test_tldr_boxes + test_time_estimates referencing deleted guide/skills-agents.md) — fixed before merge.
 last_session: 2026-05-15

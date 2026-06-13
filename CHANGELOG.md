@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.36.0] — 2026-06-13
+
 ### Added
 
 - **`/craft:orchestrate:workflow`** — a third orchestration mode that executes a
@@ -29,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `pytest --strict-markers` no longer aborts the entire Craft CI run when the `mermaid`/`mermaid_mcp` marker-provider plugin fails to install. Both markers are now registered in `pyproject.toml`, so collection of `tests/test_mermaid_*.py` is deterministic regardless of plugin availability — previously a flaky plugin install promoted an unknown-mark warning into a hard collection error that red-listed all of CI.
+- Homebrew cask generator now emits the canonical bare-symbol form `depends_on macos: :codename` instead of the deprecated string-comparison form `depends_on macos: ">= :codename"` that current Homebrew warns against (root cause of the reintroduced deprecation in generated casks; cf. Data-Wise/homebrew-tap#112).
 - `scripts/command-audit.sh --fix` no longer strips `deprecated`/`replaced-by` frontmatter. These keys were absent from `VALID_FIELDS`, so `--fix` treated them as invalid and removed them from all 56 deprecated command files — silently un-deprecating them in the working tree (CI-invisible: the mutation only dirtied local checkouts). Added `deprecated` and `replaced-by` to the allowlist, and retargeted the `test_command_audit.py` `--fix` tests to a disposable temp tree so no test ever mutates the real source.
 - `tests/test_docs_staleness.py` no longer mutates the source tree. Its `TestFixNonInteractiveMode` tests ran `docs-staleness-check.sh --fix --non-interactive` against the real repo, so any `pytest tests/` run rewrote command-count strings in `docs/architecture.md`, `docs/guide/check-command-mastery.md`, and `docs/guide/homebrew-automation.md`. Same anti-pattern as the command-audit bug. Retargeted those tests to an isolated copy and added a structural regression guard (`test_no_fix_invocation_targets_real_tree`) plus an end-to-end isolation check.
 - `tests/test_plugin_dogfood.py::test_on_expected_branch_type` now accepts `fix/*` branches (previously only `main`/`dev`/`feature/*`, so it failed on `fix/*` worktree branches).
