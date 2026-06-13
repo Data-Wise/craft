@@ -1,0 +1,43 @@
+# Runnable example for /craft:orchestrate:workflow.
+#
+# A multi-dimensional code review as a coded, fixed-control-flow program:
+#   decompose -> cover each dimension (parallel) -> verify each finding
+#   (parallel, 2 verifiers per finding) -> synthesize.
+#
+# Control flow is fixed; only the *count* of cover/verify agents flexes to
+# upstream data. Try it:
+#
+#   python3 scripts/workflow_parse.py --dry-run \
+#     examples/workflow-code-review/WORKFLOW-code-review-sweep.yaml
+#
+name: code-review-sweep
+version: 1
+max_concurrent: 16
+inputs:
+  target: { type: string, required: true }
+stages:
+  - id: decompose
+    type: agent
+    role: task-analyzer
+    output_schema: { dimensions: "string[]" }
+
+  - id: cover
+    type: parallel
+    over: ${decompose.dimensions}   # data-driven fan-out: one reviewer per dimension
+    max_concurrent: 16
+    agent:
+      role: reviewer
+      output_schema: { findings: "object[]" }
+
+  - id: verify
+    type: parallel
+    over: ${cover.*.findings}        # flatten findings across reviewers
+    fan: 2                           # 2 independent verifiers per finding
+    agent:
+      role: verifier
+      output_schema: { confirmed: "boolean" }
+
+  - id: synthesize
+    type: agent
+    role: docs-architect
+    input: ${verify.*}

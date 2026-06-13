@@ -260,6 +260,7 @@ def parse_yaml(text):
                 "over": over,
                 "fan": fan,
                 "input": _canon_path(s.get("input")),
+                "command": s.get("command"),  # for type=verify (D8)
             }
         )
     return {
@@ -639,6 +640,7 @@ def compile_plan(definition):
                 "role": stage.get("role"),
                 "output_schema": stage.get("output_schema"),
                 "input": stage.get("input"),
+                "command": stage.get("command"),  # set only for type=verify (D8)
             }
         )
     return {

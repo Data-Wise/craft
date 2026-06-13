@@ -23,6 +23,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
 import workflow_parse as wp  # noqa: E402
 
+from pathlib import Path  # noqa: E402
+
+PLUGIN_DIR = Path(__file__).resolve().parent.parent
+
 pytestmark = [pytest.mark.unit, pytest.mark.orchestrator]
 
 
@@ -469,3 +473,48 @@ def test_a_lone_signal_does_not_trigger_false_positive():
     assert wp.detects_workflow_shape("verify the login flow works") is False
     assert wp.detects_workflow_shape("review the architecture") is False
     assert wp.detects_workflow_shape("run the tests in parallel") is False
+
+
+# ---------------------------------------------------------------------------
+# Increment 5 / D8 — drive-engine verify-gate convergence
+# ---------------------------------------------------------------------------
+
+VERIFY_WORKFLOW = """
+name: drive-convergence
+stages:
+  - id: implement
+    type: agent
+    role: coder
+  - id: gate
+    type: verify
+    command: python3 tests/test_craft_plugin.py
+"""
+
+
+def test_verify_stage_compiles_to_a_static_gate_carrying_its_command():
+    plan = wp.parse(VERIFY_WORKFLOW)
+    gate = [w for w in plan["waves"] if w["id"] == "gate"][0]
+    assert gate["type"] == "verify"
+    assert gate["command"] == "python3 tests/test_craft_plugin.py"
+    assert gate["fanout"] == {"kind": "static", "count": 1}
+
+
+def test_drive_engine_verify_semantics_stay_reproducible_in_the_engine():
+    # D8 convergence guard: the workflow `verify` primitive must keep
+    # drive-engine's gate semantics — a real command whose EXIT STATUS is
+    # authoritative, never a green transcript. If either skill drifts, fail.
+    drive = (PLUGIN_DIR / "skills/orchestration/drive-engine/SKILL.md").read_text().lower()
+    engine = (PLUGIN_DIR / "skills/orchestration/workflow-engine/SKILL.md").read_text().lower()
+    for text in (drive, engine):
+        assert "exit status" in text
+        assert "authoritative" in text
+        assert "green transcript" in text
+
+
+def test_example_workflow_file_parses_to_the_canonical_five_stage_shape():
+    example = PLUGIN_DIR / "examples/workflow-code-review/WORKFLOW-code-review-sweep.yaml"
+    plan = wp.parse_file(str(example))
+    ids = [w["id"] for w in plan["waves"]]
+    assert ids == ["decompose", "cover", "verify", "synthesize"]
+    cover = [w for w in plan["waves"] if w["id"] == "cover"][0]
+    assert cover["fanout"]["kind"] == "dynamic"
