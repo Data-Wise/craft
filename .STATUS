@@ -17,7 +17,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
-| _(none active)_ | — | — | — |
+| `feature/pr1a-test-hygiene` | `~/.git-worktrees/craft/feature-pr1a-test-hygiene` | dev | PR-1a (#1 strict-markers guard + #4 recipe discoverability) → **PR #151** open vs dev |
 
 _Prior: `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash, 2026-06-13); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash). Both worktrees + remote branches removed. **2 local branches leftover** (`feature/workflow-engine`, `fix/mermaid-markers`) — guard blocks `-D`; need manual delete (or `/craft:git:unprotect` then `-D`). `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
 
