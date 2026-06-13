@@ -1,7 +1,7 @@
 status: Active
 version: 2.36.0
-release_date: 2026-06-03
-milestone: v2.35.0 SHIPPED 2026-06-03 — Spec-Driven Drive (/craft:orchestrate:drive) + Prompt Refinement (--refine flag) + docs/drift cleanup (PR #146 → main 8a6684fa, release tag v2.35.0). Downstream all GREEN: docs.yml deployed, homebrew-release updated tap to v2.35.0, post-release sweep CLEAN. CI caught 2 self-inflicted test failures from the dual-catalog deletion (test_tldr_boxes + test_time_estimates referencing deleted guide/skills-agents.md) — fixed before merge.
+release_date: 2026-06-13
+milestone: v2.36.0 SHIPPED 2026-06-13 — Deterministic workflow engine (/craft:orchestrate:workflow, 3rd orchestration mode) + test-suite source-mutation fixes (command-audit/docs-staleness --fix) + mermaid-marker CI flake fix + workflow-engine doc gaps closed. PR #150 → main eb7e143d (merge commit), release tag v2.36.0. Downstream all GREEN: main CI verified, homebrew-release.yml updated tap to v2.36.0 (desc "110 commands", url v2.36.0.tar.gz). Counts: 110 commands / 39 skills / 8 agents. Prior: v2.35.0 SHIPPED 2026-06-03 (PR #146 → main 8a6684fa).
 last_session: 2026-05-15
 
 progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag v2.34.0). Bundled: commands→skills migration via PR #139 (3 batches, 11 new skills auto-activating from conversation context), PR #140 (post-merge drift sweep + 9th over-counter fix), PR #141 (skill coverage docs in skills-agents.md + bump-version sweep for `(N total)` headers + 10th + 11th over-counter instances), site refresh + .STATUS sync (4c7a44bd, 2b25c2a1), CHANGELOG promotion + tagline cleanup (cbb1a740). Test suite: 19 unit tests on test_craft_plugin.py (added test_skill_count_predicates_use_canonical_marker as a regression net for the recurring SKILL.md-vs-`*.md` over-counting bug — now fixed in 11 utilities total). Downstream all GREEN: docs.yml deployed, homebrew-release.yml updated tap to v2.34.0, brew install verified locally. Post-release sweep: ALL CLEAN, no Tier 2 drift.
@@ -10,8 +10,8 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Head     | Base | Status                                                              |
 |--------|----------|------|---------------------------------------------------------------------|
-| main   | 25c53c95 | —    | Production (v2.34.0 tagged, PR #142 merged 2026-05-15)              |
-| dev    | 25c53c95 | main | Fast-forwarded to main after v2.34.0 release                        |
+| main   | eb7e143d | —    | Production (v2.36.0 tagged, PR #150 merged 2026-06-13)              |
+| dev    | cd58ab7c | main | v2.36.0 release commit; 1 merge-commit behind main (re-sync next)   |
 
 📂 Active Worktrees:
 
