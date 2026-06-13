@@ -342,3 +342,66 @@ def test_semaphore_reconcile_resets_to_live_agent_count(tmp_path):
     wp.sem_acquire(path, ceiling=10)  # counter says 2
     assert wp.sem_reconcile(path, live_count=1) == 1  # only 1 actually live
     assert wp.sem_read(path) == 1
+
+
+# ---------------------------------------------------------------------------
+# Increment 2 — executor support: file load, CLI emit, hybrid D2 gate
+# ---------------------------------------------------------------------------
+
+def test_parse_file_reads_a_workflow_definition(tmp_path):
+    path = tmp_path / "WORKFLOW-x.yaml"
+    path.write_text(YAML_FORM)
+    plan = wp.parse_file(str(path))
+    assert [w["id"] for w in plan["waves"]] == [
+        "decompose",
+        "cover",
+        "verify",
+        "synthesize",
+    ]
+
+
+def test_cli_emits_the_wave_plan_as_json(tmp_path, capsys):
+    import json
+
+    path = tmp_path / "WORKFLOW-x.yaml"
+    path.write_text(YAML_FORM)
+    rc = wp.main([str(path)])
+    assert rc == 0
+    plan = json.loads(capsys.readouterr().out)
+    assert plan["waves"][0]["id"] == "decompose"
+
+
+def test_cli_exits_nonzero_and_reports_an_invalid_definition(tmp_path, capsys):
+    path = tmp_path / "WORKFLOW-bad.yaml"
+    # parallel stage with no fan-out binding -> compile error
+    path.write_text("name: bad\nstages:\n  - id: x\n    type: parallel\n    agent: { role: r }\n")
+    rc = wp.main([str(path)])
+    assert rc != 0
+    err = capsys.readouterr().err.lower()
+    assert "over" in err or "fan-out" in err
+
+
+def test_gate_output_passes_structurally_valid_output():
+    result = wp.gate_output({"confirmed": True}, {"confirmed": "boolean"}, stage="verify")
+    assert result["ok"] is True
+    assert result["structural_errors"] == []
+    assert result["semantic_warning"] is None
+
+
+def test_gate_output_fails_closed_on_structural_miss():
+    # Failure isolation: returns ok=False (caller fails the branch), not raise.
+    result = wp.gate_output({}, {"dimensions": "string[]"}, stage="decompose")
+    assert result["ok"] is False
+    assert any("dimensions" in e for e in result["structural_errors"])
+
+
+def test_semantic_warning_is_surfaced_but_never_flips_the_gate():
+    # D2: the LLM semantic check is ADVISORY — a warning must not block.
+    result = wp.gate_output(
+        {"findings": [{"x": 1}]},
+        {"findings": "object[]"},
+        stage="cover",
+        semantic_warning="these read like TODOs, not findings",
+    )
+    assert result["ok"] is True  # structurally valid -> gate stays open
+    assert result["semantic_warning"] == "these read like TODOs, not findings"

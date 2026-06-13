@@ -151,6 +151,29 @@ def _looks_like_dsl(text):
     return re.match(r"\s*(pipeline|parallel|agent)\s*\(", text) is not None
 
 
+def parse_file(path):
+    """Read a WORKFLOW definition file and compile it to a wave plan."""
+    with open(path, encoding="utf-8") as handle:
+        return parse(handle.read())
+
+
+def gate_output(data, schema, stage="?", semantic_warning=None):
+    """Hybrid D2 gate for one agent output (failure-isolating, non-raising).
+
+    Structural validation is the gate (``ok=False`` on any miss → caller fails
+    just that branch). The semantic warning is advisory: it is surfaced in the
+    verdict but NEVER flips ``ok`` (blocking on LLM judgment would reintroduce
+    the non-determinism D2 designed out).
+    """
+    errors = structural_errors(data, schema)
+    return {
+        "stage": stage,
+        "ok": len(errors) == 0,
+        "structural_errors": errors,
+        "semantic_warning": semantic_warning,
+    }
+
+
 def parse_yaml(text):
     """Parse the YAML definition form into a normalized definition dict.
 
@@ -567,3 +590,44 @@ def compile_plan(definition):
         "max_concurrent": definition.get("max_concurrent", DEFAULT_CEILING),
         "waves": waves,
     }
+
+
+# ---------------------------------------------------------------------------
+# CLI — the executor skill calls this to obtain a wave plan from a file
+# ---------------------------------------------------------------------------
+
+
+def main(argv=None):
+    """Emit the canonical wave plan (JSON) for a WORKFLOW definition file.
+
+    The prompt-driven workflow-engine skill shells out to this to obtain the
+    deterministic plan it then executes wave by wave. Exit 0 on success; exit 2
+    with a structured message on stderr for any workflow/parse error.
+    """
+    import argparse
+    import sys
+
+    parser = argparse.ArgumentParser(
+        prog="workflow_parse",
+        description="Compile a WORKFLOW definition (YAML or shape-DSL) to a wave plan.",
+    )
+    parser.add_argument("file", help="path to a WORKFLOW-*.yaml or shape-DSL file")
+    args = parser.parse_args(argv)
+
+    try:
+        plan = parse_file(args.file)
+    except WorkflowError as exc:
+        print(f"workflow error: {exc}", file=sys.stderr)
+        return 2
+    except FileNotFoundError:
+        print(f"no such file: {args.file}", file=sys.stderr)
+        return 2
+
+    print(json.dumps(plan, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+
+    sys.exit(main())
