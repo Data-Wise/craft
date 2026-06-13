@@ -17,9 +17,13 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
-| `feature/workflow-engine` | `~/.git-worktrees/craft/feature-workflow-engine` | dev @ `107ec13f` | Deterministic workflow engine (`/craft:orchestrate:workflow`); spec `SPEC-workflow-engine-2026-06-12.md`, plan `ORCHESTRATE-workflow-engine.md`. **In progress 2026-06-13** — Increments 1–5a committed (parser+schema, skill executor, CLI/gate hooks, example+verify, FR6 `--refine` scope), HEAD `c6bde3ee`, clean tree. ⚠️ 2 behind `dev` — needs `git rebase origin/dev` to inherit the command-audit fix (#147). |
+| _(none active)_ | — | — | — |
 
-_Prior: `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` all merged to dev 2026-06-03 (PRs #143–#145); worktrees + branches removed._
+_Prior: `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash, 2026-06-13); worktree + remote branch removed (local `feature/workflow-engine` branch leftover — guard blocked `-D`, needs manual delete). `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
+
+✅ Session 2026-06-13 (workflow-engine SHIPPED + PR-review fixes + CI infra bug surfaced):
+- **PR #148 MERGED → dev `caadd8db`** (squash, `--admin`). Deterministic workflow engine (`/craft:orchestrate:workflow`, 3rd mode). Before merge, applied 2 review findings in the worktree (`d1d05880`): **B1** — `_resolve_binding` now fails closed as `WorkflowError` (not bare `KeyError`/`TypeError`) on missing/non-dict fields in both `[]`-flatten and `.field` paths (+2 regression tests, engine suite 55→57); **B2** — count drift (`package.json` 109→110/38→39; `plugin.json` breakdown `96+13`→`96+14`). Counts now 110 commands / 39 skills / 8 agents.
+- **`--admin` bypass justified:** CI red on a pre-existing, infra-only failure — `pytest --strict-markers` errors collecting `test_mermaid_dogfood.py`/`test_mermaid_e2e.py` because `mermaid`/`mermaid_mcp` markers aren't in `pyproject.toml` (normally registered by an env pytest plugin whose install is currently flaking). **Identical on `dev`** (verified: dev's own CI run `27479702661` for `caadd8db` failed the same way) — unrelated to the PR diff. See Next Action A.
 
 ✅ Session 2026-06-13 (deprecation-drift fix SHIPPED + sibling bug found/fixed):
 - **PR #147 MERGED → dev `1215e802`** (squash). Fixed the CI-invisible deprecation drift (`command-audit.sh --fix` stripping `deprecated`/`replaced-by`) AND a SECOND test-mutates-source bug found during verification: `test_docs_staleness.py` ran `docs-staleness-check.sh --fix` against the real tree, rewriting `108→109` count refs in 3 docs. Both fixed via isolated-copy helpers + structural guard `test_no_fix_invocation_targets_real_tree`; also fixed `test_on_expected_branch_type` to accept `fix/*`. Full `pytest tests/`: **1672 passed / 0 failed**, tree clean.
@@ -122,7 +126,8 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) ✅ DONE (2026-06-13) — CI-invisible deprecation drift FIXED + MERGED (PR #147 → dev `1215e802`), plus a sibling docs-staleness `--fix` mutation bug found & fixed in the same PR. Bug class eliminated on dev. ⚡ NEXT: engine session runs `git rebase origin/dev` in `feature/workflow-engine` (2 behind) to inherit the fix, then finishes the remaining workflow-engine increments.
+A) 🔴 NEW (2026-06-13) — **dev CI is RED**: `pytest --strict-markers` hard-errors collecting `tests/test_mermaid_dogfood.py` (`@pytest.mark.mermaid`) + `tests/test_mermaid_e2e.py` (`@pytest.mark.mermaid_mcp`) because those 2 markers are NOT registered in `pyproject.toml`'s `markers` list. Latent: normally an env pytest plugin registers them, but its install is flaking → all craft CI fails when it does. **Fix (tiny, root-cause):** add `mermaid` + `mermaid_mcp` to the `markers = [...]` block in `pyproject.toml` (~line 23–53). Do via worktree → PR to dev. Closes the fragility for good; no more `--admin` bypasses needed.
+   - _Done this session:_ PR #148 (workflow engine) shipped → dev `caadd8db` with B1/B2 review fixes; leftover local branch `feature/workflow-engine` needs a manual `git branch -D` (guard blocked it).
 B) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
 C) Audit deprecated source commands from migration — schedule removal for v3.0.0
 D) Take a break — v2.35.0 shipped clean, downstream all green
