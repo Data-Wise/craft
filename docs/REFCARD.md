@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.35.0 (released 2026-06-03)                       │
+│  Version: 2.36.0 (released 2026-06-03)                       │
 │  Commands: 109 | Agents: 8 | Skills: 38                     │
 │  Documentation: 99% complete | Tests: 1638 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.35.0: Spec-Driven Drive + --refine flag                  │
+│  v2.36.0: Spec-Driven Drive + --refine flag                  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -1151,6 +1151,7 @@ npm test
 | Command | Purpose |
 |---------|---------|
 | `/craft:orchestrate:drive` | Spec → autonomous /goal loop → verified green |
+| `/craft:orchestrate:workflow` | Coded fixed-control-flow program → schema-gated, resumable ([refcard](reference/REFCARD-WORKFLOW.md)) |
 
 **Modes:**
 
@@ -1505,7 +1506,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.35.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.36.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary

@@ -48,6 +48,8 @@ markers = [
     "release: Release skill and pipeline tests",
     "marketplace: Marketplace distribution tests",
     "site: Site publishing and building tests",
+    "mermaid: Mermaid diagram syntax validation, health-score, and pipeline tests",
+    "mermaid_mcp: Mermaid tests that require the mermaid MCP server (skipped when unavailable)",
     "snapshot: Snapshot comparison tests (requires syrupy)",
     "property: Property-based tests (requires hypothesis)",
     "contract: Contract validation tests for strict schemas",

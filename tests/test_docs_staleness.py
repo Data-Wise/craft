@@ -10,6 +10,7 @@ Run with: python3 -m pytest tests/test_docs_staleness.py -v
 
 import json
 import os
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -43,13 +44,58 @@ VALID_STATUS_VALUES = {"GREEN", "YELLOW", "RED"}
 
 
 def _run_script(*args, timeout: int = 60) -> subprocess.CompletedProcess:
-    """Run the staleness check script from the plugin root directory."""
+    """Run the staleness check script from the plugin root directory.
+
+    NOTE: never call this with the auto-fix flag — it operates on the real
+    source tree (the script resolves its root from its own location, not cwd).
+    Use _run_isolated() for any fix-mode run. Enforced by
+    test_no_fix_invocation_targets_real_tree.
+    """
     return subprocess.run(
         ["bash", str(SCRIPT_PATH), *args],
         capture_output=True,
         text=True,
         timeout=timeout,
         cwd=str(PLUGIN_DIR),
+    )
+
+
+# Files/dirs the staleness check reads (and, in --fix mode, writes). The script
+# derives PLUGIN_DIR from BASH_SOURCE (its own location) and cd's there, so the
+# ONLY way to keep a fix-mode run off the real tree is to copy these into a temp
+# dir and run the copied script — making PLUGIN_DIR resolve to the copy.
+_ISOLATION_PATHS = (
+    "scripts", "docs", "commands", "skills", "agents",
+    "mkdocs.yml", "CLAUDE.md", "README.md", ".claude-plugin",
+)
+
+
+def _isolated_plugin(dst: Path) -> Path:
+    """Copy the subtree the staleness check needs into dst; return the script path.
+
+    Running the returned script makes PLUGIN_DIR == dst, so any auto-fix writes
+    land in the disposable copy and never touch the real source tree.
+    """
+    dst.mkdir(parents=True, exist_ok=True)
+    for name in _ISOLATION_PATHS:
+        src = PLUGIN_DIR / name
+        if not src.exists():
+            continue
+        target = dst / name
+        if src.is_dir():
+            shutil.copytree(src, target)
+        else:
+            shutil.copy(src, target)
+    return dst / "scripts" / "docs-staleness-check.sh"
+
+
+def _run_isolated(script: Path, *args, timeout: int = 60) -> subprocess.CompletedProcess:
+    """Run a copied staleness script (operates only on its own isolated tree)."""
+    return subprocess.run(
+        ["bash", str(script), *args],
+        capture_output=True,
+        text=True,
+        timeout=timeout,
     )
 
 
@@ -519,51 +565,70 @@ class TestExclusionConfig:
 # ============================================================================
 
 class TestFixNonInteractiveMode:
-    """--fix --non-interactive must run without hanging or error, exit 0 or 1."""
+    """Fix + non-interactive mode must run without hanging or error, exit 0 or 1.
 
-    def test_fix_non_interactive_does_not_hang(self):
-        """--fix --non-interactive completes within 60 seconds."""
-        result = _run_script("--fix", "--non-interactive", timeout=60)
-        # If it timed out, subprocess.TimeoutExpired would be raised.
-        # Reaching here means it completed.
-        assert result.returncode in (0, 1), (
-            f"--fix --non-interactive exited with {result.returncode}, expected 0 or 1\n"
-            f"stderr: {result.stderr}"
+    These run against an ISOLATED copy of the plugin tree (never PLUGIN_DIR):
+    fix mode rewrites real source files (e.g. count strings under docs/) when
+    pointed at the live repo, and the script resolves its root from its own
+    location — so isolation requires running a copied script. See
+    _isolated_plugin().
+    """
+
+    @pytest.fixture(scope="class")
+    def fix_result(self, tmp_path_factory):
+        """Run the script once in fix + non-interactive mode against a disposable
+        copy; cache the result for the whole class."""
+        dst = tmp_path_factory.mktemp("staleness_fix")
+        script = _isolated_plugin(dst)
+        return _run_isolated(script, "--fix", "--non-interactive", timeout=60)
+
+    def test_fix_non_interactive_does_not_hang(self, fix_result):
+        """Fix + non-interactive completes within 60s (no TimeoutExpired raised)."""
+        # Reaching here means the fixture's run completed without timing out.
+        assert fix_result.returncode in (0, 1), (
+            f"fix non-interactive exited with {fix_result.returncode}, expected 0 or 1\n"
+            f"stderr: {fix_result.stderr}"
         )
 
-    def test_fix_non_interactive_exits_valid_code(self):
-        """--fix --non-interactive exits 0 (GREEN) or 1 (YELLOW/RED)."""
-        result = _run_script("--fix", "--non-interactive")
-        assert result.returncode in (0, 1), (
-            f"Expected exit 0 or 1, got {result.returncode}"
+    def test_fix_non_interactive_exits_valid_code(self, fix_result):
+        """Fix + non-interactive exits 0 (GREEN) or 1 (YELLOW/RED)."""
+        assert fix_result.returncode in (0, 1), (
+            f"Expected exit 0 or 1, got {fix_result.returncode}"
         )
 
-    def test_fix_non_interactive_does_not_prompt(self):
-        """--fix --non-interactive skips interactive review (no [f]ix [s]kip prompt)."""
-        result = _run_script("--fix", "--non-interactive")
+    def test_fix_non_interactive_does_not_prompt(self, fix_result):
+        """Non-interactive mode skips the interactive review prompt."""
         # The interactive prompt contains "[f]ix  [s]kip"
-        assert "[f]ix" not in result.stdout, (
-            "--non-interactive mode should not display interactive fix prompts"
+        assert "[f]ix" not in fix_result.stdout, (
+            "non-interactive mode should not display interactive fix prompts"
         )
 
-    def test_fix_non_interactive_reports_skipped_review(self):
-        """--fix --non-interactive reports skip or shows no-fixable-items message."""
-        result = _run_script("--fix", "--non-interactive")
-        mentions_skip = (
-            "non-interactive" in result.stdout.lower()
-            or "skipped" in result.stdout.lower()
-            or "skip" in result.stdout.lower()
-            or "no auto-fixable" in result.stdout.lower()
-        )
-        assert mentions_skip, (
-            "--fix --non-interactive output should indicate skipped review or no fixable items"
+    def test_fix_non_interactive_reports_outcome(self, fix_result):
+        """Output reports the auto-fix outcome: items fixed, or nothing to fix.
+
+        (Replaces the old 'reports skipped review' assertion, which only passed
+        when a *prior* test had already mutated the shared real tree so there
+        was nothing left to fix. Against an isolated copy that still carries the
+        stale counts, Pass 1 actually auto-fixes them, so we assert the outcome
+        is reported either way.)
+        """
+        out = fix_result.stdout.lower()
+        assert (
+            "auto-fixed" in out
+            or "fixed:" in out
+            or "no auto-fixable" in out
+        ), (
+            "fix non-interactive output should report items auto-fixed or none to fix"
         )
 
-    def test_fix_non_interactive_shows_pass1_header(self):
-        """--fix --non-interactive runs Pass 1 auto-fix or reports nothing to fix."""
-        result = _run_script("--fix", "--non-interactive")
-        assert "Pass 1" in result.stdout or "Auto-fix" in result.stdout or "No auto-fixable" in result.stdout, (
-            "--fix --non-interactive output should mention Pass 1, Auto-fix, or No auto-fixable items"
+    def test_fix_non_interactive_shows_pass1_header(self, fix_result):
+        """Output mentions Pass 1 auto-fix or reports nothing to fix."""
+        assert (
+            "Pass 1" in fix_result.stdout
+            or "Auto-fix" in fix_result.stdout
+            or "No auto-fixable" in fix_result.stdout
+        ), (
+            "fix non-interactive output should mention Pass 1, Auto-fix, or No auto-fixable items"
         )
 
 
@@ -594,6 +659,50 @@ class TestScriptSyntax:
         )
         assert "bash" in first_line or "env" in first_line, (
             f"Shebang does not reference bash: {first_line!r}"
+        )
+
+
+class TestNoRealTreeMutation:
+    """Regression guard: fix-mode runs must never touch the real source tree."""
+
+    def test_no_fix_invocation_targets_real_tree(self):
+        """No test may run the auto-fix flag through the real-tree runner.
+
+        That runner uses cwd=PLUGIN_DIR and the script resolves its root from
+        its own location, so an auto-fix run there rewrites real source files
+        (e.g. count strings under docs/). Fix-mode tests must use
+        _run_isolated() against a copy built by _isolated_plugin(). Token
+        needles are assembled at runtime so this guard never flags itself.
+        """
+        runner = "_run_script" + "("
+        fix_flag = "--" + "fix"
+        offenders = [
+            f"line {n}: {line.strip()}"
+            for n, line in enumerate(Path(__file__).read_text().splitlines(), 1)
+            if runner in line and fix_flag in line
+        ]
+        assert not offenders, (
+            "These run the auto-fix flag through the real-tree runner "
+            "(mutates source); use _run_isolated() instead:\n"
+            + "\n".join(offenders)
+        )
+
+    def test_isolated_fix_leaves_real_tree_untouched(self, tmp_path):
+        """An isolated fix-mode run must not modify the real source tree.
+
+        End-to-end check of the isolation mechanism: the count phase rewrites
+        docs/architecture.md when run on the live repo, so we snapshot it, run
+        the auto-fix against a copy, and assert the real file is byte-identical.
+        """
+        victim = PLUGIN_DIR / "docs" / "architecture.md"
+        before = victim.read_bytes()
+        script = _isolated_plugin(tmp_path / "iso")
+        result = _run_isolated(script, "--fix", "--non-interactive")
+        assert result.returncode in (0, 1), (
+            f"isolated fix run exited {result.returncode}\nstderr: {result.stderr[:500]}"
+        )
+        assert victim.read_bytes() == before, (
+            "isolated fix run modified the real docs/architecture.md — isolation leaked"
         )
 
 

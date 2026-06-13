@@ -383,7 +383,7 @@ cask "{name}" do
     end
   end
 
-  depends_on macos: ">= :{min_macos}"
+  depends_on macos: :{min_macos}
 
   app "{app_name}"
 

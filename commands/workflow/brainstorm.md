@@ -397,6 +397,19 @@ If capturing: ask user type → ask acceptance criteria → generate SPEC.md fro
 
 **IMPORTANT:** Generate comprehensive specs with ALL template sections. Mark N/A sections explicitly.
 
+**REQUIRED SECTION — Documentation & Discoverability:** Every captured spec MUST include a `## Documentation & Discoverability` section so docs are never an afterthought. Code is not "done" until users can find and learn it. Mirror the surface a shipped craft feature carries (tailor to what the feature actually touches; mark N/A explicitly):
+
+```markdown
+## Documentation & Discoverability
+
+- [ ] Tutorial (`docs/tutorials/TUTORIAL-<topic>.md`)
+- [ ] Help + command reference pages (`docs/help/<topic>.md`, `docs/commands/<topic>.md`)
+- [ ] REFCARD entry (`docs/REFCARD.md`; dedicated `docs/reference/REFCARD-<TOPIC>.md` if large)
+- [ ] Help hub / discovery (`/craft:hub` auto-surfaces via frontmatter; add `commands/smart-help.md` entry)
+- [ ] Website (`mkdocs.yml` nav + guides; `mkdocs build`) and `docs/skills-agents.md` catalog row
+- [ ] CHANGELOG `[Unreleased]` + count bumps; `validate-counts.sh` + `docs-staleness-check.sh` clean
+```
+
 ### Step 6: Create Orchestration? (v2.21.0)
 
 After spec capture, offer to create an ORCHESTRATE file and worktree.

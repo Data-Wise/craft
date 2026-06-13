@@ -344,7 +344,7 @@ class TestRepoHealth:
     """Craft's own git repo should be in a healthy state."""
 
     def test_on_expected_branch_type(self):
-        """Current branch is main, dev, feature/*, or detached HEAD (CI)."""
+        """Current branch is main, dev, feature/*, fix/*, or detached HEAD (CI)."""
         result = subprocess.run(
             ["git", "-C", str(PLUGIN_DIR), "branch", "--show-current"],
             capture_output=True, text=True,
@@ -355,7 +355,7 @@ class TestRepoHealth:
             return
         valid = (
             branch in ("main", "dev")
-            or branch.startswith("feature/")
+            or branch.startswith(("feature/", "fix/"))
         )
         assert valid, f"Unexpected branch: {branch}"
 

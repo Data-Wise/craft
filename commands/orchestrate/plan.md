@@ -174,6 +174,19 @@ Create `ORCHESTRATE-<topic>.md` using the template below. Place it:
 
 <repeat for each phase>
 
+## Documentation & Discoverability (REQUIRED — final phase)
+
+Every plan closes with a docs phase. Code is not "done" until users can find and learn it. Tailor the list to what changed; mark N/A explicitly:
+
+- [ ] Tutorial — `docs/tutorials/TUTORIAL-<topic>.md` (new) or update existing
+- [ ] Help + command reference pages — `docs/help/<topic>.md`, `docs/commands/<topic>.md`
+- [ ] REFCARD — add to command tables in `docs/REFCARD.md` (+ dedicated `docs/reference/REFCARD-<TOPIC>.md` for larger features)
+- [ ] Help hub / discovery — verify `/craft:hub` surfaces it; add `commands/smart-help.md` entry
+- [ ] Website — `mkdocs.yml` nav + guide pages; run `mkdocs build`
+- [ ] Catalog — new skill/command row in `docs/skills-agents.md`
+- [ ] CHANGELOG `[Unreleased]` + count bumps (`plugin.json`, `CLAUDE.md`); `./scripts/validate-counts.sh` ✓
+- [ ] `./scripts/docs-staleness-check.sh` clean
+
 ## Friction Prevention (from insights)
 
 <If insights data available at ~/.claude/usage-data/facets/, analyze for project-specific friction patterns and add guardrails. Otherwise use defaults:>
@@ -189,6 +202,7 @@ Create `ORCHESTRATE-<topic>.md` using the template below. Place it:
 
 - [ ] <criterion 1>
 - [ ] <criterion 2>
+- [ ] Documentation & Discoverability phase complete (tutorial, help, REFCARD, hub, website, CHANGELOG)
 
 ## Commit Strategy
 

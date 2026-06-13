@@ -1,7 +1,7 @@
 status: Active
-version: 2.35.0
+version: 2.36.0
 release_date: 2026-06-03
-milestone: v2.35.0 RELEASING — Spec-Driven Drive (/craft:orchestrate:drive) + Prompt Refinement (--refine flag) + docs/drift cleanup
+milestone: v2.35.0 SHIPPED 2026-06-03 — Spec-Driven Drive (/craft:orchestrate:drive) + Prompt Refinement (--refine flag) + docs/drift cleanup (PR #146 → main 8a6684fa, release tag v2.35.0). Downstream all GREEN: docs.yml deployed, homebrew-release updated tap to v2.35.0, post-release sweep CLEAN. CI caught 2 self-inflicted test failures from the dual-catalog deletion (test_tldr_boxes + test_time_estimates referencing deleted guide/skills-agents.md) — fixed before merge.
 last_session: 2026-05-15
 
 progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag v2.34.0). Bundled: commands→skills migration via PR #139 (3 batches, 11 new skills auto-activating from conversation context), PR #140 (post-merge drift sweep + 9th over-counter fix), PR #141 (skill coverage docs in skills-agents.md + bump-version sweep for `(N total)` headers + 10th + 11th over-counter instances), site refresh + .STATUS sync (4c7a44bd, 2b25c2a1), CHANGELOG promotion + tagline cleanup (cbb1a740). Test suite: 19 unit tests on test_craft_plugin.py (added test_skill_count_predicates_use_canonical_marker as a regression net for the recurring SKILL.md-vs-`*.md` over-counting bug — now fixed in 11 utilities total). Downstream all GREEN: docs.yml deployed, homebrew-release.yml updated tap to v2.34.0, brew install verified locally. Post-release sweep: ALL CLEAN, no Tier 2 drift.
@@ -15,7 +15,33 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-_None — `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` all merged to dev 2026-06-03 (PRs #143, #144, #145); worktrees + branches removed._
+| Branch | Path | Base | Purpose |
+|--------|------|------|---------|
+| _(none active)_ | — | — | — |
+
+_Prior: `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash, 2026-06-13); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash). Both worktrees + remote branches removed. **2 local branches leftover** (`feature/workflow-engine`, `fix/mermaid-markers`) — guard blocks `-D`; need manual delete (or `/craft:git:unprotect` then `-D`). `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
+
+✅ Session 2026-06-13 (mermaid-marker CI fix + workflow-engine doc-gap closure):
+- **PR #149 MERGED → dev `d21a1e4a`** (squash, normal — no `--admin`). Registered `mermaid`/`mermaid_mcp` in `pyproject.toml` markers, killing the `--strict-markers` collection-flake that was red-listing ALL craft CI when the env plugin install flaked. Full suite: **1729 passed / 38 skipped / 1 xfailed**. Resolves Next Action A.
+- **Doc-gap closure → dev `88544709`** (workflow-engine documentation gap analysis): count drift fixed to 110/39 across README (6 refs), `docs/index.md`, cookbook, + categorical subtotals bump-version.sh misses (`hub.md` ORCHESTRATE 4→5 + Skills 38→39; `skills-agents.md` Orchestration 4→5); added the missing `/craft:orchestrate:workflow` hub row; added 2 mermaid flowcharts (mode-selection in help, execution-pipeline in command ref). Debunked a false agent finding (no `slug:` frontmatter exists in craft).
+
+✅ Session 2026-06-13 (workflow-engine SHIPPED + PR-review fixes + CI infra bug surfaced):
+- **PR #148 MERGED → dev `caadd8db`** (squash, `--admin`). Deterministic workflow engine (`/craft:orchestrate:workflow`, 3rd mode). Before merge, applied 2 review findings in the worktree (`d1d05880`): **B1** — `_resolve_binding` now fails closed as `WorkflowError` (not bare `KeyError`/`TypeError`) on missing/non-dict fields in both `[]`-flatten and `.field` paths (+2 regression tests, engine suite 55→57); **B2** — count drift (`package.json` 109→110/38→39; `plugin.json` breakdown `96+13`→`96+14`). Counts now 110 commands / 39 skills / 8 agents.
+- **`--admin` bypass justified:** CI red on a pre-existing, infra-only failure — `pytest --strict-markers` errors collecting `test_mermaid_dogfood.py`/`test_mermaid_e2e.py` because `mermaid`/`mermaid_mcp` markers aren't in `pyproject.toml` (normally registered by an env pytest plugin whose install is currently flaking). **Identical on `dev`** (verified: dev's own CI run `27479702661` for `caadd8db` failed the same way) — unrelated to the PR diff. See Next Action A.
+
+✅ Session 2026-06-13 (deprecation-drift fix SHIPPED + sibling bug found/fixed):
+- **PR #147 MERGED → dev `1215e802`** (squash). Fixed the CI-invisible deprecation drift (`command-audit.sh --fix` stripping `deprecated`/`replaced-by`) AND a SECOND test-mutates-source bug found during verification: `test_docs_staleness.py` ran `docs-staleness-check.sh --fix` against the real tree, rewriting `108→109` count refs in 3 docs. Both fixed via isolated-copy helpers + structural guard `test_no_fix_invocation_targets_real_tree`; also fixed `test_on_expected_branch_type` to accept `fix/*`. Full `pytest tests/`: **1672 passed / 0 failed**, tree clean.
+- `stash@{0}` (the combined 56-file + 3-doc drift fingerprint) dropped; fix worktree + branch removed. Bug class eliminated on dev. Closes Next-Action item A.
+
+✅ Session 2026-06-13 (workflow-engine scaffold + deprecation-drift root cause + spec-docs mandate):
+- **Workflow-engine spec** committed (`107ec13f`) + **FR9** (docs/tutorial/refcard/help-hub made ship-blocking). Worktree `feature/workflow-engine` scaffolded with ORCHESTRATE plan (5 increments); rebased onto dev `9ba88a6c` → at `e42afb06`. Implementation pending (new session).
+- **Spec-docs mandate** (`d6de5070`): `brainstorm` Step 5.5 + `orchestrate:plan` template now REQUIRE a "Documentation & Discoverability" section in every captured spec/plan.
+- **Deprecation-drift ROOT CAUSE CONFIRMED** via 15-agent workflow + manual code verify: `command-audit.sh --fix` (run by `test_audit_fix_mode_dry` against real tree) strips keys not in `VALID_FIELDS`. Fix spec written (`SPEC-command-audit-deprecated-fields-2026-06-13.md`); 2-file fix pending in `fix/command-audit-deprecated-fields` worktree. Memory `ci-invisible-deprecation-drift` upgraded to confirmed cause.
+- `stash@{0}` (the 56-file drift) still parked — drop it once the fix lands.
+
+✅ Session 2026-06-10 (homebrew generator deprecation fix — on dev, UNRELEASED):
+- `commands/dist/homebrew.md` cask generator emitted deprecated `depends_on macos: ">= :{min_macos}"`; switched to bare-symbol form `depends_on macos: :{min_macos}` (min_macos is always a macOS codename, so the symbol is valid). Also fixed the reference SPEC-desktop-release-pipeline. Commit 6087ede1 on dev.
+- Root cause for the warning that surfaced in Data-Wise/homebrew-tap (fixed there in PR #112/#113). Promote/ship on next craft release so regenerated casks stop reintroducing the warning.
 
 ✅ Session 2026-06-03 (three features shipped to dev):
 
@@ -104,10 +130,10 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) Brainstorm v2.35.0 scope — remaining v2.33.0 spec increments (worktree pre-flight, Homebrew SHA fix, sweep --fix) + new ideas
+A) ✅ DONE (2026-06-13) — mermaid-marker CI fragility FIXED + MERGED (PR #149 → dev `d21a1e4a`): registered `mermaid`/`mermaid_mcp` in `pyproject.toml` so `--strict-markers` no longer hard-errors when the env plugin install flakes. No more `--admin` bypasses needed for this class. Workflow-engine doc gaps also closed (`88544709`). ⚡ NEXT: delete 2 leftover local branches (`git branch -D feature/workflow-engine fix/mermaid-markers` — guard-blocked, needs manual run or `/craft:git:unprotect`); optional doc enhancements (2nd cookbook recipe, deeper `orchestrator-modes-compared.md` workflow walk-through).
 B) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
 C) Audit deprecated source commands from migration — schedule removal for v3.0.0
-D) Take a break — v2.34.0 ships clean, no urgent follow-ups
+D) Take a break — v2.35.0 shipped clean, downstream all green
 
 Issues closed this session (2026-05-11):
 - #126 (e30ba371) — env-var → stdin contract corrected in insights spec
