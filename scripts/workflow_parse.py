@@ -157,6 +157,34 @@ def parse_file(path):
         return parse(handle.read())
 
 
+_SHAPE_SIGNALS = {
+    "decompose": ("decompose", "break down", "break it down", "split into", "dimensions", "for each"),
+    "fanout": ("fan out", "fan-out", "in parallel", "parallel", "one per", "cover each", "per finding", "reviewers"),
+    "verify": ("verify", "verifier", "double-check", "confirm each", "validate each"),
+    "synthesize": ("synthesize", "synthesise", "aggregate", "summarize", "summarise", "roll up", "combine", "merge findings", "final report"),
+}
+
+
+def detects_workflow_shape(text):
+    """Heuristic for D7: does this read like a coded decompose→cover→verify→
+    synthesize shape worth SUGGESTING ``:workflow`` for?
+
+    Deliberately conservative — fires only when ≥3 of the four stage categories
+    appear (or the explicit decompose…synthesize chain). A lone "verify" or
+    "parallel" must NOT trigger; auto-routing a task better served by improvised
+    ``orchestrate`` is the accepted residual risk, so the router only ever
+    SUGGESTS (confirm-before-switch), never silently hijacks.
+    """
+    low = text.lower()
+    categories = sum(
+        1
+        for signals in _SHAPE_SIGNALS.values()
+        if any(signal in low for signal in signals)
+    )
+    explicit = "decompose" in low and ("synthesize" in low or "synthesise" in low)
+    return categories >= 3 or explicit
+
+
 def dry_run_actions(plan):
     """Human-readable one-line-per-wave description of a plan (FR5 data).
 

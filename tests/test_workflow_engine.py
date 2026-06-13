@@ -440,3 +440,32 @@ def test_cli_dry_run_prints_plan_without_json(tmp_path, capsys):
     assert "code-review-sweep" in out  # workflow name
     assert "16" in out  # run-wide ceiling surfaced
     assert "decompose" in out and "synthesize" in out
+
+
+# ---------------------------------------------------------------------------
+# Increment 4 / D7 — known-shape detection (router SUGGESTS, never switches)
+# ---------------------------------------------------------------------------
+
+def test_full_decompose_cover_verify_synthesize_shape_is_detected():
+    text = (
+        "decompose the review into dimensions, cover each dimension in parallel "
+        "with a reviewer, verify each finding, then synthesize a report"
+    )
+    assert wp.detects_workflow_shape(text) is True
+
+
+def test_parallel_verify_summarize_shape_is_detected():
+    assert wp.detects_workflow_shape(
+        "fan out reviewers in parallel, verify the findings, then summarize"
+    ) is True
+
+
+def test_ordinary_feature_request_does_not_trigger():
+    assert wp.detects_workflow_shape("add a logout button to the navbar") is False
+
+
+def test_a_lone_signal_does_not_trigger_false_positive():
+    # D7 residual-risk guard: one signal word must NOT hijack to :workflow.
+    assert wp.detects_workflow_shape("verify the login flow works") is False
+    assert wp.detects_workflow_shape("review the architecture") is False
+    assert wp.detects_workflow_shape("run the tests in parallel") is False
