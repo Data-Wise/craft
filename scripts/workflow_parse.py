@@ -157,6 +157,34 @@ def parse_file(path):
         return parse(handle.read())
 
 
+def dry_run_actions(plan):
+    """Human-readable one-line-per-wave description of a plan (FR5 data).
+
+    Statically-unknown fan-out width is shown symbolically (``xN``) — never a
+    fabricated number — because data-driven width is only known at runtime
+    (D1). The command wraps these lines in the shared dry-run box; this stays
+    presentation-free so it is trivially testable and stdlib-pure.
+    """
+    lines = []
+    for wave in plan["waves"]:
+        role = wave.get("role") or "?"
+        if wave["type"] == "parallel":
+            fanout = wave["fanout"]
+            fan_note = f", fan {fanout['fan']}" if fanout.get("fan", 1) != 1 else ""
+            lines.append(
+                f"{wave['id']}: parallel xN over ${{{fanout['over']}}}{fan_note} "
+                f"-> {role}"
+            )
+        elif wave["type"] == "verify":
+            command = wave.get("command") or "(auto-detected)"
+            lines.append(
+                f"{wave['id']}: verify-gate -> runs `{command}`, exit status authoritative"
+            )
+        else:
+            lines.append(f"{wave['id']}: agent -> {role}")
+    return lines
+
+
 def gate_output(data, schema, stage="?", semantic_warning=None):
     """Hybrid D2 gate for one agent output (failure-isolating, non-raising).
 
@@ -612,6 +640,12 @@ def main(argv=None):
         description="Compile a WORKFLOW definition (YAML or shape-DSL) to a wave plan.",
     )
     parser.add_argument("file", help="path to a WORKFLOW-*.yaml or shape-DSL file")
+    parser.add_argument(
+        "-n",
+        "--dry-run",
+        action="store_true",
+        help="print the wave plan (stages, fan-out, ceiling) without spawning agents",
+    )
     args = parser.parse_args(argv)
 
     try:
@@ -622,6 +656,13 @@ def main(argv=None):
     except FileNotFoundError:
         print(f"no such file: {args.file}", file=sys.stderr)
         return 2
+
+    if args.dry_run:
+        name = plan.get("name") or "(unnamed)"
+        print(f"DRY RUN: {name}  (run-wide ceiling: {plan['max_concurrent']})")
+        for i, line in enumerate(dry_run_actions(plan), 1):
+            print(f"  {i}. {line}")
+        return 0
 
     print(json.dumps(plan, indent=2))
     return 0

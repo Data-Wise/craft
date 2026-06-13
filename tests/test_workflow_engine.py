@@ -405,3 +405,38 @@ def test_semantic_warning_is_surfaced_but_never_flips_the_gate():
     )
     assert result["ok"] is True  # structurally valid -> gate stays open
     assert result["semantic_warning"] == "these read like TODOs, not findings"
+
+
+# ---------------------------------------------------------------------------
+# Increment 3 — dry-run rendering (FR5): wave plan view, no agents spawned
+# ---------------------------------------------------------------------------
+
+def test_dry_run_actions_describe_each_wave():
+    actions = wp.dry_run_actions(wp.parse(YAML_FORM))
+    joined = "\n".join(actions)
+    # one line per stage, in order
+    assert len(actions) == 4
+    assert actions[0].startswith("decompose")
+    # data-driven fan-out shows it binds to the upstream array + the fan factor
+    assert "decompose.dimensions" in joined
+    assert "parallel" in joined
+    assert "fan 2" in joined  # verify stage fans 2 per finding
+
+
+def test_dry_run_actions_note_dynamic_width_is_runtime():
+    actions = wp.dry_run_actions(wp.parse(YAML_FORM))
+    cover_line = [a for a in actions if a.startswith("cover")][0]
+    # statically-unknown fan-out width is shown symbolically, not a fake number
+    assert "N" in cover_line
+
+
+def test_cli_dry_run_prints_plan_without_json(tmp_path, capsys):
+    path = tmp_path / "WORKFLOW-x.yaml"
+    path.write_text(YAML_FORM)
+    rc = wp.main(["--dry-run", str(path)])
+    assert rc == 0
+    out = capsys.readouterr().out
+    assert "DRY RUN" in out
+    assert "code-review-sweep" in out  # workflow name
+    assert "16" in out  # run-wide ceiling surfaced
+    assert "decompose" in out and "synthesize" in out
