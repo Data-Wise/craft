@@ -84,7 +84,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | mode-controller | Manages craft plugin execution modes (default, debug, optimize, release) | `skills/modes/SKILL.md` |
 
-### Orchestration (4)
+### Orchestration (5)
 
 | Name | Description | Path |
 |------|-------------|------|

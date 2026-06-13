@@ -17,6 +17,17 @@ structural contracts between stages, and the ability to `--resume`.
 for `/craft:orchestrate` (LLM improvises each turn). For driving a single
 approved spec to green, use `/craft:orchestrate:drive`.
 
+### Which orchestrate mode?
+
+```mermaid
+flowchart TD
+    A[Multi-agent work] --> B{Steps known and repeatable?}
+    B -->|No, exploratory| C[Use /craft:orchestrate]
+    B -->|Yes| D{Driving one approved spec to green?}
+    D -->|Yes| E[Use /craft:orchestrate:drive]
+    D -->|No, fixed shape| F[Use /craft:orchestrate:workflow]
+```
+
 ## Quick start
 
 ```bash

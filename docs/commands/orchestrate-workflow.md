@@ -41,6 +41,24 @@ in a `parallel` stage flexes to upstream data.
 
 ---
 
+## How a run executes
+
+```mermaid
+flowchart TD
+    A[WORKFLOW definition: YAML or shape-DSL] --> B[Compile to deterministic wave plan]
+    B --> C{--dry-run?}
+    C -->|Yes| D[Print wave plan and exit, no agents spawned]
+    C -->|No| E[Execute waves under run-wide semaphore]
+    E --> F[Each agent emits schema-gated JSON]
+    F --> G{Structural schema pass?}
+    G -->|No| H[Fail just that branch, run continues with partials]
+    G -->|Yes| I[verify stage runs the real command, exit status authoritative]
+    I --> J[Cache per-stage outputs by run-id]
+    J --> K[--resume reuses unchanged stages, re-runs changed plus downstream]
+```
+
+---
+
 ## Flags
 
 | Argument / Flag | Required | Default | Purpose |

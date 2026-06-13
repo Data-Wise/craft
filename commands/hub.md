@@ -28,7 +28,7 @@ stats = get_command_stats()
 commands = load_cached_commands()
 
 # Available data:
-# - stats['total']: Total command count (e.g., 109)
+# - stats['total']: Total command count (e.g., 110)
 # - stats['categories']: Dict of category counts (e.g., {'code': 15, 'test': 3, ...})
 # - stats['with_modes']: Commands supporting modes
 # - stats['with_dry_run']: Commands with dry-run support
@@ -228,7 +228,7 @@ Display template:
 │ SITE (16)                          /craft:dist:curl-install             │
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
-│   /craft:site:check              ORCHESTRATE (4)                        │
+│   /craft:site:check              ORCHESTRATE (5)                        │
 │   /craft:site:update               /craft:orchestrate [mode]           │
 │   /craft:site:publish              /craft:orchestrate:resume           │
 │                                                                         │
@@ -621,10 +621,11 @@ Command                  | Description
 ### `/craft:hub orchestrate`
 
 ```
-ORCHESTRATE COMMANDS (4) - Multi-Agent Coordination
+ORCHESTRATE COMMANDS (5) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
 /craft:orchestrate "task" [mode]     | Launch orchestrator (free-form, fan-out)
 /craft:orchestrate:drive [spec]      | Spec-driven autonomous /goal loop → verified green
+/craft:orchestrate:workflow [file]   | Coded, deterministic workflow (fixed waves, schema-gated)
 /craft:orchestrate:resume            | Resume previous session
 /craft:orchestrate:plan              | (deprecated → plan-orchestrator skill)
 
@@ -643,7 +644,7 @@ Quick orchestration (--orch flag on any command):
 
 ---
 
-## Skills (38 Auto-Activated)
+## Skills (39 Auto-Activated)
 
 Skills activate automatically from conversation context — no command needed.
 Full catalog with trigger phrases: **[Skills & Agents](../docs/skills-agents.md)**.
