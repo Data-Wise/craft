@@ -185,6 +185,24 @@ def test_dsl_map_with_flatten_path_is_a_grammar_error():
         wp.parse(bad)
 
 
+@pytest.mark.parametrize(
+    "bad",
+    [
+        'pipeline(agent("x", { role: "unterminated ))',                     # unterminated string
+        "pipeline(@)",                                                       # unexpected character
+        'pipeline(parallel(reduce("cover.x", agent("a", { role: "r" }))))',  # unknown fan-out operator
+        'pipeline(parallel(fan("two", agent("a", { role: "r" }))))',         # fan() expects a number
+        'pipeline(agent("x", { "role": "r" }))',                            # object key must be an identifier
+        'pipeline(agent(123, { role: "r" }))',                              # stage name must be a string
+    ],
+)
+def test_malformed_shape_dsl_surfaces_workflow_error(bad):
+    # Every shape-DSL parse error must surface as a structured WorkflowError,
+    # never a bare tokenizer/parser exception that escapes the engine.
+    with pytest.raises(wp.WorkflowError):
+        wp.parse(bad, form="dsl")
+
+
 # ---------------------------------------------------------------------------
 # D6 / FR8 — empty fan-out is a hard error naming the upstream stage
 # ---------------------------------------------------------------------------

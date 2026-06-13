@@ -10,9 +10,9 @@
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
 [![Version](https://img.shields.io/badge/version-2.36.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
-> **v2.34.0 — Commands → Skills Migration** 🚀
+> **v2.36.0 — Deterministic Workflow Engine** 🚀
 > **110 commands** | **39 skills** | **8 agents** | **1638 tests passing**
-> 11 new skills (`preflight-check`, `git-workflow`, `claude-md-lifecycle`, `nav-sync`, `site-lifecycle`, `dist-extras`, `plan-orchestrator`, `demonstration-builder`, `adhd-workflow`, `brainstorm-insights`, `background-task-manager`) consolidating 53 source commands across 3 batches. Skills auto-activate from conversation context — no command memorization required.
+> New `/craft:orchestrate:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orchestrate`), drive (`:drive`), and workflow (`:workflow`).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 

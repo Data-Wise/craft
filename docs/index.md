@@ -25,7 +25,7 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **107 Commands**
+- :rocket:{ .lg .middle } **110 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
 
@@ -33,7 +33,7 @@
 
     Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators
 
-- :sparkles:{ .lg .middle } **26 Skills**
+- :sparkles:{ .lg .middle } **39 Skills**
 
     Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation
 
@@ -110,7 +110,7 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 109 Craft commands:
+Complete OpenAPI-style documentation for all 110 Craft commands:
 
 <div class="grid cards" markdown>
 
@@ -134,7 +134,7 @@ Complete OpenAPI-style documentation for all 109 Craft commands:
 
 **Quick Links:**
 
-- [All 107 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 110 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
