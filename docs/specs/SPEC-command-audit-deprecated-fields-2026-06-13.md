@@ -96,7 +96,8 @@ The existing `test_audit_fix_mode_dry` (which runs against `PLUGIN_DIR`) should 
 
 _(Per the spec-creation mandate added 2026-06-13. Bug fix — most surface N/A.)_
 
-- [ ] CHANGELOG `[Unreleased]` — bug-fix entry.
+- [ ] CHANGELOG `[Unreleased]` under a `### Fixed` header, in **BOTH** `CHANGELOG.md` and `docs/CHANGELOG.md` (they must mirror). Ready-to-paste bullet:
+  > `command-audit.sh --fix` no longer strips `deprecated`/`replaced-by` frontmatter — added both to `VALID_FIELDS`, and `test_audit_fix_mode_dry` now runs against a temp tree instead of the real plugin dir, so `pytest tests/` can no longer silently un-deprecate the 56 deprecated commands.
 - [ ] Tutorial / help / command pages / REFCARD / hub / website — **N/A** (internal script fix, no user-facing command change).
 - [ ] Counts — **N/A** (no command/skill added).
 
