@@ -15,7 +15,11 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-_None — `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` all merged to dev 2026-06-03 (PRs #143, #144, #145); worktrees + branches removed._
+| Branch | Path | Base | Purpose |
+|--------|------|------|---------|
+| `feature/workflow-engine` | `~/.git-worktrees/craft/feature-workflow-engine` | dev @ `107ec13f` | Deterministic workflow engine (`/craft:orchestrate:workflow`); spec `SPEC-workflow-engine-2026-06-12.md`, plan `ORCHESTRATE-workflow-engine.md`. Scaffolded 2026-06-13, implementation pending (new session). |
+
+_Prior: `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` all merged to dev 2026-06-03 (PRs #143–#145); worktrees + branches removed._
 
 ✅ Session 2026-06-10 (homebrew generator deprecation fix — on dev, UNRELEASED):
 - `commands/dist/homebrew.md` cask generator emitted deprecated `depends_on macos: ">= :{min_macos}"`; switched to bare-symbol form `depends_on macos: :{min_macos}` (min_macos is always a macOS codename, so the symbol is valid). Also fixed the reference SPEC-desktop-release-pipeline. Commit 6087ede1 on dev.
