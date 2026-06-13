@@ -8,6 +8,7 @@
 > - **Why:** Handle complex multi-step tasks with proper delegation, monitoring, and ADHD-friendly tracking
 > - **How:** `/craft:orchestrate "task" [mode]` where mode = default/debug/optimize/release
 > - **NEW (v2.5.0):** Use `--orch` flag on supported commands for quick orchestration: `/craft:do "task" --orch=optimize`
+> - **Sibling modes:** [`:drive`](../commands/orchestrate-drive.md) (spec → green) and [`:workflow`](../commands/orchestrate-workflow.md) (coded, schema-gated, resumable) — see [Modes Compared](../tutorials/orchestrator-modes-compared.md)
 > - **Next:** Try `/craft:orchestrate "add auth" debug` for verbose execution tracking
 
 > 🎓 **User Guide** - Practical examples and quick start.

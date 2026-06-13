@@ -298,7 +298,7 @@ The `pre-release-check.sh` script includes **Check 8: Homebrew formula desc cons
 
 ### What It Checks
 
-The check extracts the command count from the formula's `desc` string (e.g., `"Full-stack developer toolkit for Claude Code with 109 commands"`) and compares it against the actual count detected by `validate-counts.sh`. If they differ, a warning is raised.
+The check extracts the command count from the formula's `desc` string (e.g., `"Full-stack developer toolkit for Claude Code with 110 commands"`) and compares it against the actual count detected by `validate-counts.sh`. If they differ, a warning is raised.
 
 ```bash
 # Run Check 8 standalone
@@ -321,7 +321,7 @@ When adding new commands to the plugin, update the formula description to reflec
 ```ruby
 # In your formula .rb file
 class Craft < Formula
-  desc "Full-stack developer toolkit for Claude Code with 109 commands"
+  desc "Full-stack developer toolkit for Claude Code with 110 commands"
   #                                                      ^^^ update this
 ```
 

@@ -208,11 +208,36 @@ Get intelligent help based on your project and question.
 ╰─────────────────────────────────────────────────────╯
 ```
 
+### Orchestration
+
+```bash
+/craft:help orchestration
+
+╭─ Orchestration Modes ───────────────────────────────╮
+│                                                     │
+│ /craft:orchestrate         Improvised multi-agent  │
+│   LLM reasons "what next" each turn (exploratory)  │
+│                                                     │
+│ /craft:orchestrate:drive   Spec → verified green   │
+│   Autonomous /goal loop with a real verify gate    │
+│                                                     │
+│ /craft:orchestrate:workflow  Coded, fixed program  │
+│   parallel/pipeline/verify, schema-gated agents,   │
+│   data-driven fan-out, cached/resumable replay     │
+│   Best for: decompose → cover → verify → synthesize│
+│                                                     │
+╰─────────────────────────────────────────────────────╯
+```
+
 ## Question Answering
 
 ```bash
 /craft:help "how do I run tests?"
 → Use /craft:test to run your test suite
+
+/craft:help "how do I run a fixed, repeatable multi-agent shape?"
+→ Use /craft:orchestrate:workflow for a coded, schema-gated, resumable workflow
+→ Preview it first with /craft:orchestrate:workflow --dry-run
 
 /craft:help "how do I prepare a release?"
 → Use /craft:code:release for the full release workflow
@@ -222,7 +247,7 @@ Get intelligent help based on your project and question.
 → Use /craft:code:ci-local for full CI simulation
 
 /craft:help "what commands are available?"
-→ Use /craft:hub to see all 109 commands
+→ Use /craft:hub to see all 110 commands
 ```
 
 ## Quick Reference
@@ -232,6 +257,7 @@ Get intelligent help based on your project and question.
 | **Code** | lint, coverage, deps-check, ci-local | Development |
 | **Test** | run, watch, coverage, debug | Testing |
 | **Arch** | analyze, plan, review, diagram | Design |
+| **Orchestrate** | orchestrate, drive, workflow | Multi-agent execution |
 | **Plan** | feature, sprint, roadmap | Planning |
 | **Docs** | sync, changelog, validate | Documentation |
 | **Site** | init, build, preview, deploy | Doc sites |
