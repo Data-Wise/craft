@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `scripts/command-audit.sh --fix` no longer strips `deprecated`/`replaced-by` frontmatter. These keys were absent from `VALID_FIELDS`, so `--fix` treated them as invalid and removed them from all 56 deprecated command files — silently un-deprecating them in the working tree (CI-invisible: the mutation only dirtied local checkouts). Added `deprecated` and `replaced-by` to the allowlist, and retargeted the `test_command_audit.py` `--fix` tests to a disposable temp tree so no test ever mutates the real source.
+
 ## [2.35.0] — 2026-06-03
 
 ### Added
