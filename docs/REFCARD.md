@@ -1151,6 +1151,7 @@ npm test
 | Command | Purpose |
 |---------|---------|
 | `/craft:orchestrate:drive` | Spec → autonomous /goal loop → verified green |
+| `/craft:orchestrate:workflow` | Coded fixed-control-flow program → schema-gated, resumable ([refcard](reference/REFCARD-WORKFLOW.md)) |
 
 **Modes:**
 

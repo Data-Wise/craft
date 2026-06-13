@@ -161,6 +161,8 @@ nav:
       - Refine Flag Help: help/refine-flag.md
       - Orchestrate Drive Tutorial: tutorials/TUTORIAL-orchestrate-drive.md
       - Orchestrate Drive Help: help/orchestrate-drive.md
+      - Orchestrate Workflow Tutorial: tutorials/TUTORIAL-orchestrate-workflow.md
+      - Orchestrate Workflow Help: help/orchestrate-workflow.md
       - Mermaid Authoring Guide: guide/mermaid-authoring.md
       - Mermaid Troubleshooting: guide/mermaid-troubleshooting.md
       - Testing:
@@ -221,6 +223,7 @@ nav:
       - /craft:hub: commands/hub.md
       - /craft:orchestrate: commands/orchestrate.md
       - /craft:orchestrate:drive: commands/orchestrate-drive.md
+      - /craft:orchestrate:workflow: commands/orchestrate-workflow.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:ci:status: commands/ci/status.md
       - /craft:docs:api: commands/docs/api.md
@@ -275,6 +278,7 @@ nav:
       - Release Watch Recipes: cookbook/release-watch-recipes.md
       - Refine a Prompt Before Running: cookbook/recipes/refine-before-running.md
       - Drive a Spec to Green: cookbook/recipes/drive-a-spec-to-green.md
+      - Run a Coded Workflow: cookbook/recipes/run-a-coded-workflow.md
       - Set Up New Project: cookbook/common/setup-new-project.md
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
@@ -333,6 +337,7 @@ nav:
       - Brainstorm Quick Reference: reference/REFCARD-BRAINSTORM.md
       - Branch Guard Quick Reference: reference/REFCARD-BRANCH-GUARD.md
       - Protect-Baseline Quick Reference: reference/REFCARD-PROTECT-BASELINE.md
+      - Workflow Engine Quick Reference: reference/REFCARD-WORKFLOW.md
       - Release Pipeline Reference: reference/REFCARD-RELEASE.md
       - Testing Quick Reference: reference/REFCARD-TESTING.md
       - Homebrew Quick Reference: reference/REFCARD-HOMEBREW.md

@@ -8,6 +8,30 @@
 
 ---
 
+## First: orchestration mode vs execution mode
+
+Two different axes share the word "mode":
+
+- **Orchestration mode** = *which command* (what control model) — there are
+  **three**.
+- **Execution mode** = *how intensely* `/craft:orchestrate` runs (default /
+  debug / optimize / release) — there are **four**, covered in depth below.
+
+### The three orchestration modes
+
+| Mode | Control model | When to use |
+|------|---------------|-------------|
+| `/craft:orchestrate` | LLM **improvises** "what next" each turn | exploratory work; you can't predict the steps |
+| `/craft:orchestrate:drive` | drives an approved **SPEC** to green via a `/goal` loop | one spec → autonomous completion |
+| `/craft:orchestrate:workflow` | executes a **fixed coded program**; only fan-out *volume* flexes to data | known shapes: decompose → cover N → verify M → synthesize |
+
+**Rule of thumb:** improvise when the path is unknown (`orchestrate`), drive
+when you have an approved spec (`drive`), code it when the shape repeats and you
+want determinism + resumable replay (`workflow`). The four **execution** modes
+below apply to `/craft:orchestrate`.
+
+---
+
 ## What You'll Learn
 
 1. How the same task executes differently across 4 modes

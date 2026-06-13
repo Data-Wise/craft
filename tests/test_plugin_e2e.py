@@ -146,7 +146,7 @@ class TestCommandFrontmatter:
         assert not dupes, f"Duplicate command names: {dupes}"
 
     def test_refine_flag_scope(self):
-        """The --refine flag must be DECLARED in exactly the 5 sanctioned commands.
+        """The --refine flag must be DECLARED in exactly the 6 sanctioned commands.
 
         Keys on the frontmatter argument declaration (``- name: refine``), not a
         substring of ``--refine`` — so prose mentions (e.g. the deprecated
@@ -160,6 +160,7 @@ class TestCommandFrontmatter:
             "commands/orchestrate.md",
             "commands/plan/feature.md",
             "commands/arch/plan.md",
+            "commands/orchestrate/workflow.md",  # FR6: --refine parity (workflow-engine)
         }
         declarers = set()
         for cmd in _find_all_commands():

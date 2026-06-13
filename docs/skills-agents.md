@@ -1,10 +1,10 @@
 # Craft Skills & Agents
 
-> **TL;DR**: 38 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
+> **TL;DR**: 39 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
 
-Craft includes 38 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 39 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (38 total)
+## Skills (39 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -92,6 +92,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 | plan-orchestrator | Produce concrete planning artifacts (ORCHESTRATE files, feature breakdowns, sprint backlogs, roadmaps) from specs | `skills/orchestration/plan-orchestrator/SKILL.md` |
 | session-state | Manages orchestrator session state persistence — save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
 | task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer/SKILL.md` |
+| workflow-engine | Reusable execution body behind `/craft:orchestrate:workflow` — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents under a run-wide semaphore, structurally gate every output, and run a first-class verify gate | `skills/orchestration/workflow-engine/SKILL.md` |
 
 ### Planning (1)
 

@@ -41,3 +41,6 @@ site/
 # Hub discovery cache
 commands/_cache.json
 node_modules/
+
+# Workflow-engine run cache (per-run agent outputs, manifest, semaphore)
+.craft/workflow-runs/

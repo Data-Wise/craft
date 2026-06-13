@@ -13,6 +13,7 @@ brainstorm → spec → ORCHESTRATE → worktree → implement → PR
 | Feature | Type | Purpose |
 |---------|------|---------|
 | `/craft:orchestrate:plan` | New command | Spec → ORCHESTRATE → worktree pipeline |
+| `/craft:orchestrate:workflow` | New command | Coded fixed-control-flow program → schema-gated, resumable ([guide](../commands/orchestrate-workflow.md)) |
 | `/craft:insights` | New command | Session friction reports from facets data |
 | Brainstorm Step 6 | Enhancement | Offer ORCHESTRATE creation after spec capture |
 | Brainstorm Step 1.8 | Enhancement | Surface insights before brainstorming |

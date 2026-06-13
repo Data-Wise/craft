@@ -72,6 +72,42 @@ Release Workflow:
   5. /craft:code:release     - Release workflow
 ```
 
+### Coded-Workflow Shape Detection (D7)
+
+When a task description reads like a **fixed coded shape** —
+decompose → cover N → verify M → synthesize — **suggest**
+`/craft:orchestrate:workflow`, do **not** silently switch to it.
+
+Detect the shape conservatively (the helper
+`workflow_parse.detects_workflow_shape(text)` fires only when ≥3 of the four
+stage categories appear, or the explicit `decompose…synthesize` chain is
+present):
+
+| Stage category | Trigger words |
+|----------------|---------------|
+| decompose | decompose, break down, split into, dimensions, for each |
+| fan-out | fan out, in parallel, one per, cover each, per finding, reviewers |
+| verify | verify, verifier, double-check, confirm each |
+| synthesize | synthesize, aggregate, summarize, combine, merge findings |
+
+**Suggest, never switch (routing-false-positive guard).** A lone "verify" or
+"in parallel" must NOT route anywhere — auto-hijacking a task better served by
+improvised `orchestrate` is the accepted residual risk. On a match, present a
+*suggestion* the user confirms:
+
+```
+This looks like a fixed decompose → cover → verify → synthesize shape.
+Consider: /craft:orchestrate:workflow (coded, schema-gated, resumable)
+Or keep going with improvised orchestration. Which do you want?
+```
+
+| Input | Detected? | Action |
+|-------|-----------|--------|
+| "decompose into dimensions, review each in parallel, verify, synthesize" | yes | suggest `:workflow` |
+| "fan out reviewers, verify findings, then summarize" | yes | suggest `:workflow` |
+| "verify the login flow works" | no | route normally |
+| "review the architecture" | no | route normally |
+
 ### Complexity Assessment
 
 Determines task complexity for mode selection:
