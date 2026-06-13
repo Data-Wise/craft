@@ -154,6 +154,21 @@ A `parallel`/`map`/`flatMap` whose bound array resolves to empty **aborts the ru
 
 Support `--refine` to pre-process a natural-language workflow request through `prompt-refiner` before synthesizing a definition, consistent with other craft commands.
 
+### FR9 — Documentation & discoverability (ship-blocking)
+
+The mode is **not "done" until discoverable and documented** across craft's standard surface, mirroring exactly what `/craft:orchestrate:drive` shipped. Each item below is required, not optional:
+
+- **Help hub / discovery:** command auto-appears in `/craft:hub` via valid frontmatter (`_discovery.py`) — verify it surfaces; add a curated entry to `commands/smart-help.md` so context-aware help suggests it.
+- **Modes comparison (REQUIRED update):** `docs/tutorials/orchestrator-modes-compared.md` goes from **two modes to three** (`orchestrate` / `drive` / `workflow`) with a "when to use which" table. Also touch `docs/orchestrator.md`, `docs/guide/orchestrator.md`, `docs/guide/pipeline-orchestrate-guide.md`.
+- **Tutorial:** `docs/tutorials/TUTORIAL-orchestrate-workflow.md` — hands-on walkthrough (YAML + shape-DSL forms, `--dry-run`, `--resume`).
+- **Command + help reference pages:** `docs/commands/orchestrate-workflow.md` and `docs/help/orchestrate-workflow.md` (mirror the `orchestrate-drive` pair).
+- **REFCARD:** add `/craft:orchestrate:workflow` to the command tables in `docs/REFCARD.md`; add a dedicated `docs/reference/REFCARD-WORKFLOW.md` (precedent: `REFCARD-CHECK.md`, `REFCARD-BRAINSTORM.md`).
+- **Cookbook recipe:** `docs/cookbook/recipes/run-a-coded-workflow.md` (precedent: `drive-a-spec-to-green.md`).
+- **Catalog + nav:** add the new skill row to `docs/skills-agents.md`; add new pages to `mkdocs.yml` nav.
+- **CHANGELOG + counts:** `[Unreleased]` entry; bump command/skill counts (`plugin.json`, `CLAUDE.md`) and confirm `validate-counts.sh` ✓.
+
+**Acceptance:** `/craft:hub` lists the command; modes-compared shows three modes; tutorial + command/help pages + REFCARD entry exist; `docs-staleness-check.sh` and `/craft:check` are clean.
+
 ---
 
 ## Non-Functional Requirements
