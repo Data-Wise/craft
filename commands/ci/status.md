@@ -162,4 +162,5 @@ Uses standard box-drawing output:
 
 ## See Also
 
+- `/craft:ci:triage` - Triage a failing/stuck check: diff-caused vs pre-existing/infra, with a recommendation
 - `/craft:ci:validate` - Validate existing CI workflow against project configuration

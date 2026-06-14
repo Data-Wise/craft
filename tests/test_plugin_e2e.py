@@ -145,6 +145,11 @@ class TestCommandFrontmatter:
             seen[key] = cmd
         assert not dupes, f"Duplicate command names: {dupes}"
 
+    def test_ci_triage_command_exists(self):
+        """Guard against accidental rename/delete of the ci:triage command."""
+        triage = COMMANDS_DIR / "ci" / "triage.md"
+        assert triage.exists(), f"Missing command file: {triage}"
+
     def test_refine_flag_scope(self):
         """The --refine flag must be DECLARED in exactly the 6 sanctioned commands.
 

@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`/craft:ci:triage`** — a new command that classifies a failing or stuck CI
+  check as **diff-caused**, **pre-existing**, or an **infra flake** and recommends
+  *fix* / *re-run* / *`--admin`* with `file:line` evidence (the release-post-mortem
+  reasoning turned into a command). The classifier (`classify_failure`) lives as a
+  stdlib-only block in the command file and is unit-tested directly
+  (`tests/test_ci_triage_unit.py`, 9 cases). Cross-linked from `ci:status` and
+  `code:ci-fix`. Counts: 110→111 commands (`ci` category 4→5).
+
 - **`bump-version.sh` now sweeps categorical subtotals** (Phase 2 of the
   post-v2.36.0 roadmap). Section headers that previously drifted independently of
   the Tier-1 totals are now derived from the live `commands/<cat>` and

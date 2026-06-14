@@ -5,7 +5,7 @@ Complete reference for all 109 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 110 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 111 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement:** `--refine` on `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, `/craft:arch:plan` sharpens your prompt before the command acts (via the `prompt-refiner` skill).
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -129,6 +129,16 @@ Cross-repo CI status dashboard — see all workflow statuses in one view. Suppor
 ```
 
 **See:** [Command Reference](commands/ci/status.md)
+
+### /craft:ci:triage
+
+Triage a failing or stuck CI check — classify it as diff-caused, pre-existing, or an infra flake, and recommend *fix*, *re-run*, or *`--admin`* with `file:line` evidence.
+
+```bash
+/craft:ci:triage
+/craft:ci:triage 153
+/craft:ci:triage --json
+```
 
 ### /craft:ci:validate
 
@@ -414,7 +424,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 110 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 111 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 

@@ -48,6 +48,24 @@ def _isolated(dst: Path) -> Path:
     return dst
 
 
+def _drift_badge(readme: Path, noun: str) -> tuple[str, str]:
+    """Rewrite README's `**N <noun>**` badge to a wrong, above-threshold value.
+
+    Derives N from the file (never hardcoded — these are drift tests, so a
+    hardcoded count would itself silently rot on the next count bump). Returns
+    (live, stale). The stale value stays well above Phase 7's 40% threshold so
+    it is always flagged, and differs from the live value.
+    """
+    import re
+    text = readme.read_text()
+    m = re.search(rf"\*\*(\d+) {noun}\*\*", text)
+    assert m, f"no `**N {noun}**` badge in README.md"
+    live = m.group(1)
+    stale = "777" if live != "777" else "888"
+    readme.write_text(text.replace(f"**{live} {noun}**", f"**{stale} {noun}**", 1))
+    return live, stale
+
+
 def _phase7_findings(tree: Path):
     """Run the staleness check (JSON) and return (count_consistency findings, proc)."""
     proc = subprocess.run(
@@ -65,22 +83,22 @@ class TestCountDriftTripwire:
         """A drifted README command badge surfaces as a Phase 7 finding."""
         tree = _isolated(tmp_path / "iso")
         rm = tree / "README.md"
-        rm.write_text(rm.read_text().replace("**110 commands**", "**99 commands**", 1))
+        live, stale = _drift_badge(rm, "commands")
         findings, _ = _phase7_findings(tree)
         blob = json.dumps(findings)
-        assert "README.md" in blob and "99 commands" in blob, (
-            f"Phase 7 did not flag the stale README command count:\n{blob[:600]}"
+        assert "README.md" in blob and f"{stale} commands" in blob, (
+            f"Phase 7 did not flag README command count {live}->{stale}:\n{blob[:600]}"
         )
 
     def test_phase7_catches_stale_readme_skill_count(self, tmp_path):
         """A drifted README skill badge surfaces as a Phase 7 finding."""
         tree = _isolated(tmp_path / "iso")
         rm = tree / "README.md"
-        rm.write_text(rm.read_text().replace("**39 skills**", "**29 skills**", 1))
+        live, stale = _drift_badge(rm, "skills")
         findings, _ = _phase7_findings(tree)
         blob = json.dumps(findings)
-        assert "README.md" in blob and "29 skills" in blob, (
-            f"Phase 7 did not flag the stale README skill count:\n{blob[:600]}"
+        assert "README.md" in blob and f"{stale} skills" in blob, (
+            f"Phase 7 did not flag README skill count {live}->{stale}:\n{blob[:600]}"
         )
 
     def test_phase7_readme_historical_counts_are_excluded(self, tmp_path):
@@ -96,7 +114,7 @@ class TestCountDriftTripwire:
         """validate-counts.sh fails when the README badge count drifts."""
         tree = _isolated(tmp_path / "iso")
         rm = tree / "README.md"
-        rm.write_text(rm.read_text().replace("**110 commands**", "**99 commands**", 1))
+        _drift_badge(rm, "commands")
         proc = subprocess.run(
             ["bash", str(tree / "scripts" / "validate-counts.sh")],
             capture_output=True, text=True, timeout=60,
