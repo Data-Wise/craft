@@ -115,7 +115,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.36.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.37.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -139,7 +139,7 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (15)                         TEST (3)                              │
+│ CODE (15)                         TEST (2)                              │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
 │   /craft:code:coverage [mode]      /craft:test:gen                      │
 │   /craft:code:debug                                                     │
@@ -154,7 +154,7 @@ Display template:
 │   /craft:docs:lint                 /craft:plan:sprint                   │
 │   /craft:docs:check                /craft:plan:roadmap                  │
 │   /craft:docs:changelog                                                 │
-│   /craft:docs:claude-md          CI (4)                                 │
+│   /craft:docs:claude-md          CI (6)                                 │
 │   /craft:docs:nav-update           /craft:ci:detect                    │
 │   /craft:docs:demo                 /craft:ci:generate                  │
 │   /craft:docs:mermaid              /craft:ci:validate                  │
@@ -363,7 +363,7 @@ Command                  | Description                    | Modes
 ### `/craft:hub test`
 
 ```
-TEST COMMANDS (3) - Unified Testing
+TEST COMMANDS (2) - Unified Testing
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
@@ -520,7 +520,7 @@ Command                  | Description                    | Modes
 ### `/craft:hub ci`
 
 ```
-CI COMMANDS (4) - CI/CD Management
+CI COMMANDS (6) - CI/CD Management
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description
 ─────────────────────────┼────────────────────────────────────────────

@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.36.0 (released 2026-06-03)                       │
+│  Version: 2.37.0 (released 2026-06-03)                       │
 │  Commands: 109 | Agents: 8 | Skills: 38                     │
 │  Documentation: 99% complete | Tests: 1638 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.36.0: Spec-Driven Drive + --refine flag                  │
+│  v2.37.0: Spec-Driven Drive + --refine flag                  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -1084,7 +1084,7 @@ npm test
 /craft:arch:plan                # Plan an architecture change
 ```
 
-## CI/CD Commands (4 commands)
+## CI/CD Commands (6 commands)
 
 | Command                  | Description                                   |
 | ------------------------ | --------------------------------------------- |
@@ -1092,6 +1092,8 @@ npm test
 | `/craft:ci:generate`     | **v2.9.0** Generate GitHub Actions CI workflow |
 | `/craft:ci:validate`     | Validate existing CI workflow                 |
 | `/craft:ci:status`       | **v2.22.1** Cross-repo CI status dashboard    |
+| `/craft:ci:triage`       | Classify a failing/stuck check (diff vs infra) |
+| `/craft:ci:watch`        | Poll a run to completion; merge or triage     |
 
 **Quick examples:**
 
@@ -1506,7 +1508,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.36.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.37.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary
@@ -1517,7 +1519,7 @@ graph LR
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
-## Skills (38 total)
+## Skills (39 total)
 
 Auto-triggered expertise:
 

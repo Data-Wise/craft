@@ -9,6 +9,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.37.0] — 2026-06-13
+
+### Added
+
+- **Test & discovery hygiene** — a `strict-markers` guard test
+  (`test_all_pytest_marks_are_registered`) asserts every `pytest.mark.<name>` used
+  in `tests/` is registered in `pyproject.toml` (proactively catches the
+  unregistered-marker CI flake that forced an `--admin` merge in v2.36.0); and
+  `/craft:orchestrate:workflow` now surfaces its two cookbook recipes via
+  `related_commands` / `tutorial_file` frontmatter and a See Also block.
+
+- **`/craft:ci:watch`** — poll a CI run (PR#/SHA/run-id) to completion, then route
+  the next action: suggest a merge when green, or hand off to `/craft:ci:triage`
+  when red (lightweight inline triage for the two clear-cut cases). Polls via
+  `gh run view --json status` (never `gh pr checks`, which exits 8 in-progress) and
+  offers a `--bg` copy-paste background-poll snippet. Counts: 111→112 commands
+  (`ci` category 5→6). Pairs with `ci:triage` — watch is the poller, triage the analyst.
+- **`/craft:ci:triage`** — a new command that classifies a failing or stuck CI
+  check as **diff-caused**, **pre-existing**, or an **infra flake** and recommends
+  *fix* / *re-run* / *`--admin`* with `file:line` evidence (the release-post-mortem
+  reasoning turned into a command). The classifier (`classify_failure`) lives as a
+  stdlib-only block in the command file and is unit-tested directly
+  (`tests/test_ci_triage_unit.py`, 9 cases). Cross-linked from `ci:status` and
+  `code:ci-fix`. Counts: 110→111 commands (`ci` category 4→5).
+
+- **`bump-version.sh` now sweeps categorical subtotals** (Phase 2 of the
+  post-v2.36.0 roadmap). Section headers that previously drifted independently of
+  the Tier-1 totals are now derived from the live `commands/<cat>` and
+  `skills/<cat>` directory counts on every bump/`--counts-only`:
+  - `commands/hub.md` + `docs/commands/hub.md` — the 11 box-art category labels
+    (`CODE (15)`, `TEST (2)`, …) and their `… COMMANDS (N)` section headers.
+  - `docs/skills-agents.md` — 15 skill sub-category headers (incl. the composite
+    `Guard & Insights`) and 2 agent sub-category headers.
+  - `docs/REFCARD.md` — `## Skills (N total)` / `## Agents (N specialized)`.
+  - `--verify` gained representative categorical spot-checks; the full guard is
+    the planned CI drift tripwire.
+  - Skill sub-category counts use a clean per-dir `SKILL.md` count (the
+    `validate-counts.sh` breakdown over-counts via reference files and is **not**
+    used). `README.md` categorical headers and `docs/commands/overview.md` use
+    curated-subset semantics and are intentionally left as Tier-3 (manual).
+- **CI count-drift tripwire** (Phase 3 of the post-v2.36.0 roadmap). The docs
+  staleness check (`docs-staleness-check.sh` Phase 7) now scans **`README.md`**
+  alongside `docs/` and `CLAUDE.md`, so any drifted LIVE count string
+  (`**110 commands**`, intro, link section) fails the check. README's embedded
+  changelog (historical release totals) is suppressed via
+  `scripts/config/exclusions.txt` — only values above the 40%-of-live threshold
+  need entries. `validate-counts.sh` gained a fast README-badge spot-check for
+  local pre-flight (`/craft:check`). New `tests/test_count_drift_tripwire.py`
+  proves the tripwire fires on drift and stays silent on historical counts
+  (isolated-tree, never touches the real source).
+
+### Fixed
+
+- Categorical drift corrected by the new sweep: hub `TEST (3→2)` and
+  `ORCHESTRATE (5→4)`, and REFCARD `Skills (38→39 total)`.
+
 ## [2.36.0] — 2026-06-13
 
 ### Added

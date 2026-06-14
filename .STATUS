@@ -1,7 +1,7 @@
 status: Active
-version: 2.36.0
-release_date: 2026-06-03
-milestone: v2.35.0 SHIPPED 2026-06-03 — Spec-Driven Drive (/craft:orchestrate:drive) + Prompt Refinement (--refine flag) + docs/drift cleanup (PR #146 → main 8a6684fa, release tag v2.35.0). Downstream all GREEN: docs.yml deployed, homebrew-release updated tap to v2.35.0, post-release sweep CLEAN. CI caught 2 self-inflicted test failures from the dual-catalog deletion (test_tldr_boxes + test_time_estimates referencing deleted guide/skills-agents.md) — fixed before merge.
+version: 2.37.0
+release_date: 2026-06-13
+milestone: v2.36.0 SHIPPED 2026-06-13 — Deterministic workflow engine (/craft:orchestrate:workflow, 3rd orchestration mode) + test-suite source-mutation fixes (command-audit/docs-staleness --fix) + mermaid-marker CI flake fix + workflow-engine doc gaps closed. PR #150 → main eb7e143d (merge commit), release tag v2.36.0. Downstream all GREEN: main CI verified, homebrew-release.yml updated tap to v2.36.0 (desc "110 commands", url v2.36.0.tar.gz). Counts: 110 commands / 39 skills / 8 agents. Prior: v2.35.0 SHIPPED 2026-06-03 (PR #146 → main 8a6684fa).
 last_session: 2026-05-15
 
 progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag v2.34.0). Bundled: commands→skills migration via PR #139 (3 batches, 11 new skills auto-activating from conversation context), PR #140 (post-merge drift sweep + 9th over-counter fix), PR #141 (skill coverage docs in skills-agents.md + bump-version sweep for `(N total)` headers + 10th + 11th over-counter instances), site refresh + .STATUS sync (4c7a44bd, 2b25c2a1), CHANGELOG promotion + tagline cleanup (cbb1a740). Test suite: 19 unit tests on test_craft_plugin.py (added test_skill_count_predicates_use_canonical_marker as a regression net for the recurring SKILL.md-vs-`*.md` over-counting bug — now fixed in 11 utilities total). Downstream all GREEN: docs.yml deployed, homebrew-release.yml updated tap to v2.34.0, brew install verified locally. Post-release sweep: ALL CLEAN, no Tier 2 drift.
@@ -10,8 +10,8 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Head     | Base | Status                                                              |
 |--------|----------|------|---------------------------------------------------------------------|
-| main   | 25c53c95 | —    | Production (v2.34.0 tagged, PR #142 merged 2026-05-15)              |
-| dev    | 25c53c95 | main | Fast-forwarded to main after v2.34.0 release                        |
+| main   | eb7e143d | —    | Production (v2.36.0 tagged, PR #150 merged 2026-06-13)              |
+| dev    | a1812afb | main | #151/#152/#153/#154 merged (items 1,4,7,2,5); ahead of main (next release carries 1-7 work) |
 
 📂 Active Worktrees:
 
@@ -19,7 +19,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 |--------|------|------|---------|
 | _(none active)_ | — | — | — |
 
-_Prior: `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash, 2026-06-13); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash). Both worktrees + remote branches removed. **2 local branches leftover** (`feature/workflow-engine`, `fix/mermaid-markers`) — guard blocks `-D`; need manual delete (or `/craft:git:unprotect` then `-D`). `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
+_Prior: `feature/ci-triage` MERGED → dev `a1812afb` (PR #154 squash, 2026-06-14, CI green) — item #5; first real test of #7+#2 (auto-swept CI subtotal, tripwire caught stale refs). `feature/pr2-drift-tripwire` MERGED → dev `f00f5872` (PR #153 squash, 2026-06-14, CI green) — completes the #7→#2 chain (subtotals synced + CI tripwire). `feature/pr7-bump-subtotals` MERGED → dev `91a82271` (PR #152 squash, 2026-06-13; CI caught a real BSD-sed-no-ops-on-GNU bug, fixed with a `sedi()` wrapper). `feature/pr1a-test-hygiene` MERGED → dev `813855f2` (PR #151 squash, 2026-06-13, CI green); worktree + local + remote branch all removed. `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash) — worktrees + branches removed. `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
 
 ✅ Session 2026-06-13 (mermaid-marker CI fix + workflow-engine doc-gap closure):
 - **PR #149 MERGED → dev `d21a1e4a`** (squash, normal — no `--admin`). Registered `mermaid`/`mermaid_mcp` in `pyproject.toml` markers, killing the `--strict-markers` collection-flake that was red-listing ALL craft CI when the env plugin install flaked. Full suite: **1729 passed / 38 skipped / 1 xfailed**. Resolves Next Action A.
@@ -130,10 +130,10 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) ✅ DONE (2026-06-13) — mermaid-marker CI fragility FIXED + MERGED (PR #149 → dev `d21a1e4a`): registered `mermaid`/`mermaid_mcp` in `pyproject.toml` so `--strict-markers` no longer hard-errors when the env plugin install flakes. No more `--admin` bypasses needed for this class. Workflow-engine doc gaps also closed (`88544709`). ⚡ NEXT: delete 2 leftover local branches (`git branch -D feature/workflow-engine fix/mermaid-markers` — guard-blocked, needs manual run or `/craft:git:unprotect`); optional doc enhancements (2nd cookbook recipe, deeper `orchestrator-modes-compared.md` workflow walk-through).
+A) ✅ v2.36.0 SHIPPED + verified 2026-06-13 (release tag, GitHub release, Homebrew tap all GREEN). This session also closed out: deleted the 2 leftover local branches; closed workflow-engine doc gaps (counts→110/39, hub orchestrate row, 2 mermaid flowcharts); refreshed stale landing cosmetics (index.md cards 107→110/26→39, README banner → v2.36.0); added 6 engine error-path negative tests (`workflow_parse.py` coverage 92%→94%, suite 57→63); added a 2nd cookbook recipe (`fan-a-workflow-across-files.md`) + a workflow walk-through in `orchestrator-modes-compared.md`. ⚡ NEXT: run `./scripts/post-release-sweep.sh` to confirm no Tier-2 drift after the release; then re-sync `dev` with `main` (currently 1 merge-commit behind).
 B) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
 C) Audit deprecated source commands from migration — schedule removal for v3.0.0
-D) Take a break — v2.35.0 shipped clean, downstream all green
+D) Take a break — v2.36.0 shipped clean, downstream all green
 
 Issues closed this session (2026-05-11):
 - #126 (e30ba371) — env-var → stdin contract corrected in insights spec

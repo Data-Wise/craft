@@ -509,6 +509,61 @@ release     ~28,000        ~5,600          High (85% threshold)
 
 ---
 
+## When the shape is fixed: the same task as a `workflow`
+
+The four modes above are all flavors of the **improvising** orchestrator
+(`/craft:orchestrate`) — the LLM decides "what next" each turn. But the OAuth
+reference task has a shape that's actually fixed and repeatable — *design →
+build each component → test → document*. When that's true, you can **code it**
+as a deterministic program with `/craft:orchestrate:workflow`: the control flow
+lives in a definition instead of the model's judgement, so the run is
+reproducible and resumable.
+
+```yaml
+# WORKFLOW-oauth.yaml — the reference task as a fixed coded program
+stages:
+  - id: design
+    type: agent
+    role: backend-architect
+    output_schema: { components: "string[]" }   # e.g. [backend, frontend, tests, docs]
+  - id: build
+    type: parallel
+    over: ${design.components}                   # fan out one agent per component
+    agent: { role: backend-architect, output_schema: { files: "object[]" } }
+  - id: verify
+    type: verify                                 # runs the project's real test command
+  - id: document
+    type: agent
+    role: docs-architect
+    output_schema: { summary: "string" }
+```
+
+Preview the wave plan before anything runs:
+
+```bash
+/craft:orchestrate:workflow WORKFLOW-oauth.yaml --dry-run
+```
+
+```
+DRY RUN: oauth  (run-wide ceiling: 16)
+  1. design: agent -> backend-architect
+  2. build: parallel xN over ${design.components} -> backend-architect
+  3. verify: verify -> (real test command, exit status authoritative)
+  4. document: agent -> docs-architect
+```
+
+`xN` is the fan-out width — unknown until `design` returns, then one `build`
+agent per component. Drop `--dry-run` to execute wave by wave; edit one stage
+and `--resume <run-id>` re-runs only that stage and its downstream. Contrast
+this with the four runs above: identical task, but here the *shape* is fixed and
+only the fan-out *volume* flexes to data.
+
+> **Which mode?** Improvise (the 4 modes above) when the path is unknown;
+> **drive** when you have an approved spec; **workflow** when the shape repeats
+> and you want determinism + resumable replay.
+
+---
+
 ## Mode Selection Decision Tree
 
 ```
