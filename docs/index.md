@@ -14,12 +14,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 110 commands, 8 AI agents, and 39 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 111 commands, 8 AI agents, and 39 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 110 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 111 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
