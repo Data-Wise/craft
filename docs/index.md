@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.36.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.37.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -219,7 +219,7 @@ Complete OpenAPI-style documentation for all 110 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.36.0 — Spec-Driven Drive + Prompt Refinement"
+!!! info "Latest: v2.37.0 — Spec-Driven Drive + Prompt Refinement"
     `/craft:orchestrate:drive` drives an approved spec to completion via a native `/goal` loop with a real verify gate — stopping at verified-green for a human-opened PR. The new `--refine` flag sharpens your prompt before `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, and `/craft:arch:plan` act on it (via the `prompt-refiner` skill, replacing the deprecated `/refine`). See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links

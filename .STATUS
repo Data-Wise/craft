@@ -1,5 +1,5 @@
 status: Active
-version: 2.36.0
+version: 2.37.0
 release_date: 2026-06-13
 milestone: v2.36.0 SHIPPED 2026-06-13 — Deterministic workflow engine (/craft:orchestrate:workflow, 3rd orchestration mode) + test-suite source-mutation fixes (command-audit/docs-staleness --fix) + mermaid-marker CI flake fix + workflow-engine doc gaps closed. PR #150 → main eb7e143d (merge commit), release tag v2.36.0. Downstream all GREEN: main CI verified, homebrew-release.yml updated tap to v2.36.0 (desc "110 commands", url v2.36.0.tar.gz). Counts: 110 commands / 39 skills / 8 agents. Prior: v2.35.0 SHIPPED 2026-06-03 (PR #146 → main 8a6684fa).
 last_session: 2026-05-15
@@ -17,7 +17,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
-| `feature/ci-watch` | `~/.git-worktrees/craft/feature-ci-watch` | dev | Phase 4 / #6 — new `/craft:ci:watch` command (111→112) → **PR #155** open vs dev |
+| _(none active)_ | — | — | — |
 
 _Prior: `feature/ci-triage` MERGED → dev `a1812afb` (PR #154 squash, 2026-06-14, CI green) — item #5; first real test of #7+#2 (auto-swept CI subtotal, tripwire caught stale refs). `feature/pr2-drift-tripwire` MERGED → dev `f00f5872` (PR #153 squash, 2026-06-14, CI green) — completes the #7→#2 chain (subtotals synced + CI tripwire). `feature/pr7-bump-subtotals` MERGED → dev `91a82271` (PR #152 squash, 2026-06-13; CI caught a real BSD-sed-no-ops-on-GNU bug, fixed with a `sedi()` wrapper). `feature/pr1a-test-hygiene` MERGED → dev `813855f2` (PR #151 squash, 2026-06-13, CI green); worktree + local + remote branch all removed. `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash) — worktrees + branches removed. `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
 

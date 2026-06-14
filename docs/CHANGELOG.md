@@ -9,7 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.37.0] — 2026-06-13
+
 ### Added
+
+- **Test & discovery hygiene** — a `strict-markers` guard test
+  (`test_all_pytest_marks_are_registered`) asserts every `pytest.mark.<name>` used
+  in `tests/` is registered in `pyproject.toml` (proactively catches the
+  unregistered-marker CI flake that forced an `--admin` merge in v2.36.0); and
+  `/craft:orchestrate:workflow` now surfaces its two cookbook recipes via
+  `related_commands` / `tutorial_file` frontmatter and a See Also block.
 
 - **`/craft:ci:watch`** — poll a CI run (PR#/SHA/run-id) to completion, then route
   the next action: suggest a merge when green, or hand off to `/craft:ci:triage`
