@@ -9,12 +9,21 @@
 #
 # Exit codes: 0 = success, 1 = drift found (--verify), 2 = usage error
 #
-# Note: Uses BSD sed (macOS). For GNU/Linux, change `sed -i ''` to `sed -i`.
+# Note: in-place edits go through the portable `sedi` wrapper below, which works
+# on both BSD sed (macOS) and GNU sed (Linux/CI).
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+
+# Portable in-place sed: BSD sed (macOS) requires an empty-string suffix after
+# -i; GNU sed (Linux/CI) rejects it. Detect the flavor once, expose `sedi`.
+if sed --version >/dev/null 2>&1; then
+    sedi() { sed -i "$@"; }      # GNU
+else
+    sedi() { sed -i '' "$@"; }   # BSD / macOS
+fi
 
 source "$SCRIPT_DIR/formatting.sh"
 RED="$FMT_RED"
@@ -262,14 +271,14 @@ if [ -f "CLAUDE.md" ]; then
     else
         CHANGED=false
         if [ "$COUNTS_ONLY" = false ] && grep -q "Current Version:.*v[0-9]" CLAUDE.md; then
-            sed -i '' "s|Current Version:\*\* v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|Current Version:** v${TARGET_VERSION}|g" CLAUDE.md
+            sedi "s|Current Version:\*\* v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|Current Version:** v${TARGET_VERSION}|g" CLAUDE.md
             CHANGED=true
         fi
         if grep -q '\*\*[0-9]* commands\*\*' CLAUDE.md; then
-            sed -i '' "s|\*\*[0-9]* commands\*\*|\*\*${CMD_COUNT} commands\*\*|g" CLAUDE.md
-            sed -i '' "s|\*\*[0-9]* skills\*\*|\*\*${SKILL_COUNT} skills\*\*|g" CLAUDE.md
-            sed -i '' "s|\*\*[0-9]* agents\*\*|\*\*${AGENT_COUNT} agents\*\*|g" CLAUDE.md
-            sed -i '' "s|\*\*[0-9]* specs\*\*|\*\*${SPEC_COUNT} specs\*\*|g" CLAUDE.md
+            sedi "s|\*\*[0-9]* commands\*\*|\*\*${CMD_COUNT} commands\*\*|g" CLAUDE.md
+            sedi "s|\*\*[0-9]* skills\*\*|\*\*${SKILL_COUNT} skills\*\*|g" CLAUDE.md
+            sedi "s|\*\*[0-9]* agents\*\*|\*\*${AGENT_COUNT} agents\*\*|g" CLAUDE.md
+            sedi "s|\*\*[0-9]* specs\*\*|\*\*${SPEC_COUNT} specs\*\*|g" CLAUDE.md
             CHANGED=true
         fi
         if [ "$CHANGED" = true ]; then
@@ -287,16 +296,16 @@ if [ -f "README.md" ]; then
     else
         CHANGED=false
         if [ "$COUNTS_ONLY" = false ] && grep -q "version-[0-9]" README.md; then
-            sed -i '' "s|version-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|version-${TARGET_VERSION}|g" README.md
+            sedi "s|version-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|version-${TARGET_VERSION}|g" README.md
             CHANGED=true
         fi
         if grep -q '\*\*[0-9]* commands\*\*' README.md; then
-            sed -i '' "s|\*\*[0-9]* commands\*\*|\*\*${CMD_COUNT} commands\*\*|g" README.md
-            sed -i '' "s|\*\*[0-9]* skills\*\*|\*\*${SKILL_COUNT} skills\*\*|g" README.md
-            sed -i '' "s|\*\*[0-9]* agents\*\*|\*\*${AGENT_COUNT} agents\*\*|g" README.md
+            sedi "s|\*\*[0-9]* commands\*\*|\*\*${CMD_COUNT} commands\*\*|g" README.md
+            sedi "s|\*\*[0-9]* skills\*\*|\*\*${SKILL_COUNT} skills\*\*|g" README.md
+            sedi "s|\*\*[0-9]* agents\*\*|\*\*${AGENT_COUNT} agents\*\*|g" README.md
             CHANGED=true
         fi
-        sed -i '' "s|[0-9][0-9]* commands, [0-9][0-9]* agents, [0-9][0-9]* skills|${CMD_COUNT} commands, ${AGENT_COUNT} agents, ${SKILL_COUNT} skills|g" README.md
+        sedi "s|[0-9][0-9]* commands, [0-9][0-9]* agents, [0-9][0-9]* skills|${CMD_COUNT} commands, ${AGENT_COUNT} agents, ${SKILL_COUNT} skills|g" README.md
         if [ "$CHANGED" = true ]; then
             echo -e "  ${GREEN}✓${NC} README.md"; UPDATED=$((UPDATED + 1))
         else
@@ -312,13 +321,13 @@ if [ -f "docs/index.md" ]; then
     else
         if [ "$COUNTS_ONLY" = false ]; then
             # Target specific version patterns (badges, headers), not prose mentions
-            sed -i '' "s|version-${CURRENT_VERSION}|version-${TARGET_VERSION}|g" docs/index.md
-            sed -i '' "s|Current version: v${CURRENT_VERSION}|Current version: v${TARGET_VERSION}|g" docs/index.md
+            sedi "s|version-${CURRENT_VERSION}|version-${TARGET_VERSION}|g" docs/index.md
+            sedi "s|Current version: v${CURRENT_VERSION}|Current version: v${TARGET_VERSION}|g" docs/index.md
             # Info box: !!! info "Latest: vX.Y.Z — ..."
-            sed -i '' "s|Latest: v${CURRENT_VERSION}|Latest: v${TARGET_VERSION}|g" docs/index.md
+            sedi "s|Latest: v${CURRENT_VERSION}|Latest: v${TARGET_VERSION}|g" docs/index.md
         fi
-        sed -i '' "s|[0-9][0-9]* commands, [0-9][0-9]* AI agents, and [0-9][0-9]* auto-triggered skills|${CMD_COUNT} commands, ${AGENT_COUNT} AI agents, and ${SKILL_COUNT} auto-triggered skills|g" docs/index.md
-        sed -i '' "s|[0-9][0-9]* commands, [0-9][0-9]* agents, [0-9][0-9]* skills|${CMD_COUNT} commands, ${AGENT_COUNT} agents, ${SKILL_COUNT} skills|g" docs/index.md
+        sedi "s|[0-9][0-9]* commands, [0-9][0-9]* AI agents, and [0-9][0-9]* auto-triggered skills|${CMD_COUNT} commands, ${AGENT_COUNT} AI agents, and ${SKILL_COUNT} auto-triggered skills|g" docs/index.md
+        sedi "s|[0-9][0-9]* commands, [0-9][0-9]* agents, [0-9][0-9]* skills|${CMD_COUNT} commands, ${AGENT_COUNT} agents, ${SKILL_COUNT} skills|g" docs/index.md
         echo -e "  ${GREEN}✓${NC} docs/index.md"; UPDATED=$((UPDATED + 1))
     fi
 fi
@@ -330,15 +339,15 @@ if [ -f "docs/REFCARD.md" ]; then
     else
         if [ "$COUNTS_ONLY" = false ]; then
             # Target the version badge/header line
-            sed -i '' "s|version-${CURRENT_VERSION}|version-${TARGET_VERSION}|g" docs/REFCARD.md
-            sed -i '' "1,5s|v${CURRENT_VERSION}|v${TARGET_VERSION}|g" docs/REFCARD.md
+            sedi "s|version-${CURRENT_VERSION}|version-${TARGET_VERSION}|g" docs/REFCARD.md
+            sedi "1,5s|v${CURRENT_VERSION}|v${TARGET_VERSION}|g" docs/REFCARD.md
             # Box interior: line ~7 "Version: X.Y.Z" and line ~11 "vX.Y.Z: ..."
-            sed -i '' "s|Version: ${CURRENT_VERSION}|Version: ${TARGET_VERSION}|g" docs/REFCARD.md
-            sed -i '' "s|v${CURRENT_VERSION}:|v${TARGET_VERSION}:|g" docs/REFCARD.md
+            sedi "s|Version: ${CURRENT_VERSION}|Version: ${TARGET_VERSION}|g" docs/REFCARD.md
+            sedi "s|v${CURRENT_VERSION}:|v${TARGET_VERSION}:|g" docs/REFCARD.md
         fi
         # Categorical total headers (item #7 — run on --counts-only too)
-        sed -i '' "s|^## Skills ([0-9][0-9]* total)|## Skills (${SKILL_COUNT} total)|" docs/REFCARD.md
-        sed -i '' "s|^## Agents ([0-9][0-9]* specialized)|## Agents (${AGENT_COUNT} specialized)|" docs/REFCARD.md
+        sedi "s|^## Skills ([0-9][0-9]* total)|## Skills (${SKILL_COUNT} total)|" docs/REFCARD.md
+        sedi "s|^## Agents ([0-9][0-9]* specialized)|## Agents (${AGENT_COUNT} specialized)|" docs/REFCARD.md
         echo -e "  ${GREEN}✓${NC} docs/REFCARD.md"; UPDATED=$((UPDATED + 1))
     fi
 fi
@@ -349,7 +358,7 @@ if [ -f "docs/DEPENDENCY-ARCHITECTURE.md" ]; then
         echo -e "  ${CYAN}would update${NC} docs/DEPENDENCY-ARCHITECTURE.md"
     else
         if [ "$COUNTS_ONLY" = false ]; then
-            sed -i '' "s|\*\*Version\*\*: [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|\*\*Version\*\*: ${TARGET_VERSION}|g" docs/DEPENDENCY-ARCHITECTURE.md
+            sedi "s|\*\*Version\*\*: [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|\*\*Version\*\*: ${TARGET_VERSION}|g" docs/DEPENDENCY-ARCHITECTURE.md
         fi
         echo -e "  ${GREEN}✓${NC} docs/DEPENDENCY-ARCHITECTURE.md"; UPDATED=$((UPDATED + 1))
     fi
@@ -361,9 +370,9 @@ if [ -f "docs/reference/configuration.md" ]; then
         echo -e "  ${CYAN}would update${NC} docs/reference/configuration.md"
     else
         if [ "$COUNTS_ONLY" = false ]; then
-            sed -i '' "s|bump-version\.sh [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|bump-version.sh ${TARGET_VERSION}|g" docs/reference/configuration.md
+            sedi "s|bump-version\.sh [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|bump-version.sh ${TARGET_VERSION}|g" docs/reference/configuration.md
         fi
-        sed -i '' "s|across [0-9][0-9]* files|across ${FILE_COUNT} files|g" docs/reference/configuration.md
+        sedi "s|across [0-9][0-9]* files|across ${FILE_COUNT} files|g" docs/reference/configuration.md
         echo -e "  ${GREEN}✓${NC} docs/reference/configuration.md"; UPDATED=$((UPDATED + 1))
     fi
 fi
@@ -373,28 +382,28 @@ if [ -f "docs/skills-agents.md" ]; then
     if [ "$DRY_RUN" = true ]; then
         echo -e "  ${CYAN}would update${NC} docs/skills-agents.md"
     else
-        sed -i '' "s|^Craft includes [0-9][0-9]* auto-activating skills and [0-9][0-9]* specialized agents|Craft includes ${SKILL_COUNT} auto-activating skills and ${AGENT_COUNT} specialized agents|" docs/skills-agents.md
-        sed -i '' "s|^## Skills ([0-9][0-9]* total)|## Skills (${SKILL_COUNT} total)|" docs/skills-agents.md
-        sed -i '' "s|^## Agents ([0-9][0-9]* total)|## Agents (${AGENT_COUNT} total)|" docs/skills-agents.md
+        sedi "s|^Craft includes [0-9][0-9]* auto-activating skills and [0-9][0-9]* specialized agents|Craft includes ${SKILL_COUNT} auto-activating skills and ${AGENT_COUNT} specialized agents|" docs/skills-agents.md
+        sedi "s|^## Skills ([0-9][0-9]* total)|## Skills (${SKILL_COUNT} total)|" docs/skills-agents.md
+        sedi "s|^## Agents ([0-9][0-9]* total)|## Agents (${AGENT_COUNT} total)|" docs/skills-agents.md
         # Skill sub-category headers (item #7) — clean SKILL.md counts per dir
-        sed -i '' "s|^### Architecture ([0-9][0-9]*)|### Architecture (${SKILL_ARCH})|"   docs/skills-agents.md
-        sed -i '' "s|^### Check ([0-9][0-9]*)|### Check (${SKILL_CHECK})|"                 docs/skills-agents.md
-        sed -i '' "s|^### CI ([0-9][0-9]*)|### CI (${SKILL_CI})|"                          docs/skills-agents.md
-        sed -i '' "s|^### Code ([0-9][0-9]*)|### Code (${SKILL_CODE})|"                     docs/skills-agents.md
-        sed -i '' "s|^### Design ([0-9][0-9]*)|### Design (${SKILL_DESIGN})|"               docs/skills-agents.md
-        sed -i '' "s|^### Dev ([0-9][0-9]*)|### Dev (${SKILL_DEV})|"                        docs/skills-agents.md
-        sed -i '' "s|^### Distribution ([0-9][0-9]*)|### Distribution (${SKILL_DIST})|"     docs/skills-agents.md
-        sed -i '' "s|^### Documentation ([0-9][0-9]*)|### Documentation (${SKILL_DOCS})|"   docs/skills-agents.md
-        sed -i '' "s|^### Guard & Insights ([0-9][0-9]*)|### Guard \& Insights (${SKILL_GUARD})|" docs/skills-agents.md
-        sed -i '' "s|^### Modes ([0-9][0-9]*)|### Modes (${SKILL_MODES})|"                  docs/skills-agents.md
-        sed -i '' "s|^### Orchestration ([0-9][0-9]*)|### Orchestration (${SKILL_ORCH})|"   docs/skills-agents.md
-        sed -i '' "s|^### Planning ([0-9][0-9]*)|### Planning (${SKILL_PLAN})|"             docs/skills-agents.md
-        sed -i '' "s|^### Release ([0-9][0-9]*)|### Release (${SKILL_RELEASE})|"            docs/skills-agents.md
-        sed -i '' "s|^### Testing ([0-9][0-9]*)|### Testing (${SKILL_TEST})|"               docs/skills-agents.md
-        sed -i '' "s|^### Workflow ([0-9][0-9]*)|### Workflow (${SKILL_WORKFLOW})|"         docs/skills-agents.md
+        sedi "s|^### Architecture ([0-9][0-9]*)|### Architecture (${SKILL_ARCH})|"   docs/skills-agents.md
+        sedi "s|^### Check ([0-9][0-9]*)|### Check (${SKILL_CHECK})|"                 docs/skills-agents.md
+        sedi "s|^### CI ([0-9][0-9]*)|### CI (${SKILL_CI})|"                          docs/skills-agents.md
+        sedi "s|^### Code ([0-9][0-9]*)|### Code (${SKILL_CODE})|"                     docs/skills-agents.md
+        sedi "s|^### Design ([0-9][0-9]*)|### Design (${SKILL_DESIGN})|"               docs/skills-agents.md
+        sedi "s|^### Dev ([0-9][0-9]*)|### Dev (${SKILL_DEV})|"                        docs/skills-agents.md
+        sedi "s|^### Distribution ([0-9][0-9]*)|### Distribution (${SKILL_DIST})|"     docs/skills-agents.md
+        sedi "s|^### Documentation ([0-9][0-9]*)|### Documentation (${SKILL_DOCS})|"   docs/skills-agents.md
+        sedi "s|^### Guard & Insights ([0-9][0-9]*)|### Guard \& Insights (${SKILL_GUARD})|" docs/skills-agents.md
+        sedi "s|^### Modes ([0-9][0-9]*)|### Modes (${SKILL_MODES})|"                  docs/skills-agents.md
+        sedi "s|^### Orchestration ([0-9][0-9]*)|### Orchestration (${SKILL_ORCH})|"   docs/skills-agents.md
+        sedi "s|^### Planning ([0-9][0-9]*)|### Planning (${SKILL_PLAN})|"             docs/skills-agents.md
+        sedi "s|^### Release ([0-9][0-9]*)|### Release (${SKILL_RELEASE})|"            docs/skills-agents.md
+        sedi "s|^### Testing ([0-9][0-9]*)|### Testing (${SKILL_TEST})|"               docs/skills-agents.md
+        sedi "s|^### Workflow ([0-9][0-9]*)|### Workflow (${SKILL_WORKFLOW})|"         docs/skills-agents.md
         # Agent sub-category headers (item #7)
-        sed -i '' "s|^### Documentation Agents ([0-9][0-9]*)|### Documentation Agents (${AGENT_DOCS})|" docs/skills-agents.md
-        sed -i '' "s|^### Orchestration Agents ([0-9][0-9]*)|### Orchestration Agents (${AGENT_ROOT})|" docs/skills-agents.md
+        sedi "s|^### Documentation Agents ([0-9][0-9]*)|### Documentation Agents (${AGENT_DOCS})|" docs/skills-agents.md
+        sedi "s|^### Orchestration Agents ([0-9][0-9]*)|### Orchestration Agents (${AGENT_ROOT})|" docs/skills-agents.md
         echo -e "  ${GREEN}✓${NC} docs/skills-agents.md"; UPDATED=$((UPDATED + 1))
     fi
 fi
@@ -404,8 +413,8 @@ if [ -f "mkdocs.yml" ]; then
     if [ "$DRY_RUN" = true ]; then
         echo -e "  ${CYAN}would update${NC} mkdocs.yml"
     else
-        sed -i '' "s|[0-9][0-9]* commands, [0-9][0-9]* agents, [0-9][0-9]* skills|${CMD_COUNT} commands, ${AGENT_COUNT} agents, ${SKILL_COUNT} skills|g" mkdocs.yml
-        [ "$COUNTS_ONLY" = false ] && sed -i '' "s|v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]* adds|v${TARGET_VERSION} adds|" mkdocs.yml
+        sedi "s|[0-9][0-9]* commands, [0-9][0-9]* agents, [0-9][0-9]* skills|${CMD_COUNT} commands, ${AGENT_COUNT} agents, ${SKILL_COUNT} skills|g" mkdocs.yml
+        [ "$COUNTS_ONLY" = false ] && sedi "s|v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]* adds|v${TARGET_VERSION} adds|" mkdocs.yml
         echo -e "  ${GREEN}✓${NC} mkdocs.yml"; UPDATED=$((UPDATED + 1))
     fi
 fi
@@ -415,8 +424,8 @@ if [ -f ".STATUS" ]; then
     if [ "$DRY_RUN" = true ]; then
         echo -e "  ${CYAN}would update${NC} .STATUS"
     else
-        [ "$COUNTS_ONLY" = false ] && sed -i '' "s|^version: [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|version: ${TARGET_VERSION}|" .STATUS
-        sed -i '' "s|[0-9][0-9]* commands, [0-9][0-9]* skills, [0-9][0-9]* agents|${CMD_COUNT} commands, ${SKILL_COUNT} skills, ${AGENT_COUNT} agents|g" .STATUS
+        [ "$COUNTS_ONLY" = false ] && sedi "s|^version: [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|version: ${TARGET_VERSION}|" .STATUS
+        sedi "s|[0-9][0-9]* commands, [0-9][0-9]* skills, [0-9][0-9]* agents|${CMD_COUNT} commands, ${SKILL_COUNT} skills, ${AGENT_COUNT} agents|g" .STATUS
         echo -e "  ${GREEN}✓${NC} .STATUS"; UPDATED=$((UPDATED + 1))
     fi
 fi
@@ -429,35 +438,35 @@ for hub_file in commands/hub.md docs/commands/hub.md; do
         else
             if [ "$COUNTS_ONLY" = false ]; then
                 # Banner version: "Toolkit v2.23.1"
-                sed -i '' "s|Toolkit v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|Toolkit v${TARGET_VERSION}|g" "$hub_file"
+                sedi "s|Toolkit v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|Toolkit v${TARGET_VERSION}|g" "$hub_file"
             fi
             # Counts in banner and quick reference: "N commands | N skills | N agents"
-            sed -i '' "s#[0-9][0-9]* commands | [0-9][0-9]* skills | [0-9][0-9]* agents#${CMD_COUNT} commands | ${SKILL_COUNT} skills | ${AGENT_COUNT} agents#g" "$hub_file"
+            sedi "s#[0-9][0-9]* commands | [0-9][0-9]* skills | [0-9][0-9]* agents#${CMD_COUNT} commands | ${SKILL_COUNT} skills | ${AGENT_COUNT} agents#g" "$hub_file"
             # Categorical labels (item #7) — box-art "LABEL (N)". Single-digit ↔
             # single-digit keeps the fixed-width box borders aligned. GIT carries
             # a static "incl. N guides" suffix that must be preserved.
-            sed -i '' "s|CODE ([0-9][0-9]*)|CODE (${CMD_CODE})|g"               "$hub_file"
-            sed -i '' "s|TEST ([0-9][0-9]*)|TEST (${CMD_TEST})|g"               "$hub_file"
-            sed -i '' "s|ARCH ([0-9][0-9]*)|ARCH (${CMD_ARCH})|g"               "$hub_file"
-            sed -i '' "s|DOCS ([0-9][0-9]*)|DOCS (${CMD_DOCS})|g"               "$hub_file"
-            sed -i '' "s|PLAN ([0-9][0-9]*)|PLAN (${CMD_PLAN})|g"               "$hub_file"
-            sed -i '' "s|CI ([0-9][0-9]*)|CI (${CMD_CI})|g"                     "$hub_file"
-            sed -i '' "s|GIT ([0-9][0-9]* incl\. [0-9]* guides)|GIT (${CMD_GIT} incl. 4 guides)|g" "$hub_file"
-            sed -i '' "s|WORKFLOW ([0-9][0-9]*)|WORKFLOW (${CMD_WORKFLOW})|g"   "$hub_file"
-            sed -i '' "s|DIST ([0-9][0-9]*)|DIST (${CMD_DIST})|g"               "$hub_file"
-            sed -i '' "s|SITE ([0-9][0-9]*)|SITE (${CMD_SITE})|g"               "$hub_file"
-            sed -i '' "s|ORCHESTRATE ([0-9][0-9]*)|ORCHESTRATE (${CMD_ORCH})|g" "$hub_file"
+            sedi "s|CODE ([0-9][0-9]*)|CODE (${CMD_CODE})|g"               "$hub_file"
+            sedi "s|TEST ([0-9][0-9]*)|TEST (${CMD_TEST})|g"               "$hub_file"
+            sedi "s|ARCH ([0-9][0-9]*)|ARCH (${CMD_ARCH})|g"               "$hub_file"
+            sedi "s|DOCS ([0-9][0-9]*)|DOCS (${CMD_DOCS})|g"               "$hub_file"
+            sedi "s|PLAN ([0-9][0-9]*)|PLAN (${CMD_PLAN})|g"               "$hub_file"
+            sedi "s|CI ([0-9][0-9]*)|CI (${CMD_CI})|g"                     "$hub_file"
+            sedi "s|GIT ([0-9][0-9]* incl\. [0-9]* guides)|GIT (${CMD_GIT} incl. 4 guides)|g" "$hub_file"
+            sedi "s|WORKFLOW ([0-9][0-9]*)|WORKFLOW (${CMD_WORKFLOW})|g"   "$hub_file"
+            sedi "s|DIST ([0-9][0-9]*)|DIST (${CMD_DIST})|g"               "$hub_file"
+            sedi "s|SITE ([0-9][0-9]*)|SITE (${CMD_SITE})|g"               "$hub_file"
+            sedi "s|ORCHESTRATE ([0-9][0-9]*)|ORCHESTRATE (${CMD_ORCH})|g" "$hub_file"
             # Categorical section headers "LABEL COMMANDS (N) - ..."
-            sed -i '' "s|CODE COMMANDS ([0-9][0-9]*)|CODE COMMANDS (${CMD_CODE})|g"               "$hub_file"
-            sed -i '' "s|TEST COMMANDS ([0-9][0-9]*)|TEST COMMANDS (${CMD_TEST})|g"               "$hub_file"
-            sed -i '' "s|DOCS COMMANDS ([0-9][0-9]*)|DOCS COMMANDS (${CMD_DOCS})|g"               "$hub_file"
-            sed -i '' "s|WORKFLOW COMMANDS ([0-9][0-9]*)|WORKFLOW COMMANDS (${CMD_WORKFLOW})|g"   "$hub_file"
-            sed -i '' "s|SITE COMMANDS ([0-9][0-9]*)|SITE COMMANDS (${CMD_SITE})|g"               "$hub_file"
-            sed -i '' "s|ARCH COMMANDS ([0-9][0-9]*)|ARCH COMMANDS (${CMD_ARCH})|g"               "$hub_file"
-            sed -i '' "s|CI COMMANDS ([0-9][0-9]*)|CI COMMANDS (${CMD_CI})|g"                     "$hub_file"
-            sed -i '' "s|DIST COMMANDS ([0-9][0-9]*)|DIST COMMANDS (${CMD_DIST})|g"               "$hub_file"
-            sed -i '' "s|PLAN COMMANDS ([0-9][0-9]*)|PLAN COMMANDS (${CMD_PLAN})|g"               "$hub_file"
-            sed -i '' "s|ORCHESTRATE COMMANDS ([0-9][0-9]*)|ORCHESTRATE COMMANDS (${CMD_ORCH})|g" "$hub_file"
+            sedi "s|CODE COMMANDS ([0-9][0-9]*)|CODE COMMANDS (${CMD_CODE})|g"               "$hub_file"
+            sedi "s|TEST COMMANDS ([0-9][0-9]*)|TEST COMMANDS (${CMD_TEST})|g"               "$hub_file"
+            sedi "s|DOCS COMMANDS ([0-9][0-9]*)|DOCS COMMANDS (${CMD_DOCS})|g"               "$hub_file"
+            sedi "s|WORKFLOW COMMANDS ([0-9][0-9]*)|WORKFLOW COMMANDS (${CMD_WORKFLOW})|g"   "$hub_file"
+            sedi "s|SITE COMMANDS ([0-9][0-9]*)|SITE COMMANDS (${CMD_SITE})|g"               "$hub_file"
+            sedi "s|ARCH COMMANDS ([0-9][0-9]*)|ARCH COMMANDS (${CMD_ARCH})|g"               "$hub_file"
+            sedi "s|CI COMMANDS ([0-9][0-9]*)|CI COMMANDS (${CMD_CI})|g"                     "$hub_file"
+            sedi "s|DIST COMMANDS ([0-9][0-9]*)|DIST COMMANDS (${CMD_DIST})|g"               "$hub_file"
+            sedi "s|PLAN COMMANDS ([0-9][0-9]*)|PLAN COMMANDS (${CMD_PLAN})|g"               "$hub_file"
+            sedi "s|ORCHESTRATE COMMANDS ([0-9][0-9]*)|ORCHESTRATE COMMANDS (${CMD_ORCH})|g" "$hub_file"
             echo -e "  ${GREEN}✓${NC} $hub_file"; UPDATED=$((UPDATED + 1))
         fi
     fi
