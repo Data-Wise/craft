@@ -11,15 +11,15 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 | Branch | Head     | Base | Status                                                              |
 |--------|----------|------|---------------------------------------------------------------------|
 | main   | eb7e143d | —    | Production (v2.36.0 tagged, PR #150 merged 2026-06-13)              |
-| dev    | f00f5872 | main | PR #151 (PR-1a) + #152 (#7 subtotals) + #153 (#2 drift tripwire) squash-merged; ahead of main (next release carries 1-7 work) |
+| dev    | a1812afb | main | #151/#152/#153/#154 merged (items 1,4,7,2,5); ahead of main (next release carries 1-7 work) |
 
 📂 Active Worktrees:
 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
-| `feature/ci-triage` | `~/.git-worktrees/craft/feature-ci-triage` | dev | Phase 4 / #5 — new `/craft:ci:triage` command (110→111) → **PR #154** open vs dev |
+| `feature/ci-watch` | `~/.git-worktrees/craft/feature-ci-watch` | dev | Phase 4 / #6 — new `/craft:ci:watch` command (111→112), forwards red-path to ci:triage |
 
-_Prior: `feature/pr2-drift-tripwire` MERGED → dev `f00f5872` (PR #153 squash, 2026-06-14, CI green) — completes the #7→#2 chain (subtotals synced + CI tripwire). `feature/pr7-bump-subtotals` MERGED → dev `91a82271` (PR #152 squash, 2026-06-13; CI caught a real BSD-sed-no-ops-on-GNU bug, fixed with a `sedi()` wrapper). `feature/pr1a-test-hygiene` MERGED → dev `813855f2` (PR #151 squash, 2026-06-13, CI green); worktree + local + remote branch all removed. `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash) — worktrees + branches removed. `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
+_Prior: `feature/ci-triage` MERGED → dev `a1812afb` (PR #154 squash, 2026-06-14, CI green) — item #5; first real test of #7+#2 (auto-swept CI subtotal, tripwire caught stale refs). `feature/pr2-drift-tripwire` MERGED → dev `f00f5872` (PR #153 squash, 2026-06-14, CI green) — completes the #7→#2 chain (subtotals synced + CI tripwire). `feature/pr7-bump-subtotals` MERGED → dev `91a82271` (PR #152 squash, 2026-06-13; CI caught a real BSD-sed-no-ops-on-GNU bug, fixed with a `sedi()` wrapper). `feature/pr1a-test-hygiene` MERGED → dev `813855f2` (PR #151 squash, 2026-06-13, CI green); worktree + local + remote branch all removed. `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash) — worktrees + branches removed. `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
 
 ✅ Session 2026-06-13 (mermaid-marker CI fix + workflow-engine doc-gap closure):
 - **PR #149 MERGED → dev `d21a1e4a`** (squash, normal — no `--admin`). Registered `mermaid`/`mermaid_mcp` in `pyproject.toml` markers, killing the `--strict-markers` collection-flake that was red-listing ALL craft CI when the env plugin install flaked. Full suite: **1729 passed / 38 skipped / 1 xfailed**. Resolves Next Action A.
