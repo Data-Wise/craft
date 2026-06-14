@@ -104,3 +104,32 @@ docs/reference/REFCARD-DOCS-STALENESS.md:99 commands
 
 # Excluded from mkdocs site (working artifacts)
 docs/FEATURE-RELEASE-CLAUDE-MD.md
+
+# ---------------------------------------------------------------------------
+# README.md embedded changelog (historical totals — snapshots, not live counts)
+# ---------------------------------------------------------------------------
+# README.md is in the Phase 7 scan so its LIVE counts (badge / intro / link
+# section) are policed, but its "What's New" changelog records past release
+# totals that must NOT be updated. These are maintained HERE, not by
+# bump-version.sh. Only values at/above the 40%-of-live threshold need entries
+# (commands>=44, skills>=15, agents>=3); smaller historical counts fall below
+# the threshold and are skipped automatically. Add a new entry when a release
+# adds a "Total: N commands, M skills, K agents" line whose N/M/K crosses the
+# threshold.
+README.md:68 commands
+README.md:67 commands
+README.md:63 commands
+README.md:61 commands
+README.md:60 commands
+README.md:58 commands
+README.md:54 commands
+README.md:51 commands
+README.md:50 commands
+README.md:46 commands
+README.md:17 skills
+README.md:16 skills
+README.md:15 skills
+README.md:7 agents
+README.md:6 agents
+# Orchestrator prose example ("Fast parallel (4 agents)") — a mode limit, not a total
+README.md:4 agents

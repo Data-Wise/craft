@@ -76,6 +76,24 @@ if [ -f "$PLUGIN_JSON" ]; then
         echo -e "${GREEN}✓ Agents match: $AGENT_COUNT${NC}"
     fi
 
+    # README.md badge live-count spot-check (#2 drift tripwire — fast local guard).
+    # Only the bold badge form (**N commands**) is checked; the historical
+    # "Total: N commands" changelog lines are plain text and never match.
+    if [ -f "README.md" ]; then
+        RM_CMDS=$(grep -oE '\*\*[0-9]+ commands\*\*' README.md | head -1 | grep -oE '[0-9]+')
+        RM_SKILLS=$(grep -oE '\*\*[0-9]+ skills\*\*' README.md | head -1 | grep -oE '[0-9]+')
+        RM_AGENTS=$(grep -oE '\*\*[0-9]+ agents\*\*' README.md | head -1 | grep -oE '[0-9]+')
+        if [ -n "$RM_CMDS" ] && [ "$RM_CMDS" != "$CMD_COUNT" ]; then
+            echo -e "${RED}✗ README badge commands: $RM_CMDS vs $CMD_COUNT actual${NC}"; ERRORS=$((ERRORS + 1))
+        fi
+        if [ -n "$RM_SKILLS" ] && [ "$RM_SKILLS" != "$SKILL_COUNT" ]; then
+            echo -e "${RED}✗ README badge skills: $RM_SKILLS vs $SKILL_COUNT actual${NC}"; ERRORS=$((ERRORS + 1))
+        fi
+        if [ -n "$RM_AGENTS" ] && [ "$RM_AGENTS" != "$AGENT_COUNT" ]; then
+            echo -e "${RED}✗ README badge agents: $RM_AGENTS vs $AGENT_COUNT actual${NC}"; ERRORS=$((ERRORS + 1))
+        fi
+    fi
+
     echo ""
 
     if [ $ERRORS -gt 0 ]; then

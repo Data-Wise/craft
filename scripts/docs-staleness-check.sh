@@ -325,7 +325,7 @@ phase7_count_consistency() {
                 "'${found_count} ${ctype}' (expected ${expected})" \
                 "$fixable" "$fix_detail"
             issues=$((issues + 1))
-        done < <(grep -rnE "\b[0-9]+ ${ctype}\b" docs/ CLAUDE.md --include="*.md" 2>/dev/null || true)
+        done < <(grep -rnE "\b[0-9]+ ${ctype}\b" docs/ CLAUDE.md README.md --include="*.md" 2>/dev/null || true)
     done
 
     print_phase_status "$issues"

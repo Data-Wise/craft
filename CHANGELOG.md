@@ -28,6 +28,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `validate-counts.sh` breakdown over-counts via reference files and is **not**
     used). `README.md` categorical headers and `docs/commands/overview.md` use
     curated-subset semantics and are intentionally left as Tier-3 (manual).
+- **CI count-drift tripwire** (Phase 3 of the post-v2.36.0 roadmap). The docs
+  staleness check (`docs-staleness-check.sh` Phase 7) now scans **`README.md`**
+  alongside `docs/` and `CLAUDE.md`, so any drifted LIVE count string
+  (`**110 commands**`, intro, link section) fails the check. README's embedded
+  changelog (historical release totals) is suppressed via
+  `scripts/config/exclusions.txt` — only values above the 40%-of-live threshold
+  need entries. `validate-counts.sh` gained a fast README-badge spot-check for
+  local pre-flight (`/craft:check`). New `tests/test_count_drift_tripwire.py`
+  proves the tripwire fires on drift and stays silent on historical counts
+  (isolated-tree, never touches the real source).
 
 ### Fixed
 
