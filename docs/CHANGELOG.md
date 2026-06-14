@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`bump-version.sh` now sweeps categorical subtotals** (Phase 2 of the
+  post-v2.36.0 roadmap). Section headers that previously drifted independently of
+  the Tier-1 totals are now derived from the live `commands/<cat>` and
+  `skills/<cat>` directory counts on every bump/`--counts-only`:
+  - `commands/hub.md` + `docs/commands/hub.md` — the 11 box-art category labels
+    (`CODE (15)`, `TEST (2)`, …) and their `… COMMANDS (N)` section headers.
+  - `docs/skills-agents.md` — 15 skill sub-category headers (incl. the composite
+    `Guard & Insights`) and 2 agent sub-category headers.
+  - `docs/REFCARD.md` — `## Skills (N total)` / `## Agents (N specialized)`.
+  - `--verify` gained representative categorical spot-checks; the full guard is
+    the planned CI drift tripwire.
+  - Skill sub-category counts use a clean per-dir `SKILL.md` count (the
+    `validate-counts.sh` breakdown over-counts via reference files and is **not**
+    used). `README.md` categorical headers and `docs/commands/overview.md` use
+    curated-subset semantics and are intentionally left as Tier-3 (manual).
+
+### Fixed
+
+- Categorical drift corrected by the new sweep: hub `TEST (3→2)` and
+  `ORCHESTRATE (5→4)`, and REFCARD `Skills (38→39 total)`.
+
 ## [2.36.0] — 2026-06-13
 
 ### Added
