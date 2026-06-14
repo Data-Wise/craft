@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 110 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.36.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.37.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -2133,6 +2133,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-the-shape-is-fixed-the-same-task-as-a-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When the shape is fixed: the same task as a workflow
+      
+    </span>
+  </a>
   
 </li>
       
@@ -6358,6 +6369,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../cookbook/recipes/fan-a-workflow-across-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan a Workflow Across Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
         
   
@@ -10361,6 +10400,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#when-the-shape-is-fixed-the-same-task-as-a-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When the shape is fixed: the same task as a workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#mode-selection-decision-tree" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11182,24 +11232,69 @@ below apply to <code>/craft:orchestrate</code>.</p>
 </tbody>
 </table>
 <hr />
+<h2 id="when-the-shape-is-fixed-the-same-task-as-a-workflow">When the shape is fixed: the same task as a <code>workflow</code><a class="headerlink" href="#when-the-shape-is-fixed-the-same-task-as-a-workflow" title="Permanent link">&para;</a></h2>
+<p>The four modes above are all flavors of the <strong>improvising</strong> orchestrator
+(<code>/craft:orchestrate</code>) — the LLM decides "what next" each turn. But the OAuth
+reference task has a shape that's actually fixed and repeatable — <em>design →
+build each component → test → document</em>. When that's true, you can <strong>code it</strong>
+as a deterministic program with <code>/craft:orchestrate:workflow</code>: the control flow
+lives in a definition instead of the model's judgement, so the run is
+reproducible and resumable.</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># WORKFLOW-oauth.yaml — the reference task as a fixed coded program</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nt">stages</span><span class="p">:</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">design</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agent</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backend-architect</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">    </span><span class="nt">output_schema</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> components</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string[]&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w">   </span><span class="c1"># e.g. [backend, frontend, tests, docs]</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parallel</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">    </span><span class="nt">over</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${design.components}</span><span class="w">                   </span><span class="c1"># fan out one agent per component</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">    </span><span class="nt">agent</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> role</span><span class="p">:</span><span class="w"> </span><span class="nv">backend-architect</span><span class="p p-Indicator">,</span><span class="nt"> output_schema</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> files</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;object[]&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verify</span>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verify</span><span class="w">                                 </span><span class="c1"># runs the project&#39;s real test command</span>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">document</span>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agent</span>
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs-architect</span>
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="w">    </span><span class="nt">output_schema</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</span></code></pre></div>
+<p>Preview the wave plan before anything runs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/craft:orchestrate:workflow<span class="w"> </span>WORKFLOW-oauth.yaml<span class="w"> </span>--dry-run
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>DRY RUN: oauth  (run-wide ceiling: 16)
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>  1. design: agent -&gt; backend-architect
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>  2. build: parallel xN over ${design.components} -&gt; backend-architect
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>  3. verify: verify -&gt; (real test command, exit status authoritative)
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>  4. document: agent -&gt; docs-architect
+</span></code></pre></div>
+<p><code>xN</code> is the fan-out width — unknown until <code>design</code> returns, then one <code>build</code>
+agent per component. Drop <code>--dry-run</code> to execute wave by wave; edit one stage
+and <code>--resume &lt;run-id&gt;</code> re-runs only that stage and its downstream. Contrast
+this with the four runs above: identical task, but here the <em>shape</em> is fixed and
+only the fan-out <em>volume</em> flexes to data.</p>
+<blockquote>
+<p><strong>Which mode?</strong> Improvise (the 4 modes above) when the path is unknown;
+<strong>drive</strong> when you have an approved spec; <strong>workflow</strong> when the shape repeats
+and you want determinism + resumable replay.</p>
+</blockquote>
+<hr />
 <h2 id="mode-selection-decision-tree">Mode Selection Decision Tree<a class="headerlink" href="#mode-selection-decision-tree" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Start: Need to orchestrate a task
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>├─ Is this for production release?
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>│   └─ YES → Use release mode
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>│       (Full audit trail required)
-</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>│
-</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>├─ Is time critical? (&lt; 10 minutes needed)
-</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>│   └─ YES → Use optimize mode
-</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>│       (Fast parallel execution)
-</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>│
-</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>├─ Are you debugging a failed orchestration?
-</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>│   └─ YES → Use debug mode
-</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>│       (Verbose traces, sequential execution)
-</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>│
-</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>└─ Everything else?
-</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>    └─ Use default mode
-</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>        (Balanced speed and oversight)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Start: Need to orchestrate a task
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>├─ Is this for production release?
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>│   └─ YES → Use release mode
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>│       (Full audit trail required)
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>│
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>├─ Is time critical? (&lt; 10 minutes needed)
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>│   └─ YES → Use optimize mode
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>│       (Fast parallel execution)
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>│
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>├─ Are you debugging a failed orchestration?
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>│   └─ YES → Use debug mode
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>│       (Verbose traces, sequential execution)
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>│
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a>└─ Everything else?
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>    └─ Use default mode
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a>        (Balanced speed and oversight)
 </span></code></pre></div>
 <h3 id="task-complexity-recommended-mode">Task Complexity → Recommended Mode<a class="headerlink" href="#task-complexity-recommended-mode" title="Permanent link">&para;</a></h3>
 <table>
@@ -11237,42 +11332,42 @@ below apply to <code>/craft:orchestrate</code>.</p>
 <h2 id="advanced-mid-task-mode-switching">Advanced: Mid-Task Mode Switching<a class="headerlink" href="#advanced-mid-task-mode-switching" title="Permanent link">&para;</a></h2>
 <p><strong>Current limitation:</strong> You cannot switch modes mid-task.</p>
 <p><strong>Workaround:</strong> Abort and restart with different mode.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Start with default</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;complex task&quot;</span><span class="w"> </span>default
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Wave 1 completes successfully</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="c1"># Wave 2 fails with unclear error</span>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="c1"># Abort</span>
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>/craft:orchestrate<span class="w"> </span>abort
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>
-</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="c1"># Restart in debug mode to see traces</span>
-</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;complex task&quot;</span><span class="w"> </span>debug
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Start with default</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;complex task&quot;</span><span class="w"> </span>default
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Wave 1 completes successfully</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1"># Wave 2 fails with unclear error</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="c1"># Abort</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>/craft:orchestrate<span class="w"> </span>abort
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="c1"># Restart in debug mode to see traces</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;complex task&quot;</span><span class="w"> </span>debug
 </span></code></pre></div>
 <p><strong>Future feature request:</strong> Mid-task mode switching</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Hypothetical future feature</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>/craft:orchestrate<span class="w"> </span>mode<span class="w"> </span>debug<span class="w">  </span><span class="c1"># Switch current session to debug mode</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Hypothetical future feature</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>/craft:orchestrate<span class="w"> </span>mode<span class="w"> </span>debug<span class="w">  </span><span class="c1"># Switch current session to debug mode</span>
 </span></code></pre></div>
 <hr />
 <h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
 <h3 id="pre-select-mode-to-skip-prompt">Pre-Select Mode to Skip Prompt<a class="headerlink" href="#pre-select-mode-to-skip-prompt" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Default: Shows mode selection prompt</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># Explicit: Skips mode selection, faster</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>default
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Default: Shows mode selection prompt</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Explicit: Skips mode selection, faster</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>default
 </span></code></pre></div>
 <h3 id="use-dry-run-to-preview">Use --dry-run to Preview<a class="headerlink" href="#use-dry-run-to-preview" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># See orchestration plan without spawning agents</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>default<span class="w"> </span>--dry-run
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>Output:
-</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">  </span>✓<span class="w"> </span>Task<span class="w"> </span>analysis
-</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">  </span>✓<span class="w"> </span>Agent<span class="w"> </span>allocation
-</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">  </span>✓<span class="w"> </span>Parallelization<span class="w"> </span>strategy
-</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">  </span>✓<span class="w"> </span>Estimated<span class="w"> </span>time:<span class="w"> </span>~8<span class="w"> </span>minutes
-</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
-</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="w">  </span><span class="o">(</span>No<span class="w"> </span>agents<span class="w"> </span>spawned,<span class="w"> </span>no<span class="w"> </span>token<span class="w"> </span>usage<span class="o">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># See orchestration plan without spawning agents</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>default<span class="w"> </span>--dry-run
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>Output:
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">  </span>✓<span class="w"> </span>Task<span class="w"> </span>analysis
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">  </span>✓<span class="w"> </span>Agent<span class="w"> </span>allocation
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="w">  </span>✓<span class="w"> </span>Parallelization<span class="w"> </span>strategy
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="w">  </span>✓<span class="w"> </span>Estimated<span class="w"> </span>time:<span class="w"> </span>~8<span class="w"> </span>minutes
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="w">  </span><span class="o">(</span>No<span class="w"> </span>agents<span class="w"> </span>spawned,<span class="w"> </span>no<span class="w"> </span>token<span class="w"> </span>usage<span class="o">)</span>
 </span></code></pre></div>
 <h3 id="budget-allocation-strategies">Budget Allocation Strategies<a class="headerlink" href="#budget-allocation-strategies" title="Permanent link">&para;</a></h3>
 <table>
@@ -11348,36 +11443,36 @@ below apply to <code>/craft:orchestrate</code>.</p>
 <h3 id="default-mode-failures">Default Mode Failures<a class="headerlink" href="#default-mode-failures" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Wave checkpoint shows unexpected agent output.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Re-run in debug mode to see full traces</span>
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>/craft:orchestrate<span class="w"> </span>abort
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;same task&quot;</span><span class="w"> </span>debug
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Re-run in debug mode to see full traces</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>/craft:orchestrate<span class="w"> </span>abort
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;same task&quot;</span><span class="w"> </span>debug
 </span></code></pre></div>
 <h3 id="debug-mode-reading-verbose-output">Debug Mode: Reading Verbose Output<a class="headerlink" href="#debug-mode-reading-verbose-output" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Too much output, hard to find key information.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Use grep to filter agent output</span>
-</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>/craft:orchestrate<span class="w"> </span>status<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;ERROR&quot;</span>
-</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
-</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Or redirect to file for later review</span>
-</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>debug<span class="w"> </span>&gt;<span class="w"> </span>orchestration-log.txt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># Use grep to filter agent output</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>/craft:orchestrate<span class="w"> </span>status<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;ERROR&quot;</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="c1"># Or redirect to file for later review</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>debug<span class="w"> </span>&gt;<span class="w"> </span>orchestration-log.txt<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </span></code></pre></div>
 <h3 id="optimize-mode-parallel-conflicts">Optimize Mode: Parallel Conflicts<a class="headerlink" href="#optimize-mode-parallel-conflicts" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Agents modify the same file simultaneously, causing conflicts.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c1"># Switch to default mode (limits parallelization)</span>
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;same task&quot;</span><span class="w"> </span>default
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>
-</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="c1"># Or manually coordinate agent dependencies</span>
-</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="c1"># (Not currently supported — future feature)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Switch to default mode (limits parallelization)</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;same task&quot;</span><span class="w"> </span>default
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="c1"># Or manually coordinate agent dependencies</span>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="c1"># (Not currently supported — future feature)</span>
 </span></code></pre></div>
 <h3 id="release-mode-performance-issues">Release Mode: Performance Issues<a class="headerlink" href="#release-mode-performance-issues" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Release mode takes too long (&gt; 15 minutes).</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="c1"># Use default mode for most of orchestration</span>
-</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>default
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="c1"># Then switch to release mode for final validation</span>
-</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>/craft:check<span class="w"> </span>thorough<span class="w"> </span>--for<span class="w"> </span>release
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Use default mode for most of orchestration</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>/craft:orchestrate<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>default
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="c1"># Then switch to release mode for final validation</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>/craft:check<span class="w"> </span>thorough<span class="w"> </span>--for<span class="w"> </span>release
 </span></code></pre></div>
 <hr />
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>

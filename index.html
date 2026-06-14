@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 110 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.36.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.37.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -5876,6 +5876,34 @@
   
   
     <li class="md-nav__item">
+      <a href="cookbook/recipes/fan-a-workflow-across-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan a Workflow Across Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="cookbook/common/setup-new-project/" class="md-nav__link">
         
   
@@ -9642,7 +9670,7 @@
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
-<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-2.36.0-brightgreen.svg" /></a></p>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-2.37.0-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -9667,18 +9695,18 @@
 <blockquote>
 <p><strong>TL;DR</strong> (30 seconds)</p>
 <ul>
-<li><strong>What:</strong> Full-stack developer toolkit with 110 commands, 8 AI agents, and 39 auto-triggered skills</li>
+<li><strong>What:</strong> Full-stack developer toolkit with 112 commands, 8 AI agents, and 39 auto-triggered skills</li>
 <li><strong>Why:</strong> Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command</li>
 <li><strong>How:</strong> Install via <code>claude plugin install craft@local-plugins</code></li>
 <li><strong>Next:</strong> Run <code>/craft:do "your task"</code> and let AI route to the best workflow</li>
 </ul>
-<p>Full-stack developer toolkit for Claude Code — 110 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows</p>
+<p>Full-stack developer toolkit for Claude Code — 112 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows</p>
 </blockquote>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <div class="grid cards">
 <ul>
 <li>
-<p><img alt="🚀" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f680.svg" title=":rocket:" /> <strong>107 Commands</strong></p>
+<p><img alt="🚀" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f680.svg" title=":rocket:" /> <strong>110 Commands</strong></p>
 <p>Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit</p>
 </li>
 <li>
@@ -9686,7 +9714,7 @@
 <p>Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators</p>
 </li>
 <li>
-<p><img alt="✨" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2728.svg" title=":sparkles:" /> <strong>26 Skills</strong></p>
+<p><img alt="✨" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2728.svg" title=":sparkles:" /> <strong>39 Skills</strong></p>
 <p>Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation</p>
 </li>
 <li>
@@ -9749,7 +9777,7 @@
 </ul>
 </div>
 <h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
-<p>Complete OpenAPI-style documentation for all 109 Craft commands:</p>
+<p>Complete OpenAPI-style documentation for all 110 Craft commands:</p>
 <div class="grid cards">
 <ul>
 <li>
@@ -9772,7 +9800,7 @@
 </div>
 <p><strong>Quick Links:</strong></p>
 <ul>
-<li><a href="API-REFERENCE-COMMANDS/">All 107 Commands with Full Documentation</a></li>
+<li><a href="API-REFERENCE-COMMANDS/">All 110 Commands with Full Documentation</a></li>
 <li><a href="reference/COMMAND-PARAMETERS/">Parameters Quick Reference</a></li>
 <li><a href="reference/ERROR-SCENARIOS/">Error Recovery Guide</a></li>
 <li><a href="reference/COMMAND-EXAMPLES/">Real-World Examples</a></li>
@@ -9903,7 +9931,7 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v2.36.0 — Spec-Driven Drive + Prompt Refinement</p>
+<p class="admonition-title">Latest: v2.37.0 — Spec-Driven Drive + Prompt Refinement</p>
 <p><code>/craft:orchestrate:drive</code> drives an approved spec to completion via a native <code>/goal</code> loop with a real verify gate — stopping at verified-green for a human-opened PR. The new <code>--refine</code> flag sharpens your prompt before <code>/brainstorm</code>, <code>/craft:do</code>, <code>/craft:orchestrate</code>, <code>/craft:plan:feature</code>, and <code>/craft:arch:plan</code> act on it (via the <code>prompt-refiner</code> skill, replacing the deprecated <code>/refine</code>). See the <a href="CHANGELOG/">full changelog</a> for all releases.</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>

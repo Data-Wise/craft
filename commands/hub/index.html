@@ -6218,6 +6218,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../cookbook/recipes/fan-a-workflow-across-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fan a Workflow Across Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
         
   
@@ -10403,7 +10431,7 @@
 <p>Replace placeholders with actual data from <code>stats</code>.</p>
 <p>Display template:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>┌─────────────────────────────────────────────────────────────────────────┐
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│  CRAFT - Full Stack Developer Toolkit v2.36.0                          │
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│  CRAFT - Full Stack Developer Toolkit v2.37.0                          │
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>│  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>│  {stats[&#39;total&#39;]} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>├─────────────────────────────────────────────────────────────────────────┤
@@ -10427,7 +10455,7 @@
 </span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>│    release  &lt; 300s  Comprehensive checks, full audit                    │
 </span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>├─────────────────────────────────────────────────────────────────────────┤
 </span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>│                                                                         │
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>│ CODE (15)                         TEST (3)                              │
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>│ CODE (15)                         TEST (2)                              │
 </span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>│   /craft:code:lint [mode]          /craft:test [mode]                   │
 </span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>│   /craft:code:coverage [mode]      /craft:test:gen                      │
 </span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>│   /craft:code:debug                                                     │
@@ -10442,7 +10470,7 @@
 </span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>│   /craft:docs:lint                 /craft:plan:sprint                   │
 </span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>│   /craft:docs:check                /craft:plan:roadmap                  │
 </span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>│   /craft:docs:changelog                                                 │
-</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>│   /craft:docs:claude-md          CI (4)                                 │
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>│   /craft:docs:claude-md          CI (6)                                 │
 </span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>│   /craft:docs:nav-update           /craft:ci:detect                    │
 </span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a>│   /craft:docs:demo                 /craft:ci:generate                  │
 </span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>│   /craft:docs:mermaid              /craft:ci:validate                  │
@@ -10641,7 +10669,7 @@
 </span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>─────────────────────────────────────────────────────────────────────────
 </span></code></pre></div>
 <h3 id="crafthub-test"><code>/craft:hub test</code><a class="headerlink" href="#crafthub-test" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>TEST COMMANDS (3) - Unified Testing
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>TEST COMMANDS (2) - Unified Testing
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>─────────────────────────────────────────────────────────────────────────
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Command                  | Description                    | Modes
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>─────────────────────────┼────────────────────────────────┼─────────────
@@ -10780,7 +10808,7 @@
 </span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>─────────────────────────────────────────────────────────────────────────
 </span></code></pre></div>
 <h3 id="crafthub-ci"><code>/craft:hub ci</code><a class="headerlink" href="#crafthub-ci" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>CI COMMANDS (4) - CI/CD Management
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>CI COMMANDS (6) - CI/CD Management
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>─────────────────────────────────────────────────────────────────────────
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>Command                  | Description
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>─────────────────────────┼────────────────────────────────────────────
