@@ -122,6 +122,7 @@ nav:
       - Interactive Docs Update: tutorials/interactive-docs-update-tutorial.md
       - Release Watch Guide: guide/release-watch.md
       - Release Watch Tutorial: tutorials/TUTORIAL-release-watch-v2.md
+      - CI Triage & Watch: guide/ci-triage-and-watch.md
       - Release Workflow: workflows/release-workflow.md
       - Development Workflow: workflows/git-feature-workflow.md
       - Pre-commit Workflow: workflows/pre-commit-workflow.md
@@ -280,6 +281,7 @@ nav:
       - Drive a Spec to Green: cookbook/recipes/drive-a-spec-to-green.md
       - Run a Coded Workflow: cookbook/recipes/run-a-coded-workflow.md
       - Fan a Workflow Across Files: cookbook/recipes/fan-a-workflow-across-files.md
+      - Triage a Red PR: cookbook/recipes/triage-a-red-pr.md
       - Set Up New Project: cookbook/common/setup-new-project.md
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
