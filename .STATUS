@@ -17,7 +17,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
-| _(none active)_ | — | — | — |
+| `feature/pr2-drift-tripwire` | `~/.git-worktrees/craft/feature-pr2-drift-tripwire` | dev | Phase 3 / #2 — CI count-drift tripwire (teed up; not yet implemented) |
 
 _Prior: `feature/pr7-bump-subtotals` MERGED → dev `91a82271` (PR #152 squash, 2026-06-13; CI caught a real BSD-sed-no-ops-on-GNU bug, fixed with a `sedi()` wrapper). `feature/pr1a-test-hygiene` MERGED → dev `813855f2` (PR #151 squash, 2026-06-13, CI green); worktree + local + remote branch all removed. `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash) — worktrees + branches removed. `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
 
