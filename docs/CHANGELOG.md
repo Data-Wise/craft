@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`/craft:ci:watch`** — poll a CI run (PR#/SHA/run-id) to completion, then route
+  the next action: suggest a merge when green, or hand off to `/craft:ci:triage`
+  when red (lightweight inline triage for the two clear-cut cases). Polls via
+  `gh run view --json status` (never `gh pr checks`, which exits 8 in-progress) and
+  offers a `--bg` copy-paste background-poll snippet. Counts: 111→112 commands
+  (`ci` category 5→6). Pairs with `ci:triage` — watch is the poller, triage the analyst.
 - **`/craft:ci:triage`** — a new command that classifies a failing or stuck CI
   check as **diff-caused**, **pre-existing**, or an **infra flake** and recommends
   *fix* / *re-run* / *`--admin`* with `file:line` evidence (the release-post-mortem

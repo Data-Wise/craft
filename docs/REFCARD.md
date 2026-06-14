@@ -1084,7 +1084,7 @@ npm test
 /craft:arch:plan                # Plan an architecture change
 ```
 
-## CI/CD Commands (4 commands)
+## CI/CD Commands (6 commands)
 
 | Command                  | Description                                   |
 | ------------------------ | --------------------------------------------- |
@@ -1092,6 +1092,8 @@ npm test
 | `/craft:ci:generate`     | **v2.9.0** Generate GitHub Actions CI workflow |
 | `/craft:ci:validate`     | Validate existing CI workflow                 |
 | `/craft:ci:status`       | **v2.22.1** Cross-repo CI status dashboard    |
+| `/craft:ci:triage`       | Classify a failing/stuck check (diff vs infra) |
+| `/craft:ci:watch`        | Poll a run to completion; merge or triage     |
 
 **Quick examples:**
 

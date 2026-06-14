@@ -1,11 +1,11 @@
 # Craft Commands Reference
 
-Complete reference for all 109 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
+Complete reference for all 112 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
 
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 111 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 112 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement:** `--refine` on `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, `/craft:arch:plan` sharpens your prompt before the command acts (via the `prompt-refiner` skill).
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -138,6 +138,16 @@ Triage a failing or stuck CI check — classify it as diff-caused, pre-existing,
 /craft:ci:triage
 /craft:ci:triage 153
 /craft:ci:triage --json
+```
+
+### /craft:ci:watch
+
+Poll a CI run to completion, then route the next action — suggest a merge when green, or hand off to `/craft:ci:triage` when red. Supports `--bg` for a copy-paste background poll.
+
+```bash
+/craft:ci:watch 154
+/craft:ci:watch --bg
+/craft:ci:watch --json
 ```
 
 ### /craft:ci:validate
@@ -424,7 +434,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 111 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 112 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 
