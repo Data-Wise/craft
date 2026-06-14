@@ -4,7 +4,7 @@
 <!-- This spec quotes regex (e.g. [0-9]+) and shell placeholders (e.g. <run-id>)
      verbatim from planning-agent output; MD033/MD052 are disabled file-wide. -->
 
-**Status:** draft
+**Status:** done — all 7 items SHIPPED in v2.37.0 (PRs #151/#152/#153/#154/#155 → dev, PR #156 → main `8c21a54d`, 2026-06-13). Post-release sweep ALL CLEAN.
 **Created:** 2026-06-13
 **From Brainstorm:** `BRAINSTORM-craft-improvements-2026-06-13.md` (post-v2.36.0 workflow-engine release)
 **Planned via:** dynamic Workflow (8 agents — 7 `feature-dev:code-architect` planners + 1 synthesis)

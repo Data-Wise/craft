@@ -1,7 +1,7 @@
 # Fix: command-audit.sh strips `deprecated`/`replaced-by` frontmatter — Spec
 
 **Generated:** 2026-06-13
-**Status:** READY TO BUILD — root cause verified against live code; exact diffs below
+**Status:** done — SHIPPED in v2.36.0 (PR #147 → dev `1215e802`, 2026-06-13)
 **Severity:** Latent data-loss bug (silently un-deprecates 56 commands in the working tree)
 **Branch target:** `fix/command-audit-deprecated-fields` (worktree off `dev`)
 **Origin:** Multi-agent hunt 2026-06-13 (15 agents) + manual code verification. Closes `.STATUS` Next-Action item A.
