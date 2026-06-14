@@ -209,7 +209,7 @@ Display template:
 │   /craft:docs:lint                 /craft:plan:sprint                   │
 │   /craft:docs:check                /craft:plan:roadmap                  │
 │   /craft:docs:changelog                                                 │
-│   /craft:docs:claude-md          CI (5)                                 │
+│   /craft:docs:claude-md          CI (6)                                 │
 │   /craft:docs:nav-update           /craft:ci:detect                    │
 │   /craft:docs:demo                 /craft:ci:generate                  │
 │   /craft:docs:mermaid              /craft:ci:validate                  │
@@ -575,7 +575,7 @@ Command                  | Description                    | Modes
 ### `/craft:hub ci`
 
 ```
-CI COMMANDS (5) - CI/CD Management
+CI COMMANDS (6) - CI/CD Management
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description
 ─────────────────────────┼────────────────────────────────────────────
