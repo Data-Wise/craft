@@ -11,15 +11,15 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 | Branch | Head     | Base | Status                                                              |
 |--------|----------|------|---------------------------------------------------------------------|
 | main   | eb7e143d | —    | Production (v2.36.0 tagged, PR #150 merged 2026-06-13)              |
-| dev    | cd58ab7c | main | v2.36.0 release commit; 1 merge-commit behind main (re-sync next)   |
+| dev    | 813855f2 | main | PR #151 (PR-1a) squash-merged 2026-06-13; ahead of main (next release will carry 1-7 work) |
 
 📂 Active Worktrees:
 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
-| `feature/pr1a-test-hygiene` | `~/.git-worktrees/craft/feature-pr1a-test-hygiene` | dev | PR-1a (#1 strict-markers guard + #4 recipe discoverability) → **PR #151** open vs dev |
+| _(none active)_ | — | — | — |
 
-_Prior: `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash, 2026-06-13); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash). Both worktrees + remote branches removed. **2 local branches leftover** (`feature/workflow-engine`, `fix/mermaid-markers`) — guard blocks `-D`; need manual delete (or `/craft:git:unprotect` then `-D`). `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
+_Prior: `feature/pr1a-test-hygiene` MERGED → dev `813855f2` (PR #151 squash, 2026-06-13, CI green); worktree + local + remote branch all removed. `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash) — worktrees + branches removed. `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
 
 ✅ Session 2026-06-13 (mermaid-marker CI fix + workflow-engine doc-gap closure):
 - **PR #149 MERGED → dev `d21a1e4a`** (squash, normal — no `--admin`). Registered `mermaid`/`mermaid_mcp` in `pyproject.toml` markers, killing the `--strict-markers` collection-flake that was red-listing ALL craft CI when the env plugin install flaked. Full suite: **1729 passed / 38 skipped / 1 xfailed**. Resolves Next Action A.
