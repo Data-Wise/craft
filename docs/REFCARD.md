@@ -1517,7 +1517,7 @@ graph LR
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
-## Skills (38 total)
+## Skills (39 total)
 
 Auto-triggered expertise:
 

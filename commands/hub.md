@@ -194,7 +194,7 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (15)                         TEST (3)                              │
+│ CODE (15)                         TEST (2)                              │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
 │   /craft:code:coverage [mode]      /craft:test:gen                      │
 │   /craft:code:debug                                                     │
@@ -228,7 +228,7 @@ Display template:
 │ SITE (16)                          /craft:dist:curl-install             │
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
-│   /craft:site:check              ORCHESTRATE (5)                        │
+│   /craft:site:check              ORCHESTRATE (4)                        │
 │   /craft:site:update               /craft:orchestrate [mode]           │
 │   /craft:site:publish              /craft:orchestrate:resume           │
 │                                                                         │
@@ -418,7 +418,7 @@ Command                  | Description                    | Modes
 ### `/craft:hub test`
 
 ```
-TEST COMMANDS (3) - Unified Testing
+TEST COMMANDS (2) - Unified Testing
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
@@ -621,7 +621,7 @@ Command                  | Description
 ### `/craft:hub orchestrate`
 
 ```
-ORCHESTRATE COMMANDS (5) - Multi-Agent Coordination
+ORCHESTRATE COMMANDS (4) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
 /craft:orchestrate "task" [mode]     | Launch orchestrator (free-form, fan-out)
 /craft:orchestrate:drive [spec]      | Spec-driven autonomous /goal loop → verified green

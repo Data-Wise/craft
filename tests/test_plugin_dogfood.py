@@ -15,6 +15,7 @@ Run with: python3 -m pytest tests/test_plugin_dogfood.py -v
 import json
 import os
 import re
+import shutil
 import subprocess
 import time
 from pathlib import Path
@@ -433,6 +434,128 @@ def test_refine_delegates_to_skill():
         if not delegates or restates:
             bad.append(rel)
     assert not bad, f"commands must delegate to prompt-refiner, not restate the flow: {bad}"
+
+
+# ============================================================================
+# 12. bump-version.sh categorical subtotals (item #7)
+# ============================================================================
+
+# Subtree bump-version.sh needs to compute counts + rewrite categorical headers.
+_BUMP_ISOLATION_PATHS = [
+    "scripts", "commands", "skills", "agents", "docs", ".claude-plugin",
+]
+
+
+def _isolated_bump(dst: Path) -> Path:
+    """Copy the subtree bump-version.sh needs into dst; return the script path.
+
+    The script resolves PLUGIN_DIR from its own location (SCRIPT_DIR/..), so
+    running the COPY makes PLUGIN_DIR == dst — every sed write lands in the
+    disposable copy and never touches the real source tree (guards against the
+    test-mutates-source bug class, ref v2.36.0 post-mortem).
+    """
+    dst.mkdir(parents=True, exist_ok=True)
+    for name in _BUMP_ISOLATION_PATHS:
+        src = PLUGIN_DIR / name
+        if not src.exists():
+            continue
+        target = dst / name
+        if src.is_dir():
+            shutil.copytree(src, target)
+        else:
+            shutil.copy(src, target)
+    return dst / "scripts" / "bump-version.sh"
+
+
+def _cmd_cat_count(category: str) -> int:
+    """Mirror bump-version.sh _cmd_cat: commands/<category>/*.md sans index/README."""
+    d = PLUGIN_DIR / "commands" / category
+    return sum(
+        1 for p in d.rglob("*.md") if p.name not in ("index.md", "README.md")
+    ) if d.exists() else 0
+
+
+def _skill_cat_count(category: str) -> int:
+    """Mirror bump-version.sh _skill_cat: skills/<category>/**/SKILL.md."""
+    d = PLUGIN_DIR / "skills" / category
+    return sum(1 for _ in d.rglob("SKILL.md")) if d.exists() else 0
+
+
+def _skill_total() -> int:
+    return sum(1 for _ in (PLUGIN_DIR / "skills").rglob("SKILL.md"))
+
+
+class TestBumpVersionSubtotals:
+    """item #7 — bump-version.sh sweeps categorical section headers."""
+
+    def test_verify_passes_on_clean_tree(self):
+        """--verify exits 0 (real tree is consistent, incl. new subtotal checks)."""
+        result = _run_script("bump-version.sh", "--verify")
+        assert result.returncode == 0, (
+            f"bump-version.sh --verify reported drift:\n{result.stdout}\n{result.stderr}"
+        )
+
+    def test_dry_run_exits_zero(self):
+        """--counts-only --dry-run is read-only and exits 0."""
+        result = _run_script("bump-version.sh", "--counts-only", "--dry-run")
+        assert result.returncode == 0, result.stderr
+        assert "would update" in result.stdout, (
+            f"dry-run did not preview changes:\n{result.stdout}"
+        )
+
+    def test_rewrites_hub_orchestrate_subtotal(self, tmp_path):
+        """A stale ORCHESTRATE (99) in hub.md is rewritten to the real count."""
+        script = _isolated_bump(tmp_path / "iso")
+        hub = script.parent.parent / "commands" / "hub.md"
+        # Inject an unambiguous stale value on the canonical box-art label.
+        hub.write_text(re.sub(r"ORCHESTRATE \(\d+\)", "ORCHESTRATE (99)",
+                              hub.read_text(), count=1))
+        subprocess.run(["bash", str(script), "--counts-only"], capture_output=True,
+                       text=True, timeout=60)
+        expected = _cmd_cat_count("orchestrate")
+        out = hub.read_text()
+        assert f"ORCHESTRATE ({expected})" in out, f"expected ORCHESTRATE ({expected})"
+        assert "ORCHESTRATE (99)" not in out, "stale subtotal not rewritten"
+
+    def test_rewrites_refcard_skills_total(self, tmp_path):
+        """A stale '## Skills (99 total)' in REFCARD.md is corrected."""
+        script = _isolated_bump(tmp_path / "iso")
+        refcard = script.parent.parent / "docs" / "REFCARD.md"
+        refcard.write_text(
+            re.sub(r"^## Skills \(\d+ total\)", "## Skills (99 total)",
+                   refcard.read_text(), count=1, flags=re.MULTILINE)
+        )
+        subprocess.run(["bash", str(script), "--counts-only"], capture_output=True,
+                       text=True, timeout=60)
+        out = refcard.read_text()
+        assert f"## Skills ({_skill_total()} total)" in out
+        assert "## Skills (99 total)" not in out
+
+    def test_rewrites_skills_agents_subcategory(self, tmp_path):
+        """A stale '### Distribution (99)' sub-header is corrected to the dir count."""
+        script = _isolated_bump(tmp_path / "iso")
+        sa = script.parent.parent / "docs" / "skills-agents.md"
+        sa.write_text(
+            re.sub(r"^### Distribution \(\d+\)", "### Distribution (99)",
+                   sa.read_text(), count=1, flags=re.MULTILINE)
+        )
+        subprocess.run(["bash", str(script), "--counts-only"], capture_output=True,
+                       text=True, timeout=60)
+        out = sa.read_text()
+        assert f"### Distribution ({_skill_cat_count('distribution')})" in out
+        assert "### Distribution (99)" not in out
+
+    def test_isolation_leaves_real_tree_untouched(self, tmp_path):
+        """Sanity: the isolated rewrites never mutate the real REFCARD.md."""
+        real = (PLUGIN_DIR / "docs" / "REFCARD.md").read_text()
+        script = _isolated_bump(tmp_path / "iso")
+        refcard = script.parent.parent / "docs" / "REFCARD.md"
+        refcard.write_text(refcard.read_text().replace("## Skills", "## Skills (99 total) STALE"))
+        subprocess.run(["bash", str(script), "--counts-only"], capture_output=True,
+                       text=True, timeout=60)
+        assert (PLUGIN_DIR / "docs" / "REFCARD.md").read_text() == real, (
+            "isolated bump-version run mutated the real source tree"
+        )
 
 
 if __name__ == "__main__":
