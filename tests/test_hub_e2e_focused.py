@@ -145,6 +145,30 @@ class E2EWorkflows:
                 rel_detail = get_command_detail(rel_cmd)
                 assert rel_detail is not None, f"Related command {rel_cmd} not found"
 
+    def test_workflow_command_exposes_recipe_metadata(self):
+        """
+        Discoverability: /craft:orchestrate:workflow surfaces its cookbook recipes.
+
+        Steps:
+        1. User views the orchestrate:workflow command detail
+        2. related_commands link to the other orchestration modes
+        3. tutorial_file points at the primary cookbook recipe
+        """
+        detail = get_command_detail('orchestrate:workflow')
+        assert detail is not None, "orchestrate:workflow not found in discovery"
+
+        related = detail.get('related_commands')
+        assert related == ['orchestrate', 'orchestrate:drive'], \
+            f"Unexpected related_commands: {related!r}"
+        # Both related commands must resolve.
+        for rel_cmd in related:
+            assert get_command_detail(rel_cmd) is not None, \
+                f"Related command {rel_cmd} does not resolve"
+
+        tutorial_file = detail.get('tutorial_file', '')
+        assert 'run-a-coded-workflow' in tutorial_file, \
+            f"tutorial_file missing the cookbook recipe: {tutorial_file!r}"
+
     def test_progressive_disclosure(self):
         """
         User Workflow: Progressive disclosure prevents overwhelm.
@@ -198,6 +222,7 @@ def main():
         ("Search specific command", tester.test_workflow_search_specific_command),
         ("Learn with tutorial", tester.test_workflow_learn_with_tutorial),
         ("Discover related commands", tester.test_workflow_discover_related_commands),
+        ("Workflow command exposes recipe metadata", tester.test_workflow_command_exposes_recipe_metadata),
         ("Progressive disclosure", tester.test_progressive_disclosure),
         ("Navigation breadcrumbs", tester.test_navigation_breadcrumbs),
     ]
