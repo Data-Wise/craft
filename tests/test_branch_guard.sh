@@ -15,6 +15,12 @@
 # Requirements:
 #   - ~/.claude/hooks/branch-guard.sh must exist
 #   - git must be available
+#
+# IMPORTANT: this suite exercises the INSTALLED hook at $HOME/.claude/hooks/,
+# NOT the repo copy at scripts/branch-guard.sh. If you edited scripts/branch-guard.sh,
+# reinstall first or you will be testing a stale hook:
+#   bash scripts/install-branch-guard.sh
+# (CI does exactly this before running — see .github/workflows/ci.yml.)
 
 # Note: Not using 'set -e' because we want tests to continue after failures
 set -uo pipefail

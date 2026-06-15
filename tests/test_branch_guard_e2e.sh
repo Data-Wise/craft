@@ -549,26 +549,26 @@ switch_branch "$REPO_PERF" "dev"
 if [[ -n "${SKIP_PERF:-}" ]]; then
     skip "e2e_perf_50_invocations" "SKIP_PERF set — timing budget is runner-sensitive"
 else
-TOTAL=$((TOTAL + 1))
-PERF_START=$(date +%s%N 2>/dev/null || python3 -c "import time; print(int(time.time()*1e9))")
-PERF_JSON="$(json_write "$REPO_PERF/docs/note.md" "$REPO_PERF")"
+    TOTAL=$((TOTAL + 1))
+    PERF_START=$(date +%s%N 2>/dev/null || python3 -c "import time; print(int(time.time()*1e9))")
+    PERF_JSON="$(json_write "$REPO_PERF/docs/note.md" "$REPO_PERF")"
 
-for _ in $(seq 1 50); do
-    echo "$PERF_JSON" | (cd "$REPO_PERF" && bash "$HOOK_SCRIPT") >/dev/null 2>&1 || true
-done
+    for _ in $(seq 1 50); do
+        echo "$PERF_JSON" | (cd "$REPO_PERF" && bash "$HOOK_SCRIPT") >/dev/null 2>&1 || true
+    done
 
-PERF_END=$(date +%s%N 2>/dev/null || python3 -c "import time; print(int(time.time()*1e9))")
-PERF_MS=$(( (PERF_END - PERF_START) / 1000000 ))
+    PERF_END=$(date +%s%N 2>/dev/null || python3 -c "import time; print(int(time.time()*1e9))")
+    PERF_MS=$(( (PERF_END - PERF_START) / 1000000 ))
 
-if [[ "$PERF_MS" -lt 5000 ]]; then
-    PASS=$((PASS + 1))
-    local_avg=$((PERF_MS / 50))
-    echo -e "  ${T_GREEN}PASS${T_NC}  e2e_perf_50_invocations  ${T_BOLD}(${PERF_MS}ms total, ~${local_avg}ms avg)${T_NC}"
-else
-    FAIL=$((FAIL + 1))
-    FAILED_NAMES+=("e2e_perf_50_invocations")
-    echo -e "  ${T_RED}FAIL${T_NC}  e2e_perf_50_invocations  ${T_BOLD}(${PERF_MS}ms > 5000ms budget)${T_NC}"
-fi
+    if [[ "$PERF_MS" -lt 5000 ]]; then
+        PASS=$((PASS + 1))
+        local_avg=$((PERF_MS / 50))
+        echo -e "  ${T_GREEN}PASS${T_NC}  e2e_perf_50_invocations  ${T_BOLD}(${PERF_MS}ms total, ~${local_avg}ms avg)${T_NC}"
+    else
+        FAIL=$((FAIL + 1))
+        FAILED_NAMES+=("e2e_perf_50_invocations")
+        echo -e "  ${T_RED}FAIL${T_NC}  e2e_perf_50_invocations  ${T_BOLD}(${PERF_MS}ms > 5000ms budget)${T_NC}"
+    fi
 fi
 
 # Test: No temp files leaked after invocations
