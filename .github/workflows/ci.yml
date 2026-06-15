@@ -137,9 +137,27 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Install branch-guard hook
+        # Copies scripts/branch-guard.sh to ~/.claude/hooks/ and registers it in
+        # settings.json so the branch_guard pytest tests run instead of skipping
+        # (they gate on os.path.isfile(~/.claude/hooks/branch-guard.sh)). jq is
+        # preinstalled on ubuntu-latest, so settings.json registration succeeds.
+        run: bash scripts/install-branch-guard.sh
+
       - name: Run test suite
         run: |
           python -m pytest tests/ -v --tb=short
+
+      - name: Run branch-guard bash suites
+        # The comprehensive bash suites (99 unit + 30 e2e) are not collected by
+        # pytest. They are self-contained (own temp repos + git identity) and
+        # only need the hook installed above. SKIP_PERF skips the e2e timing
+        # budget test, which is runner-sensitive (not a behavioral guard).
+        env:
+          SKIP_PERF: "1"
+        run: |
+          bash tests/test_branch_guard.sh
+          bash tests/test_branch_guard_e2e.sh
 
       - name: Summary
         run: |
