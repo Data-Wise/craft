@@ -49,17 +49,33 @@ claude plugin marketplace add Data-Wise/claude-plugins
 claude plugin marketplace add github:Data-Wise/craft
 ```
 
-### In-app click-path (Claude Desktop / Cowork)
+### Two ways to register (CLI bridge or GUI)
 
-> **Verify once in your build before relying on these labels** (Open Question — the native UI is not
-> browser-automatable, so this path is confirmed by a human GUI check). The *capability* is verified;
-> only the exact menu labels need a glance.
+Evidence is read-only from the app bundle (`Claude.app/Contents/Resources/app.asar`): the native host
+exposes a **CLI bridge** (`MarketplacePluginManagerCLI` / `cliPluginBridge` / `addMarketplaceViaRemote`)
+and an **account-scoped** marketplace API (`createAccountMarketplace`, GitHub `owner/repo` source).
+The user-facing settings section is **"Claude Extensions."**
 
-1. Open **Claude Desktop** → **Settings**.
-2. Go to **Extensions / Plugins → Marketplaces**.
-3. Choose **Add marketplace**, enter `Data-Wise/claude-plugins` (owner/repo), confirm.
-4. The plugins listed in that marketplace's `.claude-plugin/marketplace.json` become installable;
-   updates arrive as the marketplace's manifest versions advance.
+**Path A — CLI (scriptable, likely sufficient).** The same command used for Code registers the
+account-scoped marketplace that Desktop/Cowork reads:
+
+```bash
+claude plugin marketplace add Data-Wise/claude-plugins
+```
+
+**Path B — GUI.**
+
+1. **Claude Desktop → Settings → Claude Extensions.**
+2. Open the marketplaces / **Add marketplace** control.
+3. Enter `Data-Wise/claude-plugins` (GitHub `owner/repo`), confirm.
+4. Plugins listed in that marketplace's `.claude-plugin/marketplace.json` become installable; updates
+   arrive as the manifest versions advance.
+
+> **Residual human check (Open Question Q7):** the *capability*, the *settings section* ("Claude
+> Extensions"), and the *CLI bridge* are all confirmed from the bundle. What still needs one glance in
+> your build: the exact **Add marketplace** button label, and whether `claude plugin marketplace add`
+> writes the **account scope** (reaches Desktop) vs Code-only — verify by running it once and checking
+> Desktop → Claude Extensions. The native UI is not browser-automatable, so this is a human GUI check.
 
 ### Why not write Desktop's store directly?
 

@@ -12,19 +12,16 @@ claude plugin marketplace add Data-Wise/<aggregator-repo>
 # (one-time; see docs/guide/desktop-release.md for the click-path).
 ```
 
-## Host (Open Question Q6 — not yet decided)
+## Host (Open Question Q6 — RESOLVED 2026-06-15)
 
-This manifest is the **source content**; it must be published to a Data-Wise GitHub repo whose
-`.claude-plugin/marketplace.json` is this file. Two candidates:
+**Decision: reuse `Data-Wise/claude-plugins`.** A root `.claude-plugin/marketplace.json` (this file's
+content) is added there, so the aggregator is addable as `Data-Wise/claude-plugins` with no new repo
+to provision. Published via **[Data-Wise/claude-plugins#3](https://github.com/Data-Wise/claude-plugins/pull/3)**
+(branch + PR, no direct push to main).
 
-| Option | Repo | Notes |
-|--------|------|-------|
-| **Reuse (recommended)** | `Data-Wise/claude-plugins` | Already exists ("Official Claude Code plugins"); no new repo to provision. |
-| New dedicated | `Data-Wise/marketplace` | Cleaner naming, but one more repo + protection baseline to maintain. |
-
-Until that decision lands, this file is committed in craft as the canonical content so the
-aggregator repo can be seeded from it. **Provisioning the aggregator repo is a separate, reviewed
-cross-repo change — not part of a craft release.**
+This file remains the **canonical source content** in craft; the aggregator repo is seeded from it.
+Keep the two in sync — a future plugin's version bump updates its entry here *and* in the aggregator
+repo (see "Keeping it in sync" below).
 
 ## Keeping it in sync (no drift)
 
