@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.37.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.38.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -1133,6 +1133,34 @@
     
   
     Release Watch Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/ci-triage-and-watch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Triage & Watch
   
 
     
@@ -5766,6 +5794,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../cookbook/recipes/triage-a-red-pr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triage a Red PR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cookbook/common/setup-new-project/" class="md-nav__link">
         
   
@@ -7140,6 +7196,17 @@
   
     <nav class="md-nav" aria-label="Release Timeline">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v2380-2026-06-15-multi-surface-release-branch-guard-draft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.38.0 (2026-06-15) — Multi-Surface Release + Branch-Guard draft
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#v2350-2026-06-03-spec-driven-drive-prompt-refinement" class="md-nav__link">
@@ -10206,6 +10273,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v2380-2026-06-15-multi-surface-release-branch-guard-draft" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.38.0 (2026-06-15) — Multi-Surface Release + Branch-Guard draft
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v2350-2026-06-03-spec-driven-drive-prompt-refinement" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10950,11 +11028,27 @@
 <blockquote>
 <p><strong>Evolution of Craft</strong>: From command automation tool to intelligent orchestration platform</p>
 </blockquote>
-<p><strong>Latest Release:</strong> v2.35.0 (2026-06-03)
-<strong>Total Releases:</strong> 57 versions | <strong>Development Time:</strong> 2+ years
-<strong>Community:</strong> 109 commands documented, 130 tests passing, 90%+ coverage</p>
+<p><strong>Latest Release:</strong> v2.38.0 (2026-06-15)
+<strong>Total Releases:</strong> 60 versions | <strong>Development Time:</strong> 2+ years
+<strong>Community:</strong> 112 commands documented, 1801 tests passing, 90%+ coverage</p>
 <hr />
 <h2 id="release-timeline">Release Timeline<a class="headerlink" href="#release-timeline" title="Permanent link">&para;</a></h2>
+<h3 id="v2380-2026-06-15-multi-surface-release-branch-guard-draft">v2.38.0 (2026-06-15) — Multi-Surface Release + Branch-Guard <code>draft</code><a class="headerlink" href="#v2380-2026-06-15-multi-surface-release-branch-guard-draft" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Released
+<strong>Stats:</strong> 112 commands | 39 skills | 8 agents | 1801 tests passing</p>
+<ul>
+<li><strong>Multi-surface release engine</strong> — <code>verify-surfaces.sh</code> asserts one version across all surfaces
+  (marketplace, git tag, tap formula, brew, Code registry, + Data-Wise aggregator); <strong>blocks</strong> on
+  craft-controlled drift, <strong>warns</strong> on Desktop. Wired as release Step 13.6.</li>
+<li><strong><code>cache-prune.sh</code></strong> (Step 13.7) — GCs stale <code>local-plugins</code> version dirs, keeping current + 2.</li>
+<li><strong>Data-Wise aggregator marketplace</strong> — add once → every Data-Wise plugin on Code + Desktop/Cowork
+  (<code>Data-Wise/claude-plugins</code>); <code>aggregator-sync.sh</code> keeps entries current.</li>
+<li><strong>Branch-guard <code>draft</code> = <code>dev</code></strong> — research repos' <code>draft</code> branch now gets full integration-branch
+  protection (#158); CI runs the branch-guard suites (#159); detection consolidated (#160).</li>
+</ul>
+<blockquote>
+<p><em>Note: v2.36.0 and v2.37.0 timeline entries are not yet backfilled here (pre-existing gap).</em></p>
+</blockquote>
 <h3 id="v2350-2026-06-03-spec-driven-drive-prompt-refinement">v2.35.0 (2026-06-03) — Spec-Driven Drive + Prompt Refinement<a class="headerlink" href="#v2350-2026-06-03-spec-driven-drive-prompt-refinement" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released
 <strong>Stats:</strong> 109 commands | 38 skills | 8 agents | 130 tests passing</p>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.37.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.38.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -1138,6 +1138,34 @@
     
   
     Release Watch Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ci-triage-and-watch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Triage & Watch
   
 
     
@@ -3006,6 +3034,45 @@
     <span class="md-ellipsis">
       
         What's Different from Formula Releases
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktop-cowork-plugin-install-distinct-from-cask-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desktop / Cowork plugin install (distinct from cask apps)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desktop / Cowork plugin install (distinct from cask apps)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-ways-to-register-cli-bridge-or-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two ways to register (CLI bridge or GUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-not-write-desktops-store-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why not write Desktop's store directly?
       
     </span>
   </a>
@@ -6033,6 +6100,34 @@
     
   
     Fan a Workflow Across Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cookbook/recipes/triage-a-red-pr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triage a Red PR
   
 
     
@@ -9729,6 +9824,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#desktop-cowork-plugin-install-distinct-from-cask-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desktop / Cowork plugin install (distinct from cask apps)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Desktop / Cowork plugin install (distinct from cask apps)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-ways-to-register-cli-bridge-or-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two ways to register (CLI bridge or GUI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-not-write-desktops-store-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why not write Desktop's store directly?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10019,6 +10153,54 @@
 </tbody>
 </table>
 <hr />
+<h2 id="desktop-cowork-plugin-install-distinct-from-cask-apps">Desktop / Cowork plugin install (distinct from cask apps)<a class="headerlink" href="#desktop-cowork-plugin-install-distinct-from-cask-apps" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>This is about installing a <em>plugin</em> (craft, scholar, …) into Claude Desktop / Cowork — NOT a
+Tauri cask app.</strong> Two different things share the word "desktop"; everything below is plugin
+registration, and everything above/below it (<code>Casks/</code>, DMGs, <code>tauri.conf.json</code>) is cask apps.</p>
+</blockquote>
+<p>Claude Code and Claude Desktop / Cowork use <strong>separate plugin registries</strong>, so a craft release that
+lands in Code does not appear in Desktop automatically. But Desktop/Cowork <strong>can</strong> subscribe to the
+same GitHub marketplace craft already publishes (<code>.claude-plugin/marketplace.json</code>) — the native
+host exposes an <code>addMarketplace(owner/repo)</code> capability, the same engine Code uses, backed by a
+persistent account/org-scoped store.</p>
+<p><strong>So Desktop parity is a one-time manual add</strong>, then updates flow from <code>marketplace.json</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Recommended: add the Data-Wise AGGREGATOR once → every current + future plugin.</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>claude<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>Data-Wise/claude-plugins
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Or a single plugin&#39;s own repo:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>claude<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>github:Data-Wise/craft
+</span></code></pre></div>
+<h3 id="two-ways-to-register-cli-bridge-or-gui">Two ways to register (CLI bridge or GUI)<a class="headerlink" href="#two-ways-to-register-cli-bridge-or-gui" title="Permanent link">&para;</a></h3>
+<p>Evidence is read-only from the app bundle (<code>Claude.app/Contents/Resources/app.asar</code>): the native host
+exposes a <strong>CLI bridge</strong> (<code>MarketplacePluginManagerCLI</code> / <code>cliPluginBridge</code> / <code>addMarketplaceViaRemote</code>)
+and an <strong>account-scoped</strong> marketplace API (<code>createAccountMarketplace</code>, GitHub <code>owner/repo</code> source).
+The user-facing settings section is <strong>"Claude Extensions."</strong></p>
+<p><strong>Path A — CLI (scriptable, likely sufficient).</strong> The same command used for Code registers the
+account-scoped marketplace that Desktop/Cowork reads:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>claude<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>Data-Wise/claude-plugins
+</span></code></pre></div>
+<p><strong>Path B — GUI.</strong></p>
+<ol>
+<li><strong>Claude Desktop → Settings → Claude Extensions.</strong></li>
+<li>Open the marketplaces / <strong>Add marketplace</strong> control.</li>
+<li>Enter <code>Data-Wise/claude-plugins</code> (GitHub <code>owner/repo</code>), confirm.</li>
+<li>Plugins listed in that marketplace's <code>.claude-plugin/marketplace.json</code> become installable; updates
+   arrive as the manifest versions advance.</li>
+</ol>
+<blockquote>
+<p><strong>Residual human check (Open Question Q7):</strong> the <em>capability</em>, the <em>settings section</em> ("Claude
+Extensions"), and the <em>CLI bridge</em> are all confirmed from the bundle. What still needs one glance in
+your build: the exact <strong>Add marketplace</strong> button label, and whether <code>claude plugin marketplace add</code>
+writes the <strong>account scope</strong> (reaches Desktop) vs Code-only — verify by running it once and checking
+Desktop → Claude Extensions. The native UI is not browser-automatable, so this is a human GUI check.</p>
+</blockquote>
+<h3 id="why-not-write-desktops-store-directly">Why not write Desktop's store directly?<a class="headerlink" href="#why-not-write-desktops-store-directly" title="Permanent link">&para;</a></h3>
+<p>Safety invariant: <strong>craft never writes under <code>~/Library/Application Support/Claude/</code>.</strong> Registration
+goes through the supported <code>addMarketplace</code> path only — never a hand-edit of Desktop's JSON. This is
+why <code>verify-surfaces</code> treats the Desktop leg as <strong>warn-only</strong> (a one-time manual step it can't
+auto-verify), while it hard-blocks on the surfaces craft <em>does</em> control.</p>
+<hr />
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <h3 id="required-tools">Required Tools<a class="headerlink" href="#required-tools" title="Permanent link">&para;</a></h3>
 <table>
@@ -10064,46 +10246,46 @@
 </table>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>Create <code>.craft/homebrew.json</code> in your project root (optional — auto-detection works without it):</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;formula_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scribe&quot;</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;tap&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data-wise/tap&quot;</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cask&quot;</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">&quot;cask&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">&quot;app_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Scribe.app&quot;</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.scribe.app&quot;</span><span class="p">,</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">&quot;min_macos&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;catalina&quot;</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;formula_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scribe&quot;</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;tap&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data-wise/tap&quot;</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cask&quot;</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;cask&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">&quot;app_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Scribe.app&quot;</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.scribe.app&quot;</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;min_macos&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;catalina&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>If this file is absent, the pipeline auto-detects from <code>src-tauri/tauri.conf.json</code>.</p>
 <hr />
 <h2 id="release-walkthrough">Release Walkthrough<a class="headerlink" href="#release-walkthrough" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-run-release">Step 1: Run <code>/release</code><a class="headerlink" href="#step-1-run-release" title="Permanent link">&para;</a></h3>
 <p>From your project root (on <code>dev</code> branch):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/release
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/release
 </span></code></pre></div>
 <p>The pipeline detects <code>src-tauri/tauri.conf.json</code> and automatically routes to Step 10b (Cask release) instead of Step 10a (Formula release).</p>
 <h3 id="step-2-build-automatic">Step 2: Build (Automatic)<a class="headerlink" href="#step-2-build-automatic" title="Permanent link">&para;</a></h3>
 <p>The pipeline builds both architectures serially:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[3/8] Building aarch64 (native) ......... DONE (2m 14s)
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[4/8] Building x86_64 (cross-compile) ... DONE (4m 31s)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[3/8] Building aarch64 (native) ......... DONE (2m 14s)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>[4/8] Building x86_64 (cross-compile) ... DONE (4m 31s)
 </span></code></pre></div>
 <p>Native arch builds first (faster, catches errors early). Cross-compile follows.</p>
 <h3 id="step-3-upload-sha256-automatic">Step 3: Upload + SHA256 (Automatic)<a class="headerlink" href="#step-3-upload-sha256-automatic" title="Permanent link">&para;</a></h3>
 <p>DMGs are uploaded to the GitHub release. SHA256 is computed from <strong>local files</strong> (not downloaded from GitHub), eliminating CDN race conditions.</p>
 <h3 id="step-4-content-preview">Step 4: Content Preview<a class="headerlink" href="#step-4-content-preview" title="Permanent link">&para;</a></h3>
 <p>The pipeline shows what will be written to the cask file:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>postflight &quot;What&#39;s New in v1.21.0:&quot;
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  - Dark mode with 3 new themes
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  - PDF export with custom headers
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  - 2,500 tests passing
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>caveats &quot;New in v1.21.0:&quot;
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  - Dark mode with 3 new themes
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  - PDF export with custom headers and footers
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  - 2,500 tests passing
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>Looks good? (1) Yes  (2) Edit  (3) Skip
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>postflight &quot;What&#39;s New in v1.21.0:&quot;
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  - Dark mode with 3 new themes
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  - PDF export with custom headers
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  - 2,500 tests passing
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>caveats &quot;New in v1.21.0:&quot;
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  - Dark mode with 3 new themes
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  - PDF export with custom headers and footers
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  - 2,500 tests passing
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>Looks good? (1) Yes  (2) Edit  (3) Skip
 </span></code></pre></div>
 <h3 id="step-5-verification-automatic">Step 5: Verification (Automatic)<a class="headerlink" href="#step-5-verification-automatic" title="Permanent link">&para;</a></h3>
 <p>After pushing to the tap, the pipeline verifies:</p>
@@ -10115,36 +10297,36 @@
 <hr />
 <h2 id="standalone-cask-commands">Standalone Cask Commands<a class="headerlink" href="#standalone-cask-commands" title="Permanent link">&para;</a></h2>
 <p>Outside of <code>/release</code>, you can manage casks directly:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Generate or update cask</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:dist:homebrew<span class="w"> </span>cask
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Update cask from existing release assets (no build)</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--skip-build
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Update only postflight/caveats from CHANGELOG</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--update-content
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># Update content without version/SHA256 change</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--content-only
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># Preview changes without writing</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--dry-run
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="c1"># Validate cask file</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w"> </span>--cask
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Generate or update cask</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:dist:homebrew<span class="w"> </span>cask
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Update cask from existing release assets (no build)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--skip-build
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Update only postflight/caveats from CHANGELOG</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--update-content
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># Update content without version/SHA256 change</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--content-only
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="c1"># Preview changes without writing</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--dry-run
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="c1"># Validate cask file</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>/craft:dist:homebrew<span class="w"> </span>audit<span class="w"> </span>--cask
 </span></code></pre></div>
 <hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="cross-compilation-failures">Cross-Compilation Failures<a class="headerlink" href="#cross-compilation-failures" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> <code>x86_64-apple-darwin</code> build fails with linker errors.</p>
 <p><strong>Fix:</strong> Ensure Xcode SDK is installed and both targets are registered:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>xcode-select<span class="w"> </span>--install
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>rustup<span class="w"> </span>target<span class="w"> </span>add<span class="w"> </span>x86_64-apple-darwin
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>xcode-select<span class="w"> </span>--install
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>rustup<span class="w"> </span>target<span class="w"> </span>add<span class="w"> </span>x86_64-apple-darwin
 </span></code></pre></div>
 <h3 id="dmg-not-found-after-build">DMG Not Found After Build<a class="headerlink" href="#dmg-not-found-after-build" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Build succeeds but DMG path doesn't exist.</p>
 <p><strong>Fix:</strong> Tauri's DMG path varies by version. The pipeline uses fallback search:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>find<span class="w"> </span>src-tauri/target<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.dmg&quot;</span><span class="w"> </span>-type<span class="w"> </span>f
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>find<span class="w"> </span>src-tauri/target<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.dmg&quot;</span><span class="w"> </span>-type<span class="w"> </span>f
 </span></code></pre></div>
 <p>Check if the DMG naming pattern in <code>.craft/homebrew.json</code> matches.</p>
 <h3 id="tap-push-conflict">Tap Push Conflict<a class="headerlink" href="#tap-push-conflict" title="Permanent link">&para;</a></h3>
@@ -10153,7 +10335,7 @@
 <h3 id="sha256-mismatch-in-verification">SHA256 Mismatch in Verification<a class="headerlink" href="#sha256-mismatch-in-verification" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Step 13f reports SHA256 mismatch after tap push.</p>
 <p><strong>Fix:</strong> Another push may have overwritten the cask. Re-run:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--skip-build
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:dist:homebrew<span class="w"> </span>cask<span class="w"> </span>--skip-build
 </span></code></pre></div>
 <h3 id="architecture-mismatch">Architecture Mismatch<a class="headerlink" href="#architecture-mismatch" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> <code>file</code> command shows wrong architecture in DMG.</p>

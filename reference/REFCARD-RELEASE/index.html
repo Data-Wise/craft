@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.37.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.38.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -1133,6 +1133,34 @@
     
   
     Release Watch Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/ci-triage-and-watch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI Triage & Watch
   
 
     
@@ -5766,6 +5794,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../cookbook/recipes/triage-a-red-pr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Triage a Red PR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
         
   
@@ -9886,6 +9942,16 @@
 <td>Post-release sweep</td>
 <td>Auto-fixes Tier 2 drift, reports Tier 3</td>
 </tr>
+<tr>
+<td>13.6</td>
+<td>Verify surfaces</td>
+<td>Asserts one version across all surfaces — <strong>blocks</strong> on craft-leg drift, <strong>warns</strong> Desktop (<code>--skip-surfaces</code> to bypass)</td>
+</tr>
+<tr>
+<td>13.7</td>
+<td>Prune version cache</td>
+<td>GC stale <code>local-plugins</code> dirs, keep current + 2 (maintenance, never blocks)</td>
+</tr>
 </tbody>
 </table>
 <h3 id="release-pipeline-flow">Release Pipeline Flow<a class="headerlink" href="#release-pipeline-flow" title="Permanent link">&para;</a></h3>
@@ -10137,6 +10203,10 @@
 <tr>
 <td><code>--dry-run</code> / <code>-n</code></td>
 <td>Preview only, no execution</td>
+</tr>
+<tr>
+<td><code>--skip-surfaces</code></td>
+<td>Skip Step 13.6 multi-surface version assertion</td>
 </tr>
 <tr>
 <td><code>v2.18.0</code></td>
