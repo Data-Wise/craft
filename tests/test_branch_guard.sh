@@ -386,6 +386,57 @@ run_test \
 echo ""
 
 # --------------------------------------------------------------------------
+# Group 2b: Research integration branch 'draft' (treated exactly like 'dev')
+# Research repos (~/projects/research/*) use 'draft' as the integration branch.
+# Config: main + draft, NO dev — draft must get the same smart-mode protection.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Draft Branch Protection (research; same as dev) ---${T_NC}"
+
+REPO_DRAFT=$(init_repo --no-dev)
+(cd "$REPO_DRAFT" && git branch draft)
+switch_branch "$REPO_DRAFT" "draft"
+
+# Edit existing code on draft -> ALLOW (fixup), mirrors dev Test 2
+echo "print('hello')" > "$REPO_DRAFT/src/app.py"
+(cd "$REPO_DRAFT" && git add src/app.py && git commit -m "Add app.py" --quiet)
+run_test \
+    "test_edit_py_on_draft_existing" \
+    0 \
+    "$(json_edit "$REPO_DRAFT/src/app.py" "$REPO_DRAFT")" \
+    "$REPO_DRAFT"
+
+# Write NEW code file on draft -> BLOCK, mirrors dev Test 3
+run_test \
+    "test_write_new_py_on_draft" \
+    2 \
+    "$(json_write "$REPO_DRAFT/src/new_module.py" "$REPO_DRAFT")" \
+    "$REPO_DRAFT"
+
+# Write new .md on draft -> ALLOW, mirrors dev Test 4
+run_test \
+    "test_write_new_md_on_draft" \
+    0 \
+    "$(json_write "$REPO_DRAFT/docs/design.md" "$REPO_DRAFT")" \
+    "$REPO_DRAFT"
+
+# Bash git push --force on draft -> BLOCK, mirrors dev Test 15
+run_test \
+    "test_bash_git_push_force_on_draft" \
+    2 \
+    "$(json_bash "git push --force" "$REPO_DRAFT")" \
+    "$REPO_DRAFT"
+
+# Bash normal commit on draft -> ALLOW, mirrors dev Test 18
+run_test \
+    "test_bash_git_commit_on_draft" \
+    0 \
+    "$(json_bash "git commit -m 'docs: update'" "$REPO_DRAFT")" \
+    "$REPO_DRAFT"
+
+echo ""
+
+# --------------------------------------------------------------------------
 # Group 3: Feature branch (no restrictions)
 # --------------------------------------------------------------------------
 

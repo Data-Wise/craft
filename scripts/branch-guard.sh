@@ -9,7 +9,7 @@ set -euo pipefail
 #
 # Protection levels:
 #   block-all       — Hard block everything (main)
-#   smart           — 3-tier: LOW (note) + MEDIUM (confirm) + HIGH (block) (dev)
+#   smart           — 3-tier: LOW (note) + MEDIUM (confirm) + HIGH (block) (dev / research draft)
 #   block-new-code  — DEPRECATED alias for smart (backward compat)
 #   confirm         — Alias for smart
 #   (empty)         — No protection (feature/*)
@@ -153,6 +153,15 @@ PROTECTION=""
 MAIN_PROTECTION=""
 DEV_PROTECTION=""
 
+# Integration branch name: 'dev' for most repos, 'draft' for research repos
+# (~/projects/research/*). Used in user-facing remediation hints below. Defaults
+# to 'dev'; switched to 'draft' only when 'dev' is absent but 'draft' exists.
+INTEGRATION_BRANCH="dev"
+if cd "$PROJECT_ROOT" 2>/dev/null && ! git rev-parse --verify dev &>/dev/null \
+   && git rev-parse --verify draft &>/dev/null; then
+  INTEGRATION_BRANCH="draft"
+fi
+
 CONFIG_FILE="${PROJECT_ROOT}/.claude/branch-guard.json"
 
 USE_CONFIG=false
@@ -171,20 +180,22 @@ if [[ -f "$CONFIG_FILE" ]]; then
 fi
 
 if [[ "$USE_CONFIG" == false ]]; then
-  # Auto-detect: does 'dev' branch exist?
+  # Auto-detect: does an integration branch ('dev' or research 'draft') exist?
   MAIN_PROTECTION="block-all"
   DEV_PROTECTION=""
-  if cd "$PROJECT_ROOT" && git rev-parse --verify dev &>/dev/null; then
+  if cd "$PROJECT_ROOT" \
+     && { git rev-parse --verify dev &>/dev/null || git rev-parse --verify draft &>/dev/null; }; then
     DEV_PROTECTION="smart"
   fi
 
-  # Determine which protection level applies to current branch
+  # Determine which protection level applies to current branch.
+  # 'draft' is the research-repo integration branch — treated exactly like 'dev'.
   PROTECTION=""
   case "$BRANCH" in
     main|master)
       PROTECTION="$MAIN_PROTECTION"
       ;;
-    dev|develop)
+    dev|develop|draft)
       PROTECTION="$DEV_PROTECTION"
       ;;
     feature/*|feat/*|fix/*|hotfix/*|bugfix/*|refactor/*|chore/*|docs/*|test/*)
@@ -484,7 +495,7 @@ if [[ "$PROTECTION" == "block-all" ]]; then
         "${_D}File:${_N}   ${_C}${FILE_PATH}${_N}" \
         "${_D}Branch:${_N} ${BRANCH} (block-all)" \
         "---" \
-        "${_Y}→ git checkout dev${_N}" \
+        "${_Y}→ git checkout ${INTEGRATION_BRANCH}${_N}" \
       )"
       ;;
 
@@ -497,7 +508,7 @@ if [[ "$PROTECTION" == "block-all" ]]; then
         "${_D}File:${_N}   ${_C}${FILE_PATH}${_N}" \
         "${_D}Branch:${_N} ${BRANCH} (block-all)" \
         "---" \
-        "${_Y}→ git checkout dev${_N}" \
+        "${_Y}→ git checkout ${INTEGRATION_BRANCH}${_N}" \
       )"
       ;;
 
@@ -510,9 +521,9 @@ if [[ "$PROTECTION" == "block-all" ]]; then
           "Cannot commit/push on ${_B}${BRANCH}${_N}." \
           "" \
           "Use the PR workflow:" \
-          "  ${_Y}1.${_N} git checkout dev" \
+          "  ${_Y}1.${_N} git checkout ${INTEGRATION_BRANCH}" \
           "  ${_Y}2.${_N} Create worktree for changes" \
-          "  ${_Y}3.${_N} PR: feature → dev → main" \
+          "  ${_Y}3.${_N} PR: feature → ${INTEGRATION_BRANCH} → main" \
         )"
       fi
       if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+reset[[:space:]]+--hard'; then
