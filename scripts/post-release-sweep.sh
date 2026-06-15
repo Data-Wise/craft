@@ -33,6 +33,7 @@ NC="$FMT_NC"
 FIX_MODE=false
 DRY_RUN=true
 JSON_MODE=false
+RUN_SURFACES=false
 TARGET_VERSION=""
 
 while [[ $# -gt 0 ]]; do
@@ -40,6 +41,8 @@ while [[ $# -gt 0 ]]; do
         --fix)       FIX_MODE=true; DRY_RUN=false ;;
         --dry-run|-n) DRY_RUN=true; FIX_MODE=false ;;
         --json)      JSON_MODE=true ;;
+        --surfaces)  RUN_SURFACES=true ;;
+        --skip-surfaces) RUN_SURFACES=false ;;
         --version)
             if [[ $# -lt 2 ]] || [[ ! "$2" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
                 echo -e "${RED}Error: --version requires a version argument (X.Y.Z)${NC}"
@@ -55,6 +58,8 @@ while [[ $# -gt 0 ]]; do
             echo "  --dry-run     Report only, no changes (default)"
             echo "  --version     Check against specific version (default: from plugin.json)"
             echo "  --json        Output results as JSON"
+            echo "  --surfaces    Also run verify-surfaces.sh (multi-surface version assert)"
+            echo "  --skip-surfaces  Disable the surfaces check (default)"
             exit 0
             ;;
         *)
@@ -331,9 +336,36 @@ if [[ $TIER3_ISSUES -eq 0 ]] && [[ "$JSON_MODE" != true ]]; then
 fi
 
 # ---------------------------------------------------------------------------
+# Phase 4.5: Surfaces (opt-in via --surfaces) — multi-surface version assert.
+# Delegated to verify-surfaces.sh; a craft-controlled leg mismatch is a real
+# issue that should block. Off by default so the sweep stays a doc-drift tool.
+# ---------------------------------------------------------------------------
+SURFACES_ISSUES=0
+if [[ "$RUN_SURFACES" == true ]] && [[ -f ".claude-plugin/plugin.json" ]]; then
+    if [[ "$JSON_MODE" != true ]]; then
+        echo ""
+        echo -e "${CYAN}Phase 4.5: Surfaces (verify-surfaces.sh)${NC}"
+    fi
+    SURFACES_EXIT=0
+    SURFACES_OUTPUT=$("$SCRIPT_DIR/verify-surfaces.sh" 2>&1) || SURFACES_EXIT=$?
+    if [[ $SURFACES_EXIT -ne 0 ]]; then
+        SURFACES_ISSUES=1
+        add_finding "1" "verify-surfaces.sh" "A craft-controlled surface disagrees on version (run verify-surfaces.sh)" "manual"
+        if [[ "$JSON_MODE" != true ]]; then
+            echo -e "  ${RED}BLOCKED${NC} — surfaces disagree on version"
+            echo "$SURFACES_OUTPUT" | sed 's/^/    /'
+        fi
+    else
+        if [[ "$JSON_MODE" != true ]]; then
+            echo -e "  ${GREEN}ALIGNED${NC} — all verifiable surfaces match"
+        fi
+    fi
+fi
+
+# ---------------------------------------------------------------------------
 # Phase 5: Summary
 # ---------------------------------------------------------------------------
-TOTAL_ISSUES=$((TIER1_ISSUES + TIER2_ISSUES + TIER3_ISSUES))
+TOTAL_ISSUES=$((TIER1_ISSUES + TIER2_ISSUES + TIER3_ISSUES + SURFACES_ISSUES))
 
 if [[ "$JSON_MODE" == true ]]; then
     # JSON output
@@ -345,6 +377,7 @@ if [[ "$JSON_MODE" == true ]]; then
     echo "  \"tier2_issues\": ${TIER2_ISSUES},"
     echo "  \"tier2_fixed\": ${TIER2_FIXED},"
     echo "  \"tier3_issues\": ${TIER3_ISSUES},"
+    echo "  \"surfaces_issues\": ${SURFACES_ISSUES},"
     echo "  \"total_issues\": ${TOTAL_ISSUES},"
     echo "  \"findings\": ["
     FIRST_FINDING=true
