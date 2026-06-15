@@ -25,6 +25,7 @@ Orchestrate end-to-end releases with pre-flight validation, version bumping, PR 
 |----------|-------|-------------|---------|
 | `--dry-run` | `-n` | Preview release plan without executing | `false` |
 | `--autonomous` | `--auto` | Run without user prompts, auto-resolve where possible | `false` |
+| `--skip-surfaces` | — | Skip Step 13.6 multi-surface version assertion | `false` |
 
 ## Dry-Run Mode
 
@@ -1117,6 +1118,42 @@ git push
 | 3 | Content staleness (CHANGELOG vs index.md) | Manual review |
 
 If `--fix` makes changes, commit them before completing the release.
+
+### Step 13.6: Verify Surfaces (multi-surface version assert)
+
+After the sweep, assert that **one version reached every surface craft controls** and print a
+per-surface report. This is the gate that stops Code / Homebrew / marketplace / git-tag from
+silently disagreeing — and prints the honest one-time manual step for Desktop/Cowork.
+
+**Trigger (D1):** auto-runs whenever `.claude-plugin/plugin.json` is present. The only escape is
+`--skip-surfaces` (e.g. a non-plugin release, or a deliberate partial publish).
+
+```bash
+# Auto-runs when this repo ships a plugin; --skip-surfaces bypasses.
+if [[ -f .claude-plugin/plugin.json && "$SKIP_SURFACES" != true ]]; then
+  ./scripts/verify-surfaces.sh --write-status --aggregator Data-Wise/claude-plugins
+fi
+```
+
+**Behavior (D2):**
+
+| Surface | Source | On disagreement |
+|---------|--------|-----------------|
+| marketplace.json | `.claude-plugin/marketplace.json` | **BLOCK** |
+| git tag | `git tag vX.Y.Z` | **BLOCK** |
+| tap formula | `Formula/<name>.rb` url | **BLOCK** |
+| brew-installed | `brew list --versions <name>` | **BLOCK** |
+| Code-registered | `~/.claude/plugins/installed_plugins.json` | **BLOCK** |
+| Desktop/Cowork | manual `claude plugin marketplace add` | **WARN** (one-time, not auto-verifiable) |
+
+A surface whose source is **absent/unreadable** (no brew, no local tap checkout) is reported
+`⚠️ not verified` and does **not** block — only a *present-but-mismatched* craft-controlled
+surface fails the release (exit 1). `--write-status` records the result in the `.STATUS` surfaces
+matrix.
+
+If it **BLOCKS**, the version did not land uniformly — fix the lagging surface (commonly: `git pull`
+a stale tap checkout, re-run the homebrew workflow, or `claude plugin update <name>` for Code) and
+re-run before completing the release.
 
 ## Output Format
 
