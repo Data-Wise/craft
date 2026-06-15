@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [2.38.0] — 2026-06-15
 
 ### Added — Multi-surface release
 
@@ -29,8 +29,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Desktop plugin install** section in `docs/guide/desktop-release.md` — the one-time
   `claude plugin marketplace add` step plus the in-app click-path.
 
+### Added — Branch-guard: research `draft` as integration branch
+
+- **`scripts/branch-guard.sh`** now treats a research repo's `draft` branch exactly like `dev`
+  (smart protection: new code files blocked, existing edits + `.md` + normal commits allowed,
+  force-push/reset blocked). Auto-detects smart mode when either `dev` or `draft` exists, and
+  remediation hints resolve to `git checkout draft` on research repos (#158). Backs the
+  `draft-as-dev-research` workflow rule directly.
+- **CI now runs the branch-guard suites** — `ci.yml` installs the hook, then runs the pytest +
+  bash suites (99 unit + 30 e2e), so branch-guard behavior is CI-validated, not local-only (#159).
+
 ### Changed
 
+- `scripts/branch-guard.sh` — consolidated `dev`/`draft` presence detection into a single probe
+  restricted to `refs/heads/*` (no duplicate `cd`, no same-named-tag false match) (#160).
 - `scripts/post-release-sweep.sh` gains an opt-in `--surfaces` passthrough (default off) that runs
   the surfaces check as part of the sweep.
 

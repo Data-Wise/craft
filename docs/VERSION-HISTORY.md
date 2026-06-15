@@ -2,13 +2,29 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.35.0 (2026-06-03)
-**Total Releases:** 57 versions | **Development Time:** 2+ years
-**Community:** 109 commands documented, 130 tests passing, 90%+ coverage
+**Latest Release:** v2.38.0 (2026-06-15)
+**Total Releases:** 60 versions | **Development Time:** 2+ years
+**Community:** 112 commands documented, 1801 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.38.0 (2026-06-15) — Multi-Surface Release + Branch-Guard `draft`
+
+**Status:** Released
+**Stats:** 112 commands | 39 skills | 8 agents | 1801 tests passing
+
+- **Multi-surface release engine** — `verify-surfaces.sh` asserts one version across all surfaces
+  (marketplace, git tag, tap formula, brew, Code registry, + Data-Wise aggregator); **blocks** on
+  craft-controlled drift, **warns** on Desktop. Wired as release Step 13.6.
+- **`cache-prune.sh`** (Step 13.7) — GCs stale `local-plugins` version dirs, keeping current + 2.
+- **Data-Wise aggregator marketplace** — add once → every Data-Wise plugin on Code + Desktop/Cowork
+  (`Data-Wise/claude-plugins`); `aggregator-sync.sh` keeps entries current.
+- **Branch-guard `draft` = `dev`** — research repos' `draft` branch now gets full integration-branch
+  protection (#158); CI runs the branch-guard suites (#159); detection consolidated (#160).
+
+> _Note: v2.36.0 and v2.37.0 timeline entries are not yet backfilled here (pre-existing gap)._
 
 ### v2.35.0 (2026-06-03) — Spec-Driven Drive + Prompt Refinement
 
