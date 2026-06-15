@@ -2,7 +2,7 @@ status: Active
 version: 2.37.0
 release_date: 2026-06-13
 milestone: v2.37.0 SHIPPED 2026-06-13 — drift-prevention chain + CI triage/watch. Bundled brainstorm items 1-7 (PRs #151/#152/#153/#154/#155): #1 strict-markers guard + #4 workflow recipe discoverability; #7 bump-version categorical-subtotal sweep; #2 CI count-drift tripwire (README live counts); #5 /craft:ci:triage + #6 /craft:ci:watch. PR #156 → main 8c21a54d (merge commit), release tag v2.37.0. Downstream all GREEN: main CI verified, homebrew-release.yml updated tap to v2.37.0 (desc "112 commands", url v2.37.0.tar.gz). Post-release sweep ALL CLEAN (drift tooling paid off). Counts: 112 commands / 39 skills / 8 agents. Prior: v2.36.0 SHIPPED 2026-06-13 (PR #150 → main eb7e143d).
-last_session: 2026-05-15
+last_session: 2026-06-15
 
 progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag v2.34.0). Bundled: commands→skills migration via PR #139 (3 batches, 11 new skills auto-activating from conversation context), PR #140 (post-merge drift sweep + 9th over-counter fix), PR #141 (skill coverage docs in skills-agents.md + bump-version sweep for `(N total)` headers + 10th + 11th over-counter instances), site refresh + .STATUS sync (4c7a44bd, 2b25c2a1), CHANGELOG promotion + tagline cleanup (cbb1a740). Test suite: 19 unit tests on test_craft_plugin.py (added test_skill_count_predicates_use_canonical_marker as a regression net for the recurring SKILL.md-vs-`*.md` over-counting bug — now fixed in 11 utilities total). Downstream all GREEN: docs.yml deployed, homebrew-release.yml updated tap to v2.34.0, brew install verified locally. Post-release sweep: ALL CLEAN, no Tier 2 drift.
 
@@ -20,6 +20,13 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 | `feature/multi-surface-release` | `~/.git-worktrees/craft/feature-multi-surface-release` | dev | release:verify-surfaces + Desktop marketplace (SPEC + ORCHESTRATE committed; impl pending new session) — created 2026-06-15 |
 
 _Prior: `feature/ci-triage` MERGED → dev `a1812afb` (PR #154 squash, 2026-06-14, CI green) — item #5; first real test of #7+#2 (auto-swept CI subtotal, tripwire caught stale refs). `feature/pr2-drift-tripwire` MERGED → dev `f00f5872` (PR #153 squash, 2026-06-14, CI green) — completes the #7→#2 chain (subtotals synced + CI tripwire). `feature/pr7-bump-subtotals` MERGED → dev `91a82271` (PR #152 squash, 2026-06-13; CI caught a real BSD-sed-no-ops-on-GNU bug, fixed with a `sedi()` wrapper). `feature/pr1a-test-hygiene` MERGED → dev `813855f2` (PR #151 squash, 2026-06-13, CI green); worktree + local + remote branch all removed. `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash) — worktrees + branches removed. `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
+
+✅ Session 2026-06-15 (branch-guard draft=dev shipped + multi-surface-release spec/worktree):
+- **PR #158 MERGED → dev** — `branch-guard.sh` now treats research `draft` as `dev` (smart protection: new code blocked, existing + `.md` + commits allowed, force/reset blocked). Bundled 5 bash regression cases (Group 2b) + 1 pytest auto-detect case (`test_repo_with_draft_protects_both`). Backs the `~/.claude/rules/draft-as-dev-research.md` rule directly — no more manual self-enforcement.
+- **PR #159 MERGED → dev** — wired the branch_guard bash suites into `ci.yml`: new "Install branch-guard hook" step + "Run branch-guard bash suites" (`tests/test_branch_guard.sh` + `_e2e.sh`) with `SKIP_PERF=1` gating the 50-invocation timing test. branch_guard behavior is now CI-validated, not local-only.
+- **Brainstorm + SPEC (approved): multi-surface release.** Read-only investigation of craft's plugin dev→release pipeline → `docs/specs/SPEC-multi-surface-release-2026-06-15.md` (`9df211ed`). Key finding: Claude **Code** and **Desktop/Cowork** use SEPARATE plugin registries; Desktop CAN subscribe to a custom GitHub marketplace by `owner/repo` (`addMarketplace`, same engine as Code) — so "one source → all surfaces" is achievable via the `marketplace.json` craft already ships + a one-time `claude plugin marketplace add`. Item 1 (Desktop spike) DONE; D1–D7 decisions + 6 work items.
+- **Worktree scaffolded:** `feature/multi-surface-release` + `ORCHESTRATE-multi-surface-release.md` (5 phases: rforge drift fix, verify-surfaces engine, cache-prune, aggregator marketplace, docs). Impl pending a NEW worktree session (ORCHESTRATE-STOP rule).
+- **Memory:** new `claude-desktop-vs-code-plugin-stores.md` (separate stores + addMarketplace) so the investigation isn't redone. Global rule `draft-as-dev-research.md` updated (hook now enforces draft=dev, PR #158).
 
 ✅ Session 2026-06-13 (mermaid-marker CI fix + workflow-engine doc-gap closure):
 - **PR #149 MERGED → dev `d21a1e4a`** (squash, normal — no `--admin`). Registered `mermaid`/`mermaid_mcp` in `pyproject.toml` markers, killing the `--strict-markers` collection-flake that was red-listing ALL craft CI when the env plugin install flaked. Full suite: **1729 passed / 38 skipped / 1 xfailed**. Resolves Next Action A.
@@ -130,10 +137,10 @@ Cleanup:
 ---
 
 🎯 Next Action:
-A) ✅ v2.36.0 SHIPPED + verified 2026-06-13 (release tag, GitHub release, Homebrew tap all GREEN). This session also closed out: deleted the 2 leftover local branches; closed workflow-engine doc gaps (counts→110/39, hub orchestrate row, 2 mermaid flowcharts); refreshed stale landing cosmetics (index.md cards 107→110/26→39, README banner → v2.36.0); added 6 engine error-path negative tests (`workflow_parse.py` coverage 92%→94%, suite 57→63); added a 2nd cookbook recipe (`fan-a-workflow-across-files.md`) + a workflow walk-through in `orchestrator-modes-compared.md`. ⚡ NEXT: run `./scripts/post-release-sweep.sh` to confirm no Tier-2 drift after the release; then re-sync `dev` with `main` (currently 1 merge-commit behind).
-B) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release
-C) Audit deprecated source commands from migration — schedule removal for v3.0.0
-D) Take a break — v2.36.0 shipped clean, downstream all green
+A) ⚡ Start Phase 1 of `feature/multi-surface-release` in a NEW worktree session (Recommended) — `cd ~/.git-worktrees/craft/feature-multi-surface-release && claude`, then "Read `ORCHESTRATE-multi-surface-release.md` + the spec, start Phase 1 (release:verify-surfaces engine)". Phase 0 (rforge drift fix: `claude plugin update rforge`) is a standalone ops step, do anytime. NOTE: worktree HEAD has advanced past the planning commit (`1732ced0` ≠ `a73df283`) — a parallel session may already have started; check before assuming Phase 1 is untouched.
+B) Resolve spec Open Q6 (aggregator host: reuse `Data-Wise/claude-plugins` vs new repo) — de-risks Phase 3; can do from this dev session (read-only inspect of the candidate repos).
+C) Tackle #108 (Tauri/cask workflow revamp) — large feature, schedule for own release.
+D) Take a break — branch-guard draft=dev shipped (#158/#159), spec approved, worktree ready.
 
 Issues closed this session (2026-05-11):
 - #126 (e30ba371) — env-var → stdin contract corrected in insights spec
