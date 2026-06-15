@@ -108,6 +108,38 @@ test_json_mode() {
     destroy_cache
 }
 
+test_non_semver_dirs_never_pruned() {
+    echo -e "${T_BLUE}[TEST]${T_NC} SAFETY: non-semver dirs (dev/backup) are ignored, real versions never pruned by junk-ranking"
+    make_cache scholar 2.22.0 2.23.0 2.24.0
+    # Junk dirs that `sort -rV` would rank ABOVE real versions, pushing the
+    # newest real versions into the prunable tail (the data-loss bug).
+    mkdir -p "$CACHE/scholar/dev" "$CACHE/scholar/backup"
+
+    run_prune --prune >/dev/null 2>&1
+    assert_dir_exists "$CACHE/scholar/2.24.0" "Newest real version survives (not pruned by junk-ranking)"
+    assert_dir_exists "$CACHE/scholar/2.23.0" "2nd real version survives"
+    assert_dir_exists "$CACHE/scholar/2.22.0" "3rd real version survives"
+    assert_dir_exists "$CACHE/scholar/dev" "Non-semver 'dev' dir left untouched"
+    assert_dir_exists "$CACHE/scholar/backup" "Non-semver 'backup' dir left untouched"
+
+    destroy_cache
+}
+
+test_installed_version_never_pruned() {
+    echo -e "${T_BLUE}[TEST]${T_NC} SAFETY: the installed (pinned) version survives even when older than newest 3"
+    make_cache scholar 2.20.0 2.21.0 2.22.0 2.23.0 2.24.0
+    local ip; ip=$(mktemp)
+    echo '{"plugins": {"scholar@local-plugins": [{"version": "2.20.0"}]}}' > "$ip"
+
+    INSTALLED_PLUGINS="$ip" CACHE_DIR="$CACHE" bash "$PRUNE_SCRIPT" --prune >/dev/null 2>&1
+    assert_dir_exists "$CACHE/scholar/2.20.0" "Installed/pinned 2.20.0 survives prune"
+    assert_dir_exists "$CACHE/scholar/2.24.0" "Newest version still kept"
+    assert_dir_absent "$CACHE/scholar/2.21.0" "Non-installed old version 2.21.0 is pruned"
+    rm -f "$ip"
+
+    destroy_cache
+}
+
 print_summary() {
     echo ""
     echo -e "${T_BLUE}═══════════════════════════════════════════${T_NC}"
@@ -120,6 +152,8 @@ main() {
     test_dry_run_reports_but_keeps
     test_prune_keeps_current_plus_two
     test_under_threshold_keeps_all
+    test_non_semver_dirs_never_pruned
+    test_installed_version_never_pruned
     test_json_mode
     print_summary
     [ "$FAILED_TESTS" -gt 0 ] && exit 1 || exit 0

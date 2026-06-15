@@ -51,6 +51,17 @@ def _get_current_branch() -> str:
     return result.stdout.strip()
 
 
+def _expected_existing_md_rc() -> int:
+    """Expected hook returncode for editing/writing an EXISTING .md from CRAFT_ROOT.
+
+    These payload-format tests run on BOTH dev (PR CI) and main (post-merge CI).
+    On main/master the hook block-alls every modification (rc 2); on dev/draft and
+    feature/* branches, edits to an existing file are allowed (rc 0). The expectation
+    must track the branch the suite runs on, or it fails on the main-branch CI run.
+    """
+    return 2 if _get_current_branch() in ("main", "master") else 0
+
+
 # ============================================================================
 # Group 1: Hook Installation & Registration
 # ============================================================================
@@ -266,8 +277,8 @@ class TestRealPayloadFormats(unittest.TestCase):
             "cwd": self.cwd,
         }
         result = _run_hook(payload)
-        # On dev: overwriting existing .md -> allowed
-        self.assertEqual(result.returncode, 0)
+        # Existing .md: allowed on dev/feature, block-all on main
+        self.assertEqual(result.returncode, _expected_existing_md_rc())
 
     def test_edit_payload_with_replace_all(self):
         """Edit payload with replace_all field (optional parameter)."""
@@ -282,7 +293,8 @@ class TestRealPayloadFormats(unittest.TestCase):
             "cwd": self.cwd,
         }
         result = _run_hook(payload)
-        self.assertEqual(result.returncode, 0)
+        # Existing .md: allowed on dev/feature, block-all on main
+        self.assertEqual(result.returncode, _expected_existing_md_rc())
 
     def test_bash_payload_with_description(self):
         """Bash payload includes optional description field."""
@@ -370,8 +382,8 @@ class TestRealPayloadFormats(unittest.TestCase):
             "cwd": self.cwd,
         }
         result = _run_hook(payload)
-        # Should resolve filePath and allow (existing .md)
-        self.assertEqual(result.returncode, 0)
+        # Should resolve filePath; existing .md -> allowed on dev/feature, block-all on main
+        self.assertEqual(result.returncode, _expected_existing_md_rc())
 
 
 # ============================================================================
