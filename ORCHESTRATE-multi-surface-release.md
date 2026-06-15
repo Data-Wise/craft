@@ -26,11 +26,15 @@ step, plus an aggregator marketplace, cache-prune, and the live rforge drift fix
 
 | Phase | Increment | Priority | Effort | Status |
 |-------|-----------|----------|--------|--------|
-| 0 | rforge drift fix (Item 3, ops — can run standalone) | High | 10m | |
-| 1 | `release:verify-surfaces` engine (Item 2) | High | 1–2h | |
-| 2 | Cache-prune (Item 5) | Medium | 30m | |
-| 3 | Aggregator Data-Wise marketplace (Item 6) | Medium | 1h | |
-| 4 | Docs & Discoverability (Item 4 + required) | High | 1h | |
+| 0 | rforge drift fix (Item 3, ops — can run standalone) | High | 10m | ✅ done — `update rforge@local-plugins` → 2.13.0 |
+| 1 | `release:verify-surfaces` engine (Item 2) | High | 1–2h | ✅ done (commit 9cf08710) |
+| 2 | Cache-prune (Item 5) | Medium | 30m | ✅ done |
+| 3 | Aggregator Data-Wise marketplace (Item 6) | Medium | 1h | ✅ done (craft-side; aggregator repo = follow-up PR) |
+| 4 | Docs & Discoverability (Item 4 + required) | High | 1h | ✅ done |
+
+> **Phase 0 note:** the bare `claude plugin update rforge` errors "not found"; locally-registered
+> plugins need the **marketplace-qualified** name (`rforge@local-plugins`). Remediation hints
+> updated accordingly.
 
 > Item 1 (Desktop spike) is **already DONE** — see spec. Not a phase.
 

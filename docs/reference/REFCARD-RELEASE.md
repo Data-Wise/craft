@@ -50,6 +50,8 @@ Ready to release?
 | 12 | Verify downstream CI (docs) | Read-only (polls docs deploy workflow) |
 | 13 | Verify downstream CI (Homebrew) | Read-only (polls tap CI) |
 | 13.5 | Post-release sweep | Auto-fixes Tier 2 drift, reports Tier 3 |
+| 13.6 | Verify surfaces | Asserts one version across all surfaces — **blocks** on craft-leg drift, **warns** Desktop (`--skip-surfaces` to bypass) |
+| 13.7 | Prune version cache | GC stale `local-plugins` dirs, keep current + 2 (maintenance, never blocks) |
 
 ### Release Pipeline Flow
 
@@ -205,6 +207,7 @@ Poll → Diagnose → Fix/Ask → Retry (up to 3x)
 | Flag | Effect |
 |------|--------|
 | `--dry-run` / `-n` | Preview only, no execution |
+| `--skip-surfaces` | Skip Step 13.6 multi-surface version assertion |
 | `v2.18.0` | Use this specific version |
 | (no args) | Auto-detect and suggest version |
 

@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added — Multi-surface release
+
+- **`scripts/verify-surfaces.sh`** — multi-surface version assertion + ADHD-friendly report. Asserts
+  one version across `marketplace.json`, git tag `vX.Y.Z`, tap `Formula/<name>.rb`, brew-installed,
+  and Code-registered (`installed_plugins.json`) — plus the Data-Wise aggregator entry when
+  configured. **Blocks** the release on any craft-controlled disagreement; **warns** (never blocks)
+  on Desktop/Cowork and on unreadable/absent sources. Writes a surfaces matrix to `.STATUS`
+  (`--write-status`). Wired into `/release` at **Step 13.6** — auto-runs when
+  `.claude-plugin/plugin.json` is present; `--skip-surfaces` bypasses.
+- **`scripts/cache-prune.sh`** — garbage-collects stale `local-plugins` version-cache dirs, keeping
+  **current + 2 most recent** per plugin; always reports removals (no silent delete). Release
+  maintenance **Step 13.7**. Distinct from `claude plugin prune` (dependency GC).
+- **`dist/data-wise-marketplace.json`** — aggregator marketplace listing all Data-Wise plugins (add
+  once → every current and future plugin on Code and Desktop/Cowork). **`scripts/aggregator-sync.sh`**
+  keeps each plugin's entry current; `verify-surfaces --aggregator-file` guards it against drift.
+- **Desktop plugin install** section in `docs/guide/desktop-release.md` — the one-time
+  `claude plugin marketplace add` step plus the in-app click-path.
+
+### Changed
+
+- `scripts/post-release-sweep.sh` gains an opt-in `--surfaces` passthrough (default off) that runs
+  the surfaces check as part of the sweep.
+
 ## [2.37.0] — 2026-06-13
 
 ### Added

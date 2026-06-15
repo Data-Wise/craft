@@ -27,6 +27,49 @@ The desktop release pipeline extends `/craft:dist:homebrew` and the `/release` s
 
 ---
 
+## Desktop / Cowork plugin install (distinct from cask apps)
+
+> **This is about installing a *plugin* (craft, scholar, …) into Claude Desktop / Cowork — NOT a
+> Tauri cask app.** Two different things share the word "desktop"; everything below is plugin
+> registration, and everything above/below it (`Casks/`, DMGs, `tauri.conf.json`) is cask apps.
+
+Claude Code and Claude Desktop / Cowork use **separate plugin registries**, so a craft release that
+lands in Code does not appear in Desktop automatically. But Desktop/Cowork **can** subscribe to the
+same GitHub marketplace craft already publishes (`.claude-plugin/marketplace.json`) — the native
+host exposes an `addMarketplace(owner/repo)` capability, the same engine Code uses, backed by a
+persistent account/org-scoped store.
+
+**So Desktop parity is a one-time manual add**, then updates flow from `marketplace.json`:
+
+```bash
+# Recommended: add the Data-Wise AGGREGATOR once → every current + future plugin.
+claude plugin marketplace add Data-Wise/claude-plugins
+
+# Or a single plugin's own repo:
+claude plugin marketplace add github:Data-Wise/craft
+```
+
+### In-app click-path (Claude Desktop / Cowork)
+
+> **Verify once in your build before relying on these labels** (Open Question — the native UI is not
+> browser-automatable, so this path is confirmed by a human GUI check). The *capability* is verified;
+> only the exact menu labels need a glance.
+
+1. Open **Claude Desktop** → **Settings**.
+2. Go to **Extensions / Plugins → Marketplaces**.
+3. Choose **Add marketplace**, enter `Data-Wise/claude-plugins` (owner/repo), confirm.
+4. The plugins listed in that marketplace's `.claude-plugin/marketplace.json` become installable;
+   updates arrive as the marketplace's manifest versions advance.
+
+### Why not write Desktop's store directly?
+
+Safety invariant: **craft never writes under `~/Library/Application Support/Claude/`.** Registration
+goes through the supported `addMarketplace` path only — never a hand-edit of Desktop's JSON. This is
+why `verify-surfaces` treats the Desktop leg as **warn-only** (a one-time manual step it can't
+auto-verify), while it hard-blocks on the surfaces craft *does* control.
+
+---
+
 ## Prerequisites
 
 ### Required Tools
