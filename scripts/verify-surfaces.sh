@@ -53,6 +53,7 @@ fi
 JSON_MODE=false
 WRITE_STATUS=false
 AGGREGATOR=""
+AGGREGATOR_FILE=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -61,12 +62,16 @@ while [[ $# -gt 0 ]]; do
         --aggregator)
             [[ $# -lt 2 ]] && { echo -e "${RED}Error: --aggregator requires owner/repo${NC}"; exit 2; }
             AGGREGATOR="$2"; shift ;;
+        --aggregator-file)
+            [[ $# -lt 2 ]] && { echo -e "${RED}Error: --aggregator-file requires a path${NC}"; exit 2; }
+            AGGREGATOR_FILE="$2"; shift ;;
         --help|-h)
-            echo "Usage: $0 [--json] [--write-status] [--aggregator OWNER/REPO]"
+            echo "Usage: $0 [--json] [--write-status] [--aggregator OWNER/REPO] [--aggregator-file PATH]"
             echo ""
-            echo "  --json           Machine-readable output"
-            echo "  --write-status   Update the surfaces matrix in the repo's .STATUS"
-            echo "  --aggregator     Data-Wise aggregator marketplace for the Desktop add step"
+            echo "  --json             Machine-readable output"
+            echo "  --write-status     Update the surfaces matrix in the repo's .STATUS"
+            echo "  --aggregator       Data-Wise aggregator marketplace for the Desktop add step"
+            echo "  --aggregator-file  Aggregator marketplace.json to verify this plugin's entry (D5 leg)"
             exit 0 ;;
         *) echo -e "${RED}Error: Unknown argument '$1'${NC}"; exit 2 ;;
     esac
@@ -154,6 +159,14 @@ resolve_code_registered() {
     json_get "$store" "next((e.get('version') for k,entries in d.get('plugins',{}).items() if k.split('@')[0]=='${PLUGIN_NAME}' for e in entries), '')"
 }
 
+# D5: the aggregator marketplace entry is a 5th craft-controlled leg — only
+# evaluated when an aggregator source is configured (env or --aggregator-file).
+AGG_FILE="${SURFACES_AGGREGATOR_FILE:-$AGGREGATOR_FILE}"
+resolve_aggregator() {
+    [[ -f "$AGG_FILE" ]] || return 0   # configured-but-missing -> absent (warn)
+    json_get "$AGG_FILE" "next((p.get('version') for p in d.get('plugins',[]) if p.get('name')=='${PLUGIN_NAME}'), '')"
+}
+
 # ---------------------------------------------------------------------------
 # Compare and collect results.
 #   STATUS arrays carry: label | version | state   (state: ok|mismatch|absent)
@@ -179,6 +192,7 @@ add_leg "git tag"         "$(resolve_git_tag)"
 add_leg "tap formula"     "$(resolve_tap_formula)"
 add_leg "brew-installed"  "$(resolve_brew)"
 add_leg "Code-registered" "$(resolve_code_registered)"
+[[ -n "$AGG_FILE" ]] && add_leg "aggregator" "$(resolve_aggregator)"
 
 # ---------------------------------------------------------------------------
 # Render

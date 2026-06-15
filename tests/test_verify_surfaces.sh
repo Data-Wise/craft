@@ -182,6 +182,68 @@ test_desktop_is_warn_only() {
     destroy_sandbox
 }
 
+test_aggregator_leg_aligned() {
+    echo -e "${T_BLUE}[TEST]${T_NC} AGGREGATOR: matching aggregator entry -> aligned, exit 0"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+    cat > "$SANDBOX/aggregator.json" <<'JSON'
+{ "name": "data-wise", "plugins": [
+  { "name": "scholar", "version": "3.1.0" },
+  { "name": "craft", "version": "2.37.0" }
+] }
+JSON
+    local exit_code=0 output
+    output=$(SURFACES_AGGREGATOR_FILE="$SANDBOX/aggregator.json" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Matching aggregator entry exits 0"
+    assert_contains "$stripped" "aggregator" "Report lists the aggregator leg"
+    assert_contains "$stripped" "ALIGNED" "Summary ALIGNED when aggregator matches"
+
+    destroy_sandbox
+}
+
+test_aggregator_leg_mismatch_blocks() {
+    echo -e "${T_BLUE}[TEST]${T_NC} AGGREGATOR: stale aggregator entry -> BLOCK (D5 drift guard)"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+    cat > "$SANDBOX/aggregator.json" <<'JSON'
+{ "name": "data-wise", "plugins": [ { "name": "craft", "version": "2.36.0" } ] }
+JSON
+    local exit_code=0 output
+    output=$(SURFACES_AGGREGATOR_FILE="$SANDBOX/aggregator.json" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "1" "$exit_code" "Stale aggregator entry blocks (exit 1)"
+    assert_contains "$stripped" "aggregator" "Report names the aggregator leg"
+    assert_contains "$stripped" "BLOCKED" "Summary BLOCKED on aggregator drift"
+
+    destroy_sandbox
+}
+
+test_aggregator_absent_warns_not_block() {
+    echo -e "${T_BLUE}[TEST]${T_NC} AGGREGATOR: requested-but-missing file warns, does NOT block"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local exit_code=0 output
+    output=$(SURFACES_AGGREGATOR_FILE="$SANDBOX/missing-aggregator.json" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Missing aggregator file does not block"
+    assert_contains "$stripped" "ALIGNED" "Summary still ALIGNED (absent aggregator != drift)"
+
+    destroy_sandbox
+}
+
+test_no_aggregator_leg_when_unconfigured() {
+    echo -e "${T_BLUE}[TEST]${T_NC} AGGREGATOR: leg is omitted entirely when not configured"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local output; output=$(run_verify)
+    local stripped; stripped=$(strip_ansi "$output")
+    assert_not_contains "$stripped" "aggregator" "No aggregator leg shown when unconfigured"
+
+    destroy_sandbox
+}
+
 test_write_status_matrix() {
     echo -e "${T_BLUE}[TEST]${T_NC} STATUS: --write-status writes the surfaces matrix to .STATUS"
     make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
@@ -244,6 +306,10 @@ main() {
     test_mismatch_blocks
     test_absent_leg_warns_not_block
     test_desktop_is_warn_only
+    test_aggregator_leg_aligned
+    test_aggregator_leg_mismatch_blocks
+    test_aggregator_absent_warns_not_block
+    test_no_aggregator_leg_when_unconfigured
     test_write_status_matrix
     test_json_mode
     print_summary

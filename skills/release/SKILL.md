@@ -1131,7 +1131,20 @@ silently disagreeing — and prints the honest one-time manual step for Desktop/
 ```bash
 # Auto-runs when this repo ships a plugin; --skip-surfaces bypasses.
 if [[ -f .claude-plugin/plugin.json && "$SKIP_SURFACES" != true ]]; then
-  ./scripts/verify-surfaces.sh --write-status --aggregator Data-Wise/claude-plugins
+  NAME=$(python3 -c "import json;print(json.load(open('.claude-plugin/plugin.json'))['name'])")
+  VER=$(python3 -c "import json;print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+
+  # If the Data-Wise aggregator marketplace is checked out, keep this plugin's
+  # entry in sync (D5) BEFORE verifying — then verify it as the 'aggregator' leg.
+  AGG="${DATA_WISE_AGGREGATOR_FILE:-}"        # path to aggregator marketplace.json, if available
+  if [[ -n "$AGG" && -f "$AGG" ]]; then
+    ./scripts/aggregator-sync.sh --file "$AGG" --plugin "$NAME" --version "$VER"
+    # (commit/push the aggregator repo separately — it's a different repo.)
+  fi
+
+  ./scripts/verify-surfaces.sh --write-status \
+    --aggregator Data-Wise/claude-plugins \
+    ${AGG:+--aggregator-file "$AGG"}
 fi
 ```
 
@@ -1144,6 +1157,7 @@ fi
 | tap formula | `Formula/<name>.rb` url | **BLOCK** |
 | brew-installed | `brew list --versions <name>` | **BLOCK** |
 | Code-registered | `~/.claude/plugins/installed_plugins.json` | **BLOCK** |
+| aggregator (D5) | Data-Wise aggregator `marketplace.json` entry (via `--aggregator-file`) | **BLOCK** (only when configured) |
 | Desktop/Cowork | manual `claude plugin marketplace add` | **WARN** (one-time, not auto-verifiable) |
 
 A surface whose source is **absent/unreadable** (no brew, no local tap checkout) is reported
@@ -1152,8 +1166,24 @@ surface fails the release (exit 1). `--write-status` records the result in the `
 matrix.
 
 If it **BLOCKS**, the version did not land uniformly — fix the lagging surface (commonly: `git pull`
-a stale tap checkout, re-run the homebrew workflow, or `claude plugin update <name>` for Code) and
-re-run before completing the release.
+a stale tap checkout, re-run the homebrew workflow, or `claude plugin update <name>@local-plugins`
+for Code — note the **marketplace-qualified** name; the bare name errors "not found") and re-run
+before completing the release.
+
+### Step 13.7: Prune Version Cache (maintenance)
+
+Claude Code never garbage-collects old plugin versions under
+`~/.claude/plugins/cache/local-plugins/<name>/<version>/`, so they accumulate. After a successful
+release, prune them — keeping **current + 2 most recent** per plugin (D7). Always dry-run first;
+the prune step reports every directory it removes (never a silent delete).
+
+```bash
+./scripts/cache-prune.sh            # dry-run: report what would be removed
+./scripts/cache-prune.sh --prune    # actually remove old version dirs
+```
+
+Maintenance only — never blocks the release (exit 0 always). Distinct from `claude plugin prune`,
+which GCs unused *dependency* plugins rather than the per-version cache.
 
 ## Output Format
 
