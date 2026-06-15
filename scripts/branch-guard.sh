@@ -153,12 +153,23 @@ PROTECTION=""
 MAIN_PROTECTION=""
 DEV_PROTECTION=""
 
+# Detect integration-branch presence once, here, so both the protection
+# auto-detect (below) and the user-facing remediation hints reuse the result
+# instead of re-cd-ing and re-probing. Restrict to refs/heads/* so a same-named
+# tag can't be mistaken for the branch.
+DEV_EXISTS=false
+DRAFT_EXISTS=false
+if cd "$PROJECT_ROOT" 2>/dev/null; then
+  git rev-parse --verify refs/heads/dev   &>/dev/null && DEV_EXISTS=true
+  git rev-parse --verify refs/heads/draft &>/dev/null && DRAFT_EXISTS=true
+fi
+
 # Integration branch name: 'dev' for most repos, 'draft' for research repos
-# (~/projects/research/*). Used in user-facing remediation hints below. Defaults
-# to 'dev'; switched to 'draft' only when 'dev' is absent but 'draft' exists.
+# (~/projects/research/*). Used in user-facing remediation hints below (which
+# only render on main/master). Defaults to 'dev'; switched to 'draft' only when
+# 'dev' is absent but 'draft' exists.
 INTEGRATION_BRANCH="dev"
-if cd "$PROJECT_ROOT" 2>/dev/null && ! git rev-parse --verify dev &>/dev/null \
-   && git rev-parse --verify draft &>/dev/null; then
+if [[ "$DEV_EXISTS" == false && "$DRAFT_EXISTS" == true ]]; then
   INTEGRATION_BRANCH="draft"
 fi
 
@@ -181,10 +192,10 @@ fi
 
 if [[ "$USE_CONFIG" == false ]]; then
   # Auto-detect: does an integration branch ('dev' or research 'draft') exist?
+  # Reuses the presence probe done once above.
   MAIN_PROTECTION="block-all"
   DEV_PROTECTION=""
-  if cd "$PROJECT_ROOT" \
-     && { git rev-parse --verify dev &>/dev/null || git rev-parse --verify draft &>/dev/null; }; then
+  if [[ "$DEV_EXISTS" == true || "$DRAFT_EXISTS" == true ]]; then
     DEV_PROTECTION="smart"
   fi
 
