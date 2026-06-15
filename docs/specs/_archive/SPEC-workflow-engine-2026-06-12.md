@@ -3,7 +3,7 @@
 **Generated:** 2026-06-12
 **Context:** Craft Plugin v2.35.0 — adds a third orchestration mode
 **Sources:** Codebase analysis (`commands/orchestrate/`, `skills/orchestration/`), session comparison doc (Workflow tool vs. `/craft:orchestrate`)
-**Status:** INTERROGATED 2026-06-12 — 8 decisions locked, ready to build
+**Status:** done — SHIPPED in v2.36.0 (PR #148 → main `eb7e143d`, 2026-06-13); includes B1/B2 review hardening
 
 ---
 

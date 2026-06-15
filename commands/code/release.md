@@ -11,9 +11,11 @@ Guide through the package/project release process. For Craft plugin projects, de
 
 For Craft plugins (detected by `.claude-plugin/plugin.json`), invoke the **release skill** which provides:
 
-- 13-step automated pipeline (version detect → CI mirror → metadata check → bump → commit → PR → merge → GitHub release → docs deploy → Homebrew tap → dev sync → verify CI → downstream verification)
+- 13-step automated pipeline (version detect → CI mirror → metadata check → bump → commit → PR → merge → GitHub release → docs deploy → Homebrew tap → dev sync → verify CI → downstream verification → post-release sweep → **verify-surfaces**)
 - `--dry-run` mode for previewing actions
+- `--skip-surfaces` to bypass the multi-surface version assertion (Step 13.6)
 - Pre-flight validation via `/craft:check --for release` + `pre-release-check.sh`
+- **Multi-surface assertion** (`scripts/verify-surfaces.sh`): one version across marketplace.json, git tag, tap formula, brew-installed, and Code-registered — blocks on disagreement, warns on Desktop/Cowork (one-time manual add)
 
 **Trigger:** Say "release", "ship it", "cut a release", or run `/release`
 

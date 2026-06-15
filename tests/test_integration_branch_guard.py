@@ -236,6 +236,27 @@ class TestBranchGuardAutoDetect(unittest.TestCase):
         result = _run_hook(write_payload)
         self.assertEqual(result.returncode, 2, "New .py on dev should be blocked (block-new-code)")
 
+    def test_repo_with_draft_protects_both(self):
+        """Research repo with draft (no dev): main=block-all, draft=block-new-code.
+
+        Research repos (~/projects/research/*) use 'draft' as the integration
+        branch instead of 'dev'. The hook auto-detects smart protection when
+        either 'dev' OR 'draft' exists, so draft must behave exactly like dev.
+        """
+        repo = self._make_repo(branches=["draft"])
+
+        # On main: Edit is blocked (block-all)
+        _checkout(repo, "main")
+        edit_payload = _make_edit_json("README.md", repo)
+        result = _run_hook(edit_payload)
+        self.assertEqual(result.returncode, 2, "Edit on main should be blocked (block-all)")
+
+        # On draft: Write new .py is blocked (block-new-code)
+        _checkout(repo, "draft")
+        write_payload = _make_write_json("app/server.py", repo)
+        result = _run_hook(write_payload)
+        self.assertEqual(result.returncode, 2, "New .py on draft should be blocked (block-new-code)")
+
     def test_repo_without_dev_only_protects_main(self):
         """Repo without dev branch: main=block-all, other branches unprotected."""
         repo = self._make_repo(branches=[])

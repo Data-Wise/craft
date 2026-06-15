@@ -27,6 +27,65 @@ The desktop release pipeline extends `/craft:dist:homebrew` and the `/release` s
 
 ---
 
+## Desktop / Cowork plugin install (distinct from cask apps)
+
+> **This is about installing a *plugin* (craft, scholar, …) into Claude Desktop / Cowork — NOT a
+> Tauri cask app.** Two different things share the word "desktop"; everything below is plugin
+> registration, and everything above/below it (`Casks/`, DMGs, `tauri.conf.json`) is cask apps.
+
+Claude Code and Claude Desktop / Cowork use **separate plugin registries**, so a craft release that
+lands in Code does not appear in Desktop automatically. But Desktop/Cowork **can** subscribe to the
+same GitHub marketplace craft already publishes (`.claude-plugin/marketplace.json`) — the native
+host exposes an `addMarketplace(owner/repo)` capability, the same engine Code uses, backed by a
+persistent account/org-scoped store.
+
+**So Desktop parity is a one-time manual add**, then updates flow from `marketplace.json`:
+
+```bash
+# Recommended: add the Data-Wise AGGREGATOR once → every current + future plugin.
+claude plugin marketplace add Data-Wise/claude-plugins
+
+# Or a single plugin's own repo:
+claude plugin marketplace add github:Data-Wise/craft
+```
+
+### Two ways to register (CLI bridge or GUI)
+
+Evidence is read-only from the app bundle (`Claude.app/Contents/Resources/app.asar`): the native host
+exposes a **CLI bridge** (`MarketplacePluginManagerCLI` / `cliPluginBridge` / `addMarketplaceViaRemote`)
+and an **account-scoped** marketplace API (`createAccountMarketplace`, GitHub `owner/repo` source).
+The user-facing settings section is **"Claude Extensions."**
+
+**Path A — CLI (scriptable, likely sufficient).** The same command used for Code registers the
+account-scoped marketplace that Desktop/Cowork reads:
+
+```bash
+claude plugin marketplace add Data-Wise/claude-plugins
+```
+
+**Path B — GUI.**
+
+1. **Claude Desktop → Settings → Claude Extensions.**
+2. Open the marketplaces / **Add marketplace** control.
+3. Enter `Data-Wise/claude-plugins` (GitHub `owner/repo`), confirm.
+4. Plugins listed in that marketplace's `.claude-plugin/marketplace.json` become installable; updates
+   arrive as the manifest versions advance.
+
+> **Residual human check (Open Question Q7):** the *capability*, the *settings section* ("Claude
+> Extensions"), and the *CLI bridge* are all confirmed from the bundle. What still needs one glance in
+> your build: the exact **Add marketplace** button label, and whether `claude plugin marketplace add`
+> writes the **account scope** (reaches Desktop) vs Code-only — verify by running it once and checking
+> Desktop → Claude Extensions. The native UI is not browser-automatable, so this is a human GUI check.
+
+### Why not write Desktop's store directly?
+
+Safety invariant: **craft never writes under `~/Library/Application Support/Claude/`.** Registration
+goes through the supported `addMarketplace` path only — never a hand-edit of Desktop's JSON. This is
+why `verify-surfaces` treats the Desktop leg as **warn-only** (a one-time manual step it can't
+auto-verify), while it hard-blocks on the surfaces craft *does* control.
+
+---
+
 ## Prerequisites
 
 ### Required Tools
