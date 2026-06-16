@@ -156,13 +156,13 @@ DEV_PROTECTION=""
 # Detect integration-branch presence once, here, so both the protection
 # auto-detect (below) and the user-facing remediation hints reuse the result
 # instead of re-cd-ing and re-probing. Restrict to refs/heads/* so a same-named
-# tag can't be mistaken for the branch.
+# tag can't be mistaken for the branch. Each probe runs in a SUBSHELL so the
+# script's own CWD is never changed (the rest of the hook resolves paths
+# absolutely; a stray cd here would be a latent footgun).
 DEV_EXISTS=false
 DRAFT_EXISTS=false
-if cd "$PROJECT_ROOT" 2>/dev/null; then
-  git rev-parse --verify refs/heads/dev   &>/dev/null && DEV_EXISTS=true
-  git rev-parse --verify refs/heads/draft &>/dev/null && DRAFT_EXISTS=true
-fi
+( cd "$PROJECT_ROOT" 2>/dev/null && git rev-parse --verify refs/heads/dev   &>/dev/null ) && DEV_EXISTS=true
+( cd "$PROJECT_ROOT" 2>/dev/null && git rev-parse --verify refs/heads/draft &>/dev/null ) && DRAFT_EXISTS=true
 
 # Integration branch name: 'dev' for most repos, 'draft' for research repos
 # (~/projects/research/*). Used in user-facing remediation hints below (which
@@ -186,8 +186,13 @@ if [[ -f "$CONFIG_FILE" ]]; then
     # Look up current branch directly in the config (supports any branch name)
     PROTECTION="$(_json_get ".\"${BRANCH}\"" "$CONFIG_CONTENT")"
   fi
-  # If current branch not found in config, no protection
-  # (Custom config is explicit — only listed branches are protected)
+  # If current branch not found in config, no protection.
+  # Custom config is EXPLICIT and authoritative — only branches it lists are
+  # protected. This intentionally overrides auto-detection: a research repo that
+  # adds a `.claude/branch-guard.json` must list "draft" (and/or "dev") itself to
+  # keep integration-branch protection. We do NOT silently merge auto-detected
+  # smart protection on top, because that could override a deliberate opt-out
+  # (e.g. an explicit `"dev": ""`). Auto-detect (no config) still covers draft.
 fi
 
 if [[ "$USE_CONFIG" == false ]]; then

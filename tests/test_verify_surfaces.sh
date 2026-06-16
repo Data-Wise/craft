@@ -313,6 +313,22 @@ test_git_tag_leg_detects_lagging_tag() {
     destroy_sandbox
 }
 
+test_corrupt_marketplace_blocks() {
+    echo -e "${T_BLUE}[TEST]${T_NC} CORRUPT: an unparseable craft-controlled surface blocks (not a silent warn)"
+    make_sandbox "2.38.1"; SBX_VERSION="2.38.1"
+    # Present-but-unparseable marketplace.json — must NOT read as "absent → warn".
+    echo '{ not valid json' > "$SANDBOX/.claude-plugin/marketplace.json"
+
+    local exit_code=0 output
+    output=$(run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "1" "$exit_code" "Corrupt marketplace blocks (exit 1)"
+    assert_contains "$stripped" "CORRUPT" "Report flags the corrupt surface as blocking"
+
+    destroy_sandbox
+}
+
 print_summary() {
     echo ""
     echo -e "${T_BLUE}═══════════════════════════════════════════${T_NC}"
@@ -334,6 +350,7 @@ main() {
     test_no_aggregator_leg_when_unconfigured
     test_write_status_matrix
     test_git_tag_leg_detects_lagging_tag
+    test_corrupt_marketplace_blocks
     test_json_mode
     print_summary
     [ "$FAILED_TESTS" -gt 0 ] && exit 1 || exit 0

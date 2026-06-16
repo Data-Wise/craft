@@ -91,12 +91,15 @@ for plugin_dir in "$CACHE_DIR"/*/; do
     [[ -d "$plugin_dir" ]] || continue
     plugin="$(basename "$plugin_dir")"
 
-    # Semver version dirs only, sorted newest-first. Filtering to a version
-    # pattern means non-version dirs (e.g. 'dev', 'backup', a symlink) are
-    # IGNORED entirely — never counted toward retention, never pruned. Without
-    # this, `sort -rV` ranked such junk above real releases, so the newest real
-    # versions fell into the prunable tail and `--prune` deleted them.
-    mapfile -t versions < <(find "$plugin_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null \
+    # Semver-named version entries only, sorted newest-first. The version-pattern
+    # grep means non-version names (e.g. 'dev', 'backup') are IGNORED entirely —
+    # never counted toward retention, never pruned. Without it, `sort -rV` ranked
+    # such junk above real releases, so the newest real versions fell into the
+    # prunable tail and `--prune` deleted them.
+    # We include `-type l` (symlinks) so a version-NAMED symlink is also subject
+    # to GC instead of leaking forever; `rm -rf` on a symlink removes only the
+    # link (never the target), so this stays non-destructive.
+    mapfile -t versions < <(find "$plugin_dir" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -exec basename {} \; 2>/dev/null \
         | grep -E '^[0-9]+\.[0-9]+\.[0-9]+' | sort -rV)
     [[ ${#versions[@]} -eq 0 ]] && continue
 
