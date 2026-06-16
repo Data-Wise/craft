@@ -291,6 +291,28 @@ test_json_mode() {
 }
 
 # ----------------------------------------------------------------------------
+test_git_tag_leg_detects_lagging_tag() {
+    echo -e "${T_BLUE}[TEST]${T_NC} GIT TAG: a tag lagging plugin.json is a real mismatch (not silent 'absent')"
+    make_sandbox "2.38.0"; SBX_VERSION="2.38.0"
+    # Real repo whose newest tag (v2.37.0) lags plugin.json (2.38.0). This
+    # exercises the REAL resolver (no SURFACES_GIT_TAG injection) — the old
+    # `tag --list "v${SOT}"` could only return absent/ok here, never mismatch.
+    git -C "$SANDBOX" init -q
+    git -C "$SANDBOX" -c user.email=t@t -c user.name=t commit -q --allow-empty -m init
+    git -C "$SANDBOX" tag v2.36.0
+    git -C "$SANDBOX" tag v2.37.0
+
+    local exit_code=0 output
+    output=$(SURFACES_GIT_TAG="" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "1" "$exit_code" "Lagging git tag (2.37.0 < plugin 2.38.0) blocks (exit 1)"
+    assert_contains "$stripped" "MISMATCH" "Report flags the git-tag mismatch"
+    assert_contains "$stripped" "2.37.0" "git-tag leg reports the latest real tag, not the SOT"
+
+    destroy_sandbox
+}
+
 print_summary() {
     echo ""
     echo -e "${T_BLUE}═══════════════════════════════════════════${T_NC}"
@@ -311,6 +333,7 @@ main() {
     test_aggregator_absent_warns_not_block
     test_no_aggregator_leg_when_unconfigured
     test_write_status_matrix
+    test_git_tag_leg_detects_lagging_tag
     test_json_mode
     print_summary
     [ "$FAILED_TESTS" -gt 0 ] && exit 1 || exit 0

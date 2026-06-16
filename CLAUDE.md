@@ -8,7 +8,7 @@
 
 > `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (6 commands)
 
-**Current Version:** v2.38.0 | **Tests:** 130 passing (23 unit + 23 e2e + 29 dogfood + 55 homebrew)
+**Current Version:** v2.38.1 | **Tests:** 130 passing (23 unit + 23 e2e + 29 dogfood + 55 homebrew)
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 

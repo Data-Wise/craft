@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.38.1] — 2026-06-15
+
+### Fixed
+
+- **main CI was red after v2.38.0** — `test_branch_guard_dogfood.py::TestRealPayloadFormats`
+  asserted the hook *allows* Edit/Write of an existing `.md`, which only holds off `main`. PR #159
+  enabled these tests in CI, so the post-merge `main` run (block-all) failed 3 assertions. The 3
+  payload-format tests are now branch-aware (allow on dev/feature, block-all on main).
+- **`cache-prune.sh` could delete real versions / the running version** — `sort -rV` ranked
+  non-semver dirs (`dev`, `backup`) above releases, pushing real versions into the prunable tail;
+  and "keep current + 2" never consulted the *installed* version. Now filters to semver dirs only
+  (non-version dirs are ignored, never pruned) and force-keeps the installed version from
+  `installed_plugins.json`.
+- **`verify-surfaces.sh` git-tag leg was a structural no-op** — `tag --list "v${SOT}"` could only
+  return the SOT tag or empty, never a mismatch. Now resolves the latest release tag and compares
+  it to the source of truth, so a lagging/ahead tag surfaces as a real (blocking) mismatch.
+
 ## [2.38.0] — 2026-06-15
 
 ### Added — Multi-surface release

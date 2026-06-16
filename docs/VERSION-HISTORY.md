@@ -2,13 +2,25 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.38.0 (2026-06-15)
-**Total Releases:** 60 versions | **Development Time:** 2+ years
+**Latest Release:** v2.38.1 (2026-06-15)
+**Total Releases:** 61 versions | **Development Time:** 2+ years
 **Community:** 112 commands documented, 1801 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.38.1 (2026-06-15) — Patch: green main CI + surfaces-tooling fixes
+
+**Status:** Released
+**Stats:** 112 commands | 39 skills | 8 agents | 1801 tests passing
+
+- Fixed the post-v2.38.0 **red main CI** — branch-guard dogfood payload-format tests are now
+  branch-aware (block-all on main, allow on dev/feature).
+- `cache-prune.sh` no longer risks deleting real/installed versions (semver-only filter +
+  force-keep the installed version).
+- `verify-surfaces.sh` git-tag leg now compares the latest release tag to the source of truth
+  (it was a structural no-op that could never flag drift).
 
 ### v2.38.0 (2026-06-15) — Multi-Surface Release + Branch-Guard `draft`
 
