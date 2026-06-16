@@ -761,5 +761,5 @@ graph TB
 ---
 
 **Last Updated**: 2026-02-19
-**Version**: 2.38.0
+**Version**: 2.38.1
 **Status**: Production Ready
