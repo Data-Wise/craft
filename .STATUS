@@ -1,5 +1,5 @@
 status: Active
-version: 2.38.1
+version: 2.38.2
 release_date: 2026-06-13
 milestone: v2.37.0 SHIPPED 2026-06-13 — drift-prevention chain + CI triage/watch. Bundled brainstorm items 1-7 (PRs #151/#152/#153/#154/#155): #1 strict-markers guard + #4 workflow recipe discoverability; #7 bump-version categorical-subtotal sweep; #2 CI count-drift tripwire (README live counts); #5 /craft:ci:triage + #6 /craft:ci:watch. PR #156 → main 8c21a54d (merge commit), release tag v2.37.0. Downstream all GREEN: main CI verified, homebrew-release.yml updated tap to v2.37.0 (desc "112 commands", url v2.37.0.tar.gz). Post-release sweep ALL CLEAN (drift tooling paid off). Counts: 112 commands / 39 skills / 8 agents. Prior: v2.36.0 SHIPPED 2026-06-13 (PR #150 → main eb7e143d).
 last_session: 2026-06-15
