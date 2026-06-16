@@ -126,7 +126,12 @@ resolve_git_tag() {
     if [[ -n "${SURFACES_GIT_TAG:-}" ]]; then
         echo "${SURFACES_GIT_TAG#v}"; return 0
     fi
-    git -C "$REPO_DIR" tag --list "v${SOT_VERSION}" 2>/dev/null | sed 's/^v//' | head -1
+    # Report the LATEST release tag, NOT just "does a v${SOT_VERSION} tag exist".
+    # The old `tag --list "v${SOT}"` could only ever return the SOT tag or empty,
+    # so a tag lagging plugin.json (e.g. plugin bumped, tag not cut) read as
+    # "absent → warn" and the leg could never flag drift. Comparing the newest
+    # tag to SOT makes a lagging/ahead tag surface as a real mismatch.
+    git -C "$REPO_DIR" tag --list 'v[0-9]*' 2>/dev/null | sed 's/^v//' | sort -rV | head -1
 }
 
 resolve_tap_formula() {

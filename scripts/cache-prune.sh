@@ -54,6 +54,20 @@ while [[ $# -gt 0 ]]; do
 done
 
 CACHE_DIR="${CACHE_DIR:-$HOME/.claude/plugins/cache/local-plugins}"
+INSTALLED_PLUGINS="${INSTALLED_PLUGINS:-$HOME/.claude/plugins/installed_plugins.json}"
+
+# installed_version <plugin> — the version Code actually has registered, or
+# empty. Used to NEVER prune the running version even if it's not in the newest
+# RETENTION (a pinned/downgraded install must survive).
+installed_version() {
+    [[ -f "$INSTALLED_PLUGINS" ]] || return 0
+    python3 -c "import json,sys
+try:
+    d=json.load(open(sys.argv[1]))
+    print(next((e.get('version') for k,entries in d.get('plugins',{}).items() if k.split('@')[0]==sys.argv[2] for e in entries), ''))
+except Exception:
+    pass" "$INSTALLED_PLUGINS" "$1" 2>/dev/null
+}
 
 if [[ ! -d "$CACHE_DIR" ]]; then
     [[ "$JSON_MODE" == true ]] \
@@ -77,12 +91,28 @@ for plugin_dir in "$CACHE_DIR"/*/; do
     [[ -d "$plugin_dir" ]] || continue
     plugin="$(basename "$plugin_dir")"
 
-    # Version dirs sorted newest-first by semver.
-    mapfile -t versions < <(find "$plugin_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null | sort -rV)
+    # Semver version dirs only, sorted newest-first. Filtering to a version
+    # pattern means non-version dirs (e.g. 'dev', 'backup', a symlink) are
+    # IGNORED entirely — never counted toward retention, never pruned. Without
+    # this, `sort -rV` ranked such junk above real releases, so the newest real
+    # versions fell into the prunable tail and `--prune` deleted them.
+    mapfile -t versions < <(find "$plugin_dir" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null \
+        | grep -E '^[0-9]+\.[0-9]+\.[0-9]+' | sort -rV)
     [[ ${#versions[@]} -eq 0 ]] && continue
 
+    # The installed version must never be pruned even if it's older than the
+    # newest RETENTION (a pinned/downgraded install).
+    cur="$(installed_version "$plugin")"
+
     kept=("${versions[@]:0:RETENTION}")
-    prunable=("${versions[@]:RETENTION}")
+    prunable=()
+    for v in "${versions[@]:RETENTION}"; do
+        if [[ -n "$cur" && "$v" == "$cur" ]]; then
+            kept+=("$v")
+        else
+            prunable+=("$v")
+        fi
+    done
 
     J_PLUGIN+=("$plugin")
     J_KEPT+=("$(IFS=,; echo "${kept[*]}")")
