@@ -347,7 +347,15 @@ if [[ "$RUN_SURFACES" == true ]] && [[ -f ".claude-plugin/plugin.json" ]]; then
         echo -e "${CYAN}Phase 4.5: Surfaces (verify-surfaces.sh)${NC}"
     fi
     SURFACES_EXIT=0
-    SURFACES_OUTPUT=$("$SCRIPT_DIR/verify-surfaces.sh" 2>&1) || SURFACES_EXIT=$?
+    # Include the shipped aggregator copy as a verified leg when present, so a
+    # stale craft pin in dist/data-wise-marketplace.json blocks too — the manual
+    # aggregator pin-bump was the one cross-surface drift verify-surfaces wasn't
+    # catching. (if/else avoids an empty-array expansion under set -u on bash 3.2.)
+    if [[ -f "dist/data-wise-marketplace.json" ]]; then
+        SURFACES_OUTPUT=$("$SCRIPT_DIR/verify-surfaces.sh" --aggregator-file "dist/data-wise-marketplace.json" 2>&1) || SURFACES_EXIT=$?
+    else
+        SURFACES_OUTPUT=$("$SCRIPT_DIR/verify-surfaces.sh" 2>&1) || SURFACES_EXIT=$?
+    fi
     if [[ $SURFACES_EXIT -ne 0 ]]; then
         SURFACES_ISSUES=1
         add_finding "1" "verify-surfaces.sh" "A craft-controlled surface disagrees on version (run verify-surfaces.sh)" "manual"
