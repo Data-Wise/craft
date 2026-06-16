@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Fixed
+
+- **`verify-surfaces.sh` no longer silently passes a corrupt craft-controlled surface** — a
+  present-but-unparseable `marketplace.json`/aggregator file was indistinguishable from "absent"
+  and warned instead of blocking. It now reports a distinct **CORRUPT** state and blocks the release.
+- **`cache-prune.sh` no longer leaks version-named symlinks** — symlinked version entries were
+  excluded from GC (`-type d` only); they are now included (`rm` removes only the link, never the
+  target).
+- **`aggregator-sync.sh` rejects a flag swallowed as a value** — `--file --plugin …` previously set
+  `FILE='--plugin'` and failed with a misleading "unknown argument"; it now exits 2 with a clear
+  "requires a value" error.
+- **`branch-guard.sh` integration-branch probe runs in a subshell** — the `dev`/`draft` detection no
+  longer changes the hook's working directory (latent footgun; behavior unchanged). Clarified that
+  custom `.claude/branch-guard.json` is authoritative (must list `draft`/`dev` to protect them).
+
 ## [2.38.1] — 2026-06-15
 
 ### Fixed

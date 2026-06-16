@@ -85,6 +85,16 @@ test_check_mode_no_write() {
     destroy_fixture
 }
 
+test_flag_as_value_rejected() {
+    echo -e "${T_BLUE}[TEST]${T_NC} ARGS: a flag swallowed as a value is rejected (exit 2, not misleading)"
+    make_fixture
+    local exit_code=0
+    # `--file --plugin craft ...` must NOT set FILE='--plugin'; expect usage error.
+    bash "$SYNC_SCRIPT" --file --plugin craft --version 2.37.0 >/dev/null 2>&1 || exit_code=$?
+    assert_equals "2" "$exit_code" "--file with a flag-as-value exits 2 (usage error)"
+    destroy_fixture
+}
+
 print_summary() {
     echo ""
     echo -e "${T_BLUE}═══════════════════════════════════════════${T_NC}"
@@ -98,6 +108,7 @@ main() {
     test_idempotent
     test_unknown_plugin_errors
     test_check_mode_no_write
+    test_flag_as_value_rejected
     print_summary
     [ "$FAILED_TESTS" -gt 0 ] && exit 1 || exit 0
 }

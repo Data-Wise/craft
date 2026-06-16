@@ -33,11 +33,18 @@ fi
 
 FILE=""; PLUGIN=""; VERSION=""; CHECK=false
 
+# need_value <flag> <next> — abort if a value-taking flag is missing its value
+# or swallowed the following flag (e.g. `--file --plugin` -> FILE='--plugin').
+need_value() {
+    [[ -z "${2:-}" || "$2" == --* ]] && {
+        echo -e "${RED}Error: $1 requires a value${NC}"; exit 2; }
+}
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --file)    FILE="${2:-}"; shift ;;
-        --plugin)  PLUGIN="${2:-}"; shift ;;
-        --version) VERSION="${2:-}"; shift ;;
+        --file)    need_value "$1" "${2:-}"; FILE="$2"; shift ;;
+        --plugin)  need_value "$1" "${2:-}"; PLUGIN="$2"; shift ;;
+        --version) need_value "$1" "${2:-}"; VERSION="$2"; shift ;;
         --check)   CHECK=true ;;
         --help|-h)
             echo "Usage: $0 --file PATH --plugin NAME --version X.Y.Z [--check]"
@@ -76,6 +83,9 @@ if check:
 
 entry["version"] = version
 with open(path, "w") as f:
+    # indent=2 is the canonical aggregator format (matches the committed
+    # marketplace.json), so on a canonical file this rewrites ONLY the changed
+    # version line. A non-canonical input reflows once to canonical — by design.
     json.dump(data, f, indent=2)
     f.write("\n")
 print(f"[synced] {plugin}: {old} -> {version}")
