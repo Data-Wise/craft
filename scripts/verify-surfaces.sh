@@ -103,6 +103,15 @@ except Exception:
     pass" "$1" 2>/dev/null
 }
 
+# json_corrupt <file> — exit 0 if the file EXISTS but is not valid JSON. Lets a
+# craft-controlled surface that is present-but-unparseable be treated as a hard
+# mismatch (block) instead of being silently indistinguishable from "absent".
+json_corrupt() {
+    [[ -f "$1" ]] || return 1
+    python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$1" 2>/dev/null && return 1
+    return 0
+}
+
 PLUGIN_NAME="$(json_get "$PLUGIN_JSON" "d['name']")"
 SOT_VERSION="$(json_get "$PLUGIN_JSON" "d['version']")"
 
@@ -118,6 +127,7 @@ fi
 # ---------------------------------------------------------------------------
 resolve_marketplace() {
     [[ -f "$MARKETPLACE_JSON" ]] || return 0
+    json_corrupt "$MARKETPLACE_JSON" && { echo "__CORRUPT__"; return 0; }
     # Prefer the matching plugin entry; fall back to metadata.version.
     json_get "$MARKETPLACE_JSON" "next((p.get('version') for p in d.get('plugins',[]) if p.get('name')=='${PLUGIN_NAME}'), d.get('metadata',{}).get('version',''))"
 }
@@ -169,6 +179,7 @@ resolve_code_registered() {
 AGG_FILE="${SURFACES_AGGREGATOR_FILE:-$AGGREGATOR_FILE}"
 resolve_aggregator() {
     [[ -f "$AGG_FILE" ]] || return 0   # configured-but-missing -> absent (warn)
+    json_corrupt "$AGG_FILE" && { echo "__CORRUPT__"; return 0; }
     json_get "$AGG_FILE" "next((p.get('version') for p in d.get('plugins',[]) if p.get('name')=='${PLUGIN_NAME}'), '')"
 }
 
@@ -182,7 +193,10 @@ BLOCK=0
 add_leg() {
     local label="$1" version="$2"
     local state
-    if [[ -z "$version" ]]; then
+    if [[ "$version" == "__CORRUPT__" ]]; then
+        # Present but unparseable on a craft-controlled surface — block, never warn.
+        state="corrupt"; BLOCK=1; version="(unparseable)"
+    elif [[ -z "$version" ]]; then
         state="absent"
     elif [[ "$version" == "$SOT_VERSION" ]]; then
         state="ok"
@@ -206,6 +220,7 @@ glyph_for() {
     case "$1" in
         ok)       printf '%b' "${GREEN}[OK]${NC}" ;;
         mismatch) printf '%b' "${RED}[X ]${NC}" ;;
+        corrupt)  printf '%b' "${RED}[!X]${NC}" ;;
         absent)   printf '%b' "${YELLOW}[!]${NC}" ;;
     esac
 }
@@ -233,6 +248,7 @@ else
         case "${LEG_STATE[$i]}" in
             ok)       note="" ;;
             mismatch) note="  <- MISMATCH (blocks release)" ;;
+            corrupt)  note="  <- CORRUPT JSON (blocks release)" ;;
             absent)   note="  (unreadable — not verified)"; local_ver="N/A" ;;
         esac
         printf '  %b %-16s %s%s\n' "$(glyph_for "${LEG_STATE[$i]}")" "${LEG_LABEL[$i]}" "$local_ver" "$note"

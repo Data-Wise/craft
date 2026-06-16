@@ -2,13 +2,23 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.38.1 (2026-06-15)
-**Total Releases:** 61 versions | **Development Time:** 2+ years
+**Latest Release:** v2.38.2 (2026-06-15)
+**Total Releases:** 62 versions | **Development Time:** 2+ years
 **Community:** 112 commands documented, 1801 tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.38.2 (2026-06-15) — Patch: surfaces/branch-guard hardening
+
+**Status:** Released
+**Stats:** 112 commands | 39 skills | 8 agents | 1801 tests passing
+
+- `verify-surfaces.sh` now **blocks** on a corrupt (present-but-unparseable) craft-controlled
+  surface instead of silently warning.
+- `cache-prune.sh` no longer leaks version-named symlinks; `aggregator-sync.sh` rejects a flag
+  swallowed as a value; `branch-guard.sh` probes the integration branch in a subshell (no CWD change).
 
 ### v2.38.1 (2026-06-15) — Patch: green main CI + surfaces-tooling fixes
 
