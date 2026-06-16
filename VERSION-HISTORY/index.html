@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.38.1 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.38.2 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -7198,6 +7198,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v2382-2026-06-15-patch-surfacesbranch-guard-hardening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.38.2 (2026-06-15) — Patch: surfaces/branch-guard hardening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v2381-2026-06-15-patch-green-main-ci-surfaces-tooling-fixes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10284,6 +10295,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#v2382-2026-06-15-patch-surfacesbranch-guard-hardening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.38.2 (2026-06-15) — Patch: surfaces/branch-guard hardening
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#v2381-2026-06-15-patch-green-main-ci-surfaces-tooling-fixes" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11050,11 +11072,20 @@
 <blockquote>
 <p><strong>Evolution of Craft</strong>: From command automation tool to intelligent orchestration platform</p>
 </blockquote>
-<p><strong>Latest Release:</strong> v2.38.1 (2026-06-15)
-<strong>Total Releases:</strong> 61 versions | <strong>Development Time:</strong> 2+ years
+<p><strong>Latest Release:</strong> v2.38.2 (2026-06-15)
+<strong>Total Releases:</strong> 62 versions | <strong>Development Time:</strong> 2+ years
 <strong>Community:</strong> 112 commands documented, 1801 tests passing, 90%+ coverage</p>
 <hr />
 <h2 id="release-timeline">Release Timeline<a class="headerlink" href="#release-timeline" title="Permanent link">&para;</a></h2>
+<h3 id="v2382-2026-06-15-patch-surfacesbranch-guard-hardening">v2.38.2 (2026-06-15) — Patch: surfaces/branch-guard hardening<a class="headerlink" href="#v2382-2026-06-15-patch-surfacesbranch-guard-hardening" title="Permanent link">&para;</a></h3>
+<p><strong>Status:</strong> Released
+<strong>Stats:</strong> 112 commands | 39 skills | 8 agents | 1801 tests passing</p>
+<ul>
+<li><code>verify-surfaces.sh</code> now <strong>blocks</strong> on a corrupt (present-but-unparseable) craft-controlled
+  surface instead of silently warning.</li>
+<li><code>cache-prune.sh</code> no longer leaks version-named symlinks; <code>aggregator-sync.sh</code> rejects a flag
+  swallowed as a value; <code>branch-guard.sh</code> probes the integration branch in a subshell (no CWD change).</li>
+</ul>
 <h3 id="v2381-2026-06-15-patch-green-main-ci-surfaces-tooling-fixes">v2.38.1 (2026-06-15) — Patch: green main CI + surfaces-tooling fixes<a class="headerlink" href="#v2381-2026-06-15-patch-green-main-ci-surfaces-tooling-fixes" title="Permanent link">&para;</a></h3>
 <p><strong>Status:</strong> Released
 <strong>Stats:</strong> 112 commands | 39 skills | 8 agents | 1801 tests passing</p>
