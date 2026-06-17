@@ -166,23 +166,31 @@ actually controls, not conflated with the floor. This keeps Lever B a distinct, 
 
 **Method (controls for the red-team's cache-noise objection):**
 
-- Run both arms **cold-cache** (fresh session per run) OR compare on the cache-controlled
-  *billable-new* metric above.
-- **N ≥ 5** runs per arm; report **mean ± 95% CI**.
+- **Paired design:** run the *same* reference task on both engines under matched conditions,
+  pairing runs so task/condition variance cancels (more powerful than independent CIs at the
+  same N).
+- Run both arms **cold-cache** (fresh session per run) and compare on the cache-controlled
+  **billable-new** metric (`input_tokens + cache_creation_input_tokens + output_tokens`,
+  excluding the 90%-discounted `cache_read`).
+- **N = 5 pairs**; apply a **paired one-sided test** (paired t or Wilcoxon signed-rank) for
+  `:workflow < fanout`.
 
 **Gate (all must hold):**
 
-1. **Tokens:** `:workflow` mean ≤ fanout mean on the billable-new metric, with
-   **non-overlapping CIs** (a real effect, not noise).
+1. **Tokens:** `:workflow` **strictly lower** than fanout on billable-new, **p < 0.05**
+   (paired, one-sided) — proves a real saving, not noise or a tie.
 2. **Behavior:** equivalent outputs — same files changed, tests green, verify gate passes.
 3. **Stability:** no new failure modes across the N runs.
 
 **Outcome:**
 
 - **Pass** → flip default to `:workflow` (where derivable); keep `--engine=fanout`.
-- **Fail** → **the default flip does not ship** (deliverable blocked, not rubber-stamped);
-  `:workflow` remains opt-in; record the measured gap. This is a real failure of *this phase*,
-  reported as such.
+- **Fail (incl. inconclusive, p ≥ 0.05)** → **the default flip does not ship** (deliverable
+  blocked, not rubber-stamped); `:workflow` remains opt-in; record the measured gap. A real
+  failure of *this phase*, reported as such.
+
+**Gate cost:** ~10 orchestrate runs, **one-time**, for the flip decision — acceptable as a
+one-off; not part of normal operation.
 
 ---
 
@@ -202,9 +210,10 @@ not promised here.
 - **Lever A:** trim → re-measure inherited floor + per-agent input tokens.
 - **Lever B:** engine prompt-trim → re-measure per-agent *prompt* tokens (floor-subtracted).
 - **Lever C:** routing → cache-read ratio up; cheap stages on Haiku.
-- **Phase 3:** A/B both engines under the fixed method; flip only on a passing gate.
+- **Phase 3:** paired A/B both engines under the fixed method; flip only on a passing gate.
 - **Success (discovered, not pre-set):** each shipped lever has a documented, floor-honest
-  delta; the default flips only on a CI-backed parity pass.
+  delta; the default flips only on a paired-test parity pass (`:workflow` strictly lower,
+  p < 0.05).
 
 ---
 
@@ -225,7 +234,7 @@ not promised here.
 |---|---|---|
 | `:workflow`-as-default changes behavior for tasks that worked under fan-out | Serious | Flag-gated; parity gate (behavior clause); fan-out fallback retained |
 | `:workflow` needs a derivable workflow — not all tasks have one | Serious | Default applies only where derivable; explicit fan-out fallback |
-| Cache-state noise corrupts A/B | Serious | Cold-cache arms + billable-new metric + CI (Phase 3) |
+| Cache-state noise corrupts A/B | Serious | Paired design + cold-cache arms + billable-new metric + paired one-sided test (Phase 3) |
 | Lever B win conflated with the floor | Minor | Measure floor-subtracted per-agent prompt tokens |
 | Dual-path maintenance burden | Minor | Acknowledged; sunset condition stated, not promised |
 | JSONL schema is Claude-Code-internal | Minor | Parser fails soft on missing fields |
