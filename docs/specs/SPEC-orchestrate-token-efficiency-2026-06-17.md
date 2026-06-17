@@ -1,6 +1,6 @@
 # SPEC: Orchestrate Token-Efficiency — Deterministic `:workflow` Mode as Default (Parity-Gated)
 
-**Status:** approved (2026-06-17 — feasibility red-teamed; gate refined via interactive spec review)
+**Status:** approved (core); **Phase Q (pre-flight quota gate) appended 2026-06-17 — pending review** (feasibility-checked; gate refined via interactive spec review)
 **Created:** 2026-06-17
 **From Brainstorm:** interactive `/workflow:refine` session — token-usage investigation → measure-first design → "dynamic workflow as default" → **corrected** after a red-team found the platform-engine premise infeasible for craft
 **Author:** dt + Claude
@@ -286,9 +286,82 @@ not promised here.
 
 ---
 
+## Phase Q — Pre-Flight Quota Gate (appended 2026-06-17)
+
+A command, `/craft:quota`, that estimates a heavy run's token cost and checks it against the
+user's **live** 5-hour and weekly subscription limits, advising **SAFE / TIGHT / DEFER** before
+the run starts. Builds directly on Phase 0's cost parser. **Prior art: greenfield** — research
+found no integrated quota-aware planning advisor; only manual strategies and the interactive
+`/usage` view exist.
+
+### Why a new live-quota source is needed
+
+The native subscription limits (`rate_limits.{five_hour,seven_day}.{used_percentage,resets_at}`)
+exist **only in the statusline stdin payload** Claude Code pipes each render (docs:
+<https://code.claude.com/docs/en/statusline>). A craft command (a markdown prompt) **cannot read
+statusline stdin**, so the live quota must be *persisted* to a file the command can read.
+
+### Components (each independently testable)
+
+1. **rate_limits persister** — a one-line statusline addition (or wrapper) that writes the
+   native `rate_limits` to `~/.claude/quota-cache.json` every render, **with a `captured_at`
+   timestamp** and keep-last-good on absence. Official field; no Keychain, no endpoint. (Side
+   benefit: permanently fixes the stale-cache problem that broke claude-hud's display.)
+2. **cost estimator** — reuses Phase 0's parser over **historical** runs to build a
+   per-run-type cost-weighted distribution (**median + 5–95% interval**). Run-types are the
+   tagged markers (`fanout`, `workflow`); composite estimates compose them (parity gate ≈
+   10 × `workflow` run).
+3. **`/craft:quota <run-type>`** — joins fresh quota + estimate → reports the estimate, the
+   **% of each remaining window** it would consume, the reset times, and a recommendation.
+   Advisory (prompts advise, hooks enforce); `--json` output; optional `/craft:check` validator.
+4. **flow consumer (cross-project follow-on, NOT in this spec):** `/craft:quota` writes
+   `.craft/quota.json`; **flow-cli's `dash`** reads it to show a quota panel and advise
+   cross-project ("30% weekly left → do the light task, defer the parity gate"). This belongs
+   in flow-cli's own repo as a producer/consumer handoff — craft only **produces** the data.
+
+### Data flow
+
+```
+statusline → quota-cache.json (live 5h/weekly % + resets + captured_at)
+Phase-0 parser over history → per-run-type cost distribution (median, 5–95%)
+        ↓
+/craft:quota <run-type>  →  "Parity gate ≈ 11M cw (9–14M); ~9% of remaining weekly,
+                              ~31% of 5h. 5h resets 14:20. → SAFE."   + .craft/quota.json
+```
+
+### Honest-uncertainty guardrails (from the feasibility check)
+
+- **Stale-quota refusal:** if `quota-cache.json` is older than a threshold or `rate_limits` was
+  absent, the gate **declines to advise on stale data** (warns with `captured_at` age) rather
+  than silently trusting it — the explicit lesson from the claude-hud staleness failure.
+- **Cold-start honesty:** with too little history (`n < K`) the gate reports
+  **"insufficient history"** + a wide/unknown interval, never a false-precise point.
+- **Mapping scope:** the gate is reliable for **known heavy run-types** (fan-out, `:workflow`,
+  parity gate); arbitrary free-form tasks get a **labeled coarse** estimate, not a confident one.
+
+### Tests
+
+- Estimator unit tests vs the Phase-0 fixture history (distribution + interval; cold-start path).
+- Persister test: given a stdin payload with `rate_limits`, writes a timestamped cache; given
+  one without, keeps last-good and does not fabricate.
+- Gate test: stale cache → refuses; fresh cache + estimate → correct % and recommendation.
+- `/craft:quota --json` schema test (the contract flow consumes).
+
+### Branch routing
+
+New command + estimator + persister are feature code → **worktree** (shares
+`feature/orchestrate-workflow-default` or its own). Estimation-stats framing applies (interval,
+not point). The flow consumer is **out of scope** (flow-cli repo).
+
+---
+
 ## Dependencies & Sequencing
 
-1. **This spec ships first.**
+1. **This spec ships first** (Phase 0 → Levers/Phases → Phase 3 → **Phase Q** quota gate, which
+   depends on Phase 0's parser).
 2. Then `SPEC-context-floor-hygiene-2026-06-17.md` (sustains Lever A via `/done`; depends on
    Phase 0; unaffected by the default flip — the floor is still inherited by Task subagents).
-3. `SPEC-workflow-as-default-engine-2026-06-17.md` is **superseded** by this revision.
+3. **flow-cli quota consumer** — a cross-project follow-on in flow-cli's repo that reads
+   `.craft/quota.json` (Phase Q's output) into `flow dash`. Not implemented here; producer/
+   consumer handoff only.
+4. `SPEC-workflow-as-default-engine-2026-06-17.md` is **superseded** by this revision.
