@@ -180,33 +180,45 @@ actually controls, not conflated with the floor. This keeps Lever B a distinct, 
 
 ## Phase 3 — Parity Gate (with teeth)
 
-**Method (controls for the red-team's cache-noise objection):**
+**Design (controls for the red-team's cache-noise objection):**
 
-- **Paired design:** run the *same* reference task on both engines under matched conditions,
-  pairing runs so task/condition variance cancels (more powerful than independent CIs at the
-  same N).
-- Run both arms **cold-cache** (fresh session per run) and compare on the cache-controlled
+- **Paired:** run the *same* reference task on both engines under matched conditions, pairing
+  runs so task/condition variance cancels.
+- Both arms **cold-cache** (fresh session per run); compare on the cache-controlled
   **billable-new** metric (`input_tokens + cache_creation_input_tokens + output_tokens`,
   excluding the 90%-discounted `cache_read`).
-- **N = 5 pairs**; apply a **paired one-sided test** (paired t or Wilcoxon signed-rank) for
-  `:workflow < fanout`.
+- **N = 5 pairs.**
 
-**Gate (all must hold):**
+**Estimation, not a significance verdict.** We report graded evidence and magnitudes, and
+avoid dichotomous "significant / not":
 
-1. **Tokens:** `:workflow` **strictly lower** than fanout on billable-new, **p < 0.05**
-   (paired, one-sided) — proves a real saving, not noise or a tie.
+- **Primary effect size:** the **% reduction in billable-new** (and absolute paired
+  difference), with a **95% CI** on both.
+- **Standardized paired effect size** (Cohen's *dₙ*) with its CI, for comparability across
+  reference tasks.
+- **Surprisal / S-value** (`S = −log₂ p` against the null of no reduction) reported as
+  *bits of evidence* — continuous, **not** thresholded (per the Greenland/Amrhein reform).
+- Per-arm spread (min/median/max) so cache-driven variance is visible.
+
+**Flip decision (interval-based, magnitude-aware — both must hold):**
+
+1. **Tokens:** the **95% CI for the % reduction in billable-new lies entirely above the
+   practical floor of 15%** — i.e. we are confident the saving is real *and* materially large
+   enough to justify permanent dual-engine maintenance. (Magnitude floor tunable; 15% chosen
+   to clear the dual-engine cost.)
 2. **Behavior:** equivalent outputs — same files changed, tests green, verify gate passes.
-3. **Stability:** no new failure modes across the N runs.
+3. **Stability:** no new failure modes across the N pairs.
 
 **Outcome:**
 
-- **Pass** → flip default to `:workflow` (where derivable); keep `--engine=fanout`.
-- **Fail (incl. inconclusive, p ≥ 0.05)** → **the default flip does not ship** (deliverable
-  blocked, not rubber-stamped); `:workflow` remains opt-in; record the measured gap. A real
-  failure of *this phase*, reported as such.
+- **CI clears the floor + behavior parity** → flip default to `:workflow` (where derivable);
+  keep `--engine=fanout`.
+- **CI overlaps/below the floor, or wide/inconclusive** → **the default flip does not ship**;
+  `:workflow` remains opt-in; report the estimated effect, its interval, and the surprisal so
+  the gap is explicit. A wide or low interval is reported as-is, not spun.
 
-**Gate cost:** ~10 orchestrate runs, **one-time**, for the flip decision — acceptable as a
-one-off; not part of normal operation.
+**Gate cost:** ~10 orchestrate runs, **one-time**, for the flip decision — not part of normal
+operation.
 
 ---
 
@@ -226,10 +238,12 @@ not promised here.
 - **Lever A:** trim → re-measure inherited floor + per-agent input tokens.
 - **Lever B:** engine prompt-trim → re-measure per-agent *prompt* tokens (floor-subtracted).
 - **Lever C:** routing → cache-read ratio up; cheap stages on Haiku.
-- **Phase 3:** paired A/B both engines under the fixed method; flip only on a passing gate.
+- **Phase 3:** paired A/B both engines (cold-cache, billable-new); flip only when the 95% CI
+  for the % reduction clears the 15% floor.
 - **Success (discovered, not pre-set):** each shipped lever has a documented, floor-honest
-  delta; the default flips only on a paired-test parity pass (`:workflow` strictly lower,
-  p < 0.05).
+  delta; the default flips only when the **95% CI for the billable-new % reduction lies
+  entirely above 15%**, with effect size (Cohen's *dₙ*) and surprisal reported as graded
+  evidence.
 
 ---
 
@@ -250,7 +264,7 @@ not promised here.
 |---|---|---|
 | `:workflow`-as-default changes behavior for tasks that worked under fan-out | Serious | Flag-gated; parity gate (behavior clause); fan-out fallback retained |
 | `:workflow` needs a derivable workflow — not all tasks have one | Serious | Default applies only where derivable; explicit fan-out fallback |
-| Cache-state noise corrupts A/B | Serious | Paired design + cold-cache arms + billable-new metric + paired one-sided test (Phase 3) |
+| Cache-state noise corrupts A/B | Serious | Paired design + cold-cache arms + billable-new metric + effect-size/CI estimation with surprisal (Phase 3) |
 | Lever B win conflated with the floor | Minor | Measure floor-subtracted per-agent prompt tokens |
 | Dual-path maintenance burden | Minor | Acknowledged; sunset condition stated, not promised |
 | JSONL schema is Claude-Code-internal | Minor | Parser fails soft on missing fields |
