@@ -631,12 +631,184 @@ git commit -m "feat(orchestrate): parity-gate runbook + flip decision (estimatio
 
 ---
 
+## Phase Q — Pre-Flight Quota Gate (worktree)
+
+Builds on Phase 0's parser. New live-quota source: a statusline persister writes the native
+`rate_limits` to a cache the command can read.
+
+### Task 13: rate_limits persister
+
+**Files:**
+
+- Create: `scripts/quota-persist.sh`
+- Test: `tests/test_quota_persist.sh`
+
+**Interfaces:**
+
+- Produces: reads a statusline stdin JSON on stdin; writes `~/.claude/quota-cache.json` =
+  `{ five_hour_pct, seven_day_pct, five_hour_resets_at, seven_day_resets_at, captured_at }`.
+  On absent `rate_limits`, keeps the existing file (last-good) and exits 0 without fabricating.
+
+- [ ] **Step 1: Write the failing test**
+
+```bash
+# tests/test_quota_persist.sh
+set -e
+TMP=$(mktemp -d); export HOME="$TMP"; mkdir -p "$HOME/.claude"
+echo '{"rate_limits":{"five_hour":{"used_percentage":31,"resets_at":1781000000},"seven_day":{"used_percentage":9,"resets_at":1781500000}}}' \
+  | bash scripts/quota-persist.sh
+test -f "$HOME/.claude/quota-cache.json" || { echo FAIL no cache; exit 1; }
+grep -q '"five_hour_pct": *31' "$HOME/.claude/quota-cache.json" || { echo FAIL pct; exit 1; }
+# absent rate_limits keeps last-good (does not overwrite to empty)
+echo '{"model":{"display_name":"Opus"}}' | bash scripts/quota-persist.sh
+grep -q '"five_hour_pct": *31' "$HOME/.claude/quota-cache.json" || { echo FAIL last-good; exit 1; }
+echo PASS
+```
+
+- [ ] **Step 2: Run it, verify FAIL** — `bash tests/test_quota_persist.sh` → FAIL (script missing).
+
+- [ ] **Step 3: Implement**
+
+```bash
+# scripts/quota-persist.sh — persist native rate_limits for non-statusline consumers.
+in=$(cat); cache="$HOME/.claude/quota-cache.json"
+has=$(printf '%s' "$in" | jq -r 'has("rate_limits") and (.rate_limits|has("five_hour"))' 2>/dev/null)
+[ "$has" = "true" ] || exit 0           # absent → keep last-good, do not fabricate
+printf '%s' "$in" | jq '{
+  five_hour_pct: .rate_limits.five_hour.used_percentage,
+  seven_day_pct: .rate_limits.seven_day.used_percentage,
+  five_hour_resets_at: .rate_limits.five_hour.resets_at,
+  seven_day_resets_at: .rate_limits.seven_day.resets_at,
+  captured_at: now
+}' > "$cache"
+```
+
+- [ ] **Step 4: Run it, verify PASS** — `bash tests/test_quota_persist.sh` → PASS.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add scripts/quota-persist.sh tests/test_quota_persist.sh
+git commit -m "feat(quota): statusline rate_limits persister (timestamped, keep-last-good)"
+```
+
+### Task 14: Cost estimator (historical distribution + cold-start)
+
+**Files:**
+
+- Create: `scripts/quota_estimate.py`
+- Test: `tests/test_quota_estimate.py`
+
+**Interfaces:**
+
+- Consumes: Phase-0 markers + `orchestrate-token-report.py` history.
+- Produces: `estimate(run_type: str, markers: list[dict]) -> dict` = `{ n, median, p05, p95, cold_start: bool }` (cost-weighted). `cold_start=True` and wide/None interval when `n < K` (K=3).
+
+- [ ] **Step 1: Write the failing test**
+
+```python
+import importlib.util, pathlib
+spec = importlib.util.spec_from_file_location("qe", pathlib.Path(__file__).parent.parent/"scripts"/"quota_estimate.py")
+qe = importlib.util.module_from_spec(spec); spec.loader.exec_module(qe)
+
+def test_estimate_distribution():
+    markers = [{"engine":"workflow","cost_weighted":c} for c in [100,120,110,130,90]]
+    e = qe.estimate("workflow", markers)
+    assert e["n"] == 5 and e["cold_start"] is False
+    assert e["p05"] <= e["median"] <= e["p95"]
+
+def test_estimate_cold_start():
+    e = qe.estimate("workflow", [{"engine":"workflow","cost_weighted":100}])
+    assert e["cold_start"] is True        # n < 3
+```
+
+- [ ] **Step 2: Run it, verify FAIL** — `python3 -m pytest tests/test_quota_estimate.py -v` → FAIL.
+
+- [ ] **Step 3: Implement**
+
+```python
+# scripts/quota_estimate.py
+import statistics
+K = 3
+def estimate(run_type, markers):
+    xs = sorted(m["cost_weighted"] for m in markers if m.get("engine") == run_type)
+    n = len(xs)
+    if n < K:
+        return {"n": n, "median": (xs[len(xs)//2] if xs else None),
+                "p05": None, "p95": None, "cold_start": True}
+    def pct(p): return xs[min(n-1, int(p*(n-1)))]
+    return {"n": n, "median": statistics.median(xs),
+            "p05": pct(0.05), "p95": pct(0.95), "cold_start": False}
+```
+
+- [ ] **Step 4: Run it, verify PASS** — `python3 -m pytest tests/test_quota_estimate.py -v` → PASS.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add scripts/quota_estimate.py tests/test_quota_estimate.py
+git commit -m "feat(quota): historical cost estimator (median+interval, cold-start honest)"
+```
+
+### Task 15: `/craft:quota` command (join, advise, stale-refusal, --json)
+
+**Files:**
+
+- Create: `commands/quota.md`
+
+**Interfaces:**
+
+- Consumes: `~/.claude/quota-cache.json` (Task 13), `quota_estimate.py` (Task 14).
+- Produces: prints estimate + % of each remaining window + reset times + `SAFE|TIGHT|DEFER`;
+  writes `.craft/quota.json` (the contract flow consumes). **Refuses** (warns) if the cache
+  `captured_at` is older than `STALE_SECS` (default 900) or absent.
+
+- [ ] **Step 1: Author `commands/quota.md`** with steps: (1) read `quota-cache.json`; if absent
+  or `now - captured_at > STALE_SECS` → print "quota stale (Nm old) — re-render statusline" and
+  stop (no advice on stale data). (2) Run `quota_estimate.py <run-type>`; if `cold_start`, label
+  the estimate "insufficient history (n=K)". (3) Compute `pct_of_5h = median/remaining_5h_budget`
+  etc.; map to `SAFE` (<60% of the tighter window), `TIGHT` (60–100%), `DEFER` (>100%, show reset
+  time). (4) Write `.craft/quota.json`. Add `--json`.
+
+- [ ] **Step 2: Manual verify** — with a fresh `quota-cache.json`, `/craft:quota workflow`
+  prints a recommendation; with a stale cache, it refuses.
+
+- [ ] **Step 3: Gitignore** — add `.craft/quota.json` to `.gitignore` (runtime output).
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add commands/quota.md .gitignore
+git commit -m "feat(quota): /craft:quota pre-flight gate (advisory, stale-refusing)"
+```
+
+### Task 16: `/craft:check` quota validator + docs
+
+**Files:**
+
+- Modify: `commands/check.md` (add an optional quota validator that calls `/craft:quota`)
+- Modify: `commands/orchestrate.md` / docs (mention `/craft:quota` before heavy runs)
+
+- [ ] **Step 1: Add an opt-in quota validator** to `/craft:check` that surfaces the current
+  `SAFE/TIGHT/DEFER` for a `:workflow` run (skips silently if `quota-cache.json` absent).
+- [ ] **Step 2: Doc cross-links** — reference `/craft:quota` from orchestrate docs + CHANGELOG.
+- [ ] **Step 3: Commit**
+
+```bash
+git add commands/check.md commands/orchestrate.md CHANGELOG.md
+git commit -m "feat(quota): /craft:check quota validator + docs cross-links"
+```
+
+---
+
 ## Self-Review
 
-- **Spec coverage:** Phase 0 → Tasks 1–7; Lever A → Task 8; Lever B → Task 9; Phase 1 → Task 10; Lever C → Task 11; Phase 3 → Task 12. ✅ All spec phases mapped.
+- **Spec coverage:** Phase 0 → Tasks 1–7; Lever A → Task 8; Lever B → Task 9; Phase 1 → Task 10; Lever C → Task 11; Phase 3 → Task 12; **Phase Q → Tasks 13–16** (persister, estimator, `/craft:quota`, `/craft:check` validator). ✅ All spec phases mapped (flow consumer is out-of-scope per spec).
 - **Read-only guarantee:** Task 6 Step 1 includes an explicit no-write test against a fake HOME. ✅
 - **Cost-weight + cache-controlled metric:** Tasks 1 & 3 implement the spec's cost-weighted metric verbatim (weights from Global Constraints). ✅
 - **Marker location:** Task 7 uses `.craft/` (workflow manifest + fan-out dir), never `.flow/`. ✅
 - **Estimation framing:** Task 12 reports CI + Cohen's *dₙ* + surprisal; flip is interval-vs-15%-floor, no p-threshold language. ✅
 - **Type consistency:** `cost_weighted`, `iter_usages`, `aggregate`, `transcript_dir`, `load_marker`, `per_agent`, `build_report`, `diff_reports` referenced consistently across tasks. ✅
-- **Branch routing:** Lever A flagged dev-safe; all else worktree. ✅
+- **Branch routing:** Lever A flagged dev-safe; all else worktree (incl. Phase Q). ✅
+- **Phase Q guardrails:** Task 13 has a keep-last-good test (no fabrication on absent `rate_limits`); Task 14 has a cold-start test (`n<K` → honest wide interval); Task 15 refuses on stale cache. Honest-uncertainty checks present. ✅
+- **Phase Q type consistency:** `quota-cache.json` fields (`five_hour_pct`, `captured_at`, …) and `estimate()` keys (`n`, `median`, `p05`, `p95`, `cold_start`) referenced consistently across Tasks 13–15. ✅
