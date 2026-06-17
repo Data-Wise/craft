@@ -1,182 +1,210 @@
-# SPEC: Orchestrate Token-Efficiency (Measure-First)
+# SPEC: Orchestrate Token-Efficiency — Deterministic `:workflow` Mode as Default (Parity-Gated)
 
-**Status:** draft
+**Status:** draft (revised 2026-06-17 — corrected after adversarial review)
 **Created:** 2026-06-17
-**From Brainstorm:** interactive `/workflow:refine` session — token-usage investigation (orchestrate vs. parallel worktrees vs. large context) → evidence-backed optimization design
+**From Brainstorm:** interactive `/workflow:refine` session — token-usage investigation → measure-first design → "dynamic workflow as default" → **corrected** after a red-team found the platform-engine premise infeasible for craft
 **Author:** dt + Claude
+**Supersedes:** `SPEC-workflow-as-default-engine-2026-06-17.md` (stub folded in here)
+
+---
+
+## Correction note (read first)
+
+An earlier draft proposed migrating orchestrate's dispatch onto a *platform* `Workflow`
+tool with native `agent()` / `schema` / `budget` / `isolation:'worktree'`. **An adversarial
+review found this infeasible**: craft is a plugin whose commands are markdown prompts, and it
+dispatches subagents **only via the portable Task tool** (`agents/orchestrator.md:84`,
+`orchestrator-v2.md:305`). There is **no host `Workflow()` callable** from a craft command
+(grep: zero references). The thing called "the workflow engine" in craft is its **own**
+construct: `commands/orchestrate/workflow.md` + `skills/orchestration/workflow-engine/` +
+`scripts/workflow_parse.py` — a deterministic YAML compiler that **still launches Task
+subagents under a Python semaphore**.
+
+This spec therefore targets the **real, feasible** reading of "dynamic workflow as default":
+make craft's existing **deterministic `:workflow` mode** the default orchestrate path (where
+a workflow can be derived), and earn token savings from how that engine *builds Task prompts*
+plus context-floor and cache/model levers.
 
 ---
 
 ## Overview
 
-Review sessions flagged high token usage attributed to orchestrate, parallel
-worktrees, and large context. A prior investigation (repo evidence + Anthropic's
-published multi-agent numbers) found the true driver is a **structural multiplier** —
-`agents × inherited-context × loop-turns` — that orchestrate *amplifies* but does not
-uniquely create. Parallel **worktrees contribute zero token cost** (isolation only).
-The silent tax underneath is the **~5,200-token context floor** (root `CLAUDE.md` +
-`craft/CLAUDE.md` + `MEMORY.md`) that every subagent inherits.
+Token usage is driven by a structural multiplier — `agents × inherited-context ×
+loop-turns` — where each Task subagent re-pays a large context cost and **prompt caching is
+the only structural discount**. Worktrees cost **zero tokens** (isolation only).
 
-This spec optimizes orchestrate's token usage under a strict **measure → apply →
-re-measure → prove** discipline: instrument first, then apply only levers whose savings
-are demonstrated against a baseline. No lever ships without a number.
+The remedy, in feasible terms:
+
+1. **Make the deterministic `:workflow` engine the default** orchestrate path where a
+   workflow is derivable (spec/ORCHESTRATE plan present), falling back to free-form fan-out
+   otherwise. Determinism bounds agent count and turns, which bounds the multiplier.
+2. **Lever A — context-floor trim** (docs): shrink the ~5,200-token floor inherited by every
+   Task subagent.
+3. **Lever B — prompt-trim in the workflow engine** (restored as an explicit, measurable
+   lever): the engine composes each Task subagent prompt from a **spec slice + summaries of
+   prior outputs**, not the full spec/transcript, and requires concise structured returns.
+4. **Lever C — cache + model routing**: byte-stable tool set + batched turns (5-min cache
+   TTL) and Haiku for cheap file-scoped subagents.
+
+The default flip is governed by a **parity gate with teeth** (see Phase 3): a *failed* gate
+**blocks the flip**, and the comparison controls for cache state.
 
 ### Goal & non-goals
 
-- **Goal:** reduce orchestrate's token usage, with each change validated by measured deltas.
-- **Out of scope (explicit):** loop/turn caps & budget cutoffs; agent/skill architecture
-  consolidation (`orchestrator.md` vs `orchestrator-v2.md`); migrating orchestrate's
-  dispatch engine to the `Workflow` tool; and `/done`-based CLAUDE.md/memory hygiene
-  (→ `SPEC-context-floor-hygiene-2026-06-17.md`).
+- **Goal:** reduce orchestrate token usage; **primary mechanism = `:workflow` mode as default
+  (where derivable)**, validated by measured deltas and a real parity gate.
+- **Out of scope (explicit, no contradictions):**
+  - **Loop/turn caps and budget-cutoff UX — fully out.** craft has *no* budget primitive
+    (the platform `budget` referenced earlier does not exist here); we add none.
+  - Full agent/skill consolidation beyond the minimum the default-flip requires
+    (`orchestrator.md` vs `orchestrator-v2.md`).
+  - `/done` CLAUDE.md/memory hygiene → `SPEC-context-floor-hygiene-2026-06-17.md`.
 
 ---
 
 ## Primary User Story
 
-**As a** craft user running orchestrate workflows,
-**I want** orchestrate to cost measurably fewer tokens without losing capability,
-**so that** multi-agent runs stay affordable and I can *see* where tokens go and prove
-each optimization actually helped.
+**As a** craft user running orchestrate on a spec or plan,
+**I want** orchestrate to default to the deterministic `:workflow` engine — with
+floor-trimmed, prompt-scoped Task subagents and cache-friendly routing —
+**so that** structured runs cost measurably fewer tokens, with a proven parity gate and a
+fallback to free-form fan-out so I'm never worse off.
 
 ### Acceptance Criteria
 
-- A read-only token report exists that attributes real token usage (input/output/cache)
-  to an individual orchestrate run and to each subagent.
-- A documented baseline exists for one representative reference task.
-- Each shipped lever (A, B, C) has a recorded, non-negative measured delta vs. baseline.
-- No change couples into the LLM loop such that a parser failure breaks an orchestrate run.
+- Read-only token report attributes real input/output/cache tokens per run and per Task
+  subagent, for **both** the fan-out default and the `:workflow` path.
+- Documented baseline for one reference task on the **current default (fan-out)**.
+- `:workflow`-as-default ships behind a flag and flips **only** after passing the Phase 3
+  parity gate; free-form fan-out remains available (and the fallback for non-derivable tasks).
+- Levers A and B each show a measured per-agent input-token reduction **against the inherited
+  floor baseline** (not vs. full transcript).
+- No parser failure can break an orchestrate run (post-hoc, read-only).
 
 ---
 
 ## Phase Spine & Branch Routing
 
-A strict measure-first loop. Phase 0 lands first; each lever is validated independently
-against the Phase 0 baseline.
-
 | Phase | Work | Branch | Why |
 |---|---|---|---|
-| **0 — Instrument** | `scripts/orchestrate-token-report.py` (read-only parser) + run-marker emission in `commands/orchestrate.md` / `commands/orchestrate/drive.md` | **worktree** | New script is a *new file* (blocked on `dev`); marker emission is feature behavior |
-| **A — Context-floor trim** | Trim `MEMORY.md` (~21 KB / 105 entries), root `dev-tools/CLAUDE.md`, `craft/CLAUDE.md` | **`dev` / no-commit** | `MEMORY.md` + root CLAUDE.md are outside the craft git repo; `craft/CLAUDE.md` is an existing file → `dev`-safe. Ships immediately |
-| **B — Prompt-level scoping** | Rewrite subagent prompt-builder: spec slice + summarized prior outputs + structured returns | **worktree** | Feature behavior change |
-| **C — Cache + model routing** | Byte-stable tool set/prompt + batch turns (exploit 5-min cache TTL); Haiku for cheap file-scoped stages | **worktree** | Feature behavior change |
+| **0 — Instrument & baseline** | `scripts/orchestrate-token-report.py` (read-only) + run markers (with `engine` field); baseline reference task on the **fan-out** default; confirm `:workflow` produces equivalent behavior on it | **worktree** | New script (blocked on `dev`); marker emission is behavior |
+| **A — Context-floor trim** | Trim `MEMORY.md`, root `dev-tools/CLAUDE.md`, `craft/CLAUDE.md` | **`dev` / no-commit** | Outside-repo / existing-file edits → `dev`-safe; ships now |
+| **B — Engine prompt-trim** | In `workflow-engine`, build each Task subagent prompt from a spec slice + summarized prior outputs + structured returns | **worktree** | Engine behavior; **explicit measurable lever** |
+| **1 — `:workflow` default flip** | Route `/craft:orchestrate` to the `:workflow` engine by default *where derivable*; behind `--engine=workflow\|fanout`; fan-out fallback for free-form | **worktree** | Default/routing change |
+| **C — Cache + model routing** | Byte-stable tool set, batched turns, Haiku for cheap file-scoped subagents | **worktree** | Engine config |
+| **3 — Parity gate** | Fixed cold-cache A/B (N≥5), report CI; flip default only if gate passes | **worktree** | Decision gate with teeth |
 
-**Consequence:** Lever A can ship today on `dev` for an instant, measurable win. Phase 0 +
-Levers B/C share one feature worktree (`feature/orchestrate-token-efficiency`).
+**Consequence:** Lever A ships today on `dev`. Phases 0/B/1/C/3 share one feature worktree
+(`feature/orchestrate-workflow-default`).
 
 ---
 
-## Phase 0 — Components & Data Flow (the heart)
+## Phase 0 — Components & Data Flow (engine-agnostic)
 
 ### Run markers
 
-Orchestrate writes a tiny JSON marker at run start, updates it at end:
-
 ```
 .flow/orchestrate-runs/<run-id>.json
-  { run_id, command, mode, agents, max_turns, cwd, start_ts, end_ts }
+  { run_id, command, mode, engine, agents, max_turns, cwd, start_ts, end_ts }
 ```
 
-- `run-id` = `<start_ts>-<mode>`.
-- Marker directory: **`.flow/orchestrate-runs/`** (decision; `.flow/` already used elsewhere
-  in the ecosystem, e.g. `teach-config.yml`).
+`engine` ∈ {`fanout`,`workflow`} so reports can A/B. `run-id` = `<start_ts>-<mode>`.
 
 ### Parser — `scripts/orchestrate-token-report.py`
 
-Read-only. **Never writes to `~/.claude`.** Steps:
+Read-only. **Never writes to `~/.claude`.**
 
-1. Resolve the session transcript dir from `cwd` (the `~/.claude/projects/<slug>/` mapping).
-2. Slice session JSONL messages to the `[start_ts, end_ts]` window from the marker.
-3. Sum ground-truth `usage` fields: `input_tokens`, `output_tokens`,
+1. Resolve transcript dir from `cwd` (`~/.claude/projects/<slug>/`).
+2. Slice session JSONL to the marker `[start_ts, end_ts]` window.
+3. Sum ground-truth `usage`: `input_tokens`, `output_tokens`,
    `cache_creation_input_tokens`, `cache_read_input_tokens`.
-4. Locate `agent-*.jsonl` in the transcript dir for **per-agent** attribution.
-5. Emit a report: per-run totals, per-agent breakdown, and a **cache-hit ratio**
-   (`cache_read / (input + cache_read)`) — the headline number for Lever C.
-   `--json` for machine output.
+4. Locate `agent-*.jsonl` for per-Task-subagent attribution.
+5. Emit per-run totals, per-agent breakdown, **cache-hit ratio**, and (two runs) an
+   **engine A/B diff with the cache-controlled metric below**. `--json` for machine output.
 
-### Data flow
+### The cache-controlled comparison metric
 
-```
-orchestrate run → marker(start) → … agents … → marker(end)
-  → orchestrate-token-report.py <run-id>  → reads JSONL (ground truth) → table
-```
-
-No coupling into the LLM loop; if the parser breaks, orchestrate is unaffected.
+Raw `input_tokens` is unstable across runs (5-min cache TTL → `cache_read` vs
+`cache_creation` swings). The parser's A/B mode reports the **billable-new** metric
+`input_tokens + cache_creation_input_tokens + output_tokens` (excludes the 90%-discounted
+`cache_read`) **and** the raw total, so parity is judged on a cache-state-robust number.
 
 ### Ground-truth basis
 
-Claude Code already writes per-message `usage` to `~/.claude/projects/**/*.jsonl`
-(verified): `input_tokens`, `output_tokens`, `cache_creation_input_tokens`,
-`cache_read_input_tokens`, plus `server_tool_use` web counts. Worktrees get their own
-project transcript dirs; subagents write `agent-*.jsonl`. So Phase 0 is a **read-only
-parser over existing logs**, not in-loop telemetry. No OTEL is configured.
+Claude Code already writes per-message `usage` to `~/.claude/projects/**/*.jsonl` (verified).
+Worktrees get their own project dirs; subagents write `agent-*.jsonl`. Phase 0 is a read-only
+parser over existing logs — no in-loop telemetry, no OTEL.
 
 ---
 
-## Levers (each: apply → re-measure → prove)
+## Phase B — Engine Prompt-Trim (explicit Lever B)
 
-### Lever A — Context-floor trim (docs)
+In `skills/orchestration/workflow-engine/`, change how each Task subagent prompt is composed:
 
-Trim the ~5,200-token floor inherited by every subagent: curate `MEMORY.md` (105 entries
-→ leaner index), de-duplicate the root `dev-tools/CLAUDE.md`, tighten `craft/CLAUDE.md`.
-**Validate:** measured drop in inherited context size and in per-agent input tokens on the
-reference task.
+- Pass a **spec slice** (the phase/files for that agent), not the whole spec.
+- Pass **summaries** of prior-stage outputs, not full transcripts.
+- Require **concise structured returns** so only summaries re-enter the orchestrator context.
 
-### Lever B — Prompt-level scoping (chosen approach)
-
-Rewrite how orchestrate builds each subagent prompt: pass a **spec slice** (not the whole
-spec), **summaries** of prior agent outputs (not full transcripts), and require concise /
-structured returns. Stays within harness constraints (cannot suppress auto-loaded
-`CLAUDE.md` — that is Lever A's job). **Validate:** per-agent input tokens drop; net run
-tokens down.
-
-> Alternatives considered and rejected for this spec: *cwd-aware dispatch* (fights
-> documented harness behavior — subagents inherit session cwd, don't re-walk) and
-> *migrate fan-out to the `Workflow` tool* (engine rewrite; belongs to the deferred
-> architecture-consolidation goal — see `SPEC-workflow-as-default-engine-2026-06-17.md`).
-
-### Lever C — Cache + model routing
-
-Keep the tool set and system prompt **byte-stable** across a run and **batch turns** to
-exploit prompt caching (cache hits cost ~90% less; Claude Code's cache TTL is now 5 min,
-so long interactive pauses blow it). Route cheap file-scoped stages to **Haiku** (~5×
-cheaper). **Validate:** cache-read ratio increases; cheap stages show Haiku usage; cost down.
+**Measurement (honest baseline):** per-agent `input_tokens` minus the inherited
+context-floor (Lever A's domain) — so Lever B's win is measured on the *prompt* portion it
+actually controls, not conflated with the floor. This keeps Lever B a distinct, provable lever.
 
 ---
 
-## Relationship to Dynamic Workflows & Worktrees
+## Phase 1 — `:workflow` Default Flip (constrained)
 
-This is an explicit boundary note so future readers don't assume these specs already chose
-an engine.
+- Route `/craft:orchestrate` to the `:workflow` engine **by default when a workflow is
+  derivable** — i.e. a spec or ORCHESTRATE plan exists (as `orchestrate:drive` already
+  derives). **Free-form tasks with no derivable workflow fall back to fan-out.**
+- Behind `--engine=workflow|fanout`; default stays `fanout` until Phase 3 passes.
+- Worktrees: orchestrate `--swarm` worktree isolation is unchanged and orthogonal to tokens;
+  not required unless agents write the same files in parallel.
 
-- **These plans do NOT make the `Workflow` tool the default.** Lever B uses prompt-level
-  scoping, not engine migration. However, **Phase 0 measurement is engine-agnostic** (the
-  parser reads `usage` from Task agents *and* `Workflow` agents alike), so it is the
-  prerequisite that makes a future, **evidence-based** "Workflow-as-default" decision
-  possible. Levers B and C also backport advantages the `Workflow` tool has natively
-  (per-agent scoped context, `schema` summaries, `model` routing, `budget`). That future
-  decision is **out of scope here** → `SPEC-workflow-as-default-engine-2026-06-17.md`.
-- **Execution worktrees are orthogonal to this spec's goal.** `--swarm` / the `Workflow`
-  tool's `isolation:'worktree'` provide *file-write isolation*, not token savings (worktrees
-  cost zero tokens). They scale with **parallel writes**, not with using dynamic workflows.
-- **Worktrees are NOT necessary for dynamic workflows.** In the `Workflow` tool, worktree
-  isolation is opt-in per-agent, needed only when multiple agents write the same files in
-  parallel; read-only/sequential fan-out needs none.
-- **Dev worktrees** (for *implementing* this spec's code) are still required by craft's
-  branch rules for Phase 0 + Levers B/C, unchanged by the above.
+---
+
+## Phase 3 — Parity Gate (with teeth)
+
+**Method (controls for the red-team's cache-noise objection):**
+
+- Run both arms **cold-cache** (fresh session per run) OR compare on the cache-controlled
+  *billable-new* metric above.
+- **N ≥ 5** runs per arm; report **mean ± 95% CI**.
+
+**Gate (all must hold):**
+
+1. **Tokens:** `:workflow` mean ≤ fanout mean on the billable-new metric, with
+   **non-overlapping CIs** (a real effect, not noise).
+2. **Behavior:** equivalent outputs — same files changed, tests green, verify gate passes.
+3. **Stability:** no new failure modes across the N runs.
+
+**Outcome:**
+
+- **Pass** → flip default to `:workflow` (where derivable); keep `--engine=fanout`.
+- **Fail** → **the default flip does not ship** (deliverable blocked, not rubber-stamped);
+  `:workflow` remains opt-in; record the measured gap. This is a real failure of *this phase*,
+  reported as such.
+
+---
+
+## Dual-Engine Cost (acknowledged)
+
+Making `:workflow` the default does **not** retire fan-out — free-form, non-derivable tasks
+still need it, so craft maintains **two dispatch paths** indefinitely. This spec accepts that
+cost and does **not** solve it. **Sunset condition (out of scope):** fan-out could be retired
+only if `:workflow` gains reliable auto-derivation for free-form tasks — a separate effort,
+not promised here.
 
 ---
 
 ## Validation Protocol & Success Criteria
 
-- **Baseline:** choose one representative "reference task," run it under orchestrate,
-  capture the Phase 0 report → baseline (total in/out, cache-hit ratio, per-agent).
-- **Per lever:** apply → re-run the *same* reference task → diff the report → record the
-  delta in this spec + CHANGELOG.
-- **Success (discovered, not pre-set):**
-  - **A** — drop in inherited context size *and* per-agent input tokens.
-  - **B** — per-agent input tokens drop (summaries vs. full transcripts); net run tokens down.
-  - **C** — cache-read ratio up; cheap stages on Haiku; cost down.
-  - **Overall** — every shipped lever has a proven, documented, non-negative delta.
+- **Baseline:** reference task on fan-out → Phase 0 report.
+- **Lever A:** trim → re-measure inherited floor + per-agent input tokens.
+- **Lever B:** engine prompt-trim → re-measure per-agent *prompt* tokens (floor-subtracted).
+- **Lever C:** routing → cache-read ratio up; cheap stages on Haiku.
+- **Phase 3:** A/B both engines under the fixed method; flip only on a passing gate.
+- **Success (discovered, not pre-set):** each shipped lever has a documented, floor-honest
+  delta; the default flips only on a CI-backed parity pass.
 
 ---
 
@@ -184,34 +212,38 @@ an engine.
 
 ### Tests
 
-- Parser unit tests against a committed **fixture JSONL** (deterministic, offline).
-- Marker-schema test.
-- Assert parser is **read-only** (no writes outside the repo).
+- Parser unit tests vs a committed **fixture JSONL** (deterministic, offline), incl. the
+  cache-controlled metric.
+- Marker-schema test (incl. `engine`).
+- Parser **read-only** assertion.
+- `:workflow` vs fan-out behavior-parity test on a small fixture task.
 - Wire into craft's pytest suite.
 
 ### Risks & mitigations
 
-| Risk | Mitigation |
-|---|---|
-| Time-window attribution fuzzy if concurrent sessions share a project dir | Correlate by `run-id` where possible; document the limitation |
-| JSONL schema is Claude-Code-internal and may change | Parser **fails soft** on missing fields; pins nothing |
-| Worktree transcript dirs differ from main | Resolve dir from `cwd`; test both paths |
-| Lever C cache discipline degraded by tool-set changes mid-run | Treat byte-stable tool set as a run invariant; note in docs |
+| Risk | Severity | Mitigation |
+|---|---|---|
+| `:workflow`-as-default changes behavior for tasks that worked under fan-out | Serious | Flag-gated; parity gate (behavior clause); fan-out fallback retained |
+| `:workflow` needs a derivable workflow — not all tasks have one | Serious | Default applies only where derivable; explicit fan-out fallback |
+| Cache-state noise corrupts A/B | Serious | Cold-cache arms + billable-new metric + CI (Phase 3) |
+| Lever B win conflated with the floor | Minor | Measure floor-subtracted per-agent prompt tokens |
+| Dual-path maintenance burden | Minor | Acknowledged; sunset condition stated, not promised |
+| JSONL schema is Claude-Code-internal | Minor | Parser fails soft on missing fields |
 
 ---
 
 ## Documentation & Discoverability
 
-- CHANGELOG entry per shipped lever with its measured delta.
-- `scripts/orchestrate-token-report.py --help` usage; reference from orchestrate docs.
-- Update `commands/orchestrate.md` / `drive.md` to mention the marker + report.
+- CHANGELOG entry per phase with measured deltas + parity-gate outcome.
+- `scripts/orchestrate-token-report.py --help`; reference from orchestrate docs.
+- Update `commands/orchestrate.md` / `workflow.md` / `drive.md`: `--engine`, the
+  derivable-vs-fallback rule, and the marker/report.
 
 ---
 
 ## Dependencies & Sequencing
 
-1. **This spec ships first** (clean measurement baseline).
+1. **This spec ships first.**
 2. Then `SPEC-context-floor-hygiene-2026-06-17.md` (sustains Lever A via `/done`; depends on
-   this spec's Phase 0 parser to trend floor size).
-3. Later (optional) `SPEC-workflow-as-default-engine-2026-06-17.md` (evidence-based engine
-   decision, enabled by Phase 0).
+   Phase 0; unaffected by the default flip — the floor is still inherited by Task subagents).
+3. `SPEC-workflow-as-default-engine-2026-06-17.md` is **superseded** by this revision.

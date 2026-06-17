@@ -1,6 +1,18 @@
 # SPEC: Evaluate `Workflow` Tool as Default Orchestration Engine (Stub)
 
-**Status:** stub / placeholder — NOT scheduled. Enabled by, but out of scope of,
+**Status:** SUPERSEDED (2026-06-17). This stub framed a *platform* `Workflow` engine as the
+goal. An adversarial review found that infeasible for craft (craft commands dispatch via the
+Task tool; there is no host `Workflow()` callable). The feasible decision — make craft's own
+deterministic `:workflow` mode the default — now lives in
+`SPEC-orchestrate-token-efficiency-2026-06-17.md`. This stub is retained only as a
+decision-trail record; do not implement from it.
+
+---
+
+> **⚠️ Superseded.** Everything below was the *deferred* framing. It no longer governs — see
+> `SPEC-orchestrate-token-efficiency-2026-06-17.md` for the active plan. Kept for history.
+
+**Status (original):** stub / placeholder — NOT scheduled. Enabled by, but out of scope of,
 `SPEC-orchestrate-token-efficiency-2026-06-17.md`.
 **Created:** 2026-06-17
 **From Brainstorm:** interactive `/workflow:refine` session — named destination for the
