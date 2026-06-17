@@ -1,6 +1,6 @@
 # SPEC: Orchestrate Token-Efficiency — Deterministic `:workflow` Mode as Default (Parity-Gated)
 
-**Status:** draft (revised 2026-06-17 — corrected after adversarial review)
+**Status:** approved (2026-06-17 — feasibility red-teamed; gate refined via interactive spec review)
 **Created:** 2026-06-17
 **From Brainstorm:** interactive `/workflow:refine` session — token-usage investigation → measure-first design → "dynamic workflow as default" → **corrected** after a red-team found the platform-engine premise infeasible for craft
 **Author:** dt + Claude
