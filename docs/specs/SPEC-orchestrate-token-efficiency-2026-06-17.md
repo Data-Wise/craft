@@ -153,12 +153,28 @@ actually controls, not conflated with the floor. This keeps Lever B a distinct, 
 
 ## Phase 1 — `:workflow` Default Flip (constrained)
 
-- Route `/craft:orchestrate` to the `:workflow` engine **by default when a workflow is
-  derivable** — i.e. a spec or ORCHESTRATE plan exists (as `orchestrate:drive` already
-  derives). **Free-form tasks with no derivable workflow fall back to fan-out.**
+**Derivation rule (moderate):**
+
+- Default to the `:workflow` engine when a workflow is **derivable from an existing SPEC or
+  ORCHESTRATE plan**, reusing `orchestrate:drive`'s existing phase-derivation — **no new LLM
+  pre-pass.**
+- **Free-form prompts with no spec/plan fall back to fan-out.** A derivation pre-pass for
+  arbitrary tasks is explicitly **out of scope** — it would add tokens and parity risk
+  (it could eat the savings and produce a bad workflow).
+
+**Confirm gate (auto-derived vs explicit):**
+
+- **Auto-derived** workflow (from a spec) → **show it and confirm** before running, since the
+  derivation can be wrong.
+- **Explicit** workflow/ORCHESTRATE-plan file already on disk → **auto-run** (no prompt).
+- A flag skips the confirm under auto-mode, consistent with craft's existing confirm-gate /
+  auto-mode pattern.
+
+**Flagging & fallback:**
+
 - Behind `--engine=workflow|fanout`; default stays `fanout` until Phase 3 passes.
-- Worktrees: orchestrate `--swarm` worktree isolation is unchanged and orthogonal to tokens;
-  not required unless agents write the same files in parallel.
+- Worktrees: orchestrate `--swarm` isolation is unchanged and orthogonal to tokens; not
+  required unless agents write the same files in parallel.
 
 ---
 
