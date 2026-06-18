@@ -1,6 +1,6 @@
 # SPEC: Two-Level Swarm — `--swarm=2`
 
-**Status:** draft (spec-only; implementation deferred to a worktree)
+**Status:** ready for implementation (spec-only; implementation deferred to a worktree)
 **Created:** 2026-06-18
 **From:** `RESEARCH-hierarchical-worktrees-2026-06-18.md` (resolved direction)
 **Author:** dt + Claude
@@ -152,3 +152,29 @@ run in parallel (level-2 parallelism).
 - **This spec:** `.md` on `dev` (dev-safe).
 - **Implementation:** `commands/orchestrate.md` arg change + orchestrator convergence logic =
   feature behavior → **worktree** (`feature/orchestrate-swarm-2level`). Not started.
+
+---
+
+## Dependencies & Sequencing
+
+1. **Decomposition spec** (`SPEC-orchestrate-decomposition-2026-06-18.md`) — the mode-scaled
+   agent soft cap applies **per sub-feature** here. Land decomposition first (or together) so a
+   2-level run can't blow past the cap once per sub-feature.
+2. **Token-efficiency spec** (`SPEC-orchestrate-token-efficiency-2026-06-17.md`) — orthogonal.
+   Worktrees are isolation, not a token lever; 2-level swarm neither helps nor hurts the token
+   work. Phase-0 token markers should record `swarm_level` for attribution if both ship.
+3. **Research note** (`RESEARCH-hierarchical-worktrees-2026-06-18.md`) — the rationale and the
+   rejected alternatives (directory nesting, Workflow-tool path, depth > 2) live there; this
+   spec is its resolved-direction realization.
+4. **Independent of** the `:workflow` default flip — 2-level swarm is a fan-out-path feature.
+
+---
+
+## Documentation & Discoverability
+
+- Update `commands/orchestrate.md`: arguments table (`swarm` boolean → optional level, default
+  `1`), Usage block (`--swarm=2`), Swarm Mode section (2-level topology + ORCHESTRATE schema),
+  and the worktree-types table (note the sub-convergence branch).
+- `--swarm --help` / dry-run output shows the level and, at `=2`, the full branch/worktree tree.
+- CHANGELOG entry on implementation with the backward-compat note (`bare --swarm == --swarm=1`).
+- Cross-link the research note and the decomposition spec from the Swarm Mode docs.
