@@ -156,3 +156,26 @@ echo "All Task 1 and Task 2 tests passed."
 
 # --- Task 3: refcard-gen.sh ---
 bash "$SCRIPT_DIR/test_refcard_gen.sh"
+
+# --- Task 4: Phase 8 integration ---
+test_phase8_catches_refcard_gap() {
+    # Use the real staleness check — it calls doc-coverage-check.sh internally
+    # Create a minimal fixture via tmp command file that we can add temporarily
+    local tmp_cmd="$ROOT/commands/ci/_test_coverage_gap_$$.md"
+    cat > "$tmp_cmd" <<'EOF'
+---
+name: _test_coverage_gap
+description: Temp test command
+category: ci
+---
+EOF
+    # Run staleness check JSON mode and check Phase 8 findings
+    output=$(bash "$ROOT/scripts/docs-staleness-check.sh" --json 2>/dev/null || true)
+    rm -f "$tmp_cmd"
+    if ! echo "$output" | grep -q "refcard\|REFCARD\|nav"; then
+        fail "Phase 8 did not report REFCARD/nav gap for new command"
+    fi
+    pass "Phase 8 detects REFCARD/nav gap for undocumented command"
+}
+
+test_phase8_catches_refcard_gap
