@@ -518,6 +518,9 @@ secrets:
 ### Worktree & Orchestration
 
 - **Cross-repo worktree coordination** — ✅ BUILT (v2.15.0+). Specs referencing multiple `~/projects/` paths trigger paired worktree creation with bidirectional ORCHESTRATE files. See [Multi-Repo Workflow Guide](docs/guide/multi-repo-workflow.md).
+- **Orchestrate token-efficiency** — 📋 SPEC'D (2026-06-17, approved; reconciled 2026-06-18). `:workflow` mode as default where derivable, behind a cost-weighted parity gate. See `docs/specs/SPEC-orchestrate-token-efficiency-2026-06-17.md`.
+- **Task decomposition** — 📋 SPEC'D (2026-06-18, design resolved). Mode-scaled agent soft cap + single-concern/file-count sizing in the fan-out path. See `docs/specs/SPEC-orchestrate-decomposition-2026-06-18.md`.
+- **Two-level swarm (`--swarm=2`)** — 📋 SPEC'D (2026-06-18, ready). Optional level on `--swarm` (default 1); hierarchical branches over flat sibling worktrees with bottom-up convergence. See `docs/specs/SPEC-orchestrate-swarm-2level-2026-06-18.md` and `docs/specs/RESEARCH-hierarchical-worktrees-2026-06-18.md`.
 
 ### Distribution
 
