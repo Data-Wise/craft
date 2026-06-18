@@ -225,8 +225,12 @@ nav:
       - /craft:orchestrate: commands/orchestrate.md
       - /craft:orchestrate:drive: commands/orchestrate-drive.md
       - /craft:orchestrate:workflow: commands/orchestrate-workflow.md
+      - /craft:ci:detect: commands/ci/detect.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:ci:status: commands/ci/status.md
+      - /craft:ci:triage: commands/ci/triage.md
+      - /craft:ci:validate: commands/ci/validate.md
+      - /craft:ci:watch: commands/ci/watch.md
       - /craft:docs:api: commands/docs/api.md
       - /craft:docs:changelog: commands/docs/changelog.md
       - /craft:docs:check: commands/docs/check.md
@@ -254,13 +258,30 @@ nav:
       - /craft:workflow:insights: commands/workflow/insights.md
       - /workflow:done: commands/workflow/done.md
       - /craft:arch:analyze: commands/arch/analyze.md
+      - /craft:arch:diagram: commands/arch/diagram.md
+      - /craft:arch:plan: commands/arch/plan.md
+      - /craft:arch:review: commands/arch/review.md
       - /craft:code:lint: commands/code/lint.md
       - /craft:code:deps-audit: commands/code/deps-audit.md
       - /craft:code:ci-local: commands/code/ci-local.md
+      - /craft:code:ci-fix: commands/code/ci-fix.md
       - /craft:code:command-audit: commands/code/command-audit.md
       - /craft:code:release-watch: commands/code/release-watch.md
       - /craft:code:desktop-watch: commands/code/desktop-watch.md
       - /craft:code:sync-features: commands/code/sync-features.md
+      - /craft:code:debug: commands/code/debug.md
+      - /craft:code:deps-check: commands/code/deps-check.md
+      - /craft:code:docs-check: commands/code/docs-check.md
+      - /craft:code:refactor: commands/code/refactor.md
+      - /craft:code:release: commands/code/release.md
+      - /craft:code:test-gen: commands/code/test-gen.md
+      - /craft:dist:homebrew: commands/dist/homebrew.md
+      - /craft:orchestrate:drive: commands/orchestrate/drive.md
+      - /craft:orchestrate:resume: commands/orchestrate/resume.md
+      - /craft:orchestrate:workflow: commands/orchestrate/workflow.md
+      - /craft:site:docs:frameworks: commands/site/docs/frameworks.md
+      - /craft:smart-help: commands/smart-help.md
+      - /craft:workflow:adhd-guide: commands/workflow/adhd-guide.md
       - /craft:test: commands/test.md
       - /craft:test:gen: commands/test/gen.md
       - /craft:test:template: commands/test/template.md

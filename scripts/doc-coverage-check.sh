@@ -38,7 +38,7 @@ json_findings=()
 # Usage: get_field FILE FIELD
 get_field() {
     local file="$1" field="$2"
-    sed -n '/^---$/,/^---$/{ /^'"$field"':/s/^'"$field"':[[:space:]]*//p; }' "$file" 2>/dev/null | head -1 | tr -d '"'"'"
+    { sed -n '/^---$/,/^---$/{ /^'"$field"':/s/^'"$field"':[[:space:]]*//p; }' "$file" 2>/dev/null || true; } | head -1 | tr -d '"'"'"
 }
 
 # Emit a finding
@@ -51,8 +51,8 @@ finding() {
         [[ "$severity" == "warn" ]] && icon="[WARN]"
         echo "  $icon $cmd — $message"
     fi
-    [[ "$severity" == "block" ]] && blocking_gaps=$((blocking_gaps + 1))
-    [[ "$severity" == "warn" ]]  && warn_gaps=$((warn_gaps + 1))
+    if [[ "$severity" == "block" ]]; then blocking_gaps=$((blocking_gaps + 1)); fi
+    if [[ "$severity" == "warn" ]];  then warn_gaps=$((warn_gaps + 1));     fi
 }
 
 # Build list of command files to check

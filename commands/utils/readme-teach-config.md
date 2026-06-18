@@ -1,6 +1,7 @@
 ---
 description: Teaching Configuration Parser
 category: utils
+internal: true
 ---
 
 # Teaching Configuration Parser

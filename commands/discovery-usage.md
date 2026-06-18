@@ -1,5 +1,6 @@
 ---
 description: Discovery Engine Usage Guide
+internal: true
 ---
 
 # Discovery Engine Usage Guide

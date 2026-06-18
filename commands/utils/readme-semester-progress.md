@@ -1,6 +1,7 @@
 ---
 description: Semester Progress Calculation Utilities
 category: utils
+internal: true
 ---
 
 # Semester Progress Calculation Utilities
