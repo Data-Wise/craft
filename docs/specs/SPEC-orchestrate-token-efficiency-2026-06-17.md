@@ -365,3 +365,77 @@ not point). The flow consumer is **out of scope** (flow-cli repo).
    `.craft/quota.json` (Phase Q's output) into `flow dash`. Not implemented here; producer/
    consumer handoff only.
 4. `SPEC-workflow-as-default-engine-2026-06-17.md` is **superseded** by this revision.
+
+---
+
+## Revision Note — 2026-06-18 (session-lever reconciliation + Workflow-tool path + default strategy)
+
+**Context:** A separate session configured three Claude Code *session-level* token levers
+(`CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=55`, `/model opusplan`, and briefly
+`CLAUDE_CODE_SUBAGENT_MODEL=sonnet`). Reconciling them against this spec surfaced one
+regression, one missed path, and three decisions (taken interactively). Research/analysis
+only — no engine code changed by this note.
+
+### Finding 1 — `CLAUDE_CODE_SUBAGENT_MODEL` REGRESSES craft's own routing (resolved)
+
+`agents/orchestrator-v2.md` (Model-routing table, ~L296–303 + spawn syntax ~L310) already
+routes per task: **`Explore`/`Bash`/test → haiku**, **`general-purpose`/`Plan` → sonnet**,
+passing `"model"` explicitly in each Task call. Claude Code's model resolution order is
+**`CLAUDE_CODE_SUBAGENT_MODEL` env var > per-invocation `model` param > frontmatter**. So a
+global `CLAUDE_CODE_SUBAGENT_MODEL=sonnet` **overrides craft's `haiku`**, forcing cheap
+read-only/test agents *up* to Sonnet (~5× their intended cost). This is the inverse of Lever C.
+
+**Decision:** **Do NOT set `CLAUDE_CODE_SUBAGENT_MODEL` globally.** The env var was reverted at
+the session level. craft's per-task routing is finer than any flat global default and is the
+correct mechanism. **Implication for Lever C:** Lever C ("Haiku for cheap file-scoped
+subagents") is *already implemented* in orchestrator-v2's routing table — Lever C's remaining
+work is to ensure the deterministic `:workflow` engine **preserves** per-task model assignment
+(haiku/sonnet) when it composes Task calls, and to **never** recommend a global subagent-model
+override (it silently defeats this). Ad-hoc main-session agents should pass `model:` explicitly.
+
+### Finding 2 — the main-session `Workflow` tool is a third path this spec's correction scoped out
+
+The Correction note ruled out the platform `Workflow()` because *craft commands (markdown
+prompts) can't call it* — correct. But the **main Claude session can**, and it carries the one
+structural lever this spec admits craft lacks: a **hard `budget` token ceiling**
+(`budget.total` / `budget.remaining()`), plus free JS control flow, per-`agent()`
+`model`/`effort`, and `schema`'d concise returns that keep full transcripts out of the
+orchestrator context.
+
+**Decision:** Document this as a **flow-level practice, NOT inside craft's dispatch.** Craft's
+spec stays scoped to its Task engine (documenting a callable craft can't invoke would re-create
+the infeasibility confusion this spec already corrected). The practice, recorded at the session/
+flow level: *for a genuinely token-heavy multi-agent job, drive it through the main-session
+`Workflow` tool with a `budget` cap, `schema`'d returns, and per-stage haiku/sonnet routing —
+rather than craft orchestrate.* The budget ceiling is the win and it lives at the session level.
+This remains an unmeasured hypothesis vs. fan-out; a paired cost-weighted A/B (Phase 3 method)
+would confirm the magnitude before it becomes a default habit.
+
+### Finding 3 — default orchestrate strategy: decision-rule by task shape
+
+Worktrees (`--swarm`) are **isolation-only — 0 tokens, but also 0 token-savings**; they must
+not be defaulted *for token reasons*. Adopted default-selection rule (composable — worktree
+isolation overlays either engine):
+
+```
+if a SPEC/ORCHESTRATE plan is derivable   → :workflow engine   (bounds agents×turns)
+elif agents write conflicting files in parallel → --swarm worktrees (isolation)
+else (free-form)                          → fan-out
+```
+
+This refines Phase 1's derivation rule with an explicit worktree branch and states plainly that
+worktrees are an isolation lever, not a token lever. **Open sub-item (defer):** tighter *task
+decomposition* (bounded subtasks) in the default fan-out path is the largest unaddressed driver
+of the `agents × context × turns` multiplier — worth its own follow-up; engine choice is
+secondary to not over-spawning.
+
+### Net spec deltas
+
+- **Lever C** reframed: already realized in orchestrator-v2 routing; the active risk is a global
+  `CLAUDE_CODE_SUBAGENT_MODEL` override — call it out as an anti-pattern; ensure `:workflow`
+  preserves per-task model assignment.
+- **Phase 1** default rule: add the explicit `:workflow` / `--swarm` / `fan-out` decision tree;
+  note worktrees = isolation, not tokens.
+- **New (out-of-spec, flow-level):** main-session `Workflow`-tool + `budget`-cap practice for
+  heavy jobs; unmeasured — candidate for a Phase-3-style A/B.
+- **No change** to Phases 0/A/B/3/Q mechanics.
