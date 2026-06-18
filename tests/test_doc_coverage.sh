@@ -42,4 +42,114 @@ EOF
 }
 
 test_audit_accepts_internal_field
-echo "All Task 1 tests passed."
+
+# --- Task 2 Tests: doc-coverage-check.sh ---
+
+# --- Test: detects missing REFCARD row ---
+test_detects_missing_refcard() {
+    local tmp="$TMPDIR_TEST/refcard_test"
+    mkdir -p "$tmp/commands/ci"
+    mkdir -p "$tmp/docs"
+
+    # Command with no REFCARD entry
+    cat > "$tmp/commands/ci/newcmd.md" <<'EOF'
+---
+name: newcmd
+description: A new command
+category: ci
+---
+# /craft:ci:newcmd
+EOF
+    # Empty REFCARD
+    echo "# REFCARD" > "$tmp/docs/REFCARD.md"
+    # Nav has the entry so only REFCARD fails
+    cat > "$tmp/mkdocs.yml" <<'EOF'
+nav:
+  - /craft:ci:newcmd: commands/ci/newcmd.md
+EOF
+
+    output=$(bash "$ROOT/scripts/doc-coverage-check.sh" --root "$tmp" 2>&1 || true)
+
+    if ! echo "$output" | grep -q "REFCARD"; then
+        fail "did not detect missing REFCARD row"
+    fi
+    pass "detects missing REFCARD row"
+}
+
+# --- Test: detects missing nav entry ---
+test_detects_missing_nav() {
+    local tmp="$TMPDIR_TEST/nav_test"
+    mkdir -p "$tmp/commands/ci"
+    mkdir -p "$tmp/docs"
+
+    cat > "$tmp/commands/ci/newcmd.md" <<'EOF'
+---
+name: newcmd
+description: A new command
+category: ci
+---
+EOF
+    # REFCARD has entry, nav does not
+    printf "| \`/craft:ci:newcmd\` | ci | A new command |\n" > "$tmp/docs/REFCARD.md"
+    echo "nav:" > "$tmp/mkdocs.yml"
+
+    output=$(bash "$ROOT/scripts/doc-coverage-check.sh" --root "$tmp" 2>&1 || true)
+    if ! echo "$output" | grep -q "nav"; then
+        fail "did not detect missing nav entry"
+    fi
+    pass "detects missing mkdocs nav entry"
+}
+
+# --- Test: skips deprecated commands ---
+test_skips_deprecated() {
+    local tmp="$TMPDIR_TEST/deprecated_test"
+    mkdir -p "$tmp/commands/ci"
+    mkdir -p "$tmp/docs"
+    echo "nav:" > "$tmp/mkdocs.yml"
+    echo "# REFCARD" > "$tmp/docs/REFCARD.md"
+
+    cat > "$tmp/commands/ci/oldcmd.md" <<'EOF'
+---
+name: oldcmd
+description: Old command
+deprecated: true
+replaced-by: newcmd
+---
+EOF
+    exit_code=0
+    bash "$ROOT/scripts/doc-coverage-check.sh" --root "$tmp" > /dev/null 2>&1 || exit_code=$?
+    if [[ "$exit_code" -ne 0 ]]; then
+        fail "deprecated command should not cause non-zero exit"
+    fi
+    pass "skips deprecated commands"
+}
+
+# --- Test: skips internal commands ---
+test_skips_internal() {
+    local tmp="$TMPDIR_TEST/internal_test"
+    mkdir -p "$tmp/commands/ci"
+    mkdir -p "$tmp/docs"
+    echo "nav:" > "$tmp/mkdocs.yml"
+    echo "# REFCARD" > "$tmp/docs/REFCARD.md"
+
+    cat > "$tmp/commands/ci/internalcmd.md" <<'EOF'
+---
+name: internalcmd
+description: Internal only
+internal: true
+---
+EOF
+    exit_code=0
+    bash "$ROOT/scripts/doc-coverage-check.sh" --root "$tmp" > /dev/null 2>&1 || exit_code=$?
+    if [[ "$exit_code" -ne 0 ]]; then
+        fail "internal command should not cause non-zero exit"
+    fi
+    pass "skips internal commands"
+}
+
+test_detects_missing_refcard
+test_detects_missing_nav
+test_skips_deprecated
+test_skips_internal
+
+echo "All Task 1 and Task 2 tests passed."
