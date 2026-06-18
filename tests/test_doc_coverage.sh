@@ -179,3 +179,27 @@ EOF
 }
 
 test_phase8_catches_refcard_gap
+
+# --- Task 5: pre-release-check.sh blocks on missing doc surfaces ---
+test_prerelease_blocks_on_doc_gap() {
+    # Temporarily add an undocumented command
+    local tmp_cmd="$ROOT/commands/ci/_prerelease_gap_$$.md"
+    cat > "$tmp_cmd" <<'EOF'
+---
+name: _prerelease_gap
+description: Temp undocumented command
+category: ci
+---
+EOF
+    local version
+    version=$(grep '"version"' "$ROOT/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+    exit_code=0
+    bash "$ROOT/scripts/pre-release-check.sh" "$version" > /dev/null 2>&1 || exit_code=$?
+    rm -f "$tmp_cmd"
+    if [[ "$exit_code" -eq 0 ]]; then
+        fail "pre-release-check.sh should exit 1 when commands have missing doc surfaces"
+    fi
+    pass "pre-release-check.sh blocks on missing doc surfaces"
+}
+
+test_prerelease_blocks_on_doc_gap
