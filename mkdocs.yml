@@ -283,8 +283,6 @@ nav:
       - /craft:smart-help: commands/smart-help.md
       - /craft:workflow:adhd-guide: commands/workflow/adhd-guide.md
       - /craft:test: commands/test.md
-      - /craft:test:gen: commands/test/gen.md
-      - /craft:test:template: commands/test/template.md
       - /craft:git:branch: commands/git/branch.md
       - /craft:git:clean: commands/git/clean.md
       - /craft:git:status: commands/git/status.md
