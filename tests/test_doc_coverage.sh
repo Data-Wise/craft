@@ -153,3 +153,6 @@ test_skips_deprecated
 test_skips_internal
 
 echo "All Task 1 and Task 2 tests passed."
+
+# --- Task 3: refcard-gen.sh ---
+bash "$SCRIPT_DIR/test_refcard_gen.sh"
