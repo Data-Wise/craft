@@ -192,12 +192,16 @@ category: ci
 ---
 EOF
     local version
-    version=$(grep '"version"' "$ROOT/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+    version=$(grep '"version"' "$ROOT/.claude-plugin/plugin.json" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
     exit_code=0
-    bash "$ROOT/scripts/pre-release-check.sh" "$version" > /dev/null 2>&1 || exit_code=$?
+    output=$(bash "$ROOT/scripts/pre-release-check.sh" "$version" 2>&1) || exit_code=$?
     rm -f "$tmp_cmd"
     if [[ "$exit_code" -eq 0 ]]; then
         fail "pre-release-check.sh should exit 1 when commands have missing doc surfaces"
+    fi
+    # Assert the failure is specifically the doc-coverage gate, not some other check
+    if ! echo "$output" | grep -q "missing REFCARD rows or nav entries"; then
+        fail "pre-release-check.sh exited nonzero but NOT via the doc-coverage gate"
     fi
     pass "pre-release-check.sh blocks on missing doc surfaces"
 }
