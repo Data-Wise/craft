@@ -27,7 +27,9 @@ set -uo pipefail
 # Configuration
 # ============================================================================
 
-HOOK_SCRIPT="$HOME/.claude/hooks/no-switch-guard.sh"
+# Defaults to the INSTALLED hook (CI installs the PR hook first); override with
+# HOOK_SCRIPT=scripts/no-switch-guard.sh to test the repo copy directly.
+HOOK_SCRIPT="${HOOK_SCRIPT:-$HOME/.claude/hooks/no-switch-guard.sh}"
 
 # Color output
 T_RED='\033[0;31m'
@@ -405,6 +407,61 @@ run_yellow "test_yellow_checkout_existing_branch" \
 # git checkout -- . on clean repo -> RED (destructive restore)
 run_red "test_red_checkout_dash_dash_dot" \
     "git checkout -- ."
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 5: Registry disable/mute path (#5 — guards.json enable/mute)
+# Uses a fake HOME so the real ~/.claude/guards.json is never touched.
+# Command is a RED new-branch create, so it would ASK unless the registry
+# disables/mutes the guard.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Registry: disable / mute path ---${T_NC}"
+
+# run_registry name expected(silent|ask) spec command
+#   spec ∈ DISABLED | ENABLED | MUTED_FUTURE | MUTED_PAST | CORRUPT
+run_registry() {
+    local name="$1" expected="$2" spec="$3" cmd="$4"
+    TOTAL=$((TOTAL + 1))
+    local fh gj t
+    fh=$(make_tmpdir); mkdir -p "$fh/.claude"; gj="$fh/.claude/guards.json"
+    case "$spec" in
+        DISABLED)     printf '{"guards":{"no-switch-guard":{"enabled":false}}}\n' > "$gj" ;;
+        ENABLED)      printf '{"guards":{"no-switch-guard":{"enabled":true,"muted_until":null}}}\n' > "$gj" ;;
+        MUTED_FUTURE) t=$(date -u -v+1H +"%Y-%m-%dT%H:%M:%SZ" 2>/dev/null || date -u -d "+1 hour" +"%Y-%m-%dT%H:%M:%SZ")
+                      printf '{"guards":{"no-switch-guard":{"enabled":true,"muted_until":"%s"}}}\n' "$t" > "$gj" ;;
+        MUTED_PAST)   t=$(date -u -v-1H +"%Y-%m-%dT%H:%M:%SZ" 2>/dev/null || date -u -d "-1 hour" +"%Y-%m-%dT%H:%M:%SZ")
+                      printf '{"guards":{"no-switch-guard":{"enabled":true,"muted_until":"%s"}}}\n' "$t" > "$gj" ;;
+        CORRUPT)      printf '{ not valid json' > "$gj" ;;
+    esac
+    local stdout exit_code=0
+    stdout=$(json_bash "$cmd" | HOME="$fh" bash "$HOOK_SCRIPT") || exit_code=$?
+    local ok=false
+    if [[ "$expected" == "silent" ]]; then
+        [[ "$exit_code" -eq 0 && -z "$stdout" ]] && ok=true
+    else
+        { [[ "$exit_code" -eq 0 ]] && echo "$stdout" | grep -q '"permissionDecision"' && echo "$stdout" | grep -q '"ask"'; } && ok=true
+    fi
+    if [[ "$ok" == true ]]; then
+        PASS=$((PASS + 1))
+        echo -e "  ${T_GREEN}PASS${T_NC}  $name  ${T_BOLD}(registry: $spec → $expected)${T_NC}"
+    else
+        FAIL=$((FAIL + 1)); FAILED_NAMES+=("$name")
+        echo -e "  ${T_RED}FAIL${T_NC}  $name  ${T_BOLD}(registry: $spec expected $expected; exit=$exit_code stdout='${stdout:0:80}')${T_NC}"
+    fi
+}
+
+# disabled → guard silent (no gating)
+run_registry "test_registry_disabled_silent"     silent DISABLED     "git switch -c regtest"
+# muted, window not yet expired → silent
+run_registry "test_registry_muted_future_silent" silent MUTED_FUTURE "git switch -c regtest"
+# muted, window expired → guard active again (ask)
+run_registry "test_registry_muted_past_ask"      ask    MUTED_PAST   "git switch -c regtest"
+# enabled, not muted → ask (normal)
+run_registry "test_registry_enabled_ask"         ask    ENABLED      "git switch -c regtest"
+# corrupt guards.json → FAIL OPEN (guard stays active → ask)
+run_registry "test_registry_corrupt_failopen"    ask    CORRUPT      "git switch -c regtest"
 
 echo ""
 
