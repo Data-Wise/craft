@@ -10,19 +10,25 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Head     | Base | Status                                                              |
 |--------|----------|------|---------------------------------------------------------------------|
-| main   | 3e7ae7ab | —    | Production (v2.41.1 tagged, PR #180 merged 2026-06-19, main CI GREEN) |
-| dev    | a3409738 | main | PR #181 open — feat: /craft:code:fewer-prompts (113 commands) |
+| main   | 90f5b45d | —    | Production (v2.42.0 tagged, PR #182 merged 2026-06-19, main CI GREEN) |
+| dev    | 90f5b45d | main | Synced with main post-release |
 
 📂 Active Worktrees:
 
 None.
 
 > **🎯 Next Action (next session):**
-> A) **Merge PR #181** (`/craft:code:fewer-prompts`): 2 commits, all checks passing. ⚡ (Recommended)
-> B) **`--swarm=2` spec:** `SPEC-orchestrate-swarm-2level-2026-06-18` — worktree pending.
-> C) **Cross-repo maintenance (v2.42.0):** close GitHub issue #157 (branch-guard draft=dev — shipped PR #158); PAT→App migration himalaya-mcp + nexus-cli (#130).
+> A) **`--swarm=2` spec:** `SPEC-orchestrate-swarm-2level-2026-06-18` — worktree pending. ⚡ (Recommended)
+> B) **PAT→App migration:** himalaya-mcp + nexus-cli (#130).
 
 _Prior: `feature/multi-surface-release` MERGED → dev `3814525d` (PR #161 squash, 2026-06-15, CI green) — all 5 phases (verify-surfaces engine, cache-prune, aggregator marketplace craft-side, docs; rforge drift fix ops). Full suite 1769 passed. ORCHESTRATE removed at merge (`a75dea82`); worktree removed; local branch `feature/multi-surface-release` left dangling (squash + unpushed rebase → `-d` refuses, `-D` guard-blocked — harmless). **Cross-repo aggregator DONE: `Data-Wise/claude-plugins#3` MERGED → main `45ab799d`** (2026-06-15) — `marketplace.json` listing craft/scholar/rforge/himalaya-mcp now live; `claude plugin marketplace add Data-Wise/claude-plugins` surfaces all. Q6 resolved to reuse claude-plugins. `feature/branch-guard-cleanup` MERGED → dev `772efcc7` (PR #160 squash, 2026-06-15, CI green) — #158/#159 review follow-up: consolidated dev/draft detection (single probe, `refs/heads/*`), test-header note + e2e re-indent; worktree + branches removed. `feature/ci-triage` MERGED → dev `a1812afb` (PR #154 squash, 2026-06-14, CI green) — item #5; first real test of #7+#2 (auto-swept CI subtotal, tripwire caught stale refs). `feature/pr2-drift-tripwire` MERGED → dev `f00f5872` (PR #153 squash, 2026-06-14, CI green) — completes the #7→#2 chain (subtotals synced + CI tripwire). `feature/pr7-bump-subtotals` MERGED → dev `91a82271` (PR #152 squash, 2026-06-13; CI caught a real BSD-sed-no-ops-on-GNU bug, fixed with a `sedi()` wrapper). `feature/pr1a-test-hygiene` MERGED → dev `813855f2` (PR #151 squash, 2026-06-13, CI green); worktree + local + remote branch all removed. `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash) — worktrees + branches removed. `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
+
+✅ Session 2026-06-19 (v2.42.0 release: fewer-prompts):
+- **v2.42.0 SHIPPED** (PR #182 → main, `90f5b45d`). All CI green: Craft CI ✅, Docs Staleness ✅, Link Validation ✅, Markdown Linting ✅, Deploy Documentation ✅.
+- **Release pipeline complete:** pre-flight → version bump (14 files) → semantic docs (CHANGELOG, index.md, mkdocs.yml) → PR #182 → merge conflict resolution (dev/main diverged: PR #181 squash-merged to main while dev had different history) → merge → GitHub release tag → docs auto-deployed via docs.yml → Homebrew tap auto-updated via homebrew-release.yml CI → post-release sweep ALL CLEAN.
+- **Content shipped:** `/craft:code:fewer-prompts` — curated read-only Bash allowlist command (20 entries) with `--dry-run`, `--global`, `--reset` flags; idempotent via `craft_allowlist` tracking key. Stale-link CHANGELOG fix (test_no_broken_links was failing on markdown syntax in v2.41.1 entry).
+- **Resolved:** GitHub issue #157 closed (branch-guard draft=dev — shipped PR #158, issue was stale).
+- **Divergence note:** PR #181 (feature→main squash) ran before dev was synced, causing dev/main divergence at release time. Resolved by merging main into dev pre-release, then squash-merge proceeded cleanly.
 
 ✅ Session 2026-06-19 (v2.41.1 release: documentation coverage):
 - **v2.41.1 SHIPPED** (PR #180 → main, `3e7ae7ab`). Merged with `--admin` (known "Validate Plugin Structure" phantom check). All substantive CI green: Link Validation ✅, Docs Staleness ✅, Markdown Linting ✅, Deploy Documentation ✅.
