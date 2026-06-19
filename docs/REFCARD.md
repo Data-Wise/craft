@@ -846,7 +846,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
 
-## Code & Testing (17 commands)
+## Code & Testing (18 commands)
 
 **Core Commands** (15 code + 2 test; core subset shown):
 
@@ -858,8 +858,9 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:code:refactor`   | ----- | Refactoring guidance        |
 | `/craft:code:deps-check` | ----- | Dependency health check     |
 | `/craft:code:deps-audit` | ----- | Security vulnerability scan |
-| `/craft:code:ci-local`   | ----- | Run CI checks locally       |
-| `/craft:code:ci-fix`     | ----- | Diagnose and fix CI failures |
+| `/craft:code:ci-local`       | ----- | Run CI checks locally       |
+| `/craft:code:ci-fix`         | ----- | Diagnose and fix CI failures |
+| `/craft:code:fewer-prompts`  | ----- | Install read-only Bash allowlist (--dry-run, --global, --reset) |
 
 **Test Commands:**
 

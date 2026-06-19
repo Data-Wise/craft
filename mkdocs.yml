@@ -206,6 +206,7 @@ nav:
       - code:command-audit Tutorial: tutorials/TUTORIAL-code-command-audit.md
       - code:deps-audit Tutorial: tutorials/TUTORIAL-code-deps-audit.md
       - code:desktop-watch Tutorial: tutorials/TUTORIAL-code-desktop-watch.md
+      - code:fewer-prompts Tutorial: tutorials/TUTORIAL-code-fewer-prompts.md
       - code:lint Tutorial: tutorials/TUTORIAL-code-lint.md
       - code:release-watch Tutorial: tutorials/TUTORIAL-code-release-watch.md
       - dist:homebrew Tutorial: tutorials/TUTORIAL-dist-homebrew.md
@@ -308,6 +309,7 @@ nav:
       - /craft:ci:triage: commands/ci/triage.md
       - /craft:ci:validate: commands/ci/validate.md
       - /craft:ci:watch: commands/ci/watch.md
+      - /craft:code:fewer-prompts: commands/code/fewer-prompts.md
       - /craft:code:ci-fix: commands/code/ci-fix.md
       - /craft:code:debug: commands/code/debug.md
       - /craft:code:deps-check: commands/code/deps-check.md
