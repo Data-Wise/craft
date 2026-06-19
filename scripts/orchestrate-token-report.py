@@ -40,6 +40,15 @@ def load_marker(path):
     with open(path) as f:
         return json.load(f)
 
+import glob, os
+
+def per_agent(transcript_dir, start_ts, end_ts):
+    result = {}
+    for path in glob.glob(os.path.join(transcript_dir, "agent-*.jsonl")):
+        agent_id = os.path.basename(path)[len("agent-"):-len(".jsonl")]
+        result[agent_id] = aggregate(iter_usages(path, start_ts, end_ts))
+    return result
+
 def aggregate(usages):
     keys = ["input_tokens", "output_tokens",
             "cache_creation_input_tokens", "cache_read_input_tokens"]

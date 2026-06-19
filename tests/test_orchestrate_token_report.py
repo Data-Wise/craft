@@ -39,3 +39,9 @@ def test_load_marker(tmp_path):
     m = tmp_path / "run.json"
     m.write_text('{"run_id":"x","cwd":"/c","start_ts":"a","end_ts":"b","engine":"fanout"}')
     assert otr.load_marker(str(m))["engine"] == "fanout"
+
+def test_per_agent_attribution():
+    d = str(FX.parent)
+    agents = otr.per_agent(d, "2026-06-17T10:00:00Z", "2026-06-17T10:30:00Z")
+    assert "AAA" in agents
+    assert agents["AAA"]["raw"]["input_tokens"] == 80
