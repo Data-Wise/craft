@@ -51,24 +51,6 @@ test_generates_rows() {
     pass "generates correct rows, skips deprecated"
 }
 
-test_check_mode_fails_on_drift() {
-    local tmp="$TMPDIR_TEST/check_test"
-    setup_fixture "$tmp"
-    mkdir -p "$tmp/docs"
-    # REFCARD missing triage row
-    cat > "$tmp/docs/REFCARD.md" <<'EOF'
-<!-- REFCARD:GENERATED:START:ci -->
-| `/craft:ci:watch` | ci | Poll a run, route next action |
-<!-- REFCARD:GENERATED:END:ci -->
-EOF
-    exit_code=0
-    bash "$ROOT/scripts/refcard-gen.sh" --root "$tmp" --check > /dev/null 2>&1 || exit_code=$?
-    if [[ "$exit_code" -eq 0 ]]; then
-        fail "--check should exit 1 when REFCARD is stale"
-    fi
-    pass "--check mode exits 1 on drift"
-}
-
 test_check_mode_unsupported() {
     # --check always exits 1 with a clear message: docs/REFCARD.md uses heading-based
     # sections, not generated sentinels. doc-coverage-check.sh handles parity checks.
@@ -118,7 +100,6 @@ EOF
 }
 
 test_generates_rows
-test_check_mode_fails_on_drift
 test_check_mode_unsupported
 test_skips_internal_commands
 echo "All refcard-gen tests passed."

@@ -98,7 +98,7 @@ for cmd_file in "${cmd_files[@]}"; do
 
     # Check 1: REFCARD row (blocking)
     if [[ -f "$REFCARD" ]]; then
-        if ! grep -qF "/craft:${cmd_name}" "$REFCARD" 2>/dev/null; then
+        if ! grep -qE "/craft:${cmd_name}"'([`| ]|$)' "$REFCARD" 2>/dev/null; then
             finding "$cmd_name" "refcard" "block" "Missing REFCARD row in docs/REFCARD.md"
         fi
     fi
@@ -113,8 +113,8 @@ for cmd_file in "${cmd_files[@]}"; do
     fi
 
     # Check 3: Tutorial (warn only — required if arguments: present)
-    has_args=$(get_field "$local_file" "arguments")
-    if [[ -n "$has_args" ]]; then
+    has_args=$(grep -cE '^arguments:' "$local_file" 2>/dev/null || true)
+    if [[ "${has_args:-0}" != "0" ]]; then
         # Look for tutorial file referencing this command in docs/tutorials/
         tut_dir="$ROOT/docs/tutorials"
         safe_name="${cmd_name//:/-}"

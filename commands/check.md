@@ -965,7 +965,7 @@ new_cmds=$(git diff --cached --name-only --diff-filter=A -- 'commands/**/*.md' 2
 if [[ -n "$new_cmds" ]]; then
     echo ""
     echo "⚠️  New commands detected. Doc surfaces needed:"
-    bash scripts/doc-coverage-check.sh --since HEAD 2>/dev/null || true
+    bash scripts/doc-coverage-check.sh --since origin/dev 2>/dev/null || true
     echo ""
     echo "Run /craft:docs:update --post-merge to fill gaps."
 fi

@@ -292,7 +292,7 @@ fi
 echo ""
 echo -e "${CYAN}[10/10] Doc coverage gate${NC}"
 
-DOC_COVERAGE_SCRIPT="$(dirname "$0")/doc-coverage-check.sh"
+DOC_COVERAGE_SCRIPT="$SCRIPT_DIR/doc-coverage-check.sh"
 if [[ -x "$DOC_COVERAGE_SCRIPT" ]]; then
     doc_exit=0
     bash "$DOC_COVERAGE_SCRIPT" || doc_exit=$?

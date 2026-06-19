@@ -5,7 +5,7 @@ ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Create temp directory for test files
 TMPDIR_TEST="$(mktemp -d)"
-trap 'rm -rf "$TMPDIR_TEST" "$ROOT/commands/test"' EXIT
+trap 'rm -rf "$TMPDIR_TEST" "$ROOT/commands/test" "$ROOT/commands/ci/_test_coverage_gap_"* "$ROOT/commands/ci/_prerelease_gap_"*' EXIT
 
 pass() { echo "PASS: $1"; }
 fail() { echo "FAIL: $1"; exit 1; }
