@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.42.0] — 2026-06-19
+
 ### Added
 
 - `/craft:code:fewer-prompts` — one-shot command that installs a curated read-only Bash allowlist
@@ -18,6 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `ls`, `find .`, `wc`, `head`, `tail`, and craft-specific read operations. Supports `--dry-run`,
   `--global` (writes to `~/.claude/settings.json`), and `--reset` (removes only craft-managed
   entries, leaving user entries untouched via `craft_allowlist` tracking key).
+
+### Fixed
+
+- **Stale link in CHANGELOG** — historical v2.41.1 entry used markdown link syntax referencing
+  `TUTORIAL-do.md` and `smart-routing-tutorial.md` as rendered links, causing `test_no_broken_links`
+  to flag them. Rewrote as plain text references.
 
 ## [2.41.1] — 2026-06-19
 
@@ -30,8 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Broken link in `TUTORIAL-smart-help.md`** — Corrected `[do command tutorial](TUTORIAL-do.md)`
-  to `[smart routing tutorial](smart-routing-tutorial.md)` (linked file was renamed in v2.30.0).
+- **Broken link in `TUTORIAL-smart-help.md`** — Corrected stale link from `TUTORIAL-do.md`
+  to `smart-routing-tutorial.md` (linked file was renamed in v2.30.0).
 
 ## [2.41.0] — 2026-06-19
 
