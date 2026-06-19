@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.41.1] — 2026-06-19
+
+### Added
+
+- **25 tutorial stub files** — Comprehensive tutorial coverage for all Phase 8 commands across
+  `/craft:check`, `/craft:code:*`, `/craft:ci:*`, `/craft:dist:*`, `/craft:docs:*`,
+  `/craft:git:*`, `/craft:plan:*`, `/craft:site:*`, `/craft:test:*`, and workflow commands.
+  Tutorial nav entries added to `mkdocs.yml` for full site integration.
+
+### Fixed
+
+- **Broken link in `TUTORIAL-smart-help.md`** — Corrected `[do command tutorial](TUTORIAL-do.md)`
+  to `[smart routing tutorial](smart-routing-tutorial.md)` (linked file was renamed in v2.30.0).
+
 ## [2.41.0] — 2026-06-19
 
 ### Added

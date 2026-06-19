@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.41.0 adds /craft:quota pre-flight token gate (SAFE/TIGHT/DEFER advisory), --engine flag for /craft:orchestrate (workflow|fanout), token instrumentation markers for cost accounting, parity-gate runbook (N=5 NO-FLIP result), and Lever B/C workflow-engine skills for prompt-trim and cache/routing."
+site_description: "Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.41.1 adds 25 tutorial stub files for comprehensive Phase 8 documentation coverage across all command categories, plus a broken-link fix in the smart-help tutorial."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft

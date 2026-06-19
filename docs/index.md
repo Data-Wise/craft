@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.41.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.41.1-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -219,8 +219,8 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **112** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.41.0 — Quota Gate + Engine Flag + Parity Runbook"
-    `/craft:quota` adds a pre-flight token quota gate with SAFE/TIGHT/DEFER advisory before expensive orchestrate runs. The new `--engine=workflow|fanout` flag on `/craft:orchestrate` lets you switch dispatch backends without changing other options. A parity-gate runbook (N=5, NO-FLIP result) documents the protocol for validating token-efficiency gains — workflow engine remains opt-in. See the [full changelog](CHANGELOG.md) for all releases.
+!!! info "Latest: v2.41.1 — Documentation Coverage"
+    25 tutorial stub files added for all Phase 8 commands, giving every command category a dedicated tutorial page with nav integration. A broken link in `TUTORIAL-smart-help.md` pointing to the renamed `TUTORIAL-do.md` was fixed. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
 
