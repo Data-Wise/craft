@@ -45,3 +45,20 @@ def test_per_agent_attribution():
     agents = otr.per_agent(d, "2026-06-17T10:00:00Z", "2026-06-17T10:30:00Z")
     assert "AAA" in agents
     assert agents["AAA"]["raw"]["input_tokens"] == 80
+
+def test_diff_reports_pct_reduction():
+    a = {"run": {"cost_weighted": 100.0}}
+    b = {"run": {"cost_weighted": 80.0}}
+    d = otr.diff_reports(a, b)
+    assert d["pct_reduction"] == 20.0
+
+def test_report_is_read_only(tmp_path, monkeypatch):
+    fake_home = tmp_path / "home"; (fake_home / ".claude").mkdir(parents=True)
+    before = set((fake_home / ".claude").rglob("*"))
+    m = tmp_path / "run.json"
+    m.write_text('{"run_id":"x","cwd":"/c","start_ts":null,"end_ts":null,"engine":"fanout"}')
+    try:
+        otr.build_report(str(m), str(fake_home))
+    except FileNotFoundError:
+        pass
+    assert set((fake_home / ".claude").rglob("*")) == before

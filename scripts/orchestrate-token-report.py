@@ -58,3 +58,47 @@ def aggregate(usages):
     return {"raw": raw,
             "cost_weighted": sum(cost_weighted(u) for u in usages),
             "cache_hit_ratio": ratio}
+
+import argparse, sys
+
+def build_report(marker_path, home):
+    m = load_marker(marker_path)
+    tdir = transcript_dir(m["cwd"], home)
+    session = sorted(glob.glob(os.path.join(tdir, "*.jsonl")))
+    session = [p for p in session if not os.path.basename(p).startswith("agent-")]
+    run_usages = []
+    for p in session:
+        run_usages += iter_usages(p, m.get("start_ts"), m.get("end_ts"))
+    return {"marker": m,
+            "run": aggregate(run_usages),
+            "agents": per_agent(tdir, m.get("start_ts"), m.get("end_ts"))}
+
+def diff_reports(a, b):
+    aw, bw = a["run"]["cost_weighted"], b["run"]["cost_weighted"]
+    return {"pct_reduction": (aw - bw) / aw * 100.0 if aw else 0.0}
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description="Read-only orchestrate token report.")
+    ap.add_argument("marker")
+    ap.add_argument("--against", help="second marker for A/B diff")
+    ap.add_argument("--json", action="store_true")
+    ap.add_argument("--home", default=os.path.expanduser("~"))
+    args = ap.parse_args(argv)
+    rep = build_report(args.marker, args.home)
+    if args.against:
+        rep["diff"] = diff_reports(rep, build_report(args.against, args.home))
+    if args.json:
+        print(json.dumps(rep, indent=2))
+    else:
+        r = rep["run"]
+        print(f"run {rep['marker'].get('run_id')} [{rep['marker'].get('engine')}]")
+        print(f"  cost-weighted: {r['cost_weighted']:.1f}  cache-hit: {r['cache_hit_ratio']:.2%}")
+        print(f"  raw: {r['raw']}")
+        for aid, a in rep["agents"].items():
+            print(f"  agent {aid}: cw={a['cost_weighted']:.1f}")
+        if "diff" in rep:
+            print(f"  pct_reduction (vs --against): {rep['diff']['pct_reduction']:.1f}%")
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())
