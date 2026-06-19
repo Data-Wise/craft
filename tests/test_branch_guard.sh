@@ -665,7 +665,7 @@ run_test \
     "$(json_bash "git push --force-with-lease origin dev" "$REPO_BASH")" \
     "$REPO_BASH"
 
-# git reset --hard on main -> BLOCK
+# git reset --hard on main -> CONFIRM (ask, exits 2 in non-interactive mode)
 switch_branch "$REPO_BASH" "main"
 
 run_test \
@@ -864,15 +864,17 @@ run_test \
 
 run_test \
     "test_git_checkout_discard_on_dev" \
-    2 \
+    0 \
     "$(json_bash "git checkout -- ." "$REPO_DESTR")" \
     "$REPO_DESTR"
+    # now allowed by branch-guard — no-switch-guard owns checkout-discard (ask)
 
 run_test \
     "test_git_restore_discard_on_dev" \
-    2 \
+    0 \
     "$(json_bash "git restore ." "$REPO_DESTR")" \
     "$REPO_DESTR"
+    # now allowed by branch-guard — no-switch-guard owns restore-discard (ask)
 
 # git restore --staged is safe (only unstages) -> ALLOW
 run_test \
@@ -1225,21 +1227,21 @@ echo -e "${T_BLUE}--- Broadened rm .git Detection ---${T_NC}"
 REPO_RM=$(init_repo)
 create_and_switch "$REPO_RM" "feature/rm-test"
 
-# rm -fr .git -> BLOCK (flag variant)
+# rm -fr .git -> CONFIRM (ask, exits 2 in non-interactive mode — was hard-block)
 run_test \
     "test_rm_fr_git_blocked" \
     2 \
     "$(json_bash "rm -fr .git" "$REPO_RM")" \
     "$REPO_RM"
 
-# rm -Rf .git -> BLOCK
+# rm -Rf .git -> CONFIRM (ask, exits 2 in non-interactive mode)
 run_test \
     "test_rm_Rf_git_blocked" \
     2 \
     "$(json_bash "rm -Rf .git" "$REPO_RM")" \
     "$REPO_RM"
 
-# rm -fR .git -> BLOCK
+# rm -fR .git -> CONFIRM (ask, exits 2 in non-interactive mode)
 run_test \
     "test_rm_fR_git_blocked" \
     2 \
