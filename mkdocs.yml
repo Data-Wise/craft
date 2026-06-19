@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 111 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.40.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1)."
+site_description: "Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.41.0 adds /craft:quota pre-flight token gate (SAFE/TIGHT/DEFER advisory), --engine flag for /craft:orchestrate (workflow|fanout), token instrumentation markers for cost accounting, parity-gate runbook (N=5 NO-FLIP result), and Lever B/C workflow-engine skills for prompt-trim and cache/routing."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft

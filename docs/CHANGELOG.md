@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.41.0] — 2026-06-19
+
 ### Added
 
 - **/craft:quota** — pre-flight quota gate with SAFE/TIGHT/DEFER advisory, stale-refusing (cache
