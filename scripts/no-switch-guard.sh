@@ -41,7 +41,8 @@ if command -v jq &>/dev/null && [[ -f "$_GUARD_REG" ]]; then
   [[ "$_guard_enabled" == "false" ]] && exit 0
   if [[ "$_guard_muted" != "null" && "$_guard_muted" != "" ]]; then
     _now=$(date -u +%s)
-    _until=$(date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$_guard_muted" +%s 2>/dev/null || echo 0)
+    # BSD date first, GNU `date -d` fallback (Linux/CI)
+    _until=$(date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$_guard_muted" +%s 2>/dev/null || date -u -d "$_guard_muted" +%s 2>/dev/null || echo 0)
     [[ "$_now" -lt "$_until" ]] && exit 0
   fi
 fi
@@ -77,10 +78,16 @@ switch_target() {
 GITPFX='(^|[^[:alnum:]_])git([[:space:]]+-[^[:space:]]+|[[:space:]]+-C[[:space:]]+[^[:space:]]+)*[[:space:]]+'
 
 # === 1. Destructive restore (data loss) — RED ============================
-# Excludes --staged (only unstages, doesn't discard working-tree changes)
-if printf '%s' "$cmd" | grep -Eq "${GITPFX}restore([[:space:]]|$)" \
-   && ! printf '%s' "$cmd" | grep -Eq "${GITPFX}restore[[:space:]]+--staged"; then
-  ask "Destructive restore detected (git restore / git checkout -- <file>) — this DISCARDS uncommitted changes. Approve only if you mean to throw that work away."
+# `git restore` discards working-tree changes UNLESS it's staged-only
+# (--staged/-S WITHOUT --worktree/-W). `git restore --staged --worktree` (or -SW, -W)
+# IS destructive and must still be gated.
+if printf '%s' "$cmd" | grep -Eq "${GITPFX}restore([[:space:]]|$)"; then
+  if printf '%s' "$cmd" | grep -Eq 'restore[[:space:]].*(--staged|[[:space:]]-S)' \
+     && ! printf '%s' "$cmd" | grep -Eq 'restore[[:space:]].*(--worktree|[[:space:]]-[A-Za-z]*W)'; then
+    : # staged-only restore — not destructive, allow
+  else
+    ask "Destructive restore detected (git restore discards working-tree changes). Approve only if you mean to throw that work away."
+  fi
 fi
 if printf '%s' "$cmd" | grep -Eq 'checkout[[:space:]]+--([[:space:]]|$)'; then
   ask "Destructive restore detected (git checkout -- <file>) — this DISCARDS uncommitted changes. Approve only if you mean to throw that work away."

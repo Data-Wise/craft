@@ -15,7 +15,7 @@ Validate that the craft guard suite is internally consistent: no duplicate PreTo
 
 | Check | What it verifies |
 |-------|-----------------|
-| **A: Duplicate matchers** | No PreToolUse matcher string appears more than once in `~/.claude/settings.json` |
+| **A: Duplicate registration** | No (matcher, hook-command) pair appears more than once in `~/.claude/settings.json` — two distinct guards sharing the `Bash` matcher is the intended install, not a duplicate |
 | **B: Duplicated rule coverage** | `branch-guard.sh` and `no-switch-guard.sh` do not both handle the same git operations |
 | **Guard state** | Surface any disabled or muted guards for situational awareness |
 
@@ -45,12 +45,14 @@ if [[ ! -f "$SETTINGS" ]]; then
   echo "⚠️  WARN: settings.json not found — skipping matcher check"
   CHECK_A="SKIP"
 else
-  # Extract all matchers from PreToolUse hooks
-  MATCHERS=$(jq -r '.hooks.PreToolUse[]?.matcher // empty' "$SETTINGS" 2>/dev/null)
-  DUPES=$(echo "$MATCHERS" | sort | uniq -d)
+  # Duplicate = the SAME hook command registered under the SAME matcher twice.
+  # Two DIFFERENT guards sharing the Bash matcher (branch-guard + no-switch-guard)
+  # is the intended install, NOT a duplicate — so key on (matcher, command) pairs.
+  PAIRS=$(jq -r '.hooks.PreToolUse[]? | .matcher as $m | (.hooks[]?.command // empty) | "\($m)\t\(.)"' "$SETTINGS" 2>/dev/null)
+  DUPES=$(echo "$PAIRS" | sort | uniq -d | sed 's/\t/ → /')
   if [[ -n "$DUPES" ]]; then
-    echo "❌ FAIL: Duplicate PreToolUse matchers found:"
-    echo "$DUPES" | while read -r m; do echo "  - '$m' registered more than once"; done
+    echo "❌ FAIL: Same hook registered more than once (matcher → command):"
+    echo "$DUPES" | while read -r m; do echo "  - $m"; done
     CHECK_A="FAIL"
   else
     echo "✅ PASS: No duplicate PreToolUse matchers"

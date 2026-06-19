@@ -364,6 +364,6 @@ After installation, run `/craft:git:guard status` to confirm both guards are act
 
 - [`/craft:git:unprotect`](../commands/git/unprotect.md) — session-scoped bypass for branch-guard
 - [Branch Guard Smart Mode](branch-guard-smart-mode.md) — smart-mode protection for `dev`/`draft` branches
-- [`/craft:guard-audit`](../skills/guard-audit/) — audit that guard coverage matches the taxonomy
+- `/craft:guard-audit` — audit that guard coverage matches the taxonomy
 - [Guard Suite Tutorial](../tutorials/TUTORIAL-guard-suite.md) — hands-on walkthrough
 - [Guard Suite Design](guard-design.md) — architecture decisions and hook internals

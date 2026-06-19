@@ -85,8 +85,8 @@ now_epoch=$(date -u +%s)
 for guard_name in $(jq -r '.guards | keys[]' "$GUARDS_JSON"); do
   muted_until=$(jq -r ".guards[\"$guard_name\"].muted_until // empty" "$GUARDS_JSON")
   if [[ -n "$muted_until" ]]; then
-    muted_epoch=$(date -j -f "%Y-%m-%dT%H:%M:%SZ" "$muted_until" +%s 2>/dev/null || \
-                  date -d "$muted_until" +%s 2>/dev/null)
+    muted_epoch=$(date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$muted_until" +%s 2>/dev/null || \
+                  date -u -d "$muted_until" +%s 2>/dev/null)
     if [[ -n "$muted_epoch" && "$now_epoch" -ge "$muted_epoch" ]]; then
       # Mute expired — clear it
       tmp=$(mktemp)
@@ -280,7 +280,7 @@ Running tests/test_branch_guard.sh...
   ✅ 23 assertions passed
 
 Running tests/test_no_switch_guard.sh...
-  ✅ 18 assertions passed
+  ✅ 26 assertions passed
 
 Guard tests: 2 passed, 0 failed, 0 missing
 ```
@@ -294,7 +294,7 @@ Resolve name from number if needed (1 = branch-guard, 2 = no-switch-guard, alpha
 ```bash
 # Set enabled: true, clear muted_until
 tmp=$(mktemp)
-jq ".guards[\"$GUARD_NAME\"].enabled = true | .guards[\"$GUARD_NAME\"].muted_until = null" \
+jq --arg name "$GUARD_NAME" '.guards[$name].enabled = true | .guards[$name].muted_until = null' \
   "$GUARDS_JSON" > "$tmp" && mv "$tmp" "$GUARDS_JSON"
 
 echo "✓ $GUARD_NAME enabled"
@@ -313,19 +313,17 @@ echo "✓ $GUARD_NAME enabled"
 **Default (no flags):** 30-min mute. Writes `muted_until = now + mute_window_min`.
 
 ```bash
-WINDOW=$(jq -r ".guards[\"$GUARD_NAME\"].mute_window_min // 30" "$GUARDS_JSON")
+WINDOW=$(jq -r --arg name "$GUARD_NAME" '.guards[$name].mute_window_min // 30' "$GUARDS_JSON")
 
-# BSD date (macOS):
-UNTIL=$(date -u -v +${WINDOW}M +"%Y-%m-%dT%H:%M:%SZ")
-# GNU date (Linux fallback):
-# UNTIL=$(date -u -d "+${WINDOW} minutes" +"%Y-%m-%dT%H:%M:%SZ")
+# Cross-platform UTC "now + WINDOW minutes" (BSD date first, GNU fallback)
+UNTIL=$(date -u -v +${WINDOW}M +"%Y-%m-%dT%H:%M:%SZ" 2>/dev/null || date -u -d "+${WINDOW} minutes" +"%Y-%m-%dT%H:%M:%SZ")
 
 tmp=$(mktemp)
-jq ".guards[\"$GUARD_NAME\"].muted_until = \"$UNTIL\"" \
+jq --arg name "$GUARD_NAME" --arg until "$UNTIL" '.guards[$name].muted_until = $until' \
   "$GUARDS_JSON" > "$tmp" && mv "$tmp" "$GUARDS_JSON"
 
 # Human-readable re-arm time (HH:MM UTC)
-REARM=$(date -u -v +${WINDOW}M +"%H:%M")
+REARM=$(date -u -v +${WINDOW}M +"%H:%M" 2>/dev/null || date -u -d "+${WINDOW} minutes" +"%H:%M")
 echo "⚠️  $GUARD_NAME muted for ${WINDOW} min (re-arms at ${REARM} UTC)"
 ```
 
@@ -333,7 +331,7 @@ echo "⚠️  $GUARD_NAME muted for ${WINDOW} min (re-arms at ${REARM} UTC)"
 
 ```bash
 tmp=$(mktemp)
-jq ".guards[\"$GUARD_NAME\"].enabled = false | .guards[\"$GUARD_NAME\"].muted_until = null" \
+jq --arg name "$GUARD_NAME" '.guards[$name].enabled = false | .guards[$name].muted_until = null' \
   "$GUARDS_JSON" > "$tmp" && mv "$tmp" "$GUARDS_JSON"
 
 echo "⛔ $GUARD_NAME permanently disabled (re-enable with: /craft:git:guard enable $GUARD_NAME)"
@@ -372,10 +370,10 @@ echo "🛡️  focus profile applied: all guards enabled"
 
 ```bash
 for name in $(jq -r '.guards | keys[]' "$GUARDS_JSON"); do
-  WINDOW=$(jq -r ".guards[\"$name\"].mute_window_min // 30" "$GUARDS_JSON")
-  UNTIL=$(date -u -v +${WINDOW}M +"%Y-%m-%dT%H:%M:%SZ")
+  WINDOW=$(jq -r --arg name "$name" '.guards[$name].mute_window_min // 30' "$GUARDS_JSON")
+  UNTIL=$(date -u -v +${WINDOW}M +"%Y-%m-%dT%H:%M:%SZ" 2>/dev/null || date -u -d "+${WINDOW} minutes" +"%Y-%m-%dT%H:%M:%SZ")
   tmp=$(mktemp)
-  jq ".guards[\"$name\"].muted_until = \"$UNTIL\"" \
+  jq --arg name "$name" --arg until "$UNTIL" '.guards[$name].muted_until = $until' \
     "$GUARDS_JSON" > "$tmp" && mv "$tmp" "$GUARDS_JSON"
 done
 ```

@@ -62,15 +62,25 @@ fi
 COMMAND="$(_json_get '.tool_input.command' "$INPUT")"
 
 # --- Registry: check if this guard is enabled/muted -----------------------
+# SAFETY: catastrophic ops (rm -rf .git, git branch -D) are NEVER muteable —
+# the registry gate must not bypass the universal catastrophic checks (8d).
 _GUARD_REG="${HOME}/.claude/guards.json"
 if command -v jq &>/dev/null && [[ -f "$_GUARD_REG" ]]; then
-  _guard_enabled=$(jq -r '.guards["branch-guard"].enabled' "$_GUARD_REG" 2>/dev/null || true)
-  _guard_muted=$(jq -r '.guards["branch-guard"].muted_until // "null"' "$_GUARD_REG" 2>/dev/null || echo "null")
-  [[ "$_guard_enabled" == "false" ]] && exit 0
-  if [[ "$_guard_muted" != "null" && "$_guard_muted" != "" ]]; then
-    _now=$(date -u +%s)
-    _until=$(date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$_guard_muted" +%s 2>/dev/null || echo 0)
-    [[ "$_now" -lt "$_until" ]] && exit 0
+  _bg_catastrophic=0
+  if echo "$COMMAND" | grep -qE 'rm[[:space:]]+-[rfRF]*[[:space:]]*((-[rfRF]+[[:space:]]+)*)\.git([[:space:]]|/|$)' \
+     || echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
+    _bg_catastrophic=1
+  fi
+  if [[ "$_bg_catastrophic" -eq 0 ]]; then
+    _guard_enabled=$(jq -r '.guards["branch-guard"].enabled' "$_GUARD_REG" 2>/dev/null || true)
+    _guard_muted=$(jq -r '.guards["branch-guard"].muted_until // "null"' "$_GUARD_REG" 2>/dev/null || echo "null")
+    [[ "$_guard_enabled" == "false" ]] && exit 0
+    if [[ "$_guard_muted" != "null" && "$_guard_muted" != "" ]]; then
+      _now=$(date -u +%s)
+      # BSD date first, GNU `date -d` fallback (Linux/CI)
+      _until=$(date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$_guard_muted" +%s 2>/dev/null || date -u -d "$_guard_muted" +%s 2>/dev/null || echo 0)
+      [[ "$_now" -lt "$_until" ]] && exit 0
+    fi
   fi
 fi
 # --------------------------------------------------------------------------
