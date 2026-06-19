@@ -30,6 +30,16 @@ def iter_usages(jsonl_path, start_ts, end_ts):
                 out.append(usage)
     return out
 
+import re
+
+def transcript_dir(cwd, home):
+    slug = re.sub(r"[/.]", "-", cwd)
+    return f"{home}/.claude/projects/{slug}"
+
+def load_marker(path):
+    with open(path) as f:
+        return json.load(f)
+
 def aggregate(usages):
     keys = ["input_tokens", "output_tokens",
             "cache_creation_input_tokens", "cache_read_input_tokens"]

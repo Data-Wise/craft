@@ -30,3 +30,12 @@ def test_aggregate_totals_and_cache_ratio():
     assert agg["raw"]["cache_read_input_tokens"] == 200
     assert round(agg["cache_hit_ratio"], 4) == round(200/1349, 4)
     assert agg["cost_weighted"] > 0
+
+def test_transcript_dir_slug():
+    assert otr.transcript_dir("/Users/dt/projects/dev-tools/craft", "/Users/dt") == \
+        "/Users/dt/.claude/projects/-Users-dt-projects-dev-tools-craft"
+
+def test_load_marker(tmp_path):
+    m = tmp_path / "run.json"
+    m.write_text('{"run_id":"x","cwd":"/c","start_ts":"a","end_ts":"b","engine":"fanout"}')
+    assert otr.load_marker(str(m))["engine"] == "fanout"
