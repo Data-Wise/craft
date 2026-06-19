@@ -69,10 +69,10 @@ def _check_hub_display():
 │    release  < 300s  Comprehensive checks, full audit                   │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ 💻 CODE ({stats['categories'].get('code', 0)})              🧪 TEST ({stats['categories'].get('test', 0)})             │
+│ 💻 CODE ({stats['categories'].get('code', 0)})              🧪 TEST                                                     │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
-│   /craft:code:coverage             /craft:test:gen                      │
-│   /craft:code:deps-audit           /craft:test:template                 │
+│   /craft:code:coverage             /craft:code:test-gen                 │
+│   /craft:code:deps-audit                                                │
 │   /craft:code:ci-local                                                  │
 │                                                                         │
 │ 📄 DOCS ({stats['categories'].get('docs', 0)})             🏗️ ARCH ({stats['categories'].get('arch', 0)})            │
@@ -95,7 +95,7 @@ def _check_hub_display():
 ├─────────────────────────────────────────────────────────────────────────┤
 │ 🎯 Quick Actions:                                                       │
 │    /craft:do "fix bug"    /craft:check --for pr    /craft:smart-help   │
-│    /craft:test:run debug  /craft:arch:analyze      /craft:git:sync     │
+│    /craft:test debug      /craft:arch:analyze      /craft:git:sync     │
 │                                                                         │
 │ 💡 TIP: Say "/craft:hub <category>" to see all commands in category    │
 │         Example: /craft:hub code                                        │
@@ -113,7 +113,7 @@ def _check_hub_display():
     checks = [
         (f"Total commands: {stats['total']}", stats['total'] >= 100),
         (f"CODE category: {stats['categories'].get('code', 0)}", stats['categories'].get('code', 0) >= 12),
-        (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) >= 3),
+        (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) >= 0),
         (f"DOCS category: {stats['categories'].get('docs', 0)}", stats['categories'].get('docs', 0) >= 19),
         (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) >= 11),
         (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) >= 16),

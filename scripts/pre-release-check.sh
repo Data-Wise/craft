@@ -287,6 +287,28 @@ else
 fi
 
 # --------------------------------------------------------------------------
+# Doc Coverage Gate (Step 13.4)
+# --------------------------------------------------------------------------
+echo ""
+echo -e "${CYAN}[10/10] Doc coverage gate${NC}"
+
+DOC_COVERAGE_SCRIPT="$SCRIPT_DIR/doc-coverage-check.sh"
+if [[ -x "$DOC_COVERAGE_SCRIPT" ]]; then
+    doc_exit=0
+    bash "$DOC_COVERAGE_SCRIPT" || doc_exit=$?
+    if [[ "$doc_exit" -ne 0 ]]; then
+        echo -e "${RED}  ✗ BLOCKING: Commands with missing REFCARD rows or nav entries.${NC}" >&2
+        echo -e "${YELLOW}    Run: bash scripts/doc-coverage-check.sh${NC}" >&2
+        echo -e "${YELLOW}    Fix gaps, then re-run pre-release-check.sh${NC}" >&2
+        ERRORS=$((ERRORS + 1))
+    else
+        echo -e "${GREEN}  ✓ Doc coverage: all commands documented${NC}"
+    fi
+else
+    echo -e "${YELLOW}  - doc-coverage-check.sh not found — skipping doc coverage gate${NC}"
+fi
+
+# --------------------------------------------------------------------------
 # Summary
 # --------------------------------------------------------------------------
 echo ""

@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.38.2 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1)."
+site_description: "Full-stack developer toolkit - 110 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.38.2 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1)."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -263,8 +263,6 @@ nav:
       - /craft:code:desktop-watch: commands/code/desktop-watch.md
       - /craft:code:sync-features: commands/code/sync-features.md
       - /craft:test: commands/test.md
-      - /craft:test:gen: commands/test/gen.md
-      - /craft:test:template: commands/test/template.md
       - /craft:git:branch: commands/git/branch.md
       - /craft:git:clean: commands/git/clean.md
       - /craft:git:status: commands/git/status.md
@@ -272,6 +270,27 @@ nav:
       - /craft:git:protect: commands/git/protect.md
       - /craft:git:protect-baseline: commands/git/protect-baseline.md
       - /craft:git:unprotect: commands/git/unprotect.md
+      - /craft:arch:diagram: commands/arch/diagram.md
+      - /craft:arch:plan: commands/arch/plan.md
+      - /craft:arch:review: commands/arch/review.md
+      - /craft:ci:detect: commands/ci/detect.md
+      - /craft:ci:triage: commands/ci/triage.md
+      - /craft:ci:validate: commands/ci/validate.md
+      - /craft:ci:watch: commands/ci/watch.md
+      - /craft:code:ci-fix: commands/code/ci-fix.md
+      - /craft:code:debug: commands/code/debug.md
+      - /craft:code:deps-check: commands/code/deps-check.md
+      - /craft:code:docs-check: commands/code/docs-check.md
+      - /craft:code:refactor: commands/code/refactor.md
+      - /craft:code:release: commands/code/release.md
+      - /craft:code:test-gen: commands/code/test-gen.md
+      - /craft:dist:homebrew: commands/dist/homebrew.md
+      - /craft:orchestrate:drive: commands/orchestrate/drive.md
+      - /craft:orchestrate:resume: commands/orchestrate/resume.md
+      - /craft:orchestrate:workflow: commands/orchestrate/workflow.md
+      - /craft:site:docs:frameworks: commands/site/docs/frameworks.md
+      - /craft:smart-help: commands/smart-help.md
+      - /craft:workflow:adhd-guide: commands/workflow/adhd-guide.md
 
   # 5. COOKBOOK & EXAMPLES - Use case driven recipes
   - 📚 Cookbook & Examples:

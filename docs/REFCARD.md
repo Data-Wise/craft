@@ -835,6 +835,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:code:deps-check` | ----- | Dependency health check     |
 | `/craft:code:deps-audit` | ----- | Security vulnerability scan |
 | `/craft:code:ci-local`   | ----- | Run CI checks locally       |
+| `/craft:code:ci-fix`     | ----- | Diagnose and fix CI failures |
 
 **Test Commands:**
 
@@ -1638,6 +1639,71 @@ Comprehensive guides and references:
 | **[Homebrew](reference/REFCARD-HOMEBREW.md)** | Homebrew distribution (108 lines) |
 
 **Total:** 17+ Mermaid diagrams, 6 comprehensive guides, 23 step-by-step tutorials, 14 quick reference cards
+
+## Additional Commands Quick Reference
+
+### Code Commands
+
+| Command | Description |
+| ------- | ----------- |
+| `/craft:code:command-audit` | Validate command frontmatter, find deprecated patterns, report health score |
+| `/craft:code:debug` | Systematic debugging support — error interpretation, root cause analysis, bug fixes |
+| `/craft:code:deps-check` | Check for outdated, missing, or unused dependencies |
+| `/craft:code:desktop-watch` | Track Claude Desktop releases and identify plugin integration opportunities |
+| `/craft:code:docs-check` | Documentation & website pre-flight check for any project |
+| `/craft:code:refactor` | Refactoring guidance — improve code structure without changing behavior |
+| `/craft:code:release` | Guide through the package/project release process |
+| `/craft:code:release-watch` | Track Claude Code + Desktop releases and identify plugin-relevant changes |
+| `/craft:code:test-gen` | Generate comprehensive test cases for code |
+
+### Documentation Commands
+
+| Command | Description |
+| ------- | ----------- |
+| `/craft:docs:api` | Generate OpenAPI 3.1 specifications and interactive documentation |
+| `/craft:docs:changelog` | Auto-update CHANGELOG.md based on git commits |
+| `/craft:docs:check-links` | Internal link validation for documentation |
+| `/craft:docs:demo` | Terminal recording & GIF generator with dependency management |
+| `/craft:docs:guide` | Orchestrated guide generator — complete feature docs with mermaid, GIFs, refcards |
+| `/craft:docs:help` | Generate comprehensive help documentation for commands |
+| `/craft:docs:prompt` | Generate reusable documentation maintenance prompts |
+| `/craft:docs:quickstart` | Generate a 5-minute quickstart guide for any project |
+| `/craft:docs:site` | Update all website-related docs and optionally deploy |
+| `/craft:docs:tutorial` | Create progressive, interactive tutorials with GIF demos and mermaid diagrams |
+| `/craft:docs:website` | ADHD-friendly website enhancement — analyze and improve documentation sites |
+| `/craft:docs:workflow` | Generate task-focused workflow documentation for multi-step processes |
+
+### Orchestrate Commands
+
+| Command | Description |
+| ------- | ----------- |
+| `/craft:orchestrate:drive` | Drive an approved SPEC to completion via the native /goal turn-loop with a verify gate |
+| `/craft:orchestrate:resume` | Resume orchestration sessions across devices using Claude Desktop session teleportation |
+| `/craft:orchestrate:workflow` | Execute a coded, fixed-control-flow workflow with schema-gated agents and cached replay |
+
+### Distribution Commands
+
+| Command | Description |
+| ------- | ----------- |
+| `/craft:dist:homebrew` | Complete Homebrew automation — formulas, casks, workflows, auditing, and dependency management |
+
+### Site Commands
+
+| Command | Description |
+| ------- | ----------- |
+| `/craft:site:docs:frameworks` | Documentation framework comparison — choose between MkDocs, Quarto, and pkgdown |
+
+### Smart Commands
+
+| Command | Description |
+| ------- | ----------- |
+| `/craft:smart-help` | Context-aware help that suggests relevant commands based on current situation |
+
+### Workflow Commands
+
+| Command | Description |
+| ------- | ----------- |
+| `/craft:workflow:adhd-guide` | ADHD-friendly workflow strategies for staying focused and productive |
 
 ## Links
 

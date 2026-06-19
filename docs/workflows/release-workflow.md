@@ -201,6 +201,27 @@ git tag v1.20.0
 git push --tags
 ```
 
+### Step 5.5: Post-Merge Docs Update (MANDATORY)
+
+After every merge to `dev`, run the post-merge docs update to catch newly shipped commands:
+
+```bash
+/craft:docs:update --post-merge --since-release
+```
+
+This auto-fixes:
+
+- Nav entries in mkdocs.yml
+- REFCARD rows (via refcard-gen.sh)
+- Version references
+
+It prompts for:
+
+- Tutorials (when new command has `arguments:`)
+- Changelog draft
+
+**Do not skip this step.** Doc debt caught here takes 5 minutes. Doc debt caught at release takes longer and blocks the pipeline.
+
 ### Step 6: Publish
 
 Publish to relevant registries.

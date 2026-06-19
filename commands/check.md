@@ -718,6 +718,7 @@ The `--for` flag adjusts which checks run based on what you're preparing for:
 | Instruction health | Counts only | Full check | Full check | Full + auto-fix |
 | Badge URLs | Skip | Skip | Validate both branches | Validate both branches |
 | Formula desc | Skip | Skip | Check counts match | Skip |
+| Doc surfaces | Advisory (new cmds) | Skip | Skip | Skip |
 
 When `--for` is specified, the Step 0 preview shows this context:
 
@@ -945,6 +946,32 @@ CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
 │ READY TO COMMIT                                    │
 ╰─────────────────────────────────────────────────────╯
 ```
+
+When staged files include new `commands/**/*.md` files, a non-blocking doc-surfaces advisory is shown below the commit-ready banner:
+
+```
+⚠️  New commands detected. Doc surfaces needed:
+  commands/foo/bar.md  ✗ guide  ✗ tutorial  ✓ api
+  (run /craft:docs:update --post-merge to fill gaps)
+```
+
+### Doc Surfaces Warning (non-blocking)
+
+When `--for commit` is active (or mode is default and staged files include `commands/**/*.md`):
+
+```bash
+# Detect new/modified command files in staging area
+new_cmds=$(git diff --cached --name-only --diff-filter=A -- 'commands/**/*.md' 2>/dev/null || true)
+if [[ -n "$new_cmds" ]]; then
+    echo ""
+    echo "⚠️  New commands detected. Doc surfaces needed:"
+    bash scripts/doc-coverage-check.sh --since origin/dev 2>/dev/null || true
+    echo ""
+    echo "Run /craft:docs:update --post-merge to fill gaps."
+fi
+```
+
+This check is **non-blocking** — it prints the checklist but never causes `/craft:check` to fail.
 
 ### Pre-PR (`--for pr`)
 

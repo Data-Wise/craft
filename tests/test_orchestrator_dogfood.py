@@ -81,7 +81,7 @@ def test_agent_types_match_craft_commands():
     # Expected craft command patterns
     craft_patterns = [
         "/craft:code:",
-        "/craft:test:",
+        "/craft:test",  # /craft:test (root test runner) and /craft:code:test-gen replaced /craft:test: category
         "/craft:docs:",
         "/craft:arch:",
         "/craft:plan:",
