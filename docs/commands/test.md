@@ -90,7 +90,6 @@ Replaces the old `/craft:test:run`, `/craft:test:coverage`, `/craft:test:debug`,
 
 ## See Also
 
-- [/craft:test:gen](test/gen.md) — Generate test suites
-- [/craft:test:template](test/template.md) — Manage test templates
+- [/craft:code:test-gen](code/test-gen.md) — Generate test suites
 - [/craft:check](check.md) — Pre-flight validation
 - [Test Commands Reference](../guide/test-commands.md) — Full reference

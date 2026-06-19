@@ -1260,7 +1260,7 @@ If the session disconnects mid-orchestration:
 |-----------|----------|
 | "test this" | `/craft:test` |
 | "check before commit" | `/craft:check` |
-| "add tests for X" | `/craft:test:gen` → `/craft:test` |
+| "add tests for X" | `/craft:code:test-gen` → `/craft:test` |
 | "review architecture" | `/craft:arch:analyze` |
 | "plan feature X" | `/craft:plan:feature` |
 | "document this" | `/craft:docs:sync` |
@@ -1394,7 +1394,7 @@ Orchestrator v2:
 |---|------|-------|----------|--------------|
 | 1 | Research patterns | /craft:arch:analyze | P0 | none |
 | 2 | Implement function | /craft:code:refactor | P0 | 1 |
-| 3 | Add unit tests | /craft:test:gen | P1 | 2 |
+| 3 | Add unit tests | /craft:code:test-gen | P1 | 2 |
 | 4 | Update documentation | /craft:docs:sync | P1 | 2 |
 
 ### Spawning Agents

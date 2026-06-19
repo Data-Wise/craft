@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Changed
+
+- **`post-release-sweep.sh --surfaces` now verifies the aggregator leg** — it passes
+  `--aggregator-file dist/data-wise-marketplace.json` to `verify-surfaces.sh` when present, so a
+  stale craft pin in the shipped aggregator copy blocks like any other craft-controlled surface.
+  Closes the one cross-surface gap the multi-surface releases had to bump manually each time.
+
 ## [2.38.2] — 2026-06-15
 
 ### Fixed

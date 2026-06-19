@@ -4,11 +4,11 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**112 commands** · **39 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**110 commands** · **39 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 > `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (6 commands)
 
-**Current Version:** v2.38.2 | **Tests:** 130 passing (23 unit + 23 e2e + 29 dogfood + 55 homebrew)
+**Current Version:** v2.39.0 | **Tests:** 130 passing (23 unit + 23 e2e + 29 dogfood + 55 homebrew)
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
@@ -29,9 +29,7 @@ feature/* (worktrees) ← All implementation work
 - **Never** write feature code on `dev`
 - **Always** verify branch: `git branch --show-current`
 
-### Branch Protection (Two Layers)
-
-**Local hook** (`branch-guard.sh`) — enforces table below before edits/writes leave this machine:
+### Branch Protection
 
 | Branch | Code Files | .md Files | Git Operations |
 |--------|-----------|-----------|----------------|
@@ -40,8 +38,6 @@ feature/* (worktrees) ← All implementation work
 | `feature/*` | ALLOWED | ALLOWED | All allowed |
 
 Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
-
-**GitHub-side** (`branch protection API`) — applied per-repo via `/craft:git:protect-baseline` (PR required, no force-push, no delete). Independent of local hook; `unprotect` does NOT remove it.
 
 ## Quick Commands
 

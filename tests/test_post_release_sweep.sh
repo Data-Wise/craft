@@ -305,6 +305,7 @@ run_integration_tests() {
     test_dry_run_no_modifications
     test_json_output_valid
     test_clean_sandbox_exits_zero
+    test_surfaces_wires_aggregator_leg
 }
 
 test_stale_version_detected() {
@@ -427,6 +428,33 @@ test_clean_sandbox_exits_zero() {
     output=$(cd "$SANDBOX" && bash "$SANDBOX/scripts/post-release-sweep.sh" --version 2.1.0 2>&1) || exit_code=$?
 
     assert_equals "0" "$exit_code" "Clean sandbox exits with code 0"
+
+    destroy_sandbox
+}
+
+test_surfaces_wires_aggregator_leg() {
+    log_test "SURFACES" "--surfaces evaluates the aggregator leg from dist/ and blocks on its drift"
+    create_sandbox
+    # verify-surfaces is spawned by the sweep — make it available in the sandbox.
+    cp "$PROJECT_ROOT/scripts/verify-surfaces.sh" "$SANDBOX/scripts/"
+    mkdir -p "$SANDBOX/dist"
+    # Aligned aggregator pin for the sandbox plugin (test-plugin @ 2.1.0).
+    echo '{ "metadata": { "version": "1.0.0" }, "plugins": [{ "name": "test-plugin", "version": "2.1.0" }] }' \
+        > "$SANDBOX/dist/data-wise-marketplace.json"
+
+    # Neutralize env-dependent legs (git tag / tap / brew / Code) so only the
+    # aggregator leg can drive the result.
+    local legs='SURFACES_GIT_TAG=v2.1.0 SURFACES_TAP_FORMULA= SURFACES_BREW_VERSION=2.1.0 SURFACES_INSTALLED_PLUGINS=/nonexistent'
+
+    # Stale the dist pin -> the aggregator leg must be evaluated AND block the
+    # sweep (proves the --aggregator-file wiring; the clean path prints no
+    # per-leg detail, so we assert on the blocking output which names the leg).
+    echo '{ "metadata": { "version": "1.0.0" }, "plugins": [{ "name": "test-plugin", "version": "9.9.9" }] }' \
+        > "$SANDBOX/dist/data-wise-marketplace.json"
+    local ec=0 out
+    out=$(cd "$SANDBOX" && env $legs bash scripts/post-release-sweep.sh --surfaces --version 2.1.0 2>&1) || ec=$?
+    ((TOTAL_TESTS++)); [ "$ec" != "0" ] && pass "Stale aggregator pin blocks the sweep" || fail "Stale aggregator pin blocks the sweep" "exit 0"
+    assert_contains "$out" "aggregator" "blocking output names the aggregator leg (wired via --aggregator-file)"
 
     destroy_sandbox
 }

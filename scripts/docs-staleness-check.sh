@@ -421,6 +421,29 @@ phase8_skill_agent_coverage() {
         done < <(find agents -name "*.md" 2>/dev/null | sort)
     fi
 
+    # --- Doc surface coverage (REFCARD + nav) ---
+    # Delegate to doc-coverage-check.sh for structured findings
+    local cov_script="${SCRIPT_DIR}/doc-coverage-check.sh"
+    if [[ -x "$cov_script" ]]; then
+        local cov_json
+        cov_json=$(bash "$cov_script" --json 2>/dev/null || true)
+        # Parse each finding from JSON and add_finding
+        while IFS= read -r line; do
+            [[ -z "$line" ]] && continue
+            local cmd surface severity_raw message
+            cmd=$(echo "$line" | sed 's/.*"cmd":"\([^"]*\)".*/\1/')
+            surface=$(echo "$line" | sed 's/.*"surface":"\([^"]*\)".*/\1/')
+            severity_raw=$(echo "$line" | sed 's/.*"severity":"\([^"]*\)".*/\1/')
+            message=$(echo "$line" | sed 's/.*"message":"\([^"]*\)".*/\1/')
+            # Map block→error, warn→warning for staleness check convention
+            local sev="warning"
+            [[ "$severity_raw" == "block" ]] && sev="error"
+            add_finding 8 "$sev" "commands/${cmd//:///}.md" \
+                "$message" "uncertain" "doc-coverage:${surface}:${cmd}"
+            issues=$((issues + 1))
+        done < <(echo "$cov_json" | grep '"cmd"' || true)
+    fi
+
     print_phase_status "$issues"
 }
 

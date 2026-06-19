@@ -1088,6 +1088,28 @@ echo "  brew upgrade --cask $TAP/$FORMULA_NAME"
 - SHA256 was overwritten by a conflicting push (hash mismatch)
 - `brew update` cache issues (stale version)
 
+### Step 13.4: Doc Coverage Gate (MANDATORY)
+
+Before sweeping for drift, verify all commands shipped in this release have their doc surfaces. This check is performed by `pre-release-check.sh` (Task 5 above already wired it in). If you skipped `pre-release-check.sh`, run manually:
+
+```bash
+bash scripts/doc-coverage-check.sh
+```
+
+**Blocking:** Missing REFCARD rows or mkdocs nav entries → fix before continuing.
+**Warning:** Missing tutorials (commands with `arguments:`) → add tutorial before next release but does not block.
+
+If gaps found, fix them:
+
+1. Add missing REFCARD rows: `bash scripts/refcard-gen.sh --category <cat>`  (copy rows to docs/REFCARD.md)
+2. Add missing nav entries to `mkdocs.yml`
+3. Re-run `bash scripts/doc-coverage-check.sh` until exit 0
+
+```bash
+git add docs/REFCARD.md mkdocs.yml
+git commit -m "docs: add doc surfaces for newly shipped commands"
+```
+
 ### Step 13.5: Post-Release Sweep (RECOMMENDED)
 
 After downstream verification passes, run the post-release sweep to catch Tier 2+ drift — secondary version references, stale counts, and content staleness that `bump-version.sh` doesn't manage.

@@ -21,7 +21,7 @@ VALID_FIELDS=(
     name category subcategory description file modes arguments flags
     tutorial tutorial_level tutorial_file related_commands tags
     project_types common_workflows time_budgets examples
-    deprecated replaced-by
+    deprecated replaced-by internal
 )
 
 SCAN_DIRS=("commands" "skills" "agents")
