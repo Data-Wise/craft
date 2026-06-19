@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 111 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.40.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.41.0 adds /craft:quota pre-flight token gate (SAFE/TIGHT/DEFER advisory), --engine flag for /craft:orchestrate (workflow|fanout), token instrumentation markers for cost accounting, parity-gate runbook (N=5 NO-FLIP result), and Lever B/C workflow-engine skills for prompt-trim and cache/routing.">
       
       
       
@@ -4193,6 +4193,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#craftquota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:quota
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#crafthelp" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5070,6 +5081,34 @@
     
   
     /craft:orchestrate:drive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="quota/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:quota
   
 
     
@@ -9725,7 +9764,7 @@
   <span class="md-ellipsis">
     
   
-    Specifications (Archive)
+    Runbooks
   
 
     
@@ -9738,6 +9777,92 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_18_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6_18">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Runbooks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runbooks/parity-gate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parity Gate Protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_19" id="__nav_6_19_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Specifications (Archive)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_19">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -10992,6 +11117,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#craftquota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:quota
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#crafthelp" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11712,7 +11848,7 @@
 <p>Complete reference for all 112 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.</p>
 <h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
 <p><strong>Smart Commands:</strong> <code>/craft:do</code>, <code>/craft:check</code>, <code>/craft:help</code>, <code>/craft:hub</code>
-<strong>Dry-Run Support:</strong> 27 of 111 commands support <code>--dry-run</code> / <code>-n</code> preview mode
+<strong>Dry-Run Support:</strong> 27 of 112 commands support <code>--dry-run</code> / <code>-n</code> preview mode
 <strong>Prompt Refinement:</strong> <code>--refine</code> on <code>/brainstorm</code>, <code>/craft:do</code>, <code>/craft:orchestrate</code>, <code>/craft:plan:feature</code>, <code>/craft:arch:plan</code> sharpens your prompt before the command acts (via the <code>prompt-refiner</code> skill).
 <strong>17 Categories:</strong> arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow</p>
 <p>Use <code>/craft:hub</code> to discover all available commands interactively.</p>
@@ -11751,67 +11887,75 @@
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>/craft:check<span class="w"> </span>--dry-run<span class="w">        </span><span class="c1"># Preview validation plan</span>
 </span></code></pre></div>
 <p><strong>Dry-run:</strong> Preview which checks will be performed without executing them.</p>
+<h3 id="craftquota">/craft:quota<a class="headerlink" href="#craftquota" title="Permanent link">&para;</a></h3>
+<p>Pre-flight token quota gate — reads <code>~/.claude/quota-cache.json</code> (stale after 900 s),
+estimates cost-weighted tokens for the planned run, and maps to a SAFE / TIGHT / DEFER advisory.
+Silently skips when the cache is absent or stale.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:quota<span class="w">                  </span><span class="c1"># Estimate for workflow engine (default)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:quota<span class="w"> </span>fanout<span class="w">           </span><span class="c1"># Estimate for fanout engine</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/craft:quota<span class="w"> </span>--json<span class="w">           </span><span class="c1"># Machine-readable JSON output</span>
+</span></code></pre></div>
 <h3 id="crafthelp">/craft:help<a class="headerlink" href="#crafthelp" title="Permanent link">&para;</a></h3>
 <p>Context-aware help and suggestions.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:help<span class="w">                   </span><span class="c1"># Project-specific suggestions</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:help<span class="w"> </span>testing<span class="w">           </span><span class="c1"># Deep dive into testing</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:help<span class="w">                   </span><span class="c1"># Project-specific suggestions</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:help<span class="w"> </span>testing<span class="w">           </span><span class="c1"># Deep dive into testing</span>
 </span></code></pre></div>
 <h3 id="craftcheckgen-validator">/craft:check:gen-validator<a class="headerlink" href="#craftcheckgen-validator" title="Permanent link">&para;</a></h3>
 <p>Generate a new custom validator template for <code>/craft:check</code>.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:check:gen-validator<span class="w"> </span><span class="s2">&quot;my-validator&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:check:gen-validator<span class="w"> </span><span class="s2">&quot;my-validator&quot;</span>
 </span></code></pre></div>
 <h2 id="architecture-commands-arch">Architecture Commands (arch/)<a class="headerlink" href="#architecture-commands-arch" title="Permanent link">&para;</a></h2>
 <h3 id="craftarchanalyze">/craft:arch:analyze<a class="headerlink" href="#craftarchanalyze" title="Permanent link">&para;</a></h3>
 <p>Analyze codebase architecture with mode support.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:arch:analyze
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:arch:analyze<span class="w"> </span>optimize<span class="w">   </span><span class="c1"># Performance analysis</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:arch:analyze
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:arch:analyze<span class="w"> </span>optimize<span class="w">   </span><span class="c1"># Performance analysis</span>
 </span></code></pre></div>
 <h2 id="cicd-commands-ci">CI/CD Commands (ci/)<a class="headerlink" href="#cicd-commands-ci" title="Permanent link">&para;</a></h2>
 <h3 id="craftdetect">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />detect<a class="headerlink" href="#craftdetect" title="Permanent link">&para;</a></h3>
 <p>Detect project type, build tools, and test frameworks.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:ci:detect
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:ci:detect
 </span></code></pre></div>
 <p><strong>Detects:</strong> Language, framework, build system, test runner, dependencies</p>
 <h3 id="craftgenerate">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />generate<a class="headerlink" href="#craftgenerate" title="Permanent link">&para;</a></h3>
 <p>Generate GitHub Actions workflow from project detection.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:ci:generate
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/craft:ci:generate<span class="w"> </span>--template<span class="w"> </span>node-typescript
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:ci:generate
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:ci:generate<span class="w"> </span>--template<span class="w"> </span>node-typescript
 </span></code></pre></div>
 <p><strong>Generates:</strong> .github/workflows/ci.yml with tests, linting, build steps</p>
 <h3 id="craftstatus">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />status<a class="headerlink" href="#craftstatus" title="Permanent link">&para;</a></h3>
 <p>Cross-repo CI status dashboard — see all workflow statuses in one view. Supports <code>--post-release</code> mode for downstream verification.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:ci:status
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:ci:status<span class="w"> </span>--json
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>/craft:ci:status<span class="w"> </span>--repo<span class="w"> </span>craft
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>/craft:ci:status<span class="w"> </span>--post-release
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:ci:status
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>/craft:ci:status<span class="w"> </span>--json
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>/craft:ci:status<span class="w"> </span>--repo<span class="w"> </span>craft
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>/craft:ci:status<span class="w"> </span>--post-release
 </span></code></pre></div>
 <p><strong>See:</strong> <a href="ci/status/">Command Reference</a></p>
 <h3 id="crafttriage">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />triage<a class="headerlink" href="#crafttriage" title="Permanent link">&para;</a></h3>
 <p>Triage a failing or stuck CI check — classify it as diff-caused, pre-existing, or an infra flake, and recommend <em>fix</em>, <em>re-run</em>, or <em><code>--admin</code></em> with <code>file:line</code> evidence.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:ci:triage
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>/craft:ci:triage<span class="w"> </span><span class="m">153</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>/craft:ci:triage<span class="w"> </span>--json
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:ci:triage
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:ci:triage<span class="w"> </span><span class="m">153</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>/craft:ci:triage<span class="w"> </span>--json
 </span></code></pre></div>
 <h3 id="craftwatch">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />watch<a class="headerlink" href="#craftwatch" title="Permanent link">&para;</a></h3>
 <p>Poll a CI run to completion, then route the next action — suggest a merge when green, or hand off to <code>/craft:ci:triage</code> when red. Supports <code>--bg</code> for a copy-paste background poll.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:ci:watch<span class="w"> </span><span class="m">154</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:ci:watch<span class="w"> </span>--bg
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>/craft:ci:watch<span class="w"> </span>--json
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:ci:watch<span class="w"> </span><span class="m">154</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>/craft:ci:watch<span class="w"> </span>--bg
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>/craft:ci:watch<span class="w"> </span>--json
 </span></code></pre></div>
 <h3 id="craftvalidate">/craft<img alt="🇨🇮" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e8-1f1ee.svg" title=":ci:" />validate<a class="headerlink" href="#craftvalidate" title="Permanent link">&para;</a></h3>
 <p>Validate existing CI workflow against project configuration.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:ci:validate
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:ci:validate
 </span></code></pre></div>
 <h2 id="code-quality-commands-code">Code Quality Commands (code/)<a class="headerlink" href="#code-quality-commands-code" title="Permanent link">&para;</a></h2>
 <h3 id="craftcodelint">/craft:code:lint<a class="headerlink" href="#craftcodelint" title="Permanent link">&para;</a></h3>
 <p>Code style and quality checks with mode support.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:code:lint<span class="w">              </span><span class="c1"># Quick check</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>/craft:code:lint<span class="w"> </span>debug<span class="w">        </span><span class="c1"># Verbose with suggestions</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>/craft:code:lint<span class="w">              </span><span class="c1"># Quick check</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>/craft:code:lint<span class="w"> </span>debug<span class="w">        </span><span class="c1"># Verbose with suggestions</span>
 </span></code></pre></div>
 <h2 id="distribution-commands-dist">Distribution Commands (dist/)<a class="headerlink" href="#distribution-commands-dist" title="Permanent link">&para;</a></h2>
 <h3 id="craftdistcurl-install">/craft:dist:curl-install<a class="headerlink" href="#craftdistcurl-install" title="Permanent link">&para;</a></h3>
 <p>Generate curl-based installation scripts for GitHub releases.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>/craft:dist:curl-install
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>/craft:dist:curl-install
 </span></code></pre></div>
 <p><strong>Generates:</strong> install.sh with release detection, platform support</p>
 <h2 id="documentation-commands-docs">Documentation Commands (docs/)<a class="headerlink" href="#documentation-commands-docs" title="Permanent link">&para;</a></h2>
@@ -11937,68 +12081,68 @@
 </tr>
 </tbody>
 </table>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>/craft:docs:update<span class="w">              </span><span class="c1"># Full-cycle doc generation</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>/craft:docs:lint<span class="w"> </span>--fix<span class="w">          </span><span class="c1"># Auto-fix markdown issues</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>/craft:docs:mermaid<span class="w"> </span><span class="s2">&quot;show the release pipeline&quot;</span><span class="w">  </span><span class="c1"># NL diagram</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>/craft:docs:check<span class="w">               </span><span class="c1"># Health check with auto-fix</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/craft:docs:update<span class="w">              </span><span class="c1"># Full-cycle doc generation</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>/craft:docs:lint<span class="w"> </span>--fix<span class="w">          </span><span class="c1"># Auto-fix markdown issues</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>/craft:docs:mermaid<span class="w"> </span><span class="s2">&quot;show the release pipeline&quot;</span><span class="w">  </span><span class="c1"># NL diagram</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>/craft:docs:check<span class="w">               </span><span class="c1"># Health check with auto-fix</span>
 </span></code></pre></div>
 <h2 id="git-commands-git">Git Commands (git/)<a class="headerlink" href="#git-commands-git" title="Permanent link">&para;</a></h2>
 <h3 id="craftgitworktree">/craft:git:worktree<a class="headerlink" href="#craftgitworktree" title="Permanent link">&para;</a></h3>
 <p>Git worktree management for parallel development.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/craft:git:worktree<span class="w"> </span>list
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>/craft:git:worktree<span class="w"> </span>add<span class="w"> </span>feature-branch
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>/craft:git:worktree<span class="w"> </span>remove<span class="w"> </span>feature-branch
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/craft:git:worktree<span class="w"> </span>list
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>/craft:git:worktree<span class="w"> </span>add<span class="w"> </span>feature-branch
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>/craft:git:worktree<span class="w"> </span>remove<span class="w"> </span>feature-branch
 </span></code></pre></div>
 <h3 id="craftgitclean">/craft:git:clean<a class="headerlink" href="#craftgitclean" title="Permanent link">&para;</a></h3>
 <p>Clean up merged branches safely.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/craft:git:clean<span class="w">              </span><span class="c1"># Interactive mode</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>/craft:git:clean<span class="w"> </span>--force<span class="w">      </span><span class="c1"># Auto-delete merged branches</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>/craft:git:clean<span class="w">              </span><span class="c1"># Interactive mode</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>/craft:git:clean<span class="w"> </span>--force<span class="w">      </span><span class="c1"># Auto-delete merged branches</span>
 </span></code></pre></div>
 <h3 id="craftgitprotect">/craft:git:protect<a class="headerlink" href="#craftgitprotect" title="Permanent link">&para;</a></h3>
 <p>Re-enable branch protection, configure levels, view status.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>/craft:git:protect<span class="w">              </span><span class="c1"># Re-enable protection</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>/craft:git:protect<span class="w"> </span>--show<span class="w">       </span><span class="c1"># Show current level + counters</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>/craft:git:protect<span class="w"> </span>--level<span class="w"> </span>smart<span class="w">  </span><span class="c1"># Set protection level</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>/craft:git:protect<span class="w"> </span>--reset<span class="w">      </span><span class="c1"># Reset session counters</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>/craft:git:protect<span class="w">              </span><span class="c1"># Re-enable protection</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>/craft:git:protect<span class="w"> </span>--show<span class="w">       </span><span class="c1"># Show current level + counters</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>/craft:git:protect<span class="w"> </span>--level<span class="w"> </span>smart<span class="w">  </span><span class="c1"># Set protection level</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>/craft:git:protect<span class="w"> </span>--reset<span class="w">      </span><span class="c1"># Reset session counters</span>
 </span></code></pre></div>
 <h3 id="craftgitunprotect">/craft:git:unprotect<a class="headerlink" href="#craftgitunprotect" title="Permanent link">&para;</a></h3>
 <p>Session-wide bypass for branch protection with reason logging.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>/craft:git:unprotect<span class="w">                 </span><span class="c1"># Interactive</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>/craft:git:unprotect<span class="w"> </span>merge-conflict<span class="w">  </span><span class="c1"># For merge conflicts</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>/craft:git:unprotect<span class="w"> </span>maintenance<span class="w">     </span><span class="c1"># For bulk maintenance</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:git:unprotect<span class="w">                 </span><span class="c1"># Interactive</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>/craft:git:unprotect<span class="w"> </span>merge-conflict<span class="w">  </span><span class="c1"># For merge conflicts</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>/craft:git:unprotect<span class="w"> </span>maintenance<span class="w">     </span><span class="c1"># For bulk maintenance</span>
 </span></code></pre></div>
 <h3 id="craftgitguard">/craft:git:guard<a class="headerlink" href="#craftgitguard" title="Permanent link">&para;</a></h3>
 <p>Manage the guard suite — view state, enable, disable, mute, and apply profiles.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>/craft:git:guard<span class="w"> </span>list<span class="w">                        </span><span class="c1"># Show all guards + state</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>/craft:git:guard<span class="w"> </span>status<span class="w">                      </span><span class="c1"># One-line guard health summary</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>/craft:git:guard<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>branch-guard<span class="w">         </span><span class="c1"># Re-enable a guard</span>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>/craft:git:guard<span class="w"> </span>disable<span class="w"> </span>no-switch-guard<span class="w">     </span><span class="c1"># Mute for 30 min (default)</span>
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>/craft:git:guard<span class="w"> </span>disable<span class="w"> </span>no-switch-guard<span class="w"> </span><span class="m">60</span><span class="w">  </span><span class="c1"># Mute for 60 min</span>
-</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>/craft:git:guard<span class="w"> </span>profile<span class="w"> </span>spec<span class="w">                </span><span class="c1"># branch-guard on, no-switch-guard muted</span>
-</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>/craft:git:guard<span class="w"> </span>profile<span class="w"> </span>yolo<span class="w">                </span><span class="c1"># All guards muted 30 min</span>
-</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>/craft:git:guard<span class="w"> </span>profile<span class="w"> </span>focus<span class="w">               </span><span class="c1"># All guards on</span>
-</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>/craft:git:guard<span class="w"> </span>explain<span class="w">                     </span><span class="c1"># Show harm taxonomy (GREEN/YELLOW/RED)</span>
-</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>/craft:git:guard<span class="w"> </span><span class="nb">test</span><span class="w">                        </span><span class="c1"># Run guard self-tests</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/craft:git:guard<span class="w"> </span>list<span class="w">                        </span><span class="c1"># Show all guards + state</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>/craft:git:guard<span class="w"> </span>status<span class="w">                      </span><span class="c1"># One-line guard health summary</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>/craft:git:guard<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>branch-guard<span class="w">         </span><span class="c1"># Re-enable a guard</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>/craft:git:guard<span class="w"> </span>disable<span class="w"> </span>no-switch-guard<span class="w">     </span><span class="c1"># Mute for 30 min (default)</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>/craft:git:guard<span class="w"> </span>disable<span class="w"> </span>no-switch-guard<span class="w"> </span><span class="m">60</span><span class="w">  </span><span class="c1"># Mute for 60 min</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>/craft:git:guard<span class="w"> </span>profile<span class="w"> </span>spec<span class="w">                </span><span class="c1"># branch-guard on, no-switch-guard muted</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>/craft:git:guard<span class="w"> </span>profile<span class="w"> </span>yolo<span class="w">                </span><span class="c1"># All guards muted 30 min</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>/craft:git:guard<span class="w"> </span>profile<span class="w"> </span>focus<span class="w">               </span><span class="c1"># All guards on</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>/craft:git:guard<span class="w"> </span>explain<span class="w">                     </span><span class="c1"># Show harm taxonomy (GREEN/YELLOW/RED)</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>/craft:git:guard<span class="w"> </span><span class="nb">test</span><span class="w">                        </span><span class="c1"># Run guard self-tests</span>
 </span></code></pre></div>
 <h3 id="craftgitprotect-baseline">/craft:git:protect-baseline<a class="headerlink" href="#craftgitprotect-baseline" title="Permanent link">&para;</a></h3>
 <p>Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/craft:git:protect-baseline<span class="w">                                   </span><span class="c1"># Current repo, default branch</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>/craft:git:protect-baseline<span class="w"> </span>--repo<span class="w"> </span>OWNER/REPO<span class="w">                 </span><span class="c1"># Explicit repo</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>/craft:git:protect-baseline<span class="w"> </span>--check<span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="w"> </span>--check<span class="w"> </span><span class="s2">&quot;lint&quot;</span><span class="w">     </span><span class="c1"># Add status checks (repeatable)</span>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>/craft:git:protect-baseline<span class="w"> </span>--strict<span class="w">                          </span><span class="c1"># Require up-to-date branches</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>/craft:git:protect-baseline<span class="w"> </span>--show<span class="w">                            </span><span class="c1"># Display current protection</span>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>/craft:git:protect-baseline<span class="w"> </span>--dry-run<span class="w">                         </span><span class="c1"># Preview payload, no API call</span>
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>/craft:git:protect-baseline<span class="w"> </span>--remove<span class="w">                          </span><span class="c1"># Remove protection</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>/craft:git:protect-baseline<span class="w">                                   </span><span class="c1"># Current repo, default branch</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>/craft:git:protect-baseline<span class="w"> </span>--repo<span class="w"> </span>OWNER/REPO<span class="w">                 </span><span class="c1"># Explicit repo</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>/craft:git:protect-baseline<span class="w"> </span>--check<span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="w"> </span>--check<span class="w"> </span><span class="s2">&quot;lint&quot;</span><span class="w">     </span><span class="c1"># Add status checks (repeatable)</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>/craft:git:protect-baseline<span class="w"> </span>--strict<span class="w">                          </span><span class="c1"># Require up-to-date branches</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>/craft:git:protect-baseline<span class="w"> </span>--show<span class="w">                            </span><span class="c1"># Display current protection</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>/craft:git:protect-baseline<span class="w"> </span>--dry-run<span class="w">                         </span><span class="c1"># Preview payload, no API call</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>/craft:git:protect-baseline<span class="w"> </span>--remove<span class="w">                          </span><span class="c1"># Remove protection</span>
 </span></code></pre></div>
 <h3 id="craftgitstatus">/craft:git:status<a class="headerlink" href="#craftgitstatus" title="Permanent link">&para;</a></h3>
 <p>Enhanced git status with branch guard indicator.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>/craft:git:status<span class="w">           </span><span class="c1"># Shows guard level + session info</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>/craft:git:status<span class="w"> </span>--verbose<span class="w"> </span><span class="c1"># Additional details</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>/craft:git:status<span class="w">           </span><span class="c1"># Shows guard level + session info</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>/craft:git:status<span class="w"> </span>--verbose<span class="w"> </span><span class="c1"># Additional details</span>
 </span></code></pre></div>
 <h3 id="craftgitgit-recap">/craft:git:git-recap<a class="headerlink" href="#craftgitgit-recap" title="Permanent link">&para;</a></h3>
 <p>Git activity summary — recent commits, branch status, and productivity insights.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>/craft:git:git-recap
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>/craft:git:git-recap<span class="w"> </span>--since<span class="w"> </span><span class="s2">&quot;3 days ago&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>/craft:git:git-recap
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>/craft:git:git-recap<span class="w"> </span>--since<span class="w"> </span><span class="s2">&quot;3 days ago&quot;</span>
 </span></code></pre></div>
 <h3 id="craftgitdocslearning-guide">/craft:git:docs:learning-guide<a class="headerlink" href="#craftgitdocslearning-guide" title="Permanent link">&para;</a></h3>
 <p>Interactive Git commands learning guide.</p>
@@ -12011,45 +12155,45 @@
 <h2 id="test-commands-test">Test Commands (test/)<a class="headerlink" href="#test-commands-test" title="Permanent link">&para;</a></h2>
 <h3 id="crafttest">/craft:test<a class="headerlink" href="#crafttest" title="Permanent link">&para;</a></h3>
 <p>Unified test runner with category filtering and modes.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>/craft:test<span class="w">                       </span><span class="c1"># Quick tests (default mode)</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>/craft:test<span class="w"> </span>unit<span class="w">                  </span><span class="c1"># Unit tests only</span>
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>/craft:test<span class="w"> </span>release<span class="w">               </span><span class="c1"># Full suite with coverage</span>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>/craft:test<span class="w"> </span>--coverage<span class="w">            </span><span class="c1"># Coverage report</span>
-</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>/craft:test<span class="w"> </span>--watch<span class="w">               </span><span class="c1"># Watch mode</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>/craft:test<span class="w">                       </span><span class="c1"># Quick tests (default mode)</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>/craft:test<span class="w"> </span>unit<span class="w">                  </span><span class="c1"># Unit tests only</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>/craft:test<span class="w"> </span>release<span class="w">               </span><span class="c1"># Full suite with coverage</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>/craft:test<span class="w"> </span>--coverage<span class="w">            </span><span class="c1"># Coverage report</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>/craft:test<span class="w"> </span>--watch<span class="w">               </span><span class="c1"># Watch mode</span>
 </span></code></pre></div>
 <h3 id="crafttestgen">/craft:test:gen<a class="headerlink" href="#crafttestgen" title="Permanent link">&para;</a></h3>
 <p>Generate test suites with project-type detection.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>/craft:test:gen<span class="w">                   </span><span class="c1"># Auto-detect and generate</span>
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>/craft:test:gen<span class="w"> </span>plugin<span class="w">            </span><span class="c1"># Force plugin type</span>
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>/craft:test:gen<span class="w"> </span>--tier<span class="w"> </span>unit<span class="w">       </span><span class="c1"># Unit tests only</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>/craft:test:gen<span class="w">                   </span><span class="c1"># Auto-detect and generate</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>/craft:test:gen<span class="w"> </span>plugin<span class="w">            </span><span class="c1"># Force plugin type</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>/craft:test:gen<span class="w"> </span>--tier<span class="w"> </span>unit<span class="w">       </span><span class="c1"># Unit tests only</span>
 </span></code></pre></div>
 <h3 id="crafttesttemplate">/craft:test:template<a class="headerlink" href="#crafttesttemplate" title="Permanent link">&para;</a></h3>
 <p>Manage Jinja2 templates for test generation.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>/craft:test:template<span class="w"> </span>list<span class="w">         </span><span class="c1"># List all templates</span>
-</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>/craft:test:template<span class="w"> </span>validate<span class="w">     </span><span class="c1"># Validate templates</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>/craft:test:template<span class="w"> </span>list<span class="w">         </span><span class="c1"># List all templates</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>/craft:test:template<span class="w"> </span>validate<span class="w">     </span><span class="c1"># Validate templates</span>
 </span></code></pre></div>
 <h2 id="workflow-commands-workflow">Workflow Commands (workflow/)<a class="headerlink" href="#workflow-commands-workflow" title="Permanent link">&para;</a></h2>
 <h3 id="craftworkflowadhd-guide">/craft:workflow:adhd-guide<a class="headerlink" href="#craftworkflowadhd-guide" title="Permanent link">&para;</a></h3>
 <p>ADHD-friendly workflow guide — structured approaches for maintaining focus.</p>
 <h3 id="craftworkflowrecap">/craft:workflow:recap<a class="headerlink" href="#craftworkflowrecap" title="Permanent link">&para;</a></h3>
 <p>Context restoration — summarize what happened in the current or previous session.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>/craft:workflow:recap
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>/craft:workflow:recap
 </span></code></pre></div>
 <h3 id="craftworkflowrefine">/craft:workflow:refine<a class="headerlink" href="#craftworkflowrefine" title="Permanent link">&para;</a></h3>
 <p>Prompt optimizer — improve and refine prompts interactively.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>/craft:workflow:refine<span class="w"> </span><span class="s2">&quot;my prompt text&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>/craft:workflow:refine<span class="w"> </span><span class="s2">&quot;my prompt text&quot;</span>
 </span></code></pre></div>
 <h3 id="craftworkflowtask-status">/craft:workflow:task-status<a class="headerlink" href="#craftworkflowtask-status" title="Permanent link">&para;</a></h3>
 <p>Show status of background tasks launched by the orchestrator.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>/craft:workflow:task-status
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>/craft:workflow:task-status
 </span></code></pre></div>
 <h3 id="craftworkflowtask-output">/craft:workflow:task-output<a class="headerlink" href="#craftworkflowtask-output" title="Permanent link">&para;</a></h3>
 <p>View results from completed background tasks.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>/craft:workflow:task-output<span class="w"> </span>&lt;task-id&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>/craft:workflow:task-output<span class="w"> </span>&lt;task-id&gt;
 </span></code></pre></div>
 <h3 id="craftworkflowtask-cancel">/craft:workflow:task-cancel<a class="headerlink" href="#craftworkflowtask-cancel" title="Permanent link">&para;</a></h3>
 <p>Cancel a running background task.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>/craft:workflow:task-cancel<span class="w"> </span>&lt;task-id&gt;
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>/craft:workflow:task-cancel<span class="w"> </span>&lt;task-id&gt;
 </span></code></pre></div>
 <h2 id="utility-commands-utils">Utility Commands (utils/)<a class="headerlink" href="#utility-commands-utils" title="Permanent link">&para;</a></h2>
 <h3 id="craftutilsreadme-teach-config">/craft:utils:readme-teach-config<a class="headerlink" href="#craftutilsreadme-teach-config" title="Permanent link">&para;</a></h3>
@@ -12093,9 +12237,9 @@
 </tbody>
 </table>
 <p><strong>Usage:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>/craft:code:lint<span class="w"> </span>debug
-</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>/craft:test<span class="w"> </span>release
-</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>/craft:arch:analyze<span class="w"> </span>optimize
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>/craft:code:lint<span class="w"> </span>debug
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>/craft:test<span class="w"> </span>release
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>/craft:arch:analyze<span class="w"> </span>optimize
 </span></code></pre></div>
 <h2 id="category-breakdown">Category Breakdown<a class="headerlink" href="#category-breakdown" title="Permanent link">&para;</a></h2>
 <ul>
@@ -12109,7 +12253,7 @@
 <li><strong>Test (3):</strong> run, cli-gen, cli-run</li>
 </ul>
 <h2 id="dry-run-commands">Dry-Run Commands<a class="headerlink" href="#dry-run-commands" title="Permanent link">&para;</a></h2>
-<p>27 of 111 commands support <code>--dry-run</code> / <code>-n</code> preview mode. <strong>Target exceeded:</strong> 57% of target commands vs 52% goal.</p>
+<p>27 of 112 commands support <code>--dry-run</code> / <code>-n</code> preview mode. <strong>Target exceeded:</strong> 57% of target commands vs 52% goal.</p>
 <h3 id="git-commands-66-100">Git Commands (6/6) — 100% ✅<a class="headerlink" href="#git-commands-66-100" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>git:branch</code> - Preview branch operations</li>
@@ -12162,9 +12306,9 @@
 <li><code>orchestrate</code> - Preview orchestration plan</li>
 </ul>
 <p><strong>Example usage:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>/craft:git:clean<span class="w"> </span>--dry-run<span class="w">           </span><span class="c1"># Preview branch cleanup</span>
-</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>/craft:code:lint<span class="w"> </span>release<span class="w"> </span>-n<span class="w">          </span><span class="c1"># Preview comprehensive linting</span>
-</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>/craft:dist:pypi<span class="w"> </span>publish<span class="w"> </span>--dry-run<span class="w">   </span><span class="c1"># Preview PyPI publish (CRITICAL)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>/craft:git:clean<span class="w"> </span>--dry-run<span class="w">           </span><span class="c1"># Preview branch cleanup</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>/craft:code:lint<span class="w"> </span>release<span class="w"> </span>-n<span class="w">          </span><span class="c1"># Preview comprehensive linting</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>/craft:dist:pypi<span class="w"> </span>publish<span class="w"> </span>--dry-run<span class="w">   </span><span class="c1"># Preview PyPI publish (CRITICAL)</span>
 </span></code></pre></div>
 <p>See <a href="https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUMMARY.md">DRY-RUN-SUMMARY.md</a> for complete details.</p>
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
