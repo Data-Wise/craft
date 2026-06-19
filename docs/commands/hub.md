@@ -160,7 +160,7 @@ Display template:
 │   /craft:docs:mermaid              /craft:ci:validate                  │
 │   /craft:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ GIT (14 incl. 4 guides)          WORKFLOW (13)                          │
+│ GIT (15 incl. 4 guides)          WORKFLOW (13)                          │
 │   /craft:git:worktree              /brainstorm [d|f|s] "topic"         │
 │   /craft:git:sync                  /workflow:focus                     │
 │   /craft:git:branch                /workflow:done                      │

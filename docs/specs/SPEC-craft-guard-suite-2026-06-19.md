@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | draft |
+| **Status** | approved |
 | **Created** | 2026-06-19 |
 | **Owner** | dt |
 | **From** | `~/.claude/PROPOSAL-guards-into-craft.md` + `PROPOSAL-guard-reconciliation.md` + `PROPOSAL-switch-guard-harm-taxonomy.md` (max-depth brainstorm, 2 agents) |
@@ -187,26 +187,35 @@ must pass. Generate with craft's own doc commands.
 - Run **`bump-version.sh`** (Tier-1 counts) then **`docs-staleness-check.sh --fix`** (Phase 6 nav +
   Phase 8 doc-coverage) to sweep counts and catch any missing index entries.
 
-## 9. Open questions
+## 9. Resolved decisions
 
-- **Q1.** Destructive-restore final owner + action: teach-confirm (branch-guard) or click-ask
-  (no-switch-guard)?
-- **Q2.** Does `no-switch-guard` get its own `install-*.sh` or fold into a generalized
-  `install-guards.sh`?
-- **Q3.** Is `harm-classify` worth it if only ~1-2 rules are genuinely shared today, or defer B
-  until a 3rd shared rule appears?
-- **Q4.** `/craft:git:guard` as new command (count cascade) vs. a flag on the existing git-workflow
-  skill `--show` (no new command)?
-- **Q5.** Enable/disable granularity: per-guard on/off only, or also per-RULE (e.g. disable just
-  `no-switch-guard`'s onto-main check)? And persistent (registry flag) vs `--session` (TTL marker)
-  vs both?
-- **Q6.** Registry location: `~/.claude/guards.json` (user-global) vs `.claude/guards.json`
-  (per-project, like `branch-guard.json`)? Per-project lets a repo opt a guard off without
-  affecting others.
-- **Q7.** Statusline chip (C1c.3): can claude-hud render a guard chip from `guards.json` (+ live
-  countdown), and does the terminal/statusline support click-to-toggle, or is the chip display-only
-  with toggling via command/in-prompt? Default assumption: display-only chip, toggle via #2/command.
-- **Q8.** Default mute window (30m?) and whether it's per-guard configurable in `guards.json`.
+- **Q1 (Default state on feature branches): Both guards enabled.** Minimum disruption; branch-guard
+  blocks dangerous main ops; no-switch-guard gates dirty switches — both needed on feature branches.
+
+- **Q2 (`cd` gate): `cd` is NOT gated.** cwd resets every call; verified already off in the
+  personal copy.
+
+- **Q3 (Two emit mechanisms): Preserved as-is.** Unifying would break platform-native UX;
+  branch-guard uses exit 2 + stderr; no-switch-guard uses `permissionDecision` JSON — different
+  contracts, different behaviors needed.
+
+- **Q4 (`harm-classify.sh` shared core): Deferred to Phase B.** Phase A ships working guards;
+  shared classification core is a Phase B enhancement.
+
+- **Q5 (`muted_until` format): `YYYY-MM-DDTHH:MM:%SZ` BSD date format.** macOS compat;
+  `date -u -j -f "%Y-%m-%dT%H:%M:%SZ"` for parsing,
+  `date -u -v +${WINDOW}M +"%Y-%m-%dT%H:%M:%SZ"` for generation.
+
+- **Q6 (`jq false // true` quirk): Read `enabled` without `// true` fallback.** Use
+  `jq -r '.guards["name"].enabled'` then check `== "false"` separately; `|| true` is on the jq
+  call (for `set -e`), not the field default.
+
+- **Q7 (`install-guards.sh` idempotency): Single `jq any(test("no-switch-guard"))` check** before
+  registering the Bash matcher; seeds `guards.json` on first install.
+
+- **Q8 (`--staged` exclusion): `git restore --staged` is GREEN.** Only unstages, doesn't discard
+  working-tree changes; bare `git restore` remains RED; implemented as two separate grep checks
+  with a `&& !` guard.
 
 ## 10. Review checklist
 
@@ -221,6 +230,7 @@ must pass. Generate with craft's own doc commands.
 
 ## 11. History
 
+- **2026-06-19** — Approved after implementation. All Q1–Q8 open questions resolved (see §9). Phase A shipped: no-switch-guard promoted, registry + toggle UX, `/craft:git:guard` command, guard-consistency validator, guard-audit skill extended. Phase B (harm-classify.sh) deferred.
 - 2026-06-19 — draft created from max-depth brainstorm (architecture critique + craft infra map agents).
 - 2026-06-19 — added C1 list/enable/disable + C1b registry; folded ADHD toggle UX into C1c (auto-expire,
   in-prompt mute, statusline chip, named profiles) from `PROPOSAL-guard-toggle-ux.md`; +Q5–Q8.

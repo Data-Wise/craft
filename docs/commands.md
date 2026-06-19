@@ -5,7 +5,7 @@ Complete reference for all 112 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 110 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 113 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement:** `--refine` on `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, `/craft:arch:plan` sharpens your prompt before the command acts (via the `prompt-refiner` skill).
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -259,6 +259,23 @@ Session-wide bypass for branch protection with reason logging.
 /craft:git:unprotect maintenance     # For bulk maintenance
 ```
 
+### /craft:git:guard
+
+Manage the guard suite — view state, enable, disable, mute, and apply profiles.
+
+```bash
+/craft:git:guard list                        # Show all guards + state
+/craft:git:guard status                      # One-line guard health summary
+/craft:git:guard enable branch-guard         # Re-enable a guard
+/craft:git:guard disable no-switch-guard     # Mute for 30 min (default)
+/craft:git:guard disable no-switch-guard 60  # Mute for 60 min
+/craft:git:guard profile spec                # branch-guard on, no-switch-guard muted
+/craft:git:guard profile yolo                # All guards muted 30 min
+/craft:git:guard profile focus               # All guards on
+/craft:git:guard explain                     # Show harm taxonomy (GREEN/YELLOW/RED)
+/craft:git:guard test                        # Run guard self-tests
+```
+
 ### /craft:git:protect-baseline
 
 Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo.
@@ -434,7 +451,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 110 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 113 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 

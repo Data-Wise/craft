@@ -855,7 +855,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 /craft:test release --coverage  # Full coverage analysis
 ```
 
-## Git Commands (10 commands)
+## Git Commands (11 commands)
 
 **Core Git Commands:**
 
@@ -871,6 +871,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:git:protect`          | Re-enable local hook (branch-guard) protection                               |
 | `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side protection (PR required, no force-push, no delete) |
 | `/craft:git:unprotect`        | Temporarily bypass local hook                                                |
+| `/craft:git:guard`            | Manage guard suite (list, enable, disable, mute, profile)                    |
 
 **Worktree Subcommands:**
 
@@ -1608,6 +1609,7 @@ Comprehensive guides and references:
 | **[Smart Routing](tutorials/smart-routing-tutorial.md)** | AI-powered task routing with `/craft:do` |
 | **[Worktree Setup](tutorials/TUTORIAL-worktree-setup.md)** | Beginner to intermediate worktree guide (795 lines) |
 | **[Branch Guard](tutorials/TUTORIAL-branch-guard-setup.md)** | Teaching-first branch protection in 5 minutes |
+| **[Guard Suite](tutorials/TUTORIAL-guard-suite.md)** | Two-guard system: registry, profiles, and harm-tier taxonomy |
 | **[Version Sync](tutorials/TUTORIAL-version-sync-setup.md)** | Three-layer version drift protection |
 | **[Testing Quickstart](tutorials/testing-quickstart.md)** | Unified test system — markers, generation, templates |
 | **[CLAUDE.md Workflows](tutorials/claude-md-workflows.md)** | Create, maintain, audit, and sync CLAUDE.md files |

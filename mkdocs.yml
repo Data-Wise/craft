@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 110 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.39.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1)."
+site_description: "Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.39.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1)."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -137,7 +137,10 @@ nav:
       - Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
       - Multi-Repo Workflow: guide/multi-repo-workflow.md
       - Branch Guard Smart Mode: guide/branch-guard-smart-mode.md
+      - Guard Suite Guide: guide/guard-suite.md
+      - Guard Suite Design: guide/guard-design.md
       - Branch Guard Setup Tutorial: tutorials/TUTORIAL-branch-guard-setup.md
+      - Guard Suite Tutorial: tutorials/TUTORIAL-guard-suite.md
       - Protect a New Repo Tutorial: tutorials/TUTORIAL-protect-new-repo.md
       - Claude-MD Workflows: tutorials/claude-md-workflows.md
       - Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
@@ -270,27 +273,7 @@ nav:
       - /craft:git:protect: commands/git/protect.md
       - /craft:git:protect-baseline: commands/git/protect-baseline.md
       - /craft:git:unprotect: commands/git/unprotect.md
-      - /craft:arch:diagram: commands/arch/diagram.md
-      - /craft:arch:plan: commands/arch/plan.md
-      - /craft:arch:review: commands/arch/review.md
-      - /craft:ci:detect: commands/ci/detect.md
-      - /craft:ci:triage: commands/ci/triage.md
-      - /craft:ci:validate: commands/ci/validate.md
-      - /craft:ci:watch: commands/ci/watch.md
-      - /craft:code:ci-fix: commands/code/ci-fix.md
-      - /craft:code:debug: commands/code/debug.md
-      - /craft:code:deps-check: commands/code/deps-check.md
-      - /craft:code:docs-check: commands/code/docs-check.md
-      - /craft:code:refactor: commands/code/refactor.md
-      - /craft:code:release: commands/code/release.md
-      - /craft:code:test-gen: commands/code/test-gen.md
-      - /craft:dist:homebrew: commands/dist/homebrew.md
-      - /craft:orchestrate:drive: commands/orchestrate/drive.md
-      - /craft:orchestrate:resume: commands/orchestrate/resume.md
-      - /craft:orchestrate:workflow: commands/orchestrate/workflow.md
-      - /craft:site:docs:frameworks: commands/site/docs/frameworks.md
-      - /craft:smart-help: commands/smart-help.md
-      - /craft:workflow:adhd-guide: commands/workflow/adhd-guide.md
+      - /craft:git:guard: commands/git/guard.md
 
   # 5. COOKBOOK & EXAMPLES - Use case driven recipes
   - 📚 Cookbook & Examples:

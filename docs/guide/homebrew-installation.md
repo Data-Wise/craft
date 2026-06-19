@@ -43,7 +43,7 @@ brew info craft
 /craft:hub
 ```
 
-You should see all 110 commands listed.
+You should see all 113 commands listed.
 
 ---
 
@@ -308,7 +308,7 @@ The same pattern applies to other Data-Wise plugins. All use Claude detection to
 
 | Plugin | Install Command | Commands |
 |--------|-----------------|----------|
-| **craft** | `brew install data-wise/tap/craft` | 110 commands |
+| **craft** | `brew install data-wise/tap/craft` | 113 commands |
 | **rforge** | `brew install data-wise/tap/rforge` | 15 commands |
 | **scholar** | `brew install data-wise/tap/scholar` | 21 commands |
 | **himalaya-mcp** | `brew install data-wise/tap/himalaya-mcp` | 7 email skills, 19 MCP tools |
