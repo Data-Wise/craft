@@ -22,6 +22,10 @@ arguments:
     description: Refine the prompt via the prompt-refiner skill before acting
     required: false
     default: false
+  - name: engine
+    description: "Override execution engine: workflow|fanout (default: fanout). When a WORKFLOW-*.yaml or ORCHESTRATE-*.md is derivable from the task, orchestrate auto-detects it and proposes --engine=workflow with confirm."
+    required: false
+    default: fanout
 ---
 
 # /craft:orchestrate — Launch Orchestrator Mode
@@ -190,6 +194,17 @@ Analyze the task and display a numbered plan. Do NOT spawn any agents yet.
 | 3 | ... | ... | 2 | 1 |
 ```
 
+### Engine Selection (--engine routing)
+
+When `--engine` is **not** specified:
+
+1. **Scan CWD** for files whose names match the task topic: `WORKFLOW-*.yaml`, `ORCHESTRATE-*.md`, `SPEC-*.md`.
+2. If a match is found, **auto-select `engine=workflow`** and surface a confirm gate (see Step 2 variant below) before proceeding.
+3. If no match is found, fall back to **`engine=fanout`** (fan-out subagent delegation — the default).
+4. An explicit `--engine` flag always overrides auto-detection.
+
+**Default stays `fanout`** until the parity gate passes — see `docs/runbooks/parity-gate.md`.
+
 ### Step 2: Confirm Before Execution
 
 After showing the plan, ALWAYS ask before spawning agents:
@@ -223,6 +238,28 @@ After showing the plan, ALWAYS ask before spawning agents:
 ```
 
 Only spawn agents after the user selects "Yes - Start Wave 1".
+
+**Variant — auto-detected workflow engine**: When a matching WORKFLOW/SPEC/ORCHESTRATE file was found in Step 1, replace the confirm question with:
+
+```json
+{
+  "questions": [{
+    "question": "Auto-detected WORKFLOW/SPEC: <filename>. Route to :workflow engine?",
+    "header": "Engine",
+    "multiSelect": false,
+    "options": [
+      {
+        "label": "Yes use :workflow (Recommended)",
+        "description": "Route to /craft:orchestrate:drive using the detected spec/workflow file."
+      },
+      {
+        "label": "No use fanout instead",
+        "description": "Ignore the detected file and proceed with standard fan-out subagent delegation."
+      }
+    ]
+  }]
+}
+```
 
 ### Steps 3-N: Execute with Progress
 
@@ -769,9 +806,36 @@ Works with all craft commands:
 | Slow parallel | Reduce to `default` mode |
 | Lost progress | Run `continue` to resume |
 
+## Token Instrumentation
+
+At run **START**: compute `run_id = <ISO8601-start>-<mode>` (e.g.
+`2026-06-19T14:03:00Z-default`). Create `.craft/orchestrate-runs/` if absent.
+Write `.craft/orchestrate-runs/<run-id>.json` with:
+
+```json
+{
+  "run_id": "<ISO8601-start>-<mode>",
+  "command": "orchestrate",
+  "mode": "<selected-mode>",
+  "engine": "fanout",
+  "agents": [],
+  "max_turns": <max-turns-for-mode>,
+  "cwd": "<absolute-cwd>",
+  "start_ts": "<ISO8601>",
+  "end_ts": null
+}
+```
+
+Update `agents` as each agent is spawned (append its label). At run **END**
+(completion, abort, or error) update `end_ts` with the ISO8601 finish time.
+
+These files are gitignored (`.craft/orchestrate-runs/`). They are consumed by
+`scripts/orchestrate-token-report.py` to attribute token usage per run.
+
 ## See Also
 
 - `/craft:orchestrate:drive` — spec-anchored /goal turn-loop (vs --swarm fan-out)
+- `/craft:quota` — Pre-flight quota check before heavy orchestrate runs
 - `/craft:do` — Simpler task routing (no monitoring)
 - `/craft:check` — Pre-flight validation
 - `/craft:hub` — Discover all commands

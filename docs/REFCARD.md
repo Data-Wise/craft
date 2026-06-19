@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.40.0 (released 2026-06-03)                       │
+│  Version: 2.41.0 (released 2026-06-03)                       │
 │  Commands: 109 | Agents: 8 | Skills: 38                     │
 │  Documentation: 99% complete | Tests: 1638 passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.40.0: Spec-Driven Drive + --refine flag                  │
+│  v2.41.0: Quota Gate + --engine Flag + Parity Runbook        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -116,6 +116,30 @@
 - ✅ In CI/CD pipelines (use `/craft:code:ci-local` or `/craft:check --for release`)
 
 **See:** [REFCARD-CHECK.md](reference/REFCARD-CHECK.md) for complete reference
+
+### /craft:quota
+
+**Purpose:** Pre-flight token quota gate — reads cached rate_limits, estimates
+cost-weighted tokens for the planned run, maps to SAFE / TIGHT / DEFER advisory.
+Silently skips when `~/.claude/quota-cache.json` is absent or stale (>900 s).
+
+**Examples:**
+
+```bash
+/craft:quota                  # Estimate for workflow engine (default)
+/craft:quota fanout           # Estimate for fanout engine
+/craft:quota --json           # Machine-readable JSON output
+```
+
+**Advisories:**
+
+| Status | Meaning | five_hour_pct |
+|--------|---------|---------------|
+| SAFE   | Proceed | < 60 % |
+| TIGHT  | Consider deferring large runs | 60–84 % |
+| DEFER  | Quota critically low — defer if possible | ≥ 85 % |
+
+**Related:** `/craft:check` (integrates quota advisory), `/craft:orchestrate`
 
 ### /craft:help
 
@@ -1510,7 +1534,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.40.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.41.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary

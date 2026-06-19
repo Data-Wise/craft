@@ -191,6 +191,7 @@ IDX
     # Create mock docs/REFCARD.md
     cat > "$SANDBOX/docs/REFCARD.md" <<'REF'
 # Quick Reference
+## Skills (1 total)
 ```
 Version: 2.1.0 (released 2026-01-01)
 v2.1.0: Test release

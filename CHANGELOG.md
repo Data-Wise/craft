@@ -11,6 +11,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.41.0] — 2026-06-19
+
+### Added
+
+- **/craft:quota** — pre-flight quota gate with SAFE/TIGHT/DEFER advisory, stale-refusing (cache
+  expires after 900 s); silently skips when `~/.claude/quota-cache.json` is absent or stale.
+- **Token instrumentation** — `orchestrate` and `orchestrate:workflow` emit run markers to `.craft/`
+  for downstream quota and cost accounting.
+- **`--engine` flag** — `/craft:orchestrate` supports `--engine=workflow|fanout` (default: fanout)
+  to select the dispatch backend without changing other options.
+- **Parity gate runbook** — `docs/runbooks/parity-gate.md` N=5 paired estimation protocol for
+  validating token-efficiency gains without confounding prompt drift.
+- **Lever B prompt-trim** — workflow-engine skill: spec-slice + summarized priors +
+  structured-return cuts per-step prompt weight.
+- **Lever C cache/routing** — workflow-engine skill: byte-stable tool definitions, 5-min cache
+  batching, Haiku routing for cheap stages.
+- **/craft:check quota validator** — opt-in quota pre-flight appended after all mandatory checks;
+  silently skips when cache absent or stale; advisory only, never blocks.
+
+### Notes
+
+- **Parity gate — `--engine=workflow` vs `--engine=fanout` (2026-06-19, N=5, NO-FLIP)** —
+  Five in-session paired measurements on the `/craft:quota` audit reference task (cost-weighted
+  metric: input×1.0 + output×5.0 + cache_creation×1.25 + cache_read×0.1). Alternating order
+  (pairs 1,3,5 = fanout-first; 2,4 = workflow-first). Result: mean reduction = 0.9%,
+  95% CI [−42.2%, +44.0%], Cohen's d_n = 0.03, Surprisal S = 0.1 bits. Dominant confound:
+  ordering effect — whichever engine runs second in a pair pays a ~20–50% context-accumulation
+  penalty, overwhelming the true engine signal. CI lower bound (−42.2%) does not clear the 15%
+  materiality floor. **Decision: NO-FLIP — `--engine=fanout` remains the default.**
+  Re-run with fresh-session pairs or with Lever B prompt-trim to resolve the ordering confound.
+
 ## [2.40.0] — 2026-06-19
 
 ### Added

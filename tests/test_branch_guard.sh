@@ -29,7 +29,9 @@ set -uo pipefail
 # Configuration
 # ============================================================================
 
-HOOK_SCRIPT="$HOME/.claude/hooks/branch-guard.sh"
+# Defaults to the INSTALLED hook (CI installs the PR hook first); override with
+# HOOK_SCRIPT=<abs path>/scripts/branch-guard.sh to test the repo copy directly.
+HOOK_SCRIPT="${HOOK_SCRIPT:-$HOME/.claude/hooks/branch-guard.sh}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Color output
@@ -931,6 +933,46 @@ run_test \
     0 \
     "$(json_bash "git branch -d merged-branch" "$REPO_DESTR")" \
     "$REPO_DESTR"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 12b: Registry cannot bypass catastrophic ops (v2.40.0 — review #1)
+# Disabling/muting branch-guard must NOT bypass rm -rf .git or git branch -D.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Registry: catastrophic ops stay gated ---${T_NC}"
+
+# run_test_home: like run_test but with a custom HOME so the guard reads a fake
+# guards.json instead of the real ~/.claude/guards.json (never touches it).
+run_test_home() {
+    local name="$1" expected_exit="$2" json="$3" cwd="$4" home="$5"
+    TOTAL=$((TOTAL + 1))
+    local actual_exit=0
+    echo "$json" | (cd "$cwd" && HOME="$home" bash "$HOOK_SCRIPT") >/dev/null 2>&1 || actual_exit=$?
+    if [[ "$actual_exit" -eq "$expected_exit" ]]; then
+        PASS=$((PASS + 1)); echo -e "  ${T_GREEN}PASS${T_NC}  $name  ${T_BOLD}(exit=$actual_exit)${T_NC}"
+    else
+        FAIL=$((FAIL + 1)); FAILED_NAMES+=("$name")
+        echo -e "  ${T_RED}FAIL${T_NC}  $name  ${T_BOLD}(expected=$expected_exit, got=$actual_exit)${T_NC}"
+    fi
+}
+
+REPO_CAT=$(init_repo)
+FAKE_HOME_OFF=$(make_tmpdir); mkdir -p "$FAKE_HOME_OFF/.claude"
+printf '{"guards":{"branch-guard":{"enabled":false}}}\n' > "$FAKE_HOME_OFF/.claude/guards.json"
+
+# rm -rf .git with branch-guard DISABLED -> STILL gated (catastrophic, non-muteable)
+run_test_home "test_rm_rf_git_gated_even_when_disabled" 2 \
+    "$(json_bash "rm -rf .git" "$REPO_CAT")" "$REPO_CAT" "$FAKE_HOME_OFF"
+
+# git branch -D with branch-guard DISABLED -> STILL gated (catastrophic)
+run_test_home "test_branch_D_gated_even_when_disabled" 2 \
+    "$(json_bash "git branch -D x" "$REPO_CAT")" "$REPO_CAT" "$FAKE_HOME_OFF"
+
+# Sanity: a NON-catastrophic op (reset --hard) IS bypassed when disabled -> exit 0
+run_test_home "test_reset_hard_bypassed_when_disabled" 0 \
+    "$(json_bash "git reset --hard HEAD" "$REPO_CAT")" "$REPO_CAT" "$FAKE_HOME_OFF"
 
 echo ""
 

@@ -5,7 +5,7 @@ Complete reference for all 112 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 111 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 112 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement:** `--refine` on `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, `/craft:arch:plan` sharpens your prompt before the command acts (via the `prompt-refiner` skill).
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -65,6 +65,18 @@ Pre-flight validation for commits, PRs, and releases.
 ```
 
 **Dry-run:** Preview which checks will be performed without executing them.
+
+### /craft:quota
+
+Pre-flight token quota gate — reads `~/.claude/quota-cache.json` (stale after 900 s),
+estimates cost-weighted tokens for the planned run, and maps to a SAFE / TIGHT / DEFER advisory.
+Silently skips when the cache is absent or stale.
+
+```bash
+/craft:quota                  # Estimate for workflow engine (default)
+/craft:quota fanout           # Estimate for fanout engine
+/craft:quota --json           # Machine-readable JSON output
+```
 
 ### /craft:help
 
@@ -451,7 +463,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 111 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 112 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 

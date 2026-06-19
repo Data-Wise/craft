@@ -44,3 +44,6 @@ node_modules/
 
 # Workflow-engine run cache (per-run agent outputs, manifest, semaphore)
 .craft/workflow-runs/
+.craft/orchestrate-runs/
+.craft/quota.json
+.craft/parity-gate-results/
