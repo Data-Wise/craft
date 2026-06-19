@@ -18,6 +18,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
 | `feature/doc-coverage-enforcement` | `~/.git-worktrees/craft/feature-doc-coverage` | dev | **🔄 WIP/ACTIVE** Doc coverage enforcement: `doc-coverage-check.sh`, REFCARD auto-gen, Phase 8 extension, pre-release gate, `/craft:check` warning, Step 13.4. Plan: `docs/superpowers/plans/2026-06-18-doc-coverage-enforcement.md` (8 TDD tasks, Task 1 next). — created 2026-06-18 |
+| `feature/guard-suite` | `~/.git-worktrees/craft/feature-guard-suite` | dev | **🆕 PLAN-COMMITTED** Guard suite: promote no-switch-guard into craft, reconcile destructive-restore, delete→ask, `/craft:git:guard` list/enable/disable + `guards.json` registry + ADHD toggle UX, guard-consistency validator, guard-audit ext, docs. Plan: `ORCHESTRATE-guard-suite.md` (in worktree) + spec `docs/specs/SPEC-craft-guard-suite-2026-06-19.md`. Phase B deferred. **Needs fresh session in worktree to implement.** — created 2026-06-19 |
 
 > **🎯 Next Action (next session):**
 > A) **Scheduled cloud routine fires Mon Jun 22 09:00 MDT** (`trig_017orFX3wJv4QborUvFGtvHS`, https://claude.ai/code/routines/trig_017orFX3wJv4QborUvFGtvHS) → opens a PR to `dev` with the token parser + quota estimator/persister (Phase 0 Tasks 1-6 + Phase Q Tasks 13-14). **Review that PR when it lands.** ⚡
