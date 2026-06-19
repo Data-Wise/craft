@@ -769,6 +769,32 @@ Works with all craft commands:
 | Slow parallel | Reduce to `default` mode |
 | Lost progress | Run `continue` to resume |
 
+## Token Instrumentation
+
+At run **START**: compute `run_id = <ISO8601-start>-<mode>` (e.g.
+`2026-06-19T14:03:00Z-default`). Create `.craft/orchestrate-runs/` if absent.
+Write `.craft/orchestrate-runs/<run-id>.json` with:
+
+```json
+{
+  "run_id": "<ISO8601-start>-<mode>",
+  "command": "orchestrate",
+  "mode": "<selected-mode>",
+  "engine": "fanout",
+  "agents": [],
+  "max_turns": <max-turns-for-mode>,
+  "cwd": "<absolute-cwd>",
+  "start_ts": "<ISO8601>",
+  "end_ts": null
+}
+```
+
+Update `agents` as each agent is spawned (append its label). At run **END**
+(completion, abort, or error) update `end_ts` with the ISO8601 finish time.
+
+These files are gitignored (`.craft/orchestrate-runs/`). They are consumed by
+`scripts/orchestrate-token-report.py` to attribute token usage per run.
+
 ## See Also
 
 - `/craft:orchestrate:drive` — spec-anchored /goal turn-loop (vs --swarm fan-out)
