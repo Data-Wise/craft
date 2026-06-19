@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.38.2 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 110 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.39.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -5257,62 +5257,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/test/gen/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:test:gen
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../commands/test/template/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:test:template
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../commands/git/branch/" class="md-nav__link">
         
   
@@ -5489,6 +5433,594 @@
     
   
     /craft:git:unprotect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/arch/diagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:arch:diagram
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/arch/plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:arch:plan
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/arch/review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:arch:review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/ci/detect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:detect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/ci/triage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:triage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/ci/validate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:validate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/ci/watch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:ci:watch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/code/ci-fix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:code:ci-fix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/code/debug/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:code:debug
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/code/deps-check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:code:deps-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/code/docs-check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:code:docs-check
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/code/refactor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:code:refactor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/code/release/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:code:release
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/code/test-gen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:code:test-gen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/dist/homebrew/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:dist:homebrew
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/orchestrate/drive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:orchestrate:drive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/orchestrate/resume/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:orchestrate:resume
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/orchestrate/workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:orchestrate:workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/site/docs/frameworks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:site:docs:frameworks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/smart-help/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:smart-help
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/workflow/adhd-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:workflow:adhd-guide
   
 
     
@@ -9947,6 +10479,100 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#additional-commands-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Commands Quick Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Commands Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orchestrate-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrate Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#site-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Site Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smart-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smart Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#links" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10458,6 +11084,100 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#additional-commands-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional Commands Quick Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Commands Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orchestrate-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orchestrate Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#site-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Site Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smart-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smart Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#links" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10497,11 +11217,11 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  CRAFT PLUGIN QUICK REFERENCE                               │
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.38.2 (released 2026-06-03)                       │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.39.0 (released 2026-06-03)                       │
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 109 | Agents: 8 | Skills: 38                     │
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Documentation: 99% complete | Tests: 1638 passing           │
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  Docs: https://data-wise.github.io/craft/                   │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.38.2: Spec-Driven Drive + --refine flag                  │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.39.0: Spec-Driven Drive + --refine flag                  │
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>└─────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permanent link">&para;</a></h2>
@@ -11421,6 +12141,11 @@
 <td>-----</td>
 <td>Run CI checks locally</td>
 </tr>
+<tr>
+<td><code>/craft:code:ci-fix</code></td>
+<td>-----</td>
+<td>Diagnose and fix CI failures</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Test Commands:</strong></p>
@@ -12290,7 +13015,7 @@
 </span><span id="__span-44-21"><a id="__codelineno-44-21" name="__codelineno-44-21" href="#__codelineno-44-21"></a><span class="c1"># NEW in v2.22.0: Doc drift detection</span>
 </span><span id="__span-44-22"><a id="__codelineno-44-22" name="__codelineno-44-22" href="#__codelineno-44-22"></a><span class="c1">#   Cross-references changed files against docs</span>
 </span><span id="__span-44-23"><a id="__codelineno-44-23" name="__codelineno-44-23" href="#__codelineno-44-23"></a><span class="c1">#   Offers to run /craft:docs:sync if drift found</span>
-</span><span id="__span-44-24"><a id="__codelineno-44-24" name="__codelineno-44-24" href="#__codelineno-44-24"></a><span class="c1"># NEW in v2.38.2: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
+</span><span id="__span-44-24"><a id="__codelineno-44-24" name="__codelineno-44-24" href="#__codelineno-44-24"></a><span class="c1"># NEW in v2.39.0: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
 </span><span id="__span-44-25"><a id="__codelineno-44-25" name="__codelineno-44-25" href="#__codelineno-44-25"></a><span class="c1">#   Option A auto-commits + pushes (skip on main, never force-push)</span>
 </span><span id="__span-44-26"><a id="__codelineno-44-26" name="__codelineno-44-26" href="#__codelineno-44-26"></a><span class="c1">#   CLAUDE.md counts synced silently before commit</span>
 </span><span id="__span-44-27"><a id="__codelineno-44-27" name="__codelineno-44-27" href="#__codelineno-44-27"></a><span class="c1">#   Worktree branch ahead/behind shown in summary</span>
@@ -12692,6 +13417,196 @@
 </tbody>
 </table>
 <p><strong>Total:</strong> 17+ Mermaid diagrams, 6 comprehensive guides, 23 step-by-step tutorials, 14 quick reference cards</p>
+<h2 id="additional-commands-quick-reference">Additional Commands Quick Reference<a class="headerlink" href="#additional-commands-quick-reference" title="Permanent link">&para;</a></h2>
+<h3 id="code-commands">Code Commands<a class="headerlink" href="#code-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:code:command-audit</code></td>
+<td>Validate command frontmatter, find deprecated patterns, report health score</td>
+</tr>
+<tr>
+<td><code>/craft:code:debug</code></td>
+<td>Systematic debugging support — error interpretation, root cause analysis, bug fixes</td>
+</tr>
+<tr>
+<td><code>/craft:code:deps-check</code></td>
+<td>Check for outdated, missing, or unused dependencies</td>
+</tr>
+<tr>
+<td><code>/craft:code:desktop-watch</code></td>
+<td>Track Claude Desktop releases and identify plugin integration opportunities</td>
+</tr>
+<tr>
+<td><code>/craft:code:docs-check</code></td>
+<td>Documentation &amp; website pre-flight check for any project</td>
+</tr>
+<tr>
+<td><code>/craft:code:refactor</code></td>
+<td>Refactoring guidance — improve code structure without changing behavior</td>
+</tr>
+<tr>
+<td><code>/craft:code:release</code></td>
+<td>Guide through the package/project release process</td>
+</tr>
+<tr>
+<td><code>/craft:code:release-watch</code></td>
+<td>Track Claude Code + Desktop releases and identify plugin-relevant changes</td>
+</tr>
+<tr>
+<td><code>/craft:code:test-gen</code></td>
+<td>Generate comprehensive test cases for code</td>
+</tr>
+</tbody>
+</table>
+<h3 id="documentation-commands">Documentation Commands<a class="headerlink" href="#documentation-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:docs:api</code></td>
+<td>Generate OpenAPI 3.1 specifications and interactive documentation</td>
+</tr>
+<tr>
+<td><code>/craft:docs:changelog</code></td>
+<td>Auto-update CHANGELOG.md based on git commits</td>
+</tr>
+<tr>
+<td><code>/craft:docs:check-links</code></td>
+<td>Internal link validation for documentation</td>
+</tr>
+<tr>
+<td><code>/craft:docs:demo</code></td>
+<td>Terminal recording &amp; GIF generator with dependency management</td>
+</tr>
+<tr>
+<td><code>/craft:docs:guide</code></td>
+<td>Orchestrated guide generator — complete feature docs with mermaid, GIFs, refcards</td>
+</tr>
+<tr>
+<td><code>/craft:docs:help</code></td>
+<td>Generate comprehensive help documentation for commands</td>
+</tr>
+<tr>
+<td><code>/craft:docs:prompt</code></td>
+<td>Generate reusable documentation maintenance prompts</td>
+</tr>
+<tr>
+<td><code>/craft:docs:quickstart</code></td>
+<td>Generate a 5-minute quickstart guide for any project</td>
+</tr>
+<tr>
+<td><code>/craft:docs:site</code></td>
+<td>Update all website-related docs and optionally deploy</td>
+</tr>
+<tr>
+<td><code>/craft:docs:tutorial</code></td>
+<td>Create progressive, interactive tutorials with GIF demos and mermaid diagrams</td>
+</tr>
+<tr>
+<td><code>/craft:docs:website</code></td>
+<td>ADHD-friendly website enhancement — analyze and improve documentation sites</td>
+</tr>
+<tr>
+<td><code>/craft:docs:workflow</code></td>
+<td>Generate task-focused workflow documentation for multi-step processes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="orchestrate-commands">Orchestrate Commands<a class="headerlink" href="#orchestrate-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:orchestrate:drive</code></td>
+<td>Drive an approved SPEC to completion via the native /goal turn-loop with a verify gate</td>
+</tr>
+<tr>
+<td><code>/craft:orchestrate:resume</code></td>
+<td>Resume orchestration sessions across devices using Claude Desktop session teleportation</td>
+</tr>
+<tr>
+<td><code>/craft:orchestrate:workflow</code></td>
+<td>Execute a coded, fixed-control-flow workflow with schema-gated agents and cached replay</td>
+</tr>
+</tbody>
+</table>
+<h3 id="distribution-commands">Distribution Commands<a class="headerlink" href="#distribution-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:dist:homebrew</code></td>
+<td>Complete Homebrew automation — formulas, casks, workflows, auditing, and dependency management</td>
+</tr>
+</tbody>
+</table>
+<h3 id="site-commands">Site Commands<a class="headerlink" href="#site-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:site:docs:frameworks</code></td>
+<td>Documentation framework comparison — choose between MkDocs, Quarto, and pkgdown</td>
+</tr>
+</tbody>
+</table>
+<h3 id="smart-commands">Smart Commands<a class="headerlink" href="#smart-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:smart-help</code></td>
+<td>Context-aware help that suggests relevant commands based on current situation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="workflow-commands">Workflow Commands<a class="headerlink" href="#workflow-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/craft:workflow:adhd-guide</code></td>
+<td>ADHD-friendly workflow strategies for staying focused and productive</td>
+</tr>
+</tbody>
+</table>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="../guide/getting-started/">Full Documentation</a></strong> (99% complete)</li>
