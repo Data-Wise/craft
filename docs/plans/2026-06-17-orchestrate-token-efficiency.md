@@ -471,7 +471,7 @@ git commit -m "feat(orchestrate): token-report CLI with --json + A/B diff (read-
 
 **Interfaces:**
 
-- Produces: marker files matching `load_marker`'s expected keys: `{run_id, command, mode, engine, agents, max_turns, cwd, start_ts, end_ts, swarm_level}`.
+- Produces: marker files matching `load_marker`'s expected keys: `{run_id, command, mode, engine, agents, max_turns, cwd, start_ts, end_ts}`.
 
 - [ ] **Step 1: Add marker-emission instructions to `commands/orchestrate.md`**
 
@@ -479,7 +479,7 @@ Insert a "Token instrumentation" subsection instructing: at run start, compute `
 
 - [ ] **Step 2: Add marker fields to `commands/orchestrate/workflow.md` manifest**
 
-Instruct the workflow engine to include `{run_id, command, mode, engine:"workflow", agents, max_turns, cwd, start_ts, end_ts, swarm_level}` in `.craft/workflow-runs/<run>/manifest`.
+Instruct the workflow engine to include `{run_id, command, mode, engine:"workflow", agents, max_turns, cwd, start_ts, end_ts}` in `.craft/workflow-runs/<run>/manifest`.
 
 - [ ] **Step 3: Gitignore the fan-out marker dir**
 
