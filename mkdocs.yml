@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.41.0 adds /craft:quota pre-flight token gate (SAFE/TIGHT/DEFER advisory), --engine flag for /craft:orchestrate (workflow|fanout), token instrumentation markers for cost accounting, parity-gate runbook (N=5 NO-FLIP result), and Lever B/C workflow-engine skills for prompt-trim and cache/routing."
+site_description: "Full-stack developer toolkit - 112 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.41.1 adds 25 tutorial stub files for comprehensive Phase 8 documentation coverage across all command categories, plus a broken-link fix in the smart-help tutorial."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -193,6 +193,32 @@ nav:
       - Markdown List Spacing: guide/markdown-list-spacing.md
       - Dependency Management Advanced: guide/dependency-management-advanced.md
       - Accessibility: ACCESSIBILITY.md
+    - Command Tutorials:
+      - arch:analyze Tutorial: tutorials/TUTORIAL-arch-analyze.md
+      - arch:plan Tutorial: tutorials/TUTORIAL-arch-plan.md
+      - ci:detect Tutorial: tutorials/TUTORIAL-ci-detect.md
+      - ci:generate Tutorial: tutorials/TUTORIAL-ci-generate.md
+      - ci:status Tutorial: tutorials/TUTORIAL-ci-status.md
+      - ci:triage Tutorial: tutorials/TUTORIAL-ci-triage.md
+      - ci:validate Tutorial: tutorials/TUTORIAL-ci-validate.md
+      - ci:watch Tutorial: tutorials/TUTORIAL-ci-watch.md
+      - code:ci-local Tutorial: tutorials/TUTORIAL-code-ci-local.md
+      - code:command-audit Tutorial: tutorials/TUTORIAL-code-command-audit.md
+      - code:deps-audit Tutorial: tutorials/TUTORIAL-code-deps-audit.md
+      - code:desktop-watch Tutorial: tutorials/TUTORIAL-code-desktop-watch.md
+      - code:lint Tutorial: tutorials/TUTORIAL-code-lint.md
+      - code:release-watch Tutorial: tutorials/TUTORIAL-code-release-watch.md
+      - dist:homebrew Tutorial: tutorials/TUTORIAL-dist-homebrew.md
+      - docs:changelog Tutorial: tutorials/TUTORIAL-docs-changelog.md
+      - docs:check-links Tutorial: tutorials/TUTORIAL-docs-check-links.md
+      - docs:check Tutorial: tutorials/TUTORIAL-docs-check.md
+      - docs:lint Tutorial: tutorials/TUTORIAL-docs-lint.md
+      - docs:mermaid Tutorial: tutorials/TUTORIAL-docs-mermaid.md
+      - docs:sync Tutorial: tutorials/TUTORIAL-docs-sync.md
+      - git:guard Tutorial: tutorials/TUTORIAL-git-guard.md
+      - orchestrate:resume Tutorial: tutorials/TUTORIAL-orchestrate-resume.md
+      - quota Tutorial: tutorials/TUTORIAL-quota.md
+      - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
 
   # 3. TEACHING - Dedicated teaching workflow section
   - 📚 Teaching:
