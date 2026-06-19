@@ -25,7 +25,7 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **110 Commands**
+- :rocket:{ .lg .middle } **112 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
 
@@ -70,7 +70,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 110 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 112 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -110,13 +110,13 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 110 Craft commands:
+Complete OpenAPI-style documentation for all 112 Craft commands:
 
 <div class="grid cards" markdown>
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 110 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 112 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -134,7 +134,7 @@ Complete OpenAPI-style documentation for all 110 Craft commands:
 
 **Quick Links:**
 
-- [All 110 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 112 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -187,7 +187,7 @@ Complete OpenAPI-style documentation for all 110 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 110 commands organized
+    All 112 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](skills-agents.md)**
 
@@ -199,7 +199,7 @@ Complete OpenAPI-style documentation for all 110 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 110 commands
+    Complete documentation for all 112 commands
 
 </div>
 
@@ -217,7 +217,7 @@ Complete OpenAPI-style documentation for all 110 Craft commands:
 | **Distribution**   | 4      | Marketplace, Homebrew, PyPI, curl installers                                                                              |
 | **Planning**       | 3      | Feature planning, sprints, roadmaps                                                                                       |
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
-| **Total**          | **107** | **Complete development workflow coverage**                                                                                |
+| **Total**          | **112** | **Complete development workflow coverage**                                                                                |
 
 !!! info "Latest: v2.41.0 — Quota Gate + Engine Flag + Parity Runbook"
     `/craft:quota` adds a pre-flight token quota gate with SAFE/TIGHT/DEFER advisory before expensive orchestrate runs. The new `--engine=workflow|fanout` flag on `/craft:orchestrate` lets you switch dispatch backends without changing other options. A parity-gate runbook (N=5, NO-FLIP result) documents the protocol for validating token-efficiency gains — workflow engine remains opt-in. See the [full changelog](CHANGELOG.md) for all releases.
