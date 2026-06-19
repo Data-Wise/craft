@@ -17,7 +17,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
-| _(none)_ | — | — | feature/guard-suite MERGED → dev (PR #174 squash `867bf51a`, v2.40.0); worktree `~/.git-worktrees/craft/feature-guard-suite` cleanup pending. feature/doc-coverage-enforcement merged (PR #172) + removed. |
+| _(none)_ | — | — | No active worktrees. feature/guard-suite MERGED → dev (PR #174 squash `867bf51a`) → released v2.40.0; worktree + branches removed. feature/doc-coverage-enforcement merged (PR #172) + removed. |
 
 > **🎯 Next Action (next session):**
 > A) **Scheduled cloud routine fires Mon Jun 22 09:00 MDT** (`trig_017orFX3wJv4QborUvFGtvHS`, https://claude.ai/code/routines/trig_017orFX3wJv4QborUvFGtvHS) → opens a PR to `dev` with the token parser + quota estimator/persister (Phase 0 Tasks 1-6 + Phase Q Tasks 13-14). **Review that PR when it lands.** ⚡
