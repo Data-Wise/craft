@@ -97,6 +97,26 @@ sufficient.
 `.craft/workflow-runs/<run-id>/` (gitignored) holds per-agent output JSON, a
 human-readable `manifest.json`, and `semaphore.count`.
 
+The `manifest.json` records the full run identity and is the primary source for
+token attribution. It includes:
+
+```json
+{
+  "run_id": "<ISO8601-start>-workflow",
+  "command": "orchestrate:workflow",
+  "mode": "workflow",
+  "engine": "workflow",
+  "agents": ["<agent-label-1>", "<agent-label-2>"],
+  "max_turns": <run-wide-ceiling>,
+  "cwd": "<absolute-cwd>",
+  "start_ts": "<ISO8601>",
+  "end_ts": "<ISO8601-or-null>"
+}
+```
+
+`agents` is populated in dispatch order as agents are spawned. `end_ts` is
+written at run completion (success, verify-fail, or hard error).
+
 ## See Also
 
 - `/craft:orchestrate` — free-form multi-agent orchestration
