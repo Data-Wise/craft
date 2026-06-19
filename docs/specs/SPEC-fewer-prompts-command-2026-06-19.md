@@ -76,23 +76,10 @@ python3 --version
 node --version
 ```
 
-### Tier 2 — Safe with extension guard (add with path constraint)
+### Tier 2 — `cat` (excluded entirely)
 
-```
-cat *.md
-cat *.json
-cat *.yaml
-cat *.yml
-cat *.sh
-cat *.py
-cat *.txt
-cat *.toml
-cat *.cfg
-```
-
-`cat` on arbitrary paths is excluded — a bare `cat` allow would permit reading
-`~/.ssh/id_rsa`, `.env`, or credential files. Extension-scoped patterns keep the benefit
-(reading source files) while blocking the risk.
+`cat` is excluded — extension-glob syntax in `settings.json` is unreliable, and the Read
+tool already handles file reads safely without prompting. Not worth the security surface.
 
 ### Tier 3 — Craft-specific read-only operations (add)
 
@@ -141,7 +128,9 @@ New command file with standard craft frontmatter. Steps:
 
 ### Settings Structure
 
-Entries are written to `settings.json` under `permissions.allow`:
+Entries are written to **both** `permissions.allow` (for enforcement) and a parallel
+`craft_allowlist` key (for `--reset` targeting). JSON has no comment syntax, so the separate
+key is the only clean tracking mechanism.
 
 ```json
 {
@@ -152,12 +141,18 @@ Entries are written to `settings.json` under `permissions.allow`:
       "Bash(ls*)",
       "Bash(grep*)"
     ]
-  }
+  },
+  "craft_allowlist": [
+    "Bash(git status*)",
+    "Bash(git log*)",
+    "Bash(ls*)",
+    "Bash(grep*)"
+  ]
 }
 ```
 
-Craft-managed entries are grouped with a leading comment (if the format supports it) or tracked
-via a `craft_managed_allowlist` metadata key for `--reset` targeting.
+**`--reset` flow:** remove every entry in `craft_allowlist` from `permissions.allow`, then
+clear `craft_allowlist`. User-added entries not in `craft_allowlist` are untouched.
 
 ### Idempotency
 
