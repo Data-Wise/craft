@@ -28,6 +28,39 @@ Never eyeball these. Always shell out to the core:
 | Fan-out | `resolve_fanout(over, upstream_outputs)` | bound items; empty → hard abort (D6) |
 | Semaphore | `sem_acquire/sem_release/sem_reconcile` | live-agent ceiling (D5) |
 
+## Agent Prompt Composition (Lever B — prompt-trim)
+
+Every subagent prompt MUST contain exactly three parts — nothing more:
+
+1. **Spec slice** — only the portion of the WORKFLOW definition scoped to THIS
+   agent's files/phase. Do NOT pass the entire WORKFLOW-*.yaml to every agent.
+   Extract and pass only the stage block(s) the agent needs to execute.
+
+2. **Summarized prior outputs** — a brief structured summary of earlier stage
+   results (~200 tokens max per stage). Do NOT include full transcripts or raw
+   prior-agent outputs. Derive the summary from the structured return values
+   cached in `.craft/workflow-runs/<run-id>/`.
+
+3. **Structured-return instruction** — end every prompt with exactly:
+
+   ```
+   Return a concise structured summary:
+   { files_changed: [...], tests_run: bool, tests_passed: bool, issues: [...] }
+   Do NOT include full file contents or verbose explanations in your response.
+   ```
+
+### Anti-patterns (explicitly forbidden)
+
+- **Passing full WORKFLOW-*.yaml to every subagent** — use spec slice instead.
+  A 300-line workflow YAML passed to 8 parallel agents = 2400 lines of wasted
+  context; the agent needs only its own stage block.
+- **Passing raw prior-agent transcripts** — use structured summary instead.
+  Transcripts can be 10–50× larger than the information they carry; always
+  compress to the structured-return schema before forwarding.
+- **Asking for long narrative responses** — use the structured-return instruction
+  instead. Narrative responses are unstructured, hard to gate, and inflate
+  downstream context for every subsequent agent in the wave.
+
 ## Responsibilities
 
 1. **Compile** — run the parser on the `WORKFLOW-*.yaml` (or shape-DSL) file to
