@@ -45,7 +45,7 @@ Health score: 88/100
 Applies fixes for mechanical issues:
 
 - Adds missing nav entries to `mkdocs.yml`
-- Updates count references (e.g., "110 commands" → "112 commands")
+- Updates count references (e.g., stale command counts to the current 112)
 - Fixes broken internal links where the target can be inferred
 
 Does not modify content (descriptions, prose, examples) — only structural issues.
