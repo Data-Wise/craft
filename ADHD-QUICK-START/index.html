@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 110 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.39.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
+        <meta name="description" content="Full-stack developer toolkit - 111 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.40.0 adds a third unconditional hard_deny tier of branch protection (force-push to main, .git deletion, gh repo delete, ~/.claude wipe), defensive facet parsing across /craft:hub and /craft:do, fixes a real production leak in branch-guard.sh path canonicalization, eliminates badge_syncer false positives, and ships the /craft:check --version validator (Insights-Driven Improvements Increment 1).">
       
       
       
@@ -1799,6 +1799,90 @@
   
   
     <li class="md-nav__item">
+      <a href="../guide/guard-suite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guard Suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/guard-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guard Design (Taxonomy)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-guard-suite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guard Suite Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
@@ -2594,10 +2678,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_40" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_43" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_40" id="__nav_2_4_40_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_43" id="__nav_2_4_43_label" tabindex="0">
             
   
   
@@ -2615,8 +2699,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_40_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_40">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_43_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_43">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2792,10 +2876,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_42" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_45" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_42" id="__nav_2_4_42_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_45" id="__nav_2_4_45_label" tabindex="0">
             
   
   
@@ -2813,8 +2897,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_42_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_42">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_45_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_45">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5603,6 +5687,34 @@
     
   
     /craft:git:unprotect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/git/guard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:git:guard
   
 
     
@@ -10333,7 +10445,7 @@
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>claude<span class="w"> </span>plugin<span class="w"> </span>add<span class="w"> </span>github:Data-Wise/craft<span class="w">      </span><span class="c1"># GitHub marketplace</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Then verify:</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>/craft:hub<span class="w">                                    </span><span class="c1"># Verify 110 commands are available</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>/craft:hub<span class="w">                                    </span><span class="c1"># Verify 111 commands are available</span>
 </span></code></pre></div>
 <p><strong>Expected:</strong> You'll see a categorized list of all craft commands.</p>
 <div class="admonition success">
@@ -10379,7 +10491,7 @@
 <tbody>
 <tr>
 <td>Where are my commands?</td>
-<td>Run <code>/craft:hub</code> to see all 110 commands</td>
+<td>Run <code>/craft:hub</code> to see all 111 commands</td>
 </tr>
 <tr>
 <td>How do I automate docs?</td>
