@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.39.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.40.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -14,12 +14,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 113 commands, 8 AI agents, and 39 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 111 commands, 8 AI agents, and 39 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 113 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 111 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -219,7 +219,7 @@ Complete OpenAPI-style documentation for all 110 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **107** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.39.0 — Spec-Driven Drive + Prompt Refinement"
+!!! info "Latest: v2.40.0 — Spec-Driven Drive + Prompt Refinement"
     `/craft:orchestrate:drive` drives an approved spec to completion via a native `/goal` loop with a real verify gate — stopping at verified-green for a human-opened PR. The new `--refine` flag sharpens your prompt before `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, and `/craft:arch:plan` act on it (via the `prompt-refiner` skill, replacing the deprecated `/refine`). See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
