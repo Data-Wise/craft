@@ -115,7 +115,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.39.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.40.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -160,7 +160,7 @@ Display template:
 │   /craft:docs:mermaid              /craft:ci:validate                  │
 │   /craft:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ GIT (14 incl. 4 guides)          WORKFLOW (13)                          │
+│ GIT (15 incl. 4 guides)          WORKFLOW (13)                          │
 │   /craft:git:worktree              /brainstorm [d|f|s] "topic"         │
 │   /craft:git:sync                  /workflow:focus                     │
 │   /craft:git:branch                /workflow:done                      │

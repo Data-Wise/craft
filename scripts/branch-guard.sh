@@ -61,6 +61,30 @@ fi
 # Extract command from tool_input (for Bash tool)
 COMMAND="$(_json_get '.tool_input.command' "$INPUT")"
 
+# --- Registry: check if this guard is enabled/muted -----------------------
+# SAFETY: catastrophic ops (rm -rf .git, git branch -D) are NEVER muteable —
+# the registry gate must not bypass the universal catastrophic checks (8d).
+_GUARD_REG="${HOME}/.claude/guards.json"
+if command -v jq &>/dev/null && [[ -f "$_GUARD_REG" ]]; then
+  _bg_catastrophic=0
+  if echo "$COMMAND" | grep -qE 'rm[[:space:]]+-[rfRF]*[[:space:]]*((-[rfRF]+[[:space:]]+)*)\.git([[:space:]]|/|$)' \
+     || echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
+    _bg_catastrophic=1
+  fi
+  if [[ "$_bg_catastrophic" -eq 0 ]]; then
+    _guard_enabled=$(jq -r '.guards["branch-guard"].enabled' "$_GUARD_REG" 2>/dev/null || true)
+    _guard_muted=$(jq -r '.guards["branch-guard"].muted_until // "null"' "$_GUARD_REG" 2>/dev/null || echo "null")
+    [[ "$_guard_enabled" == "false" ]] && exit 0
+    if [[ "$_guard_muted" != "null" && "$_guard_muted" != "" ]]; then
+      _now=$(date -u +%s)
+      # BSD date first, GNU `date -d` fallback (Linux/CI)
+      _until=$(date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$_guard_muted" +%s 2>/dev/null || date -u -d "$_guard_muted" +%s 2>/dev/null || echo 0)
+      [[ "$_now" -lt "$_until" ]] && exit 0
+    fi
+  fi
+fi
+# --------------------------------------------------------------------------
+
 # ---------------------------------------------------------------------------
 # 3. Determine git context
 # ---------------------------------------------------------------------------
@@ -442,6 +466,8 @@ _confirm() {
       ;;
   esac
 
+  msg+=$'\n'"To mute: /craft:git:guard disable branch-guard"
+
   block "$msg"
 }
 
@@ -472,16 +498,11 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
   # rm -rf .git — HIGH risk everywhere (destroys entire repository)
   # Catches: rm -rf .git, rm -fr .git, rm -Rf .git, rm -r -f .git, etc.
   if echo "$COMMAND" | grep -qE 'rm[[:space:]]+-[rfRF]*[[:space:]]*((-[rfRF]+[[:space:]]+)*)\.git([[:space:]]|/|$)'; then
-    _hard_block \
-      "${_R}${_B}BRANCH GUARD — CATASTROPHIC RISK${_N}" \
-      "---" \
-      "Cannot run ${_B}rm -rf .git${_N} — destroys entire repository." \
-      "" \
-      "${_D}Command:${_N} ${_C}${COMMAND}${_N}" \
-      "${_D}Branch:${_N}  ${BRANCH}" \
-      "---" \
-      "This action is ${_R}never${_N} allowed via the guard." \
-      "If intentional, remove the hook temporarily."
+    _confirm "git_destroy" \
+      "rm -rf .git (destroy entire git repository)" \
+      "Permanently destroys the entire .git directory and all git history" \
+      "git stash, git bundle, or backup first" \
+      "This action cannot be undone — all commits/branches lost"
   fi
 
   # git branch -D — MEDIUM risk everywhere (deletes unmerged branches)
@@ -543,12 +564,11 @@ if [[ "$PROTECTION" == "block-all" ]]; then
         )"
       fi
       if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+reset[[:space:]]+--hard'; then
-        block "$(_box \
-          "${_R}${_B}BRANCH PROTECTION${_N}" \
-          "---" \
-          "Cannot reset --hard on ${_B}${BRANCH}${_N}." \
-          "${_D}Branch:${_N} ${BRANCH} (block-all)" \
-        )"
+        _confirm "reset_hard_main" \
+          "git reset --hard on ${BRANCH} (protected branch)" \
+          "Resets working tree and index to specified commit — discards all uncommitted changes" \
+          "git stash (save changes) then reset" \
+          "git reset --soft HEAD~1 (keep changes staged)"
       fi
       # All other bash commands are allowed
       exit 0
@@ -710,26 +730,6 @@ if [[ "$PROTECTION" == "smart" ]]; then
           "git stash (save changes for later)" \
           "git reset --soft (keep changes staged)" \
           "git diff to review what would be lost"
-      fi
-
-      # git checkout -- (discard working tree changes) — MEDIUM risk
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+checkout[[:space:]]+--[[:space:]]'; then
-        _confirm "checkout_discard" \
-          "git checkout -- (discard changes) on ${BRANCH}" \
-          "Discards working tree changes for specified files" \
-          "git stash (save changes for later)" \
-          "git diff <file> to review what would be lost"
-      fi
-
-      # git restore (discard working tree changes) — MEDIUM risk
-      # Excludes --staged (which only unstages, doesn't discard)
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+restore[[:space:]]' && \
-         ! echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+restore[[:space:]]+--staged'; then
-        _confirm "restore_discard" \
-          "git restore (discard changes) on ${BRANCH}" \
-          "Discards working tree changes for specified files" \
-          "git stash (save changes for later)" \
-          "git restore --staged <file> (unstage only, keeps changes)"
       fi
 
       # git clean -f (remove untracked files) — MEDIUM risk

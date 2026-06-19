@@ -57,6 +57,39 @@ Present a summary:
 └───────────────────────────────────────────────────────────────┘
 ```
 
+### Step 1b: Matcher-Overlap Check
+
+Check `~/.claude/settings.json` for duplicate PreToolUse matcher strings:
+
+```bash
+jq -r '.hooks.PreToolUse[]?.matcher // empty' ~/.claude/settings.json | sort | uniq -d
+```
+
+If any duplicates appear, flag them — a guard registered twice fires twice for that tool, causing double prompts.
+
+**Progress indicator**: `[1b/5] Matcher-overlap .......... DONE (N duplicates found)`
+
+### Step 1c: Duplicated Rule Coverage + Guard State
+
+**Rule coverage check**: Scan both `scripts/branch-guard.sh` and `scripts/no-switch-guard.sh` for patterns that handle the same git operations. Common overlap site: `git restore` / `git checkout -- <file>` (data-loss detection).
+
+```bash
+# Check if both guards handle restore
+grep -n 'restore\|checkout.*--' scripts/branch-guard.sh
+grep -n 'restore\|checkout.*--' scripts/no-switch-guard.sh
+```
+
+Flag any operation handled by BOTH guards (double prompts; ownership should be assigned to one).
+
+**Guard state**: Surface disabled or muted guards so audit context includes current guard state:
+
+```bash
+jq -r '.guards | to_entries[] | "\(.key): enabled=\(.value.enabled // true), muted_until=\(.value.muted_until // "null")"' \
+  ~/.claude/guards.json 2>/dev/null || echo "(guards.json not found — guards at default state)"
+```
+
+**Progress indicator**: `[1c/5] Rule-coverage + state ...... DONE (N overlaps, M muted)`
+
 ### Step 2: Friction Analysis
 
 For each rule, identify scenarios where it produces false positives:
@@ -158,11 +191,13 @@ Ask user to confirm before writing to `.claude/branch-guard.json`.
 Use craft box-drawing format throughout. Each step shows progress:
 
 ```text
-[1/5] Discovery ................ DONE (N rules found)
-[2/5] Friction analysis ........ DONE (M false positives)
-[3/5] Test harness ............. DONE (P/Q tests passed)
-[4/5] Report ................... SHOWN
-[5/5] Apply .................... WAITING (user confirmation)
+[1/5]  Discovery ................. DONE (N rules found)
+[1b/5] Matcher-overlap ........... DONE (0 duplicates)
+[1c/5] Rule-coverage + state ..... DONE (0 overlaps, 0 muted)
+[2/5]  Friction analysis ......... DONE (M false positives)
+[3/5]  Test harness .............. DONE (P/Q tests passed)
+[4/5]  Report .................... SHOWN
+[5/5]  Apply ..................... WAITING (user confirmation)
 ```
 
 ## Error Recovery
@@ -180,3 +215,5 @@ Use craft box-drawing format throughout. Each step shows progress:
 - `.claude/branch-guard.json` — Per-project config (this skill's output)
 - `/craft:git:unprotect` — Session-scoped bypass (temporary)
 - `/craft:git:protect` — Re-enable protection
+- `/craft:git:guard` — List, enable, or disable individual guards
+- `docs/guide/guard-suite.md` — Guard suite concepts and usage guide
