@@ -29,3 +29,13 @@ def iter_usages(jsonl_path, start_ts, end_ts):
             if usage:
                 out.append(usage)
     return out
+
+def aggregate(usages):
+    keys = ["input_tokens", "output_tokens",
+            "cache_creation_input_tokens", "cache_read_input_tokens"]
+    raw = {k: sum(u.get(k, 0) for u in usages) for k in keys}
+    denom = raw["input_tokens"] + raw["cache_read_input_tokens"]
+    ratio = raw["cache_read_input_tokens"] / denom if denom else 0.0
+    return {"raw": raw,
+            "cost_weighted": sum(cost_weighted(u) for u in usages),
+            "cache_hit_ratio": ratio}

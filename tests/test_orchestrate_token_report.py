@@ -22,3 +22,11 @@ def test_iter_usages_slices_by_timestamp():
 
 def test_iter_usages_no_window_returns_all():
     assert len(otr.iter_usages(str(FX), None, None)) == 3
+
+def test_aggregate_totals_and_cache_ratio():
+    usages = otr.iter_usages(str(FX), None, None)
+    agg = otr.aggregate(usages)
+    assert agg["raw"]["input_tokens"] == 1149
+    assert agg["raw"]["cache_read_input_tokens"] == 200
+    assert round(agg["cache_hit_ratio"], 4) == round(200/1349, 4)
+    assert agg["cost_weighted"] > 0
