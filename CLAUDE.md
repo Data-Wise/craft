@@ -29,9 +29,7 @@ feature/* (worktrees) ← All implementation work
 - **Never** write feature code on `dev`
 - **Always** verify branch: `git branch --show-current`
 
-### Branch Protection (Two Layers)
-
-**Local hook** (`branch-guard.sh`) — enforces table below before edits/writes leave this machine:
+### Branch Protection
 
 | Branch | Code Files | .md Files | Git Operations |
 |--------|-----------|-----------|----------------|
@@ -40,8 +38,6 @@ feature/* (worktrees) ← All implementation work
 | `feature/*` | ALLOWED | ALLOWED | All allowed |
 
 Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
-
-**GitHub-side** (`branch protection API`) — applied per-repo via `/craft:git:protect-baseline` (PR required, no force-push, no delete). Independent of local hook; `unprotect` does NOT remove it.
 
 ## Quick Commands
 
