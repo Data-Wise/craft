@@ -90,4 +90,4 @@ Use smart-help when you're unsure which command fits your situation. Use hub whe
 
 - Run `/craft:do <task>` for intelligent command routing based on a natural-language task description
 - Use `/craft:hub` to browse all 112 commands by category
-- See [do command tutorial](TUTORIAL-do.md) for smart routing
+- See [smart routing tutorial](smart-routing-tutorial.md) for advanced do command patterns
