@@ -69,22 +69,24 @@ EOF
     pass "--check mode exits 1 on drift"
 }
 
-test_check_mode_passes_when_current() {
-    local tmp="$TMPDIR_TEST/check_pass_test"
+test_check_mode_unsupported() {
+    # --check always exits 1 with a clear message: docs/REFCARD.md uses heading-based
+    # sections, not generated sentinels. doc-coverage-check.sh handles parity checks.
+    local tmp="$TMPDIR_TEST/check_unsupported_test"
     setup_fixture "$tmp"
     mkdir -p "$tmp/docs"
-    # Generate the expected output first, then put it in REFCARD
-    generated=$(bash "$ROOT/scripts/refcard-gen.sh" --root "$tmp" --category ci)
-    cat > "$tmp/docs/REFCARD.md" <<EOF
+    cat > "$tmp/docs/REFCARD.md" <<'EOF'
 # REFCARD
-$generated
 EOF
     exit_code=0
-    bash "$ROOT/scripts/refcard-gen.sh" --root "$tmp" --check > /dev/null 2>&1 || exit_code=$?
-    if [[ "$exit_code" -ne 0 ]]; then
-        fail "--check should exit 0 when REFCARD is current"
+    output=$(bash "$ROOT/scripts/refcard-gen.sh" --root "$tmp" --check 2>&1) || exit_code=$?
+    if [[ "$exit_code" -eq 0 ]]; then
+        fail "--check should always exit 1 (sentinels not supported)"
     fi
-    pass "--check mode exits 0 when REFCARD is current"
+    if ! echo "$output" | grep -q "not supported"; then
+        fail "--check should print 'not supported' message, got: $output"
+    fi
+    pass "--check mode exits 1 with not-supported message"
 }
 
 test_skips_internal_commands() {
@@ -117,6 +119,6 @@ EOF
 
 test_generates_rows
 test_check_mode_fails_on_drift
-test_check_mode_passes_when_current
+test_check_mode_unsupported
 test_skips_internal_commands
 echo "All refcard-gen tests passed."

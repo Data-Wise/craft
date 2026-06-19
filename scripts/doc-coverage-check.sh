@@ -58,12 +58,12 @@ finding() {
 # Build list of command files to check
 if [[ -n "$SINCE_REF" ]]; then
     mapfile -t cmd_files < <(
-        git -C "$ROOT" diff --name-only "$SINCE_REF"..HEAD -- 'commands/**/*.md' 2>/dev/null \
+        git -C "$ROOT" diff --name-only "$SINCE_REF"..HEAD -- 'commands/*.md' 'commands/**/*.md' 2>/dev/null \
         | grep -v -E '(index|README)\.md$' || true
     )
     # Also include untracked new files
     mapfile -t untracked < <(
-        git -C "$ROOT" ls-files --others --exclude-standard -- 'commands/**/*.md' 2>/dev/null || true
+        git -C "$ROOT" ls-files --others --exclude-standard -- 'commands/*.md' 'commands/**/*.md' 2>/dev/null || true
     )
     cmd_files+=("${untracked[@]}")
 else
@@ -98,7 +98,7 @@ for cmd_file in "${cmd_files[@]}"; do
 
     # Check 1: REFCARD row (blocking)
     if [[ -f "$REFCARD" ]]; then
-        if ! grep -qF "$cmd_name" "$REFCARD" 2>/dev/null; then
+        if ! grep -qF "/craft:${cmd_name}" "$REFCARD" 2>/dev/null; then
             finding "$cmd_name" "refcard" "block" "Missing REFCARD row in docs/REFCARD.md"
         fi
     fi

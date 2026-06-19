@@ -71,33 +71,12 @@ for cat in $(printf '%s\n' "${!cat_rows[@]}" | sort); do
 done
 
 if [[ "$CHECK_MODE" == "true" ]]; then
-    if [[ ! -f "$REFCARD" ]]; then
-        echo "REFCARD not found: $REFCARD" >&2
-        exit 1
-    fi
-
-    # Extract existing generated sections from REFCARD
-    existing=""
-    in_block=false
-    while IFS= read -r line; do
-        if [[ "$line" == "<!-- REFCARD:GENERATED:START:"* ]]; then
-            in_block=true
-        fi
-        if [[ "$in_block" == true ]]; then
-            existing+="${line}"$'\n'
-        fi
-        if [[ "$line" == "<!-- REFCARD:GENERATED:END:"* ]]; then
-            in_block=false
-        fi
-    done < "$REFCARD"
-
-    if [[ "$existing" == "$generated" ]]; then
-        echo "REFCARD is current" >&2
-        exit 0
-    fi
-
-    echo "REFCARD is stale — run scripts/refcard-gen.sh and commit" >&2
-    diff <(printf '%s' "$generated") <(printf '%s' "$existing") >&2 || true
+    # --check is not supported: docs/REFCARD.md uses heading-based sections (### /craft:cmd),
+    # not <!-- REFCARD:GENERATED:START/END --> sentinels. This script is a scaffolding helper
+    # that prints rows to stdout for human use. Use scripts/doc-coverage-check.sh to verify
+    # REFCARD row presence programmatically.
+    echo "⚠️  --check is not supported: docs/REFCARD.md does not use generated sentinels." >&2
+    echo "   Use scripts/doc-coverage-check.sh to verify REFCARD row presence." >&2
     exit 1
 fi
 
