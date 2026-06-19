@@ -15,12 +15,10 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-| Branch | Path | Purpose |
-|--------|------|---------|
-| `feature/fewer-prompts` | `~/.git-worktrees/craft/feature-fewer-prompts` | `/craft:code:fewer-prompts` — curated read-only Bash allowlist (v2.42.0) |
+None.
 
 > **🎯 Next Action (next session):**
-> A) **Implement `feature/fewer-prompts`:** `cd ~/.git-worktrees/craft/feature-fewer-prompts && claude` → read ORCHESTRATE-fewer-prompts.md → start Phase 1.1 (failing tests). ⚡ (Recommended)
+> A) **`/craft:code:fewer-prompts` implementation:** spec at `docs/specs/SPEC-fewer-prompts-command-2026-06-19.md`; use orchestrate:drive on dev. ⚡ (Recommended)
 > B) **`--swarm=2` spec:** `SPEC-orchestrate-swarm-2level-2026-06-18` — worktree pending.
 > C) **Cross-repo maintenance (v2.42.0):** close GitHub issue #157 (branch-guard draft=dev — shipped PR #158); PAT→App migration himalaya-mcp + nexus-cli (#130).
 
