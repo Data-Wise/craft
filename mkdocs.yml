@@ -13,6 +13,7 @@ exclude_docs: |
   brainstorm/
   orch/
   dev/
+  plans/
   # Active specs are working documents
   specs/SPEC-*.md
   # Stale standalone docs
