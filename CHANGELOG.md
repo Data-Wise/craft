@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.39.0] — 2026-06-19
+
+### Added
+
+- **Doc-coverage enforcement for all commands** — every craft command now has its required
+  documentation surfaces enforced. New `scripts/doc-coverage-check.sh` blocks on a missing
+  `docs/REFCARD.md` row or `mkdocs.yml` nav entry and warns (advisory) when a command with
+  `arguments:` lacks a tutorial; new `scripts/refcard-gen.sh` generates REFCARD rows; a Phase 8
+  extension to `docs-staleness-check.sh` surfaces gaps; a blocking pre-release gate
+  (`pre-release-check.sh` Step 13.4); and `/craft:check` shows a commit-context advisory for
+  newly-staged commands. (#172)
+
 ### Changed
 
 - **`post-release-sweep.sh --surfaces` now verifies the aggregator leg** — it passes
