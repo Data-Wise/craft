@@ -17,7 +17,6 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Base | Purpose |
 |--------|------|------|---------|
-| `fix/wire-aggregator-leg` | `~/.git-worktrees/craft/wire-aggregator-leg` | dev | Wire aggregator leg into `post-release-sweep --surfaces` (`--aggregator-file`) + test. **Committed `84ddfb62` → PR #167 open** (full pytest 1768 passed). Closes the manual aggregator-pin gap. — created 2026-06-15 |
 | `feature/doc-coverage-enforcement` | `~/.git-worktrees/craft/feature-doc-coverage` | dev | **🔄 WIP/ACTIVE** Doc coverage enforcement: `doc-coverage-check.sh`, REFCARD auto-gen, Phase 8 extension, pre-release gate, `/craft:check` warning, Step 13.4. Plan: `docs/superpowers/plans/2026-06-18-doc-coverage-enforcement.md` (8 TDD tasks, Task 1 next). — created 2026-06-18 |
 
 > **🎯 Next Action (next session):**
