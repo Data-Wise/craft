@@ -137,11 +137,11 @@ nav:
       - Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
       - Multi-Repo Workflow: guide/multi-repo-workflow.md
       - Branch Guard Smart Mode: guide/branch-guard-smart-mode.md
-      - Guard Suite Guide: guide/guard-suite.md
-      - Guard Suite Design: guide/guard-design.md
       - Branch Guard Setup Tutorial: tutorials/TUTORIAL-branch-guard-setup.md
-      - Guard Suite Tutorial: tutorials/TUTORIAL-guard-suite.md
       - Protect a New Repo Tutorial: tutorials/TUTORIAL-protect-new-repo.md
+      - Guard Suite: guide/guard-suite.md
+      - Guard Design (Taxonomy): guide/guard-design.md
+      - Guard Suite Tutorial: tutorials/TUTORIAL-guard-suite.md
       - Claude-MD Workflows: tutorials/claude-md-workflows.md
       - Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
       - Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
@@ -274,6 +274,27 @@ nav:
       - /craft:git:protect-baseline: commands/git/protect-baseline.md
       - /craft:git:unprotect: commands/git/unprotect.md
       - /craft:git:guard: commands/git/guard.md
+      - /craft:arch:diagram: commands/arch/diagram.md
+      - /craft:arch:plan: commands/arch/plan.md
+      - /craft:arch:review: commands/arch/review.md
+      - /craft:ci:detect: commands/ci/detect.md
+      - /craft:ci:triage: commands/ci/triage.md
+      - /craft:ci:validate: commands/ci/validate.md
+      - /craft:ci:watch: commands/ci/watch.md
+      - /craft:code:ci-fix: commands/code/ci-fix.md
+      - /craft:code:debug: commands/code/debug.md
+      - /craft:code:deps-check: commands/code/deps-check.md
+      - /craft:code:docs-check: commands/code/docs-check.md
+      - /craft:code:refactor: commands/code/refactor.md
+      - /craft:code:release: commands/code/release.md
+      - /craft:code:test-gen: commands/code/test-gen.md
+      - /craft:dist:homebrew: commands/dist/homebrew.md
+      - /craft:orchestrate:drive: commands/orchestrate/drive.md
+      - /craft:orchestrate:resume: commands/orchestrate/resume.md
+      - /craft:orchestrate:workflow: commands/orchestrate/workflow.md
+      - /craft:site:docs:frameworks: commands/site/docs/frameworks.md
+      - /craft:smart-help: commands/smart-help.md
+      - /craft:workflow:adhd-guide: commands/workflow/adhd-guide.md
 
   # 5. COOKBOOK & EXAMPLES - Use case driven recipes
   - 📚 Cookbook & Examples:
