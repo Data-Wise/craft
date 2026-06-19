@@ -228,6 +228,7 @@ nav:
       - /craft:hub: commands/hub.md
       - /craft:orchestrate: commands/orchestrate.md
       - /craft:orchestrate:drive: commands/orchestrate-drive.md
+      - /craft:quota: commands/quota.md
       - /craft:orchestrate:workflow: commands/orchestrate-workflow.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:ci:status: commands/ci/status.md
@@ -388,6 +389,8 @@ nav:
         - API Reference: API-REFERENCE.md
         - Architecture Diagrams: DEPENDENCY-ARCHITECTURE.md
         - Developer Guide: DEVELOPER-GUIDE.md
+    - Runbooks:
+      - Parity Gate Protocol: runbooks/parity-gate.md
     - Specifications (Archive):
       - Badge Management System: specs/_archive/SPEC-badge-system-2026-01-30.md
       - Broken Link Validation: specs/_archive/SPEC-broken-link-validation-2026-01-17.md

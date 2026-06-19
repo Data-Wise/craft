@@ -117,6 +117,30 @@
 
 **See:** [REFCARD-CHECK.md](reference/REFCARD-CHECK.md) for complete reference
 
+### /craft:quota
+
+**Purpose:** Pre-flight token quota gate — reads cached rate_limits, estimates
+cost-weighted tokens for the planned run, maps to SAFE / TIGHT / DEFER advisory.
+Silently skips when `~/.claude/quota-cache.json` is absent or stale (>900 s).
+
+**Examples:**
+
+```bash
+/craft:quota                  # Estimate for workflow engine (default)
+/craft:quota fanout           # Estimate for fanout engine
+/craft:quota --json           # Machine-readable JSON output
+```
+
+**Advisories:**
+
+| Status | Meaning | five_hour_pct |
+|--------|---------|---------------|
+| SAFE   | Proceed | < 60 % |
+| TIGHT  | Consider deferring large runs | 60–84 % |
+| DEFER  | Quota critically low — defer if possible | ≥ 85 % |
+
+**Related:** `/craft:check` (integrates quota advisory), `/craft:orchestrate`
+
 ### /craft:help
 
 **Purpose:** Context-aware help that suggests relevant commands based on your current situation.
