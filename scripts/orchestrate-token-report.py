@@ -4,3 +4,28 @@ WEIGHTS = {"input_tokens": 1.0, "output_tokens": 5.0,
 
 def cost_weighted(usage, weights=WEIGHTS):
     return float(sum(weights.get(k, 0.0) * usage.get(k, 0) for k in weights))
+
+import json
+
+def iter_usages(jsonl_path, start_ts, end_ts):
+    out = []
+    with open(jsonl_path) as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if rec.get("type") != "assistant":
+                continue
+            ts = rec.get("timestamp")
+            if start_ts and ts and ts < start_ts:
+                continue
+            if end_ts and ts and ts > end_ts:
+                continue
+            usage = rec.get("message", {}).get("usage")
+            if usage:
+                out.append(usage)
+    return out

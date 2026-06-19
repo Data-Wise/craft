@@ -11,3 +11,14 @@ def test_cost_weighted_applies_per_type_weights():
 
 def test_cost_weighted_tolerates_missing_fields():
     assert otr.cost_weighted({"input_tokens": 10}) == 10.0
+
+import pathlib
+FX = pathlib.Path(__file__).parent / "fixtures" / "token_report" / "session.jsonl"
+
+def test_iter_usages_slices_by_timestamp():
+    usages = otr.iter_usages(str(FX), "2026-06-17T10:00:00Z", "2026-06-17T10:30:00Z")
+    assert len(usages) == 2
+    assert sum(u["input_tokens"] for u in usages) == 150
+
+def test_iter_usages_no_window_returns_all():
+    assert len(otr.iter_usages(str(FX), None, None)) == 3
