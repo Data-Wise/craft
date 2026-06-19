@@ -33,7 +33,7 @@ Based on recent activity:
   /craft:check         — Last check: 47 commits ago
 
 General:
-  /craft:hub           — Browse all 112 commands
+  /craft:hub           — Browse all 113 commands
   /craft:do            — Smart routing for any task
 ```
 
@@ -89,5 +89,5 @@ Use smart-help when you're unsure which command fits your situation. Use hub whe
 ## What's Next
 
 - Run `/craft:do <task>` for intelligent command routing based on a natural-language task description
-- Use `/craft:hub` to browse all 112 commands by category
+- Use `/craft:hub` to browse all 113 commands by category
 - See [smart routing tutorial](smart-routing-tutorial.md) for advanced do command patterns

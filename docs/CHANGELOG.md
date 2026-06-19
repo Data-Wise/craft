@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `/craft:code:fewer-prompts` — one-shot command that installs a curated read-only Bash allowlist
+  into `.claude/settings.json`, eliminating permission prompts for `git status/log/diff`, `grep`,
+  `ls`, `find .`, `wc`, `head`, `tail`, and craft-specific read operations. Supports `--dry-run`,
+  `--global` (writes to `~/.claude/settings.json`), and `--reset` (removes only craft-managed
+  entries, leaving user entries untouched via `craft_allowlist` tracking key).
+
 ## [2.41.1] — 2026-06-19
 
 ### Added
