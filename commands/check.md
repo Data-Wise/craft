@@ -1051,6 +1051,47 @@ This check is **non-blocking** — it prints the checklist but never causes `/cr
 ╰─────────────────────────────────────────────────────╯
 ```
 
+### Quota Pre-flight (opt-in)
+
+After all mandatory checks, `/craft:check` optionally surfaces a quota advisory if a fresh
+cache file is present. This step is **never blocking** — it prints guidance only.
+
+**Trigger condition:** `~/.claude/quota-cache.json` exists AND its `timestamp` field is under
+900 seconds old (15 minutes). If the file is absent or stale, this step is silently skipped.
+
+**Logic:**
+
+```bash
+CACHE="$HOME/.claude/quota-cache.json"
+NOW=$(date +%s)
+if [[ -f "$CACHE" ]]; then
+    TS=$(python3 -c "import json; d=json.load(open('$CACHE')); print(d.get('timestamp',0))" 2>/dev/null || echo 0)
+    AGE=$(( NOW - TS ))
+    if [[ "$AGE" -lt 900 ]]; then
+        # Cache is fresh — read advisory level and surface it
+        LEVEL=$(python3 -c "import json; d=json.load(open('$CACHE')); print(d.get('level',''))" 2>/dev/null)
+        case "$LEVEL" in
+            SAFE)   echo "✅ Quota: SAFE — sufficient tokens for this run" ;;
+            TIGHT)  echo "⚠️  Quota: TIGHT — approaching limit; consider batching" ;;
+            DEFER)  echo "💡 Quota: DEFER recommended — low tokens; run /craft:quota first" ;;
+        esac
+    fi
+    # Stale cache → silently skip
+fi
+```
+
+**Advisory levels (from `/craft:quota`):**
+
+| Level | Meaning | Action |
+|-------|---------|--------|
+| SAFE | Tokens available | Print checkmark and continue |
+| TIGHT | Near limit | Print warning; do NOT block |
+| DEFER | Very low | Print recommendation; do NOT block |
+
+**To populate the cache**, run `/craft:quota <run-type>` before `/craft:check`. The quota command
+writes `~/.claude/quota-cache.json` with a `timestamp` and `level` field. The cache auto-expires
+after 15 minutes, so a stale run never produces misleading output.
+
 ## Integration
 
 Works with:
@@ -1061,3 +1102,4 @@ Works with:
 - `/craft:docs:check-links` - Documentation link validation
 - `/craft:code:ci-fix` - Auto-fix issues
 - `/craft:code:ci-local` - Full CI simulation
+- `/craft:quota` - Standalone pre-flight quota check

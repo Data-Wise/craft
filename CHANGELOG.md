@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **/craft:quota** — pre-flight quota gate with SAFE/TIGHT/DEFER advisory, stale-refusing (cache
+  expires after 900 s); silently skips when `~/.claude/quota-cache.json` is absent or stale.
+- **Token instrumentation** — `orchestrate` and `orchestrate:workflow` emit run markers to `.craft/`
+  for downstream quota and cost accounting.
+- **`--engine` flag** — `/craft:orchestrate` supports `--engine=workflow|fanout` (default: fanout)
+  to select the dispatch backend without changing other options.
+- **Parity gate runbook** — `docs/runbooks/parity-gate.md` N=5 paired estimation protocol for
+  validating token-efficiency gains without confounding prompt drift.
+- **Lever B prompt-trim** — workflow-engine skill: spec-slice + summarized priors +
+  structured-return cuts per-step prompt weight.
+- **Lever C cache/routing** — workflow-engine skill: byte-stable tool definitions, 5-min cache
+  batching, Haiku routing for cheap stages.
+- **/craft:check quota validator** — opt-in quota pre-flight appended after all mandatory checks;
+  silently skips when cache absent or stale; advisory only, never blocks.
+
 ## [2.40.0] — 2026-06-19
 
 ### Added
