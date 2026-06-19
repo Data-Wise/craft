@@ -194,7 +194,7 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (15)                         TEST (2)                              │
+│ CODE (15)                         TEST (0)                              │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
 │   /craft:code:coverage [mode]      /craft:test:gen                      │
 │   /craft:code:debug                                                     │
@@ -418,7 +418,7 @@ Command                  | Description                    | Modes
 ### `/craft:hub test`
 
 ```
-TEST COMMANDS (2) - Unified Testing
+TEST COMMANDS (0) - Unified Testing
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
