@@ -28,6 +28,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **/craft:check quota validator** — opt-in quota pre-flight appended after all mandatory checks;
   silently skips when cache absent or stale; advisory only, never blocks.
 
+### Notes
+
+- **Parity gate — `--engine=workflow` vs `--engine=fanout` (2026-06-19, N=5, NO-FLIP)** —
+  Five in-session paired measurements on the `/craft:quota` audit reference task (cost-weighted
+  metric: input×1.0 + output×5.0 + cache_creation×1.25 + cache_read×0.1). Alternating order
+  (pairs 1,3,5 = fanout-first; 2,4 = workflow-first). Result: mean reduction = 0.9%,
+  95% CI [−42.2%, +44.0%], Cohen's d_n = 0.03, Surprisal S = 0.1 bits. Dominant confound:
+  ordering effect — whichever engine runs second in a pair pays a ~20–50% context-accumulation
+  penalty, overwhelming the true engine signal. CI lower bound (−42.2%) does not clear the 15%
+  materiality floor. **Decision: NO-FLIP — `--engine=fanout` remains the default.**
+  Re-run with fresh-session pairs or with Lever B prompt-trim to resolve the ordering confound.
+
 ## [2.40.0] — 2026-06-19
 
 ### Added
