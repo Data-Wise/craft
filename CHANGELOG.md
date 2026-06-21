@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.46.0] — 2026-06-21
+
+### Added
+
+- **Governance Phase 2 (PR #3) — soak-then-flip promotion + cross-repo wrapper.**
+  - `run_rules.py --promote-check` (with `--window`, default 14d, and `--state`) lists `warn` rules that
+    have soaked clean long enough to recommend a human `warn → error` flip. Reads a **local, gitignored
+    `governance/STATE.json`** ledger that the SessionStart hook feeds (`first_seen`/`last_seen`/`last_red`
+    per rule). Machinery recommends; the human promotes. Advisory — always exits 0.
+  - `governance/soak.py` — the ledger logic (injectable `today` for deterministic tests).
+  - `governance/run.sh` — thin cross-repo entrypoint; consumers (savant/scholar) invoke the one installed
+    craft engine, cwd-portable, no drift (matches `R07-version-is-truth`).
+  - 8 dogfood tests (soak gating, promote-check CLI, run.sh portability). R04 still deferred.
+
 ## [2.45.0] — 2026-06-21
 
 ### Added
