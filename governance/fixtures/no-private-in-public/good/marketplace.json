@@ -1,0 +1,9 @@
+{
+  "name": "data-wise-craft",
+  "owner": { "name": "Data-Wise", "email": "dt@stat-wise.com" },
+  "metadata": { "description": "Public marketplace fixture: no private/PII-bearing plugins.", "version": "0.0.0" },
+  "plugins": [
+    { "name": "craft", "source": { "source": "github", "repo": "Data-Wise/craft" }, "description": "Public developer toolkit plugin.", "repository": "https://github.com/Data-Wise/craft" },
+    { "name": "scholar", "source": { "source": "github", "repo": "Data-Wise/scholar" }, "description": "Public statistical-teaching plugin.", "repository": "https://github.com/Data-Wise/scholar" }
+  ]
+}
