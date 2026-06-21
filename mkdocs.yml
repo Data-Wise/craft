@@ -189,6 +189,7 @@ nav:
       - Homebrew Automation: guide/homebrew-automation.md
       - Desktop Release Guide: guide/desktop-release.md
       - Skills & Agents: skills-agents.md
+      - Skill-Ecosystem Governance: guide/governance.md
       - Integration Testing: guide/integration-testing.md
       - Markdown List Spacing: guide/markdown-list-spacing.md
       - Dependency Management Advanced: guide/dependency-management-advanced.md
