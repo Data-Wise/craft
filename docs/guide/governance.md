@@ -85,6 +85,12 @@ it fails if a public marketplace manifest lists a plugin sourced from a private/
 no network). Pass `--marketplace FILE` to point the audit at a specific manifest; the default is the
 in-repo `.claude-plugin/marketplace.json`.
 
+`R04-consume-not-copy` is automated as **content drift** (`checks/no_drifted_copy.py {target}`): a skill
+present on both a consumer surface and a canon repo must have a byte-identical `SKILL.md` — a divergence
+means the copy was hand-edited rather than consumed via `plugin update`. This is **distinct from R07**
+(version-pin equality): R04 catches a drifted *body* even when the version still matches. It gates
+`session` (the canon repos are local-only; vacuous-skip elsewhere).
+
 ## Promotion: soak-then-flip (the gentle-ramp)
 
 A rule starts at `severity: warn` and tightens to `error` only once its surface has been clean for a
