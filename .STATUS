@@ -15,9 +15,9 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-- `feature/governance-phase2-hook` — Governance Phase 2 PR #2 (SessionStart drift-visibility hook); ORCHESTRATE plan committed, awaiting implementation. Worktree: `~/.git-worktrees/craft/feature-governance-phase2-hook` (created 2026-06-21, off dev 61a15ba8). Decisions: hook-only scope, global install, annotate-only #184 guard. Spec: `docs/specs/SPEC-governance-phase2-gates-2026-06-20.md`.
+None.
 
-_Prior: `feature/governance-phase2-gates` merged via PR #188 (v2.44.0) + worktree removed 2026-06-21._
+_Prior (all merged + worktrees removed 2026-06-21): `feature/governance-phase2-hook` (PR #190, SessionStart hook → dev), `feature/cleanup-stray-orchestrate` (PR #191, removed leaked ORCHESTRATE), `feature/governance-phase2-gates` (PR #188, v2.44.0). Local branch refs left dangling (squash-merge + branch-guard blocks `-D`) — harmless._
 
 > **🎯 Next Action (next session):**
 > A) **`--swarm=2` spec:** `SPEC-orchestrate-swarm-2level-2026-06-18` — worktree pending. ⚡ (Recommended)
