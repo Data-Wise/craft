@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Skill-ecosystem governance (Phase 0)** — policy-as-code under `governance/`: `RULES.yaml`
+  (single source of truth for the 8 skill-location rules), `run_rules.py` (audit engine +
+  `--selftest` meta-validation), `render_rules.py` (generates the `CLAUDE.md` rule block, with a
+  `--check` drift gate), portable checkers, and good/bad fixtures. Documented in
+  [Skill-Ecosystem Governance](guide/governance.md) and a new
+  [Plugin Release Runbook](guide/plugin-release-runbook.md).
+- Governance test coverage — `tests/test_governance_e2e.py` (RULES.yaml schema, checker wiring,
+  rules-drift gate) and `tests/test_governance_dogfood.py` (selftest, fixture audits, fail-closed
+  gating, recursive symlink detection), plus a `governance` pytest marker.
+
+### Fixed
+
+- **Governance engine fails closed** — an `error`-severity rule whose checker is missing or
+  unresolvable (state `ERROR`) now gates the audit (exit 1) instead of passing silently.
+- **Broken-symlink check is recursive** — `no_broken_symlinks.py` now walks nested skill dirs,
+  not just the top level.
+- **Vacuous checks are visible** — `no_duplicate_canon.py` announces a skip when its canon repos
+  are absent; `R01-single-source` gates on `session` (not `ci`) to match where its inputs exist.
+- **`render_rules.py --check`** with no FILE now returns exit 2 instead of passing vacuously;
+  `--selftest` surfaces `external` rules (R07) rather than skipping them silently. File I/O pinned
+  to UTF-8.
+
 ## [2.42.0] — 2026-06-19
 
 ### Added
