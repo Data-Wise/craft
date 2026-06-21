@@ -11,8 +11,8 @@ and consumer surfaces (Claude Code, Cowork, Claude.ai). The rules are **data**, 
 | `run_rules.py` | The engine: audits the live environment; `--selftest` meta-validates the checkers. |
 | `checks/` | One small, portable checker per automatable rule. |
 | `fixtures/` | A known-bad + known-good layout per checker (so we can *test the tester*). |
-| `render_rules.py` | **Phase 3 safeguard** — generates the human-readable rule block from `RULES.yaml` and injects it between markers in any `CLAUDE.md`; `--check` is the `rules-drift` check (intended as a gate — run manually for now; not yet wired). |
-| `CLAUDE-rules.md` | In-repo generated target, so a CI drift check could run self-contained (not yet wired). |
+| `render_rules.py` | **Phase 3 safeguard** — generates the human-readable rule block from `RULES.yaml` and injects it between markers in any `CLAUDE.md`; `--check` is the `rules-drift` gate (wired at pre-commit + CI). |
+| `CLAUDE-rules.md` | In-repo generated target, so the CI/pre-commit drift check runs self-contained. |
 
 ## Use
 

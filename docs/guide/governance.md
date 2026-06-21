@@ -12,7 +12,8 @@ Lives in [`governance/`](https://github.com/Data-Wise/craft/tree/main/governance
 Rules written as prose drift and get silently bypassed: archived source paths leave dead symlinks,
 and consumer installs lag the canon version for releases at a time. Governance makes organization a
 property of the system — a single source of truth, machine-checkable rules, and a fail-loud audit
-engine designed to be wired into gates (CI / a SessionStart hook; not yet wired in this repo).
+engine. The `--selftest` + rules-drift gates are wired at **pre-commit + CI**; the live-env audit and a
+SessionStart hook are later increments.
 
 ## Components
 
@@ -20,7 +21,7 @@ engine designed to be wired into gates (CI / a SessionStart hook; not yet wired 
 |---|---|
 | `governance/RULES.yaml` | **Single source of truth** — every rule: `id`, `statement`, `severity`, `gates`, `check`, `waivers`. |
 | `governance/run_rules.py` | Engine. Audits the live environment (exit 1 on any unwaived **error**-severity failure — **fail-closed**: a missing/broken checker on an error rule gates too); `--selftest` meta-validates the checkers. |
-| `governance/render_rules.py` | Generates the human-readable rule block and injects it into any `CLAUDE.md` between markers; `--check` is the **rules-drift** check (intended as a gate — run manually for now; not yet wired). |
+| `governance/render_rules.py` | Generates the human-readable rule block and injects it into any `CLAUDE.md` between markers; `--check` is the **rules-drift** gate (wired at pre-commit + CI). |
 | `governance/checks/` | One small, portable checker per automatable rule. |
 | `governance/fixtures/` | Good + bad layouts so the checkers are themselves tested. |
 
@@ -28,7 +29,7 @@ engine designed to be wired into gates (CI / a SessionStart hook; not yet wired 
 
 ```bash
 # Audit the live environment against the rules
-# (intended to be wired as a CI step / SessionStart hook — run manually for now; not yet wired in this repo)
+# (the live-env audit targets a SessionStart hook — a later increment; CI/pre-commit run --selftest + drift instead)
 python3 governance/run_rules.py
 
 # Meta-validation: every checker must flag its bad fixture and pass its good one
