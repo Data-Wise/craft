@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.45.0] — 2026-06-21
+
 ### Added
 
 - **Governance Phase 2 (PR #2) — SessionStart visibility hook.** `governance/session_hook.py` audits the
