@@ -32,7 +32,11 @@ distributed via the Homebrew tap and/or a local marketplace (scholar, savant, cr
    ```
 
 5. **Refresh every consumer** (this is the step most often skipped → drift):
-   - **Homebrew tap** — bump `Formula/<plugin>.rb`:
+   - **Homebrew tap** — *if the repo has a `homebrew-release.yml` workflow* (scholar, craft, rforge
+     do), this is **automatic**: publishing the GitHub release fires it, it computes the sha256 and
+     opens/merges the tap formula PR. Just `brew upgrade <plugin>` after. **Do not** hand-edit the
+     formula in that case — the automation will conflict. Only for plugins **without** that workflow,
+     bump `Formula/<plugin>.rb` by hand:
 
      ```bash
      # url -> .../tags/vX.Y.Z.tar.gz, then:
