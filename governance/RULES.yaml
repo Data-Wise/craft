@@ -63,13 +63,16 @@ rules:
 
   - id: R04-consume-not-copy
     statement: "Update a skill on a surface via `plugin update`, never by re-copying."
-    rationale: "Copies drift; the installer is the only writer of consumer surfaces."
+    rationale: "Copies drift; the installer is the only writer of consumer surfaces. Automated as CONTENT drift (distinct from R07's version-pin check): an installed SKILL.md must stay byte-identical to its canon."
     severity: warn
     owner: stat-wise
     status: active
     added: 2026-06-20
     gates: [session]
-    check: { kind: manual }
+    check:
+      kind: script
+      cmd: "checks/no_drifted_copy.py {target}"
+      fixtures: { good: fixtures/no-drifted-copy/good, bad: fixtures/no-drifted-copy/bad }
     waivers: []
 
   - id: R05-no-edit-caches
