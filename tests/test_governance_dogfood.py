@@ -334,3 +334,85 @@ class TestSessionHook:
         assert "mtime" in data and "red" in data["summary"]
         r2 = _run_hook({"GOVERNANCE_SKILLS_DIR": str(skills), "GOVERNANCE_CACHE": str(cache)})
         assert r1.stdout == r2.stdout, "unchanged tree should reuse the cached summary"
+
+
+# ---------------------------------------------------------------------------
+# 7. Soak-then-flip ledger + cross-repo wrapper (PR #3)
+# ---------------------------------------------------------------------------
+
+sys.path.insert(0, str(GOV_DIR))
+import soak  # noqa: E402  (sibling module under governance/)
+
+RUN_SH = GOV_DIR / "run.sh"
+
+
+def _write_ledger(path: Path, rules: dict) -> None:
+    path.write_text(json.dumps({"schema": soak.SCHEMA, "updated": "2026-07-01",
+                                "rules": rules}), encoding="utf-8")
+
+
+class TestSoakLedger:
+    """Soak ledger: record_audit stamps dates; promotion_eligible gates on BOTH
+    enough history AND no-recent-RED. All date math uses an injected `today`."""
+
+    def test_record_stamps_first_seen_and_last_red(self, tmp_path: Path):
+        led = tmp_path / "STATE.json"
+        results = [{"id": "R01", "severity": "warn", "state": "PASS"},
+                   {"id": "R08", "severity": "error", "state": "FAIL"}]
+        soak.record_audit(str(led), results, today="2026-06-01")
+        d = json.loads(led.read_text())
+        assert d["rules"]["R01"]["first_seen"] == "2026-06-01"
+        assert d["rules"]["R01"]["last_red"] is None          # PASS → no red stamp
+        assert d["rules"]["R08"]["last_red"] == "2026-06-01"  # FAIL → red stamped
+
+    def test_eligible_after_window_clean(self, tmp_path: Path):
+        led = tmp_path / "STATE.json"
+        _write_ledger(led, {"R01": {"first_seen": "2026-06-01", "last_red": None}})
+        elig = soak.promotion_eligible(str(led), {"R01"}, today="2026-07-01", window_days=14)
+        assert [e["id"] for e in elig] == ["R01"]
+
+    def test_not_eligible_insufficient_history(self, tmp_path: Path):
+        led = tmp_path / "STATE.json"
+        _write_ledger(led, {"R01": {"first_seen": "2026-06-25", "last_red": None}})  # 6d old
+        elig = soak.promotion_eligible(str(led), {"R01"}, today="2026-07-01", window_days=14)
+        assert elig == []
+
+    def test_not_eligible_recent_red(self, tmp_path: Path):
+        led = tmp_path / "STATE.json"
+        _write_ledger(led, {"R01": {"first_seen": "2026-06-01", "last_red": "2026-06-28"}})  # red 3d ago
+        elig = soak.promotion_eligible(str(led), {"R01"}, today="2026-07-01", window_days=14)
+        assert elig == []
+
+    def test_error_rule_never_eligible(self, tmp_path: Path):
+        """promotion_eligible only considers the warn-rule id set it's handed, so
+        an error-severity rule (absent from warn_ids) can never be recommended."""
+        led = tmp_path / "STATE.json"
+        _write_ledger(led, {"R08": {"first_seen": "2026-01-01", "last_red": None}})
+        elig = soak.promotion_eligible(str(led), {"R01"}, today="2026-07-01", window_days=14)
+        assert elig == []  # R08 not in warn_ids → ignored even though soaked
+
+
+class TestPromoteCheckCLI:
+    """`run_rules.py --promote-check` — advisory, always exit 0."""
+
+    def test_no_ledger_is_helpful_not_error(self, tmp_path: Path):
+        r = _run(RUN, "--promote-check", "--state", str(tmp_path / "absent.json"))
+        assert r.returncode == 0 and "no soak ledger yet" in r.stdout
+
+    def test_lists_eligible_warn_rules(self, tmp_path: Path):
+        led = tmp_path / "STATE.json"
+        # R01 is a real warn-severity rule in RULES.yaml; soaked clean since January.
+        _write_ledger(led, {"R01-single-source": {"first_seen": "2026-01-01", "last_red": None}})
+        r = _run(RUN, "--promote-check", "--state", str(led), "--window", "14")
+        assert r.returncode == 0
+        assert "R01-single-source" in r.stdout and "ripe" in r.stdout
+
+
+class TestCrossRepoWrapper:
+    """governance/run.sh — one installed copy, invoked from any cwd (no drift)."""
+
+    def test_run_sh_portable_from_foreign_cwd(self, tmp_path: Path):
+        r = subprocess.run(["bash", str(RUN_SH), "--selftest"],
+                           cwd=str(tmp_path), capture_output=True, text=True, timeout=30)
+        assert r.returncode == 0, r.stderr
+        assert "SELFTEST" in r.stdout  # the engine actually ran, from a foreign cwd
