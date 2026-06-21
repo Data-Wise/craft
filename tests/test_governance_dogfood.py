@@ -21,6 +21,7 @@ Run with: python3 -m pytest tests/test_governance_dogfood.py -v
 """
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -280,3 +281,56 @@ class TestPrivateMarketplaceChecker:
         the live (non-fixture) enforcement check."""
         live = PLUGIN_DIR / ".claude-plugin" / "marketplace.json"
         assert _run(self.CHK, str(live)).returncode == 0
+
+
+# ---------------------------------------------------------------------------
+# 6. SessionStart visibility hook (PR #2)
+# ---------------------------------------------------------------------------
+
+HOOK = GOV_DIR / "session_hook.py"
+
+
+def _run_hook(env_overrides: dict, stdin: str = "") -> subprocess.CompletedProcess:
+    env = dict(os.environ, GOVERNANCE_ENGINE=str(RUN), **env_overrides)
+    return subprocess.run(
+        [sys.executable, str(HOOK)], input=stdin,
+        capture_output=True, text=True, timeout=20, env=env,
+    )
+
+
+class TestSessionHook:
+    """SessionStart visibility hook: emits a RED-only summary into session
+    context, silent when clean, no-op when the skills tree is absent, and
+    mtime-cached. Hermetic — temp skills dirs + temp cache, never live ~/.claude."""
+
+    def test_dead_symlink_emits_red_additionalcontext(self, tmp_path: Path):
+        skills = tmp_path / "skills"; skills.mkdir()
+        (skills / "dead").symlink_to("/nonexistent/target")
+        r = _run_hook({"GOVERNANCE_SKILLS_DIR": str(skills),
+                       "GOVERNANCE_CACHE": str(tmp_path / "cache.json")})
+        assert r.returncode == 0, r.stderr
+        ctx = json.loads(r.stdout)["hookSpecificOutput"]["additionalContext"]
+        assert "red" in ctx and "R08-no-dead-links" in ctx
+
+    def test_clean_skills_is_silent(self, tmp_path: Path):
+        skills = tmp_path / "skills"; skills.mkdir()
+        (skills / "ok.txt").write_text("ok", encoding="utf-8")
+        r = _run_hook({"GOVERNANCE_SKILLS_DIR": str(skills),
+                       "GOVERNANCE_CACHE": str(tmp_path / "c.json")})
+        assert r.returncode == 0 and r.stdout.strip() == ""
+
+    def test_absent_skills_is_noop(self, tmp_path: Path):
+        r = _run_hook({"GOVERNANCE_SKILLS_DIR": str(tmp_path / "nope"),
+                       "GOVERNANCE_CACHE": str(tmp_path / "c.json")})
+        assert r.returncode == 0 and r.stdout.strip() == ""
+
+    def test_mtime_cache_written_and_reused(self, tmp_path: Path):
+        skills = tmp_path / "skills"; skills.mkdir()
+        (skills / "dead").symlink_to("/nonexistent")
+        cache = tmp_path / "cache.json"
+        r1 = _run_hook({"GOVERNANCE_SKILLS_DIR": str(skills), "GOVERNANCE_CACHE": str(cache)})
+        assert cache.is_file()
+        data = json.loads(cache.read_text(encoding="utf-8"))
+        assert "mtime" in data and "red" in data["summary"]
+        r2 = _run_hook({"GOVERNANCE_SKILLS_DIR": str(skills), "GOVERNANCE_CACHE": str(cache)})
+        assert r1.stdout == r2.stdout, "unchanged tree should reuse the cached summary"
