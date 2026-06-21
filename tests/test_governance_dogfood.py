@@ -416,3 +416,70 @@ class TestCrossRepoWrapper:
                            cwd=str(tmp_path), capture_output=True, text=True, timeout=30)
         assert r.returncode == 0, r.stderr
         assert "SELFTEST" in r.stdout  # the engine actually ran, from a foreign cwd
+
+
+# ---------------------------------------------------------------------------
+# 8. Release pre-flight governance annotation (#184) — advisory, NEVER blocks
+# ---------------------------------------------------------------------------
+
+PRE_RELEASE = PLUGIN_DIR / "scripts" / "pre-release-check.sh"
+
+
+class TestReleaseGuard184:
+    """The governance step in pre-release-check.sh surfaces RED findings but must
+    never gate the release (gentle-ramp). The non-blocking invariant is the whole
+    point — lock it in so a later edit can't silently turn it into a gate."""
+
+    def _governance_block(self) -> str:
+        src = PRE_RELEASE.read_text(encoding="utf-8")
+        assert "Governance (skill-ecosystem)" in src, "advisory block missing"
+        start = src.index("Governance (skill-ecosystem) — ADVISORY")
+        end = src.index("# Summary", start)
+        return src[start:end]
+
+    def test_block_present(self):
+        assert "advisory, non-blocking" in self._governance_block()
+
+    def test_block_never_increments_errors(self):
+        """The advisory block must not touch $ERRORS — that's what keeps it from
+        ever failing the release. If this fires, someone made governance a gate."""
+        block = self._governance_block()
+        assert "ERRORS=" not in block, "governance advisory must not modify $ERRORS"
+        assert "exit 1" not in block, "governance advisory must not exit non-zero"
+
+
+# ---------------------------------------------------------------------------
+# 9. R04 content-drift checker (Phase 1 automation)
+# ---------------------------------------------------------------------------
+
+DRIFT_CHK = CHECKS / "no_drifted_copy.py"
+DRIFT_GOOD = GOV_DIR / "fixtures" / "no-drifted-copy" / "good"
+DRIFT_BAD = GOV_DIR / "fixtures" / "no-drifted-copy" / "bad"
+
+
+class TestDriftedCopyChecker:
+    """R04 automated as content drift: an installed SKILL.md must stay byte-identical
+    to its canon. Distinct from R07 (version-pin) — this catches a hand-edited copy."""
+
+    def test_identical_copy_passes(self):
+        assert _run(DRIFT_CHK, str(DRIFT_GOOD)).returncode == 0
+
+    def test_drifted_copy_is_flagged(self):
+        r = _run(DRIFT_CHK, str(DRIFT_BAD))
+        assert r.returncode == 1 and "drifted copy" in r.stdout
+
+    def test_absent_consumer_skips(self, tmp_path: Path):
+        r = _run(DRIFT_CHK, str(tmp_path / "nope"))
+        assert r.returncode == 0 and "skip" in r.stdout
+
+    def test_no_canon_is_vacuous_not_a_pass(self, tmp_path: Path):
+        """With a consumer present but no canon, the check is vacuous — it must say
+        so out loud (a clean exit that isn't mistaken for enforcement)."""
+        consumer = tmp_path / "consumer"; consumer.mkdir()
+        r = _run(DRIFT_CHK, str(consumer), str(tmp_path / "nocanon"))
+        assert r.returncode == 0 and "vacuous" in r.stdout
+
+    def test_live_env_never_errors(self):
+        """Against the real surface, R04 must be clean or vacuously skip — never a
+        false positive (a noisy WARN would stamp last_red and block soak promotion)."""
+        assert _run(DRIFT_CHK, os.path.expanduser("~/.claude/skills")).returncode == 0

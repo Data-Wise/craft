@@ -75,11 +75,21 @@ The engine is wired into three surfaces — two that **prevent** (block bad chan
   Quiet by design: silent when clean, mtime-cached (unchanged tree → skip re-audit), and a no-op where
   `~/.claude/skills` is absent. Install it **globally** by wiring `session_hook.py` into a `SessionStart`
   entry in `~/.claude/settings.json` (see `governance/README.md`).
+- **Release pre-flight** (`release`, **advisory**) — `scripts/pre-release-check.sh` runs
+  `run_rules.py --json` and prints any RED finding count, but **never blocks the release** (it doesn't
+  touch the script's error counter). Gentle-ramp: a release surfaces governance drift without being
+  halted by it.
 
 `R03-private-marketplace` is now automated (`checks/no_private_in_public_marketplace.py {marketplace}`):
 it fails if a public marketplace manifest lists a plugin sourced from a private/PII repo (denylist,
 no network). Pass `--marketplace FILE` to point the audit at a specific manifest; the default is the
 in-repo `.claude-plugin/marketplace.json`.
+
+`R04-consume-not-copy` is automated as **content drift** (`checks/no_drifted_copy.py {target}`): a skill
+present on both a consumer surface and a canon repo must have a byte-identical `SKILL.md` — a divergence
+means the copy was hand-edited rather than consumed via `plugin update`. This is **distinct from R07**
+(version-pin equality): R04 catches a drifted *body* even when the version still matches. It gates
+`session` (the canon repos are local-only; vacuous-skip elsewhere).
 
 ## Promotion: soak-then-flip (the gentle-ramp)
 

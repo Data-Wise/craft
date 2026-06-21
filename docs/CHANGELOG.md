@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Governance R04 automated as content-drift (Phase 1).** `R04-consume-not-copy` graduates from
+  `manual` to a scripted checker (`checks/no_drifted_copy.py`): if a skill is present on a consumer
+  surface AND in a canon repo, their `SKILL.md` must be byte-identical — a divergence means the copy was
+  hand-edited instead of consumed via `plugin update`. **Distinct from R07** (version-pin): this catches
+  a drifted body even when the version still matches. Gates `session` (canons are local-only; vacuous-skip
+  - good/bad fixtures otherwise). Verified clean on the live env (no false positives → soak-safe).
+- **Governance release pre-flight annotation (#184).** `scripts/pre-release-check.sh` now runs
+  `run_rules.py --json` and prints any RED governance finding count — **advisory only, never blocks the
+  release** (it doesn't touch the script's error counter). Gentle-ramp: a release surfaces governance
+  drift without being halted by it. A dogfood guard test locks in the non-blocking invariant.
+
 ## [2.46.0] — 2026-06-21
 
 ### Added
