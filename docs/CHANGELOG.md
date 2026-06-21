@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.46.0] — 2026-06-21
+
 ### Added
 
 - **Governance Phase 2 (PR #3) — soak-then-flip promotion + cross-repo wrapper.**
