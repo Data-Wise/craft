@@ -68,6 +68,18 @@ skipping them silently.
 - `error` blocks at its gates · `warn` is surfaced · `advisory` is documented only.
 - Posture is **gentle-ramp**: new rules start `warn` (or `error` + waivers) and tighten once clean.
 
+**Soak-then-flip promotion.** The SessionStart hook feeds a local, gitignored `STATE.json` ledger
+(`first_seen`/`last_seen`/`last_red` per rule). `run_rules.py --promote-check` lists `warn` rules soaked
+clean ≥ `--window` days (default 14) — eligible for a human `warn → error` flip in `RULES.yaml`. The
+machinery recommends; the human promotes. Per-machine soak evidence is never committed.
+
+```bash
+python3 governance/run_rules.py --promote-check [--window N] [--state PATH]
+```
+
+**Cross-repo.** Consumers invoke the one installed craft engine via `governance/run.sh` (resolves its own
+dir, `__file__`-relative engine → cwd-portable) — one pinned copy, no drift (`R07-version-is-truth`).
+
 ## Gates (advisory metadata — where a rule is *meant* to run)
 
 `author` (pre-commit) · `ci` (PR) · `release` (dist) · `install` · `session` (SessionStart hook) · `runtime`.

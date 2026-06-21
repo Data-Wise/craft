@@ -22,6 +22,7 @@ try:
     import yaml
 except ImportError:
     sys.stderr.write("PyYAML required: pip install pyyaml\n"); sys.exit(2)
+import soak  # sibling module: soak-then-flip promotion ledger
 
 GOV = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(GOV)  # craft repo root = parent of governance/
@@ -29,6 +30,9 @@ DEF_TARGET = os.path.expanduser("~/.claude/skills")
 DEF_INDEX = os.path.expanduser("~/.claude/skills/SKILLS-INDEX.md")
 # R03 scans the IN-REPO public marketplace manifest (CI-checkable, no network).
 DEF_MARKETPLACE = os.path.join(REPO_ROOT, ".claude-plugin", "marketplace.json")
+# Soak ledger — LOCAL + gitignored (per-machine soak evidence, never committed).
+DEF_STATE = os.path.join(GOV, "STATE.json")
+SOAK_WINDOW_DAYS = 14
 
 
 def load_rules():
@@ -133,6 +137,27 @@ def selftest(rules_doc):
     return 1 if bad_meta else 0
 
 
+def promote_check(rules_doc, state_path, window):
+    """Soak-then-flip recommender: list `warn` rules that have soaked clean for
+    >= `window` days (per the LOCAL ledger) and are thus eligible for a human
+    `warn -> error` flip in RULES.yaml. Read-only and advisory — exit 0 always."""
+    warn_ids = {r["id"] for r in rules_doc["rules"]
+                if r.get("status") == "active" and r.get("severity", "warn") == "warn"}
+    elig = soak.promotion_eligible(state_path, warn_ids, window_days=window)
+    print("GOVERNANCE PROMOTE-CHECK  window=%dd  ledger=%s" % (window, state_path))
+    if not os.path.exists(state_path):
+        print("  no soak ledger yet — run a session (the SessionStart hook feeds it) "
+              "or `run_rules.py` audits over time, then re-check.")
+        return 0
+    if not elig:
+        print("  no warn-rules are promotion-eligible (not soaked %dd clean yet)." % window)
+        return 0
+    print("  promotion-eligible (flip severity warn->error in RULES.yaml when ready):")
+    for e in elig:
+        print("  [ripe] %-22s clean since %s (%dd)" % (e["id"], e["clean_since"], e["clean_days"]))
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--target", default=DEF_TARGET)
@@ -140,10 +165,16 @@ def main():
     ap.add_argument("--marketplace", default=DEF_MARKETPLACE)
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--promote-check", action="store_true",
+                    help="list warn-rules soaked clean >= --window days (advisory)")
+    ap.add_argument("--state", default=DEF_STATE, help="soak ledger path (local, gitignored)")
+    ap.add_argument("--window", type=int, default=SOAK_WINDOW_DAYS, help="soak window in days")
     a = ap.parse_args()
     doc = load_rules()
     if a.selftest:
         return selftest(doc)
+    if a.promote_check:
+        return promote_check(doc, a.state, a.window)
     return audit(doc, a.target, a.index, a.json, a.marketplace)
 
 

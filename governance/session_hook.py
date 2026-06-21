@@ -25,6 +25,7 @@ Test/override env vars (so dogfood tests stay hermetic):
   GOVERNANCE_CACHE       default ~/.claude/.cache/governance-session.json
 """
 import os, sys, json, subprocess
+import soak  # sibling module: feeds the soak-then-flip ledger
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -62,6 +63,11 @@ def _run_audit(engine, skills, index):
         data = json.loads(p.stdout)
     except Exception:
         return ""  # a hook must never break a session
+    # Feed the soak ledger (best-effort) BEFORE the RED early-return — clean audits
+    # are exactly what builds the "soaked clean N days" history that --promote-check
+    # reads. record_audit never raises.
+    soak.record_audit(_env("GOVERNANCE_STATE", os.path.join(HERE, "STATE.json")),
+                      data.get("results", []))
     if not data.get("red"):
         return ""
     offenders = [r["id"] for r in data.get("results", [])

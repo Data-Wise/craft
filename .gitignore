@@ -47,3 +47,6 @@ node_modules/
 .craft/orchestrate-runs/
 .craft/quota.json
 .craft/parity-gate-results/
+
+# Governance soak ledger — LOCAL per-machine soak evidence, never committed
+governance/STATE.json
