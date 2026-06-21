@@ -35,6 +35,18 @@ python3 governance/run_rules.py --json
 the live-env audit — R01/R07 need the canon repos / cross-surface feed that exist only locally, so a
 green CI run validates checker behaviour + doc currency, not those live-env rules.
 
+**SessionStart hook (visibility):** `session_hook.py` runs the live-env audit against `~/.claude/skills`
+at session open and injects a compact **RED-only** summary into context (silent when clean; mtime-cached;
+a no-op where `~/.claude/skills` is absent). SessionStart hooks inject context, they cannot block — this
+is the surface where local-only drift (a dead skill symlink) gets seen. Install it **globally** by adding
+a `SessionStart` entry to `~/.claude/settings.json`:
+
+```json
+{ "hooks": { "SessionStart": [ { "hooks": [
+  { "type": "command", "command": "python3 /ABS/PATH/TO/craft/governance/session_hook.py" }
+] } ] } }
+```
+
 **Fail-closed:** an `error` rule whose checker is missing or unresolvable (state `ERROR`) gates the
 build too — a broken checker never passes silently. Only `error`-severity rules block; `warn` rules
 in `ERROR`/`FAIL` are surfaced but never gate.
