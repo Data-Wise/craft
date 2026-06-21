@@ -15,7 +15,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-- `feature/governance-184-release-guard` — #184 release pre-flight advisory ([#196](https://github.com/Data-Wise/craft/pull/196)): `pre-release-check.sh` runs `run_rules.py --json`, prints RED count, ADVISORY/never-blocks (no `ERRORS` touch) + `TestReleaseGuard184` invariant test. Worktree: `~/.git-worktrees/craft/governance-184-release-guard` (off dev b3c63e8a). R04 automation NOT included — on-disk model can't distinguish hand-copy from plugin-install (all real dirs, no symlinks); pending user design decision.
+- `feature/governance-184-release-guard` — R04 content-drift automation + #184 release advisory ([#196](https://github.com/Data-Wise/craft/pull/196)): R04 manual→script (`checks/no_drifted_copy.py` — installed SKILL.md must be byte-identical to canon; distinct from R07 version-pin; live env clean → soak-safe) + `pre-release-check.sh` advisory `run_rules.py --json` (never blocks, `TestReleaseGuard184`). 54 governance suite green. Worktree: `~/.git-worktrees/craft/governance-184-release-guard` (off dev b3c63e8a). Naïve "real-dir=copy" heuristic was dead (installs are real dirs, no symlinks) → redefined R04 as content-drift per advisor.
 
 _Prior (all merged + worktrees removed 2026-06-21): `feature/governance-phase2-soak` (PR #194, soak-then-flip + cross-repo `run.sh` → dev); `feature/flaky-perf-xfail` (PR #193, xfail timing test); `feature/governance-phase2-hook` (PR #190, SessionStart hook → dev), `feature/cleanup-stray-orchestrate` (PR #191, removed leaked ORCHESTRATE), `feature/governance-phase2-gates` (PR #188, v2.44.0). Local branch refs left dangling (squash-merge + branch-guard blocks `-D`) — harmless._
 
