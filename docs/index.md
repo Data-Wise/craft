@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.42.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.43.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -219,7 +219,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **112** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.42.0 — Fewer Prompts"
+!!! info "Latest: v2.43.0 — Fewer Prompts"
     `/craft:code:fewer-prompts` installs a curated read-only Bash allowlist into `.claude/settings.json` in one shot, eliminating permission prompts for `git status/log/diff`, `grep`, `ls`, `find .`, `wc`, `head`, `tail`, and craft-specific read operations. Supports `--dry-run`, `--global`, and `--reset`. See the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
