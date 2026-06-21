@@ -11,6 +11,8 @@ and consumer surfaces (Claude Code, Cowork, Claude.ai). The rules are **data**, 
 | `run_rules.py` | The engine: audits the live environment; `--selftest` meta-validates the checkers. |
 | `checks/` | One small, portable checker per automatable rule. |
 | `fixtures/` | A known-bad + known-good layout per checker (so we can *test the tester*). |
+| `render_rules.py` | **Phase 3 safeguard** — generates the human-readable rule block from `RULES.yaml` and injects it between markers in any `CLAUDE.md`; `--check` is the `rules-drift` gate. |
+| `CLAUDE-rules.md` | In-repo generated target, so CI can run the drift check self-contained. |
 
 ## Use
 
@@ -43,5 +45,18 @@ auditor `~/.claude/scripts/skills-audit.py` (the per-machine tool); the engine h
 ## Gates (where a rule fires)
 
 `author` (pre-commit) · `ci` (PR) · `release` (dist) · `install` · `session` (SessionStart hook) · `runtime`.
-Phase 0 ships the rule set + engine + selftest. Wiring to gates is Phase 2; `RULES.yaml -> CLAUDE.md`
-generation + a `rules-drift` check is Phase 3. See `skill-governance-proposal-2026-06`.
+Phase 0 ships the rule set + engine + selftest. See `skill-governance-proposal-2026-06`.
+
+## Keeping CLAUDE.md in sync (Phase 3)
+
+The rule block in any `CLAUDE.md` is **generated**, never hand-written:
+
+```bash
+python3 governance/render_rules.py                       # print the block
+python3 governance/render_rules.py --init  ~/.claude/CLAUDE.md   # append a marked block (first time)
+python3 governance/render_rules.py --apply ~/.claude/CLAUDE.md   # regenerate after editing RULES.yaml
+python3 governance/render_rules.py --check ~/.claude/CLAUDE.md governance/CLAUDE-rules.md  # rules-drift gate (CI/hook)
+```
+
+Edit `RULES.yaml`, run `--apply`, commit. A `--check` in CI fails if anyone hand-edits between the
+`RULES:BEGIN`/`RULES:END` markers — so the copies can never silently diverge from the source of truth.
