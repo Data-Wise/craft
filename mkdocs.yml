@@ -188,6 +188,7 @@ nav:
       - Homebrew Distribution: guide/homebrew-installation.md
       - Homebrew Automation: guide/homebrew-automation.md
       - Desktop Release Guide: guide/desktop-release.md
+      - Plugin Release Runbook: guide/plugin-release-runbook.md
       - Skills & Agents: skills-agents.md
       - Skill-Ecosystem Governance: guide/governance.md
       - Integration Testing: guide/integration-testing.md
