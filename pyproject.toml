@@ -54,6 +54,7 @@ markers = [
     "property: Property-based tests (requires hypothesis)",
     "contract: Contract validation tests for strict schemas",
     "dogfood: Self-dogfooding tests that run craft's own tools against itself",
+    "governance: Skill-ecosystem governance engine (RULES.yaml, checkers, render/run scripts)",
 ]
 
 # Default: show short test summary, no header noise
