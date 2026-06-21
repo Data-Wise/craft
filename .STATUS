@@ -15,7 +15,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-None.
+- `feature/governance-test-coverage` — governance live-flow tests ([#197](https://github.com/Data-Wise/craft/pull/197)): e2e soak lifecycle (hook→ledger→promote-check) + R04-in-audit; dogfood ledger edges (first_seen anchor, last_red retention, corrupt recovery). Suite 54→59. Tests + CHANGELOG only. Worktree off dev 5cb49ccd.
 
 _Prior (all merged + worktrees removed 2026-06-21): `feature/governance-184-release-guard` (PR #196, R04 content-drift automation + #184 release advisory → dev); `feature/governance-phase2-soak` (PR #194, soak-then-flip + cross-repo `run.sh` → dev); `feature/flaky-perf-xfail` (PR #193, xfail timing test); `feature/governance-phase2-hook` (PR #190, SessionStart hook → dev), `feature/cleanup-stray-orchestrate` (PR #191, removed leaked ORCHESTRATE), `feature/governance-phase2-gates` (PR #188, v2.44.0). Local branch refs left dangling (squash-merge + branch-guard blocks `-D`) — harmless._
 
