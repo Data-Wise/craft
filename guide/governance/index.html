@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.43.0 adds /craft:code:fewer-prompts — a one-shot command that installs a curated read-only Bash allowlist to eliminate permission prompts for safe read operations.">
+        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.44.0 adds skill-ecosystem governance (policy-as-code under governance/) — an audit engine, a rules-drift check, and portable checkers for skill-location rules.">
       
       
       
@@ -3223,6 +3223,17 @@
     <span class="md-ellipsis">
       
         Severity, posture, gates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gates-enforcement-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gates &amp; enforcement (Phase 2)
       
     </span>
   </a>
@@ -11251,6 +11262,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#gates-enforcement-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gates &amp; enforcement (Phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#adding-a-rule" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11295,8 +11317,9 @@ so they can be audited, validated, and enforced automatically instead of rotting
 <h2 id="why">Why<a class="headerlink" href="#why" title="Permanent link">&para;</a></h2>
 <p>Rules written as prose drift and get silently bypassed: archived source paths leave dead symlinks,
 and consumer installs lag the canon version for releases at a time. Governance makes organization a
-property of the system — a single source of truth, machine-checkable rules, and gates that fail
-loudly.</p>
+property of the system — a single source of truth, machine-checkable rules, and a fail-loud audit
+engine. The <code>--selftest</code> + rules-drift gates are wired at <strong>pre-commit + CI</strong>; the live-env audit and a
+SessionStart hook are later increments.</p>
 <h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -11316,7 +11339,7 @@ loudly.</p>
 </tr>
 <tr>
 <td><code>governance/render_rules.py</code></td>
-<td>Generates the human-readable rule block and injects it into any <code>CLAUDE.md</code> between markers; <code>--check</code> is the <strong>rules-drift</strong> gate.</td>
+<td>Generates the human-readable rule block and injects it into any <code>CLAUDE.md</code> between markers; <code>--check</code> is the <strong>rules-drift</strong> gate (wired at pre-commit + CI).</td>
 </tr>
 <tr>
 <td><code>governance/checks/</code></td>
@@ -11329,26 +11352,48 @@ loudly.</p>
 </tbody>
 </table>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Audit the live environment against the rules (gate CI / a SessionStart hook)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python3<span class="w"> </span>governance/run_rules.py
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Meta-validation: every checker must flag its bad fixture and pass its good one</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>python3<span class="w"> </span>governance/run_rules.py<span class="w"> </span>--selftest
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Keep CLAUDE.md in sync with RULES.yaml (single-source; never hand-edit between markers)</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>python3<span class="w"> </span>governance/render_rules.py<span class="w"> </span>--apply<span class="w"> </span>~/.claude/CLAUDE.md
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>python3<span class="w"> </span>governance/render_rules.py<span class="w"> </span>--check<span class="w">  </span>~/.claude/CLAUDE.md<span class="w">   </span><span class="c1"># rules-drift gate</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Audit the live environment against the rules</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># (the live-env audit targets a SessionStart hook — a later increment; CI/pre-commit run --selftest + drift instead)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python3<span class="w"> </span>governance/run_rules.py
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Meta-validation: every checker must flag its bad fixture and pass its good one</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>python3<span class="w"> </span>governance/run_rules.py<span class="w"> </span>--selftest
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Keep CLAUDE.md in sync with RULES.yaml (single-source; never hand-edit between markers)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>python3<span class="w"> </span>governance/render_rules.py<span class="w"> </span>--apply<span class="w"> </span>~/.claude/CLAUDE.md
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>python3<span class="w"> </span>governance/render_rules.py<span class="w"> </span>--check<span class="w">  </span>~/.claude/CLAUDE.md<span class="w">   </span><span class="c1"># rules-drift gate</span>
 </span></code></pre></div>
 <h2 id="severity-posture-gates">Severity, posture, gates<a class="headerlink" href="#severity-posture-gates" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Severity</strong> — <code>error</code> blocks at its gates · <code>warn</code> is surfaced · <code>advisory</code> is documented only.</li>
+<li><strong>Severity</strong> — <code>error</code> blocks · <code>warn</code> is surfaced · <code>advisory</code> is documented only. Severity is the
+  only thing that decides blocking: <code>run_rules.py</code> runs <strong>every</strong> active rule and counts unwaived
+  <code>error</code>-severity failures, regardless of <code>gates</code>.</li>
 <li><strong>Posture</strong> — <em>gentle-ramp</em>: a new rule starts as <code>warn</code> (or <code>error</code> + time-boxed waivers) and
   tightens once the environment is clean.</li>
-<li><strong>Gates</strong> — each rule names where it fires: <code>author</code> (pre-commit) · <code>ci</code> (PR) · <code>release</code> (dist) ·
-  <code>install</code> · <code>session</code> (SessionStart hook) · <code>runtime</code>. Pick a gate the check can actually run at —
-  e.g. <code>R01-single-source</code> fires on <code>session</code>, not <code>ci</code>, since its canon repos only exist locally;
-  in CI it announces a vacuous skip rather than passing silently.</li>
+<li><strong>Gates</strong> — <code>author</code> (pre-commit) · <code>ci</code> (PR) · <code>release</code> (dist) · <code>install</code> · <code>session</code>
+  (SessionStart hook) · <code>runtime</code>. <strong>Gates are advisory metadata</strong>: <code>render_rules.py</code> renders them
+  into the human-readable rule block in <code>CLAUDE.md</code> to document <em>where a rule is meant to run</em>, but
+  the audit engine does <strong>not</strong> read <code>gates</code> at runtime — it does not route execution. The intent
+  records a future home for each check (e.g. <code>R01-single-source</code> is meant for <code>session</code>, not <code>ci</code>,
+  since its canon repos only exist locally). When R01 runs in craft CI it announces a vacuous skip —
+  but that skip comes from the checker's own "fewer than 2 canon dirs present" guard in
+  <code>checks/no_duplicate_canon.py</code>, not from gate routing.</li>
 </ul>
+<h2 id="gates-enforcement-phase-2">Gates &amp; enforcement (Phase 2)<a class="headerlink" href="#gates-enforcement-phase-2" title="Permanent link">&para;</a></h2>
+<p>The engine is wired into two real gates (a third, the SessionStart hook, is a later increment):</p>
+<ul>
+<li><strong>pre-commit</strong> (<code>author</code>) — the <code>governance-gate</code> hook (<code>files: ^governance/</code>) runs
+  <code>run_rules.py --selftest</code> + <code>render_rules.py --check</code> on any <code>governance/</code> change. It blocks a commit
+  that breaks a checker or hand-edits the generated rule block. It does <strong>not</strong> run the live-env audit
+  (that needs the canon repos / <code>~/.claude/skills</code>, which a clean commit lacks).</li>
+<li><strong>CI</strong> (<code>ci</code>) — <code>ci.yml</code> runs the same selftest + drift-check after the test suite. It prints an
+  explicit note that CI does <strong>not</strong> evaluate R01/R07 live-env state (canon repos and the cross-surface
+  feed exist only locally) — so a green run is never misread as live-env enforcement.</li>
+</ul>
+<p><code>R03-private-marketplace</code> is now automated (<code>checks/no_private_in_public_marketplace.py {marketplace}</code>):
+it fails if a public marketplace manifest lists a plugin sourced from a private/PII repo (denylist,
+no network). Pass <code>--marketplace FILE</code> to point the audit at a specific manifest; the default is the
+in-repo <code>.claude-plugin/marketplace.json</code>.</p>
 <h2 id="adding-a-rule">Adding a rule<a class="headerlink" href="#adding-a-rule" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Append one entry to <code>RULES.yaml</code> (<code>id</code>, <code>statement</code>, <code>rationale</code>, <code>severity</code>, <code>gates</code>, <code>check</code>).</li>

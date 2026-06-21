@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.43.0 adds /craft:code:fewer-prompts — a one-shot command that installs a curated read-only Bash allowlist to eliminate permission prompts for safe read operations.">
+        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.44.0 adds skill-ecosystem governance (policy-as-code under governance/) — an audit engine, a rules-drift check, and portable checkers for skill-location rules.">
       
       
       
@@ -11253,12 +11253,19 @@ plugin system keys on the version string. When in doubt, <strong>bump the versio
 </blockquote>
 <h2 id="the-chain-in-order">The chain (in order)<a class="headerlink" href="#the-chain-in-order" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Land the change on <code>dev</code>.</strong> Feature → <code>dev</code> PR, CI green (tests + <code>version-sync --gate</code>).</li>
+<li><strong>Land the change on <code>dev</code>.</strong> Feature → <code>dev</code> PR, CI green (tests + the version-sync gate).</li>
 <li><strong>Bump the version</strong> on a release branch. Edit the <strong>authoritative source</strong> (<code>package.json</code> for
-   scholar; <code>.claude-plugin/plugin.json</code> / repo convention for others), then propagate:</li>
+   scholar; <code>.claude-plugin/plugin.json</code> / repo convention for others), then propagate and verify
+   with the plugin's own version-sync tool — <strong>they differ by repo</strong>:</li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>node<span class="w"> </span>scripts/version-sync.js<span class="w">          </span><span class="c1"># propagate to README/CLAUDE/plugin.json/mkdocs/docs</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>node<span class="w"> </span>scripts/version-sync.js<span class="w"> </span>--gate<span class="w">   </span><span class="c1"># must report 0 errors</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># scholar — version-sync.js is a propagator with a built-in gate:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>node<span class="w"> </span>scripts/version-sync.js<span class="w">          </span><span class="c1"># propagate to README/CLAUDE/plugin.json/mkdocs/docs</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>node<span class="w"> </span>scripts/version-sync.js<span class="w"> </span>--gate<span class="w">   </span><span class="c1"># must report 0 errors</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># craft (and rforge/savant, by their repo&#39;s equivalent) — bump-version.sh propagates,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># version-sync.sh only *verifies* (it is a checker; there is no --gate):</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>bash<span class="w"> </span>scripts/bump-version.sh<span class="w"> </span>X.Y.Z<span class="w">    </span><span class="c1"># propagate version + counts across all files</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>bash<span class="w"> </span>scripts/version-sync.sh<span class="w"> </span>--quiet<span class="w">  </span><span class="c1"># gate: exit 0 = consistent, 1 = drift</span>
 </span></code></pre></div>
 <p>Choose the bump by SemVer: a new skill/command = <strong>minor</strong>; fixes = <strong>patch</strong>.
 3. <strong>Finalize docs</strong> (this is where drift hides — <code>version-sync</code> updates <em>numbers</em>, not <em>prose</em>):
