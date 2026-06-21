@@ -35,6 +35,11 @@ RUN = GOV_DIR / "run_rules.py"
 CHECKS = GOV_DIR / "checks"
 GOOD_FX = GOV_DIR / "fixtures" / "no-broken-symlinks" / "good"
 BAD_FX = GOV_DIR / "fixtures" / "no-broken-symlinks" / "bad"
+# R03 checker scans a marketplace.json; its fixtures are a good/bad pair (good =
+# no private-repo ref; bad = references the private savant repo). The FILE paths
+# exercise the checker's production direct-file mode.
+MKT_GOOD_FX = GOV_DIR / "fixtures" / "no-private-in-public" / "good" / "marketplace.json"
+MKT_BAD_FX = GOV_DIR / "fixtures" / "no-private-in-public" / "bad" / "marketplace.json"
 
 
 def _run(script: Path, *args, timeout: int = 30) -> subprocess.CompletedProcess:
@@ -68,6 +73,18 @@ class TestSelftest:
         # R02/R08 both exercise their good+bad fixtures
         for rid in ("R02-no-hand-links", "R08-no-dead-links"):
             assert rid in out and "fixtures:" in out
+
+    def test_selftest_flags_r03_as_fixtured_not_enforcement_gap(self):
+        """After R03 moves manual -> script (PR #1), selftest must exercise its
+        good+bad fixtures and report 'fixtures:' for it — and must NOT emit the
+        'enforcement gap' warning it used to. This proves the gap is closed."""
+        out = _run(RUN, "--selftest").stdout
+        r03 = [ln for ln in out.splitlines() if "R03-private-marketplace" in ln]
+        assert r03, "R03 should appear in selftest output"
+        assert any("fixtures:" in ln for ln in r03), f"R03 should show fixtures: {r03}"
+        assert not any("enforcement gap" in ln for ln in r03), (
+            f"R03 must no longer be an enforcement gap: {r03}"
+        )
 
 
 class TestSelftestRedCases:
@@ -231,3 +248,35 @@ class TestCheckers:
         )
         assert result.returncode == 1
         assert "shared-skill" in result.stdout
+
+
+# ---------------------------------------------------------------------------
+# 5. R03 private-marketplace checker behaviours (PR #1)
+# ---------------------------------------------------------------------------
+
+class TestPrivateMarketplaceChecker:
+    """R03: a PUBLIC marketplace.json must never reference a private repo
+    (PRIVATE_REPOS = {'savant'}). The checker is dual-mode (accepts a
+    marketplace.json FILE or a DIR containing one); bad (savant ref) -> exit 1,
+    good -> 0, absent path -> visible 'skip:' + 0 (the vacuous-skip contract)."""
+
+    CHK = CHECKS / "no_private_in_public_marketplace.py"
+
+    def test_bad_marketplace_with_private_ref_gates(self):
+        result = _run(self.CHK, str(MKT_BAD_FX))
+        assert result.returncode == 1, f"{result.stdout}\n{result.stderr}"
+        assert "savant" in result.stdout
+
+    def test_good_marketplace_passes(self):
+        assert _run(self.CHK, str(MKT_GOOD_FX)).returncode == 0
+
+    def test_absent_path_announces_visible_skip(self, tmp_path: Path):
+        result = _run(self.CHK, str(tmp_path / "nope" / "marketplace.json"))
+        assert result.returncode == 0
+        assert "skip:" in result.stdout
+
+    def test_in_repo_marketplace_is_clean(self):
+        """craft's own public marketplace.json must reference no private repo —
+        the live (non-fixture) enforcement check."""
+        live = PLUGIN_DIR / ".claude-plugin" / "marketplace.json"
+        assert _run(self.CHK, str(live)).returncode == 0

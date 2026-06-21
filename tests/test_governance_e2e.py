@@ -117,14 +117,15 @@ class TestCheckerWiring:
                 assert (GOV_DIR / fx[kind]).is_dir(), f"{r['id']}: missing {kind} fixture {fx[kind]}"
 
     def test_error_rules_are_enforceable_or_delegated(self):
-        """An error rule must be backed by a script/external check — not 'manual'
-        with no plan. R03 is the one known gap (manual, Phase 1); assert it stays
-        the *only* one so a new silent error-rule can't slip in."""
+        """Every error rule must be backed by a script/external check — never
+        'manual' with no plan. R03 was the last manual error-rule (Phase 1); PR #1
+        moved it to a script check, so the set must now be EMPTY — this guards
+        against a new silent enforcement gap slipping in."""
         manual_error = [
             r["id"] for r in _active_rules()
             if r["severity"] == "error" and (r.get("check") or {}).get("kind") == "manual"
         ]
-        assert manual_error == ["R03-private-marketplace"], (
+        assert manual_error == [], (
             f"unexpected manual error-rules (enforcement gaps): {manual_error}"
         )
 
