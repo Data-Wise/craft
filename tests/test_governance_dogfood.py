@@ -416,3 +416,33 @@ class TestCrossRepoWrapper:
                            cwd=str(tmp_path), capture_output=True, text=True, timeout=30)
         assert r.returncode == 0, r.stderr
         assert "SELFTEST" in r.stdout  # the engine actually ran, from a foreign cwd
+
+
+# ---------------------------------------------------------------------------
+# 8. Release pre-flight governance annotation (#184) — advisory, NEVER blocks
+# ---------------------------------------------------------------------------
+
+PRE_RELEASE = PLUGIN_DIR / "scripts" / "pre-release-check.sh"
+
+
+class TestReleaseGuard184:
+    """The governance step in pre-release-check.sh surfaces RED findings but must
+    never gate the release (gentle-ramp). The non-blocking invariant is the whole
+    point — lock it in so a later edit can't silently turn it into a gate."""
+
+    def _governance_block(self) -> str:
+        src = PRE_RELEASE.read_text(encoding="utf-8")
+        assert "Governance (skill-ecosystem)" in src, "advisory block missing"
+        start = src.index("Governance (skill-ecosystem) — ADVISORY")
+        end = src.index("# Summary", start)
+        return src[start:end]
+
+    def test_block_present(self):
+        assert "advisory, non-blocking" in self._governance_block()
+
+    def test_block_never_increments_errors(self):
+        """The advisory block must not touch $ERRORS — that's what keeps it from
+        ever failing the release. If this fires, someone made governance a gate."""
+        block = self._governance_block()
+        assert "ERRORS=" not in block, "governance advisory must not modify $ERRORS"
+        assert "exit 1" not in block, "governance advisory must not exit non-zero"

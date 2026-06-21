@@ -309,6 +309,31 @@ else
 fi
 
 # --------------------------------------------------------------------------
+# Governance (skill-ecosystem) — ADVISORY annotation, never blocks (#184)
+# --------------------------------------------------------------------------
+# Surfaces RED live-env governance findings in release output so they're seen,
+# but does NOT gate the release (gentle-ramp posture: visibility, not a halt).
+# Deliberately never touches $ERRORS. Live-env rules (R01/R07) only have data
+# locally; a clean/absent environment simply reports zero.
+echo ""
+echo "Governance (skill-ecosystem) — advisory, non-blocking:"
+GOV_ENGINE="$PLUGIN_DIR/governance/run_rules.py"
+if [ -f "$GOV_ENGINE" ]; then
+    GOV_JSON="$(python3 "$GOV_ENGINE" --json 2>/dev/null || true)"
+    GOV_RED="$(printf '%s' "$GOV_JSON" | python3 -c 'import json,sys
+try: print(json.load(sys.stdin).get("red", 0))
+except Exception: print(0)' 2>/dev/null || echo 0)"
+    if [ "${GOV_RED:-0}" -gt 0 ]; then
+        echo -e "${YELLOW}  ⚠ governance: ${GOV_RED} red finding(s) — ADVISORY, not blocking this release${NC}"
+        echo -e "${YELLOW}    Detail: python3 governance/run_rules.py${NC}"
+    else
+        echo -e "${GREEN}  ✓ governance: no red findings (or no local env to audit)${NC}"
+    fi
+else
+    echo -e "${YELLOW}  - governance engine not found — skipping advisory audit${NC}"
+fi
+
+# --------------------------------------------------------------------------
 # Summary
 # --------------------------------------------------------------------------
 echo ""
