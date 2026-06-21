@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.45.0 adds skill-ecosystem governance (policy-as-code under governance/) — an audit engine, a rules-drift check, and portable checkers for skill-location rules.">
+        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.46.0 adds skill-ecosystem governance (policy-as-code under governance/) — an audit engine, a rules-drift check, and portable checkers for skill-location rules.">
       
       
       
@@ -3234,6 +3234,28 @@
     <span class="md-ellipsis">
       
         Gates &amp; enforcement (Phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#promotion-soak-then-flip-the-gentle-ramp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Promotion: soak-then-flip (the gentle-ramp)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-repo-consumption-one-pinned-copy-no-drift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-repo consumption (one pinned copy, no drift)
       
     </span>
   </a>
@@ -11273,6 +11295,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#promotion-soak-then-flip-the-gentle-ramp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Promotion: soak-then-flip (the gentle-ramp)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-repo-consumption-one-pinned-copy-no-drift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-repo consumption (one pinned copy, no drift)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#adding-a-rule" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11402,6 +11446,33 @@ audit is surfaced at session open via a <strong>SessionStart hook</strong> (visi
 it fails if a public marketplace manifest lists a plugin sourced from a private/PII repo (denylist,
 no network). Pass <code>--marketplace FILE</code> to point the audit at a specific manifest; the default is the
 in-repo <code>.claude-plugin/marketplace.json</code>.</p>
+<h2 id="promotion-soak-then-flip-the-gentle-ramp">Promotion: soak-then-flip (the gentle-ramp)<a class="headerlink" href="#promotion-soak-then-flip-the-gentle-ramp" title="Permanent link">&para;</a></h2>
+<p>A rule starts at <code>severity: warn</code> and tightens to <code>error</code> only once its surface has been clean for a
+while — the machinery <strong>recommends</strong>, a human <strong>promotes</strong> (an irreversible tightening stays a
+deliberate edit).</p>
+<ul>
+<li>The SessionStart hook feeds a <strong>local, gitignored <code>governance/STATE.json</code></strong> ledger: each audit stamps
+  <code>first_seen</code> / <code>last_seen</code> and a <code>last_red</code> per rule. Soak evidence is <strong>per-machine</strong> (the live skills
+  tree only exists locally), so the ledger is never committed.</li>
+<li><code>run_rules.py --promote-check</code> lists <code>warn</code> rules that have soaked clean for ≥ the window
+  (<code>--window</code>, default 14 days) — eligible for a human <code>warn → error</code> flip in <code>RULES.yaml</code>. A rule
+  qualifies only with <strong>both</strong> enough observation history (<code>first_seen</code> ≥ window old) <strong>and</strong> no RED
+  inside the window. Advisory: always exits 0.</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>governance/run_rules.py<span class="w"> </span>--promote-check<span class="w">            </span><span class="c1"># what&#39;s ripe to tighten?</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python3<span class="w"> </span>governance/run_rules.py<span class="w"> </span>--promote-check<span class="w"> </span>--window<span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="c1"># shorter soak</span>
+</span></code></pre></div>
+<p>The flip itself is a one-line <code>RULES.yaml</code> edit (<code>severity: warn → error</code>), optionally with a time-boxed
+<code>waivers:</code> entry for any residual violations — the waiver primitives already gate on owner + future expiry.</p>
+<h2 id="cross-repo-consumption-one-pinned-copy-no-drift">Cross-repo consumption (one pinned copy, no drift)<a class="headerlink" href="#cross-repo-consumption-one-pinned-copy-no-drift" title="Permanent link">&para;</a></h2>
+<p><code>governance/</code> ships inside the craft plugin. Consumer canons (savant, scholar) do <strong>not</strong> vendor a copy —
+they invoke the <strong>installed</strong> craft engine through a thin wrapper, so there is exactly one copy and no
+drift (matches <code>R07-version-is-truth</code>):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>&lt;craft-plugin-root&gt;/governance/run.sh<span class="w"> </span>--selftest
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>&lt;craft-plugin-root&gt;/governance/run.sh<span class="w"> </span>--target<span class="w"> </span>~/.claude/skills<span class="w"> </span>--json
+</span></code></pre></div>
+<p><code>run.sh</code> resolves its own directory and runs <code>run_rules.py</code> from there; the engine is <code>__file__</code>-relative,
+so it works from any caller's cwd.</p>
 <h2 id="adding-a-rule">Adding a rule<a class="headerlink" href="#adding-a-rule" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Append one entry to <code>RULES.yaml</code> (<code>id</code>, <code>statement</code>, <code>rationale</code>, <code>severity</code>, <code>gates</code>, <code>check</code>).</li>
