@@ -55,6 +55,23 @@ python3 governance/render_rules.py --check  ~/.claude/CLAUDE.md   # rules-drift 
   but that skip comes from the checker's own "fewer than 2 canon dirs present" guard in
   `checks/no_duplicate_canon.py`, not from gate routing.
 
+## Gates & enforcement (Phase 2)
+
+The engine is wired into two real gates (a third, the SessionStart hook, is a later increment):
+
+- **pre-commit** (`author`) — the `governance-gate` hook (`files: ^governance/`) runs
+  `run_rules.py --selftest` + `render_rules.py --check` on any `governance/` change. It blocks a commit
+  that breaks a checker or hand-edits the generated rule block. It does **not** run the live-env audit
+  (that needs the canon repos / `~/.claude/skills`, which a clean commit lacks).
+- **CI** (`ci`) — `ci.yml` runs the same selftest + drift-check after the test suite. It prints an
+  explicit note that CI does **not** evaluate R01/R07 live-env state (canon repos and the cross-surface
+  feed exist only locally) — so a green run is never misread as live-env enforcement.
+
+`R03-private-marketplace` is now automated (`checks/no_private_in_public_marketplace.py {marketplace}`):
+it fails if a public marketplace manifest lists a plugin sourced from a private/PII repo (denylist,
+no network). Pass `--marketplace FILE` to point the audit at a specific manifest; the default is the
+in-repo `.claude-plugin/marketplace.json`.
+
 ## Adding a rule
 
 1. Append one entry to `RULES.yaml` (`id`, `statement`, `rationale`, `severity`, `gates`, `check`).

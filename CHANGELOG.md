@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Governance Phase 2 (PR #1) — enforced gates + R03 automation.**
+  - `R03-private-marketplace` graduates from `manual` to a `script` check:
+    `governance/checks/no_private_in_public_marketplace.py` scans a marketplace
+    manifest and fails if a public marketplace references a private/PII repo
+    (denylist `{savant}`, no network) + good/bad fixtures. Closes the last
+    error-rule enforcement gap (selftest now shows R03 `fixtures:`).
+  - **pre-commit gate** (`governance-gate`, `files: ^governance/`) runs the
+    engine `--selftest` + `render --check` drift gate.
+  - **CI gate** in `ci.yml` runs the same selftest + drift check, with an
+    explicit note that CI does **not** evaluate R01/R07 live-env state.
+  - Engine: `run_rules.py` threads a `{marketplace}` substitution through
+    `audit()` + `selftest()` and adds `--marketplace`.
+
 ## [2.43.0] — 2026-06-20
 
 ### Added
