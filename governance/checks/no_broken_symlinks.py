@@ -6,6 +6,10 @@ inside a skill — not only the common ``~/.claude/skills/<name>`` top-level
 layout — is still caught. Symlinked directories are not descended into
 (``followlinks=False``), which both flags broken links and avoids link cycles.
 
+Directories named exactly ``archive`` and dot-dirs (e.g. ``.git``) are pruned
+from the walk: dead links inside archived/hidden trees are expected, not
+violations (R08 only cares about *load-bearing* links).
+
 Usage: no_broken_symlinks.py <dir>"""
 import os, sys
 
@@ -13,6 +17,12 @@ def find_broken(d):
     """Return [(relpath, target), ...] for every broken symlink under d."""
     broken = []
     for root, dirs, files in os.walk(d, followlinks=False):
+        # Prune archived/hidden trees in place so os.walk never descends into
+        # them: a dir named exactly `archive` or any dot-dir (e.g. .git) is by
+        # definition not load-bearing, so dead links inside it are expected, not
+        # violations (R08's own rationale). Match on the path component (name),
+        # not a substring — "archived-data" stays in scope, only "archive" is cut.
+        dirs[:] = [n for n in dirs if n != "archive" and not n.startswith(".")]
         # A broken symlink can't be stat'd as a dir, so os.walk classifies it
         # under `files`; scan both lists to be safe across platforms.
         for name in sorted(dirs + files):

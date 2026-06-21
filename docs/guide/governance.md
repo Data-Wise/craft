@@ -11,8 +11,9 @@ Lives in [`governance/`](https://github.com/Data-Wise/craft/tree/main/governance
 
 Rules written as prose drift and get silently bypassed: archived source paths leave dead symlinks,
 and consumer installs lag the canon version for releases at a time. Governance makes organization a
-property of the system — a single source of truth, machine-checkable rules, and gates that fail
-loudly.
+property of the system — a single source of truth, machine-checkable rules, and a fail-loud audit
+engine. The `--selftest` + rules-drift gates are wired at **pre-commit + CI**; the live-env audit and a
+SessionStart hook are later increments.
 
 ## Components
 
@@ -20,14 +21,15 @@ loudly.
 |---|---|
 | `governance/RULES.yaml` | **Single source of truth** — every rule: `id`, `statement`, `severity`, `gates`, `check`, `waivers`. |
 | `governance/run_rules.py` | Engine. Audits the live environment (exit 1 on any unwaived **error**-severity failure — **fail-closed**: a missing/broken checker on an error rule gates too); `--selftest` meta-validates the checkers. |
-| `governance/render_rules.py` | Generates the human-readable rule block and injects it into any `CLAUDE.md` between markers; `--check` is the **rules-drift** gate. |
+| `governance/render_rules.py` | Generates the human-readable rule block and injects it into any `CLAUDE.md` between markers; `--check` is the **rules-drift** gate (wired at pre-commit + CI). |
 | `governance/checks/` | One small, portable checker per automatable rule. |
 | `governance/fixtures/` | Good + bad layouts so the checkers are themselves tested. |
 
 ## Usage
 
 ```bash
-# Audit the live environment against the rules (gate CI / a SessionStart hook)
+# Audit the live environment against the rules
+# (the live-env audit targets a SessionStart hook — a later increment; CI/pre-commit run --selftest + drift instead)
 python3 governance/run_rules.py
 
 # Meta-validation: every checker must flag its bad fixture and pass its good one
@@ -40,13 +42,36 @@ python3 governance/render_rules.py --check  ~/.claude/CLAUDE.md   # rules-drift 
 
 ## Severity, posture, gates
 
-- **Severity** — `error` blocks at its gates · `warn` is surfaced · `advisory` is documented only.
+- **Severity** — `error` blocks · `warn` is surfaced · `advisory` is documented only. Severity is the
+  only thing that decides blocking: `run_rules.py` runs **every** active rule and counts unwaived
+  `error`-severity failures, regardless of `gates`.
 - **Posture** — *gentle-ramp*: a new rule starts as `warn` (or `error` + time-boxed waivers) and
   tightens once the environment is clean.
-- **Gates** — each rule names where it fires: `author` (pre-commit) · `ci` (PR) · `release` (dist) ·
-  `install` · `session` (SessionStart hook) · `runtime`. Pick a gate the check can actually run at —
-  e.g. `R01-single-source` fires on `session`, not `ci`, since its canon repos only exist locally;
-  in CI it announces a vacuous skip rather than passing silently.
+- **Gates** — `author` (pre-commit) · `ci` (PR) · `release` (dist) · `install` · `session`
+  (SessionStart hook) · `runtime`. **Gates are advisory metadata**: `render_rules.py` renders them
+  into the human-readable rule block in `CLAUDE.md` to document *where a rule is meant to run*, but
+  the audit engine does **not** read `gates` at runtime — it does not route execution. The intent
+  records a future home for each check (e.g. `R01-single-source` is meant for `session`, not `ci`,
+  since its canon repos only exist locally). When R01 runs in craft CI it announces a vacuous skip —
+  but that skip comes from the checker's own "fewer than 2 canon dirs present" guard in
+  `checks/no_duplicate_canon.py`, not from gate routing.
+
+## Gates & enforcement (Phase 2)
+
+The engine is wired into two real gates (a third, the SessionStart hook, is a later increment):
+
+- **pre-commit** (`author`) — the `governance-gate` hook (`files: ^governance/`) runs
+  `run_rules.py --selftest` + `render_rules.py --check` on any `governance/` change. It blocks a commit
+  that breaks a checker or hand-edits the generated rule block. It does **not** run the live-env audit
+  (that needs the canon repos / `~/.claude/skills`, which a clean commit lacks).
+- **CI** (`ci`) — `ci.yml` runs the same selftest + drift-check after the test suite. It prints an
+  explicit note that CI does **not** evaluate R01/R07 live-env state (canon repos and the cross-surface
+  feed exist only locally) — so a green run is never misread as live-env enforcement.
+
+`R03-private-marketplace` is now automated (`checks/no_private_in_public_marketplace.py {marketplace}`):
+it fails if a public marketplace manifest lists a plugin sourced from a private/PII repo (denylist,
+no network). Pass `--marketplace FILE` to point the audit at a specific manifest; the default is the
+in-repo `.claude-plugin/marketplace.json`.
 
 ## Adding a rule
 

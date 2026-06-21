@@ -4,17 +4,18 @@ run_rules.py — the governance engine. Loads RULES.yaml, runs each rule's check
 applies severity + waivers, and reports. Two modes:
 
   (default)    audit the live environment against the rules; exit 1 on any
-               unwaived error-severity failure (so CI / a SessionStart hook can
-               gate on it). Fail-closed: an error-rule whose checker is missing
-               or unresolvable (state ERROR) blocks too — a broken checker never
-               passes silently.
+               unwaived error-severity failure. This live-env audit targets a
+               SessionStart hook (a later increment); pre-commit + CI run
+               --selftest + the rules-drift check instead. Fail-closed: an
+               error-rule whose checker is missing or unresolvable (state ERROR)
+               blocks too — a broken checker never passes silently.
   --selftest   META-VALIDATION (P5): prove each checker works on its own fixtures
                (bad must fail, good must pass), flag error-rules with no automated
                check, and verify every waiver has an owner + a future expiry.
                Exit 1 if any checker misbehaves.
 
 Stdlib + PyYAML. Paths in RULES.yaml are relative to this file's directory.
-  python3 run_rules.py [--target DIR] [--index FILE] [--json] [--selftest]
+  python3 run_rules.py [--target DIR] [--index FILE] [--marketplace FILE] [--json] [--selftest]
 """
 import os, sys, json, subprocess, datetime, argparse
 try:
@@ -23,8 +24,11 @@ except ImportError:
     sys.stderr.write("PyYAML required: pip install pyyaml\n"); sys.exit(2)
 
 GOV = os.path.dirname(os.path.abspath(__file__))
+REPO_ROOT = os.path.dirname(GOV)  # craft repo root = parent of governance/
 DEF_TARGET = os.path.expanduser("~/.claude/skills")
 DEF_INDEX = os.path.expanduser("~/.claude/skills/SKILLS-INDEX.md")
+# R03 scans the IN-REPO public marketplace manifest (CI-checkable, no network).
+DEF_MARKETPLACE = os.path.join(REPO_ROOT, ".claude-plugin", "marketplace.json")
 
 
 def load_rules():
@@ -51,8 +55,8 @@ def active_waiver(rule):
     return None
 
 
-def audit(rules_doc, target, index, as_json):
-    subs = {"target": target, "index": index}
+def audit(rules_doc, target, index, as_json, marketplace=None):
+    subs = {"target": target, "index": index, "marketplace": marketplace}
     results, red = [], 0
     for r in rules_doc["rules"]:
         if r.get("status") != "active":
@@ -101,8 +105,12 @@ def selftest(rules_doc):
         fx = chk.get("fixtures")
         # 1) checker must behave on its fixtures
         if fx:
-            rc_bad, _ = run_script(chk["cmd"], {"target": os.path.join(GOV, fx["bad"]), "index": os.path.join(GOV, fx["bad"])})
-            rc_good, _ = run_script(chk["cmd"], {"target": os.path.join(GOV, fx["good"]), "index": os.path.join(GOV, fx["good"])})
+            bad_path, good_path = os.path.join(GOV, fx["bad"]), os.path.join(GOV, fx["good"])
+            # Map every substitution name to the fixture path; a rule's cmd uses
+            # only one of {target}/{index}/{marketplace}, but supplying all three
+            # keeps .format(**subs) from raising KeyError on the unused ones.
+            rc_bad, _ = run_script(chk["cmd"], {"target": bad_path, "index": bad_path, "marketplace": bad_path})
+            rc_good, _ = run_script(chk["cmd"], {"target": good_path, "index": good_path, "marketplace": good_path})
             ok = (rc_bad not in (0, None)) and (rc_good == 0)
             print("  [%s] %-22s fixtures: bad->%s good->%s  %s" % ("ok  " if ok else "FAIL", rid, rc_bad, rc_good, "" if ok else "<-- checker misbehaves"))
             if not ok:
@@ -129,13 +137,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--target", default=DEF_TARGET)
     ap.add_argument("--index", default=DEF_INDEX)
+    ap.add_argument("--marketplace", default=DEF_MARKETPLACE)
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
     doc = load_rules()
     if a.selftest:
         return selftest(doc)
-    return audit(doc, a.target, a.index, a.json)
+    return audit(doc, a.target, a.index, a.json, a.marketplace)
 
 
 if __name__ == "__main__":
