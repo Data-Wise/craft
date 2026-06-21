@@ -15,6 +15,8 @@ hermetic and machine-independent.
 Run with: python3 -m pytest tests/test_governance_e2e.py -v
 """
 
+import json
+import os
 import re
 import subprocess
 import sys
@@ -210,3 +212,59 @@ class TestRulesDriftGate:
         result = _run(RENDER, "--check", str(target))
         assert result.returncode == 1
         assert "NO-MARKERS" in result.stdout
+
+
+# ---------------------------------------------------------------------------
+# 4. Live engine flows — the multi-component pipelines wired this session
+#    (soak: hook -> ledger -> promote-check; R04 automated inside audit()).
+#    Hermetic: temp skills/state, never the live ~/.claude.
+# ---------------------------------------------------------------------------
+
+RUN = GOV_DIR / "run_rules.py"
+HOOK = GOV_DIR / "session_hook.py"
+
+
+class TestSoakLifecycleE2E:
+    """The soak pipeline end-to-end through the real CLIs: the SessionStart hook
+    writes the gitignored ledger, then `--promote-check` reads *that* ledger."""
+
+    def test_hook_feeds_ledger_then_promote_check_reads_it(self, tmp_path: Path):
+        skills = tmp_path / "skills"
+        skills.mkdir()
+        (skills / "ok.txt").write_text("ok", encoding="utf-8")  # clean tree → no RED
+        state = tmp_path / "STATE.json"
+        env = dict(
+            os.environ,
+            GOVERNANCE_ENGINE=str(RUN),
+            GOVERNANCE_SKILLS_DIR=str(skills),
+            GOVERNANCE_STATE=str(state),
+            GOVERNANCE_CACHE=str(tmp_path / "cache.json"),
+        )
+        # 1) the hook audits the temp tree and writes the soak ledger
+        h = subprocess.run([sys.executable, str(HOOK)], input="",
+                           capture_output=True, text=True, env=env, timeout=30)
+        assert h.returncode == 0, h.stderr
+        assert state.is_file(), "hook did not write the soak ledger"
+        recorded = json.loads(state.read_text(encoding="utf-8"))["rules"]
+        assert recorded, "ledger recorded no rules"
+
+        # 2) --promote-check reads that hook-written ledger; window=0 → a tree clean
+        #    "for >= 0 days" makes its warn-rules immediately promotion-eligible.
+        p = _run(RUN, "--promote-check", "--state", str(state), "--window", "0")
+        assert p.returncode == 0
+        assert "ripe" in p.stdout, "clean warn-rules should be promotion-eligible at window 0"
+
+
+class TestR04InLiveAuditE2E:
+    """R04 graduated manual->script: prove it's actually wired into the live
+    audit() (not just runnable as a standalone checker)."""
+
+    def test_r04_runs_as_a_script_rule_in_audit(self, tmp_path: Path):
+        skills = tmp_path / "skills"
+        skills.mkdir()
+        r = _run(RUN, "--target", str(skills), "--json")
+        results = {x["id"]: x for x in json.loads(r.stdout)["results"]}
+        assert "R04-consume-not-copy" in results
+        r04 = results["R04-consume-not-copy"]
+        assert r04["kind"] == "script", "R04 must be automated (manual->script)"
+        assert r04["state"] in {"PASS", "FAIL", "ERROR"}, "R04 actually executed"

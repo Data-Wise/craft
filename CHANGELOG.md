@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Governance test coverage — live-flow e2e + soak edge cases.** Adds end-to-end tests for the
+  pipelines wired this session: the soak lifecycle (SessionStart hook writes the ledger → `--promote-check`
+  reads it) and R04 running as a script rule inside the live `audit()`; plus dogfood edges for the ledger
+  (`first_seen` anchoring, `last_red` retention, corrupt-ledger recovery). Governance suite: 59 tests.
 - **Governance R04 automated as content-drift (Phase 1).** `R04-consume-not-copy` graduates from
   `manual` to a scripted checker (`checks/no_drifted_copy.py`): if a skill is present on a consumer
   surface AND in a canon repo, their `SKILL.md` must be byte-identical — a divergence means the copy was

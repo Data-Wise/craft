@@ -391,6 +391,33 @@ class TestSoakLedger:
         elig = soak.promotion_eligible(str(led), {"R01"}, today="2026-07-01", window_days=14)
         assert elig == []  # R08 not in warn_ids → ignored even though soaked
 
+    def test_record_audit_preserves_first_seen_across_runs(self, tmp_path: Path):
+        """first_seen is the anchor for the soak window — a later audit must NOT
+        reset it, or a long-clean rule would never accrue soak history."""
+        led = tmp_path / "STATE.json"
+        res = [{"id": "R01", "severity": "warn", "state": "PASS"}]
+        soak.record_audit(str(led), res, today="2026-06-01")
+        soak.record_audit(str(led), res, today="2026-06-20")
+        entry = json.loads(led.read_text())["rules"]["R01"]
+        assert entry["first_seen"] == "2026-06-01"  # anchored to the first sighting
+        assert entry["last_seen"] == "2026-06-20"   # refreshed each run
+
+    def test_record_audit_clears_then_restamps_red(self, tmp_path: Path):
+        """A rule that goes RED then clean keeps its last_red at the RED date — the
+        window is measured from when it was last bad, not from the latest audit."""
+        led = tmp_path / "STATE.json"
+        soak.record_audit(str(led), [{"id": "R01", "severity": "warn", "state": "FAIL"}], today="2026-06-10")
+        soak.record_audit(str(led), [{"id": "R01", "severity": "warn", "state": "PASS"}], today="2026-06-20")
+        assert json.loads(led.read_text())["rules"]["R01"]["last_red"] == "2026-06-10"
+
+    def test_load_state_recovers_from_corrupt_ledger(self, tmp_path: Path):
+        """A corrupt/old-schema ledger must degrade to a fresh empty state, never
+        raise — soak is best-effort and can't break the hook that feeds it."""
+        led = tmp_path / "STATE.json"
+        led.write_text("{ not valid json", encoding="utf-8")
+        st = soak.load_state(str(led))
+        assert st["schema"] == soak.SCHEMA and st["rules"] == {}
+
 
 class TestPromoteCheckCLI:
     """`run_rules.py --promote-check` — advisory, always exit 0."""
