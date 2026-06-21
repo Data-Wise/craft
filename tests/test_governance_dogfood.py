@@ -70,6 +70,57 @@ class TestSelftest:
             assert rid in out and "fixtures:" in out
 
 
+class TestSelftestRedCases:
+    """Red cases for --selftest: the meta-gate must FAIL when a checker passes its
+    own *bad* fixture, or when a waiver lacks owner/expires. Without these, a
+    regression making selftest always return 0 would pass the whole suite — and
+    selftest is the only thing that proves the checkers actually detect violations.
+    Calls run_rules.selftest(doc) in-process (same pattern as TestFailClosed) so a
+    synthetic doc can drive the failure paths."""
+
+    def _selftest(self, doc, capsys):
+        sys.path.insert(0, str(GOV_DIR))
+        try:
+            import run_rules  # governance/run_rules.py
+            rc = run_rules.selftest(doc)
+            return rc, capsys.readouterr().out
+        finally:
+            sys.path.remove(str(GOV_DIR))
+
+    def test_checker_passing_its_bad_fixture_is_a_meta_failure(self, capsys):
+        """A checker whose `bad` fixture does NOT make it fail is misbehaving. Here
+        the bad fixture points at the *good* dir, so the symlink checker exits 0 on
+        input that should have failed → selftest must flag it (exit 1)."""
+        doc = {"scope": "skills", "posture": "gentle-ramp", "rules": [{
+            "id": "RZZ-misbehaves", "severity": "error", "status": "active",
+            "gates": ["ci"],
+            "check": {
+                "kind": "script",
+                "cmd": "checks/no_broken_symlinks.py {target}",
+                "fixtures": {
+                    "good": "fixtures/no-broken-symlinks/good",
+                    "bad": "fixtures/no-broken-symlinks/good",  # wrong on purpose
+                },
+            },
+            "waivers": [],
+        }]}
+        rc, out = self._selftest(doc, capsys)
+        assert rc == 1, "a checker that passes its bad fixture must be a meta-failure"
+        assert "misbehaves" in out
+
+    def test_waiver_missing_owner_or_expires_is_a_meta_failure(self, capsys):
+        """Waiver hygiene: a waiver without owner+expires must be flagged (exit 1)."""
+        doc = {"scope": "skills", "posture": "gentle-ramp", "rules": [{
+            "id": "RWW-badwaiver", "severity": "warn", "status": "active",
+            "gates": ["session"],
+            "check": {"kind": "manual"},
+            "waivers": [{"reason": "no owner, no expiry"}],
+        }]}
+        rc, out = self._selftest(doc, capsys)
+        assert rc == 1, "a waiver lacking owner/expires must be a meta-failure"
+        assert "waiver missing" in out
+
+
 # ---------------------------------------------------------------------------
 # 2. Audit against fixtures (clean green, broken red)
 # ---------------------------------------------------------------------------
@@ -144,6 +195,18 @@ class TestCheckers:
         (tmp_path / "sub").mkdir()
         (tmp_path / "sub" / "ok.txt").write_text("ok", encoding="utf-8")
         assert _run(CHECKS / "no_broken_symlinks.py", str(tmp_path)).returncode == 0
+
+    def test_archive_and_hidden_dead_links_are_ignored(self, tmp_path: Path):
+        """Finding F: dead links inside `archive/` or dot-dirs are intentional
+        (not load-bearing) and must NOT gate — only live broken links do."""
+        for sub in ("live", "archive", ".hidden"):
+            (tmp_path / sub).mkdir()
+            (tmp_path / sub / "dead").symlink_to("/nonexistent")
+        result = _run(CHECKS / "no_broken_symlinks.py", str(tmp_path))
+        assert result.returncode == 1
+        assert "live/dead" in result.stdout
+        assert "archive/dead" not in result.stdout
+        assert ".hidden/dead" not in result.stdout
 
     def test_duplicate_canon_announces_vacuous_skip(self, tmp_path: Path):
         """Review #2: when canon dirs are absent the check must say so out loud

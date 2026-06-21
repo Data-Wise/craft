@@ -177,3 +177,35 @@ class TestRulesDriftGate:
         )
         assert _run(RENDER, "--apply", str(target)).returncode == 0
         assert _run(RENDER, "--check", str(target)).returncode == 0
+
+    def test_check_detects_drifted_block(self, tmp_path: Path):
+        """Red case for the drift gate: a marked block whose body differs from a
+        fresh render must be reported as DRIFT (exit 1). Without this, a broken
+        check() that always returned OK would pass the whole suite green — and
+        since the engine is not yet wired as a live CI/hook gate, this suite is
+        the only thing guarding the drift checker."""
+        target = tmp_path / "C.md"
+        target.write_text(
+            "# Test\n\n"
+            "<!-- RULES:BEGIN (generated from governance/RULES.yaml — do not edit by hand) -->\n"
+            "stale — deliberately not a fresh render\n"
+            "<!-- RULES:END -->\n",
+            encoding="utf-8",
+        )
+        result = _run(RENDER, "--check", str(target))
+        assert result.returncode == 1, f"drifted block must fail --check:\n{result.stdout}"
+        assert "DRIFT" in result.stdout
+
+    def test_check_missing_file_fails(self, tmp_path: Path):
+        """--check against a nonexistent path must fail (not pass vacuously)."""
+        result = _run(RENDER, "--check", str(tmp_path / "nope.md"))
+        assert result.returncode == 1
+        assert "MISSING" in result.stdout
+
+    def test_check_file_without_markers_fails(self, tmp_path: Path):
+        """--check against a file lacking the RULES markers must fail."""
+        target = tmp_path / "no_markers.md"
+        target.write_text("# Just a doc, no managed block here.\n", encoding="utf-8")
+        result = _run(RENDER, "--check", str(target))
+        assert result.returncode == 1
+        assert "NO-MARKERS" in result.stdout
