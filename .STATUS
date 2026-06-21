@@ -15,9 +15,9 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-None.
+- `feature/governance-phase2-soak` — Governance Phase 2 PR #3 ([#194](https://github.com/Data-Wise/craft/pull/194)): soak-then-flip promotion ledger (`soak.py` + `run_rules.py --promote-check` + gitignored `STATE.json` fed by SessionStart hook) + cross-repo `run.sh` wrapper. 8 tests, 47 governance suite green. Worktree: `~/.git-worktrees/craft/governance-phase2-soak` (off dev 4653738e). R04 + #184 guard deferred.
 
-_Prior (all merged + worktrees removed 2026-06-21): `feature/governance-phase2-hook` (PR #190, SessionStart hook → dev), `feature/cleanup-stray-orchestrate` (PR #191, removed leaked ORCHESTRATE), `feature/governance-phase2-gates` (PR #188, v2.44.0). Local branch refs left dangling (squash-merge + branch-guard blocks `-D`) — harmless._
+_Prior (all merged + worktrees removed 2026-06-21): `feature/flaky-perf-xfail` (PR #193, xfail timing test); `feature/governance-phase2-hook` (PR #190, SessionStart hook → dev), `feature/cleanup-stray-orchestrate` (PR #191, removed leaked ORCHESTRATE), `feature/governance-phase2-gates` (PR #188, v2.44.0). Local branch refs left dangling (squash-merge + branch-guard blocks `-D`) — harmless._ `feature/governance-phase2-hook` (PR #190, SessionStart hook → dev), `feature/cleanup-stray-orchestrate` (PR #191, removed leaked ORCHESTRATE), `feature/governance-phase2-gates` (PR #188, v2.44.0). Local branch refs left dangling (squash-merge + branch-guard blocks `-D`) — harmless._
 
 > **🎯 Next Action (next session):**
 > A) **`--swarm=2` spec:** `SPEC-orchestrate-swarm-2level-2026-06-18` — worktree pending. ⚡ (Recommended)
