@@ -148,6 +148,24 @@ jobs:
         run: |
           python -m pytest tests/ -v --tb=short
 
+      - name: Governance selftest + rules-doc drift check
+        # Meta-validate every governance checker on its fixtures, and confirm the
+        # generated rule block (governance/CLAUDE-rules.md) matches a fresh render.
+        run: |
+          python governance/run_rules.py --selftest
+          python governance/render_rules.py --check governance/CLAUDE-rules.md
+
+      - name: Governance live-env scope note
+        # CI intentionally does NOT run the live-env audit (run_rules.py default).
+        # R01 (single-source canon) and R07 (version-is-truth) depend on the
+        # savant/scholar canon repos and the cross-surface skills feed, which exist
+        # only on a developer machine — never in this runner. Green here validates
+        # checker behaviour + doc currency only, NOT R01/R07 (no silent green).
+        run: |
+          echo "NOTE: CI does NOT evaluate R01/R07 live-env state."
+          echo "      Canon repos (R01) and the cross-surface skills feed (R07)"
+          echo "      exist only locally; green here != R01/R07 enforced."
+
       - name: Run branch-guard bash suites
         # The comprehensive bash suites (99 unit + 30 e2e) are not collected by
         # pytest. They are self-contained (own temp repos + git identity) and

@@ -18,15 +18,22 @@ and consumer surfaces (Claude Code, Cowork, Claude.ai). The rules are **data**, 
 
 ```bash
 # Audit the live machine (exit 1 on any unwaived error-severity failure)
-# intended to be wired as a CI step / SessionStart hook — run manually for now; not yet wired in this repo
 python3 governance/run_rules.py --target ~/.claude/skills --index ~/.claude/skills/SKILLS-INDEX.md
 
 # Meta-validation: prove every checker flags its bad fixture and passes its good one
 python3 governance/run_rules.py --selftest
 
+# Scan a specific marketplace manifest for R03 (default: in-repo .claude-plugin/marketplace.json)
+python3 governance/run_rules.py --marketplace path/to/marketplace.json
+
 # Machine-readable
 python3 governance/run_rules.py --json
 ```
+
+**Enforcement (Phase 2):** `--selftest` + the `render --check` drift gate run at **pre-commit** (the
+`governance-gate` hook, scoped to `governance/`) and in **CI** (`ci.yml`). CI deliberately does NOT run
+the live-env audit — R01/R07 need the canon repos / cross-surface feed that exist only locally, so a
+green CI run validates checker behaviour + doc currency, not those live-env rules.
 
 **Fail-closed:** an `error` rule whose checker is missing or unresolvable (state `ERROR`) gates the
 build too — a broken checker never passes silently. Only `error`-severity rules block; `warn` rules

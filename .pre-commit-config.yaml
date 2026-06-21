@@ -61,6 +61,16 @@ repos:
         language: system
         files: 'CLAUDE\.md$'
         pass_filenames: false
+      # Governance gate: prove every checker behaves on its fixtures (selftest)
+      # and that the generated rule block is not stale (render --check). NOT the
+      # live-env audit (run_rules.py default) — that needs canon repos / the
+      # ~/.claude/skills tree, which a clean pre-commit run lacks.
+      - id: governance-gate
+        name: Governance selftest + rules-doc drift check
+        entry: bash -c 'python3 governance/run_rules.py --selftest && python3 governance/render_rules.py --check governance/CLAUDE-rules.md'
+        language: system
+        files: ^governance/
+        pass_filenames: false
 
 # CI configuration
 ci:

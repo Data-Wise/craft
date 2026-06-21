@@ -55,7 +55,10 @@ rules:
     status: active
     added: 2026-06-20
     gates: [release, ci]
-    check: { kind: manual }   # Phase 1: scan public marketplace.json for private-repo refs
+    check:
+      kind: script
+      cmd: "checks/no_private_in_public_marketplace.py {marketplace}"
+      fixtures: { good: fixtures/no-private-in-public/good, bad: fixtures/no-private-in-public/bad }
     waivers: []
 
   - id: R04-consume-not-copy

@@ -1,0 +1,9 @@
+{
+  "name": "data-wise-craft",
+  "owner": { "name": "Data-Wise", "email": "dt@stat-wise.com" },
+  "metadata": { "description": "BAD fixture: a public marketplace must never list a private/PII-bearing plugin.", "version": "0.0.0" },
+  "plugins": [
+    { "name": "craft", "source": { "source": "github", "repo": "Data-Wise/craft" }, "description": "Public developer toolkit plugin.", "repository": "https://github.com/Data-Wise/craft" },
+    { "name": "savant", "source": { "source": "github", "repo": "Data-Wise/savant" }, "description": "Private statistical-research plugin (PII-bearing) -- must NOT appear here.", "repository": "https://github.com/Data-Wise/savant" }
+  ]
+}
