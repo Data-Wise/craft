@@ -29,7 +29,7 @@ END = "<!-- RULES:END -->"
 
 
 def render_block():
-    doc = yaml.safe_load(open(os.path.join(GOV, "RULES.yaml")))
+    doc = yaml.safe_load(open(os.path.join(GOV, "RULES.yaml"), encoding="utf-8"))
     sev_order = {"error": 0, "warn": 1, "advisory": 2}
     rules = [r for r in doc["rules"] if r.get("status") == "active"]
     rules.sort(key=lambda r: (sev_order.get(r.get("severity"), 9), r["id"]))
@@ -58,14 +58,14 @@ def splice(text, block):
 
 def apply_to(path, block, init):
     path = os.path.expanduser(path)
-    text = open(path).read() if os.path.exists(path) else ""
+    text = open(path, encoding="utf-8").read() if os.path.exists(path) else ""
     spliced = splice(text, block)
     if spliced is None:
         if not init:
             print("  no markers in %s (use --init to append a fresh block)" % path); return False
         sep = "" if text.endswith("\n\n") or text == "" else ("\n" if text.endswith("\n") else "\n\n")
         spliced = text + sep + block + "\n"
-    open(path, "w").write(spliced)
+    open(path, "w", encoding="utf-8").write(spliced)
     print("  wrote rule block -> %s" % path)
     return True
 
@@ -74,7 +74,7 @@ def check(path, block):
     path = os.path.expanduser(path)
     if not os.path.exists(path):
         print("  MISSING %s" % path); return False
-    text = open(path).read()
+    text = open(path, encoding="utf-8").read()
     if BEGIN not in text or END not in text:
         print("  NO-MARKERS %s" % path); return False
     cur = text[text.index(BEGIN):text.index(END) + len(END)]
@@ -91,7 +91,9 @@ def main():
     a = ap.parse_args()
     block = render_block()
     if a.check is not None:
-        ok = all(check(p, block) for p in a.check) if a.check else True
+        if not a.check:
+            sys.stderr.write("--check needs at least one FILE to compare against\n"); return 2
+        ok = all(check(p, block) for p in a.check)
         return 0 if ok else 1
     if a.init is not None:
         all(apply_to(p, block, init=True) for p in a.init)

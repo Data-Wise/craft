@@ -19,8 +19,18 @@ def skills_in(d):
 
 def main():
     canons = [os.path.expanduser(a) for a in sys.argv[1:]] or DEFAULT_CANONS
+    present = [c for c in canons if os.path.isdir(c)]
+    missing = [c for c in canons if not os.path.isdir(c)]
+    for c in missing:
+        print("  skip: canon dir absent: %s" % c)
+    # A cross-canon duplicate needs >=2 canons actually present. On a runner
+    # where the canon repos aren't checked out (e.g. craft CI) the check is
+    # vacuous — say so out loud so a clean pass isn't mistaken for enforcement.
+    if len(present) < 2:
+        print("  skip: fewer than 2 canon dirs present -> duplicate check is vacuous here")
+        return 0
     seen, dups = {}, {}
-    for c in canons:
+    for c in present:
         for s in skills_in(c):
             if s in seen:
                 dups.setdefault(s, [seen[s]]).append(c)

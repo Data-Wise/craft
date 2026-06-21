@@ -4,7 +4,10 @@ run_rules.py — the governance engine. Loads RULES.yaml, runs each rule's check
 applies severity + waivers, and reports. Two modes:
 
   (default)    audit the live environment against the rules; exit 1 on any
-               unwaived ERROR failure (so CI / a SessionStart hook can gate on it).
+               unwaived error-severity failure (so CI / a SessionStart hook can
+               gate on it). Fail-closed: an error-rule whose checker is missing
+               or unresolvable (state ERROR) blocks too — a broken checker never
+               passes silently.
   --selftest   META-VALIDATION (P5): prove each checker works on its own fixtures
                (bad must fail, good must pass), flag error-rules with no automated
                check, and verify every waiver has an owner + a future expiry.
@@ -25,7 +28,7 @@ DEF_INDEX = os.path.expanduser("~/.claude/skills/SKILLS-INDEX.md")
 
 
 def load_rules():
-    with open(os.path.join(GOV, "RULES.yaml")) as f:
+    with open(os.path.join(GOV, "RULES.yaml"), encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -68,7 +71,10 @@ def audit(rules_doc, target, index, as_json):
         waiver = active_waiver(r)
         if state == "FAIL" and waiver:
             state = "WAIVED"
-        if state == "FAIL" and sev == "error":
+        # Fail-closed: an error-severity rule blocks on a real FAIL *and* on an
+        # ERROR (its checker is missing or unresolvable). A broken checker must
+        # never wave the gate through silently — that defeats the engine.
+        if state in ("FAIL", "ERROR") and sev == "error":
             red += 1
         results.append({"id": r["id"], "severity": sev, "state": state, "kind": kind, "output": out, "waiver": bool(waiver)})
 
@@ -81,7 +87,7 @@ def audit(rules_doc, target, index, as_json):
         if x["output"]:
             for line in x["output"].splitlines():
                 print("        " + line)
-    print("  ---> %d unwaived ERROR failure(s)" % red)
+    print("  ---> %d unwaived error-severity failure(s) (FAIL or broken checker)" % red)
     return 1 if red else 0
 
 
@@ -101,10 +107,15 @@ def selftest(rules_doc):
             print("  [%s] %-22s fixtures: bad->%s good->%s  %s" % ("ok  " if ok else "FAIL", rid, rc_bad, rc_good, "" if ok else "<-- checker misbehaves"))
             if not ok:
                 bad_meta += 1
-        # 2) an ERROR rule with no automated check is an enforcement gap
+        # 2) external rules are delegated to a cross-surface auditor — they get
+        # no fixture meta-validation here, so surface them explicitly rather
+        # than letting them pass silently.
+        elif chk.get("kind") == "external":
+            print("  [ext ] %-22s delegated to external auditor (%s) — not meta-validated here" % (rid, chk.get("cmd", "?")))
+        # 3) an ERROR rule with no automated check is an enforcement gap
         elif sev == "error" and chk.get("kind") in (None, "manual"):
             print("  [warn] %-22s ERROR severity but no automated check (enforcement gap)" % rid)
-        # 3) waiver hygiene
+        # 4) waiver hygiene
         for w in r.get("waivers") or []:
             if not w.get("owner") or not w.get("expires"):
                 print("  [FAIL] %-22s waiver missing owner/expires" % rid); bad_meta += 1

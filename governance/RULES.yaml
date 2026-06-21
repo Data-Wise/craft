@@ -21,10 +21,18 @@ rules:
     owner: stat-wise
     status: active
     added: 2026-06-20
-    gates: [ci]
+    # gate=session, not ci: the duplicate check needs the savant + scholar canon
+    # repos checked out, which only holds locally. In craft CI those dirs are
+    # absent and the check is vacuous (it now says so out loud). Promote to ci
+    # once a canon-aware runner exists.
+    gates: [session]
     check: { kind: script, cmd: "checks/no_duplicate_canon.py" }
     waivers: []
 
+  # R02 and R08 deliberately share one mechanism (no_broken_symlinks.py against
+  # {target}): R02 is the authoring intent ("don't hand-link"), R08 is the
+  # cleanup invariant ("dead links are never load-bearing"). They will always
+  # pass/fail together against the same target — that is expected, not a bug.
   - id: R02-no-hand-links
     statement: "Consumers install skills via a marketplace; never hand-symlink or copy."
     rationale: "Manual links break when the source moves (17 dead monorepo links)."

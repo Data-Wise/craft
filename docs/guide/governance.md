@@ -19,7 +19,7 @@ loudly.
 | File | Role |
 |---|---|
 | `governance/RULES.yaml` | **Single source of truth** — every rule: `id`, `statement`, `severity`, `gates`, `check`, `waivers`. |
-| `governance/run_rules.py` | Engine. Audits the live environment (exit 1 on any unwaived **error** failure); `--selftest` meta-validates the checkers. |
+| `governance/run_rules.py` | Engine. Audits the live environment (exit 1 on any unwaived **error**-severity failure — **fail-closed**: a missing/broken checker on an error rule gates too); `--selftest` meta-validates the checkers. |
 | `governance/render_rules.py` | Generates the human-readable rule block and injects it into any `CLAUDE.md` between markers; `--check` is the **rules-drift** gate. |
 | `governance/checks/` | One small, portable checker per automatable rule. |
 | `governance/fixtures/` | Good + bad layouts so the checkers are themselves tested. |
@@ -44,7 +44,9 @@ python3 governance/render_rules.py --check  ~/.claude/CLAUDE.md   # rules-drift 
 - **Posture** — *gentle-ramp*: a new rule starts as `warn` (or `error` + time-boxed waivers) and
   tightens once the environment is clean.
 - **Gates** — each rule names where it fires: `author` (pre-commit) · `ci` (PR) · `release` (dist) ·
-  `install` · `session` (SessionStart hook) · `runtime`.
+  `install` · `session` (SessionStart hook) · `runtime`. Pick a gate the check can actually run at —
+  e.g. `R01-single-source` fires on `session`, not `ci`, since its canon repos only exist locally;
+  in CI it announces a vacuous skip rather than passing silently.
 
 ## Adding a rule
 
