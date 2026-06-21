@@ -81,7 +81,7 @@ Validates cache generation, loading, and invalidation.
 Validates speed targets for discovery operations.
 
 - **test_performance_first_run**: Tests fresh discovery < 200ms
-- **test_performance_cached_run**: Tests cached load < 10ms
+- **test_performance_cached_run**: Tests cached load < 10ms — `xfail(strict=False)` soft signal (wall-clock timing is unreliable on shared CI runners), not a release gate
 
 **Expected Results:**
 
