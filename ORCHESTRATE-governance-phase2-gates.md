@@ -179,13 +179,25 @@ On session start, paste:
 
 > Read `ORCHESTRATE-governance-phase2-gates.md` and the spec at
 > `docs/specs/SPEC-governance-phase2-gates-2026-06-20.md`. Resolve the two Phase 1 design decisions
-> (private-repo denylist; in-repo marketplace scope), then start Phase 1.
+> (private-repo denylist; in-repo marketplace scope), then **run this PR as a dynamic workflow**:
+> `/craft:orchestrate:drive ORCHESTRATE-governance-phase2-gates.md` (sequential phases with a real
+> verify gate — the best fit here), or `/craft:orchestrate:workflow` if you want the coded
+> parallel/pipeline/verify form. Either dispatches via Task subagents — which is correct **only**
+> because this session's CWD is the worktree (branch `feature/governance-phase2-gates`), so new code
+> files are allowed and agents inherit the right cwd.
 
-### Phase-by-Phase
+### Execution: dynamic workflow (why it must run from here)
+
+The phases below are the **work-list** the dynamic workflow drives. Run it from THIS worktree session,
+never from a `dev`-pinned session: Task/workflow agents inherit the session CWD, and the branch-guard
+reads the session branch — from `dev` it blocks every new code file (the R03 checker, fixtures) before
+it can land. From this worktree the branch is `feature/*`, so the workflow can actually write + commit.
+
+### Phase-by-Phase (the workflow's task-list)
 
 1. Read the current state of each file listed in the phase.
 2. Implement per this plan + the spec; resolve flagged design decisions explicitly.
-3. Run verification after each phase.
+3. Run verification after each phase (the workflow's verify gate).
 4. Commit in logical groups (see Commit Strategy).
 5. STOP and confirm before the next phase.
 
