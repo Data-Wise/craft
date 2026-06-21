@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.45.0] — 2026-06-21
+
+### Added
+
+- **Governance Phase 2 (PR #2) — SessionStart visibility hook.** `governance/session_hook.py` audits the
+  live `~/.claude/skills` tree at session open and injects a compact RED-only summary into context (e.g.
+  `GOVERNANCE: 1 red — R08-no-dead-links`). Silent when clean, mtime-cached, no-op where the skills tree
+  is absent; a SessionStart hook injects context and cannot block (visibility, not prevention). Install
+  globally via a `SessionStart` entry in `~/.claude/settings.json`. Soak-then-flip machinery + the
+  cross-repo wrapper are deferred to PR #3.
+
 ## [2.44.0] — 2026-06-21
 
 ### Added
