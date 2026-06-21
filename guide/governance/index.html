@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.44.0 adds skill-ecosystem governance (policy-as-code under governance/) — an audit engine, a rules-drift check, and portable checkers for skill-location rules.">
+        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.45.0 adds skill-ecosystem governance (policy-as-code under governance/) — an audit engine, a rules-drift check, and portable checkers for skill-location rules.">
       
       
       
@@ -11318,8 +11318,8 @@ so they can be audited, validated, and enforced automatically instead of rotting
 <p>Rules written as prose drift and get silently bypassed: archived source paths leave dead symlinks,
 and consumer installs lag the canon version for releases at a time. Governance makes organization a
 property of the system — a single source of truth, machine-checkable rules, and a fail-loud audit
-engine. The <code>--selftest</code> + rules-drift gates are wired at <strong>pre-commit + CI</strong>; the live-env audit and a
-SessionStart hook are later increments.</p>
+engine. The <code>--selftest</code> + rules-drift gates are wired at <strong>pre-commit + CI</strong> (prevention); the live-env
+audit is surfaced at session open via a <strong>SessionStart hook</strong> (visibility).</p>
 <h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -11353,7 +11353,7 @@ SessionStart hook are later increments.</p>
 </table>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Audit the live environment against the rules</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># (the live-env audit targets a SessionStart hook — a later increment; CI/pre-commit run --selftest + drift instead)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># (the live-env audit runs at session open via governance/session_hook.py; CI/pre-commit run --selftest + drift instead)</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python3<span class="w"> </span>governance/run_rules.py
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Meta-validation: every checker must flag its bad fixture and pass its good one</span>
@@ -11380,15 +11380,23 @@ SessionStart hook are later increments.</p>
   <code>checks/no_duplicate_canon.py</code>, not from gate routing.</li>
 </ul>
 <h2 id="gates-enforcement-phase-2">Gates &amp; enforcement (Phase 2)<a class="headerlink" href="#gates-enforcement-phase-2" title="Permanent link">&para;</a></h2>
-<p>The engine is wired into two real gates (a third, the SessionStart hook, is a later increment):</p>
+<p>The engine is wired into three surfaces — two that <strong>prevent</strong> (block bad changes) and one that
+<strong>surfaces</strong> (shows drift without blocking):</p>
 <ul>
-<li><strong>pre-commit</strong> (<code>author</code>) — the <code>governance-gate</code> hook (<code>files: ^governance/</code>) runs
+<li><strong>pre-commit</strong> (<code>author</code>, prevention) — the <code>governance-gate</code> hook (<code>files: ^governance/</code>) runs
   <code>run_rules.py --selftest</code> + <code>render_rules.py --check</code> on any <code>governance/</code> change. It blocks a commit
   that breaks a checker or hand-edits the generated rule block. It does <strong>not</strong> run the live-env audit
   (that needs the canon repos / <code>~/.claude/skills</code>, which a clean commit lacks).</li>
-<li><strong>CI</strong> (<code>ci</code>) — <code>ci.yml</code> runs the same selftest + drift-check after the test suite. It prints an
-  explicit note that CI does <strong>not</strong> evaluate R01/R07 live-env state (canon repos and the cross-surface
-  feed exist only locally) — so a green run is never misread as live-env enforcement.</li>
+<li><strong>CI</strong> (<code>ci</code>, prevention) — <code>ci.yml</code> runs the same selftest + drift-check after the test suite. It
+  prints an explicit note that CI does <strong>not</strong> evaluate R01/R07 live-env state (canon repos and the
+  cross-surface feed exist only locally) — so a green run is never misread as live-env enforcement.</li>
+<li><strong>SessionStart hook</strong> (<code>session</code>, <strong>visibility</strong>) — <code>governance/session_hook.py</code> audits the live
+  <code>~/.claude/skills</code> tree at session open and injects a compact <strong>RED-only</strong> summary into context (e.g.
+  <code>GOVERNANCE: 1 red — R08-no-dead-links</code>). SessionStart hooks <strong>inject context, they cannot block</strong> —
+  this is the <em>visibility</em> surface where local-only rules (a dead skill symlink) actually get seen.
+  Quiet by design: silent when clean, mtime-cached (unchanged tree → skip re-audit), and a no-op where
+  <code>~/.claude/skills</code> is absent. Install it <strong>globally</strong> by wiring <code>session_hook.py</code> into a <code>SessionStart</code>
+  entry in <code>~/.claude/settings.json</code> (see <code>governance/README.md</code>).</li>
 </ul>
 <p><code>R03-private-marketplace</code> is now automated (<code>checks/no_private_in_public_marketplace.py {marketplace}</code>):
 it fails if a public marketplace manifest lists a plugin sourced from a private/PII repo (denylist,
