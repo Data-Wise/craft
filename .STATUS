@@ -15,7 +15,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-None.
+- `feature/governance-phase2-gates` — Governance Phase 2 PR #1 (automate R03 + pre-commit/CI gates); ORCHESTRATE plan committed, awaiting implementation in a new session. Worktree: `~/.git-worktrees/craft/feature-governance-phase2-gates` (created 2026-06-20, off dev bfe03e72). Spec: `docs/specs/SPEC-governance-phase2-gates-2026-06-20.md`.
 
 > **🎯 Next Action (next session):**
 > A) **`--swarm=2` spec:** `SPEC-orchestrate-swarm-2level-2026-06-18` — worktree pending. ⚡ (Recommended)
